@@ -1,0 +1,18 @@
+<h1>Training Modules</h1>
+
+<div class="button_container">
+	<%= link_to "New Training Module", new_admin_training_module_path, :class => "new button" %>
+</div>
+
+<table class="data">
+	<tr>
+		<th>Name</th>
+		<th>Products &amp; Software</th>
+	</tr>
+	<% @training_modules.each do |training_module| %>
+	<tr>
+		<td><%= link_to training_module.name, [:admin, training_module] %></td>
+		<td><%= (training_module.products + training_module.softwares).collect{|p| p.name}.join(", ") %></td>
+	</tr>
+	<% end %>
+</table>

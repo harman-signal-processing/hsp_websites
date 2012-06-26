@@ -1,0 +1,52 @@
+<h1><%= @dealer.name %></h1>
+
+<div class="button_container">
+	<%= link_to 'Back', admin_dealers_path, :class => "back button" %>
+	<%= link_to 'Edit', edit_admin_dealer_path(@dealer, :locale => I18n.locale), :class => "edit button" %> 
+</div>
+
+<p>
+  <b>Address:</b>
+  <%=h @dealer.address %>
+</p>
+
+<p>
+  <b>City:</b>
+  <%=h @dealer.city %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%=h @dealer.state %>
+</p>
+
+<p>
+  <b>Zip:</b>
+  <%=h @dealer.zip %>
+</p>
+
+<p>
+  <b>Telephone:</b>
+  <%=h @dealer.telephone %>
+</p>
+
+<p>
+  <b>Fax:</b>
+  <%=h @dealer.fax %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%=h @dealer.email %>
+</p>
+
+<p>
+  <b>Account number:</b>
+  <%=h @dealer.account_number %>
+</p>
+
+<p>
+	<b>Lat/Lng</b>
+	<%=h @dealer.lat %>/<%=h @dealer.lng %>
+</p>
+

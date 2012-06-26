@@ -1,0 +1,36 @@
+<% set_meta_tags :title => t('titles.current_promotions'),
+                 :keywords => @promotions.collect{|p| p.name},
+				 :reverse => true %>
+
+<h1 class="page_title">
+<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/promotions_head.jpg")) %>
+	<%= image_tag("#{website.folder}/#{I18n.locale}/promotions_head.jpg", :alt => t('titles.current_promotions')) %>
+<% else %>	
+	<%= t('titles.current_promotions') %>
+<% end %>
+</h1>
+
+<div class="promotion_bug_container">
+<% @promotions.each do |promotion| %>
+	<div class="promotion_bug">
+		<% if promotion.tile_file_name.blank? %>
+			<h2 style="text-align: center">
+				<%= (promotion.has_description?) ? link_to(translate_content(promotion, :name), promotion) : translate_content(promotion, :name) %>
+			</h2>
+		<% else %>
+			<%= (promotion.has_description?) ? 
+					link_to(image_tag(promotion.tile.url, :alt => promotion.name), promotion) :
+					image_tag(promotion.tile.url, :alt => promotion.name) %>
+		<% end %>
+		<p><%= t('valid') %> <%=l promotion.start_on, :format => :long %>-<%=l promotion.end_on, :format => :long %>
+		<% if promotion.has_description? %>
+			<%= link_to t('more_info'), promotion %>
+		<% end %>
+		</p>
+		<% if !promotion.promo_form_file_name.blank? %>
+			<p><%= link_to t('download_promotion_form'), promotion.promo_form.url %></p>
+		<% end %>
+	</div>
+<% end %>
+<div class="clear"></div>
+</div>

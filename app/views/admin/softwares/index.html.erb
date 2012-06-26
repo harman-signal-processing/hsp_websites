@@ -1,0 +1,39 @@
+<h1>Software</h1>
+
+<% if can? :create, Software %>
+<div class="button_container">
+	<%= link_to 'New software', new_admin_software_path, :class => "new button" %>
+</div>
+<% end %>
+
+<table class="data">
+  <tr>
+    <th>Name</th>
+    <th>File name</th>
+    <th>Updated</th>
+    <th>Version</th>
+    <th>Platform</th>
+    <th>Active?</th>
+    <th>Download count</th>
+  </tr>
+
+<% @softwares.each do |software| %>
+  <tr style="background: <%= cycle 'white', 'none' %>">
+    <td><%= link_to software.name, [:admin, software] %></td>
+    <td>
+		<% if !software.link.blank? %>
+			<%= software.link %>
+		<% else %>
+			<%= link_to software.ware_file_name, software.ware.path %>
+    		[<%=number_to_human_size software.ware_file_size %>]
+		<% end %>
+	</td>
+    <td><%=l(software.ware_updated_at, :format => :short) unless software.ware_updated_at.blank? %></td>
+    <td><%= software.version %></td>
+    <td><%= software.platform %></td>
+    <td><%= (software.active) ? "yes" : "no" %></td>
+    <td><%=number_with_delimiter(software.download_count) %></td>
+  </tr>
+<% end %>
+</table>
+

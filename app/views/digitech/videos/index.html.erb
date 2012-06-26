@@ -1,0 +1,29 @@
+<table style="width: 650px; margin-left:">
+	<% @playlists.each_with_index do |playlist,i| %>
+	<tr>
+		<% if playlist.respond_to?(:title) %>
+		<td colspan="2">
+			<h<%= i+1 %> style="color:#222"><%= playlist.title %></h<%= i+1 %>>
+			<p><%= playlist.description %></p>
+		</td>
+		<% else %>
+		<td colspan="2">
+			<h<%= i+1 %>><%= @page_title %></h<%= i+1 %>>
+		</td>
+		<% end %>
+	</tr>
+	<%= render :partial => "video", :collection => playlist.videos %>
+	<% end %>
+</table>
+
+<div style="position: absolute; top: 24px; right: 6px; width: 265px; text-align: center;">
+	<p><%= link_to(image_tag("#{website.folder}/#{I18n.locale}/youtube_button.png", :alt => "YouTube"), "http://www.youtube.com/#{@youtube_user}", :target => "_blank") %></p>
+	<p>&nbsp;</p>
+	<p><%= link_to(image_tag("vocalist_logo.png", :alt => "Vocalist"), "www.youtube.com/vocalistpro", :target => "_blank") %><br/>
+		<%= link_to("youtube channel", "www.youtube.com/vocalistpro", :target => "_blank") %>
+		</p>
+	<p>&nbsp;</p>
+	<p><%= link_to(image_tag("hardwire_logo.png", :alt => "HardWire"), "http://www.youtube.com/hardwirefx", :target => "_blank") %>
+		<%= link_to("youtube channel", "http://www.youtube.com/hardwirefx", :target => "_blank") %>
+		</p>
+</div>

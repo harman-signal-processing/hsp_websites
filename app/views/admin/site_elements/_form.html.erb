@@ -1,0 +1,49 @@
+<%= form_for([:admin, @site_element], :html => {:multipart => true}) do |f| %>
+  <% if @site_element.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@site_element.errors.count, "error") %> prohibited this resource from being saved:</h2>
+
+      <ul>
+      <% @site_element.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, :size => 20 %>
+  </div>
+  <div class="field">
+    <%= f.label :resource_type %><br />
+	<%= f.select :resource_type, SiteElement.resource_types %>
+	<%= link_to_function "new resource type", "new_resource_type()", :id => "new_resource_type_link" %>
+  </div>
+  <div class="field">
+    <%= f.label :resource %><br />
+    <%= f.file_field :resource %>
+  </div>
+  <div class="field">
+  	<%= f.check_box :show_on_public_site %>
+	<%= f.label :show_on_public_site %> (in the downloads area)
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<%= content_for :extra_js do %>
+	<script type="text/javascript" charset="utf-8">
+		function new_resource_type() {
+			$('#site_element_resource_type').replaceWith('<%= escape_javascript(f.text_field :resource_type, :size => 20) %>');
+			$('#site_element_resource_type').val('');
+			$('#new_resource_type_link').replaceWith('<%= escape_javascript(link_to_function "select existing resource type", "existing_resource_type()", :id => "existing_type_link") %>');
+		}
+		function existing_resource_type() {
+			$('#site_element_resource_type').replaceWith('<%= escape_javascript(f.select :resource_type, SiteElement.resource_types) %>');
+			$('#existing_type_link').replaceWith('<%= escape_javascript(link_to_function "new resource type", "new_resource_type()", :id => "new_resource_type_link") %>');
+		}
+	</script>
+<% end %>
+
+<% end %>

@@ -1,0 +1,23 @@
+<h1>Listing clinician reports</h1>
+
+<table>
+  <tr>
+    <th>Clinic</th>
+    <th>Overall impression</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @clinician_reports.each do |clinician_report| %>
+  <tr>
+    <td><%= clinician_report.clinic_id %></td>
+    <td><%= clinician_report.overall_impression %></td>
+    <td><%= link_to 'Show', [:admin, clinician_report] %></td>
+    <td><%= link_to 'Edit', edit_admin_clinician_report_path(clinician_report) %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Clinician report', new_admin_clinician_report_path %>

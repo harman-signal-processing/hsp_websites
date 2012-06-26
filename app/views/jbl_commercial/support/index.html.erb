@@ -1,0 +1,54 @@
+<% set_meta_tags :title => t('titles.support'),
+				 :keywords => @discontinued_products.collect{|p| p.name},
+				 :description => t('meta.description.support', :brand => website.brand_name),
+				 :reverse => true %>
+
+<h1><%= t('titles.support') %></h1>
+
+<p>
+	<% if website.has_software? %>
+	<%= link_to t('software_downloads'), software_index_path %> &bull;
+	<% end %>
+	<%= link_to t('warranty_registration'), warranty_registration_path %>
+	&bull; <%= link_to t('downloads'), support_downloads_path %>
+</p>
+
+	
+	<div class="two_column_container">
+		
+		<div class="column_one" style="width: 65%">
+			<h2><%= t('titles.contact_us') %></h2>
+			<%= form_for :contact_message, :url => support_path(:action => "contact"), :html => {:class => "contact"} do |f| %>
+				<%= f.error_messages %>
+
+				<div><%= f.label :name, t('your_name') %><br/>
+				   <%= f.text_field :name %></div>
+				<div><%= f.label :email, ucfirst(t('email')) %><br/>
+				   <%= f.text_field :email %></div>
+				<div><%= f.label :subject, t('subject') %><br/>
+					<%= f.select :subject, ContactMessage.subjects %></div>
+				<p><%= t('message') %>:</p>
+				<%= f.text_area :message, :size => "60x8" %>
+				
+				<div class="captcha">
+					<%= recaptcha_tags %>
+				</div>
+				
+				<p><%= submit_tag t('submit') %></p>
+			<% end %>
+		</div>
+		
+		<div class="column_two" style="width: 30%; padding-top: 10px;">
+			<% if addr = website.value_for("address_and_phone") %>
+				<h2><%= t("titles.mailing_address") %></h2>
+				<p>
+					<%=raw addr %>
+					<% if sup = website.value_for("support_email") %>
+					<br/><%= (sup =~ /jbl/) ? mail_to(sup, sup) : "" %>
+					<% end %>
+				</p>
+			<% end %>
+		</div>
+		<div style="clear: both"></div>
+	</div>
+	

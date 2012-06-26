@@ -1,0 +1,75 @@
+<%= @registered_download.intro_page_content.html_safe %>
+
+<%= form_for @download_registration, :url => register_to_download_path(@registered_download.url) do |f| %>
+	<% if @download_registration.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@download_registration.errors.count, "error") %> prohibited your registration from being saved:</h2>
+
+      <ul>
+      <% @download_registration.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+	<table class="registration">
+		<tr>
+			<td style="padding-right: 8px;"><%= f.label :first_name %></td>
+			<td><%= f.text_field :first_name %></td>
+		</tr>
+		<tr>
+			<td style="padding-right: 8px;"><%= f.label :last_name %></td>
+			<td><%= f.text_field :last_name %></td>
+		</tr>
+		<tr>
+			<td style="padding-right: 8px;"><%= f.label :email %></td>
+			<td><%= f.email_field :email %></td>
+		</tr>
+		<% if @download_registration.require_serial_number? %>
+		<tr>
+			<td style="padding-right: 8px;"><%= f.label :serial_number %></td>
+			<td><%= f.text_field :serial_number %></td>
+		</tr>
+		<% end %>
+		<% if @download_registration.require_employee_number? %>
+		<tr>
+			<td style="padding-right: 8px;"><%= f.label :employee_number %></td>
+			<td><%= f.text_field :employee_number %></td>
+		</tr>
+		<% end %>
+		<% if @download_registration.require_store_number? %>
+		<tr>
+			<td style="padding-right: 8px;"><%= f.label :store_number %></td>
+			<td><%= f.text_field :store_number %></td>
+		</tr>
+		<% end %>
+		<% if @download_registration.require_manager_name? %>
+		<tr>
+			<td style="padding-right: 8px;"><%= f.label :manager_name, "Manager's Name" %></td>
+			<td><%= f.text_field :manager_name %></td>
+		</tr>
+		<% end %>
+		<% unless @registered_download.products.blank? %>
+		<tr>
+			<td style="padding-right: 8px;"><%= f.label :product %></td>
+			<td><%= f.select :product, @registered_download.product_options_for_select %></td>
+		</tr>
+		<% end %>
+		<% unless @registered_download.valid_code.blank? %>
+		<tr>
+			<td style="padding-right: 8px;"><%= f.label :code_you_received %></td>
+			<td><%= f.text_field :code_you_received %></td>
+		</tr>
+		<% end %>
+		<tr>
+			<td colspan="2">
+				<%= f.check_box :subscribe %>
+				<%= f.label :subscribe, "Yes, I want to receive email notifications from #{website.brand_name}." %>
+			</td>
+		</tr>
+	</table>
+		
+	<div class="submit"><%= submit_tag "submit" %></div>
+	
+<% end %>

@@ -1,0 +1,2 @@
+$('#artist_products').append('<%= escape_javascript(render "/admin/shared/artist_product_row", ap: @artist_product, called_from: @called_from) %>');
+<% flash.discard %>

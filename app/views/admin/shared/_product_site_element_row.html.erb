@@ -1,0 +1,11 @@
+<% called_from ||= 'product' %>
+<li id="product_site_element_<%= pse.id %>">
+	<%= (called_from == 'product') ? 
+			link_to(pse.site_element.name, [:admin, pse.site_element]) : 
+			link_to(pse.product.name, [:admin, pse.product]) %> 
+	<%= link_to(image_tag("trash.gif"), 
+			admin_product_site_element_path(pse), 
+			:confirm => "Are you sure? (This won't delete the product or the resource--it will only remove the association.)", 
+			:remote => true,
+			:method => :delete) %>
+</li>

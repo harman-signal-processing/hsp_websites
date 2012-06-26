@@ -1,0 +1,37 @@
+<% if product.current_sub_products.size > 0 %>
+
+	<div id="sub_products">
+		<% product.current_sub_products.each do |child| %>
+		<div class="sub_product">
+			<% if child.product.photo %>
+			<%= link_to(image_tag(child.product.photo.product_attachment.url(:thumb), alt: child.product.name), child.product) %>
+			<% end %>
+			<% if child.product.audio_demos.size > 0 %>
+			<ul class="graphic">
+			  <li class="sm2_link">
+			  	<%= link_to "listen", 
+						child.product.audio_demos.first.wet_demo.url, 
+						id: "demo_#{child.id}",
+						class: "audio_demo", 
+							data: {
+								wet: child.product.audio_demos.first.wet_demo.url, 
+								dry: child.product.audio_demos.first.dry_demo.url,
+								product: child.to_param
+							} %>
+			  </li>
+			</ul>
+			<% elsif child.product.sample %>
+			<ul class="graphic">
+			  <li class="sm2_link">
+			  	<%= link_to "listen", child.product.sample.product_media.url %>
+			  </li>
+			</ul>
+			<% end %>
+			<h5><%= child.product.name %></h5>
+			<p><%= child.product.short_description %></p>
+		</div>
+		<% end %>
+		<div style="clear:both"></div>
+	</div>
+
+<% end %>

@@ -1,0 +1,8 @@
+<p>Please select your language/region:</p>
+<div id="content_container" class="internal_page" style="padding-top: 20px; width: 600px; background: white url('images/<%= website.folder %>/locale_bg.png') no-repeat; font-size: 120%">
+<ul>
+	<% website.available_locales.each do |website_locale| %>
+	<li> <%= link_to website_locale.name, "/#{website_locale.locale}" %></li>
+	<% end %>
+</ul>
+</div>

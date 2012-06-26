@@ -1,0 +1,95 @@
+source 'http://rubygems.org'
+
+# gem "rake", "0.9.2.2"
+gem 'rails', '3.2.6'
+
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
+  gem 'uglifier', '>= 1.0.3'
+end
+
+# gem 'prototype-rails'
+gem 'jquery-rails'
+#gem 'mongrel'
+gem 'capistrano'
+gem 'capistrano-ext'
+
+# To use debugger
+# gem 'ruby-debug'
+
+# Bundle the extra gems:
+# gem 'mysql', '2.8.1'
+# gem 'mysql-ruby',
+#   :git => 'http://github.com/lsegal/mysql-ruby.git'
+gem 'mysql2' #, "< 0.3"
+gem "friendly_id", "~> 3.0"
+gem "paperclip", "~> 2.6.0"
+gem 'meta-tags', require: 'meta_tags'
+gem 'tinymce-rails'
+gem 'geokit'
+gem 'api_cache'
+gem 'moneta'
+gem 'geocoder_plus'
+# gem 'geoip', :git => 'http://github.com/cjheath/geoip.git'
+gem 'thinking-sphinx',
+ git: 'http://github.com/freelancing-god/thinking-sphinx.git',
+ require: 'thinking_sphinx'
+gem 'youtube_it'
+gem 'twitter', '>=1.1.1'
+gem 'daemons'
+gem 'delayed_job_active_record'
+gem 'devise'
+gem 'cancan'
+gem "recaptcha", require: "recaptcha/rails"
+gem 'to_xls'
+gem 'acts_as_list'
+gem 'acts_as_tree'
+gem 'dynamic_form'
+gem 'rails_autolink'
+gem 'swf_fu', git: "http://github.com/rodrigob/swf_fu.git", require: "swf_fu"
+gem 'execjs'
+gem 'therubyracer' # installs OS dependent gem. Put production version in vendor/cache manually
+gem 'rubyzip', require: 'zip/zip'
+gem 'whenever' #, require: false
+gem 'country_select'
+
+# New Sound Community stuff
+#gem 'forem', git: "http://github.com/radar/forem.git"
+#gem 'forem-theme-twist', git: "http://github.com/radar/forem-theme-twist.git"
+gem 'will_paginate'
+
+group :production, :staging do
+  # gem "memcache"
+  gem "memcache-client"
+  gem "exception_notification", 
+    git: "http://github.com/rails/exception_notification.git",
+    require: "exception_notifier"
+end
+
+# Bundle gems for the local environment. Make sure to
+# put test-only gems in this group so their generators
+# and rake tasks are available in development mode:
+group :development, :test do
+  gem 'unicorn'
+  gem 'minitest-rails', git: "http://github.com/rawongithub/minitest-rails.git", branch: "gemspec"
+  gem 'thin'
+  gem "factory_girl_rails"
+end
+
+group :test do
+  gem 'sqlite3'
+  gem 'mocha'
+  gem 'turn'
+  gem 'capybara'
+  gem 'capybara-webkit'
+  gem 'capybara_minitest_spec'
+  gem 'launchy' # save_and_open_page inline in tests
+  gem 'minitest' #, '>= 2.12.1' #, '2.11.4 works also. There was a 2.12.? that breaks stuff
+  gem 'guard-minitest'
+  gem 'database_cleaner'
+  gem 'minitest-rails-shoulda',
+      git: "http://github.com/rawongithub/minitest-rails-shoulda.git"  
+end

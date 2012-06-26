@@ -1,0 +1,5 @@
+# This relies on the "en.yml" for most of its data. Only the specific "US" jargon needs
+# to appear here. However, be sure at least one entry exists under the primary key.
+
+en-US:
+    foo: bar

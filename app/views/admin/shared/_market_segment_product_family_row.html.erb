@@ -1,0 +1,12 @@
+<% called_from ||= 'market_segment' %>
+<li id="market_segment_product_family_<%= mspf.id %>">
+	<span class="handle"><%= image_tag("drag_handle.gif") %></span>
+	<%= (called_from == 'market_segment') ? 
+			link_to(mspf.product_family.name, [:admin, mspf.product_family]) : 
+			link_to(mspf.market_segment.name, [:admin, mspf.market_segment]) %> 
+	<%= link_to(image_tag("trash.gif"), 
+			admin_market_segment_product_family_path(mspf), 
+			:confirm => "Are you sure? (This won't delete the market segment or the product family--it will only remove the product family from the market segment.)", 
+			:remote => true,
+			:method => :delete) %>
+</li>

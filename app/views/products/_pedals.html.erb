@@ -1,0 +1,15 @@
+<h2><%= title %></h2>
+
+<div class="disclaimer"><%= t(:brief_legal_disclaimer) %></div>
+
+<% EffectType.order(:position).all.each do |effect_type| %>
+	<% effects = @product.effects.where(:effect_type_id => effect_type.id) %>
+	<% if effects.all.size > 0 %>
+	<h3><%= translate_content(effect_type, :name) %>:</h3>
+	<ul>
+		<% effects.sort_by(&:name).each do |effect| %>
+		<li><%= translate_content(effect, :name) %></li>
+		<% end %>
+	</ul>
+	<% end %>
+<% end %>

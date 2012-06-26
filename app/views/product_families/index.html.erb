@@ -1,0 +1,44 @@
+<% set_meta_tags title: t('titles.product_families'),
+				 keywords: ProductFamily.parents_with_current_products(website, I18n.locale).collect{|p| p.name}.join(", "),
+				 reverse: true %>
+				
+<h1 class="page_title">
+<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/products_head.jpg")) %>
+	<%= image_tag("#{website.folder}/#{I18n.locale}/products_head.jpg", :alt => t('titles.product_families')) %>
+<% else %>
+	<%= t('titles.product_families') %>
+<% end %>
+</h1>
+
+<% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
+<div id="<%= product_family.to_param %>" class="wide_centered_box">
+	<% if product_family.children_with_current_products(website).size > 0 %>
+		<h2 style="float: left; margin-right: 5px; margin-top: 13px;"><%= link_to translate_content(product_family, :name), product_family %></h2>
+		<% if product_family.children_with_current_products(website).size > 1 %>
+		<div style="float: left; margin-top: 22px"><%= link_to t('view_full_line'), product_family %></div>
+		<% end %>
+		<div class="clear"></div>
+		<% product_family.children_with_current_products(website).each do |child| %>
+			<% if !child.family_photo_file_name.blank? %>
+	  		<span style="margin-right: 8px;">
+				<%= link_to(image_tag(child.family_photo.url), child) %>
+	  		</span>
+			<% else %>
+			<span style="border: 1px solid #CCC; margin: 8px; padding: 4px;">
+				<%= link_to translate_content(child, :name), child %>
+			</span>
+			<% end %>
+		<% end %>
+	<% else %>
+		<h2 style="float: left; margin-right: 5px; margin-top: 13px;"><%= translate_content(product_family, :name) %></h2>
+		<div class="clear"></div>
+		<% product_family.current_products.each do |product| %>
+			<%= render_partial "product_families/product_square", :product => product %>
+		<% end %>
+	<% end %>
+	<div class="clear"></div>
+
+</div>
+<% end %>
+
+<div class="clear"></div>

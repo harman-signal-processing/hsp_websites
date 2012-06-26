@@ -1,0 +1,96 @@
+<h1>Homepage Stuff</h1>
+
+<div class="group">
+	<h3>Slideshow</h3>
+	<p>Appear in succession in the rotating image area of the homepage.</p>
+	<%= link_to_function "new slide", "$('#new_slide_form').toggle()" %>
+	<div id="new_slide_form" style="margin: 10px; display:none;">
+		<%= form_for([:admin, @new_slide], :html => {:multipart => true}) do |f| %>
+			<%= f.error_messages %>
+			<%= hidden_field_tag "called_from", "homepage" %>
+		    <%= f.hidden_field :setting_type %>
+			<%= f.hidden_field :integer_value %>
+			<p>
+			  <%= f.label :name %> (for your reference only)<br />
+			  <%= f.text_field :name %>
+			</p>
+			<p>
+			  <%= f.label :slide %><br />
+			  <%= f.file_field :slide %>
+			</p>
+			<p>
+			  <%= f.label :string_value, "URL to link slide to" %><br />
+			  <%= f.text_field :string_value %><br/>
+			  <i>URLs beginning with a partial path (ie, "products/rp1000") will be relative to the visitor's selected language.</i>
+			</p>
+			<%= f.submit "create slide" %>
+			<%= link_to_function "cancel", "$('#new_slide_form').hide()" %>
+		<% end %>
+	</div>
+	<ul id="slides" class="sortable_list">
+		<%= render :partial => "admin/shared/slide", :collection => @slides %>
+	</ul>
+	<%#= sortable_element "slides",
+            # :complete => visual_effect(:highlight, "slides"),
+            :url => update_slides_order_admin_settings_path %>
+</div>
+
+<div class="group">
+	<h3>Feature Buttons</h3>
+	<p>These appear in the middle section of the homepage...arranged horizontally. (If you leave these blank,
+		then the site will show the product family buttons instead.)</p>
+	<%= link_to_function "new feature", "$('#new_feature_form').toggle()" %>
+	<div id="new_feature_form" style="margin: 10px; display:none;">
+		<%= form_for([:admin, @new_feature], :html => {:multipart => true}) do |f| %>
+			<%= f.error_messages %>
+			<%= hidden_field_tag "called_from", "homepage" %>
+		    <%= f.hidden_field :setting_type %>
+			<%= f.hidden_field :integer_value %>
+			<p>
+			  <%= f.label :name %> (for your reference only)<br />
+			  <%= f.text_field :name %>
+			</p>
+			<p>
+			  <%= f.label :slide, "image/button" %><br />
+			  <%= f.file_field :slide %>
+			</p>
+			<p>
+			  <%= f.label :string_value, "URL to link image to" %><br />
+			  <%= f.text_field :string_value %><br/>
+			  <i>URLs beginning with a partial path (ie, "products/rp1000") will be relative to the visitor's selected language.</i>
+			</p>
+			<%= f.submit "create feature" %>
+			<%= link_to_function "cancel", "$('#new_feature_form').hide()" %>
+		<% end %>
+	</div>
+	<ul id="features" class="sortable_list">
+		<%= render :partial => "admin/shared/feature", :collection => @features %>
+	</ul>
+	<%#= sortable_element "features",
+            # :complete => visual_effect(:highlight, "features"),
+            :url => update_features_order_admin_settings_path %>
+</div>
+
+<div class="group">
+	<h3>Big Bottom Box</h3>
+	<p>If your site has a big bottom box on the homepage, then use these settings to control which
+		content appears in the columns. If you don't know if your site has this, please don't ask Adam
+		using phrases like, "Do I have a big bottom"</p>
+	
+	<%= form_for(:settings, :url => big_bottom_box_admin_settings_path ) do |f| %>
+		<% i = 0 %>
+		<% @columns.each do |column| %>
+		<%= f.fields_for "setting[#{i}]", column do |col| %>
+			<div style="margin-bottom: 10px">
+				<%= col.label :string_value, column.name.titleize %><br/>
+				<%= col.select :string_value, [[]] + @column_options %>
+				<%= col.hidden_field :setting_type %>
+				<%= col.hidden_field :brand_id %>
+				<%= col.hidden_field :name %>
+			</div>
+			<% i += 1 %>
+		<% end %>
+		<% end %>
+		<%= f.submit %>
+	<% end %>
+</div>

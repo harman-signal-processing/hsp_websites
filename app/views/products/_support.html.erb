@@ -1,0 +1,16 @@
+<ul>
+	<% if product.can_be_registered? %>
+	<li><%= link_to t('register_your_product', :product => product.name), 
+				warranty_registration_path(product.to_param) %></li>
+	<% end %>
+	<li><%= link_to t('contact_tech_support'), support_path %></li>
+</ul>
+
+<% if product.faqs.size > 0 %><h2><%= product.name %> <%= t('product_page.faqs') %></h2><% end %>
+
+<% product.faqs.each do |faq| %>
+<div class="faq">
+	<h3><%= translate_content(faq, :question) %></h3>
+	<%=raw translate_content(faq, :answer) %>
+</div>
+<% end %>

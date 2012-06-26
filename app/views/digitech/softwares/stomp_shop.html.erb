@@ -1,0 +1,53 @@
+<% @istomp = @software.products.first || Product.find("istomp") %>
+
+<% set_meta_tags :reverse => true,
+                 :description => @software.description,
+                 :keywords => [@software.name, @software.ware_file_name, @software.version] %>
+
+<%= render_partial 'products/istomp_style' %>
+
+<%= content_for :preload do %>
+	<%= image_tag("#{website.folder}/#{I18n.locale}/red_download_app_button_hover.png") %>
+<% end %>
+
+<header id="product_header">
+	<%= image_tag("#{website.folder}/istomp/stomp_shop_logo.png", alt: @page_title) %>
+</header>
+
+<section id="product_content" class="stomp_shop">
+	<h2>e-pedal store and virtual road case</h2>
+	<div id="left_column">
+		<%= link_to download_software_path(@software, :locale => I18n.locale) do %>
+	 		<%= image_tag "#{website.folder}/stomp_shop_icon.png", alt: "Stomp Shop", size: "128x128", style: "padding-left: 8px" %><br/>
+			<div class="free">Free</div>
+			<%= image_tag "#{website.folder}/#{I18n.locale}/red_download_app_button.png", 
+					alt: "Download", 
+					mouseover: "#{website.folder}/#{I18n.locale}/red_download_app_button_hover.png" %>
+		<% end %>
+	</div>
+	
+	<div id="right_column">
+		<div class="product_main_tab_content">
+			<%=raw @software.description %>
+			<%= image_tag "available_on_the_app_store.png", alt: "Available on the App Store" %>
+		</div>
+	</div>
+</section>
+
+<%= render_partial "products/istomp_coverflow", istomp: @istomp, use_popups: true %>
+	
+<section id="product_bottom_content">
+	<%= render_partial "products/featured_epedals_callout", position: :right %>
+	<%= render_partial "products/istomp_callout", position: :left %>
+	<div class="clear"></div>
+</section>
+
+<%= render_partial 'products/istomp_videos' %>
+
+<span id="help_links" data-supported="<%= escape_javascript website.android_disclaimer_url %>" data-howto="<%= escape_javascript website.non_ios_howto_url %>"></span>
+
+<% if current_user && can?(:manage, @software) %>
+<div class="admin_function">
+	<%= link_to "edit", edit_admin_software_path(@software) %>
+</div>
+<% end %>

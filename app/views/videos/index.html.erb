@@ -1,0 +1,21 @@
+<table style="width: 650px; margin-left:">
+	<% @playlists.each_with_index do |playlist,i| %>
+	<tr>
+		<% if playlist.respond_to?(:title) %>
+		<td colspan="2">
+			<h<%= i+1 %> style="color:#222"><%= playlist.title %></h<%= i+1 %>>
+			<p><%= playlist.description %></p>
+		</td>
+		<% else %>
+		<td colspan="2">
+			<h<%= i+1 %>><%= @page_title %></h<%= i+1 %>>
+		</td>
+		<% end %>
+	</tr>
+	<%= render :partial => "video", :collection => playlist.videos %>
+	<% end %>
+</table>
+
+<div style="position: absolute; top: 24px; right: 6px; width: 265px; text-align: center;">
+
+</div>

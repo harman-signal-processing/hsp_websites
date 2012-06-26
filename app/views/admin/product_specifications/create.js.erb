@@ -1,0 +1,4 @@
+$('#product_specifications').append('<%= escape_javascript(render '/admin/shared/product_specification_row', ps: @product_specification) %>');
+$('#product_specification_value').val('');
+$('#specification_name').val('');
+<% flash.discard %>

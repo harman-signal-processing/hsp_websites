@@ -1,0 +1,22 @@
+<h1>Training Classes</h1>
+
+<div class="button_container">
+	<%= link_to "New Training Class", new_admin_training_class_path, :class => "new button" %>
+</div>
+
+<table class="data">
+	<tr>
+		<th>Date</th>
+		<th>Location</th>
+		<th>Instructor</th>
+		<th>Products &amp; Software</th>
+	</tr>
+	<% @training_classes.each do |training_class| %>
+	<tr>
+		<td><%= link_to I18n.l(training_class.start_at, :format => :long), [:admin, training_class] %></td>
+		<td><%= training_class.region.name %> - <%= training_class.location %></td>
+		<td><%= training_class.instructor.name %></td>
+		<td><%= (training_class.products + training_class.softwares).collect{|p| p.name}.join(", ") %></td>
+	</tr>
+	<% end %>
+</table>

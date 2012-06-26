@@ -1,0 +1,33 @@
+<h1>Listing download registrations</h1>
+
+<table class="data">
+  <tr>
+    <th>Registered download</th>
+    <th>Email</th>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Serial number</th>
+    <th>Download count</th>
+    <th>Download code</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @download_registrations.each do |download_registration| %>
+  <tr style="background: <%= cycle 'white', 'none' %>">
+    <td><%= download_registration.registered_download.name %></td>
+    <td><%= download_registration.email %></td>
+    <td><%= download_registration.first_name %></td>
+    <td><%= download_registration.last_name %></td>
+    <td><%= download_registration.serial_number %></td>
+    <td><%= download_registration.download_count %></td>
+    <td><%= download_registration.download_code %></td>
+    <td><%= link_to 'Show', [:admin, download_registration] %></td>
+    <td><%= link_to 'Edit', edit_admin_download_registration_path(download_registration) %></td>
+    <td><%= link_to 'Delete', [:admin, download_registration], :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+

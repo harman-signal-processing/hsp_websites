@@ -1,0 +1,8 @@
+<h1>Editing Product Family</h1>
+
+<%= form_for [:admin, @product_family], :html => { :multipart => true } do |f| %>
+	<%= render "form", :f => f %>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>

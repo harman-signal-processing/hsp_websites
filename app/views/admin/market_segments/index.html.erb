@@ -1,0 +1,11 @@
+<h1>Market Segments</h1>
+
+<div class="button_container">
+	<%= link_to 'New market segment', new_admin_market_segment_path, :class => "new button" %>
+</div>
+
+<ul>
+<% @market_segments.each do |market_segment| %>
+  <li><%= link_to market_segment.name, [:admin, market_segment] %></li>
+<% end %>
+</ul>

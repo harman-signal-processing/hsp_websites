@@ -1,0 +1,11 @@
+<% called_from ||= "product" %>
+<li id="product_training_class_<%= ptc.id %>">
+	<%= (called_from == "product") ?
+		link_to(ptc.training_class.name, edit_admin_training_class_path(ptc.training_class)) :
+		link_to(ptc.product.name, [:admin, ptc.product]) %>
+	<%= link_to(image_tag('trash.gif'),
+		  admin_product_training_class_path(ptc),
+		  :remote => true,
+		  :confirm => "Are you sure?",
+		  :method => :delete) %>
+</li>

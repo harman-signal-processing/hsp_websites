@@ -1,0 +1,8 @@
+<h1>Editing product attachment</h1>
+
+<%= form_for([:admin, @product_attachment], :html => {:multipart => true}) do |f| %>
+  <%= render "form", :f => f %>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>

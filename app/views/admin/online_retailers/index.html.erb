@@ -1,0 +1,22 @@
+<h1>Listing Online Retailers</h1>
+
+<% if can? :create, OnlineRetailer %>
+<div class="button_container">
+	<%= link_to 'New Online Retailer', new_admin_online_retailer_path, :class => "new button" %>
+</div>
+<% end %>
+
+<ul>
+<% @online_retailers.each do |online_retailer| %>
+  <% if can? :update, online_retailer %>
+  <li><%= link_to online_retailer.name, [:admin, online_retailer] %>
+	<!-- <%= online_retailer.online_retailer_links.count %> links -->
+	<% if online_retailer.bad_links.count > 0 %>
+	<span style="color: red; margin-left: 2px">
+		<%= pluralize(online_retailer.bad_links.count, "possible problem") %> found!
+	</span>
+	<% end %>
+	</li>
+  <% end %>
+<% end %>
+</ul>

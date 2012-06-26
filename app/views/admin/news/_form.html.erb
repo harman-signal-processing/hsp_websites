@@ -1,0 +1,23 @@
+<%= f.error_messages %>
+
+<p>
+  <%= f.label :post_on %><br />
+  <%= f.text_field :post_on, class: 'ui-datepicker' %>
+</p>
+<p>
+  <%= f.label :title %><br />
+  <%= f.text_field :title, size: 60 %>
+</p>
+<p>
+  <%= f.label :keywords %><br />
+  <%= f.text_area :keywords, size: "40x2" %>
+</p>
+<p>
+  <%= f.label :news_photo %><br />
+  <%= f.file_field :news_photo %>
+</p>
+<p>
+  <%= f.label :body %><br />
+  <%= f.text_area :body, size: "70x20", class: "mceEditor" %>
+</p>
+

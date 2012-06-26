@@ -1,0 +1,3 @@
+$('#product_audio_demos').append('<%= escape_javascript(render "/admin/shared/product_audio_demo_row", pad: @product_audio_demo, called_from: @called_from) %>');
+$('#audio_demo_name').val('');
+<% flash.discard %>

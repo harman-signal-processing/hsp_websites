@@ -1,0 +1,84 @@
+<% if !!(website.istomp_coverflow.to_i > 0) %>
+<% use_popups ||= false %>
+<% pedal ||= nil %>
+<div id="coverflow_container">
+	<div id="mask"></div>
+	<div id="feature_pop" style="display: none">
+		<div id="pop_content"></div>
+		<%= link_to 'close', '#', id: 'popclose' %>
+	</div>
+	<div class="wrapper">
+		<div id="coverflow" style="width: <%=  (istomp.current_sub_products.length * 92.866).to_i %>px">
+		<% coverflow_shuffle(istomp.current_sub_products).each_with_index do |child,i| %>
+			<% if child.product.photo %>
+			<%= image_tag(child.product.photo.product_attachment.url(:small), 
+					data: { 
+						caption: child.product.name, 
+						itemlink: url_for(child.product),
+						pophtml: "pop_for_#{child.product.to_param}",
+						labelimg: (child.product.images_for("product_page").size > 3) ? 
+							child.product.images_for("product_page")[3].product_attachment.url(:horiz_medium) : 
+							"",
+						position: i
+					}, 
+					class: (child.product == pedal) ? 'defaultItem' : '',
+					alt: child.product.name) %>
+			<% end %>
+		<% end %>
+		</div>
+	</div>
+	<div id="label">Sample Label</div>
+	<div id='slider'></div>
+	<div id="left_fade"><%= image_tag("#{website.folder}/white_fade_left.png") %></div>
+	<div id="right_fade"><%= image_tag("#{website.folder}/white_fade_right.png") %></div>
+</div>
+
+<% if use_popups %>
+<div id="coverflow_pops" style="display:none">
+	<% coverflow_shuffle(istomp.current_sub_products).each do |child| %>
+	<div id="pop_for_<%= child.product.to_param %>">
+		<div class="popup_left">
+			<%= link_to url_for(child.product) do %>
+			<% if child.product.images_for("product_page").size > 1 %>
+				<%= image_tag(child.product.images_for("product_page")[1].product_attachment.url(:medium)) %>
+			<% elsif child.product.images_for("product_page").size > 0 %>
+				<%= image_tag(child.product.images_for("product_page")[0].product_attachment.url(:medium)) %>
+			<% end %>
+			<% end %>
+		</div>
+		<div class="popup_right">
+			<h2><%= child.product.name %></h2>
+			<p><%=raw truncate(strip_html(child.product.description), length: 300) %></p>
+			<h3><%= link_to "more", url_for(child.product) %></h3>
+		</div>
+	</div>
+	<% end %>
+</div>
+<% end %>
+
+<% else %>
+	<div id="carousel">
+		<%= image_tag "#{website.folder}/istomp/carousel_placeholder.png" %>
+	</div>
+<% end %>
+
+<div class="view_all_button_container">
+<%= image_tag("#{website.folder}/#{I18n.locale}/view_all_button.png", 
+	alt: "View all e-pedals", class: "view_all_button",
+	data: {
+		originalsrc: image_path("#{website.folder}/#{I18n.locale}/view_all_button.png"),
+		originalover: image_path("#{website.folder}/#{I18n.locale}/view_all_button_hover.png"),
+		hidesrc: image_path("#{website.folder}/#{I18n.locale}/hide_all_button.png"),
+		hideover: image_path("#{website.folder}/#{I18n.locale}/hide_all_button_hover.png")
+	}) %>
+</div>
+	
+<div id="epedals" data-count="<%= istomp.current_sub_products.count %>">
+	<h3><%= istomp.current_sub_products.count %> e-pedals and growing...</h3>
+	<%= render_partial 'products/sub_products', product: istomp %>
+	<div class="view_all_button_container">
+	<%= image_tag("#{website.folder}/#{I18n.locale}/hide_all_button.png", 
+		mouseover: "#{website.folder}/#{I18n.locale}/hide_all_button_hover.png",
+		alt: "Hide all e-pedals", class: "view_all_button") %>	
+	</div>
+</div>

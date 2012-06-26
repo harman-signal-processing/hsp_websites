@@ -1,0 +1,5 @@
+$('#product_attachment_<%= @product_attachment.id %>').remove();
+<% if @primary_photo %>
+  $('#product_attachment_<%= @primary_photo.id %>').html('<%= escape_javascript(render "/admin/shared/product_attachment_row", pa: @primary_photo) %>');
+<% end %>
+<% flash.discard %>

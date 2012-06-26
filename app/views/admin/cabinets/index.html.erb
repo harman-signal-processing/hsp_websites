@@ -1,0 +1,7 @@
+<h1>Listing Cabinets</h1>
+
+<ul>
+	<% @cabinets.each do |cabinet| %>
+	<li><%= link_to cabinet.name, [:admin, cabinet] %></li>
+	<% end %>
+</ul>

@@ -1,0 +1,24 @@
+<h1>Registered Downloads</h1>
+<% if can? :create, RegisteredDownload %>
+<div class="button_container">
+	<%= link_to 'New Registered Download', new_admin_registered_download_path, :class => "new button" %>
+</div>
+<% end %>
+
+<table class="data">
+  <tr>
+    <th>Name</th>
+    <th>URL</th>
+    <th>Valid code</th>
+    <th>Download count</th>
+  </tr>
+
+<% @registered_downloads.each do |registered_download| %>
+  <tr style="background: <%= cycle 'white', 'none' %>">
+    <td><%= link_to registered_download.name, [:admin, registered_download] %></td>
+    <td><%= link_to "http://#{website.default_website.url}/#{registered_download.url}", "http://#{website.url}/#{registered_download.url}" %></td>
+    <td><%= registered_download.valid_code %></td>
+    <td><%=number_with_delimiter registered_download.download_count %></td>
+  </tr>
+<% end %>
+</table>

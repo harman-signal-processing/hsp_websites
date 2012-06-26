@@ -1,0 +1,37 @@
+<% set_meta_tags :title => @page_title,
+				 :reverse => true %>
+
+<div>
+	<h1><%= @page_title %></h1>
+	
+<% if @results.size > 0 %>
+	<ul class="dealer_results">
+		<% @results.each do |dealer| %>
+		<li><b><%= dealer.name %></b> (<%= dealer.distance.to_i %> <%= t('dealer_distance') %>)
+		<!-- <span style="color: #EEE"><%= dealer.account_number %></span> -->
+		<br/><%= dealer.address %>
+		<br/><%= dealer.city %> <%= dealer.state %> <%= dealer.zip %>
+		<br/><%= dealer.telephone %>
+		<% if !dealer.email.blank? %> &bull; <%= mail_to dealer.email.downcase %><% end %>
+		<% if !dealer.website.blank? %> &bull; <%= link_to dealer.website, dealer.website, :target => "_blank" %><% end %>
+		</li>
+		<% end %>
+	</ul>
+<% end %>
+</div>
+
+<% unless @err.blank? %>
+	<p><%= @err %></p>
+<% end %>
+
+<%= content_for :big_bottom_box do %>
+<p>Authorized Service Centers provide warranty and non-warranty repair services. Proof of purchase is required for all warranty claims. If there are no locations near your zipcode, please call the factory service center at (801)566-8800.</p>
+
+<p><i>Note: this lookup engine is for authorized service centers in the US only. If you need service outside of the US, consult the <%= link_to "International Dealer Locator", distributors_path %>.</i></p>
+<% end %>
+
+<% if current_user && can?(:manage, ServiceCenter) %>
+<div class="admin_function">
+	<%= link_to "edit", admin_service_centers_path %>
+</div>
+<% end %>

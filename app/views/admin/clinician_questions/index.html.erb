@@ -1,0 +1,23 @@
+<h1>Listing clinician questions</h1>
+
+<table>
+  <tr>
+    <th>Clinician report</th>
+    <th>Question</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @clinician_questions.each do |clinician_question| %>
+  <tr>
+    <td><%= clinician_question.clinician_report_id %></td>
+    <td><%= clinician_question.question %></td>
+    <td><%= link_to 'Show', [:admin, clinician_question] %></td>
+    <td><%= link_to 'Edit', edit_admin_clinician_question_path(clinician_question) %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Clinician question', new_admin_clinician_question_path %>

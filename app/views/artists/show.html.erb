@@ -1,0 +1,53 @@
+<% set_meta_tags :title => @artist.name,
+				 :description => truncate(strip_html(translate_content(@artist, :bio)), :length => 100, :omission => ""),
+				 :keywords => @artist.name,
+				 :reverse => true %>
+
+<% unless @artist.artist_photo_file_name.blank? %>
+	<div id="big_artist_photo">
+		<%= image_tag(@artist.artist_photo.url(:feature)) %>
+	</div>
+<% end %>
+
+<div class="description">
+
+	<% if @artist.artist_products.size > 0 %>
+	<div id="artist_callout" class="artist_callout_container">
+		<h3><%= website.brand_name %> Gear</h3>
+		<% if !@artist.artist_product_photo_file_name.blank? %>
+			<div id="artist_product_photo_medium"><%= image_tag @artist.artist_product_photo.url(:medium) %></div>
+		<% end %>
+		
+		<%= @artist.name %> uses:
+		<ul>
+		<% @artist.artist_products.each do |artist_product| %>
+			<% if artist_product.product.brand == website.brand %>
+			<li><%= link_to artist_product.product.name, artist_product.product %>
+				<% if !artist_product.quote.blank? %><i><%= artist_product.quote %></i><% end %>
+			</li>
+			<% else %>
+			<li><%= link_to artist_product.product.name, 
+						product_url(artist_product.product, :host => artist_product.product.brand.default_website.url), 
+						:target => "_blank" %></li>
+			<% end %>
+		<% end %>
+		</ul>
+	</div>
+	<% end %>
+	
+	<h1><%= @artist.name %></h1>
+	<%=raw translate_content(@artist, :bio) %>
+	<%= render 'shared/add_this' %>	
+	<% unless @artist.website.blank? %>
+  	<div><%= link_to @artist.website, @artist.website, :target => "_blank" %></div>
+	<% end %>
+	<div class="clear"></div>
+</div>
+
+<div class="clear"></div>
+
+<% if current_user && can?(:manage, @artist) %>
+<div class="admin_function">
+	<%= link_to "edit", edit_admin_artist_path(@artist) %>
+</div>
+<% end %>

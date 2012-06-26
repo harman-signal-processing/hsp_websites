@@ -1,0 +1,10 @@
+<div id="content_container" style="padding-top: 40px; width: 575px; min-height: 280px; background: #7a7f86 url('/images/<%= website.folder %>/world_map.png') no-repeat; font-size: 120%; box-shadow: #444 1px 1px 8px">
+		<div style="background: url('/images/<%= website.folder %>/white_bg.png'); width: 60%; margin: 0px auto; padding: 10px; color: #000; border-radius: 8px; -moz-bord-radius: 8px;">
+			<p>Please select your language/region:</p>
+			<ul>
+			<% website.available_locales.each do |website_locale| %>
+				<li> <%= link_to website_locale.name, "/#{website_locale.locale}" %></li>
+			<% end %>
+			</ul>
+		</div>
+</div>

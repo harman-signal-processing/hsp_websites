@@ -1,0 +1,8 @@
+<h1><%= translate_content(@specification, :name) %></h1>
+
+<% @specification.values_with_products.keys.sort.each do |key| %>
+<div>
+	<h2><%= key %></h2>
+	<p>Works with: <%=raw @specification.values_with_products[key].collect{|p| link_to(p.name, p)}.join(", ") %></p>
+</div>
+<% end %>

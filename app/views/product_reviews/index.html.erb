@@ -1,0 +1,24 @@
+<% set_meta_tags :title => t('titles.product_reviews'),
+				 :reverse => true %>
+
+<h1 class="page_title">
+<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/product_reviews_head.jpg")) %>
+	<%= image_tag("#{website.folder}/#{I18n.locale}/product_reviews_head.jpg", :alt => t('titles.product_reviews')) %>
+<% else %>
+	<%= t('titles.product_reviews') %>
+<% end %>
+</h1>
+
+<div class="wide_centered_box">
+<table class="news_list">
+<% @product_reviews.each do |product_review| %>
+	<tr>
+		<td class="date"><%=l product_review.created_at.to_date, :format => :long %></td>
+		<td class="preview"><strong><%=link_to translate_content(product_review, :title), product_review_path(product_review, :locale => I18n.locale) %></strong><br/>
+		<%= t("related_products") %>: <%= product_review.products.collect{|p| p.name}.join(",") %>
+		</td>
+	</tr>
+<% end %>
+</table>
+</div>
+

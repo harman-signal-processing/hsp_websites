@@ -1,0 +1,12 @@
+<% called_from ||= "product" %>
+<li id="product_training_module_<%= ptm.id %>">
+	<span class="handle"><%= image_tag("drag_handle.gif") %></span>
+	<%= (called_from == "product") ?
+		link_to(ptm.training_module.name, edit_admin_training_module_path(ptm.training_module)) :
+		link_to(ptm.product.name, [:admin, ptm.product]) %>
+	<%= link_to(image_tag('trash.gif'),
+		  admin_product_training_module_path(ptm),
+		  :remote => true,
+		  :confirm => "Are you sure?",
+		  :method => :delete) %>
+</li>

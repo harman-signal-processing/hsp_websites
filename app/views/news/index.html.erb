@@ -1,0 +1,23 @@
+<% set_meta_tags :title => t('titles.news', :brand => website.brand_name),
+				 :reverse => true %>
+				
+<h1 class="page_title">
+<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/news_head.jpg")) %>
+	<%= image_tag("#{website.folder}/#{I18n.locale}/news_head.jpg", :alt => t('titles.news', :brand => website.brand_name)) %>
+<% else %>
+	<%= t('titles.news', :brand => website.brand_name) %>
+<% end %>
+</h1>
+
+<div style="float: right">
+	<%= link_to(image_tag('rss.png', :alt => "rss", :style=>"vertical-align: middle"), rss_url(:format => "xml")) %>
+	<%= link_to("Subscribe via RSS", rss_url(:format => "xml")) %>
+</div>
+
+<div class="wide_centered_box">
+	<%= render "list", :news_list => @news %>
+</div>
+
+<% if @old_news %>
+<p><%= link_to t('older'), archived_news_index_path %></p>
+<% end %>

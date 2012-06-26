@@ -1,0 +1,22 @@
+<h1>Editing online retailer link</h1>
+
+<%= form_for([:admin, @online_retailer_link]) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :product_id %><br />
+    <%= f.select :product_id, [[@online_retailer_link.product.name, @online_retailer_link.product_id]] + Product.non_discontinued(website).collect{|p| [p.name, p.id]} %>
+  </p>
+  <p>
+    <%= f.label :url %><br />
+    <%= f.text_field :url, :size => 100 %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<div class="hint">
+	Last checked: <%= @online_retailer_link.link_checked_at.to_s %><br/>
+	Response code: <%= @online_retailer_link.link_status %>
+</div>

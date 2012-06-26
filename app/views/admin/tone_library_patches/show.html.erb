@@ -1,0 +1,18 @@
+<p>
+  <b>Song:</b>
+  <%= link_to @tone_library_patch.tone_library_song.displayname, [:admin, @tone_library_patch.tone_library_song] %>
+</p>
+
+<p>
+  <b>Product:</b>
+  <%= link_to @tone_library_patch.product.name, [:admin, @tone_library_patch.product] %>
+</p>
+
+<p>
+  <b>Patch file:</b>
+  <%= link_to @tone_library_patch.patch_file_name, @tone_library_patch.patch.url %>
+</p>
+
+<%= link_to 'Edit', edit_admin_tone_library_patch_path(@tone_library_patch) %> |
+<%= link_to 'Delete', [:admin, @tone_library_patch], :confirm => 'Are you sure?', :method => :delete %> |
+<%= link_to 'Back', admin_tone_library_patches_path %>

@@ -1,0 +1,6 @@
+$('#online_retailer_links').append('<%= escape_javascript(render "/admin/shared/online_retailer_link_row", orl: @online_retailer_link, called_from: @called_from) %>');
+$('#online_retailer_link_product_id').html('<%= escape_javascript(options_from_collection_for_select(@products, 'id', 'name')) %>');
+$('#new_online_retailer_link').each (function(){
+  this.reset();
+});
+<% flash.discard %>

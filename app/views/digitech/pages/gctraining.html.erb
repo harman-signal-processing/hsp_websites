@@ -1,0 +1,8 @@
+<p id="please_wait"><i>Please wait while the survey loads...</i></p>
+<iframe id="fs-survey-iframe" src="http://app.fluidsurveys.com/surveys/digitech/hardwire-gc-training/" frameborder="0" style="border: none; zoom:1; width:100%; height: 550px;"></iframe>
+
+<%= content_for :extra_js do %>
+	$(document).ready(function() {
+		$('#please_wait').delay(300).remove();
+	});
+<% end %>

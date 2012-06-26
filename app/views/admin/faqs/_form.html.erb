@@ -1,0 +1,33 @@
+<%= form_for([:admin, @faq]) do |f| %>
+  <% if @faq.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@faq.errors.count, "error") %> prohibited this FAQ from being saved:</h2>
+
+      <ul>
+      <% @faq.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :product_id %><br />
+    <%= f.select :product_id, website.products.collect{|p| [p.name, p.id]} %>
+  </div>
+  <div class="field">
+    <%= f.label :question %><br />
+    <%= f.text_area :question, :size => "60x2" %>
+  </div>
+  <div class="field">
+    <%= f.label :answer %><br />
+    <%= f.text_area :answer, :size => "60x15", :class => "mceEditor" %>
+  </div>
+  <div class="field">
+    <%= f.check_box :hidden %>
+    <%= f.label :hidden %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

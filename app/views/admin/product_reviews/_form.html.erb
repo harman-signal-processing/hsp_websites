@@ -1,0 +1,22 @@
+<%= f.error_messages %>
+
+<p>
+  <%= f.label :title %><br />
+  <%= f.text_field :title %>
+</p>
+<p>
+  <%= f.label :created_at, "Date" %><br/>
+  <%= f.text_field :created_at, class: 'ui-datepicker' %>
+</p>
+<p>
+  <%= f.label :external_link %><br />
+  <%= f.text_field :external_link %>
+</p>
+<p>
+  <%= f.label :body %><br />
+  <%= f.text_area :body, class: "mceEditor" %>
+</p>
+<p>
+  <%= f.label :review, "PDF Attachment" %><br />
+  <%= f.file_field :review %>
+</p>

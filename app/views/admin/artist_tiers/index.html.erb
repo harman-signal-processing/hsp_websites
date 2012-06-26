@@ -1,0 +1,23 @@
+<h1>Listing Artist Tiers</h1>
+
+<% if can? :create, ArtistTier %>
+<div class="button_container">
+	<%= link_to 'New Tier', new_admin_artist_tier_path, :class => "new button" %>
+</div>
+<% end %>
+
+<table class="data">
+  <tr>
+    <th>Name</th>
+    <th>Invitation code</th>
+  </tr>
+
+<% @artist_tiers.each do |artist_tier| %>
+  <tr>
+    <td><%= link_to artist_tier.name, [:admin, artist_tier] %></td>
+    <td><%= artist_tier.invitation_code %></td>
+  </tr>
+<% end %>
+</table>
+
+

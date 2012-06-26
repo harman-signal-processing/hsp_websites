@@ -1,0 +1,13 @@
+<% set_meta_tags :title => @promotion.name,
+                 :description => truncate(strip_html(@promotion.description)),
+				 :reverse => true %>
+
+<%= render @promotion %>
+
+<%= render 'shared/add_this' %>
+
+<% if current_user && can?(:manage, @promotion) %>
+<div class="admin_function">
+	<%= link_to "edit", edit_admin_promotion_path(@promotion) %>
+</div>
+<% end %>

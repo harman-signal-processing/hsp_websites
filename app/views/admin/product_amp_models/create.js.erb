@@ -1,0 +1,3 @@
+$('#product_amp_models').append('<%= escape_javascript(render "/admin/shared/product_amp_model_row", pam: @product_amp_model, called_from: @called_from) %>');
+$('#amp_model_name').val('');
+<% flash.discard %>

@@ -1,0 +1,20 @@
+<h1><%= @brand.name %></h1>
+
+<div class="button_container">
+	<%= link_to 'Back', admin_brands_path, :class => "back button" %>
+	<% if can? :manage, @brand %>
+	<%= link_to 'Edit', edit_admin_brand_path(@brand), :class => "edit button" %> 
+	<%= link_to 'Delete', [:admin, @brand], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %> 
+	<% end %>
+</div>
+
+<h2>Websites</h2>
+
+<ul>
+	<% @brand.websites.each do |website| %>
+	<li>
+		<%= link_to website.url, [:admin, website] %>
+		<% if @brand.default_website == website %>(default)<% end %>
+	</li>
+	<% end %>
+</ul>

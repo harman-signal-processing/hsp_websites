@@ -1,0 +1,36 @@
+<% set_meta_tags :title => translate_content(@product_review, :title),
+				 :keywords => @product_review.products.collect{|p| p.name} + [t('titles.product_reviews')],
+				 :reverse => true %>
+
+<h1><%= translate_content(@product_review, :title) %></h1>
+
+<p>
+  <b>External link:</b>
+  <%= link_to @product_review.external_link, @product_review.external_link, :target => "_blank" %>
+</p>
+
+<% if !@product_review.review_file_name.blank? %>
+<p>
+  <b>PDF Attachment:</b>
+  <%= link_to @product_review.review_file_name, @product_review.review.url %>
+</p>
+<% end %>
+
+<%= translate_content(@product_review, :body) %>
+
+<% if @product_review.products.size > 0 %>
+	<h2><%= t('titles.related_products') %></h2>
+	<% @product_review.products.each do |product| %>
+		<%= render_partial "product_families/product_square", :product => product %>
+	<% end %>
+	<div class="clear"></div>
+<% end %>
+
+
+<%= link_to t('back'), product_reviews_path %>
+
+<% if current_user && can?(:manage, @product_review) %>
+<div class="admin_function">
+	<%= link_to "edit", edit_admin_product_review_path(@product_review) %>
+</div>
+<% end %>

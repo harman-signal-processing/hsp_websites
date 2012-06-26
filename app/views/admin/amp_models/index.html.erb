@@ -1,0 +1,7 @@
+<h1>Listing Amp Models</h1>
+
+<ul>
+	<% @amp_models.each do |amp_model| %>
+	<li><%= link_to amp_model.name, [:admin, amp_model] %></li>
+	<% end %>
+</ul>

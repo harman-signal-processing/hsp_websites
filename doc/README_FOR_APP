@@ -1,0 +1,41 @@
+Use this README file to introduce your application and point to useful places in the API for learning more.
+Run "rake doc:app" to generate API documentation for your models, controllers, helpers, and libraries.
+
+Stuff to do for dbx site:
+
+* New layout for product_families page (collapsed families)
+* Upload speaker tunings (maybe just to software downloads section)
+* Create a section for training modules
+* Videos (swf) uploaded on product pages don't work (PX)
+* Pre-load upcoming promotions (need more info)
+
+
+=== Things to do for Lexicon site ===
+* HTML layouts
+
+
+=== Things to develop (for all brands) ===
+
+* Sound community Replacement!!!!!!!
+* dynamic comparison charts
+* friendly/guided downloads
+* auto-pull news items from hpro feed
+* jquery instead of prototype
+* unit testing
+* revert to javascript-based twitter feed
+* Salesforce FAQ integration
+* Fix dealer export from SAP
+* Create Salesforce support cases
+* Inline ecommerce with iLok integration
+* Sitemaps using the sitemap plugin +news sitemaps
+* Use themes_for_rails gem instead of custom hack, manage themes online
+* Changelog reports--so webmaster can quickly assess all changes made by contributors
+* Refresh script to update development db/content from production site
+
+=== Other ===
+
+Here's a handy regular expression that can be used in Sublime Text (CTRL H) to update
+old ruby hashes to new ruby hashes:
+
+Search for-   :([\w\_]*)\s?=>
+Replace with- $1:

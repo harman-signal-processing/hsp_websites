@@ -1,0 +1,59 @@
+<h1><%= @training_module.name %></h1>
+
+<div class="button_container">
+	<%= link_to 'Back', admin_training_modules_path, :class => "back button" %>
+	<%= link_to 'Edit', edit_admin_training_module_path(@training_module), :class => "edit button" %> 
+	<%= link_to 'Delete', [:admin, @training_module], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %> 
+</div>
+
+<% unless @training_module.training_module_file_name.blank? %>
+<div>
+	<b>File:</b>
+	<%= link_to @training_module.training_module_file_name, @training_module.training_module.url %>
+	[<%= number_to_human_size(@training_module.training_module_file_size) %>]
+</div>
+<% end %>
+
+<div>
+	<%= @training_module.description.to_s.html_safe %>
+</div>
+
+<% if can?(:manage, ProductTrainingModule) %>
+<div class="group">
+	<h3>Products associated with this training module:</h3>
+	<%= form_for [:admin, @product_training_module], :remote => true do |f| %>
+		<%= hidden_field_tag "called_from", "training_module" %>
+    	<%= f.hidden_field :training_module_id %>
+		<%= f.select :product_id, website.products.collect{|p| [p.name, p.id]} %> 
+		<%= submit_tag 'add existing product' %>
+		<%= link_to 'create a new product', new_admin_product_path %>
+	<% end %>
+
+	<ul id="product_training_modules">
+		<% @training_module.product_training_modules.each do |ptm| %>
+			<%= render '/admin/shared/product_training_module_row', :ptm => ptm, :called_from => 'training_module' %>
+		<% end %>
+	</ul>
+</div>
+<% end %>
+
+<% if website.has_software? && can?(:manage, SoftwareTrainingModule) %>
+<div id="software" class="group">
+	<h3>Related Software</h3>
+	<%= form_for [:admin, @software_training_module], :remote => true do |f| %>
+		<p>
+			<%= f.select :software_id, Software.where(:brand_id => website.brand_id).all.sort_by(&:formatted_name).collect{|s| [s.formatted_name, s.id]} %>
+			&nbsp;
+			<%= hidden_field_tag "called_from", "training_module" %>
+			<%= f.hidden_field :training_module_id %>
+			<%= submit_tag 'submit' %> 
+			or <%= link_to "upload new software", new_admin_software_path %>
+		</p>
+	<% end %>	
+	<ul id="software_training_modules">
+		<% @training_module.software_training_modules.each do |stm| %>
+			<%= render "/admin/shared/software_training_module_row", :stm => stm, :called_from => 'training_module' %>
+		<% end %>
+	</ul>
+</div>
+<% end %>

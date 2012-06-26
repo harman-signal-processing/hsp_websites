@@ -1,0 +1,22 @@
+<h1>Listing Service Centers</h1>
+
+<% if !website.service_centers_from_brand_id.blank? %>
+	Note: <%= website.brand_name %> is configured to use the service centers from 
+	<%= Brand.find(website.service_centers_from_brand_id).name %>. Please manage
+	the service centers on its website instead of this one.
+<% else %>
+
+<% if can? :create, ServiceCenter %>
+<div class="button_container">
+	<%= link_to 'New Service Center', new_admin_service_center_path, :class => "new button" %>
+</div>
+<% end %>
+
+<ul>
+<% @service_centers.each do |service_center| %>
+    <li><%= link_to service_center.name, [:admin, service_center] %></li>
+<% end %>
+</ul>
+
+<% end %>
+

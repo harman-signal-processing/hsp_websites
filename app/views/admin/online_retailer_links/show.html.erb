@@ -1,0 +1,22 @@
+<p>
+  <b>Product:</b>
+  <%=h @online_retailer_link.product_id %>
+</p>
+
+<p>
+  <b>Brand:</b>
+  <%=h @online_retailer_link.brand_id %>
+</p>
+
+<p>
+	<b>Online Retailer:</b>
+	<%=h @online_retailer_link.online_retailer_id %>
+</p>
+
+<p>
+  <b>Url:</b>
+  <%=h @online_retailer_link.url %>
+</p>
+
+<%= link_to 'Edit', edit_admin_online_retailer_link_path(@online_retailer_link, :locale => I18n.locale) %> |
+<%= link_to 'Back', admin_online_retailer_links_path %>

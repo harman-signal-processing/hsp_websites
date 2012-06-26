@@ -1,0 +1,125 @@
+<h1><%=h @software.name %>
+	<span class="little"><%= link_to(software_url(@software, :locale => I18n.locale), software_url(@software, :locale => I18n.locale)) %>
+	<%= link_to(image_tag("external_link_icon.png"), software_url(@software, :locale => I18n.locale)) %></span></h1>
+
+<div class="button_container">
+	<%= link_to 'Back', admin_softwares_path, :class => "back button" %>
+	<%= link_to 'Edit', edit_admin_software_path(@software), :class => "edit button" %>
+	<%= link_to 'Delete', [:admin, @software], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %> 
+</div>
+
+<p>
+  <b>File:</b>
+	<% if !@software.link.blank? %>
+		<%= @software.link %>
+	<% else %>
+		<%= link_to @software.ware_file_name, @software.ware.path %>
+		[<%=number_to_human_size @software.ware_file_size %>]
+	<% end %>
+</p>
+
+<p>
+  <b>Download count:</b>
+  <%=h @software.download_count %>
+</p>
+
+<p>
+  <b>Platform:</b>
+  <%=h @software.platform %>
+</p>
+
+<p>
+  <b>Version:</b>
+  <%=h @software.version %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= truncate(strip_html(@software.description), :length => 75) %>
+</p>
+
+<p>
+  <b>Active:</b>
+  <%=h @software.active %>
+</p>
+
+<div id="software" class="group">
+	<h3>Related Products</h3>
+	<%= form_for [:admin, @product_software], :remote => true do |f| %>
+		<p>
+			<%= f.select :product_id, website.products.collect{|s| [s.name, s.id]} %>
+			&nbsp;
+			<%= hidden_field_tag "called_from", "software" %>
+			<%= f.hidden_field :software_id %>
+			<%= submit_tag 'submit' %> 
+			<% if can? :create, Product %>
+			or <%= link_to "create a new product", new_admin_product_path %>
+			<% end %>
+		</p>
+	<% end %>	
+	<ul id="product_softwares">
+		<% @software.product_softwares.each do |product_software| %>
+			<%= render "/admin/shared/product_software_row", :ps => product_software, :called_from => 'software' %>
+		<% end %>
+	</ul>
+</div>
+
+<div id="software_attachments" class="group">
+	<h3>Attachments (Release Notes, Install Guides, other PDFs)</h3>
+	<%= form_for [:admin, @software_attachment], :html => {:multipart => true} do |f| %>
+		<%= f.hidden_field :software_id %>
+		<%= f.label :name %>: <%= f.text_field :name %>
+		<%= f.file_field :software_attachment %>
+		<%= submit_tag "upload" %>
+	<% end %>
+	<ul id="software_attachments_list">
+		<% @software.software_attachments.each do |sa| %>
+		<% if !sa.software_attachment_file_name.blank? %>
+			<%= render '/admin/shared/software_attachment_row', :sa => sa %>		
+		<% end %>
+		<% end %>
+	</ul>
+</div>
+
+<% if website.has_software? && can?(:manage, SoftwareTrainingModule) %>
+<div id="software" class="group">
+	<h3>Training Modules</h3>
+	<%= form_for [:admin, @software_training_module], :remote => true do |f| %>
+		<p>
+			<%= f.select :training_module_id, website.training_modules.collect{|p| [p.name, p.id]} %>
+			&nbsp;
+			<%= hidden_field_tag "called_from", "software" %>
+			<%= f.hidden_field :software_id %>
+			<%= submit_tag 'submit' %> 
+			or <%= link_to "add new training module", new_admin_training_module_path %>
+		</p>
+	<% end %>	
+	<ul id="software_training_modules">
+		<% @software.software_training_modules.each do |stm| %>
+			<%= render "/admin/shared/software_training_module_row", :stm => stm, :called_from => 'software' %>
+		<% end %>
+	</ul>
+	<%#= sortable_element "software_training_modules",
+        # :complete => visual_effect(:highlight, "software_training_modules"),
+        :url => update_order_admin_software_training_modules_path %>
+</div>
+<% end %>
+
+<% if website.has_training? && can?(:manage, SoftwareTrainingClass) %>
+<div class="group">
+	<h3>Training Classes</h3>
+	<%= form_for [:admin, @software_training_class], :remote => true do |f| %>
+		<%= hidden_field_tag "called_from", "software" %>
+    	<%= f.hidden_field :training_class_id %>
+		<%= f.select :training_class_id, website.training_classes.collect{|p| [p.name, p.id]} %> 
+		<%= submit_tag 'add existing training class' %>
+		<%= link_to 'create a new training class', new_admin_training_class_path %>
+	<% end %>
+
+	<ul id="software_training_classes">
+		<% @software.software_training_classes.each do |stc| %>
+			<%= render '/admin/shared/software_training_class_row', :stc => stc, :called_from => 'software' %>
+		<% end %>
+	</ul>
+</div>
+<% end %>

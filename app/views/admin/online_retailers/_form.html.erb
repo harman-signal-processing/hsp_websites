@@ -1,0 +1,20 @@
+<%= f.error_messages %>
+
+<p>
+  <%= f.label :name %><br />
+  <%= f.text_field :name %>
+</p>
+<p>
+  <%= f.label :retailer_logo %><br />
+  <%= f.file_field :retailer_logo %>
+</p>
+<p>
+	<%= f.label :brand_link %><br />
+	<%= f.text_field :brand_link, :size => 60 %><br />
+	<i>The link which shows all of the <%= website.brand_name %> products.</i>
+</p>
+<% if can? :disable, f.object %>
+<p>
+  <%= f.check_box :active %> <%= f.label :active %> (warning, this will affect all brand sites on this new platform)
+</p>
+<% end %>

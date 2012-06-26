@@ -1,0 +1,8 @@
+<h1>Editing setting</h1>
+
+<%= form_for([:admin, @setting], :html => {:multipart => true}) do |f| %>
+  <%= render "form", :f => f %>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>

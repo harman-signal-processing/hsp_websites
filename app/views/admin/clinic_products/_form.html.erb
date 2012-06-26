@@ -1,0 +1,25 @@
+<%= form_for([:admin, @clinic_product]) do |f| %>
+  <% if @clinic_product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@clinic_product.errors.count, "error") %> prohibited this clinic_product from being saved:</h2>
+
+      <ul>
+      <% @clinic_product.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :clinic_id %><br />
+    <%= f.text_field :clinic_id %>
+  </div>
+  <div class="field">
+    <%= f.label :product_id %><br />
+    <%= f.text_field :product_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,30 @@
+<h1>
+	<%=h @page.title %>
+	<span class="little"><%= link_to(page_link(@page), page_link(@page)) %>
+	<%= link_to(image_tag("external_link_icon.png"), page_link(@page)) %></span>
+
+</h1>
+
+<div class="button_container">
+	<%= link_to 'Back', admin_pages_path, :class => "back button" %>	
+	<%= link_to 'Edit', edit_admin_page_path(@page, :locale => I18n.locale), :class => "edit button" %>
+	<%= link_to 'Delete', [:admin, @page], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %> 
+</div>
+
+<p>
+  <b>Keywords:</b>
+  <%= @page.keywords %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @page.description %>
+</p>
+
+<% if @page.requires_login? %>
+<p>
+	<b>This page is password protected. Use the following to access the page:</b><br/>
+	username: <%= @page.username %><br/>
+	password: <%= @page.password %>
+</p>
+<% end %>

@@ -1,0 +1,77 @@
+<p>The following message was received via the <%= @brand.name %> website:</p>
+
+<p>
+	<b>Name:</b> <%= @contact_message.name %>
+	<br/><b>Email:</b> <%= @contact_message.email %>
+	<% unless @contact_message.company.blank? %>
+		<br/><b>Company:</b> <%= @contact_message.company %>
+	<% end %>
+	<% unless @contact_message.account_number.blank? %>
+		<br/><b>Account #:</b> <%= @contact_message.account_number %>
+	<% end %>
+	<% unless @contact_message.phone.blank? %>
+		<br/><b>Phone:</b> <%= @contact_message.phone %>
+	<% end %>
+	<% unless @contact_message.fax.blank? %>
+		<br/><b>Fax:</b> <%= @contact_message.fax %>
+	<% end %>
+</p>
+<p>
+	<b>Product:</b> <%= @contact_message.product %>
+	<% unless @contact_message.product_sku.blank? %>
+		<br/><b>SKU:</b> <%= @contact_message.product_sku %>
+	<% end %>
+	<% unless @contact_message.product_serial_number.blank? %>
+		<br/><b>Serial:</b> <%= @contact_message.product_serial_number %>
+	<% end %>
+	<% if @contact_message.rma_request? %>
+		<br/><b>Under Warranty?</b> <%= (@contact_message.warranty?) ? "Yes" : "No" %>
+	<% end %>
+	<% unless @contact_message.purchased_on.blank? %>
+		<br/><b>Purchased On:</b> <%= I18n.l @contact_message.purchased_on, :format => :short %>
+	<% end %>
+	<% unless @contact_message.part_number.blank? %>
+		<br/><b>Part Number:</b> <%= @contact_message.part_number %>
+	<% end %>
+	<% unless @contact_message.board_location.blank? %>
+		<br/><b>Board Location:</b> <%= @contact_message.board_location %>
+	<% end %>
+	<% unless @contact_message.operating_system.blank? %>
+		<br/><b>OS:</b> <%= @contact_message.operating_system %>
+	<% end %>
+</p>
+
+<% if @contact_message.rma_request? %>
+<h3>Shipping Address:</h3>
+<p>
+	<%= @contact_message.shipping_address %><br/>
+	<%= @contact_message.shipping_city %>,
+	<%= @contact_message.shipping_state %>
+	<%= @contact_message.shipping_zip %>
+</p>
+
+<h3>Billing Address:</h3>
+<% if @contact_message.billing_address.blank? && @contact_message.billing_city.blank? &&
+	@contact_message.billing_state.blank? && @contact_message.billing_zip.blank? %>
+<p><i>same as shipping address</i></p>
+<% else %>
+<p>
+	<%= @contact_message.billing_address %><br/>
+	<%= @contact_message.billing_city %>,
+	<%= @contact_message.billing_state %>
+	<%= @contact_message.billing_zip %>
+</p>
+<% end %>
+
+<%# As requested by Lexicon support guys %>
+<% elsif !@contact_message.shipping_address.blank? %>
+<h3>Address</h3>
+<p>
+	<%= @contact_message.shipping_address %><br/>
+	<%= @contact_message.shipping_country %>
+</p>
+<% end %>
+
+<p>Message/Details/More Info, etc...</p>
+
+<%=raw @contact_message.message %>

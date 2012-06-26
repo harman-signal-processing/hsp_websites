@@ -1,0 +1,57 @@
+<% set_meta_tags :title => @artist.name,
+				 :description => truncate(strip_html(translate_content(@artist, :bio)), :length => 100, :omission => ""),
+				 :keywords => @artist.name,
+				 :reverse => true %>
+
+<% unless @artist.artist_photo_file_name.blank? %>
+	<div id="big_artist_photo">
+		<%= image_tag(@artist.artist_photo.url(:feature), :width => 960, :height => 408) %>
+	</div>
+<% end %>
+
+<div class="description artist_description">
+
+	<div id="artist_callout" class="artist_callout_container">
+	<% if @artist.artist_products.size > 0 %>
+		<h3><%= website.brand_name %> Gear</h3>
+		<% if !@artist.artist_product_photo_file_name.blank? %>
+			<div id="artist_product_photo_medium"><%= image_tag @artist.artist_product_photo.url(:medium) %></div>
+		<% end %>
+		
+		<h5 style="color: #666; font-weight: 100; margin-height: 20px"><%= @artist.name %> uses:</h5>
+		<ul>
+		<% @artist.artist_products.each do |artist_product| %>
+			<% if artist_product.product.brand == website.brand %>
+			<li><%= link_to artist_product.product.name, artist_product.product %>
+				<% if !artist_product.quote.blank? %><i><%= artist_product.quote %></i><% end %>
+			</li>
+			<% else %>
+			<li><%= link_to artist_product.product.name, 
+						product_url(artist_product.product, :host => artist_product.product.brand.default_website.url), 
+						:target => "_blank" %></li>
+			<% end %>
+		<% end %>
+		</ul>
+		<% unless @artist.website.blank? %>
+	  	<p><%= link_to @artist.website, @artist.website, :target => "_blank" %></p>
+		<% end %>
+	<% end %>
+	</div>
+	
+	<div class="artist_main_content">
+		<h1><%= @artist.name %></h1>
+		<%#= render 'shared/add_this' %>	
+		<%=raw translate_content(@artist, :bio) %>
+		<div style="height: 20px">&nbsp;</div>
+		<%=raw translate_content(@artist, :notable_career_moments) %>
+		<div class="clear"></div>
+	</div>
+</div>
+
+<div class="clear"></div>
+
+<% if current_user && can?(:manage, @artist) %>
+<div class="admin_function">
+	<%= link_to "edit", edit_admin_artist_path(@artist) %>
+</div>
+<% end %>

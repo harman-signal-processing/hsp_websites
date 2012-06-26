@@ -1,0 +1,13 @@
+<% called_from ||= 'product' %>
+<li id="product_promotion_<%= pp.id %>">
+	<%= (called_from == 'product') ? 
+			link_to(pp.promotion.name, [:admin, pp.promotion]) : 
+			link_to(pp.product.name, [:admin, pp.product]) %> 
+	<span class="little">
+	<%= link_to(image_tag("trash.gif"), 
+			admin_product_promotions_path(pp), 
+			:confirm => "Are you sure? (This won't delete the product or the promotion--it will only remove the association.)", 
+			:remote => true,
+			:method => :delete) %>
+	</span>
+</li>

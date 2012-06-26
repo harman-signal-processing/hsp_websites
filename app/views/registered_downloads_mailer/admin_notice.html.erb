@@ -1,0 +1,25 @@
+<p>A new registration has been entered. Here are the details:</p>
+
+<table>
+	<tr>
+		<td>Name:</td>
+		<td><%= @download_registration.first_name %>
+			<%= @download_registration.last_name %></td>
+	</tr>
+	<tr>
+		<td>Email:</td>
+		<td><%= @download_registration.email %></td>
+	</tr>
+	<tr>
+		<td>Subscribe?</td>
+		<td><%= (@download_registration.subscribe?) ? "Yes" : "No" %></td>
+	</tr>
+	<tr>
+		<td>One-time download link</td>
+		<td><%= @download_registration.download_link %></td>
+	</tr>
+	<tr>
+		<td>Customer notified via email?</td>
+		<td><%= (@registered_download.protected_software_file_name.blank?) ? "No--software needs to be uploaded" : "Yes" %></td>
+	</tr>
+</table>

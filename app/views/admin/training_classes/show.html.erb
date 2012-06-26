@@ -1,0 +1,49 @@
+<h1><%= @training_class.name %></h1>
+
+<div class="button_container">
+	<%= link_to 'Back', admin_training_classes_path, :class => "back button" %>
+	<%= link_to 'Edit', edit_admin_training_class_path(@training_class), :class => "edit button" %> 
+	<%= link_to 'Delete', [:admin, @training_class], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %> 
+</div>
+
+
+
+<% if can?(:manage, ProductTrainingClass) %>
+<div class="group">
+	<h3>Products associated with this training class:</h3>
+	<%= form_for [:admin, @product_training_class], :remote => true do |f| %>
+		<%= hidden_field_tag "called_from", "training_class" %>
+    	<%= f.hidden_field :training_class_id %>
+		<%= f.select :product_id, website.products.collect{|p| [p.name, p.id]} %> 
+		<%= submit_tag 'add existing product' %>
+		<%= link_to 'create a new product', new_admin_product_path %>
+	<% end %>
+
+	<ul id="product_training_classes">
+		<% @training_class.product_training_classes.each do |ptm| %>
+			<%= render '/admin/shared/product_training_class_row', :ptm => ptm, :called_from => 'training_class' %>
+		<% end %>
+	</ul>
+</div>
+<% end %>
+
+<% if website.has_software? && can?(:manage, SoftwareTrainingClass) %>
+<div id="software" class="group">
+	<h3>Related Software</h3>
+	<%= form_for [:admin, @software_training_class], :remote => true do |f| %>
+		<p>
+			<%= f.select :software_id, Software.where(:brand_id => website.brand_id).all.sort_by(&:formatted_name).collect{|s| [s.formatted_name, s.id]} %>
+			&nbsp;
+			<%= hidden_field_tag "called_from", "training_class" %>
+			<%= f.hidden_field :training_class_id %>
+			<%= submit_tag 'submit' %> 
+			or <%= link_to "upload new software", new_admin_software_path %>
+		</p>
+	<% end %>	
+	<ul id="software_training_classes">
+		<% @training_class.software_training_classes.each do |stm| %>
+			<%= render "/admin/shared/software_training_class_row", :stm => stm, :called_from => 'training_class' %>
+		<% end %>
+	</ul>
+</div>
+<% end %>

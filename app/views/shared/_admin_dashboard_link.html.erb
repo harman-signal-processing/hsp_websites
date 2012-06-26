@@ -1,0 +1,9 @@
+<% if current_user && (can?(:manage, Product) || can?(:manage, News) || 
+	can?(:manage, OnlineRetailer) || can?(:mange, Dealer) || can?(:manage, Artist) ||
+	can?(:manage, ProductFamily) || can?(:manage, Clinic) || can?(:manage, website) ||
+	can?(:manage, Distributor) || can?(:manage, Promotion) || can?(:manage, RegisteredDownload) ||
+	can?(:manage, Software) || can?(:manage, Page)) %>
+	<div id="admin_menu_link">
+		<%= link_to "site admin", admin_root_path %>
+	</div>
+<% end %>

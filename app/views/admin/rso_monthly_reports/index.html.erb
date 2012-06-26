@@ -1,0 +1,11 @@
+<h1>RSO monthly reports</h1>
+<div class="button_container">
+	<%= link_to 'New monthly report', new_admin_rso_monthly_report_path, :class => "new button" %>
+</div>
+
+<ul>
+<% @rso_monthly_reports.each do |rso_monthly_report| %>
+  <li><%= link_to rso_monthly_report.name, [:admin, rso_monthly_report] %></li>
+<% end %>
+</ul>
+

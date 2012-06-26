@@ -1,0 +1,20 @@
+<% if @product.approved_artists.size > 0 %>
+<div class="product_artists">
+	<% @product.approved_artists.each do |artist| %>
+	<div class="artist">
+		<% if !artist.artist_photo_file_name.blank? %>
+			<div class="photo">
+				<%= (artist.featured) ? link_to(image_tag(artist.artist_photo.url(:tiny_square)), artist) :
+				 	image_tag(artist.artist_photo.url(:tiny_square)) %>
+			</div>
+		<% end %>
+			<div class="description">
+				<b><%= (artist.featured) ? link_to(artist.name, artist) : artist.name %></b>
+				<div><%#= truncate(strip_html(translate_content(artist, :summary)), :length => 160) %>
+					<%= link_to t('more'), (artist.featured) ? artist : all_artists_path(:letter => artist.name.match(/^.{1}/).to_s.downcase, :anchor => "artist_#{artist.id}") %></div>
+			</div>
+	</div>
+	<% end %>
+	<div class="clear"></div>
+</div>
+<% end %>

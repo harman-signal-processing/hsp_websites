@@ -1,0 +1,47 @@
+<%= f.error_messages %>
+
+<p>
+  <%= f.label :name %><br />
+  <%= f.text_field :name %>
+</p>
+<p>
+  <%= f.label :family_photo %><br />
+  <%= f.file_field :family_photo %>
+</p>
+<p>
+	<%= f.label :parent_id %><br />
+	<%= f.select :parent_id, [[]] + ProductFamily.all_parents(website).collect{|c| [c.name, c.id]} %>
+	<i>Do not set so it is its own parent. That would be gross.</i>
+</p>
+<p>
+	<%= f.check_box :hide_from_homepage %>
+	<%= f.label :hide_from_homepage %> (only applicable to parent categories)
+</p>
+<% if website.page_layouts %>
+<p>
+	<%= f.label :layout_class, "Page layout style" %> <span class="hint">(not all brands have multiple layouts)</span><br/>
+	<%= f.select :layout_class, [[]] + website.page_layouts.split("|") %>
+</p>
+<% end %>
+<p>
+	<%= f.label :background_color %> (optional custom page background: <i>#CCCCCC or blue</i>)<br/>
+	<%= f.text_field :background_color, :size => 15 %>
+</p>
+<p>
+	<%= f.label :background_image %> (optional background image--will be centered)<br/>
+	<%= f.file_field :background_image %>
+	<% if !f.object.background_image_file_name.blank? %>
+	<span id="background_image">
+		<%= link_to f.object.background_image_file_name, f.object.background_image.url %>
+		<%= link_to image_tag("trash.gif"), delete_background_admin_product_family_path(f.object), :remote => true %>
+	</span>
+	<% end %>
+</p>
+<p>
+  <%= f.label :intro %><br />
+  <%= f.text_area :intro, :size => "50x2" %>
+</p>
+<p>
+  <%= f.label :keywords %><br />
+  <%= f.text_area :keywords, :size => "60x5" %>
+</p>

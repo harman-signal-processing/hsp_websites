@@ -1,0 +1,283 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  home: home
+  products: products
+  news: news
+  artists: artists
+  professionals: professionals
+  sound_community: sound community
+  community: community
+  where_to_buy: where to buy
+  find_a_dealer_near_you: find a dealer near you
+  product_support: support
+  store: store
+  outlet_store: outlet store
+  sitemap: sitemap
+  company: company
+  all_rights_reserved: "All Rights Reserved."
+  harman: Harman
+  us_zip_code: US Zipcode
+  find_us_dealers: find local
+  online_dealers_us: Online Dealers (US)
+  international_distributors: worldwide
+  select_your_country: select your country
+  dealer_distance: miles
+  back_to_news_list: Back to news list
+  back_to_artists: Back to artists
+  view_full_line: view full line
+  near_zipcode: "near %{zip}"
+  more: more
+  more_info: more info
+  rohs: rohs compliance
+  visit: visit
+  visit_the: visit the
+  product_reviews: product reviews
+  news_signup: "Join our mailing list:"
+  warranty_registration: product registration
+  search: search
+  search_again: search again
+  related_products: related products
+  version: version
+  back: back
+  download: download
+  downloads: downloads
+  software_downloads: software downloads
+  pop_explanation: Many of our retailers feature our interactive product display which will allow you to try out our products and find out just how much Jimi you've got.
+  products_used_by: "Products used by %{artist}"
+  valid: valid
+  download_promotion_form: download promotion form
+  submit: submit
+  your_name: Your Name
+  email: email
+  subject: Subject
+  message: Message
+  older: older...
+  current_news: current news
+  submit_warranty_registration: submit registration
+  cancel: cancel
+  register_your_product: "Register Your %{product}"
+  contact_tech_support: "Contact Technical Support"
+  go: go
+  discontinued: discontinued
+  troubleshooting: Troubleshooting Tips and FAQs
+  close: close
+  name: name
+  platform: platform
+  updater: updater
+  windows_gui: "Windows GUI/Librarian"
+  mac_gui: "Mac GUI/Librarian"
+  plugin: "Plug-in"
+  other: other
+  discontinued_products_downloads: "Discontinued Products Downloads"
+  related_products: "Related products"
+  touring_with: "touring with"
+  on_tour_with: "on tour with"
+  regarding: "regarding"
+  uses: "uses"
+  click_icons_for_features: "click icons for features"
+  back_to: back to
+  brief_legal_disclaimer: "Product names modeled in this product are trademarks of their respective companies that do not endorse and are not associated or affiliated with DigiTech. Scroll down for complete information."
+  
+  language:
+      en: English
+      es: Spanish
+      fr: French
+      de: German
+      zh: Chinese
+      
+  document_type:
+      owners_manual: Owner's Manual
+      cut_sheet: Cut Sheet
+      quickstart_guide: Quickstart Guide
+      application_guide: Application Guide
+      preset_list: Preset List
+      brochure: Brochure
+      schematic: Schematic
+      parts_list: Parts List
+      service_manual: Service Manual
+      calibration_procedure: Calibration Procedure
+      other: Other Document
+        
+  product_page:
+      description: "Product Description"
+      features: "Features"
+      specs_manuals_etc: "specs, manuals, reviews, etc..."
+      extended_description: "More Details"
+      details: "More Details"
+      reviews: "Reviews"
+      news_and_reviews: "News & Reviews"
+      specifications: "Specifications"
+      amp_models: "Amp Models"
+      cabinets: "Speaker Cabinets"
+      effects: "Effects"
+      pedals: "Pedals"
+      downloads: "Downloads"
+      documentation: "Manuals/Documentation"
+      downloads_and_docs: "Downloads"
+      training_modules: "Training Modules"
+      support: "Support/FAQs"
+      artists: "Artists"
+      review: "Review"
+      faqs: "FAQs"
+      tones: "Tone Library"
+      special_offer: "Special Offer"
+      labels:
+          features: Features
+          amp_models: Amps
+          cabinets: Cabs
+          effects: Effects
+          pedals: Pedals
+          accessories: Accessories
+      
+  titles:
+      buy_direct: "Buy Direct from %{brand}"
+      news: "%{brand} News"
+      blog: "%{brand} Blog"
+      facebook_page: "%{brand} Facebook Page"
+      archived_news: News Archive
+      more_resources: More Resources
+      where_to_buy: Where To Buy
+      dealer_search_results: Dealer Search Results
+      buy_online: "Click a retailer logo below to buy online:"
+      buy_now: Buy Now
+      international_distributors: Worldwide Distributors
+      product_families: Products
+      products: All Products
+      products_on_tour: Products On Tour
+      artists: Artists
+      featured_artists: Featured Artists
+      rohs: RoHS Directive
+      related_products: Related Products
+      contact: Contacts
+      contact_us: Contact Us
+      about_us: "About %{brand}"
+      search_results: Search Results
+      product_reviews: Product Reviews
+      pop: Get a hands-on demo
+      current_promotions: Current Promotions
+      community: "Guitar & Sound Communities"
+      guitar_workstation: Guitar Workstation
+      support: Support
+      product_support: Discontinued Product Support
+      warranty_registration: Product Registration
+      mailing_address: Mailing Address
+      service_centers: Service Centers
+      locate_us_service_center: Locate your nearest service center (US)
+      tone_library: Tone Library
+      featured_pedal: Featured Pedal
+      youtube_channel: "%{brand} Channel"
+      part_request: "Part Request"
+      rma_request: "Return Authorization Request"
+      
+  errors:
+      geocoding: "There was an error geocoding the address/zipcode you provided."
+      no_dealers_found: "Sorry, no dealers were found near %{zip}"
+      no_service_centers_found: "Sorry, no service centers were found near %{zip}"
+      
+  meta:
+      description:
+          where_to_buy: "Where to buy %{brand} products"
+          artists: "Learn how musicians put %{brand} products to good use."
+          featured_artists: "Premier musicians use %{brand} products."
+          products_on_tour: Find out which products are currently on tour with which artists.
+          support: "Support resources for your %{brand} products including faqs, manuals, product registration and service centers."
+          warranty_registration: "Register your %{brand} product."
+          
+      keywords:
+          where_to_buy: purchase, buy, dealers, usa
+
+  blurbs:
+      sound_community: "The web's original sound community for musicians. Exchange music, share ideas and patches for all of your DigiTech gear."
+      guitar_workstation: "Specifically designed for the GNX4 and GNX3000 workstation products. As an added bonus you'll find tips from Craig Anderton."
+      rohs_intro: "With regards to the RoHS Directive 2002 / 95 / EC of the European Parliament and of the Council of 27 January 2003 on the restriction of the use of certain hazardous substances in electrical and electronic equipment, we at Harman Music Group declare that to the best of our knowledge, all products listed below meet and fulfill all the requirements of the aforementioned directive."
+      product_support: "Browse support material for your discontinued product by selecting the model number below:"
+      warranty_registration_success: "Thank you for registering your product with us. Please be sure to keep your dated store receipt as proof of purchase."
+      use_date_code: "Some of our products do not have serial numbers. In this case, enter the date code from the back of the unit."
+      subscribe: "Sign up to receive periodic messages from %{brand} regarding product updates and special promotions."
+      warranty_comments: "Note: if you have a technical question/problem, please submit it via our support contact form."
+      contact_form_thankyou: "Thank you for contacting us. We will get back with you shortly."
+      captcha_explanation: "Please answer this question so that we can verify you are not a spam robot. (There is only one \"correct\" answer)"
+      tone_library_explanation: "Get started with these famous tones by connecting your GSP or RP unit to your Mac or PC. Visit our %{link} page if you don't have the sound librarian installed yet."
+      product_tone_library_explanation: "Get started with these famous tones by connecting your %{model} to your Mac or PC. Use the software downloads links on this page to install the librarian on your computer."
+      international_distributors: "International Distributors assist with product sales, support, manual requests and warranty service. Warranty is only valid within the country of purchase."
+      parts_request_thankyou: "Thank you for your parts request. Our support team will contact you if needed to fulfill the request. If you have questions, call us at (801) 566-8800 in the US."
+      rma_request_thankyou: "Thank you for your RMA request. Our support team will contact you with the RMA information. If you have questions, call us at (801) 566-8800 in the US."
+      
+  subjects:
+      select_a_subject: Select a Subject
+      product_question: Product Question
+      technical_support: Technical Support
+      manual_request: Manual Request
+      product_repair: Product Repair
+      product_parts: Product Parts
+      general_questions: General Question/Other
+      order_status: Order Status (Dealers only)
+      dealer_questions: Questions from Dealers
+      web_comments: Web Comments
+  devise:
+      artist_registrations:
+          artist:
+              inactive_signed_up: "Thanks! A confirmation email will be sent to you. Please refer to the instructions in the email to continue."
+  date:
+    formats:
+      default: "%Y-%m-%d"
+      short: "%b %d, %Y"
+      long: "%B %d, %Y"
+      
+  activerecord:
+    models:
+      amp_model: Amp Model
+      artist: Artist
+      artist_tier: Artist Tier
+      brand: Brand
+      cabinet: Cabinet
+      dealer: Dealer
+      distributor: Distributor
+      effect: Effect
+      effect_type: Effect Type
+      faq: FAQ
+      news: News
+      online_retailer: Online Retailer
+      page: Page
+      product: Product
+      promotion: Promotion
+      service_center: Service Center
+      software: Software
+      specification: Specification
+      warranty_registration: Product Registration
+      download_registration: Download Registration
+      registered_download: Registered Download
+      site_element: Site Resource
+      website: Website
+      clinic: Clinic
+      clinician_question: Clinician Question
+      clinician_report: Clinician Report
+      rep_question: Sales Rep Question
+      rep_report: Sales Rep Report
+      rso_monthly_report: Monthly Report
+      rso_panel: RSO Site Panel
+      rso_page: RSO Site Page
+      rso_navigation: RSO Site Navigation Element
+    attributes:
+      warranty_registration:
+        title: Title
+        first_name: First Name
+        last_name: Last Name
+        email: Email
+        address1: Address
+        city: City
+        state: State
+        zip: Zipcode
+        country: Country
+        phone: Phone
+        product_id: Product
+        serial_number: Serial number
+        purchased_from: Authorized Retailer purchased from
+        purchased_on: Purchase date
+        purchase_price: Purchase price
+        comments: Comments
+      download_registration:
+          serial_number: Product serial number
+          code_you_received: Unique serial number

@@ -1,0 +1,11 @@
+<% called_from ||= 'product' %>
+<li id="news_product_<%= np.id %>">
+	<%= (called_from == 'product') ? 
+			link_to(np.news.title, [:admin, np.news]) : 
+			link_to(np.product.name, [:admin, np.product]) %> 
+	<%= link_to(image_tag("trash.gif"), 
+			admin_news_product_path(np),
+			:remote => true, 
+			:confirm => "Are you sure? (This won't delete the product or the news--it will only remove the association.)", 
+			:method => :delete) %>
+</li>

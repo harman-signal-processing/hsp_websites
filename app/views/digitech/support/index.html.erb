@@ -1,0 +1,93 @@
+<% set_meta_tags :title => t('titles.support'),
+				 :keywords => @discontinued_products.collect{|p| p.name},
+				 :description => t('meta.description.support', :brand => website.brand_name),
+				 :reverse => true %>
+
+<h1 class="page_title">
+	<%= image_tag("#{website.folder}/#{I18n.locale}/support_head.jpg", :alt => t('titles.support')) %>
+</h1>
+
+<p style="text-align: center;">
+	<%= link_to t('software_downloads'), software_index_path %> &bull;
+	<%= link_to t('troubleshooting').downcase, support_path(:action => "troubleshooting") %> &bull;
+	<%= link_to t('warranty_registration'), warranty_registration_path %> &bull;
+	<%= link_to t('titles.rohs'), rohs_path %>
+</p>
+
+<div class="two_column_container">
+	
+	<div class="column_one">
+		<div class="light_gray" style="padding: 10px">
+		<h2><%= t('titles.product_support') %></h2>
+		<p><%= t('blurbs.product_support') %></p>
+		<%= form_tag support_path, :method => :get, :class => "product_support_search" do |f| %>
+			<%= select_tag :product_id, options_from_collection_for_select(@discontinued_products, :to_param, :name) %>
+			<%= submit_tag t('go')%>
+		<% end %>
+		</div>
+		<h2><%= t('titles.locate_us_service_center') %>:</h2>
+		<%= form_tag support_path(:action => "service_lookup") do |f| %>
+			<p><%= label_tag "zip", t('us_zip_code') %>
+			<%= text_field_tag "zip", session[:zip], :size => 15 %>
+			<%= submit_tag t('go') %></p>
+		<% end %>
+	</div>
+	
+	<div class="column_two">
+		<h2><%= t('titles.community') %></h2>
+		<h3><%= link_to ucfirst(t('sound_community')), soundcomm_url %></h3>
+			<p><%= t('blurbs.sound_community') %></p>
+			<p><%= t('visit_the') %> <%= link_to t("sound_community"), soundcomm_url %></p>
+		<h3><%= link_to t('titles.guitar_workstation'), "http://www.guitarworkstation.com" %></h3>
+			<p><%= t('blurbs.guitar_workstation') %></p>
+			<p><%= t('visit') %> <%= link_to "guitarworkstation.com", "http://www.guitarworkstation.com" %></p>
+	</div>
+	
+	<div class="clear"></div>
+</div>
+
+<%= content_for :big_bottom_box do %>
+	
+	<div class="two_column_container">
+		
+		<div class="column_one" style="width: 65%">
+			<h2><%= t('titles.contact_us') %></h2>
+			<%= form_for :contact_message, :url => support_path(:action => "contact"), :html => {:class => "contact"} do |f| %>
+				<%= f.error_messages %>
+
+				<div><%= f.label :name, t('your_name') %><br/>
+				   <%= f.text_field :name %></div>
+				<div><%= f.label :email, ucfirst(t('email')) %><br/>
+				   <%= f.text_field :email %></div>
+				<div><%= f.label :product %><br/>
+					<%= f.select :product, [[]] + Product.all_for_website(website).collect{|p| p.name} + ["other"] %></div>
+				<div><%= f.label :operating_system %><br/>
+					<%= f.text_field :operating_system %></div>
+				<div><%= f.label :subject, t('subject') %><br/>
+					<%= f.select :subject, ContactMessage.subjects %></div>
+				<p><%= t('message') %>:</p>
+				<%= f.text_area :message, :size => "60x8" %>
+				
+				<div class="captcha">
+					<%= recaptcha_tags %>
+				</div>
+				
+				<p><%= submit_tag t('submit') %></p>
+			<% end %>
+		</div>
+		
+		<div class="column_two" style="width: 30%; padding-top: 10px;">
+			<% if addr = website.address_and_phone %>
+				<h2><%= t("titles.mailing_address") %></h2>
+				<p>
+					<%=raw addr %>
+					<% if sup = website.support_email %>
+					<br/><%= mail_to sup, sup %>
+					<% end %>
+				</p>
+			<% end %>
+		</div>
+		
+	</div>
+	
+<% end %>

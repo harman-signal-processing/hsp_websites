@@ -1,0 +1,145 @@
+<%= form_for([:admin, @warranty_registration]) do |f| %>
+  <% if @warranty_registration.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@warranty_registration.errors.count, "error") %> prohibited this warranty_registration from being saved:</h2>
+
+      <ul>
+      <% @warranty_registration.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :first_name %><br />
+    <%= f.text_field :first_name %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name %>
+  </div>
+  <div class="field">
+    <%= f.label :middle_initial %><br />
+    <%= f.text_field :middle_initial %>
+  </div>
+  <div class="field">
+    <%= f.label :company %><br />
+    <%= f.text_field :company %>
+  </div>
+  <div class="field">
+    <%= f.label :jobtitle %><br />
+    <%= f.text_field :jobtitle %>
+  </div>
+  <div class="field">
+    <%= f.label :address1 %><br />
+    <%= f.text_field :address1 %>
+  </div>
+  <div class="field">
+    <%= f.label :city %><br />
+    <%= f.text_field :city %>
+  </div>
+  <div class="field">
+    <%= f.label :state %><br />
+    <%= f.text_field :state %>
+  </div>
+  <div class="field">
+    <%= f.label :zip %><br />
+    <%= f.text_field :zip %>
+  </div>
+  <div class="field">
+    <%= f.label :country %><br />
+    <%= f.text_field :country %>
+  </div>
+  <div class="field">
+    <%= f.label :phone %><br />
+    <%= f.text_field :phone %>
+  </div>
+  <div class="field">
+    <%= f.label :fax %><br />
+    <%= f.text_field :fax %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :subscribe %><br />
+    <%= f.check_box :subscribe %>
+  </div>
+  <div class="field">
+    <%= f.label :brand_id %><br />
+    <%= f.text_field :brand_id %>
+  </div>
+  <div class="field">
+    <%= f.label :product_id %><br />
+    <%= f.text_field :product_id %>
+  </div>
+  <div class="field">
+    <%= f.label :serial_number %><br />
+    <%= f.text_field :serial_number %>
+  </div>
+  <div class="field">
+    <%= f.label :registered_on %><br />
+    <%= f.date_select :registered_on %>
+  </div>
+  <div class="field">
+    <%= f.label :purchased_on %><br />
+    <%= f.date_select :purchased_on %>
+  </div>
+  <div class="field">
+    <%= f.label :purchased_from %><br />
+    <%= f.text_field :purchased_from %>
+  </div>
+  <div class="field">
+    <%= f.label :purchase_country %><br />
+    <%= f.text_field :purchase_country %>
+  </div>
+  <div class="field">
+    <%= f.label :purchase_price %><br />
+    <%= f.text_field :purchase_price %>
+  </div>
+  <div class="field">
+    <%= f.label :age %><br />
+    <%= f.text_field :age %>
+  </div>
+  <div class="field">
+    <%= f.label :marketing_question1 %><br />
+    <%= f.text_field :marketing_question1 %>
+  </div>
+  <div class="field">
+    <%= f.label :marketing_question2 %><br />
+    <%= f.text_field :marketing_question2 %>
+  </div>
+  <div class="field">
+    <%= f.label :marketing_question3 %><br />
+    <%= f.text_field :marketing_question3 %>
+  </div>
+  <div class="field">
+    <%= f.label :marketing_question4 %><br />
+    <%= f.text_field :marketing_question4 %>
+  </div>
+  <div class="field">
+    <%= f.label :marketing_question5 %><br />
+    <%= f.text_field :marketing_question5 %>
+  </div>
+  <div class="field">
+    <%= f.label :marketing_question6 %><br />
+    <%= f.text_field :marketing_question6 %>
+  </div>
+  <div class="field">
+    <%= f.label :marketing_question7 %><br />
+    <%= f.text_field :marketing_question7 %>
+  </div>
+  <div class="field">
+    <%= f.label :comments %><br />
+    <%= f.text_area :comments %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

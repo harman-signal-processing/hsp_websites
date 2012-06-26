@@ -1,0 +1,19 @@
+<h1>Reviews</h1>
+
+<% if can? :create, ProductReview %>
+<div class="button_container">
+	<%= link_to 'New review', new_admin_product_review_path, :class => "new button" %>
+</div>
+<% end %>
+
+<ul>
+<% @product_reviews.each do |product_review| %>
+  <li><%= link_to product_review.title, [:admin, product_review] %>
+	<% if !(product_review.link_status.match(/^2/)) %>
+	<span style="color: red; margin-left: 2px">
+		possible link problem found!
+	</span>
+	<% end %>
+	</li>
+<% end %>
+</ul>

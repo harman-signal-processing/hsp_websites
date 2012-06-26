@@ -1,0 +1,18 @@
+<% set_meta_tags :reverse => true,
+                 :title => translate_content(@page, :title),
+                 :description => translate_content(@page, :description),
+                 :keywords => @page.keywords %>
+
+<%=raw translate_content(@page, :body) %>
+
+<%= content_for :custom_css do %>
+	<style type="text/css">
+		<%=raw @page.custom_css %>
+	</style>
+<% end %>
+
+<% if current_user && can?(:manage, @page) %>
+<div class="admin_function">
+	<%= link_to "edit", edit_admin_page_path(@page) %>
+</div>
+<% end %>

@@ -1,0 +1,13 @@
+<h1>RSO Site Panels</h1>
+
+<div class="button_container">
+	<%= link_to 'New panel', new_admin_rso_panel_path, :class => "new button" %>
+</div>
+
+<ul>
+<% @rso_panels.each do |rso_panel| %>
+  <li><%= link_to rso_panel.name, [:admin, rso_panel] %></li>
+<% end %>
+</ul>
+
+

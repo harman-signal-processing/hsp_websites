@@ -1,0 +1,15 @@
+<% set_meta_tags :reverse => true,
+                 :description => "Downloads for: #{@current_products.collect{|s| s.name}.join(', ')}",
+                 :keywords => @current_products.collect{|s| s.name} %>
+
+<h1 class="page_title">
+<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/software_downloads_head.jpg")) %>
+	<%= image_tag("#{website.folder}/#{I18n.locale}/software_downloads_head.jpg", :alt => t('software_downloads')) %>
+<% else %>
+	<%= t('software_downloads') %>
+<% end %>
+</h1>
+
+<% if @current_products.size > 0 %>
+<%= render "table", :products => @current_products + @discontinued_products %>
+<% end %>

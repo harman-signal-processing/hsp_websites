@@ -1,0 +1,8 @@
+<ul>
+	<% product.news_and_reviews[0,3].each do |p| %>
+	<li><b><%=l p.post_on.to_date, :format => :long %></b><br/>
+		<% if p.is_a?(ProductReview) %><%= t('product_page.review') %>:<% end %>
+		<%= link_to translate_content(p, :title), p %>
+	</li>
+	<% end %>
+</ul>

@@ -1,0 +1,31 @@
+<h1><%= @rso_monthly_report.name %></h1>
+
+<div class="button_container">
+	<%= link_to 'Back', admin_rso_monthly_reports_path, :class => "back button" %>
+	<%= link_to 'Edit', edit_admin_rso_monthly_report_path(@rso_monthly_report), :class => "edit button" %>
+	<%= link_to 'Delete', [:admin, @rso_monthly_report], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %>
+</div>
+
+<div>
+	<%= link_to @rso_monthly_report.full_url, @rso_monthly_report.full_url %>
+</div>
+
+<p>
+  <b>Content:</b>
+  <div><%=raw @rso_monthly_report.content %></div>
+</p>
+
+<% unless @rso_monthly_report.rso_report_file_name.blank? %>
+<p>
+  <b>Attachment:</b>
+  <%= link_to @rso_monthly_report.rso_report_file_name, @rso_monthly_report.rso_report.url %>
+</p>
+<% end %>
+
+<p>
+  <b>Updated by:</b>
+  <%= @rso_monthly_report.user.name %>
+  <span class="hint"><%= l @rso_monthly_report.updated_at, :format => :short %></span>
+</p>
+
+

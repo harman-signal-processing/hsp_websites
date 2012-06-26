@@ -1,0 +1,23 @@
+<h1>Listing specifications</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @specifications.each do |specification| %>
+  <tr>
+    <td><%= specification.name %></td>
+    <td><%= link_to 'Show', [:admin, specification] %></td>
+    <td><%= link_to 'Edit', edit_admin_specification_path(specification, :locale => I18n.locale) %></td>
+    <td><%= link_to 'Delete', [:admin, specification], :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Specification', new_admin_specification_path %>

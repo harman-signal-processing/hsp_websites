@@ -1,0 +1,73 @@
+class Admin::PagesController < AdminController
+  load_and_authorize_resource
+  # GET /admin/pages
+  # GET /admin/pages.xml
+  def index
+    @pages = @pages.where(:brand_id => website.brand_id)
+    respond_to do |format|
+      format.html { render_template } # index.html.erb
+      format.xml  { render :xml => @pages }
+    end
+  end
+
+  # GET /admin/pages/1
+  # GET /admin/pages/1.xml
+  def show
+    respond_to do |format|
+      format.html { render_template } # show.html.erb
+      format.xml  { render :xml => @page }
+    end
+  end
+
+  # GET /admin/pages/new
+  # GET /admin/pages/new.xml
+  def new
+    respond_to do |format|
+      format.html { render_template } # new.html.erb
+      format.xml  { render :xml => @page }
+    end
+  end
+
+  # GET /admin/pages/1/edit
+  def edit
+  end
+
+  # POST /admin/pages
+  # POST /admin/pages.xml
+  def create
+    @page.brand = website.brand
+    respond_to do |format|
+      if @page.save
+        format.html { redirect_to([:admin, @page], :notice => 'Page was successfully created.') }
+        format.xml  { render :xml => @page, :status => :created, :location => @page }
+      else
+        format.html { render :action => "new" }
+        format.xml  { render :xml => @page.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT /admin/pages/1
+  # PUT /admin/pages/1.xml
+  def update
+    respond_to do |format|
+      if @page.update_attributes(params[:page])
+        format.html { redirect_to([:admin, @page], :notice => 'Page was successfully updated.') }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @page.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /admin/pages/1
+  # DELETE /admin/pages/1.xml
+  def destroy
+    @page.destroy
+    respond_to do |format|
+      format.html { redirect_to(admin_pages_url) }
+      format.xml  { head :ok }
+    end
+  end
+end

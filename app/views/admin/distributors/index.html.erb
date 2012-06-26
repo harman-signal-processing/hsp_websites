@@ -1,0 +1,30 @@
+<h1>International Distributors</h1>
+
+<% if !website.distributors_from_brand_id.blank? %>
+	Note: <%= website.brand_name %> is configured to use the distributors from 
+	<%= Brand.find(website.distributors_from_brand_id).name %>. Please manage
+	the distributors on its website instead of this one.
+<% else %>
+
+<% if can? :create, Distributor %>
+<div class="button_container">
+	<%= link_to 'New Distributor', new_admin_distributor_path, :class => "new button" %>
+</div>
+<% end %>
+
+<table class="data">
+  <tr>
+    <th>Name</th>
+    <th>Country</th>
+  </tr>
+
+<% @distributors.each do |distributor| %>
+  <tr style="background: <%= cycle 'white', 'none' %>">
+    <td><%= link_to distributor.name, [:admin, distributor] %></td>
+    <td><%= distributor.country %></td>
+  </tr>
+<% end %>
+</table>
+<% end %>
+
+

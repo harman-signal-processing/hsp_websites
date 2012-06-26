@@ -1,0 +1,370 @@
+GIT
+  remote: http://github.com/freelancing-god/thinking-sphinx.git
+  revision: 8100a4a8f90d17150fdb00b382972eb311cdca52
+  specs:
+    thinking-sphinx (2.0.12)
+      activerecord (>= 3.0.3)
+      builder (>= 2.1.2)
+      riddle (>= 1.5.2)
+
+GIT
+  remote: http://github.com/rails/exception_notification.git
+  revision: 192a49a02d63d28b23ed41cebadfedd490929cf1
+  specs:
+    exception_notification (1.0.0)
+
+GIT
+  remote: http://github.com/rawongithub/minitest-rails-shoulda.git
+  revision: 2bd90c19c5be00aa1718a00293b6899223daf79f
+  specs:
+    minitest-rails-shoulda (0.0.1)
+      minitest-matchers
+      minitest-rails
+      shoulda-matchers
+
+GIT
+  remote: http://github.com/rawongithub/minitest-rails.git
+  revision: b8997a7044b41d4c372b7a071927f376864b8104
+  branch: gemspec
+  specs:
+    minitest-rails (0.0.5)
+      actionpack (~> 3.1)
+      activesupport (~> 3.1)
+      minitest (~> 2.10)
+      railties (~> 3.1)
+
+GIT
+  remote: http://github.com/rodrigob/swf_fu.git
+  revision: a8bf272a92d22bc877df0c0742771aafc7fd154a
+  specs:
+    swf_fu (1.3.4)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    actionmailer (3.2.6)
+      actionpack (= 3.2.6)
+      mail (~> 2.4.4)
+    actionpack (3.2.6)
+      activemodel (= 3.2.6)
+      activesupport (= 3.2.6)
+      builder (~> 3.0.0)
+      erubis (~> 2.7.0)
+      journey (~> 1.0.1)
+      rack (~> 1.4.0)
+      rack-cache (~> 1.2)
+      rack-test (~> 0.6.1)
+      sprockets (~> 2.1.3)
+    activemodel (3.2.6)
+      activesupport (= 3.2.6)
+      builder (~> 3.0.0)
+    activerecord (3.2.6)
+      activemodel (= 3.2.6)
+      activesupport (= 3.2.6)
+      arel (~> 3.0.2)
+      tzinfo (~> 0.3.29)
+    activeresource (3.2.6)
+      activemodel (= 3.2.6)
+      activesupport (= 3.2.6)
+    activesupport (3.2.6)
+      i18n (~> 0.6)
+      multi_json (~> 1.0)
+    acts_as_list (0.1.6)
+    acts_as_tree (1.1.0)
+      activerecord (>= 3.0.0)
+    addressable (2.2.8)
+    ansi (1.4.2)
+    api_cache (0.2.3)
+    arel (3.0.2)
+    babosa (0.3.7)
+    bcrypt-ruby (3.0.1)
+    builder (3.0.0)
+    cancan (1.6.7)
+    capistrano (2.12.0)
+      highline
+      net-scp (>= 1.0.0)
+      net-sftp (>= 2.0.0)
+      net-ssh (>= 2.0.14)
+      net-ssh-gateway (>= 1.1.0)
+    capistrano-ext (1.2.1)
+      capistrano (>= 1.0.0)
+    capybara (1.1.2)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      selenium-webdriver (~> 2.0)
+      xpath (~> 0.1.4)
+    capybara-webkit (0.12.1)
+      capybara (>= 1.0.0, < 1.2)
+      json
+    capybara_minitest_spec (0.2.2)
+      capybara
+      minitest (>= 2.0)
+    childprocess (0.3.2)
+      ffi (~> 1.0.6)
+    chronic (0.6.7)
+    cocaine (0.2.1)
+    coffee-rails (3.2.2)
+      coffee-script (>= 2.2.0)
+      railties (~> 3.2.0)
+    coffee-script (2.2.0)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.3.3)
+    country_select (1.0.0)
+    daemons (1.1.8)
+    database_cleaner (0.8.0)
+    delayed_job (3.0.3)
+      activesupport (~> 3.0)
+    delayed_job_active_record (0.3.2)
+      activerecord (> 2.1.0)
+      delayed_job (~> 3.0.0)
+    devise (2.1.2)
+      bcrypt-ruby (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (~> 3.1)
+      warden (~> 1.2.1)
+    dynamic_form (1.1.4)
+    erubis (2.7.0)
+    eventmachine (0.12.10)
+    execjs (1.4.0)
+      multi_json (~> 1.0)
+    factory_girl (3.5.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (3.5.0)
+      factory_girl (~> 3.5.0)
+      railties (>= 3.0.0)
+    faraday (0.8.1)
+      multipart-post (~> 1.1)
+    ffi (1.0.11)
+    friendly_id (3.3.3.0)
+      babosa (~> 0.3.0)
+    geocoder_plus (0.4.0)
+      geokit (>= 1.5.0)
+      yajl-ruby (>= 0.8.2)
+    geokit (1.6.5)
+      multi_json
+    guard (1.2.1)
+      listen (>= 0.4.2)
+      thor (>= 0.14.6)
+    guard-minitest (0.5.0)
+      guard (>= 0.4)
+    highline (1.6.13)
+    hike (1.2.1)
+    httpauth (0.1)
+    i18n (0.6.0)
+    journey (1.0.4)
+    jquery-rails (2.0.2)
+      railties (>= 3.2.0, < 5.0)
+      thor (~> 0.14)
+    json (1.7.3)
+    kgio (2.7.4)
+    launchy (2.1.0)
+      addressable (~> 2.2.6)
+    libv8 (3.3.10.4)
+    libwebsocket (0.1.3)
+      addressable
+    listen (0.4.6)
+      rb-fchange (~> 0.0.5)
+      rb-fsevent (~> 0.9.1)
+      rb-inotify (~> 0.8.8)
+    mail (2.4.4)
+      i18n (>= 0.4.0)
+      mime-types (~> 1.16)
+      treetop (~> 1.4.8)
+    memcache-client (1.8.5)
+    meta-tags (1.2.6)
+      actionpack
+    metaclass (0.0.1)
+    mime-types (1.19)
+    minitest (2.12.1)
+    minitest-matchers (1.2.0)
+      minitest (>= 2.5.0)
+    mocha (0.11.4)
+      metaclass (~> 0.0.1)
+    moneta (0.6.0)
+    multi_json (1.3.6)
+    multipart-post (1.1.5)
+    mysql2 (0.3.11)
+    net-scp (1.0.4)
+      net-ssh (>= 1.99.1)
+    net-sftp (2.0.5)
+      net-ssh (>= 2.0.9)
+    net-ssh (2.5.2)
+    net-ssh-gateway (1.1.0)
+      net-ssh (>= 1.99.1)
+    nokogiri (1.5.5)
+    oauth (0.4.6)
+    oauth2 (0.7.1)
+      faraday (~> 0.8)
+      httpauth (~> 0.1)
+      multi_json (~> 1.0)
+      rack (~> 1.4)
+    orm_adapter (0.3.0)
+    paperclip (2.6.0)
+      activerecord (>= 2.3.0)
+      activesupport (>= 2.3.2)
+      cocaine (>= 0.0.2)
+      mime-types
+    polyglot (0.3.3)
+    rack (1.4.1)
+    rack-cache (1.2)
+      rack (>= 0.4)
+    rack-ssl (1.3.2)
+      rack
+    rack-test (0.6.1)
+      rack (>= 1.0)
+    rails (3.2.6)
+      actionmailer (= 3.2.6)
+      actionpack (= 3.2.6)
+      activerecord (= 3.2.6)
+      activeresource (= 3.2.6)
+      activesupport (= 3.2.6)
+      bundler (~> 1.0)
+      railties (= 3.2.6)
+    rails_autolink (1.0.9)
+      rails (~> 3.1)
+    railties (3.2.6)
+      actionpack (= 3.2.6)
+      activesupport (= 3.2.6)
+      rack-ssl (~> 1.3.2)
+      rake (>= 0.8.7)
+      rdoc (~> 3.4)
+      thor (>= 0.14.6, < 2.0)
+    raindrops (0.10.0)
+    rake (0.9.2.2)
+    rb-fchange (0.0.5)
+      ffi
+    rb-fsevent (0.9.1)
+    rb-inotify (0.8.8)
+      ffi (>= 0.5.0)
+    rdoc (3.12)
+      json (~> 1.4)
+    recaptcha (0.3.4)
+    riddle (1.5.2)
+    ruby-ole (1.2.11.3)
+    rubyzip (0.9.9)
+    sass (3.1.19)
+    sass-rails (3.2.5)
+      railties (~> 3.2.0)
+      sass (>= 3.1.10)
+      tilt (~> 1.3)
+    selenium-webdriver (2.24.0)
+      childprocess (>= 0.2.5)
+      libwebsocket (~> 0.1.3)
+      multi_json (~> 1.0)
+      rubyzip
+    shoulda-matchers (1.2.0)
+      activesupport (>= 3.0.0)
+    simple_oauth (0.1.8)
+    spreadsheet (0.7.2)
+      ruby-ole (>= 1.0)
+    sprockets (2.1.3)
+      hike (~> 1.2)
+      rack (~> 1.0)
+      tilt (~> 1.1, != 1.3.0)
+    sqlite3 (1.3.6)
+    therubyracer (0.10.1)
+      libv8 (~> 3.3.10)
+    thin (1.3.1)
+      daemons (>= 1.0.9)
+      eventmachine (>= 0.12.6)
+      rack (>= 1.0.0)
+    thor (0.15.3)
+    tilt (1.3.3)
+    tinymce-rails (3.5.2)
+      railties (>= 3.1.1)
+    to_xls (1.5.1)
+      spreadsheet
+    treetop (1.4.10)
+      polyglot
+      polyglot (>= 0.3.1)
+    turn (0.9.5)
+      ansi
+    twitter (2.5.0)
+      faraday (~> 0.8)
+      multi_json (~> 1.3)
+      simple_oauth (~> 0.1.6)
+    tzinfo (0.3.33)
+    uglifier (1.2.5)
+      execjs (>= 0.3.0)
+      multi_json (~> 1.3)
+    unicorn (4.3.1)
+      kgio (~> 2.6)
+      rack
+      raindrops (~> 0.7)
+    warden (1.2.1)
+      rack (>= 1.0)
+    whenever (0.7.3)
+      activesupport (>= 2.3.4)
+      chronic (~> 0.6.3)
+    will_paginate (3.0.3)
+    xpath (0.1.4)
+      nokogiri (~> 1.3)
+    yajl-ruby (1.1.0)
+    youtube_it (2.1.5)
+      builder
+      faraday (~> 0.8)
+      nokogiri (~> 1.5.2)
+      oauth (~> 0.4.4)
+      oauth2 (~> 0.6)
+      simple_oauth (~> 0.1.5)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  acts_as_list
+  acts_as_tree
+  api_cache
+  cancan
+  capistrano
+  capistrano-ext
+  capybara
+  capybara-webkit
+  capybara_minitest_spec
+  coffee-rails (~> 3.2.1)
+  country_select
+  daemons
+  database_cleaner
+  delayed_job_active_record
+  devise
+  dynamic_form
+  exception_notification!
+  execjs
+  factory_girl_rails
+  friendly_id (~> 3.0)
+  geocoder_plus
+  geokit
+  guard-minitest
+  jquery-rails
+  launchy
+  memcache-client
+  meta-tags
+  minitest
+  minitest-rails!
+  minitest-rails-shoulda!
+  mocha
+  moneta
+  mysql2
+  paperclip (~> 2.6.0)
+  rails (= 3.2.6)
+  rails_autolink
+  recaptcha
+  rubyzip
+  sass-rails (~> 3.2.3)
+  sqlite3
+  swf_fu!
+  therubyracer
+  thin
+  thinking-sphinx!
+  tinymce-rails
+  to_xls
+  turn
+  twitter (>= 1.1.1)
+  uglifier (>= 1.0.3)
+  unicorn
+  whenever
+  will_paginate
+  youtube_it

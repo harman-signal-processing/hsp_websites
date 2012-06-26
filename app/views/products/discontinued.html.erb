@@ -1,0 +1,31 @@
+<% set_meta_tags :title => "#{@product.name} (#{t('discontinued')})",
+				 :reverse => true,
+                 :description => translate_content(@product, :short_description),
+                 :keywords => translate_content(@product, :keywords) %>
+
+<div id="product_content">
+	<h1><%= title @product.name %> <span class="discontinued">(<%= t('discontinued') %>)</span></h1>
+	<% if @product.product_attachments.size > 0 %>
+	<ul id="discontinued_product_thumbnails">
+		<% @product.product_attachments.each do |product_attachment| %>
+		<% if product_attachment.is_photo? %>
+		<li><%= link_to image_tag(product_attachment.product_attachment.url(:thumb)), 
+					product_attachment.product_attachment.url %></li>
+		<% end %>
+		<% end %>
+	</ul>
+	<% end %>
+	<%=raw translate_content(@product, :description) %>
+	<%=raw translate_content(@product, :extended_description) %>
+</div>
+
+<div id="more_details">
+	
+	<div id="more_details_tabs">
+		<%= draw_info_boxes @product %>
+	</div>
+	
+	<div class="clear"></div>
+	
+</div>
+

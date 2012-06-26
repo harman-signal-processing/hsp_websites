@@ -1,0 +1,42 @@
+<h1>Download Registration</h1>
+
+<div class="button_container">
+	<%= link_to 'Back', admin_download_registrations_path, :class => "back button" %>
+	<%= link_to 'Edit', edit_admin_download_registration_path(@download_registration), :class => "edit button" %>
+</div>
+
+<p>
+  <b>Registered download:</b>
+  <%= link_to @download_registration.registered_download.name, [:admin, @download_registration.registered_download] %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @download_registration.email %>
+</p>
+
+<p>
+  <b>First name:</b>
+  <%= @download_registration.first_name %>
+</p>
+
+<p>
+  <b>Last name:</b>
+  <%= @download_registration.last_name %>
+</p>
+
+<p>
+  <b>Serial number:</b>
+  <%= @download_registration.serial_number %>
+</p>
+
+<p>
+  <b>Download count:</b>
+  <%= @download_registration.download_count %>
+</p>
+
+<p>
+  <b>Download code:</b>
+  <%= @download_registration.download_code %>
+</p>
+

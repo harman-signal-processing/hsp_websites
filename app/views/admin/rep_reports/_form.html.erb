@@ -1,0 +1,90 @@
+<%= form_for([:admin, @rep_report]) do |f| %>
+  <% if @rep_report.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@rep_report.errors.count, "error") %> prohibited this rep report from being saved:</h2>
+
+      <ul>
+      <% @rep_report.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :clinic_id %>
+
+<table width="100%" border="0">
+	<tr>
+		<td width="50%" valign="top">
+  <div class="field">
+    <%= f.label :overall_impression %><br/>
+	<span class="little">1 (poor)</span>
+    <%= f.radio_button :overall_impression, "1" %>
+    <%= f.radio_button :overall_impression, "2" %>
+    <%= f.radio_button :overall_impression, "3" %>
+    <%= f.radio_button :overall_impression, "4" %>
+    <%= f.radio_button :overall_impression, "5" %>
+    <%= f.radio_button :overall_impression, "6" %>
+    <%= f.radio_button :overall_impression, "7" %>
+    <%= f.radio_button :overall_impression, "8" %>
+    <%= f.radio_button :overall_impression, "9" %>
+	<span class="little">9 (outstanding)</span>
+  </div>
+  <div class="field">
+    <%= f.label :clinician_preparation %><br/>
+	<span class="little">1 (poor)</span>
+    <%= f.radio_button :clinician_preparation, "1" %>
+	<%= f.radio_button :clinician_preparation, "2" %>
+	<%= f.radio_button :clinician_preparation, "3" %>
+	<%= f.radio_button :clinician_preparation, "4" %>
+	<%= f.radio_button :clinician_preparation, "5" %>
+	<%= f.radio_button :clinician_preparation, "6" %>
+	<%= f.radio_button :clinician_preparation, "7" %>
+	<%= f.radio_button :clinician_preparation, "8" %>
+	<%= f.radio_button :clinician_preparation, "9" %>
+	<span class="little">9 (outstanding)</span>
+  </div>
+  <div class="field">
+    <%= f.label :clinician_preparation_comments %><br />
+    <%= f.text_area :clinician_preparation_comments, :size => "50x4" %>
+  </div>
+  <div class="field">
+    <%= f.label :clinician_on_time, "Was the clinician on time?" %><br/>
+    <%= f.radio_button :clinician_on_time, true %> <%= f.label "clinician_on_time_true", "Yes" %><br/>
+    <%= f.radio_button :clinician_on_time, false %> <%= f.label "clinician_on_time_false", "No" %>
+  </div>
+  <div class="field">
+    <%= f.label :attendance, "How was attendance?" %><br/>
+    <%= f.radio_button :attendance, "Excellent" %> <%= f.label "attendance_excellent", "Excellent" %><br/>
+	<%= f.radio_button :attendance, "Good" %> <%= f.label "attendance_good", "Good" %><br/>
+	<%= f.radio_button :attendance, "Mediocre" %> <%= f.label "attendance_mediocre", "Mediocre" %><br/>
+	<%= f.radio_button :attendance, "Poor" %> <%= f.label "attendance_poor", "Poor" %>
+  </div>
+  <div class="field">
+    <%= f.label :rebook_clinician, "Would you want to rebook the clinician?" %><br/>
+    <%= f.radio_button :rebook_clinician, true %> <%= f.label "rebook_clinician_true", "Yes" %> <br/>
+	<%= f.radio_button :rebook_clinician, false %> <%= f.label "rebook_clinician_false", "No" %>
+  </div>
+	</td>
+	<td width="50%" valign="top">
+  <div class="field">
+    <%= f.label :best_part, "What was the best part?" %><br />
+    <%= f.text_area :best_part, :size => "50x4" %>
+  </div>
+  <div class="field">
+    <%= f.label :worst_part, "What was the worst part?" %><br />
+    <%= f.text_area :worst_part, :size => "50x4" %>
+  </div>
+	<p>Top four questions generated from session:</p>
+	<%= f.fields_for :rep_questions do |rep_question| %>
+		<div class="field">
+			<%= rep_question.text_field :question %>
+		</div>
+	<% end %>
+	</td>
+	</tr>
+</table>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

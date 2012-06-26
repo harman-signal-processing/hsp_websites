@@ -1,0 +1,32 @@
+<li id="setting_<%= slide.id %>">
+	<span class="handle"><%= image_tag("drag_handle.gif") %></span>
+	<%= image_tag(slide.slide.url(:tiny)) %>
+	<%= link_to_function(slide.name, "$('#slide_#{slide.id}_form').toggle();") %> 
+	<%= link_to(image_tag("trash.gif"), 
+			admin_setting_path(slide), 
+			:confirm => "Are you sure?", 
+			:remote => true,
+			:method => :delete) %>
+	<span class="small"><br/>links to: <%= slide.string_value %></span>
+	<div id="slide_<%= slide.id %>_form" style="margin: 10px; display:none;">
+		<%= form_for([:admin, slide], :html => {:multipart => true}) do |f| %>
+			<%= f.error_messages %>
+			<%= hidden_field_tag "called_from", "homepage" %>
+			<p>
+			  <%= f.label :name %> (for your reference only)<br />
+			  <%= f.text_field :name %>
+			</p>
+			<p>
+			  <%= f.label :slide %><br />
+			  <%= f.file_field :slide %>
+			</p>
+			<p>
+			  <%= f.label :string_value, "URL to link slide to" %><br />
+			  <%= f.text_field :string_value %><br/>
+			  <i>URLs beginning with a partial path (ie, "products/rp1000") will be relative to the visitor's selected language.</i>
+			</p>
+			<%= f.submit "update slide" %>
+			<%= link_to_function "cancel", "$('#slide_#{slide.id}_form').hide()" %>
+		<% end %>
+	</div>
+</li>

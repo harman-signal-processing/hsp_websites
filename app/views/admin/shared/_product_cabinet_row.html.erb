@@ -1,0 +1,11 @@
+<% called_from ||= "product" %>
+<li id="product_cabinet_<%= pc.id %>">
+	<%= (called_from == "product") ?
+		link_to(pc.cabinet.name, edit_admin_cabinet_path(pc.cabinet)) :
+		link_to(pc.product.name, [:admin, pc.product]) %>
+	<%= link_to(image_tag('trash.gif'),
+		  admin_product_cabinet_path(pc),
+		  :remote => true,
+		  :confirm => "Are you sure you want to delete this cabinet?",
+		  :method => :delete) %>
+</li>

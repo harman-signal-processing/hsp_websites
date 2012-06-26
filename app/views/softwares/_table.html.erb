@@ -1,0 +1,54 @@
+<table class="info" style="margin-left: auto; margin-right: auto;">
+  <tr>
+	<th>&nbsp;</th>
+    <th><%= image_tag "windows_17.png", :style => "vertical-align: middle" %> <%= ucfirst(t('windows_gui')) %></th>
+<% if website.has_mac_software? %>
+	<th><%= image_tag "mac_17.png", :style => "vertical-align: middle" %><%= ucfirst(t('mac_gui')) %></th>
+<% end %>
+<% if website.has_plugins? %>
+	<th><%= ucfirst(t('plugin')) %></th>
+<% end %>
+    <th><%= ucfirst(t('updater')) %></th>
+    <th><%= ucfirst(t('other')) %></th>
+  </tr>
+
+<% reshow_header = false %>
+<% products.each do |product| %>
+  <% if product.active_softwares.size > 0 %>
+  <% if product.discontinued? && reshow_header == true %>
+  <tr>
+	<th>&nbsp;</th>
+    <th><%= image_tag "windows_17.png", :style => "vertical-align: middle" %> <%= ucfirst(t('windows_gui')) %></th>
+<% if website.has_mac_software? %>
+	<th><%= image_tag "mac_17.png", :style => "vertical-align: middle" %><%= ucfirst(t('mac_gui')) %></th>
+<% end %>
+<% if website.has_plugins? %>
+	<th><%= ucfirst(t('plugin')) %></th>
+<% end %>
+    <th><%= ucfirst(t('updater')) %></th>
+    <th><%= ucfirst(t('other')) %></th>
+  </tr>
+  <% end %>
+  <tr>
+	<th>
+		<% if product.photo && !product.discontinued? %>
+			<% reshow_header = true %>
+			<%= image_tag product.photo.product_attachment.url(:tiny) %><br/>
+		<% else %>
+			<% reshow_header = false %>
+		<% end %>
+		<%= product.name %>
+	</th>
+    <td><%= software_category_links(product, 'windows_gui') %></td>
+<% if website.has_mac_software? %>
+    <td><%= software_category_links(product, 'mac_gui') %></td>
+<% end %>
+<% if website.has_plugins? %>
+	<td><%= software_category_links(product, 'plugin') %></td>
+<% end %>
+    <td><%= software_category_links(product, 'updater') %></td>
+	<td><%= software_category_links(product, 'other') %></td>
+  </tr>
+  <% end %>
+<% end %>
+</table>

@@ -1,0 +1,10 @@
+<% set_meta_tags :title => t('titles.archived_news'),
+				 :reverse => true %>
+
+<h1><%= title t('titles.archived_news') %></h1>
+
+<div class="wide_centered_box">
+	<%= render "list", :news_list => @news %>
+</div>
+
+<p><%= link_to t('current_news'), news_index_path %></p>

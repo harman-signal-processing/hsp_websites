@@ -1,0 +1,19 @@
+<div class="artist_listing artist_callout_container <%= artist.artist_tier.name.downcase %>tier">
+	<a name="artist_<%= artist.id %>"></a>
+	<div class="description">
+		<% unless artist.artist_photo_file_name.blank? %>
+			<div class="artist_photo">
+				<%= (artist.featured? || artist.artist_tier.show_on_artist_page?) ? 
+					link_to(image_tag(artist.artist_photo.url(:thumb_square)), artist) :
+					image_tag(artist.artist_photo.url(:thumb_square))  %>
+			</div>
+		<% end %>
+		<h2><%= (artist.featured? || artist.artist_tier.show_on_artist_page?) ? link_to(artist.name, artist) : artist.name %></h2>
+		<%= truncate(strip_html(artist.bio), :length => 150) %>
+		<% if artist.featured? || artist.artist_tier.show_on_artist_page? %>
+			<%= link_to t('more'), artist %>
+		<% elsif !artist.website.blank? %>
+			<%= link_to t('more'), artist.website, :target => "_blank" %>
+		<% end %>
+	</div>
+</div>

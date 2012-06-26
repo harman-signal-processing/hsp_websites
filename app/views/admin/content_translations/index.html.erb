@@ -1,0 +1,25 @@
+<h1>Translations for "<%= @target_locale %>"</h1>
+<p>Use these links to create translated content for the items below. Be sure to
+	also provided a translated version of the language file and put it here:
+	config/locales/<%= @target_locale %>.yml. You may also need to provide translated
+	header graphics: public/images/<%= website.folder %>/<%= @target_locale %>/...</p>
+	
+<table cellspacing="4" cellpadding="4">
+	<tr>
+		<th>Type</th>
+		<th>Fields to be translated</th>
+	</tr>
+	<tr>
+		<td>Settings</td>
+		<td>(Not supported here. Go to the <%= link_to "regular Settings page", admin_settings_path(@model) %> and create a copy of each setting with "<%= @target_locale %>" in the locale box.)</td>
+	</tr>
+	<% ContentTranslation.translatables(website.brand).each do |key,value| %>
+	<tr>
+		<td><%= link_to key.to_s.humanize.pluralize, list_admin_content_translations_path(:locale => I18n.locale, :target_locale => @target_locale, :type => key) %></td>
+		<td><%= value.join(", ") %></td>
+	</tr>
+	<% end %>
+</table>
+
+<p>Once the translation is complete add "<%= @target_locale %>" to this site's list of completed locales 
+	(ask an admin to do it).</p>
