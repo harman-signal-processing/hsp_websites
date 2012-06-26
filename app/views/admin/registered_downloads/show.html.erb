@@ -1,0 +1,126 @@
+<h1><%= @registered_download.name %></h1>
+
+<div class="button_container">
+	<%= link_to 'Back', admin_registered_downloads_path, :class => "back button" %>
+	<% if can? :manage, @registered_download %>
+	<%= link_to 'Edit', edit_admin_registered_download_path(@registered_download), :class => "edit button" %> 
+	<%= link_to 'Delete', [:admin, @registered_download], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %> 
+	<% end %>
+</div>
+
+<p>
+  <b>URL:</b>
+  <%= link_to "http://#{website.default_website.url}/#{@registered_download.url}", "http://#{website.default_website.url}/#{@registered_download.url}" %>
+</p>
+
+<p>
+	<b>Required fields:</b>
+	<%= @registered_download.required_fields.join(", ") %>
+</p>
+
+<% unless @registered_download.valid_code.blank? %>
+<p>
+  <b>Valid code:</b>
+  <%= @registered_download.valid_code %>
+</p>
+<% end %>
+
+<% unless @registered_download.products.blank? %>
+<p>
+	<p>Valid products:</p>
+	<%= @registered_download.products %>
+</p>
+<% end %>
+
+
+<% if @registered_download.send_coupon_code? %>
+<p>
+	<b>Coupon Codes:</b> (<%= @registered_download.available_coupon_codes.size %>)
+	<span class="small"><%= truncate(@registered_download.available_coupon_codes.join(", "), :length => 100) %></span>
+</p>
+<% else %>
+<p>
+  <b>Download count:</b>
+  <%= @registered_download.download_count || "0" %>
+</p>
+
+<p>
+  <b>Per person download limit:</b>
+  <%= @registered_download.per_download_limit %>
+</p>
+<% if @registered_download.protected_software_file_name.blank? %>
+<p>
+	<b>Software:</b>
+	Not uploaded yet
+</p>
+<% else %>
+<p>
+  <b>Protected software:</b>
+  <%= @registered_download.protected_software_file_name %>
+  <%= number_to_human_size(@registered_download.protected_software_file_size) %>
+</p>
+
+<p>
+  <b>Protected software updated at:</b>
+  <%=l @registered_download.protected_software_updated_at, :format => :long %>
+</p>
+
+<p>
+	<%= link_to "Re-send notices to those who have not downloaded the file", send_messages_admin_registered_download_path(@registered_download), :remote => true %>
+</p>
+<% end %>
+<% end %>
+<!-- <p>
+  <b>HTML layout:</b>
+  <%= @registered_download.html_layout_filename %>
+</p> -->
+
+<h2 style="margin-top: 40px;">Registrants (<%= @registered_download.download_registrations.size %>)</h2>
+<% if @registered_download.download_registrations.size > 0 %>
+	<p>
+		<%= link_to image_tag("spreadsheet.png"), admin_registered_download_path(@registered_download, :format => "xls") %>
+		<%= link_to "export to excel", admin_registered_download_path(@registered_download, :format => "xls") %>
+	</p>
+<% end %>
+
+
+	<table class="data" width="100%">
+	  <tr>
+	    <th>Name</th>
+	    <th>Email</th>
+		<th>Subscribe?</th>
+		<% unless @registered_download.products.blank? %>
+		<th>Product</th>
+		<% end %>
+		<% if @registered_download.require_serial_number? %>
+	    <th>Serial number</th>
+		<% end %>
+		<% if @registered_download.send_coupon_code? %>
+		<th>Coupon Code</th>
+		<% else %>
+	    <th>Download count</th>
+		<% end %>
+	  </tr>
+
+	<% @registered_download.download_registrations.each do |download_registration| %>
+	  <tr style="background: <%= cycle 'white', 'none' %>">
+	    <td><%= link_to "#{download_registration.first_name} #{download_registration.last_name}", edit_admin_download_registration_path(download_registration) %></td>
+	    <td><%= mail_to download_registration.email, download_registration.email %></td>
+		<td align="center"><%= (download_registration.subscribe?) ? "Yes" : "No" %></td>
+		<% unless @registered_download.products.blank? %>
+		<td><%= download_registration.product %></td>
+		<% end %>
+		<% if @registered_download.require_serial_number? %>
+	    <td><%= download_registration.serial_number %></td>
+		<% end %>
+		<% if @registered_download.send_coupon_code? %>
+		<td align="center"><%= download_registration.download_code %></td>
+		<% else %>
+	    <td align="center"><%= download_registration.download_count || "0" %></td>
+		<% end %>
+		<% unless @registered_download.protected_software_file_name.blank? %>
+		<td><%= link_to "reset and re-send code", reset_and_resend_admin_download_registration_path(download_registration), :remote => true %></td>
+		<% end %>
+	  </tr>
+	<% end %>
+	</table>	

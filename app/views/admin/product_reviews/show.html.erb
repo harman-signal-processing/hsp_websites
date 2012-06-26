@@ -1,0 +1,52 @@
+<h1>
+	<%=h @product_review.title %><br/>
+	<span class="little"><%= link_to(product_review_url(@product_review, :locale => I18n.locale), product_review_url(@product_review, :locale => I18n.locale)) %>
+	<%= link_to(image_tag("external_link_icon.png"), product_review_url(@product_review, :locale => I18n.locale)) %></span>
+</h1>
+
+<div class="button_container">
+	<%= link_to 'Back', admin_product_reviews_path, :class => "back button" %>
+	<%= link_to 'Edit', edit_admin_product_review_path(@product_review, :locale => I18n.locale), :class => "edit button" %> 
+	<%= link_to 'Delete', [:admin, @product_review], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %> 
+</div>
+
+<%= @product_review.body %>
+
+<p>
+  <b>External link:</b>
+  <%=h @product_review.external_link %>
+	<% if !!(@product_review.link_status.match(/^3/)) %>
+	<span style="background: #EDCA00; padding: 2px 5px; color: white;">redirected</span>
+	<% elsif !!(@product_review.link_status.match(/^4/)) %>
+	<span style="background: #F00; padding: 2px 5px; color: white">not found</span>
+	<% elsif !!(@product_review.link_status.match(/^5/)) %>
+	<span style="background: #F00; padding: 2px 5px; color: white">site error</span>
+	<% elsif !(@product_review.link_status.match(/^2/)) %>
+	<span style="background: #F00; padding: 2px 5px; color: white">unknown error</span>
+	<% end %>
+</p>
+
+<% if !@product_review.review_file_name.blank? %>
+<p>
+  <b>PDF Attachment:</b>
+  <%= link_to @product_review.review_file_name, @product_review.review.url %>
+</p>
+<% end %>
+
+
+
+<div class="group">
+<h3>This review is associated with the following product(s):</h3>
+<%= form_for [:admin, @product_review_product], :remote => true do |f| %>
+	<%= hidden_field_tag "called_from", "product_review" %>
+    <%= f.hidden_field :product_review_id %>
+	<%= f.select :product_id, Product.all_for_website(website).collect{|p| [p.name, p.id]} %> 
+	<%= submit_tag 'add' %>
+<% end %>
+
+<ul id="product_review_products">
+	<% @product_review.product_review_products.each do |prp| %>
+		<%= render '/admin/shared/product_review_product_row', :prp => prp, :called_from => 'product_review' %>
+	<% end %>
+</ul>
+</div>

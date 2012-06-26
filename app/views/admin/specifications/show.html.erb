@@ -1,0 +1,8 @@
+<p>
+  <b>Name:</b>
+  <%= @specification.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_admin_specification_path(@specification, :locale => I18n.locale) %> |
+<%= link_to 'Back', admin_specifications_path %>

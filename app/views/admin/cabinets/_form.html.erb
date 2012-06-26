@@ -1,0 +1,21 @@
+<%= form_for([:admin, @cabinet], :html => {:multipart => true}) do |f| %>
+  <% if @cabinet.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@cabinet.errors.count, "error") %> prohibited this cabinet from being saved:</h2>
+
+      <ul>
+      <% @cabinet.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

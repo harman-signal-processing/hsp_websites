@@ -1,0 +1,63 @@
+<% set_meta_tags :title => "Admin: #{@online_retailer.name}",
+				 :reverse => true %>
+<h1><%= title @online_retailer.name %></h1>
+
+<div class="button_container">
+	<%= link_to 'Back', admin_online_retailers_path, :class => "back button" %>	
+	<% if can? :update, @online_retailer %>
+	<%= link_to 'Edit', edit_admin_online_retailer_path(@online_retailer, :locale => I18n.locale), :class => "edit button" %> 
+	<% end %>
+	<% if can? :destroy, @online_retailer %>
+	<%= link_to 'Delete', [:admin, @online_retailer], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %> 
+	<% end %>
+</div>
+
+<% if !@online_retailer.retailer_logo_file_name.blank? %>
+	<%= image_tag(@online_retailer.retailer_logo(:medium))%>
+<% else %>
+	<i>(no logo)</i>
+<% end %>
+
+<p>
+	<b>Overall link for this site's products:</b>
+	<% if @online_retailer.brand_link %>
+		<%= link_to @online_retailer.brand_link, @online_retailer.brand_link, :target => "_blank" %>
+	<% end %>
+</p>
+
+<p>
+  <b>Active?:</b>
+  <%=h @online_retailer.active %>
+</p>
+
+<% if can? :update, @online_retailer %>
+<div class="group">
+<h3>Offering the following products:</h3>
+<%= form_for [:admin, @online_retailer_link], :remote => true do |f| %>
+	<table border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td class="little"><%= f.label :product_id %></td>
+			<td class="little"><%= f.label :url, "Link" %></td>
+		</tr>
+		<tr>
+			<td>
+				<%= f.select :product_id, @products.collect{|product| [product.name, product.id]} %>
+				&nbsp;
+			</td>
+			<td>
+				<%= hidden_field_tag "called_from", "online_retailer" %>
+				<%= f.hidden_field :online_retailer_id %>
+				<%= f.text_field :url, :size => 50 %>
+				<%= submit_tag 'add product/retailer link' %>
+			</td>
+		</tr>
+	</table>
+<% end %>
+
+<ul id="online_retailer_links">
+	<% @online_retailer.online_retailer_links.each do |orl| %>
+		<%= render '/admin/shared/online_retailer_link_row', :orl => orl, :called_from => 'online_retailer' %>
+	<% end %>
+</ul>
+</div>
+<% end %>

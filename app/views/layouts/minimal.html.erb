@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+		<%= csrf_meta_tag %>
+		<%= display_meta_tags :site => Setting.site_name(website) %>		
+		<%= stylesheet_link_tag 'application', website.folder, :cache => false %>
+		<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+	</head>
+	<body>
+		
+		<div style="text-align: center; margin: 50px;">
+	  
+		  <div id="content_container" class="internal_page" style="padding: 10px 20px; width: 600px; text-align: left">
+
+			<%= yield %>
+			
+		  </div>
+		</div>
+	</body>
+</html>

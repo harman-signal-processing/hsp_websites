@@ -1,0 +1,19 @@
+<h1>Listing FAQs</h1>
+
+<% if can? :create, Faq %>
+<div class="button_container">
+	<%= link_to 'New FAQ', new_admin_faq_path, :class => "new button" %>
+</div>
+<% end %>
+
+<ul>
+<% @faqs.each do |faq| %>
+	<% if faq.product %>
+  		<li><%= link_to "#{faq.product.name}: #{faq.question}", [:admin, faq] %></li>
+    <% else %>
+		<li><%= link_to faq.question, [:admin, faq] %></li>
+	<% end %>
+<% end %>
+</ul>
+
+

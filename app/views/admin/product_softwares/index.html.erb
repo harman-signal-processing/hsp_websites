@@ -1,0 +1,22 @@
+<h1>Listing product_softwares</h1>
+
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Software</th>
+  </tr>
+
+<% @product_softwares.each do |product_software| %>
+  <tr>
+    <td><%=h product_software.product_id %></td>
+    <td><%=h product_software.software_id %></td>
+    <td><%= link_to 'Show', [:admin, product_software] %></td>
+    <td><%= link_to 'Edit', edit_admin_product_software_path(product_software) %></td>
+    <td><%= link_to 'Delete', [:admin, product_software], :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New product_software', new_admin_product_software_path %>

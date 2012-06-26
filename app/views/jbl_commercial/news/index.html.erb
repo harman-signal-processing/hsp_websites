@@ -1,0 +1,15 @@
+<% set_meta_tags :title => t('titles.news', :brand => website.brand_name),
+				 :reverse => true %>
+				
+<h1><%= t('titles.news', :brand => website.brand_name) %></h1>
+
+<div class="wide_centered_box">
+	<%= render "list", :news_list => @news %>
+</div>
+
+<div style="float: right">
+	<%= link_to(image_tag('rss.png', :alt => "rss", :style=>"vertical-align: middle"), rss_url(:format => "xml")) %>
+	<%= link_to("Subscribe via RSS", rss_url(:format => "xml")) %>
+</div>
+
+<!-- <p><%= link_to t('older'), archived_news_index_path %></p> -->

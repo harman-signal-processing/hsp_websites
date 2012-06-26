@@ -1,0 +1,46 @@
+<%= f.error_messages %>
+
+<p>
+  <%= f.label :title %><br />
+  <%= f.text_field :title %>
+</p>
+<p>
+  <%= f.label :custom_route, "Custom URL" %> (optional)<br/> 
+  <%= request.protocol %><%= request.host %>/
+  <%= f.text_field :custom_route, size: 20, disabled: disable_field_for?(f.object, :custom_route) %>
+<% if disable_field_for?(f.object, :custom_route) %>
+	<span class="small">This url is used in site settings and cannot be changed.</span>
+<% end %>
+</p>
+<p>
+  <%= f.label :keywords %><br />
+  <%= f.text_field :keywords %>
+</p>
+<p>
+  <%= f.label :description %><br />
+  <%= f.text_area :description, size: "40x3" %>
+</p>
+<p>
+	<%= f.label :username %> 
+	<span class="small">optional--only provide a username/password if you want to protect this page.</span><br/>
+	<%= f.text_field :username %>
+</p>
+<p>
+	<%= f.label :password %><br/>
+	<%= f.text_field :password %>
+</p>
+<% if website.page_layouts %>
+<p>
+	<%= f.label :layout_class, "Page layout style" %> <span class="hint">(not all brands have multiple layouts)</span><br/>
+	<%= f.select :layout_class, [[]] + website.page_layouts.split("|") %>
+</p>
+<% end %>
+<p>
+  <%= f.label :body %><br />
+  <%= f.text_area :body, class: "mceEditor" %>
+</p>
+<p>
+	<%= f.label :custom_css %><br/>
+	<%= f.text_area :custom_css, size: "40x6" %>
+</p>
+

@@ -1,0 +1,24 @@
+<h1>Site Resources</h1>
+
+<% if can? :create, SiteElement %>
+<div class="button_container">
+	<%= link_to 'New Resource', new_admin_site_element_path, :class => "new button" %>
+</div>
+<% end %>
+
+<table class="data">
+  <tr>
+    <th>Name</th>
+    <th>Resource file name</th>
+    <th>Resource type</th>
+  </tr>
+
+<% @site_elements.each do |site_element| %>
+  <tr>
+    <td><%= link_to site_element.name, [:admin, site_element] %></td>
+    <td><%= site_element.resource_file_name %></td>
+    <td><%= site_element.resource_type %></td>
+  </tr>
+<% end %>
+</table>
+

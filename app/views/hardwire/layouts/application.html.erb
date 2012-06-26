@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+		<%= csrf_meta_tag %>
+		<%= display_meta_tags :site => Setting.site_name(website) %>
+		<link rel="image_src" href="<%= image_url("#{website.folder}/logo.png") %>" />		
+		<%= javascript_include_tag 'application' %>
+		<%= stylesheet_link_tag 'application', website.folder, :cache => false %>
+		<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<meta name="google-site-verification" content="1wM3aoywZkSvvyBvFn5iLMUTl50-sv--4df6O-gS9fI" />
+		<link type="text/css" href="/css/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+		<link href="<%= rss_url(:format => 'xml') %>" rel="alternate" title="RSS" type="application/rss+xml"/>
+		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+		<%= yield :custom_css %>
+		<script>
+	  		<%= yield :extra_js %>
+	  	</script>
+	    <%= render_partial "shared/analytics" %>
+	</head>
+	<body>
+		<div id="fb-root"></div>
+		<script>(function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id;
+		  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+		  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));</script>
+		<%= render_partial "shared/admin_dashboard_link" %>		
+		<%= render_partial "shared/header" %>
+		
+		<div id="page_container">
+		<% if content_for?(:feature) %>
+			<div id="feature_bg"></div>
+			<div id="feature_container">
+				<%= yield :feature %>
+			</div>
+		<% end %>
+
+		<div id="content_container" <% unless controller_name == "main" && action_name == "index" -%>class="internal_page"<% end -%>>
+			<div id="content_container_content" style="position: relative;<% if controller_name == "main" && action_name == "index" -%>padding: 0;<% end -%>">
+				<% if notice %><p style="color: green;"><%= notice %></p><% end %>
+				<% if alert %><p style="color: red;"><%= alert %></p><% end %>
+				<%= yield %>
+			</div>
+		</div>
+		
+		<% if content_for?(:middle_stuff) %>
+		<div id="middle_container">
+			<%= yield :middle_stuff %>
+		</div>
+		<% end %>
+		
+		<% if content_for?(:big_bottom_box) %>
+			<div id="big_bottom_box_container">
+				<div id="big_bottom_box_content">
+				<%= yield :big_bottom_box %>
+				</div>
+				<div class="clear"></div>
+			</div>
+		<% else %>
+			<div style="height: 30px;">&nbsp;</div>
+		<% end %>
+			<%= render_partial "shared/hpro_bar" %>
+		</div>
+		
+		<%= render_partial "shared/footer" %>
+		<% if content_for?(:popup_code) %>
+			<%= yield :popup_code %>
+		<% end %>
+	</body>
+</html>

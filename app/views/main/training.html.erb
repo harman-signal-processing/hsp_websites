@@ -1,0 +1,17 @@
+<% set_meta_tags :title => @page_title,
+				 :reverse => true %>
+
+<h1 class="page_title">
+<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/training_head.jpg")) %>
+	<%= image_tag("#{website.folder}/#{I18n.locale}/training_head.jpg", :alt => @page_title) %>
+<% else %>
+	<%= @page_title %>
+<% end %>
+</h1>
+
+<h2>Training Modules by Product</h2>
+
+<h2>Live In-person Training</h2>
+
+<h2>Live Online Training</h2>
+

@@ -1,0 +1,61 @@
+<%= f.error_messages %>
+
+<p>
+  <%= f.label :name %><br />
+  <%= f.text_field :name %>
+</p>
+<p>
+  <%= f.label :ware, "Software" %><br />
+  <%= f.file_field :ware %>
+</p>
+<p>
+	<%= f.label :link, "OR provide a link" %><br/>
+	<%= f.text_field :link %>
+</p>
+<p>
+  <%= f.label :platform %> (ie; Windows, Mac OS X 10.3.5, Fedora 14 rpm, Source)<br/>
+  <%= f.text_field :platform %>
+</p>
+<p>
+  <%= f.label :version %><br />
+  <%= f.text_field :version %>
+</p>
+<p>
+	<%= f.label :category %><br/>
+	<%= f.radio_button :category, "windows_gui" %> Windows GUI/Librarian<br/>
+	<%= f.radio_button :category, "mac_gui" %> Mac GUI/Librarian<br/>
+	<%= f.radio_button :category, "updater" %> Updater<br/>
+	<%= f.radio_button :category, "plugin" %> Plugin<br/>
+	<%= f.radio_button :category, "other" %> Other
+</p>
+<p>
+  <%= f.label :description %><br />
+  <%= f.text_area :description, :size => "50x5", :class => "mceEditor" %>
+</p>
+<p>
+  <%= f.check_box :active %>
+  <%= f.label :active %>
+</p>
+<% if website.page_layouts %>
+<p>
+	<%= f.label :layout_class, "Page layout style" %> <span class="hint">(not all brands have multiple layouts)</span><br/>
+	<%= f.select :layout_class, [[]] + website.page_layouts.split("|") %>
+</p>
+<% end %>
+
+<h3>Software Activation</h3>
+<p>
+	<%= f.label :activation_name %> (passed in the URL during activation)<br/>
+	<%= f.text_field :activation_name %>
+</p>
+
+<div>
+	<%= f.label :multipliers, "Hex numbers to use to multiply each challenge segment during activation" %><br/>
+	<%= f.text_area :multipliers, :size => "50x4" %><br/>
+Example: expects a 3-segment challenge where each is multiplied by the corresponding odd or even key:
+<pre>[
+  {:even => 0xf31a29b0, :odd => 0xf33a29b3},
+  {:even => 0x01fa39b1, :odd => 0x7319b9b7},
+  {:even => 0xcc232774, :odd => 0xd6661891}
+]</pre>
+</div>

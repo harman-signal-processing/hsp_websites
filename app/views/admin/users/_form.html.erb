@@ -1,0 +1,54 @@
+<%= form_for [:admin, @user] do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+	<%= f.label :name %><br/>
+	<%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+  	<%= f.check_box :admin %> <%= f.label :admin %><br/>
+	<%= f.check_box :market_manager %> <%= f.label :market_manager %><br/>
+	<%= f.check_box :artist_relations %> <%= f.label :artist_relations %><br/>
+	<%= f.check_box :customer_service %> <%= f.label :customer_service %><br/>
+	<%= f.check_box :online_retailer %> <%= f.label :online_retailer %><br/>
+	<%= f.check_box :engineer %> <%= f.label :engineer %> (can manage Software)<br/>
+	<%= f.check_box :translator %> <%= f.label :translator %><br/>
+	<%= f.check_box :rohs %> <%= f.label :rohs %><br/>
+	<%= f.check_box :clinician %> <%= f.label :clinician %><br/>
+	<%= f.check_box :rep %> <%= f.label :rep %><br/>
+	<%= f.check_box :clinic_admin %> <%= f.label :clinic_admin %> (can manage clinic schedule)<br/>
+	<% if @user.new_record? %>
+	<i>(RSO role can only be assigned AFTER creation due to the invitation code requirement)</i><br/>
+	<% else %>
+	<%= f.check_box :rso %> <%= f.label :rso %><br/>
+	<% end %>
+	<%= f.check_box :rso_admin %> <%= f.label :rso_admin %> (can post individual RSO reports)
+  </div>
+  <% if @user.new_record? %>
+	<div class="field">
+		<%= f.label :password %><br/>
+		<%= f.password_field :password %>
+	</div>
+	<div class="field">
+		<%= f.label :password_confirmation %><br/>
+		<%= f.password_field :password_confirmation %>
+	</div>
+  <% end %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

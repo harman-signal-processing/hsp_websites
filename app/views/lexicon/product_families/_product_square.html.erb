@@ -1,0 +1,19 @@
+<%= link_to product do %>
+<div id="<%= product.to_param %>" class="small_product_box<%= product.layout_class.to_s %>">
+	<div class="product_description">
+		<h3><%= translate_content(product, :name) %></h3>
+		<%= translate_content(product, :short_description) %>
+	</div>
+	<table class="product_thumb">
+		<tr><td>
+	<% if product.photo %>
+		<% if product.layout_class == "horizontal" %>
+		<%= image_tag(product.photo.product_attachment.url(:horiz_thumb)) %>
+		<% else %>
+		<%= image_tag(product.photo.product_attachment.url(:thumb)) %>
+		<% end %>
+	<% end %>
+		</tr></td>
+	</table>
+</div>
+<% end %>

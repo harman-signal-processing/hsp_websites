@@ -1,0 +1,26 @@
+<h1>Listing online_retailer_links</h1>
+
+<table class="data">
+  <tr>
+    <th>Product</th>
+    <th>Brand</th>
+    <th>Url</th>
+    <th>Active</th>
+  </tr>
+
+<% @online_retailer_links.each do |online_retailer_link| %>
+  <tr style="background: <%= cycle 'white', 'none' %>">
+    <td><%=h online_retailer_link.product_id %></td>
+    <td><%=h online_retailer_link.brand_id %></td>
+    <td><%=h online_retailer_link.url %></td>
+    <td><%=h online_retailer_link.active %></td>
+    <td><%= link_to 'Show', [:admin, online_retailer_link] %></td>
+    <td><%= link_to 'Edit', edit_admin_online_retailer_link_path(online_retailer_link) %></td>
+    <td><%= link_to 'Delete', [:admin, online_retailer_link], :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New online_retailer_link', new_admin_online_retailer_link_path %>

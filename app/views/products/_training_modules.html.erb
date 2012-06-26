@@ -1,0 +1,7 @@
+<ol>
+	<% product.product_training_modules.each do |ptm| %>
+	<li>
+		<%= link_to translate_content(ptm.training_module, :name), ptm.training_module %>
+	</li>
+	<% end %>
+</ol>

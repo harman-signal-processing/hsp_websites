@@ -1,0 +1,80 @@
+<h1>
+	<%=h @artist.name %>
+	<span class="little"><%= link_to(artist_url(@artist, :locale => I18n.locale), artist_url(@artist, :locale => I18n.locale)) %>
+	<%= link_to(image_tag("external_link_icon.png"), artist_url(@artist, :locale => I18n.locale)) %></span>
+</h1>
+
+<div class="button_container">
+	<%= link_to 'Back', admin_artists_path, :class => "back button" %>
+	<%= link_to 'Edit', edit_admin_artist_path(@artist, :locale => I18n.locale), :class => "edit button" %>
+	<%= link_to 'Delete', [:admin, @artist], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %> 
+</div>
+
+<p>
+	<b>Artist Tier:</b>
+	<%= (@artist.artist_tier) ? link_to(@artist.artist_tier.name, [:admin, @artist.artist_tier]) : "" %>
+</p>
+
+<% unless @artist.artist_photo_file_name.blank? %>
+  	<%= link_to(image_tag(@artist.artist_photo.url(:tiny_square)), @artist.artist_photo.url) %>
+<% end %>
+<% unless @artist.artist_product_photo_file_name.blank? %>
+  	<%= link_to(image_tag(@artist.artist_product_photo.url(:tiny_square)), @artist.artist_product_photo.url) %>
+<% end %>
+
+<p><b>Summary:</b>
+	<%= (@artist_brand.intro.blank?) ? "" : strip_html(@artist_brand.intro) %>
+</p>
+
+<p><b>Artist Bio:</b>
+<%= truncate(strip_html(@artist.bio)) %>
+</p>
+
+<p><b>Career Moments:</b>
+<%= (@artist.notable_career_moments.blank?) ? "" : truncate(strip_html(@artist.notable_career_moments)) %>
+</p>
+
+<p>
+  <b>Website:</b>
+  <%=h @artist.website %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= mail_to @artist.email, @artist.email %>
+</p>
+
+<p>
+  <b>Featured?</b>
+  <%= (@artist.featured) ? "yes" : "no" %>
+</p>
+
+<p>
+	<b>Approval Status:</b>
+	<%= @artist.approval_status %>
+</p>
+
+<div class="group">
+	<h3>Products this artist uses</h3>
+	<%= form_for [:admin, @artist_product], :remote => true do |f| %>
+		<%= f.hidden_field :artist_id %>
+		<%= hidden_field_tag :called_from, "artist" %>
+		<p>
+			<%= f.select :product_id, website.products.collect{|p| [p.name, p.id]} %>
+			<%= f.check_box :on_tour %>
+			<%= f.label :on_tour, "on tour with this product" %>
+		</p>
+		<p>
+			<%= f.label :quote, "Artist quote" %><br/>
+			<%= f.text_area :quote, :size => "50x2" %>
+		</p>
+		<p>
+			<%= f.submit "add product" %>
+		</p>
+	<% end %>
+	<ul id="artist_products">
+		<% @artist.artist_products.each do |ap| %>
+		<%= render "/admin/shared/artist_product_row", :ap => ap, :called_from => "artist" %>
+		<% end %>
+	</ul>
+</div>

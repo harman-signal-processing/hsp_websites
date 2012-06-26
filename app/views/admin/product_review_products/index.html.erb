@@ -1,0 +1,22 @@
+<h1>Listing product_review_products</h1>
+
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Product review</th>
+  </tr>
+
+<% @product_review_products.each do |product_review_product| %>
+  <tr>
+    <td><%=h product_review_product.product_id %></td>
+    <td><%=h product_review_product.product_review_id %></td>
+    <td><%= link_to 'Show', [:admin, product_review_product] %></td>
+    <td><%= link_to 'Edit', edit_admin_product_review_product_path(product_review_product) %></td>
+    <td><%= link_to 'Delete', [:admin, product_review_product], :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New product_review_product', new_admin_product_review_product_path %>

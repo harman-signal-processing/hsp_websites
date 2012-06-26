@@ -1,0 +1,49 @@
+<%= form_for([:admin, @download_registration]) do |f| %>
+  <% if @download_registration.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@download_registration.errors.count, "error") %> prohibited this download registration from being saved:</h2>
+
+      <ul>
+      <% @download_registration.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :first_name %><br />
+    <%= f.text_field :first_name %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name %>
+  </div>
+  <div class="field">
+    <%= f.label :serial_number %><br />
+    <%= f.text_field :serial_number %>
+  </div>
+  <div class="field">
+    <%= f.label :download_count %><br />
+    <%= f.text_field :download_count, :size => 5 %>
+	<% unless f.object.new_record? %>
+	  of <%= f.object.registered_download.per_download_limit %> (the limit for <%= f.object.registered_download.name %>)
+	<% end %>
+  </div>
+  <div class="field">
+    <%= f.label :download_code %><br />
+    <%= f.text_field :download_code %>
+	<% unless f.object.download_code.blank? %>
+	<div class="small">
+		Full URL for download: <%= f.object.download_link %>
+	</div>
+	<% end %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

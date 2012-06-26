@@ -1,0 +1,23 @@
+<h1>Listing clinic_products</h1>
+
+<table>
+  <tr>
+    <th>Clinic</th>
+    <th>Product</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @clinic_products.each do |clinic_product| %>
+  <tr>
+    <td><%= clinic_product.clinic_id %></td>
+    <td><%= clinic_product.product.name %></td>
+    <td><%= link_to 'Show', [:admin, clinic_product] %></td>
+    <td><%= link_to 'Edit', edit_admin_clinic_product_path(clinic_product) %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Clinic product', new_admin_clinic_product_path %>

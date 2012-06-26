@@ -1,0 +1,133 @@
+<% @istomp = @product.parent_products.first.parent_product || Product.new(name: "iStomp") %>
+<% @stomp_shop = @istomp.softwares.first || Software.new %>
+
+<% set_meta_tags :title => @product.name,
+				 :reverse => true,
+                 :description => translate_content(@product, :short_description),
+                 :keywords => translate_content(@product, :keywords) %>
+
+<%= content_for :preload do %>
+	<%= image_tag("#{website.folder}/#{I18n.locale}/red_download_button_hover.png") %>
+	<% @product.product_attachments.each do |product_attachment| %>
+		<% if !product_attachment.product_attachment_file_name.blank? %>
+			<%= image_tag(product_attachment.product_attachment.url(:epedal)) %>
+		<% end %>
+	<% end %>
+<% end %>
+
+<%= render_partial 'products/istomp_style' %>
+
+<header id="product_header">
+	<h1><%= @product.name %></h1>
+</header>
+	
+<section id="product_content" class="epedal">
+	<h2><%= @product.short_description %></h2>
+	<div id="left_column">
+		<% if @product.photo %>
+		<div id="viewer">
+			<%= image_tag(@product.photo.product_attachment.url(:epedal),
+				 id: "pedal",
+				 data: { effecton: effect_on_image_path(@product) }
+				) %>
+			<% if website.featured_epedals && website.featured_epedals.split("|").include?(@product.friendly_id) %>
+			<div class="burst">
+				<%= image_tag("#{website.folder}/istomp/99cent_burst.png", alt: "99 cents") %>
+			</div>
+			<% end %>
+		</div>
+		<% end %>
+		<% if @product.audio_demos.size > 0 %>
+		<ul class="graphic">
+		  	<li class="sm2_link">
+			<%= link_to(' Effect Demo', @product.audio_demos.first.wet_demo.url, 
+				id: 'current_pedal_sample', 
+				class: 'inline-exclude',
+				data: {
+					wet: @product.audio_demos.first.wet_demo.url,
+					dry: @product.audio_demos.first.dry_demo.url,
+					pedal: 'pedal'
+				}) %>
+			</li>
+		</ul>
+		<div id="demo_msg"></div>
+		<% elsif @product.sample %>
+		<ul class="graphic">
+		  <li class="sm2_link">
+		  	<%= link_to "listen", @product.sample.product_media.url %>
+		  </li>
+		</ul>
+		<% end %>
+			
+		<div id="product_buy_now_box">
+			<% if !@product.msrp.blank? %>
+				<div>
+					<span class="price_label">Regular Price:</span>
+					<span class="price"><%= number_to_currency(@product.msrp) %></span>
+				</div>
+			<% end %>
+			<%= link_to @stomp_shop.link, target: "_blank", class: "stomp_shop_app" do %>
+				<%= image_tag("#{website.folder}/#{I18n.locale}/red_download_button.png", alt: "Download", 
+						mouseover: "#{website.folder}/#{I18n.locale}/red_download_button_hover.png") %>
+			<% end %>
+		</div>
+	</div>
+	
+	<div id="right_column">
+		<%= draw_main_tabs_content @product, tabs: "description" %>	
+		<div style="margin-top: 8px">
+			<%= link_to(image_tag("available_on_the_app_store.png", alt: "Available on the app store"), @stomp_shop) %>
+		</div>
+	</div>
+	
+	<% if @product.images_for("product_page").size >= 2 %>
+	<div id="right_side_image">
+		<%= image_tag @product.images_for("product_page")[1].product_attachment.url(:vert_medium), 
+				alt: "#{@product.name} with iStomp label" %>
+	</div>
+	<% end %>
+	<div class="clear"></div>
+</section>
+	
+<div id="coverflow_settings" data-jump="true"></div>
+<%= render_partial "products/istomp_coverflow", istomp: @istomp, pedal: @product %>
+	
+<section id="product_bottom_content">
+	<%= render_partial "products/stomp_shop_callout", position: :right, istomp: @istomp %>
+	<%= render_partial "products/istomp_callout", position: :left %>
+	<div class="clear"></div>
+</section>
+
+<%= render_partial 'products/istomp_videos' %>
+
+<% if session["geo_usa"] %>
+<%= content_for :dealer_popup do %>
+	<div>
+		<div style="float: left;">
+			<h2><%= t('titles.buy_online') %></h2>
+		</div>
+		<div style="float: right; margin-top: 12px;">
+			<%= form_tag where_to_buy_path() %>
+				<%= t('us_zip_code') -%>: <%= text_field_tag "zip", session[:zip], :size => 8 %>
+				<%= submit_tag t('find_us_dealers') %>
+				<%= link_to t("international_distributors"), international_distributors_path %>
+			</form>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div id="dealers">
+	<div id="online_retailers">
+		<%= render_partial "shared/buynow", :product => @product %>
+	</div>
+	</div>
+	<div style="clear:both"></div>
+<% end %>
+<% end %>
+
+<span id="help_links" data-supported="<%= escape_javascript website.android_disclaimer_url %>" data-howto="<%= escape_javascript website.non_ios_howto_url %>"></span>
+
+<% if current_user && can?(:manage, @product) %>
+<div class="admin_function">
+	<%= link_to "edit", [:admin, @product] %>
+</div>
+<% end %>

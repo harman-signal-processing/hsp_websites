@@ -1,0 +1,28 @@
+<h1><%= @product_document.name %></h1>
+
+<p>
+  <b>Product:</b>
+  <%= link_to @product_document.product.name, [:admin, @product_document.product] %>
+</p>
+
+<p>
+  <b>Language:</b>
+  <%=h @product_document.language %>
+</p>
+
+<p>
+  <b>Document type:</b>
+  <%=h @product_document.document_type %>
+</p>
+
+<% if !@product_document.document_file_name.blank? %>
+<p>
+  <b>Document file:</b>
+  <%= link_to @product_document.document_file_name, @product_document.document.url %>
+</p>
+<% end %>
+
+
+<%= link_to 'Edit', edit_admin_product_document_path(@product_document) %> | 
+<%= link_to 'Delete', [:admin, @product_document], :confirm => 'Are you sure?', :method => :delete %> |
+<%= link_to 'Back', admin_product_documents_path %>

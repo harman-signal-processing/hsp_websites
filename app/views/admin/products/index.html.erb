@@ -1,0 +1,21 @@
+<h1>Products</h1>
+
+<% if can? :create, Product %>
+<div class="button_container">
+	<%= link_to 'New product', new_admin_product_path, :class => "new button" %>
+</div>
+<% end %>
+
+<% ProductStatus.all.each do |product_status| %>
+<% if can?(:change, ProductStatus) %>
+<h2><%= product_status.name %></h2>
+<% end %>
+<ul>
+<% @products.each do |product| %>
+<% if product.product_status_id == product_status.id && can?(:manage, product) %>
+	<li><%= link_to product.name, [:admin, product] %></li>
+<% end %>
+<% end %>
+</ul>
+<% end %>
+

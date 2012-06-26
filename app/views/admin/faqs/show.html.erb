@@ -1,0 +1,24 @@
+<h1>FAQ</h1>
+
+<div class="button_container">
+	<%= link_to 'Back', admin_faqs_path, :class => "back button" %>
+	<%= link_to 'Edit', edit_admin_faq_path(@faq), :class => "edit button" %> 
+	<%= link_to 'Delete', [:admin, @faq], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %>
+</div>
+
+<p>
+  <b>Product:</b>
+  <%= (@faq.product) ? link_to(@faq.product.name, [:admin, @faq.product]) : "none" %>
+</p>
+
+<p><b>Question:</b></p>
+  <%=raw @faq.question %>
+
+<p><b>Answer:</b></p>
+  <%=raw @faq.answer %>
+
+<p>
+  <b>Hidden?</b>
+  <%= @faq.hidden %>
+</p>
+

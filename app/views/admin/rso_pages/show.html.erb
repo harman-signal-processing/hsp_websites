@@ -1,0 +1,13 @@
+<h2><%= @rso_page.name %></h2>
+
+<div class="button_container">
+	<%= link_to 'Back', admin_rso_pages_path, :class => "back button" %>
+	<%= link_to 'Edit', edit_admin_rso_page_path(@rso_page), :class => "edit button" %> 
+	<%= link_to 'Delete', [:admin, @rso_page], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %>
+</div>
+
+<div>
+	<%= link_to @rso_page.full_url, @rso_page.full_url %>
+</div>
+
+<%= raw @rso_page.content %>

@@ -1,0 +1,12 @@
+<h1>Admin Dashboard</h1>
+
+<% if !@msg.blank? %>
+   <div class="alert"><%= @msg %></div>
+<% end %>
+
+
+<br/>
+<span class="small">
+	Hint: anywhere you see the drag icon (<%= image_tag("drag_handle.gif", :style => "vertical-align: middle;") %>)
+	you can drag and drop those items to change the order they appear on the site.
+</span>

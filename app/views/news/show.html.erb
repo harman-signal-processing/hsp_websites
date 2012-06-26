@@ -1,0 +1,37 @@
+<% set_meta_tags :title => translate_content(@news, :title),
+				 :reverse => true,
+				 :keywords => @news.keywords,
+				 :description => translate_content(@news, :title) %>
+
+<div class="article_centered_box">
+<h1><%= translate_content(@news, :title) %></h1>
+<p class="little">
+  <%=l @news.post_on, :format => :long %>
+</p>
+<%= render 'shared/add_this' %>	
+
+<% if !@news.news_photo_file_name.blank? %>
+<div style="float: right; margin: 8px;">
+  <%= image_tag(@news.news_photo.url(:medium)) %>
+</div>
+<% end %>
+
+<%=raw translate_content(@news, :body) %>
+
+<% if @news.products.size > 0 %>
+	<h2><%= t('titles.related_products') %></h2>
+	<% @news.products.each do |product| %>
+		<%= render_partial "product_families/product_square", :product => product %>
+	<% end %>
+	<div class="clear"></div>
+<% end %>
+
+</div>
+
+<p><%= link_to t('back_to_news_list'), news_index_path %></p>
+
+<% if current_user && can?(:manage, @news) %>
+<div class="admin_function">
+	<%= link_to "edit", edit_admin_news_path(@news) %>
+</div>
+<% end %>

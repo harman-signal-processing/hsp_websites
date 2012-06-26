@@ -1,0 +1,14 @@
+<p>
+  <b>Clinician report:</b>
+  <%= @clinician_question.clinician_report_id %>
+</p>
+
+<p>
+  <b>Question:</b>
+  <%= @clinician_question.question %>
+</p>
+
+
+<%= link_to 'Edit', edit_admin_clinician_question_path(@clinician_question) %> |
+<%= link_to 'Delete', [:admin, @clinic_question], :confirm => 'Are you sure?', :method => :delete %> |
+<%= link_to 'Back', admin_clinician_questions_path %>

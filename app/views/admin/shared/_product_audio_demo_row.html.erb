@@ -1,0 +1,14 @@
+<% called_from ||= 'product' %>
+<li id="product_audio_demo_<%= pad.id %>">
+	<%= (called_from == 'product') ? 
+			link_to(pad.audio_demo.name, [:admin, pad.audio_demo]) : 
+			link_to(pad.product.name, [:admin, pad.product]) %> 
+	<span class="little">
+	<%= link_to(image_tag("trash.gif"), 
+			admin_product_audio_demo_path(pad), 
+			:confirm => "Are you sure? (This won't delete the product or the audio demo--it will only remove the association.)", 
+			:remote => true,
+			:method => :delete) %>
+	<%= link_to 'edit', edit_admin_audio_demo_path(pad) %> &nbsp;
+	</span>
+</li>

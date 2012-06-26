@@ -1,0 +1,12 @@
+<% called_from ||= "software" %>
+<li id="software_training_module_<%= stm.id %>">
+	<span class="handle"><%= image_tag("drag_handle.gif") %></span>
+	<%= (called_from == "software") ?
+		link_to(stm.training_module.name, edit_admin_training_module_path(stm.training_module)) :
+		link_to(stm.software.name, [:admin, stm.software]) %>
+	<%= link_to(image_tag('trash.gif'),
+		  admin_software_training_module_path(stm),
+		  :remote => true,
+		  :confirm => "Are you sure?",
+		  :method => :delete) %>
+</li>

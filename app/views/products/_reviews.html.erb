@@ -1,0 +1,27 @@
+<div id="reviews" style="margin: 20px 10%">
+	<% if @product.approved_artists.size > 0 %>
+	<div class="product_artists">
+		<% @product.approved_artists.each do |artist| %>
+		<div class="artist">
+			<% if !artist.artist_photo_file_name.blank? %>
+				<div class="photo">
+					<%= link_to(image_tag(artist.artist_photo.url(:tiny_square)), artist) %>
+				</div>
+			<% end %>
+			<div class="description">
+				<h3><%= link_to(artist.name, artist) %></h3>
+				<p style="font-style: oblique"><%= artist.quote_for(@product) %></p>
+			</div>
+		</div>
+		<% end %>
+	</div>
+	<% end %>
+	<ul>
+		<% @product.product_reviews.each do |p| %>
+		<li><b><%=l p.post_on.to_date, :format => :long %></b><br/>
+			<%= t('product_page.review') %>:
+			<%= link_to translate_content(p, :title), p %>
+		</li>
+		<% end %>
+	</ul>
+</div>

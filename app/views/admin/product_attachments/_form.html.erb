@@ -1,0 +1,60 @@
+<%= f.error_messages %>
+
+<p><%= f.label :product_attachment, "Static Image" %> (will be re-sized as needed automatically)<br/>
+<%= f.file_field :product_attachment %>
+<% if !f.object.product_attachment_file_name.blank? %>
+	<i>currently: <%= link_to image_tag(f.object.product_attachment.url(:tiny)), f.object.product_attachment.url %></i>
+<% end %>
+</p>
+
+<p>
+	<%= f.check_box :hide_from_product_page %> 
+	<%= f.label :hide_from_product_page, "Hide from the thumbnail collection on the product page." %>
+	<br/>
+	<%= f.check_box :no_lightbox %> 
+	<%= f.label :no_lightbox, "Don't use lightbox viewer on this image." %>
+</p>
+
+<p><i>Note: only provide a static image OR a flash/video. Not both.</i></p>
+
+<p><%= f.label :product_media, "Flash, Video, etc." %><br/>
+<%= f.file_field :product_media %>
+<% if !f.object.product_media_file_name.blank? %>
+	<i>currently: <%= link_to f.object.product_media_file_name, f.object.product_media.url %></i>
+<% end %>
+</p>
+
+<p><%= f.label :product_media_thumb, "Thumbnail/icon" %><br/>
+<%= f.file_field :product_media_thumb %>
+<% if !f.object.product_media_thumb_file_name.blank? %>
+	<i>currently: <%= link_to image_tag(f.object.product_media_thumb.url(:tiny)), f.object.product_media_thumb.url %></i>
+<% end %>
+</p>
+
+<p><%= f.label :width %><%= f.text_field :width, :size => 5 %>px
+<%= f.label :height %><%= f.text_field :height, :size => 5 %>px<br/>
+<span class="small">(product page viewer window is 550x360)</span></p>
+
+<p><%= f.label :songlist_tag, "Unique songlist name" %><br/>
+songlist/<%= f.text_field :songlist_tag, :size => 15 %>.xml<br/>
+<span class="small">(as embedded in the flash file--required if the flash demo references external mp3 files)</span></p>
+
+<h3>Attached Demo Songs</h3>
+<table>
+	<tr>
+		<td>title</td>
+		<td>mp3</td>
+		<td></td>
+	</tr>
+<%= f.fields_for :demo_songs do |demo_song| %>
+	<tr id="demo_song_<%= demo_song.object.id %>">
+		<td><%= demo_song.text_field :title %></td>
+		<td><%= demo_song.file_field :mp3 %></td>
+		<td><% if !demo_song.object.new_record? %>
+			<%= link_to image_tag("trash.gif"), [:admin, demo_song.object], :method => :delete, :remote => true %>
+			<%= link_to demo_song.object.mp3_file_name, demo_song.object.mp3.url %>
+			<% end %>
+		</td>
+	</tr>
+<% end %>
+</table>

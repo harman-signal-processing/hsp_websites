@@ -1,0 +1,49 @@
+<h1><%= @service_center.name %></h1>
+
+<div class="button_container">
+	<%= link_to 'Back', admin_service_centers_path, :class => "back button" %>
+	<%= link_to 'Edit', edit_admin_service_center_path(@service_center), :class => "edit button" %> 
+	<%= link_to 'Delete', [:admin, @service_center], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %> 
+</div>
+
+<p>
+  <b>Address:</b>
+  <%= @service_center.address %><br/>
+  <%= @service_center.city %>,  <%= @service_center.state %>
+  <%= @service_center.zip %>
+</p>
+
+<p>
+  <b>Telephone:</b>
+  <%= @service_center.telephone %>
+</p>
+
+<p>
+  <b>Fax:</b>
+  <%= @service_center.fax %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @service_center.email %>
+</p>
+
+<p>
+	<b>Website:</b>
+	<%= @service_center.website %>
+</p>
+
+<p>
+  <b>Account number:</b>
+  <%= @service_center.account_number %>
+</p>
+
+<p>
+  <b>Lat:</b>
+  <%= @service_center.lat %>
+</p>
+
+<p>
+  <b>Lng:</b>
+  <%= @service_center.lng %>
+</p>

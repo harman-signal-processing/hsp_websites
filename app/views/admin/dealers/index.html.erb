@@ -1,0 +1,44 @@
+<h1>US Dealers</h1>
+
+<% if !website.dealers_from_brand_id.blank? %>
+	Note: <%= website.brand_name %> is configured to use the dealers from 
+	<%= Brand.find(website.dealers_from_brand_id).name %>. Please manage
+	the dealers on its website instead of this one.
+<% else %>
+
+	<p>Use the "exclude" link next to dealers who should not be included in
+		the site's dealer lookup results.</p>
+
+<% if can? :create, Dealer %>
+<div class="button_container">
+	<%= link_to 'New dealer', new_admin_dealer_path, :class => "new button" %>
+</div>
+<% end %>
+
+<table class="data">
+  <tr>
+    <th>Name</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Email</th>
+    <th>Account number</th>
+  </tr>
+
+<% @dealers.each do |dealer| %>
+  <tr style="background: <%= cycle 'white', 'none' %>" <% if dealer.exclude? %>class="strike"<% end %> id="dealer_<%= dealer.id %>">
+    <td><%= link_to dealer.name, [:admin, dealer] %></td>
+    <td><%= dealer.city %></td>
+    <td><%= dealer.state %></td>
+    <td><%= dealer.email %></td>
+    <td><%= dealer.account_number %></td>
+	<% unless dealer.exclude? %>
+	<td id="excluder_<%= dealer.id %>">
+		<%= link_to "exclude", admin_dealer_path(dealer, :dealer => {:exclude => true}), :method => :put, :remote => true %>
+	</td>
+	<% end %>
+  </tr>
+<% end %>
+</table>
+
+<% end %>
+

@@ -1,0 +1,16 @@
+<h1>Blogs</h1>
+
+<% if can? :create, Blog %>
+<div class="button_container">
+	<%= link_to 'New Blog', new_admin_blog_path, :class => "new button" %>
+</div>
+<% end %>
+
+<ul>
+<% @blogs.each do |blog| %>
+  <li><%= link_to blog.name, [:admin, blog] %></li>
+    <td><%= link_to 'Edit', edit_blog_path(blog) %></td>
+    <td><%= link_to 'Destroy', blog, confirm: 'Are you sure?', method: :delete %></td>
+<% end %>
+</ul>
+

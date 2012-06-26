@@ -1,0 +1,23 @@
+<p>
+  <b>Product:</b>
+  <%= @product_specification.product_id %>
+</p>
+
+<p>
+  <b>Specification:</b>
+  <%= @product_specification.specification_id %>
+</p>
+
+<p>
+  <b>Value:</b>
+  <%= @product_specification.value %>
+</p>
+
+<p>
+  <b>Position:</b>
+  <%= @product_specification.position %>
+</p>
+
+
+<%= link_to 'Edit', edit_admin_product_specification_path(@product_specification, :locale => I18n.locale) %> |
+<%= link_to 'Back', admin_product_specifications_path %>

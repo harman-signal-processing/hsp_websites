@@ -1,0 +1,7 @@
+<h1><%= @model_class.pluralize %> for "<%= @target_locale %>"</h1>
+
+<table border="0" cellspacing="5" cellpadding="5">
+	<% @records.each do |record| %>
+		<tr><td><%= link_to_translate(record, @target_locale) %></td></tr>
+	<% end %>
+</table>

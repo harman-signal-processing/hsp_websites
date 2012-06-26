@@ -1,0 +1,88 @@
+<% set_meta_tags :title => @product_family.name,
+				 :reverse => true,
+                 :description => @product_family.intro,
+                 :keywords => @product_family.keywords %>
+
+<h1>
+	<%=h @product_family.name %>
+	<span class="little"><%= link_to(product_family_url(@product_family, :locale => I18n.locale), product_family_url(@product_family, :locale => I18n.locale)) %>
+	<%= link_to(image_tag("external_link_icon.png"), product_family_url(@product_family, :locale => I18n.locale)) %></span>
+</h1>
+
+<div class="button_container">
+	<%= link_to 'Back', admin_product_families_path, :class => "back button" %>
+	<%= link_to 'Edit', edit_admin_product_family_path(@product_family, :locale => I18n.locale), :class => "edit button" %>
+	<%= link_to 'Delete', [:admin, @product_family], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %> 
+</div>
+
+<% if !@product_family.family_photo_file_name.blank? %>
+  <%= image_tag @product_family.family_photo.url %>
+<% else %>
+  <i>(no family photo)</i>
+<% end %>
+
+<p>
+  <b>Intro Text:</b>
+  <%= @product_family.intro %>
+</p>
+
+<p>
+  <b>Keywords:</b>
+  <%= @product_family.keywords %>
+</p>
+
+<% if @product_family.parent %>
+<p>
+	<b>Parent Category:</b>
+	<%= link_to(@product_family.parent.name, [:admin, @product_family.parent]) %>
+</p>
+<% end %>
+
+<% if @product_family.children.size > 0 %>
+<div class="group">
+	<h3>Child Categories:</h3>
+	<%= link_to "new category", new_admin_product_family_path %>
+	<ul id="product_families" class="sortable_list">
+		<%= render :partial => "product_family", :collection => @product_family.children %>
+	</ul>
+	<%#= sortable_element "product_families",
+            # :complete => visual_effect(:highlight, "product_families"),
+            :url => update_order_admin_product_families_path %>
+</div>
+<% end %>	
+
+<div class="group">
+	<h3>Products in this family:</h3>
+	<%= form_for [:admin, @product_family_product], :remote => true do |f| %>
+		<%= hidden_field_tag "called_from", "product_family" %>
+    	<%= f.hidden_field :product_family_id %>
+		<%= f.select :product_id, website.products.collect{|p| [p.name, p.id]} %> 
+		<%= submit_tag 'add existing product' %>
+		<%= link_to 'create a new product', new_admin_product_path %>
+	<% end %>
+
+	<ul id="product_family_products" class="sortable_list">
+		<% @product_family.product_family_products.each do |pfp| %>
+			<%= render '/admin/shared/product_family_product_row', :pfp => pfp, :called_from => 'product_family' %>
+		<% end %>
+	</ul>
+	<%#= sortable_element "product_family_products",
+            # :complete => visual_effect(:highlight, "product_family_products"),
+            :url => update_order_admin_product_family_products_path %>
+</div>
+
+<div class="group">
+	<h3>Locales which should show this product family</h3>
+	<p>Leave blank to show this product family for all locales.</p>
+	<%= form_for [:admin, @locale_product_family], :remote => true do |f| %>
+		<%= f.hidden_field :product_family_id %>
+		<%= f.select :locale, website.website_locales.collect{|wl| [wl.name, wl.locale]} %>
+		<%= submit_tag 'add' %>
+	<% end %>
+	
+	<ul id="locale_product_families">
+		<% @product_family.locale_product_families.each do |lpf| %>
+			<%= render "/admin/shared/locale_product_family_row", :lpf => lpf %>
+		<% end %>
+	</ul>
+</div>

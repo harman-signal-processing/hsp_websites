@@ -1,0 +1,474 @@
+zh:
+  home: 首页
+  products: 产品
+  news: 新闻
+  artists: 艺人
+  sound_community: 音频社区
+  community: 社区
+  where_to_buy: 哪里购买
+  product_support: 支持
+  outlet_store: 折扣店
+  sitemap: 网站图
+  company: 公司
+  all_rights_reserved: 解释权所有
+  harman: 哈曼
+  us_zip_code: 美国邮编
+  find_us_dealers: 寻找当地经销商
+  online_dealers_us: 网上经销商
+  international_distributors: 全球性
+  select_your_country: 选择国家
+  dealer_distance: 英里
+  back_to_news_list: 回往新闻区
+  back_to_artists: 回往艺人区
+  view_full_line: 查看全系列
+  near_zipcode: " 附近 %{zip}"
+  more: 更多
+  more_info: 更多资讯
+  rohs: rohs合规
+  visit: 访问
+  visit_the: 访问
+  product_reviews: 产品评测 
+  news_signup: 报名加入我们的邮件列表
+  warranty_registration: 产品登记
+  search: 搜索
+  search_again: 重新搜索
+  related_products: 相关产品
+  version: 版本
+  back: 回往
+  download: 下载
+  downloads: 下载
+  software_downloads: 软件下载
+  pop_explanation: 我们许多零售店面都具备产品体验互动功能以便于消费者真实感受。
+  products_used_by: " 艺人使用的产品 %{artist}"
+  valid: 合法有效
+  download_promotion_form: 下载促销表格
+  submit: 提交
+  your_name: 名字
+  email: 邮箱
+  subject: 标题
+  message: 信息
+  older:  过去的
+  current_news: 时讯
+  submit_warranty_registration: 提交登记表
+  cancel: 删除
+  register_your_product: "登记你的（产品 %{product}"
+  contact_tech_support:  联系技术支持
+  go:  前往
+  discontinued:  停产
+  troubleshooting:  故障排除提示和常见问题解答
+  close:  接近
+  name: 名字
+  platform: 站点
+  updater:  更新
+  windows_gui: Windows GUI/管理员
+  mac_gui: Mac GUI/管理员
+  other: 其他
+  discontinued_products_downloads:  停产产品下载
+  related_products:  相关产品
+  touring_with:  巡演中
+  on_tour_with:  巡演中
+  regarding:  关于
+  uses:  使用
+  click_icons_for_features:  单击图标的功能
+  back_to:  回往
+  brief_legal_disclaimer: 此产品建模的产品名称是其各自公司的商标，与Digitech并无关联的也不附属于DigiTech。 向下滚动查看完整的信息。
+
+  language:
+      en:  英语
+      es:  西班牙语
+      fr:  法语
+      de:  德语
+      zh:  中国
+
+  document_type:
+      owners_manual:  使用者手册
+      cut_sheet:  数据表
+      quickstart_guide:  快速入门指南
+      application_guide:  应用指南
+      preset_list:  预置列表
+      brochure: 手册
+      schematic: 示意图
+      parts_list: 零件清单
+      service_manual: 服务手册
+      calibration_procedure: 校准程序
+      other: 其他文件
+      
+  product_page:
+      features:  特点
+      specs_manuals_etc:  数据表，使用手册，评测等...
+      details:  更多内容
+      news_and_reviews:  新闻&评测
+      specifications:  性能
+      amp_models:  功放型号
+      cabinets:  音箱
+      effects:  效果器
+      pedals:  踏板
+      downloads:  下载
+      documentation:  说明书
+      support:  支援/最常见问题
+      artists:  艺人
+      review:  评测
+      faqs:  最常见问题
+      tones:  乐音数据库
+      special_offer:  特殊折扣
+      labels:
+          features:  特点
+          amp_models:  功放
+          cabinets:  机箱
+          effects:  效果器
+          pedals:  踏板
+          accessories:  配件
+
+  titles:
+      news: "%{brand} （品牌）新闻"
+      blog: "%{brand} （品牌）博客"
+      archived_news:  新闻存档
+      more_resources:  更多资源
+      where_to_buy:  购买
+      dealer_search_results:  经销商搜索结果
+      buy_online: 点击以下经销商商标在线购买
+      buy_now:  现在购买
+      international_distributors: 全球经销商
+      product_families:  产品
+      products:  所有产品
+      products_on_tour:  巡演中的产品
+      artists:  艺人
+      featured_artists:  特色艺人
+      rohs: RoHS 指令
+      related_products:  相关产品
+      contact:  联系
+      contact_us:  联系我们
+      about_us: " 关于 %{brand}"
+      search_results:  搜索结果
+      product_reviews:  产品评测
+      pop:  已有的演示
+      current_promotions:  现有促销
+      community:  吉他&音频社区
+      guitar_workstation:  吉他工作站
+      support:  支持
+      product_support:  停产产品支持
+      warranty_registration:  产品登记
+      mailing_address:  邮箱地址
+      service_centers:  服务中心
+      locate_us_service_center:  找到最近的服务中心（美国）
+      tone_library:  乐音数据库
+      featured_pedal:  特色踏板
+      youtube_channel: "%{brand} （品牌）频道"
+
+  errors:
+      geocoding:  您提供的地址/邮编有误
+      no_dealers_found: " 抱歉，附近没有经销商 %{zip}"
+      no_service_centers_found: " 保险，附件没有服务中心 %{zip}"
+
+  meta:
+      description:
+          where_to_buy: " 哪里购买 %{brand}"
+          artists: " 了解乐手如何更好使用产品 %{brand}" 
+          featured_artists:  首席乐手使用的产品
+          products_on_tour:  搜寻哪位乐手在巡演途中以及他使用的产品
+          support: "%{brand}  提供资源予你的（品牌）产品包括最常见问题，使用手册，产品登记以及服务中心"
+          warranty_registration:  登记你的（品牌）产品
+
+      keywords:
+          where_to_buy:  采购，购买，经销商， 美国
+
+  blurbs:
+      sound_community:  作为乐手们交流音乐心得的社区网站，在这里可以分享你们对音乐对自己Digitech产品的使用心得等。
+      guitar_workstation:  专为GNX4和GNX3000工作组设计的产品。作为额外奖励，你将会获得Craig Anderton的提示。
+      rohs_intro:  关于欧洲议会和欧盟理事会在2003年1月27号发布的对于RoHS指令2002/95/EC关于在电气和电子设备方面限制使用某些有害物质，我们哈曼HMG宣布所有我们出场的产品都符合上述指令的要求和规定。
+      product_support: 选择以下型号浏览停产产品的信息
+      warranty_registration_success:  谢谢你登记购买的产品信息，请保留收据作为购买凭证。
+      use_date_code:  一些我们的产品没有序列号，在这种情况下请直接输入产品背后的日期编码。
+      subscribe:  登记信息便可收到（品牌）关于产品更新或特别促销活动的期刊。
+      warranty_comments:  提示：如果你有技术性的问题，请填写提交我们的求助联系表格。
+      contact_form_thankyou:  谢谢联系我们，我们将尽快回复您
+      captcha_explanation:  请回答这个问题以便于我们识别您的身份。（只有一个正确答案）
+      tone_library_explanation: "将你的GSP和RP 链接到你的Mac或PC便可开始享受这些音律。如果你还未安装音律数据库请访问我们的（链接）网页 %{link}"
+      product_tone_library_explanation:  连接你的Mac或PC便可开始享受这些音律。选择页面内的软件下载链接便可将整个乐库下载到电脑上。
+      international_distributors:  全球经销商都可获得产品销售，支持，使用手册申请以及保修的服务。保修服务仅在购买国家内有效。
+
+  subjects:
+      select_a_subject:  选择一个标题
+      product_question:  产品问题
+      technical_support:  技术支持
+      manual_request:  说明书要求
+      product_repair:  产品维修
+      product_parts:  产品部件
+      general_questions:  常见问题/其他
+      order_status:  订单状态（经销商）
+      dealer_questions:  经销商问题
+      web_comments:  网页评论
+
+  date:
+    formats:
+      default: "%Y-%m-%d"
+      short: "%b%d日"
+      long: "%Y年%b%d日"
+      pretty_date_time: "%B %d, %Y %I:%M %p"
+
+    day_names:
+      - 星期日
+      - 星期一
+      - 星期二
+      - 星期三
+      - 星期四
+      - 星期五
+      - 星期六
+    abbr_day_names:
+      - 日
+      - 一
+      - 二
+      - 三
+      - 四
+      - 五
+      - 六
+    month_names:
+      - ~
+      - 一月
+      - 二月
+      - 三月
+      - 四月
+      - 五月
+      - 六月
+      - 七月
+      - 八月
+      - 九月
+      - 十月
+      - 十一月
+      - 十二月
+    abbr_month_names:
+      - ~
+      - 1月
+      - 2月
+      - 3月
+      - 4月
+      - 5月
+      - 6月
+      - 7月
+      - 8月
+      - 9月
+      - 10月
+      - 11月
+      - 12月
+    order:
+      - :year
+      - :month
+      - :day
+
+  time:
+    formats:
+      default: "%Y年%b%d日 %A %H:%M:%S %Z"
+      short: "%b%d日 %H:%M"
+      long: "%Y年%b%d日 %H:%M"
+    am: "上午"
+    pm: "下午"
+
+  datetime:
+    distance_in_words:
+      half_a_minute: "半分钟"
+      less_than_x_seconds:
+        one: "不到一秒"
+        other: "不到 %{count} 秒"
+      x_seconds:
+        one: "一秒"
+        other: "%{count} 秒"
+      less_than_x_minutes:
+        one: "不到一分钟"
+        other: "不到 %{count} 分钟"
+      x_minutes:
+        one: "一分钟"
+        other: "%{count} 分钟"
+      about_x_hours:
+        one: "大约一小时"
+        other: "大约 %{count} 小时"
+      x_days:
+        one: "一天"
+        other: "%{count} 天"
+      about_x_months:
+        one: "大约一个月"
+        other: "大约 %{count} 个月"
+      x_months:
+        one: "一个月"
+        other: "%{count} 个月"
+      about_x_years:
+        one: "大约一年"
+        other: "大约 %{count} 年"
+      over_x_years:
+        one: "一年多"
+        other: "%{count} 年多"
+      almost_x_years:
+        one: "接近一年"
+        other: "接近 %{count} 年"
+    prompts:
+      year: "年"
+      month: "月"
+      day: "日"
+      hour: "时"
+      minute: "分"
+      second: "秒"
+
+  number:
+    format:
+      separator: "."
+      delimiter: ","
+      precision: 3
+      significant: false
+      strip_insignificant_zeros: false
+    currency:
+      format:
+        format: "%u %n"
+        unit: "CN¥"
+        separator: "."
+        delimiter: ","
+        precision: 2
+        significant: false
+        strip_insignificant_zeros: false
+    percentage:
+      format:
+        delimiter: ""
+    precision:
+      format:
+        delimiter: ""
+    human:
+      format:
+        delimiter: ""
+        precision: 1
+        significant: false
+        strip_insignificant_zeros: false
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one: "Byte"
+            other: "Bytes"
+          kb: "KB"
+          mb: "MB"
+          gb: "GB"
+          tb: "TB"
+      decimal_units:
+        format: "%n %u"
+        units:
+          # 10^-21 zepto, 10^-24 yocto
+          atto: "渺" # 10^-18
+          femto: "飞" # 10^-15 毫微微
+          pico: "漠" # 10^-12 微微
+          nano: "奈" # 10^-9 毫微
+          micro: "微" # 10^-6
+          mili: "毫" # 10^-3 milli
+          centi: "厘" # 10^-2
+          deci: "分" # 10^-1
+          unit: ""
+          ten:
+            one: "十"
+            other: "十" # 10^1
+          hundred: "百" # 10^2
+          thousand: "千" # 10^3 kilo
+          million: "百万" # 10^6 mega
+          billion: "十亿" # 10^9 giga
+          trillion: "兆" # 10^12 tera
+          quadrillion: "千兆" # 10^15 peta
+          # 10^18 exa, 10^21 zetta, 10^24 yotta
+
+  support:
+    array:
+      words_connector: ", "
+      two_words_connector: " 和 "
+      last_word_connector: ", 和 "
+    select:
+      prompt: "请选择"
+
+  errors:
+    format: "%{attribute} %{message}"
+    messages: &errors_messages
+      inclusion: "不包含于列表中"
+      exclusion: "是保留关键字"
+      invalid: "是无效的"
+      confirmation: "与确认值不匹配"
+      accepted: "必须是可被接受的"
+      empty: "不能留空"
+      blank: "不能为空字符"
+      too_long: "过长（最长为 %{count} 个字符）"
+      too_short: "过短（最短为 %{count} 个字符）"
+      wrong_length: "长度非法（必须为 %{count} 个字符）"
+      not_a_number: "不是数字"
+      not_an_integer: "必须是整数"
+      greater_than: "必须大于 %{count}"
+      greater_than_or_equal_to: "必须大于或等于 %{count}"
+      equal_to: "必须等于 %{count}"
+      less_than: "必须小于 %{count}"
+      less_than_or_equal_to: "必须小于或等于 %{count}"
+      odd: "必须为单数"
+      even: "必须为双数"
+      taken: "已经被使用"
+      record_invalid: "验证失败: %{errors}"
+    template: &errors_template
+      header:
+        one: "有 1 个错误发生导致「%{model}」无法被保存。"
+        other: "有 %{count} 个错误发生导致「%{model}」无法被保存。"
+      body: "如下字段出现错误："
+
+  activerecord:
+    errors:
+      full_messages:
+        format: "%{attribute} %{message}"
+      messages:
+        <<: *errors_messages
+      template:
+        <<: *errors_template
+    models:
+      amp_model:  功放型号
+      artist:  艺人
+      brand:  品牌
+      cabinet:  机箱
+      dealer:  经销商
+      distributor:  分销商
+      effect:  效果器
+      effect_type:  效果器类型
+      faq:  最常见问题
+      news:  新闻
+      online_retailer:  在线分销商
+      page:  页面
+      product:  产品
+      promotion:  促销
+      service_center:  服务中心
+      software:  软件
+      specification:  性能
+      warranty_registration:  产品登记
+      download_registration:  下载登记
+      registered_download:  登记下载
+      site_element:  站点资源
+      website:  网站
+      clinic:  研讨会
+      clinician_question:  研讨会问题
+      clinician_report:  研讨会报告
+      rep_question:  销售问题
+      rep_report:  销售报告
+    attributes:
+      warranty_registration:
+        title:  职位
+        first_name:  名
+        last_name:  姓
+        email:  邮件
+        address1:  地址
+        city:  城市
+        state:  省份
+        zip:  邮编
+        country:  国家
+        phone:  电话
+        product_id:  产品ID 号码
+        serial_number:  序列号
+        purchased_from:  从何处购买
+        purchased_on:  购买日期
+        purchase_price:  购买价格
+        comments:  评论
+      download_registration:
+          serial_number:  产品序列号
+          code_you_received:  单独序列号
+
+  helpers:
+    select:
+      prompt: "请选择"
+    submit:
+      create: "新增%{model}"
+      update: "更新%{model}"
+      submit: "储存%{model}"

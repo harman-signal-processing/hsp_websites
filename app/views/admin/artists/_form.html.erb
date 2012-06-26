@@ -1,0 +1,69 @@
+<%= f.error_messages %>
+
+<p>
+  <%= f.label :name %><br />
+  <%= f.text_field :name %>
+</p>
+<p>
+	<%= f.label :artist_tier_id %>
+	<%= f.select :artist_tier_id, [[]] + ArtistTier.all.collect{|tier| [tier.name, tier.id]} %>
+</p>
+<p>
+  <%= f.check_box :featured %>
+  <%= f.label :featured %> in the slideshow on the Artist page.
+</p>
+<%= fields_for @artist_brand do |ab| %>
+<p>
+  <%= ab.label :intro %> (Used for the featured artists slideshow)<br/>
+  <%= ab.text_area :intro, :class => "mceEditor", :size => "50x4" %>
+</p>
+<% end %>
+<p>
+  <%= f.label :bio %><br />
+  <%= f.text_area :bio, :class => "mceEditor", :size => "50x15" %>
+</p>
+<p>
+  <%= f.label :notable_career_moments %><br/>
+  <%= f.text_area :notable_career_moments, :class => "mceEditor", :size => "50x4" %>
+</p>
+<p>
+  <%= f.label :artist_photo %><br />
+  <%= f.file_field :artist_photo %>
+	<% unless @artist.artist_photo_file_name.blank? %>
+	<span class="hint">
+		leave blank to keep: <%= link_to(@artist.artist_photo_file_name, @artist.artist_photo.url) %>
+	</span>
+	<% end %>
+</p>
+<p>
+  <%= f.label :artist_product_photo %><br />
+  <%= f.file_field :artist_product_photo %>
+	<% unless @artist.artist_product_photo_file_name.blank? %>
+	<span class="hint">
+		leave blank to keep: <%= link_to(@artist.artist_product_photo_file_name, @artist.artist_product_photo.url) %>
+	</span>
+	<% end %>
+</p>
+<p>
+  <%= f.label :website %><br />
+  <%= f.text_field :website %>
+</p>
+<p>
+  <%= f.label :email %><br />
+  <%= f.text_field :email %>
+	<span class="hint">Enter a unique dummy address if this artist doesn't need to login.</span>
+</p>
+<% if @artist.new_record? %>
+<p>
+	<%= f.label :password %><br />
+	<%= f.password_field :password %>
+</p>
+<p>
+	<%= f.label :password_confirmation %><br/>
+	<%= f.password_field :password_confirmation %>
+</p>
+<% end %>
+<p>
+	<%= f.check_box :approved %>
+	<%= f.label :approved %>
+</p>

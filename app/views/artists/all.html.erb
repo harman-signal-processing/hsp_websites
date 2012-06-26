@@ -1,0 +1,17 @@
+<% set_meta_tags :title => t('titles.artists'),
+				 :reverse => true %>
+
+<div class="alphanav">
+	<% ("a".."z").each do |letter| %>
+		<% if @all_artists[letter].size > 0 %>
+			<%= link_to letter, all_artists_path(letter), :class => (letter == params[:letter]) ? "current" : "" %>
+		<% else %>
+			<span class="nolink"><%= letter %></span>
+		<% end %>
+	<% end %>
+</div>
+
+<% @artists.each do |artist| %>
+	<%= render_partial "artist", :artist => artist %>
+<% end %>
+<div class="clear"></div>

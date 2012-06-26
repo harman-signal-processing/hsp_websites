@@ -1,0 +1,165 @@
+class SupportController < ApplicationController
+  before_filter :set_locale
+  # Support home page
+  def index
+    @discontinued_products = Product.discontinued(website)
+    if params[:product_id]
+      if product = Product.find(params[:product_id])
+        redirect_to product and return
+      end
+    end
+    render_template
+  end
+
+  # Warranty registration form
+  def warranty_registration
+    if request.post?
+      @warranty_registration = WarrantyRegistration.new(params[:warranty_registration])
+      @warranty_registration.brand_id = website.brand_id
+      if @warranty_registration.save
+        redirect_to support_path, :alert => t('blurbs.warranty_registration_success')
+      end
+    else
+      @warranty_registration = WarrantyRegistration.new(:subscribe => true)
+      @warranty_registration.country = "United States" if params[:locale] =~ /\-US$/
+      begin
+        @warranty_registration.product = Product.find(params[:product_id]) if params[:product_id]
+      rescue
+        # problem auto-determining the product from the referring link, no big deal
+      end
+      render_template
+    end
+  end
+
+  # The site's contact form
+  def contact
+    @contact_message = ContactMessage.new
+    if request.post?
+      @contact_message = ContactMessage.new(params[:contact_message])
+      if verify_recaptcha && @contact_message.valid?
+        @contact_message.save
+        redirect_to support_path, :notice => t('blurbs.contact_form_thankyou')
+        SiteMailer.delay.contact_form(@contact_message, website.brand)
+      else
+        @discontinued_products = Product.discontinued(website)
+        render_template(:action => "index")
+      end
+    else
+      @discontinued_products = Product.discontinued(website)
+      render_template(:action => "index")
+    end
+  end
+  
+  # Parts request form
+  def parts
+    @page_title = t('titles.part_request')
+    unless website.has_parts_form?
+      redirect_to support_path and return false
+    end
+    @contact_message = ContactMessage.new(:message_type => "part_request")
+    if request.post?
+      @contact_message = ContactMessage.new(params[:contact_message])
+      @contact_message.message_type = "part_request"
+      if @contact_message.valid?
+        @contact_message.save
+        redirect_to support_path, :notice => t('blurbs.parts_request_thankyou')
+        SiteMailer.delay.contact_form(@contact_message, website.brand)
+      end
+    else
+      render_template
+    end
+  end
+  
+  # RMA request form
+  def rma
+    @page_title = t('titles.rma_request')
+    unless website.has_rma_form?
+      redirect_to support_path and return false
+    end
+    @contact_message = ContactMessage.new(:message_type => "rma_request")
+    if request.post?
+      @contact_message = ContactMessage.new(params[:contact_message])
+      @contact_message.message_type = "rma_request"
+      if @contact_message.valid?
+        @contact_message.save
+        redirect_to support_path, :notice => t('blurbs.rma_request_thankyou')
+        SiteMailer.delay.contact_form(@contact_message, website.brand)
+      end
+    else
+      render_template
+    end
+  end
+  
+  def warranty_policy
+    @page_title = "Warranty Policy"
+    products = Product.all_for_website(website) - Product.non_supported(website)
+    @products = products.select{|p| p if p.warranty_period.to_i > 0}
+    render_template
+  end
+
+  # Simple list of RoHS compliant products
+  def rohs
+    @products = website.current_products.select{|p| p if p.rohs}
+    render_template
+  end
+  
+  # Iframe page for info that comes from Salesforce
+  def troubleshooting
+    @src = website.value_for("troubleshooting_url")
+    render_template
+  end
+  
+  # Service center lookup by zipcode
+  def service_lookup
+    @page_title = t('titles.service_centers')
+    @err = ""
+    @results = []
+    if params[:zip]
+      session[:zip] = params[:zip]
+      @page_title += " " + t('near_zipcode', :zip => params[:zip])
+      begin
+        @results = []
+        brand_id = website.service_centers_from_brand_id || website.brand_id
+        ServiceCenter.find(:all, :conditions => ["brand_id = ?", brand_id], :origin => params[:zip], :order => 'distance', :within => 100, :limit => 10).each do |d|
+          @results << d #unless d.exclude?
+        end
+        unless @results.size > 0
+          @err = t('errors.no_service_centers_found', :zip => params[:zip])
+        end
+      rescue
+        redirect_to(support_path, :alert => t('errors.geocoding')) and return false
+      end
+    end
+    render_template
+  end
+  
+  # Power Supplies page. Really, this could be used to build a similar page for
+  # any Specification
+  def power_supplies
+    @specification = Specification.find_by_name("Power Supply")
+    render_template
+  end
+  
+  # Downloads page
+  def downloads
+    downloads = website.all_downloads
+    @downloads = downloads.keys.sort{|a,b| a.to_s.downcase <=> b.to_s.downcase}.collect{|k| downloads[k]}
+    render_template
+  end
+  
+  def zipped_downloads
+    temp_file = website.zip_downloads(params[:download_type])
+    send_file temp_file.path, :type => 'application/zip', :disposition => 'attachment', :filename => "#{params[:download_type]}.zip"
+    temp_file.close
+  end
+  
+  private
+  
+  # Validate captcha data from params[:yoyo] (question_key) and params[:ans] (answer#)
+  def validate_captcha
+    Captcha.correct?(session[:yoyo], params[:ans])
+  end
+  
+
+  
+end

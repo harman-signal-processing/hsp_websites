@@ -1,0 +1,11 @@
+<% product.active_retailer_links.each do |orl| %>
+	<div class="retailer_logo">
+		<% if !orl.online_retailer.retailer_logo_file_name.blank? %>
+			<%= link_to(image_tag(orl.online_retailer.retailer_logo(:small)), orl.url, target: "_blank", 
+					onclick: "_gaq.push(['_trackEvent', 'BuyItNow-Dealer', '#{orl.online_retailer.name}', '#{orl.product.name}'])")%>
+		<% else %>
+			<%= link_to(orl.online_retailer.name, orl.url, target: "_blank", 
+					onclick: "_gaq.push(['_trackEvent', 'BuyItNow-Dealer', '#{orl.online_retailer.name}', '#{orl.product.name}'])")%>
+		<% end %>
+	</div>
+<% end %>

@@ -1,0 +1,115 @@
+<%= form_for([:admin, @registered_download], :html => {:multipart => true}) do |f| %>
+  <% if @registered_download.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@registered_download.errors.count, "error") %> prohibited this registered_download from being saved:</h2>
+
+      <ul>
+      <% @registered_download.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :url, "Landing Page URL" %> <br />
+    http://<%= website.default_website.url %>/<%= f.text_field :url, :size => 15 %>
+	<div class="small">(just the path for the landing page--no domain name, etc.)</div>
+  </div>
+  <div class="field">
+    <%= f.label :valid_code %><br />
+    <%= f.text_field :valid_code %>
+	<div class="small">(from the postcard--optional)</div>
+  </div>
+  <div class="field">
+  	<%= f.label :products %>
+	<div class="small">Comma separated list of products to show in a drop-down on the registration form</div>
+	<%= f.text_area :products, :size => "40x2" %>
+  </div>
+  <div class="field">
+  	<%= f.check_box :require_serial_number %>
+	<%= f.label :require_serial_number, "Require a product serial number" %>
+  </div>
+  <div class="field">
+  	<%= f.check_box :require_employee_number %>
+	<%= f.label :require_employee_number %>
+  </div>
+  <div class="field">
+  	<%= f.check_box :require_store_number %>
+	<%= f.label :require_store_number %>
+  </div>
+  <div class="field">
+  	<%= f.check_box :require_manager_name %>
+	<%= f.label :require_manager_name, "Require manager's name" %>
+  </div>
+  <div class="field">
+  	<%= f.check_box :send_coupon_code %>
+	<%= f.label :send_coupon_code, "Instead of sending a download link, send a coupon code." %>
+	(If so, provide coupon codes below.)
+  </div>
+  <div class="field">
+	<%= f.label :coupon_codes %> (paste a comma-separated list of coupon codes)<br/>
+	<%= f.text_area :coupon_codes, :size => "40x4" %>
+  </div>
+  <div class="field">
+    <%= f.label :per_download_limit, "Per person download limit" %><br />
+    <%= f.text_field :per_download_limit, :size => 10 %>
+	<div class="small">(the number of times a person can download the file--one is probably too small)</div>
+  </div>
+  <div class="field">
+    <%= f.label :protected_software, "The file to be downloaded" %><br />
+    <%= f.file_field :protected_software %>
+	<div class="small" id="protected_software_details">
+	<% if f.object.protected_software_file_name.blank? %>
+		currently missing. registrants will NOT receive a download code.
+	<% else %>
+		currently: <%= f.object.protected_software_file_name %> uploaded <%=l f.object.protected_software_updated_at, :format => :long %>
+		<%= link_to "delete", [:admin, @registered_download], :method => :put, :remote => true %>
+	<% end %>
+	</div>
+  </div>
+  <div class="field">
+    <%= f.label :html_template, "HTML template for all pages associated with this download." %>
+	<div class="small">All the HTML you want on every page. Be sure you have ~~content~~ somewhere.</div>
+    <%= f.text_area :html_template, :class => "mceEditorFP" %>
+  </div>
+  <div class="field">
+    <%= f.label :intro_page_content %>
+	<div class="small">This content appears ABOVE the registration form on the landing page.</div>
+    <%= f.text_area :intro_page_content, :class => "mceEditor" %>
+  </div>
+  <div class="field">
+    <%= f.label :confirmation_page_content %>
+	<div class="small">This appears on the page after the user registers.</div>
+    <%= f.text_area :confirmation_page_content, :class => "mceEditor" %>
+  </div>
+  <div class="field">
+  	<%= f.label :from_email, "Email address from which to send notifications" %><br/>
+	<%= f.email_field :from_email %>
+  </div>
+  <div class="field">
+  	<%= f.label :subject, "Subject of the notification email" %><br/>
+	<%= f.text_field :subject %>
+  </div>
+  <div class="field">
+    <%= f.label :email_template %>
+	<div class="small">All images, links, etc. need to have the full path (http://...). Make sure you have ~~download_link~~ somewhere.</div>
+    <%= f.text_area :email_template, :class => "mceEditorFP" %>
+  </div>
+  <div class="field">
+    <%= f.label :download_page_content %>
+	<div class="small">This content appears on the page the user sees after clicking the link in the email.</div>
+    <%= f.text_area :download_page_content, :class => "mceEditor" %>
+  </div>
+  <div class="field">
+  	<%= f.label :cc, "Send a copy of registrations to" %> (email)<br/>
+	<%= f.text_field :cc %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,22 @@
+<h2>Lexicon Store</h2>
+
+<%= raw website.where_to_buy_blurb %>
+
+<p><i>or, <%= t('find_a_dealer_near_you') %>...</i></p>
+
+<h3>U.S. Dealer Search</h3>
+<%= form_tag where_to_buy_path() %>
+	<p><%= t("us_zip_code").gsub!(/US/, "") -%></p>
+	<p><%= text_field_tag "zip", session[:zip], :size => 16 %></p>
+	<p><%= submit_tag t('find_us_dealers') %></p>
+</form>
+
+<h3>International Distributor Search</h3>
+<%= form_tag search_distributors_path, :method => :get %>
+	
+	<p><%= label_tag t('select_your_country') %><br/>
+		<%= select_tag :country, options_from_collection_for_select(Distributor.countries(website), :country, :country) %>
+		<%= submit_tag t('submit') %>
+	</p>
+		
+</form>

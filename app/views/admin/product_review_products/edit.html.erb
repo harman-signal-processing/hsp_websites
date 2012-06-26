@@ -1,0 +1,17 @@
+<h1>Editing product_review_product</h1>
+
+<%= form_for([:admin, @product_review_product]) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :product_id %><br />
+    <%= f.text_field :product_id %>
+  </p>
+  <p>
+    <%= f.label :product_review_id %><br />
+    <%= f.text_field :product_review_id %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>

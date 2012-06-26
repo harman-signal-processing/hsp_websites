@@ -1,0 +1,8 @@
+<ul>
+<% product.softwares.each do |software| %>
+	<li>
+		<%= platform_icon(software, 17) %>
+		<%= link_to software.formatted_name, software %>
+	</li>
+<% end %>
+</ul>

@@ -1,0 +1,38 @@
+<%= f.error_messages %>
+
+<p>
+  <%= f.label :name %><br />
+  <%= f.text_field :name %>
+</p>
+<p>
+  <%= f.label :locale %> en-US, es, de, etc.<br/>
+  <%= f.text_field :locale, :size => 6 %><br/>
+  (leave blank to use this setting as a default)
+</p>
+<p>
+  <%= f.label :setting_type %><br />
+  <%= f.select :setting_type, Setting.setting_types %>
+  (complete the corresponding field below)
+</p>
+<p>
+  <%= f.label :string_value %><br />
+  <%= f.text_field :string_value %>
+<% if website.has_effects? %>
+  <div class="small">For the "featured pedal", enter the friendly id of the desired pedal. This is the last piece of the URL when viewing the pedal's page.</div>
+<% end %>
+</p>
+<p>
+  <%= f.label :integer_value %><br />
+  <%= f.text_field :integer_value %><br/>
+  <i>Use this field for the "position" of slides/homepage features.</i>
+</p>
+<p>
+  <%= f.label :text_value %><br />
+  <%= f.text_area :text_value, :size => "40x3" %>
+</p>
+<p>
+  <%= f.label :slide, "Slide or feature button" %><br />
+  <%= f.file_field :slide %><br/>
+  <i>To make this image link to some other page, put the URL in the "string value".</i>
+</p>
+

@@ -1,0 +1,51 @@
+<h1><%= @site_element.name %></h1>
+
+<div class="button_container">
+	<%= link_to 'Back', admin_site_elements_path, :class => "back button" %>	
+	<%= link_to 'Edit', edit_admin_site_element_path(@site_element, :locale => I18n.locale), :class => "edit button" %>
+	<%= link_to 'Delete', [:admin, @site_element], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %> 
+</div>
+
+<p>
+  <b>Resource file name:</b>
+  <%= link_to @site_element.resource_file_name, @site_element.resource.url %>
+</p>
+
+<% if @site_element.resource_file_name.match(/\.(jpg|png|gif|bmp)$/) %>
+<p>
+	<%= link_to(image_tag(@site_element.resource.url(:small)), @site_element.resource.url) %>
+</p>
+<% end %>
+
+<p>
+  <b>Resource type:</b>
+  <%= @site_element.resource_type %>
+</p>
+
+<p>
+	<b>Show on public site on downloads page?</b>
+	<%= (@site_element.show_on_public_site?) ? "Yes" : "No" %>
+</p>
+
+<p>You can link to this file with the following URL:</p>
+<p><b>
+	<%= request.protocol %><%= request.host %><%= @site_element.resource.url("original", :timestamp => false) %>
+</b></p>
+
+<p>And/or choose one or more product below. Doing so will add this file to the 
+	manuals/documentation area on each associated product page.</p>
+	
+	<%= form_for [:admin, @product_site_element], :remote => true do |f| %>
+		<%= f.hidden_field :site_element_id %>
+		<%= hidden_field_tag :called_from, "site_element" %>
+		<p>
+			<%= f.select :product_id, website.products.collect{|p| [p.name, p.id]} %>
+			<%= f.submit "add product" %>
+		</p>
+	<% end %>
+	<ul id="product_site_elements">
+		<% @site_element.product_site_elements.each do |pse| %>
+		<%= render "/admin/shared/product_site_element_row", :pse => pse, :called_from => "site_element" %>
+		<% end %>
+	</ul>
+	

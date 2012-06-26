@@ -1,0 +1,79 @@
+<%= form_for([:admin, @brand], :html => {:multipart => true}) do |f| %>
+  <% if @brand.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@brand.errors.count, "error") %> prohibited this brand from being saved:</h2>
+
+      <ul>
+      <% @brand.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :default_website_id %><br />
+    <%= f.select :default_website_id, [[]] + @brand.websites.collect{|w| [w.url, w.id]} %>
+  </div>
+  <div class="field">
+	<%= f.check_box :has_market_segments %> <%= f.label :has_market_segments %><br/>
+	<%= f.check_box :has_effects %> <%= f.label :has_effects %><br/>
+	<%= f.check_box :has_reviews %> <%= f.label :has_reviews %><br/>
+	<%= f.check_box :has_faqs %> <%= f.label :has_faqs %><br/>
+	<%= f.check_box :has_tone_library %> <%= f.label :has_tone_library %><br/>
+	<%= f.check_box :has_artists %> <%= f.label :has_artists %><br/>
+	<%= f.check_box :has_clinics %> <%= f.label :has_clinics %><br/>
+	<%= f.check_box :has_software %> <%= f.label :has_software %> downloads<br/>
+	<%= f.check_box :has_registered_downloads %> <%= f.label :has_registered_downloads %><br/>
+	<%= f.check_box :has_online_retailers %> <%= f.label :has_online_retailers %><br/>
+	<%= f.check_box :has_distributors %> <%= f.label :has_distributors %><br/>
+	<%= f.check_box :has_dealers %> <%= f.label :has_dealers %><br/>
+	<%= f.check_box :has_service_centers %> <%= f.label :has_service_centers %><br/>
+	<%= f.check_box :has_parts_form %> <%= f.label :has_parts_form, "Site has online parts request form" %><br/>
+	<%= f.check_box :has_rma_form %> <%= f.label :has_rma_form, "Site has online RMA form" %><br/>
+	<%= f.check_box :rso_enabled %> <%= f.label :rso_enabled, "Enable for RSO site" %><br/>
+	<%= f.check_box :has_training %><%= f.label :has_training, "Has training resources" %><br/>
+	<%= f.check_box :show_pricing %> <%= f.label :show_pricing, "Show pricing on product pages, enable direct-buy features" %><br/>
+	<%= f.check_box :has_suggested_products %> <%= f.label :has_suggested_products %><br/>
+	<%= f.check_box :has_blogs %> <%= f.label :has_blogs %><br/>
+	<%= f.check_box :has_audio_demos %> <%= f.label :has_audio_demos %><br/>
+  </div>
+
+  <div class="field">
+	<%= f.label :dealers_from_brand_id, "Use dealers (US) from the following brand:" %><br/>
+	<%= f.select :dealers_from_brand_id, [[]] + (Brand.all - [@brand]).collect{|b| [b.name, b.id]} %>
+  </div>
+  <div class="field">
+	<%= f.label :distributors_from_brand_id, "Use distributors (int'l) from the following brand:" %><br/>
+	<%= f.select :distributors_from_brand_id, [[]] + (Brand.all - [@brand]).collect{|b| [b.name, b.id]} %>
+  </div>
+  <div class="field">
+	<%= f.label :service_centers_from_brand_id, "Use service centers (US) from the following brand:" %><br/>
+	<%= f.select :service_centers_from_brand_id, [[]] + (Brand.all - [@brand]).collect{|b| [b.name, b.id]} %>
+  </div>
+
+  <div class="field">
+  	<%= f.label :logo %><br/>
+	<%= f.file_field :logo %>
+	<% unless @brand.logo_file_name.blank? %>
+		<div class="hint">currently: <%= link_to @brand.logo_file_name, @brand.logo.url %></div>
+	<% end %>
+  </div>
+
+  <div class="field">
+  	<%= f.label :news_feed_url %> (for RSO site to pull from)<br/>
+	<%= f.text_field :news_feed_url %>
+  </div>
+
+  <div class="field">
+  	<%= f.label :default_locale %> (can also be set per-website)<br/>
+	<%= f.text_field :default_locale %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

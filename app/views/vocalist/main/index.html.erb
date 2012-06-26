@@ -1,0 +1,82 @@
+<% if Setting.slides(website).size > 0 %>
+	<%= content_for :feature do %>
+	<%# cache :slideshow do %>
+		<%= slideshow(:slides => Setting.slides(website), :duration => 8700, :transition => "toggle") %>
+	<%# end %>
+	<% end %>
+<% end %>
+
+
+<%= content_for :middle_stuff do %>
+<% cache "homepage_features_#{website.brand_id}_#{I18n.locale}" do %>
+<% if @features.size > 0 %>
+	<% @features.each do |feature| %>
+	<span class="homepage_feature">
+		<%= feature_button(feature) %>
+	</span>
+	<% end %>
+<% else %>
+	<% @product_families.each do |product_family| %>
+	<% if product_family.family_photo_file_name.blank? %>
+		<div id="<%= product_family.to_param %>" class="product_family_feature">
+		  <h2><%= link_to translate_content(product_family, :name), product_family %></h2>
+			<p><%= translate_content(product_family, :intro) %></p>
+			<%= link_to t('view_full_line'), product_family %>
+		</div>
+	<% else %>
+		  <span class="family_button">
+			  <%= link_to(image_tag(product_family.family_photo.url, :alt => product_family.name), product_family) %>
+		  </span>
+	<% end %>
+	<% end %>
+  <% unless @product_families.size > 3 %>
+	<% if @current_promotions.size > 0 %>
+		<%= link_to(image_tag("#{website.folder}/#{I18n.locale}/promotions.png", :alt => "promotions"), promotions_path) %>
+	<% end %>
+  <% end %>
+<% end %>
+<% end %>
+  <div class="clear"></div>
+
+<% end %>
+
+<%= content_for :big_bottom_box do %>
+    <div style="float: right; width: 265px;">
+		<% if website.email_signup_url %>
+			<%= render 'shared/newsletter_signup' %>
+		<% end %>
+		<% if website.homepage_column_three %>
+			<%= render "shared/column_for_#{website.homepage_column_three}" %>
+		<% else %>
+			<%= render 'shared/column_for_twitter' %>
+		<% end %>
+	</div>
+
+	<div style="float: left; width: 290px; margin-left: 10px">
+		<% if website.homepage_column_one %>
+			<%= render "shared/column_for_#{website.homepage_column_one}" %>
+		<% else %>
+			<%= render 'shared/column_for_news' %>
+		<% end %>
+	</div>
+
+	<div style="margin-left: 315px; margin-right: 320px;">
+		<% if website.homepage_column_two %>
+			<%= render "shared/column_for_#{website.homepage_column_two}" %>
+		<% elsif @youtube && !@youtube.blank? %>
+			<%= render 'shared/column_for_youtube' %>
+		<% elsif !website.facebook.blank? %>
+			<%= render 'shared/column_for_facebook' %>
+		<% end %>
+	</div>
+<% end %>
+
+<%= content_for :preload do %>
+	<%= preload_background_images %>
+<% end %>
+
+<%= content_for :popup_code do %>
+	<% if website.homepage_popup %>
+		<%=raw website.homepage_popup %>
+	<% end %>
+<% end %>

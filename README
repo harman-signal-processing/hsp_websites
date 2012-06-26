@@ -1,0 +1,55 @@
+== The new DigiTech site 
+
+== I18n stuff: 
+
+In order to create a translation of the site:
+
+* Provide images for the new locale and its parent in public/images
+* Add active record models to the target locale YAML file
+* Translate YAML file for the new locale and parent (be sure to change the root and/or use the rails provided file)
+* Translate the dynamic content fields using the admin interface
+* Add the new locale to the available locales in config/initializers/i18n.rb
+* Activate locale selector. See main_controller#default_locale
+
+TODO: what to do about product family buttons, promotion bugs, etc?
+LATER: what to do about error pages (404, 500)
+LATER: search results (keys come from models), for now hide search box
+
+== Multi-site stuff:
+
+I've been working on re-writing the code base to handle multiple sites from one instance. Here's how
+it works:
+
+ 1. There's a "Website" model which connects a URL to a Brand and provides a "folder" method
+ 2. The ApplicationController has a "website" method which will match up the URL with a Website instance.
+ 3. The ApplicationController class has a before filter which will select the "layout" based on the website.
+ This will be app/views/{website.folder}/layouts/application.html.erb.
+ 4. That layout file should refer to custom CSS (hard coded in the template). The CSS file should be
+ customized as needed. If it refers to images, use /images/{website.folder}/image_name.png. 
+ (again, hard-coded until rails3.1 when the stylesheet assets act more like code.)
+ 5. Images should use this syntax for website-specific images: image_tag("#{website.folder}/logo.png").
+ 6. The ApplicationController class has a method named "render_template" which overrides a built-in
+ rails method. This method needs to be called at the end of each action (wish a filter would work) as
+ the final rendering method. It will determine if the given website has a custom view for the current
+ action in app/views/{website.folder}/{controller}/{action}. If so, it will use that view. If not,
+ it will default to the standard views.
+ 7. Error pages (404,500) can be customized per brand by customizing the app/views/brand/errors/404.html.erb
+ and app/views/brand/errors/500.html.erb
+   http://blog.igodigital.com/blog/notes-on-cyber-weekend-targeted-email-campaigns/custom-error-handling-in-rails-303
+
+== Challenges:
+
+* Distributors and Artists have a join table. Tough to manage in CMS.
+  ..UPDATE: sort of working. the create/delete will create/delete the associations, but there's
+  nothing to re-use a given Artist or Distributor record cross-brands.
+* Testing a new site on the live server could prove to be tough until its domain name is moved over.
+
+**** Main/index and default layout should be more basic for new sites (remove youtube feed)
+
+== Setting up a new site.
+
+1. Create an entry in the 'websites' table. This can be done using the admin tool of any existing site (for super admins)
+2. Setup required Settings for the new website's brand:
+  default_meta_tag_description, default_meta_tag_keywords, google_analytics_account, youtube, twitter, etc.
+3. Create header images, custom layout, custom display
+  

@@ -1,0 +1,22 @@
+<!-- This file only exists so I can run the ActionView::TestCase tests in
+ 'test/views/support/rohs_test.rb' For some reason, it is always looking for
+ a partial instead of an action view. So, this partial makes it happy.
+ 
+ The tests in rspec fail, dave chemlisky pointed me to ActionView::TestCase,
+ and it does seem to be the cluprit. -->
+
+
+<% set_meta_tags :title => t('titles.rohs'),
+				 :description => truncate(t('rohs_intro'), :length => 100, :omission => ""),
+				 :keywords => @products.collect{|p| p.name}.join(", "),
+				 :reverse => true %>
+
+<h1><%= t('titles.rohs') %></h1>
+
+<p><%= t('blurbs.rohs_intro') %></p>
+
+<ul style="margin: 20px 50px">
+	<% @products.each do |product| %>
+	<li> <%= link_to product.name, product %> <% unless product.sap_sku.blank? -%>(<%= product.sap_sku %>)<% end -%></li>
+	<% end %>
+</ul>

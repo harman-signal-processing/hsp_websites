@@ -1,0 +1,19 @@
+<div id="featured_callout" class="callout <%= position.to_s %>_callout">
+	<h4><%= image_tag "#{website.folder}/istomp/latest_epedals_title.png", alt: "Latest e-pedals" %></h4>
+<% begin %>
+<% if website.featured_epedals && featured = website.featured_epedals.split("|") %>
+	<div class="featured_pedal" style="margin-right: 50px;">
+		<% if featured_first = Product.find(featured[0]) %>
+			<%= render_partial 'products/featured_epedal', pedal: featured_first %>
+		<% end %>
+	</div>
+	<div class="featured_pedal">
+		<% if featured_second = Product.find(featured[1]) %>
+			<%= render_partial 'products/featured_epedal', pedal: featured_second %>
+		<% end %>
+	</div>
+<% end %>
+<% rescue %>
+	<i>There are currently no featured pedals. Check back soon.</i>
+<% end %>
+</div>

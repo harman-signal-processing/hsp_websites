@@ -1,0 +1,3 @@
+$('#product_site_elements').append('<%= escape_javascript(render "/admin/shared/product_site_element_row", pse: @product_site_element, called_from: @called_from) %>');
+$('#site_element_name').val('');
+<% flash.discard %>

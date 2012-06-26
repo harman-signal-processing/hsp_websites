@@ -1,0 +1,2 @@
+$('#product_promotions').append('<%= escape_javascript(render '/admin/shared/product_promotion_row', pp: @product_promotion, called_from: @called_from) %>');
+<% flash.discard %>

@@ -1,0 +1,25 @@
+<h1><%= @setting.name %></h1>
+
+<div class="button_container">
+	<%= link_to 'Settings', admin_settings_path, :class => "back button" %>
+	<% if can? :manage, @setting %>
+	<%= link_to 'Copy', copy_admin_setting_path(@setting, :locale => I18n.locale), :class => "copy button" %> 
+	<%= link_to 'Edit', edit_admin_setting_path(@setting, :locale => I18n.locale), :class => "edit button" %> 
+	<%= link_to 'Delete', [:admin, @setting], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %> 
+	<% end %>
+</div>
+
+<p>
+  <b>Locale:</b>
+  <%= (@setting.locale.blank?) ? "default" : @setting.locale %>
+</p>
+<p>
+  <b>Setting type:</b>
+  <%=h @setting.setting_type %>
+</p>
+
+<p>
+  <b>Value:</b>
+  <%= value_for(@setting) %>
+</p>
+

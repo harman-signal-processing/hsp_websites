@@ -1,0 +1,3 @@
+$('#product_effects').append('<%= escape_javascript(render "/admin/shared/product_effect_row", pe: @product_effect, called_from: @called_from) %>');
+$('#effect_name').val('');
+<% flash.discard %>

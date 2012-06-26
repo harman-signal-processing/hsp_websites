@@ -1,0 +1,33 @@
+<%= form_for([:admin, @product_specification]) do |f| %>
+  <% if @product_specification.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@product_specification.errors.count, "error") %> prohibited this product_specification from being saved:</h2>
+
+      <ul>
+      <% @product_specification.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :product_id %><br />
+    <%= f.select :product_id, website.products.collect{|p| [p.name, p.id]} %>
+  </div>
+  <div class="field">
+    <%= f.label :specification_id %><br />
+    <%= f.select :specification_id, Specification.order("upper(name)").all.collect{|s| [s.name, s.id]} %>
+  </div>
+  <div class="field">
+    <%= f.label :value %><br />
+    <%= f.text_field :value, :size => 80 %>
+  </div>
+<!--   <div class="field">
+    <%= f.label :position %><br />
+    <%= f.text_field :position %>
+  </div> -->
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

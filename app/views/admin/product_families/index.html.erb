@@ -1,0 +1,23 @@
+<h1>Product Families</h1>
+
+<% if can? :create, ProductFamily %>
+<div class="button_container">
+	<%= link_to 'New Product Family', new_admin_product_family_path, :class => "new button" %>
+</div>
+<% end %>
+
+<h2>Top-level Families</h2>
+<ul id="product_families" class="sortable_list">
+	<%= render :partial => "product_family", :collection => @product_families %>
+</ul>
+
+<%#= sortable_element "product_families",
+        # :complete => visual_effect(:highlight, "product_families"),
+        :url => update_order_admin_product_families_path %>
+
+<% if @children.size > 0 %>
+<h3>All the rest</h3>
+<ul class="nosort">
+	<%= render :partial => "product_family", :collection => @children %>
+</ul>
+<% end %>

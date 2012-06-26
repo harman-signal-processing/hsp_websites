@@ -1,0 +1,64 @@
+<%= form_for([:admin, @promotion], :html => {:multipart => true}) do |f| %>
+  <% if @promotion.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@promotion.errors.count, "error") %> prohibited this promotion from being saved:</h2>
+
+      <ul>
+      <% @promotion.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :show_start_on, "Show on website starting" %><br />
+    <%= f.text_field :show_start_on, class: 'ui-datepicker' %>
+  </div>
+  <div class="field">
+    <%= f.label :show_end_on, "Take off website after" %><br />
+    <%= f.text_field :show_end_on, class: 'ui-datepicker' %>
+  </div>
+  <div class="field">
+    <%= f.label :start_on, "Promotion start date" %><br />
+    <%= f.text_field :start_on, class: 'ui-datepicker' %>
+  </div>
+  <div class="field">
+    <%= f.label :end_on, "Promotion end date" %><br />
+    <%= f.text_field :end_on, class: 'ui-datepicker' %>
+  </div>
+  <div class="field">
+    <%= f.label :promo_form %><br />
+    <%= f.file_field :promo_form %>
+  </div>
+  <div class="field">
+  	<%= f.label :tile, "Banner/tile image" %><br/>
+	<%= f.file_field :tile %>
+	<% unless f.object.tile_file_name.blank? %>
+		<br/><i>currently: <%= link_to(f.object.tile_file_name, f.object.tile.url) %></i>
+	<% end %>
+  </div>
+  <div class="field">
+    <%= f.label :description %> (tile above will link to this info unless it is blank.)<br />
+    <%= f.text_area :description, :class => "mceEditor" %>
+  </div>
+  <h2>Customer notifications</h2>
+  <div class="field">
+	<%= f.check_box :send_post_registration_message %>
+	<%= f.label :send_post_registration_message, "Send a message (below) to customers who register a related product during the promotion start/end date." %>
+  </div>
+  <div class="field">
+	<%= f.label :post_registration_subject, "Subject" %>
+	<%= f.text_field :post_registration_subject %>
+  </div>
+  <div class="field">
+	<%= f.text_area :post_registration_message, :class => "mceEditor" %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

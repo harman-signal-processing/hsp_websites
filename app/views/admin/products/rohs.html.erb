@@ -1,0 +1,14 @@
+<h1>Maintain RoHS</h1>
+
+<%= form_tag update_rohs_admin_products_path, :method => :put %>
+
+	<% @products.each do |product| %>
+		<div>
+			<%= check_box_tag "products[]", product.id, product.rohs %>
+			<%= product.name %> (<%= product.sap_sku %>)
+		</div>	
+	<% end %>
+
+	<br/><%= submit_tag "save changes" %>
+
+</form>

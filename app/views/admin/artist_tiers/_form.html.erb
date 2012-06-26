@@ -1,0 +1,33 @@
+<%= form_for([:admin, @artist_tier]) do |f| %>
+  <% if @artist_tier.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@artist_tier.errors.count, "error") %> prohibited this tier from being saved:</h2>
+
+      <ul>
+      <% @artist_tier.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :invitation_code %><br />
+    <%= f.text_field :invitation_code %>
+  </div>
+  <div class="field">
+	<%= f.check_box :show_on_artist_page %>
+	<%= f.label :show_on_artist_page %> (the main artist page--if not, these artists will only be in the "all artists" section)
+  </div>
+  <div class="field">
+	<%= f.label :position, "Position (from top to bottom) where this tier appears" %><br/>
+	<%= f.text_field :position, :size => 4 %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,30 @@
+<h1>"<%= @target_locale %>" translation for <%= @model_class.titleize %>:</h1>
+<h3><%= name_for(@record) %></h3>
+
+<%= form_tag combined_admin_content_translations_path(:target_locale => @target_locale), :method => :post %>
+<table width="100%">
+<% @content_translations.each do |content_translation| %>
+	<tr>
+		<th style="background: #ccc; border-bottom: 1px dotted #CCC" width="50%">
+			"<%= content_translation.content_method.titleize %>" <%= I18n.default_locale %>:
+		</th>
+		<th style="background: #ccc; border-bottom: 1px dotted #CCC" width="50%">
+			"<%= content_translation.content_method.titleize %>" <%= @target_locale %>:
+		</td>
+	</tr>
+	<tr>
+		<td valign="top" style="padding-right: 40px">
+			<%=raw eval("@record.#{content_translation.content_method}") %>
+		</td>
+		<td valign="top" style="border-left: 1px dotted #CCC; padding-left: 10px;">
+			<%= text_area_tag "content[#{content_translation.content_method}]", content_translation.content, :class => "mceEditor" %>
+		</td>
+	</tr>
+<% end %>
+</table>
+
+	<%= hidden_field_tag "id", @record.id %>
+	<%= hidden_field_tag "type", @record.class.name.underscore %>
+	<%= submit_tag "save changes" %>
+	
+</form>

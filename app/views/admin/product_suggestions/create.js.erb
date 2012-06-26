@@ -1,0 +1,2 @@
+$('#product_suggestions').append('<%= escape_javascript(render "/admin/shared/product_suggestion_row", ps: @product_suggestion, called_from: @called_from) %>');
+<% flash.discard %>

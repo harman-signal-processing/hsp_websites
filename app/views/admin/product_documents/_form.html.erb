@@ -1,0 +1,18 @@
+<%= f.error_messages %>
+
+<p>
+  <%= f.label :product_id %><br />
+  <%= f.select :product_id, website.products.collect{|p| [p.name, p.id]} %>
+</p>
+<p>
+  <%= f.label :language %><br />
+  <%= f.select :language, DOCUMENT_LANGUAGES %>
+</p>
+<p>
+  <%= f.label :document_type %><br />
+  <%= f.select :document_type, DOCUMENT_TYPES %>
+</p>
+<p>
+  <%= f.label :document %><br />
+  <%= f.file_field :document %>
+</p>

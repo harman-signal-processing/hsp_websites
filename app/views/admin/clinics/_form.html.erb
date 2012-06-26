@@ -1,0 +1,69 @@
+<%= form_for([:admin, @clinic]) do |f| %>
+  <% if @clinic.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@clinic.errors.count, "error") %> prohibited this clinic from being saved:</h2>
+
+      <ul>
+      <% @clinic.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :scheduled_at %><br />
+    <%= f.text_field :scheduled_at, class: 'ui-datetimepicker' %>
+  </div>
+  <div class="field">
+    <%= f.label :end_at %><br />
+    <%= f.text_field :end_at, class: 'ui-datetimepicker' %>
+  </div>
+  <div class="field">
+    <%= f.label :dealer_id %> (if not listed, fill out the "location" field)<br />
+    <%= f.select :dealer_id, [[]] + Dealer.order("name").all.collect{|d| ["#{d.name} (#{d.address_string})", d.id]}, {}, :style => "font-size: 75%" %>
+  </div>
+  <div class="field">
+    <%= f.label :location %> (only used if "dealer" field is blank)<br />
+    <%= f.text_field :location %>
+  </div>
+  <div class="field">
+    <%= f.label :rep_id %><br />
+    <%= f.select :rep_id, [[]] + User.where(:rep => true).order("name").all.collect{|r| [r.name, r.id]} %>
+  </div>
+  <div class="field">
+    <%= f.label :clinician_id %><br />
+    <%= f.select :clinician_id, [[]] + User.where(:clinician => true).order("name").all.collect{|c| [c.name, c.id]} %>
+  </div>
+	<p>Products to be demonstrated:</p>
+	  <%= f.fields_for :clinic_products do |clinic_product| %>
+		<div class="field">
+			<%= clinic_product.select :product_id, [[]] + Product.non_discontinued(website).collect{|p| [p.name, p.id]} %>
+		</div>
+	<% end %>
+  <% unless f.object.new_record? %>
+  <div class="field">
+    <%= f.label :travel_expenses %><br />
+    $<%= f.text_field :travel_expenses, :size => 10 %>
+  </div>
+  <div class="field">
+    <%= f.label :food_expenses %><br />
+    $<%= f.text_field :food_expenses, :size => 10 %>
+  </div>
+  <div class="field">
+    <%= f.label :total_wages%><br />
+    $<%= f.text_field :total_wages, :size => 10 %>
+  </div>
+  <div class="field">
+    <%= f.check_box :increased_sell_through %>
+    <%= f.label :increased_sell_through %>
+  </div>
+  <div class="field">
+    <%= f.check_box :generated_orders %>
+    <%= f.label :generated_orders %>
+  </div>
+  <% end %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

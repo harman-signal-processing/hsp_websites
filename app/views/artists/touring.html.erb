@@ -1,0 +1,39 @@
+<% set_meta_tags :title => t('titles.products_on_tour'),
+				 :description => t('meta.description.products_on_tour'),
+				 :keywords => @products.collect{|p| p.name}.join(", "),
+				 :reverse => true %>
+
+<h1 class="page_title">
+<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/productsontour_head.jpg")) %>				
+	<%= image_tag("#{website.folder}/#{I18n.locale}/productsontour_head.jpg", :alt => t('titles.products_on_tour')) %>
+<% else %>
+	<%= t('titles.products_on_tour') %>
+<% end %>
+</h1>
+<div id="wide_centered_box">
+<% @products.each do |product| %>
+  <div class="artist_listing">
+	
+	<% if product.photo %>
+		<div class="artist_photo">
+			<%= link_to image_tag(product.photo.product_attachment.url(:thumb)), product %>
+		</div>
+	<% end %>
+	
+	<div class="description">
+		<h2><%= link_to product.name, product %></h2>
+		<p><%= t('on_tour_with') %>: <%= list_artists_touring_with(product) %></p>
+		<div>
+		<% product.artist_products.each do |artist_product| %>
+			<% unless artist_product.quote.blank? %>
+				<p><i><%= artist_product.quote %> - <%= artist_product.artist.name %></i></p>
+			<% end %>
+		<% end %>
+		</div>
+	</div>
+	<div class="clear"></div>
+	
+  </div>
+<% end %>
+  <div class="clear"></div>
+</div>

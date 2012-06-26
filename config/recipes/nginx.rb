@@ -1,0 +1,19 @@
+namespace :nginx do
+  desc "Copy config files for NGINX and then restart it"
+  task :reconfigure, roles: :web do
+    configure
+    restart
+  end
+  
+  desc "Copy config files for NGINX"
+  task :configure, roles: :web do
+    %w[a_catchall bss dbx digitech hardwire jbl_commercial lexicon testsites vocalist staging].each do |site_name|
+      run "#{sudo} ln -nfs #{current_path}/config/#{site_name}.conf /etc/nginx/conf.d/#{site_name}.conf"
+    end
+  end
+  
+  desc "Restart NGINX"
+  task :restart, roles: :web do
+    run "#{sudo} service nginx restart"
+  end
+end

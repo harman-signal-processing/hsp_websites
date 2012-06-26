@@ -1,0 +1,23 @@
+<footer>
+	<nav id="footer_info">
+		<%= link_to t('software_downloads').downcase, main_app.software_index_path %> &bull;
+		<%= link_to t('products'), main_app.product_families_path %> &bull;
+		<%= link_to t('product_reviews').downcase, main_app.product_reviews_path %> &bull;
+		<%= link_to t('news'), main_app.news_index_path %> &bull;
+		<%= link_to t('artists'), main_app.artists_path %> &bull;
+		<%= link_to t('sound_community'), main_app.community_path %> &bull;
+		<%= link_to t('where_to_buy'), main_app.where_to_buy_path %> &bull;
+		<%= link_to t('product_support'), main_app.support_path %> &bull;
+		<%= link_to t('sitemap'), main_app.sitemap_path(:format => 'xml') %>
+	</nav>
+	<div id="footer_left">
+		<% if content_for?(:footer_logo) %>
+			<%= yield :footer_logo %>
+		<% else %>
+			<%= image_tag "harman_tiny.png" %>
+		<% end %>
+		&copy; <%= Date.today.year %> 
+		<%= link_to(t('harman'), "http://www.harman.com/", :target => "_blank") %>. 
+		<%= t('all_rights_reserved') %>
+	</div>
+</footer>

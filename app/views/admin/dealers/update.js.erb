@@ -1,0 +1,6 @@
+<% if @dealer.exclude? %>
+
+$('#dealer_<%= @dealer.id %>').addClass('strike');
+$('#excluder_<%= @dealer.id %>').remove();
+
+<% end %>

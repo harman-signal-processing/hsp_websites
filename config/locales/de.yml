@@ -1,0 +1,388 @@
+###################################################################
+# Please translate the following block. Here are some guidelines:
+# 1. Do not translate the keys (keys are on the left side of the colon (:)).
+# 2. If you see something like %{word} within a block of text, then
+#    leave that part un-changed and translate the text surrounding it.
+# 3. Scroll down to the section labeled "Already translated" for an
+#    example of what the translation should look like.
+# 4. Contact adam.anderson@harman.com with any questions.
+#
+de:
+    home: home
+    products: products
+    news: news
+    artists: artists
+    sound_community: sound community
+    community: community
+    where_to_buy: where to buy
+    product_support: support
+    outlet_store: outlet store
+    sitemap: sitemap
+    all_rights_reserved: All Rights Reserved.
+    harman: Harman
+    us_zip_code: US Zipcode
+    find_us_dealers: find local
+    online_dealers_us: Online Dealers (US)
+    international_distributors: worldwide
+    select_your_country: select your country
+    dealer_distance: miles
+    back_to_news_list: Back to news list
+    back_to_artists: Back to artists
+    view_full_line: view full line
+    near_zipcode: "near %{zip}"
+    more: more
+    more_info: more info
+    rohs: rohs compliance
+    visit: visit
+    visit_the: visit the
+    product_reviews: product reviews
+    news_signup: "Join our mailing list:"
+    warranty_registration: product registration
+    search: search
+    search_again: search again
+    related_products: related products
+    version: version
+    back: back
+    download: download
+    downloads: downloads
+    software_downloads: software downloads
+    pop_explanation: Many DigiTech retailers feature our interactive product display which will allow you to try out our products and find out just how much Jimi you've got.
+    products_used_by: "Products used by %{artist}"
+    valid: valid
+    download_promotion_form: download promotion form
+    submit: submit
+    your_name: Your Name
+    email: email
+    subject: Subject
+    message: Message
+    older: older...
+    current_news: current news
+    submit_warranty_registration: submit registration
+    cancel: cancel
+    register_your_product: "Register Your %{product}"
+    contact_tech_support: "Contact Technical Support"
+    go: go
+    discontinued: discontinued
+    troubleshooting: Troubleshooting Tips and FAQs
+    close: close
+    name: name
+    platform: platform
+    updater: updater
+    windows_gui: "Windows GUI/Librarian"
+    mac_gui: "Mac GUI/Librarian"
+    other: other
+    discontinued_products_downloads: "Discontinued Products Downloads"
+    related_products: "Related products"
+    touring_with: "touring with"
+    on_tour_with: "on tour with"
+    regarding: "regarding"
+    uses: "uses"
+    click_icons_for_features: "click icons for features"
+    back_to: back to
+
+    language:
+        en: English
+        es: Spanish
+        fr: French
+        de: German
+
+    document_type:
+        owners_manual: Owner's Manual
+        cut_sheet: Cut Sheet
+        quickstart_guide: Quickstart Guide
+        application_guide: Application Guide
+        preset_list: Preset List
+
+    product_page:
+        features: "Features"
+        specs_manuals_etc: "specs, manuals, reviews, etc..."
+        details: "More Details"
+        news_and_reviews: "News & Reviews"
+        specifications: "Specifications"
+        amp_models: "Amp Models"
+        cabinets: "Speaker Cabinets"
+        effects: "Effects"
+        downloads: "Downloads"
+        documentation: "Manuals/Documentation"
+        support: "Support/FAQs"
+        artists: "Artists"
+        review: "Review"
+        faqs: "FAQs"
+        tones: "Tone Library"
+        special_offer: "Special Offer"
+        labels:
+            features: Features
+            amp_models: Amps
+            cabinets: Cabs
+            effects: Effects
+
+    titles:
+        news: DigiTech News
+        blog: DigiTech Blog
+        archived_news: News Archive
+        more_resources: More Resources
+        where_to_buy: Where To Buy
+        dealer_search_results: Dealer Search Results
+        buy_online: "Click a retailer logo below to buy online:"
+        buy_now: Buy Now
+        international_distributors: Worldwide Distributors
+        product_families: Product Families
+        products: All Products
+        products_on_tour: Products On Tour
+        artists: Artists
+        featured_artists: Featured Artists
+        rohs: RoHS Directive
+        related_products: Related Products
+        contact: Contacts
+        contact_us: Contact Us
+        about_us: About DigiTech
+        search_results: Search Results
+        product_reviews: Product Reviews
+        pop: Get a hands-on demo
+        current_promotions: Current Promotions
+        community: "Guitar & Sound Communities"
+        guitar_workstation: Guitar Workstation
+        support: Support
+        product_support: Discontinued Product Support
+        warranty_registration: Product Registration
+        mailing_address: Mailing Address
+        service_centers: Service Centers
+        locate_us_service_center: Locate your nearest service center (US)
+        tone_library: Tone Library
+        featured_pedal: Featured Pedal
+        youtube_channel: DigiTech Channel
+
+    errors:
+        geocoding: "There was an error geocoding the address/zipcode you provided."
+        no_dealers_found: "Sorry, no dealers were found near %{zip}"
+        no_service_centers_found: "Sorry, no service centers were found near %{zip}"
+
+    meta:
+        description:
+            where_to_buy: Where to buy DigiTech products
+            artists: Learn how musicians put DigiTech products to good use.
+            featured_artists: Premier musicians use DigiTech products.
+            products_on_tour: Find out which products are currently on tour with which artists.
+            support: Support resources for your DigiTech products including faqs, manuals, product registration and service centers.
+            warranty_registration: Register your DigiTech product.
+
+        keywords:
+            where_to_buy: purchase, buy, dealers, usa
+
+    blurbs:
+        sound_community: "The web's original sound community for musicians. Exchange music, share ideas and patches for all of your DigiTech gear."
+        guitar_workstation: "Specifically designed for the GNX4 and GNX3000 workstation products. As an added bonus you'll find tips from Craig Anderton."
+        rohs_intro: "With regards to the RoHS Directive 2002 / 95 / EC of the European Parliament and of the Council of 27 January 2003 on the restriction of the use of certain hazardous substances in electrical and electronic equipment, we at Harman Music Group declare that to the best of our knowledge, all products listed below meet and fulfill all the requirements of the aforementioned directive."
+        product_support: "Browse support material for your discontinued product by selecting the model number below:"
+        warranty_registration_success: "Thank you for registering your product with us. Please be sure to keep your dated store receipt as proof of purchase."
+        use_date_code: "Some of our products do not have serial numbers. In this case, enter the date code from the back of the unit."
+        subscribe: "Sign up to receive periodic messages from DigiTech regarding product updates and special promotions."
+        warranty_comments: "Note: if you have a technical question/problem, please submit it via our support contact form."
+        contact_form_thankyou: "Thank you for contacting us. We will get back with you shortly."
+        captcha_explanation: "Please answer this question so that we can verify you are not a spam robot. (There is only one \"correct\" answer)"
+        tone_library_explanation: "Get started with these famous tones by connecting your GSP or RP unit to your Mac or PC. Visit our %{link} page if you don't have the sound librarian installed yet."
+        product_tone_library_explanation: "Get started with these famous tones by connecting your %{model} to your Mac or PC. Use the software downloads links on this page to install the librarian on your computer."
+        international_distributors: "International Distributors assist with product sales, support, manual requests and warranty service. Warranty is only valid within the country of purchase."
+
+    subjects:
+        select_a_subject: Select a Subject
+        product_question: Product Question
+        technical_support: Technical Support
+        manual_request: Manual Request
+        product_repair: Product Repair
+        product_parts: Product Parts
+        general_questions: General Question/Other
+        order_status: Order Status (Dealers only)
+        dealer_questions: Questions from Dealers
+        web_comments: Web Comments
+    
+    activerecord:
+      models:
+          amp_model: Amp Model
+          artist: Artist
+          brand: Brand
+          cabinet: Cabinet
+          dealer: Dealer
+          distributor: Distributor
+          effect: Effect
+          effect_type: Effect Type
+          faq: FAQ
+          news: News
+          online_retailer: Online Retailer
+          page: Page
+          product: Product
+          promotion: Promotion
+          service_center: Service Center
+          software: Software
+          specification: Specification
+          warranty_registration: Product Registration
+      attributes:
+          warranty_registration:
+              title: Title
+              first_name: First Name
+              last_name: Last Name
+              email: Email
+              address1: Address
+              city: City
+              state: State
+              zip: Zipcode
+              country: Country
+              phone: Phone
+              product_id: Product
+              serial_number: Serial number
+              purchased_from: Authorized Retailer purchased from
+              purchased_on: Purchase date
+              purchase_price: Purchase price
+              comments: Comments
+###################################################
+# Already translated:
+###################################################
+    errors:
+      template:
+        header:
+          one:    "Konnte %{model} nicht speichern: ein Fehler."
+          other:  "Konnte %{model} nicht speichern: %{count} Fehler."
+        body: "Bitte überprüfen Sie die folgenden Felder:"
+
+      messages:
+        inclusion: "ist kein gültiger Wert"
+        exclusion: "ist nicht verfügbar"
+        invalid: "ist nicht gültig"
+        confirmation: "stimmt nicht mit der Bestätigung überein"
+        accepted: "muss akzeptiert werden"
+        empty: "muss ausgefüllt werden"
+        blank: "muss ausgefüllt werden"
+        too_long: "ist zu lang (nicht mehr als %{count} Zeichen)"
+        too_short: "ist zu kurz (nicht weniger als %{count} Zeichen)"
+        wrong_length: "hat die falsche Länge (muss genau %{count} Zeichen haben)"
+        taken: "ist bereits vergeben"
+        not_a_number: "ist keine Zahl"
+        greater_than: "muss größer als %{count} sein"
+        greater_than_or_equal_to: "muss größer oder gleich %{count} sein"
+        equal_to: "muss genau %{count} sein"
+        less_than: "muss kleiner als %{count} sein"
+        less_than_or_equal_to: "muss kleiner oder gleich %{count} sein"
+        odd: "muss ungerade sein"
+        even: "muss gerade sein"
+        record_invalid: "Gültigkeitsprüfung ist fehlgeschlagen: %{errors}"
+
+    date:
+      formats:
+        default: "%d.%m.%Y"
+        short: "%e. %b"
+        long: "%e. %B %Y"
+        only_day: "%e"
+
+      day_names: [Sonntag, Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag]
+      abbr_day_names: [So, Mo, Di, Mi, Do, Fr, Sa]
+      month_names: [~, Januar, Februar, März, April, Mai, Juni, Juli, August, September, Oktober, November, Dezember]
+      abbr_month_names: [~, Jan, Feb, Mär, Apr, Mai, Jun, Jul, Aug, Sep, Okt, Nov, Dez]
+      order: 
+          - :day
+          - :month
+          - :year
+
+    time:
+      formats:
+        default: "%A, %d. %B %Y, %H:%M Uhr"
+        short: "%d. %B, %H:%M Uhr"
+        long: "%A, %d. %B %Y, %H:%M Uhr"
+        time: "%H:%M"
+
+      am: "vormittags"
+      pm: "nachmittags"
+
+    datetime:
+      distance_in_words:
+        half_a_minute: 'eine halbe Minute'
+        less_than_x_seconds:
+          one: 'weniger als eine Sekunde'
+          other: 'weniger als %{count} Sekunden'
+        x_seconds:
+          one: 'eine Sekunde'
+          other: '%{count} Sekunden'
+        less_than_x_minutes:
+          one: 'weniger als eine Minute'
+          other: 'weniger als %{count} Minuten'
+        x_minutes:
+          one: 'eine Minute'
+          other: '%{count} Minuten'
+        about_x_hours:
+          one: 'etwa eine Stunde'
+          other: 'etwa %{count} Stunden'
+        x_days:
+          one: 'ein Tag'
+          other: '%{count} Tage'
+        about_x_months:
+          one: 'etwa ein Monat'
+          other: 'etwa %{count} Monate'
+        x_months:
+          one: 'ein Monat'
+          other: '%{count} Monate'
+        almost_x_years:
+          one: 'fast ein Jahr'
+          other: 'fast %{count} Jahre'
+        about_x_years:
+          one: 'etwa ein Jahr'
+          other: 'etwa %{count} Jahre'
+        over_x_years:
+          one: 'mehr als ein Jahr'
+          other: 'mehr als %{count} Jahre'
+      prompts:
+        second: "Sekunden"
+        minute: "Minuten"
+        hour: "Stunden"
+        day: "Tag"
+        month: "Monat"
+        year: "Jahr"
+
+    number:
+      format:
+        precision: 2
+        separator: ','
+        delimiter: '.'
+      currency:
+        format:
+          unit: '€'
+          format: '%n%u'
+          separator: 
+          delimiter: 
+          precision: 
+      percentage:
+        format:
+          delimiter: ""
+      precision:
+        format:
+          delimiter: ""
+      human:
+        format:
+          delimiter: ""
+          precision: 1
+        storage_units:
+          # Storage units output formatting.
+          # %u is the storage unit, %n is the number (default: 2 MB)
+          format: "%n %u"
+          units:
+            byte:
+              one:   "Byte"
+              other: "Bytes"
+            kb: "KB"
+            mb: "MB"
+            gb: "GB"
+            tb: "TB"
+
+    support:
+      array:
+        words_connector: ", "
+        two_words_connector: " und "
+        last_word_connector: " und "
+      select:
+        prompt: "Bitte wählen:"
+
+    activemodel:
+      errors:
+        template:
+          header:
+            one:    "Konnte %{model} nicht speichern: ein Fehler."
+            other:  "Konnte %{model} nicht speichern: %{count} Fehler."
+          body: "Bitte überprüfen Sie die folgenden Felder:"

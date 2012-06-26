@@ -1,0 +1,9 @@
+<h2><%= title %></h2>
+
+<div class="disclaimer"><%= t(:brief_legal_disclaimer) %></div>
+
+<ul>
+	<% @product.cabinets.sort_by(&:name).each do |cabinet| %>
+	<li><%= translate_content(cabinet, :name) %></li>
+	<% end %>
+</ul>

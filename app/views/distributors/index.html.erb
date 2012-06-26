@@ -1,0 +1,34 @@
+<% set_meta_tags :reverse => true,
+				 :title => (@country) ? "#{@country} | #{ucfirst(t('titles.international_distributors'))}" : ucfirst(t('titles.international_distributors')),
+                 :description => "International distributors" %>
+
+<h1 class="page_title">
+<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/worldwide_distributors_head.jpg")) %>
+	<%= image_tag("#{website.folder}/#{I18n.locale}/worldwide_distributors_head.jpg", :alt => t('titles.international_distributors')) %>
+<% else %>
+	<%= t('titles.international_distributors') %>
+<% end %>
+</h1>	
+	
+<div class="medium_centered_box">
+	
+	<p><%= t("blurbs.international_distributors") %></p>
+	
+<%= form_tag search_distributors_path, :method => :get %>
+	
+	<p><%= label_tag t('select_your_country') %><br/>
+		<%= select_tag :country, options_from_collection_for_select(@countries, :country, :country, @country) %>
+		<%= submit_tag t('submit') %>
+	</p>
+		
+</form>
+</div>
+
+<% if @distributors.size > 0 %>
+	<% @distributors.each do |distributor| %>
+	<div class="medium_centered_box light_gray">
+		<h2><%= distributor.name %></h2>
+		<div><%=raw distributor.detail %></div>
+	</div>
+	<% end %>
+<% end %>

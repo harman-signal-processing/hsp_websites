@@ -1,0 +1,20 @@
+<h1>Pages</h1>
+
+<% if can? :create, Page %>
+<div class="button_container">
+	<%= link_to 'New page', new_admin_page_path, :class => "new button" %>
+</div>
+<% end %>
+
+<table>
+	<tr>
+		<td><b>Page URL</b> (click to visit page)</td>
+		<td style="padding-left: 8px"><b>Page Title</b> (click to edit page)</td>
+	</tr>
+<% @pages.each do |page| %>
+	<tr>
+		<td><%= link_to page_link(page), page_link(page) %></td>
+		<td style="padding-left: 8px"><%= link_to page.title, [:admin, page] %></td>
+	</tr>
+<% end %>
+</table>

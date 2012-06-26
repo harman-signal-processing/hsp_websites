@@ -1,0 +1,117 @@
+<% set_meta_tags :title => @product.name,
+				 :reverse => true,
+                 :description => translate_content(@product, :short_description),
+                 :keywords => translate_content(@product, :keywords) %>
+
+<%= content_for :preload do %>
+	<%= image_tag("#{website.folder}/#{I18n.locale}/buyitnow_button_hover.png") %>
+	<% @product.product_attachments.each do |product_attachment| %>
+		<% if !product_attachment.product_attachment_file_name.blank? %>
+			<%= image_tag(product_attachment.product_attachment.url(:medium)) %>
+		<% end %>
+	<% end %>
+<% end %>
+
+<% if @product.has_custom_background? %>
+	<%= content_for :custom_css do %>
+	<style type="text/css" media="screen">
+		body { <%= @product.custom_background %> }
+	</style>
+	<% end %>
+<% end %>
+
+<div id="breadcrumbs"><%= breadcrumbs(@product) %></div>
+
+<div id="product_content">
+	<div id="left_column">
+		<table id="viewer_container">
+			<tr><td align="center">
+		<div id="viewer">
+			<% if @product.photo %>
+			  <% if @product.photo.no_lightbox? || !!(website.no_lightbox) %>
+				<%= link_to(image_tag(@product.photo.product_attachment.url(:medium)), @product.photo.product_attachment.url) %>
+			  <% else %>
+				<%= link_to(image_tag(@product.photo.product_attachment.url(:medium)), @product.photo.product_attachment.url(:lightbox), :class => "lightbox") %>
+			  <% end %>
+			<% end %>
+		</div>
+			</td></tr>
+		</table>
+		<% if @product.images_for("product_page").size > 1 %>
+		<ul id="product_thumbnails">
+			<% @product.images_for("product_page").each do |product_attachment| %>
+			<li><%= link_to_product_attachment(product_attachment) %></li>
+			<% end %>
+		</ul>
+		<% end %>
+		<div id="description">
+			<%=raw translate_content(@product, :description) %>
+			<div style="font-size: 80%"><%=raw translate_content(@product, :extended_description) %></div>
+		</div>	
+	</div>
+	
+	<div id="right_column">
+		<h1><%= title @product.name %></h1>
+		<div style="text-align: center; font-size: 16px; color: #666">
+			<%= translate_content(@product, :short_description) %>
+		</div>
+		
+		<% if website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !@product.direct_buy_link.blank? %>
+		<div id="product_buy_now_box">
+			<%= buy_it_now_link(@product) %>
+		</div>
+		<% end %>
+		
+		<%= links_to_current_promotions(@product) %>
+		<%= draw_packaging_boxes @product %>
+		<%= draw_info_boxes @product %>
+		<%= render 'shared/add_this' %>
+		<div style="color: white;">
+			<%= render_partial "shared/newsletter_signup" %>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<% if session["geo_usa"] %>
+<%= content_for :dealer_popup do %>
+	<div>
+		<div style="float: left;">
+			<h2><%= t('titles.buy_online') %></h2>
+		</div>
+		<div style="float: right; margin-top: 12px;">
+			<%= form_tag where_to_buy_path() %>
+				<%= t('us_zip_code') -%>: <%= text_field_tag "zip", session[:zip], :size => 8 %>
+				<%= submit_tag t('find_us_dealers') %>
+				<%= link_to t("international_distributors"), international_distributors_path %>
+			</form>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div id="dealers">
+	<div id="online_retailers">
+		<%= render_partial "shared/buynow", :product => @product %>
+	</div>
+	</div>
+	<div style="clear:both"></div>
+<% end %>
+<% end %>
+
+<%= content_for :extra_js do %>
+	$(document).ready(function() {
+		if ((navigator.userAgent.indexOf('iPhone') != -1) || (navigator.userAgent.indexOf('iPod') != -1) || (navigator.userAgent.indexOf('iPad') != -1)) {
+			$('#product_buy_now_box').after(
+				"<div style='text-align:center; color: #444; margin: 4px; font-size: 85%'><i>iPad users: use 2 fingers to scroll in the boxes below.</i></div>"
+			);
+		}
+		<% if @product.tabs.collect{|t| t.key}.include?("features") %>
+		$('#features_content').show();
+		<% end %> 
+	});
+<% end %>
+
+<% if current_user && can?(:manage, @product) %>
+<div class="admin_function">
+	<%= link_to "edit", [:admin, @product] %>
+</div>
+<% end %>

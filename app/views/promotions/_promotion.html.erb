@@ -1,0 +1,18 @@
+<div style="margin-bottom: 20px">
+
+	<h1><%= translate_content(promotion, :name) %></h1>
+	<p><%= t('valid') %> <%=l promotion.start_on, :format => :long %>-<%=l promotion.end_on, :format => :long %></p>
+
+	<% if !promotion.promo_form_file_name.blank? %>
+		<p><%= link_to t('download_promotion_form'), promotion.promo_form.url %></p>
+	<% end %>
+	
+	<%=raw translate_content(promotion, :description) %>
+
+	<% if promotion.products.size > 0 %>
+	<div class="related_products"><%= t('related_products') %>:
+		<%= links_to_related_products(promotion) %>
+	</div>
+	<% end %>
+	
+</div>

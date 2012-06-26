@@ -1,0 +1,73 @@
+<div style="width: 70%">
+	<h1>Become A HardWire Artist</h1>
+	<p>HardWire has a long history of working closely with artists from all levels of development and success.  
+		We believe in providing support to artists in a way that is beneficial for both the artist and our company.  
+		It is important to us that the relationships that we build become strong and lasting.  The amount if time 
+		and effort we put into our products demands a certain level of commitment from our endorsed artists.  With 
+		this in mind there are certain requirements that must be met to become part of HardWire's Artist Relations 
+		family.</p>
+	<p>By providing the following information you will help us to get to know you and allow us to discover where 
+		you fit in to out Artist Relations Program.  It is expected that the artist has established a career in 
+		the music industry and can provide documentation of that career including:</p>
+	<ul>
+		<li>Detailed Bio that includes:</li>
+		<ul>
+			<li>Personal/Band Biography</li>
+			<li>Press and Reviews</li>
+			<li>Discography</li>
+			<li>Tour history</li>
+			<li>Artist related social media and links</li>
+			<li>Direct contact information and/or</li>
+			<li>Management/Tech contact </li>
+		</ul>
+		<li>Current published recordings</li>
+		<li>Current public videos</li>
+		<li>Music genre</li>
+		<li>Which <%= website.brand_name %> products you currently use and why 
+			(please be specific regarding model numbers)</li>
+		<li>Why do you feel that you would be a good fit in the HardWire family?</li>
+		<li>Do you officially or unofficially endorse other competing brands, if so which, 
+			please describe which company(s) and the nature of the relationship</li>
+	</ul>
+	<p>Your submission can be sent electronically (if all fields are filled correctly, then auto-response will be sent).</p>
+	
+	<div style="margin: 40px auto;">
+	<span class="artist_callout_container" style="width: 300px; margin: 50px 20px; text-align: center; padding: 15px 20px; font-size: 130%">
+		<%= link_to "Sign up to be a HardWire Artist", new_artist_registration_path %>
+	</span>
+	</div>
+	
+	<p>Physical submission will not be returned, please send to:</p>
+	<blockquote>
+		<p><%= mail_to "artistrelations@digitech.com", "artistrelations@hardwirepedals.com" %></p>
+		<p>or:</p>
+		<p><b><%= website.brand_name %>/Attn: Artist Relations</b><br/>
+		8760 South Sandy Parkway<br/>
+		Sandy, UT 84070</p>
+	</blockquote>
+</div>
+
+<div id="artist_login_container" class="artist_callout_container">
+	<h3>Artist Login:</h3>
+	<%= form_for("artist", :url => artist_session_path) do |f| %>
+		<div class="form_field">
+			<%= f.label :email %><br/>
+			<%= f.text_field :email, :class => "artist_field" %>
+		</div>
+	
+		<div class="form_field">
+			<%= f.label :password %><br/>
+			<%= f.password_field :password, :class => "artist_field" %>
+		</div>
+		
+		<div class="form_field">
+			<%= f.check_box :remember_me %>
+	  		<%= f.label :remember_me %>
+		</div>
+		
+	  	<div class="form_field">
+			<%= f.submit 'Sign in' %>
+		</div>
+	  	<p><%= link_to "Forgot your password?", new_password_path('artist') %></p>
+	<% end %>
+</div>

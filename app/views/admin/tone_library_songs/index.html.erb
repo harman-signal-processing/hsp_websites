@@ -1,0 +1,14 @@
+<h1>Listing Tone Library Songs</h1>
+
+<%= link_to 'New Song', new_admin_tone_library_song_path, :class => "new button" %>
+
+<ul>
+<% @tone_library_songs.each do |tone_library_song| %>
+  <li><%= link_to [:admin, tone_library_song] do %>
+  		<%= tone_library_song.artist_name %>: <i><%= tone_library_song.title %></i>
+	  <% end %>
+  </li>
+<% end %>
+</ul>
+
+

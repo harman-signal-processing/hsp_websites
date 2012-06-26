@@ -1,0 +1,46 @@
+<% set_meta_tags :title => "News Admin - #{@news.title}",
+				 :reverse => true,
+                 :description => @news.title,
+                 :keywords => @news.keywords %>
+<h1>
+	<%= title @news.title %>
+	<span class="little"><%= link_to(news_url(@news, :locale => I18n.locale), news_url(@news, :locale => I18n.locale)) %>
+	<%= link_to(image_tag("external_link_icon.png"), news_url(@news, :locale => I18n.locale)) %></span>
+</h1>
+
+<div class="button_container">
+	<%= link_to 'Back', admin_news_index_path, :class => "back button" %>
+	<%= link_to 'Edit', edit_admin_news_path(@news, :locale => I18n.locale), :class => "edit button" %> 
+	<%= link_to 'Delete', [:admin, @news], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %> 
+</div>
+<p>
+  <%=l @news.post_on, :format => :long %>
+</p>
+
+<%=truncate(strip_html(@news.body), :length => 75) %>
+
+<p>
+  <b>Keywords:</b>
+  <%=h @news.keywords %>
+</p>
+
+<% if !@news.news_photo_file_name.blank? %>
+  <%= image_tag(@news.news_photo.url(:thumb)) %>
+<% end %>
+
+
+<div class="group">
+<h3>This news is associated with the following product(s):</h3>
+<%= form_for [:admin, @news_product], :remote => true do |f| %>
+	<%= hidden_field_tag "called_from", "news" %>
+    <%= f.hidden_field :news_id %>
+	<%= f.select :product_id, Product.all_for_website(website).collect{|p| [p.name, p.id]} %> 
+	<%= submit_tag 'add' %>
+<% end %>
+
+<ul id="news_products">
+	<% @news.news_products.each do |np| %>
+		<%= render '/admin/shared/news_product_row', :np => np, :called_from => 'news' %>
+	<% end %>
+</ul>
+</div>

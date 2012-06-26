@@ -1,0 +1,42 @@
+<p>
+  <b>Effect Type:</b>
+  <% if @effect.effect_type_id.blank? %>
+	<span class="alert">none</span> (required in order to show up on product pages)
+  <% else %>
+  	<%= @effect.effect_type.name %>
+  <% end %>
+</p>
+
+<div class="button_container">
+	<%= link_to 'Back', admin_effects_path, :class => "back button" %>
+	<%= link_to 'Edit', edit_admin_effect_path(@effect), :class => "edit button" %> 
+	<%= link_to 'Delete', [:admin, @effect], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %>
+</div>
+
+<p>
+  <b>Name:</b>
+  <%= @effect.name %>
+</p>
+
+
+<div class="group">
+	<h3>Available in these Products:</h3>
+	<p><%= link_to_function "add a product", "$('#add_effect_form').toggle();"%></p>
+
+	<div id="add_effect_form" style="display:none">
+		<%= form_for [:admin, @product_effect], :remote => true do |f| %>
+			<%= hidden_field_tag :effect_name %>
+			<%= hidden_field_tag :called_from, "effect" %>
+		    <%= f.hidden_field :effect_id %>
+			<%= f.select :product_id, website.products.collect{|p| [p.name, p.id]} %> 
+			<%= f.submit %>
+			<%= link_to_function "cancel", "$('#add_effect_form').toggle();"%>
+		<% end %>
+	</div>
+
+	<ul id="product_effects">
+	  <% @effect.product_effects.each do |pe| %>
+	  <%= render "/admin/shared/product_effect_row", :pe => pe, :called_from => "effect" %>
+	  <% end %>
+	</ul>
+</div>

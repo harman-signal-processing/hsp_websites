@@ -1,0 +1,12 @@
+<h1>Websites</h1>
+
+<div class="button_container"><%= link_to "add a website", new_admin_website_path, :class => "new button" %></div>
+
+<% Brand.all.each do |brand| %>
+	<h3><%= brand.name %>:</h3>
+	<ul>
+		<% brand.websites.each do |website| %>
+		<li> <%= link_to website.url, [:admin, website] %> <span class="small"><%= website.comment %></span></li>
+		<% end %>
+	</ul>
+<% end %>
