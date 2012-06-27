@@ -52,7 +52,7 @@
 			this.props = o.orientation == 'vertical' ? ['height', 'Height', 'top', 'Top'] : ['width', 'Width', 'left', 'Left'];
 			//For < 1.8.2: this.items['outer'+this.props[1]](1);
 			
-			this.itemSize = (0.0168 * this.items.length) * this.items.innerWidth();
+			this.itemSize = (0.0167 * this.items.length) * this.items.innerWidth();
 			this.itemWidth = this.items.width();
 			this.itemHeight = this.items.height();
 			this.duration = o.duration;
@@ -142,7 +142,7 @@
 		
 					css["filter"] = "progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=1, M12=0, M21=" + (mod * (side == 'right' ? -0.2 : 0.2)) + ", M22=1";
 					// css["filter"] = "progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=1, M12=0, M21=" + (mod * 0) + ", M22=1";
-					css[self.props[2]] = ( (-i * (self.itemSize/4)) + (side == 'right'? -self.itemSize/2 : self.itemSize/2) * mod );
+					css[self.props[2]] = ( (-i * (self.itemSize/3)) + (side == 'right'? -self.itemSize/2 : self.itemSize/2) * mod );
 
 					if(i == self.current){
 					// css.width = self.itemWidth * (1+((1-mod)*0.3));
@@ -169,7 +169,7 @@
 					// css[vendorPrefix + 'Transform'] = 'matrix(1,'+(mod * (side == 'right' ? -0.2 : 0.2))+',0,1,0,0) scale('+(0.80+((0.9-mod)*0.25)) + ')'; 
 					// css[vendorPrefix + 'Transform'] = 'scale('+(0.80+((0.9-mod)*0.25)) + ')'; 
 					css[vendorPrefix + 'Transform'] = 'matrix(1,'+(mod * (side == 'right' ? -0.2 : 0.2))+',0,1,0,0) scale('+(0.75+((1-mod)*0.25)) + ')'; 
-					css[self.props[2]] = ( (-i * (self.itemSize/4)) + (side == 'right'? -self.itemSize/2 : self.itemSize/2) * mod );
+					css[self.props[2]] = ( (-i * (self.itemSize/3)) + (side == 'right'? -self.itemSize/2 : self.itemSize/2) * mod );
 		
 				}
 	
