@@ -10,7 +10,7 @@ class Setting < ActiveRecord::Base
     :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
     :url => "/system/:attachment/:id/:style/:filename"
 
-  belongs_to :brand
+  belongs_to :brand, touch: true
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => [:locale, :brand_id]
   

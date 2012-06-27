@@ -17,6 +17,8 @@
 
 <%= render_partial 'products/istomp_style' %>
 
+<%= cache ["top", @product] do %>
+
 <header id="product_header">
 	<h1><%= @product.name %></h1>
 </header>
@@ -88,6 +90,7 @@
 	<% end %>
 	<div class="clear"></div>
 </section>
+<% end %>
 	
 <div id="coverflow_settings" data-jump="true"></div>
 <%= render_partial "products/istomp_coverflow", istomp: @istomp, pedal: @product %>

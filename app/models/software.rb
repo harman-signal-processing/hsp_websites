@@ -13,7 +13,7 @@ class Software < ActiveRecord::Base
     :url => "/system/:attachment/:id/:style/:filename"
 
   after_initialize :set_default_counter
-  belongs_to :brand
+  belongs_to :brand, touch: true
   
   define_index do
     indexes :name

@@ -14,6 +14,8 @@
 
 <%= render_partial 'products/istomp_style' %>
 
+<%= cache ["product_page", @product] do %>
+
 <header id="product_header" class="istomp">
 	<%= image_tag("#{website.folder}/istomp/logo.png", alt: @product.name) %>
 	<%= draw_main_tabs @product, 
@@ -47,6 +49,7 @@
 	</div>
 	<div class="clear"></div>
 </section>
+<% end # cache %>
 	
 <div id="coverflow_settings" data-changelabel="true"></div>
 <%= render_partial "products/istomp_coverflow", istomp: @product %>

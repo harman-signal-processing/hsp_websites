@@ -1,5 +1,5 @@
 class ProductDocument < ActiveRecord::Base
-  belongs_to :product
+  belongs_to :product, touch: true
   has_attached_file :document,
     :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
     :url => "/system/:attachment/:id/:style/:filename"

@@ -1,7 +1,7 @@
 class OnlineRetailerLink < ActiveRecord::Base
-  belongs_to :online_retailer
+  belongs_to :online_retailer, touch: true
   belongs_to :brand
-  belongs_to :product
+  belongs_to :product, touch: true
   validates_presence_of :online_retailer_id, :url
   before_update :reset_status
   before_save :stamp_link

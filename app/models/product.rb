@@ -39,7 +39,7 @@ class Product < ActiveRecord::Base
   has_many :product_audio_demos, :dependent => :destroy
   has_many :audio_demos, :through => :product_audio_demos
   belongs_to :product_status
-  belongs_to :brand
+  belongs_to :brand, touch: true
   has_many :parent_products # Where this is the child (ie, an e-pedal child of the iStomp)
   has_many :parents, :through => :parent_products
   has_many :sub_products, :class_name => "ParentProduct", :foreign_key => "parent_product_id", :order => :position

@@ -1,5 +1,5 @@
 class ProductAttachment < ActiveRecord::Base
-  belongs_to :product
+  belongs_to :product, touch: true
   has_attached_file :product_attachment, 
     :styles => { :lightbox => "800x600",
       :large => "640x480", 

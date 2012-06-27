@@ -1,4 +1,4 @@
 class NewsProduct < ActiveRecord::Base
-  belongs_to :news
-  belongs_to :product
+  belongs_to :news, touch: true
+  belongs_to :product, touch: true
 end

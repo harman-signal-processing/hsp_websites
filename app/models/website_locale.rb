@@ -1,5 +1,5 @@
 class WebsiteLocale < ActiveRecord::Base
-  belongs_to :website
+  belongs_to :website, touch: true
   validates :website_id, :presence => true
   validates :locale, :presence => true
   after_save :restart_site

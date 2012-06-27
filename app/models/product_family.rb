@@ -1,5 +1,5 @@
 class ProductFamily < ActiveRecord::Base
-  belongs_to :brand
+  belongs_to :brand, touch: true
   has_many :product_family_products, :order => :position, :dependent => :destroy
   has_many :products, :through => :product_family_products, :order => "product_family_products.position"
   has_many :locale_product_families
