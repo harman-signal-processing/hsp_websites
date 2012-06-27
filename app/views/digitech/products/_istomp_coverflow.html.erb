@@ -14,7 +14,7 @@
 			<% if child.product.photo %>
 			<%= image_tag(child.product.photo.product_attachment.url(:small), 
 					size: child.product.photo.product_attachment.image_size(:small),
-					style: "width: #{child.product.photo.product_attachment.width(:small)}px; height: #{child.product.photo.product_attachment.height(:small)}px",
+					style: "min-width: #{child.product.photo.product_attachment.width(:small)}px; width: #{child.product.photo.product_attachment.width(:small)}px; height: #{child.product.photo.product_attachment.height(:small)}px",
 					data: { 
 						caption: child.product.name, 
 						itemlink: url_for(child.product),
