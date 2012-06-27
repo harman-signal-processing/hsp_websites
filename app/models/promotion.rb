@@ -3,7 +3,7 @@ class Promotion < ActiveRecord::Base
   validates_uniqueness_of :name
   has_many :product_promotions
   has_many :products, :through => :product_promotions
-  belongs_to :brand
+  belongs_to :brand, touch: true
   has_friendly_id :sanitized_name, :use_slug => true, :approximate_ascii => true, :max_length => 100
   has_attached_file :promo_form,
     :path => ":rails_root/public/system/:attachment/:id/:style/:filename",

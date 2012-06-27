@@ -3,7 +3,7 @@ class ServiceCenter < ActiveRecord::Base
   validates_presence_of :address, :city, :state, :name, :brand_id
   before_validation :geocode_address, :on => :create 
   before_update :regeocode
-  belongs_to :brand
+  belongs_to :brand, touch: true
   
   # Format the address, city, state, zip into a single string for geocoding
   def address_string

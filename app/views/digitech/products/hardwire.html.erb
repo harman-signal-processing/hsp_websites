@@ -24,6 +24,7 @@
 	<% end %>
 <% end %>
 
+<%= cache ["product_page", @product] do %>
 <div id="breadcrumbs"><%= breadcrumbs(@product) %></div>
 
 <div id="product_content">
@@ -75,6 +76,7 @@
 	</div>
 	<div class="clear"></div>
 </div>
+<% end # cache %>
 
 <% if session["geo_usa"] %>
 <%= content_for :dealer_popup do %>

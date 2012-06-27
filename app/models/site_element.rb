@@ -1,5 +1,5 @@
 class SiteElement < ActiveRecord::Base
-  belongs_to :brand
+  belongs_to :brand, touch: true
   has_attached_file :resource, 
     :styles => { :large => "550x370", 
       :medium => "480x360", 

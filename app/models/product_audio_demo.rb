@@ -1,6 +1,6 @@
 class ProductAudioDemo < ActiveRecord::Base
   belongs_to :audio_demo
-  belongs_to :product
+  belongs_to :product, touch: true
   validates :audio_demo_id, :presence => true, :uniqueness => { :scope => :product_id }
   validates :product_id, :presence => true
 end

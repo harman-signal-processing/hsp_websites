@@ -1,5 +1,5 @@
 class Website < ActiveRecord::Base
-  belongs_to :brand
+  belongs_to :brand, touch: true
   has_many :website_locales
   validates_presence_of :url, :brand_id, :folder
   validates_uniqueness_of :url

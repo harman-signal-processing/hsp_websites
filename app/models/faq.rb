@@ -1,5 +1,5 @@
 class Faq < ActiveRecord::Base
-  belongs_to :product
+  belongs_to :product, touch: true
   validates_presence_of :product_id, :question, :answer
   
   def sort_key

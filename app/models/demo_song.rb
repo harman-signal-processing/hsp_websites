@@ -1,5 +1,5 @@
 class DemoSong < ActiveRecord::Base
-  belongs_to :product_attachment
+  belongs_to :product_attachment, touch: true
   validates_presence_of :product_attachment_id
   has_attached_file :mp3,
     :path => ":rails_root/public/system/:attachment/:id/:style/:filename",

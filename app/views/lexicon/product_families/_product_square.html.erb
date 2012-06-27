@@ -1,3 +1,4 @@
+<%= cache ["product_square", product] do %>
 <%= link_to product do %>
 <div id="<%= product.to_param %>" class="small_product_box<%= product.layout_class.to_s %>">
 	<div class="product_description">
@@ -16,4 +17,5 @@
 		</tr></td>
 	</table>
 </div>
+<% end %>
 <% end %>
