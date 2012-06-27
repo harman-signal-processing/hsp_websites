@@ -1,5 +1,5 @@
 <%= content_for :feature do %>
-	<%= cache ["slideshow", website.brand] do %>
+	<%= cache ["slideshow", website.brand, Rails.env] do %>
 		<% if Setting.slides(website).size > 0 %>
 			<%= slideshow(:slides => Setting.slides(website), :duration => 8700, :transition => "fade") %>
 		<% end %>
@@ -13,7 +13,7 @@
 <% end %>
 
 <%= content_for :middle_stuff do %>
-	<%= cache ["homepage_middle", website.brand] do %>
+	<%= cache ["homepage_middle", website.brand, Rails.env] do %>
 
 		<% if @features.size > 0 %>
 			<% @features.each do |feature| %>
@@ -46,7 +46,7 @@
 <% end %>
 
 <%= content_for :big_bottom_box do %>
-	<%= cache ["homepage_bottom", website.brand, Date.today] do %>
+	<%= cache ["homepage_bottom", website.brand, Date.today, Rails.env] do %>
 		<div class="column">
 			<% if website.homepage_column_one %>
 				<%= render_partial "shared/column_for_#{website.homepage_column_one}" %>

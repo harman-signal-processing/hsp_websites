@@ -20,7 +20,7 @@
 	<% end %>
 <% end %>
 
-<%= cache ["product_page", @product] do %>
+<%= cache ["product_page", @product, Rails.env] do %>
 <div id="breadcrumbs"><%= breadcrumbs(@product) %></div>
 
 <div id="product_content" class="<%= @product.layout_class %>">
