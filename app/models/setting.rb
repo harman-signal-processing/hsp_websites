@@ -6,7 +6,10 @@ class Setting < ActiveRecord::Base
       :thumb => "100x100>", 
       :tiny => "64x64>", 
       :tiny_square => "64x64#" 
-    }
+    },
+    :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
+    :url => "/system/:attachment/:id/:style/:filename"
+
   belongs_to :brand
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => [:locale, :brand_id]

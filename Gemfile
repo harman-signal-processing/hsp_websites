@@ -26,7 +26,8 @@ gem 'capistrano-ext'
 #   :git => 'http://github.com/lsegal/mysql-ruby.git'
 gem 'mysql2' #, "< 0.3"
 gem "friendly_id", "~> 3.0"
-gem "paperclip", "~> 2.6.0"
+gem "paperclip", "~> 3.0"
+gem 'paperclip-meta', git: 'http://github.com/dce/paperclip-meta.git' # 6/27/2012, dce's version fixes a rails 3 issue tha the original author hasn't merged
 gem 'meta-tags', require: 'meta_tags'
 gem 'tinymce-rails'
 gem 'geokit'

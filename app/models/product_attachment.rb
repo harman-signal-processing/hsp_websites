@@ -13,9 +13,18 @@ class ProductAttachment < ActiveRecord::Base
       :thumb => "100x100", 
       :tiny => "64x64", 
       :tiny_square => "64x64#" 
-    }
-  has_attached_file :product_media
-  has_attached_file :product_media_thumb, :styles => {:thumb => "100x100>", :tiny => "64x64>"}
+    },
+    :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
+    :url => "/system/:attachment/:id/:style/:filename"
+
+  has_attached_file :product_media,
+    :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
+    :url => "/system/:attachment/:id/:style/:filename"
+
+  has_attached_file :product_media_thumb, :styles => {:thumb => "100x100>", :tiny => "64x64>"},
+    :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
+    :url => "/system/:attachment/:id/:style/:filename"
+
   has_many :demo_songs, :order => :position
   accepts_nested_attributes_for :demo_songs, :reject_if => :all_blank
   validates_presence_of :product_id
@@ -25,7 +34,7 @@ class ProductAttachment < ActiveRecord::Base
   after_destroy :remove_as_primary_photo
   
   def update_primary_photo
-    if self.product.photo 
+    if self.product && self.product.photo 
       ProductAttachment.update_all(
         ["primary_photo = ?", false], 
         ["product_id = ? AND id != ?", self.product_id, self.id]

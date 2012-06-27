@@ -5,8 +5,15 @@ class ProductFamily < ActiveRecord::Base
   has_many :locale_product_families
   has_many :market_segment_product_families, :dependent => :destroy
   has_friendly_id :name, :use_slug => true, :approximate_ascii => true, :max_length => 100
-  has_attached_file :family_photo, :styles => { :medium => "300x300>", :thumb => "100x100>" }
-  has_attached_file :background_image
+  has_attached_file :family_photo, 
+    :styles => { :medium => "300x300>", :thumb => "100x100>" },
+    :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
+    :url => "/system/:attachment/:id/:style/:filename"
+
+  has_attached_file :background_image,
+    :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
+    :url => "/system/:attachment/:id/:style/:filename"
+
   validates_presence_of :brand_id, :name
   acts_as_tree :order => :position
   acts_as_list :scope => :brand_id, :order => :position
