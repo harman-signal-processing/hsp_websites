@@ -7,7 +7,10 @@ class SiteElement < ActiveRecord::Base
       :thumb => "100x100", 
       :tiny => "64x64", 
       :tiny_square => "64x64#" 
-    }
+    },
+    :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
+    :url => "/system/:attachment/:id/:style/:filename"
+
   validates :brand, :name, :resource_file_name, :presence => true
   has_many :product_site_elements, :dependent => :destroy, :inverse_of => :site_element
   has_many :products, :through => :product_site_elements

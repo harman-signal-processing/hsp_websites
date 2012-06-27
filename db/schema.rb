@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120626194953) do
+ActiveRecord::Schema.define(:version => 20120627173430) do
 
   create_table "amp_models", :force => true do |t|
     t.string   "name"
@@ -515,6 +515,7 @@ ActiveRecord::Schema.define(:version => 20120626194953) do
     t.string   "songlist_tag"
     t.boolean  "no_lightbox"
     t.boolean  "hide_from_product_page"
+    t.text     "product_attachment_meta"
   end
 
   create_table "product_audio_demos", :force => true do |t|

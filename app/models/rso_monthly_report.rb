@@ -9,7 +9,10 @@ class RsoMonthlyReport < ActiveRecord::Base
   belongs_to :brand
   belongs_to :user, :class_name => "User", :foreign_key => "updated_by_id"
   validates :name, :presence => true, :uniqueness => {:scope => :brand_id}
-  has_attached_file :rso_report
+  has_attached_file :rso_report,
+    :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
+    :url => "/system/:attachment/:id/:style/:filename"
+
   attr_accessor :add_to_panel
   after_create :create_panel_link
   

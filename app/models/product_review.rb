@@ -1,5 +1,8 @@
 class ProductReview < ActiveRecord::Base
-  has_attached_file :review
+  has_attached_file :review,
+    :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
+    :url => "/system/:attachment/:id/:style/:filename"
+
   validates_presence_of :title
   has_friendly_id :sanitized_title, :use_slug => true, :approximate_ascii => true, :max_length => 100
   has_many :product_review_products, :dependent => :destroy

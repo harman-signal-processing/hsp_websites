@@ -2,7 +2,11 @@ class OnlineRetailer < ActiveRecord::Base
   has_many :online_retailer_users, :dependent => :destroy
   has_many :users, :through => :online_retailer_users
   has_many :online_retailer_links, :conditions => "product_id IS NOT NULL", :dependent => :destroy
-  has_attached_file :retailer_logo, :styles => { :medium => "300x300>", :small => "175x175>", :thumb => "100x100>" }
+  has_attached_file :retailer_logo, 
+    :styles => { :medium => "300x300>", :small => "175x175>", :thumb => "100x100>" },
+    :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
+    :url => "/system/:attachment/:id/:style/:filename"
+
   has_friendly_id :name, :use_slug => true, :approximate_ascii => true, :max_length => 100
   validates_presence_of :name
   validates_uniqueness_of :name

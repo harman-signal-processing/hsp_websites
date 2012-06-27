@@ -1,6 +1,9 @@
 class ProductDocument < ActiveRecord::Base
   belongs_to :product
-  has_attached_file :document
+  has_attached_file :document,
+    :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
+    :url => "/system/:attachment/:id/:style/:filename"
+
   has_friendly_id :document_file_name, :use_slug => true, :approximate_ascii => true, :max_length => 100
   validates_presence_of :product_id, :document
   

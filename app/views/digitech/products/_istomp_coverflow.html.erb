@@ -1,6 +1,7 @@
 <% if !!(website.istomp_coverflow.to_i > 0) %>
 <% use_popups ||= false %>
 <% pedal ||= nil %>
+<%= cache ["coverflow", Date.today, istomp] do %>
 <div id="coverflow_container">
 	<div id="mask"></div>
 	<div id="feature_pop" style="display: none">
@@ -12,6 +13,7 @@
 		<% coverflow_shuffle(istomp.current_sub_products).each_with_index do |child,i| %>
 			<% if child.product.photo %>
 			<%= image_tag(child.product.photo.product_attachment.url(:small), 
+					size: child.product.photo.product_attachment.image_size(:small),
 					data: { 
 						caption: child.product.name, 
 						itemlink: url_for(child.product),
@@ -32,8 +34,10 @@
 	<div id="left_fade"><%= image_tag("#{website.folder}/white_fade_left.png") %></div>
 	<div id="right_fade"><%= image_tag("#{website.folder}/white_fade_right.png") %></div>
 </div>
+<% end %>
 
 <% if use_popups %>
+<%= cache ["coverflow_popups", Date.today, istomp] do %>
 <div id="coverflow_pops" style="display:none">
 	<% coverflow_shuffle(istomp.current_sub_products).each do |child| %>
 	<div id="pop_for_<%= child.product.to_param %>">
@@ -55,6 +59,7 @@
 	<% end %>
 </div>
 <% end %>
+<% end %>
 
 <% else %>
 	<div id="carousel">
@@ -62,6 +67,7 @@
 	</div>
 <% end %>
 
+<%= cache ["all_epedals", Date.today, istomp] do %>
 <div class="view_all_button_container">
 <%= image_tag("#{website.folder}/#{I18n.locale}/view_all_button.png", 
 	alt: "View all e-pedals", class: "view_all_button",
@@ -82,3 +88,4 @@
 		alt: "Hide all e-pedals", class: "view_all_button") %>	
 	</div>
 </div>
+<% end %>

@@ -8,7 +8,9 @@ class RegisteredDownload < ActiveRecord::Base
   belongs_to :brand
   validates :name, :brand, :from_email, :subject, :presence => true
   validates :per_download_limit, :numericality => {:greater_than => 0}
-  has_attached_file :protected_software, :path => ":rails_root/../../protected/:attachment/:id/:filename"
+  has_attached_file :protected_software, 
+    :path => ":rails_root/../../protected/:attachment/:id/:filename" #, :url => "/system/:attachment/:id/:style/:filename"
+
   after_initialize :setup_defaults
   after_save :save_templates_to_filesystem
   

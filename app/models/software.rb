@@ -8,7 +8,10 @@ class Software < ActiveRecord::Base
   has_many :training_modules, :through => :software_training_modules
   has_friendly_id :name, :use_slug => true, :approximate_ascii => true, :max_length => 100
   validates_presence_of :name, :brand_id
-  has_attached_file :ware
+  has_attached_file :ware,
+    :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
+    :url => "/system/:attachment/:id/:style/:filename"
+
   after_initialize :set_default_counter
   belongs_to :brand
   
