@@ -3,7 +3,7 @@
 	<div id="sub_products">
 		<% product.current_sub_products.each do |child| %>
 
-		<%= cache ["sub_product", child] do %>
+		<%= cache ["sub_product", child, Rails.env] do %>
 		<div class="sub_product">
 			<% if child.product.photo %>
 			<%= link_to(image_tag(child.product.photo.product_attachment.url(:thumb), alt: child.product.name), child.product) %>

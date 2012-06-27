@@ -17,7 +17,7 @@
 
 <%= render_partial 'products/istomp_style' %>
 
-<%= cache ["top", @product] do %>
+<%= cache ["top", @product, Rails.env] do %>
 
 <header id="product_header">
 	<h1><%= @product.name %></h1>
