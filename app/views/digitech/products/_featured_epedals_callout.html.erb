@@ -1,3 +1,4 @@
+<%= cache ["epedal_feature_callout", Date.today] do %>
 <div id="featured_callout" class="callout <%= position.to_s %>_callout">
 	<h4><%= image_tag "#{website.folder}/istomp/latest_epedals_title.png", alt: "Latest e-pedals" %></h4>
 <% begin %>
@@ -17,3 +18,4 @@
 	<i>There are currently no featured pedals. Check back soon.</i>
 <% end %>
 </div>
+<% end %>

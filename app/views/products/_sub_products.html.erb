@@ -2,6 +2,8 @@
 
 	<div id="sub_products">
 		<% product.current_sub_products.each do |child| %>
+
+		<%= cache ["sub_product", child] do %>
 		<div class="sub_product">
 			<% if child.product.photo %>
 			<%= link_to(image_tag(child.product.photo.product_attachment.url(:thumb), alt: child.product.name), child.product) %>
@@ -30,6 +32,8 @@
 			<h5><%= child.product.name %></h5>
 			<p><%= child.product.short_description %></p>
 		</div>
+		<% end %>
+		
 		<% end %>
 		<div style="clear:both"></div>
 	</div>

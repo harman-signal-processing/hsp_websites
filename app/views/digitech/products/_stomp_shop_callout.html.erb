@@ -1,3 +1,4 @@
+<%= cache ["stomp_shop_callout", Date.today] do %>
 <% 
 begin
 	stomp_shop = istomp.softwares.first 
@@ -19,3 +20,4 @@ end
 		</p>
 	</div>
 </div>
+<% end %>
