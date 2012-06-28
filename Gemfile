@@ -76,13 +76,13 @@ end
 group :development, :test do
   gem 'unicorn'
   gem 'minitest-rails', git: "http://github.com/rawongithub/minitest-rails.git", branch: "gemspec"
-  gem 'thin'
+  # gem 'thin'
   gem "factory_girl_rails"
 end
 
 group :test do
-  gem 'sqlite3'
-  gem 'mocha'
+  # gem 'sqlite3'
+  # gem 'mocha'
   gem 'turn'
   gem 'capybara'
   gem 'capybara-webkit'

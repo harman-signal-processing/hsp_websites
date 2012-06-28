@@ -8,7 +8,7 @@ namespace :nginx do
   desc "Copy config files for NGINX"
   task :configure, roles: :web do
     %w[a_catchall bss dbx digitech hardwire jbl_commercial lexicon testsites vocalist staging].each do |site_name|
-      run "#{sudo} ln -nfs #{current_path}/config/#{site_name}.conf /etc/nginx/conf.d/#{site_name}.conf"
+      run "#{sudo} ln -nfs #{current_path}/config/nginx/#{site_name}.conf /etc/nginx/conf.d/#{site_name}.conf"
     end
   end
   
