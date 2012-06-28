@@ -23,7 +23,7 @@
 		</td>
 		<td valign="top" style="padding-left: 20px">
 			<p><%= link_to "<< back to videos", videos_path %></p>
-			<% cache "yt_side_bar_#{@video_id}" do %>
+			<%= cache "yt_side_bar_#{@video_id}" do %>
 			<%= related_product_links_for_video(@video) %>			
 			<% other_videos = favorites_except(@video_id, @youtube_client, @youtube_user, 6) %>
 			<% if other_videos.size > 0 %>

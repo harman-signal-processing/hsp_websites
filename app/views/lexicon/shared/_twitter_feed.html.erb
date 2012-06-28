@@ -1,4 +1,4 @@
-<% cache "#{website.brand_name}_twitter_feed" do %>
+<%= cache ["twitter_feed", website.brand, Rails.env, Date.today] do %>
 
 <% if website.twitter && tw = website.twitter.match(/(\w*)$/).to_s %>
 

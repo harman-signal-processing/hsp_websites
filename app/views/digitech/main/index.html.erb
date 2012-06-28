@@ -1,14 +1,14 @@
-<% if Setting.slides(website).size > 0 %>
-	<%= content_for :feature do %>
-	<%# cache :slideshow do %>
-		<%= slideshow(:slides => Setting.slides(website)) %>
-	<%# end %>
+<%= content_for :feature do %>
+	<%= cache ["slideshow", website.brand, Rails.env, I18n.locale] do %>
+		<% if Setting.slides(website).size > 0 %>
+			<%= slideshow(:slides => Setting.slides(website)) %>
+		<% end %>
 	<% end %>
 <% end %>
 
 
 <%= content_for :middle_stuff do %>
-<% cache "homepage_features_#{website.brand_id}_#{I18n.locale}" do %>
+<%= cache ["homepage_features", website.brand, Rails.env, I18n.locale] do %>
 <% if @features.size > 0 %>
 	<% @features.each do |feature| %>
 	<span class="homepage_feature">
