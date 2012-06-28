@@ -15,11 +15,41 @@
 	<%= link_to 'Delete', [:admin, @product_family], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %> 
 </div>
 
+<div>
+	Family Photo:
 <% if !@product_family.family_photo_file_name.blank? %>
   <%= image_tag @product_family.family_photo.url %>
 <% else %>
-  <i>(no family photo)</i>
+  <i>(none)</i>
 <% end %>
+</div>
+
+<div>
+	Family Banner:
+<% if !@product_family.family_banner_file_name.blank? %>
+  <%= image_tag @product_family.family_banner.url(:medium) %>
+<% else %>
+  <i>(none)</i>
+<% end %>
+</div>
+
+<div>
+	Title Banner:
+<% if !@product_family.title_banner_file_name.blank? %>
+  <%= image_tag @product_family.title_banner.url(:medium) %>
+<% else %>
+  <i>(none)</i>
+<% end %>
+</div>
+
+<div>
+	Background:
+<% if !@product_family.background_image_file_name.blank? %>
+  <%= link_to @product_family.background_image_file_name, @product_family.background_image.url %>
+<% else %>
+  <i>(no background image)</i>
+<% end %>
+</div>
 
 <p>
   <b>Intro Text:</b>

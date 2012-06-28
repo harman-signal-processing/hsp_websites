@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120628193332) do
+ActiveRecord::Schema.define(:version => 20120628201807) do
 
   create_table "amp_models", :force => true do |t|
     t.string   "name"
@@ -579,6 +579,10 @@ ActiveRecord::Schema.define(:version => 20120628193332) do
     t.string   "family_banner_content_type"
     t.integer  "family_banner_file_size"
     t.datetime "family_banner_updated_at"
+    t.string   "title_banner_file_name"
+    t.string   "title_banner_content_type"
+    t.integer  "title_banner_file_size"
+    t.datetime "title_banner_updated_at"
   end
 
   add_index "product_families", ["cached_slug"], :name => "index_product_families_on_cached_slug", :unique => true
