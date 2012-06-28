@@ -20,7 +20,7 @@
 	<% end %>
 <% end %>
 
-<%#= cache ["product_page", @product, Rails.env] do # causes problems with intl buy it now versus US  %>
+<%= cache ["product_page", @product, Rails.env, I18n.locale, session['geo_country']] do %>
 <div id="breadcrumbs"><%= breadcrumbs(@product) %></div>
 
 <div id="product_content" class="<%= @product.layout_class %>">
@@ -125,7 +125,6 @@
 
 	<div id="bottom_right_column">
 		<%= draw_audio_demos @product %>
-		<%#= draw_packaging_boxes @product %>
 		<%= draw_info_boxes @product, :hide_on_load => false %>		
 		<%#= render_partial "shared/newsletter_signup" %>
 	</div>
@@ -137,10 +136,11 @@
 	<div class="clear"></div>
 </div>
 
-<%# end # cache %>
+<% end # cache %>
 
 <% if session["geo_usa"] %>
 <%= content_for :dealer_popup do %>
+	<%= cache ["online_retailer_links_for", @product, Rails.env] do %>
 	<div>
 		<div style="float: left;">
 			<h2><%= t('titles.buy_online') %></h2>
@@ -160,6 +160,7 @@
 	</div>
 	</div>
 	<div style="clear:both"></div>
+	<% end %>
 <% end %>
 <% end %>
 

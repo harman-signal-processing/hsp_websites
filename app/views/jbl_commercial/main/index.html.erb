@@ -1,14 +1,14 @@
-<% if Setting.slides(website).size > 0 %>
-	<%= content_for :feature do %>
-	<%# cache :slideshow do %>
-		<%= slideshow(:slides => Setting.slides(website), :transition => "fade") %>
-	<%# end %>
+<%= content_for :feature do %>
+	<%= cache ["slideshow", website.brand, Rails.env, I18n.locale] do %>
+		<% if Setting.slides(website).size > 0 %>
+			<%= slideshow(:slides => Setting.slides(website), :transition => "fade") %>
+		<% end %>
 	<% end %>
 <% end %>
 
 <h2 style="margin-bottom: 0px">CS Series</h2>
 <p>Commercial Solutions Series</p>
-<%# cache "homepage_features_#{website.brand_id}_#{I18n.locale}" do %>
+<%= cache ["homepage_features", website.brand, Rails.env, I18n.locale] do %>
 <% if @features.size > 0 %>
 	<% @features.each_with_index do |feature,i| %>
 	<span class="homepage_feature" <% if i == (@features.size - 1) %>style="margin-right: 0px"<% end %>>
@@ -36,7 +36,8 @@
 	<% end %>
 
 <% end %>
-<%# end %>
+<% end %>
+
   <div class="clear"></div>
 
 <%= content_for :big_bottom_box do %>

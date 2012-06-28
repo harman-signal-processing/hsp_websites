@@ -1,4 +1,4 @@
-<% cache "yt_row_#{video_id(video)}" do %>
+<%= cache "yt_row_#{video_id(video)}" do %>
 <% begin %>
 <% video = @youtube_client.video_by(video_id(video)) %>
 <% description = video.html_content || video.description %>
