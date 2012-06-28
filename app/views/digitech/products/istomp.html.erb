@@ -14,7 +14,7 @@
 
 <%= render_partial 'products/istomp_style' %>
 
-<%= cache ["product_page", @product, Rails.env] do %>
+<%#= cache ["product_page", @product, Rails.env] do # causes problems with intl buy it now versus US  %>
 
 <header id="product_header" class="istomp">
 	<%= image_tag("#{website.folder}/istomp/logo.png", alt: @product.name) %>
@@ -49,7 +49,7 @@
 	</div>
 	<div class="clear"></div>
 </section>
-<% end # cache %>
+<%# end # cache %>
 	
 <div id="coverflow_settings" data-changelabel="true"></div>
 <%= render_partial "products/istomp_coverflow", istomp: @product %>

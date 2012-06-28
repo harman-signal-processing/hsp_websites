@@ -24,7 +24,7 @@
 	<% end %>
 <% end %>
 
-<%= cache ["product_page", @product, Rails.env] do %>
+<%#= cache ["product_page", @product, Rails.env] do # causes problems with intl buy it now versus US %>
 <div id="breadcrumbs"><%= breadcrumbs(@product) %></div>
 
 <div id="product_content">
@@ -76,7 +76,7 @@
 	</div>
 	<div class="clear"></div>
 </div>
-<% end # cache %>
+<%# end # cache %>
 
 <% if session["geo_usa"] %>
 <%= content_for :dealer_popup do %>
