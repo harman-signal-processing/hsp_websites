@@ -25,6 +25,8 @@
 	  		</span>
 			<% end %>
 		<% end %>
+	<% elsif !product_family.family_banner_file_name.blank? %>
+		<h2 style= "max-width: 800px; overflow: hidden; margin-top: 23px;"><%= link_to(image_tag(product_family.family_banner.url), product_family) %></h2>
 	<% else %>
 		<h2 style="float: left; margin-right: 5px; margin-top: 13px;"><%= translate_content(product_family, :name) %></h2>
 		<div class="clear"></div>

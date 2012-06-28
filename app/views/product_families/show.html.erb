@@ -11,8 +11,13 @@
 	<% end %>
 <% end %>
 
-<div class="wide_centered_box">
-<h1><%= translate_content(@product_family, :name) %></h1>
+<% if !@product_family.family_banner_file_name.blank? %>
+	<h1><%= image_tag(@product_family.family_banner.url, alt: translate_content(@product_family, :name)) %></h1>
+	<div class="wide_centered_box">
+<% else %>
+	<div class="wide_centered_box">
+	<h1><%= translate_content(@product_family, :name) %></h1>
+<% end %>
 <p><%= translate_content(@product_family, :intro) %></p>
 
 <div id="products">
