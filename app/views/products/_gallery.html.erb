@@ -1,0 +1,6 @@
+<div style="padding: 10px">
+<% @product.images_for("product_page")[1,17].each do |product_attachment| %>
+	<%= link_to(image_tag(product_attachment.product_attachment.url(:tiny), alt: product_attachment.product_attachment_file_name ),
+			product_attachment.product_attachment.url ) %>
+<% end %>
+</div>
