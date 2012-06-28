@@ -9,6 +9,10 @@
   <%= f.file_field :family_photo %>
 </p>
 <p>
+  <%= f.label :family_banner, "Title banner" %><br />
+  <%= f.file_field :family_banner %>
+</p>
+<p>
 	<%= f.label :parent_id %><br />
 	<%= f.select :parent_id, [[]] + ProductFamily.all_parents(website).collect{|c| [c.name, c.id]} %>
 	<i>Do not set so it is its own parent. That would be gross.</i>
