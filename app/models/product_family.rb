@@ -15,6 +15,11 @@ class ProductFamily < ActiveRecord::Base
     :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
     :url => "/system/:attachment/:id/:style/:filename"
 
+  has_attached_file :title_banner, 
+    :styles => { :medium => "300x300>", :thumb => "100x100>" },
+    :path => ":rails_root/public/system/product_family/:attachment/:id/:style/:filename",
+    :url => "/system/product_family/:attachment/:id/:style/:filename"
+
   has_attached_file :background_image,
     :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
     :url => "/system/:attachment/:id/:style/:filename"

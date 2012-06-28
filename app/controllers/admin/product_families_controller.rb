@@ -91,5 +91,35 @@ class Admin::ProductFamiliesController < AdminController
       format.js 
     end
   end
+
+  # Delete family photo
+  def delete_family_photo
+    @product_family = ProductFamily.find(params[:id])
+    @product_family.update_attributes(:family_photo => nil)
+    respond_to do |format|
+      format.html { redirect_to(edit_admin_product_family_path(@product_family), :notice => "Family photo was deleted.") }
+      format.js 
+    end
+  end
+
+  # Delete family banner
+  def delete_family_banner
+    @product_family = ProductFamily.find(params[:id])
+    @product_family.update_attributes(:family_banner => nil)
+    respond_to do |format|
+      format.html { redirect_to(edit_admin_product_family_path(@product_family), :notice => "Family banner was deleted.") }
+      format.js 
+    end
+  end
+
+  # Delete title banner
+  def delete_title_banner
+    @product_family = ProductFamily.find(params[:id])
+    @product_family.update_attributes(:title_banner => nil)
+    respond_to do |format|
+      format.html { redirect_to(edit_admin_product_family_path(@product_family), :notice => "Title banner was deleted.") }
+      format.js 
+    end
+  end
   
 end
