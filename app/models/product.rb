@@ -95,7 +95,7 @@ class Product < ActiveRecord::Base
   def self.all_for_website_registration(website)
     p = []
     all.select{|p| p if p.product_status.show_on_website && p.belongs_to_this_brand?(website)}.sort{|a,b| a.name.downcase <=> b.name.downcase}.each do |prod|
-      p << prod unless prod.parent_products.size > 0
+      p << prod if prod.can_be_registered?
     end
     p
   end
@@ -123,7 +123,7 @@ class Product < ActiveRecord::Base
   
   # can this product be registered with us?
   def can_be_registered?
-    !!!(self.product_status.not_supported?)
+    !!!(self.product_status.not_supported?) && !!(self.in_production?) && !!!(self.parent_products.size > 0)
   end
 
   def sample
