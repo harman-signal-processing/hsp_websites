@@ -91,6 +91,14 @@ class Product < ActiveRecord::Base
   def self.all_for_website(website)
     all.select{|p| p if p.product_status.show_on_website && p.belongs_to_this_brand?(website)}.sort{|a,b| a.name.downcase <=> b.name.downcase}
   end
+
+  def self.all_for_website_registration(website)
+    p = []
+    all.select{|p| p if p.product_status.show_on_website && p.belongs_to_this_brand?(website)}.sort{|a,b| a.name.downcase <=> b.name.downcase}.each do |prod|
+      p << prod unless prod.parent_products.size > 0
+    end
+    p
+  end
   
   def self.discontinued(website)
     all.select{|p| p if p.product_status.is_discontinued? && p.belongs_to_this_brand?(website)}.sort{|a,b| a.name.downcase <=> b.name.downcase}
