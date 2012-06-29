@@ -48,8 +48,10 @@
 	<div><%= f.label :phone %>
 	<%= f.text_field :phone %></div>
 	
+	<%= cache ["registerable_products", website.brand, Rails.env, I18n.locale, Date.today] do %>
 	<div><%= f.label :product_id, class: "required" %>
 	<%= f.select :product_id, Product.all_for_website_registration(website).collect{|p| [p.name, p.id]} %></div>
+	<% end %>
 	
 	<div><%= f.label :serial_number, class: "required" %>
 	<%= f.text_field :serial_number %></div>
