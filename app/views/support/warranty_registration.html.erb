@@ -49,7 +49,7 @@
 	<%= f.text_field :phone %></div>
 	
 	<div><%= f.label :product_id, class: "required" %>
-	<%= f.select :product_id, Product.all_for_website(website).collect{|p| [p.name, p.id]} %></div>
+	<%= f.select :product_id, Product.all_for_website_registration(website).collect{|p| [p.name, p.id]} %></div>
 	
 	<div><%= f.label :serial_number, class: "required" %>
 	<%= f.text_field :serial_number %></div>
