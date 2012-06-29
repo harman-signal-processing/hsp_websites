@@ -1,41 +1,43 @@
-<%= cache ["twitter_feed", website.brand, Rails.env, Date.today] do %>
+<%#= cache ["twitter_feed", website.brand, Rails.env, Date.today] do %>
 
 <% if website.twitter && tw = website.twitter.match(/(\w*)$/).to_s %>
 
-<div id="twitter_feed_container">
-<% begin %>
-	<h2>
-		<a href="http://www.twitter.com/intent/user?screen_name=<%= tw %>"><%= image_tag(Twitter.profile_image(tw, :size => 'mini'), :alt => tw) %></a>
-		<a href="http://www.twitter.com/intent/user?screen_name=<%= tw %>"><%= Twitter.user(tw).screen_name %></a>
-	</h2>
-	<div id="tweets">
-	<% Twitter.user_timeline(tw).each do |tweet| %>
-		<div class="tweet">
-			<%=auto_link tweet.text %>
-			<p class="tw_actions">
-				<a href="http://twitter.com/<%= tw %>/status/<%= tweet.id %>" target="_blank"><%= distance_of_time_in_words(Date.today, tweet.created_at.to_date) %> ago</a>
-				&bull; <a href="http://twitter.com/intent/tweet?in_reply_to=<%= tweet.id %>">reply</a>
-				&bull; <a href="http://twitter.com/intent/retweet?tweet_id=<%= tweet.id %>">retweet</a>
-				&bull; <a href="http://twitter.com/intent/favorite?tweet_id=<%= tweet.id %>">favorite</a>
-			</p>
-		</div>
-    <% end %>
-    </div>
-	<div id="social_media_links">
-		<%= social_media_links 'twitter', 'facebook', 'myspace' %> 
-	</div>
-	<% rescue %>
-	<!-- Twitter API access problem -->
-	<% end %>
-</div>
+	<script charset="utf-8" src="http://widgets.twimg.com/j/2/widget.js"></script>
+	<script>
+	new TWTR.Widget({
+	  version: 2,
+	  type: 'profile',
+	  rpp: 4,
+	  interval: 30000,
+	  width: 250,
+	  height: 300,
+	  theme: {
+	    shell: {
+	      background: '#333333',
+	      color: '#ffffff'
+	    },
+	    tweets: {
+	      background: '#000000',
+	      color: '#ffffff',
+	      links: '#0c90f5'
+	    }
+	  },
+	  features: {
+	    scrollbar: false,
+	    loop: false,
+	    live: false,
+	    behavior: 'all'
+	  }
+	}).render().setUser('<%= tw %>').start();
+	</script>
 
-<% if website.brand_name.match(/vocalist/i) %>
-<a href="http://twitter.com/<%= tw %>" class="twitter-follow-button" data-button="grey" data-text-color="#000000" data-link-color="#800000">Follow @<%= tw %></a>
-<script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
-<% else %>
-<a href="http://twitter.com/<%= tw %>" class="twitter-follow-button" data-button="grey" data-text-color="#FFFFFF" data-link-color="#00AEFF">Follow @<%= tw %></a>
-<script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
-<% end %>
+	<br/>
+	<% if website.brand_name.match(/vocalist/i) %>
+		<a href="http://twitter.com/<%= tw %>" class="twitter-follow-button" data-button="grey" data-text-color="#000000" data-link-color="#800000">Follow @<%= tw %></a>
+	<% else %>
+		<a href="http://twitter.com/<%= tw %>" class="twitter-follow-button" data-button="grey" data-text-color="#FFFFFF" data-link-color="#00AEFF">Follow @<%= tw %></a>
+	<% end %>
+	<script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
 
 <% else %>
 <div id="social_media_links">
@@ -44,4 +46,4 @@
 
 <% end %>
 
-<% end %>
+<%# end %>
