@@ -24,7 +24,7 @@
 		<% if !software.link.blank? %>
 			<%= software.link %>
 		<% else %>
-			<%= link_to software.ware_file_name, software.ware.path %>
+			<%= link_to software.ware_file_name, software.ware.url %>
     		[<%=number_to_human_size software.ware_file_size %>]
 		<% end %>
 	</td>
