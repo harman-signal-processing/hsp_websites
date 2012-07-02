@@ -1,7 +1,7 @@
 class Brand < ActiveRecord::Base
   has_many :product_families
   has_many :market_segments
-  has_many :online_retailer_links, :order => "RAND()", :conditions => "actve = 1"
+  has_many :online_retailer_links, order: "RAND()", conditions: "actve = 1"
   has_many :dealers
   has_many :news
   has_many :pages
@@ -9,10 +9,10 @@ class Brand < ActiveRecord::Base
   has_many :service_centers
   has_many :softwares
   has_many :artist_brands
-  has_many :artists, :through => :artist_brands
+  has_many :artists, through: :artist_brands
   has_many :warranty_registrations
   has_many :brand_distributors
-  has_many :distributors, :through => :brand_distributors
+  has_many :distributors, through: :brand_distributors
   has_many :websites
   has_many :settings
   has_many :site_elements
@@ -21,22 +21,23 @@ class Brand < ActiveRecord::Base
   has_many :blogs
   # RSO stuff
   has_many :rso_monthly_reports
-  has_many :rso_navigations, :order => :position
+  has_many :rso_navigations, order: :position
   has_many :rso_panels
   has_many :rso_pages
+  has_many :tweets, order: "created_at DESC"
   has_attached_file :logo, 
-    :styles => { :large => "640x480", 
-      :medium => "480x360", 
-      :small => "240x180",
-      :thumb => "100x100", 
-      :tiny => "64x64", 
-      :tiny_square => "64x64#" 
+    styles: { large: "640x480", 
+      medium: "480x360", 
+      small: "240x180",
+      thumb: "100x100", 
+      tiny: "64x64", 
+      tiny_square: "64x64#" 
     },
-    :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
-    :url => "/system/:attachment/:id/:style/:filename"
+    path: ":rails_root/public/system/:attachment/:id/:style/:filename",
+    url: "/system/:attachment/:id/:style/:filename"
 
   after_initialize :dynamic_methods
-  has_friendly_id :name, :use_slug => true, :approximate_ascii => true, :max_length => 100
+  has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
   validates_presence_of :name
   
   # Dynamically create methods based on this Brand's settings.
@@ -88,7 +89,31 @@ class Brand < ActiveRecord::Base
   def default_website=(website)
     self.default_website_id = website.id
   end
+
+  def self.pull_tweets
+    all.each{|b| b.pull_tweets if b.twitter_name}
+  end
   
+  def pull_tweets
+    Tweet.pull_tweets(self)
+  end
+
+  def recent_tweets(num=6)
+    tweets.limit(num)
+  end
+
+  def twitter_name
+    begin
+      if self.twitter && tw = self.twitter.match(/(\w*)$/).to_s 
+        tw
+      else
+        false
+      end
+    rescue
+      false
+    end
+  end
+
   def current_news
     News.all_for_website(self.default_website)
   end
@@ -110,13 +135,13 @@ class Brand < ActiveRecord::Base
   end
   
   def products
-    p = Product.where(:brand_id => self.id).all
+    p = Product.where(brand_id: self.id).all
     p += self.family_products
     p.uniq.sort{|a,b| a.name.downcase <=> b.name.downcase}
   end
   
   def value_for(key, locale=I18n.locale)
-    s = self.settings.where(:name => key)
+    s = self.settings.where(name: key)
     setting = s.where(["locale IS NULL OR locale = ?", locale]).first
     unless locale == I18n.default_locale # don't look for translation
       s1 = s.where(:locale => locale)
