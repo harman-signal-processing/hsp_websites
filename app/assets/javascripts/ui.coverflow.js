@@ -52,7 +52,7 @@
 			this.props = o.orientation == 'vertical' ? ['height', 'Height', 'top', 'Top'] : ['width', 'Width', 'left', 'Left'];
 			//For < 1.8.2: this.items['outer'+this.props[1]](1);
 			
-			this.itemSize = (0.0168 * this.items.length) * this.items.innerWidth();
+			this.itemSize = (0.0158 * this.items.length) * this.items.innerWidth();
 			this.itemWidth = this.items.width();
 			this.itemHeight = this.items.height();
 			this.duration = o.duration;
