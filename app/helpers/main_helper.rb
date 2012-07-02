@@ -35,7 +35,7 @@ module MainHelper
 	      y = YouTubeIt::Client.new
         v = y.videos_by(:user => youtube_user)
         v.videos.each do |video|
-          unless video.keywords.include?("HardWire") || i >= limit
+          # unless video.keywords.include?("HardWire") || i >= limit
             thumbnail = video.thumbnails.find(:height => 90).first
             link = play_video_url(video_id(video))
             # detail = truncate(video.html_content, :length => 100)
@@ -63,7 +63,7 @@ module MainHelper
               ret += "</div>"
             end
             i += 1
-          end
+          # end
 	      end
 	      ret += (style == "table") ? "</table>" : "</div>"
         raw(ret)
