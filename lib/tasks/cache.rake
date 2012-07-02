@@ -4,12 +4,12 @@ namespace :cache do
   task :refresh_homepage => :environment do 
     Website.all.each do |website|
       w = ActionController::Base.new
-      w.expire_fragment("#{website.brand_name}_twitter_feed")
-      w.expire_fragment("#{website.url}_youtube_feed")
-      w.expire_fragment("#{website.brand_name}_youtube_feed")
-      website.list_of_available_locales.each do |locale|
-        w.expire_fragment("homepage_features_#{website.brand_id}_#{locale}")
-      end
+      # w.expire_fragment("#{website.brand_name}_twitter_feed")
+      # w.expire_fragment("#{website.url}_youtube_feed")
+      # w.expire_fragment("#{website.brand_name}_youtube_feed")
+      # website.list_of_available_locales.each do |locale|
+      #   w.expire_fragment("homepage_features_#{website.brand_id}_#{locale}")
+      # end
       @youtube_user = website.value_for('youtube').to_s.match(/\w*$/).to_s
       @youtube_client = YouTubeIt::Client.new
       if playlist_ids = website.value_for("playlist_ids")

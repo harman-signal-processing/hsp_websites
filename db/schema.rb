@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120628201807) do
+ActiveRecord::Schema.define(:version => 20120702144948) do
 
   create_table "amp_models", :force => true do |t|
     t.string   "name"
@@ -1058,6 +1058,17 @@ ActiveRecord::Schema.define(:version => 20120628201807) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "tweets", :force => true do |t|
+    t.integer  "brand_id"
+    t.string   "tweet_id"
+    t.string   "screen_name"
+    t.text     "content"
+    t.string   "profile_image_url"
+    t.datetime "posted_at"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "users", :force => true do |t|
