@@ -5,7 +5,7 @@ describe SiteMailer do
 	before do
 		DatabaseCleaner.start
 		@brand = FactoryGirl.create(:brand)
-		# @brand.settings << FactoryGirl.create(:setting, brand: @brand, name: "support_email", string_value: "adam.anderson@harman.com")
+		Brand.any_instance.stubs(:support_email).returns('adam.anderson@harman.com')
 	end
 
 	describe "contact form" do
@@ -23,8 +23,6 @@ describe SiteMailer do
 		end
 
 		it "should go to the brand's support_email" do
-			skip "Can't get minitest to load the support_email dynamically"
-			# puts @brand.settings.to_yaml
 			@mail.to.must_equal ["adam.anderson@harman.com"] # (from the 'setting')
 		end
 

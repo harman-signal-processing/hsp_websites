@@ -43,18 +43,20 @@
 	<% coverflow_shuffle(istomp.current_sub_products).each do |child| %>
 	<div id="pop_for_<%= child.product.to_param %>">
 		<div class="popup_left">
-			<%= link_to url_for(child.product) do %>
+			<%= link_to child.product do %>
 			<% if child.product.images_for("product_page").size > 1 %>
 				<%= image_tag(child.product.images_for("product_page")[1].product_attachment.url(:medium)) %>
 			<% elsif child.product.images_for("product_page").size > 0 %>
 				<%= image_tag(child.product.images_for("product_page")[0].product_attachment.url(:medium)) %>
+			<% else %>
+				<%= child.product.name %>
 			<% end %>
 			<% end %>
 		</div>
 		<div class="popup_right">
 			<h2><%= child.product.name %></h2>
 			<p><%=raw truncate(strip_html(child.product.description), length: 300) %></p>
-			<h3><%= link_to "more", url_for(child.product) %></h3>
+			<h3><%= link_to "more", child.product %></h3>
 		</div>
 	</div>
 	<% end %>
