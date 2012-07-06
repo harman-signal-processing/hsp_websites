@@ -82,7 +82,7 @@ end
 
 group :test do
   # gem 'sqlite3'
-  # gem 'mocha'
+  gem 'mocha', require: false
   gem 'turn'
   gem 'capybara'
   gem 'capybara-webkit'

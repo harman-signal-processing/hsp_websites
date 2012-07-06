@@ -33,6 +33,7 @@ FactoryGirl.define do
     sequence(:name) {|n| "RP#{n}"}
     product_status
     brand
+    description "This is the bestest widget we ever did make."
     factory :discontinued_product do
       association :product_status, factory: :product_status, discontinued: true
     end

@@ -82,7 +82,7 @@ module ApplicationHelper
       string = string.gsub(/\&+\w*\;/, " ") # replace &nbsp; with a space
       string.html_safe
     rescue
-      "<!-- error stripping html from: #{string}".html_safe
+      raw("<!-- error stripping html from: #{string} -->")
     end
   end
 

@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :parent_product do
-    parent_product_id 1
-    product_id 1
+    association :parent_product, factory: :product
+    product
     position 1
   end
 end
