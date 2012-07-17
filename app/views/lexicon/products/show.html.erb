@@ -20,7 +20,7 @@
 	<% end %>
 <% end %>
 
-<%= cache ["product_page", @product, Rails.env, I18n.locale, session['geo_country']] do %>
+<%= cache ["product_page", @product, @active_tab, Rails.env, I18n.locale, session['geo_country']] do %>
 <div id="breadcrumbs"><%= breadcrumbs(@product) %></div>
 
 <div id="product_content" class="<%= @product.layout_class %>">
