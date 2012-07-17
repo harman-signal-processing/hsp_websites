@@ -52,6 +52,13 @@ FactoryGirl.define do
       has_service_centers true
       has_audio_demos true
     end
+    factory :dod_brand do
+      name "DOD"
+      has_service_centers true
+      dealers_from_brand_id 1
+      distributors_from_brand_id 1
+      service_centers_from_brand_id 1
+    end
     factory :hardwire_brand do
       name "HardWire"
       has_service_centers true

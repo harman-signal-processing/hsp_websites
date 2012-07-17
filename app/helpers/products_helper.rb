@@ -85,8 +85,12 @@ module ProductsHelper
     if main_tabs.size > 1
       ret = "<ul id='product_main_tabs'>"
       main_tabs.each_with_index do |product_tab,i|
-        current = (i == 0) ? "current" : ""
-        ret += content_tag(:li, link_to(tab_title(product_tab, product: product), product, data: { tabname: product_tab.key }), class: current, id: "#{product_tab.key}_tab")
+        if options[:active_tab]
+          current = (product_tab.key == options[:active_tab]) ? "current" : ""
+        else
+          current = (i == 0) ? "current" : ""
+        end
+        ret += content_tag(:li, link_to(tab_title(product_tab, product: product), product_path(product, tab: product_tab.key), data: { tabname: product_tab.key }), class: current, id: "#{product_tab.key}_tab")
       end
       ret += "</ul>"
       raw(ret)
@@ -98,7 +102,11 @@ module ProductsHelper
     main_tabs = (options[:tabs]) ? parse_tabs(options[:tabs], product) : product.main_tabs
     ret = ""
     main_tabs.each_with_index do |product_tab,i|
-      hidden = (i == 0) ? "" : "display: none;"
+      if options[:active_tab]
+        hidden = (product_tab.key == options[:active_tab]) ? "" : "display: none;"
+      else
+        hidden = (i == 0) ? "" : "display: none;"
+      end
       ret += content_tag(:div, id: "#{product_tab.key}_content", style: hidden, class: "product_main_tab_content") do
                render_partial("products/#{product_tab.key}", product: product)
              end
