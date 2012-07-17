@@ -13,7 +13,6 @@ end
 
 # gem 'prototype-rails'
 gem 'jquery-rails'
-#gem 'mongrel'
 gem 'capistrano'
 gem 'capistrano-ext'
 
@@ -21,9 +20,6 @@ gem 'capistrano-ext'
 # gem 'ruby-debug'
 
 # Bundle the extra gems:
-# gem 'mysql', '2.8.1'
-# gem 'mysql-ruby',
-#   :git => 'http://github.com/lsegal/mysql-ruby.git'
 gem 'mysql2' #, "< 0.3"
 gem "friendly_id", "~> 3.0"
 gem "paperclip", "~> 3.0"
@@ -39,7 +35,7 @@ gem 'thinking-sphinx',
  git: 'http://github.com/freelancing-god/thinking-sphinx.git',
  require: 'thinking_sphinx'
 gem 'youtube_it'
-gem 'twitter', '= 3.0.4'
+gem 'twitter'
 gem 'daemons'
 gem 'delayed_job_active_record'
 gem 'devise'

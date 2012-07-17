@@ -6,7 +6,7 @@
 <div id="twitter_feed_container">
 	<% begin %>
 	<h2>
-		<a href="http://www.twitter.com/intent/user?screen_name=<%= tw %>"><%#= image_tag(Twitter.profile_image_url(tw, :size => 'mini'), :alt => tw) %></a>
+		<a href="http://www.twitter.com/intent/user?screen_name=<%= tw %>"><%= image_tag(Twitter.user(tw).profile_image_url(:mini), alt: tw) %></a>
 		<a href="http://www.twitter.com/intent/user?screen_name=<%= tw %>"><%= Twitter.user(tw).screen_name %></a>
 	</h2>
 	<div id="tweets">
