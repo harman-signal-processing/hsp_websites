@@ -39,7 +39,7 @@ gem 'thinking-sphinx',
  git: 'http://github.com/freelancing-god/thinking-sphinx.git',
  require: 'thinking_sphinx'
 gem 'youtube_it'
-gem 'twitter', '>=1.1.1'
+gem 'twitter', '= 3.0.4'
 gem 'daemons'
 gem 'delayed_job_active_record'
 gem 'devise'
