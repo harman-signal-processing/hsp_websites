@@ -54,11 +54,15 @@ describe "Lexicon Integration Test" do
   describe "product pages" do
     before do
       @product = @website.products.first
+      @software = FactoryGirl.create(:software, brand: @brand)
+      @product.product_softwares << FactoryGirl.create(:product_software, software: @software, product: @product)
       @product.features_tab_name = "Culture"
       @product.features = "This is content for the features"
       @product.demo_link = 'http://demo.lvh.me/download/the/demo/form'
       @product.save
       FactoryGirl.create(:setting, brand: @brand, name: "description_tab_name", string_value: "Overview")
+      Brand.any_instance.stubs(:main_tabs).returns("description|extended_description|features|specifications|reviews|downloads_and_docs")
+      Brand.any_instance.stubs(:side_tabs).returns("news|support")
       visit product_url(@product, locale: I18n.default_locale, host: @website.url)
     end
 
@@ -73,6 +77,19 @@ describe "Lexicon Integration Test" do
     it "should have a demo download link" do
       page.must_have_xpath("//a[@href='#{@product.demo_link}']")
     end
+
+    it "should link directly to the downloads tab" do
+      downloads_url = product_url(@product, locale: I18n.default_locale, host: @website.url, tab: "downloads_and_docs")
+      visit downloads_url
+      # save_and_open_page
+      page.must_have_xpath("//li[@id='downloads_and_docs_tab'][@class='current']")
+      page.wont_have_xpath("//li[@id='description_tab'][@class='current']")
+      page.must_have_xpath("//div[@id='downloads_and_docs_content']")
+      page.wont_have_xpath("//div[@id='downloads_and_docs_content'][@style='display: none;']")
+    end 
   end
   
+  describe "support page" do
+    it "should require the country on the contact form"
+  end
 end

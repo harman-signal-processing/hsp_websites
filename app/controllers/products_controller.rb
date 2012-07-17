@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_filter :set_locale
-  before_filter :ensure_best_url, :only => :show
+  before_filter :ensure_best_url, only: :show
   
   # GET /products
   # GET /products.xml
@@ -17,6 +17,7 @@ class ProductsController < ApplicationController
     if website.has_suggested_products?
       @suggestions = @product.suggested_products
     end
+    @active_tab = params[:tab] || 'description'
     respond_to do |format|
       format.html {
         unless @product.show_on_website?(website)
@@ -24,23 +25,23 @@ class ProductsController < ApplicationController
             if !@product.password.blank?
               redirect_to preview_product_path(@product) and return
             else
-              render :text => "Not available" and return
+              render text: "Not available" and return
             end
           end
         end
         if @product.discontinued?
-          render_template(:action => "discontinued") and return
+          render_template(action: "discontinued") and return
         # If a particular product needs a custom page, create its html.erb template in
         # app/views/{website-brand-folder}/products/{product-friendly-id}.html.erb
         elsif !@product.layout_class.blank? && File.exists?(Rails.root.join("app", "views", website.folder, "products", "#{@product.layout_class}.html.erb"))
-          render :template => "#{website.folder}/products/#{@product.layout_class}", :layout => set_layout
+          render template: "#{website.folder}/products/#{@product.layout_class}", layout: set_layout
         else
           render_template
         end
       }
       format.xml  { 
         if @product.show_on_website?(website)
-          render :xml => @product 
+          render xml: @product 
         else
           head :ok
         end
@@ -69,7 +70,7 @@ class ProductsController < ApplicationController
     @product.password = ""
     respond_to do |format|
       @terms_and_conditions = website.value_for('preview_terms_and_conditions') || "Do not share information on the following page."
-      format.html { render_template(:layout => "minimal") }
+      format.html { render_template(layout: "minimal") }
     end
   end
   
@@ -83,7 +84,7 @@ class ProductsController < ApplicationController
       @songs = [DemoSong.new]
     end
     respond_to do |format|
-      format.html { render :text => "This method is designed as an XML call only. Please add '.xml' to your request."}
+      format.html { render text: "This method is designed as an XML call only. Please add '.xml' to your request."}
       format.xml
     end
   end
@@ -92,7 +93,7 @@ class ProductsController < ApplicationController
   
   def ensure_best_url
     @product = Product.find(params[:id])
-    redirect_to @product, :status => :moved_permanently unless @product.friendly_id_status.best?
+    redirect_to @product, status: :moved_permanently unless @product.friendly_id_status.best?
   end
 
 end

@@ -118,7 +118,7 @@
 		<%= render 'shared/add_this' %>
 	</div>
 	<div class="clear" style="border-bottom: 1px solid #E6E6E6"></div>
-	<%= draw_main_tabs @product %>
+	<%= draw_main_tabs @product, active_tab: @active_tab %>
 </div>
 
 <div id="product_bottom_content">
@@ -130,7 +130,8 @@
 	</div>
 	
 	<div id="bottom_left_column">
-		<%= draw_main_tabs_content @product %>
+		<!-- <%= @active_tab %> -->
+		<%= draw_main_tabs_content @product, active_tab: @active_tab %>
 	</div>
 
 	<div class="clear"></div>
