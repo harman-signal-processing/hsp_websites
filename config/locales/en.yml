@@ -279,6 +279,8 @@ en:
         purchased_on: Purchase date
         purchase_price: Purchase price
         comments: Comments
+      contact_message:
+        shipping_country: Country
       download_registration:
           serial_number: Product serial number
           code_you_received: Unique serial number
