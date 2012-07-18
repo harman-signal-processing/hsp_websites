@@ -119,7 +119,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.3.3)
-    country_select (1.0.0)
+    country_select (1.0.1)
     daemons (1.1.8)
     database_cleaner (0.8.0)
     delayed_job (3.0.3)
