@@ -4,6 +4,7 @@ class ContactMessage < ActiveRecord::Base
   validates :email, :presence => true, :format => {:with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
   validates :message, :presence => true, :if => :support?
   validates :product, :presence => true, :if => :require_product?
+  validates :shipping_country, presence: true, if: :require_country?
   validates :phone, 
     :shipping_address, 
     :shipping_city,
@@ -13,6 +14,7 @@ class ContactMessage < ActiveRecord::Base
     :product_serial_number, 
     :purchased_on, :presence => true, :if => :rma_request?
   validates :warranty, :inclusion => {:in => [true, false]}, :if => :rma_request?
+  attr_accessor :require_country
 
   def set_defaults
     self.message_type ||= "support" #others: rma_request, part_request
@@ -24,6 +26,10 @@ class ContactMessage < ActiveRecord::Base
     !!(self.part_request? || self.rma_request?)
   end
   
+  def require_country?
+    !!(self.require_country)
+  end
+
   def support?
     !!(self.message_type.match(/support/))
   end

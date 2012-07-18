@@ -30,6 +30,17 @@ describe "Support Integration Test" do
   		# save_and_open_page
   	  current_path.must_equal support_path(locale: I18n.default_locale)
   	end
+
+    it "should NOT require the country on the contact form" do
+      message_count = ContactMessage.count
+      select ContactMessage.subjects.last[0], from: "contact_message_subject"
+      fill_in "contact_message_name", with: "Joe"
+      fill_in "contact_message_email", with: "joe@joe.com"
+      fill_in "contact_message_message", with: "Hi Dean. How are you?"
+      click_on("submit")
+      page.wont_have_content("Country is required")
+      ContactMessage.count.must_equal(message_count + 1)
+    end
   end
 
   describe "Product dropdown" do

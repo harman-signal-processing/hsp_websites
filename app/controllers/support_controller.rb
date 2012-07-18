@@ -2,6 +2,8 @@ class SupportController < ApplicationController
   before_filter :set_locale
   # Support home page
   def index
+    @contact_message = ContactMessage.new
+    @contact_message.require_country = true if website.brand.name == "Lexicon"
     @discontinued_products = Product.discontinued(website)
     if params[:product_id]
       if product = Product.find(params[:product_id])
@@ -34,8 +36,10 @@ class SupportController < ApplicationController
   # The site's contact form
   def contact
     @contact_message = ContactMessage.new
+    @contact_message.require_country = true if website.brand.name == "Lexicon"
     if request.post?
       @contact_message = ContactMessage.new(params[:contact_message])
+      @contact_message.require_country = true if website.brand.name == "Lexicon"
       if verify_recaptcha && @contact_message.valid?
         @contact_message.save
         redirect_to support_path, :notice => t('blurbs.contact_form_thankyou')
