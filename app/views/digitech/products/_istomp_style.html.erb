@@ -2,10 +2,15 @@
 	<%= stylesheet_link_tag 'application', website.folder, 'istomp', cache: false, media: :all %>
 	<%= javascript_include_tag 'istomp' %>
 	<%= javascript_include_tag 'istomp_coverflow' if !!(website.istomp_coverflow.to_i > 0) %>
+	<%# This can be removed after August 5, 2012 %>
+	<% if Date.today < Date.new(2012, 8, 6) %>
+	<script type="text/javascript" src="http://promoshq.wildfireapp.com/website/302/companies/220662/widget_loader"></script>
+	<% end %>
+	<%# end removal block %>
 <% end %>
 
 <%= content_for :alternate_logo do %>
-	<%= link_to(image_tag("#{website.folder}/logo_black.png", :alt => Setting.site_name(website)), main_app.locale_root_path) %>
+	<%= link_to(image_tag("#{website.folder}/logo_black.png", alt: Setting.site_name(website)), main_app.locale_root_path) %>
 <% end %>
 
 <%= content_for :footer_logo do %>
