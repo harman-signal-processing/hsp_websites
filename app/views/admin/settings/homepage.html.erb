@@ -30,9 +30,6 @@
 	<ul id="slides" class="sortable_list">
 		<%= render :partial => "admin/shared/slide", :collection => @slides %>
 	</ul>
-	<%#= sortable_element "slides",
-            # :complete => visual_effect(:highlight, "slides"),
-            :url => update_slides_order_admin_settings_path %>
 </div>
 
 <div class="group">
@@ -66,9 +63,6 @@
 	<ul id="features" class="sortable_list">
 		<%= render :partial => "admin/shared/feature", :collection => @features %>
 	</ul>
-	<%#= sortable_element "features",
-            # :complete => visual_effect(:highlight, "features"),
-            :url => update_features_order_admin_settings_path %>
 </div>
 
 <div class="group">

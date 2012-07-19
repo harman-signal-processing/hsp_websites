@@ -1,6 +1,14 @@
-<% set_meta_tags :title => @promotion.name,
-                 :description => truncate(strip_html(@promotion.description)),
-				 :reverse => true %>
+<% set_meta_tags title: @promotion.name,
+                 description: truncate(strip_html(@promotion.description)),
+				 reverse: true %>
+
+<% if @promotion.tile_file_name.blank? %>
+	<h2 style="text-align: center">
+		<%= translate_content(@promotion, :name) %>
+	</h2>
+<% else %>
+	<%= image_tag(@promotion.tile.url, alt: @promotion.name) %>
+<% end %>
 
 <%= render @promotion %>
 

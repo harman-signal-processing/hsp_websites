@@ -1,10 +1,10 @@
-<% set_meta_tags :title => t('titles.current_promotions'),
-                 :keywords => @promotions.collect{|p| p.name},
-				 :reverse => true %>
+<% set_meta_tags title: t('titles.current_promotions'),
+                 keywords: @promotions.collect{|p| p.name},
+				 reverse: true %>
 
 <h1 class="page_title">
 <% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/promotions_head.jpg")) %>
-	<%= image_tag("#{website.folder}/#{I18n.locale}/promotions_head.jpg", :alt => t('titles.current_promotions')) %>
+	<%= image_tag("#{website.folder}/#{I18n.locale}/promotions_head.jpg", alt: t('titles.current_promotions')) %>
 <% else %>	
 	<%= t('titles.current_promotions') %>
 <% end %>
@@ -19,10 +19,10 @@
 			</h2>
 		<% else %>
 			<%= (promotion.has_description?) ? 
-					link_to(image_tag(promotion.tile.url, :alt => promotion.name), promotion) :
-					image_tag(promotion.tile.url, :alt => promotion.name) %>
+					link_to(image_tag(promotion.tile.url, alt: promotion.name), promotion) :
+					image_tag(promotion.tile.url, alt: promotion.name) %>
 		<% end %>
-		<p><%= t('valid') %> <%=l promotion.start_on, :format => :long %>-<%=l promotion.end_on, :format => :long %>
+		<p><%= t('valid') %> <%=l promotion.start_on, format: :long %>-<%=l promotion.end_on, format: :long %>
 		<% if promotion.has_description? %>
 			<%= link_to t('more_info'), promotion %>
 		<% end %>

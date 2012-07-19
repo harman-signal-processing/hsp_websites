@@ -87,6 +87,13 @@ describe "Lexicon Integration Test" do
       page.must_have_xpath("//div[@id='downloads_and_docs_content']")
       page.wont_have_xpath("//div[@id='downloads_and_docs_content'][@style='display: none;']")
     end 
+
+    it "should link to related current promotion" do 
+      promo = FactoryGirl.create(:promotion)
+      @product.product_promotions << FactoryGirl.create(:product_promotion, promotion: promo, product: @product)
+      visit product_url(@product, locale: I18n.default_locale, host: @website.url)
+      page.must_have_link promo.name
+    end
   end
   
   describe "support page" do
