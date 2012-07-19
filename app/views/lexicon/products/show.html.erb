@@ -124,6 +124,7 @@
 <div id="product_bottom_content">
 
 	<div id="bottom_right_column">
+		<%#= links_to_current_promotions(@product) %>
 		<%= draw_audio_demos @product %>
 		<%= draw_info_boxes @product, :hide_on_load => false %>		
 		<%#= render_partial "shared/newsletter_signup" %>
