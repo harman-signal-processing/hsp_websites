@@ -24,5 +24,5 @@ every 1.day, :at => '9:15 am' do
 end
 
 every 30.minutes do
-  runner "Brand.pull_tweets"
+  rake "cache:pull_new_tweets"
 end

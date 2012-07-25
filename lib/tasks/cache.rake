@@ -27,5 +27,10 @@ namespace :cache do
       end
     end
   end
+
+  desc "Get latest tweets and store in db"
+  task :pull_new_tweets => :environment do
+    Brand.pull_tweets
+  end
   
 end
