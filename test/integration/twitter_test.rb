@@ -5,7 +5,7 @@ describe "Twitter Integration Test" do
   before do
     DatabaseCleaner.start
     @brand = FactoryGirl.create(:brand)
-    Brand.any_instance.stubs(:twitter_name).returns('DigiTech')
+    Brand.any_instance.stubs(:twitter_name).returns('twitter')
     @website = FactoryGirl.create(:website_with_products, brand: @brand)
     host! @website.url
     Capybara.default_host = "http://#{@website.url}" 
@@ -34,7 +34,21 @@ describe "Twitter Integration Test" do
   	  visit root_url(locale: I18n.default_locale, host: @website.url)
   	  page.must_have_xpath("//img[@src='#{Twitter.user(@brand.twitter_name).profile_image_url(:mini)}']")
   	end
+  end
 
+  describe Twitter::User do
+    it "should pull a profile_image_url" do
+      Twitter.user('twitter').profile_image_url(:mini).must_match(/http/)
+    end
+  end
+
+  describe Twitter::Client do
+    it "should pull a user_timeline" do
+      timeline = Twitter.user_timeline('twitter', since: 1.month.ago)
+      timeline.must_be_instance_of(Array)
+      timeline.size.wont_equal(0)
+      timeline.first.must_respond_to(:id)
+    end
   end
 
 end
