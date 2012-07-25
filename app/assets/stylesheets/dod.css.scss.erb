@@ -1,27 +1,16 @@
 body {
-	font-family: Arial, Verdana, Sans-serif;
+	font-family: Helvetica, Arial, Verdana, Sans-serif;
 	font-size: 12px;
 	line-height: 1.4;
 	color: #FFF;
-	background: #2a3333 url(<%= image_path('dod/page_bg.png') %>) no-repeat top center;
+	background: black url(<%= image_path('dod/page_bg.png') %>) no-repeat top center;
 	margin: 0;
-}
-@font-face {
-    font-family: 'BebasRegular';
-    src: url('/fonts/BebasNeue-webfont.eot');
-    src: url('/fonts/BebasNeue-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/fonts/BebasNeue-webfont.woff') format('woff'),
-         url('/fonts/BebasNeue-webfont.ttf') format('truetype'),
-         url('/fonts/BebasNeue-webfont.svg#BebasNeueRegular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
 }
 p {
 	margin-bottom: 8px;
 }
 a:link, a:visited {
-	color: #a1b020;
+	color: #39dbf8;
 }
 li {
 	margin-bottom: 6px;
@@ -31,7 +20,6 @@ h1, h2 {
 	padding: 0px;
 	color: #EEE;
 	font-weight: 500;
-	font-family: 'BebasRegular', sans-serif;
 	font-size: 110%;
 	letter-spacing: 0.1em;
 }
@@ -88,8 +76,7 @@ div#Header {
 	padding-top: 16px;
 	position: relative;
 	z-index: 5000;
-	border-top: 6px solid #a1b020;
-/*	border-bottom: 1px solid #384343;*/
+	border-bottom: 1px solid #444;
 }
 div#wide_line {
 	position: absolute;
@@ -105,15 +92,13 @@ div#topnav {
 	margin-top: 48px;
 	padding-top: 2px;
 	padding-left: 6px;
-	font-family: 'BebasRegular', Arial, Helvetica, sans-serif;
-	font-size: 14px;
+	font-size: 13px;
 /*	font-weight: bold;*/
 	text-transform: uppercase;
 	/*letter-spacing: -0.09em;*/
 	-moz-border-radius: 8px;
 	border-radius: 8px;
 	text-align: right;
-	letter-spacing: 0.08em;
 	font-weight: 200;
 }
 div#topnav ul {
@@ -132,7 +117,7 @@ div#topnav li a:visited {
 	color: #CCC;
 	text-decoration: none;
 	margin-top: 2px;
-	background: url(<%= image_path('dod/green_right_arrow.png') %>) no-repeat;
+	background: url(<%= image_path('dod/right_arrow.png') %>) no-repeat;
 	background-position: 0px 2px;
 }
 div#topnav li a:link.nodivider,
@@ -164,7 +149,7 @@ div#page_container {
 	width: 960px;
 	margin-left: auto;
 	margin-right: auto;
-	border: 1px solid #384343;
+	border: 1px solid #444;
 	border-top: none;
     -moz-box-shadow: 0px 4px 15px #000;
 	-webkit-box-shadow: 0px 4px 15px #000;
@@ -195,7 +180,7 @@ div#content_container_content {
 }
 div#logo {
 	float: left;
-	margin-top: 15px;
+	margin-top: -5px;
 	margin-left: 0px;
 }
 div#logo h2 {
@@ -400,7 +385,6 @@ div.product_family_feature {
 	padding-top: 30px;
 	text-align: right;
 	color: #FFF;
-	font-family: 'BebasRegular', Arial, sans-serif;
 }
 div.product_family_feature h2 {
 	letter-spacing: 0.12em;	
@@ -494,7 +478,6 @@ div#product_content #left_column {
 	width: 556px;
 }
 div#product_content #right_column h1 {
-	font-family: 'BebasRegular', sans-serif;
 	letter-spacing: 0.05em;
 	text-align: right;
 	font-size: 40px;
