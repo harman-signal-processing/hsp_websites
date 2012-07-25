@@ -1,6 +1,6 @@
-<% if tw = website.twitter_name %>
+<%= cache ["twitter_feed", website.tweets.first, Rails.env] do %>
 
-	<%= cache ["twitter_feed", website.tweets.first, Rails.env] do %>
+	<% if tw = website.twitter_name %>
 
 		<div id="twitter_feed_container">
 			<%= cache ["twitter_feed_header", website.brand, Rails.env, Date.today] do %>
@@ -35,12 +35,11 @@
 		<% end %>
 		<script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
 
+	<% else %>
+		<div id="social_media_links">
+			<%= social_media_links 'twitter', 'facebook', 'myspace' %> 
+		</div>
+
 	<% end %>
 
-<% else %>
-	<div id="social_media_links">
-		<%= social_media_links 'twitter', 'facebook', 'myspace' %> 
-	</div>
-
 <% end %>
-
