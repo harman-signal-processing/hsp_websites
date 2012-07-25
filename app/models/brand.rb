@@ -24,7 +24,7 @@ class Brand < ActiveRecord::Base
   has_many :rso_navigations, order: :position
   has_many :rso_panels
   has_many :rso_pages
-  has_many :tweets, order: "created_at DESC"
+  has_many :tweets, order: "posted_at DESC"
   has_attached_file :logo, 
     styles: { large: "640x480", 
       medium: "480x360", 
