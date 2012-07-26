@@ -3,14 +3,17 @@ body {
 	font-size: 12px;
 	line-height: 1.4;
 	color: #FFF;
-	background: black url(<%= image_path('dod/page_bg.png') %>) no-repeat top center;
+	background: #222 url(<%= image_path('dod/page_bg.png') %>) no-repeat top center;
 	margin: 0;
 }
 p {
 	margin-bottom: 8px;
 }
 a:link, a:visited {
-	color: #39dbf8;
+	color: #EEE;
+}
+a:hover {
+	color: #72b2f3;
 }
 li {
 	margin-bottom: 6px;
@@ -146,6 +149,7 @@ div#search_form input#query {
 	border-radius: 6px;
 }
 div#page_container {
+	position: relative;
 	width: 960px;
 	margin-left: auto;
 	margin-right: auto;
@@ -311,26 +315,15 @@ div.two_column_container .column_two {
 /**** Main ******/
 #feature_spacer {
 	position: relative;
-	height: 850px;
+	height: 860px;
 }
-/*#feature_bg {
-	position: absolute;
-	top: 0px;
-	z-index: -100;
-	width: 100%;
-	height: 445px;
-	text-align: center;
-	background-image: url(<%= image_path('BlankFeature_BG.png') %>);
-	background-repeat: no-repeat;
-	background-position: top center;
-}*/
 div#feature_container {
 	position: relative;
 	width: 960px;
 	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
-	height: 393px;
+	height: 470px;
 	z-index: 300;
 	background: none;
 }
@@ -369,10 +362,20 @@ div#slideshow_controls a.current_button {
 	text-shadow: #000 0px 1px 0px;
 }
 div#middle_container {
-	text-align: center;
-	width: 962px;
-	margin-left: auto;
-	margin-right: auto;
+	position: absolute;
+	top: 20px;
+	left: 30px;
+	z-index: 999999;
+	text-align: left;
+	width: 262px;
+	a:link, a:visited {
+		text-decoration: none;
+	}
+	h3 {
+		margin-top: -3px;
+		margin-bottom: 10px;
+		font-weight: 100;
+	}
 }
 div.product_family_feature {
 	background: #2a3333;
@@ -405,7 +408,7 @@ div.product_family_feature a:visited {
 	font-size: 115%;
 	text-decoration: none;
 	padding-left: 13px;
-	background: url(<%= image_path('dod/green_right_arrow.png') %>) no-repeat;
+	background: url(<%= image_path('dod/right_arrow.png') %>) no-repeat;
 	background-position: 0px 2px;
 	letter-spacing: 0.06em;
 	text-transform: uppercase;
@@ -450,6 +453,9 @@ div#signup h2 {
 	height: 180px;
 	float: left;
 	margin: 6px;
+	a:link, a:visited {
+		color: blue;
+	}
 }
 table.product_thumb {
 	height: 106px;
@@ -482,7 +488,7 @@ div#product_content #right_column h1 {
 	text-align: right;
 	font-size: 40px;
 	color: #EEE;
-	background: #a1b020;
+	background: #2a3333;
 	padding: 8px 6px 2px 6px;
 	margin-bottom: 2px;
 	text-shadow: #333 0px 1px 1px;
@@ -540,7 +546,7 @@ ul#discontinued_product_thumbnails li {
 .product_detail_box h2 a:visited {
 	color: #CCC;
 	border: 1px solid #444;
-	background: #191F1F url(<%= image_path('dod/green_right_arrow.png') %>) no-repeat;
+	background: #191F1F url(<%= image_path('dod/right_arrow.png') %>) no-repeat;
 	background-position: 9px 13px;
 	display: block;
 	padding-left: 22px;
