@@ -81,7 +81,7 @@ class Product < ActiveRecord::Base
   end
   
   def set_default_status
-    product_status ||= ProductStatus.find(:first, :conditions => "name LIKE '%%production%%'")
+    self.product_status_id ||= 3 #ProductStatus.where("name LIKE '%%production%%'").first
   end
   
   def self.non_discontinued(website)

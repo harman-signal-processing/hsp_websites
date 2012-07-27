@@ -138,6 +138,10 @@ class Brand < ActiveRecord::Base
     p = Product.where(brand_id: self.id).all
     p += self.family_products
     p.uniq.sort{|a,b| a.name.downcase <=> b.name.downcase}
+    # Product.find_by_sql("SELECT DISTINCT products.* FROM products
+    #   INNER JOIN product_family_products ON product_family_products.product_id = products.id
+    #   INNER JOIN product_families ON product_families.id = product_family_products.product_family_id
+    #   WHERE products.brand_id = #{self.id} OR product_families.brand_id = #{self.id}").sort{|a,b| a.name.downcase <=> b.name.downcase}
   end
   
   def value_for(key, locale=I18n.locale)
