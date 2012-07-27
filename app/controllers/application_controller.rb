@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   # before_filter :set_locale
-  before_filter :set_default_meta_tags
+  before_filter :miniprofiler, :set_default_meta_tags
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   layout :set_layout
@@ -84,6 +84,10 @@ class ApplicationController < ActionController::Base
 
 private
 
+  def miniprofiler
+    Rack::MiniProfiler.authorize_request if current_user && can?(:manage, User)
+  end
+
   def render_not_found(exception)
     error_page(404)
   end
@@ -101,13 +105,7 @@ private
   end
   
   def website
-    if Rails.env.production? || Rails.env.staging?
-      @website ||= Website.find_by_url(request.host)
-    else
-      default_brand = (BRAND_ID) ? Brand.find(BRAND_ID) : Brand.first
-      default_folder = default_brand.name.downcase.gsub(/\s/, "_")
-      @website ||= Website.find_by_url(request.host) || Website.new(:brand => default_brand, :url => "localhost", :folder => default_folder)
-    end
+    @website ||= Website.find_by_url(request.host)
   end
   helper_method :website
   

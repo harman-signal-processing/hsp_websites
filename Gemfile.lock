@@ -221,6 +221,8 @@ GEM
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
+    rack-mini-profiler (0.1.7)
+      rack (>= 1.1.3)
     rack-ssl (1.3.2)
       rack
     rack-test (0.6.1)
@@ -355,6 +357,7 @@ DEPENDENCIES
   mysql2
   paperclip (~> 3.0)
   paperclip-meta!
+  rack-mini-profiler
   rails (= 3.2.7)
   rails_autolink
   recaptcha

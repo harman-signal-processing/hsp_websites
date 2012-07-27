@@ -25,21 +25,13 @@ class OnlineRetailer < ActiveRecord::Base
   
   # Retrieves a randomized list of OnlineRetailers who have a brand_link defined
   def self.random(website)
-    begin
-      where(:active => true).all.select{|retailer| retailer if retailer.get_brand_link(website)}.sort_by{rand}
-    rescue
-      []
-    end
+    where(active: true).select("online_retailers.*, online_retailer_links.url as direct_link").joins("INNER JOIN online_retailer_links ON online_retailer_links.online_retailer_id = online_retailers.id").where("online_retailer_links.brand_id = ?", website.brand_id).sort_by{rand}
   end
   
   # Retrieves the overall link where the OnlineRetailer lists the site's Brand products.
   def get_brand_link(website)
     begin
-      if @brand_link
-        @brand_link
-      else
-        OnlineRetailerLink.find_by_online_retailer_id_and_brand_id(self.id, website.brand_id).url
-      end
+      @brand_link ||= OnlineRetailerLink.find_by_online_retailer_id_and_brand_id(self.id, website.brand_id).url
     rescue
       return nil 
     end    
