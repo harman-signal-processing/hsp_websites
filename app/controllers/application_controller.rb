@@ -85,7 +85,7 @@ class ApplicationController < ActionController::Base
 private
 
   def miniprofiler
-    Rack::MiniProfiler.authorize_request if current_user && can?(:manage, User)
+    Rack::MiniProfiler.authorize_request if current_user && current_user.role?(:admin)
   end
 
   def render_not_found(exception)
