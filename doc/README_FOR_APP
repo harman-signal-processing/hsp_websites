@@ -18,7 +18,7 @@ Run "rake doc:app" to generate API documentation for your models, controllers, h
 === TODO (for all brands) ===
 * Fix dealer export from SAP
 * dynamic comparison charts
-* friendly/guided downloads (improved support section)
+* friendly/guided downloads (improved support section)!!!!!!!!!!!
 * Separate admin permissions by brands
 * Super-admin alerts:
   o When promos end
