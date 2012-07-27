@@ -90,7 +90,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
   # to AVAILABLE_LOCALES in config/initializers/i18n.rb in case of problems
   
   # Main routing
-  scope "(/:locale)", locale: /#{WebsiteLocale.all_unique_locales.join('|')}/ do 
+  root to: 'main#default_locale'
+  scope "(:locale)", locale: /#{WebsiteLocale.all_unique_locales.join('|')}/ do 
     namespace :admin do
       resources :products do
         collection do
@@ -306,7 +307,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     match "*custom_route" => "pages#show", as: :custom_route
   end
 
-  root to: 'main#default_locale'
   match '*a', to: 'errors#404'
 
 end
