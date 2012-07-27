@@ -11,7 +11,7 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.xml
   def show
-    if !website.products.include?(@product)
+    unless @product.belongs_to_this_brand?(website)
       redirect_to product_families_path and return 
     end
     if website.has_suggested_products?
