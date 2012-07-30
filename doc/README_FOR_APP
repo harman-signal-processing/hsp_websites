@@ -6,7 +6,7 @@ Run "rake doc:app" to generate API documentation for your models, controllers, h
 * Upload speaker tunings (maybe just to software downloads section)
 * Create a section for training modules
 * Videos (swf) uploaded on product pages don't work (PX)
-* Pre-load upcoming promotions (need more info)
+* dynamic comparison charts
 
 === TODO for Lexicon ===
 * Inline ecommerce with iLok integration
@@ -17,21 +17,21 @@ Run "rake doc:app" to generate API documentation for your models, controllers, h
 
 === TODO (for all brands) ===
 * Fix dealer export from SAP
-* dynamic comparison charts
 * friendly/guided downloads (improved support section)!!!!!!!!!!!
 * Separate admin permissions by brands
 * Super-admin alerts:
   o When promos end
   o When buy-it-now problems are found
   o When reviews problems are found
+* Optimization 
 
 === TODO for BSS ===
-* Start the process to move to new platform
+* Start
 
 === Lower Priority ===
 * DOD finish importing products (discontinued)
 * DOD new buy-it-now button, populate BIN links
-
+* Server load balancing
 * auto-pull news items from hpro feed
 * Salesforce FAQ integration
 * Create Salesforce support cases
