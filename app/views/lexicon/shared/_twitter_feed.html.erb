@@ -14,7 +14,7 @@
 				<div class="tweet">
 					<%=auto_link tweet.content %>
 					<p class="tw_actions">
-						<a href="http://twitter.com/<%= tweet.screen_name %>/status/<%= tweet.tweet_id %>" target="_blank"><%= distance_of_time_in_words(Date.today, tweet.posted_at.to_date) %> ago</a>
+						<a href="http://twitter.com/<%= tweet.screen_name %>/status/<%= tweet.tweet_id %>" target="_blank"><%= l tweet.posted_at.to_date, format: :short %></a>
 						&bull; <a href="http://twitter.com/intent/tweet?in_reply_to=<%= tweet.tweet_id %>">reply</a>
 						&bull; <a href="http://twitter.com/intent/retweet?tweet_id=<%= tweet.tweet_id %>">retweet</a>
 						&bull; <a href="http://twitter.com/intent/favorite?tweet_id=<%= tweet.tweet_id %>">favorite</a>
