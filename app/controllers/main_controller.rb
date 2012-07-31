@@ -6,11 +6,6 @@ class MainController < ApplicationController
   #
   def index
     @news = News.all_for_website(website).limit(4)
-    @current_promotions = Promotion.all_for_website(website)
-    @product_families = []
-    ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family|
-      @product_families << product_family unless product_family.hide_from_homepage?
-    end
     begin
       @youtube = website.value_for('youtube').to_s.match(/\w*$/).to_s
     rescue

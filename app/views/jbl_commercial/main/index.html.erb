@@ -9,33 +9,15 @@
 <h2 style="margin-bottom: 0px">CS Series</h2>
 <p>Commercial Solutions Series</p>
 <%= cache ["homepage_features", website.brand, Rails.env, I18n.locale] do %>
-<% if @features.size > 0 %>
-	<% @features.each_with_index do |feature,i| %>
-	<span class="homepage_feature" <% if i == (@features.size - 1) %>style="margin-right: 0px"<% end %>>
-		<%= feature_button(feature) %>
-	</span>
-	<% end %>
-<% else %>
-	<% @product_families.each do |product_family| %>
-	<% if product_family.family_photo_file_name.blank? %>
-		<div id="<%= product_family.to_param %>" class="product_family_feature">
-		  <h2><%= link_to translate_content(product_family, :name), product_family %></h2>
-			<p><%= translate_content(product_family, :intro) %></p>
-			<%= link_to t('view_full_line'), product_family %>
-			<% product_family.children.each do |sub_family| %>
-				<h3><%= link_to translate_content(sub_family, :name), sub_family %></h3>
-				<p><%= translate_content(sub_family, :intro) %></p>
-				<%= link_to t('view_full_line'), sub_family %>
-			<% end %>
-		</div>
+	<% if @features.size > 0 %>
+		<% @features.each_with_index do |feature,i| %>
+		<span class="homepage_feature" <% if i == (@features.size - 1) %>style="margin-right: 0px"<% end %>>
+			<%= feature_button(feature) %>
+		</span>
+		<% end %>
 	<% else %>
-		  <span class="family_button">
-			  <%= link_to(image_tag(product_family.family_photo.url, :alt => product_family.name), product_family) %>
-		  </span>
+		<%= featured_product_families %>
 	<% end %>
-	<% end %>
-
-<% end %>
 <% end %>
 
   <div class="clear"></div>

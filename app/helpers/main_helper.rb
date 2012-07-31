@@ -92,5 +92,51 @@ module MainHelper
 	    ""
     end
   end
+
+  def featured_product_families
+    out = ""
+    @current_promotions = Promotion.all_for_website(website)
+    @product_families = []
+    ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family|
+      @product_families << product_family unless product_family.hide_from_homepage?
+    end
+
+    @product_families.each do |product_family| 
+      if product_family.family_photo_file_name.blank?
+        sub_family_content = ""
+        product_family.children.each do |sub_family|
+          sub_family_content += content_tag(:h3, link_to(translate_content(sub_family, :name), sub_family)) +
+            content_tag(:p, translate_content(sub_family, :intro) ) +
+            link_to(t('view_full_line'), sub_family)
+        end
+
+        out += content_tag(:div, id: product_family.to_param, class: 'product_family_feature') do
+          content_tag(:h2, link_to(translate_content(product_family, :name), product_family)) +
+          content_tag(:p, translate_content(product_family, :intro)) +
+          link_to(t('view_full_line'), product_family) + sub_family_content
+        end
+
+      else
+
+        out += content_tag :span, class: "family_button" do
+          link_to(product_family) do
+            image_tag(product_family.family_photo.url, alt: product_family.name) + 
+            content_tag(:h3, product_family.name)
+          end
+        end
+
+      end
+    end
+
+    unless @product_families.length > 3 
+      if @current_promotions.count > 0
+        out += link_to(image_tag("#{website.folder}/#{I18n.locale}/promotions.png", alt: "promotions"), promotions_path)
+      elsif website.brand.name.match(/digitech/i)
+        out += link_to(image_tag("#{website.folder}/#{I18n.locale}/community.png", :alt => "community"), community_path)
+      end
+    end
+  
+    out.to_s.html_safe
+  end
   
 end
