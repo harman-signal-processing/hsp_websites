@@ -1,7 +1,6 @@
-<% set_meta_tags :title => t('titles.support'),
-				 :keywords => @discontinued_products.collect{|p| p.name},
-				 :description => t('meta.description.support', :brand => website.brand_name),
-				 :reverse => true %>
+<% set_meta_tags title: t('titles.support'),
+				 description: t('meta.description.support', brand: website.brand_name),
+				 reverse: true %>
 
 <h1 class="page_title">
 <% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/support_head.jpg")) %>
@@ -24,18 +23,16 @@
 
 <div class="two_column_container">
 	
-	<% if @discontinued_products.size > 0 %>
 	<div class="column_one">
 		<div class="light_gray" style="padding: 10px">
 		<h2><%= t('titles.product_support') %></h2>
 		<p><%= t('blurbs.product_support') %></p>
 		<%= form_tag support_path, :method => :get, :class => "product_support_search" do |f| %>
-			<%= select_tag :product_id, options_from_collection_for_select(@discontinued_products, :to_param, :name) %>
+			<%= select_tag :product_id, options_from_collection_for_select(website.current_and_discontinued_products, :id, :name) %>
 			<%= submit_tag t('go')%>
 		<% end %>
 		</div>
 	</div>
-	<% end %>	
 	
 	<% if website.has_service_centers? %>
 	<div class="column_two">

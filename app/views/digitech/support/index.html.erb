@@ -1,7 +1,6 @@
-<% set_meta_tags :title => t('titles.support'),
-				 :keywords => @discontinued_products.collect{|p| p.name},
-				 :description => t('meta.description.support', :brand => website.brand_name),
-				 :reverse => true %>
+<% set_meta_tags title: t('titles.support'),
+				 description: t('meta.description.support', brand: website.brand_name),
+				 reverse: true %>
 
 <h1 class="page_title">
 	<%= image_tag("#{website.folder}/#{I18n.locale}/support_head.jpg", :alt => t('titles.support')) %>
@@ -21,7 +20,7 @@
 		<h2><%= t('titles.product_support') %></h2>
 		<p><%= t('blurbs.product_support') %></p>
 		<%= form_tag support_path, :method => :get, :class => "product_support_search" do |f| %>
-			<%= select_tag :product_id, options_from_collection_for_select(@discontinued_products, :to_param, :name) %>
+			<%= select_tag :product_id, options_from_collection_for_select(website.current_and_discontinued_products, :id, :name) %>
 			<%= submit_tag t('go')%>
 		<% end %>
 		</div>
