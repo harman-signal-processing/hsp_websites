@@ -93,7 +93,7 @@
 			</div>
 		<% end %>
 		
-		<%= cache "footer", website.brand, I18n.locale, Rails.env, Date.today do %>
+		<%= cache ["footer", website.brand, I18n.locale, Rails.env, Date.today] do %>
 		<div id="footer">
 			<div id="harmanpro_bar">
 				<%= link_to(image_tag("pro_brands/harman_professional.png", :alt => "Harman Pro"), "http://www.harmanpro.com", :target => "_blank") %>

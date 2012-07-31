@@ -1,4 +1,4 @@
-<%= cache "footer", website.brand, I18n.locale, Rails.env, Date.today do %>
+<%= cache ["footer", website.brand, I18n.locale, Rails.env, Date.today] do %>
 <div id="footer">
 	<div id="footer_info">
 		<%= link_to "hardwire story", "/hardwire_story" %> &bull;
