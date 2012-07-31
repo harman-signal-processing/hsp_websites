@@ -113,7 +113,7 @@
 		</div>
 		</div> <%# end div id="outer" %>
 		
-		<%= cache "footer", website.brand, I18n.locale, Rails.env, Date.today do %>
+		<%= cache ["footer", website.brand, I18n.locale, Rails.env, Date.today] do %>
 		<div id="footer">
 			<div id="footer_info">
 				<% if website.has_software? %>
