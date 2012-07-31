@@ -54,7 +54,7 @@ p {
 }
 a {
 	&:link, &:visited {
-		color: #8bbae9;
+		color: #63a7ec;
 		&.button {
 			border-radius: 8px;
 			-moz-border-radius: 8px;
@@ -1473,13 +1473,42 @@ ol#search_results li {
 	color: green;
 }
 /******* Support *******/
-form.product_support_search {
-	margin: 25px;
-}
-form.product_support_search input,
-form.product_support_search select {
-	font-size: 120%;
-	padding: 2px;
+.support_box_container {
+	margin: 0px 150px;
+	h2 {
+		margin-left: 20px;
+	}
+	form.contact {
+		margin-left: 20px;
+	}
+	.support_box {
+		background: #f9f9f9;
+		border: 1px solid #ECECEC;
+		width: 280px;
+		height: 120px;
+		overflow: hidden;
+		float: left;
+		padding: 8px;
+		margin: 10px;
+		h4 {
+			font-size: 14px;
+			line-height: 20px;
+			margin-bottom: 6px;
+			color: #444;
+			text-transform: uppercase;
+			a:link, a:visited {
+				color: #444;
+				text-decoration: none;
+			}
+		}
+		select {
+			max-width: 200px;
+			padding: 2px;
+		}
+		li {
+			text-transform: capitalize;
+		}
+	}
 }
 form.contact {
 }
