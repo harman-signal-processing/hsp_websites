@@ -98,6 +98,7 @@
 			<div style="height: 30px;">&nbsp;</div>
 		<% end %>
 		
+		<%= cache "footer", website.brand, I18n.locale, Rails.env, Date.today do %>
 		<div id="footer">
 			<div id="harmanpro_bar">
 				<%= link_to(image_tag("pro_brands/harman_professional.png", :alt => "Harman Pro"), "http://www.harmanpro.com", :target => "_blank") %>
@@ -136,6 +137,7 @@
 				<%= t('all_rights_reserved') %>
 			</div>
 		</div>
+		<% end %>
 		
 		<% if content_for?(:dealer_popup) %>
 			<div id="blanket" style="display:none;"></div>

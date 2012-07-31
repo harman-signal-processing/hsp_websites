@@ -111,6 +111,7 @@
 			</div>
 		</div>
 		
+		<%= cache "footer", website.brand, I18n.locale, Rails.env, Date.today do %>
 		<div id="footer">
 			<div id="footer_info">
 				<% if website.has_software? %>
@@ -136,6 +137,7 @@
 				<%= t('all_rights_reserved') %>
 			</div>
 		</div>
+		<% end %>
 
 		<% if content_for?(:dealer_popup) %>
 			<div id="blanket" style="display:none;"></div>

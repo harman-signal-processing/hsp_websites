@@ -1,3 +1,4 @@
+<%= cache "footer", website.brand, I18n.locale, Rails.env, Date.today do %>
 <div id="footer">
 	<div id="footer_info">
 		<%= link_to "hardwire story", "/hardwire_story" %> &bull;
@@ -25,6 +26,7 @@
 		<%= t('all_rights_reserved') %>
 	</div>
 </div>
+<% end %> 
 
 <% if content_for?(:dealer_popup) %>
 	<div id="blanket" style="display:none;"></div>
