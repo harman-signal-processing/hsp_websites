@@ -111,6 +111,7 @@
 		<% end %>
 		</div>
 		
+		<%= cache "footer", website.brand, I18n.locale, Rails.env, Date.today do %>
 		<div id="footer">
 			<div id="harmanpro_bar">
 				<%= link_to(image_tag("pro_brands/harman_professional.png", :alt => "Harman Pro"), "http://www.harmanpro.com", :target => "_blank") %>
@@ -129,18 +130,18 @@
 				<% if website.has_software? %>
 				<%= link_to t('software_downloads').downcase, software_index_path %> &bull;
 				<% end %>
-				<% if website.has_reviews? && ProductReview.all_for_website(website).size > 0 %>
+				<% if website.has_reviews? %>
 				<%= link_to t('product_reviews').downcase, product_reviews_path %> &bull;
 				<% end %>
 				<%= link_to t('news'), news_index_path %> &bull;
 				<% if website.has_artists? %>
-				<%= link_to t('artists'), artists_path %> &bull;
+				<%= link_to 'professionals', artists_path %> &bull;
 				<% end %>
 				<% if website.has_dealers? || website.has_online_retailers? || website.has_distributors? %>
 				<%= link_to t('where_to_buy'), where_to_buy_path %> &bull;
 				<% end %>
 				<%= link_to t('product_support'), support_path %> &bull;
-				<%= link_to "Privacy Policy", "/privacy" %> &bull;
+				<%= link_to "privacy policy", "/privacy" %> &bull;
 				<%= link_to t('sitemap'), sitemap_path(:format => 'xml') %>
 			</div>
 			<div id="footer_left">
@@ -150,6 +151,7 @@
 				<%= t('all_rights_reserved') %>
 			</div>
 		</div>
+		<% end %>
 		
 		<% if content_for?(:dealer_popup) %>
 			<div id="blanket" style="display:none;"></div>
