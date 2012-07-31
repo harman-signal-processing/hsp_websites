@@ -205,6 +205,8 @@ en:
       international_distributors: "International Distributors assist with product sales, support, manual requests and warranty service. Warranty is only valid within the country of purchase."
       parts_request_thankyou: "Thank you for your parts request. Our support team will contact you if needed to fulfill the request. If you have questions, call us at (801) 566-8800 in the US."
       rma_request_thankyou: "Thank you for your RMA request. Our support team will contact you with the RMA information. If you have questions, call us at (801) 566-8800 in the US."
+      software_downloads: "Find the latest drivers and other software for your %{brand} products"
+      warranty_registration: "Protect your investment by registering your %{brand} products to stay up-to-date on the latest news and other developments."
       
   subjects:
       select_a_subject: Select a Subject
