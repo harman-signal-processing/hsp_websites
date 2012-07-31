@@ -4,7 +4,6 @@ class SupportController < ApplicationController
   def index
     @contact_message = ContactMessage.new
     @contact_message.require_country = true if website.brand.name == "Lexicon"
-    @discontinued_products = Product.discontinued(website)
     if params[:product_id]
       if product = Product.find(params[:product_id])
         redirect_to product and return
