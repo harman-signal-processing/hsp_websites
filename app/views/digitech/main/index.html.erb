@@ -8,43 +8,18 @@
 
 
 <%= content_for :middle_stuff do %>
-<%= cache ["homepage_features", website.brand, Rails.env, I18n.locale] do %>
-<% if @features.size > 0 %>
-	<% @features.each do |feature| %>
-	<span class="homepage_feature">
-		<%= feature_button(feature) %>
-	</span>
-	<% end %>
-<% else %>
-	<% @product_families.each do |product_family| %>
-	<% if product_family.family_photo_file_name.blank? %>
-		<div id="<%= product_family.to_param %>" class="product_family_feature">
-		  <h2><%= link_to translate_content(product_family, :name), product_family %></h2>
-			<p><%= translate_content(product_family, :intro) %></p>
-			<%= link_to t('view_full_line'), product_family %>
-			<% product_family.children.each do |sub_family| %>
-				<h3><%= link_to translate_content(sub_family, :name), sub_family %></h3>
-				<p><%= translate_content(sub_family, :intro) %></p>
-				<%= link_to t('view_full_line'), sub_family %>
+	<%= cache ["homepage_features", website.brand, Rails.env, I18n.locale] do %>
+		<% if @features.size > 0 %>
+			<% @features.each do |feature| %>
+			<span class="homepage_feature">
+				<%= feature_button(feature) %>
+			</span>
 			<% end %>
-		</div>
-	<% else %>
-		  <span class="family_button">
-			  <%= link_to(image_tag(product_family.family_photo.url, :alt => product_family.name), product_family) %>
-		  </span>
+		<% else %>
+			<%= featured_product_families %>
+		<% end %>
 	<% end %>
-	<% end %>
-  <% unless @product_families.size > 3 %>
-	<% if @current_promotions.size > 0 %>
-		<%= link_to(image_tag("#{website.folder}/#{I18n.locale}/promotions.png", :alt => "promotions"), promotions_path) %>
-	<% else %>
-    	<%= link_to(image_tag("#{website.folder}/#{I18n.locale}/community.png", :alt => "community"), community_path) %>
-	<% end %>
-  <% end %>
-<% end %>
-<% end %>
   <div class="clear"></div>
-
 <% end %>
 
 <%= content_for :big_bottom_box do %>
