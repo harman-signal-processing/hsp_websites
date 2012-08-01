@@ -63,9 +63,12 @@
 			TIP: make the number smaller to move the center
 			     of the coverflow to the right.			
 
+			Starting a log to see if I can find a pattern:
+			34 pedals = 0.0148
+
 			=============================================== 
 			*/
-			this.itemSize = (0.01205 * this.items.length) * this.items.innerWidth();
+			this.itemSize = (0.0148 * this.items.length) * this.items.innerWidth();
 			this.itemWidth = this.items.width();
 			this.itemHeight = this.items.height();
 			this.duration = o.duration;
