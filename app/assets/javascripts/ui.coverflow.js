@@ -65,7 +65,7 @@
 
 			=============================================== 
 			*/
-			this.itemSize = (0.0158 * this.items.length) * this.items.innerWidth();
+			this.itemSize = (0.01205 * this.items.length) * this.items.innerWidth();
 			this.itemWidth = this.items.width();
 			this.itemHeight = this.items.height();
 			this.duration = o.duration;

@@ -3,7 +3,7 @@ jQuery ($) ->
 	total_items = parseInt($("#epedals").data('count'))
 
 	coverflowApp = 
-		defaultItem: $('.defaultItem').data('position') || (total_items / 2) - 1
+		defaultItem: $('.defaultItem').data('position') || Math.floor(total_items / 2) - 1
 		defaultDuration: 1100
 		html: $('div#coverflow_container div.wrapper').html()
 		sliderCtrl: $('div#coverflow_container #slider')
