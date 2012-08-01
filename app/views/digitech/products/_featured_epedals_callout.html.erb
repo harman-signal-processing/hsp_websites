@@ -9,7 +9,7 @@
 		<% end %>
 	</div>
 	<div class="featured_pedal">
-		<% if featured_second = Product.find(featured[1]) %>
+		<% if featured.length > 1 && featured_second = Product.find(featured[1]) %>
 			<%= render_partial 'products/featured_epedal', pedal: featured_second %>
 		<% end %>
 	</div>
