@@ -41,4 +41,14 @@ describe "DigiTech Integration Test" do
     end
   end
 
+  describe "XML for old-school demos" do
+    it "should respond" do
+      @product = @website.products.first
+      @attachment = FactoryGirl.create(:product_attachment, songlist_tag: "Foo")
+      visit "/#{I18n.default_locale}/products/songlist/#{@attachment.songlist_tag}.xml"
+      save_and_open_page
+      page.must_have_xpath("//songs")
+    end
+  end
+
 end

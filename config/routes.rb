@@ -263,6 +263,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     resources :training_modules, :training_classes, only: [:index, :show]
     get 'training' => 'main#training', as: :training
     resources :market_segments, :pages, :product_reviews, :product_families, :demo_songs, :promotions, only: [:index, :show]
+    get 'products/songlist/:id.:format' => 'products#songlist', as: :product_songlist
     resources :products, only: [:index, :show, :discontinued] do
       member do
         get :songlist
