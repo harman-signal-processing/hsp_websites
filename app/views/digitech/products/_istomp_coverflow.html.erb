@@ -2,6 +2,11 @@
 <% use_popups ||= false %>
 <% pedal ||= nil %>
 <%= cache ["coverflow", istomp, pedal, use_popups, Rails.env] do %>
+<% unless pedal %>
+	<% if website.featured_epedals && featured = website.featured_epedals.split("|") %>
+		<% pedal = Product.find(featured[0]) %>
+	<% end %>
+<% end %>
 <div id="coverflow_container">
 	<div id="mask"></div>
 	<div id="feature_pop" style="display: none">
