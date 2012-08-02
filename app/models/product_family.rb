@@ -25,8 +25,8 @@ class ProductFamily < ActiveRecord::Base
     :url => "/system/:attachment/:id/:style/:filename"
 
   validates_presence_of :brand_id, :name
-  acts_as_tree :order => :position
-  acts_as_list :scope => :brand_id, :order => :position
+  acts_as_tree :order => :position, :scope => :brand_id
+  # acts_as_list :scope => :brand_id, :order => :position
   
   define_index do
     indexes :name
