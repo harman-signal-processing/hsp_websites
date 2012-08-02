@@ -1,6 +1,12 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
+  def cached_meta_tags
+    @page_description ||= website.value_for('default_meta_tag_description') 
+    @page_keywords ||= website.value_for("default_meta_tag_keywords") 
+    display_meta_tags site: Setting.site_name(website)
+  end
+
   # Generates a slideshow based on a provided list of slides and
   # an optional duration. Each slide needs to respond to:
   #   .string_value  (with the URL to link to or blank for no link.

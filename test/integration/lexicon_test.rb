@@ -116,7 +116,6 @@ describe "Lexicon Integration Test" do
     it "should redirect to the downloads tab of a current product" do 
       select @website.products.first.name, from: 'product_id'
       click_on "go"
-      save_and_open_page
       page.must_have_xpath("//li[@id='downloads_and_docs_tab'][@class='current']")
     end
   end

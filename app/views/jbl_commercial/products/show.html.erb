@@ -1,7 +1,8 @@
-<% set_meta_tags :title => @product.name,
-				 :reverse => true,
-                 :description => translate_content(@product, :short_description),
-                 :keywords => translate_content(@product, :keywords) %>
+<% set_meta_tags title: @product.name,
+				 reverse: true,
+                 canonical: product_url(@product),
+                 description: translate_content(@product, :short_description),
+                 keywords: translate_content(@product, :keywords) %>
 
 <%= content_for :preload do %>
 	<%= image_tag("#{website.folder}/#{I18n.locale}/buyitnow_button_hover.png") %>
