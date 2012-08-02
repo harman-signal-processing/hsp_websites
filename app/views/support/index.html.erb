@@ -10,6 +10,7 @@
 <% end %>
 </h1>
 
+<%= cache ["support_body", website.brand, Rails.env, I18n.locale] do %>
 <div class="support_box_container">
 
 	<% if website.has_software? %>
@@ -76,6 +77,7 @@
 
 	<div class="clear"></div>
 </div>
+<% end %>
 
 <%= content_for :big_bottom_box do %>
 	<div class="support_box_container">
@@ -88,8 +90,10 @@
 		   <%= f.text_field :name %></div>
 		<div><%= f.label :email, ucfirst(t('email')) %><br/>
 		   <%= f.text_field :email %></div>
+		<%= cache ["contact_form_products", website.brand, Rails.env, Date.today] do %>
 		<div><%= f.label :product %><br/>
 			<%= f.select :product, [[]] + Product.all_for_website(website).collect{|p| p.name} + ["other"] %></div>
+		<% end %>
 		<div><%= f.label :product_serial_number %><br/>
 			<%= f.text_field :product_serial_number %></div>
 		<div><%= f.label :operating_system %><br/>

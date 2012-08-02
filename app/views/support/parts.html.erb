@@ -23,8 +23,10 @@
 	<div><%= f.label :account_number, "#{website.brand_name} Account Number" %>
 	   <%= f.text_field :account_number %></div>
 	<h2 style="text-align: right; width: 332px;">Product Details</h2>
+	<%= cache ["parts_form_products", website.brand, Rails.env, Date.today] do %>
 	<div><%= f.label :product, nil, :class => "required" %>
 		<%= f.select :product, [[]] + Product.all_for_website(website).collect{|p| p.name} + ["other"] %></div>
+	<% end %>
 	<div><%= f.label :part_number, "HSP Part Number" %>
 		<%= f.text_field :part_number %></div>
 	<div><%= f.label :board_location %>
