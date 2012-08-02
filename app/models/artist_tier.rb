@@ -17,6 +17,6 @@ class ArtistTier < ActiveRecord::Base
   end
   
   def artists_for(website)
-    artists.where("approver_id IS NOT NULL AND approver_id != ''").order("UPPER(name)").all.select{|a| a if a.belongs_to_this_brand?(website)}
+    artists.where("approver_id IS NOT NULL AND approver_id != ''").joins(:artist_brands).where("artist_brands.brand_id = ?", website.brand_id).order("UPPER(artists.name)")
   end
 end

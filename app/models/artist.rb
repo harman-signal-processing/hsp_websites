@@ -64,15 +64,12 @@ class Artist < ActiveRecord::Base
   end
   
   def belongs_to_this_brand?(website)
-    begin
-      self.brands.collect{|b| b.id}.include?(website.brand_id)
-    rescue
-      false
-    end
+    !!(self.artist_brands.where(brand_id: website.brand_id))
   end
     
   def self.all_for_website(website)
-    where("(approver_id IS NOT NULL AND approver_id != '') OR featured = 1").order("name").all.select{|a| a if a.belongs_to_this_brand?(website)}
+    # where("(approver_id IS NOT NULL AND approver_id != '') OR featured = 1").order("name").all.select{|a| a if a.belongs_to_this_brand?(website)}
+    where("(approver_id IS NOT NULL AND approver_id != '') OR featured = 1").joins(:artist_brands).where("artist_brands.brand_id = ?", website.brand_id).order("artists.name")
   end
     
   # When a new artist signs up, build a few ArtistProduct slots

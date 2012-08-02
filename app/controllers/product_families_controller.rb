@@ -38,7 +38,7 @@ class ProductFamiliesController < ApplicationController
   protected
   
   def ensure_best_url
-    @product_family = ProductFamily.find(params[:id])
-    redirect_to @product_family, :status => :moved_permanently unless @product_family.friendly_id_status.best?
+    @product_family = ProductFamily.find_by_cached_slug(params[:id]) || ProductFamily.find(params[:id])
+    # redirect_to @product_family, :status => :moved_permanently unless @product_family.friendly_id_status.best?
   end
 end

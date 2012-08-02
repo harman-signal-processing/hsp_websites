@@ -34,8 +34,8 @@ class ProductReviewsController < ApplicationController
   protected
   
   def ensure_best_url
-    @product_review = ProductReview.find(params[:id])
-    redirect_to @product_review, :status => :moved_permanently unless @product_review.friendly_id_status.best?
+    @product_review = ProductReview.find_by_cached_slug(params[:id]) || ProductReview.find(params[:id])
+    # redirect_to @product_review, :status => :moved_permanently unless @product_review.friendly_id_status.best?
   end
 
 end
