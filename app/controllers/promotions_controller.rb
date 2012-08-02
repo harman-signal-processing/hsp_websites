@@ -28,8 +28,8 @@ class PromotionsController < ApplicationController
   protected
   
   def ensure_best_url
-    @promotion = Promotion.find(params[:id])
-    redirect_to @promotion, :status => :moved_permanently unless @promotion.friendly_id_status.best?
+    @promotion = Promotion.find_by_cached_slug(params[:id]) || Promotion.find(params[:id])
+    # redirect_to @promotion, :status => :moved_permanently unless @promotion.friendly_id_status.best?
   end
 
 end

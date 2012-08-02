@@ -92,8 +92,8 @@ class ProductsController < ApplicationController
   protected
   
   def ensure_best_url
-    @product = Product.find(params[:id])
-    redirect_to @product, status: :moved_permanently unless @product.friendly_id_status.best?
+    @product = Product.find_by_cached_slug(params[:id]) || Product.find(params[:id])
+    # redirect_to @product, status: :moved_permanently unless @product.friendly_id_status.best?
   end
 
 end

@@ -170,5 +170,9 @@ class Website < ActiveRecord::Base
     end
     t
   end
+
+  def artists
+    Artist.all_for_website(self)
+  end
   
 end

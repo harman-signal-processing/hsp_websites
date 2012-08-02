@@ -5,12 +5,10 @@ class ArtistsController < ApplicationController
   # GET /artists
   # GET /artists.xml
   def index
+    @featured_artists = Artist.all_for_website(website).where(featured: true).order("position")
     respond_to do |format|
-      @featured_artists = website.artists.where(:featured => true).all.sort_by(&:position)
-      @artist_tiers = ArtistTier.for_artist_page
-      if website.has_artists? && @featured_artists.size > 0
+      if website.brand.has_artists? # && @featured_artists.size > 0
         format.html { render_template }# index.html.erb
-        format.xml  { render :xml => @featured_artists }
       else
         format.html { redirect_to root_path }
       end
@@ -21,7 +19,7 @@ class ArtistsController < ApplicationController
   # GET /artists/1.xml
   def show
     @artist = Artist.find(params[:id])
-    if !website.artists.include?(@artist)
+    unless @artist.belongs_to_this_brand?(website)
       redirect_to artists_path and return
     end
     if @artist.featured || @artist.artist_tier.show_on_artist_page?
@@ -74,8 +72,8 @@ class ArtistsController < ApplicationController
   protected
   
   def ensure_best_url
-    @artist = Artist.find(params[:id])
-    redirect_to @artist, :status => :moved_permanently unless @artist.friendly_id_status.best?
+    @artist = Artist.find_by_cached_slug(params[:id]) || Artist.find(params[:id])
+    # redirect_to @artist, :status => :moved_permanently unless @artist.friendly_id_status.best?
   end
 
 end
