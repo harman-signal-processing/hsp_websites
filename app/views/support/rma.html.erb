@@ -48,8 +48,10 @@
 		<%= f.text_field :billing_zip %></div>
 
 	<h2 style="text-align: right; width: 332px;">Product Details</h2>
+<%= cache ["rma_form_products", website.brand, Rails.env, Date.today] do %>
 	<div><%= f.label :product, nil, :class => "required" %>
 		<%= f.select :product, [[]] + Product.all_for_website(website).collect{|p| p.name} + ["other"] %></div>
+<% end %>
 	<div><%= f.label :product_sku, "SKU Number", :class => "required" %>
 		<%= f.text_field :product_sku, :size => 15 %> 
 		<span class="hint"><%= link_to "where to find the SKU", image_path("#{website.folder}/sku.jpg") %></span>
