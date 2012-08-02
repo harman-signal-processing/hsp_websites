@@ -1,7 +1,8 @@
-<% set_meta_tags :title => translate_content(@news, :title),
-				 :reverse => true,
-				 :keywords => @news.keywords,
-				 :description => translate_content(@news, :title) %>
+<% set_meta_tags title: translate_content(@news, :title),
+				 reverse: true,
+                 canonical: news_url(@news),
+				 keywords: @news.keywords,
+				 description: translate_content(@news, :title) %>
 
 <div class="article_centered_box">
 <h1><%= translate_content(@news, :title) %></h1>

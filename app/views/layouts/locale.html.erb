@@ -3,7 +3,9 @@
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
 		<%= csrf_meta_tag %>
-		<%= display_meta_tags :site => Setting.site_name(website) %>		
+		<%= cache ["meta_tags", request.url, Date.today] do %>
+			<%= cached_meta_tags %>
+		<% end %>		
 		<%= stylesheet_link_tag 'application', website.folder, :cache => false %>
 		<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
