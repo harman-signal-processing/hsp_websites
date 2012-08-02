@@ -17,7 +17,7 @@
 	</div>
 	<% end %>
 	<ul>
-		<% @product.product_reviews.each do |p| %>
+		<% @product.product_reviews.reverse.each do |p| %>
 		<li><b><%=l p.post_on.to_date, :format => :long %></b><br/>
 			<%= t('product_page.review') %>:
 			<%= link_to translate_content(p, :title), p %>
