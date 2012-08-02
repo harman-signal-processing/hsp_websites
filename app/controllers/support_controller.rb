@@ -2,11 +2,16 @@ class SupportController < ApplicationController
   before_filter :set_locale
   # Support home page
   def index
+    lexicon = Brand.find("lexicon")
     @contact_message = ContactMessage.new
-    @contact_message.require_country = true if website.brand.name == "Lexicon"
+    @contact_message.require_country = true if website.brand == lexicon
     if params[:product_id]
       if product = Product.find(params[:product_id])
-        redirect_to product and return
+        if website.brand == lexicon && !product.discontinued?
+          redirect_to product_path(product, tab: "downloads_and_docs") and return
+        else
+          redirect_to product and return
+        end
       end
     end
     render_template
@@ -34,11 +39,12 @@ class SupportController < ApplicationController
 
   # The site's contact form
   def contact
+    lexicon = Brand.find("lexicon")
     @contact_message = ContactMessage.new
-    @contact_message.require_country = true if website.brand.name == "Lexicon"
+    @contact_message.require_country = true if website.brand == lexicon
     if request.post?
       @contact_message = ContactMessage.new(params[:contact_message])
-      @contact_message.require_country = true if website.brand.name == "Lexicon"
+      @contact_message.require_country = true if website.brand == lexicon
       if verify_recaptcha && @contact_message.valid?
         @contact_message.save
         redirect_to support_path, :notice => t('blurbs.contact_form_thankyou')

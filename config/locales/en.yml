@@ -101,7 +101,7 @@ en:
       other: Other Document
         
   product_page:
-      description: "Product Description"
+      description: "Overview"
       features: "Features"
       specs_manuals_etc: "specs, manuals, reviews, etc..."
       extended_description: "More Details"

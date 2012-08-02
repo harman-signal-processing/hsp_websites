@@ -9,6 +9,17 @@ describe "Lexicon Integration Test" do
     host! @website.url
     Capybara.default_host = "http://#{@website.url}" 
     Capybara.app_host = "http://#{@website.url}" 
+
+    @product = @website.products.first
+    @software = FactoryGirl.create(:software, brand: @brand)
+    @product.product_softwares << FactoryGirl.create(:product_software, software: @software, product: @product)
+    @product.features_tab_name = "Culture"
+    @product.features = "This is content for the features"
+    @product.demo_link = 'http://demo.lvh.me/download/the/demo/form'
+    @product.save
+    FactoryGirl.create(:setting, brand: @brand, name: "description_tab_name", string_value: "Overview")
+    Brand.any_instance.stubs(:main_tabs).returns("description|extended_description|features|specifications|reviews|downloads_and_docs")
+    Brand.any_instance.stubs(:side_tabs).returns("news|support")
   end
   
   describe "homepage" do
@@ -53,16 +64,6 @@ describe "Lexicon Integration Test" do
 
   describe "product pages" do
     before do
-      @product = @website.products.first
-      @software = FactoryGirl.create(:software, brand: @brand)
-      @product.product_softwares << FactoryGirl.create(:product_software, software: @software, product: @product)
-      @product.features_tab_name = "Culture"
-      @product.features = "This is content for the features"
-      @product.demo_link = 'http://demo.lvh.me/download/the/demo/form'
-      @product.save
-      FactoryGirl.create(:setting, brand: @brand, name: "description_tab_name", string_value: "Overview")
-      Brand.any_instance.stubs(:main_tabs).returns("description|extended_description|features|specifications|reviews|downloads_and_docs")
-      Brand.any_instance.stubs(:side_tabs).returns("news|support")
       visit product_url(@product, locale: I18n.default_locale, host: @website.url)
     end
 
@@ -81,7 +82,6 @@ describe "Lexicon Integration Test" do
     it "should link directly to the downloads tab" do
       downloads_url = product_url(@product, locale: I18n.default_locale, host: @website.url, tab: "downloads_and_docs")
       visit downloads_url
-      # save_and_open_page
       page.must_have_xpath("//li[@id='downloads_and_docs_tab'][@class='current']")
       page.wont_have_xpath("//li[@id='description_tab'][@class='current']")
       page.must_have_xpath("//div[@id='downloads_and_docs_content']")
@@ -97,9 +97,12 @@ describe "Lexicon Integration Test" do
   end
   
   describe "support page" do
+    before do
+      visit support_url(locale: I18n.default_locale, host: @website.url)
+    end
+
     it "should require the country on the contact form" do
       message_count = ContactMessage.count
-      visit support_url(locale: I18n.default_locale, host: @website.url)
       page.must_have_content "Country (required)"
       select ContactMessage.subjects.last[0], from: "contact_message_subject"
       fill_in "contact_message_name", with: "Joe"
@@ -108,6 +111,13 @@ describe "Lexicon Integration Test" do
       click_on("submit")
       page.must_have_content("Country can't be blank")
       ContactMessage.count.wont_equal(message_count + 1)
+    end
+
+    it "should redirect to the downloads tab of a current product" do 
+      select @website.products.first.name, from: 'product_id'
+      click_on "go"
+      save_and_open_page
+      page.must_have_xpath("//li[@id='downloads_and_docs_tab'][@class='current']")
     end
   end
 end

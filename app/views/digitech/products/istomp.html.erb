@@ -19,7 +19,7 @@
 <header id="product_header" class="istomp">
 	<%= image_tag("#{website.folder}/istomp/logo.png", alt: @product.name) %>
 	<%= draw_main_tabs @product, 
-		tabs: "description|extended_description|features|specifications|downloads_and_docs|gallery" %>
+		tabs: "description|extended_description|features|reviews|specifications|downloads_and_docs|gallery" %>
 </header>
 	
 <section id="product_content" class="istomp">
@@ -44,7 +44,7 @@
 	
 	<div id="right_column">
 		<%= draw_main_tabs_content @product, 
-		tabs: "description|extended_description|features|specifications|downloads_and_docs|gallery" %>	
+		tabs: "description|extended_description|features|reviews|specifications|downloads_and_docs|gallery" %>	
 		<%= image_tag "made_for_ipod_ipad_iphone.png", alt: "Made for iPod, iPad, iPhone" %>	
 	</div>
 	<div class="clear"></div>
