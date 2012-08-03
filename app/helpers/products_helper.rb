@@ -187,6 +187,9 @@ module ProductsHelper
 		    link_to button, international_distributors_path, onclick: "_gaq.push(['_trackEvent', 'BuyItNow', 'non-USA (#{session['geo_country']})', '#{product.name}'])"
 		  elsif !product.direct_buy_link.blank?
 		    link_to button, product.direct_buy_link, target: "_blank", onclick: "_gaq.push(['_trackEvent', 'AddToCart', 'USA (#{session['geo_country']})', '#{product.name}'])"
+      elsif @online_retailer_link # http param[:bin] provided
+        tracker = (Rails.env.production?) ? {target: "_blank", onclick: "_gaq.push(['_trackEvent', 'BuyItNow-Dealer', '#{@online_retailer_link.online_retailer.name}', '#{product.name}'])"} : {target: "_blank"}
+        link_to button, @online_retailer_link.url, tracker
 		  elsif product.active_retailer_links(false).size > 0
         tracker = (Rails.env.production?) ? "_gaq.push(['_trackEvent', 'BuyItNow', 'USA', '#{product.name}']);" : ""
 			  link_to_function button, "#{tracker}popup('dealer_popup');"
