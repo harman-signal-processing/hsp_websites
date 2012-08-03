@@ -39,6 +39,17 @@ class Brand < ActiveRecord::Base
   after_initialize :dynamic_methods
   has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
   validates_presence_of :name
+
+  def news
+    # News.find_by_sql("SELECT news.* FROM news
+    #   INNER JOIN news_products ON news_products.news_id = news.id
+    #   INNER JOIN products ON products.id = news_products.product_id
+    #   INNER JOIN product_family_products ON product_family_products.product_id = products.id
+    #   INNER JOIN product_families ON product_families.id = product_family_products.product_family_id
+    #   WHERE product_families.brand_id = #{self.id} OR news.brand_id = #{self.id}
+    #   ORDER BY post_on DESC")
+    News.select("DISTINCT news.*").joins("INNER JOIN news_products ON news_products.news_id = news.id").joins("INNER JOIN products ON products.id = news_products.product_id").joins("INNER JOIN product_family_products ON product_family_products.product_id = products.id").joins("INNER JOIN product_families ON product_families.id = product_family_products.product_family_id").where("product_families.brand_id = ? OR news.brand_id = ?", self.id, self.id)
+  end
   
   # Dynamically create methods based on this Brand's settings.
   # This is a smarter alternative to using method_missing

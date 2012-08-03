@@ -34,14 +34,14 @@ class News < ActiveRecord::Base
   end
   
   # News to display on the main area of the site. This set of news articles
-  # includes entries from the past year.
+  # includes entries from the past year and a half.
   def self.all_for_website(website)
-    where(:brand_id => website.brand_id).where(["post_on >= ? AND post_on <= ?", 1.year.ago, Date.today]).order("post_on DESC")
+    where(:brand_id => website.brand_id).where(["post_on >= ? AND post_on <= ?", 18.months.ago, Date.today]).order("post_on DESC")
   end
 
-  # Older news for the archived page. These are articles older than 1 year.
+  # Older news for the archived page. These are articles older than 1.5 year.
   def self.archived(website)
-    where(:brand_id => website.brand_id).where(["post_on <= ?", 1.year.ago]).order("post_on DESC")
+    where(:brand_id => website.brand_id).where(["post_on <= ?", 18.months.ago]).order("post_on DESC")
   end
   
   # Alias for search results link name
