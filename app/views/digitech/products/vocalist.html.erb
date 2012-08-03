@@ -13,8 +13,16 @@
 	<% end %>
 <% end %>
 
+<%= content_for :alternate_logo do %>
+	<%= link_to(image_tag("#{website.folder}/logo_black.png", alt: Setting.site_name(website)), main_app.locale_root_path) %>
+<% end %>
+
+<%= content_for :footer_logo do %>
+	<%= image_tag "harman.jpg" %>
+<% end %>
+
 <%= content_for :page_css do %>
-	<%= stylesheet_link_tag 'application', 'hardwire-by-digitech', cache: false, media: :all %>
+	<%= stylesheet_link_tag 'application', 'vocalist-by-digitech', cache: false, media: :all %>
 <% end %>
 
 <% unless @product.background_image_file_name.blank? %>
@@ -58,7 +66,7 @@
 	
 	<div id="right_column">
 		<h1 <% unless @product.background_color.blank? %>style="background-color: <%= @product.background_color %>;"<% end %>>
-			<%= title "#{@product.name} #{translate_content(@product, :short_description)}" %>
+			<%= title @product.name %>
 		</h1>
 		
 		<% if website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !@product.direct_buy_link.blank? %>

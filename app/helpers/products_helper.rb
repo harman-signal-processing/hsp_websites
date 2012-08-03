@@ -168,19 +168,20 @@ module ProductsHelper
   def buy_it_now_link(product, options={})
     default_options = {button_prefix: ""}
     options = default_options.merge options
+    folder = (product.layout_class.to_s.match(/vocalist/)) ? product.layout_class : website.folder
     if product.direct_buy_link.blank?
-      button = image_tag("#{website.folder}/#{I18n.locale}/#{options[:button_prefix]}buyitnow_button.png", alt: t("online_dealers_us"), mouseover: "#{website.folder}/#{I18n.locale}/#{options[:button_prefix]}buyitnow_button_hover.png")
+      button = image_tag("#{folder}/#{I18n.locale}/#{options[:button_prefix]}buyitnow_button.png", alt: t("online_dealers_us"), mouseover: "#{folder}/#{I18n.locale}/#{options[:button_prefix]}buyitnow_button_hover.png")
     elsif product.parent_products.size > 0 # as in e-pedals
-      button = image_tag("#{website.folder}/#{I18n.locale}/#{options[:button_prefix]}getit_button.png", alt: t("online_dealers_us"), mouseover: "#{website.folder}/#{I18n.locale}/#{options[:button_prefix]}getit_button_hover.png")
+      button = image_tag("#{folder}/#{I18n.locale}/#{options[:button_prefix]}getit_button.png", alt: t("online_dealers_us"), mouseover: "#{folder}/#{I18n.locale}/#{options[:button_prefix]}getit_button_hover.png")
     else
-      button = image_tag("#{website.folder}/#{I18n.locale}/#{options[:button_prefix]}addtocart_button.png", alt: t("online_dealers_us"), mouseover: "#{website.folder}/#{I18n.locale}/#{options[:button_prefix]}addtocart_button_hover.png")
+      button = image_tag("#{folder}/#{I18n.locale}/#{options[:button_prefix]}addtocart_button.png", alt: t("online_dealers_us"), mouseover: "#{folder}/#{I18n.locale}/#{options[:button_prefix]}addtocart_button_hover.png")
     end
     if !product.discontinued?
 		  if !product.in_production?
 		    if product.show_on_website?(website)
-		      image_tag "#{website.folder}/#{I18n.locale}/coming_soon.png", alt: "coming soon"
+		      image_tag "#{folder}/#{I18n.locale}/coming_soon.png", alt: "coming soon"
 		    else
-		      image_tag "#{website.folder}/#{I18n.locale}/confidential.png", alt: "confidential"
+		      image_tag "#{folder}/#{I18n.locale}/confidential.png", alt: "confidential"
 	      end
 		  elsif !session["geo_usa"]
 		    link_to button, international_distributors_path, onclick: "_gaq.push(['_trackEvent', 'BuyItNow', 'non-USA (#{session['geo_country']})', '#{product.name}'])"
@@ -218,7 +219,7 @@ module ProductsHelper
   def breadcrumbs(product)
     crumbs = []
     crumbs << link_to(t('products'), product_families_path)
-    product.product_families.each do |pf|
+    product.product_families.where(brand_id: website.brand_id).each do |pf|
       crumbs << link_to(translate_content(pf.parent, :name).downcase, pf.parent) if pf.parent
       crumbs << link_to(strip_html(translate_content(pf, :name)).downcase, pf) unless pf.current_products.size < 2
     end

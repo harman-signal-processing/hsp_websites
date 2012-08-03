@@ -37,6 +37,8 @@
 		  fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));</script>
 		<%= render_partial "shared/admin_dashboard_link" %>
+
+		<div id="Outer">
 		<%= render_partial "shared/header" %>
 		
 		<% if content_for?(:feature) %>
@@ -76,6 +78,7 @@
 		<% else %>
 			<div style="height: 30px;">&nbsp;</div>
 		<% end %>
+		</div>
 		
 		<%= render_partial "shared/footer" %>
 		
