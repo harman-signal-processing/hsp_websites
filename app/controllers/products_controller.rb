@@ -17,6 +17,11 @@ class ProductsController < ApplicationController
     if website.has_suggested_products?
       @suggestions = @product.suggested_products
     end
+    @online_retailer_link = nil
+    if params[:bin]
+      online_retailer = OnlineRetailer.find(params[:bin])
+      @online_retailer_link = online_retailer.online_retailer_links.where(product_id: @product.id).first
+    end
     @active_tab = params[:tab] || 'description'
     respond_to do |format|
       format.html {
