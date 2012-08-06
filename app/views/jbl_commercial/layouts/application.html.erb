@@ -139,11 +139,11 @@
 		<% if content_for?(:dealer_popup) %>
 			<div id="blanket" style="display:none;"></div>
 			<div id="dealer_popup_close" style="display:none;">
-				<%= link_to_function(image_tag("close.png"), "popup('dealer_popup')")%>
+				<%= link_to(image_tag("close.png"), @product, class: "buy_it_now_popup", data: {windowname: 'dealer_popup'})%>
 			</div>
 			<div id="dealer_popup" style="display:none;">
 				<%= yield :dealer_popup %>
-				<p><%= link_to_function "close", "popup('dealer_popup')" %></p>
+				<p><%= link_to "close", @product, class: "buy_it_now_popup", data: {windowname: 'dealer_popup'} %></p>
 			</div>
 		<% end %>
 		<div id="preload"><%= yield :preload %></div>

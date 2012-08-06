@@ -166,37 +166,84 @@ module ProductsHelper
   end
   
   def buy_it_now_link(product, options={})
-    default_options = {button_prefix: ""}
-    options = default_options.merge options
-    folder = (product.layout_class.to_s.match(/vocalist/)) ? product.layout_class : website.folder
-    if product.direct_buy_link.blank?
-      button = image_tag("#{folder}/#{I18n.locale}/#{options[:button_prefix]}buyitnow_button.png", alt: t("online_dealers_us"), mouseover: "#{folder}/#{I18n.locale}/#{options[:button_prefix]}buyitnow_button_hover.png")
-    elsif product.parent_products.size > 0 # as in e-pedals
-      button = image_tag("#{folder}/#{I18n.locale}/#{options[:button_prefix]}getit_button.png", alt: t("online_dealers_us"), mouseover: "#{folder}/#{I18n.locale}/#{options[:button_prefix]}getit_button_hover.png")
-    else
-      button = image_tag("#{folder}/#{I18n.locale}/#{options[:button_prefix]}addtocart_button.png", alt: t("online_dealers_us"), mouseover: "#{folder}/#{I18n.locale}/#{options[:button_prefix]}addtocart_button_hover.png")
-    end
     if !product.discontinued?
+
+      default_options = {button_prefix: ""}
+      options = default_options.merge options
+      button = button_for(product, options)
+
 		  if !product.in_production?
-		    if product.show_on_website?(website)
-		      image_tag "#{folder}/#{I18n.locale}/coming_soon.png", alt: "coming soon"
-		    else
-		      image_tag "#{folder}/#{I18n.locale}/confidential.png", alt: "confidential"
-	      end
+        no_buy_it_now(product)
 		  elsif !session["geo_usa"]
-		    link_to button, international_distributors_path, onclick: "_gaq.push(['_trackEvent', 'BuyItNow', 'non-USA (#{session['geo_country']})', '#{product.name}'])"
+        buy_it_now_international(product, button)
 		  elsif !product.direct_buy_link.blank?
-		    link_to button, product.direct_buy_link, target: "_blank", onclick: "_gaq.push(['_trackEvent', 'AddToCart', 'USA (#{session['geo_country']})', '#{product.name}'])"
+        buy_it_now_direct_from_factory(product, button)
       elsif @online_retailer_link # http param[:bin] provided
-        tracker = (Rails.env.production?) ? {target: "_blank", onclick: "_gaq.push(['_trackEvent', 'BuyItNow-Dealer', '#{@online_retailer_link.online_retailer.name}', '#{product.name}'])"} : {target: "_blank"}
-        link_to button, @online_retailer_link.url, tracker
-		  elsif product.active_retailer_links(false).size > 0
-        tracker = (Rails.env.production?) ? "_gaq.push(['_trackEvent', 'BuyItNow', 'USA', '#{product.name}']);" : ""
-			  link_to_function button, "#{tracker}popup('dealer_popup');"
+        buy_it_now_direct_to_retailer(product, button)
 		  else
-			  link_to button, where_to_buy_path
+        buy_it_now_usa(product, button)
 		  end
 		end    
+  end
+
+  def folder_for(product)
+    (product.layout_class.to_s.match(/vocalist/)) ? product.layout_class : website.folder
+  end
+
+  def button_for(product, options)
+    folder = folder_for(product)
+    if product.direct_buy_link.blank?
+      image_tag("#{folder}/#{I18n.locale}/#{options[:button_prefix]}buyitnow_button.png", alt: t("online_dealers_us"), mouseover: "#{folder}/#{I18n.locale}/#{options[:button_prefix]}buyitnow_button_hover.png")
+    elsif product.parent_products.size > 0 # as in e-pedals
+      image_tag("#{folder}/#{I18n.locale}/#{options[:button_prefix]}getit_button.png", alt: t("online_dealers_us"), mouseover: "#{folder}/#{I18n.locale}/#{options[:button_prefix]}getit_button_hover.png")
+    else
+      image_tag("#{folder}/#{I18n.locale}/#{options[:button_prefix]}addtocart_button.png", alt: t("online_dealers_us"), mouseover: "#{folder}/#{I18n.locale}/#{options[:button_prefix]}addtocart_button_hover.png")
+    end
+  end
+
+  def no_buy_it_now(product)
+    folder = folder_for(product)
+    if product.show_on_website?(website)
+      image_tag("#{folder}/#{I18n.locale}/coming_soon.png", alt: "coming soon")
+    else
+      image_tag("#{folder}/#{I18n.locale}/confidential.png", alt: "confidential")
+    end    
+  end
+
+  def buy_it_now_usa(product, button)
+    if product.active_retailer_links(false).size > 0
+      # tracker = (Rails.env.production?) ? "_gaq.push(['_trackEvent', 'BuyItNow', 'USA', '#{product.name}']);" : ""
+      # link_to_function button, "#{tracker}popup('dealer_popup');"
+      link_to(button, 
+        buy_it_now_product_path(product), 
+        class: "buy_it_now_popup", 
+        data: {windowname: 'dealer_popup'},
+        onclick: "_gaq.push(['_trackEvent', 'BuyItNow', 'USA', '#{product.name}'])")
+    else
+      link_to(button, 
+        where_to_buy_path, 
+        onclick: "_gaq.push(['_trackEvent', 'BuyItNow', 'Without online retailer links', '#{product.name}'])")
+    end
+  end
+
+  def buy_it_now_direct_to_retailer(product, button)
+    link_to(button, 
+      @online_retailer_link.url, 
+      target: "_blank", 
+      onclick: "_gaq.push(['_trackEvent', 'BuyItNow-Dealer', '#{@online_retailer_link.online_retailer.name}', '#{product.name}'])")    
+  end
+
+  def buy_it_now_direct_from_factory(product, button)
+    link_to(button, 
+      product.direct_buy_link, 
+      target: "_blank", 
+      onclick: "_gaq.push(['_trackEvent', 'AddToCart', 'USA (#{session['geo_country']})', '#{product.name}'])")
+  end
+
+  def buy_it_now_international(product, button)
+    link_to(button, 
+      international_distributors_path, 
+      onclick: "_gaq.push(['_trackEvent', 'BuyItNow', 'non-USA (#{session['geo_country']})', '#{product.name}'])")  
   end
   
   def links_to_current_promotions(product)

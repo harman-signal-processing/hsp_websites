@@ -89,5 +89,9 @@ group :test do
   gem 'guard-minitest'
   gem 'database_cleaner'
   gem 'minitest-rails-shoulda',
-      git: "http://github.com/rawongithub/minitest-rails-shoulda.git"  
+    git: "http://github.com/rawongithub/minitest-rails-shoulda.git",
+    ref: "2bd90c19c5be00aa1718a00293b6899223daf79f"
+    # Aug 6, 2012 commit changed "Minitest" to "MiniTest" which broke things for me.
+    # Probably the next version of "minitest" gem will have the new capitalization
+    # and then I'll need to remove the "ref" above.
 end

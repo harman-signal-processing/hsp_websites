@@ -130,6 +130,10 @@ class MainController < ApplicationController
         :updated_at => product.updated_at,
         :changefreq => 'weekly',
         :priority => 0.9 }
+      @pages << { :url => buy_it_now_product_url(product),
+        :updated_at => product.updated_at,
+        :changefreq => 'weekly',
+        :priority => 0.7 } if product.active_retailer_links.length > 0 && !(product.parent_products.count > 0)
     end
     News.all_for_website(website).each do |news|
       @pages << { :url => url_for(news),
