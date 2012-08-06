@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_filter :set_locale
-  before_filter :ensure_best_url, only: :show
+  before_filter :ensure_best_url, only: [:show, :buy_it_now, :preview]
   
   # GET /products
   # GET /products.xml
@@ -11,9 +11,6 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.xml
   def show
-    unless @product.belongs_to_this_brand?(website)
-      redirect_to product_families_path and return 
-    end
     if website.has_suggested_products?
       @suggestions = @product.suggested_products
     end
@@ -53,11 +50,23 @@ class ProductsController < ApplicationController
       }
     end
   end
+
+  def buy_it_now
+    respond_to do |format|
+      format.html {
+        if !@product.layout_class.blank? && File.exists?(Rails.root.join("app", "views", website.folder, "products", "#{@product.layout_class}_buy_it_now.html.erb"))
+          render template: "#{website.folder}/products/#{@product.layout_class}_buy_it_now", layout: set_layout
+        else
+          render_template
+        end
+      }
+      format.xml { render xml: @product.active_retailer_links }
+    end
+  end
   
   # GET /products/1/preview
   # PUT /products/1/preview
   def preview
-    @product = Product.find(params[:id])
     @errors = ""
     if request.put?
       if @product.password == params[:product][:password]
@@ -98,6 +107,9 @@ class ProductsController < ApplicationController
   
   def ensure_best_url
     @product = Product.find_by_cached_slug(params[:id]) || Product.find(params[:id])
+    unless @product.belongs_to_this_brand?(website)
+      redirect_to product_families_path and return 
+    end
     # redirect_to @product, status: :moved_permanently unless @product.friendly_id_status.best?
   end
 

@@ -266,6 +266,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get 'products/songlist/:id.:format' => 'products#songlist', as: :product_songlist
     resources :products, only: [:index, :show, :discontinued] do
       member do
+        get :buy_it_now
         get :songlist
         get :preview
         put :preview

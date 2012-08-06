@@ -22,7 +22,8 @@ GIT
 
 GIT
   remote: http://github.com/rawongithub/minitest-rails-shoulda.git
-  revision: 457ab944caad6760af20ae4f44ec1d17e2b1195d
+  revision: 2bd90c19c5be00aa1718a00293b6899223daf79f
+  ref: 2bd90c19c5be00aa1718a00293b6899223daf79f
   specs:
     minitest-rails-shoulda (0.0.1)
       minitest-matchers
