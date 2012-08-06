@@ -15,7 +15,7 @@
 
 <%= render_partial 'products/istomp_style' %>
 
-<%= cache ["product_page", @product, Rails.env, I18n.locale, session['geo_country']] do %>
+<%= cache ["product_page", @product, @online_retailer_link, Rails.env, I18n.locale, session['geo_country']] do %>
 
 <header id="product_header" class="istomp">
 	<%= image_tag("#{website.folder}/istomp/logo.png", alt: @product.name) %>
