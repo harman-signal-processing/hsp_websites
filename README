@@ -42,7 +42,6 @@ it works:
 * Distributors and Artists have a join table. Tough to manage in CMS.
   ..UPDATE: sort of working. the create/delete will create/delete the associations, but there's
   nothing to re-use a given Artist or Distributor record cross-brands.
-* Testing a new site on the live server could prove to be tough until its domain name is moved over.
 
 **** Main/index and default layout should be more basic for new sites (remove youtube feed)
 
@@ -50,6 +49,6 @@ it works:
 
 1. Create an entry in the 'websites' table. This can be done using the admin tool of any existing site (for super admins)
 2. Setup required Settings for the new website's brand:
-  default_meta_tag_description, default_meta_tag_keywords, google_analytics_account, youtube, twitter, etc.
+  support_email, default_meta_tag_description, default_meta_tag_keywords, google_analytics_account, youtube, twitter, etc.
 3. Create header images, custom layout, custom display
   

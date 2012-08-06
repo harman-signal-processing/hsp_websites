@@ -39,6 +39,13 @@
 				<span class="price"><%= number_to_currency(@product.street_price) %></span>
 			<% end %>
 			<%= buy_it_now_link(@product, button_prefix: "small_red_") %>
+			<%# Remove this after August 20, 2012 %>
+			<% if @online_retailer_link && @online_retailer_link.online_retailer.to_param == 'musicians-friend' %>
+				<% if Date.today < Date.new(2012, 8, 21) %>
+					<script type="text/javascript" src="http://promoshq.wildfireapp.com/website/302/companies/220662/widget_loader"></script>
+				<% end %>
+			<% end %>
+			<%# end the promo code %>
 		</div>
 		<% end %>
 	</div>

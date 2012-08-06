@@ -60,6 +60,8 @@ class ProductsController < ApplicationController
           render template: "#{website.folder}/products/#{@product.layout_class}_buy_it_now", layout: set_layout
         elsif @product.layout_class.to_s == 'epedal' && website.non_ios_howto_url
           redirect_to website.non_ios_howto_url and return
+        elsif !@product.direct_buy_link.blank?
+          redirect_to @product.direct_buy_link and return
         else
           render_template
         end
