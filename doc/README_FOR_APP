@@ -34,6 +34,7 @@ Run "rake doc:app" to generate API documentation for your models, controllers, h
 * DOD finish importing products (discontinued)
 * DOD new buy-it-now button, populate BIN links
 * Server load balancing
+* New mysql server
 * auto-pull news items from hpro feed
 * Salesforce FAQ integration
 * Create Salesforce support cases
