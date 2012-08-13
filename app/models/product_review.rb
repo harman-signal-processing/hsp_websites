@@ -1,12 +1,27 @@
 class ProductReview < ActiveRecord::Base
   has_attached_file :review,
-    :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
-    :url => "/system/:attachment/:id/:style/:filename"
-
+    path: ":rails_root/public/system/:attachment/:id/:style/:filename",
+    url: "/system/:attachment/:id/:style/:filename"
+  has_attached_file :cover_image,
+    styles: { lightbox: "800x600",
+      large: "640x480", 
+      medium: "480x360", 
+      horiz_medium: "670x275",
+      epedal: "400x250",
+      vert_medium: "375x400",
+      medium_small: "150x225",
+      small: "240x180",
+      horiz_thumb: "170x80",
+      thumb: "100x100", 
+      tiny: "64x64", 
+      tiny_square: "64x64#" 
+    },
+    path: ":rails_root/public/system/:attachment/:id/:style/:filename",
+    url: "/system/:attachment/:id/:style/:filename"
   validates_presence_of :title
-  has_friendly_id :sanitized_title, :use_slug => true, :approximate_ascii => true, :max_length => 100
-  has_many :product_review_products, :dependent => :destroy
-  has_many :products, :through => :product_review_products
+  has_friendly_id :sanitized_title, use_slug: true, approximate_ascii: true, max_length: 100
+  has_many :product_review_products, dependent: :destroy
+  has_many :products, through: :product_review_products
   before_save :clear_blank_body, :reset_link_status, :stamp_link
 
   define_index do

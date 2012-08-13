@@ -5,6 +5,10 @@
   <%= f.text_field :title %>
 </p>
 <p>
+  <%= f.label :cover_image %><br />
+  <%= f.file_field :cover_image %>
+</p>
+<p>
   <%= f.label :created_at, "Date" %><br/>
   <%= f.text_field :created_at, class: 'ui-datepicker' %>
 </p>
