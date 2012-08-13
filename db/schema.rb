@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120727180844) do
+ActiveRecord::Schema.define(:version => 20120813214435) do
 
   create_table "amp_models", :force => true do |t|
     t.string   "name"
@@ -622,7 +622,11 @@ ActiveRecord::Schema.define(:version => 20120727180844) do
     t.datetime "updated_at"
     t.string   "cached_slug"
     t.datetime "link_checked_at"
-    t.string   "link_status",         :default => "200"
+    t.string   "link_status",              :default => "200"
+    t.string   "cover_image_file_name"
+    t.string   "cover_image_content_type"
+    t.integer  "cover_image_file_size"
+    t.datetime "cover_image_updated_at"
   end
 
   add_index "product_reviews", ["cached_slug"], :name => "index_product_reviews_on_cached_slug", :unique => true

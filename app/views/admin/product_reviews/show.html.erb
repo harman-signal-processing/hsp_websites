@@ -10,6 +10,10 @@
 	<%= link_to 'Delete', [:admin, @product_review], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %> 
 </div>
 
+<% unless @product_review.cover_image_file_name.blank? %>
+<%= image_tag @product_review.cover_image.url(:small) %>
+<% end %>
+
 <%= @product_review.body %>
 
 <p>

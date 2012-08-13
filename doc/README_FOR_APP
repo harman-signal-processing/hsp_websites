@@ -12,6 +12,16 @@ Run "rake doc:app" to generate API documentation for your models, controllers, h
 === TODO for Lexicon ===
 * Inline ecommerce with iLok integration
 
+_OMS Notes_
+
+Add to cart form:
+
+You can use this link: store.lexiconpro.com/addtocart.aspx?itemid=100170580&subitemid=358897&binlocid=7&qty=1
+
+What you will need to change is: itemid=100170580&subitemid=358897 based on the product you want to link. You can get these ID's from the manage inventory page in the OMS backend. Please let me know if you have any questions. 
+
+
+
 === TODO for DigiTech ===
 * Sound community Replacement!!!!!!!
 * ePedal category shelves
