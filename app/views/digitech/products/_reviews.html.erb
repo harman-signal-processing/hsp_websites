@@ -1,10 +1,23 @@
-<div id="reviews">
-	<h3><%= @product.name %> <%= t('product_page.reviews') %></h3>
-	<ul>
-		<% @product.product_reviews.reverse.each do |p| %>
-		<li><b><%=l p.post_on.to_date, :format => :long %></b>:<br/>
-			<%= link_to translate_content(p, :title), p %>
-		</li>
+<% if @product.product_reviews.last.cover_image_file_name.blank? %>
+	<div id="reviews">
+		<h3><%= @product.name %> <%= t('product_page.reviews') %></h3>
+		<ul>
+			<% @product.product_reviews.reverse[0,12].each do |p| %>
+			<li><b><%=l p.post_on.to_date, :format => :long %></b>:<br/>
+				<%= link_to translate_content(p, :title), p %>
+			</li>
+			<% end %>
+		</ul>
+	</div>
+<% else %>
+	<div id="reviews" class="gallery">
+		<h3><%= @product.name %> <%= t('product_page.reviews') %></h3>
+		<% @product.product_reviews.reverse[0,12].each do |p| %>
+			<% if p.cover_image_file_name.blank? %>
+				<%= link_to image_tag("missing-image-128x128.png", alt: p.title, size: "64x64" ), p %>
+			<% else %>
+				<%= link_to image_tag(p.cover_image.url(:tiny_square), alt: p.title ), p %>
+			<% end %>
 		<% end %>
-	</ul>
-</div>
+	</div>
+<% end %>

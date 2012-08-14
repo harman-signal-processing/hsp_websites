@@ -14,14 +14,14 @@
 <div class="support_box_container">
 
 	<% if website.has_software? %>
-	<div class="support_box">
+	<div class="support_box downloads_box">
 		<h4><%= link_to t('software_downloads'), software_index_path %></h4>
 		<p><%= t('blurbs.software_downloads', brand: website.brand_name) %></p>
 		<%= link_to t('software_downloads'), software_index_path %>
 	</div>
 	<% end %>
 	
-	<div class="support_box">
+	<div class="support_box product_support_box">
 		<h4><%= t('titles.product_support') %></h4>
 		<p><%= t('blurbs.product_support') %></p>
 		<%= form_tag support_path, :method => :get do |f| %>
@@ -30,14 +30,14 @@
 		<% end %>
 	</div>
 	
-	<div class="support_box">
+	<div class="support_box registration_box">
 		<h4><%= link_to t('warranty_registration'), warranty_registration_path %></h4>
 		<p><%= t('blurbs.warranty_registration', brand: website.brand_name) %></p>
 		<%= link_to t('warranty_registration'), warranty_registration_path %>
 	</div>
 	
 	<% if website.has_service_centers? %>
-	<div class="support_box">
+	<div class="support_box service_centers_box">
 		<h4><%= t('titles.locate_us_service_center') %>:</h4>
 		<%= form_tag support_path(:action => "service_lookup") do |f| %>
 			<p><%= label_tag "zip", t('us_zip_code') %>
@@ -48,7 +48,7 @@
 	<% end %>
 
 	<% unless website.brand_name.match(/dod/i) %>
-	<div class="support_box">
+	<div class="support_box more_resources_box">
 		<h4>More Resources</h4>
 		<ul>
 			<% if !!(website.value_for("troubleshooting_url")) %>
@@ -66,7 +66,7 @@
 	<% end %>
 
 	<% if addr = website.address_and_phone %>
-	<div class="support_box">
+	<div class="support_box contact_info_box">
 		<h4><%= t("titles.mailing_address") %></h4>
 		<%=raw addr %>
 		<% if sup = website.support_email %>
