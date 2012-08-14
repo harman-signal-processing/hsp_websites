@@ -37,4 +37,15 @@ class DistributorsController < ApplicationController
     end
   end
 
+  def minimal
+    @brand = Brand.find(params[:brand_id])
+    @countries = Distributor.countries(@brand)
+    @distributors = []
+    if params[:country]
+      @country = params[:country]
+      @distributors = Distributor.find_all_by_country(@country, @brand)
+    end
+    render layout: 'tiny'
+  end
+
 end
