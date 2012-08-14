@@ -1482,18 +1482,21 @@ ol#search_results li {
 		margin-left: 20px;
 	}
 	.support_box {
-		background: #f9f9f9;
+		background: url(<%= image_path('lexicon/light_gray_gradient.png') %>) repeat-x;
 		border: 1px solid #ECECEC;
 		width: 280px;
-		height: 120px;
+		height: 125px;
 		overflow: hidden;
 		float: left;
 		padding: 8px;
 		margin: 10px;
 		h4 {
 			font-size: 14px;
-			line-height: 20px;
-			margin-bottom: 6px;
+			line-height: 19px;
+			margin-bottom: 4px;
+			padding-top: 4px;
+			padding-left: 40px;
+			padding-bottom: 8px;
 			color: #444;
 			text-transform: uppercase;
 			a:link, a:visited {
@@ -1508,6 +1511,35 @@ ol#search_results li {
 		li {
 			text-transform: capitalize;
 		}
+	}
+	.downloads_box h4 {
+		background-image: url(<%= image_path('lexicon/Software_Downloads_icon.png') %>);
+		background-repeat: no-repeat;
+		padding-left: 48px;
+	}
+	.product_support_box h4 {
+		background-image: url(<%= image_path('lexicon/Customer_Support_icon.png') %>);
+		background-repeat: no-repeat;
+	}
+	.registration_box h4 {
+		background-image: url(<%= image_path('lexicon/Product_Registration_icon.png') %>);
+		background-repeat: no-repeat;
+		padding-left: 44px;
+	}
+	.service_centers_box h4 {
+		background-image: url(<%= image_path('lexicon/Locate_icon.png') %>);
+		background-position: 0px 3px;
+		background-repeat: no-repeat;
+		padding-top: 0px;
+	}
+	.more_resources_box h4 {
+		background-image: url(<%= image_path('lexicon/More_Resources_icon.png') %>);
+		background-repeat: no-repeat;
+		padding-left: 26px;
+	}
+	.contact_info_box h4 {
+		background-image: url(<%= image_path('lexicon/Mailing_Address_icon.png') %>);
+		background-repeat: no-repeat;
 	}
 }
 form.contact {
