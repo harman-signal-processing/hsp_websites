@@ -56,7 +56,8 @@ class ArtistsController < ApplicationController
   # Alphabetical list of artists
   def all
     params[:letter] ||= "a"
-    params[:letter] = params[:letter].downcase.match(/^\w{1}/).to_s
+    params[:letter] = params[:letter] + "a" # to ensure there's something to match below...
+    params[:letter] = params[:letter].downcase.match(/\w{1}/).to_s
     @all_artists = {}
     ("a".."z").each do |letter|
       @all_artists[letter] = []

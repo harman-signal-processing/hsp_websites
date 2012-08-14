@@ -14,7 +14,11 @@ class MainController < ApplicationController
     @features = website.features
     respond_to do |format|
       format.html { render_template }
-      format.xml { render :xml => @product_families + @news + @current_promotions }
+      format.xml { 
+        product_families = ProductFamily.parents_with_current_products(website, I18n.locale)
+        current_promotions = Promotion.all_for_website(website)
+        render xml: product_families + @news + current_promotions 
+      }
     end
   end
   
