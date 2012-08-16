@@ -20,7 +20,7 @@ module ApplicationHelper
   # is rendered without the animation javascript.)
   #
   def slideshow(options={})
-    default_options = { :duration => 7000, :slides => [], :transition => "toggle" }
+    default_options = { duration: 7000, slides: [], transition: "toggle" }
     options = default_options.merge(options)
     html = ''
     if options[:slides].size > 1
@@ -38,7 +38,7 @@ module ApplicationHelper
   def slideshow_frame(slide, position=0)
     hidden = (position == 0) ? "" : "display:none"
     slide_link = (slide.string_value =~ /^\// || slide.string_value =~ /^http/i) ? slide.string_value : "/#{params[:locale]}/#{slide.string_value}"
-    content_tag(:div, :id => "slideshow_#{(position + 1)}", :class => "slideshow_frame", :style => hidden) do
+    content_tag(:div, id: "slideshow_#{(position + 1)}", class: "slideshow_frame", style: hidden) do
       (slide.string_value.blank?) ? 
         image_tag(slide.slide.url) : 
         link_to(image_tag(slide.slide.url), slide_link)
@@ -47,17 +47,17 @@ module ApplicationHelper
   
   # Controls for the generated slideshow
   def slideshow_controls(options={})
-    default_options = { :duration => 6000, :slides => [] }
+    default_options = { duration: 6000, slides: [] }
     options = default_options.merge(options)
     unless options[:slides].size <= 1
       divs = ""
       (1..options[:slides].size).to_a.reverse.each do |i|
         divs += link_to_function(i, 
                   "stop_slideshow(#{i}, #{options[:slides].size});", 
-                  :id => "slideshow_control_#{i}",
-                  :class => (i==1) ? "current_button" : "")
+                  id: "slideshow_control_#{i}",
+                  class: (i==1) ? "current_button" : "")
       end
-      content_tag(:div, :id => "slideshow_controls") do
+      content_tag(:div, id: "slideshow_controls") do
         raw(divs)
       end
     end
@@ -71,10 +71,10 @@ module ApplicationHelper
     html = ''
     networks.to_a.each do |n|
       if n == 'rss'
-        html += link_to(image_tag("#{n}.png", :style => "vertical-align: middle;", :size => "21x20"), rss_url(:format => "xml"), :target => "_blank")
+        html += link_to(image_tag("#{n}.png", style: "vertical-align: middle;", size: "21x20"), rss_url(format: "xml"), target: "_blank")
       elsif v = website.value_for(n)
         v = (v =~ /^http/i) ? v : "http://www.#{n}.com/#{v}"
-        html += link_to(image_tag("#{n}.png", :style => "vertical-align: middle", :size => "21x20"), v, :target => "_blank")
+        html += link_to(image_tag("#{n}.png", style: "vertical-align: middle", size: "21x20"), v, target: "_blank")
       end
     end
     raw(html)
@@ -100,7 +100,7 @@ module ApplicationHelper
   # Figure out what the link to a give Page should be
   def page_link(page)
     if page.is_a?(Page)
-      (page.custom_route.blank?) ? page_url(page, :locale => I18n.locale) : custom_route_url(page.custom_route, :locale => I18n.locale)
+      (page.custom_route.blank?) ? page_url(page, locale: I18n.locale) : custom_route_url(page.custom_route, locale: I18n.locale)
     else
       (Rails.env.production? || Rails.env.staging?) ? "#{request.protocol}#{request.host}#{url_for(page)}" : "#{request.protocol}#{request.host_with_port}#{url_for(page)}"
     end
@@ -110,11 +110,11 @@ module ApplicationHelper
   # in the public/images folder
   def platform_icon(software, size=17)
     if software.platform.match(/windows/i)
-			image_tag "windows_#{size}.png", :style => "vertical-align: middle"
+			image_tag "windows_#{size}.png", style: "vertical-align: middle"
 		elsif software.platform.match(/mac/i)
-			image_tag "mac_#{size}.png", :style => "vertical-align: middle"
+			image_tag "mac_#{size}.png", style: "vertical-align: middle"
 		elsif software.platform.match(/linux/i)
-			image_tag "tux_#{size}.png", :style => "vertical-align: middle"
+			image_tag "tux_#{size}.png", style: "vertical-align: middle"
 		end
 	end
 	
@@ -124,7 +124,7 @@ module ApplicationHelper
 	  product.softwares.each do |software|
 	    if software.category == category && software.active?
 	      icon = platform_icon(software)
-	      link = link_to(software.name, software_path(software, :locale => I18n.locale))
+	      link = link_to(software.name, software_path(software, locale: I18n.locale))
 	      links << "#{icon} #{link} #{software.version}"
 	    end
 	  end
@@ -161,11 +161,11 @@ module ApplicationHelper
 	  c = object[method] # (default)
     return c if I18n.locale == I18n.default_locale
 	  parent_locale = (I18n.locale.to_s.match(/^(.*)-/)) ? $1 : false
-	  translations = ContentTranslation.where(:content_type => object.class.to_s, :content_id => object.id, :content_method => method.to_s)
-	  if t = translations.where(:locale => I18n.locale).first
+	  translations = ContentTranslation.where(content_type: object.class.to_s, content_id: object.id, content_method: method.to_s)
+	  if t = translations.where(locale: I18n.locale).first
 	    c = t.content
     elsif parent_locale
-      if t = translations.where(:locale => parent_locale).first
+      if t = translations.where(locale: parent_locale).first
         c = t.content
       elsif t = translations.where(["locale LIKE ?", "'#{parent_locale}%%'"]).first
         c = t.content
@@ -188,7 +188,7 @@ module ApplicationHelper
     ret = "<ul>"
     families.each do |product_family|
       lastchild = (product_family == families.last) ? "last-child" : ""
-      ret += content_tag(:li, link_to(translate_content(product_family, :name), product_family), :class => lastchild)
+      ret += content_tag(:li, link_to(translate_content(product_family, :name), product_family), class: lastchild)
     end
     ret += "</ul>"
     ret.html_safe

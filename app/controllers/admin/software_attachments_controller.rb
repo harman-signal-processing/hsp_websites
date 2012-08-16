@@ -5,7 +5,7 @@ class Admin::SoftwareAttachmentsController < AdminController
   def index
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @software_attachments }
+      format.xml  { render xml: @software_attachments }
     end
   end
 
@@ -14,7 +14,7 @@ class Admin::SoftwareAttachmentsController < AdminController
   def show
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @software_attachment }
+      format.xml  { render xml: @software_attachment }
     end
   end
 
@@ -23,7 +23,7 @@ class Admin::SoftwareAttachmentsController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @software_attachment }
+      format.xml  { render xml: @software_attachment }
     end
   end
 
@@ -36,11 +36,11 @@ class Admin::SoftwareAttachmentsController < AdminController
   def create
     respond_to do |format|
       if @software_attachment.save
-        format.html { redirect_to([:admin, @software_attachment.software], :notice => 'Software attachment was successfully created.') }
-        format.xml  { render :xml => @software_attachment, :status => :created, :location => @software_attachment }
+        format.html { redirect_to([:admin, @software_attachment.software], notice: 'Software attachment was successfully created.') }
+        format.xml  { render xml: @software_attachment, status: :created, location: @software_attachment }
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @software_attachment.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @software_attachment.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -50,11 +50,11 @@ class Admin::SoftwareAttachmentsController < AdminController
   def update
     respond_to do |format|
       if @software_attachment.update_attributes(params[:software_attachment])
-        format.html { redirect_to([:admin, @software_attachment], :notice => 'Software attachment was successfully updated.') }
+        format.html { redirect_to([:admin, @software_attachment], notice: 'Software attachment was successfully updated.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @software_attachment.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @software_attachment.errors, status: :unprocessable_entity }
       end
     end
   end

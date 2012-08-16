@@ -5,7 +5,7 @@ class Admin::EffectTypesController < AdminController
   def index
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @effect_types }
+      format.xml  { render xml: @effect_types }
     end
   end
 
@@ -14,7 +14,7 @@ class Admin::EffectTypesController < AdminController
   def show
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @effect_type }
+      format.xml  { render xml: @effect_type }
     end
   end
 
@@ -26,7 +26,7 @@ class Admin::EffectTypesController < AdminController
     end
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @effect_type }
+      format.xml  { render xml: @effect_type }
     end
   end
 
@@ -39,12 +39,13 @@ class Admin::EffectTypesController < AdminController
   def create
     respond_to do |format|
       if @effect_type.save
-        format.html { redirect_to([:admin, @effect_type], :notice => 'EffectType was successfully created.') }
-        format.xml  { render :xml => @effect_type, :status => :created, :location => @effect_type }
+        format.html { redirect_to([:admin, @effect_type], notice: 'EffectType was successfully created.') }
+        format.xml  { render xml: @effect_type, status: :created, location: @effect_type }
         format.js
+        website.add_log(user: current_user, action: "Created effect type: #{@effect_type.name}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @effect_type.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @effect_type.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -52,7 +53,8 @@ class Admin::EffectTypesController < AdminController
   # PUT /admin/effect_types/update_order
   def update_order
     update_list_order(EffectType, params["effect_type"])
-    render :nothing=>true
+    render nothing:true
+    website.add_log(user: current_user, action: "Re-ordered effect types")
   end
 
   # PUT /effect_types/1
@@ -60,11 +62,12 @@ class Admin::EffectTypesController < AdminController
   def update
     respond_to do |format|
       if @effect_type.update_attributes(params[:effect_type])
-        format.html { redirect_to([:admin, @effect_type], :notice => 'EffectType was successfully updated.') }
+        format.html { redirect_to([:admin, @effect_type], notice: 'EffectType was successfully updated.') }
         format.xml  { head :ok }
+        website.add_log(user: current_user, action: "Updated effect type: #{@effect_type.name}")
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @effect_type.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @effect_type.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -77,5 +80,6 @@ class Admin::EffectTypesController < AdminController
       format.html { redirect_to(admin_effect_types_url) }
       format.xml  { head :ok }
     end
+    website.add_log(user: current_user, action: "Deleted effect type: #{@effect_type.name}")
   end
 end

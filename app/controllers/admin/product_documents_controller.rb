@@ -5,7 +5,7 @@ class Admin::ProductDocumentsController < AdminController
   def index
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @product_documents }
+      format.xml  { render xml: @product_documents }
     end
   end
 
@@ -14,7 +14,7 @@ class Admin::ProductDocumentsController < AdminController
   def show
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @product_document }
+      format.xml  { render xml: @product_document }
     end
   end
 
@@ -23,7 +23,7 @@ class Admin::ProductDocumentsController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @product_document }
+      format.xml  { render xml: @product_document }
     end
   end
 
@@ -36,11 +36,12 @@ class Admin::ProductDocumentsController < AdminController
   def create
     respond_to do |format|
       if @product_document.save
-        format.html { redirect_to([:admin, @product_document.product], :notice => 'Product Document was successfully created.') }
-        format.xml  { render :xml => @product_document, :status => :created, :location => @product_document }
+        format.html { redirect_to([:admin, @product_document.product], notice: 'Product Document was successfully created.') }
+        format.xml  { render xml: @product_document, status: :created, location: @product_document }
+        website.add_log(user: current_user, action: "Added document to #{@product_document.product.name}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @product_document.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @product_document.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -50,11 +51,12 @@ class Admin::ProductDocumentsController < AdminController
   def update
     respond_to do |format|
       if @product_document.update_attributes(params[:product_document])
-        format.html { redirect_to([:admin, @product_document], :notice => 'Product Document was successfully updated.') }
+        format.html { redirect_to([:admin, @product_document], notice: 'Product Document was successfully updated.') }
         format.xml  { head :ok }
+        website.add_log(user: current_user, action: "Updated product document for #{@product_document.product.name}")
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @product_document.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @product_document.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -68,5 +70,6 @@ class Admin::ProductDocumentsController < AdminController
       format.xml  { head :ok }
       format.js
     end
+    website.add_log(user: current_user, action: "Removed product document from #{@product_document.product.name}")
   end
 end

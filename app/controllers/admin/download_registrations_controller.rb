@@ -5,7 +5,7 @@ class Admin::DownloadRegistrationsController < AdminController
   def index
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @download_registrations }
+      format.xml  { render xml: @download_registrations }
     end
   end
 
@@ -14,7 +14,7 @@ class Admin::DownloadRegistrationsController < AdminController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @download_registration }
+      format.xml  { render xml: @download_registration }
     end
   end
 
@@ -23,7 +23,7 @@ class Admin::DownloadRegistrationsController < AdminController
   def new
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @download_registration }
+      format.xml  { render xml: @download_registration }
     end
   end
 
@@ -36,11 +36,11 @@ class Admin::DownloadRegistrationsController < AdminController
   def create
     respond_to do |format|
       if @download_registration.save
-        format.html { redirect_to([:admin, @download_registration.registered_download], :notice => 'Download registration was successfully created.') }
-        format.xml  { render :xml => @download_registration, :status => :created, :location => @download_registration }
+        format.html { redirect_to([:admin, @download_registration.registered_download], notice: 'Download registration was successfully created.') }
+        format.xml  { render xml: @download_registration, status: :created, location: @download_registration }
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @download_registration.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @download_registration.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -50,11 +50,11 @@ class Admin::DownloadRegistrationsController < AdminController
   def update
     respond_to do |format|
       if @download_registration.update_attributes(params[:download_registration])
-        format.html { redirect_to([:admin, @download_registration.registered_download], :notice => 'Download registration was successfully updated.') }
+        format.html { redirect_to([:admin, @download_registration.registered_download], notice: 'Download registration was successfully updated.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @download_registration.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @download_registration.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -72,11 +72,11 @@ class Admin::DownloadRegistrationsController < AdminController
   # GET /download_registration/1/reset_and_resend
   # Re-sends the download notice for this registration
   def reset_and_resend
-    @download_registration.update_attributes(:download_count => 0)
+    @download_registration.update_attributes(download_count: 0)
     @download_registration.deliver_download_code
     @msg = "Message to #{@download_registration.first_name} is on its way."
     respond_to do |format|
-      format.html { redirect_to [:admin, @download_registration.registered_download], :notice => @msg}
+      format.html { redirect_to [:admin, @download_registration.registered_download], notice: @msg}
       format.js
     end
   end

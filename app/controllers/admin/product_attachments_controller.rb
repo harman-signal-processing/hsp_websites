@@ -13,7 +13,7 @@ class Admin::ProductAttachmentsController < AdminController
   def index
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @product_attachments }
+      format.xml  { render xml: @product_attachments }
     end
   end
 
@@ -22,7 +22,7 @@ class Admin::ProductAttachmentsController < AdminController
   def show
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @product_attachment }
+      format.xml  { render xml: @product_attachment }
     end
   end
 
@@ -31,7 +31,7 @@ class Admin::ProductAttachmentsController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @product_attachment }
+      format.xml  { render xml: @product_attachment }
     end
   end
 
@@ -44,13 +44,14 @@ class Admin::ProductAttachmentsController < AdminController
   def create
     respond_to do |format|
       if @product_attachment.save
-        format.html { redirect_to([:admin, @product_attachment.product], :notice => 'Product Attachment was successfully created.') }
-        format.xml  { render :xml => @product_attachment, :status => :created, :location => @product_attachment }
+        format.html { redirect_to([:admin, @product_attachment.product], notice: 'Product Attachment was successfully created.') }
+        format.xml  { render xml: @product_attachment, status: :created, location: @product_attachment }
         format.js # Not really applicable because the attachment can't be sent via AJAX
+        website.add_log(user: current_user, action: "Created product attachment for #{@product_attachment.product.name}")
       else
-        format.html { redirect_to([:admin, @product_attachment.product], :notice => 'There was a problem creating the Product Attachment.') }
-        format.xml  { render :xml => @product_attachment.errors, :status => :unprocessable_entity }
-        format.js { render :text => "Error" }
+        format.html { redirect_to([:admin, @product_attachment.product], notice: 'There was a problem creating the Product Attachment.') }
+        format.xml  { render xml: @product_attachment.errors, status: :unprocessable_entity }
+        format.js { render text: "Error" }
       end
     end
   end
@@ -63,13 +64,14 @@ class Admin::ProductAttachmentsController < AdminController
     respond_to do |format|
       if @product_attachment.update_attributes(params[:product_attachment])
         @old_primary_photo.reload
-        format.html { redirect_to(edit_admin_product_attachment_path(@product_attachment), :notice => 'Product Attachment was successfully updated.') }
+        format.html { redirect_to(edit_admin_product_attachment_path(@product_attachment), notice: 'Product Attachment was successfully updated.') }
         format.xml  { head :ok }
         format.js
+        website.add_log(user: current_user, action: "Updated product attachment for #{@product_attachment.product.name}")
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @product_attachment.errors, :status => :unprocessable_entity }
-        format.js { render :text => "Error" }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @product_attachment.errors, status: :unprocessable_entity }
+        format.js { render text: "Error" }
       end
     end
   end
@@ -77,7 +79,8 @@ class Admin::ProductAttachmentsController < AdminController
   # POST /admin/product_attachments/update_order
   def update_order
     update_list_order(ProductAttachment, params["product_attachment"])
-    render :nothing => true
+    render nothing: true
+    website.add_log(user: current_user, action: "Sorted product attachments")
   end
   
   # DELETE /admin/product_attachments/1
@@ -94,5 +97,6 @@ class Admin::ProductAttachmentsController < AdminController
       format.xml  { head :ok }
       format.js
     end
+    website.add_log(user: current_user, action: "Deleted a product attachment from #{@product_attachment.product.name}")
   end
 end

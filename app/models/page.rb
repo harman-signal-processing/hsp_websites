@@ -1,8 +1,8 @@
 class Page < ActiveRecord::Base
   validates_presence_of :title, :brand_id
   validates_uniqueness_of :title
-  validates_uniqueness_of :custom_route, :allow_nil => true
-  has_friendly_id :sanitized_title, :use_slug => true, :approximate_ascii => true, :max_length => 100
+  validates_uniqueness_of :custom_route, allow_nil: true
+  has_friendly_id :sanitized_title, use_slug: true, approximate_ascii: true, max_length: 100
   belongs_to :brand
 
   define_index do
@@ -18,7 +18,7 @@ class Page < ActiveRecord::Base
   end
   
   def self.all_for_website(website)
-    where(:brand_id => website.brand_id).all    
+    where(brand_id: website.brand_id).all    
   end
 
   # Alias for search results link_name

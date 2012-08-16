@@ -40,10 +40,11 @@ class Admin::ParentProductsController < AdminController
         format.html { redirect_to([:admin, @parent_product], notice: 'Product relationship was successfully created.') }
         format.xml  { render xml: @parent_product, status: :created, location: @parent_product }
         format.js 
+        website.add_log(user: current_user, action: "Created parent product: #{@parent_product.parent_product.name}, child: #{@parent_product.product.name}")
       else
         format.html { render action: "new" }
         format.xml  { render xml: @parent_product.errors, status: :unprocessable_entity }
-        format.js { render :template => 'create_error' }
+        format.js { render template: 'create_error' }
       end
     end
   end
@@ -53,7 +54,7 @@ class Admin::ParentProductsController < AdminController
   def update
     respond_to do |format|
       if @parent_product.update_attributes(params[:parent_product])
-        format.html { redirect_to([:admin, @parent_product], notice: 'Product amp_model was successfully updated.') }
+        format.html { redirect_to([:admin, @parent_product], notice: 'Product relationship was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render action: "edit" }
@@ -66,6 +67,7 @@ class Admin::ParentProductsController < AdminController
   def update_order
     update_list_order(ParentProduct, params["parent_product"])
     render nothing: true
+    website.add_log(user: current_user, action: "Sorted parent products list")
   end
   
 
@@ -78,5 +80,6 @@ class Admin::ParentProductsController < AdminController
       format.xml  { head :ok }
       format.js
     end
+    website.add_log(user: current_user, action: "Deleted parent product relationship #{@parent_product.product.name}")
   end
 end

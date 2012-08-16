@@ -1,6 +1,6 @@
 class PromotionsController < ApplicationController
   before_filter :set_locale
-  before_filter :ensure_best_url, :only => :show
+  before_filter :ensure_best_url, only: :show
 
   # GET /promotions
   # GET /promotions.xml
@@ -9,7 +9,7 @@ class PromotionsController < ApplicationController
 
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @promotions }
+      format.xml  { render xml: @promotions }
     end
   end
 
@@ -21,7 +21,7 @@ class PromotionsController < ApplicationController
     end
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @promotion }
+      format.xml  { render xml: @promotion }
     end
   end
   
@@ -29,7 +29,7 @@ class PromotionsController < ApplicationController
   
   def ensure_best_url
     @promotion = Promotion.find_by_cached_slug(params[:id]) || Promotion.find(params[:id])
-    # redirect_to @promotion, :status => :moved_permanently unless @promotion.friendly_id_status.best?
+    # redirect_to @promotion, status: :moved_permanently unless @promotion.friendly_id_status.best?
   end
 
 end

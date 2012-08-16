@@ -4,21 +4,21 @@ module ProductsHelper
     if !product_attachment.product_attachment_file_name.blank?
       img = product_attachment.product_attachment.url(:tiny)
       if product_attachment.no_lightbox?
-        new_content = link_to(image_tag(product_attachment.product_attachment.url(:medium), :style => "vertical-align: middle"), 
+        new_content = link_to(image_tag(product_attachment.product_attachment.url(:medium), style: "vertical-align: middle"), 
           product_attachment.product_attachment.url)
       else
-        new_content = link_to(image_tag(product_attachment.product_attachment.url(:medium), :style => "vertical-align: middle"), 
-          product_attachment.product_attachment.url(:lightbox), :class => "lightbox")
+        new_content = link_to(image_tag(product_attachment.product_attachment.url(:medium), style: "vertical-align: middle"), 
+          product_attachment.product_attachment.url(:lightbox), class: "lightbox")
       end
     else
       img = product_attachment.product_media_thumb.url(:tiny) 
       if product_attachment.product_media_file_name.to_s.match(/swf$/i)
         width = (product_attachment.width.blank?) ? "100%" : product_attachment.width
         height = (product_attachment.width.blank?) ? "100%" : product_attachment.height
-        new_content = swf_tag(product_attachment.product_media.url, :size => "#{width}x#{height}")
+        new_content = swf_tag(product_attachment.product_media.url, size: "#{width}x#{height}")
       elsif product_attachment.product_media_file_name.to_s.match(/flv|mp4|mov|mpeg|mp3|m4v$/i)
         media_url = request.protocol + request.host_with_port + product_attachment.product_media.url('original', false)
-        new_content = render_partial("shared/player", :media_url => media_url)
+        new_content = render_partial("shared/player", media_url: media_url)
       else
         new_content = product_attachment.product_attachment.url
       end
@@ -46,7 +46,7 @@ module ProductsHelper
       hidden = (options[:hide_on_load]) ? "display: none;" : ""
       ret += "<div id=\"#{product_tab.key}\" class=\"product_detail_box\">" +
         "<h2>" + link_to_function(tab_title(product_tab), "$('##{product_tab.key}_content').toggle()") + "</h2>" +
-        content_tag(:div, :id => "#{product_tab.key}_content", style: hidden, class: "product_tab_content") do
+        content_tag(:div, id: "#{product_tab.key}_content", style: hidden, class: "product_tab_content") do
           render_partial("products/#{product_tab.key}", product: product)
         end
       ret += "</div>"
@@ -70,7 +70,7 @@ module ProductsHelper
     ret += "</ul></div><div id='product_packaging_contents'>"
     product.package_tabs.each_with_index do |product_tab, i|
       hidden = (i == 0) ? "" : "display: none;"
-      ret += content_tag(:div, :id => "#{product_tab.key}_content", style: hidden, class: "product_package_content") do
+      ret += content_tag(:div, id: "#{product_tab.key}_content", style: hidden, class: "product_package_content") do
           render_partial("products/#{product_tab.key}", product: product, title: tab_title(product_tab))
         end
     end
@@ -143,7 +143,7 @@ module ProductsHelper
     ret += "<h3>Audio Demos</h3>"
     ret += '<ul class="graphic">'
     product.audio_demos.each do |audio_demo|
-      ret += content_tag(:li, link_to(audio_demo.name, audio_demo.wet_demo.url, :class => "sm2_link"))
+      ret += content_tag(:li, link_to(audio_demo.name, audio_demo.wet_demo.url, class: "sm2_link"))
     end
     ret += "</ul>"
     end
@@ -251,13 +251,13 @@ module ProductsHelper
       if product.current_promotions.size == 1
         promo = product.current_promotions.first
         alt_url = (promo.promo_form_file_name.blank?) ? promotions_path : promo.promo_form.url
-        content_tag(:h2, :class => "special_offer") {
+        content_tag(:h2, class: "special_offer") {
           link_to(t('product_page.special_offer'), (promo.has_description?) ? promo : alt_url)
-        } + content_tag(:div, :class => "special_offer_contents") {
+        } + content_tag(:div, class: "special_offer_contents") {
           link_to(promo.name, (promo.has_description?) ? promo : alt_url)
         }
       elsif product.current_promotions.size > 1
-        content_tag(:h2, :class => "special_offer") {
+        content_tag(:h2, class: "special_offer") {
           link_to(t('product_page.special_offer'), promotions_path)
         }
       end

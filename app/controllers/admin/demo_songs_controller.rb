@@ -9,5 +9,6 @@ class Admin::DemoSongsController < AdminController
       format.xml  { head :ok }
       format.js 
     end
+    website.add_log(user: current_user, action: "Deleted a demo song")
   end
 end

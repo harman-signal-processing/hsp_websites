@@ -1,6 +1,6 @@
 class ArtistsController < ApplicationController
   before_filter :set_locale
-  before_filter :ensure_best_url, :only => :show
+  before_filter :ensure_best_url, only: :show
   
   # GET /artists
   # GET /artists.xml
@@ -25,17 +25,17 @@ class ArtistsController < ApplicationController
     if @artist.featured || @artist.artist_tier.show_on_artist_page?
       respond_to do |format|
         format.html { render_template } # show.html.erb
-        format.xml  { render :xml => @artist }
+        format.xml  { render xml: @artist }
       end
     else
-      redirect_to artists_path(:anchor => "artist_#{@artist.id}") and return
+      redirect_to artists_path(anchor: "artist_#{@artist.id}") and return
     end
   end
   
   # GET /artists/list
   # GET /artists/list.xml
   def list
-    redirect_to :action => "index"
+    redirect_to action: "index"
   end
   
   # GET /artists/touring
@@ -44,7 +44,7 @@ class ArtistsController < ApplicationController
     @products = Product.on_tour(website)
     respond_to do |format|
       format.html { render_template } # touring.html.erb
-      format.xml  { render :xml => @products }
+      format.xml  { render xml: @products }
     end    
   end
   
@@ -74,7 +74,7 @@ class ArtistsController < ApplicationController
   
   def ensure_best_url
     @artist = Artist.find_by_cached_slug(params[:id]) || Artist.find(params[:id])
-    # redirect_to @artist, :status => :moved_permanently unless @artist.friendly_id_status.best?
+    # redirect_to @artist, status: :moved_permanently unless @artist.friendly_id_status.best?
   end
 
 end

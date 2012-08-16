@@ -3,10 +3,10 @@ class Admin::RsoNavigationsController < AdminController
   # GET /rso_navigations
   # GET /rso_navigations.xml
   def index
-    @rso_navigations = @rso_navigations.where(:brand_id => website.brand_id).order("position")
+    @rso_navigations = @rso_navigations.where(brand_id: website.brand_id).order("position")
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @rso_navigations }
+      format.xml  { render xml: @rso_navigations }
     end
   end
 
@@ -15,7 +15,7 @@ class Admin::RsoNavigationsController < AdminController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @rso_navigation }
+      format.xml  { render xml: @rso_navigation }
     end
   end
 
@@ -24,7 +24,7 @@ class Admin::RsoNavigationsController < AdminController
   def new
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @rso_navigation }
+      format.xml  { render xml: @rso_navigation }
     end
   end
 
@@ -40,15 +40,15 @@ class Admin::RsoNavigationsController < AdminController
       if @rso_navigation.save
         format.html { 
           if @rso_navigation.rso_panel
-            redirect_to([:admin, @rso_navigation.rso_panel], :notice => 'Element was successfully created.')
+            redirect_to([:admin, @rso_navigation.rso_panel], notice: 'Element was successfully created.')
           else
-            redirect_to([:admin, @rso_navigation], :notice => 'Element was successfully created.') 
+            redirect_to([:admin, @rso_navigation], notice: 'Element was successfully created.') 
           end
         }
-        format.xml  { render :xml => @rso_navigation, :status => :created, :location => @rso_navigation }
+        format.xml  { render xml: @rso_navigation, status: :created, location: @rso_navigation }
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @rso_navigation.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @rso_navigation.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -60,15 +60,15 @@ class Admin::RsoNavigationsController < AdminController
       if @rso_navigation.update_attributes(params[:rso_navigation])
         format.html { 
           if @rso_navigation.rso_panel
-            redirect_to([:admin, @rso_navigation.rso_panel], :notice => "Element was successfully updated.")
+            redirect_to([:admin, @rso_navigation.rso_panel], notice: "Element was successfully updated.")
           else
-            redirect_to([:admin, @rso_navigation], :notice => 'Element was successfully updated.') 
+            redirect_to([:admin, @rso_navigation], notice: 'Element was successfully updated.') 
           end
         }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @rso_navigation.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @rso_navigation.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -76,7 +76,7 @@ class Admin::RsoNavigationsController < AdminController
   # PUT /admin/rso_navigations/update_order
   def update_order
     update_list_order(RsoNavigation, params["rso_navigation"])
-    render :nothing=>true
+    render nothing:true
   end
 
   # DELETE /rso_navigations/1

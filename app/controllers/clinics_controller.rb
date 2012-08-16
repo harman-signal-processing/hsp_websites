@@ -6,7 +6,7 @@ class ClinicsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @clinics }
+      format.xml  { render xml: @clinics }
     end
   end
 
@@ -17,7 +17,7 @@ class ClinicsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @clinic }
+      format.xml  { render xml: @clinic }
     end
   end
 end

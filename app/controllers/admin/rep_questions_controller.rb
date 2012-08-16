@@ -5,7 +5,7 @@ class Admin::RepQuestionsController < AdminController
   def index
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @rep_questions }
+      format.xml  { render xml: @rep_questions }
     end
   end
 
@@ -14,7 +14,7 @@ class Admin::RepQuestionsController < AdminController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @rep_question }
+      format.xml  { render xml: @rep_question }
     end
   end
 
@@ -23,7 +23,7 @@ class Admin::RepQuestionsController < AdminController
   def new
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @rep_question }
+      format.xml  { render xml: @rep_question }
     end
   end
 
@@ -36,11 +36,12 @@ class Admin::RepQuestionsController < AdminController
   def create
     respond_to do |format|
       if @rep_question.save
-        format.html { redirect_to([:admin, @rep_question], :notice => 'Rep question was successfully created.') }
-        format.xml  { render :xml => @rep_question, :status => :created, :location => @rep_question }
+        format.html { redirect_to([:admin, @rep_question], notice: 'Rep question was successfully created.') }
+        format.xml  { render xml: @rep_question, status: :created, location: @rep_question }
+        website.add_log(user: current_user, action: "Created a rep question")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @rep_question.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @rep_question.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -50,11 +51,11 @@ class Admin::RepQuestionsController < AdminController
   def update
     respond_to do |format|
       if @rep_question.update_attributes(params[:rep_question])
-        format.html { redirect_to([:admin, @rep_question], :notice => 'Rep question was successfully updated.') }
+        format.html { redirect_to([:admin, @rep_question], notice: 'Rep question was successfully updated.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @rep_question.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @rep_question.errors, status: :unprocessable_entity }
       end
     end
   end

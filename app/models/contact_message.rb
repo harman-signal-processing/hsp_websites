@@ -1,9 +1,9 @@
 class ContactMessage < ActiveRecord::Base
   before_validation :set_defaults
-  validates :name, :subject, :message_type, :presence => true
-  validates :email, :presence => true, :format => {:with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
-  validates :message, :presence => true, :if => :support?
-  validates :product, :presence => true, :if => :require_product?
+  validates :name, :subject, :message_type, presence: true
+  validates :email, presence: true, format: {with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
+  validates :message, presence: true, if: :support?
+  validates :product, presence: true, if: :require_product?
   validates :shipping_country, presence: true, if: :require_country?
   validates :phone, 
     :shipping_address, 
@@ -12,8 +12,8 @@ class ContactMessage < ActiveRecord::Base
     :shipping_zip, 
     :product_sku,
     :product_serial_number, 
-    :purchased_on, :presence => true, :if => :rma_request?
-  validates :warranty, :inclusion => {:in => [true, false]}, :if => :rma_request?
+    :purchased_on, presence: true, if: :rma_request?
+  validates :warranty, inclusion: {in: [true, false]}, if: :rma_request?
   attr_accessor :require_country
 
   def set_defaults

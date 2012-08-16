@@ -7,7 +7,7 @@ class Admin::BrandsController < AdminController
       format.html { render_template } # index.html.erb
       format.xml  { 
         @brands = Brand.all
-        render :xml => @brands 
+        render xml: @brands 
       }
     end
   end
@@ -17,7 +17,7 @@ class Admin::BrandsController < AdminController
   def show
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @brand }
+      format.xml  { render xml: @brand }
     end
   end
 
@@ -26,7 +26,7 @@ class Admin::BrandsController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @brand }
+      format.xml  { render xml: @brand }
     end
   end
 
@@ -39,11 +39,12 @@ class Admin::BrandsController < AdminController
   def create
     respond_to do |format|
       if @brand.save
-        format.html { redirect_to([:admin, @brand], :notice => 'Brand was successfully created.') }
-        format.xml  { render :xml => @brand, :status => :created, :location => @brand }
+        format.html { redirect_to([:admin, @brand], notice: 'Brand was successfully created.') }
+        format.xml  { render xml: @brand, status: :created, location: @brand }
+        website.add_log(user: current_user, action: "Created brand: #{@brand.name}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @brand.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @brand.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -53,11 +54,12 @@ class Admin::BrandsController < AdminController
   def update
     respond_to do |format|
       if @brand.update_attributes(params[:brand])
-        format.html { redirect_to([:admin, @brand], :notice => 'Brand was successfully updated.') }
+        format.html { redirect_to([:admin, @brand], notice: 'Brand was successfully updated.') }
         format.xml  { head :ok }
+        website.add_log(user: current_user, action: "Updated brand: #{@brand.name}")
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @brand.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @brand.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -70,5 +72,6 @@ class Admin::BrandsController < AdminController
       format.html { redirect_to(admin_brands_url) }
       format.xml  { head :ok }
     end
+    website.add_log(user: current_user, action: "Deleted brand: #{@brand.name}")
   end
 end

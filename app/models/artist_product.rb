@@ -1,8 +1,8 @@
 class ArtistProduct < ActiveRecord::Base
-  belongs_to :artist, :inverse_of => :artist_products
-  belongs_to :product, :inverse_of => :artist_products
-  validates :artist, :product, :presence => true
-  validates :artist_id, :uniqueness => { :scope => :product_id }
+  belongs_to :artist, inverse_of: :artist_products
+  belongs_to :product, inverse_of: :artist_products
+  validates :artist, :product, presence: true
+  validates :artist_id, uniqueness: { scope: :product_id }
   after_save :link_artist_to_brand
   
   def link_artist_to_brand

@@ -5,17 +5,17 @@ class Admin::CabinetsController < AdminController
   def index
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @cabinets }
+      format.xml  { render xml: @cabinets }
     end
   end
 
   # GET /cabinets/1
   # GET /cabinets/1.xml
   def show
-    @product_cabinet = ProductCabinet.new(:cabinet => @cabinet)
+    @product_cabinet = ProductCabinet.new(cabinet: @cabinet)
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @cabinet }
+      format.xml  { render xml: @cabinet }
     end
   end
 
@@ -27,7 +27,7 @@ class Admin::CabinetsController < AdminController
     end
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @cabinet }
+      format.xml  { render xml: @cabinet }
     end
   end
 
@@ -40,11 +40,12 @@ class Admin::CabinetsController < AdminController
   def create
     respond_to do |format|
       if @cabinet.save
-        format.html { redirect_to([:admin, @cabinet], :notice => 'Cabinet was successfully created.') }
-        format.xml  { render :xml => @cabinet, :status => :created, :location => @cabinet }
+        format.html { redirect_to([:admin, @cabinet], notice: 'Cabinet was successfully created.') }
+        format.xml  { render xml: @cabinet, status: :created, location: @cabinet }
+        website.add_log(user: current_user, action: "Created cabinet: #{@cabinet.name}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @cabinet.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @cabinet.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -54,11 +55,12 @@ class Admin::CabinetsController < AdminController
   def update
     respond_to do |format|
       if @cabinet.update_attributes(params[:cabinet])
-        format.html { redirect_to([:admin, @cabinet], :notice => 'Cabinet was successfully updated.') }
+        format.html { redirect_to([:admin, @cabinet], notice: 'Cabinet was successfully updated.') }
         format.xml  { head :ok }
+        website.add_log(user: current_user, action: "Updated cabinet: #{@cabinet.name}")
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @cabinet.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @cabinet.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -71,5 +73,6 @@ class Admin::CabinetsController < AdminController
       format.html { redirect_to(admin_cabinets_url) }
       format.xml  { head :ok }
     end
+    website.add_log(user: current_user, action: "Deleted cabinet: #{@cabinet.name}")
   end
 end

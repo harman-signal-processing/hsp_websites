@@ -1,6 +1,6 @@
 class RsoPage < ActiveRecord::Base
   belongs_to :brand
-  validates :name, :presence => true
+  validates :name, presence: true
   attr_accessor :add_to_nav, :add_to_left_panel
   after_create :create_rso_navigation
   
@@ -18,7 +18,7 @@ class RsoPage < ActiveRecord::Base
     end
     if self.add_to_left_panel
       panel = RsoPanel.find_or_create_by_brand_id_and_name(self.brand_id, "left")
-      RsoNavigation.create(:brand_id => self.brand_id, :rso_panel_id => panel.id, :name => self.name, :url => self.relative_url)
+      RsoNavigation.create(brand_id: self.brand_id, rso_panel_id: panel.id, name: self.name, url: self.relative_url)
     end
   end
   

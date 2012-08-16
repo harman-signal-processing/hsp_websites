@@ -5,17 +5,17 @@ class Admin::ProductReviewsController < AdminController
   def index
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @product_reviews }
+      format.xml  { render xml: @product_reviews }
     end
   end
 
   # GET /admin/product_reviews/1
   # GET /admin/product_reviews/1.xml
   def show
-    @product_review_product = ProductReviewProduct.new(:product_review => @product_review)
+    @product_review_product = ProductReviewProduct.new(product_review: @product_review)
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @product_review }
+      format.xml  { render xml: @product_review }
     end
   end
 
@@ -24,7 +24,7 @@ class Admin::ProductReviewsController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @product_review }
+      format.xml  { render xml: @product_review }
     end
   end
 
@@ -37,11 +37,12 @@ class Admin::ProductReviewsController < AdminController
   def create
     respond_to do |format|
       if @product_review.save
-        format.html { redirect_to([:admin, @product_review], :notice => 'ProductReview was successfully created.') }
-        format.xml  { render :xml => @product_review, :status => :created, :location => @product_review }
+        format.html { redirect_to([:admin, @product_review], notice: 'Product Review was successfully created.') }
+        format.xml  { render xml: @product_review, status: :created, location: @product_review }
+        website.add_log(user: current_user, action: "Created product review: #{@product_review.title}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @product_review.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @product_review.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -51,11 +52,12 @@ class Admin::ProductReviewsController < AdminController
   def update
     respond_to do |format|
       if @product_review.update_attributes(params[:product_review])
-        format.html { redirect_to([:admin, @product_review], :notice => 'ProductReview was successfully updated.') }
+        format.html { redirect_to([:admin, @product_review], notice: 'Product Review was successfully updated.') }
         format.xml  { head :ok }
+        website.add_log(user: current_user, action: "Updated product review: #{@product_review.title}")
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @product_review.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @product_review.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -68,5 +70,6 @@ class Admin::ProductReviewsController < AdminController
       format.html { redirect_to(admin_product_reviews_url) }
       format.xml  { head :ok }
     end
+    website.add_log(user: current_user, action: "Deleted product review: #{@product_review.title}")
   end
 end

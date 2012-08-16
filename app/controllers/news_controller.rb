@@ -1,6 +1,6 @@
 class NewsController < ApplicationController
   before_filter :set_locale
-  before_filter :ensure_best_url, :only => :show
+  before_filter :ensure_best_url, only: :show
   
   # GET /news
   # GET /news.xml
@@ -8,7 +8,7 @@ class NewsController < ApplicationController
     @news = News.all_for_website(website)
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @news }
+      format.xml  { render xml: @news }
     end
   end
   
@@ -18,7 +18,7 @@ class NewsController < ApplicationController
     @news = News.archived(website)
     respond_to do |format|
       format.html { render_template } # archived.html.erb
-      format.xml  { render :xml => @news }
+      format.xml  { render xml: @news }
     end
   end   
     
@@ -31,7 +31,7 @@ class NewsController < ApplicationController
     @old_news = !!(News.archived(website))
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @news }
+      format.xml  { render xml: @news }
     end
   end
   
@@ -39,7 +39,7 @@ class NewsController < ApplicationController
   
   def ensure_best_url
     @news = News.find_by_cached_slug(params[:id]) || News.find(params[:id])
-    # redirect_to @news, :status => :moved_permanently unless @news.friendly_id_status.best?
+    # redirect_to @news, status: :moved_permanently unless @news.friendly_id_status.best?
   end
 
 end

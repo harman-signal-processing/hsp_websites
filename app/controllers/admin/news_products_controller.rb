@@ -5,7 +5,7 @@ class Admin::NewsProductsController < AdminController
   def index
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @news_products }
+      format.xml  { render xml: @news_products }
     end
   end
 
@@ -14,7 +14,7 @@ class Admin::NewsProductsController < AdminController
   def show
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @news_product }
+      format.xml  { render xml: @news_product }
     end
   end
 
@@ -23,7 +23,7 @@ class Admin::NewsProductsController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @news_product }
+      format.xml  { render xml: @news_product }
     end
   end
 
@@ -37,12 +37,13 @@ class Admin::NewsProductsController < AdminController
     @called_from = params[:called_from]
     respond_to do |format|
       if @news_product.save
-        format.html { redirect_to([:admin, @news_product], :notice => 'NewsProduct was successfully created.') }
-        format.xml  { render :xml => @news_product, :status => :created, :location => @news_product }
+        format.html { redirect_to([:admin, @news_product], notice: 'News Product was successfully created.') }
+        format.xml  { render xml: @news_product, status: :created, location: @news_product }
         format.js
+        website.add_log(user: current_user, action: "Added #{@news_product.product.name} to news story")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @news_product.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @news_product.errors, status: :unprocessable_entity }
         format.js
       end
     end
@@ -53,11 +54,11 @@ class Admin::NewsProductsController < AdminController
   def update
     respond_to do |format|
       if @news_product.update_attributes(params[:news_product])
-        format.html { redirect_to([:admin, @news_product], :notice => 'NewsProduct was successfully updated.') }
+        format.html { redirect_to([:admin, @news_product], notice: 'News Product was successfully updated.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @news_product.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @news_product.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -71,5 +72,6 @@ class Admin::NewsProductsController < AdminController
       format.xml  { head :ok }
       format.js
     end
+    website.add_log(user: current_user, action: "Unlinked news/product #{@news_product.product.name}, #{@news_product.news.title}")
   end
 end

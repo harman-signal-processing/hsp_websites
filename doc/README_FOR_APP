@@ -30,6 +30,7 @@ What you will need to change is: itemid=100170580&subitemid=358897 based on the 
 
 === TODO (for all brands) ===
 * Fix dealer export from SAP
+* Minitest for admin functions
 * Separate admin permissions by brands
 * Super-admin alerts:
   o When promos end
@@ -48,7 +49,6 @@ What you will need to change is: itemid=100170580&subitemid=358897 based on the 
 * Create Salesforce support cases
 * Sitemaps using the sitemap plugin +news sitemaps
 * Use themes_for_rails gem instead of custom hack, manage themes online
-* Changelog reports--so webmaster can quickly assess all changes made by contributors
 
 === Other ===
 * Marketing Toolkits

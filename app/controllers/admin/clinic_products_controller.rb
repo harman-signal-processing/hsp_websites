@@ -5,7 +5,7 @@ class Admin::ClinicProductsController < AdminController
   def index
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @clinic_products }
+      format.xml  { render xml: @clinic_products }
     end
   end
 
@@ -14,7 +14,7 @@ class Admin::ClinicProductsController < AdminController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @clinic_product }
+      format.xml  { render xml: @clinic_product }
     end
   end
 
@@ -23,7 +23,7 @@ class Admin::ClinicProductsController < AdminController
   def new
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @clinic_product }
+      format.xml  { render xml: @clinic_product }
     end
   end
 
@@ -36,11 +36,12 @@ class Admin::ClinicProductsController < AdminController
   def create
     respond_to do |format|
       if @clinic_product.save
-        format.html { redirect_to([:admin, @clinic_product], :notice => 'Clinic product was successfully created.') }
-        format.xml  { render :xml => @clinic_product, :status => :created, :location => @clinic_product }
+        format.html { redirect_to([:admin, @clinic_product], notice: 'Clinic product was successfully created.') }
+        format.xml  { render xml: @clinic_product, status: :created, location: @clinic_product }
+        website.add_log(user: current_user, action: "Added #{@clinic_product.product.name} to #{@clinic_product.clinic.location} clinic")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @clinic_product.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @clinic_product.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -50,11 +51,12 @@ class Admin::ClinicProductsController < AdminController
   def update
     respond_to do |format|
       if @clinic_product.update_attributes(params[:clinic_product])
-        format.html { redirect_to([:admin, @clinic_product], :notice => 'Clinic product was successfully updated.') }
+        format.html { redirect_to([:admin, @clinic_product], notice: 'Clinic product was successfully updated.') }
         format.xml  { head :ok }
+        website.add_log(user: current_user, action: "Updated #{@clinic_product.product.name} for #{@clinic_product.clinic.location} clinic")
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @clinic_product.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @clinic_product.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -67,5 +69,6 @@ class Admin::ClinicProductsController < AdminController
       format.html { redirect_to(admin_clinic_products_url) }
       format.xml  { head :ok }
     end
+    website.add_log(user: current_user, action: "Removed #{@clinic_product.product.name} from #{@clinic_product.clinic.location} clinic")
   end
 end

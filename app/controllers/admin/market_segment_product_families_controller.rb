@@ -5,7 +5,7 @@ class Admin::MarketSegmentProductFamiliesController < AdminController
   def index
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @market_segment_product_families }
+      format.xml  { render xml: @market_segment_product_families }
     end
   end
 
@@ -14,7 +14,7 @@ class Admin::MarketSegmentProductFamiliesController < AdminController
   def show
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @market_segment_product_family }
+      format.xml  { render xml: @market_segment_product_family }
     end
   end
 
@@ -23,7 +23,7 @@ class Admin::MarketSegmentProductFamiliesController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @market_segment_product_family }
+      format.xml  { render xml: @market_segment_product_family }
     end
   end
 
@@ -37,13 +37,14 @@ class Admin::MarketSegmentProductFamiliesController < AdminController
     @called_from = params[:called_from] || "market_segment"
     respond_to do |format|
       if @market_segment_product_family.save
-        format.html { redirect_to([:admin, @market_segment_product_family], :notice => 'Market segment-product family was successfully created.') }
-        format.xml  { render :xml => @market_segment_product_family, :status => :created, :location => @market_segment_product_family }
+        format.html { redirect_to([:admin, @market_segment_product_family], notice: 'Market segment-product family was successfully created.') }
+        format.xml  { render xml: @market_segment_product_family, status: :created, location: @market_segment_product_family }
         format.js
+        website.add_log(user: current_user, action: "Created a market segment/product family relationship: #{@market_segment_product_family.market_segment.name} - #{@market_segment_product_family.product_family.name}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @market_segment_product_family.errors, :status => :unprocessable_entity }
-        format.js { render :template => "create_error" }
+        format.html { render action: "new" }
+        format.xml  { render xml: @market_segment_product_family.errors, status: :unprocessable_entity }
+        format.js { render template: "create_error" }
       end
     end
   end
@@ -53,11 +54,11 @@ class Admin::MarketSegmentProductFamiliesController < AdminController
   def update
     respond_to do |format|
       if @market_segment_product_family.update_attributes(params[:market_segment_product_family])
-        format.html { redirect_to([:admin, @market_segment_product_family], :notice => 'Market segment-product family was successfully updated.') }
+        format.html { redirect_to([:admin, @market_segment_product_family], notice: 'Market segment-product family was successfully updated.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @market_segment_product_family.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @market_segment_product_family.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -65,7 +66,8 @@ class Admin::MarketSegmentProductFamiliesController < AdminController
   # POST /admin/market_segment_product_families/update_order
   def update_order
     update_list_order(MarketSegmentProductFamily, params["market_segment_product_family"])
-    render :nothing=>true
+    render nothing: true
+    website.add_log(user: current_user, action: "Re-ordered market segment/product families")
   end
 
   # DELETE /admin/market_segment_product_families/1
@@ -77,5 +79,6 @@ class Admin::MarketSegmentProductFamiliesController < AdminController
       format.xml  { head :ok }
       format.js
     end
+    website.add_log(user: current_user, action: "Deleted a market segment/product family relationship: #{@market_segment_product_family.market_segment.name} - #{@market_segment_product_family.product_family.name}")
   end
 end

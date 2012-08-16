@@ -5,7 +5,7 @@ class Admin::OnlineRetailerLinksController < AdminController
   def index
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @online_retailer_links }
+      format.xml  { render xml: @online_retailer_links }
     end
   end
 
@@ -14,7 +14,7 @@ class Admin::OnlineRetailerLinksController < AdminController
   def show
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @online_retailer_link }
+      format.xml  { render xml: @online_retailer_link }
     end
   end
 
@@ -23,7 +23,7 @@ class Admin::OnlineRetailerLinksController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @online_retailer_link }
+      format.xml  { render xml: @online_retailer_link }
     end
   end
 
@@ -38,13 +38,14 @@ class Admin::OnlineRetailerLinksController < AdminController
     respond_to do |format|
       if @online_retailer_link.save
         @products = Product.non_discontinued(website) - @online_retailer_link.online_retailer.online_retailer_links.collect{|l| l.product}
-        format.html { redirect_to([:admin, @online_retailer_link], :notice => 'Link was successfully created.') }
-        format.xml  { render :xml => @online_retailer_link, :status => :created, :location => @online_retailer_link }
+        format.html { redirect_to([:admin, @online_retailer_link], notice: 'Link was successfully created.') }
+        format.xml  { render xml: @online_retailer_link, status: :created, location: @online_retailer_link }
         format.js
+        website.add_log(user: current_user, action: "Created buy-it-now link: #{@online_retailer_link.product.name} at #{@online_retailer_link.online_retailer.name} to #{@online_retailer_link.url}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @online_retailer_link.errors, :status => :unprocessable_entity }
-        format.js { render :text => "Error"}
+        format.html { render action: "new" }
+        format.xml  { render xml: @online_retailer_link.errors, status: :unprocessable_entity }
+        format.js { render text: "Error"}
       end
     end
   end
@@ -54,13 +55,14 @@ class Admin::OnlineRetailerLinksController < AdminController
   def update
     respond_to do |format|
       if @online_retailer_link.update_attributes(params[:online_retailer_link])
-        format.html { redirect_to([:admin, @online_retailer_link.online_retailer], :notice => 'Link was successfully updated.') }
+        format.html { redirect_to([:admin, @online_retailer_link.online_retailer], notice: 'Link was successfully updated.') }
         format.xml  { head :ok }
         format.js
+        website.add_log(user: current_user, action: "Updated buy-it-now link: #{@online_retailer_link.product.name} at #{@online_retailer_link.online_retailer.name} to #{@online_retailer_link.url}")
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @online_retailer_link.errors, :status => :unprocessable_entity }
-        format.js { render :text => "Error"}
+        format.html { render action: "edit" }
+        format.xml  { render xml: @online_retailer_link.errors, status: :unprocessable_entity }
+        format.js { render text: "Error"}
       end
     end
   end
@@ -75,5 +77,6 @@ class Admin::OnlineRetailerLinksController < AdminController
       format.xml  { head :ok }
       format.js
     end
+    website.add_log(user: current_user, action: "Deleted buy-it-now link: #{@online_retailer_link.product.name} at #{@online_retailer_link.online_retailer.name}")
   end
 end

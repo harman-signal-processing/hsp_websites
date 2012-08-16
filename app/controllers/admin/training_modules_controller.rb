@@ -3,12 +3,12 @@ class Admin::TrainingModulesController < AdminController
   # GET /admin/training_modules
   # GET /admin/training_modules.xml
   def index
-    @training_modules = @training_modules.where(:brand_id => website.brand_id).order("UPPER(name)")
+    @training_modules = @training_modules.where(brand_id: website.brand_id).order("UPPER(name)")
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { 
         @training_modules = TrainingModule.all
-        render :xml => @training_modules 
+        render xml: @training_modules 
       }
     end
   end
@@ -16,11 +16,11 @@ class Admin::TrainingModulesController < AdminController
   # GET /admin/training_modules/1
   # GET /admin/training_modules/1.xml
   def show
-    @product_training_module = ProductTrainingModule.new(:training_module_id => @training_module.id)
-    @software_training_module = SoftwareTrainingModule.new(:training_module_id => @training_module.id)
+    @product_training_module = ProductTrainingModule.new(training_module_id: @training_module.id)
+    @software_training_module = SoftwareTrainingModule.new(training_module_id: @training_module.id)
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @training_module }
+      format.xml  { render xml: @training_module }
     end
   end
 
@@ -29,7 +29,7 @@ class Admin::TrainingModulesController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @training_module }
+      format.xml  { render xml: @training_module }
     end
   end
 
@@ -43,11 +43,12 @@ class Admin::TrainingModulesController < AdminController
     @training_module.brand_id = website.brand_id
     respond_to do |format|
       if @training_module.save
-        format.html { redirect_to([:admin, @training_module], :notice => 'Training module was successfully created.') }
-        format.xml  { render :xml => @training_module, :status => :created, :location => @training_module }
+        format.html { redirect_to([:admin, @training_module], notice: 'Training module was successfully created.') }
+        format.xml  { render xml: @training_module, status: :created, location: @training_module }
+        website.add_log(user: current_user, action: "Created training module")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @training_module.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @training_module.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -57,11 +58,12 @@ class Admin::TrainingModulesController < AdminController
   def update
     respond_to do |format|
       if @training_module.update_attributes(params[:training_module])
-        format.html { redirect_to([:admin, @training_module], :notice => 'Training module was successfully updated.') }
+        format.html { redirect_to([:admin, @training_module], notice: 'Training module was successfully updated.') }
         format.xml  { head :ok }
+        website.add_log(user: current_user, action: "Updated training module")
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @training_module.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @training_module.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -74,5 +76,6 @@ class Admin::TrainingModulesController < AdminController
       format.html { redirect_to(admin_training_modules_url) }
       format.xml  { head :ok }
     end
+    website.add_log(user: current_user, action: "Deleted training module")
   end
 end

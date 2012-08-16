@@ -6,17 +6,17 @@ class Admin::UsersController < AdminController
     @users = @users.order(:email)
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @users }
+      format.xml  { render xml: @users }
     end
   end
 
   # GET /admin/users/1
   # GET /admin/users/1.xml
   def show
-    @online_retailer_user = OnlineRetailerUser.new(:user => @user)
+    @online_retailer_user = OnlineRetailerUser.new(user: @user)
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @user }
+      format.xml  { render xml: @user }
     end
   end
 
@@ -25,7 +25,7 @@ class Admin::UsersController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @user }
+      format.xml  { render xml: @user }
     end
   end
 
@@ -40,8 +40,9 @@ class Admin::UsersController < AdminController
     @user.password_confirmation = @user.password
     respond_to do |format|
       if @user.save
-        format.html { redirect_to([:admin, @user], :notice => "Password was reset to: #{new_password}")}
+        format.html { redirect_to([:admin, @user], notice: "Password was reset to: #{new_password}")}
         format.xml { head :ok }
+        website.add_log(user: current_user, action: "Reset password for #{@user.name}")
       end
     end
   end
@@ -51,11 +52,12 @@ class Admin::UsersController < AdminController
   def create
     respond_to do |format|
       if @user.save
-        format.html { redirect_to([:admin, @user], :notice => 'User was successfully created.') }
-        format.xml  { render :xml => @user, :status => :created, :location => @user }
+        format.html { redirect_to([:admin, @user], notice: 'User was successfully created.') }
+        format.xml  { render xml: @user, status: :created, location: @user }
+        website.add_log(user: current_user, action: "Created user: #{@user.name}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -65,11 +67,12 @@ class Admin::UsersController < AdminController
   def update
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to([:admin, @user], :notice => 'User was successfully updated.') }
+        format.html { redirect_to([:admin, @user], notice: 'User was successfully updated.') }
         format.xml  { head :ok }
+        website.add_log(user: current_user, action: "Updated user #{@user.name}")
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -82,5 +85,6 @@ class Admin::UsersController < AdminController
       format.html { redirect_to(admin_users_url) }
       format.xml  { head :ok }
     end
+    website.add_log(user: current_user, action: "Deleted user #{@user.name}")
   end
 end

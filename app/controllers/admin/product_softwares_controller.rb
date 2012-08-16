@@ -1,13 +1,13 @@
 class Admin::ProductSoftwaresController < AdminController
   load_and_authorize_resource
-  after_filter :expire_software_index_cache, :only => [:create, :update, :destroy]
+  after_filter :expire_software_index_cache, only: [:create, :update, :destroy]
   
   # GET /admin/product_softwares
   # GET /admin/product_softwares.xml
   def index
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @product_softwares }
+      format.xml  { render xml: @product_softwares }
     end
   end
 
@@ -16,7 +16,7 @@ class Admin::ProductSoftwaresController < AdminController
   def show
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @product_software }
+      format.xml  { render xml: @product_software }
     end
   end
 
@@ -25,7 +25,7 @@ class Admin::ProductSoftwaresController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @product_software }
+      format.xml  { render xml: @product_software }
     end
   end
 
@@ -39,12 +39,13 @@ class Admin::ProductSoftwaresController < AdminController
     @called_from = params[:called_from] || 'product'
     respond_to do |format|
       if @product_software.save
-        format.html { redirect_to([:admin, @product_software], :notice => 'ProductSoftware was successfully created.') }
-        format.xml  { render :xml => @product_software, :status => :created, :location => @product_software }
+        format.html { redirect_to([:admin, @product_software], notice: 'Product Software was successfully created.') }
+        format.xml  { render xml: @product_software, status: :created, location: @product_software }
         format.js
+        website.add_log(user: current_user, action: "Added #{@product_software.software.name} to #{@product_software.product.name}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @product_software.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @product_software.errors, status: :unprocessable_entity }
         format.js
       end
     end
@@ -55,11 +56,11 @@ class Admin::ProductSoftwaresController < AdminController
   def update
     respond_to do |format|
       if @product_software.update_attributes(params[:product_software])
-        format.html { redirect_to([:admin, @product_software], :notice => 'ProductSoftware was successfully updated.') }
+        format.html { redirect_to([:admin, @product_software], notice: 'Product Software was successfully updated.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @product_software.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @product_software.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -73,5 +74,6 @@ class Admin::ProductSoftwaresController < AdminController
       format.xml  { head :ok }
       format.js
     end
+    website.add_log(user: current_user, action: "Removed #{@product_software.software.name} from #{@product_software.product.name}")
   end
 end

@@ -10,7 +10,7 @@ class Website < ActiveRecord::Base
   
   def features
     begin
-      f = brand.settings.where(:setting_type => "homepage feature").where("slide_file_name IS NOT NULL").order(:integer_value)
+      f = brand.settings.where(setting_type: "homepage feature").where("slide_file_name IS NOT NULL").order(:integer_value)
       defaults = f.where(["locale IS NULL or locale = ?", I18n.locale])
       locale_features = nil
       unless I18n.locale == I18n.default_locale
@@ -49,7 +49,7 @@ class Website < ActiveRecord::Base
   end
   
   def available_locales
-    self.website_locales.where(:complete => true)
+    self.website_locales.where(complete: true)
   end
   
   def list_of_available_locales
@@ -62,7 +62,7 @@ class Website < ActiveRecord::Base
   
   def has_mac_software?
     begin
-      Software.where(:brand_id => self.brand_id).where("category LIKE '%mac%' or platform LIKE '%mac%'").all.size > 0
+      Software.where(brand_id: self.brand_id).where("category LIKE '%mac%' or platform LIKE '%mac%'").all.size > 0
     rescue
       false
     end
@@ -70,7 +70,7 @@ class Website < ActiveRecord::Base
   
   def has_plugins?
     begin
-      Software.where(:brand_id => self.brand_id).where("category LIKE '%plugin%'").all.size > 0
+      Software.where(brand_id: self.brand_id).where("category LIKE '%plugin%'").all.size > 0
     rescue
       false
     end
@@ -101,44 +101,44 @@ class Website < ActiveRecord::Base
         if !product_document.language.blank?
           doctype = "#{I18n.t("language.#{product_document.language}")} #{doctype}"
         end
-        downloads[doctype.parameterize] ||= {:param_name => doctype.parameterize, :name => doctype.pluralize, :downloads => []}
+        downloads[doctype.parameterize] ||= {param_name: doctype.parameterize, name: doctype.pluralize, downloads: []}
         downloads[doctype.parameterize][:downloads] << {
-          :name => product.name, 
-          :file_name => product_document.document_file_name,
-          :url => product_document.document.url, 
-          :path => product_document.document.path
+          name: product.name, 
+          file_name: product_document.document_file_name,
+          url: product_document.document.url, 
+          path: product_document.document.path
         }
       end
       # images need better name (non-redundant)
       product.product_attachments.each do |product_attachment|
         if product_attachment.is_photo?
           doctype = "Photo"
-          downloads[doctype.parameterize] ||= {:param_name => doctype.parameterize, :name => doctype.pluralize, :downloads => []}
+          downloads[doctype.parameterize] ||= {param_name: doctype.parameterize, name: doctype.pluralize, downloads: []}
           begin
             thumbnail = product_attachment.product_attachment.url(:tiny_square)
           rescue
             thumbnail = nil
           end
           downloads[doctype.parameterize][:downloads] << {
-            :name => product_attachment.product_attachment_file_name, 
-            :file_name => product_attachment.product_attachment_file_name,
-            :thumbnail => thumbnail,
-            :url => product_attachment.product_attachment.url,
-            :path => product_attachment.product_attachment.path
+            name: product_attachment.product_attachment_file_name, 
+            file_name: product_attachment.product_attachment_file_name,
+            thumbnail: thumbnail,
+            url: product_attachment.product_attachment.url,
+            path: product_attachment.product_attachment.path
           }
         end
       end
       # product.softwares.each do |software|
       #   doctype = "Software"
-      #   downloads[doctype.parameterize] ||= {:param_name => doctype.parameterize, :name => doctype, :downloads => []}
-      #   downloads[doctype.parameterize][:downloads] << {:name => software.formatted_name, :url => download_software_url(software)}
+      #   downloads[doctype.parameterize] ||= {param_name: doctype.parameterize, name: doctype, downloads: []}
+      #   downloads[doctype.parameterize][:downloads] << {name: software.formatted_name, url: download_software_url(software)}
       # end
       # if downloads["Software".parameterize]
       #   downloads["Software".parameterize][:downloads].uniq!
       # end
     end
-    self.site_elements.where(:show_on_public_site => true).each do |site_element|
-      downloads[site_element.resource_type.parameterize] ||= {:param_name => site_element.resource_type.parameterize, :name => site_element.resource_type.to_s.pluralize, :downloads => []}
+    self.site_elements.where(show_on_public_site: true).each do |site_element|
+      downloads[site_element.resource_type.parameterize] ||= {param_name: site_element.resource_type.parameterize, name: site_element.resource_type.to_s.pluralize, downloads: []}
       thumbnail = nil
       begin
         if site_element.is_image?
@@ -147,11 +147,11 @@ class Website < ActiveRecord::Base
       rescue
       end
       downloads[site_element.resource_type.parameterize][:downloads] << {
-        :name => site_element.name,
-        :file_name => site_element.resource_file_name,
-        :thumbnail => thumbnail,
-        :url => site_element.resource.url,
-        :path => site_element.resource.path
+        name: site_element.name,
+        file_name: site_element.resource_file_name,
+        thumbnail: thumbnail,
+        url: site_element.resource.url,
+        path: site_element.resource.path
       }
     end
     # logger.debug " =============================================== \n #{downloads.to_yaml}"
@@ -173,6 +173,19 @@ class Website < ActiveRecord::Base
 
   def artists
     Artist.all_for_website(self)
+  end
+
+  def add_log(attributes)
+    attributes[:website_id] = self.id
+    if attributes[:user]
+      attributes[:user_id] = attributes[:user].id
+      attributes.delete(:user)
+    end
+    begin
+      AdminLog.create(attributes)
+    rescue
+      # don't worry if we can't log stuff
+    end
   end
   
 end

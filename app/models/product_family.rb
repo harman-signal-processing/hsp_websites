@@ -1,32 +1,32 @@
 class ProductFamily < ActiveRecord::Base
   belongs_to :brand, touch: true
-  has_many :product_family_products, :order => :position, :dependent => :destroy
-  has_many :products, :through => :product_family_products, :order => "product_family_products.position"
+  has_many :product_family_products, order: :position, dependent: :destroy
+  has_many :products, through: :product_family_products, order: "product_family_products.position"
   has_many :locale_product_families
-  has_many :market_segment_product_families, :dependent => :destroy
-  has_friendly_id :name, :use_slug => true, :approximate_ascii => true, :max_length => 100
+  has_many :market_segment_product_families, dependent: :destroy
+  has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
   has_attached_file :family_photo, 
-    :styles => { :medium => "300x300>", :thumb => "100x100>" },
-    :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
-    :url => "/system/:attachment/:id/:style/:filename"
+    styles: { medium: "300x300>", thumb: "100x100>" },
+    path: ":rails_root/public/system/:attachment/:id/:style/:filename",
+    url: "/system/:attachment/:id/:style/:filename"
 
   has_attached_file :family_banner, 
-    :styles => { :medium => "300x300>", :thumb => "100x100>" },
-    :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
-    :url => "/system/:attachment/:id/:style/:filename"
+    styles: { medium: "300x300>", thumb: "100x100>" },
+    path: ":rails_root/public/system/:attachment/:id/:style/:filename",
+    url: "/system/:attachment/:id/:style/:filename"
 
   has_attached_file :title_banner, 
-    :styles => { :medium => "300x300>", :thumb => "100x100>" },
-    :path => ":rails_root/public/system/product_family/:attachment/:id/:style/:filename",
-    :url => "/system/product_family/:attachment/:id/:style/:filename"
+    styles: { medium: "300x300>", thumb: "100x100>" },
+    path: ":rails_root/public/system/product_family/:attachment/:id/:style/:filename",
+    url: "/system/product_family/:attachment/:id/:style/:filename"
 
   has_attached_file :background_image,
-    :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
-    :url => "/system/:attachment/:id/:style/:filename"
+    path: ":rails_root/public/system/:attachment/:id/:style/:filename",
+    url: "/system/:attachment/:id/:style/:filename"
 
   validates_presence_of :brand_id, :name
-  acts_as_tree :order => :position, :scope => :brand_id
-  # acts_as_list :scope => :brand_id, :order => :position
+  acts_as_tree order: :position, scope: :brand_id
+  # acts_as_list scope: :brand_id, order: :position
   
   define_index do
     indexes :name
@@ -36,13 +36,13 @@ class ProductFamily < ActiveRecord::Base
   
   # All top-level ProductFamilies--not locale aware
   def self.all_parents(website)
-    where(:brand_id => website.brand_id).where(:parent_id => nil).order(:position)
+    where(brand_id: website.brand_id).where(parent_id: nil).order(:position)
   end
   
   # Collection of all families with at least one active product
   def self.all_with_current_products(website, locale)
     pf = []
-    find_all_by_brand_id(website.brand_id, :order => :position).each do |f|
+    find_all_by_brand_id(website.brand_id, order: :position).each do |f|
       pf << f if f.current_products.size > 0 && f.locales(website).include?(locale.to_s)
     end
     pf
@@ -52,8 +52,8 @@ class ProductFamily < ActiveRecord::Base
   def self.parents_with_current_products(website, locale)
     pf = []
     find(:all,
-      :conditions => ["brand_id = ? AND (parent_id IS NULL or parent_id = 0)", website.brand_id],
-      :order => :position).each do |f|
+      conditions: ["brand_id = ? AND (parent_id IS NULL or parent_id = 0)", website.brand_id],
+      order: :position).each do |f|
         if f.current_products.size > 0
           pf << f if f.locales(website).include?(locale.to_s)
         else
@@ -72,7 +72,7 @@ class ProductFamily < ActiveRecord::Base
   # Parent categories for super nav (originally designed for Lexicon site)
   def self.parents_for_supernav(website, locale)
     pf = []
-    where(:brand_id => website.brand_id).where("parent_id IS NULL or parent_id = 0").order(:position).each do |f|
+    where(brand_id: website.brand_id).where("parent_id IS NULL or parent_id = 0").order(:position).each do |f|
       pf << f if !(f.hide_from_homepage) && f.locales(website).include?(locale.to_s)
     end
     pf

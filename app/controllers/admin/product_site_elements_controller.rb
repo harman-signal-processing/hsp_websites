@@ -5,7 +5,7 @@ class Admin::ProductSiteElementsController < AdminController
   def index
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @product_site_elements }
+      format.xml  { render xml: @product_site_elements }
     end
   end
 
@@ -14,7 +14,7 @@ class Admin::ProductSiteElementsController < AdminController
   def show
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @product_site_element }
+      format.xml  { render xml: @product_site_element }
     end
   end
 
@@ -23,7 +23,7 @@ class Admin::ProductSiteElementsController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @product_site_element }
+      format.xml  { render xml: @product_site_element }
     end
   end
 
@@ -45,13 +45,14 @@ class Admin::ProductSiteElementsController < AdminController
     @called_from = params[:called_from] || "product"
     respond_to do |format|
       if @product_site_element.save
-        format.html { redirect_to([:admin, @product_site_element], :notice => 'Product site element was successfully created.') }
-        format.xml  { render :xml => @product_site_element, :status => :created, :location => @product_site_element }
+        format.html { redirect_to([:admin, @product_site_element], notice: 'Product site element was successfully created.') }
+        format.xml  { render xml: @product_site_element, status: :created, location: @product_site_element }
         format.js 
+        website.add_log(user: current_user, action: "Associated a site element with #{@product_site_element.product.name}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @product_site_element.errors, :status => :unprocessable_entity }
-        format.js { render :template => "create_error" }
+        format.html { render action: "new" }
+        format.xml  { render xml: @product_site_element.errors, status: :unprocessable_entity }
+        format.js { render template: "create_error" }
       end
     end
   end
@@ -61,11 +62,11 @@ class Admin::ProductSiteElementsController < AdminController
   def update
     respond_to do |format|
       if @product_site_element.update_attributes(params[:product_site_element])
-        format.html { redirect_to([:admin, @product_site_element], :notice => 'Product site element was successfully updated.') }
+        format.html { redirect_to([:admin, @product_site_element], notice: 'Product site element was successfully updated.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @product_site_element.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @product_site_element.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -79,5 +80,6 @@ class Admin::ProductSiteElementsController < AdminController
       format.xml  { head :ok }
       format.js 
     end
+    website.add_log(user: current_user, action: "Removed a site element from #{@product_site_element.product.name}")
   end
 end

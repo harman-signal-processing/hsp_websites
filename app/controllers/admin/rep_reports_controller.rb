@@ -5,7 +5,7 @@ class Admin::RepReportsController < AdminController
   def index
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @rep_reports }
+      format.xml  { render xml: @rep_reports }
     end
   end
 
@@ -14,7 +14,7 @@ class Admin::RepReportsController < AdminController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @rep_report }
+      format.xml  { render xml: @rep_report }
     end
   end
 
@@ -23,7 +23,7 @@ class Admin::RepReportsController < AdminController
   def new
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @rep_report }
+      format.xml  { render xml: @rep_report }
     end
   end
 
@@ -39,11 +39,12 @@ class Admin::RepReportsController < AdminController
   def create
     respond_to do |format|
       if @rep_report.save
-        format.html { redirect_to([:admin, @rep_report.clinic], :notice => 'Rep report was successfully created.') }
-        format.xml  { render :xml => @rep_report, :status => :created, :location => @rep_report }
+        format.html { redirect_to([:admin, @rep_report.clinic], notice: 'Rep report was successfully created.') }
+        format.xml  { render xml: @rep_report, status: :created, location: @rep_report }
+        website.add_log(user: current_user, action: "Created a rep report")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @rep_report.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @rep_report.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -53,11 +54,11 @@ class Admin::RepReportsController < AdminController
   def update
     respond_to do |format|
       if @rep_report.update_attributes(params[:rep_report])
-        format.html { redirect_to([:admin, @rep_report.clinic], :notice => 'Rep report was successfully updated.') }
+        format.html { redirect_to([:admin, @rep_report.clinic], notice: 'Rep report was successfully updated.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @rep_report.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @rep_report.errors, status: :unprocessable_entity }
       end
     end
   end

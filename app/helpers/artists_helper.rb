@@ -7,7 +7,7 @@ module ArtistsHelper
   # is rendered without the animation javascript.)
   #
   def artist_slideshow(options={})
-    default_options = { :duration => 7000, :slides => [], :transition => "toggle", :size => "940x400" }
+    default_options = { duration: 7000, slides: [], transition: "toggle", size: "940x400" }
     options = default_options.merge(options)
     html = ''
     if options[:slides].size > 1
@@ -24,10 +24,10 @@ module ArtistsHelper
   # Used by the "artist_slideshow" method to render a frame.
   def artist_slideshow_frame(artist, position=0, size)
     hidden = (position == 0) ? "" : "display:none"
-    artist_brand = artist.artist_brands.where(:brand_id => website.brand_id).first
-    content_tag(:div, :id => "slideshow_#{(position + 1)}", :class => "slideshow_frame", :style => hidden) do
-        link_to(image_tag(artist.artist_photo.url(:feature), :size => size), artist) +
-        content_tag(:div, :class=>"description") do
+    artist_brand = artist.artist_brands.where(brand_id: website.brand_id).first
+    content_tag(:div, id: "slideshow_#{(position + 1)}", class: "slideshow_frame", style: hidden) do
+        link_to(image_tag(artist.artist_photo.url(:feature), size: size), artist) +
+        content_tag(:div, class:"description") do
           content_tag(:h2) do
             link_to(artist.name, artist)
           end + 
@@ -38,18 +38,18 @@ module ArtistsHelper
   
   # Controls for the generated slideshow
   def artist_slideshow_controls(options={})
-    default_options = { :duration => 6000, :slides => [] }
+    default_options = { duration: 6000, slides: [] }
     options = default_options.merge(options)
     unless options[:slides].size <= 1
       divs = ""
       (1..options[:slides].size).to_a.reverse.each do |i|
         divs += link_to_function(i, 
                   "stop_slideshow(#{i}, #{options[:slides].size});", 
-                  :id => "slideshow_control_#{i}",
-                  :class => (i==1) ? "current_button" : "")
+                  id: "slideshow_control_#{i}",
+                  class: (i==1) ? "current_button" : "")
       end
       hidden = (options[:slides].size > 5) ? "display:none" : "" # too big
-      content_tag(:div, :id => "slideshow_controls", :style => hidden) do
+      content_tag(:div, id: "slideshow_controls", style: hidden) do
         raw(divs)
       end
     end

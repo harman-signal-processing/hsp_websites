@@ -7,7 +7,7 @@ module VideosHelper
   
   def favorites_except(not_this_video_id, youtube_client, youtube_user, max=6)
     other_videos = [] 
-    youtube_client.videos_by(:favorites, :user => youtube_user).videos.each do |video|
+    youtube_client.videos_by(:favorites, user: youtube_user).videos.each do |video|
       other_videos << video unless other_videos.size >= max || video.video_id.match(/#{not_this_video_id}/)
     end
     other_videos

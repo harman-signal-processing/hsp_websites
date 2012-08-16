@@ -1,23 +1,23 @@
 class Admin::NewsController < AdminController
   load_and_authorize_resource
-  after_filter :expire_news_index_cache, :only => [:create, :update, :destroy]
+  after_filter :expire_news_index_cache, only: [:create, :update, :destroy]
   # GET /admin/news
   # GET /admin/news.xml
   def index
-    @news = @news.where(:brand_id => website.brand_id).order("post_on DESC")
+    @news = @news.where(brand_id: website.brand_id).order("post_on DESC")
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @news }
+      format.xml  { render xml: @news }
     end
   end
 
   # GET /admin/news/1
   # GET /admin/news/1.xml
   def show
-    @news_product = NewsProduct.new(:news => @news)
+    @news_product = NewsProduct.new(news: @news)
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @news }
+      format.xml  { render xml: @news }
     end
   end
 
@@ -26,7 +26,7 @@ class Admin::NewsController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @news }
+      format.xml  { render xml: @news }
     end
   end
 
@@ -40,11 +40,12 @@ class Admin::NewsController < AdminController
     @news.brand = website.brand
     respond_to do |format|
       if @news.save
-        format.html { redirect_to([:admin, @news], :notice => 'News was successfully created.') }
-        format.xml  { render :xml => @news, :status => :created, :location => @news }
+        format.html { redirect_to([:admin, @news], notice: 'News was successfully created.') }
+        format.xml  { render xml: @news, status: :created, location: @news }
+        website.add_log(user: current_user, action: "Created news: #{@news.title}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @news.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @news.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -54,11 +55,12 @@ class Admin::NewsController < AdminController
   def update
     respond_to do |format|
       if @news.update_attributes(params[:news])
-        format.html { redirect_to([:admin, @news], :notice => 'News was successfully updated.') }
+        format.html { redirect_to([:admin, @news], notice: 'News was successfully updated.') }
         format.xml  { head :ok }
+        website.add_log(user: current_user, action: "Updated news: #{@news.title}")
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @news.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @news.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -71,5 +73,6 @@ class Admin::NewsController < AdminController
       format.html { redirect_to(admin_news_index_url) }
       format.xml  { head :ok }
     end
+    website.add_log(user: current_user, action: "Deleted news: #{@news.title}")
   end
 end

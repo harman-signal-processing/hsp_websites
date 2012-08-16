@@ -3,10 +3,10 @@ class Admin::ServiceCentersController < AdminController
   # GET /service_centers
   # GET /service_centers.xml
   def index
-    @service_centers = @service_centers.where(:brand_id => website.brand_id).order("UPPER(name)")
+    @service_centers = @service_centers.where(brand_id: website.brand_id).order("UPPER(name)")
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @service_centers }
+      format.xml  { render xml: @service_centers }
     end
   end
 
@@ -15,7 +15,7 @@ class Admin::ServiceCentersController < AdminController
   def show
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @service_center }
+      format.xml  { render xml: @service_center }
     end
   end
 
@@ -24,7 +24,7 @@ class Admin::ServiceCentersController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @service_center }
+      format.xml  { render xml: @service_center }
     end
   end
 
@@ -38,11 +38,12 @@ class Admin::ServiceCentersController < AdminController
     @service_center.brand = website.brand
     respond_to do |format|
       if @service_center.save
-        format.html { redirect_to([:admin, @service_center], :notice => 'Service center was successfully created.') }
-        format.xml  { render :xml => @service_center, :status => :created, :location => @service_center }
+        format.html { redirect_to([:admin, @service_center], notice: 'Service center was successfully created.') }
+        format.xml  { render xml: @service_center, status: :created, location: @service_center }
+        website.add_log(user: current_user, action: "Updated a service center: #{@service_center.name}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @service_center.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @service_center.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -52,11 +53,12 @@ class Admin::ServiceCentersController < AdminController
   def update
     respond_to do |format|
       if @service_center.update_attributes(params[:service_center])
-        format.html { redirect_to([:admin, @service_center], :notice => 'Service center was successfully updated.') }
+        format.html { redirect_to([:admin, @service_center], notice: 'Service center was successfully updated.') }
         format.xml  { head :ok }
+        website.add_log(user: current_user, action: "Updated a service center: #{@service_center.name}")
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @service_center.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @service_center.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -69,5 +71,6 @@ class Admin::ServiceCentersController < AdminController
       format.html { redirect_to(admin_service_centers_url) }
       format.xml  { head :ok }
     end
+    website.add_log(user: current_user, action: "Deleted service center: #{@service_center.name}")
   end
 end

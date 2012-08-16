@@ -22,10 +22,10 @@ class SupportController < ApplicationController
       @warranty_registration = WarrantyRegistration.new(params[:warranty_registration])
       @warranty_registration.brand_id = website.brand_id
       if @warranty_registration.save
-        redirect_to support_path, :alert => t('blurbs.warranty_registration_success')
+        redirect_to support_path, alert: t('blurbs.warranty_registration_success')
       end
     else
-      @warranty_registration = WarrantyRegistration.new(:subscribe => true)
+      @warranty_registration = WarrantyRegistration.new(subscribe: true)
       @warranty_registration.country = "United States" if params[:locale] =~ /\-US$/
       begin
         @warranty_registration.product = Product.find(params[:product_id]) if params[:product_id]
@@ -45,15 +45,15 @@ class SupportController < ApplicationController
       @contact_message.require_country = true if is_lexicon?
       if verify_recaptcha && @contact_message.valid?
         @contact_message.save
-        redirect_to support_path, :notice => t('blurbs.contact_form_thankyou')
+        redirect_to support_path, notice: t('blurbs.contact_form_thankyou')
         SiteMailer.delay.contact_form(@contact_message, website.brand)
       else
         @discontinued_products = Product.discontinued(website)
-        render_template(:action => "index")
+        render_template(action: "index")
       end
     else
       @discontinued_products = Product.discontinued(website)
-      render_template(:action => "index")
+      render_template(action: "index")
     end
   end
   
@@ -63,13 +63,13 @@ class SupportController < ApplicationController
     unless website.has_parts_form?
       redirect_to support_path and return false
     end
-    @contact_message = ContactMessage.new(:message_type => "part_request")
+    @contact_message = ContactMessage.new(message_type: "part_request")
     if request.post?
       @contact_message = ContactMessage.new(params[:contact_message])
       @contact_message.message_type = "part_request"
       if @contact_message.valid?
         @contact_message.save
-        redirect_to support_path, :notice => t('blurbs.parts_request_thankyou')
+        redirect_to support_path, notice: t('blurbs.parts_request_thankyou')
         SiteMailer.delay.contact_form(@contact_message, website.brand)
       end
     else
@@ -83,13 +83,13 @@ class SupportController < ApplicationController
     unless website.has_rma_form?
       redirect_to support_path and return false
     end
-    @contact_message = ContactMessage.new(:message_type => "rma_request")
+    @contact_message = ContactMessage.new(message_type: "rma_request")
     if request.post?
       @contact_message = ContactMessage.new(params[:contact_message])
       @contact_message.message_type = "rma_request"
       if @contact_message.valid?
         @contact_message.save
-        redirect_to support_path, :notice => t('blurbs.rma_request_thankyou')
+        redirect_to support_path, notice: t('blurbs.rma_request_thankyou')
         SiteMailer.delay.contact_form(@contact_message, website.brand)
       end
     else
@@ -123,18 +123,18 @@ class SupportController < ApplicationController
     @results = []
     if params[:zip]
       session[:zip] = params[:zip]
-      @page_title += " " + t('near_zipcode', :zip => params[:zip])
+      @page_title += " " + t('near_zipcode', zip: params[:zip])
       begin
         @results = []
         brand_id = website.service_centers_from_brand_id || website.brand_id
-        ServiceCenter.find(:all, :conditions => ["brand_id = ?", brand_id], :origin => params[:zip], :order => 'distance', :within => 100, :limit => 10).each do |d|
+        ServiceCenter.find(:all, conditions: ["brand_id = ?", brand_id], origin: params[:zip], order: 'distance', within: 100, limit: 10).each do |d|
           @results << d #unless d.exclude?
         end
         unless @results.size > 0
-          @err = t('errors.no_service_centers_found', :zip => params[:zip])
+          @err = t('errors.no_service_centers_found', zip: params[:zip])
         end
       rescue
-        redirect_to(support_path, :alert => t('errors.geocoding')) and return false
+        redirect_to(support_path, alert: t('errors.geocoding')) and return false
       end
     end
     render_template
@@ -156,7 +156,7 @@ class SupportController < ApplicationController
   
   def zipped_downloads
     temp_file = website.zip_downloads(params[:download_type])
-    send_file temp_file.path, :type => 'application/zip', :disposition => 'attachment', :filename => "#{params[:download_type]}.zip"
+    send_file temp_file.path, type: 'application/zip', disposition: 'attachment', filename: "#{params[:download_type]}.zip"
     temp_file.close
   end
   
