@@ -41,8 +41,6 @@ What you will need to change is: itemid=100170580&subitemid=358897 based on the 
 * Start
 
 === Lower Priority ===
-* DOD finish importing products (discontinued)
-* DOD new buy-it-now button, populate BIN links
 * Server load balancing
 * New mysql server
 * auto-pull news items from hpro feed
