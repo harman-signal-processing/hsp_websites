@@ -8,14 +8,14 @@
 #
 class Admin::ProductFamilyProductsController < AdminController
   load_and_authorize_resource
-  after_filter :expire_product_families_cache, :only => [:create, :update, :destroy]
+  after_filter :expire_product_families_cache, only: [:create, :update, :destroy]
     
   # GET /admin/product_family_products
   # GET /admin/product_family_products.xml
   def index
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @product_family_products }
+      format.xml  { render xml: @product_family_products }
     end
   end
 
@@ -24,7 +24,7 @@ class Admin::ProductFamilyProductsController < AdminController
   def show
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @product_family_product }
+      format.xml  { render xml: @product_family_product }
     end
   end
 
@@ -33,7 +33,7 @@ class Admin::ProductFamilyProductsController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @product_family_product }
+      format.xml  { render xml: @product_family_product }
     end
   end
 
@@ -47,13 +47,14 @@ class Admin::ProductFamilyProductsController < AdminController
     @called_from = params[:called_from] || 'product'
     respond_to do |format|
       if @product_family_product.save
-        format.html { redirect_to([:admin, @product_family_product], :notice => 'Product was successfully added to family.') }
-        format.xml  { render :xml => @product_family_product, :status => :created, :location => @product_family_product }
+        format.html { redirect_to([:admin, @product_family_product], notice: 'Product was successfully added to family.') }
+        format.xml  { render xml: @product_family_product, status: :created, location: @product_family_product }
         format.js 
+        website.add_log(user: current_user, action: "Added #{@product_family_product.product.name} to #{@product_family_product.product_family.name}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @product_family_product.errors, :status => :unprocessable_entity }
-        format.js { render :text => "Error"}
+        format.html { render action: "new" }
+        format.xml  { render xml: @product_family_product.errors, status: :unprocessable_entity }
+        format.js { render text: "Error"}
       end
     end
   end
@@ -63,11 +64,11 @@ class Admin::ProductFamilyProductsController < AdminController
   def update
     respond_to do |format|
       if @product_family_product.update_attributes(params[:product_family_product])
-        format.html { redirect_to([:admin, @product_family_product], :notice => 'Product was successfully added to family.') }
+        format.html { redirect_to([:admin, @product_family_product], notice: 'Product was successfully added to family.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @product_family_product.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @product_family_product.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -75,7 +76,8 @@ class Admin::ProductFamilyProductsController < AdminController
   # POST /admin/product_family_products/update_order
   def update_order
     update_list_order(ProductFamilyProduct, params["product_family_product"])
-    render :nothing=>true
+    render nothing: true
+    website.add_log(user: current_user, action: "Sorted product family products")
   end
 
   # DELETE /admin/product_family_products/1
@@ -87,5 +89,6 @@ class Admin::ProductFamilyProductsController < AdminController
       format.xml  { head :ok }
       format.js
     end
+    website.add_log(user: current_user, action: "Removed #{@product_family_product.product.name} from #{@product_family_product.product_family.name}")
   end
 end

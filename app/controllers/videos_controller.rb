@@ -5,18 +5,18 @@ class VideosController < ApplicationController
   # playlist and show it in the browser
   def index
     @playlists = []
-    @page_title = t('titles.youtube_channel', :brand => website.brand_name)
+    @page_title = t('titles.youtube_channel', brand: website.brand_name)
     begin
       if (Rails.env.production? || Rails.env.staging?) && playlist_ids = website.playlist_ids
         playlist_ids.split(/,\s?/).each do |playlist|
           @playlists << @youtube_client.playlist(playlist)
         end
       else
-        @playlists << @youtube_client.videos_by(:user => @youtube_user)
+        @playlists << @youtube_client.videos_by(user: @youtube_user)
       end
       render_template
     rescue
-      render :text => "Error loading playlist"
+      render text: "Error loading playlist"
     end
   end
 

@@ -5,7 +5,7 @@ class Admin::ToneLibraryPatchesController < AdminController
   def index
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @tone_library_patches }
+      format.xml  { render xml: @tone_library_patches }
     end
   end
 
@@ -14,7 +14,7 @@ class Admin::ToneLibraryPatchesController < AdminController
   def show
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @tone_library_patch }
+      format.xml  { render xml: @tone_library_patch }
     end
   end
 
@@ -23,7 +23,7 @@ class Admin::ToneLibraryPatchesController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @tone_library_patch }
+      format.xml  { render xml: @tone_library_patch }
     end
   end
 
@@ -36,11 +36,12 @@ class Admin::ToneLibraryPatchesController < AdminController
   def create
     respond_to do |format|
       if @tone_library_patch.save
-        format.html { redirect_to([:admin, @tone_library_patch.tone_library_song], :notice => 'Tone library patch was successfully created.') }
-        format.xml  { render :xml => @tone_library_patch, :status => :created, :location => @tone_library_patch }
+        format.html { redirect_to([:admin, @tone_library_patch.tone_library_song], notice: 'Tone library patch was successfully created.') }
+        format.xml  { render xml: @tone_library_patch, status: :created, location: @tone_library_patch }
+        website.add_log(user: current_user, action: "Created tone library patch: #{@tone_library_patch.tone_library_song.title} for #{@tone_library_patch.product.name}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @tone_library_patch.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @tone_library_patch.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -50,11 +51,12 @@ class Admin::ToneLibraryPatchesController < AdminController
   def update
     respond_to do |format|
       if @tone_library_patch.update_attributes(params[:tone_library_patch])
-        format.html { redirect_to([:admin, @tone_library_patch], :notice => 'Tone library patch was successfully updated.') }
+        format.html { redirect_to([:admin, @tone_library_patch], notice: 'Tone library patch was successfully updated.') }
         format.xml  { head :ok }
+        website.add_log(user: current_user, action: "Updated tone library patch: #{@tone_library_patch.tone_library_song.title} for #{@tone_library_patch.product.name}")
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @tone_library_patch.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @tone_library_patch.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -68,5 +70,6 @@ class Admin::ToneLibraryPatchesController < AdminController
       format.xml  { head :ok }
       format.js
     end
+    website.add_log(user: current_user, action: "Removed tone library patch: #{@tone_library_patch.tone_library_song.title} for #{@tone_library_patch.product.name}")
   end
 end

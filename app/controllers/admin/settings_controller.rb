@@ -1,19 +1,19 @@
 class Admin::SettingsController < AdminController
   load_and_authorize_resource
-  after_filter :expire_homepage_fragments, :except => [:index, :show, :new, :edit]
+
   # GET /admin/settings
   # GET /admin/settings.xml
   def index
-    @settings = @settings.where(:brand_id => website.brand_id).order("locale, setting_type, name")
+    @settings = @settings.where(brand_id: website.brand_id).order("locale, setting_type, name")
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @settings }
+      format.xml  { render xml: @settings }
     end
   end
   
   def homepage
     @slides = Setting.slides(website)
-    @new_slide = Setting.new(:setting_type => "slideshow frame")
+    @new_slide = Setting.new(setting_type: "slideshow frame")
     if @slides.size > 0
       begin
         @new_slide.integer_value = @slides.last.integer_value + 1
@@ -22,7 +22,7 @@ class Admin::SettingsController < AdminController
       end
     end
     @features = Setting.features(website)
-    @new_feature = Setting.new(:setting_type => "homepage feature")
+    @new_feature = Setting.new(setting_type: "homepage feature")
     if @features.size > 0
       begin
         @new_feature.integer_value = @features.last.integer_value + 1
@@ -41,43 +41,46 @@ class Admin::SettingsController < AdminController
     Setting.find_or_initialize_by_brand_id_and_name_and_setting_type(website.brand_id, "homepage_column_one", "string")
     Setting.find_or_initialize_by_brand_id_and_name_and_setting_type(website.brand_id, "homepage_column_two", "string")
     Setting.find_or_initialize_by_brand_id_and_name_and_setting_type(website.brand_id, "homepage_column_three", "string")
-    @columns = Setting.where(:brand_id => website.brand_id, :setting_type => "string").where("name LIKE 'homepage_column%%'")
+    @columns = Setting.where(brand_id: website.brand_id, setting_type: "string").where("name LIKE 'homepage_column%%'")
   end
   
   # POST /admin/big_bottom_box
   # updates the content in the big bottom box on the homepage
   def big_bottom_box
     @columns = params[:settings][:setting]
-    # render :inline => "#{@columns.first[1]}"
+    # render inline: "#{@columns.first[1]}"
     @columns.each do |column_data|
       column = Setting.find_or_initialize_by_brand_id_and_name(website.brand_id, column_data[1][:name])
       column.attributes = column_data[1]
       column.save
     end
-    redirect_to homepage_admin_settings_path, :notice => "Settings were saved"
+    redirect_to homepage_admin_settings_path, notice: "Settings were saved"
+    website.add_log(user: current_user, action: "Updated settings for big bottom box")
   end
 
   def update_slides_order
     order = params["setting"]
     order.to_a.each_with_index do |item, pos|
-      Setting.update(item, :integer_value => (pos + 1))
+      Setting.update(item, integer_value: (pos + 1))
     end
-    render :nothing => true
+    render nothing: true
+    website.add_log(user: current_user, action: "Updated homepage slides order")
   end
 
   def update_features_order
     order = params["feature"]
     order.to_a.each_with_index do |item, pos|
-      Setting.update(item, :integer_value => (pos + 1))
+      Setting.update(item, integer_value: (pos + 1))
     end
-    render :nothing => true
+    render nothing: true
+    website.add_log(user: current_user, action: "Updated homepage features order")
   end
   
   def copy
     @setting = Setting.find(params[:id]).dup
     respond_to do |format|
-      format.html { render :action => "new" }
-      format.xml  { render :xml => @setting }
+      format.html { render action: "new" }
+      format.xml  { render xml: @setting }
     end
   end
 
@@ -86,7 +89,7 @@ class Admin::SettingsController < AdminController
   def show
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @setting }
+      format.xml  { render xml: @setting }
     end
   end
 
@@ -95,7 +98,7 @@ class Admin::SettingsController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @setting }
+      format.xml  { render xml: @setting }
     end
   end
 
@@ -110,11 +113,12 @@ class Admin::SettingsController < AdminController
       @setting.brand_id ||= website.brand_id
       if @setting.save
         red = (params[:called_from] && params[:called_from] == "homepage") ? homepage_admin_settings_path : [:admin, @setting]
-        format.html { redirect_to(red, :notice => 'Setting was successfully created.') }
-        format.xml  { render :xml => @setting, :status => :created, :location => @setting }
+        format.html { redirect_to(red, notice: 'Setting was successfully created.') }
+        format.xml  { render xml: @setting, status: :created, location: @setting }
+        website.add_log(user: current_user, action: "Created a new setting: #{@setting.name}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @setting.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @setting.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -125,13 +129,14 @@ class Admin::SettingsController < AdminController
     respond_to do |format|
       if @setting.update_attributes(params[:setting])
         red = (params[:called_from] && params[:called_from] == "homepage") ? homepage_admin_settings_path : [:admin, @setting]
-        format.html { redirect_to(red, :notice => 'Setting was successfully updated.') }
+        format.html { redirect_to(red, notice: 'Setting was successfully updated.') }
         format.xml  { head :ok }
         format.js 
+        website.add_log(user: current_user, action: "Updated setting: #{@setting.name}")
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @setting.errors, :status => :unprocessable_entity }
-        format.js   { render :nothing => true}
+        format.html { render action: "edit" }
+        format.xml  { render xml: @setting.errors, status: :unprocessable_entity }
+        format.js   { render nothing: true}
       end
     end
   end
@@ -145,15 +150,7 @@ class Admin::SettingsController < AdminController
       format.xml  { head :ok }
       format.js 
     end
+    website.add_log(user: current_user, action: "Deleted setting: #{@setting.name}")
   end
   
-  private 
-  
-  def expire_homepage_fragments
-    expire_fragment(:slideshow)
-    expire_fragment(:youtube_feed)
-    expire_fragment(:twitter_feed)
-    expire_fragment("homepage_features_#{website.brand_id}")
-  end
-
 end

@@ -6,10 +6,10 @@
 class RegisteredDownload < ActiveRecord::Base
   has_many :download_registrations
   belongs_to :brand
-  validates :name, :brand, :from_email, :subject, :presence => true
-  validates :per_download_limit, :numericality => {:greater_than => 0}
+  validates :name, :brand, :from_email, :subject, presence: true
+  validates :per_download_limit, numericality: {greater_than: 0}
   has_attached_file :protected_software, 
-    :path => ":rails_root/../../protected/:attachment/:id/:filename" #, :url => "/system/:attachment/:id/:style/:filename"
+    path: ":rails_root/../../protected/:attachment/:id/:filename" #, url: "/system/:attachment/:id/:style/:filename"
 
   after_initialize :setup_defaults
   after_save :save_templates_to_filesystem
@@ -101,7 +101,7 @@ class RegisteredDownload < ActiveRecord::Base
   def remove_coupon_code!(coupon_code)
     codes = self.available_coupon_codes
     codes.delete(coupon_code)
-    self.update_attributes(:coupon_codes => codes.join("\r\n"))
+    self.update_attributes(coupon_codes: codes.join("\r\n"))
   end
   
   # Column headers for excel export
@@ -143,7 +143,7 @@ class RegisteredDownload < ActiveRecord::Base
   # the first registrations came through)
   #
   def send_messages_to_undownloaded
-    self.download_registrations.where(:download_count => 0).each do |download_registration|
+    self.download_registrations.where(download_count: 0).each do |download_registration|
       download_registration.deliver_download_code
     end
   end

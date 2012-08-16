@@ -4,10 +4,10 @@ class Admin::RegisteredDownloadsController < AdminController
   # GET /registered_downloads
   # GET /registered_downloads.xml
   def index
-    @registered_downloads = @registered_downloads.where(:brand_id => website.brand_id)
+    @registered_downloads = @registered_downloads.where(brand_id: website.brand_id)
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @registered_downloads }
+      format.xml  { render xml: @registered_downloads }
     end
   end
 
@@ -16,12 +16,12 @@ class Admin::RegisteredDownloadsController < AdminController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.xml { render :xml => @registered_download.download_registrations  }
+      format.xml { render xml: @registered_download.download_registrations  }
       format.xls { 
         send_data(@registered_download.download_registrations.to_xls(
-          :headers => @registered_download.headers_for_export,
-          :columns => @registered_download.columns_for_export), 
-        :filename => "#{@registered_download.name.gsub(/\s/,"-")}.xls") 
+          headers: @registered_download.headers_for_export,
+          columns: @registered_download.columns_for_export), 
+        filename: "#{@registered_download.name.gsub(/\s/,"-")}.xls") 
       }
     end
   end
@@ -31,7 +31,7 @@ class Admin::RegisteredDownloadsController < AdminController
   def new
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @registered_download }
+      format.xml  { render xml: @registered_download }
     end
   end
 
@@ -45,11 +45,12 @@ class Admin::RegisteredDownloadsController < AdminController
     @registered_download.brand = website.brand
     respond_to do |format|
       if @registered_download.save
-        format.html { redirect_to([:admin, @registered_download], :notice => 'Registered download was successfully created.') }
-        format.xml  { render :xml => @registered_download, :status => :created, :location => @registered_download }
+        format.html { redirect_to([:admin, @registered_download], notice: 'Registered download was successfully created.') }
+        format.xml  { render xml: @registered_download, status: :created, location: @registered_download }
+        website.add_log(user: current_user, action: "Created registered download: #{@registered_download.name}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @registered_download.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @registered_download.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -59,15 +60,16 @@ class Admin::RegisteredDownloadsController < AdminController
   def update
     respond_to do |format|
       if @registered_download.update_attributes(params[:registered_download])
-        format.html { redirect_to([:admin, @registered_download], :notice => 'Registered download was successfully updated. IF YOU NEED TO MAKE MORE CHANGES, CLICK "Edit" BELOW--NOT "Back"') }
+        format.html { redirect_to([:admin, @registered_download], notice: 'Registered download was successfully updated. IF YOU NEED TO MAKE MORE CHANGES, CLICK "Edit" BELOW--NOT "Back"') }
         format.xml  { head :ok }
         format.js {
-          @registered_download.update_attributes(:protected_software => nil)
+          @registered_download.update_attributes(protected_software: nil)
         }
+        website.add_log(user: current_user, action: "Updated registered download: #{@registered_download.name}")
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @registered_download.errors, :status => :unprocessable_entity }
-        format.js { render :template => "update_error" }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @registered_download.errors, status: :unprocessable_entity }
+        format.js { render template: "update_error" }
       end
     end
   end
@@ -80,6 +82,7 @@ class Admin::RegisteredDownloadsController < AdminController
       format.html { redirect_to(admin_registered_downloads_url) }
       format.xml  { head :ok }
     end
+    website.add_log(user: current_user, action: "Deleted registered download: #{@registered_download.name}")
   end
   
   # GET /registered_downloads/1/send_messages
@@ -88,9 +91,10 @@ class Admin::RegisteredDownloadsController < AdminController
   def send_messages
     @registered_download.send_messages_to_undownloaded
     respond_to do |format|
-      format.html { redirect_to [:admin, @registered_download], :notice => "Messages are being sent now..."}
+      format.html { redirect_to [:admin, @registered_download], notice: "Messages are being sent now..."}
       format.js 
     end
+    website.add_log(user: current_user, action: "Sent messages to registrants for #{@registered_download.name}")
   end
 
 end

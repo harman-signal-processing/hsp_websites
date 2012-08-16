@@ -5,7 +5,7 @@ class Admin::ProductTrainingModulesController < AdminController
   def index
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @product_training_modules }
+      format.xml  { render xml: @product_training_modules }
     end
   end
 
@@ -14,7 +14,7 @@ class Admin::ProductTrainingModulesController < AdminController
   def show
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @product_training_module }
+      format.xml  { render xml: @product_training_module }
     end
   end
 
@@ -23,7 +23,7 @@ class Admin::ProductTrainingModulesController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @product_training_module }
+      format.xml  { render xml: @product_training_module }
     end
   end
 
@@ -37,12 +37,13 @@ class Admin::ProductTrainingModulesController < AdminController
     @called_from = params[:called_from] || 'product'
     respond_to do |format|
       if @product_training_module.save
-        format.html { redirect_to([:admin, @product_training_module.training_module], :notice => 'Product/training module was successfully created.') }
-        format.xml  { render :xml => @product_training_module, :status => :created, :location => @product_training_module }
+        format.html { redirect_to([:admin, @product_training_module.training_module], notice: 'Product/training module was successfully created.') }
+        format.xml  { render xml: @product_training_module, status: :created, location: @product_training_module }
         format.js
+        website.add_log(user: current_user, action: "Created training module for #{@product_training_module.product.name}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @product_training_module.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @product_training_module.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -52,11 +53,11 @@ class Admin::ProductTrainingModulesController < AdminController
   def update
     respond_to do |format|
       if @product_training_module.update_attributes(params[:product_training_module])
-        format.html { redirect_to([:admin, @product_training_module.training_module], :notice => 'Product/training_module was successfully updated.') }
+        format.html { redirect_to([:admin, @product_training_module.training_module], notice: 'Product/training_module was successfully updated.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @product_training_module.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @product_training_module.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -64,7 +65,8 @@ class Admin::ProductTrainingModulesController < AdminController
   # POST /admin/product_training_modules/update_order
   def update_order
     update_list_order(ProductTrainingModule, params["product_training_module"])
-    render :nothing=>true
+    render nothing: true
+    website.add_log(user: current_user, action: "Sorted product training modules")
   end
 
   # DELETE /product_training_modules/1
@@ -76,5 +78,6 @@ class Admin::ProductTrainingModulesController < AdminController
       format.xml  { head :ok }
       format.js
     end
+    website.add_log(user: current_user, action: "Removed training module from #{@product_training_module.product.name}")
   end
 end

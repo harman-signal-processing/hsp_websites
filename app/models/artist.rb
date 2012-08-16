@@ -16,42 +16,42 @@ class Artist < ActiveRecord::Base
     
   attr_accessor :initial_brand, :approved, :skip_unapproval
   belongs_to :artist_tier
-  has_many :artist_products, :dependent => :destroy, :inverse_of => :artist
-  accepts_nested_attributes_for :artist_products, :reject_if => proc { |a| a[:product_id].blank? }, :allow_destroy => true
+  has_many :artist_products, dependent: :destroy, inverse_of: :artist
+  accepts_nested_attributes_for :artist_products, reject_if: proc { |a| a[:product_id].blank? }, allow_destroy: true
   before_create :set_artist_tier
-  has_many :products, :through => :artist_products
-  has_many :artist_brands, :dependent => :destroy
-  has_many :brands, :through => :artist_brands
-  belongs_to :approver, :class_name => "User", :foreign_key => "approver_id"
+  has_many :products, through: :artist_products
+  has_many :artist_brands, dependent: :destroy
+  has_many :brands, through: :artist_brands
+  belongs_to :approver, class_name: "User", foreign_key: "approver_id"
   before_save :clear_approval, :fix_website_format
 
   has_attached_file :artist_photo, 
-    :styles => { :feature => "940x400#",
-      :large => "400>x370", 
-      :medium => "250x250#", 
-      :thumb => "100x100>", 
-      :thumb_square => "100x100#",
-      :wide_thumb => "200x100#",
-      :tiny => "64x64>", 
-      :tiny_square => "64x64#" 
+    styles: { feature: "940x400#",
+      large: "400>x370", 
+      medium: "250x250#", 
+      thumb: "100x100>", 
+      thumb_square: "100x100#",
+      wide_thumb: "200x100#",
+      tiny: "64x64>", 
+      tiny_square: "64x64#" 
     },
-    :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
-    :url => "/system/:attachment/:id/:style/:filename"
+    path: ":rails_root/public/system/:attachment/:id/:style/:filename",
+    url: "/system/:attachment/:id/:style/:filename"
 
   has_attached_file :artist_product_photo, 
-    :styles => { :feature => "940x400#",
-      :large => "400>x370", 
-      :medium => "250x250#", 
-      :thumb => "100x100>", 
-      :thumb_square => "100x100#",
-      :tiny => "64x64>", 
-      :tiny_square => "64x64#" 
+    styles: { feature: "940x400#",
+      large: "400>x370", 
+      medium: "250x250#", 
+      thumb: "100x100>", 
+      thumb_square: "100x100#",
+      tiny: "64x64>", 
+      tiny_square: "64x64#" 
     },
-    :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
-    :url => "/system/:attachment/:id/:style/:filename"
+    path: ":rails_root/public/system/:attachment/:id/:style/:filename",
+    url: "/system/:attachment/:id/:style/:filename"
 
-  validates :name, :presence => true
-  has_friendly_id :sanitized_name, :use_slug => true, :approximate_ascii => true, :max_length => 100
+  validates :name, presence: true
+  has_friendly_id :sanitized_name, use_slug: true, approximate_ascii: true, max_length: 100
   acts_as_list
 
   define_index do
@@ -75,9 +75,9 @@ class Artist < ActiveRecord::Base
   # When a new artist signs up, build a few ArtistProduct slots
   def build_artist_products
     if self.new_record?
-      self.artist_products.build(:favorite => true) if self.artist_products.size == 0
+      self.artist_products.build(favorite: true) if self.artist_products.size == 0
       until self.artist_products.size >= 4
-        self.artist_products.build(:favorite => false)
+        self.artist_products.build(favorite: false)
       end
     end
   end

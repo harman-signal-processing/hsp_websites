@@ -3,7 +3,7 @@ class Specification < ActiveRecord::Base
   validates_uniqueness_of :name
   validates_presence_of :name
   has_many :product_specifications
-  has_friendly_id :name, :use_slug => true, :approximate_ascii => true, :max_length => 100
+  has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
   
   def values_with_products
     r = {}

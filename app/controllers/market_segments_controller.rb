@@ -21,7 +21,7 @@ class MarketSegmentsController < ApplicationController
           redirect_to @product_families.first and return 
         end        
       }
-      format.xml  { render :xml => @market_segment }
+      format.xml  { render xml: @market_segment }
     end
   end
 end

@@ -5,7 +5,7 @@ class Admin::OnlineRetailerUsersController < AdminController
   def index
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @online_retailer_users }
+      format.xml  { render xml: @online_retailer_users }
     end
   end
 
@@ -14,7 +14,7 @@ class Admin::OnlineRetailerUsersController < AdminController
   def show
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @online_retailer_user }
+      format.xml  { render xml: @online_retailer_user }
     end
   end
 
@@ -23,7 +23,7 @@ class Admin::OnlineRetailerUsersController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @online_retailer_user }
+      format.xml  { render xml: @online_retailer_user }
     end
   end
 
@@ -37,13 +37,14 @@ class Admin::OnlineRetailerUsersController < AdminController
     @called_from = params[:called_from] || 'user'
     respond_to do |format|
       if @online_retailer_user.save
-        format.html { redirect_to([:admin, @online_retailer_user], :notice => 'User was successfully created.') }
-        format.xml  { render :xml => @online_retailer_user, :status => :created, :location => @online_retailer_user }
+        format.html { redirect_to([:admin, @online_retailer_user], notice: 'User was successfully created.') }
+        format.xml  { render xml: @online_retailer_user, status: :created, location: @online_retailer_user }
         format.js 
+        website.add_log(user: current_user, action: "Created #{@online_retailer_user.online_retailer.name} user: #{@online_retailer_user.user.name}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @online_retailer_user.errors, :status => :unprocessable_entity }
-        format.js { render :text => "Error"}
+        format.html { render action: "new" }
+        format.xml  { render xml: @online_retailer_user.errors, status: :unprocessable_entity }
+        format.js { render text: "Error"}
       end
     end
   end
@@ -53,13 +54,13 @@ class Admin::OnlineRetailerUsersController < AdminController
   def update
     respond_to do |format|
       if @online_retailer_user.update_attributes(params[:online_retailer_user])
-        format.html { redirect_to([:admin, @online_retailer_user.online_retailer], :notice => 'User was successfully updated.') }
+        format.html { redirect_to([:admin, @online_retailer_user.online_retailer], notice: 'User was successfully updated.') }
         format.xml  { head :ok }
         format.js 
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @online_retailer_user.errors, :status => :unprocessable_entity }
-        format.js { render :text => "Error"}
+        format.html { render action: "edit" }
+        format.xml  { render xml: @online_retailer_user.errors, status: :unprocessable_entity }
+        format.js { render text: "Error"}
       end
     end
   end
@@ -73,5 +74,6 @@ class Admin::OnlineRetailerUsersController < AdminController
       format.xml  { head :ok }
       format.js
     end
+    website.add_log(user: current_user, action: "Removed user: #{@online_retailer_user.user.name} from #{@online_retailer_user.online_retailer.name}")
   end
 end

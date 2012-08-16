@@ -3,10 +3,10 @@ class Admin::DistributorsController < AdminController
   # GET /admin/distributors
   # GET /admin/distributors.xml
   def index
-    @distributors = BrandDistributor.where(:brand_id => website.brand_id).all.collect{|bd| bd.distributor}
+    @distributors = BrandDistributor.where(brand_id: website.brand_id).all.collect{|bd| bd.distributor}
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @distributors }
+      format.xml  { render xml: @distributors }
     end
   end
 
@@ -15,7 +15,7 @@ class Admin::DistributorsController < AdminController
   def show
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @distributor }
+      format.xml  { render xml: @distributor }
     end
   end
 
@@ -24,7 +24,7 @@ class Admin::DistributorsController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @distributor }
+      format.xml  { render xml: @distributor }
     end
   end
 
@@ -38,11 +38,12 @@ class Admin::DistributorsController < AdminController
     respond_to do |format|
       if @distributor.save
         @distributor.create_brand_distributor(website)
-        format.html { redirect_to([:admin, @distributor], :notice => 'Distributor was successfully created.') }
-        format.xml  { render :xml => @distributor, :status => :created, :location => @distributor }
+        format.html { redirect_to([:admin, @distributor], notice: 'Distributor was successfully created.') }
+        format.xml  { render xml: @distributor, status: :created, location: @distributor }
+        website.add_log(user: current_user, action: "Created distributor #{@distributor.name}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @distributor.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @distributor.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -52,11 +53,12 @@ class Admin::DistributorsController < AdminController
   def update
     respond_to do |format|
       if @distributor.update_attributes(params[:distributor])
-        format.html { redirect_to([:admin, @distributor], :notice => 'Distributor was successfully updated.') }
+        format.html { redirect_to([:admin, @distributor], notice: 'Distributor was successfully updated.') }
         format.xml  { head :ok }
+        website.add_log(user: current_user, action: "Updated distributor #{@distributor.name}")
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @distributor.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @distributor.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -75,5 +77,6 @@ class Admin::DistributorsController < AdminController
       format.html { redirect_to(admin_distributors_url) }
       format.xml  { head :ok }
     end
+    website.add_log(user: current_user, action: "Deleted distributor #{@distributor.name}")
   end
 end

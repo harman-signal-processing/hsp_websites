@@ -6,7 +6,7 @@ class Admin::OnlineRetailersController < AdminController
     @online_retailers = @online_retailers.order(:name)
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @online_retailers }
+      format.xml  { render xml: @online_retailers }
     end
   end
 
@@ -14,11 +14,11 @@ class Admin::OnlineRetailersController < AdminController
   # GET /admin/online_retailers/1.xml
   def show
     @online_retailer.brand_link = @online_retailer.get_brand_link(website)
-    @online_retailer_link = OnlineRetailerLink.new(:online_retailer => @online_retailer)
+    @online_retailer_link = OnlineRetailerLink.new(online_retailer: @online_retailer)
     @products = Product.non_discontinued(website) - @online_retailer.online_retailer_links.collect{|l| l.product}
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @online_retailer }
+      format.xml  { render xml: @online_retailer }
     end
   end
 
@@ -27,7 +27,7 @@ class Admin::OnlineRetailersController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @online_retailer }
+      format.xml  { render xml: @online_retailer }
     end
   end
 
@@ -43,11 +43,12 @@ class Admin::OnlineRetailersController < AdminController
       if @online_retailer.save
         # update the newly created OnlineRetailer in order to add the default URL
         @online_retailer.set_brand_link(params[:online_retailer][:brand_link], website)
-        format.html { redirect_to([:admin, @online_retailer], :notice => 'Online Retailer was successfully created.') }
-        format.xml  { render :xml => @online_retailer, :status => :created, :location => @online_retailer }
+        format.html { redirect_to([:admin, @online_retailer], notice: 'Online Retailer was successfully created.') }
+        format.xml  { render xml: @online_retailer, status: :created, location: @online_retailer }
+        website.add_log(user: current_user, action: "Created online retailer: #{@online_retailer.name}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @online_retailer.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @online_retailer.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -58,11 +59,12 @@ class Admin::OnlineRetailersController < AdminController
     respond_to do |format|
       if @online_retailer.update_attributes(params[:online_retailer])
         @online_retailer.set_brand_link(params[:online_retailer][:brand_link], website)
-        format.html { redirect_to([:admin, @online_retailer], :notice => 'Online Retailer was successfully updated.') }
+        format.html { redirect_to([:admin, @online_retailer], notice: 'Online Retailer was successfully updated.') }
         format.xml  { head :ok }
+        website.add_log(user: current_user, action: "Updated online retailer: #{@online_retailer.name}")
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @online_retailer.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @online_retailer.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -75,5 +77,6 @@ class Admin::OnlineRetailersController < AdminController
       format.html { redirect_to(admin_online_retailers_url) }
       format.xml  { head :ok }
     end
+    website.add_log(user: current_user, action: "Deleted online retailer: #{@online_retailer.name}")
   end
 end

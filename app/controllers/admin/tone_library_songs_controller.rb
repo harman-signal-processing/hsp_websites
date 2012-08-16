@@ -6,17 +6,17 @@ class Admin::ToneLibrarySongsController < AdminController
     @tone_library_songs = @tone_library_songs.order("artist_name, title")
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @tone_library_songs }
+      format.xml  { render xml: @tone_library_songs }
     end
   end
 
   # GET /admin/tone_library_songs/1
   # GET /admin/tone_library_songs/1.xml
   def show
-    @tone_library_patch = ToneLibraryPatch.new(:tone_library_song => @tone_library_song)
+    @tone_library_patch = ToneLibraryPatch.new(tone_library_song: @tone_library_song)
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @tone_library_song }
+      format.xml  { render xml: @tone_library_song }
     end
   end
 
@@ -25,7 +25,7 @@ class Admin::ToneLibrarySongsController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @tone_library_song }
+      format.xml  { render xml: @tone_library_song }
     end
   end
 
@@ -38,11 +38,12 @@ class Admin::ToneLibrarySongsController < AdminController
   def create
     respond_to do |format|
       if @tone_library_song.save
-        format.html { redirect_to([:admin, @tone_library_song], :notice => 'Tone library song was successfully created.') }
-        format.xml  { render :xml => @tone_library_song, :status => :created, :location => @tone_library_song }
+        format.html { redirect_to([:admin, @tone_library_song], notice: 'Tone library song was successfully created.') }
+        format.xml  { render xml: @tone_library_song, status: :created, location: @tone_library_song }
+        website.add_log(user: current_user, action: "Created a new tone library song: #{@tone_library_song.title}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @tone_library_song.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @tone_library_song.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -52,11 +53,12 @@ class Admin::ToneLibrarySongsController < AdminController
   def update
     respond_to do |format|
       if @tone_library_song.update_attributes(params[:tone_library_song])
-        format.html { redirect_to([:admin, @tone_library_song], :notice => 'Tone library song was successfully updated.') }
+        format.html { redirect_to([:admin, @tone_library_song], notice: 'Tone library song was successfully updated.') }
         format.xml  { head :ok }
+        website.add_log(user: current_user, action: "Updated tone library song: #{@tone_library_song.title}")
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @tone_library_song.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @tone_library_song.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -69,5 +71,6 @@ class Admin::ToneLibrarySongsController < AdminController
       format.html { redirect_to(admin_tone_library_songs_url) }
       format.xml  { head :ok }
     end
+    website.add_log(user: current_user, action: "Deleted tone library song: #{@tone_library_song.title}")
   end
 end

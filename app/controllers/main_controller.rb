@@ -1,6 +1,6 @@
 class MainController < ApplicationController
   skip_before_filter :verify_authenticity_token
-  before_filter :set_locale, :except => [:default_locale, :sitemap, :site_info, :favicon]
+  before_filter :set_locale, except: [:default_locale, :sitemap, :site_info, :favicon]
   
   # The main site homepage
   #
@@ -33,25 +33,25 @@ class MainController < ApplicationController
     end
     if params[:zip]
       session[:zip] = params[:zip]
-      @page_title += " " + t('near_zipcode', :zip => params[:zip])
+      @page_title += " " + t('near_zipcode', zip: params[:zip])
       begin
         @results = []
-        # Dealer.find(:all, :origin => params[:zip], :order => 'distance', :within => 15, :limit => 10).each do |d|
+        # Dealer.find(:all, origin: params[:zip], order: 'distance', within: 15, limit: 10).each do |d|
         count = 0
         origin = Geokit::Geocoders::MultiGeocoder.geocode(params[:zip])
         brand_id = website.dealers_from_brand_id || website.brand_id
-        Dealer.near(:origin => origin, :within => 60).where(:brand_id => brand_id).order("distance ASC").all.each do |d|
+        Dealer.near(origin: origin, within: 60).where(brand_id: brand_id).order("distance ASC").all.each do |d|
           unless count > 15 || d.exclude?
             @results << d
             count += 1
           end
         end
         unless @results.size > 0
-          @err = t('errors.no_dealers_found', :zip => params[:zip])
+          @err = t('errors.no_dealers_found', zip: params[:zip])
         end
          @js_map_loader = "map_init('#{@results.first.lat}','#{@results.first.lng}',12,false)"    
       rescue
-        redirect_to(where_to_buy_path, :alert => t('errors.geocoding')) and return false
+        redirect_to(where_to_buy_path, alert: t('errors.geocoding')) and return false
       end
     end
     render_template
@@ -71,8 +71,8 @@ class MainController < ApplicationController
     @query = params[:query]
     ferret_results = ThinkingSphinx.search(
       params[:query], 
-      :page => params[:page], 
-      :per_page => 10
+      page: params[:page], 
+      per_page: 10
     )
     # Probably not the best way to do this, strip out Products from the
     # search results unless the status is set to 'show_on_website'. It
@@ -98,7 +98,7 @@ class MainController < ApplicationController
   #
   def default_locale
     if website.show_locales?
-      render_template(:action => "locale_selector", :layout => "locale")
+      render_template(action: "locale_selector", layout: "locale")
     else
       I18n.locale = website.locale
       redirect_to locale_root_path and return false
@@ -115,50 +115,50 @@ class MainController < ApplicationController
   #
   def locale_sitemap
     @pages = []
-    @pages << { :url => locale_root_url, 
-      :updated_at => Date.today, 
-      :changefreq => 'daily', 
-      :priority => 1 }
-    @pages << { :url => where_to_buy_url,
-      :updated_at => Date.today,
-      :changefreq => 'daily',
-      :priority => 0.7 } if website.has_where_to_buy?
+    @pages << { url: locale_root_url, 
+      updated_at: Date.today, 
+      changefreq: 'daily', 
+      priority: 1 }
+    @pages << { url: where_to_buy_url,
+      updated_at: Date.today,
+      changefreq: 'daily',
+      priority: 0.7 } if website.has_where_to_buy?
     ProductFamily.all_with_current_products(website, I18n.locale).each do |product_family|
-      @pages << { :url => url_for(product_family), 
-        :updated_at => product_family.updated_at,
-        :changefreq => 'weekly',
-        :priority => 0.9 }
+      @pages << { url: url_for(product_family), 
+        updated_at: product_family.updated_at,
+        changefreq: 'weekly',
+        priority: 0.9 }
     end
     Product.all_for_website(website).each do |product|
-      @pages << { :url => url_for(product),
-        :updated_at => product.updated_at,
-        :changefreq => 'weekly',
-        :priority => 0.9 }
-      @pages << { :url => buy_it_now_product_url(product),
-        :updated_at => product.updated_at,
-        :changefreq => 'weekly',
-        :priority => 0.7 } if product.active_retailer_links.length > 0 && !(product.parent_products.count > 0)
+      @pages << { url: url_for(product),
+        updated_at: product.updated_at,
+        changefreq: 'weekly',
+        priority: 0.9 }
+      @pages << { url: buy_it_now_product_url(product),
+        updated_at: product.updated_at,
+        changefreq: 'weekly',
+        priority: 0.7 } if product.active_retailer_links.length > 0 && !(product.parent_products.count > 0)
     end
     News.all_for_website(website).each do |news|
-      @pages << { :url => url_for(news),
-        :updated_at => news.updated_at,
-        :changefreq => 'monthly',
-        :priority => 0.7 }
+      @pages << { url: url_for(news),
+        updated_at: news.updated_at,
+        changefreq: 'monthly',
+        priority: 0.7 }
     end
     if website.has_artists?
     Artist.all_for_website(website).each do |artist|
-      @pages << { :url => url_for(artist),
-        :updated_at => artist.updated_at,
-        :changefreq => 'monthly',
-        :priority => 0.2 }
+      @pages << { url: url_for(artist),
+        updated_at: artist.updated_at,
+        changefreq: 'monthly',
+        priority: 0.2 }
     end
     end
     Page.all_for_website(website).each do |page|
       purl = (!page.custom_route.blank?) ? "#{locale_root_url}/#{page.custom_route}" : url_for(page)
-      @pages << { :url => purl,
-        :updated_at => page.updated_at,
-        :changefreq => 'weekly',
-        :priority => 0.6 }
+      @pages << { url: purl,
+        updated_at: page.updated_at,
+        changefreq: 'weekly',
+        priority: 0.6 }
     end
     render "sitemap"
   end
@@ -166,21 +166,21 @@ class MainController < ApplicationController
   # Overall sitemap (links to each locale sitemap)
   def sitemap
     @pages = []
-    @pages << { :url => root_url(:locale => nil),
-      :updated_at => 1.day.ago,
-      :changefreq => 'daily',
-      :priority => 1 }
+    @pages << { url: root_url(locale: nil),
+      updated_at: 1.day.ago,
+      changefreq: 'daily',
+      priority: 1 }
     website.available_locales.each do |l|
-      @pages << { :url => locale_sitemap_url(:locale => l.locale.to_s, :format => 'xml'),
-        :updated_at => 1.day.ago,
-        :changefreq => 'daily',
-        :priority => 0.8 }
+      @pages << { url: locale_sitemap_url(locale: l.locale.to_s, format: 'xml'),
+        updated_at: 1.day.ago,
+        changefreq: 'daily',
+        priority: 0.8 }
     end
   end
   
   # Generates an RSS feed of the latest News
   def rss
-    @title = t('titles.news', :brand => website.brand_name)
+    @title = t('titles.news', brand: website.brand_name)
     @description = website.value_for("default_meta_tag_description")
     @news = News.all_for_website(website)
     respond_to do |format|
@@ -198,7 +198,7 @@ class MainController < ApplicationController
   
   # Helps to know what site a particular URL is loading:
   def site_info
-    render :inline => "<pre><%= website.to_yaml %></pre>", :layout => false
+    render inline: "<pre><%= website.to_yaml %></pre>", layout: false
   end
   
   # Find and deliver the appropriate favicon.ico file which is used by
@@ -207,9 +207,9 @@ class MainController < ApplicationController
   def favicon
     custom = Rails.root.join("public", "#{website.folder}.ico")
     if File.exists?(custom)
-      send_file custom, :filename => 'favicon.ico', :disposition => 'inline', :type => "image/x-icon"
+      send_file custom, filename: 'favicon.ico', disposition: 'inline', type: "image/x-icon"
     else
-      send_file Rails.root.join("public", "harman.ico"), :filename => 'favicon.ico', :disposition => 'inline', :type => "image/x-icon"
+      send_file Rails.root.join("public", "harman.ico"), filename: 'favicon.ico', disposition: 'inline', type: "image/x-icon"
     end
   end
   
@@ -219,7 +219,7 @@ class MainController < ApplicationController
   
   # /channel.html (used for facebook API)
   def channel
-    render :inline => '<script src="//connect.facebook.net/en_US/all.js"></script>', :layout => false
+    render inline: '<script src="//connect.facebook.net/en_US/all.js"></script>', layout: false
   end
   caches_page :channel
 

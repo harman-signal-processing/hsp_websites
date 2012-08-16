@@ -5,7 +5,7 @@ class Admin::ClinicianQuestionsController < AdminController
   def index
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @clinician_questions }
+      format.xml  { render xml: @clinician_questions }
     end
   end
 
@@ -14,7 +14,7 @@ class Admin::ClinicianQuestionsController < AdminController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @clinician_question }
+      format.xml  { render xml: @clinician_question }
     end
   end
 
@@ -23,7 +23,7 @@ class Admin::ClinicianQuestionsController < AdminController
   def new
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @clinician_question }
+      format.xml  { render xml: @clinician_question }
     end
   end
 
@@ -36,11 +36,11 @@ class Admin::ClinicianQuestionsController < AdminController
   def create
     respond_to do |format|
       if @clinician_question.save
-        format.html { redirect_to([:admin, @clinician_question], :notice => 'Clinician question was successfully created.') }
-        format.xml  { render :xml => @clinician_question, :status => :created, :location => @clinician_question }
+        format.html { redirect_to([:admin, @clinician_question], notice: 'Clinician question was successfully created.') }
+        format.xml  { render xml: @clinician_question, status: :created, location: @clinician_question }
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @clinician_question.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @clinician_question.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -50,11 +50,11 @@ class Admin::ClinicianQuestionsController < AdminController
   def update
     respond_to do |format|
       if @clinician_question.update_attributes(params[:clinician_question])
-        format.html { redirect_to([:admin, @clinician_question], :notice => 'Clinician question was successfully updated.') }
+        format.html { redirect_to([:admin, @clinician_question], notice: 'Clinician question was successfully updated.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @clinician_question.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @clinician_question.errors, status: :unprocessable_entity }
       end
     end
   end

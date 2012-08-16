@@ -5,7 +5,7 @@ class Admin::ProductPromotionsController < AdminController
   def index
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @product_promotions }
+      format.xml  { render xml: @product_promotions }
     end
   end
 
@@ -14,7 +14,7 @@ class Admin::ProductPromotionsController < AdminController
   def show
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @product_promotion }
+      format.xml  { render xml: @product_promotion }
     end
   end
 
@@ -23,7 +23,7 @@ class Admin::ProductPromotionsController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @product_promotion }
+      format.xml  { render xml: @product_promotion }
     end
   end
 
@@ -37,12 +37,13 @@ class Admin::ProductPromotionsController < AdminController
     @called_from = params[:called_from] || 'product'
     respond_to do |format|
       if @product_promotion.save
-        format.html { redirect_to([:admin, @product_promotion], :notice => 'Product/promotion was successfully created.') }
-        format.xml  { render :xml => @product_promotion, :status => :created, :location => @product_promotion }
+        format.html { redirect_to([:admin, @product_promotion], notice: 'Product/promotion was successfully created.') }
+        format.xml  { render xml: @product_promotion, status: :created, location: @product_promotion }
         format.js
+        website.add_log(user: current_user, action: "Added #{@product_promotion.product.name} to #{@product_promotion.promotion.name}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @product_promotion.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @product_promotion.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -52,11 +53,11 @@ class Admin::ProductPromotionsController < AdminController
   def update
     respond_to do |format|
       if @product_promotion.update_attributes(params[:product_promotion])
-        format.html { redirect_to([:admin, @product_promotion.promotion], :notice => 'Product/promotion was successfully updated.') }
+        format.html { redirect_to([:admin, @product_promotion.promotion], notice: 'Product/promotion was successfully updated.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @product_promotion.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @product_promotion.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -70,5 +71,6 @@ class Admin::ProductPromotionsController < AdminController
       format.xml  { head :ok }
       format.js
     end
+    website.add_log(user: current_user, action: "Removed #{@product_promotion.product.name} from #{@product_promotion.promotion.name}")
   end
 end

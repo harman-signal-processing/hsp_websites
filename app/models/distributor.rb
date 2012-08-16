@@ -1,7 +1,7 @@
 class Distributor < ActiveRecord::Base
   validates_presence_of :name, :country
-  has_many :brand_distributors, :dependent => :destroy
-  has_many :brands, :through => :brand_distributors
+  has_many :brand_distributors, dependent: :destroy
+  has_many :brands, through: :brand_distributors
 
   def self.countries(f)
     if f.is_a?(Website)
@@ -15,7 +15,7 @@ class Distributor < ActiveRecord::Base
   end
   
   def create_brand_distributor(website)
-    BrandDistributor.create(:brand_id => website.brand_id, :distributor_id => self.id)
+    BrandDistributor.create(brand_id: website.brand_id, distributor_id: self.id)
   end
   
   def self.find_all_by_country(country, f)
@@ -27,7 +27,7 @@ class Distributor < ActiveRecord::Base
       brand_id = f
     end
     r = []
-    where(:country => country).each do |c|
+    where(country: country).each do |c|
       r << c if c.brands.collect{|b| b.id}.include?(brand_id)
     end
     r

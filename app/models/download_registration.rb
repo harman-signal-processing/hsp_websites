@@ -11,32 +11,32 @@ require 'digest/sha1'
 class DownloadRegistration < ActiveRecord::Base
   belongs_to :registered_download
   
-  validates :first_name, :registered_download_id, :presence => true
+  validates :first_name, :registered_download_id, presence: true
   
   validates :email, 
-    :uniqueness => {:scope => :registered_download_id},
-    :format => /\A([-a-z0-9!\#$%&'*+\/=?^_`{|}~]+\.)*[-a-z0-9!\#$%&'*+\/=?^_`{|}~]+@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
+    uniqueness: {scope: :registered_download_id},
+    format: /\A([-a-z0-9!\#$%&'*+\/=?^_`{|}~]+\.)*[-a-z0-9!\#$%&'*+\/=?^_`{|}~]+@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
     
   validates :serial_number, 
-    :presence => true, 
-    :uniqueness => {:scope => :registered_download_id}, 
-    :if => :require_serial_number?
+    presence: true, 
+    uniqueness: {scope: :registered_download_id}, 
+    if: :require_serial_number?
      
   validates :employee_number, 
-    :presence => true, 
-    :uniqueness => {:scope => :registered_download_id}, 
-    :if => :require_employee_number?
+    presence: true, 
+    uniqueness: {scope: :registered_download_id}, 
+    if: :require_employee_number?
     
   validates :store_number,
-    :presence => true,
-    :if => :require_store_number?
+    presence: true,
+    if: :require_store_number?
     
   validates :manager_name,
-    :presence => true,
-    :if => :require_manager_name?
+    presence: true,
+    if: :require_manager_name?
     
   validate :download_code_is_valid, 
-    :on => :create
+    on: :create
     
   attr_accessor :code_you_received
   before_create :create_download_code

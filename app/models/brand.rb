@@ -159,11 +159,11 @@ class Brand < ActiveRecord::Base
     s = self.settings.where(name: key)
     setting = s.where(["locale IS NULL OR locale = ?", locale]).first
     unless locale == I18n.default_locale # don't look for translation
-      s1 = s.where(:locale => locale)
+      s1 = s.where(locale: locale)
       if s1.all.size > 0
         setting = s1.first
       elsif parent_locale = (I18n.locale.to_s.match(/^(.*)-/)) ? $1 : false # "es-MX" => "es"
-        s2 = s.where(:locale => parent_locale)
+        s2 = s.where(locale: parent_locale)
         if s2.all.size > 0
           setting = s2.first
         end
@@ -186,4 +186,7 @@ class Brand < ActiveRecord::Base
     tabs.split("|")
   end
   
+  def admin_actions(num_days=365)
+    AdminLog.where(website_id: self.websites.collect{|w| w.id}).where("created_at > ?", num_days.days.ago)
+  end
 end

@@ -3,10 +3,10 @@ class Admin::FaqsController < AdminController
   # GET /faqs
   # GET /faqs.xml
   def index
-    @faqs = @faqs.where(:product_id => website.products.collect{|p| p.id}).sort_by(&:sort_key)
+    @faqs = @faqs.where(product_id: website.products.collect{|p| p.id}).sort_by(&:sort_key)
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @faqs }
+      format.xml  { render xml: @faqs }
     end
   end
 
@@ -15,7 +15,7 @@ class Admin::FaqsController < AdminController
   def show
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @faq }
+      format.xml  { render xml: @faq }
     end
   end
 
@@ -27,7 +27,7 @@ class Admin::FaqsController < AdminController
     end
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @faq }
+      format.xml  { render xml: @faq }
     end
   end
 
@@ -40,11 +40,12 @@ class Admin::FaqsController < AdminController
   def create
     respond_to do |format|
       if @faq.save
-        format.html { redirect_to([:admin, @faq], :notice => 'Question was successfully created.') }
-        format.xml  { render :xml => @faq, :status => :created, :location => @faq }
+        format.html { redirect_to([:admin, @faq], notice: 'Question was successfully created.') }
+        format.xml  { render xml: @faq, status: :created, location: @faq }
+        website.add_log(user: current_user, action: "Created FAQ: #{@faq.question}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @faq.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @faq.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -54,11 +55,12 @@ class Admin::FaqsController < AdminController
   def update
     respond_to do |format|
       if @faq.update_attributes(params[:faq])
-        format.html { redirect_to([:admin, @faq], :notice => 'Question was successfully updated.') }
+        format.html { redirect_to([:admin, @faq], notice: 'Question was successfully updated.') }
         format.xml  { head :ok }
+        website.add_log(user: current_user, action: "Updated FAQ: #{@faq.question}")
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @faq.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @faq.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -71,5 +73,6 @@ class Admin::FaqsController < AdminController
       format.html { redirect_to(admin_faqs_url) }
       format.xml  { head :ok }
     end
+    website.add_log(user: current_user, action: "Deleted FAQ: #{@faq.question}")
   end
 end

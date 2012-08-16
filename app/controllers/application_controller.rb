@@ -6,12 +6,12 @@ class ApplicationController < ActionController::Base
   layout :set_layout
 
   unless config.consider_all_requests_local || Rails.env.development?
-    # rescue_from Exception, :with => :render_error
-    rescue_from ActiveRecord::RecordNotFound, :with => :render_not_found
-    rescue_from ActionController::RoutingError, :with => :render_not_found
-    rescue_from ActionController::UnknownController, :with => :render_not_found
+    # rescue_from Exception, with: :render_error
+    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
+    rescue_from ActionController::RoutingError, with: :render_not_found
+    rescue_from ActionController::UnknownController, with: :render_not_found
     # customize these as much as you want, ie, different for every error or all the same
-    rescue_from ::AbstractController::ActionNotFound, :with => :render_not_found
+    rescue_from ::AbstractController::ActionNotFound, with: :render_not_found
   end
 
   # This method is getting complicated...It chooses the appropriate layout file based on
@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
   end
   
   def render_template(options={})
-    default_options = {:controller => controller_path, :action => action_name, :layout => set_layout}
+    default_options = {controller: controller_path, action: action_name, layout: set_layout}
     options = default_options.merge options
     root_folder = (website && website.folder) ? "#{website.folder}/" : ''
     brand_specific = "#{root_folder}#{options[:controller]}/#{options[:action]}"
@@ -52,11 +52,11 @@ class ApplicationController < ActionController::Base
     template = (File.exists?(Rails.root.join("app", "views", "#{brand_specific}.html.erb"))) ? brand_specific : generic
     logger.debug "------> Brand template: #{brand_specific}"
     logger.debug "----------------------------> Selected Template: #{template}"
-    render :template => template, :layout => options[:layout]
+    render template: template, layout: options[:layout]
   end
   
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to admin_root_path, :alert => exception.message
+    redirect_to admin_root_path, alert: exception.message
   end
   
   def set_default_meta_tags
@@ -70,15 +70,15 @@ class ApplicationController < ActionController::Base
   end
   
   def default_url_options(options={})
-    # {:locale => website.locale}
-    {:locale => I18n.locale}
+    # {locale: website.locale}
+    {locale: I18n.locale}
   end
   
   # Utility function used to re-order an ActiveRecord list
   # Pass in a model name and a list of ordered objects
   def update_list_order(model, order)
     order.to_a.each_with_index do |item, pos|
-      model.update(item, :position =>(pos + 1))
+      model.update(item, position:(pos + 1))
     end
   end
 
@@ -101,7 +101,7 @@ private
     generic = "errors/#{status}"
     brand_specific = "#{root_folder}#{generic}"
     template = (File.exists?(Rails.root.join("app", "views", "#{brand_specific}.html.erb"))) ? brand_specific : generic
-    render :template => template, :layout => false, :status => status and return
+    render template: template, layout: false, status: status and return
   end
   
   def website

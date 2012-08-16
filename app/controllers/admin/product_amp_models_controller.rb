@@ -5,7 +5,7 @@ class Admin::ProductAmpModelsController < AdminController
   def index
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @product_amp_models }
+      format.xml  { render xml: @product_amp_models }
     end
   end
 
@@ -14,7 +14,7 @@ class Admin::ProductAmpModelsController < AdminController
   def show
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @product_amp_model }
+      format.xml  { render xml: @product_amp_model }
     end
   end
 
@@ -23,7 +23,7 @@ class Admin::ProductAmpModelsController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @product_amp_model }
+      format.xml  { render xml: @product_amp_model }
     end
   end
 
@@ -45,13 +45,14 @@ class Admin::ProductAmpModelsController < AdminController
     @called_from = params[:called_from] || "product"
     respond_to do |format|
       if @product_amp_model.save
-        format.html { redirect_to([:admin, @product_amp_model], :notice => 'Product amp_model was successfully created.') }
-        format.xml  { render :xml => @product_amp_model, :status => :created, :location => @product_amp_model }
+        format.html { redirect_to([:admin, @product_amp_model], notice: 'Product amp_model was successfully created.') }
+        format.xml  { render xml: @product_amp_model, status: :created, location: @product_amp_model }
         format.js 
+        website.add_log(user: current_user, action: "Added amp model #{@product_amp_model.amp_model.name} to #{@product_amp_model.product.name}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @product_amp_model.errors, :status => :unprocessable_entity }
-        format.js { render :template => "create_error" }
+        format.html { render action: "new" }
+        format.xml  { render xml: @product_amp_model.errors, status: :unprocessable_entity }
+        format.js { render template: "create_error" }
       end
     end
   end
@@ -61,11 +62,11 @@ class Admin::ProductAmpModelsController < AdminController
   def update
     respond_to do |format|
       if @product_amp_model.update_attributes(params[:product_amp_model])
-        format.html { redirect_to([:admin, @product_amp_model], :notice => 'Product amp_model was successfully updated.') }
+        format.html { redirect_to([:admin, @product_amp_model], notice: 'Product amp_model was successfully updated.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @product_amp_model.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @product_amp_model.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -79,5 +80,6 @@ class Admin::ProductAmpModelsController < AdminController
       format.xml  { head :ok }
       format.js
     end
+    website.add_log(user: current_user, action: "Deleted amp model #{@product_amp_model.amp_model.name} from #{@product_amp_model.product.name}")
   end
 end

@@ -1,6 +1,6 @@
 class Admin::ContentTranslationsController < AdminController
-  load_and_authorize_resource :only => [:index, :list]
-  skip_authorization_check :only => :combined
+  load_and_authorize_resource only: [:index, :list]
+  skip_authorization_check only: :combined
   before_filter :get_target_locale
 
   def index
@@ -11,9 +11,9 @@ class Admin::ContentTranslationsController < AdminController
     if @model_class == "ProductReview"
       @records = ProductReview.where("body IS NOT NULL").all
     elsif @model_class.constantize.new.respond_to?(:brand_id)
-      @records = @model_class.constantize.where(:brand_id => website.brand_id).all
+      @records = @model_class.constantize.where(brand_id: website.brand_id).all
     elsif @model_class.constantize.new.respond_to?(:product_id)
-      @records = @model_class.constantize.where(:product_id => @brand.products.collect{|p| p.id})
+      @records = @model_class.constantize.where(product_id: @brand.products.collect{|p| p.id})
     else
       @records = @model_class.constantize.all
     end
@@ -35,7 +35,7 @@ class Admin::ContentTranslationsController < AdminController
         content_translation.content = params[:content][content_translation.content_method]
         content_translation.save!
       end
-      redirect_to list_admin_content_translations_path(:target_locale => @target_locale, :type => @model_class), :notice => "Updated successfully."
+      redirect_to list_admin_content_translations_path(target_locale: @target_locale, type: @model_class), notice: "Updated successfully."
     end
   end
 

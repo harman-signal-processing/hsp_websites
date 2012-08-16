@@ -18,3 +18,22 @@
 	</li>
 	<% end %>
 </ul>
+
+<h2>Latest Admin Actions</h2>
+
+<table class="data">
+	<tr>
+		<th>Time</th>
+		<th>User</th>
+		<th>Website</th>
+		<th>Action</th>
+	</tr>
+	<% @brand.admin_actions(2).order("created_at DESC").each do |log| %>
+	<tr>
+		<td><%=l log.created_at, format: :log %></td>
+		<td><%= link_to log.user.name, [:admin, log.user] %></td>
+		<td><%= log.website.url %></td>
+		<td><%= log.action %></td>
+	</tr>
+	<% end %>
+</table>

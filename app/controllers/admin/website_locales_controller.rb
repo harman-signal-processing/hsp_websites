@@ -5,7 +5,7 @@ class Admin::WebsiteLocalesController < AdminController
   def index
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @website_locales }
+      format.xml  { render xml: @website_locales }
     end
   end
 
@@ -14,7 +14,7 @@ class Admin::WebsiteLocalesController < AdminController
   def show
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @website_locale }
+      format.xml  { render xml: @website_locale }
     end
   end
 
@@ -23,7 +23,7 @@ class Admin::WebsiteLocalesController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @website_locale }
+      format.xml  { render xml: @website_locale }
     end
   end
 
@@ -36,12 +36,12 @@ class Admin::WebsiteLocalesController < AdminController
   def create
     respond_to do |format|
       if @website_locale.save
-        format.html { redirect_to([:admin, @website_locale.website], :notice => 'Locale was successfully created.') }
-        format.xml  { render :xml => @website_locale, :status => :created, :location => @website_locale }
+        format.html { redirect_to([:admin, @website_locale.website], notice: 'Locale was successfully created.') }
+        format.xml  { render xml: @website_locale, status: :created, location: @website_locale }
         format.js
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @website_locale.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @website_locale.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -51,11 +51,11 @@ class Admin::WebsiteLocalesController < AdminController
   def update
     respond_to do |format|
       if @website_locale.update_attributes(params[:website_locale])
-        format.html { redirect_to([:admin, @website_locale.website], :notice => 'Locale was successfully updated.') }
+        format.html { redirect_to([:admin, @website_locale.website], notice: 'Locale was successfully updated.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @website_locale.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @website_locale.errors, status: :unprocessable_entity }
       end
     end
   end

@@ -7,7 +7,7 @@ class Admin::WarrantyRegistrationsController < AdminController
       format.html { render_template } # index.html.erb
       format.xml  { 
         @warranty_registrations = WarrantyRegistration.all
-        render :xml => @warranty_registrations 
+        render xml: @warranty_registrations 
       }
     end
   end
@@ -25,7 +25,7 @@ class Admin::WarrantyRegistrationsController < AdminController
   def show
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @warranty_registration }
+      format.xml  { render xml: @warranty_registration }
     end
   end
 
@@ -34,7 +34,7 @@ class Admin::WarrantyRegistrationsController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @warranty_registration }
+      format.xml  { render xml: @warranty_registration }
     end
   end
 
@@ -47,11 +47,11 @@ class Admin::WarrantyRegistrationsController < AdminController
   def create
     respond_to do |format|
       if @warranty_registration.save
-        format.html { redirect_to([:admin, @warranty_registration], :notice => 'Warranty registration was successfully created.') }
-        format.xml  { render :xml => @warranty_registration, :status => :created, :location => @warranty_registration }
+        format.html { redirect_to([:admin, @warranty_registration], notice: 'Warranty registration was successfully created.') }
+        format.xml  { render xml: @warranty_registration, status: :created, location: @warranty_registration }
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @warranty_registration.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @warranty_registration.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -61,11 +61,11 @@ class Admin::WarrantyRegistrationsController < AdminController
   def update
     respond_to do |format|
       if @warranty_registration.update_attributes(params[:warranty_registration])
-        format.html { redirect_to([:admin, @warranty_registration], :notice => 'Warranty registration was successfully updated.') }
+        format.html { redirect_to([:admin, @warranty_registration], notice: 'Warranty registration was successfully updated.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @warranty_registration.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @warranty_registration.errors, status: :unprocessable_entity }
       end
     end
   end

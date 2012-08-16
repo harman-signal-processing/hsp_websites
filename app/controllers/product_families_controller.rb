@@ -1,6 +1,6 @@
 class ProductFamiliesController < ApplicationController
   before_filter :set_locale
-  before_filter :ensure_best_url, :only => :show
+  before_filter :ensure_best_url, only: :show
   
   # GET /product_families
   # GET /product_families.xml
@@ -9,7 +9,7 @@ class ProductFamiliesController < ApplicationController
 
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @product_families }
+      format.xml  { render xml: @product_families }
     end
   end
 
@@ -26,12 +26,12 @@ class ProductFamiliesController < ApplicationController
         elsif @product_family.children_with_current_products(website).size == 1 && @product_family.children_with_current_products(website).first.current_products.size == 1
           redirect_to @product_family.children_with_current_products(website).first.current_products.first and return 
         elsif !@product_family.layout_class.blank? && File.exists?(Rails.root.join("app", "views", website.folder, "product_families", "#{@product_family.layout_class}.html.erb"))
-          render :template => "#{website.folder}/product_families/#{@product_family.layout_class}", :layout => set_layout
+          render template: "#{website.folder}/product_families/#{@product_family.layout_class}", layout: set_layout
         else
           render_template
         end        
       }
-      format.xml  { render :xml => @product_family }
+      format.xml  { render xml: @product_family }
     end
   end
   
@@ -39,6 +39,6 @@ class ProductFamiliesController < ApplicationController
   
   def ensure_best_url
     @product_family = ProductFamily.find_by_cached_slug(params[:id]) || ProductFamily.find(params[:id])
-    # redirect_to @product_family, :status => :moved_permanently unless @product_family.friendly_id_status.best?
+    # redirect_to @product_family, status: :moved_permanently unless @product_family.friendly_id_status.best?
   end
 end

@@ -1,7 +1,7 @@
 class ArtistTier < ActiveRecord::Base
   has_many :artists
-  validates :name, :presence => true, :uniqueness => true
-  validates :invitation_code, :uniqueness => true
+  validates :name, presence: true, uniqueness: true
+  validates :invitation_code, uniqueness: true
   acts_as_list
   
   def self.default
@@ -13,7 +13,7 @@ class ArtistTier < ActiveRecord::Base
   end
   
   def self.for_artist_page
-    where(:show_on_artist_page => true).order("position")
+    where(show_on_artist_page: true).order("position")
   end
   
   def artists_for(website)

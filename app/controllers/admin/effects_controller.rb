@@ -8,17 +8,17 @@ class Admin::EffectsController < AdminController
     @effect_type = EffectType.new
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @effects }
+      format.xml  { render xml: @effects }
     end
   end
 
   # GET /effects/1
   # GET /effects/1.xml
   def show
-    @product_effect = ProductEffect.new(:effect => @effect)
+    @product_effect = ProductEffect.new(effect: @effect)
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @effect }
+      format.xml  { render xml: @effect }
     end
   end
 
@@ -30,7 +30,7 @@ class Admin::EffectsController < AdminController
     end
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @effect }
+      format.xml  { render xml: @effect }
     end
   end
 
@@ -43,11 +43,12 @@ class Admin::EffectsController < AdminController
   def create
     respond_to do |format|
       if @effect.save
-        format.html { redirect_to([:admin, @effect], :notice => 'Effect was successfully created.') }
-        format.xml  { render :xml => @effect, :status => :created, :location => @effect }
+        format.html { redirect_to([:admin, @effect], notice: 'Effect was successfully created.') }
+        format.xml  { render xml: @effect, status: :created, location: @effect }
+        website.add_log(user: current_user, action: "Created effect: #{@effect.name}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @effect.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @effect.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -57,11 +58,12 @@ class Admin::EffectsController < AdminController
   def update
     respond_to do |format|
       if @effect.update_attributes(params[:effect])
-        format.html { redirect_to([:admin, @effect], :notice => 'Effect was successfully updated.') }
+        format.html { redirect_to([:admin, @effect], notice: 'Effect was successfully updated.') }
         format.xml  { head :ok }
+        website.add_log(user: current_user, action: "Updated effect: #{@effect.name}")
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @effect.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @effect.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -74,5 +76,6 @@ class Admin::EffectsController < AdminController
       format.html { redirect_to(admin_effects_url) }
       format.xml  { head :ok }
     end
+    website.add_log(user: current_user, action: "Deleted effect: #{@effect.name}")
   end
 end

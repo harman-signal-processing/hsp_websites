@@ -1,7 +1,7 @@
 class ServiceCenter < ActiveRecord::Base
   acts_as_mappable
   validates_presence_of :address, :city, :state, :name, :brand_id
-  before_validation :geocode_address, :on => :create 
+  before_validation :geocode_address, on: :create 
   before_update :regeocode
   belongs_to :brand, touch: true
   

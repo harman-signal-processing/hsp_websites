@@ -26,7 +26,7 @@ class RsoSetting < ActiveRecord::Base
   
   def self.value_for(key)
     begin
-      where(:name => key).first.value
+      where(name: key).first.value
     rescue
       nil
     end

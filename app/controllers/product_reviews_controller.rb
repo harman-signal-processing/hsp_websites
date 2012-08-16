@@ -1,6 +1,6 @@
 class ProductReviewsController < ApplicationController
   before_filter :set_locale
-  before_filter :ensure_best_url, :only => :show
+  before_filter :ensure_best_url, only: :show
   
   # GET /product_reviews
   # GET /product_reviews.xml
@@ -9,7 +9,7 @@ class ProductReviewsController < ApplicationController
 
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @product_reviews }
+      format.xml  { render xml: @product_reviews }
     end
   end
 
@@ -27,7 +27,7 @@ class ProductReviewsController < ApplicationController
     end
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @product_review }
+      format.xml  { render xml: @product_review }
     end
   end
   
@@ -35,7 +35,7 @@ class ProductReviewsController < ApplicationController
   
   def ensure_best_url
     @product_review = ProductReview.find_by_cached_slug(params[:id]) || ProductReview.find(params[:id])
-    # redirect_to @product_review, :status => :moved_permanently unless @product_review.friendly_id_status.best?
+    # redirect_to @product_review, status: :moved_permanently unless @product_review.friendly_id_status.best?
   end
 
 end

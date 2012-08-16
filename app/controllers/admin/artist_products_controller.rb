@@ -5,7 +5,7 @@ class Admin::ArtistProductsController < AdminController
   def index
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @artist_products }
+      format.xml  { render xml: @artist_products }
     end
   end
 
@@ -14,7 +14,7 @@ class Admin::ArtistProductsController < AdminController
   def show
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @artist_product }
+      format.xml  { render xml: @artist_product }
     end
   end
 
@@ -23,7 +23,7 @@ class Admin::ArtistProductsController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @artist_product }
+      format.xml  { render xml: @artist_product }
     end
   end
 
@@ -37,12 +37,13 @@ class Admin::ArtistProductsController < AdminController
     @called_from = params[:called_from] || 'product'
     respond_to do |format|
       if @artist_product.save
-        format.html { redirect_to([:admin, @artist_product], :notice => 'Artist product was successfully created.') }
-        format.xml  { render :xml => @artist_product, :status => :created, :location => @artist_product }
+        format.html { redirect_to([:admin, @artist_product], notice: 'Artist product was successfully created.') }
+        format.xml  { render xml: @artist_product, status: :created, location: @artist_product }
         format.js
+        website.add_log(user: current_user, action: "Associated #{@artist_product.product.name} with #{@artist_product.artist.name}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @artist_product.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @artist_product.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -52,11 +53,11 @@ class Admin::ArtistProductsController < AdminController
   def update
     respond_to do |format|
       if @artist_product.update_attributes(params[:artist_product])
-        format.html { redirect_to([:admin, @artist_product.artist], :notice => 'Artist product was successfully updated.') }
+        format.html { redirect_to([:admin, @artist_product.artist], notice: 'Artist product was successfully updated.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @artist_product.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @artist_product.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -70,5 +71,6 @@ class Admin::ArtistProductsController < AdminController
       format.xml  { head :ok }
       format.js
     end
+    website.add_log(user: current_user, action: "Unassociated #{@artist_product.product.name} with #{@artist_product.artist.name}")
   end
 end

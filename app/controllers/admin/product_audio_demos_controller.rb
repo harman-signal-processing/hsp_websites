@@ -5,7 +5,7 @@ class Admin::ProductAudioDemosController < AdminController
   def index
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @product_audio_demos }
+      format.xml  { render xml: @product_audio_demos }
     end
   end
 
@@ -14,7 +14,7 @@ class Admin::ProductAudioDemosController < AdminController
   def show
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @product_audio_demo }
+      format.xml  { render xml: @product_audio_demo }
     end
   end
 
@@ -23,7 +23,7 @@ class Admin::ProductAudioDemosController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @product_audio_demo }
+      format.xml  { render xml: @product_audio_demo }
     end
   end
 
@@ -37,13 +37,14 @@ class Admin::ProductAudioDemosController < AdminController
     @called_from = params[:called_from] || "product"
     respond_to do |format|
       if @product_audio_demo.save
-        format.html { redirect_to([:admin, @product_audio_demo], :notice => 'Product audio demo was successfully created.') }
-        format.xml  { render :xml => @product_audio_demo, :status => :created, :location => @product_audio_demo }
+        format.html { redirect_to([:admin, @product_audio_demo], notice: 'Product audio demo was successfully created.') }
+        format.xml  { render xml: @product_audio_demo, status: :created, location: @product_audio_demo }
         format.js 
+        website.add_log(user: current_user, action: "Associated audio demo #{@product_audio_demo.audio_demo.name} with #{@product_audio_demo.product.name}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @product_audio_demo.errors, :status => :unprocessable_entity }
-        format.js { render :template => "create_error" }
+        format.html { render action: "new" }
+        format.xml  { render xml: @product_audio_demo.errors, status: :unprocessable_entity }
+        format.js { render template: "create_error" }
       end
     end
   end
@@ -53,11 +54,11 @@ class Admin::ProductAudioDemosController < AdminController
   def update
     respond_to do |format|
       if @product_audio_demo.update_attributes(params[:product_audio_demo])
-        format.html { redirect_to([:admin, @product_audio_demo], :notice => 'Product audio demo was successfully updated.') }
+        format.html { redirect_to([:admin, @product_audio_demo], notice: 'Product audio demo was successfully updated.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @product_audio_demo.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @product_audio_demo.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -71,5 +72,6 @@ class Admin::ProductAudioDemosController < AdminController
       format.xml  { head :ok }
       format.js
     end
+    website.add_log(user: current_user, action: "Deleted audio demo #{@product_audio_demo.audio_demo.name} from #{@product_audio_demo.product.name}")
   end
 end

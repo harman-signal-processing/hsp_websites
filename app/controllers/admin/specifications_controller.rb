@@ -5,7 +5,7 @@ class Admin::SpecificationsController < AdminController
   def index
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @specifications }
+      format.xml  { render xml: @specifications }
     end
   end
 
@@ -14,7 +14,7 @@ class Admin::SpecificationsController < AdminController
   def show
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @specification }
+      format.xml  { render xml: @specification }
     end
   end
 
@@ -23,7 +23,7 @@ class Admin::SpecificationsController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @specification }
+      format.xml  { render xml: @specification }
     end
   end
 
@@ -36,11 +36,12 @@ class Admin::SpecificationsController < AdminController
   def create
     respond_to do |format|
       if @specification.save
-        format.html { redirect_to([:admin, @specification], :notice => 'Specification was successfully created.') }
-        format.xml  { render :xml => @specification, :status => :created, :location => @specification }
+        format.html { redirect_to([:admin, @specification], notice: 'Specification was successfully created.') }
+        format.xml  { render xml: @specification, status: :created, location: @specification }
+        website.add_log(user: current_user, action: "Created spec: #{@specification.name}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @specification.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @specification.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -50,11 +51,12 @@ class Admin::SpecificationsController < AdminController
   def update
     respond_to do |format|
       if @specification.update_attributes(params[:specification])
-        format.html { redirect_to([:admin, @specification], :notice => 'Specification was successfully updated.') }
+        format.html { redirect_to([:admin, @specification], notice: 'Specification was successfully updated.') }
         format.xml  { head :ok }
+        website.add_log(user: current_user, action: "Updated spec: #{@specification.name}")
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @specification.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @specification.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -67,5 +69,6 @@ class Admin::SpecificationsController < AdminController
       format.html { redirect_to(admin_specifications_url) }
       format.xml  { head :ok }
     end
+    website.add_log(user: current_user, action: "Deleted spec: #{@specification.name}")
   end
 end

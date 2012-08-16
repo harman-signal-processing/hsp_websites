@@ -1,6 +1,6 @@
 class BlogsController < ApplicationController
   before_filter :set_locale
-  before_filter :ensure_best_url, :only => :show
+  before_filter :ensure_best_url, only: :show
   
   # GET /blogs
   # GET /blogs.json
@@ -17,7 +17,7 @@ class BlogsController < ApplicationController
   def show
     respond_to do |format|
       format.html {
-        render :layout => @blog.layout
+        render layout: @blog.layout
       }
       format.xml { render xml: @blog.published_articles }
       format.json { render json: @blog.published_articles }
@@ -28,7 +28,7 @@ class BlogsController < ApplicationController
   
   def ensure_best_url
     @blog = Blog.find(params[:id])
-    redirect_to @blog, :status => :moved_permanently unless @blog.friendly_id_status.best?
+    redirect_to @blog, status: :moved_permanently unless @blog.friendly_id_status.best?
   end
   
 end

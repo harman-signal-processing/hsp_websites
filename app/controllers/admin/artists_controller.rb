@@ -3,23 +3,23 @@ class Admin::ArtistsController < AdminController
   # GET /admin/artists
   # GET /admin/artists.xml
   def index
-    @featured_artists = website.artists.where(:featured => true).sort_by(&:position)
+    @featured_artists = website.artists.where(featured: true).sort_by(&:position)
     @unapproved_artists = @artists.where("approver_id IS NULL OR approver_id = ''").order("name")
     @the_rest = @artists - @featured_artists - @unapproved_artists
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @artists }
+      format.xml  { render xml: @artists }
     end
   end
 
   # GET /admin/artists/1
   # GET /admin/artists/1.xml
   def show
-    @artist_product = ArtistProduct.new(:artist => @artist)
+    @artist_product = ArtistProduct.new(artist: @artist)
     @artist_brand = ArtistBrand.find_or_initialize_by_artist_id_and_brand_id(@artist.id, website.brand_id)
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @artist }
+      format.xml  { render xml: @artist }
     end
   end
 
@@ -30,7 +30,7 @@ class Admin::ArtistsController < AdminController
     @artist_brand = ArtistBrand.new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @artist }
+      format.xml  { render xml: @artist }
     end
   end
 
@@ -55,11 +55,12 @@ class Admin::ArtistsController < AdminController
         @artist_brand.artist_id = @artist.id 
         @artist_brand.brand_id = website.brand_id
         @artist_brand.save
-        format.html { redirect_to([:admin, @artist], :notice => 'Artist was successfully created.') }
-        format.xml  { render :xml => @artist, :status => :created, :location => @artist }
+        format.html { redirect_to([:admin, @artist], notice: 'Artist was successfully created.') }
+        format.xml  { render xml: @artist, status: :created, location: @artist }
+        website.add_log(user: current_user, action: "Created artist #{@artist.name}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @artist.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @artist.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -67,7 +68,8 @@ class Admin::ArtistsController < AdminController
   # PUT /admin/product_families/update_order
   def update_order
     update_list_order(Artist, params["artists"])
-    render :nothing=>true
+    render nothing:true
+    website.add_log(user: current_user, action: "Changed the artist sort order")
   end
   
   # POST /admin/artists/1/reset_password
@@ -77,8 +79,9 @@ class Admin::ArtistsController < AdminController
     @artist.password_confirmation = @artist.password
     respond_to do |format|
       if @artist.save
-        format.html { redirect_to([:admin, @artist], :notice => "Password was reset to: #{new_password}")}
+        format.html { redirect_to([:admin, @artist], notice: "Password was reset to: #{new_password}")}
         format.xml { head :ok }
+        website.add_log(user: current_user, action: "Reset password for artist #{@artist.name}")
       end
     end
   end
@@ -94,11 +97,12 @@ class Admin::ArtistsController < AdminController
     respond_to do |format|
       if @artist.update_attributes(params[:artist])
         @artist_brand.update_attributes(params[:artist_brand])
-        format.html { redirect_to([:admin, @artist], :notice => 'Artist was successfully updated.') }
+        format.html { redirect_to([:admin, @artist], notice: 'Artist was successfully updated.') }
         format.xml  { head :ok }
+        website.add_log(user: current_user, action: "Updated artist: #{@artist.name}")
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @artist.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @artist.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -117,5 +121,6 @@ class Admin::ArtistsController < AdminController
       format.html { redirect_to(admin_artists_url) }
       format.xml  { head :ok }
     end
+    website.add_log(user: current_user, action: "Deleted artist: #{@artist.name}")
   end
 end

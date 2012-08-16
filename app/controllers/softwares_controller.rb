@@ -1,5 +1,5 @@
 class SoftwaresController < ApplicationController
-  before_filter :set_locale, :except => [:activate]
+  before_filter :set_locale, except: [:activate]
   
   # GET /softwares
   # GET /softwares.xml
@@ -9,8 +9,8 @@ class SoftwaresController < ApplicationController
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { 
-        @softwares = Software.find_all_by_active_and_brand_id(true, website.brand_id, :order => "name,version")
-        render :xml => @softwares 
+        @softwares = Software.find_all_by_active_and_brand_id(true, website.brand_id, order: "name,version")
+        render xml: @softwares 
       }
     end
   end
@@ -27,12 +27,12 @@ class SoftwaresController < ApplicationController
       respond_to do |format|
         format.html { 
           if !@software.layout_class.blank? && File.exists?(Rails.root.join("app", "views", website.folder, "softwares", "#{@software.layout_class}.html.erb"))
-            render :template => "#{website.folder}/softwares/#{@software.layout_class}", :layout => set_layout
+            render template: "#{website.folder}/softwares/#{@software.layout_class}", layout: set_layout
           else
             render_template
           end
         }
-        format.xml  { render :xml => @software }
+        format.xml  { render xml: @software }
       end
     else
       redirect_to softwares_path and return
@@ -52,7 +52,7 @@ class SoftwaresController < ApplicationController
       @software.link = "http://" + @software.link unless @software.link.match(/^http/)
       redirect_to @software.link and return
     else
-      send_file @software.ware.path, :content_type => @software.ware_content_type
+      send_file @software.ware.path, content_type: @software.ware_content_type
       # redirect_to @software.ware.url
     end
   end
@@ -69,13 +69,13 @@ class SoftwaresController < ApplicationController
     software_name = params[:software_name]
     challenge = params[:challenge]
     if software_name.blank? || challenge.blank?
-      render :text => "Incomplete information. Please try again." and return
+      render text: "Incomplete information. Please try again." and return
     else
       software = Software.find_by_activation_name(software_name)
-      @activation = SoftwareActivation.create(:software => software, :challenge => challenge)
+      @activation = SoftwareActivation.create(software: software, challenge: challenge)
       brand_layout = "#{website.folder}/layouts/software_activation"
       use_layout = File.exist?(Rails.root.join("app", "views", "#{brand_layout}.html.erb")) ? "/#{brand_layout}" : true
-      render_template :layout => use_layout
+      render_template layout: use_layout
     end
   end
 

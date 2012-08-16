@@ -3,12 +3,12 @@ class Admin::BlogsController < AdminController
   # GET /admin/blogs
   # GET /admin/blogs.xml
   def index
-    @blogs = @blogs.where(:brand_id => website.brand_id)
+    @blogs = @blogs.where(brand_id: website.brand_id)
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { 
         @blogs = Blog.all
-        render :xml => @blogs 
+        render xml: @blogs 
       }
     end
   end
@@ -18,7 +18,7 @@ class Admin::BlogsController < AdminController
   def show
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @blog }
+      format.xml  { render xml: @blog }
     end
   end
 
@@ -27,7 +27,7 @@ class Admin::BlogsController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @blog }
+      format.xml  { render xml: @blog }
     end
   end
 
@@ -41,11 +41,12 @@ class Admin::BlogsController < AdminController
     @blog.brand_id = website.brand_id
     respond_to do |format|
       if @blog.save
-        format.html { redirect_to([:admin, @blog], :notice => 'Blog was successfully created.') }
-        format.xml  { render :xml => @blog, :status => :created, :location => @blog }
+        format.html { redirect_to([:admin, @blog], notice: 'Blog was successfully created.') }
+        format.xml  { render xml: @blog, status: :created, location: @blog }
+        website.add_log(user: current_user, action: "Created blog: #{@blog.name}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @blog.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @blog.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -55,11 +56,12 @@ class Admin::BlogsController < AdminController
   def update
     respond_to do |format|
       if @blog.update_attributes(params[:blog])
-        format.html { redirect_to([:admin, @blog], :notice => 'Blog was successfully updated.') }
+        format.html { redirect_to([:admin, @blog], notice: 'Blog was successfully updated.') }
         format.xml  { head :ok }
+        website.add_log(user: current_user, action: "Updated blog: #{@blog.name}")
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @blog.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @blog.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -72,6 +74,7 @@ class Admin::BlogsController < AdminController
       format.html { redirect_to(admin_blogs_url) }
       format.xml  { head :ok }
     end
+    website.add_log(user: current_user, action: "Deleted blog: #{@blog.name}")
   end
   
 end

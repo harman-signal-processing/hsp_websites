@@ -5,7 +5,7 @@ class Admin::ProductCabinetsController < AdminController
   def index
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @product_cabinets }
+      format.xml  { render xml: @product_cabinets }
     end
   end
 
@@ -14,7 +14,7 @@ class Admin::ProductCabinetsController < AdminController
   def show
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @product_cabinet }
+      format.xml  { render xml: @product_cabinet }
     end
   end
 
@@ -23,7 +23,7 @@ class Admin::ProductCabinetsController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @product_cabinet }
+      format.xml  { render xml: @product_cabinet }
     end
   end
 
@@ -45,13 +45,14 @@ class Admin::ProductCabinetsController < AdminController
     @called_from = params[:called_from] || "product"
     respond_to do |format|
       if @product_cabinet.save
-        format.html { redirect_to([:admin, @product_cabinet], :notice => 'Product cabinet was successfully created.') }
-        format.xml  { render :xml => @product_cabinet, :status => :created, :location => @product_cabinet }
+        format.html { redirect_to([:admin, @product_cabinet], notice: 'Product cabinet was successfully created.') }
+        format.xml  { render xml: @product_cabinet, status: :created, location: @product_cabinet }
         format.js 
+        website.add_log(user: current_user, action: "Added cabinet #{@product_cabinet.cabinet.name} to #{@product_cabinet.product.name}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @product_cabinet.errors, :status => :unprocessable_entity }
-        format.js { render :template => "create_error" }
+        format.html { render action: "new" }
+        format.xml  { render xml: @product_cabinet.errors, status: :unprocessable_entity }
+        format.js { render template: "create_error" }
       end
     end
   end
@@ -61,11 +62,11 @@ class Admin::ProductCabinetsController < AdminController
   def update
     respond_to do |format|
       if @product_cabinet.update_attributes(params[:product_cabinet])
-        format.html { redirect_to([:admin, @product_cabinet], :notice => 'Product cabinet was successfully updated.') }
+        format.html { redirect_to([:admin, @product_cabinet], notice: 'Product cabinet was successfully updated.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @product_cabinet.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @product_cabinet.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -79,5 +80,6 @@ class Admin::ProductCabinetsController < AdminController
       format.xml  { head :ok }
       format.js 
     end
+    website.add_log(user: current_user, action: "Removed cabinet #{@product_cabinet.cabinet.name} from #{@product_cabinet.product.name}")
   end
 end

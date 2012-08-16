@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
-  has_many :online_retailer_users, :dependent => :destroy
-  has_many :online_retailers, :through => :online_retailer_users
-  has_many :clinics, :class_name => "Clinic", :foreign_key => "clinician_id" # but only if he's a clinician
-  has_many :rep_clinics, :class_name => "Clinic", :foreign_key => "rep_id" # but only if he's a rep
+  has_many :online_retailer_users, dependent: :destroy
+  has_many :online_retailers, through: :online_retailer_users
+  has_many :clinics, class_name: "Clinic", foreign_key: "clinician_id" # but only if he's a clinician
+  has_many :rep_clinics, class_name: "Clinic", foreign_key: "rep_id" # but only if he's a rep
   has_many :tones
   has_many :tone_user_ratings
   has_one :rso_personal_report
@@ -10,14 +10,14 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable,
   # :omniauthable, :validatable, :registerable
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :registerable
-  validates :name, :email, :presence => true
-  validates :email, :uniqueness => true
-  validates :password, :presence => true, :confirmation => true, :on => :create
+  validates :name, :email, presence: true
+  validates :email, uniqueness: true
+  validates :password, presence: true, confirmation: true, on: :create
   attr_accessor :invitation_code
-  validates :invitation_code, :presence => true, 
-    :inclusion => {:in => RsoSetting.invitation_code, :message => "is invalid. (it is cAsE sEnSiTiVe.)"},
-    :on => :create,
-    :if => :rso?
+  validates :invitation_code, presence: true, 
+    inclusion: {in: RsoSetting.invitation_code, message: "is invalid. (it is cAsE sEnSiTiVe.)"},
+    on: :create,
+    if: :rso?
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, 
@@ -65,6 +65,6 @@ class User < ActiveRecord::Base
   # Collect those who have the artist relations role
   #
   def self.artist_relations
-    where(:artist_relations => true)
+    where(artist_relations: true)
   end
 end

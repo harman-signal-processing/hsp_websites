@@ -5,7 +5,7 @@ class Admin::ProductEffectsController < AdminController
   def index
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render :xml => @product_effects }
+      format.xml  { render xml: @product_effects }
     end
   end
 
@@ -14,7 +14,7 @@ class Admin::ProductEffectsController < AdminController
   def show
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render :xml => @product_effect }
+      format.xml  { render xml: @product_effect }
     end
   end
 
@@ -23,7 +23,7 @@ class Admin::ProductEffectsController < AdminController
   def new
     respond_to do |format|
       format.html { render_template } # new.html.erb
-      format.xml  { render :xml => @product_effect }
+      format.xml  { render xml: @product_effect }
     end
   end
 
@@ -45,13 +45,14 @@ class Admin::ProductEffectsController < AdminController
     @called_from = params[:called_from] || "product"
     respond_to do |format|
       if @product_effect.save
-        format.html { redirect_to([:admin, @product_effect], :notice => 'Product effect was successfully created.') }
-        format.xml  { render :xml => @product_effect, :status => :created, :location => @product_effect }
+        format.html { redirect_to([:admin, @product_effect], notice: 'Product effect was successfully created.') }
+        format.xml  { render xml: @product_effect, status: :created, location: @product_effect }
         format.js 
+        website.add_log(user: current_user, action: "Added effect #{@product_effect.effect.name} to #{@product_effect.product.name}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @product_effect.errors, :status => :unprocessable_entity }
-        format.js { render :template => "create_error" }
+        format.html { render action: "new" }
+        format.xml  { render xml: @product_effect.errors, status: :unprocessable_entity }
+        format.js { render template: "create_error" }
       end
     end
   end
@@ -61,11 +62,11 @@ class Admin::ProductEffectsController < AdminController
   def update
     respond_to do |format|
       if @product_effect.update_attributes(params[:product_effect])
-        format.html { redirect_to([:admin, @product_effect], :notice => 'Product effect was successfully updated.') }
+        format.html { redirect_to([:admin, @product_effect], notice: 'Product effect was successfully updated.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @product_effect.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @product_effect.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -79,5 +80,6 @@ class Admin::ProductEffectsController < AdminController
       format.xml  { head :ok }
       format.js 
     end
+    website.add_log(user: current_user, action: "Removed effect #{@product_effect.effect.name} from #{@product_effect.product.name}")
   end
 end

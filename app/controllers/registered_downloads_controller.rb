@@ -6,7 +6,7 @@ class RegisteredDownloadsController < ApplicationController
   # GET /:registered_download_url
   # POST /:registered_download_url/register
   def register
-    @download_registration = DownloadRegistration.new(:subscribe => true, :registered_download => @registered_download)
+    @download_registration = DownloadRegistration.new(subscribe: true, registered_download: @registered_download)
     if params[:code]
       @download_registration.code_you_received = params[:code]
     end
@@ -24,7 +24,7 @@ class RegisteredDownloadsController < ApplicationController
 
   # GET /:registered_download_url/get_it/:download_code
   def show
-    @download_registration = DownloadRegistration.where(:registered_download_id => @registered_download.id, :download_code => params[:download_code]).first
+    @download_registration = DownloadRegistration.where(registered_download_id: @registered_download.id, download_code: params[:download_code]).first
     if @download_registration
       if @download_registration.download_count.to_i >= @registered_download.per_download_limit.to_i
         download_error("Download attempts exceeded limit")
@@ -36,7 +36,7 @@ class RegisteredDownloadsController < ApplicationController
 
   # GET /:registered_download_url/downloadr/:download_code
   def download
-    @download_registration = DownloadRegistration.where(:registered_download_id => @registered_download.id, :download_code => params[:download_code]).first
+    @download_registration = DownloadRegistration.where(registered_download_id: @registered_download.id, download_code: params[:download_code]).first
     if @download_registration
       if @download_registration.download_count.to_i >= @registered_download.per_download_limit.to_i
         download_error("Download attempts exceeded limit")
@@ -45,8 +45,8 @@ class RegisteredDownloadsController < ApplicationController
         @download_registration.download_count += 1
         @download_registration.save!
         send_file(@registered_download.protected_software.path, 
-          :type => @registered_download.protected_software_content_type,
-          :filename => @registered_download.protected_software_file_name)
+          type: @registered_download.protected_software_content_type,
+          filename: @registered_download.protected_software_file_name)
       end
     else
       download_error("Invalid code.")
@@ -58,11 +58,11 @@ class RegisteredDownloadsController < ApplicationController
   # error page
   def download_error(msg="Invalid code.")
     @message = msg
-    render :action => "download_error", :layout => false and return
+    render action: "download_error", layout: false and return
   end
 
   def load_registered_download_and_set_layout
-    @registered_download = RegisteredDownload.where(:url => params[:registered_download_url], :brand_id => website.brand_id).first
+    @registered_download = RegisteredDownload.where(url: params[:registered_download_url], brand_id: website.brand_id).first
     unless @registered_download
       download_error("Sorry, I couldn't find that file. Check the URL")
     end

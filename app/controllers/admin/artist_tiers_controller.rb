@@ -5,7 +5,7 @@ class Admin::ArtistTiersController < AdminController
   def index
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @artist_tiers }
+      format.xml  { render xml: @artist_tiers }
     end
   end
 
@@ -14,7 +14,7 @@ class Admin::ArtistTiersController < AdminController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @artist_tier }
+      format.xml  { render xml: @artist_tier }
     end
   end
 
@@ -23,7 +23,7 @@ class Admin::ArtistTiersController < AdminController
   def new
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @artist_tier }
+      format.xml  { render xml: @artist_tier }
     end
   end
 
@@ -36,11 +36,12 @@ class Admin::ArtistTiersController < AdminController
   def create
     respond_to do |format|
       if @artist_tier.save
-        format.html { redirect_to([:admin, @artist_tier], :notice => 'Artist tier was successfully created.') }
-        format.xml  { render :xml => @artist_tier, :status => :created, :location => @artist_tier }
+        format.html { redirect_to([:admin, @artist_tier], notice: 'Artist tier was successfully created.') }
+        format.xml  { render xml: @artist_tier, status: :created, location: @artist_tier }
+        website.add_log(user: current_user, action: "Created artist tier #{@artist_tier.name}")
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @artist_tier.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @artist_tier.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -50,11 +51,12 @@ class Admin::ArtistTiersController < AdminController
   def update
     respond_to do |format|
       if @artist_tier.update_attributes(params[:artist_tier])
-        format.html { redirect_to([:admin, @artist_tier], :notice => 'Artist tier was successfully updated.') }
+        format.html { redirect_to([:admin, @artist_tier], notice: 'Artist tier was successfully updated.') }
         format.xml  { head :ok }
+        website.add_log(user: current_user, action: "Updated artist tier #{@artist_tier.name}")
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @artist_tier.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @artist_tier.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -67,5 +69,6 @@ class Admin::ArtistTiersController < AdminController
       format.html { redirect_to(admin_artist_tiers_url) }
       format.xml  { head :ok }
     end
+    website.add_log(user: current_user, action: "Deleted artist tier #{@artist_tier.name}")
   end
 end
