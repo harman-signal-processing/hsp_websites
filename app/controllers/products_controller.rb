@@ -10,6 +10,23 @@ class ProductsController < ApplicationController
 
   # GET /products/1
   # GET /products/1.xml
+  #
+  # Loads the product page. Buy It Now buttons are populated by default
+  # with a popup for all of the online retailers carrying the product.
+  #
+  # To link directly to one of the online retailers, add the "bin" URL 
+  # parameter with the friendly_id of the online retailer:
+  # 
+  # Example:
+  #
+  #    /en-US/products/istomp?bin=musicians-friend
+  #
+  # To link directly to a single, random selection of the buy-it-now
+  # retailers, add the "rbin" URL parameter set to "true" or "1"
+  #
+  # Example:
+  #    /en-US/products/istomp?rbin=1
+  #
   def show
     if website.has_suggested_products?
       @suggestions = @product.suggested_products
@@ -18,6 +35,8 @@ class ProductsController < ApplicationController
     if params[:bin]
       online_retailer = OnlineRetailer.find(params[:bin])
       @online_retailer_link = online_retailer.online_retailer_links.where(product_id: @product.id).first
+    elsif params[:rbin]
+      @online_retailer_link = @product.active_retailer_links.first # already randomized
     end
     @active_tab = params[:tab] || 'description'
     respond_to do |format|
