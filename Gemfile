@@ -11,8 +11,10 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-# gem 'prototype-rails'
-gem 'jquery-rails', '~> 2.0.2'
+# jquery-rails 2.1.1 broke the coverflow. Looks like
+# it uses jquery 1.8.0, which has a selector bug:
+# http://bugs.jquery.com/ticket/12292
+gem 'jquery-rails', '~> 2.0.2' # see above, jquery-rails 2.0.2 uses jquery 1.7.2
 gem 'capistrano'
 gem 'capistrano-ext'
 
