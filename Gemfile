@@ -12,7 +12,7 @@ group :assets do
 end
 
 # gem 'prototype-rails'
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 2.0.2'
 gem 'capistrano'
 gem 'capistrano-ext'
 
