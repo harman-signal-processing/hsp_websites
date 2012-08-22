@@ -10,8 +10,11 @@ class SiteElement < ActiveRecord::Base
     },
     path: ":rails_root/public/system/:attachment/:id/:style/:filename",
     url: "/system/:attachment/:id/:style/:filename"
+  has_attached_file :executable,
+    path: ":rails_root/public/system/:attachment/:id/:style/:filename",
+    url: "/system/:attachment/:id/:style/:filename"
 
-  validates :brand, :name, :resource_file_name, presence: true
+  validates :brand, :name, presence: true
   has_many :product_site_elements, dependent: :destroy, inverse_of: :site_element
   has_many :products, through: :product_site_elements
   
@@ -26,7 +29,7 @@ class SiteElement < ActiveRecord::Base
   end
   
   def is_image?
-    !!(resource_file_name.match(/(png|jpg|jpeg|tif|tiff|bmp|gif)$/i))
+    !!(resource_file_name.to_s.match(/(png|jpg|jpeg|tif|tiff|bmp|gif)$/i))
   end
   
 end

@@ -140,19 +140,27 @@ class Website < ActiveRecord::Base
     self.site_elements.where(show_on_public_site: true).each do |site_element|
       downloads[site_element.resource_type.parameterize] ||= {param_name: site_element.resource_type.parameterize, name: site_element.resource_type.to_s.pluralize, downloads: []}
       thumbnail = nil
-      begin
-        if site_element.is_image?
+      if site_element.is_image?
+        begin
           thumbnail = site_element.resource.url(:tiny_square)
+        rescue
         end
-      rescue
+        downloads[site_element.resource_type.parameterize][:downloads] << {
+          name: site_element.name,
+          file_name: site_element.resource_file_name,
+          thumbnail: thumbnail,
+          url: site_element.resource.url,
+          path: site_element.resource.path
+        }
+      else
+        downloads[site_element.resource_type.parameterize][:downloads] << {
+          name: site_element.name,
+          file_name: site_element.executable_file_name,
+          thumbnail: nil,
+          url: site_element.executable.url,
+          path: site_element.executable.path
+        }
       end
-      downloads[site_element.resource_type.parameterize][:downloads] << {
-        name: site_element.name,
-        file_name: site_element.resource_file_name,
-        thumbnail: thumbnail,
-        url: site_element.resource.url,
-        path: site_element.resource.path
-      }
     end
     # logger.debug " =============================================== \n #{downloads.to_yaml}"
     downloads

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120816185833) do
+ActiveRecord::Schema.define(:version => 20120822211833) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -926,6 +926,10 @@ ActiveRecord::Schema.define(:version => 20120816185833) do
     t.boolean  "show_on_public_site"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "executable_file_name"
+    t.string   "executable_content_type"
+    t.integer  "executable_file_size"
+    t.datetime "executable_updated_at"
   end
 
   create_table "slugs", :force => true do |t|

@@ -21,8 +21,12 @@
 	<%= link_to_function "new resource type", "new_resource_type()", :id => "new_resource_type_link" %>
   </div>
   <div class="field">
-    <%= f.label :resource %><br />
+    <%= f.label :resource %> (Use this field for images, pdfs, etc.)<br />
     <%= f.file_field :resource %>
+  </div>
+  <div class="field">
+    <%= f.label :executable %> (Use this field for zips, exes, etc.)<br />
+    <%= f.file_field :executable %>
   </div>
   <div class="field">
   	<%= f.check_box :show_on_public_site %>
