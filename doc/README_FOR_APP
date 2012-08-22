@@ -10,7 +10,6 @@ Run "rake doc:app" to generate API documentation for your models, controllers, h
 * 3rd_party_controllers.php
 
 === TODO for Lexicon ===
-* Inline ecommerce with iLok integration
 
 _OMS Notes_
 
@@ -28,6 +27,7 @@ What you will need to change is: itemid=100170580&subitemid=358897 based on the 
   need to link to the full URL
 
 === TODO (for all brands) ===
+* New mysql server
 * Fix dealer export from SAP
 * Minitest for admin functions
 * Separate admin permissions by brands
@@ -42,12 +42,12 @@ What you will need to change is: itemid=100170580&subitemid=358897 based on the 
 
 === Lower Priority ===
 * Server load balancing
-* New mysql server
 * auto-pull news items from hpro feed
 * Salesforce FAQ integration
 * Create Salesforce support cases
 * Sitemaps using the sitemap plugin +news sitemaps
 * Use themes_for_rails gem instead of custom hack, manage themes online
+* Inline ecommerce with iLok integration for lexicon
 
 === Other ===
 * Marketing Toolkits
