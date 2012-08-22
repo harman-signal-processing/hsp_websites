@@ -2,9 +2,12 @@ require "bundler/capistrano"
 require "delayed/recipes"
 require "capistrano/ext/multistage"
 
+load "config/recipes/base"
 load "config/recipes/refresh"
 load "config/recipes/nginx"
+load "config/recipes/monit"
 load 'deploy/assets'
+default_run_options[:pty] = true
 
 # Whenever gem is not working as of 3/1/2012 try again later
 # set :whenever_command, "bundle exec whenever"
