@@ -2,7 +2,8 @@
 
 <div class="group">
 	<h3>Slideshow</h3>
-	<p>Appear in succession in the rotating image area of the homepage.</p>
+	<p><b>DigiTech Note:</b> As of Aug 23, 2012, the slide order is randomized. So, don't worry about
+		sorting them here.</p>
 	<%= link_to_function "new slide", "$('#new_slide_form').toggle()" %>
 	<div id="new_slide_form" style="margin: 10px; display:none;">
 		<%= form_for([:admin, @new_slide], :html => {:multipart => true}) do |f| %>
