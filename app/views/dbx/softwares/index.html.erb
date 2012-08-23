@@ -10,6 +10,10 @@
 <% end %>
 </h1>
 
+<p style="text-align: center">
+	<%= link_to "3rd Party Controllers", "/en-US/3rd-party-controllers" %>
+</p>
+
 <% if @current_products.size > 0 %>
 <%= render "table", products: @current_products + @discontinued_products %>
 <% end %>

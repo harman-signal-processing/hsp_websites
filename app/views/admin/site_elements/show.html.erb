@@ -31,13 +31,13 @@
 	<%= (@site_element.show_on_public_site?) ? "Yes" : "No" %>
 </p>
 
+<% if @site_element.is_image? %>
 <p>You can link to this file with the following URL(s):</p>
 <ul>
 	<li><b>
 	<%= request.protocol %><%= request.host %><%= @site_element.resource.url("original", timestamp: false) %>
 	</b></li>
 </ul>
-<% if @site_element.is_image? %>
 <i>Other sizes:</i>
 <ul>
 	<li><%= link_to @site_element.resource.url("large", timestamp: false) do %>
@@ -64,6 +64,13 @@
 		<%= request.protocol %><%= request.host %><%= @site_element.resource.url("tiny_square", timestamp: false) %>
 		<% end %>
 	</li>
+</ul>
+<% else %>
+<p>You can link to this file with the following URL:</p>
+<ul>
+	<li><b>
+	<%= request.protocol %><%= request.host %><%= @site_element.executable.url("original", timestamp: false) %>
+	</b></li>
 </ul>
 <% end %>
 
