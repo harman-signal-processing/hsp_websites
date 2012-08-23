@@ -5,7 +5,7 @@ class MainController < ApplicationController
   # The main site homepage
   #
   def index
-    @news = News.all_for_website(website).limit(4)
+    @news = News.all_for_website(website, limit: 4)
     begin
       @youtube = website.value_for('youtube').to_s.match(/\w*$/).to_s
     rescue
