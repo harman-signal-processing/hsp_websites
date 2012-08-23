@@ -18,6 +18,5 @@
 	<%= render "list", :news_list => @news %>
 </div>
 
-<% if @old_news %>
 <p><%= link_to t('older'), archived_news_index_path %></p>
-<% end %>
+
