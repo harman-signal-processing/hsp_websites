@@ -7,7 +7,6 @@ Run "rake doc:app" to generate API documentation for your models, controllers, h
 * Create a section for training modules
 * Videos (swf) uploaded on product pages don't work (PX)
 * dynamic comparison charts
-* 3rd_party_controllers.php
 
 === TODO for Lexicon ===
 
