@@ -112,6 +112,25 @@ class ProductsController < ApplicationController
       format.html { render_template(layout: "minimal") }
     end
   end
+
+  def compare
+    @products = []
+    @specs = []
+    # params[:product_ids] ||= []
+    params[:product_ids].each do |p|
+      product = Product.find(p)
+      @products << product
+      @specs += product.product_specifications.collect{|ps| ps.specification}
+    end
+    if @products.size <= 1
+      redirect_to product_families_path, alert: "Must select 2 or more products to compare. #{params[:product_ids]}"
+    elsif @products.size > 5
+      redirect_to product_families_path, alert: "Must select less than 5 products to compare."
+    else
+      @specs.uniq!
+      render_template
+    end
+  end
   
   # GET /products/songlist/1.xml
   # where "1" is a ProductAttachment id (not a Product id)

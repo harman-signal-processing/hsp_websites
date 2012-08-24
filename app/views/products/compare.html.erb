@@ -1,0 +1,31 @@
+<% set_meta_tags title: "Product Comparison",
+				 reverse: true %>
+
+<h1>Product Comparison</h1>
+
+<table class="comparison" border="1">
+	<tr>
+		<td>&nbsp;</td>
+	<% @products.each do |product| %>
+		<th width="<%= 100 / (1 + @products.count) %>%">
+			<%= link_to translate_content(product, :name), product %>
+			<br/><%= translate_content(product, :short_description) %>
+		</th>
+	<% end %>
+	</tr>
+	<% @specs.each do |spec| %>
+	<tr>
+		<td class="spec_name"><%= translate_content(spec, :name) %></td>
+		<% @products.each do |product| %>
+		<td class="spec_value">
+			<% if ps = product.product_specifications.where(specification_id: spec.id).first %>
+				<%= ps.value %>
+			<% else %>
+				--
+			<% end %>
+		</td>
+		<% end %>
+	</tr>
+	<% end %> 
+</table>
+

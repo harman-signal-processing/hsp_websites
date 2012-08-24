@@ -271,6 +271,9 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         get :preview
         put :preview
       end
+      collection do 
+        match :compare
+      end
     end
     get 'products/:id(/:tab)' => 'products#show', as: :product
     resources :blogs, only: [:index, :show] do

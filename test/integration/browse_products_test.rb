@@ -63,6 +63,16 @@ describe "Browse Products Integration Test" do
       current_path.must_equal product_path(child_family.products.first, locale: I18n.default_locale)
     end
 
+    it "should compare products" do
+      Website.any_instance.stubs(:show_comparisons).returns("1")
+      visit product_family_url(@product_family, locale: I18n.default_locale, host: @website.url)
+      @product_family.products.each do |p|
+        find(:css, "#product_ids_[value='#{p.to_param}']").set(true)
+      end
+      click_on("Compare Selected Products")
+      page.current_path.must_equal compare_products_path(locale: I18n.default_locale)
+    end
+
   end
 
   describe "discontinued product page" do
