@@ -10,7 +10,6 @@
 //= require jquery.lightbox-0.5.min
 //= require jquery.datetimepicker
 //= require ui.coverflow
-//= require swfobject
 //= require jwplayer
 //= require soundmanager2-nodebug-jsmin
 //= require inline_player
@@ -20,6 +19,7 @@
 //= require maps
 //= require slideshow
 //= require twitter
+//= require swfobject
 
 soundManager.url = '/swfs/';
 soundManager.flashVersion = 9; // optional: shiny features (default = 8)

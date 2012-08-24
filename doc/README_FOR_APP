@@ -5,7 +5,6 @@ Run "rake doc:app" to generate API documentation for your models, controllers, h
 * New layout for product_families page (collapsed families)
 * Upload speaker tunings (maybe just to software downloads section)
 * Create a section for training modules
-* Videos (swf) uploaded on product pages don't work (PX)
 * dynamic comparison charts
 
 === TODO for Lexicon ===

@@ -48,7 +48,7 @@ gem 'acts_as_list'
 gem 'acts_as_tree'
 gem 'dynamic_form'
 gem 'rails_autolink'
-gem 'swf_fu', git: "http://github.com/rodrigob/swf_fu.git", require: "swf_fu"
+gem 'swf_fu', '>=1.3.4', require: 'swf_fu'
 gem 'execjs'
 gem 'therubyracer' # installs OS dependent gem. Put production version in vendor/cache manually
 gem 'rubyzip', require: 'zip/zip'
