@@ -32,6 +32,10 @@
 <% end %>
 <p><%= translate_content(@product_family, :intro) %></p>
 
+<% if !!(website.show_comparisons) %>
+	<%= form_tag compare_products_path %>
+<% end %>
+
 <div id="products">
 <% @product_family.current_products.each do |product| %>
 	<%= render_partial("product_families/product_square", product: product) %>
@@ -47,6 +51,11 @@
 <% end %>
 
 	<div class="clear"></div>
+
+	<% if !!(website.show_comparisons) %>
+		<div><%= submit_tag "Compare Selected Products" %></div>
+	</form>
+	<% end %>
 
 	<% if @product_family.parent && @product_family.siblings_with_current_products.size > 0 %>
 		<div class="related_products"><%= t('related_products') %>:
