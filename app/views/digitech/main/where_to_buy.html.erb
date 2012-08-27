@@ -58,12 +58,13 @@
 	</div>
 	<div class="form_container"  style="width: 370px;">
 	<%= form_tag where_to_buy_path() %>
-		<p><%= t("us_zip_code") -%>: <%= text_field_tag "zip", session[:zip], size: 25 %>
+		<p><%= t("us_zip_code") -%>:<br/> <%= text_field_tag "zip", session[:zip], size: 25 %></p>
+		<div>
 		<%= submit_tag t('find_us_dealers') %>
 		<span style="margin-top: 4px; font-size: 11px;">
 			<%= link_to t("international_distributors"), international_distributors_path %>
 		</span>
-		</p>
+		</div>
 	</form>
 	</div>
 	<div id="map" style="width: 400px; height: 520px;"></div>
