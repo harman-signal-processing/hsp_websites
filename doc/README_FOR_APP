@@ -17,7 +17,6 @@ What you will need to change is: itemid=100170580&subitemid=358897 based on the 
 
 === TODO for DigiTech ===
 * Sound community Replacement!!!!!!!
-* ePedal category shelves
 
 === TODO (for all brands) ===
 * New mysql server
@@ -35,6 +34,7 @@ What you will need to change is: itemid=100170580&subitemid=358897 based on the 
 
 === Lower Priority ===
 * Server load balancing
+* ePedal category shelves
 * auto-pull news items from hpro feed
 * Salesforce FAQ integration
 * Create Salesforce support cases
@@ -44,7 +44,6 @@ What you will need to change is: itemid=100170580&subitemid=358897 based on the 
 
 === Other ===
 * Marketing Toolkits
-
 
 
 Here's a handy regular expression that can be used in Sublime Text (CTRL H) to update

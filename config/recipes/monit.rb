@@ -10,6 +10,7 @@ namespace :monit do
     monit_config "monitconf", "/etc/monit.conf"
     nginx
     mysql
+    passenger
     # syntax
     reload
   end
