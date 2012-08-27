@@ -18,6 +18,7 @@ namespace :monit do
   
   task(:nginx, roles: :web) { monit_config "nginx" }
   task(:mysql, roles: :db) { monit_config "mysql" }
+  task(:passenger, roles: :web) { monit_config "passenger" }
 
   %w[start stop restart syntax reload].each do |command|
     desc "Run Monit #{command} script"
