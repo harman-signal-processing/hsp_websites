@@ -41,14 +41,6 @@ class Brand < ActiveRecord::Base
   validates_presence_of :name
 
   def news
-    News.find_by_sql("SELECT DISTINCT news.* FROM news
-      INNER JOIN news_products ON news_products.news_id = news.id
-      INNER JOIN products ON products.id = news_products.product_id
-      INNER JOIN product_family_products ON product_family_products.product_id = products.id
-      INNER JOIN product_families ON product_families.id = product_family_products.product_family_id
-      WHERE product_families.brand_id = #{self.id} OR news.brand_id = #{self.id}
-      ORDER BY post_on DESC")
-
     # First, select news story IDs with a product associated with this brand...
     product_news = News.find_by_sql("SELECT DISTINCT news.id FROM news
       INNER JOIN news_products ON news_products.news_id = news.id
@@ -60,10 +52,7 @@ class Brand < ActiveRecord::Base
     product_news_query = (product_news.blank?) ? "" : " OR id IN (#{product_news}) "
 
     # Second, add in those stories associated with the brand only (no products linked)
-    News.find_by_sql("SELECT DISTINCT news.* from news
-      WHERE brand_id = #{self.id} 
-      #{product_news_query}
-      ORDER BY post_on DESC")
+    News.select("DISTINCT *").where("brand_id = ? #{product_news_query}", self.id).order("post_on DESC")
   end
   
   # Dynamically create methods based on this Brand's settings.
@@ -161,9 +150,12 @@ class Brand < ActiveRecord::Base
   end
   
   def products
-    p = Product.where(brand_id: self.id).all
-    p += self.family_products
-    p.uniq.sort{|a,b| a.name.downcase <=> b.name.downcase}
+    fp = self.family_products.collect{|p| p.id}.join(', ')
+    if fp.blank?
+      Product.where(brand_id: self.id).order("UPPER(name)")
+    else
+      Product.select("DISTINCT *").where("brand_id = ? OR id IN (?)", self.id, fp).order("UPPER(name)")
+    end
     # Product.find_by_sql("SELECT DISTINCT products.* FROM products
     #   INNER JOIN product_family_products ON product_family_products.product_id = products.id
     #   INNER JOIN product_families ON product_families.id = product_family_products.product_family_id

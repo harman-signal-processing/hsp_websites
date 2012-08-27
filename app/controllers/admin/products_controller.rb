@@ -6,9 +6,16 @@ class Admin::ProductsController < AdminController
   # GET /admin/products
   # GET /admin/products.xml
   def index
-    @products = website.products
+    @search = website.products.ransack(params[:q])
+    @products = @search.result
     respond_to do |format|
-      format.html { render_template } # index.html.erb
+      format.html { 
+        if @products.size == 1
+          redirect_to [:admin, @products.first]
+        else
+          render_template 
+        end
+      } # index.html.erb
       format.xml  { render xml: @products }
     end
   end

@@ -55,6 +55,7 @@ gem 'rubyzip', require: 'zip/zip'
 gem 'whenever' #, require: false
 gem 'country_select'
 gem 'rack-mini-profiler'
+gem 'ransack'
 
 # New Sound Community stuff
 #gem 'forem', git: "http://github.com/radar/forem.git"

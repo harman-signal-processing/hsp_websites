@@ -15,6 +15,16 @@
 </div>
 <% end %>
 
+<%= search_form_for [:admin, @search] do |f| %>
+  <div class="form_field">
+    <%= f.label :name_cont, "Name contains" %><br/>
+    <%= f.text_field :name_cont %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Search dealers" %>
+  </div>
+<% end %>
+
 <table class="data">
   <tr>
     <th>Name</th>

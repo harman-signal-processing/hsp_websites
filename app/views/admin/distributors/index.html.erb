@@ -12,7 +12,21 @@
 </div>
 <% end %>
 
-<table class="data">
+<%= search_form_for [:admin, @search] do |f| %>
+  <div class="form_field">
+    <%= f.label :name_cont, "Name contains" %><br/>
+    <%= f.text_field :name_cont %>
+  </div>
+  <div class="form_field">
+    <%= f.label :country_cont, "Country contains" %><br/>
+    <%= f.text_field :country_cont %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Search distributors" %>
+  </div>
+<% end %>
+
+<table class="data" style="width: 100%">
   <tr>
     <th>Name</th>
     <th>Country</th>

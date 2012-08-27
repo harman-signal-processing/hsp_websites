@@ -4,7 +4,9 @@ class Admin::NewsController < AdminController
   # GET /admin/news
   # GET /admin/news.xml
   def index
-    @news = @news.where(brand_id: website.brand_id).order("post_on DESC")
+    # @news = @news.where(brand_id: website.brand_id).order("post_on DESC")
+    @search = website.brand.news.ransack(params[:q])
+    @news = @search.result
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @news }
