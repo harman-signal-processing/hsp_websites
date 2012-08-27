@@ -1,11 +1,11 @@
-<% set_meta_tags :title => t('titles.products'),
-				 :reverse => true %>
+<% set_meta_tags title: t('titles.products'),
+				 reverse: true %>
 
 <h1><%= t('titles.products') %></h1>
 
 <ul>
 <% @products.each do |product| %>
-  <li><%= link_to product.name, product_path(product, :locale => I18n.locale) %></li>
+  <li><%= link_to product.name, product_path(product, locale: I18n.locale) %></li>
 <% end %>
 </ul>
 

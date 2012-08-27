@@ -1,7 +1,7 @@
-<% set_meta_tags :title => @artist.name,
-				 :description => truncate(strip_html(translate_content(@artist, :bio)), :length => 100, :omission => ""),
-				 :keywords => @artist.name,
-				 :reverse => true %>
+<% set_meta_tags title: @artist.name,
+				 description: truncate(strip_html(translate_content(@artist, :bio)), length: 100, omission: ""),
+				 keywords: @artist.name,
+				 reverse: true %>
 
 <% unless @artist.artist_photo_file_name.blank? %>
 	<div id="big_artist_photo">
@@ -27,8 +27,8 @@
 			</li>
 			<% else %>
 			<li><%= link_to artist_product.product.name, 
-						product_url(artist_product.product, :host => artist_product.product.brand.default_website.url), 
-						:target => "_blank" %></li>
+						product_url(artist_product.product, host: artist_product.product.brand.default_website.url), 
+						target: "_blank" %></li>
 			<% end %>
 		<% end %>
 		</ul>
@@ -39,7 +39,7 @@
 	<%=raw translate_content(@artist, :bio) %>
 	<%= render 'shared/add_this' %>	
 	<% unless @artist.website.blank? %>
-  	<div><%= link_to @artist.website, @artist.website, :target => "_blank" %></div>
+  	<div><%= link_to @artist.website, @artist.website, target: "_blank" %></div>
 	<% end %>
 	<div class="clear"></div>
 </div>

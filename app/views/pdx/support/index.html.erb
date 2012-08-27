@@ -4,7 +4,7 @@
 
 <h1 class="page_title">
 <% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/support_head.jpg")) %>
-	<%= image_tag("#{website.folder}/#{I18n.locale}/support_head.jpg", :alt => t('titles.support')) %>
+	<%= image_tag("#{website.folder}/#{I18n.locale}/support_head.jpg", alt: t('titles.support')) %>
 <% else %>
 	<%= t('titles.support') %>
 <% end %>
@@ -15,7 +15,7 @@
 	<%= link_to t('software_downloads'), software_index_path %> &bull;
 	<% end %>
 	<% if !!(website.value_for("troubleshooting_url")) %>
-	<%= link_to t('troubleshooting').downcase, support_path(:action => "troubleshooting") %> &bull;
+	<%= link_to t('troubleshooting').downcase, support_path(action: "troubleshooting") %> &bull;
 	<% end %>
 	<%= link_to t('warranty_registration'), warranty_registration_path %> &bull;
 	<%= link_to t('titles.rohs'), rohs_path %>
@@ -26,7 +26,7 @@
 	
 		<div class="column_one" style="width: 65%">
 			<h2><%= t('titles.contact_us') %></h2>
-			<%= form_for :contact_message, :url => support_path(:action => "contact"), :html => {:class => "contact"} do |f| %>
+			<%= form_for :contact_message, url: support_path(action: "contact"), html: {class: "contact"} do |f| %>
 				<%= f.error_messages %>
 
 				<div><%= f.label :name, t('your_name') %><br/>
@@ -42,7 +42,7 @@
 				<div><%= f.label :subject, t('subject') %><br/>
 					<%= f.select :subject, ContactMessage.subjects %></div>
 				<p><%= t('message') %>:</p>
-				<%= f.text_area :message, :size => "60x8" %>
+				<%= f.text_area :message, size: "60x8" %>
 				
 				<div class="captcha">
 					<%= recaptcha_tags %>

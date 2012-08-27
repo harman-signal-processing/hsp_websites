@@ -1,4 +1,4 @@
-<h2><%= link_to t('titles.youtube_channel', :brand => website.brand_name), videos_path %>
+<h2><%= link_to t('titles.youtube_channel', brand: website.brand_name), videos_path %>
 <span class="small_button"><%= link_to "more...", videos_path %></span>
 </h2>
 <%= cache ["youtube_feed", website.brand, Rails.env, Date.today] do %>

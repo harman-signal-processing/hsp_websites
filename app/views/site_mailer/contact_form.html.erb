@@ -28,7 +28,7 @@
 		<br/><b>Under Warranty?</b> <%= (@contact_message.warranty?) ? "Yes" : "No" %>
 	<% end %>
 	<% unless @contact_message.purchased_on.blank? %>
-		<br/><b>Purchased On:</b> <%= I18n.l @contact_message.purchased_on, :format => :short %>
+		<br/><b>Purchased On:</b> <%= I18n.l @contact_message.purchased_on, format: :short %>
 	<% end %>
 	<% unless @contact_message.part_number.blank? %>
 		<br/><b>Part Number:</b> <%= @contact_message.part_number %>

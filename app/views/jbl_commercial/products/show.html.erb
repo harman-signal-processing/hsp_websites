@@ -33,7 +33,7 @@
    	  <% if @product.photo.no_lightbox? || !!(website.no_lightbox) %>
    		<%= link_to(image_tag(@product.photo.product_attachment.url(:medium)), @product.photo.product_attachment.url) %>
    	  <% else %>
-   		<%= link_to(image_tag(@product.photo.product_attachment.url(:medium)), @product.photo.product_attachment.url(:lightbox), :class => "lightbox") %>
+   		<%= link_to(image_tag(@product.photo.product_attachment.url(:medium)), @product.photo.product_attachment.url(:lightbox), class: "lightbox") %>
    	  <% end %>
    	<% end %>
 		</div>
@@ -82,7 +82,7 @@
 		</div>
 		<div style="float: right; margin-top: 12px;">
 			<%= form_tag where_to_buy_path() %>
-				<%= t('us_zip_code') -%>: <%= text_field_tag "zip", session[:zip], :size => 8 %>
+				<%= t('us_zip_code') -%>: <%= text_field_tag "zip", session[:zip], size: 8 %>
 				<%= submit_tag t('find_us_dealers') %>
 				<%= link_to t("international_distributors"), international_distributors_path %>
 			</form>
@@ -91,7 +91,7 @@
 	</div>
 	<div id="dealers">
 	<div id="online_retailers">
-		<%= render_partial "shared/buynow", :product => @product %>
+		<%= render_partial "shared/buynow", product: @product %>
 	</div>
 	</div>
 	<div style="clear:both"></div>

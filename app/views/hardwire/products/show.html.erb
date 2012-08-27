@@ -1,7 +1,7 @@
-<% set_meta_tags :title => @product.name,
-				 :reverse => true,
-                 :description => translate_content(@product, :short_description),
-                 :keywords => translate_content(@product, :keywords) %>
+<% set_meta_tags title: @product.name,
+				 reverse: true,
+                 description: translate_content(@product, :short_description),
+                 keywords: translate_content(@product, :keywords) %>
 
 <%= content_for :preload do %>
 	<%= image_tag("#{website.folder}/#{I18n.locale}/buyitnow_button_hover.png") %>
@@ -31,7 +31,7 @@
 		  <% if @product.photo.no_lightbox? || !!(website.no_lightbox) %>
 			<%= link_to(image_tag(@product.photo.product_attachment.url(:medium)), @product.photo.product_attachment.url) %>
 		  <% else %>
-			<%= link_to(image_tag(@product.photo.product_attachment.url(:medium)), @product.photo.product_attachment.url(:lightbox), :class => "lightbox") %>
+			<%= link_to(image_tag(@product.photo.product_attachment.url(:medium)), @product.photo.product_attachment.url(:lightbox), class: "lightbox") %>
 		  <% end %>
 		<% end %>
 		</div>
@@ -72,19 +72,19 @@
 			<ul>
 				<li>
 					Stomplock&trade; - standard (except tuners)<br/>
-					<%= image_tag("hardwire/accessory-stomplock.png", :alt => "Stomplock") %>
+					<%= image_tag("hardwire/accessory-stomplock.png", alt: "Stomplock") %>
 				</li>
 				<li>
 					Glow-in-the-dark Label - standard<br/>
-					<%= image_tag("hardwire/accessory-glow-in-the-dark-label.png", :alt => "Glow") %>
+					<%= image_tag("hardwire/accessory-glow-in-the-dark-label.png", alt: "Glow") %>
 				</li>
 				<li>
 					Hook-and-loop Pedalboard Pad - standard<br/>
-					<%= image_tag("hardwire/accessory-velcro-style-mounting-pad.png", :alt => "Velcro") %>
+					<%= image_tag("hardwire/accessory-velcro-style-mounting-pad.png", alt: "Velcro") %>
 				</li>
 				<li>
 					PS200R Power Adapter - optional<br/>
-					<%= image_tag("hardwire/accessory-optional-ps200r-power-adapter.png", :alt => "Adapter") %>
+					<%= image_tag("hardwire/accessory-optional-ps200r-power-adapter.png", alt: "Adapter") %>
 				</li>
 			</ul>
 		</div>
@@ -107,7 +107,7 @@
 		</div>
 		<div style="float: right; margin-top: 12px;">
 			<%= form_tag where_to_buy_path() %>
-				<%= t('us_zip_code') -%>: <%= text_field_tag "zip", session[:zip], :size => 8 %>
+				<%= t('us_zip_code') -%>: <%= text_field_tag "zip", session[:zip], size: 8 %>
 				<%= submit_tag t('find_us_dealers') %>
 				<%= link_to t("international_distributors"), international_distributors_path %>
 			</form>
@@ -116,7 +116,7 @@
 	</div>
 	<div id="dealers">
 	<div id="online_retailers">
-		<%= render_partial "shared/buynow", :product => @product %>
+		<%= render_partial "shared/buynow", product: @product %>
 	</div>
 	</div>
 	<div style="clear:both"></div>

@@ -1,8 +1,8 @@
 <% @istomp = @software.products.first || Product.find("istomp") %>
 
-<% set_meta_tags :reverse => true,
-                 :description => @software.description,
-                 :keywords => [@software.name, @software.ware_file_name, @software.version] %>
+<% set_meta_tags reverse: true,
+                 description: @software.description,
+                 keywords: [@software.name, @software.ware_file_name, @software.version] %>
 
 <%= render_partial 'products/istomp_style' %>
 
@@ -17,7 +17,7 @@
 <section id="product_content" class="stomp_shop">
 	<h2>e-pedal store and virtual road case</h2>
 	<div id="left_column">
-		<%= link_to download_software_path(@software, :locale => I18n.locale) do %>
+		<%= link_to download_software_path(@software, locale: I18n.locale) do %>
 	 		<%= image_tag "#{website.folder}/stomp_shop_icon.png", alt: "Stomp Shop", size: "128x128", style: "padding-left: 8px" %><br/>
 			<div class="free">Free</div>
 			<%= image_tag "#{website.folder}/#{I18n.locale}/red_download_app_button.png", 

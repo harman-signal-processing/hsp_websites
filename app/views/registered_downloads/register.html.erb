@@ -1,6 +1,6 @@
 <%= @registered_download.intro_page_content.html_safe %>
 
-<%= form_for @download_registration, :url => register_to_download_path(@registered_download.url) do |f| %>
+<%= form_for @download_registration, url: register_to_download_path(@registered_download.url) do |f| %>
 	<% if @download_registration.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@download_registration.errors.count, "error") %> prohibited your registration from being saved:</h2>

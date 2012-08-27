@@ -1,11 +1,11 @@
-<% set_meta_tags :title => @artist.name,
-				 :description => truncate(strip_html(translate_content(@artist, :bio)), :length => 100, :omission => ""),
-				 :keywords => @artist.name,
-				 :reverse => true %>
+<% set_meta_tags title: @artist.name,
+				 description: truncate(strip_html(translate_content(@artist, :bio)), length: 100, omission: ""),
+				 keywords: @artist.name,
+				 reverse: true %>
 
 <% unless @artist.artist_photo_file_name.blank? %>
 	<div id="big_artist_photo">
-		<%= image_tag(@artist.artist_photo.url(:feature), :width => 960, :height => 408) %>
+		<%= image_tag(@artist.artist_photo.url(:feature), width: 960, height: 408) %>
 	</div>
 <% end %>
 
@@ -27,13 +27,13 @@
 			</li>
 			<% else %>
 			<li><%= link_to artist_product.product.name, 
-						product_url(artist_product.product, :host => artist_product.product.brand.default_website.url), 
-						:target => "_blank" %></li>
+						product_url(artist_product.product, host: artist_product.product.brand.default_website.url), 
+						target: "_blank" %></li>
 			<% end %>
 		<% end %>
 		</ul>
 		<% unless @artist.website.blank? %>
-	  	<p><%= link_to @artist.website, @artist.website, :target => "_blank" %></p>
+	  	<p><%= link_to @artist.website, @artist.website, target: "_blank" %></p>
 		<% end %>
 	<% end %>
 	</div>

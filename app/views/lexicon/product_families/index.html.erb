@@ -4,7 +4,7 @@
 				
 <h1 class="page_title">
 <% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/products_head.jpg")) %>
-	<%= image_tag("#{website.folder}/#{I18n.locale}/products_head.jpg", :alt => t('titles.product_families')) %>
+	<%= image_tag("#{website.folder}/#{I18n.locale}/products_head.jpg", alt: t('titles.product_families')) %>
 <% else %>
 	<%= t('titles.product_families') %>
 <% end %>

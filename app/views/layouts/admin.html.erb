@@ -5,7 +5,7 @@
   <%= csrf_meta_tag %>
   <title>Admin: <%= controller_name %>: <%= controller.action_name %></title>
   <%= javascript_include_tag 'application', 'admin' %>
-  <%= stylesheet_link_tag 'admin', :cache => false %>
+  <%= stylesheet_link_tag 'admin', cache: false %>
 	<!--[if lt IE 9]>
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
@@ -215,7 +215,7 @@
 	</div>
 	<div id="page_content">
 		<% flash.each do |name, msg| %>
-		  <%= content_tag :div, msg, :id => "flash_#{name}" %>
+		  <%= content_tag :div, msg, id: "flash_#{name}" %>
 		<% end %>
 		<%= yield %>
 	</div>

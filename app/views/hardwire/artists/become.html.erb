@@ -49,15 +49,15 @@
 
 <div id="artist_login_container" class="artist_callout_container">
 	<h3>Artist Login:</h3>
-	<%= form_for("artist", :url => artist_session_path) do |f| %>
+	<%= form_for("artist", url: artist_session_path) do |f| %>
 		<div class="form_field">
 			<%= f.label :email %><br/>
-			<%= f.text_field :email, :class => "artist_field" %>
+			<%= f.text_field :email, class: "artist_field" %>
 		</div>
 	
 		<div class="form_field">
 			<%= f.label :password %><br/>
-			<%= f.password_field :password, :class => "artist_field" %>
+			<%= f.password_field :password, class: "artist_field" %>
 		</div>
 		
 		<div class="form_field">

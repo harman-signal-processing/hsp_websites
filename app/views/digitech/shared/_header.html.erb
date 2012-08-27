@@ -3,7 +3,7 @@
 		<% if content_for?(:alternate_logo) %>
 			<%= yield :alternate_logo %>
 		<% else %>
-			<%= link_to(image_tag("#{website.folder}/logo.png", :alt => Setting.site_name(website)), main_app.locale_root_path) %>
+			<%= link_to(image_tag("#{website.folder}/logo.png", alt: Setting.site_name(website)), main_app.locale_root_path) %>
 		<% end %>
 	</div>
 	<nav id="topnav">

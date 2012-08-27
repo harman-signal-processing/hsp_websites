@@ -1,7 +1,7 @@
 <%= content_for :feature do %>
 	<%= cache ["slideshow", website.brand, Rails.env, I18n.locale] do %>
 		<% if Setting.slides(website).size > 0 %>
-			<%= slideshow(:slides => Setting.slides(website), :duration => 8700, :transition => "fade") %>
+			<%= slideshow(slides: Setting.slides(website), duration: 8700, transition: "fade") %>
 		<% end %>
 	<% end %>
 <% end %>

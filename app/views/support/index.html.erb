@@ -4,7 +4,7 @@
 
 <h1 class="page_title">
 <% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/support_head.jpg")) %>
-	<%= image_tag("#{website.folder}/#{I18n.locale}/support_head.jpg", :alt => t('titles.support')) %>
+	<%= image_tag("#{website.folder}/#{I18n.locale}/support_head.jpg", alt: t('titles.support')) %>
 <% else %>
 	<%= t('titles.support') %>
 <% end %>
@@ -24,7 +24,7 @@
 	<div class="support_box product_support_box">
 		<h4><%= t('titles.product_support') %></h4>
 		<p><%= t('blurbs.product_support') %></p>
-		<%= form_tag support_path, :method => :get do |f| %>
+		<%= form_tag support_path, method: :get do |f| %>
 			<%= select_tag :product_id, options_from_collection_for_select(website.current_and_discontinued_products, :to_param, :name), include_blank: true %>
 			<%= submit_tag t('go')%>
 		<% end %>
@@ -39,7 +39,7 @@
 	<% if website.has_service_centers? %>
 	<div class="support_box service_centers_box">
 		<h4><%= t('titles.locate_us_service_center') %>:</h4>
-		<%= form_tag support_path(:action => "service_lookup") do |f| %>
+		<%= form_tag support_path(action: "service_lookup") do |f| %>
 			<p><%= label_tag "zip", t('us_zip_code') %>
 			<%= text_field_tag "zip", session[:zip], size: 8 %>
 			<%= submit_tag t('go') %></p>
@@ -52,7 +52,7 @@
 		<h4>More Resources</h4>
 		<ul>
 			<% if !!(website.value_for("troubleshooting_url")) %>
-			<li><%= link_to t('troubleshooting').downcase, support_path(:action => "troubleshooting") %></li>
+			<li><%= link_to t('troubleshooting').downcase, support_path(action: "troubleshooting") %></li>
 			<% end %>
 			<% if website.has_parts_form? %>
 			<li><%= link_to "Parts Request", parts_request_path %></li>
@@ -100,13 +100,13 @@
 			<%= f.text_field :operating_system %></div>
 
 		<div><%= f.label :shipping_address, "Address" %><br/>
-			<%= f.text_area :shipping_address, :size => "40x2" %></div>
+			<%= f.text_area :shipping_address, size: "40x2" %></div>
 		<div><%= f.label :shipping_country, (@contact_message.require_country?) ? "Country (required)" : "Country" %><br/>
 			<%= f.text_field :shipping_country %></div>
 		<div><%= f.label :phone %><br/>
 			<%= f.text_field :phone %></div>
 		<p><%= t('message') %>:</p>
-		<%= f.text_area :message, :size => "60x8" %>
+		<%= f.text_area :message, size: "60x8" %>
 		
 		<div class="captcha">
 			<%= recaptcha_tags %>

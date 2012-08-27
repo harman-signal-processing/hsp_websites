@@ -10,8 +10,8 @@
 		<% end %>
 			<div class="description">
 				<b><%= (artist.featured) ? link_to(artist.name, artist) : artist.name %></b>
-				<div><%#= truncate(strip_html(translate_content(artist, :summary)), :length => 160) %>
-					<%= link_to t('more'), (artist.featured) ? artist : all_artists_path(:letter => artist.name.match(/^.{1}/).to_s.downcase, :anchor => "artist_#{artist.id}") %></div>
+				<div><%#= truncate(strip_html(translate_content(artist, :summary)), length: 160) %>
+					<%= link_to t('more'), (artist.featured) ? artist : all_artists_path(letter: artist.name.match(/^.{1}/).to_s.downcase, anchor: "artist_#{artist.id}") %></div>
 			</div>
 	</div>
 	<% end %>

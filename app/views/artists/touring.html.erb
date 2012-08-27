@@ -1,11 +1,11 @@
-<% set_meta_tags :title => t('titles.products_on_tour'),
-				 :description => t('meta.description.products_on_tour'),
-				 :keywords => @products.collect{|p| p.name}.join(", "),
-				 :reverse => true %>
+<% set_meta_tags title: t('titles.products_on_tour'),
+				 description: t('meta.description.products_on_tour'),
+				 keywords: @products.collect{|p| p.name}.join(", "),
+				 reverse: true %>
 
 <h1 class="page_title">
 <% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/productsontour_head.jpg")) %>				
-	<%= image_tag("#{website.folder}/#{I18n.locale}/productsontour_head.jpg", :alt => t('titles.products_on_tour')) %>
+	<%= image_tag("#{website.folder}/#{I18n.locale}/productsontour_head.jpg", alt: t('titles.products_on_tour')) %>
 <% else %>
 	<%= t('titles.products_on_tour') %>
 <% end %>

@@ -8,7 +8,7 @@
 		<% end %>
 		<h2><%= link_to(artist.name, artist) %></h2>
 		<div class="intro">
-			<%= truncate(strip_html(artist.bio), :length => 175) %>
+			<%= truncate(strip_html(artist.bio), length: 175) %>
 			<%= link_to t('more'), artist %>
 		</div>
 	</div>

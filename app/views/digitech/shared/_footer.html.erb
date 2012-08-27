@@ -9,7 +9,7 @@
 		<%= link_to t('sound_community'), main_app.community_path %> &bull;
 		<%= link_to t('where_to_buy'), main_app.where_to_buy_path %> &bull;
 		<%= link_to t('product_support'), main_app.support_path %> &bull;
-		<%= link_to t('sitemap'), main_app.sitemap_path(:format => 'xml') %>
+		<%= link_to t('sitemap'), main_app.sitemap_path(format: 'xml') %>
 	</nav>
 	<div id="footer_left">
 		<% if content_for?(:footer_logo) %>
@@ -18,7 +18,7 @@
 			<%= image_tag "harman_tiny.png" %>
 		<% end %>
 		&copy; <%= Date.today.year %> 
-		<%= link_to(t('harman'), "http://www.harman.com/", :target => "_blank") %>. 
+		<%= link_to(t('harman'), "http://www.harman.com/", target: "_blank") %>. 
 		<%= t('all_rights_reserved') %>
 	</div>
 </footer>

@@ -12,18 +12,18 @@
 		</td>
 		<% end %>
 	</tr>
-	<%= render :partial => "video", :collection => playlist.videos %>
+	<%= render partial: "video", collection: playlist.videos %>
 	<% end %>
 </table>
 
 <div style="position: absolute; top: 24px; right: 6px; width: 265px; text-align: center;">
-	<p><%= link_to(image_tag("#{website.folder}/#{I18n.locale}/youtube_button.png", :alt => "YouTube"), "http://www.youtube.com/#{@youtube_user}", :target => "_blank") %></p>
+	<p><%= link_to(image_tag("#{website.folder}/#{I18n.locale}/youtube_button.png", alt: "YouTube"), "http://www.youtube.com/#{@youtube_user}", target: "_blank") %></p>
 	<p>&nbsp;</p>
-	<p><%= link_to(image_tag("vocalist_logo.png", :alt => "Vocalist"), "www.youtube.com/vocalistpro", :target => "_blank") %><br/>
-		<%= link_to("youtube channel", "www.youtube.com/vocalistpro", :target => "_blank") %>
+	<p><%= link_to(image_tag("vocalist_logo.png", alt: "Vocalist"), "www.youtube.com/vocalistpro", target: "_blank") %><br/>
+		<%= link_to("youtube channel", "www.youtube.com/vocalistpro", target: "_blank") %>
 		</p>
 	<p>&nbsp;</p>
-	<p><%= link_to(image_tag("hardwire_logo.png", :alt => "HardWire"), "http://www.youtube.com/hardwirefx", :target => "_blank") %>
-		<%= link_to("youtube channel", "http://www.youtube.com/hardwirefx", :target => "_blank") %>
+	<p><%= link_to(image_tag("hardwire_logo.png", alt: "HardWire"), "http://www.youtube.com/hardwirefx", target: "_blank") %>
+		<%= link_to("youtube channel", "http://www.youtube.com/hardwirefx", target: "_blank") %>
 		</p>
 </div>

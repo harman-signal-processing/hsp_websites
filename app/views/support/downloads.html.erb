@@ -9,7 +9,7 @@
 	<% @downloads.each do |download_collection| %>
 		<th><%= download_collection[:name] %>
 			<% if download_collection[:downloads].size > 1 %>
-				<%= link_to image_tag("zip-icon.png", :alt => "", :style => "vertical-align: middle; margin-left: 2px; border: none"),
+				<%= link_to image_tag("zip-icon.png", alt: "", style: "vertical-align: middle; margin-left: 2px; border: none"),
 				 		zipped_downloads_path(download_collection[:param_name]) %>&nbsp;<%= link_to 'zip', zipped_downloads_path(download_collection[:param_name]) %>
 			<% end %>
 			</th>
@@ -22,7 +22,7 @@
 				<% download_collection[:downloads].each do |download| %>
 					<li>
 						<% if download[:thumbnail] %>
-						<%= link_to(image_tag(download[:thumbnail], :style => "vertical-align: middle; padding-right: 4px"), download[:url]) %>
+						<%= link_to(image_tag(download[:thumbnail], style: "vertical-align: middle; padding-right: 4px"), download[:url]) %>
 						<% end %>
 						<%= link_to download[:name], download[:url] %>
 					</li>

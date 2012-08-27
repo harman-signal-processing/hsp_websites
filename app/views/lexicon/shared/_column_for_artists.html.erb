@@ -1,6 +1,6 @@
 <h2><%= link_to t('professionals'), artists_path %></h2>
 
-<% website.artists.where(:featured => true).order("RAND()").limit(3).all.each do |artist| %>
-	<%= render_partial "artists/artist", :artist => artist %>
+<% website.artists.where(featured: true).order("RAND()").limit(3).all.each do |artist| %>
+	<%= render_partial "artists/artist", artist: artist %>
 <% end %>
 
