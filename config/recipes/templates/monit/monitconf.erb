@@ -20,7 +20,7 @@ set httpd port 2812
 
 check system hsp_server
   if loadavg(5min) > 2 for 2 cycles then alert
-  if memory > 75% for 2 cycles then alert
-  if cpu(user) > 75% for 2 cycles then alert
+  if memory > 90% for 10 cycles then exec "/etc/init.d/nginx restart"
+  if cpu(user) > 90% for 10 cycles then exec "/etc/init.d/nginx restart"
 
 include /etc/monit.d/*
