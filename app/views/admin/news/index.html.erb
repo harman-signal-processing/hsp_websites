@@ -6,7 +6,17 @@
 </div>
 <% end %>
 
-<table class="data">
+<%= search_form_for [:admin, @search] do |f| %>
+  <div class="form_field">
+    <%= f.label :title_cont, "Title contains" %><br/>
+    <%= f.text_field :title_cont %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Search news" %>
+  </div>
+<% end %>
+
+<table class="data" style="width: 100%">
   <tr>
     <th>Post Date</th>
     <th>Title</th>

@@ -6,16 +6,25 @@
 </div>
 <% end %>
 
+<%= search_form_for [:admin, @search] do |f| %>
+	<div class="form_field">
+		<%= f.label :name_cont, "Name contains" %><br/>
+		<%= f.text_field :name_cont %>
+	</div>
+	<div class="actions">
+		<%= f.submit "Search products" %>
+	</div>
+<% end %>
+
 <% ProductStatus.all.each do |product_status| %>
-<% if can?(:change, ProductStatus) %>
-<h2><%= product_status.name %></h2>
-<% end %>
-<ul>
-<% @products.each do |product| %>
-<% if product.product_status_id == product_status.id && can?(:manage, product) %>
-	<li><%= link_to product.name, [:admin, product] %></li>
-<% end %>
-<% end %>
-</ul>
+	<h3 style="border-bottom: 1px dotted #CCC; margin-bottom: 2px;"><%= product_status.name %></h3>
+
+	<ul style="margin-top: 2px;">
+		<% @products.each do |product| %>
+		<% if product.product_status_id == product_status.id && can?(:manage, product) %>
+			<li><%= link_to product.name, [:admin, product] %></li>
+		<% end %>
+		<% end %>
+	</ul>
 <% end %>
 
