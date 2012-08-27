@@ -1,10 +1,10 @@
 <h1>RSO <%= ucfirst(@rso_panel.name) %> Panel</h1>
 
 <div class="button_container">
-	<%= link_to 'Back', admin_rso_panels_path, :class => "back button" %>
+	<%= link_to 'Back', admin_rso_panels_path, class: "back button" %>
 	<% unless @rso_panel.name == "left" %>
-	<%= link_to 'Edit', edit_admin_rso_panel_path(@rso_panel), :class => "edit button" %> 
-    <%= link_to 'Delete', [:admin, @rso_panel], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %>
+	<%= link_to 'Edit', edit_admin_rso_panel_path(@rso_panel), class: "edit button" %> 
+    <%= link_to 'Delete', [:admin, @rso_panel], confirm: 'Are you sure?', method: :delete, class: "delete button" %>
 	<% end %>
 </div>
 
@@ -21,16 +21,16 @@
 		<li id="rso_navigation_<%= rso_navigation.id %>">
 			<span class="handle"><%= image_tag("drag_handle.gif") %></span>
 			<%= link_to rso_navigation.name, edit_admin_rso_navigation_path(rso_navigation) %>
-			<%#= link_to image_tag("external_link_icon.png"), rso_navigation.url, :target => "_blank" %>
-			<%= link_to image_tag("trash.gif"), [:admin, rso_navigation], :confirm => "Are you sure?", :method => :delete %>
+			<%#= link_to image_tag("external_link_icon.png"), rso_navigation.url, target: "_blank" %>
+			<%= link_to image_tag("trash.gif"), [:admin, rso_navigation], confirm: "Are you sure?", method: :delete %>
 		</li>
 		<% end %>
 	</ul>
 </div>
 
 <%#= sortable_element "rso_navigations",
-        # :complete => visual_effect(:highlight, "rso_navigations"),
-        :url => update_order_admin_rso_navigations_path %>
+        # complete: visual_effect(:highlight, "rso_navigations"),
+        url: update_order_admin_rso_navigations_path %>
 
 <% elsif @rso_panel.rso_panel_image_file_name.blank? %>
 	<%= raw @rso_panel.content %>

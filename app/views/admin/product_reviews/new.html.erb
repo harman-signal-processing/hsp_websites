@@ -1,7 +1,7 @@
 <h1>New Review</h1>
 
-<%= form_for([:admin, @product_review], :html => {:multipart => true}) do |f| %>
-  <%= render "form", :f => f %>
+<%= form_for([:admin, @product_review], html: {multipart: true}) do |f| %>
+  <%= render "form", f: f %>
   <p>
     <%= f.submit 'Create' %>
   </p>

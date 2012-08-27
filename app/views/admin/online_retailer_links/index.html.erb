@@ -16,7 +16,7 @@
     <td><%=h online_retailer_link.active %></td>
     <td><%= link_to 'Show', [:admin, online_retailer_link] %></td>
     <td><%= link_to 'Edit', edit_admin_online_retailer_link_path(online_retailer_link) %></td>
-    <td><%= link_to 'Delete', [:admin, online_retailer_link], :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Delete', [:admin, online_retailer_link], confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>

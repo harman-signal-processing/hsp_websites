@@ -1,9 +1,9 @@
 <h1>FAQ</h1>
 
 <div class="button_container">
-	<%= link_to 'Back', admin_faqs_path, :class => "back button" %>
-	<%= link_to 'Edit', edit_admin_faq_path(@faq), :class => "edit button" %> 
-	<%= link_to 'Delete', [:admin, @faq], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %>
+	<%= link_to 'Back', admin_faqs_path, class: "back button" %>
+	<%= link_to 'Edit', edit_admin_faq_path(@faq), class: "edit button" %> 
+	<%= link_to 'Delete', [:admin, @faq], confirm: 'Are you sure?', method: :delete, class: "delete button" %>
 </div>
 
 <p>

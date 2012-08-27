@@ -1,4 +1,4 @@
-<%= form_for([:admin, @tone_library_patch], :html => {:multipart => true}) do |f| %>
+<%= form_for([:admin, @tone_library_patch], html: {multipart: true}) do |f| %>
   <% if @tone_library_patch.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@tone_library_patch.errors.count, "error") %> prohibited this patch from being saved:</h2>
@@ -13,11 +13,11 @@
 
   <div class="field">
     <%= f.label :tone_library_song_id %><br />
-    <%= f.select :tone_library_song_id, ToneLibrarySong.find(:all, :order => "title").collect{|s| [s.displayname, s.id]} %>
+    <%= f.select :tone_library_song_id, ToneLibrarySong.find(:all, order: "title").collect{|s| [s.displayname, s.id]} %>
   </div>
   <div class="field">
     <%= f.label :product_id %><br />
-    <%= f.select :product_id, Product.find(:all, :order => "name").collect{|p| [p.name, p.id]} %>
+    <%= f.select :product_id, Product.find(:all, order: "name").collect{|p| [p.name, p.id]} %>
   </div>
   <div class="field">
     <%= f.label :patch %><br />

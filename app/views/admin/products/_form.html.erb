@@ -13,7 +13,7 @@
 <% if can?(:update, :product_keywords) %>
 <p>
   <%= f.label :keywords %><br />
-  <%= f.text_area :keywords, :size => "60x5" %>
+  <%= f.text_area :keywords, size: "60x5" %>
 </p>
 <% end %>
 <% if can?(:change, ProductStatus) %>
@@ -32,12 +32,12 @@
 <% end %>
 <p>
   <%= f.label :short_description %><br />
-  <%= f.text_field :short_description, :size => 75 %>
+  <%= f.text_field :short_description, size: 75 %>
 </p>
 <% if can?(:update, :product_background) %>
 <p>
 	<%= f.label :background_color %> <span class="hint">(optional custom page background: <i>#CCCCCC or blue</i>)</span><br/>
-	<%= f.text_field :background_color, :size => 15 %>
+	<%= f.text_field :background_color, size: 15 %>
 </p>
 <p>
 	<%= f.label :background_image %> <span class="hint">(optional background image--will be centered)</span><br/>
@@ -45,46 +45,46 @@
 	<% if !f.object.background_image_file_name.blank? %>
 	<span id="background_image">
 		<%= link_to f.object.background_image_file_name, f.object.background_image.url %>
-		<%= link_to image_tag("trash.gif"), delete_background_admin_product_path(f.object), :remote => true %>
+		<%= link_to image_tag("trash.gif"), delete_background_admin_product_path(f.object), remote: true %>
 	</span>
 	<% end %>
 </p>
 <% end %>
 <p>
   <%= f.label :description %><br />
-  <%= f.text_area :description, :size => "60x20", :class => "mceEditor" %>
+  <%= f.text_area :description, size: "60x20", class: "mceEditor" %>
 </p>
 <p>
 	<%= f.label :extended_description %><br/>
-	<%= f.text_area :extended_description, :size => "40x20", :class => "mceEditor" %>
+	<%= f.text_area :extended_description, size: "40x20", class: "mceEditor" %>
 </p>
 <p>
 	<%= f.label :features %><br/>
-	<%= f.text_area :features, :size => "20x20", :class => "mceEditor" %>
+	<%= f.text_area :features, size: "20x20", class: "mceEditor" %>
 </p>
 <p>
 	<%= f.label :features_tab_name %> <%= f.text_field :features_tab_name, size: 18 %>
 </p>
 <p>
-	<%= f.label :warranty_period, :style => "width: 120px; display: inline-block" %>
-	<%= f.text_field :warranty_period, :size => 3 %> years
+	<%= f.label :warranty_period, style: "width: 120px; display: inline-block" %>
+	<%= f.text_field :warranty_period, size: 3 %> years
 </p>
 <% if website.show_pricing? %>
 <p>
-	<%= f.label :msrp, "MSRP", :style => "width: 110px; display: inline-block" %>
-	$ <%= f.text_field :msrp, :size => 10, :placeholder => "0.00" %>
+	<%= f.label :msrp, "MSRP", style: "width: 110px; display: inline-block" %>
+	$ <%= f.text_field :msrp, size: 10, placeholder: "0.00" %>
 </p>
 <p>
-	<%= f.label :msrp, "Street Price", :style => "width: 110px; display: inline-block" %>
-	$ <%= f.text_field :street_price, :size => 10, :placeholder => "0.00" %>
+	<%= f.label :msrp, "Street Price", style: "width: 110px; display: inline-block" %>
+	$ <%= f.text_field :street_price, size: 10, placeholder: "0.00" %>
 </p>
 <p>
-	<%= f.label :sale_price, :style => "width: 110px; display: inline-block" %>
-	$ <%= f.text_field :sale_price, :size => 10, :placeholder => "0.00" %>
+	<%= f.label :sale_price, style: "width: 110px; display: inline-block" %>
+	$ <%= f.text_field :sale_price, size: 10, placeholder: "0.00" %>
 </p>
 <p>
 	<%= f.label :direct_buy_link %> <span class="hint">(aka, add to cart link)</span><br/>
-	<%= f.url_field :direct_buy_link, :size => 40, :placeholder => "http://#{website.url}/add-to-cart/..." %>
+	<%= f.url_field :direct_buy_link, size: 40, placeholder: "http://#{website.url}/add-to-cart/..." %>
 	<div class="bigger_hint" style="width: 600px; padding-bottom: 10px">Providing a link above will convert the "Buy It Now" button on the product page
 		into an "Add To Cart" button linking directly to the link above. If you'd rather include
 		this link among other online retailer links, then leave this field blank and use the "online retailers" 
@@ -93,7 +93,7 @@
 <% end %>
 <p>
 	<%= f.label :demo_link %><br/>
-	<%= f.url_field :demo_link, :size => 40, :placeholder => "http://#{website.url}/#{I18n.default_locale}/..." %>
+	<%= f.url_field :demo_link, size: 40, placeholder: "http://#{website.url}/#{I18n.default_locale}/..." %>
 </p>
 <% if website.page_layouts %>
 <p>

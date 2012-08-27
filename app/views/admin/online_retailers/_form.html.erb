@@ -10,7 +10,7 @@
 </p>
 <p>
 	<%= f.label :brand_link %><br />
-	<%= f.text_field :brand_link, :size => 60 %><br />
+	<%= f.text_field :brand_link, size: 60 %><br />
 	<i>The link which shows all of the <%= website.brand_name %> products.</i>
 </p>
 <% if can? :disable, f.object %>

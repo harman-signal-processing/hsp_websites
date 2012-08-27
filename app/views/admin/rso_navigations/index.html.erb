@@ -1,7 +1,7 @@
 <h1>RSO Site Navigation Elements</h1>
 
 <div class="button_container">
-	<%= link_to 'New element', new_admin_rso_navigation_path, :class => "new button" %>
+	<%= link_to 'New element', new_admin_rso_navigation_path, class: "new button" %>
 </div>
 
 <p>These appear on the top of the <%= website.brand_name %> page on the RSO site.</p>
@@ -17,5 +17,5 @@
 </ul>
 
 <%#= sortable_element "rso_navigations",
-        # :complete => visual_effect(:highlight, "rso_navigations"),
-        :url => update_order_admin_rso_navigations_path %>
+        # complete: visual_effect(:highlight, "rso_navigations"),
+        url: update_order_admin_rso_navigations_path %>

@@ -12,7 +12,7 @@
     <td><%=h product_software.software_id %></td>
     <td><%= link_to 'Show', [:admin, product_software] %></td>
     <td><%= link_to 'Edit', edit_admin_product_software_path(product_software) %></td>
-    <td><%= link_to 'Delete', [:admin, product_software], :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Delete', [:admin, product_software], confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>

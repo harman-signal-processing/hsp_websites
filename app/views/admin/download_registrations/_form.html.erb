@@ -29,7 +29,7 @@
   </div>
   <div class="field">
     <%= f.label :download_count %><br />
-    <%= f.text_field :download_count, :size => 5 %>
+    <%= f.text_field :download_count, size: 5 %>
 	<% unless f.object.new_record? %>
 	  of <%= f.object.registered_download.per_download_limit %> (the limit for <%= f.object.registered_download.name %>)
 	<% end %>

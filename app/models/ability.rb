@@ -3,19 +3,19 @@ class Ability
 
   def initialize(user)
     user ||= User.new({
-      :admin            => false, 
-      :engineer         => false,
-      :market_manager   => false, 
-      :artist_relations => false,
-      :customer_service => false,
-      :online_retailer  => false,
-      :translator       => false,
-      :rohs             => false,
-      :clinician        => false,
-      :rep              => false,
-      :clinic_admin     => false,
-      :rso              => false,
-      :rso_admin        => false
+      admin: false, 
+      engineer: false,
+      market_manager: false, 
+      artist_relations: false,
+      customer_service: false,
+      online_retailer: false,
+      translator: false,
+      rohs: false,
+      clinician: false,
+      rep: false,
+      clinic_admin: false,
+      rso: false,
+      rso_admin: false
     })
     # The first argument to `can` is the action you are giving the user permission to do.
     # If you pass :manage it will apply to every action. Other common actions here are
@@ -27,7 +27,7 @@ class Ability
     # The third argument is an optional hash of conditions to further filter the objects.
     # For example, here the user can only update published articles.
     #
-    #   can :update, Article, :published => true
+    #   can :update, Article, published: true
     #
     # See the wiki for details: https://github.com/ryanb/cancan/wiki/Defining-Abilities
     if user.role?(:admin)

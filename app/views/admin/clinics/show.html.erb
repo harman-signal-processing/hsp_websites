@@ -1,9 +1,9 @@
 <h1>Clinic</h1>
 <div class="button_container">
-  <%= link_to 'Back', admin_clinics_path, :class => "back button" %>
+  <%= link_to 'Back', admin_clinics_path, class: "back button" %>
   <% if can? :manaage, @clinic %>
-    <%= link_to 'Edit', edit_admin_clinic_path(@clinic), :class => "edit button" %> 
-    <%= link_to 'Delete', [:admin, @clinic], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %>
+    <%= link_to 'Edit', edit_admin_clinic_path(@clinic), class: "edit button" %> 
+    <%= link_to 'Delete', [:admin, @clinic], confirm: 'Are you sure?', method: :delete, class: "delete button" %>
   <% end %>
 </div>
 
@@ -12,7 +12,7 @@
 	<% if @clinic.scheduled_at.blank? %>
 		n/a
 	<% else %>
-  		<%=l @clinic.scheduled_at.to_date, :format => :long %>
+  		<%=l @clinic.scheduled_at.to_date, format: :long %>
 	<% end %>
 </p>
 
@@ -21,7 +21,7 @@
 	<% if @clinic.end_at.blank? %>
 		n/a
 	<% else %>
-  		<%=l @clinic.end_at.to_date, :format => :long %>
+  		<%=l @clinic.end_at.to_date, format: :long %>
 	<% end %>
 </p>
 

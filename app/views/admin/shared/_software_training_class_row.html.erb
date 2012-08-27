@@ -5,7 +5,7 @@
 		link_to(stc.software.name, [:admin, stc.software]) %>
 	<%= link_to(image_tag('trash.gif'),
 		  admin_software_training_class_path(stc),
-		  :remote => true,
-		  :confirm => "Are you sure?",
-		  :method => :delete) %>
+		  remote: true,
+		  confirm: "Are you sure?",
+		  method: :delete) %>
 </li>

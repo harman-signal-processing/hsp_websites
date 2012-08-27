@@ -1,9 +1,9 @@
 <h1>User</h1>
 
 <div class="button_container">
-	<%= link_to 'Back', admin_users_path, :class => "back button" %>
-	<%= link_to 'Edit', edit_admin_user_path(@user), :class => "edit button" %> 
-	<%= link_to 'Delete', [:admin, @user], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %>
+	<%= link_to 'Back', admin_users_path, class: "back button" %>
+	<%= link_to 'Edit', edit_admin_user_path(@user), class: "edit button" %> 
+	<%= link_to 'Delete', [:admin, @user], confirm: 'Are you sure?', method: :delete, class: "delete button" %>
 </div>
 
 <p>
@@ -19,7 +19,7 @@
 <% if @user.role?(:online_retailer) %>
 <div class="group">
 <h3>If this person is an online retailer, select which retailers he/she can maintain:</h3>
-<%= form_for [:admin, @online_retailer_user], :remote => true do |f| %>
+<%= form_for [:admin, @online_retailer_user], remote: true do |f| %>
 	<%= hidden_field_tag "called_from", "user" %>
     <%= f.hidden_field :user_id %>
 	<%= f.select :online_retailer_id, OnlineRetailer.all.collect{|onr| [onr.name, onr.id]} %> 
@@ -29,7 +29,7 @@
 
 <ul id="online_retailer_users">
 	<% @user.online_retailer_users.each do |oru| %>
-		<%= render '/admin/shared/online_retailer_user_row', :oru => oru, :called_from => 'user' %>
+		<%= render '/admin/shared/online_retailer_user_row', oru: oru, called_from: 'user' %>
 	<% end %>
 </ul>
 </div>

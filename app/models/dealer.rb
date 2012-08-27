@@ -1,8 +1,8 @@
 class Dealer < ActiveRecord::Base
   acts_as_mappable
   validates_presence_of :account_number, :address, :city, :state, :name, :brand_id
-  validates_uniqueness_of :account_number, :scope => :brand_id
-  before_validation :geocode_address, :on => :create 
+  validates_uniqueness_of :account_number, scope: :brand_id
+  before_validation :geocode_address, on: :create 
   before_update :regeocode
   belongs_to :brand
   scope :near, lambda{ |*args|
@@ -15,12 +15,12 @@ class Dealer < ActiveRecord::Base
                         origin_lat, origin_lng = deg2rad(origin_lat), deg2rad(origin_lng)
                         within = *args.first[:within]
                         {
-                          :conditions => %(
+                          conditions: %(
                             (ACOS(COS(#{origin_lat})*COS(#{origin_lng})*COS(RADIANS(dealers.lat))*COS(RADIANS(dealers.lng))+
                             COS(#{origin_lat})*SIN(#{origin_lng})*COS(RADIANS(dealers.lat))*SIN(RADIANS(dealers.lng))+
                             SIN(#{origin_lat})*SIN(RADIANS(dealers.lat)))*3963) <= #{within[0]}
                           ),
-                          :select => %( dealers.*,
+                          select: %( dealers.*,
                             (ACOS(COS(#{origin_lat})*COS(#{origin_lng})*COS(RADIANS(dealers.lat))*COS(RADIANS(dealers.lng))+
                             COS(#{origin_lat})*SIN(#{origin_lng})*COS(RADIANS(dealers.lat))*SIN(RADIANS(dealers.lng))+
                             SIN(#{origin_lat})*SIN(RADIANS(dealers.lat)))*3963) AS distance

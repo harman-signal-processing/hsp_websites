@@ -25,7 +25,7 @@
     <td><%= download_registration.download_code %></td>
     <td><%= link_to 'Show', [:admin, download_registration] %></td>
     <td><%= link_to 'Edit', edit_admin_download_registration_path(download_registration) %></td>
-    <td><%= link_to 'Delete', [:admin, download_registration], :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Delete', [:admin, download_registration], confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>

@@ -1,4 +1,4 @@
-<%= form_for([:admin, @effect], :html => {:multipart => true}) do |f| %>
+<%= form_for([:admin, @effect], html: {multipart: true}) do |f| %>
   <% if @effect.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@effect.errors.count, "error") %> prohibited this effect from being saved:</h2>

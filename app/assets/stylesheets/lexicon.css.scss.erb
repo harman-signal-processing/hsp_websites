@@ -714,116 +714,139 @@ div#signup {
 	}
 }
 /***** Product Family Page *****/
-a {
-	.small_product_box,
-	.small_product_boxvertical,
-	.small_product_boxhorizontal {
-		background: #f0f0ef url(<%= image_path('lexicon/light_gray_gradient.png') %>) repeat-x;
-		color: #6E6E6E;
-		border: 1px solid #E3DFD8;
-		padding: 10px;
-		text-align: center;	
-		width: 198px;
-		height: 140px;
-		float: left;
-		margin: 10px;
-		overflow: hidden;
-		font-size: 12px;
-		line-height: 15px;
-		box-shadow: 1px 2px 3px #D7D7D7;
-		position: relative;
-		.compare_checkbox {
-			position: absolute;
-			top: 80px;
-			left: 0px;
-			text-align: center;
-			width: 140px;
-		}
-		h3 {
-			text-align: left;
-			font-size: 18px;
-			line-height: 18px;
-			font-family: 'AsapBold';
-			font-weight: normal;
-			color: #111;
-		}
+.small_product_box_container {
+	position: relative;
+	float: left;
+	.compare_checkbox {
+		z-index: 999;
+		position: absolute;
+		bottom: 10px;
+		left: 12px;
+		text-align: left;
+		width: 140px;
 	}
-	&:hover {
+	a {
+		text-decoration: none;
 		.small_product_box,
 		.small_product_boxvertical,
 		.small_product_boxhorizontal {
-			background: #E6E6E6;
+			position: relative;
+			background: #f0f0ef url(<%= image_path('lexicon/light_gray_gradient.png') %>) repeat-x;
+			color: #6E6E6E;
+			border: 1px solid #E3DFD8;
+			padding: 10px;
+			text-align: center;	
+			width: 198px;
+			height: 140px;
+			margin: 10px;
+			overflow: hidden;
+			font-size: 12px;
+			line-height: 15px;
+			box-shadow: 1px 2px 3px #D7D7D7;
+			h3 {
+				text-align: left;
+				font-size: 18px;
+				line-height: 18px;
+				font-family: 'AsapBold';
+				font-weight: normal;
+				color: #111;
+			}
+		}
+		&:hover {
+			.small_product_box,
+			.small_product_boxvertical,
+			.small_product_boxhorizontal {
+				background: #E6E6E6;
+			}
+		}
+	}
+	.small_product_box {
+		.product_thumb {
+			width: 100%;
+			text-align: center;
+		}
+		a:link, a:visited {
+			text-decoration: none;
+			color: black;
+		}
+		a:hover {
+			text-decoration: none;
+			color: #4A4A4A;
+		}
+	}
+	.small_product_boxvertical {
+		.product_thumb {
+			position: absolute;
+			top: 10px;
+			right: 8px;
+			width: 90px;
+			text-align: center;
+			height: 130px;
+		}
+		table.product_thumb {
+			td {
+				vertical-align: middle;
+			}
+		}
+		h3 {
+			width: 100px;
+		}
+		div.product_description {
+			text-align: left;
+			width: 100px;
+		}
+		a:link, a:visited {
+			text-decoration: none;
+			color: black;
+		}
+		a:hover {
+			text-decoration: none;
+			color: #4A4A4A;
+		}
+	}
+	.small_product_boxhorizontal {
+		table.product_thumb {
+			position: absolute;
+			bottom: 5px;
+			width: 196px;
+			height: 80px;
+		}
+		div.product_description {
+			text-align: left;
+		}
+		a:link, a:visited {
+			text-decoration: none;
+			color: black;
+		}
+		a:hover {
+			text-decoration: none;
+			color: #4A4A4A;
 		}
 	}
 }
-
-.small_product_box {
-	.product_thumb {
-		width: 100%;
-		text-align: center;
-	}
-	a:link, a:visited {
-		text-decoration: none;
-		color: black;
-	}
-	a:hover {
-		text-decoration: none;
-		color: #4A4A4A;
-	}
-}
-.small_product_boxvertical {
-	.product_thumb {
-		position: absolute;
-		top: 10px;
-		right: 8px;
-		width: 90px;
-		text-align: center;
-		height: 130px;
-	}
-	table.product_thumb {
-		td {
-			vertical-align: middle;
-		}
-	}
-	h3 {
-		width: 100px;
-	}
-	div.product_description {
-		text-align: left;
-		width: 100px;
-	}
-	a:link, a:visited {
-		text-decoration: none;
-		color: black;
-	}
-	a:hover {
-		text-decoration: none;
-		color: #4A4A4A;
-	}
-}
-.small_product_boxhorizontal {
-	table.product_thumb {
-		position: absolute;
-		bottom: 5px;
-		width: 196px;
-		height: 80px;
-	}
-	div.product_description {
-		text-align: left;
-	}
-	a:link, a:visited {
-		text-decoration: none;
-		color: black;
-	}
-	a:hover {
-		text-decoration: none;
-		color: #4A4A4A;
-	}
-}
-
 .related_products {
 	margin: 20px 0px;
 	font-style: oblique;
+}
+table.comparison {
+	border-collapse: collapse;
+	border: 1px solid #CCC;
+	td {
+		padding: 5px;
+		border: 1px dotted #CCC;
+		&.spec_name {
+			width: 120px;
+			background: #EEE
+		}
+	}
+	th {
+		padding: 4px;
+		border: 1px solid #CCC;
+		border-bottom: 2px solid #999;
+	}
+}
+div.compare_button {
+	padding: 20px 10px;
 }
 /***** Product Page *****/
 div#product_content {

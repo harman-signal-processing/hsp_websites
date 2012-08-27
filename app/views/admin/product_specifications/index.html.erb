@@ -19,7 +19,7 @@
     <td><%= product_specification.position %></td>
     <td><%= link_to 'Show', [:admin, product_specification] %></td>
     <td><%= link_to 'Edit', edit_admin_product_specification_path(product_specification) %></td>
-    <td><%= link_to 'Delete', [:admin, product_specification], :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Delete', [:admin, product_specification], confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>

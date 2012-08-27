@@ -7,7 +7,7 @@
 <div class="article_centered_box">
 <h1><%= translate_content(@news, :title) %></h1>
 <p class="little">
-  <%=l @news.post_on, :format => :long %>
+  <%=l @news.post_on, format: :long %>
 </p>
 <%= render 'shared/add_this' %>	
 
@@ -22,7 +22,7 @@
 <% if @news.products.size > 0 %>
 	<h2><%= t('titles.related_products') %></h2>
 	<% @news.products.each do |product| %>
-		<%= render_partial "product_families/product_square", :product => product %>
+		<%= render_partial "product_families/product_square", product: product, compare: false %>
 	<% end %>
 	<div class="clear"></div>
 <% end %>

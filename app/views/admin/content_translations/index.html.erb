@@ -15,7 +15,7 @@
 	</tr>
 	<% ContentTranslation.translatables(website.brand).each do |key,value| %>
 	<tr>
-		<td><%= link_to key.to_s.humanize.pluralize, list_admin_content_translations_path(:locale => I18n.locale, :target_locale => @target_locale, :type => key) %></td>
+		<td><%= link_to key.to_s.humanize.pluralize, list_admin_content_translations_path(locale: I18n.locale, target_locale: @target_locale, type: key) %></td>
 		<td><%= value.join(", ") %></td>
 	</tr>
 	<% end %>

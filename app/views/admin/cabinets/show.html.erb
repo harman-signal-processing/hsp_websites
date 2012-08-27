@@ -1,9 +1,9 @@
 <h1> <%= @cabinet.name %></h1>
 
 <div class="button_container">
-	<%= link_to 'Back', admin_cabinets_path, :class => "back button" %>
-	<%= link_to 'Edit', edit_admin_cabinet_path(@cabinet), :class => "edit button" %> 
-	<%= link_to 'Delete', [:admin, @cabinet], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %>
+	<%= link_to 'Back', admin_cabinets_path, class: "back button" %>
+	<%= link_to 'Edit', edit_admin_cabinet_path(@cabinet), class: "edit button" %> 
+	<%= link_to 'Delete', [:admin, @cabinet], confirm: 'Are you sure?', method: :delete, class: "delete button" %>
 </div>
 
 <div class="group">
@@ -11,7 +11,7 @@
 	<p><%= link_to_function "add a product", "$('#add_cabinet_form').toggle();"%></p>
 
 	<div id="add_cabinet_form" style="display:none">
-		<%= form_for [:admin, @product_cabinet], :remote => true do |f| %>
+		<%= form_for [:admin, @product_cabinet], remote: true do |f| %>
 			<%= hidden_field_tag :cabinet_name %>
 			<%= hidden_field_tag :called_from, "cabinet" %>
 		    <%= f.hidden_field :cabinet_id %>
@@ -23,7 +23,7 @@
 
 	<ul id="product_cabinets">
 	  <% @cabinet.product_cabinets.each do |pc| %>
-	  <%= render "/admin/shared/product_cabinet_row", :pc => pc, :called_from => "cabinet" %>
+	  <%= render "/admin/shared/product_cabinet_row", pc: pc, called_from: "cabinet" %>
 	  <% end %>
 	</ul>
 </div>

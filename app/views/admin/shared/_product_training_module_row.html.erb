@@ -6,7 +6,7 @@
 		link_to(ptm.product.name, [:admin, ptm.product]) %>
 	<%= link_to(image_tag('trash.gif'),
 		  admin_product_training_module_path(ptm),
-		  :remote => true,
-		  :confirm => "Are you sure?",
-		  :method => :delete) %>
+		  remote: true,
+		  confirm: "Are you sure?",
+		  method: :delete) %>
 </li>

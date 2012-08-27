@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :dealer_id %> (if not listed, fill out the "location" field)<br />
-    <%= f.select :dealer_id, [[]] + Dealer.order("name").all.collect{|d| ["#{d.name} (#{d.address_string})", d.id]}, {}, :style => "font-size: 75%" %>
+    <%= f.select :dealer_id, [[]] + Dealer.order("name").all.collect{|d| ["#{d.name} (#{d.address_string})", d.id]}, {}, style: "font-size: 75%" %>
   </div>
   <div class="field">
     <%= f.label :location %> (only used if "dealer" field is blank)<br />
@@ -29,11 +29,11 @@
   </div>
   <div class="field">
     <%= f.label :rep_id %><br />
-    <%= f.select :rep_id, [[]] + User.where(:rep => true).order("name").all.collect{|r| [r.name, r.id]} %>
+    <%= f.select :rep_id, [[]] + User.where(rep: true).order("name").all.collect{|r| [r.name, r.id]} %>
   </div>
   <div class="field">
     <%= f.label :clinician_id %><br />
-    <%= f.select :clinician_id, [[]] + User.where(:clinician => true).order("name").all.collect{|c| [c.name, c.id]} %>
+    <%= f.select :clinician_id, [[]] + User.where(clinician: true).order("name").all.collect{|c| [c.name, c.id]} %>
   </div>
 	<p>Products to be demonstrated:</p>
 	  <%= f.fields_for :clinic_products do |clinic_product| %>
@@ -44,15 +44,15 @@
   <% unless f.object.new_record? %>
   <div class="field">
     <%= f.label :travel_expenses %><br />
-    $<%= f.text_field :travel_expenses, :size => 10 %>
+    $<%= f.text_field :travel_expenses, size: 10 %>
   </div>
   <div class="field">
     <%= f.label :food_expenses %><br />
-    $<%= f.text_field :food_expenses, :size => 10 %>
+    $<%= f.text_field :food_expenses, size: 10 %>
   </div>
   <div class="field">
     <%= f.label :total_wages%><br />
-    $<%= f.text_field :total_wages, :size => 10 %>
+    $<%= f.text_field :total_wages, size: 10 %>
   </div>
   <div class="field">
     <%= f.check_box :increased_sell_through %>

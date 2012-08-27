@@ -1,9 +1,9 @@
 <h1><%= @distributor.name %></h1>
 
 <div class="button_container">
-	<%= link_to 'Back', admin_distributors_path, :class => "back button" %>
-	<%= link_to 'Edit', edit_admin_distributor_path(@distributor, :locale => I18n.locale), :class => "edit button" %>
-	<%= link_to 'Delete', [:admin, @distributor], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %> 
+	<%= link_to 'Back', admin_distributors_path, class: "back button" %>
+	<%= link_to 'Edit', edit_admin_distributor_path(@distributor, locale: I18n.locale), class: "edit button" %>
+	<%= link_to 'Delete', [:admin, @distributor], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
 </div>
 
 <p><b>Detail:</b></p>

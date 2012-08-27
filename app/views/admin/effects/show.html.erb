@@ -8,9 +8,9 @@
 </p>
 
 <div class="button_container">
-	<%= link_to 'Back', admin_effects_path, :class => "back button" %>
-	<%= link_to 'Edit', edit_admin_effect_path(@effect), :class => "edit button" %> 
-	<%= link_to 'Delete', [:admin, @effect], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %>
+	<%= link_to 'Back', admin_effects_path, class: "back button" %>
+	<%= link_to 'Edit', edit_admin_effect_path(@effect), class: "edit button" %> 
+	<%= link_to 'Delete', [:admin, @effect], confirm: 'Are you sure?', method: :delete, class: "delete button" %>
 </div>
 
 <p>
@@ -24,7 +24,7 @@
 	<p><%= link_to_function "add a product", "$('#add_effect_form').toggle();"%></p>
 
 	<div id="add_effect_form" style="display:none">
-		<%= form_for [:admin, @product_effect], :remote => true do |f| %>
+		<%= form_for [:admin, @product_effect], remote: true do |f| %>
 			<%= hidden_field_tag :effect_name %>
 			<%= hidden_field_tag :called_from, "effect" %>
 		    <%= f.hidden_field :effect_id %>
@@ -36,7 +36,7 @@
 
 	<ul id="product_effects">
 	  <% @effect.product_effects.each do |pe| %>
-	  <%= render "/admin/shared/product_effect_row", :pe => pe, :called_from => "effect" %>
+	  <%= render "/admin/shared/product_effect_row", pe: pe, called_from: "effect" %>
 	  <% end %>
 	</ul>
 </div>

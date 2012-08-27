@@ -1,4 +1,8 @@
-<% compare ||= !!(website.show_comparisons) %>
+<% 
+unless defined? compare
+	compare = !!(website.show_comparisons)
+end 
+%>
 <%= cache ["product_square", product, website, compare, Rails.env, I18n.locale] do %>
 
 <% 
@@ -13,8 +17,9 @@
 	end
 %>
 
-	<%= link_to product do %>
-	<div id="<%= product.to_param %>" class="small_product_box<%= product.layout_class.to_s %>">
+	<div class="small_product_box_container">
+	<%= link_to this_url, target: target do %>
+	<div id="<%= product.to_param %>" class="<%= css_class %>">
 		<div class="product_description">
 			<h3><%= translate_content(product, :name) %></h3>
 			<%= translate_content(product, :short_description) %>
@@ -30,12 +35,14 @@
 		<% end %>
 			</tr></td>
 		</table>
-		<% if compare %>
-			<div class="compare_checkbox">
-				<%= check_box_tag "product_ids[]", product.to_param, false %>
-			</div>
-		<% end %>
 	</div>
 	<% end %>
+
+	<% if compare %>
+		<div class="compare_checkbox">
+			<%= check_box_tag "product_ids[]", product.to_param, false %>compare
+		</div>
+	<% end %>
+	</div>
 
 <% end %>

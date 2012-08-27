@@ -15,16 +15,16 @@
 <%= fields_for @artist_brand do |ab| %>
 <p>
   <%= ab.label :intro %> (Used for the featured artists slideshow)<br/>
-  <%= ab.text_area :intro, :class => "mceEditor", :size => "50x4" %>
+  <%= ab.text_area :intro, class: "mceEditor", size: "50x4" %>
 </p>
 <% end %>
 <p>
   <%= f.label :bio %><br />
-  <%= f.text_area :bio, :class => "mceEditor", :size => "50x15" %>
+  <%= f.text_area :bio, class: "mceEditor", size: "50x15" %>
 </p>
 <p>
   <%= f.label :notable_career_moments %><br/>
-  <%= f.text_area :notable_career_moments, :class => "mceEditor", :size => "50x4" %>
+  <%= f.text_area :notable_career_moments, class: "mceEditor", size: "50x4" %>
 </p>
 <p>
   <%= f.label :artist_photo %><br />

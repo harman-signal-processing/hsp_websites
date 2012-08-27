@@ -1,9 +1,9 @@
 <h1><%= @rso_monthly_report.name %></h1>
 
 <div class="button_container">
-	<%= link_to 'Back', admin_rso_monthly_reports_path, :class => "back button" %>
-	<%= link_to 'Edit', edit_admin_rso_monthly_report_path(@rso_monthly_report), :class => "edit button" %>
-	<%= link_to 'Delete', [:admin, @rso_monthly_report], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %>
+	<%= link_to 'Back', admin_rso_monthly_reports_path, class: "back button" %>
+	<%= link_to 'Edit', edit_admin_rso_monthly_report_path(@rso_monthly_report), class: "edit button" %>
+	<%= link_to 'Delete', [:admin, @rso_monthly_report], confirm: 'Are you sure?', method: :delete, class: "delete button" %>
 </div>
 
 <div>
@@ -25,7 +25,7 @@
 <p>
   <b>Updated by:</b>
   <%= @rso_monthly_report.user.name %>
-  <span class="hint"><%= l @rso_monthly_report.updated_at, :format => :short %></span>
+  <span class="hint"><%= l @rso_monthly_report.updated_at, format: :short %></span>
 </p>
 
 

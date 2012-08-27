@@ -125,7 +125,7 @@ class ProductsController < ApplicationController
     if @products.size <= 1
       redirect_to product_families_path, alert: "Must select 2 or more products to compare. #{params[:product_ids]}"
     elsif @products.size > 5
-      redirect_to product_families_path, alert: "Must select less than 5 products to compare."
+      redirect_to product_families_path, alert: "Select no more than 5 products to compare."
     else
       @specs.uniq!
       render_template

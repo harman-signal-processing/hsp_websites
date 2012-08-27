@@ -1,4 +1,4 @@
-<%= form_for([:admin, @training_module], :html => {:multipart => true}) do |f| %>
+<%= form_for([:admin, @training_module], html: {multipart: true}) do |f| %>
   <% if @training_module.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@training_module.errors.count, "error") %> prohibited this module from being saved:</h2>
@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :description %><br />
-    <%= f.text_area :description, :class => "mceEditor" %>
+    <%= f.text_area :description, class: "mceEditor" %>
   </div>
   <% if @training_module.new_record? %>
 	<div class="hint">We'll associate products and software to this module AFTER uploading the content.</div>

@@ -1,9 +1,9 @@
 <h1><%= @tone_library_song.title %></h1>
 
 <div class="button_container">
-	<%= link_to 'Back', admin_tone_library_songs_path, :class => "back button" %>
-	<%= link_to 'Edit', edit_admin_tone_library_song_path(@tone_library_song), :class => "edit button" %> 
-	<%= link_to 'Delete', [:admin, @tone_library_song], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %>
+	<%= link_to 'Back', admin_tone_library_songs_path, class: "back button" %>
+	<%= link_to 'Edit', edit_admin_tone_library_song_path(@tone_library_song), class: "edit button" %> 
+	<%= link_to 'Delete', [:admin, @tone_library_song], confirm: 'Are you sure?', method: :delete, class: "delete button" %>
 </div>
 
 <p>
@@ -13,7 +13,7 @@
 
 <div class="group">
 <h3>Patches</h3>
-<%= form_for [:admin, @tone_library_patch], :html => {:multipart => true} do |f| %>
+<%= form_for [:admin, @tone_library_patch], html: {multipart: true} do |f| %>
     <%= f.hidden_field :tone_library_song_id %>
 	<%= f.select :product_id, Product.non_discontinued(website).collect{|p| [p.name, p.id]} %> 
 	<%= f.file_field :patch %>
@@ -22,7 +22,7 @@
 
 <ul id="patches">
 	<% @tone_library_song.tone_library_patches.each do |tlp| %>
-		<%= render '/admin/shared/tone_library_patch_row', :tlp => tlp %>
+		<%= render '/admin/shared/tone_library_patch_row', tlp: tlp %>
 	<% end %>
 </ul>
 </div>

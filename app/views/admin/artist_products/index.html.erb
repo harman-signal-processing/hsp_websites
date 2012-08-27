@@ -15,7 +15,7 @@
     <td><%= artist_product.product_id %></td>
     <td><%= link_to 'Show', [:admin, artist_product] %></td>
     <td><%= link_to 'Edit', edit_admin_artist_product_path(artist_product) %></td>
-    <td><%= link_to 'Delete', [:admin, artist_product], :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Delete', [:admin, artist_product], confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>

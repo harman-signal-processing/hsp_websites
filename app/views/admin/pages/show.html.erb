@@ -6,9 +6,9 @@
 </h1>
 
 <div class="button_container">
-	<%= link_to 'Back', admin_pages_path, :class => "back button" %>	
-	<%= link_to 'Edit', edit_admin_page_path(@page, :locale => I18n.locale), :class => "edit button" %>
-	<%= link_to 'Delete', [:admin, @page], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %> 
+	<%= link_to 'Back', admin_pages_path, class: "back button" %>	
+	<%= link_to 'Edit', edit_admin_page_path(@page, locale: I18n.locale), class: "edit button" %>
+	<%= link_to 'Delete', [:admin, @page], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
 </div>
 
 <p>

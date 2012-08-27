@@ -12,7 +12,7 @@
     <td><%=h news_product.news_id %></td>
     <td><%= link_to 'Show', [:admin, news_product] %></td>
     <td><%= link_to 'Edit', edit_admin_news_product_path(news_product) %></td>
-    <td><%= link_to 'Delete', [:admin, news_product], :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Delete', [:admin, news_product], confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>

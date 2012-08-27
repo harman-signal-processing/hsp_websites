@@ -6,7 +6,7 @@
 			link_to(pfp.product.name, [:admin, pfp.product]) %> 
 	<%= link_to(image_tag("trash.gif"), 
 			admin_product_family_product_path(pfp), 
-			:confirm => "Are you sure? (This won't delete the product or the product family--it will only remove the product from the family.)", 
-			:remote => true,
-			:method => :delete) %>
+			confirm: "Are you sure? (This won't delete the product or the product family--it will only remove the product from the family.)", 
+			remote: true,
+			method: :delete) %>
 </li>
