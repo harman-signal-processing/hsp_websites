@@ -1,7 +1,7 @@
-<% set_meta_tags :title => t('titles.rohs'),
-				 :description => truncate(t('rohs_intro'), :length => 100, :omission => ""),
-				 :keywords => @products.collect{|p| p.name}.join(", "),
-				 :reverse => true %>
+<% set_meta_tags title: t('titles.rohs'),
+				 description: truncate(t('rohs_intro'), length: 100, omission: ""),
+				 keywords: @products.collect{|p| p.name}.join(", "),
+				 reverse: true %>
 
 <h1><%= t('titles.rohs') %></h1>
 
@@ -9,6 +9,6 @@
 
 <ul style="margin: 20px 50px">
 	<% @products.each do |product| %>
-	<li> <%= link_to product.name, product_path(product, :locale => I18n.locale) %> <% unless product.sap_sku.blank? -%>(<%= product.sap_sku %>)<% end -%></li>
+	<li> <%= link_to product.name, product_path(product, locale: I18n.locale) %> <% unless product.sap_sku.blank? -%>(<%= product.sap_sku %>)<% end -%></li>
 	<% end %>
 </ul>

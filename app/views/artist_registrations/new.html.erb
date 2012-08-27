@@ -1,7 +1,7 @@
 <h1>Artist Profile Page Information</h1>
 
 <div class="artist_callout_container" style="padding: 2px 20px;">
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:multipart => true}) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {multipart: true}) do |f| %>
 <%= f.hidden_field :artist_tier_id %>
   <%= devise_error_messages! %>
 	<table style="width: 100%">
@@ -9,13 +9,13 @@
 			<td style="width: 50%" width="50%">
 				<div class="form_field">
 					<%= f.label :name, "Enter Artist/Band Name" %><br/>
-					<%= f.text_field :name, :class => "artist_field" %>
+					<%= f.text_field :name, class: "artist_field" %>
 				</div>
 			</td>
 			<td style="width: 50%" width="50%">
 				 <div class="form_field">
 					<%= f.label :invitation_code %><br/>
-					<%= f.text_field :invitation_code, :class => "artist_field", :style => "width: 100px;" %>
+					<%= f.text_field :invitation_code, class: "artist_field", style: "width: 100px;" %>
 					<span class="hint">(optional)</span>
 				</div>
 			</td>
@@ -24,13 +24,13 @@
 			<td>
 				<div class="form_field">
 					<%= f.label :email %><br />
-					<%= f.email_field :email, :class => "artist_field" %>
+					<%= f.email_field :email, class: "artist_field" %>
 				</div>
 			</td>
 			<td>
 				<div class="form_field">
 					<%= f.label :website, "Website address" %><br/>
-					<%= f.text_field :website, :class => "artist_field" %>
+					<%= f.text_field :website, class: "artist_field" %>
 				</div>
 			</td>
 		</tr>
@@ -38,13 +38,13 @@
 			<td>
 				<div class="form_field">
 					<%= f.label :password %><br />
-					<%= f.password_field :password, :class => "artist_field" %>
+					<%= f.password_field :password, class: "artist_field" %>
 				</div>
 			</td>
 			<td>
 				<div class="form_field">
 					<%= f.label :password_confirmation %><br />
-					<%= f.password_field :password_confirmation, :class => "artist_field" %>
+					<%= f.password_field :password_confirmation, class: "artist_field" %>
 				</div>
 			</td>
 		</tr>
@@ -52,14 +52,14 @@
 			<td>
 				<div class="form_field">
 					<%= f.label :artist_photo, "Upload Artist/Band Image" %><br/>
-					<%= f.file_field :artist_photo, :class => "artist_field" %>
+					<%= f.file_field :artist_photo, class: "artist_field" %>
 					<div class="hint">(960 pixels by 400 pixels)</div>
 				</div>
 			</td>
 			<td>
 				<div class="form_field">
 					<%= f.label :artist_product_photo, "Upload Artist/Band Image with product" %><br/>
-					<%= f.file_field :artist_product_photo, :class => "artist_field" %>
+					<%= f.file_field :artist_product_photo, class: "artist_field" %>
 					<div class="hint">(960 pixels by 400 pixels)</div>
 				</div>
 			</td>
@@ -68,21 +68,21 @@
 			<td valign="top">
 				<div class="form_field">
 					<%= f.label :bio, "Enter Band/Artist Biography" %><br/>
-					<%= f.text_area :bio, :size => "50x10", :class => "artist_field", :style => "width: 380px" %>
+					<%= f.text_area :bio, size: "50x10", class: "artist_field", style: "width: 380px" %>
 				</div>
 				<div class="form_field">
 					<%= f.label :notable_career_moments, "Notable Career Moments" %><br/>
-					<%= f.text_area :notable_career_moments, :size => "50x10", :class => "artist_field", :style => "width: 380px" %>
+					<%= f.text_area :notable_career_moments, size: "50x10", class: "artist_field", style: "width: 380px" %>
 				</div>
 			</td>
 			<td valign="top">
 				<div class="form_field">
 					<%= f.label :main_instrument, "What is your main instrument?" %><br/>
-					<%= f.text_field :main_instrument, :class => "artist_field" %>
+					<%= f.text_field :main_instrument, class: "artist_field" %>
 				</div>
 				<!-- <div class="form_field">
 					<%= f.label :twitter, "Twitter name" %><br/>
-					<%= f.text_field :twitter, :class => "artist_field" %>
+					<%= f.text_field :twitter, class: "artist_field" %>
 				</div>
 				 -->
 				<p style="margin-top: 20px">Which <%= website.brand_name %> products do you currently use? Select
@@ -92,8 +92,8 @@
 				<div class="form_field">
 					<%= p.select :product_id, 
 						website.current_and_discontinued_products.collect{|p| [p.name, p.id]}, 
-						{ :include_blank => true },
-						{ :class => "artist_field" } %>
+						{ include_blank: true },
+						{ class: "artist_field" } %>
 						<% if p.object.favorite? %>
 						<span class="hint">favorite</span>
 						<% end %>
@@ -101,7 +101,7 @@
 				<div class="form_field">
 					<% if p.object.favorite? %>
 						<%= p.label :quote, "Why is this your favorite?" %><br/>
-						<%= p.text_area :quote, :size => "30x2", :class => "artist_field" %>
+						<%= p.text_area :quote, size: "30x2", class: "artist_field" %>
 					<% end %>
 				</div>
 				<% end %>
@@ -122,4 +122,4 @@
 <% end %>
 </div>
 
-<%#= render :partial => "devise/shared/links" %>
+<%#= render partial: "devise/shared/links" %>

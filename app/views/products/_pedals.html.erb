@@ -3,7 +3,7 @@
 <div class="disclaimer"><%= t(:brief_legal_disclaimer) %></div>
 
 <% EffectType.order(:position).all.each do |effect_type| %>
-	<% effects = @product.effects.where(:effect_type_id => effect_type.id) %>
+	<% effects = @product.effects.where(effect_type_id: effect_type.id) %>
 	<% if effects.all.size > 0 %>
 	<h3><%= translate_content(effect_type, :name) %>:</h3>
 	<ul>

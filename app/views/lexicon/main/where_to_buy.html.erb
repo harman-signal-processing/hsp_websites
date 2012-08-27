@@ -1,12 +1,12 @@
-<% @page_title = t('meta.description.where_to_buy', :brand => website.brand_name) %>
-<% set_meta_tags :title => @page_title,
-				 :reverse => true,
-                 :description => t('meta.description.where_to_buy', :brand => website.brand_name),
-                 :keywords => t('meta.keywords.where_to_buy') %>
+<% @page_title = t('meta.description.where_to_buy', brand: website.brand_name) %>
+<% set_meta_tags title: @page_title,
+				 reverse: true,
+                 description: t('meta.description.where_to_buy', brand: website.brand_name),
+                 keywords: t('meta.keywords.where_to_buy') %>
 
 <h1 class="page_title">
 <% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/wheretobuy_head.jpg")) %>
-	<%= image_tag("#{website.folder}/#{I18n.locale}/wheretobuy_head.jpg", :alt => @page_title) %>
+	<%= image_tag("#{website.folder}/#{I18n.locale}/wheretobuy_head.jpg", alt: @page_title) %>
 <% else %>
 	<%= @page_title %>
 <% end %>
@@ -19,10 +19,10 @@
 <% if @results.size > 0 %>
 <%= content_for :custom_css do %>
 	<script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
-	<%= javascript_tag "markers_json = #{@results.to_json(:except => [:account_number, :brand_id, :created_at, :updated_at, :name2, :name3, :name4])}" %>
+	<%= javascript_tag "markers_json = #{@results.to_json(except: [:account_number, :brand_id, :created_at, :updated_at, :name2, :name3, :name4])}" %>
 	<script type="text/javascript" charset="utf-8">
 		$(document).ready(function() {
-			<%= @js_map_loader %>
+			<%= raw @js_map_loader %>
 		});
 	</script>
 <% end %>
@@ -35,9 +35,9 @@
 		<% OnlineRetailer.random(website).each do |online_retailer| %>
 		<div class="retailer_logo">
 			<% if !online_retailer.retailer_logo_file_name.blank? %>
-				<%= link_to(image_tag(online_retailer.retailer_logo(:small)), online_retailer.direct_link, :target => "_blank")%>
+				<%= link_to(image_tag(online_retailer.retailer_logo(:small)), online_retailer.direct_link, target: "_blank")%>
 			<% else %>
-				<%= link_to online_retailer.name, online_retailer.direct_link, :target => "_blank" %>
+				<%= link_to online_retailer.name, online_retailer.direct_link, target: "_blank" %>
 			<% end %>
 		</div>
 		<% end %>
@@ -64,7 +64,7 @@
 	<div class="form_container" style="width: 380px;">
 	<%= form_tag where_to_buy_path() %>
 		<p><%= t("us_zip_code") -%><br/>
-		<%= text_field_tag "zip", session[:zip], :size => 25 %></p>
+		<%= text_field_tag "zip", session[:zip], size: 25 %></p>
 		<p><%= submit_tag t('find_us_dealers') %>
 		<span style="margin-top: 4px; font-size: 11px;">
 			<%= link_to t("international_distributors"), international_distributors_path %>
@@ -81,7 +81,7 @@
 	<h3><%= t("find_a_dealer_near_you").capitalize %></h3>
 	<%= form_tag where_to_buy_path() %>
 		<p><%= t("us_zip_code") -%><br/>
-		<%= text_field_tag "zip", session[:zip], :style => "font-size: 200%; width: 200px;" %></p>
+		<%= text_field_tag "zip", session[:zip], style: "font-size: 200%; width: 200px;" %></p>
 		<p><%= submit_tag t('find_us_dealers') %>
 		<span style="margin-left: 4px; font-size: 11px;">
 			<%= link_to t("international_distributors"), international_distributors_path %>
@@ -91,7 +91,7 @@
 </div>
 
 <div id="pop_info" style="margin-left: 100px">
-	<h3><%= t('titles.buy_direct', :brand => website.brand.name) %></h3>
+	<h3><%= t('titles.buy_direct', brand: website.brand.name) %></h3>
 	<%= raw website.where_to_buy_blurb %>
 </div>
 
@@ -104,9 +104,9 @@
 	<% OnlineRetailer.random(website).each do |online_retailer| %>
 	<div class="retailer_logo">
 	<% if !online_retailer.retailer_logo_file_name.blank? %>
-		<%= link_to(image_tag(online_retailer.retailer_logo(:small)), online_retailer.direct_link, :target => "_blank")%>
+		<%= link_to(image_tag(online_retailer.retailer_logo(:small)), online_retailer.direct_link, target: "_blank")%>
 	<% else %>
-		<%= link_to online_retailer.name, online_retailer.direct_link, :target => "_blank" %>
+		<%= link_to online_retailer.name, online_retailer.direct_link, target: "_blank" %>
 	<% end %>
 	</div>
 	<% end %>

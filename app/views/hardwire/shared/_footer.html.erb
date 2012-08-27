@@ -17,12 +17,12 @@
 		<%= link_to t('where_to_buy'), where_to_buy_path %> &bull;
 		<% end %>
 		<%= link_to t('product_support'), support_path %> &bull;
-		<%= link_to t('sitemap'), sitemap_path(:format => 'xml') %>
+		<%= link_to t('sitemap'), sitemap_path(format: 'xml') %>
 	</div>
 	<div id="footer_left">
 		<%= image_tag "harman_tiny.png" %>
 		&copy; <%= Date.today.year %> 
-		<%= link_to(t('harman'), "http://www.harman.com/", :target => "_blank") %>. 
+		<%= link_to(t('harman'), "http://www.harman.com/", target: "_blank") %>. 
 		<%= t('all_rights_reserved') %>
 	</div>
 </div>

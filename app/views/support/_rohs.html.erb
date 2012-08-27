@@ -6,10 +6,10 @@
  and it does seem to be the cluprit. -->
 
 
-<% set_meta_tags :title => t('titles.rohs'),
-				 :description => truncate(t('rohs_intro'), :length => 100, :omission => ""),
-				 :keywords => @products.collect{|p| p.name}.join(", "),
-				 :reverse => true %>
+<% set_meta_tags title: t('titles.rohs'),
+				 description: truncate(t('rohs_intro'), length: 100, omission: ""),
+				 keywords: @products.collect{|p| p.name}.join(", "),
+				 reverse: true %>
 
 <h1><%= t('titles.rohs') %></h1>
 

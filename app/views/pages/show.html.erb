@@ -1,7 +1,7 @@
-<% set_meta_tags :reverse => true,
-                 :title => translate_content(@page, :title),
-                 :description => translate_content(@page, :description),
-                 :keywords => @page.keywords %>
+<% set_meta_tags reverse: true,
+                 title: translate_content(@page, :title),
+                 description: translate_content(@page, :description),
+                 keywords: @page.keywords %>
 
 <%=raw translate_content(@page, :body) %>
 

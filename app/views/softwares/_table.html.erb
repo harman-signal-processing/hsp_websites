@@ -1,9 +1,9 @@
 <table class="info" style="margin-left: auto; margin-right: auto;">
   <tr>
 	<th>&nbsp;</th>
-    <th><%= image_tag "windows_17.png", :style => "vertical-align: middle" %> <%= ucfirst(t('windows_gui')) %></th>
+    <th><%= image_tag "windows_17.png", style: "vertical-align: middle" %> <%= ucfirst(t('windows_gui')) %></th>
 <% if website.has_mac_software? %>
-	<th><%= image_tag "mac_17.png", :style => "vertical-align: middle" %><%= ucfirst(t('mac_gui')) %></th>
+	<th><%= image_tag "mac_17.png", style: "vertical-align: middle" %><%= ucfirst(t('mac_gui')) %></th>
 <% end %>
 <% if website.has_plugins? %>
 	<th><%= ucfirst(t('plugin')) %></th>
@@ -18,9 +18,9 @@
   <% if product.discontinued? && reshow_header == true %>
   <tr>
 	<th>&nbsp;</th>
-    <th><%= image_tag "windows_17.png", :style => "vertical-align: middle" %> <%= ucfirst(t('windows_gui')) %></th>
+    <th><%= image_tag "windows_17.png", style: "vertical-align: middle" %> <%= ucfirst(t('windows_gui')) %></th>
 <% if website.has_mac_software? %>
-	<th><%= image_tag "mac_17.png", :style => "vertical-align: middle" %><%= ucfirst(t('mac_gui')) %></th>
+	<th><%= image_tag "mac_17.png", style: "vertical-align: middle" %><%= ucfirst(t('mac_gui')) %></th>
 <% end %>
 <% if website.has_plugins? %>
 	<th><%= ucfirst(t('plugin')) %></th>

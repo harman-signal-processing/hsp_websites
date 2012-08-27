@@ -37,28 +37,44 @@ class News < ActiveRecord::Base
   # includes entries from the past year and a half.
   def self.all_for_website(website, options={})
     limit = (options[:limit]) ? " LIMIT #{options[:limit]} " : ""
-    News.find_by_sql("SELECT DISTINCT news.* FROM news
+    # First, select news story IDs with a product associated with this brand...
+    product_news = News.find_by_sql("SELECT DISTINCT news.id FROM news
       INNER JOIN news_products ON news_products.news_id = news.id
       INNER JOIN products ON products.id = news_products.product_id
       INNER JOIN product_family_products ON product_family_products.product_id = products.id
       INNER JOIN product_families ON product_families.id = product_family_products.product_family_id
-      WHERE ( product_families.brand_id = #{website.brand_id} OR news.brand_id = #{website.brand_id} )
+      WHERE product_families.brand_id = #{website.brand_id}
       AND post_on >= '#{18.months.ago}' AND post_on <= '#{Date.today}'
+      ORDER BY post_on DESC #{limit}").collect{|p| p.id}.join(", ")
+    product_news_query = (product_news.blank?) ? "" : " OR id IN (#{product_news}) "
+
+    # Second, add in those stories associated with the brand only (no products linked)
+    News.find_by_sql("SELECT DISTINCT news.* from news
+      WHERE ( brand_id = #{website.brand_id} 
+        AND post_on >= '#{18.months.ago}' AND post_on <= '#{Date.today}' )
+      #{product_news_query}
       ORDER BY post_on DESC #{limit}")
-    # where(brand_id: website.brand_id).where(["post_on >= ? AND post_on <= ?", 18.months.ago, Date.today]).order("post_on DESC")
   end
 
   # Older news for the archived page. These are articles older than 1.5 year.
   def self.archived(website)
-    News.find_by_sql("SELECT DISTINCT news.* FROM news
+    # First, select news story IDs with a product associated with this brand...
+    product_news = News.find_by_sql("SELECT DISTINCT news.id FROM news
       INNER JOIN news_products ON news_products.news_id = news.id
       INNER JOIN products ON products.id = news_products.product_id
       INNER JOIN product_family_products ON product_family_products.product_id = products.id
       INNER JOIN product_families ON product_families.id = product_family_products.product_family_id
-      WHERE ( product_families.brand_id = #{website.brand_id} OR news.brand_id = #{website.brand_id} )
+      WHERE product_families.brand_id = #{website.brand_id}
       AND post_on <= '#{18.months.ago}'
+      ORDER BY post_on DESC").collect{|p| p.id}.join(", ")
+    product_news_query = (product_news.blank?) ? "" : " OR id IN (#{product_news}) "
+
+    # Second, add in those stories associated with the brand only (no products linked)
+    News.find_by_sql("SELECT DISTINCT news.* from news
+      WHERE ( brand_id = #{website.brand_id} 
+        AND post_on <= '#{18.months.ago}' )
+      #{product_news_query}
       ORDER BY post_on DESC")
-    # where(brand_id: website.brand_id).where(["post_on <= ?", 18.months.ago]).order("post_on DESC")
   end
   
   # Alias for search results link name

@@ -9,7 +9,9 @@ require "mocha"
 # require "selenium-webdriver"
 
 MiniTest::Unit::TestCase.send(:include, FactoryGirl::Syntax::Methods)
-DatabaseCleaner.strategy = :truncation # (transaction doesn't work with webkit/javascript)
+DatabaseCleaner.strategy = :transaction # (transaction doesn't work with webkit/javascript)
+# DatabaseCleaner.strategy = :truncation
+# DatabaseCleaner.strategy = :deletion # seems faster than truncation for me
 
 # Capybara.register_driver :selenium do |app|
 #   profile = Selenium::WebDriver::Firefox::Profile.new

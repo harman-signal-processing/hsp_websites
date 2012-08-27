@@ -1,5 +1,5 @@
 <h2><%= link_to t('artists').ucfirst, artists_path %></h2>
 
-<% website.artists.where(:featured => true).all.sort_by(&:position)[0,3].each do |artist| %>
-	<%= render_partial "artists/artist", :artist => artist %>
+<% website.artists.where(featured: true).all.sort_by(&:position)[0,3].each do |artist| %>
+	<%= render_partial "artists/artist", artist: artist %>
 <% end %>

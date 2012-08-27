@@ -1,4 +1,4 @@
-xml.instruct! :xml, :version=>"1.0" 
+xml.instruct! :xml, version: "1.0" 
 
 xml.songs do
   @songs.each do |song|

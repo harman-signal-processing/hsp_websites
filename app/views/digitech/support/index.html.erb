@@ -3,7 +3,7 @@
 				 reverse: true %>
 
 <h1 class="page_title">
-	<%= image_tag("#{website.folder}/#{I18n.locale}/support_head.jpg", :alt => t('titles.support')) %>
+	<%= image_tag("#{website.folder}/#{I18n.locale}/support_head.jpg", alt: t('titles.support')) %>
 </h1>
 
 <%= cache ["support_body", website.brand, Rails.env, I18n.locale] do %>
@@ -20,7 +20,7 @@
 	<div class="support_box">
 		<h4><%= t('titles.product_support') %></h4>
 		<p><%= t('blurbs.product_support') %></p>
-		<%= form_tag support_path, :method => :get do |f| %>
+		<%= form_tag support_path, method: :get do |f| %>
 			<%= select_tag :product_id, options_from_collection_for_select(website.current_and_discontinued_products, :to_param, :name), include_blank: true %>
 			<%= submit_tag t('go')%>
 		<% end %>
@@ -35,7 +35,7 @@
 	<% if website.has_service_centers? %>
 	<div class="support_box">
 		<h4><%= t('titles.locate_us_service_center') %>:</h4>
-		<%= form_tag support_path(:action => "service_lookup") do |f| %>
+		<%= form_tag support_path(action: "service_lookup") do |f| %>
 			<p><%= label_tag "zip", t('us_zip_code') %>
 			<%= text_field_tag "zip", session[:zip], size: 8 %>
 			<%= submit_tag t('go') %></p>
@@ -49,7 +49,7 @@
 			<li><%= link_to t("sound_community"), soundcomm_url, target: "_blank" %></li>
 			<li><%= link_to "guitarworkstation.com", "http://www.guitarworkstation.com", target: "_blank" %></li>
 			<% if !!(website.value_for("troubleshooting_url")) %>
-			<li><%= link_to t('troubleshooting').downcase, support_path(:action => "troubleshooting") %></li>
+			<li><%= link_to t('troubleshooting').downcase, support_path(action: "troubleshooting") %></li>
 			<% end %>
 			<% if website.has_parts_form? %>
 			<li><%= link_to "Parts Request", parts_request_path %></li>
@@ -81,7 +81,7 @@
 		
 		<div class="column_one" style="width: 65%">
 			<h1><%= t('titles.contact_us') %></h1>
-			<%= form_for :contact_message, :url => support_path(:action => "contact"), :html => {:class => "contact"} do |f| %>
+			<%= form_for :contact_message, url: support_path(action: "contact"), html: {class: "contact"} do |f| %>
 				<%= f.error_messages %>
 
 				<div><%= f.label :name, t('your_name') %><br/>
@@ -97,7 +97,7 @@
 				<div><%= f.label :subject, t('subject') %><br/>
 					<%= f.select :subject, ContactMessage.subjects %></div>
 				<p><%= t('message') %>:</p>
-				<%= f.text_area :message, :size => "60x8" %>
+				<%= f.text_area :message, size: "60x8" %>
 				
 				<div class="captcha">
 					<%= recaptcha_tags %>

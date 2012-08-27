@@ -17,7 +17,7 @@
 		
 		<div class="column_one" style="width: 65%">
 			<h2><%= t('titles.contact_us') %></h2>
-			<%= form_for :contact_message, :url => support_path(:action => "contact"), :html => {:class => "contact"} do |f| %>
+			<%= form_for :contact_message, url: support_path(action: "contact"), html: {class: "contact"} do |f| %>
 				<%= f.error_messages %>
 
 				<div><%= f.label :name, t('your_name') %><br/>
@@ -27,7 +27,7 @@
 				<div><%= f.label :subject, t('subject') %><br/>
 					<%= f.select :subject, ContactMessage.subjects %></div>
 				<p><%= t('message') %>:</p>
-				<%= f.text_area :message, :size => "60x8" %>
+				<%= f.text_area :message, size: "60x8" %>
 				
 				<div class="captcha">
 					<%= recaptcha_tags %>

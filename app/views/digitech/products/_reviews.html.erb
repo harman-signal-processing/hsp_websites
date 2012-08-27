@@ -3,7 +3,7 @@
 		<h3><%= @product.name %> <%= t('product_page.reviews') %></h3>
 		<ul>
 			<% @product.product_reviews.reverse[0,12].each do |p| %>
-			<li><b><%=l p.post_on.to_date, :format => :long %></b>:<br/>
+			<li><b><%=l p.post_on.to_date, format: :long %></b>:<br/>
 				<%= link_to translate_content(p, :title), p %>
 			</li>
 			<% end %>

@@ -6,11 +6,11 @@
 		<%= cache ["meta_tags", request.url, Date.today] do %>
 			<%= cached_meta_tags %>
 		<% end %>		
-		<%= stylesheet_link_tag 'application', website.folder, :cache => false %>
+		<%= stylesheet_link_tag 'application', website.folder, cache: false %>
 		<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
-		<link href="<%= rss_url(:format => 'xml') %>" rel="alternate" title="RSS" type="application/rss+xml"/>
+		<link href="<%= rss_url(format: 'xml') %>" rel="alternate" title="RSS" type="application/rss+xml"/>
 		<link rel="image_src" href="<%= image_url("#{website.folder}/logo.png") %>" />	
 		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -18,7 +18,7 @@
 	</head>
 	<body>
 		<div style="text-align: center; margin: 30px;">
-		  <%= image_tag("#{website.folder}/logo.png", :alt => Setting.site_name(website)) %><br/>
+		  <%= image_tag("#{website.folder}/logo.png", alt: Setting.site_name(website)) %><br/>
 		  <%= yield %>
 		</div>
 	</body>

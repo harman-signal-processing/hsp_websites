@@ -8,11 +8,11 @@
 		<% end %>
 		<link rel="image_src" href="<%= image_url("#{website.folder}/logo.png") %>" />		
 		<%= javascript_include_tag 'application' %>
-		<%= stylesheet_link_tag 'application', website.folder, :cache => false %>
+		<%= stylesheet_link_tag 'application', website.folder, cache: false %>
 		<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
-		<link href="<%= rss_url(:format => 'xml') %>" rel="alternate" title="RSS" type="application/rss+xml"/>
+		<link href="<%= rss_url(format: 'xml') %>" rel="alternate" title="RSS" type="application/rss+xml"/>
 		<link type="text/css" href="/css/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
 		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -30,15 +30,15 @@
 
 		<div id="content_container" <% unless controller_name == "main" && action_name == "index" -%>class="internal_page"<% end -%>>
 			<div id="artists_title">
-				<%= link_to(image_tag("#{website.folder}/#{I18n.locale}/featured_artists.png", :alt => t("artists")), artists_path) %>
+				<%= link_to(image_tag("#{website.folder}/#{I18n.locale}/featured_artists.png", alt: t("artists")), artists_path) %>
 			</div>
 			<div id="artists_subnav">
 				<% if artist_signed_in? %>
 					<%= link_to "My Artist Profile", edit_artist_registration_path %>
 					<%= link_to "Logout", destroy_artist_session_path %>
 				<% else %>
-					<%= link_to image_tag("#{website.folder}/#{I18n.locale}/become_an_artist.png", :alt => "Become a #{website.brand_name} Artist"), become_an_artist_path %>
-					<%= link_to image_tag("#{website.folder}/#{I18n.locale}/login.png", :alt => "Artist Login"), become_an_artist_path %>
+					<%= link_to image_tag("#{website.folder}/#{I18n.locale}/become_an_artist.png", alt: "Become a #{website.brand_name} Artist"), become_an_artist_path %>
+					<%= link_to image_tag("#{website.folder}/#{I18n.locale}/login.png", alt: "Artist Login"), become_an_artist_path %>
 				<% end %>
 			</div>
 			<div id="content_container_content" style="position: relative;">

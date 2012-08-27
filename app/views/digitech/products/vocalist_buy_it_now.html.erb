@@ -29,7 +29,7 @@
 	<% end %>
 	<div>
 		<%= form_tag where_to_buy_path() %>
-			<%= t('us_zip_code') -%>: <%= text_field_tag "zip", session[:zip], :size => 8 %>
+			<%= t('us_zip_code') -%>: <%= text_field_tag "zip", session[:zip], size: 8 %>
 			<%= submit_tag t('find_us_dealers') %>
 			<%= link_to t("international_distributors"), international_distributors_path %>
 		</form>
@@ -37,7 +37,7 @@
 	<h2 style="margin-top: 10px;"><%= t('titles.buy_online') %></h2>
 	<div id="dealers" style="margin: 20px 50px;">
 	<div id="online_retailers">
-		<%= render_partial "shared/buynow", :product => @product %>
+		<%= render_partial "shared/buynow", product: @product %>
 	</div>
 	</div>
 	<div class="clear"></div>

@@ -8,13 +8,13 @@
 		<% end %>
 		<link rel="image_src" href="<%= image_url("#{website.folder}/logo.gif") %>" />		
 		<%= javascript_include_tag 'application' %>
-		<%= stylesheet_link_tag 'application', website.folder, :cache => false %>
+		<%= stylesheet_link_tag 'application', website.folder, cache: false %>
 		<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 		<link type="text/css" href="/css/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
 		<meta name="google-site-verification" content="9hNAinY9tRNf4LRiiJpJDhYzXKCIM2wp8g6Z01aXifc" />
-		<link href="<%= rss_url(:format => 'xml') %>" rel="alternate" title="RSS" type="application/rss+xml"/>
+		<link href="<%= rss_url(format: 'xml') %>" rel="alternate" title="RSS" type="application/rss+xml"/>
 		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 		<%= yield :custom_css %>
@@ -37,7 +37,7 @@
 		<div id="Header">
 			<div id="logo">
 				<% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "logo.gif")) %>
-				<%= link_to(image_tag("#{website.folder}/logo.gif", :alt => Setting.site_name(website)), locale_root_path) %>
+				<%= link_to(image_tag("#{website.folder}/logo.gif", alt: Setting.site_name(website)), locale_root_path) %>
 				<% else %>
 				<h2><%= link_to website.brand_name, locale_root_path %></h2>
 				<% end %>
@@ -61,8 +61,8 @@
 			<%# search is only available in default language for now...%>
 			<% if I18n.locale == I18n.default_locale && website.value_for("enable_search") %>
 			<div id="search_form">
-				<%= form_tag search_path, :method => :get %>
-					<%= text_field_tag :query, t('search'), :onclick => "if (this.value == '#{t('search')}') { this.value = '';} " %>
+				<%= form_tag search_path, method: :get %>
+					<%= text_field_tag :query, t('search'), onclick: "if (this.value == '#{t('search')}') { this.value = '';} " %>
 				</form>
 			</div>
 			<% end %>
@@ -101,17 +101,17 @@
 			<div style="height: 30px;">&nbsp;</div>
 		<% end %>
 		<div id="harmanpro_bar">
-			<%= link_to(image_tag("pro_brands/harman_professional.png", :alt => "Harman Pro"), "http://www.harmanpro.com", :target => "_blank") %>
-			<%= link_to(image_tag("pro_brands/akg.png", :alt => "AKG"), "http://www.akg.com", :target => "_blank") unless website.brand_name.match(/akg/i) %>
-			<%= link_to(image_tag("pro_brands/bss.png", :alt => "BSS"), "http://www.bssaudio.com", :target => "_blank") unless website.brand_name.match(/bss/i) %>
-			<%= link_to(image_tag("pro_brands/crown.png", :alt => "Crown"), "http://www.crownaudio.com", :target => "_blank") unless website.brand_name.match(/crown/i) %>
-			<%= link_to(image_tag("pro_brands/dbx.png", :alt => "dbx"), "http://www.dbxpro.com", :target => "_blank") unless website.brand_name.match(/dbx/i) %>
-			<%= link_to(image_tag("pro_brands/digitech.png", :alt => "DigiTech"), "http://www.digitech.com", :target => "_blank") unless website.brand_name.match(/digitech/i) %>
-			<%# NEED A JBL LOGO = link_to(image_tag("pro_brands/jbl.png", :alt => "JBL"), "http://www.jblpro.com", :target => "_blank") unless website.brand_name.match(/jbl/i) %>
-			<%= link_to(image_tag("pro_brands/lexicon.png", :alt => "Lexicon Pro"), "http://www.lexiconpro.com", :target => "_blank") unless website.brand_name.match(/lexicon/i) %>
-			<%= link_to(image_tag("pro_brands/soundcraft.png", :alt => "Soundcraft"), "http://www.soundcraft.com", :target => "_blank") unless website.brand_name.match(/soundcraft/i) %>
-			<%= link_to(image_tag("pro_brands/studer.png", :alt => "Studer"), "http://www.studer.ch", :target => "_blank") unless website.brand_name.match(/studer/i) %>
-			<%= link_to(image_tag("pro_brands/hiqnet.png", :alt => "HiQnet"), "http://hiqnet.harmanpro.com", :target => "_blank") unless website.brand_name.match(/hiq/i) %>
+			<%= link_to(image_tag("pro_brands/harman_professional.png", alt: "Harman Pro"), "http://www.harmanpro.com", target: "_blank") %>
+			<%= link_to(image_tag("pro_brands/akg.png", alt: "AKG"), "http://www.akg.com", target: "_blank") unless website.brand_name.match(/akg/i) %>
+			<%= link_to(image_tag("pro_brands/bss.png", alt: "BSS"), "http://www.bssaudio.com", target: "_blank") unless website.brand_name.match(/bss/i) %>
+			<%= link_to(image_tag("pro_brands/crown.png", alt: "Crown"), "http://www.crownaudio.com", target: "_blank") unless website.brand_name.match(/crown/i) %>
+			<%= link_to(image_tag("pro_brands/dbx.png", alt: "dbx"), "http://www.dbxpro.com", target: "_blank") unless website.brand_name.match(/dbx/i) %>
+			<%= link_to(image_tag("pro_brands/digitech.png", alt: "DigiTech"), "http://www.digitech.com", target: "_blank") unless website.brand_name.match(/digitech/i) %>
+			<%# NEED A JBL LOGO = link_to(image_tag("pro_brands/jbl.png", alt: "JBL"), "http://www.jblpro.com", target: "_blank") unless website.brand_name.match(/jbl/i) %>
+			<%= link_to(image_tag("pro_brands/lexicon.png", alt: "Lexicon Pro"), "http://www.lexiconpro.com", target: "_blank") unless website.brand_name.match(/lexicon/i) %>
+			<%= link_to(image_tag("pro_brands/soundcraft.png", alt: "Soundcraft"), "http://www.soundcraft.com", target: "_blank") unless website.brand_name.match(/soundcraft/i) %>
+			<%= link_to(image_tag("pro_brands/studer.png", alt: "Studer"), "http://www.studer.ch", target: "_blank") unless website.brand_name.match(/studer/i) %>
+			<%= link_to(image_tag("pro_brands/hiqnet.png", alt: "HiQnet"), "http://hiqnet.harmanpro.com", target: "_blank") unless website.brand_name.match(/hiq/i) %>
 		</div>
 		</div> <%# end div id="outer" %>
 		
@@ -133,12 +133,12 @@
 				<%= link_to t('where_to_buy'), where_to_buy_path %> &bull;
 				<% end %>
 				<%= link_to t('product_support'), support_path %> &bull;
-				<%= link_to t('sitemap'), sitemap_path(:format => 'xml') %>
+				<%= link_to t('sitemap'), sitemap_path(format: 'xml') %>
 			</div>
 			<div id="footer_left">
 				<%= image_tag "harman.jpg" %>
 				&copy; <%= Date.today.year %> 
-				<%= link_to(t('harman'), "http://www.harman.com/", :target => "_blank") %>. 
+				<%= link_to(t('harman'), "http://www.harman.com/", target: "_blank") %>. 
 				<%= t('all_rights_reserved') %>
 			</div>
 		</div>

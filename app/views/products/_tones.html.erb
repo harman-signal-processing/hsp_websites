@@ -1,11 +1,11 @@
-<p><%= t('blurbs.product_tone_library_explanation', :model => @product.name) %></p>
+<p><%= t('blurbs.product_tone_library_explanation', model: @product.name) %></p>
 
 <ul>
 	<% @product.tone_library_patches.each do |tlp| %>
 	<li>
-		<%= image_tag("x-edit_17.png", :alt => "x-edit patch", :style => "vertical-align:middle") %>
+		<%= image_tag("x-edit_17.png", alt: "x-edit patch", style: "vertical-align:middle") %>
 		<%= link_to(tlp.tone_library_song.displayname, 
-				tone_download_path(:product_id => @product, :tone_library_song_id => tlp.tone_library_song)
+				tone_download_path(product_id: @product, tone_library_song_id: tlp.tone_library_song)
 		) %>
 	</li>
 	<% end %>

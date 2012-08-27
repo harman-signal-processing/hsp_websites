@@ -1,5 +1,5 @@
-<% set_meta_tags :title => @page_title,
-				 :reverse => true %>
+<% set_meta_tags title: @page_title,
+				 reverse: true %>
 
 <div>
 	<h1><%= @page_title %></h1>
@@ -13,7 +13,7 @@
 		<br/><%= dealer.city %> <%= dealer.state %> <%= dealer.zip %>
 		<br/><%= dealer.telephone %>
 		<% if !dealer.email.blank? %> &bull; <%= mail_to dealer.email.downcase %><% end %>
-		<% if !dealer.website.blank? %> &bull; <%= link_to dealer.website, dealer.website, :target => "_blank" %><% end %>
+		<% if !dealer.website.blank? %> &bull; <%= link_to dealer.website, dealer.website, target: "_blank" %><% end %>
 		</li>
 		<% end %>
 	</ul>

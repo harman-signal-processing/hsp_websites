@@ -48,7 +48,22 @@ class Brand < ActiveRecord::Base
       INNER JOIN product_families ON product_families.id = product_family_products.product_family_id
       WHERE product_families.brand_id = #{self.id} OR news.brand_id = #{self.id}
       ORDER BY post_on DESC")
-    # News.select("DISTINCT news.*").joins("INNER JOIN news_products ON news_products.news_id = news.id").joins("INNER JOIN products ON products.id = news_products.product_id").joins("INNER JOIN product_family_products ON product_family_products.product_id = products.id").joins("INNER JOIN product_families ON product_families.id = product_family_products.product_family_id").where("product_families.brand_id = ? OR news.brand_id = ?", self.id, self.id)
+
+    # First, select news story IDs with a product associated with this brand...
+    product_news = News.find_by_sql("SELECT DISTINCT news.id FROM news
+      INNER JOIN news_products ON news_products.news_id = news.id
+      INNER JOIN products ON products.id = news_products.product_id
+      INNER JOIN product_family_products ON product_family_products.product_id = products.id
+      INNER JOIN product_families ON product_families.id = product_family_products.product_family_id
+      WHERE product_families.brand_id = #{self.id}
+      ORDER BY post_on DESC").collect{|p| p.id}.join(", ")
+    product_news_query = (product_news.blank?) ? "" : " OR id IN (#{product_news}) "
+
+    # Second, add in those stories associated with the brand only (no products linked)
+    News.find_by_sql("SELECT DISTINCT news.* from news
+      WHERE brand_id = #{self.id} 
+      #{product_news_query}
+      ORDER BY post_on DESC")
   end
   
   # Dynamically create methods based on this Brand's settings.

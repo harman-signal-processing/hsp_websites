@@ -8,7 +8,7 @@
 		<% @product_documents.each do |product_document| %>
 		<li>
 			<% if product_document.document_content_type.match(/pdf/i) %>
-				<%= image_tag("pdf_17.png", :style=>"vertical-align: middle") %>
+				<%= image_tag("pdf_17.png", style: "vertical-align: middle") %>
 			<% end %>
 			<%= link_to product_document.name, product_document.document.url %>
 		</li>
@@ -23,8 +23,8 @@
 		<% @document_types.each do |product_document| %>
 		<li><%= link_to(t("document_type.#{product_document.document_type}"), 
 					downloads_path(
-						:language => @selected_language, 
-						:document_type => product_document.document_type
+						language: @selected_language, 
+						document_type: product_document.document_type
 					)
 				) %>
 		</li>
@@ -35,7 +35,7 @@
 	<ul>
 		<% @languages.each do |product_document| %>
 		<li><%= link_to(t("language.#{product_document.language}"),
-					downloads_path(:language => product_document.language)
+					downloads_path(language: product_document.language)
 				) %>
 		</li>
 		<% end %>

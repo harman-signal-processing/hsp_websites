@@ -3,13 +3,13 @@
   <tr>
 	<td class="date">
 		<% if !news.news_photo_file_name.blank? %>
-			<%= link_to(image_tag(news.news_photo.url(:thumb), :style=>"text-align: right; margin: 8px;"), news) %>
+			<%= link_to(image_tag(news.news_photo.url(:thumb), style: "text-align: right; margin: 8px;"), news) %>
 		<% end %>
 	</td>
 	<td class="preview">
-		<%=l news.post_on, :format => :long %><br/>
-		<b><%= link_to translate_content(news, :title), news_path(news, :locale => I18n.locale) %></b><br/>
-		<%= truncate(strip_html(translate_content(news, :body)), :length => 200) %>
+		<%=l news.post_on, format: :long %><br/>
+		<b><%= link_to translate_content(news, :title), news_path(news, locale: I18n.locale) %></b><br/>
+		<%= truncate(strip_html(translate_content(news, :body)), length: 200) %>
 	</td>
   </tr>
 <% end %>

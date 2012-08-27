@@ -8,12 +8,12 @@
 		<% end %>
 		<link rel="image_src" href="<%= image_url("#{website.folder}/logo.png") %>" />
 		<%= javascript_include_tag 'application' %>
-		<%= stylesheet_link_tag 'application', website.folder, :cache => false %>
+		<%= stylesheet_link_tag 'application', website.folder, cache: false %>
 		<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 		<link type="text/css" href="/css/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
-		<link href="<%= rss_url(:format => 'xml') %>" rel="alternate" title="RSS" type="application/rss+xml"/>
+		<link href="<%= rss_url(format: 'xml') %>" rel="alternate" title="RSS" type="application/rss+xml"/>
 		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 		<%= yield :custom_css %>
@@ -28,7 +28,7 @@
 		
 		<div id="content_container" class="internal_page">
 			<div id="artists_title">
-				<%= link_to(image_tag("#{website.folder}/#{I18n.locale}/featured_artists.png", :alt => t("artists")), artists_path) %>
+				<%= link_to(image_tag("#{website.folder}/#{I18n.locale}/featured_artists.png", alt: t("artists")), artists_path) %>
 			</div>
 			<div id="artists_subnav">
 				<% if artist_signed_in? %>

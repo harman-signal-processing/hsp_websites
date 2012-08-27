@@ -9,11 +9,11 @@
 			</div>
 		<% end %>
 		<h2><%= (artist.featured? || artist.artist_tier.show_on_artist_page?) ? link_to(artist.name, artist) : artist.name %></h2>
-		<%= truncate(strip_html(artist.bio), :length => 150) %>
+		<%= truncate(strip_html(artist.bio), length: 150) %>
 		<% if artist.featured? || artist.artist_tier.show_on_artist_page? %>
 			<%= link_to t('more'), artist %>
 		<% elsif !artist.website.blank? %>
-			<%= link_to t('more'), artist.website, :target => "_blank" %>
+			<%= link_to t('more'), artist.website, target: "_blank" %>
 		<% end %>
 	</div>
 </div>
