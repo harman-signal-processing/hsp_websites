@@ -10,18 +10,18 @@
 	<span class="little">
 	<%= link_to(image_tag("trash.gif"), 
 			admin_product_attachment_path(pa), 
-			:remote => true,
-			:confirm => "Are you sure?", 
-			:method => :delete) %>
+			remote: true,
+			confirm: "Are you sure?", 
+			method: :delete) %>
 	<%= link_to 'edit', edit_admin_product_attachment_path(pa) %> &nbsp;
 	<% if pa.is_photo? %>
 	<% if pa.primary_photo %>
 		(main photo)
 	<% else %>
 		<%= link_to('set as main photo',
-				admin_product_attachment_path(pa, :product_attachment => {:primary_photo => true}),
-				:remote => true,
-				:method => :put) %>
+				admin_product_attachment_path(pa, product_attachment: {primary_photo: true}),
+				remote: true,
+				method: :put) %>
 	<% end %>
 	<% end %>
 	</span>

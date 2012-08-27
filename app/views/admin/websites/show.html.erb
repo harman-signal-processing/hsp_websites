@@ -1,9 +1,9 @@
 <h1><%= @this_website.url %></h1>
 
 <div class="button_container">
-	<%= link_to 'Back', admin_websites_path, :class => "back button" %>
-	<%= link_to 'Edit', edit_admin_website_path(@this_website), :class => "edit button" %> 
-	<%= link_to 'Delete', [:admin, @this_website], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %> 
+	<%= link_to 'Back', admin_websites_path, class: "back button" %>
+	<%= link_to 'Edit', edit_admin_website_path(@this_website), class: "edit button" %> 
+	<%= link_to 'Delete', [:admin, @this_website], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
 </div>
 
 <p>
@@ -23,11 +23,11 @@
 
 <div class="group">
 	<h3>Locales for this Website</h3>
-	<%= form_for [:admin, @website_locale], :remote => true do |f| %>
+	<%= form_for [:admin, @website_locale], remote: true do |f| %>
 		<%= f.hidden_field :website_id %>
 		<p>
 			<%= f.label :locale %>
-			<%= f.text_field :locale, :size => 6 %>
+			<%= f.text_field :locale, size: 6 %>
 			<%= f.check_box :complete %>
 			<%= f.label :complete, "Completed and ready for public use." %> (may require a website restart)
 		</p>
@@ -41,7 +41,7 @@
 	<% end %>
 	<ul id="website_locales">
 		<% @this_website.website_locales.each do |wl| %>
-		<%= render "/admin/shared/website_locale_row", :wl => wl %>
+		<%= render "/admin/shared/website_locale_row", wl: wl %>
 		<% end %>
 	</ul>
 </div>

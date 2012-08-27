@@ -1,4 +1,4 @@
-<%= form_for([:admin, @brand], :html => {:multipart => true}) do |f| %>
+<%= form_for([:admin, @brand], html: {multipart: true}) do |f| %>
   <% if @brand.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@brand.errors.count, "error") %> prohibited this brand from being saved:</h2>

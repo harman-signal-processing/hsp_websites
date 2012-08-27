@@ -1,6 +1,6 @@
-<% set_meta_tags :reverse => true,
-                 :description => @software.description,
-                 :keywords => [@software.name, @software.ware_file_name, @software.version] %>
+<% set_meta_tags reverse: true,
+                 description: @software.description,
+                 keywords: [@software.name, @software.ware_file_name, @software.version] %>
 
 <h1><%= @page_title %></h1>
 <%= render 'shared/add_this' %>
@@ -9,15 +9,15 @@
 	<div class="download_box">
 		<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/download_button.png")) %>
 		<%= link_to image_tag("#{website.folder}/#{I18n.locale}/download_button.png", 
-						:alt => t("download"), 
-						:mouseover => "#{website.folder}/#{I18n.locale}/download_button_hover.png"), 
-				download_software_path(@software, :locale => I18n.locale) %>
+						alt: t("download"), 
+						mouseover: "#{website.folder}/#{I18n.locale}/download_button_hover.png"), 
+				download_software_path(@software, locale: I18n.locale) %>
 		<% else %>
-		<h2><%= link_to t("download"), download_software_path(@software, :locale => I18n.locale) %></h2>
+		<h2><%= link_to t("download"), download_software_path(@software, locale: I18n.locale) %></h2>
 		<% end %>
 		<p>
 			<%= platform_icon(@software, 17) %>
-			<%= link_to(download_software_path(@software, :locale => I18n.locale)) do %>
+			<%= link_to(download_software_path(@software, locale: I18n.locale)) do %>
 		  		<%= @software.formatted_name %>  
 		  		[<%= number_to_human_size(@software.ware_file_size)%>]
 			<% end %>
@@ -26,7 +26,7 @@
 		<% @software.software_attachments.each do |sa| %>
 		<p>
 			<% if sa.software_attachment_content_type.match(/pdf/i) %>
-				<%= image_tag("pdf_17.png", :style => "vertical-align: middle;") %>
+				<%= image_tag("pdf_17.png", style: "vertical-align: middle;") %>
 			<% end %>
 			<%= link_to sa.name, sa.software_attachment.url %>
 		</p>
@@ -41,7 +41,7 @@
 	<hr/>
 	<h2><%= t('titles.related_products') %></h2>
 	<% @software.products.each do |product| %>
-		<%= render_partial "product_families/product_square", :product => product %>
+		<%= render_partial "product_families/product_square", product: product, compare: false %>
 	<% end %>
 	<div class="clear"></div>
 <% end %>

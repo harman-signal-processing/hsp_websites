@@ -1,8 +1,12 @@
-<% set_meta_tags :title => t('titles.product_families'),
-				 :keywords => ProductFamily.parents_with_current_products(website, I18n.locale).collect{|p| p.name}.join(", "),
-				 :reverse => true %>
+<% set_meta_tags title: t('titles.product_families'),
+				 keywords: ProductFamily.parents_with_current_products(website, I18n.locale).collect{|p| p.name}.join(", "),
+				 reverse: true %>
 				
 <h1 class="page_title"><%= t('titles.product_families') %></h1>
+
+<% if !!(website.show_comparisons) %>
+	<%= form_tag compare_products_path, method: :get %>
+<% end %>
 
 <% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
 <div id="<%= product_family.to_param %>" class="wide_centered_box">
@@ -27,12 +31,17 @@
 		<h2 style="float: left; margin-right: 5px; margin-top: 13px;"><%= translate_content(product_family, :name) %></h2>
 		<div class="clear"></div>
 		<% product_family.current_products.each do |product| %>
-			<%= render_partial "product_families/product_square", :product => product %>
+			<%= render_partial "product_families/product_square", product: product %>
 		<% end %>
 	<% end %>
 	<div class="clear"></div>
 
 </div>
+<% end %>
+
+<% if !!(website.show_comparisons) %>
+		<div><%= submit_tag "Compare Selected Products" %> <span class="hint">Select 2 to 5 products to compare</span></div>
+	</form>
 <% end %>
 
 <div class="clear"></div>

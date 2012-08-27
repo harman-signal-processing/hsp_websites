@@ -11,7 +11,7 @@
 
 <% if can? :create, Dealer %>
 <div class="button_container">
-	<%= link_to 'New dealer', new_admin_dealer_path, :class => "new button" %>
+	<%= link_to 'New dealer', new_admin_dealer_path, class: "new button" %>
 </div>
 <% end %>
 
@@ -33,7 +33,7 @@
     <td><%= dealer.account_number %></td>
 	<% unless dealer.exclude? %>
 	<td id="excluder_<%= dealer.id %>">
-		<%= link_to "exclude", admin_dealer_path(dealer, :dealer => {:exclude => true}), :method => :put, :remote => true %>
+		<%= link_to "exclude", admin_dealer_path(dealer, dealer: {exclude: true}), method: :put, remote: true %>
 	</td>
 	<% end %>
   </tr>

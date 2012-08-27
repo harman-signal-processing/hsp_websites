@@ -2,14 +2,14 @@
 
 <% if can? :create, Promotion %>
 <div class="button_container">
-	<%= link_to 'New Promotion', new_admin_promotion_path, :class => "new button" %>
+	<%= link_to 'New Promotion', new_admin_promotion_path, class: "new button" %>
 </div>
 <% end %>
 
 <ul>
 <% @promotions.each do |promotion| %>
   <li> <%= link_to promotion.name, [:admin, promotion] %> 
-	(<%=l promotion.start_on, :format => :long %> - <%=l promotion.end_on, :format => :long %>)
+	(<%=l promotion.start_on, format: :long %> - <%=l promotion.end_on, format: :long %>)
   </li>
 <% end %>
 </ul>

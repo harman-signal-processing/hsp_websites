@@ -1,9 +1,9 @@
 <h1><%= @promotion.name %></h1>
 
 <div class="button_container">
-	<%= link_to 'Back', admin_promotions_path, :class => "back button" %>
-	<%= link_to 'Edit', edit_admin_promotion_path(@promotion, :locale => I18n.locale), :class => "edit button" %>
-	<%= link_to 'Delete', [:admin, @promotion], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %> 
+	<%= link_to 'Back', admin_promotions_path, class: "back button" %>
+	<%= link_to 'Edit', edit_admin_promotion_path(@promotion, locale: I18n.locale), class: "edit button" %>
+	<%= link_to 'Delete', [:admin, @promotion], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
 </div>
 
 <% unless @promotion.tile_file_name.blank? %>
@@ -14,22 +14,22 @@
 <% end %>
 <p>
   <b>Show on website starting on:</b>
-  <%=l @promotion.show_start_on, :format => :long %>
+  <%=l @promotion.show_start_on, format: :long %>
 </p>
 
 <p>
   <b>End on website after:</b>
-  <%=l @promotion.show_end_on, :format => :long %>
+  <%=l @promotion.show_end_on, format: :long %>
 </p>
 
 <p>
   <b>Start on:</b>
-  <%=l @promotion.start_on, :format => :long %>
+  <%=l @promotion.start_on, format: :long %>
 </p>
 
 <p>
   <b>End on:</b>
-  <%=l @promotion.end_on, :format => :long %>
+  <%=l @promotion.end_on, format: :long %>
 </p>
 
 <% unless @promotion.promo_form_file_name.blank? %>
@@ -41,7 +41,7 @@
 
 <div class="group">
 	<h3>Products related to this promotion</h3>
-	<%= form_for [:admin, @product_promotion], :remote => true do |f| %>
+	<%= form_for [:admin, @product_promotion], remote: true do |f| %>
 		<%= f.hidden_field :promotion_id %>
 		<%= hidden_field_tag :called_from, "promotion" %>
 		<p>
@@ -51,7 +51,7 @@
 	<% end %>
 	<ul id="product_promotions">
 		<% @promotion.product_promotions.each do |pp| %>
-		<%= render "/admin/shared/product_promotion_row", :pp => pp, :called_from => "promotion" %>
+		<%= render "/admin/shared/product_promotion_row", pp: pp, called_from: "promotion" %>
 		<% end %>
 	</ul>
 </div>

@@ -31,12 +31,12 @@
 <% end %>
 </p>
 
-<p><%= f.label :width %><%= f.text_field :width, :size => 5 %>px
-<%= f.label :height %><%= f.text_field :height, :size => 5 %>px<br/>
+<p><%= f.label :width %><%= f.text_field :width, size: 5 %>px
+<%= f.label :height %><%= f.text_field :height, size: 5 %>px<br/>
 <span class="small">(product page viewer window is 550x360)</span></p>
 
 <p><%= f.label :songlist_tag, "Unique songlist name" %><br/>
-songlist/<%= f.text_field :songlist_tag, :size => 15 %>.xml<br/>
+songlist/<%= f.text_field :songlist_tag, size: 15 %>.xml<br/>
 <span class="small">(as embedded in the flash file--required if the flash demo references external mp3 files)</span></p>
 
 <h3>Attached Demo Songs</h3>
@@ -51,7 +51,7 @@ songlist/<%= f.text_field :songlist_tag, :size => 15 %>.xml<br/>
 		<td><%= demo_song.text_field :title %></td>
 		<td><%= demo_song.file_field :mp3 %></td>
 		<td><% if !demo_song.object.new_record? %>
-			<%= link_to image_tag("trash.gif"), [:admin, demo_song.object], :method => :delete, :remote => true %>
+			<%= link_to image_tag("trash.gif"), [:admin, demo_song.object], method: :delete, remote: true %>
 			<%= link_to demo_song.object.mp3_file_name, demo_song.object.mp3.url %>
 			<% end %>
 		</td>

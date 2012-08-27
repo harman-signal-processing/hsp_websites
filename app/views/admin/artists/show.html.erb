@@ -1,13 +1,13 @@
 <h1>
 	<%=h @artist.name %>
-	<span class="little"><%= link_to(artist_url(@artist, :locale => I18n.locale), artist_url(@artist, :locale => I18n.locale)) %>
-	<%= link_to(image_tag("external_link_icon.png"), artist_url(@artist, :locale => I18n.locale)) %></span>
+	<span class="little"><%= link_to(artist_url(@artist, locale: I18n.locale), artist_url(@artist, locale: I18n.locale)) %>
+	<%= link_to(image_tag("external_link_icon.png"), artist_url(@artist, locale: I18n.locale)) %></span>
 </h1>
 
 <div class="button_container">
-	<%= link_to 'Back', admin_artists_path, :class => "back button" %>
-	<%= link_to 'Edit', edit_admin_artist_path(@artist, :locale => I18n.locale), :class => "edit button" %>
-	<%= link_to 'Delete', [:admin, @artist], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %> 
+	<%= link_to 'Back', admin_artists_path, class: "back button" %>
+	<%= link_to 'Edit', edit_admin_artist_path(@artist, locale: I18n.locale), class: "edit button" %>
+	<%= link_to 'Delete', [:admin, @artist], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
 </div>
 
 <p>
@@ -56,7 +56,7 @@
 
 <div class="group">
 	<h3>Products this artist uses</h3>
-	<%= form_for [:admin, @artist_product], :remote => true do |f| %>
+	<%= form_for [:admin, @artist_product], remote: true do |f| %>
 		<%= f.hidden_field :artist_id %>
 		<%= hidden_field_tag :called_from, "artist" %>
 		<p>
@@ -66,7 +66,7 @@
 		</p>
 		<p>
 			<%= f.label :quote, "Artist quote" %><br/>
-			<%= f.text_area :quote, :size => "50x2" %>
+			<%= f.text_area :quote, size: "50x2" %>
 		</p>
 		<p>
 			<%= f.submit "add product" %>
@@ -74,7 +74,7 @@
 	<% end %>
 	<ul id="artist_products">
 		<% @artist.artist_products.each do |ap| %>
-		<%= render "/admin/shared/artist_product_row", :ap => ap, :called_from => "artist" %>
+		<%= render "/admin/shared/artist_product_row", ap: ap, called_from: "artist" %>
 		<% end %>
 	</ul>
 </div>

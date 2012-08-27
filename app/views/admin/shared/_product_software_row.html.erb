@@ -5,7 +5,7 @@
 			link_to(ps.product.name, [:admin, ps.product]) %> 
 	<%= link_to(image_tag("trash.gif"), 
 			admin_product_software_path(ps), 
-			:confirm => "Are you sure? (This won't delete the product or the software--it will only remove the association.)", 
-			:remote => true,
-			:method => :delete) %>
+			confirm: "Are you sure? (This won't delete the product or the software--it will only remove the association.)", 
+			remote: true,
+			method: :delete) %>
 </li>

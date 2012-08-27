@@ -2,7 +2,7 @@
 
 <% if can? :create, Software %>
 <div class="button_container">
-	<%= link_to 'New software', new_admin_software_path, :class => "new button" %>
+	<%= link_to 'New software', new_admin_software_path, class: "new button" %>
 </div>
 <% end %>
 
@@ -28,7 +28,7 @@
     		[<%=number_to_human_size software.ware_file_size %>]
 		<% end %>
 	</td>
-    <td><%=l(software.ware_updated_at, :format => :short) unless software.ware_updated_at.blank? %></td>
+    <td><%=l(software.ware_updated_at, format: :short) unless software.ware_updated_at.blank? %></td>
     <td><%= software.version %></td>
     <td><%= software.platform %></td>
     <td><%= (software.active) ? "yes" : "no" %></td>

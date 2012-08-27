@@ -1,9 +1,9 @@
 <h1><%= @service_center.name %></h1>
 
 <div class="button_container">
-	<%= link_to 'Back', admin_service_centers_path, :class => "back button" %>
-	<%= link_to 'Edit', edit_admin_service_center_path(@service_center), :class => "edit button" %> 
-	<%= link_to 'Delete', [:admin, @service_center], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %> 
+	<%= link_to 'Back', admin_service_centers_path, class: "back button" %>
+	<%= link_to 'Edit', edit_admin_service_center_path(@service_center), class: "edit button" %> 
+	<%= link_to 'Delete', [:admin, @service_center], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
 </div>
 
 <p>

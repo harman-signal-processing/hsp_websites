@@ -2,7 +2,7 @@
 
 <% if can? :create, Artist %>
 <div class="button_container">
-	<%= link_to 'New artist', new_admin_artist_path, :class => "new button" %>
+	<%= link_to 'New artist', new_admin_artist_path, class: "new button" %>
 </div>
 <% end %>
 
@@ -12,7 +12,7 @@
   <li id="artist_<%= artist.id %>"><%= link_to artist.name, [:admin, artist] %></li>
 <% end %>
 </ul>
-<%#= sortable_element "artists", :url => update_order_admin_artists_path %>
+<%#= sortable_element "artists", url: update_order_admin_artists_path %>
 
 <% if @unapproved_artists.size > 0 %>
 <h2>Unapproved Artists (<%= @unapproved_artists.size %>)</h2>
@@ -29,8 +29,8 @@
 		<td><%= link_to artist.name, [:admin, artist] %></td>
 		<td><%= artist.invitation_code %></td>
 		<td><%= (artist.artist_tier) ? artist.artist_tier.name : "" %></td>
-		<td><%=l artist.created_at.to_date, :format => :long %></td>
-		<td><%=l artist.updated_at.to_date, :format => :long %></td>
+		<td><%=l artist.created_at.to_date, format: :long %></td>
+		<td><%=l artist.updated_at.to_date, format: :long %></td>
 	</tr>
 	<% end %>
 </table>
@@ -51,8 +51,8 @@
 		<td><%= link_to artist.name, [:admin, artist] %></td>
 		<td><%= artist.approver.name %></td>
 		<td><%= (artist.artist_tier) ? artist.artist_tier.name : "" %></td>
-		<td><%=l artist.created_at.to_date, :format => :long %></td>
-		<td><%=l artist.updated_at.to_date, :format => :long %></td>
+		<td><%=l artist.created_at.to_date, format: :long %></td>
+		<td><%=l artist.updated_at.to_date, format: :long %></td>
 	</tr>
 	<% end %>
 </table>

@@ -9,12 +9,12 @@
 			link_to(orl.online_retailer.name, [:admin, orl.online_retailer]) : 
 			link_to(orl.product.name, edit_admin_online_retailer_link_path(orl)) %>
 	<span class="little">
-	<%= link_to(image_tag("external_link_icon.png"), orl.url, :target => "_blank") %>
+	<%= link_to(image_tag("external_link_icon.png"), orl.url, target: "_blank") %>
 	<%= link_to(image_tag("trash.gif"), 
 			admin_online_retailer_link_path(orl), 
-			:remote => true,
-			:confirm => "Are you sure?", 
-			:method => :delete) %>
+			remote: true,
+			confirm: "Are you sure?", 
+			method: :delete) %>
 		<% if !!(orl.link_status.match(/^3/)) %>
 			<span style="background: #EDCA00; padding: 2px 5px; color: white;">redirected</span>
 		<% elsif !!(orl.link_status.match(/^4/)) %>

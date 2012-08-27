@@ -1,7 +1,7 @@
 <h1>Upcoming/Recent clinics</h1>
 <% if can? :create, Clinic %>
 <div class="button_container">
-	<%= link_to 'Schedule New Clinic', new_admin_clinic_path, :class => "new button" %>
+	<%= link_to 'Schedule New Clinic', new_admin_clinic_path, class: "new button" %>
 </div>
 <% end %>
 <table class="data">
@@ -18,9 +18,9 @@
 		<% if clinic.end_at.blank? && clinic.scheduled_at.blank? %>
 			<%= link_to "not scheduled", [:admin, clinic] %>
 		<% elsif clinic.end_at.blank? %>
-			<%= link_to I18n.l(clinic.scheduled_at.to_date, :format => :long), [:admin, clinic] %>
+			<%= link_to I18n.l(clinic.scheduled_at.to_date, format: :long), [:admin, clinic] %>
 		<% else %>
-			<%= link_to "#{I18n.l(clinic.scheduled_at.to_date, :format => :long)}-#{I18n.l(clinic.end_at.to_date, :format => :long)}", [:admin, clinic] %>
+			<%= link_to "#{I18n.l(clinic.scheduled_at.to_date, format: :long)}-#{I18n.l(clinic.end_at.to_date, format: :long)}", [:admin, clinic] %>
 		<% end %>
 	</td>
     <td><%= (clinic.dealer) ? clinic.dealer.name : clinic.location %></td>

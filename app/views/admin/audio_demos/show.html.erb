@@ -1,9 +1,9 @@
 <h1><%= @audio_demo.name %></h1>
 
 <div class="button_container">
-	<%= link_to 'Back', admin_audio_demos_path, :class => "back button" %>
-	<%= link_to 'Edit', edit_admin_audio_demo_path(@audio_demo, :locale => I18n.locale), :class => "edit button" %> 
-	<%= link_to 'Delete', [:admin, @audio_demo], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %> 
+	<%= link_to 'Back', admin_audio_demos_path, class: "back button" %>
+	<%= link_to 'Edit', edit_admin_audio_demo_path(@audio_demo, locale: I18n.locale), class: "edit button" %> 
+	<%= link_to 'Delete', [:admin, @audio_demo], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
 </div>
 
 <div><%= @audio_demo.description %></div>
@@ -22,7 +22,7 @@
 
 <div class="group">
 	<h3>Products Showing This Demo</h3>
-	<%= form_for [:admin, @product_audio_demo], :remote => true do |f| %>
+	<%= form_for [:admin, @product_audio_demo], remote: true do |f| %>
 		<%= hidden_field_tag "called_from", "audio_demo" %>
     	<%= f.hidden_field :audio_demo_id %>
 		<%= f.select :product_id, website.products.collect{|p| [p.name, p.id]} %> 
@@ -31,7 +31,7 @@
 
 	<ul id="product_audio_demos">
 		<% @audio_demo.product_audio_demos.each do |pad| %>
-			<%= render '/admin/shared/product_audio_demo_row', :pad => pad, :called_from => 'audio_demo' %>
+			<%= render '/admin/shared/product_audio_demo_row', pad: pad, called_from: 'audio_demo' %>
 		<% end %>
 	</ul>
 </div>

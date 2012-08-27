@@ -1,9 +1,9 @@
-<% set_meta_tags :title => t('titles.product_families'),
-				 :reverse => true %>
+<% set_meta_tags title: t('titles.product_families'),
+				 reverse: true %>
 				
 <h1 class="page_title">
 <% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/products_head.jpg")) %>
-	<%= image_tag("#{website.folder}/#{I18n.locale}/products_head.jpg", :alt => t('titles.product_families')) %>
+	<%= image_tag("#{website.folder}/#{I18n.locale}/products_head.jpg", alt: t('titles.product_families')) %>
 <% else %>
 	<%= translate_content(@market_segment, :name) %> <%= t('titles.product_families') %>
 <% end %>
@@ -29,7 +29,7 @@
 	<% else %>
 		<div class="clear"></div>
 		<% product_family.current_products.each do |product| %>
-			<%= render_partial "product_families/product_square", :product => product %>
+			<%= render_partial "product_families/product_square", product: product %>
 		<% end %>
 	<% end %>
 	<div class="clear"></div>

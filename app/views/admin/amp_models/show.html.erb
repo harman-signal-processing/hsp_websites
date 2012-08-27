@@ -1,9 +1,9 @@
 <h1><%= @amp_model.name %></h1>
 
 <div class="button_container">
-	<%= link_to 'Back', admin_amp_models_path, :class => "back button" %>
-	<%= link_to 'Edit', edit_admin_amp_model_path(@amp_model), :class => "edit button" %> 
-	<%= link_to 'Delete', [:admin, @amp_model], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %> 
+	<%= link_to 'Back', admin_amp_models_path, class: "back button" %>
+	<%= link_to 'Edit', edit_admin_amp_model_path(@amp_model), class: "edit button" %> 
+	<%= link_to 'Delete', [:admin, @amp_model], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
 </div>
 
 <div class="group">
@@ -11,7 +11,7 @@
 	<p><%= link_to_function "add a product", "$('#add_amp_model_form').toggle();"%></p>
 
 	<div id="add_amp_model_form" style="display:none">
-		<%= form_for [:admin, @product_amp_model], :remote => true do |f| %>
+		<%= form_for [:admin, @product_amp_model], remote: true do |f| %>
 			<%= hidden_field_tag :amp_model_name %>
 			<%= hidden_field_tag :called_from, "amp_model" %>
 		    <%= f.hidden_field :amp_model_id %>
@@ -23,7 +23,7 @@
 
 	<ul id="product_amp_models">
 	  <% @amp_model.product_amp_models.each do |pam| %>
-	  <%= render "/admin/shared/product_amp_model_row", :pam => pam, :called_from => "amp_model" %>
+	  <%= render "/admin/shared/product_amp_model_row", pam: pam, called_from: "amp_model" %>
 	  <% end %>
 	</ul>
 </div>

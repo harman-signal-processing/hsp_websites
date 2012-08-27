@@ -2,7 +2,7 @@
 	<%= lpf.locale %> 
 	<%= link_to(image_tag("trash.gif"), 
 			admin_locale_product_family_path(lpf), 
-			:confirm => "Are you sure? (This won't delete the product family or the locale--it will only remove the association.)", 
-			:remote => true,
-			:method => :delete) %>
+			confirm: "Are you sure? (This won't delete the product family or the locale--it will only remove the association.)", 
+			remote: true,
+			method: :delete) %>
 </li>

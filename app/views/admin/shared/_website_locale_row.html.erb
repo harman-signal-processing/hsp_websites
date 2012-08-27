@@ -4,8 +4,8 @@
 	<%= (wl.complete?) ? "live" : "" %>
 	<%= link_to(image_tag("trash.gif"), 
 			admin_website_locale_path(wl), 
-			:confirm => "Are you sure? (This won't delete the website or the locale--it will only remove the association.)", 
-			:remote => true,
-			:method => :delete) %>
+			confirm: "Are you sure? (This won't delete the website or the locale--it will only remove the association.)", 
+			remote: true,
+			method: :delete) %>
 	</span>
 </li>

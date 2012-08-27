@@ -1,8 +1,8 @@
 <h1><%= @dealer.name %></h1>
 
 <div class="button_container">
-	<%= link_to 'Back', admin_dealers_path, :class => "back button" %>
-	<%= link_to 'Edit', edit_admin_dealer_path(@dealer, :locale => I18n.locale), :class => "edit button" %> 
+	<%= link_to 'Back', admin_dealers_path, class: "back button" %>
+	<%= link_to 'Edit', edit_admin_dealer_path(@dealer, locale: I18n.locale), class: "edit button" %> 
 </div>
 
 <p>

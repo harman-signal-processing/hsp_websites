@@ -32,7 +32,7 @@ gem 'geokit'
 gem 'api_cache'
 gem 'moneta'
 gem 'geocoder_plus'
-# gem 'geoip', :git => 'http://github.com/cjheath/geoip.git'
+# gem 'geoip', git: 'http://github.com/cjheath/geoip.git'
 gem 'thinking-sphinx',
  git: 'http://github.com/freelancing-god/thinking-sphinx.git',
  require: 'thinking_sphinx'

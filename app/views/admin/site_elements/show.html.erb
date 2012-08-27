@@ -1,9 +1,9 @@
 <h1><%= @site_element.name %></h1>
 
 <div class="button_container">
-	<%= link_to 'Back', admin_site_elements_path, :class => "back button" %>	
-	<%= link_to 'Edit', edit_admin_site_element_path(@site_element, :locale => I18n.locale), :class => "edit button" %>
-	<%= link_to 'Delete', [:admin, @site_element], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %> 
+	<%= link_to 'Back', admin_site_elements_path, class: "back button" %>	
+	<%= link_to 'Edit', edit_admin_site_element_path(@site_element, locale: I18n.locale), class: "edit button" %>
+	<%= link_to 'Delete', [:admin, @site_element], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
 </div>
 
 <p>
@@ -78,7 +78,7 @@
 <p>And/or choose one or more product below. Doing so will add this file to the 
 	manuals/documentation area on each associated product page.</p>
 	
-	<%= form_for [:admin, @product_site_element], :remote => true do |f| %>
+	<%= form_for [:admin, @product_site_element], remote: true do |f| %>
 		<%= f.hidden_field :site_element_id %>
 		<%= hidden_field_tag :called_from, "site_element" %>
 		<p>
@@ -88,7 +88,7 @@
 	<% end %>
 	<ul id="product_site_elements">
 		<% @site_element.product_site_elements.each do |pse| %>
-		<%= render "/admin/shared/product_site_element_row", :pse => pse, :called_from => "site_element" %>
+		<%= render "/admin/shared/product_site_element_row", pse: pse, called_from: "site_element" %>
 		<% end %>
 	</ul>
 	

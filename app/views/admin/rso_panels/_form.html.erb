@@ -1,4 +1,4 @@
-<%= form_for([:admin, @rso_panel], :html => {:multipart => true}) do |f| %>
+<%= form_for([:admin, @rso_panel], html: {multipart: true}) do |f| %>
   <% if @rso_panel.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@rso_panel.errors.count, "error") %> prohibited this panel from being saved:</h2>
@@ -23,7 +23,7 @@
   </script>
   <div class="field">
     <%= f.label :name, "Position" %>
-    <%= f.select :name, ["main", "left"], {}, :onchange => "hidePanelFields(this);" %>
+    <%= f.select :name, ["main", "left"], {}, onchange: "hidePanelFields(this);" %>
   </div>
   <div id="main_panel_fields">
   <div class="field">
@@ -45,7 +45,7 @@
   </div>
   <div class="field">
     <%= f.label :content %><br />
-    <%= f.text_area :content, :class => "mceEditor" %>
+    <%= f.text_area :content, class: "mceEditor" %>
   </div>
   </div>
   <div id="left_panel_fields" style="display:none">

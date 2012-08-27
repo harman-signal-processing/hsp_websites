@@ -21,7 +21,7 @@
 <p><%= translate_content(@product_family, :intro) %></p>
 
 <% if !!(website.show_comparisons) %>
-	<%= form_tag compare_products_path %>
+	<%= form_tag compare_products_path, method: :get %>
 <% end %>
 
 <div id="products">
@@ -41,7 +41,7 @@
 	<div class="clear"></div>
 
 	<% if !!(website.show_comparisons) %>
-		<div><%= submit_tag "Compare Selected Products" %></div>
+		<div class="compare_button"><%= submit_tag "Compare Selected Products" %> <span class="hint">Select 2 to 5 products to compare</span></div>
 	</form>
 	<% end %>
 

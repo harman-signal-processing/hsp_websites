@@ -1,4 +1,8 @@
-<% compare ||= !!(website.show_comparisons) %>
+<% 
+unless defined? compare
+	compare = !!(website.show_comparisons)
+end 
+%>
 <%= cache ["product_square", product, website, compare, Rails.env, I18n.locale] do %>
 
 <% 

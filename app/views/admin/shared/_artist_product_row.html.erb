@@ -8,9 +8,9 @@
 	<%= (ap.on_tour) ? "(on tour)" : "" %>
 	<%= link_to(image_tag("trash.gif"), 
 			admin_artist_product_path(ap), 
-			:confirm => "Are you sure? (This won't delete the product or the artist--it will only remove the association.)", 
-			:remote => true,
-			:method => :delete) %>
+			confirm: "Are you sure? (This won't delete the product or the artist--it will only remove the association.)", 
+			remote: true,
+			method: :delete) %>
 	<%= link_to 'edit', edit_admin_artist_product_path(ap) %> &nbsp;
 	</span>
 	<%= (ap.quote.blank?) ? "" : raw("<br/>&nbsp;&nbsp;<i>\"#{ap.quote}\"</i>") %>

@@ -4,12 +4,12 @@
 	<%= link_to_function(feature.name, "$('#feature_#{feature.id}_form').toggle();") %> 
 	<%= link_to(image_tag("trash.gif"), 
 			admin_setting_path(feature), 
-			:confirm => "Are you sure?", 
-			:remote => true,
-			:method => :delete) %>
+			confirm: "Are you sure?", 
+			remote: true,
+			method: :delete) %>
 	<span class="small"><br/>links to: <%= feature.string_value %></span>
 	<div id="feature_<%= feature.id %>_form" style="margin: 10px; display:none;">
-		<%= form_for([:admin, feature], :html => {:multipart => true}) do |f| %>
+		<%= form_for([:admin, feature], html: {multipart: true}) do |f| %>
 			<%= f.error_messages %>
 			<%= hidden_field_tag "called_from", "homepage" %>
 			<p>

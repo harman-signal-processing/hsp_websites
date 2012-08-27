@@ -10,10 +10,19 @@
 <% end %>
 </h1>
 
+<% if !!(website.show_comparisons) %>
+	<%= form_tag compare_products_path, method: :get %>
+<% end %>
+
 <% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
 <div id="<%= product_family.to_param %>" class="wide_centered_box">
 	<h2><%= link_to translate_content(product_family, :name), product_family %></h2>
 </div>
+<% end %>
+
+<% if !!(website.show_comparisons) %>
+		<div class="compare_button"><%= submit_tag "Compare Selected Products" %> <span class="hint">Select 2 to 5 products to compare</span></div>
+	</form>
 <% end %>
 
 <div class="clear"></div>

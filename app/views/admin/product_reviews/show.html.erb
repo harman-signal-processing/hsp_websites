@@ -1,13 +1,13 @@
 <h1>
 	<%=h @product_review.title %><br/>
-	<span class="little"><%= link_to(product_review_url(@product_review, :locale => I18n.locale), product_review_url(@product_review, :locale => I18n.locale)) %>
-	<%= link_to(image_tag("external_link_icon.png"), product_review_url(@product_review, :locale => I18n.locale)) %></span>
+	<span class="little"><%= link_to(product_review_url(@product_review, locale: I18n.locale), product_review_url(@product_review, locale: I18n.locale)) %>
+	<%= link_to(image_tag("external_link_icon.png"), product_review_url(@product_review, locale: I18n.locale)) %></span>
 </h1>
 
 <div class="button_container">
-	<%= link_to 'Back', admin_product_reviews_path, :class => "back button" %>
-	<%= link_to 'Edit', edit_admin_product_review_path(@product_review, :locale => I18n.locale), :class => "edit button" %> 
-	<%= link_to 'Delete', [:admin, @product_review], :confirm => 'Are you sure?', :method => :delete, :class => "delete button" %> 
+	<%= link_to 'Back', admin_product_reviews_path, class: "back button" %>
+	<%= link_to 'Edit', edit_admin_product_review_path(@product_review, locale: I18n.locale), class: "edit button" %> 
+	<%= link_to 'Delete', [:admin, @product_review], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
 </div>
 
 <% unless @product_review.cover_image_file_name.blank? %>
@@ -41,7 +41,7 @@
 
 <div class="group">
 <h3>This review is associated with the following product(s):</h3>
-<%= form_for [:admin, @product_review_product], :remote => true do |f| %>
+<%= form_for [:admin, @product_review_product], remote: true do |f| %>
 	<%= hidden_field_tag "called_from", "product_review" %>
     <%= f.hidden_field :product_review_id %>
 	<%= f.select :product_id, Product.all_for_website(website).collect{|p| [p.name, p.id]} %> 
@@ -50,7 +50,7 @@
 
 <ul id="product_review_products">
 	<% @product_review.product_review_products.each do |prp| %>
-		<%= render '/admin/shared/product_review_product_row', :prp => prp, :called_from => 'product_review' %>
+		<%= render '/admin/shared/product_review_product_row', prp: prp, called_from: 'product_review' %>
 	<% end %>
 </ul>
 </div>

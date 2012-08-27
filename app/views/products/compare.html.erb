@@ -1,17 +1,29 @@
 <% set_meta_tags title: "Product Comparison",
 				 reverse: true %>
 
-<h1>Product Comparison</h1>
+<h1 class="page_title">Product Comparison</h1>
 
 <table class="comparison" border="1">
 	<tr>
-		<td>&nbsp;</td>
+		<th>&nbsp;</th>
 	<% @products.each do |product| %>
-		<th width="<%= 100 / (1 + @products.count) %>%">
-			<%= link_to translate_content(product, :name), product %>
-			<br/><%= translate_content(product, :short_description) %>
+		<th width="<%= (780 / @products.count).to_i %>">
+			<h3><%= link_to translate_content(product, :name), product %></h3>
+			<% if product.photo %>
+				<% if product.layout_class == "horizontal" %>
+				<%= link_to image_tag(product.photo.product_attachment.url(:horiz_thumb)), product %>
+				<% else %>
+				<%= link_to image_tag(product.photo.product_attachment.url(:thumb)), product %>
+				<% end %>
+			<% end %>
 		</th>
 	<% end %>
+	</tr>
+	<tr>
+		<td class="spec_name">Product type</td>
+		<% @products.each do |product| %>
+		<td class="spec_value"><%= translate_content(product, :short_description) %></td>
+		<% end %>
 	</tr>
 	<% @specs.each do |spec| %>
 	<tr>
