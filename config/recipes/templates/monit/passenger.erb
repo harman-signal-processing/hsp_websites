@@ -1,0 +1,79 @@
+check process hsp_passenger1 with pidfile /var/tmp/rack.1.pid
+    group web
+    start program = "/bin/true" with timeout 30 seconds
+    stop program = "/bin/sh -c 'kill `cat /var/tmp/rack.1.pid`'"
+    if totalmem > 180.0 MB for 5 cycles then restart
+    if changed pid 2 times within 2 cycles then alert
+    if changed ppid 2 times within 2 cycles then alert
+
+check process hsp_passenger2 with pidfile /var/tmp/rack.2.pid
+    group web
+    start program = "/bin/true" with timeout 30 seconds
+    stop program = "/bin/sh -c 'kill `cat /var/tmp/rack.2.pid`'"
+    if totalmem > 180.0 MB for 5 cycles then restart
+    if changed pid 2 times within 2 cycles then alert
+    if changed ppid 2 times within 2 cycles then alert
+
+check process hsp_passenger3 with pidfile /var/tmp/rack.3.pid
+    group web
+    start program = "/bin/true" with timeout 30 seconds
+    stop program = "/bin/sh -c 'kill `cat /var/tmp/rack.3.pid`'"
+    if totalmem > 180.0 MB for 5 cycles then restart
+    if changed pid 2 times within 2 cycles then alert
+    if changed ppid 2 times within 2 cycles then alert
+
+check process hsp_passenger4 with pidfile /var/tmp/rack.4.pid
+    group web
+    start program = "/bin/true" with timeout 30 seconds
+    stop program = "/bin/sh -c 'kill `cat /var/tmp/rack.4.pid`'"
+    if totalmem > 180.0 MB for 5 cycles then restart
+    if changed pid 2 times within 2 cycles then alert
+    if changed ppid 2 times within 2 cycles then alert
+
+check process hsp_passenger5 with pidfile /var/tmp/rack.5.pid
+    group web
+    start program = "/bin/true" with timeout 30 seconds
+    stop program = "/bin/sh -c 'kill `cat /var/tmp/rack.5.pid`'"
+    if totalmem > 180.0 MB for 5 cycles then restart
+    if changed pid 2 times within 2 cycles then alert
+    if changed ppid 2 times within 2 cycles then alert
+
+check process hsp_passenger6 with pidfile /var/tmp/rack.6.pid
+    group web
+    start program = "/bin/true" with timeout 30 seconds
+    stop program = "/bin/sh -c 'kill `cat /var/tmp/rack.6.pid`'"
+    if totalmem > 180.0 MB for 5 cycles then restart
+    if changed pid 2 times within 2 cycles then alert
+    if changed ppid 2 times within 2 cycles then alert
+
+check process hsp_passenger7 with pidfile /var/tmp/rack.7.pid
+    group web
+    start program = "/bin/true" with timeout 30 seconds
+    stop program = "/bin/sh -c 'kill `cat /var/tmp/rack.7.pid`'"
+    if totalmem > 180.0 MB for 5 cycles then restart
+    if changed pid 2 times within 2 cycles then alert
+    if changed ppid 2 times within 2 cycles then alert
+
+check process hsp_passenger8 with pidfile /var/tmp/rack.8.pid
+    group web
+    start program = "/bin/true" with timeout 30 seconds
+    stop program = "/bin/sh -c 'kill `cat /var/tmp/rack.8.pid`'"
+    if totalmem > 180.0 MB for 5 cycles then restart
+    if changed pid 2 times within 2 cycles then alert
+    if changed ppid 2 times within 2 cycles then alert
+
+check process hsp_passenger9 with pidfile /var/tmp/rack.9.pid
+    group web
+    start program = "/bin/true" with timeout 30 seconds
+    stop program = "/bin/sh -c 'kill `cat /var/tmp/rack.9.pid`'"
+    if totalmem > 180.0 MB for 5 cycles then restart
+    if changed pid 2 times within 2 cycles then alert
+    if changed ppid 2 times within 2 cycles then alert
+
+check process hsp_passenger10 with pidfile /var/tmp/rack.10.pid
+    group web
+    start program = "/bin/true" with timeout 30 seconds
+    stop program = "/bin/sh -c 'kill `cat /var/tmp/rack.10.pid`'"
+    if totalmem > 180.0 MB for 5 cycles then restart
+    if changed pid 2 times within 2 cycles then alert
+    if changed ppid 2 times within 2 cycles then alert

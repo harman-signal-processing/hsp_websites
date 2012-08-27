@@ -64,6 +64,7 @@ gem 'will_paginate'
 
 group :production, :staging do
   # gem "memcache"
+  gem 'passenger_monit'
   gem "memcache-client"
   gem "exception_notification", 
     git: "http://github.com/rails/exception_notification.git",
