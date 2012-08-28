@@ -11,8 +11,8 @@
 	</tr>
 	<% Product.all_for_website(website).each do |product| %>
 	<%
-		front = product.product_documents.where("document_type LIKE '%cad_front%'").first
-		rear  = product.product_documents.where("document_type LIKE '%cad_rear%'").first
+		front = product.product_documents.where("document_type LIKE '%cad_drawing_front%'").first
+		rear  = product.product_documents.where("document_type LIKE '%cad_drawing_rear%'").first
 		other = product.product_documents.where("document_type LIKE '%cad_file%'").first
 
 		if front || rear || other 
