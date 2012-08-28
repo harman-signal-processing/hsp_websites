@@ -20,7 +20,7 @@ class ProductDocument < ActiveRecord::Base
     else
       doctype = I18n.t("document_type.#{self.document_type}")
       ret = "#{self.product.name} #{doctype}"
-      unless self.language.blank?
+      unless self.language.blank? || !!(self.document_type.match(/^cad/))
         lang = I18n.t("language.#{self.language}")
         ret += "-#{lang}"
       end
