@@ -159,6 +159,13 @@ class SupportController < ApplicationController
     send_file temp_file.path, type: 'application/zip', disposition: 'attachment', filename: "#{params[:download_type]}.zip"
     temp_file.close
   end
+
+  # For dbx, a quick list of CAD files
+  def cad
+    products = Product.all_for_website(website).collect{|p| p.id}.join(', ')
+    @product_documents = ProductDocument.joins(:product).where("document_type LIKE '%cad%' AND product_id IN (#{products})").order("products.name ASC")
+    render_template
+  end
   
   private
   

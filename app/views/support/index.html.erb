@@ -17,7 +17,15 @@
 	<div class="support_box downloads_box">
 		<h4><%= link_to t('software_downloads'), software_index_path %></h4>
 		<p><%= t('blurbs.software_downloads', brand: website.brand_name) %></p>
-		<%= link_to t('software_downloads'), software_index_path %>
+		<ul>
+			<li><%= link_to t('software_downloads'), software_index_path %></li>
+			<% if !!(website.has_third_party_downloads) %>
+			<li><%= link_to "3rd party controllers", "/en-US/3rd-party-controllers" %></li>
+			<% end %>
+			<% if !!(website.has_speaker_tunings) %>
+			<li><%= link_to "speaker tunings" %></li>
+			<% end %>
+		</ul>
 	</div>
 	<% end %>
 	
@@ -28,12 +36,19 @@
 			<%= select_tag :product_id, options_from_collection_for_select(website.current_and_discontinued_products, :to_param, :name), include_blank: true %>
 			<%= submit_tag t('go')%>
 		<% end %>
+		<ul>
+			<% if !!(website.has_training) %>
+			<li><%= link_to "product training", training_path %></li>
+			<% end %>
+		</ul>
 	</div>
 	
 	<div class="support_box registration_box">
 		<h4><%= link_to t('warranty_registration'), warranty_registration_path %></h4>
 		<p><%= t('blurbs.warranty_registration', brand: website.brand_name) %></p>
-		<%= link_to t('warranty_registration'), warranty_registration_path %>
+		<ul>
+			<li><%= link_to t('warranty_registration'), warranty_registration_path %></li>
+		</ul>
 	</div>
 	
 	<% if website.has_service_centers? %>
@@ -44,6 +59,14 @@
 			<%= text_field_tag "zip", session[:zip], size: 8 %>
 			<%= submit_tag t('go') %></p>
 		<% end %>
+		</ul>
+			<% if website.has_rma_form? %>
+			<li><%= link_to "Factory Service/Return Authorization Form", rma_request_path %></li>
+			<% end %>
+			<% if website.has_parts_form? %>
+			<li><%= link_to "Parts Request", parts_request_path %></li>
+			<% end %>
+		</ul>
 	</div>
 	<% end %>
 
@@ -54,13 +77,13 @@
 			<% if !!(website.value_for("troubleshooting_url")) %>
 			<li><%= link_to t('troubleshooting').downcase, support_path(action: "troubleshooting") %></li>
 			<% end %>
-			<% if website.has_parts_form? %>
-			<li><%= link_to "Parts Request", parts_request_path %></li>
-			<% end %>
-			<% if website.has_rma_form? %>
-			<li><%= link_to "Factory Service/Return Authorization Form", rma_request_path %></li>
+			<% if !!(website.has_cad_drawings) %>
+			<li><%= link_to "CAD files", support_path(action: "cad") %></li>
 			<% end %>
 			<li><%= link_to t('titles.rohs'), rohs_path %></li>
+			<% if !!(website.forum_link) %>
+			<li><%= link_to "user forum", website.forum_link %></li>
+			<% end %>
 		</ul>
 	</div>
 	<% end %>

@@ -4,7 +4,8 @@ Run "rake doc:app" to generate API documentation for your models, controllers, h
 === TODO for dbx site ===
 * New layout for product_families page (collapsed families)
 * Upload speaker tunings (maybe just to software downloads section)
-* Create a section for training modules
+* CAD drawings (in-place, need to add/modify cad files for each product in documents section)
+* Finish training section (online, live, modules)
 
 === TODO for Lexicon ===
 
