@@ -162,8 +162,6 @@ class SupportController < ApplicationController
 
   # For dbx, a quick list of CAD files
   def cad
-    products = Product.all_for_website(website).collect{|p| p.id}.join(', ')
-    @product_documents = ProductDocument.joins(:product).where("document_type LIKE '%cad%' AND product_id IN (#{products})").order("products.name ASC")
     render_template
   end
   
