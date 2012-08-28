@@ -1,0 +1,17 @@
+<h1 class="page_title">CAD Files</h1>
+
+<table class="specs">
+	<tr>
+		<th>Product</th>
+		<th>File</th>
+	</tr>
+	<% @product_documents.each do |pd| %>
+	<tr>
+		<td class="name" style="width: 150px;"><%= pd.product.name %></td>
+		<td>
+			<%= link_to pd.document_file_name, pd.document.url %>
+			[<%= number_to_human_size(pd.document_file_size) %>]
+		</td>
+	</tr>
+	<% end %>
+</table>

@@ -98,6 +98,9 @@ en:
       parts_list: Parts List
       service_manual: Service Manual
       calibration_procedure: Calibration Procedure
+      cad_files: CAD files
+      cad_drawing_front: CAD drawing front
+      cad_drawing_rear: CAD drawing rear
       other: Other Document
         
   product_page:

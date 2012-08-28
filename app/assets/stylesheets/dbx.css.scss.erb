@@ -48,7 +48,7 @@ h1.page_title {
 	line-height: 21px;
 	letter-spacing: 0.1em;
 	font-weight: 200;
-	text-shadow: #2B1F1F 0px 1px 0px;
+	text-shadow: 0px 1px 0px #2B1F1F;
 	text-transform: uppercase;
 	margin-top: -10px;
 	margin-left: -10px;
@@ -185,6 +185,7 @@ div#topnav {
 	padding-left: 2px;
 	font-size: 11px;
 /*	font-weight: bold;*/
+	box-shadow: 0px 2px 4px #000;
 	text-transform: uppercase;
 	/*letter-spacing: -0.09em;*/
 	-moz-border-radius: 4px;
@@ -194,14 +195,14 @@ div#topnav {
 		list-style: none;
 		a:link, a:visited {
 			border-right: 1px solid #C33437;
-		/*	text-shadow: #999 1px 1px 1px;*/
+			text-shadow: 1px 1px 1px #444;
 			padding: 2px 7px 3px 7px;
-			color: white;
+			color: #EAEAEA;
 			text-decoration: none;
 			margin-top: 2px;
 		}
 		a:hover {
-			text-decoration: underline;
+			color: #FFF;
 		}
 	}
 }
@@ -220,29 +221,26 @@ div#content_container_content {
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	min-height: 350px;
-}
-.internal_page h1,
-.internal_page h2 {
-	color: #222;
+	h1, h2 {
+		color: #222;
+	}
 }
 div#logo {
 	float: left;
 	text-align: right;
 	width: 150px;
-}
-div#logo h2 {
-	font-size: 30px;
-	color: white;
-	margin-top: -5px;
-	text-align: center;
-	width: 170px;
-}
-div#logo h2 a:link,
-div#logo h2 a:visited,
-div#logo h2 a:hover {
-	color: white;
-	text-decoration: none;
-	text-shadow: #000 1px 1px 1px;
+	h2 {
+		font-size: 30px;
+		color: white;
+		margin-top: -5px;
+		text-align: center;
+		width: 170px;
+		a:link, a:visited, a:hover {
+			color: white;
+			text-decoration: none;
+			text-shadow: #000 1px 1px 1px;
+		}
+	}
 }
 div#big_bottom_box_container {
 	background-color: #2e2e2e;
@@ -253,22 +251,22 @@ div#big_bottom_box_container {
 	-moz-border-radius: 10px;
 	border-radius: 6px;
 	padding-bottom: 6px;
+	h2 {
+		font-size: 16px;
+		text-shadow: 0px 1px 1px #000;
+	}
 }
 div#big_bottom_box_content {
 	padding: 10px;
 	padding-bottom: 20px;
-}
-div#big_bottom_box_content a:link,
-div#big_bottom_box_content a:visited {
-	color: #ccc;
-}
-div#big_bottom_box_content h2 a:link,
-div#big_bottom_box_content h2 a:visited {
-	color: white;
-}
-
-div#big_bottom_box_container h2 {
-	font-size: 16px;
+	a:link, a:visited {
+		color: #ccc;
+	}
+	h2 {
+		a:link, a:visited {
+			color: white;
+		}
+	}
 }
 
 .divider_above {
@@ -285,32 +283,31 @@ div#footer {
 	margin-bottom: 30px;
 	text-align: center;
 	height: 90px;
-}
-div#footer a:link,
-div#footer a:visited {
-	color: white;
-}
-div#footer div#footer_info {
-	float: right;
-	text-align: right;
-	margin-top: 10px;
-	margin-right: 10px;
-}
-div#footer div#footer_left {
-	float: left;
-	margin-left: 10px;
-}
-div#footer div#footer_left img {
-	margin-bottom: -3px;
-	margin-right: 2px;
+	a:link, a:visited {
+		color: white;
+	}
+	div#footer_info {
+		float: right;
+		text-align: right;
+		margin-top: 10px;
+		margin-right: 10px;
+	}
+	div#footer_left {
+		float: left;
+		margin-left: 10px;
+		img {
+			margin-bottom: -3px;
+			margin-right: 2px;
+		}
+	}
 }
 #social_media_links {
 	text-align: center;
 	margin-bottom: 10px;
-}
-#social_media_links img {
-	margin-left: 8px;
-	margin-right: 8px;
+	img {
+		margin-left: 8px;
+		margin-right: 8px;
+	}
 }
 .medium_centered_box {
 	width: 500px;
@@ -332,6 +329,10 @@ div#footer div#footer_left img {
 	h1 {
 		font-size: 24px;
 		line-height: 27px;
+		color: #444;
+	}
+	h2 {
+		color: #898989;
 	}
 	.little {
 		font-style: oblique;
@@ -937,22 +938,27 @@ ol#search_results li {
 		margin-left: 20px;
 	}
 	.support_box {
-		background: #fff;
-		border: 1px solid #ECECEC;
+		background: #ECECEC;
+		border: 1px solid #CCCCCC;
 		width: 280px;
-		height: 120px;
+		height: 140px;
 		overflow: hidden;
 		float: left;
 		padding: 8px;
 		margin: 10px;
+		box-shadow: #CCC 1px 1px 4px;
+		form {
+			margin-bottom: 8px;
+		}
 		h4 {
 			font-size: 14px;
 			line-height: 20px;
 			margin-bottom: 6px;
-			color: #444;
+			color: #333;
 			text-transform: uppercase;
+			text-shadow: 0px 1px 0px #FFF;
 			a:link, a:visited {
-				color: #444;
+				color: #333;
 				text-decoration: none;
 			}
 		}
