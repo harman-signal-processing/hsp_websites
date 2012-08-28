@@ -84,7 +84,7 @@ end
 group :test do
   # gem 'sqlite3'
   gem 'mocha', require: false
-  gem 'turn'
+  gem 'turn', git: "http://github.com/adamtao/turn.git"
   gem 'capybara'
   gem 'capybara-webkit'
   gem 'capybara_minitest_spec'

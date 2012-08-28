@@ -1,4 +1,11 @@
 GIT
+  remote: http://github.com/adamtao/turn.git
+  revision: 34b4ea286897e428c16765ffab7da47c16505805
+  specs:
+    turn (0.9.6)
+      ansi
+
+GIT
   remote: http://github.com/dce/paperclip-meta.git
   revision: 07ef72bf5cfa84bbae454e61872d7eb1caf2a74b
   specs:
@@ -292,8 +299,6 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
-    turn (0.9.6)
-      ansi
     twitter (3.7.0)
       faraday (~> 0.8)
       multi_json (~> 1.3)
@@ -375,7 +380,7 @@ DEPENDENCIES
   thinking-sphinx!
   tinymce-rails
   to_xls
-  turn
+  turn!
   twitter
   uglifier (>= 1.0.3)
   unicorn
