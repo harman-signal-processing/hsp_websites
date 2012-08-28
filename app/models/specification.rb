@@ -13,4 +13,5 @@ class Specification < ActiveRecord::Base
     end
     r
   end
+
 end
