@@ -40,9 +40,20 @@ Someday figure out a better way to do all of this.
 <div id="introducing_unplugged">
 	<h1><%= link_to(image_tag('digitech/unplugged/UnpluggedLP_Header.png', alt: "Introducing the Unplugged Acoustic Simulator for iStomp"), @product) %></h1>
 
-	<%= raw @product_introduction.content.to_s %>
+	<div class="middle_content_container">
+		<section id="istomp_content">
+			<h2>About the iStomp</h2>
+		</section>	
+		<section id="product_content">
+			<h2><%= @product.name %></h2>
+			<h4>Acoustic Simulator</h4>
+			<%= link_to(image_tag('digitech/unplugged/Unplugged_PedalArt.png', alt: "Unpluged Pedal"), @product) %>
+			<%= raw @product_introduction.content.to_s %>
+		</section>
 
+	</div>
 	<section id="bottom">
+		<h3>Browse all <%= @istomp.sub_products.count %> e-pedals</h3>
 		<%= link_to(image_tag('digitech/istomp/e-pedals_lineup.png', alt: "All e-pedals"), url_for(@istomp.softwares.first)) %>
 	</section>
 	<div class="hint" style="text-align: center; margin-top: 5px;">
