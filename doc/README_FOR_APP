@@ -1,20 +1,19 @@
-Use this README file to introduce your application and point to useful places in the API for learning more.
-Run "rake doc:app" to generate API documentation for your models, controllers, helpers, and libraries.
+Not how this file is supposed to be used. I'm keeping track of things
+I need to work on...
 
 === TODO for dbx site ===
 * New layout for product_families page (collapsed families)
-* Upload speaker tunings (maybe just to software downloads section)
-* CAD drawings (in-place, need to add/modify cad files for each product in documents section)
 * Finish training section (online, live, modules)
 
 === TODO for Lexicon ===
+* Tweak the discontinued product page layout
+* Replace store buttons (waiting on Joel)
+* Replace store homepage images (waiting on Joel)
 
 _OMS Notes_
-
 You can use this link: store.lexiconpro.com/addtocart.aspx?itemid=100170580&subitemid=358897&binlocid=7&qty=1
 
 What you will need to change is: itemid=100170580&subitemid=358897 based on the product you want to link. You can get these ID's from the manage inventory page in the OMS backend. Please let me know if you have any questions. 
-
 
 === TODO for DigiTech ===
 * Sound community Replacement!!!!!!!
@@ -29,6 +28,7 @@ What you will need to change is: itemid=100170580&subitemid=358897 based on the 
   o When buy-it-now problems are found
   o When reviews problems are found
 * Optimization 
+* Improve software page--is ugly, especially without release notes
 
 === TODO for BSS ===
 * Start
