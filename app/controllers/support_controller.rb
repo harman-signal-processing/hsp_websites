@@ -162,11 +162,13 @@ class SupportController < ApplicationController
 
   # For dbx, a quick list of CAD files
   def cad
+    @page_title = "CAD Files"
     render_template
   end
 
   # Also for dbx, a list of speaker tunings
   def speaker_tunings
+    @page_title = "Speaker Tunings"
     render_template
   end
   
