@@ -56,7 +56,9 @@
 
 <ul id="online_retailer_links">
 	<% @online_retailer.online_retailer_links.each do |orl| %>
+		<% if orl.product.belongs_to_this_brand?(website) %>
 		<%= render '/admin/shared/online_retailer_link_row', orl: orl, called_from: 'online_retailer' %>
+		<% end %>
 	<% end %>
 </ul>
 </div>

@@ -6,7 +6,12 @@
 </p>
 <p>
   <%= f.label :retailer_logo %><br />
-  <%= f.file_field :retailer_logo %>
+  <%= f.file_field :retailer_logo %><br/>
+  <i>Will be auto-sized to 125x75 pixels.
+  	<% unless f.object.retailer_logo_file_name.blank? %>
+  	Leave blank to keep current image.
+  	<% end %>
+  </i>
 </p>
 <p>
 	<%= f.label :brand_link %><br />
