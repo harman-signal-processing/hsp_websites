@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_filter :set_locale
-  before_filter :ensure_best_url, only: [:show, :buy_it_now, :preview]
+  before_filter :ensure_best_url, only: [:show, :buy_it_now, :preview, :introducing]
   
   # GET /products
   # GET /products.xml
@@ -67,6 +67,27 @@ class ProductsController < ApplicationController
           head :ok
         end
       }
+    end
+  end
+
+  # New for September 2012, we are now going to have landing pages for
+  # epedals when they're introduced. The content is basically the same
+  # dan thing as a regular product page. Why do we do this? I don't know.
+  # But, here's how you would link to it:
+  #
+  # Example:
+  #    /en-US/introducing/unplugged
+  #
+  # Somehow I need to remove access to the landing page after some time
+  # since it features the introductory 99 cent price.
+  def introducing
+    @product_introduction = ProductIntroduction.find_by_product_id(@product.id) || ProductIntroduction.new
+    if @product_introduction.expired?
+      redirect_to @product
+    elsif !@product_introduction.layout_class.blank? && File.exist?(Rails.root.join("app", "views", website.folder, "products", "introducing_#{@product_introduction.layout_class}.html.erb"))
+      render template: "#{website.folder}/products/introducing_#{@product_introduction.layout_class}", layout: set_layout
+    else
+      render_template
     end
   end
 

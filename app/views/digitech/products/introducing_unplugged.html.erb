@@ -1,0 +1,52 @@
+<%#
+
+I really hate these one-off pages. When it comes time to delete this page--which was
+put into place to introduce the Unplugged e-pedal, do this:
+
+* Delete this layout page
+* Delete app/assets/stylesheets/unplugged.css.scss.erb
+* Delete the folder app/assets/images/digitech/unplugged
+* Remove 'unplugged.css' from the asset preloading file in
+   config/environments/production.rb
+   config/environments/staging.rb
+* Remove the ProductIntroduction entry for Unplugged.
+
+Someday figure out a better way to do all of this.
+
+%>
+
+
+<% @istomp = Product.find("istomp")  %>
+<% set_meta_tags title: "Introducing #{@product.name}",
+				 reverse: true %>
+
+
+<%= content_for :page_css do %>
+	<%= stylesheet_link_tag 'application', website.folder, 'istomp', 'unplugged', cache: false, media: :all %>
+	<%= javascript_include_tag 'istomp' %>
+	<style type="text/css">
+	<%= raw @product_introduction.extra_css.to_s %>
+	</style>
+<% end %>
+
+<%= content_for :alternate_logo do %>
+	<%= link_to(image_tag("#{website.folder}/logo_black.png", alt: Setting.site_name(website)), main_app.locale_root_path) %>
+<% end %>
+
+<%= content_for :footer_logo do %>
+	<%= image_tag "harman.jpg" %>
+<% end %>
+
+<div id="introducing_unplugged">
+	<h1><%= link_to(image_tag('digitech/unplugged/UnpluggedLP_Header.png', alt: "Introducing the Unplugged Acoustic Simulator for iStomp"), @product) %></h1>
+
+	<%= raw @product_introduction.content.to_s %>
+
+	<section id="bottom">
+		<%= link_to(image_tag('digitech/istomp/e-pedals_lineup.png', alt: "All e-pedals"), url_for(@istomp.softwares.first)) %>
+	</section>
+	<div class="hint" style="text-align: center; margin-top: 5px;">
+		* Introductory price valid for 30 days after launch.
+	</div>
+</div>
+

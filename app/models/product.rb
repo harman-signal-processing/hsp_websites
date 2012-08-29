@@ -1,4 +1,5 @@
 class Product < ActiveRecord::Base
+  has_one :product_introduction
   has_many :tones
   has_many :product_family_products, dependent: :destroy
   has_many :product_families, through: :product_family_products

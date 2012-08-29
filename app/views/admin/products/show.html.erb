@@ -16,6 +16,17 @@
 
 <%= @product.short_description %>
 
+<% if can? :manage, ProductIntroduction %>
+<p>
+	<b>Intro page:</b>
+	<% if !!(@product.product_introduction) %>
+	<%= link_to "Edit", edit_admin_product_introduction_path(@product.product_introduction) %>
+	<% else %>
+	<%= link_to "Create", new_admin_product_introduction_path(product_id: @product.to_param) %>
+	<% end %>
+</p>
+<% end %>
+
 <p>
   <b>Sap sku:</b>
   <%=h @product.sap_sku %>

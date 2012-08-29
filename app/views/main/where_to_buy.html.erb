@@ -34,7 +34,7 @@
 		<% OnlineRetailer.random(website).each do |online_retailer| %>
 		<div class="retailer_logo">
 			<% if !online_retailer.retailer_logo_file_name.blank? %>
-				<%= link_to(image_tag(online_retailer.retailer_logo(:small)), online_retailer.direct_link, target: "_blank")%>
+				<%= link_to(image_tag(online_retailer.retailer_logo(:fixed)), online_retailer.direct_link, target: "_blank")%>
 			<% else %>
 				<%= link_to online_retailer.name, online_retailer.direct_link, target: "_blank" %>
 			<% end %>
@@ -95,7 +95,7 @@
 	<% OnlineRetailer.random(website).each do |online_retailer| %>
 	<div class="retailer_logo">
 		<% if !online_retailer.retailer_logo_file_name.blank? %>
-			<%= link_to(image_tag(online_retailer.retailer_logo(:small)), online_retailer.direct_link, target: "_blank")%>
+			<%= link_to(image_tag(online_retailer.retailer_logo(:fixed)), online_retailer.direct_link, target: "_blank")%>
 		<% else %>
 			<%= link_to online_retailer.name, online_retailer.direct_link, target: "_blank" %>
 		<% end %>

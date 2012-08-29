@@ -13,7 +13,7 @@
 </div>
 
 <% if !@online_retailer.retailer_logo_file_name.blank? %>
-	<%= image_tag(@online_retailer.retailer_logo(:medium))%>
+	<%= image_tag(@online_retailer.retailer_logo(:fixed))%>
 <% else %>
 	<i>(no logo)</i>
 <% end %>

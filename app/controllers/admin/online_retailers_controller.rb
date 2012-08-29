@@ -15,7 +15,7 @@ class Admin::OnlineRetailersController < AdminController
   def show
     @online_retailer.brand_link = @online_retailer.get_brand_link(website)
     @online_retailer_link = OnlineRetailerLink.new(online_retailer: @online_retailer)
-    @products = Product.non_discontinued(website) - @online_retailer.online_retailer_links.collect{|l| l.product}
+    @products = Product.non_discontinued(website) - @online_retailer.online_retailer_links.collect{|l| l.product} - ParentProduct.all.collect{|p| p.product}
     respond_to do |format|
       format.html { render_template } # show.html.erb
       format.xml  { render xml: @online_retailer }
