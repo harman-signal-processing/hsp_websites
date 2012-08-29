@@ -9,8 +9,33 @@ div#introducing_unplugged {
 		margin-left: -10px;
 	}
 	section {
-		padding: 5px 10px;
+		padding: 8px 10px;
+		margin: 4px;
 		background: url(<%= image_path('digitech/unplugged/darkgrey_transparent.png') %>);
+		h2, h3 {
+			color: #edbe76;
+			text-shadow: 0px 1px 2px #111;
+		}
+		h3 {
+			font-size: 16px;
+			line-height: 20px;
+		}
 	}
-
+	div.middle_content_container {
+		height: 400px;
+		section {
+			&#product_content {
+				float: left;
+				width: 500px;
+				height: 375px;
+				overflow: hidden;
+			}
+			&#istomp_content {
+				float: right;
+				width: 380px;
+				height: 375px;
+				overflow: hidden;
+			}
+		}
+	}
 }
