@@ -1,0 +1,36 @@
+<% @istomp = @product.parent_products.first.parent_product || Product.new(name: "iStomp") %>
+<% @stomp_shop = @istomp.softwares.first || Software.new %>
+
+<% set_meta_tags title: "Introducing #{@product.name}",
+				 reverse: true %>
+
+
+<%= content_for :page_css do %>
+	<%= stylesheet_link_tag 'application', website.folder, 'istomp', cache: false, media: :all %>
+	<%= javascript_include_tag 'istomp' %>
+	<style type="text/css">
+	<%= raw @product_introduction.extra_css.to_s %>
+	</style>
+<% end %>
+
+<%= content_for :alternate_logo do %>
+	<%= link_to(image_tag("#{website.folder}/logo_black.png", alt: Setting.site_name(website)), main_app.locale_root_path) %>
+<% end %>
+
+<%= content_for :footer_logo do %>
+	<%= image_tag "harman.jpg" %>
+<% end %>
+
+<header id="product_header">
+	<h1><%= @product.name %></h1>
+</header>
+
+<%= link_to(image_tag(@product.photo.product_attachment.url(:epedal)), @product) %>
+
+<%= raw @product_introduction.content.to_s %>
+
+<section id="product_bottom_content">
+	<%= render_partial "products/stomp_shop_callout", position: :right, istomp: @istomp %>
+	<%= render_partial "products/istomp_callout", position: :left %>
+	<div class="clear"></div>
+</section>

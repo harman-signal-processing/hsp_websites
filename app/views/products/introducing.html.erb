@@ -1,0 +1,18 @@
+<% set_meta_tags title: "Introducing #{@product.name}",
+				 reverse: true %>
+
+<%= content_for :page_css do %>
+	<%= stylesheet_link_tag 'application', website.folder, cache: false, media: :all %>
+	<style type="text/css">
+	<%= raw @product_introduction.extra_css.to_s %>
+	</style>
+<% end %>
+
+<div style="text-align: center">
+	<h1>Introducing: <%= @product.name %></h1>
+	<% if @product.photo %>
+		<%= link_to(image_tag(@product.photo.product_attachment.url(:medium)), @product) %>
+	<% end %>
+	<%= raw @product_introduction.content.to_s %>
+	<div class="clear"></div>
+</div>

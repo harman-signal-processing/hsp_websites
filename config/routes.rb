@@ -178,6 +178,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :product_review_products,
         :locale_product_families,
         :product_site_elements,
+        :product_introductions,
         :online_retailer_links,
         :online_retailer_users,
         :tone_library_patches,
@@ -263,6 +264,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     resources :training_modules, :training_classes, only: [:index, :show]
     get 'training' => 'main#training', as: :training
     resources :market_segments, :pages, :product_reviews, :product_families, :demo_songs, :promotions, only: [:index, :show]
+    get 'introducing/:id' => 'products#introducing', as: :product_introduction
     get 'products/songlist/:id.:format' => 'products#songlist', as: :product_songlist
     resources :products, only: [:index, :show, :discontinued] do
       member do
