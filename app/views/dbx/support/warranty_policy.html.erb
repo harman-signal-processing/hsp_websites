@@ -1,44 +1,51 @@
 <% set_meta_tags reverse: true %>
 <h1 class="page_title">dbx Warranty Policy (US only)</h1>
 
-<p>This warranty is valid only for the original purchaser and only within the United States.</p>
+<div>
+	<div style="float: right; width: 350px;">
+		<h2>Product Details</h2>
 
-<ol>
-    <li>Please take a moment to register your product. To register your product fill out and 
-	send in the warranty registration card provided with your product or fill out the online 
-	Product Registration form. A copy of the original purchase receipt must be provided for any 
-	warranty service.</li>
-    <li>dbx warrants each product, when purchased form an authorized dbx dealer and used solely 
-	within the U.S., to be free from defects in materials and workmanship under normal use and 
-	service. This warranty is non-transferable.</li>
-    <li>dbx liability under this warranty is limited to repairing or, at our discretion, replacing 
-	defective materials that show evidence of defect, provided the product is returned to dbx WITH 
-	RETURN AUTHORIZATION from the factory, where all parts and labor will be covered for the 
-	warranty period outlined in the proceeding table. A 
-	<%= link_to "Return Authorization number", rma_request_path %>
-	must first be obtained from dbx. The company shall not be liable for any consequential damage 
-	as a result of the product's use in any circuit or assembly.</li>
-    <li>dbx reserves the right to make changes in design or make additions to or improvements upon 
-	products without incurring any obligation to install the same additions or improvements on 
-	products previously manufactured.</li>
-    <li>The foregoing is in lieu of all other warranties, expressed or implied, and dbx neither 
-	assumes nor authorizes any person to assume on its behalf any obligation or liability in 
-	connection with the sale of any dbx product. In no event shall dbx or its dealers be liable 
-	for special or consequential damages or from any delay in the performance of this warranty 
-	due to causes beyond their control.</li>
-</ol>
+		<table border="0" class="specs">
+			<tr>
+				<th>Product</th>
+				<th>Warranty Period</th>
+			</tr>
+			<% @products.each do |product| %>
+			<tr>
+				<td class="name"><%= link_to product.name, product %></td>
+				<td><%= pluralize(product.warranty_period, "year") %></td>
+			</tr>
+			<% end %>
+		</table>
+	</div>
+	<div style="margin-right: 400px; margin-top: 20px;">
+		<p>This warranty is valid only for the original purchaser and only within the United States.</p>
 
-<h2>Product Details</h2>
+		<ol>
+		    <li>Please take a moment to register your product. To register your product fill out and 
+			send in the warranty registration card provided with your product or fill out the online 
+			Product Registration form. A copy of the original purchase receipt must be provided for any 
+			warranty service.</li>
+		    <li>dbx warrants each product, when purchased form an authorized dbx dealer and used solely 
+			within the U.S., to be free from defects in materials and workmanship under normal use and 
+			service. This warranty is non-transferable.</li>
+		    <li>dbx liability under this warranty is limited to repairing or, at our discretion, replacing 
+			defective materials that show evidence of defect, provided the product is returned to dbx WITH 
+			RETURN AUTHORIZATION from the factory, where all parts and labor will be covered for the 
+			warranty period outlined in the proceeding table. A 
+			<%= link_to "Return Authorization number", rma_request_path %>
+			must first be obtained from dbx. The company shall not be liable for any consequential damage 
+			as a result of the product's use in any circuit or assembly.</li>
+		    <li>dbx reserves the right to make changes in design or make additions to or improvements upon 
+			products without incurring any obligation to install the same additions or improvements on 
+			products previously manufactured.</li>
+		    <li>The foregoing is in lieu of all other warranties, expressed or implied, and dbx neither 
+			assumes nor authorizes any person to assume on its behalf any obligation or liability in 
+			connection with the sale of any dbx product. In no event shall dbx or its dealers be liable 
+			for special or consequential damages or from any delay in the performance of this warranty 
+			due to causes beyond their control.</li>
+		</ol>
+	</div>
+</div>
 
-<table border="0" class="specs">
-	<tr>
-		<th>Product</th>
-		<th>Warranty Period</th>
-	</tr>
-	<% @products.each do |product| %>
-	<tr>
-		<td class="name"><%= link_to product.name, product %></td>
-		<td><%= pluralize(product.warranty_period, "year") %></td>
-	</tr>
-	<% end %>
-</table>
+<div style="clear:both"></div>
