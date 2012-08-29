@@ -164,6 +164,11 @@ class SupportController < ApplicationController
   def cad
     render_template
   end
+
+  # Also for dbx, a list of speaker tunings
+  def speaker_tunings
+    render_template
+  end
   
   private
   

@@ -23,7 +23,7 @@
 			<li><%= link_to "3rd party controllers", "/en-US/3rd-party-controllers" %></li>
 			<% end %>
 			<% if !!(website.has_speaker_tunings) %>
-			<li><%= link_to "speaker tunings" %></li>
+			<li><%= link_to "speaker tunings", support_path(action: "speaker_tunings") %></li>
 			<% end %>
 		</ul>
 	</div>
