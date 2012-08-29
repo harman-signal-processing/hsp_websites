@@ -1,24 +1,35 @@
+<% set_meta_tags title: @page_title,
+				 reverse: true %>
+
 <%= cache ["speaker_tunings_page", website.brand, Date.today, Rails.env] do %>
 
-<h1 class="page_title">Speaker Tunings</h1>
+<h1 class="page_title"><%= @page_title %></h1>
 
 <p class="hint">Note: speaker tuning files below are designed to be used with <%= link_to "HiQnet System Architect", "http://hiqnet.harmanpro.com/general/system_architect", target: "_blank" %>.</p>
 
-<table class="specs">
+<table class="specs" style="margin: 20px auto;">
 	<tr>
-		<th style="width: 130px;">File</th>
 		<th style="width: 250px;">For use with...</th>
+		<th style="width: 400px;">Download File</th>
+		<th>&nbsp;</th>
 	</tr>
 	<% SiteElement.where(brand_id: website.brand_id, resource_type: "Speaker Tuning", show_on_public_site: true).each do |se| %>
 		<tr>
-			<td class="name">
+			<td class="name"><%= se.products.collect{|p| p.name}.join(", ") %></td>
+			<td>
 				<% if se.executable_file_name.blank? %>
 				<%= link_to se.resource_file_name, se.resource.url %>
 				<% else %>
 				<%= link_to se.executable_file_name, se.executable.url %>
 				<% end %>
 			</td>
-			<td><%= se.products.collect{|p| p.name}.join(", ") %></td>
+			<td>
+				<% if se.executable_file_name.blank? %>
+				[<%= number_to_human_size(se.resource_file_size) %>]
+				<% else %>
+				[<%= number_to_human_size(se.executable_file_size) %>]
+				<% end %>
+			</td>
 		</tr>
 	<% end %>
 </table>

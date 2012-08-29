@@ -1,13 +1,16 @@
+<% set_meta_tags title: @page_title,
+				 reverse: true %>
+
 <%= cache ["cad_page", website.brand, Date.today, Rails.env] do %>
 
-<h1 class="page_title">CAD Files</h1>
+<h1 class="page_title"><%= @page_title %></h1>
 
-<table class="specs">
+<table class="specs" style="margin: 20px auto;">
 	<tr>
-		<th style="width: 130px;">Product</th>
-		<th style="width: 200px;">Front</th>
-		<th style="width: 200px;">Rear</th>
-		<th style="width: 200px;">Other</th>
+		<th style="width: 100px;">Product</th>
+		<th style="width: 220px;">Front</th>
+		<th style="width: 220px;">Rear</th>
+		<th style="width: 220px;">Other</th>
 	</tr>
 	<% Product.all_for_website(website).each do |product| %>
 	<%
@@ -19,7 +22,7 @@
 	%>
 		<tr>
 			<td class="name"><%= product.name %></td>
-			<td>
+			<td class="divided">
 				<% if front %>
 				<%= link_to front.name, front.document.url %>
 				[<%= number_to_human_size(front.document_file_size) %>]
@@ -27,7 +30,7 @@
 				&nbsp;
 				<% end %>
 			</td>
-			<td>
+			<td class="divided">
 				<% if rear %>
 				<%= link_to rear.name, rear.document.url %>
 				[<%= number_to_human_size(rear.document_file_size) %>]
@@ -35,7 +38,7 @@
 				&nbsp;
 				<% end %>
 			</td>
-			<td>
+			<td class="divided">
 				<% if other %>
 				<%= link_to other.name, other.document.url %>
 				[<%= number_to_human_size(other.document_file_size) %>]
