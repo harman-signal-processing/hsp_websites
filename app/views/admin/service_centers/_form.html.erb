@@ -51,6 +51,12 @@
     <%= f.label :account_number %><br />
     <%= f.text_field :account_number %>
   </div>
+  <% if !!(website.brand.has_vintage_repair?) %>
+  <div class="field">
+    <%= f.check_box :vintage %>
+    <%= f.label :vintage, "Show on vintage repair page" %>
+  </div>
+  <% end %>
   <div class="field">
     <%= f.label :lat %><br />
     <%= f.text_field :lat %>
