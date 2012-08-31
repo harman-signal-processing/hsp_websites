@@ -11,6 +11,13 @@ describe "JBL Commercial Integration Test" do
     Capybara.app_host = "http://#{@website.url}" 
   end
 
+  describe "home page" do
+    it "should respond with the brand layout" do
+      visit root_url(locale: I18n.default_locale, host: @website.url)
+      page.must_have_xpath("//div[@id='Header']/div[@id='logo']")
+    end
+  end
+
   # Since JBL Commercial has different product family views, make sure these tests
   # (which are also in the main tests) still pass
   describe "product family page" do

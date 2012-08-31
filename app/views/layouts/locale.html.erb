@@ -11,7 +11,9 @@
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 		<link href="<%= rss_url(format: 'xml') %>" rel="alternate" title="RSS" type="application/rss+xml"/>
+		<% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "logo.png")) %>
 		<link rel="image_src" href="<%= image_url("#{website.folder}/logo.png") %>" />	
+		<% end %>
 		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 		<%= render_partial "shared/analytics" %>
