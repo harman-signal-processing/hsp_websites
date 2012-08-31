@@ -6,7 +6,9 @@
 		<%= cache ["meta_tags", request.url, Date.today] do %>
 			<%= cached_meta_tags %>
 		<% end %>
+		<% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "logo.gif")) %>
 		<link rel="image_src" href="<%= image_url("#{website.folder}/logo.gif") %>" />		
+		<% end %>
 		<%= javascript_include_tag 'application' %>
 		<%= stylesheet_link_tag 'application', website.folder, cache: false %>
 		<!--[if lt IE 9]>

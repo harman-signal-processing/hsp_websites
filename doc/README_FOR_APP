@@ -20,6 +20,7 @@ What you will need to change is: itemid=100170580&subitemid=358897 based on the 
 
 === TODO (for all brands) ===
 * New mysql server
+* Add JBL to common Hpro footer
 * Fix dealer export from SAP
 * Minitest for admin functions
 * Separate admin permissions by brands
