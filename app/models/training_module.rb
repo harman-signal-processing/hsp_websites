@@ -9,5 +9,11 @@ class TrainingModule < ActiveRecord::Base
     path: ":rails_root/public/system/:attachment/:id/:style/:filename",
     url: "/system/:attachment/:id/:style/:filename"
 
-
+  def self.modules_for(brand_id, options={})
+  	collection = where(brand_id: brand_id)
+  	if options[:module_type]
+  		collection = collection.joins("#{options[:module_type]}_training_modules".to_sym)
+  	end
+  	collection
+  end
 end

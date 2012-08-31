@@ -16,6 +16,14 @@ class SupportController < ApplicationController
     render_template
   end
 
+  # Routes to /:locale/training
+  def training
+    @page_title = "#{website.brand.name} Training"
+    @product_training_modules = website.training_modules(module_type: 'product')
+    @software_training_modules = website.training_modules(module_type: 'software')
+    render_template
+  end
+
   # Warranty registration form
   def warranty_registration
     if request.post?

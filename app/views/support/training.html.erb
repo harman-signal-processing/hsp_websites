@@ -1,0 +1,43 @@
+<% set_meta_tags title: @page_title,
+				 reverse: true %>
+
+<h1 class="page_title"><%= @page_title %></h1>
+
+<table class="training_list">
+	<tr>
+		<th width="33%">
+			<h2>Product Training Modules</h2>
+		</td>
+		<th width="33%">
+			<h2>Software Training Modules</h2>
+		</td>
+		<th width="33%">
+			<% if website.live_online_training_url %>
+				<h2>Live/Online Training</h2>
+			<% end %>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<ul>
+				<% @product_training_modules.each do |ptm| %>
+				<li> <%= link_to ptm.name, ptm %> 
+					<div class="hint"><%= ptm.products.collect{|p| p.name}.join(", ") %></div>
+				</li>
+				<% end %>
+			</ul>
+		</td>
+		<td>
+			<ul>
+				<% @software_training_modules.each do |stm| %>
+				<li> <%= link_to stm.name, stm %> 
+					<div class="hint"><%= stm.softwares.collect{|p| p.name}.join(", ") %></div>
+				</li>
+				<% end %>
+			</ul>
+		</td>
+		<td style="text-align: center;">
+			<%= link_to website.live_online_training_url, website.live_online_training_url, target: "_blank" %>
+		</td>
+	</tr>
+</table>
