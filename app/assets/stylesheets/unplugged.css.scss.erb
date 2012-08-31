@@ -8,32 +8,58 @@ div#introducing_unplugged {
 		margin-top: -20px;
 		margin-left: -10px;
 	}
+	a:link, a:visited {
+		color: #edbe76;
+	}
 	section {
-		padding: 8px 10px;
+		font-size: 13px;
+		line-height: 18px;
+		padding: 12px 10px;
 		margin: 4px;
+		color: white;
 		background: url(<%= image_path('digitech/unplugged/darkgrey_transparent.png') %>);
 		h2, h3 {
 			color: #edbe76;
 			text-shadow: 0px 1px 2px #111;
+			font-size: 20px;
+			line-height: 20px;
+			margin-bottom: 2px;
 		}
 		h3 {
 			font-size: 16px;
 			line-height: 20px;
 		}
+		h4 {
+			color: white;
+			text-shadow: 1px 1px 2px #111;
+			font-weight: normal;
+			text-transform: uppercase;
+			font-size: 14px;
+			line-height: 16px;
+			margin-bottom: 10px;
+		}
+		h5 {
+			color: #edbe76;
+			margin-top: 8px;
+			font-weight: bold;
+		}
+		.text_content {
+			margin: 10px 0px;
+		}
 	}
 	div.middle_content_container {
-		height: 400px;
+		height: 405px;
 		section {
 			&#product_content {
 				float: left;
 				width: 500px;
-				height: 375px;
+				height: 370px;
 				overflow: hidden;
 			}
 			&#istomp_content {
 				float: right;
 				width: 380px;
-				height: 375px;
+				height: 370px;
 				overflow: hidden;
 			}
 		}

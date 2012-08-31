@@ -25,7 +25,7 @@ gem 'capistrano-ext'
 gem 'mysql2' #, "< 0.3"
 gem "friendly_id", "~> 3.0"
 gem "paperclip", "~> 3.0"
-gem 'paperclip-meta', git: 'http://github.com/dce/paperclip-meta.git' # 6/27/2012, dce's version fixes a rails 3 issue tha the original author hasn't merged
+gem 'paperclip-meta' #, git: 'http://github.com/dce/paperclip-meta.git' # 6/27/2012, dce's version fixes a rails 3 issue tha the original author hasn't merged
 gem 'meta-tags', require: 'meta_tags'
 gem 'tinymce-rails'
 gem 'geokit'
@@ -33,9 +33,9 @@ gem 'api_cache'
 gem 'moneta'
 gem 'geocoder_plus'
 # gem 'geoip', git: 'http://github.com/cjheath/geoip.git'
-gem 'thinking-sphinx',
- git: 'http://github.com/freelancing-god/thinking-sphinx.git',
- require: 'thinking_sphinx'
+gem 'thinking-sphinx', '2.0.10'
+ # git: 'http://github.com/pat/thinking-sphinx.git',
+ # require: 'thinking_sphinx'
 gem 'youtube_it'
 gem 'twitter'
 gem 'daemons'
