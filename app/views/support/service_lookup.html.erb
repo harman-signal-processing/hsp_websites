@@ -3,6 +3,9 @@
 
 <div>
 	<h1><%= @page_title %></h1>
+	<% if !!(website.brand.has_vintage_repair?) %>
+	<p>Click here for <%= link_to "vintage #{website.brand.name} repair services", support_path(action: 'vintage_repair') %>.</p>
+	<% end %>
 	
 <% if @results.size > 0 %>
 	<ul class="dealer_results">

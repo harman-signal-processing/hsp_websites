@@ -139,6 +139,12 @@ class SupportController < ApplicationController
     end
     render_template
   end
+
+  # Vintage repair facilities
+  def vintage_repair
+    @page_title = "Vintage Repair"
+    @results = ServiceCenter.where(brand_id: website.brand_id, vintage: true)
+  end
   
   # Power Supplies page. Really, this could be used to build a similar page for
   # any Specification

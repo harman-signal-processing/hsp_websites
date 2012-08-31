@@ -1,0 +1,24 @@
+<% set_meta_tags title: @page_title,
+				 reverse: true %>
+
+<h1 class="page_title"><%= @page_title %></h1>
+
+<div>
+
+	<p>The following contact information pertains to <i>vintage</i> <%= website.brand.name %> products. Click here for other <%= link_to "service centers", support_path %>.</p>
+
+	<ul class="dealer_results">
+		<% @results.each do |dealer| %>
+		<li><b><%= dealer.name %></b>
+		<br/><%= dealer.address %>
+		<br/><%= dealer.city %> <%= dealer.state %> <%= dealer.zip %>
+		<br/><%= dealer.telephone %>
+		<% if !dealer.email.blank? %> &bull; <%= mail_to dealer.email.downcase %><% end %>
+		<% if !dealer.website.blank? %> &bull; <%= link_to dealer.website, dealer.website, target: "_blank" %><% end %>
+		</li>
+		<% end %>
+	</ul>
+
+</div>
+
+
