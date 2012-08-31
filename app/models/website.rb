@@ -195,5 +195,9 @@ class Website < ActiveRecord::Base
       # don't worry if we can't log stuff
     end
   end
+
+  def training_modules(options={})
+    TrainingModule.modules_for(self.brand, options)
+  end
   
 end

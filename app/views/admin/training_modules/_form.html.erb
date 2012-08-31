@@ -20,6 +20,10 @@
     <%= f.file_field :training_module %>
   </div>
   <div class="field">
+    Dimensions<br/>
+    <%= f.text_field :width, size: 10 %> x <%= f.text_field :height, size: 10 %>
+  </div>
+  <div class="field">
     <%= f.label :description %><br />
     <%= f.text_area :description, class: "mceEditor" %>
   </div>

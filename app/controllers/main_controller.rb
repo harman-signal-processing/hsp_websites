@@ -213,10 +213,6 @@ class MainController < ApplicationController
     end
   end
   
-  # /training
-  def training
-  end
-  
   # /channel.html (used for facebook API)
   def channel
     render inline: '<script src="//connect.facebook.net/en_US/all.js"></script>', layout: false
