@@ -21,10 +21,10 @@
 		<div class="clear"></div>
 	<% end %>
 
-	<% if @training_module.softwares.size > 0 %>
+	<% if @training_module.active_softwares.size > 0 %>
 		<h3>Related Software</h3>
 		<ul>
-		<% @training_module.softwares.each do |software| %>
+		<% @training_module.active_softwares.each do |software| %>
 			<li><%= link_to software.name, software %></li>
 		<% end %>
 		</ul>
