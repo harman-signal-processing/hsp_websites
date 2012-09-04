@@ -1,3 +1,5 @@
+<% height ||= 300 %>
+<% width  ||= 500 %>
 <% id = "video_#{rand()}" %>
 
 <div id="<%= id %>">Loading the player...</div>
@@ -8,7 +10,7 @@
 		autostart: true,
         file: "<%= media_url %>",
         skin: "/swfs/skin/bekle.zip",
-        height: 300,
-        width: 500
+        height: <%= height %>,
+        width: <%= width %>
     });
 </script>
