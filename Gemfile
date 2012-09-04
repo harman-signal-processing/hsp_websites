@@ -84,13 +84,14 @@ end
 group :test do
   # gem 'sqlite3'
   gem 'mocha', require: false
-  gem 'turn', git: "http://github.com/adamtao/turn.git"
+  gem 'turn' #, git: "http://github.com/adamtao/turn.git"
   gem 'capybara'
   gem 'capybara-webkit'
   gem 'capybara_minitest_spec'
   gem 'launchy' # save_and_open_page inline in tests
   gem 'minitest' #, '>= 2.12.1' #, '2.11.4 works also. There was a 2.12.? that breaks stuff
   gem 'guard-minitest'
+  gem 'rb-inotify', '~> 0.8.8'
   gem 'database_cleaner'
   gem 'minitest-rails-shoulda',
     git: "http://github.com/rawongithub/minitest-rails-shoulda.git",

@@ -64,8 +64,8 @@
 			     of the coverflow to the right.			
 
 			Starting a log to see if I can find a pattern:
-			34 pedals = 0.0148
-			35 pedals = 
+			34 pedals = 0.01480
+			35 pedals = 0.01165
 
 			=============================================== 
 			*/

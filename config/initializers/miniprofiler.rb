@@ -1,4 +1,4 @@
-Rack::MiniProfiler.config.position = 'right'
+Rack::MiniProfiler.config.position = 'left'
 Rack::MiniProfiler.config.skip_paths ||= []
 # Might want to re-enable these later. For now, trying to track down
 # SQL bottlenecks

@@ -38,7 +38,7 @@ jQuery ($) ->
 			@coverflowImages.each (index) ->
 				if index == itemNumber && !skipPop
 					if $('#coverflow_settings').data('jump') == true
-						$('div#coverflow_container div#label').append("<span style='color: #888; text-decoration: blink'> ...</span>")
+						$('div#coverflow_container').append("<div id='coverflow_loading'>Loading <span style='text-decoration: blink'> ...</span></div>")
 						window.location = $(@).data('itemlink')
 					else if $('#coverflow_settings').data('changelabel') == true
 						newsrc = $(@).data('labelimg') || $("img#label_changer").data('orig')
