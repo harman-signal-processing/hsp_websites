@@ -10,7 +10,7 @@ class TrainingModule < ActiveRecord::Base
     url: "/system/:attachment/:id/:style/:filename"
 
   def self.modules_for(brand_id, options={})
-  	collection = where(brand_id: brand_id)
+  	collection = select("DISTINCT training_modules.*").where(brand_id: brand_id)
   	if options[:module_type]
   		collection = collection.joins("#{options[:module_type]}_training_modules".to_sym)
   	end
