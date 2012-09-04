@@ -16,4 +16,8 @@ class TrainingModule < ActiveRecord::Base
   	end
   	collection
   end
+
+  def active_softwares
+    self.softwares.where(active: true)
+  end
 end

@@ -31,7 +31,7 @@
 			<ul>
 				<% @software_training_modules.each do |stm| %>
 				<li> <%= link_to stm.name, stm %> 
-					<div class="hint"><%= stm.softwares.collect{|p| p.name}.join(", ") %></div>
+					<div class="hint"><%= stm.active_softwares.collect{|p| p.name}.join(", ") %></div>
 				</li>
 				<% end %>
 			</ul>
