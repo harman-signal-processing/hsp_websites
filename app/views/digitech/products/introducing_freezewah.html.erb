@@ -38,7 +38,7 @@ Someday figure out a better way to do all of this.
 <% end %>
 
 <div id="introducing_freezewah">
-	<h1><%= link_to(image_tag('digitech/freezewah/top.png', alt: "Introducing Freeze Wah for iStomp"), @product) %></h1>
+	<h1><%= link_to(image_tag('digitech/freezewah/top.png', alt: "Introducing #{@product.name} for iStomp"), @product) %></h1>
 
 	<div class="middle_content_container">
 		<section id="istomp_content">
@@ -54,7 +54,7 @@ Someday figure out a better way to do all of this.
 			<%= image_tag("made_for_ipod_ipad_iphone.png", alt: "Made for iPod, iPad, iPhone") %>
 		</section>	
 		<section id="product_content">
-			<div style="float: left; margin: 4px 8px 8px 4px;"><%= link_to(image_tag('digitech/freezewah/pedal.png', alt: "Freeze Wah Pedal"), @product) %>
+			<div style="float: left; margin: 4px 8px 8px 4px;"><%= link_to(image_tag('digitech/freezewah/pedal.png', alt: "#{@product.name} Pedal"), @product) %>
 			</div>
 			<h2><%= @product.name %></h2>
 			<h4>Wah Pedal</h4>
@@ -66,7 +66,7 @@ Someday figure out a better way to do all of this.
 
 	</div>
 	<section id="bottom">
-		<h3>Browse all <%= @istomp.sub_products.count %> e-pedals</h3>
+		<h3>Browse all <%= @istomp.current_sub_products.count %> e-pedals</h3>
 		<%= link_to(image_tag('digitech/istomp/e-pedals_lineup.png', alt: "All e-pedals"), url_for(@istomp.softwares.first)) %>
 	</section>
 	<div class="hint" style="text-align: center; margin-top: 5px;">

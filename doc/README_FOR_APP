@@ -56,3 +56,15 @@ old ruby hashes to new ruby hashes:
 
 Search for-   :([\w\_]*)\s?=>
 Replace with- $1:
+
+=================
+
+New Mysql server
+
+ip: 10.10.23.15
+subnet: 255.255.255.0
+gw: 10.10.23.1
+
+dns:
+10.30.28.180
+172.16.1.96
