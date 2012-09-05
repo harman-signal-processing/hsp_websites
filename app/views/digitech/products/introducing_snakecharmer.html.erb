@@ -1,15 +1,15 @@
 <%#
 
 I really hate these one-off pages. When it comes time to delete this page--which was
-put into place to introduce the Unplugged e-pedal, do this:
+put into place to introduce the snakecharmer e-pedal, do this:
 
 * Delete this layout page
-* Delete app/assets/stylesheets/unplugged.css.scss.erb
-* Delete the folder app/assets/images/digitech/unplugged
-* Remove 'unplugged.css' from the asset preloading file in
+* Delete app/assets/stylesheets/snakecharmer.css.scss.erb
+* Delete the folder app/assets/images/digitech/snakecharmer
+* Remove 'snakecharmer.css' from the asset preloading file in
    config/environments/production.rb
    config/environments/staging.rb
-* Remove the ProductIntroduction entry for Unplugged.
+* Remove the ProductIntroduction entry for snakecharmer.
 
 Someday figure out a better way to do all of this.
 
@@ -22,7 +22,7 @@ Someday figure out a better way to do all of this.
 
 
 <%= content_for :page_css do %>
-	<%= stylesheet_link_tag 'application', website.folder, 'istomp', 'unplugged', cache: false, media: :all %>
+	<%= stylesheet_link_tag 'application', website.folder, 'istomp', 'snakecharmer', cache: false, media: :all %>
 	<%= javascript_include_tag 'istomp' %>
 	<style type="text/css">
 	<%= raw @product_introduction.extra_css.to_s %>
@@ -37,8 +37,8 @@ Someday figure out a better way to do all of this.
 	<%= image_tag "harman.jpg" %>
 <% end %>
 
-<div id="introducing_unplugged">
-	<h1><%= link_to(image_tag('digitech/unplugged/UnpluggedLP_Header.png', alt: "Introducing the Unplugged Acoustic Simulator for iStomp"), @product) %></h1>
+<div id="introducing_snakecharmer">
+	<h1><%= link_to(image_tag('digitech/snakecharmer/top.png', alt: "Introducing #{@product.name} for iStomp"), @product) %></h1>
 
 	<div class="middle_content_container">
 		<section id="istomp_content">
@@ -54,12 +54,12 @@ Someday figure out a better way to do all of this.
 			<%= image_tag("made_for_ipod_ipad_iphone.png", alt: "Made for iPod, iPad, iPhone") %>
 		</section>	
 		<section id="product_content">
-			<div style="float: left; margin: 4px 8px 8px 4px;"><%= link_to(image_tag('digitech/unplugged/Unplugged_PedalArt.png', alt: "Unplugged Pedal"), @product) %>
+			<div style="float: left; margin: 4px 8px 8px 4px;"><%= link_to(image_tag('digitech/snakecharmer/pedal.png', alt: "#{@product.name} Pedal"), @product) %>
 			</div>
 			<h2><%= @product.name %></h2>
-			<h4>Acoustic Simulator</h4>
+			<h4>Sitar Effect Pedal</h4>
 			<div class="text_content" style="width: 475px">
-				<%=raw truncate strip_html(@product.description), length: 492, omission: "" %>
+				<%=raw truncate strip_html(@product.description), length: 540, omission: "" %>
 			</div>
 			<h5>Regular Price: <%= number_to_currency(@product.msrp.to_f) %></h5>
 		</section>

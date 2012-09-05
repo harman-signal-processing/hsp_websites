@@ -25,7 +25,7 @@ HarmanSignalProcessingWebsite::Application.configure do
   # config.assets.manifest = YOUR_PATH
   
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( freezewah.css unplugged.css istomp.js istomp_coverflow.js istomp.css vocalist-by-digitech.css hardwire-by-digitech.css admin.js admin.css dbx.css digitech.css hardwire.css jbl_commercial.css lexicon.css pdx.css site.css vocalist.css )
+  config.assets.precompile += %w( snakecharmer.css freezewah.css unplugged.css istomp.js istomp_coverflow.js istomp.css vocalist-by-digitech.css hardwire-by-digitech.css admin.js admin.css dbx.css digitech.css hardwire.css jbl_commercial.css lexicon.css pdx.css site.css vocalist.css )
 
   # Specifies the header that your server uses for sending files
   # config.action_dispatch.x_sendfile_header = "X-Sendfile"
