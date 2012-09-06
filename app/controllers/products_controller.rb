@@ -84,8 +84,10 @@ class ProductsController < ApplicationController
     @product_introduction = ProductIntroduction.find_by_product_id(@product.id) || ProductIntroduction.new
     if @product_introduction.expired?
       redirect_to @product
-    elsif !@product_introduction.layout_class.blank? && File.exist?(Rails.root.join("app", "views", website.folder, "products", "introducing_#{@product_introduction.layout_class}.html.erb"))
-      render template: "#{website.folder}/products/introducing_#{@product_introduction.layout_class}", layout: set_layout
+    elsif !@product_introduction.layout_class.blank? && File.exist?(Rails.root.join("app", "views", website.folder, "products", "introducing", "#{@product_introduction.layout_class}.html.erb"))
+      render template: "#{website.folder}/products/introducing/#{@product_introduction.layout_class}", layout: set_layout
+    elsif !@product.layout_class.blank? && File.exist?(Rails.root.join("app", "views", website.folder, "products", "introducing", "#{@product.layout_class}.html.erb"))
+      render template: "#{website.folder}/products/introducing/#{@product.layout_class}", layout: set_layout
     else
       render_template
     end

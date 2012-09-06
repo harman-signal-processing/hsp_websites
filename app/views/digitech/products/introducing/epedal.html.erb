@@ -1,31 +1,37 @@
 <%#
 
 I really hate these one-off pages. When it comes time to delete this page--which was
-put into place to introduce the snakecharmer e-pedal, do this:
+put into place to introduce the stomptember e-pedals, do this:
 
 * Delete this layout page
-* Delete app/assets/stylesheets/snakecharmer.css.scss.erb
-* Delete the folder app/assets/images/digitech/snakecharmer
-* Remove 'snakecharmer.css' from the asset preloading file in
+* Delete app/assets/stylesheets/introducing_epedal.css.scss
+* Delete the folder app/assets/images/digitech/snakecharmer plus each of the other epedal image folders
+* Remove 'introducing_epedal.css' from the asset preloading file in
    config/environments/production.rb
    config/environments/staging.rb
-* Remove the ProductIntroduction entry for snakecharmer.
+* Remove the ProductIntroduction entry for snakecharmer and each of the other. (Although leave it in 
+place for a while because when they expire, they'll redirect to the epedal product page for each.)
 
 Someday figure out a better way to do all of this.
 
 %>
 
-
 <% @istomp = Product.find("istomp")  %>
 <% set_meta_tags title: "Introducing #{@product.name}",
 				 reverse: true %>
 
-
 <%= content_for :page_css do %>
-	<%= stylesheet_link_tag 'application', website.folder, 'istomp', 'snakecharmer', cache: false, media: :all %>
+	<%= stylesheet_link_tag 'application', website.folder, 'istomp', 'introducing_epedal', cache: false, media: :all %>
 	<%= javascript_include_tag 'istomp' %>
 	<style type="text/css">
-	<%= raw @product_introduction.extra_css.to_s %>
+		div#content_container {
+			background: url(<%= image_path("#{website.folder}/#{@product_introduction.layout_class}/page_bg.png") %>) repeat-y bottom;
+			padding-bottom: 4px;
+		}
+		div#introducing section {
+			background: url(<%= image_path("#{website.folder}/#{@product_introduction.layout_class}/box_bg.png") %>);
+		}
+		<%= raw @product_introduction.extra_css.to_s %>
 	</style>
 <% end %>
 
@@ -37,16 +43,16 @@ Someday figure out a better way to do all of this.
 	<%= image_tag "harman.jpg" %>
 <% end %>
 
-<div id="introducing_snakecharmer">
-	<h1><%= link_to(image_tag('digitech/snakecharmer/top.png', alt: "Introducing #{@product.name} for iStomp"), @product) %></h1>
+<div id="introducing">
+	<h1><%= link_to(image_tag("#{website.folder}/#{@product_introduction.layout_class}/top.png", alt: "Introducing #{@product.name} for iStomp"), @product) %></h1>
 
 	<div class="middle_content_container">
 		<section id="istomp_content">
 			<div style="float: right; margin: 4px 4px 8px 8px">
 				<%= link_to(image_tag(@istomp.photo.product_attachment.url(:epedal)), @istomp) %>
 			</div>
-			<h2><%= link_to(image_tag('digitech/istomp/made_for_istomp.png', alt: "Made for iStomp"), @istomp) %></h2>
-			<h5>The Pedal That Changes Everything.</h5>
+			<h2><%= link_to(image_tag("#{website.folder}/istomp/made_for_istomp.png", alt: "Made for iStomp"), @istomp) %></h2>
+			<h5><%= @istomp.short_description %></h5>
 			<div class="text_content">
 				<%=raw truncate strip_html(@istomp.description), length: 340 %>
 				<%= link_to "more", @istomp %>
@@ -54,12 +60,12 @@ Someday figure out a better way to do all of this.
 			<%= image_tag("made_for_ipod_ipad_iphone.png", alt: "Made for iPod, iPad, iPhone") %>
 		</section>	
 		<section id="product_content">
-			<div style="float: left; margin: 4px 8px 8px 4px;"><%= link_to(image_tag('digitech/snakecharmer/pedal.png', alt: "#{@product.name} Pedal"), @product) %>
+			<div style="float: left; margin: 4px 8px 8px 4px;"><%= link_to(image_tag("#{website.folder}/#{@product_introduction.layout_class}/pedal.png", alt: "#{@product.name} Pedal"), @product) %>
 			</div>
 			<h2><%= @product.name %></h2>
-			<h4>Sitar Effect Pedal</h4>
+			<h4><%= @product.short_description %></h4>
 			<div class="text_content" style="width: 475px">
-				<%=raw truncate strip_html(@product.description), length: 540, omission: "" %>
+				<%=raw truncate strip_html(@product.description), length: (@product_introduction.content.to_i > 0) ? @product_introduction.content.to_i : 500, omission: "" %>
 			</div>
 			<h5>Regular Price: <%= number_to_currency(@product.msrp.to_f) %></h5>
 		</section>
@@ -73,4 +79,3 @@ Someday figure out a better way to do all of this.
 		* Introductory price valid for 30 days after launch.
 	</div>
 </div>
-
