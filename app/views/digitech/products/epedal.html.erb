@@ -78,6 +78,7 @@
 	
 	<div id="right_column">
 		<%= draw_main_tabs_content @product, tabs: "description" %>	
+		<div><%=raw @product.extended_description %></div>
 		<div style="margin-top: 8px">
 			<%= link_to(image_tag("available_on_the_app_store.png", alt: "Available on the app store"), @stomp_shop) %>
 		</div>
