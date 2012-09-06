@@ -72,7 +72,8 @@ Someday figure out a better way to do all of this.
 
 	</div>
 	<section id="bottom">
-		<h3 id="epedals" data-count="<%= @istomp.current_sub_products.count %>">Browse all <%= @istomp.current_sub_products.count %> e-pedals</h3>
+		<span id="epedals" data-count="<%= @istomp.current_sub_products.count %>"></span>
+		<h3>Browse all <%= @istomp.current_sub_products.count %> e-pedals</h3>
 		<%= link_to(image_tag('digitech/istomp/e-pedals_lineup.png', alt: "All e-pedals"), url_for(@istomp.softwares.first)) %>
 	</section>
 	<div class="hint" style="text-align: center; margin-top: 5px;">
