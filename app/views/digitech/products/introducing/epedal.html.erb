@@ -53,8 +53,8 @@ Someday figure out a better way to do all of this.
 			</div>
 			<h2><%= link_to(image_tag("#{website.folder}/istomp/made_for_istomp.png", alt: "Made for iStomp"), @istomp) %></h2>
 			<h5><%= @istomp.short_description %></h5>
-			<div class="text_content">
-				<%=raw truncate strip_html(@istomp.description), length: 340 %>
+			<div class="text_content description">
+				<p><%=raw truncate strip_html(@istomp.description), length: 340 %></p>
 				<%= link_to "more", @istomp %>
 			</div>
 			<%= image_tag("made_for_ipod_ipad_iphone.png", alt: "Made for iPod, iPad, iPhone") %>
@@ -65,14 +65,14 @@ Someday figure out a better way to do all of this.
 			<h2><%= @product.name %></h2>
 			<h4><%= @product.short_description %></h4>
 			<div class="text_content" style="width: 475px">
-				<%=raw truncate strip_html(@product.description), length: (@product_introduction.content.to_i > 0) ? @product_introduction.content.to_i : 600 %>
+				<%=raw truncate strip_html(@product.description), length: (@product_introduction.content.to_i > 0) ? @product_introduction.content.to_i : 680 %>
 			</div>
 			<h5>Regular Price: <%= number_to_currency(@product.msrp.to_f) %></h5>
 		</section>
 
 	</div>
 	<section id="bottom">
-		<h3>Browse all <%= @istomp.current_sub_products.count %> e-pedals</h3>
+		<h3 id="epedals" data-count="<%= @istomp.current_sub_products.count %>">Browse all <%= @istomp.current_sub_products.count %> e-pedals</h3>
 		<%= link_to(image_tag('digitech/istomp/e-pedals_lineup.png', alt: "All e-pedals"), url_for(@istomp.softwares.first)) %>
 	</section>
 	<div class="hint" style="text-align: center; margin-top: 5px;">
