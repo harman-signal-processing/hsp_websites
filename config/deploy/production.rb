@@ -6,8 +6,7 @@ set :deploy_to, "/var/www/hmg/#{application}"
 
 role :web, "10.10.23.86"  # Your HTTP server, Apache/etc
 role :app, "10.10.23.86"  # This may be the same as your `Web` server
-role :db,  "10.10.23.86", :primary => true # This is where Rails migrations will run
-# role :db,  "your slave db-server here"
+role :db,  "10.10.23.15", primary: true # This is where Rails migrations will run
 
 set :rails_env, "production"
 
@@ -16,7 +15,7 @@ after "deploy:restart", "deploy:ping"
 namespace :deploy do
   desc "Hit the site to really spin it up"
   task :ping, :roles => :web do
-    run "wget -nd --delete-after http://www.digitech.com/en-US/"
+    run "wget -nd --delete-after http://10.10.23.87/en-US/"
   end
 end
 
