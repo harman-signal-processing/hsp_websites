@@ -9,7 +9,7 @@ set :repository, "http://svn.hmg.ad.harman.com/repos/hmgwww/trunk/hsp_websites"
 set :application, "hsp_staging"
 set :deploy_to, "/var/www/hmg/#{application}"
 
-server "10.10.23.86", :web, :app, :db, primary: true
+server "10.10.23.15", :web, :app, :db, primary: true
 
 set :rails_env, "staging"
 
