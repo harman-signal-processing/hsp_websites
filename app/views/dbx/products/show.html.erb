@@ -1,6 +1,7 @@
 <% set_meta_tags title: @product.name,
 				 reverse: true,
                  description: translate_content(@product, :short_description),
+                 canonical: product_url(@product),
                  keywords: translate_content(@product, :keywords) %>
 
 <%= content_for :preload do %>
@@ -20,59 +21,101 @@
 	<% end %>
 <% end %>
 
-<%= cache ["product_page", @product, @online_retailer_link, Rails.env, I18n.locale, session['geo_country']] do %>
+<%= cache ["product_page", @product, @online_retailer_link, @active_tab, Rails.env, I18n.locale, session['geo_country']] do %>
 <div id="breadcrumbs"><%= breadcrumbs(@product) %></div>
 
-<div id="product_content">
+<div id="product_content" class="<%= @product.layout_class %>">
 	<div id="left_column">
-		<table id="viewer_container">
-			<tr><td align="center">
-		<div id="viewer">
-			<% if @product.photo %>
-			  <% if @product.photo.no_lightbox? || !!(website.no_lightbox) %>
-				<%= link_to(image_tag(@product.photo.product_attachment.url(:medium)), @product.photo.product_attachment.url) %>
-			  <% else %>
-				<%= link_to(image_tag(@product.photo.product_attachment.url(:medium)), @product.photo.product_attachment.url(:lightbox), class: "lightbox") %>
+		<div id="product_basics">
+
+			<h1><%= title @product.name %></h1>
+			<h3><%= @product.short_description %></h3>
+			
+			<div id="product_basics_bottom">
+			<% if @product.sale_price && @product.sale_price.to_f > 0 %>
+			<h2 class="price"><%= number_to_currency(@product.sale_price) %></h2>
+			<% end %>
+			<% if @product.msrp && @product.msrp.to_f > 0 %>
+			  <% if @product.sale_price && @product.msrp.to_f > @product.sale_price.to_f %>
+				<p>
+					MSRP <span class="strike"><%= number_to_currency(@product.msrp) %></span><br/>
+					Save <%= number_to_currency(@product.msrp.to_f - @product.sale_price.to_f) %>!
+				</p>
+			  <% else @product.msrp %>
+				<p>
+					MSRP <%= number_to_currency(@product.msrp) %>
+				</p>
 			  <% end %>
 			<% end %>
+			</div>
 		</div>
-			</td></tr>
-		</table>
-		<% if @product.images_for("product_page").size > 1 %>
+		<div id="viewer_container" <% if @product.layout_class == "horizontal" && @product.msrp.blank? %>style="margin-top:100px; margin-bottom:10px"<% end %>>
+		<table id="viewer"><tr><td>
+			<% if @product.photo %>
+				<% if @product.layout_class == "horizontal" %>
+				<%= image_tag(@product.photo.product_attachment.url(:lightbox)) %>
+				<% elsif @product.layout_class == "vertical" %>
+				<%= image_tag(@product.photo.product_attachment.url(:vert_medium)) %>
+				<% else %>
+				<%= image_tag(@product.photo.product_attachment.url(:medium)) %>
+				<% end %>
+			<% end %>
+		</tr></td></table>
+		</div>
+		<% if @product.images_for("product_page").size > 0 %>
+		<div class="larger_tag">Larger Images:</div>
 		<ul id="product_thumbnails">
 			<% @product.images_for("product_page").each do |product_attachment| %>
-			<li><%= link_to_product_attachment(product_attachment) %></li>
+			  <% if product_attachment.no_lightbox? || !!(website.no_lightbox) %>
+				<li><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square)), product_attachment.product_attachment.url) %></li>
+			  <% else %>
+				<li><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square)), product_attachment.product_attachment.url(:lightbox), class: "lightbox") %></li>
+			  <% end %>
 			<% end %>
 		</ul>
 		<% end %>
-		<div id="description">
-			<%=raw translate_content(@product, :description) %>
-			<div style="font-size: 80%"><%=raw translate_content(@product, :extended_description) %></div>
-		</div>	
 	</div>
 	
-	<div id="right_column">
-		<h1><%= title @product.name %></h1>
-		<div style="text-align: center; font-size: 16px; color: #666">
-			<%= translate_content(@product, :short_description) %>
-		</div>
-		
+	<div id="right_column">		
 		<% if website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !@product.direct_buy_link.blank? %>
 		<div id="product_buy_now_box">
+			<%= links_to_current_promotions(@product) %>
 			<%= buy_it_now_link(@product) %>
+			<% unless @product.demo_link.blank? %>
+				<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/demo_download_button.png")) %>
+					<%= link_to(image_tag("#{website.folder}/#{I18n.locale}/demo_download_button.png", 
+							alt: "Demo Download", 
+							mouseover: "#{website.folder}/#{I18n.locale}/demo_download_button_hover.png") ,
+						@product.demo_link) %>
+				<% else %>
+					<strong><%= link_to "Demo Download", @product.demo_link %></strong>
+				<% end %>
+			<% end %>
 		</div>
 		<% end %>
-		
-		<%= links_to_current_promotions(@product) %>
-		<%= draw_packaging_boxes @product %>
-		<%= draw_info_boxes @product %>
-		<%= render 'shared/add_this' %>
-		<div style="color: white;">
-			<%= render_partial "shared/newsletter_signup" %>
-		</div>
 	</div>
+	<div class="clear" style="border-bottom: 1px solid #E6E6E6"></div>
+	<%= draw_main_tabs @product, active_tab: @active_tab %>
+</div>
+
+<div id="product_bottom_content">
+
+	<div id="bottom_right_column">
+		<%#= links_to_current_promotions(@product) %>
+		<%= render 'shared/add_this' %>
+		<%= draw_audio_demos @product %>
+		<%= draw_info_boxes @product, hide_on_load: false %>		
+		<%#= render_partial "shared/newsletter_signup" %>
+	</div>
+	
+	<div id="bottom_left_column">
+		<!-- <%= @active_tab %> -->
+		<%= draw_main_tabs_content @product, active_tab: @active_tab %>
+	</div>
+
 	<div class="clear"></div>
 </div>
+
 <% end # cache %>
 
 <% if session["geo_usa"] %>
@@ -107,11 +150,30 @@
 			$('#product_buy_now_box').after(
 				"<div style='text-align:center; color: #444; margin: 4px; font-size: 85%'><i>iPad users: use 2 fingers to scroll in the boxes below.</i></div>"
 			);
-		}
-		<% if @product.tabs.collect{|t| t.key}.include?("features") %>
-		$('#features_content').show();
-		<% end %> 
+		} 
 	});
+	<% if @product.audio_demos.size > 0 %>
+
+	var inlinePlayer = null;
+
+	soundManager.debugMode = true; // disable or enable debug output
+
+	soundManager.preferFlash = false; // use HTML5 audio for MP3/MP4, if available
+	soundManager.useFlashBlock = false;
+	soundManager.url = '/swfs/'; // path to directory containing SM2 SWF
+
+	// optional: enable MPEG-4/AAC support (requires flash 9)
+	soundManager.flashVersion = 9;
+
+	// ----
+
+	soundManager.onready(function() {
+	  // soundManager.createSound() etc. may now be called
+	  inlinePlayer = new InlinePlayer();
+	});
+
+
+	<% end %>
 <% end %>
 
 <% if current_user && can?(:manage, @product) %>
