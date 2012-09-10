@@ -183,6 +183,7 @@ class Product < ActiveRecord::Base
     r << ProductTab.new("documentation") if self.product_documents.size > 0 && self.brand.side_tabs.include?("documentation")
     r << ProductTab.new("training_modules") if self.training_modules.size > 0 && self.brand.side_tabs.include?("training_modules")
     r << ProductTab.new("downloads") if (self.softwares.size > 0 || self.site_elements.size > 0) && self.brand.side_tabs.include?("downloads")
+r << ProductTab.new("downloads_and_docs") if (self.softwares.size > 0 || self.product_documents.size > 0 || self.site_elements.size > 0) && self.brand.side_tabs.include?("downloads_and_docs")
     r << ProductTab.new("reviews") if (self.product_reviews.size > 0 || self.artists.size > 0) && self.brand.side_tabs.include?("reviews")
     r << ProductTab.new("artists") if self.artists.size > 0 && self.brand.side_tabs.include?("artists")
     r << ProductTab.new("tones") if self.tone_library_patches.size > 0 && self.brand.side_tabs.include?("tones")

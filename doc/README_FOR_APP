@@ -2,7 +2,6 @@ Not how this file is supposed to be used. I'm keeping track of things
 I need to work on...
 
 === TODO for dbx site ===
-* New layout for product_families page (collapsed families)
 * Finish training section (online, live, modules)
  - overview page needs re-work
  - figure out the 'download all zipped'
@@ -22,6 +21,7 @@ What you will need to change is: itemid=100170580&subitemid=358897 based on the 
 * Sound community Replacement!!!!!!!
 
 === TODO (for all brands) ===
+* Marketing Toolkits
 * Add JBL to common Hpro footer
 * Fix dealer export from SAP
 * Minitest for admin functions
@@ -39,15 +39,12 @@ What you will need to change is: itemid=100170580&subitemid=358897 based on the 
 === Lower Priority ===
 * Server load balancing
 * ePedal category shelves
-* auto-pull news items from hpro feed
+* -auto-pull news items from hpro feed-
 * Salesforce FAQ integration
 * Create Salesforce support cases
 * Sitemaps using the sitemap plugin +news sitemaps
 * Use themes_for_rails gem instead of custom hack, manage themes online
 * Inline ecommerce with iLok integration for lexicon
-
-=== Other ===
-* Marketing Toolkits
 
 
 Here's a handy regular expression that can be used in Sublime Text (CTRL H) to update
