@@ -72,7 +72,7 @@ namespace :refresh do
 	
 	desc "Copies ALL uploaded assets from production to staging"
 	task :staging_uploads, roles: :web do
-		run "rsync -azv /var/www/hmg/hsp_websites/shared/system /var/www/hmg/hsp_staging/shared/"
+		run "rsync -azv hmg@10.10.23.86:/var/www/hmg/hsp_websites/shared/system /var/www/hmg/hsp_staging/shared/"
 	end
 
 	def backup_database
