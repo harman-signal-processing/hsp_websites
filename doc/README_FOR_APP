@@ -22,7 +22,6 @@ What you will need to change is: itemid=100170580&subitemid=358897 based on the 
 * Sound community Replacement!!!!!!!
 
 === TODO (for all brands) ===
-* New mysql server
 * Add JBL to common Hpro footer
 * Fix dealer export from SAP
 * Minitest for admin functions
@@ -69,15 +68,3 @@ dns:
 10.30.28.180
 172.16.1.96
 
-Notes for monday, 9/10: 
-The new mysql server is up and running and the staging sites are running under
-nginx on the new server (to offload from the main server)
-
-There's a problem running "cap staging deploy". It gives an ELF32 error because
-the server is 64 bit. It *should* take care of itself, but it isn't. So, fix that.
-
-Then, update the "refresh" capistrano tasks to make sure we can easily update the
-staging site from the production site.
-
-Once that's done, delete the staging site content from the production web server.
-Actually, you can probably do that anytime.
