@@ -31,16 +31,10 @@ describe "dbx Integration Test" do
       visit products_url(locale: I18n.default_locale, host: @website.url)
     end
 
-    it "should not link to full line where no child families exist" do
+    it "should just link to the family with no other links" do
       page.wont_have_link I18n.t('view_full_line'), href: product_family_path(@product_family, locale: I18n.default_locale)
-    end
-
-    it "should link to full line where child families exist" do
-      page.must_have_link I18n.t('view_full_line'), href: product_family_path(@multiple_parent, locale: I18n.default_locale)
-    end
-
-    it "should not link to full line for a family with one product in one sub-family" do
       page.wont_have_link I18n.t('view_full_line'), href: product_family_path(@single_parent, locale: I18n.default_locale)
+      page.must_have_link @multiple_parent.name, href: product_family_path(@multiple_parent, locale: I18n.default_locale)
     end
   end
 
