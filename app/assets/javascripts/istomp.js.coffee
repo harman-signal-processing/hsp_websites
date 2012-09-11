@@ -20,6 +20,14 @@ jQuery ($) ->
 	# 	if $(@).data('wet') and $(@).data('dry')
 	# 		audio_demos.push {id: $(@).attr('id'), product_id: $(@).data('product'), wet: $(@).data('wet'), dry: $(@).data('dry')}
 
+	$('#slider').bxSlider (
+		displaySlideQty: 10
+		moveSlideQty: 1
+		prevImage: $('#slider').data('previmage')
+		nextImage: $('#slider').data('nextimage')
+		startingSlide: 16
+	)
+
 	class Toggler
 
 		constructor: (@sm, @selector='a#current_pedal_sample') ->

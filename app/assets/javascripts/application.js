@@ -9,6 +9,8 @@
 //= require jquery-ui-1.8.16.custom.min
 //= require jquery.lightbox-0.5.min
 //= require jquery.datetimepicker
+//= require jquery.easing.1.3
+//= require jquery.bxSlider.min
 //= require ui.coverflow
 //= require jwplayer
 //= require soundmanager2-nodebug-jsmin

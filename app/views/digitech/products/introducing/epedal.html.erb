@@ -31,6 +31,34 @@ Someday figure out a better way to do all of this.
 		div#introducing section {
 			background: url(<%= image_path("#{website.folder}/#{@product_introduction.layout_class}/box_bg.png") %>);
 		}
+		/*next button*/
+		.bx-next {
+			position:absolute;
+			top:36%;
+			right:-50px;
+			z-index:999;
+			width: 30px;
+			height: 30px;
+			text-indent: -999999px;
+			background: url(<%= image_path('gray_next.png') %>) no-repeat 0 -30px;
+		}
+
+		/*previous button*/
+		.bx-prev {
+			position:absolute;
+			top:36%;
+			left:-50px;
+			z-index:999;
+			width: 30px;
+			height: 30px;
+			text-indent: -999999px;
+			background: url(<%= image_path('gray_prev.png') %>) no-repeat 0 -30px;
+		}
+		/*next/prev button hover state*/
+		.bx-next:hover,
+		.bx-prev:hover {
+			background-position: 0 0;
+		}
 		<%= raw @product_introduction.extra_css.to_s %>
 	</style>
 <% end %>
@@ -74,7 +102,18 @@ Someday figure out a better way to do all of this.
 	<section id="bottom">
 		<span id="epedals" data-count="<%= @istomp.current_sub_products.count %>"></span>
 		<h3>Browse all <%= @istomp.current_sub_products.count %> e-pedals</h3>
-		<%= link_to(image_tag('digitech/istomp/e-pedals_lineup.png', alt: "All e-pedals"), url_for(@istomp.softwares.first)) %>
+		<div class="slider-wrap">
+			<ul id="slider" data-previmage="<%= image_path('gray_prev.png') %>" data-nextimage="<%= image_path('gray_next.png') %>">
+				<% coverflow_shuffle(@istomp.current_sub_products).each do |child| %>
+			  <li>
+			  	<%= link_to(image_tag(child.product.photo.product_attachment.url(:thumb), 
+			  		alt: child.product.name,
+			  		title: child.product.name), child.product) %>
+			  </li>
+			  	<% end %>
+			</ul>
+		</div>
+		<%#= link_to(image_tag('digitech/istomp/e-pedals_lineup.png', alt: "All e-pedals"), url_for(@istomp.softwares.first)) %>
 	</section>
 	<div class="hint" style="text-align: center; margin-top: 5px;">
 		* Introductory price valid for 30 days after launch.
