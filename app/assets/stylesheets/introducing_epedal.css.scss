@@ -43,6 +43,27 @@ div#introducing {
 		&#istomp_content h5 {
 			text-transform: capitalize;
 		}
+		&#bottom {
+			position:relative;
+			height: 130px;
+			.slider-wrap {
+				position: absolute;
+				top: 34px;
+				left: 66px;
+				ul {
+					height: 100px;
+					overflow: hidden;
+				}
+				li {
+					list-style: none;
+					margin: 0;
+					width: 60px; 
+					padding: 0px 10px;
+					height: 100px;
+					text-align: center;
+				}
+			}
+		}
 	}
 	div.middle_content_container {
 		height: 415px;
