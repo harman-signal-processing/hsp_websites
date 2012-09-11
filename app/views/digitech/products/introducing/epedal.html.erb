@@ -99,6 +99,7 @@ Someday figure out a better way to do all of this.
 		</section>
 
 	</div>
+	<%= cache ["epedal_carousel", @istomp, Rails.env, Date.today] do %>
 	<section id="bottom">
 		<span id="epedals" data-count="<%= @istomp.current_sub_products.count %>"></span>
 		<h3>Browse all <%= @istomp.current_sub_products.count %> e-pedals</h3>
@@ -115,6 +116,7 @@ Someday figure out a better way to do all of this.
 		</div>
 		<%#= link_to(image_tag('digitech/istomp/e-pedals_lineup.png', alt: "All e-pedals"), url_for(@istomp.softwares.first)) %>
 	</section>
+	<% end %>
 	<div class="hint" style="text-align: center; margin-top: 5px;">
 		* Introductory price valid for 30 days after launch.
 	</div>
