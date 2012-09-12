@@ -56,7 +56,8 @@ gem 'whenever' #, require: false
 gem 'country_select'
 gem 'rack-mini-profiler'
 gem 'ransack'
-
+gem "dalli"
+gem "memcache-client" # moneta needs it
 # New Sound Community stuff
 #gem 'forem', git: "http://github.com/radar/forem.git"
 #gem 'forem-theme-twist', git: "http://github.com/radar/forem-theme-twist.git"
@@ -65,7 +66,6 @@ gem 'will_paginate'
 group :production, :staging do
   # gem "memcache"
   gem 'passenger_monit'
-  gem "memcache-client"
   gem "exception_notification", 
     git: "http://github.com/rails/exception_notification.git",
     require: "exception_notifier"
