@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
 		<%= csrf_meta_tag %>
-		<%= cache ["meta_tags", request.url, Date.today] do %>
+		<%= cache ["meta_tags", request.url] do %>
 			<%= cached_meta_tags %>
 		<% end %>
 		<% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "logo.gif")) %>
@@ -117,7 +117,7 @@
 		</div>
 		</div> <%# end div id="outer" %>
 		
-		<%= cache ["footer", website.brand, I18n.locale, Rails.env, Date.today] do %>
+		<%= cache ["footer", website.brand, I18n.locale] do %>
 		<div id="footer">
 			<div id="footer_info">
 				<% if website.has_software? %>

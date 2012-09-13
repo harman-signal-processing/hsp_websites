@@ -1,4 +1,4 @@
-<%# Don't cache because of different layouts = cache ["footer", website.brand, I18n.locale, Rails.env, Date.today] do %>
+<%# Don't cache because of different layouts = cache ["footer", website.brand, I18n.locale] do %>
 <footer>
 	<nav id="footer_info">
 		<%= link_to t('software_downloads').downcase, main_app.software_index_path %> &bull;

@@ -76,7 +76,7 @@
 
 <% if session["geo_usa"] %>
 <%= content_for :dealer_popup do %>
-	<%= cache ["online_retailer_links_for", @product, Rails.env] do %>
+	<%= cache ["online_retailer_links_for", @product] do %>
 	<div>
 		<div style="float: left;">
 			<h2><%= t('titles.buy_online') %></h2>
