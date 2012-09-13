@@ -1,4 +1,4 @@
-<%= cache ["epedal_feature_callout", website.featured_epedals, Date.today, Rails.env] do %>
+<%= cache ["epedal_feature_callout", website.featured_epedals] do %>
 <div id="featured_callout" class="callout <%= position.to_s %>_callout">
 	<h4><%= image_tag "#{website.folder}/istomp/latest_epedals_title.png", alt: "Latest e-pedals" %></h4>
 <% begin %>

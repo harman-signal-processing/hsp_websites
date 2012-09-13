@@ -88,8 +88,10 @@ Someday figure out a better way to do all of this.
 			<%= image_tag("made_for_ipod_ipad_iphone.png", alt: "Made for iPod, iPad, iPhone") %>
 		</section>	
 		<section id="product_content">
-			<div style="float: left; margin: 4px 8px 8px 4px;"><%= link_to(image_tag("#{website.folder}/#{@product_introduction.layout_class}/pedal.png", alt: "#{@product.name} Pedal"), @product) %>
+			<% if @product.photo %>
+			<div style="float: left; margin: 4px 8px 8px 4px;"><%= link_to(image_tag(@product.photo.product_attachment.url(:horiz_medium), alt: "#{@product.name} Pedal"), @product) %>
 			</div>
+			<% end %>
 			<h2><%= @product.name %></h2>
 			<h4><%= @product.short_description %></h4>
 			<div class="text_content" style="width: 475px">
@@ -99,7 +101,7 @@ Someday figure out a better way to do all of this.
 		</section>
 
 	</div>
-	<%= cache ["epedal_carousel", @istomp, Rails.env, Date.today] do %>
+	<%= cache ["epedal_carousel", @istomp] do %>
 	<section id="bottom">
 		<span id="epedals" data-count="<%= @istomp.current_sub_products.count %>"></span>
 		<h3>Browse all <%= @istomp.current_sub_products.count %> e-pedals</h3>

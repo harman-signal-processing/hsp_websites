@@ -1,9 +1,9 @@
-<%= cache ["twitter_feed", website.tweets.first, Rails.env] do %>
+<%= cache ["twitter_feed", website.tweets.first] do %>
 
 	<% if tw = website.twitter_name %>
 
 		<div id="twitter_feed_container">
-			<%= cache ["twitter_feed_header", website.brand, Rails.env, Date.today] do %>
+			<%= cache ["twitter_feed_header", website.brand] do %>
 			<h2>
 				<a href="http://www.twitter.com/intent/user?screen_name=<%= tw %>"><%= image_tag(Twitter.user(tw).profile_image_url(:mini), alt: tw) %></a>
 				<a href="http://www.twitter.com/intent/user?screen_name=<%= tw %>"><%= Twitter.user(tw).screen_name %></a>

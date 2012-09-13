@@ -3,7 +3,7 @@ unless defined? compare
 	compare = !!(website.show_comparisons)
 end 
 %>
-<%= cache ["product_square", product, website, compare, Rails.env, I18n.locale] do %>
+<%= cache ["product_square", product, website, compare, I18n.locale] do %>
 
 <% 
 	if product.belongs_to_this_brand?(website)

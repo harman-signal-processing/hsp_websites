@@ -48,7 +48,7 @@
 		<%= f.text_field :billing_zip %></div>
 
 	<h2 style="text-align: right; width: 332px;">Product Details</h2>
-<%= cache ["rma_form_products", website.brand, Rails.env, Date.today] do %>
+<%= cache ["rma_form_products", website.brand] do %>
 	<div><%= f.label :product, nil, class: "required" %>
 		<%= f.select :product, [[]] + Product.all_for_website(website).collect{|p| p.name} + ["other"] %></div>
 <% end %>

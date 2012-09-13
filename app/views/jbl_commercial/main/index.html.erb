@@ -1,5 +1,5 @@
 <%= content_for :feature do %>
-	<%= cache ["slideshow", website.brand, Rails.env, I18n.locale] do %>
+	<%= cache ["slideshow", website.brand, I18n.locale] do %>
 		<% slides = Setting.slides(website) %>
 		<% if slides.size > 0 %>
 			<%= slideshow(slides: slides, transition: "fade") %>
@@ -9,7 +9,7 @@
 
 <h2 style="margin-bottom: 0px">CS Series</h2>
 <p>Commercial Solutions Series</p>
-<%= cache ["homepage_features", website.brand, Rails.env, I18n.locale] do %>
+<%= cache ["homepage_features", website.brand, I18n.locale] do %>
 	<% if @features.size > 0 %>
 		<% @features.each_with_index do |feature,i| %>
 		<span class="homepage_feature" <% if i == (@features.size - 1) %>style="margin-right: 0px"<% end %>>

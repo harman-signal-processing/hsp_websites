@@ -1,7 +1,7 @@
 <% set_meta_tags title: @page_title,
 				 reverse: true %>
 
-<%= cache ["cad_page", website.brand, Date.today, Rails.env] do %>
+<%= cache ["cad_page", website.brand] do %>
 
 <h1 class="page_title"><%= @page_title %></h1>
 
