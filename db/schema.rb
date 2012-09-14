@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120831205916) do
+ActiveRecord::Schema.define(:version => 20120914133413) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -20,6 +20,9 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.datetime "updated_at", :null => false
     t.integer  "website_id"
   end
+
+  add_index "admin_logs", ["user_id"], :name => "index_admin_logs_on_user_id"
+  add_index "admin_logs", ["website_id"], :name => "index_admin_logs_on_website_id"
 
   create_table "amp_models", :force => true do |t|
     t.string   "name"
@@ -40,6 +43,9 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.text     "intro"
   end
 
+  add_index "artist_brands", ["artist_id"], :name => "index_artist_brands_on_artist_id"
+  add_index "artist_brands", ["brand_id"], :name => "index_artist_brands_on_brand_id"
+
   create_table "artist_products", :force => true do |t|
     t.integer  "artist_id"
     t.integer  "product_id"
@@ -50,6 +56,11 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.boolean  "favorite"
   end
 
+  add_index "artist_products", ["artist_id", "favorite"], :name => "index_artist_products_on_artist_id_and_favorite"
+  add_index "artist_products", ["artist_id"], :name => "index_artist_products_on_artist_id"
+  add_index "artist_products", ["product_id", "on_tour"], :name => "index_artist_products_on_product_id_and_on_tour"
+  add_index "artist_products", ["product_id"], :name => "index_artist_products_on_product_id"
+
   create_table "artist_tiers", :force => true do |t|
     t.string   "name"
     t.string   "invitation_code"
@@ -58,6 +69,9 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.boolean  "show_on_artist_page"
     t.integer  "position"
   end
+
+  add_index "artist_tiers", ["invitation_code"], :name => "index_artist_tiers_on_invitation_code"
+  add_index "artist_tiers", ["show_on_artist_page"], :name => "index_artist_tiers_on_show_on_artist_page"
 
   create_table "artists", :force => true do |t|
     t.string   "name"
@@ -97,8 +111,11 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.integer  "approver_id"
   end
 
+  add_index "artists", ["approver_id"], :name => "index_artists_on_approver_id"
+  add_index "artists", ["artist_tier_id"], :name => "index_artists_on_artist_tier_id"
   add_index "artists", ["cached_slug"], :name => "index_artists_on_cached_slug", :unique => true
   add_index "artists", ["confirmation_token"], :name => "index_artists_on_confirmation_token", :unique => true
+  add_index "artists", ["featured"], :name => "index_artists_on_featured"
   add_index "artists", ["reset_password_token"], :name => "index_artists_on_reset_password_token", :unique => true
 
   create_table "audio_demos", :force => true do |t|
@@ -118,6 +135,8 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.datetime "updated_at",            :null => false
   end
 
+  add_index "audio_demos", ["brand_id"], :name => "index_audio_demos_on_brand_id"
+
   create_table "blog_articles", :force => true do |t|
     t.string   "title"
     t.integer  "blog_id"
@@ -128,6 +147,9 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "blog_articles", ["author_id"], :name => "index_blog_articles_on_author_id"
+  add_index "blog_articles", ["blog_id"], :name => "index_blog_articles_on_blog_id"
+
   create_table "blogs", :force => true do |t|
     t.string   "name"
     t.integer  "brand_id"
@@ -136,12 +158,17 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.datetime "updated_at",         :null => false
   end
 
+  add_index "blogs", ["brand_id"], :name => "index_blogs_on_brand_id"
+
   create_table "brand_distributors", :force => true do |t|
     t.integer  "distributor_id"
     t.integer  "brand_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "brand_distributors", ["brand_id"], :name => "index_brand_distributors_on_brand_id"
+  add_index "brand_distributors", ["distributor_id"], :name => "index_brand_distributors_on_distributor_id"
 
   create_table "brands", :force => true do |t|
     t.string   "name"
@@ -280,6 +307,12 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.datetime "updated_at"
   end
 
+  add_index "content_translations", ["content_id"], :name => "index_content_translations_on_content_id"
+  add_index "content_translations", ["content_method"], :name => "index_content_translations_on_content_method"
+  add_index "content_translations", ["content_type", "content_id"], :name => "index_content_translations_on_content_type_and_content_id"
+  add_index "content_translations", ["content_type"], :name => "index_content_translations_on_content_type"
+  add_index "content_translations", ["locale"], :name => "index_content_translations_on_locale"
+
   create_table "dealers", :force => true do |t|
     t.string   "name"
     t.string   "name2"
@@ -302,7 +335,11 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.boolean  "skip_sync_from_sap"
   end
 
+  add_index "dealers", ["account_number"], :name => "index_dealers_on_account_number"
+  add_index "dealers", ["brand_id"], :name => "index_dealers_on_brand_id"
+  add_index "dealers", ["exclude"], :name => "index_dealers_on_exclude"
   add_index "dealers", ["lat", "lng"], :name => "index_dealers_on_lat_and_lng"
+  add_index "dealers", ["skip_sync_from_sap"], :name => "index_dealers_on_skip_sync_from_sap"
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -331,6 +368,8 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.datetime "updated_at"
   end
 
+  add_index "demo_songs", ["product_attachment_id"], :name => "index_demo_songs_on_product_attachment_id"
+
   create_table "distributors", :force => true do |t|
     t.string   "name"
     t.text     "detail"
@@ -338,6 +377,8 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.datetime "updated_at"
     t.string   "country"
   end
+
+  add_index "distributors", ["country"], :name => "index_distributors_on_country"
 
   create_table "download_registrations", :force => true do |t|
     t.integer  "registered_download_id"
@@ -375,6 +416,8 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.integer  "effect_type_id"
   end
 
+  add_index "effects", ["effect_type_id"], :name => "index_effects_on_effect_type_id"
+
   create_table "faqs", :force => true do |t|
     t.integer  "product_id"
     t.text     "question"
@@ -383,6 +426,8 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "faqs", ["product_id"], :name => "index_faqs_on_product_id"
 
   create_table "forem_categories", :force => true do |t|
     t.string   "name",       :null => false
@@ -427,6 +472,7 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.integer  "brand_id"
   end
 
+  add_index "news", ["brand_id"], :name => "index_news_on_brand_id"
   add_index "news", ["cached_slug"], :name => "index_news_on_cached_slug", :unique => true
 
   create_table "news_products", :force => true do |t|
@@ -435,6 +481,9 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "news_products", ["news_id"], :name => "index_news_products_on_news_id"
+  add_index "news_products", ["product_id"], :name => "index_news_products_on_product_id"
 
   create_table "online_retailer_links", :force => true do |t|
     t.integer  "product_id"
@@ -447,12 +496,21 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.string   "link_status",        :default => "200"
   end
 
+  add_index "online_retailer_links", ["brand_id"], :name => "index_online_retailer_links_on_brand_id"
+  add_index "online_retailer_links", ["online_retailer_id", "brand_id"], :name => "index_online_retailer_links_on_online_retailer_id_and_brand_id"
+  add_index "online_retailer_links", ["online_retailer_id", "product_id"], :name => "index_online_retailer_links_on_online_retailer_id_and_product_id"
+  add_index "online_retailer_links", ["online_retailer_id"], :name => "index_online_retailer_links_on_online_retailer_id"
+  add_index "online_retailer_links", ["product_id"], :name => "index_online_retailer_links_on_product_id"
+
   create_table "online_retailer_users", :force => true do |t|
     t.integer  "online_retailer_id"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "online_retailer_users", ["online_retailer_id"], :name => "index_online_retailer_users_on_online_retailer_id"
+  add_index "online_retailer_users", ["user_id"], :name => "index_online_retailer_users_on_user_id"
 
   create_table "online_retailers", :force => true do |t|
     t.string   "name"
@@ -485,7 +543,9 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.string   "layout_class"
   end
 
+  add_index "pages", ["brand_id"], :name => "index_pages_on_brand_id"
   add_index "pages", ["cached_slug"], :name => "index_pages_on_cached_slug", :unique => true
+  add_index "pages", ["custom_route"], :name => "index_pages_on_custom_route"
 
   create_table "parent_products", :force => true do |t|
     t.integer  "parent_product_id"
@@ -495,12 +555,18 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.datetime "updated_at",        :null => false
   end
 
+  add_index "parent_products", ["parent_product_id"], :name => "index_parent_products_on_parent_product_id"
+  add_index "parent_products", ["product_id"], :name => "index_parent_products_on_product_id"
+
   create_table "product_amp_models", :force => true do |t|
     t.integer  "product_id"
     t.integer  "amp_model_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "product_amp_models", ["amp_model_id"], :name => "index_product_amp_models_on_amp_model_id"
+  add_index "product_amp_models", ["product_id"], :name => "index_product_amp_models_on_product_id"
 
   create_table "product_attachments", :force => true do |t|
     t.integer  "product_id"
@@ -528,6 +594,9 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.text     "product_attachment_meta"
   end
 
+  add_index "product_attachments", ["product_id", "primary_photo"], :name => "index_product_attachments_on_product_id_and_primary_photo"
+  add_index "product_attachments", ["product_id"], :name => "index_product_attachments_on_product_id"
+
   create_table "product_audio_demos", :force => true do |t|
     t.integer  "audio_demo_id"
     t.integer  "product_id"
@@ -535,12 +604,18 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.datetime "updated_at",    :null => false
   end
 
+  add_index "product_audio_demos", ["audio_demo_id"], :name => "index_product_audio_demos_on_audio_demo_id"
+  add_index "product_audio_demos", ["product_id"], :name => "index_product_audio_demos_on_product_id"
+
   create_table "product_cabinets", :force => true do |t|
     t.integer  "product_id"
     t.integer  "cabinet_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "product_cabinets", ["cabinet_id"], :name => "index_product_cabinets_on_cabinet_id"
+  add_index "product_cabinets", ["product_id"], :name => "index_product_cabinets_on_product_id"
 
   create_table "product_documents", :force => true do |t|
     t.integer  "product_id"
@@ -556,6 +631,7 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
   end
 
   add_index "product_documents", ["cached_slug"], :name => "index_product_documents_on_cached_slug", :unique => true
+  add_index "product_documents", ["product_id"], :name => "index_product_documents_on_product_id"
 
   create_table "product_effects", :force => true do |t|
     t.integer  "product_id"
@@ -563,6 +639,9 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "product_effects", ["effect_id"], :name => "index_product_effects_on_effect_id"
+  add_index "product_effects", ["product_id"], :name => "index_product_effects_on_product_id"
 
   create_table "product_families", :force => true do |t|
     t.string   "name"
@@ -595,7 +674,9 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.datetime "title_banner_updated_at"
   end
 
+  add_index "product_families", ["brand_id"], :name => "index_product_families_on_brand_id"
   add_index "product_families", ["cached_slug"], :name => "index_product_families_on_cached_slug", :unique => true
+  add_index "product_families", ["parent_id"], :name => "index_product_families_on_parent_id"
 
   create_table "product_family_products", :force => true do |t|
     t.integer  "product_id"
@@ -604,6 +685,9 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "product_family_products", ["product_family_id"], :name => "index_product_family_products_on_product_family_id"
+  add_index "product_family_products", ["product_id"], :name => "index_product_family_products_on_product_id"
 
   create_table "product_introductions", :force => true do |t|
     t.integer  "product_id"
@@ -615,6 +699,8 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.datetime "updated_at",   :null => false
   end
 
+  add_index "product_introductions", ["product_id"], :name => "index_product_introductions_on_product_id"
+
   create_table "product_promotions", :force => true do |t|
     t.integer  "product_id"
     t.integer  "promotion_id"
@@ -622,12 +708,18 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.datetime "updated_at"
   end
 
+  add_index "product_promotions", ["product_id"], :name => "index_product_promotions_on_product_id"
+  add_index "product_promotions", ["promotion_id"], :name => "index_product_promotions_on_promotion_id"
+
   create_table "product_review_products", :force => true do |t|
     t.integer  "product_id"
     t.integer  "product_review_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "product_review_products", ["product_id"], :name => "index_product_review_products_on_product_id"
+  add_index "product_review_products", ["product_review_id"], :name => "index_product_review_products_on_product_review_id"
 
   create_table "product_reviews", :force => true do |t|
     t.string   "title"
@@ -657,12 +749,18 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.datetime "updated_at",      :null => false
   end
 
+  add_index "product_site_elements", ["product_id"], :name => "index_product_site_elements_on_product_id"
+  add_index "product_site_elements", ["site_element_id"], :name => "index_product_site_elements_on_site_element_id"
+
   create_table "product_softwares", :force => true do |t|
     t.integer  "product_id"
     t.integer  "software_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "product_softwares", ["product_id"], :name => "index_product_softwares_on_product_id"
+  add_index "product_softwares", ["software_id"], :name => "index_product_softwares_on_software_id"
 
   create_table "product_specifications", :force => true do |t|
     t.integer  "product_id"
@@ -672,6 +770,9 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "product_specifications", ["product_id"], :name => "index_product_specifications_on_product_id"
+  add_index "product_specifications", ["specification_id"], :name => "index_product_specifications_on_specification_id"
 
   create_table "product_statuses", :force => true do |t|
     t.string   "name"
@@ -737,6 +838,8 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.string   "demo_link"
   end
 
+  add_index "products", ["brand_id", "product_status_id"], :name => "index_products_on_brand_id_and_product_status_id"
+  add_index "products", ["brand_id"], :name => "index_products_on_brand_id"
   add_index "products", ["cached_slug"], :name => "index_products_on_cached_slug", :unique => true
 
   create_table "promotions", :force => true do |t|
@@ -927,6 +1030,10 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.datetime "updated_at"
   end
 
+  add_index "settings", ["brand_id", "name", "locale"], :name => "index_settings_on_brand_id_and_name_and_locale"
+  add_index "settings", ["brand_id", "name"], :name => "index_settings_on_brand_id_and_name"
+  add_index "settings", ["brand_id"], :name => "index_settings_on_brand_id"
+
   create_table "site_elements", :force => true do |t|
     t.string   "name"
     t.integer  "brand_id"
@@ -1102,6 +1209,9 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.datetime "updated_at",        :null => false
   end
 
+  add_index "tweets", ["brand_id"], :name => "index_tweets_on_brand_id"
+  add_index "tweets", ["tweet_id"], :name => "index_tweets_on_tweet_id"
+
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
     t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
@@ -1184,6 +1294,8 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.datetime "updated_at"
   end
 
+  add_index "website_locales", ["locale", "website_id"], :name => "index_website_locales_on_locale_and_website_id"
+
   create_table "websites", :force => true do |t|
     t.string   "url"
     t.integer  "brand_id"
@@ -1193,5 +1305,8 @@ ActiveRecord::Schema.define(:version => 20120831205916) do
     t.string   "comment"
     t.string   "default_locale"
   end
+
+  add_index "websites", ["brand_id"], :name => "index_websites_on_brand_id"
+  add_index "websites", ["url"], :name => "index_websites_on_url", :unique => true
 
 end

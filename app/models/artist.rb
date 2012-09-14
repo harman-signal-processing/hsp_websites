@@ -92,9 +92,13 @@ class Artist < ActiveRecord::Base
   # When a new artist is created, assign them to an ArtistTier
   def set_artist_tier
     self.artist_tier_id ||= ArtistTier.default.id
-    unless self.invitation_code.blank?
+    if self.invitation_code.present?
       self.artist_tier = ArtistTier.find_by_invitation_code(self.invitation_code)
     end
+  end
+
+  def show_banner?
+    !(self.artist_tier == ArtistTier.default)
   end
   
   # Clear the approval field if the artist changed their photos

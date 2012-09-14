@@ -9,7 +9,7 @@ FactoryGirl.define do
         products_count 5
       end
       after(:create) do |product_family, evaluator|
-        FactoryGirl.create_list(:product, evaluator.products_count).each do |product|
+        FactoryGirl.create_list(:product, evaluator.products_count, brand: product_family.brand).each do |product|
           FactoryGirl.create(:product_family_product, product_family: product_family, product: product)
         end
       end
