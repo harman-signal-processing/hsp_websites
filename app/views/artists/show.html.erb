@@ -3,15 +3,58 @@
 				 keywords: @artist.name,
 				 reverse: true %>
 
-<% unless @artist.artist_photo_file_name.blank? %>
+<% if @artist.show_banner? && !@artist.artist_photo_file_name.blank? %>
 	<div id="big_artist_photo">
 		<%= image_tag(@artist.artist_photo.url(:feature)) %>
 	</div>
+	<% if @artist.artist_products.size > 0 %>
+	<div id="artist_product_ribbon">
+		<% @artist.artist_products.each do |artist_product| %>
+			<% if artist_product.product.photo %>
+			<div class="product_tile">
+			<% if artist_product.product.brand == website.brand %>
+				<%= link_to image_tag(artist_product.product.photo.product_attachment.url(:horiz_thumb)), artist_product.product %>
+			<% else %>
+				<%= link_to image_tag(artist_product.product.photo.product_attachment.url(:horiz_thumb)), 
+						product_url(artist_product.product, host: artist_product.product.brand.default_website.url), 
+						target: "_blank" %>
+			<% end %>
+			<div class="hint"><%= artist_product.product.name %></div>
+			</div>
+			<% end %>
+		<% end %>
+		<div class="clear"></div>
+	</div>
+	<% end %>
 <% end %>
 
 <div class="description">
-
-	<% if @artist.artist_products.size > 0 %>
+	<% if !@artist.show_banner? && !@artist.artist_photo_file_name.blank? %>
+	<div id="artist_callout" class="artist_callout_container">
+		<% if !@artist.artist_photo_file_name.blank? %>
+			<div><%= image_tag @artist.artist_photo.url(:medium) %></div>
+		<% end %>
+		<% if @artist.artist_products.size > 0 %>
+			<%= @artist.name %> uses:
+			<ul>
+			<% @artist.artist_products.each do |artist_product| %>
+				<% if artist_product.product.brand == website.brand %>
+				<li><%= link_to artist_product.product.name, artist_product.product %>
+					<% if !artist_product.quote.blank? %><i><%= artist_product.quote %></i><% end %>
+				</li>
+				<% else %>
+				<li><%= link_to artist_product.product.name, 
+							product_url(artist_product.product, host: artist_product.product.brand.default_website.url), 
+							target: "_blank" %></li>
+				<% end %>
+			<% end %>
+			</ul>
+		<% end %>
+		<% if !@artist.artist_product_photo_file_name.blank? %>
+			<div id="artist_product_photo_medium"><%= image_tag @artist.artist_product_photo.url(:medium) %></div>
+		<% end %>
+	</div>
+	<% elsif @artist.artist_products.size > 0 %>
 	<div id="artist_callout" class="artist_callout_container">
 		<h3><%= website.brand_name %> Gear</h3>
 		<% if !@artist.artist_product_photo_file_name.blank? %>

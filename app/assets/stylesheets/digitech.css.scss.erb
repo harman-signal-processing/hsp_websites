@@ -1422,7 +1422,24 @@ input#artist_submit {
 		text-decoration: none;		
 	}
 }
+#artist_product_ribbon {
+	background: white;
+	width: 940px;
+	margin-left: -20px;
+	padding: 10px;
+	text-align: center;
+	.product_tile {
+		display: inline-block;
+		margin: 0px 10px;
+		text-align: center;
+		.hint {
+			color: #222;
+		}
+	}
+}
 
+
+/**********************************/
 ul.flat {
  list-style-type:none;
  padding-left:0px;
@@ -1458,7 +1475,6 @@ ul.graphic li {
 
 ul.graphic li a,
 ul.graphic li a.sm2_link {
- /* assume all items will be sounds rather than wait for onload etc. in this example.. may differ for your uses. */
  display:inline-block;
  min-height:12px;
  vertical-align: middle;
@@ -1475,7 +1491,7 @@ ul.graphic li a.sm2_link {
 }
 
 ul.graphic li a.sm2_link {
- /* safari 3.1+ fun (or, proprietary crap. TBD.) */
+ /* safari 3.1+ */
  -webkit-transition-property: hover;
  -webkit-transition: background-color 0.15s linear;
  -moz-transition: background-color 0.15s linear 0s; /* firefox 4 */
