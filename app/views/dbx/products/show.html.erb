@@ -79,8 +79,8 @@
 	<div id="right_column">		
 		<% if website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !@product.direct_buy_link.blank? %>
 		<div id="product_buy_now_box">
-			<%= links_to_current_promotions(@product) %>
 			<%= buy_it_now_link(@product) %>
+			<%= links_to_current_promotions(@product) %>
 			<% unless @product.demo_link.blank? %>
 				<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/demo_download_button.png")) %>
 					<%= link_to(image_tag("#{website.folder}/#{I18n.locale}/demo_download_button.png", 
