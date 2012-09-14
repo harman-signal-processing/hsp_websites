@@ -90,7 +90,11 @@ class Website < ActiveRecord::Base
   end
   
   def current_and_discontinued_products
-    self.brand.products.select{|p| p if p.show_on_website?(self)}
+    @current_and_discontinued_products ||= self.brand.products.select{|p| p if p.show_on_website?(self)}
+  end
+
+  def vintage_products
+    @vintage_products ||= self.brand.products.select{|p| p if !!(p.product_status.name.match(/vintage/i))}
   end
   
   def all_downloads

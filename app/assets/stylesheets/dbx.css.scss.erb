@@ -562,13 +562,13 @@ div#signup h2 {
 	}
 	.compare_checkbox {
 		position: absolute;
-		top: 71px;
+		top: 85px;
 		left: 0px;
 		text-align: center;
 		width: 180px;
 	}
 	table.product_thumb {
-		height: 86px;
+		height: 98px;
 		width: 100%;
 		td {
 			text-align: center;
@@ -645,7 +645,7 @@ div#product_content {
 	}
 	#right_column {
 		position: absolute;
-		bottom: 30px;
+		top: -10px;
 		right: 14px;
 		z-index: 100;
 		text-align: left;
@@ -687,7 +687,7 @@ div#product_content {
 			color: #AE9A6A;
 		}
 		#viewer_container {
-			height: 350px;
+			height: 250px;
 			width: 940px;
 			background: white;
 			text-align: center;
@@ -695,7 +695,7 @@ div#product_content {
 			margin-bottom: 40px;
 			tr td {
 				width: 940px;
-				height: 350px;
+				height: 250px;
 				text-align: center;
 				vertical-align: middle;
 			}
@@ -733,8 +733,8 @@ div#product_content.vertical {
 		#product_basics {
 			position: absolute;
 			top: 40px;
-			right: 280px;
-			width: 280px;
+			right: 370px;
+			width: 170px;
 			z-index: 500;
 			text-align: left;
 		}
@@ -746,6 +746,7 @@ div#product_content.vertical {
 		text-align: center;
 		display: table;
 		margin-bottom: 40px;
+		margin-top: 10px;
 		tr td {
 			width: 400px;
 			height: 356px;
@@ -759,14 +760,14 @@ div#product_content.vertical {
 	}
 	ul#product_thumbnails {
 		position: absolute;
-		right: 280px;
-		top: 310px;
-		width: 280px;
+		right: 270px;
+		top: 300px;
+		width: 270px;
 	}
 	.larger_tag {
 		position: absolute;
-		top: 300px;
-		right: 484px;
+		top: 290px;
+		right: 474px;
 	}
 }
 
@@ -784,21 +785,21 @@ div#product_content.horizontal {
 		}
 	}
 	#viewer_container {
-		height: 235px;
+		height: 200px;
 		width: 940px;
 		background: white;
 		text-align: center;
 		overflow: hidden;
 		tr td {
 			width: 940px;
-			height: 235px;
+			height: 200px;
 			text-align: center;
 			vertical-align: middle;
 		}
 	}
 	#viewer {
 		max-width: 940px;
-		max-height: 275px;
+		max-height: 200px;
 		overflow: hidden;
 	}
 }
@@ -826,7 +827,7 @@ div#product_bottom_content {
 		color: black;
 	}
 	div#bottom_left_column {
-		margin-right: 250px;
+		margin-right: 320px;
 		margin-top: 20px;
 		margin-left: 10px;
 		font-size: 13px;
@@ -841,7 +842,7 @@ div#product_bottom_content {
 	}
 	div#bottom_right_column {
 		float: right;
-		width: 232px;
+		width: 290px;
 	}
 }
 
@@ -967,7 +968,7 @@ h2.special_offer {
 	line-height: 22px;
 	a:link, a:visited {
 		display: block;
-		color: #009933;
+		color: #666;
 	}
 }
 .special_offer_contents {
@@ -977,7 +978,7 @@ h2.special_offer {
 .product_tab_content {
 /*	border: 1px solid #E6E6E6;*/
 	padding: 10px;
-	width: 210px;
+	width: 260px;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: -1px;
@@ -1024,7 +1025,7 @@ span.discontinued {
 div#product_buy_now_box {
 	text-align: center;
 	padding: 10px;
-	margin: 10px 0px 20px 0px;
+	margin: 10px 0px 20px -30px;
 }
 #blanket {
 	background-color:#111;
@@ -1380,38 +1381,37 @@ table.tube td {
 	padding: 2px;
 	-moz-border-radius: 6px;
 	border-radius: 6px;
-}
-#twitter_feed_container h2 {
-	margin-left: 6px;
-}
-#twitter_feed_container h2 img {
-	vertical-align: middle;
-}
-#twitter_feed_container #tweets {
-	height: 300px;
-	overflow: auto;
-	background: #000;
-	color: #FFF;
-	-moz-border-radius-topleft: 6px;
-	border-top-left-radius: 6px;
-}
-#twitter_feed_container #tweets .tweet {
-	padding: 5px;
-	border-bottom: 1px dotted #666;
-	font-size: 12px;
-	line-height: 14px;
-}
-#twitter_feed_container .tweet a:link,
-#twitter_feed_container .tweet a:visited {
-	color: #69cbff;
-}
-#twitter_feed_container .tweet .tw_actions {
-	font-size: 80%;
-	margin: 0; padding: 0;
-	margin-top: 4px;
-}
-#twitter_feed_container #social_media_links {
-	margin-top: 8px;
+	h2 {
+		margin-left: 6px;
+		img {
+			vertical-align: middle;
+		}
+	}
+	#tweets {
+		height: 300px;
+		overflow: auto;
+		background: #000;
+		color: #FFF;
+		-moz-border-radius-topleft: 6px;
+		border-top-left-radius: 6px;
+		.tweet {
+			padding: 5px;
+			border-bottom: 1px dotted #666;
+			font-size: 12px;
+			line-height: 14px;
+			a:link, a:visited {
+				color: #69cbff;
+			}
+			.tw_actions {
+				font-size: 80%;
+				margin: 0; padding: 0;
+				margin-top: 4px;
+			}
+		}
+	}
+	#social_media_links {
+		margin-top: 8px;
+	}
 }
 #right_column #product_packaging_contents ul li {
 	list-style-type: square;
