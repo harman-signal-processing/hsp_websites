@@ -198,8 +198,10 @@
 <% if website.has_suggested_products? && can?(:manage, ProductSuggestion) %>
 <div class="group">
 	<h3>Suggested Products</h3>
-	<p>On the product page, these appear as suggestions on the side bar. If none are
-		provided, then two products are selected at random.</p>
+	<p><% if !!(website.brand.name.match(/lexicon/i)) %>
+		On product pages these appear as suggestions on the side bar. If none are
+		provided, then two products are selected at random. <% end %>
+		If this is a discontinued product, then select alternative replacements here:</p>
 	<%= form_for([:admin, @product_suggestion], remote: true) do |f| %>
 		<%= f.select :suggested_product_id, (website.current_products - [@product]).sort_by(&:name).collect{|p| [p.name, p.id]} %>
 		&nbsp;<%= hidden_field_tag "called_from", "product" %>
