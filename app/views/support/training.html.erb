@@ -28,13 +28,16 @@
 			</ul>
 		</td>
 		<td>
-			<ul>
+			<% @software_training_modules.collect{|stm| stm.active_softwares}.flatten.uniq.each do |software| %>
+			<h3><%= software.name %></h3>
+			<ol>
 				<% @software_training_modules.each do |stm| %>
-				<li> <%= link_to stm.name, stm %> 
-					<div class="hint"><%= stm.active_softwares.collect{|p| p.name}.join(", ") %></div>
-				</li>
+				<% if stm.active_softwares.include?(software) %>
+				<li> <%= link_to stm.name, stm %> </li>
 				<% end %>
-			</ul>
+				<% end %>
+			</ol>
+			<% end %>
 		</td>
 		<td style="text-align: center;">
 			<%= link_to website.live_online_training_url, website.live_online_training_url, target: "_blank" %>
