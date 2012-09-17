@@ -315,5 +315,10 @@ r << ProductTab.new("downloads_and_docs") if (self.softwares.size > 0 || self.pr
     end
     sp
   end
+
+  # Suggested alternatives (usually for a discontinued product)
+  def alternatives
+    self.product_suggestions.collect{|ps| ps.suggested_product}
+  end
   
 end
