@@ -91,7 +91,7 @@ describe "Browse Products Integration Test" do
     it "should have thumbnail images" do
       @product.product_attachments << FactoryGirl.create(:product_attachment, product: @product)
       visit product_url(@product, locale: I18n.default_locale, host: @website.url)
-      page.must_have_xpath("//img[@src='#{@product.product_attachments.first.product_attachment.url(:thumb)}']")
+      page.must_have_xpath("//img[@src='#{@product.product_attachments.first.product_attachment.url(:small)}']")
     end
 
     it "should link to software" do
