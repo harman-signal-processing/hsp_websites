@@ -36,12 +36,8 @@
 	<%=raw @software.description %>
 
 	<% if @software.training_modules.size > 0 %>
-	<h3>Training Modules</h3>
-	<ul>
-		<% @software.training_modules.each do |s| %>
-		<li><%= link_to(s.name, s) %></li>
-		<% end %>
-	</ul>
+		<h4>Training Modules</h4>
+		<%= link_to "Visit Training Page", training_path %>
 	<% end %>
 	<div class="clear"></div>
 </div>
