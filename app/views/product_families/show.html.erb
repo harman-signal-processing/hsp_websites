@@ -12,7 +12,9 @@
 <% end %>
 
 <% if !@product_family.title_banner_file_name.blank? %>
+	<div class="product_family_header">
 	<h1><%= image_tag(@product_family.title_banner.url, alt: translate_content(@product_family, :name)) %></h1>
+	</div>
 	<div class="wide_centered_box">
 <% else %>
 	<div class="wide_centered_box">
