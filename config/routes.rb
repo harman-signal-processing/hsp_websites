@@ -97,6 +97,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         collection do
           get :rohs
           put :update_rohs
+          get :harman_employee_pricing
+          put :update_harman_employee_pricing
         end
         member do
           get :delete_background

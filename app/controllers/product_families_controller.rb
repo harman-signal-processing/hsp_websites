@@ -9,7 +9,7 @@ class ProductFamiliesController < ApplicationController
 
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render xml: @product_families }
+      # format.xml  { render xml: @product_families }
     end
   end
 
@@ -31,7 +31,7 @@ class ProductFamiliesController < ApplicationController
           render_template
         end        
       }
-      format.xml  { render xml: @product_family }
+      # format.xml  { render xml: @product_family }
     end
   end
   

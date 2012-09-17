@@ -8,10 +8,10 @@ class SoftwaresController < ApplicationController
     @current_products = Product.all_for_website(website) - @discontinued_products
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { 
-        @softwares = Software.find_all_by_active_and_brand_id(true, website.brand_id, order: "name,version")
-        render xml: @softwares 
-      }
+      # format.xml  { 
+      #   @softwares = Software.find_all_by_active_and_brand_id(true, website.brand_id, order: "name,version")
+      #   render xml: @softwares 
+      # }
     end
   end
 
@@ -32,7 +32,7 @@ class SoftwaresController < ApplicationController
             render_template
           end
         }
-        format.xml  { render xml: @software }
+        # format.xml  { render xml: @software }
       end
     else
       redirect_to softwares_path and return

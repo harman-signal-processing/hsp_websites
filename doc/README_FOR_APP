@@ -30,6 +30,7 @@ What you will need to change is: itemid=100170580&subitemid=358897 based on the 
 * Marketing Toolkits
 * Add JBL to common Hpro footer
 * Fix dealer export from SAP
+* Clean up product info tabs methods (several in product.rb, product_helper.rb)
 * Minitest for admin functions
 * Separate admin permissions by brands
 * Super-admin alerts:

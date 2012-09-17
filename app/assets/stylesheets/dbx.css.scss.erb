@@ -710,13 +710,13 @@ div#product_content {
 	}
 	.larger_tag {
 		text-align: left;
-		margin-left: 16px;
+		margin-left: 8px;
 		font-size: 90%;
 		color: #777;
 	}
 }
 ul#product_thumbnails {
-	margin: 8px 0px 8px 16px;
+	margin: 8px 0px 8px 8px;
 	padding: 0px;
 	text-align: left;
 	width: 670px;
@@ -774,7 +774,7 @@ div#product_content.vertical {
 	.larger_tag {
 		position: absolute;
 		top: 290px;
-		right: 474px;
+		right: 464px;
 	}
 }
 
@@ -783,7 +783,7 @@ div#product_content.horizontal {
 		#product_basics {
 			position: absolute;
 			top: 12px;
-			left: 20px;
+			left: 8px;
 			z-index: 500;
 			text-align: left;
 			#product_basics_bottom {
@@ -899,8 +899,7 @@ ul#product_main_tabs {
 #breadcrumbs {
 	font-size: 90%;
 	text-align: left;
-	margin: 0px;
-	margin-bottom: 4px;
+	margin: 0px 0px 4px 8px;
 	letter-spacing: 0.02em;
 }
 .product_detail_box {
@@ -1443,45 +1442,43 @@ div#harmanpro_bar {
 /*** admin functions **/
 .admin_function {
 	position: absolute;
-	top: 4px;
-	right: 10px;
+	top: 0px;
+	right: -40px;
 	color: white;
 	z-index: 100;
-}
-.admin_function a:link,
-.admin_function a:visited {
-	color: white;
-	text-decoration: none;
-	display: block;
-	background: #5A89CC;
-	padding: 1px 6px 3px 6px;
-	border-radius: 4px;
-	-moz-border-radius: 6px;
-}
-.admin_function a:hover {
-	color: white;
-	text-decoration: none;
-	background: #0080FF;
+	a:link, a:visited {
+		color: white;
+		text-decoration: none;
+		display: block;
+		background: #222;
+		padding: 1px 6px 3px 6px;
+		border-radius: 4px;
+		-moz-border-radius: 6px;
+	}
+	a:hover {
+		color: white;
+		text-decoration: none;
+		background: #777;
+	}
 }
 #admin_menu_link {
 	position: absolute;
 	top: 0;
 	right: 0;
 	z-index: 1000;
-}
-#admin_menu_link a:link,
-#admin_menu_link a:visited {
-	display: block;
-	color: #EEE;
-	text-decoration: none;
-	padding: 1px 6px 3px 6px;
-	font-family: Helvetica, arial, sans-serif;
-	font-weight: normal;
-	font-size: 10px;
-	text-shadow: #999 1px 1px 1px;
-}
-#admin_menu_link a:hover {
-	color: #FFF;
+	a:link, a:visited {
+		display: block;
+		color: #EEE;
+		text-decoration: none;
+		padding: 1px 6px 3px 6px;
+		font-family: Helvetica, arial, sans-serif;
+		font-weight: normal;
+		font-size: 10px;
+		text-shadow: #999 1px 1px 1px;
+	}
+	a:hover {
+		color: #FFF;
+	}
 }
 .small_button {
 	font-size: 11px; 

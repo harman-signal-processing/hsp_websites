@@ -61,13 +61,13 @@ class ProductsController < ApplicationController
           render_template
         end
       }
-      format.xml  { 
-        if @product.show_on_website?(website)
-          render xml: @product 
-        else
-          head :ok
-        end
-      }
+      # format.xml  { 
+      #   if @product.show_on_website?(website)
+      #     render xml: @product 
+      #   else
+      #     head :ok
+      #   end
+      # }
     end
   end
 

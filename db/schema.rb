@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120914133413) do
+ActiveRecord::Schema.define(:version => 20120917202618) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -836,6 +836,7 @@ ActiveRecord::Schema.define(:version => 20120914133413) do
     t.float    "street_price"
     t.string   "features_tab_name"
     t.string   "demo_link"
+    t.float    "harman_employee_price"
   end
 
   add_index "products", ["brand_id", "product_status_id"], :name => "index_products_on_brand_id_and_product_status_id"

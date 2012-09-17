@@ -8,10 +8,10 @@ class DistributorsController < ApplicationController
     @country = nil
     respond_to do |format|
       format.html { render_template }
-      format.xml  { 
-        @distributors = Distributor.all
-        render xml: @distributors 
-      }
+      # format.xml  { 
+      #   @distributors = Distributor.all
+      #   render xml: @distributors 
+      # }
     end
   end
   
@@ -22,7 +22,7 @@ class DistributorsController < ApplicationController
     @countries = Distributor.countries(website)
     respond_to do |format|
       format.html { render_template(action: "index") }
-      format.xml { render xml: @distributors }
+      # format.xml { render xml: @distributors }
     end
   end
 
@@ -33,7 +33,7 @@ class DistributorsController < ApplicationController
 
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render xml: @distributor }
+      # format.xml  { render xml: @distributor }
     end
   end
 

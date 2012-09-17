@@ -22,7 +22,7 @@ class ProductDocumentsController < ApplicationController
     end
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render xml: ProductDocument.all }
+      # format.xml  { render xml: ProductDocument.all }
     end
   end
 
