@@ -9,7 +9,7 @@ class PromotionsController < ApplicationController
 
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render xml: @promotions }
+      # format.xml  { render xml: @promotions }
     end
   end
 
@@ -21,7 +21,7 @@ class PromotionsController < ApplicationController
     end
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render xml: @promotion }
+      # format.xml  { render xml: @promotion }
     end
   end
   

@@ -9,7 +9,7 @@ class ProductReviewsController < ApplicationController
 
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { render xml: @product_reviews }
+      # format.xml  { render xml: @product_reviews }
     end
   end
 
@@ -27,7 +27,7 @@ class ProductReviewsController < ApplicationController
     end
     respond_to do |format|
       format.html { render_template } # show.html.erb
-      format.xml  { render xml: @product_review }
+      # format.xml  { render xml: @product_review }
     end
   end
   

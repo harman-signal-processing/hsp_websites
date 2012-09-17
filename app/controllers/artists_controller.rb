@@ -25,7 +25,7 @@ class ArtistsController < ApplicationController
     if @artist.featured || @artist.artist_tier.show_on_artist_page?
       respond_to do |format|
         format.html { render_template } # show.html.erb
-        format.xml  { render xml: @artist }
+        # format.xml  { render xml: @artist }
       end
     else
       redirect_to artists_path(anchor: "artist_#{@artist.id}") and return
@@ -44,7 +44,7 @@ class ArtistsController < ApplicationController
     @products = Product.on_tour(website)
     respond_to do |format|
       format.html { render_template } # touring.html.erb
-      format.xml  { render xml: @products }
+      # format.xml  { render xml: @products }
     end    
   end
   

@@ -53,11 +53,11 @@
 		<table id="viewer"><tr><td>
 			<% if @product.photo %>
 				<% if @product.layout_class == "horizontal" %>
-				<%= image_tag(@product.photo.product_attachment.url(:lightbox)) %>
+				<%= link_to(image_tag(@product.photo.product_attachment.url(:lightbox)), @product.photo.product_attachment.url) %>
 				<% elsif @product.layout_class == "vertical" %>
-				<%= image_tag(@product.photo.product_attachment.url(:vert_medium)) %>
+				<%= link_to(image_tag(@product.photo.product_attachment.url(:vert_medium)), @product.photo.product_attachment.url) %>
 				<% else %>
-				<%= image_tag(@product.photo.product_attachment.url(:medium)) %>
+				<%= link_to(image_tag(@product.photo.product_attachment.url(:medium)), @product.photo.product_attachment.url) %>
 				<% end %>
 			<% end %>
 		</tr></td></table>

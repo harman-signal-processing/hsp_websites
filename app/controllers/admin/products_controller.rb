@@ -125,6 +125,23 @@ class Admin::ProductsController < AdminController
     end
     website.add_log(user: current_user, action: "Updated ROHS list")
   end
+
+  # Update pricing for "myharman.com" employee accommodation site
+  def harman_employee_pricing
+    authorize! :update, :harman_employee_pricing
+    @products = website.products
+    render_template
+  end
+
+  # Update action for the myharman.com pricing form
+  def update_harman_employee_pricing
+    authorize! :update, :harman_employee_pricing
+    params[:product_attr].to_a.each do |key, attr|
+      product = Product.find(key)
+      product.update_attributes(attr)
+    end
+    redirect_to(harman_employee_pricing_admin_products_path, notice: "Pricing updated successfully.")
+  end
   
   # Delete custom background
   def delete_background
