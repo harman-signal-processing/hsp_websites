@@ -51,7 +51,7 @@
     <% end %>
   </div>
   <div class="field">
-    <%= f.label :page_bg_image, "Page bacground image" %><br />
+    <%= f.label :page_bg_image, "Page background image" %><br />
     <%= f.file_field :page_bg_image %>
     <% if @product_introduction.page_bg_image_file_name.present? %>
     <div class="hint">Currently: <%= link_to @product_introduction.page_bg_image_file_name, @product_introduction.page_bg_image.url %></div>
