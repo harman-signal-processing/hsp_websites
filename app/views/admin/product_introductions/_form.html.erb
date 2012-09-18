@@ -36,6 +36,29 @@
     <%= f.text_area :extra_css %>
   </div>
 
+  <div class="field">
+    <%= f.label :top_image %><br />
+    <%= f.file_field :top_image %>
+    <% if @product_introduction.top_image_file_name.present? %>
+    <div class="hint">Currently: <%= link_to @product_introduction.top_image_file_name, @product_introduction.top_image.url %></div>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :box_bg_image, "Box background image" %><br />
+    <%= f.file_field :box_bg_image %>
+    <% if @product_introduction.box_bg_image_file_name.present? %>
+    <div class="hint">Currently: <%= link_to @product_introduction.box_bg_image_file_name, @product_introduction.box_bg_image.url %></div>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :page_bg_image, "Page bacground image" %><br />
+    <%= f.file_field :page_bg_image %>
+    <% if @product_introduction.page_bg_image_file_name.present? %>
+    <div class="hint">Currently: <%= link_to @product_introduction.page_bg_image_file_name, @product_introduction.page_bg_image.url %></div>
+    <% end %>
+  </div>
+
+
   <div class="actions">
     <%= f.submit %>
   </div>

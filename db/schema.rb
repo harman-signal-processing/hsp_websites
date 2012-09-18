@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120917202618) do
+ActiveRecord::Schema.define(:version => 20120918152035) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -695,8 +695,20 @@ ActiveRecord::Schema.define(:version => 20120917202618) do
     t.date     "expires_on"
     t.text     "content"
     t.text     "extra_css"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+    t.string   "top_image_file_name"
+    t.integer  "top_image_file_size"
+    t.string   "top_image_content_type"
+    t.datetime "top_image_updated_at"
+    t.string   "box_bg_image_file_name"
+    t.integer  "box_bg_image_file_size"
+    t.string   "box_bg_image_content_type"
+    t.datetime "box_bg_image_updated_at"
+    t.string   "page_bg_image_file_name"
+    t.integer  "page_bg_image_file_size"
+    t.string   "page_bg_image_content_type"
+    t.datetime "page_bg_image_updated_at"
   end
 
   add_index "product_introductions", ["product_id"], :name => "index_product_introductions_on_product_id"
