@@ -25,12 +25,16 @@ Someday figure out a better way to do all of this.
 	<%= javascript_include_tag 'istomp' %>
 	<style type="text/css">
 		div#content_container {
-			background: url(<%= image_path("#{website.folder}/#{@product_introduction.layout_class}/page_bg.png") %>) repeat-y bottom;
+			<% if @product_introduction.page_bg_image_file_name.present? %>
+			background: url(<%= @product_introduction.page_bg_image.url %>) repeat-y bottom;
+			<% end %>
 			padding-bottom: 4px;
 		}
+		<% if @product_introduction.box_bg_image_file_name.present? %>
 		div#introducing section {
-			background: url(<%= image_path("#{website.folder}/#{@product_introduction.layout_class}/box_bg.png") %>);
+			background: url(<%= @product_introduction.box_bg_image.url %>);
 		}
+		<% end %>
 		/*next button*/
 		.bx-next {
 			position:absolute;
@@ -72,7 +76,9 @@ Someday figure out a better way to do all of this.
 <% end %>
 
 <div id="introducing">
-	<h1><%= link_to(image_tag("#{website.folder}/#{@product_introduction.layout_class}/top.png", alt: "Introducing #{@product.name} for iStomp"), @product) %></h1>
+	<% if @product_introduction.top_image_file_name.present? %>
+	<h1><%= link_to(image_tag(@product_introduction.top_image.url, alt: "Introducing #{@product.name} for iStomp"), @product) %></h1>
+	<% end %>
 
 	<div class="middle_content_container">
 		<section id="istomp_content">
