@@ -2,6 +2,12 @@ require "domain_conditions"
 
 HarmanSignalProcessingWebsite::Application.routes.draw do
 
+  namespace :api, defaults: {format: 'json'} do
+    namespace :v1 do 
+      resources :brands, :product_families, :products
+    end
+  end
+
   resources :registered_downloads
   # debugging help
   match "/site_info" => 'main#site_info'

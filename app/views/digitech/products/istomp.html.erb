@@ -4,6 +4,8 @@
                  description: translate_content(@product, :short_description),
                  keywords: translate_content(@product, :keywords) %>
 
+<% @istomp = Product.find("istomp") || Product.new(name: "iStomp") %>
+
 <%= content_for :preload do %>
 	<%= image_tag("#{website.folder}/#{I18n.locale}/small_red_buyitnow_button_hover.png") %>
 	<% @product.product_attachments.each do |product_attachment| %>
@@ -53,11 +55,11 @@
 <% end # cache %>
 	
 <div id="coverflow_settings" data-changelabel="true"></div>
-<%= render_partial "products/istomp_coverflow", istomp: @product %>
+<%= render_partial "products/istomp_coverflow", istomp: @istomp %>
 	
 <section id="product_bottom_content">
 	<%= render_partial "products/featured_epedals_callout", position: :right %>
-	<%= render_partial "products/stomp_shop_callout", position: :left, istomp: @product %>
+	<%= render_partial "products/stomp_shop_callout", position: :left, istomp: @istomp %>
 	<div class="clear"></div>
 </section>
 

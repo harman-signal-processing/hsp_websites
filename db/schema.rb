@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120918152035) do
+ActiveRecord::Schema.define(:version => 20120918202704) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -33,6 +33,12 @@ ActiveRecord::Schema.define(:version => 20120918152035) do
     t.datetime "amp_image_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "api_keys", :force => true do |t|
+    t.string   "access_token"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "artist_brands", :force => true do |t|

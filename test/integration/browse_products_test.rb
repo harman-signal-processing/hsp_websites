@@ -66,7 +66,7 @@ describe "Browse Products Integration Test" do
     it "should compare products" do
       Website.any_instance.stubs(:show_comparisons).returns("1")
       visit product_family_url(@product_family, locale: I18n.default_locale, host: @website.url)
-      @product_family.products.each do |p|
+      @product_family.products[0,4].each do |p| # tick 4 for comparison
         find(:css, "#product_ids_[value='#{p.to_param}']").set(true)
       end
       click_on("Compare Selected Products")
