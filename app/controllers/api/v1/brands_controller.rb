@@ -5,28 +5,35 @@ module Api
       respond_to :json
       
       def index
-        respond_with Brand.all
+        @brands = Brand.all
+        respond_with @brands
+      end
+
+      def for_employee_store
+        @brands = Brand.for_employee_store
+        respond_with @brands
       end
       
       def show
-        respond_with Brand.find(params[:id])
+        @brand = Brand.find(params[:id])
+        respond_with @brand
       end
       
-      def create
-        respond_with Brand.create(params[:brand])
-      end
+      # def create
+      #   @brand = Brand.create(params[:brand])
+      #   respond_with @brand
+      # end
       
-      def update
-        respond_with Brand.update(params[:id], params[:brands])
-      end
+      # def update
+      #   @brand = Brand.update(params[:id], params[:brands])
+      #   respond_with @brand
+      # end
       
-      def destroy
-        respond_with Brand.destroy(params[:id])
-      end
+      # def destroy
+      #   @brand = Brand.destroy(params[:id])
+      #   respond_with @brand
+      # end
 
     end
   end
 end
-
-# Dev key:
-# 24da1c61be36b0090eb17f64b3a0b925

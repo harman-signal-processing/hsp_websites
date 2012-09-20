@@ -4,7 +4,10 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
 
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do 
-      resources :brands, :product_families, :products
+      resources :brands, only: [:index, :show] do 
+        collection { get :for_employee_store }
+      end
+      resources :product_families, :products
     end
   end
 

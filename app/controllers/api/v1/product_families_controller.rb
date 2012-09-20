@@ -1,17 +1,17 @@
 module Api
   module V1
-    class ProductsController < ApplicationController
+    class ProductFamiliesController < ApplicationController
       before_filter :restrict_api_access
       respond_to :json
       
       def index
-        @products = Product.all
-        respond_with @products
+        @product_families = ProductFamily.all
+        respond_with @product_families
       end
       
       def show
-        @product = Product.find(params[:id])
-        respond_with @product
+        @product_family = ProductFamily.find(params[:id])
+        respond_with @product_family
       end
       
       # def create

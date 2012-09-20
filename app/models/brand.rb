@@ -79,14 +79,12 @@ class Brand < ActiveRecord::Base
   # Those brands which should be included on the RSO site. This could
   # be controlled dynamically by a db field...later.
   def self.for_rso
-    # find_all_by_name(["BSS", "dbx", "Lexicon", "JBL Commercial", "DigiTech"])
-    [
-      find_by_name("BSS"), 
-      find_by_name("dbx"), 
-      find_by_name("Lexicon"),
-      find_by_name("JBL Commercial"),
-      find_by_name("DigiTech")
-    ]
+    where(name: ["BSS", "dbx", "Lexicon", "JBL Commercial", "DigiTech"])
+  end
+
+  # Those brands which should appear on the myharman.com store (via the API)
+  def self.for_employee_store
+    where(name: ["DigiTech", "Lexicon", "dbx"])
   end
     
   def has_where_to_buy?

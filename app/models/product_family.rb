@@ -78,6 +78,22 @@ class ProductFamily < ActiveRecord::Base
     pf
   end
 
+  # We flatten the families for the employee store. 
+  def employee_store_products
+    products = []
+    products += current_products_with_employee_pricing
+    children.each do |child|
+      products += child.employee_store_products
+    end
+    products.flatten.uniq
+  end
+
+  # TODO: use current_products_with_employee_pricing
+  def current_products_with_employee_pricing
+    # self.current_products.select{|p| p if p.harman_employee_price.present?}
+    self.current_products
+  end
+
   # Collection of all the locales where this ProductFamily should appear.
   # By definition, it should include ALL locales unless there is one or more
   # limitation specified.
