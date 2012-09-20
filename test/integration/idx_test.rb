@@ -5,7 +5,7 @@ describe "IDX Integration Test" do
   before do
     DatabaseCleaner.start
     @brand = FactoryGirl.create(:idx_brand)
-    @website = FactoryGirl.create(:website_with_products, folder: "pdx", brand: @brand)
+    @website = FactoryGirl.create(:website_with_products, folder: "idx", brand: @brand)
     host! @website.url
     Capybara.default_host = "http://#{@website.url}" 
     Capybara.app_host = "http://#{@website.url}" 
