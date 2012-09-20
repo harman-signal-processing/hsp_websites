@@ -57,6 +57,7 @@ gem 'country_select'
 gem 'rack-mini-profiler'
 gem 'ransack'
 gem "dalli"
+gem "rabl"
 gem "memcache-client" # moneta needs it
 # New Sound Community stuff
 #gem 'forem', git: "http://github.com/radar/forem.git"
