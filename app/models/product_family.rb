@@ -91,7 +91,7 @@ class ProductFamily < ActiveRecord::Base
   # TODO: use current_products_with_employee_pricing
   def current_products_with_employee_pricing
     # self.current_products.select{|p| p if p.harman_employee_price.present?}
-    self.current_products
+    self.current_products.select{|p| p if p.can_be_registered?}
   end
 
   # Collection of all the locales where this ProductFamily should appear.
