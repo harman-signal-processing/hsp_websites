@@ -35,6 +35,23 @@ describe "News Integration Test" do
   	end
   end
 
+  describe "future news story" do
+    before do
+      @news_story = FactoryGirl.create(:news, brand: @website.brand, post_on: 1.month.from_now, title: "Future News")
+    end
+
+    it "should not appear on the index" do
+      visit news_index_url(locale: I18n.default_locale, host: @website.url)
+      page.wont_have_link @news_story.title
+    end
+
+    it "link should redirect to the index" do
+      visit news_url(@news_story, locale: I18n.default_locale, host: @website.url)
+      current_path.must_equal(news_index_path(locale: I18n.default_locale))
+    end
+
+  end
+
   describe "old news" do
   	before do
   		@old_news = FactoryGirl.create(:old_news, brand: @website.brand)
