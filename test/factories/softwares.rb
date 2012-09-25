@@ -13,6 +13,14 @@ FactoryGirl.define do
     active true
     category "Desktop GUI"
     brand
+    factory :software_for_activation do
+      multipliers "[
+  {even: 0xf31a29b0, odd: 0xf33a29b3},
+  {even: 0x01fa39b1, odd: 0x7319b9b7},
+  {even: 0xcc232774, odd: 0xd6661891}
+]"
+      activation_name "cool_plugin"
+    end
   end
 
   factory :product_software do

@@ -25,7 +25,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get 'artists', to: 'artists#index', as: :artist_root
   end
   
-  match '/activate(/:software_name(/:challenge))' => 'softwares#activate'
+  match '/activate(/:software_name(/:challenge))' => 'softwares#activate', as: :software_activation
 
   match '/:registered_download_url/register(/:code)' => 'registered_downloads#register', as: :register_to_download
   match '/:registered_download_url/confirm' => 'registered_downloads#confirmation', as: :confirm_download_registration
