@@ -44,9 +44,9 @@ class SoftwaresController < ApplicationController
   # GET /download/1
   def download
     @software = Software.find(params[:id])
-    unless @software.brand == website.brand
-      redirect_to softwares_path and return
-    end
+    # unless @software.brand == website.brand
+    #   redirect_to softwares_path and return
+    # end
     @software.increment_count
     if !@software.link.blank?
       @software.link = "http://" + @software.link unless @software.link.match(/^http/)
