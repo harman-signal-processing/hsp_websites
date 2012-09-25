@@ -19,9 +19,9 @@ class SoftwaresController < ApplicationController
   # GET /softwares/1.xml
   def show
     @software = Software.find(params[:id])
-    unless @software.brand == website.brand
-      redirect_to softwares_path and return
-    end
+    # unless @software.brand == website.brand
+    #   redirect_to softwares_path and return
+    # end
     if @software.active? || can?(:manage, @software)
       @page_title = @software.formatted_name
       respond_to do |format|

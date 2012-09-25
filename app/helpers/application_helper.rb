@@ -122,7 +122,7 @@ module ApplicationHelper
 	def software_category_links(product, category="other")
 	  links = []
 	  product.softwares.each do |software|
-	    if software.category == category && software.active?
+	    if (software.category == category || (software.category.blank? && category=="other")) && software.active?
 	      icon = platform_icon(software)
 	      link = link_to(software.name, software_path(software, locale: I18n.locale))
 	      links << "#{icon} #{link} #{software.version}"
