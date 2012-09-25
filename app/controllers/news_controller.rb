@@ -25,7 +25,7 @@ class NewsController < ApplicationController
   # GET /news/1
   # GET /news/1.xml
   def show
-    if !website.news.include?(@news)
+    if !website.news.include?(@news) || (@news.post_on.to_date > Date.today && !(can?(:manage, @news)))
       redirect_to news_index_path and return
     end
     @old_news = !!(News.archived(website))
