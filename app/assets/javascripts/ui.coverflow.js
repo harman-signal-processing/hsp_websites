@@ -68,10 +68,11 @@
 			35 pedals = 0.01165
 			36 pedals = 0.01420
 			37 pedals = 0.01095
+			38 pedals = 0.01390
 
 			=============================================== 
 			*/
-			this.itemSize = (0.01095 * this.items.length) * this.items.innerWidth();
+			this.itemSize = (0.01390 * this.items.length) * this.items.innerWidth();
 			this.itemWidth = this.items.width();
 			this.itemHeight = this.items.height();
 			this.duration = o.duration;
