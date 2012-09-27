@@ -25,15 +25,6 @@
 </div>
 
 <div>
-	Family Banner:
-<% if !@product_family.family_banner_file_name.blank? %>
-  <%= image_tag @product_family.family_banner.url(:medium) %>
-<% else %>
-  <i>(none)</i>
-<% end %>
-</div>
-
-<div>
 	Title Banner:
 <% if !@product_family.title_banner_file_name.blank? %>
   <%= image_tag @product_family.title_banner.url(:medium) %>
