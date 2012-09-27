@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   # before_filter :set_locale
-  before_filter :deny_hackers
   before_filter :miniprofiler #, :set_default_meta_tags
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
@@ -161,11 +160,5 @@ private
         end
       end
     end
-
-  def deny_hackers
-    if !!(ENV["HTTP_X_FORWARDED_FOR"].match(/63\.235\.131\.24\d/)) # 9/2012 hacker
-      redirect_to "/denied.html" and return false
-    end
-  end
 
 end
