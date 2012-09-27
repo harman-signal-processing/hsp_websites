@@ -14,16 +14,7 @@
 	</span>
 	<% end %>
 </p>
-<p>
-  <%= f.label :family_banner %> <span class="hint">appears on the site's main products page if there are no sub-families</span><br />
-  <%= f.file_field :family_banner %>
-    <% if !f.object.family_banner_file_name.blank? %>
-	<span id="family_banner">
-		<%= link_to f.object.family_banner_file_name, f.object.family_banner.url %>
-		<%= link_to image_tag("trash.gif"), delete_family_banner_admin_product_family_path(f.object), remote: true %>
-	</span>
-	<% end %>
-</p>
+
 <p>
   <%= f.label :title_banner %> <span class="hint">appears on the top of this product family page</span><br />
   <%= f.file_field :title_banner %>

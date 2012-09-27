@@ -163,7 +163,7 @@ private
     end
 
   def deny_hackers
-    if ENV["HTTP_X_FORWARDED_FOR"] == "63.235.131.248"
+    if !!(ENV["HTTP_X_FORWARDED_FOR"].match(/63\.235\.131\.24\d/)) # 9/2012 hacker
       redirect_to "/denied.html" and return false
     end
   end
