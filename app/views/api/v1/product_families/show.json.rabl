@@ -2,7 +2,7 @@ object @product_family
 attributes :id, :name, :friendly_id
 
 child :employee_store_products do
-	attributes :id, :name, :friendly_id, :harman_employee_price, :msrp, :short_description
+	attributes :id, :name, :friendly_id, :harman_employee_price, :msrp, :sap_sku, :short_description
 	node(:thumbnail) { |product|
 		if Rails.env.production? || Rails.env.staging?
 			if product.photo

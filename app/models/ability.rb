@@ -42,6 +42,9 @@ class Ability
         cannot :manage, Website
         cannot :manage, Brand
       end
+      if user.role?(:sales_admin)
+        can :update, :harman_employee_pricing
+      end
       if user.role?(:rso_admin)
         can :update, User do |u|
           u.role?(:rso)
