@@ -4,6 +4,10 @@
    <div class="alert"><%= @msg %></div>
 <% end %>
 
+<% if Rails.env.development? %>
+<p>test link to local employee store: <%= link_to "http://localhost:3001/", "http://localhost:3001/" %></p>
+<% end %>
+
 
 <br/>
 <span class="small">
