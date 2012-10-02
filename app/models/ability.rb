@@ -44,6 +44,8 @@ class Ability
       end
       if user.role?(:sales_admin)
         can :update, :harman_employee_pricing
+        can :manage, InternationalDistributor
+        can :manage, Dealer
       end
       if user.role?(:rso_admin)
         can :update, User do |u|
@@ -55,6 +57,7 @@ class Ability
       if user.role?(:engineer)
         can :manage, Software
         can :manage, ProductSoftware
+
         can :manage, SoftwareAttachment
         can :manage, ToneLibrarySong
         can :manage, ToneLibraryPatch
