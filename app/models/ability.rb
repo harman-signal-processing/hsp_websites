@@ -44,7 +44,7 @@ class Ability
       end
       if user.role?(:sales_admin)
         can :update, :harman_employee_pricing
-        can :manage, InternationalDistributor
+        can :manage, Distributor
         can :manage, Dealer
       end
       if user.role?(:rso_admin)
