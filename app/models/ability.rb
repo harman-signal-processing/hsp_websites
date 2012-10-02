@@ -43,9 +43,12 @@ class Ability
         cannot :manage, Brand
       end
       if user.role?(:sales_admin)
+        can :read, Product
         can :update, :harman_employee_pricing
         can :manage, Distributor
         can :manage, Dealer
+        can :manage, OnlineRetailer
+        can :manage, OnlineRetailerLink
       end
       if user.role?(:rso_admin)
         can :update, User do |u|
