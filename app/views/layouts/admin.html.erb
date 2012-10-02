@@ -77,6 +77,7 @@
 		can?(:update, :rohs) ||
 		can?(:manage, Faq) ||
 		can?(:manage, Promotion) ||
+		can?(:update, :harman_employee_pricing) ||
 		can?(:manage, ToneLibrarySong) %>
 	<h3><%= image_tag "pricetag.png" %> Products, etc.</h3>
 	<ul>
@@ -85,6 +86,9 @@
 		<% end %>
 		<% if can?(:manage, Product) %>
 		<li><%= link_to "Products", admin_products_path %></li>
+		<% end %>
+		<% if can?(:manage, :harman_employee_pricing) %>
+		<li><%= link_to "Employee Pricing", harman_employee_pricing_admin_products_path %></li>
 		<% end %>
 		<% if website.has_audio_demos? && can?(:manage, AudioDemo) %>
 		<li><%= link_to "Audio Demos", admin_audio_demos_path %></li>

@@ -68,6 +68,10 @@ describe "API v1 Integration Test" do
 			must_have_content "\"harman_employee_price\":"
 		end
 
+		it "should have the SAP SKU" do
+			must_have_content "\"sap_sku\":" 
+		end
+
 		it "should provide a missing image url" do
 			must_have_content "http://#{@website.url}/assets/missing-image-22x22.png"
 			must_have_content "http://#{@website.url}/assets/missing-image-128x128.png"
