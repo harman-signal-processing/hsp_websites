@@ -67,7 +67,7 @@ describe "API v1 Integration Test" do
 		before do
 			@product = @digitech.products.first
 			visit api_v1_product_url(@product.friendly_id, host: @website.url)
-		end		
+		end	
 
 		it "should have the product description" do
 			must_have_content @product.description
@@ -80,6 +80,10 @@ describe "API v1 Integration Test" do
 
 		it "should have the SAP SKU" do
 			must_have_content "\"sap_sku\":" 
+		end
+
+		it "should have the full URL to the product" do 
+			must_have_content product_url(@product, host: @product.brand.default_website.url, locale: I18n.default_locale)
 		end
 
 		it "should provide a missing image url" do

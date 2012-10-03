@@ -84,7 +84,7 @@ class Brand < ActiveRecord::Base
 
   # Those brands which should appear on the myharman.com store (via the API)
   def self.for_employee_store
-    where(name: ["DigiTech", "Lexicon", "dbx"])
+    where(name: ["DigiTech", "Lexicon", "dbx", "DOD"])
   end
     
   def has_where_to_buy?

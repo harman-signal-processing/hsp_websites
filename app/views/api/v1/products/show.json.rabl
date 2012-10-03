@@ -34,5 +34,5 @@ node(:photo) { |product|
 }	
 
 node(:url) {|product|
-	product_url(product, host: product.brand.default_website.url)
+	product_url(product, host: product.brand.default_website.url, locale: I18n.default_locale)
 }
