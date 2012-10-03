@@ -53,6 +53,16 @@ describe "API v1 Integration Test" do
 		end
 	end
 
+	describe "get brand featured products" do
+		before do
+			visit api_v1_brand_features_path(@lexicon.friendly_id, host: @website.url)
+		end
+
+		it "should have an array of products" do
+			must_have_content "\"name\":"
+		end
+	end
+
 	describe "get an individual product without an image" do
 		before do
 			@product = @digitech.products.first

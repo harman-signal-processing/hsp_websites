@@ -8,6 +8,13 @@ module Api
         @products = Product.all
         respond_with @products
       end
+
+      # TODO: actually control featured products
+      def features
+        @brand = Brand.find(params[:id])
+        @products = @brand.product_families.map{|p| p.employee_store_products}.flatten.uniq.shuffle[0,3]
+        respond_with @products
+      end
       
       def show
         @product = Product.find(params[:id])
