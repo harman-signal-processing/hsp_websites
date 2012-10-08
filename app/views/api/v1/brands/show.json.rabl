@@ -1,5 +1,5 @@
 object @brand
-attributes :id, :name, :friendly_id
+attributes :id, :name, :friendly_id, :api_banner_url
 node(:url) { |brand| brand.default_website.url }
 
 child :product_families do
