@@ -194,4 +194,19 @@ class Brand < ActiveRecord::Base
   def admin_actions(num_days=365)
     AdminLog.where(website_id: self.websites.collect{|w| w.id}).where("created_at > ?", num_days.days.ago)
   end
+
+  # For the api, picks a slideshow banner.
+  def api_banner_url
+    if default = self.value_for("api_banner_url")
+      default
+    else
+      slides = Setting.slides(self.default_website)
+      if slides.size > 1
+        slides.sample.slide.url(:original, false)
+      else
+        nil
+      end
+    end
+  end
+
 end
