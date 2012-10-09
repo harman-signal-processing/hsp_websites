@@ -9,6 +9,8 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
+  gem "compass-rails", ">= 1.0.3"
+  gem "zurb-foundation", ">= 3.0.9"
 end
 
 # jquery-rails 2.1.1 broke the coverflow. Looks like
@@ -53,6 +55,7 @@ gem 'execjs'
 gem 'therubyracer' # installs OS dependent gem. Put production version in vendor/cache manually
 gem 'rubyzip', require: 'zip/zip'
 gem 'whenever' #, require: false
+gem "simple_form", ">= 2.0.2"
 gem 'country_select'
 gem 'rack-mini-profiler'
 gem 'ransack'

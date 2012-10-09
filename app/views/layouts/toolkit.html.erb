@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "HSP Marketing Toolkit" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "HSP Marketing Toolkit" %>">
+    <%= stylesheet_link_tag "toolkit", :media => "all" %>
+    <%= javascript_include_tag "toolkit_application" %>
+    <%= csrf_meta_tags %>
+    <%= yield(:head) %>
+  </head>
+  <body>
+
+  <!-- Header and Nav -->
+  
+  <nav class="top-bar">
+    <ul>
+      <li class="name"><h1><%= link_to "Harman Signal Processing Marketing Toolkit", toolkit_root_path %></h1></li>
+    </ul>
+    <section>
+      <ul class="right">
+        <% if user_signed_in? %>
+          <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
+        <% else %>
+          <li><%= link_to 'Login', new_user_session_path %></li>
+        <% end %>
+        <li class="divider"></li>
+        <% if user_signed_in? %>
+          <li><%= link_to 'My account', edit_user_registration_path %></li>
+          <% if current_user.has_role? :admin %>
+            <li class="divider"></li>
+            <li><%= link_to 'Admin', users_path %></li>
+          <% end %>
+        <% else %>
+          <li><%= link_to 'Sign up', new_user_registration_path %></li>
+        <% end %>
+      </ul>
+    </section>
+  </nav>
+  
+  <!-- End Header and Nav -->
+		<div class="row">
+
+			<% flash.each do |name, msg| %>
+				<% 
+					css_class = 'alert-box'
+					if name.match(/notice/i) 
+						css_class += ' success'
+					elsif name.match(/alert|warn/)
+						css_class += ' alert'
+					else
+						css_class += ' secondary'
+					end
+				%>
+
+			  	<%= content_tag :div, msg, class: css_class if msg.is_a?(String) %>
+			<% end %>
+
+			<%= yield %>
+			
+		</div>
+
+  <!-- Footer -->
+  
+  <footer class="row">
+    <div class="twelve columns">
+      <hr />
+      <div class="row" style="text-align: center">
+        	<p><%= Brand.order("name").all.map do |b| 
+        			link_to(b.name, b.default_website.url, target: "_blank")
+        		   end.join(", ").html_safe %></p>
+          <small>
+            Harman Signal Processing &bull; 8760 South Sandy Parkway, Sandy, UT 84070 &bull; (801)566-8800
+          </small>
+        </div>
+      </div>
+    </div> 
+  </footer>
+
+	</body>
+</html>

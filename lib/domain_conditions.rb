@@ -5,7 +5,7 @@
 #
 class DigitechDomain
   def self.matches?(request)
-    !!(request.host.match(/digitech\.com/i) || request.host.match(/lvh\.me/i))
+    !!(request.host.match(/digitech\.com/i) || request.host.match(/digitech\.lvh\.me/i))
   end
 end
 
@@ -36,5 +36,11 @@ end
 class BssDomain
   def self.matches?(request)
     !!(request.host.match(/bssaudio\.com/i) || request.host.match(/bss\.co\.uk/i))
+  end
+end
+
+class ToolkitDomain
+  def self.matches?(request)
+    !!(request.host.match(/toolkit/i))
   end
 end

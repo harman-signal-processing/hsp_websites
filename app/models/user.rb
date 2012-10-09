@@ -34,14 +34,33 @@ class User < ActiveRecord::Base
     :engineer,
     :rohs,
     :clinician,
-    :rep,
     :clinic_admin,
+    :rep,
+    :distributor,
+    :dealer,
+    :marketing_staff,
     :rso,
     :rso_admin,
     :sales_admin,
     :invitation_code
   
-  ROLES = %w[admin online_retailer customer_service translator market_manager artist_relations engineer rohs clinician rep clinic_admin rso rso_admin sales_admin]
+  ROLES = %w[admin 
+    online_retailer 
+    customer_service 
+    translator 
+    market_manager 
+    artist_relations 
+    engineer 
+    rohs 
+    clinician 
+    clinic_admin 
+    rep 
+    distributor
+    dealer
+    marketing_staff
+    rso 
+    rso_admin 
+    sales_admin]
   
   def to_s
     self.name

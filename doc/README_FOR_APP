@@ -25,6 +25,10 @@ What you will need to change is: itemid=100170580&subitemid=358897 based on the 
 
 === TODO (for all brands) ===
 * Employee purchases
+ - Kimm needs to update pricing
+ - Remove password from nginx config
+ - Work with IT to purchase SSL cert for myharman.digitech.com
+ - Work with IT to get links directed to myharman.digitech.com
 * Marketing Toolkits
 * Add JBL to common Hpro footer
 * Fix dealer export from SAP

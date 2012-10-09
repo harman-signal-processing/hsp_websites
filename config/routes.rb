@@ -12,6 +12,10 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     end
   end
 
+  constraints(ToolkitDomain) do 
+    match '/' => 'toolkit#index', as: :toolkit_root
+  end
+
   resources :registered_downloads
   # debugging help
   match "/site_info" => 'main#site_info'
