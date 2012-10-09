@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121002165153) do
+ActiveRecord::Schema.define(:version => 20121009170505) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -1259,6 +1259,9 @@ ActiveRecord::Schema.define(:version => 20121002165153) do
     t.boolean  "rso"
     t.boolean  "rso_admin"
     t.boolean  "sales_admin"
+    t.boolean  "dealer"
+    t.boolean  "distributor"
+    t.boolean  "marketing_staff"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

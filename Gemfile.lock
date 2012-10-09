@@ -90,6 +90,7 @@ GEM
     childprocess (0.3.5)
       ffi (~> 1.0, >= 1.0.6)
     chronic (0.6.7)
+    chunky_png (1.2.6)
     cocaine (0.4.0)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -98,6 +99,12 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.3.3)
+    compass (0.12.2)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.1)
+    compass-rails (1.0.3)
+      compass (>= 0.12.2, < 0.14)
     country_select (1.0.1)
     daemons (1.1.9)
     dalli (2.2.1)
@@ -126,6 +133,7 @@ GEM
     ffi (1.1.5)
     friendly_id (3.3.3.0)
       babosa (~> 0.3.0)
+    fssm (0.2.9)
     geocoder_plus (0.4.0)
       geokit (>= 1.5.0)
       yajl-ruby (>= 0.8.2)
@@ -169,6 +177,9 @@ GEM
       minitest (>= 2.5.0)
     mocha (0.12.6)
       metaclass (~> 0.0.1)
+    modular-scale (1.0.2)
+      compass (>= 0.11.5)
+      sassy-math (>= 1.2)
     moneta (0.6.0)
     multi_json (1.3.6)
     multipart-post (1.1.5)
@@ -250,6 +261,8 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
+    sassy-math (1.2)
+      compass (~> 0.11)
     selenium-webdriver (2.25.0)
       childprocess (>= 0.2.5)
       libwebsocket (~> 0.1.3)
@@ -257,6 +270,9 @@ GEM
       rubyzip
     shoulda-matchers (1.4.0)
       activesupport (>= 3.0.0)
+    simple_form (2.0.4)
+      actionpack (~> 3.0)
+      activemodel (~> 3.0)
     simple_oauth (0.1.9)
     spreadsheet (0.7.4)
       ruby-ole (>= 1.0)
@@ -275,7 +291,7 @@ GEM
       riddle (>= 1.5.0)
     thor (0.16.0)
     tilt (1.3.3)
-    tinymce-rails (3.5.6)
+    tinymce-rails (3.5.7)
       railties (>= 3.1.1)
     to_xls (1.5.1)
       spreadsheet
@@ -312,6 +328,11 @@ GEM
       oauth (~> 0.4.4)
       oauth2 (~> 0.6)
       simple_oauth (~> 0.1.5)
+    zurb-foundation (3.1.1)
+      compass (>= 0.12.2)
+      modular-scale (>= 1.0.2)
+      rake
+      sass (>= 3.2.0)
 
 PLATFORMS
   ruby
@@ -327,6 +348,7 @@ DEPENDENCIES
   capybara-webkit
   capybara_minitest_spec
   coffee-rails (~> 3.2.1)
+  compass-rails (>= 1.0.3)
   country_select
   daemons
   dalli
@@ -363,6 +385,7 @@ DEPENDENCIES
   recaptcha
   rubyzip
   sass-rails (~> 3.2.3)
+  simple_form (>= 2.0.2)
   swf_fu (>= 1.3.4)
   therubyracer
   thinking-sphinx (= 2.0.10)
@@ -375,3 +398,4 @@ DEPENDENCIES
   whenever
   will_paginate
   youtube_it
+  zurb-foundation (>= 3.0.9)

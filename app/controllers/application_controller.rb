@@ -39,6 +39,8 @@ class ApplicationController < ActionController::Base
       elsif File.exists?(Rails.root.join("app", "views", "#{brand_specific}.html.erb"))
         template = brand_specific
       end
+    elsif devise_controller? && resource_name == :user
+      template = 'toolkit'
     end
     template
   end

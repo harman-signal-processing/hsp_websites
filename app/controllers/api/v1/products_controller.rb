@@ -1,6 +1,7 @@
 module Api
   module V1
     class ProductsController < ApplicationController
+      skip_before_filter :miniprofiler
       before_filter :restrict_api_access
       respond_to :json
       
