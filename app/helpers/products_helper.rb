@@ -211,7 +211,7 @@ module ProductsHelper
   end
 
   def buy_it_now_usa(product, button)
-    if product.active_retailer_links(false).size > 0
+    if product.active_retailer_links.size > 0
       # tracker = (Rails.env.production?) ? "_gaq.push(['_trackEvent', 'BuyItNow', 'USA', '#{product.name}']);" : ""
       # link_to_function button, "#{tracker}popup('dealer_popup');"
       link_to(button, 

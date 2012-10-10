@@ -1,0 +1,25 @@
+<%= content_for :breadcrumbs do %>
+  <li><%= link_to @brand.name, [:toolkit, @brand] %></li>
+  <li class="current"><%= link_to "#{@brand.name} Promotions" %></li>
+<% end %>
+
+<%= content_for :title do %><%= @brand.name %> Promotions<% end %>
+
+<table>
+	<thead>
+	<tr>
+		<th>Promotion</th>
+		<th>Products</th>
+		<th>Dates</th>
+	</tr>
+	</thead>
+	<tbody>
+	<% @brand.promotions.reverse.each do |promotion| %>
+	<tr>
+		<td><%= link_to promotion.name, toolkit_brand_promotion_path(@brand, promotion) %></td>
+		<td><%=raw promotion.products.map{|p| link_to(p.name, toolkit_brand_product_path(@brand, p))}.join(", ") %></td>
+		<td><%=l promotion.start_on, format: :short %> to <%=l promotion.end_on, format: :short %></td>
+	</tr>
+	<% end %>
+	</tbody>
+</table>

@@ -159,12 +159,18 @@ class Product < ActiveRecord::Base
     rp.uniq
   end
 
-  def active_retailer_links(random=true)
-    arl = self.online_retailer_links.select{|orl| orl if orl.online_retailer.active}
-    if random 
-      arl = arl.sort_by{rand}
-    end
-    arl
+  # Selects all ACTIVE retailer links for this Product EXCEPT for
+  # those that are preferred
+  def active_retailer_links
+    @active_retailer_links ||= self.online_retailer_links.select{|orl| orl if orl.online_retailer.active}
+  end
+
+  def randomized_retailer_links
+    @randomized_retailer_links ||= active_retailer_links.sort_by{rand}
+  end
+
+  def preferred_retailer_links
+    @preferred_retailer_links ||= active_retailer_links.select{|orl| orl if orl.online_retailer.preferred.to_i > 0}
   end
   
   # Collect tabs of info to be displayed on product page.

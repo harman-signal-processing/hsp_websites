@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121009170505) do
+ActiveRecord::Schema.define(:version => 20121010205146) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -529,6 +529,7 @@ ActiveRecord::Schema.define(:version => 20121009170505) do
     t.datetime "updated_at"
     t.string   "cached_slug"
     t.string   "direct_link"
+    t.integer  "preferred"
   end
 
   add_index "online_retailers", ["cached_slug"], :name => "index_online_retailers_on_cached_slug", :unique => true

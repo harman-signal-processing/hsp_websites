@@ -74,7 +74,7 @@
 </div>
 <% end # cache %>
 
-<% if session["geo_usa"] %>
+<% if session["geo_usa"] && !@online_retailer_link %>
 <%= content_for :dealer_popup do %>
 	<%= cache ["online_retailer_links_for", @product] do %>
 	<div>

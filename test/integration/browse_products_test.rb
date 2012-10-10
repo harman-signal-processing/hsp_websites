@@ -102,21 +102,5 @@ describe "Browse Products Integration Test" do
     end
 
   end
-
-  describe "product page" do
-    before do
-      @product = @website.products.first
-      @online_retailer = FactoryGirl.create(:online_retailer)
-      @retailer_link = FactoryGirl.create(:online_retailer_link, online_retailer: @online_retailer, product: @product, brand: @website.brand)
-      visit product_url(@product, locale: I18n.default_locale, host: @website.url)
-    end
-
-    it "should have buy it now links with RETAILER google tracker" do
-      # Best I match is the beginning of the tracker onclick code. The entire code is:
-      # tracker = "_gaq.push(['_trackEvent', 'BuyItNow-Dealer', '#{@online_retailer.name}', '#{@product.name}'])"
-      page.must_have_xpath("//a[@href='#{@retailer_link.url}'][starts-with(@onclick, '_gaq.push')]")
-    end
-
-  end
-  
+ 
 end

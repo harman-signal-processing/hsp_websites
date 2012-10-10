@@ -14,6 +14,11 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
 
   constraints(ToolkitDomain) do 
     match '/' => 'toolkit#index', as: :toolkit_root
+    namespace :toolkit do
+      resources :brands, only: :show do 
+        resources :products, :promotions, only: [:index, :show]
+      end
+    end
   end
 
   resources :registered_downloads

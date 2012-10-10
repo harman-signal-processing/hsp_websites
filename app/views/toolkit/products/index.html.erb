@@ -1,0 +1,25 @@
+<%= content_for :breadcrumbs do %>
+  <li><%= link_to @brand.name, [:toolkit, @brand] %></li>
+  <li class="current"><%= link_to "#{@brand.name} Products" %></li>
+<% end %>
+
+<%= content_for :title do %><%= @brand.name %> Products<% end %>
+
+<table>
+	<thead>
+	<tr>
+		<th>Product</th>
+		<th>Product Type</th>
+		<th>Updated</th>
+	</tr>
+	</thead>
+	<tbody>
+	<% @brand.current_products.each do |product| %>
+	<tr>
+		<td><%= link_to product.name, toolkit_brand_product_path(@brand, product) %></td>
+		<td><%= product.product_families.map{|pf| pf.name}.join(", ") %></td>
+		<td><small><%=l product.updated_at, format: :log %></small></td>
+	</tr>
+	<% end %>
+	</tbody>
+</table>

@@ -16,6 +16,15 @@
   <nav class="top-bar">
     <ul>
       <li class="name"><h1><%= link_to "Harman Signal Processing Marketing Toolkit", toolkit_root_path %></h1></li>
+      <li class="toggle-topbar"><a href="#"></a></li>
+      <li class="divider"></li>
+      <li class="has-dropdown"><a href="#">Brands</a>
+        <ul class="dropdown">
+          <% toolkit_brands.each do |brand| %>
+          <li><%= link_to brand.name, [:toolkit, brand] %></li>
+          <% end %>
+        </ul>
+      </li>
     </ul>
     <section>
       <ul class="right">
@@ -37,7 +46,16 @@
       </ul>
     </section>
   </nav>
-  
+
+  <% if content_for?(:breadcrumbs) %>
+  <div class="row">
+    <ul class="breadcrumbs">
+      <li><a href="/">Home</a></li>
+      <%= yield :breadcrumbs %>
+    </ul>
+  </div>
+  <% end %>
+
   <!-- End Header and Nav -->
 		<div class="row">
 
@@ -66,8 +84,9 @@
     <div class="twelve columns">
       <hr />
       <div class="row" style="text-align: center">
-        	<p><%= Brand.order("name").all.map do |b| 
-        			link_to(b.name, b.default_website.url, target: "_blank")
+          <h6 class="subheader">HSP Brand Sites:</h6>
+        	<p><%= toolkit_brands.map do |b| 
+        			link_to(b.name, "http://#{b.default_website.url}", target: "_blank")
         		   end.join(", ").html_safe %></p>
           <small>
             Harman Signal Processing &bull; 8760 South Sandy Parkway, Sandy, UT 84070 &bull; (801)566-8800

@@ -20,6 +20,9 @@
 </p>
 <% if can? :disable, f.object %>
 <p>
+  <%= f.text_field :preferred, size: 4 %> <%= f.label :preferred, "Preference score (nearly always blank)" %>
+</p>
+<p>
   <%= f.check_box :active %> <%= f.label :active %> (warning, this will affect all brand sites on this new platform)
 </p>
 <% end %>

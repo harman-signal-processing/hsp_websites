@@ -1,0 +1,18 @@
+<%= content_for :breadcrumbs do %>
+  <li class="current"><a href="#"><%= @brand.name %></a></li>
+<% end %>
+
+<%= content_for :title do %><%= @brand.name %> Toolkit<% end %>
+
+<div class="two columns">
+	<ul class="nav-bar vertical">
+		<li><%= link_to "Logos" %></li>
+		<li><%= link_to "Products", toolkit_brand_products_path(@brand) %></li>
+		<li><%= link_to "Promotions", toolkit_brand_promotions_path(@brand) %></li>
+	</ul>
+</div>
+<div class="ten columns">
+	<h3><%= @brand.name %> <small>Toolkit Resources</small></h3>
+
+	(put the latest stuff here)
+</div>
