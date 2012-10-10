@@ -1,8 +1,9 @@
 FactoryGirl.define do
    
   factory :online_retailer do
-  	name "Musicians Enemy"
+    sequence(:name) {|n| "Musicians Enemy #{n}"}
   	active true
+    preferred nil
   end
 
   factory :online_retailer_link do

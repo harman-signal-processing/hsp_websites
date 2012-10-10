@@ -4,7 +4,7 @@ class Tweet < ActiveRecord::Base
 
   def self.pull_tweets(brand)
   	if twitter_name = brand.twitter_name
-	  Twitter.user_timeline(twitter_name, since: 1.month.ago).each do |tweet|
+	  Twitter.user_timeline(twitter_name, since: 1.week.ago).each do |tweet|
         unless exists?(tweet_id: tweet.id)
       	  create!(
         		tweet_id: tweet.id,

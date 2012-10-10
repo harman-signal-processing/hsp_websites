@@ -36,7 +36,7 @@ class ProductsController < ApplicationController
       online_retailer = OnlineRetailer.find(params[:bin])
       @online_retailer_link = online_retailer.online_retailer_links.where(product_id: @product.id).first
     elsif params[:rbin]
-      @online_retailer_link = @product.active_retailer_links.first # already randomized
+      @online_retailer_link = @product.randomized_retailer_links.first # already randomized
     end
     @active_tab = params[:tab] || 'description'
     respond_to do |format|
@@ -113,7 +113,7 @@ class ProductsController < ApplicationController
           render_template
         end
       }
-      format.xml { render xml: @product.active_retailer_links }
+      format.xml { render xml: @product.randomized_retailer_links }
     end
   end
   

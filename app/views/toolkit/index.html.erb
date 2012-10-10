@@ -1,2 +1,17 @@
-<h1>Welcome to the Marketing Toolkit</h1>
+<h1 style="text-align: center">Welcome to the Marketing Toolkit</h1>
+
+<div class="six columns offset-by-three panel" style="text-align: center">
+	<% toolkit_brands.each do |brand| %>
+		<% if brand.logo.present? %>
+				<%= link_to(image_tag(brand.logo.url(:thumb), style: "margin: 10px"), [:toolkit, brand]) %>
+		<% end %>
+		<% end %>
+	<ul>
+	<% toolkit_brands.each do |brand| %>
+		<% if brand.logo.blank? %>
+		<li><%= link_to(image_tag(brand.logo), [:toolkit, brand]) %></li>
+		<% end %>
+	<% end %>
+	</ul>
+</div>
 

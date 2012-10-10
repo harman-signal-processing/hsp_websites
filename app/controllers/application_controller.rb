@@ -16,7 +16,8 @@ class ApplicationController < ActionController::Base
 
   # This method is getting complicated...It chooses the appropriate layout file based on
   # several criteria: whether or not this is a devise (user login) controller, whether or
-  # not the website's brand has a custom layout (usually should), etc.
+  # not the website's brand has a custom layout (usually should), etc., whether or not
+  # the 'website' object exists (if not, this is the toolkit)...
   #
   def set_layout
     template = 'application'
