@@ -1,23 +1,21 @@
-# require "minitest_helper"
+require "minitest_helper"
 
-###############
-# This might be a nice place to put some tests someday. For now,
-# commenting out since I plan to do most of the testing as Integration tests
-##############
+describe Product do 
 
-# describe Product do 
-#   let(:rp666) { FactoryGirl.create(:product, name: "RP-666") }
+	describe "hardwire pedal" do
   
-#   context "database" do
-#     it "should have a name" do
-#       must have_db_column(:name).of_type(:string)
-#     end
-#   end
+	  before do
+	  	@hardwire = FactoryGirl.create(:hardwire_brand)
+	  	@product = FactoryGirl.create(:product, name: "EZ-7", brand: @hardwire) 
+	  	@digitech = FactoryGirl.create(:digitech_brand)
+	  	@pedals = FactoryGirl.create(:product_family, brand: @digitech)
+	  	FactoryGirl.create(:product_family_product, product: @product, product_family: @pedals)
+	  end
+
+	  it "should be part of digitech products" do
+	    @digitech.products.must_include(@product)
+	  end
+
+  	end
   
-#   context "instance methods" do
-#     it "#name returns the name" do
-#       rp666.name.must_equal "RP-666"
-#     end
-#   end
-  
-# end
+end
