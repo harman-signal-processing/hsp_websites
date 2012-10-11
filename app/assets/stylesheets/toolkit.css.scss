@@ -8,9 +8,12 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require_self
  *= require foundation_and_overrides
+ *= require_self
 */
+body {
+  background: #EEE;
+}
 .brand {
   float: left;
   padding-right: 8px;
@@ -45,4 +48,10 @@ div.twelve {
   h3 {
     text-align: center;
   }
+}
+div#main {
+  background: #FFF;
+  padding-bottom: 10px;
+  min-height: 200px;
+  box-shadow: 1px 2px 2px #999;
 }

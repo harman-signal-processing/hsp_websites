@@ -4,6 +4,8 @@
   <li class="current"><%= link_to @promotion.name %></li>
 <% end %>
 
+<%= render "toolkit/brands/left_nav" %>
+
 <%= content_for :title do %><%= @brand.name %> <%= @promotion.name %><% end %>
 
 <pre><%= @promotion.to_yaml %></pre>
