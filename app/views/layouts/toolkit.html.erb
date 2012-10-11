@@ -12,10 +12,11 @@
   <body>
 
   <!-- Header and Nav -->
-  
+  <header>
+    <div class="container">
   <nav class="top-bar">
     <ul>
-      <li class="name"><h1><%= link_to "Harman Signal Processing Marketing Toolkit", toolkit_root_path %></h1></li>
+      <li class="name"><h1><%= link_to "HSP Marketing Toolkit", toolkit_root_path %></h1></li>
       <li class="toggle-topbar"><a href="#"></a></li>
       <li class="divider"></li>
       <li class="has-dropdown"><a href="#">Brands</a>
@@ -46,37 +47,63 @@
       </ul>
     </section>
   </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="twelve columns">
+        <% flash.each do |name, msg| %>
+          <% 
+            css_class = 'alert-box'
+            if name.match(/notice/i) 
+              css_class += ' success'
+            elsif name.match(/alert|warn/)
+              css_class += ' alert'
+            else
+              css_class += ' secondary'
+            end
+          %>
+
+            <%= content_tag :div, msg, class: css_class if msg.is_a?(String) %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 
   <% if content_for?(:breadcrumbs) %>
-  <div class="row">
-    <ul class="breadcrumbs">
-      <li><a href="/">Home</a></li>
-      <%= yield :breadcrumbs %>
-    </ul>
+  <div class="container">
+    <div class="row">
+      <ul class="breadcrumbs">
+        <li><a href="/">Home</a></li>
+        <%= yield :breadcrumbs %>
+      </ul>
+    </div>
   </div>
   <% end %>
 
-  <!-- End Header and Nav -->
-		<div class="row">
-
-			<% flash.each do |name, msg| %>
-				<% 
-					css_class = 'alert-box'
-					if name.match(/notice/i) 
-						css_class += ' success'
-					elsif name.match(/alert|warn/)
-						css_class += ' alert'
-					else
-						css_class += ' secondary'
-					end
-				%>
-
-			  	<%= content_tag :div, msg, class: css_class if msg.is_a?(String) %>
-			<% end %>
-
-			<%= yield %>
+  <div class="container">
+    <% if content_for?(:left_nav) %>
+    <div class="row">
+      <div class="two columns">
+          <ul class="nav-bar vertical">
+            <%= yield :left_nav %>
+          </ul>
+      </div>
+      <div class="ten columns" id="main">
+			 <%= yield %>
+      </div>
+    </div>
+    <% else %>
+    <div class="row">
+      <div class="twelve columns" id="main">
+        <%= yield %>
+      </div>
+    </div>
+    <% end %>
 			
-		</div>
+    </div>
+	</div>
 
   <!-- Footer -->
   

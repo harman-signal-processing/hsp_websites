@@ -5,7 +5,11 @@
 
 <%= content_for :title do %><%= @brand.name %> Products<% end %>
 
-<table>
+<%= render "toolkit/brands/left_nav" %>
+
+<h3><%= @brand.name %> Products</h3>
+
+<table style="width: 100%">
 	<thead>
 	<tr>
 		<th>Product</th>
