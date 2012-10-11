@@ -41,7 +41,7 @@
 					MSRP <span class="strike"><%= number_to_currency(@product.msrp) %></span><br/>
 					Save <%= number_to_currency(@product.msrp.to_f - @product.sale_price.to_f) %>!
 				</p>
-			  <% else @product.msrp %>
+			  <% else %>
 				<p>
 					MSRP <%= number_to_currency(@product.msrp) %>
 				</p>
