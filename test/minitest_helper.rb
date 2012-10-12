@@ -81,6 +81,17 @@ class MiniTest::Rails::Integration
     Capybara.use_default_driver # Revert Capybara.current_driver to Capybara.default_driver
   end
 
+  def setup_toolkit_brands
+    @digitech = FactoryGirl.create(:digitech_brand)
+    @digitech_site = FactoryGirl.create(:website_with_products, folder: "digitech", brand: @digitech)
+    @lexicon  = FactoryGirl.create(:lexicon_brand)
+    @lexicon_site = FactoryGirl.create(:website_with_products, folder: "lexicon", brand: @lexicon)
+    @bss = FactoryGirl.create(:bss_brand)
+    # @bss_site = FactoryGirl.create(:website_with_products, folder: "bss", brand: @bss)
+    @dbx = FactoryGirl.create(:dbx_brand)
+    @dbx_site = FactoryGirl.create(:website_with_products, folder: "dbx", brand: @dbx)
+  end
+
 end
 
 Turn.config.format = :outline

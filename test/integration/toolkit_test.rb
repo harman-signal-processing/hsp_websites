@@ -4,14 +4,7 @@ describe "Toolkit Integration Test" do
 
   before do
     DatabaseCleaner.start
-    @digitech = FactoryGirl.create(:digitech_brand)
-    @digitech_site = FactoryGirl.create(:website_with_products, folder: "digitech", brand: @digitech)
-    @lexicon  = FactoryGirl.create(:lexicon_brand)
-    @lexicon_site = FactoryGirl.create(:website_with_products, folder: "lexicon", brand: @lexicon)
-    @bss = FactoryGirl.create(:bss_brand)
-    # @bss_site = FactoryGirl.create(:website_with_products, folder: "bss", brand: @bss)
-    @dbx = FactoryGirl.create(:dbx_brand)
-    @dbx_site = FactoryGirl.create(:website_with_products, folder: "dbx", brand: @dbx)
+    setup_toolkit_brands
     @host = "test.toolkit.lvh.me"
     host! @host
     Capybara.default_host = "http://#{@host}" 
@@ -19,10 +12,18 @@ describe "Toolkit Integration Test" do
   end
   
   describe "homepage" do
-  	it "should use the toolkit layout" do
-  		visit root_url(host: @host)
+    before do
+      visit toolkit_root_url(host: @host)
+    end
+
+  	it "should use the toolkit layout" do	
   		must_have_content "Marketing Toolkit"
   	end
+
+    it "should link to brand pages" do
+      brand = Brand.last
+      must_have_link brand.name, href: toolkit_brand_path(brand, locale: I18n.default_locale)
+    end
   end
 
   describe "devise user accounts" do
@@ -31,5 +32,37 @@ describe "Toolkit Integration Test" do
   		must_have_content "Marketing Toolkit"
   	end
   end
+
+  describe "brand page" do
+    before do
+      @brand = Brand.last
+      visit toolkit_brand_url(@brand, host: @host)
+    end
+
+    it "should use the toolkit layout" do
+      must_have_content "Marketing Toolkit"
+    end
+
+    it "should have links to products" do
+      must_have_link "Products", href: toolkit_brand_products_path(@brand, locale: I18n.default_locale)
+    end
+
+    it "should have links to promotions" do
+      must_have_link "Promotions", href: toolkit_brand_promotions_path(@brand, locale: I18n.default_locale)
+    end
+  end
+
+  describe "product pages" do
+    before do
+      @brand = Brand.last
+      @product = FactoryGirl.create(:product, brand: @brand)
+      visit toolkit_brand_product_url(@brand, @product, host: @host)
+    end
+
+    it "index should link to product" do
+      must_have_link @product.name, href: toolkit_brand_product_path(@brand, @product, locale: I18n.default_locale)
+    end
+  end
+
 
 end
