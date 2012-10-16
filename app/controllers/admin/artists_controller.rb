@@ -89,9 +89,12 @@ class Admin::ArtistsController < AdminController
   # PUT /admin/artists/1
   # PUT /admin/artists/1.xml
   def update
+    # render text: params[:artist].to_yaml
     params[:artist][:skip_unapproval] = true
-    if params[:artist][:approved]
+    if !!(params[:artist][:approved].to_i > 0)
       params[:artist][:approver_id] = current_user.id
+    else
+      params[:artist][:approver_id] = nil
     end
     @artist_brand = ArtistBrand.find_or_create_by_artist_id_and_brand_id(@artist.id, website.brand_id)
     respond_to do |format|
