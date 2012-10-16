@@ -809,27 +809,27 @@ div#product_content.horizontal {
 			z-index: 500;
 			text-align: left;
 			#product_basics_bottom {
-				margin-top: 186px;
+				margin-top: 250px;
 			}
 		}
-	}
-	#viewer_container {
-		height: 200px;
-		width: 940px;
-		background: white;
-		text-align: center;
-		overflow: hidden;
-		tr td {
+		#viewer_container {
 			width: 940px;
-			height: 200px;
+			background: white;
 			text-align: center;
-			vertical-align: middle;
+			overflow: hidden;
+			margin-bottom: 0px;
+			#viewer {
+				max-width: 940px;
+				max-height: 390px;
+				overflow: hidden;
+				tr td {
+					width: 940px;
+					height: 390px;
+					text-align: center;
+					vertical-align: middle;
+				}
+			}
 		}
-	}
-	#viewer {
-		max-width: 940px;
-		max-height: 200px;
-		overflow: hidden;
 	}
 }
 

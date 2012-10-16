@@ -25,6 +25,20 @@
 		<td class="spec_value"><%= translate_content(product, :short_description) %></td>
 		<% end %>
 	</tr>
+	<% if website.show_pricing? %>
+	<tr>
+		<td class="spec_name">MSRP</td>
+		<% @products.each do |product| %>
+		<td class="spec_value">
+			<% if product.msrp.present? && product.msrp.to_f > 0.0 %>
+			<%= number_to_currency(product.msrp.to_f) %>
+			<% else %>
+			 --
+			<% end %>
+		</td>
+		<% end %>
+	</tr>
+	<% end %>
 	<% @specs.each do |spec| %>
 	<tr>
 		<td class="spec_name"><%= translate_content(spec, :name) %></td>
@@ -39,5 +53,6 @@
 		<% end %>
 	</tr>
 	<% end %> 
+
 </table>
 
