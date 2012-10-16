@@ -99,7 +99,7 @@
 		<% if website.has_effects? && can?(:manage, Effect)%>
 		<li><%= link_to "Effects", admin_effects_path %></li>
 		<% end %>
-		<% if can?(:manage, Product) || can?(:update, :rohs) %>
+		<% if can?(:create, Product) || can?(:update, :rohs) %>
 		<li><%= link_to 'RoHS', rohs_admin_products_path %></li>
 		<% end %>
 		<% if can? :manage, Promotion %>

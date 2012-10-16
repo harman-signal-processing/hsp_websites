@@ -51,24 +51,30 @@
 </p>
 <% end %>
 <p>
-  <%= f.label :description %><br />
+  <%= f.label :description %> <% if @product.layout_class == 'epedal' %> <span class="small"> For epedals, only provide the first paragraph description here.</span><% end %><br />
   <%= f.text_area :description, size: "60x20", class: "mceEditor" %>
 </p>
 <p>
-	<%= f.label :extended_description %><br/>
+	<%= f.label :extended_description %> <% if @product.layout_class == 'epedal' %> <span class="small"> For epedals, only provide the description of the controls here.</span><% end %><br/>
 	<%= f.text_area :extended_description, size: "40x20", class: "mceEditor" %>
 </p>
+<% unless @product.layout_class == 'epedal' %>
 <p>
 	<%= f.label :features %><br/>
 	<%= f.text_area :features, size: "20x20", class: "mceEditor" %>
 </p>
+<% end %>
+<% if website.brand.name.match(/lexicon/i) %>
 <p>
 	<%= f.label :features_tab_name %> <%= f.text_field :features_tab_name, size: 18 %>
 </p>
+<% end %>
+<% unless @product.layout_class = 'epedal' %>
 <p>
 	<%= f.label :warranty_period, style: "width: 120px; display: inline-block" %>
 	<%= f.text_field :warranty_period, size: 3 %> years
 </p>
+<% end %>
 <% if website.show_pricing? %>
 <p>
 	<%= f.label :msrp, "MSRP", style: "width: 110px; display: inline-block" %>
@@ -95,6 +101,7 @@
 	<%= f.label :demo_link %><br/>
 	<%= f.url_field :demo_link, size: 40, placeholder: "http://#{website.url}/#{I18n.default_locale}/..." %>
 </p>
+
 <% if website.page_layouts %>
 <p>
 	<%= f.label :layout_class, "Product page layout style" %> <span class="hint">(not all brands have multiple layouts)</span><br/>
@@ -103,7 +110,7 @@
 <% end %>
 <p>
 	<%= f.check_box :rohs %> <%= f.label :rohs %><br/>
-	<% if website.has_effects? %>
+	<% if website.has_effects? && !@product.layout_class == 'epedal' %>
 	<%= f.check_box :has_pedals %> <%= f.label :has_pedals %> (call the "effects" tab "pedals")
 	<% end %>
 </p>
