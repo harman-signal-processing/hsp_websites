@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121010205146) do
+ActiveRecord::Schema.define(:version => 20121017200014) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -213,6 +213,7 @@ ActiveRecord::Schema.define(:version => 20121010205146) do
     t.boolean  "has_blogs"
     t.boolean  "has_audio_demos",               :default => false
     t.boolean  "has_vintage_repair"
+    t.boolean  "has_label_sheets"
   end
 
   add_index "brands", ["cached_slug"], :name => "index_brands_on_cached_slug", :unique => true
@@ -437,6 +438,21 @@ ActiveRecord::Schema.define(:version => 20121010205146) do
 
   create_table "forem_categories", :force => true do |t|
     t.string   "name",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "label_sheet_orders", :force => true do |t|
+    t.integer  "user_id"
+    t.text     "label_sheets"
+    t.date     "mailed_on"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "label_sheets", :force => true do |t|
+    t.string   "name"
+    t.text     "products"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

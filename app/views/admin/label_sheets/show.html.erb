@@ -1,0 +1,14 @@
+<h1><%= @label_sheet.name %></h1>
+
+<div class="button_container">
+  <%= link_to 'Back', admin_label_sheets_path, class: "back button" %>
+  <% if can? :manaage, @label_sheet %>
+	<%= link_to 'Edit', edit_admin_label_sheet_path(@label_sheet), class: "edit button" %> 
+	<%= link_to 'Delete', [:admin, @label_sheet], confirm: 'Are you sure?', method: :delete, class: "delete button" %>
+  <% end %>
+</div>	
+
+<h4>Labels:</h4>
+<%#= @label_sheet.label_names %>
+
+<%= render_partial "shared/label_sheet", label_sheet: @label_sheet %>

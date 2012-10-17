@@ -1,0 +1,14 @@
+<h1>Label Sheets</h1>
+
+<% if can? :create, LabelSheet %>
+<div class="button_container">
+	<%= link_to 'New label sheet', new_admin_label_sheet_path, class: "new button" %>
+</div>
+<% end %>
+
+<ul id="label_sheets">
+	<% @label_sheets.each do |label_sheet| %>
+	<li id="label_sheet_<%= label_sheet.id %>"><%= link_to label_sheet.name, [:admin, label_sheet] %></li>
+	<% end %>
+</ul>
+

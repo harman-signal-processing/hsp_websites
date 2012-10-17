@@ -1,0 +1,10 @@
+<div class="label_sheet">
+	<table>
+		<% (1..3).each do |n| %>
+		<tr>
+			<td><%= label_at((2*n)-1, label_sheet) %></td>
+			<td><%= label_at((2*n), label_sheet) %></td>
+		</tr>
+		<% end %>
+	</table>
+</div>
