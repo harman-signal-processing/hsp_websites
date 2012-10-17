@@ -87,6 +87,14 @@
 		<% if can?(:manage, Product) %>
 		<li><%= link_to "Products", admin_products_path %></li>
 		<% end %>
+		<% if website.brand.has_label_sheets? %>
+			<% if can?(:manage, LabelSheet) %>
+			<li><%= link_to "e-pedal Label Sheets", admin_label_sheets_path %></li>
+			<% end %>
+			<% if can?(:manage, LabelSheetOrder) %>
+			<li><%= link_to "e-pedal Label Orders", admin_label_sheet_orders_path %></li>
+			<% end %>
+		<% end %>
 		<% if can?(:update, :harman_employee_pricing) %>
 		<li><%= link_to "Employee Pricing", harman_employee_pricing_admin_products_path %></li>
 		<% end %>

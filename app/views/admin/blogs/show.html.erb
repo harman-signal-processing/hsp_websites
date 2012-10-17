@@ -1,7 +1,7 @@
 <h1><%= @blog.name %></h1>
 
 <div class="button_container">
-  <%= link_to 'Back', admin_clinics_path, class: "back button" %>
+  <%= link_to 'Back', admin_blogs_path, class: "back button" %>
   <% if can? :manaage, @blog %>
 	<%= link_to 'Edit', edit_admin_blog_path(@blog), class: "edit button" %> 
 	<%= link_to 'Delete', [:admin, @blog], confirm: 'Are you sure?', method: :delete, class: "delete button" %>

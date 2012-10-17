@@ -2,6 +2,8 @@ require "domain_conditions"
 
 HarmanSignalProcessingWebsite::Application.routes.draw do
 
+  get "epedal_labels/index"
+
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do 
       resources :brands, only: [:index, :show] do 
@@ -67,6 +69,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       forwarder = (val.match(/^http/i)) ? val : "/#{I18n.default_locale}#{val}"
       match key, to: redirect(forwarder)
     end
+    get 'epedal_labels' => 'epedal_labels#index', as: :epedal_labels_order_form
   end
   ###########
   # These brand-specific redirects can be enabled if needed. Note, the actual
@@ -208,6 +211,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :rso_monthly_reports,
         :clinician_questions,
         :product_suggestions,
+        :label_sheet_orders,
         :product_amp_models,
         :tone_library_songs,
         :product_promotions,
@@ -228,6 +232,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :site_elements,
         :news_products,
         :rep_questions,
+        :label_sheets,
         :distributors,
         :artist_tiers, 
         :audio_demos,
