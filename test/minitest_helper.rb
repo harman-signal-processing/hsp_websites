@@ -92,6 +92,10 @@ class MiniTest::Rails::Integration
     @dbx_site = FactoryGirl.create(:website_with_products, folder: "dbx", brand: @dbx)
   end
 
+  def last_email
+    ActionMailer::Base.deliveries.last
+  end
+
 end
 
 Turn.config.format = :outline

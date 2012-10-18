@@ -84,12 +84,19 @@
 		</div>
 	</div>
 	
-	<% if @product.images_for("product_page").size >= 2 %>
 	<div id="right_side_image">
-		<%= image_tag @product.images_for("product_page")[1].product_attachment.url(:vert_medium), 
+		<% if @product.images_for("product_page").size >= 2 %>
+			<%= image_tag @product.images_for("product_page")[1].product_attachment.url(:vert_medium), 
 				alt: "#{@product.name} with iStomp label" %>
+		<% end %>
+		<% if !!(website.epedal_label_order_recipient) %>
+		<div id="label_request_box">
+			have this epedal?<br/>
+			<%= link_to "Get The Label", epedal_labels_order_form_path(@product), class: "button" %>
+		</div>
+		<% end %>
 	</div>
-	<% end %>
+
 	<div class="clear"></div>
 </section>
 <% end %>

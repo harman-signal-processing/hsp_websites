@@ -2,8 +2,16 @@
 
 FactoryGirl.define do
   factory :label_sheet_order do
-    user_id 1
-    label_sheet_ids "MyString"
-    mailed_on "2012-10-17"
+    label_sheets []
+    mailed_on ""
+    name "Joe"
+    email "joe@joe.com"
+    address "1233"
+    city "youhooville"
+    state "CA"
+    postal_code "1234"
+    country "USA"
+    subscribe false
+    secret_code "123ABCD"
   end
 end
