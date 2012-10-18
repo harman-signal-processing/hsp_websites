@@ -25,7 +25,7 @@ class LabelSheetOrder < ActiveRecord::Base
 
   def notify_customer
     if mailed_on_changed? && mailed_on_was == nil && mailed_on.present?
-      SiteMailer.delay.label_sheet_order_shipped(self)
+      SiteMailer.delay.label_sheet_order_shipped(self) unless created_at < Time.zone.now.advance(weeks: -6)
     end
   end
 
