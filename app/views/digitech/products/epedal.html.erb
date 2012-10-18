@@ -89,7 +89,7 @@
 			<%= image_tag @product.images_for("product_page")[1].product_attachment.url(:vert_medium), 
 				alt: "#{@product.name} with iStomp label" %>
 		<% end %>
-		<% if !!(website.epedal_label_order_recipient) %>
+		<% if website.epedal_label_order_recipient && !website.epedal_label_order_recipient.blank? %>
 		<div id="label_request_box">
 			have this epedal?<br/>
 			<%= link_to "Get The Label", epedal_labels_order_form_path(@product), class: "button" %>
