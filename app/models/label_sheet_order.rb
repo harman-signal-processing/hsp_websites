@@ -1,6 +1,45 @@
 class LabelSheetOrder < ActiveRecord::Base
-  attr_accessible :label_sheet_ids, :mailed_on, :user_id
+  require 'securerandom'
+
+  belongs_to :user
+  attr_accessible :label_sheet_ids, :name, :email, :address, :city, :state, :postal_code, :country, :subscribe
   attr_accessor :label_sheet_ids
-  serialize :label_sheets
-  before_save :decode_label_sheets
+
+  validates :name, :email, :address, :city, :state, :postal_code, :country, presence: true
+  validate :has_label_sheets, on: :create
+
+  serialize :label_sheets, Array
+  before_save :encode_label_sheet_ids, :generate_secret_code, :notify_customer
+  after_create :send_the_order
+
+  def encode_label_sheet_ids
+  	if self.label_sheet_ids.present?
+    	id_array = (self.label_sheet_ids.is_a?(String)) ? self.label_sheet_ids.split(/\,\s?/) : self.label_sheet_ids
+   		self.label_sheets = id_array.map{|i| LabelSheet.find(i) }
+    end
+  end
+
+  def generate_secret_code
+  	self.secret_code ||= SecureRandom.urlsafe_base64(20)
+  end
+
+  def notify_customer
+    if mailed_on_changed? && mailed_on_was == nil && mailed_on.present?
+      SiteMailer.delay.label_sheet_order_shipped(self)
+    end
+  end
+
+  def verify(challenge)
+  	!!(self.secret_code == challenge)
+  end
+
+  def has_label_sheets
+    if self.label_sheet_ids.blank?
+      errors[:base] << "You must select at least one label sheet"
+    end
+  end
+
+  def send_the_order
+    SiteMailer.delay.label_sheet_order(self)
+  end
 end

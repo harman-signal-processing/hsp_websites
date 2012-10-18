@@ -2,17 +2,16 @@ class LabelSheet < ActiveRecord::Base
   attr_accessible :name, :products, :product_ids
   attr_accessor :product_ids
   serialize :products
-  before_save :decode_product_ids
+  before_save :encode_product_ids
 
-  def decode_product_ids
-  	self.products = []
-  	self.product_ids.split(/\,\s?/).each do |pi|
-  		self.products << Product.find(pi)
-  	end
+  def encode_product_ids
+    if self.product_ids.present?
+   		self.products = self.product_ids.split(/\,\s?/).map{|pi| Product.find(pi)}
+    end
   end
 
   def label_names
-  	self.products.map{|p| p.name}.join(", ") + blank_labels
+  	"#{self.products.map{|p| p.name}.join(", ")} #{blank_labels}"
   end
 
   def blank_labels

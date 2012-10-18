@@ -1,0 +1,23 @@
+<p>The following order for epedal label sheets was received through the website. 
+Please send the indicated sheets to the customer, and click the link below
+to indicate the request has been mailed:</p>
+
+<p><%= link_to label_sheet_order_fulfillment_url(@order, @order.secret_code, host: @website.url, locale: I18n.default_locale), 
+		label_sheet_order_fulfillment_url(@order, @order.secret_code, host: @website.url, locale: I18n.default_locale) %>
+</p>
+
+
+<h3>Customer Details:</h3>
+<p><%= @order.name %><br/>
+<%= @order.address %><br/>
+<%= @order.city %> <%= @order.state %> <%= @order.postal_code %><br/>
+<%= @order.country %></p>
+
+<p>email: <%= @order.email %></p>
+
+<h3>Label Sheets Requested:</h3>
+<ul>
+	<% @order.label_sheets.each do |sheet| %>
+	<li><%= sheet.name %> (<%= sheet.label_names %>)</li>
+	<% end %>
+</ul>

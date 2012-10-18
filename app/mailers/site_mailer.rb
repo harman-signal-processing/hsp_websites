@@ -27,4 +27,19 @@ class SiteMailer < ActionMailer::Base
       subject: "Artist relations approval")
   end
   
+  def label_sheet_order(order)
+    @order = order
+    brand = @order.label_sheets.first.products.first.brand
+    @website = brand.default_website
+    mail(to: @website.epedal_label_order_recipient,
+      from: @order.email,
+      subject: "epedal label sheet order")
+  end
+
+  def label_sheet_order_shipped(order)
+    @order = order
+    mail(to: @order.email,
+      from: "support@digitech.com",
+      subject: "Your epedal labels are on their way!")
+  end
 end

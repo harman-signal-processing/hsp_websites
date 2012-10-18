@@ -3,6 +3,7 @@
 FactoryGirl.define do
   factory :label_sheet do
     name "MyString"
-    product_ids "MyString"
+    product_ids ""
+    products []
   end
 end

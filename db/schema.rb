@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121017200014) do
+ActiveRecord::Schema.define(:version => 20121018191342) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -448,6 +448,15 @@ ActiveRecord::Schema.define(:version => 20121017200014) do
     t.date     "mailed_on"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.string   "name"
+    t.string   "email"
+    t.string   "address"
+    t.string   "city"
+    t.string   "state"
+    t.string   "postal_code"
+    t.string   "country"
+    t.boolean  "subscribe"
+    t.string   "secret_code"
   end
 
   create_table "label_sheets", :force => true do |t|

@@ -1,13 +1,14 @@
 div.label_sheet {
 	margin: 10px 0px;
 	table {
-		width: 300px;
+		width: 350px;
 		border-collapse: collapse;
 		td {
-			width: 150px;
+			width: 175px;
 			height: 60px;
 			text-align: center;
 			border: 1px dotted #999;
+			overflow: hidden;
 		}
 	}
 }

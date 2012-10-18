@@ -69,7 +69,10 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       forwarder = (val.match(/^http/i)) ? val : "/#{I18n.default_locale}#{val}"
       match key, to: redirect(forwarder)
     end
-    get 'epedal_labels' => 'epedal_labels#index', as: :epedal_labels_order_form
+    get 'epedal_labels/fulfilled/:id/:secret_code' => 'label_sheet_orders#fulfill', as: :label_sheet_order_fulfillment
+    get 'epedal_labels/new(/:epedal_id)' => 'label_sheet_orders#new', as: :epedal_labels_order_form
+    get 'epedal_label_thanks' => 'label_sheet_orders#thanks', as: :thanks_label_sheet_order
+    resources :label_sheet_orders, only: [:new, :create] 
   end
   ###########
   # These brand-specific redirects can be enabled if needed. Note, the actual
