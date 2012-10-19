@@ -1,0 +1,27 @@
+FactoryGirl.define do
+  factory :user do
+  	sequence(:name) {|n| "User #{n}"}
+    sequence(:email) { |n| "user#{n}@harman.com" }
+    ## Devise fields: ##
+    password "pass123"
+    password_confirmation { password }
+    ## Roles ##
+    admin false
+    customer_service false
+    online_retailer false
+    translator false
+    rohs false
+    market_manager false
+    artist_relations false
+    engineer false
+    clinician false
+    rep false
+    clinic_admin false
+    rso false
+    rso_admin false
+    sales_admin false
+    dealer false
+    distributor false
+    marketing_staff false
+  end
+end

@@ -1,0 +1,29 @@
+<h1>Label Sheet Order</h1>
+
+<div class="button_container">
+	<%= link_to 'Back', admin_label_sheet_orders_path, class: "back button" %>
+	<%#= link_to 'Edit', edit_admin_label_sheet_order_path(@label_sheet_order), class: "edit button" %> 
+	<%#= link_to 'Delete', [:admin, @label_sheet_order], confirm: 'Are you sure?', method: :delete, class: "delete button" %>
+</div>
+
+<h3>Customer</h3>
+<p><%= @label_sheet_order.name %><br/>
+<%= @label_sheet_order.address %><br/>
+<%= @label_sheet_order.city %> <%= @label_sheet_order.state %> <%= @label_sheet_order.postal_code %><br/>
+<%= @label_sheet_order.country %></p>
+
+<p>email: <%= @label_sheet_order.email %></p>
+
+<h3>Label Sheets Requested:</h3>
+<ul>
+	<% @label_sheet_order.label_sheets.each do |sheet| %>
+	<li><%= link_to sheet.name, [:admin, sheet] %> (<%= sheet.label_names %>)</li>
+	<% end %>
+</ul>
+
+<h4>Order Status</h4>
+<p>
+	Created: <%=l @label_sheet_order.created_at.to_date %><br/>
+	Mailed: <%= (@label_sheet_order.mailed_on.present?) ? l(@label_sheet_order.mailed_on.to_date) : link_to("not yet--mark shipped now", label_sheet_order_fulfillment_path(@label_sheet_order, @label_sheet_order.secret_code) %>
+</p>
+

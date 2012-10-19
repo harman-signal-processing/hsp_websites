@@ -96,6 +96,13 @@ class MiniTest::Rails::Integration
     ActionMailer::Base.deliveries.last
   end
 
+  def admin_login_with(user, password, website)
+    visit new_user_session_url(host: website.url, locale: I18n.default_locale)
+    fill_in('user[email]', with: user.email)
+    fill_in('user[password]', with: password)
+    click_button 'Sign in'
+  end
+
 end
 
 Turn.config.format = :outline

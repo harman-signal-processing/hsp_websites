@@ -4,8 +4,11 @@ I need to work on...
 ================================================================
                  *** Notes for tomorrow ***
 
- Got a good start on epedal label sheet ordering. Look at the
- new controller EpedalLabels and the integration test epedal_labels_test
+ Almost done with the epedal ordering:
+  - test admin functions
+  - add the blank label image (assets/images/digitech/istomp/blank...)
+    to the sheet displays
+  - refresh images from production (all labels are uploaded there)
 ================================================================
 
 

@@ -1,0 +1,23 @@
+<h1>Label Sheet Orders</h1>
+
+<table>
+	<thead>
+	<tr>
+		<th>Name</th>
+		<th>Sheets</th>
+		<th>Ordered On</th>
+		<th>Shipped On</th>
+	</tr>
+	</thead>
+
+	<tbody>
+	<% @label_sheet_orders.each do |lso| %>
+	<tr>
+		<td><%= link_to lso.name, [:admin, lso] %></td>
+		<td><%= lso.label_sheets.map{|ls| ls.name}.join(", ") %></td>
+		<td><%=l lso.created_at.to_date %></td>
+		<td><%= (lso.mailed_on.present?) ? l(lso.mailed_on.to_date) : "--" %></td>
+	</tr>
+	<% end %>
+	</tbody>
+</table>
