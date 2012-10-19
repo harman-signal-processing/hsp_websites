@@ -31,7 +31,7 @@ class LabelSheetOrdersController < ApplicationController
 
   def fulfill
   	@label_sheet_order = LabelSheetOrder.find(params[:id])
-  	if @label_sheet_order.verify(params[:secret_code])
+  	if @label_sheet_order.verify_code(params[:secret_code])
 	  	@label_sheet_order.mailed_on = Date.today
 	  	@label_sheet_order.save
   		render text: "Success. Shipping date was logged."

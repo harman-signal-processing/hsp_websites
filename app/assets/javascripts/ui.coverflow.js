@@ -196,12 +196,16 @@
 		
 		
 				}else{
-	
 					// css[vendorPrefix + 'Transform'] = 'matrix(1,'+(mod * (side == 'right' ? -0.2 : 0.2))+',0,1,0,0) scale('+(0.80+((0.9-mod)*0.25)) + ')'; 
 					// css[vendorPrefix + 'Transform'] = 'scale('+(0.80+((0.9-mod)*0.25)) + ')'; 
+
+					// At some point, the vendorPrefix for Firefox started getting set to 'transform' which is
+					// pretty weird, so this forces it back to 'Moz'
+					vendorPrefix = (vendorPrefix == 'transform') ? 'Moz' : vendorPrefix;
+					
 					css[vendorPrefix + 'Transform'] = 'matrix(1,'+(mod * (side == 'right' ? -0.2 : 0.2))+',0,1,0,0) scale('+(0.75+((1-mod)*0.25)) + ')'; 
 					css[self.props[2]] = ( (-i * (self.itemSize/4)) + (side == 'right'? -self.itemSize/2 : self.itemSize/2) * mod );
-		
+	
 				}
 	
 

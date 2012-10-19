@@ -9,8 +9,10 @@ describe "epedal Labels Integration Test" do
     @istomp = FactoryGirl.create(:product, name: "iStomp", brand: @brand, layout_class: "istomp")
     @gooberator = FactoryGirl.create(:product, name: "Gooberator", brand: @brand, layout_class: "epedal")
     @fooberator = FactoryGirl.create(:product, name: "Fooberator", brand: @brand, layout_class: "epedal")
+    @zooberator = FactoryGirl.create(:product, name: "Zooberator", brand: @brand, layout_class: "epedal")
     FactoryGirl.create(:parent_product, product: @gooberator, parent_product: @istomp)
     FactoryGirl.create(:parent_product, product: @fooberator, parent_product: @istomp)
+    FactoryGirl.create(:parent_product, product: @zooberator, parent_product: @istomp)
     @stompshop = FactoryGirl.create(:software, name: "Stomp Shop", layout_class: "stomp_shop", brand: @brand)
     FactoryGirl.create(:product_software, product: @istomp, software: @stompshop)
     @sheet = FactoryGirl.create(:label_sheet, product_ids: [@gooberator.id, @fooberator.id].join(", "))
@@ -31,15 +33,37 @@ describe "epedal Labels Integration Test" do
     end
 
     it "should auto-select the corresponding sheet for the referring epedal page" do
-        skip "Not sure how to test this"
         click_on "Label"
-        must_have_xpath "//input[@type='checkbox'][@value='#{@sheet.id}'][@CHECKED]"
+        ch = find(:xpath, "//input[@type='checkbox'][@value='#{@sheet.id}']")
+        ch.checked?.must_equal("checked")
+    end
+
+    it "should not show the button if the label is not on any sheets" do
+        visit product_url(@zooberator, host: @website.url, locale: I18n.default_locale)
+        wont_have_link "Label"
     end
   end
+
+  describe "no configured recipient" do 
+    before do
+        Website.any_instance.stubs(:epedal_label_order_recipient).returns("")
+        visit product_url(@gooberator, host: @website.url, locale: I18n.default_locale)
+    end
+
+    it "should not show the button" do
+        wont_have_link "Label"
+    end
+  end
+
 
   describe "label ordering" do
     before do
         visit epedal_labels_order_form_url(host: @website.url, locale: I18n.default_locale)
+    end
+
+    it "should not auto-check label sheet boxes if not coming from epedal page" do
+        ch = find(:xpath, "//input[@type='checkbox'][@value='#{@sheet.id}']")
+        ch.checked?.wont_equal("checked")
     end
 
     it "should have order form with sheets which can be selected" do 
@@ -74,7 +98,7 @@ describe "epedal Labels Integration Test" do
         must_have_content "at least one label sheet"
     end
 
-    it "should allow the user to create a password if desired"
+    # it "should allow the user to create a password if desired"
 
     it "should show a thanks after the order" do
         fill_in_customer_info
@@ -131,7 +155,7 @@ describe "epedal Labels Integration Test" do
         page.must_have_content "Success"
     end
 
-    it "should not send the email if we waited 6 weeks to send it"
+    # it "should not send the email if we waited 6 weeks to send it"
 
     it "should fail fulfillment if code doesnt match" do
         visit label_sheet_order_fulfillment_url(@order, "something-wrong", host: @website.url, locale: I18n.default_locale)

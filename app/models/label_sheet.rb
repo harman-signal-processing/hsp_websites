@@ -1,4 +1,6 @@
 class LabelSheet < ActiveRecord::Base
+  include ActionView::Helpers::TextHelper
+
   attr_accessible :name, :products, :product_ids
   attr_accessor :product_ids
   serialize :products
@@ -16,7 +18,7 @@ class LabelSheet < ActiveRecord::Base
 
   def blank_labels
   	if self.products.count < 6
-  		" + #{6 - self.products.count} blank label(s)"
+  		" + " + pluralize((6 - self.products.count), "blank label")
   	end
   end
 end

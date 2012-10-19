@@ -326,5 +326,12 @@ class Product < ActiveRecord::Base
   def alternatives
     self.product_suggestions.collect{|ps| ps.suggested_product}
   end
+
+  # If this is an epedal, then it may belong to one or more LabelSheet
+  def label_sheets
+    l = []
+    LabelSheet.all.each{|ls| l << ls if ls.products.include?(self)}
+    l
+  end
   
 end
