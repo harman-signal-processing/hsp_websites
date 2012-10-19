@@ -6,7 +6,7 @@ I need to work on...
 
  Almost done with the epedal ordering:
   - test admin functions
-  - add the blank label image (assets/images/digitech/istomp/blank...)
+  - add the blank label image (app/assets/images/digitech/istomp/Blank_iStompLabel_small.png)
     to the sheet displays
   - refresh images from production (all labels are uploaded there)
 ================================================================
