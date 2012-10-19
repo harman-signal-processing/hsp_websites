@@ -29,7 +29,7 @@ class LabelSheetOrder < ActiveRecord::Base
     end
   end
 
-  def verify(challenge)
+  def verify_code(challenge)
   	!!(self.secret_code == challenge)
   end
 
