@@ -24,6 +24,6 @@
 <h4>Order Status</h4>
 <p>
 	Created: <%=l @label_sheet_order.created_at.to_date %><br/>
-	Mailed: <%= (@label_sheet_order.mailed_on.present?) ? l(@label_sheet_order.mailed_on.to_date) : link_to("not yet--mark shipped now", label_sheet_order_fulfillment_path(@label_sheet_order, @label_sheet_order.secret_code) %>
+	Mailed: <%= (@label_sheet_order.mailed_on.present?) ? l(@label_sheet_order.mailed_on.to_date) : link_to("not yet--mark shipped now", label_sheet_order_fulfillment_path(@label_sheet_order, @label_sheet_order.secret_code)) %>
 </p>
 

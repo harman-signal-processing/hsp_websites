@@ -15,22 +15,58 @@ describe "Admin epedal Labels Integration Test" do
     host! @website.url
     Capybara.default_host = "http://#{@website.url}" 
     Capybara.app_host = "http://#{@website.url}" 
-
+    @sheet = FactoryGirl.create(:label_sheet, product_ids: [@gooberator.id, @fooberator.id].join(", "))
     @user = FactoryGirl.create(:user, market_manager: true, password: "password")
     admin_login_with(@user, "password", @website)
   end
 
   describe "managing label sheets" do 
+    before do
+      @zooberator = FactoryGirl.create(:product, name: "Fooberator", brand: @brand, layout_class: "epedal")
+      FactoryGirl.create(:parent_product, product: @zooberator, parent_product: @istomp)
+      visit admin_label_sheets_url(host: @website.url, locale: I18n.default_locale)
+    end
 
+    it "should list current sheets" do
+      must_have_link @sheet.name, href: admin_label_sheet_path(@sheet, host: @website.url, locale: I18n.default_locale)
+    end
+
+    it "should create a new sheet" do
+      click_on "New label sheet"
+      fill_in 'label_sheet_name', with: "Yo Mama"
+      fill_in 'label_sheet_product_ids', with: @zooberator.to_param
+      click_on 'Create'
+      must_have_content "Yo Mama"
+      # save_and_open_page
+      LabelSheet.last.products.must_include(@zooberator)
+    end
   end
 
   describe "managing label sheet orders" do 
+    before do
+        @order = FactoryGirl.create(:label_sheet_order, label_sheet_ids: [@sheet.id])
+        visit admin_label_sheet_orders_url(host: @website.url, locale: I18n.default_locale)
+    end
+
+    it "should link to existing orders" do
+      must_have_link @order.name
+    end
+
+    it "should show the order details" do
+      click_on @order.name
+      must_have_content @order.address
+      must_have_content @order.city
+      must_have_content @order.state
+      must_have_content @order.postal_code
+      must_have_content @order.email
+      must_have_content @order.country
+      must_have_content @order.label_sheets.first.name
+    end
 
   end
 
   describe "label order fulfillment" do
     before do
-        @sheet = FactoryGirl.create(:label_sheet, product_ids: [@gooberator.id, @fooberator.id].join(", "))
         @order = FactoryGirl.create(:label_sheet_order, label_sheet_ids: [@sheet.id])
         visit admin_label_sheet_order_url(@order, host: @website.url, locale: I18n.default_locale)
     end
