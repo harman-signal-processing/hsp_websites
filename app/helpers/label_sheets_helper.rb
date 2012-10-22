@@ -10,7 +10,7 @@ module LabelSheetsHelper
 				"unknown label"
 			end
 		else
-			"blank label"
+			image_tag('digitech/istomp/Blank_iStompLabel_small.png', alt: "blank label")
 		end
 	end
 
