@@ -6,9 +6,6 @@ I need to work on...
 
  Almost done with the epedal ordering:
   - test admin functions
-  - add the blank label image (app/assets/images/digitech/istomp/Blank_iStompLabel_small.png)
-    to the sheet displays
-  - refresh images from production (all labels are uploaded there)
 ================================================================
 
 
@@ -29,10 +26,9 @@ What you will need to change is: itemid=100170580&subitemid=358897 based on the 
 
 === TODO (for all brands) ===
 * Employee purchases
- - Kimm needs to update pricing
- - Remove password from nginx config
  - Work with IT to purchase SSL cert for myharman.digitech.com
  - Work with IT to get links directed to myharman.digitech.com
+ - Use paypal for checkout, or maybe stripe?
 * Marketing Toolkits
 * Add JBL to common Hpro footer
 * Fix dealer export from SAP
@@ -45,6 +41,8 @@ What you will need to change is: itemid=100170580&subitemid=358897 based on the 
   o When reviews problems are found
 * Optimization 
 * Improve software page--is ugly, especially without release notes
+* Redo layouts with a dynamic grid like zurb
+* reduce duplication in css files by including snippets
 
 === TODO for BSS ===
 * Start
