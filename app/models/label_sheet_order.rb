@@ -14,9 +14,12 @@ class LabelSheetOrder < ActiveRecord::Base
 
   def encode_label_sheet_ids
   	if self.label_sheet_ids.present?
-    	id_array = (self.label_sheet_ids.is_a?(String)) ? self.label_sheet_ids.split(/\,\s?/) : self.label_sheet_ids
-   		self.label_sheets = id_array.map{|i| LabelSheet.find(i) }
+    	self.label_sheets = (self.label_sheet_ids.is_a?(String)) ? self.label_sheet_ids.split(/\,\s?/) : self.label_sheet_ids
     end
+  end
+
+  def expanded_label_sheets
+    self.label_sheets.map{|i| LabelSheet.find(i)}
   end
 
   def generate_secret_code

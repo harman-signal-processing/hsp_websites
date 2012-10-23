@@ -29,7 +29,7 @@ class SiteMailer < ActionMailer::Base
   
   def label_sheet_order(order)
     @order = order
-    brand = @order.label_sheets.first.products.first.brand
+    brand = @order.expanded_label_sheets.first.products.first.brand
     @website = brand.default_website
     mail(to: @website.epedal_label_order_recipient,
       from: @order.email,

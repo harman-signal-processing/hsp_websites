@@ -79,6 +79,7 @@ class MiniTest::Rails::Integration
     Capybara.reset_sessions!    # Forget the (simulated) browser state
     # Capybara.default_driver = :webkit
     Capybara.use_default_driver # Revert Capybara.current_driver to Capybara.default_driver
+    ActionMailer::Base.deliveries = []
   end
 
   def setup_toolkit_brands

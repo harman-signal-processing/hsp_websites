@@ -60,14 +60,14 @@ describe "Admin epedal Labels Integration Test" do
       must_have_content @order.postal_code
       must_have_content @order.email
       must_have_content @order.country
-      must_have_content @order.label_sheets.first.name
+      must_have_content @order.expanded_label_sheets.first.name
     end
 
   end
 
   describe "label order fulfillment" do
     before do
-        @order = FactoryGirl.create(:label_sheet_order, label_sheet_ids: [@sheet.id])
+        @order = FactoryGirl.create(:label_sheet_order, label_sheet_ids: [@sheet.id, @sheet.id])
         visit admin_label_sheet_order_url(@order, host: @website.url, locale: I18n.default_locale)
     end
 
