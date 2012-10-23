@@ -16,6 +16,7 @@ describe "epedal Labels Integration Test" do
     @stompshop = FactoryGirl.create(:software, name: "Stomp Shop", layout_class: "stomp_shop", brand: @brand)
     FactoryGirl.create(:product_software, product: @istomp, software: @stompshop)
     @sheet = FactoryGirl.create(:label_sheet, product_ids: [@gooberator.id, @fooberator.id].join(", "))
+    @sheet2 = FactoryGirl.create(:label_sheet, product_ids: [@zooberator.id].join(", "))
     Website.any_instance.stubs(:istomp_coverflow).returns(1)
     Website.any_instance.stubs(:epedal_label_order_recipient).returns("epedal_fulfillment@harman.com")
     host! @website.url
@@ -39,7 +40,9 @@ describe "epedal Labels Integration Test" do
     end
 
     it "should not show the button if the label is not on any sheets" do
-        visit product_url(@zooberator, host: @website.url, locale: I18n.default_locale)
+        @mooberator = FactoryGirl.create(:product, name: "Mooberator", brand: @brand, layout_class: "epedal")
+        FactoryGirl.create(:parent_product, product: @mooberator, parent_product: @istomp)
+        visit product_url(@mooberator, host: @website.url, locale: I18n.default_locale)
         wont_have_link "Label"
     end
   end
@@ -86,6 +89,7 @@ describe "epedal Labels Integration Test" do
 
     it "should require user fields to submit order" do
         select_sheet(@sheet)
+        select_sheet(@sheet2)
         click_on "Submit"
         wont_have_content "at least one label sheet"
         must_have_content "Name can't be blank"
@@ -111,7 +115,7 @@ describe "epedal Labels Integration Test" do
         fill_in_customer_info
         select_sheet(@sheet)
         click_on "Submit"
-        LabelSheetOrder.last.label_sheets.must_include(@sheet)
+        LabelSheetOrder.last.expanded_label_sheets.must_include(@sheet)
     end
 
     def select_sheet(sheet)

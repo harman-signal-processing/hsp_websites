@@ -17,7 +17,7 @@ to indicate the request has been mailed:</p>
 
 <h3>Label Sheets Requested:</h3>
 <ul>
-	<% @order.label_sheets.each do |sheet| %>
+	<% @order.expanded_label_sheets.each do |sheet| %>
 	<li><%= sheet.name %> (<%= sheet.label_names %>)</li>
 	<% end %>
 </ul>

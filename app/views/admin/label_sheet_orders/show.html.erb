@@ -16,7 +16,7 @@
 
 <h3>Label Sheets Requested:</h3>
 <ul>
-	<% @label_sheet_order.label_sheets.each do |sheet| %>
+	<% @label_sheet_order.expanded_label_sheets.each do |sheet| %>
 	<li><%= link_to sheet.name, [:admin, sheet] %> (<%= sheet.label_names %>)</li>
 	<% end %>
 </ul>
