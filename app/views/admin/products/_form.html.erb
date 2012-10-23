@@ -69,7 +69,7 @@
 	<%= f.label :features_tab_name %> <%= f.text_field :features_tab_name, size: 18 %>
 </p>
 <% end %>
-<% unless @product.layout_class = 'epedal' %>
+<% unless @product.layout_class == 'epedal' %>
 <p>
 	<%= f.label :warranty_period, style: "width: 120px; display: inline-block" %>
 	<%= f.text_field :warranty_period, size: 3 %> years
