@@ -645,17 +645,19 @@ table.comparison {
 	border-collapse: collapse;
 	border: 1px solid #CCC;
 	td {
-		padding: 5px;
+		padding: 6px 8px;
 		border: 1px dotted #CCC;
 		&.spec_name {
+			font-size: 90%;
 			width: 120px;
-			background: #EEE
+			color: #111;
+			background: #EEE;
 		}
 	}
 	th {
 		padding: 4px;
 		border: 1px solid #CCC;
-		border-bottom: 2px solid #999;
+		border-bottom: 2px solid #CCC;
 	}
 }
 div.compare_button {
@@ -861,7 +863,7 @@ div#product_bottom_content {
 		margin-left: 10px;
 		font-size: 13px;
 		line-height: 18px;
-		color: #6c6b6a;
+		color: #323232;
 		h1,h2 {
 			font-size: 16px;
 			font-weight: normal;
@@ -1017,17 +1019,19 @@ table.specs {
 	border-collapse: collapse;
 	margin: 8px 0px;
 	td {
-		padding: 4px 10px;
-		border-bottom: 1px dotted #555;
+		padding: 7px 16px;
+		border-bottom: 1px solid #CCC;
+		color: #333;
 		&.name {
-			background: #A2A2A2;
-			color: black;
+			font-size: 85%;
+			border-right: 1px solid #DDD;
+			color: #777;
 			a:link, a:visited {
 				color: white;
 			}
 		}
 		&.divided {
-			border-right: 1px dotted #CCC;
+			border-right: 1px solid #CCC;
 		}
 	}
 	th {
