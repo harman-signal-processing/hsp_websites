@@ -14,6 +14,8 @@
 
 <p>email: <%= @label_sheet_order.email %></p>
 
+<p>Subscribe? <%= @label_sheet_order.subscribe? ? "Yes" : "No" %></p>
+
 <h3>Label Sheets Requested:</h3>
 <ul>
 	<% @label_sheet_order.expanded_label_sheets.each do |sheet| %>

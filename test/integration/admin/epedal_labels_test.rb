@@ -44,7 +44,7 @@ describe "Admin epedal Labels Integration Test" do
 
   describe "managing label sheet orders" do 
     before do
-        @order = FactoryGirl.create(:label_sheet_order, label_sheet_ids: [@sheet.id])
+        @order = FactoryGirl.create(:label_sheet_order, label_sheet_ids: [@sheet.id], subscribe: true)
         visit admin_label_sheet_orders_url(host: @website.url, locale: I18n.default_locale)
     end
 
@@ -61,6 +61,7 @@ describe "Admin epedal Labels Integration Test" do
       must_have_content @order.email
       must_have_content @order.country
       must_have_content @order.expanded_label_sheets.first.name
+      must_have_content "Subscribe? Yes"
     end
 
   end
@@ -81,6 +82,31 @@ describe "Admin epedal Labels Integration Test" do
         page.must_have_content "Success"
     end
 
+  end
+
+  describe "data export" do
+    before do
+      @order = FactoryGirl.create(:label_sheet_order, label_sheet_ids: [@sheet.id, @sheet.id])
+      visit admin_label_sheet_orders_url(host: @website.url, locale: I18n.default_locale)
+    end
+
+    it "should have a button to export all" do 
+      must_have_link "Export All"
+    end
+
+    it "should respond with an excel file for all" do
+      click_on "Export All"
+      wont_have_content "Error"
+    end
+
+    it "should have a button to export subscribers only" do
+      must_have_link "Export Subscribers"
+    end
+
+    it "should respond with an excel file for subscribers" do
+      click_on "Export Subscribers"
+      wont_have_content "Error"
+    end
   end
 
 end

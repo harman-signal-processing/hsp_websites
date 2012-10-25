@@ -1,12 +1,24 @@
 class Admin::LabelSheetOrdersController < AdminController
-  load_and_authorize_resource
+  load_and_authorize_resource 
+
   # GET /label_sheet_orders
   # GET /label_sheet_orders.xml
   def index
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @label_sheet_orders }
+      format.xls { 
+        send_data(@label_sheet_orders.to_xls(
+          headers: ["Name", "Address", "City", "State", "Zip", "Country", "Email", "Subscribe", "Created"],
+          columns: [:name, :address, :city, :state, :postal_code, :country, :email, :subscribe, :created_at])
+        )
+      }
     end
+  end
+
+  def subscribers
+    @label_sheet_orders = @label_sheet_orders.where(subscribe: true)
+    index
   end
 
   # GET /label_sheet_orders/1
