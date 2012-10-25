@@ -199,6 +199,9 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :blogs do
         resources :blog_articles
       end
+      resources :label_sheet_orders do 
+        collection { get :subscribers }
+      end
       resources :service_centers, 
         :software_training_classes,
         :product_training_classes,
@@ -214,7 +217,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :rso_monthly_reports,
         :clinician_questions,
         :product_suggestions,
-        :label_sheet_orders,
         :product_amp_models,
         :tone_library_songs,
         :product_promotions,
