@@ -1,9 +1,9 @@
 <% if website.email_signup_url %>
 <div id="signup">
 	<form action="<%= email_signup_url %>" method="POST">
-		<h2><%= t('news_signup')%>
+		<h3><%= t('news_signup')%>
 		<input type="text" name="Email" size="30" value="email address" style="width: 150px; font-size: 14px; padding: 2px;" onfocus="if (this.value == 'email address') this.value = '';"> 
-		<input type="submit" name="go" value="signup"> </h2>
+		<input type="submit" name="go" value="signup"> </h3>
 	</form> 
 </div>
 <% end %>
