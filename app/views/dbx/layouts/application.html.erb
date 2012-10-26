@@ -34,7 +34,7 @@
 		  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
 		  fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));</script>
-		<%= render_partial "shared/admin_dashboard_link" %>		
+		<%#= render_partial "shared/admin_dashboard_link" %>		
 		<div id="Header">
 			<% if website.has_market_segments? %>
 			<div id="market_segment_nav">
@@ -77,6 +77,9 @@
 			<% end %>
 			<div id="dealer_login">
 				<%= link_to "dealer login", "/toolkit", target: "_blank" %>
+			</div>
+			<div id="supersocial">
+				<%= social_media_links 'twitter', 'facebook', 'rss', 'youtube', 'myspace' %> 
 			</div>
 			<div class="clear"></div>
 		</div>

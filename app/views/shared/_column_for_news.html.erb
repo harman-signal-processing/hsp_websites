@@ -1,7 +1,7 @@
-<h2><%= social_media_links 'rss' %> <%= link_to t("titles.news", brand: website.brand_name), news_index_path %>
+<h3><%= social_media_links 'rss' %> <%= link_to t("titles.news", brand: website.brand_name), news_index_path %>
 	<% if website.blog_url %>
 	&bull; <%= link_to t("titles.blog", brand: website.brand_name), website.blog_url %>
-	<% end %></h2>
+	<% end %></h3>
 <table class="news_list">
 <% @news.each do |news| %>
   <tr>
