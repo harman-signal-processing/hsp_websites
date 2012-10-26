@@ -99,7 +99,7 @@
 	<div class="clear"></div>
 </div>
 
-<% if session["geo_usa"] %>
+<% if session["geo_usa"] && !@product.hide_buy_it_now_button? %>
 <%= content_for :dealer_popup do %>
 	<div>
 		<div style="float: left;">
