@@ -17,6 +17,7 @@ describe "BuyItNow Integration Test" do
 
   	it "should have buy it now links" do
   		visit product_url(@product, locale: I18n.default_locale, host: @website.url)
+      must_have_link "Dealers", href: buy_it_now_product_path(@product, locale: I18n.default_locale, host: @website.url)
   		must_have_xpath("//div[@id='dealers']")
   	end
 
@@ -79,13 +80,29 @@ describe "BuyItNow Integration Test" do
       page.must_have_xpath("//a[@href='#{@retailer_link.url}'][starts-with(@onclick, '_gaq.push')]")
     end
 
-	it "preferred should appear first" do
-		preferred_retailer = FactoryGirl.create(:online_retailer, preferred: 1)
-		preferred_link = FactoryGirl.create(:online_retailer_link, online_retailer: preferred_retailer, product: @product, brand: @website.brand)
-		visit product_url(@product, locale: I18n.default_locale, host: @website.url)
-		must_have_xpath("//div[@id='dealers']/div[@id='online_retailers']/div[@class='retailer_logo preferred']/a[@href='#{preferred_link.url}']")
-	end
+  	it "preferred should appear first" do
+  		preferred_retailer = FactoryGirl.create(:online_retailer, preferred: 1)
+  		preferred_link = FactoryGirl.create(:online_retailer_link, online_retailer: preferred_retailer, product: @product, brand: @website.brand)
+  		visit product_url(@product, locale: I18n.default_locale, host: @website.url)
+  		must_have_xpath("//div[@id='dealers']/div[@id='online_retailers']/div[@class='retailer_logo preferred']/a[@href='#{preferred_link.url}']")
+  	end
 
   end
-  
+
+  describe "product is set to hide_buy_it_now_button" do
+    before do
+      @product.hide_buy_it_now_button = true
+      @product.save
+      visit product_url(@product, locale: I18n.default_locale, host: @website.url, bin: @online_retailer.to_param)
+    end
+
+    it "should not have the buy it now div" do
+      wont_have_xpath("//div[@id='dealers']")
+    end
+
+    it "should not have the buy it now button" do
+      wont_have_link "Dealers", href: buy_it_now_product_path(@product, locale: I18n.default_locale, host: @website.url)
+    end
+
+  end  
 end

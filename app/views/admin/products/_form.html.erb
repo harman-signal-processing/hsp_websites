@@ -111,6 +111,9 @@
 <p>
 	<%= f.check_box :rohs %> <%= f.label :rohs %><br/>
 	<% if website.has_effects? && !@product.layout_class == 'epedal' %>
-	<%= f.check_box :has_pedals %> <%= f.label :has_pedals %> (call the "effects" tab "pedals")
+	<%= f.check_box :has_pedals %> <%= f.label :has_pedals %> (call the "effects" tab "pedals")<br/>
+	<% end %>
+	<% if website.has_online_retailers? || website.has_distributors? || website.has_dealers? %>
+	<%= f.check_box :hide_buy_it_now_button %> <%= f.label :hide_buy_it_now_button %><br/>
 	<% end %>
 </p>

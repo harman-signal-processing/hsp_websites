@@ -10,7 +10,7 @@
 
 <div class="button_container">
 	<%= link_to 'Back', admin_products_path, class: "back button" %>
-	<%= link_to 'Edit Descriptions', edit_admin_product_path(@product, locale: I18n.locale), class: "edit button" %>
+	<%= link_to 'Edit Product Descriptions & Settings', edit_admin_product_path(@product, locale: I18n.locale), class: "edit button" %>
 	<%= link_to 'Delete', [:admin, @product], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
 </div>
 
@@ -166,10 +166,6 @@
 			<%= render '/admin/shared/product_attachment_row', pa: pa %>
 		<% end %>
 	</ul>
-	
-	<%#= sortable_element "product_attachments",
-            # complete: visual_effect(:highlight, "product_attachments"),
-            url: update_order_admin_product_attachments_path %>
 
 	<% if @product.product_attachments.size > 1 %>
 	  <p class="small">Drag to change the order these elements appear on the product page.</p>
@@ -254,9 +250,6 @@
 			<%= render '/admin/shared/product_training_module_row', ptm: ptm, called_from: 'product' %>
 		<% end %>
 	</ul>
-	<%#= sortable_element "product_training_modules",
-        # complete: visual_effect(:highlight, "product_training_modules"),
-        url: update_order_admin_product_training_modules_path %>
 </div>
 <% end %>
 
@@ -303,7 +296,7 @@
 </div>
 <% end %>
 
-<% if website.has_online_retailers? && can?(:manage, OnlineRetailer) %>
+<% if website.has_online_retailers? && can?(:manage, OnlineRetailer) && !@product.hide_buy_it_now_button %>
 <div class="group">
 <h3>Available from the following online retailers:</h3>
 (Create a <%= link_to "new online retailer", new_admin_online_retailer_path %>.)
@@ -381,9 +374,7 @@
 	  <%= render "/admin/shared/product_specification_row", ps: ps %>
 	  <% end %>
 	</ul>
-		<%#= sortable_element "product_specifications",
-            # complete: visual_effect(:highlight, "product_specifications"),
-            url: update_order_admin_product_specifications_path %>
+
 </div>
 <% end %>
 

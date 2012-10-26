@@ -174,6 +174,8 @@ module ProductsHelper
 
 		  if !product.in_production?
         no_buy_it_now(product)
+      elsif product.hide_buy_it_now_button?
+        ""
 		  elsif !session["geo_usa"]
         buy_it_now_international(product, button)
 		  elsif !product.direct_buy_link.blank?
