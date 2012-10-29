@@ -113,7 +113,7 @@ module MainHelper
         out += content_tag(:div, id: product_family.to_param, class: 'product_family_feature') do
           content_tag(:h2, link_to(translate_content(product_family, :name), product_family)) +
           content_tag(:p, translate_content(product_family, :intro)) +
-          link_to(t('view_full_line'), product_family) + sub_family_content
+          link_to(t('view_full_line'), product_family) + raw(sub_family_content)
         end
 
       else
