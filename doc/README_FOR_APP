@@ -3,10 +3,19 @@ I need to work on...
 
 ================================================================
                  *** Notes for tomorrow ***
-
- Almost done with the epedal ordering:
-  - test admin functions
+  BSS content migration
 ================================================================
+
+
+=== TODO for BSS site ===
+* Finish migrating product content--all products created, need content
+* Migrate news--done back thru 2009
+* Migrate Software
+* Integrate training site
+* URL forwarders
+* Design
+* Buy it now--populate?
+* Integrate forum
 
 
 === TODO for dbx site ===
