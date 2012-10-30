@@ -84,7 +84,8 @@ class MainController < ApplicationController
     ferret_results.each do |r|
       unless (r.is_a?(Product) && !r.show_on_website?(website)) || 
         (r.has_attribute?(:brand_id) && r.brand_id != website.brand_id) ||
-        (r.respond_to?(:belongs_to_this_brand?) && !r.belongs_to_this_brand?(website))
+        (r.respond_to?(:belongs_to_this_brand?) && !r.belongs_to_this_brand?(website)) ||
+        (r.is_a?(Artist) && !r.belongs_to_this_brand?(website))
         @results << r
       end
     end
