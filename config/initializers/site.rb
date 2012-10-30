@@ -29,6 +29,7 @@ DOCUMENT_TYPES = [
   ["Cut Sheet", "cut_sheet"],
   ["Quickstart Guide", "quickstart_guide"],
   ["Application Guide", "application_guide"],
+  ["Install Guide", "install_guide"],
   ["Preset List", "preset_list"],
   ["Schematic", "schematic"],
   ["Service Manual", "service_manual"],
