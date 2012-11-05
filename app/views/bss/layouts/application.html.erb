@@ -34,7 +34,9 @@
 		  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
 		  fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));</script>
-		<%#= render_partial "shared/admin_dashboard_link" %>		
+		<%#= render_partial "shared/admin_dashboard_link" %>	
+		
+		<%= cache ["header", website, I18n.locale] do %>
 		<div id="Header">
 			<% if website.has_market_segments? %>
 			<div id="market_segment_nav">
@@ -63,7 +65,9 @@
 					<li><%= link_to t('where_to_buy'), where_to_buy_path %></li>
 					<% end %>
 					<li><%= link_to t('product_support'), support_path %></li>
-					<li><%= link_to "user groups", "/forum" %></li>
+					<% if !!(website.forum_link) %>
+					<li><%= link_to "user groups", website.forum_link %></li>
+					<% end %>
 					<li><%= link_to t('warranty_registration'), warranty_registration_path %></li>
 				</ul>
 			</div>
@@ -83,6 +87,7 @@
 			</div>
 			<div class="clear"></div>
 		</div>
+		<% end %>
 		
 		<% if content_for?(:feature) %>
 			<div id="feature_bg"></div>

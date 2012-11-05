@@ -1,3 +1,4 @@
+<%= cache ["header", website, I18n.locale] do %>
 <div id="Header">
 	<div id="logo">
 		<% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "logo.png")) %>
@@ -32,4 +33,5 @@
 	<% end %>
 	<div class="clear"></div>
 </div>
-<div id="wide_line">&nbsp;</div>		
+<div id="wide_line">&nbsp;</div>	
+<% end %>	

@@ -1,3 +1,4 @@
+<%= cache ["hpro_bar", website, I18n.locale] do %>
 <div id="harmanpro_bar">
 	<%= link_to(image_tag("pro_brands/harman_professional.png", alt: "Harman Pro"), "http://www.harmanpro.com", target: "_blank") %>
 	<%= link_to(image_tag("pro_brands/akg.png", alt: "AKG"), "http://www.akg.com", target: "_blank") %>
@@ -11,3 +12,4 @@
 	<%= link_to(image_tag("pro_brands/studer.png", alt: "Studer"), "http://www.studer.ch", target: "_blank") %>
 	<%= link_to(image_tag("pro_brands/hiqnet.png", alt: "HiQnet"), "http://hiqnet.harmanpro.com", target: "_blank") %>
 </div>
+<% end %>
