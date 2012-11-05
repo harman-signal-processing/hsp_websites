@@ -41,6 +41,8 @@
 		<ul>
 			<% if !!(website.has_training) %>
 			<li><%= link_to "product training", training_path %></li>
+			<% elsif !!website.brand.name.match(/^bss/i) %>
+			<li><%= link_to "training", "/training" %></li>
 			<% end %>
 		</ul>
 	</div>

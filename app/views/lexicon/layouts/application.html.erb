@@ -36,6 +36,8 @@
 		}(document, 'script', 'facebook-jssdk'));</script>
 		<%#= render_partial "shared/admin_dashboard_link" %>	
 		<div id="glow"></div>
+
+		<%= cache ["header", website, I18n.locale] do %>
 		<header>
 			<div id="inner_header">
 				
@@ -78,6 +80,7 @@
 			<% end %>
 			</div>
 		</header>
+		<% end %>
 		
 		<div id="page_container">
 			
