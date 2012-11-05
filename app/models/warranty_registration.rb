@@ -43,6 +43,15 @@ class WarrantyRegistration < ActiveRecord::Base
       ""
     end
   end
+
+  # product name
+  def product_name
+    begin
+      self.product.name
+    rescue
+      self.product_id
+    end
+  end
   
   # model
   def model

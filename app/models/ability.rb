@@ -41,6 +41,7 @@ class Ability
         cannot :read, User
         cannot :manage, Website
         cannot :manage, Brand
+        can :read, WarrantyRegistration
       end
       if user.role?(:sales_admin)
         can :read, Product
@@ -49,6 +50,7 @@ class Ability
         can :manage, Dealer
         can :manage, OnlineRetailer
         can :manage, OnlineRetailerLink
+        can :read, WarrantyRegistration
       end
       if user.role?(:rso_admin)
         can :update, User do |u|

@@ -98,6 +98,9 @@
 		<% if can?(:update, :harman_employee_pricing) %>
 		<li><%= link_to "Employee Pricing", harman_employee_pricing_admin_products_path %></li>
 		<% end %>
+		<% if can?(:read, WarrantyRegistration) %>
+		<li><%= link_to "Product Registrations", admin_warranty_registrations_path(format: 'csv') %></li>
+		<% end %>
 		<% if website.has_audio_demos? && can?(:manage, AudioDemo) %>
 		<li><%= link_to "Audio Demos", admin_audio_demos_path %></li>
 		<% end %>
