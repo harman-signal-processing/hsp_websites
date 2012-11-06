@@ -20,6 +20,7 @@ class ContactMessage < ActiveRecord::Base
     self.message_type ||= "support" #others: rma_request, part_request
     self.subject ||= "Parts Request" if self.part_request?
     self.subject ||= "RMA Request" if self.rma_request?
+    self.email.to_s.gsub!(/\s*$/, '')
   end
   
   def require_product?
