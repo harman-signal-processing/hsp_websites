@@ -5,7 +5,7 @@ require "minitest/rails"
 require "capybara/rails"
 require "active_support/testing/setup_and_teardown"
 require "database_cleaner"
-require "mocha"
+require "mocha/setup"
 # require "selenium-webdriver"
 
 MiniTest::Unit::TestCase.send(:include, FactoryGirl::Syntax::Methods)
