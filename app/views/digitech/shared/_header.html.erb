@@ -1,4 +1,5 @@
-<%= cache ["header", website, I18n.locale] do %>
+<%# Can't cache this because of the alternate logos %>
+<%#= cache ["header", website, I18n.locale] do %>
 <header id="main_header">
 	<div id="logo">
 		<% if content_for?(:alternate_logo) %>
@@ -29,4 +30,4 @@
 	<% end %>
 	<div class="clear"></div>
 </header>
-<% end %>
+<%# end %>
