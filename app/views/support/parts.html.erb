@@ -25,7 +25,7 @@
 	<h2 style="text-align: right; width: 332px;">Product Details</h2>
 	<%= cache ["parts_form_products", website.brand] do %>
 	<div><%= f.label :product, nil, class: "required" %>
-		<%= f.select :product, [[]] + Product.all_for_website(website).collect{|p| p.name} + ["other"] %></div>
+		<%= f.select :product, [[]] + Product.repairable(website).collect{|p| p.name} + ["other"] %></div>
 	<% end %>
 	<div><%= f.label :part_number, "HSP Part Number" %>
 		<%= f.text_field :part_number %></div>
