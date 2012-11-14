@@ -108,6 +108,10 @@ class Product < ActiveRecord::Base
   def self.non_supported(website)
     all.select{|p| p if p.product_status.not_supported? && p.belongs_to_this_brand?(website)}.sort{|a,b| a.name.downcase <=> b.name.downcase}
   end
+
+  def self.repairable(website)
+    all_for_website(website) - non_supported(website) - website.vintage_products
+  end
   
   # Find those which are on tour with an Artist
   def self.on_tour(website)
