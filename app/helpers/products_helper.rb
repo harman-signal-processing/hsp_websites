@@ -220,11 +220,11 @@ module ProductsHelper
         buy_it_now_product_path(product), 
         class: "buy_it_now_popup", 
         data: {windowname: 'dealer_popup'},
-        onclick: "_gaq.push(['_trackEvent', 'BuyItNow', 'USA', '#{product.name}'])")
+        onclick: raw("_gaq.push(['_trackEvent', 'BuyItNow', 'USA', '#{product.name}'])"))
     else
       link_to(button, 
         where_to_buy_path, 
-        onclick: "_gaq.push(['_trackEvent', 'BuyItNow', 'Without online retailer links', '#{product.name}'])")
+        onclick: raw("_gaq.push(['_trackEvent', 'BuyItNow', 'Without online retailer links', '#{product.name}'])"))
     end
   end
 
@@ -232,20 +232,20 @@ module ProductsHelper
     link_to(button, 
       @online_retailer_link.url, 
       target: "_blank", 
-      onclick: "_gaq.push(['_trackEvent', 'BuyItNow-Dealer', '#{@online_retailer_link.online_retailer.name}', '#{product.name}'])")    
+      onclick: raw("_gaq.push(['_trackEvent', 'BuyItNow-Dealer', '#{@online_retailer_link.online_retailer.name}', '#{product.name}'])"))
   end
 
   def buy_it_now_direct_from_factory(product, button)
     link_to(button, 
       product.direct_buy_link, 
       target: "_blank", 
-      onclick: "_gaq.push(['_trackEvent', 'AddToCart', 'USA (#{session['geo_country']})', '#{product.name}'])")
+      onclick: raw("_gaq.push(['_trackEvent', 'AddToCart', 'USA (#{session['geo_country']})', '#{product.name}'])"))
   end
 
   def buy_it_now_international(product, button)
     link_to(button, 
       international_distributors_path, 
-      onclick: "_gaq.push(['_trackEvent', 'BuyItNow', 'non-USA (#{session['geo_country']})', '#{product.name}'])")  
+      onclick: raw("_gaq.push(['_trackEvent', 'BuyItNow', 'non-USA (#{session['geo_country']})', '#{product.name}'])"))
   end
   
   def links_to_current_promotions(product, options={})
