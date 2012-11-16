@@ -42,11 +42,15 @@ class Brand < ActiveRecord::Base
   validates_presence_of :name
 
   def update_products
+    begin
     if live_on_this_platform_changed? && live_on_this_platform?
       self.products.each do |p|
         p.more_info_url = nil
         p.save 
       end
+    end
+    rescue
+      # oh well.
     end
   end
 
