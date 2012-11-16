@@ -1,0 +1,26 @@
+<p>Hi! Thanks for taking the time to register your product. Here is a 
+	confirmation of what we received:</p>
+
+<h4>Customer Info</h4>
+<p><%= @warranty_registration.first_name %> <%= @warranty_registration.last_name %></p>
+
+<p><%= @warranty_registration.address1 %><br/>
+	<%= @warranty_registration.city %>
+	<%= @warranty_registration.state %>
+	<%= @warranty_registration.zip %><br/>
+	<%= @warranty_registration.country %></p>
+
+<p>Tel: <%= @warranty_registration.phone %></p>
+
+<h4>Product Details</h4>
+<p>Model: <%= @warranty_registration.product.name %><br/>
+	Serial: <%= @warranty_registration.serial_number %><br/>
+	Purchased: <%=l @warranty_registration.purchased_on, format: :long %><br/>
+	From: <%= @warranty_registration.purchased_from %><br/>
+	Price: <%= @warranty_registration.purchase_price %></p>
+
+<p>Enjoy your new <%= @warranty_registration.product.name %>.
+	Let us know if we can help at our support address:
+	<%= @brand.support_email %></p>
+
+<p>-- <%= @brand.name %> Customer Support</p>

@@ -102,6 +102,13 @@
 	<%= f.url_field :demo_link, size: 40, placeholder: "http://#{website.url}/#{I18n.default_locale}/..." %>
 </p>
 
+<% if website.brand.employee_store? && !website.brand.live_on_this_platform? %>
+<p>
+	<%= f.label :more_info_url %> (for employee store)<br/>
+	<%= f.url_field :more_info_url, size: 40, placeholder: "http://..." %>
+</p>
+<% end %>
+
 <% if website.page_layouts %>
 <p>
 	<%= f.label :layout_class, "Product page layout style" %> <span class="hint">(not all brands have multiple layouts)</span><br/>

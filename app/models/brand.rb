@@ -37,8 +37,18 @@ class Brand < ActiveRecord::Base
     url: "/system/:attachment/:id/:style/:filename"
 
   after_initialize :dynamic_methods
+  after_update :update_products
   has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
   validates_presence_of :name
+
+  def update_products
+    if live_on_this_platform_changed? && live_on_this_platform?
+      self.products.each do |p|
+        p.more_info_url = nil
+        p.save 
+      end
+    end
+  end
 
   def news
     # First, select news story IDs with a product associated with this brand...
@@ -72,7 +82,7 @@ class Brand < ActiveRecord::Base
     begin
       self.settings.where(name: "support_email").value
     rescue
-      ""
+      "support@harman.com"
     end
   end
   
@@ -84,7 +94,7 @@ class Brand < ActiveRecord::Base
 
   # Those brands which should appear on the myharman.com store (via the API)
   def self.for_employee_store
-    where(name: ["DigiTech", "Lexicon", "dbx", "DOD"])
+    where(employee_store: true).order("UPPER(name)") || where(name: ["DigiTech", "Lexicon", "dbx", "DOD"])
   end
     
   def has_where_to_buy?

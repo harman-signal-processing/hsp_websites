@@ -1,13 +1,23 @@
 object @brand
 attributes :id, :name, :friendly_id, :api_banner_url
-node(:url) { |brand| brand.default_website.url }
+node(:url) { |brand| 
+	if brand.live_on_this_platform?
+		brand.default_website.url 
+	elsif brand.respond_to?(:external_url)
+		brand.external_url
+	else
+		nil
+	end
+}
 node(:api_banner_url) { |brand|
 	if banner = brand.api_banner_url
 		if Rails.env.production? || Rails.env.staging?
 			if banner.match(/^http/i)
 				banner
-			else
+			elsif brand.live_on_this_platform?
 				"http://#{brand.default_website.url}#{banner}"
+			else
+				nil
 			end
 		else
 			if banner.match(/^http/i)

@@ -42,4 +42,12 @@ class SiteMailer < ActionMailer::Base
       from: "support@digitech.com",
       subject: "Your epedal labels are on their way!")
   end
+
+  def confirm_product_registration(warranty_registration)
+    @warranty_registration = warranty_registration
+    @brand = @warranty_registration.brand
+    mail(to: @warranty_registration.email,
+      from: @brand.support_email,
+      subject: "#{@brand.name} product registration")
+  end
 end

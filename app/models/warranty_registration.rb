@@ -2,7 +2,7 @@ class WarrantyRegistration < ActiveRecord::Base
   belongs_to :brand
   belongs_to :product
   validates_presence_of :first_name, :last_name, :brand_id, :product_id, :email, :country, :serial_number, :purchased_on
-  after_create :execute_promotion
+  after_create :send_email_confirmation, :execute_promotion
   attr_reader :purchase_city
   
   class << self
@@ -14,6 +14,11 @@ class WarrantyRegistration < ActiveRecord::Base
         purchase_price age marketing_question1 marketing_question2 marketing_question3 marketing_question4 marketing_question5
         marketing_question6 marketing_question7 comments}
     end
+  end
+
+  # Sends a confirmation back to the customer
+  def send_email_confirmation
+    SiteMailer.delay.confirm_product_registration(self)
   end
   
   # This could be used to automatically send registrants promotion materials
