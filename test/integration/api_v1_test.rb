@@ -36,6 +36,7 @@ describe "API v1 Integration Test" do
 
 		it "should provide the product families with product counts" do
 			fam = @lexicon.product_families.first
+			# save_and_open_page
 			must_have_content "\"product_family\":{\"id\":#{fam.id},\"name\":\"#{fam.name}\",\"parent_id\":null,\"friendly_id\":\"#{fam.friendly_id}\",\"employee_store_products_count\":5}"
 		end
 	end
@@ -108,6 +109,32 @@ describe "API v1 Integration Test" do
 
 		it "should have the product image full url" do
 			must_have_content "http://#{@website.url}" + @product.photo.product_attachment.url(:medium, timestamp: false)
+		end
+	end
+
+	describe "brand not live on this system" do
+		before do
+	    	@other_brand = FactoryGirl.create(:brand, employee_store: true, live_on_this_platform: false)
+	    	@other_product = FactoryGirl.create(:product, brand: @other_brand, more_info_url: "http://foo.lvh.me/foobar")
+			@external_url = "http://brandx.com"
+			Brand.any_instance.stubs(:external_url).returns(@external_url)
+		end
+
+		it "should have the url to the external product page" do 
+			visit api_v1_product_url(@other_product.friendly_id, host: @website.url)
+			must_have_content @other_product.more_info_url
+		end
+
+		it "should have the url to the external brand site" do 
+			visit api_v1_brand_url(@other_brand.friendly_id, host: @website.url)
+			must_have_content @external_url
+		end
+
+		it "should show the brand url if the product url is blank" do
+			@other_product.more_info_url = nil
+			@other_product.save 
+			visit api_v1_product_url(@other_product.friendly_id, host: @website.url)
+			must_have_content @external_url
 		end
 	end
 

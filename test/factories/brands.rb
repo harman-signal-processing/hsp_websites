@@ -26,6 +26,8 @@ FactoryGirl.define do
     dealers_from_brand_id nil
     distributors_from_brand_id nil
     service_centers_from_brand_id nil
+    employee_store false
+    live_on_this_platform false
     # rso_enabled false
     # logo_file_name "logo.png"
     # logo_content_type "application/png"
@@ -43,6 +45,8 @@ FactoryGirl.define do
       show_pricing true
       has_suggested_products true
       has_audio_demos true
+      employee_store true
+      live_on_this_platform true
     end
     factory :digitech_brand do
       name "DigiTech"
@@ -51,6 +55,8 @@ FactoryGirl.define do
       has_clinics true
       has_service_centers true
       has_audio_demos true
+      employee_store true
+      live_on_this_platform true
     end
     factory :dod_brand do
       name "DOD"
@@ -58,6 +64,8 @@ FactoryGirl.define do
       dealers_from_brand_id 1
       distributors_from_brand_id 1
       service_centers_from_brand_id 1
+      employee_store true
+      live_on_this_platform true
     end
     factory :hardwire_brand do
       name "HardWire"
@@ -65,6 +73,8 @@ FactoryGirl.define do
       dealers_from_brand_id 1
       distributors_from_brand_id 1
       service_centers_from_brand_id 1
+      employee_store false
+      live_on_this_platform true
   	end
     factory :vocalist_brand do
       name "Vocalist"
@@ -72,18 +82,28 @@ FactoryGirl.define do
       dealers_from_brand_id 1
       distributors_from_brand_id 1
       service_centers_from_brand_id 1
+      employee_store false
+      live_on_this_platform true
     end
     factory :jbl_commercial_brand do
       name "JBL Commercial"
+      employee_store false
+      live_on_this_platform true
     end
     factory :idx_brand do
       name "IDX"
+      employee_store false
+      live_on_this_platform false
     end
     factory :dbx_brand do
       name "dbx"
+      employee_store true
+      live_on_this_platform true
     end
     factory :bss_brand do
       name "BSS"
+      employee_store true
+      live_on_this_platform false
     end
   end
 
