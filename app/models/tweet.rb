@@ -7,7 +7,7 @@ class Tweet < ActiveRecord::Base
   	if twitter_name = brand.twitter_name
 	  Twitter.user_timeline(twitter_name, since: 1.week.ago).each do |tweet|
         unless exists?(tweet_id: tweet.id)
-      	  create!(
+      	  create(
         		tweet_id: tweet.id,
         		content: tweet.text,
         		screen_name: tweet.user.screen_name,
