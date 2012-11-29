@@ -4,6 +4,7 @@
 # to download the file are instances of DownloadRegistration.
 #
 class RegisteredDownload < ActiveRecord::Base
+  attr_accessible :download_count
   has_many :download_registrations
   belongs_to :brand
   validates :name, :brand, :from_email, :subject, presence: true
