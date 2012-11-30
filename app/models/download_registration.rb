@@ -13,9 +13,9 @@ class DownloadRegistration < ActiveRecord::Base
   
   validates :first_name, :registered_download_id, presence: true
   
-  validates :email, 
-    uniqueness: {scope: :registered_download_id},
-    format: /\A([-a-z0-9!\#$%&'*+\/=?^_`{|}~]+\.)*[-a-z0-9!\#$%&'*+\/=?^_`{|}~]+@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
+  validates :email, presence: true
+    # uniqueness: {scope: :registered_download_id},
+    # format: /\A([-a-z0-9!\#$%&'*+\/=?^_`{|}~]+\.)*[-a-z0-9!\#$%&'*+\/=?^_`{|}~]+@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
     
   validates :serial_number, 
     presence: true, 
