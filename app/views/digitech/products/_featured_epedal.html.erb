@@ -2,7 +2,11 @@
 	<%= link_to(image_tag(pedal.photo.product_attachment.url(:small), alt: pedal.name), pedal) %>
 <% end %>
 <div class="burst">
+	<% if !!(pedal.to_param.match(/redline|recall/)) %>
+	<%= link_to(image_tag("#{website.folder}/istomp/included_burst.png", alt: "included"), pedal) %>
+	<% else %>
 	<%= link_to(image_tag("#{website.folder}/istomp/99cent_burst.png", alt: "99 cents"), pedal) %>
+	<% end %>
 </div>
 <h5><%= pedal.name %></h5>
 <p>
