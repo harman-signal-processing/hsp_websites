@@ -34,9 +34,11 @@
 				 data: { effecton: effect_on_image_path(@product) }
 				) %>
 			<% if website.featured_epedals && website.featured_epedals.split("|").include?(@product.friendly_id) %>
-			<div class="burst">
-				<%= image_tag("#{website.folder}/istomp/99cent_burst.png", alt: "99 cents") %>
-			</div>
+				<% unless @product.to_param.match(/redline|recall/) %>
+					<div class="burst">
+						<%= image_tag("#{website.folder}/istomp/99cent_burst.png", alt: "99 cents") %>
+					</div>
+				<% end %>
 			<% end %>
 		</div>
 		<% end %>
