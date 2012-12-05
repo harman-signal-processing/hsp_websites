@@ -4,7 +4,7 @@ class Admin::SoftwaresController < AdminController
   # GET /admin/softwares
   # GET /admin/softwares.xml
   def index
-    @softwares = @softwares.where(brand_id: website.brand_id).order("name, version")
+    @softwares = @softwares.where(brand_id: website.brand_id).where("current_version_id IS NULL or current_version_id = 0").order("name, version")
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @softwares }
