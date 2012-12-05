@@ -5,6 +5,12 @@
 <h1><%= @page_title %></h1>
 <%= render 'shared/add_this' %>
 
+	<% if @software.replaced_by && @software.replaced_by.is_a?(Software) %>
+	<div class="alert">
+		Note: this is an old version. The current version is: <%= link_to @software.replaced_by.formatted_name, @software.replaced_by %>.
+	</div>
+	<% end %>
+
 <div style="margin-top: 20px; margin-bottom: 40px;">
 	<div class="download_box">
 		<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/download_button.png")) %>
@@ -19,9 +25,10 @@
 			<%= platform_icon(@software, 17) %>
 			<%= link_to(download_software_path(@software, locale: I18n.locale)) do %>
 		  		<%= @software.formatted_name %>  
-		  		[<%= number_to_human_size(@software.ware_file_size)%>]
 			<% end %>
+			[<%= number_to_human_size(@software.ware_file_size)%>]
 		</p>
+		<br/>
 		
 		<% @software.software_attachments.each do |sa| %>
 		<p>
@@ -58,7 +65,7 @@
 
 	<ul>
 		<% @software.previous_versions.each do |s| %>
-		<li><%= link_to s.formatted_name, download_software_path(s, locale: I18n.locale) %></li>
+		<li><%= link_to s.formatted_name, s %> [<%= number_to_human_size(s.ware_file_size) %>]</li>
 		<% end %>
 	</ul>
 <% end %>

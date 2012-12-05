@@ -38,6 +38,12 @@ class Software < ActiveRecord::Base
     self.class.where(current_version_id: self.id).order("created_at DESC")
   end
 
+  def replaced_by
+    if self.current_version_id.present? && self.current_version_id != self.id 
+      self.class.find(self.current_version_id)
+    end
+  end
+
   def replace_old_version
     if self.replaces_id && self.replaces_id.to_i > 0
       self.class.where(current_version_id: self.replaces_id).update_all(current_version_id: self.id, active: false)
