@@ -36,6 +36,10 @@
   <%= f.check_box :active %>
   <%= f.label :active %>
 </p>
+<p>
+  <%= f.label :replaces_id, "Replaces current version of" %><br/>
+  <%= f.select :replaces_id, [[]] + website.softwares.where(active: true).order("name").map{|s| [s.formatted_name, s.id]} %>
+</p>
 <% if website.page_layouts %>
 <p>
 	<%= f.label :layout_class, "Page layout style" %> <span class="hint">(not all brands have multiple layouts)</span><br/>

@@ -1,4 +1,5 @@
 class Software < ActiveRecord::Base
+  attr_accessor :replaces_id
   has_many :product_softwares, dependent: :destroy
   has_many :products, through: :product_softwares
   has_many :software_attachments
@@ -13,6 +14,7 @@ class Software < ActiveRecord::Base
     url: "/system/:attachment/:id/:style/:filename"
 
   after_initialize :set_default_counter
+  after_save :replace_old_version
   belongs_to :brand, touch: true
   
   define_index do
@@ -31,6 +33,20 @@ class Software < ActiveRecord::Base
     self.download_count += 1
     self.save
   end
+
+  def previous_versions
+    self.class.where(current_version_id: self.id).order("created_at DESC")
+  end
+
+  def replace_old_version
+    if self.replaces_id && self.replaces_id.to_i > 0
+      self.class.where(current_version_id: self.replaces_id).update_all(current_version_id: self.id, active: false)
+      self.class.where(id: self.replaces_id).update_all(current_version_id: self.id, active: false)
+      ProductSoftware.where(software_id: self.replaces_id).each do |ps|
+        ProductSoftware.find_or_create_by_software_id_and_product_id(self.id, ps.product_id)
+      end
+    end
+  end
   
   def formatted_name
     f = self.name
@@ -47,6 +63,10 @@ class Software < ActiveRecord::Base
   # Alias for search results content_preview
   def content_preview
     self.description
+  end
+
+  def has_additional_info?
+    !!(self.description.present? || self.training_modules.count > 0 || self.software_attachments.count > 0 || self.training_classes.count > 0 || self.previous_versions.count > 0)
   end
 
 end

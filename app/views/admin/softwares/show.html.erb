@@ -123,3 +123,13 @@
 	</ul>
 </div>
 <% end %>
+
+<% if @software.previous_versions.size > 0 %>
+	<h3>Previous Versions</h3>
+
+	<ul>
+		<% @software.previous_versions.each do |s| %>
+		<li><%= link_to s.formatted_name, [:admin, s] %></li>
+		<% end %>
+	</ul>
+<% end %>

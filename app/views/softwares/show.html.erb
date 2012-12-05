@@ -39,6 +39,7 @@
 		<h4>Training Modules</h4>
 		<%= link_to "Visit Training Page", training_path %>
 	<% end %>
+
 	<div class="clear"></div>
 </div>
 
@@ -49,6 +50,17 @@
 		<%= render_partial "product_families/product_square", product: product, compare: false %>
 	<% end %>
 	<div class="clear"></div>
+<% end %>
+
+<% if @software.previous_versions.count > 0 %>
+	<hr/>
+	<h4>Previous Versions</h4>
+
+	<ul>
+		<% @software.previous_versions.each do |s| %>
+		<li><%= link_to s.formatted_name, download_software_path(s, locale: I18n.locale) %></li>
+		<% end %>
+	</ul>
 <% end %>
 
 <p><br/><%= link_to t('software_downloads'), softwares_path %></p>
