@@ -73,7 +73,7 @@ class ProductFamily < ActiveRecord::Base
   def self.parents_for_supernav(website, locale)
     pf = []
     where(brand_id: website.brand_id).where("parent_id IS NULL or parent_id = 0").order(:position).each do |f|
-      pf << f if !(f.hide_from_homepage) && f.locales(website).include?(locale.to_s)
+      pf << f if !(f.hide_from_homepage) && f.locales(website).include?(locale.to_s) && (f.current_products.size > 0 || f.children_with_current_products(website).size > 0)
     end
     pf
   end
