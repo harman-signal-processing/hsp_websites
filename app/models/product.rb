@@ -163,14 +163,14 @@ class Product < ActiveRecord::Base
     rp.uniq
   end
 
-  # Selects all ACTIVE retailer links for this Product EXCEPT for
-  # those that are preferred
+  # Selects all ACTIVE retailer links for this Product
   def active_retailer_links
     @active_retailer_links ||= self.online_retailer_links.select{|orl| orl if orl.online_retailer.active}
   end
 
+  # Randomizes active links, except for preferred
   def randomized_retailer_links
-    @randomized_retailer_links ||= active_retailer_links.sort_by{rand}
+    @randomized_retailer_links ||= (active_retailer_links - preferred_retailer_links).sort_by{rand}
   end
 
   def preferred_retailer_links
