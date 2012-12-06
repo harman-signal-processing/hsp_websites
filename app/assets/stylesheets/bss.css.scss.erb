@@ -116,7 +116,7 @@ div#Header {
 	margin: 16px auto 16px auto;
 	position: relative;
 	z-index: 5000;
-	height: 86px;
+	height: 68px;
 	div#search_form {
 		position: absolute;
 		top: 47px;
@@ -192,7 +192,7 @@ div#tagline {
 }
 div#topnav {
 	float: right;
-    background: #222;
+    background: #333;
 /*	border: 1px solid #cf0404;
  *	background: #244fbc;
  *	background: -moz-linear-gradient(top,  #244fbc 0%, #001c64 100%);
@@ -219,15 +219,15 @@ div#topnav {
 		display: inline;
 		list-style: none;
 		a:link, a:visited {
-			border-right: 1px solid #777;
-			text-shadow: 1px 1px 1px #444;
+			border-right: 1px solid #555;
+			text-shadow: 1px 1px 1px #000;
 			padding: 2px 7px 3px 7px;
 			color: #EAEAEA;
 			text-decoration: none;
 			margin-top: 2px;
 		}
 		a:hover {
-			color: #FFF;
+			color: #0db14b;
 		}
 	}
 }
@@ -392,21 +392,23 @@ div.two_column_container {
 	}
 }
 /**** Main ******/
-#feature_spacer {
-	position: relative;
-	height: 600px;
-}
-/*#feature_bg {
+/*
+* #feature_spacer {
+*	position: relative;
+*	height: 500px;
+*}
+*/
+#feature_bg {
 	position: absolute;
-	top: 0px;
+	top: 116px;
 	z-index: -100;
 	width: 100%;
-	height: 445px;
+	height: 330px;
 	text-align: center;
-	background-image: url(<%= image_path('BlankFeature_BG.png') %>);
-	background-repeat: no-repeat;
-	background-position: top center;
-}*/
+	background: {
+		color: #333;
+	}
+}
 div#feature_container {
 	position: relative;
 	width: 960px;
@@ -425,10 +427,10 @@ div.slideshow_frame {
 div#slideshow_controls {
 	position: absolute;
 	bottom: 10px;
-	right: 20px;
+	right: 2px;
 	z-index: 1000;
 	a {
-		color: #0db14b;
+		color: #fff;
 		text-decoration: none;
 		display: block;
 		background: #000;
@@ -439,7 +441,7 @@ div#slideshow_controls {
 		border-radius: 4px;
 		float: right;
 		&:hover {
-			color: #000;
+			color: #0db14b;
 			background: #333;
 		}
 		.current_button {
@@ -456,22 +458,27 @@ div#middle_container {
 	padding-left: 5px;
 }
 div.product_family_feature {
-	background: #FFF;
-	border: 1px solid #CCC;
-	margin: 20px;
+	background: #EEE;
+	margin: 10px;
 	padding: 10px;
-	width: 250px;
-	height: 275px;
+	width: 157px;
+	height: 175px;
 	overflow: hidden;
 	float: left;
 	text-align: left;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
 	color: #000;
+	h2 {
+		font-size: 18px;
+		line-height: 20px;
+	}
 	h3 {
 		border-top: 1px dotted #666;
 		padding-top: 4px;
 		margin-top: 6px;
+		font-size: 14px;
+		line-height: 16px;
 	}
 }
 .homepage_feature {
@@ -726,6 +733,9 @@ div#product_content {
 			color: #797979;
 			font-size: 14px;
 			line-height: 20px;
+			text-align: left;
+			margin-top: 20px;
+			margin-left: 8px;
 			h1 {
 				font-family: sans-serif;
 				font-size: 34px;
@@ -754,7 +764,7 @@ div#product_content {
 			margin-bottom: 40px;
 			tr td {
 				width: 940px;
-				height: 250px;
+				height: 220px;
 				text-align: center;
 				vertical-align: middle;
 			}
@@ -808,7 +818,7 @@ div#product_content.vertical {
 		margin-top: 10px;
 		tr td {
 			width: 400px;
-			height: 356px;
+			height: 366px;
 			text-align: center;
 			vertical-align: middle;
 		}
@@ -854,7 +864,7 @@ div#product_content.horizontal {
 				overflow: hidden;
 				tr td {
 					width: 940px;
-					height: 390px;
+					height: 250px;
 					text-align: center;
 					vertical-align: middle;
 				}
