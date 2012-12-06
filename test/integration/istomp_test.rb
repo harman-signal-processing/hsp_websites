@@ -73,8 +73,8 @@ describe "iStomp Integration Test" do
   	it "should use the epedal layout" do 
   		must_have_xpath("//section[@id='product_content'][@class='#{@gooberator.layout_class}']")
   	end
-  	it "should jump directly to siblings in coverflow" do
-  		must_have_xpath("//div[@id='coverflow_settings'][@data-jump='true']")
+  	it "should NOT jump directly to siblings in coverflow" do
+  		wont_have_xpath("//div[@id='coverflow_settings'][@data-jump='true']")
   	end
   	it "should have the istomp bottom panel" do
   		must_have_xpath("//div[@id='istomp_callout'][@class='callout left_callout']")
