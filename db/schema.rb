@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121204200421) do
+ActiveRecord::Schema.define(:version => 20121207153505) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -561,6 +561,14 @@ ActiveRecord::Schema.define(:version => 20121204200421) do
   end
 
   add_index "online_retailers", ["cached_slug"], :name => "index_online_retailers_on_cached_slug", :unique => true
+
+  create_table "operating_systems", :force => true do |t|
+    t.string   "name"
+    t.string   "version"
+    t.string   "arch"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "pages", :force => true do |t|
     t.string   "title"
@@ -1132,6 +1140,16 @@ ActiveRecord::Schema.define(:version => 20121204200421) do
     t.datetime "updated_at"
   end
 
+  create_table "software_operating_systems", :force => true do |t|
+    t.integer  "software_id"
+    t.integer  "operating_system_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  add_index "software_operating_systems", ["operating_system_id"], :name => "index_software_operating_systems_on_operating_system_id"
+  add_index "software_operating_systems", ["software_id"], :name => "index_software_operating_systems_on_software_id"
+
   create_table "software_training_classes", :force => true do |t|
     t.integer  "software_id"
     t.integer  "training_class_id"
@@ -1170,6 +1188,7 @@ ActiveRecord::Schema.define(:version => 20121204200421) do
     t.string   "link_status",        :default => "200"
     t.string   "layout_class"
     t.integer  "current_version_id"
+    t.string   "bit"
   end
 
   add_index "softwares", ["cached_slug"], :name => "index_softwares_on_cached_slug", :unique => true
