@@ -7,13 +7,15 @@ class Software < ActiveRecord::Base
   has_many :training_classes, through: :software_training_classes
   has_many :software_training_modules, dependent: :destroy, order: :position
   has_many :training_modules, through: :software_training_modules
+  has_many :software_operating_systems, dependent: :destroy
+  has_many :operating_systems, through: :software_operating_systems
   has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
   validates_presence_of :name, :brand_id
   has_attached_file :ware,
     path: ":rails_root/public/system/:attachment/:id/:style/:filename",
     url: "/system/:attachment/:id/:style/:filename"
 
-  after_initialize :set_default_counter
+  after_initialize :set_default_counter, :determine_platform
   after_save :replace_old_version
   belongs_to :brand, touch: true
   
@@ -56,9 +58,16 @@ class Software < ActiveRecord::Base
   
   def formatted_name
     f = self.name
-    f += " v #{self.version}" unless self.version.blank?
+    f += " v#{self.version}" unless self.version.blank?
     f += " (#{self.platform})" unless self.platform.blank?
     f
+  end
+
+  # If the platform field is blank
+  def determine_platform
+    if platform.blank?
+      (self.operating_systems.pluck(:name) + self.operating_systems.pluck(:arch)).join(" ")
+    end
   end
 
   # Alias for search results link_name

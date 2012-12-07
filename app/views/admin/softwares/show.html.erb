@@ -31,8 +31,10 @@
 <p>
   <b>Version:</b>
   <%=h @software.version %>
+	<% if @software.bit.present? %>
+		<%= @software.bit %>bit
+	<% end %>
 </p>
-
 <p>
   <b>Description:</b>
   <%= truncate(strip_html(@software.description), length: 75) %>

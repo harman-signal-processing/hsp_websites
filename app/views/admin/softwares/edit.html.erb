@@ -1,8 +1,4 @@
 <h1>Editing software</h1>
 
-<%= form_for([:admin, @software], html: {multipart: true}) do |f| %>
-  <%= render "form", f: f %>
-  <p>
-    <%= f.submit 'Update' %>
-  </p>
-<% end %>
+<%= render "form" %>
+
