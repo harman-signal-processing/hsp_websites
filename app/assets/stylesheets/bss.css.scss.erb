@@ -276,7 +276,7 @@ div#big_bottom_box_container {
 	margin: 20px auto 5px auto;
 	width: 960px;
 	border: 1px solid #313131;
-	-moz-border-radius: 10px;
+	-moz-border-radius: 6px;
 	border-radius: 6px;
 	padding-bottom: 6px;
 	h3 {
@@ -400,13 +400,15 @@ div.two_column_container {
 */
 #feature_bg {
 	position: absolute;
-	top: 116px;
+	top: 100px;
 	z-index: -100;
 	width: 100%;
-	height: 330px;
+	height: 355px;
 	text-align: center;
 	background: {
 		color: #333;
+		image: url('<%= image_path('bss/slideshow_bg.jpg') %>');
+		repeat: repeat-x;
 	}
 }
 div#feature_container {
@@ -415,7 +417,7 @@ div#feature_container {
 	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
-	height: 392px;
+	height: 385px;
 	z-index: 300;
 	background: none;
 }
@@ -426,8 +428,8 @@ div.slideshow_frame {
 }
 div#slideshow_controls {
 	position: absolute;
-	bottom: 10px;
-	right: 2px;
+	bottom: 3px;
+	right: -6px;
 	z-index: 1000;
 	a {
 		color: #fff;
@@ -455,7 +457,7 @@ div#middle_container {
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: -14px;
-	padding-left: 5px;
+	padding-left: 0px;
 }
 div.product_family_feature {
 	background: #EEE;
@@ -466,7 +468,7 @@ div.product_family_feature {
 	overflow: hidden;
 	float: left;
 	text-align: left;
-	-moz-border-radius: 10px;
+	-moz-border-radius: 6px;
 	border-radius: 10px;
 	color: #000;
 	h2 {
@@ -483,11 +485,11 @@ div.product_family_feature {
 }
 .homepage_feature {
 	display: inline-block;
-	width: 210px;
-	height: 125px;
+	width: 236px;
+	height: 90px;
 	overflow: hidden;
-	margin-left: 13px;
-	margin-right: 24px;
+	margin-left: 0px;
+	margin-right: 2px;
 }
 div.placeholder {
 	border: 5px solid #CCC;
