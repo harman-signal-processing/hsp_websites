@@ -9,7 +9,7 @@ class Software < ActiveRecord::Base
   has_many :training_modules, through: :software_training_modules
   has_many :software_operating_systems, dependent: :destroy
   has_many :operating_systems, through: :software_operating_systems
-  has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
+  has_friendly_id :formatted_name, use_slug: true, approximate_ascii: true, max_length: 100
   validates_presence_of :name, :brand_id
   has_attached_file :ware,
     path: ":rails_root/public/system/:attachment/:id/:style/:filename",
