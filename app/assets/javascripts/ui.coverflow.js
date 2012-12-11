@@ -75,6 +75,7 @@
 			42 x 0.01275 = .5355
 			43 x 0.00990 = .4257
 			44 x 0.01262 = .55528
+			45 x 0.00900
 
 			so, maybe use .40775 if this.items.length is odd
 			and .5112 if this.items.length is even
@@ -86,7 +87,7 @@
 			// 	multiplier = 0.40775;
 			// }
 
-			this.itemSize = (0.01262 * this.items.length) * this.items.innerWidth();
+			this.itemSize = (0.00943 * this.items.length) * this.items.innerWidth();
 			this.itemWidth = this.items.width();
 			this.itemHeight = this.items.height();
 			this.duration = o.duration;
