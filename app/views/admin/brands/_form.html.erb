@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :default_website_id %><br />
-    <%= f.select :default_website_id, [[]] + @brand.websites.collect{|w| [w.url, w.id]} %>
+    <%= f.collection_select :default_website_id, @brand.websites, :id, :url, include_blank: true %>
   </div>
   <div class="field">
 	<%= f.check_box :has_market_segments %> <%= f.label :has_market_segments %><br/>
@@ -49,15 +49,15 @@
 
   <div class="field">
 	<%= f.label :dealers_from_brand_id, "Use dealers (US) from the following brand:" %><br/>
-	<%= f.select :dealers_from_brand_id, [[]] + (Brand.all - [@brand]).collect{|b| [b.name, b.id]} %>
+	<%= f.collection_select :dealers_from_brand_id, (Brand.all - [@brand]), :id, :name, include_blank: true %>
   </div>
   <div class="field">
 	<%= f.label :distributors_from_brand_id, "Use distributors (int'l) from the following brand:" %><br/>
-	<%= f.select :distributors_from_brand_id, [[]] + (Brand.all - [@brand]).collect{|b| [b.name, b.id]} %>
+	<%= f.collection_select :distributors_from_brand_id, (Brand.all - [@brand]), :id, :name, include_blank: true %>
   </div>
   <div class="field">
 	<%= f.label :service_centers_from_brand_id, "Use service centers (US) from the following brand:" %><br/>
-	<%= f.select :service_centers_from_brand_id, [[]] + (Brand.all - [@brand]).collect{|b| [b.name, b.id]} %>
+	<%= f.collection_select :service_centers_from_brand_id, (Brand.all - [@brand]), :id, :name, include_blank: true %>
   </div>
 
   <div class="field">

@@ -44,7 +44,7 @@
 <%= form_for [:admin, @product_review_product], remote: true do |f| %>
 	<%= hidden_field_tag "called_from", "product_review" %>
     <%= f.hidden_field :product_review_id %>
-	<%= f.select :product_id, Product.all_for_website(website).collect{|p| [p.name, p.id]} %> 
+	<%= f.collection_select :product_id, Product.all_for_website(website), :id, :name %> 
 	<%= submit_tag 'add' %>
 <% end %>
 

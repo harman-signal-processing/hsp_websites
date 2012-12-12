@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :dealer_id %> (if not listed, fill out the "location" field)<br />
-    <%= f.select :dealer_id, [[]] + Dealer.order("name").all.collect{|d| ["#{d.name} (#{d.address_string})", d.id]}, {}, style: "font-size: 75%" %>
+    <%= f.collection_select :dealer_id, Dealer.order("name"), :id, :name_and_address, {include_blank: true}, style: "font-size: 75%" %>
   </div>
   <div class="field">
     <%= f.label :location %> (only used if "dealer" field is blank)<br />
@@ -33,7 +33,7 @@
   </div>
   <div class="field">
     <%= f.label :clinician_id %><br />
-    <%= f.select :clinician_id, [[]] + User.where(clinician: true).order("name").all.collect{|c| [c.name, c.id]} %>
+    <%= f.collection_select :clinician_id, User.where(clinician: true).order("name"), :id, :name, include_blank: true %>
   </div>
 	<p>Products to be demonstrated:</p>
 	  <%= f.fields_for :clinic_products do |clinic_product| %>

@@ -90,7 +90,10 @@
 				   <%= f.text_field :email %></div>
 				<%= cache ["contact_form_products", website.brand] do %>
 				<div><%= f.label :product %><br/>
-					<%= f.select :product, [[]] + Product.all_for_website(website).collect{|p| p.name} + ["other"] %></div>
+					<%= f.collection_select :product, 
+							Product.all_for_website(website) + [Product.new(name: "other")],
+							:name, :name, prompt: true %>
+				</div>
 				<% end %>
 				<div><%= f.label :operating_system %><br/>
 					<%= f.text_field :operating_system %></div>

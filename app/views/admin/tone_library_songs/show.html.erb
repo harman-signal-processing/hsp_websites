@@ -15,7 +15,7 @@
 <h3>Patches</h3>
 <%= form_for [:admin, @tone_library_patch], html: {multipart: true} do |f| %>
     <%= f.hidden_field :tone_library_song_id %>
-	<%= f.select :product_id, Product.non_discontinued(website).collect{|p| [p.name, p.id]} %> 
+	<%= f.collection_select :product_id, Product.non_discontinued(website), :id, :name %> 
 	<%= f.file_field :patch %>
 	<%= submit_tag 'upload new patch' %>
 <% end %>

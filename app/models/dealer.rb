@@ -32,6 +32,10 @@ class Dealer < ActiveRecord::Base
   def address_string
     "#{address}, #{city}, #{state} #{zip}"
   end
+
+  def name_and_address
+    "#{name} (#{address_string})"
+  end
     
   # Geocode if the address has changed
   def regeocode

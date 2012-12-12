@@ -13,11 +13,11 @@
 
   <div class="field">
     <%= f.label :tone_library_song_id %><br />
-    <%= f.select :tone_library_song_id, ToneLibrarySong.find(:all, order: "title").collect{|s| [s.displayname, s.id]} %>
+    <%= f.collection_select :tone_library_song_id, ToneLibrarySong.order("title"), :id, :displayname %>
   </div>
   <div class="field">
     <%= f.label :product_id %><br />
-    <%= f.select :product_id, Product.find(:all, order: "name").collect{|p| [p.name, p.id]} %>
+    <%= f.collection_select :product_id, Product.order("name"), :id, :name %>
   </div>
   <div class="field">
     <%= f.label :patch %><br />

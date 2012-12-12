@@ -2,7 +2,7 @@
 
 <p>
   <%= f.label :product_id %><br />
-  <%= f.select :product_id, website.products.collect{|p| [p.name, p.id]} %>
+  <%= f.collection_select :product_id, website.products, :id, :name %>
 </p>
 <p>
   <%= f.label :language %><br />

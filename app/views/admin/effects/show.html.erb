@@ -28,7 +28,7 @@
 			<%= hidden_field_tag :effect_name %>
 			<%= hidden_field_tag :called_from, "effect" %>
 		    <%= f.hidden_field :effect_id %>
-			<%= f.select :product_id, website.products.collect{|p| [p.name, p.id]} %> 
+			<%= f.collection_select :product_id, website.products, :id, :name %> 
 			<%= f.submit %>
 			<%= link_to_function "cancel", "$('#add_effect_form').toggle();"%>
 		<% end %>

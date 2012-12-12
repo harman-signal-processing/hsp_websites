@@ -21,7 +21,7 @@
   </div>
   <div class="field">
   	<%= f.label :brand_id %><br/>
-    <%= f.select :brand_id, Brand.all.collect{|b| [b.name, b.id]} %>
+    <%= f.collection_select :brand_id, Brand.all, :id, :name %>
   </div>
   <div class="field">
   	<%= f.label :default_locale %> (can also be set per-brand)<br/>

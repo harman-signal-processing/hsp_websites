@@ -13,11 +13,11 @@
 
   <div class="field">
     <%= f.label :artist_id %><br />
-    <%= f.select :artist_id, Artist.order(:name).collect{|a| [a.name, a.id]} %>
+    <%= f.collection_select :artist_id, Artist.order(:name), :id, :name %>
   </div>
   <div class="field">
     <%= f.label :product_id %><br />
-    <%= f.select :product_id, Product.order(:name).collect{|p| [p.name, p.id]} %>
+    <%= f.collection_select :product_id, Product.order(:name), :id, :name %>
   </div>
   <div class="field">
 	<%= f.check_box :on_tour %>

@@ -41,7 +41,7 @@
 		</tr>
 		<tr>
 			<td>
-				<%= f.select :product_id, @products.collect{|product| [product.name, product.id]} %>
+				<%= f.collection_select :product_id, @products, :id, :name %>
 				&nbsp;
 			</td>
 			<td>

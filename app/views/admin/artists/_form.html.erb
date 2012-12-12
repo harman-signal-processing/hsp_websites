@@ -6,7 +6,7 @@
 </p>
 <p>
 	<%= f.label :artist_tier_id %>
-	<%= f.select :artist_tier_id, [[]] + ArtistTier.all.collect{|tier| [tier.name, tier.id]} %>
+	<%= f.collection_select :artist_tier_id, ArtistTier.all, :id, :name, include_blank: true %>
 </p>
 <p>
   <%= f.check_box :featured %>

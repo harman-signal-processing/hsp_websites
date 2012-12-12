@@ -50,7 +50,10 @@
 	<h2 style="text-align: right; width: 332px;">Product Details</h2>
 <%= cache ["rma_form_products", website.brand] do %>
 	<div><%= f.label :product, nil, class: "required" %>
-		<%= f.select :product, [[]] + Product.repairable(website).collect{|p| p.name} + ["other"] %></div>
+		<%= f.collection_select :product, 
+				Product.repairable(website) + [Product.new(name: "other")], 
+				:name, :name, prompt: true %>
+	</div>
 <% end %>
 	<div><%= f.label :product_sku, "SKU Number", class: "required" %>
 		<%= f.text_field :product_sku, size: 15 %> 

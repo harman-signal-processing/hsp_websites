@@ -77,7 +77,7 @@
 	<%= form_for [:admin, @product_family_product], remote: true do |f| %>
 		<%= hidden_field_tag "called_from", "product_family" %>
     	<%= f.hidden_field :product_family_id %>
-		<%= f.select :product_id, website.products.collect{|p| [p.name, p.id]} %> 
+		<%= f.collection_select :product_id, website.products, :id, :name %> 
 		<%= submit_tag 'add existing product' %>
 		<%= link_to 'create a new product', new_admin_product_path %>
 	<% end %>
@@ -97,7 +97,7 @@
 	<p>Leave blank to show this product family for all locales.</p>
 	<%= form_for [:admin, @locale_product_family], remote: true do |f| %>
 		<%= f.hidden_field :product_family_id %>
-		<%= f.select :locale, website.website_locales.collect{|wl| [wl.name, wl.locale]} %>
+		<%= f.collection_select :locale, website.website_locales, :locale, :name %>
 		<%= submit_tag 'add' %>
 	<% end %>
 	
