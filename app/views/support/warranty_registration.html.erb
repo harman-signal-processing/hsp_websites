@@ -53,7 +53,9 @@
 	
 	<%= cache ["registerable_products", website.brand, I18n.locale] do %>
 	<div><%= f.label :product_id, class: "required" %>
-	<%= f.select :product_id, Product.all_for_website_registration(website).collect{|p| [p.name, p.id]} %></div>
+	<%= f.collection_select :product_id, 
+		Product.all_for_website_registration(website), 
+		:id, :name, prompt: true %></div>
 	<% end %>
 	
 	<div><%= f.label :serial_number, class: "required" %>
@@ -87,6 +89,6 @@
 
 <%= content_for :extra_js do %>
 	$(document).ready(function() {
-		$('warranty_registration_first_name').focus();
+		$('#warranty_registration_first_name').focus();
 	});
 <% end %>

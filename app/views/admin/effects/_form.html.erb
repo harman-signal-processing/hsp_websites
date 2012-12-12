@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :effect_type_id %><br />
-    <%= f.select :effect_type_id, EffectType.order(:position).collect{|et| [et.name, et.id]} %>
+    <%= f.collection_select :effect_type_id, EffectType.order(:position), :id, :name %>
   </div>
   <div class="field">
     <%= f.label :name %><br />

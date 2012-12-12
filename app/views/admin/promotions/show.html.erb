@@ -45,7 +45,7 @@
 		<%= f.hidden_field :promotion_id %>
 		<%= hidden_field_tag :called_from, "promotion" %>
 		<p>
-			<%= f.select :product_id, website.products.collect{|p| [p.name, p.id]} %>
+			<%= f.collection_select :product_id, website.products, :id, :name %>
 			<%= f.submit "add product" %>
 		</p>
 	<% end %>

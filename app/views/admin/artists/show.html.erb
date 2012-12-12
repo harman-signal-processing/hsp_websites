@@ -60,7 +60,7 @@
 		<%= f.hidden_field :artist_id %>
 		<%= hidden_field_tag :called_from, "artist" %>
 		<p>
-			<%= f.select :product_id, website.products.collect{|p| [p.name, p.id]} %>
+			<%= f.collection_select :product_id, website.products, :id, :name %>
 			<%= f.check_box :on_tour %>
 			<%= f.label :on_tour, "on tour with this product" %>
 		</p>

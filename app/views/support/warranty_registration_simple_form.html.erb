@@ -1,0 +1,70 @@
+<%
+
+# Started rewriting the form using simple-form. Functional,
+# but needs CSS. Would like to do this to all the forms.
+# First, build a better nested CSS strategy across brands.
+
+%>
+
+
+<% set_meta_tags title: t('titles.warranty_registration'),
+				 description: t('meta.warranty_registration'),
+				 reverse: true %>
+
+<%= cache ["registration_form", website.brand, I18n.locale] do %>
+
+	<h1 class="page_title">
+	<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/productregistration_head.jpg")) %>
+		<%= image_tag("#{website.folder}/#{I18n.locale}/productregistration_head.jpg", alt: t('titles.warranty_registration')) %>
+	<% else %>
+		<%= t('titles.warranty_registration') %>
+	<% end %>
+	</h1>
+
+	<%= simple_form_for @warranty_registration, url: warranty_registration_path do |f| %>
+
+		<%= f.input :title, as: :radio, collection: %w(Mr. Mrs. Ms. Miss Dr.) %>
+		<%= f.input :first_name, required: true %>
+		<%= f.input :last_name, required: true %>
+		<%= f.input :email, required: true %>
+
+		<%= f.input :company %>
+		<%= f.input :address1 %>
+		<%= f.input :city %>
+		<%= f.input :state %>
+		<%= f.input :zip %>
+		<%= f.input :country, required: true %>
+		<%= f.input :phone %>
+		
+		<%= f.input :product_id, 
+			collection: Product.all_for_website_registration(website), 
+			value_method: :id, 
+			label_method: :name, 
+			prompt: "Select a product",
+			required: true %>
+		
+		<%= f.input :serial_number, required: true, hint: t('blurbs.use_date_code') %>
+		
+		<%= f.input :purchased_on, as: :string, required: true, input_html: { class: 'ui-datepicker' } %>
+		<%= f.input :purchased_from %>
+		<%= f.input :purchase_price %>
+		
+		<div><%= t('blurbs.warranty_comments') %></div>
+		<%= f.input :comments, input_html: { size: "40x5" } %>
+
+		<%= f.input :subscribe, label: t('blurbs.subscribe', brand: website.brand_name) %>
+		
+		<div>
+			<%= f.submit t('submit_warranty_registration') %>
+			<%= link_to t('cancel'), :back %>
+		</div>
+
+	<% end %>
+
+<% end %>
+
+<%= content_for :extra_js do %>
+	$(document).ready(function() {
+		$('#warranty_registration_first_name').focus();
+	});
+<% end %>

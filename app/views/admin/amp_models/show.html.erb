@@ -15,7 +15,7 @@
 			<%= hidden_field_tag :amp_model_name %>
 			<%= hidden_field_tag :called_from, "amp_model" %>
 		    <%= f.hidden_field :amp_model_id %>
-			<%= f.select :product_id, website.products.collect{|p| [p.name, p.id]} %> 
+			<%= f.collection_select :product_id, website.products, :id, :name %> 
 			<%= f.submit %>
 			<%= link_to_function "cancel", "$('#add_amp_model_form').toggle();"%>
 		<% end %>

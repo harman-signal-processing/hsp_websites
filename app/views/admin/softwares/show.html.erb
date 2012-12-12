@@ -49,7 +49,7 @@
 	<h3>Related Products</h3>
 	<%= form_for [:admin, @product_software], remote: true do |f| %>
 		<p>
-			<%= f.select :product_id, website.products.collect{|s| [s.name, s.id]} %>
+			<%= f.collection_select :product_id, website.products, :id, :name %>
 			&nbsp;
 			<%= hidden_field_tag "called_from", "software" %>
 			<%= f.hidden_field :software_id %>
@@ -88,7 +88,7 @@
 	<h3>Training Modules</h3>
 	<%= form_for [:admin, @software_training_module], remote: true do |f| %>
 		<p>
-			<%= f.select :training_module_id, website.training_modules.collect{|p| [p.name, p.id]} %>
+			<%= f.collection_select :training_module_id, website.training_modules, :id, :name %>
 			&nbsp;
 			<%= hidden_field_tag "called_from", "software" %>
 			<%= f.hidden_field :software_id %>
@@ -101,9 +101,6 @@
 			<%= render "/admin/shared/software_training_module_row", stm: stm, called_from: 'software' %>
 		<% end %>
 	</ul>
-	<%#= sortable_element "software_training_modules",
-        # complete: visual_effect(:highlight, "software_training_modules"),
-        url: update_order_admin_software_training_modules_path %>
 </div>
 <% end %>
 
@@ -113,7 +110,7 @@
 	<%= form_for [:admin, @software_training_class], remote: true do |f| %>
 		<%= hidden_field_tag "called_from", "software" %>
     	<%= f.hidden_field :training_class_id %>
-		<%= f.select :training_class_id, website.training_classes.collect{|p| [p.name, p.id]} %> 
+		<%= f.collection_select :training_class_id, website.training_classes, :id, :name %> 
 		<%= submit_tag 'add existing training class' %>
 		<%= link_to 'create a new training class', new_admin_training_class_path %>
 	<% end %>

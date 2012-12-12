@@ -22,7 +22,7 @@
 <%= form_for [:admin, @online_retailer_user], remote: true do |f| %>
 	<%= hidden_field_tag "called_from", "user" %>
     <%= f.hidden_field :user_id %>
-	<%= f.select :online_retailer_id, OnlineRetailer.all.collect{|onr| [onr.name, onr.id]} %> 
+	<%= f.collection_select :online_retailer_id, OnlineRetailer.all, :id, :name %> 
 	<%= submit_tag 'add' %>
 	or <%= link_to 'create a new retailer', new_admin_online_retailer_path %>
 <% end %>

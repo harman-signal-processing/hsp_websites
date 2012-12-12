@@ -5,7 +5,8 @@
 
   <p>
     <%= f.label :product_id %><br />
-    <%= f.select :product_id, [[@online_retailer_link.product.name, @online_retailer_link.product_id]] + Product.non_discontinued(website).collect{|p| [p.name, p.id]} %>
+    <%= f.collection_select :product_id, [@online_retailer_link.product] + Product.non_discontinued(website),
+          :id, :name %>
   </p>
   <p>
     <%= f.label :url %><br />

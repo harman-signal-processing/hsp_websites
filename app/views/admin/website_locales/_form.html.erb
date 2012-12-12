@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :website_id %><br />
-    <%= f.select :website_id, Website.order(:url).collect{|a| [a.url, a.id]} %>
+    <%= f.collection_select :website_id, Website.order(:url), :id, :url %>
   </div>
   <div class="field">
     <%= f.label :locale %><br />

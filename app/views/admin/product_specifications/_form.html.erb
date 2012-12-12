@@ -13,11 +13,11 @@
 
   <div class="field">
     <%= f.label :product_id %><br />
-    <%= f.select :product_id, website.products.collect{|p| [p.name, p.id]} %>
+    <%= f.collection_select :product_id, website.products, :id, :name %>
   </div>
   <div class="field">
     <%= f.label :specification_id %><br />
-    <%= f.select :specification_id, Specification.order("upper(name)").all.collect{|s| [s.name, s.id]} %>
+    <%= f.collection_select :specification_id, Specification.order("upper(name)"), :id, :name %>
   </div>
   <div class="field">
     <%= f.label :value %><br />

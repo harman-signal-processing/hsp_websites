@@ -24,7 +24,7 @@
 	<%= form_for [:admin, @product_training_module], remote: true do |f| %>
 		<%= hidden_field_tag "called_from", "training_module" %>
     	<%= f.hidden_field :training_module_id %>
-		<%= f.select :product_id, website.products.collect{|p| [p.name, p.id]} %> 
+		<%= f.collection_select :product_id, website.products, :id, :name %> 
 		<%= submit_tag 'add existing product' %>
 		<%= link_to 'create a new product', new_admin_product_path %>
 	<% end %>
@@ -42,7 +42,9 @@
 	<h3>Related Software</h3>
 	<%= form_for [:admin, @software_training_module], remote: true do |f| %>
 		<p>
-			<%= f.select :software_id, Software.where(brand_id: website.brand_id).all.sort_by(&:formatted_name).collect{|s| [s.formatted_name, s.id]} %>
+			<%= f.collection_select :software_id, 
+					Software.where(brand_id: website.brand_id).all.sort_by(&:formatted_name),
+					:id, :formatted_name %>
 			&nbsp;
 			<%= hidden_field_tag "called_from", "training_module" %>
 			<%= f.hidden_field :training_module_id %>

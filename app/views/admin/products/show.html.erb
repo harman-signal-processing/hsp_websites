@@ -67,7 +67,7 @@
 <%= form_for [:admin, @product_family_product], remote: true do |f| %>
 	<%= hidden_field_tag "called_from", "product" %>
     <%= f.hidden_field :product_id %>
-	<%= f.select :product_family_id, website.product_families.collect{|pf| [pf.name, pf.id]} %> 
+	<%= f.collection_select :product_family_id, website.product_families, :id, :name %> 
 	<%= submit_tag 'add' %>
 	or <%= link_to 'create a new family', new_admin_product_family_path %>
 <% end %>
@@ -86,12 +86,12 @@
 	<% end %>
 </ul>
 
-<% elsif @product.sub_products.size < 1 %>
+<% elsif @product.sub_products.size < 1 && website.brand.to_param == 'digitech' %>
 <h3>This is a sub-product of:</h3>
 <%= form_for [:admin, @parent_product], remote: true do |f| %>
 	<%= hidden_field_tag "called_from", "product" %>
 	<%= f.hidden_field :product_id %>
-	<%= f.select :parent_product_id, (website.products - [@product]).collect{|p| [p.name, p.id]} %>
+	<%= f.collection_select :parent_product_id, (website.products - [@product]), :id, :name %>
 	<%= submit_tag 'add' %>
 <% end %>
 
@@ -200,7 +200,9 @@
 		provided, then two products are selected at random. <% end %>
 		If this is a discontinued product, then select alternative replacements here:</p>
 	<%= form_for([:admin, @product_suggestion], remote: true) do |f| %>
-		<%= f.select :suggested_product_id, (website.current_products - [@product]).sort_by(&:name).collect{|p| [p.name, p.id]} %>
+		<%= f.collection_select :suggested_product_id, 
+				(website.current_products - [@product]).sort_by(&:name),
+				:id, :name %>
 		&nbsp;<%= hidden_field_tag "called_from", "product" %>
 		<%= f.hidden_field :product_id %>
 		<%= submit_tag 'submit' %>
@@ -218,7 +220,9 @@
 	<h3>Related Software</h3>
 	<%= form_for [:admin, @product_software], remote: true do |f| %>
 		<p>
-			<%= f.select :software_id, Software.where(brand_id: website.brand_id).all.sort_by(&:formatted_name).collect{|s| [s.formatted_name, s.id]} %>
+			<%= f.collection_select :software_id, 
+				Software.where(brand_id: website.brand_id).all.sort_by(&:formatted_name),
+				:id, :formatted_name %>
 			&nbsp;
 			<%= hidden_field_tag "called_from", "product" %>
 			<%= f.hidden_field :product_id %>
@@ -240,7 +244,7 @@
 	<%= form_for [:admin, @product_training_module], remote: true do |f| %>
 		<%= hidden_field_tag "called_from", "product" %>
     	<%= f.hidden_field :training_module_id %>
-		<%= f.select :training_module_id, website.training_modules.collect{|p| [p.name, p.id]} %> 
+		<%= f.collection_select :training_module_id, website.training_modules, :id, :name %> 
 		<%= submit_tag 'add existing training module' %>
 		<%= link_to 'create a new training module', new_admin_training_module_path %>
 	<% end %>
@@ -259,7 +263,7 @@
 	<%= form_for [:admin, @product_training_class], remote: true do |f| %>
 		<%= hidden_field_tag "called_from", "product" %>
     	<%= f.hidden_field :training_class_id %>
-		<%= f.select :training_class_id, website.training_classes.collect{|p| [p.name, p.id]} %> 
+		<%= f.collection_select :training_class_id, website.training_classes, :id, :name %> 
 		<%= submit_tag 'add existing training class' %>
 		<%= link_to 'create a new training class', new_admin_training_class_path %>
 	<% end %>
@@ -308,7 +312,7 @@
 	</tr>
 	<tr>
 		<td>
-			<%= f.select :online_retailer_id, OnlineRetailer.all(order: "name").collect{|retailer| [retailer.name, retailer.id]} %>
+			<%= f.collection_select :online_retailer_id, OnlineRetailer.order("name"), :id, :name %>
 			&nbsp;
 		</td>
 		<td>
@@ -342,7 +346,7 @@
 		    <%= f.hidden_field :product_id %>
 			<p><%= f.label :specification_id, "Spec Name" %><br/>
 				<span id="select_spec_name">
-				<%= f.select :specification_id, Specification.all(order: "name").collect{|s| [s.name, s.id]} %>
+				<%= f.collection_select :specification_id, Specification.order("name"), :id, :name %>
 				<%= link_to_function("new spec name", 
 					  "$('#select_spec_name').toggle();$('#new_spec_name').toggle()") if can?(:create, Specification) %>
 				</span>
@@ -364,7 +368,7 @@
 	<div id="copy_specifications_form" style="display:none">
 		<%= form_for [:admin, @product_specification], url: copy_admin_product_specification_path do |f| %>
 		  <%= f.label :product_id, "Copy ALL specs from:" %>
-		  <%= f.select :product_id, (website.products - [@product]).collect{|p| [p.name, p.id]} %>
+		  <%= f.collection_select :product_id, (website.products - [@product]), :id, :name %>
 		  <%= submit_tag "copy specs" %>
 		<% end %>
 	</div>
@@ -389,7 +393,7 @@
 		    <%= f.hidden_field :product_id %>
 			<p>
 				<span id="select_amp_model_name">
-				<%= f.select :amp_model_id, AmpModel.all(order: "name").collect{|s| [s.name, s.id]} %>
+				<%= f.collection_select :amp_model_id, AmpModel.order("name"), :id, :name %>
 				<%= link_to_function "new amp model", 
 					  "$('#select_amp_model_name').toggle();$('#new_amp_model_name').toggle()"%>
 				</span>
@@ -424,7 +428,7 @@
 		    <%= f.hidden_field :product_id %>
 			<p>
 				<span id="select_cabinet_name">
-				<%= f.select :cabinet_id, Cabinet.all(order: "name").collect{|s| [s.name, s.id]} %>
+				<%= f.collection_select :cabinet_id, Cabinet.order("name"), :id, :name %>
 				<%= link_to_function "new cab", 
 					  "$('#select_cabinet_name').toggle();$('#new_cabinet_name').toggle()"%>
 				</span>
@@ -459,7 +463,7 @@
 		    <%= f.hidden_field :product_id %>
 			<p>
 				<span id="select_effect_name">
-				<%= f.select :effect_id, Effect.all(order: "name").collect{|s| [s.name, s.id]} %>
+				<%= f.collection_select :effect_id, Effect.order("name"), :id, :name %>
 				<%= link_to_function "new effect", 
 					  "$('#select_effect_name').toggle();$('#new_effect_name').toggle()"%>
 				</span>
@@ -506,7 +510,7 @@
 		<%= f.hidden_field :product_id %>
 		<%= hidden_field_tag :called_from, "product" %>
 		<p>
-			<%= f.select :artist_id, Artist.all(order: "name").collect{|a| [a.name, a.id]} %>
+			<%= f.collection_select :artist_id, Artist.order("name"), :id, :name %>
 			<%= f.submit "add artist" %>
 			or <%= link_to "add a new artist", admin_artists_path %>
 		</p>
