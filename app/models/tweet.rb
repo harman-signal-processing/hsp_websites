@@ -1,8 +1,7 @@
 class Tweet < ActiveRecord::Base
   belongs_to :brand
   attr_accessible :brand_id, :content, :posted_at, :profile_image_url, :screen_name, :tweet_id
-  validate :tweet_id, presence: true, uniqueness: {scope: :brand_id}
-
+  validate :tweet_id, presence: true, uniqueness: true
   def self.pull_tweets(brand)
   	if twitter_name = brand.twitter_name
 	  Twitter.user_timeline(twitter_name, since: 1.week.ago).each do |tweet|
