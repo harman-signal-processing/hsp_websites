@@ -49,7 +49,7 @@ module ApplicationHelper
   def slideshow_controls(options={})
     default_options = { duration: 6000, slides: [] }
     options = default_options.merge(options)
-    unless options[:slides].size <= 1
+    if options[:slides].size > 1 && options[:slides].size < 7
       divs = ""
       (1..options[:slides].size).to_a.reverse.each do |i|
         divs += link_to_function(i, 
@@ -60,6 +60,8 @@ module ApplicationHelper
       content_tag(:div, id: "slideshow_controls") do
         raw(divs)
       end
+    else
+      ""
     end
   end
 

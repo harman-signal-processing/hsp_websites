@@ -1,5 +1,5 @@
 <%= cache ["footer", website.brand, I18n.locale] do %>
-<div id="footer">
+<footer>
 	<div id="footer_info">
 		<%= link_to "hardwire story", "/hardwire_story" %> &bull;
 		<% if website.has_software? %>
@@ -25,7 +25,7 @@
 		<%= link_to(t('harman'), "http://www.harman.com/", target: "_blank") %>. 
 		<%= t('all_rights_reserved') %>
 	</div>
-</div>
+</footer>
 <% end %> 
 
 <% if content_for?(:dealer_popup) %>

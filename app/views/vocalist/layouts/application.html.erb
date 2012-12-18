@@ -121,7 +121,7 @@
 		</div> <%# end div id="outer" %>
 		
 		<%= cache ["footer", website.brand, I18n.locale] do %>
-		<div id="footer">
+		<footer>
 			<div id="footer_info">
 				<% if website.has_software? %>
 				<%= link_to t('software_downloads').downcase, software_index_path %> &bull;
@@ -146,7 +146,7 @@
 				<%= link_to(t('harman'), "http://www.harman.com/", target: "_blank") %>. 
 				<%= t('all_rights_reserved') %>
 			</div>
-		</div>
+		</footer>
 		<% end %>
 		
 		<% if content_for?(:dealer_popup) %>
