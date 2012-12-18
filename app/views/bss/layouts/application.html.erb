@@ -122,7 +122,7 @@
 		<% end %>
 		
 		<%= cache ["footer", website.brand, I18n.locale] do %>
-		<div id="footer">
+		<footer>
 			<div id="harmanpro_bar">
 				<%= link_to(image_tag("pro_brands/harman_professional.png", alt: "Harman Pro"), "http://www.harmanpro.com", target: "_blank") %>
 				<%= link_to(image_tag("pro_brands/akg.png", alt: "AKG"), "http://www.akg.com", target: "_blank") %>
@@ -154,12 +154,12 @@
 				<%= link_to t('sitemap'), sitemap_path(format: 'xml') %>
 			</div>
 			<div id="footer_left">
-				<%= image_tag "harman_tiny.png" %>
+				<%= image_tag "harman.jpg" %>
 				&copy; <%= Date.today.year %> 
 				<%= link_to(t('harman'), "http://www.harman.com/", target: "_blank") %>. 
 				<%= t('all_rights_reserved') %>
 			</div>
-		</div>
+		</footer>
 		<% end %>
 		
 		<% if content_for?(:dealer_popup) %>

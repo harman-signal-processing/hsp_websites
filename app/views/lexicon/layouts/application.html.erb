@@ -119,7 +119,7 @@
 		</div>
 		
 		<%= cache ["footer", website.brand, I18n.locale] do %>
-		<div id="footer">
+		<footer>
 			<div id="harmanpro_bar">
 				<%= link_to(image_tag("pro_brands/harman_professional.png", alt: "Harman Pro"), "http://www.harmanpro.com", target: "_blank") %>
 				<%= link_to(image_tag("pro_brands/akg.png", alt: "AKG"), "http://www.akg.com", target: "_blank") unless website.brand_name.match(/akg/i) %>
@@ -157,7 +157,7 @@
 				<%= link_to(t('harman'), "http://www.harman.com/", target: "_blank") %>. 
 				<%= t('all_rights_reserved') %>
 			</div>
-		</div>
+		</footer>
 		<% end %>
 		
 		<% if content_for?(:dealer_popup) %>
