@@ -1,5 +1,6 @@
 <%= content_for :feature do %>
-	<% slides = Setting.slides(website).sort_by { rand } %>
+	<%# slides = Setting.slides(website).sort_by { rand } %>
+	<% slides = Setting.slides(website) %>
 	<%= cache ["slideshow", website.brand, I18n.locale, slides] do %>
 		<% if slides.size > 0 %>
 			<%= slideshow(slides: slides) %>
