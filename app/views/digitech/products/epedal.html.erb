@@ -21,7 +21,7 @@
 <%= cache ["top", @product, I18n.locale, session['geo_country']] do %>
 
 <header id="product_header">
-	<h1><%= @product.name %></h1>
+	<h1><%= @product.name %> <small><%= @product.short_description %></small></h1>
 </header>
 	
 <section id="product_content" class="epedal">
