@@ -7,5 +7,6 @@ class Toolkit::ProductsController < ToolkitController
 
 	def show
 		@product = Product.find(params[:id])
+		@images = @product.images_for("toolkit").select{|pa| pa if pa.is_photo?}
 	end
 end

@@ -53,6 +53,10 @@ class ProductAttachment < ActiveRecord::Base
   def for_product_page?
     !(self.hide_from_product_page?)
   end
+
+  def for_toolkit?
+    true
+  end
   
   # Determine if this attachment is a photo...or something else
   def is_photo?
