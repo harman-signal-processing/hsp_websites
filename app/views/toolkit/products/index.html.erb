@@ -14,7 +14,6 @@
 	<tr>
 		<th>Product</th>
 		<th>Product Type</th>
-		<th>Updated</th>
 	</tr>
 	</thead>
 	<tbody>
@@ -22,7 +21,6 @@
 	<tr>
 		<td><%= link_to product.name, toolkit_brand_product_path(@brand, product) %></td>
 		<td><%= product.product_families.map{|pf| pf.name}.join(", ") %></td>
-		<td><small><%=l product.updated_at, format: :log %></small></td>
 	</tr>
 	<% end %>
 	</tbody>

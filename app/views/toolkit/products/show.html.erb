@@ -8,4 +8,18 @@
 
 <%= content_for :title do %><%= @brand.name %> <%= @product.name %><% end %>
 
+<h1><%= @product.name %> <small><%= @product.short_description %></small></h1>
+
+<h4 class="subheader">Product Images <small>click for full-size images</small></h4>
+<div class="container">
+	<div class="row">
+		<% @images.each do |pa| %>
+		<div class="column <%='end' if pa == @images.last %>">
+			<%= link_to(image_tag(pa.product_attachment.url(:tiny)), pa.product_attachment.url) %>
+		</div>
+		<% end %>
+	</div>
+</div>
+
+<h4 class="subheader">Descriptions</h4>
 <pre><%= @product.to_yaml %></pre>
