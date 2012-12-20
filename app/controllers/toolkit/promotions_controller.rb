@@ -3,6 +3,7 @@ class Toolkit::PromotionsController < ToolkitController
 	layout "toolkit"
 
 	def index
+		@promotions = Promotion.all_for_website(@brand.default_website)
 	end
 
 	def show

@@ -1,4 +1,4 @@
-<ul>
+<ul class="disc">
 	<% product.product_documents.each do |product_document| %>
 	<li>
 		<% if product_document.document_content_type.match(/pdf/i) || product_document.document_file_name.match(/pdf$/i) %>
