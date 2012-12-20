@@ -6,25 +6,26 @@ I need to work on...
   BSS content migration
 ================================================================
 
+=== TODO for Toolkits ===
+* Verify user sign ups via SAP account number
+* Create Advertisements
+* Create Logos
+* Figure out where to store source files.
+* Add hi-res source files to: manuals, etc., promotion forms, ads, product images
+* Dynamically choose homepage content, each brand start page
 
 === TODO for BSS site ===
-* Finish migrating product content--all products created, need content
+* Finish migrating product content--SPECS, FAQs
 * Migrate news--done back thru 2009
-* Migrate Software
-* Integrate training site
-* URL forwarders
+* finish URL forwarders
 * Design
-* Buy it now--populate?
-* Integrate forum
-
+* Re-do software overview page (organize by software instead of product)
+* Individual contact forms?
 
 === TODO for dbx site ===
 * Sales rep info
 
 === TODO for Lexicon ===
-* Tweak the discontinued product page layout
-* Replace store homepage images 
-
 _OMS Notes_
 You can use this link: store.lexiconpro.com/addtocart.aspx?itemid=100170580&subitemid=358897&binlocid=7&qty=1
 
@@ -34,11 +35,7 @@ What you will need to change is: itemid=100170580&subitemid=358897 based on the 
 * Sound community Replacement!!!!!!!
 
 === TODO (for all brands) ===
-* Employee purchases
- - Work with IT to purchase SSL cert for myharman.digitech.com
- - Work with IT to get links directed to myharman.digitech.com
- - Use paypal for checkout, or maybe stripe?
-* Marketing Toolkits
+* Employee purchases--get IT to update links on myharman.com
 * Add JBL to common Hpro footer
 * Fix dealer export from SAP
 * Clean up product info tabs methods (several in product.rb, product_helper.rb)
@@ -52,9 +49,6 @@ What you will need to change is: itemid=100170580&subitemid=358897 based on the 
 * Improve software page--is ugly, especially without release notes
 * Redo layouts with a dynamic grid like zurb
 * reduce duplication in css files by including snippets
-
-=== TODO for BSS ===
-* Start
 
 === Lower Priority ===
 * Server load balancing
