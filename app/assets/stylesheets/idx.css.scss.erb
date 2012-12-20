@@ -76,11 +76,10 @@ h2{
 	font-size: 20px;
 	line-height: 36px;
 	font-weight: 100;
-}
-h2 a:link,
-h2 a:visited {
-	text-decoration: none;
-	color: #222;
+	a:link, a:visited {
+		text-decoration: none;
+		color: #222;
+	}
 }
 #big_bottom_box_container h3 a:link,
 #big_bottom_box_container h3 a:visited {
@@ -120,7 +119,23 @@ div#Header {
 	margin-top: 16px;
 	position: relative;
 	z-index: 5000;
-	border-bottom: 2px solid #62abd8;
+	div#search_form {
+		position: absolute;
+		top: 9px;
+		right: 10px;
+		width: 130px;
+		input#query {
+			background: #CCC;
+			color: #000;
+			border: 1px solid #000f40;
+			width: 110px;
+			padding-left: 4px;
+			padding-right: 16px;
+			font-size: 12px;
+			-moz-border-radius: 6px;
+			border-radius: 6px;
+		}
+	}
 }
 div#topnav {
 	float: right;
@@ -136,47 +151,28 @@ div#topnav {
 	/*letter-spacing: -0.09em;*/
 	-moz-border-radius: 8px;
 	border-radius: 8px;
-}
-div#topnav ul {
-}
-div#topnav li {
-	display: inline;
-	list-style: none;
-/*	padding: 1px;*/
-/*	margin-top: 4px;*/
-}
-div#topnav li a:link,
-div#topnav li a:visited {
-	border-right: 1px solid #E6E6E6;
-/*	text-shadow: #999 1px 1px 1px;*/
-	padding: 2px 7px 3px 7px;
-	color: #333;
-	text-decoration: none;
-	margin-top: 2px;
-}
-div#topnav li.last a:link,
-div#topnav li.last a:visited {
-	border-right: none;
-}
-div#topnav li a:hover {
-	text-decoration: underline;
-}
-div#Header div#search_form {
-	position: absolute;
-	top: 9px;
-	right: 10px;
-	width: 130px;
-}
-div#search_form input#query {
-	background: #CCC;
-	color: #000;
-	border: 1px solid #000f40;
-	width: 110px;
-	padding-left: 4px;
-	padding-right: 16px;
-	font-size: 12px;
-	-moz-border-radius: 6px;
-	border-radius: 6px;
+	li {
+		display: inline;
+		list-style: none;
+	/*	padding: 1px;*/
+	/*	margin-top: 4px;*/
+		a:link, a:visited {
+			border-right: 1px solid #E6E6E6;
+		/*	text-shadow: #999 1px 1px 1px;*/
+			padding: 2px 7px 3px 7px;
+			color: #333;
+			text-decoration: none;
+			margin-top: 2px;
+		}
+		&.last {
+			a:link, a:visited {
+				border-right: none;
+			}
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+	}
 }
 
 div#content_container {
@@ -193,29 +189,26 @@ div#content_container_content {
 	-moz-border-radius: 10px;
 	border-radius: 10px;
 	min-height: 350px;
-}
-.internal_page h1,
-.internal_page h2 {
-	color: #222;
+	h1, h2 {
+		color: #222;
+	}
 }
 div#logo {
 	float: left;
 	margin-top: 5px;
 	margin-left: 10px;
-}
-div#logo h2 {
-	font-size: 30px;
-	color: white;
-	margin-top: -5px;
-	text-align: center;
-	width: 170px;
-}
-div#logo h2 a:link,
-div#logo h2 a:visited,
-div#logo h2 a:hover {
-	color: white;
-	text-decoration: none;
-	text-shadow: #000 1px 1px 1px;
+	h2 {
+		font-size: 30px;
+		color: white;
+		margin-top: -5px;
+		text-align: center;
+		width: 170px;
+		a:link, a:visited, a:hover {
+			color: white;
+			text-decoration: none;
+			text-shadow: #000 1px 1px 1px;
+		}
+	}
 }
 div#big_bottom_box_container {
 	background-color: #00395a;
@@ -227,18 +220,15 @@ div#big_bottom_box_container {
 div#big_bottom_box_content {
 	padding: 10px;
 	padding-bottom: 20px;
-}
-div#big_bottom_box_content a:link,
-div#big_bottom_box_content a:visited {
-	color: #ccc;
-}
-div#big_bottom_box_content h3 a:link,
-div#big_bottom_box_content h3 a:visited {
-	color: white;
-}
-
-div#big_bottom_box_container h3 {
-	font-size: 16px;
+	a:link, a:visited {
+		color: #ccc;
+	}
+	h3 {
+		font-size: 16px;
+		a:link, a:visited {
+			color: white;
+		}
+	}
 }
 
 .divider_above {
@@ -276,10 +266,10 @@ footer {
 #social_media_links {
 	text-align: center;
 	margin-bottom: 10px;
-}
-#social_media_links img {
-	margin-left: 8px;
-	margin-right: 8px;
+	img {
+		margin-left: 8px;
+		margin-right: 8px;
+	}
 }
 .medium_centered_box {
 	width: 500px;
@@ -298,14 +288,14 @@ footer {
 }
 .article_centered_box {
 	margin: 10px 10%;
-}
-.article_centered_box h1 {
-	font-size: 24px;
-	line-height: 27px;
-}
-.article_centered_box .little {
-	font-style: oblique;
-	color: #555;
+	h1 {
+		font-size: 24px;
+		line-height: 27px;
+	}
+	.little {
+		font-style: oblique;
+		color: #555;
+	}
 }
 .light_gray {
 	background: #EEE;
