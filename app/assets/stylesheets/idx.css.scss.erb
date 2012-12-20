@@ -348,31 +348,32 @@ div.slideshow_frame {
 	z-index: 200;
 }
 div#slideshow_controls {
+	display: none;
 	position: absolute;
 	bottom: 10px;
 	right: 20px;
 	z-index: 1000;
-}
-div#slideshow_controls a {
-	color: #999;
-	text-decoration: none;
-	display: block;
-	border: 1px solid #FFF;
-	background: #FFF;
-	font-weight: bold;
-	margin-right: 6px;
-	padding: 3px 8px 2px 8px;
-	-moz-border-radius: 14px;
-	border-radius: 14px;
-	float: right;
-}
-div#slideshow_controls a:hover {
-	border: 1px solid #62abd8;
-}
-div#slideshow_controls a.current_button {
-	color: #EEE;
-	background: #62abd8;
-	border: 1px solid #62abd8;
+	a {
+		color: #999;
+		text-decoration: none;
+		display: block;
+		border: 1px solid #FFF;
+		background: #FFF;
+		font-weight: bold;
+		margin-right: 6px;
+		padding: 3px 8px 2px 8px;
+		-moz-border-radius: 14px;
+		border-radius: 14px;
+		float: right;
+		&:hover {
+			border: 1px solid #62abd8;
+		}
+		&.current_button {
+			color: #EEE;
+			background: #62abd8;
+			border: 1px solid #62abd8;
+		}
+	}
 }
 div#middle_container {
 	text-align: center;
