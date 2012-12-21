@@ -1281,6 +1281,7 @@ ActiveRecord::Schema.define(:version => 20121207153505) do
 
   add_index "tweets", ["brand_id"], :name => "index_tweets_on_brand_id"
   add_index "tweets", ["tweet_id"], :name => "index_tweets_on_tweet_id"
+  add_index "tweets", ["tweet_id"], :name => "tweet_id", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
