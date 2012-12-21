@@ -10,6 +10,9 @@
 <% end %>
 </h1>
 
-<% if @current_products.size > 0 %>
+<% if website.brand.softwares.size <= 0 %>
+	<div style="text-align: center"><i>Check back soon</i></div>
+
+<% elsif @current_products.size > 0 %>
 <%= render "table", products: @current_products + @discontinued_products %>
 <% end %>
