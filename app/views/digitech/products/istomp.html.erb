@@ -61,7 +61,8 @@
 <% end # cache %>
 	
 <div id="coverflow_settings" data-changelabel="true"></div>
-<%= render_partial "products/istomp_coverflow", istomp: @istomp %>
+<%#= render_partial "products/istomp_coverflow", istomp: @istomp %>
+<%= render_partial "products/istomp_epedal_shelves", istomp: @istomp %>
 	
 <section id="product_bottom_content">
 	<%= render_partial "products/featured_epedals_callout", position: :right %>

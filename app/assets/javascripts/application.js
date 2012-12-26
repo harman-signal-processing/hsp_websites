@@ -11,7 +11,7 @@
 //= require jquery.datetimepicker
 //= require jquery.easing.1.3
 //= require jquery.bxSlider.min
-//= require ui.coverflow
+// require ui.coverflow
 //= require jwplayer
 //= require soundmanager2-nodebug-jsmin
 //= require inline_player

@@ -29,16 +29,21 @@ describe "iStomp Integration Test" do
   		must_have_xpath("//script[@src='/assets/istomp.js']")
   		must_have_xpath("//section[@id='product_content'][@class='#{@istomp.layout_class}']")
   	end
-  	it "should have label changers on the coverflow" do
-  		must_have_xpath("//div[@id='coverflow_settings'][@data-changelabel='true']")
-  		must_have_xpath("//div[@id='epedals'][@data-count='#{@istomp.sub_products.count}']")
-  	end
+
+    # Coverflow is being retired, like Roby Urry
+  	# it "should have label changers on the coverflow" do
+  	# 	must_have_xpath("//div[@id='coverflow_settings'][@data-changelabel='true']")
+  	# 	must_have_xpath("//div[@id='epedals'][@data-count='#{@istomp.sub_products.count}']")
+  	# end
+
   	it "should have the featured epedal bottom panel" do
   		must_have_xpath("//div[@id='featured_callout'][@class='callout right_callout']")
   	end
+
   	it "should have the stompshop bottom panel" do
   		must_have_xpath("//div[@id='stomp_shop_callout'][@class='callout left_callout']")
   	end
+
   	it "should have the sub pedals in the show all section" do
   		must_have_content @gooberator.name
   		must_have_content @fooberator.name
@@ -54,12 +59,16 @@ describe "iStomp Integration Test" do
   	it "should use the stompshop layout" do
   		must_have_xpath("//section[@id='product_content'][@class='#{@stompshop.layout_class}']")
   	end
-  	it "should have popups on the coverflow" do
-  		must_have_xpath("//div[@id='coverflow_pops']")
-  	end
+
+    # Coverflow is being retired, like Rob Urry
+  	# it "should have popups on the coverflow" do
+  	# 	must_have_xpath("//div[@id='coverflow_pops']")
+  	# end
+
   	it "should have the featured epedal bottom panel" do
   		must_have_xpath("//div[@id='featured_callout'][@class='callout right_callout']")
   	end
+
   	it "should have the istomp bottom panel" do
   		must_have_xpath("//div[@id='istomp_callout'][@class='callout left_callout']")
   	end

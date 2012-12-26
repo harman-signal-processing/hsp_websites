@@ -104,11 +104,11 @@ jQuery ($) ->
 
 	soundManager.onready () -> 
 		current_sample = new Toggler(soundManager)
-		inlinePlayer = new InlinePlayer()
+#		inlinePlayer = new InlinePlayer()
 	
 	class BigGroupButton
 
-		constructor: (@container='#epedals', @button_selector='img.view_all_button') ->
+		constructor: (@container='#epedals', @button_selector='a.view_all_button') ->
 			@buttons = $(@button_selector)
 			@main_button = $("#{@button_selector}(eq:first)")
 			@hidden = $(@container).hide()
@@ -129,16 +129,10 @@ jQuery ($) ->
 				if @hidden then @show_me() else @hide_me()
 
 		setup_view_button: ->
-			@main_button.hover(
-				=> @main_button.attr('src', @main_button.data('originalover'))
-				=> @main_button.attr('src', @main_button.data('originalsrc'))
-			)
+			@main_button.text('View e-pedals')
 
 		setup_hide_button: ->
-			@main_button.hover(
-				=> @main_button.attr('src', @main_button.data('hideover'))
-				=> @main_button.attr('src', @main_button.data('hidesrc'))
-			)			
+			@main_button.text('Hide e-pedals')
 
 	new BigGroupButton()
 
