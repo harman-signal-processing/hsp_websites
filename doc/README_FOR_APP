@@ -3,7 +3,6 @@ I need to work on...
 
 ================================================================
                  *** Notes for tomorrow ***
-  BSS content migration
 ================================================================
 
 === TODO for Toolkits ===
@@ -26,13 +25,17 @@ I need to work on...
 * Sales rep info
 
 === TODO for Lexicon ===
+* (started) Software compatibility by version (Win XP, 7, etc.) and icons
+
 _OMS Notes_
 You can use this link: store.lexiconpro.com/addtocart.aspx?itemid=100170580&subitemid=358897&binlocid=7&qty=1
 
 What you will need to change is: itemid=100170580&subitemid=358897 based on the product you want to link. You can get these ID's from the manage inventory page in the OMS backend. Please let me know if you have any questions. 
 
 === TODO for DigiTech ===
+* e-pedal releases are bogging down the server.
 * Sound community Replacement!!!!!!!
+* Load in old manuals from FTP site (XP series, etc.)
 
 === TODO (for all brands) ===
 * Employee purchases--get IT to update links on myharman.com

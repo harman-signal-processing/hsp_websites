@@ -145,10 +145,12 @@ class ProductsController < ApplicationController
     @products = []
     @specs = []
     # params[:product_ids] ||= []
-    params[:product_ids].each do |p|
-      product = Product.find(p)
-      @products << product
-      @specs += product.product_specifications.collect{|ps| ps.specification}
+    if params[:product_ids]
+      params[:product_ids].each do |p|
+        product = Product.find(p)
+        @products << product
+        @specs += product.product_specifications.collect{|ps| ps.specification}
+      end
     end
     if @products.size <= 1
       redirect_to product_families_path, alert: "Must select 2 or more products to compare. #{params[:product_ids]}"

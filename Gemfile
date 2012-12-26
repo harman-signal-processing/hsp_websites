@@ -1,6 +1,5 @@
 source 'http://rubygems.org'
 
-# gem "rake", "0.9.2.2"
 gem 'rails', '3.2.9'
 
 # Gems used only for assets and not required
@@ -36,8 +35,6 @@ gem 'moneta'
 gem 'geocoder_plus'
 # gem 'geoip', git: 'http://github.com/cjheath/geoip.git'
 gem 'thinking-sphinx', '2.0.10'
- # git: 'http://github.com/pat/thinking-sphinx.git',
- # require: 'thinking_sphinx'
 gem 'youtube_it'
 gem 'twitter'
 gem 'daemons'
@@ -52,7 +49,7 @@ gem 'dynamic_form'
 gem 'rails_autolink'
 gem 'swf_fu', '>=1.3.4', require: 'swf_fu'
 gem 'execjs'
-gem 'therubyracer', '=0.10.2' # installs OS dependent gem. Put production version in vendor/cache manually
+gem 'therubyracer' #, '=0.10.2' # installs OS dependent gem. Put production version in vendor/cache manually
 gem 'rubyzip', require: 'zip/zip'
 gem 'whenever' #, require: false
 gem "simple_form", ">= 2.0.2"
@@ -61,14 +58,12 @@ gem 'rack-mini-profiler'
 gem 'ransack'
 gem "dalli"
 gem "rabl"
-gem "memcache-client" # moneta needs it
 # New Sound Community stuff
 #gem 'forem', git: "http://github.com/radar/forem.git"
 #gem 'forem-theme-twist', git: "http://github.com/radar/forem-theme-twist.git"
 gem 'will_paginate'
 
 group :production, :staging do
-  # gem "memcache"
   gem 'passenger_monit'
   gem "exception_notification", 
     git: "http://github.com/rails/exception_notification.git",
@@ -81,12 +76,10 @@ end
 group :development, :test do
   gem 'unicorn'
   gem 'minitest-rails', git: "http://github.com/rawongithub/minitest-rails.git", branch: "gemspec"
-  # gem 'thin'
   gem "factory_girl_rails"
 end
 
 group :test do
-  # gem 'sqlite3'
   gem 'mocha', '= 0.13.0', require: false
   gem 'turn' #, git: "http://github.com/adamtao/turn.git"
   gem 'capybara'
