@@ -63,14 +63,40 @@ describe "Browse Products Integration Test" do
       current_path.must_equal product_path(child_family.products.first, locale: I18n.default_locale)
     end
 
-    it "should compare products" do
-      Website.any_instance.stubs(:show_comparisons).returns("1")
-      visit product_family_url(@product_family, locale: I18n.default_locale, host: @website.url)
-      @product_family.products[0,4].each do |p| # tick 4 for comparison
-        find(:css, "#product_ids_[value='#{p.to_param}']").set(true)
+    describe "comparisons" do
+      before do 
+        Website.any_instance.stubs(:show_comparisons).returns("1")
+        visit product_family_url(@product_family, locale: I18n.default_locale, host: @website.url)  
       end
-      click_on("Compare Selected Products")
-      page.current_path.must_equal compare_products_path(locale: I18n.default_locale)
+
+      it "should handle error when comparing zero products" do
+        click_on("Compare")
+        page.current_path.must_equal product_families_path(locale: I18n.default_locale)
+      end
+
+      it "should handle error when comparing one product" do
+        p = @product_family.products.first
+        find(:css, "#product_ids_[value='#{p.to_param}']").set(true)
+        click_on("Compare Selected Products")
+        page.current_path.must_equal product_families_path(locale: I18n.default_locale)
+      end
+
+      it "should handle error when comparing more than four products" do
+        @product_family.products.each do |p| # tick all for comparison
+          find(:css, "#product_ids_[value='#{p.to_param}']").set(true)
+        end
+        click_on("Compare Selected Products")
+        page.current_path.must_equal product_families_path(locale: I18n.default_locale)
+      end
+
+      it "should compare products" do
+        @product_family.products[0,4].each do |p| # tick 4 for comparison
+          find(:css, "#product_ids_[value='#{p.to_param}']").set(true)
+        end
+        click_on("Compare Selected Products")
+        page.current_path.must_equal compare_products_path(locale: I18n.default_locale)
+      end
+
     end
 
   end
@@ -80,7 +106,10 @@ describe "Browse Products Integration Test" do
       @product = FactoryGirl.create(:discontinued_product, brand: @website.brand)
     end
 
-    it "should use the discontinued page layout"
+    it "should use the discontinued page layout" do 
+      visit product_url(@product, locale: I18n.default_locale, host: @website.url)
+      page.must_have_content "discontinued"
+    end
 
     it "should link to attached documents" do
       @product.product_documents << FactoryGirl.create(:product_document, product: @product)

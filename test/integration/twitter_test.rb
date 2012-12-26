@@ -25,10 +25,10 @@ describe "Twitter Integration Test" do
   	  Tweet.count.wont_equal(@tweet_count)
   	end
 
-  	it "should show the tweets on the homepage" do
-  	  skip "I think the auto_link method in the view causes this to not match"
-  	  page.must_have_content(@website.recent_tweets.first.content)
-  	end
+  	# it "should show the tweets on the homepage" do
+  	#   skip "I think the auto_link method in the view causes this to not match"
+  	#   page.must_have_content(@website.recent_tweets.first.content)
+  	# end
 
   	it "should show the profile image on the homepage" do
   	  visit root_url(locale: I18n.default_locale, host: @website.url)

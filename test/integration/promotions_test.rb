@@ -32,8 +32,17 @@ describe "Promotions Integration Test" do
 
   describe "promo overview page" do
 
-  	it "lists current promos"
-  	it "does not list expired promos"
+    before do 
+      visit promotions_url(locale: I18n.default_locale, host: @website.url)
+    end
+
+  	it "lists current promos" do 
+      must_have_link I18n.t(:download_promotion_form), href: @promo.promo_form.url
+    end
+
+  	it "does not list expired promos" do 
+      wont_have_content @expired_promo.name
+    end
 
   end
 
