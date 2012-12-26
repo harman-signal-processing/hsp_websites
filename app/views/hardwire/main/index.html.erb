@@ -1,8 +1,7 @@
 <%= content_for :feature do %>
 	<%= cache ["slideshow", website.brand, I18n.locale] do %>
-		<% slides = Setting.slides(website) %>
-		<% if slides.size > 0 %>
-			<%= slideshow(slides: slides, duration: 8700, transition: "fade") %>
+		<% if Setting.slides(website).size > 0 %>
+			<%= slideshow(slides: Setting.slides(website), duration: 8700, transition: "fade") %>
 		<% end %>
 	<% end %>
 <% end %>
@@ -20,9 +19,8 @@
 			<%= featured_product_families %>
 		<% end %>
 	<% end %>
-  	<div class="clear"></div>
+	<div class="clear"></div>
 <% end %>
-
 
 
 <%= content_for :preload do %>

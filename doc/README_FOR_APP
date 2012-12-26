@@ -62,6 +62,7 @@ What you will need to change is: itemid=100170580&subitemid=358897 based on the 
 * Sitemaps using the sitemap plugin +news sitemaps
 * Use themes_for_rails gem instead of custom hack, manage themes online
 * Inline ecommerce with iLok integration for lexicon
+* Remove dumb RSO site stuff
 
 
 Here's a handy regular expression that can be used in Sublime Text (CTRL H) to update
