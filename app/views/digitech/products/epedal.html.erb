@@ -108,7 +108,8 @@
 <% end %>
 	
 <div id="coverflow_settings" data-jump="false"></div>
-<%= render_partial "products/istomp_coverflow", istomp: @istomp, pedal: @product, use_popups: true %>
+<%#= render_partial "products/istomp_coverflow", istomp: @istomp, pedal: @product, use_popups: true %>
+<%= render_partial "products/istomp_epedal_shelves", istomp: @istomp %>
 	
 <section id="product_bottom_content">
 	<%= render_partial "products/stomp_shop_callout", position: :right, istomp: @istomp %>

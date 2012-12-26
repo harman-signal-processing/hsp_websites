@@ -1,0 +1,25 @@
+<%= cache ["all_epedals", istomp] do %>
+<div class="view_all_button_container">
+<%#= image_tag("#{website.folder}/#{I18n.locale}/view_all_button.png", 
+	alt: "View all e-pedals", class: "view_all_button",
+	data: {
+		originalsrc: image_path("#{website.folder}/#{I18n.locale}/view_all_button.png"),
+		originalover: image_path("#{website.folder}/#{I18n.locale}/view_all_button_hover.png"),
+		hidesrc: image_path("#{website.folder}/#{I18n.locale}/hide_all_button.png"),
+		hideover: image_path("#{website.folder}/#{I18n.locale}/hide_all_button_hover.png")
+	}) %>
+	<%= link_to "View e-pedals", '#', class: "view_all_button" %>
+
+</div>
+	
+<div id="epedals" data-count="<%= istomp.current_sub_products.count %>">
+	<h3><%= istomp.current_sub_products.count %> e-pedals and growing...</h3>
+	<%= render_partial 'products/sub_products', product: istomp %>
+	<div class="view_all_button_container">
+	<%#= image_tag("#{website.folder}/#{I18n.locale}/hide_all_button.png", 
+		mouseover: "#{website.folder}/#{I18n.locale}/hide_all_button_hover.png",
+		alt: "Hide all e-pedals", class: "view_all_button") %>	
+	<%= link_to "Hide e-pedals", '#', class: "view_all_button" %>
+	</div>
+</div>
+<% end %>

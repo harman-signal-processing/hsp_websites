@@ -20,7 +20,7 @@
     <%= f.input :layout_class, 
         label: "Page layout style",
         hint:  "(not all brands have multiple layouts)",
-        collection: [[]] + website.page_layouts.split("|") %>
+        collection: website.page_layouts.split("|") %>
   <% end %>
 
   <h3>Software Activation</h3>

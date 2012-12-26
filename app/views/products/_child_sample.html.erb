@@ -1,0 +1,21 @@
+<% if child.product.audio_demos.size > 0 %>
+<ul class="graphic">
+  <li class="sm2_link">
+  	<%= link_to "listen", 
+			child.product.audio_demos.first.wet_demo.url, 
+			id: "demo_#{child.id}",
+			class: "audio_demo", 
+				data: {
+					wet: child.product.audio_demos.first.wet_demo.url, 
+					dry: child.product.audio_demos.first.dry_demo.url,
+					product: child.to_param
+				} %>
+  </li>
+</ul>
+<% elsif child.product.sample %>
+<ul class="graphic">
+  <li class="sm2_link">
+  	<%= link_to "listen", child.product.sample.product_media.url %>
+  </li>
+</ul>
+<% end %>

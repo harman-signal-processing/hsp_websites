@@ -426,10 +426,24 @@ div#carousel {
 div.view_all_button_container {
 	clear: both;
 	text-align: center;
-	margin-top: -12px;
-	.view_all_button {
+	padding-top: 16px;
+	padding-bottom: 8px;
+	a.view_all_button {
 		cursor: pointer;
 		z-index: 9999;
+		&:link, &:visited {
+			font-size: 17px;
+			background: #666;
+			color: white;
+			padding: 8px 20px;
+			text-decoration: none;
+			text-shadow: 0px 1px 0px #111;
+			border-radius: 6px;
+			box-shadow: 0px 2px 4px #999;
+		}
+		&:hover {
+			background: #999;
+		}
 	}
 }
 
