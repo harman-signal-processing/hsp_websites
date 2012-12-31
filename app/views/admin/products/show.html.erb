@@ -230,7 +230,7 @@
 			or <%= link_to "upload new software", new_admin_software_path %>
 		</p>
 	<% end %>	
-	<ul id="product_softwares">
+	<ul id="product_softwares" class="sortable_list">
 		<% @product.product_softwares.each do |product_software| %>
 			<%= render "/admin/shared/product_software_row", ps: product_software, called_from: 'product' %>
 		<% end %>

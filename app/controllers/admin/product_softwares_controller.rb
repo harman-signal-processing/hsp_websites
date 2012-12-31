@@ -65,6 +65,19 @@ class Admin::ProductSoftwaresController < AdminController
     end
   end
 
+  # POST /admin/product_softwares/update_order
+  def update_order
+    params["product_software"].to_a.each_with_index do |item, pos|
+      if params[:called_from] == "software"
+        ProductSoftware.update(item, product_position: (pos + 1))
+      else
+        ProductSoftware.update(item, software_position: (pos + 1))
+      end
+    end
+    render nothing: true
+    website.add_log(user: current_user, action: "Sorted product software")
+  end
+
   # DELETE /admin/product_softwares/1
   # DELETE /admin/product_softwares/1.xml
   def destroy
