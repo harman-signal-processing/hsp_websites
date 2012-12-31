@@ -1,5 +1,6 @@
 <% called_from ||= 'product' %>
 <li id="product_software_<%= ps.id %>">
+	<span class="handle"><%= image_tag("drag_handle.gif") %></span>
 	<%= (called_from == 'product') ? 
 			link_to(ps.software.formatted_name, [:admin, ps.software]) : 
 			link_to(ps.product.name, [:admin, ps.product]) %> 

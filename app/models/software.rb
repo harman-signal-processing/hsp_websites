@@ -1,6 +1,6 @@
 class Software < ActiveRecord::Base
   attr_accessor :replaces_id
-  has_many :product_softwares, dependent: :destroy
+  has_many :product_softwares, dependent: :destroy, order: "product_position"
   has_many :products, through: :product_softwares
   has_many :software_attachments
   has_many :software_training_classes, dependent: :destroy

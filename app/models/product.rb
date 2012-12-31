@@ -10,7 +10,7 @@ class Product < ActiveRecord::Base
   has_many :news_products, dependent: :destroy
   has_many :news, through: :news_products
   has_many :product_documents, order: "document_type, document_file_name", dependent: :destroy
-  has_many :product_softwares, dependent: :destroy
+  has_many :product_softwares, dependent: :destroy, order: "software_position"
   has_many :softwares, through: :product_softwares
   has_many :product_specifications, order: :position, dependent: :destroy
   has_many :artist_products, dependent: :destroy, inverse_of: :product

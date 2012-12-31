@@ -193,7 +193,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :market_segment_product_families do
         collection { post :update_order }
       end
-      resources :product_training_modules, :software_training_modules, :parent_products do
+      resources :product_training_modules, :software_training_modules, :parent_products, :product_softwares do
         collection { post :update_order }
       end
       resources :blogs do
@@ -221,7 +221,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :tone_library_songs,
         :product_promotions,
         :product_documents, 
-        :product_softwares,
         :clinician_reports,
         :product_cabinets,
         :online_retailers,
