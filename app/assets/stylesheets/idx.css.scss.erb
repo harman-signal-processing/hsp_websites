@@ -960,14 +960,15 @@ div.field_with_errors {
 /****** Information Tables *****/
 table.info {
 	border: 1px solid #999;
-}
-table.info tr td,
-table.info tr th {
-	padding: 6px;
-	border: 1px dotted #CCC;
-}
-table.info th {
-	background: #EEE;
+	tr {
+		td, th {
+			padding: 6px;
+			border: 1px dotted #CCC;
+		}
+	}
+	th {
+		background: #EEE;
+	}
 }
 /****** Software Downloads *******/
 .download_box {
@@ -979,9 +980,10 @@ table.info th {
 	padding: 20px;
 }
 /****** Youtube table ********/
-table.tube {}
-table.tube td {
-	padding: 1px 1px 1px 8px;
+table.tube {
+	td {
+		padding: 1px 1px 1px 8px;
+	}
 }
 /******* Promo page *******/
 .promotion_bug_container {
@@ -999,36 +1001,37 @@ table.tube td {
     height: 380px;
     background: #222;
 	padding: 2px;
-}
-#twitter_feed_container h2 {
-	margin-left: 6px;
-}
-#twitter_feed_container h2 img {
-	vertical-align: middle;
-}
-#twitter_feed_container #tweets {
-	height: 300px;
-	overflow: auto;
-	background: #000;
-	color: #FFF;
-}
-#twitter_feed_container #tweets .tweet {
-	padding: 5px;
-	border-bottom: 1px dotted #666;
-	font-size: 12px;
-	line-height: 14px;
-}
-#twitter_feed_container .tweet a:link,
-#twitter_feed_container .tweet a:visited {
-	color: #69cbff;
-}
-#twitter_feed_container .tweet .tw_actions {
-	font-size: 80%;
-	margin: 0; padding: 0;
-	margin-top: 4px;
-}
-#twitter_feed_container #social_media_links {
-	margin-top: 8px;
+	h2 {
+		margin-left: 6px;
+		img {
+			vertical-align: middle;
+		}
+	}
+	#tweets {
+		height: 300px;
+		overflow: auto;
+		background: #000;
+		color: #FFF;
+		.tweet {
+			padding: 5px;
+			border-bottom: 1px dotted #666;
+			font-size: 12px;
+			line-height: 14px;
+		}
+	}
+	.tweet {
+		a:link, a:visited {
+			color: #69cbff;
+		}
+		.tw_actions {
+			font-size: 80%;
+			margin: 0; padding: 0;
+			margin-top: 4px;
+		}
+	}
+	#social_media_links {
+		margin-top: 8px;
+	}
 }
 #right_column #product_packaging_contents ul li {
 	list-style-type: square;
@@ -1054,39 +1057,38 @@ div#harmanpro_bar {
 	right: 10px;
 	color: white;
 	z-index: 100;
-}
-.admin_function a:link,
-.admin_function a:visited {
-	color: white;
-	text-decoration: none;
-	display: block;
-	background: #5A89CC;
-	padding: 1px 6px 3px 6px;
-}
-.admin_function a:hover {
-	color: white;
-	text-decoration: none;
-	background: #0080FF;
+	a:link, a:visited {
+		color: white;
+		text-decoration: none;
+		display: block;
+		background: #5A89CC;
+		padding: 1px 6px 3px 6px;
+		&:hover {
+			color: white;
+			text-decoration: none;
+			background: #0080FF;
+		}
+	}
 }
 #admin_menu_link {
 	position: absolute;
 	top: 0;
 	right: 0;
 	z-index: 1000;
-}
-#admin_menu_link a:link,
-#admin_menu_link a:visited {
-	display: block;
-	color: #EEE;
-	text-decoration: none;
-	padding: 1px 6px 3px 6px;
-	font-family: Helvetica, arial, sans-serif;
-	font-weight: normal;
-	font-size: 10px;
-	text-shadow: #999 1px 1px 1px;
-}
-#admin_menu_link a:hover {
-	color: #FFF;
+	a:link, a:visited {
+		display: block;
+		color: #EEE;
+		text-decoration: none;
+		padding: 1px 6px 3px 6px;
+		font-family: Helvetica, arial, sans-serif;
+		font-weight: normal;
+		font-size: 10px;
+		text-shadow: #333 1px 1px 1px;
+		background: #00395a;
+		&:hover {
+			color: #FFF;
+		}
+	}
 }
 .callout {
 	background: #EEE;
