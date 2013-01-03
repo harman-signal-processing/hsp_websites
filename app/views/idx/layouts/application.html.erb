@@ -55,8 +55,10 @@
 					<% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
 					<li><%= link_to t('where_to_buy'), where_to_buy_path %></li>
 					<% end %>
-					<li><%= link_to t('product_support'), support_path %></li>
-					<li class="last"><%= link_to t('warranty_registration'), warranty_registration_path %></li>
+					<!--
+					<li><%= link_to t('warranty_registration'), warranty_registration_path %></li>
+					-->
+					<li class="last"><%= link_to t('product_support'), support_path %></li>
 				</ul>
 			</div>
 			<%# search is only available in default language for now...%>
