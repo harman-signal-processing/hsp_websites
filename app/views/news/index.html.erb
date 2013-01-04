@@ -18,5 +18,7 @@
 	<%= render "list", news_list: @news %>
 </div>
 
+<% unless @hide_archive %>
 <p><%= link_to t('older'), archived_news_index_path %></p>
+<% end %>
 

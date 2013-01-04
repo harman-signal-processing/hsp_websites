@@ -54,6 +54,8 @@ describe "News Integration Test" do
 
   describe "old news" do
   	before do
+      # Create at least 5 'current' news stories so that the archives appear
+      FactoryGirl.create_list(:news, 10, brand: @website.brand)
   		@old_news = FactoryGirl.create(:old_news, brand: @website.brand)
   		visit news_index_url(locale: I18n.default_locale, host: @website.url)
   	end

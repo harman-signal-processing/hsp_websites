@@ -6,6 +6,11 @@ class NewsController < ApplicationController
   # GET /news.xml
   def index
     @news = News.all_for_website(website)
+    @hide_archive = false
+    if @news.length < 5
+      @news += News.archived(website) 
+      @hide_archive = true
+    end
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @news }
