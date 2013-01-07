@@ -1,7 +1,7 @@
 <% if !!(website.istomp_coverflow.to_i > 0) %>
 <% use_popups ||= false %>
 <% pedal ||= nil %>
-<%= cache ["coverflow", istomp, pedal, use_popups] do %>
+<%= cache ["coverflow", istomp, pedal, use_popups, I18n.locale] do %>
 <% unless pedal %>
 	<% if website.featured_epedals && featured = website.featured_epedals.split("|") %>
 		<% pedal = Product.find(featured[0]) %>
@@ -43,7 +43,7 @@
 <% end %>
 
 <% if use_popups %>
-<%= cache ["coverflow_popups", istomp] do %>
+<%= cache ["coverflow_popups", istomp, I18n.locale] do %>
 <div id="coverflow_pops" style="display:none">
 	<% coverflow_shuffle(istomp.current_sub_products).each do |child| %>
 	<div id="pop_for_<%= child.product.to_param %>">

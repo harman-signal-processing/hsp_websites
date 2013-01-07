@@ -14,7 +14,7 @@
 <% end %>
 
 <%= content_for :middle_stuff do %>
-	<%= cache ["homepage_middle", website.brand] do %>
+	<%= cache ["homepage_middle", website.brand, I18n.locale] do %>
 		<% if @features.size > 0 %>
 			<% @features.each do |feature| %>
 			<span class="homepage_feature"><%= feature_button(feature) %></span>
@@ -27,7 +27,7 @@
 <% end %>
 
 <%= content_for :big_bottom_box do %>
-	<%= cache ["homepage_bottom", website.brand] do %>
+	<%= cache ["homepage_bottom", website.brand, I18n.locale] do %>
 		<div class="column">
 			<% if website.homepage_column_one %>
 				<%= render_partial "shared/column_for_#{website.homepage_column_one}" %>
@@ -66,7 +66,7 @@
 	<% end %>
 <% end %>
 
-<%= cache ["preload", website.brand] do %>
+<%= cache ["preload", website.brand, I18n.locale] do %>
 	<%= content_for :preload do %>
 		<%= preload_background_images %>
 	<% end %>

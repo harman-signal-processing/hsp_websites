@@ -3,13 +3,13 @@
 				 keywords: (@featured_artists).collect{|a| a.name}.join(", "),
 				 reverse: true %>
 
-<%= cache ["artist_slideshow", @featured_artists, website.brand] do %>
+<%= cache ["artist_slideshow", @featured_artists, website.brand, I18n.locale] do %>
 	<div id="featured_artist_box">
 		<%= artist_slideshow(slides: @featured_artists, transition: 'toggle') %>
 	</div>
 <% end %>
 
-<%= cache ["artist_index_content", website.brand, Time.now.hour] do %>
+<%= cache ["artist_index_content", website.brand, Time.now.hour, I18n.locale] do %>
 	<% ArtistTier.for_artist_page.each do |artist_tier| %>
 		<% if artist_tier.artists_for(website).size > 0 %>
 			<% artist_tier.artists_for(website).shuffle[0,3].each do |artist| %>
