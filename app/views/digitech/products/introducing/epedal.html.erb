@@ -106,7 +106,7 @@ Someday figure out a better way to do all of this.
 		</section>
 
 	</div>
-	<%= cache ["epedal_carousel", @istomp] do %>
+	<%= cache ["epedal_carousel", @istomp, I18n.locale] do %>
 	<section id="bottom">
 		<span id="epedals" data-count="<%= @istomp.current_sub_products.count %>"></span>
 		<h3>Browse all <%= @istomp.current_sub_products.count %> e-pedals</h3>
