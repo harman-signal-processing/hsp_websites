@@ -2,9 +2,9 @@
 
 FactoryGirl.define do
   factory :pricing_type do
-    name "MyString"
-    brand_id 1
+    sequence(:name) {|n| "Special Price #{n}"}
+    brand
     pricelist_order 1
-    calculation_method "MyString"
+    calculation_method "MAP - 10%"
   end
 end

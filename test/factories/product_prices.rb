@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :product_price do
-    product_id 1
-    pricing_type_id 1
-    price_cents ""
+    product
+    pricing_type
+    price_cents 19900
   end
 end

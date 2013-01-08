@@ -91,7 +91,7 @@ describe "Admin epedal Labels Integration Test" do
     end
 
     it "should have a button to export all" do 
-      must_have_link "Export All"
+      must_have_link "Export All", href: admin_label_sheet_orders_path(format: 'xls', locale: I18n.default_locale)
     end
 
     # it "should respond with an excel file for all" do
@@ -100,7 +100,7 @@ describe "Admin epedal Labels Integration Test" do
     # end
 
     it "should have a button to export subscribers only" do
-      must_have_link "Export Subscribers"
+      must_have_link "Export Subscribers", href: subscribers_admin_label_sheet_orders_path(format: 'xls', locale: I18n.default_locale)
     end
 
     # it "should respond with an excel file for subscribers" do
