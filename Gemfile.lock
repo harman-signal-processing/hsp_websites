@@ -182,6 +182,12 @@ GEM
       compass (>= 0.11.5)
       sassy-math (>= 1.2)
     moneta (0.7.5)
+    money (5.1.0)
+      i18n (~> 0.6.0)
+    money-rails (0.7.1)
+      activesupport (~> 3.0)
+      money (~> 5.1.0)
+      railties (~> 3.0)
     multi_json (1.5.0)
     multipart-post (1.1.5)
     mysql2 (0.3.11)
@@ -375,6 +381,7 @@ DEPENDENCIES
   minitest-rails-shoulda!
   mocha (= 0.13.0)
   moneta
+  money-rails
   mysql2
   paperclip (~> 3.0)
   paperclip-meta

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121231145649) do
+ActiveRecord::Schema.define(:version => 20130107213844) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -601,6 +601,17 @@ ActiveRecord::Schema.define(:version => 20121231145649) do
   add_index "parent_products", ["parent_product_id"], :name => "index_parent_products_on_parent_product_id"
   add_index "parent_products", ["product_id"], :name => "index_parent_products_on_product_id"
 
+  create_table "pricing_types", :force => true do |t|
+    t.string   "name"
+    t.integer  "brand_id"
+    t.integer  "pricelist_order"
+    t.string   "calculation_method"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "pricing_types", ["brand_id"], :name => "index_pricing_types_on_brand_id"
+
   create_table "product_amp_models", :force => true do |t|
     t.integer  "product_id"
     t.integer  "amp_model_id"
@@ -755,6 +766,18 @@ ActiveRecord::Schema.define(:version => 20121231145649) do
   end
 
   add_index "product_introductions", ["product_id"], :name => "index_product_introductions_on_product_id"
+
+  create_table "product_prices", :force => true do |t|
+    t.integer  "product_id"
+    t.integer  "pricing_type_id"
+    t.integer  "price_cents_cents",    :default => 0,     :null => false
+    t.string   "price_cents_currency", :default => "USD", :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
+  end
+
+  add_index "product_prices", ["pricing_type_id"], :name => "index_product_prices_on_pricing_type_id"
+  add_index "product_prices", ["product_id"], :name => "index_product_prices_on_product_id"
 
   create_table "product_promotions", :force => true do |t|
     t.integer  "product_id"
