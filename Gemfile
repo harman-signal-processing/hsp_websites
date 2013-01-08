@@ -59,6 +59,7 @@ gem 'rack-mini-profiler'
 gem 'ransack'
 gem "dalli"
 gem "rabl"
+gem 'money-rails'
 # New Sound Community stuff
 #gem 'forem', git: "http://github.com/radar/forem.git"
 #gem 'forem-theme-twist', git: "http://github.com/radar/forem-theme-twist.git"

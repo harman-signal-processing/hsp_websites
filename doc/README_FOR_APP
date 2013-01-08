@@ -3,7 +3,10 @@ I need to work on...
 
 ================================================================
                  *** Notes for tomorrow ***
-
+ Started the pricelist interface:
+   * PricingType model
+   * ProductPrice model
+   * Admin::PricingTypes controller
 ================================================================
 
 === TODO for Toolkits ===
