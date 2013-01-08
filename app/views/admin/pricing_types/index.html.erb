@@ -1,0 +1,23 @@
+<h1>Pricing Types</h1>
+
+<div class="button_container">
+<% if can? :create, PricingType %>
+	<%= link_to 'New Pricing type', new_admin_pricing_type_path, class: "new button" %>
+<% end %>
+	<%= link_to 'Excel Price Sheet', admin_pricing_types_path(format: 'xls'), class: "edit button" %>
+</div>
+
+<table class="data">
+	<tr>
+		<th>Name</th>
+		<th>On Pricelist?</th>
+		<th>Calculation Method</th>
+	</tr>
+<% @pricing_types.each do |pricing_type| %>
+	<tr id="pricing_type_<%= pricing_type.id %>">
+		<td><%= link_to pricing_type.name, [:admin, pricing_type] %></td>
+		<td><%= (pricing_type.pricelist_order.to_i > 0) ? "Yes" : "No" %></td>
+		<td><%= pricing_type.calculation_method %></td>
+	</tr>
+<% end %>
+</table>

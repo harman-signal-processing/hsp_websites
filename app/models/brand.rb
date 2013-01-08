@@ -19,6 +19,7 @@ class Brand < ActiveRecord::Base
   has_many :training_modules
   has_many :training_classes
   has_many :blogs
+  has_many :pricing_types, order: :pricelist_order
   # RSO stuff
   has_many :rso_monthly_reports
   has_many :rso_navigations, order: :position

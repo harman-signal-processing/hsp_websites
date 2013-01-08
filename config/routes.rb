@@ -233,6 +233,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :artist_products,
         :clinic_products,
         :specifications,
+        :product_prices,
+        :pricing_types,
         :site_elements,
         :news_products,
         :rep_questions,
