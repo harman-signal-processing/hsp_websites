@@ -17,5 +17,18 @@ describe Product do
 	  end
 
   	end
+
+  	describe "pricing" do 
+  	  before do
+  	  	@digitech = FactoryGirl.create(:digitech_brand)
+  	  	@product = FactoryGirl.create(:product, brand: @digitech) 
+	  end
+
+	  it "should determine dealer pricing" do 
+	  	@dealer_pricing_type = FactoryGirl.create(:pricing_type)
+	  	@product_price = FactoryGirl.create(:product_price, product: @product, pricing_type: @dealer_pricing_type, price_cents: 1999)
+	  	@product.price_for(@dealer_pricing_type).to_f.must_equal(19.99)
+	  end
+  	end
   
 end

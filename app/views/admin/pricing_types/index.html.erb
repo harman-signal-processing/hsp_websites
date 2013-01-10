@@ -4,7 +4,6 @@
 <% if can? :create, PricingType %>
 	<%= link_to 'New Pricing type', new_admin_pricing_type_path, class: "new button" %>
 <% end %>
-	<%= link_to 'Excel Price Sheet', admin_pricing_types_path(format: 'xls'), class: "edit button" %>
 </div>
 
 <table class="data">
