@@ -19,6 +19,7 @@ class Product < ActiveRecord::Base
   has_many :site_elements, through: :product_site_elements
   has_many :product_promotions, dependent: :destroy
   has_many :product_suggestions, dependent: :destroy, order: :position
+  has_many :product_prices, dependent: :destroy
   has_many :suggested_fors, class_name: "ProductSuggestion", foreign_key: "suggested_product_id", dependent: :destroy
   has_many :promotions, through: :product_promotions
   has_many :tone_library_patches, 
@@ -45,6 +46,7 @@ class Product < ActiveRecord::Base
   has_many :parents, through: :parent_products
   has_many :sub_products, class_name: "ParentProduct", foreign_key: "parent_product_id", order: :position
   after_initialize :set_default_status
+  accepts_nested_attributes_for :product_prices, reject_if: :all_blank
   
   serialize :previewers, Array
   has_attached_file :background_image,
@@ -336,6 +338,14 @@ class Product < ActiveRecord::Base
     l = []
     LabelSheet.all.each{|ls| l << ls if ls.products.include?(self)}
     l
+  end
+
+  def price_for(pricing_type)
+    if product_price = product_prices.where(pricing_type_id: pricing_type.id).first
+      product_price.price 
+    else
+      nil
+    end
   end
   
 end

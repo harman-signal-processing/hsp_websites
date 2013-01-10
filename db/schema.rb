@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130107213844) do
+ActiveRecord::Schema.define(:version => 20130110175143) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -770,10 +770,10 @@ ActiveRecord::Schema.define(:version => 20130107213844) do
   create_table "product_prices", :force => true do |t|
     t.integer  "product_id"
     t.integer  "pricing_type_id"
-    t.integer  "price_cents_cents",    :default => 0,     :null => false
-    t.string   "price_cents_currency", :default => "USD", :null => false
-    t.datetime "created_at",                              :null => false
-    t.datetime "updated_at",                              :null => false
+    t.integer  "price_cents",     :default => 0,     :null => false
+    t.string   "price_currency",  :default => "USD", :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
   end
 
   add_index "product_prices", ["pricing_type_id"], :name => "index_product_prices_on_pricing_type_id"

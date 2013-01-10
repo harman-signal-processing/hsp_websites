@@ -228,4 +228,41 @@ class Brand < ActiveRecord::Base
     end
   end
 
+  # Collects data for the pricelist
+  def pricelist
+    io = StringIO.new
+    book = Spreadsheet::Workbook.new
+    bold = Spreadsheet::Format.new :weight => :bold, :size => 18
+    sheet = book.create_worksheet name: self.name
+
+    header = sheet.row(0)
+    header.push ""
+    header.push ""
+    header.push "MSRP"
+    header.push "MAP"
+    # pricing_types = pricing_types.where("pricelist_order > 0").order("pricelist_order")
+    pricing_types.each do |pricing_type|
+      unless pricing_type.pricelist_order.to_i <= 0
+        header.push pricing_type.name 
+      end
+    end
+    header.default_format = bold
+    # header.set_format(0, Spreadsheet::Format.new(:width => 80))
+
+    current_products.each_with_index do |product,i|
+      row = sheet.row(i+1)
+      row.push product.name 
+      row.push product.short_description
+      row.push product.msrp
+      row.push product.street_price
+      pricing_types.each do |pricing_type|
+        unless pricing_type.pricelist_order.to_i <= 0
+          row.push product.price_for(pricing_type).to_f
+        end
+      end
+    end
+    book.write(io)
+    io.string
+  end
+
 end
