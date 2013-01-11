@@ -15,7 +15,7 @@ class Admin::ProductPricesController < AdminController
         #   filename: "#{website.brand.name}_price_list_#{Time.zone.now.year}-#{Time.zone.now.month}-#{Time.zone.now.day}.xls"
         # )    
         send_data(
-        	website.brand.pricelist,
+        	website.brand.pricelist(website, I18n.locale),
         	filename: "#{website.brand.name}_price_list_#{Time.zone.now.year}-#{Time.zone.now.month}-#{Time.zone.now.day}.xls"
         )    
       }
