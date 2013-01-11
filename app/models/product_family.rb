@@ -122,6 +122,14 @@ class ProductFamily < ActiveRecord::Base
     end
     cp
   end
+
+  def current_products_plus_child_products(website)
+    cp = self.current_products 
+    children_with_current_products(website).each do |pf|
+      cp += pf.current_products_plus_child_products(website)
+    end
+    cp.uniq.sort_by(&:name)
+  end
   
   # Alias for search results link_name
   def link_name

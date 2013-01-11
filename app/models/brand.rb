@@ -229,13 +229,22 @@ class Brand < ActiveRecord::Base
   end
 
   # Collects data for the pricelist
-  def pricelist
+  def pricelist(website, locale)
     io = StringIO.new
     book = Spreadsheet::Workbook.new
-    bold = Spreadsheet::Format.new :weight => :bold, :size => 18
+    bold = Spreadsheet::Format.new weight: :bold, size: 10, horizontal_align: :center
+    subheader = Spreadsheet::Format.new weight: :bold, size: 16
+    title = Spreadsheet::Format.new weight: :bold, size: 19
     sheet = book.create_worksheet name: self.name
+    row_index = 0
+    row = sheet.row(row_index)
+    row.height = 24
+    row.default_format = title
+    row.push "#{self.name} Confidential Dealer Pricelist"
 
-    header = sheet.row(0)
+    row_index += 2
+    header = sheet.row(row_index)
+    header.height = 12
     header.push ""
     header.push ""
     header.push "MSRP"
@@ -248,19 +257,34 @@ class Brand < ActiveRecord::Base
     end
     header.default_format = bold
     # header.set_format(0, Spreadsheet::Format.new(:width => 80))
+    row_index +=1
 
-    current_products.each_with_index do |product,i|
-      row = sheet.row(i+1)
-      row.push product.name 
-      row.push product.short_description
-      row.push product.msrp
-      row.push product.street_price
-      pricing_types.each do |pricing_type|
-        unless pricing_type.pricelist_order.to_i <= 0
-          row.push product.price_for(pricing_type).to_f
+    ProductFamily.parents_with_current_products(website, locale).each do |product_family|
+      row_index += 1
+      row = sheet.row(row_index)
+      row.height = 18
+      row.default_format = subheader
+      row.push << product_family.name
+
+      product_family.current_products_plus_child_products(website).each do |product|
+        if !(product.discontinued?) && product.show_on_website?(website) && product.can_be_registered?
+          row_index += 1
+          row = sheet.row(row_index)
+          row.push product.name 
+          row.push product.short_description
+          row.push product.msrp
+          row.push product.street_price
+          pricing_types.each do |pricing_type|
+            unless pricing_type.pricelist_order.to_i <= 0
+              pr = product.price_for(pricing_type).to_f
+              row.push (pr.to_f > 0.0) ? pr : ""
+            end
+          end
         end
       end
+      row_index += 1
     end
+
     book.write(io)
     io.string
   end
