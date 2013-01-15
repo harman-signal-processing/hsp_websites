@@ -42,7 +42,9 @@ class Admin::OnlineRetailersController < AdminController
     respond_to do |format|
       if @online_retailer.save
         # update the newly created OnlineRetailer in order to add the default URL
-        @online_retailer.set_brand_link(params[:online_retailer][:brand_link], website)
+        if params[:online_retailer][:brand_link] && !params[:online_retailer][:brand_link].blank?
+          @online_retailer.set_brand_link(params[:online_retailer][:brand_link], website)
+        end
         format.html { redirect_to([:admin, @online_retailer], notice: 'Online Retailer was successfully created.') }
         format.xml  { render xml: @online_retailer, status: :created, location: @online_retailer }
         website.add_log(user: current_user, action: "Created online retailer: #{@online_retailer.name}")
