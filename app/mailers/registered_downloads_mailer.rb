@@ -12,9 +12,10 @@ class RegisteredDownloadsMailer < ActionMailer::Base
   def admin_notice(download_registration)
     @download_registration = download_registration
     @registered_download = download_registration.registered_download
+    @brand = @registered_download.brand
     mail(to: @registered_download.cc,
       subject: "#{@registered_download.name}: new registration",
-      from: @download_registration.email)
+      from: @brand.support_email)
   end
   
 end
