@@ -22,6 +22,10 @@
 					link_to(image_tag(promotion.tile.url, alt: promotion.name), promotion) :
 					image_tag(promotion.tile.url, alt: promotion.name) %>
 		<% end %>
+		<% if promotion.expired? %>
+		<p><i>Note: this promotion is expired. Information remains here until <%= l.promotion.show_end_on %>
+			to allow participants time to download the rebate form.</i></p>
+		<% end %>
 		<p><%= t('valid') %> <%=l promotion.start_on, format: :long %>-<%=l promotion.end_on, format: :long %>
 		<% if promotion.has_description? %>
 			<%= link_to t('more_info'), promotion %>

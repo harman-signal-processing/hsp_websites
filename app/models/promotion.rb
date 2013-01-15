@@ -37,4 +37,8 @@ class Promotion < ActiveRecord::Base
   def has_description?
     self.description.size > 28
   end
+  
+  def expired?
+    (end_on <= Date.today)
+  end
 end
