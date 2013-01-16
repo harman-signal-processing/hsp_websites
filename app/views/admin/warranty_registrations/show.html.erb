@@ -1,157 +1,99 @@
-<p>
-  <b>Title:</b>
-  <%= @warranty_registration.title %>
-</p>
+<h1>Registration for <%= @warranty_registration.first_name %> <%= @warranty_registration.last_name %></h1>
 
 <p>
-  <b>First name:</b>
-  <%= @warranty_registration.first_name %>
+  <%= link_to 'Back', admin_warranty_registrations_path, class: "back button" %>
+  <% if can? :update, @warranty_registration %>
+  <%= link_to 'Edit', 
+        edit_admin_warranty_registration_path(@warranty_registration),
+        class: "edit button" %> 
+  <% end %>
 </p>
 
-<p>
-  <b>Last name:</b>
-  <%= @warranty_registration.last_name %>
-</p>
-
-<p>
-  <b>Middle initial:</b>
-  <%= @warranty_registration.middle_initial %>
-</p>
-
-<p>
-  <b>Company:</b>
-  <%= @warranty_registration.company %>
-</p>
-
-<p>
-  <b>Jobtitle:</b>
-  <%= @warranty_registration.jobtitle %>
-</p>
-
-<p>
-  <b>Address1:</b>
-  <%= @warranty_registration.address1 %>
-</p>
-
-<p>
-  <b>City:</b>
-  <%= @warranty_registration.city %>
-</p>
-
-<p>
-  <b>State:</b>
-  <%= @warranty_registration.state %>
-</p>
-
-<p>
-  <b>Zip:</b>
-  <%= @warranty_registration.zip %>
-</p>
-
-<p>
-  <b>Country:</b>
-  <%= @warranty_registration.country %>
-</p>
-
-<p>
-  <b>Phone:</b>
-  <%= @warranty_registration.phone %>
-</p>
-
-<p>
-  <b>Fax:</b>
-  <%= @warranty_registration.fax %>
-</p>
-
-<p>
-  <b>Email:</b>
-  <%= @warranty_registration.email %>
-</p>
-
-<p>
-  <b>Subscribe:</b>
-  <%= @warranty_registration.subscribe %>
-</p>
-
-<p>
-  <b>Brand:</b>
-  <%= @warranty_registration.brand_id %>
-</p>
-
-<p>
-  <b>Product:</b>
-  <%= @warranty_registration.product_id %>
-</p>
-
-<p>
-  <b>Serial number:</b>
-  <%= @warranty_registration.serial_number %>
-</p>
-
-<p>
-  <b>Registered on:</b>
-  <%= @warranty_registration.registered_on %>
-</p>
-
-<p>
-  <b>Purchased on:</b>
-  <%= @warranty_registration.purchased_on %>
-</p>
-
-<p>
-  <b>Purchased from:</b>
-  <%= @warranty_registration.purchased_from %>
-</p>
-
-<p>
-  <b>Purchase country:</b>
-  <%= @warranty_registration.purchase_country %>
-</p>
-
-<p>
-  <b>Purchase price:</b>
-  <%= @warranty_registration.purchase_price %>
-</p>
-
-<p>
-  <b>Age:</b>
-  <%= @warranty_registration.age %>
-</p>
-
-<p>
-  <b>Marketing question1:</b>
-  <%= @warranty_registration.marketing_question1 %>
-</p>
-
-<p>
-  <b>Marketing question2:</b>
-  <%= @warranty_registration.marketing_question2 %>
-</p>
-
-<p>
-  <b>Marketing question3:</b>
-  <%= @warranty_registration.marketing_question3 %>
-</p>
-
-<p>
-  <b>Marketing question4:</b>
-  <%= @warranty_registration.marketing_question4 %>
-</p>
-
-<p>
-  <b>Marketing question5:</b>
-  <%= @warranty_registration.marketing_question5 %>
-</p>
-
-<p>
-  <b>Marketing question6:</b>
-  <%= @warranty_registration.marketing_question6 %>
-</p>
-
-<p>
-  <b>Marketing question7:</b>
-  <%= @warranty_registration.marketing_question7 %>
-</p>
+<table class="data">
+  <tr>
+    <td><b>Title:</b></td>
+    <td><%= @warranty_registration.title %></td>
+  </tr>
+  <tr>
+    <td><b>First name:</b></td>
+    <td><%= @warranty_registration.first_name %></td>
+  </tr>
+  <tr>
+    <td><b>Last name:</b></td>
+    <td><%= @warranty_registration.last_name %></td>
+  </tr>
+  <tr>
+    <td><b>Middle initial:</b></td>
+    <td><%= @warranty_registration.middle_initial %></td>
+  </tr>
+  <tr>
+    <td><b>Company:</b></td>
+    <td><%= @warranty_registration.company %></td>
+  </tr>
+  <tr>
+    <td><b>Jobtitle:</b></td>
+    <td><%= @warranty_registration.jobtitle %></td>
+  </tr>
+  <tr>
+    <td><b>Address:</b></td>
+    <td><%= @warranty_registration.address1 %><br/>
+      <%= @warranty_registration.city %>
+      <%= @warranty_registration.state %>
+      <%= @warranty_registration.zip %></td>
+  </tr>
+  <tr>
+    <td><b>Country:</b></td>
+    <td><%= @warranty_registration.country %></td>
+  </tr>
+  <tr>
+    <td><b>Phone:</b></td>
+    <td><%= @warranty_registration.phone %></td>
+  </tr>
+  <tr>
+    <td><b>Fax:</b></td>
+    <td><%= @warranty_registration.fax %></td>
+  </tr>
+  <tr>
+    <td><b>Email:</b></td>
+    <td><%= mail_to @warranty_registration.email, @warranty_registration.email %></td>
+  </tr>
+  <tr>
+    <td><b>Subscribe:</b></td>
+    <td><%= (@warranty_registration.subscribe?) ? "Yes" : "No" %></td>
+  </tr>
+  <tr>
+    <td><b>Brand:</b></td>
+    <td><%= @warranty_registration.brand.name %></td>
+  </tr>
+  <tr>
+    <td><b>Product:</b></td>
+    <td><%= link_to @warranty_registration.product.name, @warranty_registration.product %></td>
+  </tr>
+  <tr>
+    <td><b>Serial number:</b></td>
+    <td><%= @warranty_registration.serial_number %></td>
+  </tr>
+  <tr>
+    <td><b>Registered on:</b></td>
+    <td><%= @warranty_registration.registered_on %></td>
+  </tr>
+  <tr>
+    <td><b>Purchased on:</b></td>
+    <td><%=l @warranty_registration.purchased_on, format: :long %></td>
+  </tr>
+  <tr>
+    <td><b>Purchased from:</b></td>
+    <td><%= @warranty_registration.purchased_from %></td>
+  </tr>
+  <tr>
+    <td><b>Purchase country:</b></td>
+    <td><%= @warranty_registration.purchase_country %></td>
+  </tr>
+  <tr>
+    <td><b>Purchase price:</b></td>
+    <td><%= @warranty_registration.purchase_price %></td>
+  </tr>
+</table>
 
 <p>
   <b>Comments:</b>
@@ -159,5 +101,3 @@
 </p>
 
 
-<%= link_to 'Edit', edit_admin_warranty_registration_path(@warranty_registration, locale: I18n.locale) %> |
-<%= link_to 'Back', admin_warranty_registrations_path %>

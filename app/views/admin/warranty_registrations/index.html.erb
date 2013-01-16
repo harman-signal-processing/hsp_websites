@@ -4,6 +4,11 @@
 <%= link_to "Export All To Excel", 
 			admin_warranty_registrations_path(format: 'csv'), 
 			class: "edit button" %>
+<% if can? :create, WarrantyRegistration %>
+	<%= link_to "New Registration",
+			new_admin_warranty_registration_path,
+			class: "new button" %>
+<% end %>
 </p>
 
 <%= search_form_for [:admin, @search] do |f| %>
