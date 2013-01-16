@@ -233,33 +233,60 @@ class Brand < ActiveRecord::Base
     io = StringIO.new
     book = Spreadsheet::Workbook.new
     bold = Spreadsheet::Format.new weight: :bold, size: 10, horizontal_align: :center
+    bold_left = Spreadsheet::Format.new weight: :bold, size: 10, horizontal_align: :left
+    spacer = Spreadsheet::Format.new top: :thick
     subheader = Spreadsheet::Format.new weight: :bold, size: 16
-    title = Spreadsheet::Format.new weight: :bold, size: 19
-    sheet = book.create_worksheet name: self.name
-    row_index = 0
+    subheader_right = Spreadsheet::Format.new weight: :bold, size: 16, horizontal_align: :right
+    sheet = book.create_worksheet name: "#{self.name} Pricelist"
+    sheet.column(0).width = 14
+    sheet.column(1).width = 40
+    sheet.column(2).width = 12
+    sheet.column(3).width = 12
+
+    row_index = 1
     row = sheet.row(row_index)
-    row.height = 24
-    row.default_format = title
-    row.push "#{self.name} Confidential Dealer Pricelist"
+    row.height = 20
+    row.default_format = subheader
+    row.push self.name
+    row.push ""
+    row.push ""
+    row.push ""
+    row.push "US Dealer"
+    sheet.rows[row_index].set_format(4, subheader_right)
+
+    row_index += 1
+    row = sheet.row(row_index)
+    row.height = 20
+    row.default_format = subheader
+    row.push ""
+    row.push ""
+    row.push ""
+    row.push ""
+    row.push "Confidential Pricelist"
+    sheet.rows[row_index].set_format(4, subheader_right)
 
     row_index += 2
     header = sheet.row(row_index)
-    header.height = 12
+    header.height = 15
+    header.push "Effective #{I18n.l Date.today, format: :long}"
     header.push ""
-    header.push ""
-    header.push "MSRP"
-    header.push "MAP"
+    header.push "MSRP (US$)"
+    header.push "MAP (US$)"
+    sheet.rows[row_index].set_format(0, bold_left)
     # pricing_types = pricing_types.where("pricelist_order > 0").order("pricelist_order")
-    pricing_types.each do |pricing_type|
+    pricing_types.each_with_index do |pricing_type, i|
       unless pricing_type.pricelist_order.to_i <= 0
-        header.push pricing_type.name 
+        header.push "#{pricing_type.name} (US$)"
+        sheet.column(4 + i).width = 12
       end
     end
     header.default_format = bold
-    # header.set_format(0, Spreadsheet::Format.new(:width => 80))
     row_index +=1
 
     ProductFamily.parents_with_current_products(website, locale).each do |product_family|
+      spacer_row = sheet.row(row_index)
+      spacer_row.default_format = spacer
+      5.times { spacer_row.push "" }
       row_index += 1
       row = sheet.row(row_index)
       row.height = 18
@@ -270,7 +297,7 @@ class Brand < ActiveRecord::Base
         if !(product.discontinued?) && product.show_on_website?(website) && product.can_be_registered?
           row_index += 1
           row = sheet.row(row_index)
-          row.push product.name 
+          row.push (product.sap_sku.present?) ? product.sap_sku : product.name 
           row.push product.short_description
           row.push product.msrp
           row.push product.street_price

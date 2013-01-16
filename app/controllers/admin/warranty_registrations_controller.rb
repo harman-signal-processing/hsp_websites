@@ -6,9 +6,16 @@ class Admin::WarrantyRegistrationsController < AdminController
   # GET /admin/warranty_registrations.xml
   def index
     authorize! :read, WarrantyRegistration
-    @warranty_registrations = WarrantyRegistration.where(brand_id: website.brand_id)
     respond_to do |format|
-      format.html { render_template } # index.html.erb
+      format.html { 
+        @search = WarrantyRegistration.where(brand_id: website.brand_id).ransack(params[:q])
+        if params[:q]
+          @warranty_registrations = @search.result(:distinct => true)
+        else
+          @warranty_registrations = []
+        end
+        render_template 
+      }
       # format.xls {
       #   send_data(@warranty_registrations.to_xls(
       #     headers: ["title", "first name", "last name", "middle", "company", "job title", 
@@ -27,36 +34,15 @@ class Admin::WarrantyRegistrationsController < AdminController
       #     )          
       #   )
       # }
-      # format.csv {
-      #   send_data(CSV.generate do |csv|
-      #     @warranty_registrations.each do |item|
-      #       csv << [item.title, item.first_name, item.last_name, item.middle_initial, item.company, item.jobtitle,
-      #               item.address1, item.city, item.state, item.zip, item.country, item.phone, item.fax, item.email, 
-      #               item.subscribe, item.brand_name, item.product_name, item.serial_number, item.registered_on,
-      #               item.purchased_on, item.purchased_from, item.purchase_country, item.purchase_price, 
-      #               item.age, item.marketing_question1, item.marketing_question2, item.marketing_question3,
-      #               item.marketing_question4, item.marketing_question5, item.marketing_question6,
-      #               item.marketing_question7, item.comments]
-      #     end
-      #   end)
-      # }
       format.csv {
-        send_file(Rails.root.join("..", "..", "all_registrations.txt"), type: 'text/csv')
+        send_file(Rails.root.join("..", "..", "all_registrations.txt"), type: 'text/csv', filename: "all_registrations.csv")
       }
       format.xml  { 
-        render xml: @warranty_registrations 
+        render xml: WarrantyRegistration.where(brand_id: website.brand_id)
       }
     end
   end
   
-  # PUT /admin/warranty_registrations/search
-  def search
-    @warranty_registrations = WarrantyRegistrations.search(params[:search_string])
-    respond_to do |format|
-      format.html
-    end
-  end
-
   # GET /admin/warranty_registrations/1
   # GET /admin/warranty_registrations/1.xml
   def show

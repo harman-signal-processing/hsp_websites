@@ -8,12 +8,6 @@ class Admin::ProductPricesController < AdminController
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xls {
-        # send_data(@products.to_xls(
-        #   header_format: {weight: :bold},
-        #   headers: %w[Product Description MSRP MAP] + @pricing_types.where("pricelist_order > 0").pluck(:name),
-        #   columns: [:name, :short_description, :msrp, :street_price, {:pricelist_prices => [:price]}]),
-        #   filename: "#{website.brand.name}_price_list_#{Time.zone.now.year}-#{Time.zone.now.month}-#{Time.zone.now.day}.xls"
-        # )    
         send_data(
         	website.brand.pricelist(website, I18n.locale),
         	filename: "#{website.brand.name}_price_list_#{Time.zone.now.year}-#{Time.zone.now.month}-#{Time.zone.now.day}.xls"

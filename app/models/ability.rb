@@ -111,6 +111,9 @@ class Ability
       if user.role?(:customer_service)
         can :manage, ServiceCenter
         can :manage, Faq
+        can :manage, WarrantyRegistration
+        can :manage, Dealer
+        can :manage, Distributor
       end
       if user.role?(:rohs)
         can :read, Product
