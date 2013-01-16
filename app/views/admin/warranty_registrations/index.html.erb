@@ -1,6 +1,53 @@
 <h1>Search Warranty Registrations</h1>
 
-<% form_tag search_admin_warranty_registrations_path %>
+<p>
+<%= link_to "Export All To Excel", 
+			admin_warranty_registrations_path(format: 'csv'), 
+			class: "edit button" %>
+</p>
 
-</form>
+<%= search_form_for [:admin, @search] do |f| %>
+  <div class="form_field">
+    <%= f.label :first_name_cont, "First Name contains" %><br/>
+    <%= f.text_field :first_name_cont %>
+  </div>
+  <div class="form_field">
+    <%= f.label :last_name_cont, "Last Name contains" %><br/>
+    <%= f.text_field :last_name_cont %>
+  </div>
+  <div class="form_field">
+    <%= f.label :email_cont, "Email contains" %><br/>
+    <%= f.text_field :email_cont %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Search registrations" %>
+  </div>
+<% end %>
 
+<% if @warranty_registrations.length > 0 %>
+<table class="data" style="width: 100%">
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Product</th>
+    <th>Registration Date</th>
+  </tr>
+
+<% @warranty_registrations.each do |warranty_registration| %>
+  <tr style="background: <%= cycle 'white', 'none' %>">
+    <td><%= link_to "#{warranty_registration.first_name} #{warranty_registration.last_name}", 
+    			[:admin, warranty_registration] %></td>
+    <td><%= warranty_registration.email %></td>
+    <td>
+    	<% if can? :manage, warranty_registration.product %>
+    	<%= link_to warranty_registration.product.name, [:admin, warranty_registration.product] %>
+    	<% else %>
+    	<%= link_to warranty_registration.product.name, warranty_registration.product %>
+    	<% end %>
+    </td>
+
+    <td><%=l warranty_registration.created_at.to_date, format: :short %></td>
+  </tr>
+<% end %>
+</table>
+<% end %>
