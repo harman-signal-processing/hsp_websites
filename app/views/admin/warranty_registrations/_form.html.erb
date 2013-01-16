@@ -73,11 +73,11 @@
   </div>
   <div class="field">
     <%= f.label :brand_id %><br />
-    <%= f.text_field :brand_id %>
+    <%= f.collection_select :brand_id, Brand.all, :id, :name %>
   </div>
   <div class="field">
     <%= f.label :product_id %><br />
-    <%= f.text_field :product_id %>
+    <%= f.collection_select :product_id, Product.order("UPPER(name)"), :id, :name %>
   </div>
   <div class="field">
     <%= f.label :serial_number %><br />
@@ -102,38 +102,6 @@
   <div class="field">
     <%= f.label :purchase_price %><br />
     <%= f.text_field :purchase_price %>
-  </div>
-  <div class="field">
-    <%= f.label :age %><br />
-    <%= f.text_field :age %>
-  </div>
-  <div class="field">
-    <%= f.label :marketing_question1 %><br />
-    <%= f.text_field :marketing_question1 %>
-  </div>
-  <div class="field">
-    <%= f.label :marketing_question2 %><br />
-    <%= f.text_field :marketing_question2 %>
-  </div>
-  <div class="field">
-    <%= f.label :marketing_question3 %><br />
-    <%= f.text_field :marketing_question3 %>
-  </div>
-  <div class="field">
-    <%= f.label :marketing_question4 %><br />
-    <%= f.text_field :marketing_question4 %>
-  </div>
-  <div class="field">
-    <%= f.label :marketing_question5 %><br />
-    <%= f.text_field :marketing_question5 %>
-  </div>
-  <div class="field">
-    <%= f.label :marketing_question6 %><br />
-    <%= f.text_field :marketing_question6 %>
-  </div>
-  <div class="field">
-    <%= f.label :marketing_question7 %><br />
-    <%= f.text_field :marketing_question7 %>
   </div>
   <div class="field">
     <%= f.label :comments %><br />
