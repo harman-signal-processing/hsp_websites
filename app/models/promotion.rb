@@ -23,13 +23,32 @@ class Promotion < ActiveRecord::Base
   def sanitized_name
     self.name.gsub(/[\'\"]/, "")
   end
-  
+
+  # All promotions for the given Website whose "show on website" range
+  # is still current. This may include promotions which are expired, but
+  # are still scheduled to appear.
+  #  
   def self.current(website)
     where(brand_id: website.brand_id).where(["show_start_on <= ? AND show_end_on >= ?", Date.today, Date.today])
   end
   
+  # Sorted collection of self.current
+  #
   def self.all_for_website(website)
     current(website).order("end_on ASC")
+  end
+
+  # All CURRENT promotions (those which are not expired) for the given Website
+  #
+  def self.current_for_website(website)
+    where(brand_id: website.brand_id).where(["start_on <= ? AND end_on >= ?", Date.today, Date.today]).order("end_on ASC")
+  end
+
+  # Promotions which are still scheduled to appear on the Website, but whose
+  # valid period is expired.
+  #
+  def self.recently_expired_for_website(website)
+    current(website) - current_for_website(website)
   end
     
   # !blank? doesn't work because tiny MCE supplies a blank line even

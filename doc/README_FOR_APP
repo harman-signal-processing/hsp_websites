@@ -7,6 +7,11 @@ I need to work on...
    * PricingType model
    * ProductPrice model
    * Admin::PricingTypes controller
+
+ Working on importing old registrations. The file we have seems
+ odd. mostly digitech. check the old web server for older
+ dbx registrations. find lexicon in the old database. ugh.
+ 
 ================================================================
 
 === TODO for Toolkits ===

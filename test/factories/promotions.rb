@@ -21,8 +21,12 @@ FactoryGirl.define do
     send_post_registration_message false
     factory :expired_promotion do
       show_end_on 1.day.ago
-      end_on 2.days.ago
+      end_on 2.weeks.ago
     end
+    factory :recently_expired_promotion do 
+      show_end_on 1.week.from_now
+      end_on 2.days.ago
+    end      
   end
 
   factory :product_promotion do
