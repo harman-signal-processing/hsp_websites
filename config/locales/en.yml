@@ -41,6 +41,7 @@ en:
   related_products: related products
   version: version
   back: back
+  promotions: promotions
   download: download
   downloads: downloads
   software_downloads: software downloads
@@ -127,6 +128,7 @@ en:
       faqs: "FAQs"
       tones: "Tone Library"
       special_offer: "Special Offer"
+      rebate_forms: "Rebate Forms"
       gallery: "Gallery"
       labels:
           features: Features
@@ -162,6 +164,7 @@ en:
       product_reviews: Product Reviews
       pop: Get a hands-on demo
       current_promotions: Current Promotions
+      promotions: Promotions
       community: "Guitar & Sound Communities"
       guitar_workstation: Guitar Workstation
       support: Support

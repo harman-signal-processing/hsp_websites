@@ -5,8 +5,8 @@ class PromotionsController < ApplicationController
   # GET /promotions
   # GET /promotions.xml
   def index
-    @promotions = Promotion.all_for_website(website)
-
+    @current_promotions = Promotion.current_for_website(website)
+    @expired_promotions = Promotion.recently_expired_for_website(website)
     respond_to do |format|
       format.html { render_template } # index.html.erb
       # format.xml  { render xml: @promotions }

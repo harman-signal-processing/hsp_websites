@@ -121,7 +121,7 @@ module ProductsHelper
     r << ProductTab.new("extended_description") if !product.extended_description.blank? && selected_tabs.include?("extended_description")
     r << ProductTab.new("features") if product.features && selected_tabs.include?("features")
     r << ProductTab.new("specifications") if product.product_specifications.size > 0 && selected_tabs.include?("specifications")
-    r << ProductTab.new("documentation") if product.product_documents.size > 0 && selected_tabs.include?("documentation")
+    r << ProductTab.new("documentation") if (product.product_documents.size > 0 || product.current_and_recently_expired_promotions.size > 0) && selected_tabs.include?("documentation")
     r << ProductTab.new("training_modules") if product.training_modules.size > 0 && selected_tabs.include?("training_modules")
     r << ProductTab.new("downloads_and_docs") if (product.softwares.size > 0 || product.product_documents.size > 0 || product.site_elements.size > 0) && selected_tabs.include?("downloads_and_docs")
     r << ProductTab.new("reviews") if (product.product_reviews.size > 0 || product.artists.size > 0) && selected_tabs.include?("reviews")
@@ -265,7 +265,7 @@ module ProductsHelper
         end
       elsif product.current_promotions.size > 1
         if format == "text_only"
-          content_tag(:div, link_to('product_page.specal_offer', promotions_path))
+          content_tag(:div, link_to(t('product_page.specal_offer'), promotions_path))
         else
           content_tag(:h2, class: "special_offer") {
             link_to(t('product_page.special_offer'), promotions_path)

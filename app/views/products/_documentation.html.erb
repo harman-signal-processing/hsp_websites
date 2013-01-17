@@ -1,4 +1,10 @@
 <ul class="disc">
+	<% if product.current_and_recently_expired_promotions.length > 0 %>
+	<li>
+		<%= image_tag("pdf_17.png", style: "vertical-align: middle") %>
+		<%= link_to(t('product_page.rebate_forms'), promotions_path) %>
+	</li>
+	<% end %>
 	<% product.product_documents.each do |product_document| %>
 	<li>
 		<% if product_document.document_content_type.match(/pdf/i) || product_document.document_file_name.match(/pdf$/i) %>
