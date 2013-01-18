@@ -103,19 +103,9 @@
 		<% else %>
 			<div style="height: 10px;">&nbsp;</div>
 		<% end %>
-			<div id="harmanpro_bar">
-				<%= link_to(image_tag("pro_brands/harman_professional.png", alt: "Harman Pro"), "http://www.harmanpro.com", target: "_blank") %>
-				<%= link_to(image_tag("pro_brands/akg.png", alt: "AKG"), "http://www.akg.com", target: "_blank") %>
-				<%= link_to(image_tag("pro_brands/bss.png", alt: "BSS"), "http://www.bssaudio.com", target: "_blank") %>
-				<%= link_to(image_tag("pro_brands/crown.png", alt: "Crown"), "http://www.crownaudio.com", target: "_blank") %>
-				<%= link_to(image_tag("pro_brands/dbx.png", alt: "dbx"), "http://www.dbxpro.com", target: "_blank") %>
-				<%= link_to(image_tag("pro_brands/digitech.png", alt: "DigiTech"), "http://www.digitech.com", target: "_blank") %>
-				<%# NEED A JBL LOGO = link_to(image_tag("pro_brands/jbl.png", alt: "JBL"), "http://www.jblpro.com", target: "_blank") %>
-				<%= link_to(image_tag("pro_brands/lexicon.png", alt: "Lexicon Pro"), "http://www.lexiconpro.com", target: "_blank") %>
-				<%= link_to(image_tag("pro_brands/soundcraft.png", alt: "Soundcraft"), "http://www.soundcraft.com", target: "_blank") %>
-				<%= link_to(image_tag("pro_brands/studer.png", alt: "Studer"), "http://www.studer.ch", target: "_blank") %>
-				<%= link_to(image_tag("pro_brands/hiqnet.png", alt: "HiQnet"), "http://hiqnet.harmanpro.com", target: "_blank") %>
-			</div>
+		<%= cache ["hpro_bar", website, I18n.locale] do %>
+			<%= hpro_footer %>
+		<% end %>
 		</div>
 		
 		<%= cache ["footer", website.brand, I18n.locale] do %>

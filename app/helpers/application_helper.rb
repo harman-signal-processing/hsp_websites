@@ -204,5 +204,29 @@ module ApplicationHelper
     end
     eval("render '#{name}', options")
   end
+
+  def hpro_footer
+    links = []
+    pro_brands = [
+      # {name: "HarmanPro", web: "http://www.harmanpro.com"},
+      {name: "AKG",    web: "http://www.akg.com"},
+      {name: "BSS",    web: "http://www.bssaudio.com"},
+      {name: "Crown",  web: "http://www.crownaudio.com"}, 
+      {name: "dbx",    web: "http://www.dbxpro.com"}, 
+      {name: "DigiTech",   web: "http://www.digitech.com"}, 
+      {name: "JBL",    web: "http://www.jblpro.com" }, 
+      {name: "Lexicon",    web: "http://www.lexiconpro.com"}, 
+      {name: "Soundcraft", web: "http://www.soundcraft.com"}, 
+      {name: "Studer", web: "http://www.studer.ch"}, 
+      {name: "HiQnet", web: "http://hiqnet.harmanpro.com"}
+      # {name: "IDX",    web: "http://idx.harman.com"} 
+    ]
+    pro_brands.each do |b|
+      unless website.brand.name.match(/#{b[:name]}/i)
+        links << link_to(image_tag("pro_brands/#{b[:name].downcase}.png", alt: b[:name]), b[:web], target: "_blank") 
+      end
+    end
+    content_tag :div, raw(links.join), id: "harmanpro_bar"
+  end
   	
 end

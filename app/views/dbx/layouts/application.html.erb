@@ -123,18 +123,7 @@
 		
 		<%= cache ["footer", website.brand, I18n.locale] do %>
 		<footer>
-			<div id="harmanpro_bar">
-				<%= link_to(image_tag("pro_brands/harman_professional.png", alt: "Harman Pro"), "http://www.harmanpro.com", target: "_blank") %>
-				<%= link_to(image_tag("pro_brands/akg.png", alt: "AKG"), "http://www.akg.com", target: "_blank") %>
-				<%= link_to(image_tag("pro_brands/bss.png", alt: "BSS"), "http://www.bssaudio.com", target: "_blank") %>
-				<%= link_to(image_tag("pro_brands/crown.png", alt: "Crown"), "http://www.crownaudio.com", target: "_blank") %>
-				<%#= link_to(image_tag("pro_brands/dbx.png", alt: "dbx"), "http://www.dbxpro.com", target: "_blank") %>
-				<%= link_to(image_tag("pro_brands/digitech.png", alt: "DigiTech"), "http://www.digitech.com", target: "_blank") %>
-				<%= link_to(image_tag("pro_brands/lexicon.png", alt: "Lexicon Pro"), "http://www.lexiconpro.com", target: "_blank") %>
-				<%= link_to(image_tag("pro_brands/soundcraft.png", alt: "Soundcraft"), "http://www.soundcraft.com", target: "_blank") %>
-				<%= link_to(image_tag("pro_brands/studer.png", alt: "Studer"), "http://www.studer.ch", target: "_blank") %>
-				<%= link_to(image_tag("pro_brands/hiqnet.png", alt: "HiQnet"), "http://hiqnet.harmanpro.com", target: "_blank") %>
-			</div>
+			<%= hpro_footer %>
 			<div id="footer_info">
 				<% if website.has_software? %>
 				<%= link_to t('software_downloads').downcase, software_index_path %> &bull;
