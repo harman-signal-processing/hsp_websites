@@ -9,7 +9,7 @@ class Admin::ProductPricesController < AdminController
       format.html { render_template } # index.html.erb
       format.xls {
         send_data(
-        	website.brand.pricelist(website, I18n.locale),
+          Pricelist.new(website.brand, website: website, locale: I18n.locale).to_s,
         	filename: "#{website.brand.name}_price_list_#{Time.zone.now.year}-#{Time.zone.now.month}-#{Time.zone.now.day}.xls"
         )    
       }
