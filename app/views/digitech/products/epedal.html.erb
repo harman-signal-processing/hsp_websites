@@ -27,21 +27,19 @@
 <section id="product_content" class="epedal">
 	<h2><%#= @product.short_description %></h2>
 	<div id="left_column">
-		<% if @product.photo %>
+		
 		<div id="viewer">
+			<% if @product.photo %>
 			<%= image_tag(@product.photo.product_attachment.url(:epedal),
 				 id: "pedal",
 				 data: { effecton: effect_on_image_path(@product) }
 				) %>
-			<% if website.featured_epedals && website.featured_epedals.split("|").include?(@product.friendly_id) %>
-				<% unless included_epedals.include?(@product.to_param) %>
-					<div class="burst">
-						<%= image_tag("#{website.folder}/istomp/99cent_burst.png", alt: "99 cents") %>
-					</div>
-				<% end %>
-			<% end %>
+			<% end %>	
+			<div class="burst">
+				<%= burst_for(@product) %>
+			</div>
 		</div>
-		<% end %>
+		
 		<% if @product.audio_demos.size > 0 %>
 		<ul class="graphic">
 		  	<li class="sm2_link">
@@ -71,7 +69,7 @@
 				</div>
 			<% elsif !@product.msrp.blank? %>
 				<div>
-					<span class="price_label">Regular Price:</span>
+					<span class="price_label"><%= "Regular" unless @product.sale_price.to_f >= @product.msrp.to_f %> Price:</span>
 					<span class="price"><%= number_to_currency(@product.msrp) %></span>
 				</div>
 			<% end %>
