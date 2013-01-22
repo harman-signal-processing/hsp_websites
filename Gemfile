@@ -71,30 +71,24 @@ group :production, :staging do
     require: "exception_notifier"
 end
 
-# Bundle gems for the local environment. Make sure to
-# put test-only gems in this group so their generators
-# and rake tasks are available in development mode:
 group :development, :test do
   gem 'unicorn'
-  gem 'minitest-rails', git: "http://github.com/rawongithub/minitest-rails.git", branch: "gemspec"
+  gem 'minitest-rails', 
+    git: "http://github.com/rawongithub/minitest-rails.git", 
+    # ref: "b8997a7044b41d4c372b7a071927f376864b8104",
+    branch: "gemspec"
   gem "factory_girl_rails"
 end
 
 group :test do
   gem 'mocha', '= 0.13.0', require: false
-  gem 'turn' #, git: "http://github.com/adamtao/turn.git"
-  gem 'capybara'
+  gem 'turn'
+  gem 'minitest-rails-capybara'
   gem 'capybara-webkit'
   gem 'capybara_minitest_spec'
   gem 'launchy' # save_and_open_page inline in tests
-  gem 'minitest' #, '>= 2.12.1' #, '2.11.4 works also. There was a 2.12.? that breaks stuff
+  # gem 'minitest', '2.12.1'
   gem 'guard-minitest'
   gem 'rb-inotify', '~> 0.8.8'
   gem 'database_cleaner'
-  gem 'minitest-rails-shoulda',
-    git: "http://github.com/rawongithub/minitest-rails-shoulda.git",
-    ref: "2bd90c19c5be00aa1718a00293b6899223daf79f"
-    # Aug 6, 2012 commit changed "Minitest" to "MiniTest" which broke things for me.
-    # Probably the next version of "minitest" gem will have the new capitalization
-    # and then I'll need to remove the "ref" above.
 end

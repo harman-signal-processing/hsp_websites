@@ -102,7 +102,7 @@ Someday figure out a better way to do all of this.
 			<div class="text_content" style="width: 475px">
 				<%=raw truncate strip_html(@product.description), length: (@product_introduction.content.to_i > 0) ? @product_introduction.content.to_i : 680 %>
 			</div>
-			<h5>Regular Price: <%= number_to_currency(@product.msrp.to_f) %></h5>
+			<h5><%= "Regular" unless @product.sale_price.to_f >= @product.msrp.to_f %> Price: <%= number_to_currency(@product.msrp.to_f) %></h5>
 		</section>
 
 	</div>
