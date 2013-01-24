@@ -140,7 +140,7 @@ describe "iStomp Integration Test" do
     end   
 
     it "should show the price text" do 
-      must_have_content "Regular Price: $#{@impossible.msrp.to_s}"
+      must_have_content "Price: $#{@impossible.msrp.to_s}"
     end 
 
   end
