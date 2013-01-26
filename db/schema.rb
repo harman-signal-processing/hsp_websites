@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130110175143) do
+ActiveRecord::Schema.define(:version => 20130125215139) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -608,6 +608,8 @@ ActiveRecord::Schema.define(:version => 20130110175143) do
     t.string   "calculation_method"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
+    t.boolean  "us"
+    t.boolean  "intl"
   end
 
   add_index "pricing_types", ["brand_id"], :name => "index_pricing_types_on_brand_id"
@@ -1306,7 +1308,6 @@ ActiveRecord::Schema.define(:version => 20130110175143) do
 
   add_index "tweets", ["brand_id"], :name => "index_tweets_on_brand_id"
   add_index "tweets", ["tweet_id"], :name => "index_tweets_on_tweet_id"
-  add_index "tweets", ["tweet_id"], :name => "tweet_id", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false

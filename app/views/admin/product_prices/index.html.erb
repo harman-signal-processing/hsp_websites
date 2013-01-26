@@ -1,7 +1,8 @@
 <h1>Price List</h1>
 
 <div class="button_container">
-	<%= link_to 'Excel Price Sheet', admin_product_prices_path(format: 'xls'), class: "edit button" %>
+	<%= link_to 'Excel Price Sheet (US)', admin_product_prices_path(format: 'xls', loc: "us"), class: "edit button" %>
+	<%= link_to 'Excel Price Sheet (Intl)', admin_product_prices_path(format: 'xls', loc: "intl"), class: "edit button" %>
 <% if can? :create, PricingType %>
 	<%= link_to 'New Pricing column', new_admin_pricing_type_path, class: "new button" %>
 <% end %>
