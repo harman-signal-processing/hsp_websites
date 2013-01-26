@@ -17,7 +17,11 @@
   </div>
   <div class="field">
     <%= f.label :pricelist_order %>
-    <%= f.select :pricelist_order, [-1, "", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] %>
+    <%= f.select :pricelist_order, ["", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] %>
+  </div>
+  <div class="field">
+	<%= f.check_box :us %> <%= f.label :us, "Show on US pricelist" %><br/>
+	<%= f.check_box :intl %> <%= f.label :intl, "Show in international pricelist" %>
   </div>
   <div class="actions">
     <%= f.submit %>

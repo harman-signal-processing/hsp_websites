@@ -33,6 +33,7 @@
 
 	<div id="admin_menu">
 <% if user_signed_in? %>
+<%= cache ["admin_menu", current_user, website, Date.today] do %>
 	<% if can?(:manage, User) || can?(:manage, Brand) || can?(:manage, Website) %>
 	<h3><%= image_tag "super_admin.png" %> Super Admin</h3>
 	<ul>
@@ -227,6 +228,7 @@
 		<% end %>
 	</ul>
 	<% end %>
+<% end %>
 <% end %>
 	</div>
 	<div id="page_content">

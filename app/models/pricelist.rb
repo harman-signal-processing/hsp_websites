@@ -3,12 +3,13 @@ class Pricelist
   def initialize(brand, options = {})
     @brand    = brand
     default_options = {
-      subtitle:      "US Dealer", 
-      pricing_types: brand.pricing_types, 
+      loc:          "us", 
       website:       brand.default_website,
       locale:        I18n.default_locale
     }
     @options  = default_options.merge options
+    @pricing_types = brand.pricing_types.where("#{@options[:loc]} = 1 AND pricelist_order > 0").order(:pricelist_order)
+    @subtitle = (!!(options[:loc].match(/^us/i))) ? "US Dealer" : "Distrib."
     @column_widths = [14, 40, 12, 12]
     @workbook = Spreadsheet::Workbook.new
     @sheet = @workbook.create_worksheet name: "#{@brand.name} #{@options[:subtitle]} Pricelist"
@@ -54,7 +55,7 @@ class Pricelist
     row = @sheet.row(1)
     row.height = 20
     row.default_format = subheader
-    row.push @brand.name, "", "", "", @options[:subtitle]
+    row.push @brand.name, "", "", "", @subtitle
     row.set_format(4, subheader_r)
 
     row = @sheet.row(2)
@@ -67,11 +68,11 @@ class Pricelist
   def fill_column_headers
     header = @sheet.row(4)
     header.height = 15
-	header.default_format = Spreadsheet::Format.new(weight: :bold, size: 10, horizontal_align: :center)
+    header.default_format = Spreadsheet::Format.new(weight: :bold, size: 10, horizontal_align: :center)
     header.push "Effective #{I18n.l Date.today, format: :long}", "", "MSRP (US$)", "MAP (US$)"
     header.set_format(0, Spreadsheet::Format.new(weight: :bold, size: 10, horizontal_align: :left))
 
-    @options[:pricing_types].each do |pricing_type|
+    @pricing_types.each do |pricing_type|
       unless pricing_type.pricelist_order.to_i <= 0
         header.push "#{pricing_type.name} (US$)"
         @column_widths << 12
@@ -98,17 +99,15 @@ class Pricelist
 
   def fill_product_row(product)
   	row = @sheet.row(@row_index)
-	row.push (product.sap_sku.present?) ? product.sap_sku : product.name 
-	row.push product.short_description
-	row.push product.msrp
-	row.push product.street_price
-	@options[:pricing_types].each do |pricing_type|
-	  unless pricing_type.pricelist_order.to_i <= 0
-	    pr = product.price_for(pricing_type).to_f
-	    row.push (pr.to_f > 0.0) ? pr : ""
-	  end
-	end
-	@row_index += 1
+    row.push (product.sap_sku.present?) ? product.sap_sku : product.name 
+    row.push product.short_description
+    row.push product.msrp
+    row.push product.street_price
+    @pricing_types.each do |pricing_type|
+      pr = product.price_for(pricing_type).to_f
+      row.push (pr.to_f > 0.0) ? pr : ""
+    end
+    @row_index += 1
   end
 
 end
