@@ -56,7 +56,7 @@ GEM
     bcrypt-ruby (3.0.1)
     builder (3.0.4)
     cancan (1.6.8)
-    capistrano (2.14.1)
+    capistrano (2.13.5)
       highline
       net-scp (>= 1.0.0)
       net-sftp (>= 2.0.0)
@@ -100,7 +100,7 @@ GEM
     daemons (1.1.9)
     dalli (2.6.2)
     database_cleaner (0.9.1)
-    delayed_job (3.0.4)
+    delayed_job (3.0.5)
       activesupport (~> 3.0)
     delayed_job_active_record (0.3.3)
       activerecord (>= 2.1.0, < 4)
@@ -347,7 +347,7 @@ DEPENDENCIES
   acts_as_tree
   api_cache
   cancan
-  capistrano
+  capistrano (= 2.13.5)
   capistrano-ext
   capybara-webkit
   capybara_minitest_spec
