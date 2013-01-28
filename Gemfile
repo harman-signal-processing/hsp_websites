@@ -16,7 +16,7 @@ end
 # it uses jquery 1.8.0, which has a selector bug:
 # http://bugs.jquery.com/ticket/12292
 gem 'jquery-rails', '~> 2.0.2' # see above, jquery-rails 2.0.2 uses jquery 1.7.2
-gem 'capistrano'
+gem 'capistrano', '2.13.5' # 2.14.1 causes tinymce assets to be deleted
 gem 'capistrano-ext'
 
 # To use debugger
