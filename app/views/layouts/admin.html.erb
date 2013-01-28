@@ -100,6 +100,9 @@
 		<% if can?(:update, :harman_employee_pricing) %>
 		<li><%= link_to "Employee Pricing", harman_employee_pricing_admin_products_path %></li>
 		<% end %>
+		<% if can?(:manage, ProductPrice) %>
+		<li><%= link_to "Price List", admin_product_prices_path %></li>
+		<% end %>
 		<% if can?(:read, WarrantyRegistration) %>
 		<li><%= link_to "Product Registrations", admin_warranty_registrations_path %></li>
 		<% end %>

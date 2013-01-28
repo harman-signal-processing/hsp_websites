@@ -50,6 +50,8 @@ class Ability
         can :manage, Dealer
         can :manage, OnlineRetailer
         can :manage, OnlineRetailerLink
+        can :manage, ProductPrice
+        can :manage, PricingType
         can :read, WarrantyRegistration
       end
       if user.role?(:rso_admin)
