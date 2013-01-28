@@ -74,11 +74,9 @@ describe "Admin Pricing Integration Test" do
     end
 
     it "should have a button to export price list to Excel" do 
-      must_have_link "Excel", href: admin_product_prices_path(format: 'xls', locale: I18n.default_locale)
+      must_have_link "Excel", href: admin_product_prices_path(loc: "us", format: 'xls', locale: I18n.default_locale)
+      must_have_link "Excel", href: admin_product_prices_path(loc: "intl", format: 'xls', locale: I18n.default_locale)
     end
-
-    # it "should have a button to view price list in browser"
-    # it "should have a button to create a PDF price list"
 
     it "should have a form to update prices" do 
       must_have_field "product_attr[#{@website.products.first.to_param}][msrp]"
