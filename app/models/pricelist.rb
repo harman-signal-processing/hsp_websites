@@ -12,6 +12,7 @@ class Pricelist
     @subtitle = (!!(options[:loc].match(/^us/i))) ? "US Dealer" : "Distrib."
     @column_widths = [14, 40, 12, 12]
     @workbook = Spreadsheet::Workbook.new
+    @currency_format = Spreadsheet::Format.new(number_format: '$#,###.##_);[Red]($#,###.##)' )
     @sheet = @workbook.create_worksheet name: "#{@brand.name} #{@options[:subtitle]} Pricelist"
     setup_template 
     fill_content
@@ -106,15 +107,24 @@ class Pricelist
   def fill_product_row(product)
   	row = @sheet.row(@row_index)
     if !(product.discontinued?) && product.show_on_website?(@options[:website]) && product.can_be_registered? && product.msrp.to_f > 0.0
-      row.push (product.sap_sku.present?) ? product.sap_sku : product.name 
-      row.push product.short_description
-      row.push product.msrp
-      row.push product.street_price
+      dynamic_pricing = []
       @pricing_types.each do |pricing_type|
         pr = product.price_for(pricing_type).to_f
-        row.push (pr.to_f > 0.0) ? pr : ""
+        dynamic_pricing << pr.to_f if pr.to_f > 0.0
       end
-      @row_index += 1
+      if dynamic_pricing.length == @pricing_types.length
+        row.push (product.sap_sku.present?) ? product.sap_sku : product.name 
+        row.push product.short_description
+        row.push product.msrp
+        row.set_format(2, @currency_format)
+        row.push product.street_price
+        row.set_format(3, @currency_format)
+        dynamic_pricing.each_with_index do |pr,i|
+          row.push (pr.to_f > 0.0) ? pr : ""
+          row.set_format(4+i, @currency_format)
+        end
+        @row_index += 1
+      end
     end
   end
 
