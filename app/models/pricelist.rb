@@ -32,15 +32,10 @@ class Pricelist
   def fill_content
     @row_index = 5
     ProductFamily.parents_with_current_products(@options[:website], @options[:locale]).each do |product_family|
-	  insert_spacer_row()
-      fill_product_family_row(product_family)
-
-      product_family.current_products_plus_child_products(@options[:website]).each do |product|
-        if !(product.discontinued?) && product.show_on_website?(@options[:website]) && product.can_be_registered?
-          fill_product_row(product)
-        end
+      insert_product_family(product_family)        
+      product_family.children_with_current_products(@options[:website]).each do |child_product_family|
+  	    insert_product_family(child_product_family)
       end
-      @row_index += 1
     end
   end
 
@@ -80,6 +75,17 @@ class Pricelist
     end
   end
 
+  def insert_product_family(product_family)
+    if product_family.current_products.length > 0
+      insert_spacer_row()
+      fill_product_family_row(product_family)
+      product_family.current_products.each do |product|
+        fill_product_row(product)
+      end
+      @row_index += 1
+    end
+  end
+
   def insert_spacer_row
   	row = @sheet.row(@row_index)
   	@spacer_format ||= Spreadsheet::Format.new top: :thick
@@ -99,15 +105,17 @@ class Pricelist
 
   def fill_product_row(product)
   	row = @sheet.row(@row_index)
-    row.push (product.sap_sku.present?) ? product.sap_sku : product.name 
-    row.push product.short_description
-    row.push product.msrp
-    row.push product.street_price
-    @pricing_types.each do |pricing_type|
-      pr = product.price_for(pricing_type).to_f
-      row.push (pr.to_f > 0.0) ? pr : ""
+    if !(product.discontinued?) && product.show_on_website?(@options[:website]) && product.can_be_registered? && product.msrp.to_f > 0.0
+      row.push (product.sap_sku.present?) ? product.sap_sku : product.name 
+      row.push product.short_description
+      row.push product.msrp
+      row.push product.street_price
+      @pricing_types.each do |pricing_type|
+        pr = product.price_for(pricing_type).to_f
+        row.push (pr.to_f > 0.0) ? pr : ""
+      end
+      @row_index += 1
     end
-    @row_index += 1
   end
 
 end

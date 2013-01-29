@@ -1,5 +1,7 @@
 <h1>Price List</h1>
 
+<p>Products which do not have MSRP defined will not appear on the price list.</p>
+
 <div class="button_container">
 	<%= link_to 'Excel Price Sheet (US)', admin_product_prices_path(format: 'xls', loc: "us"), class: "edit button" %>
 	<%= link_to 'Excel Price Sheet (Intl)', admin_product_prices_path(format: 'xls', loc: "intl"), class: "edit button" %>
@@ -19,7 +21,7 @@
 			<th><%= link_to pricing_type.name, edit_admin_pricing_type_path(pricing_type) %></th>
 			<% end %>
 		</tr>
-	<% @products.each do |product| %>
+	<% @products.sort_by{|a| a.name.upcase}.each do |product| %>
 	<% if !(product.discontinued?) && product.show_on_website?(website) && product.can_be_registered? %>
 		<tr>
 			<td><%= link_to product.name, product, target: "_blank" %></td>
