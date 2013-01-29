@@ -12,7 +12,7 @@ class Pricelist
     @subtitle = (!!(options[:loc].match(/^us/i))) ? "US Dealer" : "Distrib."
     @column_widths = [14, 40, 12, 12]
     @workbook = Spreadsheet::Workbook.new
-    @currency_format = Spreadsheet::Format.new(number_format: '$#,###.##_);[Red]($#,###.##)' )
+    @currency_format = Spreadsheet::Format.new(number_format: '$##,###.00_);[Red]($##,###.00)' )
     @sheet = @workbook.create_worksheet name: "#{@brand.name} #{@options[:subtitle]} Pricelist"
     setup_template 
     fill_content
@@ -77,7 +77,7 @@ class Pricelist
   end
 
   def insert_product_family(product_family)
-    if product_family.current_products.length > 0
+    if check_product_family(product_family) #.current_products.length > 0
       insert_spacer_row()
       fill_product_family_row(product_family)
       product_family.current_products.each do |product|
@@ -89,7 +89,7 @@ class Pricelist
 
   def insert_spacer_row
   	row = @sheet.row(@row_index)
-  	@spacer_format ||= Spreadsheet::Format.new top: :thick
+  	@spacer_format ||= Spreadsheet::Format.new top: :medium
   	row.default_format = @spacer_format
     5.times { row.push "" }
     @row_index += 1
@@ -97,7 +97,7 @@ class Pricelist
 
   def fill_product_family_row(product_family)
   	row = @sheet.row(@row_index)
-  	@subheader_format ||= Spreadsheet::Format.new weight: :bold, size: 15
+  	@subheader_format ||= Spreadsheet::Format.new weight: :bold, size: 12
     row.height = 18
     row.default_format = @subheader_format
     row.push << product_family.name
@@ -106,25 +106,37 @@ class Pricelist
 
   def fill_product_row(product)
   	row = @sheet.row(@row_index)
-    if !(product.discontinued?) && product.show_on_website?(@options[:website]) && product.can_be_registered? && product.msrp.to_f > 0.0
-      dynamic_pricing = []
-      @pricing_types.each do |pricing_type|
-        pr = product.price_for(pricing_type).to_f
-        dynamic_pricing << pr.to_f if pr.to_f > 0.0
+    if check_product(product)
+      row.push (product.sap_sku.present?) ? product.sap_sku : product.name 
+      row.push product.short_description
+      row.push product.msrp
+      row.set_format(2, @currency_format)
+      row.push product.street_price
+      row.set_format(3, @currency_format)
+      dynamic_pricing(product).each_with_index do |pr,i|
+        row.push (pr.to_f > 0.0) ? pr : ""
+        row.set_format(4+i, @currency_format)
       end
-      if dynamic_pricing.length == @pricing_types.length
-        row.push (product.sap_sku.present?) ? product.sap_sku : product.name 
-        row.push product.short_description
-        row.push product.msrp
-        row.set_format(2, @currency_format)
-        row.push product.street_price
-        row.set_format(3, @currency_format)
-        dynamic_pricing.each_with_index do |pr,i|
-          row.push (pr.to_f > 0.0) ? pr : ""
-          row.set_format(4+i, @currency_format)
-        end
-        @row_index += 1
-      end
+      @row_index += 1
+    end
+  end
+
+  def check_product_family(product_family)
+    prods = [] 
+    product_family.current_products.each do |product|
+      prods << product if check_product(product)
+    end
+    prods.length > 0
+  end
+
+  def check_product(product)
+    dp = dynamic_pricing(product)
+    dp.length == @pricing_types.length && !(product.discontinued?) && product.show_on_website?(@options[:website]) && product.can_be_registered? && product.msrp.to_f > 0.0
+  end
+
+  def dynamic_pricing(product)
+    @pricing_types.map do |pricing_type|
+      product.price_for(pricing_type).to_f
     end
   end
 
