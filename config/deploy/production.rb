@@ -4,9 +4,8 @@ set :deploy_via, :export
 set :application, "hsp_websites"
 set :deploy_to, "/var/www/hmg/#{application}"
 
-role :web, "10.10.23.86"  # Your HTTP server, Apache/etc
-role :app, "10.10.23.86"  # This may be the same as your `Web` server
-role :db,  "10.10.23.15", primary: true # This is where Rails migrations will run
+server "10.10.23.86", :web, :app
+server "10.10.23.15", :web, :app, :db, primary: true
 
 set :rails_env, "production"
 
