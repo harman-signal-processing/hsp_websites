@@ -18,8 +18,12 @@ namespace :maintain do
   end
   
   def test_and_update(item)
-    new_status = link_test(item.url)
-    item.update_attributes(:link_checked_at => Time.now, :link_status => new_status)    
+    begin
+      new_status = link_test(item.url)
+      item.update_attributes(:link_checked_at => Time.now, :link_status => new_status)    
+    rescue
+      logger.debug "There was an error crawling it...but keep going"
+    end
   end
   
   def link_test(url)
