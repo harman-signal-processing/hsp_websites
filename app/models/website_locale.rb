@@ -2,7 +2,7 @@ class WebsiteLocale < ActiveRecord::Base
   belongs_to :website, touch: true
   validates :website_id, presence: true
   validates :locale, presence: true
-  after_save :restart_site
+#  after_save :restart_site
   
   # This is used by the router to setup URLs
   # TODO: Routing could be smarter (restricting locales to corresponding websites)
