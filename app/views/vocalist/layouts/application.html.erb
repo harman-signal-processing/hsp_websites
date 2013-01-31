@@ -40,12 +40,12 @@
 		<%= cache ["header", website, I18n.locale] do %>
 		<div id="Header">
 			<div id="logo">
-				<% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "logo.gif")) %>
-				<%= link_to(image_tag("#{website.folder}/logo.gif", alt: Setting.site_name(website)), locale_root_path) %>
+				<% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "logo.png")) %>
+				<%= link_to(image_tag("#{website.folder}/logo.png", alt: Setting.site_name(website)), locale_root_path) %>
 				<% else %>
 				<h2><%= link_to website.brand_name, locale_root_path %></h2>
 				<% end %>
-				<%= image_tag("#{website.folder}/play_harmony_applause.gif") %>
+				<%#= image_tag("#{website.folder}/play_harmony_applause.gif") %>
 			</div>
 			<div id="topnav">
 				<ul>

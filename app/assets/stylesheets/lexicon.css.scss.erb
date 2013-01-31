@@ -1348,16 +1348,21 @@ div#big_bottom_box_content div.column div.artist_listing {
 	color: #FFF;
 	padding: 2px 0px;
 	text-align: center;
+	div.intro {
+		display: none;
+	}
 }
-div#big_bottom_box_content div.column div.artist_listing div.intro {
-	display: none;
-}
-div.artist_listing a:link,
-div.artist_listing a:visited {
-	color: #8bbae9;
-}
-div.artist_listing a:hover {
-	text-decoration: underline;
+div.artist_listing {
+	a:link, a:visited {
+		color: #8bbae9;
+	}
+	a:hover {
+		text-decoration: underline;
+	}
+	div.artist_photo {
+		float: left;
+		margin: -2px 8px 1px 0px;
+	}
 }
 div.on_the_left {
 	margin-left: 0px;
@@ -1374,34 +1379,30 @@ div#featured_artist_box {
 /*	outline: 1px solid #384343;*/
 	position: relative;
 	padding: 0px;
-}
-div#featured_artist_box .slideshow_frame {
-	position: relative;	
-	top: 0px;
-	width: 960px;
-	height: 408px;
-}
-div#featured_artist_box .slideshow_frame .description {
-	text-align: left;
-	padding: 4px 220px 10px 40px;
-	position: absolute;
-	bottom: 0px;
-	left: 0px;
-	width: 700px;
-	background: black;
-	z-index: 1000;
-	color: white;
-	zoom: 1;
-    filter: alpha(opacity=70);
-    opacity: 0.7;
-}
-div#featured_artist_box div#slideshow_controls {
-	bottom: 8px;
-	right: 4px;
-}
-div.artist_listing div.artist_photo {
-	float: left;
-	margin: -2px 8px 1px 0px;
+	.slideshow_frame {
+		position: relative;	
+		top: 0px;
+		width: 960px;
+		height: 408px;
+		.description {
+			text-align: left;
+			padding: 4px 220px 10px 40px;
+			position: absolute;
+			bottom: 0px;
+			left: 0px;
+			width: 700px;
+			background: black;
+			z-index: 1000;
+			color: white;
+			zoom: 1;
+		    filter: alpha(opacity=70);
+		    opacity: 0.7;
+		}
+	}
+	div#slideshow_controls {
+		bottom: 8px;
+		right: 4px;
+	}
 }
 div#big_bottom_box_content div.column div.artist_listing div.artist_photo {
 	float: none;
@@ -1452,17 +1453,16 @@ div#artist_products {
 	padding: 10px;
 }
 div.product_artists {
-	
-}
-div.product_artists .artist {
-	margin-bottom: 16px;
-}
-div.product_artists .artist .description {
-	margin-left: 80px;
-	min-height: 66px;
-}
-div.product_artists .artist .photo {
-	float: left;
+	.artist {
+		margin-bottom: 16px;
+		.description {
+			margin-left: 80px;
+			min-height: 66px;
+		}
+		.photo {
+			float: left;
+		}
+	}
 }
 
 .quote {

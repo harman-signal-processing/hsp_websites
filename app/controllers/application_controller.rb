@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   # before_filter :set_locale
-  before_filter :miniprofiler #, :set_default_meta_tags
+  # before_filter :miniprofiler #, :set_default_meta_tags
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   layout :set_layout
