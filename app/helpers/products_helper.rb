@@ -152,15 +152,18 @@ module ProductsHelper
 
   def discontinued_boxes(product)
     ret = ""
+    rendered_tab_names = []
     tabs = product.main_tabs + product.tabs
-    tabs.uniq.each do |product_tab|
+    tabs.each do |product_tab|
       next if product_tab.key == 'description' || product_tab.key == 'extended_description' # these already appear in the view
+      next if rendered_tab_names.include?(product_tab.key)
       ret += "<div id=\"#{product_tab.key}\" class=\"product_detail_box\">" +
         "<h2>" + tab_title(product_tab) + "</h2>" +
         content_tag(:div, id: "#{product_tab.key}_content") do
           render_partial("products/#{product_tab.key}", product: product)
         end
       ret += "</div>"
+      rendered_tab_names << product_tab.key
     end
     raw(ret)
   end

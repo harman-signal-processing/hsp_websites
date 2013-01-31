@@ -731,19 +731,20 @@ div#artist_products {
 	padding: 10px;
 }
 div.product_artists {
-	
-}
-div.product_artists .artist {
-	position: relative;
-	margin-bottom: 8px;
-}
-div.product_artists .artist .description {
-	margin-left: 80px;
-}
-div.product_artists .artist .photo {
-	position: absolute;
-	top: 6px;
-	left: 1px;
+	.artist {
+		position: relative;
+		margin-bottom: 8px;
+		.description {
+			margin-left: 80px;
+			min-height: 66px;
+			padding-top: 6px;
+		}
+		.photo {
+			position: absolute;
+			top: 6px;
+			left: 1px;
+		}
+	}
 }
 .quote {
 	text-align:center;
