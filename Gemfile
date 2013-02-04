@@ -63,6 +63,7 @@ gem 'money-rails'
 #gem 'forem', git: "http://github.com/radar/forem.git"
 #gem 'forem-theme-twist', git: "http://github.com/radar/forem-theme-twist.git"
 gem 'will_paginate'
+gem 'rack-rewrite'
 
 group :production, :staging do
   gem 'passenger_monit'

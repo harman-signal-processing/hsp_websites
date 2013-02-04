@@ -3,3 +3,11 @@
 # To ban all spiders from the entire site uncomment the next two lines:
 # User-Agent: *
 # Disallow: /
+
+User-agent: *
+Crawl-delay: 4.5
+
+# Yandex tries to pull support page as a jpeg for some reason
+User-agent: Yandex
+Disallow: /en-US/support
+Disallow: /en/support
