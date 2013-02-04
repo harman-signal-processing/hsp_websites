@@ -11,6 +11,12 @@ end
 
 module HarmanSignalProcessingWebsite
   class Application < Rails::Application
+
+    # Trying to re-write fixes with bad URL params like this:
+    # /en-US/videos/play/TeZN3dGmT10%20?iframe=true&width=100%&height=100%
+    config.middleware.insert_before(Rack::Lock, Rack::Rewrite) do
+      r301   %r{/([\w\/\-]*)(\%20)?\?iframe.*},  '/$1'
+    end
     
     # This was a good idea to use different domains in cookies depending on
     # the site being called, but it broke stuff...maybe with the upgrade to rails 3.2.1
