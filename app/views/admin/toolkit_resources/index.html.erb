@@ -1,0 +1,18 @@
+<h1>Toolkit Resources</h1>
+
+<% if can? :create, ToolkitResource %>
+<div class="button_container">
+	<%= form_tag new_admin_toolkit_resource_path, method: :get do %>
+		<%= select_tag :toolkit_resource_type_id, 
+					options_from_collection_for_select(ToolkitResourceType.order(:name), :id, :name) %>
+		<%= submit_tag "New Toolkit Resource", name: nil %>
+	<% end %> 
+</div>
+<% end %>
+
+<ul>
+	<% @toolkit_resources.each do |toolkit_resource| %>
+	  <li><%= link_to toolkit_resource.name, [:admin, toolkit_resource] %> </li>
+	<% end %>
+</ul>
+

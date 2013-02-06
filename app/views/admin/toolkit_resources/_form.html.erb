@@ -1,0 +1,47 @@
+<%= form_for([:admin, @toolkit_resource], html: {multipart: true}) do |f| %>
+  <% if @toolkit_resource.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@toolkit_resource.errors.count, "error") %> prohibited this toolkit resource from being saved:</h2>
+
+      <ul>
+      <% @toolkit_resource.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :toolkit_resource_type_id %>
+
+  <div class="field">
+    <%= f.label :name, "Resource Name" %><br />
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :download_path %> (on the shared toolkit folder)<br/>
+    <%= f.text_field :download_path, placeholder: "toolkit/#{website.folder}" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :download_file_size %> (in bytes: right-click and choose 'properties' or 'more info')<br/>
+    <%= f.text_field :download_file_size %> 
+  </div>
+
+  <% if @toolkit_resource.toolkit_resource_type.related_model.present? %>
+  <div class="field">
+    <%= f.label :related_id, 
+        "Related #{@toolkit_resource.toolkit_resource_type.related_model.titleize}" %><br/>
+    <%= toolkit_collection_select_for(f, @toolkit_resource.toolkit_resource_type.related_model) %>
+  </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :tk_preview, "Preview image" %><br/>
+    <%= f.file_field :tk_preview %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

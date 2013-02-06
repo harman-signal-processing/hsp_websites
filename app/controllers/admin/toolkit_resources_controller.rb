@@ -3,6 +3,7 @@ class Admin::ToolkitResourcesController < AdminController
   # GET /toolkit_resources
   # GET /toolkit_resources.xml
   def index
+    @toolkit_resources = @toolkit_resources.where(brand_id: website.brand_id)
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @toolkit_resources }
@@ -21,6 +22,7 @@ class Admin::ToolkitResourcesController < AdminController
   # GET /toolkit_resources/new
   # GET /toolkit_resources/new.xml
   def new
+    @toolkit_resource.toolkit_resource_type_id = params[:toolkit_resource_type_id]
     respond_to do |format|
       format.html { render_template } # new.html.erb
       format.xml  { render xml: @toolkit_resource }
@@ -34,6 +36,7 @@ class Admin::ToolkitResourcesController < AdminController
   # POST /toolkit_resources
   # POST /toolkit_resources.xml
   def create
+    @toolkit_resource.brand_id ||= website.brand_id
     respond_to do |format|
       if @toolkit_resource.save
         format.html { redirect_to([:admin, @toolkit_resource], notice: 'Toolkit resource was successfully created.') }
