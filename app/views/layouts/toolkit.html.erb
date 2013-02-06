@@ -7,6 +7,9 @@
     <%= stylesheet_link_tag "toolkit", :media => "all" %>
     <%= javascript_include_tag "toolkit_application" %>
     <%= csrf_meta_tags %>
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
     <%= yield(:head) %>
   </head>
   <body>
@@ -109,14 +112,15 @@
   
   <footer class="row">
     <div class="twelve columns">
-      <hr />
       <div class="row" style="text-align: center">
-          <h6 class="subheader">HSP Brand Sites:</h6>
+          HSP Brand Sites:
         	<p><%= toolkit_brands.map do |b| 
         			link_to(b.name, "http://#{b.default_website.url}", target: "_blank")
-        		   end.join(", ").html_safe %></p>
+        		   end.join(" &bull; ").html_safe %></p>
           <small>
-            Harman Signal Processing &bull; 8760 South Sandy Parkway, Sandy, UT 84070 &bull; (801)566-8800
+            Harman Signal Processing &bull; 
+            8760 South Sandy Parkway, Sandy, UT 84070 &bull; 
+            (801)566-8800
           </small>
         </div>
       </div>

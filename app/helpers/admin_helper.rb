@@ -30,5 +30,23 @@ module AdminHelper
     return false if can? :manage, :all
     object.disable_field?(attribute)
   end
+
+  def toolkit_collection_select_for(f, related_model)
+    case related_model
+    when "Promotion"
+      f.collection_select :related_id, Promotion.where(brand_id: website.brand_id).where("end_on >= ?", 1.week.ago).order(:name), :id, :name
+    when "ProductAttachment"
+      f.collection_select :related_id, website.brand.products.map{|p| p.images_for("toolkit")}.flatten, :id, :name
+    when "ProductDocument"
+      f.collection_select :related_id, website.brand.products.map{|p| p.product_documents}.flatten, :id, :name
+    else
+      i = related_model.constantize.new
+      if i.respond_to?(:brand_id) && i.respond_to?(:name)
+        f.collection_select :related_id, related_model.constantize.where(brand_id: website.brand_id).order(:name), :id, :name
+      else
+        "error loading related #{related_model.titleize}"
+      end
+    end
+  end
   
 end

@@ -1,6 +1,7 @@
 <%= content_for :left_nav do %>
 	<li><%= link_to "Products", toolkit_brand_products_path(@brand) %></li>
 	<li><%= link_to "Promotions", toolkit_brand_promotions_path(@brand) %></li>
-	<li><%= link_to "Ads" %></li>
-	<li><%= link_to "Logos" %></li>
+	<% ToolkitResourceType.menu_items(@brand).each do |toolkit_resource_type| %>
+	<li><%= link_to toolkit_resource_type.name.pluralize, toolkit_brand_toolkit_resource_type_path(@brand, toolkit_resource_type) %></li>
+	<% end %>
 <% end %>

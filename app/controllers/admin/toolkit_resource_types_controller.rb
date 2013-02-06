@@ -52,7 +52,7 @@ class Admin::ToolkitResourceTypesController < AdminController
   # PUT /toolkit_resource_types/1.xml
   def update
     respond_to do |format|
-      if @toolkit_resource_type.update_attributes(params[:toolkit_resource])
+      if @toolkit_resource_type.update_attributes(params[:toolkit_resource_type])
         format.html { redirect_to([:admin, @toolkit_resource_type], notice: 'Toolkit resource type was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated toolkit resource: #{@toolkit_resource_type.name}")

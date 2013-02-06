@@ -1,0 +1,13 @@
+<h1>Toolkit Resource</h1>
+
+<div class="button_container">
+	<%= link_to 'Back', admin_toolkit_resource_path, class: "back button" %>
+	<%= link_to 'Edit', edit_admin_toolkit_resource_path(@toolkit_resource), class: "edit button" %> 
+	<%= link_to 'Delete', [:admin, @toolkit_resource], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
+</div>
+
+<p>
+	<b>Name:</b> 
+	<%= @toolkit_resource.name %>
+</p>
+

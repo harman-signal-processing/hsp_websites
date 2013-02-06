@@ -57,6 +57,10 @@ class ProductAttachment < ActiveRecord::Base
   def for_toolkit?
     true
   end
+
+  def name
+    (product_attachment_file_name.present?) ? product_attachment_file_name : product_media_file_name
+  end
   
   # Determine if this attachment is a photo...or something else
   def is_photo?

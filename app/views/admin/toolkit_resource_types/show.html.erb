@@ -1,5 +1,22 @@
 <h1>Toolkit Resource Type</h1>
 
+<div class="button_container">
+	<%= link_to 'Back', admin_toolkit_resource_types_path, class: "back button" %>
+	<%= link_to 'Edit', edit_admin_toolkit_resource_type_path(@toolkit_resource_type), class: "edit button" %> 
+	<%= link_to 'Delete', [:admin, @toolkit_resource_type], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
+</div>
+
 <p>
-	<b>Name:</b> <%= @toolkit_resource_type.name %>
+	<b>Name:</b> 
+	<%= @toolkit_resource_type.name %>
+</p>
+
+<p>
+	<b>Menu Position:</b> 
+	<%= (@toolkit_resource_type.position.to_i > 0) ? @toolkit_resource_type.position.to_s : "n/a" %>
+</p>
+
+<p>
+	<b>Related Model:</b>
+	<%= (@toolkit_resource_type.related_model.present?) ? @toolkit_resource_type.related_model : "n/a" %>
 </p>
