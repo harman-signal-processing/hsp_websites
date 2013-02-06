@@ -15,11 +15,39 @@ I need to work on...
 ================================================================
 
 === TODO for Toolkits ===
-* Verify user sign ups via SAP account number
+* Verify user sign ups via SAP account number--Jim Prins updating dealer SAP export
+* Determine by acct. number which users access which brands
+* Dealers update their own info (address)
+* Dealers update their own buy-it-now links
+-- Created "DealerUsers" to link users to dealers--
+-- Need some sort of separate sign-up with the acct. number and Phone number?--
+
 * Create Advertisements
 * Create Logos
-* Figure out where to store source files.
-* Add hi-res source files to: manuals, etc., promotion forms, ads, product images
+* Figure out where to store source files--Reid building server
+* How to hide the NFS files to public URLs:
+
+	marketing enters a path like this:
+	  digitech/ads/whatever/else/filename.ai
+
+	which we translate to an URL like this:
+	  GET toolkit_resource/friendly_id
+
+	The tk_download action checks that the user is logged in, then uses "send_file"
+	with a local path like this:
+	  Rails.root.join("../", "../", shared", "storage", @toolkit_resource.path)
+
+	where the NFS share is mounted at /var/www/hmg/hsp_websites/shared/storage
+
+* Add hi-res source files to: 
+	Promotion#promotion_form
+	         #tile
+	         (what else?)
+	ProductAttachment#product_attachment (product images)
+	                 #product_media (videos, flash demos, etc)
+	ProductDocument#document (manuals, etc.)
+	SiteElement#resource
+
 * Dynamically choose homepage content, each brand start page
 
 === TODO for BSS site ===
@@ -42,7 +70,6 @@ You can use this link: store.lexiconpro.com/addtocart.aspx?itemid=100170580&subi
 What you will need to change is: itemid=100170580&subitemid=358897 based on the product you want to link. You can get these ID's from the manage inventory page in the OMS backend. Please let me know if you have any questions. 
 
 === TODO for DigiTech ===
-* e-pedal releases are bogging down the server.
 * Sound community Replacement!!!!!!!
 * Load in old manuals from FTP site (XP series, etc.)
 

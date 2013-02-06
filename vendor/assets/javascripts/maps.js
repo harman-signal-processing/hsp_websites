@@ -65,9 +65,9 @@ function focusPoint(id){
 
 function focusSideBar(id){
 	if (currentFocus) {
-		$("sidebar-item-"+currentFocus).removeClassName("current");
+		$("sidebar-item-"+currentFocus).removeClass("current");
 	}
-	$("sidebar-item-"+id).addClassName("current");
+	$("sidebar-item-"+id).addClass("current");
 	currentFocus = id;
 }
 

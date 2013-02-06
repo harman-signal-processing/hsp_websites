@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130125215139) do
+ActiveRecord::Schema.define(:version => 20130205183757) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -321,6 +321,16 @@ ActiveRecord::Schema.define(:version => 20130125215139) do
   add_index "content_translations", ["content_type", "content_id"], :name => "index_content_translations_on_content_type_and_content_id"
   add_index "content_translations", ["content_type"], :name => "index_content_translations_on_content_type"
   add_index "content_translations", ["locale"], :name => "index_content_translations_on_locale"
+
+  create_table "dealer_users", :force => true do |t|
+    t.integer  "dealer_id"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "dealer_users", ["dealer_id"], :name => "index_dealer_users_on_dealer_id"
+  add_index "dealer_users", ["user_id"], :name => "index_dealer_users_on_user_id"
 
   create_table "dealers", :force => true do |t|
     t.string   "name"
@@ -1260,6 +1270,33 @@ ActiveRecord::Schema.define(:version => 20130125215139) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "toolkit_resource_types", :force => true do |t|
+    t.string   "name"
+    t.integer  "position"
+    t.string   "related_model"
+    t.string   "related_attribute"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  create_table "toolkit_resources", :force => true do |t|
+    t.string   "name"
+    t.integer  "toolkit_resource_type_id"
+    t.integer  "related_id"
+    t.string   "tk_preview_file_name"
+    t.string   "tk_preview_content_type"
+    t.integer  "tk_preview_file_size"
+    t.datetime "tk_preview_updated_at"
+    t.string   "download_path"
+    t.integer  "download_file_size"
+    t.integer  "brand_id"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
+  add_index "toolkit_resources", ["brand_id"], :name => "index_toolkit_resources_on_brand_id"
+  add_index "toolkit_resources", ["related_id"], :name => "index_toolkit_resources_on_related_id"
 
   create_table "training_classes", :force => true do |t|
     t.string   "name"

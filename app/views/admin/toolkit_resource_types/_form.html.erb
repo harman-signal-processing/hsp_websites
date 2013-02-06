@@ -1,0 +1,29 @@
+<%= form_for([:admin, @toolkit_resource_type]) do |f| %>
+  <% if @toolkit_resource_type.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@toolkit_resource_type.errors.count, "error") %> prohibited this toolkit resource type from being saved:</h2>
+
+      <ul>
+      <% @toolkit_resource_type.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :position, "Position on the toolkit menu" %><br />
+    <%= f.text_field :position %>
+  </div>
+  <div class="field">
+    <%= f.label :related_model %><br />
+    <%= f.text_field :related_model %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

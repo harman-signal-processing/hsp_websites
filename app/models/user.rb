@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   has_many :online_retailer_users, dependent: :destroy
   has_many :online_retailers, through: :online_retailer_users
+  has_many :dealer_users, dependent: :destroy
+  has_many :dealers, through: :dealer_users
   has_many :clinics, class_name: "Clinic", foreign_key: "clinician_id" # but only if he's a clinician
   has_many :rep_clinics, class_name: "Clinic", foreign_key: "rep_id" # but only if he's a rep
   has_many :tones
