@@ -19,6 +19,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     namespace :toolkit do
       resources :brands, only: :show do 
         resources :products, :promotions, only: [:index, :show]
+        resources :toolkit_resources, :toolkit_resource_types, only: [:show]
       end
     end
   end
@@ -65,50 +66,11 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get 'iPb-10/training' => 'pages#show', id: "ipb-10-training"
     get 'iPB-10-training' => 'pages#show', id: "ipb-10-training"
     get 'iPb-10-training' => 'pages#show', id: "ipb-10-training"
-    DIGITECH_REDIRECTS.each do |key,val|
-      forwarder = (val.match(/^http/i)) ? val : "/#{I18n.default_locale}#{val}"
-      match key, to: redirect(forwarder)
-    end
     get 'epedal_labels/fulfilled/:id/:secret_code' => 'label_sheet_orders#fulfill', as: :label_sheet_order_fulfillment
     get 'epedal_labels/new(/:epedal_id)' => 'label_sheet_orders#new', as: :epedal_labels_order_form
     get 'epedal_label_thanks' => 'label_sheet_orders#thanks', as: :thanks_label_sheet_order
     resources :label_sheet_orders, only: [:new, :create] 
   end
-  ###########
-  # These brand-specific redirects can be enabled if needed. Note, the actual
-  # redirects come from the config/redirects.rb file. Commenting out unneeded
-  # blocks should help bootup speed.
-  ###########
-  # constraints(HardwireDomain) do
-  #   HARDWIRE_REDIRECTS.each do |key,val|
-  #     forwarder = (val.match(/^http/i)) ? val : "/#{I18n.default_locale}#{val}"
-  #     match key, to: redirect(forwarder)
-  #   end
-  # end
-  # constraints(VocalistDomain) do
-  #   VOCALIST_REDIRECTS.each do |key,val|
-  #     forwarder = (val.match(/^http/i)) ? val : "/#{I18n.default_locale}#{val}"
-  #     match key, to: redirect(forwarder)
-  #   end
-  # end
-  # constraints(DbxDomain) do
-  #   DBX_REDIRECTS.each do |key,val|
-  #     forwarder = (val.match(/^http/i)) ? val : "/#{I18n.default_locale}#{val}"
-  #     match key, to: redirect(forwarder)
-  #   end
-  # end
-  # constraints(LexiconDomain) do
-  #   LEXICON_REDIRECTS.each do |key,val|
-  #     forwarder = (val.match(/^http/i)) ? val : "/#{I18n.default_locale}#{val}"
-  #     match key, to: redirect(forwarder)
-  #   end
-  # end
-  # constraints(BssDomain) do
-  #   BSS_REDIRECTS.each do |key,val|
-  #     forwarder = (val.match(/^http/i)) ? val : "/#{I18n.default_locale}#{val}"
-  #     match key, to: redirect(forwarder)
-  #   end
-  # end
   
   # The constraint { locale: /#{WebsiteLocale.all_unique_locales.join('|')}/ } limits the locale
   # to those configured in the WebsiteLocale model which is configured in the admin area and reverts 
@@ -210,6 +172,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :product_training_classes,
         :product_review_products,
         :locale_product_families,
+        :toolkit_resource_types,
         :product_site_elements,
         :product_introductions,
         :online_retailer_links,
@@ -224,6 +187,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :tone_library_songs,
         :product_promotions,
         :product_documents, 
+        :toolkit_resources,
         :clinician_reports,
         :product_cabinets,
         :online_retailers,

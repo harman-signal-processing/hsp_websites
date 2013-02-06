@@ -106,6 +106,13 @@ class Ability
           user.online_retailers.include?(online_retailer_link.online_retailer)
         end
       end
+      if user.role?(:dealer)
+        can :read, ToolkitResource
+        can :read, ToolkitResourceType
+        can :manage, Dealer do |dealer|
+          user.dealers.include?(dealer)
+        end
+      end
       if user.role?(:translator)
         can :manage, Setting
         can :manage, ContentTranslation
@@ -116,6 +123,7 @@ class Ability
         can :manage, WarrantyRegistration
         can :manage, Dealer
         can :manage, Distributor
+        can :read, ToolkitResource
       end
       if user.role?(:rohs)
         can :read, Product
@@ -152,6 +160,7 @@ class Ability
         end
       end
       if user.role?(:rep)
+        can :read, ToolkitResource
         can :manage, OnlineRetailer
         can :manage, OnlineRetailerLink
         can :manage, Dealer

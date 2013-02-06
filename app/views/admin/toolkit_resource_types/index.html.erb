@@ -1,0 +1,27 @@
+<h1>Toolkit Resource Types</h1>
+
+<% if can? :create, ToolkitResourceType %>
+<div class="button_container">
+	<%= link_to 'New Type', new_admin_toolkit_resource_type_path, class: "new button" %>
+</div>
+<% end %>
+
+<% if @types_for_menu.count > 0 %>
+	<h3>Those which appear on the toolkit menu</h3>
+
+	<ul>
+	<% @types_for_menu.each do |toolkit_resource_type| %>
+	  <li><%= link_to toolkit_resource_type.name, [:admin, toolkit_resource_type] %> </li>
+	<% end %>
+	</ul>
+<% end %>
+
+<% if @non_menu_types.count > 0 %>
+	<h3>Types that don't appear on the toolkit menu</h3>
+
+	<ul>
+	<% @non_menu_types.each do |toolkit_resource_type| %>
+	  <li><%= link_to toolkit_resource_type.name, [:admin, toolkit_resource_type] %> </li>
+	<% end %>
+	</ul>
+<% end %>
