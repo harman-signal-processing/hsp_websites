@@ -47,11 +47,6 @@
   <%= @product_family.intro %>
 </p>
 
-<p>
-  <b>Keywords:</b>
-  <%= @product_family.keywords %>
-</p>
-
 <% if @product_family.parent %>
 <p>
 	<b>Parent Category:</b>
@@ -62,13 +57,10 @@
 <% if @product_family.children.size > 0 %>
 <div class="group">
 	<h3>Child Categories:</h3>
-	<%= link_to "new category", new_admin_product_family_path %>
+	<%= link_to "new category", new_admin_product_family_path, class: "new button" %>
 	<ul id="product_families" class="sortable_list">
 		<%= render partial: "product_family", collection: @product_family.children %>
 	</ul>
-	<%#= sortable_element "product_families",
-            # complete: visual_effect(:highlight, "product_families"),
-            url: update_order_admin_product_families_path %>
 </div>
 <% end %>	
 

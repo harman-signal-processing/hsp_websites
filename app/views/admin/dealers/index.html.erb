@@ -1,13 +1,15 @@
 <h1>US Dealers</h1>
 
+<div class="instructions">
 <% if !website.dealers_from_brand_id.blank? %>
 	Note: <%= website.brand_name %> is configured to use the dealers from 
 	<%= Brand.find(website.dealers_from_brand_id).name %>. Please manage
 	the dealers on its website instead of this one.
 <% else %>
 
-	<p>Use the "exclude" link next to dealers who should not be included in
-		the site's dealer lookup results.</p>
+	Use the "exclude" link next to dealers who should not be included in
+		the site's dealer lookup results.
+</div>
 
 <% if can? :create, Dealer %>
 <div class="button_container">
@@ -19,12 +21,11 @@
   <div class="form_field">
     <%= f.label :name_cont, "Name contains" %><br/>
     <%= f.text_field :name_cont %>
-  </div>
-  <div class="actions">
     <%= f.submit "Search dealers" %>
   </div>
 <% end %>
 
+<% if @dealers.length > 0 %>
 <table class="data">
   <tr>
     <th>Name</th>
@@ -49,6 +50,7 @@
   </tr>
 <% end %>
 </table>
+<% end %>
 
 <% end %>
 

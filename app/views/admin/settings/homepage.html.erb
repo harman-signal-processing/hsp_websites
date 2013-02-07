@@ -33,8 +33,7 @@
 
 <div class="group">
 	<h3>Feature Buttons</h3>
-	<p>These appear in the middle section of the homepage...arranged horizontally. (If you leave these blank,
-		then the site will show the product family buttons instead.)</p>
+	<div class="instructions">These appear in the middle section of the homepage...arranged horizontally. (If you leave these blank, then the site will show the product family buttons instead.)</div>
 	<%= link_to_function "new feature", "$('#new_feature_form').toggle()" %>
 	<div id="new_feature_form" style="margin: 10px; display:none;">
 		<%= form_for([:admin, @new_feature], html: {multipart: true}) do |f| %>
@@ -66,15 +65,13 @@
 
 <div class="group">
 	<h3>Big Bottom Box</h3>
-	<p>If your site has a big bottom box on the homepage, then use these settings to control which
-		content appears in the columns. If you don't know if your site has this, please don't ask Adam
-		using phrases like, "Do I have a big bottom"</p>
+	<div class="instructions">If your site has a big bottom box on the homepage, then use these settings to control which content appears in the columns. If you don't know if your site has this, please don't ask Adam using phrases like, "Do I have a big bottom..."</div>
 	
 	<%= form_for(:settings, url: big_bottom_box_admin_settings_path ) do |f| %>
 		<% i = 0 %>
 		<% @columns.each do |column| %>
 		<%= f.fields_for "setting[#{i}]", column do |col| %>
-			<div style="margin-bottom: 10px">
+			<div class="field">
 				<%= col.label :string_value, column.name.titleize %><br/>
 				<%= col.select :string_value, [[]] + @column_options %>
 				<%= col.hidden_field :setting_type %>
@@ -84,6 +81,8 @@
 			<% i += 1 %>
 		<% end %>
 		<% end %>
-		<%= f.submit %>
+		<div class="actions">
+			<%= f.submit %>
+		</div>
 	<% end %>
 </div>

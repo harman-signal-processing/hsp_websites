@@ -4,7 +4,11 @@ class Admin::DealersController < AdminController
   # GET /admin/dealers.xml
   def index
     @search = @dealers.where(brand_id: website.brand_id).ransack(params[:q])
-    @dealers = @search.result
+    if params[:q]
+      @dealers = @search.result
+    else
+      @dealers = []
+    end
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @dealers }

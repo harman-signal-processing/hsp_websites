@@ -34,17 +34,20 @@
 	<div id="admin_menu">
 <% if user_signed_in? %>
 <%= cache ["admin_menu", current_user, website, Date.today] do %>
-	<% if can?(:manage, User) || can?(:manage, Brand) || can?(:manage, Website) %>
+	<% if can?(:manage, User) || can?(:manage, Brand) || can?(:manage, Website) || can?(:manage, ToolkitResourceType) %>
 		<h3><%= image_tag "super_admin.png" %> Super Admin</h3>
 		<ul>
 			<% if can? :manage, User %>
-			<li><%= link_to "Users", admin_users_path %></li>
+				<li><%= link_to "Users", admin_users_path %></li>
 			<% end %>
 			<% if can? :manage, Brand %>
-			<li><%= link_to "Brands", admin_brands_path %></li>
+				<li><%= link_to "Brands", admin_brands_path %></li>
 			<% end %>
 			<% if can? :manage, Website %>
-			<li><%= link_to "Websites", admin_websites_path %></li>
+				<li><%= link_to "Websites", admin_websites_path %></li>
+			<% end %>
+			<% if can? :manage, ToolkitResourceType %>
+				<li><%= link_to "Toolkit Resource Types", admin_toolkit_resource_types_path %></li>
 			<% end %>
 		</ul>
 	<% end %>
@@ -73,13 +76,14 @@
 	<% end %>
 	
 	<% if can?(:manage, Product) || 
+		can?(:manage, ProductFamily) ||
 		can?(:manage, News) ||
+		(can?(:manage, Effect) && website.has_effects?) ||
+		can?(:manage, AudioDemo && website.has_audio_demos?) ||
 		can?(:manage, ProductReview) ||
 		can?(:update, :rohs) ||
 		can?(:manage, Faq) ||
-		can?(:manage, Promotion) ||
-		can?(:update, :harman_employee_pricing) ||
-		can?(:read, WarrantyRegistration) || 
+		(can?(:manage, ToolkitResource) && toolkit_brands.include?(website.brand)) ||
 		can?(:manage, ToneLibrarySong) %>
 		<h3><%= image_tag "pricetag.png" %> Products, etc.</h3>
 		<ul>
@@ -89,37 +93,23 @@
 			<% if can?(:manage, Product) %>
 			<li><%= link_to "Products", admin_products_path %></li>
 			<% end %>
-			<% if website.brand.has_label_sheets? %>
-				<% if can?(:manage, LabelSheet) %>
-				<li><%= link_to "e-pedal Label Sheets", admin_label_sheets_path %></li>
-				<% end %>
-				<% if can?(:manage, LabelSheetOrder) %>
-				<li><%= link_to "e-pedal Label Orders", admin_label_sheet_orders_path %></li>
-				<% end %>
-			<% end %>
-			<% if can?(:update, :harman_employee_pricing) %>
-			<li><%= link_to "Employee Pricing", harman_employee_pricing_admin_products_path %></li>
-			<% end %>
-			<% if can?(:manage, ProductPrice) %>
-			<li><%= link_to "Price List", admin_product_prices_path %></li>
-			<% end %>
-			<% if can?(:read, WarrantyRegistration) %>
-			<li><%= link_to "Product Registrations", admin_warranty_registrations_path %></li>
-			<% end %>
+<%# Get rid of this condition when launching the toolkit %>
+<% if Rails.env.development? %>
+	<% if toolkit_brands.include?(website.brand) && can?(:manage, ToolkitResource) %>
+			<li><%= link_to "Toolkit Resources", admin_toolkit_resources_path %></li>
+	<% end %>
+<% end %>
 			<% if website.has_audio_demos? && can?(:manage, AudioDemo) %>
 			<li><%= link_to "Audio Demos", admin_audio_demos_path %></li>
-			<% end %>
-			<% if website.has_market_segments? && can?(:manage, MarketSegment) %>
-			<li><%= link_to "Market Segments", admin_market_segments_path %></li>
 			<% end %>
 			<% if website.has_effects? && can?(:manage, Effect)%>
 			<li><%= link_to "Effects", admin_effects_path %></li>
 			<% end %>
+			<% if website.has_market_segments? && can?(:manage, MarketSegment) %>
+			<li><%= link_to "Market Segments", admin_market_segments_path %></li>
+			<% end %>
 			<% if can?(:create, Product) || can?(:update, :rohs) %>
 			<li><%= link_to 'RoHS', rohs_admin_products_path %></li>
-			<% end %>
-			<% if can? :manage, Promotion %>
-			<li><%= link_to "Promotions", admin_promotions_path %></li>
 			<% end %>
 			<% if can? :manage, News %>
 			<li><%= link_to "News", admin_news_index_path %></li>
@@ -132,6 +122,38 @@
 			<% end %>
 			<% if can?(:manage, ToneLibrarySong) && website.has_tone_library? %>
 			<li><%= link_to "Tone Library", admin_tone_library_songs_path %></li>
+			<% end %>
+		</ul>
+	<% end %>
+
+	<% if can?(:manage, Promotion) ||
+		can?(:update, :harman_employee_pricing) ||
+		can?(:read, WarrantyRegistration) || 
+		can?(:manage, ProductPrice) ||
+		can?(:manage, LabelSheet) ||
+		can?(:update, :harman_employee_pricing) ||
+		can?(:manage, LabelSheetOrder) %>
+		<h3><%= image_tag "pricetag.png" %> Pricing &amp; Customers</h3>
+		<ul>
+			<% if can? :manage, Promotion %>
+			<li><%= link_to "Promotions", admin_promotions_path %></li>
+			<% end %>
+			<% if can?(:read, WarrantyRegistration) %>
+			<li><%= link_to "Product Registrations", admin_warranty_registrations_path %></li>
+			<% end %>
+			<% if website.brand.has_label_sheets? %>
+				<% if can?(:manage, LabelSheet) %>
+				<li><%= link_to "e-pedal Label Sheets", admin_label_sheets_path %></li>
+				<% end %>
+				<% if can?(:manage, LabelSheetOrder) %>
+				<li><%= link_to "e-pedal Label Orders", admin_label_sheet_orders_path %></li>
+				<% end %>
+			<% end %>
+			<% if can?(:manage, ProductPrice) %>
+			<li><%= link_to "Price List", admin_product_prices_path %></li>
+			<% end %>
+			<% if can?(:update, :harman_employee_pricing) %>
+			<li><%= link_to "Harman Employee Pricing", harman_employee_pricing_admin_products_path %></li>
 			<% end %>
 		</ul>
 	<% end %>
@@ -201,24 +223,6 @@
 			<% end %>
 		</ul>
 	<% end %>
-
-<%# Get rid of this condition when launching the toolkit %>
-<% if Rails.env.development? %>
-
-	<% if toolkit_brands.include?(website.brand) && (can?(:manage, ToolkitResourceType) ||
-				can?(:manage, ToolkitResource) ) %>
-			<h3><%= image_tag "alliance.png" %> Marketing Toolkit</h3>
-			<ul>
-				<% if can? :manage, ToolkitResourceType %>
-				<li><%= link_to "Resource Types", admin_toolkit_resource_types_path %></li>
-				<% end %>
-				<% if can? :manage, ToolkitResource %>
-				<li><%= link_to "Resources", admin_toolkit_resources_path %></li>
-				<% end %>
-			</ul>
-	<% end %>
-
-<% end %>
 	
 	<% if website.rso_enabled? && (can?(:manage, RsoPage) || can?(:manage, RsoNavigation) ||
 		can?(:manage, RsoMonthlyReport) || can?(:manage, RsoPanel) ) %>
