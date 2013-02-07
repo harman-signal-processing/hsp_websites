@@ -7,10 +7,14 @@
 <% end %>
 
 <ul>
-<% @promotions.each do |promotion| %>
-  <li> <%= link_to promotion.name, [:admin, promotion] %> 
+<% @promotions.where("end_on > ?", 1.month.ago).each do |promotion| %>
+  <li><b><%= link_to promotion.name, [:admin, promotion] %></b> 
 	(<%=l promotion.start_on, format: :long %> - <%=l promotion.end_on, format: :long %>)
   </li>
 <% end %>
+<% @promotions.where("end_on <= ?", 1.month.ago).each do |promotion| %>
+  <li><i> <%= link_to promotion.name, [:admin, promotion] %> 
+	(<%=l promotion.start_on, format: :long %> - <%=l promotion.end_on, format: :long %>)
+  </i></li>
+<% end %>
 </ul>
-

@@ -14,7 +14,7 @@
 	<%= link_to 'Delete', [:admin, @product], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
 </div>
 
-<%= @product.short_description %>
+<h3><%= @product.short_description %></h3>
 
 <% if can? :manage, ProductIntroduction %>
 <p>
@@ -37,11 +37,6 @@
 <p>
   <b>Sap sku:</b>
   <%=h @product.sap_sku %>
-</p>
-
-<p>
-  <b>Keywords:</b>
-  <%=h @product.keywords %>
 </p>
 
 <p>
@@ -121,13 +116,14 @@
 	<p>e-pedal sound samples should be uploaded using the "Audio Demos" link on the left nav.</p>
 	<% else %>
 	<p><%= link_to_function "new photo",
-	 		"$('#new_photo_form').show();$('#new_mm_form').hide();$('#new_swf_form').hide();" %>
-		&nbsp;
+	 		"$('#new_photo_form').show();$('#new_mm_form').hide();$('#new_swf_form').hide();",
+	 		class: "new button" %>
 	   <%= link_to_function "new audio/video", 
-			"$('#new_photo_form').hide();$('#new_mm_form').show();$('#new_swf_form').hide();" %>
-		&nbsp;
+			"$('#new_photo_form').hide();$('#new_mm_form').show();$('#new_swf_form').hide();",
+			class: "new button" %>
 	   <%= link_to_function "new swf (flash)", 
-			"$('#new_photo_form').hide();$('#new_mm_form').hide();$('#new_swf_form').show();" %>
+			"$('#new_photo_form').hide();$('#new_mm_form').hide();$('#new_swf_form').show();",
+			class: "new button" %>
 	</p>
 	<% end %>
 	<div id="new_photo_form" style="display: none;">
@@ -176,7 +172,7 @@
 <% if can? :manage, ProductDocument %>
 <div id="product_lit" class="group">
 	<h3>Product Manuals, Cut Sheets and other lit</h3>
-	<p><%= link_to_function "new document", "$('#new_product_document').toggle()" %></p>
+	<p><%= link_to_function "new document", "$('#new_product_document').toggle()", class: "new button" %></p>
 	<div id="new_product_document" style="display:none;">
 		<%= form_for([:admin, @product_document], html: {multipart: true}) do |f| %>
 		  <%= render "/admin/product_documents/form", f: f %>
@@ -280,10 +276,10 @@
 <div id="product_reviews" class="group">
 	<h3>Related News <% if website.has_reviews? %> and Reviews<% end %></h3>
 	<% if website.has_reviews? %>
-	(Add a <%= link_to "new review", new_admin_product_review_path %> 
-	or <%= link_to "news", new_admin_news_path %>.) 
+		<%= link_to "new review", new_admin_product_review_path, class: "new button" %> 
+		<%= link_to "new news", new_admin_news_path, class: "new button" %>
 	<% else %>
-	<%= link_to "New news", new_admin_news_path %>
+	<%= link_to "new news", new_admin_news_path, class: "new button" %>
 	<% end %>
 	<% if website.has_reviews? %>
 	<ul id="product_reviews_products">
@@ -303,7 +299,7 @@
 <% if website.has_online_retailers? && can?(:manage, OnlineRetailer) && !@product.hide_buy_it_now_button %>
 <div class="group">
 <h3>Available from the following online retailers:</h3>
-(Create a <%= link_to "new online retailer", new_admin_online_retailer_path %>.)
+	<%= link_to "new online retailer", new_admin_online_retailer_path, class: "new button" %>
 <%= form_for [:admin, @online_retailer_link], remote: true do |f| %>
 <table border="0" cellspacing="0" cellpadding="0">
 	<tr>
@@ -336,10 +332,8 @@
 <% if can? :manage, ProductSpecification %>
 <div class="group">
 	<h3>Specifications:</h3>
-	<p>
-		<%= link_to_function "add a spec", "$('#add_specification_form').toggle();"%> or
-		<%= link_to_function "copy specs from another product", "$('#copy_specifications_form').toggle();" %>
-	</p>
+		<%= link_to_function "add a spec", "$('#add_specification_form').toggle();", class: "new button" %>
+		<%= link_to_function "copy specs from another product", "$('#copy_specifications_form').toggle();", class: "copy button" %>
 
 	<div id="add_specification_form" style="display:none">
 		<%= form_for [:admin, @product_specification], remote: true do |f| %>
@@ -386,7 +380,7 @@
 <% if can?(:manage, ProductAmpModel) %>
 <div class="group">
 	<h3>Amp Models:</h3>
-	<p><%= link_to_function "add a model", "$('#add_amp_model_form').toggle();"%></p>
+	<%= link_to_function "add a model", "$('#add_amp_model_form').toggle();", class: "new button" %>
 
 	<div id="add_amp_model_form" style="display:none">
 		<%= form_for [:admin, @product_amp_model], remote: true do |f| %>
@@ -421,7 +415,7 @@
 <% if can?(:manage, ProductCabinet) %>
 <div class="group">
 	<h3>Cabinets:</h3>
-	<p><%= link_to_function "add a cab", "$('#add_cabinet_form').toggle();"%></p>
+	<%= link_to_function "add a cab", "$('#add_cabinet_form').toggle();", class: "new button" %>
 
 	<div id="add_cabinet_form" style="display:none">
 		<%= form_for [:admin, @product_cabinet], remote: true do |f| %>
@@ -456,7 +450,7 @@
 <% if can?(:manage, ProductEffect) %>
 <div class="group">
 	<h3>Effects:</h3>
-	<p><%= link_to_function "add an effect", "$('#add_effect_form').toggle();"%></p>
+	<%= link_to_function "add an effect", "$('#add_effect_form').toggle();", class: "new button" %>
 
 	<div id="add_effect_form" style="display:none">
 		<%= form_for [:admin, @product_effect], remote: true do |f| %>
@@ -494,7 +488,7 @@
 <% if website.has_faqs? && can?(:manage, Faq) %>
 <div class="group">
 	<h3>FAQs</h3>
-	<%= link_to "new faq", new_admin_faq_path(product_id: @product.to_param) %>
+	<%= link_to "new faq", new_admin_faq_path(product_id: @product.to_param), class: "new button" %>
 	<ul>
 		<% @product.faqs.each do |faq| %>
 		<li><%= link_to faq.question, [:admin, faq] %></li>

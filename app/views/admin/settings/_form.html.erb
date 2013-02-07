@@ -7,19 +7,16 @@
 <p>
   <%= f.label :locale %> en-US, es, de, etc.<br/>
   <%= f.text_field :locale, size: 6 %><br/>
-  (leave blank to use this setting as a default)
+  <i>(leave blank to use this setting as a default)</i>
 </p>
 <p>
   <%= f.label :setting_type %><br />
   <%= f.select :setting_type, Setting.setting_types %>
-  (complete the corresponding field below)
+  <i>(complete the corresponding field below)</i>
 </p>
 <p>
   <%= f.label :string_value %><br />
   <%= f.text_field :string_value %>
-<% if website.has_effects? %>
-  <div class="small">For the "featured pedal", enter the friendly id of the desired pedal. This is the last piece of the URL when viewing the pedal's page.</div>
-<% end %>
 </p>
 <p>
   <%= f.label :integer_value %><br />

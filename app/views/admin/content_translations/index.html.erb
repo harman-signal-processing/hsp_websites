@@ -1,10 +1,11 @@
 <h1>Translations for "<%= @target_locale %>"</h1>
-<p>Use these links to create translated content for the items below. Be sure to
+<div class="instructions">Use these links to create translated content for the items below. Be sure to
 	also provided a translated version of the language file and put it here:
 	config/locales/<%= @target_locale %>.yml. You may also need to provide translated
-	header graphics: public/images/<%= website.folder %>/<%= @target_locale %>/...</p>
+	header graphics: public/images/<%= website.folder %>/<%= @target_locale %>/...
+</div>
 	
-<table cellspacing="4" cellpadding="4">
+<table cellspacing="4" cellpadding="4" class="data">
 	<tr>
 		<th>Type</th>
 		<th>Fields to be translated</th>
@@ -21,5 +22,4 @@
 	<% end %>
 </table>
 
-<p>Once the translation is complete add "<%= @target_locale %>" to this site's list of completed locales 
-	(ask an admin to do it).</p>
+<p><i>Once the translation is complete add "<%= @target_locale %>" to this site's list of completed locales (ask an admin to do it).</i></p>

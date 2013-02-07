@@ -1,3 +1,7 @@
+<div class="instructions">
+  Use this form to link to hi-res or zipped source files for marketing items.
+</div>
+
 <%= form_for([:admin, @toolkit_resource], html: {multipart: true}) do |f| %>
   <% if @toolkit_resource.errors.any? %>
     <div id="error_explanation">
@@ -24,8 +28,9 @@
   </div>
 
   <div class="field">
-    <%= f.label :download_file_size %> (in bytes: right-click and choose 'properties' or 'more info')<br/>
-    <%= f.text_field :download_file_size %> 
+    <%= f.label :download_file_size %> (in bytes)<br/>
+    <%= f.text_field :download_file_size, placeholder: "9999999" %> 
+    <div class="hint">Right-click and choose 'properties' or 'more info' on the original file.</div>
   </div>
 
   <% if @toolkit_resource.toolkit_resource_type.related_model.present? %>
@@ -33,12 +38,16 @@
     <%= f.label :related_id, 
         "Related #{@toolkit_resource.toolkit_resource_type.related_model.titleize}" %><br/>
     <%= toolkit_collection_select_for(f, @toolkit_resource.toolkit_resource_type.related_model) %>
+    <div class="hint">If you can't find the related <%= @toolkit_resource.toolkit_resource_type.related_model.titleize.downcase %> above, you might need to 
+      <%= link_to "create it first", eval("new_admin_#{@toolkit_resource.toolkit_resource_type.related_model.underscore}_path") %>.</div>
   </div>
   <% end %>
 
   <div class="field">
     <%= f.label :tk_preview, "Preview image" %><br/>
     <%= f.file_field :tk_preview %>
+    <div class="hint">Gives the visitor an idea about what the full-sized file contains.
+      No need for big files here--will be automatically sized &amp; cropped.</div>
   </div>
 
   <div class="actions">

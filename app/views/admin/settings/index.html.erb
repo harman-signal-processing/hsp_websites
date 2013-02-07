@@ -6,6 +6,7 @@
 </div>
 <% end %>
 
+<div class="instructions">
 <p>If you want to translate settings for other languages, keep in mind that you
 	DON'T HAVE TO. Any setting which does not have a corresponding translation
 	will use the default language. This might be best in some cases like settings
@@ -14,6 +15,7 @@
 <p>However, if you do need to translate a setting (ie, slideshow frames), then
 	click the <%= link_to 'New setting', new_admin_setting_path %> link and be
 	sure to set the correct locale.</p>
+</div>
 
 <ul>
 <% @settings.each_with_index do |setting,i| %>
