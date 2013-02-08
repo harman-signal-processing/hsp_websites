@@ -35,8 +35,10 @@ class ProductFamily < ActiveRecord::Base
   end
   
   # All top-level ProductFamilies--not locale aware
-  def self.all_parents(website)
-    where(brand_id: website.brand_id).where(parent_id: nil).order(:position)
+  #  w = a Brand or a Website
+  def self.all_parents(w)
+    brand_id = (w.is_a?(Brand)) ? w.id : w.brand_id
+    where(brand_id: brand_id).where(parent_id: nil).order(:position)
   end
   
   # Collection of all families with at least one active product
@@ -88,13 +90,28 @@ class ProductFamily < ActiveRecord::Base
     products.flatten.uniq
   end
 
-  # TODO: use current_products_with_employee_pricing
+  # One level of current products for the store
   def current_products_with_employee_pricing
     if Rails.env.production?
       self.current_products.select{|p| p if p.harman_employee_price.present? && p.can_be_registered?}
     else
-      self.current_products.select{|p| p if p.can_be_registered?}
+      self.current_products_for_toolkit
     end
+  end
+
+  # Recurses down the product family trees to collect all products for the toolkit
+  def toolkit_products
+    products = []
+    products += current_products_for_toolkit
+    children.each do |child|
+      products += child.toolkit_products
+    end
+    products.flatten.uniq
+  end
+
+  # One level of products for the toolkit--just this family
+  def current_products_for_toolkit
+    self.current_products.select{|p| p if p.can_be_registered?}
   end
 
   # Collection of all the locales where this ProductFamily should appear.
@@ -123,10 +140,11 @@ class ProductFamily < ActiveRecord::Base
     cp
   end
 
-  def current_products_plus_child_products(website)
+  # w = a Brand or a Website
+  def current_products_plus_child_products(w)
     cp = self.current_products 
-    children_with_current_products(website).each do |pf|
-      cp += pf.current_products_plus_child_products(website)
+    children_with_current_products(w).each do |pf|
+      cp += pf.current_products_plus_child_products(w)
     end
     cp.uniq.sort_by(&:name)
   end
@@ -142,8 +160,10 @@ class ProductFamily < ActiveRecord::Base
   end
   
   # Load this ProductFamily's children families with at least one active product
-  def children_with_current_products(website)
-    children.select{|pf| pf if pf.current_products.size > 0 && pf.brand_id == website.brand_id}
+  # w = a Brand or a Website
+  def children_with_current_products(w)
+    brand_id = (w.is_a?(Brand)) ? w.id : w.brand_id
+    children.select{|pf| pf if pf.current_products.size > 0 && pf.brand_id == brand_id}
   end
 
   # Does this product family have a custom background image or color?

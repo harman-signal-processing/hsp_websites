@@ -18,13 +18,13 @@
   <%= f.hidden_field :toolkit_resource_type_id %>
 
   <div class="field">
-    <%= f.label :name, "Resource Name" %><br />
+    <%= f.label :name, "Resource Name" %> (be descriptive "back", "CMYK", etc.)<br />
     <%= f.text_field :name %>
   </div>
 
   <div class="field">
     <%= f.label :download_path %> (on the shared toolkit folder)<br/>
-    <%= f.text_field :download_path, placeholder: "toolkit/#{website.folder}" %>
+    <%= f.text_field :download_path, placeholder: "#{website.folder}/#{@toolkit_resource.toolkit_resource_type.name.parameterize.tableize}/..." %>
   </div>
 
   <div class="field">

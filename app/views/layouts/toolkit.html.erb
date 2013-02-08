@@ -113,6 +113,7 @@
   <footer class="row">
     <div class="twelve columns">
       <div class="row" style="text-align: center">
+          <p><%= image_tag "harman.jpg" %></p>
           HSP Brand Sites:
         	<p><%= toolkit_brands.map do |b| 
         			link_to(b.name, "http://#{b.default_website.url}", target: "_blank")

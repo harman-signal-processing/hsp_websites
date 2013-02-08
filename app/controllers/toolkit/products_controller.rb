@@ -1,12 +1,17 @@
 class Toolkit::ProductsController < ToolkitController
-	before_filter :load_brand
 	layout "toolkit"
+	load_resource :brand
+	load_resource :product, except: :index
 
 	def index
 	end
 
 	def show
-		@product = Product.find(params[:id])
-		@images = @product.images_for("toolkit").select{|pa| pa if pa.is_photo?}
+		if image_type = ToolkitResourceType.where(related_model: "Product").where("name LIKE '%photo%'").first
+			@images = ToolkitResource.where(toolkit_resource_type_id: image_type.id, related_id: @product)
+		else
+			@images = @product.images_for("toolkit").select{|pa| pa if pa.is_photo?}
+		end
 	end
+
 end

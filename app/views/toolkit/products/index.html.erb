@@ -1,27 +1,37 @@
 <%= content_for :breadcrumbs do %>
   <li><%= link_to @brand.name, [:toolkit, @brand] %></li>
-  <li class="current"><%= link_to "#{@brand.name} Products" %></li>
+  <li class="current"><span>Products</span></li>
 <% end %>
 
 <%= content_for :title do %><%= @brand.name %> Products<% end %>
 
 <%= render "toolkit/brands/left_nav" %>
 
-<h3><%= @brand.name %> Products</h3>
+<h2><%= @brand.name %> Products</h2>
 
-<table style="width: 100%">
-	<thead>
-	<tr>
-		<th>Product</th>
-		<th>Product Type</th>
-	</tr>
-	</thead>
-	<tbody>
-	<% @brand.current_products.each do |product| %>
-	<tr>
-		<td><%= link_to product.name, toolkit_brand_product_path(@brand, product) %></td>
-		<td><%= product.product_families.map{|pf| pf.name}.join(", ") %></td>
-	</tr>
+<h5 class="subheader">Newest Products</h5>
+<div class="row newest_products">
+	<% @brand.toolkit_products[0,4].each do |product| %>
+	<div class="three columns">
+		<%= link_to toolkit_brand_product_path(@brand, product) do %>
+			<div class="panel">
+				<h5><%= product.name %></h5>
+				<% if product.photo %>
+				<%= link_to image_tag(product.photo.product_attachment.url(:thumb)), toolkit_brand_product_path(@brand, product) %>
+				<% end %>
+			</div>
+		<% end %>
+	</div>
 	<% end %>
-	</tbody>
-</table>
+</div>
+
+<h5 class="subheader">More Products</h5>
+<ul class="disc">
+<% ProductFamily.all_parents(@brand).each do |product_family| %>
+	<% if product_family.toolkit_products.count > 0 %>
+	<li><%= link_to product_family.name, toolkit_brand_product_family_path(@brand, product_family) %>
+		(<%= pluralize product_family.toolkit_products.count, "product" %>)
+	</li>
+	<% end %>
+<% end %>
+</ul>

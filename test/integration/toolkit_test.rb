@@ -52,6 +52,18 @@ describe "Toolkit Integration Test" do
     end
   end
 
+  describe "products list page" do 
+    before do
+      @brand = Brand.last
+      @product = @brand.toolkit_products.first
+      visit toolkit_brand_products_url(@brand, host: @host)
+    end 
+
+    it "index should link to product" do
+      must_have_link @product.name, href: toolkit_brand_product_path(@brand, @product, locale: I18n.default_locale)
+    end
+  end
+
   describe "product pages" do
     before do
       @brand = Brand.last
@@ -59,10 +71,9 @@ describe "Toolkit Integration Test" do
       visit toolkit_brand_product_url(@brand, @product, host: @host)
     end
 
-    it "index should link to product" do
-      must_have_link @product.name, href: toolkit_brand_product_path(@brand, @product, locale: I18n.default_locale)
+    it "should have product content" do
+      must_have_content @product.description
     end
   end
-
 
 end

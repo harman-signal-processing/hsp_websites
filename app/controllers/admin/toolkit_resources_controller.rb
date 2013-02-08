@@ -3,7 +3,12 @@ class Admin::ToolkitResourcesController < AdminController
   # GET /toolkit_resources
   # GET /toolkit_resources.xml
   def index
-    @toolkit_resources = @toolkit_resources.where(brand_id: website.brand_id)
+    @search = ToolkitResource.where(brand_id: website.brand_id).ransack(params[:q])
+    if params[:q]
+      @toolkit_resources = @search.result(:distinct => true)
+    else
+      @toolkit_resources = []
+    end
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @toolkit_resources }
@@ -62,6 +67,12 @@ class Admin::ToolkitResourcesController < AdminController
         format.xml  { render xml: @toolkit_resource.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  # GET /toolkit_resources/1/delete_preview
+  def delete_preview
+    @toolkit_resource.delete_preview
+    redirect_to([:admin, @toolkit_resource], notice: "Preview image was removed.")
   end
 
   # DELETE /toolkit_resources/1
