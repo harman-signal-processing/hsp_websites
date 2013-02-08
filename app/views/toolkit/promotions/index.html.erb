@@ -1,14 +1,15 @@
 <%= content_for :breadcrumbs do %>
   <li><%= link_to @brand.name, [:toolkit, @brand] %></li>
-  <li class="current"><%= link_to "#{@brand.name} Promotions" %></li>
+  <li class="current"><span>Promotions</span></li>
 <% end %>
 
 <%= render "toolkit/brands/left_nav" %>
 
 <%= content_for :title do %><%= @brand.name %> Promotions<% end %>
 
-<h3><%= @brand.name %> Promotions</h3>
+<h2><%= @brand.name %> Promotions</h2>
 
+<% if @promotions.length > 0 %>
 <table style="width: 100%">
 	<thead>
 	<tr>
@@ -27,3 +28,6 @@
 	<% end %>
 	</tbody>
 </table>
+<% else %>
+	<i>Sorry, there are no current <%= @brand.name %> promotions.</i>
+<% end %>

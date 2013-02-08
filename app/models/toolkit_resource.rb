@@ -36,4 +36,19 @@ class ToolkitResource < ActiveRecord::Base
   		nil
   	end
   end
+
+  def related_item_name
+    if related_item.respond_to?(:name)
+      related_item.name
+    elsif related_item.respond_to?(:title)
+      related_item.title
+    else
+      "related item..."
+    end
+  end
+
+  def delete_preview
+    self.tk_preview = nil
+    self.save
+  end
 end

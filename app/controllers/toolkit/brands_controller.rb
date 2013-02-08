@@ -1,7 +1,8 @@
 class Toolkit::BrandsController < ToolkitController
 	layout "toolkit"
+	load_resource :brand
 
 	def show
-		@brand = Brand.find(params[:id])
 	end
+
 end

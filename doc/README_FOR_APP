@@ -3,10 +3,9 @@ I need to work on...
 
 ================================================================
                  *** Notes for tomorrow ***
- Started the pricelist interface:
-   * PricingType model
-   * ProductPrice model
-   * Admin::PricingTypes controller
+
+--> Made a lot of progress on toolkits. Need to display the uploads for
+  Promotions, Product Document, take a look at Site Elements as well.
 
  Working on importing old registrations. The file we have seems
  odd. mostly digitech. check the old web server for older

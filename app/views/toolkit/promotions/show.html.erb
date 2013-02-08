@@ -1,7 +1,7 @@
 <%= content_for :breadcrumbs do %>
   <li><%= link_to @brand.name, [:toolkit, @brand] %></li>
-  <li><%= link_to "#{@brand.name} Promotions", toolkit_brand_promotions_path(@brand) %></li>
-  <li class="current"><%= link_to @promotion.name %></li>
+  <li><%= link_to "Promotions", toolkit_brand_promotions_path(@brand) %></li>
+  <li class="current"><span><%= @promotion.name %></span></li>
 <% end %>
 
 <%= render "toolkit/brands/left_nav" %>

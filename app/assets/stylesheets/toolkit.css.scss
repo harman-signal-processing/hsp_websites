@@ -56,6 +56,29 @@ div.twelve {
     text-align: center;
   }
 }
+.newest_products {
+  .panel {
+    text-align: center;
+    height: 210px;
+    max-height: 210px;
+    overflow: hidden;
+    box-shadow: 1px 1px 3px #eaeaea;
+    &:hover {
+      border-color: #00395a;
+    }  
+  }
+}
+.toolkit_resources {
+  .panel {
+    height: 140px;
+    max-height: 140px;
+    overflow: hidden;
+    box-shadow: 1px 1px 3px #eaeaea; 
+    &:hover {
+      border-color: #00395a;
+    }   
+  }
+}
 div.no-left-padding {
   padding-left: 0;
 }

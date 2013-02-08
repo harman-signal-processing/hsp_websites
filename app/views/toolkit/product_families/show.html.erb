@@ -1,0 +1,21 @@
+<%= content_for :breadcrumbs do %>
+  <li><%= link_to @brand.name, [:toolkit, @brand] %></li>
+  <li><%= link_to "Products", toolkit_brand_products_path(@brand) %></li>
+  <li class="current"><span><%= @product_family.name %></span></li>
+<% end %>
+
+<%= content_for :title do %><%= @brand.name %> <%= @product_family.name %><% end %>
+
+<%= render "toolkit/brands/left_nav" %>
+
+<h2><%= @brand.name %> <%= @product_family.name %></h2>
+
+<% if @product_family.current_products.size > 0 %>
+	<%= render "products", product_family: @product_family, level: 1 %>
+<% end %>
+
+<% @product_family.children_with_current_products(@brand).each do |product_family| %>
+	<h5><%= product_family.name %></h5>
+	<%= render "products", product_family: product_family %>
+<% end %>
+

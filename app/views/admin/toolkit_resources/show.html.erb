@@ -1,13 +1,43 @@
 <h1>Toolkit Resource</h1>
 
 <div class="button_container">
-	<%= link_to 'Back', admin_toolkit_resource_path, class: "back button" %>
+	<%= link_to 'Back', admin_toolkit_resources_path, class: "back button" %>
 	<%= link_to 'Edit', edit_admin_toolkit_resource_path(@toolkit_resource), class: "edit button" %> 
 	<%= link_to 'Delete', [:admin, @toolkit_resource], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
 </div>
+<br/><br/>
+<div class="field">
+<% if @toolkit_resource.tk_preview_file_name.present? %>
+	<%= image_tag @toolkit_resource.tk_preview.url(:small) %>
+	&nbsp;
+	<%= link_to image_tag("trash.gif"), 
+				delete_preview_admin_toolkit_resource_path(@toolkit_resource),
+				confirm: "Are you sure you want to delete the preview image?" %>
+<% end %>
+</div>
 
-<p>
-	<b>Name:</b> 
-	<%= @toolkit_resource.name %>
-</p>
+<table class="data">
+	<tbody>
+		<tr>
+			<th>Name</th>
+			<td><%= @toolkit_resource.name %></td>
+		</tr>
+		<tr>
+			<th>File Path</th>
+			<td><%= @toolkit_resource.download_path %></td>
+		</tr>
+		<% if @toolkit_resource.download_file_size.present? %>
+		<tr>
+			<th>File Size</th>
+			<td><%= number_to_human_size(@toolkit_resource.download_file_size) %></td>
+		</tr>
+		<% end %>
+		<% if @toolkit_resource.related_item %>
+		<tr>
+			<th>Related <%= @toolkit_resource.toolkit_resource_type.related_model.titleize %></th>
+			<td><%= link_to @toolkit_resource.related_item_name, [:admin, @toolkit_resource.related_item] %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
 

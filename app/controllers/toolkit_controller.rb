@@ -6,10 +6,4 @@ class ToolkitController < ApplicationController
   def index
   end
 
-  private
-
-  # used as a before filter in the child controllers
-  def load_brand
-  	@brand = Brand.find(params[:brand_id])
-  end
 end

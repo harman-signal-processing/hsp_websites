@@ -1,0 +1,28 @@
+<% 
+# "current_products_for_toolkit" is one level deep
+# "toolkit_products" recurses down child families
+	level ||= 0
+	products = (level > 0) ? product_family.current_products_for_toolkit : product_family.toolkit_products
+%>
+
+<table style="width: 100%">
+	<thead>
+	<tr>
+		<th width="33%" colspan="2">Product</th>
+		<th width="66%">Product Type</th>
+	</tr>
+	</thead>
+	<tbody>
+	<% products.each do |product| %>
+	<tr>
+		<td width="8%" style="text-align: center;">
+			<% if product.photo %>
+				<%= link_to image_tag(product.photo.product_attachment.url(:tiny_square), alt: product.name, width: 32, height: 32), toolkit_brand_product_path(@brand, product) %>
+			<% end %>
+		</td>
+		<td><%= link_to product.name, toolkit_brand_product_path(@brand, product) %></td>
+		<td><%= (product.short_description.present?) ? product.short_description : product.product_families.map{|pf| pf.name}.join(", ") %></td>
+	</tr>
+	<% end %>
+	</tbody>
+</table>

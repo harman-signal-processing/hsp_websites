@@ -1,0 +1,28 @@
+<%= content_for :breadcrumbs do %>
+  <li><%= link_to @brand.name, [:toolkit, @brand] %></li>
+  <li class="current"><span><%= @toolkit_resource_type.name.pluralize %></span></li>
+<% end %>
+
+<%= content_for :title do %><%= @brand.name %> <%= @toolkit_resource_type.name.pluralize %><% end %>
+
+<%= render "toolkit/brands/left_nav" %>
+
+<h2><%= @brand.name %> <%= @toolkit_resource_type.name.pluralize %></h2>
+
+<div class="row toolkit_resources">
+<% @toolkit_resources.each do |toolkit_resource| %>
+	<div class="four columns <%= 'last' if @toolkit_resources.last == toolkit_resource %>">
+		<%= link_to toolkit_brand_toolkit_resource_path(@brand, toolkit_resource) do %>
+			<div class="panel">
+				<% if toolkit_resource.tk_preview_file_name.present? %>
+					<%= image_tag toolkit_resource.tk_preview.url(:thumb) %>
+				<% end %>
+				<h6><%= toolkit_resource.name %></h6>
+				<% if toolkit_resource.download_file_size.present? %>
+					[<%= number_to_human_size toolkit_resource.download_file_size %>]
+				<% end %>
+			</div>
+		<% end %>
+	</div>
+<% end %>
+</div>

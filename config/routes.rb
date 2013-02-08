@@ -19,7 +19,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     namespace :toolkit do
       resources :brands, only: :show do 
         resources :products, :promotions, only: [:index, :show]
-        resources :toolkit_resources, :toolkit_resource_types, only: [:show]
+        resources :product_families, :toolkit_resources, :toolkit_resource_types, only: [:show]
       end
     end
   end
@@ -167,6 +167,9 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :product_prices do 
         collection { put :update_all }
       end
+      resources :toolkit_resources do 
+        member { get :delete_preview }
+      end
       resources :service_centers, 
         :software_training_classes,
         :product_training_classes,
@@ -187,7 +190,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :tone_library_songs,
         :product_promotions,
         :product_documents, 
-        :toolkit_resources,
         :clinician_reports,
         :product_cabinets,
         :online_retailers,
