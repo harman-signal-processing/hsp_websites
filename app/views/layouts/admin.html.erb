@@ -93,12 +93,9 @@
 			<% if can?(:manage, Product) %>
 			<li><%= link_to "Products", admin_products_path %></li>
 			<% end %>
-<%# Get rid of this condition when launching the toolkit %>
-<% if Rails.env.development? %>
-	<% if toolkit_brands.include?(website.brand) && can?(:manage, ToolkitResource) %>
-			<li><%= link_to "Toolkit Resources", admin_toolkit_resources_path %></li>
-	<% end %>
-<% end %>
+			<% if toolkit_brands.include?(website.brand) && can?(:manage, ToolkitResource) %>
+					<li><%= link_to "Toolkit Resources", admin_toolkit_resources_path %></li>
+			<% end %>
 			<% if website.has_audio_demos? && can?(:manage, AudioDemo) %>
 			<li><%= link_to "Audio Demos", admin_audio_demos_path %></li>
 			<% end %>
