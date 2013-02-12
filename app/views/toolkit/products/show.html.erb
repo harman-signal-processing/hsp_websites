@@ -30,7 +30,6 @@
 	</div>
 	<div class="six columns">
 		<div class="panel">
-			<h5 class="subheader">Pricing</h5>
 			<p>
 				<% if @product.msrp.to_f > 0.0 %>
 				Retail Price: <b><%= number_to_currency(@product.msrp) %></b> USD<br/>
@@ -56,17 +55,27 @@
 
 <div class="row">
 	<div class="six columns">
-		<h5 class="subheader">Ads &amp; Promos</h5>
-		<ul class="disc">
-			<% @product.current_and_recently_expired_promotions.each do |promo| %>
-				<li><%= link_to promo.name, [:toolkit, @brand, promo] %></li>
-			<% end %>
-		</ul>
+
+		<% if @product.current_and_recently_expired_promotions.length > 0 %>
+			<h5 class="subheader">Promotions</h5>
+			<ul class="disc">
+				<% @product.current_and_recently_expired_promotions.each do |promo| %>
+					<li><%= link_to promo.name, [:toolkit, @brand, promo] %></li>
+				<% end %>
+			</ul>
+		<% end %>
+
+		<%= render "/toolkit/shared/toolkit_resources_tiles", 
+					object: @product, resource_type_name: "Advertisement" %>
+
+		<%= render "/toolkit/shared/toolkit_resources_tiles", 
+					object: @product, resource_type_name: "Banner" %>
+
 	</div>
 	<div class="six columns">
 		<h5 class="subheader">Downloads &amp; Documentation</h5>
 		<% if @product.product_documents.count > 0 %>
-		<%= render "/products/documentation", product: @product %>
+		<%= render "documentation", product: @product %>
 		<% end %>
 		<% if @product.softwares.count > 0 %>
 		<%= render "/products/downloads", product: @product %>
