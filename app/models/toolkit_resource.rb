@@ -23,6 +23,7 @@ class ToolkitResource < ActiveRecord::Base
     path: ":rails_root/public/system/:attachment/:id/:style/:filename",
     url: "/system/:attachment/:id/:style/:filename"
 
+  has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
   belongs_to :brand 
   belongs_to :toolkit_resource_type 
   validate :name, presence: true 

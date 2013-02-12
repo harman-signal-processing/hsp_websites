@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130205183757) do
+ActiveRecord::Schema.define(:version => 20130212224958) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -1293,10 +1293,12 @@ ActiveRecord::Schema.define(:version => 20130205183757) do
     t.integer  "brand_id"
     t.datetime "created_at",               :null => false
     t.datetime "updated_at",               :null => false
+    t.string   "slug"
   end
 
   add_index "toolkit_resources", ["brand_id"], :name => "index_toolkit_resources_on_brand_id"
   add_index "toolkit_resources", ["related_id"], :name => "index_toolkit_resources_on_related_id"
+  add_index "toolkit_resources", ["slug"], :name => "index_toolkit_resources_on_slug"
 
   create_table "training_classes", :force => true do |t|
     t.string   "name"
