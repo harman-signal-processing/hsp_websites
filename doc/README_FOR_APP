@@ -4,16 +4,10 @@ I need to work on...
 ================================================================
                  *** Notes for tomorrow ***
 
---> Made a lot of progress on toolkits. Need to display the uploads for
-
-  Products which are not Image, Advertisement, Banner (these are already handled)
-
-  take a look at Site Elements as well.
-
 --> Toolkit idea: each brand should have:
-  * a master header appearing above the breadcrumbs
-  * intro text, with: marketing contacts, latest stuff
+  * intro text, with: latest info
   * hand-picked items to feature on its homepage: products, promos, etc.
+  * left-hand marketing contacts (done, needs a mgmt interface)
 
  Working on importing old registrations. The file we have seems
  odd. mostly digitech. check the old web server for older

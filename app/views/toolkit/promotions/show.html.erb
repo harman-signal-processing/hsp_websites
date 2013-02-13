@@ -25,13 +25,7 @@
 			<li> <%= link_to "Promotion Form", @promotion.promo_form.url %> [<%= number_to_human_size(@promotion.promo_form_file_size) %>]
 			</li>
 			<% end %>
-			<% toolkit_support_files(@promotion).each do |toolkit_resource| %>
-				<li> <%= link_to toolkit_resource.name, toolkit_brand_toolkit_resource_path(@brand, toolkit_resource) %> 
-					<% if toolkit_resource.download_file_size.present? %>
-					[<%= number_to_human_size(toolkit_resource.download_file_size) %>]
-					<% end %>
-				</li>
-			<% end %>
+			<%= list_toolkit_support_files_for(@promotion, @brand) %>
 		</ul>
 	</div>
 	<div class="six columns">

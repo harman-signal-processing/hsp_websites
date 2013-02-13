@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130212224958) do
+ActiveRecord::Schema.define(:version => 20130213222926) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -175,6 +175,14 @@ ActiveRecord::Schema.define(:version => 20130212224958) do
 
   add_index "brand_distributors", ["brand_id"], :name => "index_brand_distributors_on_brand_id"
   add_index "brand_distributors", ["distributor_id"], :name => "index_brand_distributors_on_distributor_id"
+
+  create_table "brand_toolkit_contacts", :force => true do |t|
+    t.integer  "brand_id"
+    t.integer  "user_id"
+    t.integer  "position"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "brands", :force => true do |t|
     t.string   "name"
@@ -1350,12 +1358,12 @@ ActiveRecord::Schema.define(:version => 20130212224958) do
   add_index "tweets", ["tweet_id"], :name => "tweet_id", :unique => true
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                 :default => "", :null => false
-    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.string   "email",                                     :default => "", :null => false
+    t.string   "encrypted_password",         :limit => 128, :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                         :default => 0
+    t.integer  "sign_in_count",                             :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -1380,6 +1388,13 @@ ActiveRecord::Schema.define(:version => 20130212224958) do
     t.boolean  "dealer"
     t.boolean  "distributor"
     t.boolean  "marketing_staff"
+    t.string   "phone_number"
+    t.string   "job_description"
+    t.string   "job_title"
+    t.string   "profile_image_file_name"
+    t.string   "profile_image_content_type"
+    t.integer  "profile_image_file_size"
+    t.datetime "profile_image_updated_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
