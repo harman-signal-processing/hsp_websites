@@ -1,7 +1,7 @@
 <%= content_for :breadcrumbs do %>
   <li><%= link_to @brand.name, [:toolkit, @brand] %></li>
   <li><%= link_to "Products", toolkit_brand_products_path(@brand) %></li>
-  <li class="current"><span><%= @product.name %></span></li>
+  <li class="unavailable"><%= link_to @product.name %></li>
   <% @product.product_families.each do |pf| %>
   <li><%= link_to pf.name, toolkit_brand_product_family_path(@brand, pf) %></li>
   <% end %>
@@ -11,74 +11,85 @@
 
 <%= content_for :title do %><%= @brand.name %> <%= @product.name %><% end %>
 
-<h2><%= @product.name %> <small><%= @product.short_description %></small></h2>
-
 <div class="row">
 	<div class="six columns">
-		<h5 class="subheader">Product Images <small>click for full-size images</small></h5>
-
-		<% @images.each do |image| %>
-			<div class="column <%='end' if image == @images.last %>">
-				<% if image.is_a?(ToolkitResource) %>
-					<%= link_to(image_tag(image.tk_preview.url(:tiny)), toolkit_brand_toolkit_resource_path(@brand, image)) %>
-				<% else %>
-					<%= link_to(image_tag(image.product_attachment.url(:tiny)), image.product_attachment.url) %>
-				<% end %>
-			</div>
-		<% end %>
-
+		<h2><%= @product.name %><br/><small><%= @product.short_description %></small></h2>
 	</div>
 	<div class="six columns">
+		<br/>
+		<% if @product.msrp.to_f > 0.0 || @product.street_price.to_f > 0.0 %>
 		<div class="panel">
 			<p>
 				<% if @product.msrp.to_f > 0.0 %>
 				Retail Price: <b><%= number_to_currency(@product.msrp) %></b> USD<br/>
 				<% end %>
 				<% if @product.street_price.to_f > 0.0 %>
-				Minimum Advertised Price: <b><%= number_to_currency(@product.street_price) %></b> USD<br/>
+				Min. Advertised Price: <b><%= number_to_currency(@product.street_price) %></b> USD<br/>
 				<% end %>
 			</p>
 		</div>
+		<% end %>
 	</div>
 </div>
 
+<% if @images.length > 0 %>
 <div class="row">
+	<% @images.each do |image| %>
+		<div class="two columns <%='end' if image == @images.last %>">
+			<% if image.is_a?(ToolkitResource) %>
+				<%= link_to_toolkit_item(@brand, image, panel: true) %>
+			<% else %>
+				<div class="panel image-container">	
+					<%= link_to(image_tag(image.product_attachment.url(:tiny)), image.product_attachment.url) %>
+					<div class="fname"><%= image.product_attachment_file_name %></div>
+					[<%= number_to_human_size(image.product_attachment_file_size) %>]
+				</div>
+			<% end %>
+		</div>
+	<% end %>
+</div>
+<% end %>
+
+<div class="row">
+
 	<div class="six columns">
-		<h5 class="subheader">Description</h5>
+		<h5 class="subheader">Description:</h5>
 		<div class="description"><%= raw @product.description %></div>
 	</div>
+
 	<div class="six columns">
-		<h5 class="subheader">Features</h5>
+		<h5 class="subheader">Features:</h5>
 		<div class="description"><%= raw @product.features %></div>
 	</div>
+
 </div>
 
 <div class="row">
+
 	<div class="six columns">
+		<h5 class="subheader">Documentation:</h5>
+		<%= render "documentation", product: @product if @product.product_documents.count > 0 %>
+	</div>
+
+	<div class="six columns">
+		<% if @product.softwares.count > 0 || @product.site_elements.count > 0  %>
+		<h5 class="subheader">Downloads:</h5>
+		<%= render "downloads", product: @product %>
+		<% end %>
 
 		<% if @product.current_and_recently_expired_promotions.length > 0 %>
-			<h5 class="subheader">Promotions</h5>
+		<div class="callout panel">
+			<h5 class="subheader">Promotions:</h5>
 			<ul class="disc">
 				<% @product.current_and_recently_expired_promotions.each do |promo| %>
 					<li><%= link_to promo.name, [:toolkit, @brand, promo] %></li>
 				<% end %>
 			</ul>
+		</div>
 		<% end %>
-
-		<%= render "/toolkit/shared/toolkit_resources_tiles", 
-					object: @product, resource_type_name: "Advertisement" %>
-
-		<%= render "/toolkit/shared/toolkit_resources_tiles", 
-					object: @product, resource_type_name: "Banner" %>
 
 	</div>
-	<div class="six columns">
-		<h5 class="subheader">Downloads &amp; Documentation</h5>
-		<% if @product.product_documents.count > 0 %>
-		<%= render "documentation", product: @product %>
-		<% end %>
-		<% if @product.softwares.count > 0 %>
-		<%= render "/products/downloads", product: @product %>
-		<% end %>
-	</div>
+
 </div>
+
+<%= rows_of_panels_of_toolkit_support_files_for(@product, @brand, exclude: ["Photo"]) %>

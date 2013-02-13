@@ -38,6 +38,16 @@
 			<td><%= link_to @toolkit_resource.related_item_name, [:admin, @toolkit_resource.related_item] %></td>
 		</tr>
 		<% end %>
+		<tr>
+			<th>Resource Type</th>
+			<td><% if can? :manage, @toolkit_resource.toolkit_resource_type %>
+					<%= link_to @toolkit_resource.toolkit_resource_type.name, [:admin, @toolkit_resource.toolkit_resource_type] %>
+				<% else %>
+					<%= @toolkit_resource.toolkit_resource_type.name %>
+				<% end %>
+			</td>
+		</tr>
+			
 	</tbody>
 </table>
 

@@ -10,6 +10,34 @@
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <%= cache ["background_css", @brand, Date.today] do %>
+      <% if Rails.env.production? %>
+        <% if @brand && tw = @brand.default_website.twitter_name && t = Twitter.user(tw) %>
+        <style type="text/css">
+          body {
+            background-color: #<%= t.profile_background_color %>;
+            background-image: url('<%= t.profile_background_image_url %>');
+            background-position: top left;
+          }
+        </style>
+        <% end %>
+      <% elsif @brand %>
+        <style type="text/css">
+          body {
+            background-color: #131516;
+            <% if !!(@brand.name.match(/digitech/i)) %>
+            background-image: url('https://twimg0-a.akamaihd.net/profile_background_images/591964761/j4xwwug4646bv7w23ewg.jpeg');
+            <% elsif !!(@brand.name.match(/lexicon/i)) %>
+            background-image: url('https://twimg0-a.akamaihd.net/profile_background_images/289777287/twitter-background-3.jpg');       
+            <% else %>
+            background-image: url('http://a0.twimg.com/images/themes/theme14/bg.gif');
+            <% end %>
+            background-position: top left;
+          }
+        </style>      
+      <% end %>
+    <% end %>
+
     <%= yield(:head) %>
   </head>
   <body>
@@ -87,11 +115,9 @@
 
   <div class="container">
     <% if content_for?(:left_nav) %>
-    <div class="row">
-      <div class="two columns no-left-padding">
-          <ul class="nav-bar vertical">
-            <%= yield :left_nav %>
-          </ul>
+    <div class="row content-container">
+      <div class="two columns sidenav">
+        <%= yield :left_nav %>
       </div>
       <div class="ten columns" id="main">
 			 <%= yield %>
