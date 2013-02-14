@@ -11,6 +11,8 @@
 
 <%= content_for :title do %><%= @brand.name %> <%= @product.name %><% end %>
 
+<%= cache ["toolkit_product", @product, Date.today] do %>
+
 <div class="row">
 	<div class="six columns">
 		<h2><%= @product.name %><br/><small><%= @product.short_description %></small></h2>
@@ -93,3 +95,5 @@
 </div>
 
 <%= rows_of_panels_of_toolkit_support_files_for(@product, @brand, exclude: ["Photo"]) %>
+
+<% end %>

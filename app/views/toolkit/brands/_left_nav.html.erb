@@ -1,32 +1,36 @@
 <%= content_for :left_nav do %>
-<ul class="nav-bar vertical">
-	<li><%= link_to "Products", toolkit_brand_products_path(@brand) %></li>
-	<li><%= link_to "Promotions", toolkit_brand_promotions_path(@brand) %></li>
-	<% ToolkitResourceType.menu_items(@brand).each do |toolkit_resource_type| %>
-	<li><%= link_to toolkit_resource_type.name.pluralize, toolkit_brand_toolkit_resource_type_path(@brand, toolkit_resource_type) %></li>
-	<% end %>
-</ul>
 
-<% if @brand.toolkit_contacts.length > 0 %>
-<div style="padding: 0px 4px 0px 6px;">
-	<h6 style="font-weight: normal"><i>Contacts:</i></h6>
-	
-	<% @brand.toolkit_contacts.each do |user| %>
-	<div class='contact-card'>
-		<h5><%= user.name %></h5>
-		<p>
-		<% if user.job_title.present? %><%= user.job_title %><br/><% end %>
-		<% if user.job_description.present? %>
-			<i><%= user.job_description %></i><br/>
+	<%= cache ["toolkit-sidenav", @brand, Date.today] do %>
+		<ul class="nav-bar vertical">
+			<li><%= link_to "Products", toolkit_brand_products_path(@brand) %></li>
+			<li><%= link_to "Promotions", toolkit_brand_promotions_path(@brand) %></li>
+			<% ToolkitResourceType.menu_items(@brand).each do |toolkit_resource_type| %>
+			<li><%= link_to toolkit_resource_type.name.pluralize, toolkit_brand_toolkit_resource_type_path(@brand, toolkit_resource_type) %></li>
+			<% end %>
+		</ul>
+
+		<% if @brand.toolkit_contacts.length > 0 %>
+		<div style="padding: 0px 4px 0px 6px;">
+			<h6 style="font-weight: normal"><i>Contacts:</i></h6>
+			
+			<% @brand.toolkit_contacts.each do |user| %>
+			<div class='contact-card'>
+				<h5><%= user.name %></h5>
+				<p>
+				<% if user.job_title.present? %><%= user.job_title %><br/><% end %>
+				<% if user.job_description.present? %>
+					<i><%= user.job_description %></i><br/>
+				<% end %>
+				<%= mail_to user.email, user.email %><br/>
+				<% if user.phone_number.present? %>
+					<%= user.phone_number %>
+				<% end %>
+				</p>
+			</div>
+			<% end %>
+		</div>
 		<% end %>
-		<%= mail_to user.email, user.email %><br/>
-		<% if user.phone_number.present? %>
-			<%= user.phone_number %>
-		<% end %>
-		</p>
-	</div>
+
 	<% end %>
-</div>
-<% end %>
 
 <% end %>
