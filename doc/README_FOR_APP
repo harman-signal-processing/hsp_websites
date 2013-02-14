@@ -8,6 +8,8 @@ I need to work on...
   * intro text, with: latest info
   * hand-picked items to feature on its homepage: products, promos, etc.
   * left-hand marketing contacts (done, needs a mgmt interface)
+  * Need to uniquify toolkit resources by the filename in case two share 
+  	the same item.
 
  Working on importing old registrations. The file we have seems
  odd. mostly digitech. check the old web server for older

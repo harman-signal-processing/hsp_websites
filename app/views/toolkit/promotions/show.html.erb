@@ -8,32 +8,36 @@
 
 <%= content_for :title do %><%= @brand.name %> <%= @promotion.name %><% end %>
 
-<h1><%= @promotion.name %></h1>
+<%= cache ["toolkit_promotion", @promotion, Date.today] do %>
 
-<h5 class="subheader">Promotion valid: <%=l @promotion.start_on, format: :long %> &mdash;
-<%=l @promotion.end_on, format: :long %></h5>
+	<h1><%= @promotion.name %></h1>
 
-<% if @promotion.tile_file_name.present? %>
-<div><%= image_tag @promotion.tile.url %></div>
+	<h5 class="subheader">Promotion valid: <%=l @promotion.start_on, format: :long %> &mdash;
+	<%=l @promotion.end_on, format: :long %></h5>
+
+	<% if @promotion.tile_file_name.present? %>
+	<div><%= image_tag @promotion.tile.url %></div>
+	<% end %>
+
+	<div class="row">
+		<div class="six columns">
+			<h5 class="subheader">Support Material</h5>
+			<ul class="disc">
+				<% if @promotion.promo_form_file_name.present? %>
+				<li> <%= link_to "Promotion Form", @promotion.promo_form.url %> [<%= number_to_human_size(@promotion.promo_form_file_size) %>]
+				</li>
+				<% end %>
+				<%= list_toolkit_support_files_for(@promotion, @brand) %>
+			</ul>
+		</div>
+		<div class="six columns">
+			<h5 class="subheader">Eligible Products</h5>
+			<ul class="disc">
+				<% @promotion.products.each do |product| %>
+				<li> <%= link_to product.name, [:toolkit, @brand, product] %></li>
+				<% end %>
+			</ul>
+		</div>
+	</div>
+
 <% end %>
-
-<div class="row">
-	<div class="six columns">
-		<h5 class="subheader">Support Material</h5>
-		<ul class="disc">
-			<% if @promotion.promo_form_file_name.present? %>
-			<li> <%= link_to "Promotion Form", @promotion.promo_form.url %> [<%= number_to_human_size(@promotion.promo_form_file_size) %>]
-			</li>
-			<% end %>
-			<%= list_toolkit_support_files_for(@promotion, @brand) %>
-		</ul>
-	</div>
-	<div class="six columns">
-		<h5 class="subheader">Eligible Products</h5>
-		<ul class="disc">
-			<% @promotion.products.each do |product| %>
-			<li> <%= link_to product.name, [:toolkit, @brand, product] %></li>
-			<% end %>
-		</ul>
-	</div>
-</div>
