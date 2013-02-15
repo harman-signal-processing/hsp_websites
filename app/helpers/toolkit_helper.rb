@@ -5,6 +5,13 @@ module ToolkitHelper
 		@toolkit_brands ||= Brand.where(name: ["BSS", "dbx", "Lexicon", "DigiTech", "DOD"]).select{|b| b if b.websites.size > 0}
 	end
 
+	# Adds css class to elements to bump the content over to show
+	# the brand's twitter background (if there is one)
+	#
+	def bgoffset
+		@bgoffset ||= "bg-offset" if @brand && @brand.default_website && @brand.default_website.twitter_name 
+	end
+
 	# Collects ToolkitResource for a particular object. Outputs an array:
 	#
 	# toolkit_support_files(object [, options] )

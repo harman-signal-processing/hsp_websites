@@ -22,6 +22,10 @@
     <%= f.label :name_cont, "Name contains" %><br/>
     <%= f.text_field :name_cont %>
     <%= f.submit "Search dealers" %>
+    <div>
+      <%= check_box_tag :this_brand, true, @this_brand %>
+      <%= label_tag :this_brand, "Only #{website.brand.name} dealers", class: "hint" %>
+    </div>
   </div>
 <% end %>
 

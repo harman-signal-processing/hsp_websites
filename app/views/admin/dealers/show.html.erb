@@ -5,48 +5,54 @@
 	<%= link_to 'Edit', edit_admin_dealer_path(@dealer, locale: I18n.locale), class: "edit button" %> 
 </div>
 
-<p>
-  <b>Address:</b>
-  <%=h @dealer.address %>
-</p>
+<table class="data">
+  <tr>
+    <th>Address</th>
+    <td><%= @dealer.address %><br/>
+      <%= @dealer.city %>,
+      <%= @dealer.state %>
+      <%= @dealer.zip %>
+    </td>
+  </tr>
+  <tr>
+    <th>Telephone</th>
+    <td><%= @dealer.telephone %></td>
+  </tr>
+  <tr>
+    <th>Fax</th>
+    <td><%= @dealer.fax %></td>
+  </tr>
+  <tr>
+    <th>Email</th>
+    <td><%= mail_to @dealer.email, @dealer.email %></td>
+  </tr>
+  <tr>
+    <th>Account number</th>
+    <td><%= @dealer.account_number %></td>
+  </tr>
+  <tr>
+    <th>Lat/Lng</th>
+    <td><%= @dealer.lat %> / <%= @dealer.lng %></td>
+  </tr>
+</table>
 
-<p>
-  <b>City:</b>
-  <%=h @dealer.city %>
-</p>
+<br/>
 
-<p>
-  <b>State:</b>
-  <%=h @dealer.state %>
-</p>
+<div class="instructions">While you can manually assign this dealer to
+    the brands below, the settings may be overwritten during the next
+    scheduled sync with SAP.
+</div>
 
-<p>
-  <b>Zip:</b>
-  <%=h @dealer.zip %>
-</p>
+<div class="group">
+  <h3>Brands</h3>
 
-<p>
-  <b>Telephone:</b>
-  <%=h @dealer.telephone %>
-</p>
+  <%= simple_form_for [:admin, @dealer] do |f| %>
 
-<p>
-  <b>Fax:</b>
-  <%=h @dealer.fax %>
-</p>
+    <%= f.association :brands, as: :check_boxes, label: false %>
 
-<p>
-  <b>Email:</b>
-  <%=h @dealer.email %>
-</p>
-
-<p>
-  <b>Account number:</b>
-  <%=h @dealer.account_number %>
-</p>
-
-<p>
-	<b>Lat/Lng</b>
-	<%=h @dealer.lat %>/<%=h @dealer.lng %>
-</p>
-
+    <div class="field">
+      <%= f.submit %>
+    </div>
+    
+  <% end %>
+</div>

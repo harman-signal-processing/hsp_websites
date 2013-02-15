@@ -1,12 +1,14 @@
 class Dealer < ActiveRecord::Base
   acts_as_mappable
-  validates_presence_of :account_number, :address, :city, :state, :name, :brand_id
-  validates_uniqueness_of :account_number, scope: :brand_id
+  validates :address, :city, :state, :name, presence: true
+  validates :account_number, presence: true, uniqueness: true
   before_validation :geocode_address, on: :create 
   before_update :regeocode
   has_many :dealer_users, dependent: :destroy
   has_many :users, through: :dealer_users
-  belongs_to :brand
+  has_many :brand_dealers, dependent: :destroy
+  has_many :brands, through: :brand_dealers
+  accepts_nested_attributes_for :brand_dealers
   
   scope :near, 
     lambda{ |*args|

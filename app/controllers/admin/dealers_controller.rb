@@ -3,7 +3,8 @@ class Admin::DealersController < AdminController
   # GET /admin/dealers
   # GET /admin/dealers.xml
   def index
-    @search = @dealers.where(brand_id: website.brand_id).ransack(params[:q])
+    @this_brand = !!(params[:this_brand])
+    @search = (@this_brand) ? website.brand.dealers.ransack(params[:q]) : Dealer.ransack(params[:q])
     if params[:q]
       @dealers = @search.result
     else
@@ -40,10 +41,10 @@ class Admin::DealersController < AdminController
   # POST /admin/dealers
   # POST /admin/dealers.xml
   def create
-    @dealer.brand = website.brand
     @dealer.skip_sync_from_sap = true
     respond_to do |format|
       if @dealer.save
+        BrandDealer.create(brand_id: website.brand_id, dealer_id: @dealer.id)
         format.html { redirect_to([:admin, @dealer], notice: 'Dealer was successfully created.') }
         format.xml  { render xml: @dealer, status: :created, location: @dealer }
         website.add_log(user: current_user, action: "Created dealer #{@dealer.name}")
