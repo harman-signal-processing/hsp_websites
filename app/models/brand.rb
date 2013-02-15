@@ -2,13 +2,14 @@ class Brand < ActiveRecord::Base
   has_many :product_families
   has_many :market_segments
   has_many :online_retailer_links, order: "RAND()", conditions: "actve = 1"
-  has_many :dealers
+  has_many :brand_dealers, dependent: :destroy
+  has_many :dealers, through: :brand_dealers
   has_many :news
   has_many :pages
   has_many :promotions
   has_many :service_centers
   has_many :softwares
-  has_many :artist_brands
+  has_many :artist_brands, dependent: :destroy
   has_many :artists, through: :artist_brands
   has_many :warranty_registrations
   has_many :brand_distributors

@@ -68,7 +68,7 @@
     </div>
   </header>
 
-  <div class="container">
+  <div class="container <%= bgoffset %>">
     <div class="row">
       <div class="twelve columns">
         <% flash.each do |name, msg| %>
@@ -90,7 +90,7 @@
   </div>
 
   <% if content_for?(:breadcrumbs) %>
-  <div class="container">
+  <div class="container <%= bgoffset %>">
     <div class="row">
       <ul class="breadcrumbs">
         <li><a href="/">Home</a></li>
@@ -100,7 +100,7 @@
   </div>
   <% end %>
 
-  <div class="container">
+  <div class="container <%= bgoffset %>">
     <% if content_for?(:left_nav) %>
     <div class="row content-container">
       <div class="two columns sidenav">
@@ -122,7 +122,7 @@
 	</div>
 
   <!-- Footer -->
-  
+  <div class="<%= bgoffset %>">
   <footer class="row">
     <div class="twelve columns">
       <div class="row" style="text-align: center">
@@ -140,6 +140,7 @@
       </div>
     </div> 
   </footer>
+  </div>
 
 	</body>
 </html>

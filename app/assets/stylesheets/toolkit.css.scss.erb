@@ -108,7 +108,7 @@ div#main {
   }
 }
 div.content-container {
-  background: url('<%= image_path('light-gray-50.png') %>');
+  background: url('<%= image_path('white-90.png') %>');
 }
 ul.breadcrumbs {
   background: url('<%= image_path('white-90.png') %>');
@@ -155,5 +155,14 @@ footer {
       color: #e6f4f9;
       text-decoration: underline;
     }
+  }
+}
+
+@media only screen and (min-width: 980px) {
+  .bg-offset {
+    margin-left: 200px;
+  }
+  div.content-container {
+    background: url('<%= image_path('light-gray-50.png') %>');
   }
 }

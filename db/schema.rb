@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130213222926) do
+ActiveRecord::Schema.define(:version => 20130214182217) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -165,6 +165,16 @@ ActiveRecord::Schema.define(:version => 20130213222926) do
   end
 
   add_index "blogs", ["brand_id"], :name => "index_blogs_on_brand_id"
+
+  create_table "brand_dealers", :force => true do |t|
+    t.integer  "brand_id"
+    t.integer  "dealer_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "brand_dealers", ["brand_id"], :name => "index_brand_dealers_on_brand_id"
+  add_index "brand_dealers", ["dealer_id"], :name => "index_brand_dealers_on_dealer_id"
 
   create_table "brand_distributors", :force => true do |t|
     t.integer  "distributor_id"
@@ -357,13 +367,11 @@ ActiveRecord::Schema.define(:version => 20130213222926) do
     t.decimal  "lng",                :precision => 15, :scale => 10
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "brand_id"
     t.boolean  "exclude"
     t.boolean  "skip_sync_from_sap"
   end
 
   add_index "dealers", ["account_number"], :name => "index_dealers_on_account_number"
-  add_index "dealers", ["brand_id"], :name => "index_dealers_on_brand_id"
   add_index "dealers", ["exclude"], :name => "index_dealers_on_exclude"
   add_index "dealers", ["lat", "lng"], :name => "index_dealers_on_lat_and_lng"
   add_index "dealers", ["skip_sync_from_sap"], :name => "index_dealers_on_skip_sync_from_sap"
