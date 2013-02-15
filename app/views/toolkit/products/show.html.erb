@@ -15,7 +15,8 @@
 
 <div class="row">
 	<div class="six columns">
-		<h2><%= @product.name %><br/><small><%= @product.short_description %></small></h2>
+		<h2><%= @product.name %></h2>
+		<h5 class="subheader"><%= @product.short_description %></h5>
 	</div>
 	<div class="six columns">
 		<br/>
@@ -60,8 +61,10 @@
 	</div>
 
 	<div class="six columns">
+		<% if @product.features.present? %>
 		<h5 class="subheader">Features:</h5>
 		<div class="description"><%= raw @product.features %></div>
+		<% end %>
 	</div>
 
 </div>
