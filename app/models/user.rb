@@ -7,19 +7,28 @@ class User < ActiveRecord::Base
   has_many :rep_clinics, class_name: "Clinic", foreign_key: "rep_id" # but only if he's a rep
   has_many :tones
   has_many :tone_user_ratings
+  has_many :brand_toolkit_contacts # where this user is a contact for a brand
   has_one :rso_personal_report
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable,
   # :omniauthable, :validatable, :registerable
-  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :registerable
+  devise :database_authenticatable, 
+    :recoverable, 
+    :rememberable, 
+    :trackable, 
+    :confirmable,
+    :registerable
+
+  before_save :add_to_dealer
+
   validates :name, :email, presence: true
   validates :email, uniqueness: true
   validates :password, presence: true, confirmation: true, on: :create
-  attr_accessor :invitation_code
   validates :invitation_code, presence: true, 
     inclusion: {in: RsoSetting.invitation_code, message: "is invalid. (it is cAsE sEnSiTiVe.)"},
     on: :create,
     if: :rso?
+  validates :account_number, presence: true, on: :create, if: :dealer?
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, 
@@ -47,7 +56,11 @@ class User < ActiveRecord::Base
     :rso,
     :rso_admin,
     :sales_admin,
+    :account_number,
     :invitation_code
+
+  attr_accessor :invitation_code
+  attr_accessor :account_number
   
   ROLES = %w[admin 
     online_retailer 
@@ -86,10 +99,26 @@ class User < ActiveRecord::Base
   def rso?
     role?(:rso)
   end
+
+  def dealer?
+    role?(:dealer) || self.dealers.length > 0
+  end
   
   # Collect those who have the artist relations role
   #
   def self.artist_relations
     where(artist_relations: true)
   end
+
+  # If this is a dealer user, lookup associated dealer and
+  # associate with each other
+  def add_to_dealer
+    if self.dealer? && self.account_number.present?
+      self.account_number = "%010d" % self.account_number.to_i
+      if first_dealer = Dealer.find_by_account_number(self.account_number.to_s)
+        self.dealers << first_dealer
+      end
+    end
+  end
+
 end

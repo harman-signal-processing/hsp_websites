@@ -73,8 +73,12 @@ class ApplicationController < ActionController::Base
   end
   
   def default_url_options(options={})
-    # {locale: website.locale}
-    {locale: I18n.locale}
+    if !!(request.host.match(/toolkit/i))
+      {}
+    else
+      # {locale: website.locale}
+      {locale: I18n.locale}
+    end
   end
   
   # Utility function used to re-order an ActiveRecord list

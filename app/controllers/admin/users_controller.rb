@@ -52,6 +52,7 @@ class Admin::UsersController < AdminController
   def create
     respond_to do |format|
       if @user.save
+        @user.confirm!
         format.html { redirect_to([:admin, @user], notice: 'User was successfully created.') }
         format.xml  { render xml: @user, status: :created, location: @user }
         website.add_log(user: current_user, action: "Created user: #{@user.name}")

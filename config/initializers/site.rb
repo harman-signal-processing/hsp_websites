@@ -1,3 +1,6 @@
+# The hostname for the Marketing Toolkit (used in mailers)
+TOOLKIT_HOST = "hsptoolkit.harmanpro.com"
+
 # The hostname for the fantastic RSO site (Regional Sales Office)
 RSO_HOST = "rso.digitech.com"
 

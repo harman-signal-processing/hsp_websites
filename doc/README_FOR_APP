@@ -11,6 +11,16 @@ I need to work on...
   * Need to uniquify toolkit resources by the filename in case two share 
   	the same item.
 
+ --> Logins for toolkit versus web admin:
+ x * added "devise for" inside of the routes for toolkit
+ x * need to try/test using different views/controllers for these
+ x * sign-ups should verify the user by sending confirmation to
+    the dealer account email address.
+ x * users register with their sap account number.
+ POLISH ALL OF THAT
+  * mass email distributors?
+  * use the same logins for accommodation?
+
  Working on importing old registrations. The file we have seems
  odd. mostly digitech. check the old web server for older
  dbx registrations. find lexicon in the old database. ugh.

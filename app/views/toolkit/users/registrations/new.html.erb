@@ -1,0 +1,31 @@
+<%= content_for :title do %>Sign Up<% end %>
+
+<div class="twelve columns">
+
+<h3>Sign up</h3>
+
+<div class="row">
+<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <%= f.error_notification %>
+  <div class="six columns offset-by-three end panel">
+    <div class="form-inputs">
+    	<%= f.input :name %>
+    	<%= f.input :email %>
+      <%= f.input :account_number, 
+            label: "Harman Account Number",
+            required: true, 
+            hint: "Confirmation will be sent to email address on file." %>
+    	<%= f.input :password %>
+    	<%= f.input :password_confirmation %>
+    	<%#= f.input :employee_id, placeholder: "(eTime number)" %>
+    </div>
+  	<div class="form-actions">
+		<%= f.submit "Sign up", class: "button" %>
+  	</div>
+  </div>
+<% end %>
+</div>
+
+<%= render "toolkit/users/shared/links" %>  
+
+</div>

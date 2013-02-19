@@ -1,0 +1,21 @@
+
+<div class="twelve columns">
+
+<h3>Forgot your password?</h3>
+
+<div class="row">
+
+<%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+  <%= f.error_notification %>
+
+	<div class="six columns offset-by-three end panel">
+  		<%= f.input :email %>
+		<%= f.button :submit, "Send me reset password instructions", class: "button" %>
+	</div>
+<% end %>
+
+</div>
+
+<%= render "toolkit/users/shared/links" %>
+
+</div>
