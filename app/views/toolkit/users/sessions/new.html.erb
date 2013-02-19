@@ -1,0 +1,25 @@
+<%= content_for :title do %>Sign in<% end %>
+
+<div class="twelve columns">
+
+<h3>Sign in</h3>
+
+<div class="row">
+<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+  <div class="four columns offset-by-four end panel">
+	  <div class="form-inputs">
+	    <%= f.input :email, :autofocus => true %>
+	    <%= f.input :password, :required => false %>
+	    <%= f.input :remember_me, :as => :boolean if devise_mapping.rememberable? %>
+	  </div>
+
+	  <div class="form-actions">
+	    <%= f.button :submit, "Sign in", class: "button" %>
+	  </div>
+  </div>
+<% end %>
+</div>
+
+<%= render "toolkit/users/shared/links" %>
+
+</div>

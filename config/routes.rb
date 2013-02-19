@@ -16,6 +16,19 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
 
   constraints(ToolkitDomain) do 
     match '/' => 'toolkit#index', as: :toolkit_root
+    devise_for :toolkit_users, 
+      path: "users",
+      class_name: "User", 
+      controllers: { 
+        sessions: "toolkit/users/sessions",
+        registrations: "toolkit/users/registrations",
+        confirmations: "toolkit/users/confirmations",
+        passwords: "toolkit/users/passwords",
+        unlocks: "toolkit/users/unlocks"
+      }
+    # devise_scope :toolkit_user do
+    #   get 'profile', to: 'toolkit/users#profile', as: :toolkit_user_root 
+    # end
     namespace :toolkit do
       resources :brands, only: :show do 
         resources :products, :promotions, only: [:index, :show]
