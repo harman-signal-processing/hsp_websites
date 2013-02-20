@@ -2,6 +2,7 @@ class Dealer < ActiveRecord::Base
   acts_as_mappable
   validates :address, :city, :state, :name, presence: true
   validates :account_number, presence: true, uniqueness: true
+  before_validation :format_account_number
   before_validation :geocode_address, on: :create 
   before_update :regeocode
   has_many :dealer_users, dependent: :destroy
@@ -33,6 +34,10 @@ class Dealer < ActiveRecord::Base
         )
       }
     }
+
+  def format_account_number
+    self.account_number = ("%010d" % self.account_number.to_i).to_s
+  end
 
   # Format the address, city, state, zip into a single string for geocoding
   def address_string

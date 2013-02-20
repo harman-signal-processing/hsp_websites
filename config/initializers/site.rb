@@ -1,5 +1,7 @@
 # The hostname for the Marketing Toolkit (used in mailers)
 TOOLKIT_HOST = "hsptoolkit.harmanpro.com"
+TOOLKIT_ADMINISTRATOR_EMAIL_ADDRESSES = ["adam.anderson@harman.com"]
+TOOLKIT_ADMINISTRATORS_CONTACT_INFO = ["Adam Anderson at adam.anderson@harman.com"]
 
 # The hostname for the fantastic RSO site (Regional Sales Office)
 RSO_HOST = "rso.digitech.com"

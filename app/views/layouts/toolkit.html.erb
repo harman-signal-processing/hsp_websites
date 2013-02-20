@@ -36,6 +36,7 @@
         <ul>
           <li class="name"><h1><%= link_to "HSP Marketing Toolkit", toolkit_root_path %></h1></li>
           <li class="toggle-topbar"><a href="#"></a></li>
+          <% if toolkit_user_signed_in? %>
           <li class="divider"></li>
           <li class="has-dropdown"><a href="#">Brands</a>
             <ul class="dropdown">
@@ -44,22 +45,17 @@
               <% end %>
             </ul>
           </li>
+          <% end %>
         </ul>
         <section>
           <ul class="right">
-            <% if user_signed_in? %>
+            <% if toolkit_user_signed_in? %>
               <li><%= link_to 'Logout', destroy_toolkit_user_session_path, method: :delete %></li>
+              <li class="divider"></li>
+              <li><%= link_to 'My account', edit_toolkit_user_registration_path %></li>
             <% else %>
               <li><%= link_to 'Login', new_toolkit_user_session_path %></li>
-            <% end %>
-            <li class="divider"></li>
-            <% if user_signed_in? %>
-              <li><%= link_to 'My account', edit_toolkit_user_registration_path %></li>
-              <% if current_user.has_role? :admin %>
-                <li class="divider"></li>
-                <li><%= link_to 'Admin', toolkit_users_path %></li>
-              <% end %>
-            <% else %>
+              <li class="divider"></li>
               <li><%= link_to 'Sign up', new_toolkit_user_registration_path %></li>
             <% end %>
           </ul>
@@ -118,7 +114,7 @@
     </div>
     <% end %>
 			
-    </div>
+    
 	</div>
 
   <!-- Footer -->
@@ -126,17 +122,16 @@
   <footer class="row">
     <div class="twelve columns">
       <div class="row" style="text-align: center">
-          <p><%= image_tag "harman.jpg" %></p>
-          HSP Brand Sites:
-        	<p><%= toolkit_brands.map do |b| 
-        			link_to(b.name, "http://#{b.default_website.url}", target: "_blank")
-        		   end.join(" &bull; ").html_safe %></p>
-          <small>
-            Harman Signal Processing &bull; 
-            8760 South Sandy Parkway, Sandy, UT 84070 &bull; 
-            (801)566-8800
-          </small>
-        </div>
+        <p><%= image_tag "harman.jpg" %></p>
+        HSP Brand Sites:
+      	<p><%= toolkit_brands.map do |b| 
+      			link_to(b.name, "http://#{b.default_website.url}", target: "_blank")
+      		   end.join(" &bull; ").html_safe %></p>
+        <small>
+          Harman Signal Processing &bull; 
+          8760 South Sandy Parkway, Sandy, UT 84070 &bull; 
+          (801)566-8800
+        </small>
       </div>
     </div> 
   </footer>
