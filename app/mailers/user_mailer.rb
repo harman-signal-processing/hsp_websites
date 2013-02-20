@@ -6,8 +6,10 @@ class UserMailer < Devise::Mailer
   	determine_host(record)
   	if record.dealer?
   		if record.dealers && record.dealers.first && record.dealers.first.email.present?
-	  		record.email = record.dealers.first.email
-	  		super
+        initialize_from_record(record)
+	  		mail to: record.dealers.first.email,
+          subject: "Harman Toolkit Confirmation instructions",
+          template_name: "toolkit_user_confirmation_instructions"
   		else
   			cant_confirm(record, opts)
   		end
@@ -31,8 +33,8 @@ class UserMailer < Devise::Mailer
   	@email = @resource.email
   	default_url_options[:host] = TOOLKIT_HOST
   	mail to: @email, 
-  		cc: ["adam.anderson@harman.com"],
-  		subject: "Can't confirm account", 
+  		cc: TOOLKIT_ADMINISTRATOR_EMAIL_ADDRESSES,
+  		subject: "Harman Toolkit can't confirm account", 
   		template_name: "cant_confirm"
   end
 

@@ -1,12 +1,13 @@
 <%= content_for :title do %>Sign in<% end %>
 
-<div class="twelve columns">
+<h2>Sign in</h2>
+<%= render "toolkit/users/shared/links" %>
 
-<h3>Sign in</h3>
+<div class="twelve columns">
 
 <div class="row">
 <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <div class="four columns offset-by-four end panel">
+  <div class="five columns end panel">
 	  <div class="form-inputs">
 	    <%= f.input :email, :autofocus => true %>
 	    <%= f.input :password, :required => false %>
@@ -19,7 +20,5 @@
   </div>
 <% end %>
 </div>
-
-<%= render "toolkit/users/shared/links" %>
 
 </div>

@@ -1,0 +1,15 @@
+<p>Welcome to the Harman Signal Processing Marketing Toolkit!</p>
+
+<p>A new user has registered using your Harman account number. You
+	are receiving this email as the registered owner of the account.</p>
+
+<p>To confirm the account, either click the link below or forward
+	this message to the new user.</p>
+
+<p><b>New User Details:</b></p>
+<p>Name: <%= @resource.name %><br/>
+	Email: <%= @resource.email %></p>
+
+<p>You can confirm your account by clicking the link below:</p>
+
+<p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>

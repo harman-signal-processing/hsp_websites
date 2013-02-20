@@ -1,16 +1,23 @@
 <h2>Resend confirmation instructions</h2>
-
-<%= simple_form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
-  <%= f.error_notification %>
-  <%= f.full_error :confirmation_token %>
-
-  <div class="form-inputs">
-    <%= f.input :email, :required => true, :autofocus => true %>
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Resend confirmation instructions" %>
-  </div>
-<% end %>
-
 <%= render "toolkit/users/shared/links" %>
+
+<div class="twelve columns">
+
+<div class="row">
+<%= simple_form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
+	<div class="six columns end panel">
+  	<%= f.error_notification %>
+  	<%= f.full_error :confirmation_token %>
+
+  	<div class="form-inputs">
+    	<%= f.input :email, :required => true, :autofocus => true %>
+  	</div>
+
+	  <div class="form-actions">
+	    <%= f.button :submit, "Resend confirmation instructions" %>
+	  </div>
+	</div>
+<% end %>
+</div>
+
+</div>

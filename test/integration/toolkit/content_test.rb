@@ -1,6 +1,6 @@
 require "minitest_helper"
 
-describe "Toolkit Integration Test" do
+describe "Toolkit Content Integration Test" do
 
   before do
     DatabaseCleaner.start
