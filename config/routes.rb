@@ -26,9 +26,10 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         passwords: "toolkit/users/passwords",
         unlocks: "toolkit/users/unlocks"
       }
-    # devise_scope :toolkit_user do
-    #   get 'profile', to: 'toolkit/users#profile', as: :toolkit_user_root 
-    # end
+    devise_scope :toolkit_user do 
+      get '/users/sign_up/:signup_type' => 'toolkit/users/registrations#new', as: :new_toolkit_user
+      get '/new_user' => 'toolkit/users/registrations#select_signup_type', as: :select_signup_type
+    end
     namespace :toolkit do
       resources :brands, only: :show do 
         resources :products, :promotions, only: [:index, :show]

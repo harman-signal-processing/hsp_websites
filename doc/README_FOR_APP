@@ -18,6 +18,7 @@ I need to work on...
     the dealer account email address.
  x * users register with their sap account number.
  POLISH ALL OF THAT
+  * handle confirmation email differently for invitation code users (RSO)
   * mass email distributors?
   * use the same logins for accommodation?
   * need logins for non-sap accounts (staff, sales people, magazines?)

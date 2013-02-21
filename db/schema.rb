@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130219205925) do
+ActiveRecord::Schema.define(:version => 20130221191849) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -1307,9 +1307,13 @@ ActiveRecord::Schema.define(:version => 20130219205925) do
     t.string   "download_path"
     t.integer  "download_file_size"
     t.integer  "brand_id"
-    t.datetime "created_at",               :null => false
-    t.datetime "updated_at",               :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
     t.string   "slug"
+    t.boolean  "dealer",                   :default => true
+    t.boolean  "distributor",              :default => true
+    t.boolean  "rep",                      :default => true
+    t.boolean  "rso",                      :default => true
   end
 
   add_index "toolkit_resources", ["brand_id"], :name => "index_toolkit_resources_on_brand_id"

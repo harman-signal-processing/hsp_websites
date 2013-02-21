@@ -47,6 +47,13 @@
   <% end %>
 
   <div class="field">
+    <%= f.input :dealer, label: "Show to dealers" %>
+    <%= f.input :distributor, label: "Show to distributors" %>
+    <%= f.input :rep, label: "Show to reps" %>
+    <%= f.input :rso, label: "Show to RSOs" %>
+  </div>
+
+  <div class="field">
     <%= f.label :tk_preview, "Preview image" %><br/>
     <%= f.file_field :tk_preview %>
     <div class="hint">Gives the visitor an idea about what the full-sized file contains.
