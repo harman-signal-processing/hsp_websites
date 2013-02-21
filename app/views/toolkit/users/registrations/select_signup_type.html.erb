@@ -1,0 +1,28 @@
+<%= content_for :title do %>Sign Up<% end %>
+
+<h2>Sign up</h2>
+
+<div class="twelve columns">
+
+	<div class="row">
+		<%= form_tag new_toolkit_user_registration_path, method: :get %>
+
+		<div class="six columns end panel" %>
+			<h4 class="subheader">I am a...</h4>
+
+			<p><%= radio_button_tag :signup_type, :dealer %> Dealer</p>
+			<p><%= radio_button_tag :signup_type, :distributor %> Distributor</p>
+			<p><%= radio_button_tag :signup_type, :rep %> Sales Rep</p>
+			<p><%= radio_button_tag :signup_type, :rso %> RSO</p>
+
+			<div class="form-actions">
+				<%= submit_tag "Continue", class: "button", name: nil %>
+	  	</div>
+
+	  </div>
+
+		</form>
+
+	</div>
+
+</div>

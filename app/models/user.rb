@@ -27,8 +27,8 @@ class User < ActiveRecord::Base
   validates :invitation_code, presence: true, 
     inclusion: {in: RsoSetting.invitation_code, message: "is invalid. (it is cAsE sEnSiTiVe.)"},
     on: :create,
-    if: :rso?
-  validates :account_number, presence: true, on: :create, if: :dealer?
+    if: :needs_invitation_code?
+  validates :account_number, presence: true, on: :create, if: :needs_account_number?
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, 
@@ -102,6 +102,22 @@ class User < ActiveRecord::Base
 
   def dealer?
     role?(:dealer) || self.dealers.length > 0
+  end
+
+  def distributor?
+    role?(:distributor)
+  end
+
+  def rep?
+    role?(:rep)
+  end
+
+  def needs_account_number?
+    self.dealer? || self.distributor? || self.rep?
+  end
+
+  def needs_invitation_code?
+    rso?
   end
   
   # Collect those who have the artist relations role

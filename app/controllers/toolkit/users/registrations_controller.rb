@@ -1,10 +1,20 @@
 class Toolkit::Users::RegistrationsController < Devise::RegistrationsController
 	layout 'toolkit'
 
+  def select_signup_type
+  end
+
+  def new
+    resource = build_resource({})
+    @signup_type = params[:signup_type] || "dealer"
+    eval("resource.#{@signup_type} = true")
+    respond_with resource
+  end
+
   # POST /resource
   def create
     build_resource
-		resource.dealer = true
+
     if resource.save
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?
@@ -16,6 +26,7 @@ class Toolkit::Users::RegistrationsController < Devise::RegistrationsController
         respond_with resource, :location => after_inactive_sign_up_path_for(resource)
       end
     else
+      @signup_type = params[:signup_type] || "dealer"
       clean_up_passwords resource
       respond_with resource
     end
