@@ -84,4 +84,8 @@ class Software < ActiveRecord::Base
     !!(self.description.present? || self.training_modules.count > 0 || self.software_attachments.count > 0 || self.training_classes.count > 0 || self.previous_versions.count > 0)
   end
 
+  def current_products
+    @current_products ||= self.products & brand.current_products
+  end
+
 end
