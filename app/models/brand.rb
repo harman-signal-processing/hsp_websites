@@ -148,6 +148,11 @@ class Brand < ActiveRecord::Base
     News.all_for_website(self.default_website)
   end
 
+  # Active software with active products
+  def current_softwares
+    softwares.where(active: true).select{|s| s if s.current_products.length > 0}.sort_by{|s| s.current_products.length}.reverse
+  end
+
   def current_products
     p = []
     product_families.each do |pf|

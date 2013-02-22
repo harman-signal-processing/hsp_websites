@@ -1,0 +1,28 @@
+<% set_meta_tags reverse: true,
+                 description: "Downloads for: #{@current_products.collect{|s| s.name}.join(', ')}",
+                 keywords: @current_products.collect{|s| s.name} %>
+
+<h1 class="page_title">
+<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/software_downloads_head.jpg")) %>
+	<%= image_tag("#{website.folder}/#{I18n.locale}/software_downloads_head.jpg", alt: t('software_downloads')) %>
+<% else %>
+	<%= t('software_downloads') %>
+<% end %>
+</h1>
+
+<% if website.brand.softwares.size <= 0 %>
+	<div style="text-align: center"><i>Check back soon</i></div>
+
+<% elsif @current_products.size > 0 %>
+	<div style="margin: 50px;">
+		<% website.brand.current_softwares.each do |software| %>
+			<div class="product_square">
+				<h3><%= link_to(software.formatted_name, software_path(software, locale: I18n.locale)) %></h3>
+			</div>
+		<% end %>
+	</div>
+	<div style="margin: 50px;">
+		<h4 class="subheader" style="text-align: center">Discontinued Product Software</h4>
+		<%= render "table", products: @discontinued_products %>
+	</div>
+<% end %>
