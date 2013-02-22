@@ -7,10 +7,10 @@ class RsoSetting < ActiveRecord::Base
   end
 
   def self.invitation_code
-    if Rails.env.production? || Rails.env.staging?
-      value_for("invitation_code") || "FLSKWERCVIERUW"
-    else
+    if Rails.env.development? || Rails.env.test?
       "INVITED"
+    else
+      value_for("invitation_code") || "FLSKWERCVIERUW"
     end
   end
 

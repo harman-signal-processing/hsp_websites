@@ -41,12 +41,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
   resources :registered_downloads
   # debugging help
   match "/site_info" => 'main#site_info'
-
-  devise_for :users
-  devise_scope :users do
-    get 'users', to: 'admin#index', as: :user_root 
-  end
-  
+ 
   devise_for :artists, controllers: { registrations: "artist_registrations" }
   devise_scope :artists do
     get 'artists', to: 'artists#index', as: :artist_root
@@ -93,7 +88,14 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
   # Main routing
   root to: 'main#default_locale'
   scope "(:locale)", locale: /#{WebsiteLocale.all_unique_locales.join('|')}/ do 
+    scope "/admin" do 
+      devise_for :users, path: :users
+      devise_scope :user do
+        get 'admin', to: 'admin#index', as: :user_root 
+      end
+    end
     namespace :admin do
+
       resources :products do
         collection do
           get :rohs

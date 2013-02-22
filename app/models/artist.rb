@@ -58,6 +58,14 @@ class Artist < ActiveRecord::Base
     indexes :name
     indexes :bio
   end
+
+  # Since the devise mailer is shard with toolkit users, trick these
+  def needs_invitation_code? 
+    false 
+  end
+  def needs_account_number?  
+    false 
+  end
   
   def sanitized_name
     self.name.gsub(/[\'\"]/, "")

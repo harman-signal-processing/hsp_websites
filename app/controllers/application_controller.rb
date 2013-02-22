@@ -116,12 +116,6 @@ private
   end
   helper_method :website
   
-  def require_admin_authentication
-    authenticate_or_request_with_http_basic do |user_name, password|
-      password == ADMIN_PASSWORD
-    end
-  end
-
   def set_locale
     # This isn't really setting the locale, we're just trying
     # to be smart and pick the user's country for "Buy It Now"
@@ -159,13 +153,34 @@ private
     end
   end
 
+  def current_ability
+    if current_user
+      @current_ability ||= Ability.new(current_user)
+    elsif current_toolkit_user
+      @current_ability ||= Ability.new(current_toolkit_user)
+    elsif current_artist
+      @current_ability ||= Ability.new(current_artist)
+    else
+      @current_ability ||= Ability.new(User.new)
+    end
+  end
 
-    def restrict_api_access
-      if Rails.env.production?
-        authenticate_or_request_with_http_token do |token, options|
-          ApiKey.exists?(access_token: token)
-        end
+  def after_sign_in_path_for(resource)
+    if resource.is_a?(Artist)
+      artists_root_path
+    elsif !!(request.host.match(/toolkit/i))
+      root_path
+    else
+      admin_root_path
+    end
+  end
+
+  def restrict_api_access
+    if Rails.env.production?
+      authenticate_or_request_with_http_token do |token, options|
+        ApiKey.exists?(access_token: token)
       end
     end
+  end
 
 end

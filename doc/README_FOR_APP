@@ -17,10 +17,11 @@ I need to work on...
  x * sign-ups should verify the user by sending confirmation to
     the dealer account email address.
  x * users register with their sap account number.
+ x * handle confirmation email differently for invitation code users (RSO)
  POLISH ALL OF THAT
-  * handle confirmation email differently for invitation code users (RSO)
   * mass email distributors?
-  * use the same logins for accommodation?
+  * use the same logins for accommodation? dealer portal?
+  * separate resources by role
   * need logins for non-sap accounts (staff, sales people, magazines?)
 
  Working on importing old registrations. The file we have seems
