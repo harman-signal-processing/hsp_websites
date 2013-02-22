@@ -4,16 +4,18 @@ class UserMailer < Devise::Mailer
 
   def confirmation_instructions(record, opts={})
   	determine_host(record)
-  	if record.dealer?
+  	if record.needs_account_number?
   		if record.dealers && record.dealers.first && record.dealers.first.email.present?
         initialize_from_record(record)
 	  		mail to: record.dealers.first.email,
           subject: "Harman Toolkit Confirmation instructions",
-          template_name: "toolkit_user_confirmation_instructions"
+          template_name: "dealer_confirmation_instructions"
   		else
   			cant_confirm(record, opts)
   		end
-  	else
+  	elsif record.needs_invitation_code?
+      devise_mail(record, :rso_confirmation_instructions, opts)
+    else
   		super
   	end
   end
@@ -46,7 +48,7 @@ class UserMailer < Devise::Mailer
   #
   def determine_host(record)
   	begin
-  		if record.dealer?
+  		if record.needs_account_number? || record.needs_invitation_code?
   			default_url_options[:host] = TOOLKIT_HOST
   		elsif record.brand_toolkit_contacts.count > 0
   			default_url_options[:host] = record.brand_toolkit_contacts.first.brand.default_website.url 

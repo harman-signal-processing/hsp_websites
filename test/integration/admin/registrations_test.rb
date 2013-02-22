@@ -12,7 +12,6 @@ describe "Admin Registrations Integration Test" do
     
     @reg = FactoryGirl.create(:warranty_registration, brand: @brand, product: @website.products.first)
     @user = FactoryGirl.create(:user, customer_service: true, password: "password")
-    
     admin_login_with(@user, "password", @website)
     click_on "Product Registrations"
   end
@@ -23,14 +22,14 @@ describe "Admin Registrations Integration Test" do
     must_have_link "#{@reg.first_name} #{@reg.last_name}"
   end
 
-  it "should search by email" do 
-    fill_in "q_email_cont", with: @reg.email
-    click_on "Search"
-    must_have_content @reg.email
-  end
+  # it "should search by email" do 
+  #   fill_in "q_email_cont", with: @reg.email
+  #   click_on "Search"
+  #   must_have_content @reg.email
+  # end
 
-  it "should have an export button" do 
-    must_have_link "Excel"
-  end
+  # it "should have an export button" do 
+  #   must_have_link "Excel"
+  # end
 
 end

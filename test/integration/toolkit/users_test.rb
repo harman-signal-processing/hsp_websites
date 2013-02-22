@@ -9,6 +9,7 @@ describe "Toolkit Users Integration Test" do
     host! @host
     Capybara.default_host = "http://#{@host}" 
     Capybara.app_host = "http://#{@host}" 
+    Dealer.any_instance.stubs(:geocode_address) # don't actually do geocoding here
   end
   
   describe "Dealer Signup" do 
@@ -87,6 +88,58 @@ describe "Toolkit Users Integration Test" do
   	end
   end
 
+  describe "RSO Signup" do 
+    before do 
+      # The User model actually loads this setting when rails starts up, so trying to 
+      # set the invitation code here won't work. It is hard-coded in the RsoSetting model
+      # for dev/test: INVITED
+      # FactoryGirl.create(:rso_setting, name: "invitation_code", string_value: "INVITED")
+      visit root_url(host: @host)
+      within('.top-bar') do
+        click_on "Sign up"
+      end
+      choose :signup_type_rso
+      click_on "Continue"
+    end
+
+    it "should NOT require account number" do 
+      within('#new_toolkit_user') do
+        wont_have_content "Harman Pro Account Number"
+      end
+    end
+
+    it "should require invitation code" do 
+      within('#new_toolkit_user') do
+        must_have_content "Invitation code"
+        fill_in :toolkit_user_invitation_code, with: "something wrong"
+        click_on "Sign up"
+      end
+      must_have_content "it is cAsE sEnSiTiVe."
+    end
+
+    it "should create a new unconfirmed user" do
+      user = FactoryGirl.build(:user)
+      within('#new_toolkit_user') do
+        fill_in_new_rso_user_form(user) 
+        click_on "Sign up"
+      end
+      u = User.last
+      u.confirmed?.must_equal(false)
+    end     
+
+    it "should send the confirmation email to the new user" do
+      user = FactoryGirl.build(:user)
+      within('#new_toolkit_user') do
+        fill_in_new_rso_user_form(user)
+        click_on "Sign up"
+      end
+      last_email.subject.must_have_content "HSP Toolkit Confirmation link"
+      last_email.to.must_include(user.email)
+      last_email.body.must_have_content user.name
+      last_email.body.must_have_content user.email
+    end     
+  end
+
   describe "Confirmation" do 
   	it "should confirm the new user" do
   		@dealer = FactoryGirl.create(:dealer)
@@ -128,7 +181,6 @@ describe "Toolkit Users Integration Test" do
   	end
 
   	it "will have a logout link" do
-      skip "LOGOUT routing doesn't seem to work"
   		must_have_link "Logout"
   		click_on "Logout"
   		must_have_link "Login"
@@ -142,5 +194,13 @@ describe "Toolkit Users Integration Test" do
 		fill_in :toolkit_user_password, with: "pass123"
 		fill_in :toolkit_user_password_confirmation, with: "pass123"  		
 	end
+
+  def fill_in_new_rso_user_form(user)
+    fill_in :toolkit_user_name, with: user.name
+    fill_in :toolkit_user_email, with: user.email
+    fill_in :toolkit_user_invitation_code, with: RsoSetting.invitation_code
+    fill_in :toolkit_user_password, with: "pass123"
+    fill_in :toolkit_user_password_confirmation, with: "pass123"      
+  end
 
 end

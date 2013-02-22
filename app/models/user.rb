@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true
   validates :password, presence: true, confirmation: true, on: :create
   validates :invitation_code, presence: true, 
-    inclusion: {in: RsoSetting.invitation_code, message: "is invalid. (it is cAsE sEnSiTiVe.)"},
+    inclusion: {in: [RsoSetting.invitation_code], message: "is invalid. (it is cAsE sEnSiTiVe.)"},
     on: :create,
     if: :needs_invitation_code?
   validates :account_number, presence: true, on: :create, if: :needs_account_number?

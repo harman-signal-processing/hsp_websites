@@ -98,6 +98,7 @@ class MiniTest::Rails::Integration
   end
 
   def admin_login_with(user, password, website)
+    user.confirm!
     visit new_user_session_url(host: website.url, locale: I18n.default_locale)
     fill_in('user[email]', with: user.email)
     fill_in('user[password]', with: password)
