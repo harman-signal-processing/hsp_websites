@@ -10,19 +10,32 @@
 <% end %>
 </h1>
 
+<%= cache ["softwares_index", website.brand, I18n.locale] do %>
+
 <% if website.brand.softwares.size <= 0 %>
 	<div style="text-align: center"><i>Check back soon</i></div>
 
-<% elsif @current_products.size > 0 %>
-	<div style="margin: 50px;">
-		<% website.brand.current_softwares.each do |software| %>
-			<div class="product_square">
-				<h3><%= link_to(software.formatted_name, software_path(software, locale: I18n.locale)) %></h3>
-			</div>
-		<% end %>
-	</div>
-	<div style="margin: 50px;">
-		<h4 class="subheader" style="text-align: center">Discontinued Product Software</h4>
-		<%= render "table", products: @discontinued_products %>
-	</div>
+<% else %>
+	<% if website.brand.current_softwares.length > 0 %>
+		<div style="margin: 50px;">
+			<% website.brand.current_softwares.each do |software| %>
+				<%= link_to software do %>
+					<div class="medium_centered_box software_banner">
+						<h3><%= software.name %></h3>
+						<%= "v#{software.version}" unless software.version.blank? %>
+						<%= "(#{software.platform})" unless software.platform.blank? %>
+					</div>
+				<% end %>
+			<% end %>
+		</div>
+	<% end %>
+	<% if @discontinued_products.length > 0 %>
+		<div style="clear: both;"></div>
+		<div style="margin: 50px;">
+			<h4 class="subheader" style="text-align: center">Discontinued Product Software</h4>
+			<%= render "table", products: @discontinued_products %>
+		</div>
+	<% end %>
+<% end %>
+
 <% end %>

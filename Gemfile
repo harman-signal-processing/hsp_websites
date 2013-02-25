@@ -90,6 +90,6 @@ group :test do
   gem 'launchy' # save_and_open_page inline in tests
   # gem 'minitest', '2.12.1'
   gem 'guard-minitest'
-  gem 'rb-inotify', '~> 0.8.8'
+  gem 'rb-inotify', '~> 0.9'
   gem 'database_cleaner'
 end

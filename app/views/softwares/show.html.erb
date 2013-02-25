@@ -40,6 +40,9 @@
 		<% end %>
 	</div>
 	
+	<% if @software.previous_versions.count > 0 %>
+	<p><%= link_to "Previous Versions", '#previous_versions' %></p>
+	<% end %>
 	<%=raw @software.description %>
 
 	<% if @software.training_modules.size > 0 %>
@@ -61,7 +64,7 @@
 
 <% if @software.previous_versions.count > 0 %>
 	<hr/>
-	<h4>Previous Versions</h4>
+	<h4 id='previous_versions'>Previous Versions</h4>
 
 	<ul>
 		<% @software.previous_versions.each do |s| %>
@@ -70,7 +73,6 @@
 	</ul>
 <% end %>
 
-<p><br/><%= link_to t('software_downloads'), softwares_path %></p>
 
 <% if current_user && can?(:manage, @software) %>
 <div class="admin_function">

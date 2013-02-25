@@ -22,7 +22,7 @@ class SoftwaresController < ApplicationController
     # unless @software.brand == website.brand
     #   redirect_to softwares_path and return
     # end
-    if @software.active? || can?(:manage, @software)
+    if @software.active? || can?(:manage, @software) || (@software.replaced_by && @software.replaced_by.is_a?(Software))
       @page_title = @software.formatted_name
       respond_to do |format|
         format.html { 
