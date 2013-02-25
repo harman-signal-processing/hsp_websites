@@ -5,6 +5,7 @@ class Toolkit::ToolkitResourcesController < ToolkitController
 
 	# After authorizing, send_file as indicated by the "download_path" attribute
 	def show
-		send_file(Rails.root.join("../", "../", "toolkit", @toolkit_resource.download_path))
+		tk_folder = Rails.env.production? ? Rails.root.join("../", "../", "../", "toolkits") : Rails.root.join("../", "../", "toolkit")
+		send_file(tk_folder + "/" + @toolkit_resource.download_path)
 	end
 end
