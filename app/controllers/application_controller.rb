@@ -167,7 +167,7 @@ private
 
   def after_sign_in_path_for(resource)
     if resource.is_a?(Artist)
-      artists_root_path
+      artist_root_path
     elsif !!(request.host.match(/toolkit/i))
       root_path
     else
