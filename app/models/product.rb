@@ -192,9 +192,9 @@ class Product < ActiveRecord::Base
       r << ProductTab.new("features") if self.features && self.features.size > 15 && self.brand.side_tabs.include?("features")
     end
     r << ProductTab.new("specifications") if self.product_specifications.size > 0 && self.brand.side_tabs.include?("specifications")
-    r << ProductTab.new("documentation") if (self.product_documents.size > 0 || self.current_and_recently_expired_promotions.size > 0) && self.brand.side_tabs.include?("documentation")
+    r << ProductTab.new("documentation") if (self.product_documents.size > 0 || self.current_and_recently_expired_promotions.size > 0 || self.viewable_site_elements.size > 0) && self.brand.side_tabs.include?("documentation")
     r << ProductTab.new("training_modules") if self.training_modules.size > 0 && self.brand.side_tabs.include?("training_modules")
-    r << ProductTab.new("downloads") if (self.softwares.size > 0 || self.site_elements.size > 0) && self.brand.side_tabs.include?("downloads")
+    r << ProductTab.new("downloads") if (self.softwares.size > 0 || self.executable_site_elements.size > 0) && self.brand.side_tabs.include?("downloads")
     r << ProductTab.new("downloads_and_docs") if (self.softwares.size > 0 || self.product_documents.size > 0 || self.site_elements.size > 0) && self.brand.side_tabs.include?("downloads_and_docs")
     r << ProductTab.new("reviews") if (self.product_reviews.size > 0 || self.artists.size > 0) && self.brand.side_tabs.include?("reviews")
     r << ProductTab.new("artists") if self.artists.size > 0 && self.brand.side_tabs.include?("artists")
@@ -214,7 +214,7 @@ class Product < ActiveRecord::Base
     r << ProductTab.new("extended_description") if !self.extended_description.blank? && self.brand.main_tabs.include?("extended_description")
     r << ProductTab.new("features") if self.features && self.features.size > 15 && self.brand.main_tabs.include?("features")
     r << ProductTab.new("specifications") if self.product_specifications.size > 0 && self.brand.main_tabs.include?("specifications")
-    r << ProductTab.new("documentation") if (self.product_documents.size > 0 || self.current_and_recently_expired_promotions.size > 0) && self.brand.main_tabs.include?("documentation")
+    r << ProductTab.new("documentation") if (self.product_documents.size > 0 || self.current_and_recently_expired_promotions.size > 0 || self.viewable_site_elements.size > 0) && self.brand.main_tabs.include?("documentation")
     r << ProductTab.new("training_modules") if self.training_modules.size > 0 && self.brand.main_tabs.include?("training_modules")
     r << ProductTab.new("downloads_and_docs") if (self.softwares.size > 0 || self.product_documents.size > 0 || self.site_elements.size > 0) && self.brand.main_tabs.include?("downloads_and_docs")
     r << ProductTab.new("news") if self.news.size > 0 && self.brand.main_tabs.include?("news")
@@ -242,6 +242,16 @@ class Product < ActiveRecord::Base
       r.unshift(ProductTab.new("features")) if self.features && self.features.size > 35
     end
     r
+  end
+
+  # Collects those site_elements where the download is software or a zip
+  def executable_site_elements
+    @executable_site_elements ||= site_elements.where("executable_file_name IS NOT NULL").all.select{|se| se if !!!(se.executable_file_name.match(/pdf|jpg|png/i)) }
+  end
+
+  # Collects those site_elements where the download is PDF or image
+  def viewable_site_elements
+    @viewable_site_elements ||= site_elements.where("resource_file_name IS NOT NULL")
   end
 
   # Pretty awful hack to see if a custom tab name exists for the given tab "name".

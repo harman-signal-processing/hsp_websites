@@ -14,4 +14,13 @@
 		[<%= number_to_human_size(product_document.document_file_size) %>]
 	</li>
 	<% end %>
+	<% product.viewable_site_elements.each do |site_element| %>
+	<li>
+		<% if site_element.resource_content_type.match(/pdf/i) || site_element.resource_file_name.match(/pdf$/i) %>
+			<%= image_tag("pdf_17.png", style: "vertical-align: middle") %>
+		<% end %>
+		<%= link_to site_element.name, site_element.resource.url %> 
+		[<%= number_to_human_size(site_element.resource_file_size) %>]
+	</li>	
+	<% end %>
 </ul>
