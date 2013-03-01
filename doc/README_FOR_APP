@@ -71,7 +71,6 @@ I need to work on...
 * Migrate news--done back thru 2009
 * finish URL forwarders
 * Design
-* Re-do software overview page (organize by software instead of product)
 * Individual contact forms?
 
 === TODO for dbx site ===
@@ -91,7 +90,6 @@ What you will need to change is: itemid=100170580&subitemid=358897 based on the 
 
 === TODO (for all brands) ===
 * Employee purchases--get IT to update links on myharman.com
-* Add JBL to common Hpro footer
 * Fix dealer export from SAP
 * Clean up product info tabs methods (several in product.rb, product_helper.rb)
 * Minitest for admin functions
@@ -134,4 +132,11 @@ gw: 10.10.23.1
 dns:
 10.30.28.180
 172.16.1.96
+
+==================
+
+New content server
+
+ip: 10.10.23.56
+hicglxhsp01.ad.harman.com
 

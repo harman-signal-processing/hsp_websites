@@ -214,12 +214,13 @@ module ApplicationHelper
       {name: "Crown",  web: "http://www.crownaudio.com"}, 
       {name: "dbx",    web: "http://www.dbxpro.com"}, 
       {name: "DigiTech",   web: "http://www.digitech.com"}, 
+#      {name: "IDX",    web: "http://idx.harman.com"},
       {name: "JBL",    web: "http://www.jblpro.com" }, 
       {name: "Lexicon",    web: "http://www.lexiconpro.com"}, 
+      {name: "Martin",  web: "http://www.martin.com"},
       {name: "Soundcraft", web: "http://www.soundcraft.com"}, 
       {name: "Studer", web: "http://www.studer.ch"}, 
       {name: "HiQnet", web: "http://hiqnet.harmanpro.com"}
-      # {name: "IDX",    web: "http://idx.harman.com"} 
     ]
     pro_brands.each do |b|
       unless website.brand.name.match(/#{b[:name]}/i)
