@@ -14,6 +14,8 @@ class Ability
       clinician: false,
       rep: false,
       clinic_admin: false,
+      dealer: false,
+      distributor: false,
       rso: false,
       rso_admin: false
     })
@@ -62,6 +64,9 @@ class Ability
         can :manage, RsoPersonalReport
         can :manage, RsoSetting
       end
+      if user.role?(:rso)
+        can :read, ToolkitResource, rso: true
+      end
       if user.role?(:engineer)
         can :manage, Software
         can :manage, ProductSoftware
@@ -99,6 +104,7 @@ class Ability
         can :manage, ToneLibraryPatch
       end
       if user.role?(:online_retailer)
+        can :read, ToolkitResource, dealer: true
         can :read, OnlineRetailer
         can :update, OnlineRetailer do |online_retailer|
           user.online_retailers.include?(online_retailer)
@@ -108,11 +114,14 @@ class Ability
         end
       end
       if user.role?(:dealer)
-        can :read, ToolkitResource
+        can :read, ToolkitResource, dealer: true
         can :read, ToolkitResourceType
         can :manage, Dealer do |dealer|
           user.dealers.include?(dealer)
         end
+      end
+      if user.role?(:distributor)
+        can :read, ToolkitResource, distributor: true
       end
       if user.role?(:translator)
         can :manage, Setting
@@ -161,7 +170,7 @@ class Ability
         end
       end
       if user.role?(:rep)
-        can :read, ToolkitResource
+        can :read, ToolkitResource, rep: true
         can :manage, OnlineRetailer
         can :manage, OnlineRetailerLink
         can :manage, Dealer

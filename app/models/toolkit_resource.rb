@@ -5,7 +5,11 @@ class ToolkitResource < ActiveRecord::Base
   	:name, 
   	:related_id, 
   	:tk_preview, 
-  	:toolkit_resource_type_id
+  	:toolkit_resource_type_id,
+    :dealer,
+    :distributor,
+    :rep,
+    :rso
 
   has_attached_file :tk_preview, 
     styles: { lightbox: "800x600",

@@ -42,7 +42,7 @@ module ToolkitHelper
 		end
 
 		toolkit_resource_types.map do |trt|
-			trt.toolkit_resources.where(related_id: object.id)
+			trt.toolkit_resources.where(related_id: object.id).accessible_by(current_ability, :read) 
 		end.flatten
 	end
 
