@@ -140,3 +140,11 @@ New content server
 ip: 10.10.23.56
 hicglxhsp01.ad.harman.com
 
+Connect from mac/linux:
+smb://10.10.23.56/toolkits
+smb://hicglxhsp01.ad.harman.com/toolkits
+
+Connect from windows:
+\\10.10.23.56\toolkits
+\\hicglxhsp01.ad.harman.com\toolkits
+
