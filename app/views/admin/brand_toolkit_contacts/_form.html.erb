@@ -1,0 +1,13 @@
+<%= simple_form_for [:admin, @brand_toolkit_contact] do |f| %>
+
+	<%= f.association :user, label: "Select Existing User", collection: User.staff %>
+
+	<div id="user_fields">
+		<%= render "user_fields", f: f %>
+	</div>
+
+	<div class="field">
+		<%= f.submit %>
+	</div>
+
+<% end %>

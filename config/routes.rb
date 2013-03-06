@@ -95,6 +95,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       end
     end
     namespace :admin do
+      match "brand_toolkit_contacts/load_user/:id" => 'brand_toolkit_contacts#load_user'
 
       resources :products do
         collection do
@@ -191,6 +192,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :product_training_classes,
         :product_review_products,
         :locale_product_families,
+        :brand_toolkit_contacts,
         :toolkit_resource_types,
         :product_site_elements,
         :product_introductions,
