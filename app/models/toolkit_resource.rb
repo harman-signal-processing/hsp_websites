@@ -6,6 +6,8 @@ class ToolkitResource < ActiveRecord::Base
   	:related_id, 
   	:tk_preview, 
   	:toolkit_resource_type_id,
+    :expires_on,
+    :message,
     :dealer,
     :distributor,
     :rep,
@@ -55,5 +57,9 @@ class ToolkitResource < ActiveRecord::Base
   def delete_preview
     self.tk_preview = nil
     self.save
+  end
+
+  def expired?
+    expires_on.present? && expires_on.to_date < Date.today
   end
 end

@@ -8,4 +8,9 @@
 
 <h2><%= @brand.name %> <small>Toolkit Resources</small></h2>
 
-(put the latest stuff here)
+<% @marketing_messages.each do |mm| %>
+	<div class="panel marketing_message">
+		<h3 class="subheader"><%= mm.name %></h3>
+		<div><%= raw mm.message %></div>
+	</div>
+<% end %>

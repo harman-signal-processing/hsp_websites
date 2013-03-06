@@ -172,7 +172,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :market_segment_product_families do
         collection { post :update_order }
       end
-      resources :product_training_modules, :software_training_modules, :parent_products, :product_softwares do
+      resources :product_training_modules, :software_training_modules, :parent_products, :product_softwares, :brand_toolkit_contacts do
         collection { post :update_order }
       end
       resources :blogs do
@@ -192,7 +192,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :product_training_classes,
         :product_review_products,
         :locale_product_families,
-        :brand_toolkit_contacts,
         :toolkit_resource_types,
         :product_site_elements,
         :product_introductions,

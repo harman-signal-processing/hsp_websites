@@ -1,9 +1,20 @@
+<% if @toolkit_resource.toolkit_resource_type.marketing_message? %>
+
+<div class="instructions">
+  Use this form to add a <%= website.brand.name %> marketing message to specific 
+  types of users on the marketing toolkit.
+</div>
+
+<% else %>
+
 <div class="instructions">
   Use this form to link to hi-res or zipped source files for marketing items. Since
   large files take an unpredictable amount of time to upload via the web browser,
   the full-size asset needs to be copied to the shared toolkit folder on the network
   first. If you don't know where it is, or don't have access, talk to Adam.
 </div>
+
+<% end %>
 
 <%= form_for([:admin, @toolkit_resource], html: {multipart: true}) do |f| %>
   <% if @toolkit_resource.errors.any? %>
@@ -20,6 +31,23 @@
 
   <%= f.hidden_field :toolkit_resource_type_id %>
 
+  <% if @toolkit_resource.toolkit_resource_type.marketing_message? %>
+  <div class="field">
+    <%= f.label :name, "Message Title" %><br />
+    <%= f.text_field :name %>
+  </div>  
+
+  <div class="field">
+    <%= f.label :message %><br/>
+    <%= f.text_area :message, rows: 10, style: "width: 80%" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :expires_on %><br/>
+    <%= f.text_field :expires_on, class: 'ui-datepicker' %>
+  </div>
+
+  <% else %>
   <div class="field">
     <%= f.label :name, "Resource Name" %> (be descriptive "back", "CMYK", etc.)<br />
     <%= f.text_field :name %>
@@ -47,18 +75,21 @@
   <% end %>
 
   <div class="field">
+    <%= f.label :tk_preview, "Preview image" %><br/>
+    <%= f.file_field :tk_preview %>
+    <div class="hint">Gives the visitor an idea about what the full-sized file contains.
+      No need for big files here--will be automatically sized &amp; cropped.</div>
+  </div>
+
+  <% end %>
+
+  <div class="field">
     <%= f.check_box :dealer %> <%= f.label :dealer, "Show to dealers" %><br/>
     <%= f.check_box :distributor %> <%= f.label :distributor, "Show to distributors" %><br/>
     <%= f.check_box :rep %> <%= f.label :rep, "Show to reps" %><br/>
     <%= f.check_box :rso %> <%= f.label :rso, "Show to RSOs" %>
   </div>
 
-  <div class="field">
-    <%= f.label :tk_preview, "Preview image" %><br/>
-    <%= f.file_field :tk_preview %>
-    <div class="hint">Gives the visitor an idea about what the full-sized file contains.
-      No need for big files here--will be automatically sized &amp; cropped.</div>
-  </div>
 
   <div class="actions">
     <%= f.submit %>

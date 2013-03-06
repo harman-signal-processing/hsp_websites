@@ -59,9 +59,18 @@ $(document).ready(function(){
 		$.get("/admin/brand_toolkit_contacts/load_user/" + new_val);
 	});
 
-<% ["effect_types", "market_segment_product_families", "product_families", "parent_products",
-    "product_family_products", "product_attachments", "product_training_modules", "product_softwares",
-    "product_specifications", "rso_navigations", "software_training_modules" ].each do |sortkey| %>
+<% ["effect_types", 
+		"market_segment_product_families", 
+		"product_families", 
+		"parent_products", 
+		"brand_toolkit_contacts",
+    "product_family_products", 
+    "product_attachments", 
+    "product_training_modules", 
+    "product_softwares",
+    "product_specifications", 
+    "rso_navigations", 
+    "software_training_modules" ].each do |sortkey| %>
 
 	$('#<%= sortkey %>').sortable({
 		axis: 'y',

@@ -3,9 +3,10 @@
 <div class="button_container">
 	<%= link_to 'Back', admin_toolkit_resources_path, class: "back button" %>
 	<%= link_to 'Edit', edit_admin_toolkit_resource_path(@toolkit_resource), class: "edit button" %> 
-	<%= link_to 'Delete', [:admin, @toolkit_resource], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
+	<%= link_to 'Delete', [:admin, @toolkit_resource], confirm: 'Are you sure?', method: :delete, class: "delete button" %>
 </div>
-<br/><br/>
+
+<br/>
 <div class="field">
 <% if @toolkit_resource.tk_preview_file_name.present? %>
 	<%= image_tag @toolkit_resource.tk_preview.url(:small) %>
@@ -15,6 +16,14 @@
 				confirm: "Are you sure you want to delete the preview image?" %>
 <% end %>
 </div>
+
+<% if @toolkit_resource.toolkit_resource_type.marketing_message? %>
+
+	<h3><%= @toolkit_resource.name %></h3>
+	<p>Expires: <%= @toolkit_resource.expires_on %></p>
+	<div><%= raw @toolkit_resource.message %></h4>
+
+<% else %>
 
 <table class="data">
 	<tbody>
@@ -47,7 +56,16 @@
 				<% end %>
 			</td>
 		</tr>
-			
 	</tbody>
 </table>
 
+<% end %>
+
+<div class="group" style="margin-top: 15px;">
+	<h3>Visibility</h3>
+	<p>Show to dealers? <b><%= @toolkit_resource.dealer? ? "yes" : "no" %></b><br/>
+	Show to distributors? <b><%= @toolkit_resource.distributor? ? "yes" : "no" %></b><br/>
+	Show to reps? <b><%= @toolkit_resource.rep? ? "yes" : "no" %></b><br/>
+	Show to RSOs? <b><%= @toolkit_resource.rso? ? "yes" : "no" %></b></p>
+	<p class="hint">Harman staff see all.</p>
+</div>

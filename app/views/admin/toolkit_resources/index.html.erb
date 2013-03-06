@@ -4,7 +4,7 @@
 <div class="button_container">
 	<%= form_tag new_admin_toolkit_resource_path, method: :get do %>
 		<%= select_tag :toolkit_resource_type_id, 
-					options_from_collection_for_select(ToolkitResourceType.order(:name), :id, :name) %>
+					options_from_collection_for_select(ToolkitResourceType.where("marketing_message IS NULL OR marketing_message < 1").order(:name), :id, :name) %>
 		<%= submit_tag "New Toolkit Resource", name: nil %>
 	<% end %> 
 </div>
@@ -31,13 +31,36 @@
 <% else %>
 
 	<% if can?(:manage, BrandToolkitContact) %>
+	<div class="group">
 		<h3><%= website.brand.name %> Marketing Contacts</h3>
-		<%= link_to "new", new_admin_brand_toolkit_contact_path, class: "new button" %>
-		<ul>
+		<p><%= link_to "new", new_admin_brand_toolkit_contact_path, class: "new button" %></p>
+
+		<ul id="brand_toolkit_contacts" class="sortable_list">
 			<% website.brand.brand_toolkit_contacts.each do |btc| %>
-			<li><%= link_to btc.user.name, edit_admin_brand_toolkit_contact_path(btc) %></li>
+			<li id="brand_toolkit_contact_<%= btc.id %>">
+				<span class="handle"><%= image_tag("drag_handle.gif") %></span>
+				<%= link_to btc.user.name, edit_admin_brand_toolkit_contact_path(btc) %>
+				<%= link_to(image_tag("trash.gif"), 
+							admin_brand_toolkit_contact_path(btc), 
+							confirm: "Are you sure? (This won't delete the person--it will only remove them from the sidebar on the #{website.brand.name} toolkit.)", 
+							remote: true,
+							method: :delete) %>
+			</li>
 			<% end %>
 		</ul>
+	</div>
 	<% end %>
-	
+
+	<% if can?(:manage, ToolkitResource) && @marketing_message_type %>
+	<div class="group">
+		<h3>Marketing Messages</h3>
+		<p><%= link_to "new", new_admin_toolkit_resource_path(toolkit_resource_type_id: @marketing_message_type.id), class: "new button" %></p>
+		<ul>
+			<% @marketing_messages.each do |mm| %>
+			<li><%= link_to mm.name, [:admin, mm] %> <% if mm.expired? %><i>expired</i><% end %></li>
+			<% end %>
+		</ul>
+	</div>
+	<% end %>
+
 <% end %>

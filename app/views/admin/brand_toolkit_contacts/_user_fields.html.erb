@@ -1,8 +1,9 @@
-<h5>User details...</h5>
+<h5>Edit user details...</h5>
 
 <%= f.simple_fields_for :user do |u| %>
+	<%= u.input :id, as: :hidden %>
 	<%= u.input :name %>
 	<%= u.input :job_title %>
-	<%= u.input :email %>
+	<%= u.input :email, hint: "Changing this means this user will need to use the new email address to login to this site." %>
 	<%= u.input :phone_number %>
 <% end %>
