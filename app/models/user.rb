@@ -80,6 +80,10 @@ class User < ActiveRecord::Base
     rso_admin 
     sales_admin]
   
+  def self.staff 
+    where("marketing_staff = 1 OR admin = 1 OR market_manager = 1 OR artist_relations = 1 OR sales_admin = 1").order("UPPER(name)")
+  end
+
   def to_s
     self.name
   end

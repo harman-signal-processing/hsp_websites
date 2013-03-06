@@ -1,0 +1,8 @@
+<h5>User details...</h5>
+
+<%= f.simple_fields_for :user do |u| %>
+	<%= u.input :name %>
+	<%= u.input :job_title %>
+	<%= u.input :email %>
+	<%= u.input :phone_number %>
+<% end %>

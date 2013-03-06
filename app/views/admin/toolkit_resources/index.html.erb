@@ -20,9 +20,24 @@
 <% end %>
 
 
-<ul>
-	<% @toolkit_resources.each do |toolkit_resource| %>
-	  <li><%= link_to toolkit_resource.name, [:admin, toolkit_resource] %> </li>
-	<% end %>
-</ul>
+<% if @toolkit_resources.length > 0 %>
 
+	<ul>
+		<% @toolkit_resources.each do |toolkit_resource| %>
+		  <li><%= link_to toolkit_resource.name, [:admin, toolkit_resource] %> </li>
+		<% end %>
+	</ul>
+
+<% else %>
+
+	<% if can?(:manage, BrandToolkitContact) %>
+		<h3><%= website.brand.name %> Marketing Contacts</h3>
+		<%= link_to "new", new_admin_brand_toolkit_contact_path, class: "new button" %>
+		<ul>
+			<% website.brand.brand_toolkit_contacts.each do |btc| %>
+			<li><%= link_to btc.user.name, edit_admin_brand_toolkit_contact_path(btc) %></li>
+			<% end %>
+		</ul>
+	<% end %>
+	
+<% end %>
