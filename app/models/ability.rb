@@ -44,7 +44,6 @@ class Ability
         cannot :manage, Website
         cannot :manage, Brand
         cannot :manage, ToolkitResourceType
-        cannot :manage, BrandToolkitContact # We may want to enable this later
         can :read, WarrantyRegistration
       end
       if user.role?(:sales_admin)

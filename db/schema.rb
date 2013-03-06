@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130221191849) do
+ActiveRecord::Schema.define(:version => 20130306201523) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -1294,6 +1294,7 @@ ActiveRecord::Schema.define(:version => 20130221191849) do
     t.string   "related_attribute"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.boolean  "marketing_message"
   end
 
   create_table "toolkit_resources", :force => true do |t|
@@ -1314,6 +1315,8 @@ ActiveRecord::Schema.define(:version => 20130221191849) do
     t.boolean  "distributor",              :default => true
     t.boolean  "rep",                      :default => true
     t.boolean  "rso",                      :default => true
+    t.text     "message"
+    t.date     "expires_on"
   end
 
   add_index "toolkit_resources", ["brand_id"], :name => "index_toolkit_resources_on_brand_id"

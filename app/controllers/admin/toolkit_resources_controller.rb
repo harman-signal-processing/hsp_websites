@@ -8,6 +8,8 @@ class Admin::ToolkitResourcesController < AdminController
       @toolkit_resources = @search.result(:distinct => true)
     else
       @toolkit_resources = []
+      @marketing_message_type = ToolkitResourceType.where(marketing_message: true).first
+      @marketing_messages = ToolkitResource.where(brand_id: website.brand_id, toolkit_resource_type_id: @marketing_message_type.id).where("expires_on > ? OR expires_on IS NULL", Time.now.advance(days: -15))
     end
     respond_to do |format|
       format.html { render_template } # index.html.erb
@@ -28,6 +30,10 @@ class Admin::ToolkitResourcesController < AdminController
   # GET /toolkit_resources/new.xml
   def new
     @toolkit_resource.toolkit_resource_type_id = params[:toolkit_resource_type_id]
+    @toolkit_resource.dealer      = false
+    @toolkit_resource.distributor = false
+    @toolkit_resource.rep         = false
+    @toolkit_resource.rso         = false
     respond_to do |format|
       format.html { render_template } # new.html.erb
       format.xml  { render xml: @toolkit_resource }

@@ -23,6 +23,11 @@
     <%= f.label :related_model %><br />
     <%= f.text_field :related_model %>
   </div>
+  <div class="field">
+    <%= f.check_box :marketing_message %>
+    <%= f.label :marketing_message, "This is a special type with content that should appear as
+    the marketing message for the #{website.brand.name} brand." %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
