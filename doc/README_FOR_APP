@@ -5,24 +5,11 @@ I need to work on...
                  *** Notes for tomorrow ***
 
 --> Toolkit idea: each brand should have:
-  * intro text, with: latest info
   * hand-picked items to feature on its homepage: products, promos, etc.
-  * left-hand marketing contacts (done, needs a mgmt interface)
   * Need to uniquify toolkit resources by the filename in case two share 
   	the same item.
-
- --> Logins for toolkit versus web admin:
- x * added "devise for" inside of the routes for toolkit
- x * need to try/test using different views/controllers for these
- x * sign-ups should verify the user by sending confirmation to
-    the dealer account email address.
- x * users register with their sap account number.
- x * handle confirmation email differently for invitation code users (RSO)
- POLISH ALL OF THAT
   * mass email distributors?
   * use the same logins for accommodation? dealer portal?
-  * separate resources by role
-  * need logins for non-sap accounts (staff, sales people, magazines?)
 
  Working on importing old registrations. The file we have seems
  odd. mostly digitech. check the old web server for older
@@ -31,38 +18,12 @@ I need to work on...
 ================================================================
 
 === TODO for Toolkits ===
-* Verify user sign ups via SAP account number--Jim Prins updating dealer SAP export
+* Verify user sign ups via SAP account number--need to update dealer SAP export
 * Determine by acct. number which users access which brands
 * Dealers update their own info (address)
 * Dealers update their own buy-it-now links
 -- Created "DealerUsers" to link users to dealers--
 -- Need some sort of separate sign-up with the acct. number and Phone number?--
-
-* Create Advertisements
-* Create Logos
-* Figure out where to store source files--Reid building server
-* How to hide the NFS files to public URLs:
-
-	marketing enters a path like this:
-	  digitech/ads/whatever/else/filename.ai
-
-	which we translate to an URL like this:
-	  GET toolkit_resource/friendly_id
-
-	The tk_download action checks that the user is logged in, then uses "send_file"
-	with a local path like this:
-	  Rails.root.join("../", "../", shared", "storage", @toolkit_resource.path)
-
-	where the NFS share is mounted at /var/www/hmg/hsp_websites/shared/storage
-
-* Add hi-res source files to: 
-	Promotion#promotion_form
-	         #tile
-	         (what else?)
-	ProductAttachment#product_attachment (product images)
-	                 #product_media (videos, flash demos, etc)
-	ProductDocument#document (manuals, etc.)
-	SiteElement#resource
 
 * Dynamically choose homepage content, each brand start page
 
@@ -112,7 +73,7 @@ What you will need to change is: itemid=100170580&subitemid=358897 based on the 
 * Sitemaps using the sitemap plugin +news sitemaps
 * Use themes_for_rails gem instead of custom hack, manage themes online
 * Inline ecommerce with iLok integration for lexicon
-* Remove dumb RSO site stuff
+* Remove dumb RSO site stuff, keep some of it for toolkits
 
 
 Here's a handy regular expression that can be used in Sublime Text (CTRL H) to update
@@ -135,7 +96,7 @@ dns:
 
 ==================
 
-New content server
+New content server (built for toolkit)
 
 ip: 10.10.23.56
 hicglxhsp01.ad.harman.com

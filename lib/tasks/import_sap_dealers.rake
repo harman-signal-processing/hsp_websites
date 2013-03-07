@@ -3,15 +3,14 @@ namespace :sap do
   desc "Import dealers from text file provided by SAP"
   task :import_dealers => :environment do
     puts "Importing..."
-    brand = Brand.find_by_name("Lexicon")
-    file = Rails.root.join("db", "lexicon.dat")
+    file = Rails.root.join("db", "sap_dealers.dat")
     keys = [:name, :name2, :name3, :name4, :address, :city, :state, :zip, :telephone, :fax, :email, :account_number]
     File.open(file).each do |row|
       d = {}
       row.chomp!.split(/\s?\|\s?/).each_with_index do |val, i|
         d[keys[i]] = val
       end
-      dealer = Dealer.find_or_initialize_by_account_number_and_brand_id(d[:account_number], brand.id)
+      dealer = Dealer.find_or_initialize_by_account_number(d[:account_number])
       dealer.attributes = d
       sleep(2) if dealer.new_record? || dealer.address_changed? # we had to geocode, so give Google a break for 4 seconds
       dealer.save! if dealer.changed?

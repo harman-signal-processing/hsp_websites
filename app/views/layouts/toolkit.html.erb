@@ -12,13 +12,22 @@
     <![endif]-->
     <% if @brand %>
       <%= cache ["toolkit_background_css", @brand, Date.today] do %>
-        <% if tw = @brand.default_website.twitter_name %>
+        <% if File.exists?(Rails.root.join("app", "assets", "images", @brand.default_website.folder, "toolkit-background.jpg")) %>
+          <style type="text/css">
+            body {
+              background-image: url('<%= image_path("#{@brand.default_website.folder}/toolkit-background.jpg") %>');
+              background-position: top left;
+              background-repeat: no-repeat;
+            }
+          </style>        
+        <% elsif tw = @brand.default_website.twitter_name %>
           <% t = Twitter.user(tw) %>
           <style type="text/css">
             body {
               background-color: #<%= t.profile_background_color %>;
               background-image: url('<%= t.profile_background_image_url %>');
               background-position: top left;
+              background-repeat: no-repeat;
             }
           </style>
         <% end %>
