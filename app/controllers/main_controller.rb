@@ -22,7 +22,8 @@ class MainController < ApplicationController
     end
   end
   
-  # The site's dealer locator. You were expecting more code?
+  # The site's dealer locator. 
+  # TODO: Test to see if a dealer's flagged as excluded during SQL query instead of after SQL query
   #
   def where_to_buy
     @page_title = t('titles.where_to_buy')

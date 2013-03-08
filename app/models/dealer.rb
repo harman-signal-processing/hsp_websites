@@ -4,6 +4,7 @@ class Dealer < ActiveRecord::Base
   validates :account_number, presence: true, uniqueness: true
   before_validation :format_account_number
   before_validation :geocode_address, on: :create 
+  before_validation :auto_exclude
   before_update :regeocode
   has_many :dealer_users, dependent: :destroy
   has_many :users, through: :dealer_users
@@ -35,8 +36,23 @@ class Dealer < ActiveRecord::Base
       }
     }
 
+  def parent
+    if !!(self.account_number.match(/^(\d*)\-+\d*$/))
+      Dealer.find_by_account_number($1)
+    else
+      nil
+    end
+  end
+
+  # ship-tos
+  def children
+    if !!(self.account_number.match(/^(\d*)$/))
+      Dealer.where("account_number LIKE ?", "%#{$1}-%")
+    end
+  end
+
   def format_account_number
-    self.account_number = ("%010d" % self.account_number.to_i).to_s
+    self.account_number.gsub!(/^0*/, '') # ("%010d" % self.account_number.to_i).to_s
   end
 
   # Format the address, city, state, zip into a single string for geocoding
@@ -63,6 +79,16 @@ class Dealer < ActiveRecord::Base
       errors.add(:address, "Could not Geocode address")
     end
   end
+
+  # When creating/updating, flag some to be excluded from site search results.
+  # Business rules are coded below.
+  #
+  def auto_exclude
+    self.exclude ||= true if !!(address.match(/p\.?\s?o\.?\sbox/i)) ||  # PO Boxes
+      account_number.split(/\-/).first.to_i > 700000 || # distributors, internal accounts
+      marked_for_deletion? || # those which have deleted-type words in the name 
+      self.class.excluded_accounts.include?(self.account_number) # those which are flagged in the yaml file
+  end
   
   # Is this Dealer excluded?
   def exclude?
@@ -73,6 +99,29 @@ class Dealer < ActiveRecord::Base
   def self.excluded_accounts
     YAML::load_file(Rails.root.join("db", "excluded_dealers.yml"))
     #%w{100857 103036 103639 103641 101656}
+  end
+
+  def marked_for_deletion?
+    hints = ["don't", 
+          "do not",
+          "deletion",
+          "deleted",
+          "closed",
+          "collection",
+          "credit",
+          "out of business",
+          "bankruptcy",
+          "inactive",
+          "freight",
+          "mars music",
+          "unknown",
+          "dig-",
+          "hmg",
+          "factory-",
+          "promo"]
+    hints.each do |h|
+      return true if !!(self.name_and_address.match(/#{h}/i))
+    end
   end
   
 end

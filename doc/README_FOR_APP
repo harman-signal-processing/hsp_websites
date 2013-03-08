@@ -8,8 +8,19 @@ I need to work on...
   * hand-picked items to feature on its homepage: products, promos, etc.
   * Need to uniquify toolkit resources by the filename in case two share 
   	the same item.
-  * mass email distributors?
+  * mass email distributors? YES! first mass-create their logins like so:
+     - crawl through the active dealers
+     - register their email address (if they have one)
+     - register their password = their account number (without ship-to suffix)
   * use the same logins for accommodation? dealer portal?
+
+--> Notes on importing new SAP data 03/2013
+  * Import all into the dealers table, but...
+  * DONE-UNTESTED Skip PO Boxes in dealer lookups
+  * DONE-UNTESTED Skip account numbers greater than 700000 in dealer lookups
+  * Skip distribution centers and US Music (110620) in dealer lookups
+  * DONE-UNTESTED Match up ship-to account numbers in column B with their parent by stripping -00X
+    (not by looking at column A because the ship-tos repeat in the report)
 
  Working on importing old registrations. The file we have seems
  odd. mostly digitech. check the old web server for older
