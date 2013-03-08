@@ -35,10 +35,17 @@ class ToolkitResource < ActiveRecord::Base
   validate :name, presence: true 
   validate :brand_id, presence: :true 
   validate :toolkit_resource_type_id, presence: true
+  after_save :touch_related_item
+
+  def touch_related_item
+    if self.related_item
+      self.related_item.touch 
+    end
+  end
 
   def related_item
   	if toolkit_resource_type.related_model.present? && related_id.present?
-  		toolkit_resource_type.related_model.constantize.find(related_id)
+  		@related_item ||= toolkit_resource_type.related_model.constantize.find(related_id)
   	else
   		nil
   	end
