@@ -125,13 +125,14 @@ module ToolkitHelper
 			size  = "" if options[:hide_size] == true
 			label = (options[:image_size].present?) ? image_tag(item.tk_preview.url(options[:image_size]), alt: item.name) : item.name
 
-			icon_link_for(path) + link_to(label, path) + size
+			icon_link_for(item, path) + link_to(label, path) + size
 		end
 	end
 
-	def icon_link_for(path)
+	def icon_link_for(item, path)
 		begin
-			path.match(/\.(.*)$/)
+			filename = item.download_path
+			filename.match(/\.(.*)$/)
 			file_extension = $1
 			case file_extension.downcase
 				when "pdf"
