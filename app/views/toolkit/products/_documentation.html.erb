@@ -5,7 +5,7 @@
 			<%= image_tag("pdf_17.png", style: "vertical-align: middle") %>
 		<% end %>
 			<%= link_to product_document.name, 
-					"http://#{@brand.default_website.url}/en-US#{product_document.document.url}" %> 
+					"http://#{@brand.default_website.url}#{product_document.document.url}" %> 
 			[<%= number_to_human_size(product_document.document_file_size) %>]
 			
 			<%= list_toolkit_support_files_for(product_document, @brand) %>

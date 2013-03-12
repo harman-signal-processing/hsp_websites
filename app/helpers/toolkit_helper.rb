@@ -125,28 +125,28 @@ module ToolkitHelper
 			size  = "" if options[:hide_size] == true
 			label = (options[:image_size].present?) ? image_tag(item.tk_preview.url(options[:image_size]), alt: item.name) : item.name
 
-			icon_link_for(item, path) + link_to(label, path) + size
+			icon_for(item) + link_to(label, path) + size
 		end
 	end
 
-	def icon_link_for(item, path)
+	def icon_for(item)
 		begin
 			filename = item.download_path
 			filename.match(/\.(.*)$/)
 			file_extension = $1
 			case file_extension.downcase
 				when "pdf"
-					link_to(image_tag("pdf-icon.png"), path) + ' '
+					image_tag("pdf-icon.png") + ' '
 				when "zip"
-					link_to(image_tag("zip-icon.png"), path) + ' '
+					image_tag("zip-icon.png") + ' '
 				when "exe"
-					link_to(image_tag("windows_17.png"), path) + ' '
+					image_tag("windows_17.png") + ' '
 				when "dmg"
-					link_to(image_tag("mac_17.png"), path) + ' '
+					image_tag("mac_17.png") + ' '
 				when "wav", "mp3", "aif"
-					link_to(image_tag("icon_play.png"), path) + ' '
+					image_tag("icon_play.png") + ' '
 				when "m4v", "avi", "qt"
-					link_to(image_tag("icon_play.png"), path) + ' '
+					image_tag("icon_play.png") + ' '
 				else
 					''
 			end
