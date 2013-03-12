@@ -1,4 +1,5 @@
 class Dealer < ActiveRecord::Base
+  attr_accessor :sold_to, :del_flag, :del_block, :order_block # extra fields from import report
   acts_as_mappable
   validates :address, :city, :state, :name, presence: true
   validates :account_number, presence: true, uniqueness: true
@@ -84,7 +85,10 @@ class Dealer < ActiveRecord::Base
   # Business rules are coded below.
   #
   def auto_exclude
-    self.exclude ||= true if !!(address.match(/p\.?\s?o\.?\sbox/i)) ||  # PO Boxes
+    self.exclude ||= true if !!(address.to_s.match(/p\.?\s?o\.?\sbox/i)) ||  # PO Boxes
+      !!(self.del_flag.to_s.match(/\W/)) || 
+      !!(self.del_block.to_s.match(/\W/)) || 
+      !!(self.order_block.to_s.match(/\W/)) ||
       account_number.split(/\-/).first.to_i > 700000 || # distributors, internal accounts
       marked_for_deletion? || # those which have deleted-type words in the name 
       self.class.excluded_accounts.include?(self.account_number) # those which are flagged in the yaml file
@@ -97,31 +101,12 @@ class Dealer < ActiveRecord::Base
   
   # Exclude these account numbers
   def self.excluded_accounts
-    YAML::load_file(Rails.root.join("db", "excluded_dealers.yml"))
+    @excluded_accounts ||= YAML::load_file(Rails.root.join("db", "excluded_dealers.yml"))
     #%w{100857 103036 103639 103641 101656}
   end
 
   def marked_for_deletion?
-    hints = ["don't", 
-          "do not",
-          "deletion",
-          "deleted",
-          "closed",
-          "collection",
-          "credit",
-          "out of business",
-          "bankruptcy",
-          "inactive",
-          "freight",
-          "mars music",
-          "unknown",
-          "dig-",
-          "hmg",
-          "factory-",
-          "promo"]
-    hints.each do |h|
-      return true if !!(self.name_and_address.match(/#{h}/i))
-    end
+    !!(self.name_and_address.to_s.match(/dl reps|vision 2|deleted|don\'t|deletion|do not|closed|collection|credit|out of business|bankruptcy|amazon\.com|distrib|avad|inactive|freight|mars music|unknown|dig\-|hmg|factory\-|promo/i))
   end
   
 end

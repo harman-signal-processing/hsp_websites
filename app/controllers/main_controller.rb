@@ -207,8 +207,10 @@ class MainController < ApplicationController
   # browsers in the URL bar, etc.
   # /favicon.ico
   def favicon
-    custom = Rails.root.join("public", "#{website.folder}.ico")
-    if File.exists?(custom)
+    if website
+      custom = Rails.root.join("public", "#{website.folder}.ico")
+    end
+    if website && File.exists?(custom)
       send_file custom, filename: 'favicon.ico', disposition: 'inline', type: "image/x-icon"
     else
       send_file Rails.root.join("public", "harman.ico"), filename: 'favicon.ico', disposition: 'inline', type: "image/x-icon"
