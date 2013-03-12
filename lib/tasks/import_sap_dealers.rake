@@ -1,19 +1,45 @@
+require 'csv'
 namespace :sap do
   
-  desc "Import dealers from text file provided by SAP"
+  desc "Import dealers from CSV file provided by SAP"
   task :import_dealers => :environment do
     puts "Importing..."
-    file = Rails.root.join("db", "sap_dealers.dat")
-    keys = [:name, :name2, :name3, :name4, :address, :city, :state, :zip, :telephone, :fax, :email, :account_number]
-    File.open(file).each do |row|
+    file = Rails.root.join("../", "../", "sap_dealers.csv")
+    # keys = [:name, :name2, :name3, :name4, :address, :city, :state, :zip, :telephone, :fax, :email, :account_number]
+    keys = [:sold_to, :account_number, :name, :name2, :address, :city, :state, :zip, :telephone, :fax, :del_flag, :del_block, :order_block, :empty_col, :email]
+
+    CSV.read(file).each do |row|
+      next unless !!(row[0].to_s.match(/\d/))
       d = {}
-      row.chomp!.split(/\s?\|\s?/).each_with_index do |val, i|
-        d[keys[i]] = val
-      end
+      row.each_with_index { |val, i| d[keys[i]] = val }
+
       dealer = Dealer.find_or_initialize_by_account_number(d[:account_number])
-      dealer.attributes = d
-      sleep(2) if dealer.new_record? || dealer.address_changed? # we had to geocode, so give Google a break for 4 seconds
-      dealer.save! if dealer.changed?
+      dealer.name      = d[:name]
+      dealer.name2     = d[:name2]
+      dealer.address   = d[:address]
+      dealer.city      = d[:city]
+      dealer.state     = d[:state]
+      dealer.zip       = d[:zip]
+      dealer.telephone = d[:telephone]
+      dealer.fax       = d[:fax]
+      dealer.email     = d[:email]
+
+      dealer.del_flag    = d[:del_flag]
+      dealer.del_block   = d[:del_block]
+      dealer.order_block = d[:order_block]
+
+      ## Test output...
+      dealer.auto_exclude
+      if dealer.new_record?
+        puts "     new ------#{'EXCLUDED' if dealer.exclude?}---------> #{dealer.name_and_address} "
+      elsif dealer.changed?
+        puts " changed ------#{'EXCLUDED' if dealer.exclude?}---------> #{dealer.name_and_address} "
+      else
+        puts " same --> #{dealer.name} #{'EXCLUDED' if dealer.exclude?}"
+      end
+
+      # sleep(2) if dealer.new_record? || dealer.address_changed? # we had to geocode, so give Google a break for 4 seconds
+      # dealer.save! if dealer.changed?
     end
     puts "Total dealers in database: #{Dealer.count}"
   end
