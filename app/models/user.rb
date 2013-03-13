@@ -134,7 +134,7 @@ class User < ActiveRecord::Base
   # associate with each other
   def add_to_dealer
     if self.dealer? && self.account_number.present?
-      self.account_number = "%010d" % self.account_number.to_i
+      self.account_number.gsub!(/^0*/, '')
       if first_dealer = Dealer.find_by_account_number(self.account_number.to_s)
         self.dealers << first_dealer
       end

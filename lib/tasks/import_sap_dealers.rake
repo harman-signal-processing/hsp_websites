@@ -29,7 +29,7 @@ namespace :sap do
       dealer.order_block = d[:order_block]
 
       ## Test output...
-      dealer.auto_exclude
+      # dealer.auto_exclude
       if dealer.new_record?
         puts "     new ------#{'EXCLUDED' if dealer.exclude?}---------> #{dealer.name_and_address} "
       elsif dealer.changed?
@@ -38,8 +38,8 @@ namespace :sap do
         puts " same --> #{dealer.name} #{'EXCLUDED' if dealer.exclude?}"
       end
 
-      # sleep(2) if dealer.new_record? || dealer.address_changed? # we had to geocode, so give Google a break for 4 seconds
-      # dealer.save! if dealer.changed?
+      sleep(2) if dealer.new_record? || dealer.address_changed? # we had to geocode, so give Google a break for 4 seconds
+      dealer.save if dealer.changed?
     end
     puts "Total dealers in database: #{Dealer.count}"
   end
