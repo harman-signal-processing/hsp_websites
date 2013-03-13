@@ -9,52 +9,54 @@
 
 	Use the "exclude" link next to dealers who should not be included in
 		the site's dealer lookup results.
-</div>
-
-<% if can? :create, Dealer %>
-<div class="button_container">
-	<%= link_to 'New dealer', new_admin_dealer_path, class: "new button" %>
-</div>
-<% end %>
-
-<%= search_form_for [:admin, @search] do |f| %>
-  <div class="form_field">
-    <%= f.label :name_cont, "Name contains" %><br/>
-    <%= f.text_field :name_cont %>
-    <%= f.submit "Search dealers" %>
-    <div>
-      <%= check_box_tag :this_brand, true, @this_brand %>
-      <%= label_tag :this_brand, "Only #{website.brand.name} dealers", class: "hint" %>
-    </div>
   </div>
-<% end %>
 
-<% if @dealers.length > 0 %>
-<table class="data">
-  <tr>
-    <th>Name</th>
-    <th>City</th>
-    <th>State</th>
-    <th>Email</th>
-    <th>Account number</th>
-  </tr>
+  <% if can? :create, Dealer %>
+  <div class="button_container">
+  	<%= link_to 'New dealer', new_admin_dealer_path, class: "new button" %>
+  </div>
+  <% end %>
 
-<% @dealers.each do |dealer| %>
-  <tr style="background: <%= cycle 'white', 'none' %>" <% if dealer.exclude? %>class="strike"<% end %> id="dealer_<%= dealer.id %>">
-    <td><%= link_to dealer.name, [:admin, dealer] %></td>
-    <td><%= dealer.city %></td>
-    <td><%= dealer.state %></td>
-    <td><%= dealer.email %></td>
-    <td><%= dealer.account_number %></td>
-	<% unless dealer.exclude? %>
-	<td id="excluder_<%= dealer.id %>">
-		<%= link_to "exclude", admin_dealer_path(dealer, dealer: {exclude: true}), method: :put, remote: true %>
-	</td>
-	<% end %>
-  </tr>
-<% end %>
-</table>
-<% end %>
+  <%= search_form_for [:admin, @search] do |f| %>
+    <div class="form_field">
+      <%= f.label :name_cont, "Name contains" %><br/>
+      <%= f.text_field :name_cont %>
+      <%= f.submit "Search dealers" %>
+      <div>
+        <%= check_box_tag :this_brand, true, @this_brand %>
+        <%= label_tag :this_brand, "Only #{website.brand.name} dealers", class: "hint" %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @dealers.length > 0 %>
+  <table class="data">
+    <tr>
+      <th>Name</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Email</th>
+      <th>Account number</th>
+    </tr>
+
+  <% @dealers.each do |dealer| %>
+    <% if can? :manage, dealer %>
+      <tr style="background: <%= cycle 'white', 'none' %>" <% if dealer.exclude? %>class="strike"<% end %> id="dealer_<%= dealer.id %>">
+        <td><%= link_to dealer.name, [:admin, dealer] %></td>
+        <td><%= dealer.city %></td>
+        <td><%= dealer.state %></td>
+        <td><%= dealer.email %></td>
+        <td><%= dealer.account_number %></td>
+    	<% unless dealer.exclude? %>
+    	<td id="excluder_<%= dealer.id %>">
+    		<%= link_to "exclude", admin_dealer_path(dealer, dealer: {exclude: true}), method: :put, remote: true %>
+    	</td>
+    	<% end %>
+      </tr>
+    <% end %>
+  <% end %>
+  </table>
+  <% end %>
 
 <% end %>
 

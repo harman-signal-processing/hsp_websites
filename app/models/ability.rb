@@ -117,8 +117,9 @@ class Ability
         can :read, ToolkitResource, dealer: true
         can :read, ToolkitResourceType
         can :manage, Dealer do |dealer|
-          user.dealers.include?(dealer)
+          dealer.users.include?(user)
         end
+        cannot :create, Dealer
       end
       if user.role?(:distributor)
         can :read, ToolkitResource, distributor: true

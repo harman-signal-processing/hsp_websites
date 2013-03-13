@@ -41,7 +41,7 @@ class Dealer < ActiveRecord::Base
     if !!(self.account_number.match(/^(\d*)\-+\d*$/))
       Dealer.find_by_account_number($1)
     else
-      nil
+      self
     end
   end
 
@@ -53,7 +53,7 @@ class Dealer < ActiveRecord::Base
   end
 
   def format_account_number
-    self.account_number.gsub!(/^0*/, '') # ("%010d" % self.account_number.to_i).to_s
+    self.account_number = self.account_number.to_s.gsub(/^0*/, '') # ("%010d" % self.account_number.to_i).to_s
   end
 
   # Format the address, city, state, zip into a single string for geocoding

@@ -10,7 +10,7 @@ class AdminController < ApplicationController
     @msg = ""
     unless can?(:manage, :all) || can?(:manage, ContentTranslation) || can?(:manage, Product) ||
       can?(:manage, Software) || can?(:manage, ServiceCenter) || can?(:manage, Artist) ||
-      can?(:manage, Setting) || can?(:read, Clinic)
+      can?(:manage, Setting) || can?(:read, Clinic) || can?(:manage, Dealer)
       if can?(:read, OnlineRetailer)
         redirect_to admin_online_retailers_path and return
       else
