@@ -9,7 +9,7 @@ h5. Importing SAP Dealers
 Each month, do this:
 * Email Kimm and ask for the report of dealers from SAP that she has sent in the past.
 * Ensure the Excel report has columns in this order:
-:sold_to, :account_number, :name, :name2, :address, :city, :state, :zip, :telephone, :fax, :del_flag, :del_block, :order_block, :empty_col, :email
+  :sold_to, :account_number, :name, :name2, :address, :city, :state, :zip, :telephone, :fax, :country, :del_flag, :del_block, :order_block, :empty_col, :email
 * Export the Excel file as CSV with comma delimiters and quoted text
 * Copy the CSV to: /var/www/hmg/hsp_websites/sap_dealers.csv (on either rails server)
 * log in to the server with ssh

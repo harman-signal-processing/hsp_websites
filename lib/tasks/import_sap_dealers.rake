@@ -3,10 +3,15 @@ namespace :sap do
   
   desc "Import dealers from CSV file provided by SAP"
   task :import_dealers => :environment do
+    # puts "Fixing old account numbers"
+    # Dealer.all.each do |dealer|
+    #   dealer.format_account_number
+    #   dealer.save!
+    # end
     puts "Importing..."
     file = Rails.root.join("../", "../", "sap_dealers.csv")
     # keys = [:name, :name2, :name3, :name4, :address, :city, :state, :zip, :telephone, :fax, :email, :account_number]
-    keys = [:sold_to, :account_number, :name, :name2, :address, :city, :state, :zip, :telephone, :fax, :del_flag, :del_block, :order_block, :empty_col, :email]
+    keys = [:sold_to, :account_number, :name, :name2, :address, :city, :state, :zip, :country, :telephone, :fax, :del_flag, :del_block, :order_block, :empty_col, :email]
 
     CSV.read(file).each do |row|
       next unless !!(row[0].to_s.match(/\d/))
@@ -20,8 +25,8 @@ namespace :sap do
       dealer.city      = d[:city]
       dealer.state     = d[:state]
       dealer.zip       = d[:zip]
-      dealer.telephone = d[:telephone]
-      dealer.fax       = d[:fax]
+      dealer.telephone = phormat(d[:telephone])
+      dealer.fax       = phormat(d[:fax])
       dealer.email     = d[:email]
 
       dealer.del_flag    = d[:del_flag]
@@ -42,6 +47,16 @@ namespace :sap do
       dealer.save if dealer.changed?
     end
     puts "Total dealers in database: #{Dealer.count}"
+  end
+
+  def phormat(num)
+    if num.to_s.match(/^(\d{3})(\d{3})(\d{4})$/)
+      "(#{$1}) #{$2}-#{$3}"
+    elsif num.to_s.match(/^1(\d{3})(\d{3})(\d{4})$/)
+      "1(#{$1}) #{$2}-#{$3}"
+    else
+      num
+    end
   end
   
   desc "Determine which account numbers should be excluded (based on legacy keywords)"
