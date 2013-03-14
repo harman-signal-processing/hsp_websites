@@ -10,7 +10,7 @@ class Admin::ProductsController < AdminController
     @products = @search.result
     respond_to do |format|
       format.html { 
-        if @products.size == 1
+        if params[:q] && @products.size == 1
           redirect_to [:admin, @products.first]
         else
           render_template 

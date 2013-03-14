@@ -39,7 +39,11 @@ class Dealer < ActiveRecord::Base
 
   def parent
     if !!(self.account_number.match(/^(\d*)\-+\d*$/))
-      Dealer.find_by_account_number($1)
+      if p = Dealer.find_by_account_number($1)
+        p
+      else
+        self
+      end
     else
       self
     end
