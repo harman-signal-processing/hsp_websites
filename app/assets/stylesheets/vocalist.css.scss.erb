@@ -711,16 +711,21 @@ div#product_buy_now_box {
 	padding: 12px;
 	opacity: 0.9;
 	filter:alpha(opacity=90);
-}
-#dealer_popup #dealers {
-	height: 310px;
-	overflow: auto;
-	margin-bottom: 5px;
-}
-#dealer_popup a:link,
-#dealer_popup a:visited {
-	color:white;
-/*	display: block;*/
+	#dealers {
+		height: 310px;
+		overflow: auto;
+		margin-bottom: 5px;
+	}
+	a:link, a:visited {
+		color:white;
+	}
+	#close {
+		a:link, a:visited {
+			color: #111;
+			text-decoration: none;
+			font-weight: bold;
+		}
+	}
 }
 #dealer_popup_close {
 	position:absolute;
@@ -728,12 +733,7 @@ div#product_buy_now_box {
 	opacity: 0.9;
 	filter:alpha(opacity=90);
 }
-#dealer_popup #close a:link,
-#dealer_popup #close a:visited {
-	color: #111;
-	text-decoration: none;
-	font-weight: bold;
-}
+
 /***** Dealer Lookup *****/
 div#dealer_lookup_floater {
 	float: right;
@@ -747,10 +747,9 @@ div#dealer_lookup_floater {
 	-moz-border-radius: 2px;
 	border-radius: 2px;
 	margin-bottom: 2px;
-}
-.form_container a:link,
-.form_container a:visited {
-	color: white;
+	a:link, a:visited {
+		color: white;
+	}
 }
 ul.dealer_results li {
 	margin-bottom: 12px;
@@ -763,10 +762,10 @@ div#pop_info {
 	float: left;
 	margin: 15px;
 	margin-right: 5px;
-}
-div#pop_info p {
-	text-align: left;
-	margin: 6px;
+	p {
+		text-align: left;
+		margin: 6px;
+	}
 }
 div#wtb_container {
 	width: 860px;
