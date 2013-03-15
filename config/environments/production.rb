@@ -42,6 +42,7 @@ HarmanSignalProcessingWebsite::Application.configure do
     jbl_commercial.css 
     lexicon.css 
     idx.css 
+    idxed.css 
     site.css 
     toolkit.css
     toolkit_application.js
