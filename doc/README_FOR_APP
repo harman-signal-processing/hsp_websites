@@ -27,10 +27,8 @@ h5. Things I need to work on...
   * hand-picked items to feature on its homepage: products, promos, etc.
   * Need to uniquify toolkit resources by the filename in case two share 
   	the same item.
-  * mass email distributors? YES! first mass-create their logins like so:
-     - crawl through the active dealers
-     - register their email address (if they have one)
-     - register their password = their account number (without ship-to suffix)
+  * mass email distributors? Maybe, accounts have been created like so:
+    - email addr on file, with "toolkit" password
   * use the same logins for accommodation? dealer portal?
 
  Working on importing old registrations. The file we have seems
@@ -40,8 +38,7 @@ h5. Things I need to work on...
 ================================================================
 
 === TODO for Toolkits ===
-* Verify user sign ups via SAP account number--need to update dealer SAP export
-* Determine by acct. number which users access which brands
+* Verify user sign ups via SAP account number
 * Dealers update their own info (address)
 * Dealers update their own buy-it-now links
 -- Created "DealerUsers" to link users to dealers--
@@ -51,7 +48,6 @@ h5. Things I need to work on...
 
 === TODO for BSS site ===
 * Finish migrating product content--SPECS, FAQs
-* Migrate news--done back thru 2009
 * finish URL forwarders
 * Design
 * Individual contact forms?
@@ -73,7 +69,6 @@ What you will need to change is: itemid=100170580&subitemid=358897 based on the 
 
 === TODO (for all brands) ===
 * Employee purchases--get IT to update links on myharman.com
-* Fix dealer export from SAP
 * Clean up product info tabs methods (several in product.rb, product_helper.rb)
 * Minitest for admin functions
 * Separate admin permissions by brands
