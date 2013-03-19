@@ -63,9 +63,10 @@ class Product < ActiveRecord::Base
     indexes :short_description
   end
   
-  def belongs_to_this_brand?(website)
+  def belongs_to_this_brand?(brand)
+    brand = brand.brand if brand.is_a?(Website) # if a Website is passed in instead of a Brand
     begin
-      self.brand_id == website.brand_id || self.product_families.collect{|pf| pf.brand_id}.include?(website.brand_id)
+      self.brand_id == brand.id || self.product_families.collect{|pf| pf.brand_id}.include?(brand.id)
     rescue
       false
     end
@@ -367,6 +368,16 @@ class Product < ActiveRecord::Base
       product_price.price 
     else
       nil
+    end
+  end
+
+  # A hack to exclude epedals from physical product listings
+  def virtual_product?
+    begin
+      istomp = Product.find("istomp")
+      self.parents.include?(istomp)
+    rescue
+      false
     end
   end
   

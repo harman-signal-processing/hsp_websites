@@ -111,7 +111,21 @@ class ProductFamily < ActiveRecord::Base
 
   # One level of products for the toolkit--just this family
   def current_products_for_toolkit
-    self.current_products.select{|p| p if p.can_be_registered?}
+    self.products.select{|p| p if p.show_on_website?(self.brand) && !p.discontinued? && !p.virtual_product? }
+  end
+
+  # Recurses down the product family trees to collect all the disontinued products (for the toolkit)
+  def all_discontinued_products
+    products = []
+    products += discontinued_products
+    children.each do |child|
+      products += child.all_discontinued_products
+    end
+    products.flatten.uniq
+  end
+
+  def discontinued_products
+    products.select{|p| p if p.discontinued?}
   end
 
   # Collection of all the locales where this ProductFamily should appear.

@@ -14,15 +14,7 @@
 	</thead>
 	<tbody>
 	<% products.each do |product| %>
-	<tr>
-		<td width="8%" style="text-align: center;">
-			<% if product.photo %>
-				<%= link_to image_tag(product.photo.product_attachment.url(:tiny_square), alt: product.name, width: 32, height: 32), toolkit_brand_product_path(@brand, product) %>
-			<% end %>
-		</td>
-		<td><%= link_to product.name, toolkit_brand_product_path(@brand, product) %></td>
-		<td><%= (product.short_description.present?) ? product.short_description : product.product_families.map{|pf| pf.name}.join(", ") %></td>
-	</tr>
+		<%= render "product_row", product: product %>
 	<% end %>
 	</tbody>
 </table>

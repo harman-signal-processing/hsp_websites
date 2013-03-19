@@ -161,9 +161,9 @@ class Brand < ActiveRecord::Base
     p.uniq #.flatten.uniq.sort{|a,b| a.name.downcase <=> b.name.downcase}
   end
 
-  # Special version of current products just for the toolkit
+  # Special selection of products just for the toolkit
   def toolkit_products
-    current_products.select{|p| p if p.can_be_registered?}.sort_by{|p| p.created_at}.reverse
+    products.select{|p| p if p.show_on_website?(self) && !p.virtual_product? }.sort_by{|p| p.created_at}.reverse
   end
     
   def family_products
