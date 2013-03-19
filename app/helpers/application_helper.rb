@@ -127,7 +127,9 @@ module ApplicationHelper
 	    if (software.category == category || (software.category.blank? && category=="other")) && software.active?
 	      icon = platform_icon(software)
 	      link = link_to(software.name, software_path(software, locale: I18n.locale))
-	      links << "#{icon} #{link} #{software.platform} #{software.version}"
+        platform_and_version = software.version
+        platform_and_version += " (#{software.platform})" if software.platform.present?
+	      links << "#{icon} #{link} #{platform_and_version}"
 	    end
 	  end
 	  raw(links.join("<br/>"))
