@@ -49,6 +49,8 @@ h5. Things I need to work on...
 
 === TODO for BSS site ===
 * Finish migrating product content--SPECS, FAQs
+  -> Dante products -- adjust image positions
+  -> London option cards (current site has buttons that open PDFs)
 * finish URL forwarders
 * Design
 * Individual contact forms?
