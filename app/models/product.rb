@@ -217,7 +217,7 @@ class Product < ActiveRecord::Base
     r << ProductTab.new("documentation") if (self.product_documents.size > 0 || self.current_and_recently_expired_promotions.size > 0 || self.viewable_site_elements.size > 0) && self.brand.main_tabs.include?("documentation")
     r << ProductTab.new("training_modules") if self.training_modules.size > 0 && self.brand.main_tabs.include?("training_modules")
     r << ProductTab.new("downloads_and_docs") if (self.softwares.size > 0 || self.product_documents.size > 0 || self.site_elements.size > 0) && self.brand.main_tabs.include?("downloads_and_docs")
-    r << ProductTab.new("news") if self.news.size > 0 && self.brand.main_tabs.include?("news")
+    r << ProductTab.new("news") if self.current_news.size > 0 && self.brand.main_tabs.include?("news")
     r << ProductTab.new("reviews") if (self.product_reviews.size > 0 || self.artists.size > 0) && self.brand.main_tabs.include?("reviews")
     r << ProductTab.new("artists") if self.artists.size > 0 && self.brand.main_tabs.include?("artists")
     r << ProductTab.new("tones") if self.tone_library_patches.size > 0 && self.brand.main_tabs.include?("tones")
@@ -264,7 +264,11 @@ class Product < ActiveRecord::Base
 
   # Combines related News and ProductReview for this Product into one list
   def news_and_reviews
-    (self.news + self.product_reviews).sort!{|a,b| b.created_at <=> a.created_at}
+    (self.current_news + self.product_reviews).sort!{|a,b| b.created_at <=> a.created_at}
+  end
+
+  def current_news
+    self.news.where("post_on <= ?", Date.today)
   end
   
   # Alias for search results link_name
