@@ -1,5 +1,5 @@
 <ul>
-	<% product.news.each do |p| %>
+	<% product.current_news.each do |p| %>
 	<li><b><%=l p.post_on.to_date, format: :long %></b><br/>
 		<%= link_to translate_content(p, :title), p %>
 	</li>

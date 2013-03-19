@@ -130,7 +130,7 @@ module ProductsHelper
     r << ProductTab.new("news_and_reviews") if product.news_and_reviews.size > 0 && selected_tabs.include?("news_and_reviews")
     r << ProductTab.new("downloads") if (product.softwares.size > 0 || product.site_elements.size > 0 || product.executable_site_elements.size > 0) && selected_tabs.include?("downloads")
     r << ProductTab.new("gallery") if product.images_for("product_page").size > 0 && selected_tabs.include?("gallery")
-    r << ProductTab.new("news") if product.news.size > 0 && selected_tabs.include?("news")
+    r << ProductTab.new("news") if product.current_news.size > 0 && selected_tabs.include?("news")
     r << ProductTab.new("support") if selected_tabs.include?("support")
     r
   end

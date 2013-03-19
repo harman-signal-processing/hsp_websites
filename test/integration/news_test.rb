@@ -35,6 +35,25 @@ describe "News Integration Test" do
   	end
   end
 
+  describe "product page" do 
+    before do
+      @product = @website.products.first
+    end
+
+    it "should link to current news" do
+      FactoryGirl.create(:news_product, news: @news_story, product: @product)
+      visit product_url(@product, locale: I18n.default_locale, host: @website.url)
+      page.must_have_link @news_story.title, href: news_path(@news_story, locale: I18n.default_locale)
+    end
+ 
+    it "should hide future news" do
+      @news_story = FactoryGirl.create(:news, brand: @website.brand, post_on: 1.month.from_now, title: "Future News")
+      FactoryGirl.create(:news_product, news: @news_story, product: @product)
+      visit product_url(@product, locale: I18n.default_locale, host: @website.url)
+      page.wont_have_link @news_story.title
+    end
+  end
+
   describe "future news story" do
     before do
       @news_story = FactoryGirl.create(:news, brand: @website.brand, post_on: 1.month.from_now, title: "Future News")
