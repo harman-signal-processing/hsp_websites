@@ -19,3 +19,20 @@
 	<%= render "products", product_family: product_family %>
 <% end %>
 
+<% if @product_family.all_discontinued_products.size > 0 %>
+<br/>
+	<h6>Discontinued Products</h6>
+	<table style="width: 100%">
+		<thead>
+		<tr>
+			<th width="33%" colspan="2">Product</th>
+			<th width="66%">Product Type</th>
+		</tr>
+		</thead>
+		<tbody>
+		<% @product_family.all_discontinued_products.each do |product| %>
+			<%= render "product_row", product: product %>
+		<% end %>
+		</tbody>
+	</table>
+<% end %>

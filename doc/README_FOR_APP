@@ -25,10 +25,11 @@ h5. Things I need to work on...
 
 --> Toolkit idea: each brand should have:
   * hand-picked items to feature on its homepage: products, promos, etc.
-  * Need to uniquify toolkit resources by the filename in case two share 
+  * Might need to uniquify toolkit resources by the filename in case two share 
   	the same item.
-  * mass email distributors? Maybe, accounts have been created like so:
+  * mass email dealers? Maybe, accounts have been created like so:
     - email addr on file, with "toolkit" password
+  * get distributor accounts created
   * use the same logins for accommodation? dealer portal?
 
  Working on importing old registrations. The file we have seems
