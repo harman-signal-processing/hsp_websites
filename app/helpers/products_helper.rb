@@ -313,5 +313,10 @@ module ProductsHelper
   def swf_tag(source, options={}, &block)
     ActionView::Helpers::SwfFuHelper::Generator.new(source, options, self).generate(&block)
   end
+
+  # Returns a checkmark if the specification value is "yes"
+  def spec_value(val)
+    (val.match(/^yes\s*?$/i)) ? image_tag("check.png", alt: val) : val
+  end
   
 end
