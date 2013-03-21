@@ -111,13 +111,21 @@ module ApplicationHelper
   # Platform icon. Make sure there are icons for all the different platforms and sizes
   # in the public/images folder
   def platform_icon(software, size=17)
-    if software.platform.match(/windows/i)
-			image_tag "windows_#{size}.png", style: "vertical-align: middle"
-		elsif software.platform.match(/mac/i)
-			image_tag "mac_#{size}.png", style: "vertical-align: middle"
-		elsif software.platform.match(/linux/i)
-			image_tag "tux_#{size}.png", style: "vertical-align: middle"
-		end
+    img = case software.platform.to_s
+      when /windows/i
+        "windows_#{size}.png"
+      when /mac/i
+        "mac_#{size}.png"
+      when /linux/i
+        "tux_#{size}.png"
+      when /ios/i
+        "iOS_#{size}.png"
+      when /android/i
+        "android_#{size}.png"
+      else
+        "none_#{size}.png"
+    end
+    image_tag img, style: "vertical-align: middle"
 	end
 	
 	# Links to software packages for a product that fit a given category
