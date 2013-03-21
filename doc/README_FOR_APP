@@ -48,12 +48,14 @@ h5. Things I need to work on...
 * Dynamically choose homepage content, each brand start page
 
 === TODO for BSS site ===
-* Finish migrating product content--SPECS, FAQs
-  -> Dante products -- adjust image positions
+* Finish migrating product content
   -> London option cards (current site has buttons that open PDFs)
-* finish URL forwarders
-* Design
-* Individual contact forms?
+  -> Specs for non-London products
+
+* Don't worry about these unless someone asks:
+  * FDS firmware update reg forms and URL forwarders 
+  * More banners
+  * Individual contact forms?
 
 === TODO for dbx site ===
 * Sales rep info
