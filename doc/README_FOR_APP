@@ -49,8 +49,7 @@ h5. Things I need to work on...
 
 === TODO for BSS site ===
 * Finish migrating product content
-  -> London option cards (current site has buttons that open PDFs)
-  -> Specs for non-London products
+  -> Specs for London controllers, bib/bob, and non-London products
 
 * Don't worry about these unless someone asks:
   * FDS firmware update reg forms and URL forwarders 

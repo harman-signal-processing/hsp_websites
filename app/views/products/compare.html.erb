@@ -39,6 +39,37 @@
 		<% end %>
 	</tr>
 	<% end %>
+
+	<% if @products.inject(0){|total,p| total += p.sub_products.count} > 0 %>
+	<tr>
+		<td class="spec_name">Options</td>
+		<% @products.each do |product| %>
+		<td class="spec_value">
+			<% if ps = product.sub_products %>
+				<%=raw ps.map{|p| link_to(p.product.name, p.product)}.join(", ") %>
+			<% else %>
+				--
+			<% end %>
+		</td>
+		<% end %>
+	</tr>
+	<% end %>
+
+	<% if @products.inject(0){|total,p| total += p.parent_products.count} > 0 %>
+	<tr>
+		<td class="spec_name">Works with</td>
+		<% @products.each do |product| %>
+		<td class="spec_value">
+			<% if pp = product.parent_products %>
+				<%=raw pp.map{|p| link_to(p.parent_product.name, p.parent_product)}.join(", ") %>
+			<% else %>
+				--
+			<% end %>
+		</td>
+		<% end %>
+	</tr>
+	<% end %>
+
 	<% @specs.each do |spec| %>
 	<tr>
 		<td class="spec_name"><%= translate_content(spec, :name) %></td>
