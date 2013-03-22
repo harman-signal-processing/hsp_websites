@@ -114,7 +114,25 @@
 		<!-- <%= @active_tab %> -->
 		<%= draw_main_tabs_content @product, active_tab: @active_tab %>
 	</div>
+	<% if @product.sub_products.length > 0 %>
+		<div class="sub_products clear">
+			<h4><%= @product.name %> Options</h4>
+			<% @product.sub_products.each do |child| %>
+				<%= render_partial "product_families/product_square", product: child.product, compare: false %>
+			<% end %>
+			<div class="clear"></div>
+		</div>
+	<% end %>
 
+	<% if @product.parent_products.length > 0 %>
+		<div class="sub_products clear">
+			<h4><%= @product.name %> Works With</h4>
+			<% @product.parent_products.each do |parent| %>
+				<%= render_partial "product_families/product_square", product: parent.parent_product, compare: false %>
+			<% end %>
+			<div class="clear"></div>
+		</div>
+	<% end %>
 	<div class="clear"></div>
 </div>
 
