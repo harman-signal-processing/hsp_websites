@@ -20,7 +20,8 @@
     <%= f.collection_select :default_website_id, @brand.websites, :id, :url, include_blank: true %>
   </div>
   <div class="field">
-	<%= f.check_box :has_market_segments %> <%= f.label :has_market_segments %><br/>
+  <%= f.check_box :has_market_segments %> <%= f.label :has_market_segments %><br/>
+	<%= f.check_box :product_trees %> <%= f.label :product_trees, "Products can be arranged with sub-products (epedals, expansion cards, etc.)" %><br/>
 	<%= f.check_box :has_effects %> <%= f.label :has_effects %><br/>
 	<%= f.check_box :has_reviews %> <%= f.label :has_reviews %><br/>
 	<%= f.check_box :has_faqs %> <%= f.label :has_faqs %><br/>
@@ -37,7 +38,7 @@
 	<%= f.check_box :has_parts_form %> <%= f.label :has_parts_form, "Site has online parts request form" %><br/>
 	<%= f.check_box :has_rma_form %> <%= f.label :has_rma_form, "Site has online RMA form" %><br/>
 	<%= f.check_box :rso_enabled %> <%= f.label :rso_enabled, "Enable for RSO site" %><br/>
-	<%= f.check_box :has_training %><%= f.label :has_training, "Has training resources" %><br/>
+	<%= f.check_box :has_training %> <%= f.label :has_training, "Has training resources" %><br/>
 	<%= f.check_box :show_pricing %> <%= f.label :show_pricing, "Show pricing on product pages, enable direct-buy features" %><br/>
 	<%= f.check_box :has_suggested_products %> <%= f.label :has_suggested_products %><br/>
 	<%= f.check_box :has_blogs %> <%= f.label :has_blogs %><br/>

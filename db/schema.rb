@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130306201523) do
+ActiveRecord::Schema.define(:version => 20130322142038) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -234,6 +234,7 @@ ActiveRecord::Schema.define(:version => 20130306201523) do
     t.boolean  "has_label_sheets"
     t.boolean  "employee_store"
     t.boolean  "live_on_this_platform"
+    t.boolean  "product_trees"
   end
 
   add_index "brands", ["cached_slug"], :name => "index_brands_on_cached_slug", :unique => true

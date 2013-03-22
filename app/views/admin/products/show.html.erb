@@ -81,7 +81,7 @@
 	<% end %>
 </ul>
 
-<% elsif @product.sub_products.size < 1 && website.brand.to_param == 'digitech' %>
+<% elsif @product.sub_products.size < 1 && website.brand.product_trees? %>
 <h3>This is a sub-product of:</h3>
 <%= form_for [:admin, @parent_product], remote: true do |f| %>
 	<%= hidden_field_tag "called_from", "product" %>
