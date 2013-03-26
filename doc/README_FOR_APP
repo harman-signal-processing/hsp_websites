@@ -18,42 +18,36 @@ Each month, do this:
 * wait. it will take a while...
 * verify data
 
+h5. Then, import from BI which ties brands with dealers.
+
 h5. Things I need to work on...
 
 ================================================================
                  *** Notes for tomorrow ***
 
---> Toolkit idea: each brand should have:
-  * hand-picked items to feature on its homepage: products, promos, etc.
-  * Might need to uniquify toolkit resources by the filename in case two share 
-  	the same item.
-  * mass email dealers? Maybe, accounts have been created like so:
-    - email addr on file, with "toolkit" password
-  * get distributor accounts created
-  * use the same logins for accommodation? dealer portal?
-
- Working on importing old registrations. The file we have seems
- odd. mostly digitech. check the old web server for older
- dbx registrations. find lexicon in the old database. ugh.
- 
 ================================================================
 
 === TODO for Toolkits ===
-* Verify user sign ups via SAP account number
+* Distributor accounts have been created like so:
+  - email addr on file, with "toolkit" password
+* get distributor accounts created
+
 * Dealers update their own info (address)
 * Dealers update their own buy-it-now links
--- Created "DealerUsers" to link users to dealers--
--- Need some sort of separate sign-up with the acct. number and Phone number?--
 
 * Dynamically choose homepage content, each brand start page
 
-=== TODO for BSS site ===
-* Finish migrating product content
-  -> Specs for London controllers, bib/bob, and non-London products
+* Might need to uniquify toolkit resources by the filename in case two share 
+  the same item.
+* use the same logins for accommodation? dealer portal?
 
-* Don't worry about these unless someone asks:
+=== TODO for BSS site ===
+* AEC Demo video (either create page or upload to youtube)
+* Conferencing banner - redo
+* London banner - redo
+
+* Don't worry about these until/unless someone asks:
   * FDS firmware update reg forms and URL forwarders 
-  * More banners
   * Individual contact forms?
 
 === TODO for dbx site ===
