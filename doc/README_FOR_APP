@@ -28,15 +28,16 @@ h5. Things I need to work on...
 ================================================================
 
 === TODO for Toolkits ===
-* Distributor accounts have been created like so:
+* Dealer accounts have been created like so:
   - email addr on file, with "toolkit" password
+  
 * get distributor accounts created
-
+* Setup a method for Harman employee logins (outside of marketing dept.)
 * Dealers update their own info (address)
 * Dealers update their own buy-it-now links
+* Dynamically choose content for each brand start page
 
-* Dynamically choose homepage content, each brand start page
-
+_other_
 * Might need to uniquify toolkit resources by the filename in case two share 
   the same item.
 * use the same logins for accommodation? dealer portal?
