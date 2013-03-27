@@ -55,6 +55,8 @@ class MainController < ApplicationController
         redirect_to(where_to_buy_path, alert: t('errors.geocoding')) and return false
       end
     end
+    @countries = Distributor.countries(website)
+    @country = nil
     render_template
   end
   
