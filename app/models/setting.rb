@@ -49,7 +49,7 @@ class Setting < ActiveRecord::Base
     begin
       where(brand_id: website.brand_id).where(name: "site_name").first.value
     rescue
-      SITE_NAME
+      HarmanSignalProcessingWebsite::Application.config.default_site_name
     end
   end
   

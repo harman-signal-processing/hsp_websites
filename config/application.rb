@@ -65,8 +65,12 @@ module HarmanSignalProcessingWebsite
         g.stylesheets      false
     end
 
+    # Override these in environment configs...
     config.employee_invitation_code = "GROOVYBABY"
-    config.rso_invitation_code = "YOUAREINVITED"
-    config.toolkit_url = "http://marketingtoolkit.harmanpro.com"
+    config.rso_invitation_code      = "YOUAREINVITED"
+    config.toolkit_url              = "http://marketingtoolkit.harmanpro.com"
+    config.default_site_name        = "Harman Signal Processing" 
+    config.toolkit_admin_email_addresses = ["adam.anderson@harman.com"]
+    config.toolkit_admin_contact_info    = ["Adam Anderson at adam.anderson@harman.com"]    
   end
 end

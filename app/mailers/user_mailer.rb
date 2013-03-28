@@ -33,9 +33,9 @@ class UserMailer < Devise::Mailer
   def cant_confirm(record, opts={})
   	initialize_from_record(record)
   	@email = @resource.email
-  	default_url_options[:host] = TOOLKIT_HOST
+  	default_url_options[:host] = HarmanSignalProcessingWebsite::Application.config.toolkit_url
   	mail to: @email, 
-  		cc: TOOLKIT_ADMINISTRATOR_EMAIL_ADDRESSES,
+  		cc: HarmanSignalProcessingWebsite::Application.config.toolkit_admin_email_addresses,
   		subject: "Harman Toolkit can't confirm account", 
   		template_name: "cant_confirm"
   end
@@ -49,7 +49,7 @@ class UserMailer < Devise::Mailer
   def determine_host(record)
   	begin
   		if record.needs_account_number? || record.needs_invitation_code?
-  			default_url_options[:host] = TOOLKIT_HOST
+  			default_url_options[:host] = HarmanSignalProcessingWebsite::Application.config.toolkit_url
   		elsif record.brand_toolkit_contacts.count > 0
   			default_url_options[:host] = record.brand_toolkit_contacts.first.brand.default_website.url 
   		end
