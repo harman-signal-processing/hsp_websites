@@ -25,7 +25,9 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true
   validates :password, presence: true, confirmation: true, on: :create
   validates :invitation_code, presence: true, 
-    inclusion: {in: [RsoSetting.invitation_code], message: "is invalid. (it is cAsE sEnSiTiVe.)"},
+    inclusion: {in: [HarmanSignalProcessingWebsite::Application.config.rso_invitation_code, 
+        HarmanSignalProcessingWebsite::Application.config.employee_invitation_code], 
+      message: "is invalid. (it is cAsE sEnSiTiVe.)"},
     on: :create,
     if: :needs_invitation_code?
   validates :account_number, presence: true, on: :create, if: :needs_account_number?
@@ -40,6 +42,7 @@ class User < ActiveRecord::Base
     :password_confirmation, 
     :remember_me,
     :admin, 
+    :employee, 
     :online_retailer, 
     :customer_service, 
     :translator, 
@@ -63,6 +66,7 @@ class User < ActiveRecord::Base
   attr_accessor :account_number
   
   ROLES = %w[admin 
+    employee
     online_retailer 
     customer_service 
     translator 
@@ -99,6 +103,10 @@ class User < ActiveRecord::Base
   def role?(role)
     roles.include? role.to_s
   end
+
+  def employee?
+    role?(:employee)
+  end
   
   def rso?
     role?(:rso)
@@ -121,7 +129,7 @@ class User < ActiveRecord::Base
   end
 
   def needs_invitation_code?
-    rso?
+    rso? || self.employee?
   end
   
   # Collect those who have the artist relations role

@@ -39,5 +39,8 @@ HarmanSignalProcessingWebsite::Application.configure do
   # the locale is "en-US" (which actually pulls from "en.yml")
   config.i18n.fallbacks = true
 
+  config.employee_invitation_code = "GROOVY"
+  config.rso_invitation_code = "INVITED"
+  config.toolkit_url = "test.toolkit.lvh.me"
 end
 

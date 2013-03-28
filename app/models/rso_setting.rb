@@ -7,11 +7,7 @@ class RsoSetting < ActiveRecord::Base
   end
 
   def self.invitation_code
-    if Rails.env.development? || Rails.env.test?
-      "INVITED"
-    else
-      value_for("invitation_code") || "FLSKWERCVIERUW"
-    end
+    HarmanSignalProcessingWebsite::Application.config.rso_invitation_code
   end
 
   # Determines the value of the current Setting. Values can come

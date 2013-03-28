@@ -65,5 +65,8 @@ module HarmanSignalProcessingWebsite
         g.stylesheets      false
     end
 
+    config.employee_invitation_code = "GROOVYBABY"
+    config.rso_invitation_code = "YOUAREINVITED"
+    config.toolkit_url = "http://marketingtoolkit.harmanpro.com"
   end
 end
