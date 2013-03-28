@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130322142038) do
+ActiveRecord::Schema.define(:version => 20130328183819) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -1415,6 +1415,7 @@ ActiveRecord::Schema.define(:version => 20130322142038) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
+    t.boolean  "employee"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

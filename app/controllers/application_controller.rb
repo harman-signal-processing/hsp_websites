@@ -175,6 +175,16 @@ private
     end
   end
 
+  def after_inactive_sign_up_path_for(resource)
+    if resource.is_a?(Artist)
+      new_artist_session_path
+    elsif !!(request.host.match(/toolkit/i))
+      "/users/sign_in?utm=mommy"
+    else
+      admin_root_path
+    end
+  end
+
   def restrict_api_access
     if Rails.env.production?
       authenticate_or_request_with_http_token do |token, options|

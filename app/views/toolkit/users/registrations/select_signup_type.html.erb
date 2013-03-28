@@ -10,10 +10,13 @@
 		<div class="six columns end panel" %>
 			<h4 class="subheader">I am a...</h4>
 
-			<p><%= radio_button_tag :signup_type, :dealer %> US Dealer</p>
-			<p><%= radio_button_tag :signup_type, :distributor %> Distributor</p>
-			<p><%= radio_button_tag :signup_type, :rep %> Sales Rep</p>
-			<p><%= radio_button_tag :signup_type, :rso %> RSO</p>
+			<p>
+				<%= radio_button_tag :signup_type, :dealer %> US Dealer<br/>
+				<%= radio_button_tag :signup_type, :distributor %> Distributor<br/>
+				<%= radio_button_tag :signup_type, :rep %> Sales Rep<br/>
+				<%= radio_button_tag :signup_type, :rso %> RSO<br/>
+				<%= radio_button_tag :signup_type, :employee %> Harman Employee
+			</p>
 
 			<div class="form-actions">
 				<%= submit_tag "Continue", class: "button", name: nil %>

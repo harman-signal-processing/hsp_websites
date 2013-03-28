@@ -5,7 +5,7 @@ describe "Toolkit Content Integration Test" do
   before do
     DatabaseCleaner.start
     setup_toolkit_brands
-    @host = "test.toolkit.lvh.me"
+    @host = HarmanSignalProcessingWebsite::Application.config.toolkit_url 
     host! @host
     Capybara.default_host = "http://#{@host}" 
     Capybara.app_host = "http://#{@host}" 

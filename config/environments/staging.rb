@@ -95,4 +95,6 @@ HarmanSignalProcessingWebsite::Application.configure do
      
   config.action_mailer.default_url_options = { :host => 'www.digitech.com' }
 
+  config.employee_invitation_code = "GROOVY"
+  config.rso_invitation_code = "HSP-RSO"
 end

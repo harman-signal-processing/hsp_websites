@@ -44,5 +44,9 @@ HarmanSignalProcessingWebsite::Application.configure do
   config.action_mailer.delivery_method = :test
   
   config.i18n.fallbacks = true
+
+  config.employee_invitation_code = "GROOVY"
+  config.rso_invitation_code = "HSP-RSO"
+  config.toolkit_url = "http://toolkit.lvh.me:3000"
 end
 
