@@ -49,6 +49,27 @@ namespace :sap do
     puts "Total dealers in database: #{Dealer.count}"
   end
 
+  desc "Update dealers/brands relationships"
+  task :update_brand_dealers => :environment do 
+    Brand.all.each do |brand|
+      file = Rails.root.join("../", "../", "#{brand.friendly_id}.csv")
+      if File.exist?(file)
+        puts "Reading #{brand.name} data..."
+        puts "  starting with #{brand.dealers.count} dealers"
+        CSV.read(file).each do |row|
+          if dealer = Dealer.find_by_account_number(row[1].to_s)
+            dealer.add_to_brand!(brand) unless dealer.exclude?
+          end
+        end
+
+        # Remove any dealers who haven't bought this brand in over a year
+        brand.brand_dealers.where("updated_at < ?", 14.months.ago).destroy_all
+        brand.reload
+        puts "  ending with #{brand.dealers.count} dealers"
+      end
+    end
+  end
+
   def phormat(num)
     if num.to_s.match(/^(\d{3})(\d{3})(\d{4})$/)
       "(#{$1}) #{$2}-#{$3}"

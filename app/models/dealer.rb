@@ -56,6 +56,17 @@ class Dealer < ActiveRecord::Base
     end
   end
 
+  # Add this dealer and its children (if any) to the given brand
+  def add_to_brand!(brand)
+    bd = BrandDealer.find_or_initialize_by_dealer_id_and_brand_id(self.id, brand.id)
+    bd.save
+
+    self.children.each do |child|
+      bd = BrandDealer.find_or_initialize_by_dealer_id_and_brand_id(child.id, brand.id)
+      bd.save
+    end
+  end
+
   def format_account_number
     self.account_number = self.account_number.to_s.gsub(/^0*/, '') # ("%010d" % self.account_number.to_i).to_s
   end

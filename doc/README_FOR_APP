@@ -20,6 +20,17 @@ Each month, do this:
 
 h5. Then, import from BI which ties brands with dealers.
 
+Each month, do this:
+* Log in to BI, download the sales report for EACH brand for previous 12 months
+* Export reports to Excel
+* Open each in Excel on Windows (BI's format only seems to work on Win/Excel)
+ - remove header block
+ - save as CSV
+* Copy each CSV to: /var/www/hmg/hsp_websites/dod.csv, digitech.csv, etc.
+ (make the file names match the friendly_id of each brand)
+* rake RAILS_ENV=production sap:update_brand_dealers
+
+
 h5. Things I need to work on...
 
 ================================================================
@@ -30,7 +41,7 @@ h5. Things I need to work on...
 === TODO for Toolkits ===
 * Dealer accounts have been created like so:
   - email addr on file, with "toolkit" password
-  
+
 * get distributor accounts created
 * Setup a method for Harman employee logins (outside of marketing dept.)
 * Dealers update their own info (address)
@@ -43,7 +54,6 @@ _other_
 * use the same logins for accommodation? dealer portal?
 
 === TODO for BSS site ===
-* AEC Demo video (either create page or upload to youtube)
 * Conferencing banner - redo
 * London banner - redo
 
