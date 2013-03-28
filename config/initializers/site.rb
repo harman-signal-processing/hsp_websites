@@ -1,7 +1,3 @@
-# The hostname for the Marketing Toolkit (used in mailers)
-TOOLKIT_HOST = "hsptoolkit.harmanpro.com"
-TOOLKIT_ADMINISTRATOR_EMAIL_ADDRESSES = ["adam.anderson@harman.com"]
-TOOLKIT_ADMINISTRATORS_CONTACT_INFO = ["Adam Anderson at adam.anderson@harman.com"]
 
 # The hostname for the fantastic RSO site (Regional Sales Office)
 RSO_HOST = "rso.digitech.com"
@@ -17,14 +13,6 @@ RSO_HOST = "rso.digitech.com"
 ## NOTE: This setting is now ignored in production. Instead it uses the Websites
 ## table to decipher the brand from the URL, but it is used in dev/test
 BRAND_ID = 1
-
-# Override the SITE_NAME by creating a Setting (/admin/settings) named "site_name".
-# The SITE_NAME below is only used if there is no Setting named "site_name". If 
-# poses a problem for you (running multiple sites from the same database), then
-# consider hosting the "Settings" table in a different database store than the
-# rest of the site. This way you can have one for each brand.
-#
-SITE_NAME = "Harman Signal Processing" 
 
 # The different types of documents that can be associated with a product. Make 
 # sure there's a corresponding entry in each config/locales YAML file.
@@ -57,10 +45,3 @@ DOCUMENT_LANGUAGES = [
   ["German", "de"]
 ]
 
-if Rails.env.production?
-  DEFAULT_FROM = "support@digitech.com"
-  DEFAULT_TO = "support@digitech.com"
-else
-  DEFAULT_FROM = "adam.anderson@harman.com"
-  DEFAULT_TO = "adam.anderson@harman.com"
-end

@@ -83,8 +83,8 @@ describe "Toolkit Users Integration Test" do
   		end
   		last_email.subject.must_have_content "can't confirm account"
   		last_email.to.must_include(user.email)
-  		last_email.cc.must_include TOOLKIT_ADMINISTRATOR_EMAIL_ADDRESSES.first
-  		last_email.body.must_have_content TOOLKIT_ADMINISTRATORS_CONTACT_INFO.first
+  		last_email.cc.must_include HarmanSignalProcessingWebsite::Application.config.toolkit_admin_email_addresses.first
+  		last_email.body.must_have_content HarmanSignalProcessingWebsite::Application.config.toolkit_admin_contact_info.first
   	end
   end
 

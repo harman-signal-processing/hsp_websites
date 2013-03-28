@@ -4,7 +4,7 @@
 Please try again or contact our toolkit administrators for assistance:</p>
 
 <ul>
-<%= TOOLKIT_ADMINISTRATORS_CONTACT_INFO.each do |tka| %>
+<%= HarmanSignalProcessingWebsite::Application.config.toolkit_admin_contact_info.each do |tka| %>
 	<li><%= tka %></li>
 <% end %>
 </ul>
