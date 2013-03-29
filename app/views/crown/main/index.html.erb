@@ -1,0 +1,33 @@
+<%= content_for :feature do %>
+	<%= cache ["slideshow", website.brand, I18n.locale] do %>
+		<% if Setting.slides(website).size > 0 %>
+			<%= slideshow(slides: Setting.slides(website), duration: 8700, transition: "fade") %>
+		<% end %>
+	<% end %>
+<% end %>
+
+
+<%= content_for :middle_stuff do %>
+	<%= cache ["homepage_features", website.brand, I18n.locale] do %>
+		<% if @features.size > 0 %>
+			<% @features.each do |feature| %>
+			<span class="homepage_feature">
+				<%= feature_button(feature) %>
+			</span>
+			<% end %>
+		<% else %>
+			<%= featured_product_families %>
+		<% end %>
+	<% end %>
+	<div class="clear"></div>
+<% end %>
+
+<%= content_for :preload do %>
+	<%= preload_background_images %>
+<% end %>
+
+<%= content_for :popup_code do %>
+	<% if website.homepage_popup %>
+		<%=raw website.homepage_popup %>
+	<% end %>
+<% end %>
