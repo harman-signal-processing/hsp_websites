@@ -17,7 +17,7 @@ class RsoMonthlyReport < ActiveRecord::Base
   after_create :create_panel_link
   
   def full_url
-    "http://#{RSO_HOST}#{self.relative_url}"
+    "http://#{HarmanSignalProcessingWebsite::Application.config.rso_host}#{self.relative_url}"
   end
   
   def relative_url

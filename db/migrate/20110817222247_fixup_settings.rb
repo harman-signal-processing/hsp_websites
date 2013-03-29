@@ -27,7 +27,7 @@ class FixupSettings < ActiveRecord::Migration
     OldSetting.all.each do |setting|
       new_setting = Setting.new(setting.attributes)
       puts " loaded: #{setting.inspect}"
-      new_setting.brand_id = BRAND_ID
+      new_setting.brand_id = 1
       new_setting.setting_type = "string" if !new_setting.string_value.blank?
       new_setting.setting_type = "integer" if !new_setting.integer_value.blank?
       new_setting.setting_type = "text" if !new_setting.text_value.blank?
@@ -36,19 +36,19 @@ class FixupSettings < ActiveRecord::Migration
     end
     ###### add some new ones
     s = Setting.find_or_initialize_by_name("email_signup_url")
-    s.brand_id = BRAND_ID
+    s.brand_id = 1
     s.setting_type = "string"
     s.string_value = "http://www.pages05.net/harmanprofessionalinc/Digitech/Digitech.com?Email="
     s.save!
     
     s = Setting.find_or_initialize_by_name("troubleshooting_url")
-    s.brand_id = BRAND_ID
+    s.brand_id = 1
     s.setting_type = "string"    
     s.string_value = "http://na5.salesforce.com/sol/public/solutionbrowser.jsp?cid=02n70000000PeyS&orgId=00D70000000Jxp8"
     s.save!
     
     s = Setting.find_or_initialize_by_name("addthis_username")
-    s.brand_id = BRAND_ID
+    s.brand_id = 1
     s.setting_type = "string"    
     s.string_value = "digitechfx"
     s.save!    

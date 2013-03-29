@@ -76,14 +76,7 @@
 </div>
 <% else %>
 <div id="wtb_container">
-<div id="dealer_results" style="width: 300px">
-	<h4><%= t('us_dealers') %></h4>
-	<%= form_tag where_to_buy_path() %>
-		<p><%= t("us_zip_code") -%><br/>
-		<%= text_field_tag "zip", session[:zip], style: "font-size: 200%; width: 200px;" %></p>
-		<p><%= submit_tag t('find_us_dealers') %></p>
-	</form>
-	<br/>
+<div id="dealer_results" style="width: 400px">
 	<h4><%= t('titles.international_distributors') %></h4>
 	<p><%= t("blurbs.international_distributors") %></p>
 	
@@ -96,7 +89,22 @@
 			
 	</form>
 </div>
-<div><%= image_tag("#{website.folder}/us_map.png") %></div>
+<div style="width: 350px;	padding: 14px;">
+	<h4><%= t('us_dealers') %></h4>
+
+	<% if addr = website.address_and_phone %>
+		<p>To find a licensed <%= website.brand.name %> contractor/installer in the US, please contact us at:</p>
+		<blockquote style="margin: 20px; color: #333"><%=raw addr %>
+			<% if sup = website.support_email %>
+			<br/><%= mail_to sup, sup %>
+			<% end %>
+		</blockquote>
+		<p>Or, complete our <%= link_to "contact form", support_path %>.</p>
+	<% else %>
+		<p>To find a licensed <%= website.brand.name %> contractor/installer in the US, please contact us by filling out our <%= link_to "contact form", support_path %>.</p>
+	<% end %>
+
+</div>
 <div class="clear"></div>
 
 <% if website.has_online_retailers? %>

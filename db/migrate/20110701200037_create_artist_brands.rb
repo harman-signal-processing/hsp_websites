@@ -7,7 +7,7 @@ class CreateArtistBrands < ActiveRecord::Migration
       t.timestamps
     end
     Artist.all.each do |artist|
-      ArtistBrand.create!(:artist_id => artist.id, :brand_id => BRAND_ID)
+      ArtistBrand.create!(:artist_id => artist.id, :brand_id => 1)
     end
   end
 

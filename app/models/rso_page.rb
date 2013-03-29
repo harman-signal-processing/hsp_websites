@@ -5,7 +5,7 @@ class RsoPage < ActiveRecord::Base
   after_create :create_rso_navigation
   
   def full_url
-    "http://#{RSO_HOST}#{self.relative_url}"
+    "http://#{HarmanSignalProcessingWebsite::Application.config.rso_host}#{self.relative_url}"
   end
   
   def relative_url
