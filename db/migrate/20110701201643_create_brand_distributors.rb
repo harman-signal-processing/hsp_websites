@@ -7,7 +7,7 @@ class CreateBrandDistributors < ActiveRecord::Migration
       t.timestamps
     end
     Distributor.all.each do |d|
-      BrandDistributor.create(:brand_id => BRAND_ID, :distributor_id => d.id)
+      BrandDistributor.create(:brand_id => 1, :distributor_id => d.id)
     end
   end
 

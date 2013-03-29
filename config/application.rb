@@ -68,9 +68,36 @@ module HarmanSignalProcessingWebsite
     # Override these in environment configs...
     config.employee_invitation_code = "GROOVYBABY"
     config.rso_invitation_code      = "YOUAREINVITED"
+    config.rso_host                 = "rso.digitech.com"
     config.toolkit_url              = "http://marketingtoolkit.harmanpro.com"
     config.default_site_name        = "Harman Signal Processing" 
     config.toolkit_admin_email_addresses = ["adam.anderson@harman.com"]
-    config.toolkit_admin_contact_info    = ["Adam Anderson at adam.anderson@harman.com"]    
+    config.toolkit_admin_contact_info    = ["Adam Anderson at adam.anderson@harman.com"]
+
+    config.document_types = [
+      ["Owner's Manual", "owners_manual"],
+      ["Cut Sheet", "cut_sheet"],
+      ["Quickstart Guide", "quickstart_guide"],
+      ["Application Guide", "application_guide"],
+      ["Install Guide", "install_guide"],
+      ["Preset List", "preset_list"],
+      ["Schematic", "schematic"],
+      ["Service Manual", "service_manual"],
+      ["Parts List", "parts_list"],
+      ["Calibration Procedure", "calibration_procedure"],
+      ["CAD Files", "cad_files"],
+      ["CAD Drawing front", "cad_drawing_front"],
+      ["CAD Drawing rear", "cad_drawing_rear"],
+      ["Brochure", "brochure"],
+      ["Other", "other"]
+    ]
+
+    config.document_languages = [
+      ["English", "en"],
+      ["Chinese", "zh"],
+      ["Spanish", "es"],
+      ["French", "fr"],
+      ["German", "de"]
+    ]
   end
 end

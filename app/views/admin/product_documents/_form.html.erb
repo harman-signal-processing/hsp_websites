@@ -6,11 +6,11 @@
 </p>
 <p>
   <%= f.label :language %><br />
-  <%= f.select :language, DOCUMENT_LANGUAGES %>
+  <%= f.select :language, HarmanSignalProcessingWebsite::Application.config.document_languages %>
 </p>
 <p>
   <%= f.label :document_type %><br />
-  <%= f.select :document_type, DOCUMENT_TYPES %>
+  <%= f.select :document_type, HarmanSignalProcessingWebsite::Application.config.document_types %>
 </p>
 <p>
   <%= f.label :document %><br />

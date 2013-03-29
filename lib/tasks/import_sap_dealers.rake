@@ -62,8 +62,11 @@ namespace :sap do
           end
         end
 
-        # Remove any dealers who haven't bought this brand in over a year
-        brand.brand_dealers.where("updated_at < ?", 14.months.ago).destroy_all
+        # Remove any dealers who haven't bought this brand in over a year. Since the
+        # BI reports span 1 year, all the valid once should have been touched in the
+        # previous loop. To be safe, keep 1 month worth of deadbeats at a time.
+        #
+        brand.brand_dealers.where("updated_at < ?", 1.month.ago).destroy_all
         brand.reload
         puts "  ending with #{brand.dealers.count} dealers"
       end
