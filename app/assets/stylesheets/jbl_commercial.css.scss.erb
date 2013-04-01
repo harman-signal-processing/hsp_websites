@@ -906,20 +906,35 @@ div.field_with_errors {
 /****** Information Tables *****/
 table.info {
 	border: 2px solid #FFF;
+	tr td, tr th {
+		padding: 6px;
+		border: 12px solid #FFF;
+	}
+	th {
+		background: #ee632e;
+		color: white;
+		a:link, a:hover, a:visited {
+			color: white;
+		}
+	}
 }
-table.info tr td,
-table.info tr th {
-	padding: 6px;
-	border: 12px solid #FFF;
-}
-table.info th {
-	background: #ee632e;
-	color: white;
-}
-table.info th a:link,
-table.info th a:hover,
-table.info th a:visited {
-	color: white;
+table.download-collection {
+	border-collapse: collapse;
+	border: 1px solid #EEE;
+	margin-top: 25px;
+	tr td {
+		padding: 12px 6px;
+		background: white;
+		border: 1px solid #EEE;
+	}
+	th {
+		padding: 6px;
+		background: #ee632e;
+		color: white;
+		a:link, a:hover, a:visited {
+			color: white;
+		}
+	}
 }
 /****** Software Downloads *******/
 .download_box {
@@ -1049,4 +1064,15 @@ table.tube td {
 	box-shadow: 1px 2px 3px #BBB;
 	padding: 8px 12px;
 	margin: 8px 0px;
+}
+div.quicklinks {
+	margin: 20px 0px;
+	ul {
+		list-style-type: disc;
+		margin: 10px 20px 30px;
+		li {
+			font-size: 13px;
+			margin-left: 20px;
+		}
+	}
 }

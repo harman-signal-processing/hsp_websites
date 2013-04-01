@@ -144,7 +144,7 @@ class Website < ActiveRecord::Base
     self.site_elements.where(show_on_public_site: true).each do |site_element|
       downloads[site_element.resource_type.parameterize] ||= {param_name: site_element.resource_type.parameterize, name: site_element.resource_type.to_s.pluralize, downloads: []}
       thumbnail = nil
-      if !site_element.resource_file_name.blank?
+      if !site_element.resource_file_name.blank? && site_element.is_image?
         begin
           thumbnail = site_element.resource.url(:tiny_square)
         rescue

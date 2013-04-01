@@ -56,7 +56,7 @@
 			<div id="topnav">
 				<ul>
 					<li><%= link_to t('products'), product_families_path %></li>
-					<li><%= link_to t('downloads'), softwares_path %></li>
+					<li><%= link_to t('downloads'), support_downloads_path %></li>
 					<li><%= link_to "training", "/training" %></li>
 					<% if website.has_artists? %>
 					<li><%= link_to t('artists'), artists_path %></li>
@@ -129,9 +129,9 @@
 				<%= link_to t('software_downloads').downcase, software_index_path %> &bull;
 				<% end %>
 				<%= link_to t('products'), product_families_path %> &bull;
-				<% if website.has_reviews? %>
-				<%= link_to t('product_reviews').downcase, product_reviews_path %> &bull;
-				<% end %>
+				<%# if website.has_reviews? %>
+				<%#= link_to t('product_reviews').downcase, product_reviews_path %>
+				<%# end %>
 				<%= link_to t('news'), news_index_path %> &bull;
 				<% if website.has_artists? %>
 				<%= link_to t('artists'), artists_path %> &bull;
