@@ -1,34 +1,51 @@
-<h1><%= ucfirst(t("downloads")) %></h1>
+<h1 class="page_title"><%= ucfirst(t("downloads")) %></h1>
 
+<a name="top"></a>
 <% if website.has_software? %>
-	<p>Looking for software/firmware? Check our <%= link_to "software downloads page", softwares_path %>.</p>
+<div class="alert">
+	Looking for software/firmware? Check our <%= link_to "software downloads page", softwares_path %>.
+</div>
 <% end %>
 
-<table border="0" cellpadding="5" cellspacing="5" class="info">
-	<tr>
-	<% @downloads.each do |download_collection| %>
-		<th><%= download_collection[:name] %>
+<div class="quicklinks">
+	<h3 class="subheader">Jump to a specific download type:</h3>
+	<ul>
+		<% @downloads.each do |download_collection| %>
+		<li><%= link_to download_collection[:name], "##{download_collection[:name].to_s.parameterize}" %></li>
+		<% end %>
+	</ul>
+</div>
+
+<% @downloads.each do |download_collection| %>
+	<a name="<%= download_collection[:name].to_s.parameterize %>"></a>
+	<table class="download-collection" style="width: 100%">
+		<thead>
+			<tr>
+				<th colspan="4">
+					<%= download_collection[:name] %>
 			<% if download_collection[:downloads].size > 1 %>
 				<%= link_to image_tag("zip-icon.png", alt: "", style: "vertical-align: middle; margin-left: 2px; border: none"),
-				 		zipped_downloads_path(download_collection[:param_name]) %>&nbsp;<%= link_to 'zip', zipped_downloads_path(download_collection[:param_name]) %>
+				 		zipped_downloads_path(download_collection[:param_name]) %>&nbsp;<%= link_to 'zip (all)', zipped_downloads_path(download_collection[:param_name]) %>
 			<% end %>
-			</th>
-	<% end %>
-	</tr>
-	<tr>
-	<% @downloads.each do |download_collection| %>
-		<td valign="top">
-			<ul>
-				<% download_collection[:downloads].each do |download| %>
-					<li>
-						<% if download[:thumbnail] %>
-						<%= link_to(image_tag(download[:thumbnail], style: "vertical-align: middle; padding-right: 4px"), download[:url]) %>
-						<% end %>
-						<%= link_to download[:name], download[:url] %>
-					</li>
-				<% end %>
-			</ul>
-		</td>
-	<% end %>
-	</tr>
-</table>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% download_collection[:downloads].in_groups_of(4, false).each do |downloads| %>
+				<tr>
+					<% downloads.each do |download| %>
+						<td valign="top" style="text-align: center" width="25%">
+							<% if download[:thumbnail] %>
+							<%= link_to(image_tag(download[:thumbnail], style: "vertical-align: middle; padding-right: 4px"), download[:url]) %><br/>
+							<% end %>
+							<%= link_to download[:name], download[:url] %>
+						</td>
+					<% end %>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+	<span class="tiny"><%= link_to "back to top", '#top' %></span>
+<% end %>
+
+
