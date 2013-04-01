@@ -89,27 +89,27 @@ class Product < ActiveRecord::Base
   end
   
   def self.non_discontinued(website)
-    all.select{|p| p if !p.product_status.is_discontinued? && p.belongs_to_this_brand?(website)}.sort{|a,b| a.name.downcase <=> b.name.downcase}
+    order(:name).includes(:product_status, :product_families).select{|p| p if !p.product_status.is_discontinued? && p.belongs_to_this_brand?(website)}.sort{|a,b| a.name.downcase <=> b.name.downcase}
   end
   
   def self.all_for_website(website)
-    all.select{|p| p if p.product_status.show_on_website && p.belongs_to_this_brand?(website)}.sort{|a,b| a.name.downcase <=> b.name.downcase}
+    order(:name).includes(:product_status, :product_families).select{|p| p if p.product_status.show_on_website && p.belongs_to_this_brand?(website)}.sort{|a,b| a.name.downcase <=> b.name.downcase}
   end
 
   def self.all_for_website_registration(website)
     p = []
-    all.select{|p| p if p.product_status.show_on_website && p.belongs_to_this_brand?(website)}.sort{|a,b| a.name.downcase <=> b.name.downcase}.each do |prod|
+    order(:name).includes(:product_status, :product_families).select{|p| p if p.product_status.show_on_website && p.belongs_to_this_brand?(website)}.sort{|a,b| a.name.downcase <=> b.name.downcase}.each do |prod|
       p << prod if prod.can_be_registered?
     end
     p
   end
   
   def self.discontinued(website)
-    all.select{|p| p if p.product_status.is_discontinued? && p.belongs_to_this_brand?(website)}.sort{|a,b| a.name.downcase <=> b.name.downcase}
+    order(:name).includes(:product_status, :product_families).select{|p| p if p.product_status.is_discontinued? && p.belongs_to_this_brand?(website)}.sort{|a,b| a.name.downcase <=> b.name.downcase}
   end
   
   def self.non_supported(website)
-    all.select{|p| p if p.product_status.not_supported? && p.belongs_to_this_brand?(website)}.sort{|a,b| a.name.downcase <=> b.name.downcase}
+    order(:name).includes(:product_status, :product_families).select{|p| p if p.product_status.not_supported? && p.belongs_to_this_brand?(website)}.sort{|a,b| a.name.downcase <=> b.name.downcase}
   end
 
   def self.repairable(website)
@@ -118,7 +118,7 @@ class Product < ActiveRecord::Base
   
   # Find those which are on tour with an Artist
   def self.on_tour(website)
-    all.select{|product| product if product.artists_on_tour.size > 0 && product.belongs_to_this_brand?(website)}
+    order(:name).includes(:product_status, :product_families).select{|product| product if product.artists_on_tour.size > 0 && product.belongs_to_this_brand?(website)}
   end
   
   def in_production?
@@ -168,7 +168,7 @@ class Product < ActiveRecord::Base
 
   # Selects all ACTIVE retailer links for this Product
   def active_retailer_links
-    @active_retailer_links ||= self.online_retailer_links.select{|orl| orl if orl.online_retailer.active}
+    @active_retailer_links ||= self.online_retailer_links.includes(:online_retailer, :product).select{|orl| orl if orl.online_retailer.active}
   end
 
   # Randomizes active links, except for preferred

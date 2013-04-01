@@ -283,7 +283,7 @@ module ProductsHelper
   def breadcrumbs(product)
     crumbs = []
     crumbs << link_to(t('products'), product_families_path)
-    product.product_families.where(brand_id: website.brand_id).each do |pf|
+    product.product_families.where(brand_id: website.brand_id).includes(:products, :parent).each do |pf|
       crumbs << link_to(translate_content(pf.parent, :name).downcase, pf.parent) if pf.parent
       crumbs << link_to(strip_html(translate_content(pf, :name)).downcase, pf) unless pf.current_products.size < 2
     end

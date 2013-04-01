@@ -1,5 +1,5 @@
 <table class="specs">
-	<% product.product_specifications.each do |product_spec| %>
+	<% product.product_specifications.includes(:specification).each do |product_spec| %>
 	<tr>
 		<td class="name"><%= translate_content(product_spec.specification, :name) %></td>
 		<td><%= spec_value(product_spec.value) %></td>

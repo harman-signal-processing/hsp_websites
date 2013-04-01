@@ -168,7 +168,7 @@ class Brand < ActiveRecord::Base
     
   def family_products
     p = []
-    product_families.each do |pf|
+    product_families.includes(:products).each do |pf|
       p += pf.products
     end
     p.sort{|a,b| a.name.downcase <=> b.name.downcase}
