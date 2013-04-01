@@ -89,25 +89,27 @@ class Website < ActiveRecord::Base
     end
   end
   
-  def current_and_discontinued_products
-    @current_and_discontinued_products ||= self.brand.products.select{|p| p if p.show_on_website?(self)}
+  def current_and_discontinued_products(included_attributes=[])
+    included_attributes << :product_status
+    @current_and_discontinued_products ||= self.brand.products.includes(included_attributes).select{|p| p if p.show_on_website?(self)}
   end
 
   def vintage_products
-    @vintage_products ||= self.brand.products.select{|p| p if !!(p.product_status.name.match(/vintage/i))}
+    @vintage_products ||= self.brand.products.includes(:product_status).select{|p| p if !!(p.product_status.name.match(/vintage/i))}
   end
   
   def all_downloads
     downloads = {}
-    self.current_and_discontinued_products.each do |product|
+    self.current_and_discontinued_products([:product_documents, :product_attachments]).each do |product|
       product.product_documents.each do |product_document|
         doctype = (product_document.document_type.blank?) ? "Misc" : I18n.t("document_type.#{product_document.document_type}")
         if !product_document.language.blank?
-          doctype = "#{I18n.t("language.#{product_document.language}")} #{doctype}"
+          doctype = "#{I18n.t("language.#{product_document.language}")} #{doctype}" unless doctype.to_s.match(/CAD/)
         end
         downloads[doctype.parameterize] ||= {param_name: doctype.parameterize, name: doctype.pluralize, downloads: []}
+        link_name = !!(doctype.match(/other/i)) ? product_document.document_file_name : product.name
         downloads[doctype.parameterize][:downloads] << {
-          name: product.name, 
+          name: link_name, 
           file_name: product_document.document_file_name,
           url: product_document.document.url, 
           path: product_document.document.path

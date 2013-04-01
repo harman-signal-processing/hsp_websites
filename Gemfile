@@ -73,6 +73,7 @@ group :production, :staging do
 end
 
 group :development, :test do
+  gem 'bullet'
   gem 'unicorn'
   gem 'minitest-rails', 
     git: "http://github.com/rawongithub/minitest-rails.git", 

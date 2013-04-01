@@ -5,7 +5,7 @@
 		<%= link_to(t('product_page.rebate_forms'), promotions_path) %>
 	</li>
 	<% end %>
-	<% product.product_documents.each do |product_document| %>
+	<% product.product_documents.includes(:product).each do |product_document| %>
 	<li>
 		<% if product_document.document_content_type.match(/pdf/i) || product_document.document_file_name.match(/pdf$/i) %>
 			<%= image_tag("pdf_17.png", style: "vertical-align: middle") %>

@@ -1,7 +1,7 @@
 class ProductFamily < ActiveRecord::Base
   belongs_to :brand, touch: true
   has_many :product_family_products, order: :position, dependent: :destroy
-  has_many :products, through: :product_family_products, order: "product_family_products.position"
+  has_many :products, through: :product_family_products, order: "product_family_products.position", include: [:product_status, :product_families]
   has_many :locale_product_families
   has_many :market_segment_product_families, dependent: :destroy
   has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
@@ -53,14 +53,12 @@ class ProductFamily < ActiveRecord::Base
   # Parent categories with at least one active product
   def self.parents_with_current_products(website, locale)
     pf = []
-    find(:all,
-      conditions: ["brand_id = ? AND (parent_id IS NULL or parent_id = 0)", website.brand_id],
-      order: :position).each do |f|
+    top_level_for(website).each do |f|
         if f.current_products.size > 0
           pf << f if f.locales(website).include?(locale.to_s)
         else
           current_children = 0
-          f.children.each do |ch|
+          f.children.includes(:products).each do |ch|
             current_children += ch.current_products.size
           end
           if current_children > 0
@@ -74,10 +72,15 @@ class ProductFamily < ActiveRecord::Base
   # Parent categories for super nav (originally designed for Lexicon site)
   def self.parents_for_supernav(website, locale)
     pf = []
-    where(brand_id: website.brand_id).where("parent_id IS NULL or parent_id = 0").order(:position).each do |f|
+    top_level_for(website).each do |f|
       pf << f if !(f.hide_from_homepage) && f.locales(website).include?(locale.to_s) && (f.current_products.size > 0 || f.children_with_current_products(website).size > 0)
     end
     pf
+  end
+
+  def self.top_level_for(brand)
+    brand_id = brand.is_a?(Website) ? brand.brand_id : brand.id
+    where(brand_id: brand_id).where("parent_id IS NULL or parent_id = 0").order('position').includes(:products)
   end
 
   # We flatten the families for the employee store. 
@@ -139,7 +142,8 @@ class ProductFamily < ActiveRecord::Base
   # Sibling categories with at least one active product
   def siblings_with_current_products
     s = []
-    siblings.each do |sibling|
+    # siblings.each do |sibling|
+    self.class.where(parent_id: self.parent_id).where("id != ?", self.id).includes(:products).each do |sibling|
       s << sibling if sibling.current_products.size > 0
     end
     s
@@ -177,7 +181,7 @@ class ProductFamily < ActiveRecord::Base
   # w = a Brand or a Website
   def children_with_current_products(w)
     brand_id = (w.is_a?(Brand)) ? w.id : w.brand_id
-    children.select{|pf| pf if pf.current_products.size > 0 && pf.brand_id == brand_id}
+    children.includes(:products).select{|pf| pf if pf.current_products.size > 0 && pf.brand_id == brand_id}
   end
 
   # Does this product family have a custom background image or color?

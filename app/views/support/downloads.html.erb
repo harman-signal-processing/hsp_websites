@@ -31,14 +31,28 @@
 			</tr>
 		</thead>
 		<tbody>
-			<% download_collection[:downloads].in_groups_of(4, false).each do |downloads| %>
+			<% if download_collection[:downloads].first[:thumbnail] %>
+				<% download_collection[:downloads].in_groups_of(4, false).each do |downloads| %>
+					<tr>
+						<% downloads.each do |download| %>
+							<td valign="top" style="text-align: center" width="25%">
+								<% if download[:thumbnail] %>
+								<%= link_to(image_tag(download[:thumbnail], style: "vertical-align: middle; padding-right: 4px"), download[:url]) %><br/>
+								<% end %>
+								<%= link_to download[:name], download[:url] %>
+							</td>
+						<% end %>
+					</tr>
+				<% end %>
+			<% else %>
 				<tr>
-					<% downloads.each do |download| %>
-						<td valign="top" style="text-align: center" width="25%">
-							<% if download[:thumbnail] %>
-							<%= link_to(image_tag(download[:thumbnail], style: "vertical-align: middle; padding-right: 4px"), download[:url]) %><br/>
-							<% end %>
-							<%= link_to download[:name], download[:url] %>
+					<% download_collection[:downloads].in_groups(4, false).each do |downloads| %>
+						<td width="25%" valign="top">
+							<ul style="margin-left: 25px; list-style-type: disc;">
+								<% downloads.each do |download| %>
+								<li><%= link_to download[:name], download[:url] %></li>
+								<% end %>
+							</ul>
 						</td>
 					<% end %>
 				</tr>
