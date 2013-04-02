@@ -92,8 +92,9 @@ class Product < ActiveRecord::Base
     order(:name).includes(:product_status, :product_families).select{|p| p if !p.product_status.is_discontinued? && p.belongs_to_this_brand?(website)}.sort{|a,b| a.name.downcase <=> b.name.downcase}
   end
   
-  def self.all_for_website(website)
-    order(:name).includes(:product_status, :product_families).select{|p| p if p.product_status.show_on_website && p.belongs_to_this_brand?(website)}.sort{|a,b| a.name.downcase <=> b.name.downcase}
+  def self.all_for_website(website, included_objects=[])
+    included_objects += [:product_status, :product_families]
+    order(:name).includes(included_objects).select{|p| p if p.product_status.show_on_website && p.belongs_to_this_brand?(website)}.sort{|a,b| a.name.downcase <=> b.name.downcase}
   end
 
   def self.all_for_website_registration(website)
@@ -104,8 +105,9 @@ class Product < ActiveRecord::Base
     p
   end
   
-  def self.discontinued(website)
-    order(:name).includes(:product_status, :product_families).select{|p| p if p.product_status.is_discontinued? && p.belongs_to_this_brand?(website)}.sort{|a,b| a.name.downcase <=> b.name.downcase}
+  def self.discontinued(website, included_objects=[])
+    included_objects += [:product_status, :product_families]
+    order(:name).includes(included_objects).select{|p| p if p.product_status.is_discontinued? && p.belongs_to_this_brand?(website)}.sort{|a,b| a.name.downcase <=> b.name.downcase}
   end
   
   def self.non_supported(website)

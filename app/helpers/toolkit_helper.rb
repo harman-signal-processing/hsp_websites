@@ -2,14 +2,14 @@ module ToolkitHelper
 
 	# Figures out which brand should be in the Toolkit
 	def toolkit_brands
-		@toolkit_brands ||= Brand.where(name: ["BSS", "dbx", "Lexicon", "DigiTech", "DOD"]).select{|b| b if b.websites.size > 0}
+		@toolkit_brands ||= Brand.where(name: ["BSS", "dbx", "Lexicon", "DigiTech", "DOD"]).order("UPPER(name)").includes(:websites).select{|b| b if b.websites.size > 0}
 	end
 
 	# Adds css class to elements to bump the content over to show
 	# the brand's twitter background (if there is one)
 	#
 	def bgoffset
-		@bgoffset ||= "bg-offset" if @brand && @brand.default_website && @brand.default_website.twitter_name 
+		@bgoffset ||= "bg-offset" if @brand && @brand.default_website && File.exists?(Rails.root.join("app", "assets", "images", @brand.default_website.folder, "toolkit-background.jpg"))
 	end
 
 	# Collects ToolkitResource for a particular object. Outputs an array:

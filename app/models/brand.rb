@@ -150,12 +150,12 @@ class Brand < ActiveRecord::Base
 
   # Active software with active products
   def current_softwares
-    softwares.where(active: true).select{|s| s if s.current_products.length > 0}.sort_by{|s| s.current_products.length}.reverse
+    softwares.includes(:brand).where(active: true).includes(:products).select{|s| s if s.current_products.length > 0}.sort_by{|s| s.current_products.length}.reverse
   end
 
   def current_products
     p = []
-    product_families.each do |pf|
+    product_families.includes(:products).each do |pf|
       p += pf.current_products
     end
     p.uniq #.flatten.uniq.sort{|a,b| a.name.downcase <=> b.name.downcase}

@@ -1,7 +1,7 @@
 class ProductFamily < ActiveRecord::Base
   belongs_to :brand, touch: true
   has_many :product_family_products, order: :position, dependent: :destroy
-  has_many :products, through: :product_family_products, order: "product_family_products.position", include: [:product_status, :product_families]
+  has_many :products, through: :product_family_products, order: "product_family_products.position" #, include: [:product_status, :product_families]
   has_many :locale_product_families
   has_many :market_segment_product_families, dependent: :destroy
   has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
@@ -152,7 +152,7 @@ class ProductFamily < ActiveRecord::Base
   # Determine only 'current' products for the ProductFamily
   def current_products
     cp = []
-    self.products.each do |p|
+    self.products.includes(:product_status).each do |p|
       cp << p if p.product_status.is_current?
     end
     cp

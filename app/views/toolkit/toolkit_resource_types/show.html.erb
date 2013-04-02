@@ -14,13 +14,16 @@
 	<div class="four columns <%= 'last' if @toolkit_resources.last == toolkit_resource %>">
 		<%= link_to toolkit_brand_toolkit_resource_path(@brand, toolkit_resource) do %>
 			<div class="panel">
+				<div style="float: left; width: 90px; margin-right: 10px;">
+					<h6><%= toolkit_resource.name %></h6>
+					<% if toolkit_resource.download_file_size.present? %>
+						[<%= number_to_human_size toolkit_resource.download_file_size %>]
+					<% end %>
+				</div>
 				<% if toolkit_resource.tk_preview_file_name.present? %>
 					<%= image_tag toolkit_resource.tk_preview.url(:thumb) %>
 				<% end %>
-				<h6><%= toolkit_resource.name %></h6>
-				<% if toolkit_resource.download_file_size.present? %>
-					[<%= number_to_human_size toolkit_resource.download_file_size %>]
-				<% end %>
+
 			</div>
 		<% end %>
 	</div>
