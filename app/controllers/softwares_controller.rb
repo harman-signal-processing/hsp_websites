@@ -4,8 +4,8 @@ class SoftwaresController < ApplicationController
   # GET /softwares
   # GET /softwares.xml
   def index
-    @discontinued_products = Product.discontinued(website)
-    @current_products = Product.all_for_website(website) - @discontinued_products
+    @discontinued_products = Product.discontinued(website, [:softwares])
+    @current_products = Product.all_for_website(website, [:softwares]) - @discontinued_products
     respond_to do |format|
       format.html { render_template } # index.html.erb
       # format.xml  { 

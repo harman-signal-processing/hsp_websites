@@ -2,8 +2,8 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "HSP Marketing Toolkit" %></title>
-    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "HSP Marketing Toolkit" %>">
+    <title><%= content_for?(:title) ? yield(:title) : "HPro Marketing Toolkit" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "HPro Marketing Toolkit" %>">
     <%= stylesheet_link_tag "toolkit", :media => "all" %>
     <%= javascript_include_tag "toolkit_application" %>
     <%= csrf_meta_tags %>
@@ -43,7 +43,7 @@
     <div class="container">
       <nav class="top-bar">
         <ul>
-          <li class="name"><h1><%= link_to "HSP Marketing Toolkit", toolkit_root_path %></h1></li>
+          <li class="name"><h1><%= link_to "Marketing Toolkit", toolkit_root_path %></h1></li>
           <li class="toggle-topbar"><a href="#"></a></li>
           <% if toolkit_user_signed_in? %>
           <li class="divider"></li>
@@ -122,8 +122,6 @@
       </div>
     </div>
     <% end %>
-			
-    
 	</div>
 
   <!-- Footer -->
@@ -132,15 +130,10 @@
     <div class="twelve columns">
       <div class="row" style="text-align: center">
         <p><%= image_tag "harman.jpg" %></p>
-        HSP Brand Sites:
+        Brand Sites:
       	<p><%= toolkit_brands.map do |b| 
       			link_to(b.name, "http://#{b.default_website.url}", target: "_blank")
       		   end.join(" &bull; ").html_safe %></p>
-        <small>
-          Harman Signal Processing &bull; 
-          8760 South Sandy Parkway, Sandy, UT 84070 &bull; 
-          (801)566-8800
-        </small>
       </div>
     </div> 
   </footer>
