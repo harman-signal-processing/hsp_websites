@@ -6,7 +6,6 @@
 	<% end %>
 <% end %>
 
-
 <%= content_for :middle_stuff do %>
 	<%= cache ["homepage_features", website.brand, I18n.locale] do %>
 		<% if @features.size > 0 %>
@@ -15,8 +14,6 @@
 				<%= feature_button(feature) %>
 			</span>
 			<% end %>
-		<% else %>
-			<%= featured_product_families %>
 		<% end %>
 	<% end %>
 	<div class="clear"></div>

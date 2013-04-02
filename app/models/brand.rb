@@ -21,7 +21,7 @@ class Brand < ActiveRecord::Base
   has_many :training_classes
   has_many :blogs
   has_many :pricing_types, order: :pricelist_order
-  has_many :brand_toolkit_contacts, order: :position
+  has_many :brand_toolkit_contacts, order: :position, include: :user
   # RSO stuff
   has_many :rso_monthly_reports
   has_many :rso_navigations, order: :position

@@ -1,7 +1,7 @@
 class ProductFamily < ActiveRecord::Base
   belongs_to :brand, touch: true
-  has_many :product_family_products, order: :position, dependent: :destroy
-  has_many :products, through: :product_family_products, order: "product_family_products.position" #, include: [:product_status, :product_families]
+  has_many :product_family_products, order: :position, dependent: :destroy, include: :product
+  has_many :products, through: :product_family_products, order: "product_family_products.position", include: [:product_status, :product_families]
   has_many :locale_product_families
   has_many :market_segment_product_families, dependent: :destroy
   has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
@@ -114,7 +114,7 @@ class ProductFamily < ActiveRecord::Base
 
   # One level of products for the toolkit--just this family
   def current_products_for_toolkit
-    self.products.select{|p| p if p.show_on_website?(self.brand) && !p.discontinued? && !p.virtual_product? }
+    self.products.includes(:product_status).select{|p| p if p.show_on_website?(self.brand) && !p.discontinued? && !p.virtual_product? }
   end
 
   # Recurses down the product family trees to collect all the disontinued products (for the toolkit)
@@ -128,7 +128,7 @@ class ProductFamily < ActiveRecord::Base
   end
 
   def discontinued_products
-    products.select{|p| p if p.discontinued?}
+    products.includes(:product_status).select{|p| p if p.discontinued?}
   end
 
   # Collection of all the locales where this ProductFamily should appear.
