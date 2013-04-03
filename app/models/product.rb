@@ -43,7 +43,6 @@ class Product < ActiveRecord::Base
   belongs_to :product_status
   belongs_to :brand, touch: true
   has_many :parent_products # Where this is the child (ie, an e-pedal child of the iStomp)
-  has_many :parents, through: :parent_products
   has_many :sub_products, class_name: "ParentProduct", foreign_key: "parent_product_id", order: :position
   after_initialize :set_default_status
   accepts_nested_attributes_for :product_prices, reject_if: :all_blank
@@ -371,6 +370,10 @@ class Product < ActiveRecord::Base
     else
       nil
     end
+  end
+
+  def parents
+    parent_products.map{|p| p.parent_product }
   end
 
   # A hack to exclude epedals from physical product listings

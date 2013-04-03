@@ -15,22 +15,39 @@
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
-  <div class="field">
-    <%= f.label :show_start_on, "Show on website starting" %><br />
-    <%= f.text_field :show_start_on, class: 'ui-datepicker' %>
-  </div>
-  <div class="field">
-    <%= f.label :show_end_on, "Take off website after" %><br />
-    <%= f.text_field :show_end_on, class: 'ui-datepicker' %>
-  </div>
-  <div class="field">
-    <%= f.label :start_on, "Promotion start date" %><br />
-    <%= f.text_field :start_on, class: 'ui-datepicker' %>
-  </div>
-  <div class="field">
-    <%= f.label :end_on, "Promotion end date" %><br />
-    <%= f.text_field :end_on, class: 'ui-datepicker' %>
-  </div>
+
+  <table>
+    <tr>
+      <td width="50%">
+        <div class="field">
+          <%= f.label :start_on, "Promotion start date" %><br />
+          <%= f.text_field :start_on, class: 'ui-datepicker' %>
+        </div>
+      </td>
+      <td width="50%">
+         <div class="field">
+          <%= f.label :end_on, "Promotion end date" %><br />
+          <%= f.text_field :end_on, class: 'ui-datepicker' %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>   
+        <div class="field">
+          <%= f.label :show_start_on, "Show on website starting" %><br />
+          <%= f.text_field :show_start_on, class: 'ui-datepicker' %>
+        </div>
+      </td>
+      <td>
+        <div class="field">
+          <%= f.label :show_end_on, "Take off website after" %><br />
+          <%= f.text_field :show_end_on, class: 'ui-datepicker' %>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+
   <div class="field">
     <%= f.label :promo_form %><br />
     <%= f.file_field :promo_form %>
@@ -46,7 +63,7 @@
     <%= f.label :description %> (tile above will link to this info unless it is blank.)<br />
     <%= f.text_area :description, class: "mceEditor" %>
   </div>
-  <h2>Customer notifications</h2>
+  <h3>Customer notifications</h3>
   <div class="field">
 	<%= f.check_box :send_post_registration_message %>
 	<%= f.label :send_post_registration_message, "Send a message (below) to customers who register a related product during the promotion start/end date." %>
@@ -57,6 +74,12 @@
   </div>
   <div class="field">
 	<%= f.text_area :post_registration_message, class: "mceEditor" %>
+  </div>
+
+  <h3>Toolkit</h3>
+  <div class="field">
+    <%= f.label :toolkit_instructions, "Instructions or other notes for toolkit users" %> (appears on toolkit)<br/>
+    <%= f.text_area :toolkit_instructions, class: "mceEditor" %>
   </div>
   <div class="actions">
     <%= f.submit %>

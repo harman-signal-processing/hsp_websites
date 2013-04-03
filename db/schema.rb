@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130402150741) do
+ActiveRecord::Schema.define(:version => 20130403165348) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -238,6 +238,7 @@ ActiveRecord::Schema.define(:version => 20130402150741) do
   end
 
   add_index "brands", ["cached_slug"], :name => "index_brands_on_cached_slug", :unique => true
+  add_index "brands", ["name"], :name => "index_brands_on_name", :unique => true
 
   create_table "cabinets", :force => true do |t|
     t.string   "name"
@@ -977,6 +978,7 @@ ActiveRecord::Schema.define(:version => 20130402150741) do
     t.text     "post_registration_message"
     t.boolean  "send_post_registration_message", :default => false
     t.integer  "brand_id"
+    t.text     "toolkit_instructions"
   end
 
   add_index "promotions", ["cached_slug"], :name => "index_promotions_on_cached_slug", :unique => true
