@@ -3,6 +3,7 @@ class News < ActiveRecord::Base
     styles: { large: "600>x370", 
       medium: "350x350>", 
       thumb: "100x100>", 
+      thumb_square: "100x100#", 
       tiny: "64x64>", 
       tiny_square: "64x64#" 
     },

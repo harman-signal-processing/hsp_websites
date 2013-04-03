@@ -3,7 +3,7 @@
   <tr>
 	<td class="date">
 		<% if !news.news_photo_file_name.blank? %>
-			<%= link_to(image_tag(news.news_photo.url(:thumb), style: "text-align: right; margin: 8px;"), news) %>
+			<%= link_to(image_tag(news.news_photo.url(:thumb_square), style: "text-align: right; margin: 8px;"), news) %>
 		<% end %>
 	</td>
 	<td class="preview">

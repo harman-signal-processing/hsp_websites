@@ -6,7 +6,7 @@
 <% @news.each do |news| %>
   <tr>
 	<td class="date">
-		<%= (news.news_photo_file_name.blank?) ? "" : link_to(image_tag(news.news_photo.url(:thumb)), news) %></td>
+		<%= (news.news_photo_file_name.blank?) ? "" : link_to(image_tag(news.news_photo.url(:thumb_square)), news) %></td>
 	<td class="preview">
 		<h5><%=l news.post_on, format: :long %></h5>
 		<%= link_to translate_content(news, :title), news_path(news, locale: I18n.locale) %>
