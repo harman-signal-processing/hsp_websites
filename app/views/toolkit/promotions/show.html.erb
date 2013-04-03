@@ -15,6 +15,10 @@
 	<h5 class="subheader">Promotion valid: <%=l @promotion.start_on, format: :long %> &mdash;
 	<%=l @promotion.end_on, format: :long %></h5>
 
+	<% if @promotion.toolkit_instructions.present? %>
+	<div><%=raw @promotion.toolkit_instructions %></div>
+	<% end %>
+
 	<% if @promotion.tile_file_name.present? %>
 	<div><%= image_tag @promotion.tile.url %></div>
 	<% end %>
