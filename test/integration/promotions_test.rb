@@ -2,8 +2,9 @@ require "minitest_helper"
 
 describe "Promotions Integration Test" do
 
-  before do
+  before :each do
     DatabaseCleaner.start
+    Brand.destroy_all
     @website = FactoryGirl.create(:website_with_products)
     host! @website.url
     Capybara.default_host = "http://#{@website.url}" 
@@ -14,6 +15,10 @@ describe "Promotions Integration Test" do
   	@product = @website.products.first
     @product.product_promotions << FactoryGirl.create(:product_promotion, promotion: @promo, product: @product)
     @product.product_promotions << FactoryGirl.create(:product_promotion, promotion: @expired_promo, product: @product)
+  end
+
+  after :each do
+    DatabaseCleaner.clean
   end
   
   describe "product page" do

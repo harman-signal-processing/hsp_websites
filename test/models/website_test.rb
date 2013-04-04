@@ -1,9 +1,15 @@
 require "minitest_helper"
 
 describe Website do 
-	before do
+	before :each do
+		DatabaseCleaner.start
+    Brand.destroy_all
 		@website = FactoryGirl.create(:website_with_products) 
 	end
+
+  after :each do
+    DatabaseCleaner.clean
+  end
   
   describe "required settings" do
   	# it "should respond to support_email" do

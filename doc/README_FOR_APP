@@ -53,8 +53,10 @@ _other_
 * use the same logins for accommodation? dealer portal?
 
 === TODO for BSS site ===
-* Conferencing banner - redo
-* London banner - redo
+* Apply new design from Joel: 
+ - banners & banner area
+ - homepage buttons
+ - product family button
 
 * Don't worry about these until/unless someone asks:
   * FDS firmware update reg forms and URL forwarders 
@@ -80,12 +82,13 @@ What you will need to change is: itemid=100170580&subitemid=358897 based on the 
 * Clean up product info tabs methods (several in product.rb, product_helper.rb)
 * Minitest for admin functions
 * Separate admin permissions by brands
+* Move admin sites to something like hsp.harmanpro.com, one central admin
+* Catchall for public views where Brand#record_not_found
 * Super-admin alerts:
   o When promos end
   o When buy-it-now problems are found
   o When reviews problems are found
 * Optimization 
-* Improve software page--is ugly, especially without release notes
 * Redo layouts with a dynamic grid like zurb
 * reduce duplication in css files by including snippets
 

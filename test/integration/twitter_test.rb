@@ -2,14 +2,19 @@ require "minitest_helper"
 
 describe "Twitter Integration Test" do
 
-  before do
+  before :each do
     DatabaseCleaner.start
+    Brand.destroy_all
     @brand = FactoryGirl.create(:brand)
     Brand.any_instance.stubs(:twitter_name).returns('twitter')
     @website = FactoryGirl.create(:website_with_products, brand: @brand)
     host! @website.url
     Capybara.default_host = "http://#{@website.url}" 
     Capybara.app_host = "http://#{@website.url}" 
+  end
+
+  after :each do
+    DatabaseCleaner.clean
   end
 
   # These tests actually hit twitter to test that it works. Might be overkill, but

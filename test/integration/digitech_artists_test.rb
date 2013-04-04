@@ -2,8 +2,9 @@ require "minitest_helper"
 
 describe "DigiTech Artist Integration Test" do
 
-  before do
+  before :each do
     DatabaseCleaner.start
+    Brand.destroy_all
     @brand = FactoryGirl.create(:digitech_brand)
     @website = FactoryGirl.create(:website_with_products, folder: "digitech", brand: @brand)
     host! @website.url
@@ -29,6 +30,10 @@ describe "DigiTech Artist Integration Test" do
     FactoryGirl.create(:artist_brand, artist: @first_artist, brand: @brand)
     FactoryGirl.create(:artist_product, product: @website.products.first, artist: @first_artist)
 
+  end
+
+  after :each do
+    DatabaseCleaner.clean
   end
 
   describe "Artist Page" do
