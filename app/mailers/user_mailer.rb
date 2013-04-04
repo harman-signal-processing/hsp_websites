@@ -51,7 +51,13 @@ class UserMailer < Devise::Mailer
   		if record.needs_account_number? || record.needs_invitation_code?
   			default_url_options[:host] = HarmanSignalProcessingWebsite::Application.config.toolkit_url
   		elsif record.brand_toolkit_contacts.count > 0
-  			default_url_options[:host] = record.brand_toolkit_contacts.first.brand.default_website.url 
+  			default_url_options[:host] = record.brand_toolkit_contacts.first.brand.default_website.url
+      end
+      if record.role?(:admin) || record.role?(:customer_service) || record.role?(:translator) ||
+        record.role?(:market_manager) || record.role?(:artist_relations) || record.role?(:rohs) ||
+        record.role?(:clinician) || record.role?(:clinician_admin) || record.role?(:marketing_staff) ||
+        record.role?(:sales_admin) 
+        default_url_options[:host] += "/en-US/admin"
   		end
   	rescue
   		# something happened, use the default host

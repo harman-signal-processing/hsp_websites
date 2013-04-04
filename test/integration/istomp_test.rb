@@ -2,8 +2,9 @@ require "minitest_helper"
 
 describe "iStomp Integration Test" do
 
-  before do
+  before :each do
     DatabaseCleaner.start
+    Brand.destroy_all
     @brand = FactoryGirl.create(:digitech_brand)
     @website = FactoryGirl.create(:website_with_products, folder: "digitech", brand: @brand, istomp_coverflow: 1)
     @istomp = FactoryGirl.create(:product, name: "iStomp", brand: @brand, layout_class: "istomp")
@@ -31,6 +32,10 @@ describe "iStomp Integration Test" do
     host! @website.url
     Capybara.default_host = "http://#{@website.url}" 
     Capybara.app_host = "http://#{@website.url}" 
+  end
+
+  after :each do
+    DatabaseCleaner.clean
   end
 
   describe "istomp product page" do

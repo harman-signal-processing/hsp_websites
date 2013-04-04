@@ -2,23 +2,27 @@ require "minitest_helper"
 
 describe "API v1 Integration Test" do
 
-	before do
+	before :each do
 		DatabaseCleaner.start
-		Brand.delete_all
-	    @digitech = FactoryGirl.create(:digitech_brand)
-	    @website = FactoryGirl.create(:website_with_products, folder: "digitech", brand: @digitech)
-	    host! @website.url
-	    Capybara.default_host = "http://#{@website.url}" 
-	    Capybara.app_host = "http://#{@website.url}"
+		Brand.destroy_all
+    @digitech = FactoryGirl.create(:digitech_brand)
+    @website = FactoryGirl.create(:website_with_products, folder: "digitech", brand: @digitech)
+    host! @website.url
+    Capybara.default_host = "http://#{@website.url}" 
+    Capybara.app_host = "http://#{@website.url}"
 
-	    # More stuff needed for API
-	    @lexicon = FactoryGirl.create(:lexicon_brand) 
-	    @lexicon_site = FactoryGirl.create(:website_with_products, folder: "lexicon", brand: @lexicon)
-	    @dbx = FactoryGirl.create(:dbx_brand)
-	    @dbx_site = FactoryGirl.create(:website_with_products, folder: "dbx", brand: @dbx)
-	    @dod = FactoryGirl.create(:dod_brand)
-	    @dod_site = FactoryGirl.create(:website_with_products, folder: "dod", brand: @dod)
+    # More stuff needed for API
+    @lexicon = FactoryGirl.create(:lexicon_brand) 
+    @lexicon_site = FactoryGirl.create(:website_with_products, folder: "lexicon", brand: @lexicon)
+    @dbx = FactoryGirl.create(:dbx_brand)
+    @dbx_site = FactoryGirl.create(:website_with_products, folder: "dbx", brand: @dbx)
+    @dod = FactoryGirl.create(:dod_brand)
+    @dod_site = FactoryGirl.create(:website_with_products, folder: "dod", brand: @dod)
 	end
+
+  after :each do
+    DatabaseCleaner.clean
+  end
 
 	describe "brands for employee store" do
 		before do

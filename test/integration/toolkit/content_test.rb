@@ -2,8 +2,9 @@ require "minitest_helper"
 
 describe "Toolkit Content Integration Test" do
 
-  before do
+  before :each do
     DatabaseCleaner.start
+    Brand.destroy_all
     setup_toolkit_brands
     @host = HarmanSignalProcessingWebsite::Application.config.toolkit_url 
     host! @host
@@ -11,6 +12,10 @@ describe "Toolkit Content Integration Test" do
     Capybara.app_host = "http://#{@host}" 
     Dealer.any_instance.stubs(:geocode_address)
     setup_and_login_toolkit_dealer
+  end
+
+  after :each do
+    DatabaseCleaner.clean
   end
   
   describe "homepage" do

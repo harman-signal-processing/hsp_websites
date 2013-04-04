@@ -2,11 +2,16 @@ require "minitest_helper"
 
 describe SiteMailer do
 
-	before do
+	before :each do
 		DatabaseCleaner.start
+		Brand.destroy_all
 		@brand = FactoryGirl.create(:brand)
 		Brand.any_instance.stubs(:support_email).returns('adam.anderson@harman.com')
 	end
+
+  after :each do
+    DatabaseCleaner.clean
+  end
 
 	describe "contact form" do
 		before do

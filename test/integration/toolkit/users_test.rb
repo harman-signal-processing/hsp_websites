@@ -2,14 +2,19 @@ require "minitest_helper"
 
 describe "Toolkit Users Integration Test" do
 
-  before do
+  before :each do
     DatabaseCleaner.start
+    Brand.destroy_all
     setup_toolkit_brands
     @host = HarmanSignalProcessingWebsite::Application.config.toolkit_url 
     host! @host
     Capybara.default_host = "http://#{@host}" 
     Capybara.app_host = "http://#{@host}" 
     Dealer.any_instance.stubs(:geocode_address) # don't actually do geocoding here
+  end
+
+  after :each do
+    DatabaseCleaner.clean
   end
   
   describe "Dealer Signup" do 

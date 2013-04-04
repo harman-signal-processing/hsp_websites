@@ -2,8 +2,9 @@ require "minitest_helper"
 
 describe "BuyItNow Integration Test" do
 
-  before do
+  before :each do
     DatabaseCleaner.start
+    Brand.destroy_all
     @website = FactoryGirl.create(:website_with_products)
     host! @website.url
     Capybara.default_host = "http://#{@website.url}" 
@@ -11,6 +12,10 @@ describe "BuyItNow Integration Test" do
     @product = @website.products.first
     @online_retailer = FactoryGirl.create(:online_retailer)
     @retailer_link = FactoryGirl.create(:online_retailer_link, online_retailer: @online_retailer, product: @product, brand: @website.brand)
+  end
+
+  after :each do
+    DatabaseCleaner.clean
   end
   
   describe "product page" do

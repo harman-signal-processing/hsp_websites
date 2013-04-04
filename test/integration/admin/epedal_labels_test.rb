@@ -2,8 +2,9 @@ require "minitest_helper"
 
 describe "Admin epedal Labels Integration Test" do
 
-  before do
+  before :each do
     DatabaseCleaner.start
+    Brand.destroy_all
     @brand = FactoryGirl.create(:digitech_brand)
     @website = FactoryGirl.create(:website_with_products, folder: "digitech", brand: @brand, istomp_coverflow: 1, url: "digitech.lvh.me")
     @istomp = FactoryGirl.create(:product, name: "iStomp", brand: @brand, layout_class: "istomp")
@@ -18,6 +19,10 @@ describe "Admin epedal Labels Integration Test" do
     @sheet = FactoryGirl.create(:label_sheet, product_ids: [@gooberator.id, @fooberator.id].join(", "))
     @user = FactoryGirl.create(:user, market_manager: true, password: "password")
     admin_login_with(@user, "password", @website)
+  end
+
+  after :each do
+    DatabaseCleaner.clean
   end
 
   describe "managing label sheets" do 

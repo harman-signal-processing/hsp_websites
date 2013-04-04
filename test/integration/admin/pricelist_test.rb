@@ -2,8 +2,9 @@ require "minitest_helper"
 
 describe "Admin Pricing Integration Test" do
 
-  before do
+  before :each do
     DatabaseCleaner.start
+    Brand.destroy_all
     @brand = FactoryGirl.create(:digitech_brand)
     @website = FactoryGirl.create(:website_with_products, folder: "digitech", brand: @brand, url: "digitech.lvh.me")
     host! @website.url
@@ -13,6 +14,10 @@ describe "Admin Pricing Integration Test" do
     admin_login_with(@user, "password", @website)
     @dealer_pricing_type = FactoryGirl.create(:pricing_type, brand: @brand, pricelist_order: 1)
     @artist_pricing_type = FactoryGirl.create(:pricing_type, brand: @brand, pricelist_order: 0)
+  end
+
+  after :each do
+    DatabaseCleaner.clean
   end
 
   describe "Pricing types list" do 

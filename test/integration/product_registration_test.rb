@@ -2,12 +2,17 @@ require "minitest_helper"
 
 describe "Product Registration Integration Test" do
 
-  before do
+  before :each do
     DatabaseCleaner.start
+    Brand.destroy_all
     @website = FactoryGirl.create(:website_with_products)
     host! @website.url
     Capybara.default_host = "http://#{@website.url}" 
     Capybara.app_host = "http://#{@website.url}"
+  end
+
+  after :each do
+    DatabaseCleaner.clean
   end
 
   describe "Registration form" do

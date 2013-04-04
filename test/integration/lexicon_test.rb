@@ -2,8 +2,9 @@ require "minitest_helper"
 
 describe "Lexicon Integration Test" do
 
-  before do
+  before :each do
     DatabaseCleaner.start
+    Brand.destroy_all
     @brand = FactoryGirl.create(:lexicon_brand)
     @website = FactoryGirl.create(:website_with_products, folder: "lexicon", brand: @brand)
     host! @website.url
@@ -20,6 +21,10 @@ describe "Lexicon Integration Test" do
     FactoryGirl.create(:setting, brand: @brand, name: "description_tab_name", string_value: "Overview")
     Brand.any_instance.stubs(:main_tabs).returns("description|extended_description|features|specifications|reviews|downloads_and_docs")
     Brand.any_instance.stubs(:side_tabs).returns("news|support")
+  end
+
+  after :each do
+    DatabaseCleaner.clean
   end
   
   describe "homepage" do
