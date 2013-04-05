@@ -181,7 +181,7 @@ GEM
       compass (>= 0.12.1)
       sass (>= 3.2.0)
       sassy-math (>= 1.5)
-    moneta (0.7.14)
+    moneta (0.7.15)
     money (5.1.1)
       i18n (~> 0.6.0)
     money-rails (0.8.0)

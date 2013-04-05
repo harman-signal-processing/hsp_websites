@@ -238,8 +238,7 @@ div#topnav {
 
 div#content_container {
 	width: 960px;
-	margin-left: auto;
-	margin-right: auto;
+	margin: 30px auto 0px;
 }
 div#content_container_content {
 	padding: 10px;
@@ -247,7 +246,6 @@ div#content_container_content {
 .internal_page {
 	background: #FEFFFF;
 	// box-shadow: 0px 2px 3px #999;
-	color: black;
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	border: 1px solid #CCC;
@@ -396,34 +394,54 @@ div.two_column_container {
 	}
 }
 /**** Main ******/
-/*
-* #feature_spacer {
-*	position: relative;
-*	height: 500px;
-*}
-*/
+ #feature_spacer {
+	position: relative;
+	height: 600px;
+}
 #feature_bg {
 	position: absolute;
-	top: 100px;
+	left: 0px;
+	top: 110px;
 	z-index: -100;
 	width: 100%;
 	height: 355px;
 	text-align: center;
-	background: {
-		color: #333;
-		image: url('<%= image_path('bss/slideshow_bg.png') %>');
-		repeat: repeat-x;
-	}
 }
 div#feature_container {
 	position: relative;
 	width: 960px;
 	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
-	height: 385px;
+	margin: 30px auto 0px;
+	height: 355px;
 	z-index: 300;
-	background: none;
+	background: {
+		color: #CCC;
+		image: url('<%= image_path('bss/slideshow_bg.png') %>');
+	}
+	div#feature_left {
+		float: right;
+		margin-right: 960px;
+		height: 355px;
+		width: 320px;
+		background: {
+			color: #FFF;
+			image: url('<%= image_path('bss/featureleft.png') %>');
+			repeat: no-repeat;
+			position: top right;
+		}
+	}
+	div#feature_right {
+		float: left;
+		margin-left: 960px;
+		height: 355px;
+		margin-top: -355px;
+		width: 319px;
+		background: {
+			color: #FFF;
+			image: url('<%= image_path('bss/featureright.png') %>');
+			repeat: no-repeat;
+		}
+	}
 }
 div.slideshow_frame {
 	position: absolute;
@@ -432,14 +450,14 @@ div.slideshow_frame {
 }
 div#slideshow_controls {
 	position: absolute;
-	bottom: 3px;
-	right: -6px;
+	bottom: 9px;
+	right: -4px;
 	z-index: 1000;
 	a {
-		color: #fff;
+		color: #444;
 		text-decoration: none;
 		display: block;
-		background: #000;
+		background: #fff;
 		font-weight: bold;
 		margin-right: 6px;
 		padding: 3px 8px 2px 8px;
@@ -447,8 +465,8 @@ div#slideshow_controls {
 		border-radius: 4px;
 		float: right;
 		&:hover {
-			color: #0db14b;
-			background: #333;
+			color: #fff;
+			background: #0db14b;
 		}
 		.current_button {
 			color: #FFF;
@@ -460,7 +478,7 @@ div#middle_container {
 	width: 1000px;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: -14px;
+	margin-top: -25px;
 	padding-left: 0px;
 }
 div.product_family_feature {
