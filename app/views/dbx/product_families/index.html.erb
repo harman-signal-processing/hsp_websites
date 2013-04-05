@@ -11,7 +11,7 @@
 <% end %>
 </h1>
 
-<div class="wide_centered_box">
+<div style="margin: 20px 0px;">
 <% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
 <div id="<%= product_family.to_param %>">
 	<%= link_to product_family do %>
