@@ -24,6 +24,11 @@ DatabaseCleaner.strategy = :transaction # (transaction doesn't work with webkit/
 Capybara.javascript_driver = :webkit
 # Capybara.automatic_reload = false
 
+Capybara.configure do |config|
+  config.match = :prefer_exact
+  config.ignore_hidden_elements = false
+end
+
 class MiniTest::Rails::Spec
   # Add methods to be used by all specs here
 end
