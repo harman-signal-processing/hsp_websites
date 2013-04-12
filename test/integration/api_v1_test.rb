@@ -1,4 +1,4 @@
-require "minitest_helper"
+require "test_helper"
 
 describe "API v1 Integration Test" do
 
