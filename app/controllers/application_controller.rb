@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   # before_filter :set_locale
-  # before_filter :miniprofiler #, :set_default_meta_tags
+  # before_filter :set_default_meta_tags
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   layout :set_layout
@@ -90,10 +90,6 @@ class ApplicationController < ActionController::Base
   end
 
 private
-
-  def miniprofiler
-    Rack::MiniProfiler.authorize_request if current_user && current_user.role?(:admin)
-  end
 
   def render_not_found(exception)
     error_page(404)
