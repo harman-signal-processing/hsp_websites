@@ -15,7 +15,7 @@ end
 # jquery-rails 2.1.1 broke the coverflow. Looks like
 # it uses jquery 1.8.0, which has a selector bug:
 # http://bugs.jquery.com/ticket/12292
-gem 'jquery-rails', '~> 2.0.2' # see above, jquery-rails 2.0.2 uses jquery 1.7.2
+gem 'jquery-rails' #, '~> 2.0.2' # see above, jquery-rails 2.0.2 uses jquery 1.7.2
 gem 'capistrano', '2.13.5' # 2.14.1 causes tinymce assets to be deleted
 gem 'capistrano-ext'
 
@@ -37,7 +37,6 @@ gem 'geocoder_plus'
 gem 'thinking-sphinx', '2.0.10'
 gem 'youtube_it'
 gem 'twitter'
-gem 'daemons'
 gem 'delayed_job_active_record'
 gem 'devise'
 gem 'cancan'
@@ -54,7 +53,6 @@ gem 'rubyzip', require: 'zip/zip'
 gem 'whenever' #, require: false
 gem "simple_form", ">= 2.0.2"
 gem 'country_select'
-gem 'rack-mini-profiler'
 gem 'ransack'
 gem "dalli"
 gem "rabl"
@@ -63,17 +61,22 @@ gem 'money-rails'
 #gem 'forem', git: "http://github.com/radar/forem.git"
 #gem 'forem-theme-twist', git: "http://github.com/radar/forem-theme-twist.git"
 gem 'will_paginate'
-gem 'rack-rewrite'
+# gem 'rack-rewrite'
 
 group :production, :staging do
+  gem 'daemons'
   gem 'passenger_monit'
   gem "exception_notification", 
     git: "http://github.com/rails/exception_notification.git",
     require: "exception_notifier"
 end
 
+group :development do
+  # gem 'bullet'
+  # gem 'rack-mini-profiler'
+end
+
 group :development, :test do
-  gem 'bullet'
   gem 'unicorn'
   gem 'minitest-rails', 
     git: "http://github.com/rawongithub/minitest-rails.git", 
@@ -89,7 +92,7 @@ group :test do
   gem 'capybara-webkit'
   gem 'capybara_minitest_spec'
   gem 'launchy' # save_and_open_page inline in tests
-  # gem 'minitest', '2.12.1'
+  gem 'minitest' #, '2.12.1'
   gem 'guard-minitest'
   gem 'rb-inotify', '~> 0.9'
   gem 'database_cleaner'

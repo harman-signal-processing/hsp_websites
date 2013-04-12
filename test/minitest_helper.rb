@@ -2,6 +2,8 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
 require "minitest/autorun"
 require "minitest/rails"
+require 'minitest/unit'
+require 'minitest/spec'
 require "capybara/rails"
 require "active_support/testing/setup_and_teardown"
 require "database_cleaner"
@@ -112,5 +114,5 @@ class MiniTest::Rails::Integration
 
 end
 
-Turn.config.format = :outline
-Turn.config.natural = true
+# Turn.config.format = :outline
+# Turn.config.natural = true
