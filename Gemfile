@@ -78,19 +78,16 @@ end
 
 group :development, :test do
   gem 'unicorn'
-  gem 'minitest-rails', 
-    git: "http://github.com/rawongithub/minitest-rails.git", 
-    # ref: "b8997a7044b41d4c372b7a071927f376864b8104",
-    branch: "gemspec"
+  gem 'minitest-rails'
   gem "factory_girl_rails"
 end
 
 group :test do
-  gem 'mocha', '= 0.13.0', require: false
   gem 'turn'
+  gem 'mocha', '= 0.13.0', require: false
   gem 'minitest-rails-capybara'
+  gem "minitest-wscolor", ">= 0.0.3"
   gem 'capybara-webkit'
-  gem 'capybara_minitest_spec'
   gem 'launchy' # save_and_open_page inline in tests
   gem 'minitest' #, '2.12.1'
   gem 'guard-minitest'

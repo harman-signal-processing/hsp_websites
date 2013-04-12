@@ -1,4 +1,4 @@
-require "minitest_helper"
+require "test_helper"
 
 describe "Toolkit Users Integration Test" do
 
