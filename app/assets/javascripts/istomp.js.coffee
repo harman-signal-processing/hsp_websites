@@ -110,7 +110,7 @@ jQuery ($) ->
 
 		constructor: (@container='#epedals', @button_selector='a.view_all_button') ->
 			@buttons = $(@button_selector)
-			@main_button = $("#{@button_selector}(eq:first)")
+			@main_button = $("#{@button_selector}[0]")
 			@hidden = $(@container).hide()
 			@setup_view_button()
 			@handle_click()
