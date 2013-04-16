@@ -28,7 +28,6 @@ HarmanSignalProcessingWebsite::Application.configure do
   config.assets.precompile += %w( 
     introducing_epedal.css 
     istomp.js 
-    istomp_coverflow.js 
     istomp.css 
     vocalist-by-digitech.css 
     hardwire-by-digitech.css 
