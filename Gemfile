@@ -62,6 +62,7 @@ gem 'money-rails'
 #gem 'forem-theme-twist', git: "http://github.com/radar/forem-theme-twist.git"
 gem 'will_paginate'
 # gem 'rack-rewrite'
+gem "bing_translator", "~> 3.0.0"
 
 group :production, :staging do
   gem 'daemons'

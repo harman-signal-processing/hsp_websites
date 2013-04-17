@@ -99,5 +99,8 @@ module HarmanSignalProcessingWebsite
       ["French", "fr"],
       ["German", "de"]
     ]
+
+    config.bing_translator_id  = "HSP"
+    config.bing_translator_key = "8pBQHkb/MwV98SvO0PP1tS9e5+YNA9f7n4wqDkvO6h4="
   end
 end

@@ -190,3 +190,52 @@ private
   end
 
 end
+
+# Overriding BingTranslator methods so we can use a proxy
+# class BingTranslator
+#   private
+#   def result(uri, params={}, headers={})
+#     get_access_token
+#     headers['Authorization'] = "Bearer #{@access_token['access_token']}"
+#     if Rails.env.development? || Rails.env.test?
+#       proxy = Net::HTTP::Proxy("10.30.26.254", "8080")
+#       # logger.debug " ---------------------> Headers: #{headers.inspect }"
+#       # logger.debug " ---------------> URI: #{uri.inspect }"
+#       result = proxy.new(uri.host, uri.port).get(
+#         "#{uri.path}?#{prepare_param_string(params)}",
+#         headers)
+#     else
+#       result = Net::HTTP.new(uri.host, uri.port).get(
+#         "#{uri.path}?#{prepare_param_string(params)}",
+#         headers)
+#     end
+#   end
+
+#   def get_access_token
+#     return @access_token if @access_token and
+#       Time.now < @access_token['expires_at']
+
+#     params = {
+#       'client_id' => CGI.escape(@client_id),
+#       'client_secret' => CGI.escape(@client_secret),
+#       'scope' => CGI.escape('http://api.microsofttranslator.com'),
+#       'grant_type' => 'client_credentials'
+#     }
+
+#     if Rails.env.development? || Rails.env.test?
+#       proxy = Net::HTTP::Proxy("10.30.26.254", "8080")
+#       # logger.debug " ----------------> #{@access_token.inspect }"
+#       http = proxy.new(@access_token_uri.host, @access_token_uri.port)
+#       # http.use_ssl = true
+#       response = http.post(@access_token_uri.path, prepare_param_string(params))
+#     else
+#       http = Net::HTTP.new(@access_token_uri.host, @access_token_uri.port)
+#       http.use_ssl = true
+#       response = http.post(@access_token_uri.path, prepare_param_string(params))
+#     end
+#     @access_token = JSON.parse(response.body)
+#     raise "Authentication error: #{@access_token['error']}" if @access_token["error"]
+#     @access_token['expires_at'] = Time.now + @access_token['expires_in'].to_i
+#     @access_token
+#   end
+# end
