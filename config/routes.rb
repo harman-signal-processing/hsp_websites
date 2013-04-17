@@ -8,6 +8,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     namespace :v1 do 
       resources :brands, only: [:index, :show] do 
         collection { get :for_employee_store }
+        member { get :service_centers }
       end
       resources :product_families, :products
       get '/brand_features/:id' => 'products#features', as: :brand_features

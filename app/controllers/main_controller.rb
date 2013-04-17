@@ -127,6 +127,10 @@ class MainController < ApplicationController
       updated_at: Date.today,
       changefreq: 'daily',
       priority: 0.7 } if website.has_where_to_buy?
+    @pages << { url: support_url,
+      updated_at: 1.day.ago,
+      changefreq: 'weekly',
+      priority: 0.7 }
     ProductFamily.all_with_current_products(website, I18n.locale).each do |product_family|
       @pages << { url: url_for(product_family), 
         updated_at: product_family.updated_at,
@@ -134,14 +138,33 @@ class MainController < ApplicationController
         priority: 0.9 }
     end
     Product.all_for_website(website).each do |product|
-      @pages << { url: url_for(product),
-        updated_at: product.updated_at,
-        changefreq: 'weekly',
-        priority: 0.9 }
+      if product.discontinued?
+        @pages << { url: url_for(product),
+          updated_at: product.updated_at,
+          changefreq: 'monthly',
+          priority: 0.6 }
+      else
+        @pages << { url: url_for(product),
+          updated_at: product.updated_at,
+          changefreq: 'weekly',
+          priority: 0.9 }
+      end
       @pages << { url: buy_it_now_product_url(product),
         updated_at: product.updated_at,
         changefreq: 'weekly',
         priority: 0.7 } if product.active_retailer_links.length > 0 && !(product.parent_products.count > 0)
+    end
+    if website.has_software?
+      @pages << { url: softwares_url,
+        updated_at: 5.days.ago,
+        changefreq: 'weekly',
+        priority: 0.7 }
+      website.current_softwares.each do |software|
+        @pages << { url: url_for(software),
+          updated_at: software.updated_at,
+          changefrequ: 'weekly',
+          priority: 0.8 }
+      end
     end
     News.all_for_website(website).each do |news|
       @pages << { url: url_for(news),
@@ -150,19 +173,21 @@ class MainController < ApplicationController
         priority: 0.7 }
     end
     if website.has_artists?
-    Artist.all_for_website(website).each do |artist|
-      @pages << { url: url_for(artist),
-        updated_at: artist.updated_at,
-        changefreq: 'monthly',
-        priority: 0.2 }
-    end
+      Artist.all_for_website(website).each do |artist|
+        @pages << { url: url_for(artist),
+          updated_at: artist.updated_at,
+          changefreq: 'monthly',
+          priority: 0.4 }
+      end
     end
     Page.all_for_website(website).each do |page|
-      purl = (!page.custom_route.blank?) ? "#{locale_root_url}/#{page.custom_route}" : url_for(page)
-      @pages << { url: purl,
-        updated_at: page.updated_at,
-        changefreq: 'weekly',
-        priority: 0.6 }
+      unless page.requires_login?
+        purl = (!page.custom_route.blank?) ? "#{locale_root_url}/#{page.custom_route}" : url_for(page)
+        @pages << { url: purl,
+          updated_at: page.updated_at,
+          changefreq: 'weekly',
+          priority: 0.6 }
+      end
     end
     render "sitemap"
   end

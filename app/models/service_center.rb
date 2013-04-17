@@ -36,5 +36,7 @@ class ServiceCenter < ActiveRecord::Base
   def self.excluded_accounts
     YAML::load_file(Rails.root.join("db", "excluded_dealers.yml"))
     #%w{100857 103036 103639 103641 101656}
-  end  
+  end
+
+
 end
