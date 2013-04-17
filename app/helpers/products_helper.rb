@@ -28,10 +28,12 @@ module ProductsHelper
   
   def tab_title(product_tab, options={})
     title = options[:shorten] ? t("product_page.labels.#{product_tab.key}") : t("product_page.#{product_tab.key}")
-    if options[:product] && product_tab.key == "features" && custom_title = options[:product].rename_tab('features')
-      title = custom_title
-    elsif custom_title = eval("website.#{product_tab.key}_tab_name")
-      title = custom_title
+    if I18n.locale == I18n.default_locale
+      if options[:product] && product_tab.key == "features" && custom_title = options[:product].rename_tab('features')
+        title = custom_title
+      elsif custom_title = eval("website.#{product_tab.key}_tab_name")
+        title = custom_title
+      end
     end
     (product_tab.count.to_i > 1) ? "#{product_tab.count} #{title}" : title
   end
@@ -179,7 +181,7 @@ module ProductsHelper
         no_buy_it_now(product)
       elsif product.hide_buy_it_now_button?
         ""
-		  elsif !session["geo_usa"]
+		  elsif !session["geo_usa"] || I18n.locale != I18n.default_locale
         buy_it_now_international(product, button)
 		  elsif !product.direct_buy_link.blank?
         buy_it_now_direct_from_factory(product, button)

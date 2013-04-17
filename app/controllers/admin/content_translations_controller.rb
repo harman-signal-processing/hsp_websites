@@ -27,7 +27,7 @@ class Admin::ContentTranslationsController < AdminController
     @model_class = params[:type].classify
     @record = @model_class.constantize.find(params[:id])
     @content_translations = []
-    ContentTranslation.fields_to_translate_for(@record).each do |field_name|
+    ContentTranslation.fields_to_translate_for(@record, website.brand).each do |field_name|
       @content_translations << ContentTranslation.find_or_initialize_by_content_type_and_content_id_and_content_method_and_locale(@model_class, @record.id, field_name, @target_locale)
     end
     if request.post?

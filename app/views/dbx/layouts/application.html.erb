@@ -41,7 +41,7 @@
 			<% if website.has_market_segments? %>
 			<div id="market_segment_nav">
 				<% website.market_segments.each do |ms| %>
-					<%= link_to ms.name, ms, class: "button" %>
+					<%= link_to translate_content(ms, :name), ms, class: "button" %>
 				<% end %>
 			</div>
 			<% end %>

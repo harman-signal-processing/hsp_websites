@@ -35,7 +35,7 @@
 			<% if @product.sale_price && @product.sale_price.to_f > 0 %>
 			<h2 class="price"><%= number_to_currency(@product.sale_price) %></h2>
 			<% end %>
-			<% if website.show_pricing? && @product.msrp && @product.msrp.to_f > 0 %>
+			<% if website.show_pricing? && @product.msrp && @product.msrp.to_f > 0 && I18n.locale == I18n.default_locale %>
 			  <% if @product.sale_price && @product.msrp.to_f > @product.sale_price.to_f %>
 				<p>
 					MSRP <span class="strike"><%= number_to_currency(@product.msrp) %></span><br/>
@@ -63,7 +63,7 @@
 		</td></tr></table>
 		</div>
 		<% if @product.images_for("product_page").size > 0 %>
-		<div class="larger_tag">Larger Images:</div>
+		<div class="larger_tag"><%= t('product_page.larger_images') %></div>
 		<ul id="product_thumbnails">
 			<% @product.images_for("product_page").each do |product_attachment| %>
 			  <% if product_attachment.product_media_thumb_file_name.present? %>

@@ -71,7 +71,7 @@ zh:
   uses:  使用
   click_icons_for_features:  单击图标的功能
   back_to:  回往
-  form: 论坛
+  forum: 论坛
   brief_legal_disclaimer: 此产品建模的产品名称是其各自公司的商标，与Digitech并无关联的也不附属于DigiTech。 向下滚动查看完整的信息。
 
   language:
@@ -95,9 +95,12 @@ zh:
       other: 其他文件
       
   product_page:
+      larger_images: 较大的图像
       features:  特点
       specs_manuals_etc:  数据表，使用手册，评测等...
       details:  更多内容
+      description:  更多内容
+      news:  新闻
       news_and_reviews:  新闻&评测
       specifications:  性能
       amp_models:  功放型号
@@ -118,6 +121,7 @@ zh:
           cabinets:  机箱
           effects:  效果器
           pedals:  踏板
+          news: 新闻
           accessories:  配件
 
   titles:
