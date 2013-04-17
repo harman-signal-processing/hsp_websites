@@ -1,6 +1,8 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
+  require 'bing_translator'
+
   def cached_meta_tags
     @page_description ||= website.value_for('default_meta_tag_description') 
     @page_keywords ||= website.value_for("default_meta_tag_keywords") 
@@ -171,7 +173,7 @@ module ApplicationHelper
 	# back to language only or default (english)
 	def translate_content(object, method)
 	  c = object[method] # (default)
-    return c if I18n.locale == I18n.default_locale
+    return c if I18n.locale == I18n.default_locale || I18n.locale == 'en'
 	  parent_locale = (I18n.locale.to_s.match(/^(.*)-/)) ? $1 : false
 	  translations = ContentTranslation.where(content_type: object.class.to_s, content_id: object.id, content_method: method.to_s)
 	  if t = translations.where(locale: I18n.locale).first
@@ -182,9 +184,31 @@ module ApplicationHelper
       elsif t = translations.where(["locale LIKE ?", "'#{parent_locale}%%'"]).first
         c = t.content
       end
+    else
+      c = api_translate(object, method)
     end
     c.html_safe
 	end
+
+  # TODO: Implement Bing translate, store results
+  def api_translate(object, method)
+    if Rails.env.staging? # only do this in staging for now
+      begin
+        t = BingTranslator.new(HarmanSignalProcessingWebsite::Application.config.bing_translator_id, HarmanSignalProcessingWebsite::Application.config.bing_translator_key)
+        content = t.translate(object[method], from: I18n.default_locale.to_s.gsub!(/\-.*$/, ''), to: I18n.locale.to_s) 
+        ContentTranslation.create(
+          content_type: object.class.to_s,
+          content_id: object.id,
+          content_method: method,
+          locale: I18n.locale)
+        content
+      rescue
+        object[method]
+      end
+    else
+      object[method]
+    end
+  end
 	
 	def image_url(source)
     abs_path = image_path(source)
