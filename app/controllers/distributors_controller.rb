@@ -4,7 +4,7 @@ class DistributorsController < ApplicationController
   # GET /distributors.xml
   def index
     @distributors = []
-    @countries = Distributor.countries(website)
+    @countries = [Distributor.new(country: "USA")] + Distributor.countries(website)
     @country = nil
     respond_to do |format|
       format.html { render_template }
@@ -18,6 +18,9 @@ class DistributorsController < ApplicationController
   # PUT /distributors/search
   def search
     @country = params[:country]
+    if @country == "USA" || @country == "United States of America"
+      redirect_to where_to_buy_path and return false
+    end
     @distributors = Distributor.find_all_by_country(@country, website)
     @countries = Distributor.countries(website)
     respond_to do |format|

@@ -67,7 +67,7 @@
 				<div>
 					<span class="price_label">Included With iStomp</span>
 				</div>
-			<% elsif !@product.msrp.blank? %>
+			<% elsif !@product.msrp.blank? && I18n.locale == I18n.default_locale %>
 				<div>
 					<span class="price_label"><%= "Regular" unless @product.sale_price.to_f >= @product.msrp.to_f %> Price:</span>
 					<span class="price"><%= number_to_currency(@product.msrp) %></span>

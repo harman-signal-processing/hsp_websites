@@ -34,8 +34,8 @@ class ContentTranslation < ActiveRecord::Base
     t
   end
 
-  def self.fields_to_translate_for(object)
-    translatables[object.class.name.underscore]
+  def self.fields_to_translate_for(object, brand)
+    translatables(brand)[object.class.name.underscore]
   end
   
 end
