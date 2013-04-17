@@ -28,6 +28,9 @@ class ContentTranslation < ActiveRecord::Base
     if brand.has_faqs?
       t["faq"] = %w{question answer}
     end
+    if brand.has_market_segments?
+      t["market_segment"] = %w{name}
+    end
     t
   end
 
