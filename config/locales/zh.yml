@@ -101,7 +101,9 @@ zh:
       details:  更多内容
       description:  更多内容
       news:  新闻
+      reviews: 评论
       news_and_reviews:  新闻&评测
+      training_modules: 培训模块
       specifications:  性能
       amp_models:  功放型号
       cabinets:  音箱
@@ -122,6 +124,7 @@ zh:
           effects:  效果器
           pedals:  踏板
           news: 新闻
+          training_modules: 培训模块
           accessories:  配件
 
   titles:

@@ -184,24 +184,32 @@ module ApplicationHelper
       elsif t = translations.where(["locale LIKE ?", "'#{parent_locale}%%'"]).first
         c = t.content
       end
-    else
-      c = api_translate(object, method)
+    elsif auto = auto_translate(object, method)
+      c = auto
     end
     c.html_safe
 	end
 
   # TODO: Implement Bing translate, store results
-  def api_translate(object, method)
+  def auto_translate(object, method)
     if Rails.env.staging? # only do this in staging for now
       begin
-        t = BingTranslator.new(HarmanSignalProcessingWebsite::Application.config.bing_translator_id, HarmanSignalProcessingWebsite::Application.config.bing_translator_key)
-        content = t.translate(object[method], from: I18n.default_locale.to_s.gsub!(/\-.*$/, ''), to: I18n.locale.to_s) 
-        ContentTranslation.create(
-          content_type: object.class.to_s,
-          content_id: object.id,
-          content_method: method,
-          locale: I18n.locale)
-        content
+        from = I18n.default_locale.to_s.gsub!(/\-.*$/, '') || 'en'
+        target = I18n.locale.to_s.gsub!(/\-.*$/, '')
+        target = "zh-CHS" if target.to_s.match(/^zh/i)
+        logger.debug " ------> target: #{target}"
+        if from && target
+          t = BingTranslator.new(HarmanSignalProcessingWebsite::Application.config.bing_translator_id, HarmanSignalProcessingWebsite::Application.config.bing_translator_key)
+          if content = t.translate(object[method], from: from, to: target) 
+            ContentTranslation.create(
+              content_type: object.class.to_s,
+              content_id: object.id,
+              content_method: method,
+              content: content,
+              locale: I18n.locale)
+            content
+          end
+        end
       rescue
         object[method]
       end
