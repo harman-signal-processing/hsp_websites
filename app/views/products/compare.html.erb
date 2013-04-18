@@ -25,7 +25,7 @@
 		<td class="spec_value"><%= translate_content(product, :short_description) %></td>
 		<% end %>
 	</tr>
-	<% if website.show_pricing? %>
+	<% if website.show_pricing? && I18n.locale == I18n.default_locale %>
 	<tr>
 		<td class="spec_name">MSRP</td>
 		<% @products.each do |product| %>

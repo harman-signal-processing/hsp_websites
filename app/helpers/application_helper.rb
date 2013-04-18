@@ -190,12 +190,12 @@ module ApplicationHelper
     c.html_safe
 	end
 
-  # TODO: Implement Bing translate, store results
+  # Bing translate, store results
   def auto_translate(object, method)
-    if Rails.env.staging? # only do this in staging for now
+    if Rails.env.production? || Rails.env.staging? 
       begin
-        from = I18n.default_locale.to_s.gsub!(/\-.*$/, '') || 'en'
-        target = I18n.locale.to_s.gsub!(/\-.*$/, '')
+        from = I18n.default_locale.to_s.gsub(/\-.*$/, '') || 'en'
+        target = I18n.locale.to_s.gsub(/\-.*$/, '')
         target = "zh-CHS" if target.to_s.match(/^zh/i)
         logger.debug " ------> target: #{target}"
         if from && target
