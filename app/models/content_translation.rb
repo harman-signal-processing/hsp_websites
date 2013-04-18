@@ -1,5 +1,7 @@
 class ContentTranslation < ActiveRecord::Base
-  validates_presence_of :content_type, :content_id, :content_method, :locale
+  validates_presence_of :content_id, :content_method, :locale
+  validates :content, presence: true
+  validates :content_type, presence: true
   
   # Here's my big configuration table which shows which fields can be translated.
   # These have been updated in the views so that instead of just showing a value,
