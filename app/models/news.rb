@@ -16,6 +16,7 @@ class News < ActiveRecord::Base
   validates_presence_of :brand_id, :title
   belongs_to :brand, touch: true
   before_save :strip_harmans_from_title
+  after_save :translate
   
   define_index do
     indexes :title
@@ -80,4 +81,10 @@ class News < ActiveRecord::Base
     "#{I18n.l(self.created_at.to_date, format: :long)} - #{self.body}"
   end
   
+  # Translates this record into other languages. 
+  def translate
+    ContentTranslation.auto_translate(self, self.brand)
+  end
+  handle_asynchronously :translate
+
 end
