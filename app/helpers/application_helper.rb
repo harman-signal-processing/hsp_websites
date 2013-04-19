@@ -1,8 +1,6 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
-  require 'bing_translator'
-
   def cached_meta_tags
     @page_description ||= website.value_for('default_meta_tag_description') 
     @page_keywords ||= website.value_for("default_meta_tag_keywords") 
@@ -190,25 +188,12 @@ module ApplicationHelper
     c.html_safe
 	end
 
-  # Bing translate, store results
+  # Bing translate, store results, rescue in case of error
   def auto_translate(object, method)
     if Rails.env.production? || Rails.env.staging? 
       begin
-        from = I18n.default_locale.to_s.gsub(/\-.*$/, '') || 'en'
-        target = I18n.locale.to_s.gsub(/\-.*$/, '')
-        target = "zh-CHS" if target.to_s.match(/^zh/i)
-        logger.debug " ------> target: #{target}"
-        if from && target
-          t = BingTranslator.new(HarmanSignalProcessingWebsite::Application.config.bing_translator_id, HarmanSignalProcessingWebsite::Application.config.bing_translator_key)
-          if content = t.translate(object[method], from: from, to: target) 
-            ContentTranslation.create(
-              content_type: object.class.to_s,
-              content_id: object.id,
-              content_method: method,
-              content: content,
-              locale: I18n.locale)
-            content
-          end
+        if translated = ContentTranslation.create_with_auto_translate(object, method, I18n.locale)
+          translated.content
         end
       rescue
         object[method]
@@ -223,7 +208,7 @@ module ApplicationHelper
     unless abs_path =~ /^http/
       abs_path = "#{request.protocol}#{request.host_with_port}#{abs_path}"
     end
-   abs_path
+    abs_path
   end
   
   # Render an unordered list of the top top nav
