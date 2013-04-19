@@ -1,7 +1,9 @@
 class ContentTranslation < ActiveRecord::Base
+  require 'bing_translator'
   validates_presence_of :content_id, :content_method, :locale
   validates :content, presence: true
   validates :content_type, presence: true
+  attr_accessible :target
   
   # Here's my big configuration table which shows which fields can be translated.
   # These have been updated in the views so that instead of just showing a value,
@@ -38,6 +40,31 @@ class ContentTranslation < ActiveRecord::Base
 
   def self.fields_to_translate_for(object, brand)
     translatables(brand)[object.class.name.underscore]
+  end
+
+  # Bing translate, store results
+  def self.create_with_auto_translate(object, method, locale)
+    from = I18n.default_locale.to_s.gsub(/\-.*$/, '') || 'en'
+
+    c = self.new(content_type: object.class.to_s,
+          content_id: object.id,
+          content_method: method,
+          locale: locale)
+    target = locale
+    target = "zh-CHS" if target.to_s.match(/^zh/i)
+    # logger.debug " ------> target: #{target}"
+
+    if content = translator.translate(object[method], from: from, to: target) 
+      c.content = content
+      c.save
+    end
+
+  end
+
+  private
+
+  def self.translator
+    @translator ||= BingTranslator.new(HarmanSignalProcessingWebsite::Application.config.bing_translator_id, HarmanSignalProcessingWebsite::Application.config.bing_translator_key)
   end
   
 end
