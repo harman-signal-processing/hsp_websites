@@ -190,9 +190,9 @@ module ApplicationHelper
 
   # Bing translate, store results, rescue in case of error
   def auto_translate(object, method)
-    if Rails.env.production? || Rails.env.staging? 
+    if HarmanSignalProcessingWebsite::Application.config.auto_translate
       begin
-        if translated = ContentTranslation.create_with_auto_translate(object, method, I18n.locale)
+        if translated = ContentTranslation.create_or_update_with_auto_translate(object, method, I18n.locale)
           translated.content
         end
       rescue
