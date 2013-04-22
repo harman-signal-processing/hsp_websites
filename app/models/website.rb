@@ -59,6 +59,10 @@ class Website < ActiveRecord::Base
   def list_of_all_locales
     self.website_locales.collect{|website_locale| website_locale.locale}
   end
+
+  def auto_translate_locales
+    list_of_all_locales.reject{|i| i.match(/en/)}
+  end
   
   def has_mac_software?
     begin

@@ -1,0 +1,26 @@
+<% set_meta_tags title: t('professionals').capitalize,
+				 description: t('meta.description.featured_artists', brand: website.brand_name),
+				 keywords: (@featured_artists).collect{|a| a.name}.join(", "),
+				 reverse: true %>
+
+<%= cache ["artist_slideshow", @featured_artists, website.brand, I18n.locale] do %>
+	<div id="featured_artist_box">
+		<%= artist_slideshow(slides: @featured_artists, transition: 'toggle', size: "960x408") %>
+	</div>
+<% end %>
+
+<%= cache ["artist_index_content", website.brand, I18n.locale] do %>
+	<div id="artist_landing_page">
+		<% ArtistTier.for_artist_page.each do |artist_tier| %>
+			<% if artist_tier.artists_for(website).size > 0 %>
+				<!-- <h3><%= artist_tier.name.pluralize %></h3> -->
+				<% artist_tier.artists_for(website).shuffle[0,3].each do |artist| %>
+				  	<%= render_partial "artist", artist: artist %>
+				<% end %>
+				<div class="clear"></div>
+			<% end %>
+		<% end %>
+	</div>
+<% end %>
+
+<p style="text-align: right"><b><%= link_to "> all #{website.brand.name.downcase} #{t('professionals')}", all_artists_path %></b></p>
