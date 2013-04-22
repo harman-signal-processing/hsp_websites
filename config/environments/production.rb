@@ -26,6 +26,7 @@ HarmanSignalProcessingWebsite::Application.configure do
   
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w( 
+    archimedia.css
     introducing_epedal.css 
     istomp.js 
     istomp.css 

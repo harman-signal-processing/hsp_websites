@@ -44,7 +44,7 @@ class ContentTranslation < ActiveRecord::Base
 
   def self.auto_translate(object, brand)
     if HarmanSignalProcessingWebsite::Application.config.auto_translate
-      locales = brand.default_website.locales
+      locales = brand.default_website.auto_translate_locales
       fields_to_translate_for(object, brand).each do |method|
         locales.each do |locale|
           create_or_update_with_auto_translate(object, method, locale)
@@ -62,6 +62,27 @@ class ContentTranslation < ActiveRecord::Base
     end
   end
 
+  def auto_translate(object)
+    from = I18n.default_locale.to_s.gsub(/\-.*$/, '') || 'en'
+    target = locale
+    target = "zh-CHS" if target.to_s.match(/^zh/i)
+    original_content = object[self.content_method]
+
+    logger.debug " ------>     from: #{from}"
+    logger.debug " ------>   target: #{target}"
+    logger.debug " ------> original: #{original_content}"
+
+    unless from == target || original_content.blank?
+      t = translator
+      if t.supported_language_codes.include?(target) && t.supported_language_codes.include?(from)
+        if content = t.translate(original_content, from: from, to: target) 
+          self.content = content
+          self.save
+        end
+      end
+    end 
+  end
+
 private
 
   def self.create_with_auto_translate(object, method, locale)
@@ -70,7 +91,7 @@ private
       content_id: object.id,
       content_method: method,
       locale: locale
-    ).auto_translate
+    ).auto_translate(object)
   end
 
   def self.update_with_auto_translate(object, method, locale)
@@ -79,24 +100,11 @@ private
       content_id: object.id,
       content_method: method,
       locale: locale
-    ).first.auto_translate   
+    ).first.auto_translate(object)  
   end
 
-  def self.translator
-    @translator ||= BingTranslator.new(HarmanSignalProcessingWebsite::Application.config.bing_translator_id, HarmanSignalProcessingWebsite::Application.config.bing_translator_key)
-  end
-
-  def auto_translate
-    from = I18n.default_locale.to_s.gsub(/\-.*$/, '') || 'en'
-    target = locale
-    target = "zh-CHS" if target.to_s.match(/^zh/i)
-    # logger.debug " ------> target: #{target}"
-    unless from == target
-      if content = translator.translate(self.method, from: from, to: target) 
-        self.content = content
-        self.save
-      end
-    end 
+  def translator
+    BingTranslator.new(HarmanSignalProcessingWebsite::Application.config.bing_translator_id, HarmanSignalProcessingWebsite::Application.config.bing_translator_key)
   end
   
 end
