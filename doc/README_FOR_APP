@@ -36,10 +36,9 @@ h5. Things I need to work on...
 ================================================================
                  *** Notes for tomorrow ***
  building translated site for dbx
- * breadcrumbs show both driverack categories even though one DR
-   family is for China only, the other is for all other regions
+
  * The homepage features/slideshow--can't we control those by locale?
- 
+
 ================================================================
 
 === TODO for Toolkits ===
