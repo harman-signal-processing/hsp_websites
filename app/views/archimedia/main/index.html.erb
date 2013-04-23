@@ -26,7 +26,7 @@
 	<% end %>
 <% end %>
 
-<%= content_for :big_bottom_box do %>
+<%= content_for :big_bottom_box_disabled do %>
 	<%= cache ["homepage_bottom", website.brand, I18n.locale] do %>
 		<div class="column">
 			<% if website.homepage_column_one %>

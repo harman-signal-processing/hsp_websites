@@ -54,16 +54,13 @@
 			</div>
 			<div id="topnav">
 				<ul>
-					<li><%= link_to t('home'), locale_root_path %></li>
-					<% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
-					<li><%= link_to t('store'), where_to_buy_path %></li>
-					<% end %>					
-					<% if website.has_artists? %>
-					<li><%= link_to t('professionals'), artists_path %></li>
-					<% end %>
+					<li><%= link_to "About" %></li>
+					<li><%= link_to "Hardware", products_path %></li>
+					<li><%= link_to "Software", software_index_path %></li>
+					<li><%= link_to "Applications" %></li>
 					<li><%= link_to t('news'), news_index_path %></li> 
-					<li><%= link_to t('product_support'), support_path %></li>
-					<li><%= link_to t('warranty_registration'), warranty_registration_path %></li>
+					<li><%= link_to t('downloads'), support_downloads_path %></li>
+					<li><%= link_to "training", "/training" %></li>
 				</ul>
 			</div>
 			<%# search is only available in default language for now...%>
@@ -133,7 +130,6 @@
 				<%= link_to t('where_to_buy'), where_to_buy_path %> &bull;
 				<% end %>
 				<%= link_to t('product_support'), support_path %> &bull;
-				<%= link_to "privacy policy", "/privacy" %> &bull;
 				<%= link_to t('sitemap'), sitemap_path(format: 'xml') %>
 			</div>
 			<div id="footer_left">
