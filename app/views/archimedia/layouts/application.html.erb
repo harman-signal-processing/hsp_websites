@@ -47,7 +47,11 @@
 				<h2><%= link_to website.brand_name, locale_root_path %></h2>
 				<% end %>
 			</div>
-
+			<div id="supernav">
+				<%= image_tag "#{website.folder}/bss-logo.png", alt: "BSS" %>
+				<%= image_tag "#{website.folder}/crown-logo.png", alt: "Crown" %>
+				<%= image_tag "#{website.folder}/hiqnet-logo.png", alt: "HiQnet" %>
+			</div>
 			<div id="topnav">
 				<ul>
 					<li><%= link_to t('home'), locale_root_path %></li>
