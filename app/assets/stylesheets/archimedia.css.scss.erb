@@ -1,46 +1,25 @@
 @font-face {
     font-family: 'AsapRegular';
-    src: url('/fonts/Asap-Regular-webfont.eot');
-    src: url('/fonts/Asap-Regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/fonts/Asap-Regular-webfont.woff') format('woff'),
-         url('/fonts/Asap-Regular-webfont.ttf') format('truetype'),
-         url('/fonts/Asap-Regular-webfont.svg#AsapRegular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'AsapItalic';
-    src: url('/fonts/Asap-Italic-webfont.eot');
-    src: url('/fonts/Asap-Italic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/fonts/Asap-Italic-webfont.woff') format('woff'),
-         url('/fonts/Asap-Italic-webfont.ttf') format('truetype'),
-         url('/fonts/Asap-Italic-webfont.svg#AsapItalic') format('svg');
+    src: font-url('Asap-Regular-webfont.eot');
+    src: font-url('Asap-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         font-url('Asap-Regular-webfont.woff') format('woff'),
+         font-url('Asap-Regular-webfont.ttf') format('truetype'),
+         font-url('Asap-Regular-webfont.svg#AsapRegular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'AsapBold';
-    src: url('/fonts/Asap-Bold-webfont.eot');
-    src: url('/fonts/Asap-Bold-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/fonts/Asap-Bold-webfont.woff') format('woff'),
-         url('/fonts/Asap-Bold-webfont.ttf') format('truetype'),
-         url('/fonts/Asap-Bold-webfont.svg#AsapBold') format('svg');
+    src: font-url('Asap-Bold-webfont.eot');
+    src: font-url('Asap-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         font-url('Asap-Bold-webfont.woff') format('woff'),
+         font-url('Asap-Bold-webfont.ttf') format('truetype'),
+         font-url('Asap-Bold-webfont.svg#AsapBold') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
-@font-face {
-    font-family: 'AsapBoldItalic';
-    src: url('/fonts/Asap-BoldItalic-webfont.eot');
-    src: url('/fonts/Asap-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/fonts/Asap-BoldItalic-webfont.woff') format('woff'),
-         url('/fonts/Asap-BoldItalic-webfont.ttf') format('truetype'),
-         url('/fonts/Asap-BoldItalic-webfont.svg#AsapBoldItalic') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
 body {
 	font-family: 'AsapRegular', Helvetica, Arial, Verdana, Sans-serif;
 	font-size: 12px;
@@ -84,7 +63,6 @@ h1, h2 {
 	padding: 0px;
 	color: #969696;
 	font-weight: 500;
-	font-family: 'AsapRegular', sans-serif;
 	font-size: 110%;
 	letter-spacing: 0.04em;
 }
@@ -98,7 +76,6 @@ h1 {
 h2 {
 	font-size: 22px;
 	line-height: 36px;
-	font-family: 'AsapRegular', sans-serif;
 	text-transform: uppercase;
 	a:link, a:visited {
 		text-decoration: none;
@@ -110,7 +87,6 @@ font-weight: 500;
 	font-size: 16px;
 	line-height: 20px;
 	margin-bottom: 4px;
-	font-family: 'AsapRegular', sans-serif;
 	a:link, a:visited {
 		text-decoration: none;
 	}
@@ -161,7 +137,7 @@ div#inner_header {
 div#supernav {
 	line-height: 1.4;
 	position: absolute;
-	top: 12px;
+	top: 8px;
 	right: -7px;
 	text-align: right;
     padding: 0px;
@@ -421,7 +397,7 @@ div#content_container_content {
 }
 div#logo {
 	float: left;
-	margin-top: 10px;
+	margin-top: 6px;
 	margin-left: 0px;
 	h2 {
 		font-size: 30px;
@@ -521,6 +497,7 @@ footer {
 #social_media_links {
 	text-align: center;
 	margin-bottom: 10px;
+	margin-left: -8px;
 	img {
 		margin-left: 8px;
 		margin-right: 8px;
