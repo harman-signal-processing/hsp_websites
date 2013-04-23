@@ -267,7 +267,7 @@ div#topnav {
 	border-bottom-right-radius: 6px;
 	font-weight: normal;
 	background: transparent url(<%= image_path('archimedia/nav_background.png') %>) repeat-x top;
-	box-shadow: 0px 0px 3px #666;
+	box-shadow: 0px 1px 5px #444;
 	ul {
 		padding-top: 0px;
 	}
@@ -278,20 +278,20 @@ div#topnav {
 		padding: 0;
 		a:link, a:visited {
 			font-family: 'AsapBold', Arial, Helvetica, sans-serif;
-			letter-spacing: 0.10em;
+			letter-spacing: 0.05em;
 			text: {
 
 				decoration: none;
 			}
-			padding: 0px 8px 1px 11px;
-			color: #777;
+			padding: 0px 6px 1px 11px;
+			color: #999;
 			margin-top: 2px;
 			&.nodivider {
 				border: none;
 			}
 		}
 		a:hover {
-			color: white;
+			color: #777;
 		}
 	}
 }
@@ -343,19 +343,20 @@ header div#search_form {
 	position: absolute;
 	top: 93px;
 	right: 2px;
-	width: 220px;
+	width: 240px;
 	z-index: 300;
 	text-align: right;
 	input#query {
 		width: 140px;
-		background: #909090;
-		color: #CCC;
-		padding: 2px 4px;
-		box-shadow: inset 0px 0px 4px #4E4E4E;	
+		background: #FFF;
+		color: #666;
+		padding: 5px 6px;
+		box-shadow: inset 1px 1px 3px #8E8E8E;	
+		border-radius: 10px;
 		font-size: 13px;
 	}
 	a:link, a:visited {
-		color: #C7C7C7;
+		color: #999;
 		display: inline-block;
 		font: {
 			family: 'AsapRegular', Arial, Helvetica, sans-serif;
@@ -372,12 +373,16 @@ header div#search_form {
 	input#submit {
 		background: transparent;
 		border: none;
-		color: #C7C7C7;
+		color: #999;
 		font: {
-			family: 'AsapRegular', Arial, Helvetica, sans-serif;
-			size: 12px;
+			family: 'AsapBold', Arial, Helvetica, sans-serif;
+			size: 14px;
 		}
 		text-transform: uppercase;
+		&:hover {
+			color: #777;
+			cursor: hand; cursor: pointer;
+		}
 	}
 }
 
@@ -1850,43 +1855,41 @@ div#harmanpro_bar {
 	right: -46px;
 	color: white;
 	z-index: 20;
-}
-.admin_function a:link,
-.admin_function a:visited {
-	color: white;
-	text-decoration: none;
-	display: block;
-	background: #4A463D;
-	padding: 3px 12px;
-	border-radius: 4px;
-	-moz-border-radius: 4px;
-	box-shadow: #777 1px 1px 3px;
-}
-.admin_function a:hover {
-	color: white;
-	text-decoration: none;
-	background: #B0A489;
+	a:link, a:visited {
+		color: white;
+		text-decoration: none;
+		display: block;
+		background: #4A463D;
+		padding: 3px 12px;
+		border-radius: 4px;
+		-moz-border-radius: 4px;
+		box-shadow: #777 1px 1px 3px;
+	}
+	a:hover {
+		color: white;
+		text-decoration: none;
+		background: #111;
+	}
 }
 #admin_menu_link {
 	position: absolute;
 	top: 0;
 	right: 0;
 	z-index: 30;
-}
-#admin_menu_link a:link,
-#admin_menu_link a:visited {
-	display: block;
-	color: #EEE;
-	text-decoration: none;
-	padding: 1px 6px 3px 6px;
-	font-family: Helvetica, arial, sans-serif;
-	font-weight: normal;
-	font-size: 10px;
-	text-shadow: #222 1px 1px 1px;
-	background: #00395a;
-}
-#admin_menu_link a:hover {
-	color: #FFF;
+	a:link, a:visited {
+		display: block;
+		color: #EEE;
+		text-decoration: none;
+		padding: 1px 6px 3px 6px;
+		font-family: Helvetica, arial, sans-serif;
+		font-weight: normal;
+		font-size: 10px;
+		text-shadow: #222 1px 1px 1px;
+		background: #00395a;
+	}
+	a:hover {
+		color: #FFF;
+	}
 }
 /*** Artists pages ***/
 body.artists {
