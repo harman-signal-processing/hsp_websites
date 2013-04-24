@@ -20,7 +20,8 @@ namespace :maintain do
   def test_and_update(item)
     begin
       new_status = link_test(item.url)
-      item.update_attributes(:link_checked_at => Time.now, :link_status => new_status)    
+      item.update_attributes(:link_checked_at => Time.now, :link_status => new_status)  
+      sleep(15) # Don't crash others' sites.  
     rescue
       logger.debug "There was an error crawling it...but keep going"
     end
