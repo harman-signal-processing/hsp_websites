@@ -34,7 +34,7 @@ module AdminHelper
   def toolkit_collection_select_for(f, related_model)
     case related_model
     when "Promotion"
-      f.collection_select :related_id, Promotion.where(brand_id: website.brand_id).where("end_on >= ?", 1.week.ago).order(:name), :id, :name
+      f.collection_select :related_id, Promotion.where(brand_id: website.brand_id).where("end_on >= ?", 6.weeks.ago).order(:name), :id, :name
     when "ProductAttachment"
       f.collection_select :related_id, website.brand.products.map{|p| p.images_for("toolkit")}.flatten, :id, :name
     when "ProductDocument"

@@ -1,6 +1,6 @@
 class MainController < ApplicationController
   skip_before_filter :verify_authenticity_token
-  before_filter :set_locale, except: [:default_locale, :sitemap, :site_info, :favicon]
+  before_filter :set_locale, except: [:sitemap, :site_info, :favicon]
   
   # The main site homepage
   #
@@ -101,8 +101,10 @@ class MainController < ApplicationController
   # locale.
   #
   def default_locale
-    if website.show_locales?
-      render_template(action: "locale_selector", layout: "locale")
+    if I18n.locale != I18n.default_locale
+      redirect_to locale_root_path and return false
+    elsif website.show_locales?
+      locale_selector
     else
       I18n.locale = website.locale
       redirect_to locale_root_path and return false

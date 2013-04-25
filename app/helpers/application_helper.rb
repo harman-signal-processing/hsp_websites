@@ -1,6 +1,11 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
+  # Generates a link to the current page, with the given locale
+  def switch_locale(new_locale)
+    request.path.sub(/^\/[a-zA-Z\-]{2,5}/, "/#{new_locale}")    
+  end
+
   def cached_meta_tags
     @page_description ||= website.value_for('default_meta_tag_description') 
     @page_keywords ||= website.value_for("default_meta_tag_keywords") 

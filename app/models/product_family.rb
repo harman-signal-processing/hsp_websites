@@ -27,6 +27,7 @@ class ProductFamily < ActiveRecord::Base
   validates_presence_of :brand_id, :name
   acts_as_tree order: :position, scope: :brand_id
   # acts_as_list scope: :brand_id, order: :position
+  after_save :translate
   
   define_index do
     indexes :name
@@ -202,5 +203,11 @@ class ProductFamily < ActiveRecord::Base
     end
     css
   end
+
+  # Translates this record into other languages. 
+  def translate
+    ContentTranslation.auto_translate(self, self.brand)
+  end
+  handle_asynchronously :translate
   
 end

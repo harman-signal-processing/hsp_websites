@@ -20,6 +20,8 @@ class Promotion < ActiveRecord::Base
     path: ":rails_root/public/system/:attachment/:id/:style/:filename",
     url: "/system/:attachment/:id/:style/:filename"
     
+  after_save :translate
+    
   def sanitized_name
     self.name.gsub(/[\'\"]/, "")
   end
@@ -60,4 +62,11 @@ class Promotion < ActiveRecord::Base
   def expired?
     (end_on <= Date.today)
   end
+
+  # Translates this record into other languages. 
+  def translate
+    ContentTranslation.auto_translate(self, self.brand)
+  end
+  handle_asynchronously :translate
+
 end

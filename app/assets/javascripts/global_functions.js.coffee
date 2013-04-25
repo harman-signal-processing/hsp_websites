@@ -1,5 +1,9 @@
 jQuery ($) ->
 
+	$('a#locale_menu').click (e) ->
+		e.preventDefault
+		$('#locale_selections').toggle()
+
 	load_lightbox = () ->
 		$('a.lightbox').lightBox
 			imageBtnClose: '/images/lightbox-btn-close.gif'

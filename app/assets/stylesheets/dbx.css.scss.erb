@@ -175,6 +175,32 @@ div#Header {
 		}
 	}
 }
+
+#locale_switcher {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	padding: 5px 8px;
+  background: url(<%= image_path('dark-gray-80.png') %>);
+	z-index: 999;
+	a {
+		text-decoration: none;
+	}
+	#locale_selections {
+		margin-top: 6px;
+		padding-bottom: 4px;
+		display: none;
+		a {
+			margin: 0 -8px;
+			display: block;
+			padding: 4px 8px;
+			&:hover {
+				background: #444;
+			}
+		}
+	}
+}
+
 div#market_segment_nav {
 	position: absolute;
 	right: 0px;
@@ -199,7 +225,7 @@ div#market_segment_nav {
 div#tagline {
 	position: absolute;
 	top: 18px;
-	left: 183px;
+	left: 133px;
 }
 div#topnav {
 	float: right;
@@ -213,7 +239,7 @@ div#topnav {
 	background: linear-gradient(top,  #be1300 0%,#8d0303 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#be1300', endColorstr='#8d0303',GradientType=0 );
 	height: 21px;
-	width: 780px;
+	width: 830px;
 	margin-top: 44px;
 	padding-top: 6px;
 	padding-left: 2px;
@@ -263,7 +289,7 @@ div#content_container_content {
 div#logo {
 	float: left;
 	text-align: right;
-	width: 150px;
+	width: 100px;
 	h2 {
 		font-size: 30px;
 		color: white;

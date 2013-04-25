@@ -23,6 +23,7 @@ class ProductReview < ActiveRecord::Base
   has_many :product_review_products, dependent: :destroy
   has_many :products, through: :product_review_products
   before_save :clear_blank_body, :reset_link_status, :stamp_link
+  after_save :translate
 
   define_index do
     indexes :title
@@ -86,5 +87,13 @@ class ProductReview < ActiveRecord::Base
   def post_on
     self.created_at.to_date
   end
+
+  # Translates this record into other languages. 
+  def translate
+    if self.products && self.products.first
+      ContentTranslation.auto_translate(self, self.products.first.brand)
+    end
+  end
+  handle_asynchronously :translate
   
 end

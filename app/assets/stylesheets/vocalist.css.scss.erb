@@ -93,6 +93,30 @@ h6{
 }
 
 /**** Application Layout *****/
+#locale_switcher {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	padding: 5px 8px;
+  background: url(<%= image_path('white-90.png') %>);
+	z-index: 999;
+	a {
+		text-decoration: none;
+	}
+	#locale_selections {
+		margin-top: 6px;
+		padding-bottom: 4px;
+		display: none;
+		a {
+			margin: 0 -8px;
+			display: block;
+			padding: 4px 8px;
+			&:hover {
+				background: #444;
+			}
+		}
+	}
+}
 div#Outer {
 	width: 960px;
 	background: #fefced;

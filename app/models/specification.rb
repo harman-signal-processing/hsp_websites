@@ -4,6 +4,7 @@ class Specification < ActiveRecord::Base
   validates_presence_of :name
   has_many :product_specifications
   has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
+  # after_save :translate # Can't auto translate without a related brand
   
   def values_with_products
     r = {}
@@ -13,5 +14,11 @@ class Specification < ActiveRecord::Base
     end
     r
   end
+
+  # Translates this record into other languages. 
+  def translate
+    ContentTranslation.auto_translate(self, self.brand)
+  end
+  handle_asynchronously :translate
 
 end
