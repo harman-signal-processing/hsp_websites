@@ -131,9 +131,6 @@ private
             session['geo_country'] = "US"
             session['geo_usa'] = true
           end
-          # c = GeoIP.new(Rails.root.join("db", "GeoIPCountryWhois.csv")).country(ip)
-          # session['geo_country'] = c.country_code3
-          # session['geo_usa'] = (session['geo_country'].match(/^US/)) ? true : false
         end
       end
     rescue
@@ -143,10 +140,21 @@ private
     # This is where we set the locale:
     if params[:locale]
       I18n.locale = params[:locale]
+    elsif !(session['geo_usa'])
+      I18n.locale = case session['geo_country']
+        when "CN"
+          'zh'        
+      end
+    elsif website.show_locales? && controller_path == "main" && action_name == "default_locale"
+      locale_selector # otherwise the default locale is appended to the URL. #ugly
     else
-      # I18n.locale = "en-US"
       redirect_to root_path and return false
     end
+  end
+
+  # locale selector
+  def locale_selector
+    render_template(action: "locale_selector", layout: "locale")
   end
 
   def current_ability
@@ -190,52 +198,3 @@ private
   end
 
 end
-
-# Overriding BingTranslator methods so we can use a proxy
-# class BingTranslator
-#   private
-#   def result(uri, params={}, headers={})
-#     get_access_token
-#     headers['Authorization'] = "Bearer #{@access_token['access_token']}"
-#     if Rails.env.development? || Rails.env.test?
-#       proxy = Net::HTTP::Proxy("10.30.26.254", "8080")
-#       # logger.debug " ---------------------> Headers: #{headers.inspect }"
-#       # logger.debug " ---------------> URI: #{uri.inspect }"
-#       result = proxy.new(uri.host, uri.port).get(
-#         "#{uri.path}?#{prepare_param_string(params)}",
-#         headers)
-#     else
-#       result = Net::HTTP.new(uri.host, uri.port).get(
-#         "#{uri.path}?#{prepare_param_string(params)}",
-#         headers)
-#     end
-#   end
-
-#   def get_access_token
-#     return @access_token if @access_token and
-#       Time.now < @access_token['expires_at']
-
-#     params = {
-#       'client_id' => CGI.escape(@client_id),
-#       'client_secret' => CGI.escape(@client_secret),
-#       'scope' => CGI.escape('http://api.microsofttranslator.com'),
-#       'grant_type' => 'client_credentials'
-#     }
-
-#     if Rails.env.development? || Rails.env.test?
-#       proxy = Net::HTTP::Proxy("10.30.26.254", "8080")
-#       # logger.debug " ----------------> #{@access_token.inspect }"
-#       http = proxy.new(@access_token_uri.host, @access_token_uri.port)
-#       # http.use_ssl = true
-#       response = http.post(@access_token_uri.path, prepare_param_string(params))
-#     else
-#       http = Net::HTTP.new(@access_token_uri.host, @access_token_uri.port)
-#       http.use_ssl = true
-#       response = http.post(@access_token_uri.path, prepare_param_string(params))
-#     end
-#     @access_token = JSON.parse(response.body)
-#     raise "Authentication error: #{@access_token['error']}" if @access_token["error"]
-#     @access_token['expires_at'] = Time.now + @access_token['expires_in'].to_i
-#     @access_token
-#   end
-# end

@@ -4,6 +4,7 @@ class Page < ActiveRecord::Base
   validates_uniqueness_of :custom_route, allow_nil: true
   has_friendly_id :sanitized_title, use_slug: true, approximate_ascii: true, max_length: 100
   belongs_to :brand
+  after_save :translate
 
   define_index do
     indexes :title
@@ -44,5 +45,11 @@ class Page < ActiveRecord::Base
       !!(brand.settings.where("name LIKE '%url%' AND string_value LIKE '%#{value}%'").count > 0)
     end
   end
+
+  # Translates this record into other languages. 
+  def translate
+    ContentTranslation.auto_translate(self, self.brand)
+  end
+  handle_asynchronously :translate
   
 end

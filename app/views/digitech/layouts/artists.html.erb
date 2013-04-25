@@ -25,6 +25,22 @@
 	    <%= render_partial "shared/analytics" %>
 	</head>
 	<body class="artists">
+
+		<% if website.show_locales? %>
+			<div id="locale_switcher">
+				<%= link_to '#', id: "locale_menu" do %>
+					<%= t('language_region') %>
+					<%= image_tag 'arrow_down.png', alt: '>' %>
+				<% end %>
+				<div id="locale_selections"> 
+					<% website.available_locales.reject{|l| l.locale.to_s == I18n.locale.to_s}.each do |website_locale| %>
+						<%= link_to website_locale.name, switch_locale(website_locale.locale) %>
+					<% end %>
+				</div>
+			</div>
+		<% end %>
+
+		<%= render_partial "shared/locale_switcher" %>
 		<%= render_partial "shared/admin_dashboard_link" %>
 		<%= render_partial "shared/header" %>
 		

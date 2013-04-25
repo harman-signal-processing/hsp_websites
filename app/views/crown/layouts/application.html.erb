@@ -34,6 +34,8 @@
 		  fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));</script>
 		<%#= render_partial "shared/admin_dashboard_link" %>	
+
+		<%= render_partial "shared/locale_switcher" %>
 		
 		<%= cache ["header", website, I18n.locale] do %>
 		<div id="Header">

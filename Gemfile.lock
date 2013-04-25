@@ -1,12 +1,4 @@
 GIT
-  remote: http://github.com/CodeBlock/bing_translator-gem.git
-  revision: eabf0d8167b1f27db5600f775d5a79121ec06ec6
-  specs:
-    bing_translator (3.1.0)
-      json (~> 1.7.7)
-      nokogiri (~> 1.5.9)
-
-GIT
   remote: http://github.com/rails/exception_notification.git
   revision: 192a49a02d63d28b23ed41cebadfedd490929cf1
   specs:
@@ -52,6 +44,9 @@ GEM
     arel (3.0.2)
     babosa (0.3.10)
     bcrypt-ruby (3.0.1)
+    bing_translator (3.0.0)
+      json (~> 1.7.3)
+      nokogiri (~> 1.5.0)
     builder (3.0.4)
     cancan (1.6.9)
     capistrano (2.13.5)
@@ -355,7 +350,7 @@ DEPENDENCIES
   acts_as_list
   acts_as_tree
   api_cache
-  bing_translator!
+  bing_translator (~> 3.0.0)
   cancan
   capistrano (= 2.13.5)
   capistrano-ext

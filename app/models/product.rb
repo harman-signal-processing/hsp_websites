@@ -46,6 +46,7 @@ class Product < ActiveRecord::Base
   has_many :sub_products, class_name: "ParentProduct", foreign_key: "parent_product_id", order: :position
   after_initialize :set_default_status
   accepts_nested_attributes_for :product_prices, reject_if: :all_blank
+  after_save :translate
   
   serialize :previewers, Array
   has_attached_file :background_image,
@@ -385,5 +386,11 @@ class Product < ActiveRecord::Base
       false
     end
   end
+
+  # Translates this record into other languages. 
+  def translate
+    ContentTranslation.auto_translate(self, self.brand)
+  end
+  handle_asynchronously :translate
   
 end

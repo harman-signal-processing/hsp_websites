@@ -102,5 +102,5 @@ HarmanSignalProcessingWebsite::Application.configure do
 
   config.employee_invitation_code = "GROOVY"
   config.rso_invitation_code = "HSP-RSO"
-  config.auto_translate      = true # probably set to false after completing test of this new system
+  config.auto_translate      = false # probably set to false after completing test of this new system
 end
