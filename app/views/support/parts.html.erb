@@ -20,16 +20,16 @@
 	   <%= f.text_field :phone %></div>
 	<div><%= f.label :fax %>
 	   <%= f.text_field :fax %></div>
-	<div><%= f.label :account_number, "#{website.brand_name} Account Number" %>
+	<div><%= f.label :account_number %>
 	   <%= f.text_field :account_number %></div>
-	<h2 style="text-align: right; width: 332px;">Product Details</h2>
+	<h2 style="text-align: right; width: 332px;"><%= t('product_details') %></h2>
 	<%= cache ["parts_form_products", website.brand] do %>
 	<div><%= f.label :product, nil, class: "required" %>
 		<%= f.collection_select :product, 
 				Product.repairable(website) + [Product.new(name: "other")],
 				:name, :name, prompt: true %></div>
 	<% end %>
-	<div><%= f.label :part_number, "HSP Part Number" %>
+	<div><%= f.label :part_number %>
 		<%= f.text_field :part_number %></div>
 	<div><%= f.label :board_location %>
 		<%= f.text_field :board_location %></div>

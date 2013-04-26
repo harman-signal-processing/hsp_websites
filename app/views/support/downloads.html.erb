@@ -3,12 +3,12 @@
 <a name="top"></a>
 <% if website.has_software? %>
 <div class="alert">
-	Looking for software/firmware? Check our <%= link_to "software downloads page", softwares_path %>.
+	<%= t('looking_for_software') %> <%= link_to t("check_our_software_page"), softwares_path %>.
 </div>
 <% end %>
 
 <div class="quicklinks">
-	<h3 class="subheader">Jump to a specific download type:</h3>
+	<h3 class="subheader"><%= t('jump_to_a_download_type') %></h3>
 	<ul>
 		<% @downloads.each do |download_collection| %>
 		<li><%= link_to download_collection[:name], "##{download_collection[:name].to_s.parameterize}" %></li>
@@ -25,7 +25,7 @@
 					<%= download_collection[:name] %>
 			<% if download_collection[:downloads].size > 1 %>
 				<%= link_to image_tag("zip-icon.png", alt: "", style: "vertical-align: middle; margin-left: 2px; border: none"),
-				 		zipped_downloads_path(download_collection[:param_name]) %>&nbsp;<%= link_to 'zip (all)', zipped_downloads_path(download_collection[:param_name]) %>
+				 		zipped_downloads_path(download_collection[:param_name]) %>&nbsp;<%= link_to t('zip_all'), zipped_downloads_path(download_collection[:param_name]) %>
 			<% end %>
 				</th>
 			</tr>

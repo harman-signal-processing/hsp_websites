@@ -42,7 +42,7 @@
 			<% if !!(website.has_training) %>
 			<li><%= link_to "product training", training_path %></li>
 			<% elsif !!website.brand.name.match(/^bss/i) %>
-			<li><%= link_to "training", "/training" %></li>
+			<li><%= link_to t('training'), "/training" %></li>
 			<% end %>
 		</ul>
 	</div>
@@ -65,10 +65,10 @@
 		<% end %>
 		</ul>
 			<% if website.has_rma_form? %>
-			<li><%= link_to "Factory Service/Return Authorization Form", rma_request_path %></li>
+			<li><%= link_to t('titles.factory_service'), rma_request_path %></li>
 			<% end %>
 			<% if website.has_parts_form? %>
-			<li><%= link_to "Parts Request", parts_request_path %></li>
+			<li><%= link_to t('titles.part_request'), parts_request_path %></li>
 			<% end %>
 		</ul>
 	</div>
@@ -76,7 +76,7 @@
 
 	<% unless website.brand_name.match(/dod/i) %>
 	<div class="support_box more_resources_box">
-		<h4>More Resources</h4>
+		<h4><%= t('titles.more_resources') %></h4>
 		<ul>
 			<% if !!(website.value_for("troubleshooting_url")) %>
 			<li><%= link_to t('troubleshooting').downcase, support_path(action: "troubleshooting") %></li>
@@ -86,7 +86,7 @@
 			<% end %>
 			<li><%= link_to t('titles.rohs'), rohs_path %></li>
 			<% if !!(website.forum_link) %>
-			<li><%= link_to "user forum", website.forum_link %></li>
+			<li><%= link_to t("user_forum"), website.forum_link %></li>
 			<% end %>
 		</ul>
 	</div>
@@ -129,9 +129,9 @@
 		<div><%= f.label :operating_system %><br/>
 			<%= f.text_field :operating_system %></div>
 
-		<div><%= f.label :shipping_address, "Address" %><br/>
+		<div><%= f.label :shipping_address, t("address") %><br/>
 			<%= f.text_area :shipping_address, size: "40x2" %></div>
-		<div><%= f.label :shipping_country, (@contact_message.require_country?) ? "Country (required)" : "Country" %><br/>
+		<div><%= f.label :shipping_country, t("country") %> <%= "(required)" if @contact_message.require_country? %><br/>
 			<%= f.text_field :shipping_country %></div>
 		<div><%= f.label :phone %><br/>
 			<%= f.text_field :phone %></div>

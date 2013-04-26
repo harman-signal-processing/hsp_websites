@@ -10,12 +10,14 @@ en:
   sound_community: sound community
   community: community
   where_to_buy: where to buy
+  buy: buy
   find_a_dealer_near_you: find a dealer near you
   product_support: support
   store: store
   outlet_store: outlet store
   sitemap: sitemap
   company: company
+  training: training
   all_rights_reserved: "All Rights Reserved."
   harman: Harman
   us_zip_code: US Zipcode
@@ -24,7 +26,9 @@ en:
   online_dealers_us: Online Dealers (US)
   international_distributors: worldwide
   select_your_country: select your country
+  country: Country
   dealer_distance: miles
+  address: Address
   back_to_news_list: Back to news list
   back_to_artists: Back to artists
   view_full_line: view full line
@@ -34,6 +38,7 @@ en:
   rohs: rohs compliance
   visit: visit
   visit_the: visit the
+  browse_products: Browse Products
   product_reviews: product reviews
   news_signup: "Join our mailing list:"
   warranty_registration: product registration
@@ -73,15 +78,30 @@ en:
   plugin: "Plug-in"
   other: other
   discontinued_products_downloads: "Discontinued Products Downloads"
-  related_products: "Related products"
-  touring_with: "touring with"
-  on_tour_with: "on tour with"
-  regarding: "regarding"
-  uses: "uses"
+  related_products: Related products
+  touring_with: touring with
+  on_tour_with: on tour with
+  regarding: regarding
+  uses: uses
+  compare: compare
   click_icons_for_features: "click icons for features"
   back_to: back to
   forum: forum
+  user forum: user forum
+  user_groups: user groups
   language_region: "Language/Region"
+  subscribe_via_rss: Subscribe via RSS
+  dealer_login: dealer login
+  privacy_policy: privacy policy
+  looking_for_software: Looking for software/firmware?
+  check_our_software_page: Check our software downloads page.
+  jump_to_a_download_type: "Jump to a specific download type:"
+  zip_all: "zip (all)"
+  shipping_address: Shipping Address
+  billing_address: Billing Address
+  product_details: Product Details
+  yes: yes
+  no: no
   brief_legal_disclaimer: "Product names modeled in this product are trademarks of their respective companies that do not endorse and are not associated or affiliated with DigiTech. Scroll down for complete information."
   
   language:
@@ -109,6 +129,8 @@ en:
       other: Other Document
         
   product_page:
+      select_products_to_compare: Select 2 to 4 products to compare
+      compare_selected_products: Compare Selected Products
       larger_images: Larger Images
       description: "Overview"
       features: "Features"
@@ -141,7 +163,12 @@ en:
           effects: Effects
           pedals: Pedals
           accessories: Accessories
-      
+
+  product_support_page:
+      for_service_outside_the_us: "For service inquiries outside the US,"
+      please_contact_your_distributor: "please contact your local %{brand} Distributor."
+      detailed_problem_description: Detailed problem description
+
   titles:
       buy_direct: "Buy Direct from %{brand}"
       news: "%{brand} News"
@@ -156,6 +183,7 @@ en:
       international_distributors: Worldwide Distributors
       product_families: Products
       products: All Products
+      product_comparison: Product Comparison
       products_on_tour: Products On Tour
       artists: Artists
       featured_artists: Featured Artists
@@ -181,6 +209,7 @@ en:
       featured_pedal: Featured Pedal
       youtube_channel: "%{brand} Channel"
       part_request: "Part Request"
+      factory_service: "Factory Service/Return Authorization Form"
       rma_request: "Return Authorization Request"
       
   errors:
@@ -351,7 +380,27 @@ en:
         purchase_price: Purchase price
         comments: Comments
       contact_message:
+        product: Product
+        product_serial_number: Product serial number
+        product_sku: SKU number
+        purchased_on: Purchase date
+        part_number: HARMAN part number
+        board_location: Circuit board location
+        operating_system: Operating System
+        phone: Phone
+        fax: Fax
+        company: Company
+        account_number: Account Number
+        shipping_address: Address
+        shipping_city: City
+        shipping_state: US State
+        shipping_zip: Zipcode
         shipping_country: Country
+        billing_address: Address
+        billing_city: City
+        billing_state: US State
+        billing_zip: Zipcode
+        warranty: "Under warranty?"
       download_registration:
           serial_number: Product serial number
           code_you_received: Unique serial number

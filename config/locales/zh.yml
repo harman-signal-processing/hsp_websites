@@ -3,21 +3,28 @@ zh:
   products: 产品
   news: 新闻
   artists: 艺人
+  professionals: 专业人士
   sound_community: 音频社区
   community: 社区
   where_to_buy: 哪里购买
+  buy: 购买
+  find_a_dealer_near_you: 找到您附近的经销商
   product_support: 支持
+  store: 存储
   outlet_store: 折扣店
   sitemap: 网站图
   company: 公司
+  training: 训练
   all_rights_reserved: 解释权所有
-  harman: 哈曼
+  harman: 哈曼 HARMAN
   us_zip_code: 美国邮编
   find_us_dealers: 寻找当地经销商
   online_dealers_us: 网上经销商
   international_distributors: 全球性
   select_your_country: 选择国家
+  country: 国家
   dealer_distance: 英里
+  address: 地址
   back_to_news_list: 回往新闻区
   back_to_artists: 回往艺人区
   view_full_line: 查看全系列
@@ -27,6 +34,7 @@ zh:
   rohs: rohs合规
   visit: 访问
   visit_the: 访问
+  browse_products: 浏览产品
   product_reviews: 产品评测 
   news_signup: 报名加入我们的邮件列表
   warranty_registration: 产品登记
@@ -69,10 +77,25 @@ zh:
   on_tour_with:  巡演中
   regarding:  关于
   uses:  使用
+  compare: 比较
   click_icons_for_features:  单击图标的功能
   back_to:  回往
   forum: 论坛
+  user_forum: 用户论坛
+  user_groups: 用户组
   language_region: 语言/地区
+  subscribe_via_rss: 通过RSS订阅
+  dealer_login: 经销商登录
+  privacy_policy: 隐私政策
+  looking_for_software: 寻找软件或固件？
+  check_our_software_page: 检查我们的软件下载页面
+  jump_to_a_download_type: 跳转到特定的下载类型：
+  zip_all: 压缩所有文件
+  shipping_address: 送货地址
+  billing_address: 帐单地址
+  product_details: 产品详细信息
+  yes: 是
+  no: 没有
   brief_legal_disclaimer: 此产品建模的产品名称是其各自公司的商标，与Digitech并无关联的也不附属于DigiTech。 向下滚动查看完整的信息。
 
   language:
@@ -96,9 +119,12 @@ zh:
       other: 其他文件
       
   product_page:
+      select_products_to_compare: 选择2〜4个产品进行比较
+      compare_selected_products: 比较选定的产品
       larger_images: 较大的图像
       features:  特点
       specs_manuals_etc:  数据表，使用手册，评测等...
+      extended_description: 更多详情
       details:  更多内容
       description:  更多内容
       news:  新闻
@@ -111,6 +137,7 @@ zh:
       effects:  效果器
       pedals:  踏板
       downloads:  下载
+      downloads_and_docs: 下载和文件
       documentation:  说明书
       support:  支援/最常见问题
       artists:  艺人
@@ -128,6 +155,11 @@ zh:
           training_modules: 培训模块
           accessories:  配件
 
+  product_support_page:
+    for_service_outside_the_us: 对于美国以外的服务查询
+    please_contact_your_distributor: "请联系您当地的 %{brand} 经销商"
+    detailed_problem_description: 问题的详细说明
+
   titles:
       news: "%{brand} （品牌）新闻"
       blog: "%{brand} （品牌）博客"
@@ -140,6 +172,7 @@ zh:
       international_distributors: 全球经销商
       product_families:  产品
       products:  所有产品
+      product_comparison: 产品比较
       products_on_tour:  巡演中的产品
       artists:  艺人
       featured_artists:  特色艺人
@@ -162,6 +195,8 @@ zh:
       locate_us_service_center:  找到最近的服务中心（美国）
       tone_library:  乐音数据库
       featured_pedal:  特色踏板
+      part_request: 部分请求
+      factory_service: 工厂服务回报授权书
       youtube_channel: "%{brand} （品牌）频道"
 
   errors:
@@ -194,6 +229,8 @@ zh:
       captcha_explanation:  请回答这个问题以便于我们识别您的身份。（只有一个正确答案）
       tone_library_explanation: "将你的GSP和RP 链接到你的Mac或PC便可开始享受这些音律。如果你还未安装音律数据库请访问我们的（链接）网页 %{link}"
       product_tone_library_explanation:  连接你的Mac或PC便可开始享受这些音律。选择页面内的软件下载链接便可将整个乐库下载到电脑上。
+      software_downloads: 查找最新的驱动程序和其他软件，为您的产品
+      warranty_registration: 注册您的产品保护您的投资，熬夜到最新的最新的新闻和其他发展
       international_distributors:  全球经销商都可获得产品销售，支持，使用手册申请以及保修的服务。保修服务仅在购买国家内有效。
 
   subjects:
@@ -453,6 +490,27 @@ zh:
       rep_question:  销售问题
       rep_report:  销售报告
     attributes:
+      contact_message:
+        product: 产品
+        product_serial_number: 产品序列号
+        purchased_on: 购买日期
+        product_sku: 型号
+        part_number: HARMAN 部分号码
+        board_location: 电路板的位置
+        operating_system: 操作系统
+        phone: 电话
+        fax: 传真
+        company: 公司
+        account_number: 帐号
+        shipping_address: 地址
+        shipping_city: 城市
+        shipping_state: US 州
+        shipping_zip: 邮编
+        billing_address: 地址
+        billing_city: 城市
+        billing_state: US 州
+        billing_zip: 邮编
+        warranty: 在保修期内？
       warranty_registration:
         title:  职位
         first_name:  名
@@ -464,7 +522,7 @@ zh:
         zip:  邮编
         country:  国家
         phone:  电话
-        product_id:  产品ID 号码
+        product_id:  产品
         serial_number:  序列号
         purchased_from:  从何处购买
         purchased_on:  购买日期
