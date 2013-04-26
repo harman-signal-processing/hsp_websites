@@ -31,7 +31,7 @@
 	<%= render_partial("product_families/product_square", product: product) %>
 <% end %>
 	<% if @product_family.current_products.length > 0 && !!(website.show_comparisons) %>
-		<div class="compare_button clear"><%= submit_tag "Compare Selected Products" %> <span class="hint">Select 2 to 4 products to compare</span></div>
+		<div class="compare_button clear"><%= submit_tag t('product_page.compare_selected_products') %> <span class="hint"><%= t('product_page.select_products_to_compare') %></span></div>
 	<% end %>
 
 <% @product_family.children_with_current_products(website).each do |sub_family| %>
@@ -42,7 +42,7 @@
 		<%= render_partial "product_families/product_square", product: product %>
 	<% end %>
 	<% if !!(website.show_comparisons) %>
-		<div class="compare_button clear"><%= submit_tag "Compare Selected Products" %> <span class="hint">Select 2 to 4 products to compare</span></div>
+		<div class="compare_button clear"><%= submit_tag t('product_page.compare_selected_products') %> <span class="hint"><%= t('product_page.select_products_to_compare') %></span></div>
 	<% end %>
 
 <% end %>

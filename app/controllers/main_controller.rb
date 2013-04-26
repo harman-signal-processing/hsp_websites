@@ -95,20 +95,14 @@ class MainController < ApplicationController
     render_template
   end
   
-  # The root url routes here. This will render a page where the user can 
-  # select the locale (based on the available locales for the current Website).
-  # If only one locale is available, then it forwards to the homepage for that
-  # locale.
+  # The root url routes here. This just redirects to the homepage, but
+  # it does so after going through the set_locale filter, allowing us to
+  # keep the URL structure consistent. And, that filter will render a locale
+  # selector page if multiple locales are available and none can be determined
+  # automatically.
   #
   def default_locale
-    if I18n.locale != I18n.default_locale
-      redirect_to locale_root_path and return false
-    elsif website.show_locales?
-      locale_selector
-    else
-      I18n.locale = website.locale
-      redirect_to locale_root_path and return false
-    end
+    redirect_to locale_root_path and return false
   end
   
   # Dynamically generated sitemap. The @pages variable should end up with

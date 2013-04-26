@@ -111,7 +111,9 @@ private
     @website ||= Website.find_by_url(request.host)
   end
   helper_method :website
-  
+
+  # TODO: the big if statement below setting the locale needs to be refactored and will eventually include plenty of other countries
+  #  
   def set_locale
     # This isn't really setting the locale, we're just trying
     # to be smart and pick the user's country for "Buy It Now"
@@ -140,11 +142,12 @@ private
     # This is where we set the locale:
     if params[:locale]
       I18n.locale = params[:locale]
-    elsif !(session['geo_usa'])
-      I18n.locale = case session['geo_country']
-        when "CN"
-          'zh'        
-      end
+    elsif !!(session['geo_usa']) && website.list_of_available_locales.include?("en-US")
+      I18n.locale = 'en-US'
+    elsif session['geo_country'] == "CN" && website.list_of_available_locales.include?("zh")
+      I18n.locale = 'zh'
+    elsif session['geo_country'] == "UK" && website.list_of_available_locales.include?("en")
+      I18n.locale = 'en'
     elsif website.show_locales? && controller_path == "main" && action_name == "default_locale"
       locale_selector # otherwise the default locale is appended to the URL. #ugly
     else

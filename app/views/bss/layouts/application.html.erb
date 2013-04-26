@@ -59,16 +59,16 @@
 				<ul>
 					<li><%= link_to t('products'), product_families_path %></li>
 					<li><%= link_to t('downloads'), support_downloads_path %></li>
-					<li><%= link_to "training", "/training" %></li>
+					<li><%= link_to t("training"), "/training" %></li>
 					<% if website.has_artists? %>
 					<li><%= link_to t('artists'), artists_path %></li>
 					<% end %>
 					<li><%= link_to t('product_support'), support_path %></li>
 					<% if !!(website.forum_link) %>
-					<li><%= link_to "user groups", website.forum_link %></li>
+					<li><%= link_to t("user_groups"), website.forum_link %></li>
 					<% end %>
 					<% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
-					<li><%= link_to "buy", where_to_buy_path %></li>
+					<li><%= link_to t("buy"), where_to_buy_path %></li>
 					<% end %>
 					<li><%= link_to t('warranty_registration'), warranty_registration_path %></li>
 				</ul>
