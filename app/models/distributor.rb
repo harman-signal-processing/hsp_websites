@@ -1,5 +1,6 @@
 class Distributor < ActiveRecord::Base
-  validates_presence_of :name, :country
+  validates :name, :country, presence: true
+  validates :account_number, presence: true, uniqueness: true
   has_many :brand_distributors, dependent: :destroy
   has_many :brands, through: :brand_distributors
   has_many :distributor_users, dependent: :destroy
