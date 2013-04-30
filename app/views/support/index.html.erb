@@ -54,6 +54,9 @@
 		<p><%= t('blurbs.warranty_registration', brand: website.brand_name) %></p>
 		<ul>
 			<li><%= link_to t('warranty_registration'), warranty_registration_path %></li>
+			<% if !!website.brand.name.match(/bss|dbx/i) %>
+			<li><%= link_to t('warranty_policy'), warranty_policy_path %></li>
+			<% end %>
 		</ul>
 	</div>
 	
