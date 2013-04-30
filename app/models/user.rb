@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   has_many :online_retailers, through: :online_retailer_users
   has_many :dealer_users, dependent: :destroy
   has_many :dealers, through: :dealer_users
+  has_many :distributor_users, dependent: :destroy
+  has_many :distributors, through: :distributor_users
   has_many :clinics, class_name: "Clinic", foreign_key: "clinician_id" # but only if he's a clinician
   has_many :rep_clinics, class_name: "Clinic", foreign_key: "rep_id" # but only if he's a rep
   has_many :tones
@@ -19,7 +21,7 @@ class User < ActiveRecord::Base
     :confirmable,
     :registerable
 
-  before_save :add_to_dealer
+  before_save :add_to_dealer_or_distributor
 
   validates :name, :email, presence: true
   validates :email, uniqueness: true
@@ -140,11 +142,16 @@ class User < ActiveRecord::Base
 
   # If this is a dealer user, lookup associated dealer and
   # associate with each other
-  def add_to_dealer
+  def add_to_dealer_or_distributor
     if self.dealer? && self.account_number.present?
       self.account_number.gsub!(/^0*/, '')
       if first_dealer = Dealer.find_by_account_number(self.account_number.to_s)
         self.dealers << first_dealer
+      end
+    elsif self.distributor? && self.account_number.present?
+      self.account_number.gsub!(/^0*/, '')
+      if first_distributor = Distributor.find_by_account_number(self.account_number.to_s)
+        self.distributors << first_distributor
       end
     end
   end

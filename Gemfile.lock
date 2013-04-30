@@ -44,9 +44,9 @@ GEM
     arel (3.0.2)
     babosa (0.3.10)
     bcrypt-ruby (3.0.1)
-    bing_translator (3.0.0)
-      json (~> 1.7.3)
-      nokogiri (~> 1.5.0)
+    bing_translator (3.2.0)
+      json (~> 1.7.7)
+      nokogiri (~> 1.5.9)
     builder (3.0.4)
     cancan (1.6.9)
     capistrano (2.13.5)
@@ -350,7 +350,7 @@ DEPENDENCIES
   acts_as_list
   acts_as_tree
   api_cache
-  bing_translator (~> 3.0.0)
+  bing_translator (~> 3.2.0)
   cancan
   capistrano (= 2.13.5)
   capistrano-ext

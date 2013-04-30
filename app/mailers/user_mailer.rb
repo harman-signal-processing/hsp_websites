@@ -10,6 +10,11 @@ class UserMailer < Devise::Mailer
 	  		mail to: record.dealers.first.email,
           subject: "Harman Toolkit Confirmation instructions",
           template_name: "dealer_confirmation_instructions"
+      elsif record.distributors && record.distributors.first && record.distributors.first.email.present?
+        initialize_from_record(record)
+        mail to: record.distributors.first.email,
+          subject: "Harman Toolkit Confirmation instructions",
+          template_name: "dealer_confirmation_instructions"
   		else
   			cant_confirm(record, opts)
   		end
