@@ -21,6 +21,15 @@
 <p>
 	<b>Overall link for this site's products:</b>
 	<% if @online_retailer.brand_link %>
+		<% if !!(@online_retailer.online_retailer_link(website).link_status.match(/^3/)) %>
+			<span style="background: #EDCA00; padding: 2px 5px; color: white;">redirected</span>
+		<% elsif !!(@online_retailer.online_retailer_link(website).link_status.match(/^4/)) %>
+			<span style="background: #F00; padding: 2px 5px; color: white">not found</span>
+		<% elsif !!(@online_retailer.online_retailer_link(website).link_status.match(/^5/)) %>
+			<span style="background: #F00; padding: 2px 5px; color: white">site error</span>
+		<% elsif !(@online_retailer.online_retailer_link(website).link_status.match(/^2/)) %>
+			<span style="background: #F00; padding: 2px 5px; color: white">unknown error</span>
+		<% end %>
 		<%= link_to @online_retailer.brand_link, @online_retailer.brand_link, target: "_blank" %>
 	<% end %>
 </p>
