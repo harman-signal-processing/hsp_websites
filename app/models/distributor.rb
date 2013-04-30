@@ -2,6 +2,8 @@ class Distributor < ActiveRecord::Base
   validates_presence_of :name, :country
   has_many :brand_distributors, dependent: :destroy
   has_many :brands, through: :brand_distributors
+  has_many :distributor_users, dependent: :destroy
+  has_many :users, through: :distributor_users
 
   def self.countries(f)
     if f.is_a?(Website)

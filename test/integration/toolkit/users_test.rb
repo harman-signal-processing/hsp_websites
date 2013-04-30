@@ -93,6 +93,82 @@ describe "Toolkit Users Integration Test" do
   	end
   end
 
+  describe "Distributor Signup" do 
+    before do 
+      @distributor = FactoryGirl.create(:distributor)
+      visit root_url(host: @host)
+      within('.top-bar') do
+        click_on "Sign up"
+      end
+      choose :signup_type_distributor
+      click_on "Continue"
+    end
+
+    it "should require account number" do 
+      within('#new_toolkit_user') do
+        must_have_content "Harman Pro Account Number"
+        click_on "Sign up"
+      end
+      page.must_have_content "email address on file.can't be blank"
+    end
+
+    it "should create a new unconfirmed user" do
+      user = FactoryGirl.build(:user)
+      within('#new_toolkit_user') do
+        fill_in_new_distributor_user_form(user, @distributor)
+        click_on "Sign up"
+      end
+      u = User.last
+      u.confirmed?.must_equal(false)
+    end     
+
+    it "should associate the user with the distributor by account number" do 
+      user = FactoryGirl.build(:user)
+      within('#new_toolkit_user') do
+        fill_in_new_distributor_user_form(user, @distributor)
+        click_on "Sign up"
+      end
+      u = User.last
+      u.distributors.must_include(@distributor)
+    end
+
+    it "should send the confirmation email to the distributor not the user" do
+      user = FactoryGirl.build(:user)
+      within('#new_toolkit_user') do
+        fill_in_new_distributor_user_form(user, @distributor)
+        click_on "Sign up"
+      end
+      last_email.subject.must_have_content "Harman Toolkit Confirmation instructions"
+      last_email.to.must_include(@distributor.email)
+      last_email.body.must_have_content user.name
+      last_email.body.must_have_content user.email
+    end     
+  end
+
+  describe "Invalid Distributor Signup" do
+    before do
+      visit root_url(host: @host)
+      within('.top-bar') do
+        click_on "Sign up"
+      end
+      choose :signup_type_distributor
+      click_on "Continue"
+    end
+
+    it "should send an email error to user where no distributor is found" do 
+      user = FactoryGirl.build(:user)
+      distributor = FactoryGirl.build(:distributor) # un-saved, so should error when looking up
+      within('#new_toolkit_user') do
+        fill_in_new_distributor_user_form(user, distributor)
+        click_on "Sign up"
+      end
+      last_email.subject.must_have_content "can't confirm account"
+      last_email.to.must_include(user.email)
+      last_email.cc.must_include HarmanSignalProcessingWebsite::Application.config.toolkit_admin_email_addresses.first
+      last_email.body.must_have_content HarmanSignalProcessingWebsite::Application.config.toolkit_admin_contact_info.first
+    end
+  end
+
   describe "RSO Signup" do 
     before do 
       visit root_url(host: @host)
@@ -243,6 +319,14 @@ describe "Toolkit Users Integration Test" do
 		fill_in :toolkit_user_password, with: "pass123"
 		fill_in :toolkit_user_password_confirmation, with: "pass123"  		
 	end
+
+  def fill_in_new_distributor_user_form(user, distributor)
+    fill_in :toolkit_user_name, with: user.name
+    fill_in :toolkit_user_email, with: user.email
+    fill_in :toolkit_user_account_number, with: distributor.account_number
+    fill_in :toolkit_user_password, with: "pass123"
+    fill_in :toolkit_user_password_confirmation, with: "pass123"      
+  end
 
   def fill_in_new_rso_user_form(user)
     fill_in :toolkit_user_name, with: user.name

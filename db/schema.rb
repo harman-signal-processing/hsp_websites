@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130417172030) do
+ActiveRecord::Schema.define(:version => 20130430164906) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -409,15 +409,29 @@ ActiveRecord::Schema.define(:version => 20130417172030) do
 
   add_index "demo_songs", ["product_attachment_id"], :name => "index_demo_songs_on_product_attachment_id"
 
+  create_table "distributor_users", :force => true do |t|
+    t.integer  "distributor_id"
+    t.integer  "user_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "distributor_users", ["distributor_id"], :name => "index_distributor_users_on_distributor_id"
+  add_index "distributor_users", ["user_id"], :name => "index_distributor_users_on_user_id"
+
   create_table "distributors", :force => true do |t|
     t.string   "name"
     t.text     "detail"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "country"
+    t.string   "email"
+    t.string   "account_number"
   end
 
+  add_index "distributors", ["account_number"], :name => "index_distributors_on_account_number"
   add_index "distributors", ["country"], :name => "index_distributors_on_country"
+  add_index "distributors", ["email"], :name => "index_distributors_on_email"
 
   create_table "download_registrations", :force => true do |t|
     t.integer  "registered_download_id"
