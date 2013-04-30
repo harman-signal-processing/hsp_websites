@@ -10,7 +10,7 @@ class OnlineRetailer < ActiveRecord::Base
   has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
   validates_presence_of :name
   validates_uniqueness_of :name
-  attr_accessor :brand_link
+  attr_accessor :brand_link, :online_retailer_link
   
   def bad_links
     @bad_links ||= OnlineRetailerLink.problems.where(online_retailer_id: self.id)
@@ -31,10 +31,14 @@ class OnlineRetailer < ActiveRecord::Base
   # Retrieves the overall link where the OnlineRetailer lists the site's Brand products.
   def get_brand_link(website)
     begin
-      @brand_link ||= OnlineRetailerLink.find_by_online_retailer_id_and_brand_id(self.id, website.brand_id).url
+      @brand_link ||= online_retailer_link(website).url
     rescue
       return nil 
     end    
+  end
+
+  def online_retailer_link(website)
+    @online_retailer_link ||= OnlineRetailerLink.find_by_online_retailer_id_and_brand_id(self.id, website.brand_id)    
   end
   
   # Sets the overall link where this OnlineRetailer lists this site's Brand products.
