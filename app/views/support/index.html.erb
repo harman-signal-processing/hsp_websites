@@ -39,10 +39,12 @@
 			<%= submit_tag t('go')%>
 		<% end %>
 		<ul>
-			<% if !!(website.has_training) %>
-			<li><%= link_to "product training", training_path %></li>
-			<% elsif !!website.brand.name.match(/^bss/i) %>
+			<% if !!website.brand.name.match(/^bss/i) %>
 			<li><%= link_to t('training'), "/training" %></li>
+			<% elsif !!website.folder.to_s.match(/archimedia/) %>
+			<li><%= link_to t('training'), "/en-US/onsite_training" %></li>
+			<% elsif !!(website.has_training) %>
+			<li><%= link_to "product training", training_path %></li>
 			<% end %>
 		</ul>
 	</div>
