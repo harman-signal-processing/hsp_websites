@@ -34,10 +34,11 @@ namespace :toolkit do
   desc "Create toolkit user accounts for distributors"
   task :create_distributor_users => :environment do
   	Distributor.all.each do |distributor|
-  		if distributor.detail.to_s.match(/mailto\:([^\'\"\\]*)/i)
-  			user = User.find_or_initialize_by_email($1)
+  		if distributor.account_number.present? && distributor.email.present? #detail.to_s.match(/mailto\:([^\'\"\\]*)/i)
+  			user = User.find_or_initialize_by_email(distributor.email)
   			user.name ||= distributor.name 
   			user.distributor = true
+        user.account_number = distributor.account_number
   			if user.new_record?
 	  			user.password = "toolkit"
 	  			user.password_confirmation = "toolkit"
