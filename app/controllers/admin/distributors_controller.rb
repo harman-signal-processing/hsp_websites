@@ -4,7 +4,7 @@ class Admin::DistributorsController < AdminController
   # GET /admin/distributors.xml
   def index
     @search = website.brand.distributors.ransack(params[:q])
-    @distributors = @search.result
+    @distributors = @search.result.order(:name)
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @distributors }
