@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130430164906) do
+ActiveRecord::Schema.define(:version => 20130502204428) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -1257,10 +1257,11 @@ ActiveRecord::Schema.define(:version => 20130430164906) do
     t.text     "multipliers"
     t.string   "activation_name"
     t.datetime "link_checked_at"
-    t.string   "link_status",        :default => "200"
+    t.string   "link_status",             :default => "200"
     t.string   "layout_class"
     t.integer  "current_version_id"
     t.string   "bit"
+    t.boolean  "active_without_products"
   end
 
   add_index "softwares", ["cached_slug"], :name => "index_softwares_on_cached_slug", :unique => true

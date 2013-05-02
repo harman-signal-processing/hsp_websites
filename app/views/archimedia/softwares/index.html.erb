@@ -10,18 +10,15 @@
 <% end %>
 </h1>
 
-<p style="text-align: center">
-	<%= link_to "3rd Party Controllers", "/en-US/3rd-party-controllers" %>
-</p>
-
-
 <%= cache ["softwares_index", website.brand, I18n.locale] do %>
 
-<% if @current_products.size > 0 %>
+<% if website.brand.softwares.size <= 0 %>
+	<div style="text-align: center"><i>Check back soon</i></div>
 
-	<% if website.brand.forced_current_softwares.length > 0 %>
+<% else %>
+	<% if website.brand.current_softwares.length > 0 %>
 		<div style="margin: 50px;">
-			<% website.brand.forced_current_softwares.each do |software| %>
+			<% website.brand.current_softwares.each do |software| %>
 				<%= link_to software do %>
 					<div class="medium_centered_box software_banner">
 						<h3><%= software.name %></h3>
@@ -32,7 +29,13 @@
 			<% end %>
 		</div>
 	<% end %>
-<%= render "table", products: @current_products + @discontinued_products %>
+	<% if @discontinued_products.length > 0 %>
+		<div style="clear: both;"></div>
+		<div style="margin: 50px;">
+			<h4 class="subheader" style="text-align: center">Discontinued Product Software</h4>
+			<%= render "table", products: @discontinued_products %>
+		</div>
+	<% end %>
 <% end %>
 
 <% end %>

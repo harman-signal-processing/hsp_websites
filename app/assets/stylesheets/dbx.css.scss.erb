@@ -180,7 +180,7 @@ div#Header {
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	padding: 5px 8px;
+	padding: 2px 3px 0px;
   background: url(<%= image_path('dark-gray-80.png') %>);
 	z-index: 999;
 	a {
@@ -191,7 +191,7 @@ div#Header {
 		padding-bottom: 4px;
 		display: none;
 		a {
-			margin: 0 -8px;
+			margin: 0 -2px 0px -8px;
 			display: block;
 			padding: 4px 8px;
 			&:hover {
@@ -1641,7 +1641,19 @@ table.training_list {
 	padding: 8px 12px;
 	margin: 8px 0px;
 }
-
+a {
+	.software_banner {
+		border: 1px solid #c1c1c1;
+		box-shadow: 1px 2px 4px #CCC;
+		background: #fbfbfb;
+		&:hover {
+			background: #eaeaea;
+		}
+		h3 {
+			text-decoration: none;
+		}
+	}
+}
 div.quicklinks {
 	margin: 20px 0px;
 	ul {

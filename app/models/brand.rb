@@ -150,7 +150,13 @@ class Brand < ActiveRecord::Base
 
   # Active software with active products
   def current_softwares
-    softwares.includes(:brand).where(active: true).includes(:products).select{|s| s if s.current_products.length > 0}.sort_by{|s| s.current_products.length}.reverse
+    product_active = softwares.includes(:brand).where(active: true).includes(:products).select{|s| s if s.current_products.length > 0}.sort_by{|s| s.current_products.length}.reverse
+    (forced_current_softwares + product_active).uniq
+  end
+
+  # Those software with this flag enabled: activate even if there are no active products
+  def forced_current_softwares
+    @forced_current_softwares ||= softwares.includes(:brand).where(active: true, active_without_products: true)
   end
 
   def current_products
