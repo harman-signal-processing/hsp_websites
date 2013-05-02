@@ -35,9 +35,8 @@ h5. Things I need to work on...
 
 ================================================================
                  *** Notes for tomorrow ***
- building translated site for dbx
 
- * The homepage features/slideshow--can't we control those by locale?
+ * Maybe make the slideshow images schedulable, and auto-deletable after expired for 30 days
 
 ================================================================
 
@@ -56,7 +55,7 @@ _other_
 * use the same logins for accommodation? dealer portal?
 
 === TODO for BSS site ===
-
+* Create US reps
 * Don't worry about these until/unless someone asks:
   * FDS firmware update reg forms and URL forwarders 
   * Individual contact forms?

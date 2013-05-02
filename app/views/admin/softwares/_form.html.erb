@@ -13,6 +13,7 @@
           ["Other", "other"]] %>
   <%= f.input :description, input_html: { class: "mceEditor" } %>
   <%= f.input :active %>
+  <%= f.input :active_without_products, label: "Active even if there are no corresponding active products." %>
   <%= f.input :replaces_id, 
         label: "Replaces current version of",
         collection: [[]] + website.softwares.where(active: true).order("name").map{|s| [s.formatted_name, s.id]} %>

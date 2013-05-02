@@ -29,10 +29,16 @@ namespace :maintain do
   
   def link_test(url)
     uri = URI.parse(url)
-    response = nil
-    Net::HTTP.start(uri.host, uri.port) { |http|
-      response = http.head(uri.path.size > 0 ? uri.path : "/")
-    }  
+    # response = nil
+    # Net::HTTP.start(uri.host, uri.port) { |http|
+    #   response = http.head(uri.path.size > 0 ? uri.path : "/")
+    # }  
+
+    http = Net::HTTP.new(uri.host, uri.port)
+    request = Net::HTTP::Get.new(uri.request_uri)
+    request["User-Agent"] = "Harman link verifier. Contact adam.anderson@harman.com"
+    response = http.request(request)
+
     response.code
   end
 
