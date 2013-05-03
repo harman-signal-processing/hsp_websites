@@ -68,17 +68,17 @@
 	<div class="instructions">If your site has a big bottom box on the homepage, then use these settings to control which content appears in the columns. If you don't know if your site has this, please don't ask Adam using phrases like, "Do I have a big bottom..."</div>
 	
 	<%= form_for(:settings, url: big_bottom_box_admin_settings_path ) do |f| %>
-		<% i = 0 %>
-		<% @columns.each do |column| %>
+		<% @columns.each_with_index do |column,i| %>
 		<%= f.fields_for "setting[#{i}]", column do |col| %>
 			<div class="field">
-				<%= col.label :string_value, column.name.titleize %><br/>
-				<%= col.select :string_value, [[]] + @column_options %>
+				<%= col.label :string_value, column.name.titleize %>
+				<% if i == 3 %>(not all sites have 4 columns)<% end %>
+				<br/>
+				<%= col.select :string_value, [[]] + @column_options  + [["HTML (edit text for setting 'homepage_column_#{i+1}')", "html_column_#{i+1}"]] %>
 				<%= col.hidden_field :setting_type %>
 				<%= col.hidden_field :brand_id %>
 				<%= col.hidden_field :name %>
 			</div>
-			<% i += 1 %>
 		<% end %>
 		<% end %>
 		<div class="actions">

@@ -31,6 +31,8 @@
 		<% end %>
 		<% if website.homepage_column_three %>
 			<%= render "shared/column_for_#{website.homepage_column_three}" %>
+		<% elsif website.homepage_column_3 %>
+			<%= render "shared/column_for_#{website.homepage_column_3}" %>
 		<% else %>
 			<%= render 'shared/column_for_twitter' %>
 		<% end %>
@@ -39,6 +41,8 @@
 	<div style="float: left; width: 290px; margin-left: 10px">
 		<% if website.homepage_column_one %>
 			<%= render "shared/column_for_#{website.homepage_column_one}" %>
+		<% elsif website.homepage_column_1 %>
+			<%= render "shared/column_for_#{website.homepage_column_1}" %>
 		<% else %>
 			<%= render 'shared/column_for_news' %>
 		<% end %>
@@ -47,6 +51,8 @@
 	<div style="margin-left: 315px; margin-right: 320px;">
 		<% if website.homepage_column_two %>
 			<%= render "shared/column_for_#{website.homepage_column_two}" %>
+		<% elsif website.homepage_column_2 %>
+			<%= render "shared/column_for_#{website.homepage_column_2}" %>
 		<% elsif @youtube && !@youtube.blank? %>
 			<%= render 'shared/column_for_youtube' %>
 		<% elsif !website.facebook.blank? %>
