@@ -31,6 +31,8 @@
 		<div class="column">
 			<% if website.homepage_column_one %>
 				<%= render_partial "shared/column_for_#{website.homepage_column_one}" %>
+			<% elsif website.homepage_column_1 %>
+				<%= render_partial "shared/column_for_#{website.homepage_column_1}" %>
 			<% else %>
 				<%= render_partial 'shared/column_for_where_to_buy' %>
 			<% end %>
@@ -41,6 +43,8 @@
 			<% end %>
 			<% if website.homepage_column_two %>
 				<%= render_partial "shared/column_for_#{website.homepage_column_two}" %>
+			<% elsif website.homepage_column_2 %>
+				<%= render_partial "shared/column_for_#{website.homepage_column_2}" %>
 			<% else %>
 				<%= render_partial 'shared/column_for_twitter' %>
 			<% end %>	
@@ -48,6 +52,8 @@
 		<div class="column">
 			<% if website.homepage_column_three %>
 				<%= render_partial "shared/column_for_#{website.homepage_column_three}" %>
+			<% elsif website.homepage_column_3 %>
+				<%= render_partial "shared/column_for_#{website.homepage_column_3}" %>
 			<% elsif @youtube && !@youtube.blank? %>
 				<%= render_partial 'shared/column_for_youtube' %>
 			<% elsif !website.facebook.blank? %>
@@ -57,6 +63,8 @@
 		<div class="column">
 			<% if website.homepage_column_four %>
 				<%= render_partial "shared/column_for_#{website.homepage_column_four}" %>
+			<% elsif website.homepage_column_4 %>
+				<%= render_partial "shared/column_for_#{website.homepage_column_4}" %>
 			<% else %>
 				<%= render_partial "shared/column_for_artists" %>
 			<% end %>

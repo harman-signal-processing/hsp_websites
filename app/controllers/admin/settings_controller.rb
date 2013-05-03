@@ -31,17 +31,19 @@ class Admin::SettingsController < AdminController
       end
     end
     @column_options = [
-      ["News (from site)", "news"], 
-      ["Facebook Feed", "facebook"], 
-      ["Youtube Feed", "youtube"], 
-      ["Twitter Feed", "twitter"],
+      ["News (comes from the news on this site)", "news"], 
+      ["Facebook Feed (provide your Facebook url as setting: 'facebook')", "facebook"], 
+      ["Youtube Feed (provide your Youtube ID as setting: 'youtube')", "youtube"], 
+      ["Twitter Feed (provide your twitter name as setting 'twitter')", "twitter"],
       ["Featured Artists", "artists"],
       ["Where To Buy", "where_to_buy"]
     ]
-    Setting.find_or_initialize_by_brand_id_and_name_and_setting_type(website.brand_id, "homepage_column_one", "string")
-    Setting.find_or_initialize_by_brand_id_and_name_and_setting_type(website.brand_id, "homepage_column_two", "string")
-    Setting.find_or_initialize_by_brand_id_and_name_and_setting_type(website.brand_id, "homepage_column_three", "string")
-    @columns = Setting.where(brand_id: website.brand_id, setting_type: "string").where("name LIKE 'homepage_column%%'")
+    @columns = [
+      Setting.find_or_initialize_by_brand_id_and_name_and_setting_type(website.brand_id, "homepage_column_1", "string"),
+      Setting.find_or_initialize_by_brand_id_and_name_and_setting_type(website.brand_id, "homepage_column_2", "string"),
+      Setting.find_or_initialize_by_brand_id_and_name_and_setting_type(website.brand_id, "homepage_column_3", "string"),
+      Setting.find_or_initialize_by_brand_id_and_name_and_setting_type(website.brand_id, "homepage_column_4", "string")
+    ]
   end
   
   # POST /admin/big_bottom_box

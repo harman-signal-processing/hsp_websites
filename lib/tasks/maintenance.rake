@@ -39,6 +39,12 @@ namespace :maintain do
     request["User-Agent"] = "Harman link verifier. Contact adam.anderson@harman.com"
     response = http.request(request)
 
+    # For some reason, that code above doesn't work on GC
+    if response.code.to_s == "403"
+      # http = Net::HTTP.new(uri.host, uri.port)
+      response = http.request_head(uri.path)
+    end
+
     response.code
   end
 
