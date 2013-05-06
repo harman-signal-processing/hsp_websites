@@ -73,7 +73,7 @@ class ArtistsController < ApplicationController
   protected
   
   def ensure_best_url
-    @artist = Artist.find_by_cached_slug(params[:id]) || Artist.find(params[:id])
+    @artist = Artist.where(cached_slug: params[:id]).first || Artist.find(params[:id])
     # redirect_to @artist, status: :moved_permanently unless @artist.friendly_id_status.best?
   end
 

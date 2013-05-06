@@ -83,7 +83,7 @@ class ProductsController < ApplicationController
   # since it features the introductory 99 cent price.
   def introducing
     if @product.show_on_website?(website) || can?(:manage, @product)
-      @product_introduction = ProductIntroduction.find_by_product_id(@product.id) || ProductIntroduction.new
+      @product_introduction = ProductIntroduction.where(product_id: @product.id).first || ProductIntroduction.new
       if @product_introduction.expired?
         redirect_to @product
       elsif !@product_introduction.layout_class.blank? && File.exist?(Rails.root.join("app", "views", website.folder, "products", "introducing", "#{@product_introduction.layout_class}.html.erb"))
@@ -166,7 +166,7 @@ class ProductsController < ApplicationController
   # where "1" is a ProductAttachment id (not a Product id)
   def songlist
     begin
-      @product_attachment = ProductAttachment.find_by_songlist_tag(params[:id])
+      @product_attachment = ProductAttachment.where(songlist_tag: params[:id]).first
       @songs = @product_attachment.demo_songs
     rescue
       @songs = [DemoSong.new]
@@ -180,7 +180,7 @@ class ProductsController < ApplicationController
   protected
   
   def ensure_best_url
-    @product = Product.find_by_cached_slug(params[:id]) || Product.find(params[:id])
+    @product = Product.where(cached_slug: params[:id]).first || Product.find(params[:id])
     unless @product.belongs_to_this_brand?(website)
       redirect_to product_families_path and return 
     end

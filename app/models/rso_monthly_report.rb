@@ -26,7 +26,7 @@ class RsoMonthlyReport < ActiveRecord::Base
   
   def create_panel_link
     if self.add_to_panel
-      panel = RsoPanel.find_or_create_by_brand_id_and_name(self.brand_id, "left")
+      panel = RsoPanel.where(brand_id: self.brand_id, name: "left").first_or_create
       RsoNavigation.create(brand_id: self.brand_id, rso_panel_id: panel.id, name: self.name, url: self.relative_url)
     end
   end

@@ -43,7 +43,7 @@ class NewsController < ApplicationController
   protected
   
   def ensure_best_url
-    @news = News.find_by_cached_slug(params[:id]) || News.find(params[:id])
+    @news = News.where(cached_slug: params[:id]).first || News.find(params[:id])
     # redirect_to @news, status: :moved_permanently unless @news.friendly_id_status.best?
   end
 

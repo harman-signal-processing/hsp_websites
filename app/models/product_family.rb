@@ -45,7 +45,7 @@ class ProductFamily < ActiveRecord::Base
   # Collection of all families with at least one active product
   def self.all_with_current_products(website, locale)
     pf = []
-    find_all_by_brand_id(website.brand_id, order: :position).each do |f|
+    where(brand_id: website.brand_id).order("position").all.each do |f|
       pf << f if f.current_products.size > 0 && f.locales(website).include?(locale.to_s)
     end
     pf

@@ -39,10 +39,10 @@ class Admin::SettingsController < AdminController
       ["Where To Buy", "where_to_buy"]
     ]
     @columns = [
-      Setting.find_or_initialize_by_brand_id_and_name_and_setting_type(website.brand_id, "homepage_column_1", "string"),
-      Setting.find_or_initialize_by_brand_id_and_name_and_setting_type(website.brand_id, "homepage_column_2", "string"),
-      Setting.find_or_initialize_by_brand_id_and_name_and_setting_type(website.brand_id, "homepage_column_3", "string"),
-      Setting.find_or_initialize_by_brand_id_and_name_and_setting_type(website.brand_id, "homepage_column_4", "string")
+      Setting.where(brand_id: website.brand_id, name: "homepage_column_1", setting_type: "string").first_or_initialize,
+      Setting.where(brand_id: website.brand_id, name: "homepage_column_2", setting_type: "string").first_or_initialize,
+      Setting.where(brand_id: website.brand_id, name: "homepage_column_3", setting_type: "string").first_or_initialize,
+      Setting.where(brand_id: website.brand_id, name: "homepage_column_4", setting_type: "string").first_or_initialize
     ]
   end
   
@@ -52,7 +52,7 @@ class Admin::SettingsController < AdminController
     @columns = params[:settings][:setting]
     # render inline: "#{@columns.first[1]}"
     @columns.each do |column_data|
-      column = Setting.find_or_initialize_by_brand_id_and_name(website.brand_id, column_data[1][:name])
+      column = Setting.where(brand_id: website.brand_id, name: column_data[1][:name]).first_or_initialize
       column.attributes = column_data[1]
       column.save
     end

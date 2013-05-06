@@ -14,7 +14,7 @@ class CreateBrandToolkitContacts < ActiveRecord::Migration
     dbx = Brand.find("dbx")
     lexicon = Brand.find("lexicon")
 
-    if klimt = User.find_by_email("scott.klimt@harman.com")
+    if klimt = User.where(email: "scott.klimt@harman.com").first
     	klimt.job_title = "Market Manager"
     	klimt.save
 
@@ -22,7 +22,7 @@ class CreateBrandToolkitContacts < ActiveRecord::Migration
     	BrandToolkitContact.create(brand_id: dod.id, user_id: klimt.id)
     end
 
-    if cram = User.find_by_email("tom.cram@harman.com")
+    if cram = User.where(email: "tom.cram@harman.com").first
     	cram.job_title = "Artist Relations / Clinician Manager"
     	cram.save
 
@@ -30,7 +30,7 @@ class CreateBrandToolkitContacts < ActiveRecord::Migration
 			BrandToolkitContact.create(brand_id: dod.id, user_id: cram.id)
     end
 
-    if gregory = User.find_by_email("iain.gregory@harman.com")
+    if gregory = User.where(email: "iain.gregory@harman.com").first
     	gregory.job_title = "Market Manager - Installed Sound"
     	gregory.save
 
@@ -38,14 +38,14 @@ class CreateBrandToolkitContacts < ActiveRecord::Migration
 			BrandToolkitContact.create(brand_id: dbx.id, user_id: gregory.id, position: 2)
 		end
 
-    if kbrown = User.find_by_email("kevin.brown@harman.com")
+    if kbrown = User.where(email: "kevin.brown@harman.com").first
     	kbrown.job_title = "Training Coordinator"
     	kbrown.save
 
     	BrandToolkitContact.create(brand_id: bss.id, user_id: kbrown.id)
     end
 
-    if noel = User.find_by_email("noel.larson@harman.com")
+    if noel = User.where(email: "noel.larson@harman.com").first
     	noel.job_title = "Market Manager - Portable/PA"
     	noel.save 
 

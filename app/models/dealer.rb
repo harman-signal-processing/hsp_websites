@@ -39,7 +39,7 @@ class Dealer < ActiveRecord::Base
 
   def parent
     if !!(self.account_number.match(/^(\d*)\-+\d*$/))
-      if p = Dealer.find_by_account_number($1)
+      if p = Dealer.where(account_number: $1).first
         p
       else
         self
@@ -58,11 +58,11 @@ class Dealer < ActiveRecord::Base
 
   # Add this dealer and its children (if any) to the given brand
   def add_to_brand!(brand)
-    bd = BrandDealer.find_or_initialize_by_dealer_id_and_brand_id(self.id, brand.id)
+    bd = BrandDealer.where(dealer_id: self.id, brand_id: brand.id).first_or_initialize
     bd.save
 
     self.children.each do |child|
-      bd = BrandDealer.find_or_initialize_by_dealer_id_and_brand_id(child.id, brand.id)
+      bd = BrandDealer.where(dealer_id: child.id, brand_id: brand.id).first_or_initialize
       bd.save
     end
   end

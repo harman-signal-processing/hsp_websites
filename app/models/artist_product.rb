@@ -7,7 +7,7 @@ class ArtistProduct < ActiveRecord::Base
   
   def link_artist_to_brand
     begin
-      ArtistBrand.find_or_create_by_artist_id_and_brand_id(self.artist_id, self.product.brand_id)
+      ArtistBrand.where(artist_id: self.artist_id, brand_id: self.product.brand_id).first_or_create
     rescue
       logger.info "did not link artist with product's brand, no biggie"
     end

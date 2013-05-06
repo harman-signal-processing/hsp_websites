@@ -15,7 +15,7 @@ class ToneLibrarySongsController < ApplicationController
   def download
     product = Product.find params[:product_id]
     song = ToneLibrarySong.find params[:tone_library_song_id]
-    tone_library_patch = ToneLibraryPatch.find_by_product_id_and_tone_library_song_id(product.id, song.id)
+    tone_library_patch = ToneLibraryPatch.where(product_id: product.id, tone_library_song_id: song.id).first
     send_file(tone_library_patch.patch.path, {disposition: 'attachment'})
   end
 end

@@ -2,7 +2,7 @@ namespace :service do
   
   desc "Import service centers"
   task :import => :environment do
-    brand = Brand.find_by_name("dbx")
+    brand = Brand.where(name: "dbx").first
     File.open(Rails.root.join("db", "proservicecenters.txt")).each do |row|
       fields = row.split("\t")
       ServiceCenter.create(

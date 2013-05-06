@@ -145,12 +145,12 @@ class User < ActiveRecord::Base
   def add_to_dealer_or_distributor
     if self.dealer? && self.account_number.present?
       self.account_number.gsub!(/^0*/, '')
-      if first_dealer = Dealer.find_by_account_number(self.account_number.to_s)
+      if first_dealer = Dealer.where(account_number: self.account_number.to_s).first
         self.dealers << first_dealer
       end
     elsif self.distributor? && self.account_number.present?
       self.account_number.gsub!(/^0*/, '')
-      if first_distributor = Distributor.find_by_account_number(self.account_number.to_s)
+      if first_distributor = Distributor.where(account_number: self.account_number.to_s).first
         self.distributors << first_distributor
       end
     end

@@ -9,7 +9,7 @@ class SoftwaresController < ApplicationController
     respond_to do |format|
       format.html { render_template } # index.html.erb
       # format.xml  { 
-      #   @softwares = Software.find_all_by_active_and_brand_id(true, website.brand_id, order: "name,version")
+      #   @softwares = Software.where(active: true, brand_id: website.brand_id).order("name,version")
       #   render xml: @softwares 
       # }
     end
@@ -75,7 +75,7 @@ class SoftwaresController < ApplicationController
     if software_name.blank? || challenge.blank?
       render text: "Incomplete information. Please try again." and return
     else
-      software = Software.find_by_activation_name(software_name)
+      software = Software.where(activation_name: software_name).first
       @activation = SoftwareActivation.create(software: software, challenge: challenge)
       brand_layout = "#{website.folder}/layouts/software_activation"
       use_layout = File.exist?(Rails.root.join("app", "views", "#{brand_layout}.html.erb")) ? "/#{brand_layout}" : true

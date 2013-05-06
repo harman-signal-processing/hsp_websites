@@ -19,7 +19,7 @@ class OnlineRetailer < ActiveRecord::Base
   # Adds a User to be able to maintain this OnlineRetailer
   def add_user(user=User.new)
     if !user.new_record?
-      OnlineRetailerUser.find_or_create_by_online_retailer_id_and_user_id(self.id, user.id)
+      OnlineRetailerUser.where(online_retailer_id: self.id, user_id: user.id).first_or_create
     end
   end
   
@@ -38,7 +38,7 @@ class OnlineRetailer < ActiveRecord::Base
   end
 
   def online_retailer_link(website)
-    @online_retailer_link ||= OnlineRetailerLink.find_by_online_retailer_id_and_brand_id(self.id, website.brand_id)    
+    @online_retailer_link ||= OnlineRetailerLink.where(online_retailer_id: self.id, brand_id: website.brand_id).first
   end
   
   # Sets the overall link where this OnlineRetailer lists this site's Brand products.
