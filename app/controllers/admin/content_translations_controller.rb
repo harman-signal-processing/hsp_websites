@@ -28,7 +28,11 @@ class Admin::ContentTranslationsController < AdminController
     @record = @model_class.constantize.find(params[:id])
     @content_translations = []
     ContentTranslation.fields_to_translate_for(@record, website.brand).each do |field_name|
-      @content_translations << ContentTranslation.find_or_initialize_by_content_type_and_content_id_and_content_method_and_locale(@model_class, @record.id, field_name, @target_locale)
+      @content_translations << ContentTranslation.where(
+        content_type: @model_class, 
+        content_id: @record.id, 
+        content_method: field_name, 
+        locale: @target_locale).first_or_initialize
     end
     if request.post?
       @content_translations.each do |content_translation|

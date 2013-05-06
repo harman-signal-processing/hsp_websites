@@ -108,7 +108,7 @@ private
   end
   
   def website
-    @website ||= Website.find_by_url(request.host)
+    @website ||= Website.where(url: request.host).first
   end
   helper_method :website
 

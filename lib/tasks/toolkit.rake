@@ -9,7 +9,7 @@ namespace :toolkit do
   		dealer.format_account_number
   		dealer.save! # (fix the old account number formatting)
  			unless dealer.parent.users.count > 0 || dealer.parent.email.blank?
- 				user = User.find_or_initialize_by_email(dealer.parent.email)
+ 				user = User.where(email: dealer.parent.email).first_or_initialize
  				user.name ||= dealer.parent.name
  				user.dealer = true
  				user.account_number = dealer.parent.account_number
@@ -35,7 +35,7 @@ namespace :toolkit do
   task :create_distributor_users => :environment do
   	Distributor.all.each do |distributor|
   		if distributor.account_number.present? && distributor.email.present? #detail.to_s.match(/mailto\:([^\'\"\\]*)/i)
-  			user = User.find_or_initialize_by_email(distributor.email)
+  			user = User.where(email: distributor.email).first_or_initialize
   			user.name ||= distributor.name 
   			user.distributor = true
         user.account_number = distributor.account_number

@@ -16,7 +16,7 @@ class Admin::ArtistsController < AdminController
   # GET /admin/artists/1.xml
   def show
     @artist_product = ArtistProduct.new(artist: @artist)
-    @artist_brand = ArtistBrand.find_or_initialize_by_artist_id_and_brand_id(@artist.id, website.brand_id)
+    @artist_brand = ArtistBrand.where(artist_id: @artist.id, brand_id: website.brand_id).first_or_initialize
     respond_to do |format|
       format.html { render_template } # show.html.erb
       format.xml  { render xml: @artist }
@@ -37,7 +37,7 @@ class Admin::ArtistsController < AdminController
   # GET /admin/artists/1/edit
   def edit
     @artist.approved = !!!(@artist.approver_id.blank?)
-    @artist_brand = ArtistBrand.find_or_create_by_artist_id_and_brand_id(@artist.id, website.brand_id)
+    @artist_brand = ArtistBrand.where(artist_id: @artist.id, brand_id: website.brand_id).first_or_create
   end
 
   # POST /admin/artists
@@ -96,7 +96,7 @@ class Admin::ArtistsController < AdminController
     else
       params[:artist][:approver_id] = nil
     end
-    @artist_brand = ArtistBrand.find_or_create_by_artist_id_and_brand_id(@artist.id, website.brand_id)
+    @artist_brand = ArtistBrand.where(artist_id: @artist.id, brand_id: website.brand_id).first_or_create
     respond_to do |format|
       if @artist.update_attributes(params[:artist])
         @artist_brand.update_attributes(params[:artist_brand])

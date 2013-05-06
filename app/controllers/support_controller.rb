@@ -157,7 +157,7 @@ class SupportController < ApplicationController
   # Power Supplies page. Really, this could be used to build a similar page for
   # any Specification
   def power_supplies
-    @specification = Specification.find_by_name("Power Supply")
+    @specification = Specification.where(name: "Power Supply").first
     render_template
   end
   

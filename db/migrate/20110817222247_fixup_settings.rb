@@ -35,19 +35,19 @@ class FixupSettings < ActiveRecord::Migration
       new_setting.save! unless new_setting.setting_type == "string" && new_setting.name.match(/slide/i)
     end
     ###### add some new ones
-    s = Setting.find_or_initialize_by_name("email_signup_url")
+    s = Setting.where(name: "email_signup_url").first_or_initialize
     s.brand_id = 1
     s.setting_type = "string"
     s.string_value = "http://www.pages05.net/harmanprofessionalinc/Digitech/Digitech.com?Email="
     s.save!
     
-    s = Setting.find_or_initialize_by_name("troubleshooting_url")
+    s = Setting.where(name: "troubleshooting_url").first_or_initialize
     s.brand_id = 1
     s.setting_type = "string"    
     s.string_value = "http://na5.salesforce.com/sol/public/solutionbrowser.jsp?cid=02n70000000PeyS&orgId=00D70000000Jxp8"
     s.save!
     
-    s = Setting.find_or_initialize_by_name("addthis_username")
+    s = Setting.where(name: "addthis_username").first_or_initialize
     s.brand_id = 1
     s.setting_type = "string"    
     s.string_value = "digitechfx"

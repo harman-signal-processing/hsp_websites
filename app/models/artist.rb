@@ -102,7 +102,7 @@ class Artist < ActiveRecord::Base
   def set_artist_tier
     self.artist_tier_id ||= ArtistTier.default.id
     if self.invitation_code.present?
-      self.artist_tier = ArtistTier.find_by_invitation_code(self.invitation_code)
+      self.artist_tier = ArtistTier.where(invitation_code: self.invitation_code).first
     end
   end
 

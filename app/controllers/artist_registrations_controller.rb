@@ -13,7 +13,7 @@ class ArtistRegistrationsController < Devise::RegistrationsController
 
     resource.initial_brand = website.brand
     if resource.save
-      ArtistBrand.find_or_create_by_artist_id_and_brand_id(resource.id, website.brand_id)
+      ArtistBrand.where(artist_id: resource.id, brand_id: website.brand_id).first_or_create
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?
         sign_in(resource_name, resource)

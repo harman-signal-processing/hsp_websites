@@ -3,7 +3,7 @@ namespace :intl do
   desc "Imports international distributors from old site's data"
   task :import => :environment do
     countries = load_countries
-    brand = Brand.find_by_name("dbx")
+    brand = Brand.where(name: "dbx").first
     File.open(Rails.root.join("db", "intdistserv.txt")).each do |row|
       fields = row.split("\t")
       if fields[13].to_i > 0   # 10 = digitech, 11 = dod, 12 = johnson, 13 = dbx
@@ -23,8 +23,8 @@ namespace :intl do
           country_codes = fields[14].split(",")
           country_codes.each do |c|
             if cname = countries[c] 
-              d = Distributor.find_or_create_by_name_and_detail_and_country(fields[0], address, cname)
-              BrandDistributor.find_or_create_by_distributor_id_and_brand_id(d.id, brand.id)
+              d = Distributor.where(name: fields[0], detail: address, country: cname).first_or_create
+              BrandDistributor.where(distributor_id: d.id, brand_id: brand.id).first_or_create
             end
           end
         end

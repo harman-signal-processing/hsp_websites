@@ -18,7 +18,7 @@ namespace :sap do
       d = {}
       row.each_with_index { |val, i| d[keys[i]] = val }
 
-      dealer = Dealer.find_or_initialize_by_account_number(d[:account_number])
+      dealer = Dealer.where(account_number: d[:account_number]).first_or_initialize
       dealer.name      = d[:name]
       dealer.name2     = d[:name2]
       dealer.address   = d[:address]
@@ -57,7 +57,7 @@ namespace :sap do
         puts "Reading #{brand.name} data..."
         puts "  starting with #{brand.dealers.count} dealers"
         CSV.read(file).each do |row|
-          if dealer = Dealer.find_by_account_number(row[1].to_s)
+          if dealer = Dealer.where(account_number: row[1].to_s).first
             dealer.add_to_brand!(brand) unless dealer.exclude?
           end
         end

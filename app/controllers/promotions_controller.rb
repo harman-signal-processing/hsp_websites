@@ -28,7 +28,7 @@ class PromotionsController < ApplicationController
   protected
   
   def ensure_best_url
-    @promotion = Promotion.find_by_cached_slug(params[:id]) || Promotion.find(params[:id])
+    @promotion = Promotion.where(cached_slug: params[:id]).first || Promotion.find(params[:id])
     # redirect_to @promotion, status: :moved_permanently unless @promotion.friendly_id_status.best?
   end
 

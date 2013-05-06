@@ -1,12 +1,12 @@
 class AddHomepageColumnsToSettings < ActiveRecord::Migration
   def self.up
     Brand.all.each do |brand|
-      Setting.find_or_create_by_name_and_brand_id_and_string_value_and_setting_type("homepage_left_column", brand.id, "news", "string")
-      Setting.find_or_create_by_name_and_brand_id_and_string_value_and_setting_type("homepage_middle_column", brand.id, "youtube", "string")
-      Setting.find_or_create_by_name_and_brand_id_and_string_value_and_setting_type("homepage_right_column", brand.id, "twitter", "string")
+      Setting.where(name: "homepage_left_column", brand_id: brand.id, string_value: "news", setting_type: "string").first_or_create
+      Setting.where(name: "homepage_middle_column", brand_id: brand.id, string_value: "youtube", setting_type: "string").first_or_create
+      Setting.where(name: "homepage_right_column", brand_id: brand.id, string_value: "twitter", setting_type: "string").first_or_create
     end
-    dbx = Brand.find_by_name("dbx")
-    s = Setting.find_by_brand_id_and_name(dbx.id, "homepage_middle_column")
+    dbx = Brand.where(name: "dbx").first
+    s = Setting.where(brand_id: dbx.id, name: "homepage_middle_column").first
     s.update_attributes(:string_value => "facebook")
   end
 

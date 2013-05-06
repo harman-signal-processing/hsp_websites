@@ -51,7 +51,7 @@ class Software < ActiveRecord::Base
       self.class.where(current_version_id: self.replaces_id).update_all(current_version_id: self.id, active: false)
       self.class.where(id: self.replaces_id).update_all(current_version_id: self.id, active: false)
       ProductSoftware.where(software_id: self.replaces_id).each do |ps|
-        ProductSoftware.find_or_create_by_software_id_and_product_id(self.id, ps.product_id)
+        ProductSoftware.where(software_id: self.id, product_id: ps.product_id).first_or_create
       end
     end
   end

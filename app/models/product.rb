@@ -141,7 +141,7 @@ class Product < ActiveRecord::Base
   end
   
   def photo
-    ProductAttachment.find_by_product_id_and_primary_photo(self.id, true)
+    ProductAttachment.where(product_id: self.id, primary_photo: true).first
   end
   
   def photo=(product_attachment)
