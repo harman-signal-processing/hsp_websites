@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130502204428) do
+ActiveRecord::Schema.define(:version => 20130507153907) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -236,6 +236,8 @@ ActiveRecord::Schema.define(:version => 20130502204428) do
     t.boolean  "employee_store"
     t.boolean  "live_on_this_platform"
     t.boolean  "product_trees"
+    t.boolean  "has_us_sales_reps"
+    t.integer  "us_sales_reps_from_brand_id"
   end
 
   add_index "brands", ["cached_slug"], :name => "index_brands_on_cached_slug", :unique => true
@@ -1391,6 +1393,40 @@ ActiveRecord::Schema.define(:version => 20130502204428) do
   add_index "tweets", ["brand_id"], :name => "index_tweets_on_brand_id"
   add_index "tweets", ["tweet_id"], :name => "index_tweets_on_tweet_id"
   add_index "tweets", ["tweet_id"], :name => "tweet_id", :unique => true
+
+  create_table "us_regions", :force => true do |t|
+    t.string   "name"
+    t.string   "cached_slug"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "us_regions", ["cached_slug"], :name => "index_us_regions_on_cached_slug"
+
+  create_table "us_rep_regions", :force => true do |t|
+    t.integer  "us_rep_id"
+    t.integer  "us_region_id"
+    t.integer  "brand_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "us_reps", :force => true do |t|
+    t.string   "name"
+    t.string   "contact"
+    t.string   "address"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "phone"
+    t.string   "fax"
+    t.string   "email"
+    t.string   "cached_slug"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "us_reps", ["cached_slug"], :name => "index_us_reps_on_cached_slug"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                     :default => "", :null => false
