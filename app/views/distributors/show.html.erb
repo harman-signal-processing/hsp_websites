@@ -1,11 +1,6 @@
-<p id="notice"><%= notice %></p>
-
 <h1><%= @distributor.name %></h1>
 
 <%=raw @distributor.detail %>
-
-
-<%= link_to t('back'), distributors_path %>
 
 <% if current_user && can?(:manage, @distributor) %>
 <div class="admin_function">

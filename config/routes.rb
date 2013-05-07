@@ -231,6 +231,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :rep_reports,
         :promotions,
         :amp_models,
+        :us_regions,
         :demo_songs,
         :rso_panels,
         :rso_pages,
@@ -238,6 +239,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :cabinets,
         :websites,
         :captchas,
+        :us_reps,
         :regions,
         :effects,
         :dealers,
@@ -261,7 +263,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     #   mount Forem::Engine, at: "/soundcomm"
     # end
     
-    resources :distributors, only: [:index, :show] do
+    resources :us_reps, :distributors, only: [:index, :show] do
       collection { get :search }
     end
     # get "distributors#search"

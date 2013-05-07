@@ -22,6 +22,9 @@ class Brand < ActiveRecord::Base
   has_many :blogs
   has_many :pricing_types, order: :pricelist_order
   has_many :brand_toolkit_contacts, order: :position, include: :user
+  has_many :us_rep_regions 
+  has_many :us_reps, through: :us_rep_regions 
+  has_many :us_regions, through: :us_rep_regions, order: :name
   # RSO stuff
   has_many :rso_monthly_reports
   has_many :rso_navigations, order: :position
@@ -248,6 +251,12 @@ class Brand < ActiveRecord::Base
 
   def toolkit_contacts
     brand_toolkit_contacts.map{|btc| btc.user}
+  end
+
+  # wrapper to inherit from another brand if necessary
+  def us_regions_for_website
+    this_brand = (self.us_sales_reps_from_brand_id.present?) ? Brand.find(self.us_sales_reps_from_brand_id) : self
+    @us_regions = this_brand.us_regions
   end
 
 end
