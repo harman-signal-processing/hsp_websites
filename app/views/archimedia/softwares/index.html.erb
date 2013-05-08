@@ -9,6 +9,7 @@
 	<%= t('software_downloads') %>
 <% end %>
 </h1>
+<%= link_to "Download brochures, guides, etc.", support_downloads_path %>
 
 <%= cache ["softwares_index", website.brand, I18n.locale] do %>
 

@@ -19,7 +19,7 @@
 			</h2>
 		<% else %>
 			<%= (promotion.has_description?) ? 
-					link_to(image_tag(promotion.tile.url, alt: promotion.name), promotion) :
+					link_to(image_tag(promotion.tile.url(:medium), alt: promotion.name), promotion) :
 					image_tag(promotion.tile.url, alt: promotion.name) %>
 		<% end %>
 		<p><%= t('valid') %> <%=l promotion.start_on, format: :long %>-<%=l promotion.end_on, format: :long %>
