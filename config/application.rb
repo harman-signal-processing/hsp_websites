@@ -69,7 +69,7 @@ module HarmanSignalProcessingWebsite
     config.employee_invitation_code = "GROOVYBABY"
     config.rso_invitation_code      = "YOUAREINVITED"
     config.rso_host                 = "rso.digitech.com"
-    config.toolkit_url              = "http://marketingtoolkit.harmanpro.com"
+    config.toolkit_url              = "marketingtoolkit.harmanpro.com"
     config.default_site_name        = "Harman Signal Processing" 
     config.toolkit_admin_email_addresses = ["adam.anderson@harman.com"]
     config.toolkit_admin_contact_info    = ["Adam Anderson at adam.anderson@harman.com"]

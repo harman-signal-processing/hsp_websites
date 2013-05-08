@@ -32,6 +32,8 @@ class MainController < ApplicationController
     unless session['geo_usa']
       redirect_to international_distributors_path and return
     end
+    @us_regions = website.brand.us_regions_for_website
+    @us_region = UsRegion.new
     if params[:zip]
       session[:zip] = params[:zip]
       @page_title += " " + t('near_zipcode', zip: params[:zip])

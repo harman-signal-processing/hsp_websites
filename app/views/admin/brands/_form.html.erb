@@ -32,7 +32,8 @@
 	<%= f.check_box :has_registered_downloads %> <%= f.label :has_registered_downloads %><br/>
 	<%= f.check_box :has_online_retailers %> <%= f.label :has_online_retailers %><br/>
 	<%= f.check_box :has_distributors %> <%= f.label :has_distributors %><br/>
-	<%= f.check_box :has_dealers %> <%= f.label :has_dealers %><br/>
+  <%= f.check_box :has_dealers %> <%= f.label :has_dealers %><br/>
+	<%= f.check_box :has_us_sales_reps %> <%= f.label :has_us_sales_reps %><br/>
 	<%= f.check_box :has_service_centers %> <%= f.label :has_service_centers %><br/>
   <%= f.check_box :has_vintage_repair %> <%= f.label :has_vintage_repair %><br/>
 	<%= f.check_box :has_parts_form %> <%= f.label :has_parts_form, "Site has online parts request form" %><br/>
@@ -51,6 +52,10 @@
   <div class="field">
 	<%= f.label :dealers_from_brand_id, "Use dealers (US) from the following brand:" %><br/>
 	<%= f.collection_select :dealers_from_brand_id, (Brand.all - [@brand]), :id, :name, include_blank: true %>
+  </div>
+  <div class="field">
+  <%= f.label :dealers_from_brand_id, "Use sales reps (US) from the following brand:" %><br/>
+  <%= f.collection_select :us_sales_reps_from_brand_id, (Brand.all - [@brand]), :id, :name, include_blank: true %>
   </div>
   <div class="field">
 	<%= f.label :distributors_from_brand_id, "Use distributors (int'l) from the following brand:" %><br/>

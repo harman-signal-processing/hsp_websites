@@ -1,0 +1,2 @@
+class UsRegionsController < ApplicationController
+end

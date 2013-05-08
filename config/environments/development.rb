@@ -47,6 +47,6 @@ HarmanSignalProcessingWebsite::Application.configure do
 
   config.employee_invitation_code = "GROOVY"
   config.rso_invitation_code = "HSP-RSO"
-  config.toolkit_url = "http://toolkit.lvh.me:3000"
+  config.toolkit_url = "toolkit.lvh.me:3000"
 end
 
