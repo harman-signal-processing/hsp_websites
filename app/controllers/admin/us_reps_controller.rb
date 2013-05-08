@@ -1,0 +1,2 @@
+class UsRepsController < ApplicationController
+end
