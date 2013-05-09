@@ -36,15 +36,13 @@ h5. Things I need to work on...
 ================================================================
                  *** Notes for tomorrow ***
 
- * Maybe make the slideshow images schedulable, and auto-deletable after expired for 30 days
+ * Admin interface for US Reps (ala international distributors)
+ * Make the slideshow images schedulable, and auto-deletable after expired for 30 days
+ * same for feature buttons?
 
 ================================================================
 
 === TODO for Toolkits ===
-* Dealer accounts have been created like so:
-  - email addr on file, with "toolkit" password
-
-* get distributor accounts created
 * Dealers update their own info (address)
 * Dealers update their own buy-it-now links
 * Dynamically choose content for each brand start page
@@ -55,13 +53,12 @@ _other_
 * use the same logins for accommodation? dealer portal?
 
 === TODO for BSS site ===
-* Create US reps
 * Don't worry about these until/unless someone asks:
   * FDS firmware update reg forms and URL forwarders 
   * Individual contact forms?
 
 === TODO for dbx site ===
-* Sales rep info
+* Sales rep info (would be easy now that it is in place for BSS)
 
 === TODO for Lexicon ===
 * (started) Software compatibility by version (Win XP, 7, etc.) and icons
@@ -76,7 +73,6 @@ What you will need to change is: itemid=100170580&subitemid=358897 based on the 
 * Load in old manuals from FTP site (XP series, etc.)
 
 === TODO (for all brands) ===
-* Employee purchases--get IT to update links on myharman.com
 * Clean up product info tabs methods (several in product.rb, product_helper.rb)
 * Minitest for admin functions
 * Separate admin permissions by brands

@@ -971,13 +971,25 @@ table.download-collection {
 	}
 }
 /****** Software Downloads *******/
-.download_box {
-	float: right;
-	margin: 10px 50px 40px; 
-	width: 300px; 
-	text-align: center; 
-	background: #EEE; 
-	padding: 20px;
+div#software-page-content {
+	margin-top: 20px; 
+	margin-bottom: 40px;
+	.aside {
+		float: right;
+		margin: 10px 50px; 
+		width: 300px; 
+		.download_box {
+			margin-bottom: 10px;
+			text-align: center; 
+			background: #EEE; 
+			padding: 20px 20px 10px 20px;
+			-moz-border-radius: 8px;
+			border-radius: 8px;
+		}
+		div#signup {
+			text-align: center; 
+		}
+	}
 }
 /****** Youtube table ********/
 table.tube {}
