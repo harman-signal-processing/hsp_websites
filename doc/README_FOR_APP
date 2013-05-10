@@ -37,8 +37,6 @@ h5. Things I need to work on...
                  *** Notes for tomorrow ***
 
  * Admin interface for US Reps (ala international distributors)
- * Make the slideshow images schedulable, and auto-deletable after expired for 30 days
- * same for feature buttons?
 
 ================================================================
 
@@ -61,6 +59,7 @@ _other_
 * Sales rep info (would be easy now that it is in place for BSS)
 
 === TODO for Lexicon ===
+* deliver download code for PCM plugins to PCM96 registrations
 * (started) Software compatibility by version (Win XP, 7, etc.) and icons
 
 _OMS Notes_
@@ -73,6 +72,8 @@ What you will need to change is: itemid=100170580&subitemid=358897 based on the 
 * Load in old manuals from FTP site (XP series, etc.)
 
 === TODO (for all brands) ===
+* Make the slideshow images schedulable, and auto-deletable after expired for 30 days
+* same for feature buttons?
 * Clean up product info tabs methods (several in product.rb, product_helper.rb)
 * Minitest for admin functions
 * Separate admin permissions by brands

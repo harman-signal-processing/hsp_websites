@@ -38,9 +38,6 @@
 			<% end %>
 		</div>
 		<div class="column">
-			<% if website.email_signup_url %>
-				<%= render_partial 'shared/newsletter_signup' %>
-			<% end %>
 			<% if website.homepage_column_two %>
 				<%= render_partial "shared/column_for_#{website.homepage_column_two}" %>
 			<% elsif website.homepage_column_2 %>
@@ -61,6 +58,9 @@
 			<% end %>
 		</div>
 		<div class="column">
+			<% if website.email_signup_url %>
+				<%= render_partial 'shared/newsletter_signup' %>
+			<% end %>
 			<% if website.homepage_column_four %>
 				<%= render_partial "shared/column_for_#{website.homepage_column_four}" %>
 			<% elsif website.homepage_column_4 %>
