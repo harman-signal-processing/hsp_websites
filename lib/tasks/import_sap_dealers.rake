@@ -66,9 +66,24 @@ namespace :sap do
         # BI reports span 1 year, all the valid once should have been touched in the
         # previous loop. To be safe, keep 1 month worth of deadbeats at a time.
         #
-        brand.brand_dealers.where("updated_at < ?", 1.month.ago).destroy_all
+        brand.brand_dealers.where("updated_at < ?", 1.months.ago).each do |bd|
+          if bd.dealer.parent && bd.dealer.parent.updated_at > 1.month.ago
+            d.touch
+          else
+            d.destroy
+          end
+        end
         brand.reload
         puts "  ending with #{brand.dealers.count} dealers"
+      end
+    end
+
+    # Clean up remaining stragglers
+    BrandDealer.where("updated_at < ?", 1.months.ago).each do |bd|
+      if bd.dealer.parent && bd.dealer.parent.updated_at > 1.month.ago
+        d.touch
+      else
+        d.destroy
       end
     end
   end
