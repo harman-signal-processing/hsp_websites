@@ -2,7 +2,7 @@
 	<% product.product_documents.each do |product_document| %>
 	<li>
 		<% if product_document.document_content_type.match(/pdf/i) || product_document.document_file_name.match(/pdf$/i) %>
-			<%= image_tag("pdf_17.png", style: "vertical-align: middle") %>
+			<%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
 		<% end %>
 			<%= link_to product_document.name, (@brand.live_on_this_platform?) ?
 					"http://#{@brand.default_website.url}#{product_document.document.url}" :

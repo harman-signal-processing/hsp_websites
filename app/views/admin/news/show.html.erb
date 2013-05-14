@@ -4,7 +4,7 @@
                  keywords: @news.keywords %>
 <h1><%= title @news.title %></h1>
 	<span class="little"><%= link_to(news_url(@news, locale: I18n.locale), news_url(@news, locale: I18n.locale)) %>
-	<%= link_to(image_tag("external_link_icon.png"), news_url(@news, locale: I18n.locale)) %></span>
+	<%= link_to(image_tag("icons/external_link_icon.png"), news_url(@news, locale: I18n.locale)) %></span>
 
 <div class="button_container">
 	<%= link_to 'Back', admin_news_index_path, class: "back button" %>

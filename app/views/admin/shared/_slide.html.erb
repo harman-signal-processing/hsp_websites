@@ -1,8 +1,8 @@
 <li id="setting_<%= slide.id %>">
-	<span class="handle"><%= image_tag("drag_handle.gif") %></span>
+	<span class="handle"><%= image_tag("icons/drag_handle.gif") %></span>
 	<%= image_tag(slide.slide.url(:tiny)) %>
 	<%= link_to_function(slide.name, "$('#slide_#{slide.id}_form').toggle();") %> 
-	<%= link_to(image_tag("trash.gif"), 
+	<%= link_to(image_tag("icons/trash.gif"), 
 			admin_setting_path(slide), 
 			confirm: "Are you sure?", 
 			remote: true,

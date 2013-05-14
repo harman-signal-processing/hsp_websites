@@ -51,7 +51,7 @@ songlist/<%= f.text_field :songlist_tag, size: 15 %>.xml<br/>
 		<td><%= demo_song.text_field :title %></td>
 		<td><%= demo_song.file_field :mp3 %></td>
 		<td><% if !demo_song.object.new_record? %>
-			<%= link_to image_tag("trash.gif"), [:admin, demo_song.object], method: :delete, remote: true %>
+			<%= link_to image_tag("icons/trash.gif"), [:admin, demo_song.object], method: :delete, remote: true %>
 			<%= link_to demo_song.object.mp3_file_name, demo_song.object.mp3.url %>
 			<% end %>
 		</td>

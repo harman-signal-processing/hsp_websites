@@ -3,7 +3,7 @@
 	<%= (called_from == 'user') ? 
 			link_to(oru.online_retailer.name, [:admin, oru.online_retailer]) : 
 			link_to(oru.user.email, [:admin, oru.user]) %> 
-	<%= link_to(image_tag("trash.gif"), 
+	<%= link_to(image_tag("icons/trash.gif"), 
 			admin_online_retailer_user_path(oru), 
 			confirm: "Are you sure? (This won't delete the user or the retailer--it will only remove the association.)", 
 			remote: true,

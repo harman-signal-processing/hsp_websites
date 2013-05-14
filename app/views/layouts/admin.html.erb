@@ -20,11 +20,11 @@
 	  &nbsp;
 	 <%= link_to "admin home", admin_root_path %>
 	<div id="profile_links">
-		<%= link_to image_tag("user.png"), edit_user_registration_path %>
+		<%= link_to image_tag("icons/user.png"), edit_user_registration_path %>
 		<%= link_to "my profile", edit_user_registration_path %> 
 		&nbsp;
 		<%= link_to "logout", destroy_user_session_path %>
-		<%= link_to image_tag("exit.png"), destroy_user_session_path %>
+		<%= link_to image_tag("icons/exit.png"), destroy_user_session_path %>
 	</div>
 	<% end %>
 </div>
@@ -35,7 +35,7 @@
 <% if user_signed_in? %>
 <%= cache ["admin_menu", current_user, website, Date.today] do %>
 	<% if can?(:manage, User) || can?(:manage, Brand) || can?(:manage, Website) || can?(:manage, ToolkitResourceType) %>
-		<h3><%= image_tag "super_admin.png" %> Super Admin</h3>
+		<h3><%= image_tag "icons/super_admin.png" %> Super Admin</h3>
 		<ul>
 			<% if can? :manage, User %>
 				<li><%= link_to "Users", admin_users_path %></li>
@@ -55,7 +55,7 @@
 	<% if can?(:manage, Setting) || can?(:manage, Page) ||
 		can?(:manage, Blog) || can?(:manage, BlogArticle) ||
 		can?(:manage, SiteElement) %>
-		<h3><%= image_tag "gear.png" %> Settings, Pages<% if website.has_blogs? %>, Blogs<% end %></h3>
+		<h3><%= image_tag "icons/gear.png" %> Settings, Pages<% if website.has_blogs? %>, Blogs<% end %></h3>
 		<ul>
 			<% if can?(:manage, Setting) && can?(:manage, Product) %>
 			<li><%= link_to "Homepage", homepage_admin_settings_path %></li>
@@ -85,7 +85,7 @@
 		can?(:manage, Faq) ||
 		(can?(:manage, ToolkitResource) && toolkit_brands.include?(website.brand)) ||
 		can?(:manage, ToneLibrarySong) %>
-		<h3><%= image_tag "pricetag.png" %> Products, etc.</h3>
+		<h3><%= image_tag "icons/pricetag.png" %> Products, etc.</h3>
 		<ul>
 			<% if can?(:manage, ProductFamily) %>
 			<li><%= link_to "Product Families", admin_product_families_path %></li>
@@ -130,7 +130,7 @@
 		can?(:manage, LabelSheet) ||
 		can?(:update, :harman_employee_pricing) ||
 		can?(:manage, LabelSheetOrder) %>
-		<h3><%= image_tag "pricetag.png" %> Pricing &amp; Customers</h3>
+		<h3><%= image_tag "icons/pricetag.png" %> Pricing &amp; Customers</h3>
 		<ul>
 			<% if can? :manage, Promotion %>
 			<li><%= link_to "Promotions", admin_promotions_path %></li>
@@ -156,7 +156,7 @@
 	<% end %>
 	
 	<% if website.has_training? && (can?(:manage, TrainingModule) || can?(:manage, TrainingClass)) %>
-		<h3><%= image_tag "module_icon.png" %> Training</h3>
+		<h3><%= image_tag "icons/module_icon.png" %> Training</h3>
 		<ul>
 			<% if can? :manage, TrainingModule %>
 			<li><%= link_to "Training Modules", admin_training_modules_path %></li>
@@ -170,7 +170,7 @@
 	<% if (can?(:manage, Artist) && website.has_artists?) || 
 		(can?(:manage, ArtistTier) && website.has_artists?) ||
 		(can?(:manage, Clinic) && website.has_clinics?) %>
-		<h3><%= image_tag "artists.png" %>
+		<h3><%= image_tag "icons/artists.png" %>
 			<% if website.has_artists? && website.has_clinics? %> Artists &amp; Clinicians 
 			<% elsif website.has_artists? %> Artists
 			<% elsif website.has_clinics? %> Clinicians <% end %>
@@ -189,7 +189,7 @@
 	<% end %>
 	
 	<% if (can?(:manage, Software) && website.has_software) || (can?(:manage, RegisteredDownload) && website.has_registered_downloads?) %>
-		<h3><%= image_tag "software.png" %> Software</h3>
+		<h3><%= image_tag "icons/software.png" %> Software</h3>
 		<ul>
 			<% if can?(:manage, Software) && website.has_software? %>
 			<li><%= link_to "Software Downloads", admin_softwares_path %></li>
@@ -204,16 +204,19 @@
 		  (can?(:manage, Distributor) && website.has_distributors?) || 
 		  (can?(:manage, Dealer) && website.has_dealers?) || 
 		  (can?(:manage, ServiceCenter) && website.has_service_centers?) %>
-		<h3><%= image_tag "alliance.png" %> Partners</h3>
+		<h3><%= image_tag "icons/alliance.png" %> Partners</h3>
 		<ul>
 			<% if can?(:manage, OnlineRetailer) && website.has_online_retailers? %>
 			<li><%= link_to "Online Retailers (#{ pluralize(OnlineRetailerLink.problems.count, 'problem') })", admin_online_retailers_path %></li>
 			<% end %>
+			<% if can?(:manage, Dealer) && website.has_dealers? %>
+			<li><%= link_to "Dealers", admin_dealers_path %></li>
+			<% end %>
 			<% if can?(:manage, Distributor) && website.has_distributors? %>
 			<li><%= link_to "International Distributors", admin_distributors_path %></li>
 			<% end %>
-			<% if can?(:manage, Dealer) && website.has_dealers? %>
-			<li><%= link_to "Dealers", admin_dealers_path %></li>
+			<% if can?(:manage, UsRep) && website.has_us_sales_reps? %>
+			<li><%= link_to "US Sales Reps", admin_us_reps_path %></li>
 			<% end %>
 			<% if can?(:manage, ServiceCenter) && website.has_service_centers? %>
 			<li><%= link_to "Service Centers", admin_service_centers_path %></li>
@@ -223,7 +226,7 @@
 	
 	<% if website.rso_enabled? && (can?(:manage, RsoPage) || can?(:manage, RsoNavigation) ||
 		can?(:manage, RsoMonthlyReport) || can?(:manage, RsoPanel) ) %>
-		<h3><%= image_tag "alliance.png" %> RSO Site</h3>
+		<h3><%= image_tag "icons/alliance.png" %> RSO Site</h3>
 		<ul>
 			<% if can? :manage, RsoMonthlyReport %>
 			<li><%= link_to 'Monthly Report', admin_rso_monthly_reports_path %></li>
@@ -241,7 +244,7 @@
 	<% end %>
 	
 	<% if can? :manage, ContentTranslation %>
-		<h3><%= image_tag "world.png" %> Translations</h3>
+		<h3><%= image_tag "icons/world.png" %> Translations</h3>
 		<ul>
 			<% website.website_locales.each do |wl| %>
 			<% unless I18n.default_locale.to_s == wl.locale.to_s %>

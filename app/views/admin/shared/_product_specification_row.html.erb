@@ -1,8 +1,8 @@
 <li id="product_specification_<%= ps.id %>">
-	<span class="handle"><%= image_tag("drag_handle.gif") %></span>
+	<span class="handle"><%= image_tag("icons/drag_handle.gif") %></span>
 	<b><%= ps.specification.name %>:</b>
 	<%= link_to ps.value, edit_admin_product_specification_path(ps) %>
-	<%= link_to(image_tag('trash.gif'),
+	<%= link_to(image_tag('icons/trash.gif'),
 		  admin_product_specification_path(ps),
 		  remote: true,
 		  confirm: "Are you sure you want to delete this specification?",

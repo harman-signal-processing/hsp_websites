@@ -78,10 +78,10 @@ module ApplicationHelper
     html = ''
     networks.to_a.each do |n|
       if n == 'rss'
-        html += link_to(image_tag("#{n}.png", style: "vertical-align: middle;", size: "21x20"), rss_url(format: "xml"), target: "_blank")
+        html += link_to(image_tag("icons/#{n}.png", style: "vertical-align: middle;", size: "21x20"), rss_url(format: "xml"), target: "_blank")
       elsif v = website.value_for(n)
         v = (v =~ /^http/i) ? v : "http://www.#{n}.com/#{v}"
-        html += link_to(image_tag("#{n}.png", style: "vertical-align: middle", size: "21x20"), v, target: "_blank")
+        html += link_to(image_tag("icons/#{n}.png", style: "vertical-align: middle", size: "21x20"), v, target: "_blank")
       end
     end
     raw(html)
@@ -118,17 +118,17 @@ module ApplicationHelper
   def platform_icon(software, size=17)
     img = case software.platform.to_s
       when /windows/i
-        "windows_#{size}.png"
+        "icons/windows_#{size}.png"
       when /mac/i
-        "mac_#{size}.png"
+        "icons/mac_#{size}.png"
       when /linux/i
-        "tux_#{size}.png"
+        "icons/tux_#{size}.png"
       when /ios/i
-        "iOS_#{size}.png"
+        "icons/iOS_#{size}.png"
       when /android/i
-        "android_#{size}.png"
+        "icons/android_#{size}.png"
       else
-        "none_#{size}.png"
+        "icons/none_#{size}.png"
     end
     image_tag img, style: "vertical-align: middle"
 	end

@@ -10,7 +10,7 @@
   	<% if !f.object.family_photo_file_name.blank? %>
 	<span id="family_photo">
 		<%= link_to f.object.family_photo_file_name, f.object.family_photo.url %>
-		<%= link_to image_tag("trash.gif"), delete_family_photo_admin_product_family_path(f.object), remote: true %>
+		<%= link_to image_tag("icons/trash.gif"), delete_family_photo_admin_product_family_path(f.object), remote: true %>
 	</span>
 	<% end %>
 </p>
@@ -21,7 +21,7 @@
       <% if !f.object.title_banner_file_name.blank? %>
 	<span id="title_banner">
 		<%= link_to f.object.title_banner_file_name, f.object.title_banner.url %>
-		<%= link_to image_tag("trash.gif"), delete_title_banner_admin_product_family_path(f.object), remote: true %>
+		<%= link_to image_tag("icons/trash.gif"), delete_title_banner_admin_product_family_path(f.object), remote: true %>
 	</span>
 	<% end %>
 </p>
@@ -50,7 +50,7 @@
 	<% if !f.object.background_image_file_name.blank? %>
 	<span id="background_image">
 		<%= link_to f.object.background_image_file_name, f.object.background_image.url %>
-		<%= link_to image_tag("trash.gif"), delete_background_admin_product_family_path(f.object), remote: true %>
+		<%= link_to image_tag("icons/trash.gif"), delete_background_admin_product_family_path(f.object), remote: true %>
 	</span>
 	<% end %>
 </p>

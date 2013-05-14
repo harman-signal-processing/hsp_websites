@@ -1,7 +1,7 @@
 <h1>
 	<%=h @product_review.title %><br/>
 	<span class="little"><%= link_to(product_review_url(@product_review, locale: I18n.locale), product_review_url(@product_review, locale: I18n.locale)) %>
-	<%= link_to(image_tag("external_link_icon.png"), product_review_url(@product_review, locale: I18n.locale)) %></span>
+	<%= link_to(image_tag("icons/external_link_icon.png"), product_review_url(@product_review, locale: I18n.locale)) %></span>
 </h1>
 
 <div class="button_container">

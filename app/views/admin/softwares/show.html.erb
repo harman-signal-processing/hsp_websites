@@ -1,6 +1,6 @@
 <h1><%=h @software.name %>
 	<span class="little"><%= link_to(software_url(@software, locale: I18n.locale), software_url(@software, locale: I18n.locale)) %>
-	<%= link_to(image_tag("external_link_icon.png"), software_url(@software, locale: I18n.locale)) %></span></h1>
+	<%= link_to(image_tag("icons/external_link_icon.png"), software_url(@software, locale: I18n.locale)) %></span></h1>
 
 <div class="button_container">
 	<%= link_to 'Back', admin_softwares_path, class: "back button" %>

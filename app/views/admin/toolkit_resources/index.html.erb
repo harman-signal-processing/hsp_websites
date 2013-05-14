@@ -38,9 +38,9 @@
 		<ul id="brand_toolkit_contacts" class="sortable_list">
 			<% website.brand.brand_toolkit_contacts.each do |btc| %>
 			<li id="brand_toolkit_contact_<%= btc.id %>">
-				<span class="handle"><%= image_tag("drag_handle.gif") %></span>
+				<span class="handle"><%= image_tag("icons/drag_handle.gif") %></span>
 				<%= link_to btc.user.name, edit_admin_brand_toolkit_contact_path(btc) %>
-				<%= link_to(image_tag("trash.gif"), 
+				<%= link_to(image_tag("icons/trash.gif"), 
 							admin_brand_toolkit_contact_path(btc), 
 							confirm: "Are you sure? (This won't delete the person--it will only remove them from the sidebar on the #{website.brand.name} toolkit.)", 
 							remote: true,

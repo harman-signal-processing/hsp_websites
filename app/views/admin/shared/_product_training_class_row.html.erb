@@ -3,7 +3,7 @@
 	<%= (called_from == "product") ?
 		link_to(ptc.training_class.name, edit_admin_training_class_path(ptc.training_class)) :
 		link_to(ptc.product.name, [:admin, ptc.product]) %>
-	<%= link_to(image_tag('trash.gif'),
+	<%= link_to(image_tag('icons/trash.gif'),
 		  admin_product_training_class_path(ptc),
 		  remote: true,
 		  confirm: "Are you sure?",

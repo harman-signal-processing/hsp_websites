@@ -136,17 +136,17 @@ module ToolkitHelper
 			file_extension = $1
 			case file_extension.downcase
 				when "pdf"
-					image_tag("pdf-icon.png") + ' '
+					image_tag("icons/pdf-icon.png") + ' '
 				when "zip"
-					image_tag("zip-icon.png") + ' '
+					image_tag("icons/zip-icon.png") + ' '
 				when "exe"
-					image_tag("windows_17.png") + ' '
+					image_tag("icons/windows_17.png") + ' '
 				when "dmg"
-					image_tag("mac_17.png") + ' '
+					image_tag("icons/mac_17.png") + ' '
 				when "wav", "mp3", "aif"
-					image_tag("icon_play.png") + ' '
+					image_tag("icons/icon_play.png") + ' '
 				when "m4v", "avi", "qt"
-					image_tag("icon_play.png") + ' '
+					image_tag("icons/icon_play.png") + ' '
 				else
 					''
 			end

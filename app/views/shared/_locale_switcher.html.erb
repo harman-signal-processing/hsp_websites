@@ -1,8 +1,8 @@
 <% if website.show_locales? %>
 	<div id="locale_switcher">
 		<%= link_to '#', id: "locale_menu" do %>
-			<%= image_tag "locale-tiny.png", alt: t('language_region') %>
-			<%= image_tag 'arrow_down.png', alt: '>', style: "margin-bottom: 4px;" %>
+			<%= image_tag "icons/locale-tiny.png", alt: t('language_region') %>
+			<%= image_tag 'icons/arrow_down.png', alt: '>', style: "margin-bottom: 4px;" %>
 		<% end %>
 		<div id="locale_selections"> 
 			<% website.available_locales.reject{|l| l.locale.to_s == I18n.locale.to_s}.each do |website_locale| %>
