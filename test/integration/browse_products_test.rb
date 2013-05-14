@@ -17,11 +17,11 @@ describe "Browse Products Integration Test" do
   
   describe "homepage" do
 
-    it "should redirect to the locale homepage" do
-      skip "must_respons_with doesn't work in new MiniTest-rails"
-      get root_url(host: @website.url)
-      must_respond_with :redirect
-    end
+    # it "should redirect to the locale homepage" do
+    #   skip "must_respond_with doesn't work in new MiniTest-rails"
+    #   get root_url(host: @website.url)
+    #   must_respond_with :redirect
+    # end
 
     it "should have nav links" do
       visit root_url(host: @website.url)
