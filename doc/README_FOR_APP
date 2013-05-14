@@ -36,7 +36,7 @@ h5. Things I need to work on...
 ================================================================
                  *** Notes for tomorrow ***
 
- * Admin interface for US Reps (ala international distributors) - in process
+ * Better admin for users--now that there's tons
 
 ================================================================
 
@@ -51,9 +51,6 @@ _other_
 * use the same logins for accommodation? dealer portal?
 
 === TODO for BSS site ===
-* Don't worry about these until/unless someone asks:
-  * FDS firmware update reg forms and URL forwarders 
-  * Individual contact forms?
 
 === TODO for dbx site ===
 * Sales rep info (would be easy now that it is in place for BSS)

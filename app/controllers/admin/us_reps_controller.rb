@@ -14,6 +14,7 @@ class Admin::UsRepsController < AdminController
   # GET /admin/us_reps/1
   # GET /admin/us_reps/1.xml
   def show
+    @us_rep_region = UsRepRegion.new(us_rep_id: @us_rep.id, brand_id: website.brand_id)
     respond_to do |format|
       format.html { render_template } # show.html.erb
       format.xml  { render xml: @us_rep }
