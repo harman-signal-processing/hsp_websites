@@ -1,0 +1,40 @@
+<h1>US Sales Reps</h1>
+
+<% if !website.us_sales_reps_from_brand_id.blank? %>
+	Note: <%= website.brand_name %> is configured to use the reps from 
+	<%= Brand.find(website.us_sales_reps_from_brand_id).name %>. Please manage
+	the reps on its website instead of this one.
+<% else %>
+
+<% if can? :create, UsRep %>
+<div class="button_container">
+	<%= link_to 'New Rep', new_admin_us_rep_path, class: "new button" %>
+</div>
+<% end %>
+
+<%= search_form_for [:admin, @search] do |f| %>
+  <div class="form_field">
+    <%= f.label :name_cont, "Name contains" %><br/>
+    <%= f.text_field :name_cont %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Search reps" %>
+  </div>
+<% end %>
+
+<table class="data" style="width: 100%">
+  <tr>
+    <th>Name</th>
+    <th>Regions</th>
+  </tr>
+
+<% @us_reps.each do |us_rep| %>
+  <tr style="background: <%= cycle 'white', 'none' %>">
+    <td><%= link_to us_rep.name, [:admin, us_rep] %></td>
+    <td><%= us_rep.us_rep_regions.where(brand_id: website.brand_id).map{|usr| usr.us_region.name}.join(', ') %></td>
+  </tr>
+<% end %>
+</table>
+<% end %>
+
+

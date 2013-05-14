@@ -9,7 +9,7 @@
 <ul id="rso_navigations" class="sortable_list">
 <% @rso_navigations.each do |rso_navigation| %>
   <li id="rso_navigation_<%= rso_navigation.id %>">
-	<span class="handle"><%= image_tag("drag_handle.gif") %></span>
+	<span class="handle"><%= image_tag("icons/drag_handle.gif") %></span>
   	<%= link_to rso_navigation.name, [:admin, rso_navigation] %>
 	<span class="hint"><%= rso_navigation.url %></span>
   </li>

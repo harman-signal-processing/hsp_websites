@@ -43,7 +43,7 @@ Someday figure out a better way to do all of this.
 			width: 30px;
 			height: 30px;
 			text-indent: -999999px;
-			background: url(<%= image_path('gray_next.png') %>) no-repeat 0 -30px;
+			background: url(<%= image_path('icons/gray_next.png') %>) no-repeat 0 -30px;
 		}
 
 		/*previous button*/
@@ -55,7 +55,7 @@ Someday figure out a better way to do all of this.
 			width: 30px;
 			height: 30px;
 			text-indent: -999999px;
-			background: url(<%= image_path('gray_prev.png') %>) no-repeat 0 -30px;
+			background: url(<%= image_path('icons/gray_prev.png') %>) no-repeat 0 -30px;
 		}
 		/*next/prev button hover state*/
 		.bx-next:hover,
@@ -111,7 +111,7 @@ Someday figure out a better way to do all of this.
 		<span id="epedals" data-count="<%= @istomp.current_sub_products.count %>"></span>
 		<h3>Browse all <%= @istomp.current_sub_products.count %> e-pedals</h3>
 		<div class="slider-wrap">
-			<ul id="slider" data-previmage="<%= image_path('gray_prev.png') %>" data-nextimage="<%= image_path('gray_next.png') %>">
+			<ul id="slider" data-previmage="<%= image_path('icons/gray_prev.png') %>" data-nextimage="<%= image_path('icons/gray_next.png') %>">
 				<% coverflow_shuffle(@istomp.current_sub_products).each do |child| %>
 			  <li>
 			  	<%= link_to(image_tag(child.product.photo.product_attachment.url(:thumb), 

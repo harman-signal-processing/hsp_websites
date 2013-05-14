@@ -65,7 +65,7 @@ module ProductsHelper
       # show-er = something that shows, not a place to clean one's body
       shower = "$('##{product_tab.key}_content').show();$('##{product_tab.key}').addClass('current');"
       ret += "<li id=\"#{product_tab.key}\" #{current}>"
-      ret += link_to_function(image_tag("#{product_tab.key}_icon.png", alt: "", style: "vertical-align: middle") + tab_title(product_tab, shorten: true), "#{hider};#{shower}") 
+      ret += link_to_function(image_tag("icons/#{product_tab.key}_icon.png", alt: "", style: "vertical-align: middle") + tab_title(product_tab, shorten: true), "#{hider};#{shower}") 
       ret += "</li>"
     end
     ret += "<li style=\"color: #666; padding-top: 6px; padding-left: 6px;font-style: oblique\"></li>"
@@ -320,7 +320,7 @@ module ProductsHelper
 
   # Returns a checkmark if the specification value is "yes"
   def spec_value(val)
-    (val.match(/^yes\s*?$/i)) ? image_tag("check.png", alt: val) : val
+    (val.match(/^yes\s*?$/i)) ? image_tag("icons/check.png", alt: val) : val
   end
   
 end

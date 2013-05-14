@@ -48,7 +48,7 @@
 
   <%= simple_form_for [:admin, @dealer] do |f| %>
 
-    <%= f.association :brands, as: :check_boxes, label: false, collection: Brand.where("dealers_from_brand_id IS NULL OR dealers_from_brand_id = 0") %>
+    <%= f.association :brands, as: :check_boxes, label: false, collection: Brand.where("dealers_from_brand_id IS NULL OR dealers_from_brand_id = 0").order("UPPER(name)") %>
 
     <div class="field">
       <%= f.submit %>

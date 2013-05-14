@@ -24,7 +24,7 @@
 				<th colspan="4">
 					<%= download_collection[:name] %>
 			<% if download_collection[:downloads].size > 1 %>
-				<%= link_to image_tag("zip-icon.png", alt: "", style: "vertical-align: middle; margin-left: 2px; border: none"),
+				<%= link_to image_tag("icons/zip-icon.png", alt: "", style: "vertical-align: middle; margin-left: 2px; border: none"),
 				 		zipped_downloads_path(download_collection[:param_name]) %>&nbsp;<%= link_to t('zip_all'), zipped_downloads_path(download_collection[:param_name]) %>
 			<% end %>
 				</th>

@@ -11,7 +11,7 @@
 <% if @toolkit_resource.tk_preview_file_name.present? %>
 	<%= image_tag @toolkit_resource.tk_preview.url(:small) %>
 	&nbsp;
-	<%= link_to image_tag("trash.gif"), 
+	<%= link_to image_tag("icons/trash.gif"), 
 				delete_preview_admin_toolkit_resource_path(@toolkit_resource),
 				confirm: "Are you sure you want to delete the preview image?" %>
 <% end %>

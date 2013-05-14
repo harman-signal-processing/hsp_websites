@@ -151,7 +151,7 @@ div#Header div#search_form {
 	width: 130px;
 }
 div#search_form input#query {
-	background: #14277c url(<%= image_path('searchMagGlass.png') %>) no-repeat right;
+	background: #14277c;
 	color: white;
 	border: 1px solid #000f40;
 	width: 110px;
@@ -495,7 +495,7 @@ ul#discontinued_product_thumbnails li {
 	height: 366px;
 	width: 550px;
 	border: 1px solid #CCC;
-	background: white url(<%= image_path('magnify.png') %>) no-repeat bottom right;
+	background: white url(<%= image_path('icons/magnify.png') %>) no-repeat bottom right;
 }
 #description {
 	text-align: left;
@@ -511,24 +511,23 @@ ul#discontinued_product_thumbnails li {
 }
 .product_detail_box {
 	margin-bottom: 10px;
-}
-.product_detail_box h2 {
-	margin: 0; padding: 0;
-	font-size: 16px;
-}
-.product_detail_box h2 a:link,
-.product_detail_box h2 a:visited {
-	color: #FFF;
-	background: #ee632e url(<%= image_path('expand.png') %>) no-repeat;
-	background-position: 8px;
-	display: block;
-	padding-left: 21px;
-	padding-top: 2px;
-}
-.product_detail_box h2 a:hover {
-	background: #333 url(<%= image_path('expand.png') %>) no-repeat;
-	background-position: 8px; /*#040437;*/
-	color: white;
+	h2 {
+		margin: 0; padding: 0;
+		font-size: 16px;
+		a:link, a:visited {
+			color: #FFF;
+			background: #ee632e url(<%= image_path('icons/expand.png') %>) no-repeat;
+			background-position: 8px;
+			display: block;
+			padding-left: 21px;
+			padding-top: 2px;
+		}
+		a:hover {
+			background: #333 url(<%= image_path('icons/expand.png') %>) no-repeat;
+			background-position: 8px; /*#040437;*/
+			color: white;
+		}
+	}
 }
 #product_packaging_tabs ul {
 	margin:0; padding:0;
@@ -539,24 +538,24 @@ ul#discontinued_product_thumbnails li {
 	display: inline;
 	list-style: none;
 	border: none;
-}
-#product_packaging_tabs li a {
-	display: block;
-	float: left;
-	height: 30px;
-	padding: 3px 4px 2px 2px;
-	margin-right: 4px;
-	text-decoration: none;
-	border: 1px solid #CCC;
-	background: #EEE;
-	margin-bottom: 4px;
-	color: #040437;
-	font-size: 90%;
-	letter-spacing: -1px;
-}
-#product_packaging_tabs li a:hover {
-	background: #FFF;
-	border: 1px solid #b5d4f3;
+	a {
+		display: block;
+		float: left;
+		height: 30px;
+		padding: 3px 4px 2px 2px;
+		margin-right: 4px;
+		text-decoration: none;
+		border: 1px solid #CCC;
+		background: #EEE;
+		margin-bottom: 4px;
+		color: #040437;
+		font-size: 90%;
+		letter-spacing: -1px;
+		&:hover {
+			background: #FFF;
+			border: 1px solid #b5d4f3;
+		}
+	}
 }
 #product_packaging_tabs li.current a {
 	background: #f1fbfe url(<%= image_path('tabbg.png') %>);

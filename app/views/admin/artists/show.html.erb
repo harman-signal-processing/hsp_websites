@@ -1,7 +1,7 @@
 <h1>
 	<%=h @artist.name %>
 	<span class="little"><%= link_to(artist_url(@artist, locale: I18n.locale), artist_url(@artist, locale: I18n.locale)) %>
-	<%= link_to(image_tag("external_link_icon.png"), artist_url(@artist, locale: I18n.locale)) %></span>
+	<%= link_to(image_tag("icons/external_link_icon.png"), artist_url(@artist, locale: I18n.locale)) %></span>
 </h1>
 
 <div class="button_container">

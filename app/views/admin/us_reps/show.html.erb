@@ -1,0 +1,24 @@
+<h1><%= @us_rep.name %></h1>
+
+<div class="button_container">
+	<%= link_to 'Back', admin_us_reps_path, class: "back button" %>
+	<%= link_to 'Edit', edit_admin_us_rep_path(@us_rep, locale: I18n.locale), class: "edit button" %>
+	<%= link_to 'Delete', [:admin, @us_rep], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
+</div>
+
+<p><b>Contact:</b> <%= @us_rep.contact %></p>
+<p><b>Address:</b> <%= @us_rep.address %></p>
+<p><b>City:</b> <%= @us_rep.city %></p>
+<p><b>State:</b> <%= @us_rep.state %></p>
+<p><b>Zip:</b> <%= @us_rep.zip %></p>
+<p><b>Phone:</b> <%= @us_rep.phone %></p>
+<p><b>Fax:</b> <%= @us_rep.fax %></p>
+<p><b>Email:</b> <%= @us_rep.email %></p>
+
+<h3>Regions</h3>
+(need editing functionality here)
+<ul>
+  <% @us_rep.us_rep_regions.where(brand_id: website.brand_id).each do |usr| %>
+  <li><%= link_to usr.us_region.name %></li>
+  <% end %>
+</ul>

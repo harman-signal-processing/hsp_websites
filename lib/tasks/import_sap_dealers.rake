@@ -86,6 +86,10 @@ namespace :sap do
         d.destroy
       end
     end
+
+    # This will utilize another rake task to create user accounts for the
+    # the new dealers:
+    Rake::Task['toolkit:create_dealer_users'].invoke
   end
 
   def phormat(num)

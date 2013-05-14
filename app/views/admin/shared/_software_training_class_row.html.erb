@@ -3,7 +3,7 @@
 	<%= (called_from == "software") ?
 		link_to(stc.training_class.name, edit_admin_training_class_path(stc.training_class)) :
 		link_to(stc.software.name, [:admin, stc.software]) %>
-	<%= link_to(image_tag('trash.gif'),
+	<%= link_to(image_tag('icons/trash.gif'),
 		  admin_software_training_class_path(stc),
 		  remote: true,
 		  confirm: "Are you sure?",

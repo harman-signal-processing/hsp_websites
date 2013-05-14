@@ -45,7 +45,7 @@
 	<% if !f.object.background_image_file_name.blank? %>
 	<span id="background_image">
 		<%= link_to f.object.background_image_file_name, f.object.background_image.url %>
-		<%= link_to image_tag("trash.gif"), delete_background_admin_product_path(f.object), remote: true %>
+		<%= link_to image_tag("icons/trash.gif"), delete_background_admin_product_path(f.object), remote: true %>
 	</span>
 	<% end %>
 </p>

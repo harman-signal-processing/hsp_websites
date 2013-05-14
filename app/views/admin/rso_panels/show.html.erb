@@ -19,10 +19,10 @@
 	<ul id="rso_navigations" class="sortable_list">
 		<% @rso_panel.rso_navigations.each do |rso_navigation| %>
 		<li id="rso_navigation_<%= rso_navigation.id %>">
-			<span class="handle"><%= image_tag("drag_handle.gif") %></span>
+			<span class="handle"><%= image_tag("icons/drag_handle.gif") %></span>
 			<%= link_to rso_navigation.name, edit_admin_rso_navigation_path(rso_navigation) %>
-			<%#= link_to image_tag("external_link_icon.png"), rso_navigation.url, target: "_blank" %>
-			<%= link_to image_tag("trash.gif"), [:admin, rso_navigation], confirm: "Are you sure?", method: :delete %>
+			<%#= link_to image_tag("icons/external_link_icon.png"), rso_navigation.url, target: "_blank" %>
+			<%= link_to image_tag("icons/trash.gif"), [:admin, rso_navigation], confirm: "Are you sure?", method: :delete %>
 		</li>
 		<% end %>
 	</ul>
