@@ -320,11 +320,11 @@ class Product < ActiveRecord::Base
   
   # Promotions which are current and relate to this Product
   def current_promotions
-    self.promotions.where(["start_on <= ? AND end_on >= ?", Date.today, Date.today]).order("start_on")
+    self.promotions.where(["show_start_on IS NOT NULL AND show_end_on IS NOT NULL AND start_on <= ? AND end_on >= ?", Date.today, Date.today]).order("start_on")
   end
   
   def current_and_recently_expired_promotions
-    self.promotions.where(["show_start_on <= ? AND show_end_on >= ?", Date.today, Date.today]).order("start_on")
+    self.promotions.where(["show_start_on IS NOT NULL AND show_end_on IS NOT NULL AND show_start_on <= ? AND show_end_on >= ?", Date.today, Date.today]).order("start_on")
   end
 
   def recently_expired_promotions

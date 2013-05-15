@@ -37,6 +37,7 @@ h5. Things I need to work on...
                  *** Notes for tomorrow ***
 
  * Better admin for users--now that there's tons
+ * Respect manual override to protect manually edited dealers from SAP import
 
 ================================================================
 
@@ -62,7 +63,7 @@ _other_
 _OMS Notes_
 You can use this link: store.lexiconpro.com/addtocart.aspx?itemid=100170580&subitemid=358897&binlocid=7&qty=1
 
-What you will need to change is: itemid=100170580&subitemid=358897 based on the product you want to link. You can get these ID's from the manage inventory page in the OMS backend. Please let me know if you have any questions. 
+What you will need to change is: itemid=100170580&subitemid=358897 based on the product you want to link. You can get these ID's from the manage inventory page in the OMS backend. 
 
 === TODO for DigiTech ===
 * Sound community Replacement!!!!!!!
