@@ -10,7 +10,7 @@ class Website < ActiveRecord::Base
   
   def features
     begin
-      f = brand.settings.where(setting_type: "homepage feature").where("slide_file_name IS NOT NULL").order(:integer_value)
+      f = Setting.features(self)
       defaults = f.where(["locale IS NULL or locale = ?", I18n.locale])
       locale_features = nil
       unless I18n.locale == I18n.default_locale

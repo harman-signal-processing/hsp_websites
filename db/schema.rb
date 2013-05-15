@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130507153907) do
+ActiveRecord::Schema.define(:version => 20130515152757) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -1160,6 +1160,8 @@ ActiveRecord::Schema.define(:version => 20130507153907) do
     t.datetime "slide_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "start_on"
+    t.date     "remove_on"
   end
 
   add_index "settings", ["brand_id", "name", "locale"], :name => "index_settings_on_brand_id_and_name_and_locale"

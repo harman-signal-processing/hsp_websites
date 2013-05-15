@@ -21,9 +21,13 @@ class Setting < ActiveRecord::Base
   # Collect all Settings which are designated as 'slideshow frame' for the homepage.
   # Note: the integer_value is used for the position, and the string_value is used
   # to hyperlink when the frame is displayed. Now with I18n. (See #value)   
-  def self.slides(website)
-    s = where(brand_id: website.brand_id).where(setting_type: "slideshow frame").where("slide_file_name IS NOT NULL").order(:integer_value)
-    defaults = s.where(["locale IS NULL or locale = ?", I18n.locale])
+  def self.slides(website, options={})
+    s = where(brand_id: website.brand_id, setting_type: "slideshow frame").where("slide_file_name IS NOT NULL")
+    unless options[:showall]
+      s = s.where("start_on IS NULL OR start_on <= ?", Date.today).where("remove_on IS NULL OR remove_on > ?", Date.today)
+    end
+    s = s.order(:integer_value)
+    defaults = s.where("locale IS NULL or locale = ?", I18n.locale)
     locale_slides = nil
     unless I18n.locale == I18n.default_locale # don't look for translation
       s1 = s.where(["locale = ?", I18n.locale]) # try "foo_es-MX" (for example)
@@ -40,8 +44,13 @@ class Setting < ActiveRecord::Base
   end
   
   # Collect all Settings which are homepage features
-  def self.features(website)
-    where(brand_id: website.brand_id).where(setting_type: "homepage feature").where("slide_file_name IS NOT NULL").order(:integer_value)
+  def self.features(website, options={})
+    f = where(brand_id: website.brand_id).where(setting_type: "homepage feature").where("slide_file_name IS NOT NULL")
+    unless options[:showall]
+      f = f.where("start_on IS NULL OR start_on <= ?", Date.today).where("remove_on IS NULL OR remove_on > ?", Date.today)
+    end
+    f = f.order(:integer_value)
+    f
   end
   
   # Wrapper to grab the site name

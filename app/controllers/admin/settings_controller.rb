@@ -12,7 +12,7 @@ class Admin::SettingsController < AdminController
   end
   
   def homepage
-    @slides = Setting.slides(website)
+    @slides = Setting.slides(website, showall: true)
     @new_slide = Setting.new(setting_type: "slideshow frame")
     if @slides.size > 0
       begin
@@ -21,7 +21,7 @@ class Admin::SettingsController < AdminController
         @new_slide.integer_value = 1
       end
     end
-    @features = Setting.features(website)
+    @features = Setting.features(website, showall: true)
     @new_feature = Setting.new(setting_type: "homepage feature")
     if @features.size > 0
       begin
