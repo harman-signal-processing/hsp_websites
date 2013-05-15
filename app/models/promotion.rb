@@ -31,7 +31,7 @@ class Promotion < ActiveRecord::Base
   # are still scheduled to appear.
   #  
   def self.current(website)
-    where(brand_id: website.brand_id).where(["show_start_on <= ? AND show_end_on >= ?", Date.today, Date.today])
+    where(brand_id: website.brand_id).where(["show_start_on IS NOT NULL AND show_end_on IS NOT NULL AND show_start_on <= ? AND show_end_on >= ?", Date.today, Date.today])
   end
   
   # Sorted collection of self.current
@@ -43,7 +43,7 @@ class Promotion < ActiveRecord::Base
   # All CURRENT promotions (those which are not expired) for the given Website
   #
   def self.current_for_website(website)
-    where(brand_id: website.brand_id).where(["start_on <= ? AND end_on >= ?", Date.today, Date.today]).order("end_on ASC")
+    where(brand_id: website.brand_id).where(["show_start_on IS NOT NULL AND show_end_on IS NOT NULL AND start_on <= ? AND end_on >= ?", Date.today, Date.today]).order("end_on ASC")
   end
 
   # Promotions which are still scheduled to appear on the Website, but whose

@@ -12,26 +12,30 @@
   <%= link_to(image_tag(@promotion.tile.url(:tiny_square)), @promotion.tile.url) %>
 </p>
 <% end %>
+<% if @promotion.show_start_on.present? %>
 <p>
   <b>Show on website starting on:</b>
   <%=l @promotion.show_start_on, format: :long %>
 </p>
-
+<% end %>
+<% if @promotion.show_end_on.present? %>
 <p>
   <b>End on website after:</b>
   <%=l @promotion.show_end_on, format: :long %>
 </p>
-
+<% end %>
+<% if @promotion.start_on.present? %>
 <p>
   <b>Start on:</b>
   <%=l @promotion.start_on, format: :long %>
 </p>
-
+<% end %>
+<% if @promotion.end_on.present? %>
 <p>
   <b>End on:</b>
   <%=l @promotion.end_on, format: :long %>
 </p>
-
+<% end %>
 <% unless @promotion.promo_form_file_name.blank? %>
 <p>
   <b>Promo form file name:</b>
