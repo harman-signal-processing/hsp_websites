@@ -2,8 +2,8 @@
 
 <div class="group">
 	<h3>Slideshow</h3>
-	<%= link_to_function "new slide", "$('#new_slide_form').toggle()" %>
-	<div id="new_slide_form" style="margin: 10px; display:none;">
+	<%= link_to_function "new slide", "$('#new_slide_form').toggle()", class: "new button" %>
+	<div id="new_slide_form" style="margin: 10px; display:none;" class="instructions">
 		<%= form_for([:admin, @new_slide], html: {multipart: true}) do |f| %>
 			<%= f.error_messages %>
 			<%= hidden_field_tag "called_from", "homepage" %>
@@ -18,15 +18,23 @@
 			  <%= f.file_field :slide %>
 			</p>
 			<p>
-			  <%= f.label :string_value, "URL to link slide to" %><br />
+			  <%= f.label :string_value, "URL to link slide to" %> (optional)<br />
 			  <%= f.text_field :string_value %><br/>
 			  <i>URLs beginning with a partial path (ie, "products/rp1000") will be relative to the visitor's selected language.</i>
+			</p>
+			<p>
+				<%= f.label :start_on %> (optional)<br/>
+				<%= f.text_field :start_on, class: 'ui-datepicker', id: "new_slide_start_on" %>
+			</p>
+			<p>
+				<%= f.label :remove_on %> (optional)<br/>
+				<%= f.text_field :remove_on, class: 'ui-datepicker', id: "new_slide_remove_on" %>
 			</p>
 			<%= f.submit "create slide" %>
 			<%= link_to_function "cancel", "$('#new_slide_form').hide()" %>
 		<% end %>
 	</div>
-	<ul id="slides" class="sortable_list">
+	<ul id="slides" class="sortable_list" style="margin-top: 20px;">
 		<%= render partial: "admin/shared/slide", collection: @slides %>
 	</ul>
 </div>
@@ -34,8 +42,8 @@
 <div class="group">
 	<h3>Feature Buttons</h3>
 	<div class="instructions">These appear in the middle section of the homepage...arranged horizontally. (If you leave these blank, then the site will show the product family buttons instead.)</div>
-	<%= link_to_function "new feature", "$('#new_feature_form').toggle()" %>
-	<div id="new_feature_form" style="margin: 10px; display:none;">
+	<%= link_to_function "new feature", "$('#new_feature_form').toggle()", class: "new button" %>
+	<div id="new_feature_form" style="margin: 10px; display:none;" class="instructions">
 		<%= form_for([:admin, @new_feature], html: {multipart: true}) do |f| %>
 			<%= f.error_messages %>
 			<%= hidden_field_tag "called_from", "homepage" %>
@@ -50,15 +58,23 @@
 			  <%= f.file_field :slide %>
 			</p>
 			<p>
-			  <%= f.label :string_value, "URL to link image to" %><br />
+			  <%= f.label :string_value, "URL to link image to" %> (optional)<br />
 			  <%= f.text_field :string_value %><br/>
 			  <i>URLs beginning with a partial path (ie, "products/rp1000") will be relative to the visitor's selected language.</i>
+			</p>
+			<p>
+				<%= f.label :start_on %> (optional)<br/>
+				<%= f.text_field :start_on, class: 'ui-datepicker', id: "new_feature_start_on"  %>
+			</p>
+			<p>
+				<%= f.label :remove_on %> (optional)<br/>
+				<%= f.text_field :remove_on, class: 'ui-datepicker', id: "new_feature_remove_on"  %>
 			</p>
 			<%= f.submit "create feature" %>
 			<%= link_to_function "cancel", "$('#new_feature_form').hide()" %>
 		<% end %>
 	</div>
-	<ul id="features" class="sortable_list">
+	<ul id="features" class="sortable_list" style="margin-top: 20px;">
 		<%= render partial: "admin/shared/feature", collection: @features %>
 	</ul>
 </div>

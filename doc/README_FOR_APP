@@ -69,8 +69,6 @@ What you will need to change is: itemid=100170580&subitemid=358897 based on the 
 * Load in old manuals from FTP site (XP series, etc.)
 
 === TODO (for all brands) ===
-* Make the slideshow images schedulable, and auto-deletable after expired for 30 days
-* same for feature buttons?
 * Clean up product info tabs methods (several in product.rb, product_helper.rb)
 * Minitest for admin functions
 * Separate admin permissions by brands
