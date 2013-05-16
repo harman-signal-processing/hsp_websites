@@ -39,6 +39,8 @@ module AdminHelper
       f.collection_select :related_id, website.brand.products.map{|p| p.images_for("toolkit")}.flatten, :id, :name
     when "ProductDocument"
       f.collection_select :related_id, website.brand.products.map{|p| p.product_documents}.flatten, :id, :name
+    when "Product"
+      f.collection_select :related_id, website.current_and_discontinued_products, :id, :name
     else
       i = related_model.constantize.new
       if i.respond_to?(:brand_id) && i.respond_to?(:name)
