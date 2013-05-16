@@ -1,2 +1,0 @@
-module Toolkit::BrandsHelper
-end
