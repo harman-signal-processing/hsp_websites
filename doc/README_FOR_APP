@@ -36,12 +36,14 @@ h5. Things I need to work on...
 ================================================================
                  *** Notes for tomorrow ***
 
- * Better admin for users--now that there's tons
- * Respect manual override to protect manually edited dealers from SAP import
+* iOS icons for brands (use naming from images/toolkit for each brand's images folder)
+* Allow multiple products per ToolkitResource
+* Sales Reps logins for toolkits (need signup process with acct. numbers)
 
 ================================================================
 
 === TODO for Toolkits ===
+* USM dealers signups (those without SAP acct.) get info from Scott Grow
 * Dealers update their own info (address)
 * Dealers update their own buy-it-now links
 * Dynamically choose content for each brand start page
@@ -70,6 +72,8 @@ What you will need to change is: itemid=100170580&subitemid=358897 based on the 
 * Load in old manuals from FTP site (XP series, etc.)
 
 === TODO (for all brands) ===
+* Better admin for users--now that there's tons
+* Respect manual override to protect manually edited dealers from SAP import
 * Clean up product info tabs methods (several in product.rb, product_helper.rb)
 * Minitest for admin functions
 * Separate admin permissions by brands

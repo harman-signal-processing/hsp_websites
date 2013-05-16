@@ -30,10 +30,11 @@ class Admin::ToolkitResourcesController < AdminController
   # GET /toolkit_resources/new.xml
   def new
     @toolkit_resource.toolkit_resource_type_id = params[:toolkit_resource_type_id]
-    @toolkit_resource.dealer      = false
-    @toolkit_resource.distributor = false
-    @toolkit_resource.rep         = false
-    @toolkit_resource.rso         = false
+    # @toolkit_resource.dealer      = false
+    # @toolkit_resource.distributor = false
+    # @toolkit_resource.rep         = false
+    # @toolkit_resource.rso         = false
+    # @toolkit_resource.media       = false
     respond_to do |format|
       format.html { render_template } # new.html.erb
       format.xml  { render xml: @toolkit_resource }

@@ -41,6 +41,7 @@ HarmanSignalProcessingWebsite::Application.configure do
 
   config.employee_invitation_code = "GROOVY"
   config.rso_invitation_code = "INVITED"
+  config.media_invitation_code = "MEDIA"
   config.toolkit_url = "test.toolkit.lvh.me"
 end
 

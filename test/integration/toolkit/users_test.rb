@@ -265,6 +265,54 @@ describe "Toolkit Users Integration Test" do
     end     
   end
 
+  describe "Media Signup" do 
+    before do 
+      visit root_url(host: @host)
+      within('.top-bar') do
+        click_on "Sign up"
+      end
+      choose :signup_type_media
+      click_on "Continue"
+    end
+
+    it "should NOT require account number" do 
+      within('#new_toolkit_user') do
+        wont_have_content "Harman Pro Account Number"
+      end
+    end
+
+    it "should require invitation code" do 
+      within('#new_toolkit_user') do
+        must_have_content "Invitation code"
+        fill_in :toolkit_user_invitation_code, with: "something wrong"
+        click_on "Sign up"
+      end
+      must_have_content "it is cAsE sEnSiTiVe."
+    end
+
+    it "should create a new unconfirmed user" do
+      user = FactoryGirl.build(:user)
+      within('#new_toolkit_user') do
+        fill_in_new_media_user_form(user) 
+        click_on "Sign up"
+      end
+      u = User.last
+      u.confirmed?.must_equal(false)
+    end     
+
+    it "should send the confirmation email to the new user" do
+      user = FactoryGirl.build(:user)
+      within('#new_toolkit_user') do
+        fill_in_new_media_user_form(user)
+        click_on "Sign up"
+      end
+      last_email.subject.must_have_content "HSP Toolkit Confirmation link"
+      last_email.to.must_include(user.email)
+      last_email.body.must_have_content user.name
+      last_email.body.must_have_content user.email
+    end     
+  end
+
   describe "Confirmation" do 
   	it "should confirm the new user" do
   		@dealer = FactoryGirl.create(:dealer)
@@ -340,6 +388,14 @@ describe "Toolkit Users Integration Test" do
     fill_in :toolkit_user_name, with: user.name
     fill_in :toolkit_user_email, with: user.email
     fill_in :toolkit_user_invitation_code, with: HarmanSignalProcessingWebsite::Application.config.employee_invitation_code
+    fill_in :toolkit_user_password, with: "pass123"
+    fill_in :toolkit_user_password_confirmation, with: "pass123"      
+  end
+
+  def fill_in_new_media_user_form(user)
+    fill_in :toolkit_user_name, with: user.name
+    fill_in :toolkit_user_email, with: user.email
+    fill_in :toolkit_user_invitation_code, with: HarmanSignalProcessingWebsite::Application.config.media_invitation_code
     fill_in :toolkit_user_password, with: "pass123"
     fill_in :toolkit_user_password_confirmation, with: "pass123"      
   end

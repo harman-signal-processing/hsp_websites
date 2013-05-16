@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130515152757) do
+ActiveRecord::Schema.define(:version => 20130516201524) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -1341,6 +1341,7 @@ ActiveRecord::Schema.define(:version => 20130515152757) do
     t.boolean  "rso",                      :default => true
     t.text     "message"
     t.date     "expires_on"
+    t.boolean  "media",                    :default => true
   end
 
   add_index "toolkit_resources", ["brand_id"], :name => "index_toolkit_resources_on_brand_id"
@@ -1473,6 +1474,7 @@ ActiveRecord::Schema.define(:version => 20130515152757) do
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
     t.boolean  "employee"
+    t.boolean  "media"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
