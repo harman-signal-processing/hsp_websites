@@ -11,6 +11,7 @@ class ToolkitResource < ActiveRecord::Base
     :dealer,
     :distributor,
     :rep,
+    :media,
     :rso
 
   has_attached_file :tk_preview, 

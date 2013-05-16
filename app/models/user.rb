@@ -28,7 +28,8 @@ class User < ActiveRecord::Base
   validates :password, presence: true, confirmation: true, on: :create
   validates :invitation_code, presence: true, 
     inclusion: {in: [HarmanSignalProcessingWebsite::Application.config.rso_invitation_code, 
-        HarmanSignalProcessingWebsite::Application.config.employee_invitation_code], 
+        HarmanSignalProcessingWebsite::Application.config.employee_invitation_code,
+        HarmanSignalProcessingWebsite::Application.config.media_invitation_code], 
       message: "is invalid. (it is cAsE sEnSiTiVe.)"},
     on: :create,
     if: :needs_invitation_code?
@@ -62,6 +63,7 @@ class User < ActiveRecord::Base
     :rso_admin,
     :sales_admin,
     :account_number,
+    :media,
     :invitation_code
 
   attr_accessor :invitation_code
@@ -84,7 +86,8 @@ class User < ActiveRecord::Base
     marketing_staff
     rso 
     rso_admin 
-    sales_admin]
+    sales_admin
+    media]
   
   def self.staff 
     where("marketing_staff = 1 OR admin = 1 OR market_manager = 1 OR artist_relations = 1 OR sales_admin = 1").order("UPPER(name)")
@@ -126,12 +129,16 @@ class User < ActiveRecord::Base
     role?(:rep)
   end
 
+  def media?
+    role?(:media)
+  end
+
   def needs_account_number?
     self.dealer? || self.distributor? || self.rep?
   end
 
   def needs_invitation_code?
-    rso? || self.employee?
+    rso? || self.employee? || media?
   end
   
   # Collect those who have the artist relations role

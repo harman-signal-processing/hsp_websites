@@ -68,6 +68,7 @@ module HarmanSignalProcessingWebsite
     # Override these in environment configs...
     config.employee_invitation_code = "GROOVYBABY"
     config.rso_invitation_code      = "YOUAREINVITED"
+    config.media_invitation_code    = "HARMANMEDIA"
     config.rso_host                 = "rso.digitech.com"
     config.toolkit_url              = "marketingtoolkit.harmanpro.com"
     config.default_site_name        = "Harman Signal Processing" 
