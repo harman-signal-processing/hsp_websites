@@ -259,4 +259,11 @@ class Brand < ActiveRecord::Base
     @us_regions = this_brand.us_regions
   end
 
+  # Figure out the default top domain for this brand
+  def domain 
+    default_website.domain
+  rescue
+    ""
+  end
+
 end

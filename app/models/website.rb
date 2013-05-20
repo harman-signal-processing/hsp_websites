@@ -208,5 +208,10 @@ class Website < ActiveRecord::Base
   def training_modules(options={})
     TrainingModule.modules_for(self.brand, options)
   end
+
+  # Common default domain for google analytics
+  def domain
+    url.to_s.match(/www/i) ? url.to_s.match(/(\w{1,}\.+\w{2,3}(\.\w{2,3})?)$/).to_s : url.to_s
+  end
   
 end
