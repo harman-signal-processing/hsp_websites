@@ -30,7 +30,7 @@
     <% end %>
 		<%= render_partial "shared/analytics" %>
 	</head>
-	<body>
+	<body data-brand="<%= website.brand.name %>">
 		<div style="text-align: center; margin: 24px;">
 		  <%= image_tag("#{website.folder}/logo.png", alt: Setting.site_name(website)) %><br/>
 		  <%= yield %>

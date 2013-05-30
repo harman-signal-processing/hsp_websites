@@ -266,4 +266,20 @@ class Brand < ActiveRecord::Base
     ""
   end
 
+  # Originally designed for the dbx promo where the site needs to
+  # appear hacked every X number of visits. This keeps track of how many
+  # times the homepage has been visited using the existing Settings
+  # model.
+  def increment_homepage_counter
+    counter = settings.where(name: 'homepage_counter', setting_type: 'integer').first_or_create
+    counter.integer_value ||= 0
+    if counter.updated_at.to_date == Date.today
+      counter.integer_value += 1
+    else
+      counter.integer_value = 1
+    end
+    counter.save
+    counter.integer_value
+  end
+
 end

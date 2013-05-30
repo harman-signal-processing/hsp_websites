@@ -9,9 +9,7 @@
 //= require jquery-ui-1.10.2.custom.min
 //= require jquery.lightbox-0.5.min
 //= require jquery.datetimepicker
-// require jquery.easing.1.3
 //= require jquery.bxSlider.min
-// require ui.coverflow
 //= require jwplayer
 //= require soundmanager2-nodebug-jsmin
 //= require inline_player
@@ -22,7 +20,7 @@
 //= require slideshow
 //= require twitter
 //= require swfobject
-
+//= require homepage
 
 document.createElement("article");  
 document.createElement("footer");  

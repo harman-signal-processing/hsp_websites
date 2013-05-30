@@ -24,7 +24,7 @@
 	  	</script>
 	    <%= render_partial "shared/analytics" %>
 	</head>
-	<body class="artists">
+	<body class="artists" data-brand="<%= website.brand.name %>">
 
 		<% if website.show_locales? %>
 			<div id="locale_switcher">

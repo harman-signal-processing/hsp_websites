@@ -5,6 +5,7 @@ class MainController < ApplicationController
   # The main site homepage
   #
   def index
+    @counter = website.brand.increment_homepage_counter # reset daily
     @news = News.all_for_website(website, limit: 4)
     begin
       @youtube = website.value_for('youtube').to_s.match(/\w*$/).to_s

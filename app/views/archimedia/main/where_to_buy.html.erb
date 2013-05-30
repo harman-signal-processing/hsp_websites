@@ -1,4 +1,3 @@
-<% @page_title = t('meta.description.where_to_buy', brand: website.brand_name) %>
 <% set_meta_tags title: @page_title,
 				 reverse: true,
                  description: t('meta.description.where_to_buy', brand: website.brand_name),
@@ -27,8 +26,8 @@
 	</script>
 <% end %>
 <%= content_for :big_bottom_box do %>
-
-	<div class="wide_centered_box" style="width: 830px; margin: 10px auto;">
+	<% if website.has_online_retailers? %>
+	<div class="wide_centered_box" style="width: 830px">
 	<h2><%= t('titles.buy_online') %></h2>
 	
 	<div id="online_retailers">
@@ -43,10 +42,10 @@
 		<% end %>
 	</div>
 	</div>
-
+	<% end %>
 <% end %>
 <div id="wtb_container">
-	<div id="dealer_results">
+	<div id="dealer_results" style="height: 585px;">
 		<h2 id="dealer_search_results"><%= t('titles.dealer_search_results') %></h2>
 		<ul class="dealer_results">
 			<% @results.each_with_index do |dealer,i| %>
@@ -61,7 +60,7 @@
 			<% end %>
 		</ul>
 	</div>
-	<div class="form_container" style="width: 380px;">
+	<div class="form_container" style="width: 370px;">
 	<%= form_tag where_to_buy_path() %>
 		<p><%= t("us_zip_code") -%><br/>
 		<%= text_field_tag "zip", session[:zip], size: 25 %></p>
@@ -77,42 +76,63 @@
 </div>
 <% else %>
 <div id="wtb_container">
-<div id="dealer_results" style="width: 400px; margin-top: 20px;">
-	<h3><%= t("find_a_dealer_near_you").capitalize %></h3>
-	<%= form_tag where_to_buy_path() %>
-		<p><%= t("us_zip_code") -%><br/>
-		<%= text_field_tag "zip", session[:zip], style: "font-size: 200%; width: 200px;" %></p>
-		<p><%= submit_tag t('find_us_dealers') %>
-		<span style="margin-left: 4px; font-size: 11px;">
-			<%= link_to t("international_distributors"), international_distributors_path %>
-		</span>
+<div id="dealer_results" style="width: 400px">
+	<h4><%= t('titles.international_distributors') %></h4>
+	<p><%= t("blurbs.international_distributors") %></p>
+	
+	<%= form_tag search_distributors_path, method: :get %>
+		
+		<p><%= label_tag t('select_your_country') %><br/>
+			<%= select_tag :country, options_from_collection_for_select(@countries, :country, :country, @country) %>
+			<%= submit_tag t('submit') %>
 		</p>
+			
 	</form>
 </div>
+<div style="width: 350px;	padding: 14px;">
+	<h4><%= website.brand.name %> US Sales Reps</h4>
 
-<div id="pop_info" style="margin-left: 100px">
-	<h3><%= t('titles.buy_direct', brand: website.brand.name) %></h3>
-	<%= raw website.where_to_buy_blurb %>
+	<%= form_tag search_us_reps_path, method: :get %>
+		
+		<p><%= label_tag "Select your region" %><br/>
+			<%= select_tag :us_region, options_from_collection_for_select(@us_regions, :id, :name, @us_region.id) %>
+			<%= submit_tag t('submit') %>
+		</p>
+	</form>
+
+	<% if addr = website.address_and_phone %>
+		<p>To find a licensed <%= website.brand.name %> contractor/installer in the US, please contact us at:</p>
+		<blockquote style="margin: 20px; color: #333"><%=raw addr %>
+			<% if sup = website.support_email %>
+			<br/><%= mail_to sup, sup %>
+			<% end %>
+		</blockquote>
+		<p>Or, complete our <%= link_to "contact form", support_path %>.</p>
+	<% else %>
+		<p>To find a licensed <%= website.brand.name %> contractor/installer in the US, please contact us by filling out our <%= link_to "contact form", support_path %>.</p>
+	<% end %>
+
 </div>
-
 <div class="clear"></div>
 
-<div class="wide_centered_box" style="width: 830px; margin-top: 40px;">
-	<h2><%= t('titles.buy_online') %></h2>
+<% if website.has_online_retailers? %>
+	<div class="wide_centered_box" style="width: 830px">
+		<h2><%= t('titles.buy_online') %></h2>
 
-	<div id="online_retailers">
-	<% OnlineRetailer.random(website).each do |online_retailer| %>
-	<div class="retailer_logo">
-	<% if !online_retailer.retailer_logo_file_name.blank? %>
-		<%= link_to(image_tag(online_retailer.retailer_logo(:fixed)), online_retailer.direct_link, target: "_blank")%>
-	<% else %>
-		<%= link_to online_retailer.name, online_retailer.direct_link, target: "_blank" %>
-	<% end %>
+		<div id="online_retailers">
+			<% OnlineRetailer.random(website).each do |online_retailer| %>
+			<div class="retailer_logo">
+				<% if !online_retailer.retailer_logo_file_name.blank? %>
+					<%= link_to(image_tag(online_retailer.retailer_logo(:fixed)), online_retailer.direct_link, target: "_blank")%>
+				<% else %>
+					<%= link_to online_retailer.name, online_retailer.direct_link, target: "_blank" %>
+				<% end %>
+			</div>
+			<% end %>
+		</div>
+		<div class="clear"></div>
 	</div>
-	<% end %>
-	<div class="clear"></div>
-	</div>
-</div>
+<% end %>
 
 </div>
 <% end %>
