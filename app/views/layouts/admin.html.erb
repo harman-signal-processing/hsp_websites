@@ -12,7 +12,7 @@
   <link type="text/css" href="/css/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
   <%= yield :extra_js %>
 </head>
-<body>
+<body data-brand="<%= website.brand.name %>">
 <div id="main_menu">
 	<b><%= website.brand_name %></b>: &nbsp;	
 	<%= link_to "site home", "/" %> 

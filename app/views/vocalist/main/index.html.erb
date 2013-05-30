@@ -7,7 +7,6 @@
 	<% end %>
 <% end %>
 
-
 <%= content_for :middle_stuff do %>
 	<%= cache ["homepage_features", website.brand, I18n.locale] do %>
 		<% if @features.size > 0 %>
@@ -23,8 +22,6 @@
   	<div class="clear"></div>
 <% end %>
 
-
-
 <%= content_for :preload do %>
 	<%= preload_background_images %>
 <% end %>
@@ -34,3 +31,5 @@
 		<%=raw website.homepage_popup %>
 	<% end %>
 <% end %>
+
+<div id="homepage-counter" data-counter="<%= @counter %>"></div>
