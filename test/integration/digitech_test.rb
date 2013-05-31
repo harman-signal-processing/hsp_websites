@@ -62,4 +62,22 @@ describe "DigiTech Integration Test" do
     end
   end
 
+  describe "support page" do
+    before do
+      visit support_url(locale: I18n.default_locale, host: @website.url)
+    end
+
+    it "should require the country on the contact form" do
+      message_count = ContactMessage.count
+      page.must_have_content "Country (required)"
+      select ContactMessage.subjects.last[0], from: "contact_message_subject"
+      fill_in "contact_message_name", with: "Joe"
+      fill_in "contact_message_email", with: "joe@joe.com"
+      fill_in "contact_message_message", with: "Hi Dean. How are you?"
+      click_on("submit")
+      page.must_have_content("Country can't be blank")
+      ContactMessage.count.wont_equal(message_count + 1)
+    end
+  end
+
 end

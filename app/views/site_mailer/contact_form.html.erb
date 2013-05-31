@@ -64,7 +64,7 @@
 <% end %>
 
 <%# As requested by Lexicon support guys %>
-<% elsif !@contact_message.shipping_address.blank? %>
+<% elsif !@contact_message.shipping_address.blank? || !@contact_message.shipping_country.blank? %>
 <h3>Address</h3>
 <p>
 	<%= @contact_message.shipping_address %><br/>

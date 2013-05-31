@@ -3,10 +3,10 @@ class SupportController < ApplicationController
   # Support home page
   def index
     @contact_message = ContactMessage.new
-    @contact_message.require_country = true if is_lexicon?
+    @contact_message.require_country = true if require_country?
     if params[:product_id]
       if product = Product.find(params[:product_id])
-        if is_lexicon? && !product.discontinued?
+        if url_matches?("lexicon") && !product.discontinued?
           redirect_to product_path(product, tab: "downloads_and_docs") and return
         else
           redirect_to product and return
@@ -47,10 +47,10 @@ class SupportController < ApplicationController
   # The site's contact form
   def contact
     @contact_message = ContactMessage.new
-    @contact_message.require_country = true if is_lexicon?
+    @contact_message.require_country = true if require_country?
     if request.post?
       @contact_message = ContactMessage.new(params[:contact_message])
-      @contact_message.require_country = true if is_lexicon?
+      @contact_message.require_country = true if require_country?
       if verify_recaptcha && @contact_message.valid?
         @contact_message.save
         redirect_to support_path, notice: t('blurbs.contact_form_thankyou')
@@ -192,9 +192,13 @@ class SupportController < ApplicationController
   def validate_captcha
     Captcha.correct?(session[:yoyo], params[:ans])
   end
-  
-  def is_lexicon?
-    @is_lexicon ||= !!(website.brand.name.match(/lexicon/i))
+
+  def require_country?
+    url_matches?("lexicon") || url_matches?("digitech") || url_matches?("hardwire") || url_matches?("vocalist")
+  end
+
+  def url_matches?(name)
+    !!(website.brand.name.match(/#{name}/i))
   end
 
   

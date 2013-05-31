@@ -89,7 +89,7 @@
 				<div><%= f.label :email, ucfirst(t('email')) %><br/>
 				   <%= f.text_field :email %></div>
 				<%= cache ["contact_form_products", website.brand] do %>
-				<div><%= f.label :product %><br/>
+				<div><%= f.label :product %> <%= "(required)" if @contact_message.require_product? %><br/>
 					<%= f.collection_select :product, 
 							Product.all_for_website(website) + [Product.new(name: "other")],
 							:name, :name, prompt: true %>
@@ -99,6 +99,10 @@
 					<%= f.text_field :operating_system %></div>
 				<div><%= f.label :subject, t('subject') %><br/>
 					<%= f.select :subject, ContactMessage.subjects %></div>
+		<div><%= f.label :shipping_address, t("address") %><br/>
+			<%= f.text_area :shipping_address, size: "40x2" %></div>
+		<div><%= f.label :shipping_country, t("country") %> <%= "(required)" if @contact_message.require_country? %><br/>
+			<%= f.text_field :shipping_country %></div>
 				<p><%= t('message') %>:</p>
 				<%= f.text_area :message, size: "60x8" %>
 				
