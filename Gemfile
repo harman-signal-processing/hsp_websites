@@ -23,7 +23,7 @@ gem 'capistrano-ext'
 # gem 'ruby-debug'
 
 # Bundle the extra gems:
-gem 'mysql2' #, "< 0.3"
+gem 'mysql2', '>= 0.3.12b4' # sphinx needs '0.3.12b4'
 gem "friendly_id", "~> 3.0"
 gem "paperclip", "~> 3.0"
 gem 'paperclip-meta' #, git: 'http://github.com/dce/paperclip-meta.git' # 6/27/2012, dce's version fixes a rails 3 issue tha the original author hasn't merged
@@ -34,7 +34,7 @@ gem 'api_cache'
 gem 'moneta'
 gem 'geocoder_plus'
 # gem 'geoip', git: 'http://github.com/cjheath/geoip.git'
-gem 'thinking-sphinx', '~> 2.0.10'
+gem 'thinking-sphinx', '~> 3.0'
 gem 'youtube_it'
 gem 'twitter'
 gem 'delayed_job_active_record'

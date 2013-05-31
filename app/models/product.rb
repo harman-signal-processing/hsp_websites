@@ -56,13 +56,6 @@ class Product < ActiveRecord::Base
   validates_presence_of :name, :product_status_id
   has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
   
-  define_index do
-    indexes :name
-    indexes :keywords
-    indexes :description
-    indexes :short_description
-  end
-  
   def belongs_to_this_brand?(brand)
     brand = brand.brand if brand.is_a?(Website) # if a Website is passed in instead of a Brand
     begin

@@ -19,13 +19,6 @@ class Software < ActiveRecord::Base
   after_save :replace_old_version
   belongs_to :brand, touch: true
   
-  define_index do
-    indexes :name
-    indexes :version
-    indexes :platform
-    indexes :description
-  end
-  
   def set_default_counter
     self.download_count ||= 0
   end

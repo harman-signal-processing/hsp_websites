@@ -18,12 +18,6 @@ class News < ActiveRecord::Base
   before_save :strip_harmans_from_title
   after_save :translate
   
-  define_index do
-    indexes :title
-    indexes :body
-    indexes :keywords
-  end
-  
   # When presenting the site to Rob before going live, he asked that we remove
   # the the word "HARMAN's" from the beginning of the news titles.
   def strip_harmans_from_title

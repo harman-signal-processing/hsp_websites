@@ -55,11 +55,6 @@ class Artist < ActiveRecord::Base
   has_friendly_id :sanitized_name, use_slug: true, approximate_ascii: true, max_length: 100
   acts_as_list
 
-  define_index do
-    indexes :name
-    indexes :bio
-  end
-
   # Since the devise mailer is shard with toolkit users, trick these
   def needs_invitation_code? 
     false 
