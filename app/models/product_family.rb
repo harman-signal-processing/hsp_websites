@@ -29,12 +29,6 @@ class ProductFamily < ActiveRecord::Base
   # acts_as_list scope: :brand_id, order: :position
   after_save :translate
   
-  define_index do
-    indexes :name
-    indexes :intro
-    indexes :keywords
-  end
-  
   # All top-level ProductFamilies--not locale aware
   #  w = a Brand or a Website
   def self.all_parents(w)

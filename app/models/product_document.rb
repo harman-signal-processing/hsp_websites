@@ -7,13 +7,6 @@ class ProductDocument < ActiveRecord::Base
   has_friendly_id :document_file_name, use_slug: true, approximate_ascii: true, max_length: 100
   validates_presence_of :product_id, :document
   
-  # define_index do
-  #   indexes :document_type
-  #   indexes :document_file_name
-  #   indexes product.name, as: :product_name
-  #   has product_id
-  # end
-  
   def name
     if self.document_type.blank? || self.document_type.match(/other/i)
       self.document_file_name
@@ -27,15 +20,5 @@ class ProductDocument < ActiveRecord::Base
       ret
     end
   end
-
-  # # Alias for search results link_name
-  # def link_name
-  #   self.name
-  # end
-  # 
-  # # Alias for search results content_preview
-  # def content_preview
-  #   nil
-  # end
   
 end

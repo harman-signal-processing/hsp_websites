@@ -29,7 +29,6 @@ namespace :deploy do
     
 end
 
-#after 'deploy:update_code', 'sphinx:rebuild'
 before "deploy:restart", "deploy:migrate"
 after :deploy, "deploy:cleanup"
 # after 'deploy:update_code', 'deploy:assets:precompile'

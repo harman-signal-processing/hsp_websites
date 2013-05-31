@@ -24,11 +24,6 @@ class ProductReview < ActiveRecord::Base
   has_many :products, through: :product_review_products
   before_save :clear_blank_body, :reset_link_status, :stamp_link
   after_save :translate
-
-  define_index do
-    indexes :title
-    indexes :body
-  end
   
   def sanitized_title
     self.title.gsub(/[\'\"]/, "")

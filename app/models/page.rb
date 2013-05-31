@@ -5,14 +5,6 @@ class Page < ActiveRecord::Base
   has_friendly_id :sanitized_title, use_slug: true, approximate_ascii: true, max_length: 100
   belongs_to :brand
   after_save :translate
-
-  define_index do
-    indexes :title
-    indexes :keywords
-    indexes :description
-    indexes :body
-    indexes :custom_route
-  end
   
   def sanitized_title
     self.title.gsub(/[\'\"]/, "")

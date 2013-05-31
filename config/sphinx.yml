@@ -1,4 +1,0 @@
-production:
-    bin_path: "/usr/local/bin"
-    searchd_binary_name: "searchd"
-    searchd_file_path: "/var/www/hmg/hsp_websites/shared/sphinx"
