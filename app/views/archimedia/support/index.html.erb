@@ -1,0 +1,56 @@
+<%
+  @us_regions = website.brand.us_regions_for_website
+  @us_region  = UsRegion.new
+  @countries  = Distributor.countries(website)
+  @country    = nil
+%>
+
+<% set_meta_tags title: "Worldwide support",
+				 description: t('meta.description.support', brand: website.brand_name),
+				 reverse: true %>
+
+<h1 class="page_title">
+<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/support_head.jpg")) %>
+	<%= image_tag("#{website.folder}/#{I18n.locale}/support_head.jpg", alt: t('titles.support')) %>
+<% else %>
+	Worldwide support
+<% end %>
+</h1>
+
+<%= cache ["support_body", website.brand, I18n.locale] do %>
+	<div class="container">
+
+		<%= raw website.support_paragraphs %>
+
+		<table style="margin: 34px 0px">
+			<tr>
+				<td width="50%">
+					<h3><%= t('titles.international_distributors') %></h3>
+					
+					<%= form_tag search_distributors_path, method: :get %>
+						<p><%= label_tag t('select_your_country') %>:<br/>
+							<%= select_tag :country, options_from_collection_for_select(@countries, :country, :country, @country) %>
+							<%= submit_tag t('submit') %>
+						</p>			
+					</form>
+				</td>
+				<td width="50%">
+					<h3>United States Sales Reps</h3>
+
+					<%= form_tag search_us_reps_path, method: :get %>
+						<p><%= label_tag "Select your region" %>:<br/>
+							<%= select_tag :us_region, options_from_collection_for_select(@us_regions, :id, :name, @us_region.id), style: "width: 220px" %>
+							<%= submit_tag t('submit') %>
+						</p>
+					</form>
+				</td>
+			</tr>
+		</table>
+
+		<% if sup = website.support_email %>
+			<p>For general inquiries, please <%= mail_to sup, "email the Architectural Media Systems team" %>.</p>
+		<% end %>
+
+	</div>
+<% end %>
+
