@@ -21,7 +21,7 @@
 		</ul>
 	</nav>
 	<%# search is only available in default language for now...%>
-	<% if I18n.locale == I18n.default_locale %>
+	<% if I18n.locale.to_s.match(/#{I18n.default_locale.to_s.split('-')[0]}/i) %>
 	<div id="search_form">
 		<%= form_tag main_app.search_path, method: :get %>
 			<%= text_field_tag :query, "", placeholder: t('search') %>

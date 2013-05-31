@@ -23,8 +23,12 @@ class ContactMessage < ActiveRecord::Base
     self.email.to_s.gsub!(/\s*$/, '')
   end
   
+  # Used to only require product some of the time, now require
+  # it all the time (per Trevor's request)
+  #
   def require_product?
-    !!(self.part_request? || self.rma_request?)
+    # !!(self.part_request? || self.rma_request?)
+    true
   end
   
   def require_country?
