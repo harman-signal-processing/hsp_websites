@@ -48,7 +48,7 @@ gem 'dynamic_form'
 gem 'rails_autolink'
 gem 'swf_fu', '>=1.3.4', require: 'swf_fu'
 gem 'execjs'
-gem 'therubyracer', '=0.10.2' # installs OS dependent gem. Put production version in vendor/cache manually
+gem 'therubyracer' #, '=0.10.2' # installs OS dependent gem. Put production version in vendor/cache manually
 gem 'rubyzip', require: 'zip/zip'
 gem 'whenever' #, require: false
 gem "simple_form", ">= 2.0.2"
@@ -69,7 +69,7 @@ group :production, :staging do
   gem 'daemons'
   gem 'passenger_monit'
   gem "exception_notification", 
-    git: "http://github.com/rails/exception_notification.git",
+    # git: "http://github.com/rails/exception_notification.git",
     require: "exception_notifier"
 end
 
@@ -86,9 +86,9 @@ end
 
 group :test do
   gem 'turn'
-  gem 'mocha', '= 0.13.0', require: false
+  gem 'mocha', require: false
   gem 'minitest-rails-capybara'
-  gem "minitest-wscolor", ">= 0.0.3"
+  gem "minitest-wscolor"
   gem 'capybara-webkit'
   gem 'launchy' # save_and_open_page inline in tests
   gem 'minitest' #, '2.12.1'

@@ -36,7 +36,10 @@ h5. Things I need to work on...
 ================================================================
                  *** Notes for tomorrow ***
                  
-* thinking sphinx has a major update, branch and update to 3.0
+* thinking sphinx has a major update, branched and updated to 3.0, 
+  **** need to double-check that it continues to work after a new deploy.
+  **** (the config/production.sphinx... file does it stay there?)
+  **** if not, maybe add a cap after_deploy ts:generate or ts:index
 * iOS icons for brands (use naming from images/toolkit for each brand's images folder)
 
 ================================================================
