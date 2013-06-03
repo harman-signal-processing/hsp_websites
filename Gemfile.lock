@@ -1,9 +1,3 @@
-GIT
-  remote: http://github.com/rails/exception_notification.git
-  revision: 192a49a02d63d28b23ed41cebadfedd490929cf1
-  specs:
-    exception_notification (1.0.0)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -102,6 +96,8 @@ GEM
       warden (~> 1.2.1)
     dynamic_form (1.1.4)
     erubis (2.7.0)
+    exception_notification (3.0.1)
+      actionmailer (>= 3.0.4)
     execjs (1.4.0)
       multi_json (~> 1.0)
     factory_girl (4.2.0)
@@ -144,8 +140,8 @@ GEM
     kgio (2.8.0)
     launchy (2.3.0)
       addressable (~> 2.3)
-    libv8 (3.3.10.4)
-    listen (1.1.4)
+    libv8 (3.11.8.17)
+    listen (1.1.5)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
       rb-kqueue (>= 0.2)
@@ -178,7 +174,7 @@ GEM
       minitest-rails (~> 0.9.1)
     minitest-wscolor (0.0.3)
       minitest (>= 2.3.1)
-    mocha (0.13.0)
+    mocha (0.14.0)
       metaclass (~> 0.0.1)
     modular-scale (1.0.6)
       compass (>= 0.12.1)
@@ -191,7 +187,7 @@ GEM
       activesupport (>= 3.0)
       money (~> 5.1.0)
       railties (>= 3.0)
-    multi_json (1.7.4)
+    multi_json (1.7.5)
     multi_xml (0.5.3)
     multipart-post (1.2.0)
     mysql2 (0.3.12b6)
@@ -268,6 +264,7 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     recaptcha (0.3.5)
+    ref (1.0.5)
     riddle (1.5.6)
     ruby-ole (1.2.11.6)
     rubyzip (0.9.9)
@@ -293,8 +290,9 @@ GEM
     swf_fu (2.0.4)
       coffee-script
       rails (>= 3.1)
-    therubyracer (0.10.2)
-      libv8 (~> 3.3.10)
+    therubyracer (0.11.4)
+      libv8 (~> 3.11.8.12)
+      ref
     thinking-sphinx (3.0.3)
       activerecord (>= 3.1.0)
       builder (>= 2.1.2)
@@ -367,7 +365,7 @@ DEPENDENCIES
   delayed_job_active_record
   devise
   dynamic_form
-  exception_notification!
+  exception_notification
   execjs
   factory_girl_rails
   friendly_id (~> 3.0)
@@ -380,8 +378,8 @@ DEPENDENCIES
   minitest
   minitest-rails
   minitest-rails-capybara
-  minitest-wscolor (>= 0.0.3)
-  mocha (= 0.13.0)
+  minitest-wscolor
+  mocha
   moneta
   money-rails
   mysql2 (>= 0.3.12b4)
@@ -398,7 +396,7 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   simple_form (>= 2.0.2)
   swf_fu (>= 1.3.4)
-  therubyracer (= 0.10.2)
+  therubyracer
   thinking-sphinx (~> 3.0)
   tinymce-rails
   to_xls
