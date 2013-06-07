@@ -1,5 +1,3 @@
-require 'thinking_sphinx/capistrano'
-
 set :repository,  "http://svn.hmg.ad.harman.com/repos/hmgwww/trunk/hsp_websites"
 set :scm, :subversion
 set :deploy_via, :export
@@ -23,3 +21,5 @@ end
 after "deploy:stop", "delayed_job:stop"
 after "deploy:start", "delayed_job:start"
 after "deploy:restart", "delayed_job:restart"
+
+# before "deploy:restart", "thinking_sphinx:rebuild" # takes too long
