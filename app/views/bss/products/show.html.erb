@@ -108,6 +108,14 @@
 		<%= draw_audio_demos @product %>
 		<%= draw_info_boxes @product, hide_on_load: true %>		
 		<%#= render_partial "shared/newsletter_signup" %>
+
+		<%# Dumb hack to add banner on some product pages to archimedia site %>
+		<% if @product.product_families.map{|pf| pf.name}.include?("Chassis") && Time.parse("2013-06-12 07:00") <= Time.now %>
+			<%= link_to(image_tag("archimedia/AMS_Button.jpg", 
+						alt: "Architectural Media Systems component",
+						mouseover: "archimedia/AMS_Button_mouseover.jpg"), 
+						"http://archimedia.harman.com", target: "_blank") %>
+		<% end %>
 	</div>
 	
 	<div id="bottom_left_column">
