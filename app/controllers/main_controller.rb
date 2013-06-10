@@ -76,7 +76,7 @@ class MainController < ApplicationController
     @page_title = t('titles.search_results')
     @query = params[:query]
     ferret_results = ThinkingSphinx.search(
-      Riddle.escape(params[:query]), 
+      Riddle.escape(params[:query].to_s), 
       page: params[:page], 
       per_page: 10
     )
