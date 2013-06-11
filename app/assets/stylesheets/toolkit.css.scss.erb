@@ -60,7 +60,7 @@ ul.nav li {
   color: #444;
   margin: -9px 0px 16px;
 }
-div.twelve {
+div.large-12, div.small-12 {
   h3 {
     text-align: center;
   }
@@ -130,6 +130,7 @@ div.description {
   padding: 10px;
   height: 150px;
   overflow: auto;
+  font-size: 75%;
 }
 div.image-container {
   text-align: center;
@@ -151,12 +152,15 @@ footer {
   padding-bottom: 20px;
   color: #999;
   text-shadow: 0px 1px 1px #000;
-  div.twelve {
+  div.large-12, div.small-12 {
     margin-top: 20px;
 //    border-top: 1px dotted #CCC;
   }
   p {
+    text-align: center;
     margin: 2px;
+    line-height: 16px;
+    font-size: 14px;
   }
   a {
     color: #FFF;
@@ -173,5 +177,11 @@ footer {
   }
   div.content-container {
     background: url('<%= image_path('light-gray-50.png') %>');
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .small-hidden {
+    display: none;
   }
 }

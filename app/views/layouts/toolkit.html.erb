@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= content_for?(:title) ? yield(:title) : "HPro Marketing Toolkit" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "HPro Marketing Toolkit" %>">
     <%= stylesheet_link_tag "toolkit", :media => "all" %>
     <%= javascript_include_tag "toolkit_application" %>
+    <%= javascript_include_tag "vendor/custom.modernizr" %>
     <%= csrf_meta_tags %>
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -83,21 +84,25 @@
   <header>
     <div class="container">
       <nav class="top-bar">
-        <ul>
+        <ul class="title-area">
           <li class="name"><h1><%= link_to "Marketing Toolkit", toolkit_root_path %></h1></li>
-          <li class="toggle-topbar"><a href="#"></a></li>
-          <% if toolkit_user_signed_in? %>
-          <li class="divider"></li>
-          <li class="has-dropdown"><a href="#">Brands</a>
-            <ul class="dropdown">
-              <% toolkit_brands.each do |brand| %>
-              <li><%= link_to brand.name, [:toolkit, brand] %></li>
-              <% end %>
-            </ul>
-          </li>
-          <% end %>
+          <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
         </ul>
-        <section>
+
+        <section class="top-bar-section">
+          <% if toolkit_user_signed_in? %>
+            <ul class="left">
+              <li class="divider"></li>
+              <li class="has-dropdown"><a href="#">Brands</a>
+                <ul class="dropdown">
+                  <% toolkit_brands.each do |brand| %>
+                  <li><%= link_to brand.name, [:toolkit, brand] %></li>
+                  <% end %>
+                </ul>
+              </li>
+            </ul>
+          <% end %>
+        
           <ul class="right">
             <% if toolkit_user_signed_in? %>
               <li><%= link_to 'Logout', destroy_toolkit_user_session_path %></li>
@@ -116,7 +121,7 @@
 
   <div class="container <%= bgoffset %>">
     <div class="row">
-      <div class="twelve columns">
+      <div class="small-12 large-12 columns">
         <% flash.each do |name, msg| %>
           <% 
             css_class = 'alert-box'
@@ -149,16 +154,16 @@
   <div class="container <%= bgoffset %>">
     <% if content_for?(:left_nav) %>
     <div class="row content-container">
-      <div class="two columns sidenav">
+      <div class="small-12 large-2 columns sidenav">
         <%= yield :left_nav %>
       </div>
-      <div class="ten columns" id="main">
+      <div class="small-12 large-10 columns" id="main">
 			 <%= yield %>
       </div>
     </div>
     <% else %>
     <div class="row">
-      <div class="twelve columns" id="main">
+      <div class="small-12 large-12 columns" id="main">
         <%= yield %>
       </div>
     </div>
@@ -168,17 +173,15 @@
   <!-- Footer -->
   <div class="<%= bgoffset %>">
   <footer class="row">
-    <div class="twelve columns">
-      <div class="row" style="text-align: center">
+    <div class="small-12 large-12 columns large-centered small-centered">
         <p><%= image_tag "harman.jpg" %></p>
-        Brand Sites:
+        <p>Brand Sites:</p>
       	<p><%= toolkit_brands.map do |b| 
       			link_to(b.name, "http://#{b.default_website.url}", target: "_blank")
       		   end.join(" &bull; ").html_safe %></p>
-      </div>
     </div> 
   </footer>
   </div>
-
+  <script type="text/javascript">$(document).foundation();</script>
 	</body>
 </html>
