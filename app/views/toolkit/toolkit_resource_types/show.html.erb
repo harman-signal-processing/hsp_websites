@@ -13,8 +13,8 @@
 <% @toolkit_resources.each do |toolkit_resource| %>
 	<div class="small-4 large-4 columns <%= 'last' if @toolkit_resources.last == toolkit_resource %>">
 		<%= link_to toolkit_brand_toolkit_resource_path(@brand, toolkit_resource) do %>
-			<div class="panel">
-				<div style="float: left; width: 90px; margin-right: 10px;">
+			<div class="panel" style="padding: 10px">
+				<div style="float: left; width: 80px; margin-right: 10px;">
 					<h6><%= toolkit_resource.name %></h6>
 					<% if toolkit_resource.download_file_size.present? %>
 						[<%= number_to_human_size toolkit_resource.download_file_size %>]

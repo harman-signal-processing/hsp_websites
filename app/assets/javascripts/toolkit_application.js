@@ -3,4 +3,3 @@
 //= require foundation
 //= require toolkit
 
-$(document).foundation();
