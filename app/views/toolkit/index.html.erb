@@ -5,7 +5,7 @@
 </div>
 
 <div class="row" style="margin: 40px 0px;">
-<div class="eight columns offset-by-two" style="text-align: center">
+<div class="small-12 large-8 columns large-offset-2" style="text-align: center">
 	<% toolkit_brands.each do |brand| %>
 		<% if brand.logo.present? %>
 				<%= link_to(image_tag(brand.logo.url(:thumb), style: "margin: 10px"), [:toolkit, brand]) %>

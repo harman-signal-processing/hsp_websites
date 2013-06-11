@@ -24,7 +24,7 @@
 	<% end %>
 
 	<div class="row">
-		<div class="six columns">
+		<div class="small-6 large-6 columns">
 			<h5 class="subheader">Support Material</h5>
 			<ul class="disc">
 				<% if @promotion.promo_form_file_name.present? %>
@@ -34,7 +34,7 @@
 				<%= list_toolkit_support_files_for(@promotion, @brand) %>
 			</ul>
 		</div>
-		<div class="six columns">
+		<div class="small-6 large-6 columns">
 			<h5 class="subheader">Eligible Products</h5>
 			<ul class="disc">
 				<% @promotion.products.each do |product| %>

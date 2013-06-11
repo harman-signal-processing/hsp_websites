@@ -3,11 +3,11 @@
 <h2>Sign in</h2>
 <%= render "toolkit/users/shared/links" %>
 
-<div class="twelve columns">
+<div class="small-12 large-12 columns">
 
 <div class="row">
 <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <div class="seven columns end panel">
+  <div class="small-12 large-7 columns end panel">
 	  <div class="form-inputs">
 	    <%= f.input :email, :autofocus => true %>
 	    <%= f.input :password, :required => false %>

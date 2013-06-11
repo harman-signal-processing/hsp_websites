@@ -1,7 +1,7 @@
 <h2>Change your password</h2>
 <%= render "toolkit/users/shared/links" %>
 
-<div class="twelve columns">
+<div class="small-12 large-12 columns">
 
 <div class="row">
   <%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
@@ -10,7 +10,7 @@
       <%= f.input :reset_password_token, :as => :hidden %>
       <%= f.full_error :reset_password_token %>
 
-    <div class="seven columns end panel">
+    <div class="small-12 large-7 columns end panel">
       <div class="form-inputs">
         <%= f.input :password, :label => "New password", :required => true, :autofocus => true %>
         <%= f.input :password_confirmation, :label => "Confirm your new password", :required => true %>
