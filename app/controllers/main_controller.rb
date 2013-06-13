@@ -75,8 +75,9 @@ class MainController < ApplicationController
   def search
     @page_title = t('titles.search_results')
     @query = params[:query]
+    query = @query.to_s.gsub(/[\/\\]/, " ")
     ferret_results = ThinkingSphinx.search(
-      Riddle.escape(params[:query].to_s), 
+      Riddle.escape(query), 
       page: params[:page], 
       per_page: 10
     )
