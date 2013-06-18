@@ -1,4 +1,4 @@
-<%= cache "yt_row_#{video_id(video)}" do %>
+<%= cache ["yt_row_#{video_id(video)}", I18n.locale] do %>
 <% begin %>
 <% video = @youtube_client.video_by(video_id(video)) %>
 <% description = video.html_content || video.description %>
@@ -7,7 +7,7 @@
 		<div style="position: relative; margin: 0px 20px 20px 20px;">
 			<%= link_to(image_tag(video.thumbnails.last.url, alt: video.title, height: 90, width: 120), 
 				play_video_path(video_id(video))) %>
-			<div style='position:absolute; top: 30px; left: 45px; z-index: 2000'>
+			<div style='position:absolute; top: 30px; left: 45px; z-index: 1'>
 				<%= link_to(image_tag("play.png", alt: "play"), play_video_path(video_id(video))) %>
 			</div>
 		</div>

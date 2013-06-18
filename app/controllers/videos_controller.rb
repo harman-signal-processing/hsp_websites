@@ -7,7 +7,7 @@ class VideosController < ApplicationController
     @playlists = []
     @page_title = t('titles.youtube_channel', brand: website.brand_name)
     begin
-      if (Rails.env.production? || Rails.env.staging?) && playlist_ids = website.playlist_ids
+      if playlist_ids = website.playlist_ids
         playlist_ids.split(/,\s?/).each do |playlist|
           @playlists << @youtube_client.playlist(playlist)
         end
