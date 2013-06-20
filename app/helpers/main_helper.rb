@@ -43,10 +43,10 @@ module MainHelper
               ret += "<tr>"
               ret +=   "<td><div style='margin-left: auto; margin-right: auto; position: relative; width:120px; height:90px'>"
               ret +=     "<img src='#{thumbnail.url}' width='120' height='90'/>"
-              ret +=     "<div style='position:absolute; bottom: 0px; right: 6px; z-index: 2000; color: white; font-size: 80%'>"
+              ret +=     "<div style='position:absolute; bottom: 0px; right: 6px; z-index: 1; color: white; font-size: 80%'>"
               ret +=     seconds_to_MS(video.duration)
               ret +=     "</div>"
-              ret +=     "<div style='position:absolute; top: 30px; left: 45px; z-index: 2000'>"
+              ret +=     "<div style='position:absolute; top: 30px; left: 45px; z-index: 1'>"
               ret +=        link_to(image_tag("play.png", alt: video.title), play_video_url(video_id(video)))
               ret +=     "</div>"
               ret +=   "</div></td>"
