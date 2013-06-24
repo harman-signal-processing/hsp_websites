@@ -1,28 +1,36 @@
 # Should not be needed after rails 4.0+
 #
-# Source: https://gist.github.com/loren/3380888
+# Source: https://gist.github.com/bensomers/2830082
 #
-# This helps handle URLs with a bunch of bad encoding. The
-# search engines have become notorious for crawling with
-# URLs starting with %-encoded stuff that isn't even valid.
-# Without this file, it goes through to the router and rails
-# tries to parse it, ultimately ending in a 500 error and an
-# error message in my inbox.
-#
+# Fix for a Rails - Ruby 1.9 bug
+# Rails Router, now that it's UTF-8 default, blows up when routing requests
+# with invalid chars in the URL; it should properly return a 400 error
+# Have to monkey-patch the fix in, since it's not scheduled for release until
+# Rails 4.0.
+# Adapted Andrew White (pixeltrix)'s fix at
+# https://github.com/rails/rails/commit/3fc561a1f71edf1c2bae695cafa03909d24a5ca3,
+# but edited to work in 3.0.x.
+# 3.1.x, 3.2.x compatibility unknown
 require 'action_dispatch/routing/route_set'
-
+ 
 module ActionDispatch
 	module Routing
 		class RouteSet
 			class Dispatcher
 				def call_with_invalid_char_handling(env)
-					uri = CGI::unescape(env["REQUEST_URI"].force_encoding("UTF-8"))
-					# If anything in the REQUEST_URI has an invalid encoding, then raise since it's likely to trigger errors further on.
-					return [400, {'X-Cascade' => 'pass'}, []] if uri.is_a?(String) and !uri.valid_encoding?
+					params = env[PARAMETERS_KEY]
+					 
+					# If any of the path parameters has a invalid encoding then
+					# raise since it's likely to trigger errors further on.
+					params.each do |key, value|
+						if value.is_a?(String) and !value.valid_encoding?
+							return [400, {'X-Cascade' => 'pass'}, []]
+						end
+					end
 					call_without_invalid_char_handling(env)
 				end
-			 
-			alias_method_chain :call, :invalid_char_handling
+				 
+				alias_method_chain :call, :invalid_char_handling
 			end
 		end
 	end
