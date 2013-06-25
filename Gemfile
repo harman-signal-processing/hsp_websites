@@ -34,7 +34,7 @@ gem 'moneta'
 gem 'geocoder_plus'
 # gem 'geoip', git: 'http://github.com/cjheath/geoip.git'
 gem 'thinking-sphinx', '~> 3.0'
-gem 'youtube_it'
+gem 'youtube_it', "~> 2.2"
 gem 'twitter'
 gem 'delayed_job_active_record'
 gem 'devise'
