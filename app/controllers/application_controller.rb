@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   # before_filter :set_locale
   # before_filter :set_default_meta_tags
+  before_filter :catch_criminals
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   layout :set_layout
@@ -90,6 +91,16 @@ class ApplicationController < ActionController::Base
   end
 
 private
+
+  def catch_criminals
+    begin
+      x = ENV['HTTP_X_FORWARDED_FOR'].to_a.first.to_s
+      if x.match(/^198\.91\.53/)
+        redirect_to "http://sumofiber.com#{ENV['REQUEST_URI']}" and return false
+      end
+    rescue
+    end
+  end
 
   def render_not_found(exception)
     error_page(404)
