@@ -61,6 +61,9 @@
 				<ul>
 					<li><%= link_to t('home'), locale_root_path %></li>
 					<li><%= link_to t('products'), product_families_path %></li>
+				<% if website.has_software? %>
+					<li><%= link_to t('downloads'), software_index_path %></li>
+				<% end %>
 					<li><%= link_to t('news'), news_index_path %></li> 
 					<% if website.has_artists? %>
 					<li><%= link_to t('artists'), artists_path %></li>
