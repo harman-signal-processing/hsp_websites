@@ -94,8 +94,9 @@ private
 
   def catch_criminals
     begin
-      x = ENV['HTTP_X_FORWARDED_FOR'].to_a.first.to_s
-      if x.match(/^198\.91\.53/)
+      x = request.env["HTTP_X_FORWARDED_FOR"].to_s
+      if x.match(/198\.91\.53/)
+        # send this idiot back to his own ISP
         redirect_to "http://sumofiber.com#{ENV['REQUEST_URI']}" and return false
       end
     rescue
