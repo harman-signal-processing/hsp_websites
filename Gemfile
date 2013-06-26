@@ -27,7 +27,7 @@ gem "friendly_id", "~> 3.0"
 gem "paperclip", "~> 3.0"
 gem 'paperclip-meta' #, git: 'http://github.com/dce/paperclip-meta.git' # 6/27/2012, dce's version fixes a rails 3 issue tha the original author hasn't merged
 gem 'meta-tags', require: 'meta_tags'
-gem 'tinymce-rails'
+gem 'tinymce-rails', '~> 3.5'
 gem 'geokit'
 gem 'api_cache'
 gem 'moneta'
@@ -63,6 +63,7 @@ gem 'will_paginate'
 # gem 'rack-rewrite'
 gem "bing_translator", "~> 3.2.0"
 # gem "bing_translate_yaml", "~> 0.1.7" # Could be useful in the future...
+gem "silverpop_client", git: 'http://github.com/lumoslabs/silverpop_client.git'
 
 group :production, :staging do
   gem 'daemons'
