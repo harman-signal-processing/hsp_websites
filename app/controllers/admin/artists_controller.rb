@@ -4,7 +4,7 @@ class Admin::ArtistsController < AdminController
   # GET /admin/artists.xml
   def index
     @featured_artists = website.artists.where(featured: true).sort_by(&:position)
-    @unapproved_artists = @artists.where("approver_id IS NULL OR approver_id = ''").order("name")
+    @unapproved_artists = @artists.where("approver_id IS NULL OR approver_id = ''").order("UPPER('name')")
     @the_rest = @artists - @featured_artists - @unapproved_artists
     respond_to do |format|
       format.html { render_template } # index.html.erb

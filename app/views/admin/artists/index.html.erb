@@ -46,7 +46,7 @@
 		<th>Created</th>
 		<th>Updated</th>
 	</tr>
-	<% @the_rest.each do |artist| %>
+	<% @the_rest.sort_by{|a| a.name.upcase}.each do |artist| %>
 	<tr>
 		<td><%= link_to artist.name, [:admin, artist] %></td>
 		<td><%= artist.approver.name %></td>

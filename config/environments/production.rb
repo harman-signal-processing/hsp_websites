@@ -114,4 +114,13 @@ HarmanSignalProcessingWebsite::Application.configure do
   config.employee_invitation_code = "GROOVY"
   config.rso_invitation_code = "HSP-RSO"
   config.auto_translate      = true
+
+  config.hpro_execs = [
+    # 'jay.woolley@harman.com',
+    # 'John.Fitzgerald@harman.com',
+    # 'Timothy.Smith@harman.com', # TJ
+    # 'jason.kunz@harman.com',
+    'adam.anderson@harman.com'
+  ]
+
 end

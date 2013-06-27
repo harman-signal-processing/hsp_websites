@@ -12,7 +12,7 @@
 	<%= link_to 'Delete', [:admin, @news], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
 </div>
 <p>
-  <%=l @news.post_on, format: :long %>
+  Publish on: <%=l @news.post_on, format: :long %>
 </p>
 
 <%=truncate(strip_html(@news.body), length: 75) %>
@@ -23,17 +23,29 @@
 
 
 <div class="group">
-<h3>This news is associated with the following product(s):</h3>
-<%= form_for [:admin, @news_product], remote: true do |f| %>
-	<%= hidden_field_tag "called_from", "news" %>
-    <%= f.hidden_field :news_id %>
-	<%= f.collection_select :product_id, Product.all_for_website(website), :id, :name %> 
-	<%= submit_tag 'add' %>
-<% end %>
-
-<ul id="news_products">
-	<% @news.news_products.each do |np| %>
-		<%= render '/admin/shared/news_product_row', np: np, called_from: 'news' %>
+	<h3>This news is associated with the following product(s):</h3>
+	<%= form_for [:admin, @news_product], remote: true do |f| %>
+		<%= hidden_field_tag "called_from", "news" %>
+	    <%= f.hidden_field :news_id %>
+		<%= f.collection_select :product_id, Product.all_for_website(website), :id, :name %> 
+		<%= submit_tag 'add' %>
 	<% end %>
-</ul>
+
+	<ul id="news_products">
+		<% @news.news_products.each do |np| %>
+			<%= render '/admin/shared/news_product_row', np: np, called_from: 'news' %>
+		<% end %>
+	</ul>
+</div>
+
+
+<div class="group">
+	<h3>Send News Email</h3>
+	<%= form_for [:admin, @news], url: notify_admin_news_path(@news) do |f| %>
+		<p><%= f.label :from %> (must be a valid address)<br/>
+		<%= f.text_field :from %></p>
+
+		<%= f.submit "Send To Hpro Executives" %>
+	<% end %>
+	<p>Regardless of the publication date, this will send notifications now.</p>
 </div>

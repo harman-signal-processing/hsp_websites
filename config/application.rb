@@ -104,5 +104,9 @@ module HarmanSignalProcessingWebsite
     config.bing_translator_id  = "HSP"
     config.bing_translator_key = "7pBQHkb/MwV98SvO0PP1tS9e5+YNA9f7n4wqDkvO6h4="
     config.auto_translate      = false # override in environment configs as needed
+
+    config.hpro_execs = [
+      'adam.anderson@harman.com'
+    ]
   end
 end
