@@ -16,6 +16,7 @@ class Admin::NewsController < AdminController
   # GET /admin/news/1
   # GET /admin/news/1.xml
   def show
+    @news.from = website.brand.support_email
     @news_product = NewsProduct.new(news: @news)
     respond_to do |format|
       format.html { render_template } # show.html.erb
@@ -65,6 +66,13 @@ class Admin::NewsController < AdminController
         format.xml  { render xml: @news.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  # POST /admin/news/1/notify
+  def notify
+    from = params[:news][:from] || website.support_email
+    @news.notify_executives(from)
+    redirect_to([:admin, @news], notice: 'Notifications to the Harman Pro executives are being sent.')
   end
 
   # DELETE /admin/news/1

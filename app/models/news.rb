@@ -1,6 +1,7 @@
 class News < ActiveRecord::Base
   has_attached_file :news_photo, 
     styles: { large: "600>x370", 
+      email: "580x580",
       medium: "350x350>", 
       thumb: "100x100>", 
       thumb_square: "100x100#", 
@@ -17,6 +18,7 @@ class News < ActiveRecord::Base
   belongs_to :brand, touch: true
   before_save :strip_harmans_from_title
   after_save :translate
+  attr_accessor :from
   
   # When presenting the site to Rob before going live, he asked that we remove
   # the the word "HARMAN's" from the beginning of the news titles.
@@ -80,5 +82,11 @@ class News < ActiveRecord::Base
     ContentTranslation.auto_translate(self, self.brand)
   end
   handle_asynchronously :translate
+
+  def notify_executives(from='support@digitech.com')
+    HarmanSignalProcessingWebsite::Application.config.hpro_execs.each do |to|
+      SiteMailer.delay.news(self, to, from)
+    end
+  end
 
 end

@@ -188,6 +188,9 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :toolkit_resources do 
         member { get :delete_preview }
       end
+      resources :news do
+        member { put :notify }
+      end
       resources :service_centers, 
         :software_training_classes,
         :product_training_classes,
@@ -247,7 +250,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :clinics,
         :brands,
         :pages,
-        :news,
         :faqs
         
       #match "translations/:target_locale(/:action)" => "content_translations", as: :translations

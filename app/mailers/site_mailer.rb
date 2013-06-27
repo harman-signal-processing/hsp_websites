@@ -16,6 +16,30 @@ class SiteMailer < ActionMailer::Base
       from: @brand.support_email,
       subject: @promotion.post_registration_subject)
   end
+
+  def news(news, recipient, from)
+    @news = news
+    if !@news.news_photo_file_name.blank?
+      attachments.inline[@news.news_photo_file_name] = File.read(@news.news_photo.path(:email))
+    end
+    attachments.inline['AKG.png'] = File.read(Rails.root.join("app", "assets", "images", "news", 'AKG.png'))
+    attachments.inline['BSS.png'] = File.read(Rails.root.join("app", "assets", "images", "news", 'BSS.png'))
+    attachments.inline['Crown.png'] = File.read(Rails.root.join("app", "assets", "images", "news", 'Crown.png'))
+    attachments.inline['DBX.png'] = File.read(Rails.root.join("app", "assets", "images", "news", 'DBX.png'))
+    attachments.inline['footer_fb.png'] = File.read(Rails.root.join("app", "assets", "images", "news", 'footer_fb.png'))
+    attachments.inline['footer_rss.png'] = File.read(Rails.root.join("app", "assets", "images", "news", 'footer_rss.png'))
+    attachments.inline['footer_twitter.png'] = File.read(Rails.root.join("app", "assets", "images", "news", 'footer_twitter.png'))
+    attachments.inline['footer_ytube.png'] = File.read(Rails.root.join("app", "assets", "images", "news", 'footer_ytube.png'))
+    attachments.inline['harman.png'] = File.read(Rails.root.join("app", "assets", "images", "news", 'harman.png'))
+    attachments.inline['HiQnet.png'] = File.read(Rails.root.join("app", "assets", "images", "news", 'HiQnet.png'))
+    attachments.inline['JBL.png'] = File.read(Rails.root.join("app", "assets", "images", "news", 'JBL.png'))
+    attachments.inline['Lexicon.png'] = File.read(Rails.root.join("app", "assets", "images", "news", 'Lexicon.png'))
+    attachments.inline['Martin.png'] = File.read(Rails.root.join("app", "assets", "images", "news", 'Martin.png'))
+    attachments.inline['Soundcraft.png'] = File.read(Rails.root.join("app", "assets", "images", "news", 'Soundcraft.png'))
+    attachments.inline['Studer.png'] = File.read(Rails.root.join("app", "assets", "images", "news", 'Studer.png'))
+
+    mail(to: recipient, from: from, subject: @news.title)
+  end
   
   # Sends messages to AR when an artist changed info
   # bcc to adam is temporary.

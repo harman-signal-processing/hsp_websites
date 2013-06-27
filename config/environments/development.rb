@@ -49,5 +49,8 @@ HarmanSignalProcessingWebsite::Application.configure do
   config.rso_invitation_code = "HSP-RSO"
   config.media_invitation_code = "HSP-MEDIA"
   config.toolkit_url = "toolkit.lvh.me:3000"
+
+  config.silverpop_username  = 'adam.anderson@harman.com'
+  config.silverpop_password  = 'De$klap1' # Test list number: 2361816
 end
 
