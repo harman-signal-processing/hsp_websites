@@ -19,26 +19,29 @@ class SiteMailer < ActionMailer::Base
 
   def news(news, recipient, from)
     @news = news
+
+    # Attach the news photo if it exists
     if !@news.news_photo_file_name.blank?
       attachments.inline[@news.news_photo_file_name] = File.read(@news.news_photo.path(:email))
     end
-    attachments.inline['AKG.png'] = File.read(Rails.root.join("app", "assets", "images", "news", 'AKG.png'))
-    attachments.inline['BSS.png'] = File.read(Rails.root.join("app", "assets", "images", "news", 'BSS.png'))
-    attachments.inline['Crown.png'] = File.read(Rails.root.join("app", "assets", "images", "news", 'Crown.png'))
-    attachments.inline['DBX.png'] = File.read(Rails.root.join("app", "assets", "images", "news", 'DBX.png'))
-    attachments.inline['footer_fb.png'] = File.read(Rails.root.join("app", "assets", "images", "news", 'footer_fb.png'))
-    attachments.inline['footer_rss.png'] = File.read(Rails.root.join("app", "assets", "images", "news", 'footer_rss.png'))
-    attachments.inline['footer_twitter.png'] = File.read(Rails.root.join("app", "assets", "images", "news", 'footer_twitter.png'))
-    attachments.inline['footer_ytube.png'] = File.read(Rails.root.join("app", "assets", "images", "news", 'footer_ytube.png'))
-    attachments.inline['harman.png'] = File.read(Rails.root.join("app", "assets", "images", "news", 'harman.png'))
-    attachments.inline['HiQnet.png'] = File.read(Rails.root.join("app", "assets", "images", "news", 'HiQnet.png'))
-    attachments.inline['JBL.png'] = File.read(Rails.root.join("app", "assets", "images", "news", 'JBL.png'))
-    attachments.inline['Lexicon.png'] = File.read(Rails.root.join("app", "assets", "images", "news", 'Lexicon.png'))
-    attachments.inline['Martin.png'] = File.read(Rails.root.join("app", "assets", "images", "news", 'Martin.png'))
-    attachments.inline['Soundcraft.png'] = File.read(Rails.root.join("app", "assets", "images", "news", 'Soundcraft.png'))
-    attachments.inline['Studer.png'] = File.read(Rails.root.join("app", "assets", "images", "news", 'Studer.png'))
 
-    mail(to: recipient, from: from, subject: @news.title)
+    # Determine if the brand has a custom template (default uses a HARMAN pro layout)
+    website = @news.brand.default_website
+    template_path = 'site_mailer'
+    if File.exist?(Rails.root.join('app', 'views', website.folder, 'site_mailer', 'news.html.erb'))
+      template_path = "#{website.folder}/site_mailer"
+    end
+
+    # Read the template and attach any needed images. Be sure the images exist in app/assets/images/news
+    File.read(Rails.root.join('app', 'views', template_path, 'news.html.erb')).scan(/attachments\[\'([\w\.\-]*)\'\]/).each do |m|
+      img = m.first
+      attachments.inline[img] = File.read(Rails.root.join("app", "assets", "images", "news", img))  
+    end
+
+    mail(to: recipient, 
+      from: from, 
+      subject: @news.title,
+      template_path: template_path)
   end
   
   # Sends messages to AR when an artist changed info
