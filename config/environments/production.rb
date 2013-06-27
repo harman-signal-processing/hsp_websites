@@ -119,7 +119,7 @@ HarmanSignalProcessingWebsite::Application.configure do
     # 'jay.woolley@harman.com',
     # 'John.Fitzgerald@harman.com',
     # 'Timothy.Smith@harman.com', # TJ
-    # 'jason.kunz@harman.com',
+    'jason.kunz@harman.com',
     'adam.anderson@harman.com'
   ]
 
