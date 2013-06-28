@@ -17,6 +17,7 @@ class Admin::NewsController < AdminController
   # GET /admin/news/1.xml
   def show
     @news.from = website.brand.support_email
+    @news.to = "config.hpro_execs"
     @news_product = NewsProduct.new(news: @news)
     respond_to do |format|
       format.html { render_template } # show.html.erb
@@ -71,7 +72,8 @@ class Admin::NewsController < AdminController
   # POST /admin/news/1/notify
   def notify
     from = params[:news][:from] || website.support_email
-    @news.notify_executives(from)
+    to = params[:news][:to] || "config.hpro_execs"
+    @news.notify(from: from, to: to)
     redirect_to([:admin, @news], notice: 'Notifications to the Harman Pro executives are being sent.')
   end
 

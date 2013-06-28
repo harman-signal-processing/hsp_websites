@@ -44,8 +44,9 @@
 	<%= form_for [:admin, @news], url: notify_admin_news_path(@news) do |f| %>
 		<p><%= f.label :from %> (must be a valid address)<br/>
 		<%= f.text_field :from %></p>
-
-		<%= f.submit "Send To Hpro Executives" %>
+		<p><%= f.label :to %> (default sends it to HPro Executive list)<br/>
+		<%= f.text_field :to %></p>
+		<%= f.submit "Send News" %> <i>Regardless of the publication date, this will send notifications now.</i>
 	<% end %>
-	<p>Regardless of the publication date, this will send notifications now.</p>
+	<p>config.hpro_execs = <%= HarmanSignalProcessingWebsite::Application.config.hpro_execs.join(", ") %></p>
 </div>
