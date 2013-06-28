@@ -106,6 +106,7 @@ module HarmanSignalProcessingWebsite
     config.auto_translate      = false # override in environment configs as needed
 
     config.hpro_execs = [
+      'adam@makeascene.com',
       'adam.anderson@harman.com'
     ]
   end

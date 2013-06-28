@@ -18,7 +18,7 @@ class News < ActiveRecord::Base
   belongs_to :brand, touch: true
   before_save :strip_harmans_from_title
   after_save :translate
-  attr_accessor :from
+  attr_accessor :from, :to
   
   # When presenting the site to Rob before going live, he asked that we remove
   # the the word "HARMAN's" from the beginning of the news titles.
@@ -83,9 +83,14 @@ class News < ActiveRecord::Base
   end
   handle_asynchronously :translate
 
-  def notify_executives(from='support@digitech.com')
-    HarmanSignalProcessingWebsite::Application.config.hpro_execs.each do |to|
-      SiteMailer.delay.news(self, to, from)
+  def notify(options={})
+    default_options = { from: 'support@digitech.com', to: 'config.hpro_execs' }
+    options = default_options.merge options
+    if options[:to].to_s.match(/\@/)
+      SiteMailer.delay.news(self, options[:to], options[:from])
+    elsif options[:to].to_s.match(/^config/)
+      list = eval("HarmanSignalProcessingWebsite::Application.#{options[:to]}")
+      list.each{ |executive| SiteMailer.delay.news(self, executive, options[:from]) }
     end
   end
 

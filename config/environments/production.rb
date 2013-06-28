@@ -116,9 +116,9 @@ HarmanSignalProcessingWebsite::Application.configure do
   config.auto_translate      = true
 
   config.hpro_execs = [
-    # 'jay.woolley@harman.com',
-    # 'John.Fitzgerald@harman.com',
-    # 'Timothy.Smith@harman.com', # TJ
+    'jay.woolley@harman.com',
+    'John.Fitzgerald@harman.com',
+    'Timothy.Smith@harman.com', # TJ
     'jason.kunz@harman.com',
     'adam.anderson@harman.com'
   ]
