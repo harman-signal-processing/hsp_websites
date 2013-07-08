@@ -68,9 +68,9 @@ gem "silverpop_client", git: 'http://github.com/lumoslabs/silverpop_client.git'
 group :production, :staging do
   gem 'daemons'
   gem 'passenger_monit'
-  gem "exception_notification", 
+  gem "exception_notification"
     # git: "http://github.com/rails/exception_notification.git",
-    require: "exception_notifier"
+    # require: "exception_notifier"
 end
 
 group :development do
