@@ -40,7 +40,7 @@ GEM
       activerecord (>= 3.0)
     acts_as_tree (1.4.0)
       activerecord (>= 3.0.0)
-    addressable (2.3.4)
+    addressable (2.3.5)
     ansi (1.4.3)
     api_cache (0.2.3)
     arel (3.0.2)
@@ -146,7 +146,7 @@ GEM
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
       rb-kqueue (>= 0.2)
-    lumberjack (1.0.3)
+    lumberjack (1.0.4)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -177,7 +177,7 @@ GEM
       minitest (>= 2.3.1)
     mocha (0.14.0)
       metaclass (~> 0.0.1)
-    moneta (0.7.17)
+    moneta (0.7.18)
     money (5.1.1)
       i18n (~> 0.6.0)
     money-rails (0.8.1)
@@ -197,9 +197,9 @@ GEM
       net-ssh (>= 2.6.5)
     nokogiri (1.5.10)
     oauth (0.4.7)
-    oauth2 (0.9.1)
+    oauth2 (0.9.2)
       faraday (~> 0.8)
-      httpauth (~> 0.1)
+      httpauth (~> 0.2)
       jwt (~> 0.1.4)
       multi_json (~> 1.0)
       multi_xml (~> 0.5)
@@ -221,7 +221,7 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.4)
-    rabl (0.8.5)
+    rabl (0.8.6)
       activesupport (>= 2.3.14)
     rack (1.4.5)
     rack-cache (1.2)
@@ -367,6 +367,7 @@ DEPENDENCIES
   launchy
   meta-tags
   minitest
+  minitest-capybara (= 0.1.0)
   minitest-rails
   minitest-rails-capybara
   minitest-wscolor

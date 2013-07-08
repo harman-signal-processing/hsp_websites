@@ -88,6 +88,7 @@ group :test do
   gem 'turn'
   gem 'mocha', require: false
   gem 'minitest-rails-capybara'
+  gem 'minitest-capybara', '0.1.0' # 0.3.0 broke stuff
   gem "minitest-wscolor"
   gem 'capybara-webkit'
   gem 'launchy' # save_and_open_page inline in tests
