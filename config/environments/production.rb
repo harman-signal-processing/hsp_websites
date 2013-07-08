@@ -97,17 +97,12 @@ HarmanSignalProcessingWebsite::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
     
-  config.middleware.use ::ExceptionNotifier,
+  config.middleware.use ExceptionNotification::Rack,
+    :email => {
       :email_prefix => "[HSP] ",
       :sender_address => %{"Site Error" <support@digitech.com>},
-      # :ignore_exceptions => [
-      #     AbstractController::ActionNotFound, 
-      #     ActionController::InvalidAuthenticityToken,
-      #     ActionController::UnknownHttpMethod,
-      #     ActionController::RoutingError,
-      #     # ActiveRecord::RecordNotFound
-      #   ],
       :exception_recipients => %w{adam.anderson@harman.com}
+    }
       
   config.action_mailer.default_url_options = { :host => 'www.digitech.com' }
 
