@@ -18,6 +18,16 @@
 		<link href="<%= rss_url(format: 'xml') %>" rel="alternate" title="RSS" type="application/rss+xml"/>
 		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta property="og:site_name" content="<%= website.site_name %>" />
+		<meta property="og:locale" content="<%= I18n.locale %>" />
+		<meta property="og:url" content="<%= request.url %>" />
+
+		<% if website.twitter_name %>
+			<meta property="twitter:site" value="@<%= website.twitter_name %>" />
+			<meta property="twitter:card" value="summary" />
+		<% end %>
+
 		<%= yield :custom_css %>
 		<script>
 	  		<%= yield :extra_js %>

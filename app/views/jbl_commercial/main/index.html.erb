@@ -1,3 +1,10 @@
+<% set_meta_tags og: {
+		image: image_url("#{website.folder}/logo.png"),
+		type: 'website',
+		description: "JBL Commercial Products",
+		title: "JBL Commercial Products"
+	} %>
+
 <%= content_for :feature do %>
 	<%= cache ["slideshow", website.brand, I18n.locale] do %>
 		<% slides = Setting.slides(website) %>

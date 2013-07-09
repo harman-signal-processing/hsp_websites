@@ -1,5 +1,10 @@
 <% set_meta_tags title: t('titles.news', brand: website.brand_name),
-				 reverse: true %>
+	reverse: true,
+	og: {
+		type: 'article',
+		description: t('titles.news', brand: website.brand_name),
+		title: t('titles.news', brand: website.brand_name)
+	} %>
 				
 <h1><%= t('titles.news', brand: website.brand_name) %></h1>
 

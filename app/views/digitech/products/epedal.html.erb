@@ -1,11 +1,20 @@
 <% @istomp = @product.parent_products.first.parent_product || Product.new(name: "iStomp") %>
 <% @stomp_shop = @istomp.softwares.first || Software.new %>
 
-<% set_meta_tags title: @product.name,
-				 reverse: true,
-                 canonical: product_url(@product),
-                 description: translate_content(@product, :short_description),
-                 keywords: translate_content(@product, :keywords) %>
+<% 
+og_image = (@product.photo) ? "#{request.protocol}#{request.host_with_port}#{@product.photo.product_attachment.url(:original)}" : image_url("#{website.folder}/logo.png")
+
+set_meta_tags title: @product.name,
+	reverse: true,
+	canonical: product_url(@product),
+	description: translate_content(@product, :short_description),
+	keywords: translate_content(@product, :keywords),
+	og: {
+		image: og_image,
+		type: 'product',
+		description: truncate(strip_html(translate_content(@product, :description)), length: 100),
+		title: "#{website.brand.name} #{@product.name}"
+	} %>
 
 <%= content_for :preload do %>
 	<%= image_tag("#{website.folder}/#{I18n.locale}/red_download_button_hover.png") %>

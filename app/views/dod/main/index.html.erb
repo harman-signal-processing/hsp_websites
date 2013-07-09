@@ -1,3 +1,10 @@
+<% set_meta_tags og: {
+		image: image_url("#{website.folder}/logo.png"),
+		type: 'brand',
+		description: @website.site_name,
+		title: @website.brand.name
+	} %>
+
 <%= content_for :feature do %>
 	<%= cache ["slideshow", website.brand, I18n.locale] do %>
 		<% slides = Setting.slides(website) %>
@@ -6,7 +13,6 @@
 		<% end %>
 	<% end %>
 <% end %>
-
 
 <%= content_for :middle_stuff do %>
 	<%= cache ["homepage_features", website.brand, I18n.locale] do %>

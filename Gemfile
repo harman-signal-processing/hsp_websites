@@ -56,14 +56,16 @@ gem 'ransack'
 gem "dalli"
 gem "rabl"
 gem 'money-rails'
-# New Sound Community stuff
-#gem 'forem', git: "http://github.com/radar/forem.git"
-#gem 'forem-theme-twist', git: "http://github.com/radar/forem-theme-twist.git"
 gem 'will_paginate'
 # gem 'rack-rewrite'
 gem "bing_translator", "~> 3.2.0"
-# gem "bing_translate_yaml", "~> 0.1.7" # Could be useful in the future...
-gem "silverpop_client", git: 'http://github.com/lumoslabs/silverpop_client.git'
+
+### Could be useful in the future...
+# gem "bing_translate_yaml", "~> 0.1.7" 
+# gem "silverpop_client", git: 'http://github.com/lumoslabs/silverpop_client.git'
+### New Sound Community stuff
+# gem 'forem', git: "http://github.com/radar/forem.git"
+# gem 'forem-theme-twist', git: "http://github.com/radar/forem-theme-twist.git"
 
 group :production, :staging do
   gem 'daemons'

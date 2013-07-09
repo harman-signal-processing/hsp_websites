@@ -1,3 +1,11 @@
+<% set_meta_tags og: {
+		image: image_url("#{website.folder}/logo.png"),
+		type: 'website',
+		description: "Architectural Media Systems by Harman including BSS, Crown, and HiQnet.",
+		title: "Architectural Media Systems by Harman"
+	} %>
+
+
 <%= content_for :feature do %>
 	<%= cache ["slideshow", website.brand, I18n.locale] do %>
 		<% slides = Setting.slides(website) %>
