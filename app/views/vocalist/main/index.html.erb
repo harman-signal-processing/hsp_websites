@@ -1,3 +1,10 @@
+<% set_meta_tags og: {
+		image: image_url("#{website.folder}/logo.png"),
+		type: 'website',
+		description: "Vocalist Harmony and Effects Processors by DigiTech",
+		title: "Vocalist by DigiTech"
+	} %>
+
 <%= content_for :feature do %>
 	<%= cache ["slideshow", website.brand, I18n.locale] do %>
 		<% slides = Setting.slides(website) %>

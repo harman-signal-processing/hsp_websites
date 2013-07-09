@@ -23,6 +23,16 @@
 		<link href="<%= main_app.rss_url(format: 'xml') %>" rel="alternate" title="RSS" type="application/rss+xml"/>
 		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta property="og:site_name" content="<%= website.site_name %>" />
+		<meta property="og:locale" content="<%= I18n.locale %>" />
+		<meta property="og:url" content="<%= request.url %>" />
+
+		<% if website.twitter_name %>
+			<meta property="twitter:site" value="@<%= website.twitter_name %>" />
+			<meta property="twitter:card" value="summary" />
+		<% end %>
+
     <% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "apple-icon-57x57.png")) %>
       <link rel="apple-touch-icon" sizes="57x57" href="<%= image_path ('#{website.folder}/apple-icon-57x57.png') %>" />
     <% end %>

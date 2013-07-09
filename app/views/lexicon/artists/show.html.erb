@@ -1,7 +1,13 @@
 <% set_meta_tags title: @artist.name,
-				 description: truncate(strip_html(translate_content(@artist, :bio)), length: 100, omission: ""),
-				 keywords: @artist.name,
-				 reverse: true %>
+	description: truncate(strip_html(translate_content(@artist, :bio)), length: 100, omission: ""),
+	keywords: @artist.name,
+	reverse: true,
+	og: {
+		image: "#{request.protocol}#{request.host_with_port}#{@artist.artist_photo.url(:original)}",
+		type: 'article',
+		description: "Find out how #{@artist.name} uses #{website.brand.name} products. #{truncate(strip_html(translate_content(@artist, :bio)), length: 100, omission: "")}",
+		title: "#{@artist.name} and #{website.brand.name} products"
+	} %>
 
 <% unless @artist.artist_photo_file_name.blank? %>
 	<div id="big_artist_photo">

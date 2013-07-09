@@ -1,8 +1,17 @@
-<% set_meta_tags title: translate_content(@news, :title),
-				 reverse: true,
-                 canonical: news_url(@news),
-				 keywords: @news.keywords,
-				 description: translate_content(@news, :title) %>
+<%
+og_image = (@news.news_photo_file_name.blank?) ? image_url("#{website.folder}/logo.png") : "#{request.protocol}#{request.host_with_port}#{@news.news_photo.url(:original)}"
+
+set_meta_tags title: translate_content(@news, :title),
+	reverse: true,
+	canonical: news_url(@news),
+	keywords: @news.keywords,
+	description: translate_content(@news, :title),
+	og: {
+		image: og_image,
+		type: 'article',
+		description: truncate(strip_html(translate_content(@news, :body)), length: 100),
+		title: translate_content(@news, :title)
+	} %>
 
 <div class="article_centered_box">
 <h1><%= translate_content(@news, :title) %></h1>

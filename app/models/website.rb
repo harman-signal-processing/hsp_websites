@@ -213,5 +213,10 @@ class Website < ActiveRecord::Base
   def domain
     url.to_s.match(/www/i) ? url.to_s.match(/(\w{1,}\.+\w{2,3}(\.\w{2,3})?)$/).to_s : url.to_s
   end
+
+  # cache the twitter name so it is only pulled once per call
+  def twitter_name
+    @twitter_name ||= self.brand.twitter_name
+  end
   
 end

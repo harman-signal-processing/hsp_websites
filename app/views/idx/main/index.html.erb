@@ -1,3 +1,11 @@
+<% set_meta_tags og: {
+		image: image_url("#{website.folder}/logo.png"),
+		type: 'website',
+		description: "Information Delivery Systems by Harman Professional",
+		title: "IDX by Harman"
+	} %>
+
+
 <%= content_for :feature do %>
 	<%= cache ["slideshow", website.brand, I18n.locale] do %>
 		<% slides = Setting.slides(website) %>
@@ -6,7 +14,6 @@
 		<% end %>
 	<% end %>
 <% end %>
-
 
 <%= content_for :middle_stuff do %>
 	<%= cache ["homepage_features", website.brand, I18n.locale] do %>

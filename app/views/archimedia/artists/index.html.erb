@@ -1,7 +1,13 @@
 <% set_meta_tags title: t('professionals').capitalize,
-				 description: t('meta.description.featured_artists', brand: website.brand_name),
-				 keywords: (@featured_artists).collect{|a| a.name}.join(", "),
-				 reverse: true %>
+	description: t('meta.description.featured_artists', brand: website.brand_name),
+	keywords: (@featured_artists).collect{|a| a.name}.join(", "),
+	reverse: true,
+	og: {
+		image: "#{request.protocol}#{request.host_with_port}#{@featured_artists.first.artist_photo.url(:original)}",
+		type: 'website',
+		description: "Find out how audio professionals use #{website.brand.name} products.",
+		title: "Audio professionals and #{website.brand.name} products"
+	} %>
 
 <%= cache ["artist_slideshow", @featured_artists, website.brand, I18n.locale] do %>
 	<div id="featured_artist_box">

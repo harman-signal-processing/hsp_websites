@@ -14,6 +14,16 @@
 		<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
+
+		<meta property="og:site_name" content="<%= website.site_name %>" />
+		<meta property="og:locale" content="<%= I18n.locale %>" />
+		<meta property="og:url" content="<%= request.url %>" />
+
+		<% if website.twitter_name %>
+			<meta property="twitter:site" value="@<%= website.twitter_name %>" />
+			<meta property="twitter:card" value="summary" />
+		<% end %>
+
 		<link type="text/css" href="/css/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
 		<meta name="google-site-verification" content="z2YH0Gt2csHUrioS-HaXOOGbuki9Tc3zr08nr0Yr08k" />
 		<link href="<%= rss_url(format: 'xml') %>" rel="alternate" title="RSS" type="application/rss+xml"/>
