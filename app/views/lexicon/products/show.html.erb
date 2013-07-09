@@ -6,6 +6,9 @@ set_meta_tags title: @product.name,
 	canonical: product_url(@product),
 	description: translate_content(@product, :short_description),
 	keywords: translate_content(@product, :keywords),
+	twitter: {
+		card: "product"
+	},
 	og: {
 		image: og_image,
 		type: 'product',

@@ -5,41 +5,42 @@
 		<%= csrf_meta_tag %>
 		<%= cache ["meta_tags", request.url] do %>
 			<%= cached_meta_tags %>
+			<% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "logo.png")) %>
+			<link rel="image_src" href="<%= image_url("#{website.folder}/logo.png") %>" />
+			<% end %>
+			<!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+			<![endif]-->
+			<link type="text/css" href="/css/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+			<link href="<%= rss_url(format: 'xml') %>" rel="alternate" title="RSS" type="application/rss+xml"/>
+			<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+			<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+			<meta property="og:site_name" content="<%= website.site_name %>" />
+			<meta property="og:locale" content="<%= I18n.locale %>" />
+			<meta property="og:url" content="<%= request.url %>" />
+
+			<% if website.twitter_name %>
+				<meta property="twitter:site" value="@<%= website.twitter_name %>" />
+			<% end %>
+
+	    <% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "apple-icon-57x57.png")) %>
+	      <link rel="apple-touch-icon" sizes="57x57" href="<%= image_path ('#{website.folder}/apple-icon-57x57.png') %>" />
+	    <% end %>
+	    <% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "apple-icon-72x72.png")) %>
+	      <link rel="apple-touch-icon" sizes="72x72" href="<%= image_path ('#{website.folder}/apple-icon-72x72.png') %>" />
+	    <% end %>
+	    <% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "apple-icon-114x114.png")) %>
+	      <link rel="apple-touch-icon" sizes="114x114" href="<%= image_path ('#{website.folder}/apple-icon-114x114.png') %>" />
+	    <% end %>
+	    <% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "apple-icon-144x144.png")) %>
+	      <link rel="apple-touch-icon" sizes="144x144" href="<%= image_path ('#{website.folder}/apple-icon-144x144.png') %>" />
+	    <% end %>
 		<% end %>
-		<% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "logo.png")) %>
-		<link rel="image_src" href="<%= image_url("#{website.folder}/logo.png") %>" />
-		<% end %>
+
 		<%= javascript_include_tag 'application' %>
 		<%= stylesheet_link_tag 'application', website.folder, cache: false %>
-		<!--[if lt IE 9]>
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
-		<link type="text/css" href="/css/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
-		<link href="<%= rss_url(format: 'xml') %>" rel="alternate" title="RSS" type="application/rss+xml"/>
-		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
-		<meta property="og:site_name" content="<%= website.site_name %>" />
-		<meta property="og:locale" content="<%= I18n.locale %>" />
-		<meta property="og:url" content="<%= request.url %>" />
-
-		<% if website.twitter_name %>
-			<meta property="twitter:site" value="@<%= website.twitter_name %>" />
-			<meta property="twitter:card" value="summary" />
-		<% end %>
-
-    <% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "apple-icon-57x57.png")) %>
-      <link rel="apple-touch-icon" sizes="57x57" href="<%= image_path ('#{website.folder}/apple-icon-57x57.png') %>" />
-    <% end %>
-    <% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "apple-icon-72x72.png")) %>
-      <link rel="apple-touch-icon" sizes="72x72" href="<%= image_path ('#{website.folder}/apple-icon-72x72.png') %>" />
-    <% end %>
-    <% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "apple-icon-114x114.png")) %>
-      <link rel="apple-touch-icon" sizes="114x114" href="<%= image_path ('#{website.folder}/apple-icon-114x114.png') %>" />
-    <% end %>
-    <% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "apple-icon-144x144.png")) %>
-      <link rel="apple-touch-icon" sizes="144x144" href="<%= image_path ('#{website.folder}/apple-icon-144x144.png') %>" />
-    <% end %>
 		<%= yield :custom_css %>
 		<script>
 	  		<%= yield :extra_js %>

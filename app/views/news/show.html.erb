@@ -6,6 +6,9 @@ set_meta_tags title: translate_content(@news, :title),
 	canonical: news_url(@news),
 	keywords: @news.keywords,
 	description: translate_content(@news, :title),
+	twitter: {
+		card: "summary"
+	},
 	og: {
 		image: og_image,
 		type: 'article',
