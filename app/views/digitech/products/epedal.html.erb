@@ -2,7 +2,7 @@
 <% @stomp_shop = @istomp.softwares.first || Software.new %>
 
 <% 
-if @product_photo 
+if @product.photo 
 	og_image = "#{request.protocol}#{request.host_with_port}#{@product.photo.product_attachment.url(:original)}"
 	tw_image = "#{request.protocol}#{request.host_with_port}#{@product.photo.product_attachment.url(:small)}"
 else
