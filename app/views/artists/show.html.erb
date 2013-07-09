@@ -2,6 +2,9 @@
 	description: truncate(strip_html(translate_content(@artist, :bio)), length: 100, omission: ""),
 	keywords: @artist.name,
 	reverse: true,
+	twitter: {
+		card: "summary"
+	},
 	og: {
 		image: "#{request.protocol}#{request.host_with_port}#{@artist.artist_photo.url(:original)}",
 		type: 'musician',

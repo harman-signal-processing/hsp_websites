@@ -2,6 +2,9 @@
 	description: t('meta.description.featured_artists', brand: website.brand_name),
 	keywords: (@featured_artists).collect{|a| a.name}.join(", "),
 	reverse: true,
+	twitter: {
+		card: "summary"
+	},
 	og: {
 		image: "#{request.protocol}#{request.host_with_port}#{@featured_artists.first.artist_photo.url(:original)}",
 		type: 'website',
