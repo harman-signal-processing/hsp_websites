@@ -198,6 +198,11 @@ class ProductFamily < ActiveRecord::Base
     css
   end
 
+  # Used to collect parent name for this family (if any)
+  def tree_names
+    self.parent ? "#{name} #{parent.name}" : name
+  end
+
   # Translates this record into other languages. 
   def translate
     ContentTranslation.auto_translate(self, self.brand)
