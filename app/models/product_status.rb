@@ -18,7 +18,11 @@ class ProductStatus < ActiveRecord::Base
   end
   
   def not_supported?
-    !self.show_on_website && self.discontinued
+    !self.show_on_website || self.vintage?
   end
-  
+
+  def vintage?
+    !!(self.name.match(/vintage/i))
+  end
+ 
 end

@@ -92,7 +92,7 @@ class Product < ActiveRecord::Base
 
   def self.all_for_website_registration(website)
     p = []
-    order(:name).includes(:product_status, :product_families).select{|p| p if p.product_status.show_on_website && p.belongs_to_this_brand?(website)}.sort{|a,b| a.name.downcase <=> b.name.downcase}.each do |prod|
+    order(:name).includes(:product_status, :product_families).select{|p| p if p.belongs_to_this_brand?(website)}.sort{|a,b| a.name.downcase <=> b.name.downcase}.each do |prod|
       p << prod if prod.can_be_registered?
     end
     p
@@ -126,7 +126,11 @@ class Product < ActiveRecord::Base
   
   # can this product be registered with us?
   def can_be_registered?
-    !!!(self.product_status.not_supported?) && !!(self.in_production?) && !!!(self.parent_products.size > 0)
+    !!!(self.product_status.not_supported?) && !!(self.product_status.show_on_website?) && !!!(self.product_status.vintage?) && !!!(self.parent_products.size > 0) && !!!self.is_accessory?
+  end
+
+  def is_accessory?
+    !!(self.product_families.map{|pf| pf.tree_names}.join(" ").match(/accessor/i))
   end
 
   def sample
