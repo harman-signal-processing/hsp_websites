@@ -1,6 +1,6 @@
 class ToneLibraryPatch < ActiveRecord::Base
   belongs_to :tone_library_song
-  belongs_to :product
+  belongs_to :product, touch: true
   has_attached_file :patch,
     path: ":rails_root/public/system/:attachment/:id/:style/:filename",
     url: "/system/:attachment/:id/:style/:filename"
