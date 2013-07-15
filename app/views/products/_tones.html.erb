@@ -2,11 +2,13 @@
 
 <ul>
 	<% @product.tone_library_patches.each do |tlp| %>
+	<% if tlp.tone_library_song && tlp.tone_library_song.displayname %>
 	<li>
 		<%= image_tag("icons/x-edit_17.png", alt: "x-edit patch", style: "vertical-align:middle") %>
 		<%= link_to(tlp.tone_library_song.displayname, 
 				tone_download_path(product_id: @product, tone_library_song_id: tlp.tone_library_song)
 		) %>
 	</li>
+	<% end %>
 	<% end %>
 </ul>
