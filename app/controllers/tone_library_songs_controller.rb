@@ -16,6 +16,10 @@ class ToneLibrarySongsController < ApplicationController
     product = Product.find params[:product_id]
     song = ToneLibrarySong.find params[:tone_library_song_id]
     tone_library_patch = ToneLibraryPatch.where(product_id: product.id, tone_library_song_id: song.id).first
-    send_file(tone_library_patch.patch.path, {disposition: 'attachment'})
+    send_file(tone_library_patch.patch.path, 
+      filename: tone_library_patch.patch_file_name.to_s,
+      # type: 'application/unknown',
+      disposition: 'attachment'
+    )
   end
 end

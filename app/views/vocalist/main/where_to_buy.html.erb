@@ -81,7 +81,11 @@
 		<%= form_tag where_to_buy_path() %>
 			<p><%= t("us_zip_code") -%><br/>
 			<%= text_field_tag "zip", session[:zip], style: "font-size: 200%; width: 200px;" %></p>
-			<p><%= submit_tag t('find_us_dealers') %></p>
+			<p><%= submit_tag t('find_us_dealers') %>
+				<% if website.brand.has_us_sales_reps? %>
+					<i><%= link_to "Lookup US sales reps", us_reps_path %></i>
+				<% end %>
+			</p>
 		</form>
 		<br/>
 		<h4><%= t('titles.international_distributors') %></h4>

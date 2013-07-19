@@ -6,4 +6,8 @@ class ToneLibraryPatch < ActiveRecord::Base
     url: "/system/:attachment/:id/:style/:filename"
 
   validates_presence_of :tone_library_song_id, :product_id
+
+  def extension
+  	patch_file_name.split(".").last.to_s
+  end
 end

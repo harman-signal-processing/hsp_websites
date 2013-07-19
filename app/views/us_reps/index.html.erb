@@ -10,15 +10,20 @@
 	
 <div class="medium_centered_box">
 
-
-<%= form_tag search_us_reps_path, method: :get %>
-	
-	<p><%= label_tag "Select your region" %><br/>
-		<%= select_tag :us_region, options_from_collection_for_select(@us_regions, :id, :name, @us_region.id) %>
-		<%= submit_tag t('submit') %>
+	<p style="margin-bottom: 20px;">Our US sales reps are happy to assist in becoming a new <%= website.brand.name %> dealer or managing your <%= website.brand.name %> account.
+		<% if website.brand.has_dealers? %>
+		To purchase <%= website.brand.name %> products, please visit a <%= link_to "local #{website.brand.name} dealer", where_to_buy_path %>.
+		<% end %>
 	</p>
+
+	<%= form_tag search_us_reps_path, method: :get %>
 		
-</form>
+		<p><%= label_tag "Select your region" %><br/>
+			<%= select_tag :us_region, options_from_collection_for_select(@us_regions, :id, :name, @us_region.id) %>
+			<%= submit_tag t('submit') %>
+		</p>
+			
+	</form>
 </div>
 
 <% if @us_reps.size > 0 %>
