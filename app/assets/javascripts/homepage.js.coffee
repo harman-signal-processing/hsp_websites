@@ -3,8 +3,9 @@ jQuery ($) ->
 	c = $('#homepage-counter').data('counter')
 	brand = $('body').data('brand')
 	if c && brand == "dbx"
-		n = Math.floor(1 / (Math.pow((w / 24), 6) / 100))
+		n = Math.floor(1 / (Math.pow((w / 30), 9) / 100))
 		# Uncomment below to enable the two hack
+		n = 1 if n < 1
 		theTwo() if c % n == 0
 
 getWeekNumber = ->
