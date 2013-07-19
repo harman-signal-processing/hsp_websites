@@ -4,7 +4,7 @@
 			remote: true,
 			confirm: "Are you sure?", 
 			method: :delete) %>
-	<%= link_to tone_download_path(product_id: tlp.product, tone_library_song_id: tlp.tone_library_song) do %>
+	<%= link_to tone_download_path(product_id: tlp.product, tone_library_song_id: tlp.tone_library_song, ext: tlp.extension) do %>
 		<%= tlp.product.name %> - <%= tlp.patch_file_name %>
 	<% end %>
 </li>

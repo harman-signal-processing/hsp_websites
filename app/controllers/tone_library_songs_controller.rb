@@ -18,7 +18,7 @@ class ToneLibrarySongsController < ApplicationController
     tone_library_patch = ToneLibraryPatch.where(product_id: product.id, tone_library_song_id: song.id).first
     send_file(tone_library_patch.patch.path, 
       filename: tone_library_patch.patch_file_name.to_s,
-      # type: 'application/unknown',
+      type: 'application/unknown',
       disposition: 'attachment'
     )
   end
