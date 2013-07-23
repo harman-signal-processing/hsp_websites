@@ -31,7 +31,7 @@ class OnlineRetailerLink < ActiveRecord::Base
 
   # get rid of this link if the related product is discontinued
   def auto_delete
-    if self.link_status != '200' && self.product.discontinued?
+    if self.link_status != '200' && self.product && self.product.discontinued?
       self.destroy 
     end
   end

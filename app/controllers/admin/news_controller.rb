@@ -19,6 +19,7 @@ class Admin::NewsController < AdminController
     @news.from = website.brand.support_email
     @news.to = "config.hpro_execs"
     @news_product = NewsProduct.new(news: @news)
+    @products = Product.all_for_website(website)
     respond_to do |format|
       format.html { render_template } # show.html.erb
       format.xml  { render xml: @news }
