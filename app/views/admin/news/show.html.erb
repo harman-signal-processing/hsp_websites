@@ -22,13 +22,16 @@
 <% end %>
 
 
+<% if @products.count > 0 || @news.news_products.count > 0 %>
 <div class="group">
 	<h3>This news is associated with the following product(s):</h3>
+	<% if @products.count > 0 %>
 	<%= form_for [:admin, @news_product], remote: true do |f| %>
 		<%= hidden_field_tag "called_from", "news" %>
 	    <%= f.hidden_field :news_id %>
-		<%= f.collection_select :product_id, Product.all_for_website(website), :id, :name %> 
+		<%= f.collection_select :product_id, @products, :id, :name %> 
 		<%= submit_tag 'add' %>
+	<% end %>
 	<% end %>
 
 	<ul id="news_products">
@@ -37,6 +40,7 @@
 		<% end %>
 	</ul>
 </div>
+<% end %>
 
 
 <div class="group">
