@@ -3,7 +3,12 @@ class Admin::UsersController < AdminController
   # GET /admin/users
   # GET /admin/users.xml
   def index
-    @users = @users.order(:email)
+    @search = User.ransack(params[:q])
+    if params[:q]
+      @users = @search.result.order(:name, :email)
+    else
+      @users = []
+    end
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @users }
@@ -50,6 +55,7 @@ class Admin::UsersController < AdminController
   # POST /admin/users
   # POST /admin/users.xml
   def create
+    @user.skip_confirmation!
     respond_to do |format|
       if @user.save
         @user.confirm!

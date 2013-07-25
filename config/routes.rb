@@ -71,11 +71,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     # match '/soundcomm(/:page)', to: redirect("/#{I18n.default_locale}/soundcomm"), as: :soundcomm, locale: I18n.default_locale
     match '/soundcomm(/:page)', to: redirect('http://soundcommunity.digitech.com/'), as: :soundcomm, locale: I18n.default_locale
     get 'gctraining' => 'pages#gctraining'
-    get 'ipb-10/training' => 'pages#show', id: "ipb-10-training"
-    get 'iPB-10/training' => 'pages#show', id: "ipb-10-training"
-    get 'iPb-10/training' => 'pages#show', id: "ipb-10-training"
-    get 'iPB-10-training' => 'pages#show', id: "ipb-10-training"
-    get 'iPb-10-training' => 'pages#show', id: "ipb-10-training"
     get 'epedal_labels/fulfilled/:id/:secret_code' => 'label_sheet_orders#fulfill', as: :label_sheet_order_fulfillment
     get 'epedal_labels/new(/:epedal_id)' => 'label_sheet_orders#new', as: :epedal_labels_order_form
     get 'epedal_label_thanks' => 'label_sheet_orders#thanks', as: :thanks_label_sheet_order
@@ -90,7 +85,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
   root to: 'main#default_locale'
   scope "(:locale)", locale: /#{WebsiteLocale.all_unique_locales.join('|')}/ do 
     scope "/admin" do 
-      devise_for :users, path: :users
+      devise_for :users, path: :site_users
       devise_scope :user do
         get 'admin', to: 'admin#index', as: :user_root 
       end
