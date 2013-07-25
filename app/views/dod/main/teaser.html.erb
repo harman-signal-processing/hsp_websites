@@ -1,0 +1,36 @@
+<% set_meta_tags 	twitter: {
+		card: "summary"
+	},
+	og: {
+		image: image_url("#{website.folder}/logo.png"),
+		type: 'brand',
+		description: @website.site_name,
+		title: @website.brand.name
+	} %>
+
+
+<%= content_for :middle_stuff do %>
+	<%= image_tag "dod/line.gif" %>
+	<br/><br/>
+	<h1>What's happening with DOD?</h1>
+	<h4 class="subheader">Be the first to find out:</h4>
+	<form method="POST" action="/en-US/signup">
+		<input type="hidden" name="campaign" value="dod"/>
+		<input type="text" name="email" placeholder="your@email.com"/>
+		<input type="submit" value="let me know"/>
+	</form>
+	<br/><br/>
+	<%= image_tag "dod/line.gif" %>
+<% end %>
+
+<%= content_for :preload do %>
+	<%= preload_background_images %>
+<% end %>
+
+<%= content_for :popup_code do %>
+	<% if website.homepage_popup %>
+		<%=raw website.homepage_popup %>
+	<% end %>
+<% end %>
+
+<div id="homepage-counter" data-counter="<%= @counter %>"></div>
