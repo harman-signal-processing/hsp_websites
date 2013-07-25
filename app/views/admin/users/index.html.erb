@@ -1,10 +1,27 @@
-<h1>Listing Users</h1>
+<h1>Users</h1>
 
-<%= link_to "New user", new_admin_user_path, class: "new button" %>
+<div class="button_container">
+	<%= link_to "New user", new_admin_user_path, class: "new button" %>
+</div>
+
+<%= search_form_for [:admin, @search] do |f| %>
+	<h3>Search Users</h3>
+  <div class="form_field">
+    <%= f.label :name_cont, "Name contains" %><br/>
+    <%= f.text_field :name_cont %>
+  </div>
+  <div class="form_field">
+    <%= f.label :email_cont, "Email contains" %><br/>
+   	<%= f.text_field :email_cont %>
+  </div>
+  <div class="form_field">
+    <%= f.submit "Search users" %>
+  </div>
+<% end %>
 
 <ul>
 	<% @users.each do |user| %>
-	<li><%= link_to user.email, [:admin, user] %>
+	<li><%= link_to (user.name.present?) ? user.name : user.email, [:admin, user] %>
 		<i><%= user.roles.join(", ") %></i></li>
 	<% end %>
 </ul>
