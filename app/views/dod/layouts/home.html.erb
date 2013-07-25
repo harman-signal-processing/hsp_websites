@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+		<%= csrf_meta_tag %>
+		<%= cache ["meta_tags", request.url] do %>
+			<%= cached_meta_tags %>
+			<% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "logo.png")) %>
+			<link rel="image_src" href="<%= image_url("#{website.folder}/logo.png") %>" />
+			<% end %>
+			<!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+			<![endif]-->
+			<link type="text/css" href="/css/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+			<link href="<%= rss_url(format: 'xml') %>" rel="alternate" title="RSS" type="application/rss+xml"/>
+			<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+			<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+			<meta property="og:site_name" content="<%= website.site_name %>" />
+			<meta property="og:locale" content="<%= I18n.locale %>" />
+			<meta property="og:url" content="<%= request.url %>" />
+
+			<% if website.twitter_name %>
+				<meta property="twitter:site" value="@<%= website.twitter_name %>" />
+			<% end %>
+
+	    <% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "apple-icon-57x57.png")) %>
+	      <link rel="apple-touch-icon" sizes="57x57" href="<%= image_path ('#{website.folder}/apple-icon-57x57.png') %>" />
+	    <% end %>
+	    <% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "apple-icon-72x72.png")) %>
+	      <link rel="apple-touch-icon" sizes="72x72" href="<%= image_path ('#{website.folder}/apple-icon-72x72.png') %>" />
+	    <% end %>
+	    <% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "apple-icon-114x114.png")) %>
+	      <link rel="apple-touch-icon" sizes="114x114" href="<%= image_path ('#{website.folder}/apple-icon-114x114.png') %>" />
+	    <% end %>
+	    <% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "apple-icon-144x144.png")) %>
+	      <link rel="apple-touch-icon" sizes="144x144" href="<%= image_path ('#{website.folder}/apple-icon-144x144.png') %>" />
+	    <% end %>
+
+		<% end %>
+
+		<%= javascript_include_tag 'application' %>
+		<%= stylesheet_link_tag 'application', website.folder, cache: false %>
+
+		<%= yield :custom_css %>
+		<script>
+	  		<%= yield :extra_js %>
+	  	</script>
+	    <%= render_partial "shared/analytics" %>
+	</head>
+	<body data-brand="<%= website.brand.name %>" class="home">
+		<div id="fb-root"></div>
+		<script>(function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id;
+		  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+		  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));</script>
+		<%= render_partial "shared/admin_dashboard_link" %>		
+
+		<%= render_partial "shared/locale_switcher" %>
+		
+		<div id="content_container">
+			<div id="content_container_content" style="position: relative;">
+				<% if notice %><p style="color: green;"><%= notice %></p><% end %>
+				<% if alert %><p style="color: red;"><%= alert %></p><% end %>
+				<%= yield %>
+			</div>
+		</div>
+
+		<% if content_for?(:middle_stuff) %>
+		<div id="middle_container">
+						<%= yield :middle_stuff %>
+		</div>
+		<% end %>
+		
+		<div id="footer">
+			<div id="logo">
+				<% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "logo.png")) %>
+				<%= image_tag("#{website.folder}/logo.png", alt: Setting.site_name(website)) %>
+				<% else %>
+				<h2><%= website.brand_name %></h2>
+				<% end %>
+			</div>
+			<div>
+				<% if website.has_software? %>
+				<%= link_to t('software_downloads').downcase, software_index_path %> &bull;
+				<% end %>
+				<%= link_to t('products'), product_families_path %> &bull;
+				<% if website.has_reviews? && ProductReview.all_for_website(website).size > 0 %>
+				<%= link_to t('product_reviews').downcase, product_reviews_path %> &bull;
+				<% end %>
+				<% if website.has_artists? %>
+				<%= link_to t('artists'), artists_path %> &bull;
+				<% end %>
+				<% if website.has_dealers? || website.has_online_retailers? || website.has_distributors? %>
+				<%= link_to t('where_to_buy'), where_to_buy_path %> &bull;
+				<% end %>
+				<%= link_to t('product_support'), support_path %> &bull;
+				<%= link_to t('sitemap'), sitemap_path(format: 'xml') %>
+			</div>
+		</div>
+
+		<div id="preload"><%= yield :preload %></div>
+		<% if content_for?(:popup_code) %>
+			<%= yield :popup_code %>
+		<% end %>
+	</body>
+</html>

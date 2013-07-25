@@ -25,6 +25,7 @@ class ApplicationController < ActionController::Base
     if (website && website.folder) 
       controller_brand_specific = "#{website.folder}/layouts/#{controller_path}"
       brand_specific = "#{website.folder}/layouts/application"
+      homepage = "#{website.folder}/layouts/home"
       if devise_controller? && resource_name == :artist
         artist_brand_specific = "#{website.folder}/layouts/artists"
         if File.exists?(Rails.root.join("app", "views", "#{artist_brand_specific}.html.erb"))
@@ -36,6 +37,8 @@ class ApplicationController < ActionController::Base
         end
       elsif devise_controller? && resource_name == :user
         template = "admin"
+      # elsif controller_path == 'main' && action_name == 'index' && File.exists?(Rails.root.join("app", "views", "#{homepage}.html.erb"))
+      #   template = homepage
       elsif File.exists?(Rails.root.join("app", "views", "#{controller_brand_specific}.html.erb"))
         template = controller_brand_specific
       elsif File.exists?(Rails.root.join("app", "views", "#{brand_specific}.html.erb"))

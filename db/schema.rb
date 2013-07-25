@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130516201524) do
+ActiveRecord::Schema.define(:version => 20130723173156) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -1167,6 +1167,14 @@ ActiveRecord::Schema.define(:version => 20130516201524) do
   add_index "settings", ["brand_id", "name", "locale"], :name => "index_settings_on_brand_id_and_name_and_locale"
   add_index "settings", ["brand_id", "name"], :name => "index_settings_on_brand_id_and_name"
   add_index "settings", ["brand_id"], :name => "index_settings_on_brand_id"
+
+  create_table "signups", :force => true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "campaign"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "site_elements", :force => true do |t|
     t.string   "name"
