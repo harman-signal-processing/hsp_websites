@@ -14,13 +14,24 @@ class MainController < ApplicationController
     end
     @features = website.features
     respond_to do |format|
-      format.html { render_template }
+      format.html { 
+        # if !!(website.brand.name.to_s.match(/dod/i))
+        #   teaser
+        # else
+          render_template 
+        # end
+      }
       format.xml { 
         product_families = ProductFamily.parents_with_current_products(website, I18n.locale)
         current_promotions = Promotion.all_for_website(website)
         render xml: product_families + @news + current_promotions 
       }
     end
+  end
+
+  # Built for the DOD relaunch, replaces the homepage
+  def teaser
+    render_template action: 'teaser', layout: "#{website.folder}/layouts/teaser"
   end
   
   # The site's dealer locator. 

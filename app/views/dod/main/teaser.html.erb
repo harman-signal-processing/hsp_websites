@@ -8,20 +8,23 @@
 		title: @website.brand.name
 	} %>
 
-
-<%= content_for :middle_stuff do %>
-	<%= image_tag "dod/line.gif" %>
-	<br/><br/>
-	<h1>What's happening with DOD?</h1>
-	<h4 class="subheader">Be the first to find out:</h4>
-	<form method="POST" action="/en-US/signup">
-		<input type="hidden" name="campaign" value="dod"/>
-		<input type="text" name="email" placeholder="your@email.com"/>
-		<input type="submit" value="let me know"/>
-	</form>
-	<br/><br/>
-	<%= image_tag "dod/line.gif" %>
-<% end %>
+<h1>What's happening with DOD?</h1>
+<h4 class="subheader">Be the first to find out:</h4>
+<form method="POST" action="/en-US/signup">
+	<input type="hidden" name="campaign" value="dod"/>
+	<div class="row">
+    <div class="large-6 large-offset-3 columns">
+      <div class="row collapse">
+        <div class="small-8 columns">
+          <input type="text" name="email" placeholder="your@email.com"/>
+        </div>
+        <div class="small-4 columns">
+          <input type="submit" value="let me know" class="button prefix"/>
+        </div>
+      </div>
+    </div>
+	</div>
+</form>
 
 <%= content_for :preload do %>
 	<%= preload_background_images %>
