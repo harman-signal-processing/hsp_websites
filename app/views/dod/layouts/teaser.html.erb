@@ -40,7 +40,7 @@
 		<% end %>
 
 		<%= javascript_include_tag 'application' %>
-		<%= stylesheet_link_tag 'application', website.folder, cache: false %>
+		<%= stylesheet_link_tag 'application', 'dod_teaser', cache: false %>
 
 		<%= yield :custom_css %>
 		<script>
@@ -48,7 +48,7 @@
 	  	</script>
 	    <%= render_partial "shared/analytics" %>
 	</head>
-	<body data-brand="<%= website.brand.name %>" class="home">
+	<body data-brand="<%= website.brand.name %>">
 		<div id="fb-root"></div>
 		<script>(function(d, s, id) {
 		  var js, fjs = d.getElementsByTagName(s)[0];
@@ -57,31 +57,20 @@
 		  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
 		  fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));</script>
-		<%= render_partial "shared/admin_dashboard_link" %>		
 
 		<%= render_partial "shared/locale_switcher" %>
-		
-		<div id="content_container">
-			<div id="content_container_content" style="position: relative;">
+
+    <div class="row" style="margin-top: 20%">
+      <div class="large-12 columns">
 				<% if notice %><p style="color: green;"><%= notice %></p><% end %>
 				<% if alert %><p style="color: red;"><%= alert %></p><% end %>
 				<%= yield %>
 			</div>
 		</div>
-
-		<% if content_for?(:middle_stuff) %>
-		<div id="middle_container">
-						<%= yield :middle_stuff %>
-		</div>
-		<% end %>
 		
 		<div id="footer">
 			<div id="logo">
-				<% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "logo.png")) %>
-				<%= image_tag("#{website.folder}/logo.png", alt: Setting.site_name(website)) %>
-				<% else %>
-				<h2><%= website.brand_name %></h2>
-				<% end %>
+				<%= image_tag("dod/vintage-dod.png", alt: Setting.site_name(website)) %>
 			</div>
 			<div>
 				<% if website.has_software? %>
@@ -95,10 +84,10 @@
 				<%= link_to t('artists'), artists_path %> &bull;
 				<% end %>
 				<% if website.has_dealers? || website.has_online_retailers? || website.has_distributors? %>
-				<%= link_to t('where_to_buy'), where_to_buy_path %> &bull;
+				<%#= link_to t('where_to_buy'), where_to_buy_path %> 
 				<% end %>
-				<%= link_to t('product_support'), support_path %> &bull;
-				<%= link_to t('sitemap'), sitemap_path(format: 'xml') %>
+				<%= link_to t('product_support'), support_path %> 
+				<%#= link_to t('sitemap'), sitemap_path(format: 'xml') %>
 			</div>
 		</div>
 
