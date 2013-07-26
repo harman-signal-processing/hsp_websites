@@ -1,4 +1,6 @@
+<% unless @product.name.to_s.match(/ipb/i) %>
 <p><%= t('blurbs.product_tone_library_explanation', model: @product.name) %></p>
+<% end %>
 
 <ul>
 	<% @product.tone_library_patches.each do |tlp| %>
