@@ -4,7 +4,7 @@ class CreateSignups < ActiveRecord::Migration
       t.string :name
       t.string :email
       t.string :campaign
-
+      t.integer :brand_id, :index => true
       t.timestamps
     end
   end

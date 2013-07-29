@@ -137,17 +137,17 @@ $default-float: left;
 // Heading font styles
 
 // $header-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-$header-font-weight: normal;
+// $header-font-weight: normal;
 // $header-font-style: normal;
-// $header-font-color: #222;
-$header-line-height: 1.2;
+$header-font-color: #333;
+// $header-line-height: 1.4;
 // $header-top-margin: .2em;
-// $header-bottom-margin: .5em;
+$header-bottom-margin: 1.5em;
 // $header-text-rendering: optimizeLegibility;
 
 // Heading font sizes
 
-$h1-font-size: emCalc(36px);
+$h1-font-size: emCalc(40px);
 $h2-font-size: emCalc(31px);
 // $h3-font-size: emCalc(27px);
 // $h4-font-size: emCalc(23px);
@@ -261,11 +261,11 @@ $subheader-line-height: 1.1;
 // $form-label-pointer: pointer;
 // $form-label-font-size: emCalc(14px);
 // $form-label-font-weight: 500;
-// $form-label-font-color: lighten(#000, 30%);
-// $form-label-bottom-margin: emCalc(3px);
+$form-label-font-color: lighten(#000, 60%);
+$form-label-bottom-margin: emCalc(9px);
 // $input-font-family: inherit;
 // $input-font-color: rgba(0,0,0,0.75);
-// $input-font-size: emCalc(14px);
+$input-font-size: emCalc(20px);
 // $input-bg-color: #fff;
 // $input-focus-bg-color: darken(#fff, 2%);
 // $input-border-color: darken(#fff, 20%);
@@ -462,7 +462,7 @@ $subheader-line-height: 1.1;
 // Text style
 
 // $alert-font-weight:                bold;
-// $alert-font-size:                  emCalc(14px);
+$alert-font-size:                  emCalc(22px);
 // $alert-font-color:                 #fff;
 // $alert-font-color-alt:             darken($secondary-color, 60%);
 
