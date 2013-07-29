@@ -62,15 +62,18 @@
 		<%= render_partial "shared/locale_switcher" %>
 
     <div class="row" style="margin-top: 13%">
-      <div class="large-12 columns">
+      <div class="large-6 large-offset-3 columns">
+      	<div id="logo">
+					<%= image_tag("dod/vintage-dod-pixelated3.png", alt: Setting.site_name(website)) %>
+				</div>
 				<% if notice %>
 					<div data-alert class="alert-box success">
-						<%= notice %><a href="#" class="close">&times;</a>
+						<%= notice %>
 					</div>
 				<% end %>
 				<% if alert %>
 					<div data-alert class="alert-box alert">
-						<%= alert %><a href="#" class="close">&times;</a>
+						<%= alert %>
 					</div>
 				<% end %>
 
@@ -79,9 +82,6 @@
 		</div>
 		
 		<div id="footer">
-			<div id="logo">
-				<%#= image_tag("dod/vintage-dod.png", alt: Setting.site_name(website)) %>
-			</div>
 			<div>
 				<% if website.has_software? %>
 				<%= link_to t('software_downloads').downcase, software_index_path %> &bull;

@@ -11,7 +11,7 @@ class SignupsController < ApplicationController
   	respond_to do |format|
       @signup.brand_id = website.brand_id
       if @signup.save
-      	cookies[@signup.campaign] = @signup.email
+      	cookies[@signup.campaign] = { value: @signup.email, expires: 1.year.from_now }
         format.html { redirect_to(teaser_complete_path, notice: "Cool. You'll be the first to know!") }
         format.xml  { render xml: @signup, status: :created, location: @signup }
       else
