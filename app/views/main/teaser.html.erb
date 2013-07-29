@@ -8,23 +8,32 @@
 		title: @website.brand.name
 	} %>
 
-<h1>What's happening with DOD?</h1>
-<h4 class="subheader">Be the first to find out:</h4>
-<form method="POST" action="/en-US/signup">
-	<input type="hidden" name="campaign" value="dod"/>
+<h1>What's happening with <%= website.brand.name %>?</h1>
+<%= form_for @signup do |f| %>
+	<% if @signup.errors.any? %>
+		<div data-alert class="alert-box alert">
+			Please make sure your email address is correct:
+		</div>
+	<% end %>
+	<%= f.hidden_field :campaign %>
+	<div class="row">
+		<div class="large-6 large-offset-3 columns" style="text-align: left;">
+  		<%= f.label :email, "Be the first to find out:" %>
+  	</div>
+  </div>
 	<div class="row">
     <div class="large-6 large-offset-3 columns">
       <div class="row collapse">
         <div class="small-8 columns">
-          <input type="text" name="email" placeholder="your@email.com"/>
+        	<%= f.text_field :email, placeholder: "your@email.com" %>
         </div>
         <div class="small-4 columns">
-          <input type="submit" value="let me know" class="button prefix"/>
+        	<%= f.submit "let me know", class: "large button prefix" %>
         </div>
       </div>
     </div>
 	</div>
-</form>
+<% end %>
 
 <%= content_for :preload do %>
 	<%= preload_background_images %>

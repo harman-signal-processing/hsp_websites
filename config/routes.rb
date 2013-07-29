@@ -2,6 +2,8 @@ require "domain_conditions"
 
 HarmanSignalProcessingWebsite::Application.routes.draw do
 
+  get "signups/new"
+
   get "epedal_labels/index"
 
   namespace :api, defaults: {format: 'json'} do
@@ -243,6 +245,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :effects,
         :dealers,
         :clinics,
+        :signups,
         :brands,
         :pages,
         :faqs
@@ -260,7 +263,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     # constraints(DigitechDomain) do
     #   mount Forem::Engine, at: "/soundcomm"
     # end
-    
+    resources :signups, only: [:new, :create]  
+    get 'now-youll-know' => 'main#teaser_complete', as: :teaser_complete  
     resources :us_reps, :distributors, only: [:index, :show] do
       collection { get :search }
     end

@@ -15,11 +15,12 @@ class MainController < ApplicationController
     @features = website.features
     respond_to do |format|
       format.html { 
-        # if !!(website.brand.name.to_s.match(/dod/i))
-        #   teaser
-        # else
+        campaign = "#{website.brand.name}-#{Date.today.year}"
+        if website.teaser.to_i >= 1 && !(cookies[campaign])
+          teaser
+        else
           render_template 
-        # end
+        end
       }
       format.xml { 
         product_families = ProductFamily.parents_with_current_products(website, I18n.locale)
@@ -31,7 +32,12 @@ class MainController < ApplicationController
 
   # Built for the DOD relaunch, replaces the homepage
   def teaser
-    render_template action: 'teaser', layout: "#{website.folder}/layouts/teaser"
+    @signup = Signup.new(campaign: "#{website.brand.name}-#{Date.today.year}")
+    render_template action: 'teaser', layout: teaser_layout
+  end
+
+  def teaser_complete
+    render_template action: 'teaser_complete', layout: teaser_layout
   end
   
   # The site's dealer locator. 
@@ -260,5 +266,12 @@ class MainController < ApplicationController
     render inline: '<script src="//connect.facebook.net/en_US/all.js"></script>', layout: false
   end
   caches_page :channel
+
+  private
+
+  def teaser_layout
+    File.exist?(Rails.root.join("app", "views", website.folder, "layouts", "teaser.html.erb")) ?
+      "#{website.folder}/layouts/teaser" : "teaser"
+  end
 
 end
