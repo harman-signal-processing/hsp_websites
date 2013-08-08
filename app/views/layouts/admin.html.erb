@@ -213,7 +213,7 @@
 			<li><%= link_to "Dealers", admin_dealers_path %></li>
 			<% end %>
 			<% if can?(:manage, Distributor) && website.has_distributors? %>
-			<li><%= link_to "International Distributors", admin_distributors_path %></li>
+			<li><%= link_to "Distributors", admin_distributors_path %></li>
 			<% end %>
 			<% if can?(:manage, UsRep) && website.has_us_sales_reps? %>
 			<li><%= link_to "US Sales Reps", admin_us_reps_path %></li>
