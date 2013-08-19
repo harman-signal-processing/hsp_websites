@@ -36,6 +36,12 @@ class MainController < ApplicationController
     render_template action: 'teaser', layout: teaser_layout
   end
 
+  # Built for the DOD relaunch, replaces the homepage with parralax
+  def teaser2
+    @signup = Signup.new(campaign: "#{website.brand.name}-#{Date.today.year}")
+    render_template action: 'teaser2', layout: "#{website.folder}/layouts/teaser2"
+  end
+
   def teaser_complete
     render_template action: 'teaser_complete', layout: teaser_layout
   end

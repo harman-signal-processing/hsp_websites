@@ -51,6 +51,8 @@ HarmanSignalProcessingWebsite::Application.configure do
     site.css 
     toolkit.css
     toolkit_application.js
+    teaser_application.js
+    dod_teaser.css
     vocalist.css )
 
   # Specifies the header that your server uses for sending files
