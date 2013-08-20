@@ -11,7 +11,7 @@
 
 <h5 class="subheader">Newest Products</h5>
 <div class="row newest_products">
-	<% @brand.toolkit_products.reject{|p| p.discontinued?}[0,4].each do |product| %>
+	<% @brand.toolkit_products.reject{|p| p.discontinued? || p.in_development? || p.is_accessory?}[0,4].each do |product| %>
 	<div class="small-6 large-3 columns">
 		<%= link_to toolkit_brand_product_path(@brand, product) do %>
 			<div class="panel">

@@ -120,6 +120,10 @@ class Product < ActiveRecord::Base
     product_status.in_production?
   end
   
+  def in_development?
+    product_status.in_development?
+  end
+
   def discontinued?
     product_status.is_discontinued?
   end
@@ -155,6 +159,10 @@ class Product < ActiveRecord::Base
   
   def show_on_website?(website)
     self.product_status.show_on_website? && self.belongs_to_this_brand?(website)
+  end
+
+  def show_on_toolkit?
+    !self.virtual_product?
   end
   
   def related_products

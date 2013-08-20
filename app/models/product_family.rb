@@ -109,7 +109,7 @@ class ProductFamily < ActiveRecord::Base
 
   # One level of products for the toolkit--just this family
   def current_products_for_toolkit
-    self.products.includes(:product_status).select{|p| p if p.show_on_website?(self.brand) && !p.discontinued? && !p.virtual_product? }
+    self.products.includes(:product_status).select{|p| p if p.show_on_toolkit? && !p.discontinued? }
   end
 
   # Recurses down the product family trees to collect all the disontinued products (for the toolkit)
@@ -177,6 +177,11 @@ class ProductFamily < ActiveRecord::Base
   def children_with_current_products(w)
     brand_id = (w.is_a?(Brand)) ? w.id : w.brand_id
     children.includes(:products).select{|pf| pf if pf.current_products.size > 0 && pf.brand_id == brand_id}
+  end
+
+  def children_with_toolkit_products(w)
+    brand_id = (w.is_a?(Brand)) ? w.id : w.brand_id
+    children.includes(:products).select{|pf| pf if pf.toolkit_products.size > 0 && pf.brand_id == brand_id}
   end
 
   # Does this product family have a custom background image or color?
