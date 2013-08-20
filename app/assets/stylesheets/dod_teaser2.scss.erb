@@ -11,20 +11,116 @@
  *= require dod_foundation_and_overrides
  *= require_self
 */
+html {
+	overflow-y: scroll; /* always force a scrollbar in non-IE */
+}
 body {
 	background: #FFF;
-	text-align: center;
 }
+/* foreground */
+#parallax-bg3 {
+	z-index: 3;
+	position: fixed;
+	left: 50%; /* align left edge with center of viewport */
+	top: 0;
+	width: 1200px;
+	margin-left: -580px; /* move left by half element's width */
+	#bg3-1 {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+	}
+}
+
+/* midground */
+#parallax-bg2 {
+	z-index: 2;
+	position: fixed;
+	left: 50%; /* align left edge with center of viewport */
+	top: 0;
+	width: 1200px;
+	margin-left: -600px; /* move left by half element's width */
+	#bg2-1 {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+	}
+}
+
+/* background */
+#parallax-bg1 {
+	z-index: 1;
+	position: fixed;
+	left: 50%; /* align left edge with center of viewport */
+	top: 0;
+	width: 1200px;
+	margin-left: -600px; /* move left by half element's width */
+	#bg1-1 {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+	}
+}
+
+@-webkit-keyframes bouncing {
+  0% { bottom: 5px; }
+  50% { bottom: 8px; }
+  100% { bottom: 5px; } 
+}
+
+@-moz-keyframes bouncing {
+  0% { bottom: 5px; }
+  50% { bottom: 8px; }
+  100% { bottom: 5px; } 
+}
+
+@-ms-keyframes bouncing {
+  0% { bottom: 5px; }
+  50% { bottom: 8px; }
+  100% { bottom: 5px; } 
+}
+
+@keyframes bouncing {
+  0% { bottom: 5px; }
+  50% { bottom: 8px; }
+  100% { bottom: 5px; } 
+}		
+
+.bouncing-arrow {
+  background: url(<%= image_path('dod/arrow.png') %>);
+  width: 56px;
+  height: 25px;
+  position: fixed;
+  left: 50%;
+  bottom: 5px;
+  margin-left: -28px;
+  z-index: 1000;
+  -webkit-animation: bouncing 750ms infinite;
+  -moz-animation: bouncing 750ms infinite;
+  -ms-animation: bouncing 750ms infinite;
+  animation: bouncing 750ms infinite; 
+}
+
+div#main-content {
+	position: absolute;
+	top: 2420px;
+	left: 52%;
+	z-index: 1000;
+}
+
 div#logo {
 	margin-bottom: 6%;
 }
+
 div#footer {
-	position: fixed;
-	bottom: 20px;
+	z-index: 9999;
+	position: absolute;
+	top: 2900px;
 	width: 100%;
 	text-align: center;
 	color: #333;
 	font-size: 10px;
+	padding-bottom: 20px;
 	a {
 		color: #444;
 		&:hover {
@@ -35,13 +131,4 @@ div#footer {
 		position: static;
 		text-align: center;
 	}
-}
-div#middle_container {
-	text-align: center;
-	margin: 0;
-	padding: 0;
-	position: absolute;
-	left: 0;
-	top: 20%;
-	width: 100%;
 }
