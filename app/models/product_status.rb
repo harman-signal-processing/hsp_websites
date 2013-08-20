@@ -8,6 +8,10 @@ class ProductStatus < ActiveRecord::Base
   def is_discontinued?
     self.discontinued
   end
+
+  def in_development?
+    self.is_hidden? && !self.is_discontinued? 
+  end
   
   def is_hidden?
     !self.show_on_website

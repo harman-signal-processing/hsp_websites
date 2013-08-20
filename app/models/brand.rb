@@ -172,7 +172,7 @@ class Brand < ActiveRecord::Base
 
   # Special selection of products just for the toolkit
   def toolkit_products
-    products.select{|p| p if p.show_on_website?(self) && !p.virtual_product? }.sort_by{|p| p.created_at}.reverse
+    products.select{|p| p if p.show_on_toolkit? }.sort_by{|p| p.created_at}.reverse
   end
     
   def family_products
