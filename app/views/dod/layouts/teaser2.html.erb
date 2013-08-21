@@ -42,7 +42,7 @@
 		<%= javascript_include_tag 'teaser2_application' %>
 		<%= javascript_include_tag "vendor/custom.modernizr" %>
 		<%= stylesheet_link_tag 'application', "#{website.folder}_teaser2", cache: false %>
-
+		<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:700,400,300' rel='stylesheet' type='text/css'>
 		<%= yield :custom_css %>
 		<script>
 	  		<%= yield :extra_js %>
@@ -61,9 +61,13 @@
 
 		<%= render_partial "shared/locale_switcher" %>
 
+		<% if content_for? :headline %>
+			<%= yield :headline %>
+		<% end %>
+
 		<div id="main-content">
     <div class="row">
-      <div class="large-8 large-offset-1 small-10 small-offset-2 columns">
+      <div class="large-10 large-offset-1 small-10 small-offset-2 columns">
       	<div id="logo">
 					<%= image_tag("dod/vintage-dod-dark.png", alt: Setting.site_name(website)) %>
 				</div>
