@@ -5,10 +5,16 @@
 		image: image_url("#{website.folder}/logo.png"),
 		type: 'brand',
 		description: @website.site_name,
-		title: @website.brand.name
+		title: "#{@website.brand.name}: REBORN TO BE WILD"
 	} %>
 
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse a placerat elit. Ut condimentum pulvinar nisl vel fermentum. Morbi quis diam a libero laoreet convallis. Proin non bibendum urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+<%= content_for :headline do %>
+	<h1 id="title">REBORN TO BE WILD</h1>
+<% end %>
+
+<p>In 1974, before “boutique pedal” meant anything, two friends started building pedals between gigs to make some extra money. Their band never got signed but the pedals they built became the signature tones of their generation, inspiring the music that changed the world.</p>
+
+<p>DOD, the original boutique pedal brand, triumphantly returns with the new Overdrive Preamp 250 and Phasor 201. Along with incredible analog tones, both pedals feature true bypass, a crisp LED, modern power jack, and lighter aluminum chassis. <strong>Available for a limited time only.</strong></p>
 
 <%= link_to(image_tag('dod/learn-more-button.png', mouseover: 'dod/learn-more-button-over.png')) %>
 
