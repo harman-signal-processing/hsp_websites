@@ -24,19 +24,6 @@
 				<meta property="twitter:site" value="@<%= website.twitter_name %>" />
 			<% end %>
 
-	    <% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "apple-icon-57x57.png")) %>
-	      <link rel="apple-touch-icon" sizes="57x57" href="<%= image_path ('#{website.folder}/apple-icon-57x57.png') %>" />
-	    <% end %>
-	    <% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "apple-icon-72x72.png")) %>
-	      <link rel="apple-touch-icon" sizes="72x72" href="<%= image_path ('#{website.folder}/apple-icon-72x72.png') %>" />
-	    <% end %>
-	    <% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "apple-icon-114x114.png")) %>
-	      <link rel="apple-touch-icon" sizes="114x114" href="<%= image_path ('#{website.folder}/apple-icon-114x114.png') %>" />
-	    <% end %>
-	    <% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "apple-icon-144x144.png")) %>
-	      <link rel="apple-touch-icon" sizes="144x144" href="<%= image_path ('#{website.folder}/apple-icon-144x144.png') %>" />
-	    <% end %>
-
 		<% end %>
 
 		<%= javascript_include_tag 'teaser2_application' %>
@@ -66,41 +53,23 @@
 		<% end %>
 
 		<div id="main-content">
-    <div class="row">
-      <div class="large-10 large-offset-1 small-10 small-offset-2 columns">
-      	<div id="logo">
-					<%= image_tag("dod/vintage-dod-dark.png", alt: Setting.site_name(website)) %>
+			<% if notice %>
+				<div data-alert class="alert-box success">
+					<%= notice %>
 				</div>
-				<% if notice %>
-					<div data-alert class="alert-box success">
-						<%= notice %>
-					</div>
-				<% end %>
-				<% if alert %>
-					<div data-alert class="alert-box alert">
-						<%= alert %>
-					</div>
-				<% end %>
-
-				<%= yield %>
-			</div>
-		</div>
+			<% end %>
+			<% if alert %>
+				<div data-alert class="alert-box alert">
+					<%= alert %>
+				</div>
+			<% end %>
+			<%= yield %>
 		</div>
 
-		<div id="parallax-bg3">
-			<%= image_tag "dod/dod-landing-layer1.png", width: 1200, height: 2691, id: 'bg3-1' %>
-		</div>
+		<% if content_for? :parralax %>
+			<%= yield :parralax %>
+		<% end %>
 
-		<div id="parallax-bg2">
-			<%= image_tag "dod/dod-landing-layer2.png", width: 1200, height: 2691, id: 'bg2-1' %>
-		</div>
-		
-		<div id="parallax-bg1">
-			<%= image_tag "dod/dod-landing-layer3.png", width: 1200, height: 2691, id: 'bg1-1' %>
-		</div>
-
-		<div class="bouncing-arrow"></div>
-		
 		<div id="footer">
 			<div>
 				<% if website.has_software? %>
