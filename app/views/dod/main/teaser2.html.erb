@@ -12,11 +12,23 @@
 	<h1 id="title">REBORN TO BE WILD</h1>
 <% end %>
 
-<p>In 1974, before “boutique pedal” meant anything, two friends started building pedals between gigs to make some extra money. Their band never got signed but the pedals they built became the signature tones of their generation, inspiring the music that changed the world.</p>
+    <div class="row">
+    	<div class="large-7 columns">
+    		<%= image_tag "dod/parallax-bottom.png" %>
+    	</div>
+      <div class="large-5 columns">
+      	<div id="logo">
+					<%= image_tag("dod/vintage-dod-dark.png", alt: Setting.site_name(website)) %>
+				</div>
 
-<p>DOD, the original boutique pedal brand, triumphantly returns with the new Overdrive Preamp 250 and Phasor 201. Along with incredible analog tones, both pedals feature true bypass, a crisp LED, modern power jack, and lighter aluminum chassis. <strong>Available for a limited time only.</strong></p>
+				<p>In 1974, before “boutique pedal” meant anything, two friends started building pedals between gigs to make some extra money. Their band never got signed but the pedals they built became the signature tones of their generation, inspiring the music that changed the world.</p>
 
-<%= link_to(image_tag('dod/learn-more-button.png', mouseover: 'dod/learn-more-button-over.png')) %>
+				<p>DOD, the original boutique pedal brand, triumphantly returns with the new Overdrive Preamp 250 and Phasor 201. Along with incredible analog tones, both pedals feature true bypass, a crisp LED, modern power jack, and lighter aluminum chassis. <strong>Available for a limited time only.</strong></p>
+
+				<%= link_to(image_tag('dod/learn-more-button.png', mouseover: 'dod/learn-more-button-over.png')) %>
+
+			</div>
+		</div>
 
 <%= content_for :preload do %>
 	<%= image_tag('dod/learn-more-button-over.png', height: 0, width: 0) %>
@@ -29,3 +41,19 @@
 <% end %>
 
 <div id="homepage-counter" data-counter="<%= @counter %>"></div>
+
+<%= content_for :parralax do %>
+	<div id="parallax-bg3">
+		<%= image_tag "dod/parallax-foreground.png", width: 1200, height: 2952, id: 'bg3-1' %>
+	</div>
+
+	<div id="parallax-bg2">
+		<%= image_tag "dod/parallax-midground.png", width: 1200, height: 1034, id: 'bg2-1' %>
+	</div>
+
+	<div id="parallax-bg1">
+		<%= image_tag "dod/parallax-background.png", width: 1200, height: 1044, id: 'bg1-1' %>
+	</div>
+
+	<div class="bouncing-arrow"></div>
+<% end %>
