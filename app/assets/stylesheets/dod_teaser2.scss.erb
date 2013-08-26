@@ -117,8 +117,9 @@ h1#title {
 	color: #000;
 	overflow: hidden;
 }
+
 div#main-content {
-	margin-top: 3150px;
+	margin-top: 3050px;
 	p {
 		font-weight: 300;
 		font-size: 16px;
@@ -127,22 +128,20 @@ div#main-content {
 }
 
 div#logo {
-	margin-bottom: 6%;
+	margin-bottom: 6px;
 	img {
 		width: 150px;
 	}
 }
 
 div#footer {
-	z-index: 9999;
-	position: absolute;
-	top: 540px;
+
 	width: 100%;
 	text-align: center;
 	color: #777;
 	font-size: 10px;
 	font-family: Helvetica, Arial, sans-serif;
-	padding-bottom: 30px;
+	padding: 60px;
 	background-color: #FFF;
 	a {
 		color: #777;
@@ -153,5 +152,23 @@ div#footer {
 	div#footer_info {
 		position: static;
 		text-align: center;
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	h1#title {
+		font-size: 50px;
+		overflow: auto;
+		background-color: #FFF;
+	}
+	div#logo {
+		margin-top: 10px;
+	}
+	div#main-content {
+		margin-top: 2320px;
+		background-color: #FFF;
+	}
+	#parallax-bg3 {
+		margin-left: -680px; 
 	}
 }
