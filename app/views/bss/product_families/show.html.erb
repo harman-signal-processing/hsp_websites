@@ -13,7 +13,7 @@
 <%# Just for BSS, link any title graphic to the London comparison chart. %>
 <% if !@product_family.title_banner_file_name.blank? %>
 	<div class="product_family_header">
-	<h1><%= link_to(image_tag(@product_family.title_banner.url, alt: translate_content(@product_family, :name)), image_path('bss/SoundwebLondonChart.pdf')) %></h1>
+	<h1><%= link_to(image_tag(@product_family.title_banner.url, alt: translate_content(@product_family, :name)), image_path('bss/SoundwebLondonChart.pdf'), target: "_blank") %></h1>
 	</div>
 	<div class="wide_centered_box">
 <% else %>
