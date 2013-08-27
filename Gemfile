@@ -96,6 +96,7 @@ group :test do
   gem 'launchy' # save_and_open_page inline in tests
   gem 'minitest' #, '2.12.1'
   gem 'guard-minitest'
-  gem 'rb-inotify', '~> 0.9'
+  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
+  gem 'rb-inotify', '~> 0.9', :require => false if !(RUBY_PLATFORM =~ /darwin/i)
   gem 'database_cleaner'
 end
