@@ -1,3 +1,6 @@
+require 'rb-inotify' if RUBY_PLATFORM.downcase.include?("linux")
+require 'rb-fsevent' if RUBY_PLATFORM.downcase.include?("darwin") # Mac OS
+
 HarmanSignalProcessingWebsite::Application.configure do
   # Settings specified here will take precedence over those in config/environment.rb
 
