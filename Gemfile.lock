@@ -373,6 +373,7 @@ DEPENDENCIES
   rails (= 3.2.14)
   rails_autolink
   ransack
+  rb-fsevent
   rb-inotify (~> 0.9)
   recaptcha
   rubyzip
