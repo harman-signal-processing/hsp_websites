@@ -179,7 +179,7 @@ class Website < ActiveRecord::Base
     downloads = self.all_downloads[download_type][:downloads]
 
     t = Tempfile.new("#{self.brand.name.parameterize}-temp-filename-#{Time.now}")
-    Zip::ZipOutputStream.open(t.path) do |z|
+    Zip::OutputStream.open(t.path) do |z|
       downloads.each do |dl|
         z.put_next_entry(dl[:file_name])
         z.print IO.read(dl[:path])

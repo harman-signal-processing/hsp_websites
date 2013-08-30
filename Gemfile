@@ -48,7 +48,7 @@ gem 'rails_autolink'
 gem 'swf_fu', '>=1.3.4', require: 'swf_fu'
 gem 'execjs'
 gem 'therubyracer' #, '=0.10.2' # installs OS dependent gem. Put production version in vendor/cache manually
-gem 'rubyzip'
+gem 'rubyzip', require: 'zip'
 gem 'whenever' #, require: false
 gem "simple_form", ">= 2.0.2"
 gem 'country_select'
