@@ -31,7 +31,9 @@ end
 	</table>
 	<h3><%= link_to translate_content(product, :name), this_url, target: target %></h3>
 	<div class="product_description">
-		<%= translate_content(product, :short_description) %>
+		<% if product.name.length < 20 %>
+			<%= translate_content(product, :short_description) %>
+		<% end %>
 		<% if compare %>
 			<div class="compare_checkbox">
 				<%= check_box_tag "product_ids[]", product.to_param, false %>
