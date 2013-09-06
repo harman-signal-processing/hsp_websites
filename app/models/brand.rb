@@ -25,6 +25,7 @@ class Brand < ActiveRecord::Base
   has_many :us_rep_regions 
   has_many :us_reps, through: :us_rep_regions 
   has_many :us_regions, through: :us_rep_regions, order: :name
+  has_many :signups
   # RSO stuff
   has_many :rso_monthly_reports
   has_many :rso_navigations, order: :position

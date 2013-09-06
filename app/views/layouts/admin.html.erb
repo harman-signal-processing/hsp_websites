@@ -152,6 +152,9 @@
 			<% if can?(:update, :harman_employee_pricing) %>
 			<li><%= link_to "Harman Employee Pricing", harman_employee_pricing_admin_products_path %></li>
 			<% end %>
+			<% if website.brand.signups.count > 0  %>
+			<li><%= link_to "Signups", admin_signups_path %></li>
+			<% end %>
 		</ul>
 	<% end %>
 	

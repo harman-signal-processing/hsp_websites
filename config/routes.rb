@@ -94,7 +94,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     end
     namespace :admin do
       match "brand_toolkit_contacts/load_user/:id" => 'brand_toolkit_contacts#load_user'
-
+      get 'show_campaign/:id' => 'signups#show_campaign', as: 'show_campaign'
       resources :products do
         collection do
           get :rohs
@@ -243,6 +243,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :us_reps,
         :regions,
         :effects,
+        :signups,
         :dealers,
         :clinics,
         :signups,

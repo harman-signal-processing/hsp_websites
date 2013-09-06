@@ -1,0 +1,8 @@
+<h1>Signups by Campaign</h1>
+
+<ul>
+	<% @signups.each do |s| %>
+	<% next if s.campaign.blank? %>
+	<li><%= link_to "#{s.campaign}.xls", admin_show_campaign_path(s.campaign, format: 'xls') %></li>
+	<% end %>
+</ul>
