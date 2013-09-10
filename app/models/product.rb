@@ -133,8 +133,16 @@ class Product < ActiveRecord::Base
     !!!(self.product_status.not_supported?) && !!(self.product_status.show_on_website?) && !!!(self.product_status.vintage?) && !!!(self.parent_products.size > 0) && !!!self.is_accessory?
   end
 
+  #
+  # To determine if a product is an accessory, we check if any of its product families are
+  # named something like "accessor". But first, we also check to see if it is a "controller" like
+  # a remote foot controller. These are sort-of accessories, but sort-of not. For the sake of
+  # product registration, and toolkit landing pages, foot controllers are not accessories. For
+  # navigation of the site, they are. This function excludes foot controllers from accessories.
+  #
   def is_accessory?
-    !!(self.product_families.map{|pf| pf.tree_names}.join(" ").match(/accessor/i))
+    families = self.product_families.map{|pf| pf.tree_names}.join(" ")
+    !!!(families.match(/controller/)) ? false : !!(families.match(/accessor/i))
   end
 
   def sample
