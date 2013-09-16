@@ -31,15 +31,15 @@ class MainController < ApplicationController
   end
 
   # Built for the DOD relaunch, replaces the homepage
-  def teaser
-    @signup = Signup.new(campaign: "#{website.brand.name}-#{Date.today.year}")
-    render_template action: 'teaser', layout: teaser_layout
-  end
-
-  # Built for the DOD relaunch, replaces the homepage with parralax
   def teaser2
     @signup = Signup.new(campaign: "#{website.brand.name}-#{Date.today.year}")
     render_template action: 'teaser2', layout: "#{website.folder}/layouts/teaser2"
+  end
+
+  # Built for the DOD relaunch, replaces the homepage with parralax
+  def teaser
+    @signup = Signup.new(campaign: "#{website.brand.name}-#{Date.today.year}")
+    render_template action: 'teaser', layout: teaser_layout
   end
 
   def teaser_complete
