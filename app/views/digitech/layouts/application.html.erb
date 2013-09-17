@@ -66,6 +66,10 @@
 		<%= render_partial "shared/locale_switcher" %>
 		<%= render_partial "shared/admin_dashboard_link" %>
 
+		<% if @product && (@product.name.match(/^i[A-Z]/) || @product.layout_class.to_s.match(/istomp|epedal/)) && website.ios_notice %>
+			<div id="ios-notice"><%= website.ios_notice %></div>
+		<% end %>
+
 		<div id="Outer">
 		<%= render_partial "shared/header" %>
 		
