@@ -44,3 +44,10 @@ class ToolkitDomain
     !!(request.host.match(/toolkit/i))
   end
 end
+
+class QueueDomain
+  def self.matches?(request)
+    !!(request.host.match(/queue/i))
+  end
+end
+

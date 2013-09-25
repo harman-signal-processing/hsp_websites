@@ -324,6 +324,8 @@ en:
       default: "%Y-%m-%d"
       short: "%b %d, %Y"
       long: "%B %d, %Y"
+      month_day: "%b %d"
+
   time:
     formats:
       log: "%b %d, %Y, %I:%M %p"
@@ -361,6 +363,8 @@ en:
       rso_panel: RSO Site Panel
       rso_page: RSO Site Page
       rso_navigation: RSO Site Navigation Element
+      marketing_project_type: Project Template
+
     attributes:
       warranty_registration:
         title: Title

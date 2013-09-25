@@ -71,6 +71,7 @@ module HarmanSignalProcessingWebsite
     config.media_invitation_code    = "HARMANMEDIA"
     config.rso_host                 = "rso.digitech.com"
     config.toolkit_url              = "marketingtoolkit.harmanpro.com"
+    config.queue_url                = "marketingqueue.harmanpro.com"
     config.default_site_name        = "Harman Signal Processing" 
     config.toolkit_admin_email_addresses = ["adam.anderson@harman.com"]
     config.toolkit_admin_contact_info    = ["Adam Anderson at adam.anderson@harman.com"]

@@ -77,7 +77,7 @@ class ApplicationController < ActionController::Base
   end
   
   def default_url_options(options={})
-    if !!(request.host.match(/toolkit/i))
+    if !!(request.host.to_s.match(/toolkit|queue/i))
       {}
     else
       # {locale: website.locale}
@@ -179,6 +179,8 @@ private
   def current_ability
     if current_user
       @current_ability ||= Ability.new(current_user)
+    elsif current_marketing_queue_user
+      @current_ability ||= Ability.new(current_marketing_queue_user)
     elsif current_toolkit_user
       @current_ability ||= Ability.new(current_toolkit_user)
     elsif current_artist
@@ -191,7 +193,7 @@ private
   def after_sign_in_path_for(resource)
     if resource.is_a?(Artist)
       artist_root_path
-    elsif !!(request.host.match(/toolkit/i))
+    elsif !!(request.host.match(/toolkit|queue/i))
       root_path
     else
       admin_root_path

@@ -3,7 +3,6 @@ require "domain_conditions"
 HarmanSignalProcessingWebsite::Application.routes.draw do
 
   get "signups/new"
-
   get "epedal_labels/index"
 
   namespace :api, defaults: {format: 'json'} do
@@ -38,6 +37,39 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         resources :products, :promotions, only: [:index, :show]
         resources :product_families, :toolkit_resources, :toolkit_resource_types, only: [:show]
       end
+    end
+  end
+
+  constraints(QueueDomain) do 
+    match '/' => 'marketing_queue#index', as: :marketing_queue_root
+    get 'staff_meeting' => 'marketing_queue#staff_meeting'
+    devise_for :marketing_queue_users, 
+      path: "users",
+      class_name: "User", 
+      controllers: { 
+        sessions: "marketing_queue/users/sessions",
+        registrations: "marketing_queue/users/registrations",
+        confirmations: "marketing_queue/users/confirmations",
+        passwords: "marketing_queue/users/passwords",
+        unlocks: "marketing_queue/users/unlocks"
+      }
+    namespace :marketing_queue do
+      resources :brands do 
+        resources :marketing_projects, :marketing_tasks
+      end
+      resources :marketing_projects do 
+        resources :marketing_comments, only: [:create, :destroy]
+      end
+      resources :marketing_tasks, 
+        :marketing_project_types, 
+        :marketing_project_type_tasks,
+        :marketing_attachments
+      resources :marketing_tasks do 
+        member do 
+          get :toggle
+        end
+      end
+      get 'workload/:id' => 'marketing_queue#workload', as: :user_workload
     end
   end
 

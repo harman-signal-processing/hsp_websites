@@ -39,6 +39,7 @@ gem 'twitter'
 gem 'delayed_job_active_record'
 gem 'devise', '~> 2.2.4' # v3.0.0 caused some test failures on 7/15/2013--need to investigate
 gem 'cancan'
+gem 'gravtastic'
 gem "recaptcha", require: "recaptcha/rails"
 gem 'to_xls'
 gem 'acts_as_list'
@@ -84,6 +85,7 @@ group :development, :test do
   gem 'unicorn'
   gem 'minitest-rails'
   gem "factory_girl_rails"
+  gem 'zeus'
 end
 
 group :test do

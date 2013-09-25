@@ -1,6 +1,8 @@
 class Brand < ActiveRecord::Base
   has_many :product_families
   has_many :market_segments
+  has_many :marketing_tasks
+  has_many :marketing_projects
   has_many :online_retailer_links, order: "RAND()", conditions: "actve = 1"
   has_many :brand_dealers, dependent: :destroy
   has_many :dealers, through: :brand_dealers
@@ -37,6 +39,7 @@ class Brand < ActiveRecord::Base
       medium: "480x360", 
       small: "240x180",
       thumb: "100x100", 
+      title: "86x86",
       tiny: "64x64", 
       tiny_square: "64x64#" 
     },
@@ -281,6 +284,10 @@ class Brand < ActiveRecord::Base
     end
     counter.save
     counter.integer_value
+  end
+
+  def open_marketing_projects
+    MarketingProject.open.where(brand_id: self.id)
   end
 
 end
