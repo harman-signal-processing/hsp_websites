@@ -99,7 +99,7 @@ private
     begin
       x = request.env["HTTP_X_FORWARDED_FOR"].to_s
       i = request.remote_ip.to_s
-      if x.match(/198\.91\.53/) || i.match(/198\.91\.53/)
+      if x.match(/198\.91\.53/) || i.match(/198\.91\.53/) || x.match(/162\.211\.152/) || i.match(/162\.211\.152/)
         # send this idiot back to his own ISP
         redirect_to "http://www.securitymetrics.com#{ENV['REQUEST_URI']}" and return false
       end
