@@ -77,6 +77,47 @@ class ActionDispatch::IntegrationTest
     click_button 'Sign in'
   end
 
+  def setup_and_login_queue_user
+    @password = "pass123"
+    @user = FactoryGirl.create(:user, 
+      marketing_staff: true, 
+      password: @password, 
+      password_confirmation: @password)
+    @user.confirm!
+    visit new_marketing_queue_user_session_url(host: @host)
+    fill_in :marketing_queue_user_email, with: @user.email
+    fill_in :marketing_queue_user_password, with: @password
+    click_on "Sign in"
+  end
+
+  def setup_and_login_queue_admin
+    @password = "pass123"
+    @user = FactoryGirl.create(:user, 
+      marketing_staff: true, 
+      queue_admin: true,
+      password: @password, 
+      password_confirmation: @password)
+    @user.confirm!
+    visit new_marketing_queue_user_session_url(host: @host)
+    fill_in :marketing_queue_user_email, with: @user.email
+    fill_in :marketing_queue_user_password, with: @password
+    click_on "Sign in"
+  end
+
+  def setup_and_login_market_manager
+    @password = "pass123"
+    @user = FactoryGirl.create(:user, 
+      marketing_staff: true, 
+      market_manager: true,
+      password: @password, 
+      password_confirmation: @password)
+    @user.confirm!
+    visit new_marketing_queue_user_session_url(host: @host)
+    fill_in :marketing_queue_user_email, with: @user.email
+    fill_in :marketing_queue_user_password, with: @password
+    click_on "Sign in"
+  end
+
 end
 
 # Turn.config.format = :outline

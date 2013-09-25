@@ -1,4 +1,9 @@
 class User < ActiveRecord::Base
+  include Gravtastic
+  gravtastic
+  has_many :marketing_projects
+  has_many :marketing_tasks, foreign_key: 'worker_id'
+  has_many :marketing_comments
   has_many :online_retailer_users, dependent: :destroy
   has_many :online_retailers, through: :online_retailer_users
   has_many :dealer_users, dependent: :destroy
@@ -11,6 +16,18 @@ class User < ActiveRecord::Base
   has_many :tone_user_ratings
   has_many :brand_toolkit_contacts # where this user is a contact for a brand
   has_one :rso_personal_report
+  has_attached_file :profile_pic, 
+      :styles => { :large => "550x370", 
+        :medium => "100x100", 
+        :medium_square => "100x100#",
+        :thumb => "64x64", 
+        :thumb_square => "64x64#",
+        :tiny => "32x32", 
+        :tiny_square => "32x32#",
+        :super_tiny => "16x16#"
+      },
+      path: ":rails_root/public/system/:attachment/:id/:style/:filename",
+      url: "/system/:attachment/:id/:style/:filename"
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable,
   # :omniauthable, :validatable, :registerable
@@ -59,11 +76,13 @@ class User < ActiveRecord::Base
     :distributor,
     :dealer,
     :marketing_staff,
+    :queue_admin,
     :rso,
     :rso_admin,
     :sales_admin,
     :account_number,
     :media,
+    :profile_pic,
     :invitation_code
 
   attr_accessor :invitation_code
@@ -84,6 +103,7 @@ class User < ActiveRecord::Base
     distributor
     dealer
     marketing_staff
+    queue_admin
     rso 
     rso_admin 
     sales_admin
@@ -91,6 +111,10 @@ class User < ActiveRecord::Base
   
   def self.staff 
     where("marketing_staff = 1 OR admin = 1 OR market_manager = 1 OR artist_relations = 1 OR sales_admin = 1").order("UPPER(name)")
+  end
+
+  def self.marketing_staff
+    where(marketing_staff: true).order(:name)
   end
 
   def to_s
@@ -161,6 +185,14 @@ class User < ActiveRecord::Base
         self.distributors << first_distributor
       end
     end
+  end
+
+  def completed_marketing_tasks
+    @completed_marketing_tasks ||= marketing_tasks.where("completed_at IS NOT NULL AND completed_at <= ?", Date.tomorrow)
+  end
+
+  def incomplete_marketing_tasks
+    @incomplete_marketing_tasks ||= marketing_tasks.where("completed_at IS NULL OR completed_at > ?", Date.tomorrow)
   end
 
 end

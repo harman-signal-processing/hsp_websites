@@ -51,6 +51,8 @@ HarmanSignalProcessingWebsite::Application.configure do
     site.css 
     toolkit.css
     toolkit_application.js
+    marketing_queue.css
+    marketing_queue_application.js
     teaser_application.js
     teaser2_application.js
     dod_teaser.css

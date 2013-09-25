@@ -45,7 +45,25 @@ class Ability
         cannot :manage, Brand
         cannot :manage, ToolkitResourceType
         cannot :manage, ProductIntroduction
+        cannot :assign, MarketingTask
         can :read, WarrantyRegistration
+      end
+      if user.role?(:queue_admin)
+        can :manage, MarketingTask
+        can :assign, MarketingTask
+        can :manage, MarketingProject
+        can :manage, MarketingProjectType
+        can :manage, MarketingProjectTypeTask
+        can :manage, MarketingAttachment
+        can :manage, User, marketing_staff: true
+        can :manage, MarketingComment
+      end
+      if user.role?(:marketing_staff)
+        can [:read, :create, :update], MarketingTask
+        can :manage, MarketingAttachment
+        can :create, MarketingComment
+        can :manage, MarketingComment, user_id: user.id
+        # cannot :assign, MarketingTask # Makes it so admin can't assign either
       end
       if user.role?(:sales_admin)
         can :read, Product

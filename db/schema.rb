@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130723173156) do
+ActiveRecord::Schema.define(:version => 20130920153051) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -33,7 +33,10 @@ ActiveRecord::Schema.define(:version => 20130723173156) do
     t.datetime "amp_image_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "slug"
   end
+
+  add_index "amp_models", ["slug"], :name => "index_amp_models_on_slug", :unique => true
 
   create_table "api_keys", :force => true do |t|
     t.string   "access_token"
@@ -152,10 +155,12 @@ ActiveRecord::Schema.define(:version => 20130723173156) do
     t.text     "body"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "slug"
   end
 
   add_index "blog_articles", ["author_id"], :name => "index_blog_articles_on_author_id"
   add_index "blog_articles", ["blog_id"], :name => "index_blog_articles_on_blog_id"
+  add_index "blog_articles", ["slug"], :name => "index_blog_articles_on_slug", :unique => true
 
   create_table "blogs", :force => true do |t|
     t.string   "name"
@@ -163,9 +168,11 @@ ActiveRecord::Schema.define(:version => 20130723173156) do
     t.integer  "default_article_id"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
+    t.string   "slug"
   end
 
   add_index "blogs", ["brand_id"], :name => "index_blogs_on_brand_id"
+  add_index "blogs", ["slug"], :name => "index_blogs_on_slug", :unique => true
 
   create_table "brand_dealers", :force => true do |t|
     t.integer  "brand_id"
@@ -238,6 +245,7 @@ ActiveRecord::Schema.define(:version => 20130723173156) do
     t.boolean  "product_trees"
     t.boolean  "has_us_sales_reps"
     t.integer  "us_sales_reps_from_brand_id"
+    t.boolean  "queue"
   end
 
   add_index "brands", ["cached_slug"], :name => "index_brands_on_cached_slug", :unique => true
@@ -535,6 +543,88 @@ ActiveRecord::Schema.define(:version => 20130723173156) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "marketing_attachments", :force => true do |t|
+    t.integer  "marketing_project_id"
+    t.string   "marketing_file_file_name"
+    t.integer  "marketing_file_file_size"
+    t.string   "marketing_file_content_type"
+    t.datetime "marketing_file_updated_at"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+  end
+
+  add_index "marketing_attachments", ["marketing_project_id"], :name => "index_marketing_attachments_on_marketing_project_id"
+
+  create_table "marketing_comments", :force => true do |t|
+    t.integer  "marketing_project_id"
+    t.integer  "user_id"
+    t.text     "message"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+  end
+
+  add_index "marketing_comments", ["marketing_project_id"], :name => "index_marketing_comments_on_marketing_project_id"
+
+  create_table "marketing_project_type_tasks", :force => true do |t|
+    t.string   "name"
+    t.integer  "position"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+    t.integer  "marketing_project_type_id"
+    t.integer  "due_offset_number"
+    t.string   "due_offset_unit"
+  end
+
+  add_index "marketing_project_type_tasks", ["marketing_project_type_id"], :name => "index_marketing_project_type_tasks_on_marketing_project_type_id"
+
+  create_table "marketing_project_types", :force => true do |t|
+    t.string   "name"
+    t.boolean  "major_effort"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+    t.boolean  "put_source_on_toolkit"
+    t.boolean  "put_final_on_toolkit"
+  end
+
+  create_table "marketing_projects", :force => true do |t|
+    t.string   "name"
+    t.integer  "brand_id"
+    t.integer  "user_id"
+    t.integer  "marketing_project_type_id"
+    t.date     "event_start_on"
+    t.date     "event_end_on"
+    t.string   "targets"
+    t.string   "targets_progress"
+    t.float    "estimated_cost"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+    t.boolean  "put_source_on_toolkit"
+    t.boolean  "put_final_on_toolkit"
+    t.date     "due_on"
+  end
+
+  add_index "marketing_projects", ["brand_id"], :name => "index_marketing_projects_on_brand_id"
+  add_index "marketing_projects", ["marketing_project_type_id"], :name => "index_marketing_projects_on_marketing_project_type_id"
+  add_index "marketing_projects", ["user_id"], :name => "index_marketing_projects_on_user_id"
+
+  create_table "marketing_tasks", :force => true do |t|
+    t.string   "name"
+    t.integer  "marketing_project_id"
+    t.integer  "brand_id"
+    t.date     "due_on"
+    t.integer  "requestor_id"
+    t.integer  "worker_id"
+    t.datetime "completed_at"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.integer  "position"
+  end
+
+  add_index "marketing_tasks", ["brand_id"], :name => "index_marketing_tasks_on_brand_id"
+  add_index "marketing_tasks", ["marketing_project_id"], :name => "index_marketing_tasks_on_marketing_project_id"
+  add_index "marketing_tasks", ["requestor_id"], :name => "index_marketing_tasks_on_requestor_id"
+  add_index "marketing_tasks", ["worker_id"], :name => "index_marketing_tasks_on_worker_id"
 
   create_table "news", :force => true do |t|
     t.date     "post_on"
@@ -1484,6 +1574,11 @@ ActiveRecord::Schema.define(:version => 20130723173156) do
     t.string   "unconfirmed_email"
     t.boolean  "employee"
     t.boolean  "media"
+    t.boolean  "queue_admin"
+    t.string   "profile_pic_file_name"
+    t.integer  "profile_pic_file_size"
+    t.string   "profile_pic_content_type"
+    t.datetime "profile_pic_updated_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
