@@ -1,0 +1,54 @@
+
+<%= simple_form_for [:marketing_queue, @marketing_project_type] do |f| %>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<%= f.input :name %>
+		</div>
+	</div>
+
+	<div class="panel">
+		<h3 class="subheader">Tasks: <small>un-check to exclude from the project template</small></h3>
+		<div class="row hide-for-small">
+			<div class="large-4 large-offset-8 columns">
+				<h5 class="subheader" style="text-align: center">Task is due ____ before project due date</h5>
+			</div>
+		</div>
+		<%= f.simple_fields_for :marketing_project_type_tasks do |mptt| %>
+		<div class="row collapse">
+			<div class="large-1 small-2 columns">
+					<%= mptt.input :keep, as: :boolean, label: false %>
+			</div>
+			<div class="large-7 small-10 columns">
+				<%= mptt.input :name, label: false %>
+			</div>
+			<div class="small-2 show-for-small columns">
+				<span class="prefix">
+					due
+				</span>
+			</div>
+			<div class="large-2 small-4 columns">
+				<%= mptt.input :due_offset_number, as: :integer, label: false %>
+			</div>
+			<div class="large-2 small-4 columns">
+				<%= mptt.input :due_offset_unit, collection: ['days', 'weeks', 'months'], label: false %>
+			</div>
+			<div class="small-2 show-for-small columns">
+				<span class="postfix">before</span>
+			</div>
+
+		</div>
+		<% end %>
+	</div>
+
+	<% unless @marketing_project_type.new_record? %>
+	<div class="row">
+		<div class="large-12 columns">
+			<%#= f.input :targets_progress %>
+		</div>
+	</div>
+	<% end %>
+
+	<%= f.submit class: "button round" %>
+<% end %>
+

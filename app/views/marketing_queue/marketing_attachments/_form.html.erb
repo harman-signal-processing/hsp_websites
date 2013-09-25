@@ -1,0 +1,14 @@
+
+<%= simple_form_for [:marketing_queue, @marketing_attachment] do |f| %>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<%= f.input :marketing_file, label: false %>
+		</div>
+	</div>
+
+	<%= f.input :marketing_project_id, as: :hidden %>
+
+	<%= f.submit class: "button round" %>
+<% end %>
+

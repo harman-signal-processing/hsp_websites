@@ -1,0 +1,16 @@
+<%= content_for :page_title do %>New Task<% end %>
+
+<%= content_for :breadcrumbs do %>
+	<% if @marketing_task.marketing_project %>
+	<%= link_to @marketing_task.marketing_project.brand.name, [:marketing_queue, @marketing_task.marketing_project.brand] %>
+	<%= link_to @marketing_task.marketing_project.name, [:marketing_queue, @marketing_task.marketing_project] %>
+	<% end %>
+<% end %>
+
+<h1>New Task</h1>
+
+<div class="row">
+	<div class="large-8 columns">
+		<%= render 'form' %>
+	</div>
+</div>

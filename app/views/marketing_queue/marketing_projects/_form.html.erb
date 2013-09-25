@@ -1,0 +1,53 @@
+
+<%= simple_form_for [:marketing_queue, @marketing_project] do |f| %>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<%= f.input :name %>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-6 columns">
+			<%= f.association :brand, collection: marketing_queue_brands %>
+		</div>
+		<div class="large-6 columns">
+			<%= f.association :marketing_project_type, collection: MarketingProjectType.order("UPPER(name)") %>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-6 columns">
+			<%= f.input :estimated_cost %>
+		</div>
+		<div class="large-6 columns">
+			<%= f.input :due_on, as: :string, input_html: { class: 'ui-datepicker' } %>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-6 columns">
+			<%= f.input :event_start_on, as: :string, input_html: { class: 'ui-datepicker' } %>
+		</div>
+		<div class="large-6 columns">
+			<%= f.input :event_end_on, as: :string, input_html: { class: 'ui-datepicker' } %>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<%= f.input :targets %>
+		</div>
+	</div>
+	
+	<% unless @marketing_project.new_record? %>
+	<div class="row">
+		<div class="large-12 columns">
+			<%= f.input :targets_progress %>
+		</div>
+	</div>
+	<% end %>
+
+	<%= f.submit class: "button round" %>
+<% end %>
+

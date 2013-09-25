@@ -1,0 +1,14 @@
+<% if can? :assign, marketing_task %>
+	<span class="alert round label"><%= link_to "Unassigned", edit_marketing_queue_marketing_task_path(marketing_task), data: { "reveal-id" => "assign-task-#{ marketing_task.id }"} %></span>
+	<div id="assign-task-<%= marketing_task.id %>" class="reveal-modal small">
+	  <h2>Assign Task</h2>
+	  <p class="lead"><%= marketing_task.name %></p>
+	  <%= simple_form_for [:marketing_queue, marketing_task], remote: true do |f| %>
+	  	<%= f.association :worker, collection: User.marketing_staff %>
+	  	<%= f.submit class: "small button round" %>
+	  <% end %>
+	  <a class="close-reveal-modal">&#215;</a>
+	</div>
+<% else %>
+	<span class="alert round label">Unassigned</span>
+<% end %>

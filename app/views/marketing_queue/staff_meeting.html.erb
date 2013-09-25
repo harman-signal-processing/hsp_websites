@@ -1,0 +1,97 @@
+<p><small>Nothing for <%=raw @sleeper_brands.map{|b| link_to(b.name, [:marketing_queue, b])}.join(", ") %></small></p>
+
+<% @active_brands.each do |brand| %>
+	<div class='container'>
+		<% if brand.logo_file_name.present? %>
+			<h2><%= link_to image_tag(brand.logo.url(:title), alt: brand.name), [:marketing_queue, brand] %></h1>
+		<% else %>
+			<h2><%= link_to brand.name, [:marketing_queue, brand] %></h1>
+		<% end %>
+		<div class="row">
+			<div class="large-12 columns">
+				<table style="width: 100%">
+					<thead class="tiny">
+						<tr>
+							<th colspan="2">Project/Task</th>
+							<th>Worker/Owner</th>
+							<th>Due</th>
+							<th>Progress</th>
+						</tr>
+					</thead>
+					<% if brand.marketing_tasks.where(marketing_project_id: nil, completed_at: nil).count > 0 %>
+					<thead>
+						<tr>
+							<th colspan="5">Non-Project Tasks</th>
+						</tr>
+					</thead>
+					<% brand.marketing_tasks.where(marketing_project_id: nil, completed_at: nil).each do |marketing_task| %>
+						<tbody>
+							<tr id="task_row_<%= marketing_task.id %>">
+								<td width="1%">&nbsp;</td>
+								<td>
+									<%= check_box_tag marketing_task.id, marketing_task.id, false, class: 'completer', 
+											data: { 
+												task: marketing_task.id, 
+												name: marketing_task.name, 
+												worker: (marketing_task.worker) ? marketing_task.worker.name : 'Unassigned',
+												due_on: I18n.l(marketing_task.due_on, format: :short)
+											} %>
+									<%= link_to marketing_task.name, can?(:manage, marketing_task) ? edit_marketing_queue_marketing_task_path(marketing_task) : [:marketing_queue, marketing_task] %></td>
+								<td width="18%" id="worker-<%= marketing_task.id %>">
+									<% if marketing_task.worker %>
+										<%= marketing_task.worker.name %>
+									<% else %>
+										<%= render 'marketing_queue/marketing_tasks/inline_assign', marketing_task: marketing_task %>
+									<% end %>
+								</td>
+								<td width="18%"><%=l marketing_task.due_on, format: :short %></td>
+								<td width="18%">&nbsp;</td>
+							</tr>
+						</tbody>
+					<% end %>
+					<% end %>
+
+					<% if brand.open_marketing_projects.count > 0 %>
+						<% brand.open_marketing_projects.each do |marketing_project| %>
+						<thead>
+							<tr id="task-counter-<%= marketing_project.id %>" data-completedcount="<%= marketing_project.completed_marketing_tasks.count %>" data-incompletecount="<%= marketing_project.incomplete_marketing_tasks.count %>">
+								<th colspan="2">Project: <%= link_to marketing_project.name, [:marketing_queue, marketing_project] %></th>
+								<th width="18%"><%= marketing_project.user.name %></th>
+								<th width="18%"><%=l marketing_project.due_on, format: :short %></th>
+								<td width="18%" id="percent-complete-<%= marketing_project.id %>"><%=number_to_percentage marketing_project.percent_complete, precision: 0 %></td> 
+							</tr>
+						</thead>
+							<% marketing_project.incomplete_marketing_tasks.each do |marketing_task| %>
+						<tbody>
+								<tr id="task_row_<%= marketing_task.id %>">
+									<td width="1%">&nbsp;</td>
+									<td>
+										<%= check_box_tag marketing_task.id, marketing_task.id, false, class: 'completer', 
+											data: { 
+												task: marketing_task.id, 
+												project: marketing_task.marketing_project_id,
+												name: marketing_task.name, 
+												worker: (marketing_task.worker) ? marketing_task.worker.name : 'Unassigned',
+												due_on: I18n.l(marketing_task.due_on, format: :short)
+											} %>
+										<%= marketing_task.name %>
+									</td>
+									<td id="worker-<%= marketing_task.id %>"><% if marketing_task.worker %>
+											<%= marketing_task.worker.name %>
+										<% else %>
+											<%= render 'marketing_queue/marketing_tasks/inline_assign', marketing_task: marketing_task %>
+										<% end %>
+									</td>
+									<td colspan="2"><%=l marketing_task.due_on, format: :short %></td>
+								</tr>
+							<% end %>
+						</tbody>
+						<% end %>
+					<% end %>
+				</table>
+			</div>
+		</div>
+	</div>
+<% end %>
+
+

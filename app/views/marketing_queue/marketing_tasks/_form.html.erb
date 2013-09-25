@@ -1,0 +1,61 @@
+
+<%= simple_form_for [:marketing_queue, @marketing_task] do |f| %>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<%= f.input :name %>
+		</div>
+	</div>
+
+	<% if @marketing_task.new_record? %>
+		<% if @marketing_task.brand_id.present? && @marketing_task.brand_id > 0 && @marketing_task.marketing_project_id.present? && @marketing_task.marketing_project_id > 0 %>
+			<%= f.input :brand_id, as: :hidden %>
+			<%= f.input :marketing_project_id, as: :hidden %>
+		<% else %>
+			<div class="row">
+				<div class="large-6 columns">
+					<%= f.association :brand, collection: marketing_queue_brands %>
+				</div>
+				<div class="large-6 columns">
+					<%= f.association :marketing_project, collection: MarketingProject.open.order("UPPER(name)") %>
+				</div>
+			</div>
+		<% end %>
+	<% else %>
+		<div class="row">
+			<div class="large-6 columns">
+				<%= f.association :brand, collection: marketing_queue_brands %>
+			</div>
+			<div class="large-6 columns">
+				<%= f.association :marketing_project, collection: MarketingProject.open.order("UPPER(name)") %>
+			</div>
+		</div>
+	<% end %>
+
+	<div class="row">
+		<div class="large-6 columns">
+			<%= f.input :due_on, as: :string, input_html: { class: 'ui-datepicker' } %>
+		</div>
+		<div class="large-6 columns">
+			<% unless @marketing_task.new_record? %>
+				<%= f.input :completed_at, as: :string, input_html: { class: 'ui-datetimepicker' } %>
+			<% end %>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="large-6 columns">
+			<% if can? :assign, @marketing_task %>
+				<%= f.association :worker, collection: User.marketing_staff %>
+			<% elsif @marketing_task.new_record? %>
+				<%= f.input :assign_to_me, as: :boolean %>
+			<% elsif @marketing_task.worker_id.present? %>
+				<i>Assigned to <%= @marketing_task.worker.name %></i>
+			<% end %>
+		</div>
+		<div class="large-6 columns"></div>
+	</div>
+
+	<%= f.submit class: "button round" %>
+
+<% end %>

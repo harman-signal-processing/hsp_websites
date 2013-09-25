@@ -1,0 +1,40 @@
+<%= content_for :page_title do %><%= @marketing_task.name %><% end %>
+
+<%= content_for :breadcrumbs do %>
+	<% if @marketing_task.marketing_project %>
+	<%= link_to @marketing_task.marketing_project.brand.name, [:marketing_queue, @marketing_task.marketing_project.brand] %>
+	<%= link_to @marketing_task.marketing_project.name, [:marketing_queue, @marketing_task.marketing_project] %>
+	<% elsif @marketing_task.brand %>
+	<%= link_to @marketing_task.brand.name, [:marketing_queue, @marketing_task.brand] %>
+	<% end %>
+<% end %>
+
+<h1><%= @marketing_task.name %></h1>
+
+<% if can? :manage, @marketing_task %>
+	<ul class="button-group round">
+		<li><%= link_to "Edit task", edit_marketing_queue_marketing_task_path(@marketing_task), class: "small button secondary" %></li>
+	</ul>
+<% end %>
+
+<% if @marketing_task.marketing_project %>
+	<p>Project: 
+	<%= link_to @marketing_task.marketing_project.name, [:marketing_queue, @marketing_task.marketing_project] %></p>
+<% elsif @marketing_task.brand %>
+	<p>Brand: 
+	<%= link_to @marketing_task.brand.name, [:marketing_queue, @marketing_task.brand] %></p>
+<% end %>
+
+<% if @marketing_task.worker %>
+	<p>Assigned to: <%= @marketing_task.worker.name %></p>
+<% else %>
+	<p>Assigned to: <span class="alert round label">Nobody</span></p>
+<% end %>
+
+<% if @marketing_task.due_on.present? %>
+	<p>Due: <%=l @marketing_task.due_on, format: :long %></p>
+<% end %>
+
+<% if @marketing_task.completed_at.present? %>
+	<p>Completed: <%=l @marketing_task.completed_at, format: :long %></p>
+<% end %>

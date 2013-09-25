@@ -1,0 +1,219 @@
+/*
+ *= require foundation_and_overrides_queue
+ *= require_self
+*/
+.top-bar {
+  box-shadow: 0px 2px 2px #222;
+}
+p {
+  font-size: 15px;
+  line-height: 135%;
+}
+#flash_notice, #flash_alert {
+  padding: 5px 8px;
+  margin: 10px 0;
+}
+#flash_notice {
+  background-color: #CFC;
+  border: solid 1px #6C6;
+}
+#flash_alert {
+  background-color: #FCC;
+  border: solid 1px #C66;
+}
+.alert {
+  a {
+    color: white;
+  }
+}
+ul {
+  &.task-list {
+    margin-bottom: 40px;
+    list-style-type: none;
+    li {
+      i {
+        font-size: 70%;
+        color: #666;
+      }
+      a {
+        font-weight: bold;
+      }
+      div.assigned {
+        font-size: 70%;
+        color: #444;
+        margin-left: 18px;
+        margin-top: -8px;
+      }
+    }
+  }
+  &.completed {
+    li {
+      a {
+        font-weight: normal;
+        font-size: 90%;
+      }
+    }
+  }
+  &.compact {
+    li {
+      font-size: 80%;
+    }
+  }
+  &.list {
+    margin-left: 20px;
+  }
+}
+.hint {
+  display: block;
+  font-size: 80%;
+  color: #444;
+  margin: -9px 0px 16px;
+}
+div.sidenav {
+  padding-left: 0;
+  padding-right: 0;
+}
+div#main {
+  padding-bottom: 10px;
+  min-height: 400px;
+}
+div.main-container {
+  background: url('<%= image_path('white-90.png') %>');
+  margin: 0px 0px;
+  padding: 10px 20px;
+  box-shadow: 1px 2px 3px #999;
+}
+div.content-container {
+  background: url('<%= image_path('white-90.png') %>');
+}
+ul.breadcrumbs {
+  background: url('<%= image_path('white-90.png') %>');
+}
+#overview {
+  height: 206px;
+}
+.custom.checkbox {
+    margin-right: 6px;
+}
+.large-1, .small-2 {
+  .custom.checkbox {
+    margin-right: 0px;
+    margin-top: 7px;
+    margin-left: 40%;
+  }
+}
+.breadcrumbs {
+  background-color: #f0f0f0;
+  border-color: #ddd;
+}
+input[type="text"].prefix {
+  text-align: left;
+  &.round {
+    border-radius: 1000px 0 0 1000px;
+  }
+}
+nav.top-bar {
+  input[type="text"] {
+    background-color: #B4B4B4;
+    border-color: #333;
+    color: #000;
+    font-weight: 200;
+    width: 180px;
+  }
+  input[type="submit"] {
+    margin-top: 0;
+    padding-bottom: 2px;
+  }
+  .button {
+    background-color: #444;
+    border-color: #111;
+    font-weight: 200;
+    color: #ccc;
+  }
+}
+.top-bar-section ul {
+  background-color: #111;
+}
+div.small {
+  font-size: 80%;
+  color: #666;
+}
+ol {
+  li {
+    margin-left: 20px;
+    margin-bottom: 12px;
+  }
+}
+@media only screen and (min-width: 980px) {
+  div.content-container {
+    background: url('<%= image_path('light-gray-50.png') %>');
+  }
+  input[type='submit'] {
+    margin-top: 20px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .small-hidden {
+    display: none;
+  }
+}
+
+div#tasks-overview {
+  margin-bottom: 20px;
+}
+thead.tiny {
+  tr {
+    th {
+      background-color: white;
+      font: {
+        weight: 300;
+        size: 80%;
+      }
+      text-align: center;
+      color: #888;
+    }
+  }
+}
+.label {
+  a {
+    text-decoration: underline;
+  }
+}
+table#completed-tasks {
+  font-size: 14px;
+  thead {
+    tr {
+      th {
+        color: #777;
+      }
+    }
+  }
+  tbody {
+    tr {
+      line-height: 0.6em;
+      td {
+        color: #888;
+        padding-top: 0.2625em;
+        padding-bottom: 0.25em;
+        line-height: 0.5em;
+      }
+    }
+  }
+}
+div.comment {
+  padding: 20px 0px;
+  border-bottom: 2px dotted #CCC;
+  div.comment-badge {
+    text-align: center;
+  }
+}
+div.tip {
+  background: url(<%= image_path('queue/girl-idea-icon.png') %>) no-repeat 0px 5px;
+  margin-top: 40px;
+  padding: 12px 10px 10px 66px;
+  p {
+    font-size: 80%;
+  }
+  font-style: oblique;
+}

@@ -1,0 +1,2 @@
+module MarketingQueue::MarketingProjectTypeTasksHelper
+end
