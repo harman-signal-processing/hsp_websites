@@ -1,0 +1,2 @@
+module MarketingQueue::BrandsHelper
+end

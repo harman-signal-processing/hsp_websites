@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= content_for?(:title) ? yield(:title) : "HPro Marketing Queue" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "HPro Marketing Queue" %>">
+    <%= stylesheet_link_tag "marketing_queue", :media => "all" %>
+    <%= javascript_include_tag "marketing_queue_application" %>
+    <%= javascript_include_tag "vendor/custom.modernizr" %>
+    <link type="text/css" href="/css/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+    <%= csrf_meta_tags %>
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link rel="apple-touch-icon" sizes="57x57" href="<%= image_path ('marketing_queue/apple-icon-57x57.png') %>" />
+    <link rel="apple-touch-icon" sizes="72x72" href="<%= image_path ('marketing_queue/apple-icon-72x72.png') %>" />
+    <link rel="apple-touch-icon" sizes="114x114" href="<%= image_path ('marketing_queue/apple-icon-114x114.png') %>" />
+    <link rel="apple-touch-icon" sizes="144x144" href="<%= image_path ('marketing_queue/apple-icon-144x144.png') %>" />
+    
+    <%= yield(:head) %>
+  </head>
+  <body>
+
+  <!-- Header and Nav -->
+  <header>
+    <div class="container">
+      <nav class="top-bar">
+        <ul class="title-area">
+          <li class="name"><h1><%= link_to "Marketing Queue", marketing_queue_root_path %></h1></li>
+          <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+        </ul>
+
+        <section class="top-bar-section">
+          <% if marketing_queue_user_signed_in? %>
+            <ul class="left">
+              <li class="divider"></li>
+              <li class="has-dropdown"><a href="#">New</a>
+                <ul class="dropdown">
+                  <li><%= link_to "Task", new_marketing_queue_marketing_task_path %></li>
+                  <li><%= link_to "Empty Project", new_marketing_queue_marketing_project_path %></li>
+                  <% if MarketingProjectType.creatable.count > 0 %>
+                  <li class="has-dropdown"><%= link_to "Project from Template" %>
+                    <ul class="dropdown">
+                    <% MarketingProjectType.creatable.each do |mpt| %>
+                      <li><%= link_to mpt.name, new_marketing_queue_marketing_project_path(marketing_project_type_id: mpt.id) %></li>
+                    <% end %>
+                    </ul>
+                  </li>
+                  <% end %>
+                </ul>
+              </li>
+              <li class="divider"></li>
+              <li class="has-dropdown"><a href="#">Brands</a>
+                <ul class="dropdown">
+                  <% marketing_queue_brands.each do |brand| %>
+                  <li><%= link_to brand.name, [:marketing_queue, brand] %></li>
+                  <% end %>
+                </ul>
+              </li>
+              <% if current_marketing_queue_user.role?(:queue_admin) %>
+              <li class="divider"></li>
+              <li class="has-dropdown"><%= link_to "Peeps" %>
+                <ul class="dropdown">
+                  <% User.marketing_staff.each do |m_user| %>
+                  <li><%= link_to m_user.name, marketing_queue_user_workload_path(m_user) %></li>
+                  <% end %>
+                </ul>
+              </li>
+              <% end %>
+              <li class="divider"></li>
+              <li><%= link_to "Staff Meeting Overview", staff_meeting_path %></li>
+            </ul>
+          <% end %>
+        
+          <ul class="right">
+            <% if marketing_queue_user_signed_in? %>
+              <li><%= search_form_for [:marketing_queue, @q], :builder => SimpleForm::FormBuilder do |f| %>
+                <div class="row collapse">
+                  <div class="large-8 small-9 columns">
+                    <%= f.input :name_cont, label: false, placeholder: "project name", input_html: {class: "prefix round"} %>
+                  </div>
+                  <div class="large-4 small-3 columns">
+                    <%= f.submit "Search", class: "button round postfix" %>
+                  </div>
+                </div>
+                <% end %>
+              </li>
+              <li><%= link_to 'Logout', destroy_marketing_queue_user_session_path %></li>
+              <li class="divider"></li>
+              <li><%= link_to 'My account', edit_marketing_queue_user_registration_path %></li>
+            <% else %>
+              <li><%= link_to 'Login', new_marketing_queue_user_session_path %></li>
+              <li class="divider"></li>
+              <li><%= link_to 'Sign up', new_marketing_queue_user_registration_path %></li>
+            <% end %>
+          </ul>
+        </section>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="large-12 columns">
+
+        <% flash.each do |name, msg| %>
+          <% 
+            css_class = 'alert-box'
+            if name.match(/notice/i) 
+              css_class += ' success'
+            elsif name.match(/alert|warn/)
+              css_class += ' alert'
+            else
+              css_class += ' secondary'
+            end
+          %>
+
+            <%= content_tag :div, msg, class: css_class if msg.is_a?(String) %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <% if content_for?(:breadcrumbs) %>
+  <div class="container">
+    <div class="row">
+      <div class="large-12 columns">
+        <nav class="breadcrumbs hide-for-small">
+          <%= link_to "Home", "/" %>
+          <%= yield :breadcrumbs %>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <% end %>
+
+  <div class="container">
+    <% if content_for?(:left_nav) %>
+    <div class="row content-container">
+      <div class="small-12 large-2 columns sidenav">
+        <%= yield :left_nav %>
+      </div>
+      <div class="small-12 large-10 columns" id="main">
+			 <%= yield %>
+      </div>
+    </div>
+    <% else %>
+    <div class="row">
+      <div class="small-12 large-12 columns" id="main">
+        <%= yield %>
+      </div>
+    </div>
+    <% end %>
+	</div>
+
+  <script type="text/javascript">$(document).foundation();</script>
+	</body>
+</html>

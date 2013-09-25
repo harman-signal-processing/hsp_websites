@@ -1,0 +1,136 @@
+<div class="row">
+	<div class="large-8 columns">
+		<div class="row">
+			<div class="large-6 columns">
+				<h4 class="subheader">Newest Projects</h4>
+				<table style="width: 100%">
+					<tbody>
+						<% @newest_projects.each do |project| %>
+						<tr>
+							<td width="70%"><%= link_to project.name.truncate(24), [:marketing_queue, project.brand, project] %></td>
+							<td><%= project.brand.name.truncate(10) %></td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+
+			</div>
+			<div class="large-6 columns">
+				<h4 class="subheader">Ending Soon</h4>
+				<table style="width: 100%">
+					<tbody>
+						<% @ending_projects.each do |project| %>
+						<tr>
+							<td width="70%"><%= link_to project.name.truncate(24), [:marketing_queue, project.brand, project] %></td>
+							<td><%= l (project.due_on || project.event_end_on), format: :month_day %></td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="small-12 large-12 columns">
+			<div class="main-container">
+				<h2>My Dashboard</h2>
+				<h4 class="subheader">My Open Tasks</h4>
+				<table style="width: 100%" id='incomplete-tasks'>
+					<thead>
+						<tr>
+							<th>Task</th>
+							<th>Project</th>
+							<th>Due</th>
+						</tr>
+					</thead>
+					<tbody>
+					<% current_marketing_queue_user.incomplete_marketing_tasks.order(:due_on).each do |marketing_task| %>
+						<tr id="task_row_<%= marketing_task.id %>">
+							<% if marketing_task.marketing_project %>
+							<td>
+								<%= check_box_tag marketing_task.id, marketing_task.id, false, class: 'completer', 
+										data: { 
+											task: marketing_task.id, 
+											project: marketing_task.marketing_project_id,
+											name: marketing_task.name, 
+											worker: marketing_task.worker.name,
+											due_on: I18n.l(marketing_task.due_on, format: :short)
+										} %>
+								<%= marketing_task.name %>
+							</td>
+							<td>
+								<%= link_to marketing_task.marketing_project.name, [:marketing_queue, marketing_task.marketing_project] %>
+							</td>
+							<% else %>
+							<td>
+								<%= check_box_tag marketing_task.id, marketing_task.id, false, class: 'completer', 
+										data: { 
+											task: marketing_task.id, 
+											name: marketing_task.name, 
+											worker: marketing_task.worker.name,
+											due_on: I18n.l(marketing_task.due_on, format: :short)
+										} %>
+								<%= link_to marketing_task.name, can?(:manage, marketing_task) ? edit_marketing_queue_marketing_task_path(marketing_task) : [:marketing_queue, marketing_task] %>
+							</td>
+							<td></td>
+							<% end %>
+							<td class='date'><%=l marketing_task.due_on, format: :short %></td>
+						</tr>
+					<% end %>
+					</tbody>
+				</table>
+
+				<h4 class="subheader">Recently Completed Tasks</h4>
+				<table style="width: 100%" id='completed-tasks'>
+					<thead>
+						<tr>
+							<th>Task</th>
+							<th>Project</th>
+							<th>Completed</th>
+						</tr>
+					</thead>
+					<tbody>
+					<% current_marketing_queue_user.completed_marketing_tasks.order("completed_at DESC").limit(10).each do |marketing_task| %>
+						<tr id="task_row_<%= marketing_task.id %>">
+							<% if marketing_task.marketing_project %>
+							<td>
+								<%= check_box_tag marketing_task.id, marketing_task.id, true, class: 'incompleter', 
+										data: { 
+											task: marketing_task.id, 
+											project: marketing_task.marketing_project_id,
+											name: marketing_task.name, 
+											worker: marketing_task.worker.name,
+											due_on: I18n.l(marketing_task.due_on, format: :short)
+										} %>
+								<%= marketing_task.name %>
+							</td>
+							<td>
+								<%= link_to marketing_task.marketing_project.name, [:marketing_queue, marketing_task.marketing_project] %>
+							</td>
+							<% else %>
+							<td>
+								<%= check_box_tag marketing_task.id, marketing_task.id, true, class: 'incompleter', data: { task: marketing_task.id, name: marketing_task.name, worker: marketing_task.worker.name } %>
+								<%= link_to marketing_task.name, can?(:manage, marketing_task) ? edit_marketing_queue_marketing_task_path(marketing_task) : [:marketing_queue, marketing_task] %>
+							</td>
+							<td></td>
+							<% end %>
+							<td class='date'><%=l marketing_task.completed_at.to_date, format: :short %></td>
+						</tr>
+					<% end %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		</div>
+	</div>
+	<div class="large-4 columns hide-for-small">
+		<h4 class="subheader" style="text-align: center">Open Project Summary by Brand</h4>
+		<%= content_tag :div, "", id: "overview", data: @brands_projects_summary %> 
+		<ul class="compact" style="margin-left: 5.5em;">
+			<% marketing_queue_brands.each do |brand| %>
+			<li><%= link_to brand.name, [:marketing_queue, brand] %> (<%= brand.open_marketing_projects.count %>)</li>
+			<% end %>
+		</ul>
+	</div>
+</div>
+

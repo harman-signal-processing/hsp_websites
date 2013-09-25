@@ -1,0 +1,3 @@
+$("td#worker-<%= @marketing_task.id %>").html("<%= @marketing_task.worker ? @marketing_task.worker.name : 'Unassigned' %>");
+$("div#worker-<%= @marketing_task.id %>").html("Assigned to: <%= @marketing_task.worker ? @marketing_task.worker.name : 'Unassigned' %>");
+$(".reveal-modal-bg").hide();

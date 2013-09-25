@@ -1,0 +1,15 @@
+<div class="comment row">
+	<div class="large-2 small-4 columns comment-badge">
+		<% if !marketing_comment.user.profile_pic_file_name.blank? %>
+			<%= image_tag marketing_comment.user.profile_pic.url(:thumb_square) %>
+		<% else %>
+			<%= image_tag(marketing_comment.user.gravatar_url(default: 'mm', size: 64), width: 64, height: 64) %>
+		<% end %>
+		<br/>
+		<small><%= marketing_comment.user.name %></small>
+	</div>
+	<div class="large-10 small-8 columns comment-content">
+		<h5><%= l marketing_comment.created_at, format: :long %></h5>
+		<p><%= marketing_comment.message %></p>
+	</div>
+</div>

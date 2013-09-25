@@ -1,0 +1,102 @@
+<div class="main-container">
+	<h2><%= @nameses %> Workload</h2>
+
+	<div class="row">
+		<div class="small-12 large-9 columns">
+			<h4 class="subheader"><%= @nameses %> Open Tasks</h4>
+			<table style="width: 100%" id='incomplete-tasks'>
+				<thead>
+					<tr>
+						<th>Task</th>
+						<th>Project</th>
+						<th>Due</th>
+					</tr>
+				</thead>
+				<tbody>
+				<% @user.incomplete_marketing_tasks.order(:due_on).each do |marketing_task| %>
+					<tr id="task_row_<%= marketing_task.id %>">
+						<% if marketing_task.marketing_project %>
+						<td>
+							<%= check_box_tag marketing_task.id, marketing_task.id, false, class: 'completer', 
+									data: { 
+										task: marketing_task.id, 
+										project: marketing_task.marketing_project_id,
+										name: marketing_task.name, 
+										worker: marketing_task.worker.name,
+										due_on: I18n.l(marketing_task.due_on, format: :short)
+									} %>
+							<%= marketing_task.name %>
+						</td>
+						<td>
+							<%= link_to marketing_task.marketing_project.name, [:marketing_queue, marketing_task.marketing_project] %>
+						</td>
+						<% else %>
+						<td>
+							<%= check_box_tag marketing_task.id, marketing_task.id, false, class: 'completer', 
+									data: { 
+										task: marketing_task.id, 
+										name: marketing_task.name, 
+										worker: marketing_task.worker.name,
+										due_on: I18n.l(marketing_task.due_on, format: :short)
+									} %>
+							<%= link_to marketing_task.name, can?(:manage, marketing_task) ? edit_marketing_queue_marketing_task_path(marketing_task) : [:marketing_queue, marketing_task] %>
+						</td>
+						<td></td>
+						<% end %>
+						<td class='date'><%=l marketing_task.due_on, format: :short %></td>
+					</tr>
+				<% end %>
+				</tbody>
+			</table>
+
+			<h4 class="subheader">Recently Completed Tasks</h4>
+			<table style="width: 100%" id='completed-tasks'>
+				<thead>
+					<tr>
+						<th>Task</th>
+						<th>Project</th>
+						<th>Completed</th>
+					</tr>
+				</thead>
+				<tbody>
+				<% @user.completed_marketing_tasks.order("completed_at DESC").limit(10).each do |marketing_task| %>
+					<tr id="task_row_<%= marketing_task.id %>">
+						<% if marketing_task.marketing_project %>
+						<td>
+							<%= check_box_tag marketing_task.id, marketing_task.id, true, class: 'incompleter', 
+									data: { 
+										task: marketing_task.id, 
+										project: marketing_task.marketing_project_id,
+										name: marketing_task.name, 
+										worker: marketing_task.worker.name,
+										due_on: I18n.l(marketing_task.due_on, format: :short)
+									} %>
+							<%= marketing_task.name %>
+						</td>
+						<td>
+							<%= link_to marketing_task.marketing_project.name, [:marketing_queue, marketing_task.marketing_project] %>
+						</td>
+						<% else %>
+						<td>
+							<%= check_box_tag marketing_task.id, marketing_task.id, true, class: 'incompleter', data: { task: marketing_task.id, name: marketing_task.name, worker: marketing_task.worker.name } %>
+							<%= link_to marketing_task.name, can?(:manage, marketing_task) ? edit_marketing_queue_marketing_task_path(marketing_task) : [:marketing_queue, marketing_task] %>
+						</td>
+						<td></td>
+						<% end %>
+						<td class='date'><%=l marketing_task.completed_at.to_date, format: :short %></td>
+					</tr>
+				<% end %>
+				</tbody>
+			</table>
+		</div>
+		<div class="small-12 large-3 columns">
+			<div style="text-align: center">
+		      <% if !@user.profile_pic_file_name.blank? %>
+		        <%= image_tag @user.profile_pic.url(:medium_square), style: "margin: 20px 0px" %>
+		      <% else %>
+		        <%= image_tag(@user.gravatar_url(default: 'mm', size: 100), width: 100, height: 100, style: "margin: 20px 0px") %>
+		      <% end %>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,137 @@
+<%= content_for :breadcrumbs do %>
+	<%= link_to @brand.name, '#', class: 'current' %>
+<% end %>
+
+<div class="row">
+	<div class="large-7 columns">
+		<% if @brand.logo_file_name.present? %>
+		<h1><%= image_tag @brand.logo.url(:title), alt: @brand.name %></h1>
+		<% else %>
+		<h1><%= @brand.name %></h1>
+		<% end %>
+		<h4 class="subheader">Top Projects</h4>
+		<table style="width: 100%">
+			<thead>
+				<tr>
+					<th width="20%">Due</th>
+					<th width="50%">Project name</th>
+					<th width="30%">% Complete</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @current_marketing_projects.each do |marketing_project| %>
+				<tr>
+					<td><%=l marketing_project.due_on, format: :month_day %></td>
+					<td><%= link_to marketing_project.name, [:marketing_queue, marketing_project.brand, marketing_project] %></td>
+					<td><%=number_to_percentage marketing_project.percent_complete, precision: 1 %>
+						<small><%= marketing_project.completed_marketing_tasks.count %>/<%= marketing_project.marketing_tasks.count %> tasks</small>
+					</td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+
+		<% if @completed_marketing_projects.count > 0 %>
+		<h4 class="subheader">Recently Ended Projects</h4>
+		<table style="width: 100%">
+			<thead>
+				<tr>
+					<th width="20%">Due</th>
+					<th width="80%">Project name</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @completed_marketing_projects.each do |marketing_project| %>
+				<tr>
+					<td><%=l marketing_project.due_on, format: :month_day %></td>
+					<td><%= link_to marketing_project.name, [:marketing_queue, marketing_project.brand, marketing_project] %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<% end %>
+
+	</div>
+
+	<div class="large-5 columns">
+		<br/>
+		<%#= content_tag :div, "", id: "tasks-overview" %> 
+		<h4>Non-project Tasks</h4>
+		<ul class="task-list" id='incomplete-tasks'>
+		<% @incomplete_marketing_tasks.each do |marketing_task| %>
+			<% if can? :manage, marketing_task %>
+			<li id="task_row_<%= marketing_task.id %>">			 
+				<%= check_box_tag marketing_task.id, marketing_task.id, false, class: 'completer', 
+					data: { 
+						task: marketing_task.id, 
+						name: marketing_task.name, 
+						worker: (marketing_task.worker) ? marketing_task.worker.name : 'Unassigned',
+						due_on: I18n.l(marketing_task.due_on, format: :short)
+					} %>
+				<%= link_to marketing_task.name, edit_marketing_queue_marketing_task_path(marketing_task) %>
+
+				<% if marketing_task.due_on.present? %>
+					<i>Due: <%=l marketing_task.due_on, format: :short %></i>
+				<% end %>
+
+				<% if can? :destroy, marketing_task %>
+				<%= link_to(image_tag('trash.gif'), [:marketing_queue, marketing_task], confirm: "Are you sure?", method: :delete) %>
+				<% end %>
+				
+				<div class="assigned">
+				<% if marketing_task.worker %>
+					Assigned to: <%= marketing_task.worker.name %>
+				<% else %>
+					<%= render 'marketing_queue/marketing_tasks/inline_assign', marketing_task: marketing_task %>
+				<% end %>
+				</div>
+			</li>
+			<% else %>
+			<li id="task_row_<%= marketing_task.id %>">			 
+				<%= check_box_tag marketing_task.id, true, false, disabled: true %>
+				<%= link_to marketing_task.name, [:marketing_queue, marketing_task] %>
+				
+				<% if marketing_task.due_on.present? %>
+					<i>Due: <%=l marketing_task.due_on, format: :short %></i>
+				<% end %>
+				<div class="assigned" id="worker-<%= marketing_task.id %>">
+				<% if marketing_task.worker %>
+					Assigned to: <%= marketing_task.worker.name %>
+				<% else %>
+					<span class="alert round label">Unassigned</span>
+				<% end %>
+				</div>
+			</li>
+			<% end %>
+		<% end %>
+		</ul>
+
+		<h5>Recently Completed Tasks</h5>
+		<ul class="completed task-list" id="completed-tasks">
+		<% @completed_marketing_tasks.each do |marketing_task| %>
+			<li id="task_row_<%= marketing_task.id %>"> 
+				<%= check_box_tag marketing_task.id, marketing_task.id, true, class: 'incompleter', 
+						data: { 
+							task: marketing_task.id, 
+							name: marketing_task.name, 
+							worker: (marketing_task.worker) ? marketing_task.worker.name : 'Unassigned',
+							due_on: I18n.l(marketing_task.due_on, format: :short)
+						} %>
+				<%= link_to marketing_task.name, [:marketing_queue, marketing_task] %>
+
+				<% if marketing_task.due_on.present? %>
+					<i style="display: none;">Due: <%=l marketing_task.due_on, format: :short %></i>
+				<% end %>
+
+				<div class="assigned">
+					Completed 
+						<% if marketing_task.worker %>by: <%= marketing_task.worker.name %><% end %>
+						on <%=l marketing_task.due_on, format: :short %>
+				</div>
+			</li>
+		<% end %>
+		</ul>
+	</div>
+</div>
+
+

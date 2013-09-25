@@ -1,0 +1,6 @@
+
+<%= simple_form_for [:marketing_queue, @marketing_project, @marketing_comment] do |f| %>
+	<%= f.input :message, label: "Add your comment:" %>
+	<%= f.submit "Comment", class: "button round small", style: "margin-top: 0px;" %>
+<% end %>
+

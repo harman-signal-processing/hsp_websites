@@ -1,0 +1,9 @@
+//= require jquery
+//= require jquery_ujs
+//= require jquery-ui-1.10.2.custom.min
+//= require jquery.datetimepicker
+//= require foundation
+//= require raphael.min
+//= require morris.min
+//= require marketing_queue
+//= require_tree ./marketing_queue/
