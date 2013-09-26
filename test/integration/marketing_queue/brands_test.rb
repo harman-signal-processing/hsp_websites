@@ -16,11 +16,11 @@ describe "Marketing Queue Brands Integration Test" do
     DatabaseCleaner.clean
   end
 
-  it "should link to top high-profile projects on top"
-  it "should link to remaining projects below"
-  it "should list standalone tasks with quick actions"
-  it "should have a calendar view of the projects"
-  it "should have a gantt view of the projects"
-  it "should have a link to show old projects and tasks"
+  # it "should link to top high-profile projects on top"
+  # it "should link to remaining projects below"
+  # it "should list standalone tasks with quick actions"
+  # it "should have a calendar view of the projects"
+  # it "should have a gantt view of the projects"
+  # it "should have a link to show old projects and tasks"
 
 end

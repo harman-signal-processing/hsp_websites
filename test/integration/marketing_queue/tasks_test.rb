@@ -45,6 +45,7 @@ describe "Marketing Tasks Integration Test" do
       it "should offer to assign task to oneself" do
         fill_in :marketing_task_name, with: "Pet the dog"
         fill_in :marketing_task_due_on, with: 2.weeks.from_now.to_s
+        select @digitech.name, from: :marketing_task_brand_id
         must_have_content "Assign to me"
         check "marketing_task_assign_to_me"
         click_on "Create Marketing task"
@@ -53,9 +54,9 @@ describe "Marketing Tasks Integration Test" do
     end
 
     describe "Existing task" do 
-      it "should mark complete"
-      it "should attach files"
-      it "should have thread of comments"
+      # it "should mark complete"
+      # it "should attach files"
+      # it "should have thread of comments"
     end
   end
 
@@ -67,7 +68,7 @@ describe "Marketing Tasks Integration Test" do
       setup_and_login_market_manager
       @project1 = FactoryGirl.create(:marketing_project, name: "Open DigiTech project", brand: @digitech)
       @project2 = FactoryGirl.create(:marketing_project, name: "Open dbx Project", brand: @dbx)
-      @closed_project = FactoryGirl.create(:marketing_project, name: "Closed Project", event_end_on: 1.year.ago)
+      @closed_project = FactoryGirl.create(:marketing_project, name: "Closed Project", due_on: 1.year.ago, event_end_on: 1.year.ago)
       visit new_marketing_queue_marketing_task_url(host: @host)
     end
 
@@ -80,19 +81,20 @@ describe "Marketing Tasks Integration Test" do
       it "should offer a selection of all open projects" do
         fill_in :marketing_task_name, with: "Pet the dog"
         fill_in :marketing_task_due_on, with: 2.weeks.from_now.to_s
+        select @digitech.name, from: :marketing_task_brand_id
         must_have_select "marketing_task_marketing_project_id"
         select @project1.name, from: "marketing_task_marketing_project_id"
         click_on "Create Marketing task"
         MarketingTask.last.marketing_project_id.must_equal @project1.id
       end
 
-      it "should not show closed projects in the selection" do 
+      it "should not show closed projects in the selection" do
         must_have_select "marketing_task_marketing_project_id"
         wont_have_xpath "//select[@id='marketing_task_marketing_project_id']/option[@value='#{@closed_project.id}']"
       end
 
-      it "should filter the selection of open projects after selecting the brand"
-      it "should redirect to the selected project (if any) after creating the task"
+      # it "should filter the selection of open projects after selecting the brand"
+      # it "should redirect to the selected project (if any) after creating the task"
 
       it "should not assign to others" do 
         wont_have_content "Worker"
@@ -102,6 +104,7 @@ describe "Marketing Tasks Integration Test" do
       it "should offer to assign task to oneself" do
         fill_in :marketing_task_name, with: "Pet the dog"
         fill_in :marketing_task_due_on, with: 2.weeks.from_now.to_s
+        select @digitech.name, from: :marketing_task_brand_id
         must_have_content "Assign to me"
         check "marketing_task_assign_to_me"
         click_on "Create Marketing task"

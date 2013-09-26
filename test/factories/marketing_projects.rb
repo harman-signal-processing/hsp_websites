@@ -6,6 +6,7 @@ FactoryGirl.define do
     brand
     user
     marketing_project_type
+    due_on 1.month.from_now
     event_start_on 1.month.from_now
     event_end_on 2.months.from_now
     targets "MyString"

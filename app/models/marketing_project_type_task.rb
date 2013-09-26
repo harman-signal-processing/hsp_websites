@@ -17,7 +17,7 @@ class MarketingProjectTypeTask < ActiveRecord::Base
   # the due date for the new task.
   #
   def generate_task(options)
-  	marketing_project = options[:marketing_project] || MarketingProject.new
+  	marketing_project = options[:marketing_project] || MarketingProject.new(brand_id: 1)
 
   	due_on = 2.days.from_now # default
   	if marketing_project.due_on.present?
@@ -29,7 +29,8 @@ class MarketingProjectTypeTask < ActiveRecord::Base
 
   	MarketingTask.new(
   		due_on: due_on,
-  		name: self.name
+  		name: self.name,
+      brand_id: marketing_project.brand_id
   	)
   end
 
