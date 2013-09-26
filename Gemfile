@@ -60,6 +60,7 @@ gem 'money-rails'
 gem 'will_paginate'
 # gem 'rack-rewrite'
 gem "bing_translator", "~> 3.2.0"
+gem "possessive"
 
 ### Could be useful in the future...
 # gem "bing_translate_yaml", "~> 0.1.7" 

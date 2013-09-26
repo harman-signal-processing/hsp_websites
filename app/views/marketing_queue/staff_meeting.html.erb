@@ -1,4 +1,3 @@
-<p><small>Nothing for <%=raw @sleeper_brands.map{|b| link_to(b.name, [:marketing_queue, b])}.join(", ") %></small></p>
 
 <% @active_brands.each do |brand| %>
 	<div class='container'>
@@ -36,7 +35,11 @@
 												worker: (marketing_task.worker) ? marketing_task.worker.name : 'Unassigned',
 												due_on: I18n.l(marketing_task.due_on, format: :short)
 											} %>
-									<%= link_to marketing_task.name, can?(:manage, marketing_task) ? edit_marketing_queue_marketing_task_path(marketing_task) : [:marketing_queue, marketing_task] %></td>
+									<%= link_to marketing_task.name, can?(:manage, marketing_task) ? edit_marketing_queue_marketing_task_path(marketing_task) : [:marketing_queue, marketing_task] %>
+									<% if can? :destroy, marketing_task %>
+										<%= link_to(image_tag('trash.gif'), [:marketing_queue, marketing_task], confirm: "Are you sure?", method: :delete, remote: true) %>
+									<% end %>
+								</td>
 								<td width="18%" id="worker-<%= marketing_task.id %>">
 									<% if marketing_task.worker %>
 										<%= marketing_task.worker.name %>
@@ -75,6 +78,9 @@
 												due_on: I18n.l(marketing_task.due_on, format: :short)
 											} %>
 										<%= marketing_task.name %>
+										<% if can? :destroy, marketing_task %>
+											<%= link_to(image_tag('trash.gif'), [:marketing_queue, marketing_task], confirm: "Are you sure?", method: :delete, remote: true) %>
+										<% end %>
 									</td>
 									<td id="worker-<%= marketing_task.id %>"><% if marketing_task.worker %>
 											<%= marketing_task.worker.name %>
@@ -94,4 +100,4 @@
 	</div>
 <% end %>
 
-
+<p><small>(Nothing for <%=raw @sleeper_brands.map{|b| link_to(b.name, [:marketing_queue, b])}.join(", ") %>.)</small></p>

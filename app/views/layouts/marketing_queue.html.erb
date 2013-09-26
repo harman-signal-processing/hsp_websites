@@ -62,7 +62,7 @@
               <li class="has-dropdown"><%= link_to "Peeps" %>
                 <ul class="dropdown">
                   <% User.marketing_staff.each do |m_user| %>
-                  <li><%= link_to m_user.name, marketing_queue_user_workload_path(m_user) %></li>
+                  <li><%= link_to m_user.name, user_workload_path(m_user) %></li>
                   <% end %>
                 </ul>
               </li>

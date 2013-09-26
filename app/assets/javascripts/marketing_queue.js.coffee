@@ -49,7 +49,6 @@ class Completer
 		@project_task_counter = $("#task-counter-#{ @project_id }")
 		@project_completed_count = @project_task_counter.data('completedcount')
 		@project_incomplete_count = @project_task_counter.data('incompletecount')
-		#alert("Before: completed count: #{@project_completed_count}, incomplete count: #{@project_incomplete_count}")
 		if @checkbox.hasClass('completer')
 			@project_completed_count += 1
 			@project_incomplete_count -= 1
@@ -59,7 +58,6 @@ class Completer
 		@project_task_counter.data('completedcount', @project_completed_count)
 		@project_task_counter.data('incompletecount', @project_incomplete_count)
 		@update_progress
-		#alert("After: completed count: #{@project_completed_count}, incomplete count: #{@project_incomplete_count}")
 
 	complete: ->
 		@checkbox.removeClass('completer').addClass('incompleter')

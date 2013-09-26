@@ -16,9 +16,9 @@ class MarketingProject < ActiveRecord::Base
   belongs_to :brand 
   belongs_to :user 
   belongs_to :marketing_project_type 
-  has_many :marketing_tasks, order: :position
-  has_many :marketing_attachments, order: "created_at DESC"
-  has_many :marketing_comments
+  has_many :marketing_tasks, dependent: :destroy, order: :position
+  has_many :marketing_attachments, dependent: :destroy, order: "created_at DESC"
+  has_many :marketing_comments, dependent: :destroy
   validates :name, presence: :true
   validates :brand_id, presence: :true
   validates :user_id, presence: true

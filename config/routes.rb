@@ -43,6 +43,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
   constraints(QueueDomain) do 
     match '/' => 'marketing_queue#index', as: :marketing_queue_root
     get 'staff_meeting' => 'marketing_queue#staff_meeting'
+    get 'user_workload/:id' => 'marketing_queue#workload', as: :user_workload
     devise_for :marketing_queue_users, 
       path: "users",
       class_name: "User", 
@@ -69,7 +70,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
           get :toggle
         end
       end
-      get 'workload/:id' => 'marketing_queue#workload', as: :user_workload
     end
   end
 

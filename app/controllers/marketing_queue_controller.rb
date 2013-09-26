@@ -26,8 +26,6 @@ class MarketingQueueController < ApplicationController
   # Shows a give user's activities--useful for managers to see who's doing what.
   def workload
     @user = User.find(params[:id])
-    @nameses = "#{@user.name}'s"
-    #render text: "Hi"
   end
 
 private
