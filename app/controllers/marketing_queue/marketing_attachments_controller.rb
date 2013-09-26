@@ -28,6 +28,14 @@ class MarketingQueue::MarketingAttachmentsController < MarketingQueueController
     end
 	end
 
+  def destroy
+    @marketing_attachment.destroy
+    respond_to do |format|
+      format.html { redirect_to [:marketing_queue, @marketing_attachment.marketing_project]}
+      format.js
+    end
+  end
+
   private
 
   def load_brand_if_present

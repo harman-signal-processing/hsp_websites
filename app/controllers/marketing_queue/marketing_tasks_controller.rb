@@ -91,6 +91,7 @@ class MarketingQueue::MarketingTasksController < MarketingQueueController
     @marketing_task.destroy
     respond_to do |format|
       format.html { redirect_to [:marketing_queue, redirect_path] }
+      format.js
     end
   end
 

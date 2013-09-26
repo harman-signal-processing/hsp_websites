@@ -118,12 +118,14 @@
 	<p><%= link_to_function "new photo",
 	 		"$('#new_photo_form').show();$('#new_mm_form').hide();$('#new_swf_form').hide();",
 	 		class: "new button" %>
+	   <% if can? :mangle, Product %>
 	   <%= link_to_function "new audio/video", 
 			"$('#new_photo_form').hide();$('#new_mm_form').show();$('#new_swf_form').hide();",
 			class: "new button" %>
 	   <%= link_to_function "new swf (flash)", 
 			"$('#new_photo_form').hide();$('#new_mm_form').hide();$('#new_swf_form').show();",
 			class: "new button" %>
+		<% end %>
 	</p>
 	<% end %>
 	<div id="new_photo_form" style="display: none;">
@@ -134,6 +136,7 @@
 	<% end %>
 	</div>
 	
+	<% if can? :mangle, Product %>
 	<div id="new_mm_form" style="display: none;">
 		<%= form_for [:admin, @product_attachment], html: {multipart: true} do |f| %>
 			<%= f.hidden_field :product_id %>
@@ -156,6 +159,7 @@
 			<%= submit_tag "upload" %> <%= link_to_function "cancel", "$('#new_swf_form').hide()"%>
 		<% end %>
 	</div>	
+	<% end %>
 	
 	<ul id="product_attachments" class="sortable_list">
 		<% @product.product_attachments.each do |pa| %>

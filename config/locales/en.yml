@@ -364,6 +364,7 @@ en:
       rso_page: RSO Site Page
       rso_navigation: RSO Site Navigation Element
       marketing_project_type: Project Template
+      marketing_attachment: Attachment
 
     attributes:
       warranty_registration:

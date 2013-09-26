@@ -73,6 +73,13 @@ class MarketingQueue::MarketingProjectsController < MarketingQueueController
     end
   end
 
+  def destroy
+    @marketing_project.destroy
+    respond_to do |format|
+      format.html { redirect_to([:marketing_queue, @marketing_project.brand], notice: 'The project was deleted.') }
+    end
+  end
+
   private
 
   def load_brand_if_present

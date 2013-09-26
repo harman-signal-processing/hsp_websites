@@ -1,9 +1,9 @@
 <div class="main-container">
-	<h2><%= @nameses %> Workload</h2>
+	<h2><%= @user.name.possessive %> Workload</h2>
 
 	<div class="row">
 		<div class="small-12 large-9 columns">
-			<h4 class="subheader"><%= @nameses %> Open Tasks</h4>
+			<h4 class="subheader"><%= @user.name.possessive %> Open Tasks</h4>
 			<table style="width: 100%" id='incomplete-tasks'>
 				<thead>
 					<tr>
