@@ -22,7 +22,7 @@ class MarketingProject < ActiveRecord::Base
   validates :name, presence: :true
   validates :brand_id, presence: :true
   validates :user_id, presence: true
-  validates :due_on, presence: true, if: :needs_due_date?
+  validates :due_on, presence: true #, if: :needs_due_date?
   before_create :setup_from_template
 
   def setup_from_template
@@ -33,9 +33,10 @@ class MarketingProject < ActiveRecord::Base
   	end
   end
 
-  def needs_due_date?
-  	self.marketing_project_type_id.present? && self.marketing_project_type.marketing_project_type_tasks.count > 0
-  end
+  # Always needs a due date
+  # def needs_due_date?
+  # 	self.marketing_project_type_id.present? && self.marketing_project_type.marketing_project_type_tasks.count > 0
+  # end
 
   def self.open
     project_ids = MarketingTask.open.where("marketing_project_id > 0").pluck(:marketing_project_id).uniq

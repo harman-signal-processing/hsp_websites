@@ -43,6 +43,7 @@ describe "Marketing Projects Integration Test" do
         fill_in :marketing_project_name, with: "Build the death star"
         must_have_select "marketing_project_brand_id"
         select @digitech.name, from: "marketing_project_brand_id"
+        fill_in :marketing_project_due_on, with: 2.weeks.from_now.to_s
         click_on "Create Marketing project"
         MarketingProject.last.brand_id.must_equal @digitech.id
       end
@@ -87,10 +88,10 @@ describe "Marketing Projects Integration Test" do
     end
   end
 
-  describe "View project" do 
-    it "should show tasks to-do"
-    it "should show completed tasks"
-  end
+  # describe "View project" do 
+  #   it "should show tasks to-do"
+  #   it "should show completed tasks"
+  # end
 
   describe "Converting a project to a template" do 
     before do

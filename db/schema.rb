@@ -33,10 +33,7 @@ ActiveRecord::Schema.define(:version => 20130920153051) do
     t.datetime "amp_image_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "slug"
   end
-
-  add_index "amp_models", ["slug"], :name => "index_amp_models_on_slug", :unique => true
 
   create_table "api_keys", :force => true do |t|
     t.string   "access_token"
@@ -155,12 +152,10 @@ ActiveRecord::Schema.define(:version => 20130920153051) do
     t.text     "body"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.string   "slug"
   end
 
   add_index "blog_articles", ["author_id"], :name => "index_blog_articles_on_author_id"
   add_index "blog_articles", ["blog_id"], :name => "index_blog_articles_on_blog_id"
-  add_index "blog_articles", ["slug"], :name => "index_blog_articles_on_slug", :unique => true
 
   create_table "blogs", :force => true do |t|
     t.string   "name"
@@ -168,11 +163,9 @@ ActiveRecord::Schema.define(:version => 20130920153051) do
     t.integer  "default_article_id"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
-    t.string   "slug"
   end
 
   add_index "blogs", ["brand_id"], :name => "index_blogs_on_brand_id"
-  add_index "blogs", ["slug"], :name => "index_blogs_on_slug", :unique => true
 
   create_table "brand_dealers", :force => true do |t|
     t.integer  "brand_id"
