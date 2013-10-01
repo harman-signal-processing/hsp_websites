@@ -56,6 +56,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       }
     namespace :marketing_queue do
       resources :brands do 
+        get '/calendar(/:year(/:month))' => 'brands#index', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}
         resources :marketing_projects, :marketing_tasks
       end
       resources :marketing_projects do 

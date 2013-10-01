@@ -63,7 +63,7 @@ GEM
     chronic (0.10.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
-    cocaine (0.5.1)
+    cocaine (0.5.2)
       climate_control (>= 0.0.3, < 1.0)
     coderay (1.0.9)
     coffee-rails (3.2.2)
@@ -89,10 +89,11 @@ GEM
       warden (~> 1.2.1)
     dynamic_form (1.1.4)
     erubis (2.7.0)
+    event-calendar (2.3.3)
     exception_notification (4.0.1)
       actionmailer (>= 3.0.4)
       activesupport (>= 3.0.4)
-    execjs (2.0.1)
+    execjs (2.0.2)
     factory_girl (4.2.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.2.1)
@@ -170,7 +171,7 @@ GEM
       minitest (>= 2.3.1)
     mocha (0.14.0)
       metaclass (~> 0.0.1)
-    moneta (0.7.19)
+    moneta (0.7.20)
     money (5.1.1)
       i18n (~> 0.6.0)
     money-rails (0.8.1)
@@ -258,7 +259,7 @@ GEM
     riddle (1.5.8)
     ruby-ole (1.2.11.7)
     rubyzip (1.0.0)
-    sass (3.2.10)
+    sass (3.2.11)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -351,6 +352,7 @@ DEPENDENCIES
   delayed_job_active_record
   devise (~> 2.2.4)
   dynamic_form
+  event-calendar
   exception_notification
   execjs
   factory_girl_rails

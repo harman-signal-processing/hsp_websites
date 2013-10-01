@@ -290,4 +290,8 @@ class Brand < ActiveRecord::Base
     MarketingProject.open.where(brand_id: self.id)
   end
 
+  def event_strips_for_month(shown_month)
+    marketing_projects.event_strips_for_month(shown_month)
+  end
+
 end

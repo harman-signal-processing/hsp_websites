@@ -13,6 +13,7 @@
 #
 class MarketingProject < ActiveRecord::Base
   attr_accessible :brand_id, :estimated_cost, :due_on, :event_end_on, :event_start_on, :marketing_project_type_id, :name, :targets, :targets_progress
+  has_event_calendar start_at_field: 'event_start_on', end_at_field: 'event_end_on'
   belongs_to :brand 
   belongs_to :user 
   belongs_to :marketing_project_type 
