@@ -74,4 +74,8 @@ class MarketingProject < ActiveRecord::Base
     @incomplete_marketing_tasks ||= marketing_tasks.where("completed_at IS NULL OR completed_at > ?", Date.tomorrow)
   end
 
+  def participants
+    ([user] + marketing_tasks.where("worker_id > 0").map{|t| t.worker}).uniq
+  end
+
 end

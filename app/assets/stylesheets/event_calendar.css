@@ -64,6 +64,7 @@ th.ec-day-name {
   font-weight: normal;
   color: white;
   padding: 0;
+  padding-bottom: 5px;
 }
 
 /* Rows container and Row */

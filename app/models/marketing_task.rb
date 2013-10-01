@@ -38,4 +38,8 @@ class MarketingTask < ActiveRecord::Base
     where("completed_at IS NULL or completed_at = ''")
   end
 
+  def self.unassigned
+    where("worker_id IS NULL or worker_id < 1")
+  end
+
 end
