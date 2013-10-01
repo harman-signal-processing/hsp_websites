@@ -7,6 +7,12 @@ class MarketingQueue::BrandsController < MarketingQueueController
 	end
 
 	def show
+		# Set up the calendar
+		@start_on = params[:start_on] || 1.week.ago
+    @end_on = params[:end_on] || 6.months.from_now
+    @start_on = @start_on.to_date
+    @end_on = @end_on.to_date
+
 		@current_marketing_projects = MarketingProject.open.where(brand_id: @brand.id)
 		@completed_marketing_projects = MarketingProject.closed.where(brand_id: @brand.id).order("due_on DESC, event_end_on DESC").limit(10)
 		@incomplete_marketing_tasks = MarketingTask.open.where(brand_id: @brand.id).where("marketing_project_id IS NULL or marketing_project_id = ''").order("due_on ASC")

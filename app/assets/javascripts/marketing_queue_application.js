@@ -6,4 +6,5 @@
 //= require raphael.min
 //= require morris.min
 //= require marketing_queue
+//= require event_calendar
 //= require_tree ./marketing_queue/
