@@ -47,7 +47,7 @@
 					<%= link_to marketing_task.name, edit_marketing_queue_marketing_task_path(marketing_task) %>
 
 					<% if marketing_task.due_on.present? %>
-						<i>Due: <%=l marketing_task.due_on, format: :short %></i>
+						<i class="<%= "red" if marketing_task.late? %>">Due: <%=l marketing_task.due_on, format: :short %></i>
 					<% end %>
 
 					<% if can? :destroy, marketing_task %>
@@ -68,7 +68,7 @@
 					<%= link_to marketing_task.name, [:marketing_queue, marketing_task] %>
 					
 					<% if marketing_task.due_on.present? %>
-						<i>Due: <%=l marketing_task.due_on, format: :short %></i>
+						<i class="<%= "red" if marketing_task.late? %>">Due: <%=l marketing_task.due_on, format: :short %></i>
 					<% end %>
 					<div class="assigned" id="worker-<%= marketing_task.id %>">
 					<% if marketing_task.worker %>

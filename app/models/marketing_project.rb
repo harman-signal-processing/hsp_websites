@@ -50,11 +50,11 @@ class MarketingProject < ActiveRecord::Base
   end
 
   def self.ending
-    open.order("due_on DESC, event_end_on DESC")
+    open.order("due_on ASC, event_end_on ASC")
   end
 
   def self.newest
-    order("created_at ASC")
+    order("created_at DESC")
   end
 
   # TODO: Need a better way to compute project percent complete
