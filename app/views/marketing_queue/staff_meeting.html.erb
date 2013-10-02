@@ -47,7 +47,7 @@
 										<%= render 'marketing_queue/marketing_tasks/inline_assign', marketing_task: marketing_task %>
 									<% end %>
 								</td>
-								<td width="18%"><%=l marketing_task.due_on, format: :short %></td>
+								<td width="18%"><span class="<%= "red" if marketing_task.late? %>"><%=l marketing_task.due_on, format: :short %></span></td>
 								<td width="18%">&nbsp;</td>
 							</tr>
 						</tbody>
@@ -88,7 +88,7 @@
 											<%= render 'marketing_queue/marketing_tasks/inline_assign', marketing_task: marketing_task %>
 										<% end %>
 									</td>
-									<td colspan="2"><%=l marketing_task.due_on, format: :short %></td>
+									<td colspan="2"><span class="<%= "red" if marketing_task.late? %>"><%=l marketing_task.due_on, format: :short %></span></td>
 								</tr>
 							<% end %>
 						</tbody>

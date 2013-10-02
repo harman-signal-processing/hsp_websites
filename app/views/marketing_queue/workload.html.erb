@@ -43,7 +43,7 @@
 						</td>
 						<td></td>
 						<% end %>
-						<td class='date'><%=l marketing_task.due_on, format: :short %></td>
+						<td class='date'><span class="<%= "red" if marketing_task.late? %>"><%=l marketing_task.due_on, format: :short %></span></td>
 					</tr>
 				<% end %>
 				</tbody>

@@ -42,4 +42,8 @@ class MarketingTask < ActiveRecord::Base
     where("worker_id IS NULL or worker_id < 1")
   end
 
+  def late?
+    completed_at.blank? && due_on < Date.today
+  end
+
 end
