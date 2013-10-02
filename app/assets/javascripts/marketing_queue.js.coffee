@@ -19,6 +19,10 @@ jQuery ($) ->
 			element: 'overview'
 			data: $('#overview').data('brands')
 
+	$('a#toggle-formatting').click (e) ->
+		e.preventDefault()
+		$('div#formatting-tips').toggle()
+
 	$('input.completer').prop("checked", false).each -> new Completer(@) 
 	$('input.incompleter').prop("checked", true).each -> new Completer(@)
 
