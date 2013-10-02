@@ -1,6 +1,7 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    RedCloth (4.2.9)
     actionmailer (3.2.14)
       actionpack (= 3.2.14)
       mail (~> 2.5.4)
@@ -336,6 +337,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  RedCloth
   acts_as_list
   acts_as_tree
   api_cache

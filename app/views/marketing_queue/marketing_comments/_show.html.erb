@@ -10,6 +10,6 @@
 	</div>
 	<div class="large-10 small-8 columns comment-content">
 		<h5><%= l marketing_comment.created_at, format: :long %></h5>
-		<p><%= marketing_comment.message %></p>
+		<%=raw textilize(marketing_comment.message) %>
 	</div>
 </div>

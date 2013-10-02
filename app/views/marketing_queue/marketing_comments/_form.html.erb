@@ -1,7 +1,48 @@
 
 <%= simple_form_for [:marketing_queue, @marketing_project, @marketing_comment] do |f| %>
-	<%= f.input :message, label: "Add your comment:" %>
+	<%= f.input :message, label: "Add your comment:", input_html: {style: "height: 120px"} %>
 	<%= f.submit "Comment", class: "button round small", style: "margin-top: 0px;" %>
 	<small>Comments are sent to all project participants: <%= @marketing_project.participants.map{|u| u.name}.join(", ") %></small>
 <% end %>
 
+<a href="#" id="toggle-formatting">show/hide formatting tips</a>
+
+<div id="formatting-tips" style="display: none;">
+	<h4 class="subheader">Formatting Tips:</h4>
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="panel">
+<pre>
+ h3. Sample header
+ 
+ * one
+ * two
+ 
+ # one
+ # two
+ 
+ The quick _brown_ *fox*
+ 
+ To learn more "click here":http://redcloth.org/textile
+</pre>
+			</div>
+		</div>
+		<div class="large-12 columns">
+			<p>(turns into this...)</p>
+			<%=raw textilize('h3. Sample header
+
+	* one
+	* two
+
+	# one
+	# two
+
+	The quick _brown_ *fox*
+
+	To learn more "click here":http://redcloth.org/textile') %>
+
+		</div>
+	</div>
+</div>
+
+<p>&nbsp;</p>

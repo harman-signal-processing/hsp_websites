@@ -62,6 +62,7 @@ gem 'will_paginate'
 gem "bing_translator", "~> 3.2.0"
 gem "possessive"
 gem 'event-calendar', :require => 'event_calendar'
+gem 'RedCloth'
 
 ### Could be useful in the future...
 # gem "bing_translate_yaml", "~> 0.1.7" 
