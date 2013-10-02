@@ -11,7 +11,7 @@ module MarketingQueue::BrandsHelper
       month: @month,
       event_strips: @event_strips,
       month_name_text: I18n.localize(@shown_month, :format => "%B %Y"),
-      height: 400,
+      height: 500,
       previous_month_text: nil, #"<< " + month_link(@shown_month.prev_month),
       next_month_text: nil #month_link(@shown_month.next_month) + " >>"
     }
