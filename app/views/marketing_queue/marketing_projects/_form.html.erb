@@ -18,7 +18,7 @@
 
 	<div class="row">
 		<div class="large-6 columns">
-			<%= f.input :estimated_cost %>
+			<%= f.input :estimated_cost, as: :string, hint: "Numbers only (decimal okay)" %>
 		</div>
 		<div class="large-6 columns">
 			<%= f.input :due_on, as: :string, input_html: { class: 'ui-datepicker' } %>
