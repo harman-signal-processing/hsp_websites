@@ -17,7 +17,7 @@ class MarketingProject < ActiveRecord::Base
   belongs_to :brand 
   belongs_to :user 
   belongs_to :marketing_project_type 
-  has_many :marketing_tasks, dependent: :destroy, order: :position
+  has_many :marketing_tasks, dependent: :destroy
   has_many :marketing_attachments, dependent: :destroy, order: "created_at DESC"
   has_many :marketing_comments, dependent: :destroy
   validates :name, presence: :true
@@ -41,7 +41,7 @@ class MarketingProject < ActiveRecord::Base
 
   def self.open
     project_ids = MarketingTask.open.where("marketing_project_id > 0").pluck(:marketing_project_id).uniq
-    where("id IN (?) OR event_end_on >= ? OR due_on >= ?", project_ids, 1.day.ago, 1.day.ago)
+    where("id IN (?) OR event_end_on >= ? OR due_on >= ?", project_ids, 1.day.ago, 1.day.ago).order("due_on ASC")
   end
 
   def self.closed
@@ -57,7 +57,6 @@ class MarketingProject < ActiveRecord::Base
     order("created_at DESC")
   end
 
-  # TODO: Need a better way to compute project percent complete
   def percent_complete
     if completed_marketing_tasks.count > 0
       ( completed_marketing_tasks.count.to_f / marketing_tasks.count.to_f ) * 100.0
@@ -67,11 +66,11 @@ class MarketingProject < ActiveRecord::Base
   end
 
   def completed_marketing_tasks
-    @completed_marketing_tasks ||= marketing_tasks.where("completed_at IS NOT NULL AND completed_at <= ?", Date.tomorrow)
+    @completed_marketing_tasks ||= marketing_tasks.where("completed_at IS NOT NULL AND completed_at <= ?", Date.tomorrow).order("completed_at DESC")
   end
 
   def incomplete_marketing_tasks
-    @incomplete_marketing_tasks ||= marketing_tasks.where("completed_at IS NULL OR completed_at > ?", Date.tomorrow)
+    @incomplete_marketing_tasks ||= marketing_tasks.where("completed_at IS NULL OR completed_at > ?", Date.tomorrow).order("due_on ASC")
   end
 
   def participants

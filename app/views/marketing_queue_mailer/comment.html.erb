@@ -1,0 +1,5 @@
+<p>Just posted on the marketing queue for the <%= @marketing_project.brand.name %> project: <%= link_to @marketing_project.name, marketing_queue_marketing_project_url(@marketing_project, host: HarmanSignalProcessingWebsite::Application.config.queue_url) %>:</p>
+
+<p>From: <%= @marketing_comment.user.name %></p>
+
+<%=raw textilize(@marketing_comment.message) %>

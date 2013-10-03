@@ -29,7 +29,7 @@ class MarketingQueue::MarketingProjectsController < MarketingQueueController
   end
 
   def show
-    @marketing_task = MarketingTask.new(marketing_project_id: @marketing_project.id, brand_id: @marketing_project.brand_id)
+    @marketing_task = MarketingTask.new(marketing_project_id: @marketing_project.id, brand_id: @marketing_project.brand_id, due_on: @marketing_project.due_on)
     @marketing_attachment = MarketingAttachment.new(marketing_project_id: @marketing_project.id)
     @marketing_comment = MarketingComment.new
   end

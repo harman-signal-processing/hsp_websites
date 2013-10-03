@@ -114,7 +114,7 @@
 				<div class="assigned">
 					Completed 
 						<% if marketing_task.worker %>by: <%= marketing_task.worker.name %><% end %>
-						on <%=l marketing_task.due_on, format: :short %>
+						on <%=l marketing_task.completed_at.to_date, format: :short %>
 				</div>
 			</li>
 		<% end %>
@@ -183,7 +183,7 @@
 
 		<div class="tip" style="margin-top: 30px;">
 			<p>Guess what. Projects are "complete" if there are no
-				incomplete tasks AND the project's due date has
+				incomplete tasks AND the project's due date and event date has
 				past.</p>
 		</div>
 	</div>
