@@ -54,8 +54,8 @@
 					<% end %>
 					<% end %>
 
-					<% if brand.open_marketing_projects.count > 0 %>
-						<% brand.open_marketing_projects.each do |marketing_project| %>
+					<% if brand.open_marketing_projects_with_tasks.count > 0 %>
+						<% brand.open_marketing_projects_with_tasks.each do |marketing_project| %>
 						<thead>
 							<tr id="task-counter-<%= marketing_project.id %>" data-completedcount="<%= marketing_project.completed_marketing_tasks.count %>" data-incompletecount="<%= marketing_project.incomplete_marketing_tasks.count %>">
 								<th colspan="2">Project: <%= link_to marketing_project.name, [:marketing_queue, marketing_project] %></th>

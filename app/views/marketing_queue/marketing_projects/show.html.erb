@@ -190,14 +190,14 @@
 </div>
 
 <%= content_for :modals do %>
-	<div id="new_attachment_modal" class="reveal-modal medium">
+	<div id="new_attachment_modal" class="reveal-modal small">
 		<h3>Attach A File:</h3>
 		<%= render 'marketing_queue/marketing_attachments/form' %>
 		<a class="close-reveal-modal">&#215;</a>
 	</div>
 
 	<% if can? :create, MarketingTask %>
-	<div id="new_task_modal" class="reveal-modal medium">
+	<div id="new_task_modal" class="reveal-modal small">
 		<h3>New Task:</h3>
 		<%= render 'marketing_queue/marketing_tasks/form' %>
 		<a class="close-reveal-modal">&#215;</a>

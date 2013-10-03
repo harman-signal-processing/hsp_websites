@@ -135,13 +135,14 @@ $primary-color: #1f609f;
 //
 
 // Heading font styles
+@import url(http://fonts.googleapis.com/css?family=Sintony);
 
-// $header-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$header-font-family: "Sintony", Times, "Times New Roman", serif;
 // $header-font-weight: normal;
 // $header-font-style: normal;
 $header-font-color: #1d150f;
 // $header-line-height: 1.4;
-// $header-top-margin: .2em;
+$header-top-margin: .4em;
 // $header-bottom-margin: .5em;
 // $header-text-rendering: optimizeLegibility;
 

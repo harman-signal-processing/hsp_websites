@@ -38,6 +38,10 @@ class MarketingTask < ActiveRecord::Base
     where("completed_at IS NULL or completed_at = ''")
   end
 
+  def self.open_project_ids
+    open.where("marketing_project_id > 0").pluck(:marketing_project_id).uniq
+  end
+
   def self.unassigned
     where("worker_id IS NULL or worker_id < 1")
   end

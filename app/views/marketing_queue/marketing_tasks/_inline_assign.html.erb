@@ -7,12 +7,12 @@
 	  <p class="lead"><%= marketing_task.name %></p>
 	  <%= simple_form_for [:marketing_queue, marketing_task], remote: true do |f| %>
 	  	<%= f.association :worker, collection: User.marketing_staff %>
-	  	<%= f.submit class: "small button round" %>
+	  	<%= f.submit class: "button round" %>
 	  <% end %>
 	  <a class="close-reveal-modal">&#215;</a>
 	</div>
 	<% end %>
-	
+
 <% else %>
 	<span class="alert round label">Unassigned</span>
 <% end %>
