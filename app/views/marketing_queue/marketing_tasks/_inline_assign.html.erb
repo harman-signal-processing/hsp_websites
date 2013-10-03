@@ -1,5 +1,7 @@
 <% if can? :assign, marketing_task %>
 	<span class="alert round label"><%= link_to "Unassigned", edit_marketing_queue_marketing_task_path(marketing_task), data: { "reveal-id" => "assign-task-#{ marketing_task.id }"} %></span>
+
+	<%= content_for :modals do %>
 	<div id="assign-task-<%= marketing_task.id %>" class="reveal-modal small">
 	  <h2>Assign Task</h2>
 	  <p class="lead"><%= marketing_task.name %></p>
@@ -9,6 +11,8 @@
 	  <% end %>
 	  <a class="close-reveal-modal">&#215;</a>
 	</div>
+	<% end %>
+	
 <% else %>
 	<span class="alert round label">Unassigned</span>
 <% end %>
