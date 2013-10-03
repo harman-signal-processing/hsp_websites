@@ -15,7 +15,7 @@ class MarketingQueueController < ApplicationController
     @sleeper_brands = []
 
     Brand.where(queue: true).order("UPPER(name)").each do |brand|
-      if brand.marketing_tasks.where(marketing_project_id: nil, completed_at: nil).count > 0 || brand.open_marketing_projects.count > 0 
+      if brand.marketing_tasks.where(marketing_project_id: nil, completed_at: nil).count > 0 || brand.open_marketing_projects_with_tasks.count > 0 
         @active_brands << brand 
       else
         @sleeper_brands << brand

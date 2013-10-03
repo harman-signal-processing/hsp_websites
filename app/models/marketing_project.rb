@@ -40,17 +40,19 @@ class MarketingProject < ActiveRecord::Base
   # end
 
   def self.open
-    project_ids = MarketingTask.open.where("marketing_project_id > 0").pluck(:marketing_project_id).uniq
-    where("id IN (?) OR event_end_on >= ? OR due_on >= ?", project_ids, 1.day.ago, 1.day.ago).order("due_on ASC")
+    where("id IN (?) OR event_end_on >= ? OR due_on >= ?", MarketingTask.open_project_ids, 1.day.ago, 1.day.ago).order("due_on ASC")
+  end
+
+  def self.open_with_tasks
+    where("id IN (?)", MarketingTask.open_project_ids).order("due_on ASC")
   end
 
   def self.closed
-    project_ids = MarketingTask.open.where("marketing_project_id > 0").pluck(:marketing_project_id).uniq
-    where("id NOT IN (?)", project_ids).where("event_end_on < ? OR due_on < ?", 1.day.ago, 1.day.ago)
+    where("id NOT IN (?)", MarketingTask.open_project_ids).where("event_end_on < ? OR due_on < ?", 1.day.ago, 1.day.ago)
   end
 
   def self.ending
-    open.order("due_on ASC, event_end_on ASC")
+    open_with_tasks.order("due_on ASC, event_end_on ASC")
   end
 
   def self.newest
