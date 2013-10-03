@@ -1,5 +1,5 @@
 Hi. Here's what's happening on the Marketing Queue:
-http://marketingqueue.harmanpro.com
+<%= "http://#{HarmanSignalProcessingWebsite::Application.config.queue_url}" %>
 
 <% if @user.role?(:queue_admin) && @unassigned_tasks.count > 0 %>
 Unassigned tasks:

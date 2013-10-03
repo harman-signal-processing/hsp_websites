@@ -1,0 +1,60 @@
+<p>Hi. Here's what's happening on the
+<%= link_to "Marketing Queue", "http://#{HarmanSignalProcessingWebsite::Application.config.queue_url}" %>:</p>
+
+<% if @user.role?(:queue_admin) && @unassigned_tasks.count > 0 %>
+	<h3>Unassigned tasks:</h3>
+	<ul>
+	<% @unassigned_tasks.each do |marketing_task| %>
+		<% if marketing_task.marketing_project %>
+		 	<li><%= link_to marketing_task.name, marketing_queue_marketing_project_url(marketing_task.marketing_project, host: HarmanSignalProcessingWebsite::Application.config.queue_url) %> (<%= marketing_task.brand.name %>: <%= marketing_task.marketing_project.name %>)<br/>
+		     <i>due: <%= I18n.l marketing_task.due_on, format: :long %></i></li>
+		<% else %>
+		 	<li><%= link_to marketing_task.name, marketing_queue_marketing_task_url(marketing_task, host: HarmanSignalProcessingWebsite::Application.config.queue_url) %> (<%= marketing_task.brand.name %>)<br/>
+		     <i>due: <%= I18n.l marketing_task.due_on, format: :long %></i></li>
+		<% end %>
+	<% end %>
+	</ul>
+<% end %>
+
+<% if @my_tasks.count > 0 %>
+	<h3>Here are tasks assigned to you:</h3>
+	<ul>
+	<% @my_tasks.each do |marketing_task| %>
+		<% if marketing_task.marketing_project %>
+		 	<li><%= link_to marketing_task.name, marketing_queue_marketing_project_url(marketing_task.marketing_project, host: HarmanSignalProcessingWebsite::Application.config.queue_url) %> (<%= marketing_task.brand.name %>: <%= marketing_task.marketing_project.name %>)<br/>
+		     <i>due: <%= I18n.l marketing_task.due_on, format: :long %></i></li>
+		<% else %>
+		 	<li><%= link_to marketing_task.name, marketing_queue_marketing_task_url(marketing_task, host: HarmanSignalProcessingWebsite::Application.config.queue_url) %> (<%= marketing_task.brand.name %>)<br/>
+		     <i>due: <%= I18n.l marketing_task.due_on, format: :long %></i></li>
+		<% end %>
+	<% end %>
+	</ul>
+<% end %>
+
+<% if @my_projects.count > 0 %>
+	<h3>Progress on your projects:</h3>
+	<ul>
+	<% @my_projects.each do |marketing_project| %>
+		<li><%= link_to marketing_project.name, marketing_queue_marketing_project_url(marketing_project, host: HarmanSignalProcessingWebsite::Application.config.queue_url) %> (<%= number_to_percentage marketing_project.percent_complete, precision: 0 %> complete)</li>
+	<% end %>
+	</ul>
+<% end %>
+
+<% if @new_projects.count > 0 %>
+	<h3>The latest new projects:</h3>
+	<ul>
+	<% @new_projects.each do |marketing_project| %>
+		<li><%= link_to "#{marketing_project.brand.name}: #{marketing_project.name}", marketing_queue_marketing_project_url(marketing_project, host: HarmanSignalProcessingWebsite::Application.config.queue_url) %> (<%= marketing_project.marketing_tasks.count %> tasks)
+		 <i>due: <%= I18n.l marketing_project.due_on, format: :long %></i></li>
+	<% end %>
+	</ul>
+<% end %>
+
+<% if @open_projects.length > 0 %>
+	<h3>ALL open projects:</h3>
+	<ul>
+	<% @open_projects.each do |marketing_project| %>
+		<li><%= link_to "#{marketing_project.brand.name}: #{marketing_project.name}", marketing_queue_marketing_project_url(marketing_project, host: HarmanSignalProcessingWebsite::Application.config.queue_url) %> (<%= number_to_percentage marketing_project.percent_complete, precision: 0 %> complete)</li>
+	<% end %>
+	</ul>
+<% end %>
