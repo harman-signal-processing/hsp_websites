@@ -1,7 +1,7 @@
 class MarketingQueue::MarketingCommentsController < MarketingQueueController
 	layout "marketing_queue"
 	load_resource :marketing_project
-	load_resource 
+	load_and_authorize_resource 
 
 	def create
     @marketing_comment.user_id = current_marketing_queue_user.id 
@@ -16,5 +16,13 @@ class MarketingQueue::MarketingCommentsController < MarketingQueueController
       end
     end
 	end
+
+  def destroy
+    @marketing_comment.destroy
+    respond_to do |format|
+      format.html { redirect_to([:marketing_queue, @marketing_comment.marketing_project])}
+      format.js
+    end
+  end
 
 end

@@ -157,7 +157,7 @@ $h6-font-size: 1em;
 // Subheaders
 
 // $subheader-line-height: 1.4;
-// $subheader-font-color: lighten($header-font-color, 30%);
+$subheader-font-color: lighten($header-font-color, 25%);
 // $subheader-font-weight: 300;
 // $subheader-top-margin: .2em;
 // $subheader-bottom-margin: .5em;
@@ -850,7 +850,7 @@ $button-lrg: emCalc(14px);
 
 // Background and border styles
 
-// $panel-bg: darken(#fff, 5%);
+$panel-bg: darken($body-bg, 5%);
 // $panel-border-style: solid;
 // $panel-border-size: 1px;
 
@@ -1127,19 +1127,19 @@ $button-lrg: emCalc(14px);
 // Background color for the table and even rows
 
 // $table-bg: #fff;
-// $table-even-row-bg: #f9f9f9;
+$table-even-row-bg: lighten($body-bg, 2%);
 
 // Table cell border style
 
 // $table-border-style: solid;
 // $table-border-size: 1px;
-// $table-border-color: #ddd;
+$table-border-color: lighten($header-font-color, 80%);
 
 // Table head styles
 
-// $table-head-bg: #f5f5f5;
+$table-head-bg: lighten($body-bg, 1%);
 // $table-head-font-size: emCalc(14px);
-// $table-head-font-color: #222;
+$table-head-font-color: $header-font-color;
 // $table-head-font-weight: bold;
 // $table-head-padding: emCalc(8px) emCalc(10px) emCalc(10px);
 

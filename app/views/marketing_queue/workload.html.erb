@@ -7,8 +7,8 @@
 			<table style="width: 100%" id='incomplete-tasks'>
 				<thead>
 					<tr>
-						<th>Task</th>
-						<th>Project</th>
+						<th width="50%">Task</th>
+						<th width="35%">Project</th>
 						<th>Due</th>
 					</tr>
 				</thead>
@@ -25,10 +25,10 @@
 										worker: marketing_task.worker.name,
 										due_on: I18n.l(marketing_task.due_on, format: :short)
 									} %>
-							<%= marketing_task.name %>
+							<%= marketing_task.name.truncate(60) %>
 						</td>
 						<td>
-							<%= link_to marketing_task.marketing_project.name, [:marketing_queue, marketing_task.marketing_project] %>
+							<%= link_to marketing_task.marketing_project.name.truncate(35), [:marketing_queue, marketing_task.marketing_project] %>
 						</td>
 						<% else %>
 						<td>
@@ -39,7 +39,7 @@
 										worker: marketing_task.worker.name,
 										due_on: I18n.l(marketing_task.due_on, format: :short)
 									} %>
-							<%= link_to marketing_task.name, can?(:manage, marketing_task) ? edit_marketing_queue_marketing_task_path(marketing_task) : [:marketing_queue, marketing_task] %>
+							<%= link_to marketing_task.name.truncate(60), can?(:manage, marketing_task) ? edit_marketing_queue_marketing_task_path(marketing_task) : [:marketing_queue, marketing_task] %>
 						</td>
 						<td></td>
 						<% end %>
@@ -53,8 +53,8 @@
 			<table style="width: 100%" id='completed-tasks'>
 				<thead>
 					<tr>
-						<th>Task</th>
-						<th>Project</th>
+						<th width="50%">Task</th>
+						<th width="35%">Project</th>
 						<th>Completed</th>
 					</tr>
 				</thead>
@@ -71,15 +71,15 @@
 										worker: marketing_task.worker.name,
 										due_on: I18n.l(marketing_task.due_on, format: :short)
 									} %>
-							<%= marketing_task.name %>
+							<%= marketing_task.name.truncate(60) %>
 						</td>
 						<td>
-							<%= link_to marketing_task.marketing_project.name, [:marketing_queue, marketing_task.marketing_project] %>
+							<%= link_to marketing_task.marketing_project.name.truncate(35), [:marketing_queue, marketing_task.marketing_project] %>
 						</td>
 						<% else %>
 						<td>
 							<%= check_box_tag marketing_task.id, marketing_task.id, true, class: 'incompleter', data: { task: marketing_task.id, name: marketing_task.name, worker: marketing_task.worker.name } %>
-							<%= link_to marketing_task.name, can?(:manage, marketing_task) ? edit_marketing_queue_marketing_task_path(marketing_task) : [:marketing_queue, marketing_task] %>
+							<%= link_to marketing_task.name.truncate(60), can?(:manage, marketing_task) ? edit_marketing_queue_marketing_task_path(marketing_task) : [:marketing_queue, marketing_task] %>
 						</td>
 						<td></td>
 						<% end %>
