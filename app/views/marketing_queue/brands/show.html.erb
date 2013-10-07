@@ -23,7 +23,7 @@
 				<tr>
 					<td><%=l marketing_project.due_on, format: :month_day %></td>
 					<td><%= link_to marketing_project.name, [:marketing_queue, marketing_project.brand, marketing_project] %></td>
-					<td><%=number_to_percentage marketing_project.percent_complete, precision: 1 %>
+					<td><%=number_to_percentage marketing_project.percent_complete, precision: 0 %>
 						<small><%= marketing_project.completed_marketing_tasks.count %>/<%= marketing_project.marketing_tasks.count %> tasks</small>
 					</td>
 				</tr>
