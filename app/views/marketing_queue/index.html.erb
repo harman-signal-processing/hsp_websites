@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="large-8 columns">
-		<div class="row">
+		<div class="row hide-for-small">
 			<div class="large-6 columns">
 				<h4 class="subheader">Newest Projects</h4>
 				<table style="width: 100%">
@@ -80,7 +80,36 @@
 					</tbody>
 				</table>
 
-				<h4 class="subheader">Recently Completed Tasks</h4>
+				<% if current_marketing_queue_user.role?(:queue_admin) && @unassigned_tasks.length > 0 %>
+					<h4 class="subheader">Unassigned Tasks</h4>
+					<table style="width: 100%" id='unassigned-tasks'>
+						<thead>
+							<tr>
+								<th width="50%">Task</th>
+								<th width="25%">Project</th>
+								<th>Assign</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% @unassigned_tasks.each do |marketing_task| %>
+							<tr id="task_row_<%= marketing_task.id %>">
+								<td><%= link_to marketing_task.name.truncate(40), edit_marketing_queue_marketing_task_path(marketing_task) %></td>
+								<td><% if marketing_task.marketing_project %>
+										<%= link_to marketing_task.marketing_project.name.truncate(20), [:marketing_queue, marketing_task.marketing_project] %>
+									<% else %>
+										n/a
+									<% end %>
+								</td>
+								<td id="worker-<%= marketing_task.id %>">
+									<%= render 'marketing_queue/marketing_tasks/inline_assign', marketing_task: marketing_task %>
+								</td>
+							</tr>
+							<% end %>
+						</tbody>
+					</table>
+				<% end %>
+
+				<h4 class="subheader">My Recently Completed Tasks</h4>
 				<table style="width: 100%" id='completed-tasks'>
 					<thead>
 						<tr>
@@ -119,6 +148,7 @@
 					<% end %>
 					</tbody>
 				</table>
+
 			</div>
 		</div>
 		</div>
