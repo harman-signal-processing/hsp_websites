@@ -85,6 +85,7 @@ set_meta_tags title: @product.name,
 		</ul>
 		<% end %>
 		<div id="description">
+			<%= render 'shared/add_this' %>
 			<%=raw translate_content(@product, :description) %>
 			<div style="font-size: 80%"><%=raw translate_content(@product, :extended_description) %></div>
 		</div>	
@@ -102,9 +103,9 @@ set_meta_tags title: @product.name,
 		<%= links_to_current_promotions(@product) %>
 		<%= draw_packaging_boxes @product %>
 		<%= draw_info_boxes @product %>
-		<%= render 'shared/add_this' %>
+		<%#= render 'shared/add_this' %>
 		<div>
-			<%= render_partial "shared/newsletter_signup" %>
+			<%#= render_partial "shared/newsletter_signup" %>
 		</div>
 	</div>
 	<div class="clear"></div>
