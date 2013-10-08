@@ -8,6 +8,7 @@ class MarketingQueueController < ApplicationController
   	@newest_projects = MarketingProject.newest.limit(6)
   	@ending_projects = MarketingProject.ending.limit(6)
 		@brands_projects_summary = { brands: Brand.where(queue: true).order("UPPER(name)").all.map{|b| {label: b.name, value: b.open_marketing_projects.count}}}
+    @unassigned_tasks = MarketingTask.unassigned.order("created_at ASC")
   end
 
   def staff_meeting  	
