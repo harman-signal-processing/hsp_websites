@@ -1,3 +1,4 @@
 $("td#worker-<%= @marketing_task.id %>").html("<%= @marketing_task.worker ? @marketing_task.worker.name : 'Unassigned' %>");
 $("div#worker-<%= @marketing_task.id %>").html("Assigned to: <%= @marketing_task.worker ? @marketing_task.worker.name : 'Unassigned' %>");
+$('#assign-task-<%= @marketing_task.id %>').foundation('reveal', 'close');
 $(".reveal-modal-bg").hide();
