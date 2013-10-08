@@ -539,7 +539,7 @@ div#product_content {
 				family: 'Scriber';
 				size: 40px;
 			}
-			text-align: right;
+			text-align: center;
 			color: #EEE;
 			background: #040437;
 			padding: 8px 6px 2px 6px;
@@ -550,6 +550,14 @@ div#product_content {
 		float: left;
 		text-align: center;
 		width: 556px;
+		#description {
+			margin: 14px 6px;
+			width: 534px;
+			p {
+				line-height: 1.66;
+				margin: 10px 0px;
+			}
+		}
 	}
 }
 ul#product_thumbnails {
@@ -697,9 +705,6 @@ div#sub_products {
 			color: #3d73aa; /*#040437;*/
 			background: #f1fbfe url(<%= image_path('digitech/tabbg.png') %>);
 			display: block;
-			-webkit-border-radius: 8px;
-			-moz-border-radius: 8px;
-			border-radius: 8px;
 			border: 1px solid #b5d4f3;
 			padding-left: 12px;
 			padding-top: 2px;
@@ -788,7 +793,7 @@ h2.special_offer {
 .product_tab_content {
 	border: 1px solid #b5d4f3;
 	padding: 10px;
-	width: 330px;
+	width: 353px;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: -1px;
@@ -797,15 +802,15 @@ h2.special_offer {
 }
 table.specs {
 	border-collapse: collapse;
-	margin-top: 15px;
+	margin-top: 10px;
 	margin-bottom: 10px;
-}
-table.specs td {
-	padding: 4px 10px;
-	border-bottom: 1px dotted #555;
-	&.name {
-		background: #222;
-		color: white;
+	td {
+		padding: 4px 10px;
+		border-bottom: 1px dotted #555;
+		&.name {
+			background: #aeaeae;
+			color: #111;
+		}
 	}
 }
 .odd {}

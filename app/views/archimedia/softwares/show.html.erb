@@ -41,9 +41,9 @@
 			<% end %>
 		</div>
 
-		<%# if website.email_signup_url %>
-			<%#= render_partial 'shared/newsletter_signup' %>
-		<%# end %>
+		<% if website.email_signup_url %>
+			<%= render_partial 'shared/newsletter_signup' %>
+		<% end %>
 
 		<div class="clear"></div>
 	</div>
