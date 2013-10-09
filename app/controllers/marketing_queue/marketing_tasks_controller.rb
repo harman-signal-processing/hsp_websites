@@ -49,6 +49,7 @@ class MarketingQueue::MarketingTasksController < MarketingQueueController
     else
       redirect_path = marketing_queue_root_path
     end
+    @marketing_task.requestor_id = current_marketing_queue_user.id
     respond_to do |format|
       if @marketing_task.save
         format.html { redirect_to(redirect_path, notice: 'Task was successfully created.') }

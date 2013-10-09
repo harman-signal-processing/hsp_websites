@@ -6,7 +6,5 @@ FactoryGirl.define do
     marketing_project
     brand
     due_on 1.week.from_now
-    requestor_id 1
-    worker_id 1
   end
 end

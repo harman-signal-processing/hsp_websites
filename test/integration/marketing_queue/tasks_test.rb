@@ -102,6 +102,7 @@ describe "Marketing Tasks Integration Test" do
       end
 
       it "should offer to assign task to oneself" do
+        # save_and_open_page
         fill_in :marketing_task_name, with: "Pet the dog"
         fill_in :marketing_task_due_on, with: 2.weeks.from_now.to_s
         select @digitech.name, from: :marketing_task_brand_id

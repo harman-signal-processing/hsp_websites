@@ -62,6 +62,7 @@ class Ability
       end
       if user.role?(:marketing_staff)
         can [:read, :create, :update], MarketingTask
+        can :destroy, MarketingTask, requestor_id: user.id
         can :manage, MarketingAttachment
         can :create, MarketingComment
         can :manage, MarketingComment, user_id: user.id
