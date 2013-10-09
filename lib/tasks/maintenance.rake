@@ -16,6 +16,14 @@ namespace :maintain do
       test_and_update(review)
     }
   end
+
+  desc "One-time task to mark almost all epedals as free"
+  task :epedals_for_free => :environment do
+    istomp = Product.find("istomp")
+    impossible = Product.find("the-impossible")
+    epedal_ids = istomp.sub_products.pluck(:product_id).delete(impossible.id)
+    Product.where(id: epedal_ids).update_all(msrp: 0.0, street_price: 0.0)
+  end
   
   def test_and_update(item)
     begin

@@ -81,6 +81,7 @@ class ActionDispatch::IntegrationTest
     @password = "pass123"
     @user = FactoryGirl.create(:user, 
       marketing_staff: true, 
+      name: "Johnny Danger",
       password: @password, 
       password_confirmation: @password)
     @user.confirm!
@@ -94,6 +95,7 @@ class ActionDispatch::IntegrationTest
     @password = "pass123"
     @user = FactoryGirl.create(:user, 
       marketing_staff: true, 
+      name: "Jason Kunz",
       queue_admin: true,
       password: @password, 
       password_confirmation: @password)
@@ -108,6 +110,7 @@ class ActionDispatch::IntegrationTest
     @password = "pass123"
     @user = FactoryGirl.create(:user, 
       marketing_staff: true, 
+      name: "G. Scott",
       market_manager: true,
       password: @password, 
       password_confirmation: @password)
