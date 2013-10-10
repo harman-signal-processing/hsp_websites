@@ -49,14 +49,14 @@ namespace :maintain do
     end
   end
 
-  desc "(News) remove old paperclips after migrating to a new path"
+  desc "(Slide) remove old paperclips after migrating to a new path"
   task :delete_old_paperclips => :environment do 
     old_path_interpolation = ":rails_root/public/system/:attachment/:id/:style/:filename"
     new_path_interpolation = ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension"
-    News.all.each do |i|
-      if i.news_photo_file_name.present?
+    Setting.all.each do |i|
+      if i.slide_file_name.present?
         problems = []
-        attachment = i.news_photo
+        attachment = i.slide
         styles = [:original] + attachment.styles.map{|k,v| k}
         styles.each do |style|
           old_file_path = Paperclip::Interpolations.interpolate(old_path_interpolation, attachment, style) #see paperclip docs
