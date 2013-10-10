@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130920153051) do
+ActiveRecord::Schema.define(:version => 20131010180512) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -626,7 +626,7 @@ ActiveRecord::Schema.define(:version => 20130920153051) do
     t.text     "keywords"
     t.string   "news_photo_file_name"
     t.integer  "news_photo_file_size"
-    t.datetime "news_photo_created_at"
+    t.datetime "news_photo_updated_at"
     t.string   "news_photo_content_type"
     t.datetime "created_at"
     t.datetime "updated_at"
