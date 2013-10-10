@@ -17,14 +17,14 @@ namespace :maintain do
     }
   end
 
-  desc "(News) copy paperclip attachments to a new scheme"
+  desc "(Slide) copy paperclip attachments to a new scheme"
   task :move_paperclips => :environment do
     old_path_interpolation = ":rails_root/public/system/:attachment/:id/:style/:filename"
     new_path_interpolation = ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension"
 
-    News.all.each do |news|
-      if news.news_photo_file_name.present?
-        attachment = news.news_photo
+    Setting.all.each do |i|
+      if i.slide_file_name.present?
+        attachment = i.slide
         styles = [:original] + attachment.styles.map{|k,v| k}
         styles.each do |style|
           old_file_path = Paperclip::Interpolations.interpolate(old_path_interpolation, attachment, style) #see paperclip docs
@@ -35,8 +35,8 @@ namespace :maintain do
 
           if File.exists?(old_file_path)
               if !File.exists?(new_file_path) #don't overwrite
-                  # FileUtils.mkdir_p(File.dirname(new_file_path)) #create folder if it doesn't exist
-                  # FileUtils.cp(old_file_path, new_file_path)
+                  FileUtils.mkdir_p(File.dirname(new_file_path)) #create folder if it doesn't exist
+                  FileUtils.cp(old_file_path, new_file_path)
                   puts "==== File copied (^_^)"
               else
                   puts "==== File already exists in new location."
@@ -53,10 +53,10 @@ namespace :maintain do
   task :delete_old_paperclips => :environment do 
     old_path_interpolation = ":rails_root/public/system/:attachment/:id/:style/:filename"
     new_path_interpolation = ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension"
-    News.all.each do |news|
-      if news.news_photo_file_name.present?
+    News.all.each do |i|
+      if i.news_photo_file_name.present?
         problems = []
-        attachment = news.news_photo
+        attachment = i.news_photo
         styles = [:original] + attachment.styles.map{|k,v| k}
         styles.each do |style|
           old_file_path = Paperclip::Interpolations.interpolate(old_path_interpolation, attachment, style) #see paperclip docs
@@ -67,7 +67,7 @@ namespace :maintain do
 
           if File.exists?(new_file_path)
               if File.exists?(old_file_path) 
-                  # FileUtils.rm(old_file_path)
+                  FileUtils.rm(old_file_path)
                   puts "==== File deleted (^_^)"
               else
                   puts "==== File already gone from location."
@@ -82,7 +82,7 @@ namespace :maintain do
         unless problems.count > 0
           d = Paperclip::Interpolations.interpolate(old_path_interpolation, attachment, attachment.default_style)
           container_folder = File.dirname(File.dirname(d))
-          # FileUtils.rm_rf(container_folder)
+          FileUtils.rm_rf(container_folder)
           puts "===== Deleting container: #{container_folder}"
         end
 

@@ -13,8 +13,8 @@ class Effect < ActiveRecord::Base
       tiny: "64x64", 
       tiny_square: "64x64#" 
     },
-    path: ":rails_root/public/system/:attachment/:id/:style/:filename",
-    url: "/system/:attachment/:id/:style/:filename"
+    path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
+    url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
 
   after_save :translate
 
