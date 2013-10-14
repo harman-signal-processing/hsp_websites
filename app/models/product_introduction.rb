@@ -3,17 +3,14 @@ class ProductIntroduction < ActiveRecord::Base
   attr_accessible :content, :expires_on, :extra_css, :layout_class, :product_id, :top_image, :box_bg_image, :page_bg_image
   validates :product_id, presence: true
   has_attached_file :top_image,
-    # path: ":rails_root/public/system/product_intro/:attachment/:id/:style/:filename",
     path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
     url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
 
   has_attached_file :box_bg_image,
-    # path: ":rails_root/public/system/product_intro/:attachment/:id/:style/:filename",
     path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
     url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
 
   has_attached_file :page_bg_image,
-    # path: ":rails_root/public/system/product_intro/:attachment/:id/:style/:filename",
     path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
     url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
 

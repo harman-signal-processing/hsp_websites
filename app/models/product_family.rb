@@ -17,7 +17,6 @@ class ProductFamily < ActiveRecord::Base
 
   has_attached_file :title_banner, 
     styles: { medium: "300x300>", thumb: "100x100>" },
-    # path: ":rails_root/public/system/product_family/:attachment/:id/:style/:filename",
     path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
     url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
 

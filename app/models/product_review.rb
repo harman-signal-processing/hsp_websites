@@ -1,7 +1,7 @@
 class ProductReview < ActiveRecord::Base
   has_attached_file :review,
-    path: ":rails_root/public/system/:attachment/:id/:style/:filename",
-    url: "/system/:attachment/:id/:style/:filename"
+    path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
+    url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
   has_attached_file :cover_image,
     styles: { lightbox: "800x600",
       large: "640x480", 
