@@ -17,14 +17,14 @@ namespace :maintain do
     }
   end
 
-  desc "(Slide) copy paperclip attachments to a new scheme"
+  desc "(Brand) copy paperclip attachments to a new scheme"
   task :move_paperclips => :environment do
     old_path_interpolation = ":rails_root/public/system/:attachment/:id/:style/:filename"
     new_path_interpolation = ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension"
 
-    Setting.all.each do |i|
-      if i.slide_file_name.present?
-        attachment = i.slide
+    Brand.all.each do |i|
+      if i.logo_file_name.present?
+        attachment = i.logo
         styles = [:original] + attachment.styles.map{|k,v| k}
         styles.each do |style|
           old_file_path = Paperclip::Interpolations.interpolate(old_path_interpolation, attachment, style) #see paperclip docs
