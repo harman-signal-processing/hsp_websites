@@ -26,8 +26,8 @@ class User < ActiveRecord::Base
         :tiny_square => "32x32#",
         :super_tiny => "16x16#"
       },
-      path: ":rails_root/public/system/:attachment/:id/:style/:filename",
-      url: "/system/:attachment/:id/:style/:filename"
+      path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
+      url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable,
   # :omniauthable, :validatable, :registerable
