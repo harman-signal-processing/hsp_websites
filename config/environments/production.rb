@@ -85,8 +85,8 @@ HarmanSignalProcessingWebsite::Application.configure do
   # Any of these will "work" (or setting nothing at all). Each has a reason:
   #
   # config.action_controller.asset_host = "http://assets.dbxpro.com" #(Original quick test. Cloudfront currently looks here)
-  config.action_controller.asset_host = "http://assets.harmanpro.com" #(Cloudfront should look here once DNS is setup)
-  # config.action_controller.asset_host = "http://d1hajlza8i7n49.cloudfront.net" #(Actual cloudfront url)
+  # config.action_controller.asset_host = "http://assets.harmanpro.com" #(Cloudfront should look here once DNS is setup)
+  config.action_controller.asset_host = "http://d1hajlza8i7n49.cloudfront.net" #(Actual cloudfront url)
   # config.action_controller.asset_host = "http://cdn.harmanpro.com" # (Ideal setting. CNAME alias for cloudfront url.)
   ###### If Amazon gets expensive, roll back to assets.harmanpro.com as the asset server.
   

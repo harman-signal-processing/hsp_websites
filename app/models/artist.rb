@@ -36,8 +36,8 @@ class Artist < ActiveRecord::Base
       tiny: "64x64>", 
       tiny_square: "64x64#" 
     },
-    path: ":rails_root/public/system/:attachment/:id/:style/:filename",
-    url: "/system/:attachment/:id/:style/:filename"
+    path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
+    url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
 
   has_attached_file :artist_product_photo, 
     styles: { feature: "940x400#",
@@ -48,8 +48,8 @@ class Artist < ActiveRecord::Base
       tiny: "64x64>", 
       tiny_square: "64x64#" 
     },
-    path: ":rails_root/public/system/:attachment/:id/:style/:filename",
-    url: "/system/:attachment/:id/:style/:filename"
+    path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
+    url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
 
   validates :name, presence: true
   has_friendly_id :sanitized_name, use_slug: true, approximate_ascii: true, max_length: 100

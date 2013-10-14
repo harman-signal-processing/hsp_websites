@@ -50,8 +50,8 @@ class Product < ActiveRecord::Base
   
   serialize :previewers, Array
   has_attached_file :background_image,
-    path: ":rails_root/public/system/:attachment/:id/:style/:filename",
-    url: "/system/:attachment/:id/:style/:filename"
+    path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
+    url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
 
   validates_presence_of :name, :product_status_id
   has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
