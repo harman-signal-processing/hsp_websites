@@ -16,8 +16,8 @@ class ProductReview < ActiveRecord::Base
       tiny: "64x64", 
       tiny_square: "64x64#" 
     },
-    path: ":rails_root/public/system/:attachment/:id/:style/:filename",
-    url: "/system/:attachment/:id/:style/:filename"
+    path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
+    url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
   validates_presence_of :title
   has_friendly_id :sanitized_title, use_slug: true, approximate_ascii: true, max_length: 100
   has_many :product_review_products, dependent: :destroy
