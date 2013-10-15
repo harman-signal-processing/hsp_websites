@@ -15,7 +15,7 @@ class MarketingQueueMailer < ActionMailer::Base
     @unassigned_tasks = options[:unassigned_tasks]
 
     mail to: @user.email,
-      subject: "Daily marketing queue summary"
+      subject: "[QQ] Daily marketing queue summary"
   end
 
   def comment(marketing_comment)
@@ -24,6 +24,13 @@ class MarketingQueueMailer < ActionMailer::Base
     participants = @marketing_project.participants
 
     mail to: participants.map{|u| u.email},
-      subject: "Comment: #{@marketing_project.name}"
+      subject: "[QQ] Comment: #{@marketing_project.name}"
+  end
+
+  def task_assigned(marketing_task)
+    @marketing_task = marketing_task
+    @worker = marketing_task.worker
+
+    mail to: @worker.email, subject: "[QQ] Task Assigned"
   end
 end

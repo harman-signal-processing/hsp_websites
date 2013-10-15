@@ -59,7 +59,7 @@ namespace :maintain do
         attachment = i.marketing_file
         styles = [:original] + attachment.styles.map{|k,v| k}
         styles.each do |style|
-          old_file_path = attachment.path(style) #Paperclip::Interpolations.interpolate(old_path_interpolation, attachment, style) #see paperclip docs
+          old_file_path = Paperclip::Interpolations.interpolate(old_path_interpolation, attachment, style) #see paperclip docs
           new_file_path = Paperclip::Interpolations.interpolate(new_path_interpolation, attachment, style)
 
     puts "== Current file path:  #{old_file_path}"
