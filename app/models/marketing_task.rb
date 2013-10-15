@@ -12,6 +12,7 @@ class MarketingTask < ActiveRecord::Base
   validates :name, presence: :true
   validates :due_on, presence: :true
   validates :brand_id, presence: :true
+  after_save :notify_worker
 
   #
   # When creating a related MarketingProjectTypeTask, this is called to figure
@@ -48,6 +49,12 @@ class MarketingTask < ActiveRecord::Base
 
   def late?
     completed_at.blank? && due_on < Date.today
+  end
+
+  def notify_worker
+    if worker_id_changed? && worker_id != requestor_id
+      MarketingQueueMailer.delay.task_assigned(self)
+    end
   end
 
 end
