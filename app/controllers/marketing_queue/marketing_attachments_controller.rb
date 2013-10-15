@@ -11,6 +11,12 @@ class MarketingQueue::MarketingAttachmentsController < MarketingQueueController
 	def new		
 	end
 
+  # Starts the download of the attachment. We land here first in order to avoid the
+  # CDN so we don't cache these files publicly.
+  def show
+    send_file @marketing_attachment.marketing_file.path, content_type: @marketing_attachment.marketing_file_content_type
+  end
+
 	def create
     if @marketing_attachment.marketing_project 
       redirect_path = [:marketing_queue, @marketing_attachment.marketing_project]

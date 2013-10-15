@@ -178,7 +178,7 @@
 
 		<ul class="list">
 			<% @marketing_project.marketing_attachments.each do |marketing_attachment| %>
-			<li id="attachment_<%= marketing_attachment.id %>"> <%= link_to marketing_attachment.marketing_file_file_name, marketing_attachment.marketing_file.url %>
+			<li id="attachment_<%= marketing_attachment.id %>"> <%= link_to marketing_attachment.marketing_file_file_name, [:marketing_queue, marketing_attachment] %>
 				<%= link_to(image_tag('trash.gif'), [:marketing_queue, marketing_attachment], method: :delete, confirm: "Are you sure? (Can't be undone)", remote: true) %></li>
 			<% end %>
 		</ul>
