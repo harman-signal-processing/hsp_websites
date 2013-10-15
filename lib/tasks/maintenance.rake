@@ -17,17 +17,17 @@ namespace :maintain do
     }
   end
 
-  desc "(Artist) copy paperclip attachments to a new scheme"
+  desc "copy paperclip attachments to a new scheme"
   task :move_paperclips => :environment do
     old_path_interpolation = ":rails_root/public/system/:attachment/:id/:style/:filename"
     new_path_interpolation = ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension"
 
-    Artist.all.each do |i|
-      if i.artist_product_photo_file_name.present?
-        attachment = i.artist_product_photo
+    MarketingAttachment.all.each do |i|
+      if i.marketing_file_file_name.present?
+        attachment = i.marketing_file
         styles = [:original] + attachment.styles.map{|k,v| k}
         styles.each do |style|
-          old_file_path = Paperclip::Interpolations.interpolate(old_path_interpolation, attachment, style) #see paperclip docs
+          old_file_path = attachment.path(style) #Paperclip::Interpolations.interpolate(old_path_interpolation, attachment, style) #see paperclip docs
           new_file_path = Paperclip::Interpolations.interpolate(new_path_interpolation, attachment, style)
 
     puts "== Current file path:  #{old_file_path}"
@@ -49,17 +49,17 @@ namespace :maintain do
     end
   end
 
-  desc "(ARtist) remove old paperclips after migrating to a new path"
+  desc "remove old paperclips after migrating to a new path"
   task :delete_old_paperclips => :environment do 
     old_path_interpolation = ":rails_root/public/system/:attachment/:id/:style/:filename"
     new_path_interpolation = ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension"
-    Artist.all.each do |i|
-      if i.artist_photo_file_name.present?
+    MarketingAttachment.all.each do |i|
+      if i.marketing_file_file_name.present?
         problems = []
-        attachment = i.aritst_photo
+        attachment = i.marketing_file
         styles = [:original] + attachment.styles.map{|k,v| k}
         styles.each do |style|
-          old_file_path = Paperclip::Interpolations.interpolate(old_path_interpolation, attachment, style) #see paperclip docs
+          old_file_path = attachment.path(style) #Paperclip::Interpolations.interpolate(old_path_interpolation, attachment, style) #see paperclip docs
           new_file_path = Paperclip::Interpolations.interpolate(new_path_interpolation, attachment, style)
 
     puts "== Current file path:  #{old_file_path}"
