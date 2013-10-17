@@ -39,7 +39,7 @@ class MarketingQueue::MarketingTasksController < MarketingQueueController
   end
 
 	def create
-    if !!(@marketing_task.assign_to_me)
+    if !!(@marketing_task.assign_to_me.to_i > 0)
       @marketing_task.worker_id = current_marketing_queue_user.id 
     end
     if @marketing_task.marketing_project 
