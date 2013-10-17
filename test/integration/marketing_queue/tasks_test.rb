@@ -79,7 +79,7 @@ describe "Marketing Tasks Integration Test" do
       end
 
       it "should offer a selection of all open projects" do
-        fill_in :marketing_task_name, with: "Pet the dog"
+        fill_in :marketing_task_name, with: "Pet the dog" 
         fill_in :marketing_task_due_on, with: 2.weeks.from_now.to_s
         select @digitech.name, from: :marketing_task_brand_id
         must_have_select "marketing_task_marketing_project_id"
@@ -111,6 +111,18 @@ describe "Marketing Tasks Integration Test" do
         click_on "Create Marketing task"
         MarketingTask.last.worker_id.must_equal @user.id
       end
+
+      it "should not assign task to oneself if the box is not checked" do
+        # save_and_open_page
+        fill_in :marketing_task_name, with: "Pet the cat"
+        fill_in :marketing_task_due_on, with: 2.weeks.from_now.to_s
+        select @digitech.name, from: :marketing_task_brand_id
+        must_have_content "Assign to me"
+        # check "marketing_task_assign_to_me"
+        click_on "Create Marketing task"
+        MarketingTask.last.worker_id.wont_equal @user.id
+      end
+
     end
   end
 
