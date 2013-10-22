@@ -35,34 +35,34 @@
 	<p>You can link to this file with the following URL(s):</p>
 	<ul>
 		<li><b>
-		<%= request.protocol %><%= request.host %><%= @site_element.resource.url("original", timestamp: false) %>
+		<%= @site_element.resource.url("original", timestamp: false) %>
 		</b></li>
 	</ul>
 	<% if @site_element.is_image? %>
 		<i>Other sizes:</i>
 		<ul>
 			<li><%= link_to @site_element.resource.url("large", timestamp: false) do %>
-				<%= request.protocol %><%= request.host %><%= @site_element.resource.url("large", timestamp: false) %>
+				<%= @site_element.resource.url("large", timestamp: false) %>
 				<% end %>
 			</li>
 			<li><%= link_to @site_element.resource.url("medium", timestamp: false) do %>
-				<%= request.protocol %><%= request.host %><%= @site_element.resource.url("medium", timestamp: false) %>
+				<%= @site_element.resource.url("medium", timestamp: false) %>
 				<% end %>
 			</li>
 			<li><%= link_to @site_element.resource.url("small", timestamp: false) do %>
-				<%= request.protocol %><%= request.host %><%= @site_element.resource.url("small", timestamp: false) %>
+				<%= @site_element.resource.url("small", timestamp: false) %>
 				<% end %>
 			</li>
 			<li><%= link_to @site_element.resource.url("thumb", timestamp: false) do %>
-				<%= request.protocol %><%= request.host %><%= @site_element.resource.url("thumb", timestamp: false) %>
+				<%= @site_element.resource.url("thumb", timestamp: false) %>
 				<% end %>
 			</li>
 			<li><%= link_to @site_element.resource.url("tiny", timestamp: false) do %>
-				<%= request.protocol %><%= request.host %><%= @site_element.resource.url("tiny", timestamp: false) %>
+				<%= @site_element.resource.url("tiny", timestamp: false) %>
 				<% end %>
 			</li>
 			<li><%= link_to @site_element.resource.url("tiny_square", timestamp: false) do %>
-				<%= request.protocol %><%= request.host %><%= @site_element.resource.url("tiny_square", timestamp: false) %>
+				<%= @site_element.resource.url("tiny_square", timestamp: false) %>
 				<% end %>
 			</li>
 		</ul>
@@ -71,7 +71,7 @@
 	<p>You can link to this file with the following URL:</p>
 	<ul>
 		<li><b>
-		<%= request.protocol %><%= request.host %><%= @site_element.executable.url("original", timestamp: false) %>
+		<%= @site_element.executable.url("original", timestamp: false) %>
 		</b></li>
 	</ul>
 <% end %>
