@@ -38,6 +38,8 @@ HarmanSignalProcessingWebsite::Application.configure do
   config.assets.debug = false
   # config.assets.compile = true
 
+  # config.action_controller.asset_host = "http://cdn.harmanpro.com"
+
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
@@ -51,7 +53,5 @@ HarmanSignalProcessingWebsite::Application.configure do
   config.toolkit_url = "toolkit.lvh.me:3000"
   config.queue_url   = "queue.lvh.me:3000"
 
-  config.silverpop_username  = 'adam.anderson@harman.com'
-  config.silverpop_password  = 'De$klap1' # Test list number: 2361816
 end
 

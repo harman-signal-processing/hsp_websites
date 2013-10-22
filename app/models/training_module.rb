@@ -7,7 +7,7 @@ class TrainingModule < ActiveRecord::Base
   validates :brand_id, :name, presence: true
   has_attached_file :training_module,
     path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
-    url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
+    url: ":asset_host/system/:attachment/:id_:timestamp/:basename_:style.:extension"
 
   def self.modules_for(brand_id, options={})
   	collection = select("DISTINCT training_modules.*").where(brand_id: brand_id)

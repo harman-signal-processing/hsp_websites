@@ -15,15 +15,15 @@ class ProductAttachment < ActiveRecord::Base
       tiny_square: "64x64#" 
     },
     path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
-    url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
+    url: ":asset_host/system/:attachment/:id_:timestamp/:basename_:style.:extension"
 
   has_attached_file :product_media,
     path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
-    url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
+    url: ":asset_host/system/:attachment/:id_:timestamp/:basename_:style.:extension"
 
   has_attached_file :product_media_thumb, styles: {thumb: "100x100>", tiny: "64x64>"},
     path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
-    url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
+    url: ":asset_host/system/:attachment/:id_:timestamp/:basename_:style.:extension"
 
   has_many :demo_songs, order: :position
   accepts_nested_attributes_for :demo_songs, reject_if: :all_blank

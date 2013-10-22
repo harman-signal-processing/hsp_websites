@@ -4,10 +4,10 @@ class AudioDemo < ActiveRecord::Base
   validates :name, presence: true
   has_attached_file :dry_demo,
     path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
-    url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
+    url: ":asset_host/system/:attachment/:id_:timestamp/:basename_:style.:extension"
 
   has_attached_file :wet_demo,
     path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
-    url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
+    url: ":asset_host/system/:attachment/:id_:timestamp/:basename_:style.:extension"
 
 end

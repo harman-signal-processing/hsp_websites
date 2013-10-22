@@ -9,7 +9,7 @@ class SiteElement < ActiveRecord::Base
       tiny_square: "64x64#" 
     },
     path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
-    url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
+    url: ":asset_host/system/:attachment/:id_:timestamp/:basename_:style.:extension"
     
   has_attached_file :executable,
     path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
