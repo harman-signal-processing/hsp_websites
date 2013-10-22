@@ -3,8 +3,8 @@
 
 <% 
 if @product.photo 
-	og_image = "#{request.protocol}#{request.host_with_port}#{@product.photo.product_attachment.url(:original)}"
-	tw_image = "#{request.protocol}#{request.host_with_port}#{@product.photo.product_attachment.url(:small)}"
+	og_image = @product.photo.product_attachment.url(:original)
+	tw_image = @product.photo.product_attachment.url(:small)
 else
 	og_image = image_url("#{website.folder}/logo.png")
 	tw_image = image_url("#{website.folder}/logo.png")
