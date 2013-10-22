@@ -17,7 +17,10 @@ module ProductsHelper
         height = (product_attachment.height.blank?) ? "100%" : product_attachment.height
         new_content = swf_tag(product_attachment.product_media.url, size: "#{width}x#{height}")
       elsif product_attachment.product_media_file_name.to_s.match(/flv|mp4|mov|mpeg|mp3|m4v$/i)
-        media_url = request.protocol + request.host_with_port + product_attachment.product_media.url('original', false)
+        # At one point, I prepended the protocol and host. Not sure why, but I'm trying it without
+        # this to see if I can get it to come through the Amazon cloudfont CDN. (10/2013)
+        # media_url = request.protocol + request.host_with_port + product_attachment.product_media.url('original', false)
+        media_url = product_attachment.product_media.url('original', false)
         new_content = render_partial("shared/player", media_url: media_url)
       else
         new_content = product_attachment.product_attachment.url
