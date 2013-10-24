@@ -20,10 +20,11 @@ class SiteMailer < ActionMailer::Base
   def news(news, recipient, from)
     @news = news
 
-    # Attach the news photo if it exists
-    if !@news.news_photo_file_name.blank?
-      attachments.inline[@news.news_photo_file_name] = File.read(@news.news_photo.path(:email))
-    end
+    # Attach the news photo if it exists. 
+    # Not anymore, now that images are on S3
+    # if !@news.news_photo_file_name.blank?
+    #   attachments.inline[@news.news_photo_file_name] = File.read(@news.news_photo.path(:email))
+    # end
 
     # Determine if the brand has a custom template (default uses a HARMAN pro layout)
     website = @news.brand.default_website
