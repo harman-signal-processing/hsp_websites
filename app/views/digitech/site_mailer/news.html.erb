@@ -75,7 +75,7 @@
 				<tr>
 					<td valign="top" style="padding:0" bgcolor="#1e1c56">
 
-  <%= link_to(image_tag(attachments[@news.news_photo_file_name].url, class: "deviceWidth", style: "display: block;"), "http://#{ @news.brand.default_website.url }/en-US/news/#{ @news.id }")  %>
+  <%= link_to(image_tag(@news.news_photo.url, class: "deviceWidth", style: "display: block;"), "http://#{ @news.brand.default_website.url }/en-US/news/#{ @news.id }")  %>
 
 
 					</td>

@@ -24,6 +24,7 @@ gem 'capistrano-ext'
 # Bundle the extra gems:
 gem 'mysql2', '>= 0.3.12b4' # sphinx needs '0.3.12b4'
 gem "friendly_id", "~> 3.0"
+gem 'aws-sdk', '~> 1.0'
 gem "paperclip", "~> 3.0"
 gem 'paperclip-meta' #, git: 'http://github.com/dce/paperclip-meta.git' # 6/27/2012, dce's version fixes a rails 3 issue tha the original author hasn't merged
 gem 'meta-tags', require: 'meta_tags'
