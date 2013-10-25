@@ -6,8 +6,14 @@ class TrainingModule < ActiveRecord::Base
   belongs_to :brand
   validates :brand_id, :name, presence: true
   has_attached_file :training_module,
-    path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
-    url: ":asset_host/system/:attachment/:id_:timestamp/:basename_:style.:extension"
+    storage: :s3,
+    s3_credentials: S3_CREDENTIALS,
+    bucket: S3_CREDENTIALS['bucket'],
+    s3_host_alias: S3_CLOUDFRONT,
+    url: ':s3_alias_url',
+    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
+    # path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
+    # url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
 
   def self.modules_for(brand_id, options={})
   	collection = select("DISTINCT training_modules.*").where(brand_id: brand_id)

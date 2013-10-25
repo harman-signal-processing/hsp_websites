@@ -8,12 +8,24 @@ class SiteElement < ActiveRecord::Base
       tiny: "64x64", 
       tiny_square: "64x64#" 
     },
-    path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
-    url: ":asset_host/system/:attachment/:id_:timestamp/:basename_:style.:extension"
+    storage: :s3,
+    s3_credentials: S3_CREDENTIALS,
+    bucket: S3_CREDENTIALS['bucket'],
+    s3_host_alias: S3_CLOUDFRONT,
+    url: ':s3_alias_url',
+    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
+    # path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
+    # url: ":asset_host/system/:attachment/:id_:timestamp/:basename_:style.:extension"
     
   has_attached_file :executable,
-    path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
-    url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
+    storage: :s3,
+    s3_credentials: S3_CREDENTIALS,
+    bucket: S3_CREDENTIALS['bucket'],
+    s3_host_alias: S3_CLOUDFRONT,
+    url: ':s3_alias_url',
+    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
+    # path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
+    # url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
 
   validates :brand, :name, presence: true
   has_many :product_site_elements, dependent: :destroy, inverse_of: :site_element
