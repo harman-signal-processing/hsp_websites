@@ -10,8 +10,8 @@ class News < ActiveRecord::Base
     },
     storage: :s3,
     s3_credentials: S3_CREDENTIALS,
-    bucket: 'harman-hsp-web-assets',
-    s3_host_alias: 'cdn.harmanpro.com',
+    bucket: S3_CREDENTIALS['bucket'],
+    s3_host_alias: S3_CLOUDFRONT,
     url: ':s3_alias_url',
     path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
     # path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
