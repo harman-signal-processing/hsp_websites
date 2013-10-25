@@ -11,3 +11,10 @@ S3_CREDENTIALS = (c[Rails.env.to_sym]) ? c[Rails.env.to_sym] : c.first
 #   # get credentials from YML file
 #   S3_CREDENTIALS = Rails.root.join("config/s3.yml")
 # end
+
+
+# Cloudfront only seems to work with an S3 bucket OR some other source (not both).
+# So, since cdn.harmanpro.com is setup as an alias of assets.harmanpro.com, we need
+# a separate CDN for stuff in the S3 buckets...
+
+S3_CLOUDFRONT = 'd18nzrj3czoaty.cloudfront.net'
