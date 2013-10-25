@@ -1,8 +1,14 @@
 class ProductDocument < ActiveRecord::Base
   belongs_to :product, touch: true
   has_attached_file :document,
-    path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
-    url: ":asset_host/system/:attachment/:id_:timestamp/:basename_:style.:extension"
+    storage: :s3,
+    s3_credentials: S3_CREDENTIALS,
+    bucket: S3_CREDENTIALS['bucket'],
+    s3_host_alias: S3_CLOUDFRONT,
+    url: ':s3_alias_url',
+    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
+    # path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
+    # url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
 
   has_friendly_id :document_file_name, use_slug: true, approximate_ascii: true, max_length: 100
   validates_presence_of :product_id, :document
