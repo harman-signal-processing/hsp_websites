@@ -85,12 +85,12 @@ namespace :attachments do
 		s3 = AWS::S3.new(s3_options)
 		bucket = s3.buckets[bucket_name]
 
-    old_path_interpolation = ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension"
+    old_path_interpolation = ":rails_root/public/system/:attachment/:id/:style/:filename"
     new_path_interpolation = ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
 
-    ToneLibraryPatch.all.each do |i|
-      if i.patch_file_name.present?
-        attachment = i.patch
+    RsoPanel.all.each do |i|
+      if i.rso_panel_image_file_name.present?
+        attachment = i.rso_panel_image
         styles = [:original] + attachment.styles.map{|k,v| k}
         styles.each do |style|
           old_file_path = Paperclip::Interpolations.interpolate(old_path_interpolation, attachment, style) #see paperclip docs
@@ -102,7 +102,7 @@ namespace :attachments do
           if File.exists?(old_file_path)
 						begin
 							obj = bucket.objects[new_file_path.sub(%r{^/},'')]
-							obj.write(Pathname.new(old_file_path), acl: :public_read, content_type: i.mime_type)
+							obj.write(Pathname.new(old_file_path), acl: :public_read, content_type: i.rso_panel_image_content_type)
 						rescue AWS::S3::Errors::NoSuchBucket => e
 							s3.buckets.create(bucket_name)
 							retry
