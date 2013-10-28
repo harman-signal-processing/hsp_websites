@@ -79,7 +79,7 @@ namespace :attachments do
 
 		# Load credentials
 		s3_options = S3_CREDENTIALS
-		bucket_name = 'harman-hsp-web-assets' #s3_options.delete("bucket")
+		bucket_name = 'harman-hsp-protected-assets' #s3_options.delete("bucket")
 
 		# Establish S3 connection
 		s3 = AWS::S3.new(s3_options)
@@ -88,9 +88,9 @@ namespace :attachments do
     old_path_interpolation = ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension"
     new_path_interpolation = ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
 
-    ToolkitResource.all.each do |i|
-      if i.tk_preview_file_name.present?
-        attachment = i.tk_preview
+    MarketingAttachment.all.each do |i|
+      if i.marketing_file_file_name.present?
+        attachment = i.marketing_file
         styles = [:original] + attachment.styles.map{|k,v| k}
         styles.each do |style|
           old_file_path = Paperclip::Interpolations.interpolate(old_path_interpolation, attachment, style) #see paperclip docs
@@ -102,7 +102,7 @@ namespace :attachments do
           if File.exists?(old_file_path)
 						begin
 							obj = bucket.objects[new_file_path.sub(%r{^/},'')]
-							obj.write(Pathname.new(old_file_path), acl: :public_read, content_type: i.tk_preview_content_type)
+							obj.write(Pathname.new(old_file_path), content_type: i.marketing_file_content_type) # acl: :public_read, 
 						rescue AWS::S3::Errors::NoSuchBucket => e
 							s3.buckets.create(bucket_name)
 							retry
