@@ -56,8 +56,10 @@ class SoftwaresController < ApplicationController
       @software.link = "http://" + @software.link unless @software.link.match(/^http/)
       redirect_to @software.link and return
     else
-      send_file @software.ware.path, content_type: @software.ware_content_type
-      # redirect_to @software.ware.url
+      # Used to use send_file to take advantage of nginx caching, but now we just
+      # redirect to S3/Cloudfront url.
+      # send_file @software.ware.path, content_type: @software.ware_content_type
+      redirect_to @software.ware.url
     end
   end
   
