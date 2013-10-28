@@ -13,7 +13,7 @@
 			<th><%= s.artist_name %></th>
 			<th><%= s.title %></th>
 			<% s.tone_library_patches.each do |p| %>
-			<td><%= link_to p.product.name, tone_download_path(product_id: p.product, tone_library_song_id: p.tone_library_song, ext: p.extension) %></td>
+			<td><%= link_to p.product.name, p.tone_library_song.url %></td>
 			<% end %>
 		</tr>
 		<% end %>
