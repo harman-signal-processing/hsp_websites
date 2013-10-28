@@ -10,7 +10,13 @@ class RegisteredDownload < ActiveRecord::Base
   validates :name, :brand, :from_email, :subject, presence: true
   validates :per_download_limit, numericality: {greater_than: 0}
   has_attached_file :protected_software, 
-    path: ":rails_root/../../protected/:attachment/:id/:filename" #, url: "/system/:attachment/:id/:style/:filename"
+    storage: :s3,
+    s3_credentials: S3_CREDENTIALS,
+    bucket: S3_CREDENTIALS['protected_bucket'],
+    # s3_host_alias: S3_CLOUDFRONT,
+    # url: ':s3_alias_url',
+    path: ":class/:attachment/:id_:timestamp/:basename.:extension"
+    # path: ":rails_root/../../protected/:attachment/:id/:filename" #, url: "/system/:attachment/:id/:style/:filename"
 
   after_initialize :setup_defaults
   after_save :save_templates_to_filesystem

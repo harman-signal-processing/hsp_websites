@@ -41,9 +41,10 @@ class RegisteredDownloadsController < ApplicationController
       if @download_registration.download_count.to_i >= @registered_download.per_download_limit.to_i
         download_error("Download attempts exceeded limit")
       else
-        send_file(@registered_download.protected_software.path, 
-          type: @registered_download.protected_software_content_type,
-          filename: @registered_download.protected_software_file_name)
+        # send_file(@registered_download.protected_software.path, 
+        #   type: @registered_download.protected_software_content_type,
+        #   filename: @registered_download.protected_software_file_name)
+        redirect_to @registered_download.protected_software.expiring_url
         @download_registration.download_count ||= 0
         @download_registration.download_count += 1
         @download_registration.save!
