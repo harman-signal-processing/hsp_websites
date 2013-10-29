@@ -74,7 +74,7 @@
 			<table width="580"  class="deviceWidth" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#eeeeed">
 				<tr>
 					<td valign="top" style="padding:0" bgcolor="#ffffff">
- <%= link_to(image_tag(@news.news_photo.url, class: "deviceWidth", style: "display: block;"), "http://#{ @news.brand.default_website.url }/en-US/news/#{ @news.id }")  %>
+ <%= link_to(image_tag(@news.news_photo.url(:email), class: "deviceWidth", style: "display: block;"), "http://#{ @news.brand.default_website.url }/en-US/news/#{ @news.id }")  %>
 					
 					</td>
             </table>
