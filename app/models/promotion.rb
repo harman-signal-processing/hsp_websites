@@ -5,16 +5,7 @@ class Promotion < ActiveRecord::Base
   has_many :products, through: :product_promotions
   belongs_to :brand, touch: true
   has_friendly_id :sanitized_name, use_slug: true, approximate_ascii: true, max_length: 100
-  has_attached_file :promo_form,
-    storage: :s3,
-    s3_credentials: S3_CREDENTIALS,
-    bucket: S3_CREDENTIALS['bucket'],
-    s3_host_alias: S3_CLOUDFRONT,
-    url: ':s3_alias_url',
-    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
-    # path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
-    # url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
-
+  has_attached_file :promo_form
   has_attached_file :tile, 
     styles: { large: "550x370", 
       medium: "480x360", 
@@ -22,15 +13,7 @@ class Promotion < ActiveRecord::Base
       thumb: "100x100", 
       tiny: "64x64", 
       tiny_square: "64x64#" 
-    },
-    storage: :s3,
-    s3_credentials: S3_CREDENTIALS,
-    bucket: S3_CREDENTIALS['bucket'],
-    s3_host_alias: S3_CLOUDFRONT,
-    url: ':s3_alias_url',
-    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
-    # path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
-    # url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
+    }
     
   after_save :translate
     

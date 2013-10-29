@@ -5,48 +5,10 @@ class ProductFamily < ActiveRecord::Base
   has_many :locale_product_families
   has_many :market_segment_product_families, dependent: :destroy
   has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
-  has_attached_file :family_photo, 
-    styles: { medium: "300x300>", thumb: "100x100>" },
-    storage: :s3,
-    s3_credentials: S3_CREDENTIALS,
-    bucket: S3_CREDENTIALS['bucket'],
-    s3_host_alias: S3_CLOUDFRONT,
-    url: ':s3_alias_url',
-    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
-    # path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
-    # url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
-
-  has_attached_file :family_banner, 
-    styles: { medium: "300x300>", thumb: "100x100>" },
-    storage: :s3,
-    s3_credentials: S3_CREDENTIALS,
-    bucket: S3_CREDENTIALS['bucket'],
-    s3_host_alias: S3_CLOUDFRONT,
-    url: ':s3_alias_url',
-    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
-    # path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
-    # url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
-
-  has_attached_file :title_banner, 
-    styles: { medium: "300x300>", thumb: "100x100>" },
-    storage: :s3,
-    s3_credentials: S3_CREDENTIALS,
-    bucket: S3_CREDENTIALS['bucket'],
-    s3_host_alias: S3_CLOUDFRONT,
-    url: ':s3_alias_url',
-    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
-    # path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
-    # url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
-
-  has_attached_file :background_image,
-    storage: :s3,
-    s3_credentials: S3_CREDENTIALS,
-    bucket: S3_CREDENTIALS['bucket'],
-    s3_host_alias: S3_CLOUDFRONT,
-    url: ':s3_alias_url',
-    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
-    # path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
-    # url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
+  has_attached_file :family_photo, styles: { medium: "300x300>", thumb: "100x100>" }
+  has_attached_file :family_banner, styles: { medium: "300x300>", thumb: "100x100>" }
+  has_attached_file :title_banner, styles: { medium: "300x300>", thumb: "100x100>" }
+  has_attached_file :background_image
 
   validates_presence_of :brand_id, :name
   acts_as_tree order: :position, scope: :brand_id

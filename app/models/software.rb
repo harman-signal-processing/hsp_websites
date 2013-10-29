@@ -12,14 +12,7 @@ class Software < ActiveRecord::Base
   has_friendly_id :formatted_name, use_slug: true, approximate_ascii: true, max_length: 100
   validates_presence_of :name, :brand_id
   has_attached_file :ware,
-    storage: :s3,
-    s3_credentials: S3_CREDENTIALS,
-    bucket: S3_CREDENTIALS['bucket'],
-    s3_host_alias: S3_CLOUDFRONT,
-    url: ':s3_alias_url',
     path: ":class/:attachment/:id_:timestamp/:basename.:extension"
-    # path: ":rails_root/public/system/:attachment/:id/:style/:filename",
-    # url: "/system/:attachment/:id/:style/:filename"
 
   after_initialize :set_default_counter, :determine_platform
   after_save :replace_old_version
