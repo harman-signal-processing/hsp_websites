@@ -59,6 +59,12 @@ class MarketingProject < ActiveRecord::Base
     order("created_at DESC")
   end
 
+  # Collects projects to display on the finance overview
+  #
+  def self.six_month_overview
+    where("due_on >= ? OR event_end_on >= ?", 1.month.ago, 1.month.ago).where("due_on <= ? OR event_end_on <= ?", 6.months.from_now, 6.months.from_now)
+  end
+
   def percent_complete
     if completed_marketing_tasks.count > 0
       ( completed_marketing_tasks.count.to_f / marketing_tasks.count.to_f ) * 100.0
