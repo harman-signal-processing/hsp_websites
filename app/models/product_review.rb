@@ -1,13 +1,5 @@
 class ProductReview < ActiveRecord::Base
-  has_attached_file :review,
-    storage: :s3,
-    s3_credentials: S3_CREDENTIALS,
-    bucket: S3_CREDENTIALS['bucket'],
-    s3_host_alias: S3_CLOUDFRONT,
-    url: ':s3_alias_url',
-    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
-    # path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
-    # url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
+  has_attached_file :review
 
   has_attached_file :cover_image,
     styles: { lightbox: "800x600",
@@ -22,15 +14,7 @@ class ProductReview < ActiveRecord::Base
       thumb: "100x100", 
       tiny: "64x64", 
       tiny_square: "64x64#" 
-    },
-    storage: :s3,
-    s3_credentials: S3_CREDENTIALS,
-    bucket: S3_CREDENTIALS['bucket'],
-    s3_host_alias: S3_CLOUDFRONT,
-    url: ':s3_alias_url',
-    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
-    # path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
-    # url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
+    }
     
   validates_presence_of :title
   has_friendly_id :sanitized_title, use_slug: true, approximate_ascii: true, max_length: 100

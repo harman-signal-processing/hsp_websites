@@ -13,35 +13,10 @@ class ProductAttachment < ActiveRecord::Base
       thumb: "100x100", 
       tiny: "64x64", 
       tiny_square: "64x64#" 
-    },
-    storage: :s3,
-    s3_credentials: S3_CREDENTIALS,
-    bucket: S3_CREDENTIALS['bucket'],
-    s3_host_alias: S3_CLOUDFRONT,
-    url: ':s3_alias_url',
-    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
-    # path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
-    # url: ":asset_host/system/:attachment/:id_:timestamp/:basename_:style.:extension"
+    }
 
-  has_attached_file :product_media,
-    storage: :s3,
-    s3_credentials: S3_CREDENTIALS,
-    bucket: S3_CREDENTIALS['bucket'],
-    s3_host_alias: S3_CLOUDFRONT,
-    url: ':s3_alias_url',
-    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
-    # path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
-    # url: ":asset_host/system/:attachment/:id_:timestamp/:basename_:style.:extension"
-
-  has_attached_file :product_media_thumb, styles: {thumb: "100x100>", tiny: "64x64>"},
-    storage: :s3,
-    s3_credentials: S3_CREDENTIALS,
-    bucket: S3_CREDENTIALS['bucket'],
-    s3_host_alias: S3_CLOUDFRONT,
-    url: ':s3_alias_url',
-    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
-    # path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
-    # url: ":asset_host/system/:attachment/:id_:timestamp/:basename_:style.:extension"
+  has_attached_file :product_media
+  has_attached_file :product_media_thumb, styles: {thumb: "100x100>", tiny: "64x64>"}
 
   has_many :demo_songs, order: :position
   accepts_nested_attributes_for :demo_songs, reject_if: :all_blank

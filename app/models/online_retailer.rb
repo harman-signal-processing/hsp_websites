@@ -7,15 +7,7 @@ class OnlineRetailer < ActiveRecord::Base
       medium: "300x300>", 
       small: "175x175>", 
       thumb: "100x100>", 
-      fixed: "125x75#" },
-    storage: :s3,
-    s3_credentials: S3_CREDENTIALS,
-    bucket: S3_CREDENTIALS['bucket'],
-    s3_host_alias: S3_CLOUDFRONT,
-    url: ':s3_alias_url',
-    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
-    # path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
-    # url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
+      fixed: "125x75#" }
 
   has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
   validates_presence_of :name

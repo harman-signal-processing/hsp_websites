@@ -35,15 +35,7 @@ class Artist < ActiveRecord::Base
       wide_thumb: "200x100#",
       tiny: "64x64>", 
       tiny_square: "64x64#" 
-    },
-    storage: :s3,
-    s3_credentials: S3_CREDENTIALS,
-    bucket: S3_CREDENTIALS['bucket'],
-    s3_host_alias: S3_CLOUDFRONT,
-    url: ':s3_alias_url',
-    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
-    # path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
-    # url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
+    }
 
   has_attached_file :artist_product_photo, 
     styles: { feature: "940x400#",
@@ -53,15 +45,7 @@ class Artist < ActiveRecord::Base
       thumb_square: "100x100#",
       tiny: "64x64>", 
       tiny_square: "64x64#" 
-    },
-    storage: :s3,
-    s3_credentials: S3_CREDENTIALS,
-    bucket: S3_CREDENTIALS['bucket'],
-    s3_host_alias: S3_CLOUDFRONT,
-    url: ':s3_alias_url',
-    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
-    # path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
-    # url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
+    }
 
   validates :name, presence: true
   has_friendly_id :sanitized_name, use_slug: true, approximate_ascii: true, max_length: 100

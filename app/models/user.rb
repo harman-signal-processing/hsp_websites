@@ -25,15 +25,7 @@ class User < ActiveRecord::Base
         :tiny => "32x32", 
         :tiny_square => "32x32#",
         :super_tiny => "16x16#"
-      },
-    storage: :s3,
-    s3_credentials: S3_CREDENTIALS,
-    bucket: S3_CREDENTIALS['bucket'],
-    s3_host_alias: S3_CLOUDFRONT,
-    url: ':s3_alias_url',
-    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
-    # path: ":rails_root/public/system/:attachment/:id_:timestamp/:basename_:style.:extension",
-    # url: "/system/:attachment/:id_:timestamp/:basename_:style.:extension"
+      }
     
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable,
