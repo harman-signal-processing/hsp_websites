@@ -61,6 +61,9 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       end
       resources :marketing_projects do 
         resources :marketing_comments, only: [:create, :destroy]
+        collection do
+          get :overview
+        end
       end
       resources :marketing_tasks, 
         :marketing_project_types, 

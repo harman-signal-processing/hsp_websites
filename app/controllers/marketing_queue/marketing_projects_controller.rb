@@ -2,6 +2,7 @@ class MarketingQueue::MarketingProjectsController < MarketingQueueController
 	layout "marketing_queue"
   before_filter :load_brand_if_present
   after_filter :keep_brand_in_session, only: [:show, :edit, :create, :update]
+  skip_before_filter :authenticate_marketing_queue_user!, only: :overview
 	load_resource
 
   def index
@@ -14,23 +15,24 @@ class MarketingQueue::MarketingProjectsController < MarketingQueueController
       @marketing_projects = @q.result
       @q2 = MarketingTask.ransack(params[:q])
       @marketing_tasks = @q2.result
-    else # Generate the overview for finance
-      @marketing_projects = MarketingProject.six_month_overview.where("estimated_cost > 0").order("brand_id")
     end
     respond_to do |format|
       format.html {
         if @brand
           redirect_to marketing_queue_brand_path(@brand) and return
-        elsif @marketing_projects.count == 0 && @marketing_tasks.count == 0
+        elsif !(params[:q]) || (@marketing_projects.count == 0 && @marketing_tasks.count == 0)
           render text: "No results found.", layout: true and return
-        elsif !(params[:q])
-          render action: "overview"
         end
       }
       format.xml { render xml: @marketing_projects.order("UPPER(name)") }
       format.json { render json: @marketing_projects.order("UPPER(name)") }
       format.js
     end    
+  end
+
+  # Shows an overview of all projects for finance dept.
+  def overview
+    @marketing_projects = MarketingProject.six_month_overview.where("estimated_cost > 0").order("brand_id")
   end
 
   def show
