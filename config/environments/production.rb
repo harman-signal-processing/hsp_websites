@@ -32,6 +32,7 @@ HarmanSignalProcessingWebsite::Application.configure do
   config.assets.precompile += %w( 
     archimedia.css
     introducing_epedal.css 
+    introducing_stompbox.css
     istomp.js 
     istomp.css 
     vocalist-by-digitech.css 

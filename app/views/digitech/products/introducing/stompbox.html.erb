@@ -1,0 +1,101 @@
+<%#
+
+I really hate these one-off pages. When it comes time to delete this page--which was
+put into place to introduce the jamman express xt, do this:
+
+* Delete this layout page
+* Delete app/assets/stylesheets/introducing_stompbox.css.scss
+* Remove 'introducing_stompbox.css' from the asset preloading file in
+   config/environments/production.rb
+   config/environments/staging.rb
+* Remove the ProductIntroduction entry for jamman express xt and each of the other. (Although leave it in 
+place for a while because when they expire, they'll redirect to the epedal product page for each.)
+
+Someday figure out a better way to do all of this.
+
+%>
+
+<% set_meta_tags title: "Introducing #{@product.name}",
+				 reverse: true %>
+
+<%= content_for :page_css do %>
+	<%= stylesheet_link_tag 'application', website.folder, 'introducing_stompbox', cache: false, media: :all %>
+	<%#= javascript_include_tag 'istomp' %>
+	<style type="text/css">
+		div#content_container {
+			<% if @product_introduction.page_bg_image_file_name.present? %>
+			background: url(<%= @product_introduction.page_bg_image.url %>) repeat-y bottom;
+			<% end %>
+			padding-bottom: 4px;
+		}
+		<% if @product_introduction.box_bg_image_file_name.present? %>
+		div#introducing section {
+			background: url(<%= @product_introduction.box_bg_image.url %>);
+		}
+		<% end %>
+		/*next button*/
+		.bx-next {
+			position:absolute;
+			top:36%;
+			right:-50px;
+			z-index:999;
+			width: 30px;
+			height: 30px;
+			text-indent: -999999px;
+			background: url(<%= image_path('icons/gray_next.png') %>) no-repeat 0 -30px;
+		}
+
+		/*previous button*/
+		.bx-prev {
+			position:absolute;
+			top:36%;
+			left:-50px;
+			z-index:999;
+			width: 30px;
+			height: 30px;
+			text-indent: -999999px;
+			background: url(<%= image_path('icons/gray_prev.png') %>) no-repeat 0 -30px;
+		}
+		/*next/prev button hover state*/
+		.bx-next:hover,
+		.bx-prev:hover {
+			background-position: 0 0;
+		}
+		<%= raw @product_introduction.extra_css.to_s %>
+	</style>
+<% end %>
+
+<%#= content_for :alternate_logo do %>
+	<%#= link_to(image_tag("#{website.folder}/logo_black.png", alt: Setting.site_name(website)), main_app.locale_root_path) %>
+<%# end %>
+
+<%#= content_for :footer_logo do %>
+	<%#= image_tag "harman.jpg" %>
+<%# end %>
+
+<div id="introducing">
+	<% if @product_introduction.top_image_file_name.present? %>
+	<h1><%= link_to(image_tag(@product_introduction.top_image.url, alt: "Introducing #{@product.name}"), @product) %></h1>
+	<% end %>
+
+	<div class="middle_content_container">
+		<section id="stompbox_content">
+			<%= raw @product_introduction.content %>
+		</section>	
+		<section id="product_content">
+			<% if @product.photo %>
+			<div style="float: left; margin: 4px 8px 8px 4px;" id="product_photo"><%= link_to(image_tag(@product.photo.product_attachment.url(:horiz_medium), alt: "#{@product.name} Pedal"), @product) %>
+			</div>
+			<% end %>
+			<h2><%= @product.name %></h2>
+			<h4><%= @product.short_description %></h4>
+			<div class="text_content">
+				<%=raw truncate strip_html(@product.description), length: (@product_introduction.content.to_i > 0) ? @product_introduction.content.to_i : 680 %>
+			</div>
+
+			<p><%= link_to "more info...", @product %></p>
+		</section>
+
+	</div>
+
+</div>
