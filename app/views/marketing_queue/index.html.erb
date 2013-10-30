@@ -73,7 +73,7 @@
 											worker: marketing_task.worker.name,
 											due_on: I18n.l(marketing_task.due_on, format: :short)
 										} %>
-								<%= link_to marketing_task.name.truncate(50), can?(:manage, marketing_task) ? edit_marketing_queue_marketing_task_path(marketing_task) : [:marketing_queue, marketing_task] %>
+								<%= link_to marketing_task.name.truncate(50), [:marketing_queue, marketing_task] %>
 								<% if can? :destroy, marketing_task %>
 									<%= link_to(image_tag('trash.gif'), [:marketing_queue, marketing_task], confirm: "Are you sure?", method: :delete) %>
 								<% end %>
@@ -99,7 +99,7 @@
 						<tbody>
 							<% @unassigned_tasks.each do |marketing_task| %>
 							<tr id="task_row_<%= marketing_task.id %>">
-								<td><%= link_to marketing_task.name.truncate(40), edit_marketing_queue_marketing_task_path(marketing_task) %></td>
+								<td><%= link_to marketing_task.name.truncate(40), [:marketing_queue, marketing_task] %></td>
 								<td><% if marketing_task.marketing_project %>
 										<%= link_to marketing_task.marketing_project.name.truncate(20), [:marketing_queue, marketing_task.marketing_project] %>
 									<% else %>
@@ -145,7 +145,7 @@
 							<% else %>
 							<td>
 								<%= check_box_tag marketing_task.id, marketing_task.id, true, class: 'incompleter', data: { task: marketing_task.id, name: marketing_task.name, worker: marketing_task.worker.name } %>
-								<%= link_to marketing_task.name, can?(:manage, marketing_task) ? edit_marketing_queue_marketing_task_path(marketing_task) : [:marketing_queue, marketing_task] %>
+								<%= link_to marketing_task.name, [:marketing_queue, marketing_task] %>
 							</td>
 							<td></td>
 							<% end %>

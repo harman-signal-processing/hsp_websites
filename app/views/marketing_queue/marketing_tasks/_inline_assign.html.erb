@@ -7,6 +7,7 @@
 	  <p class="lead"><%= marketing_task.name %></p>
 	  <%= simple_form_for [:marketing_queue, marketing_task], remote: true do |f| %>
 	  	<%= f.association :worker, collection: User.marketing_staff %>
+	  	<%= f.input :man_hours %>
 	  	<%= f.submit class: "button round" %>
 	  <% end %>
 	  <a class="close-reveal-modal">&#215;</a>

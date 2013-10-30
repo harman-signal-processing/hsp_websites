@@ -2,7 +2,7 @@
 # larger effort.
 #
 class MarketingTask < ActiveRecord::Base
-  attr_accessible :brand_id, :completed_at, :due_on, :marketing_project_id, :name, :assign_to_me, :worker_id
+  attr_accessible :brand_id, :completed_at, :due_on, :marketing_project_id, :name, :assign_to_me, :worker_id, :man_hours
   attr_accessor :assign_to_me
   belongs_to :brand 
   belongs_to :marketing_project
@@ -13,6 +13,7 @@ class MarketingTask < ActiveRecord::Base
   validates :due_on, presence: :true
   validates :brand_id, presence: :true
   after_save :notify_worker
+  after_create :notify_admin
 
   #
   # When creating a related MarketingProjectTypeTask, this is called to figure
@@ -52,8 +53,14 @@ class MarketingTask < ActiveRecord::Base
   end
 
   def notify_worker
-    if worker_id_changed? && worker_id != requestor_id
+    if worker_id_changed? && worker_id != requestor_id && worker_id.present?
       MarketingQueueMailer.delay.task_assigned(self)
+    end
+  end
+
+  def notify_admin
+    if worker_id.blank?
+      MarketingQueueMailer.delay.new_task(self)
     end
   end
 
