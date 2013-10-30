@@ -33,4 +33,10 @@ class MarketingQueueMailer < ActionMailer::Base
 
     mail to: @worker.email, subject: "[QQ] Task Assigned"
   end
+
+  def new_task(marketing_task)
+    @marketing_task = marketing_task
+    mail to: 'jason.kunz@harman.com', subject: "[QQ] New Unassigned Task"
+  end
+  
 end

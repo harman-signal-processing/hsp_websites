@@ -1,6 +1,5 @@
 <div class="main-container">
 	<h2><%= @user.name.possessive %> Workload</h2>
-
 	<div class="row">
 		<div class="small-12 large-9 columns">
 			<h4 class="subheader"><%= @user.name.possessive %> Open Tasks</h4>
@@ -8,8 +7,8 @@
 				<thead>
 					<tr>
 						<th width="50%">Task</th>
-						<th width="35%">Project</th>
-						<th>Due</th>
+						<th>Project</th>
+						<th width="10%">Hrs.</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -29,6 +28,7 @@
 							<% if can? :destroy, marketing_task %>
 							<%= link_to(image_tag('trash.gif'), [:marketing_queue, marketing_task], confirm: "Are you sure?", method: :delete) %>
 							<% end %>
+							<div class="small <%= "red" if marketing_task.late? %>">Due: <%=l marketing_task.due_on, format: :short %></div>
 						</td>
 						<td>
 							<%= link_to marketing_task.marketing_project.name.truncate(35), [:marketing_queue, marketing_task.marketing_project] %>
@@ -42,14 +42,14 @@
 										worker: marketing_task.worker.name,
 										due_on: I18n.l(marketing_task.due_on, format: :short)
 									} %>
-							<%= link_to marketing_task.name.truncate(60), can?(:manage, marketing_task) ? edit_marketing_queue_marketing_task_path(marketing_task) : [:marketing_queue, marketing_task] %>
+							<%= link_to marketing_task.name.truncate(60), [:marketing_queue, marketing_task] %>
 							<% if can? :destroy, marketing_task %>
 							<%= link_to(image_tag('trash.gif'), [:marketing_queue, marketing_task], confirm: "Are you sure?", method: :delete) %>
 							<% end %>
 						</td>
 						<td></td>
 						<% end %>
-						<td class='date'><span class="<%= "red" if marketing_task.late? %>"><%=l marketing_task.due_on, format: :short %></span></td>
+						<td><%= marketing_task.man_hours %></td>
 					</tr>
 				<% end %>
 				</tbody>
@@ -85,7 +85,7 @@
 						<% else %>
 						<td>
 							<%= check_box_tag marketing_task.id, marketing_task.id, true, class: 'incompleter', data: { task: marketing_task.id, name: marketing_task.name, worker: marketing_task.worker.name } %>
-							<%= link_to marketing_task.name.truncate(60), can?(:manage, marketing_task) ? edit_marketing_queue_marketing_task_path(marketing_task) : [:marketing_queue, marketing_task] %>
+							<%= link_to marketing_task.name.truncate(60), [:marketing_queue, marketing_task] %>
 						</td>
 						<td></td>
 						<% end %>
@@ -103,6 +103,26 @@
 		        <%= image_tag(@user.gravatar_url(default: 'mm', size: 100), width: 100, height: 100, style: "margin: 20px 0px") %>
 		      <% end %>
 			</div>
+
+
+			<% if @user.allocation > 0 %>
+			<% two_week = @user.allocation(2.weeks.from_now) %>
+			<% four_week = @user.allocation(4.weeks.from_now) %>
+			<div class="panel">
+				<h4>Allocation (est.)</h4>
+				<p>over next 2 weeks:<br/>
+				 &bull; <%= pluralize two_week, "hour" %> (<%= number_to_percentage((two_week / 80)*100, precision: 0) %>)</p>
+				<p>over next 4 weeks:<br/>
+				 &bull; <%= pluralize four_week, "hour" %> (<%= number_to_percentage((four_week / 160)*100, precision: 0) %>)</p>
+				<p>total: <%= pluralize @user.allocation, "hour" %></p>
+			</div>
+
+			<div class="tip" style="margin-top: 30px;">
+				<p>Allocation estimate only includes <b>jobs in the queue</b>
+					where the man-hours has been provided.</p>
+			</div>
+			<% end %>
+	
 		</div>
 	</div>
 </div>

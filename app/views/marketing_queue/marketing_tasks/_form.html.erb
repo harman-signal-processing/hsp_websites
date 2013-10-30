@@ -53,7 +53,11 @@
 				<i>Assigned to <%= @marketing_task.worker.name %></i>
 			<% end %>
 		</div>
-		<div class="large-6 columns"></div>
+		<div class="large-6 columns">
+			<% if can? :estimate, @marketing_task %>
+				<%= f.input :man_hours %>
+			<% end %>
+		</div>
 	</div>
 
 	<%= f.submit class: "button round" %>

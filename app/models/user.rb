@@ -194,4 +194,12 @@ class User < ActiveRecord::Base
     @incomplete_marketing_tasks ||= marketing_tasks.where("completed_at IS NULL OR completed_at > ?", Date.tomorrow)
   end
 
+  def allocation(offset=nil)
+    if offset
+      incomplete_marketing_tasks.where("man_hours > 0").where("due_on <= ?", offset).inject(0.0){|total, i| total + i.man_hours}
+    else
+      incomplete_marketing_tasks.where("man_hours > 0").inject(0.0){|total, i| total + i.man_hours}
+    end
+  end
+
 end

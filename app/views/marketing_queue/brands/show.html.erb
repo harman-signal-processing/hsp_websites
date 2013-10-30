@@ -44,7 +44,7 @@
 							worker: (marketing_task.worker) ? marketing_task.worker.name : 'Unassigned',
 							due_on: I18n.l(marketing_task.due_on, format: :short)
 						} %>
-					<%= link_to marketing_task.name, edit_marketing_queue_marketing_task_path(marketing_task) %>
+					<%= link_to marketing_task.name, [:marketing_queue, marketing_task] %>
 
 					<% if marketing_task.due_on.present? %>
 						<i class="<%= "red" if marketing_task.late? %>">Due: <%=l marketing_task.due_on, format: :short %></i>
