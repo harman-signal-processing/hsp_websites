@@ -67,7 +67,7 @@ class Ability
         can :manage, MarketingAttachment
         can :create, MarketingComment
         can :manage, MarketingComment, user_id: user.id
-        can :estimate, MarketingTask, user_id: user.id
+        can :estimate, MarketingTask, worker_id: user.id
         # cannot :assign, MarketingTask # Makes it so admin can't assign either
       end
       if user.role?(:sales_admin)
