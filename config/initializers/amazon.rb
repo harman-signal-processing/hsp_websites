@@ -21,7 +21,7 @@ if Rails.env.production?
 	})
 else
 	Paperclip::Attachment.default_options.merge!({
-    url: '/system/:attachment/:id_:timestamp/:basename_:style.:extension',
-    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
+    url: '/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension',
+    path: ":rails_root/public/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension"
 	})
 end
