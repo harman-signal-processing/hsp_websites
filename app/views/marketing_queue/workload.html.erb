@@ -104,24 +104,7 @@
 		      <% end %>
 			</div>
 
-
-			<% if @user.allocation > 0 %>
-			<% two_week = @user.allocation(2.weeks.from_now) %>
-			<% four_week = @user.allocation(4.weeks.from_now) %>
-			<div class="panel">
-				<h4>Allocation (est.)</h4>
-				<p>over next 2 weeks:<br/>
-				 &bull; <%= pluralize two_week, "hour" %> (<%= number_to_percentage((two_week / 80)*100, precision: 0) %>)</p>
-				<p>over next 4 weeks:<br/>
-				 &bull; <%= pluralize four_week, "hour" %> (<%= number_to_percentage((four_week / 160)*100, precision: 0) %>)</p>
-				<p>total: <%= pluralize @user.allocation, "hour" %></p>
-			</div>
-
-			<div class="tip" style="margin-top: 30px;">
-				<p>Allocation estimate only includes <b>jobs in the queue</b>
-					where the man-hours has been provided.</p>
-			</div>
-			<% end %>
+			<%= render "marketing_queue/users/allocation", user: @user %>
 	
 		</div>
 	</div>

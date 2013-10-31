@@ -1,5 +1,6 @@
 class ProductReview < ActiveRecord::Base
-  has_attached_file :review
+  has_attached_file :review,
+    url: ':s3_domain_url' # specified to avoid cloudfront usage
 
   has_attached_file :cover_image,
     styles: { lightbox: "800x600",

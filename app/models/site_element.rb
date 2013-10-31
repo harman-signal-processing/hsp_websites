@@ -8,7 +8,8 @@ class SiteElement < ActiveRecord::Base
       tiny: "64x64", 
       tiny_square: "64x64#" 
     } 
-  has_attached_file :executable
+  has_attached_file :executable,
+    url: ':s3_domain_url' # specified to avoid cloudfront usage
   validates :brand, :name, presence: true
   has_many :product_site_elements, dependent: :destroy, inverse_of: :site_element
   has_many :products, through: :product_site_elements

@@ -5,7 +5,8 @@ class TrainingModule < ActiveRecord::Base
   has_many :softwares, through: :software_training_modules
   belongs_to :brand
   validates :brand_id, :name, presence: true
-  has_attached_file :training_module
+  has_attached_file :training_module,
+    url: ':s3_domain_url' # specified to avoid cloudfront usage
 
   def self.modules_for(brand_id, options={})
   	collection = select("DISTINCT training_modules.*").where(brand_id: brand_id)
