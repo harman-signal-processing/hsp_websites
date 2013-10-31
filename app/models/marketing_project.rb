@@ -12,7 +12,8 @@
 #
 #
 class MarketingProject < ActiveRecord::Base
-  attr_accessible :brand_id, :estimated_cost, :due_on, :event_end_on, :event_start_on, :marketing_project_type_id, :name, :targets, :targets_progress
+  attr_accessible :brand_id, :estimated_cost, :due_on, :event_end_on, :event_start_on, :marketing_project_type_id, :name, :targets, :targets_progress, :tasks_follow_project
+  attr_accessor :tasks_follow_project
   has_event_calendar start_at_field: 'event_start_on', end_at_field: 'event_end_on'
   belongs_to :brand 
   belongs_to :user 
@@ -23,8 +24,9 @@ class MarketingProject < ActiveRecord::Base
   validates :name, presence: :true
   validates :brand_id, presence: :true
   validates :user_id, presence: true
-  validates :due_on, presence: true #, if: :needs_due_date?
+  validates :due_on, presence: true
   before_create :setup_from_template
+  after_update :adjust_tasks
 
   def setup_from_template
   	if marketing_project_type 
@@ -34,10 +36,15 @@ class MarketingProject < ActiveRecord::Base
   	end
   end
 
-  # Always needs a due date
-  # def needs_due_date?
-  # 	self.marketing_project_type_id.present? && self.marketing_project_type.marketing_project_type_tasks.count > 0
-  # end
+  # If the project's due date changed, move the tasks' due date
+  def adjust_tasks
+    if self.due_on_changed? && tasks_follow_project.to_i > 0
+      delta = self.due_on.to_date - self.due_on_was.to_date
+      incomplete_marketing_tasks.each do |t|
+        t.update_attributes due_on: t.due_on.advance(days: delta.to_i)
+      end
+    end
+  end
 
   def self.open
     where("id IN (?) OR event_end_on >= ? OR due_on >= ?", MarketingTask.open_project_ids, 1.day.ago, 1.day.ago).order("due_on ASC")

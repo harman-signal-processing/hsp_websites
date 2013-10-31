@@ -167,6 +167,8 @@
 			<li><%= link_to brand.name, [:marketing_queue, brand] %> (<%= brand.open_marketing_projects.count %>)</li>
 			<% end %>
 		</ul>
+
+		<%= render "marketing_queue/users/allocation", user: current_marketing_queue_user %>
 	</div>
 </div>
 

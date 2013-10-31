@@ -65,7 +65,8 @@ class MarketingQueue::MarketingProjectsController < MarketingQueueController
     end
 	end
 
-  def edit    
+  def edit
+    @marketing_project.tasks_follow_project = true
   end
 
   def update
