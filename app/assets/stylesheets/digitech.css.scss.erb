@@ -445,6 +445,7 @@ div#signup {
 	float: left;
 	margin: 6px;
 	position: relative;
+	color: #666;
 	.compare_checkbox {
 		position: absolute;
 		top: 80px;
@@ -465,6 +466,7 @@ div#signup {
 	float: left;
 	margin: 6px;
 	position: relative;
+	color: 666;
 	box-shadow: #DBD4C7 1px 2px 5px;
 	position: relative;
 	.compare_checkbox {
@@ -540,8 +542,9 @@ div#product_content {
 				size: 40px;
 			}
 			text-align: center;
-			color: #EEE;
-			background: #040437;
+			text-shadow: 1px 2px 3px #3b4b85;
+			color: #fff;
+			background: #516fab;
 			padding: 8px 6px 2px 6px;
 			margin-bottom: 2px;
 		}
@@ -561,11 +564,11 @@ div#product_content {
 	}
 }
 ul#product_thumbnails {
-	margin: 8px 0px;
+	margin: 0px 0px 26px;
 	padding: 4px;
 	text-align: left;
 	background: white;
-	border: 1px solid #CCC;
+	border: 1px solid #fff;
 	width: 542px;
 	li {
 		display: inline;
@@ -574,7 +577,7 @@ ul#product_thumbnails {
 	}
 }
 ul#discontinued_product_thumbnails {
-	margin: 14px 0px;
+	margin: 0px 0px 26px;
 	padding: 4px;
 	text-align: left;
 	border: none;
@@ -587,7 +590,7 @@ ul#discontinued_product_thumbnails {
 #viewer_container {
 	height: 366px;
 	width: 550px;
-	border: 1px solid #CCC;
+	border: 1px solid #fff;
 	background: white;
 }
 div#product_bottom_content {
@@ -702,15 +705,18 @@ div#sub_products {
 		padding: 0;
 		font-size: 16px;
 		a:link, a:visited {
-			color: #3d73aa; /*#040437;*/
-			background: #f1fbfe url(<%= image_path('digitech/tabbg.png') %>);
+			color: #1a2b73; /*#040437;*/
+			//background: #f1fbfe url(<%= image_path('digitech/tabbg.png') %>);
+			background: #f1fbfe url(<%= image_path('icons/expand-dark.png') %>) no-repeat;
+			background-position: 8px;
 			display: block;
-			border: 1px solid #b5d4f3;
-			padding-left: 12px;
+			border: 1px solid #7086bb;
+			padding-left: 21px;
 			padding-top: 2px;
 		}
 		a:hover {
-			background: #3d73aa; /*#040437;*/
+			background: #1a2b73 url(<%= image_path('icons/expand.png') %>) no-repeat; /*#040437;*/
+			background-position: 8px;
 			color: white;			
 		}
 	}
@@ -747,7 +753,7 @@ div#sub_products {
 			&.current {
 				a {
 					background: #f1fbfe url(<%= image_path('digitech/tabbg.png') %>);
-					border: 1px solid #b5d4f3;
+					border: 1px solid #7086bb;
 					border-bottom: none;
 					padding-bottom: 8px;
 					margin-bottom: -4px;
@@ -760,7 +766,7 @@ div#sub_products {
 
 #product_packaging_contents {
 	clear: both;
-	border: 1px solid #b5d4f3;
+	border: 1px solid #7086bb;
 	margin-bottom: 10px;
 	padding: 16px 21px;
 	height: 230px;
@@ -791,7 +797,7 @@ h2.special_offer {
 	margin: 0px 3px 12px;
 }
 .product_tab_content {
-	border: 1px solid #b5d4f3;
+	border: 1px solid #7086bb;
 	padding: 10px;
 	width: 353px;
 	margin-left: auto;
@@ -802,13 +808,14 @@ h2.special_offer {
 }
 table.specs {
 	border-collapse: collapse;
-	margin-top: 10px;
+	margin-top: 0px;
 	margin-bottom: 10px;
 	td {
 		padding: 4px 10px;
-		border-bottom: 1px dotted #555;
+		border-top: 1px solid #c0c0c0;
+		border-bottom: 1px solid #c0c0c0;
 		&.name {
-			background: #aeaeae;
+			background: #d6d6d6;
 			color: #111;
 		}
 	}
@@ -832,7 +839,7 @@ span.discontinued {
 div#product_buy_now_box {
 	text-align: center;
 	padding: 10px;
-	margin: 10px 0px 20px 0px;
+	margin: 10px 0px 4px 0px;
 }
 #blanket {
 	background-color:#111;
