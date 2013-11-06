@@ -48,7 +48,23 @@ class Ability
         cannot :manage, ToolkitResourceType
         cannot :manage, ProductIntroduction
         cannot :assign, MarketingTask
+        can :create, MarketingProject 
+        can :manage, MarketingProject, user_id: user.id 
         can :read, WarrantyRegistration
+      end
+      if user.role?(:marketing_staff)
+        can [:read, :create, :update], MarketingTask
+        can :destroy, MarketingTask, requestor_id: user.id
+        can :manage, MarketingAttachment
+        can :create, MarketingComment
+        can :manage, MarketingComment, user_id: user.id
+        can :estimate, MarketingTask, worker_id: user.id
+        can :manage, MarketingTask do |mt|
+          mt.marketing_project.user_id == user.id || mt.requestor_id == user.id
+        end
+        can :create, MarketingProject 
+        can :manage, MarketingProject, user_id: user.id 
+        # cannot :assign, MarketingTask # Makes it so admin can't assign either
       end
       if user.role?(:queue_admin)
         can :manage, MarketingTask
@@ -60,15 +76,6 @@ class Ability
         can :manage, User, marketing_staff: true
         can :manage, MarketingComment
         can :estimate, MarketingTask
-      end
-      if user.role?(:marketing_staff)
-        can [:read, :create, :update], MarketingTask
-        can :destroy, MarketingTask, requestor_id: user.id
-        can :manage, MarketingAttachment
-        can :create, MarketingComment
-        can :manage, MarketingComment, user_id: user.id
-        can :estimate, MarketingTask, worker_id: user.id
-        # cannot :assign, MarketingTask # Makes it so admin can't assign either
       end
       if user.role?(:sales_admin)
         can :read, Product

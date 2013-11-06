@@ -115,9 +115,27 @@ describe "Marketing Projects Integration Test" do
     end
   end
 
-  # describe "Existing project" do 
-  #   it "should add tasks from the project page"
-  #   it "should show tasks in a gantt style"
-  # end
+  describe "Existing project" do 
+
+    before do
+      setup_and_login_queue_user
+      @project = FactoryGirl.create(:marketing_project, due_on: 30.days.from_now, brand_id: @digitech.id, user_id: @user.id)
+      @task1 = FactoryGirl.create(:marketing_task, marketing_project: @project, due_on: 20.days.from_now, name: "Task 1")
+      @task2 = FactoryGirl.create(:marketing_task, marketing_project: @project, due_on: 1.month.from_now, name: "Task 2")
+      visit marketing_queue_marketing_project_url(@project, host: @host)
+    end
+
+    it "should allow the original owner to edit" do 
+      must_have_link "Edit"
+    end
+
+    it "should allow the project owner to edit tasks" do 
+      click_on @task1.name
+      must_have_link "Edit"
+    end
+
+    # it "should add tasks from the project page"
+    # it "should show tasks in a gantt style"
+  end
 
 end
