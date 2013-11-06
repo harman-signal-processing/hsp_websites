@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131030165853) do
+ActiveRecord::Schema.define(:version => 20131106224034) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -545,9 +545,11 @@ ActiveRecord::Schema.define(:version => 20131030165853) do
     t.datetime "marketing_file_updated_at"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
+    t.integer  "marketing_task_id"
   end
 
   add_index "marketing_attachments", ["marketing_project_id"], :name => "index_marketing_attachments_on_marketing_project_id"
+  add_index "marketing_attachments", ["marketing_task_id"], :name => "index_marketing_attachments_on_marketing_task_id"
 
   create_table "marketing_comments", :force => true do |t|
     t.integer  "marketing_project_id"
@@ -555,9 +557,11 @@ ActiveRecord::Schema.define(:version => 20131030165853) do
     t.text     "message"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
+    t.integer  "marketing_task_id"
   end
 
   add_index "marketing_comments", ["marketing_project_id"], :name => "index_marketing_comments_on_marketing_project_id"
+  add_index "marketing_comments", ["marketing_task_id"], :name => "index_marketing_comments_on_marketing_task_id"
 
   create_table "marketing_project_type_tasks", :force => true do |t|
     t.string   "name"
