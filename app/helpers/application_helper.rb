@@ -43,11 +43,19 @@ module ApplicationHelper
   def slideshow_frame(slide, position=0)
     hidden = (position == 0) ? "" : "display:none"
     slide_link = (slide.string_value =~ /^\// || slide.string_value =~ /^http/i) ? slide.string_value : "/#{params[:locale]}/#{slide.string_value}"
-    content_tag(:div, id: "slideshow_#{(position + 1)}", class: "slideshow_frame", style: hidden) do
-      (slide.string_value.blank?) ? 
+
+    slide_content = (slide.string_value.blank?) ? 
         image_tag(slide.slide.url) : 
         link_to(image_tag(slide.slide.url), slide_link)
+
+    if p = website.value_for('countdown_overlay_position')
+      if p == position && cd = website.value_for('countdown_container')
+        slide_content += content_tag(:div, '', id: cd)
+      end
     end
+
+    content_tag(:div, slide_content, id: "slideshow_#{(position + 1)}", class: "slideshow_frame", style: hidden)
+
   end
   
   # Controls for the generated slideshow

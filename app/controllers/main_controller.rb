@@ -6,6 +6,14 @@ class MainController < ApplicationController
   #
   def index
     @counter = website.brand.increment_homepage_counter # reset daily
+    events = website.value_for('countdown_next_event')
+    @next_event = ''
+    if events
+      events.split(',').reverse.each do |d|
+        @next_event = d if d.to_date > Date.today
+      end
+    end
+    @countdown_container = website.value_for('countdown_container')
     @news = News.all_for_website(website, limit: 4)
     begin
       @youtube = website.value_for('youtube').to_s.match(/\w*$/).to_s
