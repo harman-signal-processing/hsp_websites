@@ -38,7 +38,7 @@ gem 'thinking-sphinx', '~> 3.0'
 gem 'youtube_it', "~> 2.2"
 gem 'twitter'
 gem 'delayed_job_active_record'
-gem 'devise', '~> 2.2.4' # v3.0.0 caused some test failures on 7/15/2013--need to investigate
+gem 'devise' #, '~> 2.2.4' # v3.0.0 caused some test failures on 7/15/2013--need to investigate
 gem 'cancan'
 gem 'gravtastic'
 gem "recaptcha", require: "recaptcha/rails"

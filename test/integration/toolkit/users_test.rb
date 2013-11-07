@@ -313,12 +313,16 @@ describe "Toolkit Users Integration Test" do
     end     
   end
 
+  ######### Devise changed, doesn't seem possible to get the same confirmation token directly.
+  ######### I'd have to read the email that was sent to the user and click on the link in it.
   describe "Confirmation" do 
   	it "should confirm the new user" do
   		@dealer = FactoryGirl.create(:dealer)
   		@user = FactoryGirl.create(:user, dealer: true, account_number: @dealer.account_number)
   		@user.confirmed?.must_equal(false)
-  		visit toolkit_user_confirmation_url(@user, :confirmation_token => @user.confirmation_token, host: @host)
+  		# visit toolkit_user_confirmation_url(:confirmation_token => @user.confirmation_token, host: @host)
+      last_email.body.to_s.match(/href\=\"(.*)\"+/)
+      visit $1
   		@user.reload
   		@user.confirmed?.must_equal(true)
   	end

@@ -2,8 +2,9 @@ class UserMailer < Devise::Mailer
 	self.default :from => 'hsp_marketing@harman.com'
 	default_url_options[:host] = "www.digitech.com"
 
-  def confirmation_instructions(record, opts={})
+  def confirmation_instructions(record, token, opts={})
   	determine_host(record)
+    @token = token
   	if record.needs_account_number?
   		if record.dealers && record.dealers.first && record.dealers.first.email.present?
         initialize_from_record(record)
@@ -25,12 +26,12 @@ class UserMailer < Devise::Mailer
   	end
   end
 
-  def reset_password_instructions(record, opts={})
+  def reset_password_instructions(record, token, opts={})
   	determine_host(record)
     super
   end
 
-  def unlock_instructions(record, opts={})
+  def unlock_instructions(record, token, opts={})
   	determine_host(record)
     super
   end

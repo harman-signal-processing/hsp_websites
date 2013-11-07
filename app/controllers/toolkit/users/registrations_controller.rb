@@ -8,21 +8,21 @@ class Toolkit::Users::RegistrationsController < Devise::RegistrationsController
     resource = build_resource({})
     @signup_type = params[:signup_type] || "dealer"
     eval("resource.#{@signup_type} = true")
-    respond_with resource
+    respond_with self.resource
   end
 
   # POST /resource
   def create
-    build_resource
+    build_resource(sign_up_params)
 
     if resource.save
       if resource.active_for_authentication?
-        set_flash_message :notice, :signed_up if is_navigational_format?
+        set_flash_message :notice, :signed_up if is_flashing_format?
         sign_up(resource_name, resource)
         respond_with resource, :location => after_sign_up_path_for(resource)
       else
-        set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
-        expire_session_data_after_sign_in!
+        set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_flashing_format?
+        expire_data_after_sign_in!
         respond_with resource, :location => new_user_session_path
       end
     else
