@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   # before_filter :set_locale
   # before_filter :set_default_meta_tags
   before_filter :catch_criminals
+  #before_filter :configure_permitted_parameters, if: :devise_controller? # shouldn't need this until rails 4
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   layout :set_layout
@@ -216,6 +217,93 @@ private
         ApiKey.exists?(access_token: token)
       end
     end
+  end
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:sign_up) { |u| 
+      u.permit(:name, 
+        :email, 
+        :password, 
+        :password_confirmation, 
+        :invitation_code, 
+        :website, 
+        :artist_photo, 
+        :artist_product_photo, 
+        :bio, 
+        :main_instrument, 
+        :twitter, 
+        :artist_products, 
+        :job_title,    
+        :job_description,
+        :phone_number,
+        :password, 
+        :password_confirmation, 
+        :remember_me,
+        :admin, 
+        :employee, 
+        :online_retailer, 
+        :customer_service, 
+        :translator, 
+        :market_manager, 
+        :artist_relations,
+        :engineer,
+        :rohs,
+        :clinician,
+        :clinic_admin,
+        :rep,
+        :distributor,
+        :dealer,
+        :marketing_staff,
+        :queue_admin,
+        :rso,
+        :rso_admin,
+        :sales_admin,
+        :account_number,
+        :media,
+        :profile_pic) 
+    }
+    devise_parameter_sanitizer.for(:account_update) { |u| 
+      u.permit(:name, 
+        :email, 
+        :password, 
+        :password_confirmation, 
+        :invitation_code, 
+        :website, 
+        :artist_photo, 
+        :artist_product_photo, 
+        :bio, 
+        :main_instrument, 
+        :twitter, 
+        :artist_products, 
+        :job_title,    
+        :job_description,
+        :phone_number,
+        :password, 
+        :password_confirmation, 
+        :remember_me,
+        :admin, 
+        :employee, 
+        :online_retailer, 
+        :customer_service, 
+        :translator, 
+        :market_manager, 
+        :artist_relations,
+        :engineer,
+        :rohs,
+        :clinician,
+        :clinic_admin,
+        :rep,
+        :distributor,
+        :dealer,
+        :marketing_staff,
+        :queue_admin,
+        :rso,
+        :rso_admin,
+        :sales_admin,
+        :account_number,
+        :media,
+        :profile_pic) 
+    }
   end
 
 end

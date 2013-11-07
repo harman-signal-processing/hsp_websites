@@ -51,8 +51,9 @@ describe "DigiTech Artist Integration Test" do
   		visit artists_url(locale: I18n.default_locale, host: @website.url)
   	end
 
-  	it "should have a signup link that ends up at the form" do
-  		click_link "Become a #{@brand.name} Artist"
+  	it "should have a signup form" do
+      wont_have_link "Become a #{@brand.name} Artist"
+  		click_link "Artist Login"
   		click_link "Sign up to be a #{@brand.name} Artist"
   		must_have_xpath("//form[@id='new_artist']")
   	end
