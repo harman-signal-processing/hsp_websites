@@ -178,15 +178,21 @@ form {
 	input {
 		font-size: 120%;
 		padding: 6px 4px;
+		&[type=text], &[type=password], &[type=email] {
+			margin-bottom: 1em;
+		}
 	}
 	select {
 		font-size: 120%;
 		padding: 4px;
 		padding-right: 12px;
+		margin-bottom: 1em;
 	}
 	label {
+		display: block;
 		font-size: 16px;
 		color: #333;
+		margin-bottom: 0.1875em;
 	}
 }
 div.field, div.actions {
