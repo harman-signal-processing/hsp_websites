@@ -1,8 +1,10 @@
 
-<%= simple_form_for [:marketing_queue, @marketing_project, @marketing_comment] do |f| %>
+<%= simple_form_for [:marketing_queue, @marketing_comment.project_or_task, @marketing_comment] do |f| %>
 	<%= f.input :message, label: "Add your comment:", input_html: {style: "height: 120px"} %>
 	<%= f.submit "Comment", class: "button round small", style: "margin-top: 0px;" %>
-	<small>Comments are sent to all project participants: <%= @marketing_project.participants.map{|u| u.name}.join(", ") %></small>
+	<small>Comments are sent to all 
+		<%= @marketing_comment.project_or_task.is_a?(MarketingProject) ? "project" : "task" %> participants: 
+		<%= @marketing_comment.participants.map{|u| u.name}.join(", ") %></small>
 <% end %>
 
 <a href="#" id="toggle-formatting">show/hide formatting tips</a>

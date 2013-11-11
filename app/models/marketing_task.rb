@@ -8,6 +8,8 @@ class MarketingTask < ActiveRecord::Base
   belongs_to :marketing_project
   belongs_to :requestor, class_name: "User", foreign_key: :requestor_id
   belongs_to :worker, class_name: "User", foreign_key: :worker_id
+  has_many :marketing_attachments, dependent: :destroy, order: "created_at DESC"
+  has_many :marketing_comments, dependent: :destroy
   acts_as_list scope: :marketing_project_id
   validates :name, presence: :true
   validates :due_on, presence: :true
@@ -62,6 +64,11 @@ class MarketingTask < ActiveRecord::Base
     if worker_id.blank?
       MarketingQueueMailer.delay.new_task(self)
     end
+  end
+
+  def participants
+    commenters = (self.worker_id.present?) ? [requestor, worker] : [requestor]
+    (commenters + marketing_comments.map{|c| c.user}).uniq
   end
 
 end

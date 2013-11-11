@@ -11,7 +11,7 @@
 	<div class="large-10 small-8 columns comment-content">
 		<h5><%= l marketing_comment.created_at, format: :long %>
 			<% if can? :delete, marketing_comment %>
-				<%= link_to image_tag('trash.gif'), [:marketing_queue, marketing_comment.marketing_project, marketing_comment], confirm: "Sure?", method: :delete, remote: true %>
+				<%= link_to image_tag('trash.gif'), [:marketing_queue, marketing_comment.project_or_task, marketing_comment], confirm: "Sure?", method: :delete, remote: true %>
 			<% end %>
 		</h5>
 		<%=raw textilize(marketing_comment.message) %>

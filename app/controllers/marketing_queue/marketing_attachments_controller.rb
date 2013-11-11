@@ -1,6 +1,6 @@
 class MarketingQueue::MarketingAttachmentsController < MarketingQueueController
 	layout "marketing_queue"
-  before_filter :load_brand_if_present
+  before_filter :load_project_or_task, :load_brand_if_present
   after_filter :keep_brand_in_session, only: [:show, :edit, :create, :update]
 	load_resource
 
@@ -19,8 +19,9 @@ class MarketingQueue::MarketingAttachmentsController < MarketingQueueController
   end
 
 	def create
-    if @marketing_attachment.marketing_project 
-      redirect_path = [:marketing_queue, @marketing_attachment.marketing_project]
+    @marketing_attachment.project_or_task = @project_or_task
+    if @marketing_attachment.project_or_task
+      redirect_path = [:marketing_queue, @project_or_task.brand, @project_or_task]
     else
       redirect_path = marketing_queue_root_path
     end
@@ -38,12 +39,12 @@ class MarketingQueue::MarketingAttachmentsController < MarketingQueueController
   def destroy
     @marketing_attachment.destroy
     respond_to do |format|
-      format.html { redirect_to [:marketing_queue, @marketing_attachment.marketing_project]}
+      format.html { redirect_to [:marketing_queue, @marketing_attachment.project_or_task]}
       format.js
     end
   end
 
-  private
+private
 
   def load_brand_if_present
     if params[:brand_id]
@@ -53,8 +54,17 @@ class MarketingQueue::MarketingAttachmentsController < MarketingQueueController
   end
 
   def keep_brand_in_session
-    if @marketing_attachment.marketing_project.brand
-      session[:brand_id] = @marketing_attachment.marketing_project.brand_id
+    if @marketing_attachment.project_or_task && @marketing_attachment.project_or_task.brand
+      session[:brand_id] = @marketing_attachment.project_or_task.brand_id
     end    
   end
+
+  def load_project_or_task
+    if params[:marketing_project_id]
+      @project_or_task = MarketingProject.find(params[:marketing_project_id])
+    elsif params[:marketing_task_id]
+      @project_or_task = MarketingTask.find(params[:marketing_task_id])
+    end
+  end
+
 end

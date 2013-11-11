@@ -20,11 +20,9 @@ class MarketingQueueMailer < ActionMailer::Base
 
   def comment(marketing_comment)
     @marketing_comment = marketing_comment
-    @marketing_project = marketing_comment.marketing_project
-    participants = @marketing_project.participants
-
-    mail to: participants.map{|u| u.email},
-      subject: "[QQ] Comment: #{@marketing_project.name}"
+    participants = @marketing_comment.participants
+    mail to: participants.map{|u| u.email}, 
+      subject: "[QQ] Comment: #{@marketing_comment.project_or_task.name}"
   end
 
   def task_assigned(marketing_task)
