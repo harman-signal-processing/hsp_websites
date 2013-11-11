@@ -89,7 +89,7 @@ class MarketingProject < ActiveRecord::Base
   end
 
   def participants
-    ([user] + marketing_tasks.where("worker_id > 0").map{|t| t.worker}).uniq
+    ([user] + marketing_tasks.where("worker_id > 0").map{|t| t.worker} + marketing_comments.map{|c| c.user}).uniq
   end
 
 end

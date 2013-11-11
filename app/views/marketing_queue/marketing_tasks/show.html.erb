@@ -14,27 +14,109 @@
 <% if can? :manage, @marketing_task %>
 	<ul class="button-group round">
 		<li><%= link_to "Edit task", edit_marketing_queue_marketing_task_path(@marketing_task), class: "small button secondary" %></li>
+		<% if can? :destroy, @marketing_task %>
+			<li><%= link_to("Delete task", [:marketing_queue, @marketing_task], confirm: "Are you sure?", method: :delete, class: "small alert button") %></li>
+		<% end %>
 	</ul>
 <% end %>
 
-<% if @marketing_task.marketing_project %>
-	<p>Project: 
-	<%= link_to @marketing_task.marketing_project.name, [:marketing_queue, @marketing_task.marketing_project] %></p>
-<% elsif @marketing_task.brand %>
-	<p>Brand: 
-	<%= link_to @marketing_task.brand.name, [:marketing_queue, @marketing_task.brand] %></p>
+<div class="row">
+	<div class="large-8 columns">
+		<div class="main-container">
+			<h4 class="subheader">Task details:</h4>
+			<table class="data">
+			<% if @marketing_task.marketing_project %>
+				<tr>
+					<th style="text-align: left">Project: </th>
+					<td><%= link_to @marketing_task.marketing_project.name, [:marketing_queue, @marketing_task.marketing_project] %></td>
+				</tr>
+			<% elsif @marketing_task.brand %>
+				<tr>
+					<th style="text-align: left">Brand: </th>
+					<td><%= link_to @marketing_task.brand.name, [:marketing_queue, @marketing_task.brand] %></td>
+				</tr>
+			<% end %>
+
+				<tr>
+					<th style="text-align: left">Assigned to: </th>
+			<% if @marketing_task.worker %>
+					<td><%= @marketing_task.worker.name %></td>
+			<% else %>
+					<td id="worker-<%= @marketing_task.id %>">
+						<%= render 'marketing_queue/marketing_tasks/inline_assign', marketing_task: @marketing_task %>
+					</td>
+			<% end %>
+				</tr>
+
+				<tr>
+					<th style="text-align: left">Est. man hours</th>
+					<td id="man-hours-<%= @marketing_task.id %>">
+					<% if @marketing_task.man_hours.present? %>
+						<%= @marketing_task.man_hours.to_f %>
+					<% end %>
+					</td>
+				</tr>
+
+				<tr>
+					<th style="text-align: left">Created:</th>
+					<td><%=l @marketing_task.created_at, format: :long %></td>
+				</tr>
+
+			<% if @marketing_task.due_on.present? %>
+				<tr>
+					<th style="text-align: left">Due: </th>
+					<td><span class="<%= "red" if @marketing_task.late? %>"><%=l @marketing_task.due_on, format: :long %></span></td>
+				</tr>
+			<% end %>
+
+			<% if @marketing_task.completed_at.present? %>
+				<tr>
+					<th style="text-align: left">Completed:</th>
+					<td><%=l @marketing_task.completed_at, format: :long %></td>
+				</tr>
+			<% end %>
+			</table>
+
+			<% if @marketing_task.completed_at.blank? %>
+				<p><%= link_to "Done Done", toggle_marketing_queue_marketing_task_path(@marketing_task), class: "medium round success button" %></p>
+			<% end %>
+
+		</div>
+
+		<br/>
+		<h4>Comments</h4>
+		<% @marketing_task.marketing_comments.each do |marketing_comment| %>
+			<%= render "marketing_queue/marketing_comments/show", marketing_comment: marketing_comment %>
+		<% end %>
+		<% if can? :create, MarketingComment %>
+			<br/>
+			<%= render "marketing_queue/marketing_comments/form" %>
+		<% end %>
+
+	</div>
+	<div class="large-4 columns">
+		<h4>Attachments
+			<% if can? :create, MarketingAttachment %>
+			<%= link_to "+ Add attachment", new_marketing_queue_marketing_attachment_path(marketing_task_id: @marketing_task), class: "tiny success round button", data: { "reveal-id" => "new_attachment_modal" } %>
+			<% end %>
+		</h4>
+
+		<ul class="list">
+			<% @marketing_task.marketing_attachments.each do |marketing_attachment| %>
+			<li id="attachment_<%= marketing_attachment.id %>"> <%= link_to marketing_attachment.marketing_file_file_name, [:marketing_queue, marketing_attachment] %>
+				<%= link_to(image_tag('trash.gif'), [:marketing_queue, marketing_attachment], method: :delete, confirm: "Are you sure? (Can't be undone)", remote: true) %></li>
+			<% end %>
+		</ul>
+	</div>
+</div>
+
+
+<%= content_for :modals do %>
+	<div id="new_attachment_modal" class="reveal-modal small">
+		<h3>Attach A File:</h3>
+		<%= render 'marketing_queue/marketing_attachments/form' %>
+		<a class="close-reveal-modal">&#215;</a>
+	</div>
 <% end %>
 
-<% if @marketing_task.worker %>
-	<p>Assigned to: <%= @marketing_task.worker.name %></p>
-<% else %>
-	<p>Assigned to: <span class="alert round label">Nobody</span></p>
-<% end %>
 
-<% if @marketing_task.due_on.present? %>
-	<p>Due: <%=l @marketing_task.due_on, format: :long %></p>
-<% end %>
-
-<% if @marketing_task.completed_at.present? %>
-	<p>Completed: <%=l @marketing_task.completed_at, format: :long %></p>
-<% end %>

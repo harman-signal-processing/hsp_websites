@@ -22,6 +22,8 @@ class MarketingQueue::MarketingTasksController < MarketingQueueController
   end
 
   def show
+    @marketing_attachment = MarketingAttachment.new(marketing_task_id: @marketing_task.id)
+    @marketing_comment = MarketingComment.new(marketing_task_id: @marketing_task.id)
   end
 
 	def new
@@ -84,7 +86,10 @@ class MarketingQueue::MarketingTasksController < MarketingQueueController
   def toggle
     @marketing_task.completed_at = @marketing_task.completed_at.blank? ? Time.now : nil
     @marketing_task.save
-    render nothing: true
+    respond_to do |format|
+      format.html { redirect_to [:marketing_queue, @marketing_task]}
+      format.js { render nothing: true }
+    end
   end
 
   def destroy

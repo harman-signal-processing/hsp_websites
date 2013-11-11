@@ -61,6 +61,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       end
       resources :marketing_projects do 
         resources :marketing_comments, only: [:create, :destroy]
+        resources :marketing_attachments
         collection do
           get :overview
         end
@@ -70,6 +71,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :marketing_project_type_tasks,
         :marketing_attachments
       resources :marketing_tasks do 
+        resources :marketing_comments, only: [:create, :destroy]
+        resources :marketing_attachments
         member do 
           get :toggle
         end

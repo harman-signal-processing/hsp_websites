@@ -120,8 +120,8 @@ describe "Marketing Projects Integration Test" do
     before do
       setup_and_login_queue_user
       @project = FactoryGirl.create(:marketing_project, due_on: 30.days.from_now, brand_id: @digitech.id, user_id: @user.id)
-      @task1 = FactoryGirl.create(:marketing_task, marketing_project: @project, due_on: 20.days.from_now, name: "Task 1")
-      @task2 = FactoryGirl.create(:marketing_task, marketing_project: @project, due_on: 1.month.from_now, name: "Task 2")
+      @task1 = FactoryGirl.create(:marketing_task, marketing_project: @project, due_on: 20.days.from_now, name: "Task 1", requestor_id: @user.id)
+      @task2 = FactoryGirl.create(:marketing_task, marketing_project: @project, due_on: 1.month.from_now, name: "Task 2", requestor_id: @user.id)
       visit marketing_queue_marketing_project_url(@project, host: @host)
     end
 
