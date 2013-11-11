@@ -19,7 +19,15 @@ class LabelSheetOrder < ActiveRecord::Base
   end
 
   def expanded_label_sheets
-    self.label_sheets.map{|i| LabelSheet.find(i)}
+    s = []
+    self.label_sheets.each do |i| 
+      begin
+        s << LabelSheet.find(i)
+      rescue
+        # Sheet was probably deleted
+      end
+    end
+    s
   end
 
   def generate_secret_code
