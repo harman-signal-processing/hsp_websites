@@ -364,6 +364,8 @@ en:
       rso_page: RSO Site Page
       rso_navigation: RSO Site Navigation Element
       marketing_project_type: Project Template
+      marketing_project: Project
+      marketing_task: Task
       marketing_attachment: Attachment
 
     attributes:

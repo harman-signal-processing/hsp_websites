@@ -19,6 +19,11 @@ jQuery ($) ->
 			element: 'overview'
 			data: $('#overview').data('brands')
 
+	autoclick = $('#autoclick').data('clickon')
+	if autoclick
+		$("##{ autoclick }").foundation('reveal', 'open')
+		$(".reveal-modal-bg").show()
+
 	$('a#toggle-formatting').click (e) ->
 		e.preventDefault()
 		$('div#formatting-tips').toggle()
