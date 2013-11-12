@@ -38,7 +38,8 @@
 	<div class="large-8 columns">
 	<div class="main-container">
 		<h4>To do: <% if can? :create, MarketingTask %>
-			<%= link_to "+ Add a task", new_marketing_queue_marketing_task_path(marketing_project_id: @marketing_project), class: "tiny success round button", data: { "reveal-id" => "new_task_modal" } %>
+			<%= link_to "+ Add a task", new_marketing_queue_marketing_task_path(marketing_project_id: @marketing_project), id: 'newtask-button', class: "tiny success round button", data: { "reveal-id" => "new_task_modal" } %>
+
 			<% end %></h4>
 		<ul class="task-list" id='incomplete-tasks'>
 		<% @marketing_project.incomplete_marketing_tasks.each do |marketing_task| %>
@@ -204,6 +205,10 @@
 		<%= render 'marketing_queue/marketing_tasks/form' %>
 		<a class="close-reveal-modal">&#215;</a>
 	</div>
-<% end %>
+	<% end %>
 
 <% end %>
+
+<% if @marketing_project.user == current_marketing_queue_user && @marketing_project.marketing_tasks.count == 0 %>
+	<div id="autoclick" data-clickon="new_task_modal"></div>
+ <% end %>
