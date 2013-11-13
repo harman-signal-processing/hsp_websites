@@ -4,7 +4,7 @@
 	<%= content_for :modals do %>
 	<div id="assign-task-<%= marketing_task.id %>" class="reveal-modal small">
 	  <h2>Assign Task</h2>
-	  <p class="lead"><%= marketing_task.name %></p>
+	  <p class="lead"><%= link_to marketing_task.name, [:marketing_queue, marketing_task] %></p>
 	  <%= simple_form_for [:marketing_queue, marketing_task], remote: true do |f| %>
 	  	<%= f.association :worker, collection: User.marketing_staff %>
 	  	<%= f.input :man_hours %>

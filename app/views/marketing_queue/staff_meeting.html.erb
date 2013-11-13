@@ -77,7 +77,7 @@
 												worker: (marketing_task.worker) ? marketing_task.worker.name : 'Unassigned',
 												due_on: I18n.l(marketing_task.due_on, format: :short)
 											} %>
-										<%= marketing_task.name %>
+										<%= link_to marketing_task.name, [:marketing_queue, marketing_task] %>
 										<% if can? :destroy, marketing_task %>
 											<%= link_to(image_tag('trash.gif'), [:marketing_queue, marketing_task], confirm: "Are you sure?", method: :delete, remote: true) %>
 										<% end %>
