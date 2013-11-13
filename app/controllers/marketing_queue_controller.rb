@@ -1,6 +1,7 @@
 class MarketingQueueController < ApplicationController
   layout "marketing_queue"
   skip_before_filter :miniprofiler
+  before_filter :force_english
   before_filter :authenticate_marketing_queue_user!
   before_filter :build_search
   
@@ -30,6 +31,10 @@ class MarketingQueueController < ApplicationController
   end
 
 private
+
+  def force_english
+    I18n.locale = "en-US"
+  end
 
   def build_search
     @q = MarketingProject.ransack(params[:q])
