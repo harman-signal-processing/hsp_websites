@@ -25,12 +25,7 @@
 		<ol>
 			<% @marketing_tasks[0,15].each do |marketing_task| %>
 			<li> 
-				<% if marketing_task.marketing_project %>
-					<%= link_to marketing_task.name, [:marketing_queue, marketing_task.marketing_project] %> 
-				<% else %>
-					<%= link_to marketing_task.name, [:marketing_queue, marketing_task] %>
-				<% end %> 
-
+				<%= link_to marketing_task.name, [:marketing_queue, marketing_task] %>
 				<small>
 					<i><% if marketing_task.completed_at.present? %>
 						 completed: <%=l marketing_task.completed_at.to_date, format: :long %>

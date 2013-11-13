@@ -56,7 +56,7 @@
 											worker: marketing_task.worker.name,
 											due_on: I18n.l(marketing_task.due_on, format: :short)
 										} %>
-								<%= marketing_task.name.truncate(50) %>
+								<%= link_to marketing_task.name.truncate(50), [:marketing_queue, marketing_task] %>
 								<% if can? :destroy, marketing_task %>
 									<%= link_to(image_tag('trash.gif'), [:marketing_queue, marketing_task], confirm: "Are you sure?", method: :delete) %>
 								<% end %>
@@ -137,7 +137,7 @@
 											worker: marketing_task.worker.name,
 											due_on: I18n.l(marketing_task.due_on, format: :short)
 										} %>
-								<%= marketing_task.name.truncate(50) %>
+								<%= link_to marketing_task.name.truncate(50), [:marketing_queue, marketing_task] %>
 							</td>
 							<td>
 								<%= link_to marketing_task.marketing_project.name.truncate(20), [:marketing_queue, marketing_task.marketing_project] %>

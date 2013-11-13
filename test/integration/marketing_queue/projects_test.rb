@@ -35,7 +35,7 @@ describe "Marketing Projects Integration Test" do
       it "should require the project name" do
         select @digitech.name, from: "marketing_project_brand_id"
         fill_in :marketing_project_due_on, with: 2.weeks.from_now.to_s
-        click_on "Create Marketing project"
+        click_on "Create Project"
         must_have_content "can't be blank"
       end
 
@@ -44,7 +44,7 @@ describe "Marketing Projects Integration Test" do
         must_have_select "marketing_project_brand_id"
         select @digitech.name, from: "marketing_project_brand_id"
         fill_in :marketing_project_due_on, with: 2.weeks.from_now.to_s
-        click_on "Create Marketing project"
+        click_on "Create Project"
         MarketingProject.last.brand_id.must_equal @digitech.id
       end
 
@@ -53,7 +53,7 @@ describe "Marketing Projects Integration Test" do
         fill_in :marketing_project_due_on, with: 2.weeks.from_now.to_s
         select @digitech.name, from: "marketing_project_brand_id"
         select @project_type.name, from: "marketing_project_marketing_project_type_id"
-        click_on "Create Marketing project"
+        click_on "Create Project"
         project = MarketingProject.last
         project.marketing_project_type_id.must_equal @project_type.id
         project.due_on.to_date.must_equal 2.weeks.from_now.to_date
@@ -69,7 +69,7 @@ describe "Marketing Projects Integration Test" do
         fill_in :marketing_project_due_on, with: 4.weeks.from_now.to_s
         select @digitech.name, from: "marketing_project_brand_id"
         select @project_type.name, from: "marketing_project_marketing_project_type_id"
-        click_on "Create Marketing project"
+        click_on "Create Project"
         project = MarketingProject.last
         project.marketing_tasks.first.name.must_equal @project_type_task.name 
         project.marketing_tasks.first.due_on.to_date.must_equal 3.weeks.from_now.to_date
@@ -79,7 +79,7 @@ describe "Marketing Projects Integration Test" do
         fill_in :marketing_project_name, with: "Build the death star"
         fill_in :marketing_project_due_on, with: 5.weeks.from_now.to_s
         select @digitech.name, from: "marketing_project_brand_id"
-        click_on "Create Marketing project"
+        click_on "Create Project"
         project = MarketingProject.last
         project.due_on.to_date.must_equal 5.weeks.from_now.to_date
         current_path.must_equal marketing_queue_marketing_project_path(project)

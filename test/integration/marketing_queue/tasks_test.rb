@@ -38,7 +38,7 @@ describe "Marketing Tasks Integration Test" do
 
       it "should require the task name" do
         fill_in :marketing_task_due_on, with: 2.weeks.from_now.to_s
-        click_on "Create Marketing task"
+        click_on "Create Task"
         must_have_content "can't be blank"
       end
 
@@ -48,7 +48,7 @@ describe "Marketing Tasks Integration Test" do
         select @digitech.name, from: :marketing_task_brand_id
         must_have_content "Assign to me"
         check "marketing_task_assign_to_me"
-        click_on "Create Marketing task"
+        click_on "Create Task"
         MarketingTask.last.worker_id.must_equal @user.id
       end
     end
@@ -84,7 +84,7 @@ describe "Marketing Tasks Integration Test" do
         select @digitech.name, from: :marketing_task_brand_id
         must_have_select "marketing_task_marketing_project_id"
         select @project1.name, from: "marketing_task_marketing_project_id"
-        click_on "Create Marketing task"
+        click_on "Create Task"
         MarketingTask.last.marketing_project_id.must_equal @project1.id
       end
 
@@ -108,7 +108,7 @@ describe "Marketing Tasks Integration Test" do
         select @digitech.name, from: :marketing_task_brand_id
         must_have_content "Assign to me"
         check "marketing_task_assign_to_me"
-        click_on "Create Marketing task"
+        click_on "Create Task"
         MarketingTask.last.worker_id.must_equal @user.id
       end
 
@@ -119,7 +119,7 @@ describe "Marketing Tasks Integration Test" do
         select @digitech.name, from: :marketing_task_brand_id
         must_have_content "Assign to me"
         # check "marketing_task_assign_to_me"
-        click_on "Create Marketing task"
+        click_on "Create Task"
         MarketingTask.last.worker_id.wont_equal @user.id
       end
 
