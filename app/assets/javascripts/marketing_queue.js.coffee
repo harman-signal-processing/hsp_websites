@@ -24,6 +24,9 @@ jQuery ($) ->
 		$("##{ autoclick }").foundation('reveal', 'open')
 		$(".reveal-modal-bg").show()
 
+	$('#doneish').click (e) ->
+		alert("Since you didn't actually finish the task, this button doesn't actually mark it complete. Nice try, though.")
+
 	$('a#toggle-formatting').click (e) ->
 		e.preventDefault()
 		$('div#formatting-tips').toggle()

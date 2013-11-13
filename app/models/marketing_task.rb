@@ -67,7 +67,9 @@ class MarketingTask < ActiveRecord::Base
   end
 
   def participants
-    commenters = (self.worker_id.present?) ? [requestor, worker] : [requestor]
+    commenters = []
+    commenters << requestor if self.requestor_id.present?
+    commenters << worker if self.worker_id.present?
     (commenters + marketing_comments.map{|c| c.user}).uniq
   end
 
