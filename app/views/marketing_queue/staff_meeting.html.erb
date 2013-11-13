@@ -8,16 +8,8 @@
 		<% end %>
 		<div class="row">
 			<div class="large-12 columns">
+				<% if brand.marketing_tasks.where(marketing_project_id: nil, completed_at: nil).count > 0 %>
 				<table style="width: 100%">
-					<thead class="tiny">
-						<tr>
-							<th colspan="2">Project/Task</th>
-							<th>Worker/Owner</th>
-							<th>Due</th>
-							<th>Progress</th>
-						</tr>
-					</thead>
-					<% if brand.marketing_tasks.where(marketing_project_id: nil, completed_at: nil).count > 0 %>
 					<thead>
 						<tr>
 							<th colspan="5">Non-Project Tasks</th>
@@ -37,7 +29,7 @@
 											} %>
 									<%= link_to marketing_task.name, [:marketing_queue, marketing_task] %>
 									<% if can? :destroy, marketing_task %>
-										<%= link_to(image_tag('trash.gif'), [:marketing_queue, marketing_task], confirm: "Are you sure?", method: :delete, remote: true) %>
+										<%= link_to(image_tag('icons/trash.gif', alt: 'del'), [:marketing_queue, marketing_task], confirm: "Are you sure?", method: :delete, remote: true) %>
 									<% end %>
 								</td>
 								<td width="18%" id="worker-<%= marketing_task.id %>">
@@ -48,22 +40,23 @@
 									<% end %>
 								</td>
 								<td width="18%"><span class="<%= "red" if marketing_task.late? %>"><%=l marketing_task.due_on, format: :short %></span></td>
-								<td width="18%">&nbsp;</td>
+								<td width="10%">&nbsp;</td>
 							</tr>
 						</tbody>
 					<% end %>
 					<% end %>
-
-					<% if brand.open_marketing_projects_with_tasks.count > 0 %>
-						<% brand.open_marketing_projects_with_tasks.each do |marketing_project| %>
-						<thead>
-							<tr id="task-counter-<%= marketing_project.id %>" data-completedcount="<%= marketing_project.completed_marketing_tasks.count %>" data-incompletecount="<%= marketing_project.incomplete_marketing_tasks.count %>">
-								<th colspan="2">Project: <%= link_to marketing_project.name, [:marketing_queue, marketing_project] %></th>
-								<th width="18%"><%= marketing_project.user.name %></th>
-								<th width="18%"><%=l marketing_project.due_on, format: :short %></th>
-								<td width="18%" id="percent-complete-<%= marketing_project.id %>"><%=number_to_percentage marketing_project.percent_complete, precision: 0 %></td> 
-							</tr>
-						</thead>
+				</table>
+				<% if brand.projects_for_staff_meeting.count > 0 %>
+					<% brand.projects_for_staff_meeting.each do |marketing_project| %>
+				<table style="width: 100%">
+					<thead>
+						<tr id="task-counter-<%= marketing_project.id %>" data-completedcount="<%= marketing_project.completed_marketing_tasks.count %>" data-incompletecount="<%= marketing_project.incomplete_marketing_tasks.count %>">
+							<th colspan="2"><%= link_to image_tag('icons/arrow-right-thick-blue.png', alt: 'prjct'), [:marketing_queue, marketing_project] %> Project: <%= marketing_project.name %></th>
+							<th width="18%"><%= marketing_project.user.name %></th>
+							<th width="18%"><%=l marketing_project.due_on, format: :short %></th>
+							<td width="10%" id="percent-complete-<%= marketing_project.id %>"><%=number_to_percentage marketing_project.percent_complete, precision: 0 %></td> 
+						</tr>
+					</thead>
 							<% marketing_project.incomplete_marketing_tasks.each do |marketing_task| %>
 						<tbody>
 								<tr id="task_row_<%= marketing_task.id %>">
@@ -79,7 +72,7 @@
 											} %>
 										<%= link_to marketing_task.name, [:marketing_queue, marketing_task] %>
 										<% if can? :destroy, marketing_task %>
-											<%= link_to(image_tag('trash.gif'), [:marketing_queue, marketing_task], confirm: "Are you sure?", method: :delete, remote: true) %>
+											<%= link_to(image_tag('icons/trash.gif', alt: 'del'), [:marketing_queue, marketing_task], confirm: "Are you sure?", method: :delete, remote: true) %>
 										<% end %>
 									</td>
 									<td id="worker-<%= marketing_task.id %>"><% if marketing_task.worker %>
@@ -93,8 +86,8 @@
 							<% end %>
 						</tbody>
 						<% end %>
+					</table>
 					<% end %>
-				</table>
 			</div>
 		</div>
 	</div>

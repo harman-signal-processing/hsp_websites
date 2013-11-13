@@ -78,13 +78,16 @@
 			</table>
 
 			<% if @marketing_task.completed_at.blank? %>
-				<p><%= link_to "Done Done", toggle_marketing_queue_marketing_task_path(@marketing_task), class: "medium round success button" %></p>
+				<p>
+					<%= link_to "Done-ish", '#', id: 'doneish', class: "medium round success button" %>
+					<%= link_to "Done Done", toggle_marketing_queue_marketing_task_path(@marketing_task), class: "medium round success button" %>
+				</p>
 			<% end %>
 
 		</div>
 
 		<br/>
-		<h4>Comments</h4>
+		<h3 class="subheader">Comments</h3>
 		<% @marketing_task.marketing_comments.each do |marketing_comment| %>
 			<%= render "marketing_queue/marketing_comments/show", marketing_comment: marketing_comment %>
 		<% end %>
@@ -104,7 +107,7 @@
 		<ul class="list">
 			<% @marketing_task.marketing_attachments.each do |marketing_attachment| %>
 			<li id="attachment_<%= marketing_attachment.id %>"> <%= link_to marketing_attachment.marketing_file_file_name, [:marketing_queue, marketing_attachment] %>
-				<%= link_to(image_tag('trash.gif'), [:marketing_queue, marketing_attachment], method: :delete, confirm: "Are you sure? (Can't be undone)", remote: true) %></li>
+				<%= link_to(image_tag('icons/trash.gif', alt: 'del'), [:marketing_queue, marketing_attachment], method: :delete, confirm: "Are you sure? (Can't be undone)", remote: true) %></li>
 			<% end %>
 		</ul>
 	</div>

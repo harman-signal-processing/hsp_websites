@@ -5,8 +5,18 @@
 		<%= render 'form' %>
 	</div>
 	<div class="large-4 columns">
+		<div class="panel">
+			<h3>Project vs. Task</h3>
+			<p><i>Projects are like albums. Tasks are like songs.</i></p>
+			<p>Right now you're creating a <b>PROJECT</b>. You'll be able 
+				to create one or more tasks inside the project on the next screen. This
+				is handy for grouping related work together.</p>
+			<p>However, if your project only consists of one
+				action item, you might just want to 
+				<%= link_to "create a task", new_marketing_queue_marketing_task_path %>.</p>
+		</div>
 		<div class="tip">
-			<p>Hi. Use the "Due On" field to set the date the project
+			<p>Use the "Due On" field to set the date the project
 				should be completed.</p>
 			<p>Use the "Event" dates to control where
 				this project shows up on the calendar view.</p>

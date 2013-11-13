@@ -296,4 +296,8 @@ class Brand < ActiveRecord::Base
     marketing_projects.event_strips_for_month(shown_month)
   end
 
+  def projects_for_staff_meeting
+    @projects_for_staff_meeting ||= self.open_marketing_projects_with_tasks.where("due_on <= ?", 6.months.from_now)
+  end
+
 end

@@ -37,7 +37,7 @@
 <div class="row">
 	<div class="large-8 columns">
 	<div class="main-container">
-		<h4>To do: <% if can? :create, MarketingTask %>
+		<h4>Tasks: <% if can? :create, MarketingTask %>
 			<%= link_to "+ Add a task", new_marketing_queue_marketing_task_path(marketing_project_id: @marketing_project), id: 'newtask-button', class: "tiny success round button", data: { "reveal-id" => "new_task_modal" } %>
 
 			<% end %></h4>
@@ -60,7 +60,7 @@
 				<% end %>
 
 				<% if can? :destroy, marketing_task %>
-				<%= link_to(image_tag('trash.gif'), [:marketing_queue, marketing_task], confirm: "Are you sure?", method: :delete) %>
+				<%= link_to(image_tag('icons/trash.gif', alt: 'del'), [:marketing_queue, marketing_task], confirm: "Are you sure?", method: :delete) %>
 				<% end %>
 				<div class="assigned">
 				<% if marketing_task.worker %>
@@ -75,7 +75,7 @@
 				<%= check_box_tag marketing_task.id, true, false, disabled: true %>
 				<%= link_to marketing_task.name, [:marketing_queue, marketing_task] %>
 				<% if can? :destroy, marketing_task %>
-					<%= link_to(image_tag('trash.gif'), [:marketing_queue, marketing_task], confirm: "Are you sure?", method: :delete) %>
+					<%= link_to(image_tag('icons/trash.gif', alt: 'del'), [:marketing_queue, marketing_task], confirm: "Are you sure?", method: :delete) %>
 				<% end %>				
 				<% if marketing_task.due_on.present? %>
 					<i class="<%= "red" if marketing_task.late? %>">Due: <%=l marketing_task.due_on, format: :short %></i>
@@ -107,7 +107,7 @@
 						} %>
 				<%= link_to marketing_task.name, [:marketing_queue, marketing_task] %>
 				<% if can? :destroy, marketing_task %>
-				<%= link_to(image_tag('trash.gif'), [:marketing_queue, marketing_task], confirm: "Are you sure?", method: :delete) %>
+				<%= link_to(image_tag('icons/trash.gif', alt: 'del'), [:marketing_queue, marketing_task], confirm: "Are you sure?", method: :delete) %>
 				<% end %>
 
 				<% if marketing_task.due_on.present? %>
@@ -125,7 +125,7 @@
 	</div>
 
 	<br/>
-	<h4>Comments</h4>
+	<h3 class="subheader">Comments</h3>
 	<% @marketing_project.marketing_comments.each do |marketing_comment| %>
 		<%= render "marketing_queue/marketing_comments/show", marketing_comment: marketing_comment %>
 	<% end %>
@@ -137,6 +137,7 @@
 	</div>
 	<div class="large-4 columns">
 
+		<div class="panel">
 		<h4>Project Overview</h4>
 		<p>This <%= @marketing_project.brand.name %> project was created by <%= @marketing_project.user.name %> on <%=l @marketing_project.created_at.to_date, format: :short %>.
 		<% if @marketing_project.due_on.present? %>
@@ -169,7 +170,7 @@
 			<% end %>
 		<% end %>
 
-		<hr/>
+		</div>
 
 		<h4>Attachments
 			<% if can? :create, MarketingAttachment %>
@@ -180,7 +181,7 @@
 		<ul class="list">
 			<% @marketing_project.marketing_attachments.each do |marketing_attachment| %>
 			<li id="attachment_<%= marketing_attachment.id %>"> <%= link_to marketing_attachment.marketing_file_file_name, [:marketing_queue, marketing_attachment] %>
-				<%= link_to(image_tag('trash.gif'), [:marketing_queue, marketing_attachment], method: :delete, confirm: "Are you sure? (Can't be undone)", remote: true) %></li>
+				<%= link_to(image_tag('icons/trash.gif', alt: 'del'), [:marketing_queue, marketing_attachment], method: :delete, confirm: "Are you sure? (Can't be undone)", remote: true) %></li>
 			<% end %>
 		</ul>
 

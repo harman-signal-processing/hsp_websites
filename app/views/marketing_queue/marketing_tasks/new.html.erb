@@ -13,4 +13,16 @@
 	<div class="large-8 columns">
 		<%= render 'form' %>
 	</div>
+	<div class="large-4 columns">
+		<div class="panel">
+			<h3>Project vs. Task</h3>
+			<p><i>Projects are like albums. Tasks are like songs.</i></p>
+			<p>Right now you're creating a <b>TASK</b>. This is a 
+				single action item unrelated to other work.</p>
+			<p>If you need to group a bunch of related tasks, you might
+				want to <%= link_to "create a project", new_marketing_queue_marketing_project_path %>
+				first.
+			</p>
+		</div>
+	</div>
 </div>

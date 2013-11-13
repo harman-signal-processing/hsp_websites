@@ -23,7 +23,7 @@
 
   <!-- Header and Nav -->
   <header>
-    <div class="container">
+    <div class="container sticky">
       <nav class="top-bar">
         <ul class="title-area">
           <li class="name"><h1><%= link_to "Marketing Queue", marketing_queue_root_path %></h1></li>
@@ -87,7 +87,10 @@
               </li>
               <li><%= link_to 'Logout', destroy_marketing_queue_user_session_path %></li>
               <li class="divider"></li>
-              <li><%= link_to 'My account', edit_marketing_queue_user_registration_path %></li>
+              <li><%= link_to edit_marketing_queue_user_registration_path do %>
+                    <%= image_tag 'icons/user-white.png', alt: 'My Account' %>
+                  <% end %>
+              </li>
             <% else %>
               <li><%= link_to 'Login', new_marketing_queue_user_session_path %></li>
               <li class="divider"></li>
