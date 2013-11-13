@@ -34,6 +34,36 @@
 			<div class="small-12 large-12 columns">
 			<div class="main-container">
 				<h2>My Dashboard</h2>
+
+				<% if current_marketing_queue_user.role?(:queue_admin) && @unassigned_tasks.length > 0 %>
+					<h4 class="subheader">Unassigned Tasks</h4>
+					<table style="width: 100%" id='unassigned-tasks'>
+						<thead>
+							<tr>
+								<th width="50%">Task</th>
+								<th width="25%">Project</th>
+								<th>Assign</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% @unassigned_tasks.each do |marketing_task| %>
+							<tr id="task_row_<%= marketing_task.id %>">
+								<td><%= link_to marketing_task.name.truncate(40), [:marketing_queue, marketing_task] %></td>
+								<td><% if marketing_task.marketing_project %>
+										<%= link_to marketing_task.marketing_project.name.truncate(20), [:marketing_queue, marketing_task.marketing_project] %>
+									<% else %>
+										n/a
+									<% end %>
+								</td>
+								<td id="worker-<%= marketing_task.id %>">
+									<%= render 'marketing_queue/marketing_tasks/inline_assign', marketing_task: marketing_task %>
+								</td>
+							</tr>
+							<% end %>
+						</tbody>
+					</table>
+				<% end %>
+
 				<h4 class="subheader">My Open Tasks</h4>
 				<table style="width: 100%" id='incomplete-tasks'>
 					<thead>
@@ -73,7 +103,7 @@
 											worker: marketing_task.worker.name,
 											due_on: I18n.l(marketing_task.due_on, format: :short)
 										} %>
-								<%= link_to marketing_task.name.truncate(50), [:marketing_queue, marketing_task] %>
+								<%= link_to marketing_task.name.truncate(47), [:marketing_queue, marketing_task] %>
 								<% if can? :destroy, marketing_task %>
 									<%= link_to(image_tag('icons/trash.gif', alt: 'del'), [:marketing_queue, marketing_task], confirm: "Are you sure?", method: :delete) %>
 								<% end %>
@@ -85,35 +115,6 @@
 					<% end %>
 					</tbody>
 				</table>
-
-				<% if current_marketing_queue_user.role?(:queue_admin) && @unassigned_tasks.length > 0 %>
-					<h4 class="subheader">Unassigned Tasks</h4>
-					<table style="width: 100%" id='unassigned-tasks'>
-						<thead>
-							<tr>
-								<th width="50%">Task</th>
-								<th width="25%">Project</th>
-								<th>Assign</th>
-							</tr>
-						</thead>
-						<tbody>
-							<% @unassigned_tasks.each do |marketing_task| %>
-							<tr id="task_row_<%= marketing_task.id %>">
-								<td><%= link_to marketing_task.name.truncate(40), [:marketing_queue, marketing_task] %></td>
-								<td><% if marketing_task.marketing_project %>
-										<%= link_to marketing_task.marketing_project.name.truncate(20), [:marketing_queue, marketing_task.marketing_project] %>
-									<% else %>
-										n/a
-									<% end %>
-								</td>
-								<td id="worker-<%= marketing_task.id %>">
-									<%= render 'marketing_queue/marketing_tasks/inline_assign', marketing_task: marketing_task %>
-								</td>
-							</tr>
-							<% end %>
-						</tbody>
-					</table>
-				<% end %>
 
 				<h4 class="subheader">My Recently Completed Tasks</h4>
 				<table style="width: 100%" id='completed-tasks'>
