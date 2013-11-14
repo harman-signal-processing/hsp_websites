@@ -26,6 +26,7 @@ class CountDownTimer
 	constructor: (future_date, selector) ->
 		@element = $("##{selector}")
 		@future_date = new Date(future_date)
+		@future_date.setTime( @future_date.getTime() + @future_date.getTimezoneOffset()*60*1000 )
 		@_second = 1000
 		@_minute = @_second * 60
 		@_hour = @_minute * 60
@@ -38,7 +39,7 @@ class CountDownTimer
 		distance = @future_date - new Date()
 		if (distance < 0)
 			clearInterval(@timer)
-			@element.html('EXPIRED!')
+			@element.html('TODAY!')
 		else
 			days = Math.floor(distance / @_day)
 			hours = Math.floor((distance % @_day) / @_hour)
