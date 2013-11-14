@@ -59,7 +59,11 @@
 
 				<tr>
 					<th style="text-align: left">Created:</th>
-					<td><%=l @marketing_task.created_at, format: :long %></td>
+					<td><%=l @marketing_task.created_at, format: :long %>
+						<% if @marketing_task.requestor %>
+						by <%= @marketing_task.requestor.name %>
+						<% end %>
+					</td>
 				</tr>
 
 			<% if @marketing_task.due_on.present? %>
