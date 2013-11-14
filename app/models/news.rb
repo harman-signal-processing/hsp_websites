@@ -1,7 +1,7 @@
 class News < ActiveRecord::Base
   has_attached_file :news_photo, 
     styles: { large: "600>x370", 
-      email: "580x580",
+      email: "580",
       medium: "350x350>", 
       thumb: "100x100>", 
       thumb_square: "100x100#", 
