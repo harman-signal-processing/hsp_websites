@@ -116,6 +116,10 @@ class User < ActiveRecord::Base
     where(marketing_staff: true).order(:name)
   end
 
+  def initials
+    @initials ||= (name.split(/\s/).length > 1) ? name.split(/\s/).map{|u| u.match(/^\w/).to_s}.join : name
+  end
+
   def to_s
     self.name
   end

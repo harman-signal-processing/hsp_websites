@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131106224034) do
+ActiveRecord::Schema.define(:version => 20131118210004) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -617,6 +617,8 @@ ActiveRecord::Schema.define(:version => 20131106224034) do
     t.datetime "updated_at",           :null => false
     t.integer  "position"
     t.float    "man_hours"
+    t.integer  "currently_with_id"
+    t.integer  "priority"
   end
 
   add_index "marketing_tasks", ["brand_id"], :name => "index_marketing_tasks_on_brand_id"

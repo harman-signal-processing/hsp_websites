@@ -46,6 +46,11 @@
 							<% if can? :destroy, marketing_task %>
 							<%= link_to(image_tag('icons/trash.gif', alt: 'del'), [:marketing_queue, marketing_task], confirm: "Are you sure?", method: :delete) %>
 							<% end %>
+							<div class="small <%= "red" if marketing_task.late? %>">Due: <%=l marketing_task.due_on, format: :short %>
+							<% if marketing_task.priority.present? %>
+								(P<%= marketing_task.priority %>)
+							<% end %>
+							</div>
 						</td>
 						<td></td>
 						<% end %>
@@ -90,6 +95,7 @@
 						<td></td>
 						<% end %>
 						<td class='date'><%=l marketing_task.completed_at.to_date, format: :short %></td>
+						</td>
 					</tr>
 				<% end %>
 				</tbody>

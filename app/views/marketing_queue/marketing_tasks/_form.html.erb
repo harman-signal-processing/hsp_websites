@@ -42,7 +42,16 @@
 			<% end %>
 		</div>
 	</div>
-	
+
+	<div class="row">
+		<div class="large-4 columns">
+			<%= f.input :priority, collection: 1..5, hint: "1=highest" %>
+		</div>
+	</div>
+
+	<% if can?(:assign, @marketing_task) || @marketing_task.new_record? || @marketing_task.worker_id.present? || can?(:estimate, @marketing_task) %>
+	<fieldset>
+	<legend>Task Assignment</legend>
 	<div class="row">
 		<div class="large-6 columns">
 			<% if can? :assign, @marketing_task %>
@@ -59,6 +68,9 @@
 			<% end %>
 		</div>
 	</div>
+	</fieldset>
+	<% end %>
+
 
 	<%= f.submit class: "button round" %>
 

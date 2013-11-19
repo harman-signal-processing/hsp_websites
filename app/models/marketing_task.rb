@@ -2,18 +2,20 @@
 # larger effort.
 #
 class MarketingTask < ActiveRecord::Base
-  attr_accessible :brand_id, :completed_at, :due_on, :marketing_project_id, :name, :assign_to_me, :worker_id, :man_hours
+  attr_accessible :brand_id, :completed_at, :due_on, :marketing_project_id, :name, :assign_to_me, :worker_id, :man_hours, :priority
   attr_accessor :assign_to_me
   belongs_to :brand 
   belongs_to :marketing_project
   belongs_to :requestor, class_name: "User", foreign_key: :requestor_id
   belongs_to :worker, class_name: "User", foreign_key: :worker_id
+  belongs_to :currently_with, class_name: "User", foreign_key: :currently_with_id
   has_many :marketing_attachments, dependent: :destroy, order: "created_at DESC"
   has_many :marketing_comments, dependent: :destroy
   acts_as_list scope: :marketing_project_id
   validates :name, presence: :true
   validates :due_on, presence: :true
   validates :brand_id, presence: :true
+  before_save :auto_switch_currently_with
   after_save :notify_worker
   after_create :notify_admin
 
@@ -52,6 +54,23 @@ class MarketingTask < ActiveRecord::Base
 
   def late?
     completed_at.blank? && due_on < Date.today
+  end
+
+  def switch_currently_with
+    case currently_with_id
+    when requestor_id
+      self.currently_with_id = self.worker_id
+    when worker_id
+      self.currently_with_id = self.requestor_id
+    else
+      self.currently_with_id = self.worker_id
+    end
+  end
+
+  def auto_switch_currently_with
+    if worker_id_changed? && worker_id.present?
+      switch_currently_with
+    end    
   end
 
   def notify_worker

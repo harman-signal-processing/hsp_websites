@@ -92,6 +92,15 @@ class MarketingQueue::MarketingTasksController < MarketingQueueController
     end
   end
 
+  def switch_currently_with
+    @marketing_task.switch_currently_with
+    @marketing_task.save
+    respond_to do |format|
+      format.html { redirect_to [:marketing_queue, @marketing_task]}
+      format.js { render nothing: true }
+    end
+  end
+
   def destroy
     redirect_path = @marketing_task.marketing_project ? @marketing_task.marketing_project : @marketing_task.brand
     @marketing_task.destroy
