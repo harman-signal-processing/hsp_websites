@@ -79,6 +79,11 @@
 					<td><%=l @marketing_task.completed_at, format: :long %></td>
 				</tr>
 			<% end %>
+
+				<tr>
+					<th style="text-align: left">Priority:</th>
+					<td><%= @marketing_task.priority.to_s %></td>
+				</tr>
 			</table>
 
 			<% if @marketing_task.completed_at.blank? %>
@@ -102,6 +107,23 @@
 
 	</div>
 	<div class="large-4 columns">
+		<% if @marketing_task.requestor && @marketing_task.worker && @marketing_task.requestor != @marketing_task.worker %>
+		<div style="margin-bottom: 50px">
+			<h5 class="subheader">Task is currently with:</h5>
+			<div class="switch medium round task-switch" data-taskid="<%= @marketing_task.id %>">
+
+			  <input id="marketing_task_currently_with_worker" name="marketing_task_currently_with_id" type="radio" <%= "checked" unless @marketing_task.currently_with_id == @marketing_task.requestor_id %>>
+			  <label for="marketing_task_currently_with_worker" onclick=""><%= @marketing_task.worker.name %></label>
+
+			  <input id="marketing_task_currently_with_requestor" name="marketing_task_currently_with_id" type="radio" <%= "checked" if @marketing_task.currently_with_id == @marketing_task.requestor_id %>>
+			  <label for="marketing_task_currently_with_requestor" onclick=""><%= @marketing_task.requestor.name %></label>
+
+			  <span></span>
+			</div>
+		</div>
+		<% end %>
+
+
 		<h4>Attachments
 			<% if can? :create, MarketingAttachment %>
 			<%= link_to "+ Add attachment", new_marketing_queue_marketing_attachment_path(marketing_task_id: @marketing_task), class: "tiny success round button", data: { "reveal-id" => "new_attachment_modal" } %>

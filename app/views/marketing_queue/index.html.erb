@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="large-8 columns">
+	<div class="large-9 columns">
 		<div class="row hide-for-small">
 			<div class="large-6 columns">
 				<h4 class="subheader">Newest Projects</h4>
@@ -40,7 +40,7 @@
 					<table style="width: 100%" id='unassigned-tasks'>
 						<thead>
 							<tr>
-								<th width="50%">Task</th>
+								<th width="50%" colspan="2">Task</th>
 								<th width="25%">Project</th>
 								<th>Assign</th>
 							</tr>
@@ -48,6 +48,11 @@
 						<tbody>
 							<% @unassigned_tasks.each do |marketing_task| %>
 							<tr id="task_row_<%= marketing_task.id %>">
+								<td width="1%">
+									<% if marketing_task.priority.present? %>
+									P<%= marketing_task.priority %>
+									<% end %>
+								</td>
 								<td><%= link_to marketing_task.name.truncate(40), [:marketing_queue, marketing_task] %></td>
 								<td><% if marketing_task.marketing_project %>
 										<%= link_to marketing_task.marketing_project.name.truncate(20), [:marketing_queue, marketing_task.marketing_project] %>
@@ -68,7 +73,7 @@
 				<table style="width: 100%" id='incomplete-tasks'>
 					<thead>
 						<tr>
-							<th width="60%">Task</th>
+							<th width="60%" colspan="2">Task</th>
 							<th width="25%">Project</th>
 							<th>Due</th>
 						</tr>
@@ -76,6 +81,11 @@
 					<tbody>
 					<% current_marketing_queue_user.incomplete_marketing_tasks.order(:due_on).each do |marketing_task| %>
 						<tr id="task_row_<%= marketing_task.id %>">
+							<td width="1%">
+								<% if marketing_task.priority.present? %>
+								P<%= marketing_task.priority %>
+								<% end %>
+							</td>
 							<% if marketing_task.marketing_project %>
 							<td>
 								<%= check_box_tag marketing_task.id, marketing_task.id, false, class: 'completer', 
@@ -160,10 +170,10 @@
 		</div>
 		</div>
 	</div>
-	<div class="large-4 columns hide-for-small">
-		<h4 class="subheader" style="text-align: center">Open Project Summary by Brand</h4>
+	<div class="large-3 columns hide-for-small">
+		<h4 class="subheader" style="text-align: center">Open Projects by Brand</h4>
 		<%= content_tag :div, "", id: "overview", data: @brands_projects_summary %> 
-		<ul class="compact" style="margin-left: 5.5em;">
+		<ul class="compact" style="margin-left: 2.1em;">
 			<% marketing_queue_brands.each do |brand| %>
 			<li><%= link_to brand.name, [:marketing_queue, brand] %> (<%= brand.open_marketing_projects.count %>)</li>
 			<% end %>

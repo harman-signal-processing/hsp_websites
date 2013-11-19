@@ -75,6 +75,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         resources :marketing_attachments
         member do 
           get :toggle
+          get :switch_currently_with
         end
       end
     end

@@ -27,6 +27,10 @@ jQuery ($) ->
 	$('#doneish').click (e) ->
 		alert("Since you didn't actually finish the task, this button doesn't actually mark it complete. Nice try, though.")
 
+	$('.task-switch input[type=radio]').click (e) ->
+		task_id = $(@).closest('.task-switch').data('taskid')
+		$.ajax "/marketing_queue/marketing_tasks/#{task_id}/switch_currently_with.js"
+
 	$('a#toggle-formatting').click (e) ->
 		e.preventDefault()
 		$('div#formatting-tips').toggle()
@@ -55,7 +59,7 @@ class Completer
 		$("#percent-complete-#{ @project_id }").html(" #{ percent_complete }% complete")
 
 	update_database: ->
-		$.ajax "/marketing_queue/marketing_tasks/#{@task_id}/toggle"
+		$.ajax "/marketing_queue/marketing_tasks/#{@task_id}/toggle.js"
 
 	update_counters: () ->
 		@project_task_counter = $("#task-counter-#{ @project_id }")

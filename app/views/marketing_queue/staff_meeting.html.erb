@@ -12,13 +12,20 @@
 				<table style="width: 100%">
 					<thead>
 						<tr>
-							<th colspan="5">Non-Project Tasks</th>
+							<th colspan="2">Non-Project Tasks</th>
+							<th>Worker</th>
+							<th>Due</th>
+							<th>With:</th>
 						</tr>
 					</thead>
 					<% brand.marketing_tasks.where(marketing_project_id: nil, completed_at: nil).each do |marketing_task| %>
 						<tbody>
 							<tr id="task_row_<%= marketing_task.id %>">
-								<td width="1%">&nbsp;</td>
+								<td width="1%">
+									<% if marketing_task.priority.present? %>
+									P<%= marketing_task.priority %>
+									<% end %>
+								</td>
 								<td>
 									<%= check_box_tag marketing_task.id, marketing_task.id, false, class: 'completer', 
 											data: { 
@@ -40,7 +47,22 @@
 									<% end %>
 								</td>
 								<td width="18%"><span class="<%= "red" if marketing_task.late? %>"><%=l marketing_task.due_on, format: :short %></span></td>
-								<td width="10%">&nbsp;</td>
+								<td width="10%">
+									<% if marketing_task.requestor && marketing_task.worker && marketing_task.requestor != marketing_task.worker %>
+		<div>
+			<div class="switch small round task-switch" data-taskid="<%= marketing_task.id %>">
+
+			  <input id="marketing_task_currently_with_worker_<%= marketing_task.id %>" name="marketing_task_currently_with_id_<%= marketing_task.id %>" type="radio" <%= "checked" unless marketing_task.currently_with_id == marketing_task.requestor_id %>>
+			  <label for="marketing_task_currently_with_worker" onclick=""><%= marketing_task.worker.initials %></label>
+
+			  <input id="marketing_task_currently_with_requestor_<%= marketing_task.id %>" name="marketing_task_currently_with_id_<%= marketing_task.id %>" type="radio" <%= "checked" if marketing_task.currently_with_id == marketing_task.requestor_id %>>
+			  <label for="marketing_task_currently_with_requestor" onclick=""><%= marketing_task.requestor.initials %></label>
+
+			  <span></span>
+			</div>
+		</div>
+									<% end %>
+								</td>
 							</tr>
 						</tbody>
 					<% end %>
@@ -52,7 +74,7 @@
 					<thead>
 						<tr id="task-counter-<%= marketing_project.id %>" data-completedcount="<%= marketing_project.completed_marketing_tasks.count %>" data-incompletecount="<%= marketing_project.incomplete_marketing_tasks.count %>">
 							<th colspan="2"><%= link_to image_tag('icons/arrow-right-thick-blue.png', alt: 'prjct'), [:marketing_queue, marketing_project] %> Project: <%= marketing_project.name %></th>
-							<th width="18%"><%= marketing_project.user.name %></th>
+							<th width="18%">Owner:&nbsp;<%= marketing_project.user.name %></th>
 							<th width="18%"><%=l marketing_project.due_on, format: :short %></th>
 							<td width="10%" id="percent-complete-<%= marketing_project.id %>"><%=number_to_percentage marketing_project.percent_complete, precision: 0 %></td> 
 						</tr>
@@ -60,7 +82,11 @@
 							<% marketing_project.incomplete_marketing_tasks.each do |marketing_task| %>
 						<tbody>
 								<tr id="task_row_<%= marketing_task.id %>">
-									<td width="1%">&nbsp;</td>
+									<td width="1%">
+									<% if marketing_task.priority.present? %>
+									P<%= marketing_task.priority %>
+									<% end %>
+									</td>
 									<td>
 										<%= check_box_tag marketing_task.id, marketing_task.id, false, class: 'completer', 
 											data: { 
@@ -81,7 +107,22 @@
 											<%= render 'marketing_queue/marketing_tasks/inline_assign', marketing_task: marketing_task %>
 										<% end %>
 									</td>
-									<td colspan="2"><span class="<%= "red" if marketing_task.late? %>"><%=l marketing_task.due_on, format: :short %></span></td>
+									<td><span class="<%= "red" if marketing_task.late? %>"><%=l marketing_task.due_on, format: :short %></span></td>
+									<td><% if marketing_task.requestor && marketing_task.worker && marketing_task.requestor != marketing_task.worker %>
+		<div>
+			<div class="switch small round task-switch" data-taskid="<%= marketing_task.id %>">
+
+			  <input id="marketing_task_currently_with_worker_<%= marketing_task.id %>" name="marketing_task_currently_with_id_<%= marketing_task.id %>" type="radio" <%= "checked" unless marketing_task.currently_with_id == marketing_task.requestor_id %>>
+			  <label for="marketing_task_currently_with_worker" onclick=""><%= marketing_task.worker.initials %></label>
+
+			  <input id="marketing_task_currently_with_requestor_<%= marketing_task.id %>" name="marketing_task_currently_with_id_<%= marketing_task.id %>" type="radio" <%= "checked" if marketing_task.currently_with_id == marketing_task.requestor_id %>>
+			  <label for="marketing_task_currently_with_requestor" onclick=""><%= marketing_task.requestor.initials %></label>
+
+			  <span></span>
+			</div>
+		</div>
+									<% end %>
+								</td>
 								</tr>
 							<% end %>
 						</tbody>

@@ -85,7 +85,7 @@ class MarketingProject < ActiveRecord::Base
   end
 
   def incomplete_marketing_tasks
-    @incomplete_marketing_tasks ||= marketing_tasks.where("completed_at IS NULL OR completed_at > ?", Date.tomorrow).order("due_on ASC")
+    @incomplete_marketing_tasks ||= marketing_tasks.where("completed_at IS NULL OR completed_at > ?", Date.tomorrow).order("priority ASC, due_on ASC")
   end
 
   def participants
