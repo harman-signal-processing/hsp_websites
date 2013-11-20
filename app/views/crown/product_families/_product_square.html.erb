@@ -32,7 +32,7 @@ end
 	<h3><%= link_to translate_content(product, :name), this_url, target: target %></h3>
 	<div class="product_description">
 		<%= translate_content(product, :short_description) %>
-		<% if compare %>
+		<% if compare && product.in_production? %>
 			<div class="compare_checkbox">
 				<%= check_box_tag "product_ids[]", product.to_param, false %>
 				<label><%= t('compare') %></label>
