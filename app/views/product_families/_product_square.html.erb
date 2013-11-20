@@ -34,7 +34,7 @@ end
 		<% if product.name.length < 20 %>
 			<%= translate_content(product, :short_description) %>
 		<% end %>
-		<% if compare %>
+		<% if compare && product.in_production? %>
 			<div class="compare_checkbox">
 				<%= check_box_tag "product_ids[]", product.to_param, false %>
 				<label><%= t('compare') %></label>
