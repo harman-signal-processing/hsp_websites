@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.15'
+gem 'rails', '3.2.16'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -30,6 +30,7 @@ gem 'paperclip-meta' #, git: 'http://github.com/dce/paperclip-meta.git' # 6/27/2
 gem 'meta-tags', require: 'meta_tags'
 gem 'tinymce-rails', '~> 3.5'
 gem 'geokit'
+gem 'geokit-rails'
 gem 'api_cache'
 gem 'moneta'
 gem 'geocoder_plus'
