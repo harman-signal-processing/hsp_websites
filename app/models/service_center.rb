@@ -17,14 +17,14 @@ class ServiceCenter < ActiveRecord::Base
       within = *args.first[:within]
       {
         conditions: %(
-          (ACOS(COS(#{origin_lat})*COS(#{origin_lng})*COS(RADIANS(dealers.lat))*COS(RADIANS(dealers.lng))+
-          COS(#{origin_lat})*SIN(#{origin_lng})*COS(RADIANS(dealers.lat))*SIN(RADIANS(dealers.lng))+
-          SIN(#{origin_lat})*SIN(RADIANS(dealers.lat)))*3963) <= #{within[0]}
+          (ACOS(COS(#{origin_lat})*COS(#{origin_lng})*COS(RADIANS(service_centers.lat))*COS(RADIANS(service_centers.lng))+
+          COS(#{origin_lat})*SIN(#{origin_lng})*COS(RADIANS(service_centers.lat))*SIN(RADIANS(service_centers.lng))+
+          SIN(#{origin_lat})*SIN(RADIANS(service_centers.lat)))*3963) <= #{within[0]}
         ),
-        select: %( dealers.*,
-          (ACOS(COS(#{origin_lat})*COS(#{origin_lng})*COS(RADIANS(dealers.lat))*COS(RADIANS(dealers.lng))+
-          COS(#{origin_lat})*SIN(#{origin_lng})*COS(RADIANS(dealers.lat))*SIN(RADIANS(dealers.lng))+
-          SIN(#{origin_lat})*SIN(RADIANS(dealers.lat)))*3963) AS distance
+        select: %( service_centers.*,
+          (ACOS(COS(#{origin_lat})*COS(#{origin_lng})*COS(RADIANS(service_centers.lat))*COS(RADIANS(service_centers.lng))+
+          COS(#{origin_lat})*SIN(#{origin_lng})*COS(RADIANS(service_centers.lat))*SIN(RADIANS(service_centers.lng))+
+          SIN(#{origin_lat})*SIN(RADIANS(service_centers.lat)))*3963) AS distance
         )
       }
     }
