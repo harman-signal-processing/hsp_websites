@@ -134,11 +134,19 @@ class SupportController < ApplicationController
       @page_title += " " + t('near_zipcode', zip: params[:zip])
       begin
         @results = []
-        brand_id = website.service_centers_from_brand_id || website.brand_id
-        ServiceCenter.find(:all, conditions: ["brand_id = ?", brand_id], origin: params[:zip], order: 'distance', within: 100, limit: 10).each do |d|
-          @results << d #unless d.exclude?
+        count = 0
+        origin = Geokit::Geocoders::MultiGeocoder.geocode(params[:zip])
+        brand = Brand.find(website.service_centers_from_brand_id || website.brand_id)
+        brand.service_centers.near(origin: origin, within: 100).order("distance ASC").each do |d|
+          unless count > 10 || d.exclude?
+            @results << d
+            count += 1
+          end
         end
-        unless @results.size > 0
+        # ServiceCenter.find(:all, conditions: ["brand_id = ?", brand_id], origin: params[:zip], order: 'distance', within: 100, limit: 10).each do |d|
+        #   @results << d #unless d.exclude?
+        # end
+        unless count > 0
           @err = t('errors.no_service_centers_found', zip: params[:zip])
         end
       rescue
