@@ -60,7 +60,7 @@ class Ability
         can :manage, MarketingComment, user_id: user.id
         can :estimate, MarketingTask, worker_id: user.id
         can :manage, MarketingTask do |mt|
-          mt.requestor_id == user.id || (mt.marketing_project && mt.marketing_project.user_id == user.id)
+          mt.requestor_id == user.id || mt.worker_id == user.id || (mt.marketing_project && mt.marketing_project.user_id == user.id)
         end
         can :create, MarketingProject 
         can :manage, MarketingProject, user_id: user.id 
