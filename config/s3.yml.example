@@ -1,0 +1,11 @@
+test:
+  access_key_id: 'ABC'
+  secret_access_key: 'DEF'
+  bucket: 'test-bucket'
+  protected_bucket: 'protected-assets-test'
+development:
+  access_key_id: 'ABC'
+  secret_access_key: 'DEF'
+  bucket: 'test-bucket'
+  protected_bucket: 'protected-assets-test'
+

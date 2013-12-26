@@ -1,0 +1,44 @@
+<%
+  # This works pretty well to keep a separate copy of the database for different 
+  # branches of the project. By default, a new branch will just use the standard
+  # development/test databases. But, if you are working on a major change which
+  # involves major database changes, this file will use a new database if you
+  # simply run this command after checking out your branch:
+  #
+  # $ git config --bool branch.feature.database true
+  #
+  # (where 'feature' is the name of your branch)
+  #
+  # You'll need to create the new database and load the schema and data (if needed),
+  # which sounds like a lot of work, but you just do it once and then it is set
+  # for your branch from then on.
+  #
+  branch = `git symbolic-ref HEAD 2>/dev/null`.chomp.sub('refs/heads/', '')
+  suffix = `git config --bool branch.#{branch}.database`.chomp == 'true' ? "_#{branch}" : ""
+%>
+
+development:
+    adapter: mysql2
+    encoding: utf8
+    database: hprosp_www_development<%= suffix %>
+    host: localhost
+    username: root
+    password: 
+    pool: 5
+    timeout: 5000
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+    adapter: mysql2
+    encoding: utf8
+    database: hprosp_www_test<%= suffix %>
+    host: localhost
+    username: root
+    password: 
+    timeout: 5000
+
+
+
+

@@ -1,0 +1,20 @@
+# Add application configuration variables here, as shown below.
+
+DEVISE_PEPPER: devise_pepper_hash
+DEVISE_REMEMBER_TOKEN: remembered_user_token
+DEVISE_SECRET_KEY: devise_secret_key
+
+GEOKIT_YAHOO_CONSUMER_KEY: yahoo_consumer_key
+GEOKIT_YAHOO_CONSUMER_SECRET: yahoo_consumer_secret
+GEOKIT_GOOGLE: google_key
+
+RECAPTCHA_PUBLIC_KEY: recaptcha_public_key
+RECAPTCHA_PRIVATE_KEY: recaptcha_private_key
+
+SECRET_TOKEN: app_secret_token
+SECRET_KEY_BASE: app_secret_key_base
+
+TWITTER_CONSUMER_KEY: twitter_consumer_key
+TWITTER_CONSUMER_SECRET: twitter_consumer_secret
+TWITTER_OAUTH_TOKEN: twitter_oauth_token
+TWITTER_OAUTH_TOKEN_SECRET: twitter_oauth_token_secret

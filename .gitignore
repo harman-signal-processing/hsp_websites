@@ -3,6 +3,10 @@ protected/
 system/
 public/system
 db/sphinx/
+
+config/database.yml
+config/s3.yml
+
 # Compiled source #
 ###################
 *.com
@@ -40,3 +44,6 @@ test.sqlite3
 ehthumbs.db
 Icon?
 Thumbs.db
+
+# Ignore application configuration
+/config/application.yml
