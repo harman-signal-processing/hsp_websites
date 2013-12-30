@@ -1,17 +1,24 @@
-# set :scm, :none
-# set :deploy_via, :copy
-# set :repository, "." # deploys from the current local content--whatever that is--long time if lots of assets
-
-set :scm, :subversion
-set :deploy_via, :export
-set :repository, "http://svn.hmg.ad.harman.com/repos/hmgwww/trunk/hsp_websites"
 
 set :application, "hsp_staging"
 set :deploy_to, "/var/www/hmg/#{application}"
 
-server "10.10.23.15", :web, :app, :db, primary: true
+server "23.253.51.208", :web, :app, :db, primary: true
+server "10.10.23.15", :web, :app, :db
 
 set :rails_env, "staging"
 
 # before "deploy:migrate", "refresh:staging_database"
 # before "deploy:restart", "refresh:staging_uploads"
+
+namespace :deploy do 
+	 task :setup_config, roles: :app do
+    sudo "ln -nfs /var/www/hmg/hsp_websites/current/config/nginx/staging.conf /etc/nginx/conf.d/staging.conf"
+    sudo "ln -nfs /var/www/hmg/hsp_websites/current/config/nginx/security.conf /etc/nginx/security.conf"
+    run "mkdir -p #{shared_path}/config"
+    put File.read("./config/database.example.yml"), "#{shared_path}/config/database.yml"
+    put File.read("./config/application.example.yml"), "#{shared_path}/config/application.yml"
+    put File.read("./config/s3.example.yml"), "#{shared_path}/config/s3.yml"
+    puts "Now edit the config files in #{shared_path}."
+  end
+  after "deploy:setup", "deploy:setup_config"
+end

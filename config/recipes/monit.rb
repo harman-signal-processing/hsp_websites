@@ -9,7 +9,7 @@ namespace :monit do
   task :setup do
     monit_config "monitconf", "/etc/monit.conf"
     nginx
-    mysql
+    # mysql
     passenger
     # syntax
     reload
@@ -17,7 +17,7 @@ namespace :monit do
   after "deploy:setup", "monit:setup"
   
   task(:nginx, roles: :web) { monit_config "nginx" }
-  task(:mysql, roles: :db) { monit_config "mysql" }
+  # task(:mysql, roles: :db) { monit_config "mysql" }
   task(:passenger, roles: :web) { monit_config "passenger" }
 
   %w[start stop restart syntax reload].each do |command|
