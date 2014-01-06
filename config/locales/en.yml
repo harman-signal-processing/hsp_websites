@@ -411,3 +411,8 @@ en:
       download_registration:
           serial_number: Product serial number
           code_you_received: Unique serial number
+
+  jbl_commercial:
+    cs_series: CS Series
+    commercial_solutions_series: Commercial Solutions Series
+    

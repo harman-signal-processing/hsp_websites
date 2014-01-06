@@ -1,9 +1,10 @@
 class SiteMailer < ActionMailer::Base
 
-  def contact_form(contact_message, brand)
-    @brand = brand
+  def contact_form(contact_message, website)
+    @brand = website.brand
     @contact_message = contact_message
-    mail(to: @brand.support_email, 
+    @recipient = website.value_for("support_email") || "adam.anderson@harman.com"
+    mail(to: @recipient, 
       subject: @contact_message.subject, 
       from: @contact_message.email)
   end

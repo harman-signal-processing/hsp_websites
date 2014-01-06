@@ -14,8 +14,8 @@
 	<% end %>
 <% end %>
 
-<h2 style="margin-bottom: 0px">CS Series</h2>
-<p>Commercial Solutions Series</p>
+<h2 style="margin-bottom: 0px"><%= t "jbl_commercial.cs_series" %></h2>
+<p><%= t "jbl_commercial.commercial_solutions_series" %></p>
 <%= cache ["homepage_features", website.brand, I18n.locale] do %>
 	<% if @features.size > 0 %>
 		<% @features.each_with_index do |feature,i| %>

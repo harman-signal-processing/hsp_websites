@@ -11,7 +11,7 @@ module AdminHelper
                     locale: I18n.locale, 
                     target_locale: locale, 
                     type: object.class.to_s.underscore, 
-                    id: object) )
+                    id: object.id) )
   end
   
   def name_for(object)

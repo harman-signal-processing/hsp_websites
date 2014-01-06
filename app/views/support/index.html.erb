@@ -97,11 +97,11 @@
 	</div>
 	<% end %>
 
-	<% if addr = website.address_and_phone %>
+	<% if addr = website.value_for("address_and_phone") %>
 	<div class="support_box contact_info_box">
 		<h4><%= t("titles.mailing_address") %></h4>
 		<%=raw addr %>
-		<% if sup = website.support_email %>
+		<% if sup = website.value_for("support_email") %>
 		<br/><%= mail_to sup, sup %>
 		<% end %>
 	</div>

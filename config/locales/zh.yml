@@ -539,3 +539,7 @@ zh:
       create: "新增%{model}"
       update: "更新%{model}"
       submit: "储存%{model}"
+
+  jbl_commercial:
+    cs_series: CS 系统
+    commercial_solutions_series: 商用解决方案

@@ -10,7 +10,7 @@ class ContentTranslation < ActiveRecord::Base
   # we search for translated content for the given locale.
   def self.translatables(brand=Brand.first)
     t = {
-      "product"        => %w{description extended_description features short_description keywords},
+      "product"        => %w{name description extended_description features short_description keywords},
       "product_family" => %w{name intro keywords},
       "specification"  => %w{name},
       "news"           => %w{title body},

@@ -54,7 +54,7 @@ class SupportController < ApplicationController
       if verify_recaptcha && @contact_message.valid?
         @contact_message.save
         redirect_to support_path, notice: t('blurbs.contact_form_thankyou')
-        SiteMailer.delay.contact_form(@contact_message, website.brand)
+        SiteMailer.delay.contact_form(@contact_message, website)
       else
         @discontinued_products = Product.discontinued(website)
         render_template(action: "index")
@@ -78,7 +78,7 @@ class SupportController < ApplicationController
       if @contact_message.valid?
         @contact_message.save
         redirect_to support_path, notice: t('blurbs.parts_request_thankyou')
-        SiteMailer.delay.contact_form(@contact_message, website.brand)
+        SiteMailer.delay.contact_form(@contact_message, website)
       end
     else
       render_template
@@ -98,7 +98,7 @@ class SupportController < ApplicationController
       if @contact_message.valid?
         @contact_message.save
         redirect_to support_path, notice: t('blurbs.rma_request_thankyou')
-        SiteMailer.delay.contact_form(@contact_message, website.brand)
+        SiteMailer.delay.contact_form(@contact_message, website)
       end
     else
       render_template

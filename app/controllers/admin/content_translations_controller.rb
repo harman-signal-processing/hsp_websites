@@ -25,19 +25,22 @@ class Admin::ContentTranslationsController < AdminController
   
   def combined
     @model_class = params[:type].classify
-    @record = @model_class.constantize.find(params[:id])
+    @record = @model_class.constantize.find_by_id(params[:id])
     @content_translations = []
     ContentTranslation.fields_to_translate_for(@record, website.brand).each do |field_name|
-      @content_translations << ContentTranslation.where(
+      content_translation = ContentTranslation.where(
         content_type: @model_class, 
         content_id: @record.id, 
         content_method: field_name, 
         locale: @target_locale).first_or_initialize
+      @content_translations << content_translation
     end
     if request.post?
       @content_translations.each do |content_translation|
         content_translation.content = params[:content][content_translation.content_method]
-        content_translation.save!
+        if content_translation.valid?
+          content_translation.save!
+        end
       end
       redirect_to list_admin_content_translations_path(target_locale: @target_locale, type: @model_class), notice: "Updated successfully."
     end
