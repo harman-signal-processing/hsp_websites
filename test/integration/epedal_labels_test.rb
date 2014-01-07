@@ -6,8 +6,10 @@ describe "epedal Labels Integration Test" do
     DatabaseCleaner.start
     Brand.destroy_all
     @brand = FactoryGirl.create(:digitech_brand)
-    @website = FactoryGirl.create(:website_with_products, folder: "digitech", brand: @brand, istomp_coverflow: 1, url: "digitech.lvh.me")
+    @website = FactoryGirl.create(:website_with_products, folder: "digitech", brand: @brand, url: "digitech.lvh.me")
+    stompboxes = FactoryGirl.create(:product_family, name: "Stompboxes", brand: @brand)
     @istomp = FactoryGirl.create(:product, name: "iStomp", brand: @brand, layout_class: "istomp")
+    FactoryGirl.create(:product_family_product, product_family: stompboxes, product: @istomp)
     @gooberator = FactoryGirl.create(:product, name: "Gooberator", brand: @brand, layout_class: "epedal")
     @fooberator = FactoryGirl.create(:product, name: "Fooberator", brand: @brand, layout_class: "epedal")
     @zooberator = FactoryGirl.create(:product, name: "Zooberator", brand: @brand, layout_class: "epedal")

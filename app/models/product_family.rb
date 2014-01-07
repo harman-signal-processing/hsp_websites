@@ -31,6 +31,16 @@ class ProductFamily < ActiveRecord::Base
     pf
   end
 
+  # Collection of all families with at least one current or discontinued product
+  # for the given website and locale
+  def self.all_with_current_or_discontinued_products(website, locale)
+    pf = []
+    where(brand_id: website.brand_id).order("position").all.each do |f|
+      pf << f if (f.current_products_plus_child_products(website).length > 0 || f.current_and_discontinued_products.length > 0) && f.locales(website).include?(locale.to_s)
+    end
+    pf
+  end 
+
   # Parent categories with at least one active product
   def self.parents_with_current_products(website, locale)
     pf = []
@@ -137,6 +147,11 @@ class ProductFamily < ActiveRecord::Base
       cp << p if p.product_status.is_current?
     end
     cp
+  end
+
+  # Determine current and discontinued products for the ProductFamily
+  def current_and_discontinued_products
+    current_products + discontinued_products
   end
 
   # w = a Brand or a Website

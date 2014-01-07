@@ -117,6 +117,7 @@ zh:
       service_manual: 服务手册
       calibration_procedure: 校准程序
       other: 其他文件
+      photo: 产品照片
       
   product_page:
       select_products_to_compare: 选择2〜4个产品进行比较

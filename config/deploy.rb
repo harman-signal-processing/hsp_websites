@@ -11,7 +11,7 @@ load 'deploy/assets'
 default_run_options[:pty] = true
 
 set :scm, :git
-set :deploy_via, :export
+set :deploy_via, :remote_cache
 set :repository, "https://github.com/harman-signal-processing/hsp_websites"
 
 # set :whenever_command, "bundle exec whenever"

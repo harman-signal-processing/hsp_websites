@@ -92,6 +92,10 @@ class Website < ActiveRecord::Base
       nil
     end
   end
+
+  def product_families
+    @product_families ||= ProductFamily.all_with_current_or_discontinued_products(self, I18n.locale)
+  end
   
   def current_and_discontinued_products(included_attributes=[])
     included_attributes << :product_status
@@ -102,34 +106,50 @@ class Website < ActiveRecord::Base
     @vintage_products ||= self.brand.products.includes(:product_status).select{|p| p if !!(p.product_status.name.match(/vintage/i))}
   end
   
+  # Working here. I'm thinking I need to collect the resources, then translate the hash key of each AFTER. Of course
+  # I'd also have to store the locale of each collection.
+  #
   def all_downloads
     downloads = {}
     self.current_and_discontinued_products([:product_documents, :product_attachments]).each do |product|
       product.product_documents.each do |product_document|
+        key = product_document.document_type.parameterize
         doctype = (product_document.document_type.blank?) ? "Misc" : I18n.t("document_type.#{product_document.document_type}")
         if !product_document.language.blank?
           doctype = "#{I18n.t("language.#{product_document.language}")} #{doctype}" unless doctype.to_s.match(/CAD/)
+          key = I18n.t("language.#{product_document.language}", locale: 'en') + "-#{key}"
         end
-        downloads[doctype.parameterize] ||= {param_name: doctype.parameterize, name: doctype.pluralize, downloads: []}
-        link_name = !!(doctype.match(/other/i)) ? product_document.document_file_name : product.name
-        downloads[doctype.parameterize][:downloads] << {
-          name: link_name, 
-          file_name: product_document.document_file_name,
-          url: product_document.document.url, 
-          path: product_document.document.path
-        }
+        if I18n.locale.to_s.match(/^en/i) || product_document.language.to_s.match(/^en/i) || I18n.locale.to_s.match(/#{product_document.language.to_s}/i)
+          downloads[key] ||= {
+            param_name: key.parameterize, 
+            name: I18n.locale.match(/zh/i) ? doctype : doctype.pluralize, 
+            downloads: []
+          }
+          link_name = !!(doctype.match(/other/i)) ? product_document.document_file_name : ContentTranslation.translate_text_content(product, :name)
+          downloads[key][:downloads] << {
+            name: link_name, 
+            file_name: product_document.document_file_name,
+            url: product_document.document.url, 
+            path: product_document.document.path
+          }
+        end
       end
       # images need better name (non-redundant)
       product.product_attachments.each do |product_attachment|
         if product_attachment.is_photo?
-          doctype = "Photo"
-          downloads[doctype.parameterize] ||= {param_name: doctype.parameterize, name: doctype.pluralize, downloads: []}
+          key = "photo"
+          doctype = I18n.t("document_type.photo")
+          downloads[key] ||= {
+            param_name: key.parameterize, 
+            name: I18n.locale.match(/zh/i) ? doctype : doctype.pluralize, 
+            downloads: []
+          }
           begin
             thumbnail = product_attachment.product_attachment.url(:tiny_square)
           rescue
             thumbnail = nil
           end
-          downloads[doctype.parameterize][:downloads] << {
+          downloads[key][:downloads] << {
             name: product_attachment.product_attachment_file_name, 
             file_name: product_attachment.product_attachment_file_name,
             thumbnail: thumbnail,

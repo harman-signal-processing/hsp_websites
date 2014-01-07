@@ -6,6 +6,7 @@ describe SiteMailer do
 		DatabaseCleaner.start
 		Brand.destroy_all
 		@brand = FactoryGirl.create(:brand)
+		@website = FactoryGirl.create(:website_with_products, folder: "digitech", brand: @brand)
 		Brand.any_instance.stubs(:support_email).returns('adam.anderson@harman.com')
 	end
 
@@ -16,7 +17,7 @@ describe SiteMailer do
 	describe "contact form" do
 		before do
 			@contact_message = FactoryGirl.build(:contact_message)
-			@mail = SiteMailer.contact_form(@contact_message, @brand)
+			@mail = SiteMailer.contact_form(@contact_message, @website)
 		end
 
 		it "should have the selected subject" do

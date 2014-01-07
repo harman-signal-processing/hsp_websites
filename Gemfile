@@ -55,6 +55,7 @@ gem 'country_select'
 gem 'ransack'
 gem "dalli"
 gem "rabl"
+gem "money", "~> 5.1.1"
 gem 'money-rails'
 gem 'will_paginate'
 # gem 'rack-rewrite'

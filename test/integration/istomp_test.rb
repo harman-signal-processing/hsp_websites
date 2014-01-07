@@ -6,8 +6,10 @@ describe "iStomp Integration Test" do
     DatabaseCleaner.start
     Brand.destroy_all
     @brand = FactoryGirl.create(:digitech_brand)
-    @website = FactoryGirl.create(:website_with_products, folder: "digitech", brand: @brand, istomp_coverflow: 1)
+    @website = FactoryGirl.create(:website_with_products, folder: "digitech", brand: @brand)
+    stompboxes = FactoryGirl.create(:product_family, name: "Stompboxes", brand: @brand)
     @istomp = FactoryGirl.create(:product, name: "iStomp", brand: @brand, layout_class: "istomp")
+    FactoryGirl.create(:product_family_product, product_family: stompboxes, product: @istomp)
     @gooberator = FactoryGirl.create(:product, 
       name: "Gooberator", 
       brand: @brand, 

@@ -11,13 +11,13 @@
 	<h3 class="subheader"><%= t('jump_to_a_download_type') %></h3>
 	<ul>
 		<% @downloads.each do |download_collection| %>
-		<li><%= link_to download_collection[:name], "##{download_collection[:name].to_s.parameterize}" %></li>
+		<li><%= link_to download_collection[:name], "##{download_collection[:param_name]}" %></li>
 		<% end %>
 	</ul>
 </div>
 
 <% @downloads.each do |download_collection| %>
-	<a name="<%= download_collection[:name].to_s.parameterize %>"></a>
+	<a name="<%= download_collection[:param_name] %>"></a>
 	<table class="download-collection" style="width: 100%">
 		<thead>
 			<tr>

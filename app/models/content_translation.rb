@@ -83,6 +83,27 @@ class ContentTranslation < ActiveRecord::Base
     end 
   end
 
+  # Tries to find a ContentTranslation for the provided field for current locale. Falls
+  # back to language only or default (english)
+  def self.translate_text_content(object, method)
+    c = object[method] # (default)
+    return c if I18n.locale == I18n.default_locale || I18n.locale == 'en'
+
+    parent_locale = (I18n.locale.to_s.match(/^(.*)-/)) ? $1 : false
+    translations = where(content_type: object.class.to_s, content_id: object.id, content_method: method.to_s)
+
+    if t = translations.where(locale: I18n.locale).first
+      c = t.content
+    elsif parent_locale
+      if t = translations.where(locale: parent_locale).first
+        c = t.content
+      elsif t = translations.where(["locale LIKE ?", "'#{parent_locale}%%'"]).first
+        c = t.content
+      end
+    end
+    c
+  end
+
 private
 
   def self.create_with_auto_translate(object, method, locale)

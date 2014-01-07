@@ -189,11 +189,11 @@ GEM
     mocha (0.14.0)
       metaclass (~> 0.0.1)
     moneta (0.7.20)
-    money (6.0.0)
-      i18n (~> 0.6.4)
-    money-rails (0.9.0)
+    money (5.1.1)
+      i18n (~> 0.6.0)
+    money-rails (0.8.1)
       activesupport (>= 3.0)
-      money (~> 6.0.0)
+      money (~> 5.1.0)
       railties (>= 3.0)
     multi_json (1.8.2)
     multi_xml (0.5.5)
@@ -270,7 +270,7 @@ GEM
       ffi (>= 0.5.0)
     rdoc (3.12.2)
       json (~> 1.4)
-    recaptcha (0.3.5)
+    recaptcha (0.3.6)
     ref (1.0.5)
     riddle (1.5.9)
     ruby-ole (1.2.11.7)
@@ -402,6 +402,7 @@ DEPENDENCIES
   minitest-wscolor
   mocha
   moneta
+  money (~> 5.1.1)
   money-rails
   mysql2 (>= 0.3.12b4)
   paperclip (~> 3.0)

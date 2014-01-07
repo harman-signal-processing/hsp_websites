@@ -164,7 +164,12 @@ class Product < ActiveRecord::Base
   end
   
   def show_on_website?(website)
-    self.product_status.show_on_website? && self.belongs_to_this_brand?(website)
+    self.product_status.show_on_website? && self.belongs_to_this_website?(website)
+  end
+
+  def belongs_to_this_website?(website)
+    p = (self.parents.length > 0) ? self.parents.first : self
+    p.belongs_to_this_brand?(website) && (p.discontinued? || !(p.product_families & website.product_families).empty?)
   end
 
   def show_on_toolkit?
@@ -385,7 +390,7 @@ class Product < ActiveRecord::Base
   end
 
   def parents
-    parent_products.map{|p| p.parent_product }
+    @parents ||= parent_products.map{|p| p.parent_product }
   end
 
   # A hack to exclude epedals from physical product listings
