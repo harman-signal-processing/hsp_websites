@@ -128,6 +128,25 @@ en:
       cad_drawing_rear: CAD drawing rear
       other: Other Document
       photo: Photo
+
+  resource_type:
+      3rd_party_resource: 3rd Party Resource
+      application_guide: Application Guide
+      brochure: Brochure
+      custom_controls: Custom Controls
+      data_sheet: Cut Sheet
+      image: Image
+      information_document: Information Document
+      install_guide: Install Guide
+      launch_poster: Launch Poster
+      license_agreement: License Agreement
+      owner_s_manuals: Owner's Manual
+      readme: Readme
+      speaker_tuning: Speaker Tuning
+      tech_note: Tech Note
+      training_resource: Training Resource
+      wallpaper: Wallpaper
+      whitepaper: Whitepaper
         
   product_page:
       select_products_to_compare: Select 2 to 4 products to compare

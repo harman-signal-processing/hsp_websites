@@ -168,7 +168,12 @@ class Website < ActiveRecord::Base
       # end
     end
     self.site_elements.where(show_on_public_site: true).each do |site_element|
-      downloads[site_element.resource_type.parameterize] ||= {param_name: site_element.resource_type.parameterize, name: site_element.resource_type.to_s.pluralize, downloads: []}
+      name = I18n.t("resource_type.#{site_element.resource_type_key}", default: site_element.resource_type)
+      downloads[site_element.resource_type.parameterize] ||= {
+        param_name: site_element.resource_type.parameterize, 
+        name: I18n.locale.match(/zh/i) ? name : name.to_s.pluralize, 
+        downloads: []
+      }
       thumbnail = nil
       if !site_element.resource_file_name.blank? #&& site_element.is_image?
         if site_element.is_image?

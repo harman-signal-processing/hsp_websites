@@ -118,6 +118,25 @@ zh:
       calibration_procedure: 校准程序
       other: 其他文件
       photo: 产品照片
+
+  resource_type:
+      3rd_party_resource: 第三方资源
+      application_guide: 应用手册
+      brochure: 手册
+      custom_controls: 自定义控件
+      data_sheet: 数据表
+      image: 产品照片
+      information_document: 产品单页
+      install_guide: 安装指南
+      launch_poster: 推出海报
+      license_agreement: 许可协议
+      owner_s_manuals: 用户手册
+      readme: 自述
+      speaker_tuning: 音箱调音
+      tech_note: 技术说明
+      training_resource: 培训资源
+      wallpaper: 壁纸
+      whitepaper: 研究文件
       
   product_page:
       select_products_to_compare: 选择2〜4个产品进行比较

@@ -27,5 +27,9 @@ class SiteElement < ActiveRecord::Base
   def is_image?
     !!(resource_file_name.to_s.match(/(png|jpg|jpeg|tif|tiff|bmp|gif)$/i))
   end
+
+  def resource_type_key
+    self.resource_type.parameterize.underscore
+  end
   
 end
