@@ -18,3 +18,17 @@ TWITTER_CONSUMER_KEY: twitter_consumer_key
 TWITTER_CONSUMER_SECRET: twitter_consumer_secret
 TWITTER_OAUTH_TOKEN: twitter_oauth_token
 TWITTER_OAUTH_TOKEN_SECRET: twitter_oauth_token_secret
+
+BING_TRANSLATOR_ID: your_bing_translator_id
+BING_TRANSLATOR_KEY: your_bing_translator_key
+
+EMPLOYEE_INVITATION_CODE: inviation_code_for_employees
+RSO_INVITATION_CODE: invitation_code_for_rso
+MEDIA_INVITATION_CODE: invitation_code_for_media
+
+HPRO_EXECS: name1@email.com|name2@email.com
+
+TOOLKIT_ADMIN_EMAIL_ADDRESSES: name3@email.com|name4@email.com
+TOOLKIT_ADMIN_CONTACT_INFO: First Last at first.last@email.com
+
+EXCEPTION_RECIPIENTS: name5@email.com|name6@email.com

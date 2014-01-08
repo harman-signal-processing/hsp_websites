@@ -115,22 +115,13 @@ HarmanSignalProcessingWebsite::Application.configure do
     :email => {
       :email_prefix => "[HSP] ",
       :sender_address => %{"Site Error" <support@digitech.com>},
-      :exception_recipients => %w{adam.anderson@harman.com}
+      :exception_recipients => ENV['EXCEPTION_RECIPIENTS'].split("|")
     }
       
   config.action_mailer.default_url_options = { :host => 'www.digitech.com' }
 
-  config.employee_invitation_code = "GROOVY"
-  config.rso_invitation_code = "HSP-RSO"
-  config.auto_translate      = true
+  config.auto_translate = true
 
-  config.hpro_execs = [
-    'jay.woolley@harman.com',
-    'John.Fitzgerald@harman.com',
-    'Timothy.Smith@harman.com', # TJ
-    'richard.ayres@harman.com',
-    'jason.kunz@harman.com',
-    'adam.anderson@harman.com'
-  ]
+  config.hpro_execs = ENV['HPRO_EXECS'].split("|")
 
 end

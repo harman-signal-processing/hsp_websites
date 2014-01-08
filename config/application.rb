@@ -67,15 +67,15 @@ module HarmanSignalProcessingWebsite
     end
 
     # Override these in environment configs...
-    config.employee_invitation_code = "GROOVYBABY"
-    config.rso_invitation_code      = "YOUAREINVITED"
-    config.media_invitation_code    = "HARMANMEDIA"
+    config.employee_invitation_code = ENV['EMPLOYEE_INVITATION_CODE']
+    config.rso_invitation_code      = ENV['RSO_INVITATION_CODE']
+    config.media_invitation_code    = ENV['MEDIA_INVITATION_CODE']
     config.rso_host                 = "rso.digitech.com"
     config.toolkit_url              = "marketingtoolkit.harmanpro.com"
     config.queue_url                = "marketingqueue.harmanpro.com"
     config.default_site_name        = "Harman Signal Processing" 
-    config.toolkit_admin_email_addresses = ["adam.anderson@harman.com"]
-    config.toolkit_admin_contact_info    = ["Adam Anderson at adam.anderson@harman.com"]
+    config.toolkit_admin_email_addresses = ENV['TOOLKIT_ADMIN_EMAIL_ADDRESSES'].split("|")
+    config.toolkit_admin_contact_info    = ENV['TOOLKIT_ADMIN_CONTACT_INFO'].split("|")
 
     config.document_types = [
       ["Owner's Manual", "owners_manual"],
@@ -103,13 +103,10 @@ module HarmanSignalProcessingWebsite
       ["German", "de"]
     ]
 
-    config.bing_translator_id  = "HSP"
-    config.bing_translator_key = "7pBQHkb/MwV98SvO0PP1tS9e5+YNA9f7n4wqDkvO6h4="
+    config.bing_translator_id  = ENV['BING_TRANSLATOR_ID']
+    config.bing_translator_key = ENV['BING_TRANSLATOR_KEY']
     config.auto_translate      = false # override in environment configs as needed
 
-    config.hpro_execs = [
-      'adam@makeascene.com',
-      'adam.anderson@harman.com'
-    ]
+    config.hpro_execs = ENV['TOOLKIT_ADMIN_EMAIL_ADDRESSES'].split("|")
   end
 end
