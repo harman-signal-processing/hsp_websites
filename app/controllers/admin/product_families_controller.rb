@@ -6,7 +6,7 @@ class Admin::ProductFamiliesController < AdminController
   # GET /admin/product_families.xml
   def index
     @product_families = ProductFamily.all_parents(website)
-    @children = website.product_families.where("parent_id IS NOT NULL").order(:name)
+    @children = (website.product_families - @product_families).sort_by(&:name) 
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @product_families }
