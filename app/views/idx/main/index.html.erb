@@ -33,6 +33,43 @@
 	<div class="clear"></div>
 <% end %>
 
+<%= content_for :big_bottom_box do %>
+    <div style="float: right; width: 265px;">
+		<% if website.email_signup_url %>
+			<%= render 'shared/newsletter_signup' %>
+		<% end %>
+		<% if website.homepage_column_three && !website.homepage_column_three.blank? %>
+			<%= render "shared/column_for_#{website.homepage_column_three}" %>
+		<% elsif website.homepage_column_3 && !website.homepage_column_3.blank? %>
+			<%= render "shared/column_for_#{website.homepage_column_3}" %>
+		<% else %>
+			<%#= render 'shared/column_for_twitter' %>
+		<% end %>
+	</div>
+
+	<div style="float: left; width: 290px; margin-left: 10px">
+		<% if website.homepage_column_one && !website.homepage_column_one.blank?%>
+			<%= render "shared/column_for_#{website.homepage_column_one}" %>
+		<% elsif website.homepage_column_1 && !website.homepage_column_1.blank? %>
+			<%= render "shared/column_for_#{website.homepage_column_1}" %>
+		<% else %>
+			<%#= render 'shared/column_for_news' %>
+		<% end %>
+	</div>
+
+	<div style="margin-left: 315px; margin-right: 320px;">
+		<% if website.homepage_column_two && !website.homepage_column_two.blank? %>
+			<%= render "shared/column_for_#{website.homepage_column_two}" %>
+		<% elsif website.homepage_column_2 && !website.homepage_column_2.blank? %>
+			<%= render "shared/column_for_#{website.homepage_column_2}" %>
+		<% elsif @youtube && !@youtube.blank? %>
+			<%#= render 'shared/column_for_youtube' %>
+		<% elsif !website.facebook.blank? %>
+			<%#= render 'shared/column_for_facebook' %>
+		<% end %>
+	</div>
+<% end %>
+
 <%= content_for :preload do %>
 	<%= preload_background_images %>
 <% end %>

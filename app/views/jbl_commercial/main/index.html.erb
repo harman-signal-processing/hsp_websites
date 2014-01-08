@@ -36,6 +36,9 @@
 	<%= link_to(image_tag("#{website.folder}/jbl_professional.png", alt: "JBL Professional"), "http://www.jblpro.com", target: "_blank") %>
 	&nbsp;
 	<%= link_to(image_tag("#{website.folder}/jbl_synthesis.png", alt: "JBL Synthesis"), "http://www.jblsynthesis.com", target: "_blank") %>
+		<div id="social_media_links">
+			<%= social_media_links 'twitter', 'facebook', 'myspace', 'youtube', 'wechat', 'weibo' %> 
+		</div>
 <% end %>
 
 <%= content_for :preload do %>

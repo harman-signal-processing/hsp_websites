@@ -89,7 +89,11 @@ module ApplicationHelper
         html += link_to(image_tag("icons/#{n}.png", style: "vertical-align: middle;", size: "21x20"), rss_url(format: "xml"), target: "_blank")
       elsif v = website.value_for(n)
         v = (v =~ /^http/i) ? v : "http://www.#{n}.com/#{v}"
-        html += link_to(image_tag("icons/#{n}.png", style: "vertical-align: middle", size: "21x20"), v, target: "_blank")
+        if File.exist?(Rails.root.join("app/assets/images/icons", "#{n}.png"))
+          html += link_to(image_tag("icons/#{n}.png", style: "vertical-align: middle", size: "21x20"), v, target: "_blank")
+        else
+          html += link_to(n, v, target: "_blank")
+        end
       end
     end
     raw(html)
