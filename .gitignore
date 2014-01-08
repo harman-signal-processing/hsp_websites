@@ -42,7 +42,7 @@ test.sqlite3
 ######################
 .DS_Store
 ehthumbs.db
-Icon?
+#Icon?
 Thumbs.db
 
 # Ignore application configuration
