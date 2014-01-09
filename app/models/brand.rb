@@ -139,7 +139,7 @@ class Brand < ActiveRecord::Base
 
   def twitter_name
     begin
-      if self.twitter && tw = self.twitter.match(/(\w*)$/).to_s 
+      if self.value_for('twitter') && tw = self.value_for('twitter').match(/(\w*)$/).to_s 
         tw
       else
         false
