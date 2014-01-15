@@ -10,6 +10,10 @@ class SiteElement < ActiveRecord::Base
     } 
   has_attached_file :executable,
     url: ':s3_domain_url' # specified to avoid cloudfront usage
+
+  process_in_background :resource
+  process_in_background :executable
+  
   validates :brand, :name, presence: true
   has_many :product_site_elements, dependent: :destroy, inverse_of: :site_element
   has_many :products, through: :product_site_elements

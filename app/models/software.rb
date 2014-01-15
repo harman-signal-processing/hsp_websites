@@ -15,6 +15,8 @@ class Software < ActiveRecord::Base
     path: ":class/:attachment/:id_:timestamp/:basename.:extension"
     # url: ':s3_domain_url' # specified to avoid cloudfront usage
 
+  process_in_background :ware
+
   after_initialize :set_default_counter, :determine_platform
   after_save :replace_old_version
   belongs_to :brand, touch: true

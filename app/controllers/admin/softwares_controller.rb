@@ -43,7 +43,7 @@ class Admin::SoftwaresController < AdminController
     @software.brand = website.brand
     respond_to do |format|
       if @software.save
-        format.html { redirect_to([:admin, @software], notice: 'Software was successfully created.') }
+        format.html { redirect_to([:admin, @software], notice: 'Software was successfully created. Wait a few minutes while the system copies the software to our content delivery network.') }
         format.xml  { render xml: @software, status: :created, location: @software }
         website.add_log(user: current_user, action: "Created software: #{@software.name}")
       else
@@ -58,7 +58,7 @@ class Admin::SoftwaresController < AdminController
   def update
     respond_to do |format|
       if @software.update_attributes(params[:software])
-        format.html { redirect_to([:admin, @software], notice: 'Software was successfully updated.') }
+        format.html { redirect_to([:admin, @software], notice: 'Software was successfully updated. If you replaced the file, please wait while the system propagates the changes to our content delivery network.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated software: #{@software.name}")
       else

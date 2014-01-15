@@ -64,6 +64,8 @@ gem "possessive"
 gem 'event-calendar', :require => 'event_calendar'
 gem 'RedCloth'
 gem 'figaro'
+gem 'puma'
+gem 'delayed_paperclip'
 
 ### Could be useful in the future...
 # gem "bing_translate_yaml", "~> 0.1.7" 

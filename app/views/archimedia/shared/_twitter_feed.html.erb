@@ -1,4 +1,4 @@
-<%= cache ["twitter_feed", website.tweets.first] do %>
+<%= cache ["twitter_feed", website.tweets.first, I18n.locale] do %>
 
 	<% if website.twitter && tw = website.twitter.match(/(\w*)$/).to_s %>
 

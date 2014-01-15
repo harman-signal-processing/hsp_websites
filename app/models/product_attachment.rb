@@ -18,6 +18,9 @@ class ProductAttachment < ActiveRecord::Base
   has_attached_file :product_media
   has_attached_file :product_media_thumb, styles: {thumb: "100x100>", tiny: "64x64>"}
 
+  process_in_background :product_attachment
+  process_in_background :product_media
+
   has_many :demo_songs, order: :position
   accepts_nested_attributes_for :demo_songs, reject_if: :all_blank
   validates_presence_of :product_id
