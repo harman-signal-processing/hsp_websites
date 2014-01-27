@@ -2,6 +2,7 @@ require "bundler/capistrano"
 require "delayed/recipes"
 require "capistrano/ext/multistage"
 require 'thinking_sphinx/capistrano'
+require 'puma/capistrano'
 
 load "config/recipes/base"
 load "config/recipes/refresh"

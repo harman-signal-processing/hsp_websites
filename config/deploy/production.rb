@@ -8,7 +8,13 @@ server "rackspace1", :web, :app, :db, primary: true
 
 set :rails_env, "production"
 
-after "deploy:restart", "deploy:ping"
+before "deploy:restart", "thinking_sphinx:configure" 
+
+after "deploy:restart", "puma:phased_restart"
+after "deploy:restart", "delayed_job:restart"
+#after "deploy:restart", "deploy:ping"
+after "deploy:start", "delayed_job:start"
+after "deploy:stop", "delayed_job:stop"
 
 namespace :deploy do
   desc "Hit the site to really spin it up"
@@ -44,8 +50,4 @@ namespace :deploy do
   after "deploy:setup", "deploy:setup_config"
 end
 
-after "deploy:stop", "delayed_job:stop"
-after "deploy:start", "delayed_job:start"
-after "deploy:restart", "delayed_job:restart"
 
-before "deploy:restart", "thinking_sphinx:configure" 

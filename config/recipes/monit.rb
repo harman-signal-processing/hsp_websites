@@ -9,8 +9,9 @@ namespace :monit do
   task :setup do
     monit_config "monitconf", "/etc/monit.conf"
     nginx
+    puma
     # mysql
-    passenger
+    # passenger
     # syntax
     reload
   end
@@ -19,6 +20,7 @@ namespace :monit do
   task(:nginx, roles: :web) { monit_config "nginx" }
   # task(:mysql, roles: :db) { monit_config "mysql" }
   task(:passenger, roles: :web) { monit_config "passenger" }
+  task(:puma, roles: :app) { monit_config "puma"}
 
   %w[start stop restart syntax reload].each do |command|
     desc "Run Monit #{command} script"

@@ -39,12 +39,12 @@ daemonize
 
 # Store the pid of the server in the file at “path”.
 #
-pidfile '/var/tmp/puma.pid'
+pidfile '/var/www/hmg/hsp_websites/shared/pids/puma.pid'
 
 # Use “path” as the file to store the server info state. This is
 # used by “pumactl” to query and control the server.
 #
-state_path '/var/tmp/puma.state'
+state_path '/var/www/hmg/hsp_websites/shared/sockets/puma.state'
 
 # Redirect STDOUT and STDERR to files specified. The 3rd parameter
 # (“append”) specifies whether the output is appended, the default is
@@ -65,6 +65,7 @@ state_path '/var/tmp/puma.state'
 # The default is “0, 16”.
 #
 # threads 0, 16
+threads 1,1 # since MRI doesn't really do threading, use workers instead
 
 # Bind the server to “url”. “tcp://”, “unix://” and “ssl://” are the only
 # accepted protocols.
@@ -75,7 +76,7 @@ state_path '/var/tmp/puma.state'
 # bind 'unix:///var/run/puma.sock'
 # bind 'unix:///var/run/puma.sock?umask=0777'
 # bind 'ssl://127.0.0.1:9292?key=path_to_key&cert=path_to_cert'
-bind 'unix:///var/run/puma-hspwebsites.sock'
+bind 'unix:///var/www/hmg/hsp_websites/shared/sockets/puma.sock'
 
 # Instead of “bind 'ssl://127.0.0.1:9292?key=path_to_key&cert=path_to_cert'” you
 # can also use the “ssl_bind” option.
@@ -103,7 +104,7 @@ bind 'unix:///var/run/puma-hspwebsites.sock'
 #
 # The default is “0”.
 #
-# workers 2
+workers 8
 
 # Code to run when a worker boots to setup the process before booting
 # the app.
