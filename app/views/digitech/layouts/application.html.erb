@@ -12,7 +12,6 @@
 			<!--[if lt IE 9]>
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 			<![endif]-->
-			<link type="text/css" href="/css/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
 			<meta name="google-site-verification" content="wzOwJ6W1UIF7pcjTD8uhQy35nYuMTUPEbWEgJn436CQ" />
 			<link href="<%= main_app.rss_url(format: 'xml') %>" rel="alternate" title="RSS" type="application/rss+xml"/>
 			<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -44,7 +43,7 @@
 		<% if content_for?(:page_css) %>
 			<%= yield :page_css %>
 		<% else %>
-			<%= stylesheet_link_tag 'application', website.folder, cache: false, media: :all %>
+			<%= stylesheet_link_tag website.folder, media: :all %>
 		<% end %>
 
 		<%= yield :custom_css %>

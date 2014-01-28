@@ -5,11 +5,10 @@
   <%= csrf_meta_tag %>
   <title><%= website.brand.name %> Admin: <%= controller_name.humanize.titleize %>: <%= controller.action_name.humanize.titleize %></title>
   <%= javascript_include_tag 'application', 'admin' %>
-  <%= stylesheet_link_tag 'admin', cache: false %>
+  <%= stylesheet_link_tag 'admin' %>
 	<!--[if lt IE 9]>
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
-  <link type="text/css" href="/css/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
   <%= yield :extra_js %>
 </head>
 <body data-brand="<%= website.brand.name %>">

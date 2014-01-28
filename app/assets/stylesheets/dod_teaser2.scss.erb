@@ -8,9 +8,15 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require dod_foundation_and_overrides
- *= require_self
+*= require reset
+*= require dod_foundation_and_overrides
+*= require lightbox
+*= require tiny
+*= require jquery-ui-1.8.16.custom
+*= require_self
 */
+img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
+
 body {
 	background: #000;
 	text-align: center;

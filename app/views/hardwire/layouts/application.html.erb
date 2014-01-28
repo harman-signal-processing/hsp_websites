@@ -12,7 +12,6 @@
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 			<![endif]-->
 			<meta name="google-site-verification" content="1wM3aoywZkSvvyBvFn5iLMUTl50-sv--4df6O-gS9fI" />
-			<link type="text/css" href="/css/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
 			<link href="<%= rss_url(format: 'xml') %>" rel="alternate" title="RSS" type="application/rss+xml"/>
 			<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 			<link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -40,7 +39,7 @@
 		<% end %>
 
 		<%= javascript_include_tag 'application' %>
-		<%= stylesheet_link_tag 'application', website.folder, cache: false %>
+		<%= stylesheet_link_tag website.folder %>
 
 		<%= yield :custom_css %>
 		<script>

@@ -29,32 +29,32 @@ namespace :refresh do
 	desc "Backup the production database and install it on top of the local dev db"
 	task :development_database, roles: :db, primary: true do
 		backup_database
-    	get_and_remove_file
-    	puts `bundle exec rake RAILS_ENV=development db:drop`
-    	puts `bundle exec rake RAILS_ENV=development db:create`
-    	password_command = ""
-    	if @db['development']['password'] && !@db['development']['password'].blank?
-    		password_command = "--password=#{@db['development']['password']}"
-    	end
-    	puts `mysql -u #{@db['development']['username']} #{password_command} #{@db['development']['database']} < ./#{@filename}`
-    	puts `rm ./#{@filename}`
-    	puts "Local development database refreshed from production, catching up missing migrations:"
-    	puts `bundle exec rake RAILS_ENV=development db:migrate`
-    	puts "Setting up localhost sites"
-    	puts `bundle exec rake RAILS_ENV=development db:setup_development_from_production`
+  	get_and_remove_file
+  	puts `bundle exec rake RAILS_ENV=development db:drop`
+  	puts `bundle exec rake RAILS_ENV=development db:create`
+  	password_command = ""
+  	if @db['development']['password'] && !@db['development']['password'].blank?
+  		password_command = "--password=#{@db['development']['password']}"
+  	end
+  	puts `mysql -u #{@db['development']['username']} #{password_command} #{@db['development']['database']} < ./#{@filename}`
+  	puts `rm ./#{@filename}`
+  	puts "Local development database refreshed from production, catching up missing migrations:"
+  	puts `bundle exec rake RAILS_ENV=development db:migrate`
+  	puts "Setting up localhost sites"
+  	puts `bundle exec rake RAILS_ENV=development db:setup_development_from_production`
 	end
 
 	desc "Backup the production database and install it on top of the remote staging db"
 	task :staging_database, roles: :db, primary: true do
 		backup_database
-    	run "cd #{deploy_to}/current && /usr/bin/env rake RAILS_ENV=staging db:drop"
-    	run "cd #{deploy_to}/current && /usr/bin/env rake RAILS_ENV=staging db:create"
-    	run "mysql -u #{@db['staging']['username']} --password=#{@db['staging']['password']} #{@db['staging']['database']} < #{@file}"
-    	run "rm #{@file}"
-    	puts "Staging database refreshed from production, catching up missing migrations:"
-    	run "cd #{deploy_to}/current && /usr/bin/env rake RAILS_ENV=staging db:migrate"
-    	puts "Setting up staging sites"
-    	run "cd #{deploy_to}/current && /usr/bin/env rake RAILS_ENV=staging db:setup_staging_from_production"
+  	run "cd #{deploy_to}/current && /usr/bin/env rake RAILS_ENV=staging db:drop"
+  	run "cd #{deploy_to}/current && /usr/bin/env rake RAILS_ENV=staging db:create"
+  	run "mysql -u #{@db['staging']['username']} --password=#{@db['staging']['password']} #{@db['staging']['database']} < #{@file}"
+  	run "rm #{@file}"
+  	puts "Staging database refreshed from production, catching up missing migrations:"
+  	run "cd #{deploy_to}/current && /usr/bin/env rake RAILS_ENV=staging db:migrate"
+  	puts "Setting up staging sites"
+  	run "cd #{deploy_to}/current && /usr/bin/env rake RAILS_ENV=staging db:setup_staging_from_production"
 	end
 	
 	desc "Syncs the latest uploaded assets from production to development"
@@ -78,8 +78,8 @@ namespace :refresh do
 
 	def backup_database
 		setup_file "hspwww_production_#{Time.now.to_i}.sql"
-    	@db = YAML::load(ERB.new(IO.read(File.join(File.dirname(__FILE__), '../database.yml'))).result)
-    	run "mysqldump -u #{@db['production']['username']} --password=#{@db['production']['password']} #{@db['production']['database']} > #{@file}"
+  	@db = YAML::load(ERB.new(IO.read(File.join(File.dirname(__FILE__), '../database.yml'))).result)
+  	run "mysqldump -u #{@db['production']['username']} -h #{@db['production']['host']} --password=#{@db['production']['password']} #{@db['production']['database']} > #{@file}"
 	end
 
 	def setup_file(filename)

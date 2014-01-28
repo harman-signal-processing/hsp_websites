@@ -1,3 +1,15 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+*= require reset
+*= require lightbox
+*= require tiny
+*= require jquery-ui-1.8.16.custom
+*= require_self
+*/
+img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
+
 @font-face {
     font-family: 'AsapRegular';
     src: font-url('Asap-Regular-webfont.eot');
@@ -206,6 +218,10 @@ div#supernav {
 		width: 400px;
 		color: #CCC;
 		letter-spacing: 0.18em;
+		a:link, a:visited {
+			color: #CCC;
+			text-decoration: none;
+		}
 		text: {
 			align: right;
 			transform: uppercase;

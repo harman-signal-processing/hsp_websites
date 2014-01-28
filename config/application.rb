@@ -59,6 +59,9 @@ module HarmanSignalProcessingWebsite
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+
+    # Trying to encourage asset pipeline to precompile the images in the vendor/assets folders
+    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
     
     config.generators do |g|
         g.test_framework   :mini_test, :spec => true
