@@ -4,41 +4,14 @@
  * the top of the compiled file, but it's generally better to create a new file per style scope.
 *= require label_sheets
 *= require jquery-ui-1.8.16.custom
+*= require admin_foundation_and_overrides
 *= require_self
 */
 
 body { 
 	background: #F0F3F4 url(<%= image_path('adminbg.png') %>) repeat-y; 
-	color: #333; 
-	margin: 0; 
-	padding: 0;
 }
 
-body, p, ol, ul, td {
-  font-family: "Helvetica Neue","Helvetica",Arial,Verdana,sans-serif;;
-  font-size:   13px;
-  line-height: 18px;
-}
-h1 {
-	font-size: 36px;
-	line-height: 38px;
-	font-weight: 500;
-	margin-bottom: 1px;
-	small {
-		font-size: 70%;
-		color: #666;
-	}
-}
-h2 {
-	font-size: 28px;
-	line-height: 30px;
-	font-weight: 500;
-}
-h3 {
-	font-size: 20px;
-	line-height: 22px;
-	font-weight: 500;
-}
 .notice, #flash_notice {
 	background: #C8FFC6;
 	color: #0E9C22;
@@ -60,7 +33,7 @@ pre {
   padding: 10px;
   font-size: 11px;
 }
-ul {
+ul.list {
 	margin-left: 0;
 	padding-left: 0;
 	li {
@@ -200,25 +173,7 @@ div.field, div.actions {
 	margin: 16px 0px;
 	color: #555;
 }
-div#main_menu {
-	background: #00395a;
-	color: white;
-	padding: 12px;
-	position: relative;
-	margin-top: -1px;
-  -moz-box-shadow: 0px 0px 4px #111;
-	-webkit-box-shadow: 0px 0px 4px #111;
-	box-shadow: 0px 0px 4px #111;
-	text-shadow: #000 0px 1px 0px;
-	a:link, a:visited {
-		color: #FFF;
-		text-decoration: none;
-	}
-	a:hover {
-		color: #FFF;
-		text-decoration: underline;
-	}
-}
+
 div#profile_links {
 	position: absolute;
 	top: 12px;
@@ -241,6 +196,7 @@ div#profile_links {
 		text-shadow: #000 0px 1px 0px;
 		margin-bottom: 2px;
 		border-bottom: 1px solid #CCC;
+		color: #999;
 		img {
 			margin-bottom: 2px;
 		}
@@ -250,6 +206,7 @@ div#profile_links {
 		padding: 0;
 		margin-bottom: 26px;
 		li {	
+			list-style: none;
 			border-bottom: 1px dotted #555;
 			font-size: 12px;
 			line-height: 15px;
@@ -398,7 +355,3 @@ tr.strike td,
 	text-decoration: line-through;
 }
 
-form.simple_form label {
-	display: block;
-	padding-top: 10px;
-}
