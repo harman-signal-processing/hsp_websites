@@ -1,10 +1,10 @@
 <h1><%= @training_class.name %></h1>
 
-<div class="button_container">
-	<%= link_to 'Back', admin_training_classes_path, class: "back button" %>
-	<%= link_to 'Edit', edit_admin_training_class_path(@training_class), class: "edit button" %> 
-	<%= link_to 'Delete', [:admin, @training_class], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
-</div>
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_training_classes_path, class: "small secondary button" %></li>
+	<li><%= link_to 'Edit', edit_admin_training_class_path(@training_class), class: "small secondary button" %> </li>
+	<li><%= link_to 'Delete', [:admin, @training_class], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
 
 
 
@@ -15,7 +15,7 @@
 		<%= hidden_field_tag "called_from", "training_class" %>
     	<%= f.hidden_field :training_class_id %>
 		<%= f.collection_select :product_id, website.products, :id, :name %> 
-		<%= submit_tag 'add existing product' %>
+		<%= submit_tag 'add existing product', class: "small round button"  %>
 		<%= link_to 'create a new product', new_admin_product_path %>
 	<% end %>
 
@@ -38,7 +38,7 @@
 			&nbsp;
 			<%= hidden_field_tag "called_from", "training_class" %>
 			<%= f.hidden_field :training_class_id %>
-			<%= submit_tag 'submit' %> 
+			<%= submit_tag 'submit', class: "small round button"  %> 
 			or <%= link_to "upload new software", new_admin_software_path %>
 		</p>
 	<% end %>	

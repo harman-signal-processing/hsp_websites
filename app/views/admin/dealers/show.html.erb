@@ -1,9 +1,9 @@
 <h1><%= @dealer.name %></h1>
 
-<div class="button_container">
-	<%= link_to 'Back', admin_dealers_path, class: "back button" %>
-	<%= link_to 'Edit', edit_admin_dealer_path(@dealer, locale: I18n.locale), class: "edit button" %> 
-</div>
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_dealers_path, class: "small secondary button" %></li>
+	<li><%= link_to 'Edit', edit_admin_dealer_path(@dealer, locale: I18n.locale), class: "small secondary button" %> </li>
+</ul>
 
 <table class="data">
   <tr>

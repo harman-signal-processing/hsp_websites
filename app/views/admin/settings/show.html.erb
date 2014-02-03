@@ -1,13 +1,13 @@
 <h1><%= @setting.name %></h1>
 
-<div class="button_container">
-	<%= link_to 'Settings', admin_settings_path, class: "back button" %>
+<ul class="button-group round">
+	<li><%= link_to 'Settings', admin_settings_path, class: "small secondary button" %></li>
 	<% if can? :manage, @setting %>
-	<%= link_to 'Copy', copy_admin_setting_path(@setting, locale: I18n.locale), class: "copy button" %> 
-	<%= link_to 'Edit', edit_admin_setting_path(@setting, locale: I18n.locale), class: "edit button" %> 
-	<%= link_to 'Delete', [:admin, @setting], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
+	<li><%= link_to 'Copy', copy_admin_setting_path(@setting, locale: I18n.locale), class: "small secondary button" %> </li>
+	<li><%= link_to 'Edit', edit_admin_setting_path(@setting, locale: I18n.locale), class: "small secondary button" %> </li>
+	<li><%= link_to 'Delete', [:admin, @setting], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
 	<% end %>
-</div>
+</ul>
 
 <p>
   <b>Locale:</b>

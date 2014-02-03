@@ -2,15 +2,15 @@
 				 reverse: true %>
 <h1><%= title @online_retailer.name %></h1>
 
-<div class="button_container">
-	<%= link_to 'Back', admin_online_retailers_path, class: "back button" %>	
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_online_retailers_path, class: "small secondary button" %>	</li>
 	<% if can? :update, @online_retailer %>
-	<%= link_to 'Edit', edit_admin_online_retailer_path(@online_retailer, locale: I18n.locale), class: "edit button" %> 
+	<li><%= link_to 'Edit', edit_admin_online_retailer_path(@online_retailer, locale: I18n.locale), class: "small secondary button" %> </li>
 	<% end %>
 	<% if can? :destroy, @online_retailer %>
-	<%= link_to 'Delete', [:admin, @online_retailer], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
+	<li><%= link_to 'Delete', [:admin, @online_retailer], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
 	<% end %>
-</div>
+</ul>
 
 <% if !@online_retailer.retailer_logo_file_name.blank? %>
 	<%= image_tag(@online_retailer.retailer_logo(:fixed))%>
@@ -57,7 +57,7 @@
 				<%= hidden_field_tag "called_from", "online_retailer" %>
 				<%= f.hidden_field :online_retailer_id %>
 				<%= f.text_field :url, size: 50 %>
-				<%= submit_tag 'add product/retailer link' %>
+				<%= submit_tag 'add product/retailer link', class: "small round button"  %>
 			</td>
 		</tr>
 	</table>

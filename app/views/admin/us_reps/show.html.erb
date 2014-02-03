@@ -1,10 +1,10 @@
 <h1><%= @us_rep.name %></h1>
 
-<div class="button_container">
-	<%= link_to 'Back', admin_us_reps_path, class: "back button" %>
-	<%= link_to 'Edit', edit_admin_us_rep_path(@us_rep, locale: I18n.locale), class: "edit button" %>
-	<%= link_to 'Delete', [:admin, @us_rep], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
-</div>
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_us_reps_path, class: "small secondary button" %></li>
+	<li><%= link_to 'Edit', edit_admin_us_rep_path(@us_rep, locale: I18n.locale), class: "small secondary button" %></li>
+	<li><%= link_to 'Delete', [:admin, @us_rep], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
 
 <p><b>Contact:</b> <%= @us_rep.contact %></p>
 <p><b>Address:</b> <%= @us_rep.address %></p>
@@ -17,7 +17,7 @@
 
 <div class="group">
 	<h3>Regions</h3>
-	<%= link_to_function "add a region", "$('#add_region_form').toggle();", class: "new button" %>
+	<%= link_to_function "add a region", "$('#add_region_form').toggle();", class: "small success button" %>
 
 	<div id="add_region_form" style="display:none">
 		<%= form_for [:admin, @us_rep_region], remote: true do |f| %>

@@ -29,6 +29,6 @@
 
 	<%= hidden_field_tag "id", @record.id %>
 	<%= hidden_field_tag "type", @record.class.name.underscore %>
-	<%= submit_tag "save changes" %>
+	<%= submit_tag "save changes", class: "small round button"  %>
 	
 </form>

@@ -1,15 +1,15 @@
 <h1>Search Warranty Registrations</h1>
 
-<p>
-<%= link_to "Export All To Excel", 
+<ul class="button-group round">
+  <li><%= link_to "Export All To Excel", 
 			admin_warranty_registrations_path(format: 'csv'), 
-			class: "edit button" %>
+			class: "small secondary button" %></li>
 <% if can? :create, WarrantyRegistration %>
-	<%= link_to "New Registration",
+	<li><%= link_to "New Registration",
 			new_admin_warranty_registration_path,
-			class: "new button" %>
+			class: "small success button" %></li>
 <% end %>
-</p>
+</ul>
 
 <%= search_form_for [:admin, @search] do |f| %>
   <div class="form_field">

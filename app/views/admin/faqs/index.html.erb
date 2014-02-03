@@ -1,9 +1,9 @@
 <h1>Listing FAQs</h1>
 
 <% if can? :create, Faq %>
-<div class="button_container">
-	<%= link_to 'New FAQ', new_admin_faq_path, class: "new button" %>
-</div>
+<ul class="button-group round">
+	<li><%= link_to 'New FAQ', new_admin_faq_path, class: "small success button" %></li>
+</ul>
 <% end %>
 
 <ul>

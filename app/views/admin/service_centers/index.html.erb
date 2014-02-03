@@ -7,9 +7,9 @@
 <% else %>
 
 <% if can? :create, ServiceCenter %>
-<div class="button_container">
-	<%= link_to 'New Service Center', new_admin_service_center_path, class: "new button" %>
-</div>
+<ul class="button-group round">
+	<li><%= link_to 'New Service Center', new_admin_service_center_path, class: "small success button" %></li>
+</ul>
 <% end %>
 
 <ul>

@@ -1,9 +1,9 @@
 <h1>Blogs</h1>
 
 <% if can? :create, Blog %>
-<div class="button_container">
-	<%= link_to 'New Blog', new_admin_blog_path, class: "new button" %>
-</div>
+<ul class="button-group round">
+	<li><%= link_to 'New Blog', new_admin_blog_path, class: "small success button" %></li>
+</ul>
 <% end %>
 
 <ul>

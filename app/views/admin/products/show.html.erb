@@ -8,11 +8,11 @@
 	<%= link_to(image_tag("icons/external_link_icon.png"), product_url(@product, locale: I18n.locale)) %></span>
 </h1>
 
-<div class="button_container">
-	<%= link_to 'Back', admin_products_path, class: "back button" %>
-	<%= link_to 'Edit Product Descriptions & Settings', edit_admin_product_path(@product, locale: I18n.locale), class: "edit button" %>
-	<%= link_to 'Delete', [:admin, @product], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
-</div>
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_products_path, class: "small secondary button" %></li>
+	<li><%= link_to 'Edit Product Descriptions & Settings', edit_admin_product_path(@product, locale: I18n.locale), class: "small secondary button" %></li>
+	<li><%= link_to 'Delete', [:admin, @product], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
 
 <h3><%= @product.short_description %></h3>
 
@@ -63,7 +63,7 @@
 	<%= hidden_field_tag "called_from", "product" %>
     <%= f.hidden_field :product_id %>
 	<%= f.collection_select :product_family_id, website.product_families, :id, :name %> 
-	<%= submit_tag 'add' %>
+	<%= submit_tag 'add', class: "small round button"  %>
 	or <%= link_to 'create a new family', new_admin_product_family_path %>
 <% end %>
 
@@ -87,7 +87,7 @@
 	<%= hidden_field_tag "called_from", "product" %>
 	<%= f.hidden_field :product_id %>
 	<%= f.collection_select :parent_product_id, (website.products - [@product]), :id, :name %>
-	<%= submit_tag 'add' %>
+	<%= submit_tag 'add', class: "small round button"  %>
 <% end %>
 
 <ul id="parent_products" class="nosort">
@@ -117,14 +117,14 @@
 	<% else %>
 	<p><%= link_to_function "new photo",
 	 		"$('#new_photo_form').show();$('#new_mm_form').hide();$('#new_swf_form').hide();",
-	 		class: "new button" %>
+	 		class: "small success button" %>
 	   <% if can? :mangle, Product %>
 	   <%= link_to_function "new audio/video", 
 			"$('#new_photo_form').hide();$('#new_mm_form').show();$('#new_swf_form').hide();",
-			class: "new button" %>
+			class: "small success button" %>
 	   <%= link_to_function "new swf (flash)", 
 			"$('#new_photo_form').hide();$('#new_mm_form').hide();$('#new_swf_form').show();",
-			class: "new button" %>
+			class: "small success button" %>
 		<% end %>
 	</p>
 	<% end %>
@@ -132,7 +132,7 @@
 	<%= form_for [:admin, @product_attachment], html: {multipart: true} do |f| %>
 		<%= f.hidden_field :product_id %>
 		<%= f.file_field :product_attachment %>
-		<%= submit_tag "upload" %> <%= link_to_function "cancel", "$('#new_photo_form').hide()"%>
+		<%= submit_tag "upload", class: "small round button"  %> <%= link_to_function "cancel", "$('#new_photo_form').hide()"%>
 	<% end %>
 	</div>
 	
@@ -143,7 +143,7 @@
 			<p><%= f.file_field :product_media %></p>
 			<p><%= f.label :product_media_thumb, "thumbnail/icon" %><br/>
 			<%= f.file_field :product_media_thumb %></p>
-			<p><%= submit_tag "upload" %> <%= link_to_function "cancel", "$('#new_mm_form').hide()"%></p>
+			<p><%= submit_tag "upload", class: "small round button"  %> <%= link_to_function "cancel", "$('#new_mm_form').hide()"%></p>
 		<% end %>		
 	</div>
 	
@@ -156,7 +156,7 @@
 			<p><%= f.label :width %><%= f.text_field :width, size: 5 %>px
 			<%= f.label :height %><%= f.text_field :height, size: 5 %>px
 			<span class="small">(product page viewer window is 550x360)</span></p>
-			<%= submit_tag "upload" %> <%= link_to_function "cancel", "$('#new_swf_form').hide()"%>
+			<%= submit_tag "upload", class: "small round button"  %> <%= link_to_function "cancel", "$('#new_swf_form').hide()"%>
 		<% end %>
 	</div>	
 	<% end %>
@@ -176,7 +176,7 @@
 <% if can? :manage, ProductDocument %>
 <div id="product_lit" class="group">
 	<h3>Product Manuals, Cut Sheets and other lit</h3>
-	<p><%= link_to_function "new document", "$('#new_product_document').toggle()", class: "new button" %></p>
+	<p><%= link_to_function "new document", "$('#new_product_document').toggle()", class: "small success button" %></p>
 	<div id="new_product_document" style="display:none;">
 		<%= form_for([:admin, @product_document], html: {multipart: true}) do |f| %>
 		  <%= render "/admin/product_documents/form", f: f %>
@@ -205,7 +205,7 @@
 				:id, :name %>
 		&nbsp;<%= hidden_field_tag "called_from", "product" %>
 		<%= f.hidden_field :product_id %>
-		<%= submit_tag 'submit' %>
+		<%= submit_tag 'submit', class: "small round button"  %>
 	<% end %>
 	<ul id="product_suggestions">
 		<% @product.product_suggestions.each do |product_suggestion| %>
@@ -226,7 +226,7 @@
 			&nbsp;
 			<%= hidden_field_tag "called_from", "product" %>
 			<%= f.hidden_field :product_id %>
-			<%= submit_tag 'submit' %> 
+			<%= submit_tag 'submit', class: "small round button"  %> 
 			or <%= link_to "upload new software", new_admin_software_path %>
 		</p>
 	<% end %>	
@@ -245,7 +245,7 @@
 		<%= hidden_field_tag "called_from", "product" %>
     	<%= f.hidden_field :training_module_id %>
 		<%= f.collection_select :training_module_id, website.training_modules, :id, :name %> 
-		<%= submit_tag 'add existing training module' %>
+		<%= submit_tag 'add existing training module', class: "small round button"  %>
 		<%= link_to 'create a new training module', new_admin_training_module_path %>
 	<% end %>
 
@@ -264,7 +264,7 @@
 		<%= hidden_field_tag "called_from", "product" %>
     	<%= f.hidden_field :training_class_id %>
 		<%= f.collection_select :training_class_id, website.training_classes, :id, :name %> 
-		<%= submit_tag 'add existing training class' %>
+		<%= submit_tag 'add existing training class', class: "small round button"  %>
 		<%= link_to 'create a new training class', new_admin_training_class_path %>
 	<% end %>
 
@@ -280,10 +280,10 @@
 <div id="product_reviews" class="group">
 	<h3>Related News <% if website.has_reviews? %> and Reviews<% end %></h3>
 	<% if website.has_reviews? %>
-		<%= link_to "new review", new_admin_product_review_path, class: "new button" %> 
-		<%= link_to "new news", new_admin_news_path, class: "new button" %>
+		<%= link_to "new review", new_admin_product_review_path, class: "small success button" %> 
+		<%= link_to "new news", new_admin_news_path, class: "small success button" %>
 	<% else %>
-	<%= link_to "new news", new_admin_news_path, class: "new button" %>
+	<%= link_to "new news", new_admin_news_path, class: "small success button" %>
 	<% end %>
 	<% if website.has_reviews? %>
 	<ul id="product_reviews_products">
@@ -303,7 +303,7 @@
 <% if website.has_online_retailers? && can?(:manage, OnlineRetailer) && !@product.hide_buy_it_now_button %>
 <div class="group">
 <h3>Available from the following online retailers:</h3>
-	<%= link_to "new online retailer", new_admin_online_retailer_path, class: "new button" %>
+	<%= link_to "new online retailer", new_admin_online_retailer_path, class: "small success button" %>
 <%= form_for [:admin, @online_retailer_link], remote: true do |f| %>
 <table border="0" cellspacing="0" cellpadding="0">
 	<tr>
@@ -319,7 +319,7 @@
 			<%= hidden_field_tag "called_from", "product" %>
 			<%= f.hidden_field :product_id %>
 			<%= f.text_field :url, size: 50 %>
-			<%= submit_tag 'add retailer link' %>
+			<%= submit_tag 'add retailer link', class: "small round button"  %>
 		</td>
 	</tr>
 </table>
@@ -336,8 +336,8 @@
 <% if can? :manage, ProductSpecification %>
 <div class="group">
 	<h3>Specifications:</h3>
-		<%= link_to_function "add a spec", "$('#add_specification_form').toggle();", class: "new button" %>
-		<%= link_to_function "copy specs from another product", "$('#copy_specifications_form').toggle();", class: "copy button" %>
+		<%= link_to_function "add a spec", "$('#add_specification_form').toggle();", class: "small success button" %>
+		<%= link_to_function "copy specs from another product", "$('#copy_specifications_form').toggle();", class: "small secondary button" %>
 
 	<div id="add_specification_form" style="display:none">
 		<%= form_for [:admin, @product_specification], remote: true do |f| %>
@@ -367,7 +367,7 @@
 		<%= form_for [:admin, @product_specification], url: copy_admin_product_specification_path do |f| %>
 		  <%= f.label :product_id, "Copy ALL specs from:" %>
 		  <%= f.collection_select :product_id, (website.products - [@product]), :id, :name %>
-		  <%= submit_tag "copy specs" %>
+		  <%= submit_tag "copy specs", class: "small round button"  %>
 		<% end %>
 	</div>
 
@@ -384,7 +384,7 @@
 <% if can?(:manage, ProductAmpModel) %>
 <div class="group">
 	<h3>Amp Models:</h3>
-	<%= link_to_function "add a model", "$('#add_amp_model_form').toggle();", class: "new button" %>
+	<%= link_to_function "add a model", "$('#add_amp_model_form').toggle();", class: "small success button" %>
 
 	<div id="add_amp_model_form" style="display:none">
 		<%= form_for [:admin, @product_amp_model], remote: true do |f| %>
@@ -419,7 +419,7 @@
 <% if can?(:manage, ProductCabinet) %>
 <div class="group">
 	<h3>Cabinets:</h3>
-	<%= link_to_function "add a cab", "$('#add_cabinet_form').toggle();", class: "new button" %>
+	<%= link_to_function "add a cab", "$('#add_cabinet_form').toggle();", class: "small success button" %>
 
 	<div id="add_cabinet_form" style="display:none">
 		<%= form_for [:admin, @product_cabinet], remote: true do |f| %>
@@ -454,7 +454,7 @@
 <% if can?(:manage, ProductEffect) %>
 <div class="group">
 	<h3>Effects:</h3>
-	<%= link_to_function "add an effect", "$('#add_effect_form').toggle();", class: "new button" %>
+	<%= link_to_function "add an effect", "$('#add_effect_form').toggle();", class: "small success button" %>
 
 	<div id="add_effect_form" style="display:none">
 		<%= form_for [:admin, @product_effect], remote: true do |f| %>
@@ -492,7 +492,7 @@
 <% if website.has_faqs? && can?(:manage, Faq) %>
 <div class="group">
 	<h3>FAQs</h3>
-	<%= link_to "new faq", new_admin_faq_path(product_id: @product.to_param), class: "new button" %>
+	<%= link_to "new faq", new_admin_faq_path(product_id: @product.to_param), class: "small success button" %>
 	<ul>
 		<% @product.faqs.each do |faq| %>
 		<li><%= link_to faq.question, [:admin, faq] %></li>

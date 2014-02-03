@@ -2,7 +2,7 @@
 
 <div class="group">
 	<h3>Slideshow</h3>
-	<%= link_to_function "new slide", "$('#new_slide_form').toggle()", class: "new button" %>
+	<%= link_to_function "new slide", "$('#new_slide_form').toggle()", class: "small success button" %>
 	<div id="new_slide_form" style="margin: 10px; display:none;" class="instructions">
 		<%= form_for([:admin, @new_slide], html: {multipart: true}) do |f| %>
 			<%= f.error_messages %>
@@ -42,7 +42,7 @@
 <div class="group">
 	<h3>Feature Buttons</h3>
 	<div class="instructions">These appear in the middle section of the homepage...arranged horizontally. (If you leave these blank, then the site will show the product family buttons instead.)</div>
-	<%= link_to_function "new feature", "$('#new_feature_form').toggle()", class: "new button" %>
+	<%= link_to_function "new feature", "$('#new_feature_form').toggle()", class: "small success button" %>
 	<div id="new_feature_form" style="margin: 10px; display:none;" class="instructions">
 		<%= form_for([:admin, @new_feature], html: {multipart: true}) do |f| %>
 			<%= f.error_messages %>

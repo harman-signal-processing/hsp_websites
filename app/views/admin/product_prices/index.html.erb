@@ -2,13 +2,13 @@
 
 <p>Products which do not have MSRP defined will not appear on the price list.</p>
 
-<div class="button_container">
-	<%= link_to 'Excel Price Sheet (US)', admin_product_prices_path(format: 'xls', loc: "us"), class: "edit button" %>
-	<%= link_to 'Excel Price Sheet (Intl)', admin_product_prices_path(format: 'xls', loc: "intl"), class: "edit button" %>
+<ul class="button-group round">
+	<li><%= link_to 'Excel Price Sheet (US)', admin_product_prices_path(format: 'xls', loc: "us"), class: "small secondary button" %></li>
+	<li><%= link_to 'Excel Price Sheet (Intl)', admin_product_prices_path(format: 'xls', loc: "intl"), class: "small secondary button" %></li>
 <% if can? :create, PricingType %>
-	<%= link_to 'New Pricing column', new_admin_pricing_type_path, class: "new button" %>
+	<li><%= link_to 'New Pricing column', new_admin_pricing_type_path, class: "small success button" %></li>
 <% end %>
-</div>
+</ul>
 
 <%= form_tag update_all_admin_product_prices_path, method: :put %>
 	<table class="data">
@@ -49,6 +49,6 @@
 	<% end %>
 	</table>
 	<br/>
-	<%= submit_tag "save changes" %>
+	<%= submit_tag "save changes", class: "small round button"  %>
 
 </form>

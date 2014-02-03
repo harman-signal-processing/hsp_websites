@@ -1,10 +1,10 @@
 <h1> <%= @cabinet.name %></h1>
 
-<div class="button_container">
-	<%= link_to 'Back', admin_cabinets_path, class: "back button" %>
-	<%= link_to 'Edit', edit_admin_cabinet_path(@cabinet), class: "edit button" %> 
-	<%= link_to 'Delete', [:admin, @cabinet], confirm: 'Are you sure?', method: :delete, class: "delete button" %>
-</div>
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_cabinets_path, class: "small secondary button" %></li>
+	<li><%= link_to 'Edit', edit_admin_cabinet_path(@cabinet), class: "small secondary button" %> </li>
+	<li><%= link_to 'Delete', [:admin, @cabinet], confirm: 'Are you sure?', method: :delete, class: "small alert button" %></li>
+</ul>
 
 <div class="group">
 	<h3>Available in these Products:</h3>

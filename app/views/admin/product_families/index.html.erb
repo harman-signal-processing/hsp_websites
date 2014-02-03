@@ -1,9 +1,9 @@
 <h1>Product Families</h1>
 
 <% if can? :create, ProductFamily %>
-<div class="button_container">
-	<%= link_to 'New Product Family', new_admin_product_family_path, class: "new button" %>
-</div>
+<ul class="button-group round">
+	<li><%= link_to 'New Product Family', new_admin_product_family_path, class: "small success button" %></li>
+</ul>
 <% end %>
 
 <h2>Top-level Families</h2>

@@ -2,11 +2,11 @@
 	<span class="little"><%= link_to(software_url(@software, locale: I18n.locale), software_url(@software, locale: I18n.locale)) %>
 	<%= link_to(image_tag("icons/external_link_icon.png"), software_url(@software, locale: I18n.locale)) %></span></h1>
 
-<div class="button_container">
-	<%= link_to 'Back', admin_softwares_path, class: "back button" %>
-	<%= link_to 'Edit', edit_admin_software_path(@software), class: "edit button" %>
-	<%= link_to 'Delete', [:admin, @software], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
-</div>
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_softwares_path, class: "small secondary button" %></li>
+	<li><%= link_to 'Edit', edit_admin_software_path(@software), class: "small secondary button" %></li>
+	<li><%= link_to 'Delete', [:admin, @software], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
 
 <p>
   <b>File:</b>
@@ -53,7 +53,7 @@
 			&nbsp;
 			<%= hidden_field_tag "called_from", "software" %>
 			<%= f.hidden_field :software_id %>
-			<%= submit_tag 'submit' %> 
+			<%= submit_tag 'submit', class: "small round button"  %> 
 			<% if can? :create, Product %>
 			or <%= link_to "create a new product", new_admin_product_path %>
 			<% end %>
@@ -72,7 +72,7 @@
 		<%= f.hidden_field :software_id %>
 		<%= f.label :name %>: <%= f.text_field :name %>
 		<%= f.file_field :software_attachment %>
-		<%= submit_tag "upload" %>
+		<%= submit_tag "upload", class: "small round button"  %>
 	<% end %>
 	<ul id="software_attachments_list">
 		<% @software.software_attachments.each do |sa| %>
@@ -92,7 +92,7 @@
 			&nbsp;
 			<%= hidden_field_tag "called_from", "software" %>
 			<%= f.hidden_field :software_id %>
-			<%= submit_tag 'submit' %> 
+			<%= submit_tag 'submit', class: "small round button"  %> 
 			or <%= link_to "add new training module", new_admin_training_module_path %>
 		</p>
 	<% end %>	
@@ -111,7 +111,7 @@
 		<%= hidden_field_tag "called_from", "software" %>
     	<%= f.hidden_field :training_class_id %>
 		<%= f.collection_select :training_class_id, website.training_classes, :id, :name %> 
-		<%= submit_tag 'add existing training class' %>
+		<%= submit_tag 'add existing training class', class: "small round button"  %>
 		<%= link_to 'create a new training class', new_admin_training_class_path %>
 	<% end %>
 

@@ -1,7 +1,7 @@
 <h1>RSO monthly reports</h1>
-<div class="button_container">
-	<%= link_to 'New monthly report', new_admin_rso_monthly_report_path, class: "new button" %>
-</div>
+<ul class="button-group round">
+	<li><%= link_to 'New monthly report', new_admin_rso_monthly_report_path, class: "small success button" %></li>
+</ul>
 
 <ul>
 <% @rso_monthly_reports.each do |rso_monthly_report| %>

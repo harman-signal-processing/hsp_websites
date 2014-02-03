@@ -1,8 +1,8 @@
 <h1>Market Segments</h1>
 
-<div class="button_container">
-	<%= link_to 'New market segment', new_admin_market_segment_path, class: "new button" %>
-</div>
+<ul class="button-group round">
+	<li><%= link_to 'New market segment', new_admin_market_segment_path, class: "small success button" %></li>
+</ul>
 
 <ul>
 <% @market_segments.each do |market_segment| %>

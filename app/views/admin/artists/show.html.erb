@@ -4,11 +4,11 @@
 	<%= link_to(image_tag("icons/external_link_icon.png"), artist_url(@artist, locale: I18n.locale)) %></span>
 </h1>
 
-<div class="button_container">
-	<%= link_to 'Back', admin_artists_path, class: "back button" %>
-	<%= link_to 'Edit', edit_admin_artist_path(@artist, locale: I18n.locale), class: "edit button" %>
-	<%= link_to 'Delete', [:admin, @artist], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
-</div>
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_artists_path, class: "small secondary button" %></li>
+	<li><%= link_to 'Edit', edit_admin_artist_path(@artist, locale: I18n.locale), class: "small secondary button" %></li>
+	<li><%= link_to 'Delete', [:admin, @artist], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
 
 <p>
 	<b>Artist Tier:</b>

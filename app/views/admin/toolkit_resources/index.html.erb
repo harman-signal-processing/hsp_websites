@@ -1,11 +1,11 @@
 <h1>Toolkit Resources</h1>
 
 <% if can? :create, ToolkitResource %>
-<div class="button_container">
+<div class="group">
 	<%= form_tag new_admin_toolkit_resource_path, method: :get do %>
 		<%= select_tag :toolkit_resource_type_id, 
 					options_from_collection_for_select(ToolkitResourceType.where("marketing_message IS NULL OR marketing_message < 1").order(:name), :id, :name) %>
-		<%= submit_tag "New Toolkit Resource", name: nil %>
+		<%= submit_tag "New Toolkit Resource", name: nil, class: "small round button"  %>
 	<% end %> 
 </div>
 <% end %>
@@ -33,7 +33,7 @@
 	<% if can?(:manage, BrandToolkitContact) %>
 	<div class="group">
 		<h3><%= website.brand.name %> Marketing Contacts</h3>
-		<p><%= link_to "new", new_admin_brand_toolkit_contact_path, class: "new button" %></p>
+		<p><%= link_to "new", new_admin_brand_toolkit_contact_path, class: "small success button" %></p>
 
 		<ul id="brand_toolkit_contacts" class="sortable_list">
 			<% website.brand.brand_toolkit_contacts.each do |btc| %>
@@ -54,7 +54,7 @@
 	<% if can?(:manage, ToolkitResource) && @marketing_message_type %>
 	<div class="group">
 		<h3>Marketing Messages</h3>
-		<p><%= link_to "new", new_admin_toolkit_resource_path(toolkit_resource_type_id: @marketing_message_type.id), class: "new button" %></p>
+		<p><%= link_to "new", new_admin_toolkit_resource_path(toolkit_resource_type_id: @marketing_message_type.id), class: "small success button" %></p>
 		<ul>
 			<% @marketing_messages.each do |mm| %>
 			<li><%= link_to mm.name, [:admin, mm] %> <% if mm.expired? %><i>expired</i><% end %></li>

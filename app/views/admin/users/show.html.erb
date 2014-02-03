@@ -1,10 +1,10 @@
 <h1>User: <%= @user.name %></h1>
 
-<div class="button_container">
-	<%= link_to 'Back', admin_users_path, class: "back button" %>
-	<%= link_to 'Edit', edit_admin_user_path(@user), class: "edit button" %> 
-	<%= link_to 'Delete', [:admin, @user], confirm: 'Are you sure?', method: :delete, class: "delete button" %>
-</div>
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_users_path, class: "small secondary button" %></li>
+	<li><%= link_to 'Edit', edit_admin_user_path(@user), class: "small secondary button" %> </li>
+	<li><%= link_to 'Delete', [:admin, @user], confirm: 'Are you sure?', method: :delete, class: "small alert button" %></li>
+</ul>
 
 <p>
   <b>Email:</b>
@@ -23,7 +23,7 @@
 	<%= hidden_field_tag "called_from", "user" %>
     <%= f.hidden_field :user_id %>
 	<%= f.collection_select :online_retailer_id, OnlineRetailer.all, :id, :name %> 
-	<%= submit_tag 'add' %>
+	<%= submit_tag 'add', class: "small round button"  %>
 	or <%= link_to 'create a new retailer', new_admin_online_retailer_path %>
 <% end %>
 

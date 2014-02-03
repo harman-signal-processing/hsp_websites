@@ -1,9 +1,9 @@
 <h1>Listing Online Retailers</h1>
 
 <% if can? :create, OnlineRetailer %>
-<div class="button_container">
-	<%= link_to 'New Online Retailer', new_admin_online_retailer_path, class: "new button" %>
-</div>
+<ul class="button-group round">
+	<li><%= link_to 'New Online Retailer', new_admin_online_retailer_path, class: "small success button" %></li>
+</ul>
 <% end %>
 
 <ul>

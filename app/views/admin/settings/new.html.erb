@@ -1,8 +1,8 @@
 <h1>New setting</h1>
 
-<div class="button_container">
-	<%= link_to 'Back', admin_settings_path, class: "back button" %>
-</div>
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_settings_path, class: "small secondary button" %></li>
+</ul>
 
 <%= form_for([:admin, @setting], html: {multipart: true}) do |f| %>
 	<%= render "form", f: f%>

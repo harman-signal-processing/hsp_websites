@@ -1,8 +1,8 @@
 <h1>Users</h1>
 
-<div class="button_container">
-	<%= link_to "New user", new_admin_user_path, class: "new button" %>
-</div>
+<ul class="button-group round">
+	<li><%= link_to "New user", new_admin_user_path, class: "small success button" %></li>
+</ul>
 
 <%= search_form_for [:admin, @search] do |f| %>
 	<h3>Search Users</h3>

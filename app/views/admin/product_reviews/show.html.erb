@@ -4,11 +4,11 @@
 	<%= link_to(image_tag("icons/external_link_icon.png"), product_review_url(@product_review, locale: I18n.locale)) %></span>
 </h1>
 
-<div class="button_container">
-	<%= link_to 'Back', admin_product_reviews_path, class: "back button" %>
-	<%= link_to 'Edit', edit_admin_product_review_path(@product_review, locale: I18n.locale), class: "edit button" %> 
-	<%= link_to 'Delete', [:admin, @product_review], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
-</div>
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_product_reviews_path, class: "small secondary button" %></li>
+	<li><%= link_to 'Edit', edit_admin_product_review_path(@product_review, locale: I18n.locale), class: "small secondary button" %> </li>
+	<li><%= link_to 'Delete', [:admin, @product_review], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
 
 <% unless @product_review.cover_image_file_name.blank? %>
 <%= image_tag @product_review.cover_image.url(:small) %>
@@ -45,7 +45,7 @@
 	<%= hidden_field_tag "called_from", "product_review" %>
     <%= f.hidden_field :product_review_id %>
 	<%= f.collection_select :product_id, Product.all_for_website(website), :id, :name %> 
-	<%= submit_tag 'add' %>
+	<%= submit_tag 'add', class: "small round button"  %>
 <% end %>
 
 <ul id="product_review_products">

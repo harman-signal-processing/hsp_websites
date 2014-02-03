@@ -1,9 +1,9 @@
 <h1>Pages</h1>
 
 <% if can? :create, Page %>
-<div class="button_container">
-	<%= link_to 'New page', new_admin_page_path, class: "new button" %>
-</div>
+<ul class="button-group round">
+	<li><%= link_to 'New page', new_admin_page_path, class: "small success button" %></li>
+</ul>
 <% end %>
 
 <table>

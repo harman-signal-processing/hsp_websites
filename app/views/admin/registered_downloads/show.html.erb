@@ -1,12 +1,12 @@
 <h1><%= @registered_download.name %></h1>
 
-<div class="button_container">
-	<%= link_to 'Back', admin_registered_downloads_path, class: "back button" %>
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_registered_downloads_path, class: "small secondary button" %></li>
 	<% if can? :manage, @registered_download %>
-	<%= link_to 'Edit', edit_admin_registered_download_path(@registered_download), class: "edit button" %> 
-	<%= link_to 'Delete', [:admin, @registered_download], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
+	<li><%= link_to 'Edit', edit_admin_registered_download_path(@registered_download), class: "small secondary button" %> </li>
+	<li><%= link_to 'Delete', [:admin, @registered_download], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
 	<% end %>
-</div>
+</ul>
 
 <p>
   <b>URL:</b>

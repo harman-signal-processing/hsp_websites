@@ -1,9 +1,9 @@
 <h1>Label Sheets</h1>
 
 <% if can? :create, LabelSheet %>
-<div class="button_container">
-	<%= link_to 'New label sheet', new_admin_label_sheet_path, class: "new button" %>
-</div>
+<ul class="button-group round">
+	<li><%= link_to 'New label sheet', new_admin_label_sheet_path, class: "small success button" %></li>
+</ul>
 <% end %>
 
 <ul id="label_sheets">

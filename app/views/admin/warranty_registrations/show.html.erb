@@ -1,13 +1,13 @@
 <h1>Registration for <%= @warranty_registration.first_name %> <%= @warranty_registration.last_name %></h1>
 
-<p>
-  <%= link_to 'Back', admin_warranty_registrations_path, class: "back button" %>
+<ul class="button-group round">
+  <li><%= link_to 'Back', admin_warranty_registrations_path, class: "small secondary button" %></li>
   <% if can? :update, @warranty_registration %>
-  <%= link_to 'Edit', 
+    <li><%= link_to 'Edit', 
         edit_admin_warranty_registration_path(@warranty_registration),
-        class: "edit button" %> 
+        class: "small secondary button" %></li>
   <% end %>
-</p>
+</ul>
 
 <table class="data">
   <tr>

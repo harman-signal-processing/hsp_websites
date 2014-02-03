@@ -1,12 +1,12 @@
 <h1><%= @brand.name %></h1>
 
-<div class="button_container">
-	<%= link_to 'Back', admin_brands_path, class: "back button" %>
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_brands_path, class: "small secondary button" %></li>
 	<% if can? :manage, @brand %>
-	<%= link_to 'Edit', edit_admin_brand_path(@brand), class: "edit button" %> 
-	<%= link_to 'Delete', [:admin, @brand], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
+	<li><%= link_to 'Edit', edit_admin_brand_path(@brand), class: "small secondary button" %> </li>
+	<li><%= link_to 'Delete', [:admin, @brand], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
 	<% end %>
-</div>
+</ul>
 
 <h2>Websites</h2>
 

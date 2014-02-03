@@ -1,9 +1,9 @@
 <h1>Toolkit Resource Types</h1>
 
 <% if can? :create, ToolkitResourceType %>
-<div class="button_container">
-	<%= link_to 'New Type', new_admin_toolkit_resource_type_path, class: "new button" %>
-</div>
+<ul class="button-group round">
+	<li><%= link_to 'New Type', new_admin_toolkit_resource_type_path, class: "small success button" %></li>
+</ul>
 <% end %>
 
 <% if @types_for_menu.count > 0 %>

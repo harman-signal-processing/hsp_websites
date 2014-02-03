@@ -7,9 +7,9 @@
 <% else %>
 
 <% if can? :create, UsRep %>
-<div class="button_container">
-	<%= link_to 'New Rep', new_admin_us_rep_path, class: "new button" %>
-</div>
+<ul class="button-group round">
+	<li><%= link_to 'New Rep', new_admin_us_rep_path, class: "small success button" %></li>
+</ul>
 <% end %>
 
 <%= search_form_for [:admin, @search] do |f| %>

@@ -1,10 +1,10 @@
 <h1><%= @tone_library_song.title %></h1>
 
-<div class="button_container">
-	<%= link_to 'Back', admin_tone_library_songs_path, class: "back button" %>
-	<%= link_to 'Edit', edit_admin_tone_library_song_path(@tone_library_song), class: "edit button" %> 
-	<%= link_to 'Delete', [:admin, @tone_library_song], confirm: 'Are you sure?', method: :delete, class: "delete button" %>
-</div>
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_tone_library_songs_path, class: "small secondary button" %></li>
+	<li><%= link_to 'Edit', edit_admin_tone_library_song_path(@tone_library_song), class: "small secondary button" %> </li>
+	<li><%= link_to 'Delete', [:admin, @tone_library_song], confirm: 'Are you sure?', method: :delete, class: "small alert button" %></li>
+</ul>
 
 <p>
   <b>Artist name:</b>
@@ -17,7 +17,7 @@
     <%= f.hidden_field :tone_library_song_id %>
 	<%= f.collection_select :product_id, Product.non_discontinued(website), :id, :name %> 
 	<%= f.file_field :patch %>
-	<%= submit_tag 'upload new patch' %>
+	<%= submit_tag 'upload new patch', class: "small round button"  %>
 <% end %>
 
 <ul id="patches">

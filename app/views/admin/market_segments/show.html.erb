@@ -1,10 +1,10 @@
 <h2><%= @market_segment.name %></h2>
 
-<div class="button_container">
-	<%= link_to 'Back', admin_market_segments_path, class: "back button" %>
-	<%= link_to 'Edit', edit_admin_market_segment_path(@market_segment), class: "edit button" %> 
-	<%= link_to 'Delete', [:admin, @market_segment], confirm: 'Are you sure?', method: :delete, class: "delete button" %>
-</div>
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_market_segments_path, class: "small secondary button" %></li>
+	<li><%= link_to 'Edit', edit_admin_market_segment_path(@market_segment), class: "small secondary button" %> </li>
+	<li><%= link_to 'Delete', [:admin, @market_segment], confirm: 'Are you sure?', method: :delete, class: "small alert button" %></li>
+</ul>
 
 <div class="group">
 	<h3>Product Families in this Market Segment</h3>
@@ -12,7 +12,7 @@
 		<%= hidden_field_tag "called_from", "market_segment" %>
     	<%= f.hidden_field :market_segment_id %>
 		<%= f.collection_select :product_family_id, website.product_families, :id, :name %> 
-		<%= submit_tag 'add product family to this segment' %>
+		<%= submit_tag 'add product family to this segment', class: "small round button"  %>
 	<% end %>
 
 	<ul id="market_segment_product_families" class="sortable_list">

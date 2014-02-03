@@ -1,10 +1,10 @@
 <h1><%= @amp_model.name %></h1>
 
-<div class="button_container">
-	<%= link_to 'Back', admin_amp_models_path, class: "back button" %>
-	<%= link_to 'Edit', edit_admin_amp_model_path(@amp_model), class: "edit button" %> 
-	<%= link_to 'Delete', [:admin, @amp_model], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
-</div>
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_amp_models_path, class: "small secondary button" %></li>
+	<li><%= link_to 'Edit', edit_admin_amp_model_path(@amp_model), class: "small secondary button" %> </li>
+	<li><%= link_to 'Delete', [:admin, @amp_model], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
 
 <div class="group">
 	<h3>Available in these Products:</h3>

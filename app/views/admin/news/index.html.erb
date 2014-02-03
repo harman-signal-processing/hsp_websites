@@ -1,9 +1,9 @@
 <h1>Listing News</h1>
 
 <% if can? :create, News %>
-<div class="button_container">
-	<%= link_to 'New news', new_admin_news_path, class: "new button" %>
-</div>
+<ul class="button-group round">
+	<li><%= link_to 'New news', new_admin_news_path, class: "small success button" %></li>
+</ul>
 <% end %>
 
 <%= search_form_for [:admin, @search] do |f| %>

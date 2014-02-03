@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <%= csrf_meta_tag %>
   <title><%= website.brand.name %> Admin: <%= controller_name.humanize.titleize %>: <%= controller.action_name.humanize.titleize %></title>
-  <%= javascript_include_tag 'application', 'admin' %>
+  <%= javascript_include_tag 'admin' %>
   <%= stylesheet_link_tag 'admin' %>
   <%= javascript_include_tag "vendor/custom.modernizr" %>
 	<!--[if lt IE 9]>
@@ -19,19 +19,262 @@
     <div class="sticky">
       <nav class="top-bar">
         <ul class="title-area">
-          <li class="name"><h1><%= link_to website.brand_name, '#' %></h1></li>
+          <li class="name"><h1><%= link_to "#{website.brand_name} Admin", admin_root_path %></h1></li>
           <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
         </ul>
 
         <section class="top-bar-section">
             <ul class="left">
               
-              <li><%= link_to "site home", "/" %> </li>
+              <li><%= link_to "Public Site", "/" %> </li>
           <% if user_signed_in? %>
 			  <li class="divider"></li>
-              <li><%= link_to "admin home", admin_root_path %></li>
-          <% end %>
-            </ul>
+
+<%= cache ["admin_menu", current_user, website, Date.today] do %>
+	<li class="has-dropdown"><%= link_to "Admin Menu", '#' %>
+		<ul class="dropdown">
+	<% if can?(:manage, Setting) || can?(:manage, Page) ||
+		can?(:manage, Blog) || can?(:manage, BlogArticle) ||
+		can?(:manage, SiteElement) %>
+		<li class="has-dropdown"><%= link_to "Settings & Pages", '#' %>
+			<ul class="dropdown">
+				<% if can?(:manage, Setting) && can?(:manage, Product) %>
+				<li><%= link_to "Homepage", homepage_admin_settings_path %></li>
+				<% end %>
+				<% if can?(:manage, Setting) %>
+				<li><%= link_to "All Settings", admin_settings_path %></li>
+				<% end %>
+				<% if can?(:manage, Page) %>
+				<li><%= link_to "Landing Pages", admin_pages_path %></li>
+				<% end %>
+				<% if can?(:manage, SiteElement) %>
+				<li><%= link_to "Site Resources & Downloads", admin_site_elements_path %></li>
+				<% end %>
+				<% if website.has_blogs? && (can?(:manage, Blog) || can?(:manage, BlogArticle)) %>
+				<li><%= link_to "Blogs", admin_blogs_path %></li>
+				<% end %>
+			</ul>
+		</li>
+	<% end %>
+	
+	<% if can?(:manage, Product) || 
+		can?(:manage, ProductFamily) ||
+		can?(:manage, News) ||
+		(can?(:manage, Effect) && website.has_effects?) ||
+		can?(:manage, AudioDemo && website.has_audio_demos?) ||
+		can?(:manage, ProductReview) ||
+		can?(:update, :rohs) ||
+		can?(:manage, Faq) ||
+		(can?(:manage, ToolkitResource) && toolkit_brands.include?(website.brand)) ||
+		can?(:manage, ToneLibrarySong) %>
+		<li class="has-dropdown"><%= link_to "Products", '#' %>
+			<ul class="dropdown">
+				<% if can?(:manage, ProductFamily) %>
+					<li><%= link_to "Product Families", admin_product_families_path %></li>
+				<% end %>
+				<% if can?(:manage, Product) %>
+					<li><%= link_to "Products", admin_products_path %></li>
+				<% end %>
+				<% if toolkit_brands.include?(website.brand) && can?(:manage, ToolkitResource) %>
+					<li><%= link_to "Toolkit Resources", admin_toolkit_resources_path %></li>
+				<% end %>
+				<% if website.has_audio_demos? && can?(:manage, AudioDemo) %>
+					<li><%= link_to "Audio Demos", admin_audio_demos_path %></li>
+				<% end %>
+				<% if website.has_effects? && can?(:manage, Effect)%>
+					<li><%= link_to "Effects", admin_effects_path %></li>
+				<% end %>
+				<% if website.has_market_segments? && can?(:manage, MarketSegment) %>
+					<li><%= link_to "Market Segments", admin_market_segments_path %></li>
+				<% end %>
+				<% if can?(:create, Product) || can?(:update, :rohs) %>
+					<li><%= link_to 'RoHS', rohs_admin_products_path %></li>
+				<% end %>
+				<% if can? :manage, News %>
+					<li><%= link_to "News", admin_news_index_path %></li>
+				<% end %>
+				<% if can?(:manage, ProductReview) && website.has_reviews? %>
+					<li><%= link_to "Reviews (#{pluralize(ProductReview.problems(website).size, 'problem')})", admin_product_reviews_path %></li>
+				<% end %>
+				<% if can?(:manage, Faq) && website.has_faqs? %>
+					<li><%= link_to "FAQs", admin_faqs_path %></li>
+				<% end %>
+				<% if can?(:manage, ToneLibrarySong) && website.has_tone_library? %>
+					<li><%= link_to "Tone Library", admin_tone_library_songs_path %></li>
+				<% end %>
+			</ul>
+		</li>
+	<% end %>
+
+	<% if can?(:manage, Promotion) ||
+		can?(:update, :harman_employee_pricing) ||
+		can?(:read, WarrantyRegistration) || 
+		can?(:manage, ProductPrice) ||
+		can?(:manage, LabelSheet) ||
+		can?(:update, :harman_employee_pricing) ||
+		can?(:manage, LabelSheetOrder) %>
+		<li class="has-dropdown"><%= link_to "Customers & Pricing", '#' %>
+			<ul class="dropdown">
+				<% if can? :manage, Promotion %>
+					<li><%= link_to "Promotions", admin_promotions_path %></li>
+				<% end %>
+				<% if can?(:read, WarrantyRegistration) %>
+					<li><%= link_to "Product Registrations", admin_warranty_registrations_path %></li>
+				<% end %>
+				<% if website.brand.has_label_sheets? %>
+					<% if can?(:manage, LabelSheet) %>
+						<li><%= link_to "e-pedal Label Sheets", admin_label_sheets_path %></li>
+					<% end %>
+					<% if can?(:manage, LabelSheetOrder) %>
+						<li><%= link_to "e-pedal Label Orders", admin_label_sheet_orders_path %></li>
+					<% end %>
+				<% end %>
+				<% if can?(:manage, ProductPrice) %>
+					<li><%= link_to "Price List", admin_product_prices_path %></li>
+				<% end %>
+				<% if can?(:update, :harman_employee_pricing) %>
+					<li><%= link_to "Harman Employee Pricing", harman_employee_pricing_admin_products_path %></li>
+				<% end %>
+				<% if website.brand.signups.count > 0  %>
+					<li><%= link_to "Signups", admin_signups_path %></li>
+				<% end %>
+			</ul>
+		</li>
+	<% end %>
+	
+	<% if website.has_training? && (can?(:manage, TrainingModule) || can?(:manage, TrainingClass)) %>
+		<li class="has-dropdowns"><%= link_to "Training", '#' %>
+			<ul class="dropdown">
+				<% if can? :manage, TrainingModule %>
+				<li><%= link_to "Training Modules", admin_training_modules_path %></li>
+				<% end %>
+				<% if can? :manage, TrainingClass %>
+				<li><%= link_to "Training Classes", admin_training_classes_path %></li>
+				<% end %>
+			</ul>
+		</li>
+	<% end %>
+	
+	<% if (can?(:manage, Artist) && website.has_artists?) || 
+		(can?(:manage, ArtistTier) && website.has_artists?) ||
+		(can?(:manage, Clinic) && website.has_clinics?) %>
+		<li class="has-dropdown"><% if website.has_artists? && website.has_clinics? %> 
+				<%= link_to "Artists & Clinicians", '#' %>
+			<% elsif website.has_artists? %> 
+				<%= link_to "Artists" %>
+			<% elsif website.has_clinics? %>
+				<%= link_to "Clinicians" %>
+			<% end %>
+			<ul class="dropdown">
+				<% if can?(:manage, ArtistTier) && website.has_artists? %>
+					<li><%= link_to "Artist Tiers", admin_artist_tiers_path %></li>
+				<% end %>
+				<% if can?(:manage, Artist) && website.has_artists? %>
+					<li><%= link_to "Artists", admin_artists_path %></li>
+				<% end %>
+				<% if can?(:read, Clinic) && website.has_clinics? %>
+					<li><%= link_to "Clinics", admin_clinics_path %></li>
+				<% end %>
+			</ul>
+		</li>
+	<% end %>
+	
+	<% if (can?(:manage, Software) && website.has_software) || (can?(:manage, RegisteredDownload) && website.has_registered_downloads?) %>
+		<li class="has-dropdown"><%= link_to "Software", '#' %>
+			<ul class="dropdown">
+				<% if can?(:manage, Software) && website.has_software? %>
+					<li><%= link_to "Software Downloads", admin_softwares_path %></li>
+				<% end %>
+				<% if can?(:manage, RegisteredDownload) && website.has_registered_downloads? %>
+					<li><%= link_to "Registered Downloads", admin_registered_downloads_path %></li>
+				<% end %>
+			</ul>
+		</li>
+	<% end %>
+		
+	<% if (can?(:manage, OnlineRetailer) && website.has_online_retailers?) || 
+		  (can?(:manage, Distributor) && website.has_distributors?) || 
+		  (can?(:manage, Dealer) && website.has_dealers?) || 
+		  (can?(:manage, ServiceCenter) && website.has_service_centers?) %>
+		<li class="has-dropdown"><%= link_to "Partners", '#' %>
+			<ul class="dropdown">
+				<% if can?(:manage, OnlineRetailer) && website.has_online_retailers? %>
+					<li><%= link_to "Online Retailers (#{ pluralize(OnlineRetailerLink.problems.count, 'problem') })", admin_online_retailers_path %></li>
+				<% end %>
+				<% if can?(:manage, Dealer) && website.has_dealers? %>
+					<li><%= link_to "Dealers", admin_dealers_path %></li>
+				<% end %>
+				<% if can?(:manage, Distributor) && website.has_distributors? %>
+					<li><%= link_to "Distributors", admin_distributors_path %></li>
+				<% end %>
+				<% if can?(:manage, UsRep) && website.has_us_sales_reps? %>
+					<li><%= link_to "US Sales Reps", admin_us_reps_path %></li>
+				<% end %>
+				<% if can?(:manage, ServiceCenter) && website.has_service_centers? %>
+					<li><%= link_to "Service Centers", admin_service_centers_path %></li>
+				<% end %>
+			</ul>
+		</li>
+	<% end %>
+	
+	<% if website.rso_enabled? && (can?(:manage, RsoPage) || can?(:manage, RsoNavigation) ||
+		can?(:manage, RsoMonthlyReport) || can?(:manage, RsoPanel) ) %>
+		<li class="has-dropdown"><%= link_to "RSO Site", '#' %>
+			<ul class="dropdown">
+				<% if can? :manage, RsoMonthlyReport %>
+					<li><%= link_to 'Monthly Report', admin_rso_monthly_reports_path %></li>
+				<% end %>
+				<% if can? :manage, RsoNavigation %>
+					<li><%= link_to 'Site Navigation', admin_rso_navigations_path %></li>
+				<% end %>
+				<% if can? :manage, RsoPanel %>
+					<li><%= link_to 'Panels', admin_rso_panels_path %></li>
+				<% end %>
+				<% if can? :manage, RsoPage %>
+					<li><%= link_to 'Pages', admin_rso_pages_path %></li>
+				<% end %>
+			</ul>
+		</li>
+	<% end %>
+	
+	<% if can? :manage, ContentTranslation %>
+		<li class="has-dropdown"><%= link_to "Translations", '#' %>
+			<ul class="dropdown">
+				<% website.website_locales.each do |wl| %>
+					<% unless I18n.default_locale.to_s == wl.locale.to_s %>
+						<li><%= link_to(wl.name, admin_content_translations_path(wl.locale.to_s)) %></li>
+					<% end %>
+				<% end %>
+			</ul>
+		</li>
+	<% end %>
+	</ul>
+	</li>
+
+	<% if can?(:manage, User) || can?(:manage, Brand) || can?(:manage, Website) || can?(:manage, ToolkitResourceType) %>
+	<li class="divider"></li>
+		<li class="has-dropdown"><%= link_to "Super Admin", '#' %>
+			<ul class="dropdown">
+				<% if can? :manage, User %>
+					<li><%= link_to "Users", admin_users_path %></li>
+				<% end %>
+				<% if can? :manage, Brand %>
+					<li><%= link_to "Brands", admin_brands_path %></li>
+				<% end %>
+				<% if can? :manage, Website %>
+					<li><%= link_to "Websites", admin_websites_path %></li>
+				<% end %>
+				<% if can? :manage, ToolkitResourceType %>
+					<li><%= link_to "Toolkit Resource Types", admin_toolkit_resource_types_path %></li>
+				<% end %>
+			</ul>
+		</li>
+	<% end %>
+
+<% end %>
+
+        <% end %>
+        </ul>
         
         <% if user_signed_in? %>
           <ul class="right">
@@ -48,243 +291,16 @@
     </div>
 
 
-<div id="admin_container">
-
-	<div id="admin_menu">
-<% if user_signed_in? %>
-<%= cache ["admin_menu", current_user, website, Date.today] do %>
-	<% if can?(:manage, User) || can?(:manage, Brand) || can?(:manage, Website) || can?(:manage, ToolkitResourceType) %>
-		<h3><%= image_tag "icons/super_admin.png" %> Super Admin</h3>
-		<ul>
-			<% if can? :manage, User %>
-				<li><%= link_to "Users", admin_users_path %></li>
-			<% end %>
-			<% if can? :manage, Brand %>
-				<li><%= link_to "Brands", admin_brands_path %></li>
-			<% end %>
-			<% if can? :manage, Website %>
-				<li><%= link_to "Websites", admin_websites_path %></li>
-			<% end %>
-			<% if can? :manage, ToolkitResourceType %>
-				<li><%= link_to "Toolkit Resource Types", admin_toolkit_resource_types_path %></li>
-			<% end %>
-		</ul>
-	<% end %>
-	
-	<% if can?(:manage, Setting) || can?(:manage, Page) ||
-		can?(:manage, Blog) || can?(:manage, BlogArticle) ||
-		can?(:manage, SiteElement) %>
-		<h3><%= image_tag "icons/gear.png" %> Settings, Pages<% if website.has_blogs? %>, Blogs<% end %></h3>
-		<ul>
-			<% if can?(:manage, Setting) && can?(:manage, Product) %>
-			<li><%= link_to "Homepage", homepage_admin_settings_path %></li>
-			<% end %>
-			<% if can?(:manage, Setting) %>
-			<li><%= link_to "All Settings", admin_settings_path %></li>
-			<% end %>
-			<% if can?(:manage, Page) %>
-			<li><%= link_to "Landing Pages", admin_pages_path %></li>
-			<% end %>
-			<% if can?(:manage, SiteElement) %>
-			<li><%= link_to "Site Resources & Downloads", admin_site_elements_path %></li>
-			<% end %>
-			<% if website.has_blogs? && (can?(:manage, Blog) || can?(:manage, BlogArticle)) %>
-			<li><%= link_to "Blogs", admin_blogs_path %></li>
-			<% end %>
-		</ul>
-	<% end %>
-	
-	<% if can?(:manage, Product) || 
-		can?(:manage, ProductFamily) ||
-		can?(:manage, News) ||
-		(can?(:manage, Effect) && website.has_effects?) ||
-		can?(:manage, AudioDemo && website.has_audio_demos?) ||
-		can?(:manage, ProductReview) ||
-		can?(:update, :rohs) ||
-		can?(:manage, Faq) ||
-		(can?(:manage, ToolkitResource) && toolkit_brands.include?(website.brand)) ||
-		can?(:manage, ToneLibrarySong) %>
-		<h3><%= image_tag "icons/pricetag.png" %> Products, etc.</h3>
-		<ul>
-			<% if can?(:manage, ProductFamily) %>
-			<li><%= link_to "Product Families", admin_product_families_path %></li>
-			<% end %>
-			<% if can?(:manage, Product) %>
-			<li><%= link_to "Products", admin_products_path %></li>
-			<% end %>
-			<% if toolkit_brands.include?(website.brand) && can?(:manage, ToolkitResource) %>
-					<li><%= link_to "Toolkit Resources", admin_toolkit_resources_path %></li>
-			<% end %>
-			<% if website.has_audio_demos? && can?(:manage, AudioDemo) %>
-			<li><%= link_to "Audio Demos", admin_audio_demos_path %></li>
-			<% end %>
-			<% if website.has_effects? && can?(:manage, Effect)%>
-			<li><%= link_to "Effects", admin_effects_path %></li>
-			<% end %>
-			<% if website.has_market_segments? && can?(:manage, MarketSegment) %>
-			<li><%= link_to "Market Segments", admin_market_segments_path %></li>
-			<% end %>
-			<% if can?(:create, Product) || can?(:update, :rohs) %>
-			<li><%= link_to 'RoHS', rohs_admin_products_path %></li>
-			<% end %>
-			<% if can? :manage, News %>
-			<li><%= link_to "News", admin_news_index_path %></li>
-			<% end %>
-			<% if can?(:manage, ProductReview) && website.has_reviews? %>
-			<li><%= link_to "Reviews (#{pluralize(ProductReview.problems(website).size, 'problem')})", admin_product_reviews_path %></li>
-			<% end %>
-			<% if can?(:manage, Faq) && website.has_faqs? %>
-			<li><%= link_to "FAQs", admin_faqs_path %></li>
-			<% end %>
-			<% if can?(:manage, ToneLibrarySong) && website.has_tone_library? %>
-			<li><%= link_to "Tone Library", admin_tone_library_songs_path %></li>
-			<% end %>
-		</ul>
-	<% end %>
-
-	<% if can?(:manage, Promotion) ||
-		can?(:update, :harman_employee_pricing) ||
-		can?(:read, WarrantyRegistration) || 
-		can?(:manage, ProductPrice) ||
-		can?(:manage, LabelSheet) ||
-		can?(:update, :harman_employee_pricing) ||
-		can?(:manage, LabelSheetOrder) %>
-		<h3><%= image_tag "icons/pricetag.png" %> Pricing &amp; Customers</h3>
-		<ul>
-			<% if can? :manage, Promotion %>
-			<li><%= link_to "Promotions", admin_promotions_path %></li>
-			<% end %>
-			<% if can?(:read, WarrantyRegistration) %>
-			<li><%= link_to "Product Registrations", admin_warranty_registrations_path %></li>
-			<% end %>
-			<% if website.brand.has_label_sheets? %>
-				<% if can?(:manage, LabelSheet) %>
-				<li><%= link_to "e-pedal Label Sheets", admin_label_sheets_path %></li>
+	<div class="container">
+		<div class="row">
+			<div class="large-12 small-12 columns">
+				<% flash.each do |name, msg| %>
+				  <%= content_tag :div, msg, id: "flash_#{name}" %>
 				<% end %>
-				<% if can?(:manage, LabelSheetOrder) %>
-				<li><%= link_to "e-pedal Label Orders", admin_label_sheet_orders_path %></li>
-				<% end %>
-			<% end %>
-			<% if can?(:manage, ProductPrice) %>
-			<li><%= link_to "Price List", admin_product_prices_path %></li>
-			<% end %>
-			<% if can?(:update, :harman_employee_pricing) %>
-			<li><%= link_to "Harman Employee Pricing", harman_employee_pricing_admin_products_path %></li>
-			<% end %>
-			<% if website.brand.signups.count > 0  %>
-			<li><%= link_to "Signups", admin_signups_path %></li>
-			<% end %>
-		</ul>
-	<% end %>
-	
-	<% if website.has_training? && (can?(:manage, TrainingModule) || can?(:manage, TrainingClass)) %>
-		<h3><%= image_tag "icons/module_icon.png" %> Training</h3>
-		<ul>
-			<% if can? :manage, TrainingModule %>
-			<li><%= link_to "Training Modules", admin_training_modules_path %></li>
-			<% end %>
-			<% if can? :manage, TrainingClass %>
-			<li><%= link_to "Training Classes", admin_training_classes_path %></li>
-			<% end %>
-		</ul>
-	<% end %>
-	
-	<% if (can?(:manage, Artist) && website.has_artists?) || 
-		(can?(:manage, ArtistTier) && website.has_artists?) ||
-		(can?(:manage, Clinic) && website.has_clinics?) %>
-		<h3><%= image_tag "icons/artists.png" %>
-			<% if website.has_artists? && website.has_clinics? %> Artists &amp; Clinicians 
-			<% elsif website.has_artists? %> Artists
-			<% elsif website.has_clinics? %> Clinicians <% end %>
-		</h3>
-		<ul>
-			<% if can?(:manage, ArtistTier) && website.has_artists? %>
-			<li><%= link_to "Artist Tiers", admin_artist_tiers_path %></li>
-			<% end %>
-			<% if can?(:manage, Artist) && website.has_artists? %>
-			<li><%= link_to "Artists", admin_artists_path %></li>
-			<% end %>
-			<% if can?(:read, Clinic) && website.has_clinics? %>
-			<li><%= link_to "Clinics", admin_clinics_path %></li>
-			<% end %>
-		</ul>
-	<% end %>
-	
-	<% if (can?(:manage, Software) && website.has_software) || (can?(:manage, RegisteredDownload) && website.has_registered_downloads?) %>
-		<h3><%= image_tag "icons/software.png" %> Software</h3>
-		<ul>
-			<% if can?(:manage, Software) && website.has_software? %>
-			<li><%= link_to "Software Downloads", admin_softwares_path %></li>
-			<% end %>
-			<% if can?(:manage, RegisteredDownload) && website.has_registered_downloads? %>
-			<li><%= link_to "Registered Downloads", admin_registered_downloads_path %></li>
-			<% end %>
-		</ul>
-	<% end %>
-		
-	<% if (can?(:manage, OnlineRetailer) && website.has_online_retailers?) || 
-		  (can?(:manage, Distributor) && website.has_distributors?) || 
-		  (can?(:manage, Dealer) && website.has_dealers?) || 
-		  (can?(:manage, ServiceCenter) && website.has_service_centers?) %>
-		<h3><%= image_tag "icons/alliance.png" %> Partners</h3>
-		<ul>
-			<% if can?(:manage, OnlineRetailer) && website.has_online_retailers? %>
-			<li><%= link_to "Online Retailers (#{ pluralize(OnlineRetailerLink.problems.count, 'problem') })", admin_online_retailers_path %></li>
-			<% end %>
-			<% if can?(:manage, Dealer) && website.has_dealers? %>
-			<li><%= link_to "Dealers", admin_dealers_path %></li>
-			<% end %>
-			<% if can?(:manage, Distributor) && website.has_distributors? %>
-			<li><%= link_to "Distributors", admin_distributors_path %></li>
-			<% end %>
-			<% if can?(:manage, UsRep) && website.has_us_sales_reps? %>
-			<li><%= link_to "US Sales Reps", admin_us_reps_path %></li>
-			<% end %>
-			<% if can?(:manage, ServiceCenter) && website.has_service_centers? %>
-			<li><%= link_to "Service Centers", admin_service_centers_path %></li>
-			<% end %>
-		</ul>
-	<% end %>
-	
-	<% if website.rso_enabled? && (can?(:manage, RsoPage) || can?(:manage, RsoNavigation) ||
-		can?(:manage, RsoMonthlyReport) || can?(:manage, RsoPanel) ) %>
-		<h3><%= image_tag "icons/alliance.png" %> RSO Site</h3>
-		<ul>
-			<% if can? :manage, RsoMonthlyReport %>
-			<li><%= link_to 'Monthly Report', admin_rso_monthly_reports_path %></li>
-			<% end %>
-			<% if can? :manage, RsoNavigation %>
-			<li><%= link_to 'Site Navigation', admin_rso_navigations_path %></li>
-			<% end %>
-			<% if can? :manage, RsoPanel %>
-			<li><%= link_to 'Panels', admin_rso_panels_path %></li>
-			<% end %>
-			<% if can? :manage, RsoPage %>
-			<li><%= link_to 'Pages', admin_rso_pages_path %></li>
-			<% end %>
-		</ul>
-	<% end %>
-	
-	<% if can? :manage, ContentTranslation %>
-		<h3><%= image_tag "icons/world.png" %> Translations</h3>
-		<ul>
-			<% website.website_locales.each do |wl| %>
-			<% unless I18n.default_locale.to_s == wl.locale.to_s %>
-			<li><%= link_to(wl.name, admin_content_translations_path(wl.locale.to_s)) %></li>
-			<% end %>
-			<% end %>
-		</ul>
-	<% end %>
-<% end %>
-<% end %>
+				<%= yield %>
+			</div>
+		</div>
 	</div>
-	<div id="page_content">
-		<% flash.each do |name, msg| %>
-		  <%= content_tag :div, msg, id: "flash_#{name}" %>
-		<% end %>
-		<%= yield %>
-	</div>
-</div>
-
+	<script type="text/javascript">$(document).foundation();</script>
 </body>
 </html>

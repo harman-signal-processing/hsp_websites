@@ -1,12 +1,12 @@
 <h1>RSO <%= ucfirst(@rso_panel.name) %> Panel</h1>
 
-<div class="button_container">
-	<%= link_to 'Back', admin_rso_panels_path, class: "back button" %>
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_rso_panels_path, class: "small secondary button" %></li>
 	<% unless @rso_panel.name == "left" %>
-	<%= link_to 'Edit', edit_admin_rso_panel_path(@rso_panel), class: "edit button" %> 
-    <%= link_to 'Delete', [:admin, @rso_panel], confirm: 'Are you sure?', method: :delete, class: "delete button" %>
+	<li><%= link_to 'Edit', edit_admin_rso_panel_path(@rso_panel), class: "small secondary button" %> </li>
+    <li><%= link_to 'Delete', [:admin, @rso_panel], confirm: 'Are you sure?', method: :delete, class: "small alert button" %></li>
 	<% end %>
-</div>
+</ul>
 
 <% if @rso_panel.name == "left" %>
 

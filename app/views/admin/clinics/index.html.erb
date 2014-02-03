@@ -1,8 +1,8 @@
 <h1>Upcoming/Recent clinics</h1>
 <% if can? :create, Clinic %>
-<div class="button_container">
-	<%= link_to 'Schedule New Clinic', new_admin_clinic_path, class: "new button" %>
-</div>
+<ul class="button-group round">
+	<li><%= link_to 'Schedule New Clinic', new_admin_clinic_path, class: "small success button" %></li>
+</ul>
 <% end %>
 <table class="data">
   <tr>

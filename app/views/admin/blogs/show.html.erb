@@ -1,12 +1,12 @@
 <h1><%= @blog.name %></h1>
 
-<div class="button_container">
-  <%= link_to 'Back', admin_blogs_path, class: "back button" %>
+<ul class="button-group round">
+  <li><%= link_to 'Back', admin_blogs_path, class: "small secondary button" %></li>
   <% if can? :manaage, @blog %>
-	<%= link_to 'Edit', edit_admin_blog_path(@blog), class: "edit button" %> 
-	<%= link_to 'Delete', [:admin, @blog], confirm: 'Are you sure?', method: :delete, class: "delete button" %>
+	<li><%= link_to 'Edit', edit_admin_blog_path(@blog), class: "small secondary button" %> </li>
+	<li><%= link_to 'Delete', [:admin, @blog], confirm: 'Are you sure?', method: :delete, class: "small alert button" %></li>
   <% end %>
-</div>	
+</ul>	
 
 <p>
   <b>Template:</b>

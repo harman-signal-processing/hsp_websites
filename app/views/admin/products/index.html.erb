@@ -1,9 +1,9 @@
 <h1>Products</h1>
 
 <% if can? :create, Product %>
-<div class="button_container">
-	<%= link_to 'New product', new_admin_product_path, class: "new button" %>
-</div>
+<ul class="button-group round">
+	<li><%= link_to 'New product', new_admin_product_path, class: "small success button" %></li>
+</ul>
 <% end %>
 
 <%= search_form_for [:admin, @search] do |f| %>

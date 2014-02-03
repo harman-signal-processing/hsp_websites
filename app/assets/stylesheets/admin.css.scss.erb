@@ -9,7 +9,7 @@
 */
 
 body { 
-	background: #F0F3F4 url(<%= image_path('adminbg.png') %>) repeat-y; 
+	background: #F0F3F4; 
 }
 
 .notice, #flash_notice {
@@ -21,7 +21,7 @@ body {
 	font-size: 18px;
 	line-height: 28px;
 }
-.alert, #flash_alert {
+div.alert, #flash_alert {
 	background: #F02;
 	color: white;
 	padding: 3px 8px;
@@ -148,27 +148,7 @@ img {
 		line-height: 20px;
 	}
 }
-form {
-	input {
-		font-size: 120%;
-		padding: 6px 4px;
-		&[type=text], &[type=password], &[type=email] {
-			margin-bottom: 1em;
-		}
-	}
-	select {
-		font-size: 120%;
-		padding: 4px;
-		padding-right: 12px;
-		margin-bottom: 1em;
-	}
-	label {
-		display: block;
-		font-size: 16px;
-		color: #333;
-		margin-bottom: 0.1875em;
-	}
-}
+
 div.field, div.actions {
 	margin: 16px 0px;
 	color: #555;
@@ -178,60 +158,6 @@ div#profile_links {
 	position: absolute;
 	top: 12px;
 	right: 12px;
-}
-#admin_container {
-	position: relative;
-	margin: 0px;
-	width: 100%;
-}
-#admin_menu {
-	float: left;
-/*	background: #353535;*/
-	color: white;
-	width: 230px;
-	padding: 15px;
-/*	border-right: 2px groove #CCC;*/
-	h3 {
-		font-size: 17px;
-		text-shadow: #000 0px 1px 0px;
-		margin-bottom: 2px;
-		border-bottom: 1px solid #CCC;
-		color: #999;
-		img {
-			margin-bottom: 2px;
-		}
-	}
-	ul {
-		margin: 0;
-		padding: 0;
-		margin-bottom: 26px;
-		li {	
-			list-style: none;
-			border-bottom: 1px dotted #555;
-			font-size: 12px;
-			line-height: 15px;
-			margin: 0px;
-		}
-	}
-	a:link,	a:visited {
-		color: #CCC;
-		text-decoration: none;
-		font-weight: normal;
-		display: block;
-		padding: 6px;
-		margin: 0px;
-	}
-	a:hover {
-		text-decoration: none;
-		background: #55565D url(<%= image_path('icons/arrow_right.png') %>) no-repeat;
-		background-position: 97% 8px;
-		color: white;
-		text-shadow: #000 0px 0px 2px;
-	}
-}
-#page_content {
-	padding: 15px 40px;
-	margin-left: 250px;
 }
 div.group {
 	background: #FFF;
@@ -294,59 +220,7 @@ table.data {
 .button_container {
 	margin: 8px 0px;
 }
-a { 
-	color: #0080FF; 
-  &:visited { color: #0080FF; }
-	&:hover { 
-		color: #6CF; 
-	}
-	&:link.button, &:visited.button {
-		background: {
-			color: #444;
-			repeat: no-repeat;
-		}
-		color: white;
-		text: {
-			decoration: none;
-			shadow: #000 0px 1px 0px;
-		}
-		border-radius: 4px;
-		-moz-border-radius: 4px;
-		padding: 4px 7px 4px 21px;
-		margin-right: 2px;
-		font-size: 90%;
-	}
-	&.new {
-		background: {
-			image: url(<%= image_path('icons/add_green.png') %>);
-			position: 6px 6px;
-		}
-	}
-	&.edit {
-		background: {
-			image: url(<%= image_path('icons/page.png') %>);
-			position: 6px 6px;
-		}
-	}
-	&.delete {
-		background: {
-			image: url(<%= image_path('icons/delete.png') %>);
-			position: 6px 6px;
-		}
-	}
-	&.back {
-		background: {
-			image: url(<%= image_path('icons/back.png') %>);
-			position: 6px 5px;
-		}
-	}
-	&.copy {
-		background: {
-			image: url(<%= image_path('icons/add_green.png') %>);
-			position: 5px;
-		}
-	}
-}
+
 a:hover.button {
 	background-color: #000;
 }

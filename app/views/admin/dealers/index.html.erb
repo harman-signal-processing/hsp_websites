@@ -12,9 +12,9 @@
   </div>
 
   <% if can? :create, Dealer %>
-  <div class="button_container">
-  	<%= link_to 'New dealer', new_admin_dealer_path, class: "new button" %>
-  </div>
+  <ul class="button-group round">
+  	<li><%= link_to 'New dealer', new_admin_dealer_path, class: "small success button" %></li>
+  </ul>
   <% end %>
 
   <%= search_form_for [:admin, @search] do |f| %>

@@ -6,11 +6,11 @@
 	<span class="little"><%= link_to(news_url(@news, locale: I18n.locale), news_url(@news, locale: I18n.locale)) %>
 	<%= link_to(image_tag("icons/external_link_icon.png"), news_url(@news, locale: I18n.locale)) %></span>
 
-<div class="button_container">
-	<%= link_to 'Back', admin_news_index_path, class: "back button" %>
-	<%= link_to 'Edit', edit_admin_news_path(@news, locale: I18n.locale), class: "edit button" %> 
-	<%= link_to 'Delete', [:admin, @news], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
-</div>
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_news_index_path, class: "small secondary button" %></li>
+	<li><%= link_to 'Edit', edit_admin_news_path(@news, locale: I18n.locale), class: "small secondary button" %> </li>
+	<li><%= link_to 'Delete', [:admin, @news], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
 <p>
   Publish on: <%=l @news.post_on, format: :long %>
 </p>
@@ -30,7 +30,7 @@
 		<%= hidden_field_tag "called_from", "news" %>
 	    <%= f.hidden_field :news_id %>
 		<%= f.collection_select :product_id, @products, :id, :name %> 
-		<%= submit_tag 'add' %>
+		<%= submit_tag 'add', class: "small round button"  %>
 	<% end %>
 	<% end %>
 

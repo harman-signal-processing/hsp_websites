@@ -1,10 +1,10 @@
 <h1>Toolkit Resource Type</h1>
 
-<div class="button_container">
-	<%= link_to 'Back', admin_toolkit_resource_types_path, class: "back button" %>
-	<%= link_to 'Edit', edit_admin_toolkit_resource_type_path(@toolkit_resource_type), class: "edit button" %> 
-	<%= link_to 'Delete', [:admin, @toolkit_resource_type], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
-</div>
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_toolkit_resource_types_path, class: "small secondary button" %></li>
+	<li><%= link_to 'Edit', edit_admin_toolkit_resource_type_path(@toolkit_resource_type), class: "small secondary button" %> </li>
+	<li><%= link_to 'Delete', [:admin, @toolkit_resource_type], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
 
 <p>
 	<b>Name:</b> 

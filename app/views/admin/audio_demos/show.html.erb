@@ -1,10 +1,10 @@
 <h1><%= @audio_demo.name %></h1>
 
-<div class="button_container">
-	<%= link_to 'Back', admin_audio_demos_path, class: "back button" %>
-	<%= link_to 'Edit', edit_admin_audio_demo_path(@audio_demo, locale: I18n.locale), class: "edit button" %> 
-	<%= link_to 'Delete', [:admin, @audio_demo], confirm: 'Are you sure?', method: :delete, class: "delete button" %> 
-</div>
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_audio_demos_path, class: "small secondary button" %></li>
+	<li><%= link_to 'Edit', edit_admin_audio_demo_path(@audio_demo, locale: I18n.locale), class: "small secondary button" %> </li>
+	<li><%= link_to 'Delete', [:admin, @audio_demo], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
 
 <div><%= @audio_demo.description %></div>
 
@@ -26,7 +26,7 @@
 		<%= hidden_field_tag "called_from", "audio_demo" %>
     	<%= f.hidden_field :audio_demo_id %>
 		<%= f.collection_select :product_id, website.products, :id, :name %> 
-		<%= submit_tag 'add product' %>
+		<%= submit_tag 'add product', class: "small round button" %>
 	<% end %>
 
 	<ul id="product_audio_demos">

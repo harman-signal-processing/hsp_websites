@@ -1,6 +1,8 @@
 <h1>Websites</h1>
 
-<div class="button_container"><%= link_to "add a website", new_admin_website_path, class: "new button" %></div>
+<ul class="button-group round">
+	<li><%= link_to "add a website", new_admin_website_path, class: "small success button" %></li>
+</ul>
 
 <% Brand.all.each do |brand| %>
 	<h3><%= brand.name %>:</h3>
