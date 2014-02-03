@@ -1,7 +1,7 @@
-HARMAN Signal Processing Brand Websites
-=======================================
+HSP Brand Websites
+===================
 
-A nifty rails application used for hosting several websites for HARMAN brands. In general, this framework could be used to build a site for any company that makes products. Features include:
+A nifty rails application used for hosting several websites for HARMAN Signal Processing brands. In theory, this framework could be used to build a site for any company that makes products. Doing so would require customzing the CSS and HTML templates (undocumented). Features include:
 
 * Homepage with feature slideshow, social feeds, etc.
 * Product catalog (organized by product families)
