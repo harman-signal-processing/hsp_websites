@@ -39,6 +39,7 @@ HarmanSignalProcessingWebsite::Application.configure do
     hardwire-by-digitech.css 
     admin.js 
     admin.css 
+    archimedia.css
     bss.css
     crown.css
     dbx.css 
