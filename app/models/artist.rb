@@ -51,6 +51,20 @@ class Artist < ActiveRecord::Base
   has_friendly_id :sanitized_name, use_slug: true, approximate_ascii: true, max_length: 100
   acts_as_list
 
+  # Sometimes in the mailer, brand isn't determined yet. Run through some
+  # fallbacks to make sure we have one when needed...
+  def brand_for_mailer
+    if self.brands && self.brands.length > 0
+      self.brands.first
+    elsif self.initial_brand.present?
+      self.initial_brand
+    elsif Brand.all.count > 0
+      Brand.first
+    else
+      Brand.new
+    end
+  end
+
   # Since the devise mailer is shard with toolkit users, trick these
   def needs_invitation_code? 
     false 

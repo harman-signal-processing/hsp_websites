@@ -12,7 +12,7 @@ class News < ActiveRecord::Base
   has_many :news_products, dependent: :destroy
   has_many :products, through: :news_products
   has_friendly_id :sanitized_title, use_slug: true, approximate_ascii: true, max_length: 100
-  validates_presence_of :brand_id, :title
+  validates_presence_of :brand_id, :title, :post_on
   belongs_to :brand, touch: true
   before_save :strip_harmans_from_title
   after_save :translate
