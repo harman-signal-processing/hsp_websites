@@ -29,8 +29,8 @@ HarmanSignalProcessingWebsite::Application.configure do
   config.assets.precompile += %w( .svg .eot .woff .ttf )
   
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( 
-    archimedia.css
+  config.assets.precompile += %w( *.jpg *.png *.gif 
+    vendor/custom.modernizr.js
     introducing_epedal.css 
     introducing_stompbox.css
     istomp.js 
@@ -44,7 +44,7 @@ HarmanSignalProcessingWebsite::Application.configure do
     dbx.css 
     digitech.css 
     hardwire.css 
-    dod.css
+    dod.css 
     jbl_commercial.css 
     lexicon.css 
     idx.css 

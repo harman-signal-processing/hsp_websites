@@ -29,35 +29,36 @@ HarmanSignalProcessingWebsite::Application.configure do
   config.assets.precompile += %w( .svg .eot .woff .ttf )
   
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( *.jpg *.png *.gif *.css *.js vendor/custom.modernizr.js )
-    # introducing_epedal.css 
-    # introducing_stompbox.css
-    # istomp.js 
-    # istomp.css 
-    # vocalist-by-digitech.css 
-    # hardwire-by-digitech.css 
-    # admin.js 
-    # admin.css 
-    # bss.css
-    # crown.css
-    # dbx.css 
-    # digitech.css 
-    # hardwire.css 
-    # dod.css 
-    # jbl_commercial.css 
-    # lexicon.css 
-    # idx.css 
-    # idxed.css 
-    # site.css 
-    # toolkit.css
-    # toolkit_application.js
-    # marketing_queue.css
-    # marketing_queue_application.js
-    # teaser_application.js
-    # teaser2_application.js
-    # dod_teaser.css
-    # dod_teaser2.css
-    # vocalist.css )
+  config.assets.precompile += %w( *.jpg *.png *.gif 
+    vendor/custom.modernizr.js
+    introducing_epedal.css 
+    introducing_stompbox.css
+    istomp.js 
+    istomp.css 
+    vocalist-by-digitech.css 
+    hardwire-by-digitech.css 
+    admin.js 
+    admin.css 
+    bss.css
+    crown.css
+    dbx.css 
+    digitech.css 
+    hardwire.css 
+    dod.css 
+    jbl_commercial.css 
+    lexicon.css 
+    idx.css 
+    idxed.css 
+    site.css 
+    toolkit.css
+    toolkit_application.js
+    marketing_queue.css
+    marketing_queue_application.js
+    teaser_application.js
+    teaser2_application.js
+    dod_teaser.css
+    dod_teaser2.css
+    vocalist.css )
 
   # Specifies the header that your server uses for sending files
   # config.action_dispatch.x_sendfile_header = "X-Sendfile"
