@@ -21,7 +21,7 @@
 <% end %>
 
 <div class="row">
-	<div class="large-8 columns">
+	<div class="large-7 columns">
 		<div class="main-container">
 			<h4 class="subheader">Task details:</h4>
 			<table class="data">
@@ -106,7 +106,7 @@
 		<% end %>
 
 	</div>
-	<div class="large-4 columns">
+	<div class="large-5 columns">
 		<% if @marketing_task.requestor && @marketing_task.worker && @marketing_task.requestor != @marketing_task.worker %>
 		<div style="margin-bottom: 50px">
 			<h5 class="subheader">Task is currently with:</h5>
@@ -123,6 +123,12 @@
 		</div>
 		<% end %>
 
+		<% if @marketing_task.creative_brief.present? %>
+			<div class="panel">
+				<h3>Creative Brief</h3>
+				<%= raw textilize(@marketing_task.creative_brief) %>
+			</div>
+		<% end %>
 
 		<h4>Attachments
 			<% if can? :create, MarketingAttachment %>

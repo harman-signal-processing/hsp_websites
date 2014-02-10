@@ -49,6 +49,12 @@
 		</div>
 	</div>
 
+	<div class="row">
+		<div class="large-12 columns">
+			<%= f.input :creative_brief %>
+		</div>
+	</div>
+
 	<% if can?(:assign, @marketing_task) || @marketing_task.new_record? || @marketing_task.worker_id.present? || can?(:estimate, @marketing_task) %>
 	<fieldset>
 	<legend>Task Assignment</legend>
@@ -70,7 +76,6 @@
 	</div>
 	</fieldset>
 	<% end %>
-
 
 	<%= f.submit class: "button round" %>
 

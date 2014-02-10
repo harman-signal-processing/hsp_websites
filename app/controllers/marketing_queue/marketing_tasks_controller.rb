@@ -47,7 +47,7 @@ class MarketingQueue::MarketingTasksController < MarketingQueueController
     if @marketing_task.marketing_project 
       redirect_path = [:marketing_queue, @marketing_task.marketing_project]
     elsif @marketing_task.brand
-      redirect_path = [:marketing_queue, @marketing_task.brand]
+      redirect_path = [:marketing_queue, @marketing_task]
     else
       redirect_path = marketing_queue_root_path
     end
@@ -67,7 +67,7 @@ class MarketingQueue::MarketingTasksController < MarketingQueueController
     if @marketing_task.marketing_project 
       redirect_path = [:marketing_queue, @marketing_task.marketing_project]
     elsif @marketing_task.brand
-      redirect_path = [:marketing_queue, @marketing_task.brand]
+      redirect_path = [:marketing_queue, @marketing_task]
     else
       redirect_path = marketing_queue_root_path
     end
