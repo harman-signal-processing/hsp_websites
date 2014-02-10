@@ -11,3 +11,7 @@ Crawl-delay: 4.5
 User-agent: Yandex
 Disallow: /en-US/support
 Disallow: /en/support
+
+# Majestic12 bot hammers the site with DoS-style traffic
+User-agent: MJ12bot
+Disallow: /
