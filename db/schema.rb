@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140210224945) do
+ActiveRecord::Schema.define(:version => 20140211151006) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -571,6 +571,7 @@ ActiveRecord::Schema.define(:version => 20140210224945) do
     t.integer  "marketing_project_type_id"
     t.integer  "due_offset_number"
     t.string   "due_offset_unit"
+    t.text     "creative_brief"
   end
 
   add_index "marketing_project_type_tasks", ["marketing_project_type_id"], :name => "index_marketing_project_type_tasks_on_marketing_project_type_id"

@@ -14,13 +14,19 @@ describe Artist do
   describe "relations" do
 
 		before :each do
-	  	@artist = FactoryGirl.create(:artist)
+      @digitech = FactoryGirl.create(:digitech_brand)
+      @website = FactoryGirl.create(:website_with_products, folder: "digitech", brand: @digitech)
 	  end
 
-	  it "should return a brand for the mailer" do 
+	  it "should return a brand for the mailer when artist has products" do 
+      @artist = FactoryGirl.create(:artist, products: @website.products)
 	  	assert @artist.brand_for_mailer.is_a?(Brand)
 	  end
 
+    it "should return a brand for the mailer when artist has brands" do 
+      @artist = FactoryGirl.create(:artist, brands: [@digitech])
+      assert @artist.brand_for_mailer.is_a?(Brand)
+    end
   end
  
 end

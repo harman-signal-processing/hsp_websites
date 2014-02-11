@@ -45,6 +45,7 @@ describe "Marketing Tasks Integration Test" do
       it "should offer to assign task to oneself" do
         fill_in :marketing_task_name, with: "Pet the dog"
         fill_in :marketing_task_due_on, with: 2.weeks.from_now.to_s
+        fill_in :marketing_task_creative_brief, with: "Make it cool."
         select @digitech.name, from: :marketing_task_brand_id
         must_have_content "Assign to me"
         check "marketing_task_assign_to_me"
@@ -81,6 +82,7 @@ describe "Marketing Tasks Integration Test" do
       it "should offer a selection of all open projects" do
         fill_in :marketing_task_name, with: "Pet the dog" 
         fill_in :marketing_task_due_on, with: 2.weeks.from_now.to_s
+        fill_in :marketing_task_creative_brief, with: "Make it cool."
         select @digitech.name, from: :marketing_task_brand_id
         must_have_select "marketing_task_marketing_project_id"
         select @project1.name, from: "marketing_task_marketing_project_id"
@@ -105,6 +107,7 @@ describe "Marketing Tasks Integration Test" do
         # save_and_open_page
         fill_in :marketing_task_name, with: "Pet the dog"
         fill_in :marketing_task_due_on, with: 2.weeks.from_now.to_s
+        fill_in :marketing_task_creative_brief, with: "Make it cool."
         select @digitech.name, from: :marketing_task_brand_id
         must_have_content "Assign to me"
         check "marketing_task_assign_to_me"
@@ -116,6 +119,7 @@ describe "Marketing Tasks Integration Test" do
         # save_and_open_page
         fill_in :marketing_task_name, with: "Pet the cat"
         fill_in :marketing_task_due_on, with: 2.weeks.from_now.to_s
+        fill_in :marketing_task_creative_brief, with: "Make it cool."
         select @digitech.name, from: :marketing_task_brand_id
         must_have_content "Assign to me"
         # check "marketing_task_assign_to_me"

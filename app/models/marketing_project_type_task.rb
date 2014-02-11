@@ -5,7 +5,7 @@
 #       developed to link and create a Product record for the public site.
 #
 class MarketingProjectTypeTask < ActiveRecord::Base
-  attr_accessible :name, :position, :marketing_project_type_id, :due_offset_number, :due_offset_unit, :keep
+  attr_accessible :name, :position, :marketing_project_type_id, :due_offset_number, :due_offset_unit, :keep, :creative_brief
   attr_accessor :keep
   belongs_to :marketing_project_type
   acts_as_list scope: :marketing_project_type_id
@@ -30,7 +30,8 @@ class MarketingProjectTypeTask < ActiveRecord::Base
   	MarketingTask.new(
   		due_on: due_on,
   		name: self.name,
-      brand_id: marketing_project.brand_id
+      brand_id: marketing_project.brand_id,
+      creative_brief: (self.creative_brief.present?) ? self.creative_brief : "(imported task from template)"
   	)
   end
 

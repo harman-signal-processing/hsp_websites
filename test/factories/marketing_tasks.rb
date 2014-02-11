@@ -6,5 +6,6 @@ FactoryGirl.define do
     marketing_project
     brand
     due_on 1.week.from_now
+    creative_brief "Something more informational goes here"
   end
 end
