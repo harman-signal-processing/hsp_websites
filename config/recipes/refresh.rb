@@ -8,10 +8,16 @@ namespace :refresh do
 	# cap refresh:development_uploads (compresses and copies file uploads from production)
 	# cap refresh:development (performs both tasks)
 	#
+	# In order to work, though, the LOCAL database.yml file needs to have credentials for
+	# the production system and whichever target environment (dev or staging).
+	#
+	# As of 12/2013, the asset sync no longer works. This is because the files are moved
+	# to Amazon S3 instead of on an internal server. This can be fixed, however, the plan
+	# is to migrate away from S3 in favor of rackspace cloud files. So, I'll address the
+	# issue then instead.
+	#
 	# Note: the "development_uploads" task will take a long time since there are lots of
 	# files (images, movies, pdfs, etc.) which have been uploaded via the web admin interfaces.
-	#
-	# One more thing, be sure to run these from within the root of your local rails app.
 	#
 
 	desc "Refresh the development database and uploads from production"
