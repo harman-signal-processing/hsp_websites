@@ -11,23 +11,29 @@
 <% end %>
 </ul>
 
-<%= search_form_for [:admin, @search] do |f| %>
-  <div class="form_field">
-    <%= f.label :first_name_cont, "First Name contains" %><br/>
-    <%= f.text_field :first_name_cont %>
+<div class="row">
+  <div class="large-6 columns">
+    <div class="panel">
+    <%= search_form_for [:admin, @search] do |f| %>
+      <div class="form_field">
+        <%= f.label :first_name_cont, "First Name contains" %>
+        <%= f.text_field :first_name_cont %>
+      </div>
+      <div class="form_field">
+        <%= f.label :last_name_cont, "Last Name contains" %>
+        <%= f.text_field :last_name_cont %>
+      </div>
+      <div class="form_field">
+        <%= f.label :email_cont, "Email contains" %>
+        <%= f.text_field :email_cont %>
+      </div>
+      <div class="actions">
+        <%= f.submit "Search registrations", class: "medium round button" %>
+      </div>
+    <% end %>
+    </div>
   </div>
-  <div class="form_field">
-    <%= f.label :last_name_cont, "Last Name contains" %><br/>
-    <%= f.text_field :last_name_cont %>
-  </div>
-  <div class="form_field">
-    <%= f.label :email_cont, "Email contains" %><br/>
-    <%= f.text_field :email_cont %>
-  </div>
-  <div class="actions">
-    <%= f.submit "Search registrations" %>
-  </div>
-<% end %>
+</div>
 
 <% if @warranty_registrations.length > 0 %>
 <table class="data" style="width: 100%">
