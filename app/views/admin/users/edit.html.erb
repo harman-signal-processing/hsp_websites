@@ -1,5 +1,7 @@
 <h1>Editing User</h1>
 
-<%= render 'form' %>
+<div class="panel">
+	<%= render 'form' %>
+</div>
 
 <%= link_to "Reset Password", reset_password_admin_user_path(@user), confirm: "Are you sure you want to reset this user's password?", method: :post %> 
