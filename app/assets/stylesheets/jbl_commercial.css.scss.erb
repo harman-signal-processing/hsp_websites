@@ -2,68 +2,27 @@
  * This is a manifest file that'll automatically include all the stylesheets available in this directory
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
-*= require reset
-*= require lightbox
-*= require tiny
+*= require jbl_commercial_foundation_and_overrides
 *= require jquery-ui-1.8.16.custom
 *= require_self
 */
+
+@import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic);
+
 img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 
-body {
-	font-family: Arial, Verdana, Sans-serif;
-	font-size: 13px;
-	line-height: 1.4;
-	color: #FFF;
-	background: #b6b7b5 url(<%= image_path('jbl_commercial/page_bg.png') %>) repeat-x;
-	letter-spacing: 0.02em;
-}
+#bg { position: fixed; top: 0; left: 0; }
+.bgwidth { width: 100%; }
+.bgheight { height: 100%; }
+
 p {
-	margin-bottom: 8px;
+	font-weight: 100;
 }
 a:link, a:visited {
 	color: #ee632e;
 }
 li {
 	margin-bottom: 6px;
-}
-h1, h2 {
-	margin-bottom: 8px;
-	padding: 0px;
-	color: #FFF;
-	letter-spacing: -0.02em;
-}
-h1{
-	font-size: 38px;
-	line-height: 46px;
-	letter-spacing: 1px;
-	color: #666;
-	&.page_title {
-		text-align: left;
-	}
-}
-h2{
-	font-size: 20px;
-	line-height: 30px;
-	color: #ee632e;
-	a:link, a:visited {
-		text-decoration: none;
-		color: #ee632e;
-	}
-}
-h3{
-	font-size: 18px;
-	line-height: 20px;
-	margin-bottom: 4px;
-}
-h4{
-	font-size: 16px;
-}
-h5{
-	font-size: 14px;
-}
-h6{
-	font-size: 12px;
 }
 .tiny {
 	font-size: 10px;
@@ -222,15 +181,12 @@ div#footer {
 	width: 960px;
 	margin-left: auto;
 	margin-right: auto;
-	font-size: 10px;
-	font-family: Arial, Helvetica, Sans-serif;
-	color: #fff;
+	font-size: 11px;
 	margin-bottom: 30px;
 	text-align: center;
 	height: 90px;
-	text-shadow: 0px 1px 2px #444;
 	a:link, a:visited {
-		color: white;
+		color: #222;
 	}
 	div#footer_info {
 		float: right;
@@ -238,10 +194,12 @@ div#footer {
 		margin-top: 10px;
 	}	
 	div#footer_left {
+		margin-top: 10px;
 		float: left;
 		img {
+			margin-top: -10px;
 			margin-bottom: -3px;
-			margin-right: 2px;
+			margin-right: 4px;
 		}
 	}
 }
