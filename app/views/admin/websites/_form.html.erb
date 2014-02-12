@@ -1,37 +1,8 @@
-<%= form_for([:admin, @this_website]) do |f| %>
-  <% if @this_website.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@this_website.errors.count, "error") %> prohibited this website from being saved:</h2>
-
-      <ul>
-      <% @this_website.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :url %><br />
-    <%= f.text_field :url, size: 60 %>
-  </div>
-  <div class="field">
-    <%= f.label :folder, "Folder Name" %> (name of the folder within the layouts, public, images, etc.)<br />
-    <%= f.text_field :folder %>
-  </div>
-  <div class="field">
-  	<%= f.label :brand_id %><br/>
-    <%= f.collection_select :brand_id, Brand.all, :id, :name %>
-  </div>
-  <div class="field">
-  	<%= f.label :default_locale %> (can also be set per-brand)<br/>
-	<%= f.text_field :default_locale %>
-  </div>
-  <div class="field">
-  	<%= f.label :comment %><br/>
-	<%= f.text_field :comment, size: 60 %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<%= simple_form_for([:admin, @this_website]) do |f| %>
+    <%= f.input :url, label: "URL" %><br />
+    <%= f.input :folder, label: "Folder Name", hint:"(name of the folder within the layouts, public, images, etc.)" %>
+  	<%= f.association :brand %>
+	  <%= f.input :default_locale, hint: "(can also be set per-brand)" %>
+  	<%= f.input :comment %>
+    <%= f.button :submit %>
 <% end %>

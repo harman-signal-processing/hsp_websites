@@ -1,33 +1,7 @@
-<%= form_for([:admin, @website_locale]) do |f| %>
-  <% if @website_locale.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@website_locale.errors.count, "error") %> prohibited this website locale from being saved:</h2>
-
-      <ul>
-      <% @website_locale.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :website_id %><br />
-    <%= f.collection_select :website_id, Website.order(:url), :id, :url %>
-  </div>
-  <div class="field">
-    <%= f.label :locale %><br />
-    <%= f.text_field :locale %>
-  </div>
-  <div class="field">
-	<%= f.label :name %><br/>
-	<%= f.text_field :name %>
-  </div>
-  <div class="field">
-	<%= f.check_box :complete %>
-  	<%= f.label :complete %> and ready for use
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<%= simple_form_for([:admin, @website_locale]) do |f| %>
+  <%= f.association :website, collection: Website.all(order: 'url'), label_method: :url %>
+  <%= f.input :locale %>
+	<%= f.input :name %>
+ 	<%= f.input :complete, label: "Complete, and ready for use" %>
+  <%= f.button :submit %>
 <% end %>
