@@ -1,36 +1,21 @@
-<%= form_for([:admin, @training_module], html: {multipart: true}) do |f| %>
-  <% if @training_module.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@training_module.errors.count, "error") %> prohibited this module from being saved:</h2>
+<%= simple_form_for([:admin, @training_module], html: {multipart: true}) do |f| %>
 
-      <ul>
-      <% @training_module.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+    <%= f.input :name %>
+    <%= f.input :training_module, label: "Video, Flash, etc." %>
+    <div class="row">
+      <div class="large-6 columns">
+        <%= f.input :width %>
+      </div>
+      <div class="large-6 columns">
+        <%= f.input :height %>
+      </div>
     </div>
+    <%= f.input :description, input_html: {class: "mceEditor"} %>
+
+  <% if @training_module.new_record? %>
+	<div class="small">We'll associate products and software to this module AFTER uploading the content.</div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name, "Title" %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :training_module, "Video, Flash, etc." %><br />
-    <%= f.file_field :training_module %>
-  </div>
-  <div class="field">
-    Dimensions<br/>
-    <%= f.text_field :width, size: 10 %> x <%= f.text_field :height, size: 10 %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description, class: "mceEditor" %>
-  </div>
-  <% if @training_module.new_record? %>
-	<div class="hint">We'll associate products and software to this module AFTER uploading the content.</div>
-  <% end %>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <%= f.button :submit %>
+
 <% end %>

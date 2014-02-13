@@ -1,72 +1,38 @@
-<%= form_for [:admin, @user] do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+<%= simple_form_for [:admin, @user] do |f| %>
+	<%= f.input :name %>
+  <%= f.input :email %>
+  <%= f.input :phone_number %>
+  <%= f.input :job_title %>
+  <%= f.input :job_description %>
 
-      <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= f.input :admin, label: "Super Admin" %>
+	<%= f.input :market_manager %>
+  <%= f.input :marketing_staff %>
+  <%= f.input :queue_admin, label: "Marketing Queue Administrator" %>
+	<%= f.input :artist_relations %>
+	<%= f.input :customer_service %>
+	<%= f.input :sales_admin %>
+	<%= f.input :online_retailer %>
+	<%= f.input :engineer, label: "Engineer (can manage Software)" %>
+	<%= f.input :translator %>
+	<%= f.input :rohs %>
+	<%= f.input :clinician %>
+  <%= f.input :clinic_admin, label: "Clinic admin (can manage clinic schedule)" %>
+  <%= f.input :rep %>
+  <%= f.input :dealer %>
+	<%= f.input :distributor %>
 
-  <div class="field">
-	<%= f.label :name %><br/>
-	<%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :phone_number %><br />
-    <%= f.text_field :phone_number %>
-  </div>
-  <div class="field">
-    <%= f.label :job_title %><br />
-    <%= f.text_field :job_title %>
-  </div>
-  <div class="field">
-    <%= f.label :job_description %><br />
-    <%= f.text_field :job_description %>
-  </div>
-  <div class="field">
-  	<%= f.check_box :admin %> <%= f.label :admin, "Super Admin" %><br/>
-	<%= f.check_box :market_manager %> <%= f.label :market_manager %><br/>
-  <%= f.check_box :marketing_staff %> <%= f.label :marketing_staff %><br/>
-  <%= f.check_box :queue_admin %> <%= f.label :queue_admin, "Marketing Queue Administrator" %><br/>
-	<%= f.check_box :artist_relations %> <%= f.label :artist_relations %><br/>
-	<%= f.check_box :customer_service %> <%= f.label :customer_service %><br/>
-	<%= f.check_box :sales_admin %> <%= f.label :sales_admin %><br/>
-	<%= f.check_box :online_retailer %> <%= f.label :online_retailer %><br/>
-	<%= f.check_box :engineer %> <%= f.label :engineer %> (can manage Software)<br/>
-	<%= f.check_box :translator %> <%= f.label :translator %><br/>
-	<%= f.check_box :rohs %> <%= f.label :rohs %><br/>
-	<%= f.check_box :clinician %> <%= f.label :clinician %><br/>
-  <%= f.check_box :clinic_admin %> <%= f.label :clinic_admin %> (can manage clinic schedule)<br/>
-  <%= f.check_box :rep %> <%= f.label :rep %><br/>
-  <%= f.check_box :dealer %> <%= f.label :dealer %><br/>
-	<%= f.check_box :distributor %> <%= f.label :distributor %><br/>
-
-	<% if @user.new_record? %>
-	<i>(RSO role can only be assigned AFTER creation due to the invitation code requirement)</i><br/>
-	<% else %>
-	<%= f.check_box :rso %> <%= f.label :rso %><br/>
+	<% unless @user.new_record? %>
+	 <%= f.input :rso, label: "RSO" %>
 	<% end %>
-	<%= f.check_box :rso_admin %> <%= f.label :rso_admin %> (can post individual RSO reports)
-  </div>
+	<%= f.input :rso_admin, label: "RSO Admin (can post individual RSO reports)" %>
+
   <% if @user.new_record? %>
-	<div class="field">
-		<%= f.label :password %><br/>
-		<%= f.password_field :password %>
-	</div>
-	<div class="field">
-		<%= f.label :password_confirmation %><br/>
-		<%= f.password_field :password_confirmation %>
-	</div>
+  <br/>
+		<%= f.input :password %>
+		<%= f.input :password_confirmation %>
   <% end %>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
+  <br/><%= f.button :submit %>
+
 <% end %>

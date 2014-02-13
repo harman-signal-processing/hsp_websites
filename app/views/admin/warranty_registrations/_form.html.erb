@@ -12,99 +12,99 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :title %><br />
+    <%= f.label :title %>
     <%= f.text_field :title %>
   </div>
   <div class="field">
-    <%= f.label :first_name %><br />
+    <%= f.label :first_name %>
     <%= f.text_field :first_name %>
   </div>
   <div class="field">
-    <%= f.label :last_name %><br />
+    <%= f.label :last_name %>
     <%= f.text_field :last_name %>
   </div>
   <div class="field">
-    <%= f.label :middle_initial %><br />
+    <%= f.label :middle_initial %>
     <%= f.text_field :middle_initial %>
   </div>
   <div class="field">
-    <%= f.label :company %><br />
+    <%= f.label :company %>
     <%= f.text_field :company %>
   </div>
   <div class="field">
-    <%= f.label :jobtitle %><br />
+    <%= f.label :jobtitle %>
     <%= f.text_field :jobtitle %>
   </div>
   <div class="field">
-    <%= f.label :address1 %><br />
+    <%= f.label :address1 %>
     <%= f.text_field :address1 %>
   </div>
   <div class="field">
-    <%= f.label :city %><br />
+    <%= f.label :city %>
     <%= f.text_field :city %>
   </div>
   <div class="field">
-    <%= f.label :state %><br />
+    <%= f.label :state %>
     <%= f.text_field :state %>
   </div>
   <div class="field">
-    <%= f.label :zip %><br />
+    <%= f.label :zip %>
     <%= f.text_field :zip %>
   </div>
   <div class="field">
-    <%= f.label :country %><br />
+    <%= f.label :country %>
     <%= f.text_field :country %>
   </div>
   <div class="field">
-    <%= f.label :phone %><br />
+    <%= f.label :phone %>
     <%= f.text_field :phone %>
   </div>
   <div class="field">
-    <%= f.label :fax %><br />
+    <%= f.label :fax %>
     <%= f.text_field :fax %>
   </div>
   <div class="field">
-    <%= f.label :email %><br />
+    <%= f.label :email %>
     <%= f.text_field :email %>
   </div>
   <div class="field">
-    <%= f.label :subscribe %><br />
+    <%= f.label :subscribe %>
     <%= f.check_box :subscribe %>
   </div>
   <div class="field">
-    <%= f.label :brand_id %><br />
+    <%= f.label :brand_id %>
     <%= f.collection_select :brand_id, Brand.all, :id, :name %>
   </div>
   <div class="field">
-    <%= f.label :product_id %><br />
+    <%= f.label :product_id %>
     <%= f.collection_select :product_id, Product.order("UPPER(name)"), :id, :name %>
   </div>
   <div class="field">
-    <%= f.label :serial_number %><br />
+    <%= f.label :serial_number %>
     <%= f.text_field :serial_number %>
   </div>
   <div class="field">
-    <%= f.label :registered_on %><br />
+    <%= f.label :registered_on %>
     <%= f.date_select :registered_on %>
   </div>
   <div class="field">
-    <%= f.label :purchased_on %><br />
+    <%= f.label :purchased_on %>
     <%= f.date_select :purchased_on %>
   </div>
   <div class="field">
-    <%= f.label :purchased_from %><br />
+    <%= f.label :purchased_from %>
     <%= f.text_field :purchased_from %>
   </div>
   <div class="field">
-    <%= f.label :purchase_country %><br />
+    <%= f.label :purchase_country %>
     <%= f.text_field :purchase_country %>
   </div>
   <div class="field">
-    <%= f.label :purchase_price %><br />
+    <%= f.label :purchase_price %>
     <%= f.text_field :purchase_price %>
   </div>
   <div class="field">
-    <%= f.label :comments %><br />
+    <%= f.label :comments %>
     <%= f.text_area :comments %>
   </div>
   <div class="actions">

@@ -17,32 +17,32 @@
 
 <div class="group">
 	<h3>Regions</h3>
-	<%= link_to_function "add a region", "$('#add_region_form').toggle();", class: "small success button" %>
+	<%= link_to_function "add a region", "$('#add_region_form').toggle();", class: "small round success button" %>
 
 	<div id="add_region_form" style="display:none">
-		<%= form_for [:admin, @us_rep_region], remote: true do |f| %>
+		<%= simple_form_for [:admin, @us_rep_region], remote: true do |f| %>
 		    <%= f.hidden_field :us_rep_id %>
 		    <%= f.hidden_field :brand_id %>
-			<p><%= f.label :us_region_id, "Region Name" %><br/>
+
 				<span id="select_region">
-				<%= f.collection_select :us_region_id, UsRegion.order("name"), :id, :name %>
+				<%= f.association :us_region, label: "Region Name", collection: UsRegion.order("name") %>
 				<%= link_to_function("new region", 
 					  "$('#select_region').toggle();$('#new_region').toggle()") if can?(:create, UsRegion) %>
 				</span>
 				<span id="new_region" style="display:none">
-				<%= fields_for UsRegion.new do |reg| %>
-				<%= reg.text_field :name %>
+				<%= simple_fields_for UsRegion.new do |reg| %>
+				<%= reg.input :name %>
 				<% end %>
 				<%= link_to_function "select existing region", 
 					  "$('#select_region').toggle();$('#new_region').toggle();$('#us_region_name').val('');"%>
 				</span>
-			</p>
-			<p><%= f.submit %>
+
+			<p><%= f.button :submit %>
 			<%= link_to_function "cancel", "$('#add_region_form').toggle();"%></p>
 		<% end %>
 	</div>
 
-	<ul id="us_rep_regions">
+	<ul id="us_rep_regions" class="list">
 	  <% @us_rep.us_rep_regions.where(brand_id: website.brand_id).each do |usr| %>
 	  	<%= render "/admin/shared/us_rep_region_row", usr: usr %>
 	  <% end %>

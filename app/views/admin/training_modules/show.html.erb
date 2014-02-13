@@ -29,7 +29,7 @@
 		<%= link_to 'create a new product', new_admin_product_path %>
 	<% end %>
 
-	<ul id="product_training_modules">
+	<ul id="product_training_modules" class="list">
 		<% @training_module.product_training_modules.each do |ptm| %>
 			<%= render '/admin/shared/product_training_module_row', ptm: ptm, called_from: 'training_module' %>
 		<% end %>

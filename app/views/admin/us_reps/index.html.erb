@@ -12,15 +12,19 @@
 </ul>
 <% end %>
 
-<%= search_form_for [:admin, @search] do |f| %>
-  <div class="form_field">
-    <%= f.label :name_cont, "Name contains" %><br/>
-    <%= f.text_field :name_cont %>
+<div class="row">
+  <div class="large-6 columns">
+    <div class="panel">
+      <%= search_form_for [:admin, @search] do |f| %>
+        <div class="form_field">
+          <%= f.label :name_cont, "Name contains" %>
+          <%= f.text_field :name_cont %>
+        </div>
+        <%= f.submit "Search reps", class: "small round button" %>
+      <% end %>
+    </div>
   </div>
-  <div class="actions">
-    <%= f.submit "Search reps" %>
-  </div>
-<% end %>
+</div>
 
 <table class="data" style="width: 100%">
   <tr>

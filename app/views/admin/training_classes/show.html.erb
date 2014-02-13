@@ -6,8 +6,6 @@
 	<li><%= link_to 'Delete', [:admin, @training_class], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
 </ul>
 
-
-
 <% if can?(:manage, ProductTrainingClass) %>
 <div class="group">
 	<h3>Products associated with this training class:</h3>

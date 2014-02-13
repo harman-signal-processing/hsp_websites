@@ -4,22 +4,26 @@
 	<li><%= link_to "New user", new_admin_user_path, class: "small success button" %></li>
 </ul>
 
-<%= search_form_for [:admin, @search] do |f| %>
-	<h3>Search Users</h3>
-  <div class="form_field">
-    <%= f.label :name_cont, "Name contains" %><br/>
-    <%= f.text_field :name_cont %>
+<div class="row">
+  <div class="large-6 columns">
+    <div class="panel">
+    <%= search_form_for [:admin, @search] do |f| %>
+    	<h3>Search Users</h3>
+      <div class="form_field">
+        <%= f.label :name_cont, "Name contains" %>
+        <%= f.text_field :name_cont %>
+      </div>
+      <div class="form_field">
+        <%= f.label :email_cont, "Email contains" %>
+       	<%= f.text_field :email_cont %>
+      </div>
+       <%= f.submit "Search users", class: "small round button" %>
+    <% end %>
+    </div>
   </div>
-  <div class="form_field">
-    <%= f.label :email_cont, "Email contains" %><br/>
-   	<%= f.text_field :email_cont %>
-  </div>
-  <div class="form_field">
-    <%= f.submit "Search users" %>
-  </div>
-<% end %>
+</div>
 
-<ul>
+<ul class="list">
 	<% @users.each do |user| %>
 	<li><%= link_to (user.name.present?) ? user.name : user.email, [:admin, user] %>
 		<i><%= user.roles.join(", ") %></i></li>
