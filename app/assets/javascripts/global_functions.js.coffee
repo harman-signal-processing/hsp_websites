@@ -1,7 +1,7 @@
 jQuery ($) ->
 
 	$('a#locale_menu').click (e) ->
-		e.preventDefault
+		e.preventDefault()
 		$('#locale_selections').toggle()
 
 	load_lightbox = () ->

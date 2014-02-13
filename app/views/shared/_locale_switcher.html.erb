@@ -1,5 +1,5 @@
 <% if website.show_locales? %>
-	<div id="locale_switcher">
+	<div id="locale_switcher" class="hide-for-small">
 		<%= link_to '#', id: "locale_menu" do %>
 			<%= image_tag "icons/locale-tiny.png", alt: t('language_region') %>
 			<%= image_tag 'icons/arrow_down.png', alt: '>', style: "margin-bottom: 4px;" %>

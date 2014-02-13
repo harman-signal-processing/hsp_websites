@@ -31,7 +31,7 @@ $default-float: left;
 @import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic);
 
 $body-bg: #EEEEEE;
-$body-font-color: #251511;
+$body-font-color: #333333;
 $body-font-family: "Roboto Condensed", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $body-font-weight: 100;
 // $body-font-style: normal;
@@ -46,7 +46,7 @@ $body-font-weight: 100;
 
 // Colors
 
-$primary-color: #1f609f;
+$primary-color: #ee632e;
 // $secondary-color: #c9c9c9;
 // $alert-color: #c60f13;
 // $success-color: #5da423;
@@ -172,7 +172,7 @@ $small-font-color: lighten($header-font-color, 35%);
 // Paragraphs
 
 // $paragraph-font-family: inherit;
-// $paragraph-font-weight: normal;
+$paragraph-font-weight: 100;
 // $paragraph-font-size: 1em;
 // $paragraph-line-height: 1.6;
 // $paragraph-margin-bottom: emCalc(20px);
@@ -189,8 +189,8 @@ $small-font-color: lighten($header-font-color, 35%);
 // Anchors
 
 // $anchor-text-decoration: none;
-$anchor-font-color: #0000ff; //lighten($primary-color, 5%);
-$anchor-font-color-hover: lighten($anchor-font-color, 25%);
+// $anchor-font-color: lighten($primary-color, 5%);
+// $anchor-font-color-hover: lighten($anchor-font-color, 25%);
 
 // <hr> element
 
@@ -1204,12 +1204,12 @@ $table-head-font-color: $header-font-color;
 
 // Background color for the top bar
 
-// $topbar-bg:                            #00395a !default;
+$topbar-bg:                            $primary-color !default;
 
 // Height and margin
 
-$topbar-height:                        46px;
-$topbar-margin-bottom:                 emCalc(26px);
+// $topbar-height:                        46px;
+// $topbar-margin-bottom:                 emCalc(26px);
 
 // Control Input height for top bar
 
@@ -1222,7 +1222,7 @@ $topbar-title-weight:                  bold;
 
 // Style the top bar dropdown elements
 
-// $topbar-dropdown-bg:                   #222;
+$topbar-dropdown-bg:                   $primary-color;
 // $topbar-dropdown-link-color:           #fff;
 // $topbar-dropdown-link-bg:              lighten($topbar-bg, 5%);
 // $topbar-dropdown-toggle-size:          5px;
@@ -1236,9 +1236,9 @@ $topbar-title-weight:                  bold;
 // $topbar-link-color-active:             #fff;
 $topbar-link-weight:                   light;
 // $topbar-link-font-size:                emCalc(13px);
-// $topbar-link-hover-lightness:          -30%; // Darken by 30%
-// $topbar-link-bg-hover:                 darken($topbar-bg, 3%);
-// $topbar-link-bg-active:                darken($topbar-bg, 3%);
+$topbar-link-hover-lightness:          -30%; // Darken by 30%
+$topbar-link-bg-hover:                 darken($primary-color, 3%);
+$topbar-link-bg-active:                darken($topbar-bg, 3%);
 
 // $topbar-dropdown-label-color:          #555;
 // $topbar-dropdown-label-text-transform: uppercase;
@@ -1268,6 +1268,6 @@ $topbar-link-weight:                   light;
 
 // Sticky Class
 
-// $topbar-sticky-class:                  ".sticky";
+$topbar-sticky-class:                  ".sticky";
 
 @import 'foundation';
