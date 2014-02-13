@@ -290,13 +290,31 @@
       </nav>
     </div>
 
+  <div class="container">
+    <div class="row">
+      <div class="large-12 columns">
+
+        <% flash.each do |name, msg| %>
+          <% 
+            css_class = 'alert-box'
+            if name.match(/notice/i) 
+              css_class += ' success'
+            elsif name.match(/alert|warn/)
+              css_class += ' alert'
+            else
+              css_class += ' secondary'
+            end
+          %>
+
+            <%= content_tag :div, msg, class: css_class if msg.is_a?(String) %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 
 	<div class="container">
 		<div class="row">
 			<div class="large-12 small-12 columns">
-				<% flash.each do |name, msg| %>
-				  <%= content_tag :div, msg, id: "flash_#{name}" %>
-				<% end %>
 				<%= yield %>
 			</div>
 		</div>
