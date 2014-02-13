@@ -143,7 +143,7 @@
 	<% end %>
 	
 	<% if website.has_training? && (can?(:manage, TrainingModule) || can?(:manage, TrainingClass)) %>
-		<li class="has-dropdowns"><%= link_to "Training", '#' %>
+		<li class="has-dropdown"><%= link_to "Training", '#' %>
 			<ul class="dropdown">
 				<% if can? :manage, TrainingModule %>
 				<li><%= link_to "Training Modules", admin_training_modules_path %></li>
