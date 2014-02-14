@@ -9,7 +9,7 @@
 	<%= cache ["slideshow", website.brand, I18n.locale] do %>
 		<% slides = Setting.slides(website) %>
 		<% if slides.size > 0 %>
-			<%= slideshow(slides: slides, transition: "fade") %>
+			<%= orbit_slideshow(slides: slides, duration: 6000, navigation_arrows: false, transition: "fade") %>
 		<% end %>
 	<% end %>
 <% end %>
@@ -28,9 +28,13 @@
 
 
 <%= content_for :big_bottom_box do %>
-	<div id="social_media_links">
-		<%= social_media_links 'twitter', 'facebook', 'myspace', 'youtube', 'wechat', 'weibo' %> 
+<div class="row">
+	<div class="large-12 columns">
+		<div id="social_media_links">
+			<%= social_media_links 'twitter', 'facebook', 'myspace', 'youtube', 'wechat', 'weibo' %> 
+		</div>
 	</div>
+</div>
 <% end %>
 
 <%= content_for :preload do %>

@@ -6,10 +6,69 @@ module ApplicationHelper
     request.path.sub(/^\/[a-zA-Z\-]{2,5}/, "/#{new_locale}")    
   end
 
+  # Using zurb foundation to show the site's logo
+  #
+  def interchange_logo
+    q = []
+    q << "[#{image_path("#{website.folder}/logo.png")}, (default)]"
+    q << "[#{image_path("#{website.folder}/logo.png")}, (large)]"
+    q << "[#{image_path("#{website.folder}/logo.png")}, (medium)]"
+    q << "[#{image_path("#{website.folder}/logo-sm.png")}, (only screen and (max-width: 768px))]"
+
+    image_tag("#{website.folder}/logo.png", 
+      alt: Setting.site_name(website),
+      data: { interchange: q.join(", ") })
+  end
+
   def cached_meta_tags
     @page_description ||= website.value_for('default_meta_tag_description') 
     @page_keywords ||= website.value_for("default_meta_tag_keywords") 
     display_meta_tags site: Setting.site_name(website)
+  end
+
+  # Generates a slideshow using Zurb's Orbit. Accepts the same options as my
+  # manually-built slideshow for backwards compatibility. Most options are
+  # ignored.
+  #
+  def orbit_slideshow(options={})
+    default_options = { duration: 7000, slide_number: false, navigation_arrows: true, slides: [] }
+    options = default_options.merge options
+
+    orbit_options = [
+      "resume_on_mouseout:true",
+      "timer_speed:#{options[:duration]}",
+      "slide_number:#{options[:slide_number]}",
+      "animation_speed:#{(options[:duration] / 12).to_i}",
+      "navigation_arrows:#{options[:navigation_arrows]}"
+    ]
+
+    frames = ""
+    options[:slides].each_with_index do |slide, i|
+      frames += orbit_slideshow_frame(slide, i)
+    end
+    content_tag(:div, class: "slideshow-wrapper") do
+      content_tag(:div, "", class: "preloader") + 
+      content_tag(:ul, 
+        frames.html_safe, 
+        data: {
+          orbit: true, 
+          options: orbit_options.join(";")
+        }
+      )
+    end
+  end
+
+  # Used by the "orbit_slideshow" method to render a frame
+  def orbit_slideshow_frame(slide, position=0)
+    slide_link = (slide.string_value =~ /^\// || slide.string_value =~ /^http/i) ? slide.string_value : "/#{params[:locale]}/#{slide.string_value}"
+
+    slide_content = (slide.string_value.blank?) ? 
+        image_tag(slide.slide.url) : 
+        link_to(image_tag(slide.slide.url), slide_link)
+
+    # We may want to use the built-in captions
+    # slide_content += content_tag(:div, "caption content", class: "orbit-caption")
+    content_tag(:li, slide_content)
   end
 
   # Generates a slideshow based on a provided list of slides and

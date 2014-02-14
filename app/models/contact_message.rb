@@ -49,7 +49,6 @@ class ContactMessage < ActiveRecord::Base
 
   def self.subjects
     [
-      [I18n.t('subjects.select_a_subject'), ""],
       [I18n.t('subjects.product_question')],
       [I18n.t('subjects.technical_support')],
       [I18n.t('subjects.manual_request')],

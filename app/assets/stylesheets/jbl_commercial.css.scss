@@ -7,13 +7,20 @@
 *= require_self
 */
 
+$primary-color: #ee632e;
+
 @import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic);
 
 img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 
-#bg { position: fixed; top: 0; left: 0; z-index: -99991;}
-.bgwidth { width: 100%; }
-.bgheight { height: 100%; }
+@media screen {
+	#bg { position: fixed; top: 0; left: 0; z-index: -99991;}
+	.bgwidth { width: 100%; }
+	.bgheight { height: 100%; }
+}
+@media print{
+	#bg { display: none;}
+}
 
 @media only screen and (min-width: 720px) {
 	div#header-container {
@@ -21,6 +28,14 @@ img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 		margin-bottom: 10px;
 		background: asset-data-url('jbl_commercial/header.jpg') repeat-x;
 	}
+	nav.top-bar {
+		margin-left: -20px;
+	}
+}
+@media only screen and (max-width: 720px) {
+	div#header-container {
+		margin-bottom: 10px;
+	}	
 }
 .tiny {
 	font-size: 10px;
@@ -30,6 +45,18 @@ img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 }
 #preload {
 	display: none;
+}
+.hint {
+  display: block;
+  font-size: 70%;
+  color: #444;
+  margin: -9px 0px 16px;
+}
+.custom.checkbox {
+    margin-right: 6px;
+}
+fieldset {
+	background-color: #EEE;
 }
 
 /**** Application Layout *****/
@@ -67,14 +94,15 @@ div#locale_container {
 		}
 	}
 }
-
-.internal_page {
-	background: #FEFFFF;
-	color: black;
-	min-height: 150px;
-	h1 {
-		color: #666;
+@media print {
+	#locale_switcher {
+		display: none;
 	}
+}
+.content.container {
+	background: #FFFFFF;
+	padding: 10px;
+	margin-bottom: 10px;
 }
 
 div#big_bottom_box_container {
@@ -125,51 +153,14 @@ div#harmanpro_bar {
 }
 
 /**** Main ******/
-div#feature_container {
-	position: relative;
-	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
-	height: 350px;
-	z-index: 300;
-}
-div.slideshow_frame {
-	position: absolute;
-	left: 0px;
-	z-index: 200;
-}
-div#slideshow_controls {
-	position: absolute;
-	bottom: 8px;
-	right: 10px;
-	z-index: 1000;
-	a {
-		color: #999;
-		text-decoration: none;
-		display: block;
-		border: 1px solid #FFF;
-		background: #FFF;
-		font-weight: bold;
-		margin-right: 6px;
-		padding: 3px 8px 2px 8px;
-		-moz-border-radius: 14px;
-		border-radius: 14px;
-		float: right;
-		&:hover {
-			border: 1px solid #ee632e;
-		}
-		&.current_button {
-			color: #EEE;
-			background: #ee632e;
-			border: 1px solid #ee632e;
-		}
+@media only screen and (min-width: 720px) {
+	div.slideshow-wrapper {
+		min-height: 350px;
 	}
 }
+
 div#middle_container {
 	text-align: center;
-	width: 970px;
-	margin-left: auto;
-	margin-right: auto;
 }
 
 div#signup {
@@ -183,11 +174,11 @@ div#signup {
 /***** Product Family Page *****/
 .small_product_box {
 	background: white;
-	border: 1px solid #ee632e;
+	border: 1px solid $primary-color;
 	border-radius: 8px;
 	padding: 6px;
 	text-align: center;	
-	width: 130px;
+	width: 100%;
 	height: 210px;
 	float: left;
 	margin: 6px;
@@ -200,6 +191,13 @@ div#signup {
 		left: 0px;
 		text-align: center;
 		width: 140px;
+	}
+	h3 {
+		margin-top: -15px;
+		font-size: 95%;
+	}
+	.product_description {
+		font-size: 85%;
 	}
 }
 table.product_thumb {
@@ -576,18 +574,19 @@ div.product_artists {
 /****** News ********/
 table.news_list {
 	border-collapse: collapse;
-}
-table.news_list td {
-	padding-top: 16px;
-}
-table.news_list td.date {
-	vertical-align: top;
-	width: 100px;
-	text-align: right;
-}
-table.news_list tr td.preview {
-	padding-left: 16px;
-	padding-bottom: 8px;
+	td {
+		background: white;
+		padding-top: 16px;
+		&.date {
+			vertical-align: top;
+			width: 100px;
+			text-align: right;
+		}
+		&.preview {
+			padding-left: 16px;
+			padding-bottom: 8px;
+		}
+	}
 }
 /******** Search ********/
 ol#search_results {
@@ -604,13 +603,6 @@ ol#search_results li {
 }
 /******* Support *******/
 .support_box_container {
-	margin: 0px 150px;
-	h2 {
-		margin-left: 20px;
-	}
-	form.contact {
-		margin-left: 20px;
-	}
 	.support_box {
 		background: #f9f9f9;
 		border: 1px solid #ECECEC;
@@ -631,29 +623,12 @@ ol#search_results li {
 				text-decoration: none;
 			}
 		}
-		select {
-			max-width: 200px;
-			padding: 2px;
-		}
 		li {
 			text-transform: capitalize;
 		}
 	}
 }
-form.contact {
-}
-form.contact div {
-  margin-bottom: 8px;
-}
-form.contact input, 
-form.contact select {
-	font-size: 120%;
-	padding: 2px;
-}
-form.contact textarea {
-	width: 100%;
-	font-family: Arial, Verdana, Sans-serif;
-} 
+
 div.captcha {
 	margin-top: 10px;
 	margin-bottom: 10px;
@@ -672,9 +647,6 @@ form.reg label {
 	text-align: right;
 	float: left;
 	padding-top: 1px;
-}
-.required {
-	font-weight: bold;
 }
 .centered {
 	text-align: center;

@@ -39,7 +39,7 @@
 
 		<%= javascript_include_tag website.folder %>
 		<%= javascript_include_tag "vendor/custom.modernizr" %>
-		<%= stylesheet_link_tag website.folder %>
+		<%= stylesheet_link_tag website.folder, media: :all %>
 
 		<%= yield :custom_css %>
 		<script>
@@ -64,19 +64,10 @@
 		<div id="header-container" class="contain-to-grid">
 			<div class="row">
 				<div class="large-2 small-2 columns">
-					<div class="hide-for-small">
-					<%= link_to(image_tag("#{website.folder}/logo.png", 
-							  alt: Setting.site_name(website)), 
-							locale_root_path) %>
-					</div>
-					<div class="hide-for-medium hide-for-large show-for-small">
-						<%= link_to(image_tag("#{website.folder}/logo-sm.png", 
-							  alt: Setting.site_name(website)), 
-							locale_root_path) %>
-					</div>
+					<%= link_to interchange_logo, locale_root_path %>
 				</div>
 				<div class="large-10 small-10 columns">
-					<div class="row">
+					<div class="row collapse">
 						<div class="large-12 columns hide-for-small" style="text-align: right">
 							<%= link_to(image_tag("#{website.folder}/jbl_consumer.png", alt: "JBL Consumer"), "http://www.jbl.com", target: "_blank") %>
 							<%= link_to(image_tag("#{website.folder}/jbl_professional.png", alt: "JBL Professional"), "http://www.jblpro.com", target: "_blank") %>
@@ -137,13 +128,10 @@
 		<% end %>
 		
 		<% if content_for?(:feature) %>
-		<div class="container hide-for-small"> 
+		<div class="container"> 
 			<div class="row">
 				<div class="large-12 columns">
-					<div id="feature_bg"></div>
-					<div id="feature_container">
-						<%= yield :feature %>
-					</div>
+					<%= yield :feature %>
 				</div>
 			</div>
 		</div>

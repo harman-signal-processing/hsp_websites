@@ -8,8 +8,12 @@
 				
 <h1><%= t('titles.news', brand: website.brand_name) %></h1>
 
-<div class="wide_centered_box">
-	<%= render "list", news_list: @news %>
+<div class="content container">
+	<div class="row">
+		<div class="large-9 columns last">
+			<%= render "list", news_list: @news %>
+		</div>
+	</div>
 </div>
 
 <div style="float: right">

@@ -4,48 +4,39 @@
 
 <h1><%= t('titles.support') %></h1>
 
-<p>
+<dl class="sub-nav">
 	<% if website.has_software? %>
-	<%= link_to t('software_downloads'), software_index_path %> &bull;
+	<dd><%= link_to t('software_downloads'), software_index_path %></dd>
 	<% end %>
-	<%= link_to t('warranty_registration'), warranty_registration_path %>
-	&bull; <%= link_to t('downloads'), support_downloads_path %>
-</p>
+	<dd><%= link_to t('warranty_registration'), warranty_registration_path %></dd>
+	<dd><%= link_to t('downloads'), support_downloads_path %></dd>
+</dl>
 
-	
-	<div class="two_column_container">
+			<h2><%= t('titles.contact_us') %></h2>	
+	<div class="row">
 		
-		<div class="column_one" style="width: 65%">
-			<h2><%= t('titles.contact_us') %></h2>
-			<%= form_for :contact_message, url: support_path(action: "contact"), html: {class: "contact"} do |f| %>
-				<%= f.error_messages %>
+		<div class="large-8 columns">
+			<%= simple_form_for :contact_message, url: support_path(action: "contact"), html: {class: "contact"} do |f| %>
 
-				<div><%= f.label :name, t('your_name') %><br/>
-				   <%= f.text_field :name %></div>
-				<div><%= f.label :email, ucfirst(t('email')) %><br/>
-				   <%= f.text_field :email %></div>
+				<%= f.input :name, label: t('your_name') %>
+				<%= f.input :email, label: ucfirst(t('email')) %>
 				<%= cache ["contact_form_products", website.brand] do %>
-				<div><%= f.label :product %> <%= "(required)" if @contact_message.require_product? %><br/>
-					<%= f.collection_select :product, 
-							Product.all_for_website(website) + [Product.new(name: "other")],
-							:name, :name, prompt: true %>
-				</div>
+					<%= f.input :product, as: :select, collection: Product.all_for_website(website) + [Product.new(name: "other")], hint: (@contact_message.require_product?) ? "(required)" : "", prompt: "Select A Product" %>
 				<% end %>
-				<div><%= f.label :subject, t('subject') %><br/>
-					<%= f.select :subject, ContactMessage.subjects %></div>
-				<p><%= t('message') %>:</p>
-				<%= f.text_area :message, size: "60x8" %>
+				<%= f.input :subject, as: :select, collection: ContactMessage.subjects, label: t('subject'), prompt: t('subjects.select_a_subject') %>
+				<%= f.input :message, label: t('message'), as: :text, input_html: { style: "height: 100px" } %>
 				
 				<div class="captcha">
 					<%= recaptcha_tags %>
 				</div>
 				
-				<p><%= submit_tag t('submit') %></p>
+				<%= f.submit t('submit'), class: "medium round button" %>
 			<% end %>
 		</div>
 		
-		<div class="column_two" style="width: 30%; padding-top: 10px;">
+		<div class="large-4 columns">
 			<% if addr = website.value_for("address_and_phone") %>
+			<div class="panel">
 				<h2><%= t("titles.mailing_address") %></h2>
 				<p>
 					<%=raw addr %>
@@ -53,8 +44,8 @@
 					<br/><%= (sup =~ /jbl/) ? mail_to(sup, sup) : "" %>
 					<% end %>
 				</p>
+			</div>
 			<% end %>
 		</div>
-		<div style="clear: both"></div>
 	</div>
 	

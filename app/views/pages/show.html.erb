@@ -3,7 +3,13 @@
                  description: translate_content(@page, :description),
                  keywords: @page.keywords %>
 
-<%=raw translate_content(@page, :body) %>
+<div class="content container">
+	<div class="row">
+		<div class="large-9 columns last">
+			<%=raw translate_content(@page, :body) %>
+		</div>
+	</div>
+</div>
 
 <%= content_for :custom_css do %>
 	<style type="text/css">

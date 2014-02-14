@@ -65,7 +65,7 @@ $primary-color: #ee632e;
 // Control whether or not CSS classes come through in the CSS files.
 
 // $include-html-classes: true;
-// $include-print-styles: true;
+$include-print-styles: true;
 // $include-html-global-classes: $include-html-classes;
 // $include-html-type-classes: $include-html-classes;
 // $include-html-grid-classes: $include-html-classes;
@@ -141,7 +141,7 @@ $primary-color: #ee632e;
 $header-font-family: "Roboto Condensed", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $header-font-weight: 200;
 // $header-font-style: normal;
-$header-font-color: #777;
+$header-font-color: #444;
 // $header-line-height: 1.4;
 $header-top-margin: .4em;
 // $header-bottom-margin: .5em;
@@ -256,7 +256,7 @@ $paragraph-font-weight: 100;
 
 // Base for lots of form spacing and positioning styles
 
-// $form-spacing: emCalc(16px);
+$form-spacing: emCalc(18px);
 
 // Labels
 
@@ -266,10 +266,10 @@ $paragraph-font-weight: 100;
 // $form-label-font-color: lighten(#000, 30%);
 // $form-label-bottom-margin: emCalc(3px);
 // $input-font-family: inherit;
-// $input-font-color: rgba(0,0,0,0.75);
-// $input-font-size: emCalc(14px);
-// $input-bg-color: #fff;
-// $input-focus-bg-color: darken(#fff, 2%);
+$input-font-color: rgba(0,0,0,0.65);
+$input-font-size: emCalc(16px);
+$input-bg-color: darken(#fff, 2%);
+$input-focus-bg-color: #fff;
 // $input-border-color: darken(#fff, 20%);
 // $input-focus-border-color: darken(#fff, 40%);
 // $input-border-style: solid;
@@ -778,7 +778,7 @@ $button-lrg: emCalc(14px);
 
 // Caption styles
 
-// $orbit-container-bg: #f5f5f5;
+$orbit-container-bg: #f5f5f5;
 // $orbit-caption-bg-old: rgb(0,0,0);
 // $orbit-caption-bg: rgba(0,0,0,0.6);
 // $orbit-caption-font-color: #fff;
@@ -795,13 +795,13 @@ $button-lrg: emCalc(14px);
 
 // Bullet nav styles
 
-// $orbit-bullet-nav-color: #999;
-// $orbit-bullet-nav-color-active: #222;
+$orbit-bullet-nav-color: #CCC;
+$orbit-bullet-nav-color-active: $primary-color;
 
 // Slide numbers
 
 // $orbit-slide-number-bg: rgba(0,0,0,0);
-// $orbit-slide-number-font-color: #fff;
+$orbit-slide-number-font-color: #999;
 // $orbit-slide-number-padding: emCalc(5px);
 
 // Graceful Loading Wrapper and preloader
@@ -1271,3 +1271,4 @@ $topbar-link-bg-active:                darken($topbar-bg, 3%);
 $topbar-sticky-class:                  ".sticky";
 
 @import 'foundation';
+
