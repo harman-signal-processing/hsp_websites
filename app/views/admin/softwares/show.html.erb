@@ -46,20 +46,18 @@
 </p>
 
 <div id="software" class="group">
-	<h3>Related Products</h3>
-	<%= form_for [:admin, @product_software], remote: true do |f| %>
-		<p>
-			<%= f.collection_select :product_id, website.products, :id, :name %>
-			&nbsp;
-			<%= hidden_field_tag "called_from", "software" %>
-			<%= f.hidden_field :software_id %>
-			<%= submit_tag 'submit', class: "small round button"  %> 
-			<% if can? :create, Product %>
-			or <%= link_to "create a new product", new_admin_product_path %>
-			<% end %>
-		</p>
+	<h4 class="subheader">Related Products</h4>
+	<%= simple_form_for [:admin, @product_software], remote: true do |f| %>
+		<%= f.association :product, label: false, collection: website.products %>
+
+		<%= hidden_field_tag "called_from", "software" %>
+		<%= f.hidden_field :software_id %>
+		<%= submit_tag 'submit', class: "small round button"  %> 
+		<% if can? :create, Product %>
+		or <%= link_to "create a new product", new_admin_product_path %>
+		<% end %>
 	<% end %>	
-	<ul id="product_softwares">
+	<ul id="product_softwares" class="list">
 		<% @software.product_softwares.each do |product_software| %>
 			<%= render "/admin/shared/product_software_row", ps: product_software, called_from: 'software' %>
 		<% end %>
@@ -67,14 +65,21 @@
 </div>
 
 <div id="software_attachments" class="group">
-	<h3>Attachments (Release Notes, Install Guides, other PDFs)</h3>
-	<%= form_for [:admin, @software_attachment], html: {multipart: true} do |f| %>
+	<h4 class="subheader">Attachments<small> (Release Notes, Install Guides, other PDFs)</small></h4>
+	<%= simple_form_for [:admin, @software_attachment], html: {multipart: true} do |f| %>
 		<%= f.hidden_field :software_id %>
-		<%= f.label :name %>: <%= f.text_field :name %>
-		<%= f.file_field :software_attachment %>
+		<div class="row">
+			<div class="large-6 columns">
+				<%= f.input :name %>
+			</div>
+			<div class="large-6 columns">
+				<%= f.input :software_attachment, label: "Attachment" %>
+			</div>
+		</div>
 		<%= submit_tag "upload", class: "small round button"  %>
 	<% end %>
-	<ul id="software_attachments_list">
+
+	<ul id="software_attachments_list" class="list">
 		<% @software.software_attachments.each do |sa| %>
 		<% if !sa.software_attachment_file_name.blank? %>
 			<%= render '/admin/shared/software_attachment_row', sa: sa %>		
@@ -85,18 +90,16 @@
 
 <% if website.has_software? && can?(:manage, SoftwareTrainingModule) %>
 <div id="software" class="group">
-	<h3>Training Modules</h3>
-	<%= form_for [:admin, @software_training_module], remote: true do |f| %>
-		<p>
-			<%= f.collection_select :training_module_id, website.training_modules, :id, :name %>
-			&nbsp;
-			<%= hidden_field_tag "called_from", "software" %>
-			<%= f.hidden_field :software_id %>
-			<%= submit_tag 'submit', class: "small round button"  %> 
-			or <%= link_to "add new training module", new_admin_training_module_path %>
-		</p>
+	<h4 class="subheader">Training Modules</h4>
+	<%= simple_form_for [:admin, @software_training_module], remote: true do |f| %>
+		<%= f.association :training_module, label: false, collection: website.training_modules %>
+		<%= hidden_field_tag "called_from", "software" %>
+		<%= f.hidden_field :software_id %>
+		<%= submit_tag 'submit', class: "small round button"  %> 
+		or <%= link_to "add new training module", new_admin_training_module_path %>
 	<% end %>	
-	<ul id="software_training_modules">
+
+	<ul id="software_training_modules" class="list">
 		<% @software.software_training_modules.each do |stm| %>
 			<%= render "/admin/shared/software_training_module_row", stm: stm, called_from: 'software' %>
 		<% end %>
@@ -106,16 +109,16 @@
 
 <% if website.has_training? && can?(:manage, SoftwareTrainingClass) %>
 <div class="group">
-	<h3>Training Classes</h3>
-	<%= form_for [:admin, @software_training_class], remote: true do |f| %>
+	<h4 class="subheader">Training Classes</h4>
+	<%= simple_form_for [:admin, @software_training_class], remote: true do |f| %>
 		<%= hidden_field_tag "called_from", "software" %>
     	<%= f.hidden_field :training_class_id %>
-		<%= f.collection_select :training_class_id, website.training_classes, :id, :name %> 
+		<%= f.association :training_class, label: false, collection: website.training_classes %> 
 		<%= submit_tag 'add existing training class', class: "small round button"  %>
 		<%= link_to 'create a new training class', new_admin_training_class_path %>
 	<% end %>
 
-	<ul id="software_training_classes">
+	<ul id="software_training_classes" class="list">
 		<% @software.software_training_classes.each do |stc| %>
 			<%= render '/admin/shared/software_training_class_row', stc: stc, called_from: 'software' %>
 		<% end %>
@@ -124,9 +127,9 @@
 <% end %>
 
 <% if @software.previous_versions.size > 0 %>
-	<h3>Previous Versions</h3>
+	<h2 class="subheader">Previous Versions</h2>
 
-	<ul>
+	<ul class="list">
 		<% @software.previous_versions.each do |s| %>
 		<li><%= link_to s.formatted_name, [:admin, s] %></li>
 		<% end %>

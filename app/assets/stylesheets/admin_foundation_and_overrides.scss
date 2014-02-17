@@ -170,9 +170,9 @@ $primary-color: #00395a;
 // Paragraphs
 
 // $paragraph-font-family: inherit;
-// $paragraph-font-weight: normal;
-// $paragraph-font-size: 1em;
-// $paragraph-line-height: 1.6;
+$paragraph-font-weight: 400;
+$paragraph-font-size: 0.88em;
+$paragraph-line-height: 1.4;
 // $paragraph-margin-bottom: emCalc(20px);
 // $paragraph-aside-font-size: emCalc(14px);
 // $paragraph-aside-line-height: 1.35;
@@ -260,7 +260,7 @@ $primary-color: #00395a;
 
 // $form-label-pointer: pointer;
 // $form-label-font-size: emCalc(14px);
-// $form-label-font-weight: 500;
+$form-label-font-weight: 400;
 // $form-label-font-color: lighten(#000, 30%);
 // $form-label-bottom-margin: emCalc(3px);
 // $input-font-family: inherit;
@@ -280,13 +280,13 @@ $primary-color: #00395a;
 
 // $fieldset-border-style: solid;
 // $fieldset-border-width: 1px;
-// $fieldset-border-color: #ddd;
+$fieldset-border-color: #ccc;
 // $fieldset-padding: emCalc(20px);
 // $fieldset-margin: emCalc(18px) 0;
 
 // Legends
 
-// $legend-bg: #fff;
+$legend-bg: none;
 // $legend-font-weight: bold;
 // $legend-padding: 0 emCalc(3px);
 
