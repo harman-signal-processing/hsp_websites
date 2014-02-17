@@ -1,4 +1,4 @@
-<ul>
+<ul class="news">
 	<% product.news_and_reviews.each do |p| %>
 	<li><b><%=l p.post_on.to_date, format: :long %></b><br/>
 		<% if p.is_a?(ProductReview) %><%= t('product_page.review') %>:<% end %>

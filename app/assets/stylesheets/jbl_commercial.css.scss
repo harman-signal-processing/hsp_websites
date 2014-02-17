@@ -179,7 +179,7 @@ div#signup {
 	padding: 6px;
 	text-align: center;	
 	width: 100%;
-	height: 210px;
+	height: 226px;
 	float: left;
 	margin: 6px;
 	position: relative;
@@ -198,6 +198,18 @@ div#signup {
 	}
 	.product_description {
 		font-size: 85%;
+		line-height: 18px;
+	}
+}
+@media only screen and (max-width: 720px) {
+	.small_product_box {
+		height: 230px;
+		.product_description {
+			line-height: 16px;
+		}
+		h3 {
+			margin-top: -18px;
+		}
 	}
 }
 table.product_thumb {
@@ -233,37 +245,42 @@ div.compare_button {
 	padding: 20px 10px;
 }
 /***** Product Page *****/
-div#product_content {
-	margin-bottom: 10px;
-	#right_column {
-		float: right;
-		text-align: left;
-		width: 300px;
-		h1 {
-			font-size: 32px;
-			color: #666;
-		/*	background: #040437;*/
-			padding: 8px 6px 2px 6px;
-			margin-bottom: 2px;
-		}
-	}
-	#left_column {
-		float: left;
+.viewer.content.container {
+	outline: 1px solid $primary-color;
+	margin: 20px 0px;
+	padding: 20px;
+}
+div#viewer {
+	text-align: center;
+}
+ul.clearing-thumbs {
+	margin: 40px 0px 8px 10px;
+	background: white;
+	li {
+		display: block;
+		list-style: none;
+		padding: 2px;
+		border: 1px solid #E6E6E6;
+		margin-right: 6px;
+		background: white;
+		width: 64px;
+		height: 64px;
+		overflow: hidden;
 		text-align: center;
-		width: 556px;
+	}
+
+}
+@media only screen and (min-width: 720px) {
+	#viewer {
+		margin: 20px;
 	}
 }
-ul#product_thumbnails {
-	margin: 8px 0px;
-	padding: 4px;
-	text-align: left;
-	background: white;
-	border: 1px solid #CCC;
-	width: 542px;
-	li {
-		display: inline;
-		list-style: none;
-		padding: 6px;
+@media only screen and (max-width: 720px) {
+	ul.clearing-thumbs {
+		li {
+			width: 32px;
+			height: 32px;
+		}
 	}
 }
 ul#discontinued_product_thumbnails {
@@ -277,17 +294,6 @@ ul#discontinued_product_thumbnails {
 		padding: 6px;
 	}
 }
-#viewer_container {
-	height: 366px;
-	width: 550px;
-	border: 1px solid #CCC;
-	background: white asset-data-url('icons/magnify.png') no-repeat bottom right;
-}
-#description {
-	text-align: left;
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
 #breadcrumbs {
 	font-size: 90%;
 	text-align: left;
@@ -295,72 +301,25 @@ ul#discontinued_product_thumbnails {
 	margin-bottom: 4px;
 	letter-spacing: 0.02em;
 }
-.product_detail_box {
-	margin-bottom: 10px;
-	h2 {
-		margin: 0; padding: 0;
-		font-size: 16px;
-		a:link, a:visited {
-			color: #FFF;
-			text-shadow: 1px 2px 2px #b52f19;
-			background: #ee632e asset-data-url('icons/expand.png') no-repeat;
-			background-position: 8px;
-			display: block;
-			padding-left: 21px;
-			padding-top: 2px;
+div.accordion {
+	div.content {
+		ul {
+			margin-left: 10px;
+			list-style: none;
+			li:before {
+				content: "\2022 \00A0";
+				color: $primary-color;
+				font-weight: bold;
+			}
 		}
-		a:hover {
-			text-shadow: none;
-			background: #333 asset-data-url('icons/expand.png') no-repeat;
-			background-position: 8px; /*#040437;*/
-			color: white;
+		ul.docs, ul.downloads, ul.news {
+			margin-left: 0px;
+			list-style:none;
+			li:before {
+				content: ""
+			}
 		}
 	}
-}
-#product_packaging_tabs ul {
-	margin:0; padding:0;
-	margin-bottom: -8px;
-}
-#product_packaging_tabs li {
-	margin:0; padding:0;
-	display: inline;
-	list-style: none;
-	border: none;
-	a {
-		display: block;
-		float: left;
-		height: 30px;
-		padding: 3px 4px 2px 2px;
-		margin-right: 4px;
-		text-decoration: none;
-		border: 1px solid #CCC;
-		background: #EEE;
-		margin-bottom: 4px;
-		color: #040437;
-		font-size: 90%;
-		letter-spacing: -1px;
-		&:hover {
-			background: #FFF;
-			border: 1px solid #b5d4f3;
-		}
-	}
-}
-#product_packaging_tabs li.current a {
-	background: #f1fbfe asset-data-url('tabbg.png');
-	border: 1px solid #b5d4f3;
-	border-bottom: none;
-	padding-bottom: 8px;
-	margin-bottom: -4px;
-	z-index: 100000;
-}
-#product_packaging_contents {
-	clear: both;
-	border: 1px solid #b5d4f3;
-	margin-bottom: 10px;
-	padding: 16px 21px;
-	height: 230px;
-	overflow: auto;
-	background: asset-data-url('tabbg_flipped.png') repeat-x;
 }
 h2.special_offer {
 	text-align: center;
@@ -376,16 +335,7 @@ h2.special_offer {
 .special_offer_contents {
 	margin: 0px 3px 12px;
 }
-.product_tab_content {
-	border: 1px solid #ccc;
-	padding: 10px;
-	width: 278px;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 0px;
-	max-height: 230px;
-	overflow: auto;
-}
+
 table.specs {
 	border-collapse: collapse;
 	margin-top: 0px;
@@ -400,10 +350,6 @@ table.specs {
 		/*	border-bottom: 1px solid #d8d8d8;*/
 		}
 	}
-}
-.odd {}
-.even {
-	background: #EEE;
 }
 .faq {
 	margin-bottom: 8px;
@@ -511,66 +457,7 @@ div.retailer_logo {
   margin: 6px;
   width: 125px;
 }
-/****** Artist Pages ******/
-div.artist_listing {
-	width: 700px;
-	margin-left: auto;
-	margin-right: auto;
-	position: relative;
-	margin-bottom: 20px;
-}
-div.on_the_left {
-	margin-left: 0px;
-	margin-right: 0px;
-}
-div.artist_listing div.description {
-	margin-left: 120px;
-}
-div.featured_artist_box {
-	float: left;
-	width: 330px;
-	margin: 10px;
-	text-align: center;
-}
-div.featured_artist_box div.description {
-	text-align: left;
-	padding: 10px;
-}
-div.artist_listing div.artist_photo {
-	position: absolute;
-	top: 10px;
-	left: 20px;
-	z-index: 1000;
-}
-div#big_artist_photo {
-	float: right;
-	margin: 10px;
-}
-div#artist_products {
-	margin: 10px 0px;
-	padding: 10px;
-}
-div.product_artists {
-	.artist {
-		position: relative;
-		margin-bottom: 8px;
-		.description {
-			margin-left: 80px;
-			min-height: 66px;
-			padding-top: 6px;
-		}
-		.photo {
-			position: absolute;
-			top: 6px;
-			left: 1px;
-		}
-	}
-}
-.quote {
-	text-align:center;
-	margin-bottom: 8px;
-	font-style: oblique;
-}
+
 /****** News ********/
 table.news_list {
 	border-collapse: collapse;
@@ -634,22 +521,6 @@ div.captcha {
 	margin-bottom: 10px;
 	padding: 10px;
 	background: #EEE;
-}
-/******* Warranty Registration ******/
-form.reg {}
-form.reg div {
-	margin: 12px;
-}
-form.reg label {
-	width: 320px;
-	font-size: 110%;
-	margin-right: 0.5em;
-	text-align: right;
-	float: left;
-	padding-top: 1px;
-}
-.centered {
-	text-align: center;
 }
 /******** Form Errors ********/
 div.field_with_errors {
