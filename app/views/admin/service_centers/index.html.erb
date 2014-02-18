@@ -12,11 +12,24 @@
 </ul>
 <% end %>
 
-<ul class="list">
-<% @service_centers.each do |service_center| %>
-    <li><%= link_to service_center.name, [:admin, service_center] %></li>
-<% end %>
-</ul>
+<table class="data" width="100%">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Address</th>
+			<th>Phone</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @service_centers.each do |service_center| %>
+		<tr>
+			<td><%= link_to service_center.name, [:admin, service_center] %></td>
+			<td><%= service_center.address %>, <%= service_center.city %>, <%= service_center.state %> <%= service_center.zip %></td>
+			<td><%= service_center.telephone %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
 
 <% end %>
 
