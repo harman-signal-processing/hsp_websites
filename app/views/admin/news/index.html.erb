@@ -7,10 +7,15 @@
 <% end %>
 
 <%= search_form_for [:admin, @search] do |f| %>
-  <div class="form_field">
-    <%= f.label :title_cont, "Title contains" %><br/>
-    <%= f.text_field :title_cont %>
-    <%= f.submit "Search news" %>
+    <%= f.label :title_cont, "Title contains" %>
+  <div class="row collapse">
+    <div class="large-5 small-8 columns">
+      <%= f.text_field :title_cont %>
+    </div>
+    <div class="large-2 small-4 columns">
+      <%= f.submit "Search news", class: "button prefix" %>
+    </div>
+    <div class="large-5 columns"></div>
   </div>
 <% end %>
 
