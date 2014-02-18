@@ -3,36 +3,31 @@
   <div class="row">
     <div class="large-8 columns">
       <%= f.input :name %>
-    </div>
-    <div class="large-4 columns">
-      <%= f.input :version %>
+
+      <div class="row">
+        <div class="large-6 columns">
+          <%= f.input :version %>
+        </div>
+        <div class="large-6 columns">
+          <%= f.input :category, 
+                collection: [["GUI/Librarian", "gui"], 
+                  ["Updater", "updater"], 
+                  ["Plugin", "plugin"],
+                  ["Other", "other"]] %>  
+        </div>
+      </div>
+      <div class="row">
+        <div class="large-6 columns">
+          <%= f.input :platform, hint: "(ie; Windows, Mac OS X, Android, iOS, Linux)" %>
+        </div>
+        <div class="large-6 columns">
+          <%= f.input :bit, hint: "(32, 64, leave blank if not applicable)" %>
+        </div>
+      </div>          
+    <%= f.input :ware, label: "Software" %>
+    <%= f.input :link, label: "Or provide a link" %>
     </div>
   </div>    
-
-  <div class="row">
-    <div class="large-4 columns">
-      <%= f.input :category, 
-            collection: [["GUI/Librarian", "gui"], 
-              ["Updater", "updater"], 
-              ["Plugin", "plugin"],
-              ["Other", "other"]] %>      
-    </div>
-    <div class="large-4 columns">
-      <%= f.input :platform, hint: "(ie; Windows, Mac OS X 10.3.5, Fedora 14 rpm, Source)" %>
-    </div>
-    <div class="large-4 columns">
-      <%= f.input :bit, hint: "(32, 64, leave blank if not applicable)" %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="large-4 columns">
-      <%= f.input :ware, label: "Software" %>
-    </div>
-    <div class="large-8 columns">
-      <%= f.input :link, label: "Or provide a link" %>
-    </div>
-  </div>
 
   <div class="row">
     <div class="large-12 columns" style="padding-top: 20px; padding-bottom: 30px;">
@@ -43,27 +38,31 @@
   </div>
 
   <div class="row">
-    <div class="large-4 columns">
-      <%= f.input :active %>
-      <%= f.input :active_without_products, label: "Active even if there are no corresponding active products." %>
-    </div>
-    <div class="large-4 columns">
-      <%= f.input :replaces_id, 
-            label: "Replaces current version of",
-            collection: [[]] + website.softwares.where(active: true).order("name").map{|s| [s.formatted_name, s.id]} %>
-    </div>
-    <div class="large-4 columns">
-      <% if website.page_layouts %>
-        <%= f.input :layout_class, 
-            label: "Page layout style",
-            hint:  "(not all brands have multiple layouts)",
-            collection: website.page_layouts.split("|") %>
-      <% end %>
+    <div class="large-8 columns">
+      <div class="row">
+        <div class="large-6 columns">
+          <%= f.input :replaces_id, 
+                label: "Replaces current version of",
+                collection: [[]] + website.softwares.where(active: true).order("name").map{|s| [s.formatted_name, s.id]} %>
+        </div>
+        <div class="large-6 columns">
+          <% if website.page_layouts %>
+            <%= f.input :layout_class, 
+                label: "Page layout style",
+                hint:  "(not all brands have multiple layouts)",
+                collection: website.page_layouts.split("|") %>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
 
+  <%= f.input :active, label: "Software is active." %>
+  <%= f.input :active_without_products, label: "Force active state even if there are no corresponding active products." %>
+  <br/>
+
   <fieldset>
-    <legend>Software Activation</legend>
+    <legend>Software Activation (not common)</legend>
     <p>Originally developed for the activation of Lexicon plugins which don't use iLok,
       this can also be used for other software which require URL-based activation.</p>
 

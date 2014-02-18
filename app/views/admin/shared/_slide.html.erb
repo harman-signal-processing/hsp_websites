@@ -35,10 +35,10 @@
 		    	hint: "URLs beginning with a partial path (ie, \"products/rp1000\") will be relative to the visitor's selected language." %>
 		    <div class="row">
 		    	<div class="large-6 columns">
-		    		<%= f.input :start_on, as: :string, input_html: { class: 'ui-datepicker', id: "new_slide_start_on"} %>
+		    		<%= f.input :start_on, as: :string, input_html: { class: 'ui-datepicker', id: "setting_#{slide.id}_start_on" } %>
 		    	</div>
 		    	<div class="large-6 columns">
-		    		<%= f.input :remove_on, as: :string, input_html: { class: 'ui-datepicker', id: "new_slide_remove_on"} %>
+		    		<%= f.input :remove_on, as: :string, input_html: { class: 'ui-datepicker', id: "setting_#{slide.id}_remove_on" } %>
 		    	</div>
 		    </div>
 			<%= f.submit "update slide", class: "tiny round button" %>

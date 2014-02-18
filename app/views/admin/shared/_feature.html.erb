@@ -37,10 +37,10 @@
 
 			<div class="row">
 				<div class="large-6 columns">
-					<%= f.input :start_on, as: :string, input_html: { class: 'ui-datepicker', id: "new_feature_start_on" } %>
+					<%= f.input :start_on, as: :string, input_html: { class: 'ui-datepicker', id: "setting_#{feature.id}_start_on" } %>
 				</div>
 				<div class="large-6 columns">
-					<%= f.input :remove_on, as: :string, input_html: { class: 'ui-datepicker', id: "new_feature_remove_on" } %>
+					<%= f.input :remove_on, as: :string, input_html: { class: 'ui-datepicker', id: "setting_#{feature.id}_remove_on" } %>
 				</div>
 			</div>
 			<%= f.submit "update feature", class: "tiny round button" %>

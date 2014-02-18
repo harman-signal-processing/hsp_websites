@@ -44,16 +44,22 @@
 <% end %>
 
 <div class="group">
-	<h3>Products related to this promotion</h3>
-	<%= form_for [:admin, @product_promotion], remote: true do |f| %>
+	<h4 class="subheader">Products related to this promotion</h4>
+	<%= simple_form_for [:admin, @product_promotion], remote: true do |f| %>
 		<%= f.hidden_field :promotion_id %>
 		<%= hidden_field_tag :called_from, "promotion" %>
-		<p>
-			<%= f.collection_select :product_id, website.products, :id, :name %>
-			<%= f.submit "add product" %>
-		</p>
+
+		<div class="row collapse">
+			<div class="large-5 small-9 columns">
+				<%= f.association :product, label: false, collection: website.products %>
+			</div>
+			<div class="large-2 small-3 columns">
+				<%= f.submit "add product", class: "button prefix" %>
+			</div>
+			<div class="large-5 columns"></div>
+		</div>
 	<% end %>
-	<ul id="product_promotions">
+	<ul id="product_promotions" class="list">
 		<% @promotion.product_promotions.each do |pp| %>
 		<%= render "/admin/shared/product_promotion_row", pp: pp, called_from: "promotion" %>
 		<% end %>

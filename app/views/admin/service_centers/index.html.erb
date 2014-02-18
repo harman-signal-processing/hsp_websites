@@ -12,7 +12,7 @@
 </ul>
 <% end %>
 
-<ul>
+<ul class="list">
 <% @service_centers.each do |service_center| %>
     <li><%= link_to service_center.name, [:admin, service_center] %></li>
 <% end %>
