@@ -1,4 +1,4 @@
-<h1><%= @amp_model.name %></h1>
+<h3><%= @amp_model.name %></h3>
 
 <ul class="button-group round">
 	<li><%= link_to 'Back', admin_amp_models_path, class: "small secondary button" %></li>
@@ -7,21 +7,29 @@
 </ul>
 
 <div class="group">
-	<h3>Available in these Products:</h3>
+	<h4 class="subheader">Available in these Products:</h4>
 	<p><%= link_to_function "add a product", "$('#add_amp_model_form').toggle();"%></p>
 
 	<div id="add_amp_model_form" style="display:none">
-		<%= form_for [:admin, @product_amp_model], remote: true do |f| %>
+		<%= simple_form_for [:admin, @product_amp_model], remote: true do |f| %>
 			<%= hidden_field_tag :amp_model_name %>
 			<%= hidden_field_tag :called_from, "amp_model" %>
 		    <%= f.hidden_field :amp_model_id %>
-			<%= f.collection_select :product_id, website.products, :id, :name %> 
-			<%= f.submit %>
-			<%= link_to_function "cancel", "$('#add_amp_model_form').toggle();"%>
+		    <div class="row collapse">
+		    	<div class="large-10 small-8 columns">
+		    		<%= f.association :product, collection: website.products, label: false %> 
+		    	</div>
+		    	<div class="large-2 small-4 columns">
+		    		<%= f.submit "add product", class: "postfix button" %>
+		    	</div>
+		    </div>
+		    <p style="text-align: right">
+		    	<%= link_to_function "cancel", "$('#add_amp_model_form').toggle();"%>
+		    </p>
 		<% end %>
 	</div>
 
-	<ul id="product_amp_models">
+	<ul id="product_amp_models" class="list">
 	  <% @amp_model.product_amp_models.each do |pam| %>
 	  <%= render "/admin/shared/product_amp_model_row", pam: pam, called_from: "amp_model" %>
 	  <% end %>

@@ -1,25 +1,5 @@
-<%= form_for([:admin, @effect], html: {multipart: true}) do |f| %>
-  <% if @effect.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@effect.errors.count, "error") %> prohibited this effect from being saved:</h2>
-
-      <ul>
-      <% @effect.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :effect_type_id %><br />
-    <%= f.collection_select :effect_type_id, EffectType.order(:position), :id, :name %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<%= simple_form_for([:admin, @effect], html: {multipart: true}) do |f| %>
+  <%= f.association :effect_type, collection: EffectType.order(:position) %>
+  <%= f.input :name %>
+  <br/><%= f.button :submit %>
 <% end %>

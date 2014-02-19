@@ -8,9 +8,9 @@
 	<% end %>
 </ul>
 
-<h2>Websites</h2>
+<h3 class="subheader">Websites</h3>
 
-<ul>
+<ul class="list">
 	<% @brand.websites.each do |website| %>
 	<li>
 		<%= link_to website.url, [:admin, website] %>
@@ -19,7 +19,7 @@
 	<% end %>
 </ul>
 
-<h2>Latest Admin Actions</h2>
+<h5 class="subheader">Latest Admin Actions</h5>
 
 <table class="data">
 	<tr>

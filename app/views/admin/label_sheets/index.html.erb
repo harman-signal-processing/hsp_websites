@@ -6,7 +6,7 @@
 </ul>
 <% end %>
 
-<ul id="label_sheets">
+<ul id="label_sheets" class="list">
 	<% @label_sheets.each do |label_sheet| %>
 	<li id="label_sheet_<%= label_sheet.id %>"><%= link_to label_sheet.name, [:admin, label_sheet] %></li>
 	<% end %>

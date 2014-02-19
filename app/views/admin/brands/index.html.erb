@@ -5,7 +5,7 @@
 </ul>
 <% end %>
 
-<ul>
+<ul class="list">
 <% @brands.each do |brand| %>
   <li><%= link_to brand.name, [:admin, brand] %></li>
 <% end %>

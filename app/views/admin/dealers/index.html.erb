@@ -17,15 +17,17 @@
   </ul>
   <% end %>
 
-  <%= search_form_for [:admin, @search] do |f| %>
-    <div class="form_field">
-      <%= f.label :name_cont, "Name contains" %><br/>
-      <%= f.text_field :name_cont %>
-      <%= f.submit "Search dealers" %>
-      <div>
-        <%= check_box_tag :this_brand, true, @this_brand %>
-        <%= label_tag :this_brand, "Only #{website.brand.name} dealers", class: "hint" %>
+  <%= search_form_for [:admin, @search], class: "custom" do |f| %>
+      <%= f.label :name_cont, "Name contains" %>
+      <div class="row collapse">
+        <div class="large-10 small-8 columns">
+          <%= f.text_field :name_cont %>
+        </div>
+        <div class="large-2 small-4 columns">
+          <%= f.submit "Search dealers", class: "postfix button" %>
+        </div>
       </div>
+      <div class="input boolean optional this_brand"><input name="this_brand" type="hidden" value="0" /><label class="boolean optional control-label checkbox" for="this_brand"><%= check_box_tag :this_brand, true, @this_brand %> Only <%= website.brand.name %> dealers</label></div><br/>
     </div>
   <% end %>
 

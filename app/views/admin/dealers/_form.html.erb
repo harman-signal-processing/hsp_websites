@@ -1,41 +1,16 @@
-<%= f.error_messages %>
+<%= simple_form_for([:admin, @dealer]) do |f| %>
 
-<p>
-  <%= f.label :name %><br />
-  <%= f.text_field :name %>
-</p>
-<p>
-  <%= f.label :address %><br />
-  <%= f.text_field :address %>
-</p>
-<p>
-  <%= f.label :city %><br />
-  <%= f.text_field :city %>
-</p>
-<p>
-  <%= f.label :state %><br />
-  <%= f.text_field :state %>
-</p>
-<p>
-  <%= f.label :zip %><br />
-  <%= f.text_field :zip %>
-</p>
-<p>
-  <%= f.label :telephone %><br />
-  <%= f.text_field :telephone %>
-</p>
-<p>
-  <%= f.label :fax %><br />
-  <%= f.text_field :fax %>
-</p>
-<p>
-  <%= f.label :email %><br />
-  <%= f.text_field :email %>
-</p>
-<p>
-  <%= f.label :account_number %><br />
-  <%= f.text_field :account_number %>
-</p>
-<p>
-	<%= f.check_box :exclude %> <%= f.label :exclude, "Exclude from site listings" %><br/>
-</p>
+   <%= f.input :name %>
+   <%= f.input :address %>
+   <%= f.input :city %>
+   <%= f.input :state %>
+   <%= f.input :zip %>
+   <%= f.input :telephone %>
+   <%= f.input :fax %>
+   <%= f.input :email %>
+   <%= f.input :account_number %>
+   <%= f.input :exclude, label: "Exclude from site listings" %><br/>
+
+  <br/><%= f.button :submit %>
+
+<% end %>
