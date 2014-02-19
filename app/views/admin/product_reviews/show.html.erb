@@ -37,20 +37,28 @@
 </p>
 <% end %>
 
+<div class="row">
+	<div class="large-8 columns">
+		<div class="group">
+			<h5 class="subheader">This review is associated with the following product(s):</h5>
+			<%= simple_form_for [:admin, @product_review_product], remote: true do |f| %>
+				<%= hidden_field_tag "called_from", "product_review" %>
+			    <%= f.hidden_field :product_review_id %>
+			    <div class="row collapse">
+			    	<div class="large-10 small-8 columns">
+			    		<%= f.association :product, collection: Product.all_for_website(website), label: false %> 
+			    	</div>
+			    	<div class="large-2 small-4 columns">
+			    		<%= submit_tag 'add', class: "postfix button"  %>
+			    	</div>
+			    </div>
+			<% end %>
 
-
-<div class="group">
-<h3>This review is associated with the following product(s):</h3>
-<%= form_for [:admin, @product_review_product], remote: true do |f| %>
-	<%= hidden_field_tag "called_from", "product_review" %>
-    <%= f.hidden_field :product_review_id %>
-	<%= f.collection_select :product_id, Product.all_for_website(website), :id, :name %> 
-	<%= submit_tag 'add', class: "small round button"  %>
-<% end %>
-
-<ul id="product_review_products">
-	<% @product_review.product_review_products.each do |prp| %>
-		<%= render '/admin/shared/product_review_product_row', prp: prp, called_from: 'product_review' %>
-	<% end %>
-</ul>
+			<ul id="product_review_products" class="list">
+				<% @product_review.product_review_products.each do |prp| %>
+					<%= render '/admin/shared/product_review_product_row', prp: prp, called_from: 'product_review' %>
+				<% end %>
+			</ul>
+		</div>
+	</div>
 </div>

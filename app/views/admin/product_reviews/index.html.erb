@@ -6,7 +6,7 @@
 </ul>
 <% end %>
 
-<ul>
+<ul class="list">
 <% @product_reviews.each do |product_review| %>
   <li><%= link_to product_review.title, [:admin, product_review] %>
 	<% if !(product_review.link_status.match(/^2/)) %>

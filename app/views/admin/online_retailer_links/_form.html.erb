@@ -1,0 +1,10 @@
+<%= simple_form_for([:admin, @online_retailer_link]) do |f| %>
+
+  <div class="row">
+    <div class="large-4 columns">
+      <%= f.association :product, collection: [@online_retailer_link.product] + Product.non_discontinued(website) %>
+    </div>
+  </div>
+  <%= f.input :url, label: "URL" %>
+  <br/><%= f.button :submit %>
+<% end %>

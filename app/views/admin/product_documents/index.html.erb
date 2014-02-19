@@ -2,7 +2,7 @@
 
 <%= link_to 'New product document', new_admin_product_document_path, class: "small success button" %>
 
-<ul>
+<ul class="list">
 <% @product_documents.each do |product_document| %>
   <li><%= link_to product_document.name, [:admin, product_document] %></li>
 <% end %>

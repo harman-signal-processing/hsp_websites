@@ -1,0 +1,5 @@
+<%= simple_form_for([:admin, @news_product]) do |f| %>
+  <%= f.association :product %>
+  <%= f.association :news %>
+  <br/><%= f.button :submit %>
+<% end %>

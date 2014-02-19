@@ -6,7 +6,7 @@
 </ul>
 <% end %>
 
-<ul>
+<ul class="list">
 <% @online_retailers.each do |online_retailer| %>
   <% if can? :update, online_retailer %>
   <li><%= link_to online_retailer.name, [:admin, online_retailer] %>

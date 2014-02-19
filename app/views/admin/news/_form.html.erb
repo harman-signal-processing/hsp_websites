@@ -1,15 +1,18 @@
-<%= simple_form_for(@news, url: admin_news_index_path, html: {multipart: true}) do |f| %>
+<%= simple_form_for([:admin, @news], html: {multipart: true}) do |f| %>
+
+  <%= f.input :title %>
 
   <div class="row">
-    <div class="large-6 columns">
+    <div class="large-4 columns">
       <%= f.input :post_on, as: :string, input_html: { class: 'ui-datepicker' } %>
-      <%= f.input :title %>
       <%#= f.input :keywords %>
       <%= f.input :news_photo %>
     </div>
   </div>
 
-  <%= f.input :body, input_html: { style: "height: 160px", class: "mceEditor" } %>
+  <br/>
+  <%= f.input :body, input_html: { style: "height: 400px", class: "mceEditor" } %>
+  <br/>
 
   <br/><%= f.button :submit %>
 

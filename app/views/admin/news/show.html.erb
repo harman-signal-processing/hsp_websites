@@ -30,10 +30,11 @@
 	<div class="large-6 columns">
 		<div class="group">
 			<h4 class="subheader">Send News Email</h4>
+			<p><i>Regardless of the publication date, this will send notifications now.</i></p>
 			<%= simple_form_for [:admin, @news], url: notify_admin_news_path(@news) do |f| %>
 				<%= f.input :from, hint: "(must be a valid address)" %>
 				<%= f.input :to, hint: "(default sends it to HPro Executive list)" %>
-				<%= f.submit "Send News", class: "small round button" %> <i>Regardless of the publication date, this will send notifications now.</i>
+				<%= f.submit "Send News", class: "small round button" %> 
 			<% end %>
 			<p>config.hpro_execs = <%= HarmanSignalProcessingWebsite::Application.config.hpro_execs.join(", ") %></p>
 		</div>	
