@@ -440,7 +440,7 @@
 
 				<% if @product.sub_products.size > 1 %>
 					<h5 class="subheader">These are sub-products of this product</h5>
-					<ul id="parent_products" class="sortable">
+					<ul id="parent_products" class="sortable_list">
 						<% @product.sub_products.each do |sub_product| %>
 						<%= render '/admin/shared/parent_product_row', pp: sub_product, called_from: 'parent_product' %>
 						<% end %>

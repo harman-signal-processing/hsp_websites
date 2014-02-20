@@ -1,7 +1,7 @@
 <% called_from ||= 'product' %>
 <li id="product_document_<%= pd.id %>">
 	<%= (called_from == 'product') ? 
-			link_to(pd.name, [:admin, pd]) : 
+			link_to(pd.name(hide_product_name: true), [:admin, pd]) : 
 			link_to(pd.product.name, [:admin, pd.product]) %> 
 	<%= link_to(image_tag("icons/trash.gif"), 
 			admin_product_document_path(pd), 

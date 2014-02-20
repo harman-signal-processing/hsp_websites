@@ -82,21 +82,29 @@
 	<h4 class="subheader">Big Bottom Box</h4>
 	<div class="instructions">If your site has a big bottom box on the homepage, then use these settings to control which content appears in the columns. If you don't know if your site has this, please don't ask Adam using phrases like, "Do I have a big bottom..."</div>
 	
-	<%= form_for(:settings, url: big_bottom_box_admin_settings_path ) do |f| %>
+	<%= simple_form_for(:settings, url: big_bottom_box_admin_settings_path) do |f| %>
 		<% @columns.each_with_index do |column,i| %>
 		<%= f.fields_for "setting[#{i}]", column do |col| %>
-			<div class="field">
-				<%= col.label :string_value, column.name.titleize %>
-				<%= col.select :string_value, [[]] + @column_options  + [["HTML (edit text for setting 'homepage_column_#{i+1}')", "html_column_#{i+1}"]] %>
-				<% if i == 3 %>(not all sites have 4 columns)<% end %>
-				<%= col.hidden_field :setting_type %>
-				<%= col.hidden_field :brand_id %>
-				<%= col.hidden_field :name %>
+			<div class="row">
+				<div class="large-3 columns">
+					<%= col.label :string_value, column.name.titleize, class: "right inline" %>
+				</div>
+				<div class="large-5 columns">
+					<%= col.select :string_value, [[]] + @column_options  + [["HTML (edit text for setting 'homepage_column_#{i+1}')", "html_column_#{i+1}"]] %>
+				</div>
+				<div class="large-4 columns">
+					<span class="small"><% if i == 3 %>(not all sites have 4 columns)<% end %></span>
+					<%= col.hidden_field :setting_type %>
+					<%= col.hidden_field :brand_id %>
+					<%= col.hidden_field :name %>
+				</div>
 			</div>
 		<% end %>
 		<% end %>
-		<div class="actions">
-			<%= f.submit class: "small round button" %>
+		<div class="row">
+			<div class="large-5 large-offset-3 columns">
+				<%= f.submit class: "small round button" %>
+			</div>
 		</div>
 	<% end %>
 </div>

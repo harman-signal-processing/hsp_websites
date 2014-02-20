@@ -26,7 +26,7 @@ describe "Admin Pricing Integration Test" do
     end
 
     it "should list pricing types" do 
-      must_have_link @dealer_pricing_type.name, href: admin_pricing_type_path(@dealer_pricing_type, locale: I18n.default_locale)
+      must_have_link @dealer_pricing_type.name, href: edit_admin_pricing_type_path(@dealer_pricing_type, locale: I18n.default_locale)
     end
     
     it "should show which pricing types are included on price list" do

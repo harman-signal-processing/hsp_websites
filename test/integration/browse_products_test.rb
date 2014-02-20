@@ -120,7 +120,7 @@ describe "Browse Products Integration Test" do
     it "should link to attached documents" do
       @product.product_documents << FactoryGirl.create(:product_document, product: @product)
       visit product_url(@product, locale: I18n.default_locale, host: @website.url)
-      page.must_have_link @product.product_documents.first.name, href: @product.product_documents.first.document.url
+      page.must_have_link @product.product_documents.first.name(hide_product_name: true), href: @product.product_documents.first.document.url
     end
 
     it "should have thumbnail images" do
