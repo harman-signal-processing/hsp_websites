@@ -1,48 +1,21 @@
-<%= form_for([:admin, @audio_demo], html: {multipart: true}) do |f| %>
-  <% if @audio_demo.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@audio_demo.errors.count, "error") %> prohibited this demo from being saved:</h2>
-
-      <ul>
-      <% @audio_demo.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-
-  <div class="field">
-  	<%= f.label :description %><br/>
-	<%= f.text_area :description, size: "50x5" %>
-  </div>
-
-  <div class="field">
-  	<%= f.label :wet_demo, "Effect-on (wet) demo file" %><br/>
-	<%= f.file_field :wet_demo %>
+<%= simple_form_for([:admin, @audio_demo], html: {multipart: true}) do |f| %>
+  <%= f.input :name %>
+	<%= f.input :description %>
+  <%= f.input :wet_demo, label: "Effect-on (wet) demo file" %>
 	<% unless @audio_demo.wet_demo_file_name.blank? %>
-		<div class="hint">currently: <%= link_to @audio_demo.wet_demo_file_name, @audio_demo.wet_demo.url %></div>
+		<span class="hint">currently: <%= link_to @audio_demo.wet_demo_file_name, @audio_demo.wet_demo.url %></span>
 	<% end %>
-  </div>
 
-  <div class="field">
-  	<%= f.label :dry_demo, "Effect-off (dry) demo file" %> (optional, but should be sync'ed with wet file)<br/>
-	<%= f.file_field :dry_demo %>
+  <%= f.input :dry_demo, label: "Effect-off (dry) demo file (optional, but should be sync'ed with wet file)" %>
 	<% unless @audio_demo.dry_demo_file_name.blank? %>
-		<div class="hint">currently: <%= link_to @audio_demo.dry_demo_file_name, @audio_demo.dry_demo.url %></div>
+		<span class="hint">currently: <%= link_to @audio_demo.dry_demo_file_name, @audio_demo.dry_demo.url %></span>
 	<% end %>
+
+  <div class="row">
+    <div class="large-2 columns">
+      <%= f.input :duration_in_seconds %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :duration_in_seconds %><br />
-    <%= f.text_field :duration_in_seconds, size: 10 %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <br/><%= f.button :submit %>
 <% end %>

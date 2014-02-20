@@ -4,10 +4,5 @@
 	<li><%= link_to 'Back', admin_settings_path, class: "small secondary button" %></li>
 </ul>
 
-<%= form_for([:admin, @setting], html: {multipart: true}) do |f| %>
-	<%= render "form", f: f%>
-  <p>
-    <%= f.submit 'Create' %>
-  </p>
-<% end %>
+<%= render "form" %>
 

@@ -6,17 +6,20 @@
 </ul>
 <% end %>
 
-<h2>Featured Artists</h2>
+<h3 class="subheader">Featured Artists</h3>
 <ul id="artists" class="sortable_list">
 <% @featured_artists.each do |artist| %>
-  <li id="artist_<%= artist.id %>"><%= link_to artist.name, [:admin, artist] %></li>
+  <li id="artist_<%= artist.id %>">
+	<span class="handle"><%= image_tag("icons/drag_handle.gif") %></span>
+  	<%= link_to artist.name, [:admin, artist] %>
+  </li>
 <% end %>
 </ul>
-<%#= sortable_element "artists", url: update_order_admin_artists_path %>
 
 <% if @unapproved_artists.size > 0 %>
-<h2>Unapproved Artists (<%= @unapproved_artists.size %>)</h2>
-<table border="0" class="data">
+<br/>
+<h4 class="subheader">Unapproved Artists (<%= @unapproved_artists.size %>)</h4>
+<table class="data" width="100%">
 	<tr>
 		<th>Name</th>
 		<th>Invitation Code</th>
@@ -37,8 +40,9 @@
 <% end %>
 
 <% if @the_rest.size > 0 %>
-<h2>The Rest</h2>
-<table border="0" class="data">
+<br/>
+<h5 class="subheader">The Rest</h5>
+<table class="data" width="100%">
 	<tr>
 		<th>Name</th>
 		<th>Approver</th>

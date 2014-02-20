@@ -1,64 +1,66 @@
-<%= f.error_messages %>
+<%= simple_form_for [:admin, @product_family], html: { multipart: true } do |f| %>
 
-<p>
-  <%= f.label :name %><br />
-  <%= f.text_field :name %>
-</p>
-<p>
-  <%= f.label :family_photo %><br />
-  <%= f.file_field :family_photo %>
+	<div class="row">
+		<div class="large-8 columns">
+			<%= f.input :name %>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-4 columns">
+			<%= f.association :parent, 
+				collection: ProductFamily.all_parents(website),
+				hint: "Do not set so it is its own parent. That would be gross." %>
+		</div>
+		<div class="large-4 columns">
+			<% if website.page_layouts %>
+				<%= f.input :layout_class, label: "Page layout style",
+					hint: "(not all brands have multiple layouts)",
+					collection: website.page_layouts.split("|") %>
+			<% end %>
+		</div>
+		<div class="large-4 columns"></div>
+	</div>
+
+	<%= f.input :hide_from_homepage, label: "Hide from homepage. (only applicable to parent categories)" %>	<br/>
+
+	<div class="row">
+		<div class="large-4 columns">
+			<%= f.input :background_color, hint: "(optional page background: ie \"#CCCCCC\" or \"blue\")" %>
+		</div>
+	</div>
+
+	<%= f.input :family_photo %>
   	<% if !f.object.family_photo_file_name.blank? %>
-	<span id="family_photo">
-		<%= link_to f.object.family_photo_file_name, f.object.family_photo.url %>
-		<%= link_to image_tag("icons/trash.gif"), delete_family_photo_admin_product_family_path(f.object), remote: true %>
-	</span>
+		<span id="family_photo">
+			<%= link_to f.object.family_photo_file_name, f.object.family_photo.url %>
+			<%= link_to image_tag("icons/trash.gif"), delete_family_photo_admin_product_family_path(f.object), remote: true %>
+		</span>
 	<% end %>
-</p>
 
-<p>
-  <%= f.label :title_banner %> <span class="hint">appears on the top of this product family page</span><br />
-  <%= f.file_field :title_banner %>
-      <% if !f.object.title_banner_file_name.blank? %>
-	<span id="title_banner">
-		<%= link_to f.object.title_banner_file_name, f.object.title_banner.url %>
-		<%= link_to image_tag("icons/trash.gif"), delete_title_banner_admin_product_family_path(f.object), remote: true %>
-	</span>
+	<%= f.input :title_banner, hint: "appears on the top of this product family page" %>
+    <% if !f.object.title_banner_file_name.blank? %>
+		<span id="title_banner">
+			<%= link_to f.object.title_banner_file_name, f.object.title_banner.url %>
+			<%= link_to image_tag("icons/trash.gif"), delete_title_banner_admin_product_family_path(f.object), remote: true %>
+		</span>
 	<% end %>
-</p>
-<p>
-	<%= f.label :parent_id %><br />
-	<%= f.collection_select :parent_id, ProductFamily.all_parents(website), :id, :name, include_blank: true %>
-	<i>Do not set so it is its own parent. That would be gross.</i>
-</p>
-<p>
-	<%= f.check_box :hide_from_homepage %>
-	<%= f.label :hide_from_homepage %> (only applicable to parent categories)
-</p>
-<% if website.page_layouts %>
-<p>
-	<%= f.label :layout_class, "Page layout style" %> <span class="hint">(not all brands have multiple layouts)</span><br/>
-	<%= f.select :layout_class, [[]] + website.page_layouts.split("|") %>
-</p>
-<% end %>
-<p>
-	<%= f.label :background_color %> (optional custom page background: <i>#CCCCCC or blue</i>)<br/>
-	<%= f.text_field :background_color, size: 15 %>
-</p>
-<p>
-	<%= f.label :background_image %> (optional background image--will be centered)<br/>
-	<%= f.file_field :background_image %>
+
+	<%= f.input :background_image, hint: "(optional background image--will be centered)" %>
 	<% if !f.object.background_image_file_name.blank? %>
-	<span id="background_image">
-		<%= link_to f.object.background_image_file_name, f.object.background_image.url %>
-		<%= link_to image_tag("icons/trash.gif"), delete_background_admin_product_family_path(f.object), remote: true %>
-	</span>
+		<span id="background_image">
+			<%= link_to f.object.background_image_file_name, f.object.background_image.url %>
+			<%= link_to image_tag("icons/trash.gif"), delete_background_admin_product_family_path(f.object), remote: true %>
+		</span>
 	<% end %>
-</p>
-<p>
-  <%= f.label :intro %><br />
-  <%= f.text_area :intro, size: "50x2" %>
-</p>
-<p>
-  <%= f.label :keywords %><br />
-  <%= f.text_area :keywords, size: "60x5" %>
-</p>
+
+	<div class="row">
+		<div class="large-8 columns">
+			<%= f.input :intro, label: "Intro text" %>
+			<%#= f.input :keywords %>
+		</div>
+	</div>
+
+	<br/><%= f.button :submit %>
+
+<% end %>

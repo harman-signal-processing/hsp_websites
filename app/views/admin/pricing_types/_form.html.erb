@@ -1,29 +1,13 @@
-<%= form_for([:admin, @pricing_type]) do |f| %>
-  <% if @pricing_type.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@pricing_type.errors.count, "error") %> prohibited this pricing_type from being saved:</h2>
-
-      <ul>
-      <% @pricing_type.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<%= simple_form_for([:admin, @pricing_type]) do |f| %>
+  <div class="row">
+    <div class="large-8 columns">
+      <%= f.input :name %>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <div class="large-4 columns">
+      <%= f.input :pricelist_order, collection: ["", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :pricelist_order %>
-    <%= f.select :pricelist_order, ["", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] %>
-  </div>
-  <div class="field">
-	<%= f.check_box :us %> <%= f.label :us, "Show on US pricelist" %><br/>
-	<%= f.check_box :intl %> <%= f.label :intl, "Show in international pricelist" %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+	<%= f.input :us, label: "Show on US pricelist" %>
+	<%= f.input :intl, label: "Show in international pricelist" %>
+  <br/><%= f.button :submit %>
 <% end %>

@@ -15,7 +15,7 @@ class MarketingTask < ActiveRecord::Base
   validates :name, presence: :true
   validates :due_on, presence: :true
   validates :brand_id, presence: :true
-  validates :creative_brief, presence: :true
+  validates :creative_brief, presence: :true, on: :create
   before_save :auto_switch_currently_with
   after_save :notify_worker
   after_create :notify_admin

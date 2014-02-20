@@ -1,27 +1,5 @@
-<%= form_for([:admin, @label_sheet]) do |f| %>
-  <% if @label_sheet.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@label_sheet.errors.count, "error") %> prohibited this label sheet from being saved:</h2>
-
-      <ul>
-      <% @label_sheet.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= f.label :product_ids %><br/>
-    <%= f.text_field :product_ids %>
-  </div>
-  
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<%= simple_form_for([:admin, @label_sheet]) do |f| %>
+  <%= f.input :name %>
+  <%= f.input :product_ids %>
+  <br/><%= f.button :submit %>
 <% end %>

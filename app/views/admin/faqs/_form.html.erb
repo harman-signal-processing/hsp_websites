@@ -1,33 +1,7 @@
-<%= form_for([:admin, @faq]) do |f| %>
-  <% if @faq.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@faq.errors.count, "error") %> prohibited this FAQ from being saved:</h2>
-
-      <ul>
-      <% @faq.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :product_id %><br />
-    <%= f.collection_select :product_id, website.products, :id, :name %>
-  </div>
-  <div class="field">
-    <%= f.label :question %><br />
-    <%= f.text_area :question, size: "60x2" %>
-  </div>
-  <div class="field">
-    <%= f.label :answer %><br />
-    <%= f.text_area :answer, size: "60x15", class: "mceEditor" %>
-  </div>
-  <div class="field">
-    <%= f.check_box :hidden %>
-    <%= f.label :hidden %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<%= simple_form_for([:admin, @faq]) do |f| %>
+  <%= f.association :product, collection: website.products %>
+  <%= f.input :question, input_html: { style: "height: 100px;" } %>
+  <%= f.input :answer, input_html: { class: "mceEditor", style: "height: 200px;" } %>
+  <br/><%= f.input :hidden %>
+  <br/><%= f.button :submit %>
 <% end %>

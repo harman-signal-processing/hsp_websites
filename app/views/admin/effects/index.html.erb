@@ -1,9 +1,15 @@
 <h1>Effect Types</h1>
 
-<%= form_for [:admin, @effect_type], remote: true do |f| %>
+<%= simple_form_for [:admin, @effect_type], remote: true do |f| %>
 	<%= f.label :name, "New Effect Type:" %>
-	<%= f.text_field :name, size: 12 %>
-	<%= f.submit %>
+	<div class="row collapse">
+		<div class="large-10 small-8 columns">
+			<%= f.input :name, label: false %>
+		</div>
+		<div class="large-2 small-4 columns">
+			<%= f.button :submit, class: "postfix button" %>
+		</div>
+	</div>
 <% end %>
 
 <ul id="effect_types" class="sortable_list">
@@ -12,15 +18,13 @@
 	<% end %>
 </ul>
 
-<%#= sortable_element "effect_types",
-        # complete: visual_effect(:highlight, "effect_types"),
-        url: update_order_admin_effect_types_path %>
+<div class="group">
+	<h4 class="subheader">Listing Effects</h4>
 
-<h2>Listing Effects</h2>
-
-<ul>
-	<% @effects.each do |effect| %>
-	<li><% unless effect.effect_type_id.blank? %><%= effect.effect_type.name %> - <% end %>
-		<%= link_to effect.name, [:admin, effect] %></li>
-	<% end %>
-</ul>
+	<ul class="list">
+		<% @effects.each do |effect| %>
+		<li><% unless effect.effect_type_id.blank? %><%= effect.effect_type.name %> - <% end %>
+			<%= link_to effect.name, [:admin, effect] %></li>
+		<% end %>
+	</ul>
+</div>

@@ -1,35 +1,36 @@
-<%= f.error_messages %>
+<%= simple_form_for([:admin, @setting], html: {multipart: true}) do |f| %>
 
-<p>
-  <%= f.label :name %><br />
-  <%= f.text_field :name %>
-</p>
-<p>
-  <%= f.label :locale %> en-US, es, de, etc.<br/>
-  <%= f.text_field :locale, size: 6 %><br/>
-  <i>(leave blank to use this setting as a default)</i>
-</p>
-<p>
-  <%= f.label :setting_type %><br />
-  <%= f.select :setting_type, Setting.setting_types %>
-  <i>(complete the corresponding field below)</i>
-</p>
-<p>
-  <%= f.label :string_value %><br />
-  <%= f.text_field :string_value %>
-</p>
-<p>
-  <%= f.label :integer_value %><br />
-  <%= f.text_field :integer_value %><br/>
-  <i>Use this field for the "position" of slides/homepage features.</i>
-</p>
-<p>
-  <%= f.label :text_value %><br />
-  <%= f.text_area :text_value, size: "40x3" %>
-</p>
-<p>
-  <%= f.label :slide, "Slide or feature button" %><br />
-  <%= f.file_field :slide %><br/>
-  <i>To make this image link to some other page, put the URL in the "string value".</i>
-</p>
+  <div class="row">
+    <div class="large-8 columns">
+      <%= f.input :name %>
+    </div>
+    <div class="large-4 columns">
+      <%= f.input :locale, label: "Locale (en-US, es, de, etc.)", hint: "(leave blank to use this setting as a default)" %>
+    </div>
+  </div>
 
+  <div class="row">
+    <div class="large-4 columns">
+      <%= f.input :setting_type, collection: Setting.setting_types, hint: "(complete the corresponding field below)" %>
+    </div>
+  </div>
+
+  <fieldset>
+    <legend>Setting value</legend>
+    <div class="row">
+      <div class="large-6 columns">
+        <%= f.input :string_value %>
+        <%= f.input :integer_value, hint: "Use this field for the \"position\" of slides/homepage features." %>
+        <%= f.input :slide, label: "Slide or feature image", hint: "To make this image link to some other page, put the URL in the \"string value\"." %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="large-8 columns">
+        <%= f.input :text_value, input_html: { style: "height: 80px;"} %>
+      </div>
+    </div>
+  </fieldset>
+
+  <br/><%= f.button :submit %>
+<% end %>

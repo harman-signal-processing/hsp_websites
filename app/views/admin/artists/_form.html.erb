@@ -1,69 +1,55 @@
-<%= f.error_messages %>
+<%= simple_form_for([:admin, @artist], html: {multipart: true}) do |f| %>
+  <div class="row">
+  	<div class="large-8 columns">
+  		<%= f.input :name %>
+  	</div>
+  	<div class="large-4 columns">
+  		<%= f.association :artist_tier, collection: ArtistTier.all %>
+  	</div>
+  </div>
 
-<p>
-  <%= f.label :name %><br />
-  <%= f.text_field :name %>
-</p>
-<p>
-	<%= f.label :artist_tier_id %>
-	<%= f.collection_select :artist_tier_id, ArtistTier.all, :id, :name, include_blank: true %>
-</p>
-<p>
-  <%= f.check_box :featured %>
-  <%= f.label :featured %> in the slideshow on the Artist page.
-</p>
-<%= fields_for @artist_brand do |ab| %>
-<p>
-  <%= ab.label :intro %> (Used for the featured artists slideshow)<br/>
-  <%= ab.text_area :intro, class: "mceEditor", size: "50x4" %>
-</p>
+  <%= f.input :featured, label: "Featured in the slideshow on the Artist page." %><br/>
+
+<%= simple_fields_for @artist_brand do |ab| %>
+  <%= ab.input :intro, 
+  		label: "Intro text (Used for the featured artists slideshow)", 
+  		input_html: { class: "mceEditor", style: "height: 120px" } %><br/>
 <% end %>
-<p>
-  <%= f.label :bio %><br />
-  <%= f.text_area :bio, class: "mceEditor", size: "50x15" %>
-</p>
-<p>
-  <%= f.label :notable_career_moments %><br/>
-  <%= f.text_area :notable_career_moments, class: "mceEditor", size: "50x4" %>
-</p>
-<p>
-  <%= f.label :artist_photo %><br />
-  <%= f.file_field :artist_photo %>
+
+  <%= f.input :bio, input_html: { class: "mceEditor", style: "height: 300px" } %><br/>
+  <%= f.input :notable_career_moments, input_html: { class: "mceEditor", style: "height: 200px" } %><br/>
+
+	<div class="row">
+		<div class="large-6 columns">
+  			<%= f.input :website %>
+  		</div>
+  		<div class="large-6 columns">
+  			<%= f.input :email, hint: "Enter a unique dummy address if this artist doesn't need to login." %>
+  		</div>
+  	</div>
+
+
+  <%= f.input :artist_photo %>
 	<% unless @artist.artist_photo_file_name.blank? %>
 	<span class="hint">
 		leave blank to keep: <%= link_to(@artist.artist_photo_file_name, @artist.artist_photo.url) %>
 	</span>
 	<% end %>
-</p>
-<p>
-  <%= f.label :artist_product_photo %><br />
-  <%= f.file_field :artist_product_photo %>
+
+  <%= f.input :artist_product_photo %>
 	<% unless @artist.artist_product_photo_file_name.blank? %>
 	<span class="hint">
 		leave blank to keep: <%= link_to(@artist.artist_product_photo_file_name, @artist.artist_product_photo.url) %>
 	</span>
 	<% end %>
-</p>
-<p>
-  <%= f.label :website %><br />
-  <%= f.text_field :website %>
-</p>
-<p>
-  <%= f.label :email %><br />
-  <%= f.text_field :email %>
-	<span class="hint">Enter a unique dummy address if this artist doesn't need to login.</span>
-</p>
+
+
 <% if @artist.new_record? %>
-<p>
-	<%= f.label :password %><br />
-	<%= f.password_field :password %>
-</p>
-<p>
-	<%= f.label :password_confirmation %><br/>
-	<%= f.password_field :password_confirmation %>
-</p>
+	<%= f.input :password %>
+	<%= f.input :password_confirmation %>
 <% end %>
-<p>
-	<%= f.check_box :approved %>
-	<%= f.label :approved %>
-</p>
+
+	<br/><%= f.input :approved, as: :boolean %><br/>
+
+	<br/><%= f.button :submit %>
+<% end %>

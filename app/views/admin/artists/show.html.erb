@@ -10,69 +10,59 @@
 	<li><%= link_to 'Delete', [:admin, @artist], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
 </ul>
 
-<p>
-	<b>Artist Tier:</b>
-	<%= (@artist.artist_tier) ? link_to(@artist.artist_tier.name, [:admin, @artist.artist_tier]) : "" %>
-</p>
+<div class="row">
+	<div class="large-9 columns">
+		<p>
+			<b>Artist Tier:</b>
+			<%= (@artist.artist_tier) ? link_to(@artist.artist_tier.name, [:admin, @artist.artist_tier]) : "" %>
+		</p>
 
-<% unless @artist.artist_photo_file_name.blank? %>
-  	<%= link_to(image_tag(@artist.artist_photo.url(:tiny_square)), @artist.artist_photo.url) %>
-<% end %>
-<% unless @artist.artist_product_photo_file_name.blank? %>
-  	<%= link_to(image_tag(@artist.artist_product_photo.url(:tiny_square)), @artist.artist_product_photo.url) %>
-<% end %>
+		<p><b>Summary:</b>
+			<%= (@artist_brand.intro.blank?) ? "" : strip_html(@artist_brand.intro) %>
+		</p>
 
-<p><b>Summary:</b>
-	<%= (@artist_brand.intro.blank?) ? "" : strip_html(@artist_brand.intro) %>
-</p>
+		<p>
+		  <b>Website:</b>
+		  <%=h @artist.website %>
+		</p>
 
-<p><b>Artist Bio:</b>
-<%= truncate(strip_html(@artist.bio)) %>
-</p>
+		<p>
+		  <b>Email:</b>
+		  <%= mail_to @artist.email, @artist.email %>
+		</p>
 
-<p><b>Career Moments:</b>
-<%= (@artist.notable_career_moments.blank?) ? "" : truncate(strip_html(@artist.notable_career_moments)) %>
-</p>
+		<p>
+		  <b>Featured?</b>
+		  <%= (@artist.featured) ? "yes" : "no" %>
+		</p>
 
-<p>
-  <b>Website:</b>
-  <%=h @artist.website %>
-</p>
+		<p>
+			<b>Approval Status:</b>
+			<%= @artist.approval_status %>
+		</p>
+	</div>
+	<div class="large-3 columns">
 
-<p>
-  <b>Email:</b>
-  <%= mail_to @artist.email, @artist.email %>
-</p>
-
-<p>
-  <b>Featured?</b>
-  <%= (@artist.featured) ? "yes" : "no" %>
-</p>
-
-<p>
-	<b>Approval Status:</b>
-	<%= @artist.approval_status %>
-</p>
+		<% unless @artist.artist_photo_file_name.blank? %>
+		  	<%= link_to(image_tag(@artist.artist_photo.url(:tiny_square)), @artist.artist_photo.url) %>
+		<% end %>
+		<% unless @artist.artist_product_photo_file_name.blank? %>
+		  	<%= link_to(image_tag(@artist.artist_product_photo.url(:tiny_square)), @artist.artist_product_photo.url) %>
+		<% end %>
+	</div>
+</div>
 
 <div class="group">
-	<h3>Products this artist uses</h3>
-	<%= form_for [:admin, @artist_product], remote: true do |f| %>
+	<h4 class="subheader">Products this artist uses</h4>
+	<%= simple_form_for [:admin, @artist_product], remote: true do |f| %>
 		<%= f.hidden_field :artist_id %>
 		<%= hidden_field_tag :called_from, "artist" %>
-		<p>
-			<%= f.collection_select :product_id, website.products, :id, :name %>
-			<%= f.check_box :on_tour %>
-			<%= f.label :on_tour, "on tour with this product" %>
-		</p>
-		<p>
-			<%= f.label :quote, "Artist quote" %><br/>
-			<%= f.text_area :quote, size: "50x2" %>
-		</p>
-		<p>
-			<%= f.submit "add product" %>
-		</p>
+		<%= f.association :product, collection: website.products %>
+		<%= f.input :quote, label: "Artist quote" %>
+		<%= f.input :on_tour, as: :boolean, label: "on tour with this product" %>
+		<br/><%= f.submit "add product", class: "small round button" %>
 	<% end %>
-	<ul id="artist_products">
+	<ul id="artist_products" class="list">
 		<% @artist.artist_products.each do |ap| %>
 		<%= render "/admin/shared/artist_product_row", ap: ap, called_from: "artist" %>
 		<% end %>

@@ -1,23 +1,19 @@
-<%= f.error_messages %>
+<%= simple_form_for([:admin, @news], html: {multipart: true}) do |f| %>
 
-<p>
-  <%= f.label :post_on %><br />
-  <%= f.text_field :post_on, class: 'ui-datepicker' %>
-</p>
-<p>
-  <%= f.label :title %><br />
-  <%= f.text_field :title, size: 60 %>
-</p>
-<p>
-  <%= f.label :keywords %><br />
-  <%= f.text_area :keywords, size: "40x2" %>
-</p>
-<p>
-  <%= f.label :news_photo %><br />
-  <%= f.file_field :news_photo %>
-</p>
-<p>
-  <%= f.label :body %><br />
-  <%= f.text_area :body, size: "70x20", class: "mceEditor" %>
-</p>
+  <%= f.input :title %>
 
+  <div class="row">
+    <div class="large-4 columns">
+      <%= f.input :post_on, as: :string, input_html: { class: 'ui-datepicker' } %>
+      <%#= f.input :keywords %>
+      <%= f.input :news_photo %>
+    </div>
+  </div>
+
+  <br/>
+  <%= f.input :body, input_html: { style: "height: 400px", class: "mceEditor" } %>
+  <br/>
+
+  <br/><%= f.button :submit %>
+
+<% end %>

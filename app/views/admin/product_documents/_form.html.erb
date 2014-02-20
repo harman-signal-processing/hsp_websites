@@ -1,18 +1,8 @@
-<%= f.error_messages %>
+<%= simple_form_for([:admin, @product_document], html: {multipart: true}) do |f| %>
 
-<p>
-  <%= f.label :product_id %><br />
-  <%= f.collection_select :product_id, website.products, :id, :name %>
-</p>
-<p>
-  <%= f.label :language %><br />
-  <%= f.select :language, HarmanSignalProcessingWebsite::Application.config.document_languages %>
-</p>
-<p>
-  <%= f.label :document_type %><br />
-  <%= f.select :document_type, HarmanSignalProcessingWebsite::Application.config.document_types %>
-</p>
-<p>
-  <%= f.label :document %><br />
-  <%= f.file_field :document %>
-</p>
+  <%= f.association :product, collection: website.products %>
+  <%= f.input :language, collection: HarmanSignalProcessingWebsite::Application.config.document_languages %>
+  <%= f.input :document_type, collection: HarmanSignalProcessingWebsite::Application.config.document_types %>
+  <%= f.input :document %>
+  <br/><%= f.button :submit %>
+<% end %>

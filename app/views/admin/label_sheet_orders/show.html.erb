@@ -16,14 +16,14 @@
 
 <p>Subscribe? <%= @label_sheet_order.subscribe? ? "Yes" : "No" %></p>
 
-<h3>Label Sheets Requested:</h3>
-<ul>
+<h4 class="subheader">Label Sheets Requested:</h4>
+<ul class="list">
 	<% @label_sheet_order.expanded_label_sheets.each do |sheet| %>
 	<li><%= link_to sheet.name, [:admin, sheet] %> (<%= sheet.label_names %>)</li>
 	<% end %>
 </ul>
 
-<h4>Order Status</h4>
+<h5 class="subheader">Order Status</h5>
 <p>
 	Created: <%=l @label_sheet_order.created_at.to_date %><br/>
 	Mailed: <%= (@label_sheet_order.mailed_on.present?) ? l(@label_sheet_order.mailed_on.to_date) : link_to("not yet--mark shipped now", label_sheet_order_fulfillment_path(@label_sheet_order, @label_sheet_order.secret_code)) %>

@@ -6,11 +6,9 @@
 </ul>
 <% end %>
 
-<ul>
+<ul class="list">
 <% @blogs.each do |blog| %>
   <li><%= link_to blog.name, [:admin, blog] %></li>
-    <td><%= link_to 'Edit', edit_blog_path(blog) %></td>
-    <td><%= link_to 'Destroy', blog, confirm: 'Are you sure?', method: :delete %></td>
 <% end %>
 </ul>
 

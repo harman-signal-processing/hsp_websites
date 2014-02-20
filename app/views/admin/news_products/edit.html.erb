@@ -1,18 +1,3 @@
 <h1>Editing news_product</h1>
 
-<%= form_for([:admin, @news_product]) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.label :product_id %><br />
-    <%= f.text_field :product_id %>
-  </p>
-  <p>
-    <%= f.label :news_id %><br />
-    <%= f.text_field :news_id %>
-  </p>
-  <p>
-    <%= f.submit 'Update' %>
-  </p>
-<% end %>
-
+<%= render 'form' %>

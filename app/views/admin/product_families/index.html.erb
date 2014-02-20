@@ -6,18 +6,14 @@
 </ul>
 <% end %>
 
-<h2>Top-level Families</h2>
+<h3 class="subheader">Top-level Families</h3>
 <ul id="product_families" class="sortable_list">
 	<%= render partial: "product_family", collection: @product_families %>
 </ul>
-
-<%#= sortable_element "product_families",
-        # complete: visual_effect(:highlight, "product_families"),
-        url: update_order_admin_product_families_path %>
-
+<br/>
 <% if @children.size > 0 %>
-<h3>All the rest</h3>
-<ul class="nosort">
+<h5 class="subheader">All the rest</h5>
+<ul class="nosort list">
 	<%= render partial: "product_family", collection: @children %>
 </ul>
 <% end %>

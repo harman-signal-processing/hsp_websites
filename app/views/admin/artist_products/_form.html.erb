@@ -1,33 +1,7 @@
-<%= form_for([:admin, @artist_product]) do |f| %>
-  <% if @artist_product.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@artist_product.errors.count, "error") %> prohibited this artist_product from being saved:</h2>
-
-      <ul>
-      <% @artist_product.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :artist_id %><br />
-    <%= f.collection_select :artist_id, Artist.order(:name), :id, :name %>
-  </div>
-  <div class="field">
-    <%= f.label :product_id %><br />
-    <%= f.collection_select :product_id, Product.order(:name), :id, :name %>
-  </div>
-  <div class="field">
-	<%= f.check_box :on_tour %>
-  	<%= f.label :on_tour %>
-  </div>
-  <div class="field">
-  	<%= f.label :quote %><br/>
-	<%= f.text_area :quote, size: "50x4" %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<%= simple_form_for([:admin, @artist_product]) do |f| %>
+  <%= f.association :artist, collection: Artist.order(:name) %>
+  <%= f.association :product, collection: Product.order(:name) %>
+	<%= f.input :quote %>
+  <br/><%= f.input :on_tour %><br/>
+  <br/><%= f.button :submit %>
 <% end %>

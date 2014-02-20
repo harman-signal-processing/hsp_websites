@@ -13,17 +13,11 @@
 <% end %>
 
 <%= search_form_for [:admin, @search] do |f| %>
-  <div class="form_field">
-    <%= f.label :name_cont, "Name contains" %><br/>
-    <%= f.text_field :name_cont %>
-  </div>
-  <div class="form_field">
-    <%= f.label :country_cont, "Country contains" %><br/>
-    <%= f.text_field :country_cont %>
-  </div>
-  <div class="actions">
-    <%= f.submit "Search distributors" %>
-  </div>
+  <%= f.label :name_cont, "Name contains" %>
+  <%= f.text_field :name_cont %>
+  <%= f.label :country_cont, "Country contains" %>
+  <%= f.text_field :country_cont %>
+  <%= f.submit "Search distributors", class: "small round button" %>
 <% end %>
 
 <table class="data" style="width: 100%">

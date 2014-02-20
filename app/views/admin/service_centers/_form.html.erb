@@ -1,71 +1,20 @@
-<%= form_for([:admin, @service_center]) do |f| %>
-  <% if @service_center.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@service_center.errors.count, "error") %> prohibited this service_center from being saved:</h2>
+<%= simple_form_for([:admin, @service_center]) do |f| %>
 
-      <ul>
-      <% @service_center.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :address %><br />
-    <%= f.text_field :address %>
-  </div>
-  <div class="field">
-    <%= f.label :city %><br />
-    <%= f.text_field :city %>
-  </div>
-  <div class="field">
-    <%= f.label :state %><br />
-    <%= f.text_field :state %>
-  </div>
-  <div class="field">
-    <%= f.label :zip %><br />
-    <%= f.text_field :zip %>
-  </div>
-  <div class="field">
-    <%= f.label :telephone %><br />
-    <%= f.text_field :telephone %>
-  </div>
-  <div class="field">
-    <%= f.label :fax %><br />
-    <%= f.text_field :fax %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-	<%= f.label :website %><br/>
-	<%= f.text_field :website %>
-  </div>
-  <div class="field">
-    <%= f.label :account_number %><br />
-    <%= f.text_field :account_number %>
-  </div>
+  <%= f.input :name %>
+  <%= f.input :address %>
+  <%= f.input :city %>
+  <%= f.input :state %>
+  <%= f.input :zip %>
+  <%= f.input :telephone %>
+  <%= f.input :fax %>
+  <%= f.input :email %>
+	<%= f.input :website %>
+  <%= f.input :account_number %>
   <% if !!(website.brand.has_vintage_repair?) %>
-  <div class="field">
-    <%= f.check_box :vintage %>
-    <%= f.label :vintage, "Show on vintage repair page" %>
-  </div>
+    <%= f.input :vintage, label: "Show on vintage repair page" %>
   <% end %>
-  <div class="field">
-    <%= f.label :lat %><br />
-    <%= f.text_field :lat %>
-  </div>
-  <div class="field">
-    <%= f.label :lng %><br />
-    <%= f.text_field :lng %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.input :lat %>
+  <%= f.input :lng %>
+  <br/><%= f.button :submit %>
+
 <% end %>

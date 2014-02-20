@@ -17,7 +17,7 @@
 	sure to set the correct locale.</p>
 </div>
 
-<ul>
+<ul class="list">
 <% @settings.each_with_index do |setting,i| %>
   <% unless i==0 || setting.locale == @settings[(i-1)].locale %>
     <h3><%= setting.locale %></h3>

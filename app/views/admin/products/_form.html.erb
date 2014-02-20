@@ -1,126 +1,137 @@
-<%= f.error_messages %>
+<%= simple_form_for([:admin, @product], html: {multipart: true}) do |f| %>
 
+<div class="row">
 <% if can?(:update, :product_name) %>
-<p>
-  <%= f.label :name %><br />
-  <%= f.text_field :name %>
-</p>
+	<div class="large-6 columns">
+		<%= f.input :name %>
+	</div>
 <% end %>
-<p>
-  <%= f.label :sap_sku %><br />
-  <%= f.text_field :sap_sku %>
-</p>
-<% if can?(:update, :product_keywords) %>
-<p>
-  <%= f.label :keywords %><br />
-  <%= f.text_area :keywords, size: "60x5" %>
-</p>
-<% end %>
+	<div class="large-6 columns">
+		<%= f.input :sap_sku %>
+	</div>
+</div>
+
+<%# if can?(:update, :product_keywords) %>
+  <%#= f.input :keywords, size: "60x5" %>
+<%# end %>
+
+<div class="row">
 <% if can?(:change, ProductStatus) %>
-<p>
-  <%= f.label :product_status_id %><br />
-	<% ProductStatus.all.each do |ps|  %>
-	<%= f.radio_button :product_status_id, ps.id %> <%= ps.name %><br/>
- 	<% end %>
-</p>
+	<div class="large-6 columns">
+		<%= f.association :product_status %>
+	</div>
 <% end %>
 <% if can?(:update, :product_password) %>
-<p>
-	<%= f.label :password %> <span class="hint">(to allow previews)</span><br/>
-	<%= f.text_field :password %>
-</p>
+	<div class="large-6 columns">
+		<%= f.input :password, hint: "(to allow non-admins to preview page before product is officially announced)" %>
+	</div>
 <% end %>
-<p>
-  <%= f.label :short_description %><br />
-  <%= f.text_field :short_description, size: 75 %>
-</p>
-<% if can?(:update, :product_background) %>
-<p>
-	<%= f.label :background_color %> <span class="hint">(optional custom page background: <i>#CCCCCC or blue</i>)</span><br/>
-	<%= f.text_field :background_color, size: 15 %>
-</p>
-<p>
-	<%= f.label :background_image %> <span class="hint">(optional background image--will be centered)</span><br/>
-	<%= f.file_field :background_image %>
-	<% if !f.object.background_image_file_name.blank? %>
-	<span id="background_image">
-		<%= link_to f.object.background_image_file_name, f.object.background_image.url %>
-		<%= link_to image_tag("icons/trash.gif"), delete_background_admin_product_path(f.object), remote: true %>
-	</span>
-	<% end %>
-</p>
-<% end %>
-<p>
-  <%= f.label :description %> <% if @product.layout_class == 'epedal' %> <span class="small"> For epedals, only provide the first paragraph description here.</span><% end %><br />
-  <%= f.text_area :description, size: "60x20", class: "mceEditor" %>
-</p>
-<p>
-	<%= f.label :extended_description %> <% if @product.layout_class == 'epedal' %> <span class="small"> For epedals, only provide the description of the controls here.</span><% end %><br/>
-	<%= f.text_area :extended_description, size: "40x20", class: "mceEditor" %>
-</p>
+</div>
+
+<div class="row">
+	<div class="large-6 columns">
+		<%= f.input :short_description, as: :string %>
+	</div>
+</div>
+
+
+  <%= f.input :description, input_html: { class: "mceEditor", style: "height: 400px;"} %><br/>
+  <% if @product.layout_class == 'epedal' %> <span class="small"> For epedals, only provide the first paragraph description here.</span><% end %>
+  <br />
+
+
+  <%= f.input :extended_description, input_html: { class: "mceEditor", style: "height: 300px;"} %><br/>
+  <% if @product.layout_class == 'epedal' %> <span class="small"> For epedals, only provide the description of the controls here.</span><% end %>
+  <br/>
+
 <% unless @product.layout_class == 'epedal' %>
-<p>
-	<%= f.label :features %><br/>
-	<%= f.text_area :features, size: "20x20", class: "mceEditor" %>
-</p>
+	<%= f.input :features, input_html: { class: "mceEditor", style: "height: 250px;"} %><br/>
 <% end %>
+
 <% if website.brand.name.match(/lexicon/i) %>
-<p>
-	<%= f.label :features_tab_name %> <%= f.text_field :features_tab_name, size: 18 %>
-</p>
-<% end %>
-<% unless @product.layout_class == 'epedal' %>
-<p>
-	<%= f.label :warranty_period, style: "width: 120px; display: inline-block" %>
-	<%= f.text_field :warranty_period, size: 3 %> years
-</p>
-<% end %>
-<% if website.show_pricing? %>
-<p>
-	<%= f.label :msrp, "MSRP", style: "width: 110px; display: inline-block" %>
-	$ <%= f.text_field :msrp, size: 10, placeholder: "0.00" %>
-</p>
-<p>
-	<%= f.label :msrp, "Street Price", style: "width: 110px; display: inline-block" %>
-	$ <%= f.text_field :street_price, size: 10, placeholder: "0.00" %>
-</p>
-<p>
-	<%= f.label :sale_price, style: "width: 110px; display: inline-block" %>
-	$ <%= f.text_field :sale_price, size: 10, placeholder: "0.00" %>
-</p>
-<p>
-	<%= f.label :direct_buy_link %> <span class="hint">(aka, add to cart link)</span><br/>
-	<%= f.url_field :direct_buy_link, size: 40, placeholder: "http://#{website.url}/add-to-cart/..." %>
-	<div class="bigger_hint" style="width: 600px; padding-bottom: 10px">Providing a link above will convert the "Buy It Now" button on the product page
-		into an "Add To Cart" button linking directly to the link above. If you'd rather include
-		this link among other online retailer links, then leave this field blank and use the "online retailers" 
-		section of this site instead.</div>
-</p>
-<% end %>
-<p>
-	<%= f.label :demo_link %><br/>
-	<%= f.url_field :demo_link, size: 40, placeholder: "http://#{website.url}/#{I18n.default_locale}/..." %>
-</p>
-
-<% if website.brand.employee_store? && !website.brand.live_on_this_platform? %>
-<p>
-	<%= f.label :more_info_url %> (for employee store)<br/>
-	<%= f.url_field :more_info_url, size: 40, placeholder: "http://..." %>
-</p>
+<div class="row">
+	<div class="large-6 columns">
+		<%= f.input :features_tab_name, hint: "Lexicon can show different tab names on different types of products." %>
+	</div>
+</div>
 <% end %>
 
-<% if website.page_layouts %>
-<p>
-	<%= f.label :layout_class, "Product page layout style" %> <span class="hint">(not all brands have multiple layouts)</span><br/>
-	<%= f.select :layout_class, [[]] + website.page_layouts.split("|") %>
-</p>
+<div class="row">
+	<div class="large-6 columns">
+		<fieldset>
+			<legend>Product Page Design &amp; Features</legend>
+			<% if website.has_effects? && !@product.layout_class == 'epedal' %>
+				<%= f.input :has_pedals, label: "Has pedals. (call the \"effects\" tab \"pedals\")" %><br/>
+			<% end %>
+			<% if website.page_layouts %>
+				<%= f.input :layout_class, 
+					label: "Page layout style", 
+					hint: "(not all brands have multiple layouts)",
+					collection: website.page_layouts.split("|") %>
+			<% end %>
+
+			<% if can?(:update, :product_background) %>
+				<%= f.input :background_color, 
+						hint: "(optional custom page background: ie \"#CCCCCC\" or \"blue\"" %>
+				<%= f.input :background_image, hint: "(optional background image--will be centered)" %>
+
+				<% if !f.object.background_image_file_name.blank? %>
+				<div id="background_image">
+					<%= link_to f.object.background_image_file_name, f.object.background_image.url %>
+					<%= link_to image_tag("icons/trash.gif"), delete_background_admin_product_path(f.object), remote: true %>
+				</div>
+				<% end %>
+			<% end %>
+
+			<%= f.input :demo_link, placeholder: "http://#{website.url}/#{I18n.default_locale}/..." %>
+
+			<% unless @product.layout_class == 'epedal' %>
+			<div class="row">
+				<div class="large-6 columns">
+					<%= f.input :warranty_period, label: "Warranty period (in years)" %>
+				</div>
+			</div>
+			<% end %>
+	
+			<%= f.input :rohs, label: "ROHS" %>
+
+		</fieldset>
+	</div>
+
+	<div class="large-6 columns">
+		<fieldset>
+			<legend>Pricing/Shopping</legend>
+
+			<% if website.has_online_retailers? || website.has_distributors? || website.has_dealers? %>
+				<%= f.input :hide_buy_it_now_button %><br/>
+			<% end %>
+
+			<% if website.show_pricing? %>
+				<%= f.input :msrp, label: "MSRP", placeholder: "0.00" %>
+				<%= f.input :street_price, placeholder: "0.00" %>
+				<%= f.input :sale_price, placeholder: "0.00" %>
+				<%= f.input :direct_buy_link, 
+					hint: "(aka, add to cart link)", 
+					placeholder: "http://#{website.url}/add-to-cart/..." %>
+
+				<div class="bigger_hint">Providing a link above will convert the "Buy It Now" button on the product page
+					into an "Add To Cart" button linking directly to the link above. If you'd rather include
+					this link among other online retailer links, then leave this field blank and use the "online retailers" 
+					section of this site instead.</div>
+			<% end %>
+
+			<% if website.brand.employee_store? && !website.brand.live_on_this_platform? %>
+			<p>
+				<%= f.label :more_info_url %> (for employee store)<br/>
+				<%= f.url_field :more_info_url, size: 40, placeholder: "http://..." %>
+			</p>
+			<% end %>
+
+		</fieldset>
+	</div>
+</div>
+
+
+	<br/><%= f.button :submit %>
+
 <% end %>
-<p>
-	<%= f.check_box :rohs %> <%= f.label :rohs %><br/>
-	<% if website.has_effects? && !@product.layout_class == 'epedal' %>
-	<%= f.check_box :has_pedals %> <%= f.label :has_pedals %> (call the "effects" tab "pedals")<br/>
-	<% end %>
-	<% if website.has_online_retailers? || website.has_distributors? || website.has_dealers? %>
-	<%= f.check_box :hide_buy_it_now_button %> <%= f.label :hide_buy_it_now_button %><br/>
-	<% end %>
-</p>

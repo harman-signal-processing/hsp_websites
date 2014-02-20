@@ -15,37 +15,40 @@
 	<li><%= link_to 'Delete', [:admin, @product_family], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
 </ul>
 
-<div>
-	Family Photo:
-<% if !@product_family.family_photo_file_name.blank? %>
-  <%= image_tag @product_family.family_photo.url %>
-<% else %>
-  <i>(none)</i>
-<% end %>
-</div>
+<div class="row">
+	<div class="large-4 columns">
+		<div class="panel">
+			<h6 class="subheader">Family Photo:</h6>
+			<% if !@product_family.family_photo_file_name.blank? %>
+			  <%= image_tag @product_family.family_photo.url %>
+			<% else %>
+			  <i>(none)</i>
+			<% end %>
+		</div>
+	</div>
 
-<div>
-	Title Banner:
-<% if !@product_family.title_banner_file_name.blank? %>
-  <%= image_tag @product_family.title_banner.url(:medium) %>
-<% else %>
-  <i>(none)</i>
-<% end %>
-</div>
+	<div class="large-4 columns">
+		<div class="panel">
+			<h6 class="subheader">Title Banner:</h6>
+			<% if !@product_family.title_banner_file_name.blank? %>
+			  <%= image_tag @product_family.title_banner.url(:medium) %>
+			<% else %>
+			  <i>(none)</i>
+			<% end %>
+		</div>
+	</div>
 
-<div>
-	Background:
-<% if !@product_family.background_image_file_name.blank? %>
-  <%= link_to @product_family.background_image_file_name, @product_family.background_image.url %>
-<% else %>
-  <i>(no background image)</i>
-<% end %>
+	<div class="large-4 columns">
+		<div class="panel">
+			<h6 class="subheader">Background:</h6>
+			<% if !@product_family.background_image_file_name.blank? %>
+			  <%= link_to @product_family.background_image_file_name, @product_family.background_image.url %>
+			<% else %>
+			  <i>(no background image)</i>
+			<% end %>
+		</div>
+	</div>
 </div>
-
-<p>
-  <b>Intro Text:</b>
-  <%= @product_family.intro %>
-</p>
 
 <% if @product_family.parent %>
 <p>
@@ -54,9 +57,14 @@
 </p>
 <% end %>
 
+<p>
+  <b>Intro Text:</b><br/>
+  <%= @product_family.intro %>
+</p>
+
 <% if @product_family.children.size > 0 %>
 <div class="group">
-	<h3>Child Categories:</h3>
+	<h4 class="subheader">Child Categories:</h4>
 	<%= link_to "new category", new_admin_product_family_path, class: "small success button" %>
 	<ul id="product_families" class="sortable_list">
 		<%= render partial: "product_family", collection: @product_family.children %>
@@ -65,13 +73,21 @@
 <% end %>	
 
 <div class="group">
-	<h3>Products in this family:</h3>
-	<%= form_for [:admin, @product_family_product], remote: true do |f| %>
+	<h4 class="subheader">Products in this family:</h4>
+	<%= simple_form_for [:admin, @product_family_product], remote: true do |f| %>
 		<%= hidden_field_tag "called_from", "product_family" %>
     	<%= f.hidden_field :product_family_id %>
-		<%= f.collection_select :product_id, website.products, :id, :name %> 
-		<%= submit_tag 'add existing product', class: "small round button"  %>
-		<%= link_to 'create a new product', new_admin_product_path %>
+    	<div class="row collapse">
+    		<div class="large-7 small-8 columns">
+    			<%= f.association :product, label: false, collection: website.products %> 
+    		</div>
+    		<div class="large-2 small-4 columns">
+    			<%= submit_tag 'add', class: "postfix button"  %>
+    		</div>
+    		<div class="large-3 columns" style="padding: 10px;">
+    			<p>or, <%= link_to 'create a new product', new_admin_product_path %></p>
+    		</div>
+    	</div>
 	<% end %>
 
 	<ul id="product_family_products" class="sortable_list">
@@ -79,21 +95,25 @@
 			<%= render '/admin/shared/product_family_product_row', pfp: pfp, called_from: 'product_family' %>
 		<% end %>
 	</ul>
-	<%#= sortable_element "product_family_products",
-            # complete: visual_effect(:highlight, "product_family_products"),
-            url: update_order_admin_product_family_products_path %>
 </div>
 
 <div class="group">
-	<h3>Locales which should show this product family</h3>
+	<h4 class="subheader">Locales which should show this product family</h4>
 	<p>Leave blank to show this product family for all locales.</p>
-	<%= form_for [:admin, @locale_product_family], remote: true do |f| %>
+	<%= simple_form_for [:admin, @locale_product_family], remote: true do |f| %>
 		<%= f.hidden_field :product_family_id %>
-		<%= f.collection_select :locale, website.website_locales, :locale, :name %>
-		<%= submit_tag 'add', class: "small round button"  %>
+		<div class="row collapse">
+    		<div class="large-7 small-8 columns">
+				<%= f.input :locale, label: false, collection: website.website_locales, value_method: :locale %>
+			</div>
+			<div class="large-2 small-4 columns">
+				<%= submit_tag 'add', class: "postfix button"  %>
+			</div>
+			<div class="large-3 columns"></div>
+		</div>
 	<% end %>
 	
-	<ul id="locale_product_families">
+	<ul id="locale_product_families" class="list">
 		<% @product_family.locale_product_families.each do |lpf| %>
 			<%= render "/admin/shared/locale_product_family_row", lpf: lpf %>
 		<% end %>

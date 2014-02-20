@@ -6,7 +6,7 @@
 </ul>
 <% end %>
 
-<ul>
+<ul class="list">
 <% @faqs.each do |faq| %>
 	<% if faq.product %>
   		<li><%= link_to "#{faq.product.name}: #{faq.question}", [:admin, faq] %></li>

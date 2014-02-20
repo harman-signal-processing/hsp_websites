@@ -1,42 +1,89 @@
 <%= simple_form_for([:admin, @software], html: {multipart: true}) do |f| %>
 
-  <%= f.input :name %>
-  <%= f.input :ware, label: "Software" %>
-  <%= f.input :link, label: "Or provide a link" %>
-  <%= f.input :platform, hint: "(ie; Windows, Mac OS X 10.3.5, Fedora 14 rpm, Source)" %>
-  <%= f.input :version %>
-  <%= f.input :bit, hint: "(32, 64, leave blank if not applicable)" %>
-  <%= f.input :category, 
-        collection: [["GUI/Librarian", "gui"], 
-          ["Updater", "updater"], 
-          ["Plugin", "plugin"],
-          ["Other", "other"]] %>
-  <%= f.input :description, input_html: { class: "mceEditor" } %>
-  <%= f.input :active %>
-  <%= f.input :active_without_products, label: "Active even if there are no corresponding active products." %>
-  <%= f.input :replaces_id, 
-        label: "Replaces current version of",
-        collection: [[]] + website.softwares.where(active: true).order("name").map{|s| [s.formatted_name, s.id]} %>
-  <% if website.page_layouts %>
-    <%= f.input :layout_class, 
-        label: "Page layout style",
-        hint:  "(not all brands have multiple layouts)",
-        collection: website.page_layouts.split("|") %>
-  <% end %>
+  <div class="row">
+    <div class="large-8 columns">
+      <%= f.input :name %>
 
-  <h3>Software Activation</h3>
-  <%= f.input :activation_name, hint: "(passed in the URL during activation)" %>
-	<%= f.input :multipliers, 
-      label: "Hex numbers to use to multiply each challenge segment during activation",
-      input_html: { rows: 5 } %>
+      <div class="row">
+        <div class="large-6 columns">
+          <%= f.input :version %>
+        </div>
+        <div class="large-6 columns">
+          <%= f.input :category, 
+                collection: [["GUI/Librarian", "gui"], 
+                  ["Updater", "updater"], 
+                  ["Plugin", "plugin"],
+                  ["Other", "other"]] %>  
+        </div>
+      </div>
+      <div class="row">
+        <div class="large-6 columns">
+          <%= f.input :platform, hint: "(ie; Windows, Mac OS X, Android, iOS, Linux)" %>
+        </div>
+        <div class="large-6 columns">
+          <%= f.input :bit, hint: "(32, 64, leave blank if not applicable)" %>
+        </div>
+      </div>          
+    <%= f.input :ware, label: "Software" %>
+    <%= f.input :link, label: "Or provide a link" %>
+    </div>
+  </div>    
 
-Example: expects a 3-segment challenge where each is multiplied by the corresponding odd or even key:
+  <div class="row">
+    <div class="large-12 columns" style="padding-top: 20px; padding-bottom: 30px;">
+      <%= f.input :description, 
+          label: "Description (Leave the description blank if you want incoming links to go directly to the download.)", 
+          input_html: { class: "mceEditor" } %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-8 columns">
+      <div class="row">
+        <div class="large-6 columns">
+          <%= f.input :replaces_id, 
+                label: "Replaces current version of",
+                collection: [[]] + website.softwares.where(active: true).order("name").map{|s| [s.formatted_name, s.id]} %>
+        </div>
+        <div class="large-6 columns">
+          <% if website.page_layouts %>
+            <%= f.input :layout_class, 
+                label: "Page layout style",
+                hint:  "(not all brands have multiple layouts)",
+                collection: website.page_layouts.split("|") %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%= f.input :active, label: "Software is active." %>
+  <%= f.input :active_without_products, label: "Force active state even if there are no corresponding active products." %>
+  <br/>
+
+  <fieldset>
+    <legend>Software Activation (not common)</legend>
+    <p>Originally developed for the activation of Lexicon plugins which don't use iLok,
+      this can also be used for other software which require URL-based activation.</p>
+
+    <div class="large-6 columns">
+      <%= f.input :activation_name, hint: "(passed in the URL during activation)" %>
+    	<%= f.input :multipliers, 
+          label: "Hex numbers to use to multiply each challenge segment during activation",
+          input_html: { rows: 5 } %>
+    </div>
+    <div class="large-6 columns">
+      <div class="panel">
+<p>Example: expects a 3-segment challenge where each is multiplied by the corresponding odd or even key:</p>
 <pre>[
   {even: 0xf31a29b0, odd: 0xf33a29b3},
   {even: 0x01fa39b1, odd: 0x7319b9b7},
   {even: 0xcc232774, odd: 0xd6661891}
 ]</pre>
+      </div>
+    </div>
+  </fieldset>
 
-  <%= f.submit %>
+  <br/><%= f.button :submit %>
 
 <% end %>

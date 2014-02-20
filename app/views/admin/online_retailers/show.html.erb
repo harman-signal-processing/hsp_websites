@@ -41,34 +41,29 @@
 
 <% if can? :update, @online_retailer %>
 <div class="group">
-<h3>Offering the following products:</h3>
-<%= form_for [:admin, @online_retailer_link], remote: true do |f| %>
-	<table border="0" cellspacing="0" cellpadding="0">
-		<tr>
-			<td class="little"><%= f.label :product_id %></td>
-			<td class="little"><%= f.label :url, "Link" %></td>
-		</tr>
-		<tr>
-			<td>
-				<%= f.collection_select :product_id, @products, :id, :name %>
-				&nbsp;
-			</td>
-			<td>
-				<%= hidden_field_tag "called_from", "online_retailer" %>
-				<%= f.hidden_field :online_retailer_id %>
-				<%= f.text_field :url, size: 50 %>
-				<%= submit_tag 'add product/retailer link', class: "small round button"  %>
-			</td>
-		</tr>
-	</table>
-<% end %>
-
-<ul id="online_retailer_links">
-	<% @online_retailer.online_retailer_links.each do |orl| %>
-		<% if orl.product.belongs_to_this_brand?(website) %>
-		<%= render '/admin/shared/online_retailer_link_row', orl: orl, called_from: 'online_retailer' %>
-		<% end %>
+	<h4 class="subheader">Buy It Now links</h4>
+	<%= simple_form_for [:admin, @online_retailer_link], remote: true do |f| %>
+		<%= hidden_field_tag "called_from", "online_retailer" %>
+		<%= f.hidden_field :online_retailer_id %>
+		<div class="row collapse">
+			<div class="large-3 columns">
+				<%= f.association :product, collection: @products, label: false %>
+			</div>
+			<div class="large-7 columns">
+				<%= f.input :url, label: false, placeholder: "http://..." %>
+			</div>
+			<div class="large-2 columns">
+				<%= submit_tag 'add link', class: "postfix button"  %>
+			</div>
+		</div>
 	<% end %>
-</ul>
+
+	<ul id="online_retailer_links" class="list">
+		<% @online_retailer.online_retailer_links.each do |orl| %>
+			<% if orl.product.belongs_to_this_brand?(website) %>
+			<%= render '/admin/shared/online_retailer_link_row', orl: orl, called_from: 'online_retailer' %>
+			<% end %>
+		<% end %>
+	</ul>
 </div>
 <% end %>

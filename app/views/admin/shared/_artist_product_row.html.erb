@@ -1,6 +1,5 @@
 <% called_from ||= 'product' %>
 <li id="artist_product_<%= ap.id %>">
-	<span class="handle"><%= image_tag("icons/drag_handle.gif") %></span>
 	<%= (called_from == 'product') ? 
 			link_to(ap.artist.name, [:admin, ap.artist]) : 
 			link_to(ap.product.name, [:admin, ap.product]) %> 
@@ -13,5 +12,5 @@
 			method: :delete) %>
 	<%= link_to 'edit', edit_admin_artist_product_path(ap) %> &nbsp;
 	</span>
-	<%= (ap.quote.blank?) ? "" : raw("<br/>&nbsp;&nbsp;<i>\"#{ap.quote}\"</i>") %>
+	<small><%= (ap.quote.blank?) ? "" : raw("<br/>&nbsp;&nbsp;<i>\"#{ap.quote}\"</i>") %></small>
 </li>

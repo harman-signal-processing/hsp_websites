@@ -1,89 +1,86 @@
-<%= form_for([:admin, @brand], html: {multipart: true}) do |f| %>
-  <% if @brand.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@brand.errors.count, "error") %> prohibited this brand from being saved:</h2>
+<%= simple_form_for([:admin, @brand], html: {multipart: true}) do |f| %>
 
-      <ul>
-      <% @brand.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+  <div class="row">
+    <div class="large-4 columns">
+      <%= f.input :name %>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :default_website_id %><br />
-    <%= f.collection_select :default_website_id, @brand.websites, :id, :url, include_blank: true %>
-  </div>
-  <div class="field">
-  <%= f.check_box :has_market_segments %> <%= f.label :has_market_segments %><br/>
-	<%= f.check_box :product_trees %> <%= f.label :product_trees, "Products can be arranged with sub-products (epedals, expansion cards, etc.)" %><br/>
-	<%= f.check_box :has_effects %> <%= f.label :has_effects %><br/>
-	<%= f.check_box :has_reviews %> <%= f.label :has_reviews %><br/>
-	<%= f.check_box :has_faqs %> <%= f.label :has_faqs %><br/>
-	<%= f.check_box :has_tone_library %> <%= f.label :has_tone_library %><br/>
-	<%= f.check_box :has_artists %> <%= f.label :has_artists %><br/>
-	<%= f.check_box :has_clinics %> <%= f.label :has_clinics %><br/>
-	<%= f.check_box :has_software %> <%= f.label :has_software %> downloads<br/>
-	<%= f.check_box :has_registered_downloads %> <%= f.label :has_registered_downloads %><br/>
-	<%= f.check_box :has_online_retailers %> <%= f.label :has_online_retailers %><br/>
-	<%= f.check_box :has_distributors %> <%= f.label :has_distributors %><br/>
-  <%= f.check_box :has_dealers %> <%= f.label :has_dealers %><br/>
-	<%= f.check_box :has_us_sales_reps %> <%= f.label :has_us_sales_reps %><br/>
-	<%= f.check_box :has_service_centers %> <%= f.label :has_service_centers %><br/>
-  <%= f.check_box :has_vintage_repair %> <%= f.label :has_vintage_repair %><br/>
-	<%= f.check_box :has_parts_form %> <%= f.label :has_parts_form, "Site has online parts request form" %><br/>
-	<%= f.check_box :has_rma_form %> <%= f.label :has_rma_form, "Site has online RMA form" %><br/>
-	<%= f.check_box :rso_enabled %> <%= f.label :rso_enabled, "Enable for RSO site" %><br/>
-	<%= f.check_box :has_training %> <%= f.label :has_training, "Has training resources" %><br/>
-	<%= f.check_box :show_pricing %> <%= f.label :show_pricing, "Show pricing on product pages, enable direct-buy features" %><br/>
-	<%= f.check_box :has_suggested_products %> <%= f.label :has_suggested_products %><br/>
-	<%= f.check_box :has_blogs %> <%= f.label :has_blogs %><br/>
-  <%= f.check_box :has_audio_demos %> <%= f.label :has_audio_demos %><br/>
-  <%= f.check_box :has_label_sheets %> <%= f.label :has_label_sheets %><br/>
-  <%= f.check_box :employee_store %> <%= f.label :employee_store, "Show on employee store" %><br/>
-	<%= f.check_box :live_on_this_platform %> <%= f.label :live_on_this_platform %> (employee store will link back to this site)<br/>
+    <div class="large-4 columns">
+      <%= f.input :default_website_id, collection: @brand.websites, label_method: :url %>
+    </div>
+    <div class="large-4 columns"></div>
   </div>
 
-  <div class="field">
-	<%= f.label :dealers_from_brand_id, "Use dealers (US) from the following brand:" %><br/>
-	<%= f.collection_select :dealers_from_brand_id, (Brand.all - [@brand]), :id, :name, include_blank: true %>
-  </div>
-  <div class="field">
-  <%= f.label :dealers_from_brand_id, "Use sales reps (US) from the following brand:" %><br/>
-  <%= f.collection_select :us_sales_reps_from_brand_id, (Brand.all - [@brand]), :id, :name, include_blank: true %>
-  </div>
-  <div class="field">
-	<%= f.label :distributors_from_brand_id, "Use distributors (int'l) from the following brand:" %><br/>
-	<%= f.collection_select :distributors_from_brand_id, (Brand.all - [@brand]), :id, :name, include_blank: true %>
-  </div>
-  <div class="field">
-	<%= f.label :service_centers_from_brand_id, "Use service centers (US) from the following brand:" %><br/>
-	<%= f.collection_select :service_centers_from_brand_id, (Brand.all - [@brand]), :id, :name, include_blank: true %>
+  <fieldset>
+    <legend>Settings</legend>
+    <div class="row">
+      <div class="large-6 columns">
+        <%= f.input :has_market_segments %>
+      	<%= f.input :product_trees, label: "Products can have sub-products (epedals, expansion cards, etc.)" %>
+      	<%= f.input :has_effects %>
+      	<%= f.input :has_reviews %>
+      	<%= f.input :has_faqs %>
+      	<%= f.input :has_tone_library %>
+      	<%= f.input :has_artists %>
+      	<%= f.input :has_clinics %>
+      	<%= f.input :has_software, label: "Has software downloads" %>
+      	<%= f.input :has_registered_downloads %>
+        <%= f.input :rso_enabled, label: "Enable for RSO site (not really used anymore)" %>
+        <%= f.input :show_pricing, label: "Show pricing on product pages, enable direct-buy features" %>
+        <%= f.input :has_suggested_products %>
+        <%= f.input :has_label_sheets %>
+      </div>
+      <div class="large-6 columns">
+      	<%= f.input :has_online_retailers %>
+      	<%= f.input :has_distributors %>
+        <%= f.input :has_dealers %>
+      	<%= f.input :has_us_sales_reps %>
+      	<%= f.input :has_service_centers %>
+        <%= f.input :has_vintage_repair %>
+      	<%= f.input :has_parts_form, label: "Site has online parts request form" %>
+      	<%= f.input :has_rma_form, label: "Site has online RMA form" %>
+      	<%= f.input :has_training, label: "Has training resources" %>
+      	<%= f.input :has_blogs %>
+        <%= f.input :has_audio_demos %>
+        <%= f.input :employee_store, label: "Show on employee store" %>
+      	<%= f.input :live_on_this_platform, label: "Live on this platform (employee store will link back to this site)" %>
+      </div>
+    </div>
+  </fieldset>
+  <br/>
+
+  <div class="row">
+    <div class="large-4 columns">
+    	<%= f.label :dealers_from_brand_id, "Use dealers (US) from:" %>
+    	<%= f.collection_select :dealers_from_brand_id, (Brand.all - [@brand]), :id, :name, include_blank: true %>
+
+      <%= f.label :dealers_from_brand_id, "Use sales reps (US) from:" %>
+      <%= f.collection_select :us_sales_reps_from_brand_id, (Brand.all - [@brand]), :id, :name, include_blank: true %>
+    </div>
+    <div class="large-4 columns">
+    	<%= f.label :distributors_from_brand_id, "Use distributors (int'l) from:" %>
+    	<%= f.collection_select :distributors_from_brand_id, (Brand.all - [@brand]), :id, :name, include_blank: true %>
+
+    	<%= f.label :service_centers_from_brand_id, "Use service centers (US) from:" %>
+    	<%= f.collection_select :service_centers_from_brand_id, (Brand.all - [@brand]), :id, :name, include_blank: true %>
+    </div>
+    <div class="large-4 columns">
+  <%= f.input :logo %>
+    <% unless @brand.logo_file_name.blank? %>
+      <span class="hint">currently: <%= link_to @brand.logo_file_name, @brand.logo.url %></span>
+    <% end %>
+    </div>
   </div>
 
-  <div class="field">
-  	<%= f.label :logo %><br/>
-	<%= f.file_field :logo %>
-	<% unless @brand.logo_file_name.blank? %>
-		<div class="hint">currently: <%= link_to @brand.logo_file_name, @brand.logo.url %></div>
-	<% end %>
+  <div class="row">
+    <div class="large-8 columns">
+      <%= f.input :news_feed_url, label: "News feed URL (for RSO site to pull from) " %>
+    </div>
   </div>
-
-  <div class="field">
-  	<%= f.label :news_feed_url %> (for RSO site to pull from)<br/>
-	<%= f.text_field :news_feed_url %>
+  
+  <div class="row">
+    <div class="large-4 columns">
+      <%= f.input :default_locale, hint: "(can also be set per-website)" %>
+    </div>
   </div>
-
-  <div class="field">
-  	<%= f.label :default_locale %> (can also be set per-website)<br/>
-	<%= f.text_field :default_locale %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <br/><%= f.button :submit %>
 <% end %>

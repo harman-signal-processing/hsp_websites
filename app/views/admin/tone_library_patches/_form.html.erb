@@ -1,29 +1,6 @@
-<%= form_for([:admin, @tone_library_patch], html: {multipart: true}) do |f| %>
-  <% if @tone_library_patch.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@tone_library_patch.errors.count, "error") %> prohibited this patch from being saved:</h2>
-
-      <ul>
-      <% @tone_library_patch.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :tone_library_song_id %><br />
-    <%= f.collection_select :tone_library_song_id, ToneLibrarySong.order("title"), :id, :displayname %>
-  </div>
-  <div class="field">
-    <%= f.label :product_id %><br />
-    <%= f.collection_select :product_id, Product.order("name"), :id, :name %>
-  </div>
-  <div class="field">
-    <%= f.label :patch %><br />
-    <%= f.file_field :patch %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<%= simple_form_for([:admin, @tone_library_patch], html: {multipart: true}) do |f| %>
+  <%= f.association :tone_library_song, collection: ToneLibrarySong.order("title"), label_method: :displayname %>
+  <%= f.association :product, collection: Product.order("name") %>
+  <%= f.input :patch %>
+  <br/><%= f.button :submit %>
 <% end %>

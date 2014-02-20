@@ -1,9 +1,4 @@
 <h1>Editing dealer</h1>
 
-<%= form_for([:admin, @dealer]) do |f| %>
-  <%= render "form", f: f %>
-  <p>
-    <%= f.submit 'Update' %>
-  </p>
-<% end %>
+<%= render "form" %>
 

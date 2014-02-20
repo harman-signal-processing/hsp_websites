@@ -1,26 +1,18 @@
-<%= f.error_messages %>
+<%= simple_form_for([:admin, @product_review], html: {multipart: true}) do |f| %>
 
-<p>
-  <%= f.label :title %><br />
-  <%= f.text_field :title %>
-</p>
-<p>
-  <%= f.label :cover_image %><br />
-  <%= f.file_field :cover_image %>
-</p>
-<p>
-  <%= f.label :created_at, "Date" %><br/>
-  <%= f.text_field :created_at, class: 'ui-datepicker' %>
-</p>
-<p>
-  <%= f.label :external_link %><br />
-  <%= f.text_field :external_link %>
-</p>
-<p>
-  <%= f.label :body %><br />
-  <%= f.text_area :body, class: "mceEditor" %>
-</p>
-<p>
-  <%= f.label :review, "PDF Attachment" %><br />
-  <%= f.file_field :review %>
-</p>
+  <%= f.input :title %>
+  <div class="row">
+    <div class="large-6 columns">
+      <%= f.input :cover_image %>
+    </div>
+    <div class="large-6 columns">
+      <%= f.input :created_at, as: :string, label: "Date", input_html: { class: 'ui-datepicker' } %>
+    </div>
+  </div>
+  <%= f.input :external_link, placeholder: "http://www.somesite.com/..." %>
+  <%= f.input :body, input_html: { class: "mceEditor" } %><br/>
+  <%= f.input :review, label: "PDF Attachment" %>
+
+  <br/><%= f.button :submit %>
+
+<% end %>

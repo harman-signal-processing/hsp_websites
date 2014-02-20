@@ -1,6 +1,8 @@
 <% called_from ||= 'product' %>
 <li id="product_family_product_<%= pfp.id %>">
+	<% unless called_from == 'product' %>
 	<span class="handle"><%= image_tag("icons/drag_handle.gif") %></span>
+	<% end %>
 	<%= (called_from == 'product') ? 
 			link_to(pfp.product_family.name, [:admin, pfp.product_family]) : 
 			link_to(pfp.product.name, [:admin, pfp.product]) %> 

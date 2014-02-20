@@ -12,17 +12,17 @@
 </p>
 
 <div class="group">
-<h3>Patches</h3>
-<%= form_for [:admin, @tone_library_patch], html: {multipart: true} do |f| %>
-    <%= f.hidden_field :tone_library_song_id %>
-	<%= f.collection_select :product_id, Product.non_discontinued(website), :id, :name %> 
-	<%= f.file_field :patch %>
-	<%= submit_tag 'upload new patch', class: "small round button"  %>
-<% end %>
-
-<ul id="patches">
-	<% @tone_library_song.tone_library_patches.each do |tlp| %>
-		<%= render '/admin/shared/tone_library_patch_row', tlp: tlp %>
+	<h3 class="subheader">Patches</h3>
+	<%= simple_form_for [:admin, @tone_library_patch], html: {multipart: true} do |f| %>
+	    <%= f.hidden_field :tone_library_song_id %>
+		<%= f.association :product, collection: Product.non_discontinued(website) %> 
+		<%= f.input :patch, label: "Patch file" %>
+		<%= submit_tag 'upload new patch', class: "small round button"  %>
 	<% end %>
-</ul>
+
+	<ul id="patches" class="list">
+		<% @tone_library_song.tone_library_patches.each do |tlp| %>
+			<%= render '/admin/shared/tone_library_patch_row', tlp: tlp %>
+		<% end %>
+	</ul>
 </div>

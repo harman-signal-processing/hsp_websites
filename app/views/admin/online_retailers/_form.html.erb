@@ -1,28 +1,26 @@
-<%= f.error_messages %>
+<%= simple_form_for([:admin, @online_retailer], html: {multipart: true}) do |f| %>
 
-<p>
-  <%= f.label :name %><br />
-  <%= f.text_field :name %>
-</p>
-<p>
-  <%= f.label :retailer_logo %><br />
-  <%= f.file_field :retailer_logo %><br/>
-  <i>Will be auto-sized to 125x75 pixels.
-  	<% unless f.object.retailer_logo_file_name.blank? %>
-  	Leave blank to keep current image.
-  	<% end %>
-  </i>
-</p>
-<p>
-	<%= f.label :brand_link %><br />
-	<%= f.text_field :brand_link, size: 60 %><br />
-	<i>The link which shows all of the <%= website.brand_name %> products.</i>
-</p>
-<% if can? :disable, f.object %>
-<p>
-  <%= f.text_field :preferred, size: 4 %> <%= f.label :preferred, "Preference score (nearly always blank)" %>
-</p>
-<p>
-  <%= f.check_box :active %> <%= f.label :active %> (warning, this will affect all brand sites on this new platform)
-</p>
+  <div class="row">
+    <div class="large-4 columns">
+      <%= f.input :name %>
+    </div>
+  </div>
+
+  <%= f.input :retailer_logo, hint: "Will be auto-sized to 125x75 pixels." %>
+    <% unless f.object.retailer_logo_file_name.blank? %>
+    <span class="hint">Leave blank to keep current image.</span>
+    <% end %>
+
+  <% if can? :disable, f.object %>
+    <div class="row">
+      <div class="large-4 columns">
+        <%= f.input :preferred, label: "Preference score (nearly always blank)" %>
+      </div>
+    </div>
+    <%= f.input :active, label: "Active. (warning, this will affect all brand sites on this platform)" %><br/>
+  <% end %>
+
+  <%= f.input :brand_link, hint: "The link which shows all of the #{ website.brand_name } products." %>
+
+  <br/><%= f.button :submit %>
 <% end %>

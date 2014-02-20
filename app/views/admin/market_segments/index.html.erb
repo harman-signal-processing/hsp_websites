@@ -4,7 +4,7 @@
 	<li><%= link_to 'New market segment', new_admin_market_segment_path, class: "small success button" %></li>
 </ul>
 
-<ul>
+<ul class="list">
 <% @market_segments.each do |market_segment| %>
   <li><%= link_to market_segment.name, [:admin, market_segment] %></li>
 <% end %>

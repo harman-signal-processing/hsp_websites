@@ -6,41 +6,48 @@
 	<li><%= link_to 'Delete', [:admin, @site_element], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
 </ul>
 
-<p>
-  <b>Resource file name:</b>
-  <% if !@site_element.resource_file_name.blank? %>
-  <%= link_to @site_element.resource_file_name, @site_element.resource.url %>
-  <% else %>
-  <%= link_to @site_element.executable_file_name, @site_element.executable.url %>
-  <% end %>
-</p>
+<div class="row">
+	<div class="large-3 columns">
+		<p>
+		  <b>Resource file name:</b>
+		  <% if !@site_element.resource_file_name.blank? %>
+		  <%= link_to @site_element.resource_file_name, @site_element.resource.url %>
+		  <% else %>
+		  <%= link_to @site_element.executable_file_name, @site_element.executable.url %>
+		  <% end %>
+		</p>
 
-<% if @site_element.is_image? %>
-	<p>
-		<%= link_to(image_tag(@site_element.resource.url(:small)), @site_element.resource.url) %>
-	</p>
-<% end %>
+		<% if @site_element.is_image? %>
+			<p>
+				<%= link_to(image_tag(@site_element.resource.url(:small)), @site_element.resource.url) %>
+			</p>
+		<% end %>
 
-<p>
-  <b>Resource type:</b>
-  <%= @site_element.resource_type %>
-</p>
+		<p>
+		  <b>Resource type:</b>
+		  <%= @site_element.resource_type %>
+		</p>
 
-<p>
-	<b>Show on public site on downloads page?</b>
-	<%= (@site_element.show_on_public_site?) ? "Yes" : "No" %>
-</p>
+		<p>
+			<b>Show on public site on downloads page?</b>
+			<%= (@site_element.show_on_public_site?) ? "Yes" : "No" %>
+		</p>
+
+	</div>
+
+	<div class="large-9 columns">
+		<div class="panel">
 
 <% if !@site_element.resource_file_name.blank? %>
 	<p>You can link to this file with the following URL(s):</p>
-	<ul>
+	<ul class="list">
 		<li><b>
 		<%= @site_element.resource.url("original", timestamp: false) %>
 		</b></li>
 	</ul>
 	<% if @site_element.is_image? %>
 		<i>Other sizes:</i>
-		<ul>
+		<ul class="list">
 			<li><%= link_to @site_element.resource.url("large", timestamp: false) do %>
 				<%= @site_element.resource.url("large", timestamp: false) %>
 				<% end %>
@@ -69,28 +76,31 @@
 	<% end %>
 <% else %>
 	<p>You can link to this file with the following URL:</p>
-	<ul>
+	<ul class="list">
 		<li><b>
 		<%= @site_element.executable.url("original", timestamp: false) %>
 		</b></li>
 	</ul>
 <% end %>
 
+		</div>
+		<div class="group">
+		<p>Choose one or more product below. Doing so will add this file to the 
+			manuals/documentation area on each associated product page.</p>
+			
+			<%= simple_form_for [:admin, @product_site_element], remote: true do |f| %>
+				<%= f.hidden_field :site_element_id %>
+				<%= hidden_field_tag :called_from, "site_element" %>
+				<%= f.association :product, collection: website.products, label: false %>
+				<%= f.submit "add product", class: "small round button" %>
+			<% end %>
 
-<p>And/or choose one or more product below. Doing so will add this file to the 
-	manuals/documentation area on each associated product page.</p>
-	
-	<%= form_for [:admin, @product_site_element], remote: true do |f| %>
-		<%= f.hidden_field :site_element_id %>
-		<%= hidden_field_tag :called_from, "site_element" %>
-		<p>
-			<%= f.collection_select :product_id, website.products, :id, :name %>
-			<%= f.submit "add product" %>
-		</p>
-	<% end %>
-	<ul id="product_site_elements">
-		<% @site_element.product_site_elements.each do |pse| %>
-		<%= render "/admin/shared/product_site_element_row", pse: pse, called_from: "site_element" %>
-		<% end %>
-	</ul>
-	
+			<ul id="product_site_elements" class="list">
+				<% @site_element.product_site_elements.each do |pse| %>
+				<%= render "/admin/shared/product_site_element_row", pse: pse, called_from: "site_element" %>
+				<% end %>
+			</ul>
+		</div>
+	</div>
+</div>
+
