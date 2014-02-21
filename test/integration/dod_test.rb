@@ -19,7 +19,7 @@ describe "DOD Integration Test" do
   describe "home page" do
     it "should respond with the brand layout" do
       visit root_url(locale: I18n.default_locale, host: @website.url)
-      page.must_have_xpath("//div[@id='Header']/div[@id='logo']")
+      page.must_have_xpath("//body[@data-brand='#{@brand.name}']")
     end
   end
   

@@ -10,7 +10,7 @@ S3_CREDENTIALS = (c[Rails.env.to_sym]) ? c[Rails.env.to_sym] : c.first
 
 S3_CLOUDFRONT = 'adn.harmanpro.com' # (requested from IT on 10/29) 'd18nzrj3czoaty.cloudfront.net' # 
 
-# if Rails.env.production?
+if Rails.env.production?
 	Paperclip::Attachment.default_options.merge!({
 	  storage: :s3,
 	  bucket: S3_CREDENTIALS['bucket'],
@@ -19,9 +19,9 @@ S3_CLOUDFRONT = 'adn.harmanpro.com' # (requested from IT on 10/29) 'd18nzrj3czoa
     url: ':s3_alias_url',
     path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
 	})
-# else
-# 	Paperclip::Attachment.default_options.merge!({
-#     url: '/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension',
-#     path: ":rails_root/public/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension"
-# 	})
-# end
+else
+	Paperclip::Attachment.default_options.merge!({
+    url: '/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension',
+    path: ":rails_root/public/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension"
+	})
+end

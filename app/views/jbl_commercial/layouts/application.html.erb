@@ -86,22 +86,27 @@
 											<%= t('home').upcase %>
 											<% end %>
 										</li>
+										<li class="divider"></li>
 										<li><%= link_to product_families_path do %>
 											<strong>CS</strong>
 											<%= t('products').upcase %>
 											<% end %>
 										</li>
+										<li class="divider"></li>
 										<li><%= link_to support_path do %>
 											<strong>CS</strong>
 											<%= t('product_support').upcase %>
 											<% end %>
 										</li>
+										<li class="divider"></li>
 										<li><%= link_to support_downloads_path do %>
 											<strong>CS</strong>
 											<%= t('downloads').upcase %>
 											<% end %>
 										</li>
+										<li class="divider"></li>
 										<li><%= link_to t('about').upcase, "/#{I18n.locale}/company" %></li>
+										<li class="divider"></li>
 										<li><%= link_to news_index_path do %>
 											<strong>CS</strong>
 											<%= t('news').upcase %>

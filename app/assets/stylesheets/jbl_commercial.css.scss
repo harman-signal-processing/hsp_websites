@@ -7,7 +7,7 @@
 *= require_self
 */
 
-$primary-color: #ee632e;
+$primary-color: #f37736;
 
 @import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic);
 
@@ -24,12 +24,25 @@ img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 
 @media only screen and (min-width: 720px) {
 	div#header-container {
-		height: 104px;
-		margin-bottom: 10px;
+		height: 103px;
+		margin-bottom: 15px;
 		background: asset-data-url('jbl_commercial/header.jpg') repeat-x;
+	-webkit-box-shadow: 0 8px 6px -6px #ccc;
+	   -moz-box-shadow: 0 8px 6px -6px #ccc;
+	        box-shadow: 0 8px 6px -6px #ccc;
 	}
 	nav.top-bar {
-		margin-left: -20px;
+		border-radius: 16px;
+		-webkit-border-radius: 16px;
+		-moz-border-radius: 16px;
+	  /* Prevent background color leak outs */
+	  -webkit-background-clip: padding-box; 
+	  -moz-background-clip:    padding; 
+	  background-clip:         padding-box;
+		padding-left: 15px;
+	-webkit-box-shadow: 0 8px 6px -6px #888;
+	   -moz-box-shadow: 0 8px 6px -6px #888;
+	        box-shadow: 0 8px 6px -6px #888;
 	}
 }
 @media only screen and (max-width: 720px) {
@@ -195,6 +208,7 @@ div#signup {
 	h3 {
 		margin-top: -15px;
 		font-size: 95%;
+		font-weight: 400;
 	}
 	.product_description {
 		font-size: 85%;
@@ -363,101 +377,6 @@ span.discontinued {
 	font-weight: normal;
 	margin-left: 6px;
 }
-div#product_buy_now_box {
-	text-align: center;
-	padding: 10px;
-	margin: 10px 0px 20px 0px;
-}
-#blanket {
-	background-color:#111;
-	opacity: 0.65;
-	filter:alpha(opacity=65);
-	position:absolute;
-	z-index: 9001;
-	top:0px;
-	left:0px;
-	width:100%;
-}
-#dealer_popup {
-	position:absolute;
-	background-color:#000;
-	width:720px;
-	height:380px;
-	z-index: 9002;
-	border: 6px solid white;
-	padding: 12px;
-	opacity: 0.9;
-	filter:alpha(opacity=90);
-	#dealers {
-		height: 310px;
-		overflow: auto;
-		margin-bottom: 5px;
-		a:link, a:visited {
-			color:white;
-		/*	display: block;*/
-		}
-	}
-	#close {
-		a:link, a:visited {
-			color: #111;
-			text-decoration: none;
-			font-weight: bold;
-		}
-	}
-}
-#dealer_popup_close {
-	position:absolute;
-	z-index: 9004;
-	opacity: 0.9;
-	filter:alpha(opacity=90);
-}
-/***** Dealer Lookup *****/
-div#dealer_lookup_floater {
-	float: right;
-	text-align: right;
-	width: 650px;
-}
-.form_container {
-	background: #556A8F;
-	color: #FFF;
-	padding: 8px 12px 2px 18px;
-	margin-bottom: 6px;
-	a:link, a:visited {
-		color: white;
-	}
-}
-ul.dealer_results li {
-	margin-bottom: 12px;
-}
-div#pop_info {
-	width: 275px;
-	text-align: center;
-	background: #EEE;
-	padding: 8px;
-	float: left;
-	margin: 15px;
-	margin-right: 5px;
-	p {
-		text-align: left;
-		margin: 6px;
-	}
-}
-div#wtb_container {
-	width: 860px;
-	margin-left: auto;
-	margin-right: auto;
-}
-div#dealer_results {
-	width: 550px;
-	float: right;
-	padding: 14px;
-}
-div.retailer_logo {
-  float: left;
-  margin: 6px;
-  width: 125px;
-}
-
 /****** News ********/
 table.news_list {
 	border-collapse: collapse;
@@ -523,51 +442,7 @@ div.captcha {
 	background: #EEE;
 }
 /******** Form Errors ********/
-div.field_with_errors {
-	display: inline;
-}
-.field_with_errors label {
-  color: red;
-  font-weight: bold;
-/*  display: table;*/
-}
 
-#errorExplanation {
-  width: 400px;
-  border: 2px solid red;
-  padding: 7px;
-  padding-bottom: 12px;
-  margin-bottom: 20px;
-  background-color: #f0f0f0;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#errorExplanation h2 {
-  text-align: left;
-  font-weight: bold;
-  padding: 5px 5px 5px 15px;
-  font-size: 12px;
-  margin: -7px;
-  background-color: #c00;
-  color: #fff;
-}
-
-#errorExplanation p {
-  color: #333;
-  margin-bottom: 0;
-  padding: 5px;
-  margin-top: 4px;
-}
-#errorExplanation ul {
-	margin-left: 24px;
-	padding-left: 12px;
-}
-#errorExplanation ul li {
-  font-size: 12px;
-  list-style: square;
-  color: #000;
-}
 /****** Information Tables *****/
 table.info {
 	border: 2px solid #FFF;
@@ -594,8 +469,9 @@ table.download-collection {
 	}
 	th {
 		padding: 6px;
-		background: #ee632e;
+		background: $primary-color;
 		color: white;
+		text-shadow: 1px 1px 1px darken($primary-color, 20%);
 		a:link, a:hover, a:visited {
 			color: white;
 		}
@@ -622,62 +498,7 @@ div#software-page-content {
 		}
 	}
 }
-/****** Youtube table ********/
-table.tube {}
-table.tube td {
-	padding: 1px 1px 1px 8px;
-}
-/******* Promo page *******/
-.promotion_bug_container {
-	width: 860px;
-	margin-left: 50px;
-	margin-bottom: 30px;
-}
-.promotion_bug {
-	float: left;
-	margin-right: 20px;
-}
-/******** Twitter feed *******/
-#twitter_feed_container {
-	width: 260px;
-    height: 380px;
-    background: #222;
-	padding: 2px;
-}
-#twitter_feed_container h2 {
-	margin-left: 6px;
-}
-#twitter_feed_container h2 img {
-	vertical-align: middle;
-}
-#twitter_feed_container #tweets {
-	height: 300px;
-	overflow: auto;
-	background: #000;
-	color: #FFF;
-}
-#twitter_feed_container #tweets .tweet {
-	padding: 5px;
-	border-bottom: 1px dotted #666;
-	font-size: 12px;
-	line-height: 14px;
-}
-#twitter_feed_container .tweet a:link,
-#twitter_feed_container .tweet a:visited {
-	color: #69cbff;
-}
-#twitter_feed_container .tweet .tw_actions {
-	font-size: 80%;
-	margin: 0; padding: 0;
-	margin-top: 4px;
-}
-#twitter_feed_container #social_media_links {
-	margin-top: 8px;
-}
-#right_column #product_packaging_contents ul li {
-	list-style-type: square;
-	margin-left: 14px;
-}
+
 /************** ***********/
 .disclaimer {
 	font-size: 80%; 
@@ -760,9 +581,5 @@ div.quicklinks {
 	ul {
 		list-style-type: disc;
 		margin: 10px 20px 30px;
-		li {
-			font-size: 13px;
-			margin-left: 20px;
-		}
 	}
 }

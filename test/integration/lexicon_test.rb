@@ -39,6 +39,7 @@ describe "Lexicon Integration Test" do
       within(:xpath, "//div[@id='supernav']") do
         page.must_have_content "Browse Products"
       end
+      page.must_have_xpath("//body[@data-brand='#{@brand.name}']")
     end
 
     it "should call Artists Professionals" do

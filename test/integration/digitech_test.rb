@@ -20,6 +20,7 @@ describe "DigiTech Integration Test" do
     it "should respond with the brand layout" do
       visit root_url(locale: I18n.default_locale, host: @website.url)
       page.must_have_xpath("//div[@id='big_bottom_box_container']")
+      page.must_have_xpath("//body[@data-brand='#{@brand.name}']")
     end
   end
 
