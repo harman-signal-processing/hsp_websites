@@ -8,13 +8,34 @@ module ApplicationHelper
 
   # Apple iOS icons for a given Website.brand
   #
-  def apple_icons(folder=website.folder)
-    ret = tag(:meta, name: "apple-mobile-web-app-capable", content: "yes")
-    ["57x57", "72x72", "114x114", "144x144"].each do |size|
-      if File.exists?(Rails.root.join("app", "assets", "images", folder, "apple-icon-#{size}.png"))
-        ret += tag(:link, rel: "apple-touch-icon", sizes: size, href: image_path("#{folder}/apple-icon-#{size}.png") )
+  def app_meta_tags(options={})
+    if website
+      default_options = { folder: website.folder, title: (website.brand.present?) ? website.brand.name : website.site_name, status_bar_color: "black" }
+    else
+      default_options = { folder: "", title: "", status_bar_color: "black" }
+    end
+    options = default_options.merge options
+
+    ret =  tag(:meta, name: "apple-mobile-web-app-capable", content: "yes")
+    ret += tag(:meta, name: "apple-mobile-web-app-status-bar-style", content: options[:status_bar_color])
+    ret += tag(:meta, name: "apple-mobile-web-app-title", content: options[:title] )
+    ret += tag(:meta, name: "format-detection", content: "telephone=no")
+
+    # only one dimension needed, half-size (non-retina) sizes. 
+    sizes = [29, 40, 50, 57, 60, 72, 76].sort.reverse
+
+    sizes.each do |size|
+      # retina versions:
+      if File.exists?(Rails.root.join("app", "assets", "images", options[:folder], "AppIcon#{size}x#{size}@2x.png"))
+        ret += tag(:link, rel: "apple-touch-icon", sizes: "#{size*2}x#{size*2}", href: image_path("#{options[:folder]}/AppIcon#{size}x#{size}@2x.png") )
       end
     end
+    sizes.each do |size|
+      if File.exists?(Rails.root.join("app", "assets", "images", options[:folder], "AppIcon#{size}x#{size}.png"))
+        ret += tag(:link, rel: "apple-touch-icon", sizes: "#{size}x#{size}", href: image_path("#{options[:folder]}/AppIcon#{size}x#{size}.png") )
+      end
+    end
+
     ret.html_safe
   end
 

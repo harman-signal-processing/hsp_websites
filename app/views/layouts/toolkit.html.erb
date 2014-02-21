@@ -32,33 +32,11 @@
             }
           </style>
         <% end %>
-      <% end %>
-      <% if File.exists?(Rails.root.join("app", "assets", "images", @brand.default_website.folder, "apple-icon-57x57.png")) %>
-        <link rel="apple-touch-icon" sizes="57x57" href="<%= image_path ("#{@brand.default_website.folder}/apple-icon-57x57.png") %>" />
-      <% else %>
-        <link rel="apple-touch-icon" sizes="57x57" href="<%= image_path ('toolkit/apple-icon-57x57.png') %>" />
-      <% end %>
-      <% if File.exists?(Rails.root.join("app", "assets", "images", @brand.default_website.folder, "apple-icon-72x72.png")) %>
-        <link rel="apple-touch-icon" sizes="72x72" href="<%= image_path ("#{@brand.default_website.folder}/apple-icon-72x72.png") %>" />
-      <% else %>
-        <link rel="apple-touch-icon" sizes="72x72" href="<%= image_path ('toolkit/apple-icon-72x72.png') %>" />
-      <% end %>
-      <% if File.exists?(Rails.root.join("app", "assets", "images", @brand.default_website.folder, "apple-icon-114x114.png")) %>
-        <link rel="apple-touch-icon" sizes="114x114" href="<%= image_path ("#{@brand.default_website.folder}/apple-icon-114x114.png") %>" />
-      <% else %>
-        <link rel="apple-touch-icon" sizes="114x114" href="<%= image_path ('toolkit/apple-icon-114x114.png') %>" />
-      <% end %>
-      <% if File.exists?(Rails.root.join("app", "assets", "images", @brand.default_website.folder, "apple-icon-144x144.png")) %>
-        <link rel="apple-touch-icon" sizes="144x144" href="<%= image_path ("#{@brand.default_website.folder}/apple-icon-144x144.png") %>" />
-      <% else %>
-        <link rel="apple-touch-icon" sizes="144x144" href="<%= image_path ('toolkit/apple-icon-144x144.png') %>" />
+        <%= app_meta_tags(title: @brand.name, folder: @brand.default_website.folder) %>
       <% end %>
 
     <% else %>
-      <link rel="apple-touch-icon" sizes="57x57" href="<%= image_path ('toolkit/apple-icon-57x57.png') %>" />
-      <link rel="apple-touch-icon" sizes="72x72" href="<%= image_path ('toolkit/apple-icon-72x72.png') %>" />
-      <link rel="apple-touch-icon" sizes="114x114" href="<%= image_path ('toolkit/apple-icon-114x114.png') %>" />
-      <link rel="apple-touch-icon" sizes="144x144" href="<%= image_path ('toolkit/apple-icon-144x144.png') %>" />
+      <%= app_meta_tags(title: "Hpro Toolkit", folder: "toolkit") %>
     <% end %>
     <% if Rails.env.production? %>
     <script type="text/javascript">

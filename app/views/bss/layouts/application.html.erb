@@ -14,7 +14,7 @@
 				<meta property="twitter:site" value="@<%= website.twitter_name %>" />
 			<% end %>
 
-			<%= apple_icons() %>
+			<%= app_meta_tags() %>
 
 			<% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "logo.png")) %>
 				<link rel="image_src" href="<%= image_url("#{website.folder}/logo.png") %>" />
