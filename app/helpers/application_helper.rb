@@ -36,7 +36,7 @@ module ApplicationHelper
       end
     end
 
-    ret.to_s.html_safe
+    ret.html_safe
   end
 
   # Using zurb foundation to show the site's logo
@@ -294,7 +294,7 @@ module ApplicationHelper
     elsif auto = auto_translate(object, method)
       c = auto
     end
-    c.html_safe
+    c.to_s.html_safe
 	end
 
   # Bing translate, store results, rescue in case of error
