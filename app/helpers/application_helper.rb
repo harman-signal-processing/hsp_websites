@@ -36,7 +36,7 @@ module ApplicationHelper
       end
     end
 
-    ret.html_safe
+    ret.to_s.html_safe
   end
 
   # Using zurb foundation to show the site's logo
