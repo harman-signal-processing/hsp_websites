@@ -16,18 +16,7 @@
 		<% end %>
 		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "apple-icon-57x57.png")) %>
-      <link rel="apple-touch-icon" sizes="57x57" href="<%= image_path ('#{website.folder}/apple-icon-57x57.png') %>" />
-    <% end %>
-    <% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "apple-icon-72x72.png")) %>
-      <link rel="apple-touch-icon" sizes="72x72" href="<%= image_path ('#{website.folder}/apple-icon-72x72.png') %>" />
-    <% end %>
-    <% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "apple-icon-114x114.png")) %>
-      <link rel="apple-touch-icon" sizes="114x114" href="<%= image_path ('#{website.folder}/apple-icon-114x114.png') %>" />
-    <% end %>
-    <% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "apple-icon-144x144.png")) %>
-      <link rel="apple-touch-icon" sizes="144x144" href="<%= image_path ('#{website.folder}/apple-icon-144x144.png') %>" />
-    <% end %>
+		<%= apple_icons() %>
 		<%= render_partial "shared/analytics" %>
 	</head>
 	<body data-brand="<%= website.brand.name %>">

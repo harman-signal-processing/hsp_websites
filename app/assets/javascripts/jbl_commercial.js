@@ -15,19 +15,13 @@
 //= require jquery-ui-1.10.2.custom.min
 //= require jquery.lightbox-0.5.min
 //= require jquery.datetimepicker
-// require jquery.bxSlider.min
-// require jwplayer
-// require soundmanager2-nodebug-jsmin
-// require inline_player
 //= require global_functions
-//= require product_tabs
 //= require buy_it_now
 //= require maps
-//= require slideshow
 //= require twitter
-// require swfobject
 //= require homepage
 //= require foundation
+//= require add2home
 //= require_self
 
 document.createElement("article");  

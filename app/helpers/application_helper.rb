@@ -6,6 +6,18 @@ module ApplicationHelper
     request.path.sub(/^\/[a-zA-Z\-]{2,5}/, "/#{new_locale}")    
   end
 
+  # Apple iOS icons for a given Website.brand
+  #
+  def apple_icons(folder=website.folder)
+    ret = tag(:meta, name: "apple-mobile-web-app-capable", content: "yes")
+    ["57x57", "72x72", "114x114", "144x144"].each do |size|
+      if File.exists?(Rails.root.join("app", "assets", "images", folder, "apple-icon-#{size}.png"))
+        ret += tag(:link, rel: "apple-touch-icon", sizes: size, href: image_path("#{folder}/apple-icon-#{size}.png") )
+      end
+    end
+    ret.html_safe
+  end
+
   # Using zurb foundation to show the site's logo
   #
   def interchange_logo
