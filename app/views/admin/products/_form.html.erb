@@ -7,7 +7,7 @@
 	</div>
 <% end %>
 	<div class="large-6 columns">
-		<%= f.input :sap_sku %>
+		<%= f.input :sap_sku, input_html: { autocomplete: "off" } %>
 	</div>
 </div>
 
@@ -23,7 +23,7 @@
 <% end %>
 <% if can?(:update, :product_password) %>
 	<div class="large-6 columns">
-		<%= f.input :password, hint: "(to allow non-admins to preview page before product is officially announced)" %>
+		<%= f.input :password, hint: "(to allow non-admins to preview page before product is officially announced)", input_html: { autocomplete: "off" } %>
 	</div>
 <% end %>
 </div>

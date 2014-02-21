@@ -24,7 +24,7 @@
   			<%= f.input :website %>
   		</div>
   		<div class="large-6 columns">
-  			<%= f.input :email, hint: "Enter a unique dummy address if this artist doesn't need to login." %>
+  			<%= f.input :email, hint: "Enter a unique dummy address if this artist doesn't need to login.", input_html: { autocomplete: "off" } %>
   		</div>
   	</div>
 
@@ -45,8 +45,8 @@
 
 
 <% if @artist.new_record? %>
-	<%= f.input :password %>
-	<%= f.input :password_confirmation %>
+	<%= f.input :password, input_html: { autocomplete: "off" } %>
+	<%= f.input :password_confirmation, input_html: { autocomplete: "off" } %>
 <% end %>
 
 	<br/><%= f.input :approved, as: :boolean %><br/>

@@ -1,6 +1,6 @@
 <%= simple_form_for [:admin, @user] do |f| %>
 	<%= f.input :name %>
-  <%= f.input :email %>
+  <%= f.input :email, input_html: { autocomplete: "off" } %>
   <%= f.input :phone_number %>
   <%= f.input :job_title %>
   <%= f.input :job_description %>
@@ -29,8 +29,8 @@
 
   <% if @user.new_record? %>
   <br/>
-		<%= f.input :password %>
-		<%= f.input :password_confirmation %>
+		<%= f.input :password, input_html: { autocomplete: "off" } %>
+		<%= f.input :password_confirmation, input_html: { autocomplete: "off" } %>
   <% end %>
 
   <br/><%= f.button :submit %>
