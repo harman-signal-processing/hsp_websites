@@ -10,7 +10,10 @@ class ProductFamily < ActiveRecord::Base
   has_attached_file :title_banner, styles: { medium: "300x300>", thumb: "100x100>" }
   has_attached_file :background_image
 
-  validates_presence_of :brand_id, :name
+  validate :brand_id, presence: true
+  validate :name, presence: true
+  validate :parent_not_itself
+
   acts_as_tree order: :position, scope: :brand_id
   # acts_as_list scope: :brand_id, order: :position
   after_save :translate
@@ -214,5 +217,9 @@ class ProductFamily < ActiveRecord::Base
     ContentTranslation.auto_translate(self, self.brand)
   end
   handle_asynchronously :translate
+
+  def parent_not_itself
+    errors.add(:parent_id, "can't be itself") if !self.new_record? && self.parent_id == self.id    
+  end
   
 end
