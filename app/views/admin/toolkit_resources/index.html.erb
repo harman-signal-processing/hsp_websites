@@ -48,6 +48,15 @@
 			</ul>
 		<% else %>
 
+			<% if @bad_links.size > 0 %>
+				<div class="alert alert-box round"><%= @bad_links.size %> Possible Problems Found:</div>
+				<ul class="list">
+					<% @bad_links.each do |toolkit_resource| %>
+					<li><%= link_to toolkit_resource.name, [:admin, toolkit_resource] %></li>
+					<% end %>
+				</ul>
+			<% end %>
+
 			<% if can?(:manage, BrandToolkitContact) %>
 			<div class="group">
 				<h3><%= website.brand.name %> Marketing Contacts</h3>

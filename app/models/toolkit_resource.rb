@@ -35,9 +35,13 @@ class ToolkitResource < ActiveRecord::Base
   validate :name, presence: true 
   validate :brand_id, presence: :true 
   validate :toolkit_resource_type_id, presence: true
-  validate :file_exists
+  # validate :file_exists #can't actually do this since admin might not be on the content server.
 
   after_save :touch_related_item
+
+  def tk_folder
+    Rails.env.production? ? Rails.root.join("../", "../", "../", "toolkits") : Rails.root.join("../", "../", "toolkit")
+  end
 
   def touch_related_item
     if self.related_item
@@ -73,11 +77,14 @@ class ToolkitResource < ActiveRecord::Base
   end
 
   def file_exists
-    errors.add(:download_path, "doesn't exist on the content server.") unless file_exists?
+    errors.add(:download_path, "doesn't exist on the content server.") unless self.download_pathfile_exists?
   end
 
   def file_exists?
-    tk_folder = Rails.env.production? ? Rails.root.join("../", "../", "../", "toolkits") : Rails.root.join("../", "../", "toolkit")
-    File.file?(tk_folder + "/" + self.download_path)
+    File.file?(tk_folder.to_s + "/" + self.download_path)
+  end
+
+  def get_file_size
+    self.download_file_size = File.size(tk_folder.to_s + "/" + self.download_path)
   end
 end

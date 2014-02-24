@@ -25,6 +25,13 @@
 
 <% else %>
 
+<% if @toolkit_resource.link_checked_at.present? && !@toolkit_resource.link_good? %>
+	<div data-alert class="round alert-box alert">
+		File path not found on server. Last checked: <%= l @toolkit_resource.link_checked_at %>
+		<a href="#" class="close">&times;</a>
+	</div>
+<% end %>
+
 <table class="data">
 	<tbody>
 		<tr>
@@ -44,7 +51,13 @@
 		<% if @toolkit_resource.related_item %>
 		<tr>
 			<th>Related <%= @toolkit_resource.toolkit_resource_type.related_model.titleize %></th>
-			<td><%= link_to @toolkit_resource.related_item_name, [:admin, @toolkit_resource.related_item] %></td>
+			<td>
+				<% if @toolkit_resource.related_item %>
+					<%= link_to @toolkit_resource.related_item_name, [:admin, @toolkit_resource.related_item] %>
+				<% else %>
+					<span class="round alert label">Related item not found.</span>
+				<% end %>
+			</td>
 		</tr>
 		<% end %>
 		<tr>

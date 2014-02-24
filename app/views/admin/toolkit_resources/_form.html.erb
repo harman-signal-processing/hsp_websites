@@ -25,7 +25,7 @@
     <%= f.text_field :expires_on, input_html: {class: 'ui-datepicker'} %>
   <% else %>
     <%= f.input :name, label: "Resource Name", hint:"(be descriptive \"front/back\", \"CMYK\", etc.)" %>
-    <%= f.input :download_path, hint: "(on the shared toolkit folder)", placeholder: "#{website.folder}/#{@toolkit_resource.toolkit_resource_type.name.parameterize.tableize}/..." %>
+    <%= f.input :download_path, hint: "(on the shared toolkit folder, usually starts with brand name)", placeholder: "#{website.folder}/#{@toolkit_resource.toolkit_resource_type.name.parameterize.tableize}/..." %>
     <div class="row">
       <div class="large-6 columns">
         <%= f.input :download_file_size, 

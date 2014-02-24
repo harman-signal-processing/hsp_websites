@@ -11,6 +11,7 @@ class Admin::ToolkitResourcesController < AdminController
       @marketing_message_type = ToolkitResourceType.where(marketing_message: true).first
       @marketing_messages = ToolkitResource.where(brand_id: website.brand_id, toolkit_resource_type_id: @marketing_message_type.id).where("expires_on > ? OR expires_on IS NULL", Time.now.advance(days: -15))
     end
+    @bad_links = ToolkitResource.where(brand_id: website.brand_id, link_good: false)
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @toolkit_resources }

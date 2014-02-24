@@ -4,9 +4,10 @@ namespace :toolkit do
   #
   desc "Check toolkit resources to make sure the files can be downloaded"
   task :check_downloads => :environment do 
-    ToolkitResource.order(:link_checked_at).limit(25).each do |tr|
+    ToolkitResource.where("download_path IS NOT NULL").order(:link_checked_at).limit(25).each do |tr|
       tr.link_good = tr.file_exists?
       tr.link_checked_at = Time.now
+      tr.get_file_size if tr.link_good? # courtesy file size fix
       tr.save(validate: false) # standard validations verify file presence
     end
   end
