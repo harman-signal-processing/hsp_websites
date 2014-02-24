@@ -31,9 +31,12 @@ class ToolkitResource < ActiveRecord::Base
   has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
   belongs_to :brand 
   belongs_to :toolkit_resource_type 
+
   validate :name, presence: true 
   validate :brand_id, presence: :true 
   validate :toolkit_resource_type_id, presence: true
+  validate :file_exists
+
   after_save :touch_related_item
 
   def touch_related_item
@@ -67,5 +70,14 @@ class ToolkitResource < ActiveRecord::Base
 
   def expired?
     expires_on.present? && expires_on.to_date < Date.today
+  end
+
+  def file_exists
+    errors.add(:download_path, "doesn't exist on the content server.") unless file_exists?
+  end
+
+  def file_exists?
+    tk_folder = Rails.env.production? ? Rails.root.join("../", "../", "../", "toolkits") : Rails.root.join("../", "../", "toolkit")
+    File.file?(tk_folder + "/" + self.download_path)
   end
 end

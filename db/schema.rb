@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140211151006) do
+ActiveRecord::Schema.define(:version => 20140224161425) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -1443,6 +1443,8 @@ ActiveRecord::Schema.define(:version => 20140211151006) do
     t.text     "message"
     t.date     "expires_on"
     t.boolean  "media",                    :default => true
+    t.boolean  "link_good"
+    t.datetime "link_checked_at"
   end
 
   add_index "toolkit_resources", ["brand_id"], :name => "index_toolkit_resources_on_brand_id"

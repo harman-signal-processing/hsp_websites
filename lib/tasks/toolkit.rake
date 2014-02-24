@@ -1,4 +1,15 @@
 namespace :toolkit do
+
+  # Check toolkit resources to make sure they can be downloaded
+  #
+  desc "Check toolkit resources to make sure the files can be downloaded"
+  task :check_downloads => :environment do 
+    ToolkitResource.order(:link_checked_at).limit(25).each do |tr|
+      tr.link_good = tr.file_exists?
+      tr.link_checked_at = Time.now
+      tr.save(validate: false) # standard validations verify file presence
+    end
+  end
   
   # This should be a one-time use task, populating the users
  	# for the HSP toolkit
