@@ -71,7 +71,7 @@
 				    <% end %>
 					<h6 class="subheader">Recently created/changed:</h6>
 					<ul class="list">
-						<% website.products.order("updated_at DESC").limit(6).each do |item| %>
+						<% website.products.sort_by(&:updated_at).reverse[0,6].each do |item| %>
                   		<li><%= link_to item.name, [:admin, item] %></li>
                   		<% end %>
                   	</ul>
