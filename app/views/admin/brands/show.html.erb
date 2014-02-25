@@ -8,32 +8,39 @@
 	<% end %>
 </ul>
 
-<h3 class="subheader">Websites</h3>
+<div class="row">
+	<div class="large-3 columns">
+		<h5 class="subheader">Websites</h5>
 
-<ul class="list">
-	<% @brand.websites.each do |website| %>
-	<li>
-		<%= link_to website.url, [:admin, website] %>
-		<% if @brand.default_website == website %>(default)<% end %>
-	</li>
-	<% end %>
-</ul>
+		<ul class="list">
+			<% @brand.websites.each do |website| %>
+			<li>
+				<%= link_to website.url, [:admin, website] %>
+				<% if @brand.default_website == website %>(default)<% end %>
+			</li>
+			<% end %>
+		</ul>
+	</div>
 
-<h5 class="subheader">Latest Admin Actions</h5>
+	<div class="large-9 columns">
 
-<table class="data">
-	<tr>
-		<th>Time</th>
-		<th>User</th>
-		<th>Website</th>
-		<th>Action</th>
-	</tr>
-	<% @brand.admin_actions(2).order("created_at DESC").each do |log| %>
-	<tr>
-		<td><%=l log.created_at, format: :log %></td>
-		<td><%= link_to log.user.name, [:admin, log.user] %></td>
-		<td><%= log.website.url %></td>
-		<td><%= log.action %></td>
-	</tr>
-	<% end %>
-</table>
+		<h5 class="subheader">Latest Admin Actions</h5>
+
+		<table class="data" width="100%">
+			<tr>
+				<th>Time</th>
+				<th>User</th>
+				<th>Website</th>
+				<th>Action</th>
+			</tr>
+			<% @brand.admin_actions(2).order("created_at DESC").each do |log| %>
+			<tr>
+				<td><%=l log.created_at, format: :log %></td>
+				<td><%= link_to log.user.name, [:admin, log.user] %></td>
+				<td><%= log.website.url %></td>
+				<td><%= log.action %></td>
+			</tr>
+			<% end %>
+		</table>
+	</div>
+</div>

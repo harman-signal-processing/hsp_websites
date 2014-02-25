@@ -3,7 +3,12 @@ class Admin::OnlineRetailersController < AdminController
   # GET /admin/online_retailers
   # GET /admin/online_retailers.xml
   def index
-    @online_retailers = @online_retailers.order(:name)
+    @search = OnlineRetailer.ransack(params[:q])
+    if params[:q]
+      @online_retailers = @search.result.order(:name)
+    else
+      @online_retailers = @online_retailers.order(:name)
+    end
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @online_retailers }

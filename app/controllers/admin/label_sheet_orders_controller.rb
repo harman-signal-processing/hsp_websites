@@ -4,6 +4,10 @@ class Admin::LabelSheetOrdersController < AdminController
   # GET /label_sheet_orders
   # GET /label_sheet_orders.xml
   def index
+    @search = LabelSheetOrder.ransack(params[:q])
+    if params[:q]
+      @label_sheet_orders = @search.result.order(:name)
+    end
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @label_sheet_orders }

@@ -53,10 +53,10 @@
 		<%= cache ["header", website, I18n.locale] do %>
 		<div id="header-container" class="contain-to-grid">
 			<div class="row">
-				<div class="large-2 small-2 columns">
+				<div class="large-2 small-3 columns">
 					<%= link_to interchange_logo, locale_root_path %>
 				</div>
-				<div class="large-10 small-10 columns">
+				<div class="large-10 small-9 columns">
 					<div class="row collapse">
 						<div class="large-12 columns hide-for-small" style="text-align: right">
 							<%= link_to(image_tag("#{website.folder}/jbl_consumer.png", alt: "JBL Consumer"), "http://www.jbl.com", target: "_blank") %>

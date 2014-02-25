@@ -7,6 +7,9 @@ class Admin::ProductFamiliesController < AdminController
   def index
     @product_families = ProductFamily.all_parents(website)
     @children = (website.product_families - @product_families).sort_by(&:name) 
+    if params[:q]
+      @searched_product_families = ProductFamily.ransack(params[:q]).result.order(:name)
+    end
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @product_families }

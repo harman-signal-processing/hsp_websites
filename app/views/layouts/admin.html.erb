@@ -14,8 +14,8 @@
   <%= yield :extra_js %>
 </head>
 <body data-brand="<%= website.brand.name %>">
-
-
+	<%= yield :bg %>
+	
     <div class="sticky">
       <nav class="top-bar">
         <ul class="title-area">
@@ -319,6 +319,11 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="container" style="margin: 0px 10px;">
+  		<%= yield :dashboard %>
+  	</div>
+
 	<script type="text/javascript">$(document).foundation();</script>
 </body>
 </html>

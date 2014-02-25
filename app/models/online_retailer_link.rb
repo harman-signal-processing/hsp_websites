@@ -35,4 +35,15 @@ class OnlineRetailerLink < ActiveRecord::Base
       self.destroy 
     end
   end
+
+  def expanded_name
+    if self.product
+      tag = self.product.name 
+    elsif self.brand
+      tag = self.brand.name 
+    else
+      tag = ""
+    end
+    "#{self.online_retailer.name}: #{tag}"
+  end
 end

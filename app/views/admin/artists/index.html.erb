@@ -6,6 +6,36 @@
 </ul>
 <% end %>
 
+<% if @artists_search_results %>
+
+<h3 class="subheader">Search results:</h3>
+<table class="data" width="100%">
+	<tr>
+		<th>Name</th>
+		<th>Approver</th>
+		<th>Tier</th>
+		<th>Created</th>
+		<th>Updated</th>
+	</tr>
+	<% @artists_search_results.each do |artist| %>
+	<tr>
+		<td><%= link_to artist.name, [:admin, artist] %></td>
+		<td>
+			<% if artist.approver %>
+				<%= artist.approver.name %>
+			<% else %>
+				<span class="round alert label">Unapproved</span>
+			<% end %>
+		</td>
+		<td><%= (artist.artist_tier) ? artist.artist_tier.name : "" %></td>
+		<td><%=l artist.created_at.to_date, format: :long %></td>
+		<td><%=l artist.updated_at.to_date, format: :long %></td>
+	</tr>
+	<% end %>
+</table>
+
+<% else %>
+
 <h3 class="subheader">Featured Artists</h3>
 <ul id="artists" class="sortable_list">
 <% @featured_artists.each do |artist| %>
@@ -60,4 +90,6 @@
 	</tr>
 	<% end %>
 </table>
+<% end %>
+
 <% end %>

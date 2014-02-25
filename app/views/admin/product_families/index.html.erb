@@ -6,14 +6,24 @@
 </ul>
 <% end %>
 
-<h3 class="subheader">Top-level Families</h3>
-<ul id="product_families" class="sortable_list">
-	<%= render partial: "product_family", collection: @product_families %>
-</ul>
-<br/>
-<% if @children.size > 0 %>
-<h5 class="subheader">All the rest</h5>
-<ul class="nosort list">
-	<%= render partial: "product_family", collection: @children %>
-</ul>
+<% if @searched_product_families %>
+
+	<ul class="nosort list">
+		<%= render partial: "product_family", collection: @searched_product_families %>
+	</ul>
+
+<% else %>
+
+	<h3 class="subheader">Top-level Families</h3>
+	<ul id="product_families" class="sortable_list">
+		<%= render partial: "product_family", collection: @product_families %>
+	</ul>
+	<br/>
+	<% if @children.size > 0 %>
+	<h5 class="subheader">All the rest</h5>
+	<ul class="nosort list">
+		<%= render partial: "product_family", collection: @children %>
+	</ul>
+	<% end %>
+
 <% end %>

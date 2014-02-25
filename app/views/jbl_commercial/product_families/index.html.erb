@@ -19,7 +19,7 @@
 			<div ><%= link_to t('view_full_line'), product_family %></div>
 		<% end %>
 
-		<ul class="large-block-grid-5 small-block-grid-3">
+		<ul class="large-block-grid-5 small-block-grid-2">
 		<% children_with_current_products.each do |child| %>
 			<% if !child.family_photo_file_name.blank? %>
 	  			<li><%= link_to(image_tag(child.family_photo.url), child) %></li>
@@ -31,7 +31,7 @@
 	<% else %>
 		<h2><%= translate_content(product_family, :name) %></h2>
 
-		<ul class="large-block-grid-5 small-block-grid-3">
+		<ul class="large-block-grid-5 small-block-grid-2">
 		<% product_family.current_products.each do |product| %>
 			<li><%= render_partial "product_families/product_square", product: product %></li>
 		<% end %>

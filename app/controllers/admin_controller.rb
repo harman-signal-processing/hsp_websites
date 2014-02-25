@@ -17,6 +17,8 @@ class AdminController < ApplicationController
         @msg = "You don't appear to have access to any resources. Please contact adam.anderson@harman.com."
       end
     end
+    @orl_problems = OnlineRetailerLink.problems
+    @bad_toolkit_links = ToolkitResource.where(brand_id: website.brand_id, link_good: false)
     render_template
   end
   

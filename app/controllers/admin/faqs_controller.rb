@@ -3,7 +3,12 @@ class Admin::FaqsController < AdminController
   # GET /faqs
   # GET /faqs.xml
   def index
-    @faqs = @faqs.where(product_id: website.products.collect{|p| p.id}).sort_by(&:sort_key)
+    @search = Faq.ransack(params[:q])
+    if params[:q]
+      @faqs = @search.result.order(:question)
+    else
+      @faqs = @faqs.where(product_id: website.products.collect{|p| p.id}).sort_by(&:sort_key)
+    end
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @faqs }

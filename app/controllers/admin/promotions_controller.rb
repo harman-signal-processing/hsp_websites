@@ -3,7 +3,12 @@ class Admin::PromotionsController < AdminController
   # GET /admin/promotions
   # GET /admin/promotions.xml
   def index
-    @promotions = @promotions.where(brand_id: website.brand_id).order("start_on DESC")
+    @search = @promotions.where(brand_id: website.brand_id).order("start_on DESC").ransack(params[:q])
+    if params[:q]
+      @promotions = @search.result.order(:name)
+    else
+      @promotions = @promotions.where(brand_id: website.brand_id).order("start_on DESC")
+    end
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @promotions }

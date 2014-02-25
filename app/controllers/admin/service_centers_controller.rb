@@ -3,7 +3,12 @@ class Admin::ServiceCentersController < AdminController
   # GET /service_centers
   # GET /service_centers.xml
   def index
-    @service_centers = @service_centers.where(brand_id: website.brand_id).order("UPPER(name)")
+    @search = ServiceCenter.ransack(params[:q])
+    if params[:q]
+      @service_centers = @search.result.order(:name)
+    else
+      @service_centers = ServiceCenter.where(brand_id: website.brand_id).order("UPPER(name)")
+    end
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @service_centers }
