@@ -1,7 +1,7 @@
 <table class="news_list">
 <% news_list.each do |news| %>
   <tr>
-	<td class="date">
+	<td class="date hide-for-small">
 		<% if !news.news_photo_file_name.blank? %>
 			<%= link_to(image_tag(news.news_photo.url(:thumb_square), style: "text-align: right; margin: 8px;"), news) %>
 		<% end %>

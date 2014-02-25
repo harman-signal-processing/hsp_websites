@@ -3,7 +3,7 @@
 	can?(:manage, ProductFamily) || can?(:manage, Clinic) || can?(:manage, website) ||
 	can?(:manage, Distributor) || can?(:manage, Promotion) || can?(:manage, RegisteredDownload) ||
 	can?(:manage, Software) || can?(:manage, Page)) %>
-	<div id="admin_menu_link">
+	<div id="admin_menu_link" class="hide-for-small">
 		<%= link_to "site admin", admin_root_path %>
 	</div>
 <% end %>

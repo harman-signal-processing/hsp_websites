@@ -49,7 +49,7 @@ module ApplicationHelper
     q << "[#{image_path("#{website.folder}/logo-sm.png")}, (only screen and (max-width: 720px))]"
 
     image_tag("#{website.folder}/logo.png", 
-      class: "no-resize",
+      class: "no-resize no-resize-for-small",
       alt: Setting.site_name(website),
       data: { interchange: q.join(", ") })
   end
@@ -342,7 +342,10 @@ module ApplicationHelper
     eval("render '#{name}', options")
   end
 
-  def hpro_footer
+  def hpro_footer(options={})
+    default_options = {exclude: ""}
+    options = default_options.merge options
+
     links = []
     pro_brands = [
       # {name: "HarmanPro", web: "http://www.harmanpro.com"},
@@ -360,7 +363,7 @@ module ApplicationHelper
       {name: "HiQnet", web: "http://hiqnet.harmanpro.com"}
     ]
     pro_brands.each do |b|
-      unless website.brand.name.match(/#{b[:name]}/i)
+      unless website.brand.name.match(/#{b[:name]}/i) || options[:exclude].match(/#{b[:name]}/i)
         links << link_to(image_tag("pro_brands/#{b[:name].downcase}.png", alt: b[:name], class: "no-resize"), b[:web], target: "_blank") 
       end
     end

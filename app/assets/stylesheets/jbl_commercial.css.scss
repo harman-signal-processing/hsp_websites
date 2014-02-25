@@ -45,13 +45,29 @@ img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 	   -moz-box-shadow: 0 8px 6px -6px #888;
 	        box-shadow: 0 8px 6px -6px #888;
 	}
+	img.no-resize { max-width: none; }
 }
 @media only screen and (max-width: 720px) {
 	div#header-container {
 		margin-bottom: 10px;
-	}	
+	}
+	img.no-resize-for-small { max-width: none; }
+	div#header-container {
+		.row {
+			div {
+				padding-right: 0;
+				padding-left: 0;
+				margin-right: 0;
+				&.small-9 {
+					max-width: 11em;
+				}
+			}
+		}
+	}
+	.admin_function {
+		display: none;
+	}
 }
-img.no-resize { max-width: none; }
 .tiny {
 	font-size: 10px;
 }

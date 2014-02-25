@@ -24,7 +24,7 @@
 <% end %>
 
 
-<ul class="large-block-grid-5 small-block-grid-3">
+<ul class="large-block-grid-5 small-block-grid-2">
 <% @product_family.current_products.each do |product| %>
 	<li><%= render_partial("product_families/product_square", product: product) %></li>
 <% end %>
@@ -38,7 +38,7 @@
 	<h2><%= translate_content(sub_family, :name) %></h2>
 	<p><%= translate_content(sub_family, :intro) %></p>
 
-	<ul class="large-block-grid-5 small-block-grid-3">
+	<ul class="large-block-grid-5 small-block-grid-2">
 		<% sub_family.current_products.each do |product| %>
 			<li><%= render_partial "product_families/product_square", product: product %></li>
 		<% end %>
