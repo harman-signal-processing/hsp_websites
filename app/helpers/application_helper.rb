@@ -46,9 +46,10 @@ module ApplicationHelper
     q << "[#{image_path("#{website.folder}/logo.png")}, (default)]"
     q << "[#{image_path("#{website.folder}/logo.png")}, (large)]"
     q << "[#{image_path("#{website.folder}/logo.png")}, (medium)]"
-    q << "[#{image_path("#{website.folder}/logo-sm.png")}, (only screen and (max-width: 768px))]"
+    q << "[#{image_path("#{website.folder}/logo-sm.png")}, (only screen and (max-width: 720px))]"
 
     image_tag("#{website.folder}/logo.png", 
+      class: "no-resize",
       alt: Setting.site_name(website),
       data: { interchange: q.join(", ") })
   end
@@ -360,7 +361,7 @@ module ApplicationHelper
     ]
     pro_brands.each do |b|
       unless website.brand.name.match(/#{b[:name]}/i)
-        links << link_to(image_tag("pro_brands/#{b[:name].downcase}.png", alt: b[:name]), b[:web], target: "_blank") 
+        links << link_to(image_tag("pro_brands/#{b[:name].downcase}.png", alt: b[:name], class: "no-resize"), b[:web], target: "_blank") 
       end
     end
     content_tag :div, raw(links.join), id: "harmanpro_bar"

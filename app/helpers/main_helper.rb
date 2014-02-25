@@ -5,11 +5,11 @@ module MainHelper
       image_tag(feature.slide.url)
     else
       if feature.string_value =~ /^http\:/i 
-        link_to(image_tag(feature.slide.url), feature.string_value, target: "_blank")
+        link_to(image_tag(feature.slide.url, class: "no-resize"), feature.string_value, target: "_blank")
       elsif feature.string_value =~ /^\//
-        link_to(image_tag(feature.slide.url), feature.string_value)
+        link_to(image_tag(feature.slide.url, class: "no-resize"), feature.string_value)
       else
-        link_to(image_tag(feature.slide.url), "/#{params[:locale]}/#{feature.string_value}")
+        link_to(image_tag(feature.slide.url, class: "no-resize"), "/#{params[:locale]}/#{feature.string_value}")
       end
     end
   end

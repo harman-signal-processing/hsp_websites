@@ -51,6 +51,7 @@ img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 		margin-bottom: 10px;
 	}	
 }
+img.no-resize { max-width: none; }
 .tiny {
 	font-size: 10px;
 }
