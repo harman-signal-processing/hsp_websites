@@ -69,7 +69,7 @@ class Admin::RegisteredDownloadsController < AdminController
       else
         format.html { render action: "edit" }
         format.xml  { render xml: @registered_download.errors, status: :unprocessable_entity }
-        format.js { render template: "update_error" }
+        format.js { render template: "admin/registered_downloads/update_error" }
       end
     end
   end

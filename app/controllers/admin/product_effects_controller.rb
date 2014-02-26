@@ -52,7 +52,7 @@ class Admin::ProductEffectsController < AdminController
       else
         format.html { render action: "new" }
         format.xml  { render xml: @product_effect.errors, status: :unprocessable_entity }
-        format.js { render template: "create_error" }
+        format.js { render template: "admin/product_effects/create_error" }
       end
     end
   end

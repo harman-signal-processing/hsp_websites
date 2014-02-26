@@ -53,7 +53,7 @@ class Admin::UsRepRegionsController < AdminController
       else
         format.html { render action: "new" }
         format.xml  { render xml: @us_rep_region.errors, status: :unprocessable_entity }
-        format.js { render template: "create_error" }
+        format.js { render template: "admin/us_rep_regions/create_error" }
       end
     end
   end

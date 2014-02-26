@@ -44,7 +44,7 @@ class Admin::MarketSegmentProductFamiliesController < AdminController
       else
         format.html { render action: "new" }
         format.xml  { render xml: @market_segment_product_family.errors, status: :unprocessable_entity }
-        format.js { render template: "create_error" }
+        format.js { render template: "admin/market_segments/create_error" }
       end
     end
   end

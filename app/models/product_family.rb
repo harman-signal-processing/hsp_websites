@@ -10,8 +10,8 @@ class ProductFamily < ActiveRecord::Base
   has_attached_file :title_banner, styles: { medium: "300x300>", thumb: "100x100>" }
   has_attached_file :background_image
 
-  validate :brand_id, presence: true
-  validate :name, presence: true
+  validates :brand_id, presence: true
+  validates :name, presence: true
   validate :parent_not_itself
 
   acts_as_tree order: :position, scope: :brand_id

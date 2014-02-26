@@ -23,7 +23,7 @@ class ProductAttachment < ActiveRecord::Base
 
   has_many :demo_songs, order: :position
   accepts_nested_attributes_for :demo_songs, reject_if: :all_blank
-  validates_presence_of :product_id
+  validates :product_id, presence: true
   validates_uniqueness_of :songlist_tag, allow_blank: true
   acts_as_list scope: :product_id
   after_save :update_primary_photo

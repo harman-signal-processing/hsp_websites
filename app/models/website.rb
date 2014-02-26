@@ -1,8 +1,9 @@
 class Website < ActiveRecord::Base
   belongs_to :brand, touch: true
   has_many :website_locales
-  validates_presence_of :url, :brand_id, :folder
-  validates_uniqueness_of :url
+  validates :url, presence: true, uniqueness: true
+  validates :brand_id, presence: true
+  validates :folder, presence: true
   
   def value_for(key, locale=I18n.locale)
     brand.value_for(key, locale)

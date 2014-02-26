@@ -1,6 +1,8 @@
 class Faq < ActiveRecord::Base
   belongs_to :product, touch: true
-  validates_presence_of :product_id, :question, :answer
+  validates :product_id, presence: true
+  validates :question, presence: true
+  validates :answer, presence: true
   after_save :translate
   
   def sort_key

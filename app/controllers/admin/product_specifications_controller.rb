@@ -40,6 +40,8 @@ class Admin::ProductSpecificationsController < AdminController
       specification = Specification.new(params[:specification])
       if specification.save
         @product_specification.specification = specification
+      elsif specification = Specification.where(name: params[:specification][:name]).first
+        @product_specification.specification = specification
       end
     rescue
       # probably didn't have a form that can provide a new Specification
@@ -53,7 +55,7 @@ class Admin::ProductSpecificationsController < AdminController
       else
         format.html { render action: "new" }
         format.xml  { render xml: @product_specification.errors, status: :unprocessable_entity }
-        format.js { render template: "create_error" }
+        format.js { render template: "admin/product_specifications/create_error" }
       end
     end
   end

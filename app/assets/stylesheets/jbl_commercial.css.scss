@@ -28,22 +28,22 @@ img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 		height: 103px;
 		margin-bottom: 15px;
 		background: asset-data-url('jbl_commercial/header.jpg') repeat-x;
-	-webkit-box-shadow: 0 8px 6px -6px #ccc;
-	   -moz-box-shadow: 0 8px 6px -6px #ccc;
-	        box-shadow: 0 8px 6px -6px #ccc;
+	    -webkit-box-shadow: 0 8px 6px -6px #ccc;
+	    -moz-box-shadow: 0 8px 6px -6px #ccc;
+	    box-shadow: 0 8px 6px -6px #ccc;
 	}
 	nav.top-bar {
 		border-radius: 16px;
 		-webkit-border-radius: 16px;
 		-moz-border-radius: 16px;
 	  /* Prevent background color leak outs */
-	  -webkit-background-clip: padding-box; 
-	  -moz-background-clip:    padding; 
-	  background-clip:         padding-box;
+	    -webkit-background-clip: padding-box; 
+	    -moz-background-clip:    padding; 
+	    background-clip:         padding-box;
 		padding-left: 15px;
-	-webkit-box-shadow: 0 8px 6px -6px #888;
-	   -moz-box-shadow: 0 8px 6px -6px #888;
-	        box-shadow: 0 8px 6px -6px #888;
+	    -webkit-box-shadow: 0 8px 6px -6px #888;
+	    -moz-box-shadow: 0 8px 6px -6px #888;
+	    box-shadow: 0 8px 6px -6px #888;
 	}
 	img.no-resize { max-width: none; }
 }

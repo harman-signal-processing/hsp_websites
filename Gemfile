@@ -66,6 +66,7 @@ gem 'RedCloth'
 gem 'figaro'
 gem 'puma'
 gem 'delayed_paperclip'
+gem 'rack-mini-profiler'
 
 ### Could be useful in the future...
 # gem "bing_translate_yaml", "~> 0.1.7" 
@@ -81,12 +82,11 @@ group :production, :staging do
 end
 
 group :development do
-  # gem 'bullet'
-  # gem 'rack-mini-profiler'
 end
 
 group :development, :test do
-  gem 'unicorn'
+  gem 'bullet'
+  # gem 'unicorn'
   gem 'minitest-rails'
   gem "factory_girl_rails"
   gem 'zeus'

@@ -32,9 +32,9 @@ class ToolkitResource < ActiveRecord::Base
   belongs_to :brand 
   belongs_to :toolkit_resource_type 
 
-  validate :name, presence: true 
-  validate :brand_id, presence: :true 
-  validate :toolkit_resource_type_id, presence: true
+  validates :name, presence: true 
+  validates :brand_id, presence: :true 
+  validates :toolkit_resource_type_id, presence: true
   # validate :file_exists #can't actually do this since admin might not be on the content server.
 
   after_save :touch_related_item

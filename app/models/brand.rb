@@ -47,7 +47,7 @@ class Brand < ActiveRecord::Base
   after_initialize :dynamic_methods
   after_update :update_products
   has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
-  validates_presence_of :name
+  validates :name, presence: true, uniqueness: true
 
   def update_products
     begin

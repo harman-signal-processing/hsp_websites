@@ -44,7 +44,7 @@ class Admin::ProductAudioDemosController < AdminController
       else
         format.html { render action: "new" }
         format.xml  { render xml: @product_audio_demo.errors, status: :unprocessable_entity }
-        format.js { render template: "create_error" }
+        format.js { render template: "admin/product_audio_demos/create_error" }
       end
     end
   end

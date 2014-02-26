@@ -1,6 +1,8 @@
 class ContentTranslation < ActiveRecord::Base
   require 'bing_translator'
-  validates_presence_of :content_id, :content_method, :locale
+  validates :content_id, presence: true 
+  validates :content_method, presence: true
+  validates :locale, presence: true
   validates :content, presence: true
   validates :content_type, presence: true
   attr_accessible :content_id, :content_method, :content, :content_type, :locale

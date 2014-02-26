@@ -1,8 +1,9 @@
 class ApplicationController < ActionController::Base
   # before_filter :set_locale
   # before_filter :set_default_meta_tags
+  # before_filter :miniprofiler # enable to get profiler data in production
+  # before_filter :configure_permitted_parameters, if: :devise_controller? # shouldn't need this until rails 4
   before_filter :catch_criminals
-  #before_filter :configure_permitted_parameters, if: :devise_controller? # shouldn't need this until rails 4
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   layout :set_layout
@@ -95,6 +96,11 @@ class ApplicationController < ActionController::Base
   end
 
 private
+
+  # Determine if we show the miniprofiler output (only to admins)
+  def miniprofiler
+    Rack::MiniProfiler.authorize_request if current_user && current_user.role?(:super_admin)
+  end
 
   def catch_criminals
     begin

@@ -90,7 +90,7 @@
 					<ul class="list">
 						<li><%= link_to "#{website.brand.name} Homepage", homepage_admin_settings_path %></li>
 						<% Page.where(brand_id: website.brand_id).order("updated_at DESC").limit(7).each do |item| %>
-                  		<li><%= link_to item.title.truncate(50), [:admin, item] %></li>
+                  		<li><%= link_to item.title.truncate(40), [:admin, item] %></li>
                   		<% end %>
                   	</ul>
                   	<br/>
@@ -121,7 +121,7 @@
 						<ul class="list">
 							<% @bad_toolkit_links.each do |toolkit_resource| %>
 							<li><span class="round alert label">!</span>
-								<%= link_to toolkit_resource.name.truncate(44), [:admin, toolkit_resource] %>
+								<%= link_to toolkit_resource.name.truncate(40), [:admin, toolkit_resource] %>
 							</li>
 							<% end %>
 						</ul>
@@ -129,7 +129,7 @@
 						<h6 class="subheader">Recently created/changed:</h6>
 						<ul class="list">
 							<% ToolkitResource.where(brand_id: website.brand_id).order("updated_at DESC").limit(7).each do |item| %>
-	                  		<li><%= link_to item.name.truncate(47), [:admin, item] %></li>
+	                  		<li><%= link_to item.name.truncate(44), [:admin, item] %></li>
 	                  		<% end %>
 	                  	</ul>
 	                <% end %>
@@ -156,7 +156,7 @@
 					<h6 class="subheader">Recently created/changed:</h6>
 					<ul class="list">
 						<% News.where(brand_id: website.brand_id).order("updated_at DESC").limit(6).each do |item| %>
-                  		<li><%= link_to item.title.truncate(45), [:admin, item] %>
+                  		<li><%= link_to item.title.truncate(40), [:admin, item] %>
                   			<small><%=l item.post_on, format: :short %></small>
                   		</li>
                   		<% end %>
@@ -186,7 +186,7 @@
 					<ul class="list">
 						<% Promotion.where(brand_id: website.brand_id).order("updated_at DESC").limit(6).each do |item| %>
                   		<li><%= link_to item.name.truncate(38), [:admin, item] %>
-                  			<small>starts on: <%=l item.start_on, format: :short %></small>
+                  			<small>starts: <%=l item.start_on, format: :short %></small>
                   		</li>
                   		<% end %>
                   	</ul>

@@ -10,8 +10,7 @@ class OnlineRetailer < ActiveRecord::Base
       fixed: "125x75#" }
 
   has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
-  validates_presence_of :name
-  validates_uniqueness_of :name
+  validates :name, presence: true, uniqueness: true
   attr_accessor :brand_link, :online_retailer_link
   
   def bad_links

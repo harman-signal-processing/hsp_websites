@@ -52,7 +52,7 @@ class Admin::ProductAmpModelsController < AdminController
       else
         format.html { render action: "new" }
         format.xml  { render xml: @product_amp_model.errors, status: :unprocessable_entity }
-        format.js { render template: "create_error" }
+        format.js { render template: "admin/product_amp_models/create_error" }
       end
     end
   end

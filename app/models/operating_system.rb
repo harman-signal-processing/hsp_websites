@@ -3,7 +3,7 @@ class OperatingSystem < ActiveRecord::Base
   has_many :software_operating_systems, dependent: :destroy
   has_many :softwares, through: :software_operating_systems
 
-  validate :name, presence: true
+  validates :name, presence: true
 
   def formatted_name
   	fields = [name]

@@ -51,7 +51,8 @@ class Product < ActiveRecord::Base
   serialize :previewers, Array
   has_attached_file :background_image
 
-  validates_presence_of :name, :product_status_id
+  validates :name, presence: true
+  validates :product_status_id, presence: true
   has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
   
   def belongs_to_this_brand?(brand)
