@@ -37,7 +37,7 @@ GEM
     ansi (1.4.3)
     api_cache (0.2.3)
     arel (3.0.3)
-    atomic (1.1.14)
+    atomic (1.1.15)
     aws-sdk (1.34.1)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
@@ -48,9 +48,6 @@ GEM
       bcrypt (>= 3.1.3)
     bing_translator (0.0.2)
     builder (3.0.4)
-    bullet (4.8.0)
-      activesupport
-      uniform_notifier (>= 1.4.0)
     cancan (1.6.10)
     capistrano (2.13.5)
       highline
@@ -120,7 +117,7 @@ GEM
     execjs (2.0.2)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
-    factory_girl_rails (4.4.0)
+    factory_girl_rails (4.4.1)
       factory_girl (~> 4.4.0)
       railties (>= 3.0.0)
     faraday (0.9.0)
@@ -255,8 +252,6 @@ GEM
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
-    rack-mini-profiler (0.9.0)
-      rack (>= 1.1.3)
     rack-ssl (1.3.3)
       rack
     rack-test (0.6.2)
@@ -325,8 +320,8 @@ GEM
       middleware (>= 0.1.0)
       riddle (>= 1.5.10)
     thor (0.18.1)
-    thread_safe (0.1.3)
-      atomic
+    thread_safe (0.2.0)
+      atomic (>= 1.1.7, < 2)
     tilt (1.4.1)
     timers (1.1.0)
     tinymce-rails (3.5.9)
@@ -346,7 +341,6 @@ GEM
     uglifier (2.2.1)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
-    uniform_notifier (1.4.0)
     uuidtools (2.1.4)
     warden (1.2.3)
       rack (>= 1.0)
@@ -385,7 +379,6 @@ DEPENDENCIES
   api_cache
   aws-sdk (~> 1.0)
   bing_translator
-  bullet
   cancan
   capistrano (= 2.13.5)
   capistrano-ext
@@ -429,7 +422,6 @@ DEPENDENCIES
   possessive
   puma
   rabl
-  rack-mini-profiler
   rails (= 3.2.17)
   rails_autolink
   ransack
