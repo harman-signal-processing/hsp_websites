@@ -26,7 +26,7 @@ gem "paperclip", "~> 3.0"
 gem 'paperclip-meta'
 gem 'meta-tags', require: 'meta_tags'
 gem 'tinymce-rails', '~> 3.5'
-gem 'geokit', '1.7.1'
+gem 'geokit' #, '1.7.1'
 gem 'geokit-rails'
 gem 'api_cache'
 gem 'moneta'

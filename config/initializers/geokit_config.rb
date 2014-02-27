@@ -1,4 +1,3 @@
-if defined? Geokit
 
   # Include a little hack to get things working with Rails3
   require Rails.root.join('lib', 'merge_conditions.rb')
@@ -21,59 +20,85 @@ if defined? Geokit
   # This is the timeout value in seconds to be used for calls to the geocoder web
   # services.  For no timeout at all, comment out the setting.  The timeout unit
   # is in seconds. 
-  Geokit::Geocoders::request_timeout = 3
+  Geokit::Geocoders::request_timeout = 6
 
   # These settings are used if web service calls must be routed through a proxy.
   # These setting can be nil if not needed, otherwise, addr and port must be 
   # filled in at a minimum.  If the proxy requires authentication, the username
   # and password can be provided as well.
 
-#  unless (Rails.env.production? || Rails.env.staging?)
-    # Geokit::Geocoders::proxy_addr = '10.30.26.254'
-    # Geokit::Geocoders::proxy_port = '8080'
-    # Geokit::Geocoders::proxy_user = nil
-    # Geokit::Geocoders::proxy_pass = nil
-#  end
+ unless (Rails.env.production? || Rails.env.staging?)
+    Geokit::Geocoders::proxy = '10.30.26.254:8080'
+ end
+
   # This is your yahoo application key for the Yahoo Geocoder.
   # See http://developer.yahoo.com/faq/index.html#appid
   # and http://developer.yahoo.com/maps/rest/V1/geocode.html
-  #Geokit::Geocoders::yahoo = 'dj0yJmk9MTAzQUxzQVpYQkJyJmQ9WVdrOU1tRlFSRmN6Tm1zbWNHbzlNVGMyT1RJd056YzJNZy0tJnM9Y29uc3VtZXJzZWNyZXQmeD01NA--'
-  Geokit::Geocoders::yahoo_consumer_key = ENV['GEOKIT_YAHOO_CONSUMER_KEY']
-  Geokit::Geocoders::yahoo_consumer_secret = ENV['GEOKIT_YAHOO_CONSUMER_SECRET']
+  Geokit::Geocoders::YahooGeocoder.key = ENV['GEOKIT_YAHOO_CONSUMER_KEY']
+  Geokit::Geocoders::YahooGeocoder.secret = ENV['GEOKIT_YAHOO_CONSUMER_SECRET']
 
-  # This is your Google Maps geocoder key. 
-  # See http://www.google.com/apis/maps/signup.html
-  # and http://www.google.com/apis/maps/documentation/#Geocoding_Examples
-  Geokit::Geocoders::google = ENV['GEOKIT_GOOGLE']
+#   # This is your Google Maps geocoder key. 
+#   # See http://www.google.com/apis/maps/signup.html
+#   # and http://www.google.com/apis/maps/documentation/#Geocoding_Examples
+#   Geokit::Geocoders::google = ENV['GEOKIT_GOOGLE']
 
-  # This is your username and password for geocoder.us.
-  # To use the free service, the value can be set to nil or false.  For 
-  # usage tied to an account, the value should be set to username:password.
-  # See http://geocoder.us
-  # and http://geocoder.us/user/signup
-  Geokit::Geocoders::geocoder_us = false 
+    # This is your Google Maps geocoder keys (all optional).
+    # See http://www.google.com/apis/maps/signup.html
+    # and http://www.google.com/apis/maps/documentation/#Geocoding_Examples
+    Geokit::Geocoders::GoogleGeocoder.client_id = ENV['GEOKIT_GOOGLE']
+    Geokit::Geocoders::GoogleGeocoder.cryptographic_key = ''
+    Geokit::Geocoders::GoogleGeocoder.channel = ''
 
-  # This is your authorization key for geocoder.ca.
-  # To use the free service, the value can be set to nil or false.  For 
-  # usage tied to an account, set the value to the key obtained from
-  # Geocoder.ca.
-  # See http://geocoder.ca
-  # and http://geocoder.ca/?register=1
-  Geokit::Geocoders::geocoder_ca = false
+    # You can also set multiple API KEYS for different domains that may be directed to this same application.
+    # The domain from which the current user is being directed will automatically be updated for Geokit via
+    # the GeocoderControl class, which gets it's begin filter mixed into the ActionController.
+    # You define these keys with a Hash as follows:
+    #Geokit::Geocoders::google = { 'rubyonrails.org' => 'RUBY_ON_RAILS_API_KEY', 'ruby-docs.org' => 'RUBY_DOCS_API_KEY' }
 
-  # Uncomment to use a username with the Geonames geocoder
-  #Geokit::Geocoders::geonames="REPLACE_WITH_YOUR_GEONAMES_USERNAME"
+    # This is your username and password for geocoder.us.
+    # To use the free service, the value can be set to nil or false.  For
+    # usage tied to an account, the value should be set to username:password.
+    # See http://geocoder.us
+    # and http://geocoder.us/user/signup
+    # Geokit::Geocoders::UsGeocoder.key = 'username:password'
 
-  # This is the order in which the geocoders are called in a failover scenario
-  # If you only want to use a single geocoder, put a single symbol in the array.
-  # Valid symbols are :google, :yahoo, :us, and :ca.
-  # Be aware that there are Terms of Use restrictions on how you can use the 
-  # various geocoders.  Make sure you read up on relevant Terms of Use for each
-  # geocoder you are going to use.
-  Geokit::Geocoders::provider_order = [:google_v3, :yahoo_place_finder, :google]
+    # This is your authorization key for geocoder.ca.
+    # To use the free service, the value can be set to nil or false.  For
+    # usage tied to an account, set the value to the key obtained from
+    # Geocoder.ca.
+    # See http://geocoder.ca
+    # and http://geocoder.ca/?register=1
+    # Geokit::Geocoders::CaGeocoder.key = 'KEY'
 
-  # The IP provider order. Valid symbols are :ip,:geo_plugin.
-  # As before, make sure you read up on relevant Terms of Use for each
-  Geokit::Geocoders::ip_provider_order = [:geo_plugin,:ip]
+    # Most other geocoders need either no setup or a key
+    Geokit::Geocoders::BingGeocoder.key = ''
+    Geokit::Geocoders::GeonamesGeocoder.key = ''
+    Geokit::Geocoders::MapQuestGeocoder.key = ''
+    Geokit::Geocoders::YandexGeocoder.key = ''
 
-end
+    # require "external_geocoder.rb"
+    # Please see the section "writing your own geocoders" for more information.
+    # Geokit::Geocoders::external_key = 'REPLACE_WITH_YOUR_API_KEY'
+
+    # This is the order in which the geocoders are called in a failover scenario
+    # If you only want to use a single geocoder, put a single symbol in the array.
+    # Valid symbols are :google, :yahoo, :us, and :ca.
+    # Be aware that there are Terms of Use restrictions on how you can use the
+    # various geocoders.  Make sure you read up on relevant Terms of Use for each
+    # geocoder you are going to use.
+    Geokit::Geocoders::provider_order = [:google, :yahoo, :google_v3, :bing] 
+
+    # The IP provider order. Valid symbols are :ip,:geo_plugin.
+    # As before, make sure you read up on relevant Terms of Use for each.
+    # Geokit::Geocoders::ip_provider_order = [:external,:geo_plugin,:ip]
+
+    # Disable HTTPS globally.  This option can also be set on individual
+    # geocoder classes.
+    # Geokit::Geocoders::secure = false 
+
+    # Control verification of the server certificate for geocoders using HTTPS
+    # Geokit::Geocoders::ssl_verify_mode = OpenSSL::SSL::VERIFY_(PEER/NONE) 
+    # Setting this to VERIFY_NONE may be needed on systems that don't have 
+    # a complete or up to date root certificate store. Only applies to
+    # the Net::HTTP adapter.
+
