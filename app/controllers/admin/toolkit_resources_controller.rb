@@ -65,6 +65,7 @@ class Admin::ToolkitResourcesController < AdminController
   # PUT /toolkit_resources/1
   # PUT /toolkit_resources/1.xml
   def update
+    params[:toolkit_resource][:link_good] = true
     respond_to do |format|
       if @toolkit_resource.update_attributes(params[:toolkit_resource])
         format.html { redirect_to([:admin, @toolkit_resource], notice: 'Toolkit resource was successfully updated.') }
