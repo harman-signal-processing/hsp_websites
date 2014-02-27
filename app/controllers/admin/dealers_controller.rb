@@ -3,7 +3,7 @@ class Admin::DealersController < AdminController
   # GET /admin/dealers
   # GET /admin/dealers.xml
   def index
-    @this_brand = !!(params[:this_brand])
+    @this_brand = !!(params[:this_brand].to_i > 0)
     @search = (@this_brand) ? website.brand.dealers.ransack(params[:q]) : Dealer.ransack(params[:q])
     if params[:q]
       @dealers = @search.result

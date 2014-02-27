@@ -27,7 +27,7 @@
           <%= f.submit "Search dealers", class: "postfix button" %>
         </div>
       </div>
-      <div class="input boolean optional this_brand"><input name="this_brand" type="hidden" value="0" /><label class="boolean optional control-label checkbox" for="this_brand"><%= check_box_tag :this_brand, true, @this_brand %> Only <%= website.brand.name %> dealers</label></div><br/>
+      <div class="input boolean optional this_brand"><input name="this_brand" type="hidden" value="0" /><label class="boolean optional control-label checkbox" for="this_brand"><%= check_box_tag :this_brand, 1, @this_brand %> Only <%= website.brand.name %> dealers</label></div><br/>
   <% end %>
 
   <% if @dealers.length > 0 %>
