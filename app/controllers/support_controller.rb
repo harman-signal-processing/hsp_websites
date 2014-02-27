@@ -135,7 +135,8 @@ class SupportController < ApplicationController
       begin
         @results = []
         count = 0
-        origin = Geokit::Geocoders::MultiGeocoder.geocode(params[:zip])
+        zip = (params[:zip].to_s.match(/^\d*$/)) ? "zipcode #{params[:zip]}" : params[:zip]
+        origin = Geokit::Geocoders::MultiGeocoder.geocode(zip)
         brand = Brand.find(website.service_centers_from_brand_id || website.brand_id)
         brand.service_centers.near(origin: origin, within: 100).order("distance ASC").each do |d|
           unless count > 10 || d.exclude?

@@ -73,7 +73,8 @@ class MainController < ApplicationController
         @results = []
         # Dealer.find(:all, origin: params[:zip], order: 'distance', within: 15, limit: 10).each do |d|
         count = 0
-        origin = Geokit::Geocoders::MultiGeocoder.geocode(params[:zip])
+        zip = (params[:zip].to_s.match(/^\d*$/)) ? "zipcode #{params[:zip]}" : params[:zip]
+        origin = Geokit::Geocoders::MultiGeocoder.geocode(zip)
         brand = Brand.find(website.dealers_from_brand_id || website.brand_id)
         brand.dealers.near(origin: origin, within: 60).order("distance ASC").all.each do |d|
           unless count > 15 || d.exclude?
