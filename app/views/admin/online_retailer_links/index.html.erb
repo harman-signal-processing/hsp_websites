@@ -1,26 +1,36 @@
-<h1>Listing online_retailer_links</h1>
+<h1>Listing online retailer links</h1>
+
+<%= link_to 'New online retailer link', new_admin_online_retailer_link_path, class: "small round secondary button" %>
 
 <table class="data">
+  <thead>
   <tr>
-    <th>Product</th>
-    <th>Brand</th>
+    <th>Product/Brand</th>
+    <th>Retailer</th>
     <th>Url</th>
-    <th>Active</th>
+    <th>Edit</th>
   </tr>
-
-<% @online_retailer_links.each do |online_retailer_link| %>
-  <tr style="background: <%= cycle 'white', 'none' %>">
-    <td><%=h online_retailer_link.product_id %></td>
-    <td><%=h online_retailer_link.brand_id %></td>
-    <td><%=h online_retailer_link.url %></td>
-    <td><%=h online_retailer_link.active %></td>
-    <td><%= link_to 'Show', [:admin, online_retailer_link] %></td>
-    <td><%= link_to 'Edit', edit_admin_online_retailer_link_path(online_retailer_link) %></td>
-    <td><%= link_to 'Delete', [:admin, online_retailer_link], confirm: 'Are you sure?', method: :delete %></td>
+</thead>
+<tbody>
+<% @online_retailer_links.each do |orl| %>
+  <tr>
+    <td>
+      <% if orl.brand %>
+        <%=h orl.brand.name %>
+      <% elsif orl.product %>
+        <%=link_to orl.product.name, [:admin, orl.product] %>
+      <% else %>
+        ??
+      <% end %>
+    </td>
+    <td>
+      <%= link_to orl.online_retailer.name, [:admin, orl.online_retailer] %>
+      <% unless orl.online_retailer.active %><i>(inactive)</i><% end %>
+    </td>
+    <td><%=h orl.url %></td>
+    <td><%= link_to 'Edit', edit_admin_online_retailer_link_path(orl) %></td>
   </tr>
 <% end %>
+</tbody>
 </table>
 
-<br />
-
-<%= link_to 'New online_retailer_link', new_admin_online_retailer_link_path %>

@@ -73,7 +73,7 @@ class Admin::OnlineRetailerLinksController < AdminController
     @online_retailer_link.destroy
     @products = Product.non_discontinued(website) - @online_retailer_link.online_retailer.online_retailer_links.collect{|l| l.product}
     respond_to do |format|
-      format.html { redirect_to(admin_online_retailer_links_url) }
+      format.html { redirect_to([:admin, @online_retailer_link.online_retailer]) }
       format.xml  { head :ok }
       format.js
     end

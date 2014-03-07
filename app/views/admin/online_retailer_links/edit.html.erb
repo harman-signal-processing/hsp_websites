@@ -2,6 +2,12 @@
 
 <%= render "form" %>
 
+<p>Test it: <%= link_to @online_retailer_link.url, @online_retailer_link.url, target: "_blank" %></p>
+
+<p><%= link_to 'delete', [:admin, @online_retailer_link], 
+		method: :delete, data: { confirm: "Really?" },
+		class: "small radius alert button" %></p>
+
 <div class="hint">
 	Last checked: <%= @online_retailer_link.link_checked_at.to_s %><br/>
 	Response code: <%= @online_retailer_link.link_status %>

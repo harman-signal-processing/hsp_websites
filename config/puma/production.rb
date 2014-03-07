@@ -65,7 +65,7 @@ state_path '/var/www/hmg/hsp_websites/shared/sockets/puma.state'
 # The default is “0, 16”.
 #
 # threads 0, 16
-threads 1,1 # since MRI doesn't really do threading, use workers instead
+threads 1,4 # since MRI doesn't really do threading, use workers instead
 
 # Bind the server to “url”. “tcp://”, “unix://” and “ssl://” are the only
 # accepted protocols.
@@ -104,7 +104,7 @@ bind 'unix:///var/www/hmg/hsp_websites/shared/sockets/puma.sock'
 #
 # The default is “0”.
 #
-workers 8
+workers 0
 
 # Code to run when a worker boots to setup the process before booting
 # the app.
