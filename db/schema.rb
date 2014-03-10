@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140224161425) do
+ActiveRecord::Schema.define(:version => 20140310171518) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -1267,6 +1267,7 @@ ActiveRecord::Schema.define(:version => 20140224161425) do
     t.integer  "brand_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.date     "synced_on"
   end
 
   create_table "site_elements", :force => true do |t|

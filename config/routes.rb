@@ -3,6 +3,7 @@ require "domain_conditions"
 HarmanSignalProcessingWebsite::Application.routes.draw do
 
   get "signups/new"
+  get "signup/complete" => "signups#complete", as: :signup_complete
   get "epedal_labels/index"
 
   namespace :api, defaults: {format: 'json'} do
@@ -286,7 +287,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :signups,
         :dealers,
         :clinics,
-        :signups,
         :brands,
         :pages,
         :faqs

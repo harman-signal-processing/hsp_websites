@@ -3,7 +3,11 @@ class SignupsController < ApplicationController
 
   def new
   	@signup = Signup.new(campaign: "#{website.brand.name}-#{Date.today.year}")
-  	render_template action: 'new', layout: teaser_layout
+    if @signup.campaign.present?
+      render_template action: 'new', layout: teaser_layout
+    else
+  	  render_template action: 'new'
+    end
   end
 
   def create
@@ -11,21 +15,34 @@ class SignupsController < ApplicationController
   	respond_to do |format|
       @signup.brand_id = website.brand_id
       if @signup.save
-      	cookies[@signup.campaign] = { value: @signup.email, expires: 1.year.from_now }
-        format.html { redirect_to(teaser_complete_path, notice: "Cool. You'll be the first to know!") }
+        if @signup.campaign.present?
+      	  cookies[@signup.campaign] = { value: @signup.email, expires: 1.year.from_now }
+          format.html { redirect_to(teaser_complete_path, notice: "Cool. You'll be the first to know!") }
+        else
+          format.html { redirect_to(signup_complete_path) }
+        end
         format.xml  { render xml: @signup, status: :created, location: @signup }
       else
-        format.html { render_template action: 'new', layout: teaser_layout }
+        format.html { 
+          if @signup.campaign.present?
+            render_template action: 'new', layout: teaser_layout 
+          else
+            render_template action: 'new'
+          end
+        }
         format.xml  { render xml: @signup.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def complete    
   end
 
   private
 
   def teaser_layout
     File.exist?(Rails.root.join("app", "views", website.folder, "layouts", "teaser.html.erb")) ?
-      "#{website.folder}/layouts/teaser" : "teaser"
+        "#{website.folder}/layouts/teaser" : "teaser"
   end
 
 end
