@@ -1,16 +1,5 @@
 <% show_all = false # use for testing panels I wouldn't normally see %>
 
-<%= content_for :bg do %>
-  <%= cache ["admin_background", website.brand, Date.today] do %>
-    <% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "toolkit-background.jpg")) %>
-    	<%= image_tag "#{website.folder}/toolkit-background.jpg", alt: "", id: "bg"%>     
-    <% elsif tw = website.twitter_name %>
-      <% t = Twitter.user(tw) %>
-      <%= image_tag t.profile_background_image_url, alt: "", id: "bg"%>
-    <% end %>
-  <% end %>
-<% end %>
-
 <% if !@msg.blank? %>
    <div class="alert"><%= @msg %></div>
 <% end %>
