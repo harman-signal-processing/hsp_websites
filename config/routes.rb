@@ -373,7 +373,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     match '/rss(.:format)' => 'main#rss', as: :rss
     match '/search' => 'main#search', as: :search
     match '/rohs' => 'support#rohs', as: :rohs
-    match '/email_signup' => 'main#email_signup', as: :email_signup
     match 'distributors_for/:brand_id' => 'distributors#minimal', as: :minimal_distributor_search
     match '/' => 'main#index', as: :locale_root
     match '/:controller(/:action(/:id))'
