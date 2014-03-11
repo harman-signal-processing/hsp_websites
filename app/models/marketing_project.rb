@@ -88,6 +88,10 @@ class MarketingProject < ActiveRecord::Base
     @incomplete_marketing_tasks ||= marketing_tasks.where("completed_at IS NULL OR completed_at > ?", Date.tomorrow).order("priority ASC, due_on ASC")
   end
 
+  def incomplete_marketing_tasks_for_staff_meeting
+    @incomplete_marketing_tasks_for_staff_meeting ||= marketing_tasks.where("completed_at IS NULL OR completed_at > ?", Date.tomorrow).where("due_on <= ?", 5.months.from_now).order("priority ASC, due_on ASC")
+  end
+
   def participants
     ([user] + marketing_tasks.where("worker_id > 0").map{|t| t.worker} + marketing_comments.map{|c| c.user}).uniq
   end

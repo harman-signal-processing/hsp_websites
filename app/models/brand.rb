@@ -298,7 +298,11 @@ class Brand < ActiveRecord::Base
   end
 
   def projects_for_staff_meeting
-    @projects_for_staff_meeting ||= self.open_marketing_projects_with_tasks.where("due_on <= ?", 6.months.from_now)
+    @projects_for_staff_meeting ||= self.open_marketing_projects_with_tasks.where("due_on <= ?", 5.months.from_now)
+  end
+
+  def non_project_tasks_for_staff_meeting
+    @non_project_tasks_for_staff_meeting ||= self.marketing_tasks.where(marketing_project_id: nil, completed_at: nil).where("due_on <= ?", 5.months.from_now)
   end
 
 end

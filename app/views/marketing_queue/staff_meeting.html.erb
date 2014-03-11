@@ -8,7 +8,7 @@
 		<% end %>
 		<div class="row">
 			<div class="large-12 columns">
-				<% if brand.marketing_tasks.where(marketing_project_id: nil, completed_at: nil).count > 0 %>
+				<% if brand.non_project_tasks_for_staff_meeting.count > 0 %>
 				<table style="width: 100%">
 					<thead>
 						<tr>
@@ -18,7 +18,7 @@
 							<th>With:</th>
 						</tr>
 					</thead>
-					<% brand.marketing_tasks.where(marketing_project_id: nil, completed_at: nil).each do |marketing_task| %>
+					<% brand.non_project_tasks_for_staff_meeting.order(:priority, :due_on).each do |marketing_task| %>
 						<tbody>
 							<tr id="task_row_<%= marketing_task.id %>">
 								<td width="1%">
@@ -79,8 +79,8 @@
 							<td width="10%" id="percent-complete-<%= marketing_project.id %>"><%=number_to_percentage marketing_project.percent_complete, precision: 0 %></td> 
 						</tr>
 					</thead>
-							<% marketing_project.incomplete_marketing_tasks.each do |marketing_task| %>
 						<tbody>
+							<% marketing_project.incomplete_marketing_tasks_for_staff_meeting.each do |marketing_task| %>
 								<tr id="task_row_<%= marketing_task.id %>">
 									<td width="1%">
 									<% if marketing_task.priority.present? %>
