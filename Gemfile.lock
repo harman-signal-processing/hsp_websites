@@ -1,5 +1,5 @@
 GIT
-  remote: http://github.com/adamtao/cheetah_mail.git
+  remote: https://github.com/adamtao/cheetah_mail.git
   revision: ce3ac86cfb74efbcf2704eec633865bf0dd4ac82
   specs:
     cheetah_mail (0.0.6)
