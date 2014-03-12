@@ -16,7 +16,7 @@ class PromotionsController < ApplicationController
   # GET /promotions/1
   # GET /promotions/1.xml
   def show
-    if !Promotion.all_for_website(website).include?(@promotion) 
+    if !(Promotion.all_for_website(website).include?(@promotion) || can?(:manage, @promotion))
       redirect_to promotions_path and return false
     end
     respond_to do |format|
