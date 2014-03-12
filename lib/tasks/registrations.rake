@@ -7,7 +7,7 @@ namespace :registration do
       WarrantyRegistration.where(:exported => false).each do |reg|
         fh.puts reg.to_export
         all.puts reg.to_export
-        reg.update_attributes(:exported => true)
+        reg.update_attributes(:exported => true, :validate => false)
       end
     end
     all.close

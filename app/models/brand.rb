@@ -305,4 +305,8 @@ class Brand < ActiveRecord::Base
     @non_project_tasks_for_staff_meeting ||= self.marketing_tasks.where(marketing_project_id: nil, completed_at: nil).where("due_on <= ?", 5.months.from_now)
   end
 
+  def new_signups
+    signups.where("synced_on IS NULL") + warranty_registrations.where(subscribe: true).where("synced_on IS NULL")
+  end
+
 end

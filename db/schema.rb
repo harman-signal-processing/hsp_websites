@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140310171518) do
+ActiveRecord::Schema.define(:version => 20140312160756) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -1625,6 +1625,7 @@ ActiveRecord::Schema.define(:version => 20140310171518) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "exported",                           :default => false
+    t.datetime "synced_on"
   end
 
   add_index "warranty_registrations", ["exported"], :name => "index_warranty_registrations_on_exported"

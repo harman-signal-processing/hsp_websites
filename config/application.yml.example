@@ -32,3 +32,6 @@ TOOLKIT_ADMIN_EMAIL_ADDRESSES: name3@email.com|name4@email.com
 TOOLKIT_ADMIN_CONTACT_INFO: First Last at first.last@email.com
 
 EXCEPTION_RECIPIENTS: name5@email.com|name6@email.com
+
+CHEETAHMAIL_USERNAME: your_cheetahmail_username
+CHEETAHMAIL_PASSWORD: your_cheetahmail_password

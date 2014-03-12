@@ -66,6 +66,7 @@ gem 'RedCloth'
 gem 'figaro'
 gem 'puma'
 gem 'delayed_paperclip'
+gem 'cheetah_mail', git: 'http://github.com/adamtao/cheetah_mail.git'
 
 ### Could be useful in the future...
 # gem "bing_translate_yaml", "~> 0.1.7" 
