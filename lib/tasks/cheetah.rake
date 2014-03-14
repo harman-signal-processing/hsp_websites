@@ -34,6 +34,12 @@ namespace :cheetah do
 								end
 							rescue CheetahMailException
 								puts "There was some cheetahmail exception"
+								if signup.is_a?(WarrantyRegistration)
+									signup.subscribe = false
+									signup.save(:validate => false)
+								else
+									signup.delete
+								end
 							end
 						elsif signup.is_a?(Signup)
 							puts "Deleting invalid entry: #{signup.email}"
