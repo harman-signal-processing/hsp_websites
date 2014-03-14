@@ -63,7 +63,8 @@
 	<div class="centered">(<%= t('blurbs.use_date_code')%>)</div>
 	
 	<div><%= f.label :purchased_on, class: "required" %>
-	<%= f.text_field :purchased_on, class: 'ui-datepicker' %></div>
+		<div id="purchased_on_picker" style="margin: 0 0 20px 320px;" data-default="<%=l @warranty_registration.purchased_on.present? ? @warranty_registration.purchased_on.to_date : Date.yesterday, format: :mmddyy %>"></div>
+	<%= f.hidden_field :purchased_on %></div>
 	
 	<div><%= f.label :purchased_from %>
 	<%= f.text_field :purchased_from %></div>

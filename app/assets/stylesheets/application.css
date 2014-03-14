@@ -5,7 +5,7 @@
 *= require reset
 *= require lightbox
 *= require tiny
-*= require jquery-ui-1.8.16.custom
+*= require jquery-ui-1.10.4.custom.min
 *= require_self
 */
 

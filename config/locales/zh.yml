@@ -272,6 +272,7 @@ zh:
       short: "%b%d日"
       long: "%Y年%b%d日"
       pretty_date_time: "%B %d, %Y %I:%M %p"
+      mmddyy: "%m/%d/%y"
 
     day_names:
       - 星期日
