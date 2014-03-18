@@ -14,14 +14,14 @@ jQuery ($) ->
 
 	load_lightbox()
 
-	datepicker = $('.ui-datepicker').datepicker
+	$('.ui-datepicker').datepicker
 		inline: true
 		numberOfMonths: 2
 		showButtonPanel: true	
 		dateFormat: "DD, MM d, yy"
 		constrainInput: true
 
-	datepicker = $('.ui-datepicker-past-only').datepicker
+	$('.ui-datepicker-past-only').datepicker
 		inline: true
 		numberOfMonths: 1
 		showButtonPanel: true	

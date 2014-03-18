@@ -18,7 +18,7 @@ class MarketingProjectType < ActiveRecord::Base
   # at some point we may limit by some criteria)
 	#
   def self.creatable
-  	@creatable ||= order(:name)
+  	order(:name)
   end
 
   #

@@ -69,7 +69,7 @@
 		<span class="hint"><%= link_to "warranty policy", warranty_policy_path %></span>
 	</div>
 	<div><%= f.label :purchased_on, class: "required" %>
-		<%= f.text_field :purchased_on, size: 22, class: 'ui-datepicker' %>
+		<%= f.text_field :purchased_on, size: 22, class: 'ui-datepicker-past-only' %>
 		</div>
 	<div style="width: 500px; margin: 20px auto;">
 		<%= t('product_support_page.detailed_problem_description') %><br/>
