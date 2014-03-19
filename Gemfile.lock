@@ -348,6 +348,9 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
+    turbo-sprockets-rails3 (0.3.11)
+      railties (> 3.2.8, < 4.0.0)
+      sprockets (>= 2.2.0)
     turn (0.9.7)
       ansi
       minitest (~> 4)
@@ -453,6 +456,7 @@ DEPENDENCIES
   thinking-sphinx (~> 3.0)
   tinymce-rails (~> 3.5)
   to_xls
+  turbo-sprockets-rails3
   turn
   twitter
   uglifier (>= 1.0.3)
