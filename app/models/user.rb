@@ -112,6 +112,15 @@ class User < ActiveRecord::Base
     where("marketing_staff = 1 OR admin = 1 OR market_manager = 1 OR artist_relations = 1 OR sales_admin = 1").order("UPPER(name)")
   end
 
+  def self.queue_admin(options={})
+    a = where(queue_admin: true)
+    if options[:all]
+      a.order("name").all
+    else
+      a.where("name not like '%adam%'").order("created_at").first
+    end
+  end
+
   def self.marketing_staff
     where(marketing_staff: true).order(:name)
   end
