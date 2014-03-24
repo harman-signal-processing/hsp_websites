@@ -17,6 +17,9 @@ class Software < ActiveRecord::Base
 
   process_in_background :ware
 
+  before_destroy :revert_version
+  before_update  :revert_version_if_deactivated
+
   after_initialize :set_default_counter, :determine_platform
   after_save :replace_old_version
   belongs_to :brand, touch: true
@@ -29,6 +32,19 @@ class Software < ActiveRecord::Base
     set_default_counter
     self.download_count += 1
     self.save
+  end
+
+  # Revert to previous version (if any) when deleting/inactivating software
+  def revert_version
+    if previous_versions.length > 0
+      new_version = previous_versions.last
+      previous_versions.update_all(current_version_id: new_version.id)
+      new_version.update_attributes(current_version_id: nil, active: true)
+    end
+  end
+
+  def revert_version_if_deactivated
+    revert_version if active_was && !active
   end
 
   def previous_versions

@@ -63,7 +63,8 @@ describe "Product Registration Integration Test" do
     fill_in 'warranty_registration_zip',            with: "90210"
     fill_in 'warranty_registration_phone',          with: "555-555-5555"
     fill_in 'warranty_registration_serial_number',  with: "123" + rand().to_s
-    fill_in 'warranty_registration_purchased_on',   with: 2.weeks.ago.to_s
+    # Not needed, js calendar fills in default date
+    # fill_in 'warranty_registration_purchased_on',   with: 2.weeks.ago.to_s
     fill_in 'warranty_registration_purchased_from', with: "Musician's Friend"
     fill_in 'warranty_registration_purchase_price', with: "$100.00"
     select 'United States',                   from: 'warranty_registration_country'
