@@ -1,18 +1,19 @@
+# Note: v2 of the api is open to all without restriction and is a basic product catalog
+
 module Api
-  module V1
-    class ProductFamiliesController < ApplicationController
+  module V2
+    class ProductsController < ApplicationController
       skip_before_filter :miniprofiler
-      before_filter :restrict_api_access
-      respond_to :json, :xml
+      respond_to :xml
       
-      def index
-        @product_families = ProductFamily.all
-        respond_with @product_families
-      end
-      
+      # def index
+      #   @products = Product.all
+      #   respond_with @products
+      # end
+
       def show
-        @product_family = ProductFamily.find(params[:id])
-        respond_with @product_family
+        @product = Product.find(params[:id])
+        respond_with @product
       end
       
       # def create

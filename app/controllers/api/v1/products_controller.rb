@@ -3,7 +3,7 @@ module Api
     class ProductsController < ApplicationController
       skip_before_filter :miniprofiler
       before_filter :restrict_api_access
-      respond_to :json
+      respond_to :json, :xml
       
       def index
         @products = Product.all

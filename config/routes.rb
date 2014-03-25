@@ -15,6 +15,10 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :product_families, :products
       get '/brand_features/:id' => 'products#features', as: :brand_features
     end
+    namespace :v2 do 
+      resources :brands, only: [:index, :show]
+      resources :products, only: :show
+    end
   end
 
   constraints(ToolkitDomain) do 
