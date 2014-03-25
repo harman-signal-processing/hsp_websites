@@ -13,7 +13,7 @@ xml.product name: @product.name do
     xml.media do 
         @product.images_for("product_page").each do |product_attachment|
             url = product_attachment.product_attachment.url
-            url = "http://#{request.host}#{url}" if HarmanSignalProcessingWebsite::Application.config.action_controller.asset_host.present?
+            url = "http://#{request.host}#{url}" unless HarmanSignalProcessingWebsite::Application.config.action_controller.asset_host.present?
             xml.item(
                 url: url, 
                 type: product_attachment.product_attachment_content_type,
@@ -25,7 +25,7 @@ xml.product name: @product.name do
     xml.documents do 
         @product.product_documents.includes(:product).each do |product_document|
             url = product_document.document.url
-            url = "http://#{request.host}#{url}" if HarmanSignalProcessingWebsite::Application.config.action_controller.asset_host.present?
+            url = "http://#{request.host}#{url}" unless HarmanSignalProcessingWebsite::Application.config.action_controller.asset_host.present?
             xml.item(
                 product_document.name(hide_product_name: true),
                 url: url,
@@ -36,7 +36,7 @@ xml.product name: @product.name do
         end
         @product.viewable_site_elements.each do |site_element|
             url = site_element.resource.url
-            url = "http://#{request.host}#{url}" if HarmanSignalProcessingWebsite::Application.config.action_controller.asset_host.present?
+            url = "http://#{request.host}#{url}" unless HarmanSignalProcessingWebsite::Application.config.action_controller.asset_host.present?
             xml.item(
                 site_element.name,
                 url: url,
@@ -58,7 +58,7 @@ xml.product name: @product.name do
         end
         @product.executable_site_elements.each do |site_element| 
             url = site_element.executable.url
-            url = "http://#{request.host}#{url}" if HarmanSignalProcessingWebsite::Application.config.action_controller.asset_host.present?
+            url = "http://#{request.host}#{url}" unless HarmanSignalProcessingWebsite::Application.config.action_controller.asset_host.present?
             xml.item(
                 site_element.name,
                 url: url,
