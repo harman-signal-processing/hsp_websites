@@ -114,11 +114,9 @@ class User < ActiveRecord::Base
 
   def self.queue_admin(options={})
     a = where(queue_admin: true)
-    if options[:all]
-      a.order("name").all
-    else
-      a.where("name not like '%adam%'").order("created_at").first
-    end
+    a = a.where(super_admin: false) if options[:exclude_super_admins]
+
+    (options[:all]) ? a.order("name").all : a.order("created_at").first
   end
 
   def self.marketing_staff

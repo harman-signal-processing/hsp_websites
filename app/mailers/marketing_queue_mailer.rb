@@ -34,8 +34,8 @@ class MarketingQueueMailer < ActionMailer::Base
 
   def new_task(marketing_task)
     @marketing_task = marketing_task
-    if admin = User.queue_admin
-      mail to: admin.email, subject: "[QQ] New Unassigned Task"
+    if admin = User.queue_admin(:all)
+      mail to: admin.map{|u| u.email}, subject: "[QQ] New Unassigned Task"
     end
   end
   

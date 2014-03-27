@@ -10,7 +10,7 @@ set :rails_env, "production"
 
 before "deploy:restart", "thinking_sphinx:configure" 
 
-after "deploy:restart", "puma:phased_restart" # puma:restart seems to happen automatically, but phased_restart is nicer
+#after "deploy:restart", "puma:phased_restart" # puma:restart seems to happen automatically, but phased_restart is nicer
 # after "deploy:restart", "delayed_job:restart" # restart these manually to avoid deployment overloads
 #after "deploy:restart", "deploy:ping"
 after "deploy:start", "delayed_job:start"

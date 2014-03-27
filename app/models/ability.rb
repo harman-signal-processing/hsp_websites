@@ -47,9 +47,10 @@ class Ability
         cannot :manage, Brand
         cannot :manage, ToolkitResourceType
         cannot :manage, ProductIntroduction
+        can :manage, MarketingTask
         cannot :assign, MarketingTask
         can :create, MarketingProject 
-        can :manage, MarketingProject, user_id: user.id 
+        can :manage, MarketingProject
         can :read, WarrantyRegistration
       end
       if user.role?(:marketing_staff)
