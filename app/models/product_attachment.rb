@@ -12,7 +12,11 @@ class ProductAttachment < ActiveRecord::Base
       horiz_thumb: "170x80",
       thumb: "100x100", 
       tiny: "64x64", 
-      tiny_square: "64x64#" 
+      tiny_square: "64x64#",
+      soundcomm: "160x160"
+    },
+    convert_options: {
+      soundcomm: "-gravity center -extent 160x160"
     }
 
   has_attached_file :product_media

@@ -1,3 +1,11 @@
 <h1>Editing product attachment</h1>
 
 <%= render "form" %>
+
+<% if website.brand.name.match(/digitech/i) %>
+<p>
+	Sized for sound community (160x160):<br/>
+	<%= link_to @product_attachment.product_attachment.url(:soundcomm), 
+		@product_attachment.product_attachment.url(:soundcomm) %>
+</p>
+<% end %>
