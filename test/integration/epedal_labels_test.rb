@@ -37,7 +37,7 @@ describe "epedal Labels Integration Test" do
     end
 
     it "should have a button to order a sheet" do
-        must_have_link "Label", href: epedal_labels_order_form_path(@gooberator, locale: I18n.default_locale)
+        page.must_have_link "Label", href: epedal_labels_order_form_path(@gooberator, locale: I18n.default_locale)
     end
 
     it "should auto-select the corresponding sheet for the referring epedal page" do
@@ -50,7 +50,7 @@ describe "epedal Labels Integration Test" do
         @mooberator = FactoryGirl.create(:product, name: "Mooberator", brand: @brand, layout_class: "epedal")
         FactoryGirl.create(:parent_product, product: @mooberator, parent_product: @istomp)
         visit product_url(@mooberator, host: @website.url, locale: I18n.default_locale)
-        wont_have_link "Label"
+        page.wont_have_link "Label"
     end
   end
 
@@ -61,7 +61,7 @@ describe "epedal Labels Integration Test" do
     end
 
     it "should not show the button" do
-        wont_have_link "Label"
+        page.wont_have_link "Label"
     end
   end
 
@@ -77,36 +77,36 @@ describe "epedal Labels Integration Test" do
     end
 
     it "should have order form with sheets which can be selected" do 
-        must_have_xpath "//input[@type='checkbox'][@value='#{@sheet.id}']"
+        page.must_have_xpath "//input[@type='checkbox'][@value='#{@sheet.id}']"
     end
 
     it "should have fields for the customer details" do
-        must_have_xpath "//input[@id='label_sheet_order_name']"
-        must_have_xpath "//input[@id='label_sheet_order_email']"
-        must_have_xpath "//input[@id='label_sheet_order_address']"
-        must_have_xpath "//input[@id='label_sheet_order_city']"
-        must_have_xpath "//input[@id='label_sheet_order_state']"
-        must_have_xpath "//input[@id='label_sheet_order_postal_code']"
-        must_have_xpath "//select[@id='label_sheet_order_country']"
+        page.must_have_xpath "//input[@id='label_sheet_order_name']"
+        page.must_have_xpath "//input[@id='label_sheet_order_email']"
+        page.must_have_xpath "//input[@id='label_sheet_order_address']"
+        page.must_have_xpath "//input[@id='label_sheet_order_city']"
+        page.must_have_xpath "//input[@id='label_sheet_order_state']"
+        page.must_have_xpath "//input[@id='label_sheet_order_postal_code']"
+        page.must_have_xpath "//select[@id='label_sheet_order_country']"
     end
 
     it "should prompt for a subscription" do
-        must_have_xpath "//input[@id='label_sheet_order_subscribe'][@type='checkbox']"
+        page.must_have_xpath "//input[@id='label_sheet_order_subscribe'][@type='checkbox']"
     end
 
     it "should require user fields to submit order" do
         select_sheet(@sheet)
         select_sheet(@sheet2)
         click_on "Submit"
-        wont_have_content "at least one label sheet"
-        must_have_content "Name can't be blank"
-        must_have_content "Email can't be blank"
+        page.wont_have_content "at least one label sheet"
+        page.must_have_content "Name can't be blank"
+        page.must_have_content "Email can't be blank"
     end
 
     it "should require at least one sheet to submit order" do
         fill_in_customer_info
         click_on "Submit"
-        must_have_content "at least one label sheet"
+        page.must_have_content "at least one label sheet"
     end
 
     # it "should allow the user to create a password if desired"
@@ -115,7 +115,7 @@ describe "epedal Labels Integration Test" do
         fill_in_customer_info
         select_sheet(@sheet)
         click_on "Submit"
-        must_have_content "Thank"
+        page.must_have_content "Thank"
     end
 
     it "should assign the label sheets when submitted" do
@@ -147,20 +147,20 @@ describe "epedal Labels Integration Test" do
 
     it "should send an email when completing the order" do
         last_email.to.must_include(@website.epedal_label_order_recipient)
-        last_email.body.must_have_content @order.name
-        last_email.body.must_have_content @order.address
-        last_email.body.must_have_content @order.email
+        last_email.body.must_include @order.name
+        last_email.body.must_include @order.address
+        last_email.body.must_include @order.email
     end
 
     it "should have an easy URL in the email to mark it shipped" do
-        last_email.body.must_have_link label_sheet_order_fulfillment_url(@order, @order.secret_code, host: @website.url, locale: I18n.default_locale)
+        last_email.body.must_include label_sheet_order_fulfillment_url(@order, @order.secret_code, host: @website.url, locale: I18n.default_locale)
     end
 
     it "should send an email to the user with the mailing date" do
         visit label_sheet_order_fulfillment_url(@order, @order.secret_code, host: @website.url, locale: I18n.default_locale)
         last_email.to.must_include(@order.email)
-        last_email.subject.must_have_content("epedal labels")
-        last_email.body.must_have_content "today"
+        last_email.subject.must_include("epedal labels")
+        last_email.body.must_include "today"
         @order.reload
         @order.mailed_on.blank?.wont_equal(true)
         page.must_have_content "Success"

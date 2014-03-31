@@ -33,8 +33,8 @@ describe "Admin News Integration Test" do
       fill_in :news_title, with: news_title
       fill_in :news_body, with: "Story goes here."
       click_on "Create"
-      must_have_content news_title
-      must_have_link news_url(News.last, locale: I18n.default_locale)
+      page.must_have_content news_title
+      page.must_have_link news_url(News.last, locale: I18n.default_locale)
       News.count.must_equal(old_news + 1)
     end
 
@@ -44,7 +44,7 @@ describe "Admin News Integration Test" do
       fill_in :news_title, with: news_title
       fill_in :news_body, with: "Story goes here."
       click_on "Create"
-      wont_have_content news_title
+      page.wont_have_content news_title
       News.count.must_equal(old_news)
     end
 

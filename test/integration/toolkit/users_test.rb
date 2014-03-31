@@ -30,7 +30,7 @@ describe "Toolkit Users Integration Test" do
 
   	it "should require account number" do 
   		within('#new_toolkit_user') do
-	  		must_have_content "Harman Pro Account Number"
+	  		page.must_have_content "Harman Pro Account Number"
 	  		click_on "Sign up"
 	  	end
   		page.must_have_content "email address on file.can't be blank"
@@ -62,10 +62,10 @@ describe "Toolkit Users Integration Test" do
   			fill_in_new_dealer_user_form(user, @dealer)
   			click_on "Sign up"
   		end
-  		last_email.subject.must_have_content "Harman Toolkit Confirmation instructions"
+  		last_email.subject.must_match "Harman Toolkit Confirmation instructions"
   		last_email.to.must_include(@dealer.email)
-  		last_email.body.must_have_content user.name
-  		last_email.body.must_have_content user.email
+  		last_email.body.must_include user.name
+  		last_email.body.must_include user.email
   	end  		
   end
 
@@ -86,10 +86,10 @@ describe "Toolkit Users Integration Test" do
   			fill_in_new_dealer_user_form(user, dealer)
   			click_on "Sign up"
   		end
-  		last_email.subject.must_have_content "can't confirm account"
+  		last_email.subject.must_match "can't confirm account"
   		last_email.to.must_include(user.email)
   		last_email.cc.must_include HarmanSignalProcessingWebsite::Application.config.toolkit_admin_email_addresses.first
-  		last_email.body.must_have_content HarmanSignalProcessingWebsite::Application.config.toolkit_admin_contact_info.first
+  		last_email.body.must_include HarmanSignalProcessingWebsite::Application.config.toolkit_admin_contact_info.first
   	end
   end
 
@@ -106,7 +106,7 @@ describe "Toolkit Users Integration Test" do
 
     it "should require account number" do 
       within('#new_toolkit_user') do
-        must_have_content "Harman Pro Account Number"
+        page.must_have_content "Harman Pro Account Number"
         click_on "Sign up"
       end
       page.must_have_content "email address on file.can't be blank"
@@ -138,10 +138,10 @@ describe "Toolkit Users Integration Test" do
         fill_in_new_distributor_user_form(user, @distributor)
         click_on "Sign up"
       end
-      last_email.subject.must_have_content "Harman Toolkit Confirmation instructions"
+      last_email.subject.must_match "Harman Toolkit Confirmation instructions"
       last_email.to.must_include(@distributor.email)
-      last_email.body.must_have_content user.name
-      last_email.body.must_have_content user.email
+      last_email.body.must_include user.name
+      last_email.body.must_include user.email
     end     
   end
 
@@ -162,10 +162,10 @@ describe "Toolkit Users Integration Test" do
         fill_in_new_distributor_user_form(user, distributor)
         click_on "Sign up"
       end
-      last_email.subject.must_have_content "can't confirm account"
+      last_email.subject.must_match "can't confirm account"
       last_email.to.must_include(user.email)
       last_email.cc.must_include HarmanSignalProcessingWebsite::Application.config.toolkit_admin_email_addresses.first
-      last_email.body.must_have_content HarmanSignalProcessingWebsite::Application.config.toolkit_admin_contact_info.first
+      last_email.body.must_include HarmanSignalProcessingWebsite::Application.config.toolkit_admin_contact_info.first
     end
   end
 
@@ -181,17 +181,17 @@ describe "Toolkit Users Integration Test" do
 
     it "should NOT require account number" do 
       within('#new_toolkit_user') do
-        wont_have_content "Harman Pro Account Number"
+        page.wont_have_content "Harman Pro Account Number"
       end
     end
 
     it "should require invitation code" do 
       within('#new_toolkit_user') do
-        must_have_content "Invitation code"
+        page.must_have_content "Invitation code"
         fill_in :toolkit_user_invitation_code, with: "something wrong"
         click_on "Sign up"
       end
-      must_have_content "it is cAsE sEnSiTiVe."
+      page.must_have_content "it is cAsE sEnSiTiVe."
     end
 
     it "should create a new unconfirmed user" do
@@ -210,10 +210,10 @@ describe "Toolkit Users Integration Test" do
         fill_in_new_rso_user_form(user)
         click_on "Sign up"
       end
-      last_email.subject.must_have_content "HSP Toolkit Confirmation link"
+      last_email.subject.must_match "HSP Toolkit Confirmation link"
       last_email.to.must_include(user.email)
-      last_email.body.must_have_content user.name
-      last_email.body.must_have_content user.email
+      last_email.body.must_include user.name
+      last_email.body.must_include user.email
     end     
   end
 
@@ -229,17 +229,17 @@ describe "Toolkit Users Integration Test" do
 
     it "should NOT require account number" do 
       within('#new_toolkit_user') do
-        wont_have_content "Harman Pro Account Number"
+        page.wont_have_content "Harman Pro Account Number"
       end
     end
 
     it "should require invitation code" do 
       within('#new_toolkit_user') do
-        must_have_content "Invitation code"
+        page.must_have_content "Invitation code"
         fill_in :toolkit_user_invitation_code, with: "something wrong"
         click_on "Sign up"
       end
-      must_have_content "it is cAsE sEnSiTiVe."
+      page.must_have_content "it is cAsE sEnSiTiVe."
     end
 
     it "should create a new unconfirmed user" do
@@ -258,10 +258,10 @@ describe "Toolkit Users Integration Test" do
         fill_in_new_employee_user_form(user)
         click_on "Sign up"
       end
-      last_email.subject.must_have_content "HSP Toolkit Confirmation link"
+      last_email.subject.must_match "HSP Toolkit Confirmation link"
       last_email.to.must_include(user.email)
-      last_email.body.must_have_content user.name
-      last_email.body.must_have_content user.email
+      last_email.body.must_include user.name
+      last_email.body.must_include user.email
     end     
   end
 
@@ -277,17 +277,17 @@ describe "Toolkit Users Integration Test" do
 
     it "should NOT require account number" do 
       within('#new_toolkit_user') do
-        wont_have_content "Harman Pro Account Number"
+        page.wont_have_content "Harman Pro Account Number"
       end
     end
 
     it "should require invitation code" do 
       within('#new_toolkit_user') do
-        must_have_content "Invitation code"
+        page.must_have_content "Invitation code"
         fill_in :toolkit_user_invitation_code, with: "something wrong"
         click_on "Sign up"
       end
-      must_have_content "it is cAsE sEnSiTiVe."
+      page.must_have_content "it is cAsE sEnSiTiVe."
     end
 
     it "should create a new unconfirmed user" do
@@ -306,10 +306,10 @@ describe "Toolkit Users Integration Test" do
         fill_in_new_media_user_form(user)
         click_on "Sign up"
       end
-      last_email.subject.must_have_content "HSP Toolkit Confirmation link"
+      last_email.subject.must_match "HSP Toolkit Confirmation link"
       last_email.to.must_include(user.email)
-      last_email.body.must_have_content user.name
-      last_email.body.must_have_content user.email
+      last_email.body.must_include user.name
+      last_email.body.must_include user.email
     end     
   end
 
@@ -345,22 +345,22 @@ describe "Toolkit Users Integration Test" do
   	end
 
   	it "should login" do 
-  		must_have_content "Signed in successfully"
+  		page.must_have_content "Signed in successfully"
   	end
 
   	it "wont show login link after logging in" do
-  		wont_have_link "Login"
-  		wont_have_link "Sign up"
+  		page.wont_have_link "Login"
+  		page.wont_have_link "Sign up"
   	end
 
   	it "will have a link to manage account" do
-  		must_have_link "My account"
+  		page.must_have_link "My account"
   	end
 
   	it "will have a logout link" do
-  		must_have_link "Logout"
+  		page.must_have_link "Logout"
   		click_on "Logout"
-  		must_have_link "Login"
+  		page.must_have_link "Login"
   	end		
   end
 

@@ -24,17 +24,17 @@ describe "Admin Registrations Integration Test" do
   it "should search by name" do 
     fill_in "q_first_name_cont", with: @reg.first_name
     click_on "Search"
-    must_have_link "#{@reg.first_name} #{@reg.last_name}"
+    page.must_have_link "#{@reg.first_name} #{@reg.last_name}"
   end
 
   # it "should search by email" do 
   #   fill_in "q_email_cont", with: @reg.email
   #   click_on "Search"
-  #   must_have_content @reg.email
+  #   page.must_have_content @reg.email
   # end
 
   # it "should have an export button" do 
-  #   must_have_link "Excel"
+  #   page.must_have_link "Excel"
   # end
 
 end

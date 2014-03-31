@@ -28,7 +28,7 @@ describe "Marketing Projects Integration Test" do
 
     describe "New project" do
       it "should link to the new project form" do 
-        must_have_content "New Project"
+        page.must_have_content "New Project"
         current_path.must_equal new_marketing_queue_marketing_project_path
       end
 
@@ -36,12 +36,12 @@ describe "Marketing Projects Integration Test" do
         select @digitech.name, from: "marketing_project_brand_id"
         fill_in :marketing_project_due_on, with: 2.weeks.from_now.to_s
         click_on "Create Project"
-        must_have_content "can't be blank"
+        page.must_have_content "can't be blank"
       end
 
       it "should offer a selection of brands" do
         fill_in :marketing_project_name, with: "Build the death star"
-        must_have_select "marketing_project_brand_id"
+        page.must_have_select "marketing_project_brand_id"
         select @digitech.name, from: "marketing_project_brand_id"
         fill_in :marketing_project_due_on, with: 2.weeks.from_now.to_s
         click_on "Create Project"
@@ -126,12 +126,12 @@ describe "Marketing Projects Integration Test" do
     end
 
     it "should allow the original owner to edit" do 
-      must_have_link "Edit"
+      page.must_have_link "Edit"
     end
 
     it "should allow the project owner to edit tasks" do 
       click_on @task1.name
-      must_have_link "Edit"
+      page.must_have_link "Edit"
     end
 
     # it "should add tasks from the project page"

@@ -5,7 +5,7 @@
 		<div id="twitter_feed_container">
 			<%= cache ["twitter_feed_header", website.brand] do %>
 			<h4>
-				<a href="http://www.twitter.com/intent/user?screen_name=<%= tw %>"><%= image_tag(Twitter.user(tw).profile_image_url(:mini), alt: tw) %></a>
+				<a href="http://www.twitter.com/intent/user?screen_name=<%= tw %>"><%= image_tag(Tweet.client.user(tw).profile_image_url(:mini), alt: tw) %></a>
 				<a href="http://www.twitter.com/intent/user?screen_name=<%= tw %>"><%= tw %></a>
 			</h4>
 			<% end %>

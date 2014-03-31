@@ -37,19 +37,19 @@ describe "Twitter Integration Test" do
 
   	it "should show the profile image on the homepage" do
   	  visit root_url(locale: I18n.default_locale, host: @website.url)
-  	  page.must_have_xpath("//img[@src='#{Twitter.user(@brand.twitter_name).profile_image_url(:mini)}']")
+  	  page.must_have_xpath("//img[@src='#{Tweet.client.user(@brand.twitter_name).profile_image_url(:mini)}']")
   	end
   end
 
   describe Twitter::User do
     it "should pull a profile_image_url" do
-      Twitter.user('twitter').profile_image_url(:mini).must_match(/http/)
+      Tweet.client.user('twitter').profile_image_url(:mini).must_match(/http/)
     end
   end
 
   describe Twitter::Client do
     it "should pull a user_timeline" do
-      timeline = Twitter.user_timeline('twitter', since: 1.month.ago)
+      timeline = Tweet.client.user_timeline('twitter', since: 1.month.ago)
       timeline.must_be_instance_of(Array)
       timeline.size.wont_equal(0)
       timeline.first.must_respond_to(:id)

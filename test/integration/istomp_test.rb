@@ -46,36 +46,36 @@ describe "iStomp Integration Test" do
   	end
 
   	it "should use the istomp layout" do
-  		must_have_xpath("//link[@href='/assets/istomp.css']")
-  		must_have_xpath("//script[@src='/assets/istomp.js']")
-  		must_have_xpath("//section[@id='product_content'][@class='#{@istomp.layout_class}']")
+  		page.must_have_xpath("//link[@href='/assets/istomp.css']")
+  		page.must_have_xpath("//script[@src='/assets/istomp.js']")
+  		page.must_have_xpath("//section[@id='product_content'][@class='#{@istomp.layout_class}']")
   	end
 
     # Coverflow is being retired, like Roby Urry
   	# it "should have label changers on the coverflow" do
-  	# 	must_have_xpath("//div[@id='coverflow_settings'][@data-changelabel='true']")
-  	# 	must_have_xpath("//div[@id='epedals'][@data-count='#{@istomp.sub_products.count}']")
+  	# 	page.must_have_xpath("//div[@id='coverflow_settings'][@data-changelabel='true']")
+  	# 	page.must_have_xpath("//div[@id='epedals'][@data-count='#{@istomp.sub_products.count}']")
   	# end
 
   	it "should have the featured epedal bottom panel" do
-  		must_have_xpath("//div[@id='featured_callout'][@class='callout right_callout']")
+  		page.must_have_xpath("//div[@id='featured_callout'][@class='callout right_callout']")
   	end
 
     it "should not have the burst on artist pedals in the featured panel" do 
-      wont_have_link "99 cents", href: product_path(@impossible, locale: I18n.default_locale)
+      page.wont_have_link "99 cents", href: product_path(@impossible, locale: I18n.default_locale)
     end
 
     it "should have the 99 cent burst in the featured panel" do 
-      must_have_link "99 cents", href: product_path(@gooberator, locale: I18n.default_locale)
+      page.must_have_link "99 cents", href: product_path(@gooberator, locale: I18n.default_locale)
     end
 
   	it "should have the stompshop bottom panel" do
-  		must_have_xpath("//div[@id='stomp_shop_callout'][@class='callout left_callout']")
+  		page.must_have_xpath("//div[@id='stomp_shop_callout'][@class='callout left_callout']")
   	end
 
   	it "should have the sub pedals in the show all section" do
-  		must_have_content @gooberator.name
-  		must_have_content @fooberator.name
+  		page.must_have_content @gooberator.name
+  		page.must_have_content @fooberator.name
   	end
 
   end
@@ -86,20 +86,20 @@ describe "iStomp Integration Test" do
   	end
 
   	it "should use the stompshop layout" do
-  		must_have_xpath("//section[@id='product_content'][@class='#{@stompshop.layout_class}']")
+  		page.must_have_xpath("//section[@id='product_content'][@class='#{@stompshop.layout_class}']")
   	end
 
     # Coverflow is being retired, like Rob Urry
   	# it "should have popups on the coverflow" do
-  	# 	must_have_xpath("//div[@id='coverflow_pops']")
+  	# 	page.must_have_xpath("//div[@id='coverflow_pops']")
   	# end
 
   	it "should have the featured epedal bottom panel" do
-  		must_have_xpath("//div[@id='featured_callout'][@class='callout right_callout']")
+  		page.must_have_xpath("//div[@id='featured_callout'][@class='callout right_callout']")
   	end
 
   	it "should have the istomp bottom panel" do
-  		must_have_xpath("//div[@id='istomp_callout'][@class='callout left_callout']")
+  		page.must_have_xpath("//div[@id='istomp_callout'][@class='callout left_callout']")
   	end
   end
 
@@ -109,16 +109,16 @@ describe "iStomp Integration Test" do
   	end
 
   	it "should use the epedal layout" do 
-  		must_have_xpath("//section[@id='product_content'][@class='#{@gooberator.layout_class}']")
+  		page.must_have_xpath("//section[@id='product_content'][@class='#{@gooberator.layout_class}']")
   	end
   	it "should NOT jump directly to siblings in coverflow" do
-  		wont_have_xpath("//div[@id='coverflow_settings'][@data-jump='true']")
+  		page.wont_have_xpath("//div[@id='coverflow_settings'][@data-jump='true']")
   	end
   	it "should have the istomp bottom panel" do
-  		must_have_xpath("//div[@id='istomp_callout'][@class='callout left_callout']")
+  		page.must_have_xpath("//div[@id='istomp_callout'][@class='callout left_callout']")
   	end
   	it "should have the stompshop bottom panel" do
-  		must_have_xpath("//div[@id='stomp_shop_callout'][@class='callout right_callout']")
+  		page.must_have_xpath("//div[@id='stomp_shop_callout'][@class='callout right_callout']")
   	end
     
   end
@@ -129,11 +129,11 @@ describe "iStomp Integration Test" do
     end
 
     it "should have the 99 cent price burst" do 
-      must_have_xpath("//img[@src='/assets/digitech/istomp/99cent_burst.png']")
+      page.must_have_xpath("//img[@src='/assets/digitech/istomp/99cent_burst.png']")
     end   
 
     it "should have the regular price" do 
-      must_have_content "Regular Price: $#{@gooberator.msrp.to_s}"
+      page.must_have_content "Regular Price: $#{@gooberator.msrp.to_s}"
     end 
   end
 
@@ -143,11 +143,11 @@ describe "iStomp Integration Test" do
     end
 
     it "should not have the 99 cent price burst" do 
-      wont_have_xpath("//img[@src='/assets/digitech/istomp/99cent_burst.png']")
+      page.wont_have_xpath("//img[@src='/assets/digitech/istomp/99cent_burst.png']")
     end   
 
     it "should show the price text" do 
-      must_have_content "Price: $#{@impossible.msrp.to_s}"
+      page.must_have_content "Price: $#{@impossible.msrp.to_s}"
     end 
 
   end

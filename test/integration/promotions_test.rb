@@ -35,7 +35,7 @@ describe "Promotions Integration Test" do
   	end
 
     it "should show link to rebate forms" do 
-      must_have_link "Rebate Forms", href: promotions_path(locale: I18n.default_locale)
+      page.must_have_link "Rebate Forms", href: promotions_path(locale: I18n.default_locale)
     end
 
   end
@@ -45,7 +45,7 @@ describe "Promotions Integration Test" do
       product = @website.products.last
       product.product_promotions << FactoryGirl.create(:product_promotion, promotion: @recently_expired_promo, product: product)
       visit product_url(product, locale: I18n.default_locale, host: @website.url)
-      must_have_link "Rebate Forms", href: promotions_path(locale: I18n.default_locale)
+      page.must_have_link "Rebate Forms", href: promotions_path(locale: I18n.default_locale)
     end
   end
 
@@ -56,15 +56,15 @@ describe "Promotions Integration Test" do
     end
 
   	it "lists current promos" do 
-      must_have_link I18n.t(:download_promotion_form), href: @promo.promo_form.url
+      page.must_have_link I18n.t(:download_promotion_form), href: @promo.promo_form.url
     end
 
     it "links to recently expired promotion" do 
-      must_have_link I18n.t(:download_promotion_form), href: @recently_expired_promo.promo_form.url
+      page.must_have_link I18n.t(:download_promotion_form), href: @recently_expired_promo.promo_form.url
     end
 
   	it "does not list expired promos" do 
-      wont_have_content @expired_promo.name
+      page.wont_have_content @expired_promo.name
     end
 
   end

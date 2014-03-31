@@ -30,18 +30,18 @@ describe "API v1 Integration Test" do
 		end
 
 		it "should list lexicon and dbx brands" do
-			must_have_content "\"name\":\"#{@lexicon.name}\""
-			must_have_content "\"name\":\"#{@dbx.name}\""
+			page.must_have_content "\"name\":\"#{@lexicon.name}\""
+			page.must_have_content "\"name\":\"#{@dbx.name}\""
 		end
 
 		it "should provide default url for brands" do
-			must_have_content "\"url\":\"#{@lexicon_site.url}\""
+			page.must_have_content "\"url\":\"#{@lexicon_site.url}\""
 		end
 
 		it "should provide the product families with product counts" do
 			fam = @lexicon.product_families.first
 			# save_and_open_page
-			must_have_content "\"product_family\":{\"id\":#{fam.id},\"name\":\"#{fam.name}\",\"parent_id\":null,\"friendly_id\":\"#{fam.friendly_id}\",\"employee_store_products_count\":5}"
+			page.must_have_content "\"product_family\":{\"id\":#{fam.id},\"name\":\"#{fam.name}\",\"parent_id\":null,\"friendly_id\":\"#{fam.friendly_id}\",\"employee_store_products_count\":5}"
 		end
 	end
 
@@ -51,13 +51,13 @@ describe "API v1 Integration Test" do
 		end
 
 		it "should show the brand details" do
-			must_have_content "\"name\":\"#{@lexicon.name}\""
-			must_have_content "\"url\":\"#{@lexicon_site.url}\""
+			page.must_have_content "\"name\":\"#{@lexicon.name}\""
+			page.must_have_content "\"url\":\"#{@lexicon_site.url}\""
 		end
 
 		it "should provide the product families with product counts" do
 			fam = @lexicon.product_families.first
-			must_have_content "\"product_family\":{\"id\":#{fam.id},\"name\":\"#{fam.name}\",\"parent_id\":null,\"friendly_id\":\"#{fam.friendly_id}\",\"employee_store_products_count\":5}"
+			page.must_have_content "\"product_family\":{\"id\":#{fam.id},\"name\":\"#{fam.name}\",\"parent_id\":null,\"friendly_id\":\"#{fam.friendly_id}\",\"employee_store_products_count\":5}"
 		end
 	end
 
@@ -67,7 +67,7 @@ describe "API v1 Integration Test" do
 		end
 
 		it "should have an array of products" do
-			must_have_content "\"name\":"
+			page.must_have_content "\"name\":"
 		end
 	end
 
@@ -78,25 +78,25 @@ describe "API v1 Integration Test" do
 		end	
 
 		it "should have the product description" do
-			must_have_content @product.description
+			page.must_have_content @product.description
 		end
 
 		it "should have pricing" do
-			must_have_content "\"msrp\":"
-			must_have_content "\"harman_employee_price\":"
+			page.must_have_content "\"msrp\":"
+			page.must_have_content "\"harman_employee_price\":"
 		end
 
 		it "should have the SAP SKU" do
-			must_have_content "\"sap_sku\":" 
+			page.must_have_content "\"sap_sku\":" 
 		end
 
 		it "should have the full URL to the product" do 
-			must_have_content product_url(@product, host: @product.brand.default_website.url, locale: I18n.default_locale)
+			page.must_have_content product_url(@product, host: @product.brand.default_website.url, locale: I18n.default_locale)
 		end
 
 		it "should provide a missing image url" do
-			must_have_content "http://#{@website.url}/assets/missing-image-22x22.png"
-			must_have_content "http://#{@website.url}/assets/missing-image-128x128.png"
+			page.must_have_content "http://#{@website.url}/assets/missing-image-22x22.png"
+			page.must_have_content "http://#{@website.url}/assets/missing-image-128x128.png"
 		end
 	end
 
@@ -108,11 +108,11 @@ describe "API v1 Integration Test" do
 		end
 
 		it "should have the product thumbnail full url" do
-			must_have_content "http://#{@website.url}" + @product.photo.product_attachment.url(:thumb, timestamp: false)
+			page.must_have_content "http://#{@website.url}" + @product.photo.product_attachment.url(:thumb, timestamp: false)
 		end
 
 		it "should have the product image full url" do
-			must_have_content "http://#{@website.url}" + @product.photo.product_attachment.url(:medium, timestamp: false)
+			page.must_have_content "http://#{@website.url}" + @product.photo.product_attachment.url(:medium, timestamp: false)
 		end
 	end
 
@@ -126,19 +126,19 @@ describe "API v1 Integration Test" do
 
 		it "should have the url to the external product page" do 
 			visit api_v1_product_url(@other_product.friendly_id, host: @website.url)
-			must_have_content @other_product.more_info_url
+			page.must_have_content @other_product.more_info_url
 		end
 
 		it "should have the url to the external brand site" do 
 			visit api_v1_brand_url(@other_brand.friendly_id, host: @website.url)
-			must_have_content @external_url
+			page.must_have_content @external_url
 		end
 
 		it "should show the brand url if the product url is blank" do
 			@other_product.more_info_url = nil
 			@other_product.save 
 			visit api_v1_product_url(@other_product.friendly_id, host: @website.url)
-			must_have_content @external_url
+			page.must_have_content @external_url
 		end
 	end
 
@@ -150,11 +150,11 @@ describe "API v1 Integration Test" do
 		end
 
 		it "should provide the family name" do
-			must_have_content @product_family.name
+			page.must_have_content @product_family.name
 		end
 
 		it "should provide a missing thumbnail url" do
-			must_have_content "http://#{@website.url}/assets/missing-image-22x22.png"
+			page.must_have_content "http://#{@website.url}/assets/missing-image-22x22.png"
 		end
 	end
 
@@ -168,7 +168,7 @@ describe "API v1 Integration Test" do
 		end
 
 		it "should list the products with thumbnail" do
-			must_have_content "http://#{@website.url}" + @product.photo.product_attachment.url(:thumb, timestamp: false)
+			page.must_have_content "http://#{@website.url}" + @product.photo.product_attachment.url(:thumb, timestamp: false)
 		end
 	end
 

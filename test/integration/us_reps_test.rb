@@ -35,15 +35,15 @@ describe "US Reps Integration Test" do
 	  	within("select#us_region") do
 	  		find('option[selected]').text.must_equal @region2.name
 	  	end
-	  	must_have_content @rep2.name
-	  	must_have_content @rep2.contact
-	  	must_have_content @rep2.address
-	  	must_have_content @rep2.city
-	  	must_have_content @rep2.state
-	  	must_have_content @rep2.zip
-	  	must_have_content @rep2.phone
-	  	must_have_content @rep2.fax
-	  	must_have_content @rep2.email
+	  	page.must_have_content @rep2.name
+	  	page.must_have_content @rep2.contact
+	  	page.must_have_content @rep2.address
+	  	page.must_have_content @rep2.city
+	  	page.must_have_content @rep2.state
+	  	page.must_have_content @rep2.zip
+	  	page.must_have_content @rep2.phone
+	  	page.must_have_content @rep2.fax
+	  	page.must_have_content @rep2.email
 	  end
 
 	end
@@ -72,15 +72,15 @@ describe "US Reps Integration Test" do
 	  	within("select#us_region") do
 	  		find('option[selected]').text.must_equal @region2.name
 	  	end
-	  	must_have_content @rep2.name
-	  	must_have_content @rep2.contact
-	  	must_have_content @rep2.address
-	  	must_have_content @rep2.city
-	  	must_have_content @rep2.state
-	  	must_have_content @rep2.zip
-	  	must_have_content @rep2.phone
-	  	must_have_content @rep2.fax
-	  	must_have_content @rep2.email
+	  	page.must_have_content @rep2.name
+	  	page.must_have_content @rep2.contact
+	  	page.must_have_content @rep2.address
+	  	page.must_have_content @rep2.city
+	  	page.must_have_content @rep2.state
+	  	page.must_have_content @rep2.zip
+	  	page.must_have_content @rep2.phone
+	  	page.must_have_content @rep2.fax
+	  	page.must_have_content @rep2.email
 	  end
 
 	end

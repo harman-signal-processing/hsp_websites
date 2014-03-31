@@ -52,10 +52,10 @@ describe "DigiTech Artist Integration Test" do
   	end
 
   	it "should have a signup form" do
-      wont_have_link "Become a #{@brand.name} Artist"
+      page.wont_have_link "Become a #{@brand.name} Artist"
   		click_link "Artist Login"
   		click_link "Sign up to be a #{@brand.name} Artist"
-  		must_have_xpath("//form[@id='new_artist']")
+  		page.must_have_xpath("//form[@id='new_artist']")
   	end
 
   end
@@ -74,7 +74,7 @@ describe "DigiTech Artist Integration Test" do
         fill_in 'artist_password_confirmation', with: "Pass123"
         click_button "Sign up"
         current_path.must_equal(become_an_artist_path(locale: I18n.default_locale))
-        must_have_content "A message with a confirmation link has been sent to your email address. Please open the link to activate your account."
+        page.must_have_content "A message with a confirmation link has been sent to your email address. Please open the link to activate your account."
         Artist.count.must_equal (count + 1)
         new_artist = Artist.last
         new_artist.approver_id.must_equal(nil)
@@ -92,7 +92,7 @@ describe "DigiTech Artist Integration Test" do
       end
 
       it "should NOT have the big pic banner" do
-        wont_have_xpath("//div[@id='big_artist_photo']/img[@src='#{@artist.artist_photo.url(:feature)}']")
+        page.wont_have_xpath("//div[@id='big_artist_photo']/img[@src='#{@artist.artist_photo.url(:feature)}']")
       end
 
     end
@@ -128,7 +128,7 @@ describe "DigiTech Artist Integration Test" do
       end
 
       it "should have the big pic banner" do
-        must_have_xpath("//div[@id='big_artist_photo']/img[@src='#{@artist.artist_photo.url(:feature)}']")
+        page.must_have_xpath("//div[@id='big_artist_photo']/img[@src='#{@artist.artist_photo.url(:feature)}']")
       end
 
     end

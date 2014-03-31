@@ -74,6 +74,52 @@ namespace :attachments do
   end
  
 
+  task :migrate_to_rackspace => :environment do
+    require 'aws/s3'
+
+    # Load credentials
+    s3_options = S3_CREDENTIALS
+    bucket_name = 'harman-hsp-protected-assets' #s3_options.delete("bucket")
+
+    # Establish S3 connection
+    s3 = AWS::S3.new(s3_options)
+    bucket = s3.buckets[bucket_name]
+
+    old_path_interpolation = ":rails_root/../../protected/:attachment/:id/:filename"
+    new_path_interpolation = ":class/:attachment/:id_:timestamp/:basename.:extension"
+
+    RegisteredDownload.all.each do |i|
+      if i.protected_software_file_name.present?
+        attachment = i.protected_software
+        styles = [:original] + attachment.styles.map{|k,v| k}
+        styles.each do |style|
+          old_file_path = Paperclip::Interpolations.interpolate(old_path_interpolation, attachment, style) #see paperclip docs
+          new_file_path = Paperclip::Interpolations.interpolate(new_path_interpolation, attachment, style)
+
+    puts "== Current file path:  #{old_file_path}"
+    puts "== New file path:  #{new_file_path}"
+
+          if File.exists?(old_file_path)
+            begin
+              obj = bucket.objects[new_file_path.sub(%r{^/},'')]
+              obj.write(Pathname.new(old_file_path), content_type: i.protected_software_content_type) # acl: :public_read, 
+            rescue AWS::S3::Errors::NoSuchBucket => e
+              s3.buckets.create(bucket_name)
+              retry
+            rescue 
+              raise
+            end
+            puts "Saved to S3"
+          else
+              puts "==== ! Real File Not Found ! "
+          end
+
+        end
+      end
+    end
+
+  end
+
 	task :migrate_to_s3 => :environment do
 		require 'aws/s3'
 

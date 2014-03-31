@@ -134,7 +134,7 @@ describe "Lexicon Integration Test" do
     it "should return the correct activation code" do 
       challenge = "1234-5678-90AB"
       visit software_activation_url(@software.activation_name, challenge, locale: I18n.default_locale, host: @website.url)
-      must_have_content "383ED7C0-FCAC80F8-A403F8DB"
+      page.must_have_content "383ED7C0-FCAC80F8-A403F8DB"
     end
   end
 end

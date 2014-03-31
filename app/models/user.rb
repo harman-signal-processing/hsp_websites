@@ -113,8 +113,10 @@ class User < ActiveRecord::Base
   end
 
   def self.queue_admin(options={})
+    default_options = { exclude_super_admins: true, all: false }
+    options = default_options.merge options
     a = where(queue_admin: true)
-    a = a.where(super_admin: false) if options[:exclude_super_admins]
+    a = a.where(admin: false) if options[:exclude_super_admins]
 
     (options[:all]) ? a.order("name").all : a.order("created_at").first
   end

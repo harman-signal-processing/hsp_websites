@@ -26,7 +26,7 @@ describe "Admin Pricing Integration Test" do
     end
 
     it "should list pricing types" do 
-      must_have_link @dealer_pricing_type.name, href: edit_admin_pricing_type_path(@dealer_pricing_type, locale: I18n.default_locale)
+      page.must_have_link @dealer_pricing_type.name, href: edit_admin_pricing_type_path(@dealer_pricing_type, locale: I18n.default_locale)
     end
     
     it "should show which pricing types are included on price list" do
@@ -79,16 +79,16 @@ describe "Admin Pricing Integration Test" do
     end
 
     it "should have a button to export price list to Excel" do 
-      must_have_link "Excel", href: admin_product_prices_path(loc: "us", format: 'xls', locale: I18n.default_locale)
-      must_have_link "Excel", href: admin_product_prices_path(loc: "intl", format: 'xls', locale: I18n.default_locale)
+      page.must_have_link "Excel", href: admin_product_prices_path(loc: "us", format: 'xls', locale: I18n.default_locale)
+      page.must_have_link "Excel", href: admin_product_prices_path(loc: "intl", format: 'xls', locale: I18n.default_locale)
     end
 
     it "should have a form to update prices" do 
-      must_have_field "product_attr[#{@website.products.first.to_param}][msrp]"
+      page.must_have_field "product_attr[#{@website.products.first.to_param}][msrp]"
     end
 
     it "should have fields to update the pricing type values" do 
-      must_have_field "product_attr[#{@website.products.first.to_param}][product_prices_attributes[0]][price]"
+      page.must_have_field "product_attr[#{@website.products.first.to_param}][product_prices_attributes[0]][price]"
     end
 
     it "should update the price" do 

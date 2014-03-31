@@ -24,19 +24,19 @@ describe "Toolkit Content Integration Test" do
     end
 
   	it "should use the toolkit layout" do	
-  		must_have_content "Marketing Toolkit"
+  		page.must_have_content "Marketing Toolkit"
   	end
 
     it "should link to brand pages" do
       brand = Brand.last
-      must_have_link brand.name, href: toolkit_brand_path(brand, locale: I18n.default_locale)
+      page.must_have_link brand.name, href: toolkit_brand_path(brand, locale: I18n.default_locale)
     end
   end
 
   describe "devise user accounts" do
   	it "should use the toolkit layout" do
   		visit new_user_session_url(host: @host)
-  		must_have_content "Marketing Toolkit"
+  		page.must_have_content "Marketing Toolkit"
   	end
   end
 
@@ -47,15 +47,15 @@ describe "Toolkit Content Integration Test" do
     end
 
     it "should use the toolkit layout" do
-      must_have_content "Marketing Toolkit"
+      page.must_have_content "Marketing Toolkit"
     end
 
     it "should have links to products" do
-      must_have_link "Products", href: toolkit_brand_products_path(@brand, locale: I18n.default_locale)
+      page.must_have_link "Products", href: toolkit_brand_products_path(@brand, locale: I18n.default_locale)
     end
 
     it "should have links to promotions" do
-      must_have_link "Promotions", href: toolkit_brand_promotions_path(@brand, locale: I18n.default_locale)
+      page.must_have_link "Promotions", href: toolkit_brand_promotions_path(@brand, locale: I18n.default_locale)
     end
   end
 
@@ -67,7 +67,7 @@ describe "Toolkit Content Integration Test" do
 
     it "index should link to product" do
       visit toolkit_brand_products_url(@brand, host: @host)
-      must_have_link @product.name, href: toolkit_brand_product_path(@brand, @product, locale: I18n.default_locale)
+      page.must_have_link @product.name, href: toolkit_brand_product_path(@brand, @product, locale: I18n.default_locale)
     end
 
     it "should include products which are announced but not yet in production" do 
@@ -75,7 +75,7 @@ describe "Toolkit Content Integration Test" do
       @product.product_status = announced
       @product.save
       visit toolkit_brand_products_url(@brand, host: @host)
-      must_have_link @product.name
+      page.must_have_link @product.name
     end
 
     it "should NOT include products which are in development" do 
@@ -83,7 +83,7 @@ describe "Toolkit Content Integration Test" do
       @product.product_status = in_development
       @product.save
       visit toolkit_brand_products_url(@brand, host: @host)
-      wont_have_link @product.name
+      page.wont_have_link @product.name
     end
 
     it "should NOT link to discontinued products" do 
@@ -91,7 +91,7 @@ describe "Toolkit Content Integration Test" do
       @product.product_status = discontinued
       @product.save
       visit toolkit_brand_products_url(@brand, host: @host)
-      wont_have_link @product.name
+      page.wont_have_link @product.name
     end      
   end
 
@@ -148,7 +148,7 @@ describe "Toolkit Content Integration Test" do
     end
 
     it "should have product content" do
-      must_have_content @product.description
+      page.must_have_content @product.description
     end
   end
 
@@ -162,11 +162,11 @@ describe "Toolkit Content Integration Test" do
     end
 
     it "should have product content" do
-      must_have_content @discontinued_product.description
+      page.must_have_content @discontinued_product.description
     end
 
     it "should clearly identify the product as discontinued" do
-      must_have_content "This product has been discontinued"
+      page.must_have_content "This product has been discontinued"
     end
 
     # it "should offer a suggested replacement"
@@ -183,11 +183,11 @@ describe "Toolkit Content Integration Test" do
     end
 
     it "should have product content" do
-      must_have_content @product.description
+      page.must_have_content @product.description
     end
 
     it "should identify the product as not-shipping yet" do 
-      must_have_content "subject to change"
+      page.must_have_content "subject to change"
     end
     
   end

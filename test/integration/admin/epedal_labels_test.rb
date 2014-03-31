@@ -33,7 +33,7 @@ describe "Admin epedal Labels Integration Test" do
     end
 
     it "should list current sheets" do
-      must_have_link @sheet.name, href: admin_label_sheet_path(@sheet, host: @website.url, locale: I18n.default_locale)
+      page.must_have_link @sheet.name, href: admin_label_sheet_path(@sheet, host: @website.url, locale: I18n.default_locale)
     end
 
     it "should create a new sheet" do
@@ -41,7 +41,7 @@ describe "Admin epedal Labels Integration Test" do
       fill_in 'label_sheet_name', with: "Yo Mama"
       fill_in 'label_sheet_product_ids', with: @zooberator.to_param
       click_on 'Create'
-      must_have_content "Yo Mama"
+      page.must_have_content "Yo Mama"
       # save_and_open_page
       LabelSheet.last.products.must_include(@zooberator)
     end
@@ -54,19 +54,19 @@ describe "Admin epedal Labels Integration Test" do
     end
 
     it "should link to existing orders" do
-      must_have_link @order.name
+      page.must_have_link @order.name
     end
 
     it "should show the order details" do
       click_on @order.name
-      must_have_content @order.address
-      must_have_content @order.city
-      must_have_content @order.state
-      must_have_content @order.postal_code
-      must_have_content @order.email
-      must_have_content @order.country
-      must_have_content @order.expanded_label_sheets.first.name
-      must_have_content "Subscribe? Yes"
+      page.must_have_content @order.address
+      page.must_have_content @order.city
+      page.must_have_content @order.state
+      page.must_have_content @order.postal_code
+      page.must_have_content @order.email
+      page.must_have_content @order.country
+      page.must_have_content @order.expanded_label_sheets.first.name
+      page.must_have_content "Subscribe? Yes"
     end
 
   end
@@ -80,8 +80,8 @@ describe "Admin epedal Labels Integration Test" do
     it "should send an email to the user with the mailing date" do
         click_link 'mark shipped'
         last_email.to.must_include(@order.email)
-        last_email.subject.must_have_content("epedal labels")
-        last_email.body.must_have_content "today"
+        last_email.subject.must_include("epedal labels")
+        last_email.body.must_include "today"
         @order.reload
         @order.mailed_on.blank?.wont_equal(true)
         page.must_have_content "Success"
@@ -96,21 +96,21 @@ describe "Admin epedal Labels Integration Test" do
     end
 
     it "should have a button to export all" do 
-      must_have_link "Export All", href: admin_label_sheet_orders_path(format: 'xls', locale: I18n.default_locale)
+      page.must_have_link "Export All", href: admin_label_sheet_orders_path(format: 'xls', locale: I18n.default_locale)
     end
 
     # it "should respond with an excel file for all" do
     #   click_on "Export All"
-    #   wont_have_content "Error"
+    #   page.wont_have_content "Error"
     # end
 
     it "should have a button to export subscribers only" do
-      must_have_link "Export Subscribers", href: subscribers_admin_label_sheet_orders_path(format: 'xls', locale: I18n.default_locale)
+      page.must_have_link "Export Subscribers", href: subscribers_admin_label_sheet_orders_path(format: 'xls', locale: I18n.default_locale)
     end
 
     # it "should respond with an excel file for subscribers" do
     #   click_on "Export Subscribers"
-    #   wont_have_content "Error"
+    #   page.wont_have_content "Error"
     # end
   end
 

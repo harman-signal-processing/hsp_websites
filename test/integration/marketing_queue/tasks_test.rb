@@ -27,19 +27,19 @@ describe "Marketing Tasks Integration Test" do
 
     describe "Standalone tasks" do
     	it "should link to the new task form" do 
-    		must_have_content "New Task"
+    		page.must_have_content "New Task"
         current_path.must_equal new_marketing_queue_marketing_task_path
     	end
 
       it "should not assign to others" do 
-        wont_have_content "Worker"
-        wont_have_select "marketing_task_worker_id"
+        page.wont_have_content "Worker"
+        page.wont_have_select "marketing_task_worker_id"
       end
 
       it "should require the task name" do
         fill_in :marketing_task_due_on, with: 2.weeks.from_now.to_s
         click_on "Create Task"
-        must_have_content "can't be blank"
+        page.must_have_content "can't be blank"
       end
 
       it "should offer to assign task to oneself" do
@@ -47,7 +47,7 @@ describe "Marketing Tasks Integration Test" do
         fill_in :marketing_task_due_on, with: 2.weeks.from_now.to_s
         fill_in :marketing_task_creative_brief, with: "Make it cool."
         select @digitech.name, from: :marketing_task_brand_id
-        must_have_content "Assign to me"
+        page.must_have_content "Assign to me"
         check "marketing_task_assign_to_me"
         click_on "Create Task"
         MarketingTask.last.worker_id.must_equal @user.id
@@ -75,7 +75,7 @@ describe "Marketing Tasks Integration Test" do
 
     describe "Standalone tasks" do
       it "should link to the new task form" do 
-        must_have_content "New Task"
+        page.must_have_content "New Task"
         current_path.must_equal new_marketing_queue_marketing_task_path
       end
 
@@ -84,23 +84,23 @@ describe "Marketing Tasks Integration Test" do
         fill_in :marketing_task_due_on, with: 2.weeks.from_now.to_s
         fill_in :marketing_task_creative_brief, with: "Make it cool."
         select @digitech.name, from: :marketing_task_brand_id
-        must_have_select "marketing_task_marketing_project_id"
+        page.must_have_select "marketing_task_marketing_project_id"
         select @project1.name, from: "marketing_task_marketing_project_id"
         click_on "Create Task"
         MarketingTask.last.marketing_project_id.must_equal @project1.id
       end
 
       it "should not show closed projects in the selection" do
-        must_have_select "marketing_task_marketing_project_id"
-        wont_have_xpath "//select[@id='marketing_task_marketing_project_id']/option[@value='#{@closed_project.id}']"
+        page.must_have_select "marketing_task_marketing_project_id"
+        page.wont_have_xpath "//select[@id='marketing_task_marketing_project_id']/option[@value='#{@closed_project.id}']"
       end
 
       # it "should filter the selection of open projects after selecting the brand"
       # it "should redirect to the selected project (if any) after creating the task"
 
       it "should not assign to others" do 
-        wont_have_content "Worker"
-        wont_have_select "marketing_task_worker_id"
+        page.wont_have_content "Worker"
+        page.wont_have_select "marketing_task_worker_id"
       end
 
       it "should offer to assign task to oneself" do
@@ -109,7 +109,7 @@ describe "Marketing Tasks Integration Test" do
         fill_in :marketing_task_due_on, with: 2.weeks.from_now.to_s
         fill_in :marketing_task_creative_brief, with: "Make it cool."
         select @digitech.name, from: :marketing_task_brand_id
-        must_have_content "Assign to me"
+        page.must_have_content "Assign to me"
         check "marketing_task_assign_to_me"
         click_on "Create Task"
         MarketingTask.last.worker_id.must_equal @user.id
@@ -121,7 +121,7 @@ describe "Marketing Tasks Integration Test" do
         fill_in :marketing_task_due_on, with: 2.weeks.from_now.to_s
         fill_in :marketing_task_creative_brief, with: "Make it cool."
         select @digitech.name, from: :marketing_task_brand_id
-        must_have_content "Assign to me"
+        page.must_have_content "Assign to me"
         # check "marketing_task_assign_to_me"
         click_on "Create Task"
         MarketingTask.last.worker_id.wont_equal @user.id
@@ -141,12 +141,12 @@ describe "Marketing Tasks Integration Test" do
 
     describe "Standalone tasks" do 
       it "should be able to assign the worker" do 
-        must_have_content "Worker"
-        must_have_select "marketing_task_worker_id"
+        page.must_have_content "Worker"
+        page.must_have_select "marketing_task_worker_id"
       end
 
       it "should not offer to assign to oneself" do # (since self will be available in the dropdown)
-        wont_have_content "Assign to me"
+        page.wont_have_content "Assign to me"
       end
     end      
 

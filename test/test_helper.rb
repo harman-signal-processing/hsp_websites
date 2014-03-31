@@ -35,8 +35,8 @@ end
 
 class ActionDispatch::IntegrationTest
   include Rails.application.routes.url_helpers
-  include Capybara::RSpecMatchers
   include Capybara::DSL
+  include Capybara::Assertions
 
   [ApplicationController, ActionController::Base].each do |klass|
     klass.class_eval do

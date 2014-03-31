@@ -22,7 +22,7 @@
             }
           </style>        
         <% elsif tw = @brand.default_website.twitter_name %>
-          <% t = Twitter.user(tw) %>
+          <% t = Tweet.client.user(tw) %>
           <style type="text/css">
             body {
               background-color: #<%= t.profile_background_color %>;

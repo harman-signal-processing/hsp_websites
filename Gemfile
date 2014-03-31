@@ -9,7 +9,7 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
-  gem "zurb-foundation", "~> 4.2.1"
+  gem "zurb-foundation", "~> 4.3.2"
 end
 
 gem 'jquery-rails' 
@@ -23,18 +23,14 @@ gem 'capistrano-ext'
 gem 'mysql2', '>= 0.3.12b4' # sphinx needs '0.3.12b4'
 gem "friendly_id", "~> 3.0"
 gem 'aws-sdk', '~> 1.0'
-gem "paperclip", "~> 3.0"
+gem "paperclip" #, "~> 3.0"
 gem 'paperclip-meta'
 gem 'meta-tags', require: 'meta_tags'
 gem 'tinymce-rails', '~> 3.5'
 gem 'geokit', git: 'https://github.com/geokit/geokit.git', ref: '23c4c6a202671107dbdbd2dd1d8dc69dd8649a45'
 gem 'geokit-rails'
-# gem 'api_cache'
-# gem 'moneta'
-# gem 'geocoder_plus'
-# gem 'geoip', git: 'http://github.com/cjheath/geoip.git'
 gem 'thinking-sphinx', '~> 3.0'
-gem 'youtube_it', "~> 2.2"
+gem 'youtube_it'
 gem 'twitter'
 gem 'delayed_job_active_record'
 gem 'devise' 
@@ -56,11 +52,10 @@ gem 'country_select'
 gem 'ransack'
 gem "dalli"
 gem "rabl"
-gem "money", "~> 5.1.1"
+gem "money"
 gem 'money-rails'
 gem 'will_paginate'
-# gem 'rack-rewrite'
-gem "bing_translator" #, "~> 3.2.0"
+gem "bing_translator"
 gem "possessive"
 gem 'event-calendar', :require => 'event_calendar'
 gem 'RedCloth'
@@ -98,11 +93,11 @@ group :test do
   gem 'turn'
   gem 'mocha', require: false
   gem 'minitest-rails-capybara'
-  gem 'minitest-capybara', '0.1.0' # 0.3.0 broke stuff
+  gem 'minitest-capybara'
   gem "minitest-wscolor"
   gem 'capybara-webkit'
   gem 'launchy' # save_and_open_page inline in tests
-  gem 'minitest' #, '2.12.1'
+  gem 'minitest'
   gem 'guard-minitest'
   gem 'rb-fsevent', :require => false 
   gem 'rb-inotify', '~> 0.9', :require => false 

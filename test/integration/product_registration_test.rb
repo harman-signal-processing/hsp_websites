@@ -21,7 +21,7 @@ describe "Product Registration Integration Test" do
   	end
 
     it "should show the form" do
-      must_have_xpath("//form[@id='new_warranty_registration']")
+      page.must_have_xpath("//form[@id='new_warranty_registration']")
     end
 
     it "should fill in the form" do 
@@ -47,8 +47,8 @@ describe "Product Registration Integration Test" do
       click_on 'submit'
       reg = WarrantyRegistration.last 
       last_email.to.must_include(reg.email)
-      last_email.subject.must_have_content("product registration")
-      last_email.body.must_have_content(reg.product.name)
+      last_email.subject.must_include "product registration"
+      last_email.body.must_include reg.product.name
     end
 
   end

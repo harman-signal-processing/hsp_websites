@@ -22,8 +22,8 @@ describe "BuyItNow Integration Test" do
 
   	it "should have buy it now links" do
   		visit product_url(@product, locale: I18n.default_locale, host: @website.url)
-      must_have_link "Dealers", href: buy_it_now_product_path(@product, locale: I18n.default_locale, host: @website.url)
-  		must_have_xpath("//div[@id='dealers']")
+      page.must_have_link "Dealers", href: buy_it_now_product_path(@product, locale: I18n.default_locale, host: @website.url)
+  		page.must_have_xpath("//div[@id='dealers']")
   	end
 
     it "should have RETAILER google tracker" do
@@ -38,7 +38,7 @@ describe "BuyItNow Integration Test" do
     		preferred_retailer = FactoryGirl.create(:online_retailer, preferred: 1)
     		preferred_link = FactoryGirl.create(:online_retailer_link, online_retailer: preferred_retailer, product: @product, brand: @website.brand)
     		visit product_url(@product, locale: I18n.default_locale, host: @website.url)
-    		must_have_xpath("//div[@id='dealers']/div[@id='online_retailers']/div[@class='retailer_logo preferred']/a[@href='#{preferred_link.url}']")
+    		page.must_have_xpath("//div[@id='dealers']/div[@id='online_retailers']/div[@class='retailer_logo preferred']/a[@href='#{preferred_link.url}']")
     	end
     end
 
@@ -48,12 +48,12 @@ describe "BuyItNow Integration Test" do
     	end
 
     	it "should select a random retailer to link directly" do
-    		must_have_xpath("//div[@id='product_buy_now_box']")
-    		must_have_link "Online Dealers (US)"
+    		page.must_have_xpath("//div[@id='product_buy_now_box']")
+    		page.must_have_link "Online Dealers (US)"
     	end
 
     	it "should not link to any other retailers" do 
-    		wont_have_xpath("//div[@id='dealers']")
+    		page.wont_have_xpath("//div[@id='dealers']")
     	end
     end
 
@@ -63,12 +63,12 @@ describe "BuyItNow Integration Test" do
     	end
 
     	it "should link directly to the retailer" do
-    		must_have_xpath("//div[@id='product_buy_now_box']")
-    		must_have_link "Online Dealers (US)", href: @retailer_link.url
+    		page.must_have_xpath("//div[@id='product_buy_now_box']")
+    		page.must_have_link "Online Dealers (US)", href: @retailer_link.url
     	end
 
     	it "should not link to any other retailers" do 
-    		wont_have_xpath("//div[@id='dealers']")
+    		page.wont_have_xpath("//div[@id='dealers']")
     	end
     end
 
@@ -89,7 +89,7 @@ describe "BuyItNow Integration Test" do
   		preferred_retailer = FactoryGirl.create(:online_retailer, preferred: 1)
   		preferred_link = FactoryGirl.create(:online_retailer_link, online_retailer: preferred_retailer, product: @product, brand: @website.brand)
   		visit product_url(@product, locale: I18n.default_locale, host: @website.url)
-  		must_have_xpath("//div[@id='dealers']/div[@id='online_retailers']/div[@class='retailer_logo preferred']/a[@href='#{preferred_link.url}']")
+  		page.must_have_xpath("//div[@id='dealers']/div[@id='online_retailers']/div[@class='retailer_logo preferred']/a[@href='#{preferred_link.url}']")
   	end
 
   end
@@ -102,11 +102,11 @@ describe "BuyItNow Integration Test" do
     end
 
     it "should not have the buy it now div" do
-      wont_have_xpath("//div[@id='dealers']")
+      page.wont_have_xpath("//div[@id='dealers']")
     end
 
     it "should not have the buy it now button" do
-      wont_have_link "Dealers", href: buy_it_now_product_path(@product, locale: I18n.default_locale, host: @website.url)
+      page.wont_have_link "Dealers", href: buy_it_now_product_path(@product, locale: I18n.default_locale, host: @website.url)
     end
 
   end  
