@@ -10,9 +10,9 @@
 <h2><%= @brand.name %> Products</h2>
 
 <h5 class="subheader">Newest Products</h5>
-<div class="row newest_products">
+<ul class="large-block-grid-4 small-block-grid-2 newest_products">
 	<% @brand.toolkit_products.reject{|p| p.discontinued? || p.in_development? || p.is_accessory?}[0,4].each do |product| %>
-	<div class="small-6 large-3 columns">
+	<li>
 		<%= link_to toolkit_brand_product_path(@brand, product) do %>
 			<div class="panel">
 				<h5><%= product.name %></h5>
@@ -26,12 +26,12 @@
 				<% end %>
 			</div>
 		<% end %>
-	</div>
+	</li>
 	<% end %>
-</div>
+</ul>
 
 <h5 class="subheader">More Products</h5>
-<ul class="disc">
+<ul class="list disc">
 <% ProductFamily.all_parents(@brand).each do |product_family| %>
 	<% if product_family.toolkit_products.count > 0 %>
 	<li><%= link_to product_family.name, toolkit_brand_product_family_path(@brand, product_family) %>

@@ -75,9 +75,9 @@ module ToolkitHelper
 
 			content_tag(:h5, "#{title}:", class: "subheader") +
 
-			content_tag(:div, class: "row") do 
+			content_tag(:ul, class: "large-block-grid-6 small-block-grid-2") do 
 				items.map do |item|
-					content_tag(:div, link_to_toolkit_item(brand, item, panel: true), class: "#{options[:columns]} columns") 
+					content_tag(:li, link_to_toolkit_item(brand, item, panel: true)) 
 				end.join.html_safe
 			end
 		end

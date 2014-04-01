@@ -1237,12 +1237,13 @@ $legend-bg: none;
 
 // Background color for the top bar
 
-$topbar-bg:                            #00395a !default;
+$topbar-bg-color:                      #00395a;
+$topbar-bg:              $topbar-bg-color !default;
 
 // Height and margin
 
 // $topbar-height:                        45px;
-// $topbar-margin-bottom:                 emCalc(30px);
+$topbar-margin-bottom:                 emCalc(20px);
 
 // Control Input height for top bar
 
@@ -1296,8 +1297,8 @@ $topbar-bg:                            #00395a !default;
 
 // Divider Styles
 
-// $topbar-divider-border-bottom:         solid 1px lighten($topbar-bg, 10%);
-// $topbar-divider-border-top:            solid 1px darken($topbar-bg, 10%);
+$topbar-divider-border-bottom:         solid 1px lighten($topbar-bg-color, 10%);
+$topbar-divider-border-top:            solid 1px darken($topbar-bg-color, 10%);
 
 // Sticky Class
 

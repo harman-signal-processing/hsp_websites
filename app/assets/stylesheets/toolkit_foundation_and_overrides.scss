@@ -1053,8 +1053,8 @@ $primary-color: #00395a;
 // Control the color of the background and some size options
 
 // $section-content-bg: #fff;
-// $section-vertical-nav-min-width: emCalc(200px);
-// $section-vertical-tabs-title-width: emCalc(200px);
+$section-vertical-nav-min-width: 100%;
+$section-vertical-tabs-title-width: emCalc(200px);
 // $section-bottom-margin: emCalc(20px);
 
 // $title-selector: ".title";
@@ -1237,12 +1237,13 @@ $primary-color: #00395a;
 
 // Background color for the top bar
 
-$topbar-bg:                            #00395a !default;
+$topbar-bg-color:                            #00395a;
+$topbar-bg:                   $topbar-bg-color !default;
 
 // Height and margin
 
 // $topbar-height:                        45px;
-// $topbar-margin-bottom:                 emCalc(30px);
+$topbar-margin-bottom:                 emCalc(30px);
 
 // Control Input height for top bar
 

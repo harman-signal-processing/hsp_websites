@@ -48,9 +48,9 @@
 </div>
 
 <% if @images.length > 0 %>
-<div class="row">
+<ul class="large-block-grid-6 small-block-grid-2">
 	<% @images.each do |image| %>
-		<div class="small-4 large-2 columns <%='end' if image == @images.last %>">
+		<li>
 			<% if image.is_a?(ToolkitResource) %>
 				<%= link_to_toolkit_item(@brand, image, panel: true) %>
 			<% else %>
@@ -60,9 +60,9 @@
 					[<%= number_to_human_size(image.product_attachment_file_size) %>]
 				</div>
 			<% end %>
-		</div>
+		</li>
 	<% end %>
-</div>
+</ul>
 <% end %>
 
 <div class="row">
@@ -97,7 +97,7 @@
 		<% if @product.current_and_recently_expired_promotions.length > 0 %>
 		<div class="callout panel">
 			<h5 class="subheader">Promotions:</h5>
-			<ul class="disc">
+			<ul class="list disc">
 				<% @product.current_and_recently_expired_promotions.each do |promo| %>
 					<li><%= link_to promo.name, [:toolkit, @brand, promo] %></li>
 				<% end %>
