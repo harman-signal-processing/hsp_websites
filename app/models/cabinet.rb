@@ -11,6 +11,7 @@ class Cabinet < ActiveRecord::Base
       tiny: "64x64", 
       tiny_square: "64x64#" 
     }
+  validates_attachment :cab_image, content_type: { content_type: /\Aimage/i }
     
   after_save :translate
 

@@ -12,6 +12,7 @@ class AmpModel < ActiveRecord::Base
       tiny_square: "64x64#" 
     }
 
+  validates_attachment :amp_image, content_type: { content_type: /\Aimage/i }
   after_save :translate
 
   # Translates this record into other languages. 

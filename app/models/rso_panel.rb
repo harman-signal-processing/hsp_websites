@@ -9,7 +9,7 @@ class RsoPanel < ActiveRecord::Base
       tiny: "64x64", 
       tiny_square: "64x64#" 
     }
-
+  validates_attachment :rso_panel_image, content_type: { content_type: /\Aimage/i }
   attr_accessor :delete_image
   before_save :check_to_delete_image
   

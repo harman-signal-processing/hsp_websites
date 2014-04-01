@@ -9,11 +9,12 @@ class RegisteredDownload < ActiveRecord::Base
   belongs_to :brand
   validates :name, :brand, :from_email, :subject, presence: true
   validates :per_download_limit, numericality: {greater_than: 0}
+  
   has_attached_file :protected_software, 
     bucket: S3_CREDENTIALS['protected_bucket'],
     s3_host_alias: nil,
     path: ":class/:attachment/:id_:timestamp/:basename.:extension"
-
+  do_not_validate_attachment_file_type :protected_software
 
   after_initialize :setup_defaults
   after_save :save_templates_to_filesystem

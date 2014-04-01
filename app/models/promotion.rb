@@ -5,7 +5,10 @@ class Promotion < ActiveRecord::Base
   has_many :products, through: :product_promotions
   belongs_to :brand, touch: true
   has_friendly_id :sanitized_name, use_slug: true, approximate_ascii: true, max_length: 100
+
   has_attached_file :promo_form
+  do_not_validate_attachment_file_type :promo_form
+
   has_attached_file :tile, 
     styles: { large: "550x370", 
       medium: "480x360", 
@@ -14,7 +17,8 @@ class Promotion < ActiveRecord::Base
       tiny: "64x64", 
       tiny_square: "64x64#" 
     }
-    
+  validates_attachment :tile, content_type: { content_type: /\Aimage/i }    
+
   after_save :translate
     
   def sanitized_name

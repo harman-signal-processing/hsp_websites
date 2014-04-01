@@ -7,6 +7,7 @@ class Setting < ActiveRecord::Base
       tiny: "64x64>", 
       tiny_square: "64x64#" 
     }
+  validates_attachment :slide, content_type: { content_type: /\Aimage/i }
 
   belongs_to :brand, touch: true
   validates_presence_of :name

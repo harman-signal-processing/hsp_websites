@@ -6,7 +6,11 @@ class ToneLibraryPatch < ActiveRecord::Base
       {"Content-Type" => f.mime_type} 
     },
     url: ':s3_domain_url' # specified to avoid cloudfront usage
-  validates_presence_of :tone_library_song_id, :product_id
+  validates_attachment :patch, presence: true
+  do_not_validate_attachment_file_type :patch
+
+  validates :tone_library_song_id, :presence: true
+  validates :product_id, presence: true
 
   def extension
   	patch_file_name.split(".").last.to_s

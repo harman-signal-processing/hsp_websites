@@ -8,8 +8,11 @@ class SiteElement < ActiveRecord::Base
       tiny: "64x64", 
       tiny_square: "64x64#" 
     } 
+  do_not_validate_attachment_file_type :resource
+
   has_attached_file :executable,
     url: ':s3_domain_url' # specified to avoid cloudfront usage
+  do_not_validate_attachment_file_type :executable
 
   process_in_background :resource
   process_in_background :executable

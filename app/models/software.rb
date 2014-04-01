@@ -14,6 +14,7 @@ class Software < ActiveRecord::Base
   has_attached_file :ware,
     path: ":class/:attachment/:id_:timestamp/:basename.:extension"
     # url: ':s3_domain_url' # specified to avoid cloudfront usage
+  do_not_validate_attachment_file_type :ware
 
   process_in_background :ware
 

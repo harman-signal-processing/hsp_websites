@@ -27,7 +27,7 @@ class ToolkitResource < ActiveRecord::Base
       tiny: "64x64", 
       tiny_square: "64x64#" 
     }
-    
+  validates_attachment :tk_preview, content_type: { content_type: /\Aimage/i }    
   has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
   belongs_to :brand 
   belongs_to :toolkit_resource_type 

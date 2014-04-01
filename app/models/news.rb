@@ -8,7 +8,8 @@ class News < ActiveRecord::Base
       tiny: "64x64>", 
       tiny_square: "64x64#" 
     }
-
+  validates_attachment :news_photo, content_type: { content_type: /\Aimage/i }
+  
   has_many :news_products, dependent: :destroy
   has_many :products, through: :news_products
   has_friendly_id :sanitized_title, use_slug: true, approximate_ascii: true, max_length: 100

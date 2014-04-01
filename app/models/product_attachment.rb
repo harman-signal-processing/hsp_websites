@@ -18,9 +18,13 @@ class ProductAttachment < ActiveRecord::Base
     convert_options: {
       soundcomm: "-gravity center -extent 160x160"
     }
+  validates_attachment :product_attachment, content_type: { content_type: /\Aimage/i }
 
   has_attached_file :product_media
   has_attached_file :product_media_thumb, styles: {thumb: "100x100>", tiny: "64x64>"}
+
+  do_not_validate_attachment_file_type :product_media
+  validates_attachment :product_media_thumb, content_type: { content_type: /\Aimage/i }
 
   process_in_background :product_attachment
   process_in_background :product_media

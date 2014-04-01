@@ -3,7 +3,10 @@ class ProductDocument < ActiveRecord::Base
   has_attached_file :document #, url: ':s3_domain_url' # specified to avoid cloudfront usage
   process_in_background :document
   has_friendly_id :document_file_name, use_slug: true, approximate_ascii: true, max_length: 100
-  validates_presence_of :product_id, :document
+
+  validates :product_id, presence: true
+  validates_attachment :document, presence: true
+  do_not_validate_attachment_file_type :document
 
   # For cleaning up the product pages, no need to re-state the product name in
   # the link.

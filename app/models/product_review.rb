@@ -1,6 +1,7 @@
 class ProductReview < ActiveRecord::Base
   has_attached_file :review,
     url: ':s3_domain_url' # specified to avoid cloudfront usage
+  do_not_validate_attachment_file_type :review
 
   has_attached_file :cover_image,
     styles: { lightbox: "800x600",
@@ -16,8 +17,9 @@ class ProductReview < ActiveRecord::Base
       tiny: "64x64", 
       tiny_square: "64x64#" 
     }
-    
-  validates_presence_of :title
+  validates_attachment :cover_image, content_type: { content_type: /\Aimage/i }
+
+  validates :title, presence: true
   has_friendly_id :sanitized_title, use_slug: true, approximate_ascii: true, max_length: 100
   has_many :product_review_products, dependent: :destroy
   has_many :products, through: :product_review_products

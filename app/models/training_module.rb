@@ -7,6 +7,8 @@ class TrainingModule < ActiveRecord::Base
   validates :brand_id, :name, presence: true
   has_attached_file :training_module,
     url: ':s3_domain_url' # specified to avoid cloudfront usage
+  validates_attachment :training_module, presence: true
+  do_not_validate_attachment_file_type :training_module
 
   def self.modules_for(brand_id, options={})
   	collection = select("DISTINCT training_modules.*").where(brand_id: brand_id)

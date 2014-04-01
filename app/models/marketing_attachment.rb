@@ -10,6 +10,8 @@ class MarketingAttachment < ActiveRecord::Base
     s3_host_alias: nil,
     path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
 
+  do_not_validate_attachment_file_type :marketing_file
+
   def project_or_task
   	(self.marketing_project_id.present?) ? self.marketing_project : self.marketing_task
   end

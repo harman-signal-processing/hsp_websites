@@ -7,7 +7,9 @@ class OnlineRetailer < ActiveRecord::Base
       medium: "300x300>", 
       small: "175x175>", 
       thumb: "100x100>", 
-      fixed: "125x75#" }
+      fixed: "125x75#" 
+    }
+  validates_attachment :retailer_logo, content_type: { content_type: /\Aimage/i }
 
   has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
   validates :name, presence: true, uniqueness: true

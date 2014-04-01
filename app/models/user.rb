@@ -17,16 +17,18 @@ class User < ActiveRecord::Base
   has_many :brand_toolkit_contacts # where this user is a contact for a brand
   has_one :rso_personal_report
   has_attached_file :profile_pic, 
-      :styles => { :large => "550x370", 
-        :medium => "100x100", 
-        :medium_square => "100x100#",
-        :thumb => "64x64", 
-        :thumb_square => "64x64#",
-        :tiny => "32x32", 
-        :tiny_square => "32x32#",
-        :super_tiny => "16x16#"
-      }
-    
+    styles: { 
+      large:         "550x370", 
+      medium:        "100x100", 
+      medium_square: "100x100#",
+      thumb:         "64x64", 
+      thumb_square:  "64x64#",
+      tiny:          "32x32", 
+      tiny_square:   "32x32#",
+      super_tiny:    "16x16#"
+    }
+  validates_attachment :profile_pic, content_type: { content_type: /\Aimage/i }
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable,
   # :omniauthable, :validatable, :registerable

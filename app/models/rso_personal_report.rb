@@ -9,5 +9,6 @@ class RsoPersonalReport < ActiveRecord::Base
       tiny: "64x64", 
       tiny_square: "64x64#" 
     }
+  do_not_validate_attachment_file_type :rso_personal_report
 
 end

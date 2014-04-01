@@ -5,4 +5,6 @@ class AudioDemo < ActiveRecord::Base
   has_attached_file :dry_demo
   has_attached_file :wet_demo
 
+	do_not_validate_attachment_file_type :dry_demo
+	do_not_validate_attachment_file_type :wet_demo
 end

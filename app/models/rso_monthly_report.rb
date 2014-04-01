@@ -10,6 +10,7 @@ class RsoMonthlyReport < ActiveRecord::Base
   belongs_to :user, class_name: "User", foreign_key: "updated_by_id"
   validates :name, presence: true, uniqueness: {scope: :brand_id}
   has_attached_file :rso_report
+  do_not_validate_attachment_file_type :rso_report
   attr_accessor :add_to_panel
   after_create :create_panel_link
   

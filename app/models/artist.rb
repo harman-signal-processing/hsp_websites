@@ -36,6 +36,7 @@ class Artist < ActiveRecord::Base
       tiny: "64x64>", 
       tiny_square: "64x64#" 
     }
+  validates_attachment :artist_photo, content_type: { content_type: /\Aimage/i }
 
   has_attached_file :artist_product_photo, 
     styles: { feature: "940x400#",
@@ -46,6 +47,7 @@ class Artist < ActiveRecord::Base
       tiny: "64x64>", 
       tiny_square: "64x64#" 
     }
+  validates_attachment :artist_product_photo, content_type: { content_type: /\Aimage/i }
 
   validates :name, presence: true
   has_friendly_id :sanitized_name, use_slug: true, approximate_ascii: true, max_length: 100

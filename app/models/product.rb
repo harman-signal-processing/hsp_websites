@@ -50,7 +50,7 @@ class Product < ActiveRecord::Base
   
   serialize :previewers, Array
   has_attached_file :background_image
-
+  validates_attachment :background_image, content_type: { content_type: /\Aimage/i }
   validates :name, presence: true
   validates :product_status_id, presence: true
   has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
