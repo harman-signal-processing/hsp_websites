@@ -9,7 +9,7 @@ class ToneLibraryPatch < ActiveRecord::Base
   validates_attachment :patch, presence: true
   do_not_validate_attachment_file_type :patch
 
-  validates :tone_library_song_id, :presence: true
+  validates :tone_library_song_id, presence: true
   validates :product_id, presence: true
 
   def extension
