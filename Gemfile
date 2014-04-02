@@ -60,7 +60,6 @@ gem "possessive"
 gem 'event-calendar', :require => 'event_calendar'
 gem 'RedCloth'
 gem 'figaro'
-gem 'puma'
 gem 'delayed_paperclip'
 gem 'cheetah_mail', "~> 0.6.0"
 

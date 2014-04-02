@@ -2,7 +2,6 @@ require "bundler/capistrano"
 require "delayed/recipes"
 require "capistrano/ext/multistage"
 require 'thinking_sphinx/capistrano'
-require 'puma/capistrano'
 
 load "config/recipes/base"
 load "config/recipes/refresh"
@@ -36,7 +35,6 @@ namespace :deploy do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
     run "ln -nfs #{shared_path}/config/application.yml #{release_path}/config/application.yml"
     run "ln -nfs #{shared_path}/config/s3.yml #{release_path}/config/s3.yml"
-    run "ln -nfs #{shared_path}/config/puma.rb #{release_path}/config/puma/production.rb"
   end
   after "deploy:update_code", "deploy:symlink_config"
   before "deploy:assets:precompile", "deploy:symlink_config"
