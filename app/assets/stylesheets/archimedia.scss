@@ -22,17 +22,6 @@ img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 }
 
 @font-face {
-    font-family: 'AsapItalic';
-    src: font-url('Asap-Italic-webfont.eot');
-    src: font-url('Asap-Italic-webfont.eot?#iefix') format('embedded-opentype'),
-         font-url('Asap-Italic-webfont.woff') format('woff'),
-         font-url('Asap-Italic-webfont.ttf') format('truetype'),
-         font-url('Asap-Italic-webfont.svg#AsapItalic') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
     font-family: 'AsapBold';
     src: font-url('Asap-Bold-webfont.eot');
     src: font-url('Asap-Bold-webfont.eot?#iefix') format('embedded-opentype'),
@@ -43,30 +32,21 @@ img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
     font-style: normal;
 }
 
-@font-face {
-    font-family: 'AsapBoldItalic';
-    src: font-url('Asap-BoldItalic-webfont.eot');
-    src: font-url('Asap-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
-         font-url('Asap-BoldItalic-webfont.woff') format('woff'),
-         font-url('Asap-BoldItalic-webfont.ttf') format('truetype'),
-         font-url('Asap-BoldItalic-webfont.svg#AsapBoldItalic') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
 body {
 	font-family: 'AsapRegular', Helvetica, Arial, Verdana, Sans-serif;
-	font-size: 12px;
-	line-height: 1.8;
-	color: #464646;
-	background: #B3B3B3 url(<%= image_path('lexicon/background.gif') %>);
+	font-size: 11px;
+	line-height: 20px;
+	color: #565656;
+	background: #FFF;
 	margin: 0;
 }
 p {
-	margin-bottom: 8px;
+	margin-bottom: 12px;
+	margin-top: 4px;
 }
 a {
 	&:link, &:visited {
-		color: #63a7ec;
+		color: #83b341;
 		&.button {
 			border-radius: 8px;
 			-moz-border-radius: 8px;
@@ -78,7 +58,7 @@ a {
 			font-weight: bold;
 			font-family: 'AsapRegular', Arial, Helvetica, sans-serif;
 			text-decoration: none;
-			background: transparent url(<%= image_path('lexicon/browse_products_background.png') %>) repeat-x;
+			background: transparent asset-data-url('archimedia/browse_products_background.png') repeat-x;
 			background-position: 0px 95%;
 			box-shadow: 0px 2px 2px #6E6E6E;
 		}
@@ -94,23 +74,21 @@ li {
 h1, h2 {
 	margin-bottom: 8px;
 	padding: 0px;
-	color: #969696;
+	color: #989898;
 	font-weight: 500;
-	font-family: 'AsapRegular', sans-serif;
 	font-size: 110%;
 	letter-spacing: 0.04em;
 }
 h1 {
 	font-size: 34px;
 	line-height: 40px;
-	.page_title {
-		text-align: center;
+	&.page_title {
+		text-transform: capitalize;
 	}
 }
 h2 {
 	font-size: 22px;
 	line-height: 36px;
-	font-family: 'AsapRegular', sans-serif;
 	text-transform: uppercase;
 	a:link, a:visited {
 		text-decoration: none;
@@ -122,7 +100,7 @@ font-weight: 500;
 	font-size: 16px;
 	line-height: 20px;
 	margin-bottom: 4px;
-	font-family: 'AsapRegular', sans-serif;
+	color: #666;
 	a:link, a:visited {
 		text-decoration: none;
 	}
@@ -152,13 +130,25 @@ h6{
   margin: 40px 20%;
 }
 /**** Application Layout *****/
+header {
+	height: 130px;
+	position: fixed;
+	top: 0px;
+	overflow: hidden;
+	width: 100%;
+	margin: -1px auto 0px;
+	padding-top: 16px;
+	z-index: 89;
+	background: asset-data-url('archimedia/header_background.png') repeat-x top;
+	behavior: url("/css/iepngfix.htc");
+
+}
 div#locale_container {
 	margin-top: 30px;
 	img {
 		height: 400px;
 	}
 	a {
-		color: white;
 		font-size: 110%;
 	}
 }
@@ -167,7 +157,7 @@ div#locale_container {
 	top: 0px;
 	left: 0px;
 	padding: 2px 3px 0px;
-  background: url(<%= image_path('dark-gray-80.png') %>);
+  background: asset-data-url('white-90.png');
 	z-index: 999;
 	a {
 		text-decoration: none;
@@ -181,22 +171,10 @@ div#locale_container {
 			display: block;
 			padding: 4px 8px;
 			&:hover {
-				background: #444;
+				background: #EEE;
 			}
 		}
 	}
-}
-header {
-	height: 130px;
-	position: fixed;
-	top: 0px;
-	overflow: hidden;
-	width: 100%;
-	margin: -1px auto 0px;
-	padding-top: 16px;
-	z-index: 89;
-	background: url(<%= image_path('lexicon/header_background.png') %>) repeat-x top;
-	behavior: url("/css/iepngfix.htc");
 }
 div#inner_header {
 	position: relative;
@@ -206,22 +184,18 @@ div#inner_header {
 div#supernav {
 	line-height: 1.4;
 	position: absolute;
-	top: 4px;
-	right: -7px;
+	top: 8px;
+	right: -3px;
 	text-align: right;
     padding: 0px;
 	height: 44px;
 	div#browse {
 		position: absolute;
-		top: 11px;
+		top: 18px;
 		left: -410px;
 		width: 400px;
 		color: #CCC;
 		letter-spacing: 0.18em;
-		a:link, a:visited {
-			color: #CCC;
-			text-decoration: none;
-		}
 		text: {
 			align: right;
 			transform: uppercase;
@@ -245,7 +219,7 @@ div#supernav {
 	}
 	li {
 		display: inline-block;
-		background: transparent url(<%= image_path('lexicon/divider.png') %>) repeat-y;
+		background: transparent asset-data-url('archimedia/divider.png') repeat-y;
 		background-position: right;
 		list-style: none;
 		padding: 11px 0px 13px 0px;
@@ -266,7 +240,7 @@ div#supernav {
 				family: 'AsapRegular', Arial, Helvetica, sans-serif;
 				size: 13px;
 			}
-			background: transparent url(<%= image_path('lexicon/browse_products_background.png') %>) repeat-x bottom;
+			background: transparent asset-data-url('archimedia/browse_products_background.png') repeat-x bottom;
 			&.nodivider {
 				border: none;
 			}
@@ -301,24 +275,24 @@ div#supernav {
 
 div#topnav {
 	position: absolute;
-	top: 84px;
+	top: 85px;
 	left: -3px;
-	z-index: 111;
-	height: 28px;
+	z-index: -10;
+	height: 26px;
 	width: 930px;
-	padding: 9px 6px 3px 0px;
-	font-family: 'AsapRegular', Arial, Helvetica, sans-serif;
+	padding: 11px 6px 3px 4px;
+	font-family: 'AsapBold', Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	text-transform: uppercase;
 	-moz-border-radius-bottomleft: 6px;
 	-moz-border-radius-bottomright: 6px;
 	border-bottom-left-radius: 6px;
 	border-bottom-right-radius: 6px;
-	font-weight: 200;
-	background: transparent url(<%= image_path('lexicon/nav_background.png') %>) repeat-x top;
-	box-shadow: 0px 0px 3px #666;
+	font-weight: normal;
+	background: transparent asset-data-url('archimedia/nav_background.png') repeat-x top;
+	box-shadow: 0px 1px 5px #444;
 	ul {
-		padding-top: 2px;
+		padding-top: 0px;
 	}
 	li {
 		display: inline;
@@ -326,21 +300,21 @@ div#topnav {
 		margin: 0;
 		padding: 0;
 		a:link, a:visited {
-			font-family: 'AsapRegular', Arial, Helvetica, sans-serif;
-			letter-spacing: 0.10em;
+			font-family: 'AsapBold', Arial, Helvetica, sans-serif;
+			letter-spacing: 0.05em;
 			text: {
-				shadow: #444 0px 1px 0px;
+
 				decoration: none;
 			}
-			padding: 0px 8px 1px 11px;
-			color: #C7C7C7;
+			padding: 3px 4px 1px 9px;
+			color: #999;
 			margin-top: 2px;
 			&.nodivider {
 				border: none;
 			}
 		}
 		a:hover {
-			color: white;
+			color: #777;
 		}
 	}
 }
@@ -392,19 +366,20 @@ header div#search_form {
 	position: absolute;
 	top: 93px;
 	right: 2px;
-	width: 220px;
+	width: 240px;
 	z-index: 300;
 	text-align: right;
 	input#query {
-		width: 140px;
-		background: #909090;
-		color: #CCC;
-		padding: 2px 4px;
-		box-shadow: inset 0px 0px 4px #4E4E4E;	
-		font-size: 13px;
+		width: 120px;
+		background: #FFF;
+		color: #666;
+		padding: 5px 6px;
+		box-shadow: inset 1px 1px 3px #8E8E8E;	
+		border-radius: 10px;
+		font-size: 12px;
 	}
 	a:link, a:visited {
-		color: #C7C7C7;
+		color: #999;
 		display: inline-block;
 		font: {
 			family: 'AsapRegular', Arial, Helvetica, sans-serif;
@@ -421,17 +396,21 @@ header div#search_form {
 	input#submit {
 		background: transparent;
 		border: none;
-		color: #C7C7C7;
+		color: #999;
 		font: {
-			family: 'AsapRegular', Arial, Helvetica, sans-serif;
+			family: 'AsapBold', Arial, Helvetica, sans-serif;
 			size: 12px;
 		}
 		text-transform: uppercase;
+		&:hover {
+			color: #777;
+			cursor: hand; cursor: pointer;
+		}
 	}
 }
 
 div#glow {
-	background: transparent url(<%= image_path('lexicon/bg_glow.png') %>) no-repeat center top;
+	background: transparent asset-data-url('archimedia/bg_glow.png') no-repeat center top;
 	width: 100%;
 	height: 1053px;
 	position: absolute;
@@ -446,9 +425,6 @@ div#page_container {
 	margin: 97px auto 8px;
 	padding-top: 36px;
 	border-top: none;
-    -moz-box-shadow: 0px 4px 5px #666;
-	-webkit-box-shadow: 0px 4px 5px #666;
-	box-shadow: 0px 4px 5px #666;
 }
 div#content_container {
 	width: 960px;
@@ -468,8 +444,8 @@ div#content_container_content {
 }
 div#logo {
 	float: left;
-	margin-top: 8px;
-	margin-left: 0px;
+	margin-top: 6px;
+	margin-left: -4px;
 	h2 {
 		font-size: 30px;
 		color: white;
@@ -491,14 +467,14 @@ div#big_bottom_box_container {
 	padding-top: 5px;
 	background: #EEE;
 	h3 {
-		color: #111;
+		color: #222;
 		font-size: 17px;
 		line-height: 18px;
 		text-transform: uppercase;
 		letter-spacing: -0.01em;
 		font-family: 'AsapBold';
 		a:link, a:visited {
-			color: #111;
+			color: #222;
 		}
 	}
 	h4 {
@@ -543,12 +519,11 @@ footer {
 	margin: 0px auto 20px;
 	font-size: 10px;
 	font-family: Arial, Helvetica, Sans-serif;
-	color: #fff;
+	color: #111;
 	text-align: center;
 	height: 90px;
-	text-shadow: 0px 1px 1px #555;
 	a:link, a:visited {
-		color: white;
+		color: #333;
 	}
 	div#footer_info {
 		float: right;
@@ -569,6 +544,7 @@ footer {
 #social_media_links {
 	text-align: center;
 	margin-bottom: 10px;
+	margin-left: -8px;
 	img {
 		margin-left: 8px;
 		margin-right: 8px;
@@ -632,10 +608,10 @@ footer {
 	}
 }
 .light_gray {
-	background: #333;
-	color: #EEE;
+	background: #DDD;
+	color: #222;
 	h2 {
-		color: #EEE;
+		color: #444;
 	}
 }
 /***** columns ******/
@@ -680,7 +656,7 @@ div#slideshow_controls {
 	bottom: 6px;
 	right: 298px;
 	z-index: 1000;
-	display: none; /* turned off for lexicon */
+	display: none; /* turned off for archimedia */
 	a {
 		color: #333;
 		text-decoration: none;
@@ -738,8 +714,6 @@ div.product_family_feature {
 		font-size: 115%;
 		text-decoration: none;
 		padding-left: 13px;
-	/*	background: url(<%= image_path('hardwire/green_right_arrow.png') %>) no-repeat;
-		background-position: 0px 2px;*/
 		letter-spacing: 0.06em;
 		text-transform: uppercase;
 	}
@@ -788,7 +762,7 @@ div#signup {
 	overflow: hidden;
 	padding: 4px 6px;
 	margin: 5px;
-	background: #EEE url(<%= image_path('lexicon/light_gray_gradient.png') %>) repeat-x;
+	background: #EEE asset-data-url('archimedia/light_gray_gradient.png') repeat-x;
 	h2 {
 		color: #444;
 		font-size: 21px;
@@ -832,7 +806,7 @@ div#signup {
 		.small_product_boxvertical,
 		.small_product_boxhorizontal {
 			position: relative;
-			background: #f0f0ef url(<%= image_path('lexicon/light_gray_gradient.png') %>) repeat-x;
+			background: #f0f0ef asset-data-url('archimedia/light_gray_gradient.png') repeat-x;
 			color: #6E6E6E;
 			border: 1px solid #E3DFD8;
 			padding: 10px;
@@ -967,7 +941,7 @@ div#product_content {
 		border: 1px solid #E6E6E6;
 		height: 470px;
 		overflow: hidden;
-		background: #f0f0ef url(<%= image_path('lexicon/light_gray_gradient.png') %>) repeat-x;
+		background: #f0f0ef asset-data-url('archimedia/light_gray_gradient.png') repeat-x;
 		h4 {
 			text-align: center;
 			font-size: 10px;
@@ -1050,9 +1024,9 @@ div#product_content.horizontal {
 		}
 	}
 	#viewer_container {
-		height: 225px;
+		height: 275px;
 		width: 700px;
-		margin-top: 115px;
+		margin-top: 65px;
 		margin-bottom: 65px;
 		background: white;
 		text-align: center;
@@ -1149,7 +1123,7 @@ ul#product_main_tabs {
 	padding-left: 2px;
 	border-bottom: 1px solid #E6E6E6;
 	height: 47px;
-	background: url(<%= image_path('lexicon/light_gray_gradient_reversed.png') %>) repeat-x bottom;
+	background: asset-data-url('archimedia/light_gray_gradient_reversed.png') repeat-x bottom;
 	li {
 		float: left;
 		margin: 21px 6px 0px;
@@ -1199,7 +1173,7 @@ ul#product_main_tabs {
 		a:link, a:visited {
 			color: #777;
 			border-bottom: 1px solid #E6E6E6;
-			background: #FFF url(<%= image_path('lexicon/browse_products_arrow.png') %>) no-repeat;
+			background: #FFF asset-data-url('archimedia/browse_products_arrow.png') no-repeat;
 			background-position: 4px 9px;
 			display: block;
 			padding-left: 19px;
@@ -1238,7 +1212,7 @@ ul#product_main_tabs {
 			}
 		}
 		&.current a {
-			background: #E6E6E6 url(<%= image_path('tabbg.png') %>);
+			background: #E6E6E6 asset-data-url('tabbg.png');
 			border: 1px solid #E6E6E6;
 			border-bottom: none;
 			padding-bottom: 8px;
@@ -1630,7 +1604,7 @@ ol#search_results li {
 		margin-left: 20px;
 	}
 	.support_box {
-		background: url(<%= image_path('lexicon/light_gray_gradient.png') %>) repeat-x;
+		background: asset-data-url('archimedia/light_gray_gradient.png') repeat-x;
 		border: 1px solid #ECECEC;
 		width: 280px;
 		height: 145px;
@@ -1661,32 +1635,32 @@ ol#search_results li {
 		}
 	}
 	.downloads_box h4 {
-		background-image: url(<%= image_path('lexicon/Software_Downloads_icon.png') %>);
+		background-image: asset-data-url('archimedia/Software_Downloads_icon.png');
 		background-repeat: no-repeat;
 		padding-left: 48px;
 	}
 	.product_support_box h4 {
-		background-image: url(<%= image_path('lexicon/Customer_Support_icon.png') %>);
+		background-image: asset-data-url('archimedia/Customer_Support_icon.png');
 		background-repeat: no-repeat;
 	}
 	.registration_box h4 {
-		background-image: url(<%= image_path('lexicon/Product_Registration_icon.png') %>);
+		background-image: asset-data-url('archimedia/Product_Registration_icon.png');
 		background-repeat: no-repeat;
 		padding-left: 44px;
 	}
 	.service_centers_box h4 {
-		background-image: url(<%= image_path('lexicon/Locate_icon.png') %>);
+		background-image: asset-data-url('archimedia/Locate_icon.png');
 		background-position: 0px 3px;
 		background-repeat: no-repeat;
 		padding-top: 0px;
 	}
 	.more_resources_box h4 {
-		background-image: url(<%= image_path('lexicon/More_Resources_icon.png') %>);
+		background-image: asset-data-url('archimedia/More_Resources_icon.png');
 		background-repeat: no-repeat;
 		padding-left: 26px;
 	}
 	.contact_info_box h4 {
-		background-image: url(<%= image_path('lexicon/Mailing_Address_icon.png') %>);
+		background-image: asset-data-url('archimedia/Mailing_Address_icon.png');
 		background-repeat: no-repeat;
 	}
 }
@@ -1837,7 +1811,8 @@ table.tube td {
 }
 /******* Promo page *******/
 .promotion_bug_container {
-	width: 960px;
+	width: 860px;
+	margin-left: 50px;
 	margin-bottom: 30px;
 }
 .promotion_bug {
@@ -1912,43 +1887,41 @@ div#harmanpro_bar {
 	right: -46px;
 	color: white;
 	z-index: 20;
-}
-.admin_function a:link,
-.admin_function a:visited {
-	color: white;
-	text-decoration: none;
-	display: block;
-	background: #4A463D;
-	padding: 3px 12px;
-	border-radius: 4px;
-	-moz-border-radius: 4px;
-	box-shadow: #777 1px 1px 3px;
-}
-.admin_function a:hover {
-	color: white;
-	text-decoration: none;
-	background: #B0A489;
+	a:link, a:visited {
+		color: white;
+		text-decoration: none;
+		display: block;
+		background: #4A463D;
+		padding: 3px 12px;
+		border-radius: 4px;
+		-moz-border-radius: 4px;
+		box-shadow: #777 1px 1px 3px;
+	}
+	a:hover {
+		color: white;
+		text-decoration: none;
+		background: #111;
+	}
 }
 #admin_menu_link {
 	position: absolute;
 	top: 0;
 	right: 0;
 	z-index: 30;
-}
-#admin_menu_link a:link,
-#admin_menu_link a:visited {
-	display: block;
-	color: #EEE;
-	text-decoration: none;
-	padding: 1px 6px 3px 6px;
-	font-family: Helvetica, arial, sans-serif;
-	font-weight: normal;
-	font-size: 10px;
-	text-shadow: #222 1px 1px 1px;
-	background: #00395a;
-}
-#admin_menu_link a:hover {
-	color: #FFF;
+	a:link, a:visited {
+		display: block;
+		color: #EEE;
+		text-decoration: none;
+		padding: 1px 6px 3px 6px;
+		font-family: Helvetica, arial, sans-serif;
+		font-weight: normal;
+		font-size: 10px;
+		text-shadow: #222 1px 1px 1px;
+		background: #00395a;
+	}
+	a:hover {
+		color: #FFF;
+	}
 }
 /*** Artists pages ***/
 body.artists {
@@ -2191,10 +2164,10 @@ ul.graphic li a.sm2_link {
 ul.graphic li a, /* use a.sm2_link {} if you want play icons showing only if SM2 is supported */
 ul.graphic li a.sm2_paused:hover,
 ul.graphic li a.sm2_link:hover {
- background-image:url(<%= image_path('icons/icon_play.png') %>);
+ background-image:asset-data-url('icons/icon_play.png');
  background-position:3px 50%;
  background-repeat:no-repeat;
- _background-image:url(<%= image_path('icons/icon_play.gif') %>); /* IE 6 */
+ _background-image:asset-data-url('icons/icon_play.gif'); /* IE 6 */
 }
 
 ul.graphic li a.sm2_link:hover {
@@ -2208,14 +2181,14 @@ ul.graphic li a.sm2_paused {
 }
 
 ul.graphic li a.sm2_paused:hover {
- background:#003366 url(<%= image_path('icons/icon_play.png') %>) no-repeat 3px 50%;
- _background-image:url(<%= image_path('icons/icon_play.gif') %>);
+ background:#003366 asset-data-url('icons/icon_play.png') no-repeat 3px 50%;
+ _background-image:asset-data-url('icons/icon_play.gif');
 }
 
 ul.graphic li a.sm2_playing,
 ul.graphic li a.sm2_playing:hover {
- background:#666155 url(<%= image_path('icons/icon_pause.png') %>) no-repeat 3px 50%;
- _background-image:url(<%= image_path('icons/icon_pause.gif') %>);
+ background:#666155 asset-data-url('icons/icon_pause.png') no-repeat 3px 50%;
+ _background-image:asset-data-url('icons/icon_pause.gif');
  text-decoration:none;
 }
 
@@ -2254,6 +2227,7 @@ a {
 		}
 	}
 }
+
 div.quicklinks {
 	margin: 20px 0px;
 	ul {

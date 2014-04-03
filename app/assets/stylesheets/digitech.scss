@@ -18,7 +18,7 @@ body {
 	}
 	line-height: 1.4;
 	color: #FFF;
-	background: #000f40 url(<%= image_path('digitech/homepageBG.png') %>) repeat-x;
+	background: #000f40 asset-data-url('digitech/homepageBG.png') repeat-x;
 	letter-spacing: 0.02em;
 }
 @font-face {
@@ -112,7 +112,7 @@ div#locale_container {
 	top: 0px;
 	left: 0px;
 	padding: 2px 3px 0px;
-  background: url(<%= image_path('dark-gray-80.png') %>);
+  background: asset-data-url('dark-gray-80.png');
 	z-index: 999;
 	a {
 		color: white;
@@ -143,7 +143,7 @@ nav#topnav {
 	float: right;
 	border: 1px solid #a2b6ca;
 	background: {
-		image: url(<%= image_path('digitech/topmenuBG.png') %>);
+		image: asset-data-url('digitech/topmenuBG.png');
 		repeat: repeat-x;
 		position: center;
 	}
@@ -181,7 +181,7 @@ header#main_header div#search_form {
 	right: 10px;
 	width: 130px;
 	input#query {
-		background: #14277c url(<%= image_path('digitech/searchMagGlass.png') %>) no-repeat right;
+		background: #14277c asset-data-url('digitech/searchMagGlass.png') no-repeat right;
 		color: white;
 		border: 1px solid #000f40;
 		width: 110px;
@@ -342,7 +342,7 @@ div.two_column_container {
 	height: 445px;
 	text-align: center;
 	background: {
-		image: url(<%= image_path('digitech/BlankFeature_BG.png') %>);
+		image: asset-url('digitech/BlankFeature_BG.png', image);
 		repeat: no-repeat;
 		position: top center;
 	}
@@ -467,7 +467,7 @@ div#signup {
 	}
 }
 .small_product_boxvocalist {
-	background: white url(<%= image_path('vocalist/title_bg.png') %>) repeat-x;
+	background: white asset-url('vocalist/title_bg.png', image) repeat-x;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
 	border: 1px solid #5b252a;
@@ -627,7 +627,7 @@ ul#product_main_tabs {
 	padding-left: 2px;
 	border-bottom: 1px solid #E6E6E6;
 	height: 47px;
-	/*background: url(<%= image_path('lexicon/light_gray_gradient_reversed.png') %>) repeat-x bottom;*/
+	/*background: asset-data-url('lexicon/light_gray_gradient_reversed.png') repeat-x bottom;*/
 	li {
 		float: left;
 		margin: 21px 6px 0px;
@@ -718,8 +718,8 @@ div#sub_products {
 		font-size: 16px;
 		a:link, a:visited {
 			color: #1a2b73; /*#040437;*/
-			//background: #f1fbfe url(<%= image_path('digitech/tabbg.png') %>);
-			background: #f1fbfe url(<%= image_path('icons/expand-dark.png') %>) no-repeat;
+			//background: #f1fbfe asset-data-url('digitech/tabbg.png');
+			background: #f1fbfe asset-data-url('icons/expand-dark.png') no-repeat;
 			background-position: 8px;
 			display: block;
 			border: 1px solid #7086bb;
@@ -727,7 +727,7 @@ div#sub_products {
 			padding-top: 2px;
 		}
 		a:hover {
-			background: #1a2b73 url(<%= image_path('icons/expand.png') %>) no-repeat; /*#040437;*/
+			background: #1a2b73 asset-data-url('icons/expand.png') no-repeat; /*#040437;*/
 			background-position: 8px;
 			color: white;			
 		}
@@ -764,7 +764,7 @@ div#sub_products {
 			}
 			&.current {
 				a {
-					background: #f1fbfe url(<%= image_path('digitech/tabbg.png') %>);
+					background: #f1fbfe asset-data-url('digitech/tabbg.png');
 					border: 1px solid #7086bb;
 					border-bottom: none;
 					padding-bottom: 8px;
@@ -783,7 +783,7 @@ div#sub_products {
 	padding: 16px 21px;
 	height: 230px;
 	overflow: auto;
-	background: url(<%= image_path('digitech/tabbg_flipped.png') %>) repeat-x;
+	background: asset-data-url('digitech/tabbg_flipped.png') repeat-x;
 	ul {
 		li {
 			list-style-type: disc;
@@ -1394,7 +1394,7 @@ table.tube {
 }
 /*** Artists pages ***/
 body.artists {
-	background: #000f40 url(<%= image_path('digitech/artists_bg.png') %>) center top no-repeat;
+	background: #000f40 asset-data-url('digitech/artists_bg.png') center top no-repeat;
 	div.internal_page {
 		background: #000f40;
 		color: white;
@@ -1620,10 +1620,10 @@ ul.graphic li a.sm2_link {
 ul.graphic li a, /* use a.sm2_link {} if you want play icons showing only if SM2 is supported */
 ul.graphic li a.sm2_paused:hover,
 ul.graphic li a.sm2_link:hover {
- background-image:url(<%= image_path('icons/icon_play.png') %>);
+ background-image:asset-data-url('icons/icon_play.png');
  background-position:2px 50%;
  background-repeat:no-repeat;
- _background-image:url(<%= image_path('icons/icon_play.gif') %>); /* IE 6 */
+ _background-image:asset-data-url('icons/icon_play.gif'); /* IE 6 */
 }
 
 ul.graphic li a.sm2_link:hover {
@@ -1637,14 +1637,14 @@ ul.graphic li a.sm2_paused {
 }
 
 ul.graphic li a.sm2_paused:hover {
- background:#003366 url(<%= image_path('icons/icon_play.png') %>) no-repeat 3px 50%;
- _background-image:url(<%= image_path('icons/icon_play.gif') %>);
+ background:#003366 asset-data-url('icons/icon_play.png') no-repeat 3px 50%;
+ _background-image:asset-data-url('icons/icon_play.gif');
 }
 
 ul.graphic li a.sm2_playing,
 ul.graphic li a.sm2_playing:hover {
- background:#333 url(<%= image_path('icons/icon_pause.png') %>) no-repeat 3px 50%;
- _background-image:url(<%= image_path('icons/icon_pause.gif') %>);
+ background:#333 asset-data-url('icons/icon_pause.png') no-repeat 3px 50%;
+ _background-image:asset-data-url('icons/icon_pause.gif');
  text-decoration:none;
 }
 
