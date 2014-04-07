@@ -12,8 +12,12 @@ class Software < ActiveRecord::Base
   has_friendly_id :formatted_name, use_slug: true, approximate_ascii: true, max_length: 100
   validates_presence_of :name, :brand_id
   has_attached_file :ware,
-    path: ":class/:attachment/:id_:timestamp/:basename.:extension"
-    # url: ':s3_domain_url' # specified to avoid cloudfront usage
+    path: ":class/:attachment/:id_:timestamp/:basename.:extension", 
+    storage: :s3,
+    bucket: S3_CREDENTIALS['bucket'],
+    s3_credentials: S3_CREDENTIALS,
+    s3_host_alias: S3_CLOUDFRONT,
+    url: ':s3_alias_url'
   do_not_validate_attachment_file_type :ware
 
   process_in_background :ware

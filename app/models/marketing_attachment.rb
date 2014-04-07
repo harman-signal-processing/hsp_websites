@@ -5,10 +5,13 @@ class MarketingAttachment < ActiveRecord::Base
   belongs_to :marketing_project
   belongs_to :marketing_task
 
-  has_attached_file :marketing_file,
+  has_attached_file :marketing_file, 
+    storage: :s3,
     bucket: S3_CREDENTIALS['protected_bucket'],
-    s3_host_alias: nil,
-    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
+    s3_credentials: S3_CREDENTIALS,
+    url: ':s3_alias_url',
+    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension",
+    s3_host_alias: nil
 
   do_not_validate_attachment_file_type :marketing_file
 

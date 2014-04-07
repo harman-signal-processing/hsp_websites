@@ -8,3 +8,4 @@ class AudioDemo < ActiveRecord::Base
 	do_not_validate_attachment_file_type :dry_demo
 	do_not_validate_attachment_file_type :wet_demo
 end
+

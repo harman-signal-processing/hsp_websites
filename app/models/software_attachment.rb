@@ -1,6 +1,12 @@
 class SoftwareAttachment < ActiveRecord::Base
   belongs_to :software, touch: true
-  has_attached_file :software_attachment
+  has_attached_file :software_attachment, 
+    storage: :s3,
+    bucket: S3_CREDENTIALS['bucket'],
+    s3_credentials: S3_CREDENTIALS,
+    s3_host_alias: S3_CLOUDFRONT,
+    url: ':s3_alias_url',
+    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
   validates :software_id, presence: true
   validates :name, presence: true
   validates_attachment :software_attachment, presence: true

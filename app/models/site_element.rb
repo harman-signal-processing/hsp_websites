@@ -7,11 +7,22 @@ class SiteElement < ActiveRecord::Base
       thumb: "100x100", 
       tiny: "64x64", 
       tiny_square: "64x64#" 
-    } 
+    }, 
+    storage: :s3,
+    bucket: S3_CREDENTIALS['bucket'],
+    s3_credentials: S3_CREDENTIALS,
+    s3_host_alias: S3_CLOUDFRONT,
+    url: ':s3_alias_url',
+    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
   do_not_validate_attachment_file_type :resource
 
-  has_attached_file :executable,
-    url: ':s3_domain_url' # specified to avoid cloudfront usage
+  has_attached_file :executable, 
+    storage: :s3,
+    bucket: S3_CREDENTIALS['bucket'],
+    s3_credentials: S3_CREDENTIALS,
+    s3_host_alias: S3_CLOUDFRONT,
+    url: ':s3_domain_url',
+    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
   do_not_validate_attachment_file_type :executable
 
   process_in_background :resource

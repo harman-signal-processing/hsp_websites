@@ -1,6 +1,11 @@
 class ProductReview < ActiveRecord::Base
-  has_attached_file :review,
-    url: ':s3_domain_url' # specified to avoid cloudfront usage
+  has_attached_file :review, 
+    storage: :s3,
+    bucket: S3_CREDENTIALS['bucket'],
+    s3_credentials: S3_CREDENTIALS,
+    s3_host_alias: S3_CLOUDFRONT,
+    url: ':s3_domain_url',
+    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
   do_not_validate_attachment_file_type :review
 
   has_attached_file :cover_image,
@@ -16,7 +21,13 @@ class ProductReview < ActiveRecord::Base
       thumb: "100x100", 
       tiny: "64x64", 
       tiny_square: "64x64#" 
-    }
+    }, 
+    storage: :s3,
+    bucket: S3_CREDENTIALS['bucket'],
+    s3_credentials: S3_CREDENTIALS,
+    s3_host_alias: S3_CLOUDFRONT,
+    url: ':s3_alias_url',
+    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
   validates_attachment :cover_image, content_type: { content_type: /\Aimage/i }
 
   validates :title, presence: true

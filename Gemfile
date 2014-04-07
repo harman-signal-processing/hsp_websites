@@ -28,9 +28,13 @@ gem "paperclip" #, "~> 3.0"
 gem 'paperclip-meta'
 gem 'meta-tags', require: 'meta_tags'
 gem 'tinymce-rails', '~> 3.5'
+
+# 3/1/2014 This commit of the geokit api uses HTTPS properly--which is required by providers (release gem is not updated yet)
 gem 'geokit', git: 'https://github.com/geokit/geokit.git', ref: '23c4c6a202671107dbdbd2dd1d8dc69dd8649a45'
 gem 'geokit-rails'
 gem 'thinking-sphinx', '~> 3.0'
+
+# 4/7/2014 This commit of youtube has the new api (v3) working, also depends on json ~> 1.8 (released gem is not updated yet)
 gem 'youtube_it', git: 'https://github.com/kylejginavan/youtube_it.git', ref: '943a202fce2324d5122f80396e3bc473a61dc4c4' #'~> 2.4.0'
 gem 'twitter'
 gem 'delayed_job_active_record'

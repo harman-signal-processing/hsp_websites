@@ -26,7 +26,13 @@ class User < ActiveRecord::Base
       tiny:          "32x32", 
       tiny_square:   "32x32#",
       super_tiny:    "16x16#"
-    }
+    }, 
+    storage: :s3,
+    bucket: S3_CREDENTIALS['bucket'],
+    s3_credentials: S3_CREDENTIALS,
+    s3_host_alias: S3_CLOUDFRONT,
+    url: ':s3_alias_url',
+    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
   validates_attachment :profile_pic, content_type: { content_type: /\Aimage/i }
 
   # Include default devise modules. Others available are:

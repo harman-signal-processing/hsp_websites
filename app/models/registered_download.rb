@@ -13,7 +13,11 @@ class RegisteredDownload < ActiveRecord::Base
   has_attached_file :protected_software, 
     bucket: S3_CREDENTIALS['protected_bucket'],
     s3_host_alias: nil,
-    path: ":class/:attachment/:id_:timestamp/:basename.:extension"
+    path: ":class/:attachment/:id_:timestamp/:basename.:extension", 
+    storage: :s3,
+    s3_credentials: S3_CREDENTIALS,
+    url: ':s3_alias_url'
+
   do_not_validate_attachment_file_type :protected_software
 
   after_initialize :setup_defaults

@@ -17,11 +17,29 @@ class ProductAttachment < ActiveRecord::Base
     },
     convert_options: {
       soundcomm: "-gravity center -extent 160x160"
-    }
+    }, 
+    storage: :s3,
+    bucket: S3_CREDENTIALS['bucket'],
+    s3_credentials: S3_CREDENTIALS,
+    s3_host_alias: S3_CLOUDFRONT,
+    url: ':s3_alias_url',
+    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
   validates_attachment :product_attachment, content_type: { content_type: /\Aimage/i }
 
-  has_attached_file :product_media
-  has_attached_file :product_media_thumb, styles: {thumb: "100x100>", tiny: "64x64>"}
+  has_attached_file :product_media, 
+    storage: :s3,
+    bucket: S3_CREDENTIALS['bucket'],
+    s3_credentials: S3_CREDENTIALS,
+    s3_host_alias: S3_CLOUDFRONT,
+    url: ':s3_alias_url',
+    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
+  has_attached_file :product_media_thumb, styles: {thumb: "100x100>", tiny: "64x64>"}, 
+    storage: :s3,
+    bucket: S3_CREDENTIALS['bucket'],
+    s3_credentials: S3_CREDENTIALS,
+    s3_host_alias: S3_CLOUDFRONT,
+    url: ':s3_alias_url',
+    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
 
   do_not_validate_attachment_file_type :product_media
   validates_attachment :product_media_thumb, content_type: { content_type: /\Aimage/i }

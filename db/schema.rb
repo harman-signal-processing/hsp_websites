@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140312160756) do
+ActiveRecord::Schema.define(:version => 20140407205438) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -687,9 +687,9 @@ ActiveRecord::Schema.define(:version => 20140312160756) do
     t.string   "name"
     t.string   "retailer_logo_file_name"
     t.integer  "retailer_logo_file_size"
-    t.string   "retailer_logo_file_type"
+    t.string   "retailer_logo_content_type"
     t.datetime "retailer_logo_updated_at"
-    t.boolean  "active",                   :default => true
+    t.boolean  "active",                     :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "cached_slug"

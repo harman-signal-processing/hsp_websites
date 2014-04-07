@@ -10,18 +10,25 @@ Paperclip.interpolates(:asset_host) do |attachment, style|
   end
 end
 
-if Rails.env.production?
+# if Rails.env.production?
 	Paperclip::Attachment.default_options.merge!({
-	  storage: :s3,
-	  bucket: S3_CREDENTIALS['bucket'],
-	  s3_credentials: S3_CREDENTIALS,
-    s3_host_alias: S3_CLOUDFRONT,
-    url: ':s3_alias_url',
-    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
+    url: ':public_url',
+    path: ":attachment/:id_:timestamp/:basename_:style.:extension",
+    storage: :fog,
+    fog_credentials: FOG_CREDENTIALS,
+    fog_directory: ENV['FOG_PAPERCLIP_CONTAINER'],
+    fog_public: true
+
+	  # storage: :s3,
+	  # bucket: S3_CREDENTIALS['bucket'],
+	  # s3_credentials: S3_CREDENTIALS,
+   #  s3_host_alias: S3_CLOUDFRONT,
+   #  url: ':s3_alias_url',
+   #  path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
 	})
-else
-	Paperclip::Attachment.default_options.merge!({
-    url: '/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension',
-    path: ":rails_root/public/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension"
-	})
-end
+# else
+# 	Paperclip::Attachment.default_options.merge!({
+#     url: '/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension',
+#     path: ":rails_root/public/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension"
+# 	})
+# end

@@ -42,7 +42,13 @@ class Brand < ActiveRecord::Base
       title: "86x86",
       tiny: "64x64", 
       tiny_square: "64x64#" 
-    }
+    }, 
+    storage: :s3,
+    bucket: S3_CREDENTIALS['bucket'],
+    s3_credentials: S3_CREDENTIALS,
+    s3_host_alias: S3_CLOUDFRONT,
+    url: ':s3_alias_url',
+    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
   validates_attachment :logo, content_type: { content_type: /\Aimage/i }
 
   after_initialize :dynamic_methods

@@ -79,40 +79,44 @@ namespace :attachments do
 
     # Load credentials
     s3_options = S3_CREDENTIALS
-    bucket_name = 'harman-hsp-protected-assets' #s3_options.delete("bucket")
+    bucket_name = 'harman-hsp-web-assets' #s3_options.delete("bucket")
 
     # Establish S3 connection
     s3 = AWS::S3.new(s3_options)
     bucket = s3.buckets[bucket_name]
 
-    old_path_interpolation = ":rails_root/../../protected/:attachment/:id/:filename"
-    new_path_interpolation = ":class/:attachment/:id_:timestamp/:basename.:extension"
+    # Rackspace cloud files connection
+    rackspace = Fog::Storage.new({
+      provider:           'Rackspace',
+      rackspace_username: ENV['RACKSPACE_USERNAME'],
+      rackspace_api_key:  ENV['RACKSPACE_API_KEY'],
+      rackspace_region:   :ord
+    })
 
-    RegisteredDownload.all.each do |i|
-      if i.protected_software_file_name.present?
-        attachment = i.protected_software
+    @container = rackspace.directories.new(key: 'attachments')
+    old_path_interpolation = ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
+
+    OnlineRetailer.all.each do |i|
+      if i.retailer_logo_file_name.present?
+        attachment = i.retailer_logo
         styles = [:original] + attachment.styles.map{|k,v| k}
         styles.each do |style|
           old_file_path = Paperclip::Interpolations.interpolate(old_path_interpolation, attachment, style) #see paperclip docs
-          new_file_path = Paperclip::Interpolations.interpolate(new_path_interpolation, attachment, style)
 
     puts "== Current file path:  #{old_file_path}"
-    puts "== New file path:  #{new_file_path}"
+    puts "  --> s3_key:   #{old_file_path.sub(%r{^/},'')}"
 
-          if File.exists?(old_file_path)
-            begin
-              obj = bucket.objects[new_file_path.sub(%r{^/},'')]
-              obj.write(Pathname.new(old_file_path), content_type: i.protected_software_content_type) # acl: :public_read, 
-            rescue AWS::S3::Errors::NoSuchBucket => e
-              s3.buckets.create(bucket_name)
-              retry
-            rescue 
-              raise
-            end
-            puts "Saved to S3"
-          else
-              puts "==== ! Real File Not Found ! "
+          begin
+            s3_obj = bucket.objects[old_file_path.sub(%r{^/},'')]
+            file = @container.files.new(key: old_file_path, body: s3_obj.read, content_type: i.retailer_logo_content_type)
+            file.save
+          # rescue Fog::Storage::Rackspace::NotFound => e
+          #   dir.save
+          #   retry
+          rescue 
+            raise
           end
+          puts "Saved to Rackspace"
 
         end
       end

@@ -1,6 +1,12 @@
 class ProductDocument < ActiveRecord::Base
   belongs_to :product, touch: true
-  has_attached_file :document #, url: ':s3_domain_url' # specified to avoid cloudfront usage
+  has_attached_file :document, 
+    storage: :s3,
+    bucket: S3_CREDENTIALS['bucket'],
+    s3_credentials: S3_CREDENTIALS,
+    s3_host_alias: S3_CLOUDFRONT,
+    url: ':s3_alias_url',
+    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
   process_in_background :document
   has_friendly_id :document_file_name, use_slug: true, approximate_ascii: true, max_length: 100
 
