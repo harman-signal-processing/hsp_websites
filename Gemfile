@@ -23,6 +23,7 @@ gem 'capistrano-ext'
 gem 'mysql2', '>= 0.3.12b4' # sphinx needs '0.3.12b4'
 gem "friendly_id", "~> 3.0"
 gem 'aws-sdk', '~> 1.0'
+gem 'fog' # for rackspace cloud files
 gem "paperclip" #, "~> 3.0"
 gem 'paperclip-meta'
 gem 'meta-tags', require: 'meta_tags'
@@ -30,7 +31,7 @@ gem 'tinymce-rails', '~> 3.5'
 gem 'geokit', git: 'https://github.com/geokit/geokit.git', ref: '23c4c6a202671107dbdbd2dd1d8dc69dd8649a45'
 gem 'geokit-rails'
 gem 'thinking-sphinx', '~> 3.0'
-gem 'youtube_it'
+gem 'youtube_it', git: 'https://github.com/kylejginavan/youtube_it.git', ref: '943a202fce2324d5122f80396e3bc473a61dc4c4' #'~> 2.4.0'
 gem 'twitter'
 gem 'delayed_job_active_record'
 gem 'devise' 

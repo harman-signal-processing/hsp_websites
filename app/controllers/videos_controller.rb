@@ -39,7 +39,7 @@ class VideosController < ApplicationController
   
   def youtube_client
     @youtube_user = website.youtube.to_s.match(/\w*$/).to_s
-    @youtube_client = YouTubeIt::Client.new
+    @youtube_client = YouTubeIt::Client.new(dev_key: ENV['GOOGLE_YOUTUBE_API_KEY'])
   end
 
 end

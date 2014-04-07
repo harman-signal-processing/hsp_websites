@@ -35,3 +35,8 @@ EXCEPTION_RECIPIENTS: name5@email.com|name6@email.com
 
 CHEETAHMAIL_USERNAME: your_cheetahmail_username
 CHEETAHMAIL_PASSWORD: your_cheetahmail_password
+
+RACKSPACE_USERNAME: your_rackspace_username
+RACKSPACE_API_KEY: your_rackspace_api_key
+
+GOOGLE_YOUTUBE_API_KEY: generate_read_only_api_key
