@@ -97,9 +97,9 @@ namespace :attachments do
     old_path_interpolation = ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
     new_path_interpolation = ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
 
-    ProductDocument.where("id > 1434").each do |i|
-      if i.document_file_name.present?
-        attachment = i.document
+    User.all.each do |i|
+      if i.profile_pic_file_name.present?
+        attachment = i.profile_pic
         styles = [:original] + attachment.styles.map{|k,v| k}
         styles.each do |style|
           old_file_path = Paperclip::Interpolations.interpolate(old_path_interpolation, attachment, style) #see paperclip docs
