@@ -95,20 +95,22 @@ namespace :attachments do
 
     @container = rackspace.directories.new(key: 'attachments')
     old_path_interpolation = ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
+    new_path_interpolation = ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
 
-    OnlineRetailer.all.each do |i|
-      if i.retailer_logo_file_name.present?
-        attachment = i.retailer_logo
+    ProductDocument.where("id > 1434").each do |i|
+      if i.document_file_name.present?
+        attachment = i.document
         styles = [:original] + attachment.styles.map{|k,v| k}
         styles.each do |style|
           old_file_path = Paperclip::Interpolations.interpolate(old_path_interpolation, attachment, style) #see paperclip docs
+          new_file_path = Paperclip::Interpolations.interpolate(new_path_interpolation, attachment, style) #see paperclip docs
 
     puts "== Current file path:  #{old_file_path}"
     puts "  --> s3_key:   #{old_file_path.sub(%r{^/},'')}"
 
           begin
             s3_obj = bucket.objects[old_file_path.sub(%r{^/},'')]
-            file = @container.files.new(key: old_file_path, body: s3_obj.read, content_type: i.retailer_logo_content_type)
+            file = @container.files.new(key: new_file_path, body: s3_obj.read, content_type: attachment.content_type)
             file.save
           # rescue Fog::Storage::Rackspace::NotFound => e
           #   dir.save

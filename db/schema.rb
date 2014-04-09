@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140407205438) do
+ActiveRecord::Schema.define(:version => 20140409172403) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -551,6 +551,12 @@ ActiveRecord::Schema.define(:version => 20140407205438) do
   add_index "marketing_attachments", ["marketing_project_id"], :name => "index_marketing_attachments_on_marketing_project_id"
   add_index "marketing_attachments", ["marketing_task_id"], :name => "index_marketing_attachments_on_marketing_task_id"
 
+  create_table "marketing_calendars", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "marketing_comments", :force => true do |t|
     t.integer  "marketing_project_id"
     t.integer  "user_id"
@@ -600,9 +606,11 @@ ActiveRecord::Schema.define(:version => 20140407205438) do
     t.boolean  "put_source_on_toolkit"
     t.boolean  "put_final_on_toolkit"
     t.date     "due_on"
+    t.integer  "marketing_calendar_id"
   end
 
   add_index "marketing_projects", ["brand_id"], :name => "index_marketing_projects_on_brand_id"
+  add_index "marketing_projects", ["marketing_calendar_id"], :name => "index_marketing_projects_on_marketing_calendar_id"
   add_index "marketing_projects", ["marketing_project_type_id"], :name => "index_marketing_projects_on_marketing_project_type_id"
   add_index "marketing_projects", ["user_id"], :name => "index_marketing_projects_on_user_id"
 

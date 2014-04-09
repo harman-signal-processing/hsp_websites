@@ -8,13 +8,7 @@ class OnlineRetailer < ActiveRecord::Base
       small: "175x175>", 
       thumb: "100x100>", 
       fixed: "125x75#" 
-    }, 
-    storage: :s3,
-    bucket: S3_CREDENTIALS['bucket'],
-    s3_credentials: S3_CREDENTIALS,
-    s3_host_alias: S3_CLOUDFRONT,
-    url: ':s3_alias_url',
-    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
+    }
   validates_attachment :retailer_logo, content_type: { content_type: /\Aimage/i }
 
   has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100

@@ -53,7 +53,7 @@ class MarketingQueue::MarketingProjectsController < MarketingQueueController
 	end
 
 	def create
-    @marketing_project.user_id = current_marketing_queue_user.id
+    @marketing_project.user_id ||= current_marketing_queue_user.id
     respond_to do |format|
       if @marketing_project.save
         format.html { redirect_to([:marketing_queue, @marketing_project], notice: 'Project was successfully created.') }

@@ -12,12 +12,13 @@ end
 
 # if Rails.env.production?
 	Paperclip::Attachment.default_options.merge!({
-    url: ':public_url',
-    path: ":attachment/:id_:timestamp/:basename_:style.:extension",
+    url: ':fog_public_url',
+    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension",
     storage: :fog,
     fog_credentials: FOG_CREDENTIALS,
     fog_directory: ENV['FOG_PAPERCLIP_CONTAINER'],
-    fog_public: true
+    fog_public: true,
+    fog_host: ENV['FOG_HOST_ALIAS']
 
 	  # storage: :s3,
 	  # bucket: S3_CREDENTIALS['bucket'],

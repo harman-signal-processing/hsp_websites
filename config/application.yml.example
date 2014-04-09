@@ -39,5 +39,6 @@ CHEETAHMAIL_PASSWORD: your_cheetahmail_password
 RACKSPACE_USERNAME: your_rackspace_username
 RACKSPACE_API_KEY: your_rackspace_api_key
 FOG_PAPERCLIP_CONTAINER: "attachments"
+FOG_HOST_ALIAS: 
 
 GOOGLE_YOUTUBE_API_KEY: generate_read_only_api_key
