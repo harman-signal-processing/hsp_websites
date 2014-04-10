@@ -1,0 +1,21 @@
+<%= content_for :page_title do %>Calendars<% end %>
+<div class="row">
+	<div class="large-9 columns">
+		<div class="main-container">
+			<h6>Marketing Calendars</h6>
+
+			<ul class="list">
+			<% @marketing_calendars.each do |marketing_calendar| %>
+				<li><%= link_to marketing_calendar.name, [:marketing_queue, marketing_calendar] %></li>
+			<% end %>
+			</ul>
+		</div>
+	</div>
+	<div class="large-3 columns">
+		<h6>New Marketing Calendar:</h6><br/>
+		<%= simple_form_for [:marketing_queue, @marketing_calendar] do |f| %>
+			<%= f.input :name, label: "Calendar Name" %>
+			<%= f.submit class: "small button round" %>
+		<% end %>
+	</div>
+</div>

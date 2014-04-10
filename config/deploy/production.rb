@@ -2,9 +2,13 @@
 set :application, "hsp_websites"
 set :deploy_to, "/var/www/hmg/#{application}"
 
-server "10.10.23.86", :app
-server "10.10.23.15", :app #, :db, primary: true
-server "rackspace1", :web, :app, :db, primary: true
+# The "web" role is tied to asset compiling. Unfortunately, removing the role
+# from some of the hosts which don't need to compile assets (because we're using
+# the asset_host directive) causes "asset not compiled" errors.
+
+server "10.10.23.86", :web, :app
+server "10.10.23.15", :web, :app #, :db, primary: true
+server "rackspace1",  :web, :app, :db, primary: true
 
 set :rails_env, "production"
 

@@ -8,9 +8,9 @@ class MarketingQueue::BrandsController < MarketingQueueController
 
 	def show
 		# Set up the calendar
-		@start_on = params[:start_on] || 1.week.ago
-    @end_on = params[:end_on] || 6.months.from_now
+		@start_on = params[:start_on] || 7.days.ago.beginning_of_month
     @start_on = @start_on.to_date
+		@end_on = params[:end_on] || @start_on.advance(months: 5).end_of_month
     @end_on = @end_on.to_date
 
 		@current_marketing_projects = MarketingProject.open.where(brand_id: @brand.id)

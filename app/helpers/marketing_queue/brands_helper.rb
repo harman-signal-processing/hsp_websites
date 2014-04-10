@@ -37,4 +37,20 @@ module MarketingQueue::BrandsHelper
     end
     raw(output)
   end
+
+  def marketing_event_calendars #Jay's new calendar
+    options = {}
+    options[:brand_id] = @brand.id if @brand
+    output = ""
+    this_date = @start_on.to_date
+    until this_date > @end_on.to_date
+      @month = this_date.month.to_i
+      @year = this_date.year.to_i
+      @shown_month = Date.civil(@year, @month)
+      @event_strips = @marketing_calendar.event_strips_for_month(@shown_month, options)
+      output << event_calendar.html_safe
+      this_date = this_date.next_month
+    end
+    raw(output)    
+  end
 end
