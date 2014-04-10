@@ -2,8 +2,8 @@
 set :application, "hsp_websites"
 set :deploy_to, "/var/www/hmg/#{application}"
 
-server "10.10.23.86", :web, :app
-server "10.10.23.15", :web, :app #, :db, primary: true
+server "10.10.23.86", :app
+server "10.10.23.15", :app #, :db, primary: true
 server "rackspace1", :web, :app, :db, primary: true
 
 set :rails_env, "production"

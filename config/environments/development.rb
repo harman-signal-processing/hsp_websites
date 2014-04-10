@@ -38,7 +38,7 @@ HarmanSignalProcessingWebsite::Application.configure do
   config.assets.debug = false
   # config.assets.compile = true
 
-  # config.action_controller.asset_host = "http://cdn.harmanpro.com"
+  # config.action_controller.asset_host = ENV['ASSET_HOST']
 
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the

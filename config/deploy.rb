@@ -44,3 +44,35 @@ end
 before "deploy:restart", "deploy:migrate"
 after :deploy, "deploy:cleanup"
 # after 'deploy:update_code', 'deploy:assets:precompile'
+
+
+# a capistrano task to list tasks by role.
+namespace :list do
+  desc "list tasks by role"
+  task :by_role do
+    tasks = top.task_list(:all)
+
+    set(:verbose, false) unless exists?(:verbose)
+    unless verbose
+      tasks = tasks.reject { |t| t.description.empty? || t.description =~ /^\[internal\]/ }
+    end
+
+    role_tasks = {}
+    tasks.each do |task|
+      role_tasks[task.options[:roles]] ||= []
+      role_tasks[task.options[:roles]] << task
+    end
+
+    longest = tasks.map { |task| task.fully_qualified_name.length }.max
+    max_length = longest + 10
+
+    role_tasks.keys.sort{|a,b| a.to_s <=> b.to_s}.each do |role|
+      puts role
+      role_tasks[role].each do |task|
+          puts "\t%-#{longest}s # %s" % [task.fully_qualified_name, (task.desc.nil?) ? "" : task.desc[0..100].gsub(/\n/,' ').squeeze(' ')+"..."]
+      end
+      puts "\n"
+    end
+
+  end
+end

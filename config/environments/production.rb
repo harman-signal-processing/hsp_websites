@@ -83,18 +83,8 @@ HarmanSignalProcessingWebsite::Application.configure do
   # Use a different cache store in production
   config.cache_store = :dalli_store, "127.0.0.1", { namespace: "HSPWWW", expires_in: 1.day, compress: true }
 
-  #
   # Enable serving of images, stylesheets, and javascripts from an asset server
-  # Any of these will "work" (or setting nothing at all). Each has a reason:
-  #
-  # config.action_controller.asset_host = "http://assets.dbxpro.com" #(Original quick test. Cloudfront currently looks here)
-  # config.action_controller.asset_host = "http://assets.harmanpro.com" #(Cloudfront should look here once DNS is setup)
-  # config.action_controller.asset_host = "http://d1hajlza8i7n49.cloudfront.net" #(Actual cloudfront url)
-  config.action_controller.asset_host = "http://cdn.harmanpro.com" # (Ideal setting. CNAME alias for cloudfront url.)
-  ###### If Amazon gets expensive, roll back to assets.harmanpro.com as the asset server.
-  
-  # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  # config.assets.precompile += %w( search.js )
+  config.action_controller.asset_host = ENV['ASSET_HOST']
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
