@@ -63,6 +63,9 @@ GEM
       nokogiri
     ansi (1.4.3)
     arel (3.0.3)
+    asset_sync (1.0.0)
+      activemodel
+      fog (>= 1.8.0)
     aws-sdk (1.38.0)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
@@ -457,6 +460,7 @@ DEPENDENCIES
   RedCloth
   acts_as_list
   acts_as_tree
+  asset_sync
   aws-sdk (~> 1.0)
   bing_translator
   cancan
