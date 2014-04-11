@@ -27,8 +27,9 @@
 
 		<% end %>
 
-		<%= javascript_include_tag 'application' %>
-		<%= stylesheet_link_tag website.folder %>
+		<%= javascript_include_tag website.folder %>
+		<%= javascript_include_tag "vendor/custom.modernizr" %>
+		<%= stylesheet_link_tag website.folder, media: :all %>
 
 		<%= yield :custom_css %>
 		<script>
@@ -50,70 +51,131 @@
 		<%= render_partial "shared/locale_switcher" %>
 
 		<%= cache ["header", website, I18n.locale] do %>
-		<div id="Header">
-			<% if website.has_market_segments? %>
-			<div id="market_segment_nav">
-				<% website.market_segments.each do |ms| %>
-					<%= link_to translate_content(ms, :name), ms, class: "button" %>
-				<% end %>
+		<div id="header-container" class="contain-to-grid sticky">
+			<div class="row">
+				<div class="large-2 small-3 columns logo-container">
+					<%= link_to interchange_logo, locale_root_path %>
+				</div>
+				<div class="large-10 small-9 columns">
+					<div class="row collapse">
+						<div class="large-12 columns hide-for-small">
+							<div id="tagline">
+								<%= image_tag("#{website.folder}/tagline.png", alt: "The professional's choice in signal processing") %>
+							</div>
+						</div>
+						<div class="large-12 columns">
+							<nav class="top-bar">
+								<ul class="title-area">
+									<li class="name"></li>
+									<li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+								</ul>
+								<section class="top-bar-section">
+									<ul class="left">
+
+										<li class="has-dropdown"><%= link_to t('products'), product_families_path %>
+											<ul class="dropdown">
+												<% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
+												<li class="has-dropdown"><%= link_to translate_content(product_family, :name), product_family %>
+													<ul class="dropdown">
+														<% product_family.current_products.each do |product| %>
+														<li><%= link_to translate_content(product, :name), product %></li>
+														<% end %>
+													</ul>
+												</li>
+												<% end %>
+											</ul>
+										</li>
+										<li class="divider"></li>
+
+										<li><%= link_to t('news'), news_index_path %></li> 
+										<li class="divider"></li>
+
+										<% if website.has_artists? %>
+										<li><%= link_to t('artists'), artists_path %></li>
+										<li class="divider"></li>
+
+										<% end %>
+										<% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
+										<li><%= link_to t('where_to_buy'), where_to_buy_path %></li>
+										<li class="divider"></li>
+										<% end %>
+
+										<li><%= link_to t('product_support'), support_path %></li>
+										<li class="divider"></li>
+
+										<% if !!(website.forum_link) %>
+										<li><%= link_to t("forum"), website.forum_link %></li>
+										<li class="divider"></li>
+										<% end %>
+
+										<li><%= link_to t('warranty_registration'), warranty_registration_path %></li>
+
+									</ul>
+									<%# search is only available in default language for now...%>
+									<% if I18n.locale.to_s.match(/#{I18n.default_locale.to_s.split('-')[0]}/i) && website.value_for("enable_search") %>
+									<ul class="right">
+										<li class="has-form" id="search_form">
+											<%= form_tag search_path, method: :get %>
+												<%= text_field_tag :query, "", placeholder: t('search') %>
+											</form>
+										</li>
+									</ul>
+									<% end %>
+								</section>
+							</nav>
+						</div>
+					</div>
+				</div>
 			</div>
-			<% end %>
-			<div id="logo">
-				<% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "logo.png")) %>
-				<%= link_to(image_tag("#{website.folder}/logo.png", alt: Setting.site_name(website)), locale_root_path) %>
-				<% else %>
-				<h2><%= link_to website.brand_name, locale_root_path %></h2>
-				<% end %>
-			</div>
-			<div id="tagline"><%= image_tag("#{website.folder}/tagline.png", alt: "The professional's choice in signal processing") %></div>
-			<div id="topnav">
-				<ul>
-					<li><%= link_to t('home'), locale_root_path %></li>
-					<li><%= link_to t('products'), product_families_path %></li>
-					<li><%= link_to t('news'), news_index_path %></li> 
-					<% if website.has_artists? %>
-					<li><%= link_to t('artists'), artists_path %></li>
-					<% end %>
-					<% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
-					<li><%= link_to t('where_to_buy'), where_to_buy_path %></li>
-					<% end %>
-					<li><%= link_to t('product_support'), support_path %></li>
-					<% if !!(website.forum_link) %>
-					<li><%= link_to t("forum"), website.forum_link %></li>
-					<% end %>
-					<li><%= link_to t('warranty_registration'), warranty_registration_path %></li>
-				</ul>
-			</div>
-			<%# search is only available in default language for now...%>
-			<% if I18n.locale.to_s.match(/#{I18n.default_locale.to_s.split('-')[0]}/i) && website.value_for("enable_search") %>
-			<div id="search_form">
-				<%= form_tag search_path, method: :get %>
-					<%= text_field_tag :query, t('search'), onclick: "if (this.value == '#{t('search')}') { this.value = '';} " %>
-				</form>
-			</div>
-			<% end %>
+		</div>
+		<% end %>
+
+		<div class="hide-for-small">
 			<div id="dealer_login">
 				<%= link_to t("dealer_login"), "/toolkit", target: "_blank" %>
 			</div>
 			<div id="supersocial">
 				<%= social_media_links 'twitter', 'facebook', 'rss', 'youtube', 'myspace', 'wechat', 'weibo' %> 
 			</div>
-			<div class="clear"></div>
+		</div>
+
+		<% if content_for?(:feature) %>
+		<div class="container"> 
+			<div class="row">
+				<div class="large-12 columns hide-for-small">
+					<%= yield :feature %>
+				</div>
+			</div>
 		</div>
 		<% end %>
 
-		<% if content_for?(:feature) %>
-			<div id="feature_bg"></div>
-			<div id="feature_container">
-				<%= yield :feature %>
-			</div>
-		<% end %>
+		<div class="container">
+		    <div class="row">
+		      <div class="large-12 columns">
 
-		<div id="content_container" <% unless controller_name == "main" && action_name == "index" -%>class="internal_page"<% end -%>>
-			<div id="content_container_content" style="position: relative">
-				<% if notice %><div class="floating_message" id="notice" style="color: green; background: #F4FFF3" ><%= notice %> <%= link_to_function "close", "$('#notice').hide();" %></div><% end %>
-				<% if alert %><div class="floating_message" id="alert" style="color: red;" ><%= alert %> <%= link_to_function "close", "$('#alert').hide();" %></div><% end %>
-				<%= yield %>
+		        <% flash.each do |name, msg| %>
+		          <% 
+		            css_class = 'alert-box'
+		            if name.match(/notice/i) 
+		              css_class += ' success'
+		            elsif name.match(/alert|warn/)
+		              css_class += ' alert'
+		            else
+		              css_class += ' secondary'
+		            end
+		          %>
+
+		            <%= content_tag :div, msg, class: css_class if msg.is_a?(String) %>
+		        <% end %>
+		      </div>
+		    </div>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<div class="large-12 small-12 columns">
+					<%= yield %>
+				</div>
 			</div>
 		</div>
 		
@@ -124,42 +186,45 @@
 		<% end %>
 		
 		<% if content_for?(:big_bottom_box) %>
-			<div id="big_bottom_box_container">
-				<div id="big_bottom_box_content">
-				<%= yield :big_bottom_box %>
-				</div>
-				<div class="clear"></div>
-			</div>
-		<% else %>
-			<div style="height: 30px;">&nbsp;</div>
+			<%= yield :big_bottom_box %>
 		<% end %>
 		
 		<%= cache ["footer", website.brand, I18n.locale] do %>
 		<footer>
-			<%= hpro_footer %>
-			<div id="footer_info">
-				<% if website.has_software? %>
-				<%= link_to t('software_downloads').downcase, software_index_path %> &bull;
-				<% end %>
-				<%= link_to t('products'), product_families_path %> &bull;
-				<% if website.has_reviews? %>
-				<%= link_to t('product_reviews').downcase, product_reviews_path %> &bull;
-				<% end %>
-				<%= link_to t('news'), news_index_path %> &bull;
-				<% if website.has_artists? %>
-				<%= link_to t('artists'), artists_path %> &bull;
-				<% end %>
-				<% if website.has_dealers? || website.has_online_retailers? || website.has_distributors? %>
-				<%= link_to t('where_to_buy'), where_to_buy_path %> &bull;
-				<% end %>
-				<%= link_to t('product_support'), support_path %> &bull;
-				<%= link_to t('sitemap'), sitemap_path(format: 'xml') %>
+			<div class="row">
+				<div class="large-12 columns hide-for-small">
+					<%= hpro_footer(exclude: "dbx") %>
+				</div>
 			</div>
-			<div id="footer_left">
-				<%= image_tag "harman_tiny.png" %>
-				&copy; <%= Date.today.year %> 
-				<%= link_to(t('harman'), "http://www.harman.com/", target: "_blank") %>. 
-				<%= t('all_rights_reserved') %>
+			<div class="row">
+				<div class="large-6 columns" id="footer_left">
+					<%= image_tag "harman.jpg" %>
+					<span class="footer_text">
+						&copy; <%= Date.today.year %> 
+						<%= link_to(t('harman'), "http://www.harman.com/", target: "_blank") %>. 
+						<%= t('all_rights_reserved') %>
+					</span>
+				</div>
+				<div class="large-6 columns hide-for-small" id="footer_info">
+					<span class="footer_text">
+						<% if website.has_software? %>
+						<%= link_to t('software_downloads').downcase, software_index_path %> &bull;
+						<% end %>
+						<%= link_to t('products'), product_families_path %> &bull;
+						<% if website.has_reviews? %>
+						<%#= link_to t('product_reviews').downcase, product_reviews_path %>
+						<% end %>
+						<%= link_to t('news'), news_index_path %> &bull;
+						<% if website.has_artists? %>
+						<%= link_to t('artists'), artists_path %> &bull;
+						<% end %>
+						<% if website.has_dealers? || website.has_online_retailers? || website.has_distributors? %>
+						<%= link_to t('where_to_buy'), where_to_buy_path %> &bull;
+						<% end %>
+						<%= link_to t('product_support'), support_path %> &bull;
+						<%= link_to t('sitemap'), sitemap_path(format: 'xml') %>
+					</span>
+				</div>
 			</div>
 		</footer>
 		<% end %>

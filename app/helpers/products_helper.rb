@@ -265,13 +265,23 @@ module ProductsHelper
   end
 
   def button_for(product, options)
-    folder = folder_for(product)
-    if product.direct_buy_link.blank?
-      image_tag("#{folder}/#{I18n.locale}/#{options[:button_prefix]}buyitnow_button.png", alt: t("online_dealers_us"), mouseover: "#{folder}/#{I18n.locale}/#{options[:button_prefix]}buyitnow_button_hover.png")
-    elsif product.parent_products.size > 0 # as in e-pedals
-      image_tag("#{folder}/#{I18n.locale}/#{options[:button_prefix]}getit_button.png", alt: t("online_dealers_us"), mouseover: "#{folder}/#{I18n.locale}/#{options[:button_prefix]}getit_button_hover.png")
+    if options[:html_button] 
+      if product.direct_buy_link.blank?
+        t("buy_it_now")
+      elsif product.parent_products.size > 0 # as in e-pedals
+        t("get_it")
+      else
+        t("add_to_cart")
+      end
     else
-      image_tag("#{folder}/#{I18n.locale}/#{options[:button_prefix]}addtocart_button.png", alt: t("online_dealers_us"), mouseover: "#{folder}/#{I18n.locale}/#{options[:button_prefix]}addtocart_button_hover.png")
+      folder = folder_for(product)
+      if product.direct_buy_link.blank?
+        image_tag("#{folder}/#{I18n.locale}/#{options[:button_prefix]}buyitnow_button.png", alt: t("buy_it_now"), mouseover: "#{folder}/#{I18n.locale}/#{options[:button_prefix]}buyitnow_button_hover.png")
+      elsif product.parent_products.size > 0 # as in e-pedals
+        image_tag("#{folder}/#{I18n.locale}/#{options[:button_prefix]}getit_button.png", alt: t("get_it"), mouseover: "#{folder}/#{I18n.locale}/#{options[:button_prefix]}getit_button_hover.png")
+      else
+        image_tag("#{folder}/#{I18n.locale}/#{options[:button_prefix]}addtocart_button.png", alt: t("add_to_cart"), mouseover: "#{folder}/#{I18n.locale}/#{options[:button_prefix]}addtocart_button_hover.png")
+      end
     end
   end
 
@@ -285,17 +295,21 @@ module ProductsHelper
   end
 
   def buy_it_now_usa(product, button)
+    button_class = (button.to_s.match(/img/i)) ? "" : "large button"
     if product.active_retailer_links.size > 0
       # tracker = (Rails.env.production?) ? "_gaq.push(['_trackEvent', 'BuyItNow', 'USA', '#{product.name}']);" : ""
       # link_to_function button, "#{tracker}popup('dealer_popup');"
+      button_class += " buy_it_now_popup"
+
       link_to(button, 
         buy_it_now_product_path(product), 
-        class: "buy_it_now_popup", 
+        class: button_class, 
         data: {windowname: 'dealer_popup'},
         onclick: raw("_gaq.push(['_trackEvent', 'BuyItNow', 'USA', '#{product.name}'])"))
     else
       link_to(button, 
         where_to_buy_path, 
+        class: button_class,
         onclick: raw("_gaq.push(['_trackEvent', 'BuyItNow', 'Without online retailer links', '#{product.name}'])"))
     end
   end

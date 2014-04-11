@@ -1,0 +1,29 @@
+<% set_meta_tags title: t('titles.news', brand: website.brand_name),
+	reverse: true,
+	og: {
+		type: 'article',
+		description: t('titles.news', brand: website.brand_name),
+		title: t('titles.news', brand: website.brand_name)
+	} %>
+
+<div class="row">
+	<div class="large-9 columns">					
+		<h1><%= t('titles.news', brand: website.brand_name) %></h1>
+	</div>
+	<div class="large-3 columns text-right">
+		<br/>
+		<%= link_to(image_tag('icons/rss.png', alt: "rss", style: "vertical-align: middle"), rss_url(format: "xml")) %>
+		<%= link_to("Subscribe via RSS", rss_url(format: "xml")) %>
+	</div>
+</div>
+<div class="content container">
+	<div class="row">
+		<div class="large-8 columns">
+			<%= render "list", news_list: @news %>
+		</div>
+	</div>
+</div>
+
+<% unless @hide_archive %>
+<p><%= link_to t('older'), archived_news_index_path %></p>
+<% end %>

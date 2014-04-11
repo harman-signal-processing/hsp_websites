@@ -68,7 +68,7 @@
 			<%= text_field_tag "zip", session[:zip], size: 8 %>
 			<%= submit_tag t('go') %></p>
 		<% end %>
-		</ul>
+		<ul>
 			<% if website.has_rma_form? %>
 			<li><%= link_to t('titles.factory_service'), rma_request_path %></li>
 			<% end %>

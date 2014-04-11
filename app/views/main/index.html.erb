@@ -10,61 +10,61 @@
 
 <%= content_for :feature do %>
 	<%= cache ["slideshow", website.brand, I18n.locale] do %>
-		<% if Setting.slides(website).size > 0 %>
-			<%= slideshow(slides: Setting.slides(website), duration: 8700, transition: "fade") %>
+		<% slides = Setting.slides(website) %>
+		<% if slides.size > 0 %>
+			<%= orbit_slideshow(slides: slides, duration: 6000, navigation_arrows: false, transition: "fade") %>
 		<% end %>
 	<% end %>
 <% end %>
 
-<%= content_for :middle_stuff do %>
-	<%= cache ["homepage_features", website.brand, I18n.locale] do %>
-		<% if @features.size > 0 %>
-			<% @features.each do |feature| %>
-			<span class="homepage_feature">
-				<%= feature_button(feature) %>
-			</span>
-			<% end %>
-		<% else %>
-			<%= featured_product_families %>
+<%= cache ["homepage_features", website.brand, I18n.locale] do %>
+	<% if @features.size > 0 %>
+	<ul class="large-block-grid-<%= @features.size %> small-block-grid-<%= (@features.size / 2).to_i %>">
+		<% @features.each_with_index do |feature,i| %>
+		<li><%= feature_button(feature) %></li>
 		<% end %>
+	</ul>
+	<% else %>
+		<%= featured_product_families %>
 	<% end %>
-	<div class="clear"></div>
 <% end %>
 
 <%= content_for :big_bottom_box do %>
-    <div style="float: right; width: 265px;">
-		<% if website.email_signup_url %>
-			<%= render 'shared/newsletter_signup' %>
-		<% end %>
-		<% if website.homepage_column_three %>
-			<%= render "shared/column_for_#{website.homepage_column_three}" %>
-		<% elsif website.homepage_column_3 %>
-			<%= render "shared/column_for_#{website.homepage_column_3}" %>
-		<% else %>
-			<%= render 'shared/column_for_twitter' %>
-		<% end %>
-	</div>
+	<div class="row">
+		<div class="large-4 columns">
+			<% if website.homepage_column_one %>
+				<%= render "shared/column_for_#{website.homepage_column_one}" %>
+			<% elsif website.homepage_column_1 %>
+				<%= render "shared/column_for_#{website.homepage_column_1}" %>
+			<% else %>
+				<%= render 'shared/column_for_news' %>
+			<% end %>
+		</div>
 
-	<div style="float: left; width: 290px; margin-left: 10px">
-		<% if website.homepage_column_one %>
-			<%= render "shared/column_for_#{website.homepage_column_one}" %>
-		<% elsif website.homepage_column_1 %>
-			<%= render "shared/column_for_#{website.homepage_column_1}" %>
-		<% else %>
-			<%= render 'shared/column_for_news' %>
-		<% end %>
-	</div>
+		<div class="large-4 columns">
+			<% if website.homepage_column_two %>
+				<%= render "shared/column_for_#{website.homepage_column_two}" %>
+			<% elsif website.homepage_column_2 %>
+				<%= render "shared/column_for_#{website.homepage_column_2}" %>
+			<% elsif @youtube && !@youtube.blank? %>
+				<%= render 'shared/column_for_youtube' %>
+			<% elsif !website.facebook.blank? %>
+				<%= render 'shared/column_for_facebook' %>
+			<% end %>
+		</div>
 
-	<div style="margin-left: 315px; margin-right: 320px;">
-		<% if website.homepage_column_two %>
-			<%= render "shared/column_for_#{website.homepage_column_two}" %>
-		<% elsif website.homepage_column_2 %>
-			<%= render "shared/column_for_#{website.homepage_column_2}" %>
-		<% elsif @youtube && !@youtube.blank? %>
-			<%= render 'shared/column_for_youtube' %>
-		<% elsif !website.facebook.blank? %>
-			<%= render 'shared/column_for_facebook' %>
-		<% end %>
+	    <div class="large-4 columns">
+			<% if website.email_signup_url %>
+				<%= render 'shared/newsletter_signup' %>
+			<% end %>
+			<% if website.homepage_column_three %>
+				<%= render "shared/column_for_#{website.homepage_column_three}" %>
+			<% elsif website.homepage_column_3 %>
+				<%= render "shared/column_for_#{website.homepage_column_3}" %>
+			<% else %>
+				<%= render 'shared/column_for_twitter' %>
+			<% end %>
+		</div>
 	</div>
 <% end %>
 
