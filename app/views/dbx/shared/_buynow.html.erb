@@ -1,0 +1,15 @@
+<ul class="large-block-grid-6 small-block-grid-3">
+
+<% product.preferred_retailer_links.each do |prl| %>
+	<li class="retailer_logo preferred">
+		<%= render "shared/online_retailer_link", orl: prl %>
+	</li>
+<% end %>
+
+<% product.randomized_retailer_links.each do |orl| %>
+	<li class="retailer_logo">
+		<%= render "shared/online_retailer_link", orl: orl %>
+	</li>
+<% end %>
+
+</ul>

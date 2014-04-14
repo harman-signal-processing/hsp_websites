@@ -7,7 +7,7 @@
 
 	<p>The following contact information pertains to <i>vintage</i> <%= website.brand.name %> products. Click here for other <%= link_to "service centers", support_path %>.</p>
 
-	<ul class="dealer_results">
+	<ul class="list dealer_results">
 		<% @results.each do |dealer| %>
 		<li><b><%= dealer.name %></b>
 		<br/><%= dealer.address %>

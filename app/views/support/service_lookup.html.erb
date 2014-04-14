@@ -8,7 +8,7 @@
 	<% end %>
 	
 <% if @results.size > 0 %>
-	<ul class="dealer_results">
+	<ul class="list dealer_results">
 		<% @results.each do |dealer| %>
 		<li><b><%= dealer.name %></b> (<%= dealer.distance.to_i %> <%= t('dealer_distance') %>)
 		<!-- <span style="color: #EEE"><%= dealer.account_number %></span> -->
@@ -28,11 +28,12 @@
 	<p>Try checking out the <%= link_to "complete list", support_path(action: 'all_repair') %>.</p>
 <% end %>
 
-<%= content_for :big_bottom_box do %>
+<hr/>
+<div style="font-size: 80%">
 <p>Authorized Service Centers provide warranty and non-warranty repair services. Proof of purchase is required for all warranty claims. If there are no locations near your zipcode, please call the factory service center at (801)566-8800.</p>
 
 <p><i>Note: this lookup engine is for authorized service centers in the US only. If you need service outside of the US, consult the <%= link_to "International Dealer Locator", distributors_path %>.</i></p>
-<% end %>
+</div>
 
 <% if current_user && can?(:manage, ServiceCenter) %>
 <div class="admin_function">

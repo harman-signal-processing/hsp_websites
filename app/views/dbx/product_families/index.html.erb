@@ -10,14 +10,14 @@
 <% end %>
 </h1>
 
-<ul class="large-block-grid-4 small-block-grid-2">
+<ul class="large-block-grid-5 small-block-grid-2">
 <% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
 	<li><div id="<%= product_family.to_param %>">
 		<%= link_to product_family do %>
 			<% if !product_family.family_photo_file_name.blank? %>
-		  		<div class="product_family_image_box">
+
 					<%= image_tag(product_family.family_photo.url) %>
-		  		</div>
+
 			<% else %>
 				<div class="product_family_box">
 					<h2><%= translate_content(product_family, :name) %></h2>
