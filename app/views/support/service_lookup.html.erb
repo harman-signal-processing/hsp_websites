@@ -25,6 +25,7 @@
 
 <% unless @err.blank? %>
 	<p><%= @err %></p>
+	<p>Try checking out the <%= link_to "complete list", support_path(action: 'all_repair') %>.</p>
 <% end %>
 
 <%= content_for :big_bottom_box do %>

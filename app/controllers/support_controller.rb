@@ -162,6 +162,12 @@ class SupportController < ApplicationController
     @page_title = "Vintage Repair"
     @results = ServiceCenter.where(brand_id: website.brand_id, vintage: true)
   end
+
+  # All repair facilities
+  def all_repair
+    @page_title = "All Repair Facilities"
+    @results = ServiceCenter.where(brand_id: website.brand_id).order("UPPER(name)")
+  end
   
   # Power Supplies page. Really, this could be used to build a similar page for
   # any Specification
