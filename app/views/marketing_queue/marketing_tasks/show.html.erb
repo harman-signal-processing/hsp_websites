@@ -88,8 +88,8 @@
 
 			<% if @marketing_task.completed_at.blank? %>
 				<p>
-					<%= link_to "Done-ish", '#', id: 'doneish', class: "medium round success button" %>
-					<%= link_to "Done Done", toggle_marketing_queue_marketing_task_path(@marketing_task), class: "medium round success button" %>
+					<%#= link_to "Done-ish", '#', id: 'doneish', class: "medium round success button" %>
+					<%= link_to "Done", toggle_marketing_queue_marketing_task_path(@marketing_task), class: "medium round success button" %>
 				</p>
 			<% end %>
 
