@@ -255,7 +255,7 @@ module ProductsHelper
       elsif @online_retailer_link # http param[:bin] provided
         buy_it_now_direct_to_retailer(product, button)
 		  else
-        buy_it_now_usa(product, button)
+        buy_it_now_usa(product, button, options)
 		  end
 		end    
   end
@@ -294,17 +294,19 @@ module ProductsHelper
     end    
   end
 
-  def buy_it_now_usa(product, button)
+  def buy_it_now_usa(product, button, options)
     button_class = (button.to_s.match(/img/i)) ? "" : "large button"
     if product.active_retailer_links.size > 0
       # tracker = (Rails.env.production?) ? "_gaq.push(['_trackEvent', 'BuyItNow', 'USA', '#{product.name}']);" : ""
       # link_to_function button, "#{tracker}popup('dealer_popup');"
       button_class += " buy_it_now_popup"
 
+      html5_data = (options[:reveal_id]) ? {:'reveal-id' => options[:reveal_id]} : {windowname: 'dealer_popup'} # for old home-grown popup
+
       link_to(button, 
         buy_it_now_product_path(product), 
         class: button_class, 
-        data: {windowname: 'dealer_popup'},
+        data: html5_data,
         onclick: raw("_gaq.push(['_trackEvent', 'BuyItNow', 'USA', '#{product.name}'])"))
     else
       link_to(button, 

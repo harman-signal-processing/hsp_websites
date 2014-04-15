@@ -190,7 +190,7 @@ en:
 
   product_support_page:
       for_service_outside_the_us: "For service inquiries outside the US,"
-      please_contact_your_distributor: "please contact your local %{brand} Distributor."
+      please_contact_your_distributor: "please contact your local %{brand} distributor."
       detailed_problem_description: Detailed problem description
 
   titles:

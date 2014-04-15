@@ -2,41 +2,52 @@
 
 <h1 class="page_title"><%= @page_title %></h1>
 
+<%= simple_form_for @contact_message, url: parts_request_path do |f| %>
 
-<div style="width: 500px; margin: 40px auto;">
-	<p>For parts inquiries outside the US, please contact your local 
-		<%= link_to "#{website.brand_name} Distributor", international_distributors_path %>.
-	</p>
-	<p>Note: required fields appear <b>bold</b>.</p>
-</div>
-<%= form_for :contact_message, url: parts_request_path, html: {class: "reg contact"} do |f| %>
-	<%= f.error_messages %>
+	<div class="row">
 
-	<div><%= f.label :name, t('your_name'), class: "required" %>
-	   <%= f.text_field :name %></div>
-	<div><%= f.label :email, ucfirst(t('email')), class: "required" %>
-	   <%= f.text_field :email %></div>
-	<div><%= f.label :phone %>
-	   <%= f.text_field :phone %></div>
-	<div><%= f.label :fax %>
-	   <%= f.text_field :fax %></div>
-	<div><%= f.label :account_number %>
-	   <%= f.text_field :account_number %></div>
-	<h2 style="text-align: right; width: 332px;"><%= t('product_details') %></h2>
-	<%= cache ["parts_form_products", website.brand] do %>
-	<div><%= f.label :product, nil, class: "required" %>
-		<%= f.collection_select :product, 
-				Product.repairable(website) + [Product.new(name: "other")],
-				:name, :name, prompt: true %></div>
-	<% end %>
-	<div><%= f.label :part_number %>
-		<%= f.text_field :part_number %></div>
-	<div><%= f.label :board_location %>
-		<%= f.text_field :board_location %></div>
-		
-	<div style="width: 500px; margin: 20px auto;">
-	Additional Info:<br/>
-	<%= f.text_area :message, size: "60x8" %>
-	<p><%= submit_tag t('submit') %></p>
+		<div class="large-8 columns">
+			<%= f.input :name, label: t('your_name'), required: true %>
+			<%= f.input :email, label: ucfirst(t('email')), required: true %>
+			<div class="row">
+				<div class="large-4 columns">
+					<%= f.input :phone %>
+				</div>
+				<div class="large-4 columns">
+					<%= f.input :fax %>
+				</div>
+				<div class="large-4 columns">
+					<%= f.input :account_number, hint: "If dealer or service center" %>
+				</div>
+			</div>
+
+			<h3><%= t('product_details') %></h3>
+
+			<%= cache ["parts_form_products", website.brand] do %>
+			<div><%= f.label :product, nil, class: "required" %>
+				<%= f.collection_select :product, 
+						Product.repairable(website) + [Product.new(name: "other")],
+						:name, :name, prompt: true %></div>
+			<% end %>
+			<div class="row">
+				<div class="large-6 columns">
+					<%= f.input :part_number %>
+				</div>
+				<div class="large-6 columns">
+					<%= f.input :board_location %>
+				</div>
+			</div>
+				
+			<%= f.input :message, label: "Additional Info", input_html: { style: "height: 120px" } %>
+
+		</div>
+		<div class="large-3 columns">
+			<p>For parts inquiries outside the US, please contact your local 
+				<%= link_to "#{website.brand_name} Distributor", international_distributors_path %>.
+			</p>
+		</div>
 	</div>
+
+	<p><%= submit_tag t('submit'), class: "button" %></p>
+
 <% end %>

@@ -3,78 +3,133 @@
 <h1 class="page_title"><%= @page_title %></h1>
 
 
-<div style="width: 500px; margin: 40px auto;">
-	<p>For local service in the US, please see the US Service Centers locator on our <%= link_to "support page", support_path %>.</p>
-	<p><%= t('product_support_page.for_service_outside_the_us') %> 
-		<%= link_to t("product_support_page.please_contact_your_distributor", brand: website.brand_name), international_distributors_path %></p>
-	<p>Note: required fields appear <b>bold</b>.</p>
-</div>
-<%= form_for :contact_message, url: rma_request_path, html: {class: "reg contact"} do |f| %>
-	<%= f.error_messages %>
+<%= simple_form_for @contact_message, url: rma_request_path do |f| %>
 
-	<div><%= f.label :name, t('your_name'), class: "required" %>
-	   <%= f.text_field :name %></div>
-	<div><%= f.label :company %>
-		<%= f.text_field :company %></div>
-	<div><%= f.label :account_number %>
-		   <%= f.text_field :account_number, size: "15" %>
-			<span class="hint">If dealer or service center</span>
-	</div>
-	<div><%= f.label :email, ucfirst(t('email')), class: "required" %>
-	   <%= f.text_field :email %></div>
-	<div><%= f.label :phone, class: "required" %>
-	   <%= f.text_field :phone %></div>
+	<div class="row">
 
-	<h2 style="text-align: right; width: 332px;"><%= t('shipping_address') %></h2>
-	<div><%= f.label :shipping_address, class: "required" %>
-		<%= f.text_field :shipping_address %>
-		<span class="hint">No P.O. Boxes</span>
-	</div>
-	<div><%= f.label :shipping_city, class: "required" %>
-		<%= f.text_field :shipping_city %></div>
-	<div><%= f.label :shipping_state, class: "required" %>
-		<%= f.text_field :shipping_state, size: 10 %></div>
-	<div><%= f.label :shipping_zip, class: "required" %>
-		<%= f.text_field :shipping_zip %></div>
-	
-	<h2 style="text-align: right; width: 332px;"><%= t('billing_address') %> <span class="hint">if different</span></h2>
-	<div><%= f.label :billing_address %>
-		<%= f.text_field :billing_address %></div>
-	<div><%= f.label :billing_city %>
-		<%= f.text_field :billing_city %></div>
-	<div><%= f.label :billing_state %>
-		<%= f.text_field :billing_state, size: 10 %></div>
-	<div><%= f.label :billing_zip %>
-		<%= f.text_field :billing_zip %></div>
-
-	<h2 style="text-align: right; width: 332px;"><%= t('product_details') %></h2>
-<%= cache ["rma_form_products", website.brand] do %>
-	<div><%= f.label :product, nil, class: "required" %>
-		<%= f.collection_select :product, 
-				Product.repairable(website) + [Product.new(name: "other")], 
-				:name, :name, prompt: true %>
-	</div>
-<% end %>
-	<div><%= f.label :product_sku, class: "required" %>
-		<%= f.text_field :product_sku, size: 15 %> 
-		<span class="hint"><%= link_to "where to find the SKU", image_path("#{website.folder}/sku.jpg") %></span>
-	</div>
-	<div><%= f.label :product_serial_number, class: "required" %>
-		<%= f.text_field :product_serial_number, size: 15 %>
-		<span class="hint"><%= link_to "where to find the serial number", image_path("#{website.folder}/serial.jpg") %></span>
-	</div>
-	<div><%= f.label :warranty, class: "required" %>
-		<%= f.radio_button :warranty, true %> <%= t('yes') %>
-		<%= f.radio_button :warranty, false %> <%= t('no') %>
-		<span class="hint"><%= link_to "warranty policy", warranty_policy_path %></span>
-	</div>
-	<div><%= f.label :purchased_on, class: "required" %>
-		<%= f.text_field :purchased_on, size: 22, class: 'ui-datepicker-past-only' %>
+		<div class="large-8 columns">
+				<%= f.input :name, label: t('your_name'), required: true %>
+				<div class="row">
+					<div class="large-8 columns">
+						<%= f.input :email, label: ucfirst(t('email')), required: true %>
+					</div>
+					<div class="large-4 columns">
+						<%= f.input :phone %>
+					</div>
+				</div>
+				<div class="row">
+					<div class="large-8 columns">
+						<%= f.input :company %>
+					</div>
+					<div class="large-4 columns">
+						<%= f.input :account_number, hint: "If dealer or service center" %>
+					</div>
+				</div>
 		</div>
-	<div style="width: 500px; margin: 20px auto;">
-		<%= t('product_support_page.detailed_problem_description') %><br/>
-		<%= f.text_area :message, size: "60x8" %>
-		<p><%= submit_tag t('submit') %></p>
+		<div class="large-3 columns">
+			<p>For local service in the US, please see the US Service Centers locator on our <%= link_to "support page", support_path %>.</p>
+			<p><%= t('product_support_page.for_service_outside_the_us') %> 
+				<%= link_to t("product_support_page.please_contact_your_distributor", brand: website.brand_name), international_distributors_path %></p>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-6 columns">
+			<fieldset>
+				<legend><%= t('shipping_address') %></legend>
+				<%= f.input :shipping_address, required: true, label: "Address (No P.O. Boxes)" %>
+				<%= f.input :shipping_city, required: true %>
+				<div class="row">
+					<div class="large-6 columns">
+						<%= f.input :shipping_state, required: true %>
+					</div>
+					<div class="large-6 columns">
+						<%= f.input :shipping_zip, required: true %>
+					</div>
+				</div>
+			</fieldset>
+		</div>
+
+		<div class="large-6 columns">
+			<fieldset>
+				<legend><%= t('billing_address') %> <i class="hint">if different</i></legend>
+				<%= f.input :billing_address %>
+				<%= f.input :billing_city %>
+				<div class="row">
+					<div class="large-6 columns">
+						<%= f.input :billing_state %>
+					</div>
+					<div class="large-6 columns">
+						<%= f.input :billing_zip %>
+					</div>
+				</div>
+			</fieldset>
+		</div>
+	</div>
+
+	<h3><%= t('product_details') %></h3>
+	<div>
+		<div class="row">
+			<div class="large-2 columns">
+				<%= f.label :product, nil, class: "right inline" %>
+			</div>
+		<%= cache ["rma_form_products", website.brand] do %>
+			<div class="large-4 columns">
+			<%= f.collection_select :product, 
+					Product.repairable(website) + [Product.new(name: "other")], 
+					:name, :name, prompt: true %>
+			</div>
+		<% end %>
+			<div class="large-6 columns"></div>
+		</div>
+
+		<div class="row">
+			<div class="large-2 columns">
+				<%= f.label :product_sku, nil, class: "right inline" %>
+			</div>
+			<div class="large-4 columns">
+				<%= f.input :product_sku, label: false %>
+			</div>
+			<div class="large-6 columns">
+				<div class="hint"><%= link_to "where to find the SKU", image_path("#{website.folder}/sku.jpg") %></div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="large-2 columns">
+				<%= f.label :product_serial_number, "Serial Number", class: "right inline" %>
+			</div>
+			<div class="large-4 columns">
+				<%= f.input :product_serial_number, label: false %>
+			</div>
+			<div class="large-6 columns">
+				<div class="hint"><%= link_to "where to find the serial number", image_path("#{website.folder}/serial.jpg") %></div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="large-2 columns">
+				<%= f.label :purchased_on, nil, class: "right inline" %>
+			</div>
+			<div class="large-4 columns">
+				<%= f.input :purchased_on, as: :string, label: false, input_html: { class: 'ui-datepicker-past-only' } %>
+			</div>
+			<div class="large-2 columns">
+				<%= f.input :warranty, as: :boolean, required: false %>
+			</div>
+			<div class="large-4 columns">
+				<div class="hint"><%= link_to "warranty policy", warranty_policy_path %></div>
+			</div>
+		</div>
+
+		<h4><%= t('product_support_page.detailed_problem_description') %></h4>
+		<div class="row">
+			<div class="large-6 columns">
+				<%= f.input :message, label: false, input_html: { style: "height: 150px"} %>
+			</div>
+		</div>
+
+		<p><%= submit_tag t('submit'), class: "button" %></p>
 	</div>
 <% end %>
 

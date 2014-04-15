@@ -64,6 +64,7 @@ body {
 //	background: #4c4c4c asset-data-url('dbx/page_bg.gif') repeat-x;
 //	background-position: middle;
 	height: 100%;
+	line-height: 1.5;
 }
 
 @font-face {
@@ -76,10 +77,28 @@ body {
     font-weight: normal;
     font-style: normal;
 }
+.custom.checkbox {
+    margin-right: 6px;
+}
+fieldset {
+	background-color: #EEE;
+}
+
+.hint {
+  font-size: 70%;
+  color: #444;
+}
+span.hint {
+  display: block;
+  margin: -9px 0px 16px;
+}
+div.hint {
+	margin-top: 1px;
+}
 
 h1, h2 {
 	font-family: 'ImpactRegular', Helvetica, Arial, sans-serif;
-	font-weight: 200;
+	font-weight: 100;
 }
 
 .floating_message {

@@ -117,7 +117,7 @@ set_meta_tags title: @product.name,
 
 			<% if website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !@product.direct_buy_link.blank? %>
 
-				<%= buy_it_now_link(@product, html_button: true) %>
+				<%= buy_it_now_link(@product, html_button: true, reveal_id: "buy-it-now-popup") %>
 				<%= links_to_current_promotions(@product) %>
 				
 				<% unless @product.demo_link.blank? %>
@@ -193,7 +193,7 @@ set_meta_tags title: @product.name,
 
 		<% if website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !@product.direct_buy_link.blank? %>
 
-			<%= buy_it_now_link(@product, html_button: true) %>
+			<%= buy_it_now_link(@product, html_button: true, reveal_id: "buy-it-now-popup") %>
 			<%= links_to_current_promotions(@product) %>
 			
 			<% unless @product.demo_link.blank? %>
@@ -257,29 +257,37 @@ set_meta_tags title: @product.name,
 <% end # cache %>
 
 <% if session["geo_usa"] && !@product.hide_buy_it_now_button? %>
-<%= content_for :dealer_popup do %>
+<div id="buy-it-now-popup" class="reveal-modal">
 	<%= cache ["online_retailer_links_for", @product] do %>
-	<div>
-		<div style="float: left;">
-			<h2><%= t('titles.buy_online') %></h2>
+	<div class="row">
+		<div class="large-6 columns">
+			<h3><%= t('titles.buy_online') %></h3>
 		</div>
-		<div style="float: right; margin-top: 12px;">
+		<div class="large-5 columns">
 			<%= form_tag where_to_buy_path() %>
-				<%= t('us_zip_code') -%>: <%= text_field_tag "zip", session[:zip], size: 8 %>
-				<%= submit_tag t('find_us_dealers') %>
-				<%= link_to t("international_distributors"), international_distributors_path %>
+			<div class="row collapse">
+				<div class="large-2 small-2 columns">
+					<%= label_tag :zip, t('us_zip_code'), class: "inline" %>
+				</div>
+				<div class="large-6 small-6 columns">
+					<%= text_field_tag "zip", session[:zip] %>
+				</div>
+				<div class="large-4 small-4 columns">
+					<%= submit_tag t('find_us_dealers'), class: "postfix button" %>
+				</div>
+			</div>
 			</form>
 		</div>
-		<div class="clear"></div>
 	</div>
 	<div id="dealers">
-	<div id="online_retailers">
-		<%= render_partial "shared/buynow", product: @product %>
+		<div id="online_retailers">
+			<%= render_partial "shared/buynow", product: @product %>
+		</div>
 	</div>
-	</div>
-	<div style="clear:both"></div>
 	<% end %>
-<% end %>
+	<p>Also available: <%= link_to t("international_distributors"), international_distributors_path %> distributors.</p>
+	<a class="close-reveal-modal">&#215;</a>
+</div>
 <% end %>
 
 <%= content_for :extra_js do %>
