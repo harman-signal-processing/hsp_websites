@@ -49,7 +49,7 @@
 		<%#= render_partial "shared/admin_dashboard_link" %>		
 
 		<%= cache ["header", website, I18n.locale] do %>
-			<%= render_partial 'layouts/nav2' %>
+			<%= render_partial 'layouts/nav' %>
 		<% end %>
 
 		<% if content_for?(:feature) %>

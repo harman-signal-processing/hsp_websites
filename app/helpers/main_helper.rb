@@ -93,15 +93,18 @@ module MainHelper
     end
   end
 
-  def featured_product_families
+  def featured_product_families(options={})
+    default_options = {limit: 4}
+    options = default_options.merge options
     out = ""
+    out = "<ul class=\"large-block-grid-#{options[:limit]} small-block-grid-#{(options[:limit]/2).to_i}\">" if options[:zurb]
     @current_promotions = Promotion.all_for_website(website)
     @product_families = []
     ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family|
       @product_families << product_family unless product_family.hide_from_homepage?
     end
 
-    @product_families.each do |product_family| 
+    @product_families[0,options[:limit]].each do |product_family| 
       if product_family.family_photo_file_name.blank?
         sub_family_content = ""
         product_family.children.each do |sub_family|
@@ -110,33 +113,44 @@ module MainHelper
             link_to(t('view_full_line'), sub_family)
         end
 
+        out += "<li>" if options[:zurb]
         out += content_tag(:div, id: product_family.to_param, class: 'product_family_feature') do
           content_tag(:h2, link_to(translate_content(product_family, :name), product_family)) +
           content_tag(:p, translate_content(product_family, :intro)) +
           link_to(t('view_full_line'), product_family) + raw(sub_family_content)
         end
+        out += "</li>" if options[:zurb]
 
       else
 
-        out += content_tag :span, class: "family_button" do
-          link_to(product_family) do
-            image_tag(product_family.family_photo.url, alt: product_family.name) + 
-            content_tag(:h3, product_family.name)
+        if options[:zurb]
+          out += content_tag :li, link_to(image_tag(product_family.family_photo.url, alt: product_family.name), product_family)
+        else
+          out += content_tag :span, class: "family_button" do
+            link_to(product_family) do
+              image_tag(product_family.family_photo.url, alt: product_family.name)
+            end
           end
         end
 
       end
     end
 
-    unless @product_families.length > 3 
+    unless @product_families.length == options[:limit] 
       if @current_promotions.count > 0
+        out += "<li>" if options[:zurb]
         out += link_to(image_tag("#{website.folder}/#{I18n.locale}/promotions.png", alt: "promotions"), promotions_path)
+        out += "</li>" if options[:zurb]
       elsif website.brand.name.match(/digitech/i)
+        out += "<li>" if options[:zurb]
         out += link_to(image_tag("#{website.folder}/#{I18n.locale}/community.png", alt: "community"), community_path)
+        out += "</li>" if options[:zurb]
       end
     end
   
+    out += "</ul>" if options[:zurb]
     out.to_s.html_safe
   end
   
 end
+

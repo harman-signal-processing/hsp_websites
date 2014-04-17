@@ -169,17 +169,45 @@ module ProductsHelper
   # These are the actual main tab contents
   def draw_main_tabs_content(product, options={})
     main_tabs = (options[:tabs]) ? parse_tabs(options[:tabs], product) : product.main_tabs
-    ret = ""
+
+    ret = "<div class=\"section-container auto\" data-section>"
+
     main_tabs.each_with_index do |product_tab,i|
-      if options[:active_tab]
-        hidden = (product_tab.key == options[:active_tab]) ? "" : "display: none;"
+
+      if options[:zurb]
+
+        content = content_tag(:p, class: 'title', data: {:"section-title" => true}) do 
+          link_to(tab_title(product_tab, product: product), "##{product_tab.key}")
+        end
+
+        content += content_tag(:div, id: "#{product_tab.key}_content", class: "product_main_tab_content content", data: {:"section-content" => true}) do
+          render_partial("products/#{product_tab.key}", product: product)
+        end
+
+        if options[:active_tab]
+          active_class = (product_tab.key == options[:active_tab]) ? "active" : ""
+        else
+          active_class = (i == 0) ? "active" : ""
+        end
+
+        ret += content_tag(:section, content, class: active_class)
+
       else
-        hidden = (i == 0) ? "" : "display: none;"
+
+        if options[:active_tab]
+          hidden = (product_tab.key == options[:active_tab]) ? "" : "display: none;"
+        else
+          hidden = (i == 0) ? "" : "display: none;"
+        end
+
+        ret += content_tag(:div, id: "#{product_tab.key}_content", style: hidden, class: "product_main_tab_content") do
+          render_partial("products/#{product_tab.key}", product: product)
+        end
+
       end
-      ret += content_tag(:div, id: "#{product_tab.key}_content", style: hidden, class: "product_main_tab_content") do
-               render_partial("products/#{product_tab.key}", product: product)
-             end
     end
+
+    ret += "</div>"
     raw(ret)
   end
 

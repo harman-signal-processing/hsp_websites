@@ -89,6 +89,7 @@ img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 	}
 	#main_container {
 		min-height: 500px;
+		padding-bottom: 100px;
 	}
 }
 @media only screen and (max-width: 720px) {
@@ -563,21 +564,26 @@ div.compare_button {
 #viewer_container {
 	margin: 10px 0px;
 	background: white;
-	display: table;
-	width: 100%;
 }
 @media only screen and (min-width: 720px) {
 	#viewer_container {
-		margin: 80px 0px;
+		margin: 20px 0px 40px;
+		height: 280px;
+		display: table;
+		width: 100%;
+	}
+	#viewer {
+	   display: table-cell;
+	   text-align: center;
+	   vertical-align: middle;
 	}
 }
 @media only screen and (max-width: 720px) {
 	#viewer_container {
-		margin: 10px 0px;
+		margin: 40px 0px;
 	}
 }
 .larger_tag {
-	text-align: left;
 	margin-left: 0px;
 	font-size: 90%;
 	color: #777;
@@ -606,7 +612,12 @@ ul#discontinued_product_thumbnails {
 		padding: 6px;
 	}
 }
-
+.product_main_tab_content {
+	margin-bottom: 20px;
+	ul {
+		margin-left: 30px;
+	}
+}
 #description {
 	text-align: left;
 	margin-top: 10px;
