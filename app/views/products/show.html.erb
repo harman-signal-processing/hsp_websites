@@ -102,7 +102,7 @@ set_meta_tags title: @product.name,
 		
 		<%= links_to_current_promotions(@product) %>
 		<%= draw_packaging_boxes @product %>
-		<%= draw_info_boxes @product %>
+		<%= draw_info_boxes @product, hide_on_load: false %>
 		<%#= render 'shared/add_this' %>
 		<div>
 			<%#= render_partial "shared/newsletter_signup" %>

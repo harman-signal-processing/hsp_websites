@@ -9,17 +9,24 @@
 *= require label_sheets
 *= require_self
 */
+
+$medium_blue: #516fab;
+$dark_blue: #14277c;
+$darkest_blue: #000f40;
+
 img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 
 body {
 	font: {
 		family: Helvetica, "Lucida Sans", Arial, Verdana, Sans-serif;
-		size: 13px;
+		size: 14px;
+		weight: 200;
+		color: #333;
 	}
 	line-height: 1.4;
 	color: #FFF;
-	background: #000f40 asset-data-url('digitech/homepageBG.png') repeat-x;
-	letter-spacing: 0.02em;
+	background: $darkest_blue asset-data-url('digitech/homepageBG.png') repeat-x;
+	//letter-spacing: 0.02em;
 }
 @font-face {
 	font-family: 'Scriber';
@@ -42,7 +49,10 @@ p {
 	line-height: 18px;
 }
 a:link, a:visited {
-	color: blue;
+	color: darken($medium_blue, 20%);
+}
+a:hover {
+	color: $medium_blue;
 }
 li {
 	margin-bottom: 6px;
@@ -54,7 +64,7 @@ h1 {
 	margin-bottom: 8px;
 	padding: 0px;
 	color: #FFF;
-	letter-spacing: -0.05em;
+	//letter-spacing: -0.05em;
 	&.page_title {
 		text-align: center;
 	}
@@ -65,7 +75,7 @@ h2 {
 	margin-bottom: 8px;
 	padding: 0px;
 	color: #FFF;
-	letter-spacing: -0.04em;
+	//letter-spacing: -0.04em;
 	a:link, a:visited {
 		text-decoration: none;
 		color: #222;
@@ -135,62 +145,60 @@ div#locale_container {
 }
 header#main_header {
 	width: 960px;
-	margin: 16px auto 0px;
+	margin: 26px auto 10px;
 	position: relative;
 	z-index: 5000;
 }
 nav#topnav {
 	float: right;
-	border: 1px solid #a2b6ca;
+	border: 1px solid darken($medium_blue, 8%);
 	background: {
-		image: asset-data-url('digitech/topmenuBG.png');
+		color: $medium_blue;
+		//image: asset-data-url('digitech/topmenuBG.png');
 		repeat: repeat-x;
 		position: center;
 	}
 	height: 23px;
 	width: 770px;
 	margin-top: 3px;
-	padding-top: 6px;
+	padding-top: 8px;
 	padding-left: 2px;
-	font-size: 12px;
+	font-size: 11px;
+	font-weight: 200;
 	text-transform: uppercase;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	border-radius: 8px;
-	box-shadow: 1px 2px 3px #222;
 	li {
 		display: inline;
 		list-style: none;
+		padding: 9px 3px 9px 6px;
 		a:link, a:visited {
-			border-right: 1px solid #a2b6ca;
-			padding: 2px 7px 3px 7px;
-			color: white;
+			padding: 9px 1px 9px 1px;
+			color: lighten($medium_blue, 80%);
 			text-decoration: none;
-			margin-top: 2px;
-			font-family: 'Scriber';
+			margin: 0px;
+			//font-family: 'Scriber';
 		}
 		a:hover {
-			text-decoration: underline;
+				color: white;
+		}
+		&:hover {
+			background-color: darken($medium_blue, 6%);
 		}
 	}
 }
 
 header#main_header div#search_form {
 	position: absolute;
-	top: 9px;
+	top: 10px;
 	right: 10px;
 	width: 130px;
 	input#query {
-		background: #14277c asset-data-url('digitech/searchMagGlass.png') no-repeat right;
+		background: $dark_blue asset-data-url('digitech/searchMagGlass.png') no-repeat right;
 		color: white;
 		border: 1px solid #000f40;
 		width: 110px;
 		padding-left: 4px;
 		padding-right: 16px;
 		font-size: 12px;
-		-webkit-border-radius: 8px;
-		-moz-border-radius: 8px;
-		border-radius: 8px;
 	}
 }
 
@@ -198,9 +206,6 @@ div#content_container {
 	width: 960px;
 	margin-left: auto;
 	margin-right: auto;
-	-webkit-box-shadow: 0px 2px 20px #00061D;
-    -moz-box-shadow: 0px 2px 20px #00061D;
-	box-shadow: 0px 2px 20px #00061D;
 }
 div#content_container_content {
 	padding: 10px;
@@ -208,9 +213,6 @@ div#content_container_content {
 .internal_page {
 	background: #FEFFFF;
 	color: black;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
 	min-height: 350px;
 	h1, h2 {
 		color: #222;
@@ -222,18 +224,12 @@ div#logo {
 	margin-left: 10px;
 }
 div#big_bottom_box_container {
-	background-color: #00092a;
+	//background-color: $dark_blue;
 	color: white;
-	margin: 20px auto 5px auto;
+	margin: 60px auto 40px auto;
 	width: 960px;
-	border: 1px solid #192955;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
+	//border: 1px solid #192955;
 	padding-bottom: 10px;
-	-webkit-box-shadow: 0px 2px 20px #00061D;
-	-moz-box-shadow: 0px 2px 20px #00061D;
-	box-shadow: 0px 2px 20px #00061D;
 	h3 {
 		font-size: 16px;
 	}
@@ -257,7 +253,7 @@ div#big_bottom_box_content {
 }
 footer {
 	width: 940px;
-	margin: 10px auto;
+	margin: 40px auto 10px;
 	font-size: 10px;
 	font-family: Arial, Helvetica, Sans-serif;
 	color: #fff;
@@ -332,7 +328,7 @@ div.two_column_container {
 /**** Main ******/
 #feature_spacer {
 	position: relative;
-	height: 380px;
+	height: 400px;
 }
 #feature_bg {
 	position: absolute;
@@ -351,8 +347,8 @@ div#feature_container {
 	position: relative;
 	width: 960px;
 	text-align: center;
-	margin: 10px auto 0px;
-	height: 360px;
+	margin: 20px auto 0px;
+	height: 380px;
 	z-index: 300;
 }
 div.slideshow_frame {
@@ -395,6 +391,7 @@ div#middle_container {
 	margin-left: auto;
 	margin-right: auto;
 	padding-left: 11px;
+	margin-bottom: 70px;
 }
 div.product_family_feature {
 	background: #FFF;
@@ -405,9 +402,6 @@ div.product_family_feature {
 	height: 275px;
 	float: left;
 	text-align: left;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
 	color: #000;
 	h3 {
 		border-top: 1px dotted #666;
@@ -446,9 +440,6 @@ div#signup {
 .small_product_boxepedal,
 .small_product_boxhardwire {
 	background: white;
-	-webkit-border-radius: 6px;
-	-moz-border-radius: 6px;
-	border-radius: 6px;
 	border: 1px solid #CCC;
 	padding: 6px;
 	text-align: center;	
@@ -468,8 +459,6 @@ div#signup {
 }
 .small_product_boxvocalist {
 	background: white asset-url('vocalist/title_bg.png', image) repeat-x;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
 	border: 1px solid #5b252a;
 	padding: 6px;
 	text-align: center;	
@@ -479,7 +468,6 @@ div#signup {
 	margin: 6px;
 	position: relative;
 	color: 666;
-	box-shadow: #DBD4C7 1px 2px 5px;
 	position: relative;
 	.compare_checkbox {
 		position: absolute;
@@ -554,9 +542,9 @@ div#product_content {
 				size: 40px;
 			}
 			text-align: center;
-			text-shadow: 1px 2px 3px #3b4b85;
+
 			color: #fff;
-			background: #516fab;
+			background: $dark_blue;
 			padding: 8px 6px 2px 6px;
 			margin-bottom: 2px;
 		}
@@ -625,7 +613,7 @@ ul#product_main_tabs {
 	margin: 0px -10px 8px -10px;
 	padding: 0;
 	padding-left: 2px;
-	border-bottom: 1px solid #E6E6E6;
+	border-bottom: 1px solid lighten($medium_blue, 30%);
 	height: 47px;
 	/*background: asset-data-url('lexicon/light_gray_gradient_reversed.png') repeat-x bottom;*/
 	li {
@@ -634,12 +622,12 @@ ul#product_main_tabs {
 		a:link, a:visited {
 			display: block;
 			padding: 4px 10px;
-			border: 1px solid #E6E6E6;
+			border: 1px solid lighten($medium_blue, 30%);
 			border-bottom: none;
 			color: #666;
 			text-decoration: none;
 			text-transform: uppercase;
-			font-family: 'Scriber';
+			//font-family: 'Scriber';
 			background: white;
 		}
 		a:hover {
@@ -717,17 +705,17 @@ div#sub_products {
 		padding: 0;
 		font-size: 16px;
 		a:link, a:visited {
-			color: #1a2b73; /*#040437;*/
+			color: $medium_blue; /*#040437;*/
 			//background: #f1fbfe asset-data-url('digitech/tabbg.png');
-			background: #f1fbfe asset-data-url('icons/expand-dark.png') no-repeat;
+			background: lighten($medium_blue, 30%) asset-data-url('icons/expand-dark.png') no-repeat;
 			background-position: 8px;
 			display: block;
-			border: 1px solid #7086bb;
+			border: 1px solid lighten($medium_blue, 30%);
 			padding-left: 21px;
 			padding-top: 2px;
 		}
 		a:hover {
-			background: #1a2b73 asset-data-url('icons/expand.png') no-repeat; /*#040437;*/
+			background: lighten($medium_blue, 10%) asset-data-url('icons/expand.png') no-repeat; /*#040437;*/
 			background-position: 8px;
 			color: white;			
 		}
@@ -778,7 +766,7 @@ div#sub_products {
 
 #product_packaging_contents {
 	clear: both;
-	border: 1px solid #7086bb;
+	border: 1px solid lighten($medium_blue, 30%);
 	margin-bottom: 10px;
 	padding: 16px 21px;
 	height: 230px;
@@ -797,9 +785,6 @@ h2.special_offer {
 		display: block;
 		background: #009933;
 		color: white;
-		-webkit-border-radius: 8px;
-		-moz-border-radius: 8px;
-		border-radius: 8px;
 	}
 	a:hover {
 		background: #33ff33;
@@ -809,7 +794,7 @@ h2.special_offer {
 	margin: 0px 3px 12px;
 }
 .product_tab_content {
-	border: 1px solid #7086bb;
+	border: 1px solid lighten($medium_blue, 30%);
 	padding: 10px;
 	width: 353px;
 	margin-left: auto;
@@ -817,6 +802,7 @@ h2.special_offer {
 	margin-top: -1px;
 	max-height: 230px;
 	overflow: auto;
+	font-size: 90%;
 }
 table.specs {
 	border-collapse: collapse;
@@ -870,9 +856,6 @@ div#product_buy_now_box {
 	height:380px;
 	z-index: 9002;
 	border: 6px solid white;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	border-radius: 8px;
 	padding: 12px;
 	opacity: 0.9;
 	filter:alpha(opacity=90);
@@ -909,9 +892,6 @@ div#dealer_lookup_floater {
 	background: #556A8F;
 	color: #FFF;
 	padding: 8px 12px 2px 18px;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	border-radius: 8px;
 	margin-bottom: 6px;
 	a:link, a:visited {
 		color: white;
@@ -1113,7 +1093,7 @@ ol#search_results {
 		background: #f9f9f9;
 		border: 1px solid #ECECEC;
 		width: 280px;
-		height: 120px;
+		height: 180px;
 		overflow: hidden;
 		float: left;
 		padding: 8px;
@@ -1276,8 +1256,6 @@ div#software-page-content {
 			text-align: center; 
 			background: #EEE; 
 			padding: 20px 20px 10px 20px;
-			-moz-border-radius: 8px;
-			border-radius: 8px;
 		}
 		div#signup {
 			text-align: center; 
@@ -1306,9 +1284,6 @@ table.tube {
     height: 380px;
     background: #222;
 	padding: 2px;
-	-webkit-border-radius: 6px;
-	-moz-border-radius: 6px;
-	border-radius: 6px;
 	h2 {
 		margin-left: 6px;
 		img {
@@ -1362,9 +1337,6 @@ table.tube {
 		display: block;
 		background: #5A89CC;
 		padding: 1px 6px 3px 6px;
-		-webkit-border-radius: 6px;
-		-moz-border-radius: 6px;
-		border-radius: 4px;
 		&:hover {
 			color: white;
 			text-decoration: none;
@@ -1488,9 +1460,6 @@ blockquote {
 	background: linear-gradient(top,  rgba(18,31,83,1) 0%,rgba(13,17,62,0.04) 96%,rgba(13,17,62,0) 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#121f53', endColorstr='#000d113e',GradientType=0 );
 	border: 1px solid #2c3868;
-	-webkit-border-radius: 6px;
-	-moz-border-radius: 6px;
-	border-radius: 6px;	
 }
 #artist_login_container {
 	position: absolute;
@@ -1597,7 +1566,6 @@ ul.graphic li a.sm2_link {
  min-height:12px;
  vertical-align: middle;
  background-color:#666;
- border-radius:3px;
  padding:1px 2px 0px 19px;
  min-width:3em;
  _width:3em; /* IE 6 */

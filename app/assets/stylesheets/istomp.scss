@@ -2,16 +2,18 @@ $font_family: Helvetica, arial, verdana, sans-serif;
 $divider: asset-url('digitech/gray_horizontal_divider.png', image);
 
 body {
-	background: #e6e6e6 asset-url('digitech/gray_page_bg.jpg', image) repeat-x;
+	background: white;
 }
 nav#topnav {
-	border: 1px solid #999;
-	background-image: asset-data-url('digitech/gray_topmenu_bg.png');
-	box-shadow: 1px 2px 3px #999;
+	border: 1px solid #ddd;
+	//background-image: asset-data-url('digitech/gray_topmenu_bg.png');
+	background-color: #CCC;
 	li {
 		a:link, a:visited {
-			border-right: 1px solid #999;
 			color: #111;
+		}
+		&:hover {
+			background: #999;
 		}
 	}
 }
@@ -19,7 +21,7 @@ nav#topnav {
 header#main_header div#search_form input#query {
 	background: #f0f0f0 asset-data-url('digitech/searchMagGlass_blk.png') no-repeat right;
 	color: #111;
-	border: 1px solid #FFF;
+	border: none;
 }
 
 div#content_container {
@@ -313,12 +315,7 @@ section#product_content {
 		color: white;
 		font-size: 16px;
 		padding: 10px 20px;
-		-webkit-border-radius: 10px;
-		-moz-border-radius: 10px;
-		border-radius: 10px;
-		-webkit-box-shadow: 0px 2px 16px #111;
-		-moz-box-shadow: 0px 2px 16px #111;
-		box-shadow: 0px 2px 16px #111;			
+		
 	}
 	#feature_pop {
 		position: absolute;
@@ -329,12 +326,6 @@ section#product_content {
 		padding: 10px 20px;
 		width: 500px;
 		height: 350px;
-		-webkit-border-radius: 10px;
-		-moz-border-radius: 10px;
-		border-radius: 10px;
-		-webkit-box-shadow: 0px 2px 16px #111;
-		-moz-box-shadow: 0px 2px 16px #111;
-		box-shadow: 0px 2px 16px #111;
 		div#pop_content {
 			position: relative;
 			color: white;
@@ -572,7 +563,6 @@ form.callout {
 	margin: 30px 40px 40px 40px;
 	background: #EEE;
 	box-shadow: 0px 2px 5px #AAA;
-	border-radius: 8px;
 	padding: 20px 26px;
 	label {
 		display: block;
@@ -627,10 +617,9 @@ a.button {
 		font-size: 15px;
 		background: #e12029;
 		color: white;
-		padding: 4px 14px;
+		padding: 5px 14px 4px;
 		text-decoration: none;
 		text-shadow: 0px 1px 0px #63090d;
-		border-radius: 6px;
 		box-shadow: 0px 2px 4px #999;
 	}
 	&:hover {
