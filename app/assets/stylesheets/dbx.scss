@@ -18,7 +18,7 @@ body {
 	font-size: 12px;
 	line-height: 1.4;
 	color: #FFF;
-	background: #4c4c4c asset-url('dbx/page_bg.gif') repeat-x;
+	background: #4c4c4c asset-url('dbx/page_bg.gif', image) repeat-x;
 	background-position: middle;
 	height: 100%;
 	letter-spacing: 0.02em;
@@ -205,7 +205,7 @@ div#locale_container {
 	top: 0px;
 	left: 0px;
 	padding: 2px 3px 0px;
-  background: asset-url('dark-gray-80.png');
+  background: asset-url('dark-gray-80.png', image);
 	z-index: 999;
 	a {
 		text-decoration: none;
@@ -596,7 +596,7 @@ div#signup h2 {
 	overflow: hidden;
 	padding: 4px 6px;
 	margin: 5px;
-	background: #EEE asset-url('lexicon/light_gray_gradient.png') repeat-x;
+	background: #EEE asset-url('lexicon/light_gray_gradient.png', image) repeat-x;
 	h2 {
 		color: #444;
 		font-size: 21px;
@@ -988,7 +988,7 @@ ul#product_main_tabs {
 	padding-left: 2px;
 	border-bottom: 1px solid #E6E6E6;
 	height: 47px;
-	background: asset-url('lexicon/light_gray_gradient_reversed.png') repeat-x bottom;
+	background: asset-url('lexicon/light_gray_gradient_reversed.png', image) repeat-x bottom;
 	li {
 		float: left;
 		margin: 21px 6px 0px;
@@ -1036,7 +1036,7 @@ ul#product_main_tabs {
 		a:link, a:visited {
 			color: #777;
 			border-bottom: 1px solid #E6E6E6;
-			background: #FFF asset-url('lexicon/browse_products_arrow.png') no-repeat;
+			background: #FFF asset-url('lexicon/browse_products_arrow.png', image) no-repeat;
 			background-position: 4px 9px;
 			display: block;
 			padding-left: 19px;
@@ -1075,7 +1075,7 @@ ul#product_main_tabs {
 			}
 		}
 		&.current a {
-			background: #E6E6E6 asset-url('tabbg.png');
+			background: #E6E6E6 asset-url('tabbg.png', image);
 			border: 1px solid #E6E6E6;
 			border-bottom: none;
 			padding-bottom: 8px;
@@ -1353,7 +1353,7 @@ ol#search_results {
 		margin-left: 20px;
 	}
 	.support_box {
-		background: #ECECEC asset-url('lexicon/light_gray_gradient.png') repeat-x;
+		background: #ECECEC asset-url('lexicon/light_gray_gradient.png', image) repeat-x;
 		border: 1px solid #CCCCCC;
 		width: 280px;
 		height: 140px;

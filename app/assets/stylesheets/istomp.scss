@@ -6,7 +6,7 @@ body {
 }
 nav#topnav {
 	border: 1px solid #ddd;
-	//background-image: asset-url('digitech/gray_topmenu_bg.png');
+	//background-image: asset-url('digitech/gray_topmenu_bg.png', image);
 	background-color: #CCC;
 	li {
 		a:link, a:visited {
@@ -19,7 +19,7 @@ nav#topnav {
 }
 
 header#main_header div#search_form input#query {
-	background: #f0f0f0 asset-url('digitech/searchMagGlass_blk.png') no-repeat right;
+	background: #f0f0f0 asset-url('digitech/searchMagGlass_blk.png', image) no-repeat right;
 	color: #111;
 	border: none;
 }

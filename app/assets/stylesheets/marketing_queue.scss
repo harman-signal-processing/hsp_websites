@@ -99,16 +99,16 @@ div#main {
   min-height: 400px;
 }
 div.main-container {
-  background: asset-url('white-90.png');
+  background: asset-url('white-90.png', image);
   margin: 0px 0px;
   padding: 10px 20px;
   box-shadow: 1px 2px 3px #eee;
 }
 div.content-container {
-  background: asset-url('white-90.png');
+  background: asset-url('white-90.png', image);
 }
 ul.breadcrumbs {
-  background: asset-url('white-90.png');
+  background: asset-url('white-90.png', image);
 }
 #overview {
   height: 206px;
@@ -170,7 +170,7 @@ ol {
 }
 @media only screen and (min-width: 980px) {
   div.content-container {
-    background: asset-url('light-gray-50.png');
+    background: asset-url('light-gray-50.png', image);
   }
   input[type='submit'] {
     margin-top: 20px;
@@ -233,7 +233,7 @@ div.comment {
   }
 }
 div.tip {
-  background: asset-url('queue/girl-idea-icon.png') no-repeat 0px 14px;
+  background: asset-url('queue/girl-idea-icon.png', image) no-repeat 0px 14px;
   padding: 12px 10px 10px 66px;
   p {
     font-size: 80%;
