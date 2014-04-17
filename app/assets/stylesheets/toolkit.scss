@@ -123,10 +123,10 @@ div#main {
   }
 }
 div.content-container {
-  background: asset-data-url('white-90.png');
+  background: asset-url('white-90.png', image);
 }
 ul.breadcrumbs {
-  background: asset-data-url('white-90.png');
+  background: asset-url('white-90.png', image);
 }
 div.description {
   border: 1px solid #CCC;
@@ -154,7 +154,7 @@ div.image-container {
   }
 }
 footer {
-  background: asset-data-url('dark-gray-80.png');
+  background: asset-url('dark-gray-80.png', image);
   padding-bottom: 20px;
   color: #999;
   text-shadow: 0px 1px 1px #000;
@@ -182,7 +182,7 @@ footer {
     margin-left: 200px;
   }
   div.content-container {
-    background: asset-data-url('light-gray-50.png');
+    background: asset-url('light-gray-50.png', image);
   }
 }
 

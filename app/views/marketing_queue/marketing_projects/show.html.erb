@@ -150,14 +150,26 @@
 			was <%=l @marketing_project.due_on, format: :short %>.
 			<% end %>
 		<% end %>
+		</p>
+
 		<% if @marketing_project.event_start_on.present? %>
-			The project is related to an event which takes place <%=l @marketing_project.event_start_on, format: :month_day %> 
+			<p>
+			The project is related to 
+			<% if @marketing_project.marketing_calendar %>
+				<%= link_to [:marketing_queue, @marketing_project.marketing_calendar] do %>
+					<%= @marketing_project.marketing_calendar.name.match(/^[aeiou]/i) ? "an" : "a" %>
+					<%= @marketing_project.marketing_calendar.name %>
+				<% end %>
+			<% else %>
+				an event 
+			<% end %>
+			which takes place <%=l @marketing_project.event_start_on, format: :month_day %> 
 				<% if @marketing_project.event_end_on.present? %>
 					thru <%=l @marketing_project.event_end_on, format: :month_day %>
 				<% end %>
-				.
+				.</p>
 		<% end %>
-		</p>
+
 		<% if @marketing_project.estimated_cost.present? %>
 			<p>Estimated cost: <%= number_to_currency @marketing_project.estimated_cost %></p>
 		<% end %>

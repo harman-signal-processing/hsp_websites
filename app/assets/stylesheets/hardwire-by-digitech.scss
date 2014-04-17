@@ -15,7 +15,7 @@ body {
 	font-size: 12px;
 	line-height: 1.4;
 	color: #FFF;
-	background: #2a3333 asset-data-url('hardwire/page_bg.png') no-repeat top center;
+	background: #2a3333 asset-url('hardwire/page_bg.png', image) no-repeat top center;
 	margin: 0;
 }
 @font-face {
@@ -129,7 +129,7 @@ nav#topnav {
 				color: #CCC;
 				text-decoration: none;
 				margin-top: 2px;
-				background: asset-data-url('digitech/hw_right_arrow.png') no-repeat;
+				background: asset-url('digitech/hw_right_arrow.png', image) no-repeat;
 				background-position: 0px 2px;
 				&.nodivider {
 					border: none;
@@ -328,7 +328,7 @@ div.product_family_feature {
 		font-size: 115%;
 		text-decoration: none;
 		padding-left: 13px;
-		background: asset-data-url('digitech/hw_right_arrow.png') no-repeat;
+		background: asset-url('digitech/hw_right_arrow.png', image) no-repeat;
 		background-position: 0px 2px;
 		letter-spacing: 0.06em;
 		text-transform: uppercase;
@@ -508,7 +508,7 @@ ul#discontinued_product_thumbnails {
 		a:link, a:visited {
 			color: #CCC;
 			border: 1px solid #444;
-			background: #191F1F asset-data-url('digitech/hw_right_arrow.png') no-repeat;
+			background: #191F1F asset-url('digitech/hw_right_arrow.png', image) no-repeat;
 			background-position: 9px 13px;
 			display: block;
 			padding-left: 22px;
@@ -548,7 +548,7 @@ ul#discontinued_product_thumbnails {
 				}
 			}
 			.current a {
-				background: #f1fbfe asset-data-url('tabbg.png');
+				background: #f1fbfe asset-url('tabbg.png', image);
 				border: 1px solid #b5d4f3;
 				border-bottom: none;
 				padding-bottom: 8px;

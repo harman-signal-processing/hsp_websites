@@ -15,7 +15,7 @@ body {
 	font-size: 12px;
 	line-height: 1.4;
 	color: #FFF;
-	background: #2a3333 asset-data-url('hardwire/page_bg.png') no-repeat top center;
+	background: #2a3333 asset-url('hardwire/page_bg.png', image) no-repeat top center;
 	margin: 0;
 }
 @font-face {
@@ -107,7 +107,7 @@ div#locale_container {
 	top: 0px;
 	left: 0px;
 	padding: 2px 3px 0px;
-  background: asset-data-url('dark-gray-80.png');
+  background: asset-url('dark-gray-80.png', image);
 	z-index: 999;
 	a {
 		text-decoration: none;
@@ -190,7 +190,7 @@ div#topnav {
 			color: #CCC;
 			text-decoration: none;
 			margin-top: 2px;
-			background: asset-data-url('hardwire/green_right_arrow.png') no-repeat;
+			background: asset-url('hardwire/green_right_arrow.png', image) no-repeat;
 			background-position: 0px 2px;
 			&.nodivider {
 				border: none;
@@ -457,7 +457,7 @@ div.product_family_feature a:visited {
 	font-size: 115%;
 	text-decoration: none;
 	padding-left: 13px;
-	background: asset-data-url('hardwire/green_right_arrow.png') no-repeat;
+	background: asset-url('hardwire/green_right_arrow.png', image) no-repeat;
 	background-position: 0px 2px;
 	letter-spacing: 0.06em;
 	text-transform: uppercase;
@@ -632,7 +632,7 @@ ul#discontinued_product_thumbnails li {
 .product_detail_box h2 a:visited {
 	color: #CCC;
 	border: 1px solid #444;
-	background: #191F1F asset-data-url('hardwire/green_right_arrow.png') no-repeat;
+	background: #191F1F asset-url('hardwire/green_right_arrow.png', image) no-repeat;
 	background-position: 9px 13px;
 	display: block;
 	padding-left: 22px;
@@ -672,7 +672,7 @@ ul#discontinued_product_thumbnails li {
 	border: 1px solid #b5d4f3;
 }
 #product_packaging_tabs li.current a {
-	background: #f1fbfe asset-data-url('tabbg.png');
+	background: #f1fbfe asset-url('tabbg.png', image);
 	border: 1px solid #b5d4f3;
 	border-bottom: none;
 	padding-bottom: 8px;
