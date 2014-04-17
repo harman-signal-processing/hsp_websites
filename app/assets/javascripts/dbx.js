@@ -16,7 +16,6 @@
 //= require jquery.lightbox-0.5.min
 //= require jquery.datetimepicker
 //= require global_functions
-//= require buy_it_now
 //= require maps
 //= require twitter
 //= require homepage
@@ -33,3 +32,11 @@ document.createElement("section");
 
 $(function(){ $(document).foundation(); });
 
+
+$(window).on('scroll', function(evt) {
+    if($(window).scrollTop() <= 0) {
+        $('.bouncing-arrow').not(':animated').fadeIn(500);
+    } else {
+        $('.bouncing-arrow').not(':animated').fadeOut(500);
+    }
+}); 

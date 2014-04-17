@@ -1,0 +1,52 @@
+<div class="container text-right bglink">
+	<%= link_to t("dealer_login"), "/toolkit", target: "_blank" %>
+</div>
+
+<div class="sticky">
+	<nav class="top-bar">
+		<ul class="title-area">
+			<li class="name logo-container"><%= link_to image_tag('dbx/logo-sm.png'), locale_root_path %></li>
+			<li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+		</ul>
+		<section class="top-bar-section">
+			<ul class="left">
+				<%= render_partial 'layouts/nav_items' %>
+			</ul>
+
+			<ul class="right">
+				<%# search is only available in default language for now...%>
+				<% if I18n.locale.to_s.match(/#{I18n.default_locale.to_s.split('-')[0]}/i) && website.value_for("enable_search") %>
+
+					<li class="has-form" id="search_form">
+						<%= form_tag search_path, method: :get %>
+							<%= text_field_tag :query, "", placeholder: t('search') %>
+						</form>
+					</li>
+				<% end %>
+			<% if website.show_locales? %>
+				<li class="has-dropdown">
+
+					<%= link_to '#', id: "locale_menu" do %>
+						<%= image_tag "icons/locale-tiny.png", alt: t('language_region') %>
+					<% end %>
+					<ul class="dropdown"> 
+						<% website.available_locales.reject{|l| l.locale.to_s == I18n.locale.to_s}.each do |website_locale| %>
+							<li><%= link_to website_locale.name, switch_locale(website_locale.locale) %></li>
+						<% end %>
+					</ul>
+				</li>
+			<% end %>
+			</ul>
+		</section>
+	</nav>
+</div>
+
+<div class="container">
+	<div class="large-1 small-12 columns">
+		<div id="supersocial">
+			<%= social_media_links 'twitter', 'facebook', 'youtube', 'myspace', 'wechat', 'weibo' %> 
+		</div>
+	</div>
+</div>
+
+

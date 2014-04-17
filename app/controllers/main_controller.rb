@@ -21,6 +21,16 @@ class MainController < ApplicationController
       @youtube = false
     end
     @features = website.features
+
+    # TODO: control featured product with a database flag.
+    @featured_product = false
+    if website.brand.name == "dbx"
+      begin
+        @featured_product = Product.find('driverack-pa2')
+      rescue
+      end
+    end
+
     respond_to do |format|
       format.html { 
         campaign = "#{website.brand.name}-#{Date.today.year}"
@@ -71,17 +81,20 @@ class MainController < ApplicationController
       @page_title += " " + t('near_zipcode', zip: params[:zip])
       begin
         @results = []
-        # Dealer.find(:all, origin: params[:zip], order: 'distance', within: 15, limit: 10).each do |d|
         count = 0
-        zip = (params[:zip].to_s.match(/^\d*$/)) ? "zipcode #{params[:zip]}" : params[:zip]
-        origin = Geokit::Geocoders::MultiGeocoder.geocode(zip)
         brand = Brand.find(website.dealers_from_brand_id || website.brand_id)
+        zip = (params[:zip].to_s.match(/^\d*$/)) ? "zipcode #{params[:zip]}" : params[:zip]
+
+        origin = Geokit::Geocoders::MultiGeocoder.geocode(zip)
         brand.dealers.near(origin: origin, within: 60).order("distance ASC").all.each do |d|
           unless count > 15 || d.exclude?
             @results << d
             count += 1
           end
         end
+
+        # @results = brand.dealers.limit(20) # for testing
+
         unless @results.size > 0
           @err = t('errors.no_dealers_found', zip: params[:zip])
         end

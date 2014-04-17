@@ -1,0 +1,89 @@
+<% set_meta_tags 	twitter: {
+		card: "summary"
+	},
+	og: {
+		image: image_url("#{website.folder}/logo.png"),
+		type: 'brand',
+		description: @website.site_name,
+		title: @website.brand.name
+	} %>
+
+<%= content_for :feature do %>
+	<video id="video_background" preload="auto" autoplay="true" loop="loop" muted volume="0">
+			<source src="/system/videos/dbx.webm" type="video/webm"/>
+			<source src="/system/videos/dbx.ogv" type="video/ogg ogv"; codecs="theora, vorbis"/>
+			<source src="/system/videos/dbx.mp4" type="video/mp4"/>			
+	</video>
+	
+	<div class="bg-gif"><img src="/system/videos/dbx.gif" /></div>
+	<div id="video_patternX" ></div>
+
+	<div class="container" id="feature_spacer"></div>
+	<div class="bouncing-arrow"></div>
+<% end %>
+
+<%= content_for :middle_stuff do %>
+	<%= cache ["homepage_features", website.brand, I18n.locale] do %>
+		<% if @features.size > 0 %>
+		<ul class="large-block-grid-<%= @features.size %> small-block-grid-<%= (@features.size / 2).to_i %>">
+			<% @features.each_with_index do |feature,i| %>
+			<li><%= feature_button(feature) %></li>
+			<% end %>
+		</ul>
+		<% end %>
+	<% end %>
+<% end %>
+
+<%= content_for :big_bottom_box do %>
+
+	<% if @featured_product %>
+
+	<div class="row" id="featured_product_container">
+		<div class="large-7 columns">
+			<div id="featured_image_container" class="hide-for-small">
+				<%= link_to(image_tag(@featured_product.photo.product_attachment.url(:original)), @featured_product) %>
+			</div>
+			<div class="show-for-small">
+				<%= link_to(image_tag(@featured_product.photo.product_attachment.url(:medium)), @featured_product) %>
+			</div>
+		</div>
+		<div class="large-5 columns">
+			<h1><%= link_to @featured_product.name, @featured_product %></h1>
+			<h3 class="subheader"><%= translate_content(@featured_product, :short_description) %></h3>
+
+			<div><%=raw translate_content(@featured_product, :brief_description) %></div>
+
+			<%= link_to 'more details', @featured_product %>
+		</div>
+	</div>
+
+	<% end %>
+
+
+	<div class="text-center">
+		<iframe width="853" height="480" src="//www.youtube.com/embed/oMwXYUDW_gM" frameborder="0" allowfullscreen></iframe>
+		<div><br/><%= link_to "more #{website.brand.name} videos...", videos_path, class: "medium secondary button" %></div>
+	</div>
+
+	<div class="row" style="margin-top: 50px;">
+		<div class="large-6 large-offset-3 columns">
+			<%#= render 'shared/column_for_news' %>
+
+		<% if website.email_signup_url %>
+			<%= render_partial 'shared/newsletter_signup' %>
+		<% end %>
+		</div>
+	</div>
+<% end %>
+
+<%= content_for :preload do %>
+	<%= preload_background_images %>
+<% end %>
+
+<%= content_for :popup_code do %>
+	<% if website.homepage_popup %>
+		<%=raw website.homepage_popup %>
+	<% end %>
+<% end %>
+
+<div id="homepage-counter" data-counter="<%= @counter %>" data-nextevent="<%= @next_event %>" data-countdowncontainer="<%= @countdown_container %>"></div>

@@ -1250,12 +1250,12 @@ $table-head-font-color: $header-font-color;
 
 // Background color for the top bar
 
-$topbar-bg-color: darken($primary-color, 7%);
+$topbar-bg-color: darken($primary-color, 12%);
 $topbar-bg: $topbar-bg-color !default;
 
 // Height and margin
 
-$topbar-height:                        33px;
+$topbar-height:                        66px;
 // $topbar-margin-bottom:                 emCalc(26px);
 
 // Control Input height for top bar
@@ -1269,9 +1269,9 @@ $topbar-title-weight:                  bold;
 
 // Style the top bar dropdown elements
 
-$topbar-dropdown-bg:                      #222;
+//$topbar-dropdown-bg:                      #222;
 // $topbar-dropdown-link-color:           #fff;
-$topbar-dropdown-link-bg:                 #444;
+//$topbar-dropdown-link-bg:                 #444;
 // $topbar-dropdown-toggle-size:          5px;
 // $topbar-dropdown-toggle-color:         #fff;
 // $topbar-dropdown-toggle-alpha:         0.5;
@@ -1325,7 +1325,16 @@ $topbar-sticky-class:                  ".sticky";
     margin-bottom: .125em;
   }
 }
+//.top-bar input, top-bar .button {
+//  top: 4px;
+//  height: 1.7em;
+//}
+
 .top-bar input, top-bar .button {
-  top: 4px;
-  height: 1.7em;
+  top: 20px;
+  height: 1.9em;
+}
+.top-bar input {
+  background-color: lighten($primary-color, 15%);
+  border: none;
 }

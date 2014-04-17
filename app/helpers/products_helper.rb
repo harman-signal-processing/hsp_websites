@@ -295,7 +295,7 @@ module ProductsHelper
   end
 
   def buy_it_now_usa(product, button, options)
-    button_class = (button.to_s.match(/img/i)) ? "" : "large button"
+    button_class = (button.to_s.match(/img/i)) ? "" : "medium button"
     if product.active_retailer_links.size > 0
       # tracker = (Rails.env.production?) ? "_gaq.push(['_trackEvent', 'BuyItNow', 'USA', '#{product.name}']);" : ""
       # link_to_function button, "#{tracker}popup('dealer_popup');"

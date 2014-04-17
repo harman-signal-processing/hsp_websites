@@ -10,16 +10,31 @@
 	<div class="large-9 columns">					
 		<h1><%= t('titles.news', brand: website.brand_name) %></h1>
 	</div>
-	<div class="large-3 columns text-right">
+	<div class="large-3 columns text-right hide-for-small">
 		<br/>
 		<%= link_to(image_tag('icons/rss.png', alt: "rss", style: "vertical-align: middle"), rss_url(format: "xml")) %>
 		<%= link_to("Subscribe via RSS", rss_url(format: "xml")) %>
 	</div>
 </div>
-<div class="content container">
+<div class="container">
 	<div class="row">
-		<div class="large-8 columns">
-			<%= render "list", news_list: @news %>
+		<div class="large-8 large-offset-2 columns news_container">
+			<% @news.each do |news| %>
+
+			  <div class="row">
+			  	<div class="large-3 columns text-center">
+					<% if !news.news_photo_file_name.blank? %>
+						<%= link_to(interchange_news_thumbnail(news), news) %>
+					<% end %>
+				</div>
+				<div class="large-9 columns">
+					<h5 class="subheader"><%=l news.post_on, format: :long %></h5>
+					<h3><%= link_to translate_content(news, :title), news_path(news, locale: I18n.locale) %></h3>
+
+				</div>
+			  </div>
+			<% end %>
+
 		</div>
 	</div>
 </div>
