@@ -190,7 +190,7 @@ div#topnav {
 			color: #CCC;
 			text-decoration: none;
 			margin-top: 2px;
-			background: asset-url('hardwire/green_right_arrow.png') no-repeat;
+			background: asset-url('hardwire/green_right_arrow.png', image) no-repeat;
 			background-position: 0px 2px;
 			&.nodivider {
 				border: none;
