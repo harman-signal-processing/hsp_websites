@@ -181,7 +181,7 @@ div#topnav {
 			color: #CCC;
 			text-decoration: none;
 			margin-top: 2px;
-			background: asset-url('dod/right_arrow.png') no-repeat;
+			background: asset-url('dod/right_arrow.png', image) no-repeat;
 			background-position: 0px 2px;
 		}
 		a:link.nodivider, a:visited.nodivider {
