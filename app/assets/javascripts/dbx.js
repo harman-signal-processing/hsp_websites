@@ -15,12 +15,14 @@
 //= require jquery-ui-1.10.4.custom.min
 //= require jquery.lightbox-0.5.min
 //= require jquery.datetimepicker
+//= require jquery.visible.min
 //= require global_functions
 //= require maps
 //= require twitter
 //= require homepage
 //= require foundation
 //= require add2home
+//= require dbx_application
 //= require_self
 
 document.createElement("article");  
@@ -33,10 +35,4 @@ document.createElement("section");
 $(function(){ $(document).foundation(); });
 
 
-$(window).on('scroll', function(evt) {
-    if($(window).scrollTop() <= 0) {
-        $('.bouncing-arrow').not(':animated').fadeIn(500);
-    } else {
-        $('.bouncing-arrow').not(':animated').fadeOut(500);
-    }
-}); 
+

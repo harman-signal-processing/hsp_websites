@@ -13,7 +13,7 @@ $primary-color: #f4212c;
 img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 
 #video_background {
-	position: absolute;
+	position: fixed;
 	bottom: 0px;
 	right: 0px;
 	min-width:100%;
@@ -25,16 +25,7 @@ img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 	z-index: -1000;
 	overflow: hidden;
 }
-#video_pattern{
-	background-image: asset-data-url('dbx/pattern.png'); 
-	position: fixed; 
-	opacity: 0.6; 
-	left: 0px; 
-	top: 0px; 
-	width: 100%; 
-	height: 100%; 
-	z-index: -999;
-}
+
 #feature_spacer {
 	position: relative;
 	height: 58%;
@@ -374,6 +365,9 @@ div#featured_product_container {
 	div#featured_product_container {
 		margin-bottom: 10px;
 		margin-top: -10px;
+		h1 {
+			font-size: 2.25em;
+		}
 	}
 
 }
@@ -385,7 +379,9 @@ div#countdown {
 	font-weight: 100;
 	font-family: "Helvetica Condensed", "Arial Narrow", Helvetica, Arial, sans-serif;
 }
-
+div#middle_features {
+	position: relative;
+}
 div.product_family_feature {
 	background: #FFF;
 	border: 1px solid #CCC;

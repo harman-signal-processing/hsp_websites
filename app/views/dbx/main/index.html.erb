@@ -24,6 +24,7 @@
 
 <%= content_for :middle_stuff do %>
 	<%= cache ["homepage_features", website.brand, I18n.locale] do %>
+	<div id="middle_features">
 		<% if @features.size > 10 %>
 		<ul class="large-block-grid-<%= @features.size %> small-block-grid-<%= (@features.size / 2).to_i %>">
 			<% @features.each_with_index do |feature,i| %>
@@ -33,6 +34,7 @@
 		<% else %>
 			<%= featured_product_families(zurb: true, limit: 5) %>
 		<% end %>
+	</div>
 	<% end %>
 <% end %>
 
@@ -43,7 +45,7 @@
 	<div class="row" id="featured_product_container">
 		<div class="large-7 columns">
 			<div id="featured_image_container" class="hide-for-small">
-				<%= link_to(image_tag(@featured_product.photo.product_attachment.url(:original)), @featured_product) %>
+				<%= link_to(image_tag(@featured_product.photo.product_attachment.url(:original), id: "featured_image"), @featured_product) %>
 			</div>
 			<div class="show-for-small">
 				<%= link_to(image_tag(@featured_product.photo.product_attachment.url(:medium)), @featured_product) %>

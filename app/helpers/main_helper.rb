@@ -104,7 +104,11 @@ module MainHelper
       @product_families << product_family unless product_family.hide_from_homepage?
     end
 
-    @product_families[0,options[:limit]].each do |product_family| 
+    pf_limit = (@current_promotions.count > 0) ? (options[:limit] - 1) : options[:limit]
+    family_count = 0
+
+    @product_families[0,pf_limit].each_with_index do |product_family, i| 
+      hide_for_small = "hide-for-small" if i == options[:limit] - 1 && !!(options[:limit] % 2)
       if product_family.family_photo_file_name.blank?
         sub_family_content = ""
         product_family.children.each do |sub_family|
@@ -113,7 +117,7 @@ module MainHelper
             link_to(t('view_full_line'), sub_family)
         end
 
-        out += "<li>" if options[:zurb]
+        out += "<li class='#{hide_for_small}'>" if options[:zurb]
         out += content_tag(:div, id: product_family.to_param, class: 'product_family_feature') do
           content_tag(:h2, link_to(translate_content(product_family, :name), product_family)) +
           content_tag(:p, translate_content(product_family, :intro)) +
@@ -124,7 +128,7 @@ module MainHelper
       else
 
         if options[:zurb]
-          out += content_tag :li, link_to(image_tag(product_family.family_photo.url, alt: product_family.name), product_family)
+          out += content_tag :li, link_to(image_tag(product_family.family_photo.url, alt: product_family.name), product_family), class: hide_for_small
         else
           out += content_tag :span, class: "family_button" do
             link_to(product_family) do
@@ -134,12 +138,19 @@ module MainHelper
         end
 
       end
+      family_count += 1
     end
 
-    unless @product_families.length == options[:limit] 
+    loc = "#{I18n.locale}" # fixes odd bug
+
+    unless family_count >= options[:limit]
       if @current_promotions.count > 0
         out += "<li>" if options[:zurb]
-        out += link_to(image_tag("#{website.folder}/#{I18n.locale}/promotions.png", alt: "promotions"), promotions_path)
+        if File.exists?(Rails.root.join("app", "assets", "images", website.folder, loc, "promotions.png"))
+          out += link_to(image_tag("#{website.folder}/#{I18n.locale}/promotions.png", alt: "promotions"), promotions_path)
+        else
+          out += content_tag(:div, link_to("#{loc} Promotions", promotions_path), class: "panel")
+        end
         out += "</li>" if options[:zurb]
       elsif website.brand.name.match(/digitech/i)
         out += "<li>" if options[:zurb]
