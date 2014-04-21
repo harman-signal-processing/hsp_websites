@@ -9,7 +9,7 @@
 	} %>
 
 <%= content_for :feature do %>
-	<video id="video_background" preload="auto" autoplay="true" loop="loop" muted volume="0">
+	<video poster="/system/videos/dbxstatic.jpg" id="video_background" preload="auto" autoplay="true" loop="loop" muted volume="0">
 			<source src="/system/videos/dbx.webm" type="video/webm"/>
 			<source src="/system/videos/dbx.ogv" type="video/ogg ogv"; codecs="theora, vorbis"/>
 			<source src="/system/videos/dbx.mp4" type="video/mp4"/>			
@@ -55,9 +55,9 @@
 			<h1><%= link_to @featured_product.name, @featured_product %></h1>
 			<h3 class="subheader"><%= translate_content(@featured_product, :short_description) %></h3>
 
-			<div><%=raw translate_content(@featured_product, :brief_description) %></div>
+			<p><%=raw translate_content(@featured_product, :short_description_4) %></p>
 
-			<%= link_to 'more details', @featured_product %>
+			<%= link_to 'more details...', @featured_product, class: "small secondary button" %>
 		</div>
 	</div>
 

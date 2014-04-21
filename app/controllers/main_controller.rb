@@ -22,14 +22,7 @@ class MainController < ApplicationController
     end
     @features = website.features
 
-    # TODO: control featured product with a database flag.
-    @featured_product = false
-    if website.brand.name == "dbx"
-      begin
-        @featured_product = Product.find('driverack-pa2')
-      rescue
-      end
-    end
+    @featured_product = website.featured_product
 
     respond_to do |format|
       format.html { 

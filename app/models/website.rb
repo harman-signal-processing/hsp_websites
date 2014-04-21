@@ -94,6 +94,14 @@ class Website < ActiveRecord::Base
     end
   end
 
+  def featured_product
+    begin
+      self.brand.respond_to?(:featured_product) ? Product.find(self.brand.featured_product) : false
+    rescue
+      false
+    end
+  end
+
   def product_families
     @product_families ||= ProductFamily.all_with_current_or_discontinued_products(self, I18n.locale)
   end

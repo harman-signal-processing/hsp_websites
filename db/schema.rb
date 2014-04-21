@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140409172403) do
+ActiveRecord::Schema.define(:version => 20140421181220) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -1067,6 +1067,10 @@ ActiveRecord::Schema.define(:version => 20140409172403) do
     t.boolean  "hide_buy_it_now_button"
     t.string   "more_info_url"
     t.integer  "parent_products_count",         :default => 0,     :null => false
+    t.string   "short_description_1"
+    t.string   "short_description_2"
+    t.string   "short_description_3"
+    t.string   "short_description_4"
   end
 
   add_index "products", ["brand_id", "product_status_id"], :name => "index_products_on_brand_id_and_product_status_id"

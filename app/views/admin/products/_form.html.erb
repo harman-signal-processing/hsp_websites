@@ -30,10 +30,25 @@
 
 <div class="row">
 	<div class="large-6 columns">
-		<%= f.input :short_description, as: :string %>
+		<%= f.input :short_description, label: "Sub-title", as: :string %>
 	</div>
 </div>
-
+<div class="row">
+	<div class="large-6 columns">
+		<%= f.input :short_description_1, label: "25 character description", as: :text, input_html: {class: "limited", data: {charlimit: 25}} %>
+	</div>
+	<div class="large-6 columns">
+		<%= f.input :short_description_2, label: "50 character description", as: :text, input_html: {class: "limited", data: {charlimit: 50}} %>
+	</div>
+</div>
+<div class="row">
+	<div class="large-6 columns">
+		<%= f.input :short_description_3, label: "75 character description", as: :text, input_html: {class: "limited", data: {charlimit: 75}} %>
+	</div>
+	<div class="large-6 columns">
+		<%= f.input :short_description_4, label: "100 character description", as: :text, input_html: {class: "limited", data: {charlimit: 100}} %>
+	</div>
+</div>
 
   <%= f.input :description, input_html: { class: "mceEditor", style: "height: 400px;"} %><br/>
   <% if @product.layout_class == 'epedal' %> <span class="small"> For epedals, only provide the first paragraph description here.</span><% end %>
