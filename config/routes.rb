@@ -236,6 +236,9 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :news do
         member { put :notify }
       end
+      resources :softwares do 
+        collection { post :upload }
+      end
       resources :service_centers, 
         :software_training_classes,
         :product_training_classes,
@@ -284,7 +287,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :demo_songs,
         :rso_panels,
         :rso_pages,
-        :softwares,
         :cabinets,
         :websites,
         :captchas,

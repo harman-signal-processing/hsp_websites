@@ -37,6 +37,16 @@ class Admin::SoftwaresController < AdminController
   def edit
   end
 
+  # POST /admin/softwares/upload
+  # Callback after uploading a file directly to S3. Adds the temporary S3 path
+  # to the form before creating new software.
+  def upload
+    @direct_upload_url = params[:direct_upload_url]
+    respond_to do |format|
+      format.js
+    end
+  end
+
   # POST /admin/softwares
   # POST /admin/softwares.xml
   def create

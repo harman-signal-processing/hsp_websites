@@ -1,4 +1,28 @@
+<%= s3_uploader_form callback_url: upload_admin_softwares_url,
+    id: "s3_uploader",
+    callback_param: "direct_upload_url",
+    expiration: 24.hours.from_now.utc.iso8601,
+    max_file_size: 900.megabytes do %>
+      <div class="row">
+        <div class="large-5 columns">
+          <%= label_tag :file, "Start the file upload before filling out the rest of the form:" %>
+          <%= file_field_tag :file %>
+        </div>
+        <div class="large-7 columns" id="software_progress">
+          <div id="uploads_container"></div>
+          <script id="template-upload" type="text/x-tmpl">
+          <div id="upload_{%=o.unique_id%}" class="upload">
+            {%=o.name%}
+            <div class="progress success progress-striped active"><span class="bar meter" style="width: 0%"></span></div>
+            <div id="upload_instruct" class="hint">Wait for the upload to complete before submitting the form.</div>
+          </div>
+          </script>
+        </div>
+      </div>
+<% end %>
+
 <%= simple_form_for([:admin, @software], html: {multipart: true}) do |f| %>
+  <%= f.input :direct_upload_url, as: :hidden %>
 
   <div class="row">
     <div class="large-8 columns">
@@ -24,8 +48,12 @@
           <%= f.input :bit, hint: "(32, 64, leave blank if not applicable)" %>
         </div>
       </div>          
-    <%= f.input :ware, label: "Software" %>
-    <%= f.input :link, label: "Or provide a link" %>
+
+      <div class="row">
+        <div class="large-6 columns">
+          <%= f.input :link, label: "Link to app store (if not uploading the file above)" %>
+        </div>
+      </div>
     </div>
   </div>    
 

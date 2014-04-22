@@ -11,11 +11,11 @@ class RegisteredDownload < ActiveRecord::Base
   validates :per_download_limit, numericality: {greater_than: 0}
   
   has_attached_file :protected_software, 
-    bucket: S3_CREDENTIALS['protected_bucket'],
+    bucket: Rails.configuration.aws[:protected_bucket],
     s3_host_alias: nil,
     path: ":class/:attachment/:id_:timestamp/:basename.:extension", 
     storage: :s3,
-    s3_credentials: S3_CREDENTIALS,
+    s3_credentials: Rails.configuration.aws,
     url: ':s3_alias_url'
 
   do_not_validate_attachment_file_type :protected_software
