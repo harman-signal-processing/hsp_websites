@@ -27,6 +27,7 @@ gem 'aws-sdk', '~> 1.0'
 gem 'fog' # for rackspace cloud files
 gem "paperclip" #, "~> 3.0"
 gem 'paperclip-meta'
+gem 's3_direct_upload'
 gem 'meta-tags', require: 'meta_tags'
 gem 'tinymce-rails', '~> 3.5'
 

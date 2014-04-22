@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140421181220) do
+ActiveRecord::Schema.define(:version => 20140422154514) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -1380,6 +1380,8 @@ ActiveRecord::Schema.define(:version => 20140421181220) do
     t.integer  "current_version_id"
     t.string   "bit"
     t.boolean  "active_without_products"
+    t.string   "direct_upload_url"
+    t.boolean  "processed",               :default => false
   end
 
   add_index "softwares", ["cached_slug"], :name => "index_softwares_on_cached_slug", :unique => true

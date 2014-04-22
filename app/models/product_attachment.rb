@@ -19,8 +19,8 @@ class ProductAttachment < ActiveRecord::Base
       soundcomm: "-gravity center -extent 160x160"
     }, 
     storage: :s3,
-    bucket: S3_CREDENTIALS['bucket'],
-    s3_credentials: S3_CREDENTIALS,
+    bucket: Rails.configuration.aws[:bucket],
+    s3_credentials: Rails.configuration.aws,
     s3_host_alias: S3_CLOUDFRONT,
     url: ':s3_alias_url',
     path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
@@ -28,15 +28,15 @@ class ProductAttachment < ActiveRecord::Base
 
   has_attached_file :product_media, 
     storage: :s3,
-    bucket: S3_CREDENTIALS['bucket'],
-    s3_credentials: S3_CREDENTIALS,
+    bucket: Rails.configuration.aws[:bucket],
+    s3_credentials: Rails.configuration.aws,
     s3_host_alias: S3_CLOUDFRONT,
     url: ':s3_alias_url',
     path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
   has_attached_file :product_media_thumb, styles: {thumb: "100x100>", tiny: "64x64>"}, 
     storage: :s3,
-    bucket: S3_CREDENTIALS['bucket'],
-    s3_credentials: S3_CREDENTIALS,
+    bucket: Rails.configuration.aws[:bucket],
+    s3_credentials: Rails.configuration.aws,
     s3_host_alias: S3_CLOUDFRONT,
     url: ':s3_alias_url',
     path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"

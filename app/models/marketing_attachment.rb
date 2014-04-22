@@ -7,8 +7,8 @@ class MarketingAttachment < ActiveRecord::Base
 
   has_attached_file :marketing_file, 
     storage: :s3,
-    bucket: S3_CREDENTIALS['protected_bucket'],
-    s3_credentials: S3_CREDENTIALS,
+    bucket: Rails.configuration.aws[:protected_bucket],
+    s3_credentials: Rails.configuration.aws,
     url: ':s3_alias_url',
     path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension",
     s3_host_alias: nil

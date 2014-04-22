@@ -6,8 +6,8 @@ class ToneLibraryPatch < ActiveRecord::Base
       {"Content-Type" => f.mime_type} 
     }, 
     storage: :s3,
-    bucket: S3_CREDENTIALS['bucket'],
-    s3_credentials: S3_CREDENTIALS,
+    bucket: Rails.configuration.aws[:bucket],
+    s3_credentials: Rails.configuration.aws,
     s3_host_alias: S3_CLOUDFRONT,
     url: ':s3_domain_url',
     path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"

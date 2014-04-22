@@ -77,12 +77,10 @@ namespace :attachments do
   task :migrate_to_rackspace => :environment do
     require 'aws/s3'
 
-    # Load credentials
-    s3_options = S3_CREDENTIALS
     bucket_name = 'harman-hsp-web-assets' #s3_options.delete("bucket")
 
     # Establish S3 connection
-    s3 = AWS::S3.new(s3_options)
+    s3 = AWS::S3.new
     bucket = s3.buckets[bucket_name]
 
     # Rackspace cloud files connection
@@ -129,12 +127,10 @@ namespace :attachments do
 	task :migrate_to_s3 => :environment do
 		require 'aws/s3'
 
-		# Load credentials
-		s3_options = S3_CREDENTIALS
 		bucket_name = 'harman-hsp-protected-assets' #s3_options.delete("bucket")
 
 		# Establish S3 connection
-		s3 = AWS::S3.new(s3_options)
+		s3 = AWS::S3.new
 		bucket = s3.buckets[bucket_name]
 
     old_path_interpolation = ":rails_root/../../protected/:attachment/:id/:filename"

@@ -9,8 +9,8 @@ class SiteElement < ActiveRecord::Base
       tiny_square: "64x64#" 
     }, 
     storage: :s3,
-    bucket: S3_CREDENTIALS['bucket'],
-    s3_credentials: S3_CREDENTIALS,
+    bucket: Rails.configuration.aws[:bucket],
+    s3_credentials: Rails.configuration.aws,
     s3_host_alias: S3_CLOUDFRONT,
     url: ':s3_alias_url',
     path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
@@ -18,8 +18,8 @@ class SiteElement < ActiveRecord::Base
 
   has_attached_file :executable, 
     storage: :s3,
-    bucket: S3_CREDENTIALS['bucket'],
-    s3_credentials: S3_CREDENTIALS,
+    bucket: Rails.configuration.aws[:bucket],
+    s3_credentials: Rails.configuration.aws,
     s3_host_alias: S3_CLOUDFRONT,
     url: ':s3_domain_url',
     path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"

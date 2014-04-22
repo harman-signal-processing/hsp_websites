@@ -1,4 +1,6 @@
 class Software < ActiveRecord::Base
+  DIRECT_UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/s3\.amazonaws\.com\/#{Rails.configuration.aws[:bucket]}\/(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
+
   attr_accessor :replaces_id
   has_many :product_softwares, dependent: :destroy, order: "product_position"
   has_many :products, through: :product_softwares
@@ -14,17 +16,18 @@ class Software < ActiveRecord::Base
   has_attached_file :ware,
     path: ":class/:attachment/:id_:timestamp/:basename.:extension", 
     storage: :s3,
-    bucket: S3_CREDENTIALS['bucket'],
-    s3_credentials: S3_CREDENTIALS,
+    bucket: Rails.configuration.aws[:bucket],
+    s3_credentials: Rails.configuration.aws,
     s3_host_alias: S3_CLOUDFRONT,
     url: ':s3_alias_url'
   do_not_validate_attachment_file_type :ware
 
-  process_in_background :ware
+  # process_in_background :ware # replaced with direct to s3 upload
 
+  before_create :set_upload_attributes
+  after_create :queue_processing  
   before_destroy :revert_version
   before_update  :revert_version_if_deactivated
-
   after_initialize :set_default_counter, :determine_platform
   after_save :replace_old_version
   belongs_to :brand, touch: true
@@ -37,6 +40,11 @@ class Software < ActiveRecord::Base
     set_default_counter
     self.download_count += 1
     self.save
+  end
+
+  # Store an unescaped version of the escaped URL that Amazon returns from direct upload.
+  def direct_upload_url=(escaped_url)
+    write_attribute(:direct_upload_url, (CGI.unescape(escaped_url) rescue nil))
   end
 
   # Revert to previous version (if any) when deleting/inactivating software
@@ -102,6 +110,53 @@ class Software < ActiveRecord::Base
 
   def current_products
     @current_products ||= self.products & brand.current_products
+  end
+
+  # Final upload processing step
+  def self.transfer_and_cleanup(id)
+    software = find(id)
+    direct_upload_url_data = DIRECT_UPLOAD_URL_FORMAT.match(software.direct_upload_url)
+    s3 = AWS::S3.new
+
+    path_interpolation = ":class/:attachment/:id_:timestamp/:basename.:extension"    
+    paperclip_file_path = Paperclip::Interpolations.interpolate(path_interpolation, software.ware, 'original')
+
+    # paperclip_file_path = "documents/uploads/#{id}/original/#{direct_upload_url_data[:filename]}"
+    s3.buckets[Rails.configuration.aws[:bucket]].objects[paperclip_file_path].copy_from(direct_upload_url_data[:path])
+
+    software.processed = true
+    software.save
+    
+    s3.buckets[Rails.configuration.aws[:bucket]].objects[direct_upload_url_data[:path]].delete
+  end
+
+protected
+
+  # Set attachment attributes from the direct upload
+  # @note Retry logic handles S3 "eventual consistency" lag.
+  def set_upload_attributes
+    tries ||= 5
+    direct_upload_url_data = DIRECT_UPLOAD_URL_FORMAT.match(direct_upload_url)
+    s3 = AWS::S3.new
+    direct_upload_head = s3.buckets[Rails.configuration.aws[:bucket]].objects[direct_upload_url_data[:path]].head
+     
+    self.ware_file_name = direct_upload_url_data[:filename]
+    self.ware_file_size = direct_upload_head.content_length
+    self.ware_content_type = direct_upload_head.content_type
+    self.ware_updated_at = direct_upload_head.last_modified
+  rescue AWS::S3::Errors::NoSuchKey => e
+    tries -= 1
+    if tries > 0
+      sleep(3)
+      retry
+    else
+      false
+    end
+  end
+
+  # Queue file processing
+  def queue_processing
+    Software.delay.transfer_and_cleanup(id)
   end
 
 end
