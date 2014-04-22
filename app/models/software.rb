@@ -24,12 +24,14 @@ class Software < ActiveRecord::Base
 
   # process_in_background :ware # replaced with direct to s3 upload
 
-  before_create :set_upload_attributes
-  after_create :queue_processing  
+  before_save :set_upload_attributes
+  after_save :queue_processing  
+
   before_destroy :revert_version
   before_update  :revert_version_if_deactivated
   after_initialize :set_default_counter, :determine_platform
   after_save :replace_old_version
+
   belongs_to :brand, touch: true
   
   def set_default_counter
@@ -136,14 +138,16 @@ protected
   # @note Retry logic handles S3 "eventual consistency" lag.
   def set_upload_attributes
     tries ||= 5
-    direct_upload_url_data = DIRECT_UPLOAD_URL_FORMAT.match(direct_upload_url)
-    s3 = AWS::S3.new
-    direct_upload_head = s3.buckets[Rails.configuration.aws[:bucket]].objects[direct_upload_url_data[:path]].head
-     
-    self.ware_file_name = direct_upload_url_data[:filename]
-    self.ware_file_size = direct_upload_head.content_length
-    self.ware_content_type = direct_upload_head.content_type
-    self.ware_updated_at = direct_upload_head.last_modified
+    if !self.direct_upload_url.blank? && self.direct_upload_url_changed?
+      direct_upload_url_data = DIRECT_UPLOAD_URL_FORMAT.match(direct_upload_url)
+      s3 = AWS::S3.new
+      direct_upload_head = s3.buckets[Rails.configuration.aws[:bucket]].objects[direct_upload_url_data[:path]].head
+       
+      self.ware_file_name = direct_upload_url_data[:filename]
+      self.ware_file_size = direct_upload_head.content_length
+      self.ware_content_type = direct_upload_head.content_type
+      self.ware_updated_at = direct_upload_head.last_modified
+    end
   rescue AWS::S3::Errors::NoSuchKey => e
     tries -= 1
     if tries > 0
@@ -156,7 +160,7 @@ protected
 
   # Queue file processing
   def queue_processing
-    Software.delay.transfer_and_cleanup(id)
+    Software.delay.transfer_and_cleanup(id) if !self.direct_upload_url.blank? && self.direct_upload_url_changed?
   end
 
 end

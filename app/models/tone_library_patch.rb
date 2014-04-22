@@ -19,7 +19,7 @@ class ToneLibraryPatch < ActiveRecord::Base
   validates :product_id, presence: true
 
   def extension
-  	patch_file_name.split(".").last.to_s
+  	patch_file_name.to_s.split(".").last.to_s
   end
 
   # Using the mime type to force iPB-10 files to work with Nexus
