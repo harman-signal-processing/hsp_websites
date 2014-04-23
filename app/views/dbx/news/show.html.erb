@@ -50,18 +50,6 @@ set_meta_tags title: translate_content(@news, :title),
 	
 </div>
 
-
-<% if @news.products.size > 0 %>
-<div class="hide-for-large">
-	<h2 class="subheader"><%= t('titles.related_products') %></h2>
-	<ul class="large-block-grid-2 small-block-grid-1">
-	<% @news.products.each do |product| %>
-		<li><%= render_partial "product_families/product_square", product: product, compare: false %></li>
-	<% end %>
-	</ul>
-</div>
-<% end %>
-
 <p><%= link_to t('back_to_news_list'), news_index_path %></p>
 
 <% if current_user && can?(:manage, @news) %>

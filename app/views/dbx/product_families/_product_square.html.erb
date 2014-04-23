@@ -18,27 +18,56 @@ end
 %>
 
 <div id="<%= product.to_param %>" class="small_product_box">
-	<table class="product_thumb">
-		<tr><td>
-	<% if product.photo %>
-		<% if product.layout_class == "vertical" %>
-		<%= link_to image_tag(product.photo.product_attachment.url(:thumb)), this_url, target: target %>
-		<% else %>
-		<%= link_to image_tag(product.photo.product_attachment.url(:horiz_thumb)), this_url, target: target %>
-		<% end %>
-	<% end %>
-		</td></tr>
-	</table>
-	<h3><%= link_to translate_content(product, :name), this_url, target: target %></h3>
-	<div class="product_description">
-		<%= translate_content(product, :short_description) %>
-		<% if compare && product.in_production? %>
-			<div class="compare_checkbox">
-				<%= check_box_tag "product_ids[]", product.to_param, false %>
-				<label><%= t('compare') %></label>
+
+	<% if product.layout_class == "vertical" %>
+
+		<div class="row collapse">
+			<div class="large-6 small-6 columns">
+				<div class="product_thumb">
+				<% if product.photo %>
+					<%= link_to image_tag(product.photo.product_attachment.url(:thumb)), this_url, target: target %>
+				<% end %>
+				</div>
 			</div>
+			<div class="large-6 small-6 columns">
+				<h3 class="vertical"><%= link_to translate_content(product, :name), this_url, target: target %></h3>
+				<div class="product_description">
+					<%= translate_content(product, :short_description) %>
+				</div>
+			</div>
+		</div>
+
+			<% if compare && product.in_production? %>
+				<div class="compare_checkbox">
+					<label>
+						<%= check_box_tag "product_ids[]", product.to_param, false %>
+						<%= t('compare') %>
+					</label>
+				</div>
+			<% end %>
+
+	<% else %>
+
+		<div class="product_thumb">
+		<% if product.photo %>
+			<%= link_to image_tag(product.photo.product_attachment.url(:horiz_thumb)), this_url, target: target %>
 		<% end %>
-	</div>
+		</div>
+		<h3><%= link_to translate_content(product, :name), this_url, target: target %></h3>
+		<div class="product_description">
+			<%= translate_content(product, :short_description) %>
+
+			<% if compare && product.in_production? %>
+				<div class="compare_checkbox">
+					<label>
+						<%= check_box_tag "product_ids[]", product.to_param, false %>
+						<%= t('compare') %>
+					</label>
+				</div>
+			<% end %>
+		</div>
+
+	<% end %>
 </div>
 
 <% end %>

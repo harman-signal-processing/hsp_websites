@@ -343,12 +343,13 @@ module ApplicationHelper
   end
 
   def hpro_footer(options={})
-    default_options = {exclude: ""}
+    default_options = {exclude: "", include_hpro: false}
     options = default_options.merge options
 
     links = []
+    links << link_to(image_tag("pro_brands/harmanpro.png", alt: "HarmanPro", class: "no-resize"), "http://www.harmanpro.com", target: "_blank")
+
     pro_brands = [
-      # {name: "HarmanPro", web: "http://www.harmanpro.com"},
       {name: "AKG",    web: "http://www.akg.com"},
       {name: "BSS",    web: "http://www.bssaudio.com"},
       {name: "Crown",  web: "http://www.crownaudio.com"}, 

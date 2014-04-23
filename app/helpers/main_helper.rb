@@ -96,19 +96,38 @@ module MainHelper
   def featured_product_families(options={})
     default_options = {limit: 4}
     options = default_options.merge options
+
+    loc = "#{I18n.locale}" # fixes odd bug
+
     out = ""
     out = "<ul class=\"large-block-grid-#{options[:limit]} small-block-grid-#{(options[:limit]/2).to_i}\">" if options[:zurb]
-    @current_promotions = Promotion.all_for_website(website)
+
     @product_families = []
     ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family|
       @product_families << product_family unless product_family.hide_from_homepage?
     end
+    pf_limit = options[:limit]
 
-    pf_limit = (@current_promotions.count > 0) ? (options[:limit] - 1) : options[:limit]
-    family_count = 0
+    @current_promotions = Promotion.all_for_website(website)
+
+    if @current_promotions.count > 0
+      out += "<li>" if options[:zurb]
+      #if File.exists?(Rails.root.join("app", "assets", "images", website.folder, loc, "promotions.png"))
+        out += link_to(image_tag("#{website.folder}/#{I18n.locale}/promotions.png", alt: "promotions"), promotions_path)
+      #else
+      #  out += content_tag(:div, link_to("#{loc} Promotions", promotions_path), class: "panel")
+      #end
+      out += "</li>" if options[:zurb]
+      pf_limit = options[:limit] - 1
+    elsif website.brand.name.match(/digitech/i) && @product_families.count < options[:limit]
+      out += "<li>" if options[:zurb]
+      out += link_to(image_tag("#{website.folder}/#{I18n.locale}/community.png", alt: "community"), community_path)
+      out += "</li>" if options[:zurb]
+      pf_limit = options[:limit] - 1
+    end
 
     @product_families[0,pf_limit].each_with_index do |product_family, i| 
-      hide_for_small = "hide-for-small" if i == options[:limit] - 1 && !!(options[:limit] % 2)
+      hide_for_small = "hide-for-small" if i == pf_limit - 1 && !!(options[:limit] % 2)
       if product_family.family_photo_file_name.blank?
         sub_family_content = ""
         product_family.children.each do |sub_family|
@@ -137,25 +156,6 @@ module MainHelper
           end
         end
 
-      end
-      family_count += 1
-    end
-
-    loc = "#{I18n.locale}" # fixes odd bug
-
-    unless family_count >= options[:limit]
-      if @current_promotions.count > 0
-        out += "<li>" if options[:zurb]
-        if File.exists?(Rails.root.join("app", "assets", "images", website.folder, loc, "promotions.png"))
-          out += link_to(image_tag("#{website.folder}/#{I18n.locale}/promotions.png", alt: "promotions"), promotions_path)
-        else
-          out += content_tag(:div, link_to("#{loc} Promotions", promotions_path), class: "panel")
-        end
-        out += "</li>" if options[:zurb]
-      elsif website.brand.name.match(/digitech/i)
-        out += "<li>" if options[:zurb]
-        out += link_to(image_tag("#{website.folder}/#{I18n.locale}/community.png", alt: "community"), community_path)
-        out += "</li>" if options[:zurb]
       end
     end
   

@@ -16,7 +16,6 @@
 	</video>
 	
 	<div class="bg-gif"><img src="/system/videos/dbx.gif" /></div>
-	<div id="video_patternX" ></div>
 
 	<div class="container" id="feature_spacer"></div>
 	<div class="bouncing-arrow"></div>
@@ -42,32 +41,47 @@
 
 	<% if @featured_product %>
 
-	<div class="row" id="featured_product_container">
-		<div class="large-7 columns">
-			<div id="featured_image_container" class="hide-for-small">
-				<%= link_to(image_tag(@featured_product.photo.product_attachment.url(:original), id: "featured_image"), @featured_product) %>
+		<div class="row" id="featured_product_container">
+			<div class="large-7 columns">
+				<div id="featured_image_container" class="hide-for-small">
+					<%= link_to(image_tag(@featured_product.photo.product_attachment.url(:original), id: "featured_image"), @featured_product) %>
+				</div>
+				<div class="show-for-small">
+					<%= link_to(image_tag(@featured_product.photo.product_attachment.url(:medium)), @featured_product) %>
+				</div>
 			</div>
-			<div class="show-for-small">
-				<%= link_to(image_tag(@featured_product.photo.product_attachment.url(:medium)), @featured_product) %>
+			<div class="large-5 columns">
+				<h1><%= link_to @featured_product.name, @featured_product %></h1>
+				<h3 class="subheader"><%= translate_content(@featured_product, :short_description) %></h3>
+
+				<p><%=raw translate_content(@featured_product, :short_description_4) %></p>
+
+				<%= link_to 'more details...', @featured_product, class: "small secondary button" %>
 			</div>
 		</div>
-		<div class="large-5 columns">
-			<h1><%= link_to @featured_product.name, @featured_product %></h1>
-			<h3 class="subheader"><%= translate_content(@featured_product, :short_description) %></h3>
-
-			<p><%=raw translate_content(@featured_product, :short_description_4) %></p>
-
-			<%= link_to 'more details...', @featured_product, class: "small secondary button" %>
-		</div>
-	</div>
 
 	<% end %>
 
+	<% if @featured_video %>
 
-	<div class="text-center">
-		<iframe width="853" height="480" src="//www.youtube.com/embed/oMwXYUDW_gM" frameborder="0" allowfullscreen></iframe>
-		<div><br/><%= link_to "more #{website.brand.name} videos...", videos_path, class: "medium secondary button" %></div>
-	</div>
+		<div class="row">
+			<div class="large-8 large-offset-2 small-12 columns">
+				<div class="video-window text-center">
+					<iframe width="853" height="480" src="//www.youtube.com/embed/<%= @featured_video %>" frameborder="0" allowfullscreen></iframe>
+				</div>
+			</div>
+		</div>
+
+		<div class="text-center">
+			<div><br/>
+				<%= link_to videos_path, class: "button" do %>
+					<%= image_tag "icons/youtube.png" %> 
+					more <%= website.brand.name %> videos...
+				<% end %>
+			</div>
+		</div>
+
+	<% end %>
 
 	<div class="row" style="margin-top: 50px;">
 		<div class="large-6 large-offset-3 columns">

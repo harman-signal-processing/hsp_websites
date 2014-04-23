@@ -1,46 +1,43 @@
 <% set_meta_tags title: @page_title,
 				 reverse: true %>
 
-<h1 class="page_title"><%= @page_title %></h1>
+<div class="row">
+	<div class="large-6 columns">
+		<h1 class="page_title"><%= @page_title %></h1>
+	</div>
+	<div class="large-6 columns text-right">
+		<% if website.live_online_training_url %>
+			<br/>
+			Live/Online Training: 
+			<%= link_to website.live_online_training_url, website.live_online_training_url, target: "_blank" %>
+		<% end %>		
+	</div>
+</div>
 
-<table class="training_list">
-	<tr>
-		<th width="33%">
-			<h2>Product Training Modules</h2>
-		</td>
-		<th width="33%">
-			<h2>Software Training Modules</h2>
-		</td>
-		<th width="33%">
-			<% if website.live_online_training_url %>
-				<h2>Live/Online Training</h2>
-			<% end %>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<ul>
-				<% @product_training_modules.each do |ptm| %>
-				<li> <%= link_to ptm.name, ptm %> 
-					<div class="hint"><%= ptm.products.collect{|p| p.name}.join(", ") %></div>
-				</li>
-				<% end %>
-			</ul>
-		</td>
-		<td>
-			<% @software_training_modules.collect{|stm| stm.active_softwares}.flatten.uniq.each do |software| %>
-			<h3><%= software.name %></h3>
-			<ol>
+<div class="row">
+	<div class="large-6 columns">
+		<h3>Software Training Modules</h3>
+		<% @software_training_modules.collect{|stm| stm.active_softwares}.flatten.uniq.each do |software| %>
+			<h4 class="subheader"><%= software.name %></h4>
+			<ol class="list">
 				<% @software_training_modules.each do |stm| %>
 				<% if stm.active_softwares.include?(software) %>
 				<li> <%= link_to stm.name, stm %> </li>
 				<% end %>
 				<% end %>
 			</ol>
+		<% end %>
+	</div>
+	<div class="large-6 columns">
+		<h3>Hardware Training Modules</h3>
+		<ul class="list">
+			<% (@product_training_modules - @software_training_modules).each do |ptm| %>
+			<li> <%= link_to ptm.name, ptm %> 
+				<div class="hint"><%= ptm.products.collect{|p| p.name}.join(", ") %></div>
+				<br/>
+			</li>
 			<% end %>
-		</td>
-		<td style="text-align: center;">
-			<%= link_to website.live_online_training_url, website.live_online_training_url, target: "_blank" %>
-		</td>
-	</tr>
-</table>
+		</ul>
+	</div>
+
+</div>

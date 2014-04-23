@@ -23,6 +23,7 @@ class MainController < ApplicationController
     @features = website.features
 
     @featured_product = website.featured_product
+    @featured_video   = website.featured_video
 
     respond_to do |format|
       format.html { 

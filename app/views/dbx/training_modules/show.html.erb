@@ -2,32 +2,36 @@
 				 reverse: true %>
 
 <h1 class="page_title"><%= website.brand.name %> Training</h1>
-<h2 style="text-align: center"><%= @page_title %></h2>
+<h3 class="subheader text-center"><%= @page_title %></h3>
 
-<div style="margin: 0px auto; width: <%= @training_module.width %>px">
-<%= show_module(@training_module) %>
+<div class="row">
+	<div class="large-6 large-offset-3 columns">
+		<div style="width: <%= @training_module.width %>px">
+			<%= show_module(@training_module) %>
+		</div>
+
+		<%=raw @training_module.description %>
+	</div>
 </div>
 
-<div class="medium_centered_box">
-	<%=raw @training_module.description %>
-</div>
-
-<%= content_for :big_bottom_box do %>
+<div class="row">
+	<div class="large-12 columns">
 	<% if @training_module.products.size > 0 %>
 		<h3><%= t('titles.related_products') %></h3>
+		<ul class="large-block-grid-5 small-block-grid-2">
 		<% @training_module.products.each do |product| %>
-			<%= render_partial "product_families/product_square", product: product, compare: false %>
+			<li><%= render_partial "product_families/product_square", product: product, compare: false %></li>
 		<% end %>
-		<div class="clear"></div>
+		</ul>
 	<% end %>
 
 	<% if @training_module.active_softwares.size > 0 %>
 		<h3>Related Software</h3>
-		<ul>
+		<ul class="list">
 		<% @training_module.active_softwares.each do |software| %>
 			<li><%= link_to software.name, software %></li>
 		<% end %>
 		</ul>
-		<div class="clear"></div>
 	<% end %>
-<% end %>
+	</div>
+</div>

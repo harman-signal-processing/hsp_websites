@@ -15,13 +15,13 @@
 //= require jquery-ui-1.10.4.custom.min
 //= require jquery.lightbox-0.5.min
 //= require jquery.datetimepicker
-//= require jquery.visible.min
 //= require global_functions
 //= require maps
 //= require twitter
 //= require homepage
 //= require foundation
 //= require add2home
+//= require swfobject
 //= require dbx_application
 //= require_self
 

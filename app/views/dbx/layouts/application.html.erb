@@ -104,7 +104,7 @@
 		
 		<%= cache ["footer", website.brand, I18n.locale] do %>
 		<footer>
-			<%= hpro_footer(exclude: "dbx") %>
+			<%= hpro_footer(include_hpro: true) %>
 
 			<div class="container">
 				<div class="large-6 columns" id="footer_left">

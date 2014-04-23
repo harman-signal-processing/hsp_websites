@@ -120,23 +120,23 @@
 		<%= simple_form_for :contact_message, url: support_path(action: "contact"), html: {class: "contact"} do |f| %>
 
 			<div class="row">
-				<div class="large-3 columns">
+				<div class="large-3 columns hide-for-small">
 					<%= f.label :name, t('your_name'), class: 'right inline' %>
 				</div>
 				<div class="large-9 columns">
-					<%= f.input :name, label: false %>
+					<%= f.input :name, label: false, placeholder: t('your_name') %>
 				</div>
 			</div>
 			<div class="row">
-				<div class="large-3 columns">
+				<div class="large-3 columns hide-for-small">
 					<%= f.label :email, ucfirst(t('email')), class: 'right inline' %>
 				</div>
 				<div class="large-9 columns">
-					<%= f.input :email, label: false %>
+					<%= f.input :email, label: false, placeholder: ucfirst(t('email')) %>
 				</div>
 			</div>
 			<div class="row">
-				<div class="large-3 columns">
+				<div class="large-3 columns hide-for-small">
 					<%= f.label :product, nil, class: 'right inline' %>
 				</div>
 				<div class="large-9 columns">
@@ -146,7 +146,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="large-3 columns">
+				<div class="large-3 columns hide-for-small">
 					<%= f.label :subject, nil, class: 'right inline' %>
 				</div>
 				<div class="large-9 columns">
@@ -154,43 +154,43 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="large-3 columns">
+				<div class="large-3 columns hide-for-small">
 					<%= f.label :product_serial_number, nil, class: 'right' %>
 				</div>
 				<div class="large-9 columns">
-					<%= f.input :product_serial_number, label: false %>
+					<%= f.input :product_serial_number, label: false, placeholder: 'Serial number' %>
 				</div>
 			</div>
 			<div class="row">
-				<div class="large-3 columns">
+				<div class="large-3 columns hide-for-small">
 					<%= f.label :operating_system, nil, class: 'right inline' %>
 				</div>
 				<div class="large-9 columns">
-					<%= f.input :operating_system, label: false %>
+					<%= f.input :operating_system, label: false, placeholder: "Operating system" %>
 				</div>
 			</div>
 			<div class="row">
-				<div class="large-3 columns">
+				<div class="large-3 columns hide-for-small">
 					<%= f.label :shipping_address, t("address"), class: 'right inline' %>
 				</div>
 				<div class="large-9 columns">
-					<%= f.input :shipping_address, label: false, input_html: { size: "40x2" } %>
+					<%= f.input :shipping_address, label: false, input_html: { size: "40x2" }, placeholder: t("address") %>
 				</div>
 			</div>
 			<div class="row">
-				<div class="large-3 columns">
+				<div class="large-3 columns hide-for-small">
 					<%= f.label :shipping_address, t("country"), class: 'right inline' %>
 				</div>
 				<div class="large-9 columns">
-					<%= f.input :shipping_country, label: false, required: @contact_message.require_country? %>
+					<%= f.input :shipping_country, label: false, required: @contact_message.require_country?, prompt: t("country") %>
 				</div>
 			</div>
 			<div class="row">
-				<div class="large-3 columns">
+				<div class="large-3 columns hide-for-small">
 					<%= f.label :phone, nil, class: 'right inline' %>
 				</div>
 				<div class="large-9 columns">
-					<%= f.input :phone, label: false %>
+					<%= f.input :phone, label: false, placeholder: "Phone" %>
 				</div>
 			</div>
 

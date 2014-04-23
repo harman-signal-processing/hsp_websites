@@ -13,7 +13,7 @@
 
 <% if !@product_family.title_banner_file_name.blank? %>
 	<div class="text-center">
-	<h1><%= image_tag(@product_family.title_banner.url, alt: translate_content(@product_family, :name)) %></h1>
+	<h1><%= image_tag(@product_family.title_banner.url, alt: translate_content(@product_family, :name), style: " width: 100%") %></h1>
 	</div>
 
 <% else %>
@@ -26,15 +26,17 @@
 <% end %>
 
 <div class="row">
-	<div class="large-10 large-offset-1 columns">
+	<div class="large-12 columns">
 		<p><%=raw translate_content(@product_family, :intro) %></p>
-	<ul class="large-block-grid-4 small-block-grid-2">
+	<ul class="large-block-grid-5 small-block-grid-2">
 		<% @product_family.current_products.each do |product| %>
 			<li><%= render_partial("product_families/product_square", product: product) %></li>
 		<% end %>
 	</ul>
 	<% if @product_family.current_products.length > 0 && !!(website.show_comparisons) %>
-		<div class="compare_button"><%= submit_tag t('product_page.compare_selected_products'), class: "small button" %> <span class="hint"><%= t('product_page.select_products_to_compare') %></span></div>
+	<br/>
+		<%= submit_tag t('product_page.compare_selected_products'), class: "small button" %> 
+		<%= t('product_page.select_products_to_compare') %>
 	<% end %>
 
 <% @product_family.children_with_current_products(website).each do |sub_family| %>
@@ -45,7 +47,7 @@
 		<%= render_partial "product_families/product_square", product: product %>
 	<% end %>
 	<% if !!(website.show_comparisons) %>
-		<div class="compare_button clear"><%= submit_tag t('product_page.compare_selected_products') %> <span class="hint"><%= t('product_page.select_products_to_compare') %></span></div>
+		<div class="compare_button"><%= submit_tag t('product_page.compare_selected_products') %> <%= t('product_page.select_products_to_compare') %></div>
 	<% end %>
 
 <% end %>
@@ -59,7 +61,7 @@
 		<div class="related_products"><%= t('related_products') %>:
 		<%= links_to_related_product_families(@product_family) %></div>
 	<% end %>
-</div>
+	</div>
 
 </div>
 
