@@ -9,16 +9,36 @@
 	} %>
 
 <%= content_for :feature do %>
-	<video poster="/system/videos/dbxstatic.jpg" id="video_background" preload="auto" autoplay="true" loop="loop" muted volume="0">
-			<source src="/system/videos/dbx.webm" type="video/webm"/>
-			<source src="/system/videos/dbx.ogv" type="video/ogg ogv"; codecs="theora, vorbis"/>
-			<source src="/system/videos/dbx.mp4" type="video/mp4"/>			
-	</video>
-	
-	<div class="bg-gif"><img src="/system/videos/dbx.gif" /></div>
+	<%= cache ["slideshow", website.brand, I18n.locale] do %>
+		<% slides = Setting.slides(website) %>
+		<% if slides.size > 0 %>
 
-	<div class="container" id="feature_spacer"></div>
-	<div class="bouncing-arrow"></div>
+			<% if slides.pluck(:slide_file_name).find{|f| /\.webm|mp4$/ =~ f} %>
+				<% poster = slides.find{|f| /jpg|jpeg/i =~ f.slide_content_type } %>
+				<video poster="<%= (poster) ? poster.slide.url : '' %>" id="video_background" preload="auto" autoplay="true" loop="loop" muted volume="0">
+					<% if webm = slides.find{|f| /webm/i =~ f.slide_content_type } %>
+						<source src="<%= webm.slide.url %>" type="video/webm"/>
+					<% end %>
+					<% if ogv = slides.find{|f| /ogv/i =~ f.slide_content_type } %>
+						<source src="<%= ogv.slide.url %>" type="video/ogg ogv"; codecs="theora, vorbis"/>
+					<% end %>
+					<% if mp4 = slides.find{|f| /mp4/i =~ f.slide_content_type } %>
+						<source src="<%= mp4.slide.url %>" type="video/mp4"/>
+					<% end %>			
+				</video>
+
+				<% if anim = slides.find{|f| /gif/i =~ f.slide_content_type } %>
+					<div class="bg-gif"><img src="<%= anim.slide.url %>" /></div>
+				<% end %>
+				<div class="container" id="feature_spacer"></div>
+				<div class="bouncing-arrow"></div>
+
+			<% else %>
+				<%= orbit_slideshow(slides: slides, duration: 6000, navigation_arrows: false, transition: "fade") %>
+
+			<% end %>
+		<% end %>
+	<% end %>
 <% end %>
 
 <%= content_for :middle_stuff do %>
