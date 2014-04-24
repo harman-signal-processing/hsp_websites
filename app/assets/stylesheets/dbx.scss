@@ -475,37 +475,34 @@ div#signup h2 {
 	}
 }
 .small_product_box {
-	border: 1px solid #CCC;
+	//border: 1px solid #CCC;
 	padding: 2px;
 	background: white;
-	text-align: center;	
-	height: 200px;
-	float: left;
+	//height: 200px;
 	position: relative;
 	color: #444;
 	overflow: hidden;
 	width: 100%; // of the container
 	img {
-		margin: 26px 0px 6px;
+		margin: 10px 0px 6px;
 	}
 	.product_thumb {
 		width: 100%;
 	}
 	.compare_checkbox {
-		position: absolute;
-		bottom: 0px;
-		left: 6px;
+		margin-top: 10px;
 	}
 	h3 {
 		font-size: 95%;
 		font-weight: 400;
+		margin-bottom: 4px;
 		&.vertical {
 			margin-top: 28px;
 		}
 	}
 	.product_description {
 		font-size: 14px;
-		line-height: 16px;
+		line-height: 15px;
 	}
 }
 @media only screen and (max-width: 720px) {
@@ -542,7 +539,7 @@ table.comparison {
 	}
 }
 div.compare_button {
-	padding: 20px 10px;
+	padding: 40px 0px;
 }
 /***** Product Page *****/
 

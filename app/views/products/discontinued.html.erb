@@ -44,17 +44,19 @@ set_meta_tags title: "#{@product.name} (#{t('discontinued')})",
 <div id="product_content">
 	<h1><%= title @product.name %> <span class="discontinued">(<%= t('discontinued') %>)</span></h1>
 	<% if @product.product_attachments.size > 0 %>
-	<ul id="discontinued_product_thumbnails">
+
 		<% @product.product_attachments.each do |product_attachment| %>
 		<% if product_attachment.is_photo? %>
-		<li><%= link_to image_tag(product_attachment.product_attachment.url(:small)), 
-					product_attachment.product_attachment.url %></li>
+		<%= link_to image_tag(product_attachment.product_attachment.url(:medium)), 
+					product_attachment.product_attachment.url %>
 		<% end %>
 		<% end %>
-	</ul>
+
 	<% end %>
+	<br/>
+	<br/>
 	<% if @alternatives && @alternatives.size > 0 %>
-	<div class="callout" style="width: 50%">
+	<div class="panel" style="width: 50%">
 		Suggested <%= "alternative".pluralize(@alternatives.size) %>: 
 		<%=raw @alternatives.collect{|p| link_to(p.name, p)}.join(", ") %>
 	</div>

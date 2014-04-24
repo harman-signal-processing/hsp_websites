@@ -231,18 +231,17 @@ set_meta_tags title: @product.name,
 	</div>
 </div>
 	
-
 <div class="row">
 
 	<div class="large-8 columns">
-		<%= render 'shared/add_this' %>
 		<!-- <%= @active_tab %> -->
 		<%= draw_main_tabs_content @product, zurb: true, active_tab: @active_tab %>
 	</div>
 
 	<div class="large-4 columns">
-		<%= draw_audio_demos @product %>
 		<%= draw_info_accordion @product %>
+		<%= draw_audio_demos @product %>
+		<%= render 'shared/add_this' %>
 	</div>
 	
 </div>
@@ -277,7 +276,8 @@ set_meta_tags title: @product.name,
 		</div>
 	</div>
 	<% end %>
-	<p>Also available: <%= link_to t("international_distributors"), international_distributors_path %> distributors.</p>
+	<p><%= image_tag "small-gray-world-map.png", alt: "" %>
+		Also available from <%= link_to t("international_distributors"), international_distributors_path %> distributors.</p>
 	<a class="close-reveal-modal">&#215;</a>
 </div>
 <% end %>

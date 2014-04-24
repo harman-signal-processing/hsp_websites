@@ -21,6 +21,7 @@
 //= require homepage
 //= require foundation
 //= require add2home
+//= require jwplayer
 //= require swfobject
 //= require dbx_application
 //= require_self
