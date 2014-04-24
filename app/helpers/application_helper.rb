@@ -57,7 +57,10 @@ module ApplicationHelper
   def cached_meta_tags
     @page_description ||= website.value_for('default_meta_tag_description') 
     @page_keywords ||= website.value_for("default_meta_tag_keywords") 
-    display_meta_tags site: Setting.site_name(website)
+    begin
+      display_meta_tags site: Setting.site_name(website)
+    rescue
+    end
   end
 
   # Generates a slideshow using Zurb's Orbit. Accepts the same options as my
