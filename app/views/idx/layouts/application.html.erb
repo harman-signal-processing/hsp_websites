@@ -73,7 +73,10 @@
 					<!--
 					<li><%= link_to t('warranty_registration'), warranty_registration_path %></li>
 					-->
-					<li class="last"><%= link_to t('product_support'), support_path %></li>
+					<li><%= link_to t('product_support'), support_path %></li>
+					<% if website.training_url %>
+						<li class="last"><%= link_to t('training'), website.training_url %></li>
+					<% end %>
 				</ul>
 			</div>
 			<%# search is only available in default language for now...%>

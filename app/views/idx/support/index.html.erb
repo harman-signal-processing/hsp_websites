@@ -14,6 +14,9 @@
 	<% if website.has_software? %>
 	<%= link_to t('software_downloads'), software_index_path %> &bull;
 	<% end %>
+	<% if website.training_url %>
+		<%= link_to t('training'), website.training_url %> &bull;
+	<% end %>
 	<% if !!(website.value_for("troubleshooting_url")) %>
 	<%= link_to t('troubleshooting').downcase, support_path(action: "troubleshooting") %> &bull;
 	<% end %>
