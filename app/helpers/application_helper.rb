@@ -71,27 +71,31 @@ module ApplicationHelper
     default_options = { duration: 7000, slide_number: false, navigation_arrows: true, slides: [] }
     options = default_options.merge options
 
-    orbit_options = [
-      "resume_on_mouseout:true",
-      "timer_speed:#{options[:duration]}",
-      "slide_number:#{options[:slide_number]}",
-      "animation_speed:#{(options[:duration] / 12).to_i}",
-      "navigation_arrows:#{options[:navigation_arrows]}"
-    ]
+    if options[:slides].length == 1
+      raw(orbit_slideshow_frame(options[:slides].first))
+    else
+      orbit_options = [
+        "resume_on_mouseout:true",
+        "timer_speed:#{options[:duration]}",
+        "slide_number:#{options[:slide_number]}",
+        "animation_speed:#{(options[:duration] / 12).to_i}",
+        "navigation_arrows:#{options[:navigation_arrows]}"
+      ]
 
-    frames = ""
-    options[:slides].each_with_index do |slide, i|
-      frames += orbit_slideshow_frame(slide, i)
-    end
-    content_tag(:div, class: "slideshow-wrapper") do
-      content_tag(:div, "", class: "preloader") + 
-      content_tag(:ul, 
-        frames.html_safe, 
-        data: {
-          orbit: true, 
-          options: orbit_options.join(";")
-        }
-      )
+      frames = ""
+      options[:slides].each_with_index do |slide, i|
+        frames += orbit_slideshow_frame(slide, i)
+      end
+      content_tag(:div, class: "slideshow-wrapper") do
+        content_tag(:div, "", class: "preloader") + 
+        content_tag(:ul, 
+          frames.html_safe, 
+          data: {
+            orbit: true, 
+            options: orbit_options.join(";")
+          }
+        )
+      end
     end
   end
 
@@ -172,6 +176,76 @@ module ApplicationHelper
     else
       ""
     end
+  end
+
+  # New homepage background video renderer. Still renders the slideshow on top of the
+  # video if slides are provided in the admin.
+  #
+  def video_background_with_features(slides, options={})
+    default_options = { hide_for_small: true, hide_arrow: false }
+    options = default_options.merge options
+
+    hide_for_small = (options[:hide_for_small]) ? "hide-for-small" : ""
+    ret = ""
+
+    if slides.size > 0
+      if slides.pluck(:slide_file_name).find{|f| /^(.*)\.webm|mp4$/ =~ f}
+        fname = $1
+
+        video_sources = ""
+        if webm = slides.find{|f| /webm/i =~ f.slide_content_type && /^#{fname}\./ =~ f.slide_file_name }
+          video_sources += "<source src='#{ webm.slide.url }' type='#{ webm.slide_content_type }'/>"
+        end
+
+        if ogv = slides.find{|f| /ogv/i =~ f.slide_content_type && /^#{fname}\./ =~ f.slide_file_name }
+          video_sources += "<source src='#{ ogv.slide.url }' type='video/ogg ogv' codecs='theora, vorbis'/>"
+        end
+
+        if mp4 = slides.find{|f| /mp4/i =~ f.slide_content_type && /^#{fname}\./ =~ f.slide_file_name }
+          video_sources += "<source src='#{ mp4.slide.url }' type='#{ mp4.slide_content_type }'/>"
+        end
+        poster = slides.find{|f| /jpg|jpeg|png/i =~ f.slide_content_type && /^#{fname}\./ =~ f.slide_file_name }
+
+        ret += content_tag(:video, video_sources.html_safe,
+          poster: (poster) ? poster.slide.url : '',
+          id: "video_background", 
+          preload: "auto", 
+          autoplay: "true", 
+          loop: "loop",
+          muted: "true",
+          volume: 0)
+
+        if anim = slides.find{|f| /gif/i =~ f.slide_content_type && /^#{fname}\./ =~ f.slide_file_name }
+          ret += content_tag(:div, class: "bg-gif") do 
+            image_tag( anim.slide.url )
+          end
+        end
+
+        static_slides = slides.reject{|f| /^#{fname}\./ =~ f.slide_file_name } 
+        if static_slides.length > 0
+          ret += content_tag(:div, class: "row") do
+            content_tag(:div, class: "large-12 #{ hide_for_small } columns") do
+              orbit_slideshow(slides: static_slides, duration: 6000, navigation_arrows: false, transition: "fade")
+            end
+          end
+        else
+          ret += content_tag(:div, "", class: "container", id: "feature_spacer")
+        end
+
+        ret += content_tag(:div, "", class: "bouncing-arrow") unless options[:hide_arrow]
+
+      else
+
+        ret += content_tag(:div, class: "row") do
+          content_tag(:div, class: "large-12 #{ hide_for_small } columns") do
+            orbit_slideshow(slides: slides, duration: 6000, navigation_arrows: false, transition: "fade")
+          end
+        end
+
+      end
+    end
+
+    raw(ret)
   end
 
   # Generates social media links. Accepts a list of different

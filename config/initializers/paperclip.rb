@@ -23,7 +23,7 @@ AWS.config(Rails.configuration.aws)
 # a separate CDN for stuff in the S3 buckets...
 S3_CLOUDFRONT = 'adn.harmanpro.com' # 'd18nzrj3czoaty.cloudfront.net' # 
 
-#if Rails.env.production?
+if Rails.env.production?
 	Paperclip::Attachment.default_options.merge!({
     url: ':fog_public_url',
     path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension",
@@ -40,12 +40,12 @@ S3_CLOUDFRONT = 'adn.harmanpro.com' # 'd18nzrj3czoaty.cloudfront.net' #
    #  url: ':s3_alias_url',
    #  path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
 	})
-# else
-# 	Paperclip::Attachment.default_options.merge!({
-#     url: '/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension',
-#     path: ":rails_root/public/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension"
-# 	})
-# end
+else
+	Paperclip::Attachment.default_options.merge!({
+    url: '/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension',
+    path: ":rails_root/public/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension"
+	})
+end
 
 S3DirectUpload.config do |c|
   c.access_key_id = Rails.configuration.aws[:access_key_id]

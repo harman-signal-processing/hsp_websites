@@ -13,11 +13,20 @@ class Setting < ActiveRecord::Base
     s3_host_alias: S3_CLOUDFRONT,
     url: ':s3_alias_url',
     path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
-  validates_attachment :slide, content_type: { content_type: /\Aimage/i }
+  validates_attachment :slide, content_type: { content_type: /\Aimage|video/i }
+  before_post_process :skip_for_video, :skip_for_gifs
 
   belongs_to :brand, touch: true
   validates_presence_of :name
   validates_uniqueness_of :name, scope: [:locale, :brand_id]
+
+  def skip_for_video
+    ! slide_content_type.match(/video/)
+  end
+
+  def skip_for_gifs
+    ! slide_content_type.match(/gif/)
+  end
   
   def self.setting_types
     ["string", "integer", "text", "slideshow frame", "homepage feature"]
