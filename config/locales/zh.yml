@@ -274,7 +274,9 @@ zh:
       default: "%Y-%m-%d"
       short: "%b%d日"
       long: "%Y年%b%d日"
-      pretty_date_time: "%B %d, %Y %I:%M %p"
+      month_day: "%b %d日"
+      blog_month_day: "%B %d日"
+      pretty_date_time: "%B %d日, %Y %I:%M %p"
       mmddyy: "%m/%d/%y"
 
     day_names:

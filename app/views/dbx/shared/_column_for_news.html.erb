@@ -1,0 +1,35 @@
+<div class="row">
+	<div class="large-6 columns">
+		<% big_news = [@news.shift, @news.shift] %>
+		<ul class="large-block-grid-1 small-block-grid-2 image-grid">
+			<% big_news.each do |news| %>
+				<li class="featured">
+			  	<%= link_to news do %>
+			  		<% if news.news_photo_file_name.blank? %>
+						<%= translate_content(news, :title) %>
+			  		<% else %>
+			  			<%= image_tag(news.news_photo.url(:small_square)) %>
+			  		<% end %>
+			  	<h4><%=l news.post_on, format: :long %></h4>
+			  	<% end %>
+			  </li>
+			<% end %>
+		</ul>
+	</div>
+	<div class="large-6 columns">
+		<ul class="large-block-grid-2 small-block-grid-3 image-grid">
+		<% @news.each do |news| %>
+		  <li>
+		  	<%= link_to news do %>
+		  		<% if news.news_photo_file_name.blank? %>
+					<%= translate_content(news, :title) %>
+		  		<% else %>
+		  			<%= image_tag(news.news_photo.url(:thumb_square)) %>
+		  		<% end %>
+				<h4><%=l news.post_on, format: :short %></h4>
+		  	<% end %>
+		  </li>
+		<% end %>
+		</ul>
+	</div>
+</div>

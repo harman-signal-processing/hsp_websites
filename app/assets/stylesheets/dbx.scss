@@ -8,7 +8,85 @@
 *= require_self
 */
 
-$primary-color: #f4212c;
+$dark-gray: #575757;
+$medium-gray: #a8a8a8;
+$light-gray: #d0d0d0;
+$primary-color: #d72131;
+$secondary-color: $light-gray;
+
+
+@font-face {
+    font-family: 'berthold_akzidenz_groteskMdCn';
+    src: font-url('akzidenzgroteskbe-mdcn-webfont.eot');
+    src: font-url('akzidenzgroteskbe-mdcn-webfont.eot?#iefix') format('embedded-opentype'),
+         font-url('akzidenzgroteskbe-mdcn-webfont.woff') format('woff'),
+         font-url('akzidenzgroteskbe-mdcn-webfont.ttf') format('truetype'),
+         font-url('akzidenzgroteskbe-mdcn-webfont.svg#berthold_akzidenz_groteskMdCn') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'berthold_akzidenz_groteskLtCn';
+    src: font-url('akzidenzgroteskbe-lightcn-webfont.eot');
+    src: font-url('akzidenzgroteskbe-lightcn-webfont.eot?#iefix') format('embedded-opentype'),
+         font-url('akzidenzgroteskbe-lightcn-webfont.woff') format('woff'),
+         font-url('akzidenzgroteskbe-lightcn-webfont.ttf') format('truetype'),
+         font-url('akzidenzgroteskbe-lightcn-webfont.svg#berthold_akzidenz_groteskLtCn') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'berthold_akzidenz_grotesk_bBd';
+    src: font-url('akzidenzgroteskbe-bold-webfont.eot');
+    src: font-url('akzidenzgroteskbe-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         font-url('akzidenzgroteskbe-bold-webfont.woff') format('woff'),
+         font-url('akzidenzgroteskbe-bold-webfont.ttf') format('truetype'),
+         font-url('akzidenzgroteskbe-bold-webfont.svg#berthold_akzidenz_grotesk_bBd') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'berthold_akzidenz_groteskBdIt';
+    src: font-url('akzidenzgroteskbe-boldit-webfont.eot');
+    src: font-url('akzidenzgroteskbe-boldit-webfont.eot?#iefix') format('embedded-opentype'),
+         font-url('akzidenzgroteskbe-boldit-webfont.woff') format('woff'),
+         font-url('akzidenzgroteskbe-boldit-webfont.ttf') format('truetype'),
+         font-url('akzidenzgroteskbe-boldit-webfont.svg#berthold_akzidenz_groteskBdIt') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'berthold_akzidenz_grotesk_bIt';
+    src: font-url('akzidenzgroteskbe-it-webfont.eot');
+    src: font-url('akzidenzgroteskbe-it-webfont.eot?#iefix') format('embedded-opentype'),
+         font-url('akzidenzgroteskbe-it-webfont.woff') format('woff'),
+         font-url('akzidenzgroteskbe-it-webfont.ttf') format('truetype'),
+         font-url('akzidenzgroteskbe-it-webfont.svg#berthold_akzidenz_grotesk_bIt') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'berthold_akzidenz_grotesk_bRg';
+    src: font-url('akzidenzgroteskbe-regular-webfont.eot');
+    src: font-url('akzidenzgroteskbe-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         font-url('akzidenzgroteskbe-regular-webfont.woff') format('woff'),
+         font-url('akzidenzgroteskbe-regular-webfont.ttf') format('truetype'),
+         font-url('akzidenzgroteskbe-regular-webfont.svg#berthold_akzidenz_grotesk_bRg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 
 img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 
@@ -28,7 +106,21 @@ img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 
 #feature_spacer {
 	position: relative;
-	height: 58%;
+	height: 75%;
+	#tagline {
+		position: absolute;
+		bottom: -20px;
+		right: 20px;
+		color: lighten($light-gray, 10%);
+		font: {
+			family: 'berthold_akzidenz_groteskLtCn';
+			size: 26px;
+		}
+		text: {
+			shadow: 1px 1px 20px #000;
+			transform: uppercase;
+		}
+	}
 }
 
 .bg-gif {
@@ -122,16 +214,6 @@ body {
 	z-index: 10;
 }
 
-@font-face {
-    font-family: 'ImpactRegular';
-    src: font-url('impact-webfont.eot');
-    src: font-url('impact-webfont.eot?#iefix') format('embedded-opentype'),
-         font-url('impact-webfont.woff') format('woff'),
-         font-url('impact-webfont.ttf') format('truetype'),
-         font-url('impact-webfont.svg#ImpactRegular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
 .custom.checkbox {
     margin-right: 6px;
 }
@@ -161,7 +243,7 @@ div.hint {
 }
 
 h1, h2 {
-	font-family: 'ImpactRegular', Helvetica, Arial, sans-serif;
+	font-family: 'berthold_akzidenz_groteskMdCn', Helvetica, Arial, sans-serif;
 	font-weight: 100;
 }
 
@@ -243,11 +325,9 @@ select {
 /**** Application Layout *****/
 
 #supersocial {
-	position: absolute;
-	top: 21px;
-	left: 6px;
+	text-align: right;
 	a {
-		display: block;
+		margin-left: 4px;
 	}
 	z-index: 1;
 	img {
@@ -263,8 +343,46 @@ select {
 	}
 }
 
+ul.image-grid {
+	margin-bottom: 8px;
+	li {
+		padding:1px;
+		margin:0px;
+		position: relative;
+		overflow: hidden;
+		h4 {
+			background: -moz-linear-gradient(transparent, rgba(0,0,0,1));
+			font-size: 13px;
+			font-weight: 200;
+			letter-spacing: 1px;
+			position: absolute;
+			bottom: 0px;
+			left: 0px;
+			margin: 0px;
+			width: 100%;
+			padding: 4px 6px;
+			color: $light-gray;
+			text-shadow: 1px 1px 1px #000;
+			height: 26px;
+			overflow: hidden;
+		}
+		img {
+			width: 100%;
+		}
+		a {
+			&:hover {
+				h4 {
+					color: white;
+				}
+			}
+		}
+		&.featured {
+			height: 175px;
+		}
+	}
+}
 div#middle_features {
-	margin-bottom: -60px;
+	margin: 40px 0px;
 }
 
 div#content_container {
@@ -282,10 +400,7 @@ div#content_container_content {
 
 div#pre-footer {
 	margin: 0 auto;
-	padding: 60px 0 100px;
-	h3 {
-		font-size: 16px;
-	}
+	padding: 50px 0 10px;
 }
 
 .divider_above {
@@ -293,6 +408,7 @@ div#pre-footer {
 	margin-top: 20px;
 }
 footer {
+	position: relative;
 	margin: 0px 0px 30px;
 	height: 120px;
 	div#footer_info {
@@ -340,13 +456,22 @@ div#featured_product_container {
 
 	h1 {
 		font-size: 4em;
+		line-height: 1em;
 		margin: 0;
+	}
+	h3 {
+		font-size: 1.5em;
+		margin-top: 0;
+	}
+	p {
+		line-height: 1.2em;
+		margin-bottom: 10px;
 	}
 	div#featured_image_container {
 		overflow: hidden;
 		position: absolute;
 		right: 20px;
-		top: 18px;
+		top: 5px;
 		img {
 			max-width: none;
 		}
@@ -376,10 +501,7 @@ div#countdown {
 	font-size: 32px;
 	color: #ddd;
 	font-weight: 100;
-	font-family: "Helvetica Condensed", "Arial Narrow", Helvetica, Arial, sans-serif;
-}
-div#middle_features {
-	position: relative;
+	//font-family: "Helvetica Condensed", "Arial Narrow", Helvetica, Arial, sans-serif;
 }
 div.product_family_feature {
 	background: #FFF;
@@ -493,7 +615,7 @@ div#signup h2 {
 		margin-top: 10px;
 	}
 	h3 {
-		font-size: 95%;
+
 		font-weight: 400;
 		margin-bottom: 4px;
 		&.vertical {
@@ -711,7 +833,7 @@ div.accordion {
 	overflow: auto;
 }
 h2.special_offer {
-	font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+	//font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 	font-size: 15px;
 	font-weight: 400;
 	text-transform: uppercase;
@@ -827,20 +949,27 @@ div.retailer_logo {
 /****** News ********/
 @media only screen and (min-width: 720px) {
 	.news_container {
-		.row {
-			margin-bottom: 20px;
-		}
+		padding-bottom: 40px;
+		border-bottom: 1px solid lighten($light-gray, 7%);
+
 		h3 {
 			margin-top: -2px; 
 			font-size: 99%;
 		}
 	}
+	.featured-news-image-container {
+		background: black !important;
+	}
 }
 @media only screen and (max-width: 720px) {
 	.news_container {
-		.row {
-			margin-bottom: 20px;
-		}
+
+	}
+}
+.blog-date {
+	border: none;
+	h2.subheader {
+		line-height: .9em;
 	}
 }
 

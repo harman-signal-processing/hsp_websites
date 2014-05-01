@@ -1,13 +1,24 @@
 @font-face {
-    font-family: 'ImpactRegular';
-    src: font-url('impact-webfont.eot');
-    src: font-url('impact-webfont.eot?#iefix') format('embedded-opentype'),
-         font-url('impact-webfont.woff') format('woff'),
-         font-url('impact-webfont.ttf') format('truetype'),
-         font-url('impact-webfont.svg#ImpactRegular') format('svg');
+    font-family: 'berthold_akzidenz_grotesk_bRg';
+    src: font-url('akzidenzgroteskbe-regular-webfont.eot');
+    src: font-url('akzidenzgroteskbe-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         font-url('akzidenzgroteskbe-regular-webfont.woff') format('woff'),
+         font-url('akzidenzgroteskbe-regular-webfont.ttf') format('truetype'),
+         font-url('akzidenzgroteskbe-regular-webfont.svg#berthold_akzidenz_grotesk_bRg') format('svg');
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'berthold_akzidenz_groteskLtCn';
+    src: font-url('akzidenzgroteskbe-lightcn-webfont.eot');
+    src: font-url('akzidenzgroteskbe-lightcn-webfont.eot?#iefix') format('embedded-opentype'),
+         font-url('akzidenzgroteskbe-lightcn-webfont.woff') format('woff'),
+         font-url('akzidenzgroteskbe-lightcn-webfont.ttf') format('truetype'),
+         font-url('akzidenzgroteskbe-lightcn-webfont.svg#berthold_akzidenz_groteskLtCn') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 
 //
 // Foundation Variables
@@ -74,9 +85,13 @@ $em-base: 16px !default;
 
 $default-float: left;
 
+$dark-gray: #575757;
+$medium-gray: #a8a8a8;
+$light-gray: #d0d0d0;
+
 $body-bg: #FFF;
-$body-font-color: #222;
-$body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$body-font-color: $dark-gray;
+$body-font-family: 'berthold_akzidenz_grotesk_bRg', "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $body-font-weight: 300;
 // $body-font-style: normal;
 
@@ -90,8 +105,8 @@ $body-font-weight: 300;
 
 // Colors
 
-$primary-color: #f4212c;
-// $secondary-color: #c9c9c9;
+$primary-color: #d72131;
+$secondary-color: $medium-gray;
 // $alert-color: #c60f13;
 // $success-color: #5da423;
 
@@ -182,10 +197,10 @@ $include-print-styles: true;
 
 // Heading font styles
 
-// $header-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$header-font-family: 'berthold_akzidenz_groteskLtCn', "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $header-font-weight: 400;
 // $header-font-style: normal;
-$header-font-color: #555;
+$header-font-color: $dark-gray;
 // $header-line-height: 1.4;
 $header-top-margin: .4em;
 // $header-bottom-margin: .5em;
@@ -193,17 +208,17 @@ $header-top-margin: .4em;
 
 // Heading font sizes
 
-$h1-font-size: emCalc(34px);
-$h2-font-size: emCalc(24px);
-$h3-font-size: emCalc(19px);
-$h4-font-size: emCalc(14px);
-$h5-font-size: emCalc(11px);
+$h1-font-size: emCalc(38px);
+$h2-font-size: emCalc(26px);
+$h3-font-size: emCalc(21px);
+$h4-font-size: emCalc(18px);
+$h5-font-size: emCalc(15px);
 $h6-font-size: 1em;
 
 // Subheaders
 
 // $subheader-line-height: 1.4;
-$subheader-font-color: lighten($header-font-color, 15%);
+$subheader-font-color: $medium-gray;
 // $subheader-font-weight: 300;
 // $subheader-top-margin: .2em;
 // $subheader-bottom-margin: .5em;
@@ -233,8 +248,8 @@ $paragraph-font-weight: 300;
 // Anchors
 
 // $anchor-text-decoration: none;
-$anchor-font-color: darken($primary-color, 10%);
-// $anchor-font-color-hover: lighten($anchor-font-color, 25%);
+$anchor-font-color: $primary-color;
+$anchor-font-color-hover: lighten($anchor-font-color, 5%);
 
 // <hr> element
 
@@ -896,7 +911,7 @@ $orbit-slide-number-font-color: #999;
 
 // Background and border styles
 
-$panel-bg: darken($body-bg, 5%);
+$panel-bg: lighten($light-gray, 7%);
 // $panel-border-style: solid;
 // $panel-border-size: 1px;
 
@@ -1248,7 +1263,7 @@ $table-head-font-color: $header-font-color;
 
 // Background color for the top bar
 
-$topbar-bg-color: darken($primary-color, 12%);
+$topbar-bg-color: $primary-color;
 $topbar-bg: $topbar-bg-color !default;
 
 // Height and margin
@@ -1267,7 +1282,7 @@ $topbar-title-weight:                  bold;
 
 // Style the top bar dropdown elements
 
-$topbar-dropdown-bg:                      darken($primary-color, 15%);
+$topbar-dropdown-bg:                      darken($primary-color, 5%);
 // $topbar-dropdown-link-color:           #fff;
 //$topbar-dropdown-link-bg:                 #444;
 // $topbar-dropdown-toggle-size:          5px;
@@ -1333,8 +1348,22 @@ $topbar-sticky-class:                  ".sticky";
   height: 1.9em;
 }
 .top-bar input {
-  background-color: lighten($primary-color, 30%);
+  background-color: lighten($primary-color, 45%);
   border: none;
 }
 
 .video-window { @include flex-video-container; }
+
+#homepage-video-banner {
+  position: relative;
+  background: #000;
+  padding: 20px;
+  a {
+    color: $medium-gray;
+    font-size: 90%;
+    font-weight: 100;
+    &:hover {
+      color: $light-gray;
+    }
+  }
+}

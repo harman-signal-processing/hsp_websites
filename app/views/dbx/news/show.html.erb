@@ -42,6 +42,22 @@ set_meta_tags title: translate_content(@news, :title),
 				</ul>
 			</div>
 			<% end %>
+
+			<% if @recent_news.size > 0 %>
+			<div class="hide-for-small">
+				<br/>
+				<h3 class="subheader">Recent <%= website.brand.name %> <%= ucfirst(t('news')) %></h3>
+				<% @recent_news.each do |news| %>
+					<p><small><%=l news.post_on, format: :short %></small><br/>
+						<%= link_to translate_content(news, :title), news %></p>
+				<% end %>
+
+				<p>
+					<%= link_to(image_tag('icons/rss.png', alt: "rss", style: "vertical-align: middle"), rss_url(format: "xml")) %>
+					<%= link_to("Subscribe via RSS", rss_url(format: "xml")) %>
+				</p>
+			</div>
+			<% end %>
 		</div>
 		<div class="large-7 pull-5 columns">
 			<%=raw translate_content(@news, :body) %>

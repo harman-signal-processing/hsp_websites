@@ -86,19 +86,18 @@
 			</div>
 		</div>
 		
-		<% if content_for?(:middle_stuff) %>
-		<div id="middle_features">
-			<div class="row">
-				<div class="large-12 small-12 columns">
-					<%= yield :middle_stuff %>
-				</div>
-			</div>
-		</div>
-		<% end %>
-		
 		<% if content_for?(:big_bottom_box) %>
 			<div class="container content-container" id="pre-footer">
 				<%= yield :big_bottom_box %>
+				<% if content_for?(:middle_stuff) %>
+				<div id="middle_features">
+					<div class="row">
+						<div class="large-12 small-12 columns">
+							<%= yield :middle_stuff %>
+						</div>
+					</div>
+				</div>
+				<% end %>
 			</div>
 		<% end %>
 		
@@ -134,6 +133,9 @@
 						<%= link_to t('product_support'), support_path %> &bull;
 						<%= link_to t('sitemap'), sitemap_path(format: 'xml') %>
 					</span>
+					<div id="supersocial">
+						<%= social_media_links 'twitter', 'facebook', 'youtube', 'myspace', 'wechat', 'weibo' %> 
+					</div>
 				</div>
 			</div>
 		</footer>
@@ -153,5 +155,8 @@
 		<% if content_for?(:popup_code) %>
 			<%= yield :popup_code %>
 		<% end %>
+
+
+
 	</body>
 </html>

@@ -229,7 +229,11 @@ module ApplicationHelper
             end
           end
         else
-          ret += content_tag(:div, "", class: "container", id: "feature_spacer")
+          ret += content_tag(:div, class: "container", id: "feature_spacer") do 
+            if options[:tagline]
+              content_tag(:h1, website.tagline, id: "tagline")
+            end
+          end
         end
 
         ret += content_tag(:div, "", class: "bouncing-arrow") unless options[:hide_arrow]

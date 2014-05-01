@@ -11,7 +11,7 @@
 <%= content_for :feature do %>
 	<%= cache ["slideshow", website.brand, I18n.locale] do %>
 		<% slides = Setting.slides(website) %>
-		<%= video_background_with_features(slides) %>
+		<%= video_background_with_features(slides, tagline: true) %>
 	<% end %>
 <% end %>
 
@@ -25,7 +25,16 @@
 			<% end %>
 		</ul>
 		<% else %>
-			<%= featured_product_families(zurb: true, limit: 5) %>
+			<div class="panel">
+				<h2><%= website.brand.name %> <%= ucfirst(t('products')) %></h2>
+				<%= featured_product_families(zurb: true, limit: 5) %>
+				<div class="text-right">
+					<%= link_to product_families_path do %>
+						more <%= website.brand.name %>
+						<%= t('products').downcase %> ...
+					<% end %>
+				</div>
+			</div>
 		<% end %>
 	</div>
 	<% end %>
@@ -57,33 +66,42 @@
 	<% end %>
 
 	<% if @featured_video %>
-
+	<div class="container" id="homepage-video-banner">
 		<div class="row">
-			<div class="large-8 large-offset-2 small-12 columns">
+			<div class="large-6 small-12 columns">
 				<div class="video-window text-center">
 					<iframe width="853" height="480" src="//www.youtube.com/embed/<%= @featured_video %>" frameborder="0" allowfullscreen></iframe>
 				</div>
 			</div>
+			<div class="large-6 small-12 columns">
+				<%= render_partial 'shared/column_for_news' %>
+			</div>
 		</div>
-
-		<div class="text-center">
-			<div><br/>
-				<%= link_to videos_path, class: "button" do %>
+		<div class="row hide-for-small">
+			<div class="large-6 columns">
+				<%= link_to videos_path do %>
 					<%= image_tag "icons/youtube.png" %> 
-					more <%= website.brand.name %> videos...
+					more <%= website.brand.name %> videos ...
+				<% end %>
+			</div>
+			<div class="large-6 columns text-right">
+				<%= link_to news_index_path do %>
+					<%#= image_tag "icons/rss.png" %> 
+					more
+					<%= website.brand.name %>
+					<%= t('news') %> ...
 				<% end %>
 			</div>
 		</div>
+	</div>
 
 	<% end %>
 
 	<div class="row" style="margin-top: 50px;">
 		<div class="large-6 large-offset-3 columns">
-			<%#= render 'shared/column_for_news' %>
-
-		<% if website.email_signup_url %>
-			<%= render_partial 'shared/newsletter_signup' %>
-		<% end %>
+			<% if website.email_signup_url %>
+				<%= render_partial 'shared/newsletter_signup' %>
+			<% end %>
 		</div>
 	</div>
 <% end %>

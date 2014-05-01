@@ -14,7 +14,8 @@ class MainController < ApplicationController
       end
     end
     @countdown_container = website.value_for('countdown_container')
-    @news = News.all_for_website(website, limit: 4)
+    news_limit = website.homepage_news_limit || 4
+    @news = News.all_for_website(website, limit: news_limit)
     begin
       @youtube = website.value_for('youtube').to_s.match(/\w*$/).to_s
     rescue

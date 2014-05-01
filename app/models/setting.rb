@@ -7,12 +7,14 @@ class Setting < ActiveRecord::Base
       tiny: "64x64>", 
       tiny_square: "64x64#" 
     }, 
-    storage: :s3,
-    bucket: Rails.configuration.aws[:bucket],
-    s3_credentials: Rails.configuration.aws,
-    s3_host_alias: S3_CLOUDFRONT,
-    url: ':s3_alias_url',
-    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
+    url: '/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension',
+    path: ":rails_root/public/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension"
+    # storage: :s3,
+    # bucket: Rails.configuration.aws[:bucket],
+    # s3_credentials: Rails.configuration.aws,
+    # s3_host_alias: S3_CLOUDFRONT,
+    # url: ':s3_alias_url',
+    # path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
   validates_attachment :slide, content_type: { content_type: /\Aimage|video/i }
   before_post_process :skip_for_video, :skip_for_gifs
 

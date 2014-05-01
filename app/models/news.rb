@@ -3,6 +3,8 @@ class News < ActiveRecord::Base
     styles: { large: "600>x370", 
       email: "580",
       medium: "350x350>", 
+      small: "240",
+      small_square: "250x250#",
       thumb: "100x100>", 
       thumb_square: "100x100#", 
       tiny: "64x64>", 
@@ -39,7 +41,14 @@ class News < ActiveRecord::Base
   # News to display on the main area of the site. This set of news articles
   # includes entries from the past year and a half.
   def self.all_for_website(website, options={})
+
+    # If the website specifies a limit for the number of news entries for the homepage,
+    # then we'll show that amount to the 3rd power on the actual news page.
+    if website.homepage_news_limit.to_i > 0 
+      options[:limit] ||= website.homepage_news_limit.to_i ** 3 
+    end
     limit = (options[:limit]) ? " LIMIT #{options[:limit]} " : ""
+
     # First, select news story IDs with a product associated with this brand...
     product_news = News.find_by_sql("SELECT DISTINCT news.id FROM news
       INNER JOIN news_products ON news_products.news_id = news.id

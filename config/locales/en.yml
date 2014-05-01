@@ -349,6 +349,7 @@ en:
       short: "%b %d, %Y"
       long: "%B %d, %Y"
       month_day: "%b %d"
+      blog_month_day: "%B %d"
       mmddyy: "%m/%d/%y"
 
   time:
