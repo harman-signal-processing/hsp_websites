@@ -117,7 +117,7 @@ img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 			size: 26px;
 		}
 		text: {
-			shadow: 1px 1px 20px #000;
+			shadow: 0px 0px 8px #000;
 			transform: uppercase;
 		}
 	}
@@ -152,14 +152,6 @@ img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 		display: none;
 	}
 @media only screen and (min-width: 720px) {
-	div#header-container {
-		height: 103px;
-		margin-bottom: 15px;
-		background: asset-data-url('dbx/page_bg.gif') repeat-x;
-	    -webkit-box-shadow: 0 8px 6px -6px #ccc;
-	    -moz-box-shadow: 0 8px 6px -6px #ccc;
-	    box-shadow: 0 8px 6px -6px #ccc;
-	}
 	nav.top-bar {
 	  /* Prevent background color leak outs */
 	    -webkit-background-clip: padding-box; 
@@ -176,22 +168,8 @@ img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 	}
 }
 @media only screen and (max-width: 720px) {
-	div#header-container {
-		margin-bottom: 10px;
-	}
 	img.no-resize-for-small { max-width: none; }
-	div#header-container {
-		.row {
-			div {
-				padding-right: 0;
-				padding-left: 0;
-				margin-right: 0;
-				&.small-9 {
-					max-width: 11em;
-				}
-			}
-		}
-	}
+
 	.admin_function {
 		display: none;
 	}
@@ -1249,7 +1227,7 @@ div.quicklinks {
 }		
 
 .bouncing-arrow {
-  background: asset-data-url('dod/arrow.png');
+  background: asset-url('dod/arrow.png', image);
   width: 56px;
   height: 25px;
   position: fixed;
