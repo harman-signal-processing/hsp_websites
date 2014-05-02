@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140422154514) do
+ActiveRecord::Schema.define(:version => 20140502154537) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -239,6 +239,7 @@ ActiveRecord::Schema.define(:version => 20140422154514) do
     t.boolean  "has_us_sales_reps"
     t.integer  "us_sales_reps_from_brand_id"
     t.boolean  "queue"
+    t.boolean  "toolkit"
   end
 
   add_index "brands", ["cached_slug"], :name => "index_brands_on_cached_slug", :unique => true
@@ -1594,6 +1595,7 @@ ActiveRecord::Schema.define(:version => 20140422154514) do
     t.integer  "profile_pic_file_size"
     t.string   "profile_pic_content_type"
     t.datetime "profile_pic_updated_at"
+    t.boolean  "project_manager"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

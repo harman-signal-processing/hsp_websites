@@ -28,6 +28,7 @@
         <%= f.input :show_pricing, label: "Show pricing on product pages, enable direct-buy features" %>
         <%= f.input :has_suggested_products %>
         <%= f.input :has_label_sheets %>
+        <%= f.input :has_audio_demos %>
       </div>
       <div class="large-6 columns">
       	<%= f.input :has_online_retailers %>
@@ -39,8 +40,10 @@
       	<%= f.input :has_parts_form, label: "Site has online parts request form" %>
       	<%= f.input :has_rma_form, label: "Site has online RMA form" %>
       	<%= f.input :has_training, label: "Has training resources" %>
-      	<%= f.input :has_blogs %>
-        <%= f.input :has_audio_demos %>
+        <%= f.input :has_blogs %>
+        <br/>
+        <%= f.input :queue, label: "Show on marketing queue site" %>
+        <%= f.input :toolkit, label: "Show on marketing toolkit site" %>
         <%= f.input :employee_store, label: "Show on employee store" %>
       	<%= f.input :live_on_this_platform, label: "Live on this platform (employee store will link back to this site)" %>
       </div>

@@ -27,6 +27,7 @@ FactoryGirl.define do
     distributors_from_brand_id nil
     service_centers_from_brand_id nil
     employee_store false
+    toolkit false
     live_on_this_platform false
     # rso_enabled false
     # logo_file_name "logo.png"
@@ -48,6 +49,7 @@ FactoryGirl.define do
       employee_store true
       live_on_this_platform true
       queue true
+      toolkit true
     end
     factory :digitech_brand do
       name "DigiTech"
@@ -59,6 +61,7 @@ FactoryGirl.define do
       employee_store true
       live_on_this_platform true
       queue true
+      toolkit true
     end
     factory :dod_brand do
       name "DOD"
@@ -69,6 +72,7 @@ FactoryGirl.define do
       employee_store true
       live_on_this_platform true
       queue true
+      toolkit true
     end
     factory :hardwire_brand do
       name "HardWire"
@@ -99,18 +103,21 @@ FactoryGirl.define do
       employee_store false
       live_on_this_platform false
       queue true
+      toolkit true
     end
     factory :dbx_brand do
       name "dbx"
       employee_store true
       live_on_this_platform true
       queue true
+      toolkit true
     end
     factory :bss_brand do
       name "BSS"
       employee_store true
       live_on_this_platform false
       queue true
+      toolkit true
     end
   end
 
