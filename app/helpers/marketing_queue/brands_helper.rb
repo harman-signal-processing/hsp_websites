@@ -20,7 +20,9 @@ module MarketingQueue::BrandsHelper
   def event_calendar
     calendar event_calendar_options do |args|
       event = args[:event]
-      %(<a href="/marketing_queue/marketing_projects/#{event.id}" title="#{h(event.name)}">#{h(event.brand.name)}: #{h(event.name)}</a>)
+      name = (event.brand.present?) ? "#{event.brand.name}: #{event.name}" : "#{event.name}"
+      path = url_for([:marketing_queue, event])
+      %(<a href="#{path}" title="#{h(event.name)}">#{h(name)}</a>)
     end
   end
   

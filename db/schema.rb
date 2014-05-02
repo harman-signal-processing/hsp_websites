@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140502154537) do
+ActiveRecord::Schema.define(:version => 20140502195401) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -623,16 +623,18 @@ ActiveRecord::Schema.define(:version => 20140502154537) do
     t.integer  "requestor_id"
     t.integer  "worker_id"
     t.datetime "completed_at"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
     t.integer  "position"
     t.float    "man_hours"
     t.integer  "currently_with_id"
     t.integer  "priority"
     t.text     "creative_brief"
+    t.integer  "marketing_calendar_id"
   end
 
   add_index "marketing_tasks", ["brand_id"], :name => "index_marketing_tasks_on_brand_id"
+  add_index "marketing_tasks", ["marketing_calendar_id"], :name => "index_marketing_tasks_on_marketing_calendar_id"
   add_index "marketing_tasks", ["marketing_project_id"], :name => "index_marketing_tasks_on_marketing_project_id"
   add_index "marketing_tasks", ["requestor_id"], :name => "index_marketing_tasks_on_requestor_id"
   add_index "marketing_tasks", ["worker_id"], :name => "index_marketing_tasks_on_worker_id"

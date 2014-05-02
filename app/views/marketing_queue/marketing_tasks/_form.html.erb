@@ -34,18 +34,21 @@
 
 	<div class="row">
 		<div class="large-6 columns">
+			<%= f.input :priority, collection: 1..5, hint: "1=highest" %>
+		</div>
+		<div class="large-6 columns">
+			<%= f.association :marketing_calendar, label: "Show on this calendar" %>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-6 columns">
 			<%= f.input :due_on, as: :string, input_html: { class: 'ui-datepicker' } %>
 		</div>
 		<div class="large-6 columns">
 			<% unless @marketing_task.new_record? %>
 				<%= f.input :completed_at, as: :string, input_html: { class: 'ui-datetimepicker' } %>
 			<% end %>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="large-4 columns">
-			<%= f.input :priority, collection: 1..5, hint: "1=highest" %>
 		</div>
 	</div>
 
