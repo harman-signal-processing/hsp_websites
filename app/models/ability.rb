@@ -78,6 +78,12 @@ class Ability
         can :manage, MarketingComment
         can :estimate, MarketingTask
       end
+      if user.role?(:project_manager)
+        can :manage, MarketingTask
+        cannot :assign, MarketingTask
+        can :create, MarketingProject 
+        can :manage, MarketingProject
+      end
       if user.role?(:sales_admin)
         can :read, Product
         can :update, :harman_employee_pricing

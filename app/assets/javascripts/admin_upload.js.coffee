@@ -4,7 +4,7 @@ jQuery ->
     progress_bar_target: $('#uploads_container')
 
   $('#s3_uploader').bind 's3_upload_failed', (e, content) ->
-    alert(content.filename + ' failed to upload')
+    alert("#{ content.filename } failed to upload : #{ content.error_thrown }")
 
 
 #  $('#new_software').fileupload

@@ -1,37 +1,44 @@
 <%= simple_form_for [:admin, @user] do |f| %>
-	<%= f.input :name %>
-  <%= f.input :email, input_html: { autocomplete: "off" } %>
-  <%= f.input :phone_number %>
-  <%= f.input :job_title %>
-  <%= f.input :job_description %>
+	<div class="row">
+		<div class="large-6 columns">
+			<%= f.input :name %>
+			<%= f.input :email, input_html: { autocomplete: "off" } %>
+			<%= f.input :phone_number %>
+			<%= f.input :job_title %>
+			<%= f.input :job_description %>
+			  <% if @user.new_record? %>
+			  <br/>
+					<%= f.input :password, input_html: { autocomplete: "off" } %>
+					<%= f.input :password_confirmation, input_html: { autocomplete: "off" } %>
+			  <% end %>
+		</div>
 
-  <%= f.input :admin, label: "Super Admin" %>
-	<%= f.input :market_manager %>
-  <%= f.input :marketing_staff %>
-  <%= f.input :queue_admin, label: "Marketing Queue Administrator" %>
-	<%= f.input :artist_relations %>
-	<%= f.input :customer_service %>
-	<%= f.input :sales_admin %>
-	<%= f.input :online_retailer %>
-	<%= f.input :engineer, label: "Engineer (can manage Software)" %>
-	<%= f.input :translator %>
-	<%= f.input :rohs %>
-	<%= f.input :clinician %>
-  <%= f.input :clinic_admin, label: "Clinic admin (can manage clinic schedule)" %>
-  <%= f.input :rep %>
-  <%= f.input :dealer %>
-	<%= f.input :distributor %>
+		<div class="large-6 columns">
+			<%= f.input :admin, label: "Super Admin" %>
+			<%= f.input :employee %>
+			<%= f.input :market_manager %>
+			<%= f.input :marketing_staff %>
+			<%= f.input :queue_admin, label: "Marketing Queue Administrator" %>
+			<%= f.input :artist_relations %>
+			<%= f.input :customer_service %>
+			<%= f.input :sales_admin %>
+			<%= f.input :online_retailer %>
+			<%= f.input :project_manager, label: "Project Manager (can manage projects on the queue)" %>
+			<%= f.input :engineer, label: "Engineer (can manage Software)" %>
+			<%= f.input :translator %>
+			<%= f.input :rohs %>
+			<%= f.input :clinician %>
+			<%= f.input :clinic_admin, label: "Clinic admin (can manage clinic schedule)" %>
+			<%= f.input :rep %>
+			<%= f.input :dealer %>
+			<%= f.input :distributor %>
 
-	<% unless @user.new_record? %>
-	 <%= f.input :rso, label: "RSO" %>
-	<% end %>
-	<%= f.input :rso_admin, label: "RSO Admin (can post individual RSO reports)" %>
-
-  <% if @user.new_record? %>
-  <br/>
-		<%= f.input :password, input_html: { autocomplete: "off" } %>
-		<%= f.input :password_confirmation, input_html: { autocomplete: "off" } %>
-  <% end %>
+			<% unless @user.new_record? %>
+			 <%= f.input :rso, label: "RSO" %>
+			<% end %>
+			<%= f.input :rso_admin, label: "RSO Admin (can post individual RSO reports)" %>
+		</div>
+	</div>
 
   <br/><%= f.button :submit %>
 

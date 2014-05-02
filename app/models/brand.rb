@@ -115,6 +115,11 @@ class Brand < ActiveRecord::Base
   def self.for_employee_store
     where(employee_store: true).order("UPPER(name)") || where(name: ["DigiTech", "Lexicon", "dbx", "DOD"])
   end
+
+  # Those brands which should appear on the marketing toolkits
+  def self.for_toolkit
+    where(toolkit: true).order("UPPER(name)").includes(:websites)
+  end
     
   def has_where_to_buy?
     !!(self.has_online_retailers? || self.has_dealers? || self.has_distributors?)

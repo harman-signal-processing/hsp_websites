@@ -124,7 +124,7 @@ class Software < ActiveRecord::Base
     paperclip_file_path = Paperclip::Interpolations.interpolate(path_interpolation, software.ware, 'original')
 
     # paperclip_file_path = "documents/uploads/#{id}/original/#{direct_upload_url_data[:filename]}"
-    s3.buckets[Rails.configuration.aws[:bucket]].objects[paperclip_file_path].copy_from(direct_upload_url_data[:path])
+    s3.buckets[Rails.configuration.aws[:bucket]].objects[paperclip_file_path].copy_from(direct_upload_url_data[:path], acl: :public_read)
 
     software.processed = true
     software.save

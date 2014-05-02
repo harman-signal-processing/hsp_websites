@@ -28,7 +28,7 @@ describe "Toolkit Content Integration Test" do
   	end
 
     it "should link to brand pages" do
-      brand = Brand.last
+      brand = Brand.where(toolkit: true).last
       page.must_have_link brand.name, href: toolkit_brand_path(brand, locale: I18n.default_locale)
     end
   end

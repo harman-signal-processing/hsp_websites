@@ -2,7 +2,7 @@ module ToolkitHelper
 
 	# Figures out which brand should be in the Toolkit
 	def toolkit_brands
-		@toolkit_brands ||= Brand.where(name: ["BSS", "dbx", "IDX", "Lexicon", "DigiTech", "DOD"]).order("UPPER(name)").includes(:websites).select{|b| b if b.websites.size > 0}
+		@toolkit_brands ||= Brand.for_toolkit.select{|b| b if b.websites.size > 0}
 	end
 
 	# Adds css class to elements to bump the content over to show
