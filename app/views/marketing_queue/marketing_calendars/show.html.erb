@@ -7,13 +7,37 @@
 			<%= marketing_event_calendars %>
 	</div>
 	<div class="large-3 columns">
-		<h6>Filter by brand:</h6>
-		<ul class="list" style="font-size: 75%">
-          <li><%= link_to 'All', [:marketing_queue, @marketing_calendar] %></li>
-          <% marketing_queue_brands.each do |brand| %>
-          <li><%= link_to brand.name, marketing_queue_marketing_calendar_path(@marketing_calendar, brand_id: brand.id) %></li>
-          <% end %>
-		</ul>
+		<h6>Filter calendar</h6>
+			<%= form_tag marketing_queue_load_marketing_calendar_path(@marketing_calendar), method: :get, class: "custom" do %>
+				<div class="row collapse">
+					<div class="large-4 columns">
+						<%= label_tag :brand_id, "Brand", class: "inline" %>
+					</div>
+					<div class="large-8 columns">
+						<%= select_tag :brand_id, 
+							options_from_collection_for_select(marketing_queue_brands, :id, :name, (@brand) ? @brand.id : nil), 
+							include_blank: true %>
+					</div>
+				</div>
+				<div class="row collapse">
+					<div class="large-4 columns">
+						<%= label_tag :start_on, nil, class: "inline" %>
+					</div>
+					<div class="large-8 columns">
+						<%= text_field_tag :start_on, @start_on, class: "ui-datepicker" %>
+					</div>
+				</div>
+				<div class="row collapse">
+					<div class="large-4 columns">
+						<%= label_tag :end_on, nil, class: "inline" %>
+					</div>
+					<div class="large-8 columns">
+						<%= text_field_tag :end_on, @end_on, class: "ui-datepicker"  %>
+					</div>
+				</div>
+
+				<%= submit_tag "show calendar", class: "medium round button" %>
+			<% end %>
 		<div class="tip">
 			<p>To add calendar items, create/edit a project or task and select '<%= @marketing_calendar.name %>' from the calendar selection.</p>
 		</div>

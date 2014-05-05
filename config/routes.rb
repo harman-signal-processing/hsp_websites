@@ -71,6 +71,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
           get :overview
         end
       end
+      get 'load_marketing_calendar(/:id)' => 'marketing_calendars#show', as: :load_marketing_calendar
       resources :marketing_calendars do 
         get ':id/calendar((/:year(/:month))/:brand_id)' => 'marketing_calendars#show', as: :project_calendar, constraints: {year: /\d{4}/, month: /\d{1,2}/}
       end

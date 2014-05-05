@@ -2,17 +2,52 @@
 <div class="row">
 	<div class="large-9 columns">
 		<div class="main-container">
-			<h6>Marketing Calendars</h6>
+			<h3>Marketing Calendars</h3>
 
-			<ul class="list">
-			<% @marketing_calendars.each do |marketing_calendar| %>
-				<li><%= link_to marketing_calendar.name, [:marketing_queue, marketing_calendar] %></li>
+	<div class="row">
+		<div class="large-7 columns">
+			<%= form_tag marketing_queue_load_marketing_calendar_path, method: :get, class: "custom" do %>
+				<div class="row collapse">
+					<div class="large-4 columns">
+						<%= label_tag :id, "Calendar", class: "inline" %>
+					</div>
+					<div class="large-8 columns">
+						<%= select_tag :id, options_from_collection_for_select(@marketing_calendars, :id, :name) %>
+					</div>
+				</div>
+				<div class="row collapse">
+					<div class="large-4 columns">
+						<%= label_tag :start_on, nil, class: "inline" %>
+					</div>
+					<div class="large-8 columns">
+						<%= text_field_tag :start_on, @start_on, class: "ui-datepicker" %>
+					</div>
+				</div>
+				<div class="row collapse">
+					<div class="large-4 columns">
+						<%= label_tag :end_on, nil, class: "inline" %>
+					</div>
+					<div class="large-8 columns">
+						<%= text_field_tag :end_on, @end_on, class: "ui-datepicker"  %>
+					</div>
+				</div>
+				<div class="row collapse">
+					<div class="large-4 columns">
+						<%= label_tag :brand_id, "Brand (optional)", class: "inline" %>
+					</div>
+					<div class="large-8 columns">
+						<%= select_tag :brand_id, options_from_collection_for_select(marketing_queue_brands, :id, :name), include_blank: true %>
+					</div>
+				</div>
+				<%= submit_tag "show calendar", class: "medium round button" %>
 			<% end %>
-			</ul>
+		</div>
+	</div>
+
 		</div>
 	</div>
 	<div class="large-3 columns">
-		<h6>New Marketing Calendar:</h6><br/>
+		<h6>Create A New Calendar:</h6><br/>
 		<%= simple_form_for [:marketing_queue, @marketing_calendar] do |f| %>
 			<%= f.input :name, label: "Calendar Name" %>
 			<%= f.submit class: "small button round" %>

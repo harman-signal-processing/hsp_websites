@@ -156,7 +156,7 @@
 			<p>
 			The project is related to 
 			<% if @marketing_project.marketing_calendar %>
-				<%= link_to [:marketing_queue, @marketing_project.marketing_calendar] do %>
+				<%= link_to marketing_queue_load_marketing_calendar_path(@marketing_project.marketing_calendar, start_on: @marketing_project.event_start_on.beginning_of_month) do %>
 					<%= @marketing_project.marketing_calendar.name.match(/^[aeiou]/i) ? "an" : "a" %>
 					<%= @marketing_project.marketing_calendar.name %>
 				<% end %>
