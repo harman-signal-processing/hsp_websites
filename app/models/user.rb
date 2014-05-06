@@ -111,6 +111,7 @@ class User < ActiveRecord::Base
     rso_admin 
     sales_admin
     project_manager
+    executive
     media]
   
   def self.staff 
