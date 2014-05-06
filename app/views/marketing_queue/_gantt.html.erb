@@ -30,7 +30,7 @@
 				<% end %>
 			</td>
 			<td colspan="<%= headings.size %>" style="border-bottom: 1px dotted #ccc; padding-bottom: 4px;">
-				<%= image_tag(bar_url(color: '999', width: (event.duration_in_days + 4), height: 14), 
+				<%= image_tag(bar_url(brand_id: brand, width: (event.duration_in_days + 4), height: 14), 
 					style: "margin-left: #{event.starts_x_days_after(headings.first)}px",
 					alt: "#{brand.name}_bar") %>&nbsp;<small><%=number_to_percentage event.percent_complete, precision: 0 %></small>
 

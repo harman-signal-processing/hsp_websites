@@ -38,11 +38,14 @@ class MarketingQueueController < ApplicationController
   # with CSS background colors, but then you'd have to customize your print
   # setup in your browser in order to see the bars on a printout.
   def bar
-    color = "##{params[:color]}"
+    brand = Brand.find(params[:brand_id])
+    color = brand.color.present? ? brand.color : '#888'
     width = params[:width].to_i || 10
     height = params[:height].to_i || 10
-    f = Magick::Image.new(width, height) { self.background_color = color }
-    f.format = "png"
+    f = Magick::Image.new(width, height) { 
+      self.background_color = color 
+      self.format = "png"
+    }
     send_data(f.to_blob, disposition: "inline", content_type: "image/png")
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140502195401) do
+ActiveRecord::Schema.define(:version => 20140506161316) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -240,6 +240,7 @@ ActiveRecord::Schema.define(:version => 20140502195401) do
     t.integer  "us_sales_reps_from_brand_id"
     t.boolean  "queue"
     t.boolean  "toolkit"
+    t.string   "color"
   end
 
   add_index "brands", ["cached_slug"], :name => "index_brands_on_cached_slug", :unique => true
