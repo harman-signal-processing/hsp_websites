@@ -34,6 +34,18 @@ class MarketingQueueController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  # A dynamically generated bar for a gantt chart. Sure, you could do this
+  # with CSS background colors, but then you'd have to customize your print
+  # setup in your browser in order to see the bars on a printout.
+  def bar
+    color = "##{params[:color]}"
+    width = params[:width].to_i || 10
+    height = params[:height].to_i || 10
+    f = Magick::Image.new(width, height) { self.background_color = color }
+    f.format = "png"
+    send_data(f.to_blob, disposition: "inline", content_type: "image/png")
+  end
+
 private
 
   def force_english

@@ -2,7 +2,7 @@ require "domain_conditions"
 
 HarmanSignalProcessingWebsite::Application.routes.draw do
 
-  get "/images/bar/:color.png" => "application#bar", as: :bar
+  get "/images/bar/:color.png" => "marketing_queue#bar", as: :bar
   get "signups/new"
   get "signup/complete" => "signups#complete", as: :signup_complete
   get "epedal_labels/index"
