@@ -134,4 +134,6 @@
 	</div>
 <% end %>
 
+<% if @sleeper_brands.count > 0 %>
 <p><small>(Nothing for <%=raw @sleeper_brands.map{|b| link_to(b.name, [:marketing_queue, b])}.join(", ") %>.)</small></p>
+<% end %>

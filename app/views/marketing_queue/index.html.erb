@@ -34,7 +34,7 @@
 			<div class="small-12 large-12 columns">
 			<div class="main-container">
 				<h2>My Dashboard</h2>
-				<% if current_marketing_queue_user.role?(:project_manager) %>
+				<% if current_marketing_queue_user.role?(:project_manager) || current_marketing_queue_user.role?(:executive) %>
 					<%= gantt_chart_for(marketing_queue_brands) %>
 				<% end %>
 
