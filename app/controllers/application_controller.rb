@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include Magick
   # before_filter :set_locale
   # before_filter :set_default_meta_tags
   # before_filter :configure_permitted_parameters, if: :devise_controller? # shouldn't need this until rails 4
@@ -92,6 +93,18 @@ class ApplicationController < ActionController::Base
     order.to_a.each_with_index do |item, pos|
       model.update(item, position:(pos + 1))
     end
+  end
+
+  # A dynamically generated bar for a gantt chart. Sure, you could do this
+  # with CSS background colors, but then you'd have to customize your print
+  # setup in your browser in order to see the bars on a printout.
+  def bar
+    color = "##{params[:color]}"
+    width = params[:width].to_i || 10
+    height = params[:height].to_i || 10
+    f = Image.new(width, height) { self.background_color = color }
+    f.format = "png"
+    send_data(f.to_blob, disposition: "inline", content_type: "image/png")
   end
 
 private

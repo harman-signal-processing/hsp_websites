@@ -34,6 +34,9 @@
 			<div class="small-12 large-12 columns">
 			<div class="main-container">
 				<h2>My Dashboard</h2>
+				<% if current_marketing_queue_user.role?(:project_manager) %>
+					<%= gantt_chart_for(marketing_queue_brands) %>
+				<% end %>
 
 				<% if current_marketing_queue_user.role?(:queue_admin) && @unassigned_tasks.length > 0 %>
 					<h4 class="subheader">Unassigned Tasks</h4>

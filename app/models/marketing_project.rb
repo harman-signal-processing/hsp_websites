@@ -47,6 +47,21 @@ class MarketingProject < ActiveRecord::Base
     end
   end
 
+  def self.for_report(brand_ids, marketing_calendar_id=false, start_on=false, end_on=false, no_sort=false)
+    m = where(brand_id: brand_ids)
+    m = m.where(marketing_calendar_id: marketing_calendar_id) unless marketing_calendar_id.blank?
+    if start_on && !end_on
+      m = m.where("event_end_on >= ? OR event_start_on >= ?", start_on.to_date, start_on.to_date)
+    elsif end_on && !start_on
+      m = m.where("event_start_on <= ? OR event_end_on <= ? ", end_on.to_date, end_on.to_date)
+    elsif start_on && end_on
+      m = m.where("(event_end_on <= ? AND event_end_on >= ?) OR (event_start_on <= ? AND event_start_on >= ?)", end_on.to_date, start_on.to_date, end_on.to_date, start_on.to_date)
+    end
+
+    m = m.order("event_start_on, event_end_on") unless no_sort
+    m
+  end
+
   def self.open
     where("id IN (?) OR event_end_on >= ? OR due_on >= ?", MarketingTask.open_project_ids, 1.day.ago, 1.day.ago).order("due_on ASC")
   end
@@ -95,6 +110,20 @@ class MarketingProject < ActiveRecord::Base
 
   def participants
     ([user] + marketing_tasks.where("worker_id > 0").map{|t| t.worker} + marketing_comments.map{|c| c.user}).uniq
+  end
+
+  def duration_in_days
+    if event_end_on.present? && event_start_on.present?
+      (event_end_on - event_start_on).to_i
+    else
+      1
+    end
+  end
+  
+  def starts_x_days_after(some_date)
+    start_on = (event_start_on.present?) ? event_start_on : due_on
+    x = (start_on - some_date.to_date).to_i
+    (x < 0) ? 0 : x
   end
 
 end

@@ -4,6 +4,35 @@ module MarketingQueue::BrandsHelper
     link_to(I18n.localize(month_date, format: "%B"), {month: month_date.month, year: month_date.year})
   end
 
+  def gantt_chart_for(brands, marketing_calendar_id=nil, start_on=false, end_on=false)
+    brand_ids = [brands].flatten.collect{|b| b.id}
+    begin
+      events = MarketingProject.for_report(brand_ids, @marketing_calendar_id, @start_on, @end_on, true)
+      if events.length > 0
+        last_event = events.order("event_end_on DESC").first
+        end_on = (last_event.event_end_on.present?) ? last_event.event_end_on : 6.months.from_now
+        events = events.order("event_start_on, event_end_on")
+        headings = []
+        first_event = events.first
+        start_on = (first_event.event_start_on.present?) ? first_event.event_start_on.beginning_of_month : 2.months.ago
+        until start_on.to_date > end_on.to_date
+          headings << start_on
+          start_on = start_on.advance(months: 1)
+        end
+        if headings.size < 6
+          new_start = headings.last.advance(months: 1)
+          until headings.size > 6
+            headings << new_start
+            new_start = new_start.advance(months: 1)
+          end
+        end
+        render partial: "marketing_queue/gantt", locals: {brands: brands, headings: headings, marketing_calendar_id: marketing_calendar_id}
+      end
+    rescue
+      render text: "<!--not enough info to render gantt chart-->"
+    end
+  end
+
   # custom options for this calendar
   def event_calendar_options
     { 
