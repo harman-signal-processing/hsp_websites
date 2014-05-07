@@ -1,13 +1,13 @@
 class SiteElement < ActiveRecord::Base
   belongs_to :brand, touch: true
-  has_attached_file :resource, 
+  has_attached_file :resource, {
     styles: { large: "550x370", 
       medium: "480x360", 
       small: "240x180",
       thumb: "100x100", 
       tiny: "64x64", 
       tiny_square: "64x64#" 
-    }.merge(S3_STORAGE)
+    }}.merge(S3_STORAGE)
   do_not_validate_attachment_file_type :resource
 
   has_attached_file :executable, 

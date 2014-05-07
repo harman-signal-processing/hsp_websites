@@ -6,9 +6,9 @@ class ProductFamily < ActiveRecord::Base
   has_many :market_segment_product_families, dependent: :destroy
   has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
   
-  has_attached_file :family_photo, styles: { medium: "300x300>", thumb: "100x100>" }.merge(S3_STORAGE)
-  has_attached_file :family_banner, styles: { medium: "300x300>", thumb: "100x100>" }.merge(S3_STORAGE)
-  has_attached_file :title_banner, styles: { medium: "300x300>", thumb: "100x100>" }.merge(S3_STORAGE)
+  has_attached_file :family_photo, { styles: { medium: "300x300>", thumb: "100x100>" }}.merge(S3_STORAGE)
+  has_attached_file :family_banner, { styles: { medium: "300x300>", thumb: "100x100>" }}.merge(S3_STORAGE)
+  has_attached_file :title_banner, { styles: { medium: "300x300>", thumb: "100x100>" }}.merge(S3_STORAGE)
   has_attached_file :background_image, S3_STORAGE
 
   validates_attachment :family_photo, content_type: { content_type: /\Aimage/i }

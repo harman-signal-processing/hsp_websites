@@ -14,7 +14,7 @@ class ToolkitResource < ActiveRecord::Base
     :media,
     :rso
 
-  has_attached_file :tk_preview, 
+  has_attached_file :tk_preview, {
     styles: { lightbox: "800x600",
       large: "640x480", 
       medium: "480x360", 
@@ -26,7 +26,7 @@ class ToolkitResource < ActiveRecord::Base
       thumb: "100x100", 
       tiny: "64x64", 
       tiny_square: "64x64#" 
-    }.merge(S3_STORAGE)
+    }}.merge(S3_STORAGE)
   validates_attachment :tk_preview, content_type: { content_type: /\Aimage/i }    
   has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
   belongs_to :brand 

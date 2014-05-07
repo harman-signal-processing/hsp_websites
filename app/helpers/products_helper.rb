@@ -267,11 +267,23 @@ module ProductsHelper
   def button_for(product, options)
     folder = folder_for(product)
     if product.direct_buy_link.blank?
-      image_tag("#{folder}/#{I18n.locale}/#{options[:button_prefix]}buyitnow_button.png", alt: t("online_dealers_us"), mouseover: "#{folder}/#{I18n.locale}/#{options[:button_prefix]}buyitnow_button_hover.png")
+      if File.exists?(Rails.root.join("app", "assets", "images", "#{folder}/#{I18n.locale}/#{options[:button_prefix]}buyitnow_button.png")) 
+        image_tag("#{folder}/#{I18n.locale}/#{options[:button_prefix]}buyitnow_button.png", alt: t("buy_it_now"), mouseover: "#{folder}/#{I18n.locale}/#{options[:button_prefix]}buyitnow_button_hover.png")
+      else
+        t("buy_it_now")
+      end
     elsif product.parent_products.size > 0 # as in e-pedals
-      image_tag("#{folder}/#{I18n.locale}/#{options[:button_prefix]}getit_button.png", alt: t("online_dealers_us"), mouseover: "#{folder}/#{I18n.locale}/#{options[:button_prefix]}getit_button_hover.png")
+      if File.exists?(Rails.root.join("app", "assets", "images", "#{folder}/#{I18n.locale}/#{options[:button_prefix]}getit_button.png")) 
+        image_tag("#{folder}/#{I18n.locale}/#{options[:button_prefix]}getit_button.png", alt: t("get_it"), mouseover: "#{folder}/#{I18n.locale}/#{options[:button_prefix]}getit_button_hover.png")
+      else
+        t("get_it")
+      end
     else
-      image_tag("#{folder}/#{I18n.locale}/#{options[:button_prefix]}addtocart_button.png", alt: t("online_dealers_us"), mouseover: "#{folder}/#{I18n.locale}/#{options[:button_prefix]}addtocart_button_hover.png")
+      if File.exists?(Rails.root.join("app", "assets", "images", "#{folder}/#{I18n.locale}/#{options[:button_prefix]}addtocart_button.png")) 
+        image_tag("#{folder}/#{I18n.locale}/#{options[:button_prefix]}addtocart_button.png", alt: t("add_to_cart"), mouseover: "#{folder}/#{I18n.locale}/#{options[:button_prefix]}addtocart_button_hover.png")
+      else
+        t("add_to_cart")
+      end
     end
   end
 

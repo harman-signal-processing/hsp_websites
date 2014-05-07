@@ -104,7 +104,10 @@ en:
   yes: yes
   no: no
   brief_legal_disclaimer: "Product names modeled in this product are trademarks of their respective companies that do not endorse and are not associated or affiliated with DigiTech. Scroll down for complete information."
-  
+  buy_it_now: "Buy It Now"
+  add_to_cart: "Add To Cart"
+  get_it: "Get It"
+    
   language:
       en: English
       es: Spanish

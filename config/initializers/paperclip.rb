@@ -21,7 +21,7 @@ AWS.config(Rails.configuration.aws)
 # Cloudfront only seems to work with an S3 bucket OR some other source (not both).
 # So, since cdn.harmanpro.com is setup as an alias of assets.harmanpro.com, we need
 # a separate CDN for stuff in the S3 buckets...
-S3_CLOUDFRONT = Rails.env.production? ? 'adn.harmanpro.com' : nil # 'd18nzrj3czoaty.cloudfront.net' # 
+S3_CLOUDFRONT = 'adn.harmanpro.com' # 'd18nzrj3czoaty.cloudfront.net' # 
 
 if Rails.env.production?
 	Paperclip::Attachment.default_options.merge!({

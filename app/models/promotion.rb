@@ -9,14 +9,14 @@ class Promotion < ActiveRecord::Base
   has_attached_file :promo_form, S3_STORAGE
   do_not_validate_attachment_file_type :promo_form
 
-  has_attached_file :tile, 
+  has_attached_file :tile, {
     styles: { large: "550x370", 
       medium: "480x360", 
       small: "240x180",
       thumb: "100x100", 
       tiny: "64x64", 
       tiny_square: "64x64#" 
-    }.merge(S3_STORAGE)
+    }}.merge(S3_STORAGE)
   validates_attachment :tile, content_type: { content_type: /\Aimage/i }    
 
   after_save :translate

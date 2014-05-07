@@ -1,6 +1,6 @@
 class ProductAttachment < ActiveRecord::Base
   belongs_to :product, touch: true
-  has_attached_file :product_attachment, 
+  has_attached_file :product_attachment, {
     styles: { lightbox: "800x600",
       large: "640x480", 
       medium: "480x360", 
@@ -17,7 +17,7 @@ class ProductAttachment < ActiveRecord::Base
     },
     convert_options: {
       soundcomm: "-gravity center -extent 160x160"
-    }.merge(S3_STORAGE)
+    }}.merge(S3_STORAGE)
   validates_attachment :product_attachment, content_type: { content_type: /\Aimage/i }
 
   has_attached_file :product_media, 
