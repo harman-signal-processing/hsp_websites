@@ -1,16 +1,10 @@
 class ToneLibraryPatch < ActiveRecord::Base
   belongs_to :tone_library_song, touch: true
   belongs_to :product, touch: true
-  has_attached_file :patch,
+  has_attached_file :patch, {
     s3_headers: lambda { |f| 
       {"Content-Type" => f.mime_type} 
-    }, 
-    storage: :s3,
-    bucket: Rails.configuration.aws[:bucket],
-    s3_credentials: Rails.configuration.aws,
-    s3_host_alias: S3_CLOUDFRONT,
-    url: ':s3_domain_url',
-    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
+    }}.merge(S3_STORAGE)
 
   validates_attachment :patch, presence: true
   do_not_validate_attachment_file_type :patch

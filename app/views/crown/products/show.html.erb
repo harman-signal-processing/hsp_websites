@@ -41,9 +41,10 @@ set_meta_tags title: @product.name,
 	} 
 %>
 
-
 <%= content_for :preload do %>
-	<%= image_tag("#{website.folder}/#{I18n.locale}/buyitnow_button_hover.png") %>
+	<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/buyitnow_button_hover.png")) %>
+		<%= image_tag("#{website.folder}/#{I18n.locale}/buyitnow_button_hover.png") %>
+	<% end %>
 	<% @product.product_attachments.each do |product_attachment| %>
 		<% if !product_attachment.product_attachment_file_name.blank? %>
 			<%= image_tag(product_attachment.product_attachment.url(:medium)) %>

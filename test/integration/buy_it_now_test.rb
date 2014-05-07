@@ -22,7 +22,7 @@ describe "BuyItNow Integration Test" do
 
   	it "should have buy it now links" do
   		visit product_url(@product, locale: I18n.default_locale, host: @website.url)
-      page.must_have_link "Dealers", href: buy_it_now_product_path(@product, locale: I18n.default_locale, host: @website.url)
+      page.must_have_link I18n.t('buy_it_now'), href: buy_it_now_product_path(@product, locale: I18n.default_locale, host: @website.url)
   		page.must_have_xpath("//div[@id='dealers']")
   	end
 
@@ -49,7 +49,7 @@ describe "BuyItNow Integration Test" do
 
     	it "should select a random retailer to link directly" do
     		page.must_have_xpath("//div[@id='product_buy_now_box']")
-    		page.must_have_link "Online Dealers (US)"
+    		page.must_have_link I18n.t('buy_it_now')
     	end
 
     	it "should not link to any other retailers" do 
@@ -64,7 +64,7 @@ describe "BuyItNow Integration Test" do
 
     	it "should link directly to the retailer" do
     		page.must_have_xpath("//div[@id='product_buy_now_box']")
-    		page.must_have_link "Online Dealers (US)", href: @retailer_link.url
+    		page.must_have_link I18n.t('buy_it_now'), href: @retailer_link.url
     	end
 
     	it "should not link to any other retailers" do 
@@ -106,7 +106,7 @@ describe "BuyItNow Integration Test" do
     end
 
     it "should not have the buy it now button" do
-      page.wont_have_link "Dealers", href: buy_it_now_product_path(@product, locale: I18n.default_locale, host: @website.url)
+      page.wont_have_link I18n.t('buy_it_now'), href: buy_it_now_product_path(@product, locale: I18n.default_locale, host: @website.url)
     end
 
   end  

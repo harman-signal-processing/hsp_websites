@@ -34,7 +34,7 @@ class Brand < ActiveRecord::Base
   has_many :rso_panels
   has_many :rso_pages
   has_many :tweets, order: "posted_at DESC"
-  has_attached_file :logo, 
+  has_attached_file :logo, {
     styles: { large: "640x480", 
       medium: "480x360", 
       small: "240x180",
@@ -42,13 +42,7 @@ class Brand < ActiveRecord::Base
       title: "86x86",
       tiny: "64x64", 
       tiny_square: "64x64#" 
-    }, 
-    storage: :s3,
-    bucket: Rails.configuration.aws[:bucket],
-    s3_credentials: Rails.configuration.aws,
-    s3_host_alias: S3_CLOUDFRONT,
-    url: ':s3_alias_url',
-    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
+    }}.merge(S3_STORAGE)
   validates_attachment :logo, content_type: { content_type: /\Aimage/i }
 
   after_initialize :dynamic_methods

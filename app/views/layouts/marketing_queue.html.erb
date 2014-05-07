@@ -29,7 +29,6 @@
         <section class="top-bar-section">
           <% if marketing_queue_user_signed_in? %>
             <ul class="left">
-              <li class="divider"></li>
               <li class="has-dropdown"><a href="#">New</a>
                 <ul class="dropdown">
                   <li><%= link_to "Task", new_marketing_queue_marketing_task_path %></li>
@@ -45,7 +44,6 @@
                   <% end %>
                 </ul>
               </li>
-              <li class="divider"></li>
               <li class="has-dropdown"><a href="#">Brands</a>
                 <ul class="dropdown">
                   <% marketing_queue_brands.each do |brand| %>
@@ -54,7 +52,6 @@
                 </ul>
               </li>
               <% if current_marketing_queue_user.role?(:queue_admin) %>
-              <li class="divider"></li>
               <li class="has-dropdown"><%= link_to "Peeps" %>
                 <ul class="dropdown">
                   <% User.marketing_staff.each do |m_user| %>
@@ -63,9 +60,7 @@
                 </ul>
               </li>
               <% end %>
-              <li class="divider"></li>
               <li><%= link_to "Calendars", marketing_queue_marketing_calendars_path %></li>
-              <li class="divider"></li>
               <li><%= link_to "Staff Meeting", staff_meeting_path %></li>
             </ul>
           <% end %>

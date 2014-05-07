@@ -40,11 +40,26 @@ if Rails.env.production?
    #  url: ':s3_alias_url',
    #  path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
 	})
+
+  S3_STORAGE = {
+    storage: :s3,
+    bucket: Rails.configuration.aws[:bucket],
+    s3_credentials: Rails.configuration.aws,
+    s3_host_alias: S3_CLOUDFRONT,
+    url: ':s3_alias_url',
+    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
+  }
 else
+  
 	Paperclip::Attachment.default_options.merge!({
     url: '/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension',
     path: ":rails_root/public/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension"
 	})
+
+  S3_STORAGE = {
+    url: '/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension',
+    path: ":rails_root/public/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension"    
+  }
 end
 
 S3DirectUpload.config do |c|

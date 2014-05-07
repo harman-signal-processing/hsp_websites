@@ -2,9 +2,9 @@
 
 FactoryGirl.define do
   factory :product_introduction do
-    product_id 1
+    product
     layout_class "MyString"
-    expires_on "2012-08-29"
+    expires_on 2.months.from_now
     content "MyText"
     extra_css "MyText"
   end

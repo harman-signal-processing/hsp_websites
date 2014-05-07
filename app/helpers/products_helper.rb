@@ -293,6 +293,7 @@ module ProductsHelper
   end
 
   def button_for(product, options)
+
     if options[:html_button] 
       if product.direct_buy_link.blank?
         t("buy_it_now")
@@ -302,13 +303,26 @@ module ProductsHelper
         t("add_to_cart")
       end
     else
-      folder = folder_for(product)
+      loc = "#{I18n.locale}"
+      folder = website.folder
       if product.direct_buy_link.blank?
-        image_tag("#{folder}/#{I18n.locale}/#{options[:button_prefix]}buyitnow_button.png", alt: t("buy_it_now"), mouseover: "#{folder}/#{I18n.locale}/#{options[:button_prefix]}buyitnow_button_hover.png")
+        if File.exists?(Rails.root.join("app", "assets", "images", folder, loc, "#{options[:button_prefix]}buyitnow_button.png")) 
+          image_tag("#{folder}/#{loc}/#{options[:button_prefix]}buyitnow_button.png", alt: t("buy_it_now"), mouseover: "#{folder}/#{loc}/#{options[:button_prefix]}buyitnow_button_hover.png")
+        else
+          t("buy_it_now")
+        end
       elsif product.parent_products.size > 0 # as in e-pedals
-        image_tag("#{folder}/#{I18n.locale}/#{options[:button_prefix]}getit_button.png", alt: t("get_it"), mouseover: "#{folder}/#{I18n.locale}/#{options[:button_prefix]}getit_button_hover.png")
+        if File.exists?(Rails.root.join("app", "assets", "images", folder, loc, "#{options[:button_prefix]}getit_button.png")) 
+          image_tag("#{folder}/#{loc}/#{options[:button_prefix]}getit_button.png", alt: t("get_it"), mouseover: "#{folder}/#{loc}/#{options[:button_prefix]}getit_button_hover.png")
+        else
+          t("get_it")
+        end
       else
-        image_tag("#{folder}/#{I18n.locale}/#{options[:button_prefix]}addtocart_button.png", alt: t("add_to_cart"), mouseover: "#{folder}/#{I18n.locale}/#{options[:button_prefix]}addtocart_button_hover.png")
+        if File.exists?(Rails.root.join("app", "assets", "images", folder, loc, "#{options[:button_prefix]}addtocart_button.png")) 
+          image_tag("#{folder}/#{loc}/#{options[:button_prefix]}addtocart_button.png", alt: t("add_to_cart"), mouseover: "#{folder}/#{loc}/#{options[:button_prefix]}addtocart_button_hover.png")
+        else
+          t("add_to_cart")
+        end
       end
     end
   end

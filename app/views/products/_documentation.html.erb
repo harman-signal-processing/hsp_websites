@@ -7,7 +7,7 @@
 	<% end %>
 	<% product.product_documents.includes(:product).each do |product_document| %>
 	<li>
-		<% if product_document.document_content_type.match(/pdf/i) || product_document.document_file_name.match(/pdf$/i) %>
+		<% if product_document.document_content_type.to_s.match(/pdf/i) || product_document.document_file_name.to_s.match(/pdf$/i) %>
 			<%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
 		<% end %>
 		<%= link_to product_document.name(hide_product_name: true), product_document.document.url %> 
@@ -16,7 +16,7 @@
 	<% end %>
 	<% product.viewable_site_elements.each do |site_element| %>
 	<li>
-		<% if site_element.resource_content_type.match(/pdf/i) || site_element.resource_file_name.match(/pdf$/i) %>
+		<% if site_element.resource_content_type.to_s.match(/pdf/i) || site_element.resource_file_name.to_s.match(/pdf$/i) %>
 			<%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
 		<% end %>
 		<%= link_to site_element.name, site_element.resource.url %> 

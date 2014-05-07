@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :brand_dealer do
-    brand_id 1
-    dealer_id 1
+    brand
+    dealer
   end
 end

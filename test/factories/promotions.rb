@@ -8,14 +8,8 @@ FactoryGirl.define do
     start_on 2.weeks.ago
     end_on 2.weeks.from_now
     description "Get more info"
-    promo_form_file_name "promoform.pdf"
-    promo_form_file_size 20000
-    promo_form_updated_at 1.day.ago
-    promo_form_content_type "application/x-pdf"
-    tile_file_name "promotile.jpg"
-    tile_file_size 200
-    tile_content_type "image/jpeg"
-    tile_updated_at 1.day.ago
+    promo_form { File.new(Rails.root.join('test', 'fixtures', 'test.pdf')) }
+    tile { File.new(Rails.root.join('test', 'fixtures', 'test.jpg')) }
     post_registration_subject nil
     post_registration_message nil
     send_post_registration_message false

@@ -51,11 +51,10 @@ describe "DigiTech Artist Integration Test" do
   		visit artists_url(locale: I18n.default_locale, host: @website.url)
   	end
 
-  	it "should have a signup form" do
+  	it "should not have a signup form" do
       page.wont_have_link "Become a #{@brand.name} Artist"
   		click_link "Artist Login"
-  		click_link "Sign up to be a #{@brand.name} Artist"
-  		page.must_have_xpath("//form[@id='new_artist']")
+  		page.wont_have_link "Sign up to be a #{@brand.name} Artist"
   	end
 
   end

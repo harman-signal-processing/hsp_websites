@@ -85,7 +85,8 @@ class User < ActiveRecord::Base
     :media,
     :profile_pic,
     :invitation_code,
-    :project_manager
+    :project_manager,
+    :executive
 
   attr_accessor :invitation_code
   attr_accessor :account_number
@@ -110,6 +111,7 @@ class User < ActiveRecord::Base
     rso_admin 
     sales_admin
     project_manager
+    executive
     media]
   
   def self.staff 

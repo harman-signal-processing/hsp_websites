@@ -2,37 +2,76 @@
 	<%= link_to @brand.name, '#', class: 'current' %>
 <% end %>
 
-<div class="row">
-	<div class="large-7 columns">
 		<% if @brand.logo_file_name.present? %>
 		<h1><%= image_tag @brand.logo.url(:title), alt: @brand.name %></h1>
 		<% else %>
 		<h1><%= @brand.name %></h1>
 		<% end %>
-		<h4 class="subheader">Top Projects</h4>
-		<table style="width: 100%">
-			<thead>
-				<tr>
-					<th width="20%">Due</th>
-					<th width="50%">Project name</th>
-					<th width="30%">% Complete</th>
-				</tr>
-			</thead>
-			<tbody>
-				<% @current_marketing_projects.each do |marketing_project| %>
-				<tr>
-					<td><%=l marketing_project.due_on, format: :month_day %></td>
-					<td><%= link_to marketing_project.name, [:marketing_queue, marketing_project.brand, marketing_project] %></td>
-					<td><%=number_to_percentage marketing_project.percent_complete, precision: 0 %>
-						<small><%= marketing_project.completed_marketing_tasks.count %>/<%= marketing_project.marketing_tasks.count %> tasks</small>
-					</td>
-				</tr>
-				<% end %>
-			</tbody>
-		</table>
+
+<div class="row">
+	<div class="large-12 columns">
+		<%= gantt_chart_for([@brand]) %>
+	</div>
+</div>
+
+<div class="row">
+	<div class="large-6 columns">
+
+		<% other_projects = @current_marketing_projects.where(event_start_on: nil, event_end_on: nil) %>
+
+		<% if other_projects.count > 0 %>
+
+			<h4 class="subheader">Other Projects</h4>
+			<table style="width: 100%">
+				<thead>
+					<tr>
+						<th width="20%">Due</th>
+						<th width="50%">Project name</th>
+						<th width="30%">% Complete</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% other_projects.each do |marketing_project| %>
+					<tr>
+						<td><%=l marketing_project.due_on, format: :month_day %></td>
+						<td><%= link_to marketing_project.name, [:marketing_queue, marketing_project.brand, marketing_project] %></td>
+						<td><%=number_to_percentage marketing_project.percent_complete, precision: 0 %>
+							<small><%= marketing_project.completed_marketing_tasks.count %>/<%= marketing_project.marketing_tasks.count %> tasks</small>
+						</td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+
+		<% end %>
+
+		<% if @completed_marketing_projects.count > 0 %>
+			<h4 class="subheader">Recently Ended Projects</h4>
+			<table style="width: 100%">
+				<thead>
+					<tr>
+						<th width="20%">Due</th>
+						<th width="80%">Project name</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @completed_marketing_projects.each do |marketing_project| %>
+					<tr>
+						<td><%=l marketing_project.due_on, format: :month_day %></td>
+						<td><%= link_to marketing_project.name, [:marketing_queue, marketing_project.brand, marketing_project] %></td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		<% end %>
+
+	</div>
+
+	<div class="large-6 columns">
+		<%#= event_calendars %>
 
 		<% if @incomplete_marketing_tasks.length > 0 %>
-			<h4>Non-project Tasks</h4>
+			<h4 class="subheader">Non-project Tasks</h4>
 			<ul class="task-list" id='incomplete-tasks'>
 			<% @incomplete_marketing_tasks.each do |marketing_task| %>
 				<% if can? :manage, marketing_task %>
@@ -45,20 +84,19 @@
 							due_on: I18n.l(marketing_task.due_on, format: :short)
 						} %>
 					<%= link_to marketing_task.name, [:marketing_queue, marketing_task] %>
-
-					<% if marketing_task.due_on.present? %>
-						<i class="<%= "red" if marketing_task.late? %>">Due: <%=l marketing_task.due_on, format: :short %></i>
-					<% end %>
-
-					<% if can? :destroy, marketing_task %>
-					<%= link_to(image_tag('icons/trash.gif', alt: 'del'), [:marketing_queue, marketing_task], confirm: "Are you sure?", method: :delete) %>
-					<% end %>
 					
 					<div class="assigned">
 					<% if marketing_task.worker %>
 						Assigned to: <%= marketing_task.worker.name %>
 					<% else %>
 						<%= render 'marketing_queue/marketing_tasks/inline_assign', marketing_task: marketing_task %>
+					<% end %>
+					<% if marketing_task.due_on.present? %>
+						<i class="<%= "red" if marketing_task.late? %>">Due: <%=l marketing_task.due_on, format: :short %></i>
+					<% end %>
+
+					<% if can? :destroy, marketing_task %>
+					<%= link_to(image_tag('icons/trash.gif', alt: 'del'), [:marketing_queue, marketing_task], confirm: "Are you sure?", method: :delete) %>
 					<% end %>
 					</div>
 				</li>
@@ -83,29 +121,8 @@
 			</ul>
 		<% end %>
 
-		<% if @completed_marketing_projects.count > 0 %>
-			<h4 class="subheader">Recently Ended Projects</h4>
-			<table style="width: 100%">
-				<thead>
-					<tr>
-						<th width="20%">Due</th>
-						<th width="80%">Project name</th>
-					</tr>
-				</thead>
-				<tbody>
-					<% @completed_marketing_projects.each do |marketing_project| %>
-					<tr>
-						<td><%=l marketing_project.due_on, format: :month_day %></td>
-						<td><%= link_to marketing_project.name, [:marketing_queue, marketing_project.brand, marketing_project] %></td>
-					</tr>
-					<% end %>
-				</tbody>
-			</table>
-		<% end %>
-
 		<% if @completed_marketing_tasks.length > 0 %>
-			<br/>
-			<h5>Recently Completed Tasks</h5>
+			<h5 class="subheader">Recently Completed Tasks</h5>
 			<ul class="completed task-list" id="completed-tasks">
 			<% @completed_marketing_tasks.each do |marketing_task| %>
 				<li id="task_row_<%= marketing_task.id %>"> 
@@ -131,10 +148,5 @@
 			<% end %>
 			</ul>
 		<% end %>
-
-	</div>
-
-	<div class="large-5 columns">
-		<%= event_calendars %>
 	</div>
 </div>

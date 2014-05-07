@@ -2,6 +2,7 @@ require "domain_conditions"
 
 HarmanSignalProcessingWebsite::Application.routes.draw do
 
+  get "/images/bar/(:brand_id)_(:width)x(:height).png" => "marketing_queue#bar", as: :bar
   get "signups/new"
   get "signup/complete" => "signups#complete", as: :signup_complete
   get "epedal_labels/index"
@@ -71,6 +72,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
           get :overview
         end
       end
+      get 'load_marketing_calendar(/:id)' => 'marketing_calendars#show', as: :load_marketing_calendar
       resources :marketing_calendars do 
         get ':id/calendar((/:year(/:month))/:brand_id)' => 'marketing_calendars#show', as: :project_calendar, constraints: {year: /\d{4}/, month: /\d{1,2}/}
       end

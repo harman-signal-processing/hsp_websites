@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :product_audio_demo do
-    audio_demo_id 1
-    product_id 1
+    audio_demo
+    product
   end
 end

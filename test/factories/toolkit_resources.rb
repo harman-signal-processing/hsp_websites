@@ -3,14 +3,11 @@
 FactoryGirl.define do
   factory :toolkit_resource do
     name "MyString"
-    toolkit_resource_type_id 1
+    toolkit_resource_type
     related_id 1
-    tk_preview_file_name "MyString"
-    tk_preview_content_type "MyString"
-    tk_preview_file_size 1
-    tk_preview_updated_at "2013-02-05 11:08:42"
+    tk_preview { File.new(Rails.root.join('test', 'fixtures', 'test.jpg')) }
     download_path "MyString"
-    download_file_size 1
-    brand_id 1
+    download_file_size 999
+    brand
   end
 end
