@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :software_operating_system do
-    software_id 1
-    operating_system_id 1
+    software
+    operating_system
   end
 end

@@ -5,13 +5,7 @@ class TrainingModule < ActiveRecord::Base
   has_many :softwares, through: :software_training_modules
   belongs_to :brand
   validates :brand_id, :name, presence: true
-  has_attached_file :training_module, 
-    storage: :s3,
-    bucket: Rails.configuration.aws[:bucket],
-    s3_credentials: Rails.configuration.aws,
-    s3_host_alias: S3_CLOUDFRONT,
-    url: ':s3_domain_url',
-    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
+  has_attached_file :training_module, S3_STORAGE
   validates_attachment :training_module, presence: true
   do_not_validate_attachment_file_type :training_module
 

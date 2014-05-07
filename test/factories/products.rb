@@ -45,10 +45,7 @@ FactoryGirl.define do
   factory :product_attachment do
     product
     primary_photo false
-    product_attachment_file_name "photo.jpg"
-    product_attachment_content_type "application/jpeg"
-    product_attachment_updated_at 2.days.ago
-    product_attachment_file_size 10000
+    product_attachment { File.new(Rails.root.join('test', 'fixtures', 'test.jpg')) }
     position 1
   end
 
@@ -56,9 +53,6 @@ FactoryGirl.define do
     product
     language "en"
     document_type "owners_manual"
-    document_file_name "the_manual.pdf"
-    document_file_size 1000
-    document_updated_at 2.days.ago
-    document_content_type "application/pdf"
+    document_file_name { File.new(Rails.root.join('test', 'fixtures', 'test.pdf')) }
   end
 end

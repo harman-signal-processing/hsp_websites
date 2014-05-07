@@ -7,13 +7,7 @@ class SiteElement < ActiveRecord::Base
       thumb: "100x100", 
       tiny: "64x64", 
       tiny_square: "64x64#" 
-    }, 
-    storage: :s3,
-    bucket: Rails.configuration.aws[:bucket],
-    s3_credentials: Rails.configuration.aws,
-    s3_host_alias: S3_CLOUDFRONT,
-    url: ':s3_alias_url',
-    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
+    }.merge(S3_STORAGE)
   do_not_validate_attachment_file_type :resource
 
   has_attached_file :executable, 
