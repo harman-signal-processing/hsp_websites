@@ -10,13 +10,11 @@ class RegisteredDownload < ActiveRecord::Base
   validates :name, :brand, :from_email, :subject, presence: true
   validates :per_download_limit, numericality: {greater_than: 0}
   
-  has_attached_file :protected_software, 
+  has_attached_file :protected_software, S3_STORAGE.merge({ 
     bucket: Rails.configuration.aws[:protected_bucket],
     s3_host_alias: nil,
-    path: ":class/:attachment/:id_:timestamp/:basename.:extension", 
-    storage: :s3,
-    s3_credentials: Rails.configuration.aws,
-    url: ':s3_alias_url'
+    path: ":class/:attachment/:id_:timestamp/:basename.:extension"
+  })
 
   do_not_validate_attachment_file_type :protected_software
 
