@@ -37,13 +37,15 @@ $primary-color: #147FEB;
     font-style: normal;
 
 }
-
+html {
+    height: 100%;
+}
 body {
 	font-family: 'RobotoLight', Helvetica, Arial, Verdana, sans-serif;
 	font-size: 13px;
 	line-height: 1.4;
 	color: $light-gray;
-	background: $dark-gray;
+	background: darken($dark-gray, 50%);
 	background: -moz-linear-gradient(top, lighten($dark-gray, 5%) 0%, darken($dark-gray, 5%) 36%, darken($dark-gray, 50%) 100%); 
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,lighten($dark-gray, 5%)), color-stop(36%,darken($dark-gray, 5%)), color-stop(100%,darken($dark-gray, 50%))); 
 	background: -webkit-linear-gradient(top, lighten($dark-gray, 5%) 0%,darken($dark-gray, 5%) 36%,darken($dark-gray, 50%) 100%); 
@@ -52,6 +54,7 @@ body {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='lighten($dark-gray, 5%)', endColorstr='darken($dark-gray, 50%)',GradientType=0 ); 
 	background: linear-gradient(top, lighten($dark-gray, 5%) 0%,darken($dark-gray, 5%) 36%,darken($dark-gray, 50%) 100%); 
 	margin: 0;
+	height: 100%;
 }
 p {
 	margin-bottom: 8px;
