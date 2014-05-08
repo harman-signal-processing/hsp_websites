@@ -1,0 +1,53 @@
+<% set_meta_tags title: t('titles.support'),
+				 description: t('meta.description.support', brand: website.brand_name),
+				 reverse: true %>
+
+<h1><%= t('titles.contact_us') %></h1>
+
+<dl class="sub-nav">
+	<dt><%= t('titles.support') %> options:</dt>
+	<dd class="active"><%= link_to t('titles.contact_us').downcase, support_path %></dd>
+	<% if website.has_software? %>
+	<dd><%= link_to t('software_downloads'), software_index_path %></dd>
+	<% end %>
+	<dd><%= link_to t('warranty_registration'), warranty_registration_path %></dd>
+	<dd><%= link_to t('downloads'), support_downloads_path %></dd>
+</dl>
+
+<div class="row">
+	
+	<div class="large-7 columns">
+		<%= simple_form_for :contact_message, url: support_path(action: "contact"), html: {class: "contact"} do |f| %>
+
+			<%= f.input :name, label: t('your_name') %>
+			<%= f.input :email, label: ucfirst(t('email')) %>
+			<%= cache ["contact_form_products", website.brand] do %>
+				<%= f.input :product, as: :select, collection: Product.all_for_website(website) + [Product.new(name: "other")], hint: (@contact_message.require_product?) ? "(required)" : "", prompt: "Select A Product" %>
+			<% end %>
+			<%= f.input :subject, as: :select, collection: ContactMessage.subjects, label: t('subject'), prompt: t('subjects.select_a_subject') %>
+			<%= f.input :message, label: t('message'), as: :text, input_html: { style: "height: 100px" } %>
+			
+			<div class="captcha">
+				<%= recaptcha_tags %>
+			</div>
+			
+			<%= f.submit t('submit'), class: "medium round button" %>
+		<% end %>
+	</div>
+	
+	<div class="large-4 columns">
+		<br/>
+		<% if addr = website.value_for("address_and_phone") %>
+		<div class="panel">
+			<h2><%= t("titles.mailing_address") %></h2>
+			<p>
+				<%=raw addr %>
+				<% if sup = website.value_for("support_email") %>
+				<br/><%= (sup =~ /jbl/) ? mail_to(sup, sup) : "" %>
+				<% end %>
+			</p>
+		</div>
+		<% end %>
+	</div>
+</div>
+	
