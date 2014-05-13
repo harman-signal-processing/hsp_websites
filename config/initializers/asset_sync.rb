@@ -1,5 +1,5 @@
 AssetSync.configure do |config|
-  # config.run_on_precompile = false # otherwise it runs automatically after assets:precompile
+  config.run_on_precompile = Rails.env.production? # if true, runs automatically after assets:precompile
   config.fog_provider = 'Rackspace'
   config.fog_directory = 'assets'
   config.fog_region = 'ORD'

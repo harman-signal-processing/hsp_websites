@@ -2,8 +2,13 @@
 set :application, "hsp_staging"
 set :deploy_to, "/var/www/hmg/#{application}"
 
-server "23.253.51.208", :web, :app, :db, primary: true
-server "10.10.23.15", :web, :app, :db
+# dynamically choose the github branch with this:
+#   cap staging deploy -s branch="branchname" 
+# 
+set :branch, fetch(:branch, "master") 
+
+server "10.10.23.15", :web, :app, :db, primary: true
+#server "10.10.23.86", :web, :app, :db
 
 set :rails_env, "staging"
 
