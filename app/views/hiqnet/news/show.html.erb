@@ -1,0 +1,58 @@
+<%
+og_image = (@news.news_photo_file_name.blank?) ? image_url("#{website.folder}/logo.png") : "#{request.protocol}#{request.host_with_port}#{@news.news_photo.url(:original)}"
+
+set_meta_tags title: translate_content(@news, :title),
+	reverse: true,
+	canonical: news_url(@news),
+	keywords: @news.keywords,
+	description: translate_content(@news, :title),
+	twitter: {
+		card: "summary"
+	},
+	og: {
+		image: og_image,
+		type: 'article',
+		description: truncate(strip_html(translate_content(@news, :body)), length: 100),
+		title: translate_content(@news, :title)
+	} %>
+
+<h1><%= translate_content(@news, :title) %></h1>
+<div class="content container">
+	<h5 class="subheader">
+	  <%=l @news.post_on, format: :long %>
+	</h5>
+
+	<%= render 'shared/add_this' %>	
+
+	<div class="row">
+		<div class="large-5 push-7 columns">
+			<% if !@news.news_photo_file_name.blank? %>
+			<div style="margin: 8px;">
+			  <%= image_tag(@news.news_photo.url(:medium)) %>
+			</div>
+			<% end %>
+		</div>
+		<div class="large-7 pull-5 columns">
+			<%=raw translate_content(@news, :body) %>
+		</div>
+	</div>
+	
+</div>
+
+
+<% if @news.products.size > 0 %>
+	<h2 class="subheader"><%= t('titles.related_products') %></h2>
+	<ul class="large-block-grid-5 small-block-grid-2">
+	<% @news.products.each do |product| %>
+		<li><%= render_partial "product_families/product_square", product: product, compare: false %></li>
+	<% end %>
+	</ul>
+<% end %>
+
+<p><%= link_to t('back_to_news_list'), news_index_path %></p>
+
+<% if current_user && can?(:manage, @news) %>
+<div class="admin_function">
+	<%= link_to "edit", edit_admin_news_path(@news) %>
+</div>
+<% end %>

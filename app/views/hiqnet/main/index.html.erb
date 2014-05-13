@@ -1,0 +1,54 @@
+<% set_meta_tags 	twitter: {
+		card: "summary"
+	},
+	og: {
+		image: image_url("#{website.folder}/logo.png"),
+		type: 'brand',
+		description: @website.site_name,
+		title: @website.brand.name
+	} %>
+
+
+<%= content_for :feature do %>
+	<%= cache ["slideshow", website.brand, I18n.locale] do %>
+		<% slides = Setting.slides(website) %>
+		<% if slides.size > 0 %>
+			<%= orbit_slideshow(slides: slides, duration: 6000, navigation_arrows: false, transition: "fade") %>
+		<% end %>
+	<% end %>
+<% end %>
+
+<%= cache ["homepage_features", website.brand, I18n.locale] do %>
+	<% if @features.size > 0 %>
+	<ul class="large-block-grid-<%= @features.size %> small-block-grid-<%= (@features.size / 2).to_i %>">
+		<% @features.each_with_index do |feature,i| %>
+		<li><%= feature_button(feature) %></li>
+		<% end %>
+	</ul>
+	<% else %>
+		<%= featured_product_families %>
+	<% end %>
+<% end %>
+
+
+<%= content_for :big_bottom_box do %>
+<div class="row">
+	<div class="large-12 columns">
+		<div id="social_media_links">
+			<%= social_media_links 'twitter', 'facebook', 'myspace', 'youtube', 'wechat', 'weibo' %> 
+		</div>
+	</div>
+</div>
+<% end %>
+
+<%= content_for :preload do %>
+	<%= preload_background_images %>
+<% end %>
+
+<%= content_for :popup_code do %>
+	<% if website.homepage_popup %>
+		<%=raw website.homepage_popup %>
+	<% end %>
+<% end %>
+
+<div id="homepage-counter" data-counter="<%= @counter %>"></div>

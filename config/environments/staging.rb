@@ -31,6 +31,8 @@ HarmanSignalProcessingWebsite::Application.configure do
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w( *.jpg *.png *.gif 
     vendor/custom.modernizr.js
+    hiqnet.css
+    hiqnet.js
     introducing_epedal.css 
     introducing_stompbox.css
     istomp.js 
