@@ -1,7 +1,7 @@
 AssetSync.configure do |config|
-  config.run_on_precompile = Rails.env.production? # if true, runs automatically after assets:precompile
+  config.run_on_precompile = true # if true, runs automatically after assets:precompile
   config.fog_provider = 'Rackspace'
-  config.fog_directory = 'assets'
+  config.fog_directory = ENV['ASSET_CONTAINER']
   config.fog_region = 'ORD'
   config.rackspace_username = ENV['RACKSPACE_USERNAME']
   config.rackspace_api_key = ENV['RACKSPACE_API_KEY']
