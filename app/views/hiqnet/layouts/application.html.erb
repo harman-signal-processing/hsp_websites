@@ -65,8 +65,8 @@
 							<% end %>
 						</li>
 						<li class="divider"></li>
-						<li><%= link_to product_families_path do %>
-							<%= t('products').upcase %>
+						<li><%= link_to softwares_path do %>
+							<%= t('software').upcase %>
 							<% end %>
 						</li>
 						<li class="divider"></li>
@@ -178,11 +178,7 @@
 				<div class="large-6 columns hide-for-small" id="footer_info">
 					<span class="footer_text">
 						<% if website.has_software? %>
-						<%= link_to t('software_downloads').downcase, software_index_path %> &bull;
-						<% end %>
-						<%= link_to t('products'), product_families_path %> &bull;
-						<% if website.has_reviews? %>
-						<%= link_to t('product_reviews').downcase, product_reviews_path %> &bull;
+						<%= link_to t('software').downcase, software_index_path %> &bull;
 						<% end %>
 						<%= link_to t('news'), news_index_path %> &bull;
 						<% if website.has_artists? %>
@@ -193,6 +189,9 @@
 						<% end %>
 						<%= link_to t('product_support'), support_path %> &bull;
 						<%= link_to t('sitemap'), sitemap_path(format: 'xml') %>
+						<div id="social_media_links">
+							<%= social_media_links 'twitter', 'facebook', 'myspace', 'youtube', 'wechat', 'weibo' %> 
+						</div>
 					</span>
 				</div>
 			</div>

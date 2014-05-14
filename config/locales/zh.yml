@@ -47,6 +47,7 @@ zh:
   download: 下载
   downloads: 下载
   software_downloads: 软件下载
+  software: 软件下载
   pop_explanation: 我们许多零售店面都具备产品体验互动功能以便于消费者真实感受。
   products_used_by: " 艺人使用的产品 %{artist}"
   valid: 合法有效
@@ -274,6 +275,8 @@ zh:
       default: "%Y-%m-%d"
       short: "%b%d日"
       long: "%Y年%b%d日"
+      month_day: "%b %d日"
+      blog_month_day: "%B %d日"
       pretty_date_time: "%B %d, %Y %I:%M %p"
       mmddyy: "%m/%d/%y"
 

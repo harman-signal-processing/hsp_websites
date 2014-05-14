@@ -25,20 +25,26 @@
 		<li><%= feature_button(feature) %></li>
 		<% end %>
 	</ul>
-	<% else %>
-		<%= featured_product_families %>
+	<% elsif website.brand.current_softwares.length > 0 %>
+		<ul class="large-block-grid-4 small-block-grid-2">
+			<% website.brand.current_softwares.each do |software| %>
+				<li><%= link_to software do %>
+						<h5><%= software.name %></h5>
+						<%= "v#{software.version}" unless software.version.blank? %>
+						<%= "(#{software.platform})" unless software.platform.blank? %>
+						<% if software.ware_file_size.present? %>
+						[<%= number_to_human_size(software.ware_file_size)%>]
+						<% end %>
+					<% end %>
+				</li>
+			<% end %>
+		</ul>
 	<% end %>
 <% end %>
 
 
 <%= content_for :big_bottom_box do %>
-<div class="row">
-	<div class="large-12 columns">
-		<div id="social_media_links">
-			<%= social_media_links 'twitter', 'facebook', 'myspace', 'youtube', 'wechat', 'weibo' %> 
-		</div>
-	</div>
-</div>
+
 <% end %>
 
 <%= content_for :preload do %>

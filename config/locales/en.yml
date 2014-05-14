@@ -52,6 +52,7 @@ en:
   download: download
   downloads: downloads
   software_downloads: software downloads
+  software: software
   pop_explanation: Many of our retailers feature our interactive product display which will allow you to try out our products and find out just how much Jimi you've got.
   products_used_by: "Products used by %{artist}"
   valid: valid
@@ -349,6 +350,7 @@ en:
       short: "%b %d, %Y"
       long: "%B %d, %Y"
       month_day: "%b %d"
+      blog_month_day: "%B %d"
       mmddyy: "%m/%d/%y"
 
   time:
