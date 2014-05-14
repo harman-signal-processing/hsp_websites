@@ -45,6 +45,7 @@ HarmanSignalProcessingWebsite::Application.configure do
     bss.css
     crown.css
     dbx.css 
+    dbx.js
     digitech.css 
     hardwire.css 
     dod.css 
