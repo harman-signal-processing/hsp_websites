@@ -974,13 +974,15 @@ div.field_with_errors {
 }
 /****** Information Tables *****/
 table.info {
-	border: 1px solid #999;
+	width: 100%;
+	border: 1px solid darken($light-gray, 10%);
+	border-collapse: collapse;
 	tr td, tr th {
 		padding: 6px;
-		border: 1px dotted #CCC;
+		border: 1px dotted darken($light-gray, 10%);
 	}
 	th {
-		background: #EEE;
+		background: lighten($light-gray, 7%);
 	}
 }
 table.download-collection {

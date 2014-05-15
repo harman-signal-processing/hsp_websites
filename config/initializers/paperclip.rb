@@ -23,7 +23,7 @@ AWS.config(Rails.configuration.aws)
 # a separate CDN for stuff in the S3 buckets...
 S3_CLOUDFRONT = 'adn.harmanpro.com' # 'd18nzrj3czoaty.cloudfront.net' # 
 
-if Rails.env.production?
+if Rails.env.production? || Rails.env.staging?
 	Paperclip::Attachment.default_options.merge!({
     url: ':fog_public_url',
     path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension",
@@ -61,6 +61,19 @@ else
     path: ":rails_root/public/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension"    
   }
 end
+
+# This can go away after merging the new dbx look back into the master branch. Needed for staging/dev
+# without messing up the S3 stored slides, etc., but don't forget to edit the setting.rb model
+if Rails.env.production?
+  SETTINGS_STORAGE = S3_STORAGE
+else
+  SETTINGS_STORAGE = {
+    url: '/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension',
+    path: ":rails_root/public/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension"    
+  }
+end
+
+
 
 S3DirectUpload.config do |c|
   c.access_key_id = Rails.configuration.aws[:access_key_id]
