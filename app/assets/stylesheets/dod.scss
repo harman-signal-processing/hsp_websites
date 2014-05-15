@@ -55,6 +55,8 @@ body {
 	background: linear-gradient(top, lighten($dark-gray, 5%) 0%,darken($dark-gray, 5%) 36%,darken($dark-gray, 50%) 100%); 
 	margin: 0;
 	height: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 p {
 	margin-bottom: 8px;

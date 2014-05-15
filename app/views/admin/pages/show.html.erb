@@ -28,3 +28,19 @@
 	password: <%= @page.password %>
 </p>
 <% end %>
+
+<h5>Page Preview:</h5>
+<p>(The font probably isn't correct below. That's because this admin interface doesn't have the same style as the actual website. Just use your imagination.)</p>
+
+<style type="text/css">
+	<%=raw @page.custom_css %>
+</style>
+<div class="content container" style="background: white">
+	<div class="row">
+		<div class="large-8 columns large-offset-2 text-content">
+			<%=raw translate_content(@page, :body) %>
+		</div>
+	</div>
+</div>
+
+
