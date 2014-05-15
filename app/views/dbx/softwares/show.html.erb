@@ -13,7 +13,7 @@
 <% end %>
 
 <div class="row">
-	<div class="large-7 columns">
+	<div class="large-7 columns text-content">
 		<%=raw @software.description %>
 		<% if @software.previous_versions.count > 0 %>
 		<p><%= link_to "Previous Versions", '#previous_versions' %></p>
@@ -33,7 +33,7 @@
 				<% end %>
 			</div>
 
-			<ul class="list">
+			<ul class="list no-bullet">
 				<li>
 					<%= platform_icon(@software, 17) %>
 					<%= link_to(@software.formatted_name, download_software_path(@software, locale: I18n.locale)) %>

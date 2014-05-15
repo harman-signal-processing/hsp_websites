@@ -22,15 +22,17 @@
 <% if @current_products.size > 0 %>
 
 	<% if website.brand.forced_current_softwares.length > 0 %>
-		<div style="margin: 50px;">
+		<ul class="large-block-grid-4 small-block-grid-2">
 			<% website.brand.forced_current_softwares.each do |software| %>
+			<li>
 				<%= link_to software do %>
-					<div class="medium_centered_box software_banner">
+					<div class="callout panel">
 						<h3><%= software.name %></h3>
 						<%= "v#{software.version}" unless software.version.blank? %>
 						<%= "(#{software.platform})" unless software.platform.blank? %>
 					</div>
 				<% end %>
+			</li>
 			<% end %>
 		</div>
 	<% end %>

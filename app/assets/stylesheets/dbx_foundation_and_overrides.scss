@@ -1,58 +1,13 @@
-@font-face {
-    font-family: 'berthold_akzidenz_groteskMdCn';
-    src: font-url('akzidenzgroteskbe-mdcn-webfont.eot');
-    src: font-url('akzidenzgroteskbe-mdcn-webfont.eot?#iefix') format('embedded-opentype'),
-         font-url('akzidenzgroteskbe-mdcn-webfont.woff') format('woff'),
-         font-url('akzidenzgroteskbe-mdcn-webfont.ttf') format('truetype'),
-         font-url('akzidenzgroteskbe-mdcn-webfont.svg#berthold_akzidenz_groteskMdCn') format('svg');
-    font-weight: normal;
-    font-style: normal;
+/* Akzidenz font has a hard time with CORS, so serve from our own server */
 
-}
 
 @font-face {
     font-family: 'berthold_akzidenz_groteskLtCn';
-    src: font-url('akzidenzgroteskbe-lightcn-webfont.eot');
-    src: font-url('akzidenzgroteskbe-lightcn-webfont.eot?#iefix') format('embedded-opentype'),
-         font-url('akzidenzgroteskbe-lightcn-webfont.woff') format('woff'),
-         font-url('akzidenzgroteskbe-lightcn-webfont.ttf') format('truetype'),
-         font-url('akzidenzgroteskbe-lightcn-webfont.svg#berthold_akzidenz_groteskLtCn') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
-@font-face {
-    font-family: 'berthold_akzidenz_grotesk_bBd';
-    src: font-url('akzidenzgroteskbe-bold-webfont.eot');
-    src: font-url('akzidenzgroteskbe-bold-webfont.eot?#iefix') format('embedded-opentype'),
-         font-url('akzidenzgroteskbe-bold-webfont.woff') format('woff'),
-         font-url('akzidenzgroteskbe-bold-webfont.ttf') format('truetype'),
-         font-url('akzidenzgroteskbe-bold-webfont.svg#berthold_akzidenz_grotesk_bBd') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
-@font-face {
-    font-family: 'berthold_akzidenz_groteskBdIt';
-    src: font-url('akzidenzgroteskbe-boldit-webfont.eot');
-    src: font-url('akzidenzgroteskbe-boldit-webfont.eot?#iefix') format('embedded-opentype'),
-         font-url('akzidenzgroteskbe-boldit-webfont.woff') format('woff'),
-         font-url('akzidenzgroteskbe-boldit-webfont.ttf') format('truetype'),
-         font-url('akzidenzgroteskbe-boldit-webfont.svg#berthold_akzidenz_groteskBdIt') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
-@font-face {
-    font-family: 'berthold_akzidenz_grotesk_bIt';
-    src: font-url('akzidenzgroteskbe-it-webfont.eot');
-    src: font-url('akzidenzgroteskbe-it-webfont.eot?#iefix') format('embedded-opentype'),
-         font-url('akzidenzgroteskbe-it-webfont.woff') format('woff'),
-         font-url('akzidenzgroteskbe-it-webfont.ttf') format('truetype'),
-         font-url('akzidenzgroteskbe-it-webfont.svg#berthold_akzidenz_grotesk_bIt') format('svg');
+    src: url('/assets/akzidenzgroteskbe-lightcn-webfont.eot');
+    src: url('/assets/akzidenzgroteskbe-lightcn-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/assets/akzidenzgroteskbe-lightcn-webfont.woff') format('woff'),
+         url('/assets/akzidenzgroteskbe-lightcn-webfont.ttf') format('truetype'),
+         url('/assets/akzidenzgroteskbe-lightcn-webfont.svg#berthold_akzidenz_groteskLtCn') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -60,11 +15,11 @@
 
 @font-face {
     font-family: 'berthold_akzidenz_grotesk_bRg';
-    src: font-url('akzidenzgroteskbe-regular-webfont.eot');
-    src: font-url('akzidenzgroteskbe-regular-webfont.eot?#iefix') format('embedded-opentype'),
-         font-url('akzidenzgroteskbe-regular-webfont.woff') format('woff'),
-         font-url('akzidenzgroteskbe-regular-webfont.ttf') format('truetype'),
-         font-url('akzidenzgroteskbe-regular-webfont.svg#berthold_akzidenz_grotesk_bRg') format('svg');
+    src: url('/assets/akzidenzgroteskbe-regular-webfont.eot');
+    src: url('/assets/akzidenzgroteskbe-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/assets/akzidenzgroteskbe-regular-webfont.woff') format('woff'),
+         url('/assets/akzidenzgroteskbe-regular-webfont.ttf') format('truetype'),
+         url('/assets/akzidenzgroteskbe-regular-webfont.svg#berthold_akzidenz_grotesk_bRg') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -1416,5 +1371,37 @@ $topbar-sticky-class:                  ".sticky";
     &:hover {
       color: $light-gray;
     }
+  }
+}
+
+@media only screen and (min-width: 720px) {
+  ul.large-block-grid-4 {
+    li {
+      .panel {
+        height: 100px;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  ul.small-block-grid-2 {
+    li {
+      .panel {
+        height: 70px;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+ul.no-bullet {
+  list-style-type: none;
+}
+
+.text-content {
+  ul {
+    margin-left: 20px !important;
   }
 }
