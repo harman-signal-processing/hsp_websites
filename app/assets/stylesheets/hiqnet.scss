@@ -8,7 +8,7 @@
 *= require_self
 */
 
-$primary-color: #ee7d1f;
+$primary-color: #f37736;
 
 @import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic);
 
@@ -35,7 +35,9 @@ img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 		display: none;
 	}
 }
-
+.addthis_toolbox {
+	margin: 6px 0px 8px;
+}
 .tiny {
 	font-size: 10px;
 }
@@ -140,11 +142,10 @@ div#harmanpro_bar {
 
 #social_media_links {
 	text-align: right;
-	margin-right: 10px;
+	margin-right: 0px;
 	margin-top: 10px;
 	img {
 		margin-left: 8px;
-		margin-right: 8px;
 	}
 }
 .light_gray {
