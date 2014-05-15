@@ -48,6 +48,8 @@ namespace :refresh do
   	puts `bundle exec rake RAILS_ENV=development db:migrate`
   	puts "Setting up localhost sites"
   	puts `bundle exec rake RAILS_ENV=development db:setup_development_from_production`
+  	puts "Setting up test database"
+  	puts `bundle exec rake RAILS_ENV=development db:test:prepare`
 	end
 
 	desc "Backup the production database and install it on top of the remote staging db"

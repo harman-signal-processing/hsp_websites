@@ -28,15 +28,18 @@
 	<% elsif website.brand.current_softwares.length > 0 %>
 		<ul class="large-block-grid-4 small-block-grid-2">
 			<% website.brand.current_softwares.each do |software| %>
-				<li><%= link_to software do %>
-						<h5><%= software.name %></h5>
+			<li>
+				<%= link_to software do %>
+					<div class="panel">
+						<h3><%= software.name %></h3>
 						<%= "v#{software.version}" unless software.version.blank? %>
-						<%= "(#{software.platform})" unless software.platform.blank? %>
+						<%#= "(#{software.platform})" unless software.platform.blank? %>
 						<% if software.ware_file_size.present? %>
 						[<%= number_to_human_size(software.ware_file_size)%>]
 						<% end %>
-					<% end %>
-				</li>
+					</div>
+				<% end %>
+			</li>
 			<% end %>
 		</ul>
 	<% end %>

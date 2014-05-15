@@ -1245,7 +1245,7 @@ $topbar-bg: $topbar-bg-color !default;
 // Height and margin
 
 $topbar-height:                        76px;
-// $topbar-margin-bottom:                 emCalc(26px);
+$topbar-margin-bottom:                 emCalc(26px);
 
 // Control Input height for top bar
 
@@ -1309,3 +1309,34 @@ $topbar-sticky-class:                  ".sticky";
 
 @import 'foundation';
 
+@media only screen and (min-width: 720px) {
+  ul.large-block-grid-4 {
+    li {
+      .panel {
+        height: 100px;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  ul.small-block-grid-2 {
+    li {
+      .panel {
+        height: 70px;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+ul.no-bullet {
+  list-style-type: none;
+}
+
+.text-content {
+  ul {
+    margin-left: 20px !important;
+  }
+}

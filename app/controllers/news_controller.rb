@@ -34,6 +34,7 @@ class NewsController < ApplicationController
       redirect_to news_index_path and return
     end
     @old_news = !!(News.archived(website))
+    @recent_news = News.all_for_website(website, limit: 6) - [@news]
     respond_to do |format|
       format.html { render_template } # show.html.erb
       format.xml  { render xml: @news }
