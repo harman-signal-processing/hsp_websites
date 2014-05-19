@@ -80,7 +80,7 @@
 <% else %>
 
 	<div id="wtb_container">
-		<div id="dealer_results" style="width: 520px">
+		<div style="width: 520px">
 
 			<h4><%= t('us_dealers') %></h4>
 			<%= form_tag where_to_buy_path() %>
@@ -107,9 +107,9 @@
 
 		</div>
 		<div class="clear"></div>
-
+<br/>
 		<% if website.has_online_retailers? %>
-			<div class="wide_centered_box" style="width: 830px">
+			<div>
 				<h2><%= t('titles.buy_online') %></h2>
 
 				<div id="online_retailers">
