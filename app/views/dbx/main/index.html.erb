@@ -113,29 +113,6 @@
 
 	<% end %>
 
-	<div class="row" style="margin-top: 50px;">
-		<div class="large-6 large-offset-3 columns">
-			<% if website.email_signup_url %>
-				<%= render_partial 'shared/newsletter_signup' %>
-			<% end %>
-		</div>
-	</div>
-
-	<% if @current_promotions.length > 0 %>
-		<% promotion = @current_promotions.all.shuffle.first %>
-		<div class="homepage_block text-center">
-			<h3 class="subheader">Special Offer from <%= website.brand.name %>:</h3>
-			<div class="promotion_container container">
-			<% unless promotion.tile_file_name.blank? %>
-				<%= link_to image_tag(promotion.tile.url, alt: promotion.name), promotion %>
-			<% end %>
-			</div>
-			<% if @current_promotions.length > 1 %>
-			<p><%= link_to "see all #{website.brand.name} offers...", promotions_path %></p>
-			<% end %>
-		</div>
-	<% end %>
-
 	<div class="homepage_block">
 		<div class="row">
 			<div class="large-6 small-12 columns">
@@ -155,6 +132,31 @@
 			</div>
 		</div>
 	</div>
+
+	<% if @current_promotions.length > 0 %>
+		<% promotion = @current_promotions.all.shuffle.first %>
+		<div class="homepage_block text-center">
+			<h3 class="subheader">Special Offer from <%= website.brand.name %>:</h3>
+			<div class="promotion_container container">
+			<% unless promotion.tile_file_name.blank? %>
+				<%= link_to image_tag(promotion.tile.url, alt: promotion.name), promotion %>
+			<% end %>
+			</div>
+			<% if @current_promotions.length > 1 %>
+			<p class="text-right"><%= link_to "see all #{website.brand.name} offers...", promotions_path %></p>
+			<% end %>
+		</div>
+	<% end %>
+
+
+	<div class="row" style="margin-top: 50px;">
+		<div class="large-6 large-offset-3 columns">
+			<% if website.email_signup_url %>
+				<%= render_partial 'shared/newsletter_signup' %>
+			<% end %>
+		</div>
+	</div>
+
 
 <% end %>
 

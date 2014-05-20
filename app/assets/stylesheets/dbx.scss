@@ -320,16 +320,18 @@ ul.image-grid {
 					padding: 10px;
 					color: $light-gray !important;
 					h3 {
-						color: $light-gray !important;
+						color: white !important;
 					}
 					h5 {
-						color: $light-gray !important;
+						color: white !important;
 					}
 				}
 				img {
 					display: none;
 				}
 				h4 {
+					color: $light-gray;
+					text-shadow: none;
 					background: none;
 				}
 			}
@@ -439,7 +441,7 @@ div.featured_product_container {
 @media only screen and (min-width: 720px) {
 	div.homepage_block {
 		min-height: 360px;
-		margin: 100px 0px;
+		margin: 140px 0px 100px;
 		h1 {
 			font-size: 4em;
 			line-height: 1em;
@@ -479,7 +481,7 @@ div.featured_product_container {
 
 div.promotion_container {
 	background: darken($dark-gray, 80%);
-	padding: 2px;
+	padding: 10px 0px;
 	margin-bottom: 8px;
 }
 
