@@ -108,7 +108,7 @@ module MainHelper
     end
     pf_limit = options[:limit]
 
-    @current_promotions = Promotion.all_for_website(website)
+    @current_promotions ||= Promotion.all_for_website(website)
 
     if @current_promotions.count > 0
       out += "<li>" if options[:zurb]

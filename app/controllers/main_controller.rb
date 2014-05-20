@@ -23,8 +23,9 @@ class MainController < ApplicationController
     end
     @features = website.features
 
-    @featured_product = website.featured_product
+    @featured_products = website.featured_products
     @featured_video   = website.featured_video
+    @current_promotions = Promotion.all_for_website(website)
 
     respond_to do |format|
       format.html { 

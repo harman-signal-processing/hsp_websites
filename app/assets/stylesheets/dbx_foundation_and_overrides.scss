@@ -224,7 +224,7 @@ $h6-font-size: 1em;
 // Subheaders
 
 // $subheader-line-height: 1.4;
-$subheader-font-color: $medium-gray;
+$subheader-font-color: lighten($dark-gray, 20%);
 // $subheader-font-weight: 300;
 // $subheader-top-margin: .2em;
 // $subheader-bottom-margin: .5em;
@@ -1362,7 +1362,7 @@ $topbar-sticky-class:                  ".sticky";
 
 #homepage-video-banner {
   position: relative;
-  background: #000;
+  background: #000 image-url('dbx/video_bg.png');
   padding: 20px;
   a {
     color: $medium-gray;

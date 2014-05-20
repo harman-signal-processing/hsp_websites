@@ -45,39 +45,59 @@
 
 <%= content_for :big_bottom_box do %>
 
-	<% if @featured_product %>
-
-		<div class="row" id="featured_product_container">
+	<% if @featured_products %>
+	<div class="homepage_block">
+		<% @featured_products.each_with_index do |featured_product, i| %>
+		<div class="row featured_product_container ">
+			<% if !(i%2 > 0) %>
 			<div class="large-7 columns">
-				<div id="featured_image_container" class="hide-for-small">
-					<%= link_to(image_tag(@featured_product.photo.product_attachment.url(:original), id: "featured_image"), @featured_product) %>
+				<div class="featured_image_container hide-for-small left">
+					<%= link_to(image_tag(featured_product.photo.product_attachment.url(:original), class: "featured_image"), featured_product) %>
 				</div>
 				<div class="show-for-small">
-					<%= link_to(image_tag(@featured_product.photo.product_attachment.url(:medium)), @featured_product) %>
+					<%= link_to(image_tag(featured_product.photo.product_attachment.url(:medium)), featured_product) %>
 				</div>
 			</div>
 			<div class="large-5 columns">
-				<h1><%= link_to @featured_product.name, @featured_product %></h1>
-				<h3 class="subheader"><%= translate_content(@featured_product, :short_description) %></h3>
+				<h1><%= link_to featured_product.name, featured_product %></h1>
+				<h3 class="subheader"><%= translate_content(featured_product, :short_description) %></h3>
 
-				<p><%=raw translate_content(@featured_product, :short_description_4) %></p>
+				<p><%=raw translate_content(featured_product, :short_description_4) %></p>
 
-				<%= link_to 'more details...', @featured_product, class: "small secondary button" %>
+				<%= link_to 'more details...', featured_product, class: "small secondary button" %>
 			</div>
-		</div>
+			<% else %>
+			<div class="small-12 columns show-for-small">
+				<%= link_to(image_tag(featured_product.photo.product_attachment.url(:medium)), featured_product) %>
+			</div>
+			<div class="large-5 columns text-right small-left">
+				<h1><%= link_to featured_product.name, featured_product %></h1>
+				<h3 class="subheader"><%= translate_content(featured_product, :short_description) %></h3>
 
+				<p><%=raw translate_content(featured_product, :short_description_4) %></p>
+
+				<%= link_to 'more details...', featured_product, class: "small secondary button" %>
+			</div>
+			<div class="large-7 columns hide-for-small">
+				<div class="featured_image_container right">
+					<%= link_to(image_tag(featured_product.photo.product_attachment.url(:original), class: "featured_image"), featured_product) %>
+				</div>
+
+			</div>
+			<% end %>
+		</div>
+		<% end %>
+	</div>
 	<% end %>
 
 	<% if @featured_video %>
+	<div class="homepage_block">
 	<div class="container" id="homepage-video-banner">
 		<div class="row">
-			<div class="large-6 small-12 columns">
+			<div class="large-10 large-offset-1 columns">
 				<div class="video-window text-center">
 					<iframe width="853" height="480" src="//www.youtube.com/embed/<%= @featured_video %>" frameborder="0" allowfullscreen></iframe>
 				</div>
-			</div>
-			<div class="large-6 small-12 columns">
-				<%= render_partial 'shared/column_for_news' %>
 			</div>
 		</div>
 		<div class="row hide-for-small">
@@ -87,15 +107,8 @@
 					more <%= website.brand.name %> videos ...
 				<% end %>
 			</div>
-			<div class="large-6 columns text-right">
-				<%= link_to news_index_path do %>
-					<%#= image_tag "icons/rss.png" %> 
-					more
-					<%= website.brand.name %>
-					<%= t('news') %> ...
-				<% end %>
-			</div>
 		</div>
+	</div>
 	</div>
 
 	<% end %>
@@ -107,6 +120,42 @@
 			<% end %>
 		</div>
 	</div>
+
+	<% if @current_promotions.length > 0 %>
+		<% promotion = @current_promotions.all.shuffle.first %>
+		<div class="homepage_block text-center">
+			<h3 class="subheader">Special Offer from <%= website.brand.name %>:</h3>
+			<div class="promotion_container container">
+			<% unless promotion.tile_file_name.blank? %>
+				<%= link_to image_tag(promotion.tile.url, alt: promotion.name), promotion %>
+			<% end %>
+			</div>
+			<% if @current_promotions.length > 1 %>
+			<p><%= link_to "see all #{website.brand.name} offers...", promotions_path %></p>
+			<% end %>
+		</div>
+	<% end %>
+
+	<div class="homepage_block">
+		<div class="row">
+			<div class="large-6 small-12 columns">
+				<%= render_partial 'shared/column_for_news' %>
+			</div>
+			<div class="large-6 small-12 columns superpadded">
+				<h2><%= link_to news_index_path do %><%= website.brand.name %> <%= t('news') %><% end %></h2>
+				<p>In the world of pro-audio, you'll always find <%= website.brand.name %> 
+					making waves. Discover what we've been up to and where you can
+					spot <%= website.brand.name %> products in use.</p>
+				<p><%= link_to "read #{website.brand.name} news...", news_index_path %></p>
+				<br/>
+				<h4 class="subheader">More ways to stay in touch with <%= website.brand.name %>:</h4>
+				<div class="social">
+					<%= social_media_links 'rss', 'twitter', 'facebook', 'youtube', 'myspace', 'wechat', 'weibo' %> 
+				</div>
+			</div>
+		</div>
+	</div>
+
 <% end %>
 
 <%= content_for :preload do %>

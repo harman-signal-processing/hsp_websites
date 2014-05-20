@@ -94,9 +94,9 @@ class Website < ActiveRecord::Base
     end
   end
 
-  def featured_product
+  def featured_products
     begin
-      self.brand.respond_to?(:featured_product) ? Product.find(self.brand.featured_product) : false
+      self.brand.respond_to?(:featured_products) ? self.brand.featured_products.split(/\,\s?/).map{|i| Product.find_by_cached_slug(i)} : false
     rescue
       false
     end

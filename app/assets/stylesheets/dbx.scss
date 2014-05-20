@@ -196,19 +196,8 @@ h1, h2 {
 	
 }
 
-h2 a:link,
-h2 a:visited {
-	text-decoration: none;
-	color: #222;
-}
-
 ul.list {
 	margin-left: 16px;
-}
-
-#big_bottom_box_container h3 a:link,
-#big_bottom_box_container h3 a:visited {
-	text-decoration: underline;
 }
 
 .panel {
@@ -291,9 +280,7 @@ ul.image-grid {
 			position: absolute;
 			bottom: 0px;
 			left: 0px;
-			margin: 0px;
-			width: 100%;
-			padding: 4px 6px;
+			padding: 4px 10px;
 			color: $light-gray;
 			text-shadow: 1px 1px 1px #000;
 			height: 26px;
@@ -311,9 +298,45 @@ ul.image-grid {
 		}
 		&.featured {
 			height: 175px;
+			h4 {
+				margin: 0px 2px;
+				width: 298px;
+			}
+		}
+		&.secondary {
+			height: 120px;
+			h4 {
+				margin: 0px 2px;
+				width: 119px;
+			}
+
+		}
+		&.news-with-popover {
+			.popover { display: none;}
+			&:hover {
+				background: $primary-color;
+				.popover {
+					display: block;
+					padding: 10px;
+					color: $light-gray !important;
+					h3 {
+						color: $light-gray !important;
+					}
+					h5 {
+						color: $light-gray !important;
+					}
+				}
+				img {
+					display: none;
+				}
+				h4 {
+					background: none;
+				}
+			}
 		}
 	}
 }
+
 div#middle_features {
 	margin: 40px 0px;
 }
@@ -383,51 +406,83 @@ div#harmanpro_bar {
 }
 
 /**** Main ******/
-
-div#featured_product_container {
+div.superpadded {
+	padding: 100px 80px;
+	h2 {
+		margin-top: -70px;
+		margin-bottom: 4px;
+	}
+	.social {
+		a {
+			margin-right: 4px;
+		}
+	}
+}
+div.featured_product_container {
 	position: relative;
-
-	h1 {
-		font-size: 4em;
-		line-height: 1em;
-		margin: 0;
-	}
-	h3 {
-		font-size: 1.5em;
-		margin-top: 0;
-	}
-	p {
-		line-height: 1.2em;
-		margin-bottom: 10px;
-	}
-	div#featured_image_container {
+	margin-bottom: 60px;
+	div.featured_image_container {
 		overflow: hidden;
 		position: absolute;
-		right: 20px;
 		top: 5px;
+		&.left {
+			right: 20px;
+		}
+		&.right {
+			left: 20px;
+		}
 		img {
 			max-width: none;
 		}
 	}
 }
 @media only screen and (min-width: 720px) {
-	div#featured_product_container {
+	div.homepage_block {
 		min-height: 360px;
-		margin-top: 80px;
+		margin: 100px 0px;
+		h1 {
+			font-size: 4em;
+			line-height: 1em;
+			margin: 0;
+		}
+		h2 {
+			font-size: 2.5em;
+		}
+		h3 {
+			font-size: 1.5em;
+			margin-top: 0;
+		}
+		p {
+			line-height: 1.2em;
+			margin-bottom: 10px;
+		}
 	}
 }
 @media only screen and (max-width: 720px) {
-	div#featured_product_container {
-		margin: 20px 0px;
-		img {
-			margin-bottom: 15px;
-		}
+	div.homgepage_block {
+		margin: 40px 0px;	
 		h1 {
 			font-size: 2.25em;
 		}
 	}
+	div.featured_product_container {
+		margin: 10px 0px;
+		img {
+			margin-bottom: 15px;
+		}
+	}
+	.small-left {
+		text-align: left !important;
+	}
 
 }
+
+div.promotion_container {
+	background: darken($dark-gray, 80%);
+	padding: 2px;
+	margin-bottom: 8px;
+}
+
 div#countdown {
 	margin-top: -57px;
 	z-index: 99999;
@@ -880,6 +935,7 @@ div.retailer_logo {
 }
 
 /****** News ********/
+
 @media only screen and (min-width: 720px) {
 	.news_container {
 		padding-bottom: 40px;
