@@ -40,7 +40,9 @@ class Page < ActiveRecord::Base
 
   # Translates this record into other languages. 
   def translate
-    ContentTranslation.auto_translate(self, self.brand)
+    unless self.body.size > 65000 # large pages cause delayed job problems
+      ContentTranslation.auto_translate(self, self.brand)
+    end
   end
   handle_asynchronously :translate
   
