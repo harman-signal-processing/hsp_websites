@@ -15,7 +15,9 @@
 
 		<div class="large-6 columns">
 			<%= f.input :admin, label: "Super Admin" %>
+			<% unless @user.new_record? %>
 			<%= f.input :employee %>
+			<% end %>
 			<%= f.input :market_manager %>
 			<%= f.input :marketing_staff %>
 			<%= f.input :queue_admin, label: "Marketing Queue Administrator" %>

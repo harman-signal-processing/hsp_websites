@@ -152,7 +152,7 @@ class User < ActiveRecord::Base
   end
 
   def employee?
-    role?(:employee)
+    role?(:employee) || !!(self.email.to_s.match(/\@harman\.com$/i))
   end
   
   def rso?
