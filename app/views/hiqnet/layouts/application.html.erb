@@ -39,64 +39,14 @@
 	</head>
 	<body data-brand="<%= website.brand.name %>">
 
-		<div id="fb-root"></div>
-		<script>(function(d, s, id) {
-		  var js, fjs = d.getElementsByTagName(s)[0];
-		  if (d.getElementById(id)) return;
-		  js = d.createElement(s); js.id = id;
-		  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-		  fjs.parentNode.insertBefore(js, fjs);
-		}(document, 'script', 'facebook-jssdk'));</script>
-		<%= render_partial "shared/locale_switcher" %>
-		<%= render_partial "shared/admin_dashboard_link" %>		
-		
-		<%= cache ["header", website, I18n.locale] do %>
-		<div id="header-container" class="sticky">
+		<%#= render_partial "shared/locale_switcher" %>
+		<%#= render_partial "shared/admin_dashboard_link" %>		
 
-			<nav class="top-bar">
-				<ul class="title-area">
-					<li class="name"><%= link_to interchange_logo, locale_root_path %></li>
-					<li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
-				</ul>
-				<section class="top-bar-section">
-					<ul class="left">
-						<li><%= link_to t('home').upcase, locale_root_path %></li>
-						<li class="divider"></li>
-						<li><%= link_to t('software').upcase, softwares_path %></li>
-						<li class="divider"></li>
-						<li><%= link_to t('news').upcase, news_index_path %></li>
-						<li class="divider"></li>
-						<li><%= link_to t('training').upcase, "/#{I18n.locale}/#{website.folder}-training" %></li>
-						<li class="divider"></li>
-						<li><%= link_to t('product_support').upcase, support_path %></li>
-						<li class="divider"></li>
-						<li><%= link_to t('about').upcase, "/#{I18n.locale}/about_#{website.folder}" %></li>
-					</ul>
-					<%# search is only available in default language for now...%>
-					<% if I18n.locale.to_s.match(/#{I18n.default_locale.to_s.split('-')[0]}/i) && website.value_for("enable_search") %>
-					<ul class="right">
-						<li id="search_form">
-							<%= form_tag search_path, method: :get %>
-								<%= text_field_tag :query, t('search'), onclick: "if (this.value == '#{t('search')}') { this.value = '';} " %>
-							</form>
-						</li>
-					</ul>
-					<% end %>
-				</section>
-			</nav>
-
+		<div class="text-center">
+			<h1>
+				<%= link_to interchange_logo, locale_root_path %>
+			</h1>
 		</div>
-		<% end %>
-		
-		<% if content_for?(:feature) %>
-		<div class="container"> 
-			<div class="row">
-				<div class="large-12 columns hide-for-small">
-					<%= yield :feature %>
-				</div>
-			</div>
-		</div>
-		<% end %>
 
 		<div class="container">
 		    <div class="row">
@@ -127,13 +77,7 @@
 				</div>
 			</div>
 		</div>
-		
-		<% if content_for?(:middle_stuff) %>
-		<div id="middle_container">
-			<%= yield :middle_stuff %>
-		</div>
-		<% end %>
-		
+
 		<% if content_for?(:big_bottom_box) %>
 		<div class="container">
 			<div id="big_bottom_box_container">
@@ -148,35 +92,16 @@
 		<footer>
 			<div class="container">
 				<div class="large-12 columns hide-for-small">
-					<%= hpro_footer(exclude: "DigiTech") %>
+					<%#= hpro_footer(exclude: "DigiTech") %>
 				</div>
 			</div>
 			<div class="container">
-				<div class="large-6 columns" id="footer_left">
+				<div class="large-12 columns text-center">
 					<%= image_tag "harman.jpg" %>
 					<span class="footer_text">
 						&copy; <%= Date.today.year %> 
 						<%= link_to(t('harman'), "http://www.harman.com/", target: "_blank") %>. 
 						<%= t('all_rights_reserved') %>
-					</span>
-				</div>
-				<div class="large-6 columns hide-for-small" id="footer_info">
-					<span class="footer_text">
-						<% if website.has_software? %>
-						<%= link_to t('software').downcase, software_index_path %> &bull;
-						<% end %>
-						<%= link_to t('news'), news_index_path %> &bull;
-						<% if website.has_artists? %>
-						<%= link_to t('artists'), artists_path %> &bull;
-						<% end %>
-						<% if website.has_dealers? || website.has_online_retailers? || website.has_distributors? %>
-						<%= link_to t('where_to_buy'), where_to_buy_path %> &bull;
-						<% end %>
-						<%= link_to t('product_support'), support_path %> &bull;
-						<%= link_to t('sitemap'), sitemap_path(format: 'xml') %>
-						<div id="social_media_links">
-							<%= social_media_links 'twitter', 'facebook', 'myspace', 'youtube', 'wechat', 'weibo' %> 
-						</div>
 					</span>
 				</div>
 			</div>
