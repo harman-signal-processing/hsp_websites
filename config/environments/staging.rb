@@ -33,6 +33,8 @@ HarmanSignalProcessingWebsite::Application.configure do
     vendor/custom.modernizr.js
     hiqnet.css
     hiqnet.js
+    performancemanager.css
+    performancemanager.js
     introducing_epedal.css 
     introducing_stompbox.css
     istomp.js 
