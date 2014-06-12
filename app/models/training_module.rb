@@ -6,7 +6,7 @@ class TrainingModule < ActiveRecord::Base
   belongs_to :brand
   validates :brand_id, :name, presence: true
   has_attached_file :training_module, S3_STORAGE
-  validates_attachment :training_module, presence: true
+  validates_attachment :training_module #, presence: true
   do_not_validate_attachment_file_type :training_module
 
   def self.modules_for(brand_id, options={})

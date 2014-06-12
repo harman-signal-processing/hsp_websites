@@ -40,10 +40,11 @@ class Page < ActiveRecord::Base
 
   # Translates this record into other languages. 
   def translate
-    unless self.body.size > 65000 # large pages cause delayed job problems
+    unless self.body.size > 65000 # large pages cause delayed job problems 
       ContentTranslation.auto_translate(self, self.brand)
     end
   end
-  handle_asynchronously :translate
+  # Uncomment below to enable auto-translation of Pages. However, we've seen problems with these (mostly Archimedia pages)
+  # handle_asynchronously :translate
   
 end
