@@ -63,7 +63,7 @@ xml.product name: @product.name do
                 site_element.name,
                 url: url,
                 type: site_element.executable_content_type,
-                doctype: site_element.executable_type,
+                doctype: site_element.resource_type,
                 size: site_element.executable_file_size
             )
         end
