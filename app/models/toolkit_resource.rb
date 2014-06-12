@@ -38,9 +38,17 @@ class ToolkitResource < ActiveRecord::Base
   # validate :file_exists #can't actually do this since admin might not be on the content server.
 
   after_save :touch_related_item
+  before_update :unflag_bad_links
 
   def tk_folder
     Rails.env.production? ? Rails.root.join("../", "../", "../", "toolkits") : Rails.root.join("../", "../", "toolkit")
+  end
+
+  def unflag_bad_links
+    if link_good_was == false && self.download_path_changed? # assume it is correct
+      self.link_good = true             # assume it is correct now, but...
+      self.link_checked_at = 1.year.ago # schedule it to be re-checked next time the task runs
+    end
   end
 
   def touch_related_item
