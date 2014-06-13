@@ -8,17 +8,13 @@
 	<% product.site_elements.each do |site_element| %>
 	<li>
 		<% if site_element.resource_file_name.blank? %>
-			<%= link_to site_element.name, (@brand.live_on_this_platform?) ?
-						"http://#{@brand.default_website.url}#{site_element.executable.url}" :
-						site_element.executable.url %>
+			<%= link_to site_element.name, site_element.executable.url %>
 			[<%= number_to_human_size(site_element.executable_file_size) %>]
 		<% else %> 
 			<% if site_element.resource_content_type.match(/pdf/i) || site_element.resource_file_name.match(/pdf$/i) %>
 				<%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
 			<% end %>
-			<%= link_to site_element.name, (@brand.live_on_this_platform?) ?
-						"http://#{@brand.default_website.url}#{site_element.resource.url}" :
-						site_element.resource.url %> 
+			<%= link_to site_element.name, site_element.resource.url %> 
 			[<%= number_to_human_size(site_element.resource_file_size) %>]
 		<% end %>
 		<%= list_toolkit_support_files_for(site_element, @brand) %>
