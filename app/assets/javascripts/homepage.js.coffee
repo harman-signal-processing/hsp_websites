@@ -45,7 +45,7 @@ class CountDownTimer
 			hours = Math.floor((distance % @_day) / @_hour)
 			minutes = Math.floor((distance % @_hour) / @_minute)
 			seconds = Math.floor((distance % @_minute) / @_second)
-			@element.html("#{days} days, #{('00'+hours).substr(-2)}:#{('00'+minutes).substr(-2)}:#{('00'+seconds).substr(-2)} Remaining!")
+			@element.html("Hurry, only <strong>#{days} days, #{('00'+hours).substr(-2)}:#{('00'+minutes).substr(-2)}:#{('00'+seconds).substr(-2)}</strong> remaining!")
 
 getWeekNumber = ->
 	d = new Date()
