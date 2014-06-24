@@ -137,14 +137,7 @@ div#main-content {
 		color: #888;
 	}
 }
-.pedal_link {
-	height: 350px;
-	overflow: hidden;
-	img {
-		margin-left: -50px;
-		margin-top: -10px;
-	}
-}
+
 div#logo {
 	margin-bottom: 6px;
 	img {
@@ -191,5 +184,13 @@ div#footer {
 	}
 }
 @media only screen and (min-width: 768px) {
+	.pedal_link {
+		height: 350px;
+		overflow: hidden;
+		img {
+			margin-left: -60px;
+			margin-top: -10px;
+		}
+	}
 	img { max-width: none; }
 }

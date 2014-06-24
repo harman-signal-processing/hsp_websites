@@ -14,13 +14,12 @@
 
     <div class="row">
     	<div class="large-12 text-center columns">
-    		<%# featured_ids = ["overdrive-preamp250-2013", "phasor201-2013", "envelope-filter-440-2014", "bifet-boost-410-2014"] %>
     		<% featured_products = website.featured_products.split('|').map{|i| Product.find(i)} %>
     		<ul class="large-block-grid-4 small-block-grid-2">
-    		<% featured_products.each do |product| %>
+    		<% featured_products.each_with_index do |product,i| %>
     			<% if product.product_attachments.count >= 5 %>
     				<li><%= link_to product do %>
-	    					<div class="pedal_link"><%= image_tag(product.product_attachments[4].product_attachment.url(:medium)) %></div>
+	    					<div class="pedal_link" style="z-index: <%= 100 - i %>;"><%= image_tag(product.product_attachments[4].product_attachment.url(:medium)) %></div>
 	    				<% end %></li>
     			<% end %>
     		<% end %>
