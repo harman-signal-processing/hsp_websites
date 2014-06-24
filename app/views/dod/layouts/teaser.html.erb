@@ -74,7 +74,7 @@
 				<% if website.has_software? %>
 				<%= link_to t('software_downloads').downcase, software_index_path %> &bull;
 				<% end %>
-				<%= link_to t('products'), product_families_path %> &bull;
+				<%= link_to "#{website.brand.name} #{t('products')}", product_families_path %> &bull;
 				<% if website.has_reviews? && ProductReview.all_for_website(website).size > 0 %>
 				<%= link_to t('product_reviews').downcase, product_reviews_path %> &bull;
 				<% end %>

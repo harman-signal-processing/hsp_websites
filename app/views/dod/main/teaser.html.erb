@@ -14,9 +14,21 @@
 
     <div class="row">
     	<div class="large-12 text-center columns">
-    		<%= image_tag "dod/parallax-bottom.png" %>
+    		<%# featured_ids = ["overdrive-preamp250-2013", "phasor201-2013", "envelope-filter-440-2014", "bifet-boost-410-2014"] %>
+    		<% featured_products = website.featured_products.split('|').map{|i| Product.find(i)} %>
+    		<ul class="large-block-grid-4 small-block-grid-2">
+    		<% featured_products.each do |product| %>
+    			<% if product.product_attachments.count >= 5 %>
+    				<li><%= link_to product do %>
+	    					<div class="pedal_link"><%= image_tag(product.product_attachments[4].product_attachment.url(:medium)) %></div>
+	    				<% end %></li>
+    			<% end %>
+    		<% end %>
+    		</ul>
     	</div>
     </div>
+
+    <div class="container">
     <div class="row">
       <div class="large-8 large-offset-2 columns">
       	<div id="logo" class="text-center">
@@ -27,7 +39,8 @@
 				<p>In 1974, before “boutique pedal” meant anything, two friends started building pedals between gigs to make some extra money. Their band never got signed but the pedals they built became the signature tones of their generation, inspiring the music that changed the world.</p>
 			</div>
 			<div class="large-6 columns">
-				<p>DOD, the original boutique pedal brand, triumphantly returns with the new Overdrive Preamp 250, Phasor 201, Envelope Filter 440 and Bifet Boost 410. Along with incredible analog tones, all pedals feature true bypass, a crisp LED, modern power jack, and lighter aluminum chassis. </p>
+				<p>DOD, the original boutique pedal brand, triumphantly returns with the new 
+					<%=raw featured_products.map{|p| link_to(p.name.gsub(/\s?\(.*\)/, ""), p)}.join(", ") %>. Along with incredible analog tones, all pedals feature true bypass, a crisp LED, modern power jack, and lighter aluminum chassis. </p>
 			</div>
 		</div>
 		<div class="text-center">
@@ -35,6 +48,7 @@
 			<%= link_to(image_tag('dod/learn-more-button.png', mouseover: 'dod/learn-more-button-over.png'), "/en-US/product_families/effect-pedals") %>		
 		</div>
 	  </div>
+	</div>
 	</div>
 
 <%= content_for :preload do %>
