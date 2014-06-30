@@ -23,5 +23,6 @@ FactoryGirl.define do
     dealer false
     distributor false
     marketing_staff false
+    invitation_code HarmanSignalProcessingWebsite::Application.config.employee_invitation_code
   end
 end

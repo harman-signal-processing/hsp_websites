@@ -1,11 +1,24 @@
 require 'aws-sdk'
 
+# Disable content spoofing detector which is really buggy as of 6/2014
+require 'paperclip/media_type_spoof_detector'
+module Paperclip
+  class MediaTypeSpoofDetector
+    def spoofed?
+      false
+    end
+  end
+end
+
+# Don't use the timestamp in the generated URLs
 Paperclip::Attachment.default_options[:use_timestamp] = false
 
+# Add support for timestamps in the stored file path
 Paperclip.interpolates(:timestamp) do |attachment, style|
   attachment.instance_read(:updated_at).to_i  
 end
 
+# Add support for the asset host in the interpolated URL path
 Paperclip.interpolates(:asset_host) do |attachment, style|
   if HarmanSignalProcessingWebsite::Application.config.action_controller.asset_host.present?
   	HarmanSignalProcessingWebsite::Application.config.action_controller.asset_host
@@ -23,6 +36,7 @@ AWS.config(Rails.configuration.aws)
 # a separate CDN for stuff in the S3 buckets...
 S3_CLOUDFRONT = 'adn.harmanpro.com' # 'd18nzrj3czoaty.cloudfront.net' # 
 
+# Environment-specific settings:
 if Rails.env.production?
 	Paperclip::Attachment.default_options.merge!({
     url: ':fog_public_url',
@@ -62,6 +76,7 @@ else
   }
 end
 
+# Setting up S3 Direct upload for large file uploads...
 S3DirectUpload.config do |c|
   c.access_key_id = Rails.configuration.aws[:access_key_id]
   c.secret_access_key = Rails.configuration.aws[:secret_access_key]

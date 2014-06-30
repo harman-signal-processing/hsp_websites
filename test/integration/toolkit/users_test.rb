@@ -37,7 +37,7 @@ describe "Toolkit Users Integration Test" do
   	end
 
   	it "should create a new unconfirmed user" do
-  		user = FactoryGirl.build(:user)
+  		user = FactoryGirl.build(:user, email: "someone@dealer.com")
   		within('#new_toolkit_user') do
   			fill_in_new_dealer_user_form(user, @dealer)
   			click_on "Sign up"
@@ -47,7 +47,7 @@ describe "Toolkit Users Integration Test" do
   	end  		
 
   	it "should associate the user with the dealer by account number" do 
-  		user = FactoryGirl.build(:user)
+  		user = FactoryGirl.build(:user, email: "someone@dealer.com")
   		within('#new_toolkit_user') do
   			fill_in_new_dealer_user_form(user, @dealer)
   			click_on "Sign up"
@@ -57,7 +57,7 @@ describe "Toolkit Users Integration Test" do
   	end
 
   	it "should send the confirmation email to the dealer not the user" do
-  		user = FactoryGirl.build(:user)
+  		user = FactoryGirl.build(:user, email: "someone@dealer.com")
   		within('#new_toolkit_user') do
   			fill_in_new_dealer_user_form(user, @dealer)
   			click_on "Sign up"
@@ -80,7 +80,7 @@ describe "Toolkit Users Integration Test" do
   	end
 
   	it "should send an email error to user where no dealer is found" do 
-  		user = FactoryGirl.build(:user)
+  		user = FactoryGirl.build(:user, email: "someone@dealer.com")
   		dealer = FactoryGirl.build(:dealer) # un-saved, so should error when looking up
   		within('#new_toolkit_user') do
   			fill_in_new_dealer_user_form(user, dealer)
@@ -113,7 +113,7 @@ describe "Toolkit Users Integration Test" do
     end
 
     it "should create a new unconfirmed user" do
-      user = FactoryGirl.build(:user)
+      user = FactoryGirl.build(:user, email: "someone@distributor.com")
       within('#new_toolkit_user') do
         fill_in_new_distributor_user_form(user, @distributor)
         click_on "Sign up"
@@ -123,7 +123,7 @@ describe "Toolkit Users Integration Test" do
     end     
 
     it "should associate the user with the distributor by account number" do 
-      user = FactoryGirl.build(:user)
+      user = FactoryGirl.build(:user, email: "someone@distributor.com")
       within('#new_toolkit_user') do
         fill_in_new_distributor_user_form(user, @distributor)
         click_on "Sign up"
@@ -133,7 +133,7 @@ describe "Toolkit Users Integration Test" do
     end
 
     it "should send the confirmation email to the distributor not the user" do
-      user = FactoryGirl.build(:user)
+      user = FactoryGirl.build(:user, email: "someone@distributor.com")
       within('#new_toolkit_user') do
         fill_in_new_distributor_user_form(user, @distributor)
         click_on "Sign up"
@@ -156,7 +156,7 @@ describe "Toolkit Users Integration Test" do
     end
 
     it "should send an email error to user where no distributor is found" do 
-      user = FactoryGirl.build(:user)
+      user = FactoryGirl.build(:user, email: "someone@distributor.com")
       distributor = FactoryGirl.build(:distributor) # un-saved, so should error when looking up
       within('#new_toolkit_user') do
         fill_in_new_distributor_user_form(user, distributor)

@@ -8,6 +8,7 @@
 			<%= f.input :job_description %>
 			  <% if @user.new_record? %>
 			  <br/>
+			  		<%= f.input :invitation_code, hint: "RSOs, employees and media need a valid invitation code." %>
 					<%= f.input :password, input_html: { autocomplete: "off" } %>
 					<%= f.input :password_confirmation, input_html: { autocomplete: "off" } %>
 			  <% end %>

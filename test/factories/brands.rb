@@ -29,6 +29,7 @@ FactoryGirl.define do
     employee_store false
     toolkit false
     live_on_this_platform false
+    has_products true
     # rso_enabled false
     # logo_file_name "logo.png"
     # logo_content_type "application/png"
