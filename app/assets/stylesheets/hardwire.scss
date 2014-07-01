@@ -20,11 +20,11 @@ body {
 }
 @font-face {
     font-family: 'BebasRegular';
-    src: font-url('BebasNeue-webfont.eot');
-    src: font-url('BebasNeue-webfont.eot?#iefix') format('embedded-opentype'),
-         font-url('BebasNeue-webfont.woff') format('woff'),
-         font-url('BebasNeue-webfont.ttf') format('truetype'),
-         font-url('BebasNeue-webfont.svg#BebasNeueRegular') format('svg');
+    src: url('/assets/BebasNeue-webfont.eot');
+    src: url('/assets/BebasNeue-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/assets/BebasNeue-webfont.woff') format('woff'),
+         url('/assets/BebasNeue-webfont.ttf') format('truetype'),
+         url('/assets/BebasNeue-webfont.svg#BebasNeueRegular') format('svg');
     font-weight: normal;
     font-style: normal;
 

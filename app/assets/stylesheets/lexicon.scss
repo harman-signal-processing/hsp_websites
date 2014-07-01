@@ -12,44 +12,44 @@ img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 
 @font-face {
     font-family: 'AsapRegular';
-    src: font-url('Asap-Regular-webfont.eot');
-    src: font-url('Asap-Regular-webfont.eot?#iefix') format('embedded-opentype'),
-         font-url('Asap-Regular-webfont.woff') format('woff'),
-         font-url('Asap-Regular-webfont.ttf') format('truetype'),
-         font-url('Asap-Regular-webfont.svg#AsapRegular') format('svg');
+    src: url('/assets/Asap-Regular-webfont.eot');
+    src: url('/assets/Asap-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/assets/Asap-Regular-webfont.woff') format('woff'),
+         url('/assets/Asap-Regular-webfont.ttf') format('truetype'),
+         url('/assets/Asap-Regular-webfont.svg#AsapRegular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'AsapItalic';
-    src: font-url('Asap-Italic-webfont.eot');
-    src: font-url('Asap-Italic-webfont.eot?#iefix') format('embedded-opentype'),
-         font-url('Asap-Italic-webfont.woff') format('woff'),
-         font-url('Asap-Italic-webfont.ttf') format('truetype'),
-         font-url('Asap-Italic-webfont.svg#AsapItalic') format('svg');
+    src: url('/assets/Asap-Italic-webfont.eot');
+    src: url('/assets/Asap-Italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/assets/Asap-Italic-webfont.woff') format('woff'),
+         url('/assets/Asap-Italic-webfont.ttf') format('truetype'),
+         url('/assets/Asap-Italic-webfont.svg#AsapItalic') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'AsapBold';
-    src: font-url('Asap-Bold-webfont.eot');
-    src: font-url('Asap-Bold-webfont.eot?#iefix') format('embedded-opentype'),
-         font-url('Asap-Bold-webfont.woff') format('woff'),
-         font-url('Asap-Bold-webfont.ttf') format('truetype'),
-         font-url('Asap-Bold-webfont.svg#AsapBold') format('svg');
+    src: url('/assets/Asap-Bold-webfont.eot');
+    src: url('/assets/Asap-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/assets/Asap-Bold-webfont.woff') format('woff'),
+         url('/assets/Asap-Bold-webfont.ttf') format('truetype'),
+         url('/assets/Asap-Bold-webfont.svg#AsapBold') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'AsapBoldItalic';
-    src: font-url('Asap-BoldItalic-webfont.eot');
-    src: font-url('Asap-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
-         font-url('Asap-BoldItalic-webfont.woff') format('woff'),
-         font-url('Asap-BoldItalic-webfont.ttf') format('truetype'),
-         font-url('Asap-BoldItalic-webfont.svg#AsapBoldItalic') format('svg');
+    src: url('/assets/Asap-BoldItalic-webfont.eot');
+    src: url('/assets/Asap-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/assets/Asap-BoldItalic-webfont.woff') format('woff'),
+         url('/assets/Asap-BoldItalic-webfont.ttf') format('truetype'),
+         url('/assets/Asap-BoldItalic-webfont.svg#AsapBoldItalic') format('svg');
     font-weight: normal;
     font-style: normal;
 }
