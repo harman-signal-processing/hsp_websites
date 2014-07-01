@@ -361,6 +361,7 @@ GEM
     riddle (1.5.11)
     rmagick (2.13.2)
     ruby-ole (1.2.11.7)
+    rubyntlm (0.4.0)
     rubyzip (1.1.4)
     s3_direct_upload (0.1.7)
       coffee-rails (>= 3.1)
@@ -527,6 +528,7 @@ DEPENDENCIES
   rb-inotify (~> 0.9)
   recaptcha
   rmagick
+  rubyntlm
   rubyzip
   s3_direct_upload
   sass-rails (~> 3.2.3)
