@@ -16,7 +16,7 @@ namespace :maintain do
       test_and_update(review)
     }
   end
- 
+
   def test_and_update(item)
     begin
       new_status = link_test(item.url)
@@ -46,6 +46,15 @@ namespace :maintain do
     end
 
     response.code
+  end
+
+end
+
+namespace :jobs do
+
+  desc "Clear out stuck jobs (> 3 attempts)"
+  task :clear_stuck => :environment do
+    Delayed::Job.where("attempts > 3").destroy_all
   end
 
 end

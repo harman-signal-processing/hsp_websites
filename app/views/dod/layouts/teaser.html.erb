@@ -27,8 +27,9 @@
 
 		<%= javascript_include_tag 'teaser_application' %>
 		<%= javascript_include_tag "vendor/custom.modernizr" %>
-		<%= stylesheet_link_tag "#{website.folder}_teaser", cache: false %>
 		<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:700,400,300' rel='stylesheet' type='text/css'>
+		<%= stylesheet_link_tag "#{website.folder}_teaser", cache: false %>
+
 		<%= yield :custom_css %>
 		<script>
 	  		<%= yield :extra_js %>
@@ -74,7 +75,7 @@
 				<% if website.has_software? %>
 				<%= link_to t('software_downloads').downcase, software_index_path %> &bull;
 				<% end %>
-				<%= link_to t('products'), product_families_path %> &bull;
+				<%= link_to "#{website.brand.name} #{t('products')}", product_families_path %> &bull;
 				<% if website.has_reviews? && ProductReview.all_for_website(website).size > 0 %>
 				<%= link_to t('product_reviews').downcase, product_reviews_path %> &bull;
 				<% end %>

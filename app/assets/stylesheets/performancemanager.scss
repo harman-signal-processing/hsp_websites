@@ -1,0 +1,626 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+*= require performancemanager_foundation_and_overrides
+*= require jquery-ui-1.10.4.custom.min
+*= require add2home
+*= require_self
+*/
+
+$primary-color: #f37736;
+
+@import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic);
+
+img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
+
+@media screen {
+	.title-area .name {
+		padding: 4px 6px;
+	}
+}
+@media print{
+	#bg { display: none;}
+}
+
+@media only screen and (min-width: 720px) {
+	img.no-resize { max-width: none; }
+}
+@media only screen and (max-width: 720px) {
+	div#header-container {
+		margin-bottom: 10px;
+	}
+	img.no-resize-for-small { max-width: none; }
+	.admin_function {
+		display: none;
+	}
+}
+.addthis_toolbox {
+	margin: 6px 0px 8px;
+}
+.tiny {
+	font-size: 10px;
+}
+.clear {
+	clear: both;
+}
+#preload {
+	display: none;
+}
+.hint {
+  display: block;
+  font-size: 70%;
+  color: #444;
+  margin: -9px 0px 16px;
+}
+.custom.checkbox {
+    margin-right: 6px;
+}
+fieldset {
+	background-color: #EEE;
+}
+
+/**** Application Layout *****/
+div#locale_container {
+	margin-top: 30px;
+	color: #333;
+	img {
+		height: 400px;
+	}
+	a {
+		font-size: 110%;
+	}
+}
+#locale_switcher {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	padding: 2px 3px 0px;
+    background: asset-url('dark-gray-80.png', image);
+	z-index: 999;
+	a {
+		text-decoration: none;
+	}
+	#locale_selections {
+		margin-top: 6px;
+		padding-bottom: 4px;
+		display: none;
+		a {
+			margin: 0 -2px 0px -8px;
+			display: block;
+			padding: 4px 8px;
+			&:hover {
+				background: #444;
+			}
+		}
+	}
+}
+@media print {
+	#locale_switcher {
+		display: none;
+	}
+}
+.content.container {
+	background: #FFFFFF;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+div#big_bottom_box_container {
+	padding-bottom: 10px;
+}
+div#big_bottom_box_content {
+	text-align: right;
+	a:link, a:visited {
+		color: #ccc;
+	}
+}
+
+footer {
+	margin: 60px 0px 30px;
+	div#footer_info {
+		text-align: right;
+		margin-top: 10px;
+	}	
+	div#footer_left {
+		margin: 10px 0px;
+		img {
+			margin: -10px 4px 0px 0px;
+		}
+	}
+	.footer_text {
+		font-size: 80%;
+	}
+}
+div#harmanpro_bar {
+	background: #5a5b5e;
+	padding: 0px;
+	margin-bottom: 8px;
+	text-align: center;
+}
+
+#social_media_links {
+	text-align: right;
+	margin-right: 0px;
+	margin-top: 10px;
+	img {
+		margin-left: 8px;
+	}
+}
+.light_gray {
+	background: #EEE;
+}
+
+/**** Main ******/
+@media only screen and (min-width: 720px) {
+	div.slideshow-wrapper {
+		min-height: 350px;
+	}
+}
+
+div#middle_container {
+	text-align: center;
+}
+@media only screen and (min-width: 720px) {
+	.pillar {
+		height: 400px;
+		h2 {
+			font-size: 40px;
+		}
+	}
+	#main {
+		margin: 40px 0px;
+	}
+}
+@media only screen and (max-width: 719px) {
+	.pillar {
+		height: 240px;
+		margin-bottom: 20px;
+		h2 {
+			font-size: 20px;
+		}
+	}
+}
+.pillar {
+	padding: 20px;
+	color: white;
+	a {
+		color: white;
+	}
+	h2 {
+		color: white;
+		text-transform: uppercase;
+	}
+	h4 {
+		color: white;
+		&.subheader {
+			color: white;
+			text-decoration: underline;
+		}
+	}
+}
+.ams {
+	background: #83b341;
+	&:hover {
+		background: darken(#83b341, 5%);
+	}
+}
+.bm {
+	background: #0072ba;
+	&:hover {
+		background: darken(#0072ba, 5%);
+	}
+}
+.pm { 
+	background: #f37736;
+	&:hover {
+		background: darken(#f37736, 5%);
+	}
+}
+div#signup {
+/*	margin-top: 8px; */
+	margin-bottom: 12px;
+	text-align: left;
+	h2 {
+	/*	margin-top: 6px;*/
+	}
+}
+/***** Product Family Page *****/
+.small_product_box {
+	background: white;
+	border: 1px solid $primary-color;
+	border-radius: 8px;
+	padding: 6px;
+	text-align: center;	
+	width: 100%;
+	height: 226px;
+	float: left;
+	margin: 6px;
+	position: relative;
+	color: #666;
+	overflow: hidden;
+	.compare_checkbox {
+		position: absolute;
+		top: 80px;
+		left: 0px;
+		text-align: center;
+		width: 140px;
+	}
+	h3 {
+		margin-top: -15px;
+		font-size: 95%;
+		font-weight: 400;
+	}
+	.product_description {
+		font-size: 85%;
+		line-height: 18px;
+	}
+}
+@media only screen and (max-width: 720px) {
+	.small_product_box {
+		height: 230px;
+		.product_description {
+			line-height: 16px;
+		}
+		h3 {
+			margin-top: -18px;
+		}
+	}
+}
+table.product_thumb {
+	height: 106px;
+	width: 100%;
+	td {
+		text-align: center;
+		width: 100%;
+	}
+}
+.related_products {
+	margin: 20px 0px;
+	font-style: oblique;
+}
+table.comparison {
+	border-collapse: collapse;
+	border: 1px solid #CCC;
+	td {
+		padding: 5px;
+		border: 1px dotted #CCC;
+		&.spec_name {
+			width: 120px;
+			background: #EEE
+		}
+	}
+	th {
+		padding: 4px;
+		border: 1px solid #CCC;
+		border-bottom: 2px solid #999;
+	}
+}
+div.compare_button {
+	padding: 20px 10px;
+}
+/***** Product Page *****/
+.viewer.content.container {
+	outline: 1px solid $primary-color;
+	margin: 20px 0px;
+	padding: 20px;
+}
+div#viewer {
+	text-align: center;
+}
+ul.clearing-thumbs {
+	margin: 40px 0px 8px 10px;
+	background: white;
+	li {
+		display: block;
+		list-style: none;
+		padding: 2px;
+		border: 1px solid #E6E6E6;
+		margin-right: 6px;
+		background: white;
+		width: 64px;
+		height: 64px;
+		overflow: hidden;
+		text-align: center;
+	}
+
+}
+@media only screen and (min-width: 720px) {
+	#viewer {
+		margin: 20px;
+	}
+}
+@media only screen and (max-width: 720px) {
+	ul.clearing-thumbs {
+		li {
+			width: 32px;
+			height: 32px;
+		}
+	}
+}
+ul#discontinued_product_thumbnails {
+	margin: 14px 0px;
+	padding: 4px;
+	text-align: left;
+	border: none;
+	li {
+		display: inline;
+		list-style: none;
+		padding: 6px;
+	}
+}
+#breadcrumbs {
+	font-size: 90%;
+	text-align: left;
+	margin: 0px;
+	margin-bottom: 4px;
+	letter-spacing: 0.02em;
+}
+div.accordion {
+	div.content {
+		ul {
+			margin-left: 10px;
+			list-style: none;
+			li:before {
+				content: "\2022 \00A0";
+				color: $primary-color;
+				font-weight: bold;
+			}
+		}
+		ul.docs, ul.downloads, ul.news {
+			margin-left: 0px;
+			list-style:none;
+			li:before {
+				content: ""
+			}
+		}
+	}
+}
+h2.special_offer {
+	text-align: center;
+	a:link, a:visited {
+		display: block;
+		background: #009933;
+		color: white;
+	}
+	a:hover {
+		background: #33ff33;
+	}
+}
+.special_offer_contents {
+	margin: 0px 3px 12px;
+}
+
+table.specs {
+	border-collapse: collapse;
+	margin-top: 0px;
+	margin-bottom: 10px;
+	td {
+		padding: 4px 10px;
+		border-bottom: 1px solid #888;
+		border-top: 1px solid #888;
+		&.name {
+			background: #d8d8d8;
+			color: #111;
+		/*	border-bottom: 1px solid #d8d8d8;*/
+		}
+	}
+}
+.faq {
+	margin-bottom: 8px;
+	h3 {
+		font-size: 14px;
+	}
+}
+span.discontinued {
+	color: red;
+	font-size: 70%;
+	font-weight: normal;
+	margin-left: 6px;
+}
+/****** News ********/
+table.news_list {
+	border-collapse: collapse;
+	td {
+		background: white;
+		padding-top: 16px;
+		&.date {
+			vertical-align: top;
+			width: 100px;
+			text-align: right;
+		}
+		&.preview {
+			padding-left: 16px;
+			padding-bottom: 8px;
+		}
+	}
+}
+/******** Search ********/
+ol#search_results {
+	margin: 8px;
+	margin-left: 20px;
+}
+ol#search_results li {
+	margin-bottom: 6px;
+	list-style-type: decimal;
+}
+.search_link a:link,
+.search_link a:visited {
+	color: green;
+}
+/******* Support *******/
+.support_box_container {
+	.support_box {
+		background: #f9f9f9;
+		border: 1px solid #ECECEC;
+		width: 280px;
+		height: 120px;
+		overflow: hidden;
+		float: left;
+		padding: 8px;
+		margin: 10px;
+		h4 {
+			font-size: 14px;
+			line-height: 20px;
+			margin-bottom: 6px;
+			color: #444;
+			text-transform: uppercase;
+			a:link, a:visited {
+				color: #444;
+				text-decoration: none;
+			}
+		}
+		li {
+			text-transform: capitalize;
+		}
+	}
+}
+
+div.captcha {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding: 10px;
+	background: #EEE;
+}
+/******** Form Errors ********/
+
+/****** Information Tables *****/
+table.info {
+	border: 2px solid #FFF;
+	tr td, tr th {
+		padding: 6px;
+		border: 12px solid #FFF;
+	}
+	th {
+		background: #ee632e;
+		color: white;
+		a:link, a:hover, a:visited {
+			color: white;
+		}
+	}
+}
+table.download-collection {
+	border-collapse: collapse;
+	border: 1px solid #EEE;
+	margin-top: 25px;
+	tr td {
+		padding: 12px 6px;
+		background: white;
+		border: 1px solid #EEE;
+	}
+	th {
+		padding: 6px;
+		background: $primary-color;
+		color: white;
+		text-shadow: 1px 1px 1px darken($primary-color, 20%);
+		a:link, a:hover, a:visited {
+			color: white;
+		}
+	}
+}
+/****** Software Downloads *******/
+div#software-page-content {
+	margin-top: 20px; 
+	margin-bottom: 40px;
+	.aside {
+		float: right;
+		margin: 10px 50px; 
+		width: 300px; 
+		.download_box {
+			margin-bottom: 10px;
+			text-align: center; 
+			background: #EEE; 
+			padding: 20px 20px 10px 20px;
+			-moz-border-radius: 8px;
+			border-radius: 8px;
+		}
+		div#signup {
+			text-align: center; 
+		}
+	}
+}
+
+/************** ***********/
+.disclaimer {
+	font-size: 80%; 
+	margin-bottom: 10px;
+	font-style:oblique; 
+	color: #333
+}
+/*** admin functions **/
+.admin_function {
+	position: absolute;
+	top: 4px;
+	right: 10px;
+	color: white;
+	z-index: 100;
+}
+.admin_function a:link,
+.admin_function a:visited {
+	color: white;
+	text-decoration: none;
+	display: block;
+	background: #5A89CC;
+	padding: 1px 6px 3px 6px;
+	border-radius: 4px;
+	-moz-border-radius: 6px;
+}
+.admin_function a:hover {
+	color: white;
+	text-decoration: none;
+	background: #0080FF;
+}
+#admin_menu_link {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 1000;
+}
+#admin_menu_link a:link,
+#admin_menu_link a:visited {
+	display: block;
+	color: #EEE;
+	text-decoration: none;
+	padding: 1px 6px 3px 6px;
+	font-family: Helvetica, arial, sans-serif;
+	font-weight: normal;
+	font-size: 10px;
+	text-shadow: #222 1px 1px 1px;
+	background: #00395a;
+}
+#admin_menu_link a:hover {
+	color: #FFF;
+}
+.small_button {
+	font-size: 11px; 
+	font-weight: normal; 
+	border-radius: 3px; 
+	border: 1px solid #CCC; 
+	padding: 1px 5px;
+}
+.callout {
+	background: #EEE;
+	box-shadow: 1px 2px 3px #BBB;
+	padding: 8px 12px;
+	margin: 8px 0px;
+}
+a {
+	.software_banner {
+		border: 1px solid #c1c1c1;
+		box-shadow: 1px 2px 4px #CCC;
+		background: #fbfbfb;
+		&:hover {
+			background: #eaeaea;
+		}
+		h3 {
+			text-decoration: none;
+		}
+	}
+}
+div.quicklinks {
+	margin: 20px 0px;
+	ul {
+		list-style-type: disc;
+		margin: 10px 20px 30px;
+	}
+}

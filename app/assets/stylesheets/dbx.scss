@@ -141,6 +141,7 @@ body {
 	height: 100%;
 	line-height: 1.5;
 }
+
 .content-container {
 	background: white;
 	margin-top: 20px;
@@ -159,6 +160,7 @@ fieldset {
 		//color: white;
 	}
 }
+
 div.text-right.bglink {
 	padding-right: 3px;
 	padding-bottom: 1px;
@@ -309,7 +311,6 @@ ul.image-grid {
 				margin: 0px 2px;
 				width: 119px;
 			}
-
 		}
 		&.news-with-popover {
 			.popover { display: none;}
@@ -496,8 +497,6 @@ div.product_family_feature {
 	height: 275px;
 	float: left;
 	text-align: left;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
 	color: #000;
 	h3 {
 		border-top: 1px dotted #666;
@@ -1071,8 +1070,6 @@ div#software-page-content {
 			text-align: center; 
 			background: #EEE; 
 			padding: 20px 20px 10px 20px;
-			-moz-border-radius: 8px;
-			border-radius: 8px;
 		}
 		div#signup {
 			text-align: center; 

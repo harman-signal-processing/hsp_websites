@@ -8,47 +8,35 @@
 		title: @website.brand.name
 	} %>
 
-
-<%= content_for :feature do %>
-	<%= cache ["slideshow", website.brand, I18n.locale] do %>
-		<% slides = Setting.slides(website) %>
-		<% if slides.size > 0 %>
-			<%= orbit_slideshow(slides: slides, duration: 6000, navigation_arrows: false, transition: "fade") %>
+<div class="row">
+	<div class="large-4 small-12 columns">
+		<%= link_to 'http://archimedia.harman.com', target: '_blank' do %>
+		<div class="pillar ams">
+			<h2>Install</h2>
+			<p>Architectural Media Systems provides configuration and control of core components from BSS Audio and Crown via <b>HiQnet Audio Architect</b> software for the widest variety of installs imaginable.</p>
+			<h4 class="subheader">&gt;&gt; archimedia.harman.com</h4>
+		</div>
 		<% end %>
-	<% end %>
-<% end %>
-
-<%= cache ["homepage_features", website.brand, I18n.locale] do %>
-	<% if @features.size > 0 %>
-	<ul class="large-block-grid-<%= @features.size %> small-block-grid-<%= (@features.size / 2).to_i %>">
-		<% @features.each_with_index do |feature,i| %>
-		<li><%= feature_button(feature) %></li>
+	</div>
+	<div class="large-4 small-12 columns">
+		<%= link_to 'http://performancemanager.harman.com', target: '_blank' do %>
+		<div class="pillar pm">
+			<h2>Performance</h2>
+			<p>Utilizing technology from JBL, Crown and dbx, <b>HiQnet Performance Manager</b> software is designed to configure networked audio systems for live sound events.</p>
+			<h4 class="subheader">&gt;&gt; performancemanager.harman.com</h4>
+		</div>
 		<% end %>
-	</ul>
-	<% elsif website.brand.current_softwares.length > 0 %>
-		<ul class="large-block-grid-4 small-block-grid-2">
-			<% website.brand.current_softwares.each do |software| %>
-			<li>
-				<%= link_to software do %>
-					<div class="panel">
-						<h3><%= software.name %></h3>
-						<%= "v#{software.version}" unless software.version.blank? %>
-						<%#= "(#{software.platform})" unless software.platform.blank? %>
-						<% if software.ware_file_size.present? %>
-						[<%= number_to_human_size(software.ware_file_size)%>]
-						<% end %>
-					</div>
-				<% end %>
-			</li>
-			<% end %>
-		</ul>
-	<% end %>
-<% end %>
-
-
-<%= content_for :big_bottom_box do %>
-
-<% end %>
+	</div>
+	<div class="large-4 small-12 columns">
+		<%= link_to 'http://www.crownaudio.com/bandmanager', target: '_blank' do %>
+		<div class="pillar bm">
+			<h2>Portable</h2>
+			<p>For a touring or local band or DJ, <b>HiQnet Band Manager</b> software unleashes the power of Crown XTi and XTi 2 series amplifiers while greatly simplifying system setup and management.</p>
+			<h4 class="subheader">&gt;&gt; crownaudio.com/bandmanager</h4>
+		</div>
+		<% end %>
+	</div>
+</div>
 
 <%= content_for :preload do %>
 	<%= preload_background_images %>

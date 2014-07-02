@@ -63,6 +63,7 @@ gem "money"
 gem 'money-rails'
 gem 'will_paginate'
 gem "bing_translator"
+gem "rubyntlm" # optional dependency for bing_translator, but causes log errors without it
 gem "possessive"
 gem 'event-calendar', :require => 'event_calendar'
 gem 'RedCloth'

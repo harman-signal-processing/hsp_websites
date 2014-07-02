@@ -10,7 +10,7 @@ jQuery ($) ->
 	brand = $('body').data('brand')
 	next_event = $('#homepage-counter').data('nextevent')
 	container_id = $('#homepage-counter').data('countdowncontainer')
-	if next_event && container_id && brand == "dbx"
+	if next_event && container_id
 		new CountDownTimer(next_event, container_id)
 
 # 	c = $('#homepage-counter').data('counter')
@@ -39,13 +39,13 @@ class CountDownTimer
 		distance = @future_date - new Date()
 		if (distance < 0)
 			clearInterval(@timer)
-			@element.html('TODAY!')
+			@element.html('')
 		else
 			days = Math.floor(distance / @_day)
 			hours = Math.floor((distance % @_day) / @_hour)
 			minutes = Math.floor((distance % @_hour) / @_minute)
 			seconds = Math.floor((distance % @_minute) / @_second)
-			@element.html("[#{days} days, #{('00'+hours).substr(-2)}:#{('00'+minutes).substr(-2)}:#{('00'+seconds).substr(-2)}]")
+			@element.html("Hurry, only <strong>#{days} days, #{('00'+hours).substr(-2)}:#{('00'+minutes).substr(-2)}:#{('00'+seconds).substr(-2)}</strong> remaining!")
 
 getWeekNumber = ->
 	d = new Date()
