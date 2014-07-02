@@ -22,17 +22,6 @@ img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 }
 
 @font-face {
-    font-family: 'AsapItalic';
-    src: font-url('Asap-Italic-webfont.eot');
-    src: font-url('Asap-Italic-webfont.eot?#iefix') format('embedded-opentype'),
-         font-url('Asap-Italic-webfont.woff') format('woff'),
-         font-url('Asap-Italic-webfont.ttf') format('truetype'),
-         font-url('Asap-Italic-webfont.svg#AsapItalic') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
     font-family: 'AsapBold';
     src: font-url('Asap-Bold-webfont.eot');
     src: font-url('Asap-Bold-webfont.eot?#iefix') format('embedded-opentype'),
@@ -43,16 +32,6 @@ img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
     font-style: normal;
 }
 
-@font-face {
-    font-family: 'AsapBoldItalic';
-    src: font-url('Asap-BoldItalic-webfont.eot');
-    src: font-url('Asap-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
-         font-url('Asap-BoldItalic-webfont.woff') format('woff'),
-         font-url('Asap-BoldItalic-webfont.ttf') format('truetype'),
-         font-url('Asap-BoldItalic-webfont.svg#AsapBoldItalic') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
 body {
 	font-family: 'AsapRegular', Helvetica, Arial, Verdana, Sans-serif;
 	font-size: 12px;
