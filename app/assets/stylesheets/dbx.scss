@@ -10,11 +10,47 @@
 */
 img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 
+@font-face {
+    font-family: 'berthold_akzidenz_groteskMdCn';
+    src: font-url('akzidenzgroteskbe-mdcn-webfont.eot');
+    src: font-url('akzidenzgroteskbe-mdcn-webfont.eot?#iefix') format('embedded-opentype'),
+         font-url('akzidenzgroteskbe-mdcn-webfont.woff') format('woff'),
+         font-url('akzidenzgroteskbe-mdcn-webfont.ttf') format('truetype'),
+         font-url('akzidenzgroteskbe-mdcn-webfont.svg#berthold_akzidenz_groteskMdCn') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'berthold_akzidenz_groteskLtCn';
+    src: font-url('akzidenzgroteskbe-lightcn-webfont.eot');
+    src: font-url('akzidenzgroteskbe-lightcn-webfont.eot?#iefix') format('embedded-opentype'),
+         font-url('akzidenzgroteskbe-lightcn-webfont.woff') format('woff'),
+         font-url('akzidenzgroteskbe-lightcn-webfont.ttf') format('truetype'),
+         font-url('akzidenzgroteskbe-lightcn-webfont.svg#berthold_akzidenz_groteskLtCn') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'berthold_akzidenz_grotesk_bRg';
+    src: font-url('akzidenzgroteskbe-regular-webfont.eot');
+    src: font-url('akzidenzgroteskbe-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         font-url('akzidenzgroteskbe-regular-webfont.woff') format('woff'),
+         font-url('akzidenzgroteskbe-regular-webfont.ttf') format('truetype'),
+         font-url('akzidenzgroteskbe-regular-webfont.svg#berthold_akzidenz_grotesk_bRg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 html {
     height: 100%;
 }
 body {
-	font-family: Helvetica, Arial, Verdana, Sans-serif;
+	font-family: 'berthold_akzidenz_grotesk_bRg', "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 1.4;
 	color: #FFF;
@@ -24,16 +60,7 @@ body {
 	letter-spacing: 0.02em;
 	margin: 0;
 }
-@font-face {
-    font-family: 'ImpactRegular';
-    src: font-url('impact-webfont.eot');
-    src: font-url('impact-webfont.eot?#iefix') format('embedded-opentype'),
-         font-url('impact-webfont.woff') format('woff'),
-         font-url('impact-webfont.ttf') format('truetype'),
-         font-url('impact-webfont.svg#ImpactRegular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
+
 p {
 	margin-bottom: 16px;
 	font-size: 13px;
@@ -49,8 +76,8 @@ h1, h2 {
 	margin-bottom: 8px;
 	padding: 0px;
 	color: #FFF;
-	font-family: 'ImpactRegular', Helvetica, Arial, sans-serif;
-	font-weight: 200;
+	font-family: 'berthold_akzidenz_groteskMdCn', "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+	font-weight: 400;
 }
 .internal_page h1.page_title,
 h1.page_title {
@@ -67,8 +94,6 @@ h1.page_title {
 	margin-top: -10px;
 	margin-left: -10px;
 	width: 929px;
-	border-top-left-radius: 6px;
-	border-top-right-radius: 6px;
 }
 .floating_message {
 	position: absolute;
@@ -107,11 +132,12 @@ h3{
 	font-size: 18px;
 	line-height: 20px;
 	margin-bottom: 4px;
-	font-family: Helvetica, Arial, sans-serif;
+	font-family: 'berthold_akzidenz_groteskLtCn', "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 }
 h4{
-	font-size: 16px;
+	font-size: 17px;
 	line-height: 28px;
+	font-family: 'berthold_akzidenz_groteskLtCn', "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 }
 h5{
 	font-size: 14px;
@@ -272,8 +298,7 @@ div#topnav {
 	box-shadow: 0px 2px 4px #000;
 	text-transform: uppercase;
 	/*letter-spacing: -0.09em;*/
-	-moz-border-radius: 4px;
-	border-radius: 4px;
+
 	li {
 		display: inline;
 		list-style: none;
@@ -301,10 +326,8 @@ div#content_container_content {
 }
 .internal_page {
 	background: #FEFFFF;
-	box-shadow: 0px 4px 7px #111;
+	box-shadow: 0px 4px 7px #333;
 	color: black;
-	-moz-border-radius: 6px;
-	border-radius: 6px;
 	min-height: 350px;
 	h1, h2 {
 		color: #222;
@@ -333,8 +356,6 @@ div#big_bottom_box_container {
 	margin: 20px auto 5px auto;
 	width: 960px;
 	border: 1px solid #313131;
-	-moz-border-radius: 10px;
-	border-radius: 6px;
 	padding-bottom: 6px;
 	h3 {
 		font-size: 16px;
@@ -374,7 +395,6 @@ footer {
 	margin-bottom: 30px;
 	text-align: center;
 	height: 90px;
-	text-shadow: 0px 1px 1px #222;
 	a:link, a:visited {
 		color: white;
 	}
@@ -530,8 +550,6 @@ div.product_family_feature {
 	height: 275px;
 	float: left;
 	text-align: left;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
 	color: #000;
 	h3 {
 		border-top: 1px dotted #666;
@@ -574,8 +592,6 @@ div#signup h2 {
 	background: #000;
 	text-align: center;
 	margin: -10px -10px 20px -10px;
-	border-top-left-radius: 6px;
-	border-top-right-radius: 6px;
 }
 .product_family_image_box {
 	position: relative;
@@ -795,7 +811,7 @@ div#product_content {
 			font-size: 14px;
 			line-height: 20px;
 			h1 {
-				font-family: 'ImpactRegular', sans-serif;
+				font-family: 'berthold_akzidenz_groteskLtCn', "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 				font-size: 34px;
 				line-height: 36px;
 				color: #1A1A1A;
@@ -808,7 +824,7 @@ div#product_content {
 			}
 		}
 		h2.price {
-			font-family: 'ImpactRegular', sans-serif;
+			font-family: 'berthold_akzidenz_groteskLtCn', "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 			font-size: 20px;
 			line-height: 26px;
 			color: #AE9A6A;
@@ -1515,8 +1531,6 @@ div#software-page-content {
 			text-align: center; 
 			background: #EEE; 
 			padding: 20px 20px 10px 20px;
-			-moz-border-radius: 8px;
-			border-radius: 8px;
 		}
 		div#signup {
 			text-align: center; 
@@ -1545,8 +1559,6 @@ table.tube {
     height: 380px;
     background: #222;
 	padding: 2px;
-	-moz-border-radius: 6px;
-	border-radius: 6px;
 	h2 {
 		margin-left: 6px;
 		img {
