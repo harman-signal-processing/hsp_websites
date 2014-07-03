@@ -71,32 +71,35 @@ module ApplicationHelper
     default_options = { duration: 7000, slide_number: false, navigation_arrows: true, slides: [] }
     options = default_options.merge options
 
-    if options[:slides].length == 1
-      raw(orbit_slideshow_frame(options[:slides].first))
-    else
-      orbit_options = [
-        "resume_on_mouseout:true",
-        "timer_speed:#{options[:duration]}",
-        "slide_number:#{options[:slide_number]}",
-        "animation_speed:#{(options[:duration] / 12).to_i}",
-        "navigation_arrows:#{options[:navigation_arrows]}"
-      ]
-
-      frames = ""
-      options[:slides].each_with_index do |slide, i|
-        frames += orbit_slideshow_frame(slide, i)
-      end
-      content_tag(:div, class: "slideshow-wrapper") do
-        content_tag(:div, "", class: "preloader") + 
-        content_tag(:ul, 
-          frames.html_safe, 
-          data: {
-            orbit: true, 
-            options: orbit_options.join(";")
-          }
-        )
-      end
+    orbit_options = [
+      "resume_on_mouseout:true",
+      "timer_speed:#{options[:duration]}",
+      "slide_number:#{options[:slide_number]}",
+      "animation_speed:#{(options[:duration] / 12).to_i}",
+      "navigation_arrows:#{options[:navigation_arrows]}"
+    ]
+    if options[:slides].length == 1 || options[:slides].length > 7
+      orbit_options << "bullets:false"
     end
+    if options[:slides].length == 1
+      orbit_options << "timer:false"
+    end
+
+    frames = ""
+    options[:slides].each_with_index do |slide, i|
+      frames += orbit_slideshow_frame(slide, i)
+    end
+    content_tag(:div, class: "slideshow-wrapper") do
+      content_tag(:div, "", class: "preloader") + 
+      content_tag(:ul, 
+        frames.html_safe, 
+        data: {
+          orbit: true, 
+          options: orbit_options.join(";")
+        }
+      )
+    end
+
   end
 
   # Used by the "orbit_slideshow" method to render a frame
