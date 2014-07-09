@@ -72,7 +72,7 @@
 
 	<ul class="list">
 		<% @software.previous_versions.each do |s| %>
-		<li><%= link_to s.formatted_name, s %> [<%= number_to_human_size(s.ware_file_size) %>]</li>
+		<li><%= link_to s.formatted_name, s %> <% if s.ware_file_size.to_i > 0 %>[<%= number_to_human_size(s.ware_file_size) %>]<% end %></li>
 		<% end %>
 	</ul>
 <% end %>

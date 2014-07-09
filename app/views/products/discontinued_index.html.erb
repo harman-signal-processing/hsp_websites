@@ -1,0 +1,33 @@
+<% set_meta_tags title: "Discontinued Products",
+				 reverse: true %>
+				
+<h1 class="page_title">Discontinued Products</h1>
+
+<% displayed_products = [] %>
+
+<% @product_families.each do |product_family| %>
+<div id="<%= product_family.to_param %>">
+	<h3><%= product_family.name %></h3>
+	<ul>
+		<% @products.each do |product| %>
+			<% if product.product_families.include?(product_family) %>
+				<li><%= link_to product.name, product %>
+					<%= product.short_description %></li>
+				<% displayed_products << product %>
+			<% end %>
+		<% end %>
+	</ul>
+	<p>&nbsp;</p>
+</div>
+<% end %>
+
+<% other_products = @products - displayed_products %>
+
+<% if other_products.length > 0 %>
+<h5>Other Discontinued Products</h5>
+<ul>
+	<% other_products.each do |product| %>
+	<li><%= link_to product.name, product %></li>
+	<% end %>
+</ul>
+<% end %>

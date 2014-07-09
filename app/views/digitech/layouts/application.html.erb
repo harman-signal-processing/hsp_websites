@@ -26,20 +26,15 @@
 			<% end %>
 
 			<%= app_meta_tags() %>
-		<% end %>
 
-		<%= javascript_include_tag 'application' %>
-		<% if content_for?(:page_css) %>
-			<%= yield :page_css %>
-		<% else %>
-			<%= stylesheet_link_tag website.folder, media: :all %>
-		<% end %>
+			<% if content_for?(:page_css) %>
+				<%= yield :page_css %>
+			<% else %>
+				<%= stylesheet_link_tag website.folder, media: :all %>
+			<% end %>
 
-		<%= yield :custom_css %>
-		<script>
-	  		<%= yield :extra_js %>
-	  	</script>
-	    <%= render_partial "shared/analytics" %>
+			<%= yield :custom_css %>
+		<% end %>
 	</head>
 	<body data-brand="<%= website.brand.name %>">
 		<div id="fb-root"></div>
@@ -116,6 +111,12 @@
 		<% if content_for?(:popup_code) %>
 			<%= yield :popup_code %>
 		<% end %>
+
+		<%= javascript_include_tag 'application', async: true %>
+		<script>
+	  		<%= yield :extra_js %>
+	  	</script>
+	    <%= render_partial "shared/analytics" %>
 
 		<%# Requested by SKlimt on 8/28/2012 %>
 		<% if Rails.env.production? %>
