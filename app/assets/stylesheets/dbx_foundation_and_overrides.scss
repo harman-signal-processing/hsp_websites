@@ -599,32 +599,32 @@ $button-border-style: none;
 
 // Background colors for parts of Clearing.
 
-// $clearing-bg: #111;
+$clearing-bg: #fff;
 // $clearing-caption-bg: $clearing-bg;
-// $clearing-carousel-bg: #111;
+$clearing-carousel-bg: #E1E1E1;
 // $clearing-img-bg: $clearing-bg;
 
 // Close button
 
-// $clearing-close-color: #fff;
+$clearing-close-color: $primary-color;
 // $clearing-close-size: 40px;
 
 // Style the arrows
 
-// $clearing-arrow-size: 16px;
-// $clearing-arrow-color: $clearing-close-color;
+$clearing-arrow-size: 20px;
+$clearing-arrow-color: $primary-color;
 
 // Style captions
 
-// $clearing-caption-font-color: #fff;
+$clearing-caption-font-color: #111;
 // $clearing-caption-padding: 10px 30px;
 
 // Make the image and carousel height and style
 
 // $clearing-active-img-height: 75%;
-// $clearing-carousel-height: 150px;
-// $clearing-carousel-thumb-width: 175px;
-// $clearing-carousel-thumb-active-border: 4px solid rgb(255,255,255);
+$clearing-carousel-height: 80px;
+$clearing-carousel-thumb-width: 80px;
+$clearing-carousel-thumb-active-border: 4px solid $primary-color;
 
 //
 // Custom Form Variables
@@ -1288,12 +1288,12 @@ $topbar-title-weight:                  bold;
 
 // Style the top bar dropdown elements
 
-$topbar-dropdown-bg:                      darken($primary-color, 5%);
+$topbar-dropdown-bg:                      rgba($topbar-bg-color, 0.7);
 // $topbar-dropdown-link-color:           #fff;
-//$topbar-dropdown-link-bg:                 #444;
+$topbar-dropdown-link-bg:                 rgba(darken($topbar-bg-color, 2%),0.85);
 // $topbar-dropdown-toggle-size:          5px;
 // $topbar-dropdown-toggle-color:         #fff;
-// $topbar-dropdown-toggle-alpha:         0.5;
+$topbar-dropdown-toggle-alpha:         0.5;
 
 // Set the link colors and styles for top-level nav
 
@@ -1303,8 +1303,8 @@ $topbar-dropdown-bg:                      darken($primary-color, 5%);
 $topbar-link-weight:                   light;
 // $topbar-link-font-size:                emCalc(13px);
 $topbar-link-hover-lightness:          -30%; // Darken by 30%
-$topbar-link-bg-hover:                 darken($primary-color, 3%);
-$topbar-link-bg-active:                darken($topbar-bg, 3%);
+$topbar-link-bg-hover:                 darken($topbar-bg, 3%);
+$topbar-link-bg-active:                rgba($topbar-bg, 0.6);
 
 // $topbar-dropdown-label-color:          #555;
 // $topbar-dropdown-label-text-transform: uppercase;
@@ -1405,3 +1405,4 @@ ul.no-bullet {
     margin-left: 20px !important;
   }
 }
+

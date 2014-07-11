@@ -93,6 +93,7 @@ img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 }
 @media only screen and (min-width: 720px) {
 	.bg-gif { display: none; }
+	#above-nav-space { min-height: 26px;}
 }
 @media only screen and (max-width: 720px) {
 	#video_background { display: none; }
