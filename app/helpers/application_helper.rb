@@ -231,6 +231,15 @@ module ApplicationHelper
               orbit_slideshow(slides: static_slides, duration: 6000, navigation_arrows: false, transition: "fade")
             end
           end
+        elsif website.homepage_headline
+          headline_slide = content_tag(:h1, website.homepage_headline)
+          if website.homepage_headline_product_id
+            product = Product.find(website.homepage_headline_product_id)  
+            headline_slide += content_tag(:p, product.name)
+            headline_slide += link_to("Learn More", product, class: "secondary button") 
+            headline_slide += buy_it_now_link(product, html_button: true)
+          end
+          ret += content_tag(:div, headline_slide, class: "large-5 small-12 columns headline_slide")
         else
           ret += content_tag(:div, class: "container", id: "feature_spacer") do 
             if options[:tagline]

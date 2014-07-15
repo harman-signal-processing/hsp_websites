@@ -37,7 +37,7 @@ AWS.config(Rails.configuration.aws)
 S3_CLOUDFRONT = 'adn.harmanpro.com' # 'd18nzrj3czoaty.cloudfront.net' # 
 
 # Environment-specific settings:
-if Rails.env.production?
+#if Rails.env.production?
 
 	Paperclip::Attachment.default_options.merge!({
     url: ':fog_public_url',
@@ -64,20 +64,20 @@ if Rails.env.production?
     url: ':s3_alias_url',
     path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
   }
-else
+# else
   
-	Paperclip::Attachment.default_options.merge!({
-    url: '/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension',
-    storage: :filesystem,
-    path: ":rails_root/public/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension"
-	})
+# 	Paperclip::Attachment.default_options.merge!({
+#     url: '/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension',
+#     storage: :filesystem,
+#     path: ":rails_root/public/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension"
+# 	})
 
-  S3_STORAGE = {
-    url: '/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension',
-    storage: :filesystem,
-    path: ":rails_root/public/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension"    
-  }
-end
+#   S3_STORAGE = {
+#     url: '/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension',
+#     storage: :filesystem,
+#     path: ":rails_root/public/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension"    
+#   }
+# end
 
 # This can go away after merging the new dbx look back into the master branch. Needed for staging/dev
 # without messing up the S3 stored slides, etc., but don't forget to edit the setting.rb model

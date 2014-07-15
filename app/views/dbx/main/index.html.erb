@@ -135,6 +135,9 @@
 	</div>
 
 	<% if @current_promotions.length > 0 %>
+		<div id="promotion_side_button">
+			<%= link_to "Current Offers", promotions_path, class: "button" %>
+		</div>
 		<% promotion = @current_promotions.all.shuffle.first %>
 		<div class="homepage_block text-center">
 			<h3 class="subheader">Special Offer from <%= website.brand.name %>:</h3>

@@ -277,9 +277,9 @@ module ProductsHelper
       elsif product.hide_buy_it_now_button?
         ""
 		  elsif !session["geo_usa"] || I18n.locale != I18n.default_locale
-        buy_it_now_international(product, button)
+        buy_it_now_international(product, button, options)
 		  elsif !product.direct_buy_link.blank?
-        buy_it_now_direct_from_factory(product, button)
+        buy_it_now_direct_from_factory(product, button, options)
       elsif @online_retailer_link # http param[:bin] provided
         buy_it_now_direct_to_retailer(product, button)
 		  else
@@ -358,23 +358,29 @@ module ProductsHelper
     end
   end
 
-  def buy_it_now_direct_to_retailer(product, button)
+  def buy_it_now_direct_to_retailer(product, button, options={})
+    button_class = (button.to_s.match(/img/i)) ? "" : "medium button"
     link_to(button, 
       @online_retailer_link.url, 
+      class: button_class,
       target: "_blank", 
       onclick: raw("_gaq.push(['_trackEvent', 'BuyItNow-Dealer', '#{@online_retailer_link.online_retailer.name}', '#{product.name}'])"))
   end
 
-  def buy_it_now_direct_from_factory(product, button)
+  def buy_it_now_direct_from_factory(product, button, options={})
+    button_class = (button.to_s.match(/img/i)) ? "" : "medium button"
     link_to(button, 
       product.direct_buy_link, 
+      class: button_class,
       target: "_blank", 
       onclick: raw("_gaq.push(['_trackEvent', 'AddToCart', 'USA (#{session['geo_country']})', '#{product.name}'])"))
   end
 
-  def buy_it_now_international(product, button)
+  def buy_it_now_international(product, button, options={})
+    button_class = (button.to_s.match(/img/i)) ? "" : "medium button"
     link_to(button, 
       international_distributors_path, 
+      class: button_class,
       onclick: raw("_gaq.push(['_trackEvent', 'BuyItNow', 'non-USA (#{session['geo_country']})', '#{product.name}'])"))
   end
   
