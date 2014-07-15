@@ -26,7 +26,9 @@ module MainHelper
   #     link_to video.title, video.link
   #   end
   #
-  def youtube_feed(youtube_user, style="table")
+  def youtube_feed(youtube_user, style="table", options={})
+    return horizontal_youtube_feed(youtube_user, options) if style == "horizontal"
+
     limit = (style == "table") ? 4 : 3
     if youtube_user
       begin
@@ -79,6 +81,38 @@ module MainHelper
         end
       end
     end
+  end
+
+  def horizontal_youtube_feed(youtube_user, options)
+    limit = options[:limit] || 4
+    if youtube_user
+      begin
+        ret = '<ul id="video_list" class="large-block-grid-4 small-block-grid-2">'
+        i = 0
+        y = YouTubeIt::Client.new
+        v = y.videos_by(user: youtube_user)
+        v.videos.each do |video|
+          unless i >= limit
+            thumbnail = video.thumbnails.find(height: 90).first
+            link = play_video_url(video_id(video))
+            # detail = truncate(video.html_content, length: 100)
+            ret += "<li class='video_thumbnail'>"
+            ret +=     content_tag(:div, link_to(image_tag("play.png", alt: video.title), play_video_url(video_id(video))), class: 'play_button')
+            ret +=     link_to("<img src='#{thumbnail.url}' width='180' height='135'/>".html_safe, play_video_url(video_id(video)))
+            ret +=     content_tag(:div, link_to(video.title, play_video_url(video_id(video))), class: 'video_title')
+            #ret +=     content_tag(:div, content_tag(:small, seconds_to_MS(video.duration)), class: 'video_duration')
+            ret += "</li>"
+            i += 1
+          end
+        end
+        ret += "</ul>"
+        raw(ret)
+      rescue
+        if !youtube_user.blank?
+          link_to("YouTube Channel", "http://www.youtube.com/user/#{youtube_user}", target: "_blank")
+        end
+      end
+    end    
   end
 
   def preload_background_images

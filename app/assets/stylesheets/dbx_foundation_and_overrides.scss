@@ -1363,13 +1363,17 @@ $topbar-sticky-class:                  ".sticky";
 #homepage-video-banner {
   position: relative;
   background: #E1E1E1;
-  padding: 20px;
-  a {
-    color: $medium-gray;
-    font-size: 90%;
-    font-weight: 100;
-    &:hover {
-      color: $light-gray;
+  padding: 20px 0px 40px;
+  ul li.video_thumbnail {
+    position: relative;
+    div.play_button {
+      position: absolute;
+      top: 48px;
+      left: 86px;
+      z-index: 9999;
+    }
+    .video_title {
+      width: 180px;
     }
   }
 }

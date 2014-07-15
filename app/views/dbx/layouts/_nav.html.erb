@@ -27,11 +27,19 @@
 				<li class="has-dropdown">
 
 					<%= link_to '#', id: "locale_menu" do %>
-						<%= image_tag "icons/locale-tiny.png", alt: t('language_region') %>
+						<%= image_tag "icons/globe_white.png", alt: t('language_region') %>
 					<% end %>
 					<ul class="dropdown"> 
-						<% website.available_locales.reject{|l| l.locale.to_s == I18n.locale.to_s}.each do |website_locale| %>
+						<% website.available_locales.each do |website_locale| %>
+							<% if website_locale.locale.to_s == I18n.locale.to_s %>
+							<li><%= link_to '#', class: "active" do %>
+									<%= image_tag 'icons/check_white.png' %>
+									<%= website_locale.name %>
+								<% end %>
+							</li>
+							<% else %>
 							<li><%= link_to website_locale.name, switch_locale(website_locale.locale) %></li>
+							<% end %>
 						<% end %>
 					</ul>
 				</li>
