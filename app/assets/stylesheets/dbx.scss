@@ -443,7 +443,7 @@ div.featured_product_container {
 @media only screen and (min-width: 720px) {
 	div.homepage_block {
 		min-height: 360px;
-		margin: 140px 0px 100px;
+		margin: 100px 0px 100px;
 		h1 {
 			font-size: 4em;
 			line-height: 1em;
@@ -937,7 +937,10 @@ div.retailer_logo {
 }
 
 /****** News ********/
-
+.news_strip { 
+	padding-top: 80px;
+	margin-bottom: none !important; 
+}
 @media only screen and (min-width: 720px) {
 	.news_container {
 		padding-bottom: 40px;
