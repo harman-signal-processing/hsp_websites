@@ -135,23 +135,19 @@
 		</div>
 		<% promotion = @current_promotions.all.shuffle.first %>
 		<div class="homepage_block text-center">
-			<h3 class="subheader">Special Offer from <%= website.brand.name %>:</h3>
 			<div class="promotion_container container">
 			<% unless promotion.tile_file_name.blank? %>
 				<%= link_to image_tag(promotion.tile.url, alt: promotion.name), promotion %>
 			<% end %>
 			</div>
-			<% if @current_promotions.length > 1 %>
-			<p class="text-right"><%= link_to "see all #{website.brand.name} offers...", promotions_path %></p>
-			<% end %>
 		</div>
 	<% end %>
 
 
 	<div class="homepage_block">
-		<h2 class="subheader text-center">More ways to stay in touch with <%= website.brand.name %></h4>
+		<h2 class="subheader text-center">More ways to stay in touch with <%= website.brand.name %></h2>
 		<div class="social text-center">
-			<%= social_media_links 'rss', 'twitter', 'facebook', 'youtube', 'google+', 'wechat', 'weibo', style: 'circle', size: '128x128' %> 
+			<%= social_media_links 'twitter', 'facebook', 'youtube', 'google+', 'wechat', 'weibo', style: 'circle', size: '64x64' %> 
 		</div>
 
 		<% if website.email_signup_url %>

@@ -274,7 +274,21 @@ module ApplicationHelper
     networks.to_a.each do |n|
       if n == 'rss'
         if options[:style] && File.exist?(Rails.root.join("app/assets/images/icons/#{options[:style]}/#{options[:size]}", "#{n}.png"))
-          html += link_to(image_tag("icons/#{options[:style]}/#{options[:size]}/#{n}.png", style: "vertical-align: middle;", size: options[:size]), rss_url(format: "xml"), target: "_blank")
+          q = []
+          q << "[#{image_path("icons/#{options[:style]}/#{options[:size]}/#{n}.png")},  (default)]"
+          q << "[#{image_path("icons/#{options[:style]}/#{options[:size]}/#{n}.png")}, (only screen and (min-width: 1350px))]"
+          q << "[#{image_path("icons/#{options[:style]}/64x64/#{n}.png")},              (only screen and (min-width: 1024px) and (max-width: 1349px))]"
+          q << "[#{image_path("icons/#{options[:style]}/48x48/#{n}.png")},             (only screen and (max-width: 768px))]"
+
+          image_tag("#{website.folder}/logo.png", 
+            class: "no-resize no-resize-for-small",
+            alt: Setting.site_name(website),
+            data: { interchange: q.join(", ") })
+          html += link_to(image_tag("icons/#{options[:style]}/#{options[:size]}/#{n}.png", 
+              style: "vertical-align: middle;", 
+              size: options[:size],
+              data: { interchange: q.join(", ") }), 
+            rss_url(format: "xml"), target: "_blank")
         else
           html += link_to(image_tag("icons/#{n}.png", style: "vertical-align: middle;", size: options[:size]), rss_url(format: "xml"), target: "_blank")
         end

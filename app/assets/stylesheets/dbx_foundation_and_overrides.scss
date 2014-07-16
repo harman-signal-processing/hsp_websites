@@ -94,6 +94,8 @@ $default-float: left;
 $dark-gray: #575757;
 $medium-gray: #a8a8a8;
 $light-gray: #d0d0d0;
+$strip-bg-even: #E1E1E1;
+$strip-bg-odd: #000000;
 
 $body-bg: #FFF;
 $body-font-color: $dark-gray;
@@ -862,7 +864,8 @@ $orbit-timer-show-progress-bar: false;
 // Bullet nav styles
 
 $orbit-bullet-nav-color: #CCC;
-$orbit-bullet-nav-color-active: $primary-color;
+$orbit-bullet-nav-color-active: $medium-gray;
+ol.orbit-bullets { margin-left: 368px }
 
 // Slide numbers
 
@@ -1363,7 +1366,7 @@ $topbar-sticky-class:                  ".sticky";
 
 #homepage-video-banner {
   position: relative;
-  background: #E1E1E1;
+  background: $strip-bg-even;
   padding: 50px 0px 90px;
   ul li.video_thumbnail {
     position: relative;

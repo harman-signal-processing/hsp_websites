@@ -13,7 +13,8 @@ $medium-gray: #a8a8a8;
 $light-gray: #d0d0d0;
 $primary-color: #d72131;
 $secondary-color: $light-gray;
-
+$strip-bg-even: #E1E1E1;
+$strip-bg-odd: #000000;
 
 /* Akzidenz font has a hard time with CORS, so serve from our own server */
 
@@ -481,8 +482,8 @@ div.featured_product_container {
 }
 
 div.promotion_container {
-	background: darken($dark-gray, 80%);
-	padding: 10px 0px;
+	background: $strip-bg-even;
+	padding: 30px 0px;
 	margin-bottom: 8px;
 }
 
