@@ -269,14 +269,22 @@ module ApplicationHelper
   # image and puts them together.
   #
   def social_media_links(*networks)
+    options = networks.last.is_a?(Hash) ? networks.pop : { size: "21x20"}
     html = ''
     networks.to_a.each do |n|
       if n == 'rss'
-        html += link_to(image_tag("icons/#{n}.png", style: "vertical-align: middle;", size: "21x20"), rss_url(format: "xml"), target: "_blank")
+        if options[:style] && File.exist?(Rails.root.join("app/assets/images/icons/#{options[:style]}/#{options[:size]}", "#{n}.png"))
+          html += link_to(image_tag("icons/#{options[:style]}/#{options[:size]}/#{n}.png", style: "vertical-align: middle;", size: options[:size]), rss_url(format: "xml"), target: "_blank")
+        else
+          html += link_to(image_tag("icons/#{n}.png", style: "vertical-align: middle;", size: options[:size]), rss_url(format: "xml"), target: "_blank")
+        end
+
       elsif v = website.value_for(n)
         v = (v =~ /^http/i) ? v : "http://www.#{n}.com/#{v}"
-        if File.exist?(Rails.root.join("app/assets/images/icons", "#{n}.png"))
-          html += link_to(image_tag("icons/#{n}.png", style: "vertical-align: middle", size: "21x20"), v, target: "_blank")
+        if options[:style] && File.exist?(Rails.root.join("app/assets/images/icons/#{options[:style]}/#{options[:size]}", "#{n}.png"))
+          html += link_to(image_tag("icons/#{options[:style]}/#{options[:size]}/#{n}.png", style: "vertical-align: middle", size: options[:size]), v, target: "_blank")
+        elsif File.exist?(Rails.root.join("app/assets/images/icons", "#{n}.png"))
+          html += link_to(image_tag("icons/#{n}.png", style: "vertical-align: middle", size: options[:size]), v, target: "_blank")
         else
           html += link_to(n, v, target: "_blank")
         end

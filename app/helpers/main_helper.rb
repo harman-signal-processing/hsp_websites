@@ -87,26 +87,19 @@ module MainHelper
     limit = options[:limit] || 4
     if youtube_user
       begin
-        ret = '<ul id="video_list" class="large-block-grid-4 small-block-grid-2">'
-        i = 0
+        vids = []
         y = YouTubeIt::Client.new
         v = y.videos_by(user: youtube_user)
-        v.videos.each do |video|
-          unless i >= limit
-            thumbnail = video.thumbnails.find(height: 90).first
-            link = play_video_url(video_id(video))
-            # detail = truncate(video.html_content, length: 100)
-            ret += "<li class='video_thumbnail'>"
-            ret +=     content_tag(:div, link_to(image_tag("play.png", alt: video.title), play_video_url(video_id(video))), class: 'play_button')
-            ret +=     link_to("<img src='#{thumbnail.url}' width='180' height='135'/>".html_safe, play_video_url(video_id(video)))
-            ret +=     content_tag(:div, link_to(video.title, play_video_url(video_id(video))), class: 'video_title')
-            #ret +=     content_tag(:div, content_tag(:small, seconds_to_MS(video.duration)), class: 'video_duration')
-            ret += "</li>"
-            i += 1
+        v.videos[0,limit].each do |video|
+          thumbnail = video.thumbnails.find(height: 90).first
+          link = play_video_url(video_id(video))
+          vids << content_tag(:li, class: 'video_thumbnail') do
+            content_tag(:div, link_to(image_tag("play.png", alt: video.title), link, target: "_blank"), class: 'play_button') +
+            link_to(image_tag(thumbnail.url, width: 180, height: 135), link, target: "_blank") +
+            content_tag(:p, link_to(video.title, link, target: "_blank"), class: 'video_title')
           end
         end
-        ret += "</ul>"
-        raw(ret)
+        content_tag(:ul, raw(vids.join), id: 'video_list', class: "large-block-grid-4 small-block-grid-2")
       rescue
         if !youtube_user.blank?
           link_to("YouTube Channel", "http://www.youtube.com/user/#{youtube_user}", target: "_blank")

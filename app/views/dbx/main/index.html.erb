@@ -125,24 +125,8 @@
 
 	<% end %>
 
-	<div class="homepage_block">
-		<div class="row">
-			<div class="large-6 small-12 columns">
-				<%= render_partial 'shared/column_for_news' %>
-			</div>
-			<div class="large-6 small-12 columns superpadded">
-				<h2><%= link_to news_index_path do %><%= website.brand.name %> <%= t('news') %><% end %></h2>
-				<p>In the world of pro-audio, you'll always find <%= website.brand.name %> 
-					making waves. Discover what we've been up to and where you can
-					spot <%= website.brand.name %> products in use.</p>
-				<p><%= link_to "read #{website.brand.name} news...", news_index_path %></p>
-				<br/>
-				<h4 class="subheader">More ways to stay in touch with <%= website.brand.name %>:</h4>
-				<div class="social">
-					<%= social_media_links 'rss', 'twitter', 'facebook', 'youtube', 'myspace', 'wechat', 'weibo' %> 
-				</div>
-			</div>
-		</div>
+	<div class="homepage_block text-center">
+		<%= render_partial 'shared/column_for_news_and_reviews' %>
 	</div>
 
 	<% if @current_promotions.length > 0 %>
@@ -164,12 +148,23 @@
 	<% end %>
 
 
-	<div class="row" style="margin-top: 50px;">
-		<div class="large-6 large-offset-3 columns">
-			<% if website.email_signup_url %>
-				<%= render_partial 'shared/newsletter_signup' %>
-			<% end %>
+	<div class="homepage_block">
+		<h2 class="subheader text-center">More ways to stay in touch with <%= website.brand.name %></h4>
+		<div class="social text-center">
+			<%= social_media_links 'rss', 'twitter', 'facebook', 'youtube', 'google+', 'wechat', 'weibo', style: 'circle', size: '128x128' %> 
 		</div>
+
+		<% if website.email_signup_url %>
+		<div class="row">
+			<div class="large-8 large-offset-2 columns">
+				<div class="row" style="margin-top: 40px">
+					<div class="large-6 large-offset-3 columns">
+						<%= render_partial 'shared/newsletter_signup' %>
+					</div>
+				</div>
+			</div>
+		</div>
+		<% end %>
 	</div>
 
 
