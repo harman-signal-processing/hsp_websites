@@ -71,7 +71,11 @@ class RegisteredDownloadsController < ApplicationController
   
   def set_layout
     if @registered_download 
-      @registered_download.html_layout_filename.to_s
+      fn = @registered_download.html_layout_filename.to_s
+      unless File.exist?(fn)
+        @registered_download.save_templates_to_filesystem
+      end
+      fn
     else
       super
     end

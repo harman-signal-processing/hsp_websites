@@ -41,6 +41,15 @@ class DownloadRegistration < ActiveRecord::Base
   attr_accessor :code_you_received
   before_create :create_download_code
   after_create :deliver_download_code, :deliver_admin_notice
+
+  has_attached_file :receipt
+
+
+  # Does the related RegisteredDownload require the receipt?
+  #
+  def require_receipt?
+    !!(self.registered_download.require_receipt?)
+  end
   
   # Does the related RegisteredDownload require a serial number?
   #

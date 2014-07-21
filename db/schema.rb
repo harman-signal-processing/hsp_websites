@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140530184911) do
+ActiveRecord::Schema.define(:version => 20140721171648) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -454,6 +454,10 @@ ActiveRecord::Schema.define(:version => 20140530184911) do
     t.string   "employee_number"
     t.string   "store_number"
     t.string   "manager_name"
+    t.string   "receipt_file_name"
+    t.integer  "receipt_file_size"
+    t.string   "receipt_content_type"
+    t.datetime "receipt_updated_at"
   end
 
   create_table "effect_types", :force => true do |t|
@@ -1140,6 +1144,7 @@ ActiveRecord::Schema.define(:version => 20140530184911) do
     t.boolean  "require_manager_name"
     t.boolean  "send_coupon_code"
     t.text     "coupon_codes"
+    t.boolean  "require_receipt"
   end
 
   create_table "rep_questions", :force => true do |t|

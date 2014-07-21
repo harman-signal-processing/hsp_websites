@@ -4,7 +4,10 @@
 # to download the file are instances of DownloadRegistration.
 #
 class RegisteredDownload < ActiveRecord::Base
-  attr_accessible :download_count
+  attr_accessible :download_count, :name, :url, :valid_code, :products, :require_serial_number, :require_employee_number, 
+    :require_store_number, :require_manager_name, :send_coupon_code, :coupon_codes, :per_download_limit, :html_template, 
+    :intro_page_content, :confirmation_page_content, :from_email, :subject, :email_template, :download_page_content, :cc,
+    :require_receipt
   has_many :download_registrations
   belongs_to :brand
   validates :name, :brand, :from_email, :subject, presence: true
@@ -159,7 +162,8 @@ class RegisteredDownload < ActiveRecord::Base
   #
   def required_fields
     r = ["first name", "last name", "email"]
-    r << "code received (postcard, etc.)" unless self.send_coupon_code? 
+    r << "code received (postcard, etc.)" unless self.send_coupon_code? || self.valid_code.blank?
+    r << "receipt (scan/photo)" if self.require_receipt?
     r << "serial number" if self.require_serial_number?
     r << "employee number" if self.require_employee_number?
     r << "store number" if self.require_store_number?
