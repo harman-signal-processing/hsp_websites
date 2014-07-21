@@ -49,6 +49,7 @@ class DownloadRegistration < ActiveRecord::Base
   })
 
   do_not_validate_attachment_file_type :receipt
+  validates :receipt, presence: true, if: :require_receipt?
 
 
   # Does the related RegisteredDownload require the receipt?

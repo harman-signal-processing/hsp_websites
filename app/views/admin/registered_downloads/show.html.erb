@@ -95,6 +95,9 @@
 		<% if @registered_download.require_serial_number? %>
 	    <th>Serial number</th>
 		<% end %>
+		<% if @registered_download.require_receipt? %>
+		<th>Receipt</th>
+		<% end %>
 		<% if @registered_download.send_coupon_code? %>
 		<th>Coupon Code</th>
 		<% else %>
@@ -112,6 +115,11 @@
 		<% end %>
 		<% if @registered_download.require_serial_number? %>
 	    <td><%= download_registration.serial_number %></td>
+		<% end %>
+		<% if @registered_download.require_receipt? %>
+		<td align="center">
+			<%= link_to "receipt", download_registration.receipt.url %>
+		</td>
 		<% end %>
 		<% if @registered_download.send_coupon_code? %>
 		<td align="center"><%= download_registration.download_code %></td>
