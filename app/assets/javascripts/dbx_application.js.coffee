@@ -2,6 +2,16 @@ jQuery ($) ->
 	#skrollr.init()
 	win = $(window)
 
+	$(".hidden_icons img").each ->
+		$(@).parent().css(position: 'relative')
+		$(@).css(position: 'absolute', 'z-index': '0', top: "-95px", left: "-1000px")
+	icon_animator = -> 
+		$(".hidden_icons img").each (i, element) ->
+			$(@).css(position: 'absolute', 'z-index': '0', top: "-95px", left: "-1000px")
+			$(@).delay(i * 1500).animate({left: "150px"}, 3000).delay(500).animate(top: "20px")
+	icon_animator()
+	setInterval icon_animator, 24000
+
 	$("#tagline").hide().delay(1000).fadeIn(1500)
 
 	social_icons = $("div.social a")

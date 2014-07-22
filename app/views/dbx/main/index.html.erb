@@ -24,20 +24,6 @@
 			<li><%= feature_button(feature) %></li>
 			<% end %>
 		</ul>
-		<% else %>
-<%# Jay hates this %>
-<!--
-			<div class="panel">
-				<h2><%= website.brand.name %> <%= ucfirst(t('products')) %></h2>
-				<%= featured_product_families(zurb: true, limit: 5) %>
-				<div class="text-right">
-					<%= link_to product_families_path do %>
-						more <%= website.brand.name %>
-						<%= t('products').downcase %> ...
-					<% end %>
-				</div>
-			</div>
--->
 		<% end %>
 	</div>
 	<% end %>
@@ -45,11 +31,13 @@
 
 <%= content_for :big_bottom_box do %>
 
+<%= cache ["featured_products_strip", website.brand, I18n.locale] do %>
 	<% if @featured_products %>
 	<div class="homepage_block">
 		<% @featured_products.each_with_index do |featured_product, i| %>
-			<% if !(i%2 > 0) %>
-			<div class="row featured_product_container">
+			<% if (i%2 <= 0) %>
+			<div class="row featured_product_container" id="featured_product_<%= i %>">
+				<%= featured_product_icons(featured_product, i) %>
 				<div class="large-7 columns">
 					<div class="featured_image_container hide-for-small left">
 						<%= link_to(image_tag(featured_product.photo.product_attachment.url(:original), class: "featured_image"), featured_product) %>
@@ -65,10 +53,14 @@
 					<p><%=raw translate_content(featured_product, :short_description_4) %></p>
 
 					<%= link_to 'more details...', featured_product, class: "small secondary button" %>
+					<% if featured_product.in_production? %>
+						<%= buy_it_now_link(featured_product, html_button: true, downcase: true, button_class: "small button") %>
+					<% end %>
 				</div>
 			</div>
 			<% else %>
-			<div class="row featured_product_container ">
+			<div class="row featured_product_container" id="featured_product_<%= i %>">
+				<%= featured_product_icons(featured_product, i) %>
 				<div class="small-12 columns show-for-small">
 					<%= link_to(image_tag(featured_product.photo.product_attachment.url(:medium)), featured_product) %>
 				</div>
@@ -79,6 +71,9 @@
 					<p><%=raw translate_content(featured_product, :short_description_4) %></p>
 
 					<%= link_to 'more details...', featured_product, class: "small secondary button" %>
+					<% if featured_product.in_production? %>
+						<%= buy_it_now_link(featured_product, html_button: true, downcase: true, button_class: "small button") %>
+					<% end %>
 				</div>
 				<div class="large-7 columns hide-for-small">
 					<div class="featured_image_container right">
@@ -87,11 +82,13 @@
 				</div>
 			</div>
 			<% end %>
+
 		<% end %>
 	</div>
 	<% end %>
+<% end %>
 
-
+<%= cache ["video_strip", website.brand, I18n.locale] do %>
 	<% if @youtube && !@youtube.blank? %>
 	<div class="homepage_block">
 		<div class="container" id="homepage-video-banner">
@@ -122,13 +119,16 @@
 			</div>
 		</div>
 	</div>
-
 	<% end %>
+<% end %>
 
+<%= cache ["news_strip", website.brand, I18n.locale] do %>
 	<div class="homepage_block text-center news_strip">
 		<%= render_partial 'shared/column_for_news_and_reviews' %>
 	</div>
+<% end %>
 
+<%= cache ["promotion_strip", website.brand, I18n.locale] do %>
 	<% if @current_promotions.length > 0 %>
 		<div id="promotion_side_button">
 			<%= link_to "Current Offers", promotions_path, class: "button" %>
@@ -143,8 +143,9 @@
 			</div>
 		</div>
 	<% end %>
+<% end %>
 
-
+<%= cache ["social_strip", website.brand, I18n.locale] do %>
 	<div class="homepage_block">
 		<h2 class="subheader text-center">Connect With Us</h2>
 		<div class="social text-center">
@@ -163,7 +164,7 @@
 		</div>
 		<% end %>
 	</div>
-
+<% end %>
 
 <% end %>
 

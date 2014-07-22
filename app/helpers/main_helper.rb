@@ -189,6 +189,21 @@ module MainHelper
     out += "</ul>" if options[:zurb]
     out.to_s.html_safe
   end
+
+  # Developed for the 2014 dbx site
+  def featured_product_icons(product, num)
+    dir = Rails.root.join('app', 'assets', 'images', website.folder, "#{product.friendly_id}_icons")
+
+    if Dir.exists?(dir)
+      icons = []
+      Dir.foreach(dir) do |icon|
+        next if icon =~ /^\./
+        icons << image_tag("#{website.folder}/#{product.friendly_id}_icons/#{icon}")
+      end
+      
+      content_tag(:div, icons.shuffle.join.html_safe, id: "featured_icons_#{num}", class: "hidden_icons hide-for-small")
+    end
+  end
   
 end
 

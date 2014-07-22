@@ -293,35 +293,36 @@ module ProductsHelper
   end
 
   def button_for(product, options)
-
+    if product.direct_buy_link.blank?
+      text = t("buy_it_now")
+    elsif product.parent_products.size > 0 # as in e-pedals
+      text = t("get_it")
+    else
+      text = t("add_to_cart")
+    end
+    text = text.downcase if options[:downcase]
     if options[:html_button] 
-      if product.direct_buy_link.blank?
-        t("buy_it_now")
-      elsif product.parent_products.size > 0 # as in e-pedals
-        t("get_it")
-      else
-        t("add_to_cart")
-      end
+      text
     else
       loc = "#{I18n.locale}"
       folder = website.folder
       if product.direct_buy_link.blank?
         if File.exists?(Rails.root.join("app", "assets", "images", folder, loc, "#{options[:button_prefix]}buyitnow_button.png")) 
-          image_tag("#{folder}/#{loc}/#{options[:button_prefix]}buyitnow_button.png", alt: t("buy_it_now"), mouseover: "#{folder}/#{loc}/#{options[:button_prefix]}buyitnow_button_hover.png")
+          image_tag("#{folder}/#{loc}/#{options[:button_prefix]}buyitnow_button.png", alt: text, mouseover: "#{folder}/#{loc}/#{options[:button_prefix]}buyitnow_button_hover.png")
         else
-          t("buy_it_now")
+          text
         end
       elsif product.parent_products.size > 0 # as in e-pedals
         if File.exists?(Rails.root.join("app", "assets", "images", folder, loc, "#{options[:button_prefix]}getit_button.png")) 
-          image_tag("#{folder}/#{loc}/#{options[:button_prefix]}getit_button.png", alt: t("get_it"), mouseover: "#{folder}/#{loc}/#{options[:button_prefix]}getit_button_hover.png")
+          image_tag("#{folder}/#{loc}/#{options[:button_prefix]}getit_button.png", alt: text, mouseover: "#{folder}/#{loc}/#{options[:button_prefix]}getit_button_hover.png")
         else
-          t("get_it")
+          text
         end
       else
         if File.exists?(Rails.root.join("app", "assets", "images", folder, loc, "#{options[:button_prefix]}addtocart_button.png")) 
-          image_tag("#{folder}/#{loc}/#{options[:button_prefix]}addtocart_button.png", alt: t("add_to_cart"), mouseover: "#{folder}/#{loc}/#{options[:button_prefix]}addtocart_button_hover.png")
+          image_tag("#{folder}/#{loc}/#{options[:button_prefix]}addtocart_button.png", alt: text, mouseover: "#{folder}/#{loc}/#{options[:button_prefix]}addtocart_button_hover.png")
         else
-          t("add_to_cart")
+          text
         end
       end
     end
@@ -337,7 +338,7 @@ module ProductsHelper
   end
 
   def buy_it_now_usa(product, button, options)
-    button_class = (button.to_s.match(/img/i)) ? "" : "medium button"
+    button_class = button_class(button, options)
     if product.active_retailer_links.size > 0
       # tracker = (Rails.env.production?) ? "_gaq.push(['_trackEvent', 'BuyItNow', 'USA', '#{product.name}']);" : ""
       # link_to_function button, "#{tracker}popup('dealer_popup');"
@@ -359,29 +360,35 @@ module ProductsHelper
   end
 
   def buy_it_now_direct_to_retailer(product, button, options={})
-    button_class = (button.to_s.match(/img/i)) ? "" : "medium button"
     link_to(button, 
       @online_retailer_link.url, 
-      class: button_class,
+      class: button_class(button, options),
       target: "_blank", 
       onclick: raw("_gaq.push(['_trackEvent', 'BuyItNow-Dealer', '#{@online_retailer_link.online_retailer.name}', '#{product.name}'])"))
   end
 
   def buy_it_now_direct_from_factory(product, button, options={})
-    button_class = (button.to_s.match(/img/i)) ? "" : "medium button"
     link_to(button, 
       product.direct_buy_link, 
-      class: button_class,
+      class: button_class(button, options),
       target: "_blank", 
       onclick: raw("_gaq.push(['_trackEvent', 'AddToCart', 'USA (#{session['geo_country']})', '#{product.name}'])"))
   end
 
   def buy_it_now_international(product, button, options={})
-    button_class = (button.to_s.match(/img/i)) ? "" : "medium button"
     link_to(button, 
       international_distributors_path, 
-      class: button_class,
+      class: button_class(button, options),
       onclick: raw("_gaq.push(['_trackEvent', 'BuyItNow', 'non-USA (#{session['geo_country']})', '#{product.name}'])"))
+  end
+
+  # Used by the different buy it now methods to determine what kind of CSS class (if any)
+  # to assign to the generated button
+  #
+  def button_class(button, options={})
+    unless button.to_s.match(/img/i)
+      options[:button_class] ? options[:button_class] : "medium button"
+    end    
   end
   
   def links_to_current_promotions(product, options={})
