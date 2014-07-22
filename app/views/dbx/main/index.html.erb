@@ -60,7 +60,7 @@
 			</div>
 			<% else %>
 			<div class="row featured_product_container" id="featured_product_<%= i %>">
-				<%= featured_product_icons(featured_product, i) %>
+				<%#= featured_product_icons(featured_product, i) %>
 				<div class="small-12 columns show-for-small">
 					<%= link_to(image_tag(featured_product.photo.product_attachment.url(:medium)), featured_product) %>
 				</div>
@@ -136,7 +136,6 @@
 		<% promotion = @current_promotions.all.shuffle.first %>
 		<div class="homepage_block text-center">
 			<div class="promotion_container container">
-				<h2><%= link_to(image_tag('dbx/current_dbx_promotions.png', alt: "Current dbx Promotions"), promotions_path) %></h2>
 			<%# unless promotion.tile_file_name.blank? %>
 				<%= link_to image_tag('dbx/promo_banner_sample.png', alt: promotion.name), promotion %>
 			<%# end %>
