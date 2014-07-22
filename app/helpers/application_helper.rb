@@ -353,6 +353,7 @@ module ApplicationHelper
     pro_brands = [
       # {name: "HarmanPro", web: "http://www.harmanpro.com"},
       {name: "AKG",    web: "http://www.akg.com"},
+      {name: "AMX",    web: "http://www.amx.com"},
       {name: "BSS",    web: "http://www.bssaudio.com"},
       {name: "Crown",  web: "http://www.crownaudio.com"}, 
       {name: "dbx",    web: "http://www.dbxpro.com"}, 
@@ -363,7 +364,7 @@ module ApplicationHelper
       {name: "Martin",  web: "http://www.martin.com"},
       {name: "Soundcraft", web: "http://www.soundcraft.com"}, 
       {name: "Studer", web: "http://www.studer.ch"}, 
-      {name: "HiQnet", web: "http://hiqnet.harmanpro.com"}
+      # {name: "HiQnet", web: "http://hiqnet.harmanpro.com"}
     ]
     pro_brands.each do |b|
       unless website.brand.name.match(/#{b[:name]}/i) || options[:exclude].match(/#{b[:name]}/i)
