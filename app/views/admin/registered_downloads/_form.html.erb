@@ -5,6 +5,7 @@
     <%= f.input :valid_code, hint: "(from the postcard--optional)" %>
   	<%= f.input :products, hint: "Comma separated list of products to show in a drop-down on the registration form" %>
 	  <%= f.input :require_serial_number, label: "Require a product serial number" %>
+    <%= f.input :require_receipt, label: "Require receipt (user uploads photo/scan of receipt)" %>
   	<%= f.input :require_employee_number %>
   	<%= f.input :require_store_number %>
   	<%= f.input :require_manager_name, label: "Require manager's name" %>
@@ -22,7 +23,7 @@
 		<%= link_to "delete", [:admin, @registered_download], method: :put, remote: true %>
 	<% end %>
 	</div>
-
+<br/>
   <%= f.input :html_template, 
     label: "HTML template for all pages associated with this download. All the HTML you want on every page. Be sure you have ~~content~~ somewhere.", 
     input_html: { class: "mceEditorFP" } %>

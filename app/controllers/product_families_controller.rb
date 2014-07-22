@@ -6,7 +6,7 @@ class ProductFamiliesController < ApplicationController
   # GET /product_families.xml
   def index
     @product_families = website.product_families
-
+    @discontinued_products = website.discontinued_and_vintage_products
     respond_to do |format|
       format.html { render_template } # index.html.erb
       # format.xml  { render xml: @product_families }

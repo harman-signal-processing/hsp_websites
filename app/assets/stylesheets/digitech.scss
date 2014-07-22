@@ -151,16 +151,11 @@ header#main_header {
 }
 nav#topnav {
 	float: right;
-	border: 1px solid darken($medium_blue, 8%);
-	background: {
-		color: $medium_blue;
-		//image: asset-url('digitech/topmenuBG.png', image);
-		repeat: repeat-x;
-		position: center;
-	}
+
+
 	height: 23px;
 	width: 770px;
-	margin-top: 3px;
+	margin-top: 7px;
 	padding-top: 8px;
 	padding-left: 2px;
 	font-size: 11px;
@@ -169,7 +164,7 @@ nav#topnav {
 	li {
 		display: inline;
 		list-style: none;
-		padding: 9px 3px 9px 6px;
+		padding: 11px 3px 9px 6px;
 		a:link, a:visited {
 			padding: 9px 1px 9px 1px;
 			color: lighten($medium_blue, 80%);
@@ -188,15 +183,15 @@ nav#topnav {
 
 header#main_header div#search_form {
 	position: absolute;
-	top: 10px;
-	right: 10px;
-	width: 130px;
+	top: 8px;
+	right: 0px;
+	width: 150px;
 	input#query {
 		background: $dark_blue asset-url('digitech/searchMagGlass.png', image) no-repeat right;
 		color: white;
 		border: 1px solid #000f40;
-		width: 110px;
-		padding-left: 4px;
+		width: 130px;
+		padding: 4px;
 		padding-right: 16px;
 		font-size: 12px;
 	}
@@ -1366,6 +1361,14 @@ table.tube {
 }
 /*** Artists pages ***/
 body.artists {
+	nav#topnav {
+		li {
+			a:link, a:visited {
+				text-shadow: 0px 1px 2px #111;
+			}
+		}
+	}
+
 	background: #000f40 asset-url('digitech/artists_bg.png', image) center top no-repeat;
 	div.internal_page {
 		background: #000f40;
@@ -1546,18 +1549,13 @@ ul.graphic {
  list-style-type:none;
  padding-left:0px;
  margin-left:0px;
-}
-
-/* background-image-based CSS3 example */
-
-ul.graphic {
  list-style-type:none;
- margin: 2spx 0px;
+ margin: 2px 0px;
  padding:0px;
 }
 
 ul.graphic li {
- margin-bottom:1px;
+ margin-bottom:2px;
 }
 
 ul.graphic li a,
@@ -1566,7 +1564,7 @@ ul.graphic li a.sm2_link {
  min-height:12px;
  vertical-align: middle;
  background-color:#666;
- padding:1px 2px 0px 19px;
+ padding:1px 2px 0px 22px;
  min-width:3em;
  _width:3em; /* IE 6 */
  max-width: 16.5em;
@@ -1575,7 +1573,17 @@ ul.graphic li a.sm2_link {
  font-weight:normal;
  color:#FFF;
 }
-
+div#right_column {
+	ul.graphic li a,
+	ul.graphic li a.sm2_link {
+		min-width: 24.9em;
+		_width: 24.9em;
+		max-width: 24.9em;
+		padding-top: 4px;
+		padding-bottom: 4px;
+		margin-bottom: 4px;
+	}
+}
 ul.graphic li a.sm2_link {
  /* safari 3.1+ */
  -webkit-transition-property: hover;

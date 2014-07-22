@@ -5,7 +5,7 @@
 </div>
 	
 <div id="epedals" data-count="<%= istomp.current_sub_products.count %>">
-	<h3><%= istomp.current_sub_products.count %> e-pedals and growing...</h3>
+	<h3><%= istomp.current_sub_products.count %> e-pedals...</h3>
 	<%= render_partial 'products/sub_products', product: istomp %>
 	<div class="view_all_button_container">
 	<%= link_to "Hide e-pedals", '#', class: "view_all_button" %>

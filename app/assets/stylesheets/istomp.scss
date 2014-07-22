@@ -2,12 +2,12 @@ $font_family: Helvetica, arial, verdana, sans-serif;
 $divider: asset-url('digitech/gray_horizontal_divider.png', image);
 
 body {
-	background: white;
+	background: #EEE;
 }
 nav#topnav {
-	border: 1px solid #ddd;
+	//border: 1px solid #ddd;
 	//background-image: asset-url('digitech/gray_topmenu_bg.png', image);
-	background-color: #CCC;
+	//background-color: #CCC;
 	li {
 		a:link, a:visited {
 			color: #111;
@@ -19,7 +19,7 @@ nav#topnav {
 }
 
 header#main_header div#search_form input#query {
-	background: #f0f0f0 asset-url('digitech/searchMagGlass_blk.png', image) no-repeat right;
+	background: #fff asset-url('digitech/searchMagGlass_blk.png', image) no-repeat right;
 	color: #111;
 	border: none;
 }

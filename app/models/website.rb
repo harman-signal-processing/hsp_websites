@@ -111,6 +111,10 @@ class Website < ActiveRecord::Base
     @current_and_discontinued_products ||= self.brand.products.includes(included_attributes).select{|p| p if p.show_on_website?(self)}
   end
 
+  def discontinued_and_vintage_products
+    @discontinued_and_vintage_products ||= self.brand.products.includes(:product_status).select{|p| p if !!(p.product_status.name.match(/discontinue|vintage/i))}
+  end
+
   def vintage_products
     @vintage_products ||= self.brand.products.includes(:product_status).select{|p| p if !!(p.product_status.name.match(/vintage/i))}
   end

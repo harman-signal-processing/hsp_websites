@@ -362,6 +362,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     # Enable this to show clinics on public site
     #resources :clinics, only: [:index, :show]
 
+    get 'discontinued_products' => 'products#discontinued_index', as: :discontinued_products
     get 'channel' => 'main#channel'
     get "videos(/:id)" => "videos#index", as: :videos
     get "videos/play/:id" => "videos#play", as: :play_video

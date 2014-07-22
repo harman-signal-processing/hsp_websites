@@ -41,6 +41,22 @@ class DownloadRegistration < ActiveRecord::Base
   attr_accessor :code_you_received
   before_create :create_download_code
   after_create :deliver_download_code, :deliver_admin_notice
+
+  has_attached_file :receipt, S3_STORAGE.merge({ 
+    bucket: Rails.configuration.aws[:protected_bucket],
+    s3_host_alias: nil,
+    path: ":class/:attachment/:id_:timestamp/:basename.:extension"
+  })
+
+  do_not_validate_attachment_file_type :receipt
+  validates :receipt, presence: true, if: :require_receipt?
+
+
+  # Does the related RegisteredDownload require the receipt?
+  #
+  def require_receipt?
+    !!(self.registered_download.require_receipt?)
+  end
   
   # Does the related RegisteredDownload require a serial number?
   #

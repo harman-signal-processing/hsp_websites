@@ -31,3 +31,8 @@
 </div>
 
 <div class="clear"></div>
+
+<% if @discontinued_products.count > 0 %>
+<p>&nbsp;</p>
+<p><%= link_to "discontinued products", discontinued_products_path %></p>
+<% end %>

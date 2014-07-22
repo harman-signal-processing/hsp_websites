@@ -40,3 +40,8 @@
   <%= @download_registration.download_code %>
 </p>
 
+<% if @download_registration.receipt.present? %>
+<p>
+  <%= link_to "Receipt", @download_registration.receipt.url %>
+</p>
+<% end %>
