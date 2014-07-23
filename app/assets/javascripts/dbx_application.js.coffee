@@ -2,18 +2,20 @@ jQuery ($) ->
 	#skrollr.init()
 	win = $(window)
 
-	hidden_icon_containers = $(".hidden_icons")
+	animation_started = false
 
-	$(".hidden_icons img").each ->
-		$(@).parent().css(position: 'relative')
-		$(@).css(position: 'absolute', 'z-index': '0', top: "-95px", left: "-1000px")
+	icon_reset = ->
+		$(".hidden_icons img").each (i) ->
+			$(@).parent().css(position: 'relative')
+			left = i * 90 - 100
+			$(@).css(position: 'absolute', 'z-index': '0', top: "230px", left: "#{left}px")
+	icon_reset()
 
 	icon_animator = -> 
 		$(".hidden_icons img").each (i, element) ->
-			$(@).css(position: 'absolute', 'z-index': '0', top: "-95px", left: "-1000px")
-			$(@).delay(i * 1500).animate({left: "150px"}, 3000).delay(500).animate(top: "20px")
-
-	animation_started = false
+			left = i * 90 - 100
+			$(@).css(position: 'absolute', 'z-index': '0', top: "230px", left: "#{left}px")
+			$(@).delay(i*150+2500).animate({left: "50px", top: "30px"}, 4000)
 
 	$("#tagline").hide().delay(1000).fadeIn(1500)
 
@@ -26,7 +28,7 @@ jQuery ($) ->
 	win.scroll -> 
 		scroll = win.scrollTop()
 		win_height = scroll + win.height()
-
+		# console.log ("scroll: #{scroll}, win.height: #{win.height()}")
 		social_icons.each (i) -> 
 			a = $(@).offset().top + $(@).height() + ((i-1) * 50)
 			if (a < win_height) 
@@ -37,12 +39,12 @@ jQuery ($) ->
 			if (a < win_height) 
 				$(@).fadeTo(500,1) 
 
-		hidden_icon_containers.each (i) ->
-			a = $(@).offset().top + $(@).height() + ((i-1) * 10)
+		$(".hidden_icons").each (i) ->
+			a = $(@).offset().top + $(@).height() + 200
 			if a < win_height && animation_started == false
-				icon_animator()
-				setInterval icon_animator, 23000
 				animation_started = true
+				icon_animator() 
+				# setInterval icon_animator, 8000
 
 		if scroll <= 0
 			$('.bouncing-arrow').not(':animated').fadeIn(500)
@@ -52,7 +54,7 @@ jQuery ($) ->
 		else
 			$('.bouncing-arrow').not(':animated').fadeOut(500)
 			$("#tagline").fadeOut(2500)
-			if scroll > 500
+			if scroll > 1000
 				$("#video_background").css(bottom: "150px")
 			else
 			 	$("#video_background").css('bottom', "#{scroll * 0.3}px")
