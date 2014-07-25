@@ -461,11 +461,16 @@ module ApplicationHelper
     default_options = {exclude: "", include_hpro: false}
     options = default_options.merge options
 
+    if website.footer_exclusion
+      options[:exclude] = website.footer_exclusion
+    end
+
     links = []
     links << link_to(image_tag("pro_brands/harmanpro.png", alt: "HarmanPro", class: "no-resize"), "http://www.harmanpro.com", target: "_blank")
 
     pro_brands = [
       {name: "AKG",    web: "http://www.akg.com"},
+      {name: "AMX",    web: "http://www.amx.com"},
       {name: "BSS",    web: "http://www.bssaudio.com"},
       {name: "Crown",  web: "http://www.crownaudio.com"}, 
       {name: "dbx",    web: "http://www.dbxpro.com"}, 
