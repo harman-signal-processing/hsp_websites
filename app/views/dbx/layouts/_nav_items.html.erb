@@ -1,38 +1,40 @@
-<li class="has-dropdown"><%= link_to t('products'), product_families_path %>
-	<ul class="dropdown">
-		<% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
-		<li class="has-dropdown"><%= link_to translate_content(product_family, :name), product_family %>
-			<ul class="dropdown">
-				<% product_family.current_products.each do |product| %>
-				<li><%= link_to translate_content(product, :name), product %></li>
-				<% end %>
-			</ul>
-		</li>
-		<% end %>
-		<li><%= link_to ucfirst(t('software_downloads')), software_index_path %></li>
-		<li><%= link_to ucfirst(t('warranty_registration')), warranty_registration_path %></li>
-		<li><%= link_to "Current Promotions", promotions_path %></li>
-	</ul>
-</li>
+<%= cache ["nav_items", website, I18n.locale] do %>
+	<li class="has-dropdown"><%= link_to t('products'), product_families_path %>
+		<ul class="dropdown">
+			<% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
+			<li class="has-dropdown"><%= link_to translate_content(product_family, :name), product_family %>
+				<ul class="dropdown">
+					<% product_family.current_products.each do |product| %>
+					<li><%= link_to translate_content(product, :name), product %></li>
+					<% end %>
+				</ul>
+			</li>
+			<% end %>
+			<li><%= link_to ucfirst(t('software_downloads')), software_index_path %></li>
+			<li><%= link_to ucfirst(t('warranty_registration')), warranty_registration_path %></li>
+			<li><%= link_to "Current Promotions", promotions_path %></li>
+		</ul>
+	</li>
 
-<li class="divider"></li>
-<li><%= link_to t('news'), news_index_path %></li> 
+	<li class="divider"></li>
+	<li><%= link_to t('news'), news_index_path %></li> 
 
-<% if website.has_artists? %>
-<li class="divider"></li>
-<li><%= link_to t('artists'), artists_path %></li>
-<% end %>
+	<% if website.has_artists? %>
+	<li class="divider"></li>
+	<li><%= link_to t('artists'), artists_path %></li>
+	<% end %>
 
-<% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
-<li class="divider"></li>
-<li><%= link_to t('where_to_buy'), where_to_buy_path %></li>
-<% end %>
+	<% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
+	<li class="divider"></li>
+	<li><%= link_to t('where_to_buy'), where_to_buy_path %></li>
+	<% end %>
 
-<li class="divider"></li>
-<li><%= link_to t('product_support'), support_path %></li>
+	<li class="divider"></li>
+	<li><%= link_to t('product_support'), support_path %></li>
 
 
-<% if !!(website.forum_link) %>
-<li class="divider"></li>
-<li><%= link_to t("forum"), website.forum_link %></li>
+	<% if !!(website.forum_link) %>
+	<li class="divider"></li>
+	<li><%= link_to t("forum"), website.forum_link %></li>
+	<% end %>
 <% end %>

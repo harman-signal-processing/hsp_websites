@@ -40,10 +40,7 @@
 	<body data-brand="<%= website.brand.name %>">
 
 		<%#= render_partial "shared/admin_dashboard_link" %>		
-
-		<%= cache ["header", website, I18n.locale] do %>
-			<%= render_partial 'layouts/nav' %>
-		<% end %>
+		<%= render_partial 'layouts/nav' %>
 
 		<% if content_for?(:feature) %>
 			<%= yield :feature %>
