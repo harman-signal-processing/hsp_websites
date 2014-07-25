@@ -12,7 +12,8 @@ module TrainingModulesHelper
 			media_url = training_module.training_module.url
 			new_content = render_partial("shared/player", media_url: media_url, height: height, width: width)
 		elsif training_module.training_module_file_name.to_s.match(/mov$/i)
-			new_content = link_to("Download Quicktime Movie", training_module.training_module.url('original', false))
+			#new_content = content_tag(:video, "", id: training_module, src: training_module.training_module.url('original', false), controls: true)
+			new_content += link_to("Download Quicktime Movie", training_module.training_module.url('original', false))
 		end
 		raw(new_content)
 	end

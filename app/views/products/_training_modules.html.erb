@@ -1,7 +1,7 @@
 <ol>
 	<% product.product_training_modules.each do |ptm| %>
 	<li>
-		<%= link_to translate_content(ptm.training_module, :name), ptm.training_module %>
+		<%= link_to translate_content(ptm.training_module, :name), (ptm.training_module.training_module_file_name.to_s.match(/mov$/i)) ? ptm.training_module.training_module.url('original', false) : ptm.training_module %>
 	</li>
 	<% end %>
 </ol>
