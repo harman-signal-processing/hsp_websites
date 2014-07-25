@@ -349,6 +349,10 @@ module ApplicationHelper
     default_options = {exclude: ""}
     options = default_options.merge options
 
+    if website.footer_exclusion
+      options[:exclude] = website.footer_exclusion
+    end
+
     links = []
     pro_brands = [
       # {name: "HarmanPro", web: "http://www.harmanpro.com"},
@@ -364,7 +368,7 @@ module ApplicationHelper
       {name: "Martin",  web: "http://www.martin.com"},
       {name: "Soundcraft", web: "http://www.soundcraft.com"}, 
       {name: "Studer", web: "http://www.studer.ch"}, 
-      # {name: "HiQnet", web: "http://hiqnet.harmanpro.com"}
+      {name: "HiQnet", web: "http://hiqnet.harmanpro.com"}
     ]
     pro_brands.each do |b|
       unless website.brand.name.match(/#{b[:name]}/i) || options[:exclude].match(/#{b[:name]}/i)
