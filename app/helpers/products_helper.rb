@@ -386,7 +386,9 @@ module ProductsHelper
   # to assign to the generated button
   #
   def button_class(button, options={})
-    unless button.to_s.match(/img/i)
+    if button.to_s.match(/img/i)
+      ""
+    else
       options[:button_class] ? options[:button_class] : "medium button"
     end    
   end
