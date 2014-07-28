@@ -21,14 +21,38 @@
   </div>
 
   <div class="row">
-    <div class="large-6 columns">
-      <%= f.input :promo_form %>
+    <div class="large-4 columns">
+      <div class="panel">
+        <%= f.input :promo_form %>
+        <% unless f.object.promo_form_file_name.blank? %>
+          <span id="promo_form_container">
+            currently:
+            <%= link_to(f.object.promo_form_file_name, f.object.promo_form.url) %>
+          </span>
+        <% end %>
+      </div>
     </div>
-    <div class="large-6 columns">
-      <%= f.input :tile, label: "Banner/tile image" %>
-    	<% unless f.object.tile_file_name.blank? %>
-    		<br/><i>currently: <%= link_to(f.object.tile_file_name, f.object.tile.url) %></i>
-    	<% end %>
+    <div class="large-4 columns">
+      <div class="panel">
+        <%= f.input :tile, label: "Promo page header" %>
+      	<% unless f.object.tile_file_name.blank? %>
+          <span id="tile_container">
+        		currently: 
+            <%= link_to(image_tag(f.object.tile.url(:tiny)), f.object.tile.url) %>
+          </span>
+      	<% end %>
+      </div>
+    </div>
+    <div class="large-4 columns">
+      <div class="panel">
+        <%= f.input :homepage_banner %>
+        <% unless f.object.homepage_banner_file_name.blank? %>
+          <span id="homepage_banner_container">
+            currently:
+            <%= link_to(image_tag(f.object.homepage_banner.url(:tiny)), f.object.homepage_banner.url) %>
+          </span>
+        <% end %>
+      </div>
     </div>
   </div>
 

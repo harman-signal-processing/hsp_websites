@@ -19,6 +19,17 @@ class Promotion < ActiveRecord::Base
     }}.merge(S3_STORAGE)
   validates_attachment :tile, content_type: { content_type: /\Aimage/i }    
 
+  has_attached_file :homepage_banner, {
+    styles: { banner: "840x390",
+      large: "550x370", 
+      medium: "480x360", 
+      small: "240x180",
+      thumb: "100x100", 
+      tiny: "64x64", 
+      tiny_square: "64x64#" 
+    }}.merge(S3_STORAGE)
+  validates_attachment :homepage_banner, content_type: { content_type: /\Aimage/i } 
+
   after_save :translate
     
   def sanitized_name

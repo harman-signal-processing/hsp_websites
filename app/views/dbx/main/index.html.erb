@@ -149,13 +149,13 @@
 			<%= link_to "Current Offers", promotions_path, class: "button" %>
 		</div>
 		<% promotion = @current_promotions.all.shuffle.first %>
+		<% unless promotion.homepage_banner_file_name.blank? %>
 		<div class="homepage_block text-center">
 			<div class="promotion_container container">
-			<% unless promotion.tile_file_name.blank? %>
-				<%= link_to image_tag(promotion.tile.url, alt: promotion.name), promotion %>
-			<% end %>
+				<%= link_to image_tag(promotion.homepage_banner.url, alt: promotion.name), promotion %>
 			</div>
 		</div>
+		<% end %>
 	<% end %>
 <% end %>
 
