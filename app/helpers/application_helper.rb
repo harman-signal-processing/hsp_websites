@@ -222,6 +222,10 @@ module ApplicationHelper
           ret += content_tag(:div, class: "bg-gif") do 
             image_tag( anim.slide.url )
           end
+        elsif poster
+          ret += content_tag(:div, class: "bg-gif") do
+            image_tag( poster.slide.url )
+          end
         end
 
         static_slides = slides.reject{|f| /^#{fname}\./ =~ f.slide_file_name } 

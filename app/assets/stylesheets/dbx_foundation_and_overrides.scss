@@ -1401,12 +1401,24 @@ $topbar-sticky-class:                  ".sticky";
   text-shadow: 0px 0px 10px rgba(0,0,0,0.7);
   h1 {
     color: white;
-    font-size: emCalc(90px);
-    line-height: emCalc(17px);
+    @media only screen and (min-width: 720px) {
+      font-size: emCalc(90px);
+      line-height: emCalc(17px);
+    }
+    @media only screen and (max-width: 719px) {
+      font-size: emCalc(50px);
+      line-height: emCalc(16px);    
+    }
   }
   p {
-    font-size: emCalc(50px);
-    line-height: emCalc(14px);
+    @media only screen and (min-width: 720px) {
+      font-size: emCalc(50px);
+      line-height: emCalc(14px);
+    }
+    @media only screen and (max-width: 719px) {
+      font-size: emCalc(30px);
+      line-height: emCalc(14px);
+    }
     margin-bottom: 24px;
   }
   a {
