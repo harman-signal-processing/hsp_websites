@@ -31,7 +31,7 @@ class ProductDocumentsController < ApplicationController
   def show
     @product_document = ProductDocument.find(params[:id])
     if @product_document.product.belongs_to_this_brand?(website) && !@product_document.product.product_status.is_hidden? 
-      redirect_to @product_document.document.path
+      redirect_to @product_document.document.path, status: :moved_permanently
     else
       redirect_to root_path and return
     end

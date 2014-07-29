@@ -19,7 +19,7 @@ class DistributorsController < ApplicationController
   def search
     @country = params[:country]
     if @country == "USA" || @country == "United States of America"
-      redirect_to where_to_buy_path and return false
+      redirect_to where_to_buy_path, status: :moved_permanently and return false
     end
     @distributors = Distributor.find_all_by_country(@country, website)
     @countries = Distributor.countries(website)

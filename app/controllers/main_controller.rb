@@ -147,7 +147,7 @@ class MainController < ApplicationController
   # automatically.
   #
   def default_locale
-    redirect_to locale_root_path and return false
+    redirect_to locale_root_path, status: :moved_permanently and return false
   end
   
   # Dynamically generated sitemap. The @pages variable should end up with

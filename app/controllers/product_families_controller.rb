@@ -17,14 +17,14 @@ class ProductFamiliesController < ApplicationController
   # GET /product_families/1.xml
   def show
     if !website.product_families.include?(@product_family)
-      redirect_to product_families_path and return
+      redirect_to product_families_path, status: :moved_permanently and return
     end
     respond_to do |format|
       format.html {
         if @product_family.current_products.size == 1
-          redirect_to @product_family.current_products.first and return 
+          redirect_to @product_family.current_products.first, status: :moved_permanently and return 
         elsif @product_family.children_with_current_products(website).size == 1 && @product_family.children_with_current_products(website).first.current_products.size == 1
-          redirect_to @product_family.children_with_current_products(website).first.current_products.first and return 
+          redirect_to @product_family.children_with_current_products(website).first.current_products.first, status: :moved_permanently and return 
         elsif !@product_family.layout_class.blank? && File.exists?(Rails.root.join("app", "views", website.folder, "product_families", "#{@product_family.layout_class}.html.erb"))
           render template: "#{website.folder}/product_families/#{@product_family.layout_class}", layout: set_layout
         else

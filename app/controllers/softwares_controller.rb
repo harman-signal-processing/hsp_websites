@@ -33,7 +33,7 @@ class SoftwaresController < ApplicationController
               render_template
             end
           else
-            redirect_to download_software_path(@software, locale: I18n.locale) and return false
+            redirect_to download_software_path(@software, locale: I18n.locale), status: :moved_permanently and return false
           end
         }
         # format.xml  { render xml: @software }
@@ -54,12 +54,12 @@ class SoftwaresController < ApplicationController
     @software.increment_count
     if !@software.link.blank?
       @software.link = "http://" + @software.link unless @software.link.match(/^http/)
-      redirect_to @software.link and return
+      redirect_to @software.link, status: :moved_permanently and return
     else
       # Used to use send_file to take advantage of nginx caching, but now we just
       # redirect to S3/Cloudfront url.
       # send_file @software.ware.path, content_type: @software.ware_content_type
-      redirect_to @software.ware.url
+      redirect_to @software.ware.url, status: :moved_permanently
     end
   end
   

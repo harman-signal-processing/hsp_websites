@@ -5,7 +5,7 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.xml
   def index
-    redirect_to product_families_path
+    redirect_to product_families_path, status: :moved_permanently
   end
 
   # Index of discontinued products
@@ -92,7 +92,7 @@ class ProductsController < ApplicationController
     if @product.show_on_website?(website) || can?(:manage, @product)
       @product_introduction = ProductIntroduction.where(product_id: @product.id).first || ProductIntroduction.new
       if @product_introduction.expired?
-        redirect_to @product
+        redirect_to @product, status: :moved_permanently
       elsif !@product_introduction.layout_class.blank? && File.exist?(Rails.root.join("app", "views", website.folder, "products", "introducing", "#{@product_introduction.layout_class}.html.erb"))
         render template: "#{website.folder}/products/introducing/#{@product_introduction.layout_class}", layout: set_layout
       elsif !@product.layout_class.blank? && File.exist?(Rails.root.join("app", "views", website.folder, "products", "introducing", "#{@product.layout_class}.html.erb"))

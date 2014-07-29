@@ -27,6 +27,6 @@ class ToneLibrarySongsController < ApplicationController
     #   type: tone_library_patch.mime_type,
     #   disposition: 'attachment'
     # )
-    redirect_to tone_library_patch.patch.url
+    redirect_to tone_library_patch.patch.url, status: :moved_permanently
   end
 end

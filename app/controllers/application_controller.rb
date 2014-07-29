@@ -168,7 +168,7 @@ private
     elsif website.show_locales? && controller_path == "main" && action_name == "default_locale"
       locale_selector # otherwise the default locale is appended to the URL. #ugly
     else
-      redirect_to root_path and return false
+      redirect_to root_path, status: :moved_permanently and return false
     end
   end
 

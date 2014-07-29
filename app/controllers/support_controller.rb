@@ -7,9 +7,9 @@ class SupportController < ApplicationController
     if params[:product_id]
       if product = Product.find(params[:product_id])
         if url_matches?("lexicon") && !product.discontinued?
-          redirect_to product_path(product, tab: "downloads_and_docs") and return
+          redirect_to product_path(product, tab: "downloads_and_docs"), status: :moved_permanently and return
         else
-          redirect_to product and return
+          redirect_to product, status: :moved_permanently and return
         end
       end
     end

@@ -31,7 +31,7 @@ class VideosController < ApplicationController
       @page_title = @video.title
       render_template
     rescue
-      redirect_to "http://youtube.com/watch?v=#{@video_id}" and return false
+      redirect_to "http://youtube.com/watch?v=#{@video_id}", status: :moved_permanently and return false
     end
   end
   
