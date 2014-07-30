@@ -141,7 +141,13 @@
 				</div>
 				<div class="large-9 columns">
 			<%= cache ["contact_form_products", website.brand] do %>
-				<%= f.input :product, as: :select, collection: Product.all_for_website(website) + [Product.new(name: "other")], required: @contact_message.require_product?, prompt: "Select A Product", label: false %>
+				<%= f.input :product, as: :select, 
+						collection: Product.all_for_website(website) + [Product.new(name: "other")], 
+						value_method: :name, 
+						label_method: :name, 
+						required: @contact_message.require_product?, 
+						prompt: "Select A Product", 
+						label: false %>
 			<% end %>
 				</div>
 			</div>

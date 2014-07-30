@@ -75,7 +75,7 @@
 				<div class="large-6 columns">
 					<%= f.input :product_id, 
 						collection: Product.all_for_website_registration(website), 
-						value_method: :id, 
+						value_method: :name, 
 						label_method: :name, 
 						prompt: "Select a product",
 						required: true %>

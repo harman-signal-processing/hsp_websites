@@ -362,6 +362,9 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     # Enable this to show clinics on public site
     #resources :clinics, only: [:index, :show]
 
+    get 'privacy_policy.html' => 'main#privacy_policy', as: :privacy_policy
+    get 'terms_of_use.html' => 'main#terms_of_use', as: :terms_of_use
+
     get 'discontinued_products' => 'products#discontinued_index', as: :discontinued_products
     get 'channel' => 'main#channel'
     get "videos(/:id)" => "videos#index", as: :videos
