@@ -14,7 +14,7 @@
 
     <div class="row">
     	<div class="large-12 text-center columns">
-    		<% featured_products = website.featured_products.split('|').map{|i| Product.find(i)} %>
+    		<% featured_products = website.featured_products %>
     		<ul class="large-block-grid-4 small-block-grid-2">
     		<% featured_products.each_with_index do |product,i| %>
     			<% if product.product_attachments.count >= 5 %>

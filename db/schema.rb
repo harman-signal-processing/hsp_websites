@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140728204044) do
+ActiveRecord::Schema.define(:version => 20140730202542) do
 
   create_table "admin_logs", :force => true do |t|
     t.integer  "user_id"
@@ -1113,6 +1113,8 @@ ActiveRecord::Schema.define(:version => 20140728204044) do
     t.string   "homepage_banner_content_type"
     t.integer  "homepage_banner_file_size"
     t.datetime "homepage_banner_updated_at"
+    t.string   "homepage_headline"
+    t.text     "homepage_text"
   end
 
   add_index "promotions", ["cached_slug"], :name => "index_promotions_on_cached_slug", :unique => true
