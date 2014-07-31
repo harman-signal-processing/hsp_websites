@@ -152,7 +152,30 @@
 		<% unless promotion.homepage_banner_file_name.blank? %>
 		<div class="homepage_block text-center">
 			<div class="promotion_container container">
-				<%= link_to image_tag(promotion.homepage_banner.url, alt: promotion.name), promotion %>
+				<div class="row">
+					<div class="large-5 small-6 columns text-left">
+						<h2><%= link_to promotion.homepage_headline.present? ? promotion.homepage_headline : promotion.name, promotion %></h2>
+						<% if promotion.start_on.present? && promotion.end_on.present? %>
+							<h4 class="subheader"><%=l promotion.start_on, format: :long %> - <%=l promotion.end_on, format: :long %></h4>
+						<% end %>
+						<p><%=raw promotion.homepage_text %></p>
+
+						<% if promotion.products.count > 0 %>
+							<div class="hide-for-small">
+								<h3>Qualifying Purchases Include</h3>
+								<ul style="margin-left: 14px" class="hide-for-small">
+									<% promotion.products.each do |p| %>
+									<li><%= link_to("#{p.name} #{p.short_description}", p) %></li>
+									<% end %>
+								</ul>
+							</div>
+						<% end %>
+						<%= link_to "Learn More", promotion, class: "medium button" %>
+					</div>
+					<div class="large-6 small-6 columns">
+						<%= link_to image_tag(promotion.homepage_banner.url, alt: promotion.name), promotion %>
+					</div>
+				</div>
 			</div>
 		</div>
 		<% end %>
