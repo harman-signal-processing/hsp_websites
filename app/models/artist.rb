@@ -80,7 +80,7 @@ class Artist < ActiveRecord::Base
   end
   
   def belongs_to_this_brand?(website)
-    !!(self.artist_brands.where(brand_id: website.brand_id))
+    !!(self.artist_brands.where(brand_id: website.brand_id).count > 0)
   end
     
   def self.all_for_website(website)
