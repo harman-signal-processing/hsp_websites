@@ -19,7 +19,8 @@ class ProductReview < ActiveRecord::Base
   validates_attachment :cover_image, content_type: { content_type: /\Aimage/i }
 
   validates :title, presence: true
-  has_friendly_id :sanitized_title, use_slug: true, approximate_ascii: true, max_length: 100
+  extend FriendlyId
+  friendly_id :sanitized_title
   has_many :product_review_products, dependent: :destroy
   has_many :products, through: :product_review_products
   before_save :clear_blank_body, :reset_link_status, :stamp_link

@@ -1,10 +1,11 @@
 class ProductFamily < ActiveRecord::Base
   belongs_to :brand, touch: true
-  has_many :product_family_products, order: :position, dependent: :destroy, include: :product
-  has_many :products, through: :product_family_products, order: "product_family_products.position", include: [:product_status, :product_families]
+  has_many :product_family_products, -> { order('position').includes(:product) }, dependent: :destroy
+  has_many :products, -> { order("product_family_products.position").includes([:product_status, :product_families]) }, through: :product_family_products
   has_many :locale_product_families
   has_many :market_segment_product_families, dependent: :destroy
-  has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
+  extend FriendlyId
+  friendly_id :name
   
   has_attached_file :family_photo, { styles: { medium: "300x300>", thumb: "100x100>" }}.merge(S3_STORAGE)
   has_attached_file :family_banner, { styles: { medium: "300x300>", thumb: "100x100>" }}.merge(S3_STORAGE)
@@ -21,7 +22,7 @@ class ProductFamily < ActiveRecord::Base
   validate :parent_not_itself
 
   acts_as_tree order: :position, scope: :brand_id
-  # acts_as_list scope: :brand_id, order: :position
+  # acts_as_list scope: :brand_id, -> { order('position') }
   after_save :translate
   
   # All top-level ProductFamilies--not locale aware

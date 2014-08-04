@@ -2,7 +2,8 @@ class ProductDocument < ActiveRecord::Base
   belongs_to :product, touch: true
   has_attached_file :document
   process_in_background :document
-  has_friendly_id :document_file_name, use_slug: true, approximate_ascii: true, max_length: 100
+  extend FriendlyId
+  friendly_id :document_file_name
 
   validates :product_id, presence: true
   validates_attachment :document, presence: true

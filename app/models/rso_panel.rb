@@ -1,6 +1,6 @@
 class RsoPanel < ActiveRecord::Base
   belongs_to :brand
-  has_many :rso_navigations, order: :position # (if this is a left panel)
+  has_many :rso_navigations, -> { order('position') } # (if this is a left panel)
   validates :name, presence: true, uniqueness: {scope: :brand_id}
   has_attached_file :rso_panel_image,
     styles: { main: "680x370#", left: "250x370#",

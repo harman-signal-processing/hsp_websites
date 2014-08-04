@@ -5,7 +5,7 @@
 #       developed to link and create a Product record for the public site.
 #
 class MarketingProjectTypeTask < ActiveRecord::Base
-  attr_accessible :name, :position, :marketing_project_type_id, :due_offset_number, :due_offset_unit, :keep, :creative_brief
+  # attr_accessible :name, :position, :marketing_project_type_id, :due_offset_number, :due_offset_unit, :keep, :creative_brief
   attr_accessor :keep
   belongs_to :marketing_project_type
   acts_as_list scope: :marketing_project_type_id

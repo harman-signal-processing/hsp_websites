@@ -1,18 +1,15 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.18'
+gem 'rails', '4.1.4'
 
 # Gems used only for assets and not required
 # in production environments by default.
-group :assets do
-  gem 'turbo-sprockets-rails3' # don't precompile assets which haven't changed
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-  gem 'uglifier', '>= 1.0.3'
-  gem "zurb-foundation", "~> 4.3.2"
-  gem 'asset_sync'
-end
-
+#gem 'turbo-sprockets-rails3' # don't precompile assets which haven't changed
+gem 'sass-rails', '~> 4.0.3'
+gem 'uglifier', '>= 1.3.0'
+gem 'coffee-rails', '~> 4.0.0'
+gem "zurb-foundation", "~> 4.3.2"
+gem 'asset_sync'
 gem 'jquery-rails' 
 gem 'capistrano', '2.13.5' # 2.14.1 causes tinymce assets to be deleted
 gem 'capistrano-ext'
@@ -22,7 +19,7 @@ gem 'capistrano-ext'
 
 # Bundle the extra gems:
 gem 'mysql2', '>= 0.3.12b4' # sphinx needs '0.3.12b4'
-gem "friendly_id", "~> 3.0"
+gem "friendly_id"
 gem 'aws-sdk', '~> 1.0'
 gem 'fog' # for rackspace cloud files
 gem "paperclip" #, "~> 3.0"
@@ -99,11 +96,11 @@ group :development, :test do
 end
 
 group :test do
-  gem 'turn'
+  gem 'turn', git: 'http://github.com/turn-project/turn'
   gem 'mocha', require: false
   gem 'minitest-rails-capybara'
   gem 'minitest-capybara'
-  gem "minitest-wscolor"
+  # gem "minitest-wscolor"
   gem 'capybara-webkit'
   gem 'launchy' # save_and_open_page inline in tests
   gem 'minitest'

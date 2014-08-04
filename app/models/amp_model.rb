@@ -1,8 +1,11 @@
 class AmpModel < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :name
+
   has_many :product_amp_models
   has_many :products, through: :product_amp_models
   validates :name, presence: true, uniqueness: true
-  has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
+  
   has_attached_file :amp_image, 
     styles: { large: "550x370", 
       medium: "480x360", 

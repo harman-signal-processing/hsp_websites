@@ -2,7 +2,8 @@ class Page < ActiveRecord::Base
   validates :title, presence: true, uniqueness: true 
   validates :brand_id, presence: true
   validates :custom_route, uniqueness: true 
-  has_friendly_id :sanitized_title, use_slug: true, approximate_ascii: true, max_length: 100
+  extend FriendlyId
+  friendly_id :sanitized_title
   belongs_to :brand
   after_save :translate
   

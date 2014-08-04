@@ -23,7 +23,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
   end
 
   constraints(ToolkitDomain) do 
-    match '/' => 'toolkit#index', as: :toolkit_root
+    get '/' => 'toolkit#index', as: :toolkit_root
     devise_for :toolkit_users, 
       path: "users",
       class_name: "User", 
@@ -47,7 +47,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
   end
 
   constraints(QueueDomain) do 
-    match '/' => 'marketing_queue#index', as: :marketing_queue_root
+    get '/' => 'marketing_queue#index', as: :marketing_queue_root
     get 'staff_meeting' => 'marketing_queue#staff_meeting'
     get 'user_workload/:id' => 'marketing_queue#workload', as: :user_workload
     devise_for :marketing_queue_users, 
@@ -91,26 +91,27 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     end
   end
 
-  resources :registered_downloads
+  # Removed for rails4.1 (conflicts with custom routes below)
+  # resources :registered_downloads
   # debugging help
-  match "/site_info" => 'main#site_info'
+  get "/site_info" => 'main#site_info'
  
   devise_for :artists, controllers: { registrations: "artist_registrations" }
   devise_scope :artists do
     get 'artists', to: 'artists#index', as: :artist_root
   end
   
-  match '/activate(/:software_name(/:challenge))' => 'softwares#activate', as: :software_activation
+  match '/activate(/:software_name(/:challenge))' => 'softwares#activate', as: :software_activation, via: :all
 
-  match '/:registered_download_url/register(/:code)' => 'registered_downloads#register', as: :register_to_download
-  match '/:registered_download_url/confirm' => 'registered_downloads#confirmation', as: :confirm_download_registration
-  match '/:registered_download_url/get_it/:download_code' => 'registered_downloads#show', as: :registered_download
-  match '/:registered_download_url/downloadr/:download_code' => 'registered_downloads#download', as: :registered_download_file
+  match '/:registered_download_url/register(/:code)' => 'registered_downloads#register', as: :register_to_download, via: :all
+  match '/:registered_download_url/confirm' => 'registered_downloads#confirmation', as: :confirm_download_registration, via: :all
+  match '/:registered_download_url/get_it/:download_code' => 'registered_downloads#show', as: :registered_download, via: :all
+  match '/:registered_download_url/downloadr/:download_code' => 'registered_downloads#download', as: :registered_download_file, via: :all
 
-  match '/favicon.ico' => 'main#favicon'
-  match '/dashboard' => 'admin#index', as: :dashboard
-  match "/admin" => "admin#index", as: :admin_root, locale: I18n.default_locale
-  match 'sitemap(.:format)' => 'main#sitemap', as: :sitemap
+  get '/favicon.ico' => 'main#favicon'
+  get '/dashboard' => 'admin#index', as: :dashboard
+  get "/admin" => "admin#index", as: :admin_root, locale: I18n.default_locale
+  get 'sitemap(.:format)' => 'main#sitemap', as: :sitemap
     
   # An example of a custom top-level landing page route:
   # match "/switchyourthinking" => "pages#show", custom_route: "switchyourthinking", locale: I18n.default_locale
@@ -121,7 +122,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
   # to work on the other sites)  
   constraints(DigitechDomain) do
     # match '/soundcomm(/:page)', to: redirect("/#{I18n.default_locale}/soundcomm"), as: :soundcomm, locale: I18n.default_locale
-    match '/soundcomm(/:page)', to: redirect('http://soundcommunity.digitech.com/'), as: :soundcomm, locale: I18n.default_locale
+    match '/soundcomm(/:page)', to: redirect('http://soundcommunity.digitech.com/'), as: :soundcomm, locale: I18n.default_locale, via: :all
     get 'gctraining' => 'pages#gctraining'
     get 'epedal_labels/fulfilled/:id/:secret_code' => 'label_sheet_orders#fulfill', as: :label_sheet_order_fulfillment
     get 'epedal_labels/new(/:epedal_id)' => 'label_sheet_orders#new', as: :epedal_labels_order_form
@@ -143,7 +144,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       end
     end
     namespace :admin do
-      match "brand_toolkit_contacts/load_user/:id" => 'brand_toolkit_contacts#load_user'
+      match "brand_toolkit_contacts/load_user/:id" => 'brand_toolkit_contacts#load_user', via: :all
       get 'show_campaign/:id' => 'signups#show_campaign', as: 'show_campaign'
       resources :products do
         collection do
@@ -342,7 +343,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     resources :market_segments, :pages, :product_reviews, :product_families, :demo_songs, :promotions, only: [:index, :show]
     get 'introducing/:id' => 'products#introducing', as: :product_introduction
     get 'products/songlist/:id.:format' => 'products#songlist', as: :product_songlist
-    resources :products, only: [:index, :show, :discontinued] do
+    resources :products, only: [:index, :discontinued] do
       member do
         get :buy_it_now
         get :songlist
@@ -350,7 +351,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         put :preview
       end
       collection do 
-        match :compare
+        match :compare, via: :all
       end
     end
     get 'products/:id(/:tab)' => 'products#show', as: :product
@@ -370,30 +371,30 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get "videos(/:id)" => "videos#index", as: :videos
     get "videos/play/:id" => "videos#play", as: :play_video
     get '/zips/:download_type.zip' => 'support#zipped_downloads', as: :zipped_downloads
-    match '/product_documents(/:language(/:document_type))' => "product_documents#index"
-    match '/downloads(/:language(/:document_type))' => "product_documents#index", as: :downloads
+    match '/product_documents(/:language(/:document_type))' => "product_documents#index", via: :all
+    match '/downloads(/:language(/:document_type))' => "product_documents#index", as: :downloads, via: :all
     get '/support_downloads' => "support#downloads", as: :support_downloads
-    match '/tone_library/:product_id/:tone_library_song_id(.:ext)' => "tone_library_songs#download", as: :tone_download 
-    match '/tone_library' => "tone_library_songs#index", as: :tone_library
-    match '/software' => 'softwares#index', as: :software_index
-    match '/support/warranty_registration(/:product_id)' => 'support#warranty_registration', as: :warranty_registration
-    match '/support/parts' => 'support#parts', as: :parts_request
-    match '/support/rma' => 'support#rma', as: :rma_request
+    match '/tone_library/:product_id/:tone_library_song_id(.:ext)' => "tone_library_songs#download", as: :tone_download, via: :all
+    match '/tone_library' => "tone_library_songs#index", as: :tone_library, via: :all
+    match '/software' => 'softwares#index', as: :software_index, via: :all
+    match '/support/warranty_registration(/:product_id)' => 'support#warranty_registration', as: :warranty_registration, via: :all
+    match '/support/parts' => 'support#parts', as: :parts_request, via: :all
+    match '/support/rma' => 'support#rma', as: :rma_request, via: :all
     get '/support/warranty_policy' => 'support#warranty_policy', as: :warranty_policy
-    match '/international_distributors' => 'distributors#index', as: :international_distributors
-    match '/sitemap(.:format)' => 'main#locale_sitemap', as: :locale_sitemap
-    match '/where_to_buy(/:zip)' => 'main#where_to_buy', as: :where_to_buy 
-    match '/support(/:action(/:id))' => "support", as: :support
-    match '/community' => 'main#community', as: :community
-    match '/rss(.:format)' => 'main#rss', as: :rss
-    match '/search' => 'main#search', as: :search
-    match '/rohs' => 'support#rohs', as: :rohs
-    match 'distributors_for/:brand_id' => 'distributors#minimal', as: :minimal_distributor_search
-    match '/' => 'main#index', as: :locale_root
-    match '/:controller(/:action(/:id))'
-    match "*custom_route" => "pages#show", as: :custom_route
+    match '/international_distributors' => 'distributors#index', as: :international_distributors, via: :all
+    match '/sitemap(.:format)' => 'main#locale_sitemap', as: :locale_sitemap, via: :all
+    match '/where_to_buy(/:zip)' => 'main#where_to_buy', as: :where_to_buy , via: :all
+    match '/support(/:action(/:id))' => "support", as: :support, via: :all
+    match '/community' => 'main#community', as: :community, via: :all
+    match '/rss(.:format)' => 'main#rss', as: :rss, via: :all
+    match '/search' => 'main#search', as: :search, via: :all
+    match '/rohs' => 'support#rohs', as: :rohs, via: :all
+    match 'distributors_for/:brand_id' => 'distributors#minimal', as: :minimal_distributor_search, via: :all
+    match '/' => 'main#index', as: :locale_root, via: :all
+    match '/:controller(/:action(/:id))', via: :all
+    match "*custom_route" => "pages#show", as: :custom_route, via: :all
   end
 
-  match '*a', to: 'errors#404'
+  match '*a', to: 'errors#404', via: :all
 
 end

@@ -1,5 +1,5 @@
 class UsRepRegion < ActiveRecord::Base
-  attr_accessible :brand_id, :us_region_id, :us_rep_id
+  # attr_accessible :brand_id, :us_region_id, :us_rep_id
   validates :brand_id, presence: true
   validates :us_region_id, presence: true
   validates :us_rep_id, presence: true

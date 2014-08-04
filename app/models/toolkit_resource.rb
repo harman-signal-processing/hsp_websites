@@ -1,18 +1,18 @@
 class ToolkitResource < ActiveRecord::Base
-  attr_accessible :brand_id, 
-  	:download_file_size, 
-  	:download_path, 
-  	:name, 
-  	:related_id, 
-  	:tk_preview, 
-  	:toolkit_resource_type_id,
-    :expires_on,
-    :message,
-    :dealer,
-    :distributor,
-    :rep,
-    :media,
-    :rso
+  # attr_accessible :brand_id, 
+  # 	:download_file_size, 
+  # 	:download_path, 
+  # 	:name, 
+  # 	:related_id, 
+  # 	:tk_preview, 
+  # 	:toolkit_resource_type_id,
+  #   :expires_on,
+  #   :message,
+  #   :dealer,
+  #   :distributor,
+  #   :rep,
+  #   :media,
+  #   :rso
 
   has_attached_file :tk_preview, {
     styles: { lightbox: "800x600",
@@ -28,7 +28,8 @@ class ToolkitResource < ActiveRecord::Base
       tiny_square: "64x64#" 
     }}.merge(S3_STORAGE)
   validates_attachment :tk_preview, content_type: { content_type: /\Aimage/i }    
-  has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
+  extend FriendlyId
+  friendly_id :name
   belongs_to :brand 
   belongs_to :toolkit_resource_type 
 

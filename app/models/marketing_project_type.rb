@@ -7,8 +7,8 @@
 # which are not actual tasks. These are used as template tasks.
 #
 class MarketingProjectType < ActiveRecord::Base
-  attr_accessible :major_effort, :name, :put_source_on_toolkit, :put_final_on_toolkit, :marketing_project_type_tasks_attributes
-  has_many :marketing_project_type_tasks, order: :position
+  # attr_accessible :major_effort, :name, :put_source_on_toolkit, :put_final_on_toolkit, :marketing_project_type_tasks_attributes
+  has_many :marketing_project_type_tasks, -> { order('position') }
   has_many :marketing_projects
   validates :name, presence: true, uniqueness: true
   accepts_nested_attributes_for :marketing_project_type_tasks, allow_destroy: true, reject_if: :skip_tasks #proc { |a| !(a[:keep?]) }

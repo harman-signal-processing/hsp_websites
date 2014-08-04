@@ -44,7 +44,7 @@ class ProductAttachment < ActiveRecord::Base
   process_in_background :product_attachment
   process_in_background :product_media
 
-  has_many :demo_songs, order: :position
+  has_many :demo_songs, -> { order('position') }
   accepts_nested_attributes_for :demo_songs, reject_if: :all_blank
   validates :product_id, presence: true
   validates_uniqueness_of :songlist_tag, allow_blank: true

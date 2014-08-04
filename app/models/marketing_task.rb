@@ -2,7 +2,7 @@
 # larger effort.
 #
 class MarketingTask < ActiveRecord::Base
-  attr_accessible :brand_id, :completed_at, :due_on, :marketing_project_id, :name, :assign_to_me, :worker_id, :man_hours, :priority, :creative_brief, :marketing_calendar_id
+  # attr_accessible :brand_id, :completed_at, :due_on, :marketing_project_id, :name, :assign_to_me, :worker_id, :man_hours, :priority, :creative_brief, :marketing_calendar_id
   attr_accessor :assign_to_me
   has_event_calendar start_at_field: 'due_on', end_at_field: 'due_on'
   belongs_to :brand 
@@ -11,7 +11,7 @@ class MarketingTask < ActiveRecord::Base
   belongs_to :worker, class_name: "User", foreign_key: :worker_id
   belongs_to :currently_with, class_name: "User", foreign_key: :currently_with_id
   belongs_to :marketing_calendar
-  has_many :marketing_attachments, dependent: :destroy, order: "created_at DESC"
+  has_many :marketing_attachments, -> { order("created_at DESC") }, dependent: :destroy
   has_many :marketing_comments, dependent: :destroy
   acts_as_list scope: :marketing_project_id
   validates :name, presence: :true

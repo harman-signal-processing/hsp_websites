@@ -4,7 +4,8 @@ class Promotion < ActiveRecord::Base
   has_many :product_promotions
   has_many :products, through: :product_promotions
   belongs_to :brand, touch: true
-  has_friendly_id :sanitized_name, use_slug: true, approximate_ascii: true, max_length: 100
+  extend FriendlyId
+  friendly_id :sanitized_name
 
   has_attached_file :promo_form, S3_STORAGE
   do_not_validate_attachment_file_type :promo_form

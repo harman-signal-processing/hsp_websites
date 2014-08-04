@@ -3,7 +3,7 @@ class Brand < ActiveRecord::Base
   has_many :market_segments
   has_many :marketing_tasks
   has_many :marketing_projects
-  has_many :online_retailer_links, order: "RAND()", conditions: "actve = 1"
+  has_many :online_retailer_links, -> { where("active = 1").order("RAND()") }
   has_many :brand_dealers, dependent: :destroy
   has_many :dealers, through: :brand_dealers
   has_many :news
@@ -22,18 +22,18 @@ class Brand < ActiveRecord::Base
   has_many :training_modules
   has_many :training_classes
   has_many :blogs
-  has_many :pricing_types, order: :pricelist_order
-  has_many :brand_toolkit_contacts, order: :position, include: :user
+  has_many :pricing_types, -> { order('pricelist_order') }
+  has_many :brand_toolkit_contacts, -> { order('position').includes(:user) }
   has_many :us_rep_regions 
   has_many :us_reps, through: :us_rep_regions 
-  has_many :us_regions, through: :us_rep_regions, order: :name
+  has_many :us_regions, -> { order('name') }, through: :us_rep_regions
   has_many :signups
   # RSO stuff
   has_many :rso_monthly_reports
-  has_many :rso_navigations, order: :position
+  has_many :rso_navigations, -> { order('position') }
   has_many :rso_panels
   has_many :rso_pages
-  has_many :tweets, order: "posted_at DESC"
+  has_many :tweets, -> { order("posted_at DESC") }
   has_attached_file :logo, {
     styles: { large: "640x480", 
       medium: "480x360", 
@@ -47,7 +47,8 @@ class Brand < ActiveRecord::Base
 
   after_initialize :dynamic_methods
   after_update :update_products
-  has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
+  extend FriendlyId
+  friendly_id :name
   validates :name, presence: true, uniqueness: true
 
   def update_products

@@ -289,7 +289,6 @@ class MainController < ApplicationController
   def channel
     render inline: '<script src="//connect.facebook.net/en_US/all.js"></script>', layout: false
   end
-  caches_page :channel
 
   private
 

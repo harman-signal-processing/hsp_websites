@@ -4,7 +4,8 @@ class Effect < ActiveRecord::Base
   belongs_to :effect_type
   validates_presence_of :name
   validates_uniqueness_of :name
-  has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
+  extend FriendlyId
+  friendly_id :name
   has_attached_file :effect_image, 
     styles: { large: "550x370", 
       medium: "480x360", 

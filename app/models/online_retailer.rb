@@ -1,7 +1,7 @@
 class OnlineRetailer < ActiveRecord::Base
   has_many :online_retailer_users, dependent: :destroy
   has_many :users, through: :online_retailer_users
-  has_many :online_retailer_links, conditions: "product_id IS NOT NULL", dependent: :destroy
+  has_many :online_retailer_links, -> { where("product_id IS NOT NULL") }, dependent: :destroy
   has_attached_file :retailer_logo, 
     styles: { 
       medium: "300x300>", 
@@ -11,7 +11,8 @@ class OnlineRetailer < ActiveRecord::Base
     }
   validates_attachment :retailer_logo, content_type: { content_type: /\Aimage/i }
 
-  has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
+  extend FriendlyId
+  friendly_id :name
   validates :name, presence: true, uniqueness: true
   attr_accessor :brand_link, :online_retailer_link
   

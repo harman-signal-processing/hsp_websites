@@ -4,10 +4,10 @@
 # to download the file are instances of DownloadRegistration.
 #
 class RegisteredDownload < ActiveRecord::Base
-  attr_accessible :download_count, :name, :url, :valid_code, :products, :require_serial_number, :require_employee_number, 
-    :require_store_number, :require_manager_name, :send_coupon_code, :coupon_codes, :per_download_limit, :html_template, 
-    :intro_page_content, :confirmation_page_content, :from_email, :subject, :email_template, :download_page_content, :cc,
-    :require_receipt, :protected_software
+  # attr_accessible :download_count, :name, :url, :valid_code, :products, :require_serial_number, :require_employee_number, 
+  #   :require_store_number, :require_manager_name, :send_coupon_code, :coupon_codes, :per_download_limit, :html_template, 
+  #   :intro_page_content, :confirmation_page_content, :from_email, :subject, :email_template, :download_page_content, :cc,
+  #   :require_receipt, :protected_software
   has_many :download_registrations
   belongs_to :brand
   validates :name, :brand, :from_email, :subject, presence: true

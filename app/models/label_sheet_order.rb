@@ -2,7 +2,7 @@ class LabelSheetOrder < ActiveRecord::Base
   require 'securerandom'
 
   belongs_to :user
-  attr_accessible :label_sheet_ids, :name, :email, :address, :city, :state, :postal_code, :country, :subscribe
+  # attr_accessible :label_sheet_ids, :name, :email, :address, :city, :state, :postal_code, :country, :subscribe
   attr_accessor :label_sheet_ids
 
   validates :name, :email, :address, :city, :state, :postal_code, :country, presence: true

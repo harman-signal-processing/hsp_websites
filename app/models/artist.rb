@@ -1,4 +1,7 @@
 class Artist < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :sanitized_name
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
@@ -6,13 +9,13 @@ class Artist < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   # TODO: some of these attributes will probably go away during the revamp
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :bio, 
-    :artist_photo_file_name, :artist_photo_content_type, :artist_photo_updated_at, :artist_photo_file_size,
-    :website, :twitter, :position, :cached_slug, :featured, :artist_photo,
-    :artist_product_photo_file_name, :artist_product_photo_file_size, :artist_product_photo,
-    :artist_product_photo_content_type, :artist_product_photo_updated_at,
-    :invitation_code, :artist_tier_id, :main_instrument, :notable_career_moments,
-    :artist_products_attributes, :initial_brand, :approver_id, :approved, :skip_unapproval
+  # attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :bio, 
+  #   :artist_photo_file_name, :artist_photo_content_type, :artist_photo_updated_at, :artist_photo_file_size,
+  #   :website, :twitter, :position, :cached_slug, :featured, :artist_photo,
+  #   :artist_product_photo_file_name, :artist_product_photo_file_size, :artist_product_photo,
+  #   :artist_product_photo_content_type, :artist_product_photo_updated_at,
+  #   :invitation_code, :artist_tier_id, :main_instrument, :notable_career_moments,
+  #   :artist_products_attributes, :initial_brand, :approver_id, :approved, :skip_unapproval
     
   attr_accessor :initial_brand, :approved, :skip_unapproval
   belongs_to :artist_tier
@@ -50,7 +53,7 @@ class Artist < ActiveRecord::Base
   validates_attachment :artist_product_photo, content_type: { content_type: /\Aimage/i }
 
   validates :name, presence: true
-  has_friendly_id :sanitized_name, use_slug: true, approximate_ascii: true, max_length: 100
+
   acts_as_list
 
   # Sometimes in the mailer, brand isn't determined yet. Run through some

@@ -3,28 +3,26 @@ class Product < ActiveRecord::Base
   has_many :tones
   has_many :product_family_products, dependent: :destroy
   has_many :product_families, through: :product_family_products
-  has_many :product_attachments, order: :position
+  has_many :product_attachments, -> { order('position') }
   has_many :online_retailer_links, dependent: :destroy
   has_many :product_review_products, dependent: :destroy
   has_many :product_reviews, through: :product_review_products
   has_many :news_products, dependent: :destroy
   has_many :news, through: :news_products
-  has_many :product_documents, order: "document_type, document_file_name", dependent: :destroy
-  has_many :product_softwares, dependent: :destroy, order: "software_position"
+  has_many :product_documents, -> { order("document_type, document_file_name") }, dependent: :destroy
+  has_many :product_softwares, -> { order("software_position") }, dependent: :destroy
   has_many :softwares, through: :product_softwares
-  has_many :product_specifications, order: :position, dependent: :destroy
+  has_many :product_specifications, -> { order('position') }, dependent: :destroy
   has_many :artist_products, dependent: :destroy, inverse_of: :product
   has_many :artists, through: :artist_products
   has_many :product_site_elements, dependent: :destroy, inverse_of: :product
   has_many :site_elements, through: :product_site_elements
   has_many :product_promotions, dependent: :destroy
-  has_many :product_suggestions, dependent: :destroy, order: :position
+  has_many :product_suggestions, -> { order('position') }, dependent: :destroy
   has_many :product_prices, dependent: :destroy
   has_many :suggested_fors, class_name: "ProductSuggestion", foreign_key: "suggested_product_id", dependent: :destroy
   has_many :promotions, through: :product_promotions
-  has_many :tone_library_patches, 
-    include: :tone_library_song, 
-    order: "tone_library_songs.artist_name, tone_library_songs.title"
+  has_many :tone_library_patches, -> { order("tone_library_songs.artist_name, tone_library_songs.title").includes(:tone_library_song) }
   has_many :faqs
   has_many :product_amp_models, dependent: :destroy
   has_many :amp_models, through: :product_amp_models
@@ -36,14 +34,14 @@ class Product < ActiveRecord::Base
   has_many :clinics, through: :clinic_products
   has_many :product_training_classes, dependent: :destroy
   has_many :training_classes, through: :product_training_classes
-  has_many :product_training_modules, dependent: :destroy, order: :position
+  has_many :product_training_modules, -> { order('position') }, dependent: :destroy
   has_many :training_modules, through: :product_training_modules
   has_many :product_audio_demos, dependent: :destroy
   has_many :audio_demos, through: :product_audio_demos
   belongs_to :product_status
   belongs_to :brand, touch: true
   has_many :parent_products # Where this is the child (ie, an e-pedal child of the iStomp)
-  has_many :sub_products, class_name: "ParentProduct", foreign_key: "parent_product_id", order: :position
+  has_many :sub_products, -> { order('position') }, class_name: "ParentProduct", foreign_key: "parent_product_id"
   after_initialize :set_default_status
   accepts_nested_attributes_for :product_prices, reject_if: :all_blank
   after_save :translate
@@ -53,7 +51,8 @@ class Product < ActiveRecord::Base
   validates_attachment :background_image, content_type: { content_type: /\Aimage/i }
   validates :name, presence: true
   validates :product_status_id, presence: true
-  has_friendly_id :name, use_slug: true, approximate_ascii: true, max_length: 100
+  extend FriendlyId
+  friendly_id :name
   
   def belongs_to_this_brand?(brand)
     brand = brand.brand if brand.is_a?(Website) # if a Website is passed in instead of a Brand
