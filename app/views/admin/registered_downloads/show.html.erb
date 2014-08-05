@@ -118,7 +118,7 @@
 		<% end %>
 		<% if @registered_download.require_receipt? %>
 		<td align="center">
-			<%= link_to "receipt", download_registration.receipt.url %>
+			<%= link_to "receipt", download_registration.receipt.expiring_url %>
 		</td>
 		<% end %>
 		<% if @registered_download.send_coupon_code? %>
