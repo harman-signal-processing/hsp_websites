@@ -42,6 +42,6 @@
 
 <% if @download_registration.receipt.present? %>
 <p>
-  <%= link_to "Receipt", @download_registration.receipt.url %>
+  <%= link_to "Receipt", @download_registration.receipt.expiring_url %>
 </p>
 <% end %>
