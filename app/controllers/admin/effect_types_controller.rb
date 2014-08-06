@@ -1,5 +1,7 @@
 class Admin::EffectTypesController < AdminController
+  before_filter :initialize_effect_type, only: :create
   load_and_authorize_resource
+  
   # GET /effect_types
   # GET /effect_types.xml
   def index
@@ -61,7 +63,7 @@ class Admin::EffectTypesController < AdminController
   # PUT /effect_types/1.xml
   def update
     respond_to do |format|
-      if @effect_type.update_attributes(params[:effect_type])
+      if @effect_type.update_attributes(effect_type_params)
         format.html { redirect_to([:admin, @effect_type], notice: 'EffectType was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated effect type: #{@effect_type.name}")
@@ -81,5 +83,15 @@ class Admin::EffectTypesController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted effect type: #{@effect_type.name}")
+  end
+
+  private
+
+  def initialize_effect_type
+    @effect_type = EffectType.new(effect_type_params)
+  end
+
+  def effect_type_params
+    params.require(:effect_type).permit!
   end
 end

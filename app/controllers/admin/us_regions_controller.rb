@@ -1,5 +1,7 @@
 class Admin::UsRegionsController < AdminController
+  before_filter :initialize_us_region, only: :create
   load_and_authorize_resource
+  
   # GET /admin/us_regions
   # GET /admin/us_regions.xml
   def index
@@ -52,7 +54,7 @@ class Admin::UsRegionsController < AdminController
   # PUT /admin/us_regions/1.xml
   def update
     respond_to do |format|
-      if @us_region.update_attributes(params[:us_region])
+      if @us_region.update_attributes(us_region_params)
         format.html { redirect_to(admin_us_reps_url, notice: 'US Region was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated US Region #{@us_region.name}")
@@ -72,5 +74,15 @@ class Admin::UsRegionsController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted US Region #{@us_region.name}")
+  end
+
+  private
+
+  def initialize_us_region
+    @us_region = UsRegion.new(us_region_params)
+  end
+
+  def us_region_params
+    params.require(:us_region).permit!
   end
 end

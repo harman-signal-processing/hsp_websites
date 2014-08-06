@@ -12,7 +12,7 @@ class LabelSheetOrdersController < ApplicationController
   end
 
   def create
-  	@label_sheet_order = LabelSheetOrder.new(params[:label_sheet_order])
+  	@label_sheet_order = LabelSheetOrder.new(label_sheet_order_params)
   	if @label_sheet_order.save
   		session[:label_sheet_order_id] = @label_sheet_order.id
   		redirect_to thanks_label_sheet_order_path, notice: "Your request has been received."
@@ -44,6 +44,11 @@ class LabelSheetOrdersController < ApplicationController
 
   def load_istomp
   	@istomp = Product.find("istomp") || Product.new(name: "iStomp")
-	@stomp_shop = @istomp.softwares.first || Software.new 
+    @stomp_shop = @istomp.softwares.first || Software.new 
   end
+
+  def label_sheet_order_params
+    params.require(:label_sheet_order).permit(:name, :email, :address, :city, :state, :postal_code, :country, :subscribe, label_sheet_ids: [])
+  end
+  
 end

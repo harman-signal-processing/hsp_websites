@@ -27,7 +27,7 @@ class SupportController < ApplicationController
   # Warranty registration form
   def warranty_registration
     if request.post?
-      @warranty_registration = WarrantyRegistration.new(params[:warranty_registration])
+      @warranty_registration = WarrantyRegistration.new(warranty_registration_params)
       @warranty_registration.brand_id = website.brand_id
       if @warranty_registration.save
         redirect_to support_path, alert: t('blurbs.warranty_registration_success')
@@ -49,7 +49,7 @@ class SupportController < ApplicationController
     @contact_message = ContactMessage.new
     @contact_message.require_country = true if require_country?
     if request.post?
-      @contact_message = ContactMessage.new(params[:contact_message])
+      @contact_message = ContactMessage.new(contact_message_params)
       @contact_message.require_country = true if require_country?
       if verify_recaptcha && @contact_message.valid?
         @contact_message.save
@@ -73,7 +73,7 @@ class SupportController < ApplicationController
     end
     @contact_message = ContactMessage.new(message_type: "part_request")
     if request.post?
-      @contact_message = ContactMessage.new(params[:contact_message])
+      @contact_message = ContactMessage.new(contact_message_params)
       @contact_message.message_type = "part_request"
       if @contact_message.valid?
         @contact_message.save
@@ -93,7 +93,7 @@ class SupportController < ApplicationController
     end
     @contact_message = ContactMessage.new(message_type: "rma_request")
     if request.post?
-      @contact_message = ContactMessage.new(params[:contact_message])
+      @contact_message = ContactMessage.new(contact_message_params)
       @contact_message.message_type = "rma_request"
       if @contact_message.valid?
         @contact_message.save
@@ -217,5 +217,13 @@ class SupportController < ApplicationController
     !!(website.brand.name.match(/#{name}/i))
   end
 
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def warranty_registration_params
+    params.require(:warranty_registration).permit(:title, :first_name, :last_name, :middle_initial, :company, :jobtitle, :address1, :city, :state, :zip, :country, :phone, :fax, :email, :subscribe, :product_id, :serial_number, :registered_on, :purchased_on, :purchased_from, :purchase_country, :purchase_price, :age, :marketing_question1, :marketing_question2, :marketing_question3, :marketing_question4, :marketing_question5, :marketing_question6, :marketing_question7, :comments)
+  end
+
+  def contact_message_params
+    params.require(:contact_message).permit(:name, :email, :subject, :message, :created_at, :updated_at, :product, :operating_system, :company, :account_number, :phone, :fax, :billing_address, :billing_city, :billing_state, :billing_zip, :shipping_address, :shipping_city, :shipping_state, :shipping_zip, :product_sku, :product_serial_number, :warranty, :purchased_on, :part_number, :board_location, :shipping_country)
+  end
   
 end

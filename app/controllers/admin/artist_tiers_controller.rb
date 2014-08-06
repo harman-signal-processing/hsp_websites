@@ -1,5 +1,7 @@
 class Admin::ArtistTiersController < AdminController
+  before_filter :initialize_artist_tier, only: :create
   load_and_authorize_resource
+
   # GET /artist_tiers
   # GET /artist_tiers.xml
   def index
@@ -50,7 +52,7 @@ class Admin::ArtistTiersController < AdminController
   # PUT /artist_tiers/1.xml
   def update
     respond_to do |format|
-      if @artist_tier.update_attributes(params[:artist_tier])
+      if @artist_tier.update_attributes(artist_tier_params)
         format.html { redirect_to([:admin, @artist_tier], notice: 'Artist tier was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated artist tier #{@artist_tier.name}")
@@ -70,5 +72,15 @@ class Admin::ArtistTiersController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted artist tier #{@artist_tier.name}")
+  end
+
+  private
+
+  def initialize_artist_tier
+    @artist_tier = ArtistTier.new(artist_tier_params)
+  end
+
+  def artist_tier_params
+    params.require(:artist_tier).permit!
   end
 end

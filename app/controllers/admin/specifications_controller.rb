@@ -1,5 +1,7 @@
 class Admin::SpecificationsController < AdminController
+  before_filter :initialize_specification, only: :create
   load_and_authorize_resource
+  
   # GET /admin/specifications
   # GET /admin/specifications.xml
   def index
@@ -50,7 +52,7 @@ class Admin::SpecificationsController < AdminController
   # PUT /admin/specifications/1.xml
   def update
     respond_to do |format|
-      if @specification.update_attributes(params[:specification])
+      if @specification.update_attributes(specification_params)
         format.html { redirect_to([:admin, @specification], notice: 'Specification was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated spec: #{@specification.name}")
@@ -70,5 +72,15 @@ class Admin::SpecificationsController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted spec: #{@specification.name}")
+  end  private
+
+  def initialize_specification
+    @specification = Specification.new(specification_params)
   end
+
+  def specification_params
+    params.require(:specification).permit!
+  end
+
+
 end

@@ -1,5 +1,7 @@
 class Admin::BlogsController < AdminController
+  before_filter :initialize_blog, only: :create
   load_and_authorize_resource
+  
   # GET /admin/blogs
   # GET /admin/blogs.xml
   def index
@@ -55,7 +57,7 @@ class Admin::BlogsController < AdminController
   # PUT /admin/blogs/1.xml
   def update
     respond_to do |format|
-      if @blog.update_attributes(params[:blog])
+      if @blog.update_attributes(blog_params)
         format.html { redirect_to([:admin, @blog], notice: 'Blog was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated blog: #{@blog.name}")
@@ -76,5 +78,14 @@ class Admin::BlogsController < AdminController
     end
     website.add_log(user: current_user, action: "Deleted blog: #{@blog.name}")
   end
-  
+
+  private
+
+  def initialize_blog
+    @blog = Blog.new(blog_params)
+  end
+
+  def blog_params
+    params.require(:blog).permit!
+  end  
 end

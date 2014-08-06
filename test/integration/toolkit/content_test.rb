@@ -3,8 +3,8 @@ require "test_helper"
 describe "Toolkit Content Integration Test" do
 
   before :each do
-    DatabaseCleaner.start
-    Brand.destroy_all
+    # DatabaseCleaner.start
+    # Brand.destroy_all
     setup_toolkit_brands
     @host = HarmanSignalProcessingWebsite::Application.config.toolkit_url 
     host! @host
@@ -14,9 +14,9 @@ describe "Toolkit Content Integration Test" do
     setup_and_login_toolkit_dealer
   end
 
-  after :each do
-    DatabaseCleaner.clean
-  end
+  # after :each do
+  #   DatabaseCleaner.clean
+  # end
   
   describe "homepage" do
     before do

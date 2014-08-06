@@ -91,12 +91,12 @@ group :development, :test do
   # gem 'bullet'
   # gem 'unicorn'
   gem 'minitest-rails'
-  gem "factory_girl_rails"
+  gem "factory_girl_rails", "~> 4.0"
   gem 'zeus'
 end
 
 group :test do
-  gem 'turn', git: 'http://github.com/turn-project/turn'
+  # gem 'turn', git: 'http://github.com/turn-project/turn'
   gem 'mocha', require: false
   gem 'minitest-rails-capybara'
   gem 'minitest-capybara'

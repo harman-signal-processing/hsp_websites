@@ -559,7 +559,7 @@ div#signup h2 {
 	overflow: hidden;
 	padding: 4px 6px;
 	margin: 5px;
-	background: #EEE asset-url('lexicon/light_gray_gradient.png', image) repeat-x;
+	background: #EEE asset-url('lexicon/light_gray_gradient.png') repeat-x;
 	h2 {
 		color: #444;
 		font-size: 21px;
@@ -765,7 +765,7 @@ div.accordion {
 		a:link, a:visited {
 			color: #777;
 			border-bottom: 1px solid #E6E6E6;
-			background: #FFF asset-url('lexicon/browse_products_arrow.png', image) no-repeat;
+			background: #FFF asset-url('lexicon/browse_products_arrow.png') no-repeat;
 			background-position: 4px 9px;
 			display: block;
 			padding-left: 19px;
@@ -804,7 +804,7 @@ div.accordion {
 			}
 		}
 		&.current a {
-			background: #E6E6E6 asset-url('tabbg.png', image);
+			background: #E6E6E6 asset-url('tabbg.png');
 			border: 1px solid #E6E6E6;
 			border-bottom: none;
 			padding-bottom: 8px;
@@ -1243,7 +1243,7 @@ div.quicklinks {
 }		
 
 .bouncing-arrow {
-  background: asset-url('dod/arrow.png', image);
+  background: asset-url('dod/arrow.png');
   width: 56px;
   height: 25px;
   position: fixed;

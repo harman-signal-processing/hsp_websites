@@ -1,5 +1,7 @@
 class Admin::TrainingModulesController < AdminController
+  before_filter :initialize_training_module, only: :create
   load_and_authorize_resource 
+  
   # GET /admin/training_modules
   # GET /admin/training_modules.xml
   def index
@@ -57,7 +59,7 @@ class Admin::TrainingModulesController < AdminController
   # PUT /admin/training_modules/1.xml
   def update
     respond_to do |format|
-      if @training_module.update_attributes(params[:training_module])
+      if @training_module.update_attributes(training_module_params)
         format.html { redirect_to([:admin, @training_module], notice: 'Training module was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated training module")
@@ -77,5 +79,15 @@ class Admin::TrainingModulesController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted training module")
+  end
+
+  private
+
+  def initialize_training_module
+    @training_module = TrainingModule.new(training_module_params)
+  end
+
+  def training_module_params
+    params.require(:training_module).permit!
   end
 end

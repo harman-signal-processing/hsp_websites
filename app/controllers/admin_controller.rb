@@ -29,26 +29,5 @@ class AdminController < ApplicationController
     options = default_options.merge options
     render template: "#{options[:controller]}/#{options[:action]}", layout: options[:layout]
   end
-  
-  private
-
-  def expire_product_families_cache
-    ALL_LOCALES.each do |locale|
-      expire_page(controller: "product_families", action: "index", locale: locale)
-    end
-    expire_fragment("homepage_features_#{website.brand_id}")
-  end
-  
-  def expire_software_index_cache
-    ALL_LOCALES.each do |locale|
-      expire_page(controller: "softwares", action: "index", locale: locale)
-    end
-  end
-  
-  def expire_news_index_cache
-    ALL_LOCALES.each do |locale|
-      expire_page(controller: "news", action: "index", locale: locale)
-    end
-  end
 
 end

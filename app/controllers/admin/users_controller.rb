@@ -1,5 +1,7 @@
 class Admin::UsersController < AdminController
+  before_filter :initialize_user, only: :create
   load_and_authorize_resource
+  
   # GET /admin/users
   # GET /admin/users.xml
   def index
@@ -74,7 +76,7 @@ class Admin::UsersController < AdminController
   # PUT /admin/users/1.xml
   def update
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+      if @user.update_attributes(user_params)
         format.html { redirect_to([:admin, @user], notice: 'User was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated user #{@user.name}")
@@ -94,5 +96,15 @@ class Admin::UsersController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted user #{@user.name}")
+  end
+
+  private
+
+  def initialize_user
+    @user = User.new(user_params)
+  end
+
+  def user_params
+    params.require(:user).permit!
   end
 end

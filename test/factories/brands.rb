@@ -7,7 +7,6 @@ FactoryGirl.define do
     has_faqs true
     has_tone_library false
     has_artists true
-    has_clinics false
     has_software true
     has_registered_downloads false
     has_online_retailers true
@@ -30,7 +29,6 @@ FactoryGirl.define do
     toolkit false
     live_on_this_platform false
     has_products true
-    # rso_enabled false
     # logo_file_name "logo.png"
     # logo_content_type "application/png"
     # logo_updated_at 2.days.ago
@@ -56,7 +54,6 @@ FactoryGirl.define do
       name "DigiTech"
       has_effects true
       has_tone_library true
-      has_clinics true
       has_service_centers true
       has_audio_demos true
       employee_store true

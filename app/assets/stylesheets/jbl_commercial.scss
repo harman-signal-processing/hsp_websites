@@ -27,7 +27,7 @@ img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 	div#header-container {
 		height: 103px;
 		margin-bottom: 15px;
-		background: asset-url('jbl_commercial/header.jpg', image) repeat-x;
+		background: asset-url('jbl_commercial/header.jpg') repeat-x;
 	    -webkit-box-shadow: 0 8px 6px -6px #ccc;
 	    -moz-box-shadow: 0 8px 6px -6px #ccc;
 	    box-shadow: 0 8px 6px -6px #ccc;
@@ -106,7 +106,7 @@ div#locale_container {
 	top: 0px;
 	left: 0px;
 	padding: 2px 3px 0px;
-    background: asset-url('dark-gray-80.png', image);
+    background: asset-url('dark-gray-80.png');
 	z-index: 999;
 	a {
 		text-decoration: none;

@@ -3,8 +3,8 @@ require "test_helper"
 describe "Marketing Projects Integration Test" do
 
 	before :each do
-    DatabaseCleaner.start
-    Brand.destroy_all
+    # DatabaseCleaner.start
+    # Brand.destroy_all
     setup_toolkit_brands
     @host = HarmanSignalProcessingWebsite::Application.config.queue_url 
     host! @host
@@ -12,9 +12,9 @@ describe "Marketing Projects Integration Test" do
     Capybara.app_host = "http://#{@host}" 
   end
 
-  after :each do
-    DatabaseCleaner.clean
-  end
+  # after :each do
+  #   DatabaseCleaner.clean
+  # end
 
   #
   # Market managers

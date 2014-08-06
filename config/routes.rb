@@ -213,11 +213,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
           post :update_order
         end
       end
-      resources :rso_navigations do
-        collection do
-          post :update_order
-        end
-      end
       resources :market_segment_product_families do
         collection { post :update_order }
       end
@@ -255,14 +250,11 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :tone_library_patches,
         :software_attachments,
         :product_audio_demos,
-        :rso_monthly_reports,
-        :clinician_questions,
         :product_suggestions,
         :product_amp_models,
         :tone_library_songs,
         :product_promotions,
         :product_documents, 
-        :clinician_reports,
         :product_cabinets,
         :online_retailers,
         :training_classes,
@@ -272,24 +264,19 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :website_locales,
         :product_reviews,
         :artist_products,
-        :clinic_products,
         :us_rep_regions,
         :specifications,
         :pricing_types,
         :site_elements,
         :news_products,
-        :rep_questions,
         :label_sheets,
         :distributors,
         :artist_tiers, 
         :audio_demos,
-        :rep_reports,
         :promotions,
         :amp_models,
         :us_regions,
         :demo_songs,
-        :rso_panels,
-        :rso_pages,
         :cabinets,
         :websites,
         :captchas,
@@ -298,7 +285,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :effects,
         :signups,
         :dealers,
-        :clinics,
         :brands,
         :pages,
         :faqs
@@ -360,8 +346,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     end
     resources :tone_library_songs, only: :index
     resources :product_documents, only: :index
-    # Enable this to show clinics on public site
-    #resources :clinics, only: [:index, :show]
 
     get 'privacy_policy.html' => 'main#privacy_policy', as: :privacy_policy
     get 'terms_of_use.html' => 'main#terms_of_use', as: :terms_of_use

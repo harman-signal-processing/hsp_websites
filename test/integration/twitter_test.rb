@@ -3,8 +3,8 @@ require "test_helper"
 describe "Twitter Integration Test" do
 
   before :each do
-    DatabaseCleaner.start
-    Brand.destroy_all
+    # DatabaseCleaner.start
+    # Brand.destroy_all
     @brand = FactoryGirl.create(:brand)
     Brand.any_instance.stubs(:twitter_name).returns('twitter')
     @website = FactoryGirl.create(:website_with_products, brand: @brand)
@@ -13,9 +13,9 @@ describe "Twitter Integration Test" do
     Capybara.app_host = "http://#{@website.url}" 
   end
 
-  after :each do
-    DatabaseCleaner.clean
-  end
+  # after :each do
+  #   DatabaseCleaner.clean
+  # end
 
   # These tests actually hit twitter to test that it works. Might be overkill, but
   # I've had problems with the twitter gem changing drastically between versions

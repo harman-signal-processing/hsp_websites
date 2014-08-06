@@ -1,5 +1,7 @@
 class Admin::ProductReviewProductsController < AdminController
+  before_filter :initialize_product_review_product, only: :create
   load_and_authorize_resource
+  
   # GET /admin/product_review_products
   # GET /admin/product_review_products.xml
   def index
@@ -53,7 +55,7 @@ class Admin::ProductReviewProductsController < AdminController
   # PUT /admin/product_review_products/1.xml
   def update
     respond_to do |format|
-      if @product_review_product.update_attributes(params[:product_review_product])
+      if @product_review_product.update_attributes(product_review_product_params)
         format.html { redirect_to([:admin, @product_review_product], notice: 'ProductReviewProduct was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -73,5 +75,15 @@ class Admin::ProductReviewProductsController < AdminController
       format.js
     end
     website.add_log(user: current_user, action: "Removed review from #{@product_review_product.product.name}")
+  end
+
+  private
+
+  def initialize_product_review_product
+    @product_review_product = ProductReviewProduct.new(product_review_product_params)
+  end
+
+  def product_review_product_params
+    params.require(:product_review_product).permit!
   end
 end

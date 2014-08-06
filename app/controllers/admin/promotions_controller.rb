@@ -1,5 +1,7 @@
 class Admin::PromotionsController < AdminController
+  before_filter :initialize_promotion, only: :create
   load_and_authorize_resource
+  
   # GET /admin/promotions
   # GET /admin/promotions.xml
   def index
@@ -58,7 +60,7 @@ class Admin::PromotionsController < AdminController
   # PUT /admin/promotions/1.xml
   def update
     respond_to do |format|
-      if @promotion.update_attributes(params[:promotion])
+      if @promotion.update_attributes(promotion_params)
         format.html { redirect_to([:admin, @promotion], notice: 'Promotion was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated promotion: #{@promotion.name}")
@@ -78,5 +80,15 @@ class Admin::PromotionsController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted promotion: #{@promotion.name}")
+  end
+
+  private
+
+  def initialize_promotion
+    @promotion = Promotion.new(promotion_params)
+  end
+
+  def promotion_params
+    params.require(:promotion).permit!
   end
 end

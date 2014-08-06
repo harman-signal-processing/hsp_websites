@@ -1,5 +1,7 @@
 class Admin::OnlineRetailerLinksController < AdminController
+  before_filter :initialize_online_retailer_link, only: :create
   load_and_authorize_resource  
+  
   # GET /admin/online_retailer_links
   # GET /admin/online_retailer_links.xml
   def index
@@ -54,7 +56,7 @@ class Admin::OnlineRetailerLinksController < AdminController
   # PUT /admin/online_retailer_links/1.xml
   def update
     respond_to do |format|
-      if @online_retailer_link.update_attributes(params[:online_retailer_link])
+      if @online_retailer_link.update_attributes(online_retailer_link_params)
         format.html { redirect_to([:admin, @online_retailer_link.online_retailer], notice: 'Link was successfully updated.') }
         format.xml  { head :ok }
         format.js
@@ -78,5 +80,15 @@ class Admin::OnlineRetailerLinksController < AdminController
       format.js
     end
     website.add_log(user: current_user, action: "Deleted buy-it-now link: #{@online_retailer_link.product.name} at #{@online_retailer_link.online_retailer.name}")
+  end
+
+  private
+
+  def initialize_online_retailer_link
+    @online_retailer_link = OnlineRetailerLink.new(online_retailer_link_params)
+  end
+
+  def online_retailer_link_params
+    params.require(:online_retailer_link).permit!
   end
 end

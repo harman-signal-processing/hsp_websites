@@ -2,14 +2,14 @@ require "test_helper"
 
 describe Artist do 
 
-  before :each do
-  	DatabaseCleaner.start
-  	Artist.destroy_all
-  end
+  # before :each do
+  # 	DatabaseCleaner.start
+  # 	Artist.destroy_all
+  # end
 
-  after :each do
-    DatabaseCleaner.clean
-  end
+  # after :each do
+  #   DatabaseCleaner.clean
+  # end
 
   describe "relations" do
 
@@ -24,7 +24,7 @@ describe Artist do
 	  end
 
     it "should return a brand for the mailer when artist has brands" do 
-      @artist = FactoryGirl.create(:artist, brands: [@digitech])
+      @artist = FactoryGirl.create(:artist, initial_brand: @digitech)
       assert @artist.brand_for_mailer.is_a?(Brand)
     end
   end

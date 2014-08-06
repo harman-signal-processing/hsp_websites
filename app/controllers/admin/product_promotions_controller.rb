@@ -1,4 +1,5 @@
 class Admin::ProductPromotionsController < AdminController
+  before_filter :initialize_product_promotion, only: :create
   load_and_authorize_resource
   # GET /product_promotions
   # GET /product_promotions.xml
@@ -52,7 +53,7 @@ class Admin::ProductPromotionsController < AdminController
   # PUT /product_promotions/1.xml
   def update
     respond_to do |format|
-      if @product_promotion.update_attributes(params[:product_promotion])
+      if @product_promotion.update_attributes(product_promotion_params)
         format.html { redirect_to([:admin, @product_promotion.promotion], notice: 'Product/promotion was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -72,5 +73,15 @@ class Admin::ProductPromotionsController < AdminController
       format.js
     end
     website.add_log(user: current_user, action: "Removed #{@product_promotion.product.name} from #{@product_promotion.promotion.name}")
+  end
+
+  private
+
+  def initialize_product_promotion
+    @product_promotion = ProductPromotion.new(product_promotion_params)
+  end
+
+  def product_promotion_params
+    params.require(:product_promotion).permit!
   end
 end

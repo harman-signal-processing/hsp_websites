@@ -3,10 +3,10 @@ require "test_helper"
 describe "Lexicon Integration Test" do
 
   before :each do
-    DatabaseCleaner.start
-    Brand.destroy_all
-    @brand = FactoryGirl.create(:lexicon_brand)
-    @website = FactoryGirl.create(:website_with_products, folder: "lexicon", brand: @brand)
+    # DatabaseCleaner.start
+    # Brand.destroy_all
+    @brand = lexicon_brand
+    @website = lexicon_site
     host! @website.url
     Capybara.default_host = "http://#{@website.url}" 
     Capybara.app_host = "http://#{@website.url}" 
@@ -23,9 +23,9 @@ describe "Lexicon Integration Test" do
     Brand.any_instance.stubs(:side_tabs).returns("news|support")
   end
 
-  after :each do
-    DatabaseCleaner.clean
-  end
+  # after :each do
+  #   DatabaseCleaner.clean
+  # end
   
   describe "homepage" do
 

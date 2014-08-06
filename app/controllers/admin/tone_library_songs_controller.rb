@@ -1,5 +1,7 @@
 class Admin::ToneLibrarySongsController < AdminController
+  before_filter :initialize_tone_library_song, only: :create
   load_and_authorize_resource
+  
   # GET /admin/tone_library_songs
   # GET /admin/tone_library_songs.xml
   def index
@@ -52,7 +54,7 @@ class Admin::ToneLibrarySongsController < AdminController
   # PUT /admin/tone_library_songs/1.xml
   def update
     respond_to do |format|
-      if @tone_library_song.update_attributes(params[:tone_library_song])
+      if @tone_library_song.update_attributes(tone_library_song_params)
         format.html { redirect_to([:admin, @tone_library_song], notice: 'Tone library song was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated tone library song: #{@tone_library_song.title}")
@@ -72,5 +74,15 @@ class Admin::ToneLibrarySongsController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted tone library song: #{@tone_library_song.title}")
+  end
+
+  private
+
+  def initialize_tone_library_song
+    @tone_library_song = ToneLibrarySong.new(tone_library_song_params)
+  end
+
+  def tone_library_song_params
+    params.require(:tone_library_song).permit!
   end
 end

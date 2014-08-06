@@ -3,8 +3,8 @@ require "test_helper"
 describe "Toolkit Users Integration Test" do
 
   before :each do
-    DatabaseCleaner.start
-    Brand.destroy_all
+    # DatabaseCleaner.start
+    # Brand.destroy_all
     setup_toolkit_brands
     @host = HarmanSignalProcessingWebsite::Application.config.toolkit_url 
     host! @host
@@ -13,9 +13,9 @@ describe "Toolkit Users Integration Test" do
     Dealer.any_instance.stubs(:geocode_address) # don't actually do geocoding here
   end
 
-  after :each do
-    DatabaseCleaner.clean
-  end
+  # after :each do
+  #   DatabaseCleaner.clean
+  # end
   
   describe "Dealer Signup" do 
   	before do 

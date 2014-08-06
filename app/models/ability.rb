@@ -13,11 +13,9 @@ class Ability
       rohs: false,
       clinician: false,
       rep: false,
-      clinic_admin: false,
       dealer: false,
       distributor: false,
-      rso: false,
-      rso_admin: false
+      rso: false
     })
     # The first argument to `can` is the action you are giving the user permission to do.
     # If you pass :manage it will apply to every action. Other common actions here are
@@ -95,13 +93,6 @@ class Ability
         can :manage, PricingType
         can :read, WarrantyRegistration
       end
-      if user.role?(:rso_admin)
-        can :update, User do |u|
-          u.role?(:rso)
-        end
-        can :manage, RsoPersonalReport
-        can :manage, RsoSetting
-      end
       if user.role?(:rso)
         can :read, ToolkitResource, rso: true
       end
@@ -178,58 +169,13 @@ class Ability
         can :read, Product
         can :update, :rohs
       end
-      if user.role?(:clinic_admin)
-        can :manage, Clinic
-        can :manage, ClinicProduct
-        # can :manage, User do |uzer|
-        #   uzer.role?(:clinician) || uzer.role?(:rep)
-        # end
-        can :read, ClinicianReport
-        can :read, ClinicianQuestion
-        can :read, RepReport
-        can :read, RepQuestion
-      end
       if user.role?(:clinician)
-        can :manage, Clinic
-        can :create, ClinicianReport
-        can :manage, ClinicianReport do |cr|
-          user.clinics.include?(cr.clinic)
-        end
-        can :manage, ClinicianQuestion do |cq|
-          user.clinics.include?(cq.clinician_report.clinic)
-        end
-        can :manage, ClinicProduct do |cp|
-          user.clinics.include?(cp.clinic)
-        end
-        can :read, RepReport do |rr|
-          user.clinics.include?(rr.clinic)
-        end
-        can :read, RepQuestion do |rq|
-          user.clinics.include?(rq.rep_report.rep_clinic)
-        end
       end
       if user.role?(:rep)
         can :read, ToolkitResource, rep: true
         can :manage, OnlineRetailer
         can :manage, OnlineRetailerLink
         can :manage, Dealer
-        can :manage, Clinic
-        can :create, RepReport
-        can :manage, RepReport do |rr|
-          user.rep_clinics.include?(rr.clinic)
-        end
-        can :manage, RepQuestion do |rq|
-          user.rep_clinics.include?(rq.rep_report.rep_clinic)
-        end
-        can :manage, ClinicProduct do |cp|
-          user.clinics.include?(cp.clinic)
-        end
-        can :read, ClinicianReport do |cr|
-          user.clinics.include?(cr.clinic)
-        end
-        can :read, ClinicianQuestion do |cq|
-          user.clinics.include?(cq.clinician_report.clinic)
-        end
       end
     end
   end

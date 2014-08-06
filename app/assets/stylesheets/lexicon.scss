@@ -37,7 +37,7 @@ body {
 	font-size: 12px;
 	line-height: 1.8;
 	color: #464646;
-	background: #B3B3B3 asset-url('lexicon/background.gif', image);
+	background: #B3B3B3 asset-url('lexicon/background.gif');
 	margin: 0;
 }
 p {
@@ -57,7 +57,7 @@ a {
 			font-weight: bold;
 			font-family: 'AsapRegular', Arial, Helvetica, sans-serif;
 			text-decoration: none;
-			background: transparent asset-url('lexicon/browse_products_background.png', image) repeat-x;
+			background: transparent asset-url('lexicon/browse_products_background.png') repeat-x;
 			background-position: 0px 95%;
 			box-shadow: 0px 2px 2px #6E6E6E;
 		}
@@ -146,7 +146,7 @@ div#locale_container {
 	top: 0px;
 	left: 0px;
 	padding: 2px 3px 0px;
-  background: asset-url('dark-gray-80.png', image);
+  background: asset-url('dark-gray-80.png');
 	z-index: 999;
 	a {
 		text-decoration: none;
@@ -174,7 +174,7 @@ header {
 	margin: -1px auto 0px;
 	padding-top: 16px;
 	z-index: 89;
-	background: asset-url('lexicon/header_background.png', image) repeat-x top;
+	background: asset-url('lexicon/header_background.png') repeat-x top;
 	behavior: url("/css/iepngfix.htc");
 }
 div#inner_header {
@@ -224,7 +224,7 @@ div#supernav {
 	}
 	li {
 		display: inline-block;
-		background: transparent asset-url('lexicon/divider.png', image) repeat-y;
+		background: transparent asset-url('lexicon/divider.png') repeat-y;
 		background-position: right;
 		list-style: none;
 		padding: 11px 0px 13px 0px;
@@ -245,7 +245,7 @@ div#supernav {
 				family: 'AsapRegular', Arial, Helvetica, sans-serif;
 				size: 13px;
 			}
-			background: transparent asset-url('lexicon/browse_products_background.png', image) repeat-x bottom;
+			background: transparent asset-url('lexicon/browse_products_background.png') repeat-x bottom;
 			&.nodivider {
 				border: none;
 			}
@@ -294,7 +294,7 @@ div#topnav {
 	border-bottom-left-radius: 6px;
 	border-bottom-right-radius: 6px;
 	font-weight: 200;
-	background: transparent asset-url('lexicon/nav_background.png', image) repeat-x top;
+	background: transparent asset-url('lexicon/nav_background.png') repeat-x top;
 	box-shadow: 0px 0px 3px #666;
 	ul {
 		padding-top: 2px;
@@ -410,7 +410,7 @@ header div#search_form {
 }
 
 div#glow {
-	background: transparent asset-url('lexicon/bg_glow.png', image) no-repeat center top;
+	background: transparent asset-url('lexicon/bg_glow.png') no-repeat center top;
 	width: 100%;
 	height: 1053px;
 	position: absolute;
@@ -765,7 +765,7 @@ div#signup {
 	overflow: hidden;
 	padding: 4px 6px;
 	margin: 5px;
-	background: #EEE asset-url('lexicon/light_gray_gradient.png', image) repeat-x;
+	background: #EEE asset-url('lexicon/light_gray_gradient.png') repeat-x;
 	h2 {
 		color: #444;
 		font-size: 21px;
@@ -809,7 +809,7 @@ div#signup {
 		.small_product_boxvertical,
 		.small_product_boxhorizontal {
 			position: relative;
-			background: #f0f0ef asset-url('lexicon/light_gray_gradient.png', image) repeat-x;
+			background: #f0f0ef asset-url('lexicon/light_gray_gradient.png') repeat-x;
 			color: #6E6E6E;
 			border: 1px solid #E3DFD8;
 			padding: 10px;
@@ -944,7 +944,7 @@ div#product_content {
 		border: 1px solid #E6E6E6;
 		height: 470px;
 		overflow: hidden;
-		background: #f0f0ef asset-url('lexicon/light_gray_gradient.png', image) repeat-x;
+		background: #f0f0ef asset-url('lexicon/light_gray_gradient.png') repeat-x;
 		h4 {
 			text-align: center;
 			font-size: 10px;
@@ -1126,7 +1126,7 @@ ul#product_main_tabs {
 	padding-left: 2px;
 	border-bottom: 1px solid #E6E6E6;
 	height: 47px;
-	background: asset-url('lexicon/light_gray_gradient_reversed.png', image) repeat-x bottom;
+	background: asset-url('lexicon/light_gray_gradient_reversed.png') repeat-x bottom;
 	li {
 		float: left;
 		margin: 21px 6px 0px;
@@ -1176,7 +1176,7 @@ ul#product_main_tabs {
 		a:link, a:visited {
 			color: #777;
 			border-bottom: 1px solid #E6E6E6;
-			background: #FFF asset-url('lexicon/browse_products_arrow.png', image) no-repeat;
+			background: #FFF asset-url('lexicon/browse_products_arrow.png') no-repeat;
 			background-position: 4px 9px;
 			display: block;
 			padding-left: 19px;
@@ -1215,7 +1215,7 @@ ul#product_main_tabs {
 			}
 		}
 		&.current a {
-			background: #E6E6E6 asset-url('tabbg.png', image);
+			background: #E6E6E6 asset-url('tabbg.png');
 			border: 1px solid #E6E6E6;
 			border-bottom: none;
 			padding-bottom: 8px;
@@ -1607,7 +1607,7 @@ ol#search_results li {
 		margin-left: 20px;
 	}
 	.support_box {
-		background: asset-url('lexicon/light_gray_gradient.png', image) repeat-x;
+		background: asset-url('lexicon/light_gray_gradient.png') repeat-x;
 		border: 1px solid #ECECEC;
 		width: 280px;
 		height: 145px;
@@ -1638,32 +1638,32 @@ ol#search_results li {
 		}
 	}
 	.downloads_box h4 {
-		background-image: asset-url('lexicon/Software_Downloads_icon.png', image);
+		background-image: asset-url('lexicon/Software_Downloads_icon.png');
 		background-repeat: no-repeat;
 		padding-left: 48px;
 	}
 	.product_support_box h4 {
-		background-image: asset-url('lexicon/Customer_Support_icon.png', image);
+		background-image: asset-url('lexicon/Customer_Support_icon.png');
 		background-repeat: no-repeat;
 	}
 	.registration_box h4 {
-		background-image: asset-url('lexicon/Product_Registration_icon.png', image);
+		background-image: asset-url('lexicon/Product_Registration_icon.png');
 		background-repeat: no-repeat;
 		padding-left: 44px;
 	}
 	.service_centers_box h4 {
-		background-image: asset-url('lexicon/Locate_icon.png', image);
+		background-image: asset-url('lexicon/Locate_icon.png');
 		background-position: 0px 3px;
 		background-repeat: no-repeat;
 		padding-top: 0px;
 	}
 	.more_resources_box h4 {
-		background-image: asset-url('lexicon/More_Resources_icon.png', image);
+		background-image: asset-url('lexicon/More_Resources_icon.png');
 		background-repeat: no-repeat;
 		padding-left: 26px;
 	}
 	.contact_info_box h4 {
-		background-image: asset-url('lexicon/Mailing_Address_icon.png', image);
+		background-image: asset-url('lexicon/Mailing_Address_icon.png');
 		background-repeat: no-repeat;
 	}
 }
@@ -2168,10 +2168,10 @@ ul.graphic li a.sm2_link {
 ul.graphic li a, /* use a.sm2_link {} if you want play icons showing only if SM2 is supported */
 ul.graphic li a.sm2_paused:hover,
 ul.graphic li a.sm2_link:hover {
- background-image:asset-url('icons/icon_play.png', image);
+ background-image:asset-url('icons/icon_play.png');
  background-position:3px 50%;
  background-repeat:no-repeat;
- _background-image:asset-url('icons/icon_play.gif', image); /* IE 6 */
+ _background-image:asset-url('icons/icon_play.gif'); /* IE 6 */
 }
 
 ul.graphic li a.sm2_link:hover {
@@ -2185,14 +2185,14 @@ ul.graphic li a.sm2_paused {
 }
 
 ul.graphic li a.sm2_paused:hover {
- background:#003366 asset-url('icons/icon_play.png', image) no-repeat 3px 50%;
- _background-image:asset-url('icons/icon_play.gif', image);
+ background:#003366 asset-url('icons/icon_play.png') no-repeat 3px 50%;
+ _background-image:asset-url('icons/icon_play.gif');
 }
 
 ul.graphic li a.sm2_playing,
 ul.graphic li a.sm2_playing:hover {
- background:#666155 asset-url('icons/icon_pause.png', image) no-repeat 3px 50%;
- _background-image:asset-url('icons/icon_pause.gif', image);
+ background:#666155 asset-url('icons/icon_pause.png') no-repeat 3px 50%;
+ _background-image:asset-url('icons/icon_pause.gif');
  text-decoration:none;
 }
 

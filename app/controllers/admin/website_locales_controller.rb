@@ -1,5 +1,7 @@
 class Admin::WebsiteLocalesController < AdminController
+  before_filter :initialize_website_locale, only: :create
   load_and_authorize_resource
+  
   # GET /website_locales
   # GET /website_locales.xml
   def index
@@ -50,7 +52,7 @@ class Admin::WebsiteLocalesController < AdminController
   # PUT /website_locales/1.xml
   def update
     respond_to do |format|
-      if @website_locale.update_attributes(params[:website_locale])
+      if @website_locale.update_attributes(website_locale_params)
         format.html { redirect_to([:admin, @website_locale.website], notice: 'Locale was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -69,5 +71,15 @@ class Admin::WebsiteLocalesController < AdminController
       format.xml  { head :ok }
       format.js
     end
+  end
+
+  private
+
+  def initialize_website_locale
+    @website_locale = WebsiteLocale.new(website_locale_params)
+  end
+
+  def website_locale_params
+    params.require(:website_locale).permit!
   end
 end

@@ -1,5 +1,7 @@
 class Admin::ProductSiteElementsController < AdminController
+  before_filter :initialize_product_site_element, only: :create
   load_and_authorize_resource
+  
   # GET /admin/product_site_elements
   # GET /admin/product_site_elements.xml
   def index
@@ -61,7 +63,7 @@ class Admin::ProductSiteElementsController < AdminController
   # PUT /admin/product_site_elements/1.xml
   def update
     respond_to do |format|
-      if @product_site_element.update_attributes(params[:product_site_element])
+      if @product_site_element.update_attributes(product_site_element_params)
         format.html { redirect_to([:admin, @product_site_element], notice: 'Product site element was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -81,5 +83,15 @@ class Admin::ProductSiteElementsController < AdminController
       format.js 
     end
     website.add_log(user: current_user, action: "Removed a site element from #{@product_site_element.product.name}")
+  end
+
+  private
+
+  def initialize_product_site_element
+    @product_site_element = ProductSiteElement.new(product_site_element_params)
+  end
+
+  def product_site_element_params
+    params.require(:product_site_element).permit!
   end
 end

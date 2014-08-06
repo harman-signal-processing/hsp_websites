@@ -1,4 +1,5 @@
 class Admin::ProductSuggestionsController < ApplicationController
+  before_filter :initialize_product_suggestion, only: :create
   load_and_authorize_resource
   
   # GET /admin/product_suggestions
@@ -54,7 +55,7 @@ class Admin::ProductSuggestionsController < ApplicationController
   # PUT /admin/product_suggestions/1.xml
   def update
     respond_to do |format|
-      if @product_suggestion.update_attributes(params[:product_suggestion])
+      if @product_suggestion.update_attributes(product_suggestion_params)
         format.html { redirect_to([:admin, @product_suggestion], notice: 'Product Suggestion was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -74,5 +75,15 @@ class Admin::ProductSuggestionsController < ApplicationController
       format.js
     end
     website.add_log(user: current_user, action: "Removed suggested product from #{@product_suggestion.product.name}")
+  end
+
+  private
+
+  def initialize_product_suggestion
+    @product_suggestion = ProductSuggestion.new(product_suggestion_params)
+  end
+
+  def product_suggestion_params
+    params.require(:product_suggestion).permit!
   end
 end

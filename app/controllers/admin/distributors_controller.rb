@@ -1,5 +1,7 @@
 class Admin::DistributorsController < AdminController
+  before_filter :initialize_distributor, only: :create
   load_and_authorize_resource
+  
   # GET /admin/distributors
   # GET /admin/distributors.xml
   def index
@@ -53,7 +55,7 @@ class Admin::DistributorsController < AdminController
   # PUT /admin/distributors/1.xml
   def update
     respond_to do |format|
-      if @distributor.update_attributes(params[:distributor])
+      if @distributor.update_attributes(distributor_params)
         format.html { redirect_to([:admin, @distributor], notice: 'Distributor was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated distributor #{@distributor.name}")
@@ -79,5 +81,15 @@ class Admin::DistributorsController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted distributor #{@distributor.name}")
+  end
+
+  private
+
+  def initialize_distributor
+    @distributor = Distributor.new(distributor_params)
+  end
+
+  def distributor_params
+    params.require(:distributor).permit!
   end
 end

@@ -1,4 +1,5 @@
 class Admin::BrandToolkitContactsController < AdminController
+  before_filter :initialize_brand_toolkit_contact, only: :create
   load_and_authorize_resource except: [:load_user]
   skip_authorization_check :only => [:load_user]
 
@@ -37,7 +38,7 @@ class Admin::BrandToolkitContactsController < AdminController
 
   def update
     respond_to do |format|
-      if @brand_toolkit_contact.update_attributes(params[:brand_toolkit_contact])
+      if @brand_toolkit_contact.update_attributes(brand_toolkit_contact_params)
         format.html { redirect_to(admin_brand_toolkit_contacts_url, notice: 'Contact was successfully updated.') }
         website.add_log(user: current_user, action: "Updated toolkit contact: #{@brand_toolkit_contact.user.name}")
       else
@@ -59,5 +60,15 @@ class Admin::BrandToolkitContactsController < AdminController
       format.js
     end
     website.add_log(user: current_user, action: "Deleted toolkit contact: #{@brand_toolkit_contact.user.name}")
+  end
+
+  private
+
+  def initialize_brand_toolkit_contact
+    @brand_toolkit_contact = BrandToolkitContact.new(brand_toolkit_contact_params)
+  end
+
+  def brand_toolkit_contact_params
+    params.require(:brand_toolkit_contact).permit!
   end
 end

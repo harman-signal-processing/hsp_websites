@@ -7,7 +7,9 @@
 # TODO: Create the HTML views just in case.
 #
 class Admin::ProductAttachmentsController < AdminController
+  before_filter :initialize_product_attachment, only: :create
   load_and_authorize_resource
+  
   # GET /admin/product_attachments
   # GET /admin/product_attachments.xml
   def index
@@ -62,7 +64,7 @@ class Admin::ProductAttachmentsController < AdminController
     product = @product_attachment.product
     @old_primary_photo = product.primary_photo
     respond_to do |format|
-      if @product_attachment.update_attributes(params[:product_attachment])
+      if @product_attachment.update_attributes(product_attachment_params)
         @old_primary_photo.reload
         format.html { redirect_to(edit_admin_product_attachment_path(@product_attachment), notice: 'Product Attachment was successfully updated.') }
         format.xml  { head :ok }
@@ -98,5 +100,15 @@ class Admin::ProductAttachmentsController < AdminController
       format.js
     end
     website.add_log(user: current_user, action: "Deleted a product attachment from #{@product_attachment.product.name}")
+  end
+
+  private
+
+  def initialize_product_attachment
+    @product_attachment = ProductAttachment.new(product_attachment_params)
+  end
+
+  def product_attachment_params
+    params.require(:product_attachment).permit!
   end
 end

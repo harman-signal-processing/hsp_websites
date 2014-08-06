@@ -1,5 +1,7 @@
 class Admin::OnlineRetailersController < AdminController
+  before_filter :initialize_online_retailer, only: :create
   load_and_authorize_resource
+  
   # GET /admin/online_retailers
   # GET /admin/online_retailers.xml
   def index
@@ -64,7 +66,7 @@ class Admin::OnlineRetailersController < AdminController
   # PUT /admin/online_retailers/1.xml
   def update
     respond_to do |format|
-      if @online_retailer.update_attributes(params[:online_retailer])
+      if @online_retailer.update_attributes(online_retailer_params)
         @online_retailer.set_brand_link(params[:online_retailer][:brand_link], website)
         format.html { redirect_to([:admin, @online_retailer], notice: 'Online Retailer was successfully updated.') }
         format.xml  { head :ok }
@@ -85,5 +87,15 @@ class Admin::OnlineRetailersController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted online retailer: #{@online_retailer.name}")
+  end
+
+  private
+
+  def initialize_online_retailer
+    @online_retailer = OnlineRetailer.new(online_retailer_params)
+  end
+
+  def online_retailer_params
+    params.require(:online_retailer).permit!
   end
 end

@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   # before_filter :set_locale
   # before_filter :set_default_meta_tags
-  # before_filter :configure_permitted_parameters, if: :devise_controller? # shouldn't need this until rails 4
+  before_filter :configure_permitted_parameters, if: :devise_controller? 
   before_filter :catch_criminals
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
@@ -226,6 +226,15 @@ private
         :password, 
         :password_confirmation, 
         :invitation_code, 
+        :signup_type,
+        :dealer,
+        :distributor,
+        :rep,
+        :employee,
+        :media,
+        :artist,
+        :clinician,
+        :rso,
         :website, 
         :artist_photo, 
         :artist_product_photo, 
@@ -236,30 +245,7 @@ private
         :job_title,    
         :job_description,
         :phone_number,
-        :password, 
-        :password_confirmation, 
-        :remember_me,
-        :admin, 
-        :employee, 
-        :online_retailer, 
-        :customer_service, 
-        :translator, 
-        :market_manager, 
-        :artist_relations,
-        :engineer,
-        :rohs,
-        :clinician,
-        :clinic_admin,
-        :rep,
-        :distributor,
-        :dealer,
-        :marketing_staff,
-        :queue_admin,
-        :rso,
-        :rso_admin,
-        :sales_admin,
         :account_number,
-        :media,
         :profile_pic) 
     }
     devise_parameter_sanitizer.for(:account_update) { |u| 
@@ -267,7 +253,6 @@ private
         :email, 
         :password, 
         :password_confirmation, 
-        :invitation_code, 
         :website, 
         :artist_photo, 
         :artist_product_photo, 
@@ -278,30 +263,7 @@ private
         :job_title,    
         :job_description,
         :phone_number,
-        :password, 
-        :password_confirmation, 
-        :remember_me,
-        :admin, 
-        :employee, 
-        :online_retailer, 
-        :customer_service, 
-        :translator, 
-        :market_manager, 
-        :artist_relations,
-        :engineer,
-        :rohs,
-        :clinician,
-        :clinic_admin,
-        :rep,
-        :distributor,
-        :dealer,
-        :marketing_staff,
-        :queue_admin,
-        :rso,
-        :rso_admin,
-        :sales_admin,
         :account_number,
-        :media,
         :profile_pic) 
     }
   end

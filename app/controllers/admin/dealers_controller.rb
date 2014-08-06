@@ -1,4 +1,5 @@
 class Admin::DealersController < AdminController
+  before_filter :initialize_dealer, only: :create
   load_and_authorize_resource
   # GET /admin/dealers
   # GET /admin/dealers.xml
@@ -60,7 +61,7 @@ class Admin::DealersController < AdminController
   def update
     @dealer.skip_sync_from_sap = true
     respond_to do |format|
-      if @dealer.update_attributes(params[:dealer])
+      if @dealer.update_attributes(dealer_params)
         format.html { redirect_to([:admin, @dealer], notice: 'Dealer was successfully updated.') }
         format.xml  { head :ok }
         format.js
@@ -82,5 +83,15 @@ class Admin::DealersController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted dealer #{@dealer.name}")
+  end
+
+  private
+
+  def initialize_dealer
+    @dealer = Dealer.new(dealer_params)
+  end
+
+  def dealer_params
+    params.require(:dealer).permit!
   end
 end

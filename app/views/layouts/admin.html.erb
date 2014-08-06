@@ -156,24 +156,15 @@
 	<% end %>
 	
 	<% if (can?(:manage, Artist) && website.has_artists?) || 
-		(can?(:manage, ArtistTier) && website.has_artists?) ||
-		(can?(:manage, Clinic) && website.has_clinics?) %>
-		<li class="has-dropdown"><% if website.has_artists? && website.has_clinics? %> 
-				<%= link_to "Artists & Clinicians", '#' %>
-			<% elsif website.has_artists? %> 
-				<%= link_to "Artists" %>
-			<% elsif website.has_clinics? %>
-				<%= link_to "Clinicians" %>
-			<% end %>
+		(can?(:manage, ArtistTier) && website.has_artists?) %>
+		<li class="has-dropdown"> 
+			<%= link_to "Artists", '#' %>
 			<ul class="dropdown">
 				<% if can?(:manage, ArtistTier) && website.has_artists? %>
 					<li><%= link_to "Artist Tiers", admin_artist_tiers_path %></li>
 				<% end %>
 				<% if can?(:manage, Artist) && website.has_artists? %>
 					<li><%= link_to "Artists", admin_artists_path %></li>
-				<% end %>
-				<% if can?(:read, Clinic) && website.has_clinics? %>
-					<li><%= link_to "Clinics", admin_clinics_path %></li>
 				<% end %>
 			</ul>
 		</li>
@@ -212,26 +203,6 @@
 				<% end %>
 				<% if can?(:manage, ServiceCenter) && website.has_service_centers? %>
 					<li><%= link_to "Service Centers", admin_service_centers_path %></li>
-				<% end %>
-			</ul>
-		</li>
-	<% end %>
-	
-	<% if website.rso_enabled? && (can?(:manage, RsoPage) || can?(:manage, RsoNavigation) ||
-		can?(:manage, RsoMonthlyReport) || can?(:manage, RsoPanel) ) %>
-		<li class="has-dropdown"><%= link_to "RSO Site", '#' %>
-			<ul class="dropdown">
-				<% if can? :manage, RsoMonthlyReport %>
-					<li><%= link_to 'Monthly Report', admin_rso_monthly_reports_path %></li>
-				<% end %>
-				<% if can? :manage, RsoNavigation %>
-					<li><%= link_to 'Site Navigation', admin_rso_navigations_path %></li>
-				<% end %>
-				<% if can? :manage, RsoPanel %>
-					<li><%= link_to 'Panels', admin_rso_panels_path %></li>
-				<% end %>
-				<% if can? :manage, RsoPage %>
-					<li><%= link_to 'Pages', admin_rso_pages_path %></li>
 				<% end %>
 			</ul>
 		</li>

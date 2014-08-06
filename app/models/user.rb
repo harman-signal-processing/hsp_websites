@@ -10,12 +10,9 @@ class User < ActiveRecord::Base
   has_many :dealers, through: :dealer_users
   has_many :distributor_users, dependent: :destroy
   has_many :distributors, through: :distributor_users
-  has_many :clinics, class_name: "Clinic", foreign_key: "clinician_id" # but only if he's a clinician
-  has_many :rep_clinics, class_name: "Clinic", foreign_key: "rep_id" # but only if he's a rep
   has_many :tones
   has_many :tone_user_ratings
   has_many :brand_toolkit_contacts # where this user is a contact for a brand
-  has_one :rso_personal_report
   has_attached_file :profile_pic, 
     styles: { 
       large:         "550x370", 
@@ -72,14 +69,12 @@ class User < ActiveRecord::Base
   #   :engineer,
   #   :rohs,
   #   :clinician,
-  #   :clinic_admin,
   #   :rep,
   #   :distributor,
   #   :dealer,
   #   :marketing_staff,
   #   :queue_admin,
   #   :rso,
-  #   :rso_admin,
   #   :sales_admin,
   #   :account_number,
   #   :media,
@@ -101,14 +96,12 @@ class User < ActiveRecord::Base
     engineer 
     rohs 
     clinician 
-    clinic_admin 
     rep 
     distributor
     dealer
     marketing_staff
     queue_admin
     rso 
-    rso_admin 
     sales_admin
     project_manager
     executive

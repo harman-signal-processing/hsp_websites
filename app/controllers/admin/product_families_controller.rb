@@ -1,6 +1,6 @@
 class Admin::ProductFamiliesController < AdminController
+  before_filter :initialize_product_family, only: :create
   load_and_authorize_resource
-  after_filter :expire_product_families_cache, except: [:index, :show, :new, :edit]
 
   # GET /admin/product_families
   # GET /admin/product_families.xml
@@ -67,7 +67,7 @@ class Admin::ProductFamiliesController < AdminController
   # PUT /admin/product_families/1.xml
   def update
     respond_to do |format|
-      if @product_family.update_attributes(params[:product_family])
+      if @product_family.update_attributes(product_family_params)
         format.html { redirect_to([:admin, @product_family], notice: 'ProductFamily was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated product family: #{@product_family.name}")
@@ -131,6 +131,16 @@ class Admin::ProductFamiliesController < AdminController
       format.js 
     end
     website.add_log(user: current_user, action: "Deleted title banner image from #{@product_family.name}")
+  end
+
+  private
+
+  def initialize_product_family
+    @product_family = ProductFamily.new(product_family_params)
+  end
+
+  def product_family_params
+    params.require(:product_family).permit!
   end
   
 end

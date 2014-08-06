@@ -61,7 +61,7 @@ class UserMailer < Devise::Mailer
       end
       if record.role?(:admin) || record.role?(:customer_service) || record.role?(:translator) ||
         record.role?(:market_manager) || record.role?(:artist_relations) || record.role?(:rohs) ||
-        record.role?(:clinician) || record.role?(:clinician_admin) || record.role?(:marketing_staff) ||
+        record.role?(:clinician) || record.role?(:marketing_staff) ||
         record.role?(:sales_admin) 
         default_url_options[:host] += "/en-US/admin"
   		end

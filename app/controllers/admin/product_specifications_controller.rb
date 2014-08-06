@@ -1,4 +1,5 @@
 class Admin::ProductSpecificationsController < AdminController
+  before_filter :initialize_product_specification, only: :create
   load_and_authorize_resource except: [:copy, :update_order]
   skip_authorization_check only: [:copy, :update_order]
 
@@ -64,7 +65,7 @@ class Admin::ProductSpecificationsController < AdminController
   # PUT /admin/product_specifications/1.xml
   def update
     respond_to do |format|
-      if @product_specification.update_attributes(params[:product_specification])
+      if @product_specification.update_attributes(product_specification_params)
         format.html { redirect_to([:admin, @product_specification.product], notice: 'Product specification was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated #{@product_specification.specification.name} for #{@product_specification.product.name}")
@@ -107,5 +108,15 @@ class Admin::ProductSpecificationsController < AdminController
       format.js
     end
     website.add_log(user: current_user, action: "Deleted #{@product_specification.specification.name} value from #{@product_specification.product.name}")
+  end
+
+  private
+
+  def initialize_product_specification
+    @product_specification = ProductSpecification.new(product_specification_params)
+  end
+
+  def product_specification_params
+    params.require(:product_specification).permit!
   end
 end

@@ -1,6 +1,6 @@
 class Admin::ProductSoftwaresController < AdminController
+  before_filter :initialize_product_software, only: :create
   load_and_authorize_resource
-  after_filter :expire_software_index_cache, only: [:create, :update, :destroy]
   
   # GET /admin/product_softwares
   # GET /admin/product_softwares.xml
@@ -55,7 +55,7 @@ class Admin::ProductSoftwaresController < AdminController
   # PUT /admin/product_softwares/1.xml
   def update
     respond_to do |format|
-      if @product_software.update_attributes(params[:product_software])
+      if @product_software.update_attributes(product_software_params)
         format.html { redirect_to([:admin, @product_software], notice: 'Product Software was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -88,5 +88,15 @@ class Admin::ProductSoftwaresController < AdminController
       format.js
     end
     website.add_log(user: current_user, action: "Removed #{@product_software.software.name} from #{@product_software.product.name}")
+  end
+
+  private
+
+  def initialize_product_software
+    @product_software = ProductSoftware.new(product_software_params)
+  end
+
+  def product_software_params
+    params.require(:product_software).permit!
   end
 end

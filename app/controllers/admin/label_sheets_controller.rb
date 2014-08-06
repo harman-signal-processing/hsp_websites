@@ -1,5 +1,7 @@
 class Admin::LabelSheetsController < AdminController
+  before_filter :initialize_label_sheet, only: :create
   load_and_authorize_resource
+  
   # GET /label_sheets
   # GET /label_sheets.xml
   def index
@@ -50,7 +52,7 @@ class Admin::LabelSheetsController < AdminController
   # PUT /label_sheets/1.xml
   def update
     respond_to do |format|
-      if @label_sheet.update_attributes(params[:label_sheet])
+      if @label_sheet.update_attributes(label_sheet_params)
         format.html { redirect_to([:admin, @label_sheet], notice: 'Label Sheet was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated Label Sheet: #{@label_sheet.name}")
@@ -70,5 +72,15 @@ class Admin::LabelSheetsController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted Label Sheet: #{@label_sheet.name}")
+  end
+
+  private
+
+  def initialize_label_sheet
+    @label_sheet = LabelSheet.new(label_sheet_params)
+  end
+
+  def label_sheet_params
+    params.require(:label_sheet).permit!
   end
 end

@@ -1,12 +1,12 @@
 $font_family: Helvetica, arial, verdana, sans-serif;
-$divider: asset-url('digitech/gray_horizontal_divider.png', image);
+$divider: asset-url('digitech/gray_horizontal_divider.png');
 
 body {
 	background: #EEE;
 }
 nav#topnav {
 	//border: 1px solid #ddd;
-	//background-image: asset-url('digitech/gray_topmenu_bg.png', image);
+	//background-image: asset-url('digitech/gray_topmenu_bg.png');
 	//background-color: #CCC;
 	li {
 		a:link, a:visited {
@@ -19,7 +19,7 @@ nav#topnav {
 }
 
 header#main_header div#search_form input#query {
-	background: #fff asset-url('digitech/searchMagGlass_blk.png', image) no-repeat right;
+	background: #fff asset-url('digitech/searchMagGlass_blk.png') no-repeat right;
 	color: #111;
 	border: none;
 }
@@ -127,7 +127,7 @@ section#product_content {
 	}
 	&.istomp {
 		background: {
-			image: asset-url('digitech/istomp/guitar_player_bg.jpg', image);
+			image: asset-url('digitech/istomp/guitar_player_bg.jpg');
 			position: top right;
 			repeat: no-repeat;
 		}
@@ -143,7 +143,7 @@ section#product_content {
 	&.stomp_shop {
 		margin-top: 20px;
 		background: {
-			image: asset-url('digitech/istomp/stomp_shop_bg.jpg', image);
+			image: asset-url('digitech/istomp/stomp_shop_bg.jpg');
 			position: top right;
 			repeat: no-repeat;
 		}
@@ -484,7 +484,7 @@ section#product_bottom_content {
 	}
 	div#stomp_shop_callout {
 		background: {
-			image: asset-url('digitech/istomp/stomp_shop_callout_bg.png', image);
+			image: asset-url('digitech/istomp/stomp_shop_callout_bg.png');
 			position: bottom right;
 			repeat: no-repeat;
 		}
@@ -524,7 +524,7 @@ section#product_bottom_content {
 	}
 	div#istomp_callout {
 		background: {
-			image: asset-url('digitech/istomp/istomp_callout_bg.jpg', image);
+			image: asset-url('digitech/istomp/istomp_callout_bg.jpg');
 			position: top right;
 			repeat: no-repeat;
 		}

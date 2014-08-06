@@ -1,5 +1,7 @@
 class Admin::ProductDocumentsController < AdminController
+  before_filter :initialize_product_document, only: :create
   load_and_authorize_resource
+  
   # GET /admin/product_documents
   # GET /admin/product_documents.xml
   def index
@@ -50,7 +52,7 @@ class Admin::ProductDocumentsController < AdminController
   # PUT /admin/product_documents/1.xml
   def update
     respond_to do |format|
-      if @product_document.update_attributes(params[:product_document])
+      if @product_document.update_attributes(product_document_params)
         format.html { redirect_to([:admin, @product_document], notice: 'Product Document was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated product document for #{@product_document.product.name}")
@@ -71,5 +73,15 @@ class Admin::ProductDocumentsController < AdminController
       format.js
     end
     website.add_log(user: current_user, action: "Removed product document from #{@product_document.product.name}")
+  end
+
+  private
+
+  def initialize_product_document
+    @product_document = ProductDocument.new(product_document_params)
+  end
+
+  def product_document_params
+    params.require(:product_document).permit!
   end
 end

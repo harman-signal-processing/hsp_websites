@@ -1,5 +1,7 @@
 class Admin::ToolkitResourceTypesController < AdminController
+  before_filter :initialize_toolkit_resource_type, only: :create
   load_and_authorize_resource
+  
   # GET /toolkit_resource_types
   # GET /toolkit_resource_types.xml
   def index
@@ -52,7 +54,7 @@ class Admin::ToolkitResourceTypesController < AdminController
   # PUT /toolkit_resource_types/1.xml
   def update
     respond_to do |format|
-      if @toolkit_resource_type.update_attributes(params[:toolkit_resource_type])
+      if @toolkit_resource_type.update_attributes(toolkit_resource_type_params)
         format.html { redirect_to([:admin, @toolkit_resource_type], notice: 'Toolkit resource type was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated toolkit resource: #{@toolkit_resource_type.name}")
@@ -72,5 +74,15 @@ class Admin::ToolkitResourceTypesController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted toolkit resource type: #{@toolkit_resource_type.name}")
+  end
+
+  private
+
+  def initialize_toolkit_resource_type
+    @toolkit_resource_type = ToolkitResourceType.new(toolkit_resource_type_params)
+  end
+
+  def toolkit_resource_type_params
+    params.require(:toolkit_resource_type).permit!
   end
 end

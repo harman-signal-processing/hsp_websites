@@ -3,8 +3,8 @@ require "test_helper"
 describe "Support Integration Test" do
 
   before :each do
-    DatabaseCleaner.start
-    Brand.destroy_all
+    # DatabaseCleaner.start
+    # Brand.destroy_all
     # @brand = FactoryGirl.create(:dbx_brand)
     @website = FactoryGirl.create(:website_with_products)
     host! @website.url
@@ -12,9 +12,9 @@ describe "Support Integration Test" do
     Capybara.app_host = "http://#{@website.url}"
   end
 
-  after :each do
-    DatabaseCleaner.clean
-  end
+  # after :each do
+  #   DatabaseCleaner.clean
+  # end
 
   describe "Contact form" do
   	before do

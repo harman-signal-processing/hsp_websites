@@ -1,4 +1,5 @@
 class Admin::SignupsController < AdminController
+  before_filter :initialize_signup, only: :create
   load_and_authorize_resource except: :show_campaign
   skip_authorization_check only: :show_campaign 
 
@@ -67,7 +68,7 @@ class Admin::SignupsController < AdminController
   # PUT /signups/1.xml
   def update
     respond_to do |format|
-      if @signup.update_attributes(params[:signup])
+      if @signup.update_attributes(signup_params)
         format.html { redirect_to([:admin, @signup], notice: 'Signup was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated signup: #{@signup.name}")
@@ -87,5 +88,15 @@ class Admin::SignupsController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted amp model: #{@signup.name}")
+  end
+
+  private
+
+  def initialize_signup
+    @signup = Signup.new(signup_params)
+  end
+
+  def signup_params
+    params.require(:signup).permit!
   end
 end

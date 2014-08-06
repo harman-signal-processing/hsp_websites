@@ -1,6 +1,7 @@
 class MarketingQueue::MarketingAttachmentsController < MarketingQueueController
 	layout "marketing_queue"
   before_filter :load_project_or_task, :load_brand_if_present
+  before_filter :initialize_marketing_attachment, only: :create
   after_filter :keep_brand_in_session, only: [:show, :edit, :create, :update]
 	load_resource
 
@@ -65,6 +66,14 @@ private
     elsif params[:marketing_task_id]
       @project_or_task = MarketingTask.find(params[:marketing_task_id])
     end
+  end
+
+  def initialize_marketing_attachment
+    @marketing_attachment = MarketingAttachment.new(marketing_attachment_params)
+  end
+
+  def marketing_attachment_params
+    params.require(:marketing_attachment).permit(:marketing_file)
   end
 
 end

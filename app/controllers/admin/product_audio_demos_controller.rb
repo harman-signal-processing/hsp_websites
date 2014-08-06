@@ -1,5 +1,7 @@
 class Admin::ProductAudioDemosController < AdminController
+  before_filter :initialize_product_audio_demo, only: :create
   load_and_authorize_resource
+  
   # GET /admin/product_audio_demos
   # GET /admin/product_audio_demos.xml
   def index
@@ -53,7 +55,7 @@ class Admin::ProductAudioDemosController < AdminController
   # PUT /admin/product_audio_demos/1.xml
   def update
     respond_to do |format|
-      if @product_audio_demo.update_attributes(params[:product_audio_demo])
+      if @product_audio_demo.update_attributes(product_audio_demo_params)
         format.html { redirect_to([:admin, @product_audio_demo], notice: 'Product audio demo was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -73,5 +75,15 @@ class Admin::ProductAudioDemosController < AdminController
       format.js
     end
     website.add_log(user: current_user, action: "Deleted audio demo #{@product_audio_demo.audio_demo.name} from #{@product_audio_demo.product.name}")
+  end
+
+  private
+
+  def initialize_product_audio_demo
+    @product_audio_demo = ProductAudioDemo.new(product_audio_demo_params)
+  end
+
+  def product_audio_demo_params
+    params.require(:product_audio_demo).permit!
   end
 end

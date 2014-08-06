@@ -1,5 +1,7 @@
 class Admin::ProductCabinetsController < AdminController
+  before_filter :initialize_product_cabinet, only: :create
   load_and_authorize_resource
+  
   # GET /admin/product_cabinets
   # GET /admin/product_cabinets.xml
   def index
@@ -61,7 +63,7 @@ class Admin::ProductCabinetsController < AdminController
   # PUT /admin/product_cabinets/1.xml
   def update
     respond_to do |format|
-      if @product_cabinet.update_attributes(params[:product_cabinet])
+      if @product_cabinet.update_attributes(product_cabinet_params)
         format.html { redirect_to([:admin, @product_cabinet], notice: 'Product cabinet was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -81,5 +83,15 @@ class Admin::ProductCabinetsController < AdminController
       format.js 
     end
     website.add_log(user: current_user, action: "Removed cabinet #{@product_cabinet.cabinet.name} from #{@product_cabinet.product.name}")
+  end
+
+  private
+
+  def initialize_product_cabinet
+    @product_cabinet = ProductCabinet.new(product_cabinet_params)
+  end
+
+  def product_cabinet_params
+    params.require(:product_cabinet).permit!
   end
 end

@@ -1,5 +1,6 @@
 class MarketingQueue::MarketingCommentsController < MarketingQueueController
 	layout "marketing_queue"
+  before_filter :initialize_comment, only: :create
   before_filter :load_project_or_task
 	load_and_authorize_resource 
 
@@ -33,6 +34,14 @@ private
     else
       @project_or_task = MarketingTask.find(params[:marketing_task_id])
     end
+  end
+
+  def initialize_comment
+    @marketing_comment = MarketingComment.new(marketing_comment_params)
+  end
+
+  def marketing_comment_params
+    params.require(:marketing_comment).permit(:message)
   end
 
 end

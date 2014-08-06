@@ -1,5 +1,7 @@
 class Admin::ToolkitResourcesController < AdminController
+  before_filter :initialize_toolkit_resource, only: :create
   load_and_authorize_resource
+  
   # GET /toolkit_resources
   # GET /toolkit_resources.xml
   def index
@@ -67,7 +69,7 @@ class Admin::ToolkitResourcesController < AdminController
   def update
     params[:toolkit_resource][:link_good] = true
     respond_to do |format|
-      if @toolkit_resource.update_attributes(params[:toolkit_resource])
+      if @toolkit_resource.update_attributes(toolkit_resource_params)
         format.html { redirect_to([:admin, @toolkit_resource], notice: 'Toolkit resource was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated toolkit resource: #{@toolkit_resource.name}")
@@ -93,5 +95,15 @@ class Admin::ToolkitResourcesController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted toolkit resource: #{@toolkit_resource.name}")
+  end
+
+  private
+
+  def initialize_toolkit_resource
+    @toolkit_resource = ToolkitResource.new(toolkit_resource_params)
+  end
+
+  def toolkit_resource_params
+    params.require(:toolkit_resource).permit!
   end
 end

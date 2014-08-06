@@ -3,8 +3,8 @@ require "test_helper"
 describe "Admin Registrations Integration Test" do
 
   before :each do
-    DatabaseCleaner.start
-    Brand.destroy_all
+    # DatabaseCleaner.start
+    # Brand.destroy_all
     @brand = FactoryGirl.create(:digitech_brand)
     @website = FactoryGirl.create(:website_with_products, folder: "digitech", brand: @brand, url: "digitech.lvh.me")
     host! @website.url
@@ -17,9 +17,9 @@ describe "Admin Registrations Integration Test" do
     click_on "Product Registrations"
   end
 
-  after :each do
-    DatabaseCleaner.clean
-  end
+  # after :each do
+  #   DatabaseCleaner.clean
+  # end
 
   it "should search by name" do 
     fill_in "q_first_name_cont", with: @reg.first_name

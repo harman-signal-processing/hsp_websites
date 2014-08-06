@@ -513,11 +513,6 @@ zh:
       registered_download:  登记下载
       site_element:  站点资源
       website:  网站
-      clinic:  研讨会
-      clinician_question:  研讨会问题
-      clinician_report:  研讨会报告
-      rep_question:  销售问题
-      rep_report:  销售报告
     attributes:
       contact_message:
         product: 产品

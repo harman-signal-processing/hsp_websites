@@ -1,5 +1,7 @@
 class Admin::SoftwareAttachmentsController < AdminController
+  before_filter :initialize_software_attachment, only: :create
   load_and_authorize_resource
+  
   # GET /admin/software_attachments
   # GET /admin/software_attachments.xml
   def index
@@ -49,7 +51,7 @@ class Admin::SoftwareAttachmentsController < AdminController
   # PUT /admin/software_attachments/1.xml
   def update
     respond_to do |format|
-      if @software_attachment.update_attributes(params[:software_attachment])
+      if @software_attachment.update_attributes(software_attachment_params)
         format.html { redirect_to([:admin, @software_attachment], notice: 'Software attachment was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -70,4 +72,13 @@ class Admin::SoftwareAttachmentsController < AdminController
     end
   end
 
+  private
+
+  def initialize_software_attachment
+    @software_attachment = SoftwareAttachment.new(software_attachment_params)
+  end
+
+  def software_attachment_params
+    params.require(:software_attachment).permit!
+  end
 end

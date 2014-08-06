@@ -28,11 +28,6 @@ class Brand < ActiveRecord::Base
   has_many :us_reps, through: :us_rep_regions 
   has_many :us_regions, -> { order('name') }, through: :us_rep_regions
   has_many :signups
-  # RSO stuff
-  has_many :rso_monthly_reports
-  has_many :rso_navigations, -> { order('position') }
-  has_many :rso_panels
-  has_many :rso_pages
   has_many :tweets, -> { order("posted_at DESC") }
   has_attached_file :logo, {
     styles: { large: "640x480", 

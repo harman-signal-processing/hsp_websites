@@ -1,4 +1,5 @@
 class Admin::SoftwareTrainingClassesController < AdminController
+  before_filter :initialize_software_training_class, only: :create
   load_and_authorize_resource
   # GET /software_training_classes
   # GET /software_training_classes.xml
@@ -51,7 +52,7 @@ class Admin::SoftwareTrainingClassesController < AdminController
   # PUT /software_training_classes/1.xml
   def update
     respond_to do |format|
-      if @software_training_class.update_attributes(params[:software_training_class])
+      if @software_training_class.update_attributes(software_training_class_params)
         format.html { redirect_to([:admin, @software_training_class.training_class], notice: 'Software/training_class was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -76,5 +77,15 @@ class Admin::SoftwareTrainingClassesController < AdminController
       format.xml  { head :ok }
       format.js
     end
+  end
+
+  private
+
+  def initialize_software_training_class
+    @software_training_class = SoftwareTrainingClass.new(software_training_class_params)
+  end
+
+  def software_training_class_params
+    params.require(:software_training_class).permit!
   end
 end

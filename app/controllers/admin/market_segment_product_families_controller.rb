@@ -1,5 +1,7 @@
 class Admin::MarketSegmentProductFamiliesController < AdminController
+  before_filter :initialize_market_segment_product_family, only: :create
   load_and_authorize_resource
+  
   # GET /admin/market_segment_product_families
   # GET /admin/market_segment_product_families.xml
   def index
@@ -53,7 +55,7 @@ class Admin::MarketSegmentProductFamiliesController < AdminController
   # PUT /admin/market_segment_product_families/1.xml
   def update
     respond_to do |format|
-      if @market_segment_product_family.update_attributes(params[:market_segment_product_family])
+      if @market_segment_product_family.update_attributes(market_segment_product_family_params)
         format.html { redirect_to([:admin, @market_segment_product_family], notice: 'Market segment-product family was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -80,5 +82,15 @@ class Admin::MarketSegmentProductFamiliesController < AdminController
       format.js
     end
     website.add_log(user: current_user, action: "Deleted a market segment/product family relationship: #{@market_segment_product_family.market_segment.name} - #{@market_segment_product_family.product_family.name}")
+  end
+
+  private
+
+  def initialize_market_segment_product_family
+    @market_segment_product_family = MarketSegmentProductFamily.new(market_segment_product_family_params)
+  end
+
+  def market_segment_product_family_params
+    params.require(:market_segment_product_family).permit!
   end
 end

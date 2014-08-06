@@ -7,8 +7,8 @@
 # TODO: Create the HTML views just in case.
 #
 class Admin::ProductFamilyProductsController < AdminController
+  before_filter :initialize_product_family_product, only: :create
   load_and_authorize_resource
-  after_filter :expire_product_families_cache, only: [:create, :update, :destroy]
     
   # GET /admin/product_family_products
   # GET /admin/product_family_products.xml
@@ -63,7 +63,7 @@ class Admin::ProductFamilyProductsController < AdminController
   # PUT /admin/product_family_products/1.xml
   def update
     respond_to do |format|
-      if @product_family_product.update_attributes(params[:product_family_product])
+      if @product_family_product.update_attributes(product_family_product_params)
         format.html { redirect_to([:admin, @product_family_product], notice: 'Product was successfully added to family.') }
         format.xml  { head :ok }
       else
@@ -90,5 +90,15 @@ class Admin::ProductFamilyProductsController < AdminController
       format.js
     end
     website.add_log(user: current_user, action: "Removed #{@product_family_product.product.name} from #{@product_family_product.product_family.name}")
+  end
+
+  private
+
+  def initialize_product_family_product
+    @product_family_product = ProductFamilyProduct.new(product_family_product_params)
+  end
+
+  def product_family_product_params
+    params.require(:product_family_product).permit!
   end
 end

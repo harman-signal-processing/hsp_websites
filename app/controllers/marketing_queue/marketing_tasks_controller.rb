@@ -1,6 +1,7 @@
 class MarketingQueue::MarketingTasksController < MarketingQueueController
 	layout "marketing_queue"
   before_filter :load_brand_if_present
+  before_filter :initialize_marketing_task, only: :create
   after_filter :keep_brand_in_session, only: [:show, :edit, :create, :update]
 	load_resource 
 
@@ -72,7 +73,7 @@ class MarketingQueue::MarketingTasksController < MarketingQueueController
       redirect_path = marketing_queue_root_path
     end
     respond_to do |format|
-      if @marketing_task.update_attributes(params[:marketing_task])
+      if @marketing_task.update_attributes(marketing_task_params)
         format.html { redirect_to(redirect_path, notice: 'Task was successfully updated.') }
         format.xml  { render xml: @marketing_task, status: :created, location: @marketing_task }
         format.js
@@ -123,6 +124,14 @@ class MarketingQueue::MarketingTasksController < MarketingQueueController
     if @marketing_task.brand
       session[:brand_id] = @marketing_task.brand_id
     end    
+  end
+
+  def initialize_marketing_task
+    @marketing_task = MarketingTask.new(marketing_task_params)
+  end
+
+  def marketing_task_params
+    params.require(:marketing_task).permit(:name, :marketing_project_id, :brand_id, :due_on, :requestor_id, :assign_to_me, :worker_id, :completed_at, :position, :man_hours, :currently_with_id, :priority, :creative_brief, :marketing_calendar_id)
   end
 
 end

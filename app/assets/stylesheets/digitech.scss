@@ -25,7 +25,7 @@ body {
 	}
 	line-height: 1.4;
 	color: #FFF;
-	background: $darkest_blue asset-url('digitech/homepageBG.png', image) repeat-x;
+	background: $darkest_blue asset-url('digitech/homepageBG.png') repeat-x;
 	//letter-spacing: 0.02em;
 }
 @font-face {
@@ -122,7 +122,7 @@ div#locale_container {
 	top: 0px;
 	left: 0px;
 	padding: 2px 3px 0px;
-  background: asset-url('dark-gray-80.png', image);
+  background: asset-url('dark-gray-80.png');
 	z-index: 999;
 	a {
 		color: white;
@@ -187,7 +187,7 @@ header#main_header div#search_form {
 	right: 0px;
 	width: 150px;
 	input#query {
-		background: $dark_blue asset-url('digitech/searchMagGlass.png', image) no-repeat right;
+		background: $dark_blue asset-url('digitech/searchMagGlass.png') no-repeat right;
 		color: white;
 		border: 1px solid #000f40;
 		width: 130px;
@@ -333,7 +333,7 @@ div.two_column_container {
 	height: 445px;
 	text-align: center;
 	background: {
-		image: asset-url('digitech/BlankFeature_BG.png', image);
+		image: asset-url('digitech/BlankFeature_BG.png');
 		repeat: no-repeat;
 		position: top center;
 	}
@@ -453,7 +453,7 @@ div#signup {
 	}
 }
 .small_product_boxvocalist {
-	background: white asset-url('vocalist/title_bg.png', image) repeat-x;
+	background: white asset-url('vocalist/title_bg.png') repeat-x;
 	border: 1px solid #5b252a;
 	padding: 6px;
 	text-align: center;	
@@ -610,7 +610,7 @@ ul#product_main_tabs {
 	padding-left: 2px;
 	border-bottom: 1px solid lighten($medium_blue, 30%);
 	height: 47px;
-	/*background: asset-url('lexicon/light_gray_gradient_reversed.png', image) repeat-x bottom;*/
+	/*background: asset-url('lexicon/light_gray_gradient_reversed.png') repeat-x bottom;*/
 	li {
 		float: left;
 		margin: 21px 6px 0px;
@@ -702,7 +702,7 @@ div#sub_products {
 		a:link, a:visited {
 			color: $medium_blue; /*#040437;*/
 			//background: #f1fbfe asset-url('digitech/tabbg.png');
-			background: lighten($medium_blue, 30%) asset-url('icons/expand-dark.png', image) no-repeat;
+			background: lighten($medium_blue, 30%) asset-url('icons/expand-dark.png') no-repeat;
 			background-position: 8px;
 			display: block;
 			border: 1px solid lighten($medium_blue, 30%);
@@ -710,7 +710,7 @@ div#sub_products {
 			padding-top: 2px;
 		}
 		a:hover {
-			background: lighten($medium_blue, 10%) asset-url('icons/expand.png', image) no-repeat; /*#040437;*/
+			background: lighten($medium_blue, 10%) asset-url('icons/expand.png') no-repeat; /*#040437;*/
 			background-position: 8px;
 			color: white;			
 		}
@@ -747,7 +747,7 @@ div#sub_products {
 			}
 			&.current {
 				a {
-					background: #f1fbfe asset-url('digitech/tabbg.png', image);
+					background: #f1fbfe asset-url('digitech/tabbg.png');
 					border: 1px solid #7086bb;
 					border-bottom: none;
 					padding-bottom: 8px;
@@ -766,7 +766,7 @@ div#sub_products {
 	padding: 16px 21px;
 	height: 230px;
 	overflow: auto;
-	background: asset-url('digitech/tabbg_flipped.png', image) repeat-x;
+	background: asset-url('digitech/tabbg_flipped.png') repeat-x;
 	ul {
 		li {
 			list-style-type: disc;
@@ -1369,7 +1369,7 @@ body.artists {
 		}
 	}
 
-	background: #000f40 asset-url('digitech/artists_bg.png', image) center top no-repeat;
+	background: #000f40 asset-url('digitech/artists_bg.png') center top no-repeat;
 	div.internal_page {
 		background: #000f40;
 		color: white;
@@ -1596,10 +1596,10 @@ ul.graphic li a.sm2_link {
 ul.graphic li a, /* use a.sm2_link {} if you want play icons showing only if SM2 is supported */
 ul.graphic li a.sm2_paused:hover,
 ul.graphic li a.sm2_link:hover {
- background-image:asset-url('icons/icon_play.png', image);
+ background-image:asset-url('icons/icon_play.png');
  background-position:2px 50%;
  background-repeat:no-repeat;
- _background-image:asset-url('icons/icon_play.gif', image); /* IE 6 */
+ _background-image:asset-url('icons/icon_play.gif'); /* IE 6 */
 }
 
 ul.graphic li a.sm2_link:hover {
@@ -1613,14 +1613,14 @@ ul.graphic li a.sm2_paused {
 }
 
 ul.graphic li a.sm2_paused:hover {
- background:#003366 asset-url('icons/icon_play.png', image) no-repeat 3px 50%;
- _background-image:asset-url('icons/icon_play.gif', image);
+ background:#003366 asset-url('icons/icon_play.png') no-repeat 3px 50%;
+ _background-image:asset-url('icons/icon_play.gif');
 }
 
 ul.graphic li a.sm2_playing,
 ul.graphic li a.sm2_playing:hover {
- background:#333 asset-url('icons/icon_pause.png', image) no-repeat 3px 50%;
- _background-image:asset-url('icons/icon_pause.gif', image);
+ background:#333 asset-url('icons/icon_pause.png') no-repeat 3px 50%;
+ _background-image:asset-url('icons/icon_pause.gif');
  text-decoration:none;
 }
 

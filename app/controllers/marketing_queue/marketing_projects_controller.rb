@@ -1,6 +1,7 @@
 class MarketingQueue::MarketingProjectsController < MarketingQueueController
 	layout "marketing_queue"
   before_filter :load_brand_if_present
+  before_filter :initialize_marketing_project, only: :create
   after_filter :keep_brand_in_session, only: [:show, :edit, :create, :update]
   skip_before_filter :authenticate_marketing_queue_user!, only: :overview
 	load_resource
@@ -71,7 +72,7 @@ class MarketingQueue::MarketingProjectsController < MarketingQueueController
 
   def update
     respond_to do |format|
-      if @marketing_project.update_attributes(params[:marketing_project])
+      if @marketing_project.update_attributes(marketing_project_params)
         format.html { redirect_to([:marketing_queue, @marketing_project], notice: 'Project was successfully updated.') }
         format.xml  { render xml: @marketing_project, status: :created, location: @marketing_project }
       else
@@ -102,4 +103,13 @@ class MarketingQueue::MarketingProjectsController < MarketingQueueController
       session[:brand_id] = @marketing_project.brand_id
     end    
   end
+
+  def initialize_marketing_project
+    @marketing_project = MarketingProject.new(marketing_project_params)
+  end
+
+  def marketing_project_params
+    params.require(:marketing_project).permit(:name, :brand_id, :user_id, :marketing_project_type_id, :event_start_on, :event_end_on, :targets, :targets_progress, :estimated_cost, :put_source_on_toolkit, :put_final_on_toolkit, :due_on, :marketing_calendar_id)
+  end
+
 end

@@ -2,14 +2,14 @@ require "test_helper"
 
 describe Brand do 
 
-  before :each do
-  	DatabaseCleaner.start
-  	Brand.destroy_all
-  end
+  # before :each do
+  # 	DatabaseCleaner.start
+  # 	Brand.destroy_all
+  # end
 
-  after :each do
-    DatabaseCleaner.clean
-  end
+  # after :each do
+  #   DatabaseCleaner.clean
+  # end
 
 	describe "homepage counter" do
   

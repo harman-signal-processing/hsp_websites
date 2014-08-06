@@ -12,7 +12,9 @@ class ArtistRegistrationsController < Devise::RegistrationsController
     build_resource(sign_up_params)
 
     resource.initial_brand = website.brand
-    if resource.save
+    resource_saved = resource.save
+    yield resource if block_given?
+    if resource_saved
       ArtistBrand.where(artist_id: resource.id, brand_id: website.brand_id).first_or_create
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_flashing_format?

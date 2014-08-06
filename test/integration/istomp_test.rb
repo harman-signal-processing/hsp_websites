@@ -3,9 +3,9 @@ require "test_helper"
 describe "iStomp Integration Test" do
 
   before :each do
-    DatabaseCleaner.start
-    Brand.destroy_all
-    @brand = FactoryGirl.create(:digitech_brand)
+    # DatabaseCleaner.start
+    # Brand.destroy_all
+    @brand = digitech_brand
     @website = FactoryGirl.create(:website_with_products, folder: "digitech", brand: @brand)
     stompboxes = FactoryGirl.create(:product_family, name: "Stompboxes", brand: @brand)
     @istomp = FactoryGirl.create(:product, name: "iStomp", brand: @brand, layout_class: "istomp")
@@ -36,9 +36,9 @@ describe "iStomp Integration Test" do
     Capybara.app_host = "http://#{@website.url}" 
   end
 
-  after :each do
-    DatabaseCleaner.clean
-  end
+  # after :each do
+  #   DatabaseCleaner.clean
+  # end
 
   describe "istomp product page" do
   	before do

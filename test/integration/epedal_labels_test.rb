@@ -2,10 +2,10 @@ require "test_helper"
 
 describe "epedal Labels Integration Test" do
 
-  before :each do
-    DatabaseCleaner.start
-    Brand.destroy_all
-    @brand = FactoryGirl.create(:digitech_brand)
+  before :all do
+    # DatabaseCleaner.start
+    # Brand.destroy_all
+    @brand = digitech_brand
     @website = FactoryGirl.create(:website_with_products, folder: "digitech", brand: @brand, url: "digitech.lvh.me")
     stompboxes = FactoryGirl.create(:product_family, name: "Stompboxes", brand: @brand)
     @istomp = FactoryGirl.create(:product, name: "iStomp", brand: @brand, layout_class: "istomp")
@@ -27,9 +27,9 @@ describe "epedal Labels Integration Test" do
     Capybara.app_host = "http://#{@website.url}" 
   end
 
-  after :each do
-    DatabaseCleaner.clean
-  end
+  # after :all do
+  #   DatabaseCleaner.clean
+  # end
 
   describe "an epedal page" do 
     before do

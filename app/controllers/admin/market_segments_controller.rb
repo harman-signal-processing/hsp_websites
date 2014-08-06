@@ -1,4 +1,5 @@
 class Admin::MarketSegmentsController < AdminController
+  before_filter :initialize_market_segment, only: :create
   load_and_authorize_resource
   # GET /admin/market_segments
   # GET /admin/market_segments.xml
@@ -53,7 +54,7 @@ class Admin::MarketSegmentsController < AdminController
   # PUT /admin/market_segments/1.xml
   def update
     respond_to do |format|
-      if @market_segment.update_attributes(params[:market_segment])
+      if @market_segment.update_attributes(market_segment_params)
         format.html { redirect_to([:admin, @market_segment], notice: 'Market Segment was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated market segment #{@market_segment.name}")
@@ -73,5 +74,15 @@ class Admin::MarketSegmentsController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted market segment #{@market_segment.name}")
+  end
+
+  private
+
+  def initialize_market_segment
+    @market_segment = MarketSegment.new(market_segment_params)
+  end
+
+  def market_segment_params
+    params.require(:market_segment).permit!
   end
 end

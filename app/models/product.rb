@@ -30,8 +30,6 @@ class Product < ActiveRecord::Base
   has_many :cabinets, through: :product_cabinets
   has_many :product_effects, dependent: :destroy
   has_many :effects, through: :product_effects
-  has_many :clinic_products
-  has_many :clinics, through: :clinic_products
   has_many :product_training_classes, dependent: :destroy
   has_many :training_classes, through: :product_training_classes
   has_many :product_training_modules, -> { order('position') }, dependent: :destroy

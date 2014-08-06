@@ -1,5 +1,7 @@
 class Admin::ToneLibraryPatchesController < AdminController
+  before_filter :initialize_tone_library_patch, only: :create
   load_and_authorize_resource
+  
   # GET /admin/tone_library_patches
   # GET /admin/tone_library_patches.xml
   def index
@@ -50,7 +52,7 @@ class Admin::ToneLibraryPatchesController < AdminController
   # PUT /admin/tone_library_patches/1.xml
   def update
     respond_to do |format|
-      if @tone_library_patch.update_attributes(params[:tone_library_patch])
+      if @tone_library_patch.update_attributes(tone_library_patch_params)
         format.html { redirect_to([:admin, @tone_library_patch], notice: 'Tone library patch was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated tone library patch: #{@tone_library_patch.tone_library_song.title} for #{@tone_library_patch.product.name}")
@@ -71,5 +73,15 @@ class Admin::ToneLibraryPatchesController < AdminController
       format.js
     end
     website.add_log(user: current_user, action: "Removed tone library patch: #{@tone_library_patch.tone_library_song.title} for #{@tone_library_patch.product.name}")
+  end
+
+  private
+
+  def initialize_tone_library_patch
+    @tone_library_patch = ToneLibraryPatch.new(tone_library_patch_params)
+  end
+
+  def tone_library_patch_params
+    params.require(:tone_library_patch).permit!
   end
 end

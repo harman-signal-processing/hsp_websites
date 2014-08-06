@@ -1,5 +1,7 @@
 class Admin::NewsProductsController < AdminController
+  before_filter :initialize_news_product, only: :create
   load_and_authorize_resource
+  
   # GET /admin/news_products
   # GET /admin/news_products.xml
   def index
@@ -53,7 +55,7 @@ class Admin::NewsProductsController < AdminController
   # PUT /admin/news_products/1.xml
   def update
     respond_to do |format|
-      if @news_product.update_attributes(params[:news_product])
+      if @news_product.update_attributes(news_product_params)
         format.html { redirect_to([:admin, @news_product], notice: 'News Product was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -73,5 +75,15 @@ class Admin::NewsProductsController < AdminController
       format.js
     end
     website.add_log(user: current_user, action: "Unlinked news/product #{@news_product.product.name}, #{@news_product.news.title}")
+  end
+
+  private
+
+  def initialize_news_product
+    @news_product = NewsProduct.new(news_product_params)
+  end
+
+  def news_product_params
+    params.require(:news_product).permit!
   end
 end

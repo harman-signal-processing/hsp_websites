@@ -1,5 +1,7 @@
 class Admin::WebsitesController < AdminController
+  before_filter :initialize_website, only: :create
   load_and_authorize_resource only: :index
+  
   # GET /admin/websites
   # GET /admin/websites.xml
   def index
@@ -64,7 +66,7 @@ class Admin::WebsitesController < AdminController
     @this_website = Website.find(params[:id])
     authorize! :manage, @this_website
     respond_to do |format|
-      if @this_website.update_attributes(params[:website])
+      if @this_website.update_attributes(website)
         format.html { redirect_to([:admin, @this_website], notice: 'Website was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated website: #{@this_website.url}")
@@ -86,5 +88,15 @@ class Admin::WebsitesController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted website: #{@this_website.url}")
+  end
+
+  private
+
+  def initialize_website
+    @website = Website.new(website_params)
+  end
+
+  def website_params
+    params.require(:website).permit!
   end
 end

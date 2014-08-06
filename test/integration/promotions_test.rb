@@ -3,8 +3,8 @@ require "test_helper"
 describe "Promotions Integration Test" do
 
   before :each do
-    DatabaseCleaner.start
-    Brand.destroy_all
+    # DatabaseCleaner.start
+    # Brand.destroy_all
     @website = FactoryGirl.create(:website_with_products)
     host! @website.url
     Capybara.default_host = "http://#{@website.url}" 
@@ -17,9 +17,9 @@ describe "Promotions Integration Test" do
     @product.product_promotions << FactoryGirl.create(:product_promotion, promotion: @expired_promo, product: @product)
   end
 
-  after :each do
-    DatabaseCleaner.clean
-  end
+  # after :each do
+  #   DatabaseCleaner.clean
+  # end
   
   describe "product page" do
   	before do

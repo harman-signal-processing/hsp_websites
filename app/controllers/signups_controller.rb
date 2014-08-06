@@ -11,7 +11,7 @@ class SignupsController < ApplicationController
   end
 
   def create
-  	@signup = Signup.new(params[:signup])
+  	@signup = Signup.new(signup_params)
   	respond_to do |format|
       @signup.brand_id = website.brand_id
       if @signup.save
@@ -43,6 +43,10 @@ class SignupsController < ApplicationController
   def teaser_layout
     File.exist?(Rails.root.join("app", "views", website.folder, "layouts", "teaser.html.erb")) ?
         "#{website.folder}/layouts/teaser" : "teaser"
+  end
+
+  def signup_params
+    params.require(:signup).permit(:name, :email, :campaign)
   end
 
 end

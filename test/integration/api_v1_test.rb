@@ -3,8 +3,8 @@ require "test_helper"
 describe "API v1 Integration Test" do
 
 	before :each do
-		DatabaseCleaner.start
-		Brand.destroy_all
+		# DatabaseCleaner.start
+		# Brand.destroy_all
     @digitech = FactoryGirl.create(:digitech_brand)
     @website = FactoryGirl.create(:website_with_products, folder: "digitech", brand: @digitech)
     host! @website.url
@@ -20,9 +20,9 @@ describe "API v1 Integration Test" do
     @dod_site = FactoryGirl.create(:website_with_products, folder: "dod", brand: @dod)
 	end
 
-  after :each do
-    DatabaseCleaner.clean
-  end
+  # after :each do
+  #   DatabaseCleaner.clean
+  # end
 
 	describe "brands for employee store" do
 		before do

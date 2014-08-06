@@ -1,4 +1,5 @@
 class Admin::SettingsController < AdminController
+  before_filter :initialize_setting, only: :create
   load_and_authorize_resource
 
   # GET /admin/settings
@@ -129,7 +130,7 @@ class Admin::SettingsController < AdminController
   # PUT /admin/settings/1.xml
   def update
     respond_to do |format|
-      if @setting.update_attributes(params[:setting])
+      if @setting.update_attributes(setting_params)
         red = (params[:called_from] && params[:called_from] == "homepage") ? homepage_admin_settings_path : [:admin, @setting]
         format.html { redirect_to(red, notice: 'Setting was successfully updated.') }
         format.xml  { head :ok }
@@ -154,5 +155,14 @@ class Admin::SettingsController < AdminController
     end
     website.add_log(user: current_user, action: "Deleted setting: #{@setting.name}")
   end
-  
+
+  private
+
+  def initialize_setting
+    @setting = Setting.new(setting_params)
+  end
+
+  def setting_params
+    params.require(:setting).permit!
+  end  
 end

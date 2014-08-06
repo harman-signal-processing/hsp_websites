@@ -54,10 +54,9 @@ class ProductAttachment < ActiveRecord::Base
   
   def update_primary_photo
     if self.product && self.product.photo 
-      ProductAttachment.update_all(
-        ["primary_photo = ?", false], 
-        ["product_id = ? AND id != ?", self.product_id, self.id]
-      ) if self.primary_photo
+      if self.primary_photo
+        ProductAttachment.where(product_id: self.product_id).where.not(id: self.id).update_all(primary_photo: false) 
+      end
     else
       self.update_attributes(primary_photo: true)
     end

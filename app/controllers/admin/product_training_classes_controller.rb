@@ -1,5 +1,7 @@
 class Admin::ProductTrainingClassesController < AdminController
+  before_filter :initialize_product_training_class, only: :create
   load_and_authorize_resource
+  
   # GET /product_training_classes
   # GET /product_training_classes.xml
   def index
@@ -52,7 +54,7 @@ class Admin::ProductTrainingClassesController < AdminController
   # PUT /product_training_classes/1.xml
   def update
     respond_to do |format|
-      if @product_training_class.update_attributes(params[:product_training_class])
+      if @product_training_class.update_attributes(product_training_class_params)
         format.html { redirect_to([:admin, @product_training_class.training_class], notice: 'Product/training_class was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -79,5 +81,15 @@ class Admin::ProductTrainingClassesController < AdminController
       format.js
     end
     website.add_log(user: current_user, action: "Removed training class from #{@product_training_class.product.name}")
+  end
+
+  private
+
+  def initialize_product_training_class
+    @product_training_class = ProductTrainingClass.new(product_training_class_params)
+  end
+
+  def product_training_class_params
+    params.require(:product_training_class).permit!
   end
 end

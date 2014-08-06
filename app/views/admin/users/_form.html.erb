@@ -32,7 +32,6 @@
 			<%= f.input :translator %>
 			<%= f.input :rohs %>
 			<%= f.input :clinician %>
-			<%= f.input :clinic_admin, label: "Clinic admin (can manage clinic schedule)" %>
 			<%= f.input :rep %>
 			<%= f.input :dealer %>
 			<%= f.input :distributor %>
@@ -40,7 +39,6 @@
 			<% unless @user.new_record? %>
 			 <%= f.input :rso, label: "RSO" %>
 			<% end %>
-			<%= f.input :rso_admin, label: "RSO Admin (can post individual RSO reports)" %>
 		</div>
 	</div>
 

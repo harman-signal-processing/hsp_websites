@@ -417,7 +417,7 @@ div.product_family_feature {
 		font-size: 115%;
 		text-decoration: none;
 		padding-left: 13px;
-		background: asset-url('dod/right_arrow.png', image) no-repeat;
+		background: asset-url('dod/right_arrow.png') no-repeat;
 		background-position: 0px 2px;
 		letter-spacing: 0.06em;
 		text-transform: uppercase;
@@ -563,7 +563,7 @@ ul#discontinued_product_thumbnails {
 		a:link, a:visited {
 			color: $light-gray;
 			border: 1px solid #444;
-			background: $dark-gray asset-url('dod/right_arrow.png', image) no-repeat;
+			background: $dark-gray asset-url('dod/right_arrow.png') no-repeat;
 			background-position: 9px 13px;
 			display: block;
 			padding-left: 22px;

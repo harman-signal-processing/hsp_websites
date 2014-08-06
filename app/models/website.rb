@@ -86,7 +86,10 @@ class Website < ActiveRecord::Base
   end
   
   def method_missing(sym, *args)
-    if self.brand.respond_to?(sym)
+    super if respond_to_without_attributes?(sym, true)
+    if respond_to? sym
+      send(sym, *args)
+    elsif self.brand.respond_to?(sym)
       variable_name = sym.to_s.gsub(/\W/, "")
       eval("@#{variable_name} ||= self.brand.send(sym, *args)")
     else

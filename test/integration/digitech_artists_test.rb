@@ -3,10 +3,10 @@ require "test_helper"
 describe "DigiTech Artist Integration Test" do
 
   before :each do
-    DatabaseCleaner.start
-    Brand.destroy_all
-    @brand = FactoryGirl.create(:digitech_brand)
-    @website = FactoryGirl.create(:website_with_products, folder: "digitech", brand: @brand)
+    # DatabaseCleaner.start
+    # Brand.destroy_all
+    @brand = digitech_brand
+    @website = digitech_site
     host! @website.url
     Capybara.default_host = "http://#{@website.url}" 
     Capybara.app_host = "http://#{@website.url}"
@@ -32,9 +32,9 @@ describe "DigiTech Artist Integration Test" do
 
   end
 
-  after :each do
-    DatabaseCleaner.clean
-  end
+  # after :each do
+  #   DatabaseCleaner.clean
+  # end
 
   describe "Artist Page" do
   	before do

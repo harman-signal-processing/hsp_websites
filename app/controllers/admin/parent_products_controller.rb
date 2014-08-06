@@ -1,5 +1,7 @@
 class Admin::ParentProductsController < AdminController
+  before_filter :initialize_parent_product, only: :create
   load_and_authorize_resource
+  
   # GET /admin/parent_products
   # GET /admin/parent_products.xml
   def index
@@ -53,7 +55,7 @@ class Admin::ParentProductsController < AdminController
   # PUT /admin/parent_products/1.xml
   def update
     respond_to do |format|
-      if @parent_product.update_attributes(params[:parent_product])
+      if @parent_product.update_attributes(parent_product_params)
         format.html { redirect_to([:admin, @parent_product], notice: 'Product relationship was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -81,5 +83,15 @@ class Admin::ParentProductsController < AdminController
       format.js
     end
     website.add_log(user: current_user, action: "Deleted parent product relationship #{@parent_product.product.name}")
+  end
+
+  private
+
+  def initialize_parent_product
+    @parent_product = ParentProduct.new(parent_product_params)
+  end
+
+  def parent_product_params
+    params.require(:parent_product).permit!
   end
 end

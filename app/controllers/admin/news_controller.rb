@@ -1,6 +1,7 @@
 class Admin::NewsController < AdminController
+  before_filter :initialize_news, only: :create
   load_and_authorize_resource
-  after_filter :expire_news_index_cache, only: [:create, :update, :destroy]
+  
   # GET /admin/news
   # GET /admin/news.xml
   def index
@@ -59,7 +60,7 @@ class Admin::NewsController < AdminController
   # PUT /admin/news/1.xml
   def update
     respond_to do |format|
-      if @news.update_attributes(params[:news])
+      if @news.update_attributes(news_params)
         format.html { redirect_to([:admin, @news], notice: 'News was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated news: #{@news.title}")
@@ -87,5 +88,15 @@ class Admin::NewsController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted news: #{@news.title}")
+  end
+
+  private
+
+  def initialize_news
+    @news = News.new(news_params)
+  end
+
+  def news_params
+    params.require(:news).permit!
   end
 end

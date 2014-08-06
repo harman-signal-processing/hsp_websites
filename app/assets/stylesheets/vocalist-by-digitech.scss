@@ -18,7 +18,7 @@ body {
 	font-size: 12px;
 	line-height: 1.4;
 	color: #242321;
-	background: #fefced asset-url('vocalist/bg.png', image);
+	background: #fefced asset-url('vocalist/bg.png');
 	height: 100%;
 	margin: 0; padding: 0;
 	background-attachment: fixed;
@@ -52,7 +52,7 @@ h1, h2 {
 h1.page_title {
 	text-align: left;
 	padding: 6px 20px 2px;
-	background: asset-url('vocalist/title_bg.png', image);
+	background: asset-url('vocalist/title_bg.png');
 	color: #FFF;
 	font-size: 26px;
 	line-height: 32px;
@@ -135,7 +135,7 @@ nav#topnav {
 		display: inline;
 		list-style: none;
 		a:link, a:visited {
-			background: asset-url('vocalist/right_arrow.png', image) no-repeat;
+			background: asset-url('vocalist/right_arrow.png') no-repeat;
 			background-position: 13px 2px;
 			padding: 2px 24px 0px;
 			color: #a7895f;
@@ -397,7 +397,7 @@ div#signup h2 {
 /***** Product Family Page *****/
 .small_product_box,
 .small_product_boxvocalist {
-	background: white asset-url('vocalist/title_bg.png', image) repeat-x;
+	background: white asset-url('vocalist/title_bg.png') repeat-x;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
 	border: 1px solid #5b252a;
@@ -488,7 +488,7 @@ div#product_content #right_column h1 {
 	text-align: center;
 	font-size: 40px;
 	color: #FFF;
-	background: #800000 asset-url('vocalist/title_bg.png', image);
+	background: #800000 asset-url('vocalist/title_bg.png');
 	padding: 8px 6px 2px 6px;
 	margin-bottom: 2px;
 	font-weight: normal;
@@ -594,7 +594,7 @@ ul#discontinued_product_thumbnails li {
 	border: 1px solid #b5d4f3;
 }
 #product_packaging_tabs li.current a {
-	background: #f1fbfe asset-url('tabbg.png', image);
+	background: #f1fbfe asset-url('tabbg.png');
 	border: 1px solid #b5d4f3;
 	border-bottom: none;
 	padding-bottom: 8px;

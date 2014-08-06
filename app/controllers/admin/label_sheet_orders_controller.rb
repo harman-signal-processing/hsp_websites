@@ -1,4 +1,5 @@
 class Admin::LabelSheetOrdersController < AdminController
+  before_filter :initialize_label_sheet_order, only: :create
   load_and_authorize_resource 
 
   # GET /label_sheet_orders
@@ -66,7 +67,7 @@ class Admin::LabelSheetOrdersController < AdminController
   # PUT /label_sheet_orders/1.xml
   def update
     respond_to do |format|
-      if @label_sheet_order.update_attributes(params[:label_sheet])
+      if @label_sheet_order.update_attributes(label_sheet_order_params)
         format.html { redirect_to([:admin, @label_sheet], notice: 'Label Sheet Order was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated Label Sheet Order: #{@label_sheet_order.name}")
@@ -86,5 +87,15 @@ class Admin::LabelSheetOrdersController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted Label Sheet Order: #{@label_sheet_order.name}")
+  end
+
+  private
+
+  def initialize_label_sheet_order
+    @label_sheet_order = LabelSheetOrder.new(label_sheet_order_params)
+  end
+
+  def label_sheet_order_params
+    params.require(:label_sheet_order).permit!
   end
 end

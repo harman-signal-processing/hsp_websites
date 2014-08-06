@@ -1,4 +1,5 @@
 class Admin::BrandsController < AdminController
+  before_filter :initialize_brand, only: :create
   load_and_authorize_resource
   # GET /admin/brands
   # GET /admin/brands.xml
@@ -53,7 +54,7 @@ class Admin::BrandsController < AdminController
   # PUT /admin/brands/1.xml
   def update
     respond_to do |format|
-      if @brand.update_attributes(params[:brand])
+      if @brand.update_attributes(brand_params)
         format.html { redirect_to([:admin, @brand], notice: 'Brand was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated brand: #{@brand.name}")
@@ -73,5 +74,15 @@ class Admin::BrandsController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted brand: #{@brand.name}")
+  end
+
+  private
+
+  def initialize_brand
+    @brand = Brand.new(brand_params)
+  end
+
+  def brand_params
+    params.require(:brand).permit!
   end
 end

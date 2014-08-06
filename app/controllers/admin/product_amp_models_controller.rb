@@ -1,5 +1,7 @@
 class Admin::ProductAmpModelsController < AdminController
+  before_filter :initialize_product_amp_model, only: :create
   load_and_authorize_resource
+  
   # GET /admin/product_amp_models
   # GET /admin/product_amp_models.xml
   def index
@@ -61,7 +63,7 @@ class Admin::ProductAmpModelsController < AdminController
   # PUT /admin/product_amp_models/1.xml
   def update
     respond_to do |format|
-      if @product_amp_model.update_attributes(params[:product_amp_model])
+      if @product_amp_model.update_attributes(product_amp_model_params)
         format.html { redirect_to([:admin, @product_amp_model], notice: 'Product amp_model was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -81,5 +83,15 @@ class Admin::ProductAmpModelsController < AdminController
       format.js
     end
     website.add_log(user: current_user, action: "Deleted amp model #{@product_amp_model.amp_model.name} from #{@product_amp_model.product.name}")
+  end
+
+  private
+
+  def initialize_product_amp_model
+    @product_amp_model = ProductAmpModel.new(product_amp_model_params)
+  end
+
+  def product_amp_model_params
+    params.require(:product_amp_model).permit!
   end
 end

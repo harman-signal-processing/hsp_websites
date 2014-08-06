@@ -1,5 +1,7 @@
 class Admin::ArtistsController < AdminController
+  before_filter :initialize_artist, only: :create
   load_and_authorize_resource
+
   # GET /admin/artists
   # GET /admin/artists.xml
   def index
@@ -103,7 +105,7 @@ class Admin::ArtistsController < AdminController
     end
     @artist_brand = ArtistBrand.where(artist_id: @artist.id, brand_id: website.brand_id).first_or_create
     respond_to do |format|
-      if @artist.update_attributes(params[:artist])
+      if @artist.update_attributes(artist_params)
         @artist_brand.update_attributes(params[:artist_brand])
         format.html { redirect_to([:admin, @artist], notice: 'Artist was successfully updated.') }
         format.xml  { head :ok }
@@ -130,5 +132,15 @@ class Admin::ArtistsController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted artist: #{@artist.name}")
+  end
+
+  private
+
+  def initialize_artist
+    @artist = Artist.new(artist_params)
+  end
+
+  def artist_params
+    params.require(:artist).permit!
   end
 end

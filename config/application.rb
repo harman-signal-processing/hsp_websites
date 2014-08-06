@@ -73,7 +73,6 @@ module HarmanSignalProcessingWebsite
     config.employee_invitation_code = ENV['EMPLOYEE_INVITATION_CODE']
     config.rso_invitation_code      = ENV['RSO_INVITATION_CODE']
     config.media_invitation_code    = ENV['MEDIA_INVITATION_CODE']
-    config.rso_host                 = "rso.digitech.com"
     config.toolkit_url              = "marketingtoolkit.harmanpro.com"
     config.queue_url                = "marketingqueue.harmanpro.com"
     config.default_site_name        = "Harman Signal Processing" 

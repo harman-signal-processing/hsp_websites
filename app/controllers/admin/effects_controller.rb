@@ -1,5 +1,7 @@
 class Admin::EffectsController < AdminController
+  before_filter :initialize_effect, only: :create
   load_and_authorize_resource
+  
   # GET /effects
   # GET /effects.xml
   def index
@@ -57,7 +59,7 @@ class Admin::EffectsController < AdminController
   # PUT /effects/1.xml
   def update
     respond_to do |format|
-      if @effect.update_attributes(params[:effect])
+      if @effect.update_attributes(effect_params)
         format.html { redirect_to([:admin, @effect], notice: 'Effect was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated effect: #{@effect.name}")
@@ -77,5 +79,15 @@ class Admin::EffectsController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted effect: #{@effect.name}")
+  end
+
+  private
+
+  def initialize_effect
+    @effect = Effect.new(effect_params)
+  end
+
+  def effect_params
+    params.require(:effect).permit!
   end
 end

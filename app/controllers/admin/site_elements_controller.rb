@@ -1,4 +1,5 @@
 class Admin::SiteElementsController < AdminController
+  before_filter :initialize_site_element, only: :create
   load_and_authorize_resource
   
   # GET /site_elements
@@ -55,7 +56,7 @@ class Admin::SiteElementsController < AdminController
   # PUT /site_elements/1.xml
   def update
     respond_to do |format|
-      if @site_element.update_attributes(params[:site_element])
+      if @site_element.update_attributes(site_element_params)
         format.html { redirect_to([:admin, @site_element], notice: 'Resource was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated a site element: #{@site_element.name}")
@@ -75,5 +76,15 @@ class Admin::SiteElementsController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted a site element: #{@site_element.name}")
+  end
+
+  private
+
+  def initialize_site_element
+    @site_element = SiteElement.new(site_element_params)
+  end
+
+  def site_element_params
+    params.require(:site_element).permit!
   end
 end

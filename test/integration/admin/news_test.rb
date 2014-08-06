@@ -3,8 +3,8 @@ require "test_helper"
 describe "Admin News Integration Test" do
 
   before :each do
-    DatabaseCleaner.start
-    Brand.destroy_all
+    # DatabaseCleaner.start
+    # Brand.destroy_all
     @brand = FactoryGirl.create(:digitech_brand)
     @website = FactoryGirl.create(:website_with_products, folder: "digitech", brand: @brand, url: "digitech.lvh.me")
     host! @website.url
@@ -16,9 +16,9 @@ describe "Admin News Integration Test" do
     click_on "News"
   end
 
-  after :each do
-    DatabaseCleaner.clean
-  end
+  # after :each do
+  #   DatabaseCleaner.clean
+  # end
 
   describe "Creating news" do
 

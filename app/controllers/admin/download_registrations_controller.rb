@@ -1,5 +1,7 @@
 class Admin::DownloadRegistrationsController < AdminController
+  before_filter :initialize_download_registration, only: :create
   load_and_authorize_resource
+  
   # GET /download_registrations
   # GET /download_registrations.xml
   def index
@@ -49,7 +51,7 @@ class Admin::DownloadRegistrationsController < AdminController
   # PUT /download_registrations/1.xml
   def update
     respond_to do |format|
-      if @download_registration.update_attributes(params[:download_registration])
+      if @download_registration.update_attributes(download_registration_params)
         format.html { redirect_to([:admin, @download_registration.registered_download], notice: 'Download registration was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -79,5 +81,15 @@ class Admin::DownloadRegistrationsController < AdminController
       format.html { redirect_to [:admin, @download_registration.registered_download], notice: @msg}
       format.js
     end
+  end
+
+  private
+
+  def initialize_download_registration
+    @download_registration = DownloadRegistration.new(download_registration_params)
+  end
+
+  def download_registration_params
+    params.require(:download_registration).permit!
   end
 end

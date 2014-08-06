@@ -1,5 +1,7 @@
 class Admin::ProductIntroductionsController < AdminController
+  before_filter :initialize_product_introduction, only: :create
   load_and_authorize_resource
+  
   # GET /product_introductions
   # GET /product_introductions.xml
   def index
@@ -53,7 +55,7 @@ class Admin::ProductIntroductionsController < AdminController
   # PUT /product_introductions/1.xml
   def update
     respond_to do |format|
-      if @product_introduction.update_attributes(params[:product_introduction])
+      if @product_introduction.update_attributes(product_introduction_params)
         format.html { redirect_to([:admin, @product_introduction.product], notice: 'Product Introduction was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated Product Introduction: #{@product_introduction.product.name}")
@@ -73,5 +75,15 @@ class Admin::ProductIntroductionsController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted Product Introduction: #{@product_introduction.product.name}")
+  end
+
+  private
+
+  def initialize_product_introduction
+    @product_introduction = ProductIntroduction.new(product_introduction_params)
+  end
+
+  def product_introduction_params
+    params.require(:product_introduction).permit!
   end
 end

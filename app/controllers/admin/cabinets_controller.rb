@@ -1,5 +1,7 @@
 class Admin::CabinetsController < AdminController
+  before_filter :initialize_cabinet, only: :create
   load_and_authorize_resource
+  
   # GET /cabinets
   # GET /cabinets.xml
   def index
@@ -54,7 +56,7 @@ class Admin::CabinetsController < AdminController
   # PUT /cabinets/1.xml
   def update
     respond_to do |format|
-      if @cabinet.update_attributes(params[:cabinet])
+      if @cabinet.update_attributes(cabinet_params)
         format.html { redirect_to([:admin, @cabinet], notice: 'Cabinet was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated cabinet: #{@cabinet.name}")
@@ -74,5 +76,15 @@ class Admin::CabinetsController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted cabinet: #{@cabinet.name}")
+  end
+
+  private
+
+  def initialize_cabinet
+    @cabinet = Cabinet.new(cabinet_params)
+  end
+
+  def cabinet_params
+    params.require(:cabinet).permit!
   end
 end

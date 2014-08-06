@@ -1,5 +1,7 @@
 class Admin::ProductEffectsController < AdminController
+  before_filter :initialize_product_effect, only: :create
   load_and_authorize_resource
+  
   # GET /admin/product_effects
   # GET /admin/product_effects.xml
   def index
@@ -61,7 +63,7 @@ class Admin::ProductEffectsController < AdminController
   # PUT /admin/product_effects/1.xml
   def update
     respond_to do |format|
-      if @product_effect.update_attributes(params[:product_effect])
+      if @product_effect.update_attributes(product_effect_params)
         format.html { redirect_to([:admin, @product_effect], notice: 'Product effect was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -81,5 +83,15 @@ class Admin::ProductEffectsController < AdminController
       format.js 
     end
     website.add_log(user: current_user, action: "Removed effect #{@product_effect.effect.name} from #{@product_effect.product.name}")
+  end
+
+  private
+
+  def initialize_product_effect
+    @product_effect = ProductEffect.new(product_effect_params)
+  end
+
+  def product_effect_params
+    params.require(:product_effect).permit!
   end
 end

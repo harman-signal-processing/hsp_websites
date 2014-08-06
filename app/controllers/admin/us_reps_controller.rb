@@ -1,5 +1,7 @@
 class Admin::UsRepsController < AdminController
+  before_filter :initialize_us_rep, only: :create
   load_and_authorize_resource
+  
   # GET /admin/us_reps
   # GET /admin/us_reps.xml
   def index
@@ -54,7 +56,7 @@ class Admin::UsRepsController < AdminController
   # PUT /admin/us_reps/1.xml
   def update
     respond_to do |format|
-      if @us_rep.update_attributes(params[:us_rep])
+      if @us_rep.update_attributes(us_rep_params)
         format.html { redirect_to([:admin, @us_rep], notice: 'US Rep was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated US Rep #{@us_rep.name}")
@@ -74,5 +76,15 @@ class Admin::UsRepsController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted US Rep #{@us_rep.name}")
+  end
+
+  private
+
+  def initialize_us_rep
+    @us_rep = UsRep.new(us_rep_params)
+  end
+
+  def us_rep_params
+    params.require(:us_rep).permit!
   end
 end

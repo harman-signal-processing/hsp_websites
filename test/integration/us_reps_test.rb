@@ -3,8 +3,8 @@ require "test_helper"
 describe "US Reps Integration Test" do
 
   before :each do
-    DatabaseCleaner.start
-    Brand.destroy_all
+    # DatabaseCleaner.start
+    # Brand.destroy_all
     @website = FactoryGirl.create(:website_with_products)
     host! @website.url
     Capybara.default_host = "http://#{@website.url}" 

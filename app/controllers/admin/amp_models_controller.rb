@@ -1,5 +1,7 @@
 class Admin::AmpModelsController < AdminController
+  before_filter :initialize_amp_model, only: :create
   load_and_authorize_resource
+
   # GET /amp_models
   # GET /amp_models.xml
   def index
@@ -54,7 +56,7 @@ class Admin::AmpModelsController < AdminController
   # PUT /amp_models/1.xml
   def update
     respond_to do |format|
-      if @amp_model.update_attributes(params[:amp_model])
+      if @amp_model.update_attributes(amp_model_params)
         format.html { redirect_to([:admin, @amp_model], notice: 'Amp Model was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated amp model: #{@amp_model.name}")
@@ -74,5 +76,15 @@ class Admin::AmpModelsController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted amp model: #{@amp_model.name}")
+  end
+
+  private
+
+  def initialize_amp_model
+    @amp_model = AmpModel.new(amp_model_params)
+  end
+
+  def amp_model_params
+    params.require(:amp_model).permit!
   end
 end

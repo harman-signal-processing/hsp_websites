@@ -1,4 +1,5 @@
 class Admin::ArtistProductsController < AdminController
+  before_filter :initialize_artist_product, only: :create
   load_and_authorize_resource
   # GET /artist_products
   # GET /artist_products.xml
@@ -52,7 +53,7 @@ class Admin::ArtistProductsController < AdminController
   # PUT /artist_products/1.xml
   def update
     respond_to do |format|
-      if @artist_product.update_attributes(params[:artist_product])
+      if @artist_product.update_attributes(artist_product_params)
         format.html { redirect_to([:admin, @artist_product.artist], notice: 'Artist product was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -72,5 +73,15 @@ class Admin::ArtistProductsController < AdminController
       format.js
     end
     website.add_log(user: current_user, action: "Unassociated #{@artist_product.product.name} with #{@artist_product.artist.name}")
+  end
+
+  private
+
+  def initialize_artist_product
+    @artist_product = ArtistProduct.new(artist_product_params)
+  end
+
+  def artist_product_params
+    params.require(:artist_product).permit!
   end
 end

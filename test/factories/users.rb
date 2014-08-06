@@ -16,9 +16,7 @@ FactoryGirl.define do
     engineer false
     clinician false
     rep false
-    clinic_admin false
     rso false
-    rso_admin false
     sales_admin false
     dealer false
     distributor false

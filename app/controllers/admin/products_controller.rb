@@ -1,7 +1,7 @@
 class Admin::ProductsController < AdminController
+  before_filter :initialize_product, only: :create
   load_and_authorize_resource
   skip_authorize_resource only: [:rohs, :update_rohs, :harman_employee_pricing, :update_harman_employee_pricing]
-  after_filter :expire_product_families_cache, only: [:create, :update, :destroy]
   
   # GET /admin/products
   # GET /admin/products.xml
@@ -76,7 +76,7 @@ class Admin::ProductsController < AdminController
   # PUT /admin/products/1.xml
   def update
     respond_to do |format|
-      if @product.update_attributes(params[:product])
+      if @product.update_attributes(product_params)
         format.html { redirect_to([:admin, @product], notice: 'Product was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated product: #{@product.name}")
@@ -153,5 +153,13 @@ class Admin::ProductsController < AdminController
     end
     website.add_log(user: current_user, action: "Deleted #{@product.name} custom background")
   end
-  
+  private
+
+  def initialize_product
+    @product = Product.new(product_params)
+  end
+
+  def product_params
+    params.require(:product).permit!
+  end  
 end

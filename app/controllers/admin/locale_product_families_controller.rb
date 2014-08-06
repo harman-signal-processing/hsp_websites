@@ -1,5 +1,7 @@
 class Admin::LocaleProductFamiliesController < AdminController
+  before_filter :initialize_locale_product_family, only: :create
   load_and_authorize_resource
+  
   def create
     respond_to do |format|
       if @locale_product_family.save
@@ -22,5 +24,15 @@ class Admin::LocaleProductFamiliesController < AdminController
       format.js
     end
     website.add_log(user: current_user, action: "Deleted a locale/product family")
+  end
+
+  private
+
+  def initialize_locale_product_family
+    @locale_product_family = LocaleProductFamily.new(locale_product_family_params)
+  end
+
+  def locale_product_family_params
+    params.require(:locale_product_family).permit!
   end
 end

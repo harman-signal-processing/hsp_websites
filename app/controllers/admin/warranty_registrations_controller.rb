@@ -1,7 +1,9 @@
 require 'csv'
 
 class Admin::WarrantyRegistrationsController < AdminController
+  before_filter :initialize_warranty_registration, only: :create
   load_and_authorize_resource except: :index
+  
   # GET /admin/warranty_registrations
   # GET /admin/warranty_registrations.xml
   def index
@@ -83,7 +85,7 @@ class Admin::WarrantyRegistrationsController < AdminController
   # PUT /admin/warranty_registrations/1.xml
   def update
     respond_to do |format|
-      if @warranty_registration.update_attributes(params[:warranty_registration])
+      if @warranty_registration.update_attributes(warranty_registration_params)
         format.html { redirect_to([:admin, @warranty_registration], notice: 'Warranty registration was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -101,5 +103,15 @@ class Admin::WarrantyRegistrationsController < AdminController
       format.html { redirect_to(admin_warranty_registrations_url) }
       format.xml  { head :ok }
     end
+  end
+
+  private
+
+  def initialize_warranty_registration
+    @warranty_registration = WarrantyRegistration.new(warranty_registration_params)
+  end
+
+  def warranty_registration_params
+    params.require(:warranty_registration).permit!
   end
 end

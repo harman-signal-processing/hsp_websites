@@ -1,4 +1,5 @@
 class Admin::PricingTypesController < AdminController
+  before_filter :initialize_pricing_type, only: :create
   load_and_authorize_resource
   # GET /admin/pricing_types
   # GET /admin/pricing_types.xml
@@ -46,7 +47,7 @@ class Admin::PricingTypesController < AdminController
   # PUT /admin/pricing_types/1.xml
   def update
     respond_to do |format|
-      if @pricing_type.update_attributes(params[:pricing_type])
+      if @pricing_type.update_attributes(pricing_type_params)
         format.html { redirect_to(admin_product_prices_path, notice: 'Pricing type was successfully updated.') }
         website.add_log(user: current_user, action: "Updated pricing type: #{@pricing_type.name}")
       else
@@ -62,6 +63,16 @@ class Admin::PricingTypesController < AdminController
     respond_to do |format|
       format.html { redirect_to(admin_product_prices_url) }
     end
-    website.add_log(user: current_user, action: "Deleted pricingtype: #{@pricing_type.name}")
+    website.add_log(user: current_user, action: "Deleted pricing type: #{@pricing_type.name}")
+  end
+
+  private
+
+  def initialize_pricing_type
+    @pricing_type = PricingType.new(pricing_type_params)
+  end
+
+  def pricing_type_params
+    params.require(:pricing_type).permit!
   end
 end

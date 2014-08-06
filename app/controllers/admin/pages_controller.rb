@@ -1,5 +1,7 @@
 class Admin::PagesController < AdminController
+  before_filter :initialize_page, only: :create
   load_and_authorize_resource
+  
   # GET /admin/pages
   # GET /admin/pages.xml
   def index
@@ -52,7 +54,7 @@ class Admin::PagesController < AdminController
   # PUT /admin/pages/1.xml
   def update
     respond_to do |format|
-      if @page.update_attributes(params[:page])
+      if @page.update_attributes(page_params)
         format.html { redirect_to([:admin, @page], notice: 'Page was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated page: #{@page.title}")
@@ -72,5 +74,15 @@ class Admin::PagesController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted page: #{@page.title}")
+  end
+
+  private
+
+  def initialize_page
+    @page = Page.new(page_params)
+  end
+
+  def page_params
+    params.require(:page).permit!
   end
 end

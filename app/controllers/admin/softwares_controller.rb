@@ -1,4 +1,5 @@
 class Admin::SoftwaresController < AdminController
+  before_filter :initialize_software, only: :create
   load_and_authorize_resource
   
   # GET /admin/softwares
@@ -67,7 +68,7 @@ class Admin::SoftwaresController < AdminController
   # PUT /admin/softwares/1.xml
   def update
     respond_to do |format|
-      if @software.update_attributes(params[:software])
+      if @software.update_attributes(software_params)
         format.html { redirect_to([:admin, @software], notice: 'Software was successfully updated. If you replaced the file, please wait while the system propagates the changes to our content delivery network.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated software: #{@software.name}")
@@ -87,5 +88,15 @@ class Admin::SoftwaresController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted software: #{@software.name}")
+  end
+
+  private
+
+  def initialize_software
+    @software = Software.new(software_params)
+  end
+
+  def software_params
+    params.require(:software).permit!
   end
 end

@@ -1,5 +1,7 @@
 class Admin::ServiceCentersController < AdminController
+  before_filter :initialize_service_center, only: :create
   load_and_authorize_resource
+  
   # GET /service_centers
   # GET /service_centers.xml
   def index
@@ -57,7 +59,7 @@ class Admin::ServiceCentersController < AdminController
   # PUT /service_centers/1.xml
   def update
     respond_to do |format|
-      if @service_center.update_attributes(params[:service_center])
+      if @service_center.update_attributes(service_center_params)
         format.html { redirect_to([:admin, @service_center], notice: 'Service center was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated a service center: #{@service_center.name}")
@@ -77,5 +79,15 @@ class Admin::ServiceCentersController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted service center: #{@service_center.name}")
+  end
+
+  private
+
+  def initialize_service_center
+    @service_center = ServiceCenter.new(service_center_params)
+  end
+
+  def service_center_params
+    params.require(:service_center).permit!
   end
 end

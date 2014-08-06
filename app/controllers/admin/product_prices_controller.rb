@@ -1,5 +1,7 @@
 class Admin::ProductPricesController < AdminController
+  before_filter :initialize_product_price, only: :create
   load_and_authorize_resource
+  
   # GET /admin/product_prices
   # GET /admin/product_prices.xml
   def index
@@ -54,7 +56,7 @@ class Admin::ProductPricesController < AdminController
   # PUT /admin/product_prices/1.xml
   def update
     respond_to do |format|
-      if @product_price.update_attributes(params[:product_price])
+      if @product_price.update_attributes(product_price_params)
         format.html { redirect_to([:admin, @product_price], notice: 'Pricing was successfully updated.') }
         website.add_log(user: current_user, action: "Updated pricing: #{@product_price.product.name}")
       else
@@ -81,5 +83,15 @@ class Admin::ProductPricesController < AdminController
       format.html { redirect_to(admin_product_prices_url) }
     end
     website.add_log(user: current_user, action: "Deleted pricing: #{@product_price.product.name}")
+  end
+
+  private
+
+  def initialize_product_price
+    @product_price = ProductPrice.new(product_price_params)
+  end
+
+  def product_price_params
+    params.require(:product_price).permit!
   end
 end

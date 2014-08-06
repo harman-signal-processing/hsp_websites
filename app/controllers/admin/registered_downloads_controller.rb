@@ -1,6 +1,8 @@
 require 'csv'
 class Admin::RegisteredDownloadsController < AdminController
+  before_filter :initialize_registered_download, only: :create
   load_and_authorize_resource
+  
   # GET /registered_downloads
   # GET /registered_downloads.xml
   def index
@@ -59,7 +61,7 @@ class Admin::RegisteredDownloadsController < AdminController
   # PUT /registered_downloads/1.xml
   def update
     respond_to do |format|
-      if @registered_download.update_attributes(params[:registered_download])
+      if @registered_download.update_attributes(registered_download_params)
         format.html { redirect_to([:admin, @registered_download], notice: 'Registered download was successfully updated. IF YOU NEED TO MAKE MORE CHANGES, CLICK "Edit" BELOW--NOT "Back"') }
         format.xml  { head :ok }
         format.js {
@@ -97,4 +99,13 @@ class Admin::RegisteredDownloadsController < AdminController
     website.add_log(user: current_user, action: "Sent messages to registrants for #{@registered_download.name}")
   end
 
+  private
+
+  def initialize_registered_download
+    @registered_download = RegisteredDownload.new(registered_download_params)
+  end
+
+  def registered_download_params
+    params.require(:registered_download).permit!
+  end
 end

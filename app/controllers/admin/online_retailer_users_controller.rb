@@ -1,5 +1,7 @@
 class Admin::OnlineRetailerUsersController < AdminController
+  before_filter :initialize_online_retailer_user, only: :create
   load_and_authorize_resource  
+  
   # GET /admin/online_retailer_users
   # GET /admin/online_retailer_users.xml
   def index
@@ -53,7 +55,7 @@ class Admin::OnlineRetailerUsersController < AdminController
   # PUT /admin/online_retailer_users/1.xml
   def update
     respond_to do |format|
-      if @online_retailer_user.update_attributes(params[:online_retailer_user])
+      if @online_retailer_user.update_attributes(online_retailer_user_params)
         format.html { redirect_to([:admin, @online_retailer_user.online_retailer], notice: 'User was successfully updated.') }
         format.xml  { head :ok }
         format.js 
@@ -75,5 +77,15 @@ class Admin::OnlineRetailerUsersController < AdminController
       format.js
     end
     website.add_log(user: current_user, action: "Removed user: #{@online_retailer_user.user.name} from #{@online_retailer_user.online_retailer.name}")
+  end
+
+  private
+
+  def initialize_online_retailer_user
+    @online_retailer_user = OnlineRetailer.new(online_retailer_user_params)
+  end
+
+  def online_retailer_user_params
+    params.require(:online_retailer_user).permit!
   end
 end
