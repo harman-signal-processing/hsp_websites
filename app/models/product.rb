@@ -1,6 +1,8 @@
 class Product < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :name
+
   has_one :product_introduction
-  has_many :tones
   has_many :product_family_products, dependent: :destroy
   has_many :product_families, through: :product_family_products
   has_many :product_attachments, -> { order('position') }
@@ -49,8 +51,6 @@ class Product < ActiveRecord::Base
   validates_attachment :background_image, content_type: { content_type: /\Aimage/i }
   validates :name, presence: true
   validates :product_status_id, presence: true
-  extend FriendlyId
-  friendly_id :name
   
   def belongs_to_this_brand?(brand)
     brand = brand.brand if brand.is_a?(Website) # if a Website is passed in instead of a Brand

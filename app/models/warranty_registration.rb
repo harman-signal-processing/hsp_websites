@@ -1,7 +1,7 @@
 class WarrantyRegistration < ActiveRecord::Base
   belongs_to :brand
   belongs_to :product
-  validates_presence_of :first_name, :last_name, :brand_id, :product_id, :country, :serial_number, :purchased_on
+  validates :first_name, :last_name, :brand_id, :product_id, :country, :serial_number, :purchased_on, presence: true
   validates :email, presence: true, format: /\A[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}\z/i 
   after_create :send_email_confirmation, :execute_promotion
   attr_reader :purchase_city

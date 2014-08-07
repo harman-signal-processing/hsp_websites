@@ -1,4 +1,7 @@
 class OnlineRetailer < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :name
+
   has_many :online_retailer_users, dependent: :destroy
   has_many :users, through: :online_retailer_users
   has_many :online_retailer_links, -> { where("product_id IS NOT NULL") }, dependent: :destroy
@@ -9,11 +12,10 @@ class OnlineRetailer < ActiveRecord::Base
       thumb: "100x100>", 
       fixed: "125x75#" 
     }
-  validates_attachment :retailer_logo, content_type: { content_type: /\Aimage/i }
 
-  extend FriendlyId
-  friendly_id :name
+  validates_attachment :retailer_logo, content_type: { content_type: /\Aimage/i }
   validates :name, presence: true, uniqueness: true
+
   attr_accessor :brand_link, :online_retailer_link
   
   def bad_links

@@ -1,9 +1,11 @@
 class Page < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :sanitized_title
+  
   validates :title, presence: true, uniqueness: true 
   validates :brand_id, presence: true
   validates :custom_route, uniqueness: true 
-  extend FriendlyId
-  friendly_id :sanitized_title
+
   belongs_to :brand
   after_save :translate
   

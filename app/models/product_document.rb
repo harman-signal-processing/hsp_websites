@@ -1,9 +1,10 @@
 class ProductDocument < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :document_file_name
+  
   belongs_to :product, touch: true
   has_attached_file :document
   process_in_background :document
-  extend FriendlyId
-  friendly_id :document_file_name
 
   validates :product_id, presence: true
   validates_attachment :document, presence: true

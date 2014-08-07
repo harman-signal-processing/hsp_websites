@@ -1,6 +1,5 @@
 class BrandToolkitContact < ActiveRecord::Base
   default_scope { order("position") }
-  # attr_accessible :brand_id, :position, :user_id, :user_attributes
   belongs_to :brand 
   belongs_to :user 
   validates :user_id, presence: true, uniqueness: { scope: :brand_id }

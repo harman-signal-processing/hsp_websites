@@ -1,10 +1,11 @@
 class Specification < ActiveRecord::Base
-  belongs_to :product_specification
-  validates_uniqueness_of :name
-  validates_presence_of :name
-  has_many :product_specifications
   extend FriendlyId
   friendly_id :name
+
+  belongs_to :product_specification
+  has_many :product_specifications
+  validates :name, presence: true, uniqueness: true
+
   # after_save :translate # Can't auto translate without a related brand
   
   def values_with_products

@@ -281,7 +281,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :websites,
         :captchas,
         :us_reps,
-        :regions,
         :effects,
         :signups,
         :dealers,

@@ -1,6 +1,9 @@
 class Software < ActiveRecord::Base
   DIRECT_UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/s3\.amazonaws\.com\/#{Rails.configuration.aws[:bucket]}\/(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
 
+  extend FriendlyId
+  friendly_id :formatted_name
+
   attr_accessor :replaces_id
   has_many :product_softwares, -> { order("product_position") }, dependent: :destroy
   has_many :products, through: :product_softwares
@@ -11,8 +14,7 @@ class Software < ActiveRecord::Base
   has_many :training_modules, through: :software_training_modules
   has_many :software_operating_systems, dependent: :destroy
   has_many :operating_systems, through: :software_operating_systems
-  extend FriendlyId
-  friendly_id :formatted_name
+
   validates_presence_of :name, :brand_id
   has_attached_file :ware, S3_STORAGE.merge({ path: ":class/:attachment/:id_:timestamp/:basename.:extension" })
   do_not_validate_attachment_file_type :ware

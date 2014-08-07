@@ -1,10 +1,11 @@
 class Blog < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :sanitized_name
+  
   belongs_to :brand
   has_many :blog_articles
   validates :brand_id, presence: true
   validates :name, presence: true, uniqueness: true
-  extend FriendlyId
-  friendly_id :sanitized_name
   
   def sanitized_name
     self.name.gsub(/[\'\"]/, "")

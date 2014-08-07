@@ -1,5 +1,4 @@
 class MarketingCalendar < ActiveRecord::Base
-  # attr_accessible :name
   has_many :marketing_projects
   has_many :marketing_tasks
 

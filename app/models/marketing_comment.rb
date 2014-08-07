@@ -1,6 +1,4 @@
 class MarketingComment < ActiveRecord::Base
-  # attr_accessible :message, :marketing_project_id, :marketing_task_id
-
   # belongs to either a project or a task
   belongs_to :marketing_project
   belongs_to :marketing_task

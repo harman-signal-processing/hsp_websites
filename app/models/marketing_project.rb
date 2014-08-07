@@ -10,9 +10,7 @@
 # TODO: When the project type results in a new product, then the project needs
 #       to be tied to a Product somehow.
 #
-#
 class MarketingProject < ActiveRecord::Base
-  # attr_accessible :brand_id, :estimated_cost, :due_on, :event_end_on, :event_start_on, :marketing_project_type_id, :name, :targets, :targets_progress, :tasks_follow_project, :user_id, :marketing_calendar_id
   attr_accessor :tasks_follow_project
   has_event_calendar start_at_field: 'event_start_on', end_at_field: 'event_end_on'
   belongs_to :brand 
@@ -22,10 +20,12 @@ class MarketingProject < ActiveRecord::Base
   has_many :marketing_tasks, dependent: :destroy
   has_many :marketing_attachments, -> { order("created_at DESC") }, dependent: :destroy
   has_many :marketing_comments, dependent: :destroy
+
   validates :name, presence: :true
   validates :brand_id, presence: :true
   validates :user_id, presence: true
   validates :due_on, presence: true
+  
   before_create :setup_from_template
   after_update :adjust_tasks
 

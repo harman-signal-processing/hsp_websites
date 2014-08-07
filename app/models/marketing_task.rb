@@ -2,7 +2,6 @@
 # larger effort.
 #
 class MarketingTask < ActiveRecord::Base
-  # attr_accessible :brand_id, :completed_at, :due_on, :marketing_project_id, :name, :assign_to_me, :worker_id, :man_hours, :priority, :creative_brief, :marketing_calendar_id
   attr_accessor :assign_to_me
   has_event_calendar start_at_field: 'due_on', end_at_field: 'due_on'
   belongs_to :brand 
@@ -13,11 +12,14 @@ class MarketingTask < ActiveRecord::Base
   belongs_to :marketing_calendar
   has_many :marketing_attachments, -> { order("created_at DESC") }, dependent: :destroy
   has_many :marketing_comments, dependent: :destroy
+
   acts_as_list scope: :marketing_project_id
+
   validates :name, presence: :true
   validates :due_on, presence: :true
   validates :brand_id, presence: :true
   validates :creative_brief, presence: :true, on: :create
+  
   before_save :auto_switch_currently_with
   after_save :notify_worker
   after_create :notify_admin

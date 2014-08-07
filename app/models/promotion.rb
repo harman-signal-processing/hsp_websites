@@ -1,11 +1,12 @@
 class Promotion < ActiveRecord::Base
-  validates_presence_of :name, :brand_id
-  validates_uniqueness_of :name
+  extend FriendlyId
+  friendly_id :sanitized_name
+
+  validates :brand_id, presence: true
+  validates :name, presence: true, uniqueness: true
   has_many :product_promotions
   has_many :products, through: :product_promotions
   belongs_to :brand, touch: true
-  extend FriendlyId
-  friendly_id :sanitized_name
 
   has_attached_file :promo_form, S3_STORAGE
   do_not_validate_attachment_file_type :promo_form

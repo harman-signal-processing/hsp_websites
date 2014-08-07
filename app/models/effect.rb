@@ -1,11 +1,13 @@
 class Effect < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :name
+  
   has_many :product_effects
   has_many :products, through: :product_effects
   belongs_to :effect_type
   validates_presence_of :name
   validates_uniqueness_of :name
-  extend FriendlyId
-  friendly_id :name
+
   has_attached_file :effect_image, 
     styles: { large: "550x370", 
       medium: "480x360", 

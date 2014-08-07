@@ -50,39 +50,6 @@ class User < ActiveRecord::Base
     if: :needs_invitation_code?
   validates :account_number, presence: true, on: :create, if: :needs_account_number?
 
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible :email, 
-  #   :name,
-  #   :job_title,
-  #   :job_description,
-  #   :phone_number,
-  #   :password, 
-  #   :password_confirmation, 
-  #   :remember_me,
-  #   :admin, 
-  #   :employee, 
-  #   :online_retailer, 
-  #   :customer_service, 
-  #   :translator, 
-  #   :market_manager, 
-  #   :artist_relations,
-  #   :engineer,
-  #   :rohs,
-  #   :clinician,
-  #   :rep,
-  #   :distributor,
-  #   :dealer,
-  #   :marketing_staff,
-  #   :queue_admin,
-  #   :rso,
-  #   :sales_admin,
-  #   :account_number,
-  #   :media,
-  #   :profile_pic,
-  #   :invitation_code,
-  #   :project_manager,
-  #   :executive
-
   attr_accessor :invitation_code
   attr_accessor :account_number
   

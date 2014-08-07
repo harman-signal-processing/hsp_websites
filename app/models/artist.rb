@@ -6,16 +6,6 @@ class Artist < ActiveRecord::Base
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
-
-  # Setup accessible (or protected) attributes for your model
-  # TODO: some of these attributes will probably go away during the revamp
-  # attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :bio, 
-  #   :artist_photo_file_name, :artist_photo_content_type, :artist_photo_updated_at, :artist_photo_file_size,
-  #   :website, :twitter, :position, :cached_slug, :featured, :artist_photo,
-  #   :artist_product_photo_file_name, :artist_product_photo_file_size, :artist_product_photo,
-  #   :artist_product_photo_content_type, :artist_product_photo_updated_at,
-  #   :invitation_code, :artist_tier_id, :main_instrument, :notable_career_moments,
-  #   :artist_products_attributes, :initial_brand, :approver_id, :approved, :skip_unapproval
     
   attr_accessor :initial_brand, :approved, :skip_unapproval
   belongs_to :artist_tier

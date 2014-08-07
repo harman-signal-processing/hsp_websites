@@ -2,8 +2,10 @@ class OnlineRetailerLink < ActiveRecord::Base
   belongs_to :online_retailer, touch: true
   belongs_to :brand
   belongs_to :product, touch: true
+
   validates :online_retailer_id, presence: true
   validates :url, presence: true
+  
   before_update :reset_status
   before_save :stamp_link, :fix_link
   after_update :auto_delete

@@ -1,4 +1,7 @@
 class News < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :sanitized_title
+  
   has_attached_file :news_photo, {
     styles: { large: "600>x370", 
       email: "580",
@@ -14,8 +17,7 @@ class News < ActiveRecord::Base
   
   has_many :news_products, dependent: :destroy
   has_many :products, through: :news_products
-  extend FriendlyId
-  friendly_id :sanitized_title
+
   validates_presence_of :brand_id, :title, :post_on
   belongs_to :brand, touch: true
   before_save :strip_harmans_from_title

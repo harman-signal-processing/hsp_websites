@@ -1,9 +1,11 @@
 class Cabinet < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :name
+  
   has_many :product_cabinets
   has_many :products, through: :product_cabinets
   validates :name, presence: true, uniqueness: true
-  extend FriendlyId
-  friendly_id :name
+
   has_attached_file :cab_image, 
     styles: { large: "550x370", 
       medium: "480x360", 

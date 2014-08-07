@@ -1,7 +1,6 @@
 class LabelSheet < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
 
-  # attr_accessible :name, :products, :product_ids
   attr_accessor :product_ids
   serialize :products
   before_save :encode_product_ids

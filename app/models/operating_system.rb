@@ -1,5 +1,4 @@
 class OperatingSystem < ActiveRecord::Base
-  # attr_accessible :arch, :name, :version
   has_many :software_operating_systems, dependent: :destroy
   has_many :softwares, through: :software_operating_systems
 
