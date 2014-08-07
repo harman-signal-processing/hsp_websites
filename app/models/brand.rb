@@ -1,4 +1,7 @@
 class Brand < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :name
+  
   has_many :product_families
   has_many :market_segments
   has_many :marketing_tasks
@@ -42,8 +45,7 @@ class Brand < ActiveRecord::Base
 
   after_initialize :dynamic_methods
   after_update :update_products
-  extend FriendlyId
-  friendly_id :name
+
   validates :name, presence: true, uniqueness: true
 
   def update_products

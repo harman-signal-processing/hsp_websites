@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140807163628) do
+ActiveRecord::Schema.define(version: 20140807185315) do
 
   create_table "admin_logs", force: true do |t|
     t.integer  "user_id"
@@ -33,7 +33,10 @@ ActiveRecord::Schema.define(version: 20140807163628) do
     t.datetime "amp_image_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "cached_slug"
   end
+
+  add_index "amp_models", ["cached_slug"], name: "index_amp_models_on_cached_slug", using: :btree
 
   create_table "api_keys", force: true do |t|
     t.string   "access_token"
@@ -150,12 +153,14 @@ ActiveRecord::Schema.define(version: 20140807163628) do
     t.date     "post_on"
     t.integer  "author_id"
     t.text     "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "cached_slug"
   end
 
   add_index "blog_articles", ["author_id"], name: "index_blog_articles_on_author_id", using: :btree
   add_index "blog_articles", ["blog_id"], name: "index_blog_articles_on_blog_id", using: :btree
+  add_index "blog_articles", ["cached_slug"], name: "index_blog_articles_on_cached_slug", using: :btree
 
   create_table "blogs", force: true do |t|
     t.string   "name"
@@ -163,9 +168,11 @@ ActiveRecord::Schema.define(version: 20140807163628) do
     t.integer  "default_article_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.string   "cached_slug"
   end
 
   add_index "blogs", ["brand_id"], name: "index_blogs_on_brand_id", using: :btree
+  add_index "blogs", ["cached_slug"], name: "index_blogs_on_cached_slug", using: :btree
 
   create_table "brand_dealers", force: true do |t|
     t.integer  "brand_id"
@@ -254,7 +261,10 @@ ActiveRecord::Schema.define(version: 20140807163628) do
     t.datetime "cab_image_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "cached_slug"
   end
+
+  add_index "cabinets", ["cached_slug"], name: "index_cabinets_on_cached_slug", using: :btree
 
   create_table "contact_messages", force: true do |t|
     t.string   "name"
@@ -431,8 +441,10 @@ ActiveRecord::Schema.define(version: 20140807163628) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "effect_type_id"
+    t.string   "cached_slug"
   end
 
+  add_index "effects", ["cached_slug"], name: "index_effects_on_cached_slug", using: :btree
   add_index "effects", ["effect_type_id"], name: "index_effects_on_effect_type_id", using: :btree
 
   create_table "faqs", force: true do |t|
@@ -451,6 +463,19 @@ ActiveRecord::Schema.define(version: 20140807163628) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "friendly_id_slugs", force: true do |t|
+    t.string   "slug"
+    t.integer  "sluggable_id"
+    t.string   "sluggable_type", limit: 40
+    t.string   "scope"
+    t.datetime "created_at"
+  end
+
+  add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true, using: :btree
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
+  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
+  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
   create_table "label_sheet_orders", force: true do |t|
     t.integer  "user_id"
@@ -496,7 +521,10 @@ ActiveRecord::Schema.define(version: 20140807163628) do
     t.integer  "brand_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "cached_slug"
   end
+
+  add_index "market_segments", ["cached_slug"], name: "index_market_segments_on_cached_slug", using: :btree
 
   create_table "marketing_attachments", force: true do |t|
     t.integer  "marketing_project_id"
@@ -1175,18 +1203,6 @@ ActiveRecord::Schema.define(version: 20140807163628) do
     t.datetime "executable_updated_at"
   end
 
-  create_table "slugs", force: true do |t|
-    t.string   "name"
-    t.integer  "sluggable_id"
-    t.integer  "sequence",                  default: 1, null: false
-    t.string   "sluggable_type", limit: 40
-    t.string   "scope"
-    t.datetime "created_at"
-  end
-
-  add_index "slugs", ["name", "sluggable_type", "sequence", "scope"], name: "index_slugs_on_n_s_s_and_s", unique: true, using: :btree
-  add_index "slugs", ["sluggable_id"], name: "index_slugs_on_sluggable_id", using: :btree
-
   create_table "software_activations", force: true do |t|
     t.integer  "software_id"
     t.string   "challenge"
@@ -1301,7 +1317,10 @@ ActiveRecord::Schema.define(version: 20140807163628) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "cached_slug"
   end
+
+  add_index "tone_library_songs", ["cached_slug"], name: "index_tone_library_songs_on_cached_slug", using: :btree
 
   create_table "toolkit_resource_types", force: true do |t|
     t.string   "name"
@@ -1311,7 +1330,10 @@ ActiveRecord::Schema.define(version: 20140807163628) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.boolean  "marketing_message"
+    t.string   "cached_slug"
   end
+
+  add_index "toolkit_resource_types", ["cached_slug"], name: "index_toolkit_resource_types_on_cached_slug", using: :btree
 
   create_table "toolkit_resources", force: true do |t|
     t.string   "name"
