@@ -72,7 +72,9 @@ class Admin::SpecificationsController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted spec: #{@specification.name}")
-  end  private
+  end  
+
+  private
 
   def initialize_specification
     @specification = Specification.new(specification_params)
