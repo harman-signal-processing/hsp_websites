@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140807185315) do
+ActiveRecord::Schema.define(version: 20140808000000) do
 
   create_table "admin_logs", force: true do |t|
     t.integer  "user_id"
@@ -1372,7 +1372,6 @@ ActiveRecord::Schema.define(version: 20140807185315) do
     t.string   "language"
     t.integer  "instructor_id"
     t.string   "more_info_url"
-    t.integer  "region_id"
     t.string   "location"
     t.boolean  "filled"
     t.string   "class_info_file_name"
