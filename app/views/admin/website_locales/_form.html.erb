@@ -1,5 +1,5 @@
 <%= simple_form_for([:admin, @website_locale]) do |f| %>
-  <%= f.association :website, collection: Website.all(order: 'url'), label_method: :url %>
+  <%= f.association :website, collection: Website.order('url'), label_method: :url %>
   <%= f.input :locale %>
   <%= f.input :name %>
   <%= f.input :complete, label: "Complete, and ready for use" %>

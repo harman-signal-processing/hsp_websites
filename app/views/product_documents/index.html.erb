@@ -34,10 +34,12 @@
 	<h2><%= ucfirst(t("downloads")) %></h2>
 	<ul>
 		<% @languages.each do |product_document| %>
-		<li><%= link_to(t("language.#{product_document.language}"),
-					downloads_path(language: product_document.language)
-				) %>
-		</li>
+			<% unless product_document.language.blank? %>
+			<li><%= link_to(t("language.#{product_document.language}"),
+						downloads_path(language: product_document.language)
+					) %>
+			</li>
+			<% end %>
 		<% end %>
 	</ul>
 <% end %>

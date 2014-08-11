@@ -8,7 +8,7 @@
 
 <% 
 	latest_news = @news[0,6] 
-	featured_news = @news.shift
+	featured_news = @news.first
 %>
 
 <% if !featured_news.news_photo_file_name.blank? %>
@@ -85,7 +85,7 @@
 		<br/>
 		<h3 class="subheader">More <%= website.brand.name %> <%= t('news') %></h3>
 
-		<% @news.each do |news| %>
+		<% @news[1,99].each do |news| %>
 			<p><small><%=l news.post_on, format: :short %></small><br/>
 				<%= link_to translate_content(news, :title), news %></p>
 		<% end %>
