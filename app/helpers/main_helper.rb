@@ -213,6 +213,23 @@ module MainHelper
       content_tag(:div, icons.shuffle.join.html_safe, id: "featured_icons_#{num}", class: "hidden_icons hide-for-small")
     end
   end
+
+  def product_family_nav_links(product_family)
+    child_links = product_family.children_with_current_products(website).map do |sub_family|
+      product_family_nav_links(sub_family)
+    end
+
+    product_links = product_family.current_products.map do |product|
+      content_tag(:li, link_to(translate_content(product, :name), product))
+    end
+
+    dropdown_class = (child_links + product_links).length > 0 ? "has-dropdown" : ""
+
+    content_tag(:li, class: dropdown_class) do 
+      link_to(translate_content(product_family, :name), product_family) + 
+      content_tag(:ul, child_links.join.html_safe + product_links.join.html_safe, class: "dropdown")
+    end.html_safe
+  end
   
 end
 

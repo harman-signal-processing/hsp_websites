@@ -56,6 +56,7 @@ HarmanSignalProcessingWebsite::Application.configure do
     archimedia.css
     bss.css
     crown.css
+    crown.js
     dbx.css 
     dbx.js
     digitech.css 

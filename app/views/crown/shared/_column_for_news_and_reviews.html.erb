@@ -1,0 +1,14 @@
+  <div class="row">
+  	<div class="large-10 large-offset-1 columns">
+  		<ul data-orbit data-options="slide_number:false; pause_on_hover:false; navigation_arrows:false;">
+		<% @news.each do |news| %>
+		  <li>
+		  	<div class="large-8 large-offset-2 small-8 small-offset-2 columns">
+				<h3><%= link_to translate_content(news, :title), news %></h3>
+				<h3 class="subheader"><small><%=l news.post_on, format: :short %></small></h3>
+		  	</div>
+		  </li>
+		<% end %>
+		</ul>
+	</div>
+  </div>
