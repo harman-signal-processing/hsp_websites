@@ -40,7 +40,7 @@
 				<%= featured_product_icons(featured_product, i) %>
 				<div class="large-7 columns">
 					<div class="featured_image_container hide-for-small left">
-						<%= link_to(image_tag(featured_product.photo.product_attachment.url(:original), class: "featured_image"), featured_product) %>
+						<%= link_to(image_tag(featured_product.photo.product_attachment.url(:full_width), class: "featured_image"), featured_product) %>
 					</div>
 					<div class="show-for-small">
 						<%= link_to(image_tag(featured_product.photo.product_attachment.url(:medium)), featured_product) %>
@@ -126,7 +126,7 @@
 	<div class="homepage_block">
 		<h2 class="subheader text-center">Connect With Us</h2>
 		<div class="social text-center">
-			<%= social_media_links 'twitter', 'facebook', 'youtube', 'google+', 'wechat', 'weibo', style: 'circle', size: '64x64' %> 
+			<%= social_media_links 'twitter', 'facebook', 'youtube', 'google+', 'instagram', 'linkedin', 'wechat', 'weibo', style: 'circle', size: '64x64' %> 
 		</div>
 
 		<% if website.email_signup_url %>
