@@ -1374,11 +1374,13 @@ $topbar-sticky-class:                  ".sticky";
   h1 {
     color: white;
     @media only screen and (min-width: 720px) {
-      font-size: emCalc(90px);
+      font-weight: 300;
+      font-size: emCalc(70px);
       line-height: emCalc(17px);
     }
     @media only screen and (max-width: 719px) {
-      font-size: emCalc(50px);
+      font-weight: 200;
+      font-size: emCalc(30px);
       line-height: emCalc(16px);    
     }
   }
