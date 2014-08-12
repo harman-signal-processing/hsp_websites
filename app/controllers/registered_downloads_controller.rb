@@ -12,7 +12,7 @@ class RegisteredDownloadsController < ApplicationController
     end
     if request.post?
       params[:download_registration][:registered_download_id] = @registered_download.id
-      @download_registration = DownloadRegistration.new(params[:download_registration])
+      @download_registration = DownloadRegistration.new(download_registration_params)
       if @download_registration.save
         redirect_to confirm_download_registration_path(@registered_download.url) and return
       end
@@ -79,6 +79,29 @@ class RegisteredDownloadsController < ApplicationController
     else
       super
     end
+  end
+
+  def initialize_download_registration
+    @download_registration = DownloadRegistration.new(download_registration)
+  end
+
+  def download_registration_params
+    params.require(:download_registration).permit(
+      :code_you_received,
+      :registered_download_id,
+      :email,
+      :first_name,
+      :last_name,
+      :serial_number,
+      :download_count,
+      :download_code,
+      :subscribe,
+      :product,
+      :employee_number,
+      :store_number,
+      :manager_name,
+      :receipt
+    )
   end
 
 end
