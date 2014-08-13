@@ -369,7 +369,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     match '/where_to_buy(/:zip)' => 'main#where_to_buy', as: :where_to_buy , via: :all
     match '/support(/:action(/:id))' => "support", as: :support, via: :all
     match '/community' => 'main#community', as: :community, via: :all
-    match '/rss(.:format)' => 'main#rss', as: :rss, via: :all
+    match '/rss(.:format)' => 'main#rss', as: :rss, via: :all, defaults: { format: :xml }
     match '/search' => 'main#search', as: :search, via: :all
     match '/rohs' => 'support#rohs', as: :rohs, via: :all
     match 'distributors_for/:brand_id' => 'distributors#minimal', as: :minimal_distributor_search, via: :all
