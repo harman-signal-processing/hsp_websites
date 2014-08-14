@@ -13,29 +13,25 @@ class Dealer < ActiveRecord::Base
   has_many :brands, through: :brand_dealers
   accepts_nested_attributes_for :brand_dealers
   
-  scope :near, 
-    lambda{ |*args|
-      origin = *args.first[:origin]
-      if (origin).is_a?(Array)
-        origin_lat, origin_lng = origin
-      else
-        origin_lat, origin_lng = origin.lat, origin.lng
-      end
-      origin_lat, origin_lng = deg2rad(origin_lat), deg2rad(origin_lng)
-      within = *args.first[:within]
-      {
-        conditions: %(
-          (ACOS(COS(#{origin_lat})*COS(#{origin_lng})*COS(RADIANS(dealers.lat))*COS(RADIANS(dealers.lng))+
-          COS(#{origin_lat})*SIN(#{origin_lng})*COS(RADIANS(dealers.lat))*SIN(RADIANS(dealers.lng))+
-          SIN(#{origin_lat})*SIN(RADIANS(dealers.lat)))*3963) <= #{within[0]}
-        ),
-        select: %( dealers.*,
-          (ACOS(COS(#{origin_lat})*COS(#{origin_lng})*COS(RADIANS(dealers.lat))*COS(RADIANS(dealers.lng))+
-          COS(#{origin_lat})*SIN(#{origin_lng})*COS(RADIANS(dealers.lat))*SIN(RADIANS(dealers.lng))+
-          SIN(#{origin_lat})*SIN(RADIANS(dealers.lat)))*3963) AS distance
-        )
-      }
-    }
+  scope :near, -> (*args) {
+    origin = *args.first[:origin]
+    if (origin).is_a?(Array)
+      origin_lat, origin_lng = origin
+    else
+      origin_lat, origin_lng = origin.lat, origin.lng
+    end
+    origin_lat, origin_lng = deg2rad(origin_lat), deg2rad(origin_lng)
+    within = *args.first[:within]
+    where(
+      "(ACOS(COS(#{origin_lat})*COS(#{origin_lng})*COS(RADIANS(dealers.lat))*COS(RADIANS(dealers.lng))+
+      COS(#{origin_lat})*SIN(#{origin_lng})*COS(RADIANS(dealers.lat))*SIN(RADIANS(dealers.lng))+
+      SIN(#{origin_lat})*SIN(RADIANS(dealers.lat)))*3963) <= #{within[0]}"
+    ).select("dealers.*,
+      (ACOS(COS(#{origin_lat})*COS(#{origin_lng})*COS(RADIANS(dealers.lat))*COS(RADIANS(dealers.lng))+
+      COS(#{origin_lat})*SIN(#{origin_lng})*COS(RADIANS(dealers.lat))*SIN(RADIANS(dealers.lng))+
+      SIN(#{origin_lat})*SIN(RADIANS(dealers.lat)))*3963) AS distance"
+    )
+  }
 
   def parent
     if !!(self.account_number.match(/^(\d*)\-+\d*$/))
