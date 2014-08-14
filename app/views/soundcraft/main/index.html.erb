@@ -1,0 +1,203 @@
+<% set_meta_tags 	twitter: {
+		card: "summary"
+	},
+	og: {
+		image: image_url("#{website.folder}/logo.png"),
+		type: 'brand',
+		description: @website.site_name,
+		title: @website.brand.name
+	} %>
+
+<%= content_for :feature do %>
+	<%= cache ["slideshow", website.brand, I18n.locale] do %>
+		<% slides = Setting.slides(website) %>
+		<%= video_background_with_features(slides, tagline: true) %>
+	<% end %>
+<% end %>
+
+<%= content_for :middle_stuff do %>
+	<%= cache ["homepage_features", website.brand, I18n.locale] do %>
+		<% if @features.size > 0 %>
+			<div id="middle_features">
+				<ul class="large-block-grid-<%= @features.size %> small-block-grid-<%= (@features.size / 2).to_i %>">
+					<% @features.each_with_index do |feature,i| %>
+					<li><%= feature_button(feature) %></li>
+					<% end %>
+				</ul>
+			</div>
+		<% end %>
+	<% end %>
+<% end %>
+
+<%= content_for :big_bottom_box do %>
+
+<%= cache ["featured_products_strip", website.brand, I18n.locale] do %>
+	<% if @featured_products %>
+	<div class="homepage_block">
+		<% @featured_products.each_with_index do |featured_product, i| %>
+			<% if (i%2 <= 0) %>
+			<div class="row featured_product_container" id="featured_product_<%= i %>">
+				<%= featured_product_icons(featured_product, i) %>
+				<div class="large-7 columns">
+					<div class="featured_image_container hide-for-small left">
+						<%= link_to(image_tag(featured_product.photo.product_attachment.url(:full_width), class: "featured_image"), featured_product) %>
+					</div>
+					<div class="show-for-small">
+						<%= link_to(image_tag(featured_product.photo.product_attachment.url(:medium)), featured_product) %>
+					</div>
+				</div>
+				<div class="large-5 columns">
+					<h1><%= link_to featured_product.name, featured_product %></h1>
+					<h3 class="subheader"><%= translate_content(featured_product, :short_description) %></h3>
+
+					<p><%=raw translate_content(featured_product, :short_description_4) %></p>
+
+					<%= link_to 'more details...', featured_product, class: "small secondary button" %>
+					<% if featured_product.in_production? %>
+						<%= buy_it_now_link(featured_product, html_button: true, downcase: true, button_class: "small button") %>
+					<% end %>
+				</div>
+			</div>
+			<% else %>
+			<div class="row featured_product_container" id="featured_product_<%= i %>">
+				<%#= featured_product_icons(featured_product, i) %>
+				<div class="small-12 columns show-for-small">
+					<%= link_to(image_tag(featured_product.photo.product_attachment.url(:medium)), featured_product) %>
+				</div>
+				<div class="large-5 columns text-right small-left">
+					<h1><%= link_to featured_product.name, featured_product %></h1>
+					<h3 class="subheader"><%= translate_content(featured_product, :short_description) %></h3>
+
+					<p><%=raw translate_content(featured_product, :short_description_4) %></p>
+
+					<%= link_to 'more details...', featured_product, class: "small secondary button" %>
+					<% if featured_product.in_production? %>
+						<%= buy_it_now_link(featured_product, html_button: true, downcase: true, button_class: "small button") %>
+					<% end %>
+				</div>
+				<div class="large-7 columns hide-for-small">
+					<div class="featured_image_container right">
+						<%= link_to(image_tag(featured_product.photo.product_attachment.url(:original), class: "featured_image"), featured_product) %>
+					</div>
+				</div>
+			</div>
+			<% end %>
+
+		<% end %>
+	</div>
+	<% end %>
+<% end %>
+
+<%= cache ["video_strip", website.brand, I18n.locale] do %>
+	<% if @youtube && !@youtube.blank? %>
+	<div class="homepage_block">
+		<div class="container" id="homepage-video-banner">
+			<div class="row">
+				<div class="large-12 small-12 columns">
+					<%= render_partial 'shared/column_for_youtube' %>
+				</div>
+			</div>
+		</div>
+	</div>
+	<% elsif @featured_video %>
+	<div class="homepage_block">
+		<div class="container" id="homepage-video-banner">
+			<div class="row">
+				<div class="large-10 large-offset-1 columns">
+					<div class="video-window text-center">
+						<iframe width="853" height="480" src="//www.youtube.com/embed/<%= @featured_video %>" frameborder="0" allowfullscreen></iframe>
+					</div>
+				</div>
+			</div>
+			<div class="row hide-for-small">
+				<div class="large-6 columns">
+					<%= link_to videos_path do %>
+						<%= image_tag "icons/youtube.png" %> 
+						more <%= website.brand.name %> videos ...
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+	<% end %>
+<% end %>
+
+<%= cache ["social_strip", website.brand, I18n.locale] do %>
+	<div class="homepage_block">
+		<h2 class="subheader text-center">Connect With Us</h2>
+		<div class="social text-center">
+			<%= social_media_links 'twitter', 'facebook', 'youtube', 'google+', 'instagram', 'linkedin', 'wechat', 'weibo', style: 'circle', size: '64x64' %> 
+		</div>
+
+		<% if website.email_signup_url %>
+		<div class="row">
+			<div class="large-8 large-offset-2 columns">
+				<div class="row" style="margin-top: 40px">
+					<div class="large-6 large-offset-3 columns">
+						<%= render_partial 'shared/newsletter_signup' %>
+					</div>
+				</div>
+			</div>
+		</div>
+		<% end %>
+	</div>
+<% end %>
+
+<%= cache ["promotion_strip", website.brand, I18n.locale] do %>
+	<% if @current_promotions.length > 0 %>
+		<div id="promotion_side_button">
+			<%= link_to "Current Offers", promotions_path, class: "button" %>
+		</div>
+		<% promotion = @current_promotions.all.shuffle.first %>
+		<% unless promotion.homepage_banner_file_name.blank? %>
+		<div class="homepage_block text-center">
+			<div class="promotion_container container">
+				<div class="row">
+					<div class="large-5 small-6 columns text-left">
+						<h2><%= link_to promotion.homepage_headline.present? ? promotion.homepage_headline : promotion.name, promotion %></h2>
+						<% if promotion.start_on.present? && promotion.end_on.present? %>
+							<h4 class="subheader"><%=l promotion.start_on, format: :long %> - <%=l promotion.end_on, format: :long %></h4>
+						<% end %>
+						<p><%=raw promotion.homepage_text %></p>
+
+						<% if promotion.products.count > 0 %>
+							<div class="hide-for-small">
+								<h3>Qualifying Purchases Include</h3>
+								<ul style="margin-left: 14px" class="hide-for-small">
+									<% promotion.products.each do |p| %>
+									<li><%= link_to("#{p.name} #{p.short_description}", p) %></li>
+									<% end %>
+								</ul>
+							</div>
+						<% end %>
+						<%= link_to "Learn More", promotion, class: "medium button" %>
+					</div>
+					<div class="large-6 small-6 columns">
+						<%= link_to image_tag(promotion.homepage_banner.url, alt: promotion.name), promotion %>
+					</div>
+				</div>
+			</div>
+		</div>
+		<% end %>
+	<% end %>
+<% end %>
+
+<%= cache ["news_strip", website.brand, I18n.locale] do %>
+	<div class="homepage_block text-center news_strip">
+		<%= render_partial 'shared/column_for_news_and_reviews' %>
+	</div>
+<% end %>
+
+<% end %>
+
+<%= content_for :preload do %>
+	<%= preload_background_images %>
+<% end %>
+
+<%= content_for :popup_code do %>
+	<% if website.homepage_popup %>
+		<%=raw website.homepage_popup %>
+	<% end %>
+<% end %>
+
+<div id="homepage-counter" data-counter="<%= @counter %>" data-nextevent="<%= @next_event %>" data-countdowncontainer="<%= @countdown_container %>"></div>

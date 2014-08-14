@@ -57,6 +57,8 @@ HarmanSignalProcessingWebsite::Application.configure do
     bss.css
     crown.css
     crown.js
+    soundcraft.css
+    soundcraft.js
     dbx.css 
     dbx.js
     digitech.css 

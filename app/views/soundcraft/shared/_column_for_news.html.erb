@@ -1,0 +1,37 @@
+<div class="row">
+	<div class="large-12 columns">
+		<% big_news = [@news.shift, @news.shift] %>
+		<ul class="large-block-grid-2 small-block-grid-2 image-grid">
+			<% big_news.each do |news| %>
+				<li class="featured news-with-popover">
+			  	<%= link_to news do %>
+			  		<% if news.news_photo_file_name.blank? %>
+						<%= translate_content(news, :title) %>
+			  		<% else %>
+			  			<%= image_tag(news.news_photo.url(:small_square)) %>
+			  			<div class="popover"><h3><%= translate_content(news, :title) %></h3></div>
+			  		<% end %>
+			  		<h4><%=l news.post_on, format: :long %></h4>
+			  	<% end %>
+			  </li>
+			<% end %>
+		</ul>
+	</div>
+	<div class="large-12 columns">
+		<ul class="large-block-grid-4 small-block-grid-4 image-grid">
+		<% @news.each do |news| %>
+		  <li class="secondary news-with-popover">
+		  	<%= link_to news do %>
+		  		<% if news.news_photo_file_name.blank? %>
+					<%= translate_content(news, :title) %>
+		  		<% else %>
+		  			<%= image_tag(news.news_photo.url(:thumb_square)) %>
+		  			<div class="popover"><h5><%=truncate translate_content(news, :title), length: 50 %></h5></div>
+		  		<% end %>
+				<h4><%=l news.post_on, format: :short %></h4>
+		  	<% end %>
+		  </li>
+		<% end %>
+		</ul>
+	</div>
+</div>
