@@ -253,6 +253,7 @@ private
         :email, 
         :password, 
         :password_confirmation, 
+        :current_password,
         :website, 
         :artist_photo, 
         :artist_product_photo, 
