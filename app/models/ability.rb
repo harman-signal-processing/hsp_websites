@@ -97,9 +97,18 @@ class Ability
         can :read, ToolkitResource, rso: true
       end
       if user.role?(:engineer)
+        can [:read, :create, :update], MarketingTask
+        can :destroy, MarketingTask, requestor_id: user.id
+        can :manage, MarketingAttachment
+        can :create, MarketingComment
+        can :manage, MarketingComment, user_id: user.id
+        can :manage, MarketingTask do |mt|
+          mt.requestor_id == user.id || mt.worker_id == user.id || (mt.marketing_project && mt.marketing_project.user_id == user.id)
+        end
+        can :create, MarketingProject 
+        can :manage, MarketingProject, user_id: user.id 
         can :manage, Software
         can :manage, ProductSoftware
-
         can :manage, SoftwareAttachment
         can :manage, ToneLibrarySong
         can :manage, ToneLibraryPatch
