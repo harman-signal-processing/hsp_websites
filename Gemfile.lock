@@ -1,12 +1,4 @@
 GIT
-  remote: https://github.com/geokit/geokit.git
-  revision: 23c4c6a202671107dbdbd2dd1d8dc69dd8649a45
-  ref: 23c4c6a202671107dbdbd2dd1d8dc69dd8649a45
-  specs:
-    geokit (1.8.4)
-      multi_json (>= 1.3.2)
-
-GIT
   remote: https://github.com/kylejginavan/youtube_it.git
   revision: 943a202fce2324d5122f80396e3bc473a61dc4c4
   ref: 943a202fce2324d5122f80396e3bc473a61dc4c4
@@ -61,10 +53,11 @@ GEM
       gyoku (>= 0.4.0)
       nokogiri
     arel (5.0.1.20140414130214)
-    asset_sync (1.0.0)
+    asset_sync (1.1.0)
       activemodel
       fog (>= 1.8.0)
-    aws-sdk (1.50.0)
+      unf
+    aws-sdk (1.51.0)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
     bcrypt (3.1.7)
@@ -126,7 +119,7 @@ GEM
       delayed_job (>= 3.0, < 4.1)
     delayed_paperclip (2.8.0)
       paperclip (>= 3.3)
-    devise (3.2.4)
+    devise (3.3.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
@@ -139,7 +132,7 @@ GEM
     exception_notification (4.0.1)
       actionmailer (>= 3.0.4)
       activesupport (>= 3.0.4)
-    excon (0.39.3)
+    excon (0.39.5)
     execjs (2.2.1)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
@@ -159,7 +152,7 @@ GEM
       fog-softlayer
       ipaddress (~> 0.5)
       nokogiri (~> 1.5, >= 1.5.11)
-    fog-brightbox (0.1.1)
+    fog-brightbox (0.3.0)
       fog-core (~> 1.22)
       fog-json
       inflecto
@@ -172,12 +165,14 @@ GEM
       net-ssh (>= 2.1.3)
     fog-json (1.0.0)
       multi_json (~> 1.0)
-    fog-softlayer (0.3.12)
+    fog-softlayer (0.3.14)
       fog-core
       fog-json
     formatador (0.2.5)
     friendly_id (5.0.4)
       activerecord (>= 4.0.0)
+    geokit (1.8.5)
+      multi_json (>= 1.3.2)
     geokit-rails (2.0.1)
       geokit (~> 1.5)
       rails (>= 3.0)
@@ -195,7 +190,7 @@ GEM
       builder (>= 2.1.2)
     highline (1.6.21)
     hike (1.2.3)
-    http (0.6.1)
+    http (0.6.2)
       http_parser.rb (~> 0.6.0)
     http_parser.rb (0.6.0)
     httpi (2.2.5)
@@ -431,11 +426,14 @@ GEM
       memoizable (~> 0.4.0)
       naught (~> 1.0)
       simple_oauth (~> 0.2.0)
-    tzinfo (1.2.1)
+    tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.5.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.6)
     uuid (2.3.7)
       macaddr (~> 1.0)
     vegas (0.1.11)
@@ -491,7 +489,7 @@ DEPENDENCIES
   figaro
   fog
   friendly_id
-  geokit!
+  geokit (>= 1.8.5)
   geokit-rails
   gravtastic
   guard-minitest

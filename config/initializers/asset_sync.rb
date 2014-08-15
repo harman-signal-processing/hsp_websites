@@ -22,4 +22,12 @@ AssetSync.configure do |config|
   
   # Fail silently.  Useful for environments such as Heroku
   # config.fail_silently = true
+
+  config.custom_headers = {
+    ".*\.eot" => { :access_control_allow_origin => "*" },
+    ".*\.svg" => { :access_control_allow_origin => "*" },
+    ".*\.ttf" => { :access_control_allow_origin => "*" },
+    ".*\.woff" => { :access_control_allow_origin => "*" },
+  }
+
 end
