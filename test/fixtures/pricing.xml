@@ -1,0 +1,19 @@
+<price-list id="US">
+  <pricing-items>
+    <price-item id="LexPCM96SUR-D-V">
+      <list-price><![CDATA[19.00]]></list-price>
+      <sale-price><![CDATA[12.00]]></sale-price>
+      <cost-price><![CDATA[6.43]]></cost-price>
+    </price-item>
+    <price-item id="SKU-2">
+      <list-price><![CDATA[219.00]]></list-price>
+      <sale-price><![CDATA[219.00]]></sale-price>
+      <cost-price><![CDATA[115.35]]></cost-price>
+    </price-item>
+    <price-item id="SKU-3">
+      <list-price><![CDATA[1249.00]]></list-price>
+      <sale-price><![CDATA[999.00]]></sale-price>
+      <cost-price><![CDATA[924.69]]></cost-price>
+    </price-item>
+  </pricing-items>
+</price-list>

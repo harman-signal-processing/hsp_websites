@@ -1,0 +1,51 @@
+<inventory id="US">
+  <inventory-items>
+    <inventory-item id="SKU-1">
+      <availability-date>
+        <![CDATA[00/00/0000]]>
+      </availability-date>
+      <inventory-status>
+        <![CDATA[OUTOFSTOCK]]>
+      </inventory-status>
+    <shipping-plant>
+        <street></street>
+        <city></city>
+        <region></region>
+        <postal-code></postal-code>
+        <country></country>
+    </shipping-plant>
+    </inventory-item>
+    <inventory-item id="LexPCM96SUR-D">
+      <stock-level>87</stock-level>
+      <availability-date>
+        <![CDATA[08/13/2014]]>
+      </availability-date>
+      <inventory-status>
+        <![CDATA[INSTOCK]]>
+      </inventory-status>
+    <shipping-plant>
+        <street>24950 Grove View Road</street>
+        <city>Moreno Valley</city>
+        <region>CA</region>
+        <postal-code>92551</postal-code>
+        <country>US</country>
+    </shipping-plant>
+    </inventory-item>
+    <inventory-item id="SKU-3">
+      <availability-date>
+        <![CDATA[08/14/2014]]>
+      </availability-date>
+      <inventory-status>
+        <![CDATA[BACKORDERABLE]]>
+      </inventory-status>
+      <backorder-level>72</backorder-level>
+    <shipping-plant>
+        <street>24950 Grove View Road</street>
+        <city>Moreno Valley</city>
+        <region>CA</region>
+        <postal-code>92551</postal-code>
+        <country>US</country>
+    </shipping-plant>
+    </inventory-item>
+  </inventory-items>
+</inventory>

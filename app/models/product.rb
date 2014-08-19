@@ -44,13 +44,29 @@ class Product < ActiveRecord::Base
   has_many :sub_products, -> { order('position') }, class_name: "ParentProduct", foreign_key: "parent_product_id"
   after_initialize :set_default_status
   accepts_nested_attributes_for :product_prices, reject_if: :all_blank
+
   after_save :translate
+
+  monetize :harman_employee_price_cents, :allow_nil => true
+  monetize :msrp_cents, :allow_nil => true
+  monetize :street_price_cents, :allow_nil => true
+  monetize :sale_price_cents, :allow_nil => true
+  monetize :cost_cents, :allow_nil => true
+  before_save :set_employee_price
   
   serialize :previewers, Array
   has_attached_file :background_image
   validates_attachment :background_image, content_type: { content_type: /\Aimage/i }
   validates :name, presence: true
   validates :product_status_id, presence: true
+
+  def set_employee_price
+    if self.cost_cents.present? && self.cost_cents > 0
+      if ENV['EMPLOYEE_PRICING_PERCENT_OF_COST']
+        self.harman_employee_price_cents = self.cost_cents * ENV['EMPLOYEE_PRICING_PERCENT_OF_COST'].to_f
+      end
+    end
+  end
   
   def belongs_to_this_brand?(brand)
     brand = brand.brand if brand.is_a?(Website) # if a Website is passed in instead of a Brand
