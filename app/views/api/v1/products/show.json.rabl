@@ -1,5 +1,5 @@
 object @product
-attributes :id, :name, :friendly_id, :harman_employee_price, :msrp, :sap_sku, :short_description, :description, :stock_status
+attributes :id, :name, :friendly_id, :harman_employee_price, :msrp, :sap_sku, :short_description, :description, :stock_status, :available_on
 
 node(:thumbnail) { |product|
 	if product.photo
