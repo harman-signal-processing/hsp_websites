@@ -44,3 +44,7 @@ FOG_PAPERCLIP_CONTAINER: "attachments"
 FOG_HOST_ALIAS: 
 
 GOOGLE_YOUTUBE_API_KEY: generate_read_only_api_key
+
+INVENTORY_FILE: "/path/to/inventory.xml"
+PRICING_FILE: "/path/to/pricing.xml"
+EMPLOYEE_PRICING_PERCENT_OF_COST: 1.9
