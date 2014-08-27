@@ -187,7 +187,8 @@ class Product < ActiveRecord::Base
   end
 
   def show_on_toolkit?
-    !self.virtual_product?
+    # comment out '&& self.product_status.show_on_website?' to show un-announced products on toolkit
+    !self.virtual_product? && self.product_status.show_on_website? 
   end
   
   def related_products
