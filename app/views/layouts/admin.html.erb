@@ -219,6 +219,10 @@
 			</ul>
 		</li>
 	<% end %>
+
+	<% if website.has_system_configurator? && can?(:manage, System) %>
+		<li><%= link_to('System Configurator', admin_systems_path) %></li>
+	<% end %>
 	</ul>
 	</li>
 

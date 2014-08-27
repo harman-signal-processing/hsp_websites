@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140819151201) do
+ActiveRecord::Schema.define(version: 20140827170854) do
 
   create_table "admin_logs", force: true do |t|
     t.integer  "user_id"
@@ -247,6 +247,7 @@ ActiveRecord::Schema.define(version: 20140819151201) do
     t.boolean  "toolkit"
     t.string   "color"
     t.boolean  "has_products"
+    t.boolean  "has_system_configurator",       default: false
   end
 
   add_index "brands", ["cached_slug"], name: "index_brands_on_cached_slug", unique: true, using: :btree
@@ -1295,6 +1296,86 @@ ActiveRecord::Schema.define(version: 20140819151201) do
   end
 
   add_index "specifications", ["cached_slug"], name: "index_specifications_on_cached_slug", unique: true, using: :btree
+
+  create_table "system_option_values", force: true do |t|
+    t.integer  "system_option_id"
+    t.string   "name"
+    t.integer  "position"
+    t.text     "description"
+    t.boolean  "default",          default: false
+    t.integer  "price_cents",      default: 0,     null: false
+    t.string   "price_currency",   default: "USD", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "system_option_values", ["system_option_id"], name: "index_system_option_values_on_system_option_id", using: :btree
+
+  create_table "system_options", force: true do |t|
+    t.integer  "system_id"
+    t.string   "name"
+    t.string   "option_type"
+    t.integer  "position"
+    t.integer  "parent_id"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "system_options", ["parent_id"], name: "index_system_options_on_parent_id", using: :btree
+  add_index "system_options", ["system_id"], name: "index_system_options_on_system_id", using: :btree
+
+  create_table "system_rule_actions", force: true do |t|
+    t.integer  "system_rule_id"
+    t.string   "action_type"
+    t.integer  "system_option_id"
+    t.integer  "system_option_value_id"
+    t.text     "alert"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "system_rule_actions", ["system_rule_id"], name: "index_system_rule_actions_on_system_rule_id", using: :btree
+
+  create_table "system_rule_condition_groups", force: true do |t|
+    t.integer  "system_rule_id"
+    t.string   "logic_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "system_rule_condition_groups", ["system_rule_id"], name: "index_system_rule_condition_groups_on_system_rule_id", using: :btree
+
+  create_table "system_rule_conditions", force: true do |t|
+    t.integer  "system_rule_condition_group_id"
+    t.integer  "system_option_id"
+    t.string   "operator"
+    t.integer  "system_option_value_id"
+    t.string   "direct_value"
+    t.string   "logic_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "system_rule_conditions", ["system_rule_condition_group_id"], name: "index_system_rule_conditions_on_system_rule_condition_group_id", using: :btree
+
+  create_table "system_rules", force: true do |t|
+    t.integer  "system_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "system_rules", ["system_id"], name: "index_system_rules_on_system_id", using: :btree
+
+  create_table "systems", force: true do |t|
+    t.string   "name"
+    t.integer  "brand_id"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "systems", ["brand_id"], name: "index_systems_on_brand_id", using: :btree
 
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"

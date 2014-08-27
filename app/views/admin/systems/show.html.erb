@@ -1,0 +1,11 @@
+<h1>System: <%= @system.name %></h1>
+
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_systems_path, class: "small secondary button" %>	</li>
+	<li><%= link_to 'Edit', edit_admin_system_path(@system, locale: I18n.locale), class: "small secondary button" %></li>
+	<li><%= link_to 'Delete', [:admin, @system], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
+
+<h3 class="subheader">Options <%= link_to 'add option' %></h3>
+
+<h3 class="subheader">Rules</h3>
