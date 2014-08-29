@@ -133,6 +133,12 @@ class Admin::ProductsController < AdminController
     render_template
   end
 
+  def artist_pricing
+    authorize! :view, :artist_pricing
+    @products = website.products
+    render_template
+  end
+
   # Update action for the myharman.com pricing form
   def update_harman_employee_pricing
     authorize! :update, :harman_employee_pricing

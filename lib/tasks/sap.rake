@@ -21,7 +21,9 @@ namespace :sap do
 				    product.save
 				end
 			else
-				problem_products << product unless product.discontinued?
+				if product.harman_employee_price_cents.present?
+					problem_products << product unless product.discontinued?
+				end
 			end
 		end
 
@@ -50,7 +52,9 @@ namespace :sap do
 					product.save
 				end
 			else
-				problem_products << product unless product.discontinued?
+				if product.harman_employee_price_cents.present?
+					problem_products << product unless product.discontinued?
+				end
 			end
 		end
 

@@ -52,6 +52,8 @@ class Product < ActiveRecord::Base
   monetize :street_price_cents, :allow_nil => true
   monetize :sale_price_cents, :allow_nil => true
   monetize :cost_cents, :allow_nil => true
+  monetize :artist_price_cents, :allow_ni => true
+
   before_save :set_employee_price
   
   serialize :previewers, Array
@@ -64,6 +66,14 @@ class Product < ActiveRecord::Base
     if self.cost_cents.present? && self.cost_cents > 0
       if ENV['EMPLOYEE_PRICING_PERCENT_OF_COST']
         self.harman_employee_price_cents = self.cost_cents * ENV['EMPLOYEE_PRICING_PERCENT_OF_COST'].to_f
+      end
+    end
+  end
+
+  def artist_price_cents
+    if self.cost_cents.present? && self.cost_cents > 0
+      if ENV['ARTIST_PRICING_PERCENT_OF_COST'].to_f > 0.0
+        self.cost_cents * ENV['ARTIST_PRICING_PERCENT_OF_COST'].to_f
       end
     end
   end
@@ -187,7 +197,8 @@ class Product < ActiveRecord::Base
   end
 
   def show_on_toolkit?
-    !self.virtual_product?
+    # comment out '&& self.product_status.show_on_website?' to show un-announced products on toolkit
+    !self.virtual_product? && self.product_status.show_on_website? 
   end
   
   def related_products

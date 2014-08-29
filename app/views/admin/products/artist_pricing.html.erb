@@ -1,0 +1,25 @@
+<h1>Artist Pricing</h1>
+
+<p>Pricing below is based on cost (from SAP) * <%= ENV['ARTIST_PRICING_PERCENT_OF_COST'] %>.
+If the price is missing below, check to make sure the SKU matches the current SKU in SAP,
+and that the product is setup for E-commerce in SAP. Then, it should appear in the next
+daily sync.</p>
+
+<table class="data" style="margin-left: auto; margin-right: auto;">
+	<tr>
+		<th>Product</th>
+		<th>SKU</th>
+		<th>MSRP</th>
+		<th>Artist Price</th>
+	</tr>
+	<% @products.each do |product| %>
+		<% if !(product.discontinued?) && product.show_on_website?(website) && product.can_be_registered? %>
+			<tr>
+				<td><%= link_to product.name, product, target: "_blank" %></td>
+				<td class="text-center"><%= product.sap_sku %></td>
+				<td class="text-right"><%= product.msrp %></td>
+				<td class="text-right"><%= product.artist_price %></td>
+			</tr>
+		<% end %>
+	<% end %>
+</table>

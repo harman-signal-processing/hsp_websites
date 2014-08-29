@@ -56,7 +56,7 @@ class Admin::ArtistsController < AdminController
     end
     @artist.initial_brand = website.brand
     @artist.skip_confirmation!
-    @artist_brand = ArtistBrand.new(params[:artist_brand])
+    @artist_brand = ArtistBrand.new(params.require(:artist_brand).permit!)
     respond_to do |format|
       if @artist.save
         @artist_brand.artist_id = @artist.id 
@@ -106,7 +106,7 @@ class Admin::ArtistsController < AdminController
     @artist_brand = ArtistBrand.where(artist_id: @artist.id, brand_id: website.brand_id).first_or_create
     respond_to do |format|
       if @artist.update_attributes(artist_params)
-        @artist_brand.update_attributes(params[:artist_brand])
+        @artist_brand.update_attributes(params.require(:artist_brand).permit!)
         format.html { redirect_to([:admin, @artist], notice: 'Artist was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated artist: #{@artist.name}")
