@@ -38,10 +38,11 @@ class Admin::ProductSpecificationsController < AdminController
   # POST /admin/product_specifications.xml
   def create
     begin
-      specification = Specification.new(params[:specification])
+      specification_params = params.require(:specification).permit!
+      specification = Specification.new(specification_params)
       if specification.save
         @product_specification.specification = specification
-      elsif specification = Specification.where(name: params[:specification][:name]).first
+      elsif specification = Specification.where(name: specification_params[:name]).first
         @product_specification.specification = specification
       end
     rescue
