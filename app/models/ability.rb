@@ -134,6 +134,7 @@ class Ability
         can :manage, EffectType
       end
       if user.role?(:artist_relations)
+        can :view, :artist_pricing
         can :manage, Artist
         can :manage, ArtistTier
         can :manage, ArtistBrand

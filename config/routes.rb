@@ -152,6 +152,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
           put :update_rohs
           get :harman_employee_pricing
           put :update_harman_employee_pricing
+          get :artist_pricing
         end
         member do
           get :delete_background
@@ -173,7 +174,9 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         collection { post :update_order }
       end
       resources :artists do
-        collection { post :update_order }
+        collection do 
+          post :update_order
+        end
         member { post :reset_password }
       end
       resources :settings do 

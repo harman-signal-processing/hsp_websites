@@ -166,6 +166,9 @@
 				<% if can?(:manage, Artist) && website.has_artists? %>
 					<li><%= link_to "Artists", admin_artists_path %></li>
 				<% end %>
+				<% if can?(:view, :artist_pricing) %>
+					<li><%= link_to "Artist Pricing", artist_pricing_admin_products_path %></li>
+				<% end %>
 			</ul>
 		</li>
 	<% end %>
