@@ -6,6 +6,18 @@
 	<li><%= link_to 'Delete', [:admin, @system], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
 </ul>
 
-<h3 class="subheader">Options <%= link_to 'add option' %></h3>
+<h3 class="subheader">Options</h3>
+<%= link_to 'add an option', new_admin_system_system_option_path(@system) %>
+<ul class="list">
+	<% @system.system_options.each do |system_option| %>
+	<li><%= link_to system_option.name, [:admin, @system, system_option] %></li>
+	<% end %>
+</ul>
 
 <h3 class="subheader">Rules</h3>
+<%= link_to 'add a rule', new_admin_system_system_rule_path(@system) %>
+<ul class="list">
+	<% @system.system_rules.each do |system_rule| %>
+	<li><%= link_to system_rule.name, [:admin, @system, system_rule] %></li>
+	<% end %>
+</ul>

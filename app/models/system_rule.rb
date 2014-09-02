@@ -8,4 +8,7 @@ class SystemRule < ActiveRecord::Base
 	has_many :system_rule_actions
 
 	validates :system, presence: true
+
+	accepts_nested_attributes_for :system_rule_condition_groups, reject_if: :all_blank
+	accepts_nested_attributes_for :system_rule_actions, reject_if: :all_blank
 end

@@ -9,7 +9,9 @@ class SystemRuleConditionGroup < ActiveRecord::Base
 	validates :logic_type, presence: true
 	validates :system_rule, presence: true
 
-	before_save :set_default_logic_type
+	after_initialize :set_default_logic_type
+
+	accepts_nested_attributes_for :system_rule_conditions, reject_if: :all_blank
 
 	def set_default_logic_type
 		self.logic_type ||= "AND"

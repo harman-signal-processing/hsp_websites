@@ -5,7 +5,6 @@
 #
 class SystemRuleCondition < ActiveRecord::Base
 	enum logic_types: ["AND", "OR"]
-	enum operators: ["=", "<", ">", "!=", "like"]
 
 	belongs_to :system_rule_condition_group
 	belongs_to :system_option
@@ -17,7 +16,12 @@ class SystemRuleCondition < ActiveRecord::Base
 	validates :operator, presence: true
 	validates :logic_type, presence: true
 
-	before_save :set_default_logic_type
+	after_initialize :set_default_logic_type
+
+	def self.operators
+		# ['=', '<', '>', '!=', 'like']
+		['is', 'is not', 'is greater than', 'is less than', 'is like']
+	end
 
 	def set_default_logic_type
 		self.logic_type ||= "OR"

@@ -1,0 +1,8 @@
+<%= simple_form_for([:admin, @system, @system_option]) do |f| %>
+	<%= f.error_notification %>
+    <%= f.input :name %>
+    <%= f.input :option_type, collection: SystemOption.option_types.keys.map {|s| [s.titleize,s]} %>
+    <%= f.input :description %>
+    <%= f.association :parent %>
+    <%= f.button :submit %>
+<% end %>
