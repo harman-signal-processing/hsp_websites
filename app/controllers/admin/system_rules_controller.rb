@@ -64,7 +64,7 @@ class Admin::SystemRulesController < AdminController
       if @system_rule.update_attributes(system_rule_params)
         format.html { redirect_to([:admin, @system], notice: 'System Rule was successfully updated.') }
         format.xml  { head :ok }
-        website.add_log(user: current_user, action: "Updated spec: #{@system_rule.name}")
+        website.add_log(user: current_user, action: "Updated system_rule: #{@system_rule.name}")
       else
         format.html { render action: "edit" }
         format.xml  { render xml: @system_rule.errors, status: :unprocessable_entity }
@@ -77,7 +77,7 @@ class Admin::SystemRulesController < AdminController
   def destroy
     @system_rule.destroy
     respond_to do |format|
-      format.html { redirect_to(admin_system_rules_url) }
+      format.html { redirect_to @system }
       format.xml  { head :ok }
       format.js
     end

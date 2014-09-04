@@ -13,4 +13,13 @@ class SystemRuleAction < ActiveRecord::Base
 
 	validates :action_type, presence: true
 	validates :system_rule, presence: true
+
+	def to_s
+		case action_type
+		when 'alert'
+			"show alert: '#{self.alert.truncate(30).html_safe }'"
+		else
+			"#{action_type} #{system_option.name}"
+		end
+	end
 end

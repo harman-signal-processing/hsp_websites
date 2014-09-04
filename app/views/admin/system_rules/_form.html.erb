@@ -2,6 +2,7 @@
 	<%= f.error_notification %>
 	<fieldset><legend>WHEN THESE CONDITIONS ARE MET...</legend>
 		<%= f.simple_fields_for :system_rule_condition_groups do |srcg| %>
+			<%= srcg.error_notification %>
 			<% unless srcg.object === @system_rule.system_rule_condition_groups.first %>
 			<p class="text-right">
 				<%= link_to '#' do %>
@@ -11,6 +12,7 @@
 			</p>
 			<% end %>
 			<%= srcg.simple_fields_for :system_rule_conditions do |src| %>
+				<%= src.error_notification %>
 				<div class="row">
 					<% if src.object === srcg.object.system_rule_conditions.first %>
 						<div class="large-2 columns">
@@ -78,6 +80,7 @@
 	</fieldset>
 	<fieldset><legend>THEN DO THIS...</legend>
 		<%= f.simple_fields_for :system_rule_actions do |sra| %>
+			<%= sra.error_notification %>
 			<div class="row">
 				<div class="large-1 small-1 columns text-right">
 					<% if sra.object === @system_rule.system_rule_actions.first %>

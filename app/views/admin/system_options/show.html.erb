@@ -1,0 +1,34 @@
+<h1><%= @system.name %> Option: <%= @system_option.name %></h1>
+
+<ul class="button-group round">
+	<li><%= link_to 'Back', [:admin, @system], class: "small secondary button" %>	</li>
+	<li><%= link_to 'Edit', edit_admin_system_system_option_path(@system, @system_option, locale: I18n.locale), class: "small secondary button" %></li>
+	<li><%= link_to 'Delete', [:admin, @system, @system_option], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
+
+<p>
+<% if @system_option.parent %>
+	Parent option: <%= link_to @system_option.parent.name, [:admin, @system, @system_option.parent] %>
+<% else %>
+	<i>This is a top-level system option.</i>
+<% end %>
+</p>
+
+<p><strong>Description:</strong> <%= @system_option.description %></p>
+
+<p><strong>Option Type:</strong> <%= @system_option.option_type %></p>
+
+<h3 class="subheader">Children
+	<small>
+		<%= link_to new_admin_system_system_option_path(@system) do %>
+			<%= image_tag "icons/add_green.png" %>
+			add child option
+		<% end %>
+	</small>
+</h3>
+
+<ul>
+	<% @system_option.children.each do |child| %>
+	<li><%= link_to child.name, [:admin, @system, child] %></li>
+	<% end %>
+</ul>
