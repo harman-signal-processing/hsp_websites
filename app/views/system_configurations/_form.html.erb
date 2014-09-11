@@ -1,0 +1,35 @@
+<%= simple_form_for [@system, @system_configuration], html: { class: 'configurator' } do |f| %>
+
+	<div id="system_summary_container">
+		<h5 class="subheader">SYSTEM SUMMARY</h5>
+		<div class="system_summary_content">
+			<p>Your system requires:</p>
+			<ul>
+				<li>XX DAC Licenses</li>
+				<li>XX BSS processors</li>
+				<li>XX Other things</li>
+			</ul>
+		</div>
+		<div style="text-align: center">
+			<%= f.button :submit, 'Print List', class: 'secondary button' %>
+			<%= f.button :submit, 'Contact Me', class: 'secondary button' %>
+		</div>
+	</div>
+
+	<div id="system_builder">
+		
+		<%= f.fields_for :system_configuration_options do |sco| %>
+			<% unless sco.object.system_option.parent_id.to_i > 0 %>
+				<div class="major_system_container">
+					<%= render_partial "system_option", f: f, sco: sco %>
+				</div>
+			<% end %>
+		<% end %>
+
+		<h5><i>We've just scratched the surface of the features and options available
+			in <%= @system.name.pluralize %>. <%= link_to 'Contact us', support_path %>
+			for more details.</i></h5>
+		
+	</div>
+
+<% end %>

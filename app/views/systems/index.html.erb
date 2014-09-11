@@ -1,0 +1,27 @@
+<% @systems.each do |system| %>
+
+	<% system_configuration = system.system_configuration('start') %>
+
+	<div class="system_selector">
+		<h1><%= system.name %></h1>
+
+		<%= simple_form_for [system, system_configuration], url: new_system_system_configuration_path(system) do |f| %>
+			<div class='starter_option_container'>
+				<%= f.fields_for :system_configuration_options do |sco| %>
+				<div style="width: <%= 740 / ((system_configuration.system_configuration_options.length > 0) ? system_configuration.system_configuration_options.length : 1) %>px" class='starter_option'>
+					<%= render_partial "system_configurations/system_option", 
+							skip_children: true, 
+							skip_help: true, 
+							f: f,
+							sco: sco %>
+				</div>
+				<% end %>
+			</div>
+
+			<div class="submit_container">
+				<%= f.submit 'Build It', class: 'button' %>
+			</div>
+		<% end %>
+	</div>
+
+<% end %>

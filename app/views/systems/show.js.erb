@@ -1,0 +1,47 @@
+jQuery(function($) {
+
+  // replace this with something more elegant...
+  var show_alert = function(msg) { alert(msg); }
+
+  var enable_disable_element = function(element, action) {
+    if ( action == 'enable' ) {
+      $(element).removeClass('disabled').find("*").prop('disabled',false);
+    } else {
+      $(element).addClass('disabled').find("*").prop('disabled',true);
+      $(element).find("input[type=checkbox]").attr("checked", false);
+      $(element).find("input[type=radio]").attr("checked", false);
+      $(element).find("select option:selected").prop("selected", false);
+    }
+  };
+
+  <% @system.system_rules.each do |system_rule| %>
+  //
+  // <%=raw system_rule.to_s %>
+  //
+  var rule_<%= system_rule.id %> = function(skip_alerts) { <%= raw system_rule.to_js %> };
+  rule_<%= system_rule.id %>(true);
+
+  <% end %>
+
+  var evaluate_rules = function(el) {
+    var rules = $(el).data('system-rule-ids')
+    if (rules) {
+      $.each(rules.toString().split(' '), function(i, value) {
+        eval("rule_" + value + '(false)');
+      });
+    }    
+  };
+
+  $('form.configurator').on('click', 'input[type=checkbox].boolean', function() {
+    evaluate_rules(this);
+  });
+
+  $('form.configurator').on('blur', 'input[type=text]', function() {
+    evaluate_rules(this);
+  });
+
+  $('form.configurator').on('change', 'input[type=radio]', function() {
+    evaluate_rules(this);
+  });
+
+});

@@ -1,0 +1,33 @@
+<%= f.input :_destroy, as: :hidden %>
+<%= f.error_notification %>
+<div class="row">
+	<div class="large-1 small-1 columns text-right">
+		<% if f.object === @system_rule.system_rule_actions.first %>
+			&nbsp;
+		<% else %>
+			<label class="right inline">
+				<%= link_to image_tag('icons/delete.png', alt: 'del action'), '#', class: 'remove_fields' %>
+			</label>
+		<% end %>
+	</div>
+	<div class="large-3 columns">
+		<%= f.input :action_type, label: false,
+			collection: SystemRuleAction.action_types.keys.map {|l| [l.titleize,l]} %>
+	</div>
+	<div class="large-8 columns">
+		<div class="row">
+			<div class="large-6 columns">
+				<%= f.association :system_option, label: false,
+					collection: @system.system_options %>
+			</div>
+			<div class="large-6 columns">
+				<%= f.association :system_option_value, label: false %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="large-12 columns">
+				<%= f.input :alert, label: false, placeholder: "alert message" %>
+			</div>
+		</div>
+	</div>
+</div>

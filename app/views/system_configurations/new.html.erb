@@ -1,0 +1,7 @@
+<%= content_for :extra_header_code do %>
+	<%= javascript_include_tag system_path(@system, format: 'js') %>
+<% end %>
+
+<h1 style="text-align: center">Build Your <%= @system.name %></h1>
+
+<%= render 'form' %>
