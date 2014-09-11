@@ -87,7 +87,7 @@ class Admin::ProductSpecificationsController < AdminController
   # Copies ALL the product specs from one to another product
   def copy
     product = Product.find(params[:id])
-    product_specification = ProductSpecification.new(params[:product_specification])
+    product_specification = ProductSpecification.new(product_specification_params)
     product_specification.product.product_specifications.each do |ps|
       new_ps = ps.dup
       new_ps.id = nil # seems dumb to have to do this
