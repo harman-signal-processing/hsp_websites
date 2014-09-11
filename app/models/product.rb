@@ -52,7 +52,7 @@ class Product < ActiveRecord::Base
   monetize :street_price_cents, :allow_nil => true
   monetize :sale_price_cents, :allow_nil => true
   monetize :cost_cents, :allow_nil => true
-  monetize :artist_price_cents, :allow_ni => true
+  monetize :artist_price_cents, :allow_nil => true
 
   before_save :set_employee_price
   

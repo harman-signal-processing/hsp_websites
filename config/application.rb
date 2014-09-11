@@ -83,6 +83,7 @@ module HarmanSignalProcessingWebsite
       ["Owner's Manual", "owners_manual"],
       ["Cut Sheet", "cut_sheet"],
       ["Quickstart Guide", "quickstart_guide"],
+      ["Quick Reference Guide", "quick_reference_guide"],
       ["Application Guide", "application_guide"],
       ["Install Guide", "install_guide"],
       ["Preset List", "preset_list"],

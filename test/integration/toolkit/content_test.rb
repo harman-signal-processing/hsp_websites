@@ -119,13 +119,13 @@ describe "Toolkit Content Integration Test" do
       page.must_have_link @announced_product.name
     end
 
-    it "should link to products in-development" do 
+    it "should NOT link to products in-development" do 
       in_development = FactoryGirl.create(:product_status, shipping: false, show_on_website: false)
       @developing_product = FactoryGirl.create(:product, brand: @brand, product_status: in_development)
       FactoryGirl.create(:product_family_product, product: @developing_product, product_family: @product_family)
 
       visit toolkit_brand_product_family_url(@brand, @product_family, host: @host)
-      page.must_have_link @developing_product.name
+      page.wont_have_link @developing_product.name
     end
 
     it "should link to discontinued products at the bottom" do 
