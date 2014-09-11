@@ -30,6 +30,7 @@
 
 		<%= javascript_include_tag website.folder %>
 		<%= javascript_include_tag "vendor/custom.modernizr" %>
+		<%= yield :extra_header_code %>
 		<%= stylesheet_link_tag website.folder, media: :all %>
 
 		<%= yield :custom_css %>

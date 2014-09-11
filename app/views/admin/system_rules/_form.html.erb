@@ -1,127 +1,39 @@
 <%= simple_form_for([:admin, @system, @system_rule]) do |f| %>
 	<%= f.error_notification %>
-	<fieldset><legend>WHEN THESE CONDITIONS ARE MET...</legend>
+	<fieldset>
+		<legend>WHEN THESE CONDITIONS ARE MET...</legend>
+
 		<%= f.simple_fields_for :system_rule_condition_groups do |srcg| %>
-			<%= srcg.error_notification %>
-			<% unless srcg.object === @system_rule.system_rule_condition_groups.first %>
-			<p class="text-right">
-				<%= link_to '#' do %>
-					<%= image_tag('icons/delete.png', alt: '-') %>
-					remove condition group
-				<% end %>
-			</p>
-			<% end %>
-			<%= srcg.simple_fields_for :system_rule_conditions do |src| %>
-				<%= src.error_notification %>
-				<div class="row">
-					<% if src.object === srcg.object.system_rule_conditions.first %>
-						<div class="large-2 columns">
-							<% if srcg.object === @system_rule.system_rule_condition_groups.first %>
-								&nbsp;
-							<% else %>
-								<%= srcg.input :logic_type, label: false,
-									as: :select,
-									collection: SystemRuleConditionGroup.logic_types.keys.map {|l| [l.titleize,l]} %>
-							<% end %>
-						</div>
-						<div class="large-1 small-1 columns">
-							<label class="right inline">(</label>
-						</div>
-					<% else %>
-						<div class="large-1 small-1 columns text-right">
-							<label class="right inline">
-								<%= link_to(image_tag('icons/delete.png', alt: 'del'), '#') %>
-							</label>
-						</div>
-						<div class="large-2 columns">
-							<%= src.input :logic_type, label: false,
-								as: :select,
-								collection: SystemRuleCondition.logic_types.keys.map {|l| [l.titleize,l]} %>
-						</div>
-					<% end %>
-					<div class="large-3 columns">
-						<%= src.association :system_option, label: false, 
-							collection: @system.system_options %>
-					</div>
-					<div class="large-2 columns">
-						<%= src.input :operator, label: false, 
-							as: :select, 
-							collection: SystemRuleCondition.operators %>
-					</div>
-					<div class="large-4 columns">
-						<%= src.input :direct_value, label: false %>
-						<%#= src.association :system_option_value, label: false,
-							as: :grouped_select,
-							collection: @system.options_with_possible_values,
-							group_label_method: :name,
-							label_method: :name,
-							value_method: :id %>
-					</div>
-				</div>
-			<% end %>
-			<div class="row">
-				<div class="large-1 small-3 columns text-right">
-					<%= link_to '#' do %>
-						<%= image_tag('icons/add_green.png', alt: 'add a condition') %>
-					<% end %>
-				</div>
-				<div class="large-6 small-6 columns text-right">
-					)
-				</div>
-			</div>
-			<hr/>
+			<%= render 'system_rule_condition_group_fields', f: srcg %>
 		<% end %>
-		<p class="text-right">
-			<%= link_to '#' do %>
-				<%= image_tag('icons/add_green.png', alt: '+') %>
-				new group of conditions
-			<% end %>
-		</p>
-	</fieldset>
-	<fieldset><legend>THEN DO THIS...</legend>
-		<%= f.simple_fields_for :system_rule_actions do |sra| %>
-			<%= sra.error_notification %>
-			<div class="row">
-				<div class="large-1 small-1 columns text-right">
-					<% if sra.object === @system_rule.system_rule_actions.first %>
-						&nbsp;
-					<% else %>
-						<label class="right inline">
-							<%= link_to '#' do %>
-								<%= image_tag('icons/delete.png', alt: 'del action') %>
-							<% end %>
-						</label>
-					<% end %>
-				</div>
-				<div class="large-3 columns">
-					<%= sra.input :action_type, label: false,
-						collection: SystemRuleAction.action_types.keys.map {|l| [l.titleize,l]} %>
-				</div>
-				<div class="large-8 columns">
-					<div class="row">
-						<div class="large-6 columns">
-							<%= sra.association :system_option, label: false,
-								collection: @system.system_options %>
-						</div>
-						<div class="large-6 columns">
-							<%= sra.association :system_option_value, label: false %>
-						</div>
-					</div>
-					<div class="row">
-						<div class="large-12 columns">
-							<%= sra.input :alert, label: false, placeholder: "alert message" %>
-						</div>
-					</div>
-				</div>
-			</div>
-		<% end %>
+
 		<div class="row">
-			<div class="large-1 small-1 columns text-right">
-				<%= link_to '#' do %>
-					<%= image_tag('icons/add_green.png', alt: 'add action') %>
-				<% end %>
+			<div class="large-12 columns text-right">
+				<p>
+					<%= link_to_add_fields(image_tag('icons/add_green.png', alt: '+') + ' new group of conditions',
+					f, :system_rule_condition_groups) %>
+				</p>
 			</div>
 		</div>
+	</fieldset>
+
+	<fieldset>
+		<legend>THEN DO THIS...</legend>
+
+		<%= f.simple_fields_for :system_rule_actions do |sra| %>
+			<%= render 'system_rule_action_fields', f: sra %>
+		<% end %>
+
+		<div class="row">
+			<div class="large-1 small-1 columns text-right">
+				<%= link_to_add_fields(image_tag('icons/add_green.png', alt: 'add action'), f, :system_rule_actions) %>
+			</div>
+			<div class="large-2 small-6 columns">
+				<p><%= link_to_add_fields 'add an action', f, :system_rule_actions %></p>
+			</div>
+			<div class="large-9 columns"></div>
+		</div>
+
 	</fieldset>
     <%= f.button :submit %>
 <% end %>

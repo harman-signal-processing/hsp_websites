@@ -21,6 +21,7 @@
 //= require twitter
 //= require swfobject
 //= require homepage
+//= require configurator
 
 document.createElement("article");  
 document.createElement("footer");  

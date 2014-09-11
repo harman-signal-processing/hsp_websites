@@ -24,6 +24,7 @@ class Admin::SystemOptionsController < AdminController
   # GET /admin/system/SYSTEM_ID/system_options/new
   # GET /admin/system/SYSTEM_ID/system_options/new.xml
   def new
+    3.times { @system_option.system_option_values.build }
     respond_to do |format|
       format.html { render_template } # new.html.erb
       format.xml  { render xml: @system_option }
@@ -32,6 +33,7 @@ class Admin::SystemOptionsController < AdminController
 
   # GET /admin/system/SYSTEM_ID/system_options/1/edit
   def edit
+    @system_option.system_option_values.build
   end
 
   # POST /admin/system/SYSTEM_ID/system_options

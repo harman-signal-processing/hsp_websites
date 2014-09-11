@@ -28,8 +28,9 @@
 			
 		<% end %>
 
-		<%= javascript_include_tag 'application' %>
+		<%= javascript_include_tag website.folder %>
 		<%= stylesheet_link_tag website.folder %>
+		<%= yield :extra_header_code %>
 
 		<%= yield :custom_css %>
 		<script>

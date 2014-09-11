@@ -14,8 +14,10 @@
 	</small>
 </h3>
 <ul class="list">
-	<% @system.system_options.each do |system_option| %>
-	<li><%= link_to system_option.name, [:admin, @system, system_option] %></li>
+	<% @system.parent_system_options.each do |system_option| %>
+	<li><%= link_to system_option.name, [:admin, @system, system_option] %>
+		<%= render 'child_options', system_option: system_option %>
+	</li>
 	<% end %>
 </ul>
 

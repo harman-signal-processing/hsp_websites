@@ -329,6 +329,11 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     resources :news, only: [:index, :show] do
       collection { get :archived }
     end
+    resources :systems, only: [:index, :show] do 
+      resources :system_configurations, only: [:new, :create, :show] do 
+        member { post :new }
+      end
+    end
     get "artists/become_an_artist" => 'artists#become', as: :become_an_artist
     get "artists/all(/:letter)" => 'artists#all', as: :all_artists
     resources :artists, only: [:index, :show] do

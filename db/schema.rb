@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140827170854) do
+ActiveRecord::Schema.define(version: 20140911174935) do
 
   create_table "admin_logs", force: true do |t|
     t.integer  "user_id"
@@ -1297,6 +1297,25 @@ ActiveRecord::Schema.define(version: 20140827170854) do
 
   add_index "specifications", ["cached_slug"], name: "index_specifications_on_cached_slug", unique: true, using: :btree
 
+  create_table "system_configuration_options", force: true do |t|
+    t.integer  "system_configuration_id"
+    t.integer  "system_option_id"
+    t.integer  "system_option_value_id"
+    t.string   "direct_value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "system_configuration_options", ["system_configuration_id"], name: "index_system_configuration_options_on_system_configuration_id", using: :btree
+
+  create_table "system_configurations", force: true do |t|
+    t.integer  "system_id"
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "system_option_values", force: true do |t|
     t.integer  "system_option_id"
     t.string   "name"
@@ -1320,6 +1339,9 @@ ActiveRecord::Schema.define(version: 20140827170854) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "long_description"
+    t.string   "default_value"
+    t.boolean  "show_on_first_screen", default: false
   end
 
   add_index "system_options", ["parent_id"], name: "index_system_options_on_parent_id", using: :btree

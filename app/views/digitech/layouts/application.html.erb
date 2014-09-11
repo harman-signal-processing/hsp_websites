@@ -34,6 +34,7 @@
 		<% else %>
 			<%= stylesheet_link_tag website.folder, media: :all %>
 		<% end %>
+		<%= yield :extra_header_code %>
 
 		<%= yield :custom_css %>
 		<script>

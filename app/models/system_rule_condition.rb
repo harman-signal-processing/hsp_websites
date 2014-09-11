@@ -21,8 +21,8 @@ class SystemRuleCondition < ActiveRecord::Base
 	after_initialize :set_default_logic_type
 
 	def self.operators
-		# ['=', '<', '>', '!=', 'like']
-		['is', 'is not', 'is greater than', 'is less than', 'is like']
+		# ['=', '<', '>', '!=']
+		['is', 'is not', 'is greater than', 'is less than']
 	end
 
 	def set_default_logic_type
@@ -30,8 +30,49 @@ class SystemRuleCondition < ActiveRecord::Base
 	end
 
 	def to_s
-		logic = self.system_rule_condition_group.system_rule_conditions.first == self ? '' : "#{self.logic_type} "
+		logic = self.is_first? ? '' : "#{self.logic_type} "
 		"#{logic}'#{system_option.name}' #{operator} #{direct_value}"
+	end
+
+	def to_js
+		logic = self.is_first? ? '' : " #{ js_logic_type } "
+		js = case system_option.option_type.parameterize
+			when 'boolean'
+				onoff = direct_value.to_s.match(/true/i) || direct_value.to_i > 0 ? ':checked' : ':unchecked'
+				"$('#system_option_#{ system_option_id }').is('#{ onoff }')"
+      when 'integer'
+      	"parseInt($('#system_option_#{ system_option_id }').val(), 10) #{ js_operator } #{ direct_value }"
+      when 'string'
+        "$('#system_option_#{ system_option_id }').val() #{ js_operator } '#{ direct_value }'"
+      when 'radio'
+      	"parseInt($('#system_option_#{ system_option_id }').val(), 10) #{ js_operator } #{ direct_value }"
+      when 'checkbox'
+      	"$('#system_option_#{ system_option_id }').is(':checked')"
+      else
+        "$('#system_option_#{ system_option_id }').val() #{ js_operator } '#{ direct_value }'"
+    end
+    "#{logic} #{js}"		
+	end
+
+	def js_operator
+		case self.operator
+		when 'is'
+			'=='
+		when 'is not'
+			'!='
+		when 'is greater than'
+			'>'
+		when 'is less than'
+			'<'
+		end
+	end
+
+	def js_logic_type
+		self.logic_type.to_s.match(/AND/i) ? '&&' : '||'
+	end
+
+	def is_first?
+		self.system_rule_condition_group.system_rule_conditions.first == self		
 	end
 
 	# Just check if the object is good enough to be created as a nested element of a new

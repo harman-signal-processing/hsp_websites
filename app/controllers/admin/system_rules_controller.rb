@@ -24,10 +24,7 @@ class Admin::SystemRulesController < AdminController
   # GET /admin/system/SYSTEM_ID/system_rules/new
   # GET /admin/system/SYSTEM_ID/system_rules/new.xml
   def new
-    2.times do
-      cg = @system_rule.system_rule_condition_groups.build
-      3.times { cg.system_rule_conditions.build }
-    end
+    2.times { @system_rule.system_rule_condition_groups.build }
     2.times { @system_rule.system_rule_actions.build }
     respond_to do |format|
       format.html { render_template } # new.html.erb

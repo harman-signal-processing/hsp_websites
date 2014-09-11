@@ -8,6 +8,12 @@
 *= require jquery-ui-1.10.4.custom.min
 *= require_self
 */
+
+$primary_color: #0db14b;
+$light-gray: #CCC;
+$medium-gray: #999;
+$dark-gray: #444;
+
 img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 
 html {
@@ -21,13 +27,114 @@ body {
 	height: 100%;
 	letter-spacing: 0.02em;
 	margin: 0;
+	background-color: lighten($light-gray, 16%);
 }
+
+/********** for system configurator */
+a.button, input[type=submit] {
+	padding: 10px 20px;
+	background: $primary-color;
+	color: white !important;
+	text-decoration: none;
+	border: none;
+	font-size:14px;
+	font-weight: 100;
+	&:hover {
+		cursor: pointer;
+		background: darken($primary-color, 5%);
+	}
+	&.secondary {
+		background: darken($medium-gray, 10%);
+		&:hover {
+			background: darken($medium-gray, 15%);
+		}
+	}
+	&.small {
+		padding: 5px 10px;
+		font-size: 11px;
+	}
+}
+div#system_builder {
+	width: 650px;
+}
+div#system_summary_container {
+	position: absolute;
+	top: 60px;
+	right: 10px;
+	width: 260px;
+	background: $light-gray;
+	height: 500px;
+	padding: 8px;
+	h5 {
+		text-align: center;
+	}
+	.system_summary_content {
+		height: 400px;
+		margin-bottom: 20px;
+		overflow: auto;
+	}
+}
+div.major_system_container {
+	border: 1px solid $medium-gray;
+	margin: 10px 0px;
+	padding: 0px;
+}
+div.system_selector {
+	padding: 20px;
+	background: lighten($light-gray, 15%);
+	border: none;
+	h1 {
+		text-align: center;
+	}
+	.submit_container {
+		clear: both;
+		text-align: center;
+		padding: 20px;
+	}
+	margin-bottom: 10px;
+}
+div.starter_option {
+	float: left;
+	background: lighten($light-gray, 2%);
+	padding: 10px;
+	margin: 10px;
+	height: 180px;
+	overflow: hidden;
+	h4 {
+		color: $dark-gray;
+	}
+}
+div.disabled {
+	background: #EEE;
+	color: $medium-gray;
+	h4 {
+		color: darken($medium-gray, 5%);
+	}
+}
+div.long_description {
+	background: $dark-gray;
+	color: white;
+	padding: 20px 20px 10px;
+	margin: 20px 0px;
+}
+form.configurator div.row {
+	padding: 20px 20px 10px;
+	label {
+		line-height: 20px;
+		display: block;
+		input[type=radio], input[type=checkbox] {
+			margin-right: 10px;
+		}
+	}
+}
+/********** end system configurator styles */
+
 p {
 	margin-bottom: 16px;
 	line-height: 19px;
 }
 a:link, a:visited {
-	color: #0db14b;
+	color: $primary-color;
 }
 li {
 	margin-bottom: 6px;
@@ -54,8 +161,8 @@ h1.page_title {
 	margin-top: -10px;
 	margin-left: -10px;
 	width: 929px;
-	border-top-left-radius: 6px;
-	border-top-right-radius: 6px;
+	//border-top-left-radius: 6px;
+	//border-top-right-radius: 6px;
 }
 .floating_message {
 	position: absolute;
@@ -168,7 +275,7 @@ div#Header {
 	height: 68px;
 	div#search_form {
 		position: absolute;
-		top: 47px;
+		top: 49px;
 		right: 10px;
 		width: 130px;
 		input#query {
@@ -178,8 +285,8 @@ div#Header {
 			padding-left: 4px;
 			padding-right: 16px;
 			font-size: 12px;
-			-moz-border-radius: 8px;
-			border-radius: 8px;
+			-moz-border-radius: 3px;
+			border-radius: 3px;
 			border: none;
 			box-shadow: 0 1px 2px #999 inset;
 		}
@@ -262,8 +369,8 @@ div#topnav {
 	box-shadow: 0px 1px 2px #999;
 	text-transform: uppercase;
 	/*letter-spacing: -0.09em;*/
-	-moz-border-radius: 4px;
-	border-radius: 4px;
+	//-moz-border-radius: 4px;
+	//border-radius: 4px;
 	li {
 		display: inline;
 		list-style: none;
@@ -291,9 +398,9 @@ div#content_container_content {
 .internal_page {
 	background: #FEFFFF;
 	// box-shadow: 0px 2px 3px #999;
-	-moz-border-radius: 6px;
-	border-radius: 6px;
-	border: 1px solid #CCC;
+	// -moz-border-radius: 6px;
+	// border-radius: 6px;
+	border: 1px solid #E1E1E1;
 	min-height: 350px;
 	h1, h2 {
 		color: #222;
@@ -321,8 +428,8 @@ div#big_bottom_box_container {
 	margin: 20px auto 5px auto;
 	width: 960px;
 	border: 1px solid #313131;
-	-moz-border-radius: 6px;
-	border-radius: 6px;
+	//-moz-border-radius: 6px;
+	//border-radius: 6px;
 	padding-bottom: 6px;
 	h3 {
 		font-size: 16px;
@@ -584,8 +691,8 @@ div#signup h2 {
 .product_family_header {
 	text-align: center;
 	margin: -10px -10px 0px -10px;
-	border-top-left-radius: 6px;
-	border-top-right-radius: 6px;
+	//border-top-left-radius: 6px;
+	//border-top-right-radius: 6px;
 	overflow: hidden;
 	h1 {
 		img {
@@ -1043,8 +1150,8 @@ div.sub_products {
 	margin: 20px -10px -10px;
 	padding: 16px;
 	background: #EEE;
-	border-bottom-right-radius: 6px;
-	border-bottom-left-radius: 6px;
+	//border-bottom-right-radius: 6px;
+	//border-bottom-left-radius: 6px;
 	h4 {
 		padding-left: 6px;
 		padding-bottom: 8px;
@@ -1215,8 +1322,8 @@ div#product_buy_now_box {
 	height:380px;
 	z-index: 9002;
 	border: 6px solid white;
-	-moz-border-radius: 8px;
-	border-radius: 8px;
+	//-moz-border-radius: 8px;
+	//border-radius: 8px;
 	padding: 12px;
 	opacity: 0.9;
 	filter:alpha(opacity=90);
@@ -1551,8 +1658,8 @@ div#software-page-content {
 			text-align: center; 
 			background: #EEE; 
 			padding: 20px 20px 10px 20px;
-			-moz-border-radius: 8px;
-			border-radius: 8px;
+			//-moz-border-radius: 8px;
+			//border-radius: 8px;
 		}
 		div#signup {
 			text-align: center; 

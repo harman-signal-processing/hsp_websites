@@ -18,6 +18,19 @@
 
 <p><strong>Option Type:</strong> <%= @system_option.option_type %></p>
 
+<% if @system_option.system_option_values.length > 0 %>
+<ul class="list">
+	<% @system_option.system_option_values.each do |sov| %>
+	<li><%= sov.name %></li>
+	<% end %>
+</ul>
+<% end %>
+
+<% if @system_option.default_value.present? %>
+<p><strong>Default Value:</strong> <%= @system_option.default_value %></p>
+<% end %>
+
+
 <h3 class="subheader">Children
 	<small>
 		<%= link_to new_admin_system_system_option_path(@system) do %>
@@ -27,7 +40,7 @@
 	</small>
 </h3>
 
-<ul>
+<ul class="list">
 	<% @system_option.children.each do |child| %>
 	<li><%= link_to child.name, [:admin, @system, child] %></li>
 	<% end %>
