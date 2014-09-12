@@ -93,6 +93,10 @@ div.system_selector {
 	}
 	margin-bottom: 10px;
 }
+div.starter_option_container {
+	margin: 0 auto;
+	width: 900px;
+}
 div.starter_option {
 	float: left;
 	background: lighten($light-gray, 2%);
@@ -102,6 +106,9 @@ div.starter_option {
 	overflow: hidden;
 	h4 {
 		color: $dark-gray;
+	}
+	div.row {
+		margin-bottom: 16px;
 	}
 }
 div.disabled {

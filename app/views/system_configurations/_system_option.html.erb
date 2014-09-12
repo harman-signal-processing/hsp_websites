@@ -1,7 +1,5 @@
 <%
-	skip_children ||= false
 	skip_help     ||= false
-
 	system_option = sco.object.system_option
 %>
 
@@ -28,12 +26,9 @@
 	</div>
 </div>
 
-<% unless skip_children %>
 
-	<%= f.fields_for :system_configuration_options do |child_sco| %>
-		<% if child_sco.object.system_option.parent_id.to_i == system_option.id %>
-			<%= render_partial "system_option", f: f, sco: child_sco %>
-		<% end %>
+<%= f.fields_for :system_configuration_options do |child_sco| %>
+	<% if child_sco.object.system_option.parent_id.to_i == system_option.id %>
+		<%= render_partial "system_configurations/system_option", f: f, sco: child_sco %>
 	<% end %>
-
 <% end %>

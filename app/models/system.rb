@@ -20,8 +20,12 @@ class System < ActiveRecord::Base
 	end
 
 	def parent_system_options
-		system_options.where("parent_id IS NULL")
+		@parent_system_options ||= system_options.where("parent_id IS NULL")
 	end
+
+	def parent_system_options_for_start_page
+		@parent_system_options_for_start_page ||= parent_system_options.where(show_on_first_screen: true)
+	end	
 
 	# Blank system config
 	def system_configuration(stage='configure', options={})
