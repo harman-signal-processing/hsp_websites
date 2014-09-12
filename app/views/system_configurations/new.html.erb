@@ -1,5 +1,5 @@
 <%= content_for :extra_header_code do %>
-	<%= javascript_include_tag system_path(@system, format: 'js') %>
+	<script src="<%= system_path(@system, format: 'js') %>" type="text/javascript" charset="utf-8" async defer></script>
 <% end %>
 
 <h1 style="text-align: center">Build Your <%= @system.name %></h1>
