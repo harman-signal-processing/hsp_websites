@@ -27,8 +27,7 @@ class ToneLibrarySongsController < ApplicationController
       data = open(tone_library_patch.patch.url)
       send_file(data, 
         filename: tone_library_patch.patch_file_name.to_s,
-        # type: tone_library_patch.mime_type,
-        type: 'application/unknown',
+        type: tone_library_patch.mime_type,
         disposition: 'attachment'
       )
     rescue
