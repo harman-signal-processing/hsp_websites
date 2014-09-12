@@ -17,16 +17,23 @@ class ToneLibrarySongsController < ApplicationController
   #   tone_download_path(product_id: p.product, tone_library_song_id: p.tone_library_song, ext: p.extension)
   # Now, we just send them to the S3/Cloudfront directly.
   #
+  # As of 9/2014, we're re-implementing it trying to encourage browsers to behave
+  #
   def download
     product = Product.find params[:product_id]
     song = ToneLibrarySong.find params[:tone_library_song_id]
     tone_library_patch = ToneLibraryPatch.where(product_id: product.id, tone_library_song_id: song.id).first
-    # data = open(tone_library_patch.patch.url)
-    # send_file(data, 
-    #   filename: tone_library_patch.patch_file_name.to_s,
-    #   type: tone_library_patch.mime_type,
-    #   disposition: 'attachment'
-    # )
-    redirect_to tone_library_patch.patch.url, status: :moved_permanently
+    begin
+      data = open(tone_library_patch.patch.url)
+      send_file(data, 
+        filename: tone_library_patch.patch_file_name.to_s,
+        # type: tone_library_patch.mime_type,
+        type: 'application/unknown',
+        disposition: 'attachment'
+      )
+    rescue
+    # Redirects directly to the file
+      redirect_to tone_library_patch.patch.url, status: :moved_permanently
+    end
   end
 end
