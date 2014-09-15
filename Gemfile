@@ -20,7 +20,7 @@ gem 'capistrano-ext'
 gem 'mysql2', '>= 0.3.12b4' # sphinx needs '0.3.12b4'
 gem "friendly_id"
 gem 'aws-sdk', '~> 1.0'
-gem 'fog', "~> 1.23.0", require: ["fog/rackspace/storage", "fog/aws/storage"]
+gem 'fog'
 gem 'asset_sync'
 gem "paperclip" #, "~> 3.0"
 gem 'paperclip-meta'
