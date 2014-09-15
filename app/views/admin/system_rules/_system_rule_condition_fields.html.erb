@@ -1,5 +1,3 @@
-<%= f.error_notification %>
-<%= f.input :_destroy, as: :hidden %>
 <div class="row">
 	<% if srcg && f.object === srcg.object.system_rule_conditions.first %>
 		<div class="large-2 columns">
@@ -16,7 +14,8 @@
 		</div>
 	<% else %>
 		<div class="large-1 small-1 columns text-right">
-			<label class="right inline">
+			<%= f.input :_destroy, as: :hidden %>
+			<label class="right inline">			
 				<%= link_to(image_tag('icons/delete.png', alt: 'del'), '#' , class: 'remove_fields') %>
 			</label>
 		</div>

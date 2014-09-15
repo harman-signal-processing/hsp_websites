@@ -25,6 +25,7 @@ class Admin::SystemRulesController < AdminController
   # GET /admin/system/SYSTEM_ID/system_rules/new.xml
   def new
     2.times { @system_rule.system_rule_condition_groups.build }
+    @system_rule.system_rule_condition_groups.each { |g| g.build_conditions }
     2.times { @system_rule.system_rule_actions.build }
     respond_to do |format|
       format.html { render_template } # new.html.erb

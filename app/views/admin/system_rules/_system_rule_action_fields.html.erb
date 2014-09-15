@@ -1,10 +1,10 @@
-<%= f.input :_destroy, as: :hidden %>
 <%= f.error_notification %>
 <div class="row">
 	<div class="large-1 small-1 columns text-right">
 		<% if f.object === @system_rule.system_rule_actions.first %>
 			&nbsp;
 		<% else %>
+			<%= f.input :_destroy, as: :hidden %>
 			<label class="right inline">
 				<%= link_to image_tag('icons/delete.png', alt: 'del action'), '#', class: 'remove_fields' %>
 			</label>

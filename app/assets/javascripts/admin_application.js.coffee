@@ -12,7 +12,7 @@ jQuery ($) ->
 		$(@).textareaCount(opts)
 
 	$('form').on 'click', '.remove_fields', (event) ->
-		$(@).prev('input[type=hidden]').val('1')
+		$(@).closest('div.row').find('input[type=hidden]').val('1')
 		$(@).closest('div.row').hide()
 		event.preventDefault()
 

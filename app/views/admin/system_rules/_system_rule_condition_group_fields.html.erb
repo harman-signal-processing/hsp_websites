@@ -1,9 +1,9 @@
-<%= f.input :_destroy, as: :hidden %>
 <%= f.error_notification %>
 <div class="row">
 	<div class="large-12 columns">
 		<% unless f.object === @system_rule.system_rule_condition_groups.first %>
 		<p class="text-right">
+			<%= f.input :_destroy, as: :hidden %>
 			<%= link_to '#', class: 'remove_fields'  do %>
 				<%= image_tag('icons/delete.png', alt: '-') %>
 				remove condition group
