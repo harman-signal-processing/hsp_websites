@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '4.1.5'
+gem 'rails', '4.1.6'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -9,7 +9,6 @@ gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem "zurb-foundation", "~> 4.3.2"
-gem 'asset_sync'
 gem 'jquery-rails' 
 gem 'capistrano', '2.13.5' # 2.14.1 causes tinymce assets to be deleted
 gem 'capistrano-ext'
@@ -21,7 +20,8 @@ gem 'capistrano-ext'
 gem 'mysql2', '>= 0.3.12b4' # sphinx needs '0.3.12b4'
 gem "friendly_id"
 gem 'aws-sdk', '~> 1.0'
-gem 'fog' # for rackspace cloud files
+gem 'fog', "~> 1.23.0", require: ["fog/rackspace/storage", "fog/aws/storage"]
+gem 'asset_sync'
 gem "paperclip" #, "~> 3.0"
 gem 'paperclip-meta'
 gem 's3_direct_upload'
