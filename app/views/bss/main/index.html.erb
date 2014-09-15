@@ -31,9 +31,15 @@
 		<% end %>
 	<% end %>
 	<div class="clear"></div>
+
+	<% if website.email_signup_url %>
+	<div style="width: 290px; margin: 0 auto;">
+		<%= render_partial 'shared/newsletter_signup' %>
+	</div>
+	<% end %>
 <% end %>
 
-<%= content_for :big_bottom_box do %>
+<%= content_for :big_bottom_box_REMOVED do %>
     <div style="float: right; width: 265px;">
 		<% if website.email_signup_url %>
 			<%= render 'shared/newsletter_signup' %>

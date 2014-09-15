@@ -1,0 +1,31 @@
+<% if website.email_signup_url %>
+	<% if website.foundation %>
+		<div id="signup">
+			<%= simple_form_for Signup.new, url: website.email_signup_url do |f| %>
+				<h3><%= t('news_signup')%></h3>
+				<div class="row collapse">
+					<div class="large-10 small-10 columns">
+						<%= f.input :email, placeholder: "email address", label: false %>
+					</div>
+					<div class="large-2 small-2 columns">
+						<%= f.submit "go", class: "postfix button" %>
+					</div>
+				</div>
+			<% end %> 
+		</div>
+	<% else %>
+		<div id="signup">
+			<%= simple_form_for Signup.new, url: website.email_signup_url do |f| %>
+				<h3 style="text-align: center"><%= t('news_signup')%></h3>
+				<table style="width: 100%; border-collapse: collapse;">
+					<tr>
+						<td>
+				<%= f.input :email, placeholder: "email address", label: false, input_html: { style: "width: 100%; font-size: 14px; font-weight: 100; padding: 6px 2px; height: 21px;"} %>
+						</td>
+						<td><%= f.submit "go", input_html: { style: "font-size: 14px; padding: 0px; height: 21px;"} %></td>
+					</tr>
+				</table>
+			<% end %> 
+		</div>
+	<% end %>
+<% end %>

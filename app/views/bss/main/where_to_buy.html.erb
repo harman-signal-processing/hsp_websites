@@ -84,7 +84,7 @@
 		
 		<p><%= label_tag t('select_your_country') %><br/>
 			<%= select_tag :country, options_from_collection_for_select(@countries, :country, :country, @country) %>
-			<%= submit_tag t('submit') %>
+			<%= submit_tag t('submit'), style: 'padding: 4px 10px 6px' %>
 		</p>
 			
 	</form>
@@ -96,7 +96,7 @@
 		
 		<p><%= label_tag "Select your region" %><br/>
 			<%= select_tag :us_region, options_from_collection_for_select(@us_regions, :id, :name, @us_region.id) %>
-			<%= submit_tag t('submit') %>
+			<%= submit_tag t('submit'), style: 'padding: 4px 10px 6px' %>
 		</p>
 	</form>
 
@@ -137,9 +137,4 @@
 </div>
 <% end %>
 
-<%= content_for :extra_js do %>
-	$(document).ready(function() {
-		$('#zip').focus();
-	});
-<% end %>
 
