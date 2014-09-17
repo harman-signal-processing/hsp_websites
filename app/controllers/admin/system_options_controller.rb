@@ -74,7 +74,7 @@ class Admin::SystemOptionsController < AdminController
   def destroy
     @system_option.destroy
     respond_to do |format|
-      format.html { redirect_to(admin_system_options_url) }
+      format.html { redirect_to [:admin, @system] }
       format.xml  { head :ok }
       format.js
     end

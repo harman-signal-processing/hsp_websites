@@ -5,7 +5,7 @@
 
 <div class="row" id="system_option_<%= system_option.id %>_container">
 	<div class="large-12 columns">
-		<h4><%= system_option.name %>
+		<h4 class="subheader"><%= system_option.name %>
 			<% if !skip_help && system_option.long_description.present? %>
 			<%= link_to(image_tag('icons/help.png', alt: '[?]'), '#', class: 'help', data: {container: "explanation_#{system_option.id }"}) %>
 			<% end %>

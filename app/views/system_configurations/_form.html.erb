@@ -4,15 +4,12 @@
 		<h5 class="subheader">SYSTEM SUMMARY</h5>
 		<div class="system_summary_content">
 			<p>Your system requires:</p>
-			<ul>
-				<li>XX DAC Licenses</li>
-				<li>XX BSS processors</li>
-				<li>XX Other things</li>
+			<ul id="system_summary_items" class="list">
 			</ul>
 		</div>
 		<div style="text-align: center">
-			<%= f.button :submit, 'Print List', class: 'secondary button' %>
-			<%= f.button :submit, 'Contact Me', class: 'secondary button' %>
+			<%= link_to 'Print List', '#', class: 'secondary button' %>
+			<%= link_to 'Contact Me', '#', class: 'secondary button' %>
 		</div>
 	</div>
 

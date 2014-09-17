@@ -1,4 +1,5 @@
 <%= f.error_notification %>
+<div class="rule-action-params">
 <div class="row">
 	<div class="large-1 small-1 columns text-right">
 		<% if f.object === @system_rule.system_rule_actions.first %>
@@ -12,22 +13,27 @@
 	</div>
 	<div class="large-3 columns">
 		<%= f.input :action_type, label: false,
-			collection: SystemRuleAction.action_types.keys.map {|l| [l.titleize,l]} %>
+			collection: SystemRuleAction.action_types.keys.map {|l| [l.to_s.titleize,l.to_s]} %>
 	</div>
 	<div class="large-8 columns">
 		<div class="row">
-			<div class="large-6 columns">
+			<div class="large-6 columns action-option" data-related="<%= SystemRuleAction.related_actions_for(:system_option_id) %>">
 				<%= f.association :system_option, label: false,
 					collection: @system.system_options %>
 			</div>
-			<div class="large-6 columns">
+			<div class="large-6 columns action-option" data-related="<%= SystemRuleAction.related_actions_for(:system_option_value_id) %>">
 				<%= f.association :system_option_value, label: false %>
 			</div>
-		</div>
-		<div class="row">
-			<div class="large-12 columns">
+			<div class="large-4 columns action-option" data-related="<%= SystemRuleAction.related_actions_for(:quantity) %>">
+				<%= f.input :quantity, label: false, input_html: { min: 0 } %>
+			</div>
+			<div class="large-8 columns action-option" data-related="<%= SystemRuleAction.related_actions_for(:system_component_id) %>">
+				<%= f.association :system_component, label: false %>
+			</div>
+			<div class="large-12 columns action-option" data-related="<%= SystemRuleAction.related_actions_for(:alert) %>">
 				<%= f.input :alert, label: false, placeholder: "alert message" %>
 			</div>
 		</div>
 	</div>
+</div>
 </div>

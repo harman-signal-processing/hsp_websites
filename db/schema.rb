@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140911174935) do
+ActiveRecord::Schema.define(version: 20140916150338) do
 
   create_table "admin_logs", force: true do |t|
     t.integer  "user_id"
@@ -1297,6 +1297,27 @@ ActiveRecord::Schema.define(version: 20140911174935) do
 
   add_index "specifications", ["cached_slug"], name: "index_specifications_on_cached_slug", unique: true, using: :btree
 
+  create_table "system_components", force: true do |t|
+    t.string   "name"
+    t.integer  "system_id"
+    t.integer  "product_id"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "system_components", ["system_id"], name: "index_system_components_on_system_id", using: :btree
+
+  create_table "system_configuration_components", force: true do |t|
+    t.integer  "system_configuration_id"
+    t.integer  "system_component_id"
+    t.integer  "quantity"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "system_configuration_components", ["system_configuration_id"], name: "index_system_configuration_components_on_system_configuration_id", using: :btree
+
   create_table "system_configuration_options", force: true do |t|
     t.integer  "system_configuration_id"
     t.integer  "system_option_id"
@@ -1355,6 +1376,8 @@ ActiveRecord::Schema.define(version: 20140911174935) do
     t.text     "alert"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "system_component_id"
+    t.integer  "quantity"
   end
 
   add_index "system_rule_actions", ["system_rule_id"], name: "index_system_rule_actions_on_system_rule_id", using: :btree

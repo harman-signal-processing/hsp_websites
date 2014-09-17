@@ -244,6 +244,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         resources :system_options do
           resources :system_option_values
         end
+        resources :system_components
         resources :system_rules do
           resources :system_rule_condition_groups do
             resources :system_rule_conditions 

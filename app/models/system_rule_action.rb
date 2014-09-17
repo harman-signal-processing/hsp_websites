@@ -5,25 +5,53 @@
 class SystemRuleAction < ActiveRecord::Base
 	include ActionView::Helpers::JavaScriptHelper
 
-	# Order is important here. Read the notes for 'oppsite_action' below
-	enum action_types: [:show, :hide, :enable, :disable, :alert]
-
 	belongs_to :system_rule
 	
-	# Will have at least one of: option, value, alert (text)
+	# Will have at least one of: option, value, alert (text), component
 	belongs_to :system_option
 	belongs_to :system_option_value
+	belongs_to :system_component
 	# validates :alert, presence: true # only if neither option nor value ids present
 
 	validates :action_type, presence: true
 	validates :system_rule, presence: true
 
+	def self.action_types
+		{
+			show:       {opposite: :hide, dependent_fields: [:system_option_id, :system_option_value_id]},
+			hide:       {opposite: :show, dependent_fields: [:system_option_id, :system_option_value_id]},
+			enable:     {opposite: :disable, dependent_fields: [:system_option_id, :system_option_value_id]},
+			disable:    {opposite: :enable, dependent_fields: [:system_option_id, :system_option_value_id]},
+			add:        {opposite: :subtract, dependent_fields: [:system_component_id, :quantity]},
+			subtract:   {opposite: :add, dependent_fields: [:system_component_id, :quantity]},
+			set:        {opposite: :remove, dependent_fields: [:system_component_id, :quantity]},
+			remove:     {opposite: nil, dependent_fields: [:system_component_id]},
+			alert_once: {opposite: nil, dependent_fields: [:alert]},
+			alert:      {opposite: nil, dependent_fields: [:alert]},
+		}
+	end
+
+	# Inverted way of looking at SystemRuleAction.action_types
+	def self.related_actions_for(opt)
+		r = []
+		self.action_types.each do |key,action_type|
+			r << key if action_type[:dependent_fields].include?(opt)
+		end
+		r.join(',')
+	end
+
 	def to_s
 		case action_type
 		when 'alert'
 			"show alert: '#{self.alert.truncate(30).html_safe }'"
-		else
-			"#{action_type} #{system_option.name}"
+		when 'alert_once'
+			"show alert one time: '#{self.alert.truncate(30).html_safe }'"
+		when /show|hide/
+			"#{action_type} #{system_option ? system_option.name : ''}"
+		when /add|subtract|set/
+			"#{action_type} #{system_component ? system_component.name : ''} (qty: #{quantity})"
+		when "remove"
+			"#{action_type} #{system_component ? system_component.name : ''}"
 		end
 	end
 
@@ -32,23 +60,27 @@ class SystemRuleAction < ActiveRecord::Base
 
 		case action
 			when 'alert'
-      	"if (skip_alerts == false) { show_alert('#{escape_javascript self.alert }'); }"
+      	"if (page_loading == false) { show_alert('alert_#{self.id}', true); }"
+      when 'alert_once'
+      	"if (page_loading == false) { show_alert('alert_#{self.id}', false); }"
     	when /show|hide/
 	    	"$('#{ js_target_element }_container').#{action}();" if js_target_element
 	    when /enable|disable/
 	    	"enable_disable_element('#{ js_target_element }_container', '#{action}');" if js_target_element
+	    when /add|set/
+	    	"#{action}_component('component_#{system_component_id}', #{quantity});"
+	    when /subtract/ # don't subtract the first time through
+	    	"if (page_loading == false) { #{action}_component('component_#{system_component_id}', #{quantity}); }"
+	    when /remove/
+	    	"if (page_loading == false) {#{action}_component('component_#{system_component_id}'); }"
 		end
 	end
 
 	# From the class-level enum "action_types" determine what the opposite
-	# action would be. This is done by going back one item for odd numbered
-	# entries (starting with zero), otherwise forward one item. This leaves 
-	# the last item without an opposite action if it has a positive index.
+	# action would be. 
 	#
 	def opposite_action
-		i = self.class.action_types[self.action_type]
-		o = (i%2 > 0) ? i - 1 : i + 1
-		self.class.action_types.invert[o]
+		self.class.action_types[self.action_type.to_sym][:opposite]
 	end
 
 	def js_target_element

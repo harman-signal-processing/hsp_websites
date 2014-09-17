@@ -48,8 +48,14 @@ class SystemRuleCondition < ActiveRecord::Base
       	"parseInt($('#system_option_#{ system_option_id }').val(), 10) #{ js_operator } #{ direct_value }"
       when 'checkbox'
       	"$('#system_option_#{ system_option_id }').is(':checked')"
+      when 'dropdown'
+      	if direct_value.match(/^[\d\.]*$/)
+        	"parseInt($('#system_option_#{ system_option_id } option:selected').text(), 10) #{ js_operator } #{ direct_value }"
+        else
+        	"$('#system_option_#{ system_option_id } option:selected').text() #{ js_operator } '#{ direct_value }'"
+        end
       else
-        "$('#system_option_#{ system_option_id }').val() #{ js_operator } '#{ direct_value }'"
+      	"$('#system_option_#{ system_option_id }').val() #{ js_operator } '#{ direct_value }'"
     end
     "#{logic} #{js}"		
 	end

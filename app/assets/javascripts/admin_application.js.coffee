@@ -22,3 +22,11 @@ jQuery ($) ->
 		$(@).closest('div.row').before($(@).data('fields').replace(regexp, time))
 		event.preventDefault()
 
+	show_related_actions = (el) ->
+		selected_option = $(el).val()
+		$(el).parentsUntil('.rule-action-params').find('.action-option').each ->
+			if selected_option in $(@).data('related').split(',') then $(@).show() else $(@).hide()
+
+	$('div.system_rule_system_rule_actions_action_type select').each -> 
+		show_related_actions(@)
+		$(@).change -> show_related_actions(@)

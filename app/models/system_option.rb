@@ -6,8 +6,8 @@ class SystemOption < ActiveRecord::Base
 	enum option_types: [:boolean, :radio, :checkbox, :integer, :string, :dropdown]
 
 	belongs_to :system
-	has_many :system_option_values
-	has_many :system_rule_conditions
+	has_many :system_option_values, dependent: :destroy
+	has_many :system_rule_conditions, dependent: :destroy
 
 	validates :system, presence: true
 	validates :name, presence: true
@@ -19,7 +19,7 @@ class SystemOption < ActiveRecord::Base
 	accepts_nested_attributes_for :system_option_values, reject_if: :all_blank, allow_destroy: true
 
 	def system_rules
-		system_rule_conditions.map{|src| src.system_rule_condition_group.system_rule }.uniq
+		@system_rules ||= system_rule_conditions.map{|src| src.system_rule_condition_group.system_rule }.uniq
 	end
 
 	def default_direct_value

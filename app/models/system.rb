@@ -5,6 +5,7 @@ class System < ActiveRecord::Base
 	has_many :system_options
 	has_many :system_rules
 	has_many :system_configurations
+	has_many :system_components
 	belongs_to :brand
 
 	validates :brand, presence: true

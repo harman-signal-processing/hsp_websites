@@ -6,30 +6,49 @@
 	<li><%= link_to 'Delete', [:admin, @system], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
 </ul>
 
-<h3 class="subheader">Options
-	<small><%= link_to new_admin_system_system_option_path(@system) do %>
-			<%= image_tag "icons/add_green.png" %>
-			add an option
-		<% end %>
-	</small>
-</h3>
-<ul class="list">
-	<% @system.parent_system_options.each do |system_option| %>
-	<li><%= link_to system_option.name, [:admin, @system, system_option] %>
-		<%= render 'child_options', system_option: system_option %>
-	</li>
-	<% end %>
-</ul>
-
-<h3 class="subheader">Rules
-	<small><%= link_to new_admin_system_system_rule_path(@system) do %>
-				<%= image_tag "icons/add_green.png" %>
-				add a rule
+<div class="row">
+	<div class="large-4 columns">
+		<h3 class="subheader">Options
+			<small><%= link_to new_admin_system_system_option_path(@system) do %>
+					<%= image_tag "icons/add_green.png" %>
+					add
+				<% end %>
+			</small>
+		</h3>
+		<ul class="list">
+			<% @system.parent_system_options.each do |system_option| %>
+			<li><%= link_to system_option.name, [:admin, @system, system_option] %>
+				<%= render 'child_options', system_option: system_option %>
+			</li>
 			<% end %>
-	</small>
-</h3>
-<ul class="list">
-	<% @system.system_rules.each do |system_rule| %>
-	<li><%= link_to system_rule.name, edit_admin_system_system_rule_path(@system, system_rule) %></li>
-	<% end %>
-</ul>
+		</ul>
+	</div>
+	<div class="large-4 columns">
+		<h3 class="subheader">Components
+			<small><%= link_to new_admin_system_system_component_path(@system) do %>
+					<%= image_tag "icons/add_green.png" %>
+					add
+				<% end %>
+			</small>
+		</h3>
+		<ul class="list">
+			<% @system.system_components.each do |system_component| %>
+			<li><%= link_to system_component.name, [:admin, @system, system_component] %></li>
+			<% end %>
+		</ul>
+	</div>
+	<div class="large-4 columns">
+		<h3 class="subheader">Rules
+			<small><%= link_to new_admin_system_system_rule_path(@system) do %>
+						<%= image_tag "icons/add_green.png" %>
+						add
+					<% end %>
+			</small>
+		</h3>
+		<ul class="list">
+			<% @system.system_rules.each do |system_rule| %>
+			<li><%= link_to system_rule.name, edit_admin_system_system_rule_path(@system, system_rule) %></li>
+			<% end %>
+		</ul>
+	</div>
+</div>

@@ -14,7 +14,15 @@
 <% end %>
 </p>
 
-<p><strong>Description:</strong> <%= @system_option.description %></p>
+<% if @system_option.description.present? %>
+<p><strong>Short Description:</strong></p>
+<div><%=textilize raw(@system_option.description) %></div>
+<% end %>
+
+<% if @system_option.long_description.present? %>
+<p><strong>Long Description:</strong></p>
+<div><%=textilize raw(@system_option.long_description) %></div>
+<% end %>
 
 <p><strong>Option Type:</strong> <%= @system_option.option_type %></p>
 

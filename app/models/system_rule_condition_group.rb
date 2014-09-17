@@ -4,7 +4,7 @@
 class SystemRuleConditionGroup < ActiveRecord::Base
 	enum logic_types: ["AND", "OR"]
 	belongs_to :system_rule
-	has_many :system_rule_conditions, inverse_of: :system_rule_condition_group
+	has_many :system_rule_conditions, dependent: :destroy, inverse_of: :system_rule_condition_group
 
 	validates :logic_type, presence: true
 	validates :system_rule, presence: true

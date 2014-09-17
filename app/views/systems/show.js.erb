@@ -1,7 +1,34 @@
 jQuery(function($) {
 
+  // System components
+  var system_components = {};
+  <% @system.system_components.each do |system_component| %>
+    system_components['component_<%= system_component.id %>'] = "<%= escape_javascript render_partial('system_configurations/system_component', system_component: system_component) %>";
+  <% end %>
+
+  var configured_components = {}
+
+  var system_alerts = {};
+  <% @system.system_rules.each do |system_rule| %>
+  // <%=raw system_rule.to_s %>
+  var rule_<%= system_rule.id %> = function(page_loading) { <%= raw system_rule.to_js %> };
+  <% system_rule.system_rule_actions.where(action_type: ['alert', 'alert_once']).each do |system_rule| %>
+    // setup alert for rule above.
+    system_alerts['alert_<%= system_rule.id %>'] = {
+      alert: '<%= escape_javascript raw(system_rule.alert) %>',
+      displayed_once: false
+    };
+  <% end %>
+  <% end %>
+
   // replace this with something more elegant...
-  var show_alert = function(msg) { alert(msg); }
+  var show_alert = function(msg, multiple_times) { 
+    system_alert = system_alerts[msg];
+    if (system_alert['displayed_once'] != true || multiple_times) {
+      alert(system_alert['alert']);
+      system_alert['displayed_once'] = true;
+    } 
+  }
 
   var enable_disable_element = function(element, action) {
     if ( action == 'enable' ) {
@@ -14,23 +41,59 @@ jQuery(function($) {
     }
   };
 
-  <% @system.system_rules.each do |system_rule| %>
-  //
-  // <%=raw system_rule.to_s %>
-  //
-  var rule_<%= system_rule.id %> = function(skip_alerts) { <%= raw system_rule.to_js %> };
-  rule_<%= system_rule.id %>(true);
+  var add_component = function(component, quantity) {
+    var current_quantity = parseInt(configured_components[component]);
+    var new_quantity = (current_quantity + quantity);
+    set_component(component, new_quantity);
+  }
 
-  <% end %>
+  var subtract_component = function(component, quantity) {
+    add_component(component, -quantity);
+  }
+
+  var set_component = function(component, quantity) {
+    if (quantity <= 0) {
+      remove_component(component);
+    } else {
+      configured_components[component] = quantity;
+      // update displayed summary
+      var $new_html = $(system_components[component]); 
+      var $element = $('ul#system_summary_items').find('li#'+ component);
+      if (!$element.length) {
+        $element = $new_html.appendTo('ul#system_summary_items');
+      }
+      $element.find('span.quantity').html(quantity);
+      $element.find('div.long_description').hide();
+      $element.find("a.help").click( function (e) {
+        e.preventDefault();
+        container = $(this).data('container');
+        $('#'+container).toggle();
+      });
+      //console.log("New component quantity: " +  new_html);
+    }
+  }
+
+  var remove_component = function(component) {
+    configured_components[component] = 0
+    // update displayed summary
+    //console.log("Removed component: " +  system_components[component]['name']);
+    $('ul#system_summary_items').find('li#'+ component).remove();
+  }
 
   var evaluate_rules = function(el) {
     var rules = $(el).data('system-rule-ids')
     if (rules) {
       $.each(rules.toString().split(' '), function(i, value) {
+        //console.log("Running rule " + value + ". My value is: " + $(el).val());
         eval("rule_" + value + '(false)');
       });
     }    
   };
+
+  // Run through all the rules once on page load...
+  <% @system.system_rules.each do |system_rule| %>
+  rule_<%= system_rule.id %>(true);
+  <% end %>
 
   $('form.configurator').on('click', 'input[type=checkbox].boolean', function() {
     evaluate_rules(this);
@@ -41,6 +104,10 @@ jQuery(function($) {
   });
 
   $('form.configurator').on('change', 'input[type=radio]', function() {
+    evaluate_rules(this);
+  });
+
+  $('form.configurator').on('change', 'select', function() {
     evaluate_rules(this);
   });
 

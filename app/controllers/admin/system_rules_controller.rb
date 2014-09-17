@@ -75,7 +75,7 @@ class Admin::SystemRulesController < AdminController
   def destroy
     @system_rule.destroy
     respond_to do |format|
-      format.html { redirect_to @system }
+      format.html { redirect_to [:admin, @system] }
       format.xml  { head :ok }
       format.js
     end

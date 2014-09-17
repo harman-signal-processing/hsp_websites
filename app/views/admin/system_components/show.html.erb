@@ -1,0 +1,20 @@
+<h1><%= @system.name %> Component: <%= @system_component.name %></h1>
+
+<ul class="button-group round">
+	<li><%= link_to 'Back', [:admin, @system], class: "small secondary button" %>	</li>
+	<li><%= link_to 'Edit', edit_admin_system_system_component_path(@system, @system_component, locale: I18n.locale), class: "small secondary button" %></li>
+	<li><%= link_to 'Delete', [:admin, @system, @system_component], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
+
+<p>
+<% if @system_option.product %>
+	Related product: <%= link_to @system_option.product.name, [:admin, @system_option.product] %>
+<% else %>
+	<i>Not related to a product.</i>
+<% end %>
+</p>
+
+<p><strong>Description:</strong></p>
+
+<div><%=textilize raw(@system_component.description) %></div>
+
