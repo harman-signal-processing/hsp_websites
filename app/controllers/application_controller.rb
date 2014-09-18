@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   # before_filter :set_locale
   # before_filter :set_default_meta_tags
   before_filter :configure_permitted_parameters, if: :devise_controller? 
+  before_filter :ensure_locale_for_site, except: [:locale_root, :default_locale, :locale_selector]
   before_filter :catch_criminals
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
@@ -95,6 +96,21 @@ class ApplicationController < ActionController::Base
   end
 
 private
+
+  # Used as a filter, redirects to the site's default locale if the site is not
+  # configured for the locale passed by the user. I have a feeling this is going
+  # to cause problems.
+  #
+  def ensure_locale_for_site
+    if (website && website.folder) # (skips this filter for tooklit and queue)
+      if params[:locale] && !params[:locale].to_s.match(/en/i) && l = website.list_of_available_locales
+        unless l.include?(params[:locale].to_s)
+          new_locale = website.default_locale || I18n.default_locale.to_s
+          redirect_to locale_root_path(new_locale), status: :moved_permanently and return false
+        end
+      end   
+    end   
+  end
 
   def catch_criminals
     begin
