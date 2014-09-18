@@ -4,8 +4,8 @@
 #
 class SystemRule < ActiveRecord::Base
 	belongs_to :system
-	has_many :system_rule_condition_groups, inverse_of: :system_rule
-	has_many :system_rule_actions, inverse_of: :system_rule
+	has_many :system_rule_condition_groups, inverse_of: :system_rule, dependent: :destroy
+	has_many :system_rule_actions, inverse_of: :system_rule, dependent: :destroy
 
 	validates :system, presence: true
 	validate :at_least_one_condition, :at_least_one_action

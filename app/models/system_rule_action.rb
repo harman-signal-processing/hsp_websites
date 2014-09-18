@@ -46,7 +46,7 @@ class SystemRuleAction < ActiveRecord::Base
 			"show alert: '#{self.alert.truncate(30).html_safe }'"
 		when 'alert_once'
 			"show alert one time: '#{self.alert.truncate(30).html_safe }'"
-		when /show|hide/
+		when /enable|disable|show|hide/
 			"#{action_type} #{system_option ? system_option.name : ''}"
 		when /add|subtract|set/
 			"#{action_type} #{system_component ? system_component.name : ''} (qty: #{quantity})"

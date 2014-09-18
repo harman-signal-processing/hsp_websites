@@ -43,6 +43,9 @@ jQuery(function($) {
 
   var add_component = function(component, quantity) {
     var current_quantity = parseInt(configured_components[component]);
+    if (!current_quantity) {
+      current_quantity = 0;
+    }
     var new_quantity = (current_quantity + quantity);
     set_component(component, new_quantity);
   }
