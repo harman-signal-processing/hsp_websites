@@ -11,6 +11,18 @@ jQuery ($) ->
 
 		$(@).textareaCount(opts)
 
+	show_related_actions = (el) ->
+		selected_option = $(el).val()
+		$(el).parentsUntil('.rule-action-params').find('.action-option').each ->
+			if selected_option in $(@).data('related').split(',') then $(@).show() else $(@).hide()
+
+	show_hide_related_actions = ->
+		$('div.system_rule_system_rule_actions_action_type select').each -> 
+			show_related_actions(@)
+			$(@).change -> show_related_actions(@)
+
+	show_hide_related_actions()
+
 	$('form').on 'click', '.remove_fields', (event) ->
 		$(@).closest('div.row').find('input[type=hidden]').val('1')
 		$(@).closest('div.row').hide()
@@ -20,13 +32,7 @@ jQuery ($) ->
 		time = new Date().getTime()
 		regexp = new RegExp($(@).data('id'), 'g')
 		$(@).closest('div.row').before($(@).data('fields').replace(regexp, time))
+		$(@).closest('div.system_rule_system_rule_actions_action_type select')
+		show_hide_related_actions()
 		event.preventDefault()
 
-	show_related_actions = (el) ->
-		selected_option = $(el).val()
-		$(el).parentsUntil('.rule-action-params').find('.action-option').each ->
-			if selected_option in $(@).data('related').split(',') then $(@).show() else $(@).hide()
-
-	$('div.system_rule_system_rule_actions_action_type select').each -> 
-		show_related_actions(@)
-		$(@).change -> show_related_actions(@)

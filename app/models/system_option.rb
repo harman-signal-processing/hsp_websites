@@ -18,6 +18,11 @@ class SystemOption < ActiveRecord::Base
 
 	accepts_nested_attributes_for :system_option_values, reject_if: :all_blank, allow_destroy: true
 
+	def self.all_with_values
+		ids = SystemOptionValue.where.not(system_option_id: nil).pluck(:system_option_id).uniq
+		where(id: ids).order('name')
+	end
+
 	def system_rules
 		@system_rules ||= system_rule_conditions.map{|src| src.system_rule_condition_group.system_rule }.uniq
 	end

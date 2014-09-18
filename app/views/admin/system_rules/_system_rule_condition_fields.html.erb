@@ -6,7 +6,8 @@
 			<% else %>
 				<%= srcg.input :logic_type, label: false,
 					as: :select,
-					collection: SystemRuleConditionGroup.logic_types.keys.map {|l| [l.titleize,l]} %>
+					collection: SystemRuleConditionGroup.logic_types.keys.map {|l| [l.titleize,l]}, 
+					input_html: { class: 'no-custom' } %>
 			<% end %>
 		</div>
 		<div class="large-1 small-1 columns">
@@ -22,20 +23,23 @@
 		<div class="large-2 columns">
 			<%= f.input :logic_type, label: false,
 				as: :select,
-				collection: SystemRuleCondition.logic_types.keys.map {|l| [l.titleize,l]} %>
+				collection: SystemRuleCondition.logic_types.keys.map {|l| [l.titleize,l]}, 
+				input_html: { class: 'no-custom' } %>
 		</div>
 	<% end %>
 	<div class="large-3 columns">
 		<%= f.association :system_option, label: false, 
-			collection: @system.system_options %>
+			collection: @system.system_options, 
+			input_html: { class: 'no-custom' } %>
 	</div>
 	<div class="large-2 columns">
 		<%= f.input :operator, label: false, 
 			as: :select, 
-			collection: SystemRuleCondition.operators %>
+			collection: SystemRuleCondition.operators, 
+			input_html: { class: 'no-custom' } %>
 	</div>
 	<div class="large-4 columns">
-		<%= f.input :direct_value, label: false %>
+		<%= f.input :direct_value, label: false, input_html: { class: 'no-custom' } %>
 		<%#= f.association :system_option_value, label: false,
 			as: :grouped_select,
 			collection: @system.options_with_possible_values,
