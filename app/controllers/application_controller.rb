@@ -104,12 +104,16 @@ private
   #
   def ensure_locale_for_site
     if (website && website.folder) # (skips this filter for tooklit and queue)
-      if params[:locale] && !params[:locale].to_s.match(/en/i) && l = website.list_of_available_locales
-        unless l.include?(params[:locale].to_s)
-          new_locale = website.default_locale || I18n.default_locale.to_s
-          redirect_to locale_root_path(new_locale), status: :moved_permanently and return false
-        end
-      end   
+      if website.respond_to?(:list_of_available_locales)
+        if params[:locale] && !params[:locale].to_s.match(/en/i) && l = website.list_of_available_locales
+          unless l.include?(params[:locale].to_s)
+            new_locale = website.default_locale || I18n.default_locale.to_s
+            redirect_to locale_root_path(new_locale), status: :moved_permanently and return false
+          end
+        end  
+      else # this is not one of our configured sites
+        site_not_found and return false
+      end 
     end   
   end
 
@@ -148,6 +152,10 @@ private
     render template: template, layout: false, status: status and return
   end
   
+  def site_not_found 
+    error_page(404)
+  end
+
   def website
     @website ||= Website.where(url: request.host).first
   end
@@ -181,18 +189,22 @@ private
       session['geo_usa'] = true
     end
     # This is where we set the locale:
-    if params[:locale]
-      I18n.locale = params[:locale]
-    elsif !!(session['geo_usa']) && website.list_of_available_locales.include?("en-US")
-      I18n.locale = 'en-US'
-    elsif session['geo_country'] == "CN" && website.list_of_available_locales.include?("zh")
-      I18n.locale = 'zh'
-    elsif session['geo_country'] == "UK" && website.list_of_available_locales.include?("en")
-      I18n.locale = 'en'
-    elsif website.show_locales? && controller_path == "main" && action_name == "default_locale"
-      locale_selector # otherwise the default locale is appended to the URL. #ugly
+    if website.respond_to?(:list_of_available_locales)
+      if params[:locale]
+        I18n.locale = params[:locale]
+      elsif !!(session['geo_usa']) && website.list_of_available_locales.include?("en-US")
+        I18n.locale = 'en-US'
+      elsif session['geo_country'] == "CN" && website.list_of_available_locales.include?("zh")
+        I18n.locale = 'zh'
+      elsif session['geo_country'] == "UK" && website.list_of_available_locales.include?("en")
+        I18n.locale = 'en'
+      elsif website.show_locales? && controller_path == "main" && action_name == "default_locale"
+        locale_selector # otherwise the default locale is appended to the URL. #ugly
+      else
+        redirect_to root_path, status: :moved_permanently and return false
+      end
     else
-      redirect_to root_path, status: :moved_permanently and return false
+      site_not_found and return false
     end
   end
 

@@ -64,14 +64,15 @@ jQuery(function($) {
       var $element = $('ul#system_summary_items').find('li#'+ component);
       if (!$element.length) {
         $element = $new_html.appendTo('ul#system_summary_items');
+        $element.find('div.long_description').hide();
+        $element.find("a.help").click( function (e) {
+          container = $(this).data('container');
+          $('#'+container).toggle();
+          e.preventDefault();
+        });
       }
       $element.find('span.quantity').html(quantity);
-      $element.find('div.long_description').hide();
-      $element.find("a.help").click( function (e) {
-        e.preventDefault();
-        container = $(this).data('container');
-        $('#'+container).toggle();
-      });
+
       //console.log("New component quantity: " +  new_html);
     }
   }

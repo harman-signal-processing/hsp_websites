@@ -7,8 +7,8 @@
 </ul>
 
 <p>
-<% if @system_option.product %>
-	Related product: <%= link_to @system_option.product.name, [:admin, @system_option.product] %>
+<% if @system_component.product %>
+	Related product: <%= link_to @system_component.product.name, [:admin, @system_component.product] %>
 <% else %>
 	<i>Not related to a product.</i>
 <% end %>
@@ -16,5 +16,5 @@
 
 <p><strong>Description:</strong></p>
 
-<div><%=textilize raw(@system_component.description) %></div>
+<div><%=raw (textilize @system_component.description) %></div>
 
