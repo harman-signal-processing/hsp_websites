@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   # before_filter :set_locale
   # before_filter :set_default_meta_tags
+  before_filter :respond_to_htm
   before_filter :configure_permitted_parameters, if: :devise_controller? 
   before_filter :ensure_locale_for_site, except: [:locale_root, :default_locale, :locale_selector]
   before_filter :catch_criminals
@@ -110,6 +111,13 @@ private
         end
       end   
     end   
+  end
+
+  # Old sites often come through with *.htm extensions instead of *.html. Fix it.
+  def respond_to_htm
+    if params[:format] && params[:format] == 'htm'
+      request.format = 'html'
+    end
   end
 
   def catch_criminals

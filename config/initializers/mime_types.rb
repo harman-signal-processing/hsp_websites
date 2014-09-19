@@ -3,6 +3,7 @@
 # Add new mime types for use in respond_to blocks:
 # Mime::Type.register "text/richtext", :rtf
 # Mime::Type.register_alias "text/html", :iphone
+Mime::Type.register_alias "text/html", :htm
 # Mime::Type.register_alias "text/plain", :json
 # Mime::Type.register_alias "application/json", :json
 Mime::Type.register "application/vnd.ms-excel", :xls
