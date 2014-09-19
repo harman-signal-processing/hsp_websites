@@ -2,6 +2,7 @@
 <html lang="<%= I18n.locale %>">
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+		<meta name="google-site-verification" content="z2YH0Gt2csHUrioS-HaXOOGbuki9Tc3zr08nr0Yr08k" />
 		<%= csrf_meta_tag %>
 		<%= cache ["meta_tags", request.url] do %>
 			<%= cached_meta_tags %>
@@ -11,7 +12,6 @@
 			<!--[if lt IE 9]>
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 			<![endif]-->
-			<meta name="google-site-verification" content="z2YH0Gt2csHUrioS-HaXOOGbuki9Tc3zr08nr0Yr08k" />
 			<link href="<%= rss_url(format: 'xml') %>" rel="alternate" title="RSS" type="application/rss+xml"/>
 			<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 			<link rel="icon" type="image/x-icon" href="/favicon.ico" />
