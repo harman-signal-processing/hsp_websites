@@ -40,6 +40,12 @@ set_meta_tags title: @product.name,
 		title: "#{website.brand.name} #{@product.name}"
 	} 
 %>
+
+<% if @product.show_alert? %>
+	<%= content_for :extra_notice do %>
+		<div id="product-notice"><%=raw textilize(@product.alert) %></div>
+	<% end %>
+<% end %>
 	
 <%= content_for :preload do %>
 	<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/buyitnow_button_hover.png")) %>

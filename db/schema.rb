@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140916150338) do
+ActiveRecord::Schema.define(version: 20140922173526) do
 
   create_table "admin_logs", force: true do |t|
     t.integer  "user_id"
@@ -1072,6 +1072,8 @@ ActiveRecord::Schema.define(version: 20140916150338) do
     t.string   "sale_price_currency",            default: "USD", null: false
     t.integer  "cost_cents"
     t.string   "cost_currency",                  default: "USD", null: false
+    t.text     "alert"
+    t.boolean  "show_alert",                     default: false
   end
 
   add_index "products", ["brand_id", "product_status_id"], name: "index_products_on_brand_id_and_product_status_id", using: :btree

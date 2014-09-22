@@ -29,7 +29,13 @@ body {
 	margin: 0;
 	background-color: lighten($light-gray, 16%);
 }
-
+#product-notice {
+	background-color: #fd9b45;
+	padding: 10px 20px;
+	color: black;
+	font-size: 13px;
+	line-height: 18px;
+}
 /********** for system configurator */
 a.button, input[type=submit], button {
 	padding: 10px 20px;

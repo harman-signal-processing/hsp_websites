@@ -41,6 +41,12 @@ set_meta_tags title: @product.name,
 	} 
 %>
 
+<% if @product.show_alert? %>
+	<%= content_for :extra_notice do %>
+		<div id="product-notice"><%=raw textilize(@product.alert) %></div>
+	<% end %>
+<% end %>
+
 <% @istomp = Product.find("istomp") || Product.new(name: "iStomp") %>
 
 <%= content_for :preload do %>

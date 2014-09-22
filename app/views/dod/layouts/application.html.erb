@@ -47,6 +47,7 @@
 		  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
 		  fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));</script>
+		<%= yield :extra_notice %>
 		<%= render_partial "shared/admin_dashboard_link" %>		
 
 		<%= render_partial "shared/locale_switcher" %>

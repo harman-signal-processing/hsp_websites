@@ -55,6 +55,7 @@
 		<%= render_partial "shared/locale_switcher" %>
 		<%= render_partial "shared/admin_dashboard_link" %>
 
+		<%= yield :extra_notice %>
 		<% if @product && extra_notice = website.brand.value_for("#{@product.name.parameterize}-notice") %>
 			<div id="ios-notice"><%= extra_notice %></div>
 		<% end %>

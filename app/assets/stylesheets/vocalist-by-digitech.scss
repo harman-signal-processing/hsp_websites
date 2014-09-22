@@ -32,7 +32,13 @@ body {
          font-url('Chunkfive-webfont.svg#ChunkFiveRegular') format('svg');
     font-weight: normal;
     font-style: normal;
-
+}
+#product-notice {
+	background-color: #fd9b45;
+	padding: 10px 20px;
+	color: black;
+	font-size: 13px;
+	line-height: 18px;
 }
 p {
 	margin-bottom: 8px;

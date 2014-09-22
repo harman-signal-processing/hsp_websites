@@ -34,7 +34,7 @@
 	    <%= render_partial "shared/analytics" %>
 	</head>
 	<body class="artists" data-brand="<%= website.brand.name %>">
-
+		<%= yield :extra_notice %>
 		<% if website.show_locales? %>
 			<div id="locale_switcher">
 				<%= link_to '#', id: "locale_menu" do %>

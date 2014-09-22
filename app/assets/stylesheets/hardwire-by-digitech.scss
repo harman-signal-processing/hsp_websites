@@ -18,6 +18,13 @@ body {
 	background: #2a3333 asset-url('hardwire/page_bg.png') no-repeat top center;
 	margin: 0;
 }
+#product-notice {
+	background-color: #fd9b45;
+	padding: 10px 20px;
+	color: black;
+	font-size: 13px;
+	line-height: 18px;
+}
 @font-face {
     font-family: 'BebasRegular';
     src: font-url('BebasNeue-webfont.eot');

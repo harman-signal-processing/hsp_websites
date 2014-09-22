@@ -3,13 +3,16 @@
 //= require jquery.stickyscroll
 //= require foundation
 
-(function() {
-  jQuery(function($) {
-    return $('#featured-product-list ').stickyScroll({
-      //container: $('#content_container_content')
-    });
-  });
-}).call(this);
+// Make the dod pedals stick to the top of the page, didn't really 
+// work well with the box below it.
+//
+// (function() {
+//   jQuery(function($) {
+//     return $('#featured-product-list ').stickyScroll({
+//       //container: $('#content_container')
+//     });
+//   });
+// }).call(this);
 
 $(window).bind('scroll',function(e){
     parallaxScroll();

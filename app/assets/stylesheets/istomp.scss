@@ -17,7 +17,13 @@ nav#topnav {
 		}
 	}
 }
-
+#product-notice {
+	background-color: #fd9b45;
+	padding: 10px 20px;
+	color: black;
+	font-size: 13px;
+	line-height: 18px;
+}
 header#main_header div#search_form input#query {
 	background: #fff asset-url('digitech/searchMagGlass_blk.png') no-repeat right;
 	color: #111;
