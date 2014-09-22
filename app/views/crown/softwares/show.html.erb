@@ -2,6 +2,12 @@
                  description: @software.description,
                  keywords: [@software.name, @software.ware_file_name, @software.version] %>
 
+<% if @software.show_alert? %>
+	<%= content_for :extra_notice do %>
+		<div id="product-notice"><%=raw textilize(@software.alert) %></div>
+	<% end %>
+<% end %>
+
 <h1><%= @page_title %></h1>
 <%= render 'shared/add_this' %>
 

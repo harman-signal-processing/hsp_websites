@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140922173526) do
+ActiveRecord::Schema.define(version: 20140922213004) do
 
   create_table "admin_logs", force: true do |t|
     t.integer  "user_id"
@@ -1286,6 +1286,8 @@ ActiveRecord::Schema.define(version: 20140922173526) do
     t.boolean  "active_without_products"
     t.string   "direct_upload_url"
     t.boolean  "processed",               default: false
+    t.text     "alert"
+    t.boolean  "show_alert",              default: false
   end
 
   add_index "softwares", ["cached_slug"], name: "index_softwares_on_cached_slug", unique: true, using: :btree

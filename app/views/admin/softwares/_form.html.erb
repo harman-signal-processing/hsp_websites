@@ -94,6 +94,15 @@
   <%= f.input :active, label: "Software is active." %>
   <%= f.input :active_without_products, label: "Force active state even if there are no corresponding active products." %>
   <br/>
+  <div class="row">
+    <div class="large-12 columns">
+    <div class="panel">
+      <h5>Alert</h5>
+      <%= f.input :alert, label: "Optional alert to show on the top of the software page." %>
+      <%= f.input :show_alert, label: "Enable the alert message." %>
+    </div>
+    </div>
+  </div>
 
   <fieldset>
     <legend>Software Activation (not common)</legend>
