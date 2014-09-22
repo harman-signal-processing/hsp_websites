@@ -12,14 +12,34 @@
 	<h1 id="title">REBORN TO BE WILD</h1>
 <% end %>
 
-    <div class="row">
+    <div class="row" id="featured-product-list">
     	<div class="large-12 text-center columns">
-    		<% featured_products = website.featured_products %>
-    		<ul class="large-block-grid-4 small-block-grid-2">
+    		<% 
+    		featured_products = website.featured_products 
+    		large_rows = (featured_products.length.to_f / 4.0).round
+    		large_rows = large_rows > 0 ? large_rows : 1
+    		small_rows = (featured_products.length.to_f / 2.0).floor
+    		small_rows = small_rows > 0 ? small_rows : 1
+    		large_grid = (featured_products.length.to_f / large_rows).floor
+    		small_grid = (featured_products.length.to_f / small_rows).floor
+    		img_size = case  
+    			when large_grid > 5
+    				:small 
+    			when large_grid > 4
+    				:epedal 
+    			else 
+    				:medium
+    			end
+    		%>
+    		<!-- large_rows: <%= large_rows %> -->
+    		<!-- large_grid: <%= large_grid %> -->
+    		<!-- small_rows: <%= small_rows %> -->
+    		<!-- small_grid: <%= small_grid %> -->
+    		<ul class="large-block-grid-<%= large_grid %> small-block-grid-<%= small_grid %>">
     		<% featured_products.each_with_index do |product,i| %>
     			<% if product.product_attachments.count >= 5 %>
     				<li><%= link_to product do %>
-	    					<div class="pedal_link" style="z-index: <%= 100 - i %>;"><%= image_tag(product.product_attachments[4].product_attachment.url(:medium)) %></div>
+	    					<div class="pedal_link" style="z-index: <%= 100 - i %>;"><%= image_tag(product.product_attachments[4].product_attachment.url(img_size)) %></div>
 	    				<% end %></li>
     			<% end %>
     		<% end %>

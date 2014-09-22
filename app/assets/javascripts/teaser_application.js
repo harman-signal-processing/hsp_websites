@@ -1,6 +1,15 @@
 //= require jquery
 //= require jquery_ujs
+//= require jquery.stickyscroll
 //= require foundation
+
+(function() {
+  jQuery(function($) {
+    return $('#featured-product-list ').stickyScroll({
+      //container: $('#content_container_content')
+    });
+  });
+}).call(this);
 
 $(window).bind('scroll',function(e){
     parallaxScroll();
