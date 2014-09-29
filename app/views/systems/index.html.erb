@@ -13,7 +13,7 @@
 					<div style="width: <%= (820 / ((system.parent_system_options_for_start_page.length > 0) ? system.parent_system_options_for_start_page.length : 26))-25 %>px" class='starter_option'>
 						<%= render_partial "system_configurations/system_option", 
 								skip_children: true, 
-								skip_help: true, 
+								skip_help: false, 
 								f: f,
 								sco: sco %>
 					</div>

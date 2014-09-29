@@ -109,7 +109,7 @@ div.starter_option {
 	background: lighten($light-gray, 2%);
 	padding: 10px;
 	margin: 10px;
-	height: 180px;
+	min-height: 180px;
 	overflow: hidden;
 	h4 {
 		color: $dark-gray;
