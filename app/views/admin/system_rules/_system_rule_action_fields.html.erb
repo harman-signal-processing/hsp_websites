@@ -18,7 +18,7 @@
 	</div>
 	<div class="large-8 columns">
 		<div class="row">
-			<div class="large-6 columns action-option" data-related="<%= SystemRuleAction.related_actions_for(:system_option_id) %>">
+			<div class="large-5 columns action-option" data-related="<%= SystemRuleAction.related_actions_for(:system_option_id) %>">
 				<%= f.association :system_option, label: false,
 					collection: @system.system_options, input_html: { class: 'no-custom' } %>
 			</div>
@@ -29,10 +29,13 @@
 				        label_method: :name, value_method: :id,
 				        input_html: { class: 'no-custom' } %>
 			</div>
+			<div class="large-2 columns action-option" data-related="<%= SystemRuleAction.related_actions_for(:ratio) %>">
+        <%= f.input :ratio, label: false, placeholder: "ie, 5:1" %>
+      </div>
 			<div class="large-4 columns action-option" data-related="<%= SystemRuleAction.related_actions_for(:quantity) %>">
 				<%= f.input :quantity, label: false, input_html: { min: 0, class: 'no-custom' } %>
 			</div>
-			<div class="large-8 columns action-option" data-related="<%= SystemRuleAction.related_actions_for(:system_component_id) %>">
+			<div class="large-5 columns action-option" data-related="<%= SystemRuleAction.related_actions_for(:system_component_id) %>">
 				<%= f.association :system_component, label: false, input_html: { class: 'no-custom' } %>
 			</div>
 			<div class="large-12 columns action-option" data-related="<%= SystemRuleAction.related_actions_for(:alert) %>">

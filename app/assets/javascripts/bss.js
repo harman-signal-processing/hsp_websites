@@ -22,6 +22,7 @@
 //= require twitter
 //= require swfobject
 //= require homepage
+//= require math.min
 //= require configurator
 
 document.createElement("article");  

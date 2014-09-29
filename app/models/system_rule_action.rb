@@ -26,6 +26,8 @@ class SystemRuleAction < ActiveRecord::Base
 			subtract:   {opposite: :add, dependent_fields: [:system_component_id, :quantity]},
 			set:        {opposite: :remove, dependent_fields: [:system_component_id, :quantity]},
 			remove:     {opposite: nil, dependent_fields: [:system_component_id]},
+#      add_with_ratio: {opposite: :remove, dependent_fields: [:system_component_id, :system_option_id, :quantity]},
+      set_with_ratio: {opposite: :remove, dependent_fields: [:system_component_id, :system_option_id, :ratio]},
 			alert_once: {opposite: nil, dependent_fields: [:alert]},
 			alert:      {opposite: nil, dependent_fields: [:alert]},
 		}
@@ -49,7 +51,7 @@ class SystemRuleAction < ActiveRecord::Base
 		when /enable|disable|show|hide/
 			"#{action_type} #{system_option ? system_option.name : ''}"
 		when /add|subtract|set/
-			"#{action_type} #{system_component ? system_component.name : ''} (qty: #{quantity})"
+			"#{action_type} #{system_component ? system_component.name : ''} (qty: #{quantity || ratio})"
 		when "remove"
 			"#{action_type} #{system_component ? system_component.name : ''}"
 		end
@@ -67,7 +69,9 @@ class SystemRuleAction < ActiveRecord::Base
 	    	"$('#{ js_target_element }_container').#{action}();" if js_target_element
 	    when /enable|disable/
 	    	"enable_disable_element('#{ js_target_element }_container', '#{action}');" if js_target_element
-	    when /add|set/
+	    when /ratio/
+	    	"#{action}_component('component_#{system_component_id}', '#{ratio}', '#system_option_#{system_option_id}');"
+      when /add|set/
 	    	"#{action}_component('component_#{system_component_id}', #{quantity});"
 	    when /subtract/ # don't subtract the first time through
 	    	"if (page_loading == false) { #{action}_component('component_#{system_component_id}', #{quantity}); }"

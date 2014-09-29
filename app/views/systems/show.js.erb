@@ -84,6 +84,13 @@ jQuery(function($) {
     $('ul#system_summary_items').find('li#'+ component).remove();
   }
 
+  var set_with_ratio_component = function(component, ratio, form_element_id) {
+    var form_value = $(form_element_id).val();
+    var rate = math.eval(ratio.toString().replace(/\:/g, '/'));
+    var new_quantity = math.round(form_value / rate, 0);
+    set_component(component, new_quantity);
+  }
+
   var evaluate_rules = function(el) {
     var rules = $(el).data('system-rule-ids')
     if (rules) {
