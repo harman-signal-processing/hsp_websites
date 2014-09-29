@@ -38,7 +38,7 @@ class SystemRuleCondition < ActiveRecord::Base
 		logic = self.is_first? ? '' : " #{ js_logic_type } "
 		js = case system_option.option_type.parameterize
 			when 'boolean'
-				onoff = direct_value.to_s.match(/true/i) || direct_value.to_i > 0 ? ':checked' : ':unchecked'
+				onoff = direct_value.to_s.match(/true/i) || direct_value.to_i > 0 ? ':checked' : ':not(:checked)'
 				"$('#system_option_#{ system_option_id }').is('#{ onoff }')"
       when 'integer'
       	"parseInt($('#system_option_#{ system_option_id }').val(), 10) #{ js_operator } #{ direct_value }"
