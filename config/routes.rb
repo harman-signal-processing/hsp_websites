@@ -252,6 +252,9 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
           resources :system_rule_actions
         end
       end
+      resources :system_options do
+        collection { post :update_order }
+      end
       resources :service_centers, 
         :software_training_classes,
         :product_training_classes,

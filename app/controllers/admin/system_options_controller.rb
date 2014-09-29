@@ -1,6 +1,6 @@
 class Admin::SystemOptionsController < AdminController
   before_filter :initialize_system_option, only: :create
-  before_action :set_system
+  before_action :set_system, except: [:update_order]
   load_and_authorize_resource
 
   # GET /admin/system/SYSTEM_ID/system_options
@@ -67,6 +67,13 @@ class Admin::SystemOptionsController < AdminController
         format.xml  { render xml: @system_option.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  # PUT /admin/system_options/update_order
+  def update_order
+    update_list_order(SystemOption, params["system_option"])
+    render nothing: true
+    website.add_log(user: current_user, action: "Sorted system options")
   end
 
   # DELETE /admin/system/SYSTEM_ID/system_options/1

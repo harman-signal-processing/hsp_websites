@@ -2,7 +2,7 @@
 # options and values. Selected values may trigger one or more SystemActions.
 #
 class System < ActiveRecord::Base
-	has_many :system_options
+	has_many :system_options, -> { order(:position) }
 	has_many :system_rules
 	has_many :system_configurations
 	has_many :system_components
@@ -32,12 +32,13 @@ class System < ActiveRecord::Base
 	def system_configuration(stage='configure', options={})
 		@system_configuration ||= SystemConfiguration.new
 		configured_option_ids = @system_configuration.system_configuration_options.map{|sco| sco.system_option_id}
+    configured_options = Hash.new
 
 		if options[:system_configuration_options_attributes]
 			options[:system_configuration_options_attributes].each do |key, scoa|
-				sco = SystemConfigurationOption.new(scoa)
-				@system_configuration.system_configuration_options << sco
-				configured_option_ids << sco.system_option_id
+				configured_options[key] = SystemConfigurationOption.new(scoa)
+				#@system_configuration.system_configuration_options << sco
+				#configured_option_ids << sco.system_option_id
 			end
 		end
 
@@ -51,14 +52,16 @@ class System < ActiveRecord::Base
 		end
 
 		options_to_build.each do |system_option|
-			unless configured_option_ids.include?(system_option.id)
+      if configured_options[system_option.id]
+        @system_configuration.system_configuration_options << configured_options[system_option.id]
+      else
 				@system_configuration.system_configuration_options << SystemConfigurationOption.new(
 					system_option: system_option,
 					direct_value: system_option.default_direct_value,
 					system_option_value_id: system_option.default_system_option_value_id
 				)
-				configured_option_ids << system_option.id
-			end
+      end
+      configured_option_ids << system_option.id
 		end
 
 		@system_configuration

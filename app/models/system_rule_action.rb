@@ -51,7 +51,7 @@ class SystemRuleAction < ActiveRecord::Base
 		when /enable|disable|show|hide/
 			"#{action_type} #{system_option ? system_option.name : ''}"
 		when /add|subtract|set/
-			"#{action_type} #{system_component ? system_component.name : ''} (qty: #{quantity || ratio})"
+      "#{action_type} #{system_component ? system_component.name : ''} (qty: #{action_type.match(/ratio/) ? ratio : quantity})"
 		when "remove"
 			"#{action_type} #{system_component ? system_component.name : ''}"
 		end

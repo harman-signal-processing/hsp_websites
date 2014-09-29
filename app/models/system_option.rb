@@ -13,8 +13,7 @@ class SystemOption < ActiveRecord::Base
 	validates :name, presence: true
 	validates :option_type, presence: true
 
-	acts_as_tree
-	acts_as_list scope: :parent_id
+	acts_as_tree order: :position, scope: :parent_id
 
 	accepts_nested_attributes_for :system_option_values, reject_if: :all_blank, allow_destroy: true
 
