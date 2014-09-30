@@ -87,7 +87,7 @@ jQuery(function($) {
   var set_with_ratio_component = function(component, ratio, form_element_id) {
     var form_value = $(form_element_id).val();
     var rate = math.eval(ratio.toString().replace(/\:/g, '/'));
-    var new_quantity = math.round(form_value / rate, 0);
+    var new_quantity = math.ceil(form_value / rate);
     set_component(component, new_quantity);
   }
 
@@ -98,7 +98,7 @@ jQuery(function($) {
         //console.log("Running rule " + value + ". My value is: " + $(el).val());
         eval("rule_" + value + '(false)');
       });
-    }    
+    }
   };
 
   // Run through all the rules once on page load...
