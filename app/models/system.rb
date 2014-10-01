@@ -36,9 +36,8 @@ class System < ActiveRecord::Base
 
 		if options[:system_configuration_options_attributes]
 			options[:system_configuration_options_attributes].each do |key, scoa|
-				configured_options[key] = SystemConfigurationOption.new(scoa)
-				#@system_configuration.system_configuration_options << sco
-				#configured_option_ids << sco.system_option_id
+				sco = SystemConfigurationOption.new(scoa)
+        configured_options[sco.system_option_id] = sco
 			end
 		end
 
