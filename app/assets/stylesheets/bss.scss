@@ -84,7 +84,7 @@ div#system_summary_container {
 div.major_system_container {
 	border: 1px solid lighten($medium-gray, 15%);
 	margin: 10px 0px;
-	padding: 0px;
+	padding: 0px ;
 }
 div.system_selector {
 	padding: 20px;
@@ -132,7 +132,7 @@ div.long_description {
 	margin: 20px 0px;
 }
 form.configurator div.row {
-	padding: 20px 20px 10px;
+	padding: 20px 0px 10px;
 	label {
 		line-height: 20px;
 		display: block;
@@ -140,6 +140,9 @@ form.configurator div.row {
 			margin-right: 10px;
 		}
 	}
+  .column, .columns {
+    margin: 0px 20px;
+  }
 }
 a.help {
 	img {
