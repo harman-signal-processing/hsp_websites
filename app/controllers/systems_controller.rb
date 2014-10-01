@@ -5,7 +5,7 @@ class SystemsController < ApplicationController
 	respond_to :html, :js
 
 	def index
-		@systems = @systems.where(brand_id: website.brand_id)
+		@systems = System.where(brand_id: website.brand_id)
 	end
 
 	def show
