@@ -1,0 +1,30 @@
+defaults: &defaults
+  fog_provider: 'Rackspace'
+  rackspace_username: "<%= ENV['RACKSPACE_USERNAME'] %>"
+  rackspace_api_key: "<%= ENV['RACKSPACE_API_KEY'] %>"
+  # if you need to change rackspace_auth_url (e.g. if you need to use Rackspace London)
+  # rackspace_auth_url: "https://lon.identity.api.rackspacecloud.com/v2.0"
+  fog_directory: "<%= ENV['ASSET_CONTAINER'] %>"
+  # You may need to specify what region your storage bucket is in
+  fog_region: "ORD"
+  existing_remote_files: keep
+  # To delete existing remote files.
+  # existing_remote_files: delete
+  # Automatically replace files with their equivalent gzip compressed version
+  # gzip_compression: true
+  # Fail silently.  Useful for environments such as Heroku
+  # fail_silently: true
+
+development:
+  <<: *defaults
+  enabled: false
+
+test:
+  <<: *defaults
+  enabled: false
+
+staging:
+  <<: *defaults
+
+production:
+  <<: *defaults

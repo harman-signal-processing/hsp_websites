@@ -51,6 +51,11 @@ namespace :deploy do
     # puts "Now edit the config files in #{shared_path}."
   end
   after "deploy:setup", "deploy:setup_config"
+
+  task :asset_sync_config, roles: :web do
+    sudo "ln -nfs /var/www/hmg/hsp_websites/current/config/asset_sync.yml #{release_path}/config/asset_sync.yml"
+  end
+  before "deploy:assets:precompile", "deploy:asset_sync_config"
 end
 
 
