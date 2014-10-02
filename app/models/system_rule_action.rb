@@ -26,6 +26,7 @@ class SystemRuleAction < ActiveRecord::Base
 			subtract:   {opposite: :add, dependent_fields: [:system_component_id, :quantity]},
 			set:        {opposite: :remove, dependent_fields: [:system_component_id, :quantity]},
 			remove:     {opposite: nil, dependent_fields: [:system_component_id]},
+      remove_all_components: {opposite: nil, dependent_fields: []},
 #      add_with_ratio: {opposite: :remove, dependent_fields: [:system_component_id, :system_option_id, :quantity]},
       set_with_ratio: {opposite: :remove, dependent_fields: [:system_component_id, :system_option_id, :ratio]},
 			alert_once: {opposite: nil, dependent_fields: [:alert]},
@@ -62,9 +63,13 @@ class SystemRuleAction < ActiveRecord::Base
 
 		case action
 			when 'alert'
-      	"if (page_loading == false) { show_alert('alert_#{self.id}', true); }"
+        # commented version doesn't show alerts on page load
+      	#"if (page_loading == false) { show_alert('alert_#{self.id}', true); }"
+      	"show_alert('alert_#{self.id}', true);"
       when 'alert_once'
-      	"if (page_loading == false) { show_alert('alert_#{self.id}', false); }"
+        # commented version doesn't show alerts on page load
+      	#"if (page_loading == false) { show_alert('alert_#{self.id}', false); }"
+      	"show_alert('alert_#{self.id}', false);"
     	when /show|hide/
 	    	"$('#{ js_target_element }_container').#{action}();" if js_target_element
 	    when /enable|disable/
@@ -75,6 +80,8 @@ class SystemRuleAction < ActiveRecord::Base
 	    	"#{action}_component('component_#{system_component_id}', #{quantity});"
 	    when /subtract/ # don't subtract the first time through
 	    	"if (page_loading == false) { #{action}_component('component_#{system_component_id}', #{quantity}); }"
+      when "remove_all_components"
+        "if (page_loading == false) { remove_all_components(); }"
 	    when /remove/
 	    	"if (page_loading == false) {#{action}_component('component_#{system_component_id}'); }"
 		end

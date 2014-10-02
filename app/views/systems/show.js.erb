@@ -85,6 +85,11 @@ jQuery(function($) {
     $('ul#system_summary_items').find('li#'+ component).remove();
   }
 
+  var remove_all_components = function() {
+    configured_components = {};
+    $('ul#system_summary_items').find('li').remove();
+  }
+
   var set_with_ratio_component = function(component, ratio, form_element_id) {
     var form_value = $(form_element_id).val();
     var rate = math.eval(ratio.toString().replace(/\:/g, '/'));
