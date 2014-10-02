@@ -57,7 +57,7 @@ namespace :deploy do
     run "ln -nfs /var/www/hmg/hsp_websites/current/config/asset_sync.rb #{release_path}/config/initializers/asset_sync.rb"
   end
   #This didn't work so well..., but let's try it again.
-  before "deploy:assets:precompile", "deploy:asset_sync_config"
+  #before "deploy:assets:precompile", "deploy:asset_sync_config"
 end
 
 
