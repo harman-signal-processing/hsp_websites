@@ -17,9 +17,7 @@
 		
 		<%= f.fields_for :system_configuration_options do |sco| %>
 			<% unless sco.object.system_option.parent_id.to_i > 0 %>
-				<div class="major_system_container">
 					<%= render_partial "system_option", f: f, sco: sco %>
-				</div>
 			<% end %>
 		<% end %>
 

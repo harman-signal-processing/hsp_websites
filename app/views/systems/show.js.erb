@@ -25,7 +25,8 @@ jQuery(function($) {
   var show_alert = function(msg, multiple_times) { 
     system_alert = system_alerts[msg];
     if (system_alert['displayed_once'] != true || multiple_times) {
-      alert(system_alert['alert']);
+      //alert(system_alert['alert']);
+      $('#dialog').html(system_alert['alert']).dialog({ modal: true });
       system_alert['displayed_once'] = true;
     } 
   }

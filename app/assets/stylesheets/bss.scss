@@ -5,7 +5,7 @@
 *= require reset
 *= require lightbox
 *= require tiny
-*= require jquery-ui-1.10.4.custom.min
+*= require jquery-ui.min
 *= require_self
 */
 
@@ -117,6 +117,9 @@ div.starter_option {
 	div.row {
 		margin-bottom: 16px;
 	}
+  .major_system_container {
+    border: none;
+  }
 }
 div.disabled {
 	background: #EEE;

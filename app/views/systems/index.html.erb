@@ -4,7 +4,7 @@
 	<div class="system_selector">
 		<h1><%= system.name %></h1>
 
-		<%= simple_form_for [system, system_configuration], url: new_system_system_configuration_path(system) do |f| %>
+		<%= simple_form_for [system, system_configuration], url: new_system_system_configuration_path(system), method: :get do |f| %>
 			<div class='starter_option_container'>
 
 				<%= f.fields_for :system_configuration_options do |sco| %>

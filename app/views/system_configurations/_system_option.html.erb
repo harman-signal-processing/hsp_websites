@@ -3,7 +3,7 @@
 	system_option = sco.object.system_option
 %>
 
-<div class="row" id="system_option_<%= system_option.id %>_container">
+<div class="row <% if system_option.parent_id.to_i <= 0 %>major_system_container<% end %>" id="system_option_<%= system_option.id %>_container">
 	<div class="large-12 columns">
 		<h4 class="subheader"><%= system_option.name %>
 			<% if !skip_help && system_option.long_description.present? %>
