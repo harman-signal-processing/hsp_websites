@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141002170554) do
+ActiveRecord::Schema.define(version: 20141002204339) do
 
   create_table "admin_logs", force: true do |t|
     t.integer  "user_id"
@@ -1413,7 +1413,8 @@ ActiveRecord::Schema.define(version: 20141002170554) do
     t.integer  "system_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "enabled",    default: true
+    t.boolean  "enabled",          default: true
+    t.boolean  "perform_opposite", default: true
   end
 
   add_index "system_rules", ["system_id"], name: "index_system_rules_on_system_id", using: :btree

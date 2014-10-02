@@ -22,7 +22,13 @@ class SystemRule < ActiveRecord::Base
 	end
 
 	def to_js
-    "if (#{ self.option_groups_js }) { #{ self.actions_js } } else { #{self.actions_js(opposite: true) } } "
+    "if (#{ self.option_groups_js }) { #{ self.actions_js } } else { #{ self.opposite_js } } "
+  end
+
+  def opposite_js
+    if self.perform_opposite?
+      self.actions_js(oppsoite: true)
+    end
   end
 
 	def option_groups_text

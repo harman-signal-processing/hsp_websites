@@ -33,12 +33,14 @@
 			</div>
 			<div class="large-9 columns"></div>
 		</div>
-
-    <p><i>Note: All rules automatically perform the opposite action when the opposite criteria are met
-      except for 'alert' and 'remove' actions.</i></p>
 	</fieldset>
 
-<%= f.input :enabled %>
+  <div class="row">
+    <div class="large-12 columns">
+      <%= f.input :perform_opposite, label: "Automatically perform the opposite of this rule (except for 'alert' or 'remove' actions)." %>
+      <%= f.input :enabled, label: "Enable rule" %>
+    </div>
+  </div>
 <br/><br/>
   <%= f.button :submit %>
 <% end %>
