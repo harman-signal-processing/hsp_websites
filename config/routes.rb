@@ -246,6 +246,10 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         end
         resources :system_components
         resources :system_rules do
+          collection do
+            put :enable_all
+            put :disable_all
+          end
           resources :system_rule_condition_groups do
             resources :system_rule_conditions 
           end

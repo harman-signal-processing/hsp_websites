@@ -70,6 +70,16 @@ class Admin::SystemRulesController < AdminController
     end
   end
 
+  def enable_all
+    @system.system_rules.update_all(enabled: true)
+    redirect_to [:admin, @system], notice: 'All rules were enabled.'
+  end
+
+  def disable_all
+    @system.system_rules.update_all(enabled: false)
+    redirect_to [:admin, @system], notice: 'All rules were disabled.'
+  end
+
   # DELETE /admin/system/SYSTEM_ID/system_rules/1
   # DELETE /admin/system/SYSTEM_ID/system_rules/1.xml
   def destroy

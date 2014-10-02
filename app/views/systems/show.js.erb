@@ -9,7 +9,7 @@ jQuery(function($) {
   var configured_components = {}
 
   var system_alerts = {};
-  <% @system.system_rules.each do |system_rule| %>
+  <% @system.enabled_system_rules.each do |system_rule| %>
   // <%=raw system_rule.to_s %>
   var rule_<%= system_rule.id %> = function(page_loading) { <%= raw system_rule.to_js %> };
   <% system_rule.system_rule_actions.where(action_type: ['alert', 'alert_once']).each do |system_rule| %>
@@ -103,7 +103,7 @@ jQuery(function($) {
   };
 
   // Run through all the rules once on page load...
-  <% @system.system_rules.each do |system_rule| %>
+  <% @system.enabled_system_rules.each do |system_rule| %>
   rule_<%= system_rule.id %>(true);
   <% end %>
 
