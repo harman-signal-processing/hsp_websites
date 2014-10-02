@@ -27,7 +27,7 @@ class SystemRule < ActiveRecord::Base
 
   def opposite_js
     if self.perform_opposite?
-      self.actions_js(oppsoite: true)
+      self.actions_js(opposite: true)
     end
   end
 
