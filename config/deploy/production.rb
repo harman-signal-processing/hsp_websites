@@ -55,7 +55,8 @@ namespace :deploy do
   task :asset_sync_config, roles: :web do
     sudo "ln -nfs /var/www/hmg/hsp_websites/current/config/asset_sync.yml #{release_path}/config/asset_sync.yml"
   end
-  before "deploy:assets:precompile", "deploy:asset_sync_config"
+  #This didn't work so well...
+  #before "deploy:assets:precompile", "deploy:asset_sync_config"
 end
 
 
