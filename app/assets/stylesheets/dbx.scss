@@ -432,7 +432,8 @@ div.superpadded {
 }
 div.featured_product_container {
 	position: relative;
-	margin-bottom: 60px;
+	margin-top: 40px;
+	margin-bottom: 30px;
 	div.featured_image_container {
 		overflow: hidden;
 		position: absolute;
@@ -451,7 +452,7 @@ div.featured_product_container {
 @media only screen and (min-width: 720px) {
 	div.homepage_block {
 		min-height: 360px;
-		margin: 100px 0px 100px;
+		padding: 60px 0px;
 		h1 {
 			font-size: 4em;
 			line-height: 1em;
@@ -468,11 +469,11 @@ div.featured_product_container {
 			line-height: 1.2em;
 			margin-bottom: 10px;
 		}
-	}
+  }
 }
 @media only screen and (max-width: 720px) {
-	div.homgepage_block {
-		margin: 40px 0px;	
+	div.homepage_block {
+		padding: 40px 0px;	
 		h1 {
 			font-size: 2.25em;
 		}
@@ -489,6 +490,12 @@ div.featured_product_container {
 
 }
 
+div.homepage_block {
+  &.dark {
+      background: #000;
+      padding: 0 !important;
+    }
+}	
 div.promotion_container {
 	background: $strip-bg-even;
 	padding: 30px 0px;

@@ -37,7 +37,7 @@ AWS.config(Rails.configuration.aws)
 S3_CLOUDFRONT = 'adn.harmanpro.com' # 'd18nzrj3czoaty.cloudfront.net' # 
 
 # Environment-specific settings:
-if Rails.env.production? #|| Rails.env.development?
+if Rails.env.production? || Rails.env.development?
 
 	Paperclip::Attachment.default_options.merge!({
     url: ':fog_public_url',
@@ -92,8 +92,8 @@ else
 end
 
 # Setting up S3 Direct upload for large file uploads...
-S3DirectUpload.config do |c|
-  c.access_key_id = Rails.configuration.aws[:access_key_id]
-  c.secret_access_key = Rails.configuration.aws[:secret_access_key]
-  c.bucket = Rails.configuration.aws[:bucket]
+S3DirectUpload.config do |config|
+  config.access_key_id = Rails.configuration.aws[:access_key_id]
+  config.secret_access_key = Rails.configuration.aws[:secret_access_key]
+  config.bucket = Rails.configuration.aws[:bucket]
 end
