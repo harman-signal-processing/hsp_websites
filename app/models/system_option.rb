@@ -23,8 +23,12 @@ class SystemOption < ActiveRecord::Base
 	end
 
 	def system_rules
-		@system_rules ||= system_rule_conditions.map{|src| src.system_rule_condition_group.system_rule }.uniq
+		@system_rules ||= enabled_system_rule_conditions.map{|src| src.system_rule_condition_group.system_rule }.uniq
 	end
+
+  def enabled_system_rule_conditions
+    @enabled_system_rule_conditions ||= system_rule_conditions.select{|src| src if src.system_rule_condition_group.system_rule.enabled? }
+  end
 
 	def default_direct_value
 		case option_type
