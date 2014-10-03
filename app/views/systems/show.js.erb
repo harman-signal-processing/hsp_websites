@@ -107,8 +107,12 @@ jQuery(function($) {
 
   // Sets a quantity of a component on the BOM based on a ratio
   // from some other form value.
-  var set_with_ratio_component = function(component, ratio, form_element_id) {
-    var form_value = $(form_element_id).val();
+  var set_with_ratio_component = function(component, ratio, form_element_id, input_type) {
+    if (input_type == 'checkbox') {
+      var form_value = $(form_element_id+'[type="checkbox"]').filter(':checked').length;
+    } else {
+      var form_value = $(form_element_id).val();
+    }
     var rate = math.eval(ratio.toString().replace(/\:/g, '/'));
     var new_quantity = math.ceil(form_value / rate);
     set_component(component, new_quantity);
@@ -130,7 +134,7 @@ jQuery(function($) {
   <% end %>
 
   // Trigger rules when form checkboxes are clicked
-  $('form.configurator').on('click', 'input[type=checkbox].boolean', function() {
+  $('form.configurator').on('click', 'input[type=checkbox]', function() {
     evaluate_rules(this);
   });
 

@@ -75,7 +75,7 @@ class SystemRuleAction < ActiveRecord::Base
 	    when /enable|disable/
 	    	"enable_disable_element('#{ js_target_element }_container', '#{action}');" if js_target_element
 	    when /ratio/
-	    	"#{action}_component('component_#{system_component_id}', '#{ratio}', '#system_option_#{system_option_id}');"
+        "#{action}_component('component_#{system_component_id}', '#{ratio}', '#system_option_#{system_option_id}', '#{system_option.option_type}');"
       when /add|set/
 	    	"#{action}_component('component_#{system_component_id}', #{quantity});"
 	    when /subtract/ # don't subtract the first time through
