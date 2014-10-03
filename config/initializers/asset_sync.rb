@@ -1,5 +1,5 @@
 AssetSync.configure do |config|
-  config.run_on_precompile = ENV['ASSET_SYNC_ON'] # if true, runs automatically after assets:precompile
+  config.run_on_precompile = ENV['ASSET_SYNC_ON'].to_i > 0 # if true, runs automatically after assets:precompile
   config.fog_provider = 'Rackspace'
   config.fog_directory = ENV['ASSET_CONTAINER']
   config.fog_region = 'ORD'
