@@ -133,6 +133,7 @@ en:
       cad_files: CAD files
       cad_drawing_front: CAD drawing front
       cad_drawing_rear: CAD drawing rear
+      safety_sheet: Safety Sheet
       other: Other Document
       photo: Photo
 

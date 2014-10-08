@@ -428,10 +428,17 @@ class Product < ActiveRecord::Base
     end
   end
 
-  # Translates this record into other languages. 
+  # Translates this record into other languages.
   def translate
     ContentTranslation.auto_translate(self, self.brand)
   end
   handle_asynchronously :translate
-  
+
+  def safety_documents
+    @safety_documents ||= product_documents.where("document_type LIKE '%safety%'")
+  end
+
+  def nonsafety_documents
+    @nonsafety_documents ||= product_documents.where("document_type NOT LIKE '%safety%'")
+  end
 end

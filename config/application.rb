@@ -96,6 +96,7 @@ module HarmanSignalProcessingWebsite
       ["CAD Drawing front", "cad_drawing_front"],
       ["CAD Drawing rear", "cad_drawing_rear"],
       ["Brochure", "brochure"],
+      ["Safety Sheet", "safety_sheet"],
       ["Other", "other"]
     ]
 
