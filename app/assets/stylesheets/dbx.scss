@@ -437,7 +437,7 @@ div.featured_product_container {
 	div.featured_image_container {
 		overflow: hidden;
 		position: absolute;
-		top: 5px;
+		top: -30px;
 		&.left {
 			right: 20px;
 		}
@@ -445,6 +445,7 @@ div.featured_product_container {
 			left: 20px;
 		}
 		img {
+      max-height: 300px;
 			max-width: none;
 		}
 	}

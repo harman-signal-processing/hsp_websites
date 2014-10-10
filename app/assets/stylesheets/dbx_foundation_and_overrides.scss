@@ -1391,7 +1391,7 @@ $topbar-sticky-class:                  ".sticky";
   color: white;
   @media only screen and (min-width: 720px) {
     margin: 60px 0 0 80px;
-    max-width: 460px;
+ #   max-width: 460px;
   }
   @media only screen and (max-width: 719px) {
     margin: 10px 0 0 0;
@@ -1407,13 +1407,13 @@ $topbar-sticky-class:                  ".sticky";
     }
     @media only screen and (max-width: 719px) {
       font-size: emCalc(50px);
-      line-height: emCalc(16px);    
+      line-height: emCalc(16px);
     }
   }
   p {
     @media only screen and (min-width: 720px) {
-      font-size: emCalc(50px);
-      line-height: emCalc(14px);
+      font-size: emCalc(40px);
+      line-height: emCalc(20px);
     }
     @media only screen and (max-width: 719px) {
       font-size: emCalc(30px);

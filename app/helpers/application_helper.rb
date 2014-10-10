@@ -239,11 +239,20 @@ module ApplicationHelper
           headline_slide = content_tag(:h1, website.homepage_headline)
           if website.homepage_headline_product_id
             product = Product.find(website.homepage_headline_product_id)  
-            headline_slide += content_tag(:p, product.name)
+            if product.name.match(/^\d*$/)
+              headline_slide += content_tag(:p, "#{product.name} #{product.short_description_1}")
+            else
+              headline_slide += content_tag(:p, product.name)
+            end
             headline_slide += link_to("Learn More", product, class: "secondary button") 
-            headline_slide += buy_it_now_link(product, html_button: true)
+            if product.in_production?
+              headline_slide += buy_it_now_link(product, html_button: true)
+            end
           end
-          ret += content_tag(:div, headline_slide, class: "large-5 small-12 columns headline_slide")
+          headline_class = website.homepage_headline_overlay_class || "large-5 small-12 columns"
+          ret += content_tag(:div, class: 'row headline_slide') do 
+            content_tag(:div, headline_slide, class: headline_class )
+          end
         else
           ret += content_tag(:div, class: "container", id: "feature_spacer") do 
             if options[:tagline]
