@@ -8,52 +8,52 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
   get "epedal_labels/index"
 
   namespace :api, defaults: {format: 'json'} do
-    namespace :v1 do 
-      resources :brands, only: [:index, :show] do 
+    namespace :v1 do
+      resources :brands, only: [:index, :show] do
         collection { get :for_employee_store }
         member { get :service_centers }
       end
       resources :product_families, :products
       get '/brand_features/:id' => 'products#features', as: :brand_features
     end
-    namespace :v2 do 
+    namespace :v2 do
       resources :brands, only: [:index, :show]
       resources :products, only: :show
     end
   end
 
-  constraints(ToolkitDomain) do 
+  constraints(ToolkitDomain) do
     get '/' => 'toolkit#index', as: :toolkit_root
-    devise_for :toolkit_users, 
+    devise_for :toolkit_users,
       path: "users",
-      class_name: "User", 
-      controllers: { 
+      class_name: "User",
+      controllers: {
         sessions: "toolkit/users/sessions",
         registrations: "toolkit/users/registrations",
         confirmations: "toolkit/users/confirmations",
         passwords: "toolkit/users/passwords",
         unlocks: "toolkit/users/unlocks"
       }
-    devise_scope :toolkit_user do 
+    devise_scope :toolkit_user do
       get '/users/sign_up/:signup_type' => 'toolkit/users/registrations#new', as: :new_toolkit_user
       get '/new_user' => 'toolkit/users/registrations#select_signup_type', as: :select_signup_type
     end
     namespace :toolkit do
-      resources :brands, only: :show do 
+      resources :brands, only: :show do
         resources :products, :promotions, only: [:index, :show]
         resources :product_families, :toolkit_resources, :toolkit_resource_types, only: [:show]
       end
     end
   end
 
-  constraints(QueueDomain) do 
+  constraints(QueueDomain) do
     get '/' => 'marketing_queue#index', as: :marketing_queue_root
     get 'staff_meeting' => 'marketing_queue#staff_meeting'
     get 'user_workload/:id' => 'marketing_queue#workload', as: :user_workload
-    devise_for :marketing_queue_users, 
+    devise_for :marketing_queue_users,
       path: "users",
-      class_name: "User", 
-      controllers: { 
+      class_name: "User",
+      controllers: {
         sessions: "marketing_queue/users/sessions",
         registrations: "marketing_queue/users/registrations",
         confirmations: "marketing_queue/users/confirmations",
@@ -61,11 +61,11 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         unlocks: "marketing_queue/users/unlocks"
       }
     namespace :marketing_queue do
-      resources :brands do 
+      resources :brands do
         get '/calendar(/:year(/:month))' => 'brands#index', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}
         resources :marketing_projects, :marketing_tasks
       end
-      resources :marketing_projects do 
+      resources :marketing_projects do
         resources :marketing_comments, only: [:create, :destroy]
         resources :marketing_attachments
         collection do
@@ -73,17 +73,17 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         end
       end
       get 'load_marketing_calendar(/:id)' => 'marketing_calendars#show', as: :load_marketing_calendar
-      resources :marketing_calendars do 
+      resources :marketing_calendars do
         get ':id/calendar((/:year(/:month))/:brand_id)' => 'marketing_calendars#show', as: :project_calendar, constraints: {year: /\d{4}/, month: /\d{1,2}/}
       end
-      resources :marketing_tasks, 
-        :marketing_project_types, 
+      resources :marketing_tasks,
+        :marketing_project_types,
         :marketing_project_type_tasks,
         :marketing_attachments
-      resources :marketing_tasks do 
+      resources :marketing_tasks do
         resources :marketing_comments, only: [:create, :destroy]
         resources :marketing_attachments
-        member do 
+        member do
           get :toggle
           get :switch_currently_with
         end
@@ -95,12 +95,12 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
   # resources :registered_downloads
   # debugging help
   get "/site_info" => 'main#site_info'
- 
+
   devise_for :artists, controllers: { registrations: "artist_registrations" }
   devise_scope :artists do
     get 'artists', to: 'artists#index', as: :artist_root
   end
-  
+
   match '/activate(/:software_name(/:challenge))' => 'softwares#activate', as: :software_activation, via: :all
 
   match '/:registered_download_url/register(/:code)' => 'registered_downloads#register', as: :register_to_download, via: :all
@@ -112,14 +112,14 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
   get '/dashboard' => 'admin#index', as: :dashboard
   get "/admin" => "admin#index", as: :admin_root, locale: I18n.default_locale
   get 'sitemap(.:format)' => 'main#sitemap', as: :sitemap
-    
+
   # An example of a custom top-level landing page route:
   # match "/switchyourthinking" => "pages#show", custom_route: "switchyourthinking", locale: I18n.default_locale
 
   # Legacy links redirected to current links. The constant "_REDIRECTS" are found in
   # config/initializers/redirects.rb
   # These are only needed for site-specific routing (where you don't want a particular URL
-  # to work on the other sites)  
+  # to work on the other sites)
   constraints(DigitechDomain) do
     # match '/soundcomm(/:page)', to: redirect("/#{I18n.default_locale}/soundcomm"), as: :soundcomm, locale: I18n.default_locale
     match '/soundcomm(/:page)', to: redirect('http://soundcommunity.digitech.com/'), as: :soundcomm, locale: I18n.default_locale, via: :all
@@ -127,20 +127,20 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get 'epedal_labels/fulfilled/:id/:secret_code' => 'label_sheet_orders#fulfill', as: :label_sheet_order_fulfillment
     get 'epedal_labels/new(/:epedal_id)' => 'label_sheet_orders#new', as: :epedal_labels_order_form
     get 'epedal_label_thanks' => 'label_sheet_orders#thanks', as: :thanks_label_sheet_order
-    resources :label_sheet_orders, only: [:new, :create] 
+    resources :label_sheet_orders, only: [:new, :create]
   end
-  
+
   # The constraint { locale: /#{WebsiteLocale.all_unique_locales.join('|')}/ } limits the locale
-  # to those configured in the WebsiteLocale model which is configured in the admin area and reverts 
+  # to those configured in the WebsiteLocale model which is configured in the admin area and reverts
   # to AVAILABLE_LOCALES in config/initializers/i18n.rb in case of problems
-  
+
   # Main routing
   root to: 'main#default_locale'
-  scope "(:locale)", locale: /#{WebsiteLocale.all_unique_locales.join('|')}/ do 
-    scope "/admin" do 
+  scope "(:locale)", locale: /#{WebsiteLocale.all_unique_locales.join('|')}/ do
+    scope "/admin" do
       devise_for :users, path: :site_users
       devise_scope :user do
-        get 'admin', to: 'admin#index', as: :user_root 
+        get 'admin', to: 'admin#index', as: :user_root
       end
     end
     namespace :admin do
@@ -174,12 +174,12 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         collection { post :update_order }
       end
       resources :artists do
-        collection do 
+        collection do
           post :update_order
         end
         member { post :reset_password }
       end
-      resources :settings do 
+      resources :settings do
         collection do
           get :homepage
           post :update_slides_order
@@ -225,22 +225,22 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :blogs do
         resources :blog_articles
       end
-      resources :label_sheet_orders do 
+      resources :label_sheet_orders do
         collection { get :subscribers }
       end
-      resources :product_prices do 
+      resources :product_prices do
         collection { put :update_all }
       end
-      resources :toolkit_resources do 
+      resources :toolkit_resources do
         member { get :delete_preview }
       end
       resources :news do
         member { put :notify }
       end
-      resources :softwares do 
+      resources :softwares do
         collection { post :upload }
       end
-      resources :systems do 
+      resources :systems do
         resources :system_options do
           resources :system_option_values
         end
@@ -251,7 +251,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
             put :disable_all
           end
           resources :system_rule_condition_groups do
-            resources :system_rule_conditions 
+            resources :system_rule_conditions
           end
           resources :system_rule_actions
         end
@@ -259,7 +259,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :system_options do
         collection { post :update_order }
       end
-      resources :service_centers, 
+      resources :service_centers,
         :software_training_classes,
         :product_training_classes,
         :product_review_products,
@@ -276,7 +276,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :product_amp_models,
         :tone_library_songs,
         :product_promotions,
-        :product_documents, 
+        :product_documents,
         :product_cabinets,
         :online_retailers,
         :training_classes,
@@ -293,7 +293,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :news_products,
         :label_sheets,
         :distributors,
-        :artist_tiers, 
+        :artist_tiers,
         :audio_demos,
         :promotions,
         :amp_models,
@@ -309,24 +309,24 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :brands,
         :pages,
         :faqs
-        
+
       #match "translations/:target_locale(/:action)" => "content_translations", as: :translations
-      scope path: '/:target_locale', target_locale: /#{WebsiteLocale.all_unique_locales.join('|')}/ do 
+      scope path: '/:target_locale', target_locale: /#{WebsiteLocale.all_unique_locales.join('|')}/ do
         resources :content_translations do
           collection {get :list, :combined}
           collection {post :combined}
         end
       end
-      
+
     end # end admin scope
-    
+
     # constraints(DigitechDomain) do
     #   mount Forem::Engine, at: "/soundcomm"
     # end
     get 'teaser' => 'main#teaser'
     get 'teaser2' => 'main#teaser'
-    resources :signups, only: [:new, :create]  
-    get 'now-youll-know' => 'main#teaser_complete', as: :teaser_complete  
+    resources :signups, only: [:new, :create]
+    get 'now-youll-know' => 'main#teaser_complete', as: :teaser_complete
     resources :us_reps, :distributors, only: [:index, :show] do
       collection { get :search }
     end
@@ -337,15 +337,15 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     resources :news, only: [:index, :show] do
       collection { get :archived }
     end
-    resources :systems, only: [:index, :show] do 
-      resources :system_configurations, only: [:new, :create, :show] do 
+    resources :systems, only: [:index, :show] do
+      resources :system_configurations, only: [:new, :create, :show] do
         member { post :new }
       end
     end
     get "artists/become_an_artist" => 'artists#become', as: :become_an_artist
     get "artists/all(/:letter)" => 'artists#all', as: :all_artists
     resources :artists, only: [:index, :show] do
-      collection { 
+      collection {
         get :list
         get :touring
       }
@@ -362,7 +362,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         get :preview
         put :preview
       end
-      collection do 
+      collection do
         match :compare, via: :all
       end
     end

@@ -10,20 +10,20 @@ class Tweet < ActiveRecord::Base
       config.access_token_secret = ENV['TWITTER_OAUTH_TOKEN_SECRET']
     end
   end
-  
+
   def self.pull_tweets(brand)
-  	if twitter_name = brand.twitter_name
-	  Tweet.client.user_timeline(twitter_name, since: 1.week.ago).each do |tweet|
+    if twitter_name = brand.twitter_name
+      Tweet.client.user_timeline(twitter_name, since: 1.week.ago).each do |tweet|
         unless exists?(tweet_id: tweet.id.to_s)
-      	  create(
-        		tweet_id: tweet.id,
-        		content: tweet.text,
-        		screen_name: tweet.user.screen_name,
-        		profile_image_url: tweet.user.profile_image_url,
-        		posted_at: tweet.created_at,
-        		brand_id: brand.id
-      	  )
-      	end
+          create(
+            tweet_id: tweet.id,
+            content: tweet.text,
+            screen_name: tweet.user.screen_name,
+            profile_image_url: tweet.user.profile_image_url,
+            posted_at: tweet.created_at,
+            brand_id: brand.id
+          )
+        end
       end
     end
   end

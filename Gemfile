@@ -35,7 +35,7 @@ gem 'thinking-sphinx', '~> 3.0'
 
 # 4/7/2014 This commit of youtube has the new api (v3) working, also depends on json ~> 1.8 (released gem is not updated yet)
 gem 'youtube_it', git: 'https://github.com/kylejginavan/youtube_it.git', ref: '943a202fce2324d5122f80396e3bc473a61dc4c4' #'~> 2.4.0'
-gem 'twitter'
+gem 'twitter', '~> 5.1'
 gem 'delayed_job_active_record'
 gem 'devise' 
 gem 'cancan'
