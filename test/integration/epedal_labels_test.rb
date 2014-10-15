@@ -23,15 +23,15 @@ describe "epedal Labels Integration Test" do
     Website.any_instance.stubs(:istomp_coverflow).returns(1)
     Website.any_instance.stubs(:epedal_label_order_recipient).returns("epedal_fulfillment@harman.com")
     host! @website.url
-    Capybara.default_host = "http://#{@website.url}" 
-    Capybara.app_host = "http://#{@website.url}" 
+    Capybara.default_host = "http://#{@website.url}"
+    Capybara.app_host = "http://#{@website.url}"
   end
 
   # after :all do
   #   DatabaseCleaner.clean
   # end
 
-  describe "an epedal page" do 
+  describe "an epedal page" do
     before do
         visit product_url(@gooberator, host: @website.url, locale: I18n.default_locale)
     end

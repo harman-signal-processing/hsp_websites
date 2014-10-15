@@ -11,8 +11,20 @@ class LabelSheet < ActiveRecord::Base
     end
   end
 
+  def decoded_products
+    @decoded_products ||= self.needs_decoding? ? self.decode_products : self.products
+  end
+
+  def needs_decoding?
+    !self.products.first.is_a?(Product)
+  end
+
+  def decode_products
+    self.products.map{|p| Product.find(p["attributes"]["id"])}
+  end
+
   def label_names
-  	"#{self.products.map{|p| p.name}.join(", ")} #{blank_labels}"
+  	"#{self.decoded_products.map{|p| p.name}.join(", ")} #{blank_labels}"
   end
 
   def blank_labels

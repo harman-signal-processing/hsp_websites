@@ -402,7 +402,7 @@ class Product < ActiveRecord::Base
   # If this is an epedal, then it may belong to one or more LabelSheet
   def label_sheets
     l = []
-    LabelSheet.all.each{|ls| l << ls if ls.products.include?(self)}
+    LabelSheet.all.each{|ls| l << ls if ls.decoded_products.include?(self)}
     l
   end
 

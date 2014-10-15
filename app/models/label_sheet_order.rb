@@ -12,21 +12,27 @@ class LabelSheetOrder < ActiveRecord::Base
   after_create :send_the_order
 
   def encode_label_sheet_ids
-  	if self.label_sheet_ids.present?
-    	self.label_sheets = (self.label_sheet_ids.is_a?(String)) ? self.label_sheet_ids.split(/\,\s?/) : self.label_sheet_ids
+    if self.label_sheet_ids.present?
+      self.label_sheets = (self.label_sheet_ids.is_a?(String)) ?
+        self.label_sheet_ids.split(/\,\s?/) :
+        self.label_sheet_ids
     end
   end
 
   def expanded_label_sheets
     s = []
-    self.label_sheets.each do |i| 
+    self.label_sheets.each do |i|
       begin
-        s << LabelSheet.find(i)
+        s << LabelSheet.find(decoded_sheet_id(i))
       rescue
         # Sheet was probably deleted
       end
     end
     s
+  end
+
+  def decoded_sheet_id(data)
+    data.respond_to?(:attributes) ? data["attributes"]["id"] : data
   end
 
   def generate_secret_code
