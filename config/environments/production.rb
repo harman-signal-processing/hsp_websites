@@ -131,7 +131,11 @@ HarmanSignalProcessingWebsite::Application.configure do
       
   config.action_mailer.default_url_options = { :host => 'www.digitech.com' }
 
-  config.auto_translate = true
+  # Disabled as of 10/15/2014 per Vinne Peng's incessant complaints. The problem is
+  # sometimes auto translation overwrites what she had previously provided for
+  # content. Without resources to make the auto translation more intelligent, I'm
+  # opting to shut it off.
+  config.auto_translate = false
 
   config.hpro_execs = ENV['HPRO_EXECS'].split("|")
 
