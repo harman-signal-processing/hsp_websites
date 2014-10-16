@@ -166,7 +166,6 @@ set_meta_tags title: @product.name,
 	<div class="large-8 small-12 columns">
 
 		<% if @product.images_for("product_page").size > 1 %>
-		<div class="larger_tag"><%= t('product_page.larger_images') %></div>
 		<ul id="product_thumbnails" class="clearing-thumbs large-block-grid-12 small-block-grid-3" data-clearing>
 			<% @product.images_for("product_page").each do |product_attachment| %>
 			  <% if product_attachment.product_media_thumb_file_name.present? %>
@@ -178,50 +177,43 @@ set_meta_tags title: @product.name,
 			  <% end %>
 			<% end %>
 		</ul>
+		<div class="larger_tag"><%= t('product_page.larger_images') %></div>
 		<% end %>
 
+		<!-- <%= @active_tab %> -->
+		<%= draw_main_tabs_content @product, zurb: true, active_tab: @active_tab %>
+
 	</div>
-	<div class="large-4 small-12 columns text-right">
+	<div class="large-4 small-12 columns">
+		<h1 class="product-title"><%= title translate_content(@product, :name) %></h1>
+		<h3 class="product-subheader"><%= translate_content(@product, :short_description) %></h3>	
 
-		<% if website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !@product.direct_buy_link.blank? %>
+    <% if website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !@product.direct_buy_link.blank? %>
 
-			<% if website.show_pricing? && @product.msrp && @product.msrp.to_f > 0 && I18n.default_locale.match(/#{I18n.locale}/i) %>
-				<% if @product.sale_price && @product.sale_price.to_f > 0 && I18n.locale == I18n.default_locale %>
-					<div><%= number_to_currency(@product.sale_price) %></div>
-				<% end %>
-				
-				  <% if @product.sale_price && @product.msrp.to_f > @product.sale_price.to_f %>
-						MSRP <span class="strike"><%= number_to_currency(@product.msrp) %></span><br/>
-						Save <%= number_to_currency(@product.msrp.to_f - @product.sale_price.to_f) %>!
-					<br/>
-				  <% elsif @product.msrp %>
-						<div style="margin-bottom: 2px">MSRP <%= number_to_currency(@product.msrp) %></div>
-				  <% end %>
-			<% end %>
+      <div class="row product-price-row collapse">
+        <div class="large-6 small-6 columns product-price">
+          <% if website.show_pricing? && @product.msrp && @product.msrp.to_f > 0 && I18n.default_locale.match(/#{I18n.locale}/i) %>
 
-			<%= buy_it_now_link(@product, html_button: true, reveal_id: "buy-it-now-popup") %>
-			
-			<% unless @product.demo_link.blank? %>
-				<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/demo_download_button.png")) %>
-					<%= link_to(image_tag("#{website.folder}/#{I18n.locale}/demo_download_button.png", 
-							alt: "Demo Download", 
-							mouseover: "#{website.folder}/#{I18n.locale}/demo_download_button_hover.png") ,
-						@product.demo_link) %>
-				<% else %>
-					<p><strong><%= link_to "Demo Download", @product.demo_link %></strong></p>
-				<% end %>
-			<% end %>
+            <% if @product.sale_price && @product.msrp.to_f > @product.sale_price.to_f && @product.sale_price.to_f > 0 && I18n.locale == I18n.default_locale %>
+              <h6 class="price-label">MSRP <span class="strike"><%= number_to_currency(@product.msrp) %></span></h6>
+              <div><%= number_to_currency(@product.sale_price) %></div>
+              Save <%= number_to_currency(@product.msrp.to_f - @product.sale_price.to_f) %>!
+              <br/>
+            <% elsif @product.msrp %>
+                <h6 class="price-label">MSRP</h6>
+                <%= number_to_currency(@product.msrp) %>
+            <% end %>
+          <% end %>
 
-		<% end %>			
-	</div>
-</div>
+        </div>
+        <div class="large-6 small-6 columns text-right">
+          <%= buy_it_now_link(@product, html_button: true, reveal_id: "buy-it-now-popup") %>
+        </div>
+      </div>
 
-<div class="row">
-	<div class="large-8 columns">
-		<h1 style="margin-bottom: 0px"><%= title translate_content(@product, :name) %></h1>
-		<h3 class="subheader"><%= translate_content(@product, :short_description) %></h3>	
-	</div>
-	<div class="large-4 columns">	
+    <% end %>			
+
+    <hr class="product-page-divider"/>
 
 		<%= links_to_current_promotions(@product) %>
 		
@@ -236,22 +228,11 @@ set_meta_tags title: @product.name,
 			<% end %>
 		<% end %>
 
-	</div>
-</div>
-	
-<div class="row">
-
-	<div class="large-8 columns">
-		<!-- <%= @active_tab %> -->
-		<%= draw_main_tabs_content @product, zurb: true, active_tab: @active_tab %>
-	</div>
-
-	<div class="large-4 columns">
 		<%= draw_info_accordion @product %>
 		<%= draw_audio_demos @product %>
 		<%= render 'shared/add_this' %>
-	</div>
 	
+	</div>
 </div>
 
 <% end # layout class %>
