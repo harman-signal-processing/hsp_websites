@@ -78,11 +78,16 @@ describe "Toolkit Content Integration Test" do
       page.must_have_link @product.name
     end
 
+    # This functionality gets debated constantly. Should we show product information
+    # to our dealers and distributors before the product is actually announced?
+    # As of 10/17/2014, the answer is "Yes." However, I can't get it to show on the
+    # main page. It does show up when you go into the product family page.
     it "should NOT include products which are in development" do 
       in_development = FactoryGirl.create(:product_status, shipping: false, show_on_website: false)
       @product.product_status = in_development
       @product.save
       visit toolkit_brand_products_url(@brand, host: @host)
+
       page.wont_have_link @product.name
     end
 
@@ -119,13 +124,16 @@ describe "Toolkit Content Integration Test" do
       page.must_have_link @announced_product.name
     end
 
-    it "should NOT link to products in-development" do 
+    # This functionality gets debated constantly. Should we show product information
+    # to our dealers and distributors before the product is actually announced?
+    # As of 10/17/2014, the answer is "Yes."
+    it "should also link to products in-development" do 
       in_development = FactoryGirl.create(:product_status, shipping: false, show_on_website: false)
       @developing_product = FactoryGirl.create(:product, brand: @brand, product_status: in_development)
       FactoryGirl.create(:product_family_product, product: @developing_product, product_family: @product_family)
 
       visit toolkit_brand_product_family_url(@brand, @product_family, host: @host)
-      page.wont_have_link @developing_product.name
+      page.must_have_link @developing_product.name
     end
 
     it "should link to discontinued products at the bottom" do 
