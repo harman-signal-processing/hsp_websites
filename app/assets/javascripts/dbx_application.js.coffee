@@ -1,7 +1,11 @@
 jQuery ($) ->
-	#skrollr.init()
-	win = $(window)
 
+  # An attempt to do the sticky box on the right side of the new
+  # dbx product page.
+  #$('#sticky-side').stickyScroll
+  #  container: $('#main_container .content-container')
+
+	win = $(window)
 	animation_started = false
 
 	icon_reset = ->

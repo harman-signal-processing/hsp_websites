@@ -690,41 +690,69 @@ div.compare_button {
   margin: 10px 0px;
   background: white;
 }
-h1.product-title {
-  font-size: 68px;
-  color: $dark-gray;
-  margin-top: 19px;
-  margin-bottom: 0;
-  line-height: 32px;
-}
-h3.product-subheader {
-  font-family: 'berthold_akzidenz_groteskLtCn', Helvetica;
-  color: $dark-gray;
-  font-size: 27px;
-  margin-top: 16px;
-  margin-bottom: 40px;
-  line-height: 32px;
-}
-div.product-price-row {
-  margin-bottom: 0;
-}
-div.product-price {
-  h6.price-label {
-    font-family: 'berthold_akzidenz_grotesk_bRg';
+div.product-title-block {
+  h1 {
+    font-size: 68px;
     color: $dark-gray;
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin: 0px;
+    margin-top: 19px;
+    margin-bottom: 0;
+    line-height: 32px;
+  }
+  h3 {
+    font-family: 'berthold_akzidenz_groteskLtCn', Helvetica;
+    color: $dark-gray;
+    font-size: 27px;
+    margin-top: 16px;
+    margin-bottom: 40px;
+    line-height: 32px;
+  }
+  div.product-price-row {
+    margin: -20px 0;
+  }
+  div.product-price {
+    h6.price-label {
+      font-family: 'berthold_akzidenz_grotesk_bRg';
+      color: $dark-gray;
+      font-size: 13px;
+      line-height: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 0 0 6px;
+      padding: 0;
+    }
+    color: $dark-gray;
+    font-size: 30px;
+    line-height: 27px;
+  }
+  hr {
+    margin: 20px 0px 40px;
     padding: 0;
   }
-  color: $dark-gray;
-  font-size: 30px;
-  line-height: 27px;
-}
-hr.product-page-divider {
-  margin: 20px 0px 40px;
-  padding: 0;
+  ul#product_main_tabs {
+    list-style-type: none;
+    margin-bottom: 40px;
+    li {
+      font: {
+        family: 'berthold_akzidenz_grotesk_bRg';
+        size: 13px;
+        weight: 700;
+      }
+      letter-spacing: 1px;
+      line-height: 18px;
+      text-transform: uppercase;
+      a {
+        color: $light-gray;
+        &:hover, &.current {
+          color: $primary-color;
+        }
+      }
+      &.current {
+        a {
+          color: $primary-color;
+        }
+      }
+    }
+  }
 }
 @media only screen and (min-width: 720px) {
 	#viewer_container {
