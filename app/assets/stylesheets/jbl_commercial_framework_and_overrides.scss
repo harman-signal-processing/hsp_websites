@@ -1,0 +1,832 @@
+@import "foundation/functions";
+@import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic);
+
+$body-bg: #EEEEEE;
+$body-font-color: #333333;
+$body-font-family: "Roboto Condensed", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$body-font-weight: 100;
+// $body-font-style: normal;
+
+// Colors
+
+$primary-color: #f37736;
+// $secondary-color: #c9c9c9;
+// $alert-color: #c60f13;
+// $success-color: #5da423;
+
+// Make sure border radius matches unless we want it different.
+// $global-radius: 3px;
+// $global-rounded: 1000px;
+
+// Inset shadow shiny edges and depressions.
+// $shiny-edge-size: 0 1px 0;
+// $shiny-edge-color: rgba(#fff, .5);
+// $shiny-edge-active-color: rgba(#000, .2);
+
+// Control whether or not CSS classes come through in the CSS files.
+$include-print-styles: true;
+
+//
+// Typography Variables
+//
+// Heading font styles
+$header-font-family: "Roboto Condensed", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$header-font-weight: 200;
+// $header-font-style: normal;
+$header-font-color: #333;
+// $header-line-height: 1.4;
+$header-top-margin: .4em;
+// $header-bottom-margin: .5em;
+// $header-text-rendering: optimizeLegibility;
+
+// Heading font sizes
+$h1-font-size: emCalc(34px);
+$h2-font-size: emCalc(24px);
+$h3-font-size: emCalc(19px);
+$h4-font-size: emCalc(14px);
+$h5-font-size: emCalc(11px);
+$h6-font-size: 1em;
+
+// Subheaders
+
+// $subheader-line-height: 1.4;
+$subheader-font-color: lighten($header-font-color, 15%);
+// $subheader-font-weight: 300;
+// $subheader-top-margin: .2em;
+// $subheader-bottom-margin: .5em;
+
+// <small> styling
+// $small-font-size: 60%;
+$small-font-color: lighten($header-font-color, 35%);
+
+// Paragraphs
+// $paragraph-font-family: inherit;
+$paragraph-font-weight: 100;
+// $paragraph-font-size: 1em;
+// $paragraph-line-height: 1.6;
+// $paragraph-margin-bottom: emCalc(20px);
+// $paragraph-aside-font-size: emCalc(14px);
+// $paragraph-aside-line-height: 1.35;
+// $paragraph-aside-font-style: italic;
+
+// Anchors
+// $anchor-text-decoration: none;
+$anchor-font-color: darken($primary-color, 10%);
+// $anchor-font-color-hover: lighten($anchor-font-color, 25%);
+
+//
+// Form Variables
+//
+
+// Base for lots of form spacing and positioning styles
+$form-spacing: emCalc(18px);
+
+// Labels
+// $form-label-pointer: pointer;
+// $form-label-font-size: emCalc(14px);
+// $form-label-font-weight: 500;
+// $form-label-font-color: lighten(#000, 30%);
+// $form-label-bottom-margin: emCalc(3px);
+// $input-font-family: inherit;
+$input-font-color: rgba(0,0,0,0.65);
+$input-font-size: emCalc(16px);
+$input-bg-color: darken(#fff, 2%);
+$input-focus-bg-color: #fff;
+// $input-border-color: darken(#fff, 20%);
+// $input-focus-border-color: darken(#fff, 40%);
+// $input-border-style: solid;
+// $input-border-width: 1px;
+// $input-disabled-bg: #ddd;
+// $input-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+// $input-include-glowing-effect: true;
+
+// Fieldset border and spacing.
+// $fieldset-border-style: solid;
+// $fieldset-border-width: 1px;
+// $fieldset-border-color: #ddd;
+// $fieldset-padding: emCalc(20px);
+// $fieldset-margin: emCalc(18px) 0;
+
+// Legends
+
+$legend-bg: none;
+$legend-font-weight: 200;
+// $legend-padding: 0 emCalc(3px);
+
+// Prefix and postfix input elements
+
+// $input-prefix-bg: darken(#fff, 5%);
+// $input-prefix-border-color: darken(#fff, 20%);
+// $input-prefix-border-size: 1px;
+// $input-prefix-border-type: solid;
+// $input-prefix-overflow: hidden;
+// $input-prefix-font-color: #333;
+// $input-prefix-font-color-alt: #fff;
+
+// Error states for inputs and labels
+
+// $input-error-message-padding: emCalc(6px) emCalc(4px);
+// $input-error-message-top: -($form-spacing) - emCalc(5px);
+// $input-error-message-font-size: emCalc(12px);
+// $input-error-message-font-weight: bold;
+// $input-error-message-font-color: #fff;
+// $input-error-message-font-color-alt: #333;
+
+// Glowing effect of inputs when focused
+
+// $glowing-effect-fade-time: 0.45s;
+// $glowing-effect-color: $input-focus-border-color;
+
+//
+// Button Variables
+//
+
+// Padding for buttons.
+
+$button-tny: emCalc(5px);
+$button-sml: emCalc(7px);
+$button-med: emCalc(10px);
+$button-lrg: emCalc(14px);
+
+//
+// Orbit Settings
+//
+
+// Caption styles
+$orbit-container-bg: #f5f5f5;
+$orbit-bullet-nav-color: #CCC;
+$orbit-bullet-nav-color-active: $primary-color;
+$orbit-slide-number-font-color: #999;
+
+//
+// Panel Variables
+//
+// Background and border styles
+$panel-bg: darken($body-bg, 5%);
+
+//
+// Table Variables
+//
+
+// Background color for the table and even rows
+
+// $table-bg: #fff;
+$table-even-row-bg: lighten($body-bg, 2%);
+
+// Table cell border style
+
+// $table-border-style: solid;
+// $table-border-size: 1px;
+$table-border-color: lighten($header-font-color, 80%);
+
+// Table head styles
+
+$table-head-bg: lighten($body-bg, 1%);
+// $table-head-font-size: emCalc(14px);
+$table-head-font-color: $header-font-color;
+// $table-head-font-weight: bold;
+// $table-head-padding: emCalc(8px) emCalc(10px) emCalc(10px);
+
+//
+// Top Bar Variables
+//
+
+// Background color for the top bar
+
+$topbar-bg-color: $primary-color;
+$topbar-bg: $topbar-bg-color !default;
+
+// Height and margin
+
+$topbar-height:                        40px;
+// $topbar-margin-bottom:                 emCalc(26px);
+// Control Input height for top bar
+// $topbar-input-height:                  2.45em;
+// Controlling the styles for the title in the top bar
+
+$topbar-title-weight:                  bold;
+// $topbar-title-font-size:               emCalc(17px);
+
+// Style the top bar dropdown elements
+
+$topbar-dropdown-bg:                   $primary-color;
+// $topbar-dropdown-link-color:           #fff;
+// $topbar-dropdown-link-bg:              lighten($topbar-bg, 5%);
+// $topbar-dropdown-toggle-size:          5px;
+// $topbar-dropdown-toggle-color:         #fff;
+// $topbar-dropdown-toggle-alpha:         0.5;
+
+// Set the link colors and styles for top-level nav
+
+// $topbar-link-color:                    #fff;
+// $topbar-link-color-hover:              #fff;
+// $topbar-link-color-active:             #fff;
+$topbar-link-weight:                   light;
+// $topbar-link-font-size:                emCalc(13px);
+$topbar-link-hover-lightness:          -30%; // Darken by 30%
+$topbar-link-bg-hover:                 darken($primary-color, 3%);
+$topbar-link-bg-active:                darken($topbar-bg, 3%);
+
+
+// Sticky Class
+
+$topbar-sticky-class:                  ".sticky";
+
+@import "foundation";
+
+img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
+
+@media screen {
+	#bg { position: fixed; top: 0; left: 0; z-index: -99991;}
+	.bgwidth { width: 100%; }
+	.bgheight { height: 100%; }
+}
+@media print{
+	#bg { display: none;}
+}
+
+@media only screen and (min-width: 720px) {
+	div#header-container {
+		height: 103px;
+		margin-bottom: 15px;
+		background: asset-url('jbl_commercial/header.jpg') repeat-x;
+	    -webkit-box-shadow: 0 8px 6px -6px #ccc;
+	    -moz-box-shadow: 0 8px 6px -6px #ccc;
+	    box-shadow: 0 8px 6px -6px #ccc;
+	}
+	nav.top-bar {
+		border-radius: 16px;
+		-webkit-border-radius: 16px;
+		-moz-border-radius: 16px;
+	  /* Prevent background color leak outs */
+	    -webkit-background-clip: padding-box; 
+	    -moz-background-clip:    padding; 
+	    background-clip:         padding-box;
+		padding-left: 15px;
+	    -webkit-box-shadow: 0 8px 6px -6px #888;
+	    -moz-box-shadow: 0 8px 6px -6px #888;
+	    box-shadow: 0 8px 6px -6px #888;
+	}
+	img.no-resize { max-width: none; }
+}
+@media only screen and (max-width: 720px) {
+	div#header-container {
+		margin-bottom: 10px;
+	}
+	img.no-resize-for-small { max-width: none; }
+	div#header-container {
+		.row {
+			div {
+				padding-right: 0;
+				padding-left: 0;
+				margin-right: 0;
+				&.small-9 {
+					max-width: 11em;
+				}
+			}
+		}
+	}
+	.admin_function {
+		display: none;
+	}
+}
+#product-notice {
+	background-color: #fd9b45;
+	padding: 10px 20px;
+	color: black;
+	font-size: 13px;
+	line-height: 18px;
+}
+.tiny {
+	font-size: 10px;
+}
+.clear {
+	clear: both;
+}
+#preload {
+	display: none;
+}
+.hint {
+  display: block;
+  font-size: 70%;
+  color: #444;
+  margin: -9px 0px 16px;
+}
+.custom.checkbox {
+    margin-right: 6px;
+}
+fieldset {
+	background-color: #EEE;
+}
+
+/**** Application Layout *****/
+div#locale_container {
+	margin-top: 30px;
+	color: #333;
+	img {
+		height: 400px;
+	}
+	a {
+		font-size: 110%;
+	}
+}
+#locale_switcher {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	padding: 2px 3px 0px;
+    background: asset-url('dark-gray-80.png');
+	z-index: 999;
+	a {
+		text-decoration: none;
+	}
+	#locale_selections {
+		margin-top: 6px;
+		padding-bottom: 4px;
+		display: none;
+		a {
+			margin: 0 -2px 0px -8px;
+			display: block;
+			padding: 4px 8px;
+			&:hover {
+				background: #444;
+			}
+		}
+	}
+}
+@media print {
+	#locale_switcher {
+		display: none;
+	}
+}
+.content.container {
+	background: #FFFFFF;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+div#big_bottom_box_container {
+	padding-bottom: 10px;
+}
+div#big_bottom_box_content {
+	text-align: right;
+	a:link, a:visited {
+		color: #ccc;
+	}
+}
+
+footer {
+	margin: 20px 0px 30px;
+	height: 90px;
+	div#footer_info {
+		text-align: right;
+		margin-top: 10px;
+	}	
+	div#footer_left {
+		margin: 10px 0px;
+		img {
+			margin: -10px 4px 0px 0px;
+		}
+	}
+	.footer_text {
+		font-size: 80%;
+	}
+}
+div#harmanpro_bar {
+	background: #5a5b5e;
+	padding: 0px;
+	margin-bottom: 8px;
+	text-align: center;
+}
+
+#social_media_links {
+	text-align: right;
+	margin-right: 10px;
+	margin-top: 10px;
+	img {
+		margin-left: 8px;
+		margin-right: 8px;
+	}
+}
+.light_gray {
+	background: #EEE;
+}
+
+/**** Main ******/
+@media only screen and (min-width: 720px) {
+	div.slideshow-wrapper {
+		min-height: 350px;
+	}
+}
+
+div#middle_container {
+	text-align: center;
+}
+
+div#signup {
+/*	margin-top: 8px; */
+	margin-bottom: 12px;
+	text-align: left;
+	h2 {
+	/*	margin-top: 6px;*/
+	}
+}
+/***** Product Family Page *****/
+.small_product_box {
+	background: white;
+	border: 1px solid $primary-color;
+	border-radius: 8px;
+	padding: 6px;
+	text-align: center;	
+	width: 100%;
+	height: 226px;
+	float: left;
+	margin: 6px;
+	position: relative;
+	color: #666;
+	overflow: hidden;
+	.compare_checkbox {
+		position: absolute;
+		top: 80px;
+		left: 0px;
+		text-align: center;
+		width: 140px;
+	}
+	h3 {
+		margin-top: -15px;
+		font-size: 95%;
+		font-weight: 400;
+	}
+	.product_description {
+		font-size: 85%;
+		line-height: 18px;
+	}
+}
+@media only screen and (max-width: 720px) {
+	.small_product_box {
+		height: 230px;
+		.product_description {
+			line-height: 16px;
+		}
+		h3 {
+			margin-top: -18px;
+		}
+	}
+}
+table.product_thumb {
+	height: 106px;
+	width: 100%;
+	td {
+		text-align: center;
+		width: 100%;
+	}
+}
+.related_products {
+	margin: 20px 0px;
+	font-style: oblique;
+}
+table.comparison {
+	border-collapse: collapse;
+	border: 1px solid #CCC;
+	td {
+		padding: 5px;
+		border: 1px dotted #CCC;
+		&.spec_name {
+			width: 120px;
+			background: #EEE
+		}
+	}
+	th {
+		padding: 4px;
+		border: 1px solid #CCC;
+		border-bottom: 2px solid #999;
+	}
+}
+div.compare_button {
+	padding: 20px 10px;
+}
+/***** Product Page *****/
+.viewer.content.container {
+	outline: 1px solid $primary-color;
+	margin: 20px 0px;
+	padding: 20px;
+}
+div#viewer {
+	text-align: center;
+}
+ul.clearing-thumbs {
+	margin: 40px 0px 8px 10px;
+	background: white;
+	li {
+		display: block;
+		list-style: none;
+		padding: 2px;
+		border: 1px solid #E6E6E6;
+		margin-right: 6px;
+		background: white;
+		width: 64px;
+		height: 64px;
+		overflow: hidden;
+		text-align: center;
+	}
+
+}
+@media only screen and (min-width: 720px) {
+	#viewer {
+		margin: 20px;
+	}
+}
+@media only screen and (max-width: 720px) {
+	ul.clearing-thumbs {
+		li {
+			width: 32px;
+			height: 32px;
+		}
+	}
+}
+ul#discontinued_product_thumbnails {
+	margin: 14px 0px;
+	padding: 4px;
+	text-align: left;
+	border: none;
+	li {
+		display: inline;
+		list-style: none;
+		padding: 6px;
+	}
+}
+#breadcrumbs {
+	font-size: 90%;
+	text-align: left;
+	margin: 0px;
+	margin-bottom: 4px;
+	letter-spacing: 0.02em;
+}
+div.accordion {
+	div.content {
+		ul {
+			margin-left: 10px;
+			list-style: none;
+			li:before {
+				content: "\2022 \00A0";
+				color: $primary-color;
+				font-weight: bold;
+			}
+		}
+		ul.docs, ul.downloads, ul.news {
+			margin-left: 0px;
+			list-style:none;
+			li:before {
+				content: ""
+			}
+		}
+	}
+}
+h2.special_offer {
+	text-align: center;
+	a:link, a:visited {
+		display: block;
+		background: #009933;
+		color: white;
+	}
+	a:hover {
+		background: #33ff33;
+	}
+}
+.special_offer_contents {
+	margin: 0px 3px 12px;
+}
+
+table.specs {
+	border-collapse: collapse;
+	margin-top: 0px;
+	margin-bottom: 10px;
+	td {
+		padding: 4px 10px;
+		border-bottom: 1px solid #888;
+		border-top: 1px solid #888;
+		&.name {
+			background: #d8d8d8;
+			color: #111;
+		/*	border-bottom: 1px solid #d8d8d8;*/
+		}
+	}
+}
+.faq {
+	margin-bottom: 8px;
+	h3 {
+		font-size: 14px;
+	}
+}
+span.discontinued {
+	color: red;
+	font-size: 70%;
+	font-weight: normal;
+	margin-left: 6px;
+}
+/****** News ********/
+table.news_list {
+	border-collapse: collapse;
+	td {
+		background: white;
+		padding-top: 16px;
+		&.date {
+			vertical-align: top;
+			width: 100px;
+			text-align: right;
+		}
+		&.preview {
+			padding-left: 16px;
+			padding-bottom: 8px;
+		}
+	}
+}
+/******** Search ********/
+ol#search_results {
+	margin: 8px;
+	margin-left: 20px;
+}
+ol#search_results li {
+	margin-bottom: 6px;
+	list-style-type: decimal;
+}
+.search_link a:link,
+.search_link a:visited {
+	color: green;
+}
+/******* Support *******/
+.support_box_container {
+	.support_box {
+		background: #f9f9f9;
+		border: 1px solid #ECECEC;
+		width: 280px;
+		height: 120px;
+		overflow: hidden;
+		float: left;
+		padding: 8px;
+		margin: 10px;
+		h4 {
+			font-size: 14px;
+			line-height: 20px;
+			margin-bottom: 6px;
+			color: #444;
+			text-transform: uppercase;
+			a:link, a:visited {
+				color: #444;
+				text-decoration: none;
+			}
+		}
+		li {
+			text-transform: capitalize;
+		}
+	}
+}
+
+div.captcha {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding: 10px;
+	background: #EEE;
+}
+/******** Form Errors ********/
+
+/****** Information Tables *****/
+table.info {
+	border: 2px solid #FFF;
+	tr td, tr th {
+		padding: 6px;
+		border: 12px solid #FFF;
+	}
+	th {
+		background: #ee632e;
+		color: white;
+		a:link, a:hover, a:visited {
+			color: white;
+		}
+	}
+}
+table.download-collection {
+	border-collapse: collapse;
+	border: 1px solid #EEE;
+	margin-top: 25px;
+	tr td {
+		padding: 12px 6px;
+		background: white;
+		border: 1px solid #EEE;
+	}
+	th {
+		padding: 6px;
+		background: $primary-color;
+		color: white;
+		text-shadow: 1px 1px 1px darken($primary-color, 20%);
+		a:link, a:hover, a:visited {
+			color: white;
+		}
+	}
+}
+/****** Software Downloads *******/
+div#software-page-content {
+	margin-top: 20px; 
+	margin-bottom: 40px;
+	.aside {
+		float: right;
+		margin: 10px 50px; 
+		width: 300px; 
+		.download_box {
+			margin-bottom: 10px;
+			text-align: center; 
+			background: #EEE; 
+			padding: 20px 20px 10px 20px;
+			-moz-border-radius: 8px;
+			border-radius: 8px;
+		}
+		div#signup {
+			text-align: center; 
+		}
+	}
+}
+
+/************** ***********/
+.disclaimer {
+	font-size: 80%; 
+	margin-bottom: 10px;
+	font-style:oblique; 
+	color: #333
+}
+/*** admin functions **/
+.admin_function {
+	position: absolute;
+	top: 4px;
+	right: 10px;
+	color: white;
+	z-index: 100;
+}
+.admin_function a:link,
+.admin_function a:visited {
+	color: white;
+	text-decoration: none;
+	display: block;
+	background: #5A89CC;
+	padding: 1px 6px 3px 6px;
+	border-radius: 4px;
+	-moz-border-radius: 6px;
+}
+.admin_function a:hover {
+	color: white;
+	text-decoration: none;
+	background: #0080FF;
+}
+#admin_menu_link {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 1000;
+}
+#admin_menu_link a:link,
+#admin_menu_link a:visited {
+	display: block;
+	color: #EEE;
+	text-decoration: none;
+	padding: 1px 6px 3px 6px;
+	font-family: Helvetica, arial, sans-serif;
+	font-weight: normal;
+	font-size: 10px;
+	text-shadow: #222 1px 1px 1px;
+	background: #00395a;
+}
+#admin_menu_link a:hover {
+	color: #FFF;
+}
+.small_button {
+	font-size: 11px; 
+	font-weight: normal; 
+	border-radius: 3px; 
+	border: 1px solid #CCC; 
+	padding: 1px 5px;
+}
+.callout {
+	background: #EEE;
+	box-shadow: 1px 2px 3px #BBB;
+	padding: 8px 12px;
+	margin: 8px 0px;
+}
+a {
+	.software_banner {
+		border: 1px solid #c1c1c1;
+		box-shadow: 1px 2px 4px #CCC;
+		background: #fbfbfb;
+		&:hover {
+			background: #eaeaea;
+		}
+		h3 {
+			text-decoration: none;
+		}
+	}
+}
+div.quicklinks {
+	margin: 20px 0px;
+	ul {
+		list-style-type: disc;
+		margin: 10px 20px 30px;
+	}
+}

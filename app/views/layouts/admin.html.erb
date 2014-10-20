@@ -6,8 +6,8 @@
   <%= csrf_meta_tag %>
   <title><%= website.brand.name %> Admin: <%= controller_name.humanize.titleize %>: <%= controller.action_name.humanize.titleize %></title>
   <%= javascript_include_tag 'admin' %>
-  <%= stylesheet_link_tag 'admin' %>
   <%= javascript_include_tag "vendor/custom.modernizr" %>
+  <%= stylesheet_link_tag 'admin' %>
 	<!--[if lt IE 9]>
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
@@ -15,9 +15,9 @@
 </head>
 <body data-brand="<%= website.brand.name %>">
 	<%= yield :bg %>
-	
+
     <div class="sticky">
-      <nav class="top-bar">
+      <nav class="top-bar" data-topbar role="navigation">
         <ul class="title-area">
           <li class="name"><h1><%= link_to "#{website.brand_name} Admin", admin_root_path %></h1></li>
           <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
@@ -25,7 +25,6 @@
 
         <section class="top-bar-section">
             <ul class="left">
-              
               <li><%= link_to "Public Site", (!!website.brand.default_website) ? root_url(host: website.brand.default_website.url) : "/" %> </li>
           <% if user_signed_in? %>
 			  <li class="divider"></li>

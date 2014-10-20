@@ -16,7 +16,7 @@
 			<% if can? :create, MarketingProjectType %>
 			<li><%= link_to "Save as template", new_marketing_queue_marketing_project_type_path(marketing_project_id: @marketing_project), class: "small button secondary" %></li>
 			<% end %>
-			<% if can? :destroy, MarketingAttachment %>
+			<% if can? :destroy, MarketingProject %>
 			<li><%= link_to "Delete project", [:marketing_queue, @marketing_project], method: :delete, confirm: "Are you really sure? This will delete sub-tasks, comments, attachments.", class: "small alert button" %></li>
 			<% end %>
 		</ul>
@@ -44,12 +44,12 @@
 		<ul class="task-list" id='incomplete-tasks'>
 		<% @marketing_project.incomplete_marketing_tasks.each do |marketing_task| %>
 			<% if can? :manage, marketing_task %>
-			<li id="task_row_<%= marketing_task.id %>">			 
-				<%= check_box_tag marketing_task.id, marketing_task.id, false, class: 'completer', 
-					data: { 
-						task: marketing_task.id, 
+			<li id="task_row_<%= marketing_task.id %>">
+				<%= check_box_tag marketing_task.id, marketing_task.id, false, class: 'completer',
+					data: {
+						task: marketing_task.id,
 						project: marketing_task.marketing_project_id,
-						name: marketing_task.name, 
+						name: marketing_task.name,
 						worker: (marketing_task.worker) ? marketing_task.worker.name : 'Unassigned',
 						due_on: I18n.l(marketing_task.due_on, format: :short)
 					} %>
@@ -186,7 +186,10 @@
 
 		<h4>Attachments
 			<% if can? :create, MarketingAttachment %>
-			<%= link_to "+ Add attachment", new_marketing_queue_marketing_attachment_path(marketing_project_id: @marketing_project), class: "tiny success round button", data: { "reveal-id" => "new_attachment_modal" } %>
+        <%= link_to "+ Add attachment",
+          new_marketing_queue_marketing_attachment_path(marketing_project_id: @marketing_project),
+          class: "tiny success round button",
+          data: { "reveal-id" => "new_attachment_modal" } %>
 			<% end %>
 		</h4>
 
@@ -206,14 +209,14 @@
 </div>
 
 <%= content_for :modals do %>
-	<div id="new_attachment_modal" class="reveal-modal small">
+	<div id="new_attachment_modal" class="reveal-modal small" data-reveal>
 		<h3>Attach A File:</h3>
 		<%= render 'marketing_queue/marketing_attachments/form' %>
 		<a class="close-reveal-modal">&#215;</a>
 	</div>
 
 	<% if can? :create, MarketingTask %>
-	<div id="new_task_modal" class="reveal-modal small">
+	<div id="new_task_modal" class="reveal-modal small" data-reveal>
 		<h3>New Task:</h3>
 		<%= render 'marketing_queue/marketing_tasks/form' %>
 		<a class="close-reveal-modal">&#215;</a>

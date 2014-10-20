@@ -49,8 +49,8 @@
 								<td width="18%"><span class="<%= "red" if marketing_task.late? %>"><%=l marketing_task.due_on, format: :short %></span></td>
 								<td width="10%">
 									<% if marketing_task.requestor && marketing_task.worker && marketing_task.requestor != marketing_task.worker %>
-		<div>
-			<div class="switch small round task-switch" data-taskid="<%= marketing_task.id %>">
+		<div class="row collapse">
+			<div class="switch small task-switch" data-taskid="<%= marketing_task.id %>">
 
 			  <input id="marketing_task_currently_with_worker_<%= marketing_task.id %>" name="marketing_task_currently_with_id_<%= marketing_task.id %>" type="radio" <%= "checked" unless marketing_task.currently_with_id == marketing_task.requestor_id %>>
 			  <label for="marketing_task_currently_with_worker" onclick=""><%= marketing_task.worker.initials %></label>

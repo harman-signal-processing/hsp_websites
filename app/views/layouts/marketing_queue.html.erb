@@ -12,7 +12,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <%= app_meta_tags(title: "Mktg. Q", folder: "queue") %>
-    
+
     <%= yield(:head) %>
   </head>
   <body>
@@ -20,7 +20,7 @@
   <!-- Header and Nav -->
   <header>
     <div class="container sticky">
-      <nav class="top-bar">
+      <nav class="top-bar" data-topbar role="navigation">
         <ul class="title-area">
           <li class="name"><h1><%= link_to "Marketing Queue", marketing_queue_root_path %></h1></li>
           <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
@@ -64,16 +64,16 @@
               <li><%= link_to "Staff Meeting", staff_meeting_path %></li>
             </ul>
           <% end %>
-        
+
           <ul class="right">
             <% if marketing_queue_user_signed_in? %>
-              <li><%= search_form_for [:marketing_queue, @q], :builder => SimpleForm::FormBuilder do |f| %>
+              <li class="has-form"><%= search_form_for [:marketing_queue, @q], :builder => SimpleForm::FormBuilder do |f| %>
                 <div class="row collapse">
                   <div class="large-8 small-9 columns">
-                    <%= f.input :name_cont, label: false, placeholder: "project name", input_html: {class: "prefix round"} %>
+                    <%= f.input :name_cont, label: false, placeholder: "project name"  %>
                   </div>
                   <div class="large-4 small-3 columns">
-                    <%= f.submit "Search", class: "button round postfix" %>
+                    <%= f.submit "Search", class: "button expand" %>
                   </div>
                 </div>
                 <% end %>

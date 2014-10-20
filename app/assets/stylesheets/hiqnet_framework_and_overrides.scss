@@ -1,16 +1,89 @@
-/*
- * This is a manifest file that'll automatically include all the stylesheets available in this directory
- * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
- * the top of the compiled file, but it's generally better to create a new file per style scope.
-*= require hiqnet_foundation_and_overrides
-*= require jquery-ui.min
-*= require add2home
-*= require_self
-*/
-
-$primary-color: #f37736;
-
+@import 'foundation/functions';
 @import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic);
+
+$body-bg: lighten(#EEEEEE, 10%);
+$body-font-color: #111;
+$body-font-family: "Roboto Condensed", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$body-font-weight: 100;
+$primary-color: #f37736;
+$include-print-styles: true;
+$header-font-family: "Roboto Condensed", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$header-font-weight: 200;
+$header-font-color: #333;
+//$header-top-margin: .4em;
+$h1-font-size: emCalc(34px);
+$h2-font-size: emCalc(24px);
+$h3-font-size: emCalc(19px);
+$h4-font-size: emCalc(14px);
+$h5-font-size: emCalc(11px);
+//$h6-font-size: 1em;
+$subheader-font-color: lighten($header-font-color, 15%);
+$small-font-color: lighten($header-font-color, 35%);
+$paragraph-font-weight: 100;
+$anchor-font-color: darken($primary-color, 10%);
+$form-spacing: emCalc(18px);
+$input-font-color: rgba(0,0,0,0.65);
+$input-font-size: emCalc(16px);
+$input-bg-color: darken(#fff, 2%);
+$input-focus-bg-color: #fff;
+$button-tny: emCalc(5px);
+$button-sml: emCalc(7px);
+$button-med: emCalc(10px);
+$button-lrg: emCalc(14px);
+$orbit-container-bg: #f5f5f5;
+$orbit-bullet-nav-color: #CCC;
+$orbit-bullet-nav-color-active: $primary-color;
+$orbit-slide-number-font-color: #999;
+$panel-bg: darken($body-bg, 5%);
+$table-even-row-bg: lighten($body-bg, 2%);
+$table-border-color: lighten($header-font-color, 80%);
+$table-head-bg: lighten($body-bg, 1%);
+$table-head-font-color: $header-font-color;
+$topbar-bg-color: darken($body-font-color, 20%);
+$topbar-bg: $topbar-bg-color !default;
+$topbar-height:                        76px;
+$topbar-margin-bottom:                 emCalc(26px);
+$topbar-title-weight:                  bold;
+$topbar-dropdown-bg:                   $primary-color;
+$topbar-link-weight:                   light;
+$topbar-link-hover-lightness:          -30%; // Darken by 30%
+$topbar-link-bg-hover:                 darken($primary-color, 3%);
+$topbar-link-bg-active:                darken($topbar-bg, 3%);
+$topbar-sticky-class:                  ".sticky";
+
+@import 'foundation';
+
+@media only screen and (min-width: 720px) {
+  ul.large-block-grid-4 {
+    li {
+      .panel {
+        height: 100px;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  ul.small-block-grid-2 {
+    li {
+      .panel {
+        height: 70px;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+ul.no-bullet {
+  list-style-type: none;
+}
+
+.text-content {
+  ul {
+    margin-left: 20px !important;
+  }
+}
 
 img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 

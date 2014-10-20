@@ -1,15 +1,28 @@
-/*
- * This is a manifest file that'll automatically include all the stylesheets available in this directory
- * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
- * the top of the compiled file, but it's generally better to create a new file per style scope.
-*= require label_sheets
-*= require jquery-ui-1.10.4.custom.min
-*= require admin_foundation_and_overrides
-*= require_self
-*/
+@import 'foundation/functions';
 
-body { 
-	background: #F0F3F4; 
+$primary-color: #00395a;
+$paragraph-font-weight: 400;
+$paragraph-font-size: rem-calc(12);
+$paragraph-line-height: 1.4;
+$anchor-font-color: lighten($primary-color, 20%);
+$form-label-font-weight: 400;
+$fieldset-border-color: #ccc;
+$legend-bg: none;
+$button-med: rem-calc(10);
+$button-tny: rem-calc(5);
+$button-sml: rem-calc(7);
+$button-lrg: rem-calc(13);
+$topbar-bg-color:                      #00395a;
+$topbar-bg:              $topbar-bg-color !default;
+$topbar-margin-bottom:                 emCalc(20px);
+$topbar-divider-border-bottom:         solid 1px lighten($topbar-bg-color, 10%);
+$topbar-divider-border-top:            solid 1px darken($topbar-bg-color, 10%);
+
+//not sure why it doesn't work, so including in parent css file
+@import "foundation";
+
+body {
+	background: #F0F3F4;
 }
 @media screen {
 	#bg { position: fixed; top: 0; left: 0; z-index: -99991;}
@@ -136,7 +149,7 @@ ul.sortable_list {
 	  color: #888;
 	}
 }
-ul.nosort .handle { 
+ul.nosort .handle {
 	display: none;
 }
 /***** Tables ******/

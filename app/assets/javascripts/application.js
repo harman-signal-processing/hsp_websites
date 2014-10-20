@@ -6,6 +6,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require foundation
 //= require jquery-ui.min
 //= require jquery.lightbox-0.5.min
 //= require jquery.datetimepicker
