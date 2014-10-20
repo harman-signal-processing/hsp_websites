@@ -8,8 +8,8 @@ gem 'rails', '4.1.6'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
-gem "zurb-foundation", "~> 4.3.2"
-gem 'jquery-rails' 
+gem "foundation-rails", '~> 5.4'
+gem 'jquery-rails'
 gem 'capistrano', '2.13.5' # 2.14.1 causes tinymce assets to be deleted
 gem 'capistrano-ext'
 
@@ -100,7 +100,6 @@ group :test do
   gem 'mocha', require: false
   gem 'minitest-rails-capybara'
   gem 'minitest-capybara'
-  # gem "minitest-wscolor"
   gem 'capybara-webkit'
   gem 'launchy' # save_and_open_page inline in tests
   gem 'minitest'

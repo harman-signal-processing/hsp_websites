@@ -7,6 +7,7 @@
 *= require tiny
 *= require jquery-ui.min
 *= require_self
+
 */
 
 img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }

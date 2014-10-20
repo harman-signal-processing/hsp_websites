@@ -20,7 +20,7 @@
               background-position: top left;
               background-repeat: no-repeat;
             }
-          </style>        
+          </style>
         <% elsif tw = @brand.default_website.twitter_name %>
           <% t = Tweet.client.user(tw) %>
           <style type="text/css">
@@ -53,7 +53,7 @@
 
     </script>
     <% end %>
-    
+
     <%= yield(:head) %>
   </head>
   <body>
@@ -61,7 +61,7 @@
   <!-- Header and Nav -->
   <header>
     <div class="container">
-      <nav class="top-bar">
+      <nav class="top-bar" data-topbar role="navigation">
         <ul class="title-area">
           <li class="name"><h1><%= link_to "Marketing Toolkit", toolkit_root_path %></h1></li>
           <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
@@ -80,7 +80,7 @@
               </li>
             </ul>
           <% end %>
-        
+
           <ul class="right">
             <% if toolkit_user_signed_in? %>
               <li><%= link_to 'Logout', destroy_toolkit_user_session_path %></li>

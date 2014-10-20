@@ -1,22 +1,20 @@
 <%= content_for :left_nav do %>
 
 	<%= cache ["toolkit-sidenav", @brand, Date.today] do %>
-		<div class="section-container vertical-nav" data-section="vertical-nav" data-options="one_up: false;">
-			<section>
+    <ul class="side-nav">
 				<% if @brand.has_products? %>
-				<p class="title"><%= link_to "Products", toolkit_brand_products_path(@brand) %></p>
-				<p class="title"><%= link_to "Promotions", toolkit_brand_promotions_path(@brand) %></p>
+          <li><%= link_to "Products", toolkit_brand_products_path(@brand) %></li>
+          <li><%= link_to "Promotions", toolkit_brand_promotions_path(@brand) %></li>
 				<% end %>
 				<% ToolkitResourceType.menu_items(@brand).each do |toolkit_resource_type| %>
-				<p class="title"><%= link_to toolkit_resource_type.name.pluralize, toolkit_brand_toolkit_resource_type_path(@brand, toolkit_resource_type) %></p>
+          <li><%= link_to toolkit_resource_type.name.pluralize, toolkit_brand_toolkit_resource_type_path(@brand, toolkit_resource_type) %></li>
 				<% end %>
-			</section>
-		</div>
+		</ul>
 
 		<% if @brand.toolkit_contacts.length > 0 %>
 			<div style="padding: 0px 4px 0px 6px;" <% unless controller_name == 'brands' %>class="small-hidden"<% end %>>
 				<h6 style="font-weight: normal"><i>Contacts:</i></h6>
-				
+
 				<% @brand.toolkit_contacts.each do |user| %>
 				<div class='contact-card'>
 					<h5><%= user.name %></h5>
