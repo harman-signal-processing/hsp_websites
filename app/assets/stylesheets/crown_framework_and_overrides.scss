@@ -1,21 +1,247 @@
-/*
- * This is a manifest file that'll automatically include all the stylesheets available in this directory
- * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
- * the top of the compiled file, but it's generally better to create a new file per style scope.
-*= require crown_foundation_and_overrides
-*= require jquery-ui.min
-*= require add2home
-*= require_self
-*/
-
+@import 'foundation/functions';
 $dark-gray: #575757;
 $medium-gray: #a8a8a8;
 $light-gray: #d0d0d0;
-$primary-color: #005a91;
 $secondary-color: $light-gray;
 $strip-bg-even: #E1E1E1;
 $strip-bg-odd: #000000;
 
+$body-bg: #FFF;
+$body-font-color: $dark-gray;
+$body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$body-font-weight: 300;
+
+$primary-color: #005a91;
+$secondary-color: $medium-gray;
+$include-print-styles: true;
+$header-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$header-font-weight: 400;
+$header-font-color: $dark-gray;
+//$header-top-margin: .4em;
+
+$h1-font-size: emCalc(38px);
+$h2-font-size: emCalc(26px);
+$h3-font-size: emCalc(21px);
+$h4-font-size: emCalc(18px);
+$h5-font-size: emCalc(15px);
+//$h6-font-size: 1em;
+$subheader-font-color: lighten($dark-gray, 20%);
+$small-font-color: lighten($header-font-color, 35%);
+$paragraph-font-weight: 300;
+$anchor-font-color: $primary-color;
+$anchor-font-color-hover: lighten($anchor-font-color, 5%);
+$form-spacing: emCalc(18px);
+$form-label-font-weight: 400;
+$form-label-font-color: lighten($body-font-color, 30%);
+$input-font-color: rgba(0,0,0,0.65);
+$input-bg-color: darken(#fff, 2%);
+$input-focus-bg-color: #fff;
+$legend-bg: none;
+$legend-font-weight: 200;
+$button-tny: emCalc(5px);
+$button-sml: emCalc(7px);
+$button-med: emCalc(10px);
+$button-lrg: emCalc(14px);
+$button-font-weight: 300;
+$button-border-style: none;
+$clearing-bg: #fff;
+$clearing-carousel-bg: #E1E1E1;
+$clearing-close-color: $primary-color;
+$clearing-arrow-size: 20px;
+$clearing-arrow-color: $primary-color;
+$clearing-caption-font-color: #111;
+$clearing-carousel-height: 80px;
+$clearing-carousel-thumb-width: 80px;
+$clearing-carousel-thumb-active-border: 4px solid $primary-color;
+$panel-bg: lighten($light-gray, 7%);
+// $table-bg: #fff;
+$table-even-row-bg: lighten($body-bg, 2%);
+// $table-border-style: solid;
+// $table-border-size: 1px;
+$table-border-color: lighten($header-font-color, 80%);
+$table-head-bg: lighten($body-bg, 1%);
+$table-head-font-color: $header-font-color;
+// $table-head-font-weight: bold;
+// $table-head-padding: emCalc(8px) emCalc(10px) emCalc(10px);
+
+// $table-row-padding: emCalc(9px) emCalc(10px);
+// $table-row-font-size: emCalc(14px);
+// $table-row-font-color: #222;
+// $table-line-height: emCalc(18px);
+
+// $table-display: table-cell;
+// $table-margin-bottom: emCalc(20px);
+
+$topbar-bg-color: $primary-color;
+$topbar-bg: $topbar-bg-color !default;
+$topbar-height:                        54px;
+// $topbar-margin-bottom:                 emCalc(26px);
+// $topbar-input-height:                  2.45em;
+$topbar-title-weight:                  bold;
+// $topbar-title-font-size:               emCalc(17px);
+$topbar-dropdown-bg:                      rgba($topbar-bg-color, 0.7);
+// $topbar-dropdown-link-color:           #fff;
+$topbar-dropdown-link-bg:                 rgba(darken($topbar-bg-color, 2%),0.85);
+// $topbar-dropdown-toggle-size:          5px;
+// $topbar-dropdown-toggle-color:         #fff;
+$topbar-dropdown-toggle-alpha:         0.5;
+// $topbar-link-color:                    #fff;
+// $topbar-link-color-hover:              #fff;
+// $topbar-link-color-active:             #fff;
+$topbar-link-weight:                   light;
+// $topbar-link-font-size:                emCalc(13px);
+$topbar-link-hover-lightness:          -30%; // Darken by 30%
+$topbar-link-bg-hover:                 darken($topbar-bg, 3%);
+$topbar-link-bg-active:                rgba($topbar-bg, 0.6);
+
+// $topbar-dropdown-label-color:          #555;
+// $topbar-dropdown-label-text-transform: uppercase;
+// $topbar-dropdown-label-font-weight:    bold;
+// $topbar-dropdown-label-font-size:      emCalc(10px);
+
+// $topbar-menu-link-transform:           uppercase;
+// $topbar-menu-link-font-size:           emCalc(13px);
+$topbar-menu-link-weight:              200;
+// $topbar-menu-link-color:               #fff;
+// $topbar-menu-icon-color:               #fff;
+// $topbar-menu-link-color-toggled:       #888;
+// $topbar-menu-icon-color-toggled:       #888;
+
+// $topbar-transition-speed:              300ms;
+// $topbar-breakpoint:                    emCalc(940px); // Change to 9999px for always mobile layout
+// $topbar-media-query:                   "only screen and (min-width: #{$topbar-breakpoint})";
+// $topbar-divider-border-bottom:         solid 1px lighten($topbar-bg-color, 10%);
+// $topbar-divider-border-top:            solid 1px darken($topbar-bg-color, 10%);
+
+$topbar-sticky-class:                  ".sticky";
+
+@import 'foundation';
+
+.panel {
+  form {
+    margin-bottom: .125em;
+  }
+}
+//.top-bar input, top-bar .button {
+//  top: 4px;
+//  height: 1.7em;
+//}
+
+.top-bar input, top-bar .button {
+  top: 13px;
+  height: 1.9em;
+}
+.top-bar input {
+  background-color: lighten($primary-color, 45%);
+  border: none;
+}
+
+.video-window { @include flex-video-container; }
+
+#homepage-video-banner {
+  position: relative;
+  background: $strip-bg-even;
+  padding: 50px 0px 90px;
+  ul li.video_thumbnail {
+    position: relative;
+    div.play_button {
+      position: absolute;
+      top: 48px;
+      left: 86px;
+      z-index: 9;
+    }
+    .video_title {
+      width: 180px;
+    }
+    p {
+      margin-top: 8px;
+      font-size: emCalc(14px);
+      line-height: emCalc(19px);
+    }
+  }
+}
+
+.headline_slide {
+  color: white;
+  @media only screen and (min-width: 720px) {
+    margin: 60px 0 0 80px;
+    max-width: 460px;
+  }
+  @media only screen and (max-width: 719px) {
+    margin: 10px 0 0 0;
+  }
+  height: 550px;
+  overflow: hidden;
+  text-shadow: 0px 0px 10px rgba(0,0,0,0.7);
+  h1 {
+    color: white;
+    @media only screen and (min-width: 720px) {
+      font-weight: 300;
+      font-size: emCalc(70px);
+      line-height: emCalc(17px);
+    }
+    @media only screen and (max-width: 719px) {
+      font-weight: 200;
+      font-size: emCalc(30px);
+      line-height: emCalc(16px);    
+    }
+  }
+  p {
+    @media only screen and (min-width: 720px) {
+      font-size: emCalc(50px);
+      line-height: emCalc(14px);
+    }
+    @media only screen and (max-width: 719px) {
+      font-size: emCalc(30px);
+      line-height: emCalc(14px);
+    }
+    margin-bottom: 24px;
+  }
+  a {
+    margin-right: 10px;
+    box-shadow: none;
+    &.button {
+      border: 1px solid $primary-color;
+      text-shadow: none;
+    }
+    &.secondary {
+      background: rgba(0,0,0, 0.45);
+      border: 1px solid white;
+    }
+  }
+}
+
+@media only screen and (min-width: 720px) {
+  ul.large-block-grid-4 {
+    li {
+      .panel {
+        height: 100px;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  ul.small-block-grid-2 {
+    li {
+      .panel {
+        height: 70px;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+ul.no-bullet {
+  list-style-type: none;
+}
+
+.text-content {
+  ul {
+    margin-left: 20px !important;
+  }
+}
 
 img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 
@@ -50,7 +276,7 @@ img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 		right: 20px;
 		color: lighten($light-gray, 10%);
 		font: {
-			family: 'berthold_akzidenz_groteskLtCn';
+//			family: 'berthold_akzidenz_groteskLtCn';
 			size: 26px;
 		}
 		text: {

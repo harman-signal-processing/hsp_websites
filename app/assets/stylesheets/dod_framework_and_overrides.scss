@@ -1,0 +1,75 @@
+@import 'foundation/functions';
+// $body-bg: #fff;
+// $body-font-color: #222;
+// $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+// $body-font-weight: normal;
+// $body-font-style: normal;
+
+//$primary-color: #fafd1e;
+// $secondary-color: #e9e9e9;
+// $alert-color: #c60f13;
+// $success-color: #5da423;
+
+// $header-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+// $header-font-weight: normal;
+// $header-font-style: normal;
+$header-font-color: #333;
+// $header-line-height: 1.4;
+// $header-top-margin: .2em;
+$header-bottom-margin: emCalc(11px);
+// $header-text-rendering: optimizeLegibility;
+$h1-font-size: emCalc(40px);
+$h2-font-size: emCalc(31px);
+// $h3-font-size: emCalc(27px);
+// $h4-font-size: emCalc(23px);
+// $h5-font-size: emCalc(18px);
+// $h6-font-size: 1em;
+$subheader-line-height: 1.1;
+// $subheader-font-color: lighten($header-font-color, 30%);
+// $subheader-font-weight: 300;
+// $subheader-top-margin: .2em;
+// $subheader-bottom-margin: .5em;
+
+// $paragraph-font-family: inherit;
+// $paragraph-font-weight: normal;
+// $paragraph-font-size: 1em;
+// $paragraph-line-height: 1.6;
+// $paragraph-margin-bottom: emCalc(20px);
+// $paragraph-aside-font-size: emCalc(14px);
+// $paragraph-aside-line-height: 1.35;
+// $paragraph-aside-font-style: italic;
+
+// $form-spacing: emCalc(16px);
+
+// $form-label-pointer: pointer;
+// $form-label-font-size: emCalc(14px);
+// $form-label-font-weight: 500;
+$form-label-font-color: lighten(#000, 60%);
+$form-label-bottom-margin: emCalc(9px);
+// $input-font-family: inherit;
+// $input-font-color: rgba(0,0,0,0.75);
+$input-font-size: emCalc(20px);
+// $input-bg-color: #fff;
+// $input-focus-bg-color: darken(#fff, 2%);
+// $input-border-color: darken(#fff, 20%);
+// $input-focus-border-color: darken(#fff, 40%);
+// $input-border-style: solid;
+// $input-border-width: 1px;
+// $input-disabled-bg: #ddd;
+// $input-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+// $input-include-glowing-effect: true;
+$button-font-color: #111;
+// $button-font-color-alt: #333;
+// $button-font-med: emCalc(16px);
+// $button-font-tny: emCalc(11px);
+// $button-font-sml: emCalc(13px);
+// $button-font-lrg: emCalc(20px);
+// $button-font-weight: bold;
+// $button-font-align: center;
+// $alert-font-weight:                bold;
+$alert-font-size:                  emCalc(22px);
+// $alert-font-color:                 #fff;
+// $alert-font-color-alt:             darken($secondary-color, 60%);
+
+$topbar-bg:                            #00395a !default;
+@import 'foundation';

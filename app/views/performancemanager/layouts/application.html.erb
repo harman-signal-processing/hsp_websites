@@ -28,7 +28,7 @@
 		<% end %>
 
 		<%= javascript_include_tag website.folder %>
-		<%= javascript_include_tag "vendor/custom.modernizr" %>
+		<%= javascript_include_tag "vendor/modernizr" %>
 		<%= stylesheet_link_tag website.folder, media: :all %>
 
 		<%= yield :custom_css %>
@@ -54,7 +54,7 @@
 		<%= cache ["header", website, I18n.locale] do %>
 		<div id="header-container" class="sticky">
 
-			<nav class="top-bar">
+			<nav class="top-bar" data-topbar role="navigation">
 				<ul class="title-area">
 					<li class="name"><%= link_to interchange_logo, locale_root_path %></li>
 					<li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>

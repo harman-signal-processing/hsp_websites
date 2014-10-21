@@ -88,23 +88,21 @@ module ProductsHelper
 
     side_tabs.each_with_index do |product_tab, i|
       active = "active" if i == 0
-      title = content_tag(:p, class: "title", data: {:"section-title" => true}) do 
-        link_to(tab_title(product_tab), '#')
-      end
-      content = content_tag(:div, class: "content", data: {:"section-content" => true}) do 
+      title = link_to(tab_title(product_tab), "##{product_tab.key}")
+      content = content_tag(:div, id: product_tab.key, class: "content #{active}") do
         render_partial("products/#{product_tab.key}", product: product)
       end
-      acc += content_tag(:section, class: active) do
+      acc += content_tag(:dd, class: "accordion-navigation") do
         title + content
       end
     end
 
-    content_tag(:div, 
-      acc.html_safe, 
-      class: "section-container accordion", 
-      data: {section: "accordion"})
+    content_tag(:dl,
+      acc.html_safe,
+      class: "accordion",
+      data: {accordion: true})
   end
-  
+
   def draw_info_boxes(product, options={})
     default_options = {hide_on_load: true}
     options = default_options.merge options
