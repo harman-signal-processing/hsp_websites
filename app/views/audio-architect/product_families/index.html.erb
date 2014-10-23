@@ -1,0 +1,32 @@
+<% set_meta_tags title: t('titles.product_families'),
+				 keywords: ProductFamily.parents_with_current_products(website, I18n.locale).collect{|p| p.name}.join(", "),
+				 reverse: true %>
+
+
+<h1 class="page_title">
+<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/products_head.jpg")) %>
+	<%= image_tag("#{website.folder}/#{I18n.locale}/products_head.jpg", alt: t('titles.product_families')) %>
+<% else %>
+	<%= t('titles.product_families') %>
+<% end %>
+</h1>
+
+<div style="margin: 20px 0px;">
+<% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
+<div id="<%= product_family.to_param %>">
+	<%= link_to product_family do %>
+		<% if !product_family.family_photo_file_name.blank? %>
+	  		<div class="product_family_image_box">
+				<%= image_tag(product_family.family_photo.url) %>
+	  		</div>
+		<% else %>
+			<div class="product_family_box">
+				<h2><%= translate_content(product_family, :name) %></h2>
+				<p><%= truncate(translate_content(product_family, :intro), length: 100) %></p>
+			</div>
+		<% end %>
+	<% end %>
+</div>
+<% end %>
+</div>
+<div class="clear"></div>

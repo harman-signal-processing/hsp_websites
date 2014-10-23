@@ -54,6 +54,7 @@ HarmanSignalProcessingWebsite::Application.configure do
     admin.js 
     admin.css 
     archimedia.css
+    audio-architect.css
     bss.js
     bss.css
     crown.css

@@ -2,7 +2,7 @@ class Page < ActiveRecord::Base
   extend FriendlyId
   friendly_id :sanitized_title
   
-  validates :title, presence: true, uniqueness: true 
+  validates :title, presence: true, uniqueness: { scope: :brand_id }
   validates :brand_id, presence: true
   validates :custom_route, uniqueness: true 
 

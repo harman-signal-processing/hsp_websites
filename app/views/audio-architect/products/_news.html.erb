@@ -1,0 +1,7 @@
+<ul>
+	<% product.current_news[0,3].each do |p| %>
+	<li><b><%=l p.post_on.to_date, format: :long %></b><br/>
+		<%= link_to translate_content(p, :title), p %>
+	</li>
+	<% end %>
+</ul>

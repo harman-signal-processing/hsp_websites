@@ -1,7 +1,7 @@
 class News < ActiveRecord::Base
   extend FriendlyId
-  friendly_id :sanitized_title
-  
+  friendly_id :slug_candidates, use: :slugged
+
   has_attached_file :news_photo, {
     styles: { large: "600>x370", 
       email: "580",
@@ -17,9 +17,12 @@ class News < ActiveRecord::Base
   
   has_many :news_products, dependent: :destroy
   has_many :products, through: :news_products
-
-  validates_presence_of :brand_id, :title, :post_on
   belongs_to :brand, touch: true
+
+  validates :brand_id, presence: true
+  validates :title, presence: true
+  validates :post_on, presence: true
+
   before_save :strip_harmans_from_title
   after_save :translate
   attr_accessor :from, :to
@@ -33,6 +36,14 @@ class News < ActiveRecord::Base
     
   def sanitized_title
     self.title.gsub(/[\'\"]/, "")
+  end
+
+  def slug_candidates
+    [
+      :title,
+      [:brand_id, :title],
+      [:brand_id, :title, :created_at]
+    ]
   end
   
   # News to display on the main area of the site. This set of news articles

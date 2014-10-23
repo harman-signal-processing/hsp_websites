@@ -1,0 +1,9 @@
+<h3><%= social_media_links 'rss' %> <%= link_to t("titles.news", brand: website.brand_name), news_index_path %>
+	<% if website.blog_url %>
+	&bull; <%= link_to t("titles.blog", brand: website.brand_name), website.blog_url %>
+	<% end %></h3>
+
+<% @news.each do |news| %>
+		<h5><%=l news.post_on, format: :long %></h5>
+		<div><%= link_to translate_content(news, :title), news_path(news, locale: I18n.locale) %></div>
+<% end %>

@@ -1,0 +1,96 @@
+<% set_meta_tags reverse: true,
+                 description: @software.description,
+                 keywords: [@software.name, @software.ware_file_name, @software.version] %>
+
+<% if @software.show_alert? %>
+	<%= content_for :extra_notice do %>
+		<div id="product-notice"><%=raw textilize(@software.alert) %></div>
+	<% end %>
+<% end %>
+
+<h1><%= @page_title %></h1>
+<%= render 'shared/add_this' %>
+
+	<% if @software.replaced_by && @software.replaced_by.is_a?(Software) %>
+	<div class="alert">
+		Note: this is an old version. The current version is: <%= link_to @software.replaced_by.formatted_name, @software.replaced_by %>.
+	</div>
+	<% end %>
+
+<div id="software-page-content">
+	<div class="aside">
+		<div class="download_box">
+			<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/download_button.png")) %>
+			<%= link_to image_tag("#{website.folder}/#{I18n.locale}/download_button.png", 
+							alt: t("download"), 
+							mouseover: "#{website.folder}/#{I18n.locale}/download_button_hover.png"), 
+					download_software_path(@software, locale: I18n.locale) %>
+			<% else %>
+			<h2><%= link_to t("download"), download_software_path(@software, locale: I18n.locale) %></h2>
+			<% end %>
+			<p>
+				<%= platform_icon(@software, 17) %>
+				<%= link_to(@software.formatted_name, download_software_path(@software, locale: I18n.locale)) %>
+				<% if @software.ware_file_size.present? %>
+				[<%= number_to_human_size(@software.ware_file_size)%>]
+				<% end %>
+			</p>
+			<br/>
+			
+			<% @software.software_attachments.each do |sa| %>
+			<p>
+				<% if sa.software_attachment_content_type.match(/pdf/i) %>
+					<%= image_tag("icons/pdf_17.png", style: "vertical-align: middle;") %>
+				<% end %>
+				<%= link_to sa.name, sa.software_attachment.url %>
+			</p>
+			<% end %>
+		</div>
+
+		<% if website.email_signup_url %>
+			<%= render_partial 'shared/newsletter_signup' %>
+		<% end %>
+
+		<div class="clear"></div>
+	</div>
+
+	<% if @software.previous_versions.count > 0 %>
+	<p><%= link_to "Previous Versions", '#previous_versions' %></p>
+	<% end %>
+	<%=raw @software.description %>
+
+<div class="clear"></div>
+
+	<% if @software.training_modules.size > 0 %>
+		<h4>Training Modules</h4>
+		<%= link_to "Visit Training Page", training_path %>
+	<% end %>
+
+	</div>
+
+	<% if @software.products.size > 0 %>
+		<hr/>
+		<h2><%= t('titles.related_products') %></h2>
+		<% @software.products.each do |product| %>
+			<%= render_partial "product_families/product_square", product: product, compare: false %>
+		<% end %>
+		<div class="clear"></div>
+	<% end %>
+
+<% if @software.previous_versions.count > 0 %>
+	<hr/>
+	<h4 id='previous_versions'>Previous Versions</h4>
+
+	<ul>
+		<% @software.previous_versions.each do |s| %>
+		<li><%= link_to s.formatted_name, s %> <% if s.ware_file_size.to_i > 0 %>[<%= number_to_human_size(s.ware_file_size) %>]<% end %></li>
+		<% end %>
+	</ul>
+<% end %>
+
+
+<% if current_user && can?(:manage, @software) %>
+<div class="admin_function">
+	<%= link_to "edit", edit_admin_software_path(@software) %>
+</div>
+<% end %>
