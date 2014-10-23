@@ -41,6 +41,21 @@ namespace :utility do
       if item.respond_to?(:custom_route)
         new_item.custom_route = "#{to_brand.cached_slug}-#{item.custom_route}"
       end
+      if item.respond_to?(:slide)
+        new_item.slide = item.slide
+      end
+      if item.respond_to?(:resource)
+        new_item.resource = item.resource
+      end
+      if item.respond_to?(:executable)
+        new_item.executable = item.executable
+      end
+      if item.respond_to?(:news_photo)
+        new_item.news_photo = item.news_photo
+      end
+      if item.respond_to?(:ware)
+        new_item.ware = item.ware
+      end
       if item.respond_to?(:cached_slug)
         new_item.cached_slug = nil
       end
