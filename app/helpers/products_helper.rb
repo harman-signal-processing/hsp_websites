@@ -150,16 +150,27 @@ module ProductsHelper
   def draw_main_tabs(product, options={})
     main_tabs = (options[:tabs]) ? parse_tabs(options[:tabs], product) : product.main_tabs
     if main_tabs.size > 1
-      ret = "<ul id='product_main_tabs'>"
+      ret = options[:zurb] ? "<dl class='tabs' data-tab>" : "<ul id='product_main_tabs'>"
       main_tabs.each_with_index do |product_tab,i|
         if options[:active_tab]
-          current = (product_tab.key == options[:active_tab]) ? "current" : ""
+          current = (product_tab.key == options[:active_tab]) ? "active current" : ""
         else
-          current = (i == 0) ? "current" : ""
+          current = (i == 0) ? "active current" : ""
         end
-        ret += content_tag(:li, link_to(tab_title(product_tab, product: product), product_path(product, tab: product_tab.key), data: { tabname: product_tab.key }), class: current, id: "#{product_tab.key}_tab")
+        if options[:zurb]
+          ret += content_tag(
+            :dd,
+            link_to(
+              tab_title(product_tab, product: product),
+              "##{product_tab.key}_content",
+            ),
+            class: current
+          )
+        else
+          ret += content_tag(:li, link_to(tab_title(product_tab, product: product), product_path(product, tab: product_tab.key), data: { tabname: product_tab.key }), class: current, id: "#{product_tab.key}_tab")
+        end
       end
-      ret += "</ul>"
+      ret += options[:zurb] ? "</dl>" : "</ul>"
       raw(ret)
     end
   end
@@ -168,19 +179,11 @@ module ProductsHelper
   def draw_main_tabs_content(product, options={})
     main_tabs = (options[:tabs]) ? parse_tabs(options[:tabs], product) : product.main_tabs
 
-    ret = "<div class=\"section-container auto\" data-section>"
+    ret = "<div class=\"section-container tabs-content\">"
 
     main_tabs.each_with_index do |product_tab,i|
 
       if options[:zurb]
-
-        content = content_tag(:p, class: 'title', data: {:"section-title" => true}) do 
-          link_to(tab_title(product_tab, product: product), "##{product_tab.key}")
-        end
-
-        content += content_tag(:div, id: "#{product_tab.key}_content", class: "product_main_tab_content content", data: {:"section-content" => true}) do
-          render_partial("products/#{product_tab.key}", product: product)
-        end
 
         if options[:active_tab]
           active_class = (product_tab.key == options[:active_tab]) ? "active" : ""
@@ -188,7 +191,9 @@ module ProductsHelper
           active_class = (i == 0) ? "active" : ""
         end
 
-        ret += content_tag(:section, content, class: active_class)
+        ret += content_tag(:div, id: "#{product_tab.key}_content", class: "product_main_tab_content content #{active_class}") do
+          render_partial("products/#{product_tab.key}", product: product)
+        end
 
       else
 

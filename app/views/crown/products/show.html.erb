@@ -141,6 +141,7 @@ set_meta_tags title: @product.name,
 		<h3 class="subheader"><%= translate_content(@product, :short_description) %></h3>	
 		<%= render 'shared/add_this' %>
 		<!-- <%= @active_tab %> -->
+    <%= draw_main_tabs @product, zurb: true, active_tab: @active_tab %>
 		<%= draw_main_tabs_content @product, active_tab: @active_tab, zurb: true %>
 		<%= draw_audio_demos @product %>
 		<%= draw_info_accordion @product %>	
@@ -243,6 +244,7 @@ set_meta_tags title: @product.name,
 
 	<div class="large-8 columns">
 		<!-- <%= @active_tab %> -->
+    <%= draw_main_tabs @product, zurb: true, active_tab: @active_tab %>
 		<%= draw_main_tabs_content @product, zurb: true, active_tab: @active_tab %>
 	</div>
 
