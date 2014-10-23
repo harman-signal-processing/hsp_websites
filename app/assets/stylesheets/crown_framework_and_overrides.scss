@@ -28,6 +28,12 @@ $h5-font-size: emCalc(15px);
 $subheader-font-color: lighten($dark-gray, 20%);
 $small-font-color: lighten($header-font-color, 35%);
 $paragraph-font-weight: 300;
+$accordion-navigation-padding: rem-calc(14);
+$accordion-navigation-bg-color: scale-color($light-gray, $lightness: 25%);
+$accordion-navigation-active-bg-color: scale-color($accordion-navigation-bg-color, $lightness: -13%);
+$accordion-content-padding: rem-calc(12);
+$accordion-navigation-font-size: rem-calc(13);
+
 $anchor-font-color: $primary-color;
 $anchor-font-color-hover: lighten($anchor-font-color, 5%);
 $form-spacing: emCalc(18px);
@@ -937,8 +943,12 @@ ul#discontinued_product_thumbnails {
 	text-align: left;
 	letter-spacing: 0.02em;
 }
-div.accordion {
-	div.content {
+dl.accordion {
+  margin-bottom: 20px;
+  border: 1px solid $light-gray;
+  border-top: none;
+	dd.accordion-navigation {
+    border-top: 1px solid $light-gray;
 		ul {
 			margin-left: 10px;
 			list-style: none;

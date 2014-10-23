@@ -1,8 +1,16 @@
 @import "foundation/functions";
 
+$dark-gray: #575757;
+$medium-gray: #a8a8a8;
+$light-gray: #d0d0d0;
 $primary-color: #00395a;
 $section-vertical-nav-min-width: 100%;
 $section-vertical-tabs-title-width: emCalc(200px);
+$accordion-navigation-padding: rem-calc(14);
+$accordion-navigation-bg-color: scale-color($light-gray, $lightness: 25%);
+$accordion-navigation-active-bg-color: scale-color($accordion-navigation-bg-color, $lightness: -13%);
+$accordion-content-padding: rem-calc(12);
+$accordion-navigation-font-size: rem-calc(13);
 $topbar-bg-color:                            #00395a;
 $topbar-bg:                   $topbar-bg-color !default;
 $topbar-margin-bottom:                 emCalc(30px);
@@ -119,6 +127,37 @@ div#main {
   .row {
     margin-bottom: 25px;
   }
+}
+dl.accordion {
+  margin-bottom: 20px;
+  border: 1px solid $light-gray;
+  border-top: none;
+	dd.accordion-navigation {
+    border-top: 1px solid $light-gray;
+		ul {
+			margin-left: 10px;
+			list-style: none;
+			li:before {
+				content: "\2022 \00A0";
+				color: $primary-color;
+				font-weight: bold;
+			}
+		}
+		ul.docs, ul.downloads, ul.news {
+			margin-left: 0px;
+			list-style:none;
+			li:before {
+				content: ""
+			}
+			li {
+				font-size: 11px;
+				a {
+					font-weight: 400;
+					font-size: 13px;
+				}
+			}
+		}
+	}
 }
 div.content-container {
   background: asset-url('white-90.png');

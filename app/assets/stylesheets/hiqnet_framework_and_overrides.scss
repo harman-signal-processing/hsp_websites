@@ -5,6 +5,9 @@ $body-bg: lighten(#EEEEEE, 10%);
 $body-font-color: #111;
 $body-font-family: "Roboto Condensed", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $body-font-weight: 100;
+$dark-gray: #575757;
+$medium-gray: #a8a8a8;
+$light-gray: #d0d0d0;
 $primary-color: #f37736;
 $include-print-styles: true;
 $header-font-family: "Roboto Condensed", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
@@ -20,6 +23,11 @@ $h5-font-size: emCalc(11px);
 $subheader-font-color: lighten($header-font-color, 15%);
 $small-font-color: lighten($header-font-color, 35%);
 $paragraph-font-weight: 100;
+$accordion-navigation-padding: rem-calc(14);
+$accordion-navigation-bg-color: scale-color($light-gray, $lightness: 25%);
+$accordion-navigation-active-bg-color: scale-color($accordion-navigation-bg-color, $lightness: -13%);
+$accordion-content-padding: rem-calc(12);
+$accordion-navigation-font-size: rem-calc(13);
 $anchor-font-color: darken($primary-color, 10%);
 $form-spacing: emCalc(18px);
 $input-font-color: rgba(0,0,0,0.65);
@@ -436,8 +444,12 @@ ul#discontinued_product_thumbnails {
 	margin-bottom: 4px;
 	letter-spacing: 0.02em;
 }
-div.accordion {
-	div.content {
+dl.accordion {
+  margin-bottom: 20px;
+  border: 1px solid $light-gray;
+  border-top: none;
+	dd.accordion-navigation {
+    border-top: 1px solid $light-gray;
 		ul {
 			margin-left: 10px;
 			list-style: none;
@@ -452,6 +464,13 @@ div.accordion {
 			list-style:none;
 			li:before {
 				content: ""
+			}
+			li {
+				font-size: 11px;
+				a {
+					font-weight: 400;
+					font-size: 13px;
+				}
 			}
 		}
 	}

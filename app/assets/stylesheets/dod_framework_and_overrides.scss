@@ -5,6 +5,9 @@
 // $body-font-weight: normal;
 // $body-font-style: normal;
 
+$dark-gray: #575757;
+$medium-gray: #a8a8a8;
+$light-gray: #d0d0d0;
 //$primary-color: #fafd1e;
 // $secondary-color: #e9e9e9;
 // $alert-color: #c60f13;
@@ -39,6 +42,11 @@ $subheader-line-height: 1.1;
 // $paragraph-aside-line-height: 1.35;
 // $paragraph-aside-font-style: italic;
 
+$accordion-navigation-padding: rem-calc(14);
+$accordion-navigation-bg-color: scale-color($light-gray, $lightness: 25%);
+$accordion-navigation-active-bg-color: scale-color($accordion-navigation-bg-color, $lightness: -13%);
+$accordion-content-padding: rem-calc(12);
+$accordion-navigation-font-size: rem-calc(13);
 // $form-spacing: emCalc(16px);
 
 // $form-label-pointer: pointer;
@@ -73,3 +81,35 @@ $alert-font-size:                  emCalc(22px);
 
 $topbar-bg:                            #00395a !default;
 @import 'foundation';
+
+dl.accordion {
+  margin-bottom: 20px;
+  border: 1px solid $light-gray;
+  border-top: none;
+	dd.accordion-navigation {
+    border-top: 1px solid $light-gray;
+		ul {
+			margin-left: 10px;
+			list-style: none;
+			li:before {
+				content: "\2022 \00A0";
+				color: $primary-color;
+				font-weight: bold;
+			}
+		}
+		ul.docs, ul.downloads, ul.news {
+			margin-left: 0px;
+			list-style:none;
+			li:before {
+				content: ""
+			}
+			li {
+				font-size: 11px;
+				a {
+					font-weight: 400;
+					font-size: 13px;
+				}
+			}
+		}
+	}
+}
