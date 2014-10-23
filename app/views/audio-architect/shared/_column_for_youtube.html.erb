@@ -1,0 +1,5 @@
+<h3><%= link_to "Training Videos", videos_path %></h3>
+
+<%= cache ["youtube_feed", website.brand, I18n.locale] do %>
+	<%= youtube_feed(@youtube, "divs") %>
+<% end %>

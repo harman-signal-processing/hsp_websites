@@ -28,6 +28,7 @@ namespace :deploy do
   task :setup_config, roles: :app do
     sudo "ln -nfs /var/www/hmg/hsp_websites/current/config/nginx/a_catchall.conf /etc/nginx/conf.d/a_catchall.conf"
     sudo "ln -nfs /var/www/hmg/hsp_websites/current/config/nginx/archimedia.conf /etc/nginx/conf.d/archimedia.conf"
+    sudo "ln -nfs /var/www/hmg/hsp_websites/current/config/nginx/audio-architect.conf /etc/nginx/conf.d/audio-architect.conf"
     sudo "ln -nfs /var/www/hmg/hsp_websites/current/config/nginx/assets.conf /etc/nginx/conf.d/assets.conf"
     sudo "ln -nfs /var/www/hmg/hsp_websites/current/config/nginx/bss.conf /etc/nginx/conf.d/bss.conf"
     sudo "ln -nfs /var/www/hmg/hsp_websites/current/config/nginx/crown.conf /etc/nginx/conf.d/crown.conf"

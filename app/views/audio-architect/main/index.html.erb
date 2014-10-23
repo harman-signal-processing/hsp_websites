@@ -1,0 +1,100 @@
+<% set_meta_tags 	twitter: {
+		card: "summary"
+	},
+	og: {
+		image: image_url("#{website.folder}/logo.png"),
+		type: 'website',
+		description: "Architectural Media Systems by Harman including BSS, Crown, and HiQnet.",
+		title: "Architectural Media Systems by Harman"
+	} %>
+
+
+<%= content_for :feature do %>
+	<%= cache ["slideshow", website.brand, I18n.locale] do %>
+		<% slides = Setting.slides(website) %>
+		<% if slides.size > 0 %>
+			<%= slideshow(slides: slides, duration: 8700, transition: "fade") %>
+		<% end %>
+	<% end %>
+<% end %>
+
+<% if current_user && can?(:manage, Setting) %>
+<div class="admin_function" style="top: -335px">
+	<%= link_to "edit", homepage_admin_settings_path %>
+</div>
+<% end %>
+
+<%= content_for :middle_stuff do %>
+	<%= cache ["homepage_middle", website.brand, I18n.locale] do %>
+		<% if @features.size > 0 %>
+			<% @features.each do |feature| %>
+			<span class="homepage_feature"><%= feature_button(feature) %></span>
+			<% end %>
+		<% else %>
+			<%= featured_product_families %>
+		<% end %>
+	  	<div class="clear"></div>
+	<% end %>
+<% end %>
+
+<%= content_for :big_bottom_box do %>
+	<%= cache ["homepage_bottom", website.brand, I18n.locale] do %>
+		<div class="column">
+			<% if website.homepage_column_one %>
+				<%= render_partial "shared/column_for_#{website.homepage_column_one}" %>
+			<% elsif website.homepage_column_1 %>
+				<%= render_partial "shared/column_for_#{website.homepage_column_1}" %>
+			<% else %>
+				<%= render_partial 'shared/column_for_where_to_buy' %>
+			<% end %>
+		</div>
+		<div class="column">
+			<% if website.homepage_column_two %>
+				<%= render_partial "shared/column_for_#{website.homepage_column_two}" %>
+			<% elsif website.homepage_column_2 %>
+				<%= render_partial "shared/column_for_#{website.homepage_column_2}" %>
+			<% else %>
+				<%= render_partial 'shared/column_for_twitter' %>
+			<% end %>	
+		</div>
+		<div class="column">
+			<% if website.homepage_column_three %>
+				<%= render_partial "shared/column_for_#{website.homepage_column_three}" %>
+			<% elsif website.homepage_column_3 %>
+				<%= render_partial "shared/column_for_#{website.homepage_column_3}" %>
+			<% elsif @youtube && !@youtube.blank? %>
+				<%= render_partial 'shared/column_for_youtube' %>
+			<% elsif !website.facebook.blank? %>
+				<%= render_partial 'shared/column_for_facebook' %>
+			<% end %>
+		</div>
+		<div class="column">
+			<% if website.email_signup_url %>
+				<%= render_partial 'shared/newsletter_signup' %>
+			<% end %>
+			<% if website.homepage_column_four %>
+				<%= render_partial "shared/column_for_#{website.homepage_column_four}" %>
+			<% elsif website.homepage_column_4 %>
+				<%= render_partial "shared/column_for_#{website.homepage_column_4}" %>
+			<% else %>
+				<%= render_partial "shared/column_for_artists" %>
+			<% end %>
+		</div>
+
+		<div class="clear"></div>
+	<% end %>
+<% end %>
+
+<%= cache ["preload", website.brand, I18n.locale] do %>
+	<%= content_for :preload do %>
+		<%= preload_background_images %>
+	<% end %>
+<% end %>
+
+<%= content_for :popup_code do %>
+	<% if website.homepage_popup %>
+		<%=raw website.homepage_popup %>
+	<% end %>
+<% end %>
+
+<div id="homepage-counter" data-counter="<%= @counter %>"></div>

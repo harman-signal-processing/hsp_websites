@@ -1,0 +1,49 @@
+<% 
+unless defined? compare
+	compare = !!(website.show_comparisons)
+end 
+%>
+<%= cache ["product_square", product, website, compare, I18n.locale] do %>
+
+<% 
+	if product.belongs_to_this_brand?(website)
+		this_url = product_url(product)
+		css_class = "small_product_box#{ product.layout_class.to_s }"
+		target = "_self"
+	else
+		this_url = product_url(product, locale: I18n.locale, host: product.brand.default_website.url) 
+		css_class = "small_product_box#{ product.brand.name.to_s.downcase }"
+		target = "_blank"
+	end
+%>
+
+	<div class="small_product_box_container">
+	<%= link_to this_url, target: target do %>
+	<div id="<%= product.to_param %>" class="<%= css_class %>">
+		<div class="product_description">
+			<h3><%= translate_content(product, :name) %></h3>
+			<%= translate_content(product, :short_description) %>
+		</div>
+		<table class="product_thumb">
+			<tr><td>
+		<% if product.photo %>
+			<% if product.layout_class == "horizontal" %>
+			<%= image_tag(product.photo.product_attachment.url(:horiz_thumb)) %>
+			<% else %>
+			<%= image_tag(product.photo.product_attachment.url(:thumb)) %>
+			<% end %>
+		<% end %>
+			</tr></td>
+		</table>
+	</div>
+	<% end %>
+
+	<% if compare && product.in_production? %>
+		<div class="compare_checkbox">
+			<%= check_box_tag "product_ids[]", product.to_param, false %>
+			<label><%= t('compare') %></label>
+		</div>
+	<% end %>
+	</div>
+
+<% end %>
