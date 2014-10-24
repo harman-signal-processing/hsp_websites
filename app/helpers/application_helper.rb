@@ -48,7 +48,7 @@ module ApplicationHelper
     q << "[#{image_path("#{website.folder}/logo.png")}, (medium)]"
     q << "[#{image_path("#{website.folder}/logo-sm.png")}, (only screen and (max-width: 720px))]"
 
-    image_tag("#{website.folder}/logo.png", 
+    image_tag('', #"#{website.folder}/logo.png", 
       class: "no-resize no-resize-for-small",
       alt: Setting.site_name(website),
       data: { interchange: q.join(", ") })

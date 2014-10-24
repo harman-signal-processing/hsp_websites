@@ -225,7 +225,7 @@ $table-head-font-color: $header-font-color;
 
 $topbar-bg-color: $primary-color;
 $topbar-bg: $topbar-bg-color !default;
-$topbar-height:                        80px;
+//$topbar-height:                        80px;
 // $topbar-margin-bottom:                 emCalc(26px);
 $topbar-input-height:                  2.45em;
 $topbar-title-weight:                  100;
@@ -270,21 +270,26 @@ $topbar-sticky-class:                  ".sticky";
     margin-bottom: .125em;
   }
 }
-//.top-bar input, top-bar .button {
-//  top: 4px;
-//  height: 1.7em;
-//}
-
-.top-bar input, top-bar .button {
-  top: 25px;
-  height: 1.9em;
+.top-bar-container {
+  @media only screen and (min-width: 720px) {
+    height: 80px;
+  }
+  background: $topbar-bg;
+  @media only screen and (min-width: 720px) {
+    ul.left {
+      margin-top: 35px;
+    }
+    .top-bar input, .top-bar .button {
+      top: 26px;
+      height: 1.9em;
+    }
+  }
+  .top-bar input {
+    background-color: #C1272D;
+    border: none;
+    color: $primary-color;
+  }
 }
-.top-bar input {
-  background-color: #C1272D;
-  border: none;
-  color: $primary-color;
-}
-
 .video-window { @include flex-video-container; }
 
 #homepage-video-banner {
@@ -471,7 +476,7 @@ img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 	}
 	img.no-resize { max-width: none; }
 	.logo-container img {
-		padding: 13px 25px 0px 35px;
+		padding: 14px 25px 0px 35px;
 	}
 	#main_container {
 		min-height: 500px;
@@ -485,7 +490,7 @@ img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 		display: none;
 	}
 	.logo-container img {
-		padding: 13px 0px 0px 6px;
+		padding: 4px 0px 0px 6px;
 	}
 }
 
