@@ -60,7 +60,7 @@ FactoryGirl.define do
     # main_instrument "Guitar"
     # notable_career_moments
     artist_tier
-    ignore do
+    transient do
     	skip_unapproval false
     	approved false
     	initial_brand Brand.new
@@ -71,7 +71,7 @@ end
 FactoryGirl.define do
   factory :artist_product do
   	artist
-  	product 
+  	product
   	quote "It be good at musick stuff"
   	favorite false
   end
@@ -80,7 +80,7 @@ end
 FactoryGirl.define do
   factory :artist_brand do
   	artist
-  	brand 
+  	brand
   	intro "I like da sounds it makez."
   end
 end

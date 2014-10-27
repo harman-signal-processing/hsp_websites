@@ -1,11 +1,11 @@
 FactoryGirl.define do
-  
+
   # FactoryGirl.create(:product_family_with_products, products_count: 10)
-  factory :product_family do 
+  factory :product_family do
     name "Super Signal Processors"
     brand
     factory :product_family_with_products do
-      ignore do
+      transient do
         products_count 5
       end
       after(:create) do |product_family, evaluator|
@@ -15,20 +15,20 @@ FactoryGirl.define do
       end
     end
   end
-  
+
   factory :product_family_product do
     product_family
     product
     sequence(:position)
   end
-  
+
   factory :product_status do
     sequence(:name) {|n| "Status Name #{n}"}
     discontinued false
     show_on_website true
     shipping true
   end
-  
+
   factory :product do
     sequence(:name) {|n| "RP#{n}"}
     product_status
