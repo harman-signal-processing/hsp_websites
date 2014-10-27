@@ -49,17 +49,15 @@
 								<td width="18%"><span class="<%= "red" if marketing_task.late? %>"><%=l marketing_task.due_on, format: :short %></span></td>
 								<td width="10%">
 									<% if marketing_task.requestor && marketing_task.worker && marketing_task.requestor != marketing_task.worker %>
-		<div class="row collapse">
-			<div class="switch small task-switch" data-taskid="<%= marketing_task.id %>">
+			<div class="task-switch" data-taskid="<%= marketing_task.id %>">
 
 			  <input id="marketing_task_currently_with_worker_<%= marketing_task.id %>" name="marketing_task_currently_with_id_<%= marketing_task.id %>" type="radio" <%= "checked" unless marketing_task.currently_with_id == marketing_task.requestor_id %>>
 			  <label for="marketing_task_currently_with_worker" onclick=""><%= marketing_task.worker.initials %></label>
-
+        <br/>
 			  <input id="marketing_task_currently_with_requestor_<%= marketing_task.id %>" name="marketing_task_currently_with_id_<%= marketing_task.id %>" type="radio" <%= "checked" if marketing_task.currently_with_id == marketing_task.requestor_id %>>
 			  <label for="marketing_task_currently_with_requestor" onclick=""><%= marketing_task.requestor.initials %></label>
 
 			  <span></span>
-			</div>
 		</div>
 									<% end %>
 								</td>
@@ -109,18 +107,16 @@
 									</td>
 									<td><span class="<%= "red" if marketing_task.late? %>"><%=l marketing_task.due_on, format: :short %></span></td>
 									<td><% if marketing_task.requestor && marketing_task.worker && marketing_task.requestor != marketing_task.worker %>
-		<div>
-			<div class="switch small round task-switch" data-taskid="<%= marketing_task.id %>">
+			<div class="task-switch" data-taskid="<%= marketing_task.id %>">
 
 			  <input id="marketing_task_currently_with_worker_<%= marketing_task.id %>" name="marketing_task_currently_with_id_<%= marketing_task.id %>" type="radio" <%= "checked" unless marketing_task.currently_with_id == marketing_task.requestor_id %>>
 			  <label for="marketing_task_currently_with_worker" onclick=""><%= marketing_task.worker.initials %></label>
-
+        <br/>
 			  <input id="marketing_task_currently_with_requestor_<%= marketing_task.id %>" name="marketing_task_currently_with_id_<%= marketing_task.id %>" type="radio" <%= "checked" if marketing_task.currently_with_id == marketing_task.requestor_id %>>
 			  <label for="marketing_task_currently_with_requestor" onclick=""><%= marketing_task.requestor.initials %></label>
 
 			  <span></span>
 			</div>
-		</div>
 									<% end %>
 								</td>
 								</tr>

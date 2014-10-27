@@ -7,7 +7,7 @@ jQuery ($) ->
 	datepicker = $('.ui-datepicker').datepicker
 		inline: true
 		numberOfMonths: 2
-		showButtonPanel: true	
+		showButtonPanel: true
 		dateFormat: "DD, MM d, yy"
 	datepicker.show()
 
@@ -24,9 +24,6 @@ jQuery ($) ->
 		$("##{ autoclick }").foundation('reveal', 'open')
 		$(".reveal-modal-bg").show()
 
-	$('#doneish').click (e) ->
-		alert("Since you didn't actually finish the task, this button doesn't actually mark it complete. Nice try, though.")
-
 	$('.task-switch input[type=radio]').click (e) ->
 		task_id = $(@).closest('.task-switch').data('taskid')
 		$.ajax "/marketing_queue/marketing_tasks/#{task_id}/switch_currently_with.js"
@@ -35,7 +32,7 @@ jQuery ($) ->
 		e.preventDefault()
 		$('div#formatting-tips').toggle()
 
-	$('input.completer').prop("checked", false).each -> new Completer(@) 
+	$('input.completer').prop("checked", false).each -> new Completer(@)
 	$('input.incompleter').prop("checked", true).each -> new Completer(@)
 
 class Completer

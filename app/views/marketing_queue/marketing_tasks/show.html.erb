@@ -110,7 +110,7 @@
 		<% if @marketing_task.requestor && @marketing_task.worker && @marketing_task.requestor != @marketing_task.worker %>
 		<div style="margin-bottom: 50px">
 			<h5 class="subheader">Task is currently with:</h5>
-			<div class="switch medium round task-switch" data-taskid="<%= @marketing_task.id %>">
+			<div class="task-switch" data-taskid="<%= @marketing_task.id %>">
 
 			  <input id="marketing_task_currently_with_worker" name="marketing_task_currently_with_id" type="radio" <%= "checked" unless @marketing_task.currently_with_id == @marketing_task.requestor_id %>>
 			  <label for="marketing_task_currently_with_worker" onclick=""><%= @marketing_task.worker.name %></label>

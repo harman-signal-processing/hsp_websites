@@ -37,7 +37,7 @@ AWS.config(Rails.configuration.aws)
 S3_CLOUDFRONT = 'adn.harmanpro.com' # 'd18nzrj3czoaty.cloudfront.net' # 
 
 # Environment-specific settings:
-if Rails.env.production? #|| Rails.env.development?
+if Rails.env.production? || Rails.env.development?
 
 	Paperclip::Attachment.default_options.merge!({
     url: ':fog_public_url',

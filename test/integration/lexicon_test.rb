@@ -8,8 +8,8 @@ describe "Lexicon Integration Test" do
     @brand = lexicon_brand
     @website = lexicon_site
     host! @website.url
-    Capybara.default_host = "http://#{@website.url}" 
-    Capybara.app_host = "http://#{@website.url}" 
+    Capybara.default_host = "http://#{@website.url}"
+    Capybara.app_host = "http://#{@website.url}"
 
     @product = @website.products.first
     @software = FactoryGirl.create(:software, brand: @brand)
@@ -26,7 +26,7 @@ describe "Lexicon Integration Test" do
   # after :each do
   #   DatabaseCleaner.clean
   # end
-  
+
   describe "homepage" do
 
     before do
@@ -45,7 +45,7 @@ describe "Lexicon Integration Test" do
     it "should call Artists Professionals" do
       page.must_have_link "professionals", href: artists_path(locale: I18n.default_locale)
     end
-    
+
   end
 
   # Since Lexicon has different product family views
@@ -75,7 +75,7 @@ describe "Lexicon Integration Test" do
 
     it "should call features tab Culture sometimes" do
       page.must_have_link "Culture"
-    end 
+    end
 
     it "should have a tab named Overview" do
       page.must_have_link "Overview"
@@ -88,20 +88,20 @@ describe "Lexicon Integration Test" do
     it "should link directly to the downloads tab" do
       downloads_url = product_url(@product, locale: I18n.default_locale, host: @website.url, tab: "downloads_and_docs")
       visit downloads_url
-      page.must_have_xpath("//li[@id='downloads_and_docs_tab'][@class='current']")
-      page.wont_have_xpath("//li[@id='description_tab'][@class='current']")
-      page.must_have_xpath("//div[@id='downloads_and_docs_content']")
+      page.must_have_css("li#downloads_and_docs_tab.current")
+      page.wont_have_css("li#description_tab.current")
+      page.must_have_css("div#downloads_and_docs_content")
       page.wont_have_xpath("//div[@id='downloads_and_docs_content'][@style='display: none;']")
-    end 
+    end
 
-    it "should link to related current promotion" do 
+    it "should link to related current promotion" do
       promo = FactoryGirl.create(:promotion)
       @product.product_promotions << FactoryGirl.create(:product_promotion, promotion: promo, product: @product)
       visit product_url(@product, locale: I18n.default_locale, host: @website.url)
       page.must_have_link promo.name
     end
   end
-  
+
   describe "support page" do
     before do
       visit support_url(locale: I18n.default_locale, host: @website.url)
@@ -119,19 +119,19 @@ describe "Lexicon Integration Test" do
       ContactMessage.count.wont_equal(message_count + 1)
     end
 
-    it "should redirect to the downloads tab of a current product" do 
+    it "should redirect to the downloads tab of a current product" do
       select @website.products.first.name, from: 'product_id'
       click_on "go"
-      page.must_have_xpath("//li[@id='downloads_and_docs_tab'][@class='current']")
+      page.must_have_css("li#downloads_and_docs_tab.current")
     end
   end
 
   describe "software activation" do
-    before do 
+    before do
       @software = FactoryGirl.create(:software_for_activation)
     end
-    
-    it "should return the correct activation code" do 
+
+    it "should return the correct activation code" do
       challenge = "1234-5678-90AB"
       visit software_activation_url(@software.activation_name, challenge, locale: I18n.default_locale, host: @website.url)
       page.must_have_content "383ED7C0-FCAC80F8-A403F8DB"
