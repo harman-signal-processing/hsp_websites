@@ -15,7 +15,7 @@ Paperclip::Attachment.default_options[:use_timestamp] = false
 
 # Add support for timestamps in the stored file path
 Paperclip.interpolates(:timestamp) do |attachment, style|
-  attachment.instance_read(:updated_at).to_i  
+  attachment.instance_read(:updated_at).to_i
 end
 
 # Add support for the asset host in the interpolated URL path
@@ -34,7 +34,7 @@ AWS.config(Rails.configuration.aws)
 # Cloudfront only seems to work with an S3 bucket OR some other source (not both).
 # So, since cdn.harmanpro.com is setup as an alias of assets.harmanpro.com, we need
 # a separate CDN for stuff in the S3 buckets...
-S3_CLOUDFRONT = 'adn.harmanpro.com' # 'd18nzrj3czoaty.cloudfront.net' # 
+S3_CLOUDFRONT = 'adn.harmanpro.com' # 'd18nzrj3czoaty.cloudfront.net' #
 
 # Environment-specific settings:
 if Rails.env.production? || Rails.env.development?
@@ -65,7 +65,7 @@ if Rails.env.production? || Rails.env.development?
     path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
   }
 else
-  
+
 	Paperclip::Attachment.default_options.merge!({
     url: '/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension',
     storage: :filesystem,
@@ -75,7 +75,7 @@ else
   S3_STORAGE = {
     url: '/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension',
     storage: :filesystem,
-    path: ":rails_root/public/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension"    
+    path: ":rails_root/public/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension"
   }
 end
 
@@ -87,7 +87,7 @@ else
   SETTINGS_STORAGE = {
     url: '/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension',
     storage: :filesystem,
-    path: ":rails_root/public/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension"    
+    path: ":rails_root/public/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension"
   }
 end
 

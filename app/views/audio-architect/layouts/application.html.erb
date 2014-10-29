@@ -15,9 +15,9 @@
 			<% end %>
 
 			<% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "logo.png")) %>
-				<link rel="image_src" href="<%= image_url("#{website.folder}/logo.png") %>" />		
+				<link rel="image_src" href="<%= image_url("#{website.folder}/logo.png") %>" />
 			<% end %>
-			
+
 			<!--[if lt IE 9]>
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 			<![endif]-->
@@ -47,7 +47,7 @@
 		  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
 		  fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));</script>
-		<%#= render_partial "shared/admin_dashboard_link" %>	
+		<%#= render_partial "shared/admin_dashboard_link" %>
 
 		<%= yield :extra_notice %>
 		<%= render_partial "shared/locale_switcher" %>
@@ -55,7 +55,7 @@
 		<%= cache ["header", website, I18n.locale] do %>
 		<header>
 			<div id="inner_header">
-				
+
 			<div id="logo">
 				<% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "logo.png")) %>
 				<%= link_to(image_tag("#{website.folder}/logo.png", alt: Setting.site_name(website)), locale_root_path) %>
@@ -73,7 +73,7 @@
 					<li><%= link_to "Software", "/en-US/audio-architect-HiQnet_software" %></li>
 					<li><%= link_to "Networking", "/en-US/audio-architect-networking" %></li>
 					<li><%= link_to "Applications", "/en-US/audio-architect-applications" %></li>
-					<li><%= link_to t('news'), news_index_path %></li> 
+					<li><%= link_to t('news'), news_index_path %></li>
 					<li><%= link_to t('downloads'), software_index_path %></li>
 					<li><%= link_to "training", "/en-US/audio-architect-training_overview" %></li>
 					<li><%= link_to "contact", support_path %></li>
@@ -152,13 +152,13 @@
 			</div>
 			<div id="footer_left">
 				<%= image_tag "harman.jpg" %>
-				&copy; <%= Date.today.year %> 
-				<%= link_to(t('harman'), "http://www.harman.com/", target: "_blank") %>. 
+				&copy; <%= Date.today.year %>
+				<%= link_to(t('harman'), "http://www.harman.com/", target: "_blank") %>
 				<%= t('all_rights_reserved') %>
 			</div>
 		</footer>
 		<% end %>
-		
+
 		<% if content_for?(:dealer_popup) %>
 			<div id="blanket" style="display:none;"></div>
 			<div id="dealer_popup_close" style="display:none;">
