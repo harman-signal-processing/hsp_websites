@@ -1,7 +1,7 @@
 class MainController < ApplicationController
   skip_before_filter :verify_authenticity_token
   before_filter :set_locale, except: [:sitemap, :site_info, :favicon]
-  
+
   # The main site homepage
   #
   def index
@@ -28,18 +28,18 @@ class MainController < ApplicationController
     @current_promotions = Promotion.current_for_website(website)
 
     respond_to do |format|
-      format.html { 
+      format.html {
         campaign = "#{website.brand.name}-#{Date.today.year}"
         if website.teaser.to_i >= 1 && !(cookies[campaign])
           teaser
         else
-          render_template 
+          render_template
         end
       }
-      format.xml { 
+      format.xml {
         product_families = ProductFamily.parents_with_current_products(website, I18n.locale)
         current_promotions = Promotion.all_for_website(website)
-        render xml: product_families + @news + current_promotions 
+        render xml: product_families + @news + current_promotions
       }
     end
   end
@@ -59,8 +59,8 @@ class MainController < ApplicationController
   def teaser_complete
     render_template action: 'teaser_complete', layout: teaser_layout
   end
-  
-  # The site's dealer locator. 
+
+  # The site's dealer locator.
   # TODO: Test to see if a dealer's flagged as excluded during SQL query instead of after SQL query
   #
   def where_to_buy
@@ -94,7 +94,7 @@ class MainController < ApplicationController
         unless @results.size > 0
           @err = t('errors.no_dealers_found', zip: params[:zip])
         end
-         @js_map_loader = "map_init('#{@results.first.lat}','#{@results.first.lng}',12,false)"    
+         @js_map_loader = "map_init('#{@results.first.lat}','#{@results.first.lng}',12,false)"
       rescue
         redirect_to(where_to_buy_path, alert: t('errors.geocoding')) and return false
       end
@@ -103,14 +103,14 @@ class MainController < ApplicationController
     @country = nil
     render_template
   end
-  
+
   # Simple community start page. This could redirect to a phpBB folder
   # or an external site--or it could do nothing and simply render the
   # corresponding view.
   def community
     render_template
   end
-  
+
   # The site's search engine:
   # TODO: Figure out how to search on related fields (ProductDocument.product.name)
   def search
@@ -118,8 +118,8 @@ class MainController < ApplicationController
     @query = params[:query]
     query = @query.to_s.gsub(/[\/\\]/, " ")
     ferret_results = ThinkingSphinx.search(
-      Riddle.escape(query), 
-      page: params[:page], 
+      Riddle.escape(query),
+      page: params[:page],
       per_page: 10
     )
     # Probably not the best way to do this, strip out Products from the
@@ -130,7 +130,7 @@ class MainController < ApplicationController
     # searched.
     @results = []
     ferret_results.each do |r|
-      unless (r.is_a?(Product) && !r.show_on_website?(website)) || 
+      unless (r.is_a?(Product) && !r.show_on_website?(website)) ||
         (r.has_attribute?(:brand_id) && r.brand_id != website.brand_id) ||
         (r.respond_to?(:belongs_to_this_brand?) && !r.belongs_to_this_brand?(website)) ||
         (r.is_a?(Artist) && !r.belongs_to_this_brand?(website))
@@ -139,7 +139,7 @@ class MainController < ApplicationController
     end
     render_template
   end
-  
+
   # The root url routes here. This just redirects to the homepage, but
   # it does so after going through the set_locale filter, allowing us to
   # keep the URL structure consistent. And, that filter will render a locale
@@ -149,20 +149,20 @@ class MainController < ApplicationController
   def default_locale
     redirect_to locale_root_path, status: :moved_permanently and return false
   end
-  
+
   # Dynamically generated sitemap. The @pages variable should end up with
   # an Array of Hashes. Each Hash represents a page on the site and should
   # have the following attributes:
-  #   :url        (full url), 
-  #   :updated_at (a datetime object), 
-  #   :changefreq ('daily', 'monthly', etc.), 
+  #   :url        (full url),
+  #   :updated_at (a datetime object),
+  #   :changefreq ('daily', 'monthly', etc.),
   #   :priority   (decimal ranking priority among other pages in this site alone)
   #
   def locale_sitemap
     @pages = []
-    @pages << { url: locale_root_url, 
-      updated_at: Date.today, 
-      changefreq: 'daily', 
+    @pages << { url: locale_root_url,
+      updated_at: Date.today,
+      changefreq: 'daily',
       priority: 1 }
     @pages << { url: where_to_buy_url,
       updated_at: Date.today,
@@ -173,7 +173,7 @@ class MainController < ApplicationController
       changefreq: 'weekly',
       priority: 0.7 }
     ProductFamily.all_with_current_products(website, I18n.locale).each do |product_family|
-      @pages << { url: url_for(product_family), 
+      @pages << { url: url_for(product_family),
         updated_at: product_family.updated_at,
         changefreq: 'weekly',
         priority: 0.9 }
@@ -232,7 +232,7 @@ class MainController < ApplicationController
     end
     render "sitemap"
   end
-  
+
   # Overall sitemap (links to each locale sitemap)
   def sitemap
     @pages = []
@@ -247,7 +247,7 @@ class MainController < ApplicationController
         priority: 0.8 }
     end
   end
-  
+
   # Generates an RSS feed of the latest News
   def rss
     @title = t('titles.news', brand: website.brand_name)
@@ -257,7 +257,7 @@ class MainController < ApplicationController
       format.xml # render rss.xml.builder
     end
   end
-  
+
   # Email signup page...actually loads an iframe with a silverpop form inside
   def email_signup
     email = params[:Email] || params[:email] || ""
@@ -265,12 +265,12 @@ class MainController < ApplicationController
     @page_title = "Newsletter Sign Up"
     render_template
   end
-  
+
   # Helps to know what site a particular URL is loading:
   def site_info
     render inline: "<pre><%= website.to_yaml %></pre>", layout: false
   end
-  
+
   # Find and deliver the appropriate favicon.ico file which is used by
   # browsers in the URL bar, etc.
   # /favicon.ico
@@ -284,7 +284,7 @@ class MainController < ApplicationController
       send_file Rails.root.join("public", "harman.ico"), filename: 'favicon.ico', disposition: 'inline', type: "image/x-icon"
     end
   end
-  
+
   # /channel.html (used for facebook API)
   def channel
     render inline: '<script src="//connect.facebook.net/en_US/all.js"></script>', layout: false
