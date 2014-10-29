@@ -179,7 +179,7 @@ $topbar-sticky-class:                  ".sticky";
   color: white;
   @media only screen and (min-width: 720px) {
     margin: 60px 0 0 80px;
-    max-width: 460px;
+    #max-width: 460px;
   }
   @media only screen and (max-width: 719px) {
     margin: 10px 0 0 0;
@@ -192,12 +192,12 @@ $topbar-sticky-class:                  ".sticky";
     @media only screen and (min-width: 720px) {
       font-weight: 300;
       font-size: emCalc(70px);
-      line-height: emCalc(17px);
+      line-height: emCalc(66px);
     }
     @media only screen and (max-width: 719px) {
       font-weight: 200;
       font-size: emCalc(30px);
-      line-height: emCalc(16px);    
+      line-height: emCalc(26px);
     }
   }
   p {
