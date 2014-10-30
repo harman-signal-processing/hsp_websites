@@ -26,12 +26,12 @@
 			<tr>
 				<td width="50%">
 					<h3><%= t('titles.international_distributors') %></h3>
-					
+
 					<%= form_tag search_distributors_path, method: :get %>
 						<p><%= label_tag t('select_your_country') %>:<br/>
 							<%= select_tag :country, options_from_collection_for_select(@countries, :country, :country, @country) %>
 							<%= submit_tag t('submit') %>
-						</p>			
+						</p>
 					</form>
 				</td>
 				<td width="50%">

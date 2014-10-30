@@ -17,7 +17,7 @@ jQuery ($) ->
 			if selected_option in $(@).data('related').split(',') then $(@).show() else $(@).hide()
 
 	show_hide_related_actions = ->
-		$('div.system_rule_system_rule_actions_action_type select').each -> 
+		$('div.system_rule_system_rule_actions_action_type select').each ->
 			show_related_actions(@)
 			$(@).change -> show_related_actions(@)
 
