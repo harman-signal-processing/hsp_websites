@@ -6,8 +6,6 @@ jQuery ($) ->
     containerSelector: $('#product-content-container')
     padding: {top: 100}
 
-#  $('dl.side-nav dd a').click (el) ->
-#    $(@).near
 	win = $(window)
 	animation_started = false
 

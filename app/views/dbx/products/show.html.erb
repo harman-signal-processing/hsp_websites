@@ -155,9 +155,9 @@ set_meta_tags title: @product.name,
 	<div id="viewer_container" class="text-center">
 		<div id="viewer">
 			<% if @product.images_for("product_page").size == 1 %>
-			<%= link_to(image_tag(@product.photo.product_attachment.url(:lightbox)), @product.photo.product_attachment.url) %>
+			<%= link_to(image_tag(@product.photo.product_attachment.url(:full_width)), @product.photo.product_attachment.url) %>
 			<% else %>
-			<%= image_tag(@product.photo.product_attachment.url(:lightbox)) %>
+			<%= image_tag(@product.photo.product_attachment.url(:full_width)) %>
 			<% end %>
 		</div>
 	</div>
