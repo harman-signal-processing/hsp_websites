@@ -393,7 +393,6 @@ ul.no-bullet {
     margin-left: 20px !important;
   }
 }
-
 img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 
 #video_background {
@@ -468,10 +467,6 @@ img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 	}
 @media only screen and (min-width: 720px) {
 	nav.top-bar {
-	  /* Prevent background color leak outs */
-	    -webkit-background-clip: padding-box; 
-	    -moz-background-clip:    padding; 
-	    background-clip:         padding-box;
 	}
 	img.no-resize { max-width: none; }
 	.logo-container img {
@@ -479,7 +474,7 @@ img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 	}
 	#main_container {
 		min-height: 500px;
-		padding-bottom: 100px;
+		padding-bottom: 80px;
 	}
 }
 @media only screen and (max-width: 720px) {
@@ -507,7 +502,6 @@ body {
 	margin-top: 20px;
 	z-index: 10;
 }
-
 input.boolean {
     margin-right: 6px;
 }
@@ -744,7 +738,8 @@ div#footer_left {
 }
 div#harmanpro_bar {
   background: #5a5b5e;
-  padding: 40px 0px;
+  padding-top: 9px;
+  height: 80px;
   margin-bottom: 8px;
   text-align: center;
 }
@@ -1032,7 +1027,13 @@ div.compare_button {
   margin: 10px 0px;
   background: white;
 }
+h3.content-nav {
+  color: $primary-color;
+  font-family: 'berthold_akzidenz_groteskLtCn';
+  font-size: 27px;
+}
 div.product-title-block {
+  background: white;
   h1 {
     font-size: 68px;
     color: $dark-gray;
@@ -1070,15 +1071,23 @@ div.product-title-block {
     margin: 20px 0px 40px;
     padding: 0;
   }
-  ul#product_main_tabs {
-    list-style-type: none;
+  div.side-nav-container {
+    margin: 0;
+    padding: 0;
     margin-bottom: 40px;
-    li {
+  }
+  dl.side-nav {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    dd {
       font: {
         family: 'berthold_akzidenz_grotesk_bRg';
         size: 13px;
         weight: 700;
       }
+      margin: 0;
+      padding: 0;
       letter-spacing: 1px;
       line-height: 18px;
       text-transform: uppercase;
@@ -1088,7 +1097,7 @@ div.product-title-block {
           color: $primary-color;
         }
       }
-      &.current {
+      &.active {
         a {
           color: $primary-color;
         }
@@ -1148,6 +1157,12 @@ ul#discontinued_product_thumbnails {
 	margin-bottom: 20px;
 	ul {
 		margin-left: 30px;
+    &.news {
+      margin-left: 0;
+      li {
+        margin-bottom: 20px;
+      }
+    }
 	}
   p {
     font: {

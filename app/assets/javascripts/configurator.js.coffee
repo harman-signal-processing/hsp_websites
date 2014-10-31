@@ -1,7 +1,7 @@
 jQuery ($) ->
 
-  $('#system_summary_container ').stickyScroll
-    container: $('#content_container_content')
+  $('#system_summary_container ').pin
+    containerSelector: $('#content_container_content')
 
   $("div.long_description").hide()
 

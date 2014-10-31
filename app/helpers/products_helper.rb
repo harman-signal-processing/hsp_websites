@@ -4,7 +4,7 @@ module ProductsHelper
   #
   def interchange_product_image(product)
     q = []
-    
+
     q << "[#{product.photo.product_attachment.url(:medium)}, (default)]"
     q << "[#{product.photo.product_attachment.url(:large)}, (only screen and (min-width: 1350px))]"
     q << "[#{product.photo.product_attachment.url(:medium)}, (only screen and (min-width: 1024px) and (max-width: 1349px))]"
@@ -18,10 +18,10 @@ module ProductsHelper
   #
   def abide_link_to_product_attachment(product_attachment)
     if !product_attachment.product_attachment_file_name.blank?
-      link_to(image_tag(product_attachment.product_attachment.url(:tiny_square), style: "vertical-align: middle"), 
+      link_to(image_tag(product_attachment.product_attachment.url(:tiny_square), style: "vertical-align: middle"),
           product_attachment.product_attachment.url)
     else
-      img = product_attachment.product_media_thumb.url(:tiny) 
+      img = product_attachment.product_media_thumb.url(:tiny)
       if product_attachment.product_media_file_name.to_s.match(/swf$/i)
         width = (product_attachment.width.blank?) ? "100%" : product_attachment.width
         height = (product_attachment.height.blank?) ? "100%" : product_attachment.height
@@ -145,7 +145,7 @@ module ProductsHelper
     raw(ret)
     end
   end
-  
+
   # So, these are the tabs that can be clicked on to show the contents
   def draw_main_tabs(product, options={})
     main_tabs = (options[:tabs]) ? parse_tabs(options[:tabs], product) : product.main_tabs
@@ -211,6 +211,71 @@ module ProductsHelper
     end
 
     ret += "</div>"
+    raw(ret)
+  end
+
+  def draw_side_nav(product, options={})
+    main_tabs = (options[:tabs]) ? parse_tabs(options[:tabs], product) : product.main_tabs
+    if main_tabs.size > 1
+      ret = "<div class='side-nav-container' data-magellan-expedition='static'>"
+      ret += "<dl class='side-nav'>"
+      main_tabs.each_with_index do |product_tab,i|
+        if options[:active_tab]
+          current = (product_tab.key == options[:active_tab]) ? "active" : ""
+        else
+          current = (i == 0) ? "active" : ""
+        end
+        ret += content_tag(
+          :dd,
+          link_to(
+            tab_title(product_tab, product: product),
+            "##{product_tab.key}",
+          ),
+          class: current,
+          data: {
+            :'magellan-arrival' => product_tab.key
+          }
+        )
+      end
+      ret += "</dl>"
+      ret += "</div>"
+      raw(ret)
+    end
+  end
+
+  def draw_main_product_content(product, options={})
+    main_tabs = (options[:tabs]) ? parse_tabs(options[:tabs], product) : product.main_tabs
+
+    ret = ""
+
+    main_tabs.each_with_index do |product_tab,i|
+
+      if options[:active_tab]
+        active_class = (product_tab.key == options[:active_tab]) ? "active" : ""
+      else
+        active_class = (i == 0) ? "active" : ""
+      end
+
+      if i > 0
+        ret += link_to('', '', name: product_tab.key)
+        ret += content_tag(
+          :h3,
+          tab_title(product_tab, product: product),
+          class: 'content-nav',
+          data: {:'magellan-destination' => product_tab.key}
+        )
+      else
+        ret += content_tag(
+          :h3,
+          tab_title(product_tab, product: product),
+          class: 'content-nav'
+        )
+      end
+      ret += content_tag(:div, class: "product_main_tab_content content #{active_class}") do
+        render_partial("products/#{product_tab.key}", product: product)
+      end
+    end
+
     raw(ret)
   end
 

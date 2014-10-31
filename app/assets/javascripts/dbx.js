@@ -11,11 +11,11 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery_ujs 
+//= require jquery_ujs
 //= require jquery-ui.min
 //= require jquery.lightbox-0.5.min
 //= require jquery.datetimepicker
-//= require jquery.stickyscroll
+//= require jquery.pin.min
 //= require global_functions
 //= require maps
 //= require twitter
@@ -27,12 +27,12 @@
 //= require dbx_application
 //= require_self
 
-document.createElement("article");  
-document.createElement("footer");  
-document.createElement("header");  
-document.createElement("hgroup");  
-document.createElement("nav"); 
-document.createElement("section"); 
+document.createElement("article");
+document.createElement("footer");
+document.createElement("header");
+document.createElement("hgroup");
+document.createElement("nav");
+document.createElement("section");
 
 $(function(){ $(document).foundation(); });
 

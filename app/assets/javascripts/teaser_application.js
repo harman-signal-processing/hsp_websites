@@ -1,18 +1,6 @@
 //= require jquery
 //= require jquery_ujs
-//= require jquery.stickyscroll
 //= require foundation
-
-// Make the dod pedals stick to the top of the page, didn't really 
-// work well with the box below it.
-//
-// (function() {
-//   jQuery(function($) {
-//     return $('#featured-product-list ').stickyScroll({
-//       //container: $('#content_container')
-//     });
-//   });
-// }).call(this);
 
 $(window).bind('scroll',function(e){
     parallaxScroll();
@@ -33,7 +21,7 @@ $(window).on('scroll', function(evt) {
         $('h1#title').css('top', '0px');
     }
 
-}); 
+});
 
 function parallaxScroll(){
 	var scrolled = $(window).scrollTop();
@@ -58,9 +46,9 @@ function parallaxScroll(){
     // } else if (scrolled > 500 && scrolled < 800) {
     //     $('h1#title').css('color', '#fce32e');
     // } else if (scrolled > 2600 && scrolled < 2605) {
-    //     $('h1#title').css('color', '#C1C1C1'); 
+    //     $('h1#title').css('color', '#C1C1C1');
     // } else if (scrolled > 2610 && scrolled < 2615) {
-    //     $('h1#title').css('color', '#f1870a');        
+    //     $('h1#title').css('color', '#f1870a');
     // } else {
     //     $('h1#title').css('color', 'black');
     // }
