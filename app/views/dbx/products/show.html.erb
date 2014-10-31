@@ -68,104 +68,33 @@ set_meta_tags title: @product.name,
 
 <%= cache ["product_page", @product, @online_retailer_link, @active_tab, I18n.locale, session['geo_country']] do %>
 
+<a name="description" data-magellan-destination="description"></a>
 
-<% if @product.layout_class == "vertical" ##################### VERTICAL LAYOUT ############## %>
-
-<div class="row">
-
-	<div class="large-5 large-push-7 push-7 small-12 columns">
-		<% if @product.photo %>
-		<div class="text-center" style="margin: 20px 0px;">
-			<%= link_to(image_tag(@product.photo.product_attachment.url(:vert_medium)), @product.photo.product_attachment.url) %>
-		</div>
-		<% end %>
-
-		<% if @product.images_for("product_page").size > 1 %>
-		<div class="larger_tag"><%= t('product_page.larger_images') %></div>
-		<ul id="product_thumbnails" class="large-block-grid-6 small-block-grid-3 clearing-thumbs" data-clearing>
-			<% @product.images_for("product_page").each do |product_attachment| %>
-			  <% if product_attachment.product_media_thumb_file_name.present? %>
-				<li><%= link_to_product_attachment(product_attachment) %></li>
-			  <% elsif product_attachment.no_lightbox? || !!(website.no_lightbox) %>
-				<li><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square)), product_attachment.product_attachment.url) %></li>
-			  <% else %>
-				<li><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square)), product_attachment.product_attachment.url(:lightbox), class: "lightbox") %></li>
-			  <% end %>
-			<% end %>
-		</ul>
-		<% end %>
-
-		<% if website.show_pricing? && @product.msrp && @product.msrp.to_f > 0 && I18n.default_locale.match(/#{I18n.locale}/i) %>
-		<div class="row">
-			<div class="large-8 large-offset-2 columns text-center">
-			<% if @product.sale_price && @product.sale_price.to_f > 0 && I18n.locale == I18n.default_locale %>
-				<p><%= number_to_currency(@product.sale_price) %></p>
-			<% end %>
-
-			  <% if @product.sale_price && @product.msrp.to_f > @product.sale_price.to_f %>
-				<p>
-					MSRP <span class="strike"><%= number_to_currency(@product.msrp) %></span><br/>
-					Save <%= number_to_currency(@product.msrp.to_f - @product.sale_price.to_f) %>!
-				</p>
-			  <% elsif @product.msrp %>
-				<p>
-					MSRP <%= number_to_currency(@product.msrp) %>
-				</p>
-			  <% end %>
-
-			<% if website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !@product.direct_buy_link.blank? %>
-
-				<%= buy_it_now_link(@product, html_button: true, reveal_id: "buy-it-now-popup") %>
-				<%= links_to_current_promotions(@product) %>
-
-				<% unless @product.demo_link.blank? %>
-					<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/demo_download_button.png")) %>
-						<%= link_to(image_tag("#{website.folder}/#{I18n.locale}/demo_download_button.png",
-								alt: "Demo Download",
-								mouseover: "#{website.folder}/#{I18n.locale}/demo_download_button_hover.png") ,
-							@product.demo_link) %>
-					<% else %>
-						<p><strong><%= link_to "Demo Download", @product.demo_link %></strong></p>
-					<% end %>
-				<% end %>
-
-			<% end %>
-			</div>
-		</div>
-		<% end %>
-
-	</div>
-
-	<div class="large-7 large-pull-5 pull-5 small-12 columns">
-		<h1 style="margin-bottom: 0px"><%= title translate_content(@product, :name) %></h1>
-		<h3 class="subheader"><%= translate_content(@product, :short_description) %></h3>
-		<%= render 'shared/add_this' %>
-		<!-- <%= @active_tab %> -->
-    <%= draw_main_tabs @product, zurb: true, active_tab: @active_tab %>
-		<%= draw_main_tabs_content @product, active_tab: @active_tab, zurb: true %>
-		<%= draw_audio_demos @product %>
-		<%= draw_info_accordion @product %>
-	</div>
-</div>
-
-<% else ################## HORIZONTAL LAYOUT ################%>
-  <a name="description" data-magellan-destination="description"></a>
-
-<% if @product.photo %>
-	<div id="viewer_container" class="text-center">
-		<div id="viewer">
-			<% if @product.images_for("product_page").size == 1 %>
-			<%= link_to(image_tag(@product.photo.product_attachment.url(:full_width)), @product.photo.product_attachment.url) %>
-			<% else %>
-			<%= image_tag(@product.photo.product_attachment.url(:full_width)) %>
-			<% end %>
-		</div>
-	</div>
+<%# vertical pages have the image in the next row...#%>
+<% unless @product.layout_class == "vertical" %>
+  <% if @product.photo %>
+    <div id="viewer_container" class="text-center">
+      <div id="viewer">
+        <% if @product.images_for("product_page").size == 1 %>
+        <%= link_to(image_tag(@product.photo.product_attachment.url(:full_width)), @product.photo.product_attachment.url) %>
+        <% else %>
+        <%= image_tag(@product.photo.product_attachment.url(:full_width)) %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 <% end %>
-
 
 <div class="row" id="product-content-container" >
 	<div class="large-8 small-12 columns">
+
+    <% if @product.layout_class == "vertical" %>
+      <% if @product.photo %>
+      <div class="text-center" style="margin: 20px 0px;">
+        <%= link_to(image_tag(@product.photo.product_attachment.url(:vert_medium)), @product.photo.product_attachment.url) %>
+      </div>
+      <% end %>
+    <% end %>
 
 		<% if @product.images_for("product_page").size > 1 %>
 		<ul id="product_thumbnails" class="clearing-thumbs large-block-grid-12 small-block-grid-3" data-clearing>
@@ -183,8 +112,6 @@ set_meta_tags title: @product.name,
 		<% end %>
 
 		<!-- <%= @active_tab %> -->
-    <%#= draw_main_tabs @product, zurb: true, active_tab: @active_tab %>
-		<%#= draw_main_tabs_content @product, zurb: true, active_tab: @active_tab %>
     <%= draw_main_product_content @product, active_tab: @active_tab %>
 
 	</div>
@@ -258,8 +185,6 @@ set_meta_tags title: @product.name,
 
 	</div>
 </div>
-
-<% end # layout class %>
 
 <% end # cache %>
 
