@@ -96,4 +96,5 @@ S3DirectUpload.config do |config|
   config.access_key_id = Rails.configuration.aws[:access_key_id]
   config.secret_access_key = Rails.configuration.aws[:secret_access_key]
   config.bucket = Rails.configuration.aws[:bucket]
+  config.url = "https://#{config.bucket}.s3.amazonaws.com/"
 end
