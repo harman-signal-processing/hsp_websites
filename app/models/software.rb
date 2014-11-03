@@ -1,5 +1,5 @@
 class Software < ActiveRecord::Base
-  DIRECT_UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/s3\.amazonaws\.com\/#{Rails.configuration.aws[:bucket]}\/(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
+  DIRECT_UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/#{Rails.configuration.aws[:bucket]}\.s3\.amazonaws\.com\/(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
 
   extend FriendlyId
   friendly_id :formatted_name
@@ -22,7 +22,7 @@ class Software < ActiveRecord::Base
   # process_in_background :ware # replaced with direct to s3 upload
 
   before_save :set_upload_attributes
-  after_save :queue_processing  
+  after_save :queue_processing
 
   before_destroy :revert_version
   before_update  :revert_version_if_deactivated
@@ -30,11 +30,11 @@ class Software < ActiveRecord::Base
   after_save :replace_old_version
 
   belongs_to :brand, touch: true
-  
+
   def set_default_counter
     self.download_count ||= 0
   end
-    
+
   def increment_count
     set_default_counter
     self.download_count += 1
@@ -64,7 +64,7 @@ class Software < ActiveRecord::Base
   end
 
   def replaced_by
-    if self.current_version_id.present? && self.current_version_id != self.id 
+    if self.current_version_id.present? && self.current_version_id != self.id
       self.class.find(self.current_version_id)
     end
   end
@@ -78,7 +78,7 @@ class Software < ActiveRecord::Base
       end
     end
   end
-  
+
   def formatted_name
     f = self.name
     f += " v#{self.version}" unless self.version.blank?
@@ -97,7 +97,7 @@ class Software < ActiveRecord::Base
   def link_name
     self.formatted_name
   end
-  
+
   # Alias for search results content_preview
   def content_preview
     self.description
@@ -117,7 +117,7 @@ class Software < ActiveRecord::Base
     direct_upload_url_data = DIRECT_UPLOAD_URL_FORMAT.match(software.direct_upload_url)
     s3 = AWS::S3.new
 
-    path_interpolation = ":class/:attachment/:id_:timestamp/:basename.:extension"    
+    path_interpolation = ":class/:attachment/:id_:timestamp/:basename.:extension"
     paperclip_file_path = Paperclip::Interpolations.interpolate(path_interpolation, software.ware, 'original')
 
     # paperclip_file_path = "documents/uploads/#{id}/original/#{direct_upload_url_data[:filename]}"
@@ -125,7 +125,7 @@ class Software < ActiveRecord::Base
 
     software.processed = true
     software.save
-    
+
     s3.buckets[Rails.configuration.aws[:bucket]].objects[direct_upload_url_data[:path]].delete
   end
 
@@ -139,13 +139,13 @@ protected
       direct_upload_url_data = DIRECT_UPLOAD_URL_FORMAT.match(direct_upload_url)
       s3 = AWS::S3.new
       direct_upload_head = s3.buckets[Rails.configuration.aws[:bucket]].objects[direct_upload_url_data[:path]].head
-       
+
       self.ware_file_name = direct_upload_url_data[:filename]
       self.ware_file_size = direct_upload_head.content_length
       self.ware_content_type = direct_upload_head.content_type
       self.ware_updated_at = direct_upload_head.last_modified
     end
-  rescue AWS::S3::Errors::NoSuchKey => e
+  rescue AWS::S3::Errors::NoSuchKey
     tries -= 1
     if tries > 0
       sleep(3)
