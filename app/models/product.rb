@@ -299,10 +299,10 @@ class Product < ActiveRecord::Base
   end
 
   # Pretty awful hack to see if a custom tab name exists for the given tab "name".
-  # Really only works with "features" for now.
   def rename_tab(name)
-    if name == 'features' && !self.features_tab_name.blank?
-      self.features_tab_name
+    if self.respond_to?("#{name}_tab_name")
+      n = self.send("#{name}_tab_name")
+      n if !n.blank?
     end
   end
 

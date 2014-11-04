@@ -50,7 +50,7 @@ module ProductsHelper
           product_attachment.product_attachment.url(:lightbox), class: "lightbox")
       end
     else
-      img = product_attachment.product_media_thumb.url(:tiny) 
+      img = product_attachment.product_media_thumb.url(:tiny)
       if product_attachment.product_media_file_name.to_s.match(/swf$/i)
         width = (product_attachment.width.blank?) ? "100%" : product_attachment.width
         height = (product_attachment.height.blank?) ? "100%" : product_attachment.height
@@ -67,11 +67,11 @@ module ProductsHelper
     end
     link_to_function image_tag(img, style: "vertical-align: middle"), "$('#viewer').html('#{escape_javascript(new_content)}');load_lightbox()"
   end
-  
+
   def tab_title(product_tab, options={})
     title = options[:shorten] ? t("product_page.labels.#{product_tab.key}") : t("product_page.#{product_tab.key}")
-    if I18n.locale == I18n.default_locale
-      if options[:product] && product_tab.key == "features" && custom_title = options[:product].rename_tab('features')
+    if I18n.locale == I18n.default_locale || I18n.locale.to_s.match(/en/)
+      if options[:product] && custom_title = options[:product].rename_tab(product_tab.key)
         title = custom_title
       elsif custom_title = eval("website.#{product_tab.key}_tab_name")
         title = custom_title
@@ -120,7 +120,7 @@ module ProductsHelper
     end
     raw(ret)
   end
-  
+
   def draw_packaging_boxes(product)
     if product.package_tabs.size > 0
     ret = "<div id='product_packaging_tabs'><ul>"

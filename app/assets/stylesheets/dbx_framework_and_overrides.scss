@@ -1156,7 +1156,13 @@ ul#discontinued_product_thumbnails {
 .product_main_tab_content {
 	margin-bottom: 20px;
 	ul {
-		margin-left: 30px;
+    list-style-image: asset-url('dbx/bullet.png');
+		margin-left: 0px;
+    li {
+      color: #666;
+      font-size: 16px;
+      line-height: 22px;
+    }
     &.news {
       margin-left: 0;
       li {

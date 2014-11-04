@@ -57,19 +57,22 @@
 
   <%= f.input :extended_description, input_html: { class: "mceEditor", style: "height: 300px;"} %><br/>
   <% if @product.layout_class == 'epedal' %> <span class="small"> For epedals, only provide the description of the controls here.</span><% end %>
-  <br/>
+
+<div class="row">
+	<div class="large-6 columns">
+		<%= f.input :extended_description_tab_name, hint: "Show a different tab name for 'extended description/more info'." %>
+	</div>
+</div>
 
 <% unless @product.layout_class == 'epedal' %>
 	<%= f.input :features, input_html: { class: "mceEditor", style: "height: 250px;"} %><br/>
 <% end %>
 
-<% if website.brand.name.match(/lexicon/i) %>
 <div class="row">
 	<div class="large-6 columns">
-		<%= f.input :features_tab_name, hint: "Lexicon can show different tab names on different types of products." %>
+		<%= f.input :features_tab_name, hint: "Show a different tab name for 'features'." %>
 	</div>
 </div>
-<% end %>
 
 <div class="row">
 	<div class="large-6 columns">
