@@ -1022,7 +1022,9 @@ div.compare_button {
     color: #000;
 }
 }
-
+.top-subnav-container {
+  background: lighten($light-gray, 10%);
+}
 #viewer_container {
   margin: 10px 0px;
   background: white;
@@ -1164,7 +1166,7 @@ ul#discontinued_product_thumbnails {
       line-height: 22px;
     }
     &.news {
-      margin-left: 0;
+      margin-left: 13px;
       li {
         margin-bottom: 20px;
       }

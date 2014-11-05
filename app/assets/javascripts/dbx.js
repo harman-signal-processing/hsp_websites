@@ -34,7 +34,14 @@ document.createElement("hgroup");
 document.createElement("nav");
 document.createElement("section");
 
-$(function(){ $(document).foundation(); });
+$(function(){
+  $(document).foundation({
+    "magellan-expedition": {
+      fixed_top: 46,
+      destination_threshold: 40,
+    }
+  });
+});
 
 
 

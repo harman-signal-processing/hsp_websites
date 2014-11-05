@@ -96,7 +96,9 @@
 		
 		<%= cache ["footer", website.brand, I18n.locale] do %>
 		<footer>
-			<%= hpro_footer(include_hpro: true) %>
+      <div class="hide-for-small">
+        <%= hpro_footer(include_hpro: true) %>
+      </div>
 
 			<div class="container">
 				<div class="large-6 columns" id="footer_left">

@@ -47,17 +47,6 @@ set_meta_tags title: @product.name,
 	<% end %>
 <% end %>
 
-<%= content_for :preload do %>
-	<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/buyitnow_button_hover.png")) %>
-		<%= image_tag("#{website.folder}/#{I18n.locale}/buyitnow_button_hover.png") %>
-	<% end %>
-	<% @product.product_attachments.each do |product_attachment| %>
-		<% if !product_attachment.product_attachment_file_name.blank? %>
-			<%= image_tag(product_attachment.product_attachment.url(:medium)) %>
-		<% end %>
-	<% end %>
-<% end %>
-
 <% if @product.has_custom_background? %>
 	<%= content_for :custom_css do %>
 	<style type="text/css" media="screen">
@@ -67,6 +56,36 @@ set_meta_tags title: @product.name,
 <% end %>
 
 <%= cache ["product_page", @product, @online_retailer_link, @active_tab, I18n.locale, session['geo_country']] do %>
+
+<div class="show-for-small hide-for-large hide-for-medium">
+  <div class="row">
+    <div class="small-6 columns">
+      <h1><%= title translate_content(@product, :name) %></h1>
+      <h3><%= translate_content(@product, :short_description) %></h3>
+    </div>
+    <div class="small-6 columns text-right">
+      <% if website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !@product.direct_buy_link.blank? %>
+
+        <div class="product-price">
+          <% if website.show_pricing? && @product.msrp && @product.msrp.to_f > 0 && I18n.default_locale.match(/#{I18n.locale}/i) %>
+
+            <% if @product.sale_price && @product.msrp.to_f > @product.sale_price.to_f && @product.sale_price.to_f > 0 && I18n.locale == I18n.default_locale %>
+              MSRP <span class="strike"><%= number_to_currency(@product.msrp) %></span>
+              <%= number_to_currency(@product.sale_price) %>
+              <br/>Save <%= number_to_currency(@product.msrp.to_f - @product.sale_price.to_f) %>!
+            <% elsif @product.msrp %>
+              MSRP
+              <%= number_to_currency(@product.msrp) %>
+            <% end %>
+          <% end %>
+        </div>
+        <%= buy_it_now_link(@product, html_button: true, reveal_id: "buy-it-now-popup") %>
+      <% end %>
+    </div>
+  </div>
+
+  <%= draw_top_subnav @product, active_tab: @active_tab %>
+</div>
 
 <a name="description" data-magellan-destination="description"></a>
 
@@ -113,10 +132,14 @@ set_meta_tags title: @product.name,
 
 		<!-- <%= @active_tab %> -->
     <%= draw_main_product_content @product, active_tab: @active_tab %>
-
+    <div class="hide-for-large hide-for-medium show-for-small">
+      <a name="support_and_downloads" data-magellan-destination="support_and_downloads"></a>
+      <%= draw_info_accordion @product %>
+    </div>
 	</div>
+
   <div class="large-4 small-12 columns">
-    <div class="product-title-block">
+    <div class="product-title-block hide-for-small">
       <h1><%= title translate_content(@product, :name) %></h1>
       <h3><%= translate_content(@product, :short_description) %></h3>
 

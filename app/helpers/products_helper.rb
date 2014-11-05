@@ -243,6 +243,50 @@ module ProductsHelper
     end
   end
 
+  def draw_top_subnav(product, options={})
+    main_tabs = (options[:tabs]) ? parse_tabs(options[:tabs], product) : product.main_tabs
+    main_tabs.each do |t|
+      main_tabs.delete(t) if t.key.match(/feature|news|training/i)
+    end
+    if main_tabs.size > 1
+      ret = "<div class='top-subnav-container' data-magellan-expedition='fixed'>"
+      ret += "<dl class='sub-nav'>"
+      main_tabs.each_with_index do |product_tab,i|
+        if options[:active_tab]
+          current = (product_tab.key == options[:active_tab]) ? "active" : ""
+        else
+          current = (i == 0) ? "active" : ""
+        end
+        tt = tab_title(product_tab, product: product)
+        tt = "Specs" if tt.to_s.match(/Spec/)
+        ret += content_tag(
+          :dd,
+          link_to(
+            tt,
+            "##{product_tab.key}",
+          ),
+          class: current,
+          data: {
+            :'magellan-arrival' => product_tab.key
+          }
+        )
+      end
+      ret += content_tag(
+        :dd,
+        link_to(
+          "Support",
+          '#support_and_downloads'
+        ),
+        data: {
+          :'magellan-arrival' => 'support_and_downloads'
+        }
+      )
+      ret += "</dl>"
+      ret += "</div>"
+      raw(ret)
+    end
+  end
+
   def draw_main_product_content(product, options={})
     main_tabs = (options[:tabs]) ? parse_tabs(options[:tabs], product) : product.main_tabs
 
