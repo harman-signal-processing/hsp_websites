@@ -4,7 +4,7 @@ protected/
 system/
 public/system
 db/sphinx/
-tags/
+tags
 
 config/database.yml
 config/s3.yml

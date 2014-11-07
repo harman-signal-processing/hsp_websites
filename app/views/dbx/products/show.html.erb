@@ -184,7 +184,7 @@ set_meta_tags title: @product.name,
 
       <%= draw_side_nav @product, active_tab: @active_tab %>
 
-      <%#= draw_info_accordion @product %>
+      <%= draw_info_accordion @product %>
 
       <% unless @product.demo_link.blank? %>
         <% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/demo_download_button.png")) %>
