@@ -602,103 +602,9 @@ select {
 
 /**** Application Layout *****/
 
-#supersocial {
-  text-align: right;
-  a {
-    margin-left: 4px;
-}
-z-index: 1;
-img {
-  filter: url(/filters.svg#desaturate); /* Firefox 3.5+ */
-  filter: gray; /* IE5+ */
-  -webkit-filter: grayscale(1); /* Webkit Nightlies & Chrome 18+ (currently Beta) */
-  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(grayscale=1)";
-  &:hover {
-    filter: none;
-    -webkit-filter: grayscale(0);
-    -ms-filter: none;
-  }
-}
-}
-
-ul.image-grid {
-  margin-bottom: 8px;
-  li {
-    padding:1px;
-    margin:0px;
-    position: relative;
-    overflow: hidden;
-    h4 {
-      background: -moz-linear-gradient(transparent, rgba(0,0,0,1));
-      font-size: 13px;
-      font-weight: 200;
-      letter-spacing: 1px;
-      position: absolute;
-      bottom: 0px;
-      left: 0px;
-      padding: 4px 10px;
-      color: $light-gray;
-      text-shadow: 1px 1px 1px #000;
-      height: 26px;
-      overflow: hidden;
-  }
-  img {
-    width: 100%;
-  }
-  a {
-    &:hover {
-      h4 {
-        color: white;
-      }
-    }
-  }
-  &.featured {
-    height: 175px;
-    h4 {
-      margin: 0px 2px;
-      width: 298px;
-    }
-  }
-  &.secondary {
-    height: 120px;
-    h4 {
-      margin: 0px 2px;
-      width: 119px;
-    }
-  }
-  &.news-with-popover {
-    .popover { display: none;}
-    &:hover {
-      background: $primary-color;
-      .popover {
-        display: block;
-        padding: 10px;
-        color: $light-gray !important;
-        h3 {
-          color: white !important;
-        }
-        h5 {
-          color: white !important;
-        }
-      }
-      img {
-        display: none;
-      }
-      h4 {
-        color: $light-gray;
-        text-shadow: none;
-        background: none;
-      }
-    }
-  }
-}
-}
-
 div#middle_features {
   margin: 40px 0px;
 }
-
-
 
 .internal_page {
   border: 1px solid #444;
@@ -711,7 +617,7 @@ div#pre-footer {
 }
 
 .divider_above {
-  border-top: 1px dotted #7283AF; 
+  border-top: 1px dotted #7283AF;
   margin-top: 20px;
 }
 footer {
@@ -721,7 +627,8 @@ footer {
   div#footer_info {
     text-align: right;
     margin-top: 10px;
-}	
+}
+
 div#footer_left {
   margin: 10px 0px;
   img {
@@ -1034,7 +941,7 @@ h3.content-nav {
   font-family: 'berthold_akzidenz_groteskLtCn';
   font-size: 27px;
 }
-div.product-title-block {
+div.product-title-block, div.small-title-block {
   background: white;
   h1 {
     font-size: 68px;
@@ -1042,6 +949,10 @@ div.product-title-block {
     margin-top: 19px;
     margin-bottom: 0;
     line-height: 32px;
+    @media only screen and (max-width: 720px) {
+      font-size: 48px;
+      line-height: 24px;
+    }
   }
   h3 {
     font-family: 'berthold_akzidenz_groteskLtCn', Helvetica;
@@ -1050,6 +961,11 @@ div.product-title-block {
     margin-top: 16px;
     margin-bottom: 40px;
     line-height: 32px;
+    @media only screen and (max-width: 720px) {
+      font-size: 20px;
+      line-height: 24px;
+      margin-bottom: 20px;
+    }
   }
   div.product-price-row {
     margin: -20px 0;
@@ -1068,6 +984,10 @@ div.product-title-block {
     color: $dark-gray;
     font-size: 30px;
     line-height: 27px;
+    @media only screen and (max-width: 720px) {
+      font-size: 18px;
+      line-height: 24px;
+    }
   }
   hr {
     margin: 20px 0px 40px;
@@ -1130,6 +1050,9 @@ div.product-title-block {
 	font-size: 13px;
 	color: #989898;
   margin-bottom: 80px;
+  @media only screen and (max-width: 720px) {
+    margin-bottom: 40px;
+  }
 }
 ul#product_thumbnails {
 	margin: 4px 0px 10px 0px;
@@ -1142,6 +1065,10 @@ ul#product_thumbnails {
 		background: white;
 		overflow: hidden;
 		text-align: center;
+    @media only screen and (max-width: 720px) {
+      width: 40px;
+      height: 40px;
+    }
 	}
 }
 ul#discontinued_product_thumbnails {
@@ -1156,7 +1083,7 @@ ul#discontinued_product_thumbnails {
 	}
 }
 .product_main_tab_content {
-	margin-bottom: 20px;
+	margin-bottom: 40px;
 	ul {
     list-style-image: asset-url('dbx/bullet.png');
 		margin-left: 0px;
@@ -1179,7 +1106,7 @@ ul#discontinued_product_thumbnails {
     }
     line-height: 22px;
     color: #666;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
   }
   h3,h4,h5 {
     font: {
@@ -1218,22 +1145,16 @@ dl.accordion {
 				font-weight: bold;
 			}
 		}
-		ul.docs, ul.downloads, ul.news {
-			margin-left: 0px;
-			list-style:none;
-			li:before {
-				content: ""
-			}
-			li {
-				font-size: 11px;
-				a {
-					font-weight: 400;
-					font-size: 13px;
-				}
-			}
-		}
 	}
 }
+ul.docs, ul.downloads, ul.support {
+  margin-left: 0px;
+  list-style:none;
+  li:before {
+    content: ""
+  }
+}
+
 .product_detail_box {
 	margin-bottom: 10px;
 	h2 {
@@ -1300,11 +1221,15 @@ dl.accordion {
 	overflow: auto;
 }
 h2.special_offer {
-	//font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-	font-size: 15px;
-	font-weight: 400;
-	text-transform: uppercase;
-	margin-bottom: 0px;
+  font: {
+    family: 'berthold_akzidenz_grotesk_bRg';
+    weight: 700;
+    size: 13px;
+  }
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 18px;
 	a:link, a:visited {
 		display: block;
 		color: #666;
@@ -1351,8 +1276,10 @@ table.specs {
 	background: #EEE;
 }
 .faq {
-	margin-bottom: 8px;
-	h3 {
+  padding-bottom: 10px;
+	h5 {
+    margin-top: 10px;
+    color: $medium-gray;
 		font-size: 14px;
 	}
 }

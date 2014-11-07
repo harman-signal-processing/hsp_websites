@@ -245,20 +245,21 @@ module ProductsHelper
 
   def draw_top_subnav(product, options={})
     main_tabs = (options[:tabs]) ? parse_tabs(options[:tabs], product) : product.main_tabs
-    main_tabs.each do |t|
-      main_tabs.delete(t) if t.key.match(/feature|news|training/i)
+    top_tabs = main_tabs.select do |t|
+      t unless t.key.to_s.match(/feature|news|training|support|spec/i)
     end
-    if main_tabs.size > 1
+    if top_tabs.size > 1
       ret = "<div class='top-subnav-container' data-magellan-expedition='fixed'>"
       ret += "<dl class='sub-nav'>"
-      main_tabs.each_with_index do |product_tab,i|
+      top_tabs.each_with_index do |product_tab,i|
         if options[:active_tab]
           current = (product_tab.key == options[:active_tab]) ? "active" : ""
         else
           current = (i == 0) ? "active" : ""
         end
         tt = tab_title(product_tab, product: product)
-        tt = "Specs" if tt.to_s.match(/Spec/)
+        tt.gsub!(/Specifications?/, "Specs")
+        tt.gsub!(/Documentation/, "Docs")
         ret += content_tag(
           :dd,
           link_to(
@@ -271,16 +272,6 @@ module ProductsHelper
           }
         )
       end
-      ret += content_tag(
-        :dd,
-        link_to(
-          "Support",
-          '#support_and_downloads'
-        ),
-        data: {
-          :'magellan-arrival' => 'support_and_downloads'
-        }
-      )
       ret += "</dl>"
       ret += "</div>"
       raw(ret)
@@ -328,16 +319,16 @@ module ProductsHelper
     r = []
     r << ProductTab.new("description") if selected_tabs.include?("description")
     r << ProductTab.new("extended_description") if !product.extended_description.blank? && selected_tabs.include?("extended_description")
+    r << ProductTab.new("documentation") if (product.product_documents.size > 0 || product.current_and_recently_expired_promotions.size > 0 || product.viewable_site_elements.size > 0) && selected_tabs.include?("documentation")
+    r << ProductTab.new("downloads") if (product.softwares.size > 0 || product.site_elements.size > 0 || product.executable_site_elements.size > 0) && selected_tabs.include?("downloads")
+    r << ProductTab.new("downloads_and_docs") if (product.softwares.size > 0 || product.product_documents.size > 0 || product.site_elements.size > 0) && selected_tabs.include?("downloads_and_docs")
     r << ProductTab.new("features") if product.features && selected_tabs.include?("features")
     r << ProductTab.new("specifications") if product.product_specifications.size > 0 && selected_tabs.include?("specifications")
-    r << ProductTab.new("documentation") if (product.product_documents.size > 0 || product.current_and_recently_expired_promotions.size > 0 || product.viewable_site_elements.size > 0) && selected_tabs.include?("documentation")
     r << ProductTab.new("training_modules") if product.training_modules.size > 0 && selected_tabs.include?("training_modules")
-    r << ProductTab.new("downloads_and_docs") if (product.softwares.size > 0 || product.product_documents.size > 0 || product.site_elements.size > 0) && selected_tabs.include?("downloads_and_docs")
     r << ProductTab.new("reviews") if (product.product_reviews.size > 0 || product.artists.size > 0) && selected_tabs.include?("reviews")
     r << ProductTab.new("artists") if product.artists.size > 0 && selected_tabs.include?("artists")
     r << ProductTab.new("tones") if product.tone_library_patches.size > 0 && selected_tabs.include?("tones")
     r << ProductTab.new("news_and_reviews") if product.news_and_reviews.size > 0 && selected_tabs.include?("news_and_reviews")
-    r << ProductTab.new("downloads") if (product.softwares.size > 0 || product.site_elements.size > 0 || product.executable_site_elements.size > 0) && selected_tabs.include?("downloads")
     r << ProductTab.new("gallery") if product.images_for("product_page").size > 0 && selected_tabs.include?("gallery")
     r << ProductTab.new("news") if product.current_news.size > 0 && selected_tabs.include?("news")
     r << ProductTab.new("support") if selected_tabs.include?("support")

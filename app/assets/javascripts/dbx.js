@@ -37,7 +37,7 @@ document.createElement("section");
 $(function(){
   $(document).foundation({
     "magellan-expedition": {
-      fixed_top: 46,
+      fixed_top: 44,
       destination_threshold: 40,
     }
   });
