@@ -950,8 +950,9 @@ div.product-title-block, div.small-title-block {
     margin-bottom: 0;
     line-height: 32px;
     @media only screen and (max-width: 720px) {
+      margin-top: 4px;
       font-size: 48px;
-      line-height: 24px;
+      line-height: 44px;
     }
   }
   h3 {
@@ -962,6 +963,7 @@ div.product-title-block, div.small-title-block {
     margin-bottom: 40px;
     line-height: 32px;
     @media only screen and (max-width: 720px) {
+      margin-top: 4px;
       font-size: 20px;
       line-height: 24px;
       margin-bottom: 20px;
