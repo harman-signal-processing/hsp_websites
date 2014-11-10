@@ -535,6 +535,17 @@ h1, h2 {
   font-family: 'berthold_akzidenz_groteskMdCn', Helvetica, Arial, sans-serif;
   font-weight: 100;
 }
+h4,h5 {
+  font: {
+    family: 'berthold_akzidenz_grotesk_bRg';
+    weight: 700;
+    size: 13px;
+  }
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 18px;
+}
 
 .floating_message {
   position: absolute;
@@ -752,6 +763,9 @@ div.promotion_container {
   background: $strip-bg-even;
   padding: 30px 0px;
   margin-bottom: 8px;
+  h2 {
+    line-height: 1.2;
+  }
 }
 
 div#countdown {

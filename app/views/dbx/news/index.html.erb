@@ -32,7 +32,7 @@
 					</div>
 					<% if news.products.size > 0 %>
 					<div class="hide-for-small" style="margin-top: 20px;">
-						<h3 class="subheader"><%= t('titles.related_products') %></h3>
+						<h4 class="subheader"><%= t('titles.related_products') %></h4>
 						<ul class="large-block-grid-1 small-block-grid-1">
 						<% news.products.each do |product| %>
 							<li><%= render_partial "product_families/product_square", product: product, compare: false %></li>
@@ -59,7 +59,7 @@
 					</div>
 					<% if news.products.size > 0 %>
 					<div class="hide-for-small" style="margin-top: 20px;">
-						<h3 class="subheader"><%= t('titles.related_products') %></h3>
+						<h4 class="subheader"><%= t('titles.related_products') %></h4>
 						<ul class="large-block-grid-1 small-block-grid-1">
 						<% news.products.each do |product| %>
 							<li><%= render_partial "product_families/product_square", product: product, compare: false %></li>
@@ -82,8 +82,8 @@
 		<% end %>
 	</div>
 	<div class="large-3 columns hide-for-small">
-		<br/>
-		<h3 class="subheader">More <%= website.brand.name %> <%= t('news') %></h3>
+    <br/>
+		<h4 class="subheader">More <%= website.brand.name %> <%= t('news') %></h4>
 
 		<% @news[1,99].each do |news| %>
 			<p><small><%=l news.post_on, format: :short %></small><br/>

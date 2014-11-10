@@ -6,6 +6,10 @@ jQuery ($) ->
     containerSelector: $('#product-content-container')
     padding: {top: 100}
 
+  $('.sticky-side').pin
+    containerSelector: $('.sticky-container')
+    padding: {top: 100}
+
 	win = $(window)
 	animation_started = false
 

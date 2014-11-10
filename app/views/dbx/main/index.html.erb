@@ -116,13 +116,13 @@
 					<div class="large-5 small-6 columns text-left">
 						<h2><%= link_to promotion.homepage_headline.present? ? promotion.homepage_headline : promotion.name, promotion %></h2>
 						<% if promotion.start_on.present? && promotion.end_on.present? %>
-							<h4 class="subheader"><%=l promotion.start_on, format: :long %> - <%=l promotion.end_on, format: :long %></h4>
+							<h4><%=l promotion.start_on, format: :long %> - <%=l promotion.end_on, format: :long %></h4>
 						<% end %>
 						<p><%=raw promotion.homepage_text %></p>
 
 						<% if promotion.products.count > 0 %>
 							<div class="hide-for-small">
-								<h3>Qualifying Purchases Include</h3>
+								<h4>Qualifying Purchases Include</h4>
 								<ul style="margin-left: 14px" class="hide-for-small">
 									<% promotion.products.each do |p| %>
 									<li><%= link_to("#{p.name} #{p.short_description}", p) %></li>
