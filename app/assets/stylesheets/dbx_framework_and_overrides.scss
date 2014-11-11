@@ -767,7 +767,19 @@ div.promotion_container {
     line-height: 1.2;
   }
 }
-
+.quotebox {
+  background: asset-url('quotebox.png') no-repeat;
+  background-position: center;
+  height: 400px;
+  li {
+    h2 {
+      padding: 50px 160px 0 160px;
+      font-family: 'berthold_akzidenz_grotesk_bRg';
+      font-size: 36px;
+      line-height: 1.2;
+    }
+  }
+}
 div#countdown {
   margin-top: -57px;
   z-index: 99999;
