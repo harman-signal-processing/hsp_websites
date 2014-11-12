@@ -1,6 +1,3 @@
-require 'net/http'
-require 'uri'
-
 namespace :maintain do
 
   desc "Check online retailer links"
@@ -9,7 +6,7 @@ namespace :maintain do
       test_and_update(link)
     }
   end
-  
+
   desc "Check external links for product reviews"
   task :product_review_links => :environment do
     ProductReview.to_be_checked.limit(30).each { |review|
@@ -18,34 +15,38 @@ namespace :maintain do
   end
 
   def test_and_update(item)
+    puts "Testing #{item.url} ..." if Rails.env.development?
     begin
-      new_status = link_test(item.url)
+      response = link_test(item.url)
+      puts "    Response: #{response.code}" if Rails.env.development?
+      if response.success?
+        item.update_attributes(
+          url: response.effective_url,
+          link_checked_at: Time.now,
+          link_status: response.code.to_s
+        )
+      else
+        item.update_attributes(
+          link_checked_at: Time.now,
+          link_status: response.code.to_s
+        )
+      end
     rescue
-      new_status = 500 # something bad happened with our link checker, flag it and move on
+      # something bad happened with our link checker, flag it and move on
+      item.update_attributes(:link_checked_at => Time.now, :link_status => "500")
     end
-    item.update_attributes(:link_checked_at => Time.now, :link_status => new_status)  
-    sleep(15) # Don't crash others' sites.  
+    # Don't crash others' sites.
+    Rails.env.production? ? sleep(15) : sleep(2)
   end
-  
+
   def link_test(url)
-    uri = URI.parse(url)
-    # response = nil
-    # Net::HTTP.start(uri.host, uri.port) { |http|
-    #   response = http.head(uri.path.size > 0 ? uri.path : "/")
-    # }  
-
-    http = Net::HTTP.new(uri.host, uri.port)
-    request = Net::HTTP::Get.new(uri.request_uri)
-    request["User-Agent"] = "Harman link verifier. Contact adam.anderson@harman.com"
-    response = http.request(request)
-
-    # For some reason, that code above doesn't work on GC
-    if response.code.to_s == "403"
-      # http = Net::HTTP.new(uri.host, uri.port)
-      response = http.request_head(uri.path)
-    end
-
-    response.code
+    Typhoeus.get(
+      url,
+      followlocation: true,
+      headers: {
+        "User-Agent" => "Harman link verifier. Contact adam.anderson@harman.com"
+      }
+    )
   end
 
 end

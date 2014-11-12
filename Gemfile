@@ -68,7 +68,7 @@ gem 'figaro'
 gem 'delayed_paperclip'
 gem 'cheetah_mail', "~> 0.6.0"
 gem 'rmagick', :require => 'RMagick'
-gem 'skrollr-rails'
+gem 'typhoeus' # For link validator
 
 ### Could be useful in the future...
 # gem "bing_translate_yaml", "~> 0.1.7"

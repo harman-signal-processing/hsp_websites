@@ -1,7 +1,7 @@
 class Admin::OnlineRetailerLinksController < AdminController
   before_filter :initialize_online_retailer_link, only: :create
-  load_and_authorize_resource  
-  
+  load_and_authorize_resource
+
   # GET /admin/online_retailer_links
   # GET /admin/online_retailer_links.xml
   def index
@@ -60,7 +60,9 @@ class Admin::OnlineRetailerLinksController < AdminController
         format.html { redirect_to([:admin, @online_retailer_link.online_retailer], notice: 'Link was successfully updated.') }
         format.xml  { head :ok }
         format.js
-        website.add_log(user: current_user, action: "Updated buy-it-now link: #{@online_retailer_link.product.name} at #{@online_retailer_link.online_retailer.name} to #{@online_retailer_link.url}")
+        if @online_retailer_link.product
+          website.add_log(user: current_user, action: "Updated buy-it-now link: #{@online_retailer_link.product.name} at #{@online_retailer_link.online_retailer.name} to #{@online_retailer_link.url}")
+        end
       else
         format.html { render action: "edit" }
         format.xml  { render xml: @online_retailer_link.errors, status: :unprocessable_entity }
