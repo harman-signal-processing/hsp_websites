@@ -11,9 +11,6 @@
 		</ul>
 	</li>
 
-	<li class="divider"></li>
-	<li><%= link_to t('news'), news_index_path %></li> 
-
 	<% if website.has_artists? %>
 	<li class="divider"></li>
 	<li><%= link_to t('artists'), artists_path %></li>
@@ -32,4 +29,7 @@
 	<li class="divider"></li>
 	<li><%= link_to t("forum"), website.forum_link %></li>
 	<% end %>
+
+  <%= extra_top_nav_links(divider: true) %>
+
 <% end %>

@@ -3,7 +3,7 @@ module ApplicationHelper
 
   # Generates a link to the current page, with the given locale
   def switch_locale(new_locale)
-    request.path.sub(/^\/[a-zA-Z\-]{2,5}/, "/#{new_locale}")    
+    request.path.sub(/^\/[a-zA-Z\-]{2,5}/, "/#{new_locale}")
   end
 
   # Apple iOS icons for a given Website.brand
@@ -21,7 +21,7 @@ module ApplicationHelper
     ret += tag(:meta, name: "apple-mobile-web-app-title", content: options[:title] )
     ret += tag(:meta, name: "format-detection", content: "telephone=no")
 
-    # only one dimension needed, half-size (non-retina) sizes. 
+    # only one dimension needed, half-size (non-retina) sizes.
     sizes = [29, 40, 50, 57, 60, 72, 76].sort.reverse
 
     sizes.each do |size|
@@ -48,19 +48,48 @@ module ApplicationHelper
     q << "[#{image_path("#{website.folder}/logo.png")}, (medium)]"
     q << "[#{image_path("#{website.folder}/logo-sm.png")}, (only screen and (max-width: 720px))]"
 
-    image_tag('', #"#{website.folder}/logo.png", 
+    image_tag('', #"#{website.folder}/logo.png",
       class: "no-resize no-resize-for-small",
       alt: Setting.site_name(website),
       data: { interchange: q.join(", ") })
   end
 
   def cached_meta_tags
-    @page_description ||= website.value_for('default_meta_tag_description') 
-    @page_keywords ||= website.value_for("default_meta_tag_keywords") 
+    @page_description ||= website.value_for('default_meta_tag_description')
+    @page_keywords ||= website.value_for("default_meta_tag_keywords")
     begin
       display_meta_tags site: Setting.site_name(website)
     rescue
     end
+  end
+
+  def extra_top_nav_links(options={})
+    begin
+      ret = ""
+      if !!(website.extra_top_nav_links)
+        website.extra_top_nav_links.split(/\r\n|\r|\n|\|/).each do |t|
+          t.match(/^([^\[\]]*)\[+([^\[\]]*)\]+/)
+          name = $1
+          href = $2
+          if !!name && !!href
+            if options[:divider]
+              ret += content_tag(:li, "", class: "divider")
+            end
+            unless href.match(/^(http|\/)/i)
+              href = "/#{I18n.locale}/#{href}"
+            end
+            if href.match(/^http/i)
+              ret += content_tag(:li, link_to(name, href, target: "_blank"))
+            else
+              ret += content_tag(:li, link_to(name, href))
+            end
+          end
+        end
+      end
+    rescue
+      # avoid top nav errors
+    end
+    ret.html_safe
   end
 
   # Generates a slideshow using Zurb's Orbit. Accepts the same options as my
@@ -90,11 +119,11 @@ module ApplicationHelper
       frames += orbit_slideshow_frame(slide, i)
     end
     content_tag(:div, class: "slideshow-wrapper") do
-      content_tag(:div, "", class: "preloader") + 
-      content_tag(:ul, 
-        frames.html_safe, 
+      content_tag(:div, "", class: "preloader") +
+      content_tag(:ul,
+        frames.html_safe,
         data: {
-          orbit: true, 
+          orbit: true,
           options: orbit_options.join(";")
         }
       )
@@ -106,8 +135,8 @@ module ApplicationHelper
   def orbit_slideshow_frame(slide, position=0)
     slide_link = (slide.string_value =~ /^\// || slide.string_value =~ /^http/i) ? slide.string_value : "/#{params[:locale]}/#{slide.string_value}"
 
-    slide_content = (slide.string_value.blank?) ? 
-        image_tag(slide.slide.url) : 
+    slide_content = (slide.string_value.blank?) ?
+        image_tag(slide.slide.url) :
         link_to(image_tag(slide.slide.url), slide_link)
 
     # We may want to use the built-in captions
@@ -123,7 +152,7 @@ module ApplicationHelper
   #                   Otherwise, the locale from the current HTTP
   #                   request will be prepended to the URL.)
   #   .slide  (a Paperclip::Attachment)
-  # 
+  #
   # (Note: if only one slide is in the Array, then a single image
   # is rendered without the animation javascript.)
   #
@@ -141,14 +170,14 @@ module ApplicationHelper
       raw(slideshow_frame(options[:slides].first))
     end
   end
-  
+
   # Used by the "slideshow" method to render a frame
   def slideshow_frame(slide, position=0)
     hidden = (position == 0) ? "" : "display:none"
     slide_link = (slide.string_value =~ /^\// || slide.string_value =~ /^http/i) ? slide.string_value : "/#{params[:locale]}/#{slide.string_value}"
 
-    slide_content = (slide.string_value.blank?) ? 
-        image_tag(slide.slide.url) : 
+    slide_content = (slide.string_value.blank?) ?
+        image_tag(slide.slide.url) :
         link_to(image_tag(slide.slide.url), slide_link)
 
     if p = website.value_for('countdown_overlay_position')
@@ -160,7 +189,7 @@ module ApplicationHelper
     content_tag(:div, slide_content, id: "slideshow_#{(position + 1)}", class: "slideshow_frame", style: hidden)
 
   end
-  
+
   # Controls for the generated slideshow
   def slideshow_controls(options={})
     default_options = { duration: 6000, slides: [] }
@@ -168,8 +197,8 @@ module ApplicationHelper
     if options[:slides].size > 1 && options[:slides].size < 7
       divs = ""
       (1..options[:slides].size).to_a.reverse.each do |i|
-        divs += link_to_function(i, 
-                  "stop_slideshow(#{i}, #{options[:slides].size});", 
+        divs += link_to_function(i,
+                  "stop_slideshow(#{i}, #{options[:slides].size});",
                   id: "slideshow_control_#{i}",
                   class: (i==1) ? "current_button" : "")
       end
@@ -211,15 +240,15 @@ module ApplicationHelper
 
         ret += content_tag(:video, video_sources.html_safe,
           poster: (poster) ? poster.slide.url : '',
-          id: "video_background", 
-          preload: "auto", 
-          autoplay: "true", 
+          id: "video_background",
+          preload: "auto",
+          autoplay: "true",
           loop: "loop",
           muted: "true",
           volume: 0)
 
         if anim = slides.find{|f| /gif/i =~ f.slide_content_type && /^#{fname}\./ =~ f.slide_file_name }
-          ret += content_tag(:div, class: "bg-gif") do 
+          ret += content_tag(:div, class: "bg-gif") do
             image_tag( anim.slide.url )
           end
         elsif poster
@@ -228,7 +257,7 @@ module ApplicationHelper
           end
         end
 
-        static_slides = slides.reject{|f| /^#{fname}\./ =~ f.slide_file_name } 
+        static_slides = slides.reject{|f| /^#{fname}\./ =~ f.slide_file_name }
         if static_slides.length > 0
           ret += content_tag(:div, class: "row") do
             content_tag(:div, class: "large-12 #{ hide_for_small } columns") do
@@ -238,23 +267,23 @@ module ApplicationHelper
         elsif website.homepage_headline
           headline_slide = content_tag(:h1, website.homepage_headline)
           if website.homepage_headline_product_id
-            product = Product.find(website.homepage_headline_product_id)  
+            product = Product.find(website.homepage_headline_product_id)
             if product.name.match(/^\d*$/)
               headline_slide += content_tag(:p, "#{product.name} #{product.short_description_1}")
             else
               headline_slide += content_tag(:p, product.name)
             end
-            headline_slide += link_to("Learn More", product, class: "secondary button") 
+            headline_slide += link_to("Learn More", product, class: "secondary button")
             if product.in_production?
               headline_slide += buy_it_now_link(product, html_button: true)
             end
           end
           headline_class = website.homepage_headline_overlay_class || "large-5 small-12 columns"
-          ret += content_tag(:div, class: 'row headline_slide') do 
+          ret += content_tag(:div, class: 'row headline_slide') do
             content_tag(:div, headline_slide, class: headline_class )
           end
         else
-          ret += content_tag(:div, class: "container", id: "feature_spacer") do 
+          ret += content_tag(:div, class: "container", id: "feature_spacer") do
             if options[:tagline]
               content_tag(:h1, website.tagline, id: "tagline")
             end
@@ -293,14 +322,14 @@ module ApplicationHelper
           q << "[#{image_path("icons/#{options[:style]}/64x64/#{n}.png")},              (only screen and (min-width: 1024px) and (max-width: 1349px))]"
           q << "[#{image_path("icons/#{options[:style]}/48x48/#{n}.png")},             (only screen and (max-width: 768px))]"
 
-          image_tag("#{website.folder}/logo.png", 
+          image_tag("#{website.folder}/logo.png",
             class: "no-resize no-resize-for-small",
             alt: Setting.site_name(website),
             data: { interchange: q.join(", ") })
-          html += link_to(image_tag("icons/#{options[:style]}/#{options[:size]}/#{n}.png", 
-              style: "vertical-align: middle;", 
+          html += link_to(image_tag("icons/#{options[:style]}/#{options[:size]}/#{n}.png",
+              style: "vertical-align: middle;",
               size: options[:size],
-              data: { interchange: q.join(", ") }), 
+              data: { interchange: q.join(", ") }),
             rss_url(format: "xml"), target: "_blank")
         else
           html += link_to(image_tag("icons/#{n}.png", style: "vertical-align: middle;", size: options[:size]), rss_url(format: "xml"), target: "_blank")
@@ -318,9 +347,9 @@ module ApplicationHelper
       end
     end
     raw(html)
-  end  
-  
-  # Remove HTML from a string (helpful for truncated intros of 
+  end
+
+  # Remove HTML from a string (helpful for truncated intros of
   # pre-formatted HTML)
   def strip_html(string="")
     begin
@@ -336,7 +365,7 @@ module ApplicationHelper
   def ucfirst(my_string)
     raw(my_string.split(" ").each{|word| word.capitalize!}.join(" "))
   end
-  
+
   # Figure out what the link to a give Page should be
   def page_link(page)
     if page.is_a?(Page)
@@ -345,7 +374,7 @@ module ApplicationHelper
       (Rails.env.production? || Rails.env.staging?) ? "#{request.protocol}#{request.host}#{url_for(page)}" : "#{request.protocol}#{request.host_with_port}#{url_for(page)}"
     end
   end
-  
+
   # Platform icon. Make sure there are icons for all the different platforms and sizes
   # in the public/images folder
   def platform_icon(software, size=17)
@@ -365,7 +394,7 @@ module ApplicationHelper
     end
     image_tag img, style: "vertical-align: middle"
 	end
-	
+
 	# Links to software packages for a product that fit a given category
 	def software_category_links(product, category="other")
 	  links = []
@@ -390,7 +419,7 @@ module ApplicationHelper
     time = time.to_i
     [time/60 % 60, time % 60].map{|t| t.to_s.rjust(2,'0')}.join(':')
   end
-  
+
   # Generates links to related products. Pass in any object which has a #products
   # method which returns a collection of Products
   def links_to_related_products(parent)
@@ -400,11 +429,11 @@ module ApplicationHelper
         links << link_to(product.name, product)
       end
       raw(links.join(", "))
-    rescue 
+    rescue
       ""
     end
 	end
-	
+
 	# Tries to find a ContentTranslation for the provided field for current locale. Falls
 	# back to language only or default (english)
 	def translate_content(object, method)
@@ -440,7 +469,7 @@ module ApplicationHelper
       object[method]
     end
   end
-	
+
 	def image_url(source)
     abs_path = image_path(source)
     unless abs_path =~ /^http/
@@ -448,7 +477,7 @@ module ApplicationHelper
     end
     abs_path
   end
-  
+
   # Render an unordered list of the top top nav
   def supernav
     families = ProductFamily.parents_for_supernav(website, I18n.locale)
@@ -460,7 +489,7 @@ module ApplicationHelper
     ret += "</ul>"
     ret.html_safe
   end
-  
+
   # Replacement for render :partial, this version considers the
   # site's brand and checks for a custom partial.
   def render_partial(name, options={})
@@ -487,15 +516,15 @@ module ApplicationHelper
       {name: "AKG",    web: "http://www.akg.com"},
       {name: "AMX",    web: "http://www.amx.com"},
       {name: "BSS",    web: "http://www.bssaudio.com"},
-      {name: "Crown",  web: "http://www.crownaudio.com"}, 
-      {name: "dbx",    web: "http://www.dbxpro.com"}, 
-      {name: "DigiTech",   web: "http://www.digitech.com"}, 
+      {name: "Crown",  web: "http://www.crownaudio.com"},
+      {name: "dbx",    web: "http://www.dbxpro.com"},
+      {name: "DigiTech",   web: "http://www.digitech.com"},
 #      {name: "IDX",    web: "http://idx.harman.com"},
-      {name: "JBL",    web: "http://www.jblpro.com" }, 
-      {name: "Lexicon",    web: "http://www.lexiconpro.com"}, 
+      {name: "JBL",    web: "http://www.jblpro.com" },
+      {name: "Lexicon",    web: "http://www.lexiconpro.com"},
       {name: "Martin",  web: "http://www.martin.com"},
-      {name: "Soundcraft", web: "http://www.soundcraft.com"}, 
-      {name: "Studer", web: "http://www.studer.ch"}, 
+      {name: "Soundcraft", web: "http://www.soundcraft.com"},
+      {name: "Studer", web: "http://www.studer.ch"},
       {name: "HiQnet", web: "http://hiqnet.harmanpro.com"}
     ]
     pro_brands.each do |b|
@@ -505,5 +534,5 @@ module ApplicationHelper
     end
     content_tag :div, raw(links.join), id: "harmanpro_bar"
   end
-  	
+
 end

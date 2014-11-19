@@ -1,7 +1,7 @@
 <div class="container text-right bglink hide-for-small" id="above-nav-space">
 	<%#= link_to t("dealer_login"), "/toolkit", target: "_blank" %>
 </div>
-
+<%= cache ["header", website, I18n.locale] do %>
 <div class="sticky">
 	<nav class="top-bar" data-topbar role="navigation">
 		<ul class="title-area">
@@ -49,4 +49,4 @@
 	</nav>
 </div>
 
-
+<% end %>
