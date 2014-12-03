@@ -64,7 +64,7 @@ class SupportController < ApplicationController
       render_template(action: "index")
     end
   end
-  
+
   # Parts request form
   def parts
     @page_title = t('titles.part_request')
@@ -84,7 +84,7 @@ class SupportController < ApplicationController
       render_template
     end
   end
-  
+
   # RMA request form
   def rma
     @page_title = t('titles.rma_request')
@@ -104,7 +104,7 @@ class SupportController < ApplicationController
       render_template
     end
   end
-  
+
   def warranty_policy
     @page_title = "Warranty Policy"
     products = Product.all_for_website(website) - Product.non_supported(website)
@@ -117,13 +117,13 @@ class SupportController < ApplicationController
     @products = website.current_products.select{|p| p if p.rohs}
     render_template
   end
-  
+
   # Iframe page for info that comes from Salesforce
   def troubleshooting
     @src = website.value_for("troubleshooting_url")
     render_template
   end
-  
+
   # Service center lookup by zipcode
   def service_lookup
     @page_title = t('titles.service_centers')
@@ -168,21 +168,21 @@ class SupportController < ApplicationController
     @page_title = "All Repair Facilities"
     @results = ServiceCenter.where(brand_id: website.brand_id).order("UPPER(name)")
   end
-  
+
   # Power Supplies page. Really, this could be used to build a similar page for
   # any Specification
   def power_supplies
     @specification = Specification.where(name: "Power Supply").first
     render_template
   end
-  
+
   # Downloads page
   def downloads
     downloads = website.all_downloads
     @downloads = downloads.keys.sort{|a,b| a.to_s.downcase <=> b.to_s.downcase}.collect{|k| downloads[k]}
     render_template
   end
-  
+
   def zipped_downloads
     render text: "Dynamic zips are no longer available."
     # temp_file = website.zip_downloads(params[:download_type])
@@ -201,9 +201,9 @@ class SupportController < ApplicationController
     @page_title = "Speaker Tunings"
     render_template
   end
-  
+
   private
-  
+
   # Validate captcha data from params[:yoyo] (question_key) and params[:ans] (answer#)
   def validate_captcha
     Captcha.correct?(session[:yoyo], params[:ans])
@@ -225,5 +225,5 @@ class SupportController < ApplicationController
   def contact_message_params
     params.require(:contact_message).permit(:name, :email, :subject, :message, :created_at, :updated_at, :product, :operating_system, :company, :account_number, :phone, :fax, :billing_address, :billing_city, :billing_state, :billing_zip, :shipping_address, :shipping_city, :shipping_state, :shipping_zip, :product_sku, :product_serial_number, :warranty, :purchased_on, :part_number, :board_location, :shipping_country)
   end
-  
+
 end

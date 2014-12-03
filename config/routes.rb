@@ -7,6 +7,9 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
   get "signup/complete" => "signups#complete", as: :signup_complete
   get "epedal_labels/index"
 
+  get "warranty" => "support#warranty_policy"
+  get "register" => "support#warranty_registration"
+
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
       resources :brands, only: [:index, :show] do
