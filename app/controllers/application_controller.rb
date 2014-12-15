@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   # before_filter :set_locale
   # before_filter :set_default_meta_tags
   before_filter :respond_to_htm
-  before_filter :configure_permitted_parameters, if: :devise_controller? 
+  before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :ensure_locale_for_site, except: [:locale_root, :default_locale, :locale_selector]
   before_filter :catch_criminals
   helper :all # include all helpers, all the time
@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
   #
   def set_layout
     template = 'application'
-    if (website && website.folder) 
+    if (website && website.folder)
       controller_brand_specific = "#{website.folder}/layouts/#{controller_path}"
       brand_specific = "#{website.folder}/layouts/application"
       homepage = "#{website.folder}/layouts/home"
@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
     end
     template
   end
-  
+
   def render_template(options={})
     default_options = {controller: controller_path, action: action_name, layout: set_layout}
     options = default_options.merge options
@@ -64,11 +64,11 @@ class ApplicationController < ActionController::Base
     logger.debug "----------------------------> Selected Template: #{template}"
     render template: template, layout: options[:layout]
   end
-  
+
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to admin_root_path, alert: exception.message
   end
-  
+
   def set_default_meta_tags
     begin
       @page_description = website.value_for('default_meta_tag_description')
@@ -78,7 +78,7 @@ class ApplicationController < ActionController::Base
       @page_keywords = ""
     end
   end
-  
+
   def default_url_options(options={})
     if !!(request.host.to_s.match(/toolkit|queue/i))
       {}
@@ -87,7 +87,7 @@ class ApplicationController < ActionController::Base
       {locale: I18n.locale}
     end
   end
-  
+
   # Utility function used to re-order an ActiveRecord list
   # Pass in a model name and a list of ordered objects
   def update_list_order(model, order)
@@ -110,11 +110,11 @@ private
             new_locale = website.default_locale || I18n.default_locale.to_s
             redirect_to locale_root_path(new_locale), status: :moved_permanently and return false
           end
-        end  
+        end
       else # this is not one of our configured sites
         site_not_found and return false
-      end 
-    end   
+      end
+    end
   end
 
   # Old sites often come through with *.htm extensions instead of *.html. Fix it.
@@ -139,11 +139,11 @@ private
   def render_not_found(exception)
     error_page(404)
   end
-  
+
   def render_error(exception)
     error_page(500)
   end
-  
+
   def error_page(status=404)
     root_folder = (website && website.folder) ? "#{website.folder}/" : ''
     generic = "errors/#{status}"
@@ -151,8 +151,8 @@ private
     template = (File.exists?(Rails.root.join("app", "views", "#{brand_specific}.html.erb"))) ? brand_specific : generic
     render template: template, layout: false, status: status and return
   end
-  
-  def site_not_found 
+
+  def site_not_found
     error_page(404)
   end
 
@@ -162,7 +162,6 @@ private
   helper_method :website
 
   # TODO: the big if statement below setting the locale needs to be refactored and will eventually include plenty of other countries
-  #  
   def set_locale
     # This isn't really setting the locale, we're just trying
     # to be smart and pick the user's country for "Buy It Now"
@@ -256,12 +255,12 @@ private
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) { |u| 
-      u.permit(:name, 
-        :email, 
-        :password, 
-        :password_confirmation, 
-        :invitation_code, 
+    devise_parameter_sanitizer.for(:sign_up) { |u|
+      u.permit(:name,
+        :email,
+        :password,
+        :password_confirmation,
+        :invitation_code,
         :signup_type,
         :dealer,
         :distributor,
@@ -271,37 +270,37 @@ private
         :artist,
         :clinician,
         :rso,
-        :website, 
-        :artist_photo, 
-        :artist_product_photo, 
-        :bio, 
-        :main_instrument, 
-        :twitter, 
-        :artist_products, 
-        :job_title,    
+        :website,
+        :artist_photo,
+        :artist_product_photo,
+        :bio,
+        :main_instrument,
+        :twitter,
+        :artist_products,
+        :job_title,
         :job_description,
         :phone_number,
         :account_number,
-        :profile_pic) 
+        :profile_pic)
     }
-    devise_parameter_sanitizer.for(:account_update) { |u| 
-      u.permit(:name, 
-        :email, 
-        :password, 
-        :password_confirmation, 
+    devise_parameter_sanitizer.for(:account_update) { |u|
+      u.permit(:name,
+        :email,
+        :password,
+        :password_confirmation,
         :current_password,
-        :website, 
-        :artist_photo, 
-        :artist_product_photo, 
-        :bio, 
-        :main_instrument, 
-        :twitter, 
-        :artist_products, 
-        :job_title,    
+        :website,
+        :artist_photo,
+        :artist_product_photo,
+        :bio,
+        :main_instrument,
+        :twitter,
+        :artist_products,
+        :job_title,
         :job_description,
         :phone_number,
         :account_number,
-        :profile_pic) 
+        :profile_pic)
     }
   end
 

@@ -156,13 +156,13 @@
 			</div>
 			<div id="footer_left">
 				<%= image_tag "harman_tiny.png" %>
-				&copy; <%= Date.today.year %> 
-				<%= link_to(t('harman'), "http://www.harman.com/", target: "_blank") %>. 
+				&copy; <%= Date.today.year %>
+				<%= link_to(t('harman'), "http://www.harman.com/", target: "_blank") %>
 				<%= t('all_rights_reserved') %>
 			</div>
 		</footer>
 		<% end %>
-		
+
 		<% if content_for?(:dealer_popup) %>
 			<div id="blanket" style="display:none;"></div>
 			<div id="dealer_popup_close" style="display:none;">
@@ -176,6 +176,9 @@
 		<div id="preload"><%= yield :preload %></div>
 		<% if content_for?(:popup_code) %>
 			<%= yield :popup_code %>
-		<% end %>
-	</body>
+	 	<% end %>
+
+    <%= render_partial "shared/pardot" %>
+
+  </body>
 </html>

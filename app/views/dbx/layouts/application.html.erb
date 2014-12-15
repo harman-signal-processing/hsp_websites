@@ -105,7 +105,7 @@
 					<%= image_tag "harman.jpg" %>
 					<span class="footer_text">
 						&copy; <%= Date.today.year %> 
-						<%= link_to(t('harman'), "http://www.harman.com/", target: "_blank") %>. 
+						<%= link_to(t('harman'), "http://www.harman.com/", target: "_blank") %>
 						<%= t('all_rights_reserved') %>
 					</span>
 				</div>
@@ -134,7 +134,7 @@
 			</div>
 		</footer>
 		<% end %>
-		
+
 		<% if content_for?(:dealer_popup) %>
 			<div id="blanket" style="display:none;"></div>
 			<div id="dealer_popup_close" style="display:none;">
@@ -150,7 +150,6 @@
 			<%= yield :popup_code %>
 		<% end %>
 
-
-
-	</body>
+    <%= render_partial "shared/pardot" %>
+  </body>
 </html>

@@ -101,9 +101,9 @@
 			<div style="height: 30px;">&nbsp;</div>
 		<% end %>
 		</div>
-		
+
 		<%= render_partial "shared/footer" %>
-		
+
 		<% if content_for?(:dealer_popup) %>
 			<div id="blanket" style="display:none;"></div>
 			<div id="dealer_popup_close" style="display:none;">
@@ -139,5 +139,8 @@
 		</noscript>
 		<%# End SKlimt change from 8/28/2012 %>
 		<% end %>
+
+    <%= render_partial "shared/pardot" %>
+
 	</body>
 </html>

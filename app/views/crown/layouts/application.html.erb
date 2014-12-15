@@ -131,7 +131,7 @@
 			</div>
 		</footer>
 		<% end %>
-		
+
 		<% if content_for?(:dealer_popup) %>
 			<div id="blanket" style="display:none;"></div>
 			<div id="dealer_popup_close" style="display:none;">
@@ -147,7 +147,7 @@
 			<%= yield :popup_code %>
 		<% end %>
 
-
+    <%= render_partial "shared/pardot" %>
 
 	</body>
 </html>

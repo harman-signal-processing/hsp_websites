@@ -136,7 +136,7 @@
 		<% else %>
 			<div style="height: 30px;">&nbsp;</div>
 		<% end %>
-		
+
 		<%= cache ["footer", website.brand, I18n.locale] do %>
 		<footer>
 			<%= hpro_footer %>
@@ -162,13 +162,13 @@
 			</div>
 			<div id="footer_left">
 				<%= image_tag "harman.jpg" %>
-				&copy; <%= Date.today.year %> 
-				<%= link_to(t('harman'), "http://www.harman.com/", target: "_blank") %>. 
+				&copy; <%= Date.today.year %>
+				<%= link_to(t('harman'), "http://www.harman.com/", target: "_blank") %>
 				<%= t('all_rights_reserved') %>
 			</div>
 		</footer>
 		<% end %>
-		
+
 		<% if content_for?(:dealer_popup) %>
 			<div id="blanket" style="display:none;"></div>
 			<div id="dealer_popup_close" style="display:none;">
@@ -183,5 +183,8 @@
 		<% if content_for?(:popup_code) %>
 			<%= yield :popup_code %>
 		<% end %>
+
+    <%= render_partial "shared/pardot" %>
+
 	</body>
 </html>
