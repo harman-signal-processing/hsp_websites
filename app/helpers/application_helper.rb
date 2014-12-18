@@ -176,9 +176,10 @@ module ApplicationHelper
     hidden = (position == 0) ? "" : "display:none"
     slide_link = (slide.string_value =~ /^\// || slide.string_value =~ /^http/i) ? slide.string_value : "/#{params[:locale]}/#{slide.string_value}"
 
+    target = (slide.text_value.to_s.match(/new.window|blank|new.tab/i)) ? "_blank" : ""
     slide_content = (slide.string_value.blank?) ?
         image_tag(slide.slide.url) :
-        link_to(image_tag(slide.slide.url), slide_link)
+        link_to(image_tag(slide.slide.url), slide_link, target: target)
 
     if p = website.value_for('countdown_overlay_position')
       if p == position && cd = website.value_for('countdown_container')
