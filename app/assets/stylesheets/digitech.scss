@@ -1121,7 +1121,7 @@ form.product_support_search {
 	}
 }
 form.contact {
-	div {
+	div.form-inputs {
   		margin-bottom: 8px;
 	}
 	input, select {
@@ -1132,7 +1132,7 @@ form.contact {
 		width: 100%;
 		font-family: Arial, Verdana, Sans-serif;
 	}
-} 
+}
 div.captcha {
 	margin-top: 10px;
 	margin-bottom: 10px;

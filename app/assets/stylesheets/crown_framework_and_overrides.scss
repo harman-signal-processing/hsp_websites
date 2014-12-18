@@ -1210,6 +1210,23 @@ div.captcha {
 	margin-top: 10px;
 	margin-bottom: 10px;
 	padding: 10px;
+  max-height: 140px;
+  overflow: hidden;
+  line-height: 1 !important;
+  tr {
+    line-height: 1 !important;
+  }
+  td {
+    line-height: 1 !important;
+  }
+  input {
+    height: 16px;
+    font-size: 16px;
+    margin-bottom: 2px;
+  }
+  div.recaptcha_input_area {
+    max-height: 20px;
+  }
 }
 
 /******** Form Errors ********/
