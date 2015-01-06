@@ -5,10 +5,10 @@ gem 'rails', '4.1.7'
 # Gems used only for assets and not required
 # in production environments by default.
 #gem 'turbo-sprockets-rails3' # don't precompile assets which haven't changed
-gem 'sass-rails'#, '~> 4.0.3'
+gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
-gem "foundation-rails", '~> 5.4'
+gem "foundation-rails", '5.4.5'
 gem 'jquery-rails'
 gem 'capistrano', '2.13.5' # 2.14.1 causes tinymce assets to be deleted
 gem 'capistrano-ext'

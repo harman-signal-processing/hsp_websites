@@ -41,7 +41,7 @@
 	</head>
 	<body data-brand="<%= website.brand.name %>">
 		<%= yield :extra_notice %>
-		<%#= render_partial "shared/admin_dashboard_link" %>		
+		<%#= render_partial "shared/admin_dashboard_link" %>
 		<%= render_partial 'layouts/nav' %>
 
 		<% if content_for?(:feature) %>
@@ -53,9 +53,9 @@
 		      <div class="large-12 columns">
 
 		        <% flash.each do |name, msg| %>
-		          <% 
+		          <%
 		            css_class = 'alert-box'
-		            if name.match(/notice/i) 
+		            if name.match(/notice/i)
 		              css_class += ' success'
 		            elsif name.match(/alert|warn/)
 		              css_class += ' alert'
@@ -77,7 +77,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<% if content_for?(:big_bottom_box) %>
 			<div class="container content-container" id="pre-footer">
 				<%= yield :big_bottom_box %>
@@ -92,7 +92,7 @@
 				<% end %>
 			</div>
 		<% end %>
-		
+
 		<%= cache ["footer", website.brand, I18n.locale] do %>
 		<footer>
 			<%= hpro_footer(include_hpro: true) %>
@@ -101,31 +101,19 @@
 				<div class="large-6 columns" id="footer_left">
 					<%= image_tag "harman.jpg" %>
 					<span class="footer_text">
-						&copy; <%= Date.today.year %> 
-						<%= link_to(t('harman'), "http://www.harman.com/", target: "_blank") %>. 
+						&copy; <%= Date.today.year %>
+						<%= link_to(t('harman'), "http://www.harman.com/", target: "_blank") %>.
 						<%= t('all_rights_reserved') %>
 					</span>
 				</div>
 				<div class="large-6 columns hide-for-small" id="footer_info">
 					<span class="footer_text">
-						<% if website.has_software? %>
-						<%= link_to t('software_downloads').downcase, software_index_path %> &bull;
-						<% end %>
-						<%= link_to t('products'), product_families_path %> &bull;
-						<% if website.has_reviews? %>
-						<%#= link_to t('product_reviews').downcase, product_reviews_path %>
-						<% end %>
-						<%= link_to t('news'), news_index_path %> &bull;
-						<% if website.has_artists? %>
-						<%= link_to t('artists'), artists_path %> &bull;
-						<% end %>
-						<% if website.has_dealers? || website.has_online_retailers? || website.has_distributors? %>
-						<%= link_to t('where_to_buy'), where_to_buy_path %> &bull;
-						<% end %>
-						<%= link_to t('product_support'), support_path %> &bull;
 						<%= link_to t('privacy_policy'), privacy_policy_path %> &bull;
 						<%= link_to t('terms_of_use'), terms_of_use_path %> &bull;
-						<%= link_to t('sitemap'), sitemap_path(format: 'xml') %>
+						<%= link_to t('sitemap'), sitemap_path(format: 'xml') %> &bull;
+            <%= link_to 'careers', "http://jobs.harman.com", target: "_blank" %> &bull;
+						<%= link_to 'contact us', support_path %> &bull;
+            <%= link_to 'sales support' %>
 					</span>
 				</div>
 			</div>
