@@ -1,12 +1,20 @@
 <%= cache ["nav_items", website, I18n.locale] do %>
+  <li class="has-dropdown"><%= link_to "our story", "our_story" %>
+    <ul class="dropdown">
+      <li><%= link_to "About HARMAN", "/our_story#about_harman" %></li>
+      <li><%= link_to "About Crown", "/our_story#about_crown" %></li>
+      <li><%= link_to "Quality", "/our_story#quality" %></li>
+      <li><%= link_to "Technology", "/our_story#technology" %></li>
+      <li><%= link_to "Crown Around The World", "/crown_around_the_world" %></li>
+    </ul>
+  </li>
+
+  <li class="divider"></li>
 	<li class="has-dropdown"><%= link_to t('products'), product_families_path %>
 		<ul class="dropdown">
 			<% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
 				<%= product_family_nav_links(product_family) %>
 			<% end %>
-			<li><%= link_to "Discontinued Products", discontinued_products_path %></li>
-			<li><%= link_to ucfirst(t('software_downloads')), software_index_path %></li>
-			<li><%= link_to ucfirst(t('warranty_registration')), warranty_registration_path %></li>
 			<!-- <li><%#= link_to "Promotions", promotions_path %></li> -->
 		</ul>
 	</li>
@@ -22,13 +30,22 @@
 	<% end %>
 
 	<li class="divider"></li>
-	<li><%= link_to t('product_support'), support_path %></li>
+	<li><%= link_to "media hub", "/mediahub" %></li>
 
-
-	<% if !!(website.forum_link) %>
 	<li class="divider"></li>
-	<li><%= link_to t("forum"), website.forum_link %></li>
-	<% end %>
+  <li class="has-dropdown"><%= link_to t('product_support'), support_path %>
+    <ul class="dropdown">
+      <li><%= link_to "Amp/Speaker Selector (coming soon)" %></li>
+      <li><%= link_to "Authorized Service Information" %></li>
+      <li><%= link_to "Contact Us", support_path %></li>
+      <li><%= link_to "FAQs", "/faqs" %></li>
+      <% if !!(website.forum_link) %>
+      <li><%= link_to t("forum"), website.forum_link %></li>
+      <% end %>
+      <li><%= link_to "System Design Tool" %></li>
+      <li><%= link_to "Technical Support", support_path %></li>
+    </ul>
+  </li>
 
   <%= extra_top_nav_links(divider: true) %>
 
