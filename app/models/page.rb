@@ -1,27 +1,27 @@
 class Page < ActiveRecord::Base
   extend FriendlyId
   friendly_id :sanitized_title
-  
+
   validates :title, presence: true, uniqueness: { scope: :brand_id }
   validates :brand_id, presence: true
-  validates :custom_route, uniqueness: true 
+  validates :custom_route, uniqueness: true
 
   belongs_to :brand
   after_save :translate
-  
+
   def sanitized_title
     self.title.gsub(/[\'\"]/, "")
   end
-  
+
   def self.all_for_website(website)
-    where(brand_id: website.brand_id).all    
+    where(brand_id: website.brand_id).all
   end
 
   # Alias for search results link_name
   def link_name
     self.title
   end
-  
+
   # Alias for search results content_preview
   def content_preview
     self.body
@@ -31,7 +31,7 @@ class Page < ActiveRecord::Base
   def requires_login?
     !!!(self.username.blank? && self.password.blank?)
   end
-  
+
   # Figure out if a field is protected to avoid config errors
   def disable_field?(attribute)
     value = eval("self.#{attribute.to_s}")
@@ -41,13 +41,13 @@ class Page < ActiveRecord::Base
     end
   end
 
-  # Translates this record into other languages. 
+  # Translates this record into other languages.
   def translate
-    unless self.body.size > 65000 # large pages cause delayed job problems 
+    unless self.body.size > 65000 # large pages cause delayed job problems
       ContentTranslation.auto_translate(self, self.brand)
     end
   end
   # Uncomment below to enable auto-translation of Pages. However, we've seen problems with these (mostly Archimedia pages)
   # handle_asynchronously :translate
-  
+
 end
