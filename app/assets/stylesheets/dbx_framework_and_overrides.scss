@@ -974,7 +974,7 @@ div.product-title-block, div.small-title-block {
     color: $dark-gray;
     margin-top: 19px;
     margin-bottom: 0;
-    line-height: 32px;
+    line-height: 1;
     @media only screen and (max-width: 720px) {
       margin-top: 4px;
       font-size: 48px;
