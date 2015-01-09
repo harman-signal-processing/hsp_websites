@@ -1,4 +1,4 @@
-<%= cache ["nav_items", website, I18n.locale] do %>
+<%= cache ["nav_items", website, I18n.locale, Date.today] do %>
   <li class="has-dropdown"><%= link_to "our story", "ourstory" %>
     <ul class="dropdown">
       <li><%= link_to "About HARMAN", "/ourstory#about_harman" %></li>
