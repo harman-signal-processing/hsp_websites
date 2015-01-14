@@ -187,6 +187,10 @@ class Ability
         can :manage, OnlineRetailerLink
         can :manage, Dealer
       end
+      if user.role?(:employee)
+        can :read, ToolkitResource
+        can :read, ToolkitResourceType
+      end
     end
   end
 end
