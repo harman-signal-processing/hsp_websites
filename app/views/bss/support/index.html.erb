@@ -28,12 +28,12 @@
 		</ul>
 	</div>
 	<% end %>
-	
+
 	<div class="support_box product_support_box">
 		<h4><%= t('titles.product_support') %></h4>
 		<p><%= t('blurbs.product_support') %></p>
 		<%= form_tag support_path, method: :get do |f| %>
-			<%= select_tag :product_id, 
+			<%= select_tag :product_id,
 					options_from_collection_for_select(website.current_and_discontinued_products([:product_families]) - website.vintage_products, :to_param, :name) + vintage_options(), 
 					include_blank: true %>
 			<%= submit_tag t('go'), style: 'padding: 4px 10px 6px'%>
@@ -48,7 +48,7 @@
 			<% end %>
 		</ul>
 	</div>
-	
+
 	<div class="support_box registration_box">
 		<h4><%= link_to t('warranty_registration'), warranty_registration_path %></h4>
 		<p><%= t('blurbs.warranty_registration', brand: website.brand_name) %></p>
@@ -59,7 +59,7 @@
 			<% end %>
 		</ul>
 	</div>
-	
+
 	<% if website.has_service_centers? %>
 	<div class="support_box service_centers_box">
 		<h4><%= t('titles.locate_us_service_center') %>:</h4>
@@ -112,7 +112,7 @@
 <% end %>
 
 <%#= content_for :big_bottom_box do %>
-<hr/>
+<br/>
 	<div class="support_box_container">
 	<h2><%= t('titles.contact_us') %></h2>
 	<%= form_for :contact_message, url: support_path(action: "contact"), html: {class: "contact", id: "contact_form"} do |f| %>
@@ -152,4 +152,5 @@
 		<p><%= submit_tag t('submit') %></p>
 	<% end %>
 	</div>
+  <div class="clear"></div>
 <%# end %>

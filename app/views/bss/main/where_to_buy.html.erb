@@ -29,7 +29,7 @@
 	<% if website.has_online_retailers? %>
 	<div class="wide_centered_box" style="width: 830px">
 	<h2><%= t('titles.buy_online') %></h2>
-	
+
 	<div id="online_retailers">
 		<% OnlineRetailer.random(website).each do |online_retailer| %>
 		<div class="retailer_logo">
@@ -79,15 +79,17 @@
 <div id="dealer_results" style="width: 400px">
 	<h4><%= t('titles.international_distributors') %></h4>
 	<p><%= t("blurbs.international_distributors") %></p>
-	
+
 	<%= form_tag search_distributors_path, method: :get %>
-		
+
 		<p><%= label_tag t('select_your_country') %><br/>
 			<%= select_tag :country, options_from_collection_for_select(@countries, :country, :country, @country) %>
 			<%= submit_tag t('submit'), style: 'padding: 4px 10px 6px' %>
 		</p>
-			
+
 	</form>
+  <br/>
+  <%= render_partial "shared/hef" %>
 </div>
 <div style="width: 350px;	padding: 14px;">
 	<h4><%= website.brand.name %> US Sales Reps</h4>

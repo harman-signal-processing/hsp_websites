@@ -61,9 +61,6 @@
 <% else # No results loaded %>
 
 	<div class="row">
-		<div class="large-7 columns hide-for-small">
-			<div><%= image_tag("#{website.folder}/us_map.png") %></div>
-		</div>
 		<div class="large-5 columns">
 			<h3><%= t('us_dealers') %></h3>
 
@@ -80,13 +77,13 @@
 					<i style="font-size: 80%">Or, <%= link_to "find a sales rep", us_reps_path %> to become a dealer.</i>
 				<% end %>
 			</form>
-		
+      <br/>
 
 			<h3><%= t('titles.international_distributors') %></h3>
 			<p><%= t("blurbs.international_distributors") %></p>
-		
+
 			<%= form_tag search_distributors_path, method: :get %>
-				
+
 				<div class="row collapse">
 					<div class="large-8 small-7 columns">
 						<%= select_tag :country, options_from_collection_for_select(@countries, :country, :country, @country), prompt: t('select_your_country').capitalize %>
@@ -95,27 +92,34 @@
 						<%= submit_tag t('submit'), class: "postfix button" %>
 					</div>
 				</div>
-					
+
 			</form>
+		</div>
+    <div class="large-3 columns">&nbsp;</div>
+    <div class="large-4 end columns">
+      <%= render_partial "shared/hef" %>
 		</div>
 	</div>
 
 <% end %>
+<br/>
+<div class="row">
+  <div class="large-12 columns">
+    <h3><%= t('titles.buy_online') %></h3>
 
-	<hr/>
-	<h2 class="subheader"><%= t('titles.buy_online') %></h2>
-
-	<ul class="large-block-grid-6 small-block-grid-3">
-	<% OnlineRetailer.random(website).each do |online_retailer| %>
-		<li>
-			<% if !online_retailer.retailer_logo_file_name.blank? %>
-				<%= link_to(image_tag(online_retailer.retailer_logo(:fixed)), online_retailer.direct_link, target: "_blank")%>
-			<% else %>
-				<%= link_to online_retailer.name, online_retailer.direct_link, target: "_blank" %>
-			<% end %>
-		</li>
-	<% end %>
-	</ul>
+    <ul class="large-block-grid-6 small-block-grid-3">
+    <% OnlineRetailer.random(website)[0,24].each do |online_retailer| %>
+      <li>
+        <% if !online_retailer.retailer_logo_file_name.blank? %>
+          <%= link_to(image_tag(online_retailer.retailer_logo(:fixed)), online_retailer.direct_link, target: "_blank")%>
+        <% else %>
+          <%= link_to online_retailer.name, online_retailer.direct_link, target: "_blank" %>
+        <% end %>
+      </li>
+    <% end %>
+    </ul>
+  </div>
+</div>
 
 <%= content_for :extra_js do %>
 	$(document).ready(function() {
