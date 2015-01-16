@@ -1,7 +1,7 @@
 class MarketSegment < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name
-  
+
   belongs_to :brand, touch: true
   has_many :market_segment_product_families, -> { order('position') }, dependent: :destroy
   has_many :product_families, through: :market_segment_product_families

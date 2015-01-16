@@ -1,7 +1,7 @@
 class Brand < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name
-  
+
   has_many :product_families
   has_many :market_segments
   has_many :marketing_tasks

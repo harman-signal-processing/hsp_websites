@@ -12,9 +12,28 @@
   <li class="divider"></li>
 	<li class="has-dropdown"><%= link_to t('products'), product_families_path %>
 		<ul class="dropdown">
-			<% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
-				<%= product_family_nav_links(product_family) %>
-			<% end %>
+      <li class="has-dropdown"><%= link_to "Amplifiers", product_families_path %>
+        <ul class="dropdown">
+          <%
+            amp_families = ProductFamily.parents_with_current_products(website, I18n.locale)
+            accessories = amp_families.last
+            amp_families.pop
+          %>
+          <% amp_families.each do |product_family| %>
+            <%= product_family_nav_links(product_family, depth: 1) %>
+          <% end %>
+        </ul>
+      </li>
+      <% website.brand.market_segments.each do |market_segment| %>
+      <li class="has-dropdown"><%= link_to market_segment.name, market_segment %>
+        <ul class="dropdown">
+          <% market_segment.product_families.each do |product_family| %>
+            <%= product_family_nav_links(product_family, depth: 1) %>
+          <% end %>
+        </ul>
+      </li>
+      <% end %>
+      <%= product_family_nav_links(accessories) %>
 			<!-- <li><%#= link_to "Promotions", promotions_path %></li> -->
 		</ul>
 	</li>

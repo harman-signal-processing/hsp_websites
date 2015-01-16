@@ -7,7 +7,7 @@
 	<tr>
 		<th>&nbsp;</th>
 	<% @products.each do |product| %>
-		<th width="<%= (780 / @products.count).to_i %>">
+		<th style="text-align: center" width="<%= (780 / @products.count).to_i %>">
 			<h3><%= link_to translate_content(product, :name), product %></h3>
 			<% if product.photo %>
 				<% if product.layout_class == "horizontal" %>
