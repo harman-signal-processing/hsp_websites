@@ -10,8 +10,38 @@
 
 <%= content_for :feature do %>
 	<%= cache ["slideshow", website.brand, I18n.locale] do %>
-		<% slides = Setting.slides(website) %>
-		<%= video_background_with_features(slides, tagline: true) %>
+    <% # Quick and easy way to test how videos look without uploading them. %>
+    <% if Rails.env.development? %>
+      <% tmp_file = ENV['dbx_test_vid'] %>
+      <div id="video-container" class="hide-for-small">
+        <video autoplay="autoplay" id="video_background" loop="loop" muted="muted"
+        poster="<%= image_path "dev/#{ tmp_file }.jpg" %>" preload="auto" volume="0">
+          <source src='<%= image_path "dev/#{ tmp_file }.webm" %>' type='video/webm'/>
+          <source src='<%= image_path "dev/#{ tmp_file }.mp4" %>' type='video/mp4'/>
+        </video>
+        <div id="video_pattern"></div>
+        <div class="row headline_slide">
+          <div class="large-5 small-12 columns">
+            <% if website.homepage_headline %>
+              <h1><%= website.homepage_headline %></h1>
+            <% end %>
+            <% if website.homepage_headline_product_id %>
+              <% product = Product.find(website.homepage_headline_product_id) %>
+              <p><%= product.name %></p>
+              <%= link_to("Learn More", product, class: "secondary button") %>
+              <%= buy_it_now_link(product, html_button: true) %>
+            <% end %>
+          </div>
+          <div class="bg-gif">
+            <%= image_tag "dbx/#{ tmp_file }.jpg" %>
+          </div>
+        </div>
+      </div>
+      <div class="bouncing-arrow"></div>
+    <% else %>
+      <% slides = Setting.slides(website) %>
+      <%= video_background_with_features(slides, tagline: true, hide_for_small: true, pattern_overlay: true) %>
+    <% end %>
 	<% end %>
 <% end %>
 

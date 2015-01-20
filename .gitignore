@@ -5,6 +5,7 @@ system/
 public/system
 db/sphinx/
 tags
+app/assets/images/dev/
 
 config/database.yml
 config/s3.yml

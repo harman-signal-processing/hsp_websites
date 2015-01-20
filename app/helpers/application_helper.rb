@@ -215,7 +215,7 @@ module ApplicationHelper
   # video if slides are provided in the admin.
   #
   def video_background_with_features(slides, options={})
-    default_options = { hide_for_small: true, hide_arrow: false }
+    default_options = { hide_for_small: true, hide_arrow: false, pattern_overlay: true }
     options = default_options.merge options
 
     hide_for_small = (options[:hide_for_small]) ? "hide-for-small" : ""
@@ -247,6 +247,10 @@ module ApplicationHelper
           loop: "loop",
           muted: "true",
           volume: 0)
+
+        if options[:pattern_overlay]
+          ret += content_tag(:div, "", id: "video_pattern")
+        end
 
         if anim = slides.find{|f| /gif/i =~ f.slide_content_type && /^#{fname}\./ =~ f.slide_file_name }
           ret += content_tag(:div, class: "bg-gif") do
@@ -291,6 +295,7 @@ module ApplicationHelper
           end
         end
 
+        ret = content_tag(:div, ret.html_safe, id: "video-container", class: hide_for_small)
         ret += content_tag(:div, "", class: "bouncing-arrow") unless options[:hide_arrow]
 
       else
