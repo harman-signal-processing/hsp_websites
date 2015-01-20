@@ -90,6 +90,7 @@ end
 group :development, :test do
   # gem 'bullet'
   # gem 'unicorn'
+  gem 'guard'
   gem 'minitest-rails'
   gem "factory_girl_rails", "~> 4.0"
   gem 'zeus'
