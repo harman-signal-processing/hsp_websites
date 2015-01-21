@@ -55,5 +55,5 @@ jQuery ($) ->
         $("#video_background").css(bottom: "150px")
         $("#video_pattern").css(bottom: "150px")
       else
-        $("#video_background").css('bottom', "#{scroll * 0.4}px")
-        $("#video_pattern").css('top', "-#{scroll * 0.4}px")
+        $("#video_background").css('bottom', "#{scroll * 0.3}px")
+        $("#video_pattern").css('top', "-#{scroll * 0.3}px")

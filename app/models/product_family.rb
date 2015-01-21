@@ -1,13 +1,13 @@
 class ProductFamily < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name
-  
+
   belongs_to :brand, touch: true
   has_many :product_family_products, -> { order('position').includes(:product) }, dependent: :destroy
   has_many :products, -> { order("product_family_products.position").includes([:product_status, :product_families]) }, through: :product_family_products
   has_many :locale_product_families
   has_many :market_segment_product_families, dependent: :destroy
-  
+
   has_attached_file :family_photo, { styles: { medium: "300x300>", thumb: "100x100>" }}.merge(S3_STORAGE)
   has_attached_file :family_banner, { styles: { medium: "300x300>", thumb: "100x100>" }}.merge(S3_STORAGE)
   has_attached_file :title_banner, { styles: { medium: "300x300>", thumb: "100x100>" }}.merge(S3_STORAGE)
@@ -25,14 +25,14 @@ class ProductFamily < ActiveRecord::Base
   acts_as_tree order: :position, scope: :brand_id
   # acts_as_list scope: :brand_id, -> { order('position') }
   after_save :translate
-  
+
   # All top-level ProductFamilies--not locale aware
   #  w = a Brand or a Website
   def self.all_parents(w)
     brand_id = (w.is_a?(Brand)) ? w.id : w.brand_id
     where(brand_id: brand_id).where(parent_id: nil).order(:position)
   end
-  
+
   # Collection of all families with at least one active product
   def self.all_with_current_products(website, locale)
     pf = []
@@ -50,27 +50,27 @@ class ProductFamily < ActiveRecord::Base
       pf << f if (f.current_products_plus_child_products(website).length > 0 || f.current_and_discontinued_products.length > 0) && f.locales(website).include?(locale.to_s)
     end
     pf
-  end 
+  end
 
   # Parent categories with at least one active product
   def self.parents_with_current_products(website, locale)
     pf = []
     top_level_for(website).each do |f|
-        if f.current_products.size > 0
+      if f.current_products.size > 0
+        pf << f if f.locales(website).include?(locale.to_s)
+      else
+        current_children = 0
+        f.children.includes(:products).each do |ch|
+          current_children += ch.current_products.size
+        end
+        if current_children > 0
           pf << f if f.locales(website).include?(locale.to_s)
-        else
-          current_children = 0
-          f.children.includes(:products).each do |ch|
-            current_children += ch.current_products.size
-          end
-          if current_children > 0
-            pf << f if f.locales(website).include?(locale.to_s)
-          end
-	      end
+        end
+      end
     end
     pf
   end
-  
+
   # Parent categories for super nav (originally designed for Lexicon site)
   def self.parents_for_supernav(website, locale)
     pf = []
@@ -85,7 +85,7 @@ class ProductFamily < ActiveRecord::Base
     where(brand_id: brand_id).where("parent_id IS NULL or parent_id = 0").order('position').includes(:products)
   end
 
-  # We flatten the families for the employee store. 
+  # We flatten the families for the employee store.
   def employee_store_products
     products = []
     products += current_products_with_employee_pricing
@@ -140,7 +140,7 @@ class ProductFamily < ActiveRecord::Base
     limit = self.locale_product_families.all
     (limit.size > 0) ? limit.collect{|lpf| lpf.locale} : website.list_of_all_locales
   end
-  
+
   # Sibling categories with at least one active product
   def siblings_with_current_products
     s = []
@@ -150,7 +150,7 @@ class ProductFamily < ActiveRecord::Base
     end
     s
   end
-  
+
   # Determine only 'current' products for the ProductFamily
   def current_products
     cp = []
@@ -167,23 +167,23 @@ class ProductFamily < ActiveRecord::Base
 
   # w = a Brand or a Website
   def current_products_plus_child_products(w)
-    cp = self.current_products 
+    cp = self.current_products
     children_with_current_products(w).each do |pf|
       cp += pf.current_products_plus_child_products(w)
     end
     cp.uniq.sort_by(&:name)
   end
-  
+
   # Alias for search results link_name
   def link_name
     self.name
   end
-  
+
   # Alias for search results content_preview
   def content_preview
     "#{self.intro} " + self.current_products.collect{|p| p.name}.join(", ")
   end
-  
+
   # Load this ProductFamily's children families with at least one active product
   # w = a Brand or a Website
   def children_with_current_products(w)
@@ -200,7 +200,7 @@ class ProductFamily < ActiveRecord::Base
   def has_custom_background?
     !self.background_image_file_name.blank? || !self.background_color.blank?
   end
-  
+
   # Format a CSS background setting value based on this product family's custom settings
   def custom_background
     css = ""
@@ -220,14 +220,14 @@ class ProductFamily < ActiveRecord::Base
     self.parent ? "#{name} #{parent.name}" : name
   end
 
-  # Translates this record into other languages. 
+  # Translates this record into other languages.
   def translate
     ContentTranslation.auto_translate(self, self.brand)
   end
   handle_asynchronously :translate
 
   def parent_not_itself
-    errors.add(:parent_id, "can't be itself") if !self.new_record? && self.parent_id == self.id    
+    errors.add(:parent_id, "can't be itself") if !self.new_record? && self.parent_id == self.id
   end
-  
+
 end

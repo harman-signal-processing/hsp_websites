@@ -764,10 +764,13 @@ div.featured_product_container {
 
 div.homepage_block {
   &.dark {
-    background: #000;
-    padding: 0 !important;
+    background: #000 asset-url('dbx/pattern.png');
+    color: $light-gray;
   }
-}	
+}
+.yellow {
+  color: yellow !important;
+}
 div.promotion_container {
   background: $strip-bg-even;
   padding: 30px 0px;

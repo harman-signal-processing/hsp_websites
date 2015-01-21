@@ -29,7 +29,9 @@
               <% product = Product.find(website.homepage_headline_product_id) %>
               <p><%= product.name %></p>
               <%= link_to("Learn More", product, class: "secondary button") %>
-              <%= buy_it_now_link(product, html_button: true) %>
+              <% if product.in_production? %>
+                <%= buy_it_now_link(product, html_button: true) %>
+              <% end %>
             <% end %>
           </div>
           <div class="bg-gif">
@@ -69,11 +71,14 @@
 			<div class="row featured_product_container" id="featured_product_<%= i %>">
 				<%#= featured_product_icons(featured_product, i) %>
 				<div class="large-7 columns">
-					<div class="featured_image_container hide-for-small left">
+					<div class="featured_image_container hide-for-small hide-for-medium left">
 						<%= link_to(image_tag(featured_product.photo.product_attachment.url(:original), class: "featured_image"), featured_product) %>
 					</div>
 					<div class="show-for-small">
 						<%= link_to(image_tag(featured_product.photo.product_attachment.url(:medium)), featured_product) %>
+					</div>
+					<div class="hide-for-large hide-for-small">
+						<%= link_to(image_tag(featured_product.photo.product_attachment.url(:large)), featured_product) %>
 					</div>
 				</div>
 				<div class="large-5 columns">
@@ -91,7 +96,7 @@
 			<% else %>
 			<div class="row featured_product_container" id="featured_product_<%= i %>">
 				<%#= featured_product_icons(featured_product, i) %>
-				<div class="small-12 columns show-for-small">
+				<div class="small-12 medium-12 columns show-for-small show-for-medium">
 					<%= link_to(image_tag(featured_product.photo.product_attachment.url(:medium)), featured_product) %>
 				</div>
 				<div class="large-5 columns text-right small-left">
@@ -118,6 +123,107 @@
 	<% end %>
 <% end %>
 
+<%= cache ["new_for_namm_strip", website.brand, I18n.locale] do %>
+  <% new_family = ProductFamily.find_by_cached_slug("500-series") %>
+  <% venu360 = Product.find_by_cached_slug("driverack-venu360") %>
+  <% if (venu360 && venu360.show_on_website?(website)) || (new_family && new_family.current_products.length > 0) %>
+    <div class="homepage_block dark">
+      <h4 class="yellow text-center">New for NAMM 2015</h4>
+      <% if new_family && new_family.current_products.length > 0 %>
+        <div class="row">
+          <div class="large-12 columns">
+            <h2><%= website.brand.name %> <%= new_family.name %> Processors</h2>
+          </div>
+          <div class="large-7 large-push-5 small-12 columns">
+            <p>
+              <%= link_to new_family do %>
+                <%= image_tag 'dbx/500-series.png', alt: "dbx 500 Series" %>
+              <% end %>
+            </p>
+          </div>
+          <div class="large-5 large-pull-7 small-12 columns">
+            <p>Modular is back! Classic dbx modular processors
+            return in the new, industry-standard 500 series
+            form factor.</p>
+            <div class="row collapse">
+              <div class="large-4 small-6 columns">
+                <ul>
+                  <li>
+                    <%= link_to "products/560a" do %>
+                      <strong>560A</strong>
+                    <% end %>
+                    <br/>Compressor
+                  </li>
+                  <li>
+                    <%= link_to "products/580" do %>
+                      <strong>580</strong>
+                    <% end %>
+                    <br/>Mic Preamp
+                  </li>
+                </ul>
+              </div>
+              <div class="large-4 small-6 columns">
+                <ul>
+                  <li>
+                    <%= link_to "products/520" do %>
+                      <strong>520</strong>
+                    <% end %>
+                    <br/>De-Esser
+                  </li>
+                  <li>
+                    <%= link_to "products/530" do %>
+                      <strong>530</strong>
+                    <% end %>
+                    <br/>Parametric EQ
+                  </li>
+                </ul>
+              </div>
+              <div class="large-4 small-12 columns">
+                <ul>
+                  <li>
+                    <%= link_to "products/510" do %>
+                      <strong>510</strong>
+                    <% end %>
+                    <br/>Subharmonic Synth
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-12 columns text-right">
+            <p>
+              <%= link_to 'more details...', new_family, class: "tiny button" %>
+            </p>
+          </div>
+        </div>
+      <% end %>
+
+      <% if venu360 && venu360.show_on_website?(website) %>
+        <div class="row">
+          <div class="large-7 columns">
+            <%= link_to venu360 do %>
+              <%= image_tag('dbx/360_angle.png', alt: "dbx DriveRack VENU360") %>
+            <% end %>
+          </div>
+          <div class="large-5 columns">
+            <h2><%= website.brand.name %> <%= venu360.name %></h2>
+            <p><%=raw translate_content(venu360, :short_description_4) %></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-12 columns text-right">
+            <p>
+              <%= link_to 'more details...', venu360, class: "tiny button" %>
+            </p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+
 <%= cache ["teaser_strip", website.brand, I18n.locale] do %>
   <% if website.teaser_image && File.exist?(Rails.root.join('app','assets','images',website.folder, website.teaser_image)) %>
     <div class="homepage_block dark">
@@ -130,7 +236,7 @@
         </div>
       </div>
     </div>
-  <% end %>
+ <% end %>
 <% end %>
 
 <%= cache ["promotion_strip", website.brand, I18n.locale] do %>
