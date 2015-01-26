@@ -57,6 +57,8 @@ set_meta_tags title: @product.name,
 
 <%= cache ["product_page", @product, @online_retailer_link, @active_tab, I18n.locale, session['geo_country']] do %>
 
+<div id="breadcrumbs"><%= breadcrumbs(@product) %></div>
+
 <div class="show-for-small hide-for-large hide-for-medium small-title-block">
   <div class="row">
     <div class="small-6 columns">
