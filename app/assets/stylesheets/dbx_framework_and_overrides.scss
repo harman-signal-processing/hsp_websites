@@ -285,9 +285,9 @@ $topbar-sticky-class:                  ".sticky";
     }
   }
   .top-bar input {
-    background-color: #C1272D;
+//    background-color: #C1272D;
     border: none;
-    color: $primary-color;
+//    color: $primary-color;
   }
 }
 .video-window { @include flex-video-container; }
