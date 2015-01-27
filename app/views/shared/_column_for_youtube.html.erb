@@ -1,9 +1,8 @@
 <% if website.value_for("youtube") %>
-	<h3 style="text-align: center"><%= social_media_links 'youtube' %> 
-	<%= link_to t('titles.youtube_channel', brand: website.brand_name), videos_path %>
-	<span class="small_button"><%= link_to "more...", videos_path %></span>
-	</h3>
+	<h2><%= social_media_links 'youtube', style: 'circle', size: '48x48' %> 
+		<%= link_to t('titles.youtube_channel', brand: website.brand_name), videos_path %>
+	</h2>
 	<%= cache ["youtube_feed", website.brand, I18n.locale] do %>
-		<%= youtube_feed(@youtube) %>
+		<%= youtube_feed(@youtube, 'horizontal') %>
 	<% end %>
 <% end %>

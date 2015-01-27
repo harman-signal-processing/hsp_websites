@@ -1,0 +1,95 @@
+<% set_meta_tags title: t('titles.warranty_registration'),
+				 description: t('meta.warranty_registration'),
+				 reverse: true %>
+				
+<h1 class="page_title">
+<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/productregistration_head.jpg")) %>
+	<%= image_tag("#{website.folder}/#{I18n.locale}/productregistration_head.jpg", alt: t('titles.warranty_registration')) %>
+<% else %>
+	<%= t('titles.warranty_registration') %>
+<% end %>
+</h1>
+
+<%= form_for @warranty_registration, url: warranty_registration_path, html: {class: "reg"} do |f| %>
+
+	<%= f.error_messages %>
+
+	<div><%= f.label :title %>
+	<%= f.radio_button :title, "Mr." %>Mr.
+	<%= f.radio_button :title, "Mrs." %>Mrs.
+	<%= f.radio_button :title, "Ms." %>Ms.
+	<%= f.radio_button :title, "Miss" %>Miss
+	<%= f.radio_button :title, "Dr." %>Dr.</div>
+	
+	<div><%= f.label :first_name, class: "required" %>
+	<%= f.text_field :first_name %></div>
+
+	<div><%= f.label :last_name, class: "required" %>
+	<%= f.text_field :last_name %></div>
+	
+	<div><%= f.label :email, class: "required" %>
+	<%= f.text_field :email %></div>
+
+	<div><%= f.label :company %>
+	<%= f.text_field :company %></div>
+	
+	<div><%= f.label :address1 %>
+	<%= f.text_field :address1 %></div>
+	
+	<div><%= f.label :city %>
+	<%= f.text_field :city %></div>
+	
+	<div><%= f.label :state %>
+	<%= f.text_field :state %></div>
+	
+	<div><%= f.label :zip %>
+	<%= f.text_field :zip %></div>
+	
+	<div><%= f.label :country, class: "required" %>
+	<%= f.country_select :country %></div>
+	
+	<div><%= f.label :phone %>
+	<%= f.text_field :phone %></div>
+	
+	<%= cache ["registerable_products", website.brand, I18n.locale] do %>
+	<div><%= f.label :product_id, class: "required" %>
+	<%= f.collection_select :product_id, 
+		Product.all_for_website_registration(website), 
+		:id, :name, prompt: true %></div>
+	<% end %>
+	
+	<div><%= f.label :serial_number, class: "required" %>
+	<%= f.text_field :serial_number %></div>
+	<div class="centered">(<%= t('blurbs.use_date_code')%>)</div>
+	
+	<div><%= f.label :purchased_on, class: "required" %>
+		<div id="purchased_on_picker" style="margin: 0 0 20px 320px;" data-default="<%=l @warranty_registration.purchased_on.present? ? @warranty_registration.purchased_on.to_date : Date.yesterday, format: :mmddyy %>"></div>
+	<%= f.hidden_field :purchased_on %></div>
+	
+	<div><%= f.label :purchased_from %>
+	<%= f.text_field :purchased_from %></div>
+	
+	<div><%= f.label :purchase_price %>
+	<%= f.text_field :purchase_price %></div>
+	
+	<div class="centered"><%= t('blurbs.warranty_comments') %></div>
+	<div><%= f.label :comments %>
+	<%= f.text_area :comments, size: "40x5" %></div>
+
+	<div class="centered">
+		<%= f.check_box :subscribe %>
+		<%= t('blurbs.subscribe', brand: website.brand_name) %>
+	</div>
+	
+	<div class="centered">
+		<%= f.submit t('submit_warranty_registration') %>
+		<%= link_to t('cancel'), :back %>
+	</div>
+
+<% end %>
+
+<%= content_for :extra_js do %>
+	$(document).ready(function() {
+		$('#warranty_registration_first_name').focus();
+	});
+<% end %>

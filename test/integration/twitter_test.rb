@@ -9,8 +9,8 @@ describe "Twitter Integration Test" do
     Brand.any_instance.stubs(:twitter_name).returns('twitter')
     @website = FactoryGirl.create(:website_with_products, brand: @brand)
     host! @website.url
-    Capybara.default_host = "http://#{@website.url}" 
-    Capybara.app_host = "http://#{@website.url}" 
+    Capybara.default_host = "http://#{@website.url}"
+    Capybara.app_host = "http://#{@website.url}"
   end
 
   # after :each do
@@ -23,7 +23,7 @@ describe "Twitter Integration Test" do
   describe "homepage feed" do
   	before do
   	  @tweet_count = Tweet.count
-  	  Tweet.pull_tweets(@brand)  		
+  	  Tweet.pull_tweets(@brand)
   	end
 
   	it "should store tweets in db" do
@@ -36,6 +36,8 @@ describe "Twitter Integration Test" do
   	# end
 
   	it "should show the profile image on the homepage" do
+      @brand = digitech_brand
+      @website = digitech_site
   	  visit root_url(locale: I18n.default_locale, host: @website.url)
   	  page.must_have_xpath("//img[@src='#{Tweet.client.user(@brand.twitter_name).profile_image_url(:mini)}']")
   	end

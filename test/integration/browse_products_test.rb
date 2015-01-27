@@ -7,14 +7,14 @@ describe "Browse Products Integration Test" do
     # Brand.destroy_all
     @website = FactoryGirl.create(:website_with_products)
     host! @website.url
-    Capybara.default_host = "http://#{@website.url}" 
-    Capybara.app_host = "http://#{@website.url}" 
+    Capybara.default_host = "http://#{@website.url}"
+    Capybara.app_host = "http://#{@website.url}"
   end
 
   # after :each do
   #   DatabaseCleaner.clean
   # end
-  
+
   describe "homepage" do
 
     # it "should redirect to the locale homepage" do
@@ -27,7 +27,7 @@ describe "Browse Products Integration Test" do
       visit root_url(host: @website.url)
       page.must_have_link "products", href: product_families_path(locale: I18n.default_locale)
     end
-    
+
   end
 
   describe "product family page" do
@@ -41,16 +41,8 @@ describe "Browse Products Integration Test" do
       visit products_url(locale: I18n.default_locale, host: @website.url)
     end
 
-    it "/products should redirect to products family page" do 
+    it "/products should redirect to products family page" do
       current_path.must_equal product_families_path(locale: I18n.default_locale)
-    end 
-
-    it "should not link to full line where no child families exist" do
-      page.wont_have_link I18n.t('view_full_line'), href: product_family_path(@product_family, locale: I18n.default_locale)
-    end
-
-    it "should link to full line where child families exist" do
-      page.must_have_link I18n.t('view_full_line'), href: product_family_path(@multiple_parent, locale: I18n.default_locale)
     end
 
     it "should not link to full line for a family with one product in one sub-family" do
@@ -70,9 +62,9 @@ describe "Browse Products Integration Test" do
     end
 
     describe "comparisons" do
-      before do 
+      before do
         Website.any_instance.stubs(:show_comparisons).returns("1")
-        visit product_family_url(@product_family, locale: I18n.default_locale, host: @website.url)  
+        visit product_family_url(@product_family, locale: I18n.default_locale, host: @website.url)
       end
 
       it "should handle error when comparing zero products" do
@@ -112,7 +104,7 @@ describe "Browse Products Integration Test" do
       @product = FactoryGirl.create(:discontinued_product, brand: @website.brand)
     end
 
-    it "should use the discontinued page layout" do 
+    it "should use the discontinued page layout" do
       visit product_url(@product, locale: I18n.default_locale, host: @website.url)
       page.must_have_content "discontinued"
     end
@@ -133,9 +125,9 @@ describe "Browse Products Integration Test" do
       software = FactoryGirl.create(:software)
       @product.product_softwares << FactoryGirl.create(:product_software, product: @product, software: software)
       visit product_url(@product, locale: I18n.default_locale, host: @website.url)
-      page.must_have_link software.formatted_name, href: software_path(software, locale: I18n.default_locale) 
+      page.must_have_link software.formatted_name, href: software_path(software, locale: I18n.default_locale)
     end
 
   end
- 
+
 end

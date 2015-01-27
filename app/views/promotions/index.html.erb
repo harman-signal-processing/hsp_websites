@@ -22,17 +22,16 @@
 					link_to(image_tag(promotion.tile.url(:medium), alt: promotion.name), promotion) :
 					image_tag(promotion.tile.url, alt: promotion.name) %>
 		<% end %>
-		<p><%= t('valid') %> <%=l promotion.start_on, format: :long %>-<%=l promotion.end_on, format: :long %>
+		<div><%= t('valid') %> <%=l promotion.start_on, format: :long %>-<%=l promotion.end_on, format: :long %>
 		<% if promotion.has_description? %>
 			<%= link_to t('more_info'), promotion, class: "small secondary button" %>
 		<% end %>
-		</p>
+		</div>
 		<% if !promotion.promo_form_file_name.blank? %>
-			<p><%= link_to t('download_promotion_form'), promotion.promo_form.url, class: "medium button" %></p>
+			<%= link_to t('download_promotion_form'), promotion.promo_form.url, class: "medium button" %>
 		<% end %>
 	</div>
 <% end %>
-<div class="clear"></div>
 </div>
 
 <% if @expired_promotions.length > 0 %>
@@ -46,17 +45,16 @@
 			<h4>
 				<%= (promotion.has_description?) ? link_to(translate_content(promotion, :name), promotion) : translate_content(promotion, :name) %>
 			</h4>
-			<p><%= t('valid') %> <%=l promotion.start_on, format: :long %>-<%=l promotion.end_on, format: :long %>
+			<div><%= t('valid') %> <%=l promotion.start_on, format: :long %>-<%=l promotion.end_on, format: :long %>
 			<% if promotion.has_description? %>
-				<%= link_to t('more_info'), promotion %>
+				<%= link_to t('more_info'), promotion, class: "small secondary button" %>
 			<% end %>
-			</p>
+			</div>
 			<% if !promotion.promo_form_file_name.blank? %>
-				<p><%= link_to t('download_promotion_form'), promotion.promo_form.url %></p>
+				<%= link_to t('download_promotion_form'), promotion.promo_form.url, class: "medium button" %>
 			<% end %>
 		</div>
 	<% end %>
-	<div class="clear"></div>
 	</div>
 <% end %>
 

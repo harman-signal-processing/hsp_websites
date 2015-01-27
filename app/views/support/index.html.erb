@@ -2,153 +2,212 @@
 				 description: t('meta.description.support', brand: website.brand_name),
 				 reverse: true %>
 
-<h1 class="page_title">
-<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/support_head.jpg")) %>
-	<%= image_tag("#{website.folder}/#{I18n.locale}/support_head.jpg", alt: t('titles.support')) %>
-<% else %>
-	<%= t('titles.support') %>
-<% end %>
-</h1>
-
-<%= cache ["support_body", website.brand, I18n.locale] do %>
-<div class="support_box_container">
-
-	<% if website.has_software? %>
-	<div class="support_box downloads_box">
-		<h4><%= link_to t('software_downloads'), software_index_path %></h4>
-		<p><%= t('blurbs.software_downloads', brand: website.brand_name) %></p>
-		<ul>
-			<li><%= link_to t('software_downloads'), software_index_path %></li>
-			<% if !!(website.has_third_party_downloads) %>
-			<li><%= link_to "3rd party controllers", "/en-US/3rd-party-controllers" %></li>
-			<% end %>
-			<% if !!(website.has_speaker_tunings) %>
-			<li><%= link_to "speaker tunings", support_path(action: "speaker_tunings") %></li>
-			<% end %>
-		</ul>
-	</div>
-	<% end %>
+<div class="row">
 	
-	<div class="support_box product_support_box">
-		<h4><%= t('titles.product_support') %></h4>
-		<p><%= t('blurbs.product_support') %></p>
-		<%= form_tag support_path, method: :get do |f| %>
-			<%= select_tag :product_id, 
-					options_from_collection_for_select(website.current_and_discontinued_products([:product_families]) - website.vintage_products, :to_param, :name) + vintage_options(), 
-					include_blank: true %>
-			<%= submit_tag t('go')%>
-		<% end %>
-		<ul>
-			<% if !!website.brand.name.match(/^bss/i) %>
-			<li><%= link_to t('training'), "/training" %></li>
-			<% elsif !!website.folder.to_s.match(/archimedia/) %>
-			<li><%= link_to t('training'), "/en-US/onsite_training" %></li>
-			<% elsif !!(website.has_training) %>
-			<li><%= link_to "product training", training_path %></li>
-			<% end %>
-		</ul>
-	</div>
-	
-	<div class="support_box registration_box">
-		<h4><%= link_to t('warranty_registration'), warranty_registration_path %></h4>
-		<p><%= t('blurbs.warranty_registration', brand: website.brand_name) %></p>
-		<ul>
-			<li><%= link_to t('warranty_registration'), warranty_registration_path %></li>
-			<% if !!website.brand.name.match(/bss|dbx/i) %>
-			<li><%= link_to t('warranty_policy'), warranty_policy_path %></li>
-			<% end %>
-		</ul>
-	</div>
-	
-	<% if website.has_service_centers? %>
-	<div class="support_box service_centers_box">
-		<h4><%= t('titles.locate_us_service_center') %>:</h4>
-		<%= form_tag support_path(action: "service_lookup") do |f| %>
-			<p><%= label_tag "zip", t('us_zip_code') %>
-			<%= text_field_tag "zip", session[:zip], size: 8 %>
-			<%= submit_tag t('go') %></p>
-		<% end %>
-		<ul>
-			<% if website.has_rma_form? %>
-			<li><%= link_to t('titles.factory_service'), rma_request_path %></li>
-			<% end %>
-			<% if website.has_parts_form? %>
-			<li><%= link_to t('titles.part_request'), parts_request_path %></li>
-			<% end %>
-		</ul>
-	</div>
-	<% end %>
+	<div class="large-4 columns">
+		<%= cache ["support_body", website.brand, I18n.locale] do %>
 
-	<% unless website.brand_name.match(/dod/i) %>
-	<div class="support_box more_resources_box">
-		<h4><%= t('titles.more_resources') %></h4>
-		<ul>
-			<% if !!(website.value_for("troubleshooting_url")) %>
-			<li><%= link_to t('troubleshooting').downcase, support_path(action: "troubleshooting") %></li>
+			<% if addr = website.value_for("address_and_phone") %>
+			<div class="panel">
+				<h4><%= t("titles.mailing_address") %></h4>
+				<p><%=raw addr %>
+					<% if sup = website.value_for("support_email") %>
+					<br/><%= mail_to sup, sup %>
+					<% end %>
+				</p>
+			</div>
+			<% end %>	
+			
+			<div class="panel">
+				<h4><%= t('titles.product_support') %></h4>
+				<p><%= t('blurbs.product_support') %></p>
+				<%= form_tag support_path, method: :get do |f| %>
+					<div class="row collapse">
+						<div class="large-10 small-9 columns">
+							<%= select_tag :product_id, 
+									options_from_collection_for_select(website.current_and_discontinued_products([:product_families]) - website.vintage_products, :to_param, :name) + vintage_options(), 
+									include_blank: true %>
+						</div>
+						<div class="large-2 small-3 columns">
+							<%= submit_tag t('go'), class: "postfix button" %>
+						</div>
+					</div>
+				<% end %>
+				<ul class="list">
+					<% if !!website.brand.name.match(/^bss/i) %>
+					<li><%= link_to t('training'), "/training" %></li>
+					<% elsif !!website.folder.to_s.match(/archimedia/) %>
+					<li><%= link_to t('training'), "/en-US/onsite_training" %></li>
+					<% elsif !!(website.has_training) %>
+					<li><%= link_to "product training", training_path %></li>
+					<% end %>
+				</ul>
+			</div>
+			
+			<% if website.has_service_centers? %>
+			<div class="panel">
+				<h4><%= t('titles.locate_us_service_center') %>:</h4>
+				<%= form_tag support_path(action: "service_lookup") do |f| %>
+					<div class="row collapse">
+						<div class="large-10 small-9 columns">
+							<%= text_field_tag "zip", session[:zip], size: 8, placeholder: t('us_zip_code') %>
+						</div>
+						<div class="large-2 small-3 columns">
+							<%= submit_tag t('go'), class: "postfix button" %>
+						</div>
+					</div>
+				<% end %>
+				<ul class="list">
+					<% if website.has_rma_form? %>
+					<li><%= link_to t('titles.factory_service'), rma_request_path %></li>
+					<% end %>
+					<% if website.has_parts_form? %>
+					<li><%= link_to t('titles.part_request'), parts_request_path %></li>
+					<% end %>
+				</ul>
+			</div>
 			<% end %>
-			<% if !!(website.has_cad_drawings) %>
-			<li><%= link_to "CAD files", support_path(action: "cad") %></li>
-			<% end %>
-			<li><%= link_to t('titles.rohs'), rohs_path %></li>
-			<% if !!(website.forum_link) %>
-			<li><%= link_to t("user_forum"), website.forum_link %></li>
-			<% end %>
-		</ul>
-	</div>
-	<% end %>
 
-	<% if addr = website.value_for("address_and_phone") %>
-	<div class="support_box contact_info_box">
-		<h4><%= t("titles.mailing_address") %></h4>
-		<%=raw addr %>
-		<% if sup = website.value_for("support_email") %>
-		<br/><%= mail_to sup, sup %>
+			<% if website.has_software? %>
+			<div class="panel">
+				<h4><%= link_to t('software_downloads').capitalize, software_index_path %></h4>
+				<p><%= t('blurbs.software_downloads', brand: website.brand_name) %></p>
+				<ul class="list">
+					<li><%= link_to t('software_downloads'), software_index_path %></li>
+					<% if !!(website.has_third_party_downloads) %>
+					<li><%= link_to "3rd party controllers", "/en-US/3rd-party-controllers" %></li>
+					<% end %>
+					<% if !!(website.has_speaker_tunings) %>
+					<li><%= link_to "speaker tunings", support_path(action: "speaker_tunings") %></li>
+					<% end %>
+				</ul>
+			</div>
+			<% end %>
+			
+			<div class="panel">
+				<h4><%= link_to t('warranty_registration').capitalize, warranty_registration_path %></h4>
+				<p><%= t('blurbs.warranty_registration', brand: website.brand_name) %></p>
+				<ul class="list">
+					<li><%= link_to t('warranty_registration'), warranty_registration_path %></li>
+					<% if !!website.brand.name.match(/bss|dbx/i) %>
+					<li><%= link_to t('warranty_policy'), warranty_policy_path %></li>
+					<% end %>
+				</ul>
+			</div>
+
+			<% unless website.brand_name.match(/dod/i) %>
+			<div class="panel">
+				<h4><%= t('titles.more_resources') %></h4>
+				<ul class="list">
+					<% if !!(website.value_for("troubleshooting_url")) %>
+					<li><%= link_to t('troubleshooting').downcase, support_path(action: "troubleshooting") %></li>
+					<% end %>
+					<% if !!(website.has_cad_drawings) %>
+					<li><%= link_to "CAD files", support_path(action: "cad") %></li>
+					<% end %>
+					<li><%= link_to t('titles.rohs'), rohs_path %></li>
+					<% if !!(website.forum_link) %>
+					<li><%= link_to t("user_forum"), website.forum_link %></li>
+					<% end %>
+				</ul>
+			</div>
+			<% end %>
+
 		<% end %>
 	</div>
-	<% end %>	
+	<div class="large-8 columns">
+		<h1><%= t('titles.contact_us') %></h1>
+		<%= simple_form_for @contact_message, url: support_path(action: "contact"), html: {class: "contact"} do |f| %>
 
-	<div class="clear"></div>
+			<div class="row">
+				<div class="large-3 columns hide-for-small">
+					<%= f.label :name, t('your_name'), class: 'right inline' %>
+				</div>
+				<div class="large-9 columns">
+					<%= f.input :name, label: false, placeholder: t('your_name') %>
+				</div>
+			</div>
+			<div class="row">
+				<div class="large-3 columns hide-for-small">
+					<%= f.label :email, ucfirst(t('email')), class: 'right inline' %>
+				</div>
+				<div class="large-9 columns">
+					<%= f.input :email, label: false, placeholder: ucfirst(t('email')) %>
+				</div>
+			</div>
+			<div class="row">
+				<div class="large-3 columns hide-for-small">
+					<%= f.label :product, nil, class: 'right inline' %>
+				</div>
+				<div class="large-9 columns">
+			<%= cache ["contact_form_products", website.brand] do %>
+				<%= f.input :product, as: :select,
+						collection: Product.all_for_website(website) + [Product.new(name: "other")],
+						value_method: :name,
+						label_method: :name,
+						required: @contact_message.require_product?,
+						prompt: "Select A Product",
+						label: false %>
+			<% end %>
+				</div>
+			</div>
+			<div class="row">
+				<div class="large-3 columns hide-for-small">
+					<%= f.label :subject, nil, class: 'right inline' %>
+				</div>
+				<div class="large-9 columns">
+          <%= f.input :subject, as: :select, label: false, collection: ContactMessage.subjects.map{|s| [s, s]}, prompt: t('subjects.select_a_subject') %>
+				</div>
+			</div>
+			<div class="row">
+				<div class="large-3 columns hide-for-small">
+					<%= f.label :product_serial_number, nil, class: 'right' %>
+				</div>
+				<div class="large-9 columns">
+					<%= f.input :product_serial_number, label: false, placeholder: 'Serial number' %>
+				</div>
+			</div>
+			<div class="row">
+				<div class="large-3 columns hide-for-small">
+					<%= f.label :operating_system, nil, class: 'right inline' %>
+				</div>
+				<div class="large-9 columns">
+					<%= f.input :operating_system, label: false, placeholder: "Operating system" %>
+				</div>
+			</div>
+			<div class="row">
+				<div class="large-3 columns hide-for-small">
+					<%= f.label :shipping_address, t("address"), class: 'right inline' %>
+				</div>
+				<div class="large-9 columns">
+					<%= f.input :shipping_address, label: false, input_html: { size: "40x2" }, placeholder: t("address") %>
+				</div>
+			</div>
+			<div class="row">
+				<div class="large-3 columns hide-for-small">
+					<%= f.label :shipping_address, t("country"), class: 'right inline' %>
+				</div>
+				<div class="large-9 columns">
+					<%= f.input :shipping_country, label: false, required: @contact_message.require_country?, prompt: t("country") %>
+				</div>
+			</div>
+			<div class="row">
+				<div class="large-3 columns hide-for-small">
+					<%= f.label :phone, nil, class: 'right inline' %>
+				</div>
+				<div class="large-9 columns">
+					<%= f.input :phone, label: false, placeholder: "Phone" %>
+				</div>
+			</div>
+
+			<%= f.input :message, label: t('message'), as: :text, input_html: { style: "height: 100px" } %>
+			
+			<div class="captcha">
+				<%= recaptcha_tags %>
+			</div>
+			
+			<%= f.submit t('submit'), class: "medium button" %>
+		<% end %>
+	</div>
 </div>
-<% end %>
 
-<%= content_for :big_bottom_box do %>
-	<div class="support_box_container">
-	<h2><%= t('titles.contact_us') %></h2>
-	<%= form_for :contact_message, url: support_path(action: "contact"), html: {class: "contact", id: "contact_form"} do |f| %>
-		<%= f.error_messages %>
-		<div class="form-inputs"><%= f.label :subject, t('subject') %><br/>
-			<%= f.select :subject, ContactMessage.subjects %></div>
-		<div class="form-inputs"><%= f.label :name, t('your_name') %><br/>
-		   <%= f.text_field :name %></div>
-		<div class="form-inputs"><%= f.label :email, ucfirst(t('email')) %><br/>
-		   <%= f.text_field :email %></div>
-		<%= cache ["contact_form_products", website.brand] do %>
-		<div class="form-inputs"><%= f.label :product %> <%= "(required)" if @contact_message.require_product? %><br/>
-			<%= f.collection_select :product, 
-					Product.all_for_website(website) + [Product.new(name: "other")],
-					:name, :name, prompt: true %>
-		</div>
-		<% end %>
-		<div class="form-inputs"><%= f.label :product_serial_number %><br/>
-			<%= f.text_field :product_serial_number %></div>
-		<div class="form-inputs"><%= f.label :operating_system %><br/>
-			<%= f.text_field :operating_system %></div>
-
-		<div class="form-inputs"><%= f.label :shipping_address, t("address") %><br/>
-			<%= f.text_area :shipping_address, size: "40x2" %></div>
-		<div class="form-inputs"><%= f.label :shipping_country, t("country") %> <%= "(required)" if @contact_message.require_country? %><br/>
-			<%= f.text_field :shipping_country %></div>
-		<div class="form-inputs"><%= f.label :phone %><br/>
-			<%= f.text_field :phone %></div>
-    <div class="form-inputs">
-      <p><%= t('message') %>:</p>
-      <%= f.text_area :message, size: "60x8" %>
-    </div>
-		<div class="captcha">
-			<%= recaptcha_tags %>
-		</div>
-
-		<p><%= submit_tag t('submit') %></p>
-	<% end %>
-	</div>
-<% end %>

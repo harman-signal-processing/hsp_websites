@@ -1,0 +1,11 @@
+<% product.preferred_retailer_links.each do |prl| %>
+	<div class="retailer_logo preferred">
+		<%= render "shared/online_retailer_link", orl: prl %>
+	</div>
+<% end %>
+
+<% product.randomized_retailer_links.each do |orl| %>
+	<div class="retailer_logo">
+		<%= render "shared/online_retailer_link", orl: orl %>
+	</div>
+<% end %>

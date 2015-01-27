@@ -2,8 +2,11 @@
 unless defined? compare
 	compare = !!(website.show_comparisons)
 end 
+unless defined? extra_large
+	extra_large = false
+end
 %>
-<%= cache ["product_square", product, website, compare, I18n.locale] do %>
+<%= cache ["product_square", product, website, compare, extra_large, I18n.locale] do %>
 
 <% 
 	if product.belongs_to_this_brand?(website)
@@ -17,30 +20,65 @@ end
 	end
 %>
 
-<div id="<%= product.to_param %>" class="<%= css_class %>">
-	<table class="product_thumb">
-		<tr><td>
-	<% if product.photo %>
-		<% if product.layout_class == "horizontal" %>
-		<%= link_to image_tag(product.photo.product_attachment.url(:horiz_thumb)), this_url, target: target %>
-		<% else %>
-		<%= link_to image_tag(product.photo.product_attachment.url(:thumb)), this_url, target: target %>
-		<% end %>
-	<% end %>
-		</td></tr>
-	</table>
-	<h3><%= link_to translate_content(product, :name), this_url, target: target %></h3>
-	<div class="product_description">
-		<% if product.name.length < 20 %>
-			<%= translate_content(product, :short_description) %>
-		<% end %>
-		<% if compare %>
-			<div class="compare_checkbox">
-				<%= check_box_tag "product_ids[]", product.to_param, false %>
-				<label><%= t('compare') %></label>
+<div id="<%= product.to_param %>" class="small_product_box">
+
+	<% if product.layout_class == "vertical" %>
+
+		<div class="row collapse">
+			<div class="large-4 small-4 columns">
+				<div class="product_thumb">
+				<% if product.photo %>
+					<% if extra_large %>
+						<%= link_to image_tag(product.photo.product_attachment.url(:small)), this_url, target: target %>
+					<% else %>
+						<%= link_to image_tag(product.photo.product_attachment.url(:thumb)), this_url, target: target %>
+					<% end %>
+				<% end %>
+				</div>
 			</div>
+			<div class="large-8 small-8 columns">
+				<h3 class="vertical"><%= link_to translate_content(product, :name), this_url, target: target %></h3>
+				<div class="product_description">
+					<%= translate_content(product, :short_description) %>
+				</div>
+
+				<% if compare %>
+					<div class="compare_checkbox">
+						<label>
+							<%= check_box_tag "product_ids[]", product.to_param, false %>
+							<%= t('compare') %>
+						</label>
+					</div>
+				<% end %>
+			</div>
+		</div>
+
+	<% else %>
+
+		<div class="product_thumb">
+		<% if product.photo %>
+			<% if extra_large %>
+				<%= link_to image_tag(product.photo.product_attachment.url(:medium)), this_url, target: target %>
+			<% else %>
+				<%= link_to image_tag(product.photo.product_attachment.url(:horiz_thumb)), this_url, target: target %>
+			<% end %>
 		<% end %>
-	</div>
+		</div>
+		<h3><%= link_to translate_content(product, :name), this_url, target: target %></h3>
+		<div class="product_description">
+			<%= translate_content(product, :short_description) %>
+
+			<% if compare %>
+				<div class="compare_checkbox">
+					<label>
+						<%= check_box_tag "product_ids[]", product.to_param, false %>
+						<%= t('compare') %>
+					</label>
+				</div>
+			<% end %>
+		</div>
+
+	<% end %>
 </div>
 
 <% end %>

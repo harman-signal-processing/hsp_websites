@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   before_filter :set_locale
   before_filter :ensure_best_url, only: [:show, :buy_it_now, :preview, :introducing]
-  
+
   # GET /products
   # GET /products.xml
   def index
@@ -21,9 +21,9 @@ class ProductsController < ApplicationController
   # Loads the product page. Buy It Now buttons are populated by default
   # with a popup for all of the online retailers carrying the product.
   #
-  # To link directly to one of the online retailers, add the "bin" URL 
+  # To link directly to one of the online retailers, add the "bin" URL
   # parameter with the friendly_id of the online retailer:
-  # 
+  #
   # Example:
   #
   #    /en-US/products/istomp?bin=musicians-friend
@@ -68,9 +68,9 @@ class ProductsController < ApplicationController
           render_template
         end
       }
-      # format.xml  { 
+      # format.xml  {
       #   if @product.show_on_website?(website)
-      #     render xml: @product 
+      #     render xml: @product
       #   else
       #     head :ok
       #   end

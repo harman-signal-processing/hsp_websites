@@ -7,8 +7,8 @@ describe "BuyItNow Integration Test" do
     # Brand.destroy_all
     @website = FactoryGirl.create(:website_with_products)
     host! @website.url
-    Capybara.default_host = "http://#{@website.url}" 
-    Capybara.app_host = "http://#{@website.url}" 
+    Capybara.default_host = "http://#{@website.url}"
+    Capybara.app_host = "http://#{@website.url}"
     @product = @website.products.first
     @online_retailer = FactoryGirl.create(:online_retailer)
     @retailer_link = FactoryGirl.create(:online_retailer_link, online_retailer: @online_retailer, product: @product, brand: @website.brand)
@@ -17,7 +17,7 @@ describe "BuyItNow Integration Test" do
   # after :each do
   #   DatabaseCleaner.clean
   # end
-  
+
   describe "product page" do
 
   	it "should have buy it now links" do
@@ -38,7 +38,7 @@ describe "BuyItNow Integration Test" do
     		preferred_retailer = FactoryGirl.create(:online_retailer, preferred: 1)
     		preferred_link = FactoryGirl.create(:online_retailer_link, online_retailer: preferred_retailer, product: @product, brand: @website.brand)
     		visit product_url(@product, locale: I18n.default_locale, host: @website.url)
-    		page.must_have_xpath("//div[@id='dealers']/div[@id='online_retailers']/div[@class='retailer_logo preferred']/a[@href='#{preferred_link.url}']")
+    		page.must_have_xpath("//div[@id='dealers']/div[@id='online_retailers']/ul/li[@class='retailer_logo preferred']/a[@href='#{preferred_link.url}']")
     	end
     end
 
@@ -48,11 +48,10 @@ describe "BuyItNow Integration Test" do
     	end
 
     	it "should select a random retailer to link directly" do
-    		page.must_have_xpath("//div[@id='product_buy_now_box']")
     		page.must_have_link I18n.t('buy_it_now')
     	end
 
-    	it "should not link to any other retailers" do 
+    	it "should not link to any other retailers" do
     		page.wont_have_xpath("//div[@id='dealers']")
     	end
     end
@@ -63,18 +62,17 @@ describe "BuyItNow Integration Test" do
     	end
 
     	it "should link directly to the retailer" do
-    		page.must_have_xpath("//div[@id='product_buy_now_box']")
     		page.must_have_link I18n.t('buy_it_now'), href: @retailer_link.url
     	end
 
-    	it "should not link to any other retailers" do 
+    	it "should not link to any other retailers" do
     		page.wont_have_xpath("//div[@id='dealers']")
     	end
     end
 
   end
 
-  describe "product buyitnow page" do 
+  describe "product buyitnow page" do
   	before do
   		@preferred_retailer = FactoryGirl.create(:online_retailer, preferred: 1)
     	@preferred_link = FactoryGirl.create(:online_retailer_link, online_retailer: @preferred_retailer, product: @product, brand: @website.brand)
@@ -89,7 +87,7 @@ describe "BuyItNow Integration Test" do
   		preferred_retailer = FactoryGirl.create(:online_retailer, preferred: 1)
   		preferred_link = FactoryGirl.create(:online_retailer_link, online_retailer: preferred_retailer, product: @product, brand: @website.brand)
   		visit product_url(@product, locale: I18n.default_locale, host: @website.url)
-  		page.must_have_xpath("//div[@id='dealers']/div[@id='online_retailers']/div[@class='retailer_logo preferred']/a[@href='#{preferred_link.url}']")
+  		page.must_have_xpath("//div[@id='dealers']/div[@id='online_retailers']/ul/li[@class='retailer_logo preferred']/a[@href='#{preferred_link.url}']")
   	end
 
   end
@@ -109,5 +107,5 @@ describe "BuyItNow Integration Test" do
       page.wont_have_link I18n.t('buy_it_now'), href: buy_it_now_product_path(@product, locale: I18n.default_locale, host: @website.url)
     end
 
-  end  
+  end
 end

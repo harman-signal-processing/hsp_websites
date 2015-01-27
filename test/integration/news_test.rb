@@ -7,19 +7,19 @@ describe "News Integration Test" do
     # Brand.destroy_all
     @website = FactoryGirl.create(:website_with_products)
     host! @website.url
-    Capybara.default_host = "http://#{@website.url}" 
-    Capybara.app_host = "http://#{@website.url}" 
+    Capybara.default_host = "http://#{@website.url}"
+    Capybara.app_host = "http://#{@website.url}"
     @news_story = FactoryGirl.create(:news, brand: @website.brand)
   end
 
   # after :each do
   #   DatabaseCleaner.clean
   # end
-  
+
   describe "current news list" do
   	it "should link to news story" do
   		visit news_index_url(locale: I18n.default_locale, host: @website.url)
-  		page.must_have_link @news_story.title, href: news_path(@news_story, locale: I18n.default_locale) 
+  		page.must_have_link @news_story.title, href: news_path(@news_story, locale: I18n.default_locale)
   	end
   end
 
@@ -40,7 +40,7 @@ describe "News Integration Test" do
   	end
   end
 
-  describe "product page" do 
+  describe "product page" do
     before do
       @product = @website.products.first
     end
@@ -50,7 +50,7 @@ describe "News Integration Test" do
       visit product_url(@product, locale: I18n.default_locale, host: @website.url)
       page.must_have_link @news_story.title, href: news_path(@news_story, locale: I18n.default_locale)
     end
- 
+
     it "should hide future news" do
       @news_story = FactoryGirl.create(:news, brand: @website.brand, post_on: 1.month.from_now, title: "Future News")
       FactoryGirl.create(:news_product, news: @news_story, product: @product)
@@ -88,14 +88,15 @@ describe "News Integration Test" do
   		page.wont_have_link @old_news.title
   	end
 
-  	it "should link to archived news page" do
-  		page.must_have_link "older", href: archived_news_index_path(locale: I18n.default_locale)
-  	end
+    # 1/2015 -- the news page doesn't show the archive any more
+  	#it "should link to archived news page" do
+  	#	page.must_have_link "older", href: archived_news_index_path(locale: I18n.default_locale)
+  	#end
 
-  	it "should link to the old news from the archived page" do
-  		click_link "older"
-  		page.must_have_link @old_news.title, href: news_path(@old_news, locale: I18n.default_locale)
-  	end
+  	#it "should link to the old news from the archived page" do
+  	#	click_link "older"
+  	#	page.must_have_link @old_news.title, href: news_path(@old_news, locale: I18n.default_locale)
+  	#end
   end
 
 end

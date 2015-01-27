@@ -5,13 +5,13 @@ class ContactMessage < ActiveRecord::Base
   validates :message, presence: true, if: :support?
   validates :product, presence: true, if: :require_product?
   validates :shipping_country, presence: true, if: :require_country?
-  validates :phone, 
-    :shipping_address, 
+  validates :phone,
+    :shipping_address,
     :shipping_city,
-    :shipping_state, 
-    :shipping_zip, 
+    :shipping_state,
+    :shipping_zip,
     :product_sku,
-    :product_serial_number, 
+    :product_serial_number,
     :purchased_on, presence: true, if: :rma_request?
   validates :warranty, inclusion: {in: [true, false]}, if: :rma_request?
   attr_accessor :require_country
@@ -22,7 +22,7 @@ class ContactMessage < ActiveRecord::Base
     self.subject ||= "RMA Request" if self.rma_request?
     self.email.to_s.gsub!(/\s*$/, '')
   end
-  
+
   # Used to only require product some of the time, now require
   # it all the time (per Trevor's request)
   #
@@ -30,7 +30,7 @@ class ContactMessage < ActiveRecord::Base
     # !!(self.part_request? || self.rma_request?)
     true
   end
-  
+
   def require_country?
     !!(self.require_country)
   end
@@ -38,11 +38,11 @@ class ContactMessage < ActiveRecord::Base
   def support?
     !!(self.message_type.match(/support/))
   end
-  
+
   def part_request?
     !!(self.message_type.match(/part_request/))
   end
-  
+
   def rma_request?
     !!(self.message_type.match(/rma_request/))
   end
@@ -62,5 +62,5 @@ class ContactMessage < ActiveRecord::Base
       [I18n.t('subjects.web_comments')]
     ]
   end
-  
+
 end

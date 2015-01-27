@@ -1,32 +1,37 @@
 <% set_meta_tags title: @page_title,
 				 reverse: true %>
 
-<h1><%= @page_title %></h1>
+<h1 class="page_title"><%= website.brand.name %> Training</h1>
+<h3 class="subheader text-center"><%= @page_title %></h3>
 
-<div style="margin: 0px auto; width: <%= @training_module.width %>px">
-<%= show_module(@training_module) %>
+<div class="row">
+	<div class="large-8 large-offset-2 columns">
+		<div class="flex-video">
+			<%= show_module(@training_module) %>
+		</div>
+
+		<%=raw @training_module.description %>
+	</div>
 </div>
 
-<div class="training_body">
-	<%=raw @training_module.description %>
+<div class="row">
+	<div class="large-12 columns">
+	<% if @training_module.products.size > 0 %>
+		<h3><%= t('titles.related_products') %></h3>
+		<ul class="large-block-grid-5 small-block-grid-2">
+		<% @training_module.products.each do |product| %>
+			<li><%= render_partial "product_families/product_square", product: product, compare: false %></li>
+		<% end %>
+		</ul>
+	<% end %>
+
+	<% if @training_module.active_softwares.size > 0 %>
+		<h3>Related Software</h3>
+		<ul class="list">
+		<% @training_module.active_softwares.each do |software| %>
+			<li><%= link_to software.name, software %></li>
+		<% end %>
+		</ul>
+	<% end %>
+	</div>
 </div>
-
-<% if @training_module.products.size > 0 %>
-	<hr/>
-	<h3><%= t('titles.related_products') %></h3>
-	<% @training_module.products.each do |product| %>
-		<%= render_partial "product_families/product_square", product: product, compare: false %>
-	<% end %>
-	<div class="clear"></div>
-<% end %>
-
-<% if @training_module.active_softwares.size > 0 %>
-	<hr/>
-	<h3>Related Software</h3>
-	<ul>
-	<% @training_module.active_softwares.each do |software| %>
-		<li><%= link_to software.name, software %></li>
-	<% end %>
-	</ul>
-	<div class="clear"></div>
-<% end %>

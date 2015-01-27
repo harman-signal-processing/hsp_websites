@@ -3,7 +3,7 @@
 				 reverse: true %>
 
 <div class="row">
-	
+
 	<div class="large-4 columns">
 		<%= cache ["support_body", website.brand, I18n.locale] do %>
 
@@ -16,15 +16,15 @@
 					<% end %>
 				</p>
 			</div>
-			<% end %>	
-			
+			<% end %>
+
 			<div class="panel">
 				<h4><%= t('titles.product_support') %></h4>
 				<p><%= t('blurbs.product_support') %></p>
 				<%= form_tag support_path, method: :get do |f| %>
 					<div class="row collapse">
 						<div class="large-10 small-9 columns">
-							<%= select_tag :product_id, 
+							<%= select_tag :product_id,
 									options_from_collection_for_select(website.current_and_discontinued_products([:product_families]) - website.vintage_products, :to_param, :name) + vintage_options(), 
 									include_blank: true %>
 						</div>
@@ -43,7 +43,7 @@
 					<% end %>
 				</ul>
 			</div>
-			
+
 			<% if website.has_service_centers? %>
 			<div class="panel">
 				<h4><%= t('titles.locate_us_service_center') %>:</h4>
@@ -83,7 +83,7 @@
 				</ul>
 			</div>
 			<% end %>
-			
+
 			<div class="panel">
 				<h4><%= link_to t('warranty_registration').capitalize, warranty_registration_path %></h4>
 				<p><%= t('blurbs.warranty_registration', brand: website.brand_name) %></p>
@@ -117,7 +117,7 @@
 	</div>
 	<div class="large-8 columns">
 		<h1><%= t('titles.contact_us') %></h1>
-		<%= simple_form_for :contact_message, url: support_path(action: "contact"), html: {class: "contact"} do |f| %>
+		<%= simple_form_for @contact_message, url: support_path(action: "contact"), html: {class: "contact"} do |f| %>
 
 			<div class="row">
 				<div class="large-3 columns hide-for-small">
@@ -141,12 +141,12 @@
 				</div>
 				<div class="large-9 columns">
 			<%= cache ["contact_form_products", website.brand] do %>
-				<%= f.input :product, as: :select, 
-						collection: Product.all_for_website(website) + [Product.new(name: "other")], 
-						value_method: :name, 
-						label_method: :name, 
-						required: @contact_message.require_product?, 
-						prompt: "Select A Product", 
+				<%= f.input :product, as: :select,
+						collection: Product.all_for_website(website) + [Product.new(name: "other")],
+						value_method: :name,
+						label_method: :name,
+						required: @contact_message.require_product?,
+						prompt: "Select A Product",
 						label: false %>
 			<% end %>
 				</div>
@@ -156,7 +156,7 @@
 					<%= f.label :subject, nil, class: 'right inline' %>
 				</div>
 				<div class="large-9 columns">
-					<%= f.input :subject, as: :select, label: false, collection: ContactMessage.subjects, prompt: t('subjects.select_a_subject') %>
+          <%= f.input :subject, as: :select, label: false, collection: ContactMessage.subjects.map{|s| [s,s]}, prompt: t('subjects.select_a_subject') %>
 				</div>
 			</div>
 			<div class="row">
@@ -201,11 +201,11 @@
 			</div>
 
 			<%= f.input :message, label: t('message'), as: :text, input_html: { style: "height: 100px" } %>
-			
+
 			<div class="captcha">
 				<%= recaptcha_tags %>
 			</div>
-			
+
 			<%= f.submit t('submit'), class: "medium button" %>
 		<% end %>
 	</div>

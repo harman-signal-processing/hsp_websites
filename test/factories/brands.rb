@@ -1,5 +1,5 @@
 FactoryGirl.define do
-   
+
   factory :brand do
     sequence(:name) {|n| "HSP Brand #{n}"}
     has_effects false
@@ -71,24 +71,6 @@ FactoryGirl.define do
       live_on_this_platform true
       queue true
       toolkit true
-    end
-    factory :hardwire_brand do
-      name "HardWire"
-      has_service_centers true
-      dealers_from_brand_id 1
-      distributors_from_brand_id 1
-      service_centers_from_brand_id 1
-      employee_store false
-      live_on_this_platform true
-  	end
-    factory :vocalist_brand do
-      name "Vocalist"
-      has_service_centers true
-      dealers_from_brand_id 1
-      distributors_from_brand_id 1
-      service_centers_from_brand_id 1
-      employee_store false
-      live_on_this_platform true
     end
     factory :jbl_commercial_brand do
       name "JBL Commercial"

@@ -10,25 +10,33 @@
 <% end %>
 </h1>	
 	
-<div class="medium_centered_box">
+<div class="row">
 	
-	<p><%= t("blurbs.international_distributors") %></p>
+	<div class="large-5 columns">
+		<p><%= t("blurbs.international_distributors") %></p>
 	
-<%= form_tag search_distributors_path, method: :get %>
-	
-	<p><%= label_tag t('select_your_country') %><br/>
-		<%= select_tag :country, options_from_collection_for_select(@countries, :country, :country, @country) %>
-		<%= submit_tag t('submit') %>
-	</p>
-		
-</form>
-</div>
+		<%= form_tag search_distributors_path, method: :get %>
+			<%= label_tag t('select_your_country') %>
+			<div class="row collapse">
+				<div class="large-9 small-8 columns">
+					<%= select_tag :country, options_from_collection_for_select(@countries, :country, :country, @country) %>
+				</div>
+				<div class="large-3 small-4 columns">
+					<%= submit_tag t('submit'), class: "postfix button" %>
+				</div>
+			</div>
+		</form>
+	</div>
 
 <% if @distributors.size > 0 %>
-	<% @distributors.each do |distributor| %>
-	<div class="medium_centered_box light_gray">
-		<h2><%= distributor.name %></h2>
-		<div><%=raw distributor.detail %></div>
+	<div class="large-6 large-offset-1 columns">
+		<% @distributors.each do |distributor| %>
+		<div class="panel">
+			<h3><%= distributor.name %></h3>
+			<div><%=raw distributor.detail %></div>
+		</div>
+		<% end %>
 	</div>
-	<% end %>
 <% end %>
+
+</div>

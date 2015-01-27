@@ -1,90 +1,108 @@
 <% set_meta_tags title: t('titles.warranty_registration'),
 				 description: t('meta.warranty_registration'),
 				 reverse: true %>
+
+<h1><%= t('titles.warranty_registration') %></h1>
+
+<%= cache ["registration_form", website.brand, I18n.locale] do %>
+
+<div class="row">
+	<div class="large-10 columns">
+
+	<%= simple_form_for @warranty_registration, url: warranty_registration_path do |f| %>
+
+		<div class="row">
+			<div class="large-4 columns last">
+				<%= f.input :title, as: :select, collection: %w(Mr. Mrs. Ms. Miss Dr.) %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="large-6 columns">
+				<%= f.input :first_name, required: true %>
+			</div>
+			<div class="large-6 columns">
+				<%= f.input :last_name, required: true %>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="large-6 columns">
+				<%= f.input :email, required: true %>
+			</div>
+			<div class="large-6 columns">
+				<%= f.input :company %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="large-6 columns last">
+				<%= f.input :address1 %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="large-6 columns">
+				<%= f.input :city %>
+			</div>
+			<div class="large-2 columns">
+				<%= f.input :state %>
+			</div>
+			<div class="large-4 columns">
+				<%= f.input :zip %>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="large-6 columns">
+				<%= f.input :country, required: true %>
+			</div>
+			<div class="large-6 columns">
+				<%= f.input :phone %>
+			</div>
+		</div>
+
+		<fieldset>
+	    	<legend>Product Information</legend>
+			<div class="row">
+				<div class="large-6 columns">
+					<%= f.input :product_id, 
+						collection: Product.all_for_website_registration(website), 
+						value_method: :id, 
+						label_method: :name, 
+						prompt: "Select a product",
+						required: true %>
+				</div>
+				<div class="large-6 columns">
+					<%= f.input :serial_number, required: true, hint: t('blurbs.use_date_code') %>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="large-6 columns">
+					<%= f.input :purchased_from %>
+				</div>
+				<div class="large-2 columns">
+					<%= f.input :purchase_price, placeholder: "$" %>
+				</div>
+				<div class="large-4 columns">
+					<%= f.input :purchased_on, as: :string, required: true, input_html: { class: 'ui-datepicker-past-only' } %>
+				</div>
+			</div>
+		</fieldset>
 				
-<h1 class="page_title">
-<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/productregistration_head.jpg")) %>
-	<%= image_tag("#{website.folder}/#{I18n.locale}/productregistration_head.jpg", alt: t('titles.warranty_registration')) %>
-<% else %>
-	<%= t('titles.warranty_registration') %>
-<% end %>
-</h1>
 
-<%= form_for @warranty_registration, url: warranty_registration_path, html: {class: "reg"} do |f| %>
+		<%= f.input :comments, hint: t('blurbs.warranty_comments'), input_html: { style: "height: 80px" } %>
 
-	<%= f.error_messages %>
 
-	<div><%= f.label :title %>
-	<%= f.radio_button :title, "Mr." %>Mr.
-	<%= f.radio_button :title, "Mrs." %>Mrs.
-	<%= f.radio_button :title, "Ms." %>Ms.
-	<%= f.radio_button :title, "Miss" %>Miss
-	<%= f.radio_button :title, "Dr." %>Dr.</div>
-	
-	<div><%= f.label :first_name, class: "required" %>
-	<%= f.text_field :first_name %></div>
+		<p><br/><%= f.input :subscribe, label: t('blurbs.subscribe', brand: website.brand_name) %></p>
+		
+		<br/>
+		<div>
+			<%= f.submit t('submit_warranty_registration'), class: "medium button" %>
+		</div>
 
-	<div><%= f.label :last_name, class: "required" %>
-	<%= f.text_field :last_name %></div>
-	
-	<div><%= f.label :email, class: "required" %>
-	<%= f.text_field :email %></div>
-
-	<div><%= f.label :company %>
-	<%= f.text_field :company %></div>
-	
-	<div><%= f.label :address1 %>
-	<%= f.text_field :address1 %></div>
-	
-	<div><%= f.label :city %>
-	<%= f.text_field :city %></div>
-	
-	<div><%= f.label :state %>
-	<%= f.text_field :state %></div>
-	
-	<div><%= f.label :zip %>
-	<%= f.text_field :zip %></div>
-	
-	<div><%= f.label :country, class: "required" %>
-	<%= f.country_select :country %></div>
-	
-	<div><%= f.label :phone %>
-	<%= f.text_field :phone %></div>
-	
-	<%= cache ["registerable_products", website.brand, I18n.locale] do %>
-	<div><%= f.label :product_id, class: "required" %>
-	<%= f.collection_select :product_id, 
-		Product.all_for_website_registration(website), 
-		:id, :name, prompt: true %></div>
 	<% end %>
-	
-	<div><%= f.label :serial_number, class: "required" %>
-	<%= f.text_field :serial_number %></div>
-	<div class="centered">(<%= t('blurbs.use_date_code')%>)</div>
-	
-	<div><%= f.label :purchased_on, class: "required" %>
-		<div id="purchased_on_picker" style="margin: 0 0 20px 320px;" data-default="<%=l @warranty_registration.purchased_on.present? ? @warranty_registration.purchased_on.to_date : Date.yesterday, format: :mmddyy %>"></div>
-	<%= f.hidden_field :purchased_on %></div>
-	
-	<div><%= f.label :purchased_from %>
-	<%= f.text_field :purchased_from %></div>
-	
-	<div><%= f.label :purchase_price %>
-	<%= f.text_field :purchase_price %></div>
-	
-	<div class="centered"><%= t('blurbs.warranty_comments') %></div>
-	<div><%= f.label :comments %>
-	<%= f.text_area :comments, size: "40x5" %></div>
 
-	<div class="centered">
-		<%= f.check_box :subscribe %>
-		<%= t('blurbs.subscribe', brand: website.brand_name) %>
 	</div>
-	
-	<div class="centered">
-		<%= f.submit t('submit_warranty_registration') %>
-		<%= link_to t('cancel'), :back %>
-	</div>
+</div>
 
 <% end %>
 
