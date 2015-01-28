@@ -15,6 +15,7 @@
 //= require jquery-ui.min
 //= require jquery.lightbox-0.5.min
 //= require jquery.datetimepicker
+//= require jquery.pin.min
 //= require global_functions
 //= require maps
 //= require twitter
@@ -33,5 +34,11 @@ document.createElement("hgroup");
 document.createElement("nav");
 document.createElement("section");
 
-$(function(){ $(document).foundation(); });
-
+$(function(){
+  $(document).foundation({
+    "magellan-expedition": {
+      fixed_top: 44,
+      destination_threshold: 40,
+    }
+  });
+});
