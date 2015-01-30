@@ -117,7 +117,7 @@
 	<%= form_for :contact_message, url: support_path(action: "contact"), html: {class: "contact", id: "contact_form"} do |f| %>
 		<%= f.error_messages %>
 		<div class="form-inputs"><%= f.label :subject, t('subject') %><br/>
-			<%= f.select :subject, ContactMessage.subjects %></div>
+			<%= f.select :subject, ContactMessage.subjects(brand: website.brand) %></div>
 		<div class="form-inputs"><%= f.label :name, t('your_name') %><br/>
 		   <%= f.text_field :name %></div>
 		<div class="form-inputs"><%= f.label :email, ucfirst(t('email')) %><br/>

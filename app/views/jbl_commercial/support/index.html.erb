@@ -24,7 +24,7 @@
 			<%= cache ["contact_form_products", website.brand] do %>
 				<%= f.input :product, as: :select, collection: Product.all_for_website(website) + [Product.new(name: "other")], hint: (@contact_message.require_product?) ? "(required)" : "", prompt: "Select A Product" %>
 			<% end %>
-      <%= f.input :subject, as: :select, collection: ContactMessage.subjects.map{|s| [s,s]}, label: t('subject'), prompt: t('subjects.select_a_subject') %>
+      <%= f.input :subject, as: :select, collection: ContactMessage.subjects(brand: website.brand).flatten, label: t('subject'), prompt: t('subjects.select_a_subject') %>
 			<%= f.input :message, label: t('message'), as: :text, input_html: { style: "height: 100px" } %>
 
 			<div class="captcha">

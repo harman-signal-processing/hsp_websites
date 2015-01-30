@@ -156,7 +156,7 @@
 					<%= f.label :subject, nil, class: 'right inline' %>
 				</div>
 				<div class="large-9 columns">
-          <%= f.input :subject, as: :select, label: false, collection: ContactMessage.subjects.map{|s| [s,s]}, prompt: t('subjects.select_a_subject') %>
+          <%= f.input :subject, as: :select, label: false, collection: ContactMessage.subjects(brand: website.brand).flatten, prompt: t('subjects.select_a_subject') %>
 				</div>
 			</div>
 			<div class="row">

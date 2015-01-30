@@ -85,27 +85,42 @@ end
 
 group :development do
   # gem 'rack-mini-profiler'
+  gem 'zeus'
+  gem 'spring'
+  gem 'guard-bundler'
+  gem 'guard-rails'
+  gem 'guard-rspec'
+
+  gem 'rb-fchange', :require=>false
+  gem 'rb-fsevent', :require=>false
+  gem 'rb-inotify', :require=>false
+  gem 'sshkit'
+  gem 'colorize', '0.7.4' # version 0.7.5 caused problems deploying
 end
 
 group :development, :test do
   # gem 'bullet'
   # gem 'unicorn'
-  gem 'guard'
   gem 'minitest-rails'
+  gem 'rspec-rails'
   gem "factory_girl_rails", "~> 4.0"
-  gem 'zeus'
 end
 
 group :test do
   # gem 'turn', git: 'http://github.com/turn-project/turn'
   gem 'mocha', require: false
   gem 'minitest-rails-capybara'
+  gem 'capybara'
   gem 'minitest-capybara'
   gem 'capybara-webkit'
   gem 'launchy' # save_and_open_page inline in tests
   gem 'minitest'
   gem 'guard-minitest'
-  gem 'rb-fsevent', :require => false
-  gem 'rb-inotify', '~> 0.9', :require => false
   gem 'database_cleaner'
+  gem 'ZenTest'
+  gem 'simplecov', require: false
+  gem 'rspec-autotest'
+  gem 'json-schema'
+  gem 'faker'
+  gem 'selenium-webdriver'
 end

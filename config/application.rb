@@ -64,10 +64,7 @@ module HarmanSignalProcessingWebsite
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
     
     config.generators do |g|
-        g.test_framework   :minitest, :spec => true
-        g.integration_tool :minitest
-        g.stylesheets      false
-        g.fixture_replacement :factory_girl, dir: "test/factories"
+        g.fixture_replacement :factory_girl, dir: "spec/factories"
     end
 
     # Override these in environment configs...

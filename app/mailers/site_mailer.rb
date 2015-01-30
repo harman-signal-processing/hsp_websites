@@ -3,17 +3,20 @@ class SiteMailer < ActionMailer::Base
   def contact_form(contact_message, website)
     @brand = website.brand
     @contact_message = contact_message
-    @recipient = website.value_for("support_email") || "adam.anderson@harman.com"
-    mail(to: @recipient, 
-      subject: @contact_message.subject, 
+    @recipient = website.brand.support_email
+    if subj = SupportSubject.where(brand_id: website.brand_id, name: @contact_message.subject).first
+      @recipient = subj.recipient if subj.recipient.present?
+    end
+    mail(to: @recipient,
+      subject: @contact_message.subject,
       from: @contact_message.email)
   end
-  
+
   def promo_post_registration(warranty_registration, promotion)
     @warranty_registration = warranty_registration
     @brand = @warranty_registration.brand
     @promotion = promotion
-    mail(to: @warranty_registration.email, 
+    mail(to: @warranty_registration.email,
       from: @brand.support_email,
       subject: @promotion.post_registration_subject)
   end

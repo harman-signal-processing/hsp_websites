@@ -98,7 +98,7 @@
 				<div class="form-inputs"><%= f.label :operating_system %><br/>
 					<%= f.text_field :operating_system %></div>
 				<div class="form-inputs"><%= f.label :subject, t('subject') %><br/>
-					<%= f.select :subject, ContactMessage.subjects %></div>
+					<%= f.select :subject, ContactMessage.subjects(brand: website.brand) %></div>
 		<div class="form-inputs"><%= f.label :shipping_address, t("address") %><br/>
 			<%= f.text_area :shipping_address, size: "40x2" %></div>
 		<div class="form-inputs"><%= f.label :shipping_country, t("country") %> <%= "(required)" if @contact_message.require_country? %><br/>

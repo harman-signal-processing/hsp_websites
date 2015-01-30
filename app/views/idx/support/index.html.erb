@@ -48,7 +48,7 @@
 				<div><%= f.label :operating_system %><br/>
 					<%= f.text_field :operating_system %></div>
 				<div><%= f.label :subject, t('subject') %><br/>
-					<%= f.select :subject, ContactMessage.subjects %></div>
+					<%= f.select :subject, ContactMessage.subjects(brand: website.brand) %></div>
 				<p><%= t('message') %>:</p>
 				<%= f.text_area :message, size: "60x8" %>
 				

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141104213400) do
+ActiveRecord::Schema.define(version: 20150130181910) do
 
   create_table "admin_logs", force: true do |t|
     t.integer  "user_id"
@@ -1301,6 +1301,19 @@ ActiveRecord::Schema.define(version: 20141104213400) do
   end
 
   add_index "specifications", ["cached_slug"], name: "index_specifications_on_cached_slug", unique: true, using: :btree
+
+  create_table "support_subjects", force: true do |t|
+    t.integer  "brand_id"
+    t.string   "name"
+    t.string   "recipient"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "locale"
+  end
+
+  add_index "support_subjects", ["brand_id"], name: "index_support_subjects_on_brand_id", using: :btree
+  add_index "support_subjects", ["locale"], name: "index_support_subjects_on_locale", using: :btree
 
   create_table "system_components", force: true do |t|
     t.string   "name"

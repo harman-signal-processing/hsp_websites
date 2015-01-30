@@ -25,7 +25,7 @@
         </ul>
       </li>
       <% website.brand.market_segments.each do |market_segment| %>
-      <li class="has-dropdown"><%= link_to market_segment.name, market_segment %>
+      <li class="has-dropdown"><%= link_to market_segment.name, '#', class: "disabled" %>
         <ul class="dropdown">
           <% market_segment.product_families.each do |product_family| %>
             <%= product_family_nav_links(product_family, depth: 1) %>

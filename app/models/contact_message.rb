@@ -47,7 +47,24 @@ class ContactMessage < ActiveRecord::Base
     !!(self.message_type.match(/rma_request/))
   end
 
-  def self.subjects
+  def self.subjects(options={})
+    s = []
+    if options[:brand]
+      q = SupportSubject.where(brand_id: options[:brand].id)
+      if options[:locale]
+        q = q.where(locale: [options[:locale], options[:locale].gsub(/\-.*$/, '')])
+      else
+        q = q.where(locale: [nil, I18n.default_locale])
+      end
+      q.order(:position).each do |subj|
+        s << [subj.name]
+      end
+    end
+
+    s.length > 0 ? s : default_subjects
+  end
+
+  def self.default_subjects
     [
       [I18n.t('subjects.product_question')],
       [I18n.t('subjects.technical_support')],
