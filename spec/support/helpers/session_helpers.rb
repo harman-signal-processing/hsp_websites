@@ -16,10 +16,11 @@ module Features
       click_button 'Sign in'
     end
 
-    def sign_in_as_admin
-      user = FactoryGirl.create(:user, :admin)
-      login_as(user, scope: :user)
-      user
+    def admin_login_with(email, password, website)
+      visit admin_new_user_session_url(host: website.url)
+      fill_in 'Email', with: email
+      fill_in 'Password', with: password
+      click_button 'Sign in'
     end
 
   end

@@ -1,0 +1,24 @@
+<h1>Contact form subjects</h1>
+
+<ul class="button-group round">
+	<li><%= link_to 'New', new_admin_support_subject_path, class: "small success button" %></li>
+</ul>
+
+<% if @support_subjects && @support_subjects.length > 0 %>
+
+  <ul>
+    <% @support_subjects.each do |ss| %>
+      <li><%= link_to ss.name, [:admin, ss] %></li>
+    <% end %>
+  </ul>
+
+<% else %>
+  <p>This site current does not have any custom subjects
+  defined for the support/contact form. This means the default
+  subjects will be used.</p>
+
+  <p>If you'd like to have custom subjects with custom
+  recipients, click the button above to create them. Note:
+  as long as <i>one</i> custom subject is created, none
+  of the defaults will appear on the site.</p>
+<% end %>

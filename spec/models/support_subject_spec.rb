@@ -10,6 +10,7 @@ RSpec.describe SupportSubject, :type => :model do
   subject { @support_subject }
 
   it { should respond_to(:brand) }
+  it { should respond_to(:locale) }
 
   it "should default to the brand support email when no recipient is provided" do
     expect(@support_subject.recipient).to eq(@brand.support_email)

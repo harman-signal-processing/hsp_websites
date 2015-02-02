@@ -1,0 +1,19 @@
+<h1>Contact form subject</h1>
+
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_support_subjects_path, class: "small secondary button" %></li>
+	<li><%= link_to 'Edit', edit_admin_support_subject_path(@support_subject, locale: I18n.locale), class: "small secondary button" %></li>
+	<li><%= link_to 'Delete', [:admin, @support_subject], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
+
+<p>
+<b>Subject:</b> <%= @support_subject.name %>
+</p>
+
+<p>
+<b>Recipient:</b> <%= @support_subject.recipient %>
+</p>
+
+<p>
+<b>Locale:</b> <%= @support_subject.locale %>
+</p>

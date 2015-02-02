@@ -1,0 +1,6 @@
+<%= simple_form_for([:admin, @support_subject]) do |f| %>
+  <%= f.input :name, label: "Subject" %>
+  <%= f.input :recipient %>
+  <%= f.input :locale %>
+  <%= f.button :submit %>
+<% end %>

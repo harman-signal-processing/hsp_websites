@@ -148,16 +148,30 @@ set_meta_tags title: @product.name,
 
           <div class="row collapse">
             <div class="large-6 small-6 columns product-price">
-              <% if website.show_pricing? && @product.msrp && @product.msrp.to_f > 0 && I18n.default_locale.match(/#{I18n.locale}/i) %>
+              <% if website.show_pricing? && I18n.default_locale.match(/#{I18n.locale}/i) %>
+                <% if @product.street_price.present? && @product.street_price.to_f > 0.0 %>
 
-                <% if @product.sale_price && @product.msrp.to_f > @product.sale_price.to_f && @product.sale_price.to_f > 0 && I18n.locale == I18n.default_locale %>
-                  <h6 class="price-label">MSRP <span class="strike"><%= number_to_currency(@product.msrp) %></span></h6>
-                  <div><%= number_to_currency(@product.sale_price) %></div>
-                  Save <%= number_to_currency(@product.msrp.to_f - @product.sale_price.to_f) %>!
-                  <br/>
-                <% elsif @product.msrp %>
-                  <h6 class="price-label">MSRP</h6>
-                  <%= number_to_currency(@product.msrp) %>
+                  <% if @product.sale_price && @product.street_price.to_f > @product.sale_price.to_f && @product.sale_price.to_f > 0 %>
+                    <h6 class="price-label"><span class="strike"><%= number_to_currency(@product.street_price) %></span></h6>
+                    <div><%= number_to_currency(@product.sale_price) %></div>
+                    Save <%= number_to_currency(@product.street_price.to_f - @product.sale_price.to_f) %>!
+                    <br/>
+                  <% else %>
+                    <%= number_to_currency(@product.street_price) %>
+                  <% end %>
+
+                <% elsif @product.msrp && @product.msrp.to_f > 0.0 %>
+
+                  <% if @product.sale_price && @product.msrp.to_f > @product.sale_price.to_f && @product.sale_price.to_f > 0 %>
+                    <h6 class="price-label">MSRP <span class="strike"><%= number_to_currency(@product.msrp) %></span></h6>
+                    <div><%= number_to_currency(@product.sale_price) %></div>
+                    Save <%= number_to_currency(@product.msrp.to_f - @product.sale_price.to_f) %>!
+                    <br/>
+                  <% else %>
+                    <h6 class="price-label">MSRP</h6>
+                    <%= number_to_currency(@product.msrp) %>
+                  <% end %>
+
                 <% end %>
               <% end %>
 
