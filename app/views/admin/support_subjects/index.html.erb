@@ -6,19 +6,48 @@
 
 <% if @support_subjects && @support_subjects.length > 0 %>
 
-  <ul>
+  <table>
+    <tr>
+      <th>Subject</th>
+      <th>Recipient</th>
+      <th>Locale</th>
+    </tr>
     <% @support_subjects.each do |ss| %>
-      <li><%= link_to ss.name, [:admin, ss] %></li>
+      <tr>
+        <td><%= link_to ss.name, [:admin, ss] %></td>
+        <td><%= ss.recipient %></td>
+        <td><%= ss.locale %></td>
+      </tr>
     <% end %>
-  </ul>
+  </table>
 
 <% else %>
-  <p>This site current does not have any custom subjects
-  defined for the support/contact form. This means the default
-  subjects will be used.</p>
+  <div class="panel">
+    <p>This site current does not have any custom subjects
+    defined for the support/contact form. This means the default
+    subjects will be used.</p>
 
-  <p>If you'd like to have custom subjects with custom
-  recipients, click the button above to create them. Note:
-  as long as <i>one</i> custom subject is created, none
-  of the defaults will appear on the site.</p>
+    <p>If you'd like to have custom subjects with custom
+    recipients, click the button above to create them. Note:
+    as soon as <i>one</i> custom subject is created, none
+    of the defaults will appear on the site.</p>
+  </div>
+
+  <h3>Default Subjects</h3>
+  <table>
+    <tr>
+      <th>Subject</th>
+      <th>Default Recipient</th>
+    </tr>
+    <% ContactMessage.default_subjects.flatten.each do |ss| %>
+      <tr>
+        <td><%= ss %></td>
+        <td><%= website.brand.support_email %></td>
+      </tr>
+    <% end %>
+  </table>
+
+  <p>The default recipient is configured in the
+  <%= link_to "site settings", admin_settings_path %> by
+  creating/editing the "support_email" value.</p>
 <% end %>

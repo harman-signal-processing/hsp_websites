@@ -13,3 +13,11 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
 end
+
+# Monkeypatch from an issue I reported years ago, which never
+# has seen an official fix...
+class ActionView::TestCase::TestController
+  def default_url_options(options={})
+    { :locale => I18n.default_locale }
+  end
+end

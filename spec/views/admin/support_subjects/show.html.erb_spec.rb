@@ -5,7 +5,7 @@ RSpec.describe "admin/support_subjects/show.html.erb" do
   before do
     @brand = FactoryGirl.create(:brand)
     @website = FactoryGirl.create(:website, brand: @brand)
-    #allow(view).to receive_messages(:website => @website)
+    allow(view).to receive(:website).and_return(@website)
     @support_subject = FactoryGirl.create(:support_subject, brand: @brand)
     assign(:support_subject, @support_subject)
     render

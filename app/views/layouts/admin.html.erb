@@ -34,7 +34,7 @@
 		<ul class="dropdown">
 	<% if can?(:manage, Setting) || can?(:manage, Page) ||
 		can?(:manage, Blog) || can?(:manage, BlogArticle) ||
-		can?(:manage, SiteElement) %>
+		can?(:manage, SupportSubject) || can?(:manage, SiteElement) %>
 		<li class="has-dropdown"><%= link_to "Settings & Pages", '#' %>
 			<ul class="dropdown">
 				<% if can?(:manage, Setting) && can?(:manage, Product) %>
@@ -43,6 +43,9 @@
 				<% if can?(:manage, Setting) %>
 				<li><%= link_to "All Settings", admin_settings_path %></li>
 				<% end %>
+        <% if can?(:manage, SupportSubject) %>
+          <li><%= link_to "Contact Form Subjects", admin_support_subjects_path %></li>
+        <% end %>
 				<% if can?(:manage, Page) %>
 				<li><%= link_to "Landing Pages", admin_pages_path %></li>
 				<% end %>
@@ -55,8 +58,8 @@
 			</ul>
 		</li>
 	<% end %>
-	
-	<% if can?(:manage, Product) || 
+
+	<% if can?(:manage, Product) ||
 		can?(:manage, ProductFamily) ||
 		can?(:manage, News) ||
 		(can?(:manage, Effect) && website.has_effects?) ||

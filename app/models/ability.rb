@@ -47,7 +47,7 @@ class Ability
         cannot :manage, ProductIntroduction
         can :manage, MarketingTask
         cannot :assign, MarketingTask
-        can :create, MarketingProject 
+        can :create, MarketingProject
         can :manage, MarketingProject
         can :read, WarrantyRegistration
       end
@@ -61,8 +61,9 @@ class Ability
         can :manage, MarketingTask do |mt|
           mt.requestor_id == user.id || mt.worker_id == user.id || (mt.marketing_project && mt.marketing_project.user_id == user.id)
         end
-        can :create, MarketingProject 
-        can :manage, MarketingProject, user_id: user.id 
+        can :create, MarketingProject
+        can :manage, MarketingProject, user_id: user.id
+        can :manage, SupportSubject
         # cannot :assign, MarketingTask # Makes it so admin can't assign either
       end
       if user.role?(:queue_admin)
@@ -79,7 +80,7 @@ class Ability
       if user.role?(:project_manager)
         can :manage, MarketingTask
         cannot :assign, MarketingTask
-        can :create, MarketingProject 
+        can :create, MarketingProject
         can :manage, MarketingProject
       end
       if user.role?(:sales_admin)
@@ -105,8 +106,8 @@ class Ability
         can :manage, MarketingTask do |mt|
           mt.requestor_id == user.id || mt.worker_id == user.id || (mt.marketing_project && mt.marketing_project.user_id == user.id)
         end
-        can :create, MarketingProject 
-        can :manage, MarketingProject, user_id: user.id 
+        can :create, MarketingProject
+        can :manage, MarketingProject, user_id: user.id
         can :manage, Software
         can :manage, ProductSoftware
         can :manage, SoftwareAttachment
@@ -166,6 +167,7 @@ class Ability
       if user.role?(:translator)
         can :manage, Setting
         can :manage, ContentTranslation
+        can :manage, SupportSubject
       end
       if user.role?(:customer_service)
         can :manage, ServiceCenter
@@ -174,6 +176,7 @@ class Ability
         can :manage, Dealer
         can :manage, Distributor
         can :read, ToolkitResource
+        can :manage, SupportSubject
       end
       if user.role?(:rohs)
         can :read, Product

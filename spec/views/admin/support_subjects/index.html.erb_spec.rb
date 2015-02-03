@@ -5,7 +5,7 @@ RSpec.describe "admin/support_subjects/index.html.erb" do
   before do
     @brand = FactoryGirl.create(:brand)
     @website = FactoryGirl.create(:website, brand: @brand)
-    #allow(view).to receive_messages(:website => @website)
+    allow(view).to receive(:website).and_return(@website)
   end
 
   context "with no existing subjects" do

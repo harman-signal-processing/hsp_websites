@@ -1,6 +1,10 @@
 <%= simple_form_for([:admin, @support_subject]) do |f| %>
   <%= f.input :name, label: "Subject" %>
-  <%= f.input :recipient %>
-  <%= f.input :locale %>
+  <%= f.input :recipient, placeholder: "someone@domain.com", as: :email %>
+  <div class="row">
+    <div class="large-4 columns">
+      <%= f.input :locale, as: :select, collection: website.website_locales, value_method: :locale  %>
+    </div>
+  </div>
   <%= f.button :submit %>
 <% end %>

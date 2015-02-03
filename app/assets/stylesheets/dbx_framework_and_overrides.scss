@@ -725,7 +725,6 @@ div.featured_product_container {
 @media only screen and (min-width: 720px) {
   div.homepage_block {
     min-height: 360px;
-    padding: 60px 0px;
     h1 {
       font-size: 4em;
       line-height: 1em;
@@ -746,7 +745,6 @@ div.featured_product_container {
 }
 @media only screen and (max-width: 720px) {
   div.homepage_block {
-    padding: 40px 0px;	
     h1 {
       font-size: 2.25em;
     }
@@ -764,8 +762,12 @@ div.featured_product_container {
 
 div.homepage_block {
   &.dark {
+    padding: 50px 0px;
     background: #000 asset-url('dbx/pattern.png');
     color: $light-gray;
+  }
+  &.white_strip {
+    padding: 60px 0px;
   }
 }
 .yellow {
@@ -773,8 +775,7 @@ div.homepage_block {
 }
 div.promotion_container {
   background: $strip-bg-even;
-  padding: 30px 0px;
-  margin-bottom: 8px;
+  padding: 80px 0px;
   h2 {
     line-height: 1.2;
   }
