@@ -2,6 +2,8 @@ require "domain_conditions"
 
 HarmanSignalProcessingWebsite::Application.routes.draw do
 
+  get 'tools/calculators'
+
   get "/images/bar/(:brand_id)_(:width)x(:height).png" => "marketing_queue#bar", as: :bar
   get "signups/new"
   get "signup/complete" => "signups#complete", as: :signup_complete
