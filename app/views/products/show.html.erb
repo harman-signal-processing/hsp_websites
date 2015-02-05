@@ -215,7 +215,7 @@ set_meta_tags title: @product.name,
                     Save <%= number_to_currency(@product.street_price.to_f - @product.sale_price.to_f) %>!
                     <br/>
                   <% else %>
-                    <%= number_to_currency(@product.street_price) %>
+                    <div class="spacer-10"><%= number_to_currency(@product.street_price) %></div>
                   <% end %>
 
                 <% elsif @product.msrp && @product.msrp.to_f > 0.0 %>
