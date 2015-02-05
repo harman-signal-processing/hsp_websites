@@ -1,0 +1,77 @@
+<a name="inverse_square_law"></a>
+<div class="row">
+  <div class="large-5 columns">
+    <div class="panel">
+      <h4 class="text-center">Inverse Square Law</h4>
+      <form id="inverse_square_law">
+        <input type="hidden" id="mult" value="20">
+
+        <label for="distance1">Reference distance from source</label>
+        <div class="row collapse">
+          <div class="large-9 small-8 columns">
+            <input type="text" name="distance1"/>
+          </div>
+          <div class="large-3 small-4 columns">
+            <span class="postfix">ft.</span>
+          </div>
+        </div>
+
+        <label for="sound1">Sound level at reference distance</label>
+        <div class="row collapse">
+          <div class="large-9 small-8 columns">
+            <input type="text" name="sound1"/>
+          </div>
+          <div class="large-3 small-4 columns">
+            <span class="postfix">dBSPL</span>
+          </div>
+        </div>
+
+        <label for="distance2">New distance from source</label>
+        <div class="row collapse">
+          <div class="large-9 small-8 columns">
+            <input type="text" name="distance2"/>
+          </div>
+          <div class="large-3 small-4 columns">
+            <span class="postfix">ft.</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="large-12 small-12 columns text-center">
+            <input type="submit" value="Calculate" class="small radius button"/>
+            <input type="reset" value="Reset" class="small secondary radius button"/>
+          </div>
+        </div>
+
+        <label for="sound2">Sound level at new distance</label>
+        <div class="row collapse">
+          <div class="large-9 small-8 columns">
+            <input type="text" name="sound2"/>
+          </div>
+          <div class="large-3 small-4 columns">
+            <span class="postfix">dBSPL</span>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+  <div class="large-7 columns">
+    <p>This calculation will give you the amount of attenuation, in decibels, you can
+    expect with a change in receiver distance, in a free field (outdoors).</p>
+
+    <p>For example if you were standing 20 feet from a loudspeaker, and were to move
+    to 40 feet away from that loudspeaker, you would expect to see a drop in level of
+    6 dB. Sound that is radiated from a point source drops in level at 6 dB per
+    doubling of distance.</p>
+
+    <p>Equation used to calculate the data:<br/>
+    <strong>Snew = Sref + (20 * Log (Dref / Dnew))</strong></p>
+
+    <p><i>Where:</i><br/>
+    <strong>Dref</strong> = Reference Distance<br/>
+    <strong>Dnew</strong> = New Distance<br/>
+    <strong>Sref</strong> = Reference Sound Level<br/>
+    <strong>Snew</strong> = New Sound Level</p>
+  </div>
+</div>

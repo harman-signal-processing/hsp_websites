@@ -1,0 +1,54 @@
+<a name="db_voltage"></a>
+<div class="row">
+  <div class="large-5 columns">
+    <div class="panel">
+      <h4 class="text-center">db Voltage Ratio</h4>
+      <form id="db_voltage" class="power_calc">
+        <input type="hidden" id="mult" value="20">
+        <div class="row">
+          <div class="large-4 small-6 columns">
+            <label for="pin" class="right inline">Voltage A</label>
+          </div>
+          <div class="large-8 small-6 columns">
+            <input type="text" name="pin"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-4 small-6 columns">
+            <label for="pout" class="right inline">Voltage B</label>
+          </div>
+          <div class="large-8 small-6 columns">
+            <input type="text" name="pout"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-4 small-6 columns">
+            <label for="pdB" class="right inline">dB</label>
+          </div>
+          <div class="large-8 small-6 columns">
+            <input type="text" name="pdB"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-8 large-offset-4 small-12 columns">
+            <input type="submit" value="Calculate" class="small radius button"/>
+            <input type="reset" value="Reset" class="small secondary radius button"/>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="large-7 columns">
+    <p>This calculation will give you the ratio, in decibels, between
+    two voltages. For example, you can calculate the gain needed to raise
+    the output level from 0.775 volts to 1.4 volts. You can also use this
+    to calculate how much attenuation you need if, for instance, you have
+    a 2.0 volt input level and you need to attenuate it to 0.2 volts to
+    prevent input overload.</p>
+
+    <p>Enter any two values and press "Calculate" for the remaining value.</p>
+
+    <p>Equation used to calculate the data:<br/>
+    <strong>dB = 20 * Log (Vout / Vin)</strong></p>
+  </div>
+</div>

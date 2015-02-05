@@ -7,6 +7,11 @@ RSpec.describe ToolsController, :type => :controller do
       get :calculators
       expect(response).to have_http_status(:success)
     end
+
+    it "renders tools/calculators" do
+      get :calculators
+      expect(response).to render_template("calculators")
+    end
   end
 
 end

@@ -1,0 +1,80 @@
+<a name="constant_voltage"></a>
+<div class="row">
+  <div class="large-5 columns">
+    <div class="panel">
+      <h4 class="text-center">"Constant Voltage" Transformer Delivered Power</h4>
+      <form id="constant_voltage">
+        <div class="row collapse">
+          <div class="large-4 small-12 columns">
+            <label for="vnew" class="inline">V new</label>
+          </div>
+          <div class="large-5 small-9 columns">
+            <input type="text" name="vnew"/>
+          </div>
+          <div class="large-3 small-3 columns">
+            <span class="postfix">volts</span>
+          </div>
+        </div>
+        <div class="row collapse">
+          <div class="large-4 small-12 columns">
+            <label for="vrated" class="inline">V rated</label>
+          </div>
+          <div class="large-5 small-9 columns">
+            <input type="text" name="vrated"/>
+          </div>
+          <div class="large-3 small-3 columns">
+            <span class="postfix">volts</span>
+          </div>
+        </div>
+        <div class="row collapse">
+          <div class="large-4 small-12 columns">
+            <label for="prated" class="inline">P rated</label>
+          </div>
+          <div class="large-5 small-9 columns">
+            <input type="text" name="prated"/>
+          </div>
+          <div class="large-3 small-3 columns">
+            <span class="postfix">watts</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-12 small-12 columns text-center">
+            <input type="submit" value="Calculate" class="small radius button"/>
+            <input type="reset" value="Reset" class="small secondary radius button"/>
+          </div>
+        </div>
+        <div class="row collapse">
+          <div class="large-4 small-12 columns">
+            <label for="pactual" class="inline">P actual</label>
+          </div>
+          <div class="large-5 small-9 columns">
+            <input type="text" name="pactual"/>
+          </div>
+          <div class="large-3 small-3 columns">
+            <span class="postfix">watts</span>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="large-7 columns">
+    <p>Many people don't realize that a transformer labeled for use with a specific
+    voltage will work just as well at other voltages. This calculator provides power
+    delivered from a transformer tap when driven with other than the rated voltage.</p>
+
+    <p>Example: You are installing a distributed system with very long lines. To
+    overcome line loss, you select a 140 volt system. Which transformer tap will
+    feed 10 watts to a loudspeaker with a 70V transformer?</p>
+
+    <p>Enter values for "Voltage Rating of Transformer", "New Voltage", and "Power Rated".</p>
+
+    <p>Equation used to calculate the data:<br/>
+    <strong>Pactual = (Vnew squared / Vrated squared) * Prated</strong></p>
+
+    <p><i>Where:</i><br/>
+    <strong>Prated</strong> = transformer tap value<br/>
+    <strong>Pactual</strong> = new power from tap<br/>
+    <strong>Vrated</strong> = voltage rating of transformer<br/>
+    <strong>Vnew</strong> = new voltage</p>
+  </div>
+</div>

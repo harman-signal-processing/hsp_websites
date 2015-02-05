@@ -109,6 +109,9 @@
 					<% if !!(website.forum_link) %>
 					<li><%= link_to t("user_forum"), website.forum_link %></li>
 					<% end %>
+          <% if !!!(website.brand.name.to_s.match(/digitech|lexicon|dod/)) %>
+            <li><%= link_to "System Design Tools", tools_calculators_path %></li>
+          <% end %>
 				</ul>
 			</div>
 			<% end %>

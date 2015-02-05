@@ -6,182 +6,26 @@
   <ul class="side-nav">
     <li><%= link_to "db Power Ratio", '#db_power' %></li>
     <li><%= link_to "db Voltage Ratio", '#db_voltage' %></li>
-    <!--
     <li><%= link_to "Amplifier Power Required", '#amp_power_required' %></li>
-    -->
+    <li><%= link_to "Inverse Square Law", '#inverse_square_law' %></li>
+    <li><%= link_to "Line Loss", '#line_loss' %></li>
+    <li><%= link_to "Ohm's/Watt's Law", '#ohms_watts_law' %></li>
+    <li><%= link_to "Constant Voltage", '#constant_voltage' %></li>
   </ul>
 </div>
 
 <div class="large-10 columns">
-  <div class="row">
-    <div class="large-5 columns">
-      <div class="panel">
-        <a name="db_power"/>
-        <h4 class="text-center">db Power Ratio</h4>
-        <form id="db_power" class="power_calc ">
-          <input type="hidden" id="mult" value="10">
-          <div class="row">
-            <div class="large-4 small-6 columns">
-              <label for="pin" class="right inline">Power A</label>
-            </div>
-            <div class="large-8 small-6 columns">
-              <input type="text" name="pin"/>
-            </div>
-          </div>
-          <div class="row">
-            <div class="large-4 small-6 columns">
-              <label for="pout" class="right inline">Power B</label>
-            </div>
-            <div class="large-8 small-6 columns">
-              <input type="text" name="pout"/>
-            </div>
-          </div>
-          <div class="row">
-            <div class="large-4 small-6 columns">
-              <label for="pdB" class="right inline">dB</label>
-            </div>
-            <div class="large-8 small-6 columns">
-              <input type="text" name="pdB"/>
-            </div>
-          </div>
-          <div class="row">
-            <div class="large-8 large-offset-4 small-12 columns">
-              <input type="submit" value="Calculate" class="small radius button"/>
-              <input type="reset" value="Reset" class="small secondary radius button"/>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="large-7 columns">
-
-      <p>This calculation will give you the ratio, in decibels, between two
-      power values. For example, you can calculate the difference in dB
-      between two amplifiers with different power output specifications.</p>
-
-      <p>Enter any two values and press "Calculate" for the remaining value.</p>
-
-      <p>Equation used to calculate the data:<br/>
-      <strong> dB = 10 * Log (Pout / Pin)</strong></p>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="large-5 columns">
-      <div class="panel">
-        <a name="db_voltage"/>
-        <h4 class="text-center">db Voltage Ratio</h4>
-        <form id="db_voltage" class="power_calc">
-          <input type="hidden" id="mult" value="20">
-          <div class="row">
-            <div class="large-4 small-6 columns">
-              <label for="pin" class="right inline">Voltage A</label>
-            </div>
-            <div class="large-8 small-6 columns">
-              <input type="text" name="pin"/>
-            </div>
-          </div>
-          <div class="row">
-            <div class="large-4 small-6 columns">
-              <label for="pout" class="right inline">Voltage B</label>
-            </div>
-            <div class="large-8 small-6 columns">
-              <input type="text" name="pout"/>
-            </div>
-          </div>
-          <div class="row">
-            <div class="large-4 small-6 columns">
-              <label for="pdB" class="right inline">dB</label>
-            </div>
-            <div class="large-8 small-6 columns">
-              <input type="text" name="pdB"/>
-            </div>
-          </div>
-          <div class="row">
-            <div class="large-8 large-offset-4 small-12 columns">
-              <input type="submit" value="Calculate" class="small radius button"/>
-              <input type="reset" value="Reset" class="small secondary radius button"/>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="large-7 columns">
-      <p>This calculation will give you the ratio, in decibels, between
-      two voltages. For example, you can calculate the gain needed to raise
-      the output level from 0.775 volts to 1.4 volts. You can also use this
-      to calculate how much attenuation you need if, for instance, you have
-      a 2.0 volt input level and you need to attenuate it to 0.2 volts to
-      prevent input overload.</p>
-
-      <p>Enter any two values and press "Calculate" for the remaining value.</p>
-
-      <p>Equation used to calculate the data:<br/>
-      <strong>dB = 20 * Log (Vout / Vin)</strong></p>
-    </div>
-  </div>
-<!--
-  <div class="row">
-    <div class="large-5 columns">
-      <div class="panel">
-        <a name="amp_power_required"/>
-        <h4 class="text-center">Amplifier Power Required</h4>
-        <form id="amp_power_required">
-          <input type="hidden" id="mult" value="20">
-          <label for="d2">Listener distance from source (meters)</label>
-          <input type="text" name="d2"/>
-
-          <div class="row">
-            <div class="large-4 small-6 columns">
-              <label for="pout" class="right inline">Voltage B</label>
-            </div>
-            <div class="large-8 small-6 columns">
-              <input type="text" name="pout"/>
-            </div>
-          </div>
-          <div class="row">
-            <div class="large-4 small-6 columns">
-              <label for="pdB" class="right inline">dB</label>
-            </div>
-            <div class="large-8 small-6 columns">
-              <input type="text" name="pdB"/>
-            </div>
-          </div>
-          <div class="row">
-            <div class="large-12 small-12 columns text-center">
-              <input type="submit" value="Calculate" class="small radius button"/>
-              <input type="reset" value="Reset" class="small secondary radius button"/>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="large-7 columns">
-      <p>This calculator provides the required electrical power (power output
-      from the amplifier) to produce a desired Sound Pressure Level (SPL) at a
-      given distance, along with an amount of headroom to keep the amplifier(s)
-      out of clip.</p>
-
-      <p>Example: You are designing a system where the farthest listening position
-      from the loudspeaker is 100 meters, and the desired Sound Pressure Level is
-      85 dB SPL The loudspeaker chosen for the job has a sensitivity rating of 95
-      dB. With the minimum recommended amplifier headroom of 3 dB, then you need
-      to choose an amplifier that can supply at least 1,995 watts to the
-      loudspeaker.</p>
-
-      <p>Equations used to calculate the data:<br/>
-      <strong>dBW = Lreq - Lsens + 20 * Log (D2/Dref) + HR</strong><br/>
-      <strong>W = 10 to the power of (dBW / 10)</strong></p>
-
-      <p><i>Where:</i><br/>
-      <strong>Lreq</strong> = required SPL at listener<br/>
-      <strong>Lsens</strong> = loudspeaker sensitivity (1W/1M)<br/>
-      <strong>D2</strong> = loudspeaker-to-listener distance<br/>
-      <strong>Dref</strong> = reference distance<br/>
-      <strong>HR</strong> = desired amplifier headroom<br/>
-      <strong>dBW</strong> = ratio of power referenced to 1 watt<br/>
-      <strong>W</strong> = power required</p>
-    </div>
-  </div>
-  -->
+  <%= render "db_power" %>
+  <hr/>
+  <%= render "db_voltage" %>
+  <hr/>
+  <%= render "amp_power_required" %>
+  <hr/>
+  <%= render "inverse_square_law" %>
+  <hr/>
+  <%= render "line_loss" %>
+  <hr/>
+  <%= render "ohms_watts_law" %>
+  <hr/>
+  <%= render "constant_voltage" %>
 </div>

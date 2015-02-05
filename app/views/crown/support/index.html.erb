@@ -95,10 +95,12 @@
 				</ul>
 			</div>
 
-			<% unless website.brand_name.match(/dod/i) %>
 			<div class="panel">
 				<h4><%= t('titles.more_resources') %></h4>
 				<ul class="list">
+          <% if !!!(website.brand.name.to_s.match(/digitech|lexicon|dod/)) %>
+            <li><%= link_to "System Design Tools", tools_calculators_path %></li>
+          <% end %>
 					<% if !!(website.value_for("troubleshooting_url")) %>
 					<li><%= link_to t('troubleshooting').downcase, support_path(action: "troubleshooting") %></li>
 					<% end %>
@@ -111,7 +113,6 @@
 					<% end %>
 				</ul>
 			</div>
-			<% end %>
 
 		<% end %>
 	</div>

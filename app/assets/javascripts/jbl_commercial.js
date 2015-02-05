@@ -22,6 +22,7 @@
 //= require homepage
 //= require foundation
 //= require add2home
+//= require tools
 //= require_self
 
 document.createElement("article");  

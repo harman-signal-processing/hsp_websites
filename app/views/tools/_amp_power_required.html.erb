@@ -1,0 +1,94 @@
+<a name="amp_power_required"></a>
+<div class="row">
+  <div class="large-5 columns">
+    <div class="panel">
+      <h4 class="text-center">Amplifier Power Required</h4>
+      <form id="amp_power_required">
+
+        <label for="d2">Listener distance from source</label>
+        <div class="row collapse">
+          <div class="large-9 small-8 columns">
+            <input type="text" name="d2"/>
+          </div>
+          <div class="large-3 small-4 columns">
+            <span class="postfix">meters</span>
+          </div>
+        </div>
+
+        <label for="lreq">Desired level at listener distance</label>
+        <div class="row collapse">
+          <div class="large-9 small-8 columns">
+            <input type="text" name="lreq"/>
+          </div>
+          <div class="large-3 small-4 columns">
+            <span class="postfix">dBSPL</span>
+          </div>
+        </div>
+
+        <label for="lsens">Loudspeaker sensitivity rating (1W/1M)</label>
+        <div class="row collapse">
+          <div class="large-9 small-8 columns">
+            <input type="text" name="lsens"/>
+          </div>
+          <div class="large-3 small-4 columns">
+            <span class="postfix">dB</span>
+          </div>
+        </div>
+
+        <label for="hr">Amplifier headroom</label>
+        <div class="row collapse">
+          <div class="large-9 small-8 columns">
+            <input type="text" name="hr" value="3"/>
+          </div>
+          <div class="large-3 small-4 columns">
+            <span class="postfix">dB</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="large-12 small-12 columns text-center">
+            <input type="submit" value="Calculate" class="small radius button"/>
+            <input type="reset" value="Reset" class="small secondary radius button"/>
+          </div>
+        </div>
+
+        <label for="w">Required Amplifier Power</label>
+        <div class="row collapse">
+          <div class="large-9 small-8 columns">
+            <input type="text" name="w"/>
+          </div>
+          <div class="large-3 small-4 columns">
+            <span class="postfix">watts</span>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+  <div class="large-7 columns">
+    <p>This calculator provides the required electrical power (power output
+    from the amplifier) to produce a desired Sound Pressure Level (SPL) at a
+    given distance, along with an amount of headroom to keep the amplifier(s)
+    out of clip.</p>
+
+    <p>Example: You are designing a system where the farthest listening position
+    from the loudspeaker is 100 meters, and the desired Sound Pressure Level is
+    85 dB SPL The loudspeaker chosen for the job has a sensitivity rating of 95
+    dB. With the minimum recommended amplifier headroom of 3 dB, then you need
+    to choose an amplifier that can supply at least 1,995 watts to the
+    loudspeaker.</p>
+
+    <p>Equations used to calculate the data:<br/>
+    <strong>dBW = Lreq - Lsens + 20 * Log (D2/Dref) + HR</strong><br/>
+    <strong>W = 10 to the power of (dBW / 10)</strong></p>
+
+    <p><i>Where:</i><br/>
+    <strong>Lreq</strong> = required SPL at listener<br/>
+    <strong>Lsens</strong> = loudspeaker sensitivity (1W/1M)<br/>
+    <strong>D2</strong> = loudspeaker-to-listener distance<br/>
+    <strong>Dref</strong> = reference distance<br/>
+    <strong>HR</strong> = desired amplifier headroom<br/>
+    <strong>dBW</strong> = ratio of power referenced to 1 watt<br/>
+    <strong>W</strong> = power required</p>
+  </div>
+</div>

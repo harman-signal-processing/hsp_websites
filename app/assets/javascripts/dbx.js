@@ -24,6 +24,7 @@
 //= require add2home
 //= require jwplayer
 //= require swfobject
+//= require tools
 //= require dbx_application
 //= require_self
 

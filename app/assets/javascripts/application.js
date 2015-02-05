@@ -22,6 +22,7 @@
 //= require slideshow
 //= require twitter
 //= require swfobject
+//= require tools
 //= require homepage
 //= require configurator
 

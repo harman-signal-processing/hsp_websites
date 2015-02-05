@@ -1,0 +1,52 @@
+<a name="db_power"></a>
+<div class="row">
+  <div class="large-5 columns">
+    <div class="panel">
+      <h4 class="text-center">db Power Ratio</h4>
+      <form id="db_power" class="power_calc ">
+        <input type="hidden" id="mult" value="10">
+        <div class="row">
+          <div class="large-4 small-6 columns">
+            <label for="pin" class="right inline">Power A</label>
+          </div>
+          <div class="large-8 small-6 columns">
+            <input type="text" name="pin"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-4 small-6 columns">
+            <label for="pout" class="right inline">Power B</label>
+          </div>
+          <div class="large-8 small-6 columns">
+            <input type="text" name="pout"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-4 small-6 columns">
+            <label for="pdB" class="right inline">dB</label>
+          </div>
+          <div class="large-8 small-6 columns">
+            <input type="text" name="pdB"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-8 large-offset-4 small-12 columns">
+            <input type="submit" value="Calculate" class="small radius button"/>
+            <input type="reset" value="Reset" class="small secondary radius button"/>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="large-7 columns">
+
+    <p>This calculation will give you the ratio, in decibels, between two
+    power values. For example, you can calculate the difference in dB
+    between two amplifiers with different power output specifications.</p>
+
+    <p>Enter any two values and press "Calculate" for the remaining value.</p>
+
+    <p>Equation used to calculate the data:<br/>
+    <strong> dB = 10 * Log (Pout / Pin)</strong></p>
+  </div>
+</div>
