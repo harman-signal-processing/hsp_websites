@@ -50,7 +50,7 @@ GEM
       activerecord (>= 3.0)
     acts_as_tree (2.1.0)
       activerecord (>= 3.0.0)
-    addressable (2.3.6)
+    addressable (2.3.7)
     akami (1.2.2)
       gyoku (>= 0.4.0)
       nokogiri
@@ -124,7 +124,7 @@ GEM
     delayed_job_active_record (4.0.3)
       activerecord (>= 3.0, < 5.0)
       delayed_job (>= 3.0, < 4.1)
-    delayed_paperclip (2.9.0)
+    delayed_paperclip (2.9.1)
       paperclip (>= 3.3)
     devise (3.4.1)
       bcrypt (~> 3.0)
@@ -145,7 +145,7 @@ GEM
       actionmailer (>= 3.0.4)
       activesupport (>= 3.0.4)
     excon (0.44.1)
-    execjs (2.2.2)
+    execjs (2.3.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.5.0)
@@ -182,7 +182,7 @@ GEM
     fog-atmos (0.1.0)
       fog-core
       fog-xml
-    fog-aws (0.0.8)
+    fog-aws (0.1.0)
       fog-core (~> 1.27)
       fog-json (~> 1.0)
       fog-xml (~> 0.1)
@@ -247,7 +247,7 @@ GEM
       geokit (~> 1.5)
       rails (>= 3.0)
     gravtastic (3.2.6)
-    guard (2.11.1)
+    guard (2.12.1)
       formatador (>= 0.2.4)
       listen (~> 2.7)
       lumberjack (~> 1.0)
@@ -261,15 +261,12 @@ GEM
       guard (~> 2.2)
       guard-compat (~> 1.1)
     guard-compat (1.2.1)
-    guard-minitest (2.4.2)
+    guard-minitest (2.4.3)
       guard-compat (~> 1.2)
       minitest (>= 3.0)
-    guard-rails (0.7.0)
-      guard (~> 2.0)
-    guard-rspec (4.5.0)
-      guard (~> 2.1)
-      guard-compat (~> 1.1)
-      rspec (>= 2.99.0, < 4.0)
+    guard-rails (0.7.1)
+      guard (~> 2.11)
+      guard-compat (~> 1.0)
     gyoku (1.2.2)
       builder (>= 2.1.2)
     highline (1.6.21)
@@ -337,7 +334,7 @@ GEM
       metaclass (~> 0.0.1)
     monetize (1.1.0)
       money (~> 6.5.0)
-    money (6.5.0)
+    money (6.5.1)
       i18n (>= 0.6.4, <= 0.7.0)
     money-rails (1.3.0)
       activesupport (>= 3.0)
@@ -348,7 +345,7 @@ GEM
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    mysql2 (0.3.17)
+    mysql2 (0.3.16)
     naught (1.0.0)
     nenv (0.2.0)
     net-scp (1.2.1)
@@ -361,7 +358,7 @@ GEM
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     nori (2.4.0)
-    notiffany (0.0.3)
+    notiffany (0.0.4)
       nenv (~> 0.1)
       shellany (~> 0.0)
     oauth (0.4.7)
@@ -438,10 +435,6 @@ GEM
       vegas (~> 0.1.2)
     riddle (1.5.11)
     rmagick (2.13.4)
-    rspec (3.1.0)
-      rspec-core (~> 3.1.0)
-      rspec-expectations (~> 3.1.0)
-      rspec-mocks (~> 3.1.0)
     rspec-autotest (1.0.0)
       rspec-core (>= 2.99.0.beta1, < 4.0.0)
     rspec-core (3.1.7)
@@ -462,7 +455,7 @@ GEM
     rspec-support (3.1.2)
     ruby-ole (1.2.11.8)
     rubyntlm (0.4.0)
-    rubyzip (1.1.6)
+    rubyzip (1.1.7)
     s3_direct_upload (0.1.7)
       coffee-rails (>= 3.1)
       jquery-fileupload-rails (~> 0.4.1)
@@ -506,7 +499,7 @@ GEM
     slop (3.6.0)
     spreadsheet (1.0.1)
       ruby-ole (>= 1.0)
-    spring (1.2.0)
+    spring (1.3.0)
     sprockets (2.12.3)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -625,10 +618,10 @@ DEPENDENCIES
   geokit (>= 1.8.5)
   geokit-rails
   gravtastic
+  guard
   guard-bundler
   guard-minitest
   guard-rails
-  guard-rspec
   jquery-rails
   json-schema
   launchy
@@ -655,7 +648,7 @@ DEPENDENCIES
   recaptcha
   rmagick
   rspec-autotest
-  rspec-rails
+  rspec-rails (= 3.1.0)
   rubyntlm
   rubyzip
   s3_direct_upload

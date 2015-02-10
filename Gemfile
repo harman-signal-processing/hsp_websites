@@ -87,9 +87,6 @@ group :development do
   # gem 'rack-mini-profiler'
   gem 'zeus'
   gem 'spring'
-  gem 'guard-bundler'
-  gem 'guard-rails'
-  gem 'guard-rspec'
 
   gem 'rb-fchange', :require=>false
   gem 'rb-fsevent', :require=>false
@@ -101,8 +98,13 @@ end
 group :development, :test do
   # gem 'bullet'
   # gem 'unicorn'
+  gem 'guard'
+  gem 'guard-bundler'
+  gem 'guard-rails'
+  gem 'guard-minitest'
+  #gem 'guard-rspec' # for now, while migrating, only run minitests with guard
   gem 'minitest-rails'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '3.1.0' # newer conflicts with minitest. I'm working to migrate minitests to rspec
   gem "factory_girl_rails", "~> 4.0"
 end
 
@@ -115,7 +117,6 @@ group :test do
   gem 'capybara-webkit'
   gem 'launchy' # save_and_open_page inline in tests
   gem 'minitest'
-  gem 'guard-minitest'
   gem 'database_cleaner'
   gem 'ZenTest'
   gem 'simplecov', require: false
