@@ -26,7 +26,7 @@
 					<%= link_to '#', id: "locale_menu" do %>
 						<%= image_tag "icons/globe_white.png", alt: t('language_region') %>
 					<% end %>
-					<ul class="dropdown"> 
+					<ul class="dropdown">
 						<% website.available_locales.each do |website_locale| %>
 							<% if website_locale.locale.to_s == I18n.locale.to_s %>
 							<li><%= link_to '#', class: "active" do %>

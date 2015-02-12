@@ -3,7 +3,7 @@
 				 reverse: true %>
 
 <div class="row">
-	
+
 	<div class="large-4 columns">
 		<%= cache ["support_body", website.brand, I18n.locale] do %>
 
@@ -16,15 +16,15 @@
 					<% end %>
 				</p>
 			</div>
-			<% end %>	
-			
+			<% end %>
+
 			<div class="panel">
 				<h4><%= t('titles.product_support') %></h4>
 				<p><%= t('blurbs.product_support') %></p>
 				<%= form_tag support_path, method: :get do |f| %>
 					<div class="row collapse">
 						<div class="large-10 small-9 columns">
-							<%= select_tag :product_id, 
+							<%= select_tag :product_id,
 									options_from_collection_for_select(website.current_and_discontinued_products([:product_families]) - website.vintage_products, :to_param, :name) + vintage_options(), 
 									include_blank: true %>
 						</div>
@@ -43,7 +43,7 @@
 					<% end %>
 				</ul>
 			</div>
-			
+
 			<% if website.has_service_centers? %>
 			<div class="panel">
 				<h4><%= t('titles.locate_us_service_center') %>:</h4>
@@ -80,10 +80,11 @@
 					<% if !!(website.has_speaker_tunings) %>
 					<li><%= link_to "speaker tunings", support_path(action: "speaker_tunings") %></li>
 					<% end %>
+          <li><%= link_to "More Downloads", support_downloads_path %></li>
 				</ul>
 			</div>
 			<% end %>
-			
+
 			<div class="panel">
 				<h4><%= link_to t('warranty_registration').capitalize, warranty_registration_path %></h4>
 				<p><%= t('blurbs.warranty_registration', brand: website.brand_name) %></p>
