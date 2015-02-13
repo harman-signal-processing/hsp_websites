@@ -5,7 +5,7 @@
 			<%= f.input :name %>
 		</div>
 		<div class="large-4 columns">
-			
+
 		</div>
 	</div>
 
@@ -29,13 +29,13 @@
 	<div class="row">
 		<div class="large-4 columns">
 			<div class="panel">
-				<%= f.input :family_photo, hint: "appears on overall products page" %>
+				<%= f.input :family_photo, label: "Family button", hint: "appears on overall products page" %>
 			  	<% if !f.object.family_photo_file_name.blank? %>
 					<span id="family_photo">
 						<%= link_to image_tag("icons/trash.gif"), delete_family_photo_admin_product_family_path(f.object), remote: true %>
 						currently:
 						<%= link_to image_tag(f.object.family_photo.url(:thumb)), f.object.family_photo.url %>
-						
+
 					</span>
 				<% end %>
 			</div>
@@ -49,7 +49,7 @@
 						<%= link_to image_tag("icons/trash.gif"), delete_title_banner_admin_product_family_path(f.object), remote: true %>
 						currently:
 						<%= link_to image_tag(f.object.title_banner.url(:thumb)), f.object.title_banner.url %>
-						
+
 					</span>
 				<% end %>
 			</div>
@@ -76,7 +76,7 @@
 		</div>
 	</div>
 
-	<br/><%= f.input :hide_from_homepage, label: "Hide from homepage. (only applicable to parent categories)" %>	
+	<br/><%= f.input :hide_from_homepage, label: "Hide from homepage. (only applicable to parent categories)" %>
 
 	<br/><%= f.button :submit %>
 

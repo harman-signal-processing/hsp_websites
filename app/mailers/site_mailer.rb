@@ -24,7 +24,7 @@ class SiteMailer < ActionMailer::Base
   def news(news, recipient, from)
     @news = news
 
-    # Attach the news photo if it exists. 
+    # Attach the news photo if it exists.
     # Not anymore, now that images are on S3
     # if !@news.news_photo_file_name.blank?
     #   attachments.inline[@news.news_photo_file_name] = File.read(@news.news_photo.path(:email))
@@ -40,25 +40,25 @@ class SiteMailer < ActionMailer::Base
     # Read the template and attach any needed images. Be sure the images exist in app/assets/images/news
     File.read(Rails.root.join('app', 'views', template_path, 'news.html.erb')).scan(/attachments\[\'([\w\.\-]*)\'\]/).each do |m|
       img = m.first
-      attachments.inline[img] = File.read(Rails.root.join("app", "assets", "images", "news", img))  
+      attachments.inline[img] = File.read(Rails.root.join("app", "assets", "images", "news", img))
     end
 
-    mail(to: recipient, 
-      from: from, 
+    mail(to: recipient,
+      from: from,
       subject: @news.title,
       template_path: template_path)
   end
-  
+
   # Sends messages to AR when an artist changed info
   # bcc to adam is temporary.
   def artist_approval(artist, recipients)
     @artist = artist
-    mail(to: recipients, 
+    mail(to: recipients,
       bcc: "adam.anderson@harman.com",
-      from: "support@digitech.com", 
+      from: "support@digitech.com",
       subject: "Artist relations approval")
   end
-  
+
   def label_sheet_order(order)
     @order = order
     brand = @order.expanded_label_sheets.first.products.first.brand

@@ -53,7 +53,14 @@
 
 <p>In the event that you require warranty service on this product, you should first contact us directly, using the contact information provided below: </p>
 
-<p style="text-align: center">(801) 566-8800 (ask for <%= website.brand.name %> support) 10-7pm ET (10-5pm Friday)
+<p style="text-align: center">
+  <% if website.brand.name.match(/crown|jbl\scommercial/i) %>
+    (574) 294-8000 (ask for <%= website.brand.name %> support) 8am-5pm ET
+  <% elsif website.brand.name.match(/jbl|akg|soundcraft/i) %>
+    (818) 894-8850 (ask for <%= website.brand.name %> support) 11am-8pm ET
+  <% else %>
+    (801) 566-8800 (ask for <%= website.brand.name %> support) 10am-7pm ET (10-5pm Friday)
+  <% end %>
 	<% if sup = website.support_email %>
 		<br/><%= mail_to sup, sup %>
 	<% end %>
