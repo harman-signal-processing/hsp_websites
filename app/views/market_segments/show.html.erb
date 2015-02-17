@@ -1,13 +1,19 @@
 <% set_meta_tags title: t('titles.product_families'),
 				 reverse: true %>
 
-<h1 class="text-center page_title">
-<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/products_head.jpg")) %>
-	<%= image_tag("#{website.folder}/#{I18n.locale}/products_head.jpg", alt: t('titles.product_families')) %>
-<% else %>
-	<%= translate_content(@market_segment, :name) %> <%= t('titles.product_families') %>
+<%= content_for :feature do %>
+    <div class="row">
+      <div class="large-12 columns">
+        <h1>
+          <% if !@market_segment.banner_image_file_name.blank? %>
+            <%= image_tag(@market_segment.banner_image.url, alt: translate_content(@market_segment, :name), style: " width: 100%") %>
+          <% else %>
+            <%= translate_content(@market_segment, :name) %>
+          <% end %>
+        </h1>
+      </div>
+    </div>
 <% end %>
-</h1>
 
 <% if !!(website.show_comparisons) %>
 	<%= form_tag compare_products_path, method: :get %>

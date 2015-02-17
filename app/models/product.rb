@@ -5,6 +5,8 @@ class Product < ActiveRecord::Base
   has_one :product_introduction
   has_many :product_family_products, dependent: :destroy
   has_many :product_families, through: :product_family_products
+  has_many :market_segment_product_families, through: :product_families
+  has_many :market_segments, through: :market_segment_product_families
   has_many :product_attachments, -> { order('position') }
   has_many :online_retailer_links, dependent: :destroy
   has_many :product_review_products, dependent: :destroy

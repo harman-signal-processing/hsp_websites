@@ -34,4 +34,17 @@ RSpec.describe Product, :type => :model do
 	  end
   end
 
+  describe "market segments" do
+    before do
+      @market = FactoryGirl.create(:market_segment, brand: @digitech)
+      @product_family = FactoryGirl.create(:product_family, brand: @digitech)
+      @product = FactoryGirl.create(:product, brand: @digitech)
+      @product_family.products << @product
+      @market.product_families << @product_family
+    end
+
+    it "is part of market segments" do
+      expect(@product.market_segments).to include(@market)
+    end
+  end
 end

@@ -1,0 +1,30 @@
+<%
+  hlevel ||= product_family.parent_id.blank? ? 'h1' : 'h2'
+  skip_header ||= false
+%>
+<% unless skip_header %>
+  <<%= hlevel %>>
+    <% if !product_family.title_banner_file_name.blank? %>
+      <%= image_tag(product_family.title_banner.url, alt: translate_content(product_family, :name), style: " width: 100%") %>
+    <% else %>
+      <%= translate_content(product_family, :name) %>
+    <% end %>
+  </<%= hlevel %>>
+
+  <p><%= translate_content(product_family, :intro) %></p>
+<% end %>
+
+<% if product_family.current_products.length > 0 %>
+  <ul class="large-block-grid-2 small-block-grid-1">
+    <% product_family.current_products.each do |product| %>
+      <li><%= render_partial("product_families/product_square", product: product, extra_large: true) %></li>
+    <% end %>
+  </ul>
+  <% if !!(website.show_comparisons) %>
+    <div class="compare_button">
+      <br/><%= submit_tag t('product_page.compare_selected_products'), class: "small button" %>
+      &nbsp;
+      <%= t('product_page.select_products_to_compare') %>
+    </div>
+  <% end %>
+<% end %>

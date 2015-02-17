@@ -1,2 +1,8 @@
-<div class="description text-content"><%=raw translate_content(@product, :description) %></div>
+<div class="description text-content">
+  <%=raw translate_content(@product, :description) %>
+
+  <% if @product.market_segments.uniq.length > 0 %>
+    <p><i>Recommended for: <%= @product.market_segments.uniq.map{|ms| translate_content(ms, :name)}.join(", ") %>.</i></p>
+  <% end %>
+</div>
 

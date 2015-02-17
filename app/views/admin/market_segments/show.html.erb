@@ -1,10 +1,26 @@
-<h1><%= @market_segment.name %></h1>
+<h1><%= @market_segment.name %>
+	<span class="little"><%= link_to(market_segment_url(@market_segment, locale: I18n.locale), market_segment_url(@market_segment, locale: I18n.locale)) %>
+	<%= link_to(image_tag("icons/external_link_icon.png"), market_segment_url(@market_segment, locale: I18n.locale)) %></span>
+</h1>
 
 <ul class="button-group round">
 	<li><%= link_to 'Back', admin_market_segments_path, class: "small secondary button" %></li>
 	<li><%= link_to 'Edit', edit_admin_market_segment_path(@market_segment), class: "small secondary button" %> </li>
 	<li><%= link_to 'Delete', [:admin, @market_segment], confirm: 'Are you sure?', method: :delete, class: "small alert button" %></li>
 </ul>
+
+<div class="row">
+	<div class="large-4 columns">
+		<div class="panel">
+			<h6 class="subheader">Banner Image:</h6>
+			<% if !@market_segment.banner_image.blank? %>
+			  <%= image_tag @market_segment.banner_image.url(:medium) %>
+			<% else %>
+			  <i>(none)</i>
+			<% end %>
+		</div>
+	</div>
+</div>
 
 <div class="group">
 	<h4 class="subheader">Product Families in this Market Segment</h4>

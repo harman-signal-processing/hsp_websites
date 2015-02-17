@@ -220,6 +220,11 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
           post :update_order
         end
       end
+      resources :market_segments do
+        member do
+          get :delete_banner_image
+        end
+      end
       resources :market_segment_product_families do
         collection { post :update_order }
       end
@@ -287,7 +292,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :training_classes,
         :training_modules,
         :product_effects,
-        :market_segments,
         :website_locales,
         :product_reviews,
         :artist_products,

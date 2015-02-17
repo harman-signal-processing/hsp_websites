@@ -1,7 +1,7 @@
 class Admin::MarketSegmentProductFamiliesController < AdminController
   before_filter :initialize_market_segment_product_family, only: :create
   load_and_authorize_resource
-  
+
   # GET /admin/market_segment_product_families
   # GET /admin/market_segment_product_families.xml
   def index
@@ -64,7 +64,7 @@ class Admin::MarketSegmentProductFamiliesController < AdminController
       end
     end
   end
-  
+
   # POST /admin/market_segment_product_families/update_order
   def update_order
     update_list_order(MarketSegmentProductFamily, params["market_segment_product_family"])

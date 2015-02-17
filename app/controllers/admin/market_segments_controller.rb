@@ -65,6 +65,17 @@ class Admin::MarketSegmentsController < AdminController
     end
   end
 
+  # Delete banner
+  def delete_banner_image
+    @market_segment = MarketSegment.find(params[:id])
+    @market_segment.update_attributes(banner_image: nil)
+    respond_to do |format|
+      format.html { redirect_to(edit_admin_market_segment_path(@market_segment), notice: "Banner was deleted.") }
+      format.js
+    end
+    website.add_log(user: current_user, action: "Deleted banner image from market segment: #{@market_segment.name}")
+  end
+
   # DELETE /admin/market_segments/1
   # DELETE /admin/market_segments/1.xml
   def destroy
