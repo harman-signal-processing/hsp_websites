@@ -19,7 +19,7 @@ gem 'capistrano-ext'
 # Bundle the extra gems:
 gem 'mysql2', '>= 0.3.12b4' # sphinx needs '0.3.12b4'
 gem "friendly_id"
-gem 'aws-sdk', '~> 1.0'
+gem 'aws-sdk', '< 2.0'
 gem 'fog'
 gem 'asset_sync'
 gem "paperclip" #, "~> 3.0"
