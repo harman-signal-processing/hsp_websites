@@ -1,9 +1,9 @@
 <%= cache ["nav_items", website, I18n.locale, Date.today] do %>
   <li class="has-dropdown"><%= link_to "our story", "ourstory" %>
     <ul class="dropdown">
-      <li><%= link_to "About", "/ourstory#about" %></li>
-      <li><%= link_to "Quality", "/ourstory#quality" %></li>
-      <li><%= link_to "Technology", "/ourstory#technology" %></li>
+      <li><%= link_to "About", "/ourstory" %></li>
+      <li><%= link_to "Quality", "/quality" %></li>
+      <li><%= link_to "Technology", "/technology" %></li>
       <li><%= link_to "Crown Around The World", "/aroundtheworld" %></li>
     </ul>
   </li>
