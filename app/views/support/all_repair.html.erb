@@ -8,11 +8,15 @@
 	<ul class="list dealer_results">
 		<% @results.each do |dealer| %>
 		<li><b><%= dealer.name %></b>
-		<br/><%= dealer.address %>
-		<br/><%= dealer.city %> <%= dealer.state %> <%= dealer.zip %>
-		<br/><%= dealer.telephone %>
-		<% if !dealer.email.blank? %> &bull; <%= mail_to dealer.email.downcase %><% end %>
-		<% if !dealer.website.blank? %> &bull; <%= link_to dealer.website, dealer.website, target: "_blank" %><% end %>
+      <br/><%= dealer.address %>
+      <br/><%= dealer.city %> <%= dealer.state %> <%= dealer.zip %>
+      <br/><%= dealer.telephone %>
+      <% if !dealer.email.blank? %> &bull; <%= mail_to dealer.email.downcase %><% end %>
+      <% if !dealer.website.blank? %>
+        &bull; <%= link_to dealer.website,
+          dealer.website.to_s.match(/^http/i) ? dealer.website : "http://#{dealer.website}",
+          target: "_blank" %>
+      <% end %>
 		</li>
 		<% end %>
 	</ul>

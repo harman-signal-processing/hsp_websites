@@ -3,36 +3,62 @@
 
 <div>
 	<h1><%= @page_title %></h1>
+  <p>Authorized Service Centers provide warranty and non-warranty repair services.
+  Proof of purchase is required for all warranty claims. If there are no locations
+  near your zipcode, please <%=link_to "contact the factory", support_path %>.</p>
+
 	<% if !!(website.brand.has_vintage_repair?) %>
 	<p>Click here for <%= link_to "vintage #{website.brand.name} repair services", support_path(action: 'vintage_repair') %>.</p>
 	<% end %>
-	
-<% if @results.size > 0 %>
-	<ul class="list dealer_results">
-		<% @results.each do |dealer| %>
-		<li><b><%= dealer.name %></b> (<%= dealer.distance.to_i %> <%= t('dealer_distance') %>)
-		<!-- <span style="color: #EEE"><%= dealer.account_number %></span> -->
-		<br/><%= dealer.address %>
-		<br/><%= dealer.city %> <%= dealer.state %> <%= dealer.zip %>
-		<br/><%= dealer.telephone %>
-		<% if !dealer.email.blank? %> &bull; <%= mail_to dealer.email.downcase %><% end %>
-		<% if !dealer.website.blank? %> &bull; <%= link_to dealer.website, dealer.website, target: "_blank" %><% end %>
-		</li>
-		<% end %>
-	</ul>
-<% end %>
-</div>
 
-<% unless @err.blank? %>
-	<p><%= @err %></p>
-	<p>Try checking out the <%= link_to "complete list", support_path(action: 'all_repair') %>.</p>
-<% end %>
+  <div class="row">
+    <div class="large-4 columns">
+      <div class="panel">
+        <%= form_tag support_path(action: "service_lookup") do |f| %>
+          US City/Zipcode:
+          <div class="row collapse">
+            <div class="large-10 small-9 columns">
+              <%= text_field_tag "zip", session[:zip], size: 8, placeholder: t('us_zip_code') %>
+            </div>
+            <div class="large-2 small-3 columns">
+              <%= submit_tag t('go'), class: "postfix button" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div style="font-size: 80%">
+        <p><i>Note: this lookup engine is for authorized service centers in the US only.
+          If you need service outside of the US, consult the
+          <%= link_to "International Distributor Locator", distributors_path %>.</i></p>
+      </div>
+    </div>
 
-<hr/>
-<div style="font-size: 80%">
-<p>Authorized Service Centers provide warranty and non-warranty repair services. Proof of purchase is required for all warranty claims. If there are no locations near your zipcode, please call the factory service center at (801)566-8800.</p>
+    <div class="large-8 columns">
+      <% if @results.size > 0 %>
+        <ul class="list dealer_results">
+          <% @results.each do |dealer| %>
+          <li><b><%= dealer.name %></b> (<%= dealer.distance.to_i %> <%= t('dealer_distance') %>)
+          <br/><%= dealer.address %>
+          <br/><%= dealer.city %> <%= dealer.state %> <%= dealer.zip %>
+          <br/><%= dealer.telephone %>
+          <% if !dealer.email.blank? %> &bull; <%= mail_to dealer.email.downcase %><% end %>
+          <% if !dealer.website.blank? %>
+            &bull; <%= link_to dealer.website,
+              dealer.website.to_s.match(/^http/i) ? dealer.website : "http://#{dealer.website}",
+              target: "_blank" %>
+          <% end %>
+          </li>
+          <% end %>
+        </ul>
+      <% end %>
+      </div>
 
-<p><i>Note: this lookup engine is for authorized service centers in the US only. If you need service outside of the US, consult the <%= link_to "International Dealer Locator", distributors_path %>.</i></p>
+      <% unless @err.blank? %>
+        <p><%= @err %></p>
+        <p>Try checking out the <%= link_to "complete list", support_path(action: 'all_repair') %>.</p>
+      <% end %>
+    </div>
+  </div>
 </div>
 
 <% if current_user && can?(:manage, ServiceCenter) %>
