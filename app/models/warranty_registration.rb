@@ -1,15 +1,16 @@
 class WarrantyRegistration < ActiveRecord::Base
+  include ActionView::Helpers::NumberHelper
   belongs_to :brand
   belongs_to :product
   validates :first_name, :last_name, :brand_id, :product_id, :country, :serial_number, :purchased_on, presence: true
-  validates :email, presence: true, format: /\A[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}\z/i 
-  after_create :send_email_confirmation, :execute_promotion
+  validates :email, presence: true, format: /\A[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}\z/i
+  after_create :send_email_confirmation, :execute_promotion, :sync_with_service_department
   attr_reader :purchase_city
-  
+
   class << self
     # The fields to be exported to the file which is later imported into SAP. This list
     # of attributes is in the order SAP expects to see them.
-    def export_fields 
+    def export_fields
       %w{title first_name last_name middle_initial company jobtitle address1 city state zip country phone fax
         email subscribe brand_name model serial_number registered_on purchased_on purchased_from purchase_city purchase_country
         purchase_price age marketing_question1 marketing_question2 marketing_question3 marketing_question4 marketing_question5
@@ -21,7 +22,7 @@ class WarrantyRegistration < ActiveRecord::Base
   def send_email_confirmation
     SiteMailer.delay.confirm_product_registration(self)
   end
-  
+
   # This could be used to automatically send registrants promotion materials
   # after they've registered a product. (ie, Jamplay.com discount code)
   def execute_promotion
@@ -31,7 +32,7 @@ class WarrantyRegistration < ActiveRecord::Base
           SiteMailer.delay.promo_post_registration(self, promo)
         end
       end
-    rescue 
+    rescue
       logger.debug "problem executing a promotion"
     end
   end
@@ -40,7 +41,7 @@ class WarrantyRegistration < ActiveRecord::Base
   def to_export
     self.class.export_fields.map{|f| eval("self.#{f}")}.join("|")
   end
-  
+
   # brand name
   def brand_name
     begin
@@ -58,7 +59,7 @@ class WarrantyRegistration < ActiveRecord::Base
       self.product_id
     end
   end
-  
+
   # model
   def model
     begin
@@ -67,5 +68,62 @@ class WarrantyRegistration < ActiveRecord::Base
       ""
     end
   end
-  
+
+  # Sync registration with hpro
+  def sync_with_service_department
+    if needs_sync?
+      begin
+        start_sync
+      rescue
+        logger.debug "Something went wrong sending registration: #{self.inspect}"
+      end
+      update_attributes(synced_on: Date.today)
+    end
+  end
+  handle_asynchronously :sync_with_service_department
+
+  private
+
+  def needs_sync?
+    synced_on.blank? #&& (country.to_s.match(/^US|USA|United States/))
+  end
+
+  # Fill out remote form for warranty.harmanpro.com
+  def start_sync
+    agent = Mechanize.new
+    page = agent.get("http://warranty.harmanpro.com")
+    form = page.form_with(name: "form1")
+    form.txtMaterialNo   = product_name
+    form.txtSerialNo     = serial_number
+    form.txtPurchaseDate = I18n.l(purchased_on, format: :mmddyyyy)
+    form.txtFirstName    = first_name
+    form.txtLastName     = last_name
+    form.txtAddress      = address1
+    form.txtCity         = city
+    form.txtPostalCode   = zip
+    form.txtEmail        = email
+
+    #form.ddlState        = state
+    if state.match(/^\w{2}$/)
+      form.field_with(name: "ddlState").option_with(value: state).click
+    else
+      form.field_with(name: "ddlState").option_with(text: state).click
+    end
+
+    #form.ddlCountry      = country
+    if country.to_s.match(/^US$/i) || country.to_s.match(/United States/i)
+      country = "USA"
+    end
+    form.field_with(name: "ddlCountry").option_with(text: country).click
+
+    begin
+      form.txtTelephoneNo  = number_to_phone(phone, raise: true)
+    rescue InvalidNumberError
+      # leave phone empty
+    end
+
+    button = form.button_with(name: "btnSubmit")
+    agent.submit(form, button)
+  end
+
 end

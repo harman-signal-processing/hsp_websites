@@ -4,7 +4,7 @@ class Dealer < ActiveRecord::Base
   validates :address, :city, :state, :name, presence: true
   validates :account_number, presence: true, uniqueness: true
   before_validation :format_account_number
-  before_validation :geocode_address, on: :create 
+  before_validation :geocode_address, on: :create
   before_validation :auto_exclude
   before_update :regeocode
   has_many :dealer_users, dependent: :destroy
@@ -12,7 +12,7 @@ class Dealer < ActiveRecord::Base
   has_many :brand_dealers, dependent: :destroy
   has_many :brands, through: :brand_dealers
   accepts_nested_attributes_for :brand_dealers
-  
+
   scope :near, -> (*args) {
     origin = *args.first[:origin]
     if (origin).is_a?(Array)
@@ -75,17 +75,17 @@ class Dealer < ActiveRecord::Base
   def name_and_address
     "#{name} (#{address_string})"
   end
-    
+
   # Geocode if the address has changed
   def regeocode
     self.geocode_address if self.address_changed? || self.city_changed? || self.state_changed?
   end
-  
+
   # Geocode the address and store the lat/lng
   def geocode_address
     geo = Geokit::Geocoders::MultiGeocoder.geocode(self.address_string)
     if geo.success
-      self.lat, self.lng = geo.lat, geo.lng 
+      self.lat, self.lng = geo.lat, geo.lng
     else
       puts geo.class
       errors.add(:address, "Could not Geocode address")
