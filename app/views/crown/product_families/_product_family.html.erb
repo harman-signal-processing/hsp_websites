@@ -11,7 +11,7 @@
     <% end %>
   </<%= hlevel %>>
 
-  <p><%= translate_content(product_family, :intro) %></p>
+  <p><%=raw translate_content(product_family, :intro) %></p>
 <% end %>
 
 <% if product_family.current_products.length > 0 %>

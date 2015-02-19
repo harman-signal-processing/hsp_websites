@@ -9,7 +9,7 @@
   <% end %>
 </<%= hlevel %>>
 
-<p><%= translate_content(product_family, :intro) %></p>
+<p><%=raw translate_content(product_family, :intro) %></p>
 
 <% if product_family.current_products.length > 0 %>
   <ul class="large-block-grid-2 small-block-grid-1">
