@@ -1,0 +1,37 @@
+<% set_meta_tags reverse: true %>
+
+<h1 class="page_title"><%= @page_title %></h1>
+
+<%= simple_form_for @contact_message, url: catalog_request_path do |f| %>
+
+	<div class="row">
+		<div class="large-8 columns">
+      <%= f.input :name, label: t('your_name'), required: true %>
+      <%= f.input :email, label: ucfirst(t('email')), required: true %>
+
+			<fieldset>
+				<legend><%= t('shipping_address') %></legend>
+				<%= f.input :shipping_address, required: true %>
+				<%= f.input :shipping_city, required: true %>
+				<div class="row">
+					<div class="large-8 small-6 columns">
+						<%= f.input :shipping_state, required: true %>
+					</div>
+					<div class="large-4 small-6 columns">
+						<%= f.input :shipping_zip, required: true %>
+					</div>
+				</div>
+        <%= f.input :shipping_country, prompt: t("country") %>
+			</fieldset>
+		</div>
+    <div class="large-4 columns">
+    </div>
+  </div>
+
+  <div class="captcha">
+    <%= recaptcha_tags %>
+  </div>
+
+  <%= f.submit t('submit'), class: "medium button" %>
+<% end %>
+

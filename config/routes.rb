@@ -399,6 +399,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     match '/support/warranty_registration(/:product_id)' => 'support#warranty_registration', as: :warranty_registration, via: :all
     match '/support/parts' => 'support#parts', as: :parts_request, via: :all
     match '/support/rma' => 'support#rma', as: :rma_request, via: :all
+    match '/catalog_request' => 'support#catalog_request', as: :catalog_request, via: :all
     get '/support/warranty_policy' => 'support#warranty_policy', as: :warranty_policy
     match '/international_distributors' => 'distributors#index', as: :international_distributors, via: :all
     match '/sitemap(.:format)' => 'main#locale_sitemap', as: :locale_sitemap, via: :all

@@ -79,7 +79,7 @@ module ApplicationHelper
               href = "/#{I18n.locale}/#{href}"
             end
             if href.match(/^http/i)
-              ret += content_tag(:li, link_to(name, href, target: "_blank"))
+              ret += content_tag(:li, link_to(name, href, target: "_blank", class: "hide-for-small hide-for-medium"))
             else
               ret += content_tag(:li, link_to(name, href))
             end

@@ -264,7 +264,7 @@ en:
       rohs_intro: "With regards to the RoHS Directive 2002 / 95 / EC of the European Parliament and of the Council of 27 January 2003 on the restriction of the use of certain hazardous substances in electrical and electronic equipment, we declare that to the best of our knowledge, all products listed below meet and fulfill all the requirements of the aforementioned directive."
       product_support: "Browse support material for your product by selecting the model number below:"
       warranty_registration_success: "Thank you for registering your product with us. Please be sure to keep your dated store receipt as proof of purchase."
-      use_date_code: "Some of our products do not have serial numbers. In this case, enter the date code from the back of the unit."
+      use_date_code: "Some of our products do not have serial numbers. In this case, enter the date code from the product box or the back of the unit."
       subscribe: "Sign up to receive periodic messages from %{brand} regarding product updates and special promotions."
       warranty_comments: "Note: if you have a technical question/problem, please submit it via our support contact form."
       contact_form_thankyou: "Thank you for contacting us. We will get back with you shortly."

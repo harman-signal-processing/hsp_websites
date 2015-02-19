@@ -105,6 +105,20 @@ class SupportController < ApplicationController
     end
   end
 
+  def catalog_request
+    @page_title = "Catalog Request"
+    @contact_message = ContactMessage.new(message_type: "catalog_request")
+    if request.post?
+      @contact_message = ContactMessage.new(contact_message_params)
+      @contact_message.message_type = "catalog_request"
+      if @contact_message.valid? && verify_recaptcha
+        @contact_message.save
+        redirect_to support_path, notice: "Thank you for your catalog request. We'll get it out to you shortly."
+        SiteMailer.delay.contact_form(@contact_message, website)
+      end
+    end
+  end
+
   def warranty_policy
     @page_title = "Warranty Policy"
     products = Product.all_for_website(website) - Product.non_supported(website)

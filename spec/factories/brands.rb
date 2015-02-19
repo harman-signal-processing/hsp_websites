@@ -92,6 +92,12 @@ FactoryGirl.define do
       queue true
       toolkit true
     end
+    factory :crown_brand do
+      name "Crown"
+      live_on_this_platform true
+      queue true
+      toolkit true
+    end
     factory :bss_brand do
       name "BSS"
       employee_store true

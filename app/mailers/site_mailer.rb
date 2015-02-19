@@ -6,6 +6,14 @@ class SiteMailer < ActionMailer::Base
     @recipient = website.brand.support_email
     if subj = SupportSubject.where(brand_id: website.brand_id, name: @contact_message.subject).first
       @recipient = subj.recipient if subj.recipient.present?
+    elsif @contact_message.catalog_request?
+      @recipient = "service@sullivangroup.com"
+    elsif @contact_message.part_request?
+      if p = website.brand.parts_email
+        if p.to_s.match(/\@/)
+          @recipient = p
+        end
+      end
     end
     mail(to: @recipient,
       subject: @contact_message.subject,

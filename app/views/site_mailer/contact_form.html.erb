@@ -1,4 +1,4 @@
-<p>The following message was received via the <%= @brand.name %> website:</p>
+<p>The following was received via the <%= @brand.name %> website:</p>
 
 <p>
 	<b>Name:</b> <%= @contact_message.name %>
@@ -17,7 +17,9 @@
 	<% end %>
 </p>
 <p>
-	<b>Product:</b> <%= @contact_message.product %>
+  <% unless @contact_message.product.blank? %>
+    <b>Product:</b> <%= @contact_message.product %>
+  <% end %>
 	<% unless @contact_message.product_sku.blank? %>
 		<br/><b>SKU:</b> <%= @contact_message.product_sku %>
 	<% end %>
@@ -41,37 +43,44 @@
 	<% end %>
 </p>
 
-<% if @contact_message.rma_request? %>
-<h3>Shipping Address:</h3>
-<p>
-	<%= @contact_message.shipping_address %><br/>
-	<%= @contact_message.shipping_city %>,
-	<%= @contact_message.shipping_state %>
-	<%= @contact_message.shipping_zip %>
-</p>
+<% if @contact_message.rma_request? || @contact_message.catalog_request? %>
+  <h3>Shipping Address:</h3>
+  <p>
+    <%= @contact_message.shipping_address %><br/>
+    <%= @contact_message.shipping_city %>,
+    <%= @contact_message.shipping_state %>
+    <%= @contact_message.shipping_zip %>
+    <% unless @contact_message.shipping_country.blank? %>
+      <br/><%= @contact_message.shipping_country %>
+    <% end %>
+  </p>
 
-<h3>Billing Address:</h3>
-<% if @contact_message.billing_address.blank? && @contact_message.billing_city.blank? &&
-	@contact_message.billing_state.blank? && @contact_message.billing_zip.blank? %>
-<p><i>same as shipping address</i></p>
-<% else %>
-<p>
-	<%= @contact_message.billing_address %><br/>
-	<%= @contact_message.billing_city %>,
-	<%= @contact_message.billing_state %>
-	<%= @contact_message.billing_zip %>
-</p>
-<% end %>
+  <% if @contact_message.rma_request? %>
+    <h3>Billing Address:</h3>
+    <% if @contact_message.billing_address.blank? && @contact_message.billing_city.blank? &&
+      @contact_message.billing_state.blank? && @contact_message.billing_zip.blank? %>
+      <p><i>same as shipping address</i></p>
+    <% else %>
+      <p>
+        <%= @contact_message.billing_address %><br/>
+        <%= @contact_message.billing_city %>,
+        <%= @contact_message.billing_state %>
+        <%= @contact_message.billing_zip %>
+      </p>
+    <% end %>
+  <% end %>
 
 <%# As requested by Lexicon support guys %>
 <% elsif !@contact_message.shipping_address.blank? || !@contact_message.shipping_country.blank? %>
-<h3>Address</h3>
-<p>
-	<%= @contact_message.shipping_address %><br/>
-	<%= @contact_message.shipping_country %>
-</p>
+  <h3>Address</h3>
+  <p>
+    <%= @contact_message.shipping_address %><br/>
+    <%= @contact_message.shipping_country %>
+  </p>
 <% end %>
 
-<p>Message/Details/More Info, etc...</p>
+<% if @contact_message.message.present? %>
+  <p>Message/Details/More Info, etc...</p>
 
-<%=raw @contact_message.message %>
+  <%=raw @contact_message.message %>
+<% end %>

@@ -13,6 +13,11 @@ class ContactMessage < ActiveRecord::Base
     :product_sku,
     :product_serial_number,
     :purchased_on, presence: true, if: :rma_request?
+  validates :shipping_address,
+    :shipping_city,
+    :shipping_state,
+    :shipping_zip,
+    :shipping_country, presence: true, if: :catalog_request?
   validates :warranty, inclusion: {in: [true, false]}, if: :rma_request?
   attr_accessor :require_country
 
@@ -20,6 +25,7 @@ class ContactMessage < ActiveRecord::Base
     self.message_type ||= "support" #others: rma_request, part_request
     self.subject ||= "Parts Request" if self.part_request?
     self.subject ||= "RMA Request" if self.rma_request?
+    self.subject ||= "HARMAN Professional Catalog request" if self.catalog_request?
     self.email.to_s.gsub!(/\s*$/, '')
   end
 
@@ -27,8 +33,7 @@ class ContactMessage < ActiveRecord::Base
   # it all the time (per Trevor's request)
   #
   def require_product?
-    # !!(self.part_request? || self.rma_request?)
-    true
+    !!!catalog_request?
   end
 
   def require_country?
@@ -36,15 +41,19 @@ class ContactMessage < ActiveRecord::Base
   end
 
   def support?
-    !!(self.message_type.match(/support/))
+    !!(self.message_type.to_s.match(/support/))
   end
 
   def part_request?
-    !!(self.message_type.match(/part_request/))
+    !!(self.message_type.to_s.match(/part_request/))
   end
 
   def rma_request?
-    !!(self.message_type.match(/rma_request/))
+    !!(self.message_type.to_s.match(/rma_request/))
+  end
+
+  def catalog_request?
+    !!(self.message_type.to_s.match(/catalog_request/))
   end
 
   def self.subjects(options={})
