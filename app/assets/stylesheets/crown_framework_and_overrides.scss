@@ -21,7 +21,7 @@ $strip-bg-odd: #000000;
 $body-bg: #FFF;
 $body-font-color: $dark-gray;
 $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-$body-font-weight: 300;
+$body-font-weight: 400;
 
 $primary-color: #005a91;
 $secondary-color: $medium-gray;
@@ -39,7 +39,7 @@ $h5-font-size: emCalc(16px);
 //$h6-font-size: 1em;
 $subheader-font-color: lighten($dark-gray, 20%);
 $small-font-color: lighten($header-font-color, 35%);
-$paragraph-font-weight: 300;
+$paragraph-font-weight: 400;
 $accordion-navigation-padding: rem-calc(14);
 $accordion-navigation-bg-color: scale-color($light-gray, $lightness: 25%);
 $accordion-navigation-active-bg-color: scale-color($accordion-navigation-bg-color, $lightness: -13%);

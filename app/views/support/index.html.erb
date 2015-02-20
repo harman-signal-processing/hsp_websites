@@ -70,7 +70,7 @@
 
 			<% if website.has_software? %>
 			<div class="panel">
-				<h4><%= link_to t('software_downloads').capitalize, software_index_path %></h4>
+				<h4><%= link_to t('software_downloads').titleize, software_index_path %></h4>
 				<p><%= t('blurbs.software_downloads', brand: website.brand_name) %></p>
 				<ul class="list">
 					<li><%= link_to t('software_downloads'), software_index_path %></li>
@@ -86,7 +86,7 @@
 			<% end %>
 
 			<div class="panel">
-				<h4><%= link_to t('warranty_registration').capitalize, warranty_registration_path %></h4>
+				<h4><%= link_to t('warranty_registration').titleize, warranty_registration_path %></h4>
 				<p><%= t('blurbs.warranty_registration', brand: website.brand_name) %></p>
 				<ul class="list">
 					<li><%= link_to t('warranty_registration'), warranty_registration_path %></li>
@@ -98,7 +98,7 @@
 
 			<% unless website.brand_name.match(/dod/i) %>
 			<div class="panel">
-				<h4><%= t('titles.more_resources') %></h4>
+				<h4><%= t('titles.more_resources').titleize %></h4>
 				<ul class="list">
 					<% if !!(website.value_for("troubleshooting_url")) %>
 					<li><%= link_to t('troubleshooting').downcase, support_path(action: "troubleshooting") %></li>
@@ -205,11 +205,9 @@
 			</div>
 
 			<%= f.input :message, label: t('message'), as: :text, input_html: { style: "height: 100px" } %>
-			
 			<div class="captcha">
 				<%= recaptcha_tags %>
 			</div>
-			
 			<%= f.submit t('submit'), class: "medium button" %>
 		<% end %>
 	</div>
