@@ -1,5 +1,5 @@
 <%= cache ["nav_items", website.brand, I18n.locale, Date.today] do %>
-  <li class="has-dropdown"><%= link_to "our story", "ourstory" %>
+  <li class="has-dropdown"><%= link_to "our story", "/ourstory" %>
     <ul class="dropdown">
       <li><%= link_to "About", "/ourstory" %></li>
       <li><%= link_to "Quality", "/quality" %></li>
@@ -32,13 +32,17 @@
         </ul>
       </li>
       <% end %>
-      <%
-        empower = Product.find("empower-by-crown")
-      %>
-      <li><%= link_to empower.name, empower %></li>
       <% amp_families.each do |product_family| %>
         <% if product_family.hide_from_homepage? %>
           <%= product_family_nav_links(product_family, depth: 1) %>
+        <% end %>
+      <% end %>
+      <%
+        if Product.exists?("empower-by-crown")
+          empower = Product.find("empower-by-crown")
+          unless empower.discontinued?
+        %>
+            <li><%= link_to empower.name, empower %></li>
         <% end %>
       <% end %>
       <li><%= link_to "Microphones", "/akg-mics" %></li>
