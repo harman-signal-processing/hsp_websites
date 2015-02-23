@@ -23,16 +23,16 @@
 </div>
 
 <div class="group">
-	<h4 class="subheader">Product Families in this Market Segment</h4>
+	<h4 class="subheader">Product Families in this Vertical Market</h4>
 	<%= simple_form_for [:admin, @market_segment_product_family], remote: true do |f| %>
 		<%= hidden_field_tag "called_from", "market_segment" %>
     	<%= f.hidden_field :market_segment_id %>
     	<div class="row collapse">
     		<div class="large-8 small-8 columns">
-    			<%= f.association :product_family, collection: website.product_families, label: false %> 
+    			<%= f.association :product_family, collection: website.product_families, label: false %>
     		</div>
     		<div class="large-4 small-4 columns">
-    			<%= submit_tag 'add to this segment', class: "postfix button"  %>
+    			<%= submit_tag 'add to this vertical', class: "postfix button"  %>
     		</div>
     	</div>
 	<% end %>

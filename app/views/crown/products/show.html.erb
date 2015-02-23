@@ -216,9 +216,21 @@ set_meta_tags title: @product.name,
 
                 <% end %>
               <% end %>
+	</div>
+</div>
+
+<div class="row">
+	<div class="large-8 columns">
+		<h1 style="margin-bottom: 0px"><%= title translate_content(@product, :name) %></h1>
+		<h3 class="subheader"><%= translate_content(@product, :short_description) %></h3>
+	</div>
+	<div class="large-4 columns">
+
 		<% if website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !@product.direct_buy_link.blank? %>
 
-			<%= buy_it_now_link(@product, html_button: true, reveal_id: "buy-it-now-popup") %>
+      <div class="text-right">
+        <%= buy_it_now_link(@product, html_button: true, reveal_id: "buy-it-now-popup") %>
+      </div>
 
 			<% unless @product.demo_link.blank? %>
 				<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/demo_download_button.png")) %>
@@ -232,16 +244,6 @@ set_meta_tags title: @product.name,
 			<% end %>
 
 		<% end %>
-	</div>
-</div>
-
-<div class="row">
-	<div class="large-8 columns">
-		<h1 style="margin-bottom: 0px"><%= title translate_content(@product, :name) %></h1>
-		<h3 class="subheader"><%= translate_content(@product, :short_description) %></h3>
-	</div>
-	<div class="large-4 columns">
-
 		<%= links_to_current_promotions(@product) %>
 
 		<% unless @product.demo_link.blank? %>

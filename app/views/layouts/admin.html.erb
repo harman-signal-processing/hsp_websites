@@ -87,7 +87,7 @@
 					<li><%= link_to "Effects", admin_effects_path %></li>
 				<% end %>
 				<% if website.has_market_segments? && can?(:manage, MarketSegment) %>
-					<li><%= link_to "Market Segments", admin_market_segments_path %></li>
+					<li><%= link_to "Vertical Markets", admin_market_segments_path %></li>
 				<% end %>
 				<% if can?(:create, Product) || can?(:update, :rohs) %>
 					<li><%= link_to 'RoHS', rohs_admin_products_path %></li>
@@ -110,7 +110,7 @@
 
 	<% if can?(:manage, Promotion) ||
 		can?(:update, :harman_employee_pricing) ||
-		can?(:read, WarrantyRegistration) || 
+		can?(:read, WarrantyRegistration) ||
 		can?(:manage, ProductPrice) ||
 		can?(:manage, LabelSheet) ||
 		can?(:update, :harman_employee_pricing) ||

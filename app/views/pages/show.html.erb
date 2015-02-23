@@ -5,7 +5,11 @@
 
 <div class="content container">
 	<div class="row">
-		<div class="large-8 columns large-offset-2 text-content">
+    <% if @page.layout_class == "wide" %>
+      <div class="large-12 columns text-content">
+    <% else %>
+      <div class="large-8 columns large-offset-2 text-content">
+    <% end %>
 			<%=raw translate_content(@page, :body) %>
 		</div>
 	</div>
