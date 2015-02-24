@@ -15,16 +15,17 @@ $dark-gray: #575757;
 $medium-gray: #a8a8a8;
 $light-gray: #d0d0d0;
 $secondary-color: $light-gray;
-$strip-bg-even: #E1E1E1;
-$strip-bg-odd: #000000;
 
 $body-bg: #FFF;
 $body-font-color: $dark-gray;
 $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $body-font-weight: 400;
 
-$primary-color: #005a91;
+//$primary-color: #005a91;
+$primary-color: #005991;
 $secondary-color: $medium-gray;
+$strip-bg-even: #E1E1E1;
+$strip-bg-odd: $primary-color;
 $include-print-styles: true;
 $header-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $header-font-weight: 400;
@@ -246,7 +247,7 @@ $topbar-sticky-class:                  ".sticky";
   }
 }
 
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 719px) {
   ul.small-block-grid-2 {
     li {
       .panel {
@@ -327,7 +328,7 @@ img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 	.bg-gif { display: none; }
 	#above-nav-space { min-height: 26px;}
 }
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 719px) {
 	#video_background { display: none; }
 	#feature_spacer {
 		height: 14%;
@@ -355,7 +356,7 @@ img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 		padding-bottom: 100px;
 	}
 }
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 719px) {
 	img.no-resize-for-small { max-width: none; }
 
 	.admin_function {
@@ -670,34 +671,29 @@ div.featured_product_container {
 	}
 }
 @media only screen and (min-width: 720px) {
-	div.homepage_block {
-		min-height: 360px;
-		margin: 100px 0px 100px;
-		h1 {
-			font-size: 4em;
-			line-height: 1em;
-			margin: 0;
-		}
-		h2 {
-			font-size: 2.5em;
-		}
-		h3 {
-			font-size: 1.5em;
-			margin-top: 0;
-		}
-		p {
-			line-height: 1.2em;
-			margin-bottom: 10px;
-		}
-	}
+  div.homepage_block {
+    min-height: 360px;
+    h1 {
+      font-size: 4em;
+      line-height: 1em;
+      margin: 0;
+    }
+    h2 {
+      font-size: 3.5em;
+    }
+    p {
+      font-size: rem-calc(13px);
+      line-height: 1.2;
+      font-weight: 300;
+    }
+  }
 }
-@media only screen and (max-width: 720px) {
-	div.homgepage_block {
-		margin: 40px 0px;	
-		h1 {
-			font-size: 2.25em;
-		}
-	}
+@media only screen and (max-width: 719px) {
+  div.homepage_block {
+    h1 {
+      font-size: 2.25em;
+    }
+  }
 	div.featured_product_container {
 		margin: 10px 0px;
 		img {
@@ -710,6 +706,44 @@ div.featured_product_container {
 
 }
 
+div.homepage_block {
+  &.dark {
+    padding: 50px 0px;
+    background-color: $primary-color;
+    color: $light-gray;
+    h1, h2, h3, h4, h5 {
+      color: $white;
+    }
+    .secondary.button {
+      background: $white;
+      color: $primary-color;
+    }
+  }
+  &.around-the-world {
+    background-image: asset-url("crown/around_the_world_strip_bg.jpg");
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  &.gray_strip {
+    background-color: $light-gray;
+    h1, h2 {
+      color: $primary-color;
+    }
+    h3, h4, h5 {
+      color: $black;
+    }
+  }
+  &.white_strip {
+    padding: 60px 0px;
+  }
+  &.thin_strip {
+    padding: 35px 0;
+    @media only screen and (min-width: 720px) {
+      min-height: 100px;
+    }
+  }
+}
 div.promotion_container {
 	background: $strip-bg-even;
 	padding: 30px 0px;
@@ -851,7 +885,7 @@ div#signup h2 {
 		line-height: 15px;
 	}
 }
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 719px) {
 	.small_product_box {
 		.product_description {
 			line-height: 16px;
@@ -914,7 +948,7 @@ div.compare_button {
 	   vertical-align: middle;
 	}
 }
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 719px) {
 	#viewer_container {
 		margin: 40px 0px;
 	}
@@ -1193,7 +1227,7 @@ div.retailer_logo {
 		//background: black !important;
 	}
 }
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 719px) {
 	.news_container {
 
 	}

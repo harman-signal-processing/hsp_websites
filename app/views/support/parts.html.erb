@@ -25,7 +25,7 @@
 
 			<%= cache ["parts_form_products", website.brand] do %>
 			<div><%= f.label :product, nil, class: "required" %>
-				<%= f.collection_select :product, 
+				<%= f.collection_select :product,
 						Product.repairable(website) + [Product.new(name: "other")],
 						:name, :name, prompt: true %></div>
 			<% end %>
@@ -37,14 +37,22 @@
 					<%= f.input :board_location %>
 				</div>
 			</div>
-				
+
 			<%= f.input :message, label: "Additional Info", input_html: { style: "height: 120px" } %>
 
 		</div>
 		<div class="large-3 columns">
-			<p>For parts inquiries outside the US, please contact your local 
-				<%= link_to "#{website.brand_name} Distributor", international_distributors_path %>.
-			</p>
+      <div class="panel">
+        <% if website.parts_list_url %>
+          <div class="text-center">
+            <%= link_to "Current Parts List", website.parts_list_url, class: "button" %>
+          </div>
+          <hr/>
+        <% end %>
+        <p>For parts inquiries outside the US, please contact your local
+          <%= link_to "#{website.brand_name} Distributor", international_distributors_path %>.
+        </p>
+      </div>
 		</div>
 	</div>
 
