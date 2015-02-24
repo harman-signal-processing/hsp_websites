@@ -80,7 +80,7 @@ module MainHelper
         raw(ret)
       rescue
         if !youtube_user.blank?
-          # if File.exists?(Rails.root.join("app", "assets", "images", website.folder, I18n.locale, "youtube_button.png")) 
+          # if File.exists?(Rails.root.join("app", "assets", "images", website.folder, I18n.locale, "youtube_button.png"))
           #   link_to(image_tag("#{website.folder}/#{I18n.locale}/youtube_button.png", alt: "youtube"),
           #     "http://www.youtube.com/user/#{youtube_user}",
           #     target: "_blank")
@@ -108,7 +108,7 @@ module MainHelper
             content_tag(:p, link_to(video.title, link, target: "_blank"), class: 'video_title')
           end
         end
-        content_tag(:ul, raw(vids.join), id: 'video_list', class: "large-block-grid-4 small-block-grid-2")
+        content_tag(:ul, raw(vids.join), id: 'video_list', class: "large-block-grid-4 medium-block-grid-4 small-block-grid-2")
       rescue
         if !youtube_user.blank?
           link_to("YouTube Channel", "http://www.youtube.com/user/#{youtube_user}", target: "_blank")

@@ -679,10 +679,10 @@ div.featured_product_container {
       margin: 0;
     }
     h2 {
-      font-size: 3.5em;
+      font-size: rem-calc(48px);
     }
     p {
-      font-size: rem-calc(13px);
+      font-size: rem-calc(14px);
       line-height: 1.2;
       font-weight: 300;
     }
@@ -692,6 +692,9 @@ div.featured_product_container {
   div.homepage_block {
     h1 {
       font-size: 2.25em;
+    }
+    h2 {
+      font-size: rem-calc(28px);
     }
   }
 	div.featured_product_container {

@@ -42,12 +42,15 @@
 			<div class="row featured_product_container" id="featured_product_<%= i %>">
 				<%= featured_product_icons(featured_product, i) %>
 				<div class="large-7 columns">
-					<div class="featured_image_container hide-for-small left">
+					<div class="featured_image_container show-for-large-up left">
 						<%= link_to(image_tag(featured_product.photo.product_attachment.url(:full_width), class: "featured_image"), featured_product) %>
 					</div>
-					<div class="show-for-small">
-						<%= link_to(image_tag(featured_product.photo.product_attachment.url(:medium)), featured_product) %>
-					</div>
+          <div class="hide-for-medium-up">
+            <%= link_to(image_tag(featured_product.photo.product_attachment.url(:medium)), featured_product) %>
+          </div>
+          <div class="show-for-medium">
+            <%= link_to(image_tag(featured_product.photo.product_attachment.url(:large)), featured_product) %>
+          </div>
 				</div>
 				<div class="large-5 columns">
 					<h1><%= link_to featured_product.name, featured_product %></h1>
@@ -56,17 +59,19 @@
 					<p><%=raw translate_content(featured_product, :short_description_4) %></p>
 
 					<%= link_to 'more details...', featured_product, class: "small secondary button" %>
-					<% if featured_product.in_production? %>
+					<% if featured_product.in_production? && !featured_product.hide_buy_it_now_button? %>
 						<%= buy_it_now_link(featured_product, html_button: true, downcase: true, button_class: "small button") %>
 					<% end %>
 				</div>
 			</div>
 			<% else %>
 			<div class="row featured_product_container" id="featured_product_<%= i %>">
-				<%#= featured_product_icons(featured_product, i) %>
-				<div class="small-12 columns show-for-small">
-					<%= link_to(image_tag(featured_product.photo.product_attachment.url(:medium)), featured_product) %>
-				</div>
+        <div class="hide-for-medium-up">
+          <%= link_to(image_tag(featured_product.photo.product_attachment.url(:medium)), featured_product) %>
+        </div>
+        <div class="show-for-medium">
+          <%= link_to(image_tag(featured_product.photo.product_attachment.url(:large)), featured_product) %>
+        </div>
 				<div class="large-5 columns text-right small-left">
 					<h1><%= link_to featured_product.name, featured_product %></h1>
 					<h3 class="subheader"><%= translate_content(featured_product, :short_description) %></h3>
@@ -74,11 +79,11 @@
 					<p><%=raw translate_content(featured_product, :short_description_4) %></p>
 
 					<%= link_to 'more details...', featured_product, class: "small secondary button" %>
-					<% if featured_product.in_production? %>
+					<% if featured_product.in_production? && !featured_product.hide_buy_it_now_button? %>
 						<%= buy_it_now_link(featured_product, html_button: true, downcase: true, button_class: "small button") %>
 					<% end %>
 				</div>
-				<div class="large-7 columns hide-for-small">
+				<div class="large-7 columns show-for-large-up">
 					<div class="featured_image_container right">
 						<%= link_to(image_tag(featured_product.photo.product_attachment.url(:original), class: "featured_image"), featured_product) %>
 					</div>
@@ -93,17 +98,17 @@
 
 <div class="homepage_block dark">
   <div class="row">
-    <div class="large-5 small-6 columns">
+    <div class="large-7 small-12 large-push-5 columns text-center">
+      <%= link_to image_tag("crown/swag.png", alt: "Crown Swag Store"),
+        "http://www.costore.com/harmanprofessional/welcome.asp", target: "_blank" %>
+    </div>
+    <div class="large-5 small-12 large-pull-7 columns">
       <h2>Shop Crown Swag!</h2>
       <br/>
-      <h4>Literature, Apparel, gadgets and more!</h4>
+      <h4>Literature, apparel, gadgets and more!</h4>
       <p>Click below to see what kind of cool Crown Swag we have available now.</p>
       <%= link_to "shop now", "http://www.costore.com/harmanprofessional/welcome.asp",
         target: "_blank", class: "secondary small button" %>
-    </div>
-    <div class="large-7 small-6 columns">
-      <%= link_to image_tag("crown/swag.png", alt: "Crown Swag Store"),
-        "http://www.costore.com/harmanprofessional/welcome.asp", target: "_blank" %>
     </div>
   </div>
 </div>
@@ -123,7 +128,7 @@
 
 <div class="homepage_block dark around-the-world">
   <div class="row">
-    <div class="large-5 large-offset-7 small-12 columns">
+    <div class="large-5 large-offset-7 small-7 columns">
       <h2>Crown Around The World</h2>
       <br/>
       <h4>Check out Concerts, Stadiums<br/>
@@ -170,8 +175,8 @@
 <% end %>
 
 <%= cache ["social_strip", website.brand, I18n.locale] do %>
-	<div class="homepage_block">
-		<h2 class="subheader text-center">Connect With Us</h2>
+	<div class="homepage_block white_strip">
+		<h2 class="text-center">Connect With Us</h2>
 		<div class="social text-center">
 			<%= social_media_links 'twitter', 'facebook', 'youtube', 'google+', 'instagram', 'linkedin', 'wechat', 'weibo', style: 'circle', size: '64x64' %> 
 		</div>
@@ -187,7 +192,23 @@
 			</div>
 		</div>
 		<% end %>
-	</div>
+
+    <div class="row crown-gear">
+      <hr/><br/>
+      <div class="large-6 small-6 columns">
+        <h2>Show us your Crown gear!</h2>
+        <h3><%= link_to "#PoweredByCrown",
+          "https://twitter.com/search?q=%23PoweredByCrown&src=typd&mode=photos",
+          target: "_blank" %>
+        </h3>
+      </div>
+      <div class="large-6 small-6 columns">
+        <%= link_to image_tag("crown/show_us.jpg", alt: "Show us your Crown gear"),
+          "https://twitter.com/search?q=%23PoweredByCrown&src=typd&mode=photos",
+          target: "_blank" %>
+      </div>
+    </div>
+  </div>
 <% end %>
 
 <%= cache ["promotion_strip", website.brand, I18n.locale] do %>

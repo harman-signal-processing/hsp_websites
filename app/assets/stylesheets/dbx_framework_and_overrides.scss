@@ -1382,9 +1382,9 @@ div.retailer_logo {
 }
 
 /****** News ********/
-.news_strip { 
+.news_strip {
 	padding-top: 80px;
-	margin-bottom: none !important; 
+	margin-bottom: none !important;
 }
 @media only screen and (min-width: 720px) {
 	.news_container {
@@ -1392,7 +1392,7 @@ div.retailer_logo {
 		border-bottom: 1px solid lighten($light-gray, 7%);
 
 		h3 {
-			margin-top: -2px; 
+			margin-top: -2px;
 			font-size: 99%;
 		}
 	}
