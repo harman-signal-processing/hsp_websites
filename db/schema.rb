@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150217165641) do
+ActiveRecord::Schema.define(version: 20150225200215) do
 
   create_table "admin_logs", force: true do |t|
     t.integer  "user_id"
@@ -447,6 +447,25 @@ ActiveRecord::Schema.define(version: 20150217165641) do
 
   add_index "effects", ["cached_slug"], name: "index_effects_on_cached_slug", using: :btree
   add_index "effects", ["effect_type_id"], name: "index_effects_on_effect_type_id", using: :btree
+
+  create_table "faq_categories", force: true do |t|
+    t.string   "name"
+    t.integer  "brand_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "faq_categories", ["brand_id"], name: "index_faq_categories_on_brand_id", using: :btree
+
+  create_table "faq_category_faqs", force: true do |t|
+    t.integer  "faq_category_id"
+    t.integer  "faq_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "faq_category_faqs", ["faq_category_id"], name: "index_faq_category_faqs_on_faq_category_id", using: :btree
+  add_index "faq_category_faqs", ["faq_id"], name: "index_faq_category_faqs_on_faq_id", using: :btree
 
   create_table "faqs", force: true do |t|
     t.integer  "product_id"

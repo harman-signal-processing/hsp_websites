@@ -3,6 +3,10 @@ require "domain_conditions"
 HarmanSignalProcessingWebsite::Application.routes.draw do
 
 
+  get 'faq_categories/index'
+
+  get 'faq_categories/show'
+
   get "/images/bar/(:brand_id)_(:width)x(:height).png" => "marketing_queue#bar", as: :bar
   get "signups/new"
   get "signup/complete" => "signups#complete", as: :signup_complete
@@ -351,6 +355,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         member { post :new }
       end
     end
+    resources :faq_categories, only: [:index, :show]
+    get "faqs" => 'faq_categories#index', as: :faqs
     get "artists/become_an_artist" => 'artists#become', as: :become_an_artist
     get "artists/all(/:letter)" => 'artists#all', as: :all_artists
     resources :artists, only: [:index, :show] do

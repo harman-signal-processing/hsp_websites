@@ -1,0 +1,9 @@
+<h1>Frequently Asked Questions</h1>
+
+<p>Select a category:</p>
+<ul>
+  <% @faq_categories.each do |faq_category| %>
+    <li><%= link_to faq_category.name, faq_category %> (<%= faq_category.faqs.length %>)</li>
+  <% end %>
+</ul>
+

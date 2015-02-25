@@ -4,11 +4,11 @@ class Website < ActiveRecord::Base
   validates :url, presence: true, uniqueness: true
   validates :brand_id, presence: true
   validates :folder, presence: true
-  
+
   def value_for(key, locale=I18n.locale)
     brand.value_for(key, locale)
   end
-  
+
   def features
     begin
       f = Setting.features(self)
@@ -19,11 +19,11 @@ class Website < ActiveRecord::Base
         if f1.all.size > 0
           locale_features = f1
         elsif parent_locale = (I18n.locale.to_s.match(/^(.*)-/)) ? $1 : false # "es-MX" => "es"
-    	    f2 = f.where(["locale = ?", parent_locale]) # try "foo_es"
-    	    if f2.all.size > 0
-    	      locale_features = f2
+          f2 = f.where(["locale = ?", parent_locale]) # try "foo_es"
+          if f2.all.size > 0
+            locale_features = f2
           end
-        end        
+        end
       end
       (locale_features) ? locale_features : defaults
     rescue
@@ -40,23 +40,23 @@ class Website < ActiveRecord::Base
       I18n.default_locale
     end
   end
-  
+
   def show_locales?
     !!(self.consolidated_locales.size > 1)
   end
-  
+
   def consolidated_locales
     self.available_locales.collect {|website_locale| website_locale.locale.gsub(/\-+.*$/, "") }.uniq
   end
-  
+
   def available_locales
     self.website_locales.where(complete: true)
   end
-  
+
   def list_of_available_locales
     available_locales.collect{|website_locale| website_locale.locale}
   end
-  
+
   def list_of_all_locales
     self.website_locales.collect{|website_locale| website_locale.locale}
   end
@@ -64,7 +64,7 @@ class Website < ActiveRecord::Base
   def auto_translate_locales
     list_of_all_locales.reject{|i| i.match(/en/)}
   end
-  
+
   def has_mac_software?
     begin
       Software.where(brand_id: self.brand_id).where("category LIKE '%mac%' or platform LIKE '%mac%'").all.size > 0
@@ -72,7 +72,7 @@ class Website < ActiveRecord::Base
       false
     end
   end
-  
+
   def has_plugins?
     begin
       Software.where(brand_id: self.brand_id).where("category LIKE '%plugin%'").all.size > 0
@@ -80,11 +80,11 @@ class Website < ActiveRecord::Base
       false
     end
   end
-  
+
   def brand_name
     @brand_name ||= self.brand.name
   end
-  
+
   def method_missing(sym, *args)
     super if respond_to_without_attributes?(sym, true)
     if respond_to? sym
@@ -108,7 +108,7 @@ class Website < ActiveRecord::Base
   def product_families
     @product_families ||= ProductFamily.all_with_current_or_discontinued_products(self, I18n.locale)
   end
-  
+
   def current_and_discontinued_products(included_attributes=[])
     included_attributes << :product_status
     @current_and_discontinued_products ||= self.brand.products.includes(included_attributes).select{|p| p if p.show_on_website?(self)}
@@ -121,7 +121,7 @@ class Website < ActiveRecord::Base
   def vintage_products
     @vintage_products ||= self.brand.products.includes(:product_status).select{|p| p if !!(p.product_status.name.match(/vintage/i))}
   end
-  
+
   # Working here. I'm thinking I need to collect the resources, then translate the hash key of each AFTER. Of course
   # I'd also have to store the locale of each collection.
   #
@@ -137,15 +137,15 @@ class Website < ActiveRecord::Base
         end
         if I18n.locale.to_s.match(/^en/i) || product_document.language.to_s.match(/^en/i) || I18n.locale.to_s.match(/#{product_document.language.to_s}/i)
           downloads[key] ||= {
-            param_name: key.parameterize, 
-            name: I18n.locale.match(/zh/i) ? doctype : doctype.pluralize, 
+            param_name: key.parameterize,
+            name: I18n.locale.match(/zh/i) ? doctype : doctype.pluralize,
             downloads: []
           }
           link_name = !!(doctype.match(/other/i)) ? product_document.document_file_name : ContentTranslation.translate_text_content(product, :name)
           downloads[key][:downloads] << {
-            name: link_name, 
+            name: link_name,
             file_name: product_document.document_file_name,
-            url: product_document.document.url, 
+            url: product_document.document.url,
             path: product_document.document.path
           }
         end
@@ -156,8 +156,8 @@ class Website < ActiveRecord::Base
           key = "photo"
           doctype = I18n.t("document_type.photo")
           downloads[key] ||= {
-            param_name: key.parameterize, 
-            name: I18n.locale.match(/zh/i) ? doctype : doctype.pluralize, 
+            param_name: key.parameterize,
+            name: I18n.locale.match(/zh/i) ? doctype : doctype.pluralize,
             downloads: []
           }
           begin
@@ -166,7 +166,7 @@ class Website < ActiveRecord::Base
             thumbnail = nil
           end
           downloads[key][:downloads] << {
-            name: product_attachment.product_attachment_file_name, 
+            name: product_attachment.product_attachment_file_name,
             file_name: product_attachment.product_attachment_file_name,
             thumbnail: thumbnail,
             url: product_attachment.product_attachment.url,
@@ -186,8 +186,8 @@ class Website < ActiveRecord::Base
     self.site_elements.where(show_on_public_site: true).each do |site_element|
       name = I18n.t("resource_type.#{site_element.resource_type_key}", default: site_element.resource_type)
       downloads[site_element.resource_type.parameterize] ||= {
-        param_name: site_element.resource_type.parameterize, 
-        name: I18n.locale.match(/zh/i) ? name : name.to_s.pluralize, 
+        param_name: site_element.resource_type.parameterize,
+        name: I18n.locale.match(/zh/i) ? name : name.to_s.pluralize,
         downloads: []
       }
       thumbnail = nil
@@ -212,10 +212,9 @@ class Website < ActiveRecord::Base
         }
       end
     end
-    # logger.debug " =============================================== \n #{downloads.to_yaml}"
     downloads
   end
-  
+
   def zip_downloads(download_type)
     downloads = self.all_downloads[download_type][:downloads]
 
@@ -259,5 +258,5 @@ class Website < ActiveRecord::Base
   def twitter_name
     @twitter_name ||= self.brand.twitter_name
   end
-  
+
 end

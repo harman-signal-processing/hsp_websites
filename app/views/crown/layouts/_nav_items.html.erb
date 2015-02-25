@@ -69,7 +69,9 @@
       <li><%= link_to "Authorized Service Information", "/authorizedserviceinformation" %></li>
       <li><%= link_to "Contact Us", support_path %></li>
       <li><%= link_to "Downloads", support_downloads_path %></li>
-      <li><%= link_to "FAQs", "/faqs" %></li>
+      <% if website.faq_categories_with_faqs.length > 0 %>
+        <li><%= link_to "FAQs", faqs_path %></li>
+      <% end %>
       <% if !!(website.forum_link) %>
       <li><%= link_to t("forum").titleize, website.forum_link %></li>
       <% end %>

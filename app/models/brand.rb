@@ -10,6 +10,7 @@ class Brand < ActiveRecord::Base
   has_many :brand_dealers, dependent: :destroy
   has_many :dealers, through: :brand_dealers
   has_many :news
+  has_many :faq_categories
   has_many :pages
   has_many :promotions
   has_many :service_centers
@@ -27,19 +28,19 @@ class Brand < ActiveRecord::Base
   has_many :blogs
   has_many :pricing_types, -> { order('pricelist_order') }
   has_many :brand_toolkit_contacts, -> { order('position').includes(:user) }
-  has_many :us_rep_regions 
-  has_many :us_reps, through: :us_rep_regions 
+  has_many :us_rep_regions
+  has_many :us_reps, through: :us_rep_regions
   has_many :us_regions, -> { order('name') }, through: :us_rep_regions
   has_many :signups
   has_many :tweets, -> { order("posted_at DESC") }
   has_attached_file :logo, {
-    styles: { large: "640x480", 
-      medium: "480x360", 
+    styles: { large: "640x480",
+      medium: "480x360",
       small: "240x180",
-      thumb: "100x100", 
+      thumb: "100x100",
       title: "86x86",
-      tiny: "64x64", 
-      tiny_square: "64x64#" 
+      tiny: "64x64",
+      tiny_square: "64x64#"
     }}.merge(S3_STORAGE)
   validates_attachment :logo, content_type: { content_type: /\Aimage/i }
 
@@ -53,7 +54,7 @@ class Brand < ActiveRecord::Base
     if live_on_this_platform_changed? && live_on_this_platform?
       self.products.each do |p|
         p.more_info_url = nil
-        p.save 
+        p.save
       end
     end
     rescue
@@ -75,7 +76,7 @@ class Brand < ActiveRecord::Base
     # Second, add in those stories associated with the brand only (no products linked)
     News.select("DISTINCT *").where("brand_id = ? #{product_news_query}", self.id).order("post_on DESC")
   end
-  
+
   # Dynamically create methods based on this Brand's settings.
   # This is a smarter alternative to using method_missing
   def dynamic_methods
@@ -96,7 +97,7 @@ class Brand < ActiveRecord::Base
       "support@harman.com"
     end
   end
-  
+
   # Those brands which should be included on the RSO site. This could
   # be controlled dynamically by a db field...later.
   def self.for_rso
@@ -112,11 +113,11 @@ class Brand < ActiveRecord::Base
   def self.for_toolkit
     where(toolkit: true).order("UPPER(name)").includes(:websites)
   end
-    
+
   def has_where_to_buy?
     !!(self.has_online_retailers? || self.has_dealers? || self.has_distributors?)
   end
-  
+
   def default_website
     if !self.default_website_id.blank?
       Website.find(self.default_website_id)
@@ -124,7 +125,7 @@ class Brand < ActiveRecord::Base
       self.websites.first
     end
   end
-  
+
   def default_website=(website)
     self.default_website_id = website.id
   end
@@ -132,7 +133,7 @@ class Brand < ActiveRecord::Base
   def self.pull_tweets
     all.each{|b| b.pull_tweets if b.twitter_name}
   end
-  
+
   def pull_tweets
     Tweet.pull_tweets(self)
   end
@@ -143,7 +144,7 @@ class Brand < ActiveRecord::Base
 
   def twitter_name
     begin
-      if self.value_for('twitter') && tw = self.value_for('twitter').match(/(\w*)$/).to_s 
+      if self.value_for('twitter') && tw = self.value_for('twitter').match(/(\w*)$/).to_s
         tw
       else
         false
@@ -180,7 +181,7 @@ class Brand < ActiveRecord::Base
   def toolkit_products
     products.select{|p| p if p.show_on_toolkit? }.sort_by{|p| p.created_at}.reverse
   end
-    
+
   def family_products
     p = []
     product_families.includes(:products).each do |pf|
@@ -188,7 +189,7 @@ class Brand < ActiveRecord::Base
     end
     p.sort{|a,b| a.name.downcase <=> b.name.downcase}
   end
-  
+
   def products
     fp = self.family_products.collect{|p| p.id}.join(', ')
     if fp.blank?
@@ -201,7 +202,7 @@ class Brand < ActiveRecord::Base
     #   INNER JOIN product_families ON product_families.id = product_family_products.product_family_id
     #   WHERE products.brand_id = #{self.id} OR product_families.brand_id = #{self.id}").sort{|a,b| a.name.downcase <=> b.name.downcase}
   end
-  
+
   def value_for(key, locale=I18n.locale)
     s = self.settings.where(name: key)
     setting = s.where(["locale IS NULL OR locale = ?", locale]).first
@@ -219,7 +220,7 @@ class Brand < ActiveRecord::Base
 
     (setting) ? setting.value : nil
   end
-  
+
   # The default side tabs to show on product pages. This can be overridden
   # with a setting named side_tabs which is a pipe-separated list of tabs
   def side_tabs
@@ -227,13 +228,13 @@ class Brand < ActiveRecord::Base
     tabs = self.value_for("side_tabs") || default_tabs
     tabs.split("|")
   end
-  
+
   def main_tabs
     default_tabs = "description|extended_description|features|specifications"
     tabs = self.value_for("main_tabs") || default_tabs
     tabs.split("|")
   end
-  
+
   def admin_actions(num_days=365)
     AdminLog.where(website_id: self.websites.collect{|w| w.id}).where("created_at > ?", num_days.days.ago)
   end
@@ -267,7 +268,7 @@ class Brand < ActiveRecord::Base
   end
 
   # Figure out the default top domain for this brand
-  def domain 
+  def domain
     default_website.domain
   rescue
     ""
@@ -311,6 +312,10 @@ class Brand < ActiveRecord::Base
 
   def new_signups
     signups.where("synced_on IS NULL") + warranty_registrations.where(subscribe: true).where("synced_on IS NULL")
+  end
+
+  def faq_categories_with_faqs
+    faq_categories.select{|fc| fc if fc.faqs.length > 0 }
   end
 
 end

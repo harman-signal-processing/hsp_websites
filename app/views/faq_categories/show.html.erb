@@ -1,0 +1,18 @@
+<h1><%= @faq_category.name %></h1>
+
+<ul>
+  <% @faq_category.faqs.each_with_index do |faq, i| %>
+    <li><%= link_to faq.question, "#faq_#{i}" %></li>
+  <% end %>
+</ul>
+
+<hr/>
+
+<% @faq_category.faqs.each_with_index do |faq, i| %>
+  <a name="faq_<%= i %>">
+    <h3 class="subheader"><%= faq.question %></h3>
+  </a>
+  <div>
+    <%=raw faq.answer %>
+  </div>
+<% end %>

@@ -1,9 +1,9 @@
-<%= simple_form_for([:admin, @product], html: {multipart: true}) do |f| %>
+<%= simple_form_for([:admin, @product], html: {multipart: true, autocomplete: "off"}) do |f| %>
 
 <div class="row">
 <% if can?(:update, :product_name) %>
 	<div class="large-6 columns">
-		<%= f.input :name %>
+    <%= f.input :name, input_html: { autocomplete: "off" }  %>
 	</div>
 <% end %>
 	<div class="large-6 columns">

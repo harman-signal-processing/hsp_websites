@@ -57,12 +57,13 @@ class Product < ActiveRecord::Base
   monetize :artist_price_cents, :allow_nil => true
 
   before_save :set_employee_price
-  
+
   serialize :previewers, Array
   has_attached_file :background_image
   validates_attachment :background_image, content_type: { content_type: /\Aimage/i }
   validates :name, presence: true
   validates :product_status_id, presence: true
+  validates :sap_sku, format: { with: /\A[\w\-]*\z/, message: "only allows letters and numbers" }
 
   def set_employee_price
     if self.cost_cents.present? && self.cost_cents > 0
@@ -79,7 +80,7 @@ class Product < ActiveRecord::Base
       end
     end
   end
-  
+
   def belongs_to_this_brand?(brand)
     brand = brand.brand if brand.is_a?(Website) # if a Website is passed in instead of a Brand
     begin
@@ -88,7 +89,7 @@ class Product < ActiveRecord::Base
       false
     end
   end
-  
+
   def current_sub_products
     @current_sub_products ||= sub_products.select{|sub_product| sub_product.product if sub_product.product.product_status.show_on_website?}
   end
@@ -100,15 +101,15 @@ class Product < ActiveRecord::Base
     end
     attachments
   end
-  
+
   def set_default_status
     self.product_status_id ||= 3 #ProductStatus.where("name LIKE '%%production%%'").first
   end
-  
+
   def self.non_discontinued(website)
     order(:name).includes(:product_status, :product_families).select{|p| p if !p.product_status.is_discontinued? && p.belongs_to_this_brand?(website)}.sort{|a,b| a.name.downcase <=> b.name.downcase}
   end
-  
+
   def self.all_for_website(website, included_objects=[])
     included_objects += [:product_status, :product_families]
     order(:name).includes(included_objects).select{|p| p if p.product_status.show_on_website && p.belongs_to_this_brand?(website)}.sort{|a,b| a.name.downcase <=> b.name.downcase}
@@ -116,17 +117,17 @@ class Product < ActiveRecord::Base
 
   def self.all_for_website_registration(website)
     p = []
-    order(:name).includes(:product_status, :product_families).select{|p| p if p.belongs_to_this_brand?(website)}.sort{|a,b| a.name.downcase <=> b.name.downcase}.each do |prod|
+    order(:name).includes(:product_status, :product_families).select{|prd| prd if prd.belongs_to_this_brand?(website)}.sort{|a,b| a.name.downcase <=> b.name.downcase}.each do |prod|
       p << prod if prod.can_be_registered?
     end
     p
   end
-  
+
   def self.discontinued(website, included_objects=[])
     included_objects += [:product_status, :product_families]
     order(:name).includes(included_objects).select{|p| p if p.product_status.is_discontinued? && p.belongs_to_this_brand?(website)}.sort{|a,b| a.name.downcase <=> b.name.downcase}
   end
-  
+
   def self.non_supported(website)
     order(:name).includes(:product_status, :product_families).select{|p| p if p.product_status.not_supported? && p.belongs_to_this_brand?(website)}.sort{|a,b| a.name.downcase <=> b.name.downcase}
   end
@@ -134,16 +135,16 @@ class Product < ActiveRecord::Base
   def self.repairable(website)
     all_for_website(website) - non_supported(website) - website.vintage_products
   end
-  
+
   # Find those which are on tour with an Artist
   def self.on_tour(website)
     order(:name).includes(:product_status, :product_families).select{|product| product if product.artists_on_tour.size > 0 && product.belongs_to_this_brand?(website)}
   end
-  
+
   def in_production?
     product_status.in_production?
   end
-  
+
   def in_development?
     product_status.in_development?
   end
@@ -151,7 +152,7 @@ class Product < ActiveRecord::Base
   def discontinued?
     product_status.is_discontinued?
   end
-  
+
   # can this product be registered with us?
   def can_be_registered?
     !!!(self.product_status.not_supported?) && !!(self.product_status.show_on_website?) && !!!(self.product_status.vintage?) && !!!(self.parent_products.size > 0) && !!!self.is_accessory?
@@ -172,23 +173,23 @@ class Product < ActiveRecord::Base
   def sample
     @sample ||= self.product_attachments.where("product_media_file_name LIKE '%mp3%'").first
   end
-  
+
   def photo
     ProductAttachment.where(product_id: self.id, primary_photo: true).first
   end
-  
+
   def photo=(product_attachment)
     product_attachment.update_attributes(primary_photo: true)
   end
-  
+
   def primary_photo
     self.photo
   end
-  
+
   def primary_photo=(product_attachment)
     self.photo = product_attachment
   end
-  
+
   def show_on_website?(website)
     self.product_status.show_on_website? && self.belongs_to_this_website?(website)
   end
@@ -200,9 +201,9 @@ class Product < ActiveRecord::Base
 
   def show_on_toolkit?
     # comment out '&& self.product_status.show_on_website?' to show un-announced products on toolkit
-    !self.virtual_product? #&& self.product_status.show_on_website? 
+    !self.virtual_product? #&& self.product_status.show_on_website?
   end
-  
+
   def related_products
     rp = []
     product_families.collect.each do |pf|
@@ -224,7 +225,7 @@ class Product < ActiveRecord::Base
   def preferred_retailer_links
     @preferred_retailer_links ||= active_retailer_links.select{|orl| orl if orl.online_retailer.preferred.to_i > 0}
   end
-  
+
   # Collect tabs of info to be displayed on product page.
   # To create a new tab:
   # 1. Add it to this array
@@ -277,7 +278,7 @@ class Product < ActiveRecord::Base
   def package_tabs
     r = []
     if self.has_pedals # (instead of "effects")
-      r << ProductTab.new("pedals", self.product_effects.size) if self.product_effects.size > 0      
+      r << ProductTab.new("pedals", self.product_effects.size) if self.product_effects.size > 0
       r << ProductTab.new("amp_models", self.product_amp_models.size) if self.product_amp_models.size > 0
       r << ProductTab.new("cabinets", self.product_cabinets.size) if self.product_cabinets.size > 0
     else
@@ -317,22 +318,22 @@ class Product < ActiveRecord::Base
   def current_news
     self.news.where("post_on <= ?", Date.today)
   end
-  
+
   # Alias for search results link_name
   def link_name
     self.name
   end
-  
+
   # Alias for search results content_preview
   def content_preview
     self.description
   end
-  
+
   # Does this product have a custom background image or color?
   def has_custom_background?
     !self.background_image_file_name.blank? || !self.background_color.blank?
   end
-  
+
   # Format a CSS background setting value based on this product's custom settings
   def custom_background
     css = ""
@@ -346,7 +347,7 @@ class Product < ActiveRecord::Base
     end
     css
   end
-  
+
   # Artists on tour with this product
   def artists_on_tour
     begin
@@ -355,18 +356,18 @@ class Product < ActiveRecord::Base
       []
     end
   end
-  
+
   # A random quote about this Product. Returns an ArtistProduct so you can
   # back-track to get the related Artist
   def random_quote
     self.artist_products.select{|ap| ap unless ap.quote.blank?}.sort_by{rand}.first
   end
-  
+
   # Promotions which are current and relate to this Product
   def current_promotions
     self.promotions.where(["show_start_on IS NOT NULL AND show_end_on IS NOT NULL AND start_on <= ? AND end_on >= ?", Date.today, Date.today]).order("start_on")
   end
-  
+
   def current_and_recently_expired_promotions
     self.promotions.where(["show_start_on IS NOT NULL AND show_end_on IS NOT NULL AND show_start_on <= ? AND show_end_on >= ?", Date.today, Date.today]).order("start_on")
   end
@@ -374,17 +375,17 @@ class Product < ActiveRecord::Base
   def recently_expired_promotions
     (self.current_and_recently_expired_promotions - self.current_promotions)
   end
-  
+
   # Pick only those artists who are approved
   def approved_artists
     self.artists.where("approver_id > 0 AND artist_tier_id > 0").order("artist_tier_id ASC, name ASC")
   end
-  
+
   # Currently active software
   def active_softwares
     self.softwares.where(active: true)
   end
-  
+
   # Collects suggested products
   def suggested_products
     sp = []
@@ -411,7 +412,7 @@ class Product < ActiveRecord::Base
 
   def price_for(pricing_type)
     if product_price = product_prices.where(pricing_type_id: pricing_type.id).first
-      product_price.price 
+      product_price.price
     else
       nil
     end

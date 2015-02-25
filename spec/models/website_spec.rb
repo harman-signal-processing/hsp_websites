@@ -2,9 +2,12 @@ require "rails_helper"
 
 RSpec.describe Website, :type => :model do
 
-	before :each do
-		@website = FactoryGirl.create(:website_with_products)
-	end
+  before do
+    @website = FactoryGirl.create(:website_with_products)
+  end
+
+  subject { @website }
+  it { should respond_to(:brand) }
 
   describe "required settings" do
   	# it "should respond to support_email" do
