@@ -28,7 +28,7 @@
 		</div>
 		<div class="large-3 columns">
 			<p>For local service in the US, please see the US Service Centers locator on our <%= link_to "support page", support_path %>.</p>
-			<p><%= t('product_support_page.for_service_outside_the_us') %> 
+			<p><%= t('product_support_page.for_service_outside_the_us') %>
 				<%= link_to t("product_support_page.please_contact_your_distributor", brand: website.brand_name), international_distributors_path %></p>
 		</div>
 	</div>
@@ -75,25 +75,27 @@
 			</div>
 		<%= cache ["rma_form_products", website.brand] do %>
 			<div class="large-4 columns">
-			<%= f.collection_select :product, 
-					Product.repairable(website) + [Product.new(name: "other")], 
+			<%= f.collection_select :product,
+					Product.repairable(website) + [Product.new(name: "other")],
 					:name, :name, prompt: true %>
 			</div>
 		<% end %>
 			<div class="large-6 columns"></div>
 		</div>
 
-		<div class="row">
-			<div class="large-2 columns">
-				<%= f.label :product_sku, nil, class: "right inline" %>
-			</div>
-			<div class="large-4 columns">
-				<%= f.input :product_sku, label: false %>
-			</div>
-			<div class="large-6 columns">
-				<div class="hint"><%= link_to "where to find the SKU", image_path("#{website.folder}/sku.jpg") %></div>
-			</div>
-		</div>
+    <% if !website.brand.name.match(/crown/i) %>
+      <div class="row">
+        <div class="large-2 columns">
+          <%= f.label :product_sku, nil, class: "right inline" %>
+        </div>
+        <div class="large-4 columns">
+          <%= f.input :product_sku, label: false %>
+        </div>
+        <div class="large-6 columns">
+          <div class="hint"><%= link_to "where to find the SKU", image_path("#{website.folder}/sku.jpg") %></div>
+        </div>
+      </div>
+    <% end %>
 
 		<div class="row">
 			<div class="large-2 columns">

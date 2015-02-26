@@ -10,7 +10,7 @@ class ContactMessage < ActiveRecord::Base
     :shipping_city,
     :shipping_state,
     :shipping_zip,
-    :product_sku,
+#    :product_sku,
     :product_serial_number,
     :purchased_on, presence: true, if: :rma_request?
   validates :shipping_address,

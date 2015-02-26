@@ -29,7 +29,7 @@
 			<h4>Training Modules</h4>
 			<%= link_to "Visit Training Page", training_path %>
 		<% end %>
-	</div>		
+	</div>
 	<div class="large-5 columns">
 		<div class="panel">
 			<div class="text-center">
@@ -47,7 +47,7 @@
 					[<%= number_to_human_size(@software.ware_file_size)%>]
 					<% end %>
 				</li>
-			
+
 				<% @software.software_attachments.each do |sa| %>
 				<li>
 					<% if sa.software_attachment_content_type.match(/pdf/i) %>

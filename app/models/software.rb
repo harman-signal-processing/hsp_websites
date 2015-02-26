@@ -104,7 +104,7 @@ class Software < ActiveRecord::Base
   end
 
   def has_additional_info?
-    !!(self.description.present? || self.training_modules.count > 0 || self.software_attachments.count > 0 || self.training_classes.count > 0 || self.previous_versions.count > 0)
+    !!(self.description.present? || self.training_modules.count > 0 || self.software_attachments.count > 0 || self.training_classes.count > 0)
   end
 
   def current_products

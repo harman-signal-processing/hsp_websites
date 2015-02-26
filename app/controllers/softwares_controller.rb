@@ -1,6 +1,6 @@
 class SoftwaresController < ApplicationController
   before_filter :set_locale, except: [:activate]
-  
+
   # GET /softwares
   # GET /softwares.xml
   def index
@@ -8,10 +8,6 @@ class SoftwaresController < ApplicationController
     @current_products = Product.all_for_website(website, [:softwares]) - @discontinued_products
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      # format.xml  { 
-      #   @softwares = Software.where(active: true, brand_id: website.brand_id).order("name,version")
-      #   render xml: @softwares 
-      # }
     end
   end
 
@@ -25,7 +21,7 @@ class SoftwaresController < ApplicationController
     if @software.active? || can?(:manage, @software) || (@software.replaced_by && @software.replaced_by.is_a?(Software))
       @page_title = @software.formatted_name
       respond_to do |format|
-        format.html { 
+        format.html {
           if @software.has_additional_info?
             if !@software.layout_class.blank? && File.exists?(Rails.root.join("app", "views", website.folder, "softwares", "#{@software.layout_class}.html.erb"))
               render template: "#{website.folder}/softwares/#{@software.layout_class}", layout: set_layout
@@ -42,7 +38,7 @@ class SoftwaresController < ApplicationController
       redirect_to softwares_path and return
     end
   end
-  
+
   # Custom route allows us to increment the counter before
   # sending the file to the user
   # GET /download/1
