@@ -1,8 +1,8 @@
 require 'csv'
 namespace :faqs do
-  
+
   desc "Import FAQs"
-  task :import => :environment do
+  task :original_import => :environment do
     CSV.open(Rails.root.join("db", "faqs.csv"), 'r').each do |row|
       # puts row
       products = row[1].split(",")
@@ -19,5 +19,53 @@ namespace :faqs do
       end
     end
   end
-  
+
+  desc "Import Crown FAQs"
+  task :crown_import => :environment do
+    crown = Brand.find("crown")
+
+    categories_file = Rails.root.join("db", "crown-faq-categories.csv")
+    faqs_file = Rails.root.join("db", "crown-faqs.csv")
+    join_file = Rails.root.join("db", "crown-faq-joins.csv")
+
+    categories = []
+    faqs = []
+
+    CSV.open(categories_file, 'r:ISO-8859-1').each do |row|
+      if row[0].to_i > 0
+        categories[row[0].to_i] = FaqCategory.where(name: row[2], brand_id: crown.id).first_or_create
+      end
+    end
+    puts "There are now #{categories.length} categories"
+
+    CSV.open(faqs_file, 'r:ISO-8859-1').each do |row|
+      if row[0].to_i > 0
+        faqs[row[0].to_i] = Faq.where(question: row[3], answer: row[4]).first_or_create
+      end
+    end
+    puts "There are now #{faqs.length} FAQs"
+
+    CSV.open(join_file, 'r:ISO-8859-1').each do |row|
+      if row[0].to_i > 0 && row[1].to_i > 0
+        category = categories[row[1].to_i]
+        faq = faqs[row[0].to_i]
+
+        if category && faq
+          unless category.faqs.include?(faq)
+            category.faqs << faq
+          end
+        end
+      end
+    end
+
+    puts "Summary:"
+    puts "-----------------------------------"
+    categories.each do |c|
+      if c.is_a?(FaqCategory)
+        puts "  #{c.name}: #{c.faqs.length} FAQs"
+      end
+    end
+
+  end
+
 end

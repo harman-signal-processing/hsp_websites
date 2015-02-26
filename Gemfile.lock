@@ -573,6 +573,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.6)
+    utf8-cleaner (0.0.9)
     uuid (2.3.7)
       macaddr (~> 1.0)
     vegas (0.1.11)
@@ -684,6 +685,7 @@ DEPENDENCIES
   twitter (~> 5.1)
   typhoeus
   uglifier (>= 1.3.0)
+  utf8-cleaner
   whenever
   will_paginate
   youtube_it!

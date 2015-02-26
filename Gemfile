@@ -18,6 +18,7 @@ gem 'capistrano-ext'
 
 # Bundle the extra gems:
 gem 'mysql2', '>= 0.3.12b4' # sphinx needs '0.3.12b4'
+gem 'utf8-cleaner'
 gem "friendly_id"
 gem 'aws-sdk', '< 2.0'
 gem 'fog'
