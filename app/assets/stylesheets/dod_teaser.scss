@@ -11,8 +11,9 @@
 *= require lightbox
 *= require tiny
 *= require jquery-ui.min
- *= require dod_framework_and_overrides
- *= require_self
+*= require dod_framework_and_overrides
+*= require bouncing_arrow
+*= require_self
 */
 
 img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
@@ -70,44 +71,6 @@ body {
 	}
 }
 
-@-webkit-keyframes bouncing {
-  0% { bottom: 5px; }
-  50% { bottom: 8px; }
-  100% { bottom: 5px; } 
-}
-
-@-moz-keyframes bouncing {
-  0% { bottom: 5px; }
-  50% { bottom: 8px; }
-  100% { bottom: 5px; } 
-}
-
-@-ms-keyframes bouncing {
-  0% { bottom: 5px; }
-  50% { bottom: 8px; }
-  100% { bottom: 5px; } 
-}
-
-@keyframes bouncing {
-  0% { bottom: 5px; }
-  50% { bottom: 8px; }
-  100% { bottom: 5px; } 
-}		
-
-.bouncing-arrow {
-  background: asset-url('dod/arrow.png');
-  width: 56px;
-  height: 25px;
-  position: fixed;
-  left: 50%;
-  bottom: 5px;
-  margin-left: -28px;
-  z-index: 1000;
-  -webkit-animation: bouncing 750ms infinite;
-  -moz-animation: bouncing 750ms infinite;
-  -ms-animation: bouncing 750ms infinite;
-  animation: bouncing 750ms infinite; 
-}
 h1#title {
 	font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif;
 	font-weight: 700;

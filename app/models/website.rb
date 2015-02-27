@@ -183,7 +183,7 @@ class Website < ActiveRecord::Base
       #   downloads["Software".parameterize][:downloads].uniq!
       # end
     end
-    self.site_elements.where(show_on_public_site: true).each do |site_element|
+    self.site_elements.where(show_on_public_site: true).where("resource_type IS NOT NULL AND resource_type != ''").each do |site_element|
       name = I18n.t("resource_type.#{site_element.resource_type_key}", default: site_element.resource_type)
       downloads[site_element.resource_type.parameterize] ||= {
         param_name: site_element.resource_type.parameterize,

@@ -68,6 +68,7 @@ set_meta_tags title: @product.name,
 
 <%= cache ["product_page", @product, @online_retailer_link, @active_tab, I18n.locale, session['geo_country']] do %>
 
+<div id="breadcrumbs"><%= breadcrumbs(@product) %></div>
 
 <% if @product.layout_class == "vertical" ##################### VERTICAL LAYOUT ############## %>
 
@@ -81,7 +82,6 @@ set_meta_tags title: @product.name,
 		<% end %>
 
 		<% if @product.images_for("product_page").size > 1 %>
-		<div class="larger_tag"><%= t('product_page.larger_images') %></div>
 		<ul id="product_thumbnails" class="large-block-grid-6 small-block-grid-3 clearing-thumbs" data-clearing>
 			<% @product.images_for("product_page").each do |product_attachment| %>
 			  <% if product_attachment.product_media_thumb_file_name.present? %>
@@ -93,6 +93,7 @@ set_meta_tags title: @product.name,
 			  <% end %>
 			<% end %>
 		</ul>
+		<div class="larger_tag"><%= t('product_page.larger_images') %></div>
 		<% end %>
 
               <% if website.show_pricing? && I18n.default_locale.match(/#{I18n.locale}/i) %>
@@ -173,7 +174,6 @@ set_meta_tags title: @product.name,
 	<div class="large-8 small-12 columns">
 
 		<% if @product.images_for("product_page").size > 1 %>
-		<div class="larger_tag"><%= t('product_page.larger_images') %></div>
 		<ul id="product_thumbnails" class="clearing-thumbs large-block-grid-12 small-block-grid-3" data-clearing>
 			<% @product.images_for("product_page").each do |product_attachment| %>
 			  <% if product_attachment.product_media_thumb_file_name.present? %>
@@ -185,6 +185,7 @@ set_meta_tags title: @product.name,
 			  <% end %>
 			<% end %>
 		</ul>
+		<div class="larger_tag"><%= t('product_page.larger_images') %></div>
 		<% end %>
 
 	</div>

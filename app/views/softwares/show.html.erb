@@ -13,7 +13,7 @@
 
 <% if @software.replaced_by && @software.replaced_by.is_a?(Software) %>
 <div data-alert class="alert-box">
-	Note: this is an old version. The current version is: <%= link_to @software.replaced_by.formatted_name, @software.replaced_by %>.
+	Note: this is an old version. The current version is here: <%= link_to @software.replaced_by.formatted_name, @software.replaced_by %>.
 	<a href="#" class="close">&times;</a>
 </div>
 <% end %>

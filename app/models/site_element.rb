@@ -1,16 +1,16 @@
 class SiteElement < ActiveRecord::Base
   belongs_to :brand, touch: true
   has_attached_file :resource, {
-    styles: { large: "550x370", 
-      medium: "480x360", 
+    styles: { large: "550x370",
+      medium: "480x360",
       small: "240x180",
-      thumb: "100x100", 
-      tiny: "64x64", 
-      tiny_square: "64x64#" 
+      thumb: "100x100",
+      tiny: "64x64",
+      tiny_square: "64x64#"
     }}.merge(S3_STORAGE)
   do_not_validate_attachment_file_type :resource
 
-  has_attached_file :executable, 
+  has_attached_file :executable,
     storage: :s3,
     bucket: Rails.configuration.aws[:bucket],
     s3_credentials: Rails.configuration.aws,
@@ -21,11 +21,12 @@ class SiteElement < ActiveRecord::Base
 
   process_in_background :resource
   process_in_background :executable
-  
+
   validates :brand, :name, presence: true
+  validates :resource_type, presence: true, if: :show_on_public_site?
   has_many :product_site_elements, dependent: :destroy, inverse_of: :site_element
   has_many :products, through: :product_site_elements
-  
+
   def self.resource_types
     defaults = ["Wallpaper"]
     begin
@@ -35,7 +36,7 @@ class SiteElement < ActiveRecord::Base
       defaults
     end
   end
-  
+
   def is_image?
     !!(resource_file_name.to_s.match(/(png|jpg|jpeg|tif|tiff|bmp|gif)$/i))
   end
@@ -43,5 +44,5 @@ class SiteElement < ActiveRecord::Base
   def resource_type_key
     self.resource_type.parameterize.underscore
   end
-  
+
 end
