@@ -4,11 +4,7 @@
 %>
 <% unless skip_header %>
   <<%= hlevel %>>
-    <% if !product_family.title_banner_file_name.blank? %>
-      <%= image_tag(product_family.title_banner.url, alt: translate_content(product_family, :name), style: " width: 100%") %>
-    <% else %>
-      <%= translate_content(product_family, :name) %>
-    <% end %>
+    <%= translate_content(product_family, :name) %>
   </<%= hlevel %>>
 
   <p><%=raw translate_content(product_family, :intro) %></p>
@@ -30,7 +26,7 @@
 <% end %>
 
 <% if skip_header && product_family.title_banner_file_name.present? %>
-  <div class="text-center">
+  <div class="amp-power-container">
     <%= image_tag(@product_family.title_banner.url, alt: translate_content(@product_family, :name)) %>
   </div>
 <% end %>
