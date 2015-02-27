@@ -28,3 +28,10 @@
     </div>
   <% end %>
 <% end %>
+
+<% if skip_header && product_family.title_banner_file_name.present? %>
+  <div class="text-center">
+    <%= image_tag(@product_family.title_banner.url, alt: translate_content(@product_family, :name)) %>
+  </div>
+<% end %>
+
