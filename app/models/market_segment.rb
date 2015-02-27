@@ -18,4 +18,17 @@ class MarketSegment < ActiveRecord::Base
     ContentTranslation.auto_translate(self, self.brand)
   end
   handle_asynchronously :translate
+
+  def self.with_current_products(website, locale)
+    segments = []
+    where(brand_id: website.brand_id).each do |ms|
+      segments << ms if ms.product_families_with_current_products.length > 0
+    end
+    segments
+  end
+
+  def product_families_with_current_products
+    product_families.select{|pf| pf if pf.current_products.length > 0 }
+  end
+
 end

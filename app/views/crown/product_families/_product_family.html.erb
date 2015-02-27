@@ -2,15 +2,15 @@
   hlevel ||= product_family.parent_id.blank? ? 'h1' : 'h2'
   skip_header ||= false
 %>
-<% unless skip_header %>
-  <<%= hlevel %>>
-    <%= translate_content(product_family, :name) %>
-  </<%= hlevel %>>
-
-  <p><%=raw translate_content(product_family, :intro) %></p>
-<% end %>
-
 <% if product_family.current_products.length > 0 %>
+  <% unless skip_header %>
+    <<%= hlevel %>>
+      <%= translate_content(product_family, :name) %>
+    </<%= hlevel %>>
+
+    <p><%=raw translate_content(product_family, :intro) %></p>
+  <% end %>
+
   <ul class="large-block-grid-2 small-block-grid-1">
     <% product_family.current_products.each do |product| %>
       <li><%= render_partial("product_families/product_square", product: product, extra_large: true) %></li>
@@ -23,11 +23,11 @@
       <%= t('product_page.select_products_to_compare') %>
     </div>
   <% end %>
-<% end %>
 
-<% if skip_header && product_family.title_banner_file_name.present? %>
-  <div class="amp-power-container">
-    <%= image_tag(@product_family.title_banner.url, alt: translate_content(@product_family, :name)) %>
-  </div>
+  <% if skip_header && product_family.title_banner_file_name.present? %>
+    <div class="amp-power-container">
+      <%= image_tag(@product_family.title_banner.url, alt: translate_content(@product_family, :name)) %>
+    </div>
+  <% end %>
 <% end %>
 
