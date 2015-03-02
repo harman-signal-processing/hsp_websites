@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["kylejginavan", "chebyte"]
-  s.date = "2015-02-16"
+  s.date = "2015-03-02"
   s.description = "Upload, delete, update, comment on youtube videos all from one gem."
   s.email = ["kylejginavan@gmail.com", "maurotorres@gmail.com"]
   s.extra_rdoc_files = ["README.rdoc", "CHANGELOG.md"]
