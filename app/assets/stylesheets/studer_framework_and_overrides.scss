@@ -10,7 +10,7 @@ $body-bg: #FFF;
 $body-font-color: $dark-gray;
 $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $body-font-weight: 400;
-$primary-color: #00275d;
+$primary-color: #242424;
 $secondary-color: $medium-gray;
 $include-print-styles: true;
 $header-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
@@ -42,7 +42,7 @@ $tabs-navigation-font-color: $dark-gray;
 $tabs-navigation-active-font-color: $tabs-navigation-font-color;
 $tabs-navigation-font-size: rem-calc(13);
 $tabs-navigation-font-family: $body-font-family;
-$anchor-font-color: $primary-color;
+$anchor-font-color: #00275d;
 $anchor-font-color-hover: lighten($anchor-font-color, 5%);
 
 $form-spacing: emCalc(18px);
