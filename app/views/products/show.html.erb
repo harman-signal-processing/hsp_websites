@@ -154,10 +154,14 @@ set_meta_tags title: @product.name,
       <h1><%= title translate_content(@product, :name) %></h1>
       <h3><%= translate_content(@product, :short_description) %></h3>
 
-      <hr/>
+      <% if website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !@product.direct_buy_link.blank? %>
 
-      <div class="product-price-row">
-        <% if website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !@product.direct_buy_link.blank? %>
+        <% if (website.has_customer_reviews? && @product.has_customer_reviews?) ||
+            (website.show_pricing? && !@product.hide_buy_it_now_button?) %>
+          <hr/>
+        <% end %>
+
+        <div class="product-price-row">
 
           <div class="row collapse">
             <div class="large-6 small-6 columns product-price">
@@ -194,20 +198,20 @@ set_meta_tags title: @product.name,
             </div>
           </div>
 
-        <% end %>
-
-        <% if website.has_customer_reviews? && @product.has_customer_reviews? %>
-          <div class="row collapse">
-            <div class="large-6 small-6 columns">
-              <%# number of stars %>
+          <% if website.has_customer_reviews? && @product.has_customer_reviews? %>
+            <div class="row collapse">
+              <div class="large-6 small-6 columns">
+                <%# number of stars %>
+              </div>
+              <div class="large-6 small-6 columns text-right">
+                <%# link to read reviews %>
+              </div>
             </div>
-            <div class="large-6 small-6 columns text-right">
-              <%# link to read reviews %>
-            </div>
-          </div>
-        <% end %>
+          <% end %>
 
-      </div>
+        </div>
+
+      <% end %>
 
       <hr/>
 
