@@ -1,0 +1,14 @@
+<% if website.extended_warranty_url %>
+  <div class="panel">
+    <div class="text-center">
+      <%= link_to website.extended_warranty_url, target: "_blank" do %>
+        <%= image_tag "extended-warranty.png" %>
+      <% end %>
+    </div>
+    <h4>HARMAN Extended Warranty</h4>
+    <p>Get peace of mind knowing your investment
+    will be protected for years to come with a
+    HARMAN extended warranty.</p>
+    <%= link_to "Find Out More", website.extended_warranty_url, target: "_blank", class: "tiny button" %>
+  </div>
+<% end %>

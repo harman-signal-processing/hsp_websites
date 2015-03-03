@@ -9,8 +9,8 @@
       <%= f.input :name, label: t('your_name'), required: true %>
       <%= f.input :email, label: ucfirst(t('email')), required: true %>
 
+      <legend><%= t('shipping_address') %></legend>
 			<fieldset>
-				<legend><%= t('shipping_address') %></legend>
 				<%= f.input :shipping_address, required: true %>
 				<%= f.input :shipping_city, required: true %>
 				<div class="row">
