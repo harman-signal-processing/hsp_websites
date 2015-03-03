@@ -16,7 +16,7 @@
 		<%= link_to t('software_downloads'), software_index_path %>
 	</div>
 	<% end %>
-	
+
 	<div class="support_box">
 		<h4><%= t('titles.product_support') %></h4>
 		<p><%= t('blurbs.product_support') %></p>
@@ -25,13 +25,13 @@
 			<%= submit_tag t('go')%>
 		<% end %>
 	</div>
-	
+
 	<div class="support_box">
 		<h4><%= link_to t('warranty_registration'), warranty_registration_path %></h4>
 		<p><%= t('blurbs.warranty_registration', brand: website.brand_name) %></p>
 		<%= link_to t('warranty_registration'), warranty_registration_path %>
 	</div>
-	
+
 	<% if website.has_service_centers? %>
 	<div class="support_box">
 		<h4><%= t('titles.locate_us_service_center') %>:</h4>
@@ -69,16 +69,16 @@
 		<br/><%= mail_to sup, sup %>
 		<% end %>
 	</div>
-	<% end %>	
+	<% end %>
 
 	<div class="clear"></div>
 </div>
 <% end %>
 
 <hr/>
-	
+
 	<div class="two_column_container">
-		
+
 		<div class="column_one" style="width: 65%">
 			<h1><%= t('titles.contact_us') %></h1>
 			<%= form_for :contact_message, url: support_path(action: "contact"), html: {class: "contact"} do |f| %>
@@ -90,7 +90,7 @@
 				   <%= f.text_field :email %></div>
 				<%= cache ["contact_form_products", website.brand] do %>
 				<div class="form-inputs"><%= f.label :product %> <%= "(required)" if @contact_message.require_product? %><br/>
-					<%= f.collection_select :product, 
+					<%= f.collection_select :product,
 							Product.all_for_website(website) + [Product.new(name: "other")],
 							:name, :name, prompt: true %>
 				</div>
@@ -110,15 +110,15 @@
 				<div class="captcha">
 					<%= recaptcha_tags %>
 				</div>
-				
+
 				<p><%= submit_tag t('submit') %></p>
 			<% end %>
 		</div>
-		
+
 		<div class="column_two" style="width: 30%; padding-top: 10px;">
 
 		</div>
-		
+
 	</div>
-	
+
 <div class="clear"></div>

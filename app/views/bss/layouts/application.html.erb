@@ -26,7 +26,7 @@
 			<link href="<%= rss_url(format: 'xml') %>" rel="alternate" title="RSS" type="application/rss+xml"/>
 			<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 			<link rel="icon" type="image/x-icon" href="/favicon.ico" />
-			
+
 		<% end %>
 
 		<%= javascript_include_tag website.folder %>
@@ -48,10 +48,10 @@
 		  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
 		  fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));</script>
-		<%#= render_partial "shared/admin_dashboard_link" %>	
+		<%#= render_partial "shared/admin_dashboard_link" %>
 		<%= yield :extra_notice %>
 		<%= render_partial "shared/locale_switcher" %>
-		
+
 		<%= cache ["header", website, I18n.locale] do %>
 		<div id="Header">
 			<% if website.has_market_segments? %>
@@ -155,6 +155,7 @@
 				<% if website.has_dealers? || website.has_online_retailers? || website.has_distributors? %>
 				<%= link_to t('where_to_buy'), where_to_buy_path %> &bull;
 				<% end %>
+        <%= link_to 'careers', "http://jobs.harman.com", target: "_blank" %> &bull;
 				<%= link_to t('product_support'), support_path %> &bull;
 				<%= link_to t('privacy_policy'), privacy_policy_path %> &bull;
 				<%= link_to t('terms_of_use'), terms_of_use_path %> &bull;

@@ -65,7 +65,7 @@ namespace :refresh do
   	puts "Setting up staging sites"
   	run "cd #{deploy_to}/current && bundle exec rake RAILS_ENV=staging db:setup_staging_from_production"
 	end
-	
+
 	desc "Syncs the latest uploaded assets from production to development"
 	task :development_uploads, roles: :web do
 	  `rsync -avz "hmg@10.10.23.86:/var/www/hmg/hsp_websites/shared/system" "./public/"`
@@ -78,7 +78,7 @@ namespace :refresh do
 		get_and_remove_file
 		puts `cd public && tar -zxf ../#{@filename} && rm ../#{@filename}`
 	end
-	
+
 	desc "Copies ALL uploaded assets from production to staging"
 	task :staging_uploads, roles: :web do
 		# run "rsync -azv hmg@10.10.23.86:/var/www/hmg/hsp_websites/shared/system /var/www/hmg/hsp_staging/shared/"

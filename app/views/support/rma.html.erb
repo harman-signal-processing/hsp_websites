@@ -35,8 +35,8 @@
 
 	<div class="row">
 		<div class="large-6 columns">
+      <legend><%= t('shipping_address') %></legend>
 			<fieldset>
-				<legend><%= t('shipping_address') %></legend>
 				<%= f.input :shipping_address, required: true, label: "Address (No P.O. Boxes)" %>
 				<%= f.input :shipping_city, required: true %>
 				<div class="row">
@@ -51,8 +51,8 @@
 		</div>
 
 		<div class="large-6 columns">
+      <legend><%= t('billing_address') %> <i class="hint">if different</i></legend>
 			<fieldset>
-				<legend><%= t('billing_address') %> <i class="hint">if different</i></legend>
 				<%= f.input :billing_address %>
 				<%= f.input :billing_city %>
 				<div class="row">
@@ -67,7 +67,7 @@
 		</div>
 	</div>
 
-	<h3><%= t('product_details') %></h3>
+	<legend><%= t('product_details') %></legend>
 	<div>
 		<div class="row">
 			<div class="large-2 columns">
@@ -135,3 +135,7 @@
 	</div>
 <% end %>
 
+<% if website.support_survey_link %>
+  <p>Let us know about your experience. Take our quick
+  <%= link_to "survey.", website.support_survey_link, target: "_blank" %></p>
+<% end %>
