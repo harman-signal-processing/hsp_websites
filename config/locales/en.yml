@@ -52,6 +52,7 @@ en:
   download: download
   downloads: downloads
   software_downloads: software
+  resource_downloads: resources
   software: software
   pop_explanation: Many of our retailers feature our interactive product display which will allow you to try out our products and find out just how much Jimi you've got.
   products_used_by: "Products used by %{artist}"
@@ -386,7 +387,7 @@ en:
       registered_download: Registered Download
       site_element: Site Resource
       website: Website
-      market_segment: Vertical Market
+      market_segment: Vertical Marke
       marketing_project_type: Project Template
       marketing_project: Project
       marketing_task: Task

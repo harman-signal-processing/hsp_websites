@@ -170,9 +170,6 @@ set_meta_tags title: @product.name,
 <% end %>
 
 
-<div class="row">
-	<div class="large-8 small-12 columns">
-
 		<% if @product.images_for("product_page").size > 1 %>
 		<ul id="product_thumbnails" class="clearing-thumbs large-block-grid-12 small-block-grid-3" data-clearing>
 			<% @product.images_for("product_page").each do |product_attachment| %>
@@ -188,38 +185,6 @@ set_meta_tags title: @product.name,
 		<div class="larger_tag"><%= t('product_page.larger_images') %></div>
 		<% end %>
 
-	</div>
-	<div class="large-4 small-12 columns text-right">
-
-              <% if website.show_pricing? && I18n.default_locale.match(/#{I18n.locale}/i) %>
-                <% if @product.street_price.present? && @product.street_price.to_f > 0.0 %>
-
-                  <% if @product.sale_price && @product.street_price.to_f > @product.sale_price.to_f && @product.sale_price.to_f > 0 %>
-                    <h6 class="price-label"><span class="strike"><%= number_to_currency(@product.street_price) %></span></h6>
-                    <div><%= number_to_currency(@product.sale_price) %></div>
-                    Save <%= number_to_currency(@product.street_price.to_f - @product.sale_price.to_f) %>!
-                    <br/>
-                  <% else %>
-                    <%= number_to_currency(@product.street_price) %>
-                  <% end %>
-
-                <% elsif @product.msrp && @product.msrp.to_f > 0.0 %>
-
-                  <% if @product.sale_price && @product.msrp.to_f > @product.sale_price.to_f && @product.sale_price.to_f > 0 %>
-                    <h6 class="price-label">MSRP <span class="strike"><%= number_to_currency(@product.msrp) %></span></h6>
-                    <div><%= number_to_currency(@product.sale_price) %></div>
-                    Save <%= number_to_currency(@product.msrp.to_f - @product.sale_price.to_f) %>!
-                    <br/>
-                  <% else %>
-                    <h6 class="price-label">MSRP</h6>
-                    <%= number_to_currency(@product.msrp) %>
-                  <% end %>
-
-                <% end %>
-              <% end %>
-	</div>
-</div>
-
 <div class="row">
 	<div class="large-8 columns">
 		<h1 style="margin-bottom: 0px"><%= title translate_content(@product, :name) %></h1>
@@ -230,6 +195,33 @@ set_meta_tags title: @product.name,
 		<% if website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !@product.direct_buy_link.blank? %>
 
       <div class="text-right">
+
+        <% if website.show_pricing? && I18n.default_locale.match(/#{I18n.locale}/i) %>
+          <% if @product.street_price.present? && @product.street_price.to_f > 0.0 %>
+
+            <% if @product.sale_price && @product.street_price.to_f > @product.sale_price.to_f && @product.sale_price.to_f > 0 %>
+              <h6 class="price-label"><span class="strike"><%= number_to_currency(@product.street_price) %></span></h6>
+              <div><%= number_to_currency(@product.sale_price) %></div>
+              Save <%= number_to_currency(@product.street_price.to_f - @product.sale_price.to_f) %>!
+              <br/>
+            <% else %>
+              <div><%= number_to_currency(@product.street_price) %></div>
+            <% end %>
+
+          <% elsif @product.msrp && @product.msrp.to_f > 0.0 %>
+
+            <% if @product.sale_price && @product.msrp.to_f > @product.sale_price.to_f && @product.sale_price.to_f > 0 %>
+              <h6 class="price-label">MSRP <span class="strike"><%= number_to_currency(@product.msrp) %></span></h6>
+              <div><%= number_to_currency(@product.sale_price) %></div>
+              Save <%= number_to_currency(@product.msrp.to_f - @product.sale_price.to_f) %>!
+              <br/>
+            <% else %>
+              <h6 class="price-label">MSRP</h6>
+              <%= number_to_currency(@product.msrp) %><br/>
+            <% end %>
+
+          <% end %>
+        <% end %>
         <%= buy_it_now_link(@product, html_button: true, reveal_id: "buy-it-now-popup") %>
       </div>
 

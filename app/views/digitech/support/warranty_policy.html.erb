@@ -1,28 +1,37 @@
 <% set_meta_tags reverse: true %>
-<h1 class="page_title text-center"><%= website.brand.name %> Warranty Policy (US only)</h1>
+<h1 class="page_title"><%= website.brand.name %> Warranty Policy (US only)</h1>
 
-<div class="text-center">
-  <p><%= website.brand.name %> is a Harman Professional brand and its products are covered by the below Limited Product Warranty.</p>
-  <h4>LIMITED PRODUCT WARRANTY</h4>
-  For Harman Professional Products<br/>
-  Purchased from Harman Professional Authorized Dealers<br/>
-  (USA Only)
-</div>
+<div>
+	<div style="text-align: center">
+		<p><%= website.brand.name %> is a Harman Professional brand and its products are covered by the below Limited Product Warranty.</p>
+		<h4>LIMITED PRODUCT WARRANTY</h4>
+		For Harman Professional Products<br/>
+		Purchased from Harman Professional Authorized Dealers<br/>
+		(USA Only)
+	</div>
+	<div style="float: right; width: 350px;">
+		<table class="specs">
+			<tr>
+				<th>Product</th>
+				<th>Warranty Period</th>
+			</tr>
+			<% @products.each do |product| %>
+			<tr>
+				<td class="name"><%= link_to product.name, product %></td>
+				<td><%= pluralize(product.warranty_period, "year") %></td>
+			</tr>
+			<% end %>
+		</table>
+	</div>
+	<div style="margin-right: 400px; margin-top: 10px;">
 
-<div class="row">
-	<div class="large-8 small-12 columns">
-
-<h4>What is the warranty period?</h4>
+<h5>What is the warranty period?</h5>
 
 <p>This warranty protects you for a specific period (“Warranty Period”) from your date of purchase as stated in your bill of sale or as otherwise established by Harman. The specific Warranty Period applicable to this product varies for each product type or model, and is determined in accordance with the Warranty Period Table below.  If there is no Warranty Period expressly stated in the Warranty Period Table below for any particular product that you have purchased, then, to the fullest extent allowed by law, no warranty is provided for such product.  Any warranty service or parts replacement will not extend the Warranty Period. Any warranty replacement parts or product will assume only the remainder of Warranty Period of the original product.</p>
 
-<% if website.brand.name.match(/bss/) %>
-<p><%= website.brand.name %> Warranty Period: Soundweb London (5 years) and All other (1 year).</p>
-<% end %>
-
 <p>Unless otherwise expressly stated in the Warranty Period Table, if a product is co-branded with two or more Harman Professional brands, the applicable Warranty Period will be the one for the brand under which the entire product or product system, as the case may be, is sold, and not for any of the individual component products that make up the product or product system, as the case may be.</p>
 
-<h4>What does this warranty cover, and what does it not cover?</h4>
+<h5>What does this warranty cover, and what does it not cover?</h5>
 
 <p>Except as otherwise stated in this policy, this warranty covers defects in materials and workmanship if: (1) you purchased this product from a dealer that is a Harman Professional authorized dealer with respect to this product at the time of your purchase; (2) your original, dated bill of sale is presented whenever warranty service is required during the warranty period; and (3) unless Harman states otherwise, you purchased this product in brand new condition.</p>
 
@@ -30,17 +39,17 @@
 
 <p>Harman reserves the right to change the design of, or upgrade, any product from time to time without notice and with no obligation to make any changes or upgrades to any products previously sold or manufactured.</p>
 
-<h4>What will Harman do to correct problems under warranty?</h4>
+<h5>What will Harman do to correct problems under warranty?</h5>
 
 <p>If this product has a defect covered by this warranty, Harman will, at its option, either: (1) repair this product at no charge to you, using new or refurbished replacement parts, (2) exchange this product with a product that is new or which has been manufactured from new or serviceable used parts and is at least functionally equivalent to this product, or (3) refund the purchase price of the product.</p>
 
 <p>Any replaced or refunded parts or products shall become Harman property, and, by submitting any product for warranty service, you represent and warrant to Harman that you are the sole owner of such product, and that it is not subject to any liens or encumbrances.</p>
 
-<h4>Who is protected by the warranty?</h4>
+<h5>Who is protected by the warranty?</h5>
 
 <p>This warranty protects only the original end-user (“you”), and is not transferrable.  Any attempt to transfer this warranty shall immediately make this warranty void.  This warranty is valid only for Harman Professional products (i.e., AKG Professional, BSS, Crown, dbx, Digitech, JBL Professional, Selenium Professional, Soundcraft and Lexicon) purchased from authorized Harman Professional dealers within the fifty United States, and it does not apply to products purchased or transferred elsewhere. If you purchased this product (or have subsequently transferred it) outside the fifty United States, you should contact your local Harman distributor for warranty information. </p>
 
-<h4>How can warranty service be obtained?</h4>
+<h5>How can warranty service be obtained?</h5>
 
 <p>In the event that you require warranty service on this product, you should first contact us directly, using the contact information provided below: </p>
 
@@ -78,21 +87,6 @@
 &copy; <%= Date.today.year %> Harman International Industries, Incorporated. All rights reserved.</p>
 
 	</div>
-  <div class="large-4 small-12 columns">
-    <%= render_partial "shared/extended_warranty" %>
-
-		<table class="specs">
-			<tr>
-				<th>Product</th>
-				<th>Warranty Period</th>
-			</tr>
-			<% @products.each do |product| %>
-			<tr>
-				<td class="name"><%= link_to product.name, product %></td>
-				<td><%= pluralize(product.warranty_period, "year") %></td>
-			</tr>
-			<% end %>
-		</table>
-	</div>
 </div>
 
+<div style="clear:both"></div>

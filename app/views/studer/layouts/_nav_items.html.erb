@@ -1,4 +1,4 @@
-<%= cache ["nav_items", website, I18n.locale] do %>
+<%#= cache ["nav_items", website, I18n.locale] do %>
 	<li class="has-dropdown"><%= link_to t('products'), product_families_path %>
 		<ul class="dropdown">
 			<% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
@@ -9,8 +9,7 @@
 		</ul>
 	</li>
 
-  <li><%= link_to t('software_downloads'), software_index_path %></li>
-  <li><%= link_to t('resource_downloads'), support_downloads_path %></li>
+  <li><%= link_to ucfirst(t('software_downloads')), software_index_path %></li>
 	<li><%= link_to t('news'), news_index_path %></li>
 
 	<% if website.has_artists? %>
@@ -26,4 +25,4 @@
 	<% if !!(website.forum_link) %>
 	<li class="hide-for-medium show-for-large"><%= link_to t("forum"), website.forum_link %></li>
 	<% end %>
-<% end %>
+<%# end %>

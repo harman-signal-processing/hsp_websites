@@ -12,14 +12,14 @@ $dark-gray: #444;
 $body-bg: #FFF;
 $body-font-color: #666;
 $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-$body-font-weight: 400;
+$body-font-weight: 300;
 
 $secondary-color: $medium-gray;
 // $alert-color: #c60f13;
 // $success-color: #5da423;
 $include-print-styles: true;
 $header-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-$header-font-weight: 600;
+$header-font-weight: 500;
 // $header-font-style: normal;
 $header-font-color: $dark-gray;
 // $header-line-height: 1.4;
@@ -44,7 +44,7 @@ $subheader-font-color: lighten($dark-gray, 20%);
 $small-font-color: lighten($header-font-color, 35%);
 
 // $paragraph-font-family: inherit;
-$paragraph-font-weight: 400;
+$paragraph-font-weight: 300;
 // $paragraph-font-size: 1em;
 // $paragraph-line-height: 1.6;
 // $paragraph-margin-bottom: emCalc(20px);
@@ -247,63 +247,30 @@ $topbar-sticky-class:                  ".sticky";
   }
 }
 
-#feature_spacer {
-	#tagline {
-		font: {
-			family: 'berthold_akzidenz_groteskLtCn';
-			size: 26px;
-		}
-	}
-}
-
-body {
-	line-height: 22px;
-}
-
 div.homepage_block {
+  h1 {
+    font-size: rem-calc(38px);
+  }
+  h2 {
+    font-size: rem-calc(28px);
+  }
   &.dark {
     background: #000 asset-url('video-pattern.png');
   }
 }
+
 .quotebox {
   background: asset-url('quotebox.png') no-repeat;
-}
-/***** Product Page *****/
-h3.content-nav {
-}
-div.product-title-block, div.small-title-block {
-  h3 {
-  }
-  div.product-price {
-    h6.price-label {
-    }
-  }
-  dl.side-nav {
-    dd {
-    }
+  h2 {
+    font-size: rem-calc(25px);
+    line-height: 1.1;
   }
 }
 
 .product_main_tab_content {
-	margin-bottom: 40px;
 	ul {
     list-style-image: asset-url('bss/bullet.png');
-		margin-left: 0px;
-    li {
-      color: #666;
-      font-size: 16px;
-      line-height: 22px;
-    }
-    &.news {
-      margin-left: 13px;
-      li {
-        margin-bottom: 20px;
-      }
-    }
 	}
-  p {
-    margin-bottom: 20px;
-  }
   h3,h4,h5 {
     color: #000;
     text-transform: uppercase;

@@ -24,13 +24,16 @@
         </ul>
       </li>
       <% MarketSegment.with_current_products(website, I18n.locale).each do |market_segment| %>
-      <li class="has-dropdown"><%= link_to market_segment.name, market_segment, class: "disabled" %>
-        <ul class="dropdown">
-          <% market_segment.product_families_with_current_products.each do |product_family| %>
-            <%= product_family_nav_links(product_family, depth: 1) %>
-          <% end %>
-        </ul>
-      </li>
+        <li class="has-dropdown"><%= link_to market_segment.name, market_segment, class: "disabled" %>
+          <ul class="dropdown">
+            <% market_segment.product_families_with_current_products.each do |product_family| %>
+              <%= product_family_nav_links(product_family, depth: 1) %>
+            <% end %>
+            <% if market_segment.name.to_s.match(/commercial/i) %>
+              <li><%= link_to "JBL Commercial", "http://www.jblcommercialproducts.com/", target: "_blank" %></li>
+            <% end %>
+          </ul>
+        </li>
       <% end %>
       <% amp_families.each do |product_family| %>
         <% if product_family.hide_from_homepage? %>
@@ -47,13 +50,9 @@
       <% end %>
       <li><%= link_to "Microphones", "/akg-mics" %></li>
 			<!-- <li><%#= link_to "Promotions", promotions_path %></li> -->
+			<li><%= link_to "Discontinued Products", discontinued_products_path %></li>
 		</ul>
 	</li>
-
-	<% if website.has_artists? %>
-	<li class="divider"></li>
-	<li><%= link_to t('artists'), artists_path %></li>
-	<% end %>
 
 	<% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
 	<li class="divider"></li>
@@ -78,7 +77,7 @@
       <li><%= link_to t("warranty_registration").titleize, warranty_registration_path %></li>
       <li class="has-dropdown"><%= link_to "Service", '#', class: "disabled" %>
         <ul class="dropdown">
-          <li><%= link_to "Service centers", support_path(action: "service_lookup") %></li>
+          <li><%= link_to "Service Centers", support_path(action: "service_lookup") %></li>
           <li><%= link_to "Returns", rma_request_path %></li>
           <li><%= link_to "Parts", parts_request_path %></li>
         </ul>

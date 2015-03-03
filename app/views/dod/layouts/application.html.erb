@@ -139,6 +139,7 @@
 				<% if website.has_dealers? || website.has_online_retailers? || website.has_distributors? %>
 				<%= link_to t('where_to_buy'), where_to_buy_path %> &bull;
 				<% end %>
+        <%= link_to 'careers', "http://jobs.harman.com", target: "_blank" %> &bull;
 				<%= link_to t('product_support'), support_path %> &bull;
 				<%= link_to t('privacy_policy'), privacy_policy_path %> &bull;
 				<%= link_to t('terms_of_use'), terms_of_use_path %> &bull;
