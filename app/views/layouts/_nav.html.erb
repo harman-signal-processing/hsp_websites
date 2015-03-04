@@ -2,7 +2,7 @@
 	<%#= link_to t("dealer_login"), "/toolkit", target: "_blank" %>
 </div>
 
-<%= cache ["header", website, I18n.locale] do %>
+<%= cache ["header", website.brand, I18n.locale] do %>
 <div class="sticky top-bar-container">
 	<nav class="top-bar" data-topbar role="navigation">
 		<ul class="title-area">
@@ -30,7 +30,7 @@
 					<%= link_to '#', id: "locale_menu" do %>
 						<%= image_tag "icons/globe_white.png", alt: t('language_region') %>
 					<% end %>
-					<ul class="dropdown"> 
+					<ul class="dropdown">
 						<% website.available_locales.each do |website_locale| %>
 							<% if website_locale.locale.to_s == I18n.locale.to_s %>
 							<li><%= link_to '#', class: "active" do %>
