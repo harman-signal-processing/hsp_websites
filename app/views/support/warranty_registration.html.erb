@@ -24,7 +24,7 @@
 				<%= f.input :last_name, required: true %>
 			</div>
 		</div>
-		
+
 		<div class="row">
 			<div class="large-6 columns">
 				<%= f.input :email, required: true %>
@@ -59,14 +59,14 @@
 			</div>
 		</div>
 
+    <legend>Product Information</legend>
 		<fieldset>
-	    	<legend>Product Information</legend>
 			<div class="row">
 				<div class="large-6 columns">
-					<%= f.input :product_id, 
-						collection: Product.all_for_website_registration(website), 
-						value_method: :id, 
-						label_method: :name, 
+					<%= f.input :product_id,
+						collection: Product.all_for_website_registration(website),
+						value_method: :id,
+						label_method: :name,
 						prompt: "Select a product",
 						required: true %>
 				</div>
@@ -87,13 +87,14 @@
 				</div>
 			</div>
 		</fieldset>
-				
 
-		<%= f.input :comments, hint: t('blurbs.warranty_comments'), input_html: { style: "height: 80px" } %>
-
+    <%= f.input :comments,
+      hint: raw(t('blurbs.warranty_comments',
+         support_form_link: raw(link_to(t('support_contact_form'), support_path, target: "_blank")))),
+      input_html: { style: "height: 80px" } %>
 
 		<p><br/><%= f.input :subscribe, label: t('blurbs.subscribe', brand: website.brand_name) %></p>
-		
+
 		<br/>
 		<div>
 			<%= f.submit t('submit_warranty_registration'), class: "medium button" %>

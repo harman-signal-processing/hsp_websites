@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150225200215) do
+ActiveRecord::Schema.define(version: 20150304180444) do
 
   create_table "admin_logs", force: true do |t|
     t.integer  "user_id"
@@ -248,6 +248,7 @@ ActiveRecord::Schema.define(version: 20150225200215) do
     t.string   "color"
     t.boolean  "has_products"
     t.boolean  "has_system_configurator",       default: false
+    t.boolean  "offers_rentals"
   end
 
   add_index "brands", ["cached_slug"], name: "index_brands_on_cached_slug", unique: true, using: :btree

@@ -44,6 +44,12 @@
 				</ul>
 			</div>
 
+      <% if website.email_signup_url %>
+        <div class="panel">
+          <%= render_partial 'shared/newsletter_signup' %>
+        </div>
+      <% end %>
+
       <div class="panel">
         <%= link_to "HARMAN Pro Catalog Request", catalog_request_path %>
       </div>

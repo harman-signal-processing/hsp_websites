@@ -5,10 +5,41 @@
 
 <h1><%= t('titles.rohs') %></h1>
 
-<p><%= t('blurbs.rohs_intro') %></p>
+<p>The Restriction of Hazardous Substances in Electrical and Electronic Equipment (RoHS) Directive (2011/65/EU).</p>
 
-<ul style="margin: 20px 50px">
-	<% @products.each do |product| %>
-	<li> <%= link_to product.name, product_path(product, locale: I18n.locale) %> <% unless product.sap_sku.blank? -%>(<%= product.sap_sku %>)<% end -%></li>
-	<% end %>
-</ul>
+<p>HARMAN International announces that effective June 2007 all of their products listed below are RoHS compliant,
+and those products listed that are available for export are lead-free and RoHS compliant.</p>
+
+<p>HARMAN International is committed to eliminating the use of hazardous substances in the materials,manufacturing
+and packaging of our audio amplifier and other audio products in strict accordance with the RoHS directive.</p>
+
+<% if website.rohs_blurb %>
+  <p><%= raw website.rohs_blurb %></p>
+<% else %>
+  <p><%= t('blurbs.rohs_intro') %></p>
+<% end %>
+
+<p>All RoHS compliant product shipped will be clearly externally marked as compliant on the packaging.</p>
+
+<div class="row">
+  <div class="large-8 columns">
+    <ul style="margin: 20px 50px">
+      <% @products.each do |product| %>
+        <li>
+          <%= link_to product.name, product_path(product, locale: I18n.locale) %>
+          <% unless product.sap_sku.blank? -%>(<%= product.sap_sku %>)<% end -%>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="large-4 columns">
+    <% if website.rohs_attachment_link && website.rohs_attachment_link_name %>
+      <div class="panel">
+        <%= link_to website.rohs_attachment_link do %>
+          <%= image_tag "icons/pdf_17.png" %>
+          <%= website.rohs_attachment_link_name %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
