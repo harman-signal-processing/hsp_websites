@@ -27,7 +27,8 @@
 				</div>
 		</div>
 		<div class="large-3 columns">
-			<p>For local service in the US, please see the US Service Centers locator on our <%= link_to "support page", support_path %>.</p>
+      <p>For service in the US, please contact your local
+        <%= link_to "US Service Center", support_path(action: "service_lookup") %>.</p>
 			<p><%= t('product_support_page.for_service_outside_the_us') %>
 				<%= link_to t("product_support_page.please_contact_your_distributor", brand: website.brand_name), international_distributors_path %></p>
 		</div>
@@ -82,18 +83,6 @@
 		<% end %>
 			<div class="large-6 columns"></div>
 		</div>
-
-    <div class="row">
-      <div class="large-2 columns">
-        <%= f.label :product_sku, nil, class: "right inline" %>
-      </div>
-      <div class="large-4 columns">
-        <%= f.input :product_sku, label: false %>
-      </div>
-      <div class="large-6 columns">
-        <div class="hint"><%= link_to "where to find the SKU", image_path("#{website.folder}/sku.jpg") %></div>
-      </div>
-    </div>
 
 		<div class="row">
 			<div class="large-2 columns">

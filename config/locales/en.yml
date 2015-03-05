@@ -69,6 +69,7 @@ en:
   cancel: cancel
   register_your_product: "Register Your %{product}"
   contact_tech_support: "Contact Technical Support"
+  support_contact_form: support contact form
   go: go
   discontinued: discontinued
   troubleshooting: Troubleshooting Tips and FAQs
@@ -267,7 +268,7 @@ en:
       warranty_registration_success: "Thank you for registering your product with us. Please be sure to keep your dated store receipt as proof of purchase."
       use_date_code: "Some of our products do not have serial numbers. In this case, enter the date code from the product box or the back of the unit."
       subscribe: "Sign up to receive periodic messages from %{brand} regarding product updates and special promotions."
-      warranty_comments: "Note: if you have a technical question/problem, please submit it via our support contact form."
+      warranty_comments: "Note: if you have a technical question/problem, please submit it via our %{support_form_link}."
       contact_form_thankyou: "Thank you for contacting us. We will get back with you shortly."
       captcha_explanation: "Please answer this question so that we can verify you are not a spam robot. (There is only one \"correct\" answer)"
       tone_library_explanation: "Get started with these famous tones by connecting your GSP or RP unit to your Mac or PC. Visit our %{link} page if you don't have the sound librarian installed yet."
@@ -402,7 +403,7 @@ en:
         address1: Address
         city: City
         state: State
-        zip: Zipcode
+        zip: Zip/Postal Code
         country: Country
         phone: Phone
         product_id: Product
@@ -426,12 +427,12 @@ en:
         shipping_address: Address
         shipping_city: City
         shipping_state: US State
-        shipping_zip: Zipcode
+        shipping_zip: Zip/Postal Code
         shipping_country: Country
         billing_address: Address
         billing_city: City
         billing_state: US State
-        billing_zip: Zipcode
+        billing_zip: Zip/Postal Code
         warranty: "Under warranty?"
       download_registration:
           serial_number: Product serial number
