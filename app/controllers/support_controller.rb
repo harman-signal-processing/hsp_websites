@@ -106,7 +106,7 @@ class SupportController < ApplicationController
   end
 
   def catalog_request
-    @page_title = "Catalog Request"
+    @page_title = "DVD Catalog Request"
     @contact_message = ContactMessage.new(message_type: "catalog_request")
     if request.post?
       @contact_message = ContactMessage.new(contact_message_params)

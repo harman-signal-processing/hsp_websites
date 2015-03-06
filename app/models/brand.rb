@@ -3,7 +3,7 @@ class Brand < ActiveRecord::Base
   friendly_id :name
 
   has_many :product_families
-  has_many :market_segments
+  has_many :market_segments, -> { order("created_at ASC") }
   has_many :marketing_tasks
   has_many :marketing_projects
   has_many :online_retailer_links, -> { where("active = 1").order("RAND()") }
