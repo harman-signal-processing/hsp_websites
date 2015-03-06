@@ -18,7 +18,10 @@
 			<link rel="image_src" href="<%= image_url("#{website.folder}/logo.png") %>" />
 			<% end %>
 			<!--[if lt IE 9]>
-			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+        <script src="//s3.amazonaws.com/nwapi/nwmatcher/nwmatcher-1.2.5-min.js"></script>
+        <script src="//html5base.googlecode.com/svn-history/r38/trunk/js/selectivizr-1.0.3b.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
 			<![endif]-->
 			<link href="<%= rss_url(format: 'xml') %>" rel="alternate" title="RSS" type="application/rss+xml"/>
 			<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -113,7 +116,7 @@
 						<%= link_to t('sitemap'), sitemap_path(format: 'xml') %> &bull;
             <%= link_to 'careers', "http://jobs.harman.com", target: "_blank" %> &bull;
 						<%= link_to 'contact us', support_path %> &bull;
-            <%= link_to 'sales support', "/salessupport" %>
+            <%= link_to 'RSO support', "/salessupport" %>
 					</span>
 				</div>
 			</div>
