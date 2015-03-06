@@ -1,5 +1,5 @@
-<% 
-if @product.photo 
+<%
+if @product.photo
 	og_image = @product.photo.product_attachment.url(:original)
 	tw_image = @product.photo.product_attachment.url(:small)
 else
@@ -38,7 +38,7 @@ set_meta_tags title: @product.name,
 		type: 'product',
 		description: truncate(strip_html(translate_content(@product, :description)), length: 100),
 		title: "#{website.brand.name} #{@product.name}"
-	} 
+	}
 %>
 
 <% if @product.show_alert? %>
@@ -64,7 +64,7 @@ set_meta_tags title: @product.name,
 
 <header id="product_header" class="istomp">
 	<%= image_tag("#{website.folder}/istomp/logo.png", alt: @product.name) %>
-	<%= draw_main_tabs @product, 
+	<%= draw_main_tabs @product,
 		tabs: "description|extended_description|features|reviews|specifications|downloads_and_docs|gallery" %>
 	<% if @product.to_param == 'istomp' %>
 		<div id="tec_burst">
@@ -72,16 +72,16 @@ set_meta_tags title: @product.name,
 		</div>
 	<% end %>
 </header>
-	
+
 <section id="product_content" class="istomp">
 	<h2><%= @product.short_description %></h2>
 	<div id="left_column">
 		<% if @product.photo %>
-			<%= image_tag(@product.photo.product_attachment.url(:horiz_medium), 
+			<%= image_tag(@product.photo.product_attachment.url(:horiz_medium),
 					id: "label_changer",
 					data: { orig: @product.photo.product_attachment.url(:horiz_medium) }) %>
 		<% end %>
-		
+
 		<% if website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !@product.direct_buy_link.blank? %>
 		<div id="product_buy_now_box">
 			<% if session["geo_usa"] && !@product.street_price.blank? %>
@@ -92,22 +92,22 @@ set_meta_tags title: @product.name,
 		</div>
 		<% end %>
 	</div>
-	
+
 	<div id="right_column">
-		<%= draw_main_tabs_content @product, 
-		tabs: "description|extended_description|features|reviews|specifications|downloads_and_docs|gallery" %>	
-		
+		<%= draw_main_tabs_content @product,
+		tabs: "description|extended_description|features|reviews|specifications|downloads_and_docs|gallery" %>
+
 		<%= image_tag "made_for_ipod_ipad_iphone.png", alt: "Made for iPod, iPad, iPhone" %>
 		<%= links_to_current_promotions(@product, format: "text_only") %>
 	</div>
 	<div class="clear"></div>
 </section>
 <% end # cache %>
-	
+
 <div id="coverflow_settings" data-changelabel="true"></div>
 <%#= render_partial "products/istomp_coverflow", istomp: @istomp %>
 <%= render_partial "products/istomp_epedal_shelves", istomp: @istomp %>
-	
+
 <section id="product_bottom_content">
 	<%= render_partial "products/featured_epedals_callout", position: :right %>
 	<%= render_partial "products/stomp_shop_callout", position: :left, istomp: @istomp %>
