@@ -20,7 +20,7 @@ en:
   about: about
   training: training
   all_rights_reserved: "All Rights Reserved."
-  harman: Harman
+  harman: HARMAN
   us_zip_code: US City
   us_dealers: USA Dealers
   find_us_dealers: find local
@@ -342,7 +342,7 @@ en:
         rso_confirmation_instructions:
           subject: 'HSP Toolkit Confirmation link'
         dealer_confirmation_instructions:
-          subject: 'Harman Toolkit Confirmation instructions'
+          subject: 'HARMAN Toolkit Confirmation instructions'
         confirmation_instructions:
           subject: 'Confirmation instructions'
         reset_password_instructions:

@@ -130,7 +130,6 @@
   <% venu360 = Product.find_by_cached_slug("driverack-venu360") %>
   <% if (venu360 && venu360.show_on_website?(website)) || (new_family && new_family.current_products.length > 0) %>
     <div class="homepage_block dark">
-      <h4 class="yellow text-center">New for NAMM 2015</h4>
       <% if new_family && new_family.current_products.length > 0 %>
         <div class="row">
           <div class="large-12 columns">
