@@ -8,6 +8,12 @@ class SiteMailer < ActionMailer::Base
       @recipient = subj.recipient if subj.recipient.present?
     elsif @contact_message.catalog_request?
       @recipient = "service@sullivangroupusa.com"
+    elsif @contact_message.rma_request?
+      if r = website.brand.rma_email
+        if r.to_s.match(/\@/)
+          @recipient = r
+        end
+      end
     elsif @contact_message.part_request?
       if p = website.brand.parts_email
         if p.to_s.match(/\@/)
