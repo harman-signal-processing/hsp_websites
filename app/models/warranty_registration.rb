@@ -74,10 +74,10 @@ class WarrantyRegistration < ActiveRecord::Base
     if needs_sync?
       begin
         start_sync
+        update_attributes(synced_on: Date.today)
       rescue
         logger.debug "Something went wrong sending registration: #{self.inspect}"
       end
-      update_attributes(synced_on: Date.today)
     end
   end
   handle_asynchronously :sync_with_service_department

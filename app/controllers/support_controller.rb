@@ -30,7 +30,7 @@ class SupportController < ApplicationController
       @warranty_registration = WarrantyRegistration.new(warranty_registration_params)
       @warranty_registration.brand_id = website.brand_id
       if @warranty_registration.save
-        redirect_to support_path, alert: t('blurbs.warranty_registration_success')
+        redirect_to support_path, alert: t('blurbs.warranty_registration_success') and return false
       end
     else
       @warranty_registration = WarrantyRegistration.new(subscribe: true, purchased_on: Date.yesterday)
@@ -40,11 +40,14 @@ class SupportController < ApplicationController
       rescue
         # problem auto-determining the product from the referring link, no big deal
       end
-      render_template
     end
+    render_template
   end
 
   # The site's contact form
+  # TODO: It would be smart to DRY up all the different contact form methods
+  # (contact, parts, rma, catalog) into one action. Also, it makes sense to
+  # follow REST and put these in their own controller.
   def contact
     @contact_message = ContactMessage.new
     @contact_message.require_country = true if require_country?
@@ -53,16 +56,12 @@ class SupportController < ApplicationController
       @contact_message.require_country = true if require_country?
       if verify_recaptcha && @contact_message.valid?
         @contact_message.save
-        redirect_to support_path, notice: t('blurbs.contact_form_thankyou')
+        redirect_to support_path, notice: t('blurbs.contact_form_thankyou') and return false
         SiteMailer.delay.contact_form(@contact_message, website)
-      else
-        @discontinued_products = Product.discontinued(website)
-        render_template(action: "index")
       end
-    else
-      @discontinued_products = Product.discontinued(website)
-      render_template(action: "index")
     end
+    @discontinued_products = Product.discontinued(website)
+    render_template(action: "index")
   end
 
   # Parts request form
@@ -77,12 +76,11 @@ class SupportController < ApplicationController
       @contact_message.message_type = "part_request"
       if @contact_message.valid?
         @contact_message.save
-        redirect_to support_path, notice: t('blurbs.parts_request_thankyou')
+        redirect_to support_path, notice: t('blurbs.parts_request_thankyou') and return false
         SiteMailer.delay.contact_form(@contact_message, website)
       end
-    else
-      render_template
     end
+    render_template
   end
 
   # RMA request form
@@ -97,12 +95,11 @@ class SupportController < ApplicationController
       @contact_message.message_type = "rma_request"
       if @contact_message.valid?
         @contact_message.save
-        redirect_to support_path, notice: t('blurbs.rma_request_thankyou')
+        redirect_to support_path, notice: t('blurbs.rma_request_thankyou') and return false
         SiteMailer.delay.contact_form(@contact_message, website)
       end
-    else
-      render_template
     end
+    render_template
   end
 
   def catalog_request
@@ -113,10 +110,11 @@ class SupportController < ApplicationController
       @contact_message.message_type = "catalog_request"
       if @contact_message.valid? && verify_recaptcha
         @contact_message.save
-        redirect_to support_path, notice: "Thank you for your catalog request. We'll get it out to you shortly."
+        redirect_to support_path, notice: "Thank you for your catalog request. We'll get it out to you shortly." and return false
         SiteMailer.delay.contact_form(@contact_message, website)
       end
     end
+    render_template
   end
 
   def warranty_policy
