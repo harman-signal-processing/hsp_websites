@@ -103,21 +103,29 @@ class WarrantyRegistration < ActiveRecord::Base
     form.txtPostalCode   = zip
     form.txtEmail        = email
 
-    #form.ddlState        = state
-    if state.match(/^\w{2}$/)
-      form.field_with(name: "ddlState").option_with(value: state).click
-    else
-      form.field_with(name: "ddlState").option_with(text: state).click
+    begin
+      if state.match(/^\w{2}$/)
+        form.field_with(name: "ddlState").option_with(value: state.upcase).click
+      else
+        form.field_with(name: "ddlState").option_with(text: state.downcase.titleize).click
+      end
+    rescue
+      # couldn't select state
     end
-
-    #form.ddlCountry      = country
-    if country.to_s.match(/^US$/i) || country.to_s.match(/United States/i)
-      country = "USA"
-    end
-    form.field_with(name: "ddlCountry").option_with(text: country).click
 
     begin
-      form.txtTelephoneNo  = number_to_phone(phone, raise: true)
+      if country.to_s.match(/^US$/i) || country.to_s.match(/United States/i)
+        country = "USA"
+      end
+      form.field_with(name: "ddlCountry").option_with(text: country).click
+    rescue
+      # Couldn't select country
+    end
+
+    begin
+      if phone.to_s.match(/(\d{1,})/)
+        form.txtTelephoneNo  = number_to_phone($1, raise: true)
+      end
     rescue InvalidNumberError
       # leave phone empty
     end
