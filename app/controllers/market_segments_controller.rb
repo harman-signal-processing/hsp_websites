@@ -1,6 +1,6 @@
 class MarketSegmentsController < ApplicationController
   before_filter :set_locale
-  
+
   # GET /market_segments
   # GET /market_segments.xml
   def index
@@ -16,11 +16,7 @@ class MarketSegmentsController < ApplicationController
       redirect_to market_segments_path, status: :moved_permanently and return
     end
     respond_to do |format|
-      format.html {
-        if @product_families.size == 1
-          redirect_to @product_families.first and return 
-        end        
-      }
+      format.html
       # format.xml  { render xml: @market_segment }
     end
   end
