@@ -91,7 +91,7 @@ class WarrantyRegistration < ActiveRecord::Base
   # Fill out remote form for warranty.harmanpro.com
   def start_sync
     agent = Mechanize.new
-    page = agent.get("http://warranty.harmanpro.com")
+    page = agent.get(ENV['warranty_sync_url'])
     form = page.form_with(name: "form1")
     form.txtMaterialNo   = product_name
     form.txtSerialNo     = serial_number

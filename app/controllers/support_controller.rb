@@ -56,8 +56,8 @@ class SupportController < ApplicationController
       @contact_message.require_country = true if require_country?
       if verify_recaptcha && @contact_message.valid?
         @contact_message.save
-        redirect_to support_path, notice: t('blurbs.contact_form_thankyou') and return false
         SiteMailer.delay.contact_form(@contact_message, website)
+        redirect_to support_path, notice: t('blurbs.contact_form_thankyou') and return false
       end
     end
     @discontinued_products = Product.discontinued(website)
@@ -76,8 +76,8 @@ class SupportController < ApplicationController
       @contact_message.message_type = "part_request"
       if @contact_message.valid?
         @contact_message.save
-        redirect_to support_path, notice: t('blurbs.parts_request_thankyou') and return false
         SiteMailer.delay.contact_form(@contact_message, website)
+        redirect_to support_path, notice: t('blurbs.parts_request_thankyou') and return false
       end
     end
     render_template
@@ -95,8 +95,8 @@ class SupportController < ApplicationController
       @contact_message.message_type = "rma_request"
       if @contact_message.valid?
         @contact_message.save
-        redirect_to support_path, notice: t('blurbs.rma_request_thankyou') and return false
         SiteMailer.delay.contact_form(@contact_message, website)
+        redirect_to support_path, notice: t('blurbs.rma_request_thankyou') and return false
       end
     end
     render_template
@@ -110,8 +110,8 @@ class SupportController < ApplicationController
       @contact_message.message_type = "catalog_request"
       if @contact_message.valid? && verify_recaptcha
         @contact_message.save
-        redirect_to support_path, notice: "Thank you for your catalog request. We'll get it out to you shortly." and return false
         SiteMailer.delay.contact_form(@contact_message, website)
+        redirect_to support_path, notice: "Thank you for your catalog request. We'll get it out to you shortly." and return false
       end
     end
     render_template

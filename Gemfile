@@ -86,6 +86,7 @@ end
 
 group :development do
   # gem 'rack-mini-profiler'
+  gem 'letter_opener'
   gem 'zeus'
   gem 'spring'
 
