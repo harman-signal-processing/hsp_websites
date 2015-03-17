@@ -274,8 +274,8 @@ en:
       tone_library_explanation: "Get started with these famous tones by connecting your GSP or RP unit to your Mac or PC. Visit our %{link} page if you don't have the sound librarian installed yet."
       product_tone_library_explanation: "Get started with these famous tones by connecting your %{model} to your Mac or PC. Use the software downloads links on this page to install the librarian on your computer."
       international_distributors: "International Distributors assist with product sales, support, manual requests and warranty service. Warranty is only valid within the country of purchase."
-      parts_request_thankyou: "Thank you for your parts request. Our support team will contact you if needed to fulfill the request. If you have questions, call us at (801) 566-8800 in the US."
-      rma_request_thankyou: "Thank you for your RMA request. Our support team will contact you with the RMA information. If you have questions, call us at (801) 566-8800 in the US."
+      parts_request_thankyou: "Your message has been received!  We will respond to your email within the next 24 hours."
+      rma_request_thankyou: "Your message has been received!  We will respond to your email within the next 24 hours."
       software_downloads: "Find the latest drivers and other software for your %{brand} products"
       warranty_registration: "Protect your investment by registering your %{brand} products to stay up-to-date on the latest news and other developments."
       

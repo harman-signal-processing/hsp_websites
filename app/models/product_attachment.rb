@@ -2,19 +2,19 @@ class ProductAttachment < ActiveRecord::Base
   belongs_to :product, touch: true
 
   has_attached_file :product_attachment, {
-    styles: { 
+    styles: {
       full_width: "1024x768",
       lightbox: "800x600",
-      large: "640x480", 
-      medium: "480x360", 
+      large: "640x480",
+      medium: "480x360",
       horiz_medium: "670x275",
       epedal: "400x250",
       vert_medium: "375x400",
       medium_small: "150x225",
       small: "240x180",
       horiz_thumb: "170x80",
-      thumb: "100x100", 
-      tiny: "64x64", 
+      thumb: "100x100",
+      tiny: "64x64",
       tiny_square: "64x64#",
       soundcomm: "160x160"
     },
@@ -23,14 +23,14 @@ class ProductAttachment < ActiveRecord::Base
     }}.merge(S3_STORAGE)
   validates_attachment :product_attachment, content_type: { content_type: /\Aimage/i }
 
-  has_attached_file :product_media, 
+  has_attached_file :product_media,
     storage: :s3,
     bucket: Rails.configuration.aws[:bucket],
     s3_credentials: Rails.configuration.aws,
     s3_host_alias: S3_CLOUDFRONT,
     url: ':s3_alias_url',
     path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
-  has_attached_file :product_media_thumb, styles: {thumb: "100x100>", tiny: "64x64>"}, 
+  has_attached_file :product_media_thumb, styles: {thumb: "100x100>", tiny: "64x64>"},
     storage: :s3,
     bucket: Rails.configuration.aws[:bucket],
     s3_credentials: Rails.configuration.aws,
@@ -51,9 +51,9 @@ class ProductAttachment < ActiveRecord::Base
   acts_as_list scope: :product_id
   after_save :update_primary_photo
   after_destroy :remove_as_primary_photo
-  
+
   def update_primary_photo
-    if self.product && self.product.photo 
+    if self.product && self.product.photo
       if self.primary_photo
         ProductAttachment.where(product_id: self.product_id).where.not(id: self.id).update_all(primary_photo: false) 
       end

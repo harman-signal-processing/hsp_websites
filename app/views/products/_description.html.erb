@@ -2,7 +2,15 @@
   <%=raw translate_content(@product, :description) %>
 
   <% if @product.market_segments.uniq.length > 0 %>
-    <p><i>Recommended for: <%= @product.market_segments.uniq.map{|ms| translate_content(ms, :name)}.join(", ") %>.</i></p>
+    <p>
+      <i>Recommended for:
+        <%=
+          @product.market_segments.uniq.map do |ms|
+            link_to(translate_content(ms, :name), ms)
+          end.join(", ").html_safe
+        %>.
+      </i>
+    </p>
   <% end %>
 </div>
 

@@ -74,10 +74,10 @@ class WarrantyRegistration < ActiveRecord::Base
     if needs_sync?
       begin
         start_sync
+        update_attributes(synced_on: Date.today)
       rescue
         logger.debug "Something went wrong sending registration: #{self.inspect}"
       end
-      update_attributes(synced_on: Date.today)
     end
   end
   handle_asynchronously :sync_with_service_department
@@ -91,7 +91,7 @@ class WarrantyRegistration < ActiveRecord::Base
   # Fill out remote form for warranty.harmanpro.com
   def start_sync
     agent = Mechanize.new
-    page = agent.get("http://warranty.harmanpro.com")
+    page = agent.get(ENV['warranty_sync_url'])
     form = page.form_with(name: "form1")
     form.txtMaterialNo   = product_name
     form.txtSerialNo     = serial_number
@@ -103,21 +103,29 @@ class WarrantyRegistration < ActiveRecord::Base
     form.txtPostalCode   = zip
     form.txtEmail        = email
 
-    #form.ddlState        = state
-    if state.match(/^\w{2}$/)
-      form.field_with(name: "ddlState").option_with(value: state).click
-    else
-      form.field_with(name: "ddlState").option_with(text: state).click
+    begin
+      if state.match(/^\w{2}$/)
+        form.field_with(name: "ddlState").option_with(value: state.upcase).click
+      else
+        form.field_with(name: "ddlState").option_with(text: state.downcase.titleize).click
+      end
+    rescue
+      # couldn't select state
     end
-
-    #form.ddlCountry      = country
-    if country.to_s.match(/^US$/i) || country.to_s.match(/United States/i)
-      country = "USA"
-    end
-    form.field_with(name: "ddlCountry").option_with(text: country).click
 
     begin
-      form.txtTelephoneNo  = number_to_phone(phone, raise: true)
+      if country.to_s.match(/^US$/i) || country.to_s.match(/United States/i)
+        country = "USA"
+      end
+      form.field_with(name: "ddlCountry").option_with(text: country).click
+    rescue
+      # Couldn't select country
+    end
+
+    begin
+      if phone.to_s.match(/(\d{1,})/)
+        form.txtTelephoneNo  = number_to_phone($1, raise: true)
+      end
     rescue InvalidNumberError
       # leave phone empty
     end

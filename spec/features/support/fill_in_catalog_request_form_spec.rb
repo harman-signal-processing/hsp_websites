@@ -23,7 +23,7 @@ feature "Complete catalog request form" do
 
     expect(page).to have_content("Thank you")
     last_email = ActionMailer::Base.deliveries.last
-    expect(last_email.to).to include("service@sullivangroup.com")
+    expect(last_email.to).to include("service@sullivangroupusa.com")
     expect(last_email.subject).to eq("HARMAN Professional Catalog request")
   end
 

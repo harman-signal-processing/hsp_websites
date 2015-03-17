@@ -1,9 +1,11 @@
 <h1>Search Warranty Registrations</h1>
 
 <ul class="button-group round">
-  <li><%= link_to "Export All To Excel", 
-			admin_warranty_registrations_path(format: 'csv'), 
+  <!-- excel output broken
+  <li><%#= link_to "Export All To Excel",
+			admin_warranty_registrations_path(format: 'csv'),
 			class: "small secondary button" %></li>
+      -->
 <% if can? :create, WarrantyRegistration %>
 	<li><%= link_to "New Registration",
 			new_admin_warranty_registration_path,

@@ -2,14 +2,14 @@
 	<% @playlists.each_with_index do |playlist,i| %>
 	<tr>
 		<% if playlist.respond_to?(:title) %>
-		<td colspan="2">
+		<th colspan="2">
 			<h<%= i+1 %> style="color:#222"><%= playlist.title %></h<%= i+1 %>>
 			<p><%= playlist.description %></p>
-		</td>
+		</th>
 		<% else %>
-		<td colspan="2">
+		<th colspan="2">
 			<h<%= i+1 %>><%= @page_title %></h<%= i+1 %>>
-		</td>
+		</th>
 		<% end %>
 	</tr>
 	<%= render partial: "video", collection: playlist.videos %>
@@ -18,6 +18,7 @@
 
 <% if @youtube_user.present? %>
 <div style="position: absolute; top: 24px; right: 6px; width: 265px; text-align: center;">
-	<p><%= link_to(image_tag("#{website.folder}/#{I18n.locale}/youtube_button.png", alt: "YouTube"), "http://www.youtube.com/#{@youtube_user}", target: "_blank") %></p>
+	<p><%= link_to(image_tag("icons/circle/128x128/youtube.png", alt: "YouTube"), "http://www.youtube.com/#{@youtube_user}", target: "_blank") %></p>
+  <p>Visit our channel on Youtube</p>
 </div>
 <% end %>

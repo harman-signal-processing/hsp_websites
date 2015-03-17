@@ -21,7 +21,7 @@ class MarketSegment < ActiveRecord::Base
 
   def self.with_current_products(website, locale)
     segments = []
-    where(brand_id: website.brand_id).each do |ms|
+    where(brand_id: website.brand_id).order(:created_at).each do |ms|
       segments << ms if ms.product_families_with_current_products.length > 0
     end
     segments

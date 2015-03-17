@@ -2,7 +2,6 @@
 
 <h1 class="page_title"><%= @page_title %></h1>
 
-
 <%= simple_form_for @contact_message, url: rma_request_path do |f| %>
 
 	<div class="row">
@@ -68,66 +67,38 @@
 	</div>
 
 	<legend><%= t('product_details') %></legend>
-	<div>
-		<div class="row">
-			<div class="large-2 columns">
-				<%= f.label :product, nil, class: "right inline" %>
-			</div>
-		<%= cache ["rma_form_products", website.brand] do %>
-			<div class="large-4 columns">
-			<%= f.collection_select :product,
-					Product.repairable(website) + [Product.new(name: "other")],
-					:name, :name, prompt: true %>
-			</div>
-		<% end %>
-			<div class="large-6 columns"></div>
-		</div>
+  <div class="row">
+    <div class="large-6 columns">
+      <%= cache ["rma_form_products", website.brand] do %>
+        <%= f.input :product, as: :select,
+            required: true,
+            collection: Product.repairable(website) + [Product.new(name: "other")],
+            value_method: :name,
+            label_method: :name,
+            prompt: "Select A Product" %>
+      <% end %>
 
-    <div class="row">
-      <div class="large-2 columns">
-        <%= f.label :product_sku, nil, class: "right inline" %>
-      </div>
-      <div class="large-4 columns">
-        <%= f.input :product_sku, label: false %>
-      </div>
-      <div class="large-6 columns">
-        <div class="hint"><%= link_to "where to find the SKU", image_path("#{website.folder}/sku.jpg") %></div>
-      </div>
+      <%= f.input :product_serial_number,
+        label: "Serial Number",
+        hint: link_to("where to find the serial number", image_path("#{website.folder}/serial.jpg")),
+        required: true %>
+
+      <%= f.input :product_sku,
+        hint: link_to("where to find the SKU", image_path("#{website.folder}/sku.jpg")) %>
+
+      <%= f.input :purchased_on, as: :string, required: true, input_html: { class: 'ui-datepicker-past-only' } %>
+
+      <%= f.input :warranty,
+        as: :boolean,
+        label: ("Under warranty? #{link_to("see our warranty policy", warranty_policy_path, target: "_blank")}").html_safe,
+        required: false %>
     </div>
+  </div>
 
-		<div class="row">
-			<div class="large-2 columns">
-				<%= f.label :product_serial_number, "Serial Number", class: "right inline" %>
-			</div>
-			<div class="large-4 columns">
-				<%= f.input :product_serial_number, label: false %>
-			</div>
-			<div class="large-6 columns">
-				<div class="hint"><%= link_to "where to find the serial number", image_path("#{website.folder}/serial.jpg") %></div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="large-2 columns">
-				<%= f.label :purchased_on, nil, class: "right inline" %>
-			</div>
-			<div class="large-4 columns">
-				<%= f.input :purchased_on, as: :string, label: false, input_html: { class: 'ui-datepicker-past-only' } %>
-			</div>
-			<div class="large-2 columns">
-				<%= f.input :warranty, as: :boolean, required: false %>
-			</div>
-			<div class="large-4 columns">
-				<div class="hint"><%= link_to "warranty policy", warranty_policy_path %></div>
-			</div>
-		</div>
-
-		<h4><%= t('product_support_page.detailed_problem_description') %></h4>
-		<div class="row">
-			<div class="large-6 columns">
-				<%= f.input :message, label: false, input_html: { style: "height: 150px"} %>
-			</div>
-		</div>
+  <%= f.input :message,
+    label: t('product_support_page.detailed_problem_description'),
+    required: true,
+    input_html: { style: "height: 150px"} %>
 
 		<p><%= submit_tag t('submit'), class: "button" %></p>
 	</div>
