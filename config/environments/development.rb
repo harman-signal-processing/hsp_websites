@@ -39,6 +39,7 @@ HarmanSignalProcessingWebsite::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = false
+  config.assets.prefix = "/dev-assets"
   # config.assets.compile = true
 
   # config.action_controller.asset_host = ENV['ASSET_HOST']

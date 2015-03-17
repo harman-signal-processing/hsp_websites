@@ -14,7 +14,7 @@ HarmanSignalProcessingWebsite::Application.configure do
   # just for the purpose of running a single test. If you are using a tool that
   # preloads Rails for running tests, you may have to set it to true.
   config.eager_load = false
-  
+
   # Configure static asset server for tests with Cache-Control for performance
   config.serve_static_assets = true
   config.static_cache_control = "public, max-age=3600"
@@ -39,7 +39,7 @@ HarmanSignalProcessingWebsite::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
-  
+
   # Needed so that capybara testing will render the expected text when
   # the locale is "en-US" (which actually pulls from "en.yml")
   config.i18n.fallbacks = true
