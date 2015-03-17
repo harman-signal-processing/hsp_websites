@@ -9,9 +9,9 @@
 		</ul>
 	</li>
 
-  <li><%= link_to t('software_downloads'), software_index_path %></li>
+  <li class="hide-for-medium"><%= link_to t('software_downloads'), software_index_path %></li>
   <li><%= link_to t('resource_downloads'), support_downloads_path %></li>
-	<li><%= link_to t('news'), news_index_path %></li>
+	<li class="hide-for-medium"><%= link_to t('news'), news_index_path %></li>
 
 	<% if website.has_artists? %>
 	<li><%= link_to t('artists'), artists_path %></li>
@@ -24,6 +24,6 @@
 	<li><%= link_to t('product_support'), support_path %></li>
 
 	<% if !!(website.forum_link) %>
-	<li class="hide-for-medium show-for-large"><%= link_to t("forum"), website.forum_link %></li>
+	<li class="hide-for-medium"><%= link_to t("forum"), website.forum_link %></li>
 	<% end %>
 <% end %>
