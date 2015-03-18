@@ -1,7 +1,7 @@
 class Admin::SignupsController < AdminController
   before_filter :initialize_signup, only: :create
   load_and_authorize_resource except: :show_campaign
-  skip_authorization_check only: :show_campaign 
+  skip_authorization_check only: :show_campaign
 
   # GET /signups
   # GET /signups.xml
@@ -18,11 +18,11 @@ class Admin::SignupsController < AdminController
     respond_to do |format|
       format.html { render text: @signups.to_yaml }
       format.text { render text: @signups.to_yaml }
-      format.xls { 
+      format.xls {
         send_data(@signups.to_xls(
-          headers: ["Name", "Email"],
-          columns: [:name, :email]), 
-        filename: "#{params[:id].gsub(/\s/,"-")}.xls") 
+          headers: ["First Name", "Last Name", "Company", "Email", "Address", "City", "State", "Zip Code", "Date"],
+          columns: [:first_name, :last_name, :company, :email, :address, :city, :state, :zip, :created_at]),
+        filename: "#{params[:id].gsub(/\s/,"-")}.xls")
       }
     end
   end

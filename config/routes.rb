@@ -138,6 +138,10 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     resources :label_sheet_orders, only: [:new, :create]
   end
 
+  constraints(CrownDomain) do
+    get '/trucktourgiveaway(.:format)' => 'signups#new', defaults: { campaign: "Crown-TruckTour-Flip-2015" }
+  end
+
   # The constraint { locale: /#{WebsiteLocale.all_unique_locales.join('|')}/ } limits the locale
   # to those configured in the WebsiteLocale model which is configured in the admin area and reverts
   # to AVAILABLE_LOCALES in config/initializers/i18n.rb in case of problems
