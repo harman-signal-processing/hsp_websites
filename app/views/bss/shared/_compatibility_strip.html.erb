@@ -1,0 +1,15 @@
+<%= cache ["compatibility_strip", website.brand, I18n.locale] do %>
+  <div class="homepage_block gray_strip">
+    <div class="row">
+      <div class="large-5 columns">
+        <%= image_tag "#{website.folder}/protocols.png", alt: "AVB, Dante, BLU Link, CobraNet" %>
+      </div>
+      <div class="large-6 columns">
+        <br/>
+        <h1>BSS Works With Anything</h1>
+        <p class="padded">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu nibh vitae nulla porta gravida ultricies vitae arcu. Fusce nec sapien id massa aliquam ornare. Aliquam erat volutpat. Aliquam eu velit turpis. Phasellus dictum placerat enim, quis sollicitudin dui. Duis eget porta ante, non volutpat risus.</p>
+        <%= link_to "Learn More", '', class: "large button" %>
+      </div>
+    </div>
+  </div>
+<% end %>

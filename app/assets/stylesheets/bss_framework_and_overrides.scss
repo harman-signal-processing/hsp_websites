@@ -287,6 +287,12 @@ div.homepage_block {
   &.dark {
     background: #000 asset-url('video-pattern.png');
   }
+  p {
+    line-height: 2;
+    &.padded {
+      margin: rem-calc(40) 0;
+    }
+  }
 }
 
 .quotebox {

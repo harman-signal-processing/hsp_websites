@@ -1,0 +1,14 @@
+<%= cache ["teaser_strip", website.brand, I18n.locale] do %>
+  <% if website.teaser_image && File.exist?(Rails.root.join('app','assets','images',website.folder, website.teaser_image)) %>
+    <div class="homepage_block dark">
+      <div class="container" id="teaser_strip">
+        <div class="row">
+          <div class="large-12 small-12 columns text-center">
+            <%= image_tag "#{website.folder}/#{website.teaser_image}",
+              alt: website.teaser_headline || "#{website.brand.name} teaser" %>
+          </div>
+        </div>
+      </div>
+    </div>
+ <% end %>
+<% end %>

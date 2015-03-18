@@ -1,0 +1,20 @@
+<%= cache ["software_strip", website.brand, I18n.locale] do %>
+  <div class="homepage_block white_strip">
+    <div class="row">
+      <div class="large-12 columns">
+        <h2 class="text-center"><%= image_tag "#{website.folder}/architects_logos.png", alt: "Audio Architect vs. London Architect" %></h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-6 columns">
+        <%= image_tag "#{website.folder}/architects_screens.png", alt: "Architect Screens" %>
+      </div>
+      <div class="large-6 columns">
+        <br/>
+        <h3 class="subheader">What's the difference?</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu nibh vitae nulla porta gravida ultricies vitae arcu. Fusce nec sapien id massa aliquam ornare. Aliquam erat volutpat. Aliquam eu velit turpis. Phasellus dictum placerat enim, quis sollicitudin dui. Duis eget porta ante, non volutpat risus.</p>
+        <%= link_to "More Details...", '#', class: "small secondary button" %>
+      </div>
+    </div>
+  </div>
+<% end %>

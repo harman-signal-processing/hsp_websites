@@ -460,9 +460,10 @@ div.homepage_block {
     background-size: cover;
   }
   &.gray_strip {
-    background-color: $light-gray;
+    padding: 50px 0px;
+    background-color: $strip-bg-even;
     h1, h2 {
-      color: $primary-color;
+      color: $dark-gray;
     }
     h3, h4, h5 {
       color: $black;
@@ -472,6 +473,12 @@ div.homepage_block {
     padding: 60px 0px;
   }
   &.thin_strip {
+    &.gray_strip {
+      h1, h2 {
+        color: $primary-color;
+      }
+      background-color: $light-gray;
+    }
     padding: 35px 0;
     @media only screen and (min-width: 720px) {
       min-height: 100px;
