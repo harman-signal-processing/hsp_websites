@@ -267,11 +267,9 @@ $topbar-sticky-class:                  ".sticky";
 @import 'brand_common';
 
 .top-bar-container {
-  @media only screen and (min-width: 720px) {
-    height: 80px;
-  }
   background: $topbar-bg;
   @media only screen and (min-width: 720px) {
+    height: 80px;
     ul.left {
       margin-top: 35px;
     }
@@ -318,7 +316,6 @@ div.homepage_block {
 }
 
 .quotebox {
-  background: asset-url('quotebox.png') no-repeat;
   li {
     h2 {
       font-family: 'berthold_akzidenz_grotesk_bRg';
