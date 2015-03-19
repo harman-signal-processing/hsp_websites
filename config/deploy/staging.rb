@@ -31,4 +31,13 @@ namespace :deploy do
     run "ln -nfs /var/www/hmg/hsp_staging/shared/assets/staging #{release_path}/app/assets/images/staging"
   end
   before "deploy:assets:precompile", "deploy:link_staging_assets"
+
+  # We have a special configuraiton for paperclip which lets us use production attachments
+  # when we want to. feel free to edit the file on the server as needed throughout the
+  # staging process.
+  task :copy_paperclip_config, roles: :web do
+    run "ln -nfs /var/www/hmg/hsp_staging/shared/config/paperclip.rb #{release_path}/config/initializers/paperclip.rb"
+  end
+  before "deploy:restart", "deploy:copy_paperclip-config"
+
 end
