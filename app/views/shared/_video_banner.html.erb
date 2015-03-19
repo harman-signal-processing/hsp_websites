@@ -1,12 +1,12 @@
 <%= cache ["slideshow", website.brand, I18n.locale] do %>
   <% # Quick and easy way to test how videos look without uploading them. %>
-  <% if Rails.env.development? %>
+  <% if Rails.env.development? || Rails.env.staging? %>
     <% tmp_file = ENV["#{website.folder}_test_vid"] %>
     <div id="video-container" class="hide-for-small">
       <video autoplay="autoplay" id="video_background" loop="loop" muted="muted"
-      poster="<%= image_path "dev/#{ tmp_file }.jpg" %>" preload="auto" volume="0">
-        <source src='<%= image_path "dev/#{ tmp_file }.webm" %>' type='video/webm'/>
-        <source src='<%= image_path "dev/#{ tmp_file }.mp4" %>' type='video/mp4'/>
+      poster="<%= image_path "#{Rails.env}/#{ tmp_file }.jpg" %>" preload="auto" volume="0">
+      <source src='<%= image_path "#{Rails.env}/#{ tmp_file }.webm" %>' type='video/webm'/>
+      <source src='<%= image_path "#{Rails.env}/#{ tmp_file }.mp4" %>' type='video/mp4'/>
       </video>
       <div id="video_pattern"></div>
       <div class="row headline_slide">
@@ -24,7 +24,7 @@
           <% end %>
         </div>
         <div class="bg-gif">
-          <%= image_tag "#{ website.folder }/#{ tmp_file }.jpg" %>
+          <%= image_tag "#{ Rails.env }/#{ tmp_file }.jpg" %>
         </div>
       </div>
     </div>

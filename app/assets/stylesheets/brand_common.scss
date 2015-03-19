@@ -1,4 +1,6 @@
-
+.button {
+  text-transform: capitalize;
+}
 .top-bar input, top-bar .button {
   top: 13px;
   height: 1.9em;
@@ -498,7 +500,7 @@ div.promotion_container {
 .quotebox {
   background: asset-url('quotebox.png') no-repeat;
   background-position: center;
-  height: 400px;
+  height: 220px;
   li {
     h2 {
       padding: 50px 160px 0 160px;
