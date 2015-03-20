@@ -38,6 +38,6 @@ namespace :deploy do
   task :copy_paperclip_config, roles: :web do
     run "ln -nfs /var/www/hmg/hsp_staging/shared/config/paperclip.rb #{release_path}/config/initializers/paperclip.rb"
   end
-  before "deploy:restart", "deploy:copy_paperclip-config"
+  before "deploy:restart", "deploy:copy_paperclip_config"
 
 end

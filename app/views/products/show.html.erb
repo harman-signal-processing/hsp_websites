@@ -105,7 +105,7 @@ set_meta_tags title: @product.name,
 <a name="description" data-magellan-destination="description"></a>
 
 <%# vertical pages have the image in the next row...#%>
-<% unless @product.layout_class == "vertical" %>
+<% unless @product.layout_class.to_s.match(/vertical/i) %>
   <% if @product.photo %>
     <div id="viewer_container" class="text-center">
       <div id="viewer">
@@ -122,7 +122,7 @@ set_meta_tags title: @product.name,
 <div class="row" id="product-content-container" >
 	<div class="large-8 small-12 columns">
 
-    <% if @product.layout_class == "vertical" %>
+    <% if @product.layout_class.to_s.match(/vertical/i) %>
       <% if @product.photo %>
       <div class="text-center" style="margin: 20px 0px;">
         <%= link_to(image_tag(@product.photo.product_attachment.url(:vert_medium)), @product.photo.product_attachment.url) %>

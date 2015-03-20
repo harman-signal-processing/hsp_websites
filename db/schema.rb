@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150304180444) do
+ActiveRecord::Schema.define(version: 20150318151850) do
 
   create_table "admin_logs", force: true do |t|
     t.integer  "user_id"
@@ -1221,6 +1221,13 @@ ActiveRecord::Schema.define(version: 20150304180444) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date     "synced_on"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "company"
+    t.string   "address"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
   end
 
   create_table "site_elements", force: true do |t|

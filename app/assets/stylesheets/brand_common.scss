@@ -109,7 +109,7 @@ ul.no-bullet {
 
 .text-content {
   ul {
-    margin-left: 20px !important;
+    margin-left: 14px !important;
   }
 }
 img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
@@ -742,7 +742,7 @@ div#product_buy_now_box {
 .product_main_tab_content {
 	margin-bottom: 40px;
 	ul {
-		margin-left: 0px;
+		margin-left: 14px;
     &.news {
       li {
         margin-bottom: 20px;
@@ -796,7 +796,7 @@ dl.accordion {
 }
 
 ul.docs, ul.downloads, ul.support {
-  margin-left: 0px;
+  margin-left: 14px;
   list-style:none;
   li:before {
     content: ""
