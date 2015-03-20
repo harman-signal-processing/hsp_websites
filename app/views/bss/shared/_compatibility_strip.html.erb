@@ -2,7 +2,13 @@
   <div class="homepage_block gray_strip">
     <div class="row">
       <div class="large-5 columns">
-        <%= image_tag "#{website.folder}/protocols.png", alt: "AVB, Dante, BLU Link, CobraNet" %>
+        <ul class="abcd-orbit" data-orbit data-options="animation: 'fade'; timer_speed: 2200; bullets: false; pause_on_hover: false;navigation_arrows:false;slide_number:false;animation_speed:10;">
+          <% %w(A B C D).each do |n| %>
+            <li><%= image_tag "#{website.folder}/ABCD-#{n}top.png",
+                alt: "AVB, Dante, BLU Link, CobraNet" %>
+            </li>
+          <% end %>
+        </ul>
       </div>
       <div class="large-6 columns">
         <br/>
