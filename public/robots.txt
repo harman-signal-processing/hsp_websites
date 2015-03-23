@@ -5,6 +5,7 @@
 # Disallow: /
 
 User-agent: *
+Sitemap: /sitemap.xml
 Crawl-delay: 4.5
 
 # Yandex tries to pull support page as a jpeg for some reason

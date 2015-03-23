@@ -5,7 +5,8 @@ system/
 public/system
 db/sphinx/
 tags
-app/assets/images/dev/
+app/assets/images/development/
+app/assets/images/staging/
 coverage/
 bin/_*
 
