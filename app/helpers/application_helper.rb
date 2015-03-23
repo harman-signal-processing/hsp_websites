@@ -283,7 +283,7 @@ module ApplicationHelper
               headline_slide += buy_it_now_link(product, html_button: true)
             end
           end
-          headline_class = website.homepage_headline_overlay_class || "large-5 small-12 columns"
+          headline_class = website.homepage_headline_overlay_class || "large-6 small-12 columns"
           ret += content_tag(:div, class: 'row headline_slide') do
             content_tag(:div, headline_slide, class: headline_class )
           end

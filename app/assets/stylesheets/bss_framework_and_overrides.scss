@@ -314,7 +314,19 @@ div.homepage_block {
     }
   }
 }
-
+.headline_slide {
+  h1 {
+    color: white;
+    @media only screen and (min-width: 720px) {
+      font-size: emCalc(68px);
+      line-height: 1.1;
+    }
+    @media only screen and (max-width: 719px) {
+      font-size: emCalc(40px);
+      line-height: 1.1;
+    }
+  }
+}
 @media only screen and (min-width: 720px) {
   div.featured_product_container {
     padding-top: 40px;
@@ -344,7 +356,7 @@ div.homepage_block {
 
 /***** Product Family Page *****/
 .product_family_header {
-  background-color: scale-color($light-gray, $lightness: 40%);
+  background-color: scale-color($light-gray, $lightness: 65%);
   color: scale-color($dark-gray, $lightness: 20%);
   padding: rem-calc(40) 0 rem-calc(50);
   h1 {
