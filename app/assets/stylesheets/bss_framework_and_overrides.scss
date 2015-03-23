@@ -342,6 +342,17 @@ div.homepage_block {
   }
 }
 
+/***** Product Family Page *****/
+.product_family_header {
+  background-color: scale-color($light-gray, $lightness: 40%);
+  color: scale-color($dark-gray, $lightness: 20%);
+  padding: rem-calc(40) 0 rem-calc(50);
+  h1 {
+    font-size: rem-calc(52);
+    color: scale-color($dark-gray, $lightness: 20%);
+  }
+}
+
 div.product-title-block, div.small-title-block {
   h1 {
     font-size: 48px;

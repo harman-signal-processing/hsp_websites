@@ -1,0 +1,63 @@
+<% set_meta_tags title: translate_content(@product_family, :name),
+				 reverse: true,
+                 description: translate_content(@product_family, :intro),
+                 keywords: translate_content(@product_family, :keywords) %>
+
+<% if @product_family.has_custom_background? %>
+	<%= content_for :custom_css do %>
+		<style type="text/css" media="screen">
+			body { <%= @product_family.custom_background %> }
+		</style>
+	<% end %>
+<% end %>
+
+<%= content_for :feature do %>
+  <div class="container product_family_header">
+    <div class="row">
+      <div class="large-8 small-12 columns">
+        <h1><%= translate_content(@product_family, :name) %></h1>
+        <p><%=raw translate_content(@product_family, :intro) %></p>
+      </div>
+      <% # TODO: Upload the actual comparison chart to the product family instead of this hack... %>
+      <% # Had to do it this way as a temporary fix during the bss2015 transition to zurb %>
+      <% if @product_family.title_banner_file_name.present? %>
+        <div class="large-4 small-12 columns text-center">
+          <%= link_to( image_path('bss/SoundwebLondonChart.pdf'), target: "_blank") do %>
+            <%= image_tag('bss/SoundwebLondonChart_thumb.png', alt: translate_content(@product_family, :name)) %>
+            <h5>Soundweb London<br/>Comparison Chart</h5>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<% if !!(website.show_comparisons) %>
+	<%= form_tag compare_products_path, method: :get %>
+<% end %>
+
+<div class="row">
+	<div class="large-12 columns">
+    <%= render_partial "product_families/product_family", product_family: @product_family, skip_header: true  %>
+
+    <% @product_family.children_with_current_products(website).each do |sub_family| %>
+      <%= render_partial "product_families/product_family", product_family: sub_family %>
+      <hr/>
+    <% end %>
+
+    <% if !!(website.show_comparisons) %>
+      </form>
+    <% end %>
+
+    <% if @product_family.parent && @product_family.siblings_with_current_products.size > 0 %>
+      <div class="related_products"><%= t('related_products') %>:
+      <%= links_to_related_product_families(@product_family) %></div>
+    <% end %>
+	</div>
+</div>
+
+<% if current_user && can?(:manage, @product_family) %>
+<div class="admin_function">
+	<%= link_to "edit", [:admin, @product_family] %>
+</div>
+<% end %>
