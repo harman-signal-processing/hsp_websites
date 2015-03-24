@@ -149,6 +149,10 @@ class MainController < ApplicationController
   #
   def locale_sitemap
     @pages = []
+    @pages << { url: root_url(locale: nil),
+      updated_at: 1.day.ago,
+      changefreq: 'daily',
+      priority: 1 }
     @pages << { url: locale_root_url,
       updated_at: Date.today,
       changefreq: 'daily',
@@ -225,16 +229,11 @@ class MainController < ApplicationController
   # Overall sitemap (links to each locale sitemap)
   def sitemap
     @pages = []
-    @pages << { url: root_url(locale: nil),
-      updated_at: 1.day.ago,
-      changefreq: 'daily',
-      priority: 1 }
     website.available_locales.each do |l|
       @pages << { url: locale_sitemap_url(locale: l.locale.to_s, format: 'xml'),
-        updated_at: 1.day.ago,
-        changefreq: 'daily',
-        priority: 0.8 }
+        updated_at: 1.day.ago }
     end
+    render "sitemap_index"
   end
 
   # Generates an RSS feed of the latest News
