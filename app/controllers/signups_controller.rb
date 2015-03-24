@@ -2,12 +2,9 @@ class SignupsController < ApplicationController
 	before_filter :set_locale
 
   def new
-  	@signup = Signup.new(campaign: "#{website.brand.name}-#{Date.today.year}")
-    if @signup.campaign.present?
-      render_template action: 'new', layout: teaser_layout
-    else
-  	  render_template action: 'new'
-    end
+    campaign = (params[:campaign].present?) ? params[:campaign] : "#{website.brand.name}-#{Date.today.month}/#{Date.today.year}"
+  	@signup = Signup.new(campaign: campaign)
+    render_template action: 'new'
   end
 
   def create
@@ -17,36 +14,26 @@ class SignupsController < ApplicationController
       if @signup.save
         if @signup.campaign.present?
       	  cookies[@signup.campaign] = { value: @signup.email, expires: 1.year.from_now }
-          format.html { redirect_to(teaser_complete_path, notice: "Cool. You'll be the first to know!") }
-        else
-          format.html { redirect_to(signup_complete_path) }
         end
+        format.html { redirect_to(signup_complete_path) }
         format.xml  { render xml: @signup, status: :created, location: @signup }
       else
-        format.html { 
-          if @signup.campaign.present?
-            render_template action: 'new', layout: teaser_layout 
-          else
-            render_template action: 'new'
-          end
-        }
+        format.html { render_template action: 'new' }
         format.xml  { render xml: @signup.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  def complete    
+  def complete
+    render_template
   end
 
   private
 
-  def teaser_layout
-    File.exist?(Rails.root.join("app", "views", website.folder, "layouts", "teaser.html.erb")) ?
-        "#{website.folder}/layouts/teaser" : "teaser"
-  end
-
   def signup_params
-    params.require(:signup).permit(:name, :email, :campaign)
+    params.require(:signup).permit(:first_name, :last_name, :email,
+                                   :campaign, :company, :address,
+                                   :city, :state, :zip)
   end
 
 end

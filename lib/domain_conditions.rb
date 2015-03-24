@@ -39,6 +39,12 @@ class BssDomain
   end
 end
 
+class CrownDomain
+  def self.matches?(request)
+    !!(request.host.match(/crown/i))
+  end
+end
+
 class ToolkitDomain
   def self.matches?(request)
     !!(request.host.match(/toolkit/i))

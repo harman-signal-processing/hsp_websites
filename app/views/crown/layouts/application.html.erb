@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>">
 	<head>
+    <meta name="google-site-verification" content="0-qAcislQV3STyhe8ceKB5LybaHHpwtjm03xDrRO0gc" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
 		<%= csrf_meta_tag %>
@@ -98,7 +99,9 @@
 
 		<%= cache ["footer", website.brand, I18n.locale] do %>
 		<footer>
-			<%= hpro_footer(include_hpro: true) %>
+      <div class="hide-for-medium-down">
+        <%= hpro_footer(include_hpro: true) %>
+      </div>
 
 			<div class="container">
 				<div class="large-6 columns" id="footer_left">
@@ -113,7 +116,6 @@
 					<span class="footer_text">
 						<%= link_to t('privacy_policy'), privacy_policy_path %> &bull;
 						<%= link_to t('terms_of_use'), terms_of_use_path %> &bull;
-						<%= link_to t('sitemap'), sitemap_path(format: 'xml') %> &bull;
             <%= link_to 'careers', "http://jobs.harman.com", target: "_blank" %> &bull;
 						<%= link_to 'contact us', support_path %> &bull;
             <%= link_to 'RSO support', "/salessupport" %>

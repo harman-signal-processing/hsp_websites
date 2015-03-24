@@ -173,8 +173,7 @@
 						<% if website.has_dealers? || website.has_online_retailers? || website.has_distributors? %>
 						<%= link_to t('where_to_buy'), where_to_buy_path %> &bull;
 						<% end %>
-						<%= link_to t('product_support'), support_path %> &bull;
-						<%= link_to t('sitemap'), sitemap_path(format: 'xml') %>
+						<%= link_to t('product_support'), support_path %>
 						<div id="social_media_links">
 							<%= social_media_links 'twitter', 'facebook', 'myspace', 'youtube', 'wechat', 'weibo' %> 
 						</div>
