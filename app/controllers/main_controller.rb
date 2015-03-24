@@ -196,7 +196,7 @@ class MainController < ApplicationController
       website.current_softwares.each do |software|
         @pages << { url: url_for(software),
           updated_at: software.updated_at,
-          changefrequ: 'weekly',
+          changefreq: 'weekly',
           priority: 0.8 }
       end
     end
