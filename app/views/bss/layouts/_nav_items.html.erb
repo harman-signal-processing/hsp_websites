@@ -11,6 +11,7 @@
 
   <li class="hide-for-medium"><%= link_to t('software_downloads'), software_index_path %></li>
   <li><%= link_to t('resource_downloads'), support_downloads_path %></li>
+  <li><%= link_to t('training'), 'http://bssaudio.com/training' %></li>
 	<li class="hide-for-medium"><%= link_to t('news'), news_index_path %></li>
 
 	<% if website.has_artists? %>
@@ -18,7 +19,7 @@
 	<% end %>
 
 	<% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
-	<li><%= link_to t('where_to_buy'), where_to_buy_path %></li>
+	<li class="hide-for-medium"><%= link_to t('where_to_buy'), where_to_buy_path %></li>
 	<% end %>
 
 	<li><%= link_to t('product_support'), support_path %></li>

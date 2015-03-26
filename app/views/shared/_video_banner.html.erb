@@ -10,7 +10,7 @@
       </video>
       <div id="video_pattern"></div>
       <div class="row headline_slide">
-        <div class="large-6 small-12 columns">
+        <div class="<%= website.homepage_headline_overlay_class || 'large-6 small-12 columns' %>">
           <% if website.homepage_headline_product_id %>
             <% if website.homepage_headline %>
               <h1><%= website.homepage_headline %></h1>

@@ -26,6 +26,11 @@ namespace :bss do
     headline_link.setting_type = "string"
     headline_link.string_value = "soundweb-london"
     headline_link.save
+
+    headline_class = bss.settings.where(name: "homepage_headline_overlay_class").first_or_initialize
+    headline_class.setting_type = "string"
+    headline_class.string_value = "large-10 medium-11 small-12 columns"
+    headline_class.save
   end
 
 end
