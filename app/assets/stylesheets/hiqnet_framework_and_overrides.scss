@@ -731,3 +731,14 @@ div.quicklinks {
 		margin: 10px 20px 30px;
 	}
 }
+
+.visible-img img {
+    width:auto;
+    margin: auto !important;  /* !important to overwrite negative margin-left and margin-top foundation js gives for images in clearing*/
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+
+
