@@ -48,22 +48,22 @@
   h1 {
     color: white;
     @media only screen and (min-width: 720px) {
-      font-size: emCalc(90px);
-      line-height: emCalc(80px);
+      font-size: emCalc(80px);
+      line-height: 1.1;
     }
     @media only screen and (max-width: 719px) {
       font-size: emCalc(50px);
-      line-height: emCalc(40px);
+      line-height: 1.1;
     }
   }
   p {
     @media only screen and (min-width: 720px) {
       font-size: emCalc(40px);
-      line-height: emCalc(20px);
+      line-height: 1.2;
     }
     @media only screen and (max-width: 719px) {
-      font-size: emCalc(30px);
-      line-height: emCalc(14px);
+      font-size: emCalc(20px);
+      line-height: 1.2;
     }
     margin-bottom: 24px;
   }
