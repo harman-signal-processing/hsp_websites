@@ -314,6 +314,9 @@ div.homepage_block {
     }
   }
 }
+#video_pattern{
+	background-image: asset-url('light-video-pattern.png');
+}
 @media only screen and (min-width: 720px) {
   div.featured_product_container {
     padding-top: 40px;
