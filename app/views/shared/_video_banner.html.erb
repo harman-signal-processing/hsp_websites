@@ -11,10 +11,10 @@
       <div id="video_pattern"></div>
       <div class="row headline_slide">
         <div class="large-6 small-12 columns">
-          <% if website.homepage_headline %>
-            <h1><%= website.homepage_headline %></h1>
-          <% end %>
           <% if website.homepage_headline_product_id %>
+            <% if website.homepage_headline %>
+              <h1><%= website.homepage_headline %></h1>
+            <% end %>
             <% product = Product.find(website.homepage_headline_product_id) %>
             <p><%= product.name %></p>
             <%= link_to("Learn More", product, class: "secondary button") %>
@@ -23,7 +23,13 @@
             <% end %>
           <% elsif website.homepage_headline_product_family_id %>
             <% product_family = ProductFamily.find(website.homepage_headline_product_family_id) %>
+            <h1><%= product_family.name.titleize %></h1>
+            <% if website.homepage_headline %>
+              <p><%= website.homepage_headline %></p>
+            <% end %>
             <%= link_to("Learn More", product_family, class: "button") %>
+          <% elsif website.homepage_headline %>
+            <h1><%= website.homepage_headline %></h1>
           <% end %>
         </div>
         <div class="bg-gif">

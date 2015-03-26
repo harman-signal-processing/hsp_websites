@@ -314,19 +314,6 @@ div.homepage_block {
     }
   }
 }
-.headline_slide {
-  h1 {
-    color: white;
-    @media only screen and (min-width: 720px) {
-      font-size: emCalc(68px);
-      line-height: 1.1;
-    }
-    @media only screen and (max-width: 719px) {
-      font-size: emCalc(40px);
-      line-height: 1.1;
-    }
-  }
-}
 @media only screen and (min-width: 720px) {
   div.featured_product_container {
     padding-top: 40px;

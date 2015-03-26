@@ -19,7 +19,7 @@ namespace :bss do
 
     headline = bss.settings.where(name: "homepage_headline").first_or_initialize
     headline.setting_type = "string"
-    headline.string_value = "Soundweb London: The Backbone Of Audio Systems Everywhere"
+    headline.string_value = "Outstanding Quality, Undaunted by Scale."
     headline.save
 
     headline_link = bss.settings.where(name: "homepage_headline_product_family_id").first_or_initialize

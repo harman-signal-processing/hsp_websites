@@ -309,6 +309,40 @@ h4,h5 {
   line-height: 18px;
 }
 
+.headline_slide {
+  color: white;
+  @media only screen and (min-width: 720px) {
+    margin: 60px 0 0 80px;
+  }
+  @media only screen and (max-width: 719px) {
+    margin: 10px 0 0 0;
+  }
+  height: 550px;
+  text-shadow: 0px 0px 10px rgba(0,0,0,0.7);
+  h1 {
+    color: white;
+    @media only screen and (min-width: 720px) {
+      font-size: emCalc(62px);
+      line-height: 1.1;
+    }
+    @media only screen and (max-width: 719px) {
+      font-size: emCalc(40px);
+      line-height: 1.1;
+    }
+  }
+  p {
+    @media only screen and (min-width: 720px) {
+      font-size: emCalc(48px);
+      line-height: 1.2;
+    }
+    @media only screen and (max-width: 719px) {
+      font-size: emCalc(30px);
+      line-height: 1.1;
+    }
+    margin-bottom: 24px;
+  }
+}
+
 div.homepage_block {
   &.dark {
     background: #000 asset-url('video-pattern.png');

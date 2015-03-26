@@ -270,8 +270,8 @@ module ApplicationHelper
             end
           end
         elsif website.homepage_headline
-          headline_slide = content_tag(:h1, website.homepage_headline)
           if website.homepage_headline_product_id
+            headline_slide = content_tag(:h1, website.homepage_headline)
             product = Product.find(website.homepage_headline_product_id)
             if product.name.match(/^\d*$/)
               headline_slide += content_tag(:p, "#{product.name} #{product.short_description_1}")
@@ -284,7 +284,11 @@ module ApplicationHelper
             end
           elsif website.homepage_headline_product_family_id
             product_family = ProductFamily.find(website.homepage_headline_product_family_id)
-            headline_slide += link_to("Learn More", product_family, class: "secondary button")
+            headline_slide = content_tag(:h1, product_family.name.titleize)
+            headline_slide += content_tag(:p, website.homepage_headline)
+            headline_slide += link_to("Learn More", product_family, class: "button")
+          else
+            headline_slide = content_tag(:h1, website.homepage_headline)
           end
           headline_class = website.homepage_headline_overlay_class || "large-6 small-12 columns"
           ret += content_tag(:div, class: 'row headline_slide') do
