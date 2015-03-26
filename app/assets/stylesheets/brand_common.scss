@@ -507,7 +507,9 @@ div.promotion_container {
     }
   }
 }
-
+h1.page_title {
+  text-transform: capitalize;
+}
 /***** Product Family Page *****/
 .product_family_header {
   background-color: scale-color($primary-color, $lightness: 40%);
@@ -650,6 +652,8 @@ div.product-title-block, div.small-title-block {
   }
   div.product-price {
     h6.price-label {
+      font-size: 13px;
+      line-height: 13px;
       color: $dark-gray;
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -663,6 +667,9 @@ div.product-title-block, div.small-title-block {
       font-size: 18px;
       line-height: 24px;
     }
+  }
+  div.buy-it-now-button-container {
+    min-height: 60px;
   }
   hr {
     margin: 20px 0px 40px;

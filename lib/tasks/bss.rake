@@ -7,7 +7,7 @@ namespace :bss do
     bss.update_column(:show_pricing, true)
 
     side_tabs = bss.settings.where(name: "side_tabs").first
-    side_tabs.update_column(:string_value, nil)
+    side_tabs.update_column(:string_value, "")
 
     main_tabs = bss.settings.where(name: "main_tabs").first
     main_tabs.update_column(:string_value, "description|extended_description|documentation|downloads|features|specifications|training_modules|news|reviews|support")

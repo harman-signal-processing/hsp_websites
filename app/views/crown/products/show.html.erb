@@ -82,18 +82,18 @@ set_meta_tags title: @product.name,
 		<% end %>
 
 		<% if @product.images_for("product_page").size > 1 %>
-		<ul id="product_thumbnails" class="large-block-grid-6 small-block-grid-3 clearing-thumbs" data-clearing>
-			<% @product.images_for("product_page").each do |product_attachment| %>
-			  <% if product_attachment.product_media_thumb_file_name.present? %>
-				<li><%= link_to_product_attachment(product_attachment) %></li>
-			  <% elsif product_attachment.no_lightbox? || !!(website.no_lightbox) %>
-				<li><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square)), product_attachment.product_attachment.url) %></li>
-			  <% else %>
-				<li><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square)), product_attachment.product_attachment.url(:lightbox), class: "lightbox") %></li>
-			  <% end %>
-			<% end %>
-		</ul>
-		<div class="larger_tag"><%= t('product_page.larger_images') %></div>
+      <ul id="product_thumbnails" class="clearing-thumbs large-block-grid-6 small-block-grid-3" <%= "data-clearing" unless !!(website.no_lightbox) %>>
+        <% @product.images_for("product_page").each do |product_attachment| %>
+          <% if product_attachment.product_media_thumb_file_name.present? %>
+          <li><%= link_to_product_attachment(product_attachment) %></li>
+          <% elsif product_attachment.no_lightbox? || !!(website.no_lightbox) %>
+          <li><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square)), product_attachment.product_attachment.url) %></li>
+          <% else %>
+          <li><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square)), product_attachment.product_attachment.url(:lightbox), class: "lightbox") %></li>
+          <% end %>
+        <% end %>
+      </ul>
+      <div class="larger_tag"><%= t('product_page.larger_images') %></div>
 		<% end %>
 
               <% if website.show_pricing? && I18n.default_locale.match(/#{I18n.locale}/i) %>

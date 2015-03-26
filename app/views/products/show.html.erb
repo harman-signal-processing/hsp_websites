@@ -131,18 +131,18 @@ set_meta_tags title: @product.name,
     <% end %>
 
 		<% if @product.images_for("product_page").size > 1 %>
-		<ul id="product_thumbnails" class="clearing-thumbs large-block-grid-12 small-block-grid-3" data-clearing>
-			<% @product.images_for("product_page").each do |product_attachment| %>
-			  <% if product_attachment.product_media_thumb_file_name.present? %>
-				<li><%= link_to_product_attachment(product_attachment) %></li>
-			  <% elsif product_attachment.no_lightbox? || !!(website.no_lightbox) %>
-				<li><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square)), product_attachment.product_attachment.url) %></li>
-			  <% else %>
-				<li><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square)), product_attachment.product_attachment.url(:lightbox), class: "lightbox") %></li>
-			  <% end %>
-			<% end %>
-		</ul>
-		<div class="larger_tag"><%= t('product_page.larger_images') %></div>
+      <ul id="product_thumbnails" class="clearing-thumbs large-block-grid-12 small-block-grid-3" <%= "data-clearing" unless !!(website.no_lightbox) %>>
+        <% @product.images_for("product_page").each do |product_attachment| %>
+          <% if product_attachment.product_media_thumb_file_name.present? %>
+          <li><%= link_to_product_attachment(product_attachment) %></li>
+          <% elsif product_attachment.no_lightbox? || !!(website.no_lightbox) %>
+          <li><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square)), product_attachment.product_attachment.url) %></li>
+          <% else %>
+          <li><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square)), product_attachment.product_attachment.url(:lightbox), class: "lightbox") %></li>
+          <% end %>
+        <% end %>
+      </ul>
+      <div class="larger_tag"><%= t('product_page.larger_images') %></div>
 		<% end %>
 
 		<!-- <%= @active_tab %> -->
@@ -158,8 +158,8 @@ set_meta_tags title: @product.name,
 
         <% if (website.has_customer_reviews? && @product.has_customer_reviews?) ||
             (website.show_pricing? && !@product.hide_buy_it_now_button?) %>
-          <hr/>
         <% end %>
+        <hr/>
 
         <div class="product-price-row">
 
@@ -193,7 +193,7 @@ set_meta_tags title: @product.name,
               <% end %>
 
             </div>
-            <div class="large-6 small-6 columns text-right">
+            <div class="large-6 small-6 columns text-right buy-it-now-button-container">
               <%= buy_it_now_link(@product, html_button: true, reveal_id: "buy-it-now-popup") %>
             </div>
           </div>

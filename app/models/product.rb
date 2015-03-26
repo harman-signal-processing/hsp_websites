@@ -234,21 +234,25 @@ class Product < ActiveRecord::Base
   #
   def tabs
     r = []
-    # r << ProductTab.new(key: "details") if !self.extended_description.blank? # (moved to main content area)
-    unless self.package_tabs.size > 0
-      r << ProductTab.new("features") if self.features && self.features.size > 15 && self.brand.side_tabs.include?("features")
+    begin
+      # r << ProductTab.new(key: "details") if !self.extended_description.blank? # (moved to main content area)
+      unless self.package_tabs.size > 0
+        r << ProductTab.new("features") if self.features && self.features.size > 15 && self.brand.side_tabs.include?("features")
+      end
+      r << ProductTab.new("specifications") if self.product_specifications.size > 0 && self.brand.side_tabs.include?("specifications")
+      r << ProductTab.new("documentation") if (self.product_documents.size > 0 || self.current_and_recently_expired_promotions.size > 0 || self.viewable_site_elements.size > 0) && self.brand.side_tabs.include?("documentation")
+      r << ProductTab.new("training_modules") if self.training_modules.size > 0 && self.brand.side_tabs.include?("training_modules")
+      r << ProductTab.new("downloads") if (self.softwares.size > 0 || self.executable_site_elements.size > 0) && self.brand.side_tabs.include?("downloads")
+      r << ProductTab.new("downloads_and_docs") if (self.softwares.size > 0 || self.product_documents.size > 0 || self.site_elements.size > 0) && self.brand.side_tabs.include?("downloads_and_docs")
+      r << ProductTab.new("reviews") if (self.product_reviews.size > 0 || self.artists.size > 0) && self.brand.side_tabs.include?("reviews")
+      r << ProductTab.new("artists") if self.artists.size > 0 && self.brand.side_tabs.include?("artists")
+      r << ProductTab.new("tones") if self.tone_library_patches.size > 0 && self.brand.side_tabs.include?("tones")
+      r << ProductTab.new("news_and_reviews") if self.news_and_reviews.size > 0 && self.brand.side_tabs.include?("news_and_reviews")
+      r << ProductTab.new("news") if self.news.size > 0 && self.brand.side_tabs.include?("news")
+      r << ProductTab.new("support") if self.brand.side_tabs.include?("support")
+    rescue
+      # fine, no tabs for you
     end
-    r << ProductTab.new("specifications") if self.product_specifications.size > 0 && self.brand.side_tabs.include?("specifications")
-    r << ProductTab.new("documentation") if (self.product_documents.size > 0 || self.current_and_recently_expired_promotions.size > 0 || self.viewable_site_elements.size > 0) && self.brand.side_tabs.include?("documentation")
-    r << ProductTab.new("training_modules") if self.training_modules.size > 0 && self.brand.side_tabs.include?("training_modules")
-    r << ProductTab.new("downloads") if (self.softwares.size > 0 || self.executable_site_elements.size > 0) && self.brand.side_tabs.include?("downloads")
-    r << ProductTab.new("downloads_and_docs") if (self.softwares.size > 0 || self.product_documents.size > 0 || self.site_elements.size > 0) && self.brand.side_tabs.include?("downloads_and_docs")
-    r << ProductTab.new("reviews") if (self.product_reviews.size > 0 || self.artists.size > 0) && self.brand.side_tabs.include?("reviews")
-    r << ProductTab.new("artists") if self.artists.size > 0 && self.brand.side_tabs.include?("artists")
-    r << ProductTab.new("tones") if self.tone_library_patches.size > 0 && self.brand.side_tabs.include?("tones")
-    r << ProductTab.new("news_and_reviews") if self.news_and_reviews.size > 0 && self.brand.side_tabs.include?("news_and_reviews")
-    r << ProductTab.new("news") if self.news.size > 0 && self.brand.side_tabs.include?("news")
-    r << ProductTab.new("support") if self.brand.side_tabs.include?("support")
     r
   end
 

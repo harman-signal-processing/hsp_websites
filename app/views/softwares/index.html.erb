@@ -12,33 +12,40 @@
 		<% end %>
 		</h1>
 	</div>
-	<div class="large-6 columns text-right" style="padding-top: 38px">
-		<%#= link_to "3rd Party Controllers", "/en-US/3rd-party-controllers" %>
-	</div>
+  <% if website.brand.name.to_s.match(/dbx/i) %>
+    <div class="large-6 columns text-right" style="padding-top: 38px">
+      <%= link_to "3rd Party Controllers", "/en-US/3rd-party-controllers" %>
+    </div>
+  <% end %>
 </div>
 
 <%= cache ["softwares_index", website.brand, I18n.locale] do %>
 
-<% if @current_products.size > 0 %>
+  <% if website.brand.current_softwares.length > 0 %>
+    <ul class="large-block-grid-4 small-block-grid-2">
+      <% website.brand.current_softwares.sort_by{|s| s.name}.each do |software| %>
+        <li>
+          <%= link_to software do %>
+            <div class="panel">
+              <h3><%= software.name %></h3>
+              <%= "v#{software.version}" unless software.version.blank? %>
+              <%= "(#{software.platform})" unless software.platform.blank? %>
+            </div>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
 
-  <h3 class="subheader">Software by Product:</h3>
+  <% if @current_products.size > 0 %>
+    <h3 class="subheader">Software by Product:</h3>
+    <%= render "table", products: @current_products %>
+  <% end %>
 
-	<% if website.brand.forced_current_softwares.length > 0 %>
-		<ul class="large-block-grid-4 small-block-grid-2">
-			<% website.brand.forced_current_softwares.each do |software| %>
-			<li>
-				<%= link_to software do %>
-					<div class="panel">
-						<h3><%= software.name %></h3>
-						<%= "v#{software.version}" unless software.version.blank? %>
-						<%= "(#{software.platform})" unless software.platform.blank? %>
-					</div>
-				<% end %>
-			</li>
-			<% end %>
-		</ul>
-	<% end %>
-<%= render "table", products: @current_products + @discontinued_products %>
-<% end %>
+  <% if @discontinued_products.size > 0 %>
+    <hr/>
+    <h5 class="subheader">Software for Discontinued Products:</h5>
+    <%= render "table", products: @discontinued_products %>
+  <% end %>
 
 <% end %>
