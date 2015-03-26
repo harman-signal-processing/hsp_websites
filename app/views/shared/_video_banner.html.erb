@@ -21,6 +21,9 @@
             <% if product.in_production? %>
               <%= buy_it_now_link(product, html_button: true) %>
             <% end %>
+          <% elsif website.homepage_headline_product_family_id %>
+            <% product_family = ProductFamily.find(website.homepage_headline_product_family_id) %>
+            <%= link_to("Learn More", product_family, class: "button") %>
           <% end %>
         </div>
         <div class="bg-gif">

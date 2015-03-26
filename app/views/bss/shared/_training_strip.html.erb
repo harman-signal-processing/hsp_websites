@@ -1,37 +1,30 @@
 <%= cache ["training_strip", website.brand, I18n.locale] do %>
   <div class="homepage_block gray_strip text-center">
     <div class="row">
-      <div class="large-4 large-offset-4 medium-6 medium-offset-3 small-8 small-offset-2 columns">
+      <div class="large-5 large-centered medium-7 medium-centered small-8 small-centered columns">
         <div class="large-4 small-4 columns">
           <%= image_tag("#{website.folder}/shield.png", alt: "") %>
         </div>
         <div class="large-8 small-8 columns">
-          <h1 class="text-left">College<br/>of <strong>BSS</strong></h1>
+          <h1 class="text-left">College of<br/><strong>BSS Audio</strong></h1>
         </div>
       </div>
     </div>
     <p>&nbsp;</p>
     <div class="row">
-      <div class="large-4 small-4 columns text-center">
+      <div class="large-4 large-offset-2 medium-6 small-12 columns text-center">
         <%= image_tag("#{website.folder}/online_training.png", alt: "Online") %>
         <h3 class="subheader">Online</h3>
-        <p class="hide-for-small">We offer self-paced online training
+        <p>We offer self-paced online training
         and live webinars to help you get started. Learn at your
         pace, when it is convenient for you.</p>
       </div>
-      <div class="large-4 small-4 columns text-center">
+      <div class="large-4 end medium-6 small-12 columns text-center">
         <%= image_tag("#{website.folder}/inperson_training.png", alt: "In Person") %>
         <h3 class="subheader">In Person</h3>
-        <p class="hide-for-small">Visit one of our in-person training
+        <p>Visit one of our in-person training
         classes held all over the globe. New classes are offered
         often. Check the schedule by clicking below.</p>
-      </div>
-      <div class="large-4 small-4 columns text-center">
-        <%= image_tag("#{website.folder}/language_training.png", alt: "In Your Language") %>
-        <h3 class="subheader">In Your Language</h3>
-        <p class="hide-for-small">With instructors from countries all
-        around the world, BSS classes are taught in the native language
-        of the host country where the class takes place.</p>
       </div>
     </div>
     <br/>

@@ -282,6 +282,9 @@ module ApplicationHelper
             if product.in_production?
               headline_slide += buy_it_now_link(product, html_button: true)
             end
+          elsif website.homepage_headline_product_family_id
+            product_family = ProductFamily.find(website.homepage_headline_product_family_id)
+            headline_slide += link_to("Learn More", product_family, class: "secondary button")
           end
           headline_class = website.homepage_headline_overlay_class || "large-6 small-12 columns"
           ret += content_tag(:div, class: 'row headline_slide') do
