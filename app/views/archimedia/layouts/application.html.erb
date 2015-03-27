@@ -15,14 +15,16 @@
 			<% end %>
 
 			<% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "logo.png")) %>
-				<link rel="image_src" href="<%= image_url("#{website.folder}/logo.png") %>" />		
+				<link rel="image_src" href="<%= image_url("#{website.folder}/logo.png") %>" />
 			<% end %>
-			
+
 			<!--[if lt IE 9]>
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 			<![endif]-->
 
-			<meta name="google-site-verification" content="z2YH0Gt2csHUrioS-HaXOOGbuki9Tc3zr08nr0Yr08k" />
+      <% if website.google_site_verification %>
+        <meta name="google-site-verification" content="<%= website.google_site_verification %>" />
+      <% end %>
 			<link href="<%= rss_url(format: 'xml') %>" rel="alternate" title="RSS" type="application/rss+xml"/>
 			<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 			<link rel="icon" type="image/x-icon" href="/favicon.ico" />

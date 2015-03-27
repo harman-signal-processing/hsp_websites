@@ -12,7 +12,9 @@
 			<!--[if lt IE 9]>
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 			<![endif]-->
-			<meta name="google-site-verification" content="wzOwJ6W1UIF7pcjTD8uhQy35nYuMTUPEbWEgJn436CQ" />
+      <% if website.google_site_verification %>
+        <meta name="google-site-verification" content="<%= website.google_site_verification %>" />
+      <% end %>
 			<link href="<%= main_app.rss_url(format: 'xml') %>" rel="alternate" title="RSS" type="application/rss+xml"/>
 			<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 			<link rel="icon" type="image/x-icon" href="/favicon.ico" />

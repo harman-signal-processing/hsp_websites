@@ -31,6 +31,8 @@ namespace :bss do
     headline_class.setting_type = "string"
     headline_class.string_value = "large-10 medium-11 small-12 columns"
     headline_class.save
+
+    Rake::Task["setup:verify_gwt"].invoke
   end
 
 end

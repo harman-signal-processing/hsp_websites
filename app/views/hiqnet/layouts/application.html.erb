@@ -15,6 +15,9 @@
 			<link href="<%= rss_url(format: 'xml') %>" rel="alternate" title="RSS" type="application/rss+xml"/>
 			<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 			<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+      <% if website.google_site_verification %>
+        <meta name="google-site-verification" content="<%= website.google_site_verification %>" />
+      <% end %>
 
 			<meta property="og:site_name" content="<%= website.site_name %>" />
 			<meta property="og:locale" content="<%= I18n.locale %>" />
