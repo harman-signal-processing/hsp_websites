@@ -5,13 +5,13 @@
         <%= product_family_nav_links(product_family, depth: 1) %>
 			<% end %>
 			<li><%= link_to "Discontinued Products", discontinued_products_path %></li>
-			<li><%= link_to ucfirst(t('warranty_registration')), warranty_registration_path %></li>
 		</ul>
 	</li>
 
   <li class="hide-for-medium"><%= link_to t('software_downloads'), software_index_path %></li>
   <li><%= link_to t('resource_downloads'), support_downloads_path %></li>
   <li><%= link_to t('training'), 'http://bssaudio.com/training' %></li>
+  <li class="hide-for-medium"><%= link_to t('warranty_registration'), warranty_registration_path %></li>
 	<li class="hide-for-medium"><%= link_to t('news'), news_index_path %></li>
 
 	<% if website.has_artists? %>
@@ -19,12 +19,12 @@
 	<% end %>
 
 	<% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
-	<li class="hide-for-medium"><%= link_to t('where_to_buy'), where_to_buy_path %></li>
+	<li class="hide-for-medium"><%= link_to 'buy', where_to_buy_path %></li>
 	<% end %>
 
 	<li><%= link_to t('product_support'), support_path %></li>
 
 	<% if !!(website.forum_link) %>
-	<li class="hide-for-medium"><%= link_to t("forum"), website.forum_link %></li>
+	<li><%= link_to t("forum"), website.forum_link %></li>
 	<% end %>
 <% end %>

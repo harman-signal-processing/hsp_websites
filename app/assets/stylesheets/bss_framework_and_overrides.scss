@@ -277,17 +277,15 @@ $topbar-sticky-class:                  ".sticky";
   }
 }
 
-@media only screen and (max-width: 752px) {
-  .top-bar-section {
-    li:not(.has-form) a:not(.button) {
-      padding-left: rem-calc(10);
-      padding-right: rem-calc(10);
-    }
-    li.has-form {
-      padding-left: rem-calc(10);
-      padding-right: rem-calc(10);
-      width: 170px;
-    }
+.top-bar-section {
+  li:not(.has-form) a:not(.button) {
+    padding-left: rem-calc(10);
+    padding-right: rem-calc(10);
+  }
+  li.has-form {
+    padding-left: rem-calc(10);
+    padding-right: rem-calc(10);
+    width: 170px;
   }
 }
 @media only screen and (max-width: 719px) {
