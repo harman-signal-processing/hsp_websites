@@ -6,12 +6,6 @@ namespace :bss do
     bss.update_column(:has_online_retailers, true)
     bss.update_column(:show_pricing, true)
 
-    side_tabs = bss.settings.where(name: "side_tabs").first
-    side_tabs.update_column(:string_value, "")
-
-    main_tabs = bss.settings.where(name: "main_tabs").first
-    main_tabs.update_column(:string_value, "description|extended_description|documentation|downloads|features|specifications|training_modules|news|reviews|support")
-
     featured = bss.settings.where(name: "featured_products").first_or_initialize
     featured.setting_type = "string"
     featured.string_value = "blu-103"
@@ -31,6 +25,15 @@ namespace :bss do
     headline_class.setting_type = "string"
     headline_class.string_value = "large-10 medium-11 small-12 columns"
     headline_class.save
+
+    bss.settings.where("slide_file_name LIKE 'bss%' AND name LIKE 'BSS-%'").update_all(start_on: 1.day.ago)
+    bss.settings.where("name LIKE '%Banner'").update_all(remove_on: 1.day.ago)
+
+    side_tabs = bss.settings.where(name: "side_tabs").first
+    side_tabs.update_column(:string_value, "")
+
+    main_tabs = bss.settings.where(name: "main_tabs").first
+    main_tabs.update_column(:string_value, "description|extended_description|documentation|downloads|features|specifications|training_modules|news|reviews|support")
 
     Rake::Task["setup:verify_gwt"].invoke
   end

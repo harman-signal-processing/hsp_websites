@@ -15,7 +15,7 @@
 //= require jquery-ui.min
 //= require jquery.lightbox-0.5.min
 //= require jquery.datetimepicker
-//= require jquery.pin.min
+//= require jquery.pin
 //= require global_functions
 //= require maps
 //= require twitter
