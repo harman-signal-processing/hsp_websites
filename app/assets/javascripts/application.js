@@ -11,7 +11,7 @@
 //= require jquery.lightbox-0.5.min
 //= require jquery.datetimepicker
 //= require jquery.bxSlider.min
-//= require jquery.pin.min
+//= require jquery.pin
 //= require jwplayer
 //= require soundmanager2-nodebug-jsmin
 //= require inline_player
