@@ -25,7 +25,7 @@ gem "paperclip" #, "~> 3.0"
 gem 'paperclip-meta'
 gem 's3_direct_upload'
 gem 'meta-tags', '~> 1.5', require: 'meta_tags' # v 2.0.0 caused an error
-gem 'tinymce-rails', '~> 3.5'
+gem 'tinymce-rails' #, '~> 3.5'
 gem 'mechanize'
 # 3/1/2014 This commit of the geokit api uses HTTPS properly--which is required by providers (release gem is not updated yet)
 gem 'geokit', '>= 1.8.5' #, git: 'https://github.com/geokit/geokit.git', ref: '23c4c6a202671107dbdbd2dd1d8dc69dd8649a45'
