@@ -3,10 +3,14 @@ namespace :refresh do
 	# mimics the current state of the production site. Sometimes it is helpful to have real
 	# data to develop around. The tasks are broken down into these steps:
 	#
-	# cap refresh:development_database (copies the production db to your local dev environemnt)
-	# cap refresh:development_uploads (compresses and copies file uploads from production)
-	# cap refresh:development (performs both tasks)
+	# cap production refresh:development_database (copies the production db to your local dev environemnt)
+	# cap production refresh:development_uploads (compresses and copies file uploads from production)
+	# cap production refresh:development (performs both tasks)
 	#
+  # For staging:
+  #
+  # cap staging refresh:staging_database
+  #
 	# In order to work, though, the LOCAL database.yml file needs to have credentials for
 	# the production system and whichever target environment (dev or staging).
 	#
@@ -94,42 +98,24 @@ namespace :refresh do
     set :timestamp, Time.now.to_i
 
     on roles(:db) do
-      @timestamp = fetch(:timestamp)
-
-      within shared_path do
-        @db = YAML::load(ERB.new(IO.read(File.join("config", "database.yml"))).result)['production']
-      end
-
-      @filename = "#{@db['database']}_#{@timestamp}.sql"
-      folder = "db_backup"
-      execute :mkdir, "-p", folder
-
-      within folder do
-        execute :mysqldump, "-u #{@db['username']} --password=#{@db['password']} -h #{@db['host']} --port=#{@db['port']} #{@db['database']} > #{@filename}"
-        curr = capture(:pwd)
-        download! "#{curr}/#{@filename}", "./#{@filename}"
-        execute :rm, @filename
-      end
 
       with rails_env: :staging do
-        @timestamp = fetch(:timestamp)
+        within shared_path do
+          @db = YAML::load(ERB.new(IO.read(File.join("config", "database.yml"))).result)
+        end
 
-        db = YAML::load(ERB.new(IO.read(File.join(File.dirname(__FILE__), "../../../config", "database.yml"))).result)
-        prd_db = db['production']
-        stg_db = db['staging']
-        filename = "#{prd_db['database']}_#{@timestamp}.sql"
+        within release_path do
+          rake 'db:drop'
+          rake 'db:create'
 
-        rake 'db:drop'
-        rake 'db:create'
+          execute :mysqldump, "-u #{@db['production']['username']} --password=#{@db['production']['password']} -h #{@db['production']['host']} --port=#{@db['production']['port']} #{@db['production']['database']} | mysql -u #{@db['staging']['username']} --password=#{@db['staging']['password']} #{@db['staging']['database']}"
 
-        execute :mysql, "-u #{stg_db['username']} #{stg_db['database']} < ./#{filename}"
-        execute :rm, filename
-
-        puts "Staging database refreshed from production, catching up missing migrations:"
-        rake 'db:migrate'
-        puts "Setting up staging sites"
-        rake 'db:setup_staging_from_production'
+          rake 'db:migrate'
+          puts "Setting up staging sites"
+          rake 'db:setup_staging_from_production'
+        end
       end
+
     end
   end
 
