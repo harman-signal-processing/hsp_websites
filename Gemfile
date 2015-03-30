@@ -37,6 +37,7 @@ gem 'thinking-sphinx', '~> 3.0'
 gem 'youtube_it', git: 'https://github.com/kylejginavan/youtube_it.git', ref: '943a202fce2324d5122f80396e3bc473a61dc4c4' #'~> 2.4.0'
 gem 'twitter', '~> 5.1'
 gem 'delayed_job_active_record'
+gem 'daemons'
 gem 'devise'
 gem 'cancan'
 gem 'gravtastic'
@@ -78,7 +79,6 @@ gem 'typhoeus' # For link validator
 # gem 'forem-theme-twist', git: "http://github.com/radar/forem-theme-twist.git"
 
 group :production, :staging do
-  gem 'daemons'
   gem 'passenger_monit'
   gem "exception_notification"
 end
