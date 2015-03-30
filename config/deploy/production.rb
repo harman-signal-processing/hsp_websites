@@ -34,8 +34,6 @@ server "10.10.23.15", user: 'hmg', roles: %w{web app}
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
 
-set :delayed_job_roles, [:background]
-
 # Adding asset_sync configs to linked_files
 set :linked_files, fetch(:linked_files, []).push('config/asset_sync.yml', 'config/initializers/asset_sync.rb')
 
