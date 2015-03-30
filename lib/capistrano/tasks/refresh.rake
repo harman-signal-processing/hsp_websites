@@ -1,5 +1,4 @@
 namespace :refresh do
-
 	# These capistrano tasks are super handy in setting up a development environment which
 	# mimics the current state of the production site. Sometimes it is helpful to have real
 	# data to develop around. The tasks are broken down into these steps:
@@ -20,17 +19,130 @@ namespace :refresh do
 	# files (images, movies, pdfs, etc.) which have been uploaded via the web admin interfaces.
 	#
 
-	desc "Refresh the development database and uploads from production"
-	task :development do
-		development_database
-		development_uploads
-	end
+  desc "Replace local database and uploads from production"
+  task :development do
+    invoke 'refresh:development_database'
+    invoke 'refresh:development_uploads'
+  end
 
 	desc "Refresh the staging database and uploads from production"
 	task :staging do
-		staging_database
-		staging_uploads
+		invoke 'refresh:staging_database'
+		invoke 'refresh:staging_uploads'
 	end
+
+  desc "Replace the local development database with the contents of the production database"
+  task :development_database do
+    set :timestamp, Time.now.to_i
+
+    on roles(:db) do
+      @timestamp = fetch(:timestamp)
+
+      within shared_path do
+        @db = YAML::load(ERB.new(IO.read(File.join("config", "database.yml"))).result)['production']
+      end
+
+      @filename = "#{@db['database']}_#{@timestamp}.sql"
+      folder = "db_backup"
+      execute :mkdir, "-p", folder
+
+      within folder do
+        execute :mysqldump, "-u #{@db['username']} --password=#{@db['password']} -h #{@db['host']} --port=#{@db['port']} #{@db['database']} > #{@filename}"
+        curr = capture(:pwd)
+        download! "#{curr}/#{@filename}", "./#{@filename}"
+        execute :rm, @filename
+      end
+    end
+
+    run_locally do
+      with rails_env: :development do
+        @timestamp = fetch(:timestamp)
+
+        db = YAML::load(ERB.new(IO.read(File.join(File.dirname(__FILE__), "../../../config", "database.yml"))).result)
+        prd_db = db['production']
+        dev_db = db['development']
+        filename = "#{prd_db['database']}_#{@timestamp}.sql"
+
+        rake 'db:drop'
+        rake 'db:create'
+
+        execute :mysql, "-u #{dev_db['username']} #{dev_db['database']} < ./#{filename}"
+        execute :rm, filename
+
+        puts "Local development database refreshed from production, catching up missing migrations:"
+        rake 'db:migrate'
+        puts "Setting up localhost sites"
+        rake 'db:setup_development_from_production'
+      end
+    end
+  end
+
+  desc "Replace contents of public/system from remote server"
+  task :development_uploads do
+    on roles(:web) do |host|
+      set :upload_host, host
+      set :upload_user, host.user
+    end
+
+    run_locally do
+      execute :rsync, "-avz #{fetch(:upload_user)}@#{fetch(:upload_host)}:#{ shared_path }/public/system ./public/"
+    end
+  end
+
+  desc "Replace the remote staging database with the contents of the production database"
+  task :staging_database do
+    set :timestamp, Time.now.to_i
+
+    on roles(:db) do
+      @timestamp = fetch(:timestamp)
+
+      within shared_path do
+        @db = YAML::load(ERB.new(IO.read(File.join("config", "database.yml"))).result)['production']
+      end
+
+      @filename = "#{@db['database']}_#{@timestamp}.sql"
+      folder = "db_backup"
+      execute :mkdir, "-p", folder
+
+      within folder do
+        execute :mysqldump, "-u #{@db['username']} --password=#{@db['password']} -h #{@db['host']} --port=#{@db['port']} #{@db['database']} > #{@filename}"
+        curr = capture(:pwd)
+        download! "#{curr}/#{@filename}", "./#{@filename}"
+        execute :rm, @filename
+      end
+
+      with rails_env: :staging do
+        @timestamp = fetch(:timestamp)
+
+        db = YAML::load(ERB.new(IO.read(File.join(File.dirname(__FILE__), "../../../config", "database.yml"))).result)
+        prd_db = db['production']
+        stg_db = db['staging']
+        filename = "#{prd_db['database']}_#{@timestamp}.sql"
+
+        rake 'db:drop'
+        rake 'db:create'
+
+        execute :mysql, "-u #{stg_db['username']} #{stg_db['database']} < ./#{filename}"
+        execute :rm, filename
+
+        puts "Staging database refreshed from production, catching up missing migrations:"
+        rake 'db:migrate'
+        puts "Setting up staging sites"
+        rake 'db:setup_staging_from_production'
+      end
+    end
+  end
+
+	desc "Copies ALL uploaded assets from production to staging"
+	task :staging_uploads do
+		puts "Staging environment mounts the production uploads, so no content syncing is possible or needed."
+	end
+
+end
+
+__END__
+# From original capistrano 2.x task...
+namespace :refresh do
 
 	desc "Backup the production database and install it on top of the local dev db"
 	task :development_database, roles: :db, primary: true do
@@ -79,11 +191,6 @@ namespace :refresh do
 		puts `cd public && tar -zxf ../#{@filename} && rm ../#{@filename}`
 	end
 
-	desc "Copies ALL uploaded assets from production to staging"
-	task :staging_uploads, roles: :web do
-		# run "rsync -azv hmg@10.10.23.86:/var/www/hmg/hsp_websites/shared/system /var/www/hmg/hsp_staging/shared/"
-		puts "Staging environment mounts the production uploads, so no content syncing is possible or needed."
-	end
 
 	def backup_database
 		setup_file "hspwww_production_#{Time.now.to_i}.sql"

@@ -1,3 +1,8 @@
+
+__END__
+
+# old recipe used to setup monit...
+#
 namespace :monit do
   desc "Install Monit"
   task :install do
@@ -15,7 +20,7 @@ namespace :monit do
     reload
   end
   after "deploy:setup", "monit:setup"
-  
+
   task(:nginx, roles: :web) { monit_config "nginx" }
   # task(:mysql, roles: :db) { monit_config "mysql" }
   task(:passenger, roles: :web) { monit_config "passenger" }

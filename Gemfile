@@ -10,8 +10,6 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem "foundation-rails", '5.4.5'
 gem 'jquery-rails'
-gem 'capistrano', '2.13.5' # 2.14.1 causes tinymce assets to be deleted
-gem 'capistrano-ext'
 
 # To use debugger
 # gem 'ruby-debug'
@@ -85,6 +83,11 @@ group :production, :staging do
 end
 
 group :development do
+  gem 'capistrano', '~> 3.4', require: false
+  gem 'capistrano-rails', '~> 1.1', require: false
+  gem 'capistrano-bundler', '~> 1.1', require: false
+  gem 'capistrano3-delayed-job', '~> 1.0'
+  gem 'capistrano-passenger'
   # gem 'rack-mini-profiler'
   gem 'letter_opener'
   gem 'zeus'
