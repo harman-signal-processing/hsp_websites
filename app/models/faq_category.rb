@@ -1,7 +1,7 @@
 class FaqCategory < ActiveRecord::Base
 
   belongs_to :brand
-  has_many :faq_category_faqs
+  has_many :faq_category_faqs, dependent: :destroy
   has_many :faqs, through: :faq_category_faqs
 
   validates :brand, presence: true

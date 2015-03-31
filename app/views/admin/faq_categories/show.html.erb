@@ -1,0 +1,15 @@
+<h1>FAQ Category: <%= @faq_category.name %></h1>
+
+<ul class="button-group round">
+  <li><%= link_to 'Back', admin_faqs_path, class: "small secondary button" %></li>
+  <li><%= link_to 'Edit', edit_admin_faq_category_path(@faq_category), class: "small secondary button" %></li>
+  <li><%= link_to 'New FAQ', new_admin_faq_path, class: "small success button" %></li>
+  <li><%= link_to 'Delete', [:admin, @faq_category], confirm: "Are you sure?", method: :delete, class: "small alert button" %></li>
+</ul>
+
+<h3 class="subheader">Questions</h3>
+<ul>
+  <% @faq_category.faqs.each do |faq| %>
+    <li><%= link_to faq.question, [:admin, faq] %></li>
+  <% end %>
+</ul>

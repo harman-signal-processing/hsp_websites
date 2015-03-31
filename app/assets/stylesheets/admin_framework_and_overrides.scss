@@ -110,6 +110,9 @@ img {
 input.boolean {
     margin-right: 6px;
 }
+select[multiple] {
+  height: 200px;
+}
 form.custom {
 	input.button {
 		// margin-top: 10px; //messes up inline buttons

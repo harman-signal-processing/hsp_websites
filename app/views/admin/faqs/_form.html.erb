@@ -1,7 +1,16 @@
 <%= simple_form_for([:admin, @faq]) do |f| %>
-  <%= f.association :product, collection: website.products %>
   <%= f.input :question, input_html: { style: "height: 100px;" } %>
   <%= f.input :answer, input_html: { class: "mceEditor", style: "height: 200px;" } %>
-  <br/><%= f.input :hidden %>
+  <br/>
+  <div class="panel">
+    <div class="row">
+      <div class="large-6 small-12 columns">
+        <%= f.association :product, collection: website.products %>
+      </div>
+      <div class="large-6 small-12 columns">
+        <%= f.association :faq_categories, collection: website.brand.faq_categories, input_html: {size: website.brand.faq_categories.length} %>
+      </div>
+    </div>
+  </div>
   <br/><%= f.button :submit %>
 <% end %>

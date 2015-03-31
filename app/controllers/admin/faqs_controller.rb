@@ -1,14 +1,12 @@
 class Admin::FaqsController < AdminController
   before_filter :initialize_faq, only: :create
-  load_and_authorize_resource
+  load_and_authorize_resource except: :index
   # GET /faqs
   # GET /faqs.xml
   def index
-    @search = Faq.ransack(params[:q])
     if params[:q]
+      @search = Faq.ransack(params[:q])
       @faqs = @search.result.order(:question)
-    else
-      @faqs = @faqs.where(product_id: website.products.collect{|p| p.id}).sort_by(&:sort_key)
     end
     respond_to do |format|
       format.html { render_template } # index.html.erb
@@ -76,7 +74,7 @@ class Admin::FaqsController < AdminController
   def destroy
     @faq.destroy
     respond_to do |format|
-      format.html { redirect_to(admin_faqs_url) }
+      format.html { redirect_to(admin_faqs_url, notice: "The question was deleted.") }
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted FAQ: #{@faq.question}")

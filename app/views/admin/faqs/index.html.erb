@@ -3,17 +3,31 @@
 <% if can? :create, Faq %>
 <ul class="button-group round">
 	<li><%= link_to 'New FAQ', new_admin_faq_path, class: "small success button" %></li>
+	<li><%= link_to 'New Category', new_admin_faq_category_path, class: "small success button" %></li>
 </ul>
 <% end %>
 
-<ul class="list">
-<% @faqs.each do |faq| %>
-	<% if faq.product %>
-  		<li><%= link_to "#{faq.product.name}: #{faq.question}", [:admin, faq] %></li>
-    <% else %>
-		<li><%= link_to faq.question, [:admin, faq] %></li>
-	<% end %>
+<p><i>Product-specific FAQs are best managed via the admin interface for that product.
+General, non-product-specific FAQs can be managed here:</i></p>
+
+<% if @faqs %>
+  <h5 class="subheader">Search Results:</h5>
+  <ul class="list">
+  <% @faqs.each do |faq| %>
+    <% if faq.product %>
+        <li><%= link_to "#{faq.product.name}: #{faq.question}", [:admin, faq] %></li>
+      <% else %>
+      <li><%= link_to faq.question, [:admin, faq] %></li>
+    <% end %>
+  <% end %>
+  </ul>
+<% else %>
+  <h5 class="subheader">FAQ categories</h5>
+  <ul class="list">
+    <% website.brand.faq_categories.each do |cat| %>
+      <li><%= link_to cat.name, [:admin, cat] %> (<%= cat.faqs.length %>)</li>
+    <% end %>
+  </ul>
 <% end %>
-</ul>
 
 

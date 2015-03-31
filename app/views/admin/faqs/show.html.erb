@@ -6,19 +6,26 @@
 	<li><%= link_to 'Delete', [:admin, @faq], confirm: 'Are you sure?', method: :delete, class: "small alert button" %></li>
 </ul>
 
+<p><b>Question:</b>
+  <%=raw @faq.question %>
+</p>
+
+<p><b>Answer:</b></p>
+<div><%=raw @faq.answer %></div>
+<hr/>
 <p>
   <b>Product:</b>
   <%= (@faq.product) ? link_to(@faq.product.name, [:admin, @faq.product]) : "none" %>
 </p>
 
-<p><b>Question:</b></p>
-  <%=raw @faq.question %>
-
-<p><b>Answer:</b></p>
-  <%=raw @faq.answer %>
-
 <p>
-  <b>Hidden?</b>
-  <%= @faq.hidden %>
+  <b>Categories:</b>
 </p>
+
+<ul>
+  <% @faq.faq_categories.each do |cat| %>
+    <li><%= link_to cat.name, [:admin, cat] %></li>
+  <% end %>
+</ul>
+
 
