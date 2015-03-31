@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '4.1.9'
+gem 'rails', '4.1.10'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -8,7 +8,7 @@ gem 'rails', '4.1.9'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
-gem "foundation-rails", '5.4.5'
+gem "foundation-rails", '~> 5.4.5'
 gem 'jquery-rails'
 
 # To use debugger
@@ -41,7 +41,7 @@ gem 'daemons'
 gem 'devise'
 gem 'cancan'
 gem 'gravtastic'
-gem "recaptcha", require: "recaptcha/rails"
+gem "recaptcha", '~> 0.3.6', require: "recaptcha/rails" # 0.4.0 uses new API where each domain needs its own keys
 gem 'to_xls'
 gem 'acts_as_list'
 gem 'acts_as_tree'
