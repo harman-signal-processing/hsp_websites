@@ -54,7 +54,7 @@ gem 'rubyzip', require: 'zip'
 gem 'whenever' #, require: false
 gem "simple_form", ">= 2.0.2"
 gem 'country_select', '~> 1.3.1' # v2+ switches to store 2-letter ISO for country which breaks our current setup
-gem 'ransack'
+gem 'ransack', '1.6.3' #v1.6.5 came with this error: uninitialized constant Ransack::Adapters::ActiveRecord::Associations
 gem "dalli"
 gem "rabl"
 gem "money"
