@@ -35,7 +35,7 @@
 	<% end %>
 
 	<% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
-	<li><%= link_to t('where_to_buy').titleize, where_to_buy_path %></li>
+	<li class="hide-for-medium"><%= link_to t('where_to_buy').titleize, where_to_buy_path %></li>
 	<% end %>
 
 	<li><%= link_to t('product_support').titleize, support_path %></li>
@@ -43,4 +43,12 @@
 	<% if !!(website.forum_link) %>
 	<li class="hide-for-medium show-for-large"><%= link_to t("forum").titleize, website.forum_link %></li>
 	<% end %>
+
+  <li class="hide-for-medium has-dropdown">
+    <%= link_to "About", "", class: "disabled" %>
+    <ul class="dropdown">
+      <li><%= link_to "Overview", '/about-studer#studer-overview' %></li>
+      <li><%= link_to "At A Glance", '/about-studer#studer-at-a-glance' %></li>
+    </ul>
+  </li>
 <% end %>

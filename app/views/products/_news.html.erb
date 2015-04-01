@@ -1,7 +1,18 @@
-<ul class="news no-bullet">
-	<% product.current_news.each do |p| %>
-	<li><b><%=l p.post_on.to_date, format: :long %></b><br/>
-		<%= link_to translate_content(p, :title), p %>
-	</li>
-	<% end %>
-</ul>
+<% product.current_news.sort_by(&:post_on).reverse.each do |p| %>
+  <div class="row">
+    <div class="large-2 hide-for-small columns">
+      <% if p.news_photo_file_name.present? %>
+        <%= link_to image_tag(p.news_photo.url(:tiny_square)), p %>
+      <% end %>
+    </div>
+    <div class="large-8 end columns">
+      <b><%=l p.post_on.to_date, format: :long %></b><br/>
+      <%= link_to translate_content(p, :title), p %>
+    </div>
+	</div>
+  <div class="row">
+    <div class="large-10 columns">
+      <hr/>
+    </div>
+  </div>
+<% end %>

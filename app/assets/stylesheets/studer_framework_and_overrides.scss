@@ -18,11 +18,11 @@ $header-font-weight: 600;
 $header-font-color: $dark-gray;
 $header-top-margin: .4em;
 
-$h1-font-size: emCalc(38px);
-$h2-font-size: emCalc(26px);
-$h3-font-size: emCalc(21px);
-$h4-font-size: emCalc(18px);
-$h5-font-size: emCalc(15px);
+$h1-font-size: emCalc(28px);
+$h2-font-size: emCalc(22px);
+$h3-font-size: emCalc(18px);
+$h4-font-size: emCalc(16px);
+$h5-font-size: emCalc(14px);
 $h6-font-size: 1em;
 
 $subheader-font-color: lighten($dark-gray, 20%);
@@ -75,6 +75,18 @@ $topbar-sticky-class:                  ".sticky";
 @import 'foundation';
 @import 'brand_common';
 
+.top-bar-section {
+  li:not(.has-form) a:not(.button) {
+    padding-left: rem-calc(10);
+    padding-right: rem-calc(10);
+  }
+  li.has-form {
+    padding-left: rem-calc(10);
+    padding-right: rem-calc(10);
+    width: 170px;
+  }
+}
+
 @media only screen and (min-width: 720px) {
 	.logo-container img {
 		padding: 10px 25px 0px 35px;
@@ -83,23 +95,60 @@ $topbar-sticky-class:                  ".sticky";
 		padding-bottom: 100px;
 	}
 }
-@media only screen and (max-width: 720px) {
+
+@media only screen and (max-width: 719px) {
 	.logo-container img {
-		padding: 3px 0px 0px 6px;
+    height: 40px;
+		padding: 12px 0px 0px 6px;
 	}
+}
+@media only screen and (max-width: 819px) {
+  .top-bar-section {
+    li:not(.has-form) a:not(.button) {
+      padding-left: rem-calc(6);
+      padding-right: rem-calc(6);
+    }
+    li.has-form {
+      padding-left: rem-calc(2);
+      padding-right: rem-calc(2);
+      width: 130px;
+    }
+  }
 }
 body {
 	line-height: 1.5;
 }
 
+@media only screen and (min-width: 720px) {
+  div.homepage_block {
+    h1 {
+      font-size: 2.3em;
+      line-height: 1.1;
+    }
+    h2 {
+      font-size: 1.9em;
+    }
+    h3 {
+      font-size: 1.5em;
+    }
+  }
+}
+@media only screen and (max-width: 719px) {
+  div.homepage_block {
+    h1 {
+      font-size: 2em;
+    }
+  }
+}
+
 h1, h2 {
 	font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-	font-weight: 100;
+	font-weight: 200;
 }
 
 div.product-title-block, div.small-title-block {
   h1 {
-    font-size: 42px;
+    font-size: 32px;
     font-weight: 500;
   }
   h3 {

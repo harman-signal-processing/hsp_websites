@@ -11,7 +11,7 @@
 <%= content_for :feature do %>
 	<%= cache ["slideshow", website.brand, I18n.locale] do %>
 		<% slides = Setting.slides(website) %>
-		<%= video_background_with_features(slides, tagline: true) %>
+		<%= video_background_with_features(slides, tagline: true, hide_for_small: false) %>
 	<% end %>
 <% end %>
 
@@ -34,9 +34,12 @@
   <%= render_partial "shared/featured_products_strip" %>
   <%= render_partial "shared/teaser_strip" %>
   <%= render_partial "shared/videos_strip" %>
-  <%= render_partial "shared/social_strip" %>
   <%= render_partial "shared/promotions_strip" %>
   <%= render_partial "shared/news_and_reviews_strip" %>
+  <div class="row">
+    <hr/>
+  </div>
+  <%= render_partial "shared/social_strip" %>
 
 <% end %>
 

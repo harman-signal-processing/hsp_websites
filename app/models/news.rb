@@ -10,18 +10,18 @@ class News < ActiveRecord::Base
   friendly_id :slug_candidates, use: :slugged
 
   has_attached_file :news_photo, {
-    styles: { large: "600>x370", 
+    styles: { large: "600>x370",
       email: "580",
-      medium: "350x350>", 
+      medium: "350x350>",
       small: "240",
       small_square: "250x250#",
-      thumb: "100x100>", 
-      thumb_square: "100x100#", 
-      tiny: "64x64>", 
-      tiny_square: "64x64#" 
+      thumb: "100x100>",
+      thumb_square: "100x100#",
+      tiny: "64x64>",
+      tiny_square: "64x64#"
     }}.merge(S3_STORAGE)
   validates_attachment :news_photo, content_type: { content_type: /\Aimage/i }
-  
+
   has_many :news_products, dependent: :destroy
   has_many :products, through: :news_products
   belongs_to :brand, touch: true
@@ -33,14 +33,14 @@ class News < ActiveRecord::Base
   before_save :strip_harmans_from_title
   after_save :translate
   attr_accessor :from, :to
-  
+
   # When presenting the site to Rob before going live, he asked that we remove
   # the the word "HARMAN's" from the beginning of the news titles.
   def strip_harmans_from_title
     self.title.gsub!(/^HARMAN.s/, "")
     self.title.gsub!(/^\s*/, "")
   end
-    
+
   def sanitized_title
     self.title.gsub(/[\'\"]/, "")
   end
@@ -52,15 +52,15 @@ class News < ActiveRecord::Base
       [:brand_id, :title, :created_at]
     ]
   end
-  
+
   # News to display on the main area of the site. This set of news articles
   # includes entries from the past year and a half.
   def self.all_for_website(website, options={})
 
     # If the website specifies a limit for the number of news entries for the homepage,
     # then we'll show that amount to the 3rd power on the actual news page.
-    if website.homepage_news_limit.to_i > 0 
-      options[:limit] ||= website.homepage_news_limit.to_i ** 3 
+    if website.homepage_news_limit.to_i > 0
+      options[:limit] ||= website.homepage_news_limit.to_i ** 3
     end
     limit = (options[:limit]) ? " LIMIT #{options[:limit]} " : ""
 
@@ -95,18 +95,18 @@ class News < ActiveRecord::Base
     # Second, add in those stories associated with the brand only (no products linked)
     select("DISTINCT *").where("(brand_id = ? AND post_on <= ?) #{product_news_query}", website.brand_id, 18.months.ago).order("post_on DESC")
   end
-  
+
   # Alias for search results link name
   def link_name
     self.title
   end
-  
+
   # Alias for search results content preview
   def content_preview
     "#{I18n.l(self.created_at.to_date, format: :long)} - #{self.body}"
   end
-  
-  # Translates this record into other languages. 
+
+  # Translates this record into other languages.
   def translate
     ContentTranslation.auto_translate(self, self.brand)
   end
