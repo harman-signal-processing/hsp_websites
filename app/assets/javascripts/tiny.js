@@ -1,4 +1,3 @@
-// TODO: colorpicker plugin removed. won't load from CDN. Fix this.
 tinyMCE.init({
   selector: 'textarea.mceEditor',
   browsers: "msie,gecko,safari",
@@ -11,7 +10,7 @@ tinyMCE.init({
   extended_valid_elements: 'img[class|src|flashvars|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name|obj|param|embed|scale|wmode|salign|style],embed[src|quality|scale|salign|wmode|bgcolor|width|height|name|align|type|pluginspage|flashvars],object[align<bottom?left?middle?right?top|archive|border|class|classid|codebase|codetype|data|declare|dir<ltr?rtl|height|hspace|id|lang|name|style|tabindex|title|type|usemap|vspace|width],iframe[src|title|width|height|allowfullscreen|frameborder|style]',
   language: 'en',
   mode: 'textareas',
-  plugins: "advlist,anchor,autolink,autoresize,code,hr,image,link,lists,media,searchreplace,spellchecker,textcolor,table,paste,preview",
+  plugins: "advlist,anchor,autolink,autoresize,colorpicker,code,hr,image,link,lists,media,searchreplace,spellchecker,textcolor,table,paste,preview",
   relative_urls: false,
 });
 tinyMCE.init({
@@ -26,6 +25,6 @@ tinyMCE.init({
   extended_valid_elements: 'img[class|src|flashvars|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name|obj|param|embed|scale|wmode|salign|style],embed[src|quality|scale|salign|wmode|bgcolor|width|height|name|align|type|pluginspage|flashvars],object[align<bottom?left?middle?right?top|archive|border|class|classid|codebase|codetype|data|declare|dir<ltr?rtl|height|hspace|id|lang|name|style|tabindex|title|type|usemap|vspace|width],iframe[src|title|width|height|allowfullscreen|frameborder|style]',
   language: 'en',
   mode: 'textareas',
-  plugins: "advlist,anchor,autolink,autoresize,code,hr,image,link,lists,media,searchreplace,spellchecker,textcolor,table,paste,preview,fullpage,fullscreen",
+  plugins: "advlist,anchor,autolink,autoresize,colorpicker,code,hr,image,link,lists,media,searchreplace,spellchecker,textcolor,table,paste,preview,fullpage,fullscreen",
   relative_urls: false,
 });
