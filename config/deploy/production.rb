@@ -35,7 +35,7 @@ server "10.10.23.15", user: 'hmg', roles: %w{web app}
 # Feel free to add new variables to customise your setup.
 
 # Adding asset_sync configs to linked_files
-set :linked_files, fetch(:linked_files, []).push('config/asset_sync.yml', 'config/initializers/asset_sync.rb')
+#set :linked_files, fetch(:linked_files, []).push('config/asset_sync.yml', 'config/initializers/asset_sync.rb')
 before "deploy:restart", "thinking_sphinx:configure"
 
 # Custom SSH Options

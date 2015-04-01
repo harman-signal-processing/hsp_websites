@@ -1,5 +1,5 @@
 AssetSync.configure do |config|
-  config.run_on_precompile = ENV['ASSET_SYNC_ON'].to_i > 0 # if true, runs automatically after assets:precompile
+  config.run_on_precompile = !!(ENV['ASSET_SYNC_ON']) # if true, runs automatically after assets:precompile
   config.fog_provider = 'Rackspace'
   config.fog_directory = ENV['ASSET_CONTAINER']
   config.fog_region = 'ORD'
@@ -19,7 +19,7 @@ AssetSync.configure do |config|
   # Use the Rails generated 'manifest.yml' file to produce the list of files to
   # upload instead of searching the assets directory.
   config.manifest = true
-  
+
   # Fail silently.  Useful for environments such as Heroku
   # config.fail_silently = true
 
@@ -28,6 +28,7 @@ AssetSync.configure do |config|
     ".*\.svg" => { :access_control_allow_origin => "*" },
     ".*\.ttf" => { :access_control_allow_origin => "*" },
     ".*\.woff" => { :access_control_allow_origin => "*" },
+    ".*\.woff2" => { :access_control_allow_origin => "*" },
   }
 
 end
