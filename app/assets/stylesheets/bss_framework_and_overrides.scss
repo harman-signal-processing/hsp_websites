@@ -311,7 +311,23 @@ div.homepage_block {
       margin: rem-calc(40) 0;
     }
   }
+  &.contrio-strip {
+    background-image: asset-url("bss/BSSContrioControllerStrip_back.jpg");
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    h1 {
+      font-size: rem-calc(50);
+      line-height: 1.2;
+      margin-top: rem-calc(26);
+      margin-left: rem-calc(6);
+      @media only screen and (min-width: 720px) {
+        margin-bottom: rem-calc(120);
+      }
+    }
+  }
 }
+
 #video_pattern{
 	background-image: asset-url('light-video-pattern.png');
 }

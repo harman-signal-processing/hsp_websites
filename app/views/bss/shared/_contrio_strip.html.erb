@@ -1,0 +1,22 @@
+<% contrio = ProductFamily.find("soundweb-contrio") %>
+
+<% if contrio %>
+<div class="homepage_block dark contrio-strip">
+  <%= link_to contrio do %>
+    <div class="row">
+      <div class="large-8 small-7 columns">
+        <h1>
+          Simple.
+          <span class="wordchanger" data-words="Familiar,Elegant,Affordable,Flexible,Approachable,Intuitive">
+            Intuitive</span>.
+          Control.
+        </h1>
+        <%= image_tag("#{website.folder}/BSSContrioControllerStrip_logo.png")%>
+      </div>
+      <div class="large-4 small-5 columns text-center">
+        <%= image_tag("#{website.folder}/BSSContrioControllerStrip_control.png")%>
+      </div>
+    </div>
+  <% end %>
+</div>
+<% end %>
