@@ -1,5 +1,17 @@
 jQuery ($) ->
 
+  changeWord = (elem, word) ->
+    elem.delay(900).fadeOut(500, ->
+      elem.text(word)
+    ).fadeIn(500)
+
+  # Cycling through words of a headline.
+  $('.wordchanger').each ->
+    words = $(@).data("words").split(',')
+    words.push $(@).text()
+    for n in [1..20]
+      changeWord($(@), word) for word in words
+
   # An attempt to do the sticky box on the right side of the new
   # bss product page.
   $('.product-title-block').pin
