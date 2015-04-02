@@ -1,9 +1,9 @@
-class Pricelist 
+class Pricelist
 
   def initialize(brand, options = {})
     @brand    = brand
     default_options = {
-      loc:          "us", 
+      loc:          "us",
       website:       brand.default_website,
       locale:        I18n.default_locale
     }
@@ -14,7 +14,7 @@ class Pricelist
     @workbook = Spreadsheet::Workbook.new
     @currency_format = Spreadsheet::Format.new(number_format: '$##,###.00_);[Red]($##,###.00)' )
     @sheet = @workbook.create_worksheet name: "#{@brand.name} #{@options[:subtitle]} Pricelist"
-    setup_template 
+    setup_template
     fill_content
   end
 
@@ -24,7 +24,7 @@ class Pricelist
     io.string
   end
 
-  def setup_template 
+  def setup_template
   	fill_page_title_rows
   	fill_column_headers
     set_widths(@sheet, @column_widths)
@@ -33,7 +33,7 @@ class Pricelist
   def fill_content
     @row_index = 5
     ProductFamily.parents_with_current_products(@options[:website], @options[:locale]).each do |product_family|
-      insert_product_family(product_family)        
+      insert_product_family(product_family)
       product_family.children_with_current_products(@options[:website]).each do |child_product_family|
   	    insert_product_family(child_product_family)
       end
@@ -47,7 +47,7 @@ class Pricelist
   def fill_page_title_rows
   	subheader   = Spreadsheet::Format.new(weight: :bold, size: 16)
     subheader_r = Spreadsheet::Format.new(weight: :bold, size: 16, horizontal_align: :right)
-    
+
     row = @sheet.row(1)
     row.height = 20
     row.default_format = subheader
@@ -107,7 +107,7 @@ class Pricelist
   def fill_product_row(product)
   	row = @sheet.row(@row_index)
     if check_product(product)
-      row.push (product.sap_sku.present?) ? product.sap_sku : product.name 
+      row.push (product.sap_sku.present?) ? product.sap_sku : product.name
       row.push product.short_description
       row.push product.msrp
       row.set_format(2, @currency_format)
@@ -122,7 +122,7 @@ class Pricelist
   end
 
   def check_product_family(product_family)
-    prods = [] 
+    prods = []
     product_family.current_products.each do |product|
       prods << product if check_product(product)
     end

@@ -7,7 +7,7 @@ class SystemOptionValue < ActiveRecord::Base
 	belongs_to :system_option
 	monetize :price_cents
 
-	validates :name, presence: :true, uniqueness: { scope: :system_option_id }
+	validates :name, presence: true, uniqueness: { scope: :system_option_id }
 
 	acts_as_list scope: :system_option_id
 end

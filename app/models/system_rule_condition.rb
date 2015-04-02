@@ -61,7 +61,7 @@ class SystemRuleCondition < ActiveRecord::Base
       else
       	"$('#system_option_#{ system_option_id }').val() #{ js_operator } '#{ direct_value }'"
     end
-    "#{logic} #{js}"		
+    "#{logic} #{js}"
 	end
 
 	def js_operator
@@ -82,7 +82,7 @@ class SystemRuleCondition < ActiveRecord::Base
 	end
 
 	def is_first?
-		self.system_rule_condition_group.system_rule_conditions.first == self		
+		self.system_rule_condition_group.system_rule_conditions.first == self
 	end
 
 	# Just check if the object is good enough to be created as a nested element of a new

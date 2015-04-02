@@ -12,7 +12,7 @@ class SystemRuleConditionGroup < ActiveRecord::Base
 
 	after_initialize :set_default_logic_type
 
-	accepts_nested_attributes_for :system_rule_conditions, 
+	accepts_nested_attributes_for :system_rule_conditions,
 		reject_if: proc { |src| src[:system_option_id].blank? && src[:operator].blank? },
 		allow_destroy: true
 

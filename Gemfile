@@ -1,11 +1,11 @@
 source 'http://rubygems.org'
 
-gem 'rails', '4.1.10'
-
+gem 'rails', '4.2.1'
+gem 'responders', '~> 2.0'
 # Gems used only for assets and not required
 # in production environments by default.
 #gem 'turbo-sprockets-rails3' # don't precompile assets which haven't changed
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem "foundation-rails", '~> 5.4.5'
@@ -84,6 +84,7 @@ group :production, :staging do
 end
 
 group :development do
+  gem 'web-console', '~> 2.0'
   gem 'capistrano', '~> 3.4', require: false
   gem 'capistrano-rails', '~> 1.1', require: false
   gem 'capistrano-bundler', '~> 1.1', require: false

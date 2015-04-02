@@ -1,7 +1,7 @@
 class ProductDocument < ActiveRecord::Base
   extend FriendlyId
   friendly_id :document_file_name
-  
+
   belongs_to :product, touch: true
   has_attached_file :document
   process_in_background :document
@@ -12,7 +12,6 @@ class ProductDocument < ActiveRecord::Base
 
   # For cleaning up the product pages, no need to re-state the product name in
   # the link.
-  #  
   def name(options={})
     if self.document_type.blank? || self.document_type.match(/other/i)
       self.document_file_name

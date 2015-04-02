@@ -3,7 +3,7 @@ class WebsiteLocale < ActiveRecord::Base
   validates :website_id, presence: true
   validates :locale, presence: true
 #  after_save :restart_site
-  
+
   # This is used by the router to setup URLs
   # TODO: Routing could be smarter (restricting locales to corresponding websites)
   def self.all_unique_locales
@@ -17,7 +17,7 @@ class WebsiteLocale < ActiveRecord::Base
       AVAILABLE_LOCALES
     end
   end
-  
+
   # Restart the site if a new locale is activated
   def restart_site
     if self.complete? && self.complete_changed?

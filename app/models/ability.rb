@@ -3,9 +3,9 @@ class Ability
 
   def initialize(user)
     user ||= User.new({
-      admin: false, 
+      admin: false,
       engineer: false,
-      market_manager: false, 
+      market_manager: false,
       artist_relations: false,
       customer_service: false,
       online_retailer: false,

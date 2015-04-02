@@ -4,7 +4,7 @@ class ArtistProduct < ActiveRecord::Base
   validates :artist, :product, presence: true
   validates :artist_id, uniqueness: { scope: :product_id }
   after_save :link_artist_to_brand
-  
+
   def link_artist_to_brand
     begin
       ArtistBrand.where(artist_id: self.artist_id, brand_id: self.product.brand_id).first_or_create
@@ -12,5 +12,5 @@ class ArtistProduct < ActiveRecord::Base
       logger.info "did not link artist with product's brand, no biggie"
     end
   end
-  
+
 end

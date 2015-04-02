@@ -1,5 +1,5 @@
 # A MarketingProjectTypeTask belongs to a MarketingProjectType which is used
-# as a template when a new MarketingProject is created. 
+# as a template when a new MarketingProject is created.
 #
 # TODO: Probably, a "new product" type of project needs to have special rules
 #       developed to link and create a Product record for the public site.
@@ -9,7 +9,7 @@ class MarketingProjectTypeTask < ActiveRecord::Base
   belongs_to :marketing_project_type
   acts_as_list scope: :marketing_project_type_id
 
-  validates :name, presence: :true, uniqueness: { scope: :marketing_project_type_id }
+  validates :name, presence: true, uniqueness: { scope: :marketing_project_type_id }
 
   #
   # Initializes a new MarketingTask for the provided MarketingProject

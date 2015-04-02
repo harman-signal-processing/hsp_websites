@@ -1,10 +1,10 @@
-# A MarketingTask usually belongs to a MarketingProject as part of a 
+# A MarketingTask usually belongs to a MarketingProject as part of a
 # larger effort.
 #
 class MarketingTask < ActiveRecord::Base
   attr_accessor :assign_to_me
   has_event_calendar start_at_field: 'due_on', end_at_field: 'due_on'
-  belongs_to :brand 
+  belongs_to :brand
   belongs_to :marketing_project
   belongs_to :requestor, class_name: "User", foreign_key: :requestor_id
   belongs_to :worker, class_name: "User", foreign_key: :worker_id
@@ -15,11 +15,11 @@ class MarketingTask < ActiveRecord::Base
 
   acts_as_list scope: :marketing_project_id
 
-  validates :name, presence: :true
-  validates :due_on, presence: :true
-  validates :brand_id, presence: :true
-  validates :creative_brief, presence: :true, on: :create
-  
+  validates :name, presence: true
+  validates :due_on, presence: true
+  validates :brand_id, presence: true
+  validates :creative_brief, presence: true, on: :create
+
   before_save :auto_switch_currently_with
   after_save :notify_worker
   after_create :notify_admin
@@ -41,7 +41,7 @@ class MarketingTask < ActiveRecord::Base
   			{ number: difference_in_days, unit: 'days' }
   		end
   	else
-  		{ number: 1, unit: 'days' }	
+  		{ number: 1, unit: 'days' }
   	end
   end
 
@@ -75,7 +75,7 @@ class MarketingTask < ActiveRecord::Base
   def auto_switch_currently_with
     if worker_id_changed? && worker_id.present?
       switch_currently_with
-    end    
+    end
   end
 
   def notify_worker

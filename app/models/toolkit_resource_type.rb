@@ -1,8 +1,8 @@
 class ToolkitResourceType < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name
-  
-  validate :name, presence: :true
+
+  validates :name, presence: true
   has_many :toolkit_resources
 
   def self.menu_items(brand)

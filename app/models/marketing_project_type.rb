@@ -3,7 +3,7 @@
 # share a similar set of tasks each time. All promotions usually have the same
 # kind of tasks.
 #
-# An instance of MarketingProjectType has any number of MarketingProjectTypeTasks 
+# An instance of MarketingProjectType has any number of MarketingProjectTypeTasks
 # which are not actual tasks. These are used as template tasks.
 #
 class MarketingProjectType < ActiveRecord::Base
@@ -30,7 +30,7 @@ class MarketingProjectType < ActiveRecord::Base
     new_task_attributes = []
     marketing_project.marketing_tasks.each do |task|
       due_offset = task.calculate_due_offset
-      new_task_attributes << { name: task.name, 
+      new_task_attributes << { name: task.name,
         keep: true,
         due_offset_number: due_offset[:number],
         due_offset_unit: due_offset[:unit] }

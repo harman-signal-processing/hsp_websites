@@ -1,11 +1,11 @@
 class ContentTranslation < ActiveRecord::Base
   require 'bing_translator'
-  validates :content_id, presence: true 
+  validates :content_id, presence: true
   validates :content_method, presence: true
   validates :locale, presence: true
   validates :content, presence: true
   validates :content_type, presence: true
-  
+
   # Here's my big configuration table which shows which fields can be translated.
   # These have been updated in the views so that instead of just showing a value,
   # we search for translated content for the given locale.

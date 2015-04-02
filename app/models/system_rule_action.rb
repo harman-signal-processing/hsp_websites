@@ -6,7 +6,7 @@ class SystemRuleAction < ActiveRecord::Base
 	include ActionView::Helpers::JavaScriptHelper
 
 	belongs_to :system_rule
-	
+
 	# Will have at least one of: option, value, alert (text), component
 	belongs_to :system_option
 	belongs_to :system_option_value
@@ -88,7 +88,7 @@ class SystemRuleAction < ActiveRecord::Base
 	end
 
 	# From the class-level enum "action_types" determine what the opposite
-	# action would be. 
+	# action would be.
 	#
 	def opposite_action
 		self.class.action_types[self.action_type.to_sym][:opposite]

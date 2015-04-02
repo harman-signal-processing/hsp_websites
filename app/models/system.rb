@@ -26,10 +26,10 @@ class System < ActiveRecord::Base
 
 	def parent_system_options_for_start_page
 		@parent_system_options_for_start_page ||= parent_system_options.where(show_on_first_screen: true)
-	end	
+	end
 
   def enabled_system_rules
-    system_rules.where(enabled: true) 
+    system_rules.where(enabled: true)
   end
 	# Blank system config
 	def system_configuration(stage='configure', options={})

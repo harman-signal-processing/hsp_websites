@@ -13,24 +13,24 @@
 class MarketingProject < ActiveRecord::Base
   attr_accessor :tasks_follow_project
   has_event_calendar start_at_field: 'event_start_on', end_at_field: 'event_end_on'
-  belongs_to :brand 
-  belongs_to :user 
-  belongs_to :marketing_project_type 
+  belongs_to :brand
+  belongs_to :user
+  belongs_to :marketing_project_type
   belongs_to :marketing_calendar
   has_many :marketing_tasks, dependent: :destroy
   has_many :marketing_attachments, -> { order("created_at DESC") }, dependent: :destroy
   has_many :marketing_comments, dependent: :destroy
 
-  validates :name, presence: :true
-  validates :brand_id, presence: :true
+  validates :name, presence: true
+  validates :brand_id, presence: true
   validates :user_id, presence: true
   validates :due_on, presence: true
-  
+
   before_create :setup_from_template
   after_update :adjust_tasks
 
   def setup_from_template
-  	if marketing_project_type 
+  	if marketing_project_type
   		marketing_project_type.marketing_project_type_tasks.each do |mptt|
   			self.marketing_tasks << mptt.generate_task(marketing_project: self)
   		end
@@ -119,7 +119,7 @@ class MarketingProject < ActiveRecord::Base
       1
     end
   end
-  
+
   def starts_x_days_after(some_date)
     start_on = (event_start_on.present?) ? event_start_on : due_on
     x = (start_on - some_date.to_date).to_i

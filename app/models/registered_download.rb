@@ -8,8 +8,8 @@ class RegisteredDownload < ActiveRecord::Base
   belongs_to :brand
   validates :name, :brand, :from_email, :subject, presence: true
   validates :per_download_limit, numericality: {greater_than: 0}
-  
-  has_attached_file :protected_software, S3_STORAGE.merge({ 
+
+  has_attached_file :protected_software, S3_STORAGE.merge({
     bucket: Rails.configuration.aws[:protected_bucket],
     s3_host_alias: nil,
     path: ":class/:attachment/:id_:timestamp/:basename.:extension"
@@ -19,7 +19,7 @@ class RegisteredDownload < ActiveRecord::Base
 
   after_initialize :setup_defaults
   after_save :save_templates_to_filesystem
-  
+
   # Setup some default values
   #
   def setup_defaults
@@ -30,7 +30,7 @@ class RegisteredDownload < ActiveRecord::Base
     self.email_template ||= "<html><head><title>Software Download</title></head><body>~~download_link~~</body></html>"
     self.download_page_content ||= "Success! Your download should begin momentarily. If not, click the link below:"
   end
-  
+
   # Sums the number of times each of the corresponding DownloadRegistration
   # has downloaded the file. (Only pertinent if this RegisteredDownload is NOT
   # configured to send coupon codes.)
@@ -38,7 +38,7 @@ class RegisteredDownload < ActiveRecord::Base
   def download_count
     download_registrations.inject(0){|total,r| total += r.download_count.to_i}
   end
-  
+
   # If this RegisteredDownload is configured to offer a drop-down of products
   # from which the customer chooses while registering, then this method splits
   # that information into individual options. (They're stored as a simple comma-
@@ -47,20 +47,20 @@ class RegisteredDownload < ActiveRecord::Base
   def product_options_for_select
     self.products.split(/\,\s*/)
   end
-  
+
   # Prepare the user-submitted html layout to be saved to the filesystem so
   # rails can use it as as a layout file.
   #
   def html_layout
     self.html_template.gsub(/~~content~~/, "<%= yield %>")
   end
-  
+
   # Determine the filename for the corresponding HTML layout
   #
   def html_layout_filename
     Rails.root.join("public", "system", "layouts", brand.default_website.folder, "registered_download_#{self.id}.html.erb")
   end
-  
+
   # Prepare the user-submitted email layout to be saved to the filesystem so
   # the rails mailer can use it. NOTE: if this RegisteredDownload is configured
   # to send a coupon code, then the ~~download_link~~ is replaced with the code.
@@ -73,13 +73,13 @@ class RegisteredDownload < ActiveRecord::Base
       self.email_template.gsub(/~~download_link~~/, "<%= @download_registration.download_link %>")
     end
   end
-  
+
   # Determine the filename for the corresponding email layout
   #
   def email_layout_filename
     Rails.root.join("public", "system", "mailers", brand.default_website.folder, "registered_download_notice_#{self.id}.html.erb")
   end
-  
+
   # After creating/updating the RegisteredDownload this will check for changes
   # to the layouts (html and email) and update the corresponding files which
   # are stored on the filesystem. (Rails will only use layouts which are files.)
@@ -94,13 +94,13 @@ class RegisteredDownload < ActiveRecord::Base
       File.open(self.email_layout_filename, 'w+') {|f| f.write(self.email_layout)}
     end
   end
-  
+
   # Splits the "coupon_codes" field into individual codes
   #
   def available_coupon_codes
     self.coupon_codes.to_s.split(/\n\r|\n|\,\s?|\;\s?|\"\s?\"/).collect{|c| c.chomp}
   end
-  
+
   # Removes the given coupon_code (it has been assigned) and updates
   # the database!
   #
@@ -109,7 +109,7 @@ class RegisteredDownload < ActiveRecord::Base
     codes.delete(coupon_code)
     self.update_attributes(coupon_codes: codes.join("\r\n"))
   end
-  
+
   # Column headers for excel export
   #
   def headers_for_export
@@ -126,7 +126,7 @@ class RegisteredDownload < ActiveRecord::Base
     end
     h
   end
-  
+
   # Column refs for excel export
   #
   def columns_for_export
@@ -143,7 +143,7 @@ class RegisteredDownload < ActiveRecord::Base
     end
     c
   end
-  
+
   # Re-sends messages to those who have not yet downloaded the file
   # (This is probably only used when the file was not ready for download when
   # the first registrations came through)
@@ -153,7 +153,7 @@ class RegisteredDownload < ActiveRecord::Base
       download_registration.deliver_download_code
     end
   end
-  
+
   # Convenience method gathers the required fields for this download.
   #
   def required_fields
@@ -166,5 +166,5 @@ class RegisteredDownload < ActiveRecord::Base
     r << "manager's name" if self.require_manager_name?
     r
   end
-  
+
 end

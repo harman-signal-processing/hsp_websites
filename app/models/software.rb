@@ -15,7 +15,7 @@ class Software < ActiveRecord::Base
   has_many :software_operating_systems, dependent: :destroy
   has_many :operating_systems, through: :software_operating_systems
 
-  validates_presence_of :name, :brand_id
+  validates :name, :brand_id, presence: true
   has_attached_file :ware, S3_STORAGE.merge({ path: ":class/:attachment/:id_:timestamp/:basename.:extension" })
   do_not_validate_attachment_file_type :ware
 

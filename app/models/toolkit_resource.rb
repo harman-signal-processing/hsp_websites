@@ -4,24 +4,24 @@ class ToolkitResource < ActiveRecord::Base
 
   has_attached_file :tk_preview, {
     styles: { lightbox: "800x600",
-      large: "640x480", 
-      medium: "480x360", 
+      large: "640x480",
+      medium: "480x360",
       horiz_medium: "670x275",
       vert_medium: "375x400",
       medium_small: "150x225",
       small: "240x180",
       horiz_thumb: "170x80",
-      thumb: "100x100", 
-      tiny: "64x64", 
-      tiny_square: "64x64#" 
+      thumb: "100x100",
+      tiny: "64x64",
+      tiny_square: "64x64#"
     }}.merge(S3_STORAGE)
-  validates_attachment :tk_preview, content_type: { content_type: /\Aimage/i }    
+  validates_attachment :tk_preview, content_type: { content_type: /\Aimage/i }
 
-  belongs_to :brand 
-  belongs_to :toolkit_resource_type 
+  belongs_to :brand
+  belongs_to :toolkit_resource_type
 
-  validates :name, presence: true 
-  validates :brand_id, presence: :true 
+  validates :name, presence: true
+  validates :brand_id, presence: true
   validates :toolkit_resource_type_id, presence: true
   # validate :file_exists #can't actually do this since admin might not be on the content server.
 
@@ -41,7 +41,7 @@ class ToolkitResource < ActiveRecord::Base
 
   def touch_related_item
     if self.related_item
-      self.related_item.touch 
+      self.related_item.touch
     end
   end
 

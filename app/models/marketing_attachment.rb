@@ -3,7 +3,7 @@ class MarketingAttachment < ActiveRecord::Base
   belongs_to :marketing_project
   belongs_to :marketing_task
 
-  has_attached_file :marketing_file, 
+  has_attached_file :marketing_file,
     storage: :s3,
     bucket: Rails.configuration.aws[:protected_bucket],
     s3_credentials: Rails.configuration.aws,

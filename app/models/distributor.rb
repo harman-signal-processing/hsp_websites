@@ -16,11 +16,11 @@ class Distributor < ActiveRecord::Base
     end
     Distributor.order(:country).select("DISTINCT(distributors.country)").joins(:brand_distributors).where(["brand_distributors.brand_id = ?", brand_id])
   end
-  
+
   def create_brand_distributor(website)
     BrandDistributor.create(brand_id: website.brand_id, distributor_id: self.id)
   end
-  
+
   def self.find_all_by_country(country, f)
     if f.is_a?(Website)
       brand_id = f.distributors_from_brand_id || f.brand_id
@@ -35,5 +35,5 @@ class Distributor < ActiveRecord::Base
     end
     r
   end
-  
+
 end

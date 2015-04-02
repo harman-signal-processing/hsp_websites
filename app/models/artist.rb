@@ -6,7 +6,7 @@ class Artist < ActiveRecord::Base
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
-    
+
   attr_accessor :initial_brand, :approved, :skip_unapproval
   belongs_to :artist_tier
   has_many :artist_products, dependent: :destroy, inverse_of: :artist
@@ -21,24 +21,24 @@ class Artist < ActiveRecord::Base
 
   has_attached_file :artist_photo, {
     styles: { feature: "940x400#",
-      large: "400>x370", 
-      medium: "250x250#", 
-      thumb: "100x100>", 
+      large: "400>x370",
+      medium: "250x250#",
+      thumb: "100x100>",
       thumb_square: "100x100#",
       wide_thumb: "200x100#",
-      tiny: "64x64>", 
-      tiny_square: "64x64#" 
+      tiny: "64x64>",
+      tiny_square: "64x64#"
     }}.merge(S3_STORAGE)
   validates_attachment :artist_photo, content_type: { content_type: /\Aimage/i }
 
   has_attached_file :artist_product_photo, {
     styles: { feature: "940x400#",
-      large: "400>x370", 
-      medium: "250x250#", 
-      thumb: "100x100>", 
+      large: "400>x370",
+      medium: "250x250#",
+      thumb: "100x100>",
       thumb_square: "100x100#",
-      tiny: "64x64>", 
-      tiny_square: "64x64#" 
+      tiny: "64x64>",
+      tiny_square: "64x64#"
     }}.merge(S3_STORAGE)
   validates_attachment :artist_product_photo, content_type: { content_type: /\Aimage/i }
 
@@ -61,26 +61,26 @@ class Artist < ActiveRecord::Base
   end
 
   # Since the devise mailer is shard with toolkit users, trick these
-  def needs_invitation_code? 
-    false 
+  def needs_invitation_code?
+    false
   end
-  def needs_account_number?  
-    false 
+
+  def needs_account_number?
+    false
   end
-  
+
   def sanitized_name
     self.name.gsub(/[\'\"]/, "")
   end
-  
+
   def belongs_to_this_brand?(website)
     !!(self.artist_brands.where(brand_id: website.brand_id).count > 0)
   end
-    
+
   def self.all_for_website(website)
-    # where("(approver_id IS NOT NULL AND approver_id != '') OR featured = 1").order("name").all.select{|a| a if a.belongs_to_this_brand?(website)}
     where("(approver_id IS NOT NULL AND approver_id != '') OR featured = 1").joins(:artist_brands).where("artist_brands.brand_id = ?", website.brand_id).order("artists.name")
   end
-    
+
   # When a new artist signs up, build a few ArtistProduct slots
   def build_artist_products
     if self.new_record?
@@ -90,14 +90,14 @@ class Artist < ActiveRecord::Base
       end
     end
   end
-  
+
   # If the website doesn't have http:// in front, then add it.
   def fix_website_format
     if !self.website.blank? && !self.website.match(/^http/i)
       self.website = "http://#{self.website}"
     end
   end
-  
+
   # When a new artist is created, assign them to an ArtistTier
   def set_artist_tier
     self.artist_tier_id ||= ArtistTier.default.id
@@ -109,7 +109,7 @@ class Artist < ActiveRecord::Base
   def show_banner?
     !(self.artist_tier == ArtistTier.default)
   end
-  
+
   # Clear the approval field if the artist changed their photos
   def clear_approval
     unless self.skip_unapproval == true
@@ -118,14 +118,13 @@ class Artist < ActiveRecord::Base
           logger.info " ============--------> Unapproving artist: #{self.name}"
           self.approver_id = nil
           artist_relations = User.artist_relations
-          aritst_relations = User.all unless (Rails.env.production? || Rails.env.staging?)
           if artist_relations.size > 0
             SiteMailer.delay.artist_approval(self, artist_relations.collect{|user| user.email})
           end
       end
     end
   end
-  
+
   # Retrieve any quote for the provided product
   def quote_for(product)
     begin
@@ -134,12 +133,12 @@ class Artist < ActiveRecord::Base
       ""
     end
   end
-  
+
   # Alias for search results link_name
   def link_name
     self.name
   end
-  
+
   # Alias for search results content_preview
   def content_preview
     self.name
@@ -149,15 +148,15 @@ class Artist < ActiveRecord::Base
     # self.summary.to_s.size > 28
     false
   end
-  
+
   # Determine the approval status of this Artist
   def approval_status
     (self.approver_id.blank?) ? "Pending" : "Approved by #{self.approver.name}"
   end
 
-  # Translates this record into other languages. 
+  # Translates this record into other languages.
   def translate
-    if self.brands 
+    if self.brands
       self.brands.each do |brand|
         ContentTranslation.auto_translate(self, brand)
       end

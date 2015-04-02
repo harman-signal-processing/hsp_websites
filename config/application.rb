@@ -17,11 +17,11 @@ module HarmanSignalProcessingWebsite
     # config.middleware.insert_before(Rack::Lock, Rack::Rewrite) do
     #   r301   %r{/([\w\/\-]*)(\%20)?\?iframe.*},  '/$1'
     # end
-    
+
     # This was a good idea to use different domains in cookies depending on
     # the site being called, but it broke stuff...maybe with the upgrade to rails 3.2.1
     # config.middleware.use CustomDomainCookie, "digitech.com"
-    
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -44,7 +44,7 @@ module HarmanSignalProcessingWebsite
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
-    
+
     # Enable the asset pipeline
     config.assets.enabled = true
 
@@ -62,10 +62,12 @@ module HarmanSignalProcessingWebsite
 
     # Trying to encourage asset pipeline to precompile the images in the vendor/assets folders
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
-    
+
     config.generators do |g|
         g.fixture_replacement :factory_girl, dir: "spec/factories"
     end
+
+    config.active_record.raise_in_transactional_callbacks = true
 
     # Override these in environment configs...
     config.employee_invitation_code = ENV['EMPLOYEE_INVITATION_CODE']
@@ -73,7 +75,7 @@ module HarmanSignalProcessingWebsite
     config.media_invitation_code    = ENV['MEDIA_INVITATION_CODE']
     config.toolkit_url              = "marketingtoolkit.harmanpro.com"
     config.queue_url                = "marketingqueue.harmanpro.com"
-    config.default_site_name        = "Harman Signal Processing" 
+    config.default_site_name        = "Harman Signal Processing"
     config.toolkit_admin_email_addresses = ENV['TOOLKIT_ADMIN_EMAIL_ADDRESSES'].split("|")
     config.toolkit_admin_contact_info    = ENV['TOOLKIT_ADMIN_CONTACT_INFO'].split("|")
 

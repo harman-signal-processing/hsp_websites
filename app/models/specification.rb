@@ -7,7 +7,7 @@ class Specification < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
 
   # after_save :translate # Can't auto translate without a related brand
-  
+
   def values_with_products
     r = {}
     product_specifications.each do |product_specification|
@@ -17,7 +17,7 @@ class Specification < ActiveRecord::Base
     r
   end
 
-  # Translates this record into other languages. 
+  # Translates this record into other languages.
   def translate
     ContentTranslation.auto_translate(self, self.brand)
   end

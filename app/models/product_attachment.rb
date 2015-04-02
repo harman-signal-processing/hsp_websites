@@ -55,19 +55,19 @@ class ProductAttachment < ActiveRecord::Base
   def update_primary_photo
     if self.product && self.product.photo
       if self.primary_photo
-        ProductAttachment.where(product_id: self.product_id).where.not(id: self.id).update_all(primary_photo: false) 
+        ProductAttachment.where(product_id: self.product_id).where.not(id: self.id).update_all(primary_photo: false)
       end
     else
       self.update_attributes(primary_photo: true)
     end
   end
-  
+
   def remove_as_primary_photo
     if self.product && !self.product.photo && self.product.product_attachments.size > 0
       self.product.product_attachments.first.update_attributes(primary_photo: true)
     end
   end
-  
+
   def for_product_page?
     !(self.hide_from_product_page?)
   end
@@ -79,10 +79,10 @@ class ProductAttachment < ActiveRecord::Base
   def name
     (product_attachment_file_name.present?) ? product_attachment_file_name : product_media_file_name
   end
-  
+
   # Determine if this attachment is a photo...or something else
   def is_photo?
     !self.product_attachment_file_name.blank?
   end
-  
+
 end
