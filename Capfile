@@ -21,7 +21,9 @@ require 'capistrano/deploy'
 require 'capistrano/bundler'
 require 'capistrano/rails/assets'
 require 'capistrano/rails/migrations'
-require 'capistrano/passenger'
+#TODO: re-enable this to restart passenger apps once all servers are
+# on passenger v5+
+#require 'capistrano/passenger'
 require 'capistrano/delayed-job'
 require 'thinking_sphinx/capistrano'
 

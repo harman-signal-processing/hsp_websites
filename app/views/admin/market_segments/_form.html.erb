@@ -4,7 +4,8 @@
 			<%= f.input :name %>
 		</div>
 		<div class="large-4 columns">
-
+			<%= f.association :parent,
+				collection: MarketSegment.all_parents(website) - [@market_segment] - @market_segment.children %>
 		</div>
 	</div>
 
@@ -22,6 +23,12 @@
 			</div>
 		</div>
   </div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<%= f.input :description, input_html: {class: "mceEditor", style: "height: 200px;" } %>
+		</div>
+	</div>
 
   <br/><%= f.button :submit %>
 <% end %>

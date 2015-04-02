@@ -4,7 +4,8 @@ class Admin::MarketSegmentsController < AdminController
   # GET /admin/market_segments
   # GET /admin/market_segments.xml
   def index
-    @market_segments = @market_segments.where(brand_id: website.brand_id)
+    @market_segments = MarketSegment.all_parents(website)
+    @children = (website.market_segments - @market_segments).sort_by(&:name)
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @market_segments }
@@ -48,6 +49,13 @@ class Admin::MarketSegmentsController < AdminController
         format.xml  { render xml: @market_segment.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  # PUT /admin/market_segments/update_order
+  def update_order
+    update_list_order(MarketSegment, params["market_segment"])
+    render nothing: true
+    website.add_log(user: current_user, action: "Sorted market segments")
   end
 
   # PUT /admin/market_segments/1

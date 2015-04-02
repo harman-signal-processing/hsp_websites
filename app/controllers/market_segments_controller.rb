@@ -16,7 +16,7 @@ class MarketSegmentsController < ApplicationController
       redirect_to market_segments_path, status: :moved_permanently and return
     end
     respond_to do |format|
-      format.html
+      format.html { render_template }
       # format.xml  { render xml: @market_segment }
     end
   end

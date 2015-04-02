@@ -8,12 +8,12 @@ module MainHelper
 
     content_tag(:a, name, html_options.merge(:href => href, :onclick => onclick))
   end
-  
+
   def feature_button(feature)
     if feature.string_value.blank?
       image_tag(feature.slide.url)
     else
-      if feature.string_value =~ /^http\:/i 
+      if feature.string_value =~ /^http\:/i
         link_to(image_tag(feature.slide.url, class: "no-resize"), feature.string_value, target: "_blank")
       elsif feature.string_value =~ /^\//
         link_to(image_tag(feature.slide.url, class: "no-resize"), feature.string_value)
@@ -22,7 +22,7 @@ module MainHelper
       end
     end
   end
-  
+
   # Note to self: if we want to display a specific playlist only, do this:
   #
   #   y = YouTubeIt::Client.new
@@ -114,7 +114,7 @@ module MainHelper
           link_to("YouTube Channel", "http://www.youtube.com/user/#{youtube_user}", target: "_blank")
         end
       end
-    end    
+    end
   end
 
   def preload_background_images
@@ -162,7 +162,7 @@ module MainHelper
       pf_limit = options[:limit] - 1
     end
 
-    @product_families[0,pf_limit].each_with_index do |product_family, i| 
+    @product_families[0,pf_limit].each_with_index do |product_family, i|
       hide_for_small = "hide-for-small" if i == pf_limit - 1 && !!(options[:limit] % 2)
       if product_family.family_photo_file_name.blank?
         sub_family_content = ""
@@ -251,5 +251,28 @@ module MainHelper
     end.html_safe
   end
 
+  def market_segment_nav_links(market_segment, options={})
+    default_options = {depth: 99}
+    options = default_options.merge options
+
+    child_links = []
+
+    relevant_children = market_segment.children
+    options[:depth] += 1 if relevant_children.length > 0
+
+    if options[:depth] > 1
+      child_links = relevant_children.map do |sub_family|
+        market_segment_nav_links(sub_family, options)
+      end
+      options[:depth] -= 1
+    end
+
+    dropdown_class = child_links.length > 0 ? "has-dropdown" : ""
+
+    content_tag(:li, class: dropdown_class) do
+      link_to(translate_content(market_segment, :name), market_segment) +
+      content_tag(:ul, child_links.join.html_safe, class: "dropdown")
+    end.html_safe
+  end
 end
 

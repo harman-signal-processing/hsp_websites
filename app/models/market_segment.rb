@@ -11,7 +11,16 @@ class MarketSegment < ActiveRecord::Base
   validates :name, presence: true
   validates :brand_id, presence: true
 
+  acts_as_tree order: :position, scope: :brand_id
+
   after_save :translate
+
+  # All top-level MarketSegments
+  #  w = a Brand or a Website
+  def self.all_parents(w)
+    brand_id = (w.is_a?(Brand)) ? w.id : w.brand_id
+    where(brand_id: brand_id).where(parent_id: nil).order(:position)
+  end
 
   # Translates this record into other languages.
   def translate
@@ -29,6 +38,10 @@ class MarketSegment < ActiveRecord::Base
 
   def product_families_with_current_products
     product_families.select{|pf| pf if pf.current_products.length > 0 }
+  end
+
+  def all_current_products
+    self.product_families_with_current_products.map{|pf| pf.current_products}.flatten
   end
 
 end

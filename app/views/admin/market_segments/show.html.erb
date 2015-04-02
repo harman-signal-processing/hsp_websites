@@ -22,6 +22,28 @@
 	</div>
 </div>
 
+<% if @market_segment.parent %>
+<p>
+	<b>Parent:</b>
+	<%= link_to(@market_segment.parent.name, [:admin, @market_segment.parent]) %>
+</p>
+<% end %>
+
+<p>
+  <b>Description:</b>
+</p>
+<div><%=raw @market_segment.description %></div>
+
+<% if @market_segment.children.size > 0 %>
+<div class="group">
+	<h4 class="subheader">Child Vertical Markets:</h4>
+	<%= link_to "new vertical market", new_admin_market_segment_path, class: "small success button" %>
+	<ul id="market_segments" class="sortable_list">
+		<%= render partial: "market_segment", collection: @market_segment.children %>
+	</ul>
+</div>
+<% end %>
+
 <div class="group">
 	<h4 class="subheader">Product Families in this Vertical Market</h4>
 	<%= simple_form_for [:admin, @market_segment_product_family], remote: true do |f| %>

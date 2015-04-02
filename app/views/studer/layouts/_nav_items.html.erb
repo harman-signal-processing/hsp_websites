@@ -12,8 +12,8 @@
   <li class="has-dropdown">
     <%= link_to "Applications", "", class: "disabled" %>
     <ul class="dropdown">
-      <% website.market_segments.each do |market_segment| %>
-        <li><%= link_to market_segment.name.titleize, market_segment %></li>
+      <% MarketSegment.all_parents(website).each do |market_segment| %>
+        <%= market_segment_nav_links(market_segment) %>
       <% end %>
     </ul>
   </li>

@@ -70,7 +70,7 @@
 		<%= render partial: "product_family", collection: @product_family.children %>
 	</ul>
 </div>
-<% end %>	
+<% end %>
 
 <div class="group">
 	<h4 class="subheader">Products in this family:</h4>
@@ -79,7 +79,7 @@
     	<%= f.hidden_field :product_family_id %>
     	<div class="row collapse">
     		<div class="large-7 small-8 columns">
-    			<%= f.association :product, label: false, collection: website.products %> 
+    			<%= f.association :product, label: false, collection: website.products %>
     		</div>
     		<div class="large-2 small-4 columns">
     			<%= submit_tag 'add', class: "postfix button"  %>
@@ -112,7 +112,7 @@
 			<div class="large-3 columns"></div>
 		</div>
 	<% end %>
-	
+
 	<ul id="locale_product_families" class="list">
 		<% @product_family.locale_product_families.each do |lpf| %>
 			<%= render "/admin/shared/locale_product_family_row", lpf: lpf %>

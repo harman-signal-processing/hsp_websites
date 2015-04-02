@@ -1,0 +1,24 @@
+<%= cache ["compact_product_square", product, website, I18n.locale] do %>
+
+<%
+	if product.belongs_to_this_brand?(website)
+		this_url = product_url(product)
+		css_class = "small_product_box#{ product.layout_class.to_s }"
+		target = "_self"
+	else
+		this_url = product_url(product, locale: I18n.locale, host: product.brand.default_website.url)
+		css_class = "small_product_box#{ product.brand.name.to_s.downcase }"
+		target = "_blank"
+	end
+%>
+
+<div id="<%= product.to_param %>" class="small_product_box">
+		<div class="product_thumb">
+		<% if product.photo %>
+				<%= link_to image_tag(product.photo.product_attachment.url(:horiz_thumb)), this_url, target: target %>
+		<% end %>
+		</div>
+		<p class="text-center"><%= link_to translate_content(product, :name), this_url, target: target %></p>
+</div>
+
+<% end %>

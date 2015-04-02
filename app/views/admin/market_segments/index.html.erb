@@ -1,11 +1,20 @@
 <h1>Vertical Markets</h1>
 
-<ul class="button-group round">
-	<li><%= link_to 'New vertical market', new_admin_market_segment_path, class: "small success button" %></li>
+<% if can? :create, MarketSegment %>
+  <ul class="button-group round">
+    <li><%= link_to 'New vertical market', new_admin_market_segment_path, class: "small success button" %></li>
+  </ul>
+<% end %>
+
+<h3 class="subheader">Top-level Vertical Markets</h3>
+<ul id="market_segments" class="sortable_list">
+  <%= render partial: "market_segment", collection: @market_segments %>
 </ul>
 
-<ul class="list">
-<% @market_segments.each do |market_segment| %>
-  <li><%= link_to market_segment.name, [:admin, market_segment] %></li>
+
+<% if @children.size > 0 %>
+	<h5 class="subheader">All the rest</h5>
+	<ul class="nosort list">
+		<%= render partial: "market_segment", collection: @children %>
+	</ul>
 <% end %>
-</ul>
