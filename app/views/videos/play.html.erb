@@ -3,8 +3,10 @@
 
 <div class="row">
   <div class="large-8 large-offset-2 small-12 columns">
-    <%=raw @video.embed_html5({class: 'video-player', id: @video_id, width: '640', height: '390', frameborder: '1'}) %>
+    <div class="video-window">
+      <%=raw @video.embed_html5({class: 'video-player', id: @video_id, width: '640', height: '390', frameborder: '1'}) %>
 <!-- 	<iframe width="640" height="390" src="http://www.youtube.com/embed/<%= @video_id %>" frameborder="0" allowfullscreen></iframe> -->
+    </div>
     <div>
       <%= render 'shared/add_this' %>
       <% begin %>
