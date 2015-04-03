@@ -28,13 +28,10 @@ gem 'meta-tags', '~> 1.5', require: 'meta_tags' # v 2.0.0 caused an error
 # As of 3/30/2015, this branch compiles assets into the asset pipeline...
 gem 'tinymce-rails', git: 'https://github.com/spohlenz/tinymce-rails.git', branch: 'compile-assets' #, '~> 3.5'
 gem 'mechanize'
-# 3/1/2014 This commit of the geokit api uses HTTPS properly--which is required by providers (release gem is not updated yet)
-gem 'geokit', '>= 1.8.5' #, git: 'https://github.com/geokit/geokit.git', ref: '23c4c6a202671107dbdbd2dd1d8dc69dd8649a45'
+gem 'geokit', '>= 1.8.5'
 gem 'geokit-rails'
 gem 'thinking-sphinx', '~> 3.0'
-
-# 4/7/2014 This commit of youtube has the new api (v3) working, also depends on json ~> 1.8 (released gem is not updated yet)
-gem 'youtube_it', git: 'https://github.com/kylejginavan/youtube_it.git', ref: '943a202fce2324d5122f80396e3bc473a61dc4c4' #'~> 2.4.0'
+gem 'youtube_it'
 gem 'twitter', '~> 5.1'
 gem 'delayed_job_active_record'
 gem 'daemons'

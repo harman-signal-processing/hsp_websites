@@ -1,6 +1,6 @@
 class VideosController < ApplicationController
   before_filter :youtube_client
-  
+
   # Split the "playlist_ids" setting by comma, retrieve each
   # playlist and show it in the browser
   def index
@@ -12,6 +12,11 @@ class VideosController < ApplicationController
           @playlists << @youtube_client.playlist(playlist)
         end
       else
+        @youtube_client.playlists(@youtube_user). each do |playlist|
+          @playlists << @youtube_client.playlist(playlist.playlist_id)
+        end
+      end
+      if @playlists.length == 0
         @playlists << @youtube_client.videos_by(user: @youtube_user)
       end
       render_template
@@ -34,9 +39,9 @@ class VideosController < ApplicationController
       redirect_to "http://youtube.com/watch?v=#{@video_id}", status: :moved_permanently and return false
     end
   end
-  
-  private 
-  
+
+  private
+
   def youtube_client
     @youtube_user = website.youtube.to_s.match(/\w*$/).to_s
     @youtube_client = YouTubeIt::Client.new(dev_key: ENV['GOOGLE_YOUTUBE_API_KEY'])

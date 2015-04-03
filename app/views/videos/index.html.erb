@@ -1,24 +1,20 @@
-<table style="width: 650px; margin-left:">
-	<% @playlists.each_with_index do |playlist,i| %>
-	<tr>
-		<% if playlist.respond_to?(:title) %>
-		<th colspan="2">
-			<h<%= i+1 %> style="color:#222"><%= playlist.title %></h<%= i+1 %>>
-			<p><%= playlist.description %></p>
-		</th>
-		<% else %>
-		<th colspan="2">
-			<h<%= i+1 %>><%= @page_title %></h<%= i+1 %>>
-		</th>
-		<% end %>
-	</tr>
-	<%= render partial: "video", collection: playlist.videos %>
-	<% end %>
-</table>
+<div class="row">
+  <div class="large-10 columns">
+    <% @playlists.each do |playlist| %>
+        <% if playlist.respond_to?(:title) %>
+          <h2><%= playlist.title %></h2>
+          <p><%= playlist.description %></p>
+        <% else %>
+          <h2><%= @page_title %></h2>
+        <% end %>
+        <%= render partial: "video", collection: playlist.videos %>
+    <% end %>
+  </div>
 
-<% if @youtube_user.present? %>
-<div style="position: absolute; top: 24px; right: 6px; width: 265px; text-align: center;">
-	<p><%= link_to(image_tag("icons/circle/128x128/youtube.png", alt: "YouTube"), "http://www.youtube.com/#{@youtube_user}", target: "_blank") %></p>
-  <p>Visit our channel on Youtube</p>
+  <div class="large-2 text-center hide-for-medium-down columns">
+    <% if @youtube_user.present? %>
+      <p><%= link_to(image_tag("icons/circle/128x128/youtube.png", alt: "YouTube"), "http://www.youtube.com/#{@youtube_user}", target: "_blank") %></p>
+      <p>Visit our channel on Youtube</p>
+    <% end %>
+  </div>
 </div>
-<% end %>

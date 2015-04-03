@@ -1,39 +1,32 @@
 <h1><%= @video.title %></h1>
+<p><%= link_to "<< back to videos", videos_path %></p>
 
-<table>
-	<tr>
-		<td valign="top" width="640">
-			<%=raw @video.embed_html5({class: 'video-player', id: @video_id, width: '640', height: '390', frameborder: '1'}) %>
-<!-- 			<iframe width="640" height="390" src="http://www.youtube.com/embed/<%= @video_id %>" frameborder="0" allowfullscreen></iframe> -->
-			<div style="margin: 20px 0px; position: relative;">
-				<%= render 'shared/add_this' %>
-				<% begin %>
-				<%= auto_link @video.description %>
-				<div style="position: absolute; top: 0px; right: 2px; font-size: 115%; font-weight: bold">
-					<%= number_with_delimiter(@video.view_count) %>
-					<span style="font-size: 80%">views</span>
-				</div>
-				<% rescue %>
-				<!-- Meta data could not be loaded -->
-				<% end %>
-			</div>
-			
-			<p><%= link_to "watch on youtube", @video.player_url, target: "_blank" %></p>
-			
-		</td>
-		<td valign="top" style="padding-left: 20px">
-			<p><%= link_to "<< back to videos", videos_path %></p>
-			<%= cache "yt_side_bar_#{@video_id}" do %>
-			<%= related_product_links_for_video(@video) %>			
+<div class="row">
+  <div class="large-8 large-offset-2 small-12 columns">
+    <%=raw @video.embed_html5({class: 'video-player', id: @video_id, width: '640', height: '390', frameborder: '1'}) %>
+<!-- 	<iframe width="640" height="390" src="http://www.youtube.com/embed/<%= @video_id %>" frameborder="0" allowfullscreen></iframe> -->
+    <div>
+      <%= render 'shared/add_this' %>
+      <% begin %>
+        <p><%= auto_link @video.description %></p>
+      <% rescue %>
+        <!-- Meta data could not be loaded -->
+      <% end %>
+    </div>
+
+    <p><%= link_to "watch on youtube", @video.player_url, target: "_blank", class: "tiny secondary button" %></p>
+
+    <%= cache "yt_side_bar_#{@video_id}" do %>
+			<%= related_product_links_for_video(@video) %>
 			<% other_videos = favorites_except(@video_id, @youtube_client, @youtube_user, 6) %>
 			<% if other_videos.size > 0 %>
-			<h3 style="margin-top: 22px; color: #666; border-bottom: 1px solid #CCC;"><%= @youtube_user %> Favorites</h3>
+			<h3><%= @youtube_user %> Favorites</h3>
 			<table>
 				<% other_videos.each do |video| %>
 				<tr>
 					<td valign="top">
 						<div style="position: relative; margin: 4px 10px 4px 0px;">
-						<%= link_to(image_tag(video.thumbnails.last.url, alt: video.title, height: 45, width: 60), 
+						<%= link_to(image_tag(video.thumbnails.last.url, alt: video.title, height: 45, width: 60),
 							play_video_path(video_id(video))) %>
 						</div>
 					</td>
@@ -47,8 +40,7 @@
 				<% end %>
 			</table>
 			<% end %>
-			<% end %>
-		</td>
-	</tr>
-</table>
+    <% end %>
+  </div>
+</div>
 

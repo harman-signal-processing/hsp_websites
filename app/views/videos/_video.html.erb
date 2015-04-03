@@ -2,26 +2,30 @@
 <% begin %>
 <% video = @youtube_client.video_by(video_id(video)) %>
 <% description = video.html_content || video.description %>
-<tr>
-	<td valign="top">
-		<div style="position: relative; margin: 0px 20px 20px 20px;">
-			<%= link_to(image_tag(video.thumbnails.last.url, alt: video.title, height: 90, width: 120), 
-				play_video_path(video_id(video))) %>
-			<div style='position:absolute; top: 30px; left: 45px; z-index: 1'>
-				<%= link_to(image_tag("play.png", alt: "play"), play_video_path(video_id(video))) %>
-			</div>
-		</div>
-	</td>
-	<td valign="top" style="padding-bottom: 16px;">
-		<div><b><%= link_to(video.title, play_video_path(video_id(video))) %></b></div>
-		<p style="font-size: 70%; color: #666">
-			<%=l video.published_at.to_date, format: :long %> 
-			&nbsp;&nbsp;
-			<%= seconds_to_MS(video.duration) %>
-		</p>
-		<span style="font-size: 85%"><%=auto_link truncate(description, length: 235) %></span>
-	</td>
-</tr>
+<div class="row">
+  <div class="large-2 small-6 columns">
+    <%= link_to(image_tag(video.thumbnails.last.url, alt: video.title, height: 90, width: 120),
+      play_video_path(video_id(video))) %>
+    <div style='position:absolute; top: 30px; left: 45px; z-index: 1'>
+      <%= link_to(image_tag("play.png", alt: "play"), play_video_path(video_id(video))) %>
+    </div>
+  </div>
+  <div class="large-10 small-6 columns">
+		<h6><%= link_to(video.title, play_video_path(video_id(video))) %>
+      <small>
+        <%=l video.published_at.to_date, format: :long %>
+        &nbsp;&nbsp;
+        <%= seconds_to_MS(video.duration) %>
+      </small>
+    </h6>
+		<span class="hide-for-small"><%=auto_link truncate(description, length: 235) %></span>
+	</div>
+</div>
+<div class="row">
+  <div class="large-12 columns">
+    <hr/>
+  </div>
+</div>
 <% rescue %>
 <!-- video could not be loaded -->
 <% end %>

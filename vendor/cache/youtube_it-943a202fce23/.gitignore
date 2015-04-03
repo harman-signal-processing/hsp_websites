@@ -1,9 +1,0 @@
-.DS_Store
-.idea
-*.tmproj
-*.pkg
-*.gem
-pkg/
-Gemfile.lock
-*.rbenv*
-*.swp
