@@ -15,7 +15,7 @@ class ProductFamily < ActiveRecord::Base
 
   validates_attachment :family_photo, content_type: { content_type: /\Aimage/i }
   validates_attachment :family_banner, content_type: { content_type: /\Aimage/i }
-  validates_attachment :title_banner, content_type: { content_type: /\Aimage/i }
+  validates_attachment :title_banner, content_type: { content_type: /\Aimage|pdf/i }
   validates_attachment :background_image, content_type: { content_type: /\Aimage/i }
 
   validates :brand_id, presence: true
