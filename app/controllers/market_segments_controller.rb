@@ -11,10 +11,14 @@ class MarketSegmentsController < ApplicationController
   # GET /market_segments/1.xml
   def show
     @market_segment = MarketSegment.find(params[:id])
-    @product_families = @market_segment.market_segment_product_families.map(&:product_family)
+
     if !website.market_segments.include?(@market_segment)
       redirect_to market_segments_path, status: :moved_permanently and return
     end
+
+    @product_families = @market_segment.market_segment_product_families.map(&:product_family)
+    @news = @market_segment.related_news.sort_by(&:post_on).reverse[0,6]
+
     respond_to do |format|
       format.html { render_template }
       # format.xml  { render xml: @market_segment }

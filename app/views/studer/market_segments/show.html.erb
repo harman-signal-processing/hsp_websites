@@ -16,20 +16,16 @@
     </div>
 <% end %>
 
-<ul class="large-block-grid-8 small-block-grid-2">
+<ul class="large-block-grid-<%= (@market_segment.all_current_products.length / 2).to_i %> small-block-grid-2">
   <% @market_segment.all_current_products.each do |product| %>
     <li><%= render_partial("product_families/compact_product_square", product: product) %></li>
   <% end %>
 </ul>
 
 <% if @market_segment.related_news.length > 0 %>
-<div class="row">
-  <div class="large-8 columns">
-    <h3 class="subheader">Related News</h3>
-    <% @market_segment.related_news.sort_by(&:post_on).reverse[0,6].each do |n| %>
-      <%= render_partial 'news/news_row', news: n %>
-    <% end %>
-    <%= link_to "more news...", news_index_path, class: "tiny button" %>
+  <div class="homepage_block text-center news_strip hide-for-medium-down">
+    <h2 class="text-center">Related News</h2>
+    <%= render_partial 'shared/column_for_news_and_reviews' %>
   </div>
-</div>
 <% end %>
+<p>&nbsp;</p>
