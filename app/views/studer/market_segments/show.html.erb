@@ -22,4 +22,30 @@
   <% end %>
 </ul>
 
-
+<% if @market_segment.related_news.length > 0 %>
+<div class="row">
+  <div class="large-8 columns">
+    <h3 class="subheader">Related News</h3>
+    <% @market_segment.related_news.sort_by(&:post_on).reverse[0,6].each do |n| %>
+      <%= render_partial 'news/news_row', news: n %>
+      <div class="row">
+        <div class="large-2 hide-for-small columns">
+          <% if p.news_photo_file_name.present? %>
+            <%= link_to image_tag(p.news_photo.url(:tiny_square)), p %>
+          <% end %>
+        </div>
+        <div class="large-8 end columns">
+          <b><%=l p.post_on.to_date, format: :long %></b><br/>
+          <%= link_to translate_content(p, :title), p %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="large-10 columns">
+          <hr/>
+        </div>
+      </div>
+    <% end %>
+    <%= link_to "more news...", news_index_path, class: "tiny button" %>
+  </div>
+</div>
+<% end %>

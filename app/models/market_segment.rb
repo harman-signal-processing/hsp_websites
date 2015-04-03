@@ -41,7 +41,11 @@ class MarketSegment < ActiveRecord::Base
   end
 
   def all_current_products
-    self.product_families_with_current_products.map{|pf| pf.current_products}.flatten
+    @all_current_products ||= self.product_families_with_current_products.map{|pf| pf.current_products}.flatten.uniq
+  end
+
+  def related_news
+    @related_news ||= self.all_current_products.map{|p| p.current_news}.flatten.uniq
   end
 
 end

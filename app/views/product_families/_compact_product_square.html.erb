@@ -12,13 +12,13 @@
 	end
 %>
 
-<div id="<%= product.to_param %>" class="small_product_box">
-		<div class="product_thumb">
-		<% if product.photo %>
-				<%= link_to image_tag(product.photo.product_attachment.url(:horiz_thumb)), this_url, target: target %>
-		<% end %>
-		</div>
-		<p class="text-center"><%= link_to translate_content(product, :name), this_url, target: target %></p>
+<div id="<%= product.to_param %>" class="small_product_box text-center">
+  <div class="product_thumb">
+  <% if product.photo %>
+      <%= link_to image_tag(product.photo.product_attachment.url(:horiz_thumb), alt: product.name), this_url, target: target %>
+  <% end %>
+  </div>
+  <small><%= link_to translate_content(product, :name), this_url, target: target %></small>
 </div>
 
 <% end %>
