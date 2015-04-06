@@ -44,6 +44,8 @@ HarmanSignalProcessingWebsite::Application.configure do
   # the locale is "en-US" (which actually pulls from "en.yml")
   config.i18n.fallbacks = true
 
+  config.active_support.test_order = :random # :sorted
+
   config.employee_invitation_code = "EMPLOYEE"
   config.rso_invitation_code = "INVITED"
   config.media_invitation_code = "MEDIA"
