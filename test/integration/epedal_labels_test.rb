@@ -18,8 +18,8 @@ describe "epedal Labels Integration Test" do
     FactoryGirl.create(:parent_product, product: @zooberator, parent_product: @istomp)
     @stompshop = FactoryGirl.create(:software, name: "Stomp Shop", layout_class: "stomp_shop", brand: @brand)
     FactoryGirl.create(:product_software, product: @istomp, software: @stompshop)
-    @sheet = FactoryGirl.create(:label_sheet, product_ids: [@gooberator.id, @fooberator.id].join(", "))
-    @sheet2 = FactoryGirl.create(:label_sheet, product_ids: [@zooberator.id].join(", "))
+    @sheet = FactoryGirl.create(:label_sheet, products: [@gooberator.id, @fooberator.id].join(", "))
+    @sheet2 = FactoryGirl.create(:label_sheet, products: [@zooberator.id].join(", "))
     Website.any_instance.stubs(:istomp_coverflow).returns(1)
     Website.any_instance.stubs(:epedal_label_order_recipient).returns("epedal_fulfillment@harman.com")
     host! @website.url

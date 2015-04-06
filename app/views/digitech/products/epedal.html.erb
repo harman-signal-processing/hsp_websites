@@ -134,7 +134,7 @@ set_meta_tags title: @product.name,
 			<%= image_tag @product.images_for("product_page")[1].product_attachment.url(:vert_medium), 
 				alt: "#{@product.name} with iStomp label" %>
 		<% end %>
-    <%#= render_partial "products/epedal_get_label" %>
+    <%= render_partial "products/epedal_get_label" %>
 	</div>
 
 	<div class="clear"></div>
