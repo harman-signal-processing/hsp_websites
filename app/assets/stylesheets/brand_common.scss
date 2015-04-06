@@ -486,6 +486,34 @@ div.homepage_block {
       min-height: 100px;
     }
   }
+  &.market_segments {
+    li {
+      div.market-segment {
+        position: relative;
+        img {
+          width: 100%
+        }
+        div.text-center {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          max-height: 65px;
+          overflow: hidden;
+          background: rgb(0, 0, 0);
+          background: rgba(0, 0, 0, 0.8);
+          color: $light-gray;
+          padding-top: 4px 0 1px;
+          p {
+            font-size: rem-calc(11px);
+          }
+          a {
+            color: white;
+          }
+        }
+      }
+    }
+  }
 }
 .yellow {
   color: yellow !important;

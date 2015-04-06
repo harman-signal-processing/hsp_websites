@@ -6,7 +6,9 @@
       <div class="large-12 columns">
         <h1>
           <% if !@market_segment.banner_image_file_name.blank? %>
-            <%= image_tag(@market_segment.banner_image.url, alt: translate_content(@market_segment, :name), style: " width: 100%") %>
+            <%= image_tag(@market_segment.banner_image.url, alt: translate_content(@market_segment, :name), style: "width: 100%") %>
+          <% elsif File.exist?(Rails.root.join("app", "assets", "images", website.folder, "market_segment_placeholder.jpg")) %>
+            <%= image_tag("#{website.folder}/market_segment_placeholder.jpg", alt: translate_content(@market_segment, :name), style: "width: 100%") %>
           <% else %>
             <%= translate_content(@market_segment, :name) %>
           <% end %>
@@ -16,16 +18,19 @@
     </div>
 <% end %>
 
-<ul class="large-block-grid-<%= (@market_segment.all_current_products.length / 2).to_i %> small-block-grid-2">
-  <% @market_segment.all_current_products.each do |product| %>
-    <li><%= render_partial("product_families/compact_product_square", product: product) %></li>
-  <% end %>
-</ul>
+<%= cache ["market_segment_content", website.brand, @market_segment, I18n.locale] do %>
+  <ul class="large-block-grid-<%= (@market_segment.all_current_products.length / 2).to_i %> small-block-grid-2">
+    <% @market_segment.all_current_products.each do |product| %>
+      <li><%= render_partial("product_families/compact_product_square", product: product) %></li>
+    <% end %>
+  </ul>
 
-<% if @market_segment.related_news.length > 0 %>
-  <div class="homepage_block text-center news_strip hide-for-medium-down">
-    <h2 class="text-center">Related News</h2>
-    <%= render_partial 'shared/column_for_news_and_reviews' %>
-  </div>
+  <% if @market_segment.related_news.length > 0 %>
+    <div class="homepage_block text-center news_strip hide-for-medium-down">
+      <h2 class="text-center">Related News</h2>
+      <%= render_partial 'shared/column_for_news_and_reviews' %>
+    </div>
+  <% end %>
+  <p>&nbsp;</p>
 <% end %>
-<p>&nbsp;</p>
+

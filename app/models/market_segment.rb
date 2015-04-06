@@ -5,7 +5,20 @@ class MarketSegment < ActiveRecord::Base
   belongs_to :brand, touch: true
   has_many :market_segment_product_families, -> { order('position') }, dependent: :destroy
   has_many :product_families, through: :market_segment_product_families
-  has_attached_file :banner_image, { styles: { medium: "300x300>", thumb: "100x100>" }}.merge(S3_STORAGE)
+  has_attached_file :banner_image, {
+    styles: {
+      banner: "1024x300",
+      large: "640x480",
+      medium: "300x300>",
+      horiz_medium: "670x275",
+      vert_medium: "375x400",
+      medium_small: "150x225",
+      small: "240x180",
+      horiz_thumb: "170x80",
+      thumb: "100x100>",
+      tiny: "64x64",
+      tiny_square: "64x64#"
+    }}.merge(S3_STORAGE)
 
   validates_attachment :banner_image, content_type: { content_type: /\Aimage/i }
   validates :name, presence: true
