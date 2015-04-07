@@ -1,7 +1,8 @@
 jQuery ($) ->
 
   $('#system_summary_container ').pin
-    containerSelector: $('#content_container_content')
+    containerSelector: $('#main_container')
+    padding: {top: 100}
 
   $("div.long_description").hide()
 
@@ -15,5 +16,5 @@ jQuery ($) ->
     h = $(@).height()
     tallest = h if h > tallest
 
-  $("div.starter_option").each -> $(@).css('min-height': "#{tallest}px")
+  $("div.starter_option").each -> $(@).css('height': "#{tallest+20}px")
 

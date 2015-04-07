@@ -1,30 +1,31 @@
 <%= simple_form_for [@system, @system_configuration], html: { class: 'configurator' } do |f| %>
 
-	<div id="system_summary_container">
-		<h5 class="subheader">SYSTEM SUMMARY</h5>
-		<div class="system_summary_content">
-			<p>Your system requires:</p>
-			<ul id="system_summary_items" class="list">
-			</ul>
-		</div>
-		<div style="text-align: center">
-			<%= link_to 'Print List', '#', class: 'secondary button' %>
-			<%= link_to 'Contact Me', '#', class: 'secondary button' %>
-		</div>
-	</div>
+  <div class="row">
+    <div class="large-8 small-7 columns" id="system_builder">
+      <%= f.fields_for :system_configuration_options do |sco| %>
+        <% unless sco.object.system_option.parent_id.to_i > 0 %>
+            <%= render_partial "system_option", f: f, sco: sco %>
+        <% end %>
+      <% end %>
 
-	<div id="system_builder">
-		
-		<%= f.fields_for :system_configuration_options do |sco| %>
-			<% unless sco.object.system_option.parent_id.to_i > 0 %>
-					<%= render_partial "system_option", f: f, sco: sco %>
-			<% end %>
-		<% end %>
-
-		<h5><i>We've just scratched the surface of the features and options available
-			in <%= @system.name.pluralize %>. <%= link_to 'Contact us', support_path %>
-			for more details.</i></h5>
-		
-	</div>
+      <h5><i>We've just scratched the surface of the features and options available
+        in <%= @system.name.pluralize %>. <%= link_to 'Contact us', support_path %>
+        for more details.</i></h5>
+    </div>
+    <div class="large-4 small-5 columns">
+      <div class="panel" id="system_summary_container">
+        <h5 class="text-center subheader">SYSTEM SUMMARY</h5>
+        <div class="system_summary_content">
+          <p>Your system requires:</p>
+          <ul id="system_summary_items" class="list">
+          </ul>
+        </div>
+        <div class="text-center">
+          <%= link_to 'Print List', '#', class: 'tiny secondary button' %>
+          <%= link_to 'Contact Me', '#', class: 'tiny secondary button' %>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <% end %>

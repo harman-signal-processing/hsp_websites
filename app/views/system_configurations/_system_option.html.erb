@@ -23,11 +23,12 @@
 		<% end %>
 
 		<%= render_partial "system_configurations/#{system_option.option_type.parameterize}_system_option", f: sco %>
-	</div>
 
 <%= f.fields_for :system_configuration_options do |child_sco| %>
 	<% if child_sco.object.system_option.parent_id.to_i == system_option.id %>
 		<%= render_partial "system_configurations/system_option", f: f, sco: child_sco %>
 	<% end %>
 <% end %>
+	</div>
 </div>
+<% if system_option.parent_id.to_i <= 0 %><p>&nbsp;</p><% end %>

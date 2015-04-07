@@ -115,7 +115,7 @@ $form-spacing: emCalc(18px);
 // $form-label-pointer: pointer;
 // $form-label-font-size: emCalc(14px);
 $form-label-font-weight: 400;
-$form-label-font-color: lighten($body-font-color, 30%);
+$form-label-font-color: lighten($body-font-color, 10%);
 // $form-label-bottom-margin: emCalc(3px);
 // $input-font-family: inherit;
 $input-font-color: rgba(0,0,0,0.65);
@@ -396,50 +396,17 @@ div.product-title-block, div.small-title-block {
 }
 
 /********** for system configurator */
-a.button, input[type=submit], button {
-	padding: 10px 20px;
-	background: $primary-color;
-	color: white !important;
-	text-decoration: none;
-	border: none;
-	font-weight: 200;
-	&:hover {
-		cursor: pointer;
-		background: darken($primary-color, 5%);
-	}
-	&.secondary {
-		background: darken($medium-gray, 10%);
-		&:hover {
-			background: darken($medium-gray, 15%);
-		}
-	}
-	&.small {
-		padding: 5px 10px;
-		font-size: 11px;
-	}
-}
 div#system_builder {
-	width: 650px;
 }
 div#system_summary_container {
-	position: absolute;
-	top: 60px;
-	right: 10px;
-	width: 260px;
-	background: $light-gray;
-	height: 500px;
-	padding: 8px;
-	h5 {
-		text-align: center;
-	}
-	.system_summary_content {
-		height: 400px;
-		margin-bottom: 20px;
-		overflow: auto;
-	}
+  .system_summary_content {
+    height: 400px;
+    margin-bottom: 20px;
+    overflow: auto;
+  }
 }
 div.major_system_container {
-	border: 1px solid lighten($medium-gray, 15%);
+  border: 1px solid lighten($medium-gray, 15%);
 	margin: 10px 0px;
 	padding: 0px ;
 }
@@ -447,34 +414,14 @@ div.system_selector {
 	padding: 20px;
 	background: lighten($light-gray, 15%);
 	border: none;
+	margin-bottom: 10px;
 	h1 {
 		text-align: center;
 	}
 	.submit_container {
-		clear: both;
 		text-align: center;
-		padding: 20px;
 	}
-	margin-bottom: 10px;
-}
-div.starter_option_container {
-	margin: 0 auto;
-	width: 900px;
-}
-div.starter_option {
-	float: left;
-	background: lighten($light-gray, 2%);
-	padding: 10px;
-	margin: 10px;
-	min-height: 180px;
-	overflow: hidden;
-	h4 {
-		color: $dark-gray;
-	}
-	div.row {
-    margin-top: 16px;
-	}
-  .major_system_container {
+  div.major_system_container {
     border: none;
   }
 }
@@ -488,8 +435,11 @@ div.disabled {
 div.long_description {
 	background: $dark-gray;
 	color: white;
-	padding: 20px 20px 10px;
+	padding: 20px 20px 2px;
 	margin: 20px 0px;
+  p {
+    color: white;
+  }
 }
 form.configurator div.row {
 	padding: 20px 0px 10px;
@@ -500,9 +450,6 @@ form.configurator div.row {
 			margin-right: 10px;
 		}
 	}
-  .column, .columns {
-    margin: 0px 20px;
-  }
 }
 a.help {
 	img {

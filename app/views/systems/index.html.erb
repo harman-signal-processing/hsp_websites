@@ -7,21 +7,24 @@
 		<%= simple_form_for [system, system_configuration], url: new_system_system_configuration_path(system), method: :get do |f| %>
 			<div class='starter_option_container'>
 
+        <ul class="large-block-grid-<%= f.object.system_configuration_options.select{|sco| sco unless sco.system_option.parent_id.to_i > 0 }.length %> small-block-grid-1">
 				<%= f.fields_for :system_configuration_options do |sco| %>
 
 					<% unless sco.object.system_option.parent_id.to_i > 0 %>
-					<div style="width: <%= (820 / ((system.parent_system_options_for_start_page.length > 0) ? system.parent_system_options_for_start_page.length : 26))-25 %>px" class='starter_option'>
-						<%= render_partial "system_configurations/system_option", 
-								skip_children: true, 
-								skip_help: false, 
-								f: f,
-								sco: sco %>
-					</div>
+            <li>
+              <div class='panel starter_option'>
+                <%= render_partial "system_configurations/system_option",
+                    skip_children: true,
+                    skip_help: false,
+                    f: f,
+                    sco: sco %>
+              </div>
+            </li>
 					<% end %>
 
 				<% end %>
 
-			</div>
+			</ul>
 
 			<div class="submit_container">
 				<%= f.submit 'Build It', class: 'button' %>
