@@ -76,6 +76,9 @@ set_meta_tags title: @product.name,
 <section id="product_content" class="istomp">
 	<h2><%= @product.short_description %></h2>
 	<div id="left_column">
+    <% if @product.discontinued? %>
+      <span class="discontinued">(<%= t('discontinued') %>)</span>
+    <% end %>
 		<% if @product.photo %>
 			<%= image_tag(@product.photo.product_attachment.url(:horiz_medium),
 					id: "label_changer",

@@ -62,7 +62,11 @@ set_meta_tags title: @product.name,
 <div class="hide-for-large-up small-title-block">
   <div class="row">
     <div class="small-6 columns">
-      <h1><%= title translate_content(@product, :name) %></h1>
+      <h1><%= title translate_content(@product, :name) %>
+        <% if @product.discontinued? %>
+          <span class="discontinued">(<%= t('discontinued') %>)</span>
+        <% end %>
+      </h1>
       <h3><%= translate_content(@product, :short_description) %></h3>
     </div>
     <div class="small-6 columns text-right">
@@ -109,10 +113,12 @@ set_meta_tags title: @product.name,
   <% if @product.photo %>
     <div id="viewer_container" class="text-center">
       <div id="viewer">
-        <% if @product.images_for("product_page").size == 1 %>
-        <%= link_to(image_tag(@product.photo.product_attachment.url(:full_width)), @product.photo.product_attachment.url) %>
+        <% if @product.discontinued? %>
+          <%= image_tag(@product.photo.product_attachment.url(:large)) %>
+        <% elsif @product.images_for("product_page").size == 1 %>
+          <%= link_to(image_tag(@product.photo.product_attachment.url(:full_width)), @product.photo.product_attachment.url) %>
         <% else %>
-        <%= image_tag(@product.photo.product_attachment.url(:full_width)) %>
+          <%= image_tag(@product.photo.product_attachment.url(:full_width)) %>
         <% end %>
       </div>
     </div>
@@ -125,7 +131,11 @@ set_meta_tags title: @product.name,
     <% if @product.layout_class.to_s.match(/vertical/i) %>
       <% if @product.photo %>
       <div class="text-center" style="margin: 20px 0px;">
-        <%= link_to(image_tag(@product.photo.product_attachment.url(:vert_medium)), @product.photo.product_attachment.url) %>
+        <% if @product.discontinued? %>
+          <%= image_tag(@product.photo.product_attachment.url(:large)) %>
+        <% else %>
+          <%= link_to(image_tag(@product.photo.product_attachment.url(:vert_medium)), @product.photo.product_attachment.url) %>
+        <% end %>
       </div>
       <% end %>
     <% end %>
@@ -151,7 +161,11 @@ set_meta_tags title: @product.name,
 
   <div class="large-4 small-12 columns">
     <div class="product-title-block show-for-large-up">
-      <h1><%= title translate_content(@product, :name) %></h1>
+      <h1><%= title translate_content(@product, :name) %>
+      <% if @product.discontinued? %>
+        <span class="discontinued">(<%= t('discontinued') %>)</span>
+      <% end %>
+      </h1>
       <h3><%= translate_content(@product, :short_description) %></h3>
 
       <% if (website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !@product.direct_buy_link.blank?) && !@product.hide_buy_it_now_button? %>

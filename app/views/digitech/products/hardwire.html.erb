@@ -103,6 +103,9 @@ set_meta_tags title: @product.name,
 	<div id="right_column">
 		<h1 <% unless @product.background_color.blank? %>style="background-color: <%= @product.background_color %>;"<% end %>>
 			<%= title "#{@product.name} #{translate_content(@product, :short_description)}" %>
+        <% if @product.discontinued? %>
+          <span class="discontinued">(<%= t('discontinued') %>)</span>
+        <% end %>
 		</h1>
 		
 		<% if website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !@product.direct_buy_link.blank? %>

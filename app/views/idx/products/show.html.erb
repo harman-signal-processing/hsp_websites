@@ -100,7 +100,11 @@ set_meta_tags title: @product.name,
 	</div>
 	
 	<div id="right_column">
-		<h1><%= title @product.name %></h1>
+    <h1><%= title translate_content(@product, :name) %>
+      <% if @product.discontinued? %>
+        <span class="discontinued">(<%= t('discontinued') %>)</span>
+      <% end %>
+    </h1>
 		
 		<% if website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !@product.direct_buy_link.blank? %>
 		<div id="product_buy_now_box">

@@ -59,10 +59,11 @@ class ProductsController < ApplicationController
         end
         if @product.discontinued?
           @alternatives = @product.alternatives
-          render_template(action: "discontinued") and return
+        end
+        #  render_template(action: "discontinued") and return
         # If a particular product needs a custom page, create its html.erb template in
         # app/views/{website-brand-folder}/products/{product-friendly-id}.html.erb
-        elsif !@product.layout_class.blank? && File.exists?(Rails.root.join("app", "views", website.folder, "products", "#{@product.layout_class}.html.erb"))
+        if !@product.layout_class.blank? && File.exists?(Rails.root.join("app", "views", website.folder, "products", "#{@product.layout_class}.html.erb"))
           render template: "#{website.folder}/products/#{@product.layout_class}", layout: set_layout
         else
           render_template

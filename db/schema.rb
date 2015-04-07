@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150402203258) do
+ActiveRecord::Schema.define(version: 20150407195545) do
 
   create_table "admin_logs", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -668,6 +668,7 @@ ActiveRecord::Schema.define(version: 20150402203258) do
     t.datetime "updated_at"
     t.string   "cached_slug",             limit: 255
     t.integer  "brand_id",                limit: 4
+    t.text     "quote",                   limit: 65535
   end
 
   add_index "news", ["brand_id"], name: "index_news_on_brand_id", using: :btree

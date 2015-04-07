@@ -65,6 +65,9 @@ set_meta_tags title: @product.name,
 
 <header id="product_header">
 	<h1><%= @product.name %> <small><%= @product.short_description %></small></h1>
+        <% if @product.discontinued? %>
+          <span class="discontinued">(<%= t('discontinued') %>)</span>
+        <% end %>
 </header>
 	
 <section id="product_content" class="epedal">

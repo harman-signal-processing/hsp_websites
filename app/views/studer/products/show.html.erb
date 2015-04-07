@@ -62,7 +62,11 @@ set_meta_tags title: @product.name,
 <div class="hide-for-large-up small-title-block">
   <div class="row">
     <div class="small-6 columns">
-      <h1><%= title translate_content(@product, :name) %></h1>
+      <h1><%= title translate_content(@product, :name) %>
+        <% if @product.discontinued? %>
+          <span class="discontinued">(<%= t('discontinued') %>)</span>
+        <% end %>
+      </h1>
       <h3><%= translate_content(@product, :short_description) %></h3>
     </div>
     <div class="small-6 columns text-right">
@@ -151,7 +155,11 @@ set_meta_tags title: @product.name,
 
   <div class="large-4 small-12 columns">
     <div class="product-title-block show-for-large-up">
-      <h1><%= title translate_content(@product, :name) %></h1>
+      <h1><%= title translate_content(@product, :name) %>
+        <% if @product.discontinued? %>
+          <span class="discontinued">(<%= t('discontinued') %>)</span>
+        <% end %>
+      </h1>
       <h3><%= translate_content(@product, :short_description) %></h3>
 
       <% if website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !@product.direct_buy_link.blank? %>

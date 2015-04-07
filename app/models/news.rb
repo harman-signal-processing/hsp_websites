@@ -106,6 +106,10 @@ class News < ActiveRecord::Base
     "#{I18n.l(self.created_at.to_date, format: :long)} - #{self.body}"
   end
 
+  def quote_or_headline
+    @quote_or_headline ||= self.quote.present? ? self.quote : self.title
+  end
+
   # Translates this record into other languages.
   def translate
     ContentTranslation.auto_translate(self, self.brand)

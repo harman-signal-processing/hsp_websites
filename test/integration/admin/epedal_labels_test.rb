@@ -14,9 +14,9 @@ describe "Admin epedal Labels Integration Test" do
     FactoryGirl.create(:parent_product, product: @fooberator, parent_product: @istomp)
     Website.any_instance.stubs(:epedal_label_order_recipient).returns("epedal_fulfillment@harman.com")
     host! @website.url
-    Capybara.default_host = "http://#{@website.url}" 
-    Capybara.app_host = "http://#{@website.url}" 
-    @sheet = FactoryGirl.create(:label_sheet, product_ids: [@gooberator.id, @fooberator.id].join(", "))
+    Capybara.default_host = "http://#{@website.url}"
+    Capybara.app_host = "http://#{@website.url}"
+    @sheet = FactoryGirl.create(:label_sheet, products: [@gooberator.id, @fooberator.id].join(", "))
     @user = FactoryGirl.create(:user, market_manager: true, password: "password")
     admin_login_with(@user, "password", @website)
   end
@@ -25,7 +25,7 @@ describe "Admin epedal Labels Integration Test" do
   #   DatabaseCleaner.clean
   # end
 
-  describe "managing label sheets" do 
+  describe "managing label sheets" do
     before do
       @zooberator = FactoryGirl.create(:product, name: "Fooberator", brand: @brand, layout_class: "epedal")
       FactoryGirl.create(:parent_product, product: @zooberator, parent_product: @istomp)
@@ -39,15 +39,15 @@ describe "Admin epedal Labels Integration Test" do
     it "should create a new sheet" do
       click_on "New label sheet"
       fill_in 'label_sheet_name', with: "Yo Mama"
-      fill_in 'label_sheet_product_ids', with: @zooberator.to_param
+      fill_in 'label_sheet_products', with: @zooberator.to_param
       click_on 'Create'
+
       page.must_have_content "Yo Mama"
-      # save_and_open_page
-      LabelSheet.last.products.must_include(@zooberator)
+      LabelSheet.last.decoded_products.must_include(@zooberator)
     end
   end
 
-  describe "managing label sheet orders" do 
+  describe "managing label sheet orders" do
     before do
         @order = FactoryGirl.create(:label_sheet_order, label_sheet_ids: [@sheet.id], subscribe: true)
         visit admin_label_sheet_orders_url(host: @website.url, locale: I18n.default_locale)
@@ -59,6 +59,7 @@ describe "Admin epedal Labels Integration Test" do
 
     it "should show the order details" do
       click_on @order.name
+
       page.must_have_content @order.address
       page.must_have_content @order.city
       page.must_have_content @order.state
@@ -84,6 +85,7 @@ describe "Admin epedal Labels Integration Test" do
         last_email.body.must_include "today"
         @order.reload
         @order.mailed_on.blank?.wont_equal(true)
+
         page.must_have_content "Success"
     end
 
@@ -95,7 +97,7 @@ describe "Admin epedal Labels Integration Test" do
       visit admin_label_sheet_orders_url(host: @website.url, locale: I18n.default_locale)
     end
 
-    it "should have a button to export all" do 
+    it "should have a button to export all" do
       page.must_have_link "Export All", href: admin_label_sheet_orders_path(format: 'xls', locale: I18n.default_locale)
     end
 

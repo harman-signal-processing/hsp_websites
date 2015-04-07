@@ -104,28 +104,9 @@ describe "Browse Products Integration Test" do
       @product = FactoryGirl.create(:discontinued_product, brand: @website.brand)
     end
 
-    it "should use the discontinued page layout" do
+    it "should label the product as discontinued" do
       visit product_url(@product, locale: I18n.default_locale, host: @website.url)
       page.must_have_content "discontinued"
-    end
-
-    it "should link to attached documents" do
-      @product.product_documents << FactoryGirl.create(:product_document, product: @product)
-      visit product_url(@product, locale: I18n.default_locale, host: @website.url)
-      page.must_have_link @product.product_documents.first.name(hide_product_name: true), href: @product.product_documents.first.document.url
-    end
-
-    it "should have thumbnail images" do
-      @product.product_attachments << FactoryGirl.create(:product_attachment, product: @product)
-      visit product_url(@product, locale: I18n.default_locale, host: @website.url)
-      page.must_have_xpath("//img[@src='#{@product.product_attachments.first.product_attachment.url(:medium)}']")
-    end
-
-    it "should link to software" do
-      software = FactoryGirl.create(:software)
-      @product.product_softwares << FactoryGirl.create(:product_software, product: @product, software: software)
-      visit product_url(@product, locale: I18n.default_locale, host: @website.url)
-      page.must_have_link software.formatted_name, href: software_path(software, locale: I18n.default_locale)
     end
 
   end

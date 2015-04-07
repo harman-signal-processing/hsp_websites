@@ -144,7 +144,11 @@ set_meta_tags title: @product.name,
 	</div>
 
 	<div class="large-7 large-pull-5 pull-5 small-12 columns">
-		<h1 style="margin-bottom: 0px"><%= title translate_content(@product, :name) %></h1>
+    <h1 style="margin-bottom: 0px"><%= title translate_content(@product, :name) %>
+      <% if @product.discontinued? %>
+        <span class="discontinued">(<%= t('discontinued') %>)</span>
+      <% end %>
+    </h1>
 		<h3 class="subheader"><%= translate_content(@product, :short_description) %></h3>
 		<%= render 'shared/add_this' %>
 		<!-- <%= @active_tab %> -->
@@ -187,7 +191,11 @@ set_meta_tags title: @product.name,
 
 <div class="row">
 	<div class="large-8 columns">
-		<h1 style="margin-bottom: 0px"><%= title translate_content(@product, :name) %></h1>
+    <h1 style="margin-bottom: 0px"><%= title translate_content(@product, :name) %>
+      <% if @product.discontinued? %>
+        <span class="discontinued">(<%= t('discontinued') %>)</span>
+      <% end %>
+    </h1>
 		<h3 class="subheader"><%= translate_content(@product, :short_description) %></h3>
 	</div>
 	<div class="large-4 columns">

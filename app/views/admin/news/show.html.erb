@@ -14,11 +14,19 @@
 </ul>
 
 <div class="row">
-	<div class="large-6 columns">
+	<div class="large-4 columns">
+    <p>Quote:</p>
+    <% if @news.quote.present? %>
+      <%=raw @news.quote %>
+    <% else %>
+      <i>none provided.</i>
+    <% end %>
+  </div>
+	<div class="large-4 columns">
 		<p>Publish on: <%=l @news.post_on, format: :long %></p>
 		<%#=truncate(strip_html(@news.body), length: 75) %>
 	</div>
-	<div class="large-6 columns">
+	<div class="large-4 columns">
 		<% if !@news.news_photo_file_name.blank? %>
   			<%= image_tag(@news.news_photo.url(:thumb)) %>
   		<% end %>

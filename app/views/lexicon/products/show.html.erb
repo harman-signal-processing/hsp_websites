@@ -79,7 +79,11 @@ set_meta_tags title: @product.name,
 	<div id="left_column">
 		<div id="product_basics">
 
-			<h1><%= title @product.name %></h1>
+      <h1><%= title translate_content(@product, :name) %>
+        <% if @product.discontinued? %>
+          <span class="discontinued">(<%= t('discontinued') %>)</span>
+        <% end %>
+      </h1>
 			<h3><%= @product.short_description %></h3>
 			
 			<div id="product_basics_bottom">

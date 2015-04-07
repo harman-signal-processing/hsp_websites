@@ -542,10 +542,10 @@ module ApplicationHelper
     ]
     pro_brands.each do |b|
       unless website.brand.name.match(/#{b[:name]}/i) || options[:exclude].match(/#{b[:name]}/i)
-        links << link_to(image_tag("pro_brands/#{b[:name].downcase}.png", alt: b[:name], class: "no-resize"), b[:web], target: "_blank") 
+        links << link_to(image_tag("pro_brands/#{b[:name].downcase}.png", alt: b[:name], class: "no-resize"), b[:web], target: "_blank")
       end
     end
-    content_tag :div, raw(links.join), id: "harmanpro_bar"
+    content_tag :div, raw(links.join), id: "harmanpro_bar", class: "hide-for-medium-down"
   end
 
 end

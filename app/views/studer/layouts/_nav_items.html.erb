@@ -22,7 +22,7 @@
     <li><%= link_to t('software_downloads').titleize, software_index_path %></li>
   <% end %>
 
-  <li class="has-dropdown">
+  <li class="hide-for-medium has-dropdown">
     <%= link_to "Media", "", class: "disabled" %>
     <ul class="dropdown">
       <li><%= link_to t('news').titleize, news_index_path %></li>
@@ -38,7 +38,14 @@
 	<li class="hide-for-medium"><%= link_to t('where_to_buy').titleize, where_to_buy_path %></li>
 	<% end %>
 
-	<li><%= link_to t('product_support').titleize, support_path %></li>
+  <li class="has-dropdown">
+    <%= link_to t('product_support').titleize, support_path %>
+    <ul class="dropdown">
+      <li><%= link_to "Customer Service Contacts", '/studer-customer-service-contacts' %></li>
+      <li><%= link_to "Contact Us", '/studer-contact-us' %></li>
+      <li><%= link_to "SBA", 'http://cras-vista.com/moodle/', target: "_blank" %></li>
+    </ul>
+  </li>
 
 	<% if !!(website.forum_link) %>
 	<li class="hide-for-medium show-for-large"><%= link_to t("forum").titleize, website.forum_link %></li>
@@ -47,8 +54,9 @@
   <li class="hide-for-medium has-dropdown">
     <%= link_to "About", "", class: "disabled" %>
     <ul class="dropdown">
-      <li><%= link_to "Overview", '/about-studer#studer-overview' %></li>
-      <li><%= link_to "At A Glance", '/about-studer#studer-at-a-glance' %></li>
+      <li><%= link_to "Across The Board", '/across-the-board' %></li>
+      <li><%= link_to "Tradeshows", '/studer-tradeshows' %></li>
+      <li><%= link_to "Overview", '/about-studer' %></li>
     </ul>
   </li>
 <% end %>
