@@ -33,11 +33,21 @@
 
   <%= render_partial "shared/featured_products_strip" %>
   <%= render_partial "shared/market_segments_strip" %>
-  <%= render_partial "shared/videos_strip" %>
-  <%= render_partial "shared/news_and_reviews_strip" %>
   <div class="row">
-    <hr/>
+    <br/>
   </div>
+
+  <%= cache ["news_strip", website.brand, I18n.locale] do %>
+    <div class="homepage_block text-center news_strip hide-for-medium-down">
+      <h2 class="text-center">Customer Testimonials</h2>
+      <%= render_partial 'shared/column_for_news_and_reviews' %>
+    </div>
+  <% end %>
+  <div class="row">
+    <br/>
+  </div>
+
+  <%= render_partial "shared/videos_strip" %>
   <%= render_partial "shared/social_strip" %>
 
 <% end %>
