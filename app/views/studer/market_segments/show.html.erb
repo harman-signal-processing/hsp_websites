@@ -2,21 +2,16 @@
 				 reverse: true %>
 
 <%= content_for :feature do %>
-    <div class="row">
-      <div class="large-12 columns">
-        <h1>
-          <% if !@market_segment.banner_image_file_name.blank? %>
-            <%= image_tag(@market_segment.banner_image.url, alt: translate_content(@market_segment, :name), style: "width: 100%") %>
-          <% elsif File.exist?(Rails.root.join("app", "assets", "images", website.folder, "market_segment_placeholder.jpg")) %>
-            <%= image_tag("#{website.folder}/market_segment_placeholder.jpg", alt: translate_content(@market_segment, :name), style: "width: 100%") %>
-          <% else %>
-            <%= translate_content(@market_segment, :name) %>
-          <% end %>
-        </h1>
-        <div><%=raw @market_segment.description %></div>
-      </div>
-    </div>
+  <% if !@market_segment.banner_image_file_name.blank? %>
+    <%= image_tag(@market_segment.banner_image.url, alt: translate_content(@market_segment, :name), style: "width: 100%") %>
+  <% elsif File.exist?(Rails.root.join("app", "assets", "images", website.folder, "market_segment_placeholder.jpg")) %>
+    <%= image_tag("#{website.folder}/market_segment_placeholder.jpg", alt: translate_content(@market_segment, :name), style: "width: 100%") %>
+  <% else %>
+    <h1> <%= translate_content(@market_segment, :name) %> </h1>
+  <% end %>
 <% end %>
+
+<div><%=raw @market_segment.description %></div>
 
 <%= cache ["market_segment_content", website.brand, @market_segment, I18n.locale] do %>
   <ul class="large-block-grid-<%= (@market_segment.all_current_products.length / 2).to_i %> small-block-grid-2">

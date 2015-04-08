@@ -383,6 +383,13 @@ div.superpadded {
     margin: 0 8px;
   }
 }
+
+.orbit-container img, img.orbit_img {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+}
+
 div.featured_product_container {
   position: relative;
   margin-top: 40px;

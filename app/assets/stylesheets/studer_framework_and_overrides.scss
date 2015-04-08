@@ -96,13 +96,13 @@ $topbar-sticky-class:                  ".sticky";
 	}
 }
 
-@media only screen and (max-width: 719px) {
+@media only screen and (max-width: 919px) {
 	.logo-container img {
     height: 40px;
 		padding: 12px 0px 0px 6px;
 	}
 }
-@media only screen and (max-width: 819px) {
+@media only screen and (max-width: 919px) {
   .top-bar-section {
     li:not(.has-form) a:not(.button) {
       padding-left: rem-calc(6);

@@ -11,7 +11,9 @@
 <%= content_for :feature do %>
 	<%= cache ["slideshow", website.brand, I18n.locale] do %>
 		<% slides = Setting.slides(website) %>
-		<%= video_background_with_features(slides, tagline: true, hide_for_small: false) %>
+		<% if slides.size > 0 %>
+      <%= orbit_slideshow(slides: slides, duration: 6000, navigation_arrows: false, transition: "fade") %>
+		<% end %>
 	<% end %>
 <% end %>
 
