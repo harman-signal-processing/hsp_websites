@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <% if website.google_site_verification %>
+      <meta name="google-site-verification" content="<%= website.google_site_verification %>" />
+    <% end %>
+		<%= csrf_meta_tag %>
+		<%= cache ["meta_tags", request.url] do %>
+			<%= cached_meta_tags %>
+			<meta property="og:site_name" content="<%= website.site_name %>" />
+			<meta property="og:locale" content="<%= I18n.locale %>" />
+			<meta property="og:url" content="<%= request.url %>" />
+
+			<% if website.twitter_name %>
+				<meta property="twitter:site" value="@<%= website.twitter_name %>" />
+			<% end %>
+
+			<% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "logo.png")) %>
+			<link rel="image_src" href="<%= image_url("#{website.folder}/logo.png") %>" />
+			<% end %>
+			<!--[if lt IE 9]>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+        <script src="//s3.amazonaws.com/nwapi/nwmatcher/nwmatcher-1.2.5-min.js"></script>
+        <script src="//html5base.googlecode.com/svn-history/r38/trunk/js/selectivizr-1.0.3b.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
+			<![endif]-->
+			<link href="<%= rss_url(format: 'xml') %>" rel="alternate" title="RSS" type="application/rss+xml"/>
+			<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+			<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+			<%= app_meta_tags() %>
+
+		<% end %>
+
+		<%= javascript_include_tag website.folder %>
+		<%= javascript_include_tag "vendor/modernizr" %>
+		<%= yield :extra_header_code %>
+		<%= stylesheet_link_tag website.folder, media: :all %>
+
+		<%= yield :custom_css %>
+		<script>
+	  		<%= yield :extra_js %>
+	  	</script>
+	    <%= render_partial "shared/analytics" %>
+	</head>
+	<body data-brand="<%= website.brand.name %>">
+		<%= yield :extra_notice %>
+		<%#= render_partial "shared/admin_dashboard_link" %>
+		<%= render_partial 'layouts/nav' %>
+
+		<% if content_for?(:feature) %>
+			<%= yield :feature %>
+		<% end %>
+
+		<div class="container">
+		    <div class="row">
+		      <div class="large-12 columns">
+
+		        <% flash.each do |name, msg| %>
+		          <%
+		            css_class = 'alert-box'
+		            if name.match(/notice/i)
+		              css_class += ' success'
+		            elsif name.match(/alert|warn/)
+		              css_class += ' alert'
+		            else
+		              css_class += ' secondary'
+		            end
+		          %>
+
+		            <%= content_tag :div, msg, class: css_class if msg.is_a?(String) %>
+		        <% end %>
+		      </div>
+		    </div>
+		</div>
+
+		<div class="container" <% unless content_for?(:feature) %>id="main_container"<% end %>>
+			<div class="row">
+				<div class="large-12 small-12 columns content-container">
+					<%= yield %>
+				</div>
+			</div>
+		</div>
+
+		<% if content_for?(:big_bottom_box) %>
+			<div class="container content-container" id="pre-footer">
+				<%= yield :big_bottom_box %>
+				<% if content_for?(:middle_stuff) %>
+				<div id="middle_features">
+					<div class="row">
+						<div class="large-12 small-12 columns">
+							<%= yield :middle_stuff %>
+						</div>
+					</div>
+				</div>
+				<% end %>
+			</div>
+		<% end %>
+
+		<%= cache ["footer", website.brand, I18n.locale] do %>
+		<footer>
+			<%= hpro_footer(include_hpro: true) %>
+
+			<div class="container">
+				<div class="large-6 columns" id="footer_left">
+					<%= image_tag "harman.jpg" %>
+					<span class="footer_text">
+						&copy; <%= Date.today.year %>
+						<%= link_to(t('harman'), "http://www.harman.com/", target: "_blank") %>
+						<%= t('all_rights_reserved') %>
+					</span>
+				</div>
+				<div class="large-6 columns hide-for-small" id="footer_info">
+					<span class="footer_text">
+						<% if website.has_software? %>
+						<%= link_to t('software_downloads').downcase, software_index_path %> &bull;
+						<% end %>
+						<%= link_to t('products'), product_families_path %> &bull;
+						<% if website.has_reviews? %>
+						<%#= link_to t('product_reviews').downcase, product_reviews_path %>
+						<% end %>
+						<%= link_to t('news'), news_index_path %> &bull;
+						<% if website.has_artists? %>
+						<%= link_to t('artists'), artists_path %> &bull;
+						<% end %>
+						<% if website.has_dealers? || website.has_online_retailers? || website.has_distributors? %>
+						<%= link_to t('where_to_buy'), where_to_buy_path %> &bull;
+						<% end %>
+						<%= link_to t('product_support'), support_path %> &bull;
+            <%= link_to 'careers', "http://jobs.harman.com", target: "_blank" %> &bull;
+						<%= link_to t('privacy_policy'), privacy_policy_path %> &bull;
+						<%= link_to t('terms_of_use'), terms_of_use_path %>
+					</span>
+				</div>
+			</div>
+		</footer>
+		<% end %>
+
+		<% if content_for?(:dealer_popup) %>
+			<div id="blanket" style="display:none;"></div>
+			<div id="dealer_popup_close" style="display:none;">
+				<%= link_to(image_tag("close.png"), @product, class: "buy_it_now_popup", data: {windowname: 'dealer_popup'})%>
+			</div>
+			<div id="dealer_popup" style="display:none;">
+				<%= yield :dealer_popup %>
+				<p><%= link_to "close", @product, class: "buy_it_now_popup", data: {windowname: 'dealer_popup'} %></p>
+			</div>
+		<% end %>
+		<div id="preload"><%= yield :preload %></div>
+		<% if content_for?(:popup_code) %>
+			<%= yield :popup_code %>
+		<% end %>
+
+    <%= render_partial "shared/pardot" %>
+
+	</body>
+</html>
