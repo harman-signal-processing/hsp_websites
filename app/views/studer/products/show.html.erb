@@ -113,11 +113,7 @@ set_meta_tags title: @product.name,
   <% if @product.photo %>
     <div id="viewer_container" class="text-center">
       <div id="viewer">
-        <% if @product.images_for("product_page").size == 1 %>
-        <%= link_to(image_tag(@product.photo.product_attachment.url(:full_width)), @product.photo.product_attachment.url) %>
-        <% else %>
         <%= image_tag(@product.photo.product_attachment.url(:full_width)) %>
-        <% end %>
       </div>
     </div>
   <% end %>
@@ -129,12 +125,12 @@ set_meta_tags title: @product.name,
     <% if @product.layout_class == "vertical" %>
       <% if @product.photo %>
       <div class="text-center" style="margin: 20px 0px;">
-        <%= link_to(image_tag(@product.photo.product_attachment.url(:large)), @product.photo.product_attachment.url) %>
+        <%= image_tag(@product.photo.product_attachment.url(:large)) %>
       </div>
       <% end %>
     <% end %>
 
-		<% if @product.images_for("product_page").size > 1 %>
+		<% if @product.images_for("product_page").size > 0 %>
 		<ul id="product_thumbnails" class="clearing-thumbs large-block-grid-12 small-block-grid-3" data-clearing>
 			<% @product.images_for("product_page").each do |product_attachment| %>
 			  <% if product_attachment.product_media_thumb_file_name.present? %>

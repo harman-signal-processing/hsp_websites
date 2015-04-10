@@ -23,7 +23,20 @@
   <% if @market_segment.related_news.length > 0 %>
     <div class="homepage_block text-center news_strip hide-for-medium-down">
       <h2 class="text-center">Related News</h2>
-      <%= render_partial 'shared/column_for_news_and_reviews' %>
+      <div class="row collapse">
+        <div class="large-12 columns text-center">
+          <div class="quotebox">
+            <ul data-orbit data-options="slide_number:false; pause_on_hover:false; navigation_arrows:false;">
+              <% @news.each do |news| %>
+                <li>
+                  <h3><%= link_to truncate(news.title, length: 100), news %></h3>
+                  <h4 class="subheader"><%=l news.post_on, format: :short %></h4>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   <% end %>
   <p>&nbsp;</p>

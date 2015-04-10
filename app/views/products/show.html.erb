@@ -115,8 +115,6 @@ set_meta_tags title: @product.name,
       <div id="viewer">
         <% if @product.discontinued? %>
           <%= image_tag(@product.photo.product_attachment.url(:large)) %>
-        <% elsif @product.images_for("product_page").size == 1 %>
-          <%= link_to(image_tag(@product.photo.product_attachment.url(:full_width)), @product.photo.product_attachment.url) %>
         <% else %>
           <%= image_tag(@product.photo.product_attachment.url(:full_width)) %>
         <% end %>
@@ -134,13 +132,13 @@ set_meta_tags title: @product.name,
         <% if @product.discontinued? %>
           <%= image_tag(@product.photo.product_attachment.url(:large)) %>
         <% else %>
-          <%= link_to(image_tag(@product.photo.product_attachment.url(:vert_medium)), @product.photo.product_attachment.url) %>
+          <%= image_tag(@product.photo.product_attachment.url(:vert_medium)) %>
         <% end %>
       </div>
       <% end %>
     <% end %>
 
-		<% if @product.images_for("product_page").size > 1 %>
+		<% if @product.images_for("product_page").size > 0 %>
       <ul id="product_thumbnails" class="clearing-thumbs large-block-grid-12 small-block-grid-3" <%= "data-clearing" unless !!(website.no_lightbox) %>>
         <% @product.images_for("product_page").each do |product_attachment| %>
           <% if product_attachment.product_media_thumb_file_name.present? %>
