@@ -12,8 +12,7 @@
     <div class="large-6 columns">
       <% if website.page_layouts %>
         <%= f.input :layout_class, label: "Page layout style",
-              hint: "(not all brands have multiple layouts)",
-              collection: website.page_layouts.split("|") %>
+              collection: ["full", "wide", "narrow"] %>
       <% end %>
     </div>
   </div>
@@ -35,7 +34,7 @@
     <p>Optional--only provide a username/password if you want to protect this page.</p>
     <div class="row">
       <div class="large-6 columns">
-        <%= f.input :username %> 
+        <%= f.input :username %>
       </div>
       <div class="large-6 columns">
         <%= f.input :password, as: :string %>

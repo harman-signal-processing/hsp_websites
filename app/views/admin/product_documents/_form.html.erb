@@ -1,8 +1,15 @@
 <%= simple_form_for([:admin, @product_document], html: {multipart: true}) do |f| %>
 
   <%= f.association :product, collection: website.products %>
-  <%= f.input :language, collection: HarmanSignalProcessingWebsite::Application.config.document_languages %>
-  <%= f.input :document_type, collection: HarmanSignalProcessingWebsite::Application.config.document_types %>
+  <div class="row">
+    <div class="large-6 columns">
+      <%= f.input :document_type, collection: HarmanSignalProcessingWebsite::Application.config.document_types %>
+    </div>
+    <div class="large-6 columns">
+      <%= f.input :language, collection: HarmanSignalProcessingWebsite::Application.config.document_languages %>
+    </div>
+  </div>
+  <%= f.input :name_override, hint: "Overrides the auto-generated link name. (optional)" %>
   <%= f.input :document %>
   <br/><%= f.button :submit %>
 <% end %>

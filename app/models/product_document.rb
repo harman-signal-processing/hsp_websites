@@ -13,7 +13,9 @@ class ProductDocument < ActiveRecord::Base
   # For cleaning up the product pages, no need to re-state the product name in
   # the link.
   def name(options={})
-    if self.document_type.blank? || self.document_type.match(/other/i)
+    if self.name_override.present?
+      self.name_override
+    elsif self.document_type.blank? || self.document_type.match(/other/i)
       self.document_file_name
     else
       doctype = I18n.t("document_type.#{self.document_type}")

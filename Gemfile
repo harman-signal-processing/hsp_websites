@@ -65,7 +65,7 @@ gem 'RedCloth'
 gem 'figaro'
 gem 'delayed_paperclip'
 gem 'cheetah_mail', "~> 0.6.0"
-gem 'rmagick', :require => 'RMagick'
+gem 'rmagick', :require => 'rmagick'
 gem 'typhoeus' # For link validator
 
 ### Could be useful in the future...

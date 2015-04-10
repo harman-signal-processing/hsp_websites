@@ -41,8 +41,8 @@
   <li class="has-dropdown">
     <%= link_to t('product_support').titleize, support_path %>
     <ul class="dropdown">
-      <li><%= link_to "Customer Service Contacts", '/studer-customer-service-contacts' %></li>
-      <li><%= link_to "Contact Us", '/studer-contact-us' %></li>
+      <li><%= link_to "Contact Us", support_path %></li>
+      <li><%= link_to "Customer Service Team", '/studer-customer-service-contacts' %></li>
       <li><%= link_to "SBA", 'http://cras-vista.com/moodle/', target: "_blank" %></li>
     </ul>
   </li>
@@ -52,8 +52,9 @@
 	<% end %>
 
   <li class="hide-for-medium has-dropdown">
-    <%= link_to "Studer Expertise", "", class: "disabled" %>
+    <%= link_to "About Us", "", class: "disabled" %>
     <ul class="dropdown">
+      <li><%= link_to "Team Studer", '/team-studer' %></li>
       <li><%= link_to "Events", '/studer-events' %></li>
       <li><%= link_to "About Studer", '/about-studer' %></li>
     </ul>

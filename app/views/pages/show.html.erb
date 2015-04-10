@@ -3,17 +3,23 @@
                  description: translate_content(@page, :description),
                  keywords: @page.keywords %>
 
-<div class="content container">
-	<div class="row">
-    <% if @page.layout_class == "wide" %>
-      <div class="large-12 columns text-content">
-    <% else %>
-      <div class="large-8 columns large-offset-2 text-content">
-    <% end %>
-			<%=raw translate_content(@page, :body) %>
-		</div>
-	</div>
-</div>
+<% if @page.layout_class == "full" %>
+  <%= content_for :feature do %>
+    <%= raw translate_content(@page, :body) %>
+  <% end %>
+<% else %>
+  <div class="content container">
+    <div class="row">
+      <% if @page.layout_class == "wide" %>
+        <div class="large-12 columns text-content">
+      <% else %>
+        <div class="large-8 columns large-offset-2 text-content">
+      <% end %>
+        <%=raw translate_content(@page, :body) %>
+      </div>
+    </div>
+  </div>
+<% end %>
 
 <%= content_for :custom_css do %>
 	<style type="text/css">
