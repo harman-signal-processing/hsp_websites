@@ -80,6 +80,15 @@ class RegisteredDownload < ActiveRecord::Base
     Rails.root.join("public", "system", "mailers", brand.default_website.folder, "registered_download_notice_#{self.id}.html.erb")
   end
 
+  def email_layout_path
+    #Rails.root.join("public", "system", "mailers", brand.default_website.folder)
+    "../../public/system/mailers/#{brand.default_website.folder}"
+  end
+
+  def email_template_name
+    "registered_download_notice_#{self.id}"
+  end
+
   # After creating/updating the RegisteredDownload this will check for changes
   # to the layouts (html and email) and update the corresponding files which
   # are stored on the filesystem. (Rails will only use layouts which are files.)

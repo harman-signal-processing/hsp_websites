@@ -1,44 +1,73 @@
 <% set_meta_tags title: t('titles.product_families'),
 				 reverse: true %>
 
-<%= content_for :feature do %>
-  <% if !@market_segment.banner_image_file_name.blank? %>
-    <%= image_tag(@market_segment.banner_image.url, alt: translate_content(@market_segment, :name), style: "width: 100%") %>
-  <% elsif File.exist?(Rails.root.join("app", "assets", "images", website.folder, "market_segment_placeholder.jpg")) %>
-    <%= image_tag("#{website.folder}/market_segment_placeholder.jpg", alt: translate_content(@market_segment, :name), style: "width: 100%") %>
-  <% else %>
-    <h1> <%= translate_content(@market_segment, :name) %> </h1>
-  <% end %>
-<% end %>
-
-<div><%=raw @market_segment.description %></div>
-
-<%= cache ["market_segment_content", website.brand, @market_segment, I18n.locale] do %>
-  <ul class="large-block-grid-<%= (@market_segment.all_current_products.length / 2).to_i %> small-block-grid-2">
-    <% @market_segment.all_current_products.each do |product| %>
-      <li><%= render_partial("product_families/compact_product_square", product: product) %></li>
+<% if @market_segment.parent_id.present? %>
+  <%= content_for :feature do %>
+    <% if !@market_segment.banner_image_file_name.blank? %>
+      <%= image_tag(@market_segment.banner_image.url, alt: translate_content(@market_segment, :name), style: "width: 100%") %>
+    <% elsif File.exist?(Rails.root.join("app", "assets", "images", website.folder, "market_segment_placeholder.jpg")) %>
+      <%= image_tag("#{website.folder}/market_segment_placeholder.jpg", alt: translate_content(@market_segment, :name), style: "width: 100%") %>
+    <% else %>
+      <h1> <%= translate_content(@market_segment, :name) %> </h1>
     <% end %>
-  </ul>
+  <% end %>
 
-  <% if @market_segment.related_news.length > 0 %>
-    <div class="homepage_block text-center news_strip hide-for-medium-down">
-      <h2 class="text-center">Related News</h2>
-      <div class="row collapse">
-        <div class="large-12 columns text-center">
-          <div class="quotebox">
-            <ul data-orbit data-options="slide_number:false; pause_on_hover:false; navigation_arrows:false;">
-              <% @news.each do |news| %>
-                <li>
-                  <h3><%= link_to truncate(news.title, length: 100), news %></h3>
-                  <h4 class="subheader"><%=l news.post_on, format: :short %></h4>
-                </li>
-              <% end %>
-            </ul>
+  <div><%=raw @market_segment.description %></div>
+
+  <%= cache ["market_segment_content", website.brand, @market_segment, I18n.locale] do %>
+    <ul class="large-block-grid-<%= (@market_segment.all_current_products.length / 2).to_i %> small-block-grid-2">
+      <% @market_segment.all_current_products.each do |product| %>
+        <li><%= render_partial("product_families/compact_product_square", product: product) %></li>
+      <% end %>
+    </ul>
+
+    <% if @market_segment.related_news.length > 0 %>
+      <div class="homepage_block text-center news_strip hide-for-medium-down">
+        <h2 class="text-center">Related News</h2>
+        <div class="row collapse">
+          <div class="large-12 columns text-center">
+            <div class="quotebox">
+              <ul data-orbit data-options="slide_number:false; pause_on_hover:false; navigation_arrows:false;">
+                <% @news.each do |news| %>
+                  <li>
+                    <h3><%= link_to truncate(news.title, length: 100), news %></h3>
+                    <h4 class="subheader"><%=l news.post_on, format: :short %></h4>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    <% end %>
+    <p>&nbsp;</p>
   <% end %>
-  <p>&nbsp;</p>
-<% end %>
+<% else %>
+    <div class="homepage_block thin_strip market_segments">
+      <div class="container">
+        <div class="large-12 small-12 columns">
 
+          <ul class="large-block-grid-1">
+            <% @market_segment.children.each do |market_segment| %>
+              <li>
+                <div class="market-segment">
+                  <%= link_to market_segment do %>
+                    <%= image_tag(
+                      market_segment.banner_image_file_name.blank? ? "#{website.folder}/market_segment_placeholder.jpg" : market_segment.banner_image.url,
+                      alt: translate_content(market_segment, :name)) %>
+                    <div class="text-center">
+                      <h4><%= market_segment.name %></h4>
+                      <% if market_segment.children.length > 0 %>
+                        <p><%=raw market_segment.children.map{|c| link_to(c.name, c) }.join(" &bull; ") %></p>
+                      <% end %>
+                    </div>
+                  <% end %>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+<% end %>

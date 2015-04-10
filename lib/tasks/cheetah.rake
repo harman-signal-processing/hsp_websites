@@ -10,8 +10,8 @@ namespace :cheetah do
 			puts "----- #{brand.name} ------"
 
 			begin
-				aid = brand.cheetahmail_aid
-				sub = brand.cheetahmail_sub
+				aid = brand.try(:cheetahmail_aid)
+				sub = brand.try(:cheetahmail_sub)
 
 				if aid.present? && sub.present?
 					puts "(aid: #{aid}, sub: #{sub})"
@@ -22,7 +22,7 @@ namespace :cheetah do
 					  :password  => ENV['CHEETAHMAIL_PASSWORD'],
 					  :aid       => aid,
 					  :messenger => CheetahMail::SynchronousMessenger
-					})	
+					})
 
 					brand.new_signups[0,per_brand_limit].each do |signup|
 					  if signup.valid?

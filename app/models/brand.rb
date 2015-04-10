@@ -81,9 +81,11 @@ class Brand < ActiveRecord::Base
   # This is a smarter alternative to using method_missing
   def dynamic_methods
     self.settings.each do |meth|
-      (class << self; self; end).class_eval do
-        define_method meth.name.to_sym do |*args|
-          self.__send__("value_for", meth.name, *args)
+      unless self.methods.include?(meth.name.to_sym) # exclude methods already defined in the class
+        (class << self; self; end).class_eval do
+          define_method meth.name.to_sym do |*args|
+            self.__send__("value_for", meth.name, *args)
+          end
         end
       end
     end
@@ -96,12 +98,6 @@ class Brand < ActiveRecord::Base
     rescue
       "support@harman.com"
     end
-  end
-
-  # Those brands which should be included on the RSO site. This could
-  # be controlled dynamically by a db field...later.
-  def self.for_rso
-    where(name: ["BSS", "dbx", "Lexicon", "JBL Commercial", "DigiTech"])
   end
 
   # Those brands which should appear on the myharman.com store (via the API)

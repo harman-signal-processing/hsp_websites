@@ -38,15 +38,15 @@ module ProductsHelper
       link_to_function image_tag(img, style: "vertical-align: middle"), "$('#viewer').html('#{escape_javascript(new_content)}');load_lightbox()"
     end
   end
-  
+
   def link_to_product_attachment(product_attachment)
     if !product_attachment.product_attachment_file_name.blank?
       img = product_attachment.product_attachment.url(:tiny)
       if product_attachment.no_lightbox?
-        new_content = link_to(image_tag(product_attachment.product_attachment.url(:medium), style: "vertical-align: middle"), 
+        new_content = link_to(image_tag(product_attachment.product_attachment.url(:medium), style: "vertical-align: middle"),
           product_attachment.product_attachment.url)
       else
-        new_content = link_to(image_tag(product_attachment.product_attachment.url(:medium), style: "vertical-align: middle"), 
+        new_content = link_to(image_tag(product_attachment.product_attachment.url(:medium), style: "vertical-align: middle"),
           product_attachment.product_attachment.url(:lightbox), class: "lightbox")
       end
     else
@@ -174,7 +174,7 @@ module ProductsHelper
       raw(ret)
     end
   end
-  
+
   # These are the actual main tab contents
   def draw_main_tabs_content(product, options={})
     main_tabs = (options[:tabs]) ? parse_tabs(options[:tabs], product) : product.main_tabs
