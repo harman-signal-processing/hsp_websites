@@ -5,17 +5,16 @@ require 'rails_helper'
 #   I want to complete the contact form
 #   And have it go directly to the corresponding person
 #   So I can get an answer to my question
-feature "Complete contact form with different recipients" do
+feature "Complete contact form with custom recipients" do
   before do
     @website = FactoryGirl.create(:website_with_products)
     @subjects = FactoryGirl.create_list(:support_subject, 2, brand_id: @website.brand_id)
     @subjects.first.update_column(:recipient, "mrcool@harman.com")
-
-    visit support_url(host: @website.url)
-    fill_in_form
   end
 
   scenario "message is delivered to recipient corresponding to the selected subject" do
+    visit support_url(host: @website.url)
+    fill_in_form
     select @subjects.first.name, from: "Subject"
     click_on "submit"
 
@@ -24,7 +23,28 @@ feature "Complete contact form with different recipients" do
     expect(last_email.to).to include("mrcool@harman.com")
   end
 
+  scenario "message is delivered to multiple custom recipients" do
+    @recipient1 = "mrcool@harman.com"
+    @recipient2 = "joeschmoe@harman.com"
+    @subjects.last.update_column(:recipient, "#{@recipient1}, #{@recipient2}")
+
+    visit support_url(host: @website.url)
+    fill_in_form
+    select @subjects.last.name, from: "Subject"
+    click_on "submit"
+
+    last_email = get_last_email
+    expect(last_email.subject).to eq(@subjects.last.name)
+    expect(last_email.to.length).to be(2)
+    expect(last_email.to).to include(@recipient1)
+    expect(last_email.to).to include(@recipient2)
+  end
+
   scenario "message is delivered to default recipient" do
+    @subjects.last.update_column(:recipient, '')
+
+    visit support_url(host: @website.url)
+    fill_in_form
     select @subjects.last.name, from: "Subject"
     click_on "submit"
 

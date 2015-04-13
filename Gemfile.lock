@@ -217,7 +217,7 @@ GEM
     fog-json (1.0.1)
       fog-core (~> 1.0)
       multi_json (~> 1.0)
-    fog-local (0.2.0)
+    fog-local (0.2.1)
       fog-core (~> 1.27)
     fog-powerdns (0.1.1)
       fog-core (~> 1.27)
@@ -241,7 +241,7 @@ GEM
     fog-serverlove (0.1.2)
       fog-core
       fog-json
-    fog-softlayer (0.4.3)
+    fog-softlayer (0.4.5)
       fog-core
       fog-json
     fog-storm_on_demand (0.1.1)
