@@ -7,17 +7,11 @@
         <ul class="large-block-grid-<%= @market_segments.length > 3 ? (@market_segments.length / 2).to_i : @market_segments.length %> small-block-grid-1">
           <% @market_segments.each do |market_segment| %>
             <li>
-              <div class="market-segment">
+              <%= link_to market_segment do %>
                 <%= image_tag(
                   market_segment.banner_image_file_name.blank? ? "#{website.folder}/market_segment_placeholder.jpg" : market_segment.banner_image.url,
                   alt: translate_content(market_segment, :name)) %>
-                <div class="text-center">
-                  <h4><%= link_to market_segment.name, market_segment %></h4>
-                  <% if market_segment.children.length > 0 %>
-                    <p><%=raw market_segment.children.map{|c| link_to(c.name, c) }.join(" &bull; ") %></p>
-                  <% end %>
-                </div>
-              </div>
+              <% end %>
             </li>
           <% end %>
         </ul>
