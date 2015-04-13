@@ -159,7 +159,7 @@ div.homepage_block {
           background: rgb(255, 255, 255);
           background: rgba(255, 255, 255, 0.8);
           color: $dark-gray;
-          padding-top: 4px 0 1px;
+          padding: 4px 0 1px;
           p {
             font-size: rem-calc(11px);
           }
@@ -171,6 +171,21 @@ div.homepage_block {
     }
   }
 }
+
+div.market_segment_banner {
+  position: relative;
+  h1 {
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    background: rgb(255, 255, 255);
+    background: rgba(255, 255, 255, 0.8);
+    color: $dark-gray;
+    padding: 4px 10px;
+  }
+}
+
 h1, h2 {
 	font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 	font-weight: 200;

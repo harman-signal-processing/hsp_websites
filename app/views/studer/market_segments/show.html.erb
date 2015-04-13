@@ -3,13 +3,15 @@
 
 <% if @market_segment.parent_id.present? %>
   <%= content_for :feature do %>
-    <% if !@market_segment.banner_image_file_name.blank? %>
-      <%= image_tag(@market_segment.banner_image.url, alt: translate_content(@market_segment, :name), style: "width: 100%") %>
-    <% elsif File.exist?(Rails.root.join("app", "assets", "images", website.folder, "market_segment_placeholder.jpg")) %>
-      <%= image_tag("#{website.folder}/market_segment_placeholder.jpg", alt: translate_content(@market_segment, :name), style: "width: 100%") %>
-    <% else %>
-      <h1> <%= translate_content(@market_segment, :name) %> </h1>
-    <% end %>
+    <div class="market_segment_banner">
+      <% if !@market_segment.banner_image_file_name.blank? %>
+        <%= image_tag(@market_segment.banner_image.url, alt: translate_content(@market_segment, :name), style: "width: 100%") %>
+      <% elsif File.exist?(Rails.root.join("app", "assets", "images", website.folder, "market_segment_placeholder.jpg")) %>
+        <%= image_tag("#{website.folder}/market_segment_placeholder.jpg", alt: translate_content(@market_segment, :name), style: "width: 100%") %>
+      <% end %>
+      <h1><%= translate_content(@market_segment.parent, :name) %>:
+        <%= translate_content(@market_segment, :name) %></h1>
+    </div>
   <% end %>
 
   <div><%=raw @market_segment.description %></div>
