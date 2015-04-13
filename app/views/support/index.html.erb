@@ -80,7 +80,7 @@
 					<% if !!(website.has_speaker_tunings) %>
 					<li><%= link_to "speaker tunings", support_path(action: "speaker_tunings") %></li>
 					<% end %>
-          <li><%= link_to "More Downloads", support_downloads_path %></li>
+          <li><%= link_to "More Resources", support_downloads_path %></li>
 				</ul>
 			</div>
 			<% end %>
@@ -112,6 +112,9 @@
 					<% end %>
           <% if !!!(website.brand.name.to_s.match(/digitech|lexicon|dod/)) %>
             <li><%= link_to "System Design Tools", tools_calculators_path %></li>
+          <% end %>
+          <% if !website.has_software? %>
+            <li><%= link_to "More Resources", support_downloads_path %></li>
           <% end %>
 				</ul>
 			</div>

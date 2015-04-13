@@ -96,7 +96,7 @@ group :development do
   gem 'rb-fsevent', :require=>false
   gem 'rb-inotify', :require=>false
   gem 'sshkit'
-  gem 'colorize', '0.7.4' # version 0.7.5 caused problems deploying
+  gem 'colorize'
 end
 
 group :development, :test do

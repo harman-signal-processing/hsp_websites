@@ -22,7 +22,7 @@
     <li><%= link_to t('software_downloads').titleize, software_index_path %></li>
   <% end %>
 
-  <li class="hide-for-medium has-dropdown">
+  <li class="has-dropdown">
     <%= link_to "Media", "", class: "disabled" %>
     <ul class="dropdown">
       <li><%= link_to t('news').titleize, news_index_path %></li>
@@ -35,7 +35,7 @@
 	<% end %>
 
 	<% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
-	<li class="hide-for-medium"><%= link_to t('where_to_buy').titleize, where_to_buy_path %></li>
+	<li><%= link_to "Buy".titleize, where_to_buy_path %></li>
 	<% end %>
 
   <li class="has-dropdown">
@@ -48,10 +48,10 @@
   </li>
 
 	<% if !!(website.forum_link) %>
-	<li class="hide-for-medium show-for-large"><%= link_to t("forum").titleize, website.forum_link %></li>
+	<li><%= link_to t("forum").titleize, website.forum_link %></li>
 	<% end %>
 
-  <li class="hide-for-medium has-dropdown">
+  <li class="has-dropdown">
     <%= link_to "About Us", "", class: "disabled" %>
     <ul class="dropdown">
       <li><%= link_to "Team Studer", '/team-studer' %></li>

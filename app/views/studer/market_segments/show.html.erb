@@ -17,14 +17,18 @@
   <div><%=raw @market_segment.description %></div>
 
   <%= cache ["market_segment_content", website.brand, @market_segment, I18n.locale] do %>
-    <ul class="large-block-grid-<%= (@market_segment.all_current_products.length / 2).to_i %> small-block-grid-2">
-      <% @market_segment.all_current_products.each do |product| %>
-        <li><%= render_partial("product_families/compact_product_square", product: product) %></li>
-      <% end %>
-    </ul>
+    <% p = @market_segment.all_current_products %>
+    <% if p.length > 0 %>
+        <h2 class="text-center">Related Products</h2>
+        <ul class="large-block-grid-<%= (p.length > 8) ? p.length / 2 : p.length %> small-block-grid-2">
+          <% p.each do |product| %>
+            <li><%= render_partial("product_families/compact_product_square", product: product) %></li>
+          <% end %>
+        </ul>
+    <% end %>
 
     <% if @market_segment.related_news.length > 0 %>
-      <div class="homepage_block text-center news_strip hide-for-medium-down">
+      <div class="text-center news_strip hide-for-medium-down">
         <h2 class="text-center">Related News</h2>
         <div class="row collapse">
           <div class="large-12 columns text-center">
