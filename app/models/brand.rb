@@ -100,6 +100,22 @@ class Brand < ActiveRecord::Base
     end
   end
 
+  def parts_email
+    begin
+      self.settings.where(name: "parts_email").value
+    rescue
+      self.support_email
+    end
+  end
+
+  def rma_email
+    begin
+      self.settings.where(name: "rma_email").value
+    rescue
+      self.support_email
+    end
+  end
+
   # Those brands which should appear on the myharman.com store (via the API)
   def self.for_employee_store
     where(employee_store: true).order("UPPER(name)") || where(name: ["DigiTech", "Lexicon", "dbx", "DOD"])
