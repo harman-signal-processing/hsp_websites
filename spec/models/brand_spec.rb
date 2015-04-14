@@ -42,4 +42,27 @@ RSpec.describe Brand, :type => :model do
     end
   end
 
+  describe "support email recipient" do
+    it "should use 'support_email' setting" do
+      FactoryGirl.create(:setting, name: 'support_email', string_value: 'jose@support.com', brand_id: @brand.id)
+
+      expect(@brand.support_email).to eq('jose@support.com')
+    end
+  end
+
+  describe "parts email recipient" do
+    it "should use 'parts_email' setting" do
+      FactoryGirl.create(:setting, name: 'parts_email', string_value: 'larry@support.com', brand_id: @brand.id)
+
+      expect(@brand.parts_email).to eq('larry@support.com')
+    end
+  end
+
+  describe "rma email recipient" do
+    it "should use 'rma_email' setting" do
+      FactoryGirl.create(:setting, name: 'rma_email', string_value: 'ramesh@support.com', brand_id: @brand.id)
+
+      expect(@brand.rma_email).to eq('ramesh@support.com')
+    end
+  end
 end

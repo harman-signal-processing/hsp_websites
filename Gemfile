@@ -120,7 +120,7 @@ group :test do
   gem 'minitest-capybara'
   gem 'capybara-webkit'
   gem 'launchy' # save_and_open_page inline in tests
-  gem 'minitest'
+  gem 'minitest', '5.5.1' # 5.6 caused some test and specs to fail. no time to debug.
   gem 'database_cleaner'
   gem 'ZenTest'
   gem 'simplecov', require: false

@@ -690,7 +690,7 @@ DEPENDENCIES
   letter_opener
   mechanize
   meta-tags (~> 1.5)
-  minitest
+  minitest (= 5.5.1)
   minitest-capybara
   minitest-rails
   minitest-rails-capybara

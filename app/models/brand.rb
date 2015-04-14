@@ -94,7 +94,7 @@ class Brand < ActiveRecord::Base
   # This should work as a dynamic method, but mailers have troubles
   def support_email
     begin
-      self.settings.where(name: "support_email").value
+      self.settings.find_by(name: "support_email").value
     rescue
       "support@harman.com"
     end
@@ -102,7 +102,7 @@ class Brand < ActiveRecord::Base
 
   def parts_email
     begin
-      self.settings.where(name: "parts_email").value
+      self.settings.find_by(name: "parts_email").value
     rescue
       self.support_email
     end
@@ -110,7 +110,7 @@ class Brand < ActiveRecord::Base
 
   def rma_email
     begin
-      self.settings.where(name: "rma_email").value
+      self.settings.find_by(name: "rma_email").value
     rescue
       self.support_email
     end
