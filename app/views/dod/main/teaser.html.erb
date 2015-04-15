@@ -14,28 +14,23 @@
 
     <div class="row" id="featured-product-list">
     	<div class="large-12 text-center columns">
-    		<% 
-    		featured_products = website.featured_products 
-    		large_rows = (featured_products.length.to_f / 4.0).round
+    		<%
+    		featured_products = website.featured_products
+    		large_rows = (featured_products.length.to_f / 3.0).round
     		large_rows = large_rows > 0 ? large_rows : 1
-    		small_rows = (featured_products.length.to_f / 2.0).floor
-    		small_rows = small_rows > 0 ? small_rows : 1
-    		large_grid = (featured_products.length.to_f / large_rows).floor
-    		small_grid = (featured_products.length.to_f / small_rows).floor
-    		img_size = case  
-    			when large_grid > 5
-    				:small 
+    		large_grid = (featured_products.length.to_f / 2).round
+    		img_size = case
+    			when large_grid > 8
+    				:small
     			when large_grid > 4
-    				:epedal 
-    			else 
+    				:epedal
+    			else
     				:medium
     			end
     		%>
     		<!-- large_rows: <%= large_rows %> -->
     		<!-- large_grid: <%= large_grid %> -->
-    		<!-- small_rows: <%= small_rows %> -->
-    		<!-- small_grid: <%= small_grid %> -->
-    		<ul class="large-block-grid-<%= large_grid %> small-block-grid-<%= small_grid %>">
+    		<ul class="large-block-grid-<%= large_grid %> small-block-grid-2 medium-block-grid-3">
     		<% featured_products.each_with_index do |product,i| %>
     			<% if product.product_attachments.count >= 5 %>
     				<li><%= link_to product do %>
@@ -58,7 +53,7 @@
 				<p>In 1974, before “boutique pedal” meant anything, two friends started building pedals between gigs to make some extra money. Their band never got signed but the pedals they built became the signature tones of their generation, inspiring the music that changed the world.</p>
 			</div>
 			<div class="large-6 columns">
-				<p>DOD, the original boutique pedal brand, triumphantly returns with the new 
+				<p>DOD, the original boutique pedal brand, triumphantly returns with the new
 					<%=raw featured_products.map{|p| link_to(p.name.gsub(/\s?\(.*\)/, ""), p)}.join(", ") %>. Along with incredible analog tones, all pedals feature true bypass, a crisp LED, modern power jack, and lighter aluminum chassis. </p>
 			</div>
 		</div>
