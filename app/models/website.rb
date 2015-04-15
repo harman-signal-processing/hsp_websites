@@ -99,9 +99,11 @@ class Website < ActiveRecord::Base
 
   def featured_products
     begin
-      self.brand.respond_to?(:featured_products) ? self.brand.featured_products.split(/\,|\|\s?/).map{|i| Product.find_by_cached_slug(i)} : false
+      @featured_products ||= self.brand.respond_to?(:featured_products) ?
+        self.brand.featured_products.split(/\,|\|\s?/).map{|i| Product.find_by(cached_slug: i)}.select{|p| p if p.show_on_website?(self)} :
+        Array.new
     rescue
-      false
+      Array.new
     end
   end
 
