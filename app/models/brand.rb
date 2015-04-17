@@ -237,13 +237,13 @@ class Brand < ActiveRecord::Base
   # with a setting named side_tabs which is a pipe-separated list of tabs
   def side_tabs
     default_tabs = "features|specifications|documentation|training_modules|downloads|artists|tones|news_and_reviews|support"
-    tabs = self.value_for("side_tabs") || default_tabs
+    tabs = self.value_for("side_tabs").gsub(/\s/, '') || default_tabs
     tabs.split("|")
   end
 
   def main_tabs
     default_tabs = "description|extended_description|features|specifications"
-    tabs = self.value_for("main_tabs") || default_tabs
+    tabs = self.value_for("main_tabs").gsub(/\s/, '') || default_tabs
     tabs.split("|")
   end
 
