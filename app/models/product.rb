@@ -1,6 +1,6 @@
 class Product < ActiveRecord::Base
   extend FriendlyId
-  friendly_id :name
+  friendly_id :slug_candidates
 
   has_one :product_introduction
   has_many :product_family_products, dependent: :destroy
@@ -64,6 +64,24 @@ class Product < ActiveRecord::Base
   validates :name, presence: true
   validates :product_status_id, presence: true
   validates :sap_sku, format: { with: /\A[\w\-]*\z/, message: "only allows letters and numbers" }
+
+  def slug_candidates
+    [
+      :name,
+      [:brand_name, :name],
+      [:brand_name, :name, :sap_sku],
+      [:name, :short_description],
+      [:brand_name, :name, :short_description]
+    ]
+  end
+
+  def brand_name
+    self.brand.name
+  end
+
+  def should_generate_new_friendly_id?
+    true
+  end
 
   def set_employee_price
     if self.cost_cents.present? && self.cost_cents > 0

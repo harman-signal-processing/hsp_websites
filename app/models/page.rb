@@ -1,6 +1,6 @@
 class Page < ActiveRecord::Base
   extend FriendlyId
-  friendly_id :sanitized_title
+  friendly_id :slug_candidates
 
   validates :title, presence: true, uniqueness: { scope: :brand_id }
   validates :brand_id, presence: true
@@ -8,6 +8,22 @@ class Page < ActiveRecord::Base
 
   belongs_to :brand
   after_save :translate
+
+  def slug_candidates
+    [
+      :sanitized_title,
+      [:brand_name, :sanitized_title],
+      [:brand_name, :sanitized_title, :custom_route]
+    ]
+  end
+
+  def brand_name
+    self.brand.name
+  end
+
+  def should_generate_new_friendly_id?
+    true
+  end
 
   def sanitized_title
     self.title.gsub(/[\'\"]/, "")

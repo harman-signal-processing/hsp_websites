@@ -1,6 +1,6 @@
 class ProductFamily < ActiveRecord::Base
   extend FriendlyId
-  friendly_id :name
+  friendly_id :slug_candidates
 
   belongs_to :brand, touch: true
   has_many :product_family_products, -> { order('position').includes(:product) }, dependent: :destroy
@@ -25,6 +25,22 @@ class ProductFamily < ActiveRecord::Base
   acts_as_tree order: :position, scope: :brand_id
   # acts_as_list scope: :brand_id, -> { order('position') }
   after_save :translate
+
+  def slug_candidates
+    [
+      :name,
+      [:brand_name, :name],
+      [:brand_name, :name, :id]
+    ]
+  end
+
+  def brand_name
+    self.brand.name
+  end
+
+  def should_generate_new_friendly_id?
+    true
+  end
 
   # All top-level ProductFamilies--not locale aware
   #  w = a Brand or a Website

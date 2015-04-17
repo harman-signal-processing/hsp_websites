@@ -31,6 +31,10 @@ class Software < ActiveRecord::Base
 
   belongs_to :brand, touch: true
 
+  def should_generate_new_friendly_id?
+    true
+  end
+
   def set_default_counter
     self.download_count ||= 0
   end

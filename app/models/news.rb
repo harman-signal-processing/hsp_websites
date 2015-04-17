@@ -48,9 +48,17 @@ class News < ActiveRecord::Base
   def slug_candidates
     [
       :title,
-      [:brand_id, :title],
-      [:brand_id, :title, :created_at]
+      [:brand_name, :title],
+      [:brand_name, :title, :created_at]
     ]
+  end
+
+  def brand_name
+    self.brand.name
+  end
+
+  def should_generate_new_friendly_id?
+    true
   end
 
   # News to display on the main area of the site. This set of news articles

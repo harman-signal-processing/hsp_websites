@@ -4,7 +4,7 @@ gem 'rails', '4.2.1'
 gem 'responders', '~> 2.0'
 # Gems used only for assets and not required
 # in production environments by default.
-#gem 'turbo-sprockets-rails3' # don't precompile assets which haven't changed
+gem 'sprockets', '< 3.0' # v3.0 caused deploy problems with capistrano as of 4/15/15
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'

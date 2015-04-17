@@ -1,5 +1,5 @@
 <%= cache ["featured_products_strip", website.brand, I18n.locale] do %>
-  <% if @featured_products %>
+  <% if @featured_products && @featured_products.length > 0 %>
   <div class="homepage_block">
     <% @featured_products.each_with_index do |featured_product, i| %>
       <% if (i%2 <= 0) %>

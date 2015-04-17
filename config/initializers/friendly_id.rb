@@ -59,7 +59,7 @@ FriendlyId.defaults do |config|
   #
   # config.sequence_separator = '-'
   #
-  
+
   config.use :history
 
   #  ## Tips and Tricks

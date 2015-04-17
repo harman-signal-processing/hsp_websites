@@ -1,6 +1,6 @@
 class MarketSegment < ActiveRecord::Base
   extend FriendlyId
-  friendly_id :name
+  friendly_id :slug_candidates
 
   belongs_to :brand, touch: true
   has_many :market_segment_product_families, -> { order('position') }, dependent: :destroy
@@ -27,6 +27,22 @@ class MarketSegment < ActiveRecord::Base
   acts_as_tree order: :position, scope: :brand_id
 
   after_save :translate
+
+  def slug_candidates
+    [
+      :name,
+      [:brand_name, :name],
+      [:brand_name, :name, :id]
+    ]
+  end
+
+  def brand_name
+    self.brand.name
+  end
+
+  def should_generate_new_friendly_id?
+    true
+  end
 
   # All top-level MarketSegments
   #  w = a Brand or a Website
