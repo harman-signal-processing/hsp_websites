@@ -4,7 +4,7 @@ gem 'rails', '4.2.1'
 gem 'responders', '~> 2.0'
 # Gems used only for assets and not required
 # in production environments by default.
-gem 'sprockets', '< 3.0' # v3.0 caused deploy problems with capistrano as of 4/15/15
+gem 'sprockets' #, '< 3.0' # v3.0 caused deploy problems with capistrano as of 4/15/15
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
@@ -83,8 +83,8 @@ end
 group :development do
   gem 'web-console', '~> 2.0'
   gem 'capistrano', '~> 3.4', require: false
-  gem 'capistrano-rails', '~> 1.1', require: false
-  gem 'capistrano-bundler', '~> 1.1', require: false
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-bundler', require: false
   gem 'capistrano3-delayed-job', '~> 1.0'
   gem 'capistrano-passenger'
   # gem 'rack-mini-profiler'
