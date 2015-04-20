@@ -236,14 +236,20 @@ class Brand < ActiveRecord::Base
   # The default side tabs to show on product pages. This can be overridden
   # with a setting named side_tabs which is a pipe-separated list of tabs
   def side_tabs
-    default_tabs = "features|specifications|documentation|training_modules|downloads|artists|tones|news_and_reviews|support"
-    tabs = self.value_for("side_tabs").gsub(/\s/, '') || default_tabs
+    if tabs = self.value_for("side_tabs")
+      tabs = tabs.gsub(/\s/, '')
+    else
+      tabs = "features|specifications|documentation|training_modules|downloads|artists|tones|news_and_reviews|support"
+    end
     tabs.split("|")
   end
 
   def main_tabs
-    default_tabs = "description|extended_description|features|specifications"
-    tabs = self.value_for("main_tabs").gsub(/\s/, '') || default_tabs
+    if tabs = self.value_for("main_tabs")
+      tabs = tabs.gsub(/\s/, '')
+    else
+      tabs = "description|extended_description|features|specifications"
+    end
     tabs.split("|")
   end
 

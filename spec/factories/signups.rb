@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :signup do
-    name "MyString"
-    email "MyString"
+    email "name@email.com"
     campaign "MyString"
+    brand
   end
 end

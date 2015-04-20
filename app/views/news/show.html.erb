@@ -22,7 +22,7 @@ set_meta_tags title: translate_content(@news, :title),
 	  <%=l @news.post_on, format: :long %>
 	</h5>
 
-	<%= render 'shared/add_this' %>	
+	<%= render 'shared/add_this' %>
 
 	<div class="row">
 		<div class="large-5 push-7 columns">
@@ -63,7 +63,7 @@ set_meta_tags title: translate_content(@news, :title),
 			<%=raw translate_content(@news, :body) %>
 		</div>
 	</div>
-	
+
 </div>
 
 <p><%= link_to t('back_to_news_list'), news_index_path %></p>
