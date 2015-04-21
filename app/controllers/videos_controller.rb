@@ -1,5 +1,4 @@
 class VideosController < ApplicationController
-  before_filter :youtube_client
 
   # Split the "playlist_ids" setting by comma, retrieve each
   # playlist and show it in the browser
@@ -8,20 +7,21 @@ class VideosController < ApplicationController
     @page_title = t('titles.youtube_channel', brand: website.brand_name)
     begin
       if playlist_ids = website.playlist_ids
-        playlist_ids.split(/,\s?/).each do |playlist|
-          @playlists << @youtube_client.playlist(playlist)
-        end
+        @playlists = get_specific_playlists(playlist_ids)
       else
-        @youtube_client.playlists(@youtube_user). each do |playlist|
-          @playlists << @youtube_client.playlist(playlist.playlist_id)
-        end
+        @playlists = get_user_playlists(youtube_user)
       end
       if @playlists.length == 0
-        @playlists << @youtube_client.videos_by(user: @youtube_user)
+        default_playlist_id = get_default_playlist_id(youtube_user)
+        @playlists << get_specific_playlists(default_playlist_id)
       end
       render_template
     rescue
-      render text: "Error loading playlist"
+      if !youtube_user.blank?
+        redirect_to "http://www.youtube.com/user/#{youtube_user}", status: :moved_permanently and return false
+      else
+        render text: "Error loading playlist"
+      end
     end
   end
 
@@ -31,9 +31,8 @@ class VideosController < ApplicationController
   def play
     @video_id = params[:id]
     begin
-      # @video = @youtube_client.video_by_user(@youtube_user, @video_id)
-      @video = @youtube_client.video_by(@video_id)
-      @page_title = @video.title
+      @video = get_video(@video_id)
+      @page_title = @video['title']
       render_template
     rescue
       redirect_to "http://youtube.com/watch?v=#{@video_id}", status: :moved_permanently and return false
@@ -42,9 +41,8 @@ class VideosController < ApplicationController
 
   private
 
-  def youtube_client
-    @youtube_user = website.youtube.to_s.match(/\w*$/).to_s
-    @youtube_client = YouTubeIt::Client.new(dev_key: ENV['GOOGLE_YOUTUBE_API_KEY'])
+  def youtube_user
+    @youtube_user ||= website.youtube.to_s.match(/\w*$/).to_s
   end
 
 end

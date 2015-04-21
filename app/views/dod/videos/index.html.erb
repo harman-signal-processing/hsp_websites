@@ -1,19 +1,15 @@
 <table style="width: 650px; margin-left:">
-	<% @playlists.each_with_index do |playlist,i| %>
-	<tr>
-		<% if playlist.respond_to?(:title) %>
-		<th colspan="2">
-			<h<%= i+1 %> style="color:#222"><%= playlist.title %></h<%= i+1 %>>
-		</th>
-		<% else %>
-		<th colspan="2">
-			<h<%= i+1 %>><%= @page_title %></h<%= i+1 %>>
-		</th>
-		<% end %>
-	</tr>
-  <% playlist.videos.each do |v| %>
-    <%= render_partial "videos/video", video: v %>
-	<% end %>
+	<% @playlists.each do |playlist| %>
+    <tr>
+      <th colspan="2">
+        <h2 style="color:#222"><%= playlist['snippet']['title'] %></h2>
+      </th>
+    </tr>
+    <%= cache ["playlist_feed", playlist['id']] do %>
+      <% get_video_list_data(playlist["id"], limit: 50)["items"].each do |v| %>
+        <%= render_partial "videos/video", video: v %>
+      <% end %>
+    <% end %>
 	<% end %>
 </table>
 

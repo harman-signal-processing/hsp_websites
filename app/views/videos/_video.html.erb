@@ -1,32 +1,28 @@
-<%= cache ["yt_row_#{video_id(video)}", I18n.locale] do %>
-<% begin %>
-<% video = @youtube_client.video_by(video_id(video)) %>
-<% description = video.html_content || video.description %>
-<div class="row">
-  <div class="large-2 small-6 columns">
-    <%= link_to(image_tag(video.thumbnails.last.url, alt: video.title, height: 90, width: 120),
-      play_video_path(video_id(video))) %>
-    <div style='position:absolute; top: 30px; left: 45px; z-index: 1'>
-      <%= link_to(image_tag("play.png", alt: "play"), play_video_path(video_id(video))) %>
+<%= cache ["yt_row_#{video['snippet']['resourceId']['videoId']}", I18n.locale] do %>
+  <% begin %>
+    <%
+        video = video['snippet']
+        thumbnail = video["thumbnails"].find(height: 90).first[1]
+        link = play_video_url(video["resourceId"]["videoId"])
+    %>
+    <div class="row">
+      <div class="large-2 small-6 columns">
+        <%= link_to(image_tag(thumbnail['url'], alt: video['title'], height: 90, width: 120), link) %>
+        <div style='position:absolute; top: 30px; left: 45px; z-index: 1'>
+          <%= link_to(image_tag("play.png", alt: "play"), link) %>
+        </div>
+      </div>
+      <div class="large-10 small-6 columns">
+        <h6><%= link_to(video['title'], link) %></h6>
+        <span class="hide-for-small"><%=auto_link truncate(video['description'], length: 235) %></span>
+      </div>
     </div>
-  </div>
-  <div class="large-10 small-6 columns">
-		<h6><%= link_to(video.title, play_video_path(video_id(video))) %>
-      <small>
-        <%=l video.published_at.to_date, format: :long %>
-        &nbsp;&nbsp;
-        <%= seconds_to_MS(video.duration) %>
-      </small>
-    </h6>
-		<span class="hide-for-small"><%=auto_link truncate(description, length: 235) %></span>
-	</div>
-</div>
-<div class="row">
-  <div class="large-12 columns">
-    <hr/>
-  </div>
-</div>
-<% rescue %>
-<!-- video could not be loaded -->
-<% end %>
+    <div class="row">
+      <div class="large-12 columns">
+        <hr/>
+      </div>
+    </div>
+  <% rescue %>
+  <!-- video could not be loaded -->
+  <% end %>
 <% end %>

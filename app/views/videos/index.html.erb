@@ -1,13 +1,11 @@
 <div class="row">
   <div class="large-10 columns">
     <% @playlists.each do |playlist| %>
-        <% if playlist.respond_to?(:title) %>
-          <h2><%= playlist.title %></h2>
-          <p><%= playlist.description %></p>
-        <% else %>
-          <h2><%= @page_title %></h2>
-        <% end %>
-        <%= render partial: "video", collection: playlist.videos %>
+        <h2><%= playlist['snippet']['title'] %></h2>
+        <p><%= playlist['snippet']['description'] %></p>
+      <%= cache ["playlist_feed", playlist['id']] do %>
+        <%= render partial: "video", collection: get_video_list_data(playlist["id"], limit: 50)["items"] %>
+      <% end %>
     <% end %>
   </div>
 
@@ -18,3 +16,4 @@
     <% end %>
   </div>
 </div>
+

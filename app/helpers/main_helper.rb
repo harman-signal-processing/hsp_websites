@@ -42,70 +42,54 @@ module MainHelper
     if youtube_user
       begin
 	      ret = (style == "table") ? '<table class="news_list" style="margin-left: 20px">' : '<div id="video_list">'
-        i = 0
-	      y = YouTubeIt::Client.new
-        v = y.videos_by(user: youtube_user)
-        v.videos.each do |video|
-          unless i >= limit
-            thumbnail = video.thumbnails.find(height: 90).first
-            link = play_video_url(video_id(video))
-            # detail = truncate(video.html_content, length: 100)
-            if style == "table"
-              ret += "<tr>"
-              ret +=   "<td><div style='margin-left: auto; margin-right: auto; position: relative; width:120px; height:90px'>"
-              ret +=     "<img src='#{thumbnail.url}' width='120' height='90'/>"
-              ret +=     "<div style='position:absolute; bottom: 0px; right: 6px; z-index: 1; color: white; font-size: 80%'>"
-              ret +=     seconds_to_MS(video.duration)
-              ret +=     "</div>"
-              ret +=     "<div style='position:absolute; top: 30px; left: 45px; z-index: 1'>"
-              ret +=        link_to(image_tag("play.png", alt: video.title), play_video_url(video_id(video)))
-              ret +=     "</div>"
-              ret +=   "</div></td>"
-              ret +=   "<td class='preview'><p><b>"
-              ret +=   link_to(video.title, play_video_url(video_id(video)))
-              ret +=   "</b></p></td>"
-              ret += "</tr>"
-            else
-              ret += "<div class='video_thumbnail'>"
-              ret +=     link_to("<img src='#{thumbnail.url}' width='180' height='135'/>".html_safe, play_video_url(video_id(video)))
-              ret +=     content_tag(:div, truncate(video.title))
-              ret +=     content_tag(:div, seconds_to_MS(video.duration), class: 'video_duration')
-              ret +=     content_tag(:div, link_to(image_tag("play.png", alt: video.title), play_video_url(video_id(video))), class: 'play_button')
-              ret += "</div>"
-            end
-            i += 1
+        playlist = get_default_playlist_id(youtube_user)
+        get_video_list_data(playlist, limit: limit)["items"].each do |v|
+          video = v["snippet"]
+          thumbnail = video["thumbnails"].find(height: 90).first[1]
+          link = play_video_url(video["resourceId"]["videoId"])
+          if style == "table"
+            ret += "<tr>"
+            ret +=   "<td><div style='margin-left: auto; margin-right: auto; position: relative; width:120px; height:90px'>"
+            ret +=     "<img src='#{thumbnail["url"]}' width='120' height='90'/>"
+            ret +=     "<div style='position:absolute; top: 30px; left: 45px; z-index: 1'>"
+            ret +=        link_to(image_tag("play.png", alt: video["title"]), link)
+            ret +=     "</div>"
+            ret +=   "</div></td>"
+            ret +=   "<td class='preview'><p><b>"
+            ret +=   link_to(video["title"], link)
+            ret +=   "</b></p></td>"
+            ret += "</tr>"
+          else
+            ret += "<div class='video_thumbnail'>"
+            ret +=     link_to("<img src='#{thumbnail["url"]}' width='180' height='135'/>".html_safe, link)
+            ret +=     content_tag(:div, truncate(video["title"]))
+            ret +=     content_tag(:div, link_to(image_tag("play.png", alt: video["title"]), link), class: 'play_button')
+            ret += "</div>"
           end
 	      end
 	      ret += (style == "table") ? "</table>" : "</div>"
         raw(ret)
       rescue
         if !youtube_user.blank?
-          # if File.exists?(Rails.root.join("app", "assets", "images", website.folder, I18n.locale, "youtube_button.png"))
-          #   link_to(image_tag("#{website.folder}/#{I18n.locale}/youtube_button.png", alt: "youtube"),
-          #     "http://www.youtube.com/user/#{youtube_user}",
-          #     target: "_blank")
-          # else
-            link_to("YouTube Channel", "http://www.youtube.com/user/#{youtube_user}", target: "_blank")
-          # end
+          link_to("YouTube Channel", "http://www.youtube.com/user/#{youtube_user}", target: "_blank")
         end
       end
     end
   end
 
   def horizontal_youtube_feed(youtube_user, options)
-    limit = options[:limit] || 4
     if youtube_user
       begin
         vids = []
-        y = YouTubeIt::Client.new
-        v = y.videos_by(user: youtube_user)
-        v.videos[0,limit].each do |video|
-          thumbnail = video.thumbnails.find(height: 90).first
-          link = play_video_url(video_id(video))
+        playlist = get_default_playlist_id(youtube_user)
+        get_video_list_data(playlist, options)["items"].each do |v|
+          video = v["snippet"]
+          thumbnail = video["thumbnails"].find(height: 90).first[1]
+          link = play_video_url(video["resourceId"]["videoId"])
           vids << content_tag(:li, class: 'video_thumbnail') do
-            content_tag(:div, link_to(image_tag("play.png", alt: video.title), link, target: "_blank"), class: 'play_button') +
-            link_to(image_tag(thumbnail.url, width: 180, height: 135), link, target: "_blank") +
-            content_tag(:p, link_to(video.title, link, target: "_blank"), class: 'video_title')
+            content_tag(:div, link_to(image_tag("play.png", alt: video["title"]), link, target: "_blank"), class: 'play_button') +
+            link_to(image_tag(thumbnail["url"], width: 180, height: 135), link, target: "_blank") +
+            content_tag(:p, link_to(video["title"], link, target: "_blank"), class: 'video_title')
           end
         end
         content_tag(:ul, raw(vids.join), id: 'video_list', class: "large-block-grid-4 medium-block-grid-4 small-block-grid-2")
@@ -133,7 +117,7 @@ module MainHelper
     default_options = {limit: 4}
     options = default_options.merge options
 
-    loc = "#{I18n.locale}" # fixes odd bug
+    loc = "#{I18n.locale}" # fixes odd bug (keep this here)
 
     out = ""
     out = "<ul class=\"large-block-grid-#{options[:limit]} small-block-grid-#{(options[:limit]/2).to_i}\">" if options[:zurb]
