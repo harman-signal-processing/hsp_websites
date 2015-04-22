@@ -22,7 +22,15 @@
 		<% else %>
 			<div class="product_family_box">
 				<h2><%= translate_content(product_family, :name) %></h2>
-				<p><%= truncate(translate_content(product_family, :intro), length: 100) %></p>
+        <% begin %>
+          <% if pr = product_family.current_products.first %>
+            <%= image_tag pr.photo.product_attachment.url(:medium) %>
+          <% else %>
+            <p><%= truncate(translate_content(product_family, :intro), length: 100) %></p>
+          <% end %>
+        <% rescue %>
+          <p><%= truncate(translate_content(product_family, :intro), length: 100) %></p>
+        <% end %>
 			</div>
 		<% end %>
 	<% end %>
