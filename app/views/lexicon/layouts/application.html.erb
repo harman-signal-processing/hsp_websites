@@ -9,7 +9,7 @@
 		<%= cache ["meta_tags", request.url] do %>
 			<%= cached_meta_tags %>
 			<% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "logo.png")) %>
-			<link rel="image_src" href="<%= image_url("#{website.folder}/logo.png") %>" />		
+			<link rel="image_src" href="<%= image_url("#{website.folder}/logo.png") %>" />
 			<% end %>
 			<!--[if lt IE 9]>
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -50,13 +50,13 @@
 		}(document, 'script', 'facebook-jssdk'));</script>
 		<%= yield :extra_notice %>
 		<%= render_partial "shared/locale_switcher" %>
-		<%#= render_partial "shared/admin_dashboard_link" %>	
+		<%#= render_partial "shared/admin_dashboard_link" %>
 		<div id="glow"></div>
 
 		<%= cache ["header", website, I18n.locale] do %>
 		<header>
 			<div id="inner_header">
-				
+
 			<div id="logo">
 				<% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "logo.png")) %>
 				<%= link_to(image_tag("#{website.folder}/logo.png", alt: Setting.site_name(website)), locale_root_path) %>
@@ -69,18 +69,18 @@
 				<%= supernav %>
 			</div>
 			<div id="supersocial">
-				<%= social_media_links 'twitter', 'facebook', 'rss', 'youtube', 'myspace', 'wechat', 'weibo' %> 
+				<%= social_media_links 'twitter', 'facebook', 'rss', 'youtube', 'myspace', 'wechat', 'weibo' %>
 			</div>
 			<div id="topnav">
 				<ul>
 					<li><%= link_to t('home'), locale_root_path %></li>
 					<% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
 					<li><%= link_to t('store'), where_to_buy_path %></li>
-					<% end %>					
+					<% end %>
 					<% if website.has_artists? %>
 					<li><%= link_to t('professionals'), artists_path %></li>
 					<% end %>
-					<li><%= link_to t('news'), news_index_path %></li> 
+					<li><%= link_to t('news'), news_index_path %></li>
 					<li><%= link_to t('product_support'), support_path %></li>
 					<li><%= link_to t('warranty_registration'), warranty_registration_path %></li>
 				</ul>
@@ -97,9 +97,9 @@
 			</div>
 		</header>
 		<% end %>
-		
+
 		<div id="page_container">
-			
+
 		<% if content_for?(:feature) %>
 			<div id="feature_bg"></div>
 			<div id="feature_container">
@@ -115,13 +115,13 @@
 				<%= yield %>
 			</div>
 		</div>
-		
+
 		<% if content_for?(:middle_stuff) %>
 		<div id="middle_container">
 			<%= yield :middle_stuff %>
 		</div>
 		<% end %>
-		
+
 		<% if content_for?(:big_bottom_box) %>
 			<div id="big_bottom_box_container">
 				<div id="big_bottom_box_content">
@@ -133,7 +133,7 @@
 			<div style="height: 1px;">&nbsp;</div>
 		<% end %>
 		</div>
-		
+
 		<%= cache ["footer", website.brand, I18n.locale] do %>
 		<footer>
 			<%= hpro_footer %>
