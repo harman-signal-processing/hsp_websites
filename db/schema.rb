@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150410160231) do
+ActiveRecord::Schema.define(version: 20150423213651) do
 
   create_table "admin_logs", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -297,7 +297,10 @@ ActiveRecord::Schema.define(version: 20150410160231) do
     t.string   "part_number",           limit: 255
     t.string   "board_location",        limit: 255
     t.string   "shipping_country",      limit: 255
+    t.integer  "brand_id",              limit: 4
   end
+
+  add_index "contact_messages", ["brand_id"], name: "index_contact_messages_on_brand_id", using: :btree
 
   create_table "content_translations", force: :cascade do |t|
     t.string   "content_type",   limit: 255

@@ -3,8 +3,11 @@ require "rails_helper"
 RSpec.describe ContactMessage, :type => :model do
   before do
     @brand = FactoryGirl.create(:brand)
-    @contact_message = FactoryGirl.build(:contact_message)
+    @contact_message = FactoryGirl.build(:contact_message, brand: @brand)
   end
+
+  subject { @contact_message }
+  it { should respond_to :brand }
 
   describe "#subjects" do
 

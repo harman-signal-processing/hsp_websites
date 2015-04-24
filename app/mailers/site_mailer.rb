@@ -1,18 +1,19 @@
 class SiteMailer < ActionMailer::Base
 
-  def contact_form(contact_message, website)
-    @brand = website.brand
+  def contact_form(contact_message, options={})
     @contact_message = contact_message
-    @recipient = website.brand.support_email
-    if subj = SupportSubject.where(brand_id: website.brand_id, name: @contact_message.subject).first
+    @brand = contact_message.brand
+    @recipient = @brand.support_email
+    if subj = SupportSubject.where(brand_id: @brand.id, name: @contact_message.subject).first
       @recipient = subj.recipient if subj.recipient.present?
     elsif @contact_message.catalog_request?
       @recipient = "service@sullivangroupusa.com"
     elsif @contact_message.rma_request?
-      @recipient = website.brand.rma_email
+      @recipient = @brand.rma_email
     elsif @contact_message.part_request?
-      @recipient = website.brand.parts_email
+      @recipient = @brand.parts_email
     end
+
     mail(to: @recipient,
       subject: @contact_message.subject,
       from: @contact_message.email)

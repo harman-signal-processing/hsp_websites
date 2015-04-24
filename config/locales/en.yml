@@ -339,8 +339,8 @@ en:
         success: 'Successfully authenticated from %{kind} account.'
         failure: 'Could not authenticate you from %{kind} because "%{reason}".'
       mailer:
-        rso_confirmation_instructions:
-          subject: 'HSP Toolkit Confirmation link'
+        toolkit_confirmation_instructions:
+          subject: 'HARMAN Toolkit Confirmation link'
         dealer_confirmation_instructions:
           subject: 'HARMAN Toolkit Confirmation instructions'
         confirmation_instructions:

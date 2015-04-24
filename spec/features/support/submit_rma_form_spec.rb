@@ -19,6 +19,7 @@ feature "Complete rma form" do
   end
 
   scenario "brand doesn't support online rma form" do
+    skip "Temporarily allowing RMA form for all brands to debug Crown problem (4/2015)"
     visit rma_request_url(host: @website.url)
 
     expect(current_path).to eq(support_path(locale: I18n.default_locale))

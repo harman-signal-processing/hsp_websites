@@ -91,6 +91,14 @@ class User < ActiveRecord::Base
     where(marketing_staff: true).order(:name)
   end
 
+  def self.default
+    u = where(name: "Site Visitor").first_or_initialize do |v|
+      v.email = "nobody@lvh.me"
+    end
+    u.save(validate: false)
+    u
+  end
+
   def initials
     @initials ||= (name.split(/\s/).length > 1) ? name.split(/\s/).map{|u| u.match(/^\w/).to_s}.join : name
   end

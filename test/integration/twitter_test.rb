@@ -6,7 +6,7 @@ describe "Twitter Integration Test" do
     # DatabaseCleaner.start
     # Brand.destroy_all
     @brand = FactoryGirl.create(:brand)
-    Brand.any_instance.stubs(:twitter_name).returns('twitter')
+    Brand.any_instance.stubs(:twitter_name).returns('adamtao')
     @website = FactoryGirl.create(:website_with_products, brand: @brand)
     host! @website.url
     Capybara.default_host = "http://#{@website.url}"

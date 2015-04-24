@@ -57,14 +57,17 @@ class SupportController < ApplicationController
   # (contact, parts, rma, catalog) into one action. Also, it makes sense to
   # follow REST and put these in their own controller.
   def contact
-    @contact_message = ContactMessage.new
-    @contact_message.require_country = true if require_country?
+    @contact_message = ContactMessage.new do |c|
+      c.require_country = true if require_country?
+    end
     if request.post?
-      @contact_message = ContactMessage.new(contact_message_params)
-      @contact_message.require_country = true if require_country?
+      @contact_message = ContactMessage.new(contact_message_params) do |c|
+        c.brand = website.brand
+        c.require_country = true if require_country?
+      end
       if verify_recaptcha && @contact_message.valid?
         @contact_message.save
-        SiteMailer.delay.contact_form(@contact_message, website)
+        SiteMailer.delay.contact_form(@contact_message)
         redirect_to support_path, notice: t('blurbs.contact_form_thankyou') and return false
       end
     end
@@ -75,18 +78,25 @@ class SupportController < ApplicationController
   # Parts request form
   def parts
     @page_title = t('titles.part_request')
+      # 4/2015 There have been problems with the Crown parts and RMA
+      # forms. I'm temporarily removing the filter to redirect non-parts
+      # brands so we can see if that is the problem...
     unless website.has_parts_form?
-      redirect_to support_path and return false
+      website.add_log(user: User.default, action: "Parts form attempted, but redirected since brand doesn't support it.")
+      #redirect_to support_path and return false
     end
-    @contact_message = ContactMessage.new(message_type: "part_request")
     if request.post?
-      @contact_message = ContactMessage.new(contact_message_params)
-      @contact_message.message_type = "part_request"
+      @contact_message = ContactMessage.new(contact_message_params) do |c|
+        c.message_type = 'part_request'
+        c.brand = website.brand
+      end
       if @contact_message.valid?
         @contact_message.save
-        SiteMailer.delay.contact_form(@contact_message, website)
+        SiteMailer.delay.contact_form(@contact_message)
         redirect_to support_path, notice: t('blurbs.parts_request_thankyou') and return false
       end
+    else
+      @contact_message = ContactMessage.new(message_type: "part_request")
     end
     render_template
   end
@@ -94,18 +104,25 @@ class SupportController < ApplicationController
   # RMA request form
   def rma
     @page_title = t('titles.rma_request')
+      # 4/2015 There have been problems with the Crown parts and RMA
+      # forms. I'm temporarily removing the filter to redirect non-parts
+      # brands so we can see if that is the problem...
     unless website.has_rma_form?
-      redirect_to support_path and return false
+      website.add_log(user: User.default, action: "RMA attempted, but redirected since brand doesn't support it.")
+      #redirect_to support_path and return false
     end
-    @contact_message = ContactMessage.new(message_type: "rma_request")
     if request.post?
-      @contact_message = ContactMessage.new(contact_message_params)
-      @contact_message.message_type = "rma_request"
+      @contact_message = ContactMessage.new(contact_message_params) do |c|
+        c.message_type = "rma_request"
+        c.brand = website.brand
+      end
       if @contact_message.valid?
         @contact_message.save
-        SiteMailer.delay.contact_form(@contact_message, website)
+        SiteMailer.delay.contact_form(@contact_message)
         redirect_to support_path, notice: t('blurbs.rma_request_thankyou') and return false
       end
+    else
+      @contact_message = ContactMessage.new(message_type: "rma_request")
     end
     render_template
   end
@@ -114,11 +131,13 @@ class SupportController < ApplicationController
     @page_title = "DVD Catalog Request"
     @contact_message = ContactMessage.new(message_type: "catalog_request")
     if request.post?
-      @contact_message = ContactMessage.new(contact_message_params)
-      @contact_message.message_type = "catalog_request"
+      @contact_message = ContactMessage.new(contact_message_params) do |c|
+        c.message_type = "catalog_request"
+        c.brand = website.brand
+      end
       if @contact_message.valid? && verify_recaptcha
         @contact_message.save
-        SiteMailer.delay.contact_form(@contact_message, website)
+        SiteMailer.delay.contact_form(@contact_message)
         redirect_to support_path, notice: "Thank you for your catalog request. We'll get it out to you shortly." and return false
       end
     end
@@ -243,7 +262,7 @@ class SupportController < ApplicationController
   end
 
   def contact_message_params
-    params.require(:contact_message).permit(:name, :email, :subject, :message, :created_at, :updated_at, :product, :operating_system, :company, :account_number, :phone, :fax, :billing_address, :billing_city, :billing_state, :billing_zip, :shipping_address, :shipping_city, :shipping_state, :shipping_zip, :product_sku, :product_serial_number, :warranty, :purchased_on, :part_number, :board_location, :shipping_country)
+    params.require(:contact_message).permit(:name, :email, :subject, :message, :product, :operating_system, :company, :account_number, :phone, :fax, :billing_address, :billing_city, :billing_state, :billing_zip, :shipping_address, :shipping_city, :shipping_state, :shipping_zip, :product_sku, :product_serial_number, :warranty, :purchased_on, :part_number, :board_location, :shipping_country)
   end
 
 end

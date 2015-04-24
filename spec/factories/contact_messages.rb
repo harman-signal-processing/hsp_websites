@@ -4,6 +4,7 @@ FactoryGirl.define do
     subject "Product Question"
     email "axl@rose.com"
     product "RP2"
+    brand
     product_serial_number "1234"
     operating_system "OS X"
     shipping_address "123 Anywhere"

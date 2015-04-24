@@ -1,5 +1,7 @@
 class ContactMessage < ActiveRecord::Base
   before_validation :set_defaults
+  belongs_to :brand
+
   validates :name, :subject, :message_type, presence: true
   validates :email, presence: true, format: {with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
   validates :message, presence: true, if: :support?
