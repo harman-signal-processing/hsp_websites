@@ -157,10 +157,10 @@
     <div class="small-12 large-12 columns large-centered small-centered">
         <p><%= image_tag "harman.jpg" %></p>
         <p>Brand Sites:</p>
-      	<p><%= toolkit_brands.map do |b| 
+      	<p><%= toolkit_brands.map do |b|
       			link_to(b.name, "http://#{b.default_website.url}", target: "_blank")
       		   end.join(" &bull; ").html_safe %></p>
-    </div> 
+    </div>
   </footer>
   </div>
   <script type="text/javascript">$(document).foundation();</script>

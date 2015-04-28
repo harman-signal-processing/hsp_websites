@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :toolkit_resource do
-    name "MyString"
+    name "MyToolkitResource"
     toolkit_resource_type
     related_id 1
     tk_preview { File.new(Rails.root.join('test', 'fixtures', 'test.jpg')) }

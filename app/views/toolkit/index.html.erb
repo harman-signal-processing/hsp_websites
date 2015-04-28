@@ -8,13 +8,13 @@
 <div class="small-12 large-8 columns large-offset-2" style="text-align: center">
 	<% toolkit_brands.each do |brand| %>
 		<% if brand.logo.present? %>
-				<%= link_to(image_tag(brand.logo.url(:thumb), style: "margin: 10px"), [:toolkit, brand]) %>
+				<%= link_to(image_tag(brand.logo.url(:thumb), alt: brand.name, style: "margin: 10px"), [:toolkit, brand]) %>
 		<% end %>
 		<% end %>
 	<ul>
 	<% toolkit_brands.each do |brand| %>
 		<% if brand.logo.blank? %>
-		<li><%= link_to(image_tag(brand.logo), [:toolkit, brand]) %></li>
+		<li><%= link_to(image_tag(brand.logo, alt: brand.name), [:toolkit, brand]) %></li>
 		<% end %>
 	<% end %>
 	</ul>
