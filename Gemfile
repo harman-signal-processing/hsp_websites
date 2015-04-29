@@ -113,7 +113,6 @@ group :development, :test do
 end
 
 group :test do
-  # gem 'turn', git: 'http://github.com/turn-project/turn'
   gem 'mocha', require: false
   gem 'minitest-rails-capybara'
   gem 'capybara'

@@ -5,9 +5,11 @@ require 'rails_helper'
 #   I want to complete the contact form
 #   So I can get an answer to my question
 feature "Submit contact form" do
-  before do
+  before :all do
     @website = FactoryGirl.create(:website_with_products)
+  end
 
+  before :each do
     visit support_url(host: @website.url)
   end
 

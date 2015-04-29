@@ -2,8 +2,11 @@ require "rails_helper"
 
 RSpec.describe 'toolkit/products/index.html.erb', as: :view do
 
-  before do
+  before :all do
     @brand = FactoryGirl.create(:brand)
+  end
+
+  before :each do
     @product = FactoryGirl.build(:product, brand: @brand)
     assign(:brand, @brand)
   end
@@ -23,7 +26,7 @@ RSpec.describe 'toolkit/products/index.html.erb', as: :view do
 
     render
 
-    expect(rendered).to have_link(@product.name, toolkit_brand_product_path(@brand, @product))
+    expect(rendered).to have_link(@product.name, href: toolkit_brand_product_path(@brand, @product))
   end
 
   # This functionality gets debated constantly. Should we show product information

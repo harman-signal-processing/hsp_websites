@@ -4,9 +4,8 @@ RSpec.describe Artist, :type => :model do
 
   describe "relations" do
 
-		before :each do
-      @digitech = FactoryGirl.create(:digitech_brand)
-      @website = FactoryGirl.create(:website_with_products, folder: "digitech", brand: @digitech)
+		before :all do
+      @website = FactoryGirl.create(:website_with_products, folder: "digitech")
 	  end
 
 	  it "should return a brand for the mailer when artist has products" do

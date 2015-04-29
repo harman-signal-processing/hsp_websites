@@ -1,7 +1,7 @@
 require "rails_helper"
 
 feature "Complete parts form" do
-  before do
+  before :all do
     @website = FactoryGirl.create(:website_with_products)
   end
 

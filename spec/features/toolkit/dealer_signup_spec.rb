@@ -2,11 +2,13 @@ require "rails_helper"
 
 feature "Dealer signs up for Toolkit" do
 
-  before :each do
+  before :all do
     @host = HarmanSignalProcessingWebsite::Application.config.toolkit_url
     Capybara.default_host = "http://#{@host}"
     Capybara.app_host = "http://#{@host}"
+  end
 
+  before :each do
     allow_any_instance_of(Dealer).to receive(:geocode_address).and_return(true)
     @dealer = FactoryGirl.create(:dealer)
     visit root_url(host: @host)

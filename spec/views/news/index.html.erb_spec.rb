@@ -10,7 +10,7 @@ RSpec.describe "news/index.html.erb", :type => :view do
   end
 
   it "should link to news story" do
-    expect(rendered).to have_link(@news.title, news_path(@news))
+    expect(rendered).to have_link(@news.title, href: news_path(@news))
   end
 
 end

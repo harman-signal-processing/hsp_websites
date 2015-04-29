@@ -2,7 +2,7 @@ require "rails_helper"
 
 feature "Toolkit layout" do
 
-  before do
+  before :all do
     @host = HarmanSignalProcessingWebsite::Application.config.toolkit_url
     Capybara.default_host = "http://#{@host}"
     Capybara.app_host = "http://#{@host}"

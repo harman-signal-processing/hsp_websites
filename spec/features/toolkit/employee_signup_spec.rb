@@ -2,11 +2,13 @@ require "rails_helper"
 
 feature "Employee signs up for Toolkit" do
 
-  before :each do
+  before :all do
     @host = HarmanSignalProcessingWebsite::Application.config.toolkit_url
     Capybara.default_host = "http://#{@host}"
     Capybara.app_host = "http://#{@host}"
+  end
 
+  before :each do
     visit root_url(host: @host)
     within('.top-bar') do
       click_on "Sign up"

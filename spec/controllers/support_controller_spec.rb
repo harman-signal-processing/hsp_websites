@@ -2,9 +2,12 @@ require 'rails_helper'
 
 RSpec.describe SupportController, :type => :controller do
 
-  before do
-    @brand = FactoryGirl.create(:crown_brand)
-    @website = FactoryGirl.create(:website_with_products, folder: "crown", brand: @brand, url: "crown.lvh.me")
+  before :all do
+    @website = FactoryGirl.create(:website_with_products)
+    @brand = @website.brand
+  end
+
+  before :each do
     @request.host = @website.url
   end
 

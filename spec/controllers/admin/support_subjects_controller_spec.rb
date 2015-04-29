@@ -1,13 +1,16 @@
 require "rails_helper"
 
-RSpec.describe Admin::SupportSubjectsController do
+RSpec.describe Admin::SupportSubjectsController, type: :controller do
 
-  before do
-    @brand = FactoryGirl.create(:digitech_brand)
-    @website = FactoryGirl.create(:website_with_products, folder: "digitech", brand: @brand, url: "digitech.lvh.me")
-    @request.host = @website.url
+  before :all do
+    @website = FactoryGirl.create(:website_with_products)
+    @brand = @website.brand
     @support_subjects = FactoryGirl.create_list(:support_subject, 2, brand_id: @brand.id)
     @user = FactoryGirl.create(:user, market_manager: true, confirmed_at: 1.minute.ago)
+  end
+
+  before :each do
+    @request.host = @website.url
     sign_in(:user, @user)
   end
 

@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "toolkit/product_families/show.html.erb", as: :view do
 
-  before do
+  before :all do
     @brand = FactoryGirl.create(:brand)
     @product = FactoryGirl.create(:product, brand: @brand)
     @product_family = FactoryGirl.create(:product_family, brand: @brand)

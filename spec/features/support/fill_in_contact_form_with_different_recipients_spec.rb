@@ -6,7 +6,7 @@ require 'rails_helper'
 #   And have it go directly to the corresponding person
 #   So I can get an answer to my question
 feature "Complete contact form with custom recipients" do
-  before do
+  before :all do
     @website = FactoryGirl.create(:website_with_products)
     @subjects = FactoryGirl.create_list(:support_subject, 2, brand_id: @website.brand_id)
     @subjects.first.update_column(:recipient, "mrcool@harman.com")

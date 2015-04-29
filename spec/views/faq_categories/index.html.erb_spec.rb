@@ -9,7 +9,7 @@ RSpec.describe "faq_categories/index.html.erb", :type => :view do
   end
 
   it "links to the categories" do
-    expect(rendered).to have_link(@faq_category.name, faq_category_path(@faq_category))
+    expect(rendered).to have_link(@faq_category.name, href: faq_category_path(@faq_category))
   end
 
 end

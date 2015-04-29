@@ -2,10 +2,13 @@ require 'rails_helper'
 
 RSpec.describe NewsController, :type => :controller do
 
-  before do
+  before :all do
     @website = FactoryGirl.create(:website_with_products)
     @brand = @website.brand
     @future_news = FactoryGirl.create(:news, brand: @website.brand, post_on: 1.month.from_now, title: "Future News")
+  end
+
+  before :each do
     @request.host = @website.url
   end
 

@@ -2,11 +2,14 @@ require 'rails_helper'
 
 RSpec.describe FaqCategoriesController, :type => :controller do
 
-  before do
-    @brand = FactoryGirl.create(:crown_brand)
-    @website = FactoryGirl.create(:website_with_products, folder: "crown", brand: @brand, url: "crown.lvh.me")
+  before :all do
+    @website = FactoryGirl.create(:website_with_products)
+    @brand = @website.brand
     @faq_category = FactoryGirl.create(:faq_category, brand: @brand)
     @faq_category.faqs << FactoryGirl.create(:faq)
+  end
+
+  before :each do
     @request.host = @website.url
   end
 

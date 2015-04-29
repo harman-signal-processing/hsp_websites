@@ -29,13 +29,13 @@ class ActiveSupport::TestCase
   # fixtures :all
 
   setup do
-    DatabaseCleaner.start 
+    DatabaseCleaner.start
     Brand.destroy_all
   end
 
   # Add more helper methods to be used by all tests here...
   teardown do
-    DatabaseCleaner.clean 
+    DatabaseCleaner.clean
   end
 end
 
@@ -54,7 +54,7 @@ class ActionDispatch::IntegrationTest
   end
 
   setup do
-    DatabaseCleaner.start 
+    DatabaseCleaner.start
     Brand.destroy_all
   end
 
@@ -68,5 +68,3 @@ class ActionDispatch::IntegrationTest
 
 end
 
-# Turn.config.format = :outline
-# Turn.config.natural = true

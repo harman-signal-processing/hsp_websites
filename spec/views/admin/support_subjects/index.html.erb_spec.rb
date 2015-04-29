@@ -2,9 +2,12 @@ require 'rails_helper'
 
 RSpec.describe "admin/support_subjects/index.html.erb" do
 
-  before do
+  before :all do
     @brand = FactoryGirl.create(:brand)
     @website = FactoryGirl.create(:website, brand: @brand)
+  end
+
+  before :each do
     allow(view).to receive(:website).and_return(@website)
   end
 

@@ -2,10 +2,13 @@ require "rails_helper"
 
 RSpec.describe "admin/support_subjects/_form.html.erb", type: :view do
 
-  before do
+  before :all do
     @brand = FactoryGirl.create(:brand)
     @website = FactoryGirl.create(:website, brand: @brand)
     @support_subject = FactoryGirl.create(:support_subject, brand: @brand)
+  end
+
+  before :each do
     assign(:support_subject, @support_subject)
     allow(view).to receive(:website).and_return(@website)
     render partial: "admin/support_subjects/form"

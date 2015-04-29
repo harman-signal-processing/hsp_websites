@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "toolkit/products/show.html.erb", as: :view do
 
-  before do
+  before :all do
     @brand = FactoryGirl.create(:brand)
     assign(:brand, @brand)
     assign(:images, [])

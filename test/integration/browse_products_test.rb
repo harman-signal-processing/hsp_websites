@@ -41,10 +41,6 @@ describe "Browse Products Integration Test" do
       visit products_url(locale: I18n.default_locale, host: @website.url)
     end
 
-    it "/products should redirect to products family page" do
-      current_path.must_equal product_families_path(locale: I18n.default_locale)
-    end
-
     it "should not link to full line for a family with one product in one sub-family" do
       page.wont_have_link I18n.t('view_full_line'), href: product_family_path(@single_parent, locale: I18n.default_locale)
     end

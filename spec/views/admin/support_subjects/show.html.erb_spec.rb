@@ -2,11 +2,14 @@ require 'rails_helper'
 
 RSpec.describe "admin/support_subjects/show.html.erb" do
 
-  before do
+  before :all do
     @brand = FactoryGirl.create(:brand)
     @website = FactoryGirl.create(:website, brand: @brand)
-    allow(view).to receive(:website).and_return(@website)
     @support_subject = FactoryGirl.create(:support_subject, brand: @brand)
+  end
+
+  before :each do
+    allow(view).to receive(:website).and_return(@website)
     assign(:support_subject, @support_subject)
     render
   end
