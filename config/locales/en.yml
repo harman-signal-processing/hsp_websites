@@ -91,12 +91,13 @@ en:
   click_icons_for_features: "click icons for features"
   back_to: back to
   forum: forum
-  user forum: user forum
+  user_forum: user forum
   user_groups: user groups
   language_region: "Language/Region"
   subscribe_via_rss: Subscribe via RSS
   dealer_login: dealer login
   privacy_policy: privacy policy
+  warranty_policy: warranty policy
   terms_of_use: terms of use
   looking_for_software: Looking for software/firmware?
   check_our_software_page: Check our software downloads page.
