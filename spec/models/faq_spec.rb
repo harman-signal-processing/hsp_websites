@@ -8,6 +8,7 @@ RSpec.describe Faq, :type => :model do
 
   subject { @faq }
   it { should respond_to(:product) }
+  it { should respond_to(:faq_categories) }
 
   describe "without a product" do
     it "should generate a valid sort_key" do
@@ -29,6 +30,18 @@ RSpec.describe Faq, :type => :model do
       @faq.product = product
 
       expect(@faq.sort_key).to match(product.name.downcase)
+    end
+  end
+
+  describe "with a category id" do
+    it "should be valid" do
+      faq_category = FactoryGirl.create(:faq_category)
+      faq = Faq.new(question: "Why?", answer: "Becuz", faq_category_ids: [faq_category.id])
+
+      is_valid = faq.valid?
+      puts faq.errors.inspect
+
+      expect(is_valid).to be(true)
     end
   end
 end
