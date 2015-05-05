@@ -38,7 +38,7 @@ feature "Dealer signs up for Toolkit" do
     expect(u.dealers).to include(@dealer)
   end
 
-  scenario "should send email to dealer, not user" do
+  scenario "should send confirmation email to user and dealer" do
     user = FactoryGirl.build(:user, email: "someone@dealer.com")
 
     fill_in_new_dealer_user_form(user, @dealer)
@@ -46,21 +46,31 @@ feature "Dealer signs up for Toolkit" do
     last_email = ActionMailer::Base.deliveries.last
     expect(last_email.subject).to match "Harman Toolkit Confirmation instructions"
     expect(last_email.to).to include(@dealer.email)
+    expect(last_email.to).to include(user.email)
     expect(last_email.body).to have_content user.name
     expect(last_email.body).to have_content user.email
   end
 
-  scenario "should send an email error to user where no dealer is found" do
+  scenario "should NOT send an email error to user where no dealer is found" do
     user = FactoryGirl.build(:user, email: "someone@dealer.com")
     dealer = FactoryGirl.build(:dealer) # un-saved, so should error when looking up
 
     fill_in_new_dealer_user_form(user, dealer)
 
     last_email = ActionMailer::Base.deliveries.last
-    expect(last_email.subject).to match "can't confirm account"
+    expect(last_email.subject).to match "Harman Toolkit Confirmation instructions"
+    expect(last_email.to).not_to include(@dealer.email)
     expect(last_email.to).to include(user.email)
-    expect(last_email.cc).to include HarmanSignalProcessingWebsite::Application.config.toolkit_admin_email_addresses.first
-    expect(last_email.body).to have_content HarmanSignalProcessingWebsite::Application.config.toolkit_admin_contact_info.first
+    expect(last_email.body).to have_content user.name
+    expect(last_email.body).to have_content user.email
+  end
+
+  scenario "should store the account number with the user record" do
+    user = FactoryGirl.build(:user, email: "someone@dealer.com")
+
+    fill_in_new_dealer_user_form(user, @dealer)
+
+    expect(User.last.account_number).to eq(@dealer.account_number)
   end
 
   def fill_in_new_dealer_user_form(user, dealer)

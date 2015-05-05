@@ -5,19 +5,16 @@ class UserMailer < Devise::Mailer
   def confirmation_instructions(record, token, opts={})
     @token = token
   	if record.needs_account_number?
+      initialize_from_record(record)
+      to = [ @resource.email ]
   		if record.dealers && record.dealers.first && record.dealers.first.email.present?
-        initialize_from_record(record)
-	  		mail to: record.dealers.first.email,
-          subject: "Harman Toolkit Confirmation instructions",
-          template_name: "dealer_confirmation_instructions"
+        to << record.dealers.first.email
       elsif record.distributors && record.distributors.first && record.distributors.first.email.present?
-        initialize_from_record(record)
-        mail to: record.distributors.first.email,
-          subject: "Harman Toolkit Confirmation instructions",
-          template_name: "dealer_confirmation_instructions"
-  		else
-  			cant_confirm(record, opts)
+        to << record.distributors.first.email
   		end
+      mail to: to,
+        subject: "Harman Toolkit Confirmation instructions",
+        template_name: "dealer_confirmation_instructions"
   	elsif record.needs_invitation_code?
       devise_mail(record, :toolkit_confirmation_instructions, opts)
     else
@@ -31,15 +28,6 @@ class UserMailer < Devise::Mailer
 
   def unlock_instructions(record, token, opts={})
     super
-  end
-
-  def cant_confirm(record, opts={})
-  	initialize_from_record(record)
-  	@email = @resource.email
-  	mail to: @email,
-  		cc: HarmanSignalProcessingWebsite::Application.config.toolkit_admin_email_addresses,
-  		subject: "Harman Toolkit can't confirm account",
-  		template_name: "cant_confirm"
   end
 
 end

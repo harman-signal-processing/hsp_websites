@@ -51,7 +51,6 @@ class User < ActiveRecord::Base
   validates :account_number, presence: true, on: :create, if: :needs_account_number?
 
   attr_accessor :invitation_code
-  attr_accessor :account_number
 
   ROLES = %w[admin
     employee
