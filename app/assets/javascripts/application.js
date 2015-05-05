@@ -23,6 +23,7 @@
 //= require twitter
 //= require swfobject
 //= require tools
+//= require math.min
 //= require homepage
 //= require configurator
 

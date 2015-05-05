@@ -25,6 +25,7 @@
 //= require jwplayer
 //= require swfobject
 //= require tools
+//= require math.min
 //= require bss_application
 //= require configurator
 //= require_self
