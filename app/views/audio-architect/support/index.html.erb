@@ -47,9 +47,14 @@
 			</tr>
 		</table>
 
-		<% if sup = website.support_email %>
-			<p>For general inquiries, please <%= mail_to sup, "email the Audio Architect team", subject: "Audio Architect inquiry" %>.</p>
-		<% end %>
+    <p>For general inquiries, please contact the brand corresponding to your equipment:</p>
+    <ul>
+      <li>AKG: <a href="http://akg.com/pro/technical-support" target="_blank">akg.com/pro</a></li>
+      <li>BSS: <a href="http://bssaudio.com/en-US/support" target="_blank">bssaudio.com/support</a></li>
+      <li>Crown: <a href="http://www.crownaudio.com/en-US/support" target="_blank">www.crownaudio.com/support</a></li>
+      <li>dbx: <a href="http://dbxpro.com/en-US/support" target="_blank">dbxpro.com/support</a></li>
+      <li>JBL: <a href="http://jblproservice.com" target="_blank">jblproservice.com</a></li>
+    </ul>
 
 	</div>
 <% end %>
