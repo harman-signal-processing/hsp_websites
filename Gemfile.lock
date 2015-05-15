@@ -158,7 +158,7 @@ GEM
     exception_notification (4.1.0)
       actionmailer (>= 3.0.4)
       activesupport (>= 3.0.4)
-    excon (0.45.3)
+    excon (0.45.1)
     execjs (2.5.2)
     extlib (0.9.16)
     factory_girl (4.5.0)
@@ -175,13 +175,12 @@ GEM
       thor (~> 0.14)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
-    fog (1.30.0)
+    fog (1.29.0)
       fog-atmos
       fog-aws (~> 0.0)
       fog-brightbox (~> 0.4)
       fog-core (~> 1.27, >= 1.27.4)
       fog-ecloud
-      fog-google (>= 0.0.2)
       fog-json
       fog-local
       fog-powerdns (>= 0.1.1)
@@ -201,7 +200,7 @@ GEM
     fog-atmos (0.1.0)
       fog-core
       fog-xml
-    fog-aws (0.2.2)
+    fog-aws (0.1.2)
       fog-core (~> 1.27)
       fog-json (~> 1.0)
       fog-xml (~> 0.1)
@@ -219,10 +218,6 @@ GEM
       net-ssh (>= 2.1.3)
     fog-ecloud (0.1.1)
       fog-core
-      fog-xml
-    fog-google (0.0.5)
-      fog-core
-      fog-json
       fog-xml
     fog-json (1.0.1)
       fog-core (~> 1.0)
@@ -251,7 +246,7 @@ GEM
     fog-serverlove (0.1.2)
       fog-core
       fog-json
-    fog-softlayer (0.4.6)
+    fog-softlayer (0.4.5)
       fog-core
       fog-json
     fog-storm_on_demand (0.1.1)
@@ -349,10 +344,10 @@ GEM
     json (1.8.2)
     json-schema (2.5.1)
       addressable (~> 2.3.7)
-    jwt (1.5.0)
+    jwt (1.4.1)
     launchy (2.4.3)
       addressable (~> 2.3)
-    letter_opener (1.4.0)
+    letter_opener (1.3.0)
       launchy (~> 2.2)
     libv8 (3.16.14.7)
     listen (2.10.0)
@@ -363,7 +358,7 @@ GEM
     logging (2.0.0)
       little-plugger (~> 1.1)
       multi_json (~> 1.10)
-    loofah (2.0.2)
+    loofah (2.0.1)
       nokogiri (>= 1.5.9)
     lumberjack (1.0.9)
     macaddr (1.7.1)
@@ -387,7 +382,7 @@ GEM
     metaclass (0.0.4)
     method_source (0.8.2)
     middleware (0.1.0)
-    mime-types (2.5)
+    mime-types (2.4.3)
     mini_portile (0.6.2)
     minitest (5.5.1)
     minitest-capybara (0.7.1)
@@ -428,7 +423,7 @@ GEM
     net-ssh (2.9.2)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
-    nori (2.6.0)
+    nori (2.5.0)
     notiffany (0.0.6)
       nenv (~> 0.1)
       shellany (~> 0.0)
@@ -451,7 +446,7 @@ GEM
       slop (~> 3.4)
     rabl (0.11.6)
       activesupport (>= 2.3.14)
-    rack (1.6.1)
+    rack (1.6.0)
     rack-protection (1.5.3)
       rack
     rack-test (0.6.3)
@@ -580,7 +575,7 @@ GEM
     slop (3.6.0)
     spreadsheet (1.0.3)
       ruby-ole (>= 1.0)
-    spring (1.3.6)
+    spring (1.3.5)
     sprockets (2.12.3)
       hike (~> 1.2)
       multi_json (~> 1.0)
