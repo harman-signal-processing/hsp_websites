@@ -45,7 +45,7 @@ class SystemRuleCondition < ActiveRecord::Base
       when 'string'
         "$('#system_option_#{ system_option_id }').val() #{ js_operator } '#{ direct_value }'"
       when 'radio'
-      	"parseInt($('#system_option_#{ system_option_id }').val(), 10) #{ js_operator } #{ direct_value }"
+      	"parseInt($('#system_option_#{ system_option_id }:checked').val(), 10) #{ js_operator } #{ direct_value }"
       when 'checkbox'
         if direct_value.match(/^\d{1,}$/)
           "$('#system_option_#{ system_option_id }[type=\"checkbox\"]').filter(':checked').length #{ js_operator } #{ direct_value }"

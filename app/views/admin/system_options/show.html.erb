@@ -29,7 +29,7 @@
 <% if @system_option.system_option_values.length > 0 %>
 <ul class="list">
 	<% @system_option.system_option_values.each do |sov| %>
-	<li><%= sov.name %></li>
+    <li><%= sov.name %> (id: <%= sov.id %>)</li>
 	<% end %>
 </ul>
 <% end %>
