@@ -1,0 +1,38 @@
+<%
+	system_option = sco.system_option
+%>
+
+<div class="<% if system_option.parent_id.to_i <= 0 %>major_system_container printable<% end %>">
+  <div class="row">
+    <div class="large-12 columns">
+      <% if system_option.parent_id.to_i <= 0 %>
+        <h2><%= system_option.name %></h2>
+      <% else %>
+        <h4 class="subheader"><%= system_option.name %> </h4>
+      <% end %>
+
+      <% if system_option.description.present? %>
+        <%#=raw textilize(system_option.description) %>
+      <% end %>
+
+      <div>
+        <% if sco.system_option_value %>
+          <%= sco.system_option_value.name %>
+        <% elsif sco.system_option.option_type.parameterize == "boolean" %>
+          <%= (sco.direct_value.to_i == 1) ? "Yes" : "No" %>
+        <% elsif sco.system_option.option_type.parameterize == "integer" %>
+          <%= sco.direct_value.to_i.to_s %>
+        <% else %>
+          (not configured, or output for <%= sco.system_option.option_type.parameterize %> not developed yet.)
+        <% end %>
+      </div>
+        <br/>
+
+      <% sco.system_configuration.system_configuration_options.each do |child_sco| %>
+        <% if child_sco.system_option.parent_id.to_i == system_option.id %>
+          <%= render_partial "system_configurations/system_configuration_option", sco: child_sco %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

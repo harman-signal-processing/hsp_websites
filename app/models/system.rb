@@ -31,6 +31,7 @@ class System < ActiveRecord::Base
   def enabled_system_rules
     system_rules.where(enabled: true)
   end
+
 	# Blank system config
 	def system_configuration(stage='configure', options={})
 		@system_configuration ||= SystemConfiguration.new
@@ -65,6 +66,14 @@ class System < ActiveRecord::Base
       end
       configured_option_ids << system_option.id
 		end
+
+    # initialize all components with zero quantity
+    SystemComponent.all.each do |component|
+      @system_configuration.system_configuration_components << SystemConfigurationComponent.new(
+        system_component: component,
+        quantity: 0
+      )
+    end
 
 		@system_configuration
 	end

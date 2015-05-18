@@ -9,8 +9,6 @@ jQuery(function($) {
 
   <% end %>
 
-  // Keeps track of the ongoing BOM:
-  var configured_components = {}
   // Contains all the alerts from the rules:
   var system_alerts = {};
 
@@ -36,13 +34,13 @@ jQuery(function($) {
   /**********************************/
 
   // Alert popup function
-  var show_alert = function(msg, multiple_times) { 
+  var show_alert = function(msg, multiple_times) {
     system_alert = system_alerts[msg];
     if (system_alert['displayed_once'] != true || multiple_times) {
       //alert(system_alert['alert']);
       $('#dialog').html(system_alert['alert']).dialog({ modal: true });
       system_alert['displayed_once'] = true;
-    } 
+    }
   }
 
   // Enable/Disable an element (gray out or not)
@@ -59,10 +57,7 @@ jQuery(function($) {
 
   // Add a quantity of a component to the BOM
   var add_component = function(component, quantity) {
-    var current_quantity = parseInt(configured_components[component]);
-    if (!current_quantity) {
-      current_quantity = 0;
-    }
+    var current_quantity = $("input#" + component).val()
     var new_quantity = (current_quantity + quantity);
     set_component(component, new_quantity);
   }
@@ -77,8 +72,7 @@ jQuery(function($) {
     if (quantity <= 0) {
       remove_component(component);
     } else {
-      configured_components[component] = quantity;
-      var $new_html = $(system_components[component]); 
+      var $new_html = $(system_components[component]);
       var $element = $('ul#system_summary_items').find('li#'+ component);
       if (!$element.length) {
         $element = $new_html.appendTo('ul#system_summary_items');
@@ -90,18 +84,19 @@ jQuery(function($) {
         });
       }
       $element.find('span.quantity').html(quantity);
+      $("input#" + component).val(quantity);
     }
   }
 
   // Remove a component from the BOM
   var remove_component = function(component) {
-    configured_components[component] = 0
+    $("input#" + component).val("0");
     $('ul#system_summary_items').find('li#'+ component).remove();
   }
 
   // Remove all components from the BOM
   var remove_all_components = function() {
-    configured_components = {};
+    $("input.component_quantity").val(0);
     $('ul#system_summary_items').find('li').remove();
   }
 
@@ -129,9 +124,11 @@ jQuery(function($) {
   };
 
   // Run through all the rules once on page load...
-  <% @system.enabled_system_rules.each do |system_rule| %>
-  rule_<%= system_rule.id %>(true);
-  <% end %>
+  $( document ).ready(function() {
+    <% @system.enabled_system_rules.each do |system_rule| %>
+    rule_<%= system_rule.id %>(true);
+    <% end %>
+  });
 
   // Trigger rules when form checkboxes are clicked
   $('form.configurator').on('click', 'input[type=checkbox]', function() {

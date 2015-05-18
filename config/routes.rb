@@ -355,7 +355,11 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     end
     resources :systems, only: [:index, :show] do
       resources :system_configurations, only: [:new, :create, :show] do
-        member { post :new }
+        member do
+          post :new
+          get :contact_for
+          post :contact_for
+        end
       end
     end
     resources :faq_categories, only: [:index, :show]

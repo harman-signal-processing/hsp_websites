@@ -1,5 +1,7 @@
 <%= simple_form_for [@system, @system_configuration], html: { class: 'configurator' } do |f| %>
 
+  <%= f.error_notification %>
+
   <div class="row">
     <div class="large-8 small-7 columns" id="system_builder">
       <%= f.fields_for :system_configuration_options do |sco| %>
@@ -19,10 +21,15 @@
           <p>Your system requires:</p>
           <ul id="system_summary_items" class="list">
           </ul>
+          <%= f.fields_for :system_configuration_components do |scc| %>
+            <%= scc.input :system_component_id, as: :hidden %>
+            <%= scc.input :quantity, as: :hidden,
+              input_html: { id: "component_#{scc.object.system_component_id}", class: "component_quantity" } %>
+          <% end %>
         </div>
         <div class="text-center">
-          <%= link_to 'Print List', '#', class: 'tiny secondary button' %>
-          <%= link_to 'Contact Me', '#', class: 'tiny secondary button' %>
+          <%= f.submit 'Print List', class: 'tiny secondary button' %>
+          <%= f.submit 'Contact Me', class: 'tiny secondary button' %>
         </div>
       </div>
     </div>

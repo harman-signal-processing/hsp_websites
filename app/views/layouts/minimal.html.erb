@@ -5,7 +5,7 @@
 		<%= csrf_meta_tag %>
 		<%= cache ["meta_tags", request.url] do %>
 			<%= cached_meta_tags %>
-		<% end %>		
+		<% end %>
 		<%= stylesheet_link_tag 'application', website.folder, cache: false %>
 			<!--[if lt IE 9]>
         <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
@@ -17,13 +17,13 @@
 		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 	</head>
 	<body>
-		
+
 		<div style="text-align: center; margin: 50px;">
-	  
+
 		  <div id="content_container" class="internal_page" style="padding: 10px 20px; width: 600px; text-align: left">
 
 			<%= yield %>
-			
+
 		  </div>
 		</div>
 	</body>

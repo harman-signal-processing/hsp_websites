@@ -8,6 +8,7 @@ class SystemOption < ActiveRecord::Base
 	belongs_to :system
 	has_many :system_option_values, dependent: :destroy
 	has_many :system_rule_conditions, dependent: :destroy
+  has_many :system_configuration_options, inverse_of: :system_option
 
 	validates :system, presence: true
 	validates :name, presence: true
