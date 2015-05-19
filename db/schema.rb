@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150505141840) do
+ActiveRecord::Schema.define(version: 20150519141042) do
 
   create_table "admin_logs", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -1374,6 +1374,15 @@ ActiveRecord::Schema.define(version: 20150505141840) do
   end
 
   add_index "system_configuration_components", ["system_configuration_id"], name: "index_system_configuration_components_on_system_configuration_id", using: :btree
+
+  create_table "system_configuration_option_values", force: :cascade do |t|
+    t.integer  "system_configuration_option_id", limit: 4
+    t.integer  "system_option_value_id",         limit: 4
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+  end
+
+  add_index "system_configuration_option_values", ["system_configuration_option_id"], name: "s_c_o_v_s_c_o_id", using: :btree
 
   create_table "system_configuration_options", force: :cascade do |t|
     t.integer  "system_configuration_id", limit: 4

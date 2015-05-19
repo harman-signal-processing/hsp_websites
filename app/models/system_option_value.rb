@@ -5,6 +5,8 @@
 #
 class SystemOptionValue < ActiveRecord::Base
 	belongs_to :system_option
+  has_many :system_configuration_option_values, inverse_of: :system_option_value
+
 	monetize :price_cents
 
 	validates :name, presence: true, uniqueness: { scope: :system_option_id }
