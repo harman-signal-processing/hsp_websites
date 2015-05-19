@@ -354,11 +354,11 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       collection { get :archived }
     end
     resources :systems, only: [:index, :show] do
-      resources :system_configurations, only: [:new, :create, :show] do
+      resources :system_configurations, only: [:new, :create] do
         member do
           post :new
-          get :contact_for
-          post :contact_for
+          match ':access_hash/contact' => 'system_configurations#contact_form', as: :contact_form, via: [:get, :post]
+          get ':access_hash' => 'system_configurations#show', as: :show
         end
       end
     end

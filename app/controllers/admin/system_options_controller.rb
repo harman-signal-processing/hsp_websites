@@ -61,7 +61,7 @@ class Admin::SystemOptionsController < AdminController
       if @system_option.update_attributes(system_option_params)
         format.html { redirect_to([:admin, @system], notice: 'System Option was successfully updated.') }
         format.xml  { head :ok }
-        website.add_log(user: current_user, action: "Updated spec: #{@system_option.name}")
+        website.add_log(user: current_user, action: "Updated system option: #{@system_option.name}")
       else
         format.html { render action: "edit" }
         format.xml  { render xml: @system_option.errors, status: :unprocessable_entity }

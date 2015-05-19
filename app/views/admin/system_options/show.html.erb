@@ -29,7 +29,13 @@
 <% if @system_option.system_option_values.length > 0 %>
 <ul class="list">
 	<% @system_option.system_option_values.each do |sov| %>
-    <li><%= sov.name %> (id: <%= sov.id %>)</li>
+    <li>
+      <%= sov.id %>:
+      <%= link_to sov.name, edit_admin_system_system_option_system_option_value_path(@system, @system_option, sov) %>
+      <% if sov.send_mail_to.present? %>
+        (notifies: <%= sov.send_mail_to %>)
+      <% end %>
+  </li>
 	<% end %>
 </ul>
 <% end %>

@@ -20,7 +20,7 @@
     	<div class="large-6 columns">
     		<%= f.input :option_type, collection: SystemOption.option_types.keys.sort.map {|s| [s.titleize,s]} %>
 			<%= f.input :default_value, hint: "For boolean options, use 'true' or 'false' (without quotes)." %>
-	    
+
 			<br/>
 		    <%= f.button :submit %>
 		</div>
@@ -38,11 +38,11 @@
 						</label>
 					</div>
 					<div class="large-11 small-11 columns">
-						<label><%= link_to_add_fields('new value',	f, :system_option_values) %></label>			
+						<label><%= link_to_add_fields('new value',	f, :system_option_values) %></label>
 					</div>
 				</div>
 			</div>
-		</div>   	
+		</div>
     </div>
 
 <% end %>

@@ -224,7 +224,7 @@ body {
 	margin-top: 20px;
 	z-index: 10;
 }
-input.boolean {
+input.boolean, input[type='radio'] {
     margin-right: 6px;
 }
 fieldset {
@@ -1308,5 +1308,8 @@ div.quicklinks {
 
   .large-12 {
     width: 100%;
+  }
+  .hide-for-print {
+    display: none;
   }
 }

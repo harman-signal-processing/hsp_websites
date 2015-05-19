@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150519141042) do
+ActiveRecord::Schema.define(version: 20150519202040) do
 
   create_table "admin_logs", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -1396,11 +1396,17 @@ ActiveRecord::Schema.define(version: 20150519141042) do
   add_index "system_configuration_options", ["system_configuration_id"], name: "index_system_configuration_options_on_system_configuration_id", using: :btree
 
   create_table "system_configurations", force: :cascade do |t|
-    t.integer  "system_id",  limit: 4
-    t.string   "name",       limit: 255
-    t.integer  "user_id",    limit: 4
+    t.integer  "system_id",                limit: 4
+    t.string   "name",                     limit: 255
+    t.integer  "user_id",                  limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "project_name",             limit: 255
+    t.string   "email",                    limit: 255
+    t.string   "phone",                    limit: 255
+    t.string   "company",                  limit: 255
+    t.string   "preferred_contact_method", limit: 255
+    t.string   "access_hash",              limit: 255
   end
 
   create_table "system_option_values", force: :cascade do |t|
@@ -1413,6 +1419,7 @@ ActiveRecord::Schema.define(version: 20150519141042) do
     t.string   "price_currency",   limit: 255,   default: "USD", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "send_mail_to",     limit: 255
   end
 
   add_index "system_option_values", ["system_option_id"], name: "index_system_option_values_on_system_option_id", using: :btree
@@ -1482,11 +1489,13 @@ ActiveRecord::Schema.define(version: 20150519141042) do
   add_index "system_rules", ["system_id"], name: "index_system_rules_on_system_id", using: :btree
 
   create_table "systems", force: :cascade do |t|
-    t.string   "name",        limit: 255
-    t.integer  "brand_id",    limit: 4
-    t.text     "description", limit: 65535
+    t.string   "name",             limit: 255
+    t.integer  "brand_id",         limit: 4
+    t.text     "description",      limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "send_mail_to",     limit: 255
+    t.text     "contact_me_intro", limit: 65535
   end
 
   add_index "systems", ["brand_id"], name: "index_systems_on_brand_id", using: :btree

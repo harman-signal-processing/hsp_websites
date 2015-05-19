@@ -1,7 +1,12 @@
 <div class="row">
+  <div class="large-12 medium-12 small-12 columns">
+    <h1><%= @system_configuration.project_name %> System Requirements:</h1>
+  </div>
+</div>
+
+<div class="row">
 
   <div class="large-7 medium-7 small-12 columns">
-    <h1>System Requirements:</h1>
 
     <% @system_configuration.system_configuration_options.each do |sco| %>
       <% unless sco.system_option.parent_id.to_i > 0 %>
@@ -11,7 +16,7 @@
   </div>
 
   <div class="large-5 small-5 small-12 columns">
-    <div class="panel">
+    <div class="callout panel">
       <h3>System Components</h3>
       <ul>
         <% @system_configuration.system_configuration_components.each do |scc| %>
@@ -21,11 +26,18 @@
         <% end %>
       </ul>
     </div>
+
+    <% if @system_configuration.email.blank? && @system_configuration.phone.blank? %>
+      <div class="text-center hide-for-print">
+        <h5 class="subheader">We can help build your system!</h5>
+        <%= link_to "Contact Me", contact_form_system_system_configuration_path(@system, @system_configuration, access_hash: @system_configuration.access_hash), class: "large button" %>
+      </div>
+    <% end %>
   </div>
 
 </div>
 
-<%= content_for :extra_js_ do %>
+<%= content_for :extra_js do %>
   $( document ).ready(function(){
     window.print();
   });

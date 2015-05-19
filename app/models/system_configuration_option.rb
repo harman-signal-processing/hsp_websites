@@ -13,4 +13,8 @@ class SystemConfigurationOption < ActiveRecord::Base
     system_option_values.length > 0 || direct_value.present?
   end
 
+  def recipients
+    @recipients ||= system_configuration_option_values.map{|scov| scov.recipients}
+  end
+
 end

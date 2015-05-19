@@ -89,4 +89,13 @@ class SiteMailer < ActionMailer::Base
       from: @brand.support_email,
       subject: "#{@brand.name} product registration")
   end
+
+  def new_system_configuration(system_configuration)
+    @system_configuration = system_configuration
+
+    mail(to: @system_configuration.recipients,
+         from: @system_configuration.from,
+         subject: "New System Configuration Submitted")
+  end
+
 end

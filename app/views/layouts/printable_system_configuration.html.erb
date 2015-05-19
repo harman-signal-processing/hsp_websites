@@ -31,11 +31,10 @@
 
     <div class="container">
       <div class="row">
-        <div class="large-6 medium-6 columns">
-          <%= image_tag(website.folder + '/logo-square.png', alt: website.brand.name) %>
-          <br/><%= link_to website.url, "http://#{website.url}" %>
+        <div class="large-3 medium-3 columns text-center">
+          <%= image_tag(website.folder + '/logo-color.png', alt: website.brand.name) %>
         </div>
-        <div class="large-6 medium-6 columns text-right">
+        <div class="large-9 medium-9 columns text-right small-text">
           <% if addr = website.value_for("address_and_phone") %>
             <%=raw addr %>
             <% if sup = website.value_for("support_email") %>
@@ -51,7 +50,36 @@
         </div>
       </div>
 
+      <div class="container hide-for-print">
+          <div class="row">
+            <div class="large-12 columns">
+
+              <% flash.each do |name, msg| %>
+                <%
+                  css_class = 'alert-box'
+                  if name.match(/notice/i)
+                    css_class += ' success'
+                  elsif name.match(/alert|warn/)
+                    css_class += ' alert'
+                  else
+                    css_class += ' secondary'
+                  end
+                %>
+
+                <%= content_tag :div, msg, class: css_class if msg.is_a?(String) %>
+              <% end %>
+            </div>
+          </div>
+      </div>
+
       <%= yield %>
+
+      <div class="row">
+        <div class="large-12 medium-12 small-12 columns text-center">
+          <hr/>
+          <%= link_to website.url, "http://#{website.url}" %>
+        </div>
+      </div>
 
     </div>
 
