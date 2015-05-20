@@ -438,11 +438,11 @@ div.disabled {
 }
 div.long_description {
 	background: $dark-gray;
-	color: white;
+	color: white !important;
 	padding: 20px 20px 2px;
 	margin: 20px 0px;
   p {
-    color: white;
+    color: white !important;
   }
 }
 form.configurator div.row {
@@ -463,6 +463,13 @@ a.help {
 	img {
 		vertical-align: text-top;
 	}
+}
+a.option-adder {
+  font-size: rem-calc(12);
+}
+a.option-remover {
+  color: $alert-color;
+  font-size: rem-calc(12);
 }
 /********** end system configurator styles */
 

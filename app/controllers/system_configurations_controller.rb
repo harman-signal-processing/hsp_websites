@@ -1,10 +1,18 @@
 class SystemConfigurationsController < ApplicationController
-	before_action :set_system, only: [:new, :create]
-  before_action :set_system_configuration, only: [:show, :contact_form]
+	before_action :set_system, only: [:new, :edit, :update, :create]
+  before_action :set_system_configuration, only: [:show, :edit, :update, :contact_form]
 
 	def new
 		@system_configuration = @system.system_configuration('configure', system_configuration_params)
     render_template
+	end
+
+  def edit
+    render_template
+  end
+
+	def show
+    render_template layout: printable
 	end
 
 	def create
@@ -21,10 +29,6 @@ class SystemConfigurationsController < ApplicationController
     end
 	end
 
-	def show
-    render_template layout: printable
-	end
-
   # TODO: make sure the custom recipients are contacted based on the selected system type
   def contact_form
     if request.post?
@@ -34,6 +38,18 @@ class SystemConfigurationsController < ApplicationController
       end
     end
     render_template
+  end
+
+  def update
+    if @system_configuration.update_attributes(system_configuration_params)
+      if params[:commit].to_s.match(/contact/i)
+        redirect_to contact_form_system_system_configuration_path(@system, @system_configuration, access_hash: @system_configuration.access_hash)
+      else
+        redirect_to show_system_system_configuration_path(@system, @system_configuration, access_hash: @system_configuration.access_hash)
+      end
+    else
+      render action: 'edit'
+    end
   end
 
 private

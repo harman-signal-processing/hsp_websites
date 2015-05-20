@@ -105,6 +105,9 @@ jQuery(function($) {
   var set_with_ratio_component = function(component, ratio, form_element_id, input_type) {
     if (input_type == 'checkbox') {
       var form_value = $(form_element_id+'[type="checkbox"]').filter(':checked').length;
+    } else if (input_type == "multi_dropdown") {
+      var multiname = $(form_element_id).data("multiname")
+      var form_value = $("*[data-multiname=" + escape(multiname) + "]").length;
     } else {
       var form_value = $(form_element_id).val();
     }

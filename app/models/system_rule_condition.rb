@@ -58,6 +58,9 @@ class SystemRuleCondition < ActiveRecord::Base
         else
         	"$('#system_option_#{ system_option_id } option:selected').text() #{ js_operator } '#{ direct_value }'"
         end
+      # An attempt to handle multi_dropdowns differently...
+      #when 'multi_dropdown'
+      #  "$('*[data-multiname=\"multiselect_#{ system_option_id }\"]').filter(function(){ $(this, 'option:selected').length > 0 }).length #{ js_operator } '#{ direct_value }'"
       else
       	"$('#system_option_#{ system_option_id }').val() #{ js_operator } '#{ direct_value }'"
     end

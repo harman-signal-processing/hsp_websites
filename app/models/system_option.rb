@@ -3,7 +3,7 @@
 # This is usually based on the selected SystemOptionValue for the given SystemOption.
 #
 class SystemOption < ActiveRecord::Base
-	enum option_types: [:boolean, :radio, :checkbox, :integer, :string, :dropdown]
+	enum option_types: [:boolean, :radio, :checkbox, :integer, :string, :dropdown, :multi_dropdown]
 
 	belongs_to :system
 	has_many :system_option_values, dependent: :destroy
