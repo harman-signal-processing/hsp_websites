@@ -1,8 +1,8 @@
 object @brand
 attributes :id, :name, :friendly_id, :api_banner_url
-node(:url) { |brand| 
+node(:url) { |brand|
 	if brand.live_on_this_platform?
-		brand.default_website.url 
+		brand.default_website.url
 	elsif brand.respond_to?(:external_url)
 		brand.external_url
 	else

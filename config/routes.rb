@@ -20,8 +20,11 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       get '/brand_features/:id' => 'products#features', as: :brand_features
     end
     namespace :v2 do
-      resources :brands, only: [:index, :show]
-      resources :products, only: :show
+      resources :brands, only: [:index, :show] do
+        resources :softwares, as: :software, only: [:index, :show]
+        resources :products, only: [:index, :show]
+      end
+      resources :products, only: :show # for backwards compat
     end
   end
 

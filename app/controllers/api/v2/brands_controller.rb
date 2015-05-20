@@ -5,31 +5,16 @@ module Api
     class BrandsController < ApplicationController
       skip_before_filter :miniprofiler
       respond_to :xml
-      
+
       def index
         @brands = Brand.all
         respond_with @brands
       end
-      
+
       def show
         @brand = Brand.find(params[:id])
         respond_with @brand
       end
-    
-      # def create
-      #   @brand = Brand.create(params[:brand])
-      #   respond_with @brand
-      # end
-      
-      # def update
-      #   @brand = Brand.update(params[:id], params[:brands])
-      #   respond_with @brand
-      # end
-      
-      # def destroy
-      #   @brand = Brand.destroy(params[:id])
-      #   respond_with @brand
-      # end
 
     end
   end

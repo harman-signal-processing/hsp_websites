@@ -10,22 +10,22 @@ xml.product name: @product.name do
     end
     xml.features @product.features, type: 'html'
 
-    xml.media do 
+    xml.media do
         @product.images_for("product_page").each do |product_attachment|
             url = product_attachment.product_attachment.url
-            url = "http://#{request.host}#{url}" unless HarmanSignalProcessingWebsite::Application.config.action_controller.asset_host.present?
+            url = "http://#{request.host}#{url}" if S3_STORAGE[:storage] == :filesystem
             xml.item(
-                url: url, 
+                url: url,
                 type: product_attachment.product_attachment_content_type,
                 primary_photo: @product.photo && @product.photo == product_attachment
             )
         end
     end
 
-    xml.documents do 
+    xml.documents do
         @product.product_documents.includes(:product).each do |product_document|
             url = product_document.document.url
-            url = "http://#{request.host}#{url}" unless HarmanSignalProcessingWebsite::Application.config.action_controller.asset_host.present?
+            url = "http://#{request.host}#{url}" if S3_STORAGE[:storage] == :filesystem
             xml.item(
                 product_document.name(hide_product_name: true),
                 url: url,
@@ -36,7 +36,7 @@ xml.product name: @product.name do
         end
         @product.viewable_site_elements.each do |site_element|
             url = site_element.resource.url
-            url = "http://#{request.host}#{url}" unless HarmanSignalProcessingWebsite::Application.config.action_controller.asset_host.present?
+            url = "http://#{request.host}#{url}" if S3_STORAGE[:storage] == :filesystem
             xml.item(
                 site_element.name,
                 url: url,
@@ -56,9 +56,9 @@ xml.product name: @product.name do
                 size: software.ware_file_size
             )
         end
-        @product.executable_site_elements.each do |site_element| 
+        @product.executable_site_elements.each do |site_element|
             url = site_element.executable.url
-            url = "http://#{request.host}#{url}" unless HarmanSignalProcessingWebsite::Application.config.action_controller.asset_host.present?
+            url = "http://#{request.host}#{url}" if S3_STORAGE[:storage] == :filesystem
             xml.item(
                 site_element.name,
                 url: url,
@@ -69,7 +69,7 @@ xml.product name: @product.name do
         end
     end
 
-    xml.specifications do 
+    xml.specifications do
         @product.product_specifications.includes(:specification).each do |product_spec|
             xml.item(
                 name: product_spec.specification.name,
