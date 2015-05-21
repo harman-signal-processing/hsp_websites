@@ -1,23 +1,17 @@
 object @product
 attributes :name, :description, :features, :extended_description
 
+attribute :friendly_id => :id
+attribute :short_description => :brief
 node(:link) { |product| product_url(@product, host: @brand.default_website.url) }
-node(:id) { |product| product.friendly_id }
-node(:brief) { |product| product.short_description }
 
 child(:brand) do
   attributes :name
   node(:url) { |brand| api_v2_brand_url(@product.brand, format: request.format.to_sym, host: @product.brand.default_website.url).gsub!(/\?.*$/, '') }
 end
 
-child @product.images_for("product_page") => :media_items do
-  node(:url) do |pa|
-    url = pa.product_attachment.url
-    url = "http://#{request.host}#{url}" if S3_STORAGE[:storage] == :filesystem
-    url
-  end
-  node(:type) { |pa| pa.product_attachment_content_type }
-  node(:primary_photo) { |pa| @product.photo && @product.photo == pa }
+child @product.images_for("product_page") => :images do
+  extends 'api/v2/product_attachments/show'
 end
 
 child (@product.product_documents.includes(:product) + @product.viewable_site_elements) => :documents do
@@ -44,12 +38,12 @@ child (@product.active_softwares + @product.executable_site_elements) => :softwa
     end
   end
   node(:type) { |d| (d.is_a?(SiteElement)) ? d.executable_content_type : d.ware_content_type }
-  node(:size) { |d| (d.is_a?(SiteElement)) ? d.executable_filse_size : d.ware_file_size }
+  node(:size) { |d| (d.is_a?(SiteElement)) ? d.executable_file_size : d.ware_file_size }
   node(:doctype) { |d| (d.is_a?(SiteElement)) ? d.resource_type : d.category }
 end
 
 child @product.product_specifications.includes(:specification) => :specifications do
+  attribute :value
   node(:name) { |s| s.specification.name }
-  node(:value) { |s| s.value }
 end
 

@@ -1,7 +1,8 @@
 object @software
 attributes :name, :formatted_name, :version, :platform, :description
 
-node(:id) { |s| s.friendly_id }
+attribute :friendly_id => :id
+
 node(:direct_download_url) { |s| download_software_url(s, host: @brand.default_website.url) }
 node(:link) { |s| software_url(s, host: @brand.default_website.url) }
 

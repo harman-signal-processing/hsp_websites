@@ -1,33 +1,33 @@
 object @brand
 attributes :name
 
-node(:id) { |brand|
-  brand.friendly_id
-}
+attribute :friendly_id => :id
+attribute :news_feed_url => :rss
 
-node(:software) { |brand|
-  api_v2_brand_software_index_url(brand, format: request.format.to_sym).gsub!(/\?.*$/, '')
-}
-
-node(:products) { |brand|
-  api_v2_brand_products_url(brand, format: request.format.to_sym).gsub!(/\?.*$/, '')
-}
+node(:software) { |brand| api_v2_brand_software_index_url(brand, format: request.format.to_sym).gsub!(/\?.*$/, '') }
+node(:products) { |brand| api_v2_brand_products_url(brand, format: request.format.to_sym).gsub!(/\?.*$/, '') }
 
 if @brand.logo_file_name.present?
-  node(:logo) { |brand|
+  @brand.logo.styles.each do |logo|
+    node("logo_#{logo.first}".to_sym) do |s|
+      if S3_STORAGE[:storage] == :filesystem
+        "http://#{request.host}#{@brand.logo.url(logo.first, timestamp: false)}"
+      else
+        @brand.logo.url(logo.first, timestamp: false)
+      end
+    end
+  end
+
+  node(:logo) do |brand|
     if S3_STORAGE[:storage] == :filesystem
       "http://#{request.host}#{brand.logo.url(:original, timestamp: false)}"
     else
       brand.logo.url(:original, timestamp: false)
     end
-  }
+  end
 end
 
-node(:rss) { |brand|
-  brand.news_feed_url
-}
-
-node(:website) { |brand|
+node(:website) do |brand|
 	if brand.live_on_this_platform?
 		"http://#{brand.default_website.url}"
 	elsif brand.respond_to?(:external_url)
@@ -35,5 +35,5 @@ node(:website) { |brand|
 	else
 		nil
 	end
-}
+end
 
