@@ -1,18 +1,30 @@
+# Note: v2 of the api is open to all without restriction and is a basic product catalog
+
 module Api
   module V2
     class SoftwaresController < ApplicationController
       skip_before_filter :miniprofiler
-      respond_to :xml
+      before_action :set_brand
+      respond_to :xml, :json, :html
 
       def index
-        @brand = Brand.find(params[:brand_id])
         @softwares = @brand.current_softwares
         respond_with @softwares
       end
 
       def show
         @software = Software.find(params[:id])
-        respond_with @software
+        if @software.active?
+          respond_with @software
+        else
+          respond_with Software.new
+        end
+      end
+
+      private
+
+      def set_brand
+        @brand = Brand.find(params[:brand_id])
       end
 
     end

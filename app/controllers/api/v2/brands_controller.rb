@@ -4,7 +4,7 @@ module Api
   module V2
     class BrandsController < ApplicationController
       skip_before_filter :miniprofiler
-      respond_to :xml
+      respond_to :xml, :json, :html
 
       def index
         @brands = Brand.all
