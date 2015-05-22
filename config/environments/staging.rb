@@ -78,6 +78,10 @@ HarmanSignalProcessingWebsite::Application.configure do
     dod_teaser.css
     studer.css
     studer.js
+    akg.css
+    akg.js
+    jbl.css
+    jbl.js
     )
 
   # Specifies the header that your server uses for sending files
