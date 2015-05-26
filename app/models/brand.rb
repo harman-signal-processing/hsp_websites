@@ -62,6 +62,10 @@ class Brand < ActiveRecord::Base
     end
   end
 
+  def should_generate_new_friendly_id?
+    true
+  end
+
   def news
     # First, select news story IDs with a product associated with this brand...
     product_news = News.find_by_sql("SELECT DISTINCT news.id FROM news
