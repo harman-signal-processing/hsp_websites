@@ -58,7 +58,7 @@ class SoftwaresController < ApplicationController
       redirect_to @software.ware.url, status: :moved_permanently
     end
   end
-  
+
   # Software activation. Pass in the name of the software and the challenge phrase,
   # generate an activation key. This all started with the MPX-L. To use this for
   # other software, edit the software in the admin area and provide the

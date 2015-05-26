@@ -3,11 +3,28 @@ attributes :name, :description, :features, :extended_description
 
 attribute :friendly_id => :id
 attribute :short_description => :brief
-node(:link) { |product| product_url(@product, host: @brand.default_website.url) }
+node(:link) do |product|
+  if @brand.live_on_this_platform?
+    product_url(@product, host: @brand.default_website.url)
+  elsif @product.product_page_url.present?
+    if @product.product_page_url.to_s.match(/^http/)
+      @product.product_page_url
+    else
+      "http://#{ @product.product_page_url } "
+    end
+  end
+end
 
 child(:brand) do
   attributes :name
-  node(:url) { |brand| api_v2_brand_url(@product.brand, format: request.format.to_sym, host: @product.brand.default_website.url).gsub!(/\?.*$/, '') }
+  node(:url) do |brand|
+    if brand.live_on_this_platform?
+      api_v2_brand_url(brand, format: request.format.to_sym, host: brand.default_website.url).gsub!(/\?.*$/, '')
+    else
+      # use the host the request came in on
+      api_v2_brand_url(brand, format: request.format.to_sym).gsub!(/\?.*$/, '')
+    end
+  end
 end
 
 child @product.images_for("product_page") => :images do
@@ -34,7 +51,12 @@ child (@product.active_softwares + @product.executable_site_elements) => :softwa
       url = "http://#{request.host}#{url}" if S3_STORAGE[:storage] == :filesystem
       url
     else
-      software_url(d, host: @brand.default_website.url)
+      if d.link.present?
+        d.link = "http://" + d.link unless d.link.match(/^http/)
+        d.link
+      else
+        d.ware.url
+      end
     end
   end
   node(:type) { |d| (d.is_a?(SiteElement)) ? d.executable_content_type : d.ware_content_type }

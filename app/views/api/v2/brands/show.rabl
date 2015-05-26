@@ -28,12 +28,6 @@ if @brand.logo_file_name.present?
 end
 
 node(:website) do |brand|
-	if brand.live_on_this_platform?
-		"http://#{brand.default_website.url}"
-	elsif brand.respond_to?(:external_url)
-		brand.external_url
-	else
-		nil
-	end
+  "http://#{brand.default_website.url}"
 end
 
