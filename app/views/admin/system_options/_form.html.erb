@@ -27,6 +27,11 @@
  		<div class="large-6 columns" id="option_values_container">
  			<div class="panel">
 			    <label>Possible values for this option:</label><br/>
+          <div data-alert class="alert-box info radius additional_instruction">
+            Don't forget to submit the form after removing
+            existing system option values.
+            <a href="#" class="close">&times;</a>
+          </div>
 			    <%= f.simple_fields_for :system_option_values do |sov| %>
 			    	<%= render 'system_option_value_fields', f: sov %>
 			    <% end %>

@@ -71,6 +71,12 @@ ul.list {
 		list-style: disc;
 	}
 }
+ol.list {
+  li {
+    font-size: rem-calc(14);
+    margin-bottom: rem-calc(6);
+  }
+}
 .little, .small {
 	font-size: 9px;
 	font-weight: normal;

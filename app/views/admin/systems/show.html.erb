@@ -47,11 +47,11 @@
 					<% end %>
 			</small>
 		</h3>
-		<ul class="list">
+		<ol class="list">
 			<% @system.enabled_system_rules.each do |system_rule| %>
 			<li><%= link_to system_rule.name, edit_admin_system_system_rule_path(@system, system_rule) %></li>
 			<% end %>
-		</ul>
+		</ol>
     <h5><i>Disabled rules:</i></h5>
     <ul class="list">
       <% @system.system_rules.where(enabled: false).each do |system_rule| %>
