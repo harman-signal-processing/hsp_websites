@@ -42,17 +42,20 @@ class SystemOption < ActiveRecord::Base
 		end
 	end
 
-	def default_system_option_value_id
-		begin
-			case option_type
-				when /dropdown|radio|checkbox/
-					system_option_values.where(name: default_value.to_s).id
-				else
-					nil
-			end
-		rescue
-			nil
-		end
-	end
+  def default_system_option_value_id
+    begin
+      if has_many_values?
+        system_option_values.find_by(name: default_value.to_s).id
+      else
+        nil
+      end
+    rescue
+      nil
+    end
+  end
+
+  def has_many_values?
+    !!option_type.to_s.match(/dropdown|radio|checkbox/)
+  end
 
 end

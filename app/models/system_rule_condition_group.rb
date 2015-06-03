@@ -10,7 +10,7 @@ class SystemRuleConditionGroup < ActiveRecord::Base
 	validates :system_rule, presence: true
 	validate :at_least_one_condition
 
-	after_initialize :set_default_logic_type
+	after_initialize :set_default_logic_type, :build_conditions
 
 	accepts_nested_attributes_for :system_rule_conditions,
 		reject_if: proc { |src| src[:system_option_id].blank? && src[:operator].blank? },

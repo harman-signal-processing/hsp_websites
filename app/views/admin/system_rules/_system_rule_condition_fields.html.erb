@@ -6,7 +6,7 @@
 			<% else %>
 				<%= srcg.input :logic_type, label: false,
 					as: :select,
-					collection: SystemRuleConditionGroup.logic_types.keys.map {|l| [l.titleize,l]}, 
+					collection: SystemRuleConditionGroup.logic_types.keys.map {|l| [l.titleize,l]},
 					input_html: { class: 'no-custom' } %>
 			<% end %>
 		</div>
@@ -16,26 +16,26 @@
 	<% else %>
 		<div class="large-1 small-1 columns text-right">
 			<%= f.input :_destroy, as: :hidden %>
-			<label class="right inline">			
+			<label class="right inline">
 				<%= link_to(image_tag('icons/delete.png', alt: 'del'), '#' , class: 'remove_fields') %>
 			</label>
 		</div>
 		<div class="large-2 columns">
 			<%= f.input :logic_type, label: false,
 				as: :select,
-				collection: SystemRuleCondition.logic_types.keys.map {|l| [l.titleize,l]}, 
+				collection: SystemRuleCondition.logic_types.keys.map {|l| [l.titleize,l]},
 				input_html: { class: 'no-custom' } %>
 		</div>
 	<% end %>
 	<div class="large-3 columns">
-		<%= f.association :system_option, label: false, 
-			collection: @system.system_options, 
+		<%= f.association :system_option, label: false,
+			collection: @system.system_options,
 			input_html: { class: 'no-custom' } %>
 	</div>
 	<div class="large-2 columns">
-		<%= f.input :operator, label: false, 
-			as: :select, 
-			collection: SystemRuleCondition.operators, 
+		<%= f.input :operator, label: false,
+			as: :select,
+			collection: SystemRuleCondition.operators,
 			input_html: { class: 'no-custom' } %>
 	</div>
 	<div class="large-4 columns">

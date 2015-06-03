@@ -58,11 +58,12 @@ class System < ActiveRecord::Base
       if configured_options[system_option.id]
         @system_configuration.system_configuration_options << configured_options[system_option.id]
       else
-				@system_configuration.system_configuration_options << SystemConfigurationOption.new(
+        new_option = SystemConfigurationOption.new(
 					system_option: system_option,
 					direct_value: system_option.default_direct_value,
 					system_option_value_id: system_option.default_system_option_value_id
 				)
+				@system_configuration.system_configuration_options << new_option
       end
       configured_option_ids << system_option.id
 		end

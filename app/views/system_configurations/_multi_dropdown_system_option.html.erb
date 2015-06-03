@@ -3,6 +3,7 @@
 
 <%= f.association :system_option_values, as: :select, label: false,
 	collection: system_option.system_option_values,
+  selected: system_option.default_system_option_value_id,
   include_blank: true,
 	input_html: {
     multiple: true,

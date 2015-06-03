@@ -1,7 +1,7 @@
 <% system_option = f.object.system_option %>
 <%= f.input :system_option_id, as: :hidden %>
 
-<%= f.input :direct_value, as: :string, label: false, 
+<%= f.input :direct_value, as: :string, label: false,
 	input_html: {
 		id: "system_option_#{ system_option.id }",
 		data: {
