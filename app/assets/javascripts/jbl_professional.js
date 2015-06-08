@@ -25,7 +25,7 @@
 //= require jwplayer
 //= require swfobject
 //= require tools
-//= require jbl_application
+//= require jbl_professional_application
 //= require_self
 
 document.createElement("article");
