@@ -80,8 +80,8 @@ HarmanSignalProcessingWebsite::Application.configure do
     studer.js
     akg.css
     akg.js
-    jbl.css
-    jbl.js
+    jbl_professional.css
+    jbl_professional.js
     )
 
   # Specifies the header that your server uses for sending files
