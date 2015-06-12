@@ -1,8 +1,9 @@
 jQuery ($) ->
 
-  $('#system_summary_container ').pin
-    containerSelector: $('#main_container')
+  window.pinner = -> $('#system_summary_container ').pin
+    containerSelector: $('#configurator-form-container')
     padding: {top: 100}
+  window.pinner()
 
   $("div.long_description").hide()
 
@@ -29,6 +30,7 @@ jQuery ($) ->
     original_id = $elem.attr('id')
     $elem.attr('id', "#{original_id}_#{timestamp}")
     $elem.insertBefore $(@).closest("div.container")
+    window.pinner()
 
     $container.find("a.option-remover").show() if $container.find("div.select").size() > 1
 
@@ -39,6 +41,7 @@ jQuery ($) ->
     $container = $("#system_option_#{ option_id }_container")
 
     $container.find('div.select:last').remove()
+    window.pinner()
     $container.find('select:first').trigger 'change'
     $(@).hide() if $container.find("div.select").size() < 2
 

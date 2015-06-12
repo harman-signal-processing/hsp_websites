@@ -58,7 +58,8 @@ jQuery(function($) {
   // Add a quantity of a component to the BOM
   var add_component = function(component, quantity) {
     var current_quantity = $("input#" + component).val()
-    var new_quantity = (current_quantity + quantity);
+    var new_quantity = math.eval(current_quantity + quantity);
+    //var new_quantity = (current_quantity + quantity);
     set_component(component, new_quantity);
   }
 
@@ -124,6 +125,7 @@ jQuery(function($) {
         eval("rule_" + value + '(false)');
       });
     }
+    window.pinner();
   };
 
   // Run through all the rules once on page load...

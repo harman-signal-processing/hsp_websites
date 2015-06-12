@@ -2,7 +2,7 @@
 
   <%= f.error_notification %>
 
-  <div class="row">
+  <div class="row" id="configurator-form-container">
     <div class="large-8 small-7 columns" id="system_builder">
       <%= f.fields_for :system_configuration_options do |sco| %>
         <% unless sco.object.system_option.parent_id.to_i > 0 %>
