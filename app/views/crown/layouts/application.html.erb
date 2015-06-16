@@ -76,13 +76,15 @@
 		    </div>
 		</div>
 
-		<div class="container" <% unless content_for?(:feature) %>id="main_container"<% end %>>
-			<div class="row">
-				<div class="large-12 small-12 columns content-container">
-					<%= yield %>
-				</div>
-			</div>
-		</div>
+    <% unless @hide_main_container == true %>
+      <div class="container" <% unless content_for?(:feature) %>id="main_container"<% end %>>
+        <div class="row">
+          <div class="large-12 small-12 columns content-container">
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    <% end %>
 
 		<% if content_for?(:big_bottom_box) %>
 			<div class="container content-container">

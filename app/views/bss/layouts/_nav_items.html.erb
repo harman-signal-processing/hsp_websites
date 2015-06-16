@@ -8,6 +8,16 @@
 		</ul>
 	</li>
 
+  <li class="has-dropdown"><%= link_to 'solutions', '/solutions' %>
+    <ul class="dropdown">
+      <li><%= link_to "About Our Solutions", '/solutions' %></li>
+      <li><%= link_to "BLU link", "/solutions#blu-link" %></li>
+      <li><%= link_to "Dante", "/solutions#dante" %></li>
+      <li><%= link_to "CobraNet", "/solutions#cobranet" %></li>
+      <li><%= link_to "AVB", "/solutions#avb" %></li>
+    </ul>
+  </li>
+
   <li class="hide-for-medium"><%= link_to t('software_downloads'), software_index_path %></li>
   <li><%= link_to t('resource_downloads'), support_downloads_path %></li>
   <li><%= link_to t('training'), 'http://bssaudio.com/training' %></li>

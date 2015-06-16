@@ -2,24 +2,18 @@ class PagesController < ApplicationController
   before_filter :set_locale_for_pages
   before_filter :load_and_authorize_page, only: :show
   skip_before_filter :verify_authenticity_token
-    
+
   # GET /pages
   # GET /pages.xml
   def index
     redirect_to root_path
-    # @pages = Page.all
-    # 
-    # respond_to do |format|
-    #   format.html { render_template } # index.html.erb
-    #   format.xml  { render xml: @pages }
-    # end
   end
 
   # GET /pages/1
   # GET /pages/1.xml
   def show
     respond_to do |format|
-      format.html { 
+      format.html {
         if !@page.layout_class.blank? && File.exists?(Rails.root.join("app", "views", website.folder, "pages", "#{@page.layout_class}.html.erb"))
           render template: "#{website.folder}/pages/#{@page.layout_class}", layout: set_layout
         else
@@ -29,16 +23,22 @@ class PagesController < ApplicationController
       format.xml  { render xml: @page }
     end
   end
-  
+
+  # /solutions Added for BSS,Crown 6/2015
+  def solutions
+    @hide_main_container = true
+    render_template
+  end
+
   private
-  
+
   def load_and_authorize_page
     if params[:id]
       @page = Page.find(params[:id])
     elsif params[:custom_route]
       @page = Page.where(custom_route: params[:custom_route]).first
     end
-    unless @page 
+    unless @page
       @registered_download = RegisteredDownload.where(url: params[:custom_route], brand_id: website.brand_id).first
       if @registered_download
         redirect_to register_to_download_path(@registered_download.url, params[:code]) and return

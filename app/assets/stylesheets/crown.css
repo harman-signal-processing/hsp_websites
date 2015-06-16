@@ -3,9 +3,13 @@
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
 *= require crown_framework_and_overrides
+*= require solutions
 *= require bouncing_arrow
 *= require jquery-ui.min
 *= require add2home
 *= require_self
 */
 
+.solutions h1, .solutions h2, .solutions h3, .solutions h4 {
+  font-family: Helvetica, Arial, sans-serif;
+}

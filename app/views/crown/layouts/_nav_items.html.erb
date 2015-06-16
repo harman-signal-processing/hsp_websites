@@ -54,6 +54,17 @@
 		</ul>
 	</li>
 
+  <li class="divider"></li>
+  <li class="has-dropdown"><%= link_to 'solutions', '/solutions' %>
+    <ul class="dropdown">
+      <li><%= link_to "About Our Solutions", '/solutions' %></li>
+      <li><%= link_to "BLU link", "/solutions#blu-link" %></li>
+      <li><%= link_to "Dante", "/solutions#dante" %></li>
+      <li><%= link_to "CobraNet", "/solutions#cobranet" %></li>
+      <li><%= link_to "AVB", "/solutions#avb" %></li>
+    </ul>
+  </li>
+
 	<% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
 	<li class="divider"></li>
 	<li><%= link_to t('where_to_buy'), where_to_buy_path %></li>

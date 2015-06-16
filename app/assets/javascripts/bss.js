@@ -27,6 +27,7 @@
 //= require tools
 //= require math.min
 //= require bss_application
+//= require solutions
 //= require configurator
 //= require_self
 

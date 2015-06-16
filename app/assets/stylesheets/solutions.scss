@@ -1,0 +1,120 @@
+div.solutions {
+  section {
+    padding:2em 0;
+  }
+  table {
+    width:100%;
+  }
+  th img {
+    width:100%;
+    height:auto;
+    min-width:30px;
+  }
+  .row {
+    padding:1em 0 0;
+  }
+  .dark-grey {
+    background-color:#4d4d4d;
+    color:#fff;
+  }
+  .purple {
+    background-color: #53519a;
+  }
+  .green {
+    background-color: #a7C839;
+  }
+  .red {
+    background-color: #cf122e;
+  }
+  .blue {
+    background-color: #5dc5ec;
+  }
+  span.dark-grey {
+    background-color:transparent;
+    color:#4d4d4d;
+  }
+  span.purple {
+    background-color:transparent;
+    color: #53519a
+  }
+  span.green {
+    background-color:transparent;
+    color: #a7C839
+  }
+  span.red {
+    background-color:transparent;
+    color: #cf122e
+  }
+  span.blue {
+    background-color:transparent;
+    color: #5dc5ec
+  }
+  section.black,
+  section.black h1,
+  section.black h2,
+  section.black h3,
+  section.black h4,
+  section.black h5,
+  section.black h6 {
+    background-color:#000;
+    color:#fff;
+  }
+  section.dark-blue,
+  section.dark-blue h1,
+  section.dark-blue h2,
+  section.dark-blue h3,
+  section.dark-blue h4,
+  section.dark-blue h5,
+  section.dark-blue h6 {
+    color:#fff;
+  }
+  section.grey {
+    background-color:#ededed;
+  }
+  .fadein .slideleft,
+  .fadein .slideright {
+    visibility: hidden;
+    opacity: 0.0;
+    position: relative;
+    text-align:center;
+  }
+  .slideleft {
+    left:100px;
+  }
+  .slideright {
+    right:100px;
+  }
+  .cloud {
+    position:relative;
+    margin-bottom:-6%;
+    z-index:1;
+  }
+  #blu-link {
+    background-color:#005991;
+    background: asset-url('solutions/blu-background.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  .logo-at {
+    max-width:250px;
+    max-height:35px;
+  }
+  .logo-avb {
+    max-width:111px;
+    max-height:38px;
+  }
+  .logo-cobra {
+    max-width:164px;
+    max-height:35px;
+  }
+  .logo-dante {
+    max-width:169px;
+    max-height:38px;
+  }
+  .logo-blu {
+    max-width:83px;
+    max-height:53px;
+  }
+}

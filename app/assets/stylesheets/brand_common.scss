@@ -448,7 +448,23 @@ div.featured_product_container {
     text-align: left !important;
   }
 }
-
+div.solutions {
+  .dark-primary {
+    background: $primary-color;
+    color: $white !important;
+    h3 {
+      color: $white;
+      font-size: rem-calc(25);
+    }
+    h2 {
+      color: $white;
+    }
+  }
+  .secondary.button {
+    background: $white;
+    color: $primary-color;
+  }
+}
 div.homepage_block {
   &.dark {
     padding: 50px 0px;

@@ -5,43 +5,67 @@
 #
 class DigitechDomain
   def self.matches?(request)
-    !!(request.host.match(/digitech\.com/i) || request.host.match(/digitech\.lvh\.me/i))
+    !!(request.host.match(/digitech/i))
   end
 end
 
-class HardwireDomain
+class DodDomain
   def self.matches?(request)
-    !!(request.host.match(/hardwirepedals\.com|hwtest/i)) # for testing: || request.host.match(/lvh\.me/i))
-  end
-end
-
-class VocalistDomain
-  def self.matches?(request)
-    !!(request.host.match(/vocalistpro\.com|voctest/i))
+    !!(request.host.match(/dod/i))
   end
 end
 
 class DbxDomain
   def self.matches?(request)
-    !!(request.host.match(/dbxpro\.com|dbxtest/i))
+    !!(request.host.match(/dbx/i))
   end
 end
 
 class LexiconDomain
   def self.matches?(request)
-    !!(request.host.match(/lexiconpro\.com/i))
+    !!(request.host.match(/lexicon/i))
   end
 end
 
 class BssDomain
   def self.matches?(request)
-    !!(request.host.match(/bssaudio\.com/i) || request.host.match(/bss\.co\.uk/i))
+    !!(request.host.match(/bss/i))
   end
 end
 
 class CrownDomain
   def self.matches?(request)
     !!(request.host.match(/crown/i))
+  end
+end
+
+class AkgDomain
+  def self.matches?(request)
+    !!(request.host.match(/akg/i))
+  end
+end
+
+class JblProDomain
+  def self.matches?(request)
+    !!(request.host.match(/jblpro/i))
+  end
+end
+
+class JblCommercialDomain
+  def self.matches?(request)
+    !!(request.host.match(/jblcommercial/i))
+  end
+end
+
+class SoundcraftDomain
+  def self.matches?(request)
+    !!(request.host.match(/soundcraft/i))
+  end
+end
+
+class StuderDomain
+  def self.matches?(request)
+    !!(request.host.match(/studer/i))
   end
 end
 
