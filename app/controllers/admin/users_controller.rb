@@ -40,7 +40,7 @@ class Admin::UsersController < AdminController
   # GET /admin/users/1/edit
   def edit
   end
-  
+
   # POST /admin/users/1/reset_password
   def reset_password
     new_password = "Hsp123!"
@@ -61,7 +61,7 @@ class Admin::UsersController < AdminController
     @user.skip_confirmation!
     respond_to do |format|
       if @user.save
-        @user.confirm!
+        @user.confirm
         format.html { redirect_to([:admin, @user], notice: 'User was successfully created.') }
         format.xml  { render xml: @user, status: :created, location: @user }
         website.add_log(user: current_user, action: "Created user: #{@user.name}")
