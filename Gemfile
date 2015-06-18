@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '4.2.2'
+gem 'rack', '< 1.6.3' # 6/2015, rack 1.6.3 is broken
 gem 'responders', '~> 2.0'
 # Gems used only for assets and not required
 # in production environments by default.
