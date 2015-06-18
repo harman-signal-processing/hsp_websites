@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150526150613) do
+ActiveRecord::Schema.define(version: 20150618164341) do
 
   create_table "admin_logs", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -1143,6 +1143,9 @@ ActiveRecord::Schema.define(version: 20150526150613) do
     t.datetime "homepage_banner_updated_at"
     t.string   "homepage_headline",              limit: 255
     t.text     "homepage_text",                  limit: 65535
+    t.float    "discount",                       limit: 24
+    t.string   "discount_type",                  limit: 255
+    t.boolean  "show_recalculated_price",        limit: 1
   end
 
   add_index "promotions", ["cached_slug"], name: "index_promotions_on_cached_slug", unique: true, using: :btree

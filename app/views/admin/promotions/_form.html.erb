@@ -1,6 +1,21 @@
 <%= simple_form_for([:admin, @promotion], html: {multipart: true}) do |f| %>
 
-  <%= f.input :name, label: "Promotion Name" %>
+  <div class="row">
+    <div class="large-9 columns">
+      <%= f.input :name, label: "Promotion Name" %>
+    </div>
+    <div class="large-3 columns">
+      <%= f.label :discount %>
+      <div class="row collapse">
+        <div class="small-9 columns">
+          <%= f.input :discount, label: false %>
+        </div>
+        <div class="small-3 columns">
+          <%= f.input :discount_type, label: false, as: :select, collection: ["$", "%"], include_blank: false %>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="row">
     <div class="large-3 columns">
@@ -20,15 +35,19 @@
 
   <div class="row">
     <div class="large-12 columns">
-        <%= f.input :promo_form, label: "Redemption form" %>
-        <% unless f.object.promo_form_file_name.blank? %>
-          <span id="promo_form_container">
-            currently:
-            <%= link_to(f.object.promo_form_file_name, f.object.promo_form.url) %>
-          </span>
-        <% end %>
-      </div>
+      <%= f.input :promo_form, label: "Redemption form" %>
+      <% unless f.object.promo_form_file_name.blank? %>
+        <span id="promo_form_container">
+          currently:
+          <%= link_to(f.object.promo_form_file_name, f.object.promo_form.url) %>
+        </span>
+      <% end %>
+
+      <%= f.input :show_recalculated_price,
+        label: "Show the slashed price on the related product pages. (Only for brands/products which show pricing normally.)" %>
+    </div>
   </div>
+
 
 <br/>
 

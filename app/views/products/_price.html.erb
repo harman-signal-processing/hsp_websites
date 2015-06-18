@@ -1,0 +1,112 @@
+<div class="product-price">
+  <% if website.show_pricing? && I18n.default_locale.match(/#{I18n.locale}/i) %>
+    <% if @product.street_price.present? && @product.street_price.to_f > 0.0 %>
+
+      <% if @product.sale_price && @product.street_price.to_f > @product.sale_price.to_f && @product.sale_price.to_f > 0 %>
+        <h6 class="price-label"><span class="strike"><%= number_to_currency(@product.street_price) %></span></h6>
+
+        <% if @promo %>
+          <h6 class="price-label strike"><%= number_to_currency(@product.sale_price) %></h6>
+
+          <%= link_to @promo do %>
+            <div>
+              <span class="sale">
+                <% if @promo.discount_type == '$' %>
+                  <%= number_to_currency(@product.sale_price.to_f - @promo.discount) %>!
+                <% elsif @promo.discount_type == '%' %>
+                  <%= number_to_currency(@product.sale_price.to_f * (1 - (@promo.discount / 100)) ) %>!
+                <% end %>
+              </span>
+            </div>
+
+            Save <span class="strike"><%= number_to_currency(@product.street_price.to_f - @product.sale_price.to_f) %></span>
+            <span class="sale">
+              <% if @promo.discount_type == '$' %>
+                <%= number_to_currency((@product.street_price.to_f - @product.sale_price.to_f) + @promo.discount.to_f) %>!
+              <% elsif @promo.discount_type == '%' %>
+                <%= number_to_currency((@product.street_price.to_f - @product.sale_price.to_f) + ( @product.sale_price.to_f * (@promo.discount / 100) ) ) %>!
+              <% end %>
+            </span>
+          <% end %>
+
+        <% else %>
+          <div><%= number_to_currency(@product.sale_price) %></div>
+          <h6 class="price-label">Save <%= number_to_currency(@product.street_price.to_f - @product.sale_price.to_f) %>!</h6>
+        <% end %>
+        <br/>
+
+      <% else %>
+
+        <% if @promo %>
+
+          <h6 class="price-label strike"><%= number_to_currency(@product.street_price) %></h6>
+          <%= link_to @promo do %>
+            <div>
+              <span class="sale">
+                <% if @promo.discount_type == '$' %>
+                  <%= number_to_currency(@product.street_price.to_f - @promo.discount) %>!
+                <% elsif @promo.discount_type == '%' %>
+                  <%= number_to_currency(@product.street_price.to_f * (1 - (@promo.discount / 100)) ) %>!
+                <% end %>
+              </span>
+            </div>
+            <p class="price-label">
+              <span class="sale">
+              Save
+                <% if @promo.discount_type == '$' %>
+                  <%= number_to_currency(@promo.discount.to_f) %>!
+                <% elsif @promo.discount_type == '%' %>
+                  <%= number_to_currency(@product.street_price.to_f * (@promo.discount / 100) ) %>!
+                <% end %>
+              </span>
+            </p>
+          <% end %>
+
+        <% else %>
+          <div class="spacer-10">
+            <%= number_to_currency(@product.street_price) %>
+          </div>
+        <% end %>
+
+      <% end %>
+
+    <% elsif @product.msrp && @product.msrp.to_f > 0.0 %>
+
+      <% if @product.sale_price && @product.msrp.to_f > @product.sale_price.to_f && @product.sale_price.to_f > 0 %>
+
+        <h6 class="price-label">MSRP <span class="strike"><%= number_to_currency(@product.msrp) %></span></h6>
+        <% if @promo %>
+          <div>
+            <span class="strike"><%= number_to_currency(@product.sale_price) %></span>
+            <span class="sale">
+              <% if @promo.discount_type == '$' %>
+                <%= number_to_currency(@product.sale_price.to_f - @promo.discount) %>!
+              <% elsif @promo.discount_type == '%' %>
+                <%= number_to_currency(@product.sale_price.to_f * (1 - (@promo.discount / 100)) ) %>!
+              <% end %>
+            </span>
+          </div>
+          Save <span class="strike"><%= number_to_currency(@product.msrp.to_f - @product.sale_price.to_f) %></span>
+          <span class="sale">
+            <% if @promo.discount_type == '$' %>
+              <%= number_to_currency((@product.msrp.to_f - @product.sale_price.to_f) + @promo.discount.to_f) %>!
+            <% elsif @promo.discount_type == '%' %>
+              <%= number_to_currency((@product.msrp.to_f - @product.sale_price.to_f) + ( @product.sale_price.to_f * (@promo.discount / 100) ) ) %>!
+            <% end %>
+          </span>
+        <% else %>
+          <div><%= number_to_currency(@product.sale_price) %></div>
+          Save <%= number_to_currency(@product.msrp.to_f - @product.sale_price.to_f) %>!
+        <% end %>
+        <br/>
+
+      <% else %>
+
+        <h6 class="price-label">MSRP</h6>
+        <%= number_to_currency(@product.msrp) %>
+
+      <% end %>
+
+    <% end %>
+  <% end %>
+</div>

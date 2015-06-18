@@ -22,26 +22,39 @@
 		</div>
 	</div>
 
-<% unless @promotion.tile_file_name.blank? %>
-	<div class="large-4 columns">
-		<div class="panel">
-		  <h5 class="subheader">Promo Page Header</h5>
-		  <%= link_to(image_tag(@promotion.tile.url(:thumb)), @promotion.tile.url) %>
-		</div>
-	</div>
-<% end %>
-<% unless @promotion.promo_form_file_name.blank? %>
-	<div class="large-4 columns">
-		<div class="panel">
-		  <h5 class="subheader">Promo form file name</h5>
-		  <%= link_to @promotion.promo_form_file_name, @promotion.promo_form.url %>
-		</div>
-	</div>
-<% end %>
+  <% unless @promotion.tile_file_name.blank? %>
+    <div class="large-4 columns">
+      <div class="panel">
+        <h5 class="subheader">Promo Page Header</h5>
+        <%= link_to(image_tag(@promotion.tile.url(:thumb)), @promotion.tile.url) %>
+      </div>
+    </div>
+  <% end %>
+  <% unless @promotion.promo_form_file_name.blank? %>
+    <div class="large-4 columns">
+      <div class="panel">
+        <h5 class="subheader">Promo form file name</h5>
+        <%= link_to @promotion.promo_form_file_name, @promotion.promo_form.url %>
+      </div>
+    </div>
+  <% end %>
 </div>
 
+<% if @promotion.discount.present? %>
+  <p>
+    Discount:
+    <% if @promotion.discount_type == '$' %>
+      <%= number_to_currency @promotion.discount %> off
+    <% elsif @promotion.discount_type == '%' %>
+      <%= number_to_percentage @promotion.discount, precision: 0 %> off
+    <% else %>
+      <span class="alert">Can't determine: choose dollars or percent!</span>
+    <% end %>
+  </p>
+<% end %>
+
 <p>
-	Valid promotion dates: 
+	Valid promotion dates:
 	<b>
 		<% if @promotion.start_on.present? %>
   			<%=l @promotion.start_on, format: :long %>

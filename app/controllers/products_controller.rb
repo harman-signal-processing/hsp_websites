@@ -46,6 +46,11 @@ class ProductsController < ApplicationController
       @online_retailer_link = @product.randomized_retailer_links.first # already randomized
     end
     @active_tab = params[:tab] || 'description'
+
+    @promo = nil # to use for recalculation
+    p = @product.current_promotions.where(show_recalculated_price: true).where("discount > 0")
+    @promo = p.first if p.length > 0
+
     respond_to do |format|
       format.html {
         unless @product.show_on_website?(website)
