@@ -5,7 +5,7 @@
 <h1 class="page_title">
 <% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/promotions_head.jpg")) %>
 	<%= image_tag("#{website.folder}/#{I18n.locale}/promotions_head.jpg", alt: t('titles.promotions')) %>
-<% else %>	
+<% else %>
 	<%= t('titles.promotions') %>
 <% end %>
 </h1>
@@ -14,11 +14,9 @@
 <% @current_promotions.each do |promotion| %>
 	<div class="promotion_bug">
 		<% if promotion.tile_file_name.blank? %>
-			<h2 style="text-align: center">
-				<%= (promotion.has_description?) ? link_to(translate_content(promotion, :name), promotion) : translate_content(promotion, :name) %>
-			</h2>
+			<h2> <%= (promotion.has_description?) ? link_to(translate_content(promotion, :name), promotion) : translate_content(promotion, :name) %> </h2>
 		<% else %>
-			<%= (promotion.has_description?) ? 
+			<%= (promotion.has_description?) ?
 					link_to(image_tag(promotion.tile.url(:medium), alt: promotion.name), promotion) :
 					image_tag(promotion.tile.url, alt: promotion.name) %>
 		<% end %>
@@ -28,7 +26,7 @@
 		<% end %>
 		</div>
 		<% if !promotion.promo_form_file_name.blank? %>
-			<%= link_to t('download_promotion_form'), promotion.promo_form.url, class: "medium button" %>
+			<%= link_to t('download_promotion_form'), promotion.promo_form.url, class: "small button" %>
 		<% end %>
 	</div>
 <% end %>
@@ -51,7 +49,7 @@
 			<% end %>
 			</div>
 			<% if !promotion.promo_form_file_name.blank? %>
-				<%= link_to t('download_promotion_form'), promotion.promo_form.url, class: "medium button" %>
+				<%= link_to t('download_promotion_form'), promotion.promo_form.url, class: "small button" %>
 			<% end %>
 		</div>
 	<% end %>
