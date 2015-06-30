@@ -174,7 +174,7 @@ class SupportController < ApplicationController
       begin
         @results = []
         count = 0
-        zip = (params[:zip].to_s.match(/^\d*$/)) ? "zipcode #{params[:zip]}" : params[:zip]
+        zip = params[:zip] #(params[:zip].to_s.match(/^\d*$/)) ? "zipcode #{params[:zip]}" : params[:zip]
         origin = Geokit::Geocoders::MultiGeocoder.geocode(zip)
         brand = Brand.find(website.service_centers_from_brand_id || website.brand_id)
         brand.service_centers.near(origin: origin, within: 100).order("distance ASC").each do |d|
@@ -183,9 +183,16 @@ class SupportController < ApplicationController
             count += 1
           end
         end
-        # ServiceCenter.find(:all, conditions: ["brand_id = ?", brand_id], origin: params[:zip], order: 'distance', within: 100, limit: 10).each do |d|
-        #   @results << d #unless d.exclude?
-        # end
+
+        # Add those with exact zipcode matches if none have been found by geocoding
+        if count == 0 && params[:zip].to_s.match(/^\d*$/)
+          brand.service_centers.where(zip: params[:zip]).each do |d|
+            unless count > 10 || d.exclude?
+              @results << d
+              count += 1
+            end
+          end
+        end
         unless count > 0
           @err = t('errors.no_service_centers_found', zip: params[:zip])
         end
