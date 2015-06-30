@@ -37,7 +37,10 @@
       <% if @results.size > 0 %>
         <ul class="list dealer_results">
           <% @results.each do |dealer| %>
-          <li><b><%= dealer.name %></b> (<%= dealer.distance.to_i %> <%= t('dealer_distance') %>)
+            <li><b><%= dealer.name %></b>
+            <% if dealer.try(:distance) %>
+              (<%= dealer.distance.to_i %> <%= t('dealer_distance') %>)
+            <% end %>
           <br/><%= dealer.address %>
           <br/><%= dealer.city %> <%= dealer.state %> <%= dealer.zip %>
           <br/><%= dealer.telephone %>
