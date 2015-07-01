@@ -62,8 +62,8 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "quote",      limit: 65535
-    t.boolean  "on_tour",    limit: 1,     default: false
-    t.boolean  "favorite",   limit: 1
+    t.boolean  "on_tour",                  default: false
+    t.boolean  "favorite"
   end
 
   add_index "artist_products", ["artist_id", "favorite"], name: "index_artist_products_on_artist_id_and_favorite", using: :btree
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.string   "invitation_code",     limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "show_on_artist_page", limit: 1
+    t.boolean  "show_on_artist_page"
     t.integer  "position",            limit: 4
   end
 
@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "cached_slug",                       limit: 255
-    t.boolean  "featured",                          limit: 1,     default: false
+    t.boolean  "featured",                                        default: false
     t.string   "email",                             limit: 255,   default: "",    null: false
     t.string   "encrypted_password",                limit: 128,   default: "",    null: false
     t.string   "reset_password_token",              limit: 255
@@ -208,17 +208,17 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.datetime "updated_at"
     t.string   "cached_slug",                   limit: 255
     t.integer  "default_website_id",            limit: 4
-    t.boolean  "has_effects",                   limit: 1,   default: false
-    t.boolean  "has_reviews",                   limit: 1,   default: true
-    t.boolean  "has_faqs",                      limit: 1,   default: true
-    t.boolean  "has_tone_library",              limit: 1,   default: false
-    t.boolean  "has_artists",                   limit: 1,   default: true
-    t.boolean  "has_software",                  limit: 1,   default: true
-    t.boolean  "has_registered_downloads",      limit: 1,   default: false
-    t.boolean  "has_online_retailers",          limit: 1,   default: true
-    t.boolean  "has_distributors",              limit: 1,   default: true
-    t.boolean  "has_dealers",                   limit: 1,   default: true
-    t.boolean  "has_service_centers",           limit: 1,   default: false
+    t.boolean  "has_effects",                               default: false
+    t.boolean  "has_reviews",                               default: true
+    t.boolean  "has_faqs",                                  default: true
+    t.boolean  "has_tone_library",                          default: false
+    t.boolean  "has_artists",                               default: true
+    t.boolean  "has_software",                              default: true
+    t.boolean  "has_registered_downloads",                  default: false
+    t.boolean  "has_online_retailers",                      default: true
+    t.boolean  "has_distributors",                          default: true
+    t.boolean  "has_dealers",                               default: true
+    t.boolean  "has_service_centers",                       default: false
     t.string   "default_locale",                limit: 255
     t.integer  "dealers_from_brand_id",         limit: 4
     t.integer  "distributors_from_brand_id",    limit: 4
@@ -227,28 +227,28 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.datetime "logo_updated_at"
     t.integer  "logo_file_size",                limit: 4
     t.string   "news_feed_url",                 limit: 255
-    t.boolean  "has_market_segments",           limit: 1
-    t.boolean  "has_parts_form",                limit: 1
-    t.boolean  "has_rma_form",                  limit: 1
-    t.boolean  "has_training",                  limit: 1,   default: false
+    t.boolean  "has_market_segments"
+    t.boolean  "has_parts_form"
+    t.boolean  "has_rma_form"
+    t.boolean  "has_training",                              default: false
     t.integer  "service_centers_from_brand_id", limit: 4
-    t.boolean  "show_pricing",                  limit: 1
-    t.boolean  "has_suggested_products",        limit: 1
-    t.boolean  "has_blogs",                     limit: 1
-    t.boolean  "has_audio_demos",               limit: 1,   default: false
-    t.boolean  "has_vintage_repair",            limit: 1
-    t.boolean  "has_label_sheets",              limit: 1
-    t.boolean  "employee_store",                limit: 1
-    t.boolean  "live_on_this_platform",         limit: 1
-    t.boolean  "product_trees",                 limit: 1
-    t.boolean  "has_us_sales_reps",             limit: 1
+    t.boolean  "show_pricing"
+    t.boolean  "has_suggested_products"
+    t.boolean  "has_blogs"
+    t.boolean  "has_audio_demos",                           default: false
+    t.boolean  "has_vintage_repair"
+    t.boolean  "has_label_sheets"
+    t.boolean  "employee_store"
+    t.boolean  "live_on_this_platform"
+    t.boolean  "product_trees"
+    t.boolean  "has_us_sales_reps"
     t.integer  "us_sales_reps_from_brand_id",   limit: 4
-    t.boolean  "queue",                         limit: 1
-    t.boolean  "toolkit",                       limit: 1
+    t.boolean  "queue"
+    t.boolean  "toolkit"
     t.string   "color",                         limit: 255
-    t.boolean  "has_products",                  limit: 1
-    t.boolean  "has_system_configurator",       limit: 1,   default: false
-    t.boolean  "offers_rentals",                limit: 1
+    t.boolean  "has_products"
+    t.boolean  "has_system_configurator",                   default: false
+    t.boolean  "offers_rentals"
   end
 
   add_index "brands", ["cached_slug"], name: "index_brands_on_cached_slug", unique: true, using: :btree
@@ -292,7 +292,7 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.string   "shipping_zip",          limit: 255
     t.string   "product_sku",           limit: 255
     t.string   "product_serial_number", limit: 255
-    t.boolean  "warranty",              limit: 1
+    t.boolean  "warranty"
     t.date     "purchased_on"
     t.string   "part_number",           limit: 255
     t.string   "board_location",        limit: 255
@@ -345,8 +345,8 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.decimal  "lng",                            precision: 15, scale: 10
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "exclude",            limit: 1
-    t.boolean  "skip_sync_from_sap", limit: 1
+    t.boolean  "exclude"
+    t.boolean  "skip_sync_from_sap"
   end
 
   add_index "dealers", ["account_number"], name: "index_dealers_on_account_number", using: :btree
@@ -418,7 +418,7 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.string   "download_code",          limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "subscribe",              limit: 1
+    t.boolean  "subscribe"
     t.string   "product",                limit: 255
     t.string   "employee_number",        limit: 255
     t.string   "store_number",           limit: 255
@@ -475,7 +475,7 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.integer  "product_id", limit: 4
     t.text     "question",   limit: 65535
     t.text     "answer",     limit: 65535
-    t.boolean  "hidden",     limit: 1
+    t.boolean  "hidden"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -514,7 +514,7 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.string   "state",        limit: 255
     t.string   "postal_code",  limit: 255
     t.string   "country",      limit: 255
-    t.boolean  "subscribe",    limit: 1
+    t.boolean  "subscribe"
     t.string   "secret_code",  limit: 255
   end
 
@@ -604,11 +604,11 @@ ActiveRecord::Schema.define(version: 20150618164341) do
 
   create_table "marketing_project_types", force: :cascade do |t|
     t.string   "name",                  limit: 255
-    t.boolean  "major_effort",          limit: 1
+    t.boolean  "major_effort"
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
-    t.boolean  "put_source_on_toolkit", limit: 1
-    t.boolean  "put_final_on_toolkit",  limit: 1
+    t.boolean  "put_source_on_toolkit"
+    t.boolean  "put_final_on_toolkit"
   end
 
   create_table "marketing_projects", force: :cascade do |t|
@@ -623,8 +623,8 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.float    "estimated_cost",            limit: 24
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
-    t.boolean  "put_source_on_toolkit",     limit: 1
-    t.boolean  "put_final_on_toolkit",      limit: 1
+    t.boolean  "put_source_on_toolkit"
+    t.boolean  "put_final_on_toolkit"
     t.date     "due_on"
     t.integer  "marketing_calendar_id",     limit: 4
   end
@@ -720,7 +720,7 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.integer  "retailer_logo_file_size",    limit: 4
     t.string   "retailer_logo_content_type", limit: 255
     t.datetime "retailer_logo_updated_at"
-    t.boolean  "active",                     limit: 1,   default: true
+    t.boolean  "active",                                 default: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "cached_slug",                limit: 255
@@ -776,8 +776,8 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.string   "calculation_method", limit: 255
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
-    t.boolean  "us",                 limit: 1
-    t.boolean  "intl",               limit: 1
+    t.boolean  "us"
+    t.boolean  "intl"
   end
 
   add_index "pricing_types", ["brand_id"], name: "index_pricing_types_on_brand_id", using: :btree
@@ -794,7 +794,7 @@ ActiveRecord::Schema.define(version: 20150618164341) do
 
   create_table "product_attachments", force: :cascade do |t|
     t.integer  "product_id",                       limit: 4
-    t.boolean  "primary_photo",                    limit: 1,     default: false
+    t.boolean  "primary_photo",                                  default: false
     t.string   "product_attachment_file_name",     limit: 255
     t.string   "product_attachment_content_type",  limit: 255
     t.datetime "product_attachment_updated_at"
@@ -813,8 +813,8 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.integer  "width",                            limit: 8
     t.integer  "height",                           limit: 8
     t.string   "songlist_tag",                     limit: 255
-    t.boolean  "no_lightbox",                      limit: 1
-    t.boolean  "hide_from_product_page",           limit: 1
+    t.boolean  "no_lightbox"
+    t.boolean  "hide_from_product_page"
     t.text     "product_attachment_meta",          limit: 65535
   end
 
@@ -881,7 +881,7 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.integer  "parent_id",                     limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "hide_from_homepage",            limit: 1,     default: false
+    t.boolean  "hide_from_homepage",                          default: false
     t.string   "cached_slug",                   limit: 255
     t.string   "background_image_file_name",    limit: 255
     t.integer  "background_image_file_size",    limit: 4
@@ -1027,11 +1027,11 @@ ActiveRecord::Schema.define(version: 20150618164341) do
 
   create_table "product_statuses", force: :cascade do |t|
     t.string   "name",            limit: 255
-    t.boolean  "show_on_website", limit: 1,   default: false
-    t.boolean  "discontinued",    limit: 1,   default: false
+    t.boolean  "show_on_website",             default: false
+    t.boolean  "discontinued",                default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "shipping",        limit: 1,   default: false
+    t.boolean  "shipping",                    default: false
   end
 
   create_table "product_suggestions", force: :cascade do |t|
@@ -1064,7 +1064,7 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.text     "short_description",              limit: 65535
     t.text     "keywords",                       limit: 65535
     t.integer  "product_status_id",              limit: 4
-    t.boolean  "rohs",                           limit: 1,     default: true
+    t.boolean  "rohs",                                         default: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "extended_description",           limit: 65535
@@ -1077,14 +1077,14 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.text     "features",                       limit: 65535
     t.string   "password",                       limit: 255
     t.text     "previewers",                     limit: 65535
-    t.boolean  "has_pedals",                     limit: 1,     default: false
+    t.boolean  "has_pedals",                                   default: false
     t.integer  "brand_id",                       limit: 4
     t.integer  "warranty_period",                limit: 4
     t.string   "layout_class",                   limit: 255
     t.string   "direct_buy_link",                limit: 255
     t.string   "features_tab_name",              limit: 255
     t.string   "demo_link",                      limit: 255
-    t.boolean  "hide_buy_it_now_button",         limit: 1
+    t.boolean  "hide_buy_it_now_button"
     t.string   "more_info_url",                  limit: 255
     t.integer  "parent_products_count",          limit: 4,     default: 0,     null: false
     t.string   "short_description_1",            limit: 255
@@ -1105,7 +1105,7 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.integer  "cost_cents",                     limit: 4
     t.string   "cost_currency",                  limit: 255,   default: "USD", null: false
     t.text     "alert",                          limit: 65535
-    t.boolean  "show_alert",                     limit: 1,     default: false
+    t.boolean  "show_alert",                                   default: false
     t.string   "extended_description_tab_name",  limit: 255
     t.string   "product_page_url",               limit: 255
   end
@@ -1134,7 +1134,7 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.datetime "tile_updated_at"
     t.string   "post_registration_subject",      limit: 255
     t.text     "post_registration_message",      limit: 65535
-    t.boolean  "send_post_registration_message", limit: 1,     default: false
+    t.boolean  "send_post_registration_message",               default: false
     t.integer  "brand_id",                       limit: 4
     t.text     "toolkit_instructions",           limit: 65535
     t.string   "homepage_banner_file_name",      limit: 255
@@ -1145,7 +1145,7 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.text     "homepage_text",                  limit: 65535
     t.float    "discount",                       limit: 24
     t.string   "discount_type",                  limit: 255
-    t.boolean  "show_recalculated_price",        limit: 1
+    t.boolean  "show_recalculated_price"
   end
 
   add_index "promotions", ["cached_slug"], name: "index_promotions_on_cached_slug", unique: true, using: :btree
@@ -1170,15 +1170,15 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.datetime "updated_at"
     t.string   "from_email",                      limit: 255
     t.string   "subject",                         limit: 255
-    t.boolean  "require_serial_number",           limit: 1
+    t.boolean  "require_serial_number"
     t.string   "cc",                              limit: 255
     t.text     "products",                        limit: 65535
-    t.boolean  "require_employee_number",         limit: 1
-    t.boolean  "require_store_number",            limit: 1
-    t.boolean  "require_manager_name",            limit: 1
-    t.boolean  "send_coupon_code",                limit: 1
+    t.boolean  "require_employee_number"
+    t.boolean  "require_store_number"
+    t.boolean  "require_manager_name"
+    t.boolean  "send_coupon_code"
     t.text     "coupon_codes",                    limit: 65535
-    t.boolean  "require_receipt",                 limit: 1
+    t.boolean  "require_receipt"
   end
 
   create_table "service_centers", force: :cascade do |t|
@@ -1200,7 +1200,7 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "brand_id",       limit: 4
-    t.boolean  "vintage",        limit: 1
+    t.boolean  "vintage"
   end
 
   create_table "settings", force: :cascade do |t|
@@ -1250,7 +1250,7 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.string   "resource_content_type",   limit: 255
     t.datetime "resource_updated_at"
     t.string   "resource_type",           limit: 255
-    t.boolean  "show_on_public_site",     limit: 1
+    t.boolean  "show_on_public_site"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "executable_file_name",    limit: 255
@@ -1313,7 +1313,7 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.string   "version",                 limit: 255
     t.text     "description",             limit: 65535
     t.string   "platform",                limit: 255
-    t.boolean  "active",                  limit: 1
+    t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "category",                limit: 255
@@ -1327,11 +1327,11 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.string   "layout_class",            limit: 255
     t.integer  "current_version_id",      limit: 4
     t.string   "bit",                     limit: 255
-    t.boolean  "active_without_products", limit: 1
+    t.boolean  "active_without_products"
     t.string   "direct_upload_url",       limit: 255
-    t.boolean  "processed",               limit: 1,     default: false
+    t.boolean  "processed",                             default: false
     t.text     "alert",                   limit: 65535
-    t.boolean  "show_alert",              limit: 1,     default: false
+    t.boolean  "show_alert",                            default: false
   end
 
   add_index "softwares", ["cached_slug"], name: "index_softwares_on_cached_slug", unique: true, using: :btree
@@ -1418,7 +1418,7 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.string   "name",             limit: 255
     t.integer  "position",         limit: 4
     t.text     "description",      limit: 65535
-    t.boolean  "default",          limit: 1,     default: false
+    t.boolean  "default",                        default: false
     t.integer  "price_cents",      limit: 4,     default: 0,     null: false
     t.string   "price_currency",   limit: 255,   default: "USD", null: false
     t.datetime "created_at"
@@ -1439,7 +1439,7 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.datetime "updated_at"
     t.text     "long_description",     limit: 65535
     t.string   "default_value",        limit: 255
-    t.boolean  "show_on_first_screen", limit: 1,     default: false
+    t.boolean  "show_on_first_screen",               default: false
   end
 
   add_index "system_options", ["parent_id"], name: "index_system_options_on_parent_id", using: :btree
@@ -1486,8 +1486,8 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.integer  "system_id",        limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "enabled",          limit: 1, default: true
-    t.boolean  "perform_opposite", limit: 1, default: true
+    t.boolean  "enabled",                    default: true
+    t.boolean  "perform_opposite",           default: true
   end
 
   add_index "system_rules", ["system_id"], name: "index_system_rules_on_system_id", using: :btree
@@ -1546,7 +1546,7 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.string   "related_attribute", limit: 255
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
-    t.boolean  "marketing_message", limit: 1
+    t.boolean  "marketing_message"
     t.string   "cached_slug",       limit: 255
   end
 
@@ -1566,14 +1566,14 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.datetime "created_at",                                            null: false
     t.datetime "updated_at",                                            null: false
     t.string   "slug",                     limit: 255
-    t.boolean  "dealer",                   limit: 1,     default: true
-    t.boolean  "distributor",              limit: 1,     default: true
-    t.boolean  "rep",                      limit: 1,     default: true
-    t.boolean  "rso",                      limit: 1,     default: true
+    t.boolean  "dealer",                                 default: true
+    t.boolean  "distributor",                            default: true
+    t.boolean  "rep",                                    default: true
+    t.boolean  "rso",                                    default: true
     t.text     "message",                  limit: 65535
     t.date     "expires_on"
-    t.boolean  "media",                    limit: 1,     default: true
-    t.boolean  "link_good",                limit: 1
+    t.boolean  "media",                                  default: true
+    t.boolean  "link_good"
     t.datetime "link_checked_at"
   end
 
@@ -1590,12 +1590,12 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.integer  "instructor_id",           limit: 4
     t.string   "more_info_url",           limit: 255
     t.string   "location",                limit: 255
-    t.boolean  "filled",                  limit: 1
+    t.boolean  "filled"
     t.string   "class_info_file_name",    limit: 255
     t.integer  "class_info_file_size",    limit: 4
     t.string   "class_info_content_type", limit: 255
     t.datetime "class_info_updated_at"
-    t.boolean  "canceled",                limit: 1
+    t.boolean  "canceled"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -1676,22 +1676,22 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.string   "last_sign_in_ip",            limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "admin",                      limit: 1
-    t.boolean  "customer_service",           limit: 1
-    t.boolean  "online_retailer",            limit: 1
-    t.boolean  "translator",                 limit: 1
-    t.boolean  "rohs",                       limit: 1
-    t.boolean  "market_manager",             limit: 1
-    t.boolean  "artist_relations",           limit: 1
-    t.boolean  "engineer",                   limit: 1
-    t.boolean  "clinician",                  limit: 1
-    t.boolean  "rep",                        limit: 1
+    t.boolean  "admin"
+    t.boolean  "customer_service"
+    t.boolean  "online_retailer"
+    t.boolean  "translator"
+    t.boolean  "rohs"
+    t.boolean  "market_manager"
+    t.boolean  "artist_relations"
+    t.boolean  "engineer"
+    t.boolean  "clinician"
+    t.boolean  "rep"
     t.string   "name",                       limit: 255
-    t.boolean  "rso",                        limit: 1
-    t.boolean  "sales_admin",                limit: 1
-    t.boolean  "dealer",                     limit: 1
-    t.boolean  "distributor",                limit: 1
-    t.boolean  "marketing_staff",            limit: 1
+    t.boolean  "rso"
+    t.boolean  "sales_admin"
+    t.boolean  "dealer"
+    t.boolean  "distributor"
+    t.boolean  "marketing_staff"
     t.string   "phone_number",               limit: 255
     t.string   "job_description",            limit: 255
     t.string   "job_title",                  limit: 255
@@ -1703,15 +1703,15 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email",          limit: 255
-    t.boolean  "employee",                   limit: 1
-    t.boolean  "media",                      limit: 1
-    t.boolean  "queue_admin",                limit: 1
+    t.boolean  "employee"
+    t.boolean  "media"
+    t.boolean  "queue_admin"
     t.string   "profile_pic_file_name",      limit: 255
     t.integer  "profile_pic_file_size",      limit: 4
     t.string   "profile_pic_content_type",   limit: 255
     t.datetime "profile_pic_updated_at"
-    t.boolean  "project_manager",            limit: 1
-    t.boolean  "executive",                  limit: 1
+    t.boolean  "project_manager"
+    t.boolean  "executive"
     t.string   "account_number",             limit: 255
   end
 
@@ -1734,7 +1734,7 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.string   "phone",               limit: 50
     t.string   "fax",                 limit: 50
     t.string   "email",               limit: 100
-    t.boolean  "subscribe",           limit: 1
+    t.boolean  "subscribe"
     t.integer  "brand_id",            limit: 4
     t.integer  "product_id",          limit: 4
     t.string   "serial_number",       limit: 100
@@ -1754,7 +1754,7 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.text     "comments",            limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "exported",            limit: 1,     default: false
+    t.boolean  "exported",                          default: false
     t.datetime "synced_on"
   end
 
@@ -1764,8 +1764,8 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.integer  "website_id", limit: 4
     t.string   "locale",     limit: 255
     t.string   "name",       limit: 255
-    t.boolean  "complete",   limit: 1,   default: false
-    t.boolean  "default",    limit: 1,   default: false
+    t.boolean  "complete",               default: false
+    t.boolean  "default",                default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

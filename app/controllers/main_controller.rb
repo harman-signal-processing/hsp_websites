@@ -64,12 +64,14 @@ class MainController < ApplicationController
     if params[:zip]
       session[:zip] = params[:zip]
       @page_title += " " + t('near_zipcode', zip: params[:zip])
-      begin
-        @results = []
-        count = 0
-        brand = Brand.find(website.dealers_from_brand_id || website.brand_id)
-        zip = params[:zip] #(params[:zip].to_s.match(/^\d*$/)) ? "zipcode #{params[:zip]}" : params[:zip]
 
+      @results = []
+      count = 0
+      brand = Brand.find(website.dealers_from_brand_id || website.brand_id)
+      zip = params[:zip] #(params[:zip].to_s.match(/^\d*$/)) ? "zipcode #{params[:zip]}" : params[:zip]
+      @js_map_loader = ''
+
+      begin
         origin = Geokit::Geocoders::MultiGeocoder.geocode(zip)
         brand.dealers.near(origin: origin, within: 60).order("distance ASC").all.each do |d|
           unless count > 15 || d.exclude?
@@ -77,23 +79,24 @@ class MainController < ApplicationController
             count += 1
           end
         end
-        # @results = brand.dealers.limit(20) # for testing
-
-        # Add those with exact zipcode matches if none have been found by geocoding
-        if count == 0 && params[:zip].to_s.match(/^\d*$/)
-          brand.dealers.where("zip LIKE '%?%'", params[:zip]).each do |d|
-            unless count > 15 || d.exclude?
-              @results << d
-              count += 1
-            end
-          end
-        end
-        unless @results.size > 0
-          @err = t('errors.no_dealers_found', zip: params[:zip])
-        end
-         @js_map_loader = "map_init('#{@results.first.lat}','#{@results.first.lng}',12,false)"
       rescue
         redirect_to(where_to_buy_path, alert: t('errors.geocoding')) and return false
+      end
+        # @results = brand.dealers.limit(20) # for testing
+
+      # Add those with exact zipcode matches if none have been found by geocoding
+      if count == 0 && params[:zip].to_s.match(/^\d*$/)
+        brand.dealers.where("zip LIKE ?", params[:zip]).each do |d|
+          unless count > 15 || d.exclude?
+            @results << d
+            count += 1
+          end
+        end
+      end
+      unless @results.size > 0
+        @err = t('errors.no_dealers_found', zip: params[:zip])
+      else
+        @js_map_loader = "map_init('#{@results.first.lat}','#{@results.first.lng}',12,false)"
       end
     end
     @countries = Distributor.countries(website)

@@ -97,19 +97,19 @@ class Dealer < ActiveRecord::Base
   #
   def auto_exclude
     self.exclude ||= true if !!(address.to_s.match(/p\.?\s?o\.?\sbox/i)) ||  # PO Boxes
-      !!(self.del_flag.to_s.match(/\W/)) || 
-      !!(self.del_block.to_s.match(/\W/)) || 
+      !!(self.del_flag.to_s.match(/\W/)) ||
+      !!(self.del_block.to_s.match(/\W/)) ||
       !!(self.order_block.to_s.match(/\W/)) ||
-      account_number.split(/\-/).first.to_i > 700000 || # distributors, internal accounts
-      marked_for_deletion? || # those which have deleted-type words in the name 
+      #account_number.split(/\-/).first.to_i > 700000 || # distributors, internal accounts
+      marked_for_deletion? || # those which have deleted-type words in the name
       self.class.excluded_accounts.include?(self.account_number) # those which are flagged in the yaml file
   end
-  
+
   # Is this Dealer excluded?
   def exclude?
     self.exclude == true || self.class.excluded_accounts.include?(self.account_number)
   end
-  
+
   # Exclude these account numbers
   def self.excluded_accounts
     @excluded_accounts ||= YAML::load_file(Rails.root.join("db", "excluded_dealers.yml"))

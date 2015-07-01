@@ -1,6 +1,6 @@
 # Include a little hack to get things working with Rails3
 #  require Rails.root.join('lib', 'merge_conditions.rb')
-  
+
 # For geocoder_plus
 # require 'api_cache'
 # require 'moneta'
@@ -18,11 +18,11 @@ Geokit::default_formula = :sphere
 
 # This is the timeout value in seconds to be used for calls to the geocoder web
 # services.  For no timeout at all, comment out the setting.  The timeout unit
-# is in seconds. 
+# is in seconds.
 Geokit::Geocoders::request_timeout = 6
 
 # These settings are used if web service calls must be routed through a proxy.
-# These setting can be nil if not needed, otherwise, addr and port must be 
+# These setting can be nil if not needed, otherwise, addr and port must be
 # filled in at a minimum.  If the proxy requires authentication, the username
 # and password can be provided as well.
 
@@ -36,7 +36,7 @@ end
 Geokit::Geocoders::YahooGeocoder.key = ENV['GEOKIT_YAHOO_CONSUMER_KEY']
 Geokit::Geocoders::YahooGeocoder.secret = ENV['GEOKIT_YAHOO_CONSUMER_SECRET']
 
-#   # This is your Google Maps geocoder key. 
+#   # This is your Google Maps geocoder key.
 #   # See http://www.google.com/apis/maps/signup.html
 #   # and http://www.google.com/apis/maps/documentation/#Geocoding_Examples
 #   Geokit::Geocoders::google = ENV['GEOKIT_GOOGLE']
@@ -85,7 +85,7 @@ Geokit::Geocoders::GeonamesGeocoder.key = ENV['GEOKIT_GEONAMES']
 # Be aware that there are Terms of Use restrictions on how you can use the
 # various geocoders.  Make sure you read up on relevant Terms of Use for each
 # geocoder you are going to use.
-Geokit::Geocoders::provider_order = [:geonames, :bing] #, :yahoo, :google] 
+Geokit::Geocoders::provider_order = [:bing, :google] #:geonames] #, :yahoo, :google]
 
 # The IP provider order. Valid symbols are :ip,:geo_plugin.
 # As before, make sure you read up on relevant Terms of Use for each.
@@ -93,10 +93,10 @@ Geokit::Geocoders::provider_order = [:geonames, :bing] #, :yahoo, :google]
 
 # Disable HTTPS globally.  This option can also be set on individual
 # geocoder classes.
-Geokit::Geocoders::secure = true 
+Geokit::Geocoders::secure = true
 
 # Control verification of the server certificate for geocoders using HTTPS
-Geokit::Geocoders::ssl_verify_mode = OpenSSL::SSL::VERIFY_NONE 
-# Setting this to VERIFY_NONE may be needed on systems that don't have 
+Geokit::Geocoders::ssl_verify_mode = OpenSSL::SSL::VERIFY_NONE
+# Setting this to VERIFY_NONE may be needed on systems that don't have
 # a complete or up to date root certificate store. Only applies to
 # the Net::HTTP adapter.

@@ -20,12 +20,12 @@ function map_init(lat, lng, zoom, no_drag) {
 
 function load_markers(map,markers) {
     for (var i = 0 ; i < markers.length ; i++) {
-        var marker = markers[i]["dealer"];
+        var marker = markers[i];
         var lat = marker.lat;
         var lng = marker.lng;
         if (lat && lng) {
             var innerHtml = '<div class="marker_info"><b style="font-size: 13px">'
-				     + marker.name 
+				     + marker.name
 					 + '</b><br/>'
                      + marker.address + '<br/>'
                      + marker.city + ', ' + marker.state + ' ' + marker.zip + '<br/>'

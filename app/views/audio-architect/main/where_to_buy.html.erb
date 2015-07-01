@@ -18,8 +18,9 @@
 <% if @results.size > 0 %>
 <%= content_for :custom_css do %>
 	<script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
-	<%= javascript_tag "markers_json = #{@results.to_json(except: [:account_number, :brand_id, :created_at, :updated_at, :name2, :name3, :name4])}" %>
 	<script type="text/javascript" charset="utf-8">
+    markers_json = <%= raw @results.to_json(except: [:account_number, :brand_id, :created_at, :updated_at, :name2, :name3, :name4]) %>;
+
 		$(document).ready(function() {
 			<%= raw @js_map_loader %>
 		});
@@ -29,7 +30,7 @@
 	<% if website.has_online_retailers? %>
 	<div class="wide_centered_box" style="width: 830px">
 	<h2><%= t('titles.buy_online') %></h2>
-	
+
 	<div id="online_retailers">
 		<% OnlineRetailer.random(website).each do |online_retailer| %>
 		<div class="retailer_logo">
