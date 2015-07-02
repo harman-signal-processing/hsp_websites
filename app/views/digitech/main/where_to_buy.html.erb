@@ -54,7 +54,11 @@
 				<br/><%= dealer.address %>
 				<br/><%= dealer.city %> <%= dealer.state %> <%= dealer.zip %>
 				<br/><%= dealer.telephone %>
-				<% if !dealer.email.blank? %> &bull; <%= mail_to dealer.email.downcase %><% end %>
+        <% if dealer.website.present? %>
+          <br/><%= link_to dealer.website.downcase, dealer.website_link, target: "_blank" %>
+        <% elsif !dealer.email.blank? %>
+          <br/><%= mail_to dealer.email.downcase %>
+        <% end %>
 			</li>
 			<% end %>
 		</ul>

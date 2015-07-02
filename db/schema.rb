@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150618164341) do
+ActiveRecord::Schema.define(version: 20150702164740) do
 
   create_table "admin_logs", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -347,6 +347,7 @@ ActiveRecord::Schema.define(version: 20150618164341) do
     t.datetime "updated_at"
     t.boolean  "exclude"
     t.boolean  "skip_sync_from_sap"
+    t.string   "website",            limit: 255
   end
 
   add_index "dealers", ["account_number"], name: "index_dealers_on_account_number", using: :btree

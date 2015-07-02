@@ -51,14 +51,18 @@
 		<ul class="dealer_results">
 			<% @results.each_with_index do |dealer,i| %>
 			<li id="sidebar-item-<%=(i + 1)%>" class="sidebar-item">
-				<b><%= link_to_function(dealer.name, "focusPoint(#{(i + 1)});") %></b> 
+				<b><%= link_to_function(dealer.name, "focusPoint(#{(i + 1)});") %></b>
         <% if dealer.try(:distance) %>
           (<%= dealer.distance.to_i %> <%= t('dealer_distance') %>)
         <% end %>
 				<br/><%= dealer.address %>
 				<br/><%= dealer.city %> <%= dealer.state %> <%= dealer.zip %>
 				<br/><%= dealer.telephone %>
-				<% if !dealer.email.blank? %> &bull; <%= mail_to dealer.email.downcase %><% end %>
+        <% if dealer.website.present? %>
+          <br/><%= link_to dealer.website.downcase, dealer.website_link, target: "_blank" %>
+        <% elsif !dealer.email.blank? %>
+          <br/><%= mail_to dealer.email.downcase %>
+        <% end %>
 			</li>
 			<% end %>
 		</ul>

@@ -26,6 +26,12 @@
     <th>Email</th>
     <td><%= mail_to @dealer.email, @dealer.email %></td>
   </tr>
+  <% if @dealer.website.present? %>
+    <tr>
+      <th>Website</th>
+      <td><%= link_to @dealer.website.downcase, @dealer.website_link, target: "_blank" %></td>
+    </tr>
+  <% end %>
   <tr>
     <th>Account number</th>
     <td><%= @dealer.account_number %></td>

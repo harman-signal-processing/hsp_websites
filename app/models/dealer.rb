@@ -119,5 +119,10 @@ class Dealer < ActiveRecord::Base
   def marked_for_deletion?
     !!(self.name_and_address.to_s.match(/dl reps|vision 2|deleted|don\'t|deletion|do not|closed|collection|credit|out of business|bankruptcy|amazon\.com|distrib|avad|inactive|freight|mars music|unknown|dig\-|hmg|factory\-|promo/i))
   end
-  
+
+  def website_link
+    if self.website.present?
+      self.website.match(/^http/) ? self.website.downcase : "http://#{self.website.downcase}"
+    end
+  end
 end
