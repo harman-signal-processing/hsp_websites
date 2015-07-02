@@ -1,6 +1,10 @@
 class LabelSheet < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
 
+  after_commit do
+    self.decoded_products.each {|p| p.touch}
+  end
+
   def decoded_products
     @decoded_products ||= self.product_ids.map{|p| Product.find(p)}
   end
