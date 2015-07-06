@@ -82,7 +82,7 @@
 			<%= f.input :message, label: t('message'), as: :text, input_html: { style: "height: 100px" } %>
 
 			<div class="captcha">
-				<%= recaptcha_tags %>
+				<%= recaptcha_tags public_key: website.recaptcha_public_key %>
 			</div>
 
 			<%= f.submit t('submit'), class: "medium button" %>

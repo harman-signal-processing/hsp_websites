@@ -53,7 +53,7 @@
 				<%= f.text_area :message, size: "60x8" %>
 				
 				<div class="captcha">
-					<%= recaptcha_tags %>
+					<%= recaptcha_tags public_key: website.recaptcha_public_key  %>
 				</div>
 				
 				<p><%= submit_tag t('submit') %></p>

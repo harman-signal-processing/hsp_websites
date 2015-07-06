@@ -39,7 +39,7 @@ gem 'daemons'
 gem 'devise'
 gem 'cancan'
 gem 'gravtastic'
-gem "recaptcha", '~> 0.3.6', require: "recaptcha/rails" # 0.4.0 uses new API where each domain needs its own keys
+gem "recaptcha", require: "recaptcha/rails" #'~> 0.3.6',  0.4.0 uses new API where each domain needs its own keys
 gem 'to_xls'
 gem 'acts_as_list'
 gem 'acts_as_tree'
