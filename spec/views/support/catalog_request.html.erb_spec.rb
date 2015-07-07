@@ -2,9 +2,15 @@ require 'rails_helper'
 
 RSpec.describe "support/catalog_request.html.erb", :type => :view do
 
-  before do
+  before :all do
+    @website = FactoryGirl.create(:website_with_products)
     @contact_message = FactoryGirl.build(:contact_message, message_type: "catalog_request")
-    assign(:support_subject, @support_subject)
+  end
+
+  before do
+    allow(view).to receive(:website).and_return(@website)
+    assign(:contact_message, @contact_message)
+
     render
   end
 
