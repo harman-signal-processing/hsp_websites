@@ -14,10 +14,6 @@ RSpec.describe "support/warranty_registration.html.erb", as: :view do
     render
   end
 
-  after :all do
-    DatabaseCleaner.clean_with :truncation
-  end
-
   it "should show the form" do
     expect(rendered).to have_xpath("//form[@id='new_warranty_registration']")
   end

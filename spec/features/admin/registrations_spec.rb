@@ -1,19 +1,16 @@
-require "test_helper"
+require "rails_helper"
 
-describe "Admin Registrations Integration Test" do
+feature "Admin Registrations" do
+
+  before :all do
+    @website = FactoryGirl.create(:website_with_products)
+    @brand = @website.brand
+    @user = FactoryGirl.create(:user, customer_service: true, password: "password", confirmed_at: 1.minute.ago)
+    @reg = FactoryGirl.create(:warranty_registration, brand: @brand, product: @website.products.first)
+  end
 
   before :each do
-    # DatabaseCleaner.start
-    # Brand.destroy_all
-    @brand = FactoryGirl.create(:digitech_brand)
-    @website = FactoryGirl.create(:website_with_products, folder: "digitech", brand: @brand, url: "digitech.lvh.me")
-    host! @website.url
-    Capybara.default_host = "http://#{@website.url}"
-    Capybara.app_host = "http://#{@website.url}"
-
-    @reg = FactoryGirl.create(:warranty_registration, brand: @brand, product: @website.products.first)
-    @user = FactoryGirl.create(:user, customer_service: true, password: "password")
-    admin_login_with(@user, "password", @website)
+    admin_login_with(@user.email, "password", @website)
     click_on "Product Registrations"
   end
 
@@ -26,7 +23,8 @@ describe "Admin Registrations Integration Test" do
     fill_in "q_last_name_cont", with: ''
     fill_in "q_email_cont", with: ''
     click_on "Search"
-    page.must_have_link "#{@reg.first_name} #{@reg.last_name}"
+
+    expect(page).to have_link "#{@reg.first_name} #{@reg.last_name}"
   end
 
   # it "should search by email" do

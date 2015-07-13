@@ -1,18 +1,17 @@
-require "test_helper"
+require "rails_helper"
 
-describe "Twitter Integration Test" do
+feature "Twitter" do
 
-  before :each do
-    # DatabaseCleaner.start
-    # Brand.destroy_all
+  before :all do
     @brand = FactoryGirl.create(:brand)
-    Brand.any_instance.stubs(:twitter_name).returns('adamtao')
     @website = FactoryGirl.create(:website_with_products, brand: @brand)
-    host! @website.url
     Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"
   end
 
+  before :each do
+    allow(@brand).to receive(:twitter_name).and_return('adamtao')
+  end
   # after :each do
   #   DatabaseCleaner.clean
   # end
@@ -27,7 +26,7 @@ describe "Twitter Integration Test" do
   	end
 
   	it "should store tweets in db" do
-  	  Tweet.count.wont_equal(@tweet_count)
+      expect(Tweet.count).not_to equal(@tweet_count)
   	end
 
   	# it "should show the tweets on the homepage" do
@@ -35,26 +34,28 @@ describe "Twitter Integration Test" do
   	#   page.must_have_content(@website.recent_tweets.first.content)
   	# end
 
-  	it "should show the profile image on the homepage" do
-      @brand = digitech_brand
-      @website = digitech_site
-  	  visit root_url(locale: I18n.default_locale, host: @website.url)
-  	  page.must_have_xpath("//img[@src='#{Tweet.client.user(@brand.twitter_name).profile_image_url(:mini)}']")
-  	end
+  	#it "should show the profile image on the homepage" do
+    #  @brand = digitech_brand
+    #  @website = digitech_site
+  	#  visit root_url(locale: I18n.default_locale, host: @website.url)
+  	#  page.must_have_xpath("//img[@src='#{Tweet.client.user(@brand.twitter_name).profile_image_url(:mini)}']")
+  	#end
   end
 
   describe Twitter::User do
     it "should pull a profile_image_url" do
-      Tweet.client.user('twitter').profile_image_url(:mini).must_match(/http/)
+      img = Tweet.client.user('twitter').profile_image_url(:mini)
+      expect(img).to match(/http/)
     end
   end
 
   describe Twitter::Client do
     it "should pull a user_timeline" do
       timeline = Tweet.client.user_timeline('twitter', since: 1.month.ago)
-      timeline.must_be_instance_of(Array)
-      timeline.size.wont_equal(0)
-      timeline.first.must_respond_to(:id)
+
+      expect(timeline).to be_an(Array)
+      expect(timeline.size).not_to eq(0)
+      expect(timeline.first).to respond_to(:id)
     end
   end
 
