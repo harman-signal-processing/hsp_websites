@@ -1,54 +1,50 @@
-require "test_helper"
+require "rails_helper"
 
-describe "Product Registration Integration Test" do
+feature "Product Registration" do
+  include ActiveJob::TestHelper
 
-  before :each do
-    # DatabaseCleaner.start
-    # Brand.destroy_all
+  before :all do
     @website = FactoryGirl.create(:website_with_products)
-    host! @website.url
-    Capybara.default_host = "http://#{@website.url}" 
+    Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"
   end
 
-  # after :each do
-  #   DatabaseCleaner.clean
-  # end
+  after :all do
+    DatabaseCleaner.clean_with(:truncation)
+  end
 
   describe "Registration form" do
   	before do
-  	  visit warranty_registration_url(locale: I18n.default_locale, host: @website.url)
+  	  visit warranty_registration_path(locale: I18n.default_locale)
+
+      fill_in_registration_form
   	end
 
-    it "should show the form" do
-      page.must_have_xpath("//form[@id='new_warranty_registration']")
-    end
+    it "should create a new registration record" do
+      start_count = WarrantyRegistration.count
 
-    it "should fill in the form" do 
-      fill_in_registration_form
-    end
-
-    it "should create a new registration record" do 
-      start_count = WarrantyRegistration.count 
-      fill_in_registration_form
       click_on 'submit'
-      WarrantyRegistration.count.must_equal(start_count + 1)
+
+      expect(WarrantyRegistration.count).to eq(start_count + 1)
     end
 
-    it "should assign the new registration to this site's brand" do 
-      fill_in_registration_form
+    it "should assign the new registration to this site's brand" do
       click_on 'submit'
+
       reg = WarrantyRegistration.last
-      reg.brand_id.must_equal(@website.brand_id)
+      expect(reg.brand_id).to eq(@website.brand_id)
     end
 
-    it "should send a confirmation email to customer" do 
-      fill_in_registration_form
-      click_on 'submit'
-      reg = WarrantyRegistration.last 
-      last_email.to.must_include(reg.email)
-      last_email.subject.must_include "product registration"
-      last_email.body.must_include reg.product.name
+    it "should send a confirmation email to customer" do
+      perform_enqueued_jobs do
+        click_on 'submit'
+
+        reg = WarrantyRegistration.last
+        last_email = ActionMailer::Base.deliveries.last
+        expect(last_email.to).to include(reg.email)
+        expect(last_email.subject).to include "product registration"
+        expect(last_email.body).to include reg.product.name
+      end
     end
 
   end

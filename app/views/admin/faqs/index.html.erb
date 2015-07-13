@@ -1,4 +1,4 @@
-<h1>Listing FAQs</h1>
+<h1>FAQs</h1>
 
 <% if can? :create, Faq %>
 <ul class="button-group round">
@@ -7,8 +7,19 @@
 </ul>
 <% end %>
 
-<p><i>Product-specific FAQs are best managed via the admin interface for that product.
-General, non-product-specific FAQs can be managed here:</i></p>
+<%= search_form_for [:admin, Faq.ransack], class: "custom" do |f| %>
+  <div class="row collapse">
+    <div class="large-5 medium-5 small-12 columns">
+      <%= f.text_field :question_cont, placeholder: "Question contains..." %>
+    </div>
+    <div class="large-5 medium-5 small-12 columns">
+      <%= f.text_field :product_name_cont, placeholder: "Related product name (optional)" %>
+    </div>
+    <div class="large-2 medium-2 small-12 columns">
+      <%= f.submit "Search", class: "postfix round secondary button" %>
+    </div>
+  </div>
+<% end %>
 
 <% if @faqs %>
   <h5 class="subheader">Search Results:</h5>
@@ -21,7 +32,7 @@ General, non-product-specific FAQs can be managed here:</i></p>
     <% end %>
   <% end %>
   </ul>
-<% else %>
+<% elsif website.brand.faq_categories.length > 0 %>
   <h5 class="subheader">FAQ categories</h5>
   <ul class="list">
     <% website.brand.faq_categories.each do |cat| %>
