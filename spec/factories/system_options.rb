@@ -2,11 +2,11 @@
 
 FactoryGirl.define do
   factory :system_option do
-    system_id 1
+    system
     name "MyString"
     option_type "MyString"
     position 1
-    parent_id 1
+    parent
     description "MyText"
   end
 end

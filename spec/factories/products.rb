@@ -6,7 +6,7 @@ FactoryGirl.define do
     brand
     factory :product_family_with_products do
       transient do
-        products_count 5
+        products_count 2
       end
       after(:create) do |product_family, evaluator|
         FactoryGirl.create_list(:product, evaluator.products_count, brand: product_family.brand).each do |product|
@@ -45,7 +45,7 @@ FactoryGirl.define do
   factory :product_attachment do
     product
     primary_photo false
-    product_attachment { File.new(Rails.root.join('test', 'fixtures', 'test.jpg')) }
+    product_attachment { File.new(Rails.root.join('spec', 'fixtures', 'test.jpg')) }
     position 1
   end
 
@@ -53,6 +53,6 @@ FactoryGirl.define do
     product
     language "en"
     document_type "owners_manual"
-    document_file_name { File.new(Rails.root.join('test', 'fixtures', 'test.pdf')) }
+    document_file_name { File.new(Rails.root.join('spec', 'fixtures', 'test.pdf')) }
   end
 end

@@ -3,13 +3,9 @@ require "rails_helper"
 feature "Browse Products" do
 
   before :all do
-    @website = FactoryGirl.create(:website_with_products)
+    @website = FactoryGirl.create(:website)
     Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"
-  end
-
-  after :all do
-    DatabaseCleaner.clean
   end
 
   describe "homepage" do
@@ -30,7 +26,7 @@ feature "Browse Products" do
 
   describe "product family page" do
     before :all do
-      @product_family = @website.product_families.first
+      @product_family = FactoryGirl.create(:product_family_with_products, brand: @website.brand, products_count: 5)
       @multiple_parent = FactoryGirl.create(:product_family, brand: @website.brand)
       2.times { FactoryGirl.create(:product_family_with_products, brand: @website.brand, parent_id: @multiple_parent.id)}
       @single_parent = FactoryGirl.create(:product_family, brand: @website.brand)

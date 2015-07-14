@@ -90,7 +90,6 @@ group :development do
   gem 'capistrano-passenger'
   # gem 'rack-mini-profiler'
   gem 'letter_opener'
-  gem 'zeus'
   gem 'spring'
 
   gem 'rb-fchange', :require=>false
@@ -101,31 +100,18 @@ group :development do
 end
 
 group :development, :test do
-  # gem 'bullet'
-  # gem 'unicorn'
   gem 'guard'
   gem 'guard-bundler'
   gem 'guard-rails'
-  gem 'guard-minitest'
-  #gem 'guard-rspec' # for now, while migrating, only run minitests with guard
-  gem 'minitest-rails'
-  gem 'rspec-rails', '3.1.0' # newer conflicts with minitest. I'm working to migrate minitests to rspec
+  gem 'guard-rspec'
+  gem 'rspec-rails'
   gem "factory_girl_rails", "~> 4.0"
 end
 
 group :test do
-  gem 'mocha', require: false
-  gem 'minitest-rails-capybara'
   gem 'capybara'
-  gem 'minitest-capybara'
-  gem 'capybara-webkit'
-  gem 'launchy' # save_and_open_page inline in tests
-  gem 'minitest', '5.5.1' # 5.6 caused some test and specs to fail. no time to debug.
   gem 'database_cleaner'
-  gem 'ZenTest'
   gem 'simplecov', require: false
-  gem 'rspec-autotest'
   gem 'json-schema'
   gem 'faker'
-  gem 'selenium-webdriver'
 end

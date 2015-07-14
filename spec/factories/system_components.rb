@@ -3,8 +3,8 @@
 FactoryGirl.define do
   factory :system_component do
     name "MyString"
-    system_id 1
-    product_id 1
+    system
+    product
     description "MyText"
   end
 end

@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :system_rule_condition_group do
-    system_rule_id 1
-    logic_type "MyString"
+    system_rule
+    logic_type "Boolean"
   end
 end

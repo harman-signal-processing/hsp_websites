@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :system_rule do
-    system_id 1
+    system
   end
 end

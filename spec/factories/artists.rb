@@ -30,7 +30,7 @@ FactoryGirl.define do
   factory :artist do
   	sequence(:name) {|n| "Artist #{n}"}
     bio "I am the best player this side of the Mississippi."
-    artist_photo { File.new(Rails.root.join('test', 'fixtures', 'test.jpg')) }
+    artist_photo { File.new(Rails.root.join('spec', 'fixtures', 'test.jpg')) }
     website "http://facebook.com/supercoolartist"
     twitter "supercoolartist"
     position 99

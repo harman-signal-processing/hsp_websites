@@ -37,7 +37,7 @@ feature "API version 1" do
 
 		it "should provide the product families with product counts" do
 			fam = @lexicon.product_families.first
-      expect(page).to have_content "\"product_family\":{\"id\":#{fam.id},\"name\":\"#{fam.name}\",\"parent_id\":null,\"friendly_id\":\"#{fam.friendly_id}\",\"employee_store_products_count\":5}"
+      expect(page).to have_content "\"product_family\":{\"id\":#{fam.id},\"name\":\"#{fam.name}\",\"parent_id\":null,\"friendly_id\":\"#{fam.friendly_id}\",\"employee_store_products_count\":#{fam.products.length}}"
 		end
 	end
 
@@ -53,7 +53,7 @@ feature "API version 1" do
 
 		it "should provide the product families with product counts" do
 			fam = @lexicon.product_families.first
-      expect(page).to have_content "\"product_family\":{\"id\":#{fam.id},\"name\":\"#{fam.name}\",\"parent_id\":null,\"friendly_id\":\"#{fam.friendly_id}\",\"employee_store_products_count\":5}"
+      expect(page).to have_content "\"product_family\":{\"id\":#{fam.id},\"name\":\"#{fam.name}\",\"parent_id\":null,\"friendly_id\":\"#{fam.friendly_id}\",\"employee_store_products_count\":#{fam.products.length}}"
 		end
 	end
 

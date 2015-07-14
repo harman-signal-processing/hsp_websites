@@ -2,9 +2,9 @@
 
 FactoryGirl.define do
   factory :system_configuration_option do
-    system_configuration_id 1
-    system_option_id 1
-    system_option_value_id 1
+    system_configuration
+    system_option
+    system_option_value
     direct_value "MyString"
   end
 end

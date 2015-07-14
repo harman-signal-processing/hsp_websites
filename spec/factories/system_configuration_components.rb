@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :system_configuration_component do
-    system_configuration_id 1
-    system_component_id 1
+    system_configuration
+    system_component
     quantity 1
   end
 end

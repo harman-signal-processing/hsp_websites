@@ -3,7 +3,7 @@
 FactoryGirl.define do
   factory :system do
     name "MyString"
-    brand_id 1
+    brand
     description "MyText"
   end
 end

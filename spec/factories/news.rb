@@ -1,6 +1,6 @@
 FactoryGirl.define do
-  
-  factory :news do 
+
+  factory :news do
     sequence(:title) {|n| "The most amazing story #{n}" }
     body "This is a very important news story."
     brand

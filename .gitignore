@@ -9,6 +9,7 @@ app/assets/images/development/
 app/assets/images/staging/
 coverage/
 bin/_*
+bin/spring
 
 config/database.yml
 config/s3.yml

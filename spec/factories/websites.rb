@@ -9,7 +9,7 @@ FactoryGirl.define do
     end
     factory :website_with_products do
       after(:create) do |website|
-        FactoryGirl.create_list(:product_family_with_products, 3, brand: website.brand)
+        FactoryGirl.create_list(:product_family_with_products, 2, brand: website.brand)
       end
     end
   end

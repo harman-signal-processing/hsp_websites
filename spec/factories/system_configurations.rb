@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :system_configuration do
-    system_id 1
+    system
     name "MyString"
-    user_id 1
+    user
   end
 end
