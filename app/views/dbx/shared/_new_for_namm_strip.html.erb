@@ -10,8 +10,9 @@
           </div>
           <div class="large-7 large-push-5 small-12 columns">
             <p>
+              <% powerrack8 = Product.find("powerrack8") %>
               <%= link_to new_family do %>
-                <%= image_tag 'dbx/500-series.png', alt: "dbx 500 Series" %>
+                <%= image_tag powerrack8.photo.product_attachment.url, alt: "dbx 500 Series PowerRack8" %>
               <% end %>
             </p>
           </div>
