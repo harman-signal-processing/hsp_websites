@@ -75,6 +75,7 @@
           prompt: "Select A Product" %>
     <% end %>
       <%= f.input :subject, as: :select, collection: ContactMessage.subjects(brand: website.brand).flatten, prompt: t('subjects.select_a_subject') %>
+      <p>For product repairs, please fill out the <%= link_to "Return Authorization Request", rma_request_path %>.</p>
       <%= f.input :product_serial_number, placeholder: 'Serial number' %>
       <%= f.input :shipping_address, label: t("address"), input_html: { size: "40x2" }, placeholder: t("address") %>
       <%= f.input :shipping_country, label: t("country"), required: @contact_message.require_country?, prompt: t("country") %>

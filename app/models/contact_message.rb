@@ -14,7 +14,7 @@ class ContactMessage < ActiveRecord::Base
     :shipping_zip,
 #    :product_sku,
     :product_serial_number,
-    :purchased_on, presence: true, if: :rma_request?
+    :purchased_on, presence: true, if: :require_purchase_date?
   validates :shipping_address,
     :shipping_city,
     :shipping_state,
@@ -36,6 +36,10 @@ class ContactMessage < ActiveRecord::Base
   #
   def require_product?
     !!!catalog_request?
+  end
+
+  def require_purchase_date?
+    rma_request? && !self.brand.name.to_s.match(/crown/)
   end
 
   def require_country?

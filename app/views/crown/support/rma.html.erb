@@ -84,7 +84,7 @@
         hint: link_to("where to find the serial number", image_path("#{website.folder}/serial.jpg")),
         required: true %>
 
-      <%= f.input :purchased_on, as: :string, required: true, input_html: { class: 'ui-datepicker-past-only' } %>
+      <%= f.input :purchased_on, as: :string, input_html: { class: 'ui-datepicker-past-only' } %>
 
       <%= f.input :warranty,
         as: :boolean,

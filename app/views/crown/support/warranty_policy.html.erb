@@ -73,11 +73,21 @@ period.</p>
 			</tr>
 			<% @products.each do |product| %>
 			<tr>
-				<td class="name"><%= link_to product.name, product %></td>
+        <td class="name">
+          <%= link_to product.name, product %>
+          <%= "*" if product.name.to_s.match(/^i-tech.*hd$/i) %>
+          <%= "*" if product.name.to_s.match(/^cts/i) %>
+          <%= "*" if product.name.to_s.match(/^ma.*i$/i) %>
+          <%= "*" if product.name.to_s.match(/^vrack/i) %>
+        </td>
 				<td><%= pluralize(product.warranty_period, "year") %></td>
 			</tr>
 			<% end %>
 		</table>
+    <br/>
+    <p>* 5 year warranty in effect only if originally purchased
+    after May 1, 2011; warranty coverage is 3 years if originally
+    purchased prior to May 1, 2011.</p>
 	</div>
 </div>
 
