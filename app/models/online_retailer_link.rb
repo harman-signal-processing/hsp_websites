@@ -11,7 +11,12 @@ class OnlineRetailerLink < ActiveRecord::Base
   after_update :auto_delete
 
   def self.to_be_checked
-    where(["link_checked_at <= ? OR link_checked_at IS NULL", 5.days.ago]).includes(:online_retailer).where("online_retailers.active" => true).order("link_checked_at ASC")
+    gc = OnlineRetailer.find_by(name: "Guitar Center")
+    where(["link_checked_at <= ? OR link_checked_at IS NULL", 5.days.ago])
+      .includes(:online_retailer)
+      .where("online_retailers.active" => true)
+      .where("online_retailers.id <> ?", gc.id)
+      .order("link_checked_at ASC")
   end
 
   def self.problems
