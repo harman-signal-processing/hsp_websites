@@ -8,8 +8,9 @@
 		</ul>
 	</li>
 
-  <li class="has-dropdown"><%= link_to 'solutions', '/solutions' %>
-    <ul class="dropdown">
+  <li class="divider hide-for-medium"></li>
+  <li class="has-dropdown hide-for-medium"><%= link_to 'solutions', '/solutions' %>
+    <ul class="dropdown hide-for-medium">
       <li><%= link_to "About Our Solutions", '/solutions' %></li>
       <li><%= link_to "BLU link", "/solutions#blu-link" %></li>
       <li><%= link_to "Dante", "/solutions#dante" %></li>
@@ -18,23 +19,27 @@
     </ul>
   </li>
 
-  <li class="hide-for-medium"><%= link_to t('software_downloads'), software_index_path %></li>
-  <li><%= link_to t('resource_downloads'), support_downloads_path %></li>
-  <li><%= link_to t('training'), 'http://bssaudio.com/training' %></li>
-  <li class="hide-for-medium"><%= link_to t('warranty_registration'), warranty_registration_path %></li>
-	<li class="hide-for-medium"><%= link_to t('news'), news_index_path %></li>
-
-	<% if website.has_artists? %>
-	<li><%= link_to t('artists'), artists_path %></li>
-	<% end %>
-
 	<% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
-	<li class="hide-for-medium"><%= link_to 'buy', where_to_buy_path %></li>
+    <li class="divider hide-for-medium"></li>
+    <li class="hide-for-medium"><%= link_to 'where to buy', where_to_buy_path %></li>
 	<% end %>
 
-	<li><%= link_to t('product_support'), support_path %></li>
+  <li class="divider"></li>
+	<li><%= link_to t('news'), news_index_path %></li>
 
-	<% if !!(website.forum_link) %>
-	<li><%= link_to t("forum"), website.forum_link %></li>
-	<% end %>
+  <li class="divider"></li>
+  <li><%= link_to t('training'), 'http://bssaudio.com/training' %></li>
+
+  <li class="divider"></li>
+  <li class="has-dropdown"><%= link_to t('product_support'), support_path %>
+    <ul class="dropdown">
+      <li><%= link_to t('titles.contact_us').titleize, support_path %></li>
+      <li><%= link_to t('downloads').titleize, support_downloads_path %></li>
+      <% if !!(website.forum_link) %>
+        <li><%= link_to t("forum").titleize, website.forum_link %></li>
+      <% end %>
+      <li><%= link_to t('warranty_registration').titleize, warranty_registration_path %></li>
+      <li><%= link_to t('software_downloads').titleize, software_index_path %></li>
+    </ul>
+  </li>
 <% end %>

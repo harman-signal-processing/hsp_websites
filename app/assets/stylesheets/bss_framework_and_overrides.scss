@@ -222,9 +222,9 @@ $table-head-font-color: $header-font-color;
 
 $topbar-bg-color: $primary-color;
 $topbar-bg: $topbar-bg-color !default;
-//$topbar-height:                        80px;
+$topbar-height:                        66px;
 // $topbar-margin-bottom:                 emCalc(26px);
-$topbar-input-height:                  2.45em;
+//$topbar-input-height:                  2.45em;
 $topbar-title-weight:                  100;
 // $topbar-title-font-size:               emCalc(17px);
 $topbar-dropdown-bg:                      rgba($topbar-bg-color, 0.7);
@@ -263,38 +263,12 @@ $topbar-sticky-class:                  ".sticky";
 @import 'foundation';
 @import 'brand_common';
 
-.top-bar-container {
-  background: $topbar-bg;
-  @media only screen and (min-width: 720px) {
-    height: 80px;
-    ul.left {
-      margin-top: 32px;
-    }
-    .top-bar input, .top-bar .button {
-      top: 26px;
-      height: 1.9em;
-    }
-  }
+.top-bar-section .has-form {
+  padding-top: 5px;
 }
-
-.top-bar-section {
-  li:not(.has-form) a:not(.button) {
-    padding-left: rem-calc(10);
-    padding-right: rem-calc(10);
-  }
-  li.has-form {
-    padding-left: rem-calc(10);
-    padding-right: rem-calc(10);
-    width: 170px;
-  }
+.logo-container img {
+  padding: 8px 25px;
 }
-@media only screen and (max-width: 719px) {
-	.logo-container img {
-    height: 40px;
-		padding: 4px 0px 0px 6px;
-	}
-}
-
 div.homepage_block {
   h1 {
     font-size: rem-calc(38px);

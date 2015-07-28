@@ -1,12 +1,23 @@
 .button {
   text-transform: capitalize;
 }
-.top-bar input, top-bar .button {
-  top: 13px;
-  height: 1.9em;
-}
-.top-bar input {
-  border: none;
+.top-bar {
+  input, .button {
+    top: 13px;
+    height: 1.9em;
+  }
+  .top-bar input {
+    border: none;
+  }
+  ul.dropdown {
+    li {
+      height: rem-calc(44);
+      a {
+        height: rem-calc(44);
+        line-height: rem-calc(44) !important;
+      }
+    }
+  }
 }
 
 .strike {
