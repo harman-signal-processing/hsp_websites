@@ -31,7 +31,7 @@
         <div class="hide-for-small" style="margin-top: 20px;">
           <h3 class="subheader"><%= t('titles.related_products') %></h3>
           <ul class="large-block-grid-1 small-block-grid-1">
-          <% featured_news.products.each do |product| %>
+          <% featured_news.products[0,4].each do |product| %>
             <li><%= render_partial "product_families/product_square", product: product, compare: false %></li>
           <% end %>
           </ul>
@@ -60,7 +60,7 @@
           <div class="hide-for-small" style="margin-top: 20px;">
             <h3 class="subheader"><%= t('titles.related_products') %></h3>
             <ul class="large-block-grid-1 small-block-grid-1">
-            <% news.products.each do |product| %>
+            <% news.products[0,4].each do |product| %>
               <li><%= render_partial "product_families/product_square", product: product, compare: false %></li>
             <% end %>
             </ul>

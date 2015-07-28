@@ -70,8 +70,13 @@
 	<li><%= link_to t('where_to_buy'), where_to_buy_path %></li>
 	<% end %>
 
-	<li class="divider hide-for-small hide-for-medium"></li>
-	<li class="hide-for-small hide-for-medium"><%= link_to "media hub", news_index_path %></li>
+	<li class="divider show-for-large"></li>
+  <li class="show-for-large has-dropdown"><%= link_to "media hub", '#' %>
+    <ul class="dropdown">
+      <li><%= link_to "Share Your Experience", '/share-your-experience' %></li>
+      <li><%= link_to t('news').titleize, news_index_path %></li>
+    </ul>
+  </li>
 
 	<li class="divider"></li>
   <li class="has-dropdown"><%= link_to t('product_support'), support_path %>
