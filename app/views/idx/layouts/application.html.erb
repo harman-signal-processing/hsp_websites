@@ -50,9 +50,9 @@
 		}(document, 'script', 'facebook-jssdk'));</script>
 		<%= yield :extra_notice %>
 		<%= render_partial "shared/locale_switcher" %>
-		<%= render_partial "shared/admin_dashboard_link" %>		
-		
-		<%= cache ["header", website, I18n.locale] do %>		
+		<%= render_partial "shared/admin_dashboard_link" %>
+
+		<%= cache ["header", website, I18n.locale] do %>
 		<div id="Header">
 			<div id="logo">
 				<% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "logo.png")) %>
@@ -127,7 +127,7 @@
 		<% else %>
 			<div style="height: 30px;">&nbsp;</div>
 		<% end %>
-		
+
 		<%= cache ["footer", website.brand, I18n.locale] do %>
 		<footer>
 			<%= hpro_footer %>
@@ -151,14 +151,13 @@
 				<%= link_to t('terms_of_use'), terms_of_use_path %>
 			</div>
 			<div id="footer_left">
-				<%= image_tag "harman.jpg" %>
-				&copy; <%= Date.today.year %> 
-				<%= link_to(t('harman'), "http://www.harman.com/", target: "_blank") %>. 
+				&copy; <%= Date.today.year %>
+				<%= link_to(image_tag('harman.jpg', alt: t('harman')), "http://www.harman.com/", target: "_blank") %>
 				<%= t('all_rights_reserved') %>
 			</div>
 		</footer>
 		<% end %>
-		
+
 		<% if content_for?(:dealer_popup) %>
 			<div id="blanket" style="display:none;"></div>
 			<div id="dealer_popup_close" style="display:none;">

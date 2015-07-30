@@ -16,12 +16,10 @@
 	</nav>
 	<div id="footer_left">
 		<% if content_for?(:footer_logo) %>
-			<%= yield :footer_logo %>
-		<% else %>
 			<%= image_tag "harman_tiny.png" %>
 		<% end %>
-		&copy; <%= Date.today.year %> 
-		<%= link_to(t('harman'), "http://www.harman.com/", target: "_blank") %>. 
+		&copy; <%= Date.today.year %>
+		<%= link_to(image_tag('harman_tiny.png', alt: t('harman')), "http://www.harman.com/", target: "_blank") %>
 		<%= t('all_rights_reserved') %>
 	</div>
 </footer>

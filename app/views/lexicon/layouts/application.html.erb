@@ -157,9 +157,9 @@
 				<%= link_to t('terms_of_use'), terms_of_use_path %>
 			</div>
 			<div id="footer_left">
-				<%= image_tag "harman_tiny.png" %>
+				<%#= image_tag "harman_tiny.png" %>
 				&copy; <%= Date.today.year %>
-				<%= link_to(t('harman'), "http://www.harman.com/", target: "_blank") %>
+				<%= link_to(image_tag('harman_tiny.png', alt: t('harman')), "http://www.harman.com/", target: "_blank") %>
 				<%= t('all_rights_reserved') %>
 			</div>
 		</footer>

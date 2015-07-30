@@ -195,10 +195,9 @@
 			</div>
 			<div class="row">
 				<div class="large-6 columns" id="footer_left">
-					<%= image_tag "harman.jpg" %>
 					<span class="footer_text">
-						&copy; <%= Date.today.year %> 
-						<%= link_to(t('harman'), "http://www.harman.com/", target: "_blank") %>. 
+						&copy; <%= Date.today.year %>
+						<%= link_to(image_tag('harman.jpg', alt: t('harman')), "http://www.harman.com/", target: "_blank") %>.
 						<%= t('all_rights_reserved') %>
 					</span>
 				</div>
@@ -227,7 +226,7 @@
 			</div>
 		</footer>
 		<% end %>
-		
+
 		<% if content_for?(:dealer_popup) %>
 			<div id="blanket" style="display:none;"></div>
 			<div id="dealer_popup_close" style="display:none;">

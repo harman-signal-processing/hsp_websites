@@ -254,26 +254,25 @@ div#big_bottom_box_content {
 div#footer {
 	width: 1024px;
 	margin: 20px auto 40px;
-	font-size: 10px;
+	font-size: 11px;
 	font-family: Arial, Helvetica, Sans-serif;
 	color: $light-gray;
 	text-align: center;
 	height: 90px;
 	a:link, a:visited {
 		color: $light-gray;
+    text-decoration: none;
 	}
 	div#footer_info {
 		float: right;
 		text-align: right;
-		margin-top: 10px;
 		margin-right: 10px;
 	}
 	div#footer_left {
 		float: left;
 		margin-left: 10px;
 		img {
-			margin-bottom: -3px;
-			margin-right: 2px;
+			margin-bottom: -1px;
 		}
 	}
 }

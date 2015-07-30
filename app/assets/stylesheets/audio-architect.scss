@@ -525,18 +525,18 @@ div#big_bottom_box_content {
 footer {
 	width: 960px;
 	margin: 0px auto 20px;
-	font-size: 10px;
+	font-size: 11px;
 	font-family: Arial, Helvetica, Sans-serif;
 	color: #111;
 	text-align: center;
 	height: 90px;
 	a:link, a:visited {
 		color: #333;
+    text-decoration: none;
 	}
 	div#footer_info {
 		float: right;
 		text-align: right;
-		margin-top: 10px;
 		margin-right: 0px;
 	}
 	div#footer_left {
@@ -544,7 +544,6 @@ footer {
 		margin-left: 0px;
 		img {
 			margin-bottom: -3px;
-			margin-right: 2px;
 		}
 	}
 }

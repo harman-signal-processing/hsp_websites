@@ -249,23 +249,23 @@ div#big_bottom_box_content {
 footer {
 	width: 940px;
 	margin: 40px auto 10px;
-	font-size: 10px;
+	font-size: 11px;
 	font-family: Arial, Helvetica, Sans-serif;
 	color: #fff;
 	text-align: center;
 	height: 60px;
 	a:link, a:visited {
-		color: white
+		color: white;
+    text-decoration: none;
 	}
 	nav#footer_info {
 		float: right;
 		text-align: right;
-		margin-top: 10px;
 	}
 	div#footer_left {
 		float: left;
 		img {
-			margin-bottom: -3px;
+			margin-bottom: -1px;
 			margin-right: 2px;
 		}
 	}
