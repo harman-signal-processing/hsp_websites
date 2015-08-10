@@ -32,11 +32,11 @@ $header-font-weight: 500;
 $header-font-color: $dark-gray;
 //$header-top-margin: .4em;
 
-$h1-font-size: emCalc(36px);
-$h2-font-size: emCalc(26px);
-$h3-font-size: emCalc(20px);
-$h4-font-size: emCalc(18px);
-$h5-font-size: emCalc(16px);
+$h1-font-size: rem-calc(36px);
+$h2-font-size: rem-calc(26px);
+$h3-font-size: rem-calc(20px);
+$h4-font-size: rem-calc(18px);
+$h5-font-size: rem-calc(16px);
 //$h6-font-size: 1em;
 $subheader-font-color: lighten($dark-gray, 20%);
 $small-font-color: lighten($header-font-color, 35%);
@@ -57,7 +57,7 @@ $tabs-navigation-font-family: $body-font-family;
 
 $anchor-font-color: $primary-color;
 $anchor-font-color-hover: lighten($anchor-font-color, 5%);
-$form-spacing: emCalc(18px);
+$form-spacing: rem-calc(18px);
 $form-label-font-weight: 400;
 $form-label-font-color: lighten($body-font-color, 30%);
 $input-font-color: rgba(0,0,0,0.65);
@@ -65,10 +65,10 @@ $input-bg-color: darken(#fff, 2%);
 $input-focus-bg-color: #fff;
 $legend-bg: none;
 $legend-font-weight: 200;
-$button-tny: emCalc(5px);
-$button-sml: emCalc(7px);
-$button-med: emCalc(10px);
-$button-lrg: emCalc(14px);
+$button-tny: rem-calc(5px);
+$button-sml: rem-calc(7px);
+$button-med: rem-calc(10px);
+$button-lrg: rem-calc(14px);
 $button-font-weight: 300;
 $button-border-style: none;
 $clearing-bg: #fff;
@@ -89,23 +89,23 @@ $table-border-color: lighten($header-font-color, 80%);
 $table-head-bg: lighten($body-bg, 1%);
 $table-head-font-color: $header-font-color;
 // $table-head-font-weight: bold;
-// $table-head-padding: emCalc(8px) emCalc(10px) emCalc(10px);
+// $table-head-padding: rem-calc(8px) rem-calc(10px) rem-calc(10px);
 
-// $table-row-padding: emCalc(9px) emCalc(10px);
-// $table-row-font-size: emCalc(14px);
+// $table-row-padding: rem-calc(9px) rem-calc(10px);
+// $table-row-font-size: rem-calc(14px);
 // $table-row-font-color: #222;
-// $table-line-height: emCalc(18px);
+// $table-line-height: rem-calc(18px);
 
 // $table-display: table-cell;
-// $table-margin-bottom: emCalc(20px);
+// $table-margin-bottom: rem-calc(20px);
 
 $topbar-bg-color: $primary-color;
 $topbar-bg: $topbar-bg-color !default;
-$topbar-height:                        54px;
-// $topbar-margin-bottom:                 emCalc(26px);
-// $topbar-input-height:                  2.45em;
+$topbar-height:                        rem-calc(54px);
+// $topbar-margin-bottom:                 rem-calc(26px);
+$topbar-input-height:                  rem-calc(12);
 $topbar-title-weight:                  bold;
-// $topbar-title-font-size:               emCalc(17px);
+// $topbar-title-font-size:               rem-calc(17px);
 $topbar-dropdown-bg:                      rgba($topbar-bg-color, 0.7);
 // $topbar-dropdown-link-color:           #fff;
 $topbar-dropdown-link-bg:                 rgba(darken($topbar-bg-color, 2%),0.85);
@@ -116,7 +116,7 @@ $topbar-dropdown-toggle-alpha:         0.5;
 // $topbar-link-color-hover:              #fff;
 // $topbar-link-color-active:             #fff;
 $topbar-link-weight:                   light;
-// $topbar-link-font-size:                emCalc(13px);
+// $topbar-link-font-size:                rem-calc(13px);
 $topbar-link-hover-lightness:          -30%; // Darken by 30%
 $topbar-link-bg-hover:                 darken($topbar-bg, 3%);
 $topbar-link-bg-active:                rgba($topbar-bg, 0.6);
@@ -124,10 +124,10 @@ $topbar-link-bg-active:                rgba($topbar-bg, 0.6);
 // $topbar-dropdown-label-color:          #555;
 // $topbar-dropdown-label-text-transform: uppercase;
 // $topbar-dropdown-label-font-weight:    bold;
-// $topbar-dropdown-label-font-size:      emCalc(10px);
+// $topbar-dropdown-label-font-size:      rem-calc(10px);
 
 // $topbar-menu-link-transform:           uppercase;
-// $topbar-menu-link-font-size:           emCalc(13px);
+// $topbar-menu-link-font-size:           rem-calc(13px);
 $topbar-menu-link-weight:              200;
 // $topbar-menu-link-color:               #fff;
 // $topbar-menu-icon-color:               #fff;
@@ -135,7 +135,7 @@ $topbar-menu-link-weight:              200;
 // $topbar-menu-icon-color-toggled:       #888;
 
 // $topbar-transition-speed:              300ms;
-// $topbar-breakpoint:                    emCalc(940px); // Change to 9999px for always mobile layout
+// $topbar-breakpoint:                    rem-calc(940px); // Change to 9999px for always mobile layout
 // $topbar-media-query:                   "only screen and (min-width: #{$topbar-breakpoint})";
 // $topbar-divider-border-bottom:         solid 1px lighten($topbar-bg-color, 10%);
 // $topbar-divider-border-top:            solid 1px darken($topbar-bg-color, 10%);
@@ -147,7 +147,7 @@ $topbar-sticky-class:                  ".sticky";
 
 @media only screen and (min-width: 720px) {
 	.logo-container img {
-		padding: 4px 25px 0px 35px;
+		padding: 2px 20px 0px;
 	}
 	#main_container {
 		padding-bottom: 100px;

@@ -43,11 +43,11 @@ $header-top-margin: .4em;
 // $header-text-rendering: optimizeLegibility;
 
 // Heading font sizes
-$h1-font-size: emCalc(34px);
-$h2-font-size: emCalc(24px);
-$h3-font-size: emCalc(19px);
-$h4-font-size: emCalc(14px);
-$h5-font-size: emCalc(11px);
+$h1-font-size: rem-calc(34px);
+$h2-font-size: rem-calc(24px);
+$h3-font-size: rem-calc(19px);
+$h4-font-size: rem-calc(14px);
+$h5-font-size: rem-calc(11px);
 $h6-font-size: 1em;
 
 // Subheaders
@@ -67,8 +67,8 @@ $small-font-color: lighten($header-font-color, 35%);
 $paragraph-font-weight: 100;
 // $paragraph-font-size: 1em;
 // $paragraph-line-height: 1.6;
-// $paragraph-margin-bottom: emCalc(20px);
-// $paragraph-aside-font-size: emCalc(14px);
+// $paragraph-margin-bottom: rem-calc(20px);
+// $paragraph-aside-font-size: rem-calc(14px);
 // $paragraph-aside-line-height: 1.35;
 // $paragraph-aside-font-style: italic;
 
@@ -96,17 +96,17 @@ $anchor-font-color: darken($primary-color, 10%);
 //
 
 // Base for lots of form spacing and positioning styles
-$form-spacing: emCalc(18px);
+$form-spacing: rem-calc(18px);
 
 // Labels
 // $form-label-pointer: pointer;
-// $form-label-font-size: emCalc(14px);
+// $form-label-font-size: rem-calc(14px);
 // $form-label-font-weight: 500;
 // $form-label-font-color: lighten(#000, 30%);
-// $form-label-bottom-margin: emCalc(3px);
+// $form-label-bottom-margin: rem-calc(3px);
 // $input-font-family: inherit;
 $input-font-color: rgba(0,0,0,0.65);
-$input-font-size: emCalc(16px);
+$input-font-size: rem-calc(16px);
 $input-bg-color: darken(#fff, 2%);
 $input-focus-bg-color: #fff;
 // $input-border-color: darken(#fff, 20%);
@@ -121,14 +121,14 @@ $input-focus-bg-color: #fff;
 // $fieldset-border-style: solid;
 // $fieldset-border-width: 1px;
 // $fieldset-border-color: #ddd;
-// $fieldset-padding: emCalc(20px);
-// $fieldset-margin: emCalc(18px) 0;
+// $fieldset-padding: rem-calc(20px);
+// $fieldset-margin: rem-calc(18px) 0;
 
 // Legends
 
 $legend-bg: none;
 $legend-font-weight: 200;
-// $legend-padding: 0 emCalc(3px);
+// $legend-padding: 0 rem-calc(3px);
 
 // Prefix and postfix input elements
 
@@ -142,9 +142,9 @@ $legend-font-weight: 200;
 
 // Error states for inputs and labels
 
-// $input-error-message-padding: emCalc(6px) emCalc(4px);
-// $input-error-message-top: -($form-spacing) - emCalc(5px);
-// $input-error-message-font-size: emCalc(12px);
+// $input-error-message-padding: rem-calc(6px) rem-calc(4px);
+// $input-error-message-top: -($form-spacing) - rem-calc(5px);
+// $input-error-message-font-size: rem-calc(12px);
 // $input-error-message-font-weight: bold;
 // $input-error-message-font-color: #fff;
 // $input-error-message-font-color-alt: #333;
@@ -160,10 +160,10 @@ $legend-font-weight: 200;
 
 // Padding for buttons.
 
-$button-tny: emCalc(5px);
-$button-sml: emCalc(7px);
-$button-med: emCalc(10px);
-$button-lrg: emCalc(14px);
+$button-tny: rem-calc(5px);
+$button-sml: rem-calc(7px);
+$button-med: rem-calc(10px);
+$button-lrg: rem-calc(14px);
 
 //
 // Orbit Settings
@@ -199,10 +199,10 @@ $table-border-color: lighten($header-font-color, 80%);
 // Table head styles
 
 $table-head-bg: lighten($body-bg, 1%);
-// $table-head-font-size: emCalc(14px);
+// $table-head-font-size: rem-calc(14px);
 $table-head-font-color: $header-font-color;
 // $table-head-font-weight: bold;
-// $table-head-padding: emCalc(8px) emCalc(10px) emCalc(10px);
+// $table-head-padding: rem-calc(8px) rem-calc(10px) rem-calc(10px);
 
 //
 // Top Bar Variables
@@ -215,14 +215,14 @@ $topbar-bg: $topbar-bg-color !default;
 
 // Height and margin
 
-$topbar-height:                        40px;
-// $topbar-margin-bottom:                 emCalc(26px);
+$topbar-height:                        rem-calc(40);
+// $topbar-margin-bottom:                 rem-calc(26px);
 // Control Input height for top bar
-// $topbar-input-height:                  2.45em;
+$topbar-input-height:                  rem-calc(12);
 // Controlling the styles for the title in the top bar
 
 $topbar-title-weight:                  bold;
-// $topbar-title-font-size:               emCalc(17px);
+// $topbar-title-font-size:               rem-calc(17px);
 
 // Style the top bar dropdown elements
 
@@ -239,7 +239,7 @@ $topbar-dropdown-bg:                   $primary-color;
 // $topbar-link-color-hover:              #fff;
 // $topbar-link-color-active:             #fff;
 $topbar-link-weight:                   light;
-// $topbar-link-font-size:                emCalc(13px);
+// $topbar-link-font-size:                rem-calc(13px);
 $topbar-link-hover-lightness:          -30%; // Darken by 30%
 $topbar-link-bg-hover:                 darken($primary-color, 3%);
 $topbar-link-bg-active:                darken($topbar-bg, 3%);
@@ -272,12 +272,12 @@ img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 	    box-shadow: 0 8px 6px -6px #ccc;
 	}
 	nav.top-bar {
-		border-radius: 16px;
-		-webkit-border-radius: 16px;
-		-moz-border-radius: 16px;
+		border-radius: 8px;
+		-webkit-border-radius: 8px;
+		-moz-border-radius: 8px;
 	  /* Prevent background color leak outs */
-	    -webkit-background-clip: padding-box; 
-	    -moz-background-clip:    padding; 
+	    -webkit-background-clip: padding-box;
+	    -moz-background-clip:    padding;
 	    background-clip:         padding-box;
 		padding-left: 15px;
 	    -webkit-box-shadow: 0 8px 6px -6px #888;

@@ -5,7 +5,7 @@ $medium-gray: #a8a8a8;
 $light-gray: #d0d0d0;
 $primary-color: #00395a;
 $section-vertical-nav-min-width: 100%;
-$section-vertical-tabs-title-width: emCalc(200px);
+$section-vertical-tabs-title-width: rem-calc(200px);
 $accordion-navigation-padding: rem-calc(14);
 $accordion-navigation-bg-color: scale-color($light-gray, $lightness: 25%);
 $accordion-navigation-active-bg-color: scale-color($accordion-navigation-bg-color, $lightness: -13%);
@@ -13,7 +13,7 @@ $accordion-content-padding: rem-calc(12);
 $accordion-navigation-font-size: rem-calc(13);
 $topbar-bg-color:                            #00395a;
 $topbar-bg:                   $topbar-bg-color !default;
-$topbar-margin-bottom:                 emCalc(30px);
+$topbar-margin-bottom:                 rem-calc(30px);
 
 @import 'foundation';
 

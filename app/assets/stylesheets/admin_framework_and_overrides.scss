@@ -14,7 +14,7 @@ $button-sml: rem-calc(7);
 $button-lrg: rem-calc(13);
 $topbar-bg-color:                      #00395a;
 $topbar-bg:              $topbar-bg-color !default;
-$topbar-margin-bottom:                 emCalc(20px);
+$topbar-margin-bottom:                 rem-calc(20px);
 $topbar-divider-border-bottom:         solid 1px lighten($topbar-bg-color, 10%);
 $topbar-divider-border-top:            solid 1px darken($topbar-bg-color, 10%);
 

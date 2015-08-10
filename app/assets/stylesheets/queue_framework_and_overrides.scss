@@ -10,11 +10,11 @@ $primary-color: #1f609f;
 $header-font-family: "Sintony", Times, "Times New Roman", serif;
 $header-font-color: #1d150f;
 $header-top-margin: .4em;
-$h1-font-size: emCalc(34px);
-$h2-font-size: emCalc(24px);
-$h3-font-size: emCalc(19px);
-$h4-font-size: emCalc(14px);
-$h5-font-size: emCalc(11px);
+$h1-font-size: rem-calc(34px);
+$h2-font-size: rem-calc(24px);
+$h3-font-size: rem-calc(19px);
+$h4-font-size: rem-calc(14px);
+$h5-font-size: rem-calc(11px);
 $h6-font-size: 1em;
 
 $subheader-font-color: lighten($header-font-color, 25%);
@@ -24,13 +24,13 @@ $anchor-font-color-hover: lighten($anchor-font-color, 25%);
 $legend-bg: none;
 $legend-font-weight: 200;
 
-$button-tny: emCalc(5px);
-$button-sml: emCalc(7px);
-$button-med: emCalc(10px);
-$button-lrg: emCalc(14px);
+$button-tny: rem-calc(5px);
+$button-sml: rem-calc(7px);
+$button-med: rem-calc(10px);
+$button-lrg: rem-calc(14px);
 
 $panel-bg: darken($body-bg, 5%);
-$switch-bottom-margin: emCalc(10px);
+$switch-bottom-margin: rem-calc(10px);
 $switch-font-size-tny: 13px;
 $switch-font-size-sml: 17px;
 $switch-font-size-med: 15px;
@@ -39,8 +39,8 @@ $table-even-row-bg: lighten($body-bg, 2%);
 $table-border-color: lighten($header-font-color, 80%);
 $table-head-bg: lighten($body-bg, 1%);
 $table-head-font-color: $header-font-color;
-$topbar-height:                        46px;
-$topbar-margin-bottom:                 emCalc(26px);
+$topbar-height:                        rem-calc(46px);
+$topbar-margin-bottom:                 rem-calc(26px);
 $topbar-title-weight:                  bold;
 $topbar-link-weight:                   light;
 

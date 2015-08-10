@@ -58,15 +58,15 @@ $header-font-weight: 400;
 // $header-font-style: normal;
 $header-font-color: $dark-gray;
 // $header-line-height: 1.4;
-$header-top-margin: emCalc(10px);
+$header-top-margin: rem-calc(10);
 // $header-bottom-margin: .5em;
 // $header-text-rendering: optimizeLegibility;
 
-$h1-font-size: emCalc(38px);
-$h2-font-size: emCalc(26px);
-$h3-font-size: emCalc(21px);
-$h4-font-size: emCalc(18px);
-$h5-font-size: emCalc(15px);
+$h1-font-size: rem-calc(38px);
+$h2-font-size: rem-calc(26px);
+$h3-font-size: rem-calc(21px);
+$h4-font-size: rem-calc(18px);
+$h5-font-size: rem-calc(15px);
 $h6-font-size: 1em;
 
 // $subheader-line-height: 1.4;
@@ -82,8 +82,8 @@ $small-font-color: lighten($header-font-color, 35%);
 $paragraph-font-weight: 300;
 // $paragraph-font-size: 1em;
 // $paragraph-line-height: 1.6;
-// $paragraph-margin-bottom: emCalc(20px);
-// $paragraph-aside-font-size: emCalc(14px);
+// $paragraph-margin-bottom: rem-calc(20px);
+// $paragraph-aside-font-size: rem-calc(14px);
 // $paragraph-aside-line-height: 1.35;
 // $paragraph-aside-font-style: italic;
 
@@ -107,24 +107,24 @@ $anchor-font-color-hover: lighten($anchor-font-color, 5%);
 // Lists
 
 // $list-style-position: outside;
-// $list-side-margin: emCalc(20px);
-// $list-nested-margin: emCalc(20px);
+// $list-side-margin: rem-calc(20px);
+// $list-nested-margin: rem-calc(20px);
 // $definition-list-header-weight: bold;
 // $definition-list-header-margin-bottom: .3em;
-// $definition-list-margin-bottom: emCalc(12px);
+// $definition-list-margin-bottom: rem-calc(12px);
 
 
 // Base for lots of form spacing and positioning styles
-$form-spacing: emCalc(18px);
+$form-spacing: rem-calc(18px);
 
 // $form-label-pointer: pointer;
-// $form-label-font-size: emCalc(14px);
+// $form-label-font-size: rem-calc(14px);
 $form-label-font-weight: 400;
 $form-label-font-color: lighten($body-font-color, 30%);
-// $form-label-bottom-margin: emCalc(3px);
+// $form-label-bottom-margin: rem-calc(3px);
 // $input-font-family: inherit;
 $input-font-color: rgba(0,0,0,0.65);
-//$input-font-size: emCalc(16px);
+//$input-font-size: rem-calc(16px);
 $input-bg-color: darken(#fff, 2%);
 $input-focus-bg-color: #fff;
 // $input-border-color: darken(#fff, 20%);
@@ -138,16 +138,16 @@ $input-focus-bg-color: #fff;
 // $fieldset-border-style: solid;
 // $fieldset-border-width: 1px;
 // $fieldset-border-color: #ddd;
-// $fieldset-padding: emCalc(20px);
-// $fieldset-margin: emCalc(18px) 0;
+// $fieldset-padding: rem-calc(20px);
+// $fieldset-margin: rem-calc(18px) 0;
 
 $legend-bg: none;
 $legend-font-weight: 200;
-// $legend-padding: 0 emCalc(3px);
+// $legend-padding: 0 rem-calc(3px);
 
-// $input-error-message-padding: emCalc(6px) emCalc(4px);
-// $input-error-message-top: -($form-spacing) - emCalc(5px);
-// $input-error-message-font-size: emCalc(12px);
+// $input-error-message-padding: rem-calc(6px) rem-calc(4px);
+// $input-error-message-top: -($form-spacing) - rem-calc(5px);
+// $input-error-message-font-size: rem-calc(12px);
 // $input-error-message-font-weight: bold;
 // $input-error-message-font-color: #fff;
 // $input-error-message-font-color-alt: #333;
@@ -155,21 +155,21 @@ $legend-font-weight: 200;
 // $glowing-effect-fade-time: 0.45s;
 // $glowing-effect-color: $input-focus-border-color;
 
-$button-tny: emCalc(5px);
-$button-sml: emCalc(7px);
-$button-med: emCalc(10px);
-$button-lrg: emCalc(14px);
+$button-tny: rem-calc(5px);
+$button-sml: rem-calc(7px);
+$button-med: rem-calc(10px);
+$button-lrg: rem-calc(14px);
 
 // $button-display: inline-block;
-// $button-margin-bottom: emCalc(20px);
+// $button-margin-bottom: rem-calc(20px);
 
 // $button-font-family: inherit;
 // $button-font-color: #fff;
 // $button-font-color-alt: #333;
-// $button-font-med: emCalc(16px);
-// $button-font-tny: emCalc(11px);
-// $button-font-sml: emCalc(13px);
-// $button-font-lrg: emCalc(20px);
+// $button-font-med: rem-calc(16px);
+// $button-font-tny: rem-calc(11px);
+// $button-font-sml: rem-calc(13px);
+// $button-font-lrg: rem-calc(20px);
 $button-font-weight: 300;
 // $button-font-align: center;
 // $button-function-factor: 10%;
@@ -202,17 +202,17 @@ $table-even-row-bg: lighten($body-bg, 2%);
 // $table-border-size: 1px;
 $table-border-color: lighten($header-font-color, 80%);
 $table-head-bg: lighten($body-bg, 1%);
-// $table-head-font-size: emCalc(14px);
+// $table-head-font-size: rem-calc(14px);
 $table-head-font-color: $header-font-color;
 // $table-head-font-weight: bold;
-// $table-head-padding: emCalc(8px) emCalc(10px) emCalc(10px);
-// $table-row-padding: emCalc(9px) emCalc(10px);
-// $table-row-font-size: emCalc(14px);
+// $table-head-padding: rem-calc(8px) rem-calc(10px) rem-calc(10px);
+// $table-row-padding: rem-calc(9px) rem-calc(10px);
+// $table-row-font-size: rem-calc(14px);
 // $table-row-font-color: #222;
-// $table-line-height: emCalc(18px);
+// $table-line-height: rem-calc(18px);
 
 // $table-display: table-cell;
-// $table-margin-bottom: emCalc(20px);
+// $table-margin-bottom: rem-calc(20px);
 
 // $thumb-border-style: solid;
 // $thumb-border-width: 4px;
@@ -225,11 +225,11 @@ $table-head-font-color: $header-font-color;
 
 $topbar-bg-color: $primary-color;
 $topbar-bg: $topbar-bg-color !default;
-//$topbar-height:                        80px;
-// $topbar-margin-bottom:                 emCalc(26px);
-$topbar-input-height:                  2.45em;
+$topbar-height:                        rem-calc(80px);
+// $topbar-margin-bottom:                 rem-calc(26px);
+$topbar-input-height:                  rem-calc(12);
 $topbar-title-weight:                  100;
-// $topbar-title-font-size:               emCalc(17px);
+// $topbar-title-font-size:               rem-calc(17px);
 $topbar-dropdown-bg:                      rgba($topbar-bg-color, 0.7);
 // $topbar-dropdown-link-color:           #fff;
 $topbar-dropdown-link-bg:                 rgba(darken($topbar-bg-color, 2%),0.85);
@@ -240,23 +240,23 @@ $topbar-dropdown-toggle-alpha:         0.5;
 // $topbar-link-color-hover:              #fff;
 // $topbar-link-color-active:             #fff;
 $topbar-link-weight:                   100;
-$topbar-link-font-size:                emCalc(14px);
+$topbar-link-font-size:                rem-calc(14px);
 $topbar-link-hover-lightness:          -30%; // Darken by 30%
 $topbar-link-bg-hover:                 darken($topbar-bg, 3%);
 $topbar-link-bg-active:                rgba($topbar-bg, 0.6);
 // $topbar-dropdown-label-color:          #555;
 // $topbar-dropdown-label-text-transform: uppercase;
 // $topbar-dropdown-label-font-weight:    bold;
-// $topbar-dropdown-label-font-size:      emCalc(10px);
+// $topbar-dropdown-label-font-size:      rem-calc(10px);
 $topbar-menu-link-transform:           uppercase;
-$topbar-menu-link-font-size:           emCalc(18px);
+$topbar-menu-link-font-size:           rem-calc(18px);
 $topbar-menu-link-weight:              200;
 // $topbar-menu-link-color:               #fff;
 // $topbar-menu-icon-color:               #fff;
 // $topbar-menu-link-color-toggled:       #888;
 // $topbar-menu-icon-color-toggled:       #888;
 // $topbar-transition-speed:              300ms;
-// $topbar-breakpoint:                    emCalc(940px); // Change to 9999px for always mobile layout
+// $topbar-breakpoint:                    rem-calc(940px); // Change to 9999px for always mobile layout
 // $topbar-media-query:                   "only screen and (min-width: #{$topbar-breakpoint})";
 // $topbar-divider-border-bottom:         solid 1px lighten($topbar-bg-color, 10%);
 // $topbar-divider-border-top:            solid 1px darken($topbar-bg-color, 10%);
@@ -266,18 +266,8 @@ $topbar-sticky-class:                  ".sticky";
 @import 'foundation';
 @import 'brand_common';
 
-.top-bar-container {
-  background: $topbar-bg;
-  @media only screen and (min-width: 720px) {
-    height: 80px;
-    ul.left {
-      margin-top: 35px;
-    }
-    .top-bar input, .top-bar .button {
-      top: 26px;
-      height: 1.9em;
-    }
-  }
+.top-bar-section .has-form {
+  padding-top: 10px;
 }
 
 #feature_spacer {
@@ -322,21 +312,21 @@ h4,h5 {
   h1 {
     color: white;
     @media only screen and (min-width: 720px) {
-      font-size: emCalc(62px);
+      font-size: rem-calc(62px);
       line-height: 1.1;
     }
     @media only screen and (max-width: 719px) {
-      font-size: emCalc(40px);
+      font-size: rem-calc(40px);
       line-height: 1.1;
     }
   }
   p {
     @media only screen and (min-width: 720px) {
-      font-size: emCalc(48px);
+      font-size: rem-calc(48px);
       line-height: 1.2;
     }
     @media only screen and (max-width: 719px) {
-      font-size: emCalc(30px);
+      font-size: rem-calc(30px);
       line-height: 1.1;
     }
     margin-bottom: 24px;
