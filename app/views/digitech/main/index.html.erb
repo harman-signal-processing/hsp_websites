@@ -9,65 +9,24 @@
 	} %>
 
 <%= content_for :feature do %>
-	<%# slides = Setting.slides(website).sort_by { rand } %>
-	<% slides = Setting.slides(website) %>
-	<%= cache ["slideshow", website.brand, I18n.locale, slides] do %>
+	<%= cache ["slideshow", website.brand, I18n.locale] do %>
+		<% slides = Setting.slides(website) %>
 		<% if slides.size > 0 %>
-			<%= slideshow(slides: slides) %>
+			<%= orbit_slideshow(slides: slides, duration: 6000, navigation_arrows: false, transition: "fade") %>
 		<% end %>
+		<%#= video_background_with_features(slides, tagline: true) %>
 	<% end %>
-<% end %>
-
-<%= content_for :middle_stuff do %>
-	<%= cache ["homepage_features", website.brand, I18n.locale] do %>
-		<% if @features.size > 0 %>
-			<% @features.each do |feature| %>
-			<span class="homepage_feature">
-				<%= feature_button(feature) %>
-			</span>
-			<% end %>
-		<% else %>
-			<%= featured_product_families %>
-		<% end %>
-	<% end %>
-  <div class="clear"></div>
 <% end %>
 
 <%= content_for :big_bottom_box do %>
-    <div style="float: right; width: 265px;">
-		<% if website.email_signup_url %>
-			<%= render_partial 'shared/newsletter_signup' %>
-		<% end %>
-		<% if website.homepage_column_three %>
-			<%= render_partial "shared/column_for_#{website.homepage_column_three}" %>
-		<% elsif website.homepage_column_3 %>
-			<%= render_partial "shared/column_for_#{website.homepage_column_3}" %>
-		<% else %>
-			<%= render_partial 'shared/column_for_twitter' %>
-		<% end %>
-	</div>
 
-	<div style="float: left; width: 290px; margin-left: 10px">
-		<% if website.homepage_column_one %>
-			<%= render_partial "shared/column_for_#{website.homepage_column_one}" %>
-		<% elsif website.homepage_column_1 %>
-			<%= render_partial "shared/column_for_#{website.homepage_column_1}" %>
-		<% else %>
-			<%= render_partial 'shared/column_for_news' %>
-		<% end %>
-	</div>
+  <%= render_partial "shared/featured_products_strip" %>
+  <%= render_partial "shared/promotions_strip" %>
+  <%= render_partial "shared/teaser_strip" %>
+  <%= render_partial "shared/videos_strip" %>
+  <%= render_partial "shared/social_strip" %>
+  <%= render_partial "shared/news_and_reviews_strip" %>
 
-	<div style="margin-left: 315px; margin-right: 320px;">
-		<% if website.homepage_column_two %>
-			<%= render_partial "shared/column_for_#{website.homepage_column_two}" %>
-		<% elsif website.homepage_column_2 %>
-			<%= render_partial "shared/column_for_#{website.homepage_column_2}" %>
-		<% elsif @youtube && !@youtube.blank? %>
-			<%= render_partial 'shared/column_for_youtube' %>
-		<% elsif !website.facebook.blank? %>
-			<%= render_partial 'shared/column_for_facebook' %>
-		<% end %>
-	</div>
 <% end %>
 
 <%= content_for :preload do %>
@@ -80,4 +39,4 @@
 	<% end %>
 <% end %>
 
-<div id="homepage-counter" data-counter="<%= @counter %>"></div>
+<div id="homepage-counter" data-counter="<%= @counter %>" data-nextevent="<%= @next_event %>" data-countdowncontainer="<%= @countdown_container %>"></div>

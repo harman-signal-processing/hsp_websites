@@ -1,52 +1,12 @@
 $font_family: Helvetica, arial, verdana, sans-serif;
 $divider: asset-url('digitech/gray_horizontal_divider.png');
 
-body {
-	background: #EEE;
-}
-nav#topnav {
-	//border: 1px solid #ddd;
-	//background-image: asset-url('digitech/gray_topmenu_bg.png');
-	//background-color: #CCC;
-	li {
-		a:link, a:visited {
-			color: #111;
-		}
-		&:hover {
-			background: #999;
-		}
-	}
-}
 #product-notice {
 	background-color: #fd9b45;
 	padding: 10px 20px;
 	color: black;
 	font-size: 13px;
 	line-height: 18px;
-}
-header#main_header div#search_form input#query {
-	background: #fff asset-url('digitech/searchMagGlass_blk.png') no-repeat right;
-	color: #111;
-	border: none;
-}
-
-div#content_container {
-    -moz-box-shadow: 0px 2px 6px #999;
-	-webkit-box-shadow: 0px 2px 6px #999;
-	box-shadow: 0px 2px 6px #999;
-	font-family: $font_family;
-	font-size: 14px;
-	line-height: 24px;
-	color: #222;
-	padding-top: 10px;
-	padding-bottom: 50px;
-}
-
-footer {
-	color: #555;
-	a:link, a:visited {
-		color: #111
-	}
 }
 
 header#product_header {
@@ -97,7 +57,7 @@ ul#product_main_tabs {
 				weight: bold;
 				size: 12px;
 			}
-			text-transform: uppercase;			
+			text-transform: uppercase;
 		}
 		&.current {
 			margin-top: 0px;
@@ -107,7 +67,7 @@ ul#product_main_tabs {
 				border-bottom: none;
 				color: #111;
 			}
-		}	
+		}
 	}
 }
 
@@ -172,7 +132,7 @@ section#product_content {
 				}
 				font-size: 20px;
 			}
-		}		
+		}
 	}
 	&.epedal {
 		margin-left: 0px;
@@ -265,124 +225,6 @@ section#product_content {
 	}
 }
 
-#coverflow_container {
-	position: relative;
-	#slider {
-		margin: 0px 40px 40px;
-	}
-	div.wrapper {  
-	   height: 270px;  
-	   width: 940px; 
-	   padding: 10px;  
-	   padding-top: 0px;
-	   overflow: hidden;  
-	   position: relative;  
-	   margin: 0 auto;  
-	   margin-left: -10px;
-	}
-	#mask {
-		position: absolute;
-		top: 0px;
-		left: -10px;
-		width: 960px;
-		height: 300px;
-		background-color: white;
-		z-index: 999999;
-	}
-	#left_fade {
-		position: absolute;
-		top: 0px;
-		left: -10px;
-		z-index: 999;
-	}
-	#right_fade {
-		position: absolute;
-		top: 0px;
-		right: -10px;
-		z-index: 999;
-	}
-	#label {
-		position: absolute;
-		z-index: 999;
-		top: 240px;
-		left: -10px;
-		width: 960px;
-		font-size: 18px;
-		text-align: center;
-	}
-	#coverflow_loading {
-		position: relative;
-		top: -340px;
-		left: 390px;
-		text-align: center;
-		width: 100px;
-		z-index: 999999;
-		background: #333;
-		color: white;
-		font-size: 16px;
-		padding: 10px 20px;
-		
-	}
-	#feature_pop {
-		position: absolute;
-		top: -320px;
-		left: 205px;
-		z-index: 999999;
-		background: #222;
-		padding: 10px 20px;
-		width: 500px;
-		height: 350px;
-		div#pop_content {
-			position: relative;
-			color: white;
-			.popup_left {
-				position: absolute;
-				left: -66px;
-				top: -10px;
-				z-index: 99999;
-			}
-			.popup_right {
-				position: absolute;
-				left: 250px;
-				width: 252px;
-				top: 18px;
-				z-index: 999999;
-			}
-			h2 {
-				color: white;
-				font-size: 22px;
-				line-height: 24px;
-			}
-			a:link, a:visited {
-				color: #EEE;
-			}
-		}
-		a#popclose {
-			position: absolute;
-			bottom: 6px;
-			right: 10px;
-			font-size: 12px;
-			&:link, &:visited {
-				color: #EEE;
-			}
-		}
-	}
-}
-#coverflow {  
-   	width: 2600px;  
-    padding:  0px 42px; 
-   	position: absolute;  
-   	top: 0px;  
-   	left: 0px;  
-   	margin-top: 78px; 
-	display: inline-block; 
-	img {  
-   		float: left;  
-   		position: relative;  
-   		margin: -35px;
-  	}
-}
-
 table.specs {
 	margin: 4px 0px 10px;
 	border: 1px solid #CCC;
@@ -390,13 +232,13 @@ table.specs {
 		font-size: 11px;
 		line-height: 14px;
 		padding: 3px 10px 0px;
-		border-bottom: 1px dotted #555;	
+		border-bottom: 1px dotted #555;
 		&.name {
 			background: #E1E1E1;
 			color: #333;
 			font-size: 14px;
-			line-height: 17px;			
-		}	
+			line-height: 17px;
+		}
 	}
 }
 
@@ -411,33 +253,6 @@ div#product_buy_now_box {
 		font: {
 			weight: bold;
 			size: 16px;
-		}
-	}
-}
-
-div#carousel {
-	margin: 30px 0px 10px;
-}
-div.view_all_button_container {
-	clear: both;
-	text-align: center;
-	padding-top: 16px;
-	padding-bottom: 8px;
-	a.view_all_button {
-		cursor: pointer;
-		z-index: 9999;
-		&:link, &:visited {
-			font-size: 17px;
-			background: #666;
-			color: white;
-			padding: 8px 20px;
-			text-decoration: none;
-			text-shadow: 0px 1px 0px #111;
-			border-radius: 6px;
-			box-shadow: 0px 2px 4px #999;
-		}
-		&:hover {
-			background: #999;
 		}
 	}
 }
