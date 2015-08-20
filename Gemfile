@@ -66,7 +66,7 @@ gem 'RedCloth'
 gem 'figaro'
 gem 'delayed_paperclip'
 gem 'cheetah_mail', "~> 0.6.0"
-gem 'rmagick', '= 2.15.3', :require => 'rmagick' # 2.15.4 had problems loading ImageMagick.so.2
+gem 'rmagick', require: 'rmagick'
 gem 'typhoeus' # For link validator
 
 ### Could be useful in the future...
