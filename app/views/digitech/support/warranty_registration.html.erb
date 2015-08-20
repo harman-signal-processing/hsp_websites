@@ -80,6 +80,10 @@
 		<%= f.check_box :subscribe %>
 		<%= t('blurbs.subscribe', brand: website.brand_name) %>
 	</div>
+
+  <div class="captcha">
+    <%= recaptcha_tags  public_key: website.recaptcha_public_key %>
+  </div>
 	
 	<div class="centered">
 		<%= f.submit t('submit_warranty_registration') %>
