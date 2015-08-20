@@ -99,7 +99,7 @@ set_meta_tags title: @product.name,
               <li><%= link_to_product_attachment(product_attachment) %></li>
             <% else %>
               <li>
-              <%= link_to(product_attachment.product_attachment.url(:original),
+              <%= link_to(product_attachment.product_attachment.url(:full_width),
                 data: product_attachment.no_lightbox? ? {} : { lightbox: 'product-thumbnails' }) do %>
                   <%= image_tag(product_attachment.product_attachment.url(:tiny_square)) %>
                 <% end %>
@@ -206,7 +206,7 @@ set_meta_tags title: @product.name,
               <li><%= link_to_product_attachment(product_attachment) %></li>
             <% else %>
               <li>
-              <%= link_to(product_attachment.product_attachment.url(:original),
+              <%= link_to(product_attachment.product_attachment.url(:full_width),
                 data: product_attachment.no_lightbox? ? {} : { lightbox: 'product-thumbnails' }) do %>
                   <%= image_tag(product_attachment.product_attachment.url(:tiny_square)) %>
                 <% end %>
