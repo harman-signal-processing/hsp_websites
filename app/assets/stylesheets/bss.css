@@ -4,6 +4,7 @@
  * the top of the compiled file, but it's generally better to create a new file per style scope.
 *= require solutions
 *= require bss_framework_and_overrides
+*= require lightbox
 *= require bouncing_arrow
 *= require jquery-ui.min
 *= require add2home

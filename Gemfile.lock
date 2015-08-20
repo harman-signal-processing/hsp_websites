@@ -351,6 +351,8 @@ GEM
     letter_opener (1.4.1)
       launchy (~> 2.2)
     libv8 (3.16.14.11)
+    lightbox2-rails (2.7.1)
+      railties (>= 3.1)
     listen (3.0.3)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
@@ -673,6 +675,7 @@ DEPENDENCIES
   jquery-rails
   json-schema
   letter_opener
+  lightbox2-rails
   mechanize
   meta-tags (~> 1.5)
   money

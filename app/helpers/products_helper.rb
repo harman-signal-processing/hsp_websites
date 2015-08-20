@@ -35,19 +35,15 @@ module ProductsHelper
       else
         new_content = product_attachment.product_attachment.url
       end
-      link_to_function image_tag(img, style: "vertical-align: middle"), "$('#viewer').html('#{escape_javascript(new_content)}');load_lightbox()"
+      link_to_function image_tag(img, style: "vertical-align: middle"), "$('#viewer').html('#{escape_javascript(new_content)}')"
     end
   end
 
   def link_to_product_attachment(product_attachment)
-    if !product_attachment.product_attachment_file_name.blank?
-      img = product_attachment.product_attachment.url(:tiny)
-      if product_attachment.no_lightbox?
-        new_content = link_to(image_tag(product_attachment.product_attachment.url(:medium), style: "vertical-align: middle"),
-          product_attachment.product_attachment.url)
-      else
-        new_content = link_to(image_tag(product_attachment.product_attachment.url(:medium), style: "vertical-align: middle"),
-          product_attachment.product_attachment.url(:lightbox), class: "lightbox")
+    if product_attachment.product_attachment_file_name.present?
+      link_to product_attachment.product_attachment.url(:original),
+        data: product_attachment.no_lightbox? ? {} : { lightbox: 'product-thumbnails' } do
+          image_tag(product_attachment.product_attachment.url(:tiny), style: 'vertical-align: middle')
       end
     else
       img = product_attachment.product_media_thumb.url(:tiny)
@@ -64,8 +60,8 @@ module ProductsHelper
       else
         new_content = product_attachment.product_attachment.url
       end
+      link_to_function image_tag(img, style: "vertical-align: middle"), "$('#viewer').html('#{escape_javascript(new_content)}')"
     end
-    link_to_function image_tag(img, style: "vertical-align: middle"), "$('#viewer').html('#{escape_javascript(new_content)}');load_lightbox()"
   end
 
   def tab_title(product_tab, options={})

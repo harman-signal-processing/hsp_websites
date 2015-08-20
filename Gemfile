@@ -10,6 +10,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem "foundation-rails", '~> 5.5'
+gem 'lightbox2-rails'
 gem 'jquery-rails'
 
 # To use debugger

@@ -1,5 +1,5 @@
-<% 
-if @product.photo 
+<%
+if @product.photo
 	og_image = @product.photo.product_attachment.url(:original)
 	tw_image = @product.photo.product_attachment.url(:small)
 else
@@ -38,7 +38,7 @@ set_meta_tags title: @product.name,
 		type: 'product',
 		description: truncate(strip_html(translate_content(@product, :description)), length: 100),
 		title: "#{website.brand.name} #{@product.name}"
-	} 
+	}
 %>
 
 <% if @product.show_alert? %>
@@ -78,13 +78,34 @@ set_meta_tags title: @product.name,
 				<% end %>
 				</div>
 
-				<% if @product.images_for("product_page").size > 1 %>
-				<ul class="clearing-thumbs" data-clearing>
-					<% @product.images_for("product_page").each do |product_attachment| %>
-					<li><%= abide_link_to_product_attachment(product_attachment) %></li>
-					<% end %>
-				</ul>
-				<% end %>
+        <% if @product.images_for("product_page").size > 0 %>
+          <% if !!(website.no_lightbox) %>
+            <ul id="product_thumbnails" class="large-block-grid-12 small-block-grid-3">
+              <% @product.images_for("product_page").each do |product_attachment| %>
+                <% if product_attachment.product_media_thumb_file_name.present? %>
+                <li><%= link_to_product_attachment(product_attachment) %></li>
+                <% else %>
+                <li><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square)), product_attachment.product_attachment.url(:original)) %></li>
+                <% end %>
+              <% end %>
+            </ul>
+          <% else %>
+            <ul id="product_thumbnails" class="large-block-grid-12 small-block-grid-3">
+              <% @product.images_for("product_page").each do |product_attachment| %>
+                <% if product_attachment.product_media_thumb_file_name.present? %>
+                  <li><%= link_to_product_attachment(product_attachment) %></li>
+                <% else %>
+                  <li>
+                  <%= link_to(product_attachment.product_attachment.url(:original),
+                    data: product_attachment.no_lightbox? ? {} : { lightbox: 'product-thumbnails' }) do %>
+                      <%= image_tag(product_attachment.product_attachment.url(:tiny_square)) %>
+                    <% end %>
+                  </li>
+                <% end %>
+              <% end %>
+            </ul>
+          <% end %>
+        <% end %>
 			</div>
 		</div>
 	</div>
@@ -101,16 +122,16 @@ set_meta_tags title: @product.name,
 				<div class="hide-for-small">
 					<%=raw translate_content(@product, :extended_description) %>
 				</div>
-			</div>	
+			</div>
 		</div>
 		<div class="large-4 columns">
-		
+
 			<% if website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !@product.direct_buy_link.blank? %>
 			<div id="product_buy_now_box">
 				<%= buy_it_now_link(@product) %>
 			</div>
 			<% end %>
-			
+
 			<%= links_to_current_promotions(@product) %>
 
 			<%#= draw_packaging_boxes @product %>

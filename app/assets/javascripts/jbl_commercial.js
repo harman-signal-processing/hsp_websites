@@ -21,6 +21,7 @@
 //= require twitter
 //= require homepage
 //= require foundation
+//= require lightbox
 //= require add2home
 //= require tools
 //= require_self
