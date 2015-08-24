@@ -6,7 +6,7 @@ function appear(){
 	$(".fadein").each(function(index) {
 		if ($(this).visible(true)) {
 			$(this).children('.slideleft').each(function(i) {
-				$(this).delay(250*i).css('visibility', 'visible').animate({opacity: 1.0, left: '0'}, 250);
+				$(this).delay(1250*i).css('visibility', 'visible').animate({opacity: 1.0, left: '0'}, 750);
 			});
 			$(this).children('.slideright').each(function(i) {
 				$(this).delay(250*i).css('visibility', 'visible').animate({opacity: 1.0, right: '0'}, 250);
