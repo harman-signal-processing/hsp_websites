@@ -16,9 +16,9 @@
     	<div class="large-12 text-center columns">
     		<%
     		featured_products = website.featured_products
-    		large_rows = (featured_products.length.to_f / 3.0).round
+    		large_rows = (featured_products.length.to_f / 3.0).to_i
     		large_rows = large_rows > 0 ? large_rows : 1
-    		large_grid = (featured_products.length.to_f / 2).round
+    		large_grid = (featured_products.length.to_f / large_rows).round
     		img_size = case
     			when large_grid > 8
     				:small
@@ -32,10 +32,22 @@
     		<!-- large_grid: <%= large_grid %> -->
     		<ul class="large-block-grid-<%= large_grid %> small-block-grid-2 medium-block-grid-3">
     		<% featured_products.each_with_index do |product,i| %>
-    			<% if product.product_attachments.count >= 5 %>
-    				<li><%= link_to product do %>
-	    					<div class="pedal_link" style="z-index: <%= 100 - i %>;"><%= image_tag(product.product_attachments[4].product_attachment.url(img_size)) %></div>
-	    				<% end %></li>
+          <% if File.exists?(Rails.root.join("app", "assets", "images", "dod", "#{ product.to_param }-soldout.jpg")) %>
+            <li>
+              <%= link_to product do %>
+                <div class="pedal_link" style="z-index: <%= 100 - i %>;">
+                  <%= image_tag("dod/#{ product.to_param }-soldout.jpg") %>
+                </div>
+              <% end %>
+            </li>
+    			<% elsif product.product_attachments.count >= 5 %>
+            <li>
+              <%= link_to product do %>
+                <div class="pedal_link" style="z-index: <%= 100 - i %>;">
+                  <%= image_tag(product.product_attachments[4].product_attachment.url(img_size)) %>
+                </div>
+              <% end %>
+            </li>
     			<% end %>
     		<% end %>
     		</ul>

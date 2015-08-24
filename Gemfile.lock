@@ -71,7 +71,7 @@ GEM
     bcrypt (3.1.10)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bing_translator (4.4.1)
+    bing_translator (4.5.0)
       json (~> 1.8.0)
       nokogiri (~> 1.6.0)
       savon (~> 2.0)
@@ -151,14 +151,14 @@ GEM
       actionmailer (>= 3.0.4)
       activesupport (>= 3.0.4)
     excon (0.45.4)
-    execjs (2.5.2)
+    execjs (2.6.0)
     extlib (0.9.16)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.5.0)
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
-    faker (1.4.3)
+    faker (1.5.0)
       i18n (~> 0.5)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
@@ -167,11 +167,12 @@ GEM
       thor (~> 0.14)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
-    fog (1.32.0)
+    fog (1.33.0)
       fog-atmos
       fog-aws (>= 0.6.0)
       fog-brightbox (~> 0.4)
       fog-core (~> 1.32)
+      fog-dynect
       fog-ecloud (= 0.1.1)
       fog-google (>= 0.0.2)
       fog-json
@@ -198,17 +199,21 @@ GEM
       fog-json (~> 1.0)
       fog-xml (~> 0.1)
       ipaddress (~> 0.8)
-    fog-brightbox (0.8.0)
+    fog-brightbox (0.9.0)
       fog-core (~> 1.22)
       fog-json
       inflecto (~> 0.0.2)
-    fog-core (1.32.0)
+    fog-core (1.32.1)
       builder
       excon (~> 0.45)
       formatador (~> 0.2)
       mime-types
       net-scp (~> 1.1)
       net-ssh (>= 2.1.3)
+    fog-dynect (0.0.1)
+      fog-core
+      fog-json
+      fog-xml
     fog-ecloud (0.1.1)
       fog-core
       fog-xml
@@ -307,7 +312,7 @@ GEM
       guard (~> 2.2)
       guard-compat (~> 1.1)
     guard-compat (1.2.1)
-    guard-rails (0.7.1)
+    guard-rails (0.7.2)
       guard (~> 2.11)
       guard-compat (~> 1.0)
     guard-rspec (4.6.4)
@@ -346,6 +351,8 @@ GEM
     letter_opener (1.4.1)
       launchy (~> 2.2)
     libv8 (3.16.14.11)
+    lightbox2-rails (2.7.1)
+      railties (>= 3.1)
     listen (3.0.3)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
@@ -353,7 +360,7 @@ GEM
     logging (2.0.0)
       little-plugger (~> 1.1)
       multi_json (~> 1.10)
-    loofah (2.0.2)
+    loofah (2.0.3)
       nokogiri (>= 1.5.9)
     lumberjack (1.0.9)
     mail (2.6.3)
@@ -442,7 +449,7 @@ GEM
       sprockets-rails
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
-    rails-dom-testing (1.0.6)
+    rails-dom-testing (1.0.7)
       activesupport (>= 4.2.0.beta, < 5.0)
       nokogiri (~> 1.6.0)
       rails-deprecated_sanitizer (>= 1.0.1)
@@ -456,7 +463,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
-    ransack (1.6.6)
+    ransack (1.7.0)
       actionpack (>= 3.0)
       activerecord (>= 3.0)
       activesupport (>= 3.0)
@@ -482,7 +489,7 @@ GEM
       vegas (~> 0.1.2)
     retriable (1.4.1)
     riddle (1.5.12)
-    rmagick (2.15.3)
+    rmagick (2.15.4)
     rspec (3.3.0)
       rspec-core (~> 3.3.0)
       rspec-expectations (~> 3.3.0)
@@ -551,7 +558,7 @@ GEM
     spreadsheet (1.0.4)
       ruby-ole (>= 1.0)
     spring (1.3.6)
-    sprockets (3.2.0)
+    sprockets (3.3.2)
       rack (~> 1.0)
     sprockets-rails (2.3.2)
       actionpack (>= 3.0)
@@ -668,6 +675,7 @@ DEPENDENCIES
   jquery-rails
   json-schema
   letter_opener
+  lightbox2-rails
   mechanize
   meta-tags (~> 1.5)
   money

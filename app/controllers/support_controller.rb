@@ -37,7 +37,8 @@ class SupportController < ApplicationController
     if request.post?
       @warranty_registration = WarrantyRegistration.new(warranty_registration_params)
       @warranty_registration.brand_id = website.brand_id
-      if @warranty_registration.save
+      if verify_recaptcha(private_key: website.recaptcha_private_key) && @warranty_registration.valid?
+        @warranty_registration.save
         redirect_to support_path, alert: t('blurbs.warranty_registration_success') and return false
       end
     else

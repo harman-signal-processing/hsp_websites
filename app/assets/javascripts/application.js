@@ -7,8 +7,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require foundation
+//= require lightbox
 //= require jquery-ui.min
-//= require jquery.lightbox-0.5.min
 //= require jquery.datetimepicker
 //= require jquery.bxSlider.min
 //= require jquery.pin

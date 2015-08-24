@@ -10,6 +10,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem "foundation-rails", '~> 5.5'
+gem 'lightbox2-rails'
 gem 'jquery-rails'
 
 # To use debugger
@@ -66,7 +67,7 @@ gem 'RedCloth'
 gem 'figaro'
 gem 'delayed_paperclip'
 gem 'cheetah_mail', "~> 0.6.0"
-gem 'rmagick', :require => 'rmagick'
+gem 'rmagick', require: 'rmagick'
 gem 'typhoeus' # For link validator
 
 ### Could be useful in the future...

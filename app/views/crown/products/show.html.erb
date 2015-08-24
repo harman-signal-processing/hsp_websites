@@ -82,46 +82,61 @@ set_meta_tags title: @product.name,
 		<% end %>
 
 		<% if @product.images_for("product_page").size > 1 %>
-      <ul id="product_thumbnails" class="clearing-thumbs large-block-grid-6 small-block-grid-3" <%= "data-clearing" unless !!(website.no_lightbox) %>>
-        <% @product.images_for("product_page").each do |product_attachment| %>
-          <% if product_attachment.product_media_thumb_file_name.present? %>
-          <li><%= link_to_product_attachment(product_attachment) %></li>
-          <% elsif product_attachment.no_lightbox? || !!(website.no_lightbox) %>
-          <li><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square)), product_attachment.product_attachment.url) %></li>
-          <% else %>
-          <li><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square)), product_attachment.product_attachment.url(:lightbox), class: "lightbox") %></li>
+      <% if !!(website.no_lightbox) %>
+        <ul id="product_thumbnails" class="large-block-grid-6 small-block-grid-3">
+          <% @product.images_for("product_page").each do |product_attachment| %>
+            <% if product_attachment.product_media_thumb_file_name.present? %>
+              <li><%= link_to_product_attachment(product_attachment) %></li>
+            <% else %>
+              <li><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square)), product_attachment.product_attachment.url(:original)) %></li>
+            <% end %>
           <% end %>
-        <% end %>
-      </ul>
+        </ul>
+      <% else %>
+        <ul id="product_thumbnails" class="large-block-grid-6 small-block-grid-3">
+          <% @product.images_for("product_page").each do |product_attachment| %>
+            <% if product_attachment.product_media_thumb_file_name.present? %>
+              <li><%= link_to_product_attachment(product_attachment) %></li>
+            <% else %>
+              <li>
+              <%= link_to(product_attachment.product_attachment.url(:full_width),
+                data: product_attachment.no_lightbox? ? {} : { lightbox: 'product-thumbnails' }) do %>
+                  <%= image_tag(product_attachment.product_attachment.url(:tiny_square)) %>
+                <% end %>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      <% end %>
       <div class="larger_tag"><%= t('product_page.larger_images') %></div>
 		<% end %>
 
-              <% if website.show_pricing? && I18n.default_locale.match(/#{I18n.locale}/i) %>
-                <% if @product.street_price.present? && @product.street_price.to_f > 0.0 %>
+    <% if website.show_pricing? && I18n.default_locale.match(/#{I18n.locale}/i) %>
+      <% if @product.street_price.present? && @product.street_price.to_f > 0.0 %>
 
-                  <% if @product.sale_price && @product.street_price.to_f > @product.sale_price.to_f && @product.sale_price.to_f > 0 %>
-                    <h6 class="price-label"><span class="strike"><%= number_to_currency(@product.street_price) %></span></h6>
-                    <div><%= number_to_currency(@product.sale_price) %></div>
-                    Save <%= number_to_currency(@product.street_price.to_f - @product.sale_price.to_f) %>!
-                    <br/>
-                  <% else %>
-                    <%= number_to_currency(@product.street_price) %>
-                  <% end %>
+        <% if @product.sale_price && @product.street_price.to_f > @product.sale_price.to_f && @product.sale_price.to_f > 0 %>
+          <h6 class="price-label"><span class="strike"><%= number_to_currency(@product.street_price) %></span></h6>
+          <div><%= number_to_currency(@product.sale_price) %></div>
+          Save <%= number_to_currency(@product.street_price.to_f - @product.sale_price.to_f) %>!
+          <br/>
+        <% else %>
+          <%= number_to_currency(@product.street_price) %>
+        <% end %>
 
-                <% elsif @product.msrp && @product.msrp.to_f > 0.0 %>
+      <% elsif @product.msrp && @product.msrp.to_f > 0.0 %>
 
-                  <% if @product.sale_price && @product.msrp.to_f > @product.sale_price.to_f && @product.sale_price.to_f > 0 %>
-                    <h6 class="price-label">MSRP <span class="strike"><%= number_to_currency(@product.msrp) %></span></h6>
-                    <div><%= number_to_currency(@product.sale_price) %></div>
-                    Save <%= number_to_currency(@product.msrp.to_f - @product.sale_price.to_f) %>!
-                    <br/>
-                  <% else %>
-                    <h6 class="price-label">MSRP</h6>
-                    <%= number_to_currency(@product.msrp) %>
-                  <% end %>
+        <% if @product.sale_price && @product.msrp.to_f > @product.sale_price.to_f && @product.sale_price.to_f > 0 %>
+          <h6 class="price-label">MSRP <span class="strike"><%= number_to_currency(@product.msrp) %></span></h6>
+          <div><%= number_to_currency(@product.sale_price) %></div>
+          Save <%= number_to_currency(@product.msrp.to_f - @product.sale_price.to_f) %>!
+          <br/>
+        <% else %>
+          <h6 class="price-label">MSRP</h6>
+          <%= number_to_currency(@product.msrp) %>
+        <% end %>
 
-                <% end %>
-              <% end %>
+      <% end %>
+    <% end %>
 
 			<% if website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !@product.direct_buy_link.blank? %>
 
@@ -173,21 +188,35 @@ set_meta_tags title: @product.name,
 	</div>
 <% end %>
 
-
 		<% if @product.images_for("product_page").size > 1 %>
-		<ul id="product_thumbnails" class="clearing-thumbs large-block-grid-12 small-block-grid-3" data-clearing>
-			<% @product.images_for("product_page").each do |product_attachment| %>
-			  <% if product_attachment.product_media_thumb_file_name.present? %>
-				<li><%= link_to_product_attachment(product_attachment) %></li>
-			  <% elsif product_attachment.no_lightbox? || !!(website.no_lightbox) %>
-				<li><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square)), product_attachment.product_attachment.url) %></li>
-			  <% else %>
-				<li><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square)), product_attachment.product_attachment.url(:lightbox), class: "lightbox") %></li>
-			  <% end %>
-			<% end %>
-		</ul>
+      <% if !!(website.no_lightbox) %>
+        <ul id="product_thumbnails" class="large-block-grid-12 small-block-grid-3">
+          <% @product.images_for("product_page").each do |product_attachment| %>
+            <% if product_attachment.product_media_thumb_file_name.present? %>
+            <li><%= link_to_product_attachment(product_attachment) %></li>
+            <% else %>
+            <li><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square)), product_attachment.product_attachment.url(:original)) %></li>
+            <% end %>
+          <% end %>
+        </ul>
+      <% else %>
+        <ul id="product_thumbnails" class="large-block-grid-12 small-block-grid-3">
+          <% @product.images_for("product_page").each do |product_attachment| %>
+            <% if product_attachment.product_media_thumb_file_name.present? %>
+              <li><%= link_to_product_attachment(product_attachment) %></li>
+            <% else %>
+              <li>
+              <%= link_to(product_attachment.product_attachment.url(:full_width),
+                data: product_attachment.no_lightbox? ? {} : { lightbox: 'product-thumbnails' }) do %>
+                  <%= image_tag(product_attachment.product_attachment.url(:tiny_square)) %>
+                <% end %>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      <% end %>
 		<div class="larger_tag"><%= t('product_page.larger_images') %></div>
-		<% end %>
+  <% end %>
 
 <div class="row">
 	<div class="large-8 columns">
