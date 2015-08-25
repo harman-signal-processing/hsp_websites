@@ -65,7 +65,9 @@ HarmanSignalProcessingWebsite::Application.configure do
     dbx.css
     dbx.js
     digitech.css
+    digitech.js
     dod.css
+    dod.js
     jbl_commercial.css
     jbl_commercial.js
     lexicon.css
