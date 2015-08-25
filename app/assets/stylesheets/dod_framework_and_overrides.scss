@@ -1,5 +1,6 @@
 @import 'foundation/functions';
-@import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,300,600,700);
+// Import didn't work in production, so adding to layout instead
+//@import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,300,600,700);
 
 $dark-gray: #575757;
 $medium-gray: #a8a8a8;
@@ -120,8 +121,9 @@ $topbar-dropdown-toggle-alpha:         0.5;
 // $topbar-link-color:                    #fff;
 // $topbar-link-color-hover:              #fff;
 // $topbar-link-color-active:             #fff;
-$topbar-link-weight:                   300;
+$topbar-link-weight:                   400;
 $topbar-link-font-size:                rem-calc(14px);
+$topbar-link-font-family: $header-font-family;
 $topbar-link-hover-lightness:          -30%; // Darken by 30%
 $topbar-link-bg-hover:                 darken($topbar-bg, 3%);
 $topbar-link-bg-active:                rgba($topbar-bg, 0.6);
