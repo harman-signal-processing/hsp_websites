@@ -85,25 +85,29 @@ set_meta_tags title: @product.name,
       <% if !!(website.no_lightbox) %>
         <ul id="product_thumbnails" class="large-block-grid-6 small-block-grid-3">
           <% @product.images_for("product_page").each do |product_attachment| %>
-            <% if product_attachment.product_media_thumb_file_name.present? %>
-              <li><%= link_to_product_attachment(product_attachment) %></li>
-            <% else %>
-              <li><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square)), product_attachment.product_attachment.url(:original)) %></li>
+            <% unless product_attachment.hide_from_product_page? %>
+              <% if product_attachment.product_media_thumb_file_name.present? %>
+                <li><%= link_to_product_attachment(product_attachment) %></li>
+              <% else %>
+                <li><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square)), product_attachment.product_attachment.url(:original)) %></li>
+              <% end %>
             <% end %>
           <% end %>
         </ul>
       <% else %>
         <ul id="product_thumbnails" class="large-block-grid-6 small-block-grid-3">
           <% @product.images_for("product_page").each do |product_attachment| %>
-            <% if product_attachment.product_media_thumb_file_name.present? %>
-              <li><%= link_to_product_attachment(product_attachment) %></li>
-            <% else %>
-              <li>
-              <%= link_to(product_attachment.product_attachment.url(:full_width),
-                data: product_attachment.no_lightbox? ? {} : { lightbox: 'product-thumbnails' }) do %>
-                  <%= image_tag(product_attachment.product_attachment.url(:tiny_square)) %>
-                <% end %>
-              </li>
+            <% unless product_attachment.hide_from_product_page? %>
+              <% if product_attachment.product_media_thumb_file_name.present? %>
+                <li><%= link_to_product_attachment(product_attachment) %></li>
+              <% else %>
+                <li>
+                <%= link_to(product_attachment.product_attachment.url(:full_width),
+                  data: product_attachment.no_lightbox? ? {} : { lightbox: 'product-thumbnails' }) do %>
+                    <%= image_tag(product_attachment.product_attachment.url(:tiny_square)) %>
+                  <% end %>
+                </li>
+              <% end %>
             <% end %>
           <% end %>
         </ul>
@@ -192,25 +196,29 @@ set_meta_tags title: @product.name,
       <% if !!(website.no_lightbox) %>
         <ul id="product_thumbnails" class="large-block-grid-12 small-block-grid-3">
           <% @product.images_for("product_page").each do |product_attachment| %>
-            <% if product_attachment.product_media_thumb_file_name.present? %>
-            <li><%= link_to_product_attachment(product_attachment) %></li>
-            <% else %>
-            <li><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square)), product_attachment.product_attachment.url(:original)) %></li>
+            <% unless product_attachment.hide_from_product_page? %>
+              <% if product_attachment.product_media_thumb_file_name.present? %>
+                <li><%= link_to_product_attachment(product_attachment) %></li>
+              <% else %>
+                <li><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square)), product_attachment.product_attachment.url(:original)) %></li>
+              <% end %>
             <% end %>
           <% end %>
         </ul>
       <% else %>
         <ul id="product_thumbnails" class="large-block-grid-12 small-block-grid-3">
           <% @product.images_for("product_page").each do |product_attachment| %>
-            <% if product_attachment.product_media_thumb_file_name.present? %>
-              <li><%= link_to_product_attachment(product_attachment) %></li>
-            <% else %>
-              <li>
-              <%= link_to(product_attachment.product_attachment.url(:full_width),
-                data: product_attachment.no_lightbox? ? {} : { lightbox: 'product-thumbnails' }) do %>
-                  <%= image_tag(product_attachment.product_attachment.url(:tiny_square)) %>
-                <% end %>
-              </li>
+            <% unless product_attachment.hide_from_product_page? %>
+              <% if product_attachment.product_media_thumb_file_name.present? %>
+                <li><%= link_to_product_attachment(product_attachment) %></li>
+              <% else %>
+                <li>
+                <%= link_to(product_attachment.product_attachment.url(:full_width),
+                  data: product_attachment.no_lightbox? ? {} : { lightbox: 'product-thumbnails' }) do %>
+                    <%= image_tag(product_attachment.product_attachment.url(:tiny_square)) %>
+                  <% end %>
+                </li>
+              <% end %>
             <% end %>
           <% end %>
         </ul>
