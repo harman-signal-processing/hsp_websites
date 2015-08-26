@@ -30,9 +30,10 @@ RSpec.describe "artists/index.html.erb", as: :view do
     render
   end
 
-  it "should show the featured artist" do
-    expect(rendered).to have_xpath("//img[@src='#{@artist.artist_photo.url(:feature)}']")
-  end
+  # This appears in the feature area now, so not on this view
+  #it "should show the featured artist" do
+  #  expect(rendered).to have_xpath("//img[@src='#{@artist.artist_photo.url(:feature)}']")
+  #end
 
   it "should not have a signup form" do
     expect(rendered).not_to have_link "Become a #{@brand.name} Artist"

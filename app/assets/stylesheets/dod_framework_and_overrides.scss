@@ -139,7 +139,7 @@ $topbar-menu-link-weight:              200;
 // $topbar-menu-link-color-toggled:       #888;
 // $topbar-menu-icon-color-toggled:       #888;
 // $topbar-transition-speed:              300ms;
-// $topbar-breakpoint:                    rem-calc(940px); // Change to 9999px for always mobile layout
+$topbar-breakpoint:                    rem-calc(800px); // Change to 9999px for always mobile layout
 // $topbar-media-query:                   "only screen and (min-width: #{$topbar-breakpoint})";
 // $topbar-divider-border-bottom:         solid 1px lighten($topbar-bg-color, 10%);
 // $topbar-divider-border-top:            solid 1px darken($topbar-bg-color, 10%);
@@ -157,6 +157,11 @@ $topbar-sticky-class:                  ".sticky";
 	.logo-container img {
 		padding: 4px 0px 0px 6px;
 	}
+}
+.top-bar-section {
+  li:not(.has-form) a:not(.button) {
+    text-transform: uppercase;
+  }
 }
 
 div.product-title-block, div.small-title-block {

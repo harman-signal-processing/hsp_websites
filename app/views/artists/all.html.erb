@@ -1,17 +1,20 @@
 <% set_meta_tags title: t('titles.artists'),
 				 reverse: true %>
 
-<div class="alphanav">
+<ul class="pagination">
 	<% ("a".."z").each do |letter| %>
 		<% if @all_artists[letter].size > 0 %>
-			<%= link_to letter, all_artists_path(letter), class: (letter == params[:letter]) ? "current" : "" %>
+      <li class="<%= 'current' if letter == params[:letter] %>"><%= link_to letter, all_artists_path(letter) %></li>
 		<% else %>
-			<span class="nolink"><%= letter %></span>
+      <li class="unavailable"><%= link_to letter, '' %></li>
 		<% end %>
 	<% end %>
-</div>
+</ul>
 
-<% @artists.each do |artist| %>
-	<%= render_partial "artist", artist: artist %>
-<% end %>
-<div class="clear"></div>
+<div data-equalizer>
+  <ul class="large-block-grid-3 medium-block-grid-2 small-block-grid-1">
+    <% @artists.each do |artist| %>
+      <li><%= render_partial "artist", artist: artist %></li>
+    <% end %>
+  </ul>
+</div>

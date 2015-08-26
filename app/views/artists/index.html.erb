@@ -13,21 +13,27 @@
 	}
 %>
 
-<%= cache ["artist_slideshow", @featured_artists, website.brand, I18n.locale] do %>
-	<div id="featured_artist_box">
-		<%= artist_slideshow(slides: @featured_artists, transition: 'toggle') %>
-	</div>
+<%= content_for :feature do %>
+  <%= cache ["artist_slideshow", @featured_artists, website.brand, I18n.locale] do %>
+		<% slides = @featured_artists %>
+		<% if slides.size > 0 %>
+			<%= orbit_slideshow(slides: slides, duration: 6000, navigation_arrows: true, transition: "fade") %>
+		<% end %>
+	<% end %>
 <% end %>
 
 <%= cache ["artist_index_content", website.brand, Time.now.hour, I18n.locale] do %>
-	<% ArtistTier.for_artist_page.each do |artist_tier| %>
-		<% if artist_tier.artists_for(website).size > 0 %>
-			<% artist_tier.artists_for(website).shuffle[0,3].each do |artist| %>
-			  	<%= render_partial "artist", artist: artist %>
-			<% end %>
-			<div class="clear"></div>
-		<% end %>
-	<% end %>
+  <% ArtistTier.for_artist_page.each do |artist_tier| %>
+    <% if artist_tier.artists_for(website).size > 0 %>
+      <div data-equalizer>
+        <ul class="large-block-grid-3 medium-block-grid-2 small-block-grid-1">
+          <% artist_tier.artists_for(website).shuffle[0,3].each do |artist| %>
+            <li><%= render_partial "artist", artist: artist %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  <% end %>
 <% end %>
 
 <h3 style="text-align: right"><%= link_to "> all artists", all_artists_path %></h3>

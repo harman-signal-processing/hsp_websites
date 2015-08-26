@@ -15,9 +15,8 @@ $medium-gray: #a8a8a8;
 $light-gray: #d0d0d0;
 $strip-bg-even: #E1E1E1;
 $strip-bg-odd: #000000;
-$medium_blue: #516fab;
-$dark_blue: #14277c;
-$darkest_blue: #000f40;
+//$dark_blue: #14277c;
+$dark_blue: #002672;
 
 $default-float: left;
 
@@ -172,6 +171,7 @@ $clearing-carousel-height: 80px;
 $clearing-carousel-thumb-width: 80px;
 $clearing-carousel-thumb-active-border: 4px solid $primary-color;
 
+$orbit-caption-bg: rgba(0,0,0,0.7) !default;
 $panel-bg: lighten($light-gray, 7%);
 
 // $table-bg: #fff;
@@ -234,7 +234,7 @@ $topbar-menu-link-weight:              200;
 // $topbar-menu-link-color-toggled:       #888;
 // $topbar-menu-icon-color-toggled:       #888;
 // $topbar-transition-speed:              300ms;
-// $topbar-breakpoint:                    rem-calc(940px); // Change to 9999px for always mobile layout
+$topbar-breakpoint:                    rem-calc(990px); // Change to 9999px for always mobile layout
 // $topbar-media-query:                   "only screen and (min-width: #{$topbar-breakpoint})";
 // $topbar-divider-border-bottom:         solid 1px lighten($topbar-bg-color, 10%);
 // $topbar-divider-border-top:            solid 1px darken($topbar-bg-color, 10%);
@@ -244,14 +244,27 @@ $topbar-sticky-class:                  ".sticky";
 @import 'foundation';
 @import 'brand_common';
 
-.top-bar-section .has-form {
-  padding-top: 10px;
+.top-bar-section {
+  @media only screen and (max-width: 1140px) and (min-width: 1000px) {
+    li:not(.has-form) a:not(.button) {
+      padding-left: rem-calc(16);
+      padding-right: rem-calc(16);
+    }
+  }
+  .has-form {
+    padding: rem-calc(10);
+    @media only screen and (max-width: 1150px) {
+      width: 160px;
+      input.button {
+        font-size: rem-calc(10);
+        font-weight: 200;
+      }
+    }
+  }
 }
 
-@media only screen and (min-width: 720px) {
-	.logo-container img {
-		padding: 22px 8px 0px;
-	}
+.logo-container img {
+  padding: 22px 8px 0px;
 }
 #feature_spacer {
 	#tagline {
@@ -388,10 +401,10 @@ h2.special_offer {
     size: 13px;
   }
 }
-@media only screen and (min-width: 720px) {
-	.featured-news-image-container {
-		background: black !important;
-	}
+.artist-panel {
+  img {
+    padding: 8px 8px 8px 0;
+    float: left;
+  }
 }
-
 

@@ -65,7 +65,7 @@
 	<hr/>
 	<h3 class="subheader"><%= t('titles.related_products') %></h3>
 
-	<ul class="large-block-grid-5 small-block-grid-2">
+	<ul class="large-block-grid-3 small-block-grid-2">
 	<% @software.products.each do |product| %>
 		<li><%= render_partial "product_families/product_square", product: product, compare: false %></li>
 	<% end %>

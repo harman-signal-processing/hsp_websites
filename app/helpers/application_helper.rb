@@ -133,11 +133,24 @@ module ApplicationHelper
 
   # Used by the "orbit_slideshow" method to render a frame
   def orbit_slideshow_frame(slide, position=0)
-    slide_link = (slide.string_value =~ /^\// || slide.string_value =~ /^http/i) ? slide.string_value : "/#{params[:locale]}/#{slide.string_value}"
+    if slide.is_a?(Artist)
+      artist = slide
+      artist_brand = artist.artist_brands.where(brand_id: website.brand_id).first
 
-    slide_content = (slide.string_value.blank?) ?
-        image_tag(slide.slide.url) :
-        link_to(image_tag(slide.slide.url), slide_link)
+      slide_content = link_to(artist) do
+        image_tag(artist.artist_photo.url(:feature)) +
+        content_tag(:div, class:"orbit-caption") do
+          content_tag(:h2, artist.name) +
+          content_tag(:p, artist_brand.intro.to_s.html_safe)
+        end
+      end
+    else
+      slide_link = (slide.string_value =~ /^\// || slide.string_value =~ /^http/i) ? slide.string_value : "/#{params[:locale]}/#{slide.string_value}"
+
+      slide_content = (slide.string_value.blank?) ?
+          image_tag(slide.slide.url) :
+          link_to(image_tag(slide.slide.url), slide_link)
+    end
 
     # We may want to use the built-in captions
     # slide_content += content_tag(:div, "caption content", class: "orbit-caption")

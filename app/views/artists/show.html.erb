@@ -14,93 +14,109 @@
 %>
 
 <% if @artist.show_banner? && !@artist.artist_photo_file_name.blank? %>
-	<div id="big_artist_photo">
-		<%= image_tag(@artist.artist_photo.url(:feature)) %>
+  <%= content_for :feature do %>
+		<%#= image_tag(@artist.artist_photo.url(:feature)) %>
+		<%= orbit_slideshow(slides: [@artist], navigation_arrows: false) %>
+  <% end %>
+  <div class="row">
+    <div class="small-12 columns">
+      <% if @artist.artist_products.size > 0 %>
+        <ul class="large-block-grid-6 medium-block-grid-4 small-block-grid-2">
+          <% @artist.artist_products.each do |artist_product| %>
+            <% if artist_product.product.photo %>
+              <li class="text-center">
+                <% if artist_product.product.brand == website.brand %>
+                  <%= link_to image_tag(artist_product.product.photo.product_attachment.url(:horiz_thumb)), artist_product.product %>
+                <% else %>
+                  <%= link_to image_tag(artist_product.product.photo.product_attachment.url(:horiz_thumb)),
+                      product_url(artist_product.product, host: artist_product.product.brand.default_website.url),
+                      target: "_blank" %>
+                <% end %>
+                <div class="hint"><%= artist_product.product.name %></div>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
 	</div>
-	<% if @artist.artist_products.size > 0 %>
-	<div id="artist_product_ribbon">
-		<% @artist.artist_products.each do |artist_product| %>
-			<% if artist_product.product.photo %>
-			<div class="product_tile">
-			<% if artist_product.product.brand == website.brand %>
-				<%= link_to image_tag(artist_product.product.photo.product_attachment.url(:horiz_thumb)), artist_product.product %>
-			<% else %>
-				<%= link_to image_tag(artist_product.product.photo.product_attachment.url(:horiz_thumb)), 
-						product_url(artist_product.product, host: artist_product.product.brand.default_website.url), 
-						target: "_blank" %>
-			<% end %>
-			<div class="hint"><%= artist_product.product.name %></div>
-			</div>
-			<% end %>
-		<% end %>
-		<div class="clear"></div>
-	</div>
-	<% end %>
 <% end %>
 
-<div class="description">
+<div class="row">
+
+  <div class="medium-8 small-12 columns">
+    <h1><%= @artist.name %></h1>
+    <%= render 'shared/add_this' %>
+    <div>
+      <%=raw translate_content(@artist, :bio) %>
+    </div>
+
+    <p>&nbsp;</p>
+    <% unless @artist.website.blank? %>
+      <%= link_to 'Artist Website', @artist.website, target: "_blank", class: 'tiny secondary button' %>
+    <% end %>
+  </div>
+
 	<% if !@artist.show_banner? && !@artist.artist_photo_file_name.blank? %>
-	<div id="artist_callout" class="artist_callout_container">
-		<% if !@artist.artist_photo_file_name.blank? %>
-			<div><%= image_tag @artist.artist_photo.url(:medium) %></div>
-		<% end %>
-		<% if @artist.artist_products.size > 0 %>
-			<%= @artist.name %> uses:
-			<ul>
-			<% @artist.artist_products.each do |artist_product| %>
-				<% if artist_product.product.brand == website.brand %>
-				<li><%= link_to artist_product.product.name, artist_product.product %>
-					<% if !artist_product.quote.blank? %><i><%= artist_product.quote %></i><% end %>
-				</li>
-				<% else %>
-				<li><%= link_to artist_product.product.name, 
-							product_url(artist_product.product, host: artist_product.product.brand.default_website.url), 
-							target: "_blank" %></li>
-				<% end %>
-			<% end %>
-			</ul>
-		<% end %>
-		<% if !@artist.artist_product_photo_file_name.blank? %>
-			<div id="artist_product_photo_medium"><%= image_tag @artist.artist_product_photo.url(:medium) %></div>
-		<% end %>
-	</div>
+    <div class="medium-4 small-12 columns">
+      <div class="callout panel">
+        <% if !@artist.artist_photo_file_name.blank? %>
+          <%= image_tag @artist.artist_photo.url(:medium) %>
+        <% end %>
+        <% if @artist.artist_products.size > 0 %>
+
+          <h6><%= @artist.name %> uses:</h6>
+          <ul>
+          <% @artist.artist_products.each do |artist_product| %>
+            <% if artist_product.product.brand == website.brand %>
+            <li><%= link_to artist_product.product.name, artist_product.product %>
+              <% if !artist_product.quote.blank? %><i><%= artist_product.quote %></i><% end %>
+            </li>
+            <% else %>
+            <li><%= link_to artist_product.product.name,
+                  product_url(artist_product.product, host: artist_product.product.brand.default_website.url),
+                  target: "_blank" %></li>
+            <% end %>
+          <% end %>
+          </ul>
+        <% end %>
+        <% if !@artist.artist_product_photo_file_name.blank? %>
+          <div id="artist_product_photo_medium"><%= image_tag @artist.artist_product_photo.url(:medium) %></div>
+        <% end %>
+      </div>
+    </div>
 	<% elsif @artist.artist_products.size > 0 %>
-	<div id="artist_callout" class="artist_callout_container">
-		<h3><%= website.brand_name %> Gear</h3>
-		<% if !@artist.artist_product_photo_file_name.blank? %>
-			<div id="artist_product_photo_medium"><%= image_tag @artist.artist_product_photo.url(:medium) %></div>
-		<% end %>
-		
-		<%= @artist.name %> uses:
-		<ul>
-		<% @artist.artist_products.each do |artist_product| %>
-			<% if artist_product.product.brand == website.brand %>
-			<li><%= link_to artist_product.product.name, artist_product.product %>
-				<% if !artist_product.quote.blank? %><i><%= artist_product.quote %></i><% end %>
-			</li>
-			<% else %>
-			<li><%= link_to artist_product.product.name, 
-						product_url(artist_product.product, host: artist_product.product.brand.default_website.url), 
-						target: "_blank" %></li>
-			<% end %>
-		<% end %>
-		</ul>
-	</div>
+    <div class="medium-4 small-12 columns">
+      <div class="callout panel">
+        <h3><%= website.brand_name %> Gear</h3>
+        <% if !@artist.artist_product_photo_file_name.blank? %>
+          <%= image_tag @artist.artist_product_photo.url(:medium) %>
+        <% end %>
+
+        <h6><%= @artist.name %> uses:</h6>
+        <ul>
+        <% @artist.artist_products.each do |artist_product| %>
+          <% if artist_product.product.brand == website.brand %>
+          <li><%= link_to artist_product.product.name, artist_product.product %>
+            <% if !artist_product.quote.blank? %><i><%= artist_product.quote %></i><% end %>
+          </li>
+          <% else %>
+          <li><%= link_to artist_product.product.name,
+                product_url(artist_product.product, host: artist_product.product.brand.default_website.url),
+                target: "_blank" %></li>
+          <% end %>
+        <% end %>
+        </ul>
+      </div>
+    </div>
 	<% end %>
-	
-	<h1><%= @artist.name %></h1>
-	<%=raw translate_content(@artist, :bio) %>
-	<%= render 'shared/add_this' %>	
-	<% unless @artist.website.blank? %>
-  	<div><%= link_to @artist.website, @artist.website, target: "_blank" %></div>
-	<% end %>
-	<div class="clear"></div>
 </div>
 
-<div class="clear"></div>
+<p>&nbsp;</p>
 
 <% if current_user && can?(:manage, @artist) %>
 <div class="admin_function">
 	<%= link_to "edit", edit_admin_artist_path(@artist) %>
 </div>
 <% end %>
+
