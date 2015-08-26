@@ -1,11 +1,16 @@
-<h2>Resend confirmation instructions</h2>
+<div class="row">
+  <div class="medium-6 medium-offset-3 small-12 columns">
+    <h2>Resend confirmation instructions</h2>
 
-<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-  <%= devise_error_messages! %>
+    <div class="panel">
+      <%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+        <%= devise_error_messages! %>
 
-  <div class="form_field"><%= f.label :email %><br />
-  <%= f.email_field :email %>
-	<%= f.submit "Resend confirmation instructions" %></div>
-<% end %>
+        <%= f.input :email %>
+        <%= f.submit "Resend confirmation instructions", class: 'button' %>
+      <% end %>
+    </div>
 
-<%= render partial: "devise/shared/links" %>
+    <%= render partial: "devise/shared/links" %>
+  </div>
+</div>

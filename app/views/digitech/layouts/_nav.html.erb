@@ -1,3 +1,12 @@
+<div class="text-right login-links">
+  <% if artist_signed_in? %>
+    <%= link_to "My Artist Profile", edit_artist_registration_path %>
+    <%= link_to "Logout", destroy_artist_session_path %>
+  <% else %>
+    <%#= link_to "Become a #{website.brand_name} Artist", become_an_artist_path %>
+    <%= link_to "Artist Login", new_artist_session_path %>
+  <% end %>
+</div>
 
 <%= cache ["header", website.brand, I18n.locale] do %>
 <div class="sticky top-bar-container">

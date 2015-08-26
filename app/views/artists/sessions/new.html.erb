@@ -1,17 +1,21 @@
-<h2>Sign in</h2>
+<div class="row">
+  <div class="medium-6 medium-offset-3 small-12 columns">
+    <h2>Artist Sign In</h2>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="form_field"><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
+    <div class="panel">
+      <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <%= f.input :email %>
+        <%= f.input :password %>
 
-  <div class="form_field"><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
+        <% if devise_mapping.rememberable? -%>
+          <%= f.input :remember_me, as: :boolean %>
+        <% end %>
 
-  <% if devise_mapping.rememberable? -%>
-    <div class="form_field"><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-  <% end -%>
+        <%= f.submit "Sign in", class: 'button' %>
+      <% end %>
+    </div>
 
-  <div class="form_field"><%= f.submit "Sign in" %></div>
-<% end %>
+    <%= render partial: "devise/shared/links" %>
 
-<%= render partial: "devise/shared/links" %>
+  </div>
+</div>

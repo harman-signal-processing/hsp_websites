@@ -48,7 +48,7 @@
     <h1><%= @artist.name %></h1>
     <%= render 'shared/add_this' %>
     <div>
-      <%=raw translate_content(@artist, :bio) %>
+      <%=raw textilize(@artist.bio) %>
     </div>
 
     <p>&nbsp;</p>
