@@ -1,7 +1,7 @@
 class Admin::SiteElementsController < AdminController
   before_filter :initialize_site_element, only: :create
   load_and_authorize_resource
-  
+
   # GET /site_elements
   # GET /site_elements.xml
   def index

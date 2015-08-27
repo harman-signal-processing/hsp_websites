@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150702164740) do
+ActiveRecord::Schema.define(version: 20150827164515) do
 
   create_table "admin_logs", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -1258,7 +1258,10 @@ ActiveRecord::Schema.define(version: 20150702164740) do
     t.string   "executable_content_type", limit: 255
     t.integer  "executable_file_size",    limit: 4
     t.datetime "executable_updated_at"
+    t.string   "cached_slug",             limit: 255
   end
+
+  add_index "site_elements", ["cached_slug"], name: "index_site_elements_on_cached_slug", using: :btree
 
   create_table "software_activations", force: :cascade do |t|
     t.integer  "software_id",    limit: 4

@@ -1,11 +1,9 @@
 <h1>Search Warranty Registrations</h1>
 
 <ul class="button-group round">
-  <!-- excel output broken
-  <li><%#= link_to "Export All To Excel",
-			admin_warranty_registrations_path(format: 'csv'),
+  <li><%= link_to "Download All #{ @brand_registrations.length } To Excel",
+			admin_warranty_registrations_path(format: 'xls'),
 			class: "small secondary button" %></li>
-      -->
 <% if can? :create, WarrantyRegistration %>
 	<li><%= link_to "New Registration",
 			new_admin_warranty_registration_path,
@@ -46,7 +44,7 @@
 
 <% @warranty_registrations.each do |warranty_registration| %>
   <tr style="background: <%= cycle 'white', 'none' %>">
-    <td><%= link_to "#{warranty_registration.first_name} #{warranty_registration.last_name}", 
+    <td><%= link_to "#{warranty_registration.first_name} #{warranty_registration.last_name}",
     			[:admin, warranty_registration] %></td>
     <td><%= warranty_registration.email %></td>
     <td>

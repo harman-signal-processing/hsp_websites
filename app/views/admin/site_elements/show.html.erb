@@ -42,9 +42,18 @@
 	<p>You can link to this file with the following URL(s):</p>
 	<ul class="list">
 		<li><b>
-		<%= @site_element.resource.url("original", timestamp: false) %>
+		<%= link_to @site_element.resource.url("original", timestamp: false),
+       @site_element.resource.url("original", timestamp: false) %>
 		</b></li>
 	</ul>
+  <p>Or, use this permalink which always points to the most recent version of this resource:</p>
+  <ul class="list">
+    <li><b>
+      <%= link_to site_resource_url(@site_element).gsub(/\?.*/, ''),
+        site_resource_url(@site_element).gsub(/\?.*/, '') %>
+    </b></li>
+  </ul>
+  <p><i>Note: the permalink is built of the name of the resource. Don't rename it if you want to keep the permalink active.</i></p>
 	<% if @site_element.is_image? %>
 		<i>Other sizes:</i>
 		<ul class="list">
@@ -78,16 +87,24 @@
 	<p>You can link to this file with the following URL:</p>
 	<ul class="list">
 		<li><b>
-		<%= @site_element.executable.url("original", timestamp: false) %>
+      <%= link_to @site_element.executable.url("original", timestamp: false),
+        @site_element.executable.url("original", timestamp: false) %>
 		</b></li>
 	</ul>
+  <p>Or, use this permalink which always points to the most recent version of this resource:</p>
+  <ul class="list">
+    <li><b>
+      <%= link_to site_resource_url(@site_element).gsub(/\?.*/, ''), site_resource_url(@site_element).gsub(/\?.*/, '')  %>
+    </b></li>
+  </ul>
+  <p><i>Note: the permalink is built of the name of the resource. Don't rename it if you want to keep the permalink active.</i></p>
 <% end %>
 
 		</div>
 		<div class="group">
-		<p>Choose one or more product below. Doing so will add this file to the 
+		<p>Choose one or more product below. Doing so will add this file to the
 			manuals/documentation area on each associated product page.</p>
-			
+
 			<%= simple_form_for [:admin, @product_site_element], remote: true do |f| %>
 				<%= f.hidden_field :site_element_id %>
 				<%= hidden_field_tag :called_from, "site_element" %>

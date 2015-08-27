@@ -101,6 +101,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
   # resources :registered_downloads
   # debugging help
   get "/site_info" => 'main#site_info'
+  get '/resource/:id' => "site_elements#show", as: :site_resource
 
   devise_for :artists, controllers: { registrations: "artist_registrations" }
   devise_scope :artists do
@@ -438,6 +439,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     match '/:controller(/:action(/:id))', via: :all
     match "*custom_route" => "pages#show", as: :custom_route, via: :all
   end
+
 
   match '*a', to: 'errors#404', via: :all
 
