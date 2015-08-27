@@ -1,4 +1,7 @@
 class SiteElement < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :slug_candidates
+
   belongs_to :brand, touch: true
   has_attached_file :resource, {
     styles: { large: "550x370",
@@ -37,12 +40,32 @@ class SiteElement < ActiveRecord::Base
     end
   end
 
+  def slug_candidates
+    [
+      :name,
+      [:brand_name, :name],
+      [:brand_name, :resource_type_key, :name],
+    ]
+  end
+
+  def brand_name
+    brand.name
+  end
+
   def is_image?
     !!(resource_file_name.to_s.match(/(png|jpg|jpeg|tif|tiff|bmp|gif)$/i))
   end
 
   def resource_type_key
     self.resource_type.parameterize.underscore
+  end
+
+  def attachment_type
+    if resource_file_name.present?
+      'resource'
+    elsif executable_file_name.present?
+      'executable'
+    end
   end
 
 end
