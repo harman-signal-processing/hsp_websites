@@ -50,8 +50,6 @@ HarmanSignalProcessingWebsite::Application.configure do
     introducing_stompbox.css
     istomp.js
     istomp.css
-    vocalist-by-digitech.css
-    hardwire-by-digitech.css
     admin.js
     admin.css
     archimedia.css
