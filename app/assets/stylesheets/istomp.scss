@@ -10,9 +10,6 @@ $divider: asset-url('digitech/gray_horizontal_divider.png');
 }
 
 header#product_header {
-	margin-left: 20px;
-	margin-top: 5px;
-	height: 46px;
 	position: relative;
 	h1 {
 		font-size: 38px;
@@ -38,42 +35,7 @@ header#product_header {
 	}
 }
 
-ul#product_main_tabs {
-	margin: -40px 0px 0px 260px;
-	width: 730px;
-	overflow: hidden;
-	padding: 0;
-	border-bottom: none;
-	height: 24px;
-	li {
-		letter-spacing: -0.03em;
-		margin: 0px 5px;
-		a:link, a:visited {
-			border: none;
-			padding: 0px 4px;
-			color: #797979;
-			font: {
-				family: $font_family;
-				weight: bold;
-				size: 12px;
-			}
-			text-transform: uppercase;
-		}
-		&.current {
-			margin-top: 0px;
-			a {
-				padding-bottom: 0px;
-				padding-top: 0px;
-				border-bottom: none;
-				color: #111;
-			}
-		}
-	}
-}
-
-section#product_content {
-	margin-left: 20px;
-	margin-right: -10px;
+#product_content {
 	position: relative;
 	height: 415px;
 	overflow: hidden;
@@ -82,6 +44,10 @@ section#product_content {
 		position: bottom center;
 		repeat: no-repeat;
 	}
+  p {
+    font-size: 15px;
+    line-height: 1.3;
+  }
 	div#demo_msg {
 		font-size: 10px;
 		letter-spacing: normal;
@@ -96,14 +62,6 @@ section#product_content {
 			image: asset-url('digitech/istomp/guitar_player_bg.jpg');
 			position: top right;
 			repeat: no-repeat;
-		}
-		#right_column {
-			top: 36px;
-			width: 415px;
-			height: 375px;
-		}
-		#left_column {
-			height: 375px;
 		}
 	}
 	&.stomp_shop {
@@ -284,11 +242,15 @@ section#product_bottom_content {
 		position: bottom center;
 		repeat: no-repeat;
 	}
+  p {
+    font-size: 14px;
+    line-height: 1.4;
+  }
 	.callout {
 		height: 404px;
 		overflow: hidden;
 		font-size: 12px;
-		line-height: 21px;
+    line-height: 1.2;
 		a:link, a:visited {
 			text-decoration: none;
 			font-weight: bold;
@@ -431,19 +393,5 @@ form.callout {
 				}
 			}
 		}
-	}
-}
-a.button {
-	&:link, &:visited {
-		font-size: 15px;
-		background: #e12029;
-		color: white;
-		padding: 5px 14px 4px;
-		text-decoration: none;
-		text-shadow: 0px 1px 0px #63090d;
-		box-shadow: 0px 2px 4px #999;
-	}
-	&:hover {
-		background: red;
 	}
 }

@@ -103,7 +103,7 @@ set_meta_tags title: @product.name,
           <% @product.images_for("product_page").each do |product_attachment| %>
             <% unless product_attachment.hide_from_product_page? %>
               <% if product_attachment.product_media_thumb_file_name.present? %>
-              <li><%= link_to_product_attachment(product_attachment) %></li>
+                <!--<li><%#= link_to_product_attachment(product_attachment) %></li>-->
               <% else %>
               <li><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square)), product_attachment.product_attachment.url(:original)) %></li>
               <% end %>
@@ -115,7 +115,7 @@ set_meta_tags title: @product.name,
           <% @product.images_for("product_page").each do |product_attachment| %>
             <% unless product_attachment.hide_from_product_page? %>
               <% if product_attachment.product_media_thumb_file_name.present? %>
-                <li><%= link_to_product_attachment(product_attachment) %></li>
+                <!--<li><%#= link_to_product_attachment(product_attachment) %></li>-->
               <% else %>
                 <li>
                 <%= link_to(product_attachment.product_attachment.url(:original),

@@ -1,21 +1,22 @@
 <% if product.current_sub_products.size > 0 %>
 
 	<div id="sub_products">
-		<% product.current_sub_products.each do |child| %>
+    <ul class="large-block-grid-5 medium-block-grid-4 small-block-grid-2">
+      <% product.current_sub_products.each do |child| %>
 
-		<%= cache ["sub_product", child, I18n.locale] do %>
-		<div class="sub_product">
-			<% if child.product.photo %>
-			<%= link_to(image_tag(child.product.photo.product_attachment.url(:thumb), alt: child.product.name), child.product) %>
-			<% end %>
-			<%#= render_partial "products/child_sample", child: child %>
-			<h5><%= child.product.name %></h5>
-			<p><%= child.product.short_description %></p>
-		</div>
-		<% end %>
-		
-		<% end %>
-		<div style="clear:both"></div>
+        <%= cache ["sub_product", child, I18n.locale] do %>
+        <li class="sub_product text-center">
+          <% if child.product.photo %>
+            <%= link_to(image_tag(child.product.photo.product_attachment.url(:thumb), alt: child.product.name), child.product) %>
+          <% end %>
+          <%#= render_partial "products/child_sample", child: child %>
+          <h5><%= child.product.name %></h5>
+          <p><%= child.product.short_description %></p>
+        </li>
+        <% end %>
+
+      <% end %>
+    </ul>
 	</div>
 
 <% end %>

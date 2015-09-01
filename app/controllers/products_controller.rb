@@ -174,7 +174,7 @@ class ProductsController < ApplicationController
       render_template
     end
   end
-  
+
   # GET /products/songlist/1.xml
   # where "1" is a ProductAttachment id (not a Product id)
   def songlist
@@ -189,13 +189,13 @@ class ProductsController < ApplicationController
       format.xml
     end
   end
-  
+
   protected
-  
+
   def ensure_best_url
     @product = Product.where(cached_slug: params[:id]).first || Product.find(params[:id])
     unless @product.belongs_to_this_brand?(website)
-      redirect_to product_families_path and return 
+      redirect_to product_families_path and return
     end
     # redirect_to @product, status: :moved_permanently unless @product.friendly_id_status.best?
   end

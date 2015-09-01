@@ -62,10 +62,17 @@ set_meta_tags title: @product.name,
 
 <%= cache ["product_page", @product, @online_retailer_link, I18n.locale, session['geo_country']] do %>
 
-<header id="product_header" class="istomp">
-	<%= image_tag("#{website.folder}/istomp/logo.png", alt: @product.name) %>
-	<%= draw_main_tabs @product,
-		tabs: "description|extended_description|features|reviews|specifications|downloads_and_docs|gallery" %>
+<header id="product_header">
+  <div class="row collapse">
+    <div class="medium-3 columns">
+      <%= image_tag("#{website.folder}/istomp/logo.png", alt: @product.name) %>
+    </div>
+    <div class="medium-9 columns">
+      <%= draw_main_tabs @product,
+        tabs: "description|extended_description|features|specifications|downloads_and_docs|gallery",
+        zurb: true
+      %>
+    </div>
 	<% if @product.to_param == 'istomp' %>
 		<div id="tec_burst">
 			<%= image_tag "shared/TECNomineeLogo2012.png", alt: "2012 TEC Nominee" %>
@@ -73,9 +80,9 @@ set_meta_tags title: @product.name,
 	<% end %>
 </header>
 
-<section id="product_content" class="istomp">
+<section id="product_content" class="row collapse istomp">
 	<h2><%= @product.short_description %></h2>
-	<div id="left_column">
+	<div class="medium-3 columns">
     <% if @product.discontinued? %>
       <span class="discontinued">(<%= t('discontinued') %>)</span>
     <% end %>
@@ -96,14 +103,14 @@ set_meta_tags title: @product.name,
 		<% end %>
 	</div>
 
-	<div id="right_column">
+  <div class="medium-5 columns end">
 		<%= draw_main_tabs_content @product,
-		tabs: "description|extended_description|features|reviews|specifications|downloads_and_docs|gallery" %>
+      tabs: "description|extended_description|features|specifications|downloads_and_docs|gallery",
+      zurb: true %>
 
-		<%= image_tag "made_for_ipod_ipad_iphone.png", alt: "Made for iPod, iPad, iPhone" %>
+		<%#= image_tag "made_for_ipod_ipad_iphone.png", alt: "Made for iPod, iPad, iPhone" %>
 		<%= links_to_current_promotions(@product, format: "text_only") %>
 	</div>
-	<div class="clear"></div>
 </section>
 <% end # cache %>
 

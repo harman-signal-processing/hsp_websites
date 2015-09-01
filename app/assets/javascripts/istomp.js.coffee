@@ -2,7 +2,7 @@ jQuery ($) ->
 	ua = navigator.userAgent.toLowerCase()
 	supported_devices_url = $('span#help_links').data('supported')
 	non_ios_url = $('span#help_links').data('howto')
-	
+
 	if supported_devices_url
 		#// non-iOS notices
 		unless (ua.indexOf('iphone') != -1) || (ua.indexOf('ipod') != -1) || (ua.indexOf('ipad') != -1)
@@ -14,9 +14,9 @@ jQuery ($) ->
 					e.preventDefault()
 					window.location = non_ios_url
 
-	# Collection of all audio demo files (even below the coverflow)					
+	# Collection of all audio demo files (even below the coverflow)
 	# audio_demos = []
-	# $('a.audio_demo').each -> 
+	# $('a.audio_demo').each ->
 	# 	if $(@).data('wet') and $(@).data('dry')
 	# 		audio_demos.push {id: $(@).attr('id'), product_id: $(@).data('product'), wet: $(@).data('wet'), dry: $(@).data('dry')}
 
@@ -74,7 +74,7 @@ jQuery ($) ->
 			@pedal_image.attr('src', @pedal_image_on)
 			@sample_on.unmute()
 			@sample_off.mute()
-			@msg.css('color', 'red')	
+			@msg.css('color', 'red')
 
 		setup_sounds: =>
 			@sample_off = @sm.createSound(
@@ -84,16 +84,16 @@ jQuery ($) ->
 			@sample_on = @sm.createSound(
 				id: 'effect_on'
 				url: @wet
-				onplay: => 
+				onplay: =>
 					@sample_off.play().mute()
 					@element.addClass('sm2_playing')
 					@pedal_image.attr('src', @pedal_image_on)
 					@create_message()
-				onfinish: => 
+				onfinish: =>
 					@element.removeClass('sm2_playing')
 					@pedal_image.attr('src', @pedal_image_off)
 					@remove_message()
-				onstop: => 
+				onstop: =>
 					@sample_off.stop()
 					@pedal_image.attr('src', @pedal_image_off)
 					@element.removeClass('sm2_playing')
@@ -102,10 +102,10 @@ jQuery ($) ->
 					@sample_off.pause()
 			)
 
-	soundManager.onready () -> 
+	soundManager.onready () ->
 		current_sample = new Toggler(soundManager)
 #		inlinePlayer = new InlinePlayer()
-	
+
 	class BigGroupButton
 
 		constructor: (@container='#epedals', @button_selector='a.view_all_button') ->
@@ -114,7 +114,7 @@ jQuery ($) ->
 			@hidden = $(@container).hide()
 			@setup_view_button()
 			@handle_click()
-			
+
 		hide_me: ->
 			@setup_view_button()
 			@hidden = $(@container).slideUp()
