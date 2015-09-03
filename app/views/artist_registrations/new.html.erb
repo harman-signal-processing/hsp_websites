@@ -1,125 +1,87 @@
 <h1>Artist Profile Page Information</h1>
 
-<div class="artist_callout_container" style="padding: 2px 20px;">
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {multipart: true}) do |f| %>
-<%= f.hidden_field :artist_tier_id %>
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: {multipart: true}) do |f| %>
+  <%= f.hidden_field :artist_tier_id %>
   <%= devise_error_messages! %>
-	<table style="width: 100%">
-		<tr>
-			<td style="width: 50%" width="50%">
-				<div class="form_field">
-					<%= f.label :name, "Enter Artist/Band Name" %><br/>
-					<%= f.text_field :name, class: "artist_field" %>
-				</div>
-			</td>
-			<td style="width: 50%" width="50%">
-				 <div class="form_field">
-					<%= f.label :invitation_code %><br/>
-					<%= f.text_field :invitation_code, class: "artist_field", style: "width: 100px;" %>
-					<span class="hint">(optional)</span>
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<div class="form_field">
-					<%= f.label :email %><br />
-					<%= f.email_field :email, class: "artist_field" %>
-				</div>
-			</td>
-			<td>
-				<div class="form_field">
-					<%= f.label :website, "Website address" %><br/>
-					<%= f.text_field :website, class: "artist_field" %>
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<div class="form_field">
-					<%= f.label :password %><br />
-					<%= f.password_field :password, class: "artist_field" %>
-				</div>
-			</td>
-			<td>
-				<div class="form_field">
-					<%= f.label :password_confirmation %><br />
-					<%= f.password_field :password_confirmation, class: "artist_field" %>
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<div class="form_field">
-					<%= f.label :artist_photo, "Upload Artist/Band Image" %><br/>
-					<%= f.file_field :artist_photo, class: "artist_field" %>
-					<div class="hint">(960 pixels by 400 pixels)</div>
-				</div>
-			</td>
-			<td>
-				<div class="form_field">
-					<%= f.label :artist_product_photo, "Upload Artist/Band Image with product" %><br/>
-					<%= f.file_field :artist_product_photo, class: "artist_field" %>
-					<div class="hint">(960 pixels by 400 pixels)</div>
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<td valign="top">
-				<div class="form_field">
-					<%= f.label :bio, "Enter Band/Artist Biography" %><br/>
-					<%= f.text_area :bio, size: "50x10", class: "artist_field", style: "width: 380px" %>
-				</div>
-				<div class="form_field">
-					<%= f.label :notable_career_moments, "Notable Career Moments" %><br/>
-					<%= f.text_area :notable_career_moments, size: "50x10", class: "artist_field", style: "width: 380px" %>
-				</div>
-			</td>
-			<td valign="top">
-				<div class="form_field">
-					<%= f.label :main_instrument, "What is your main instrument?" %><br/>
-					<%= f.text_field :main_instrument, class: "artist_field" %>
-				</div>
-				<!-- <div class="form_field">
-					<%= f.label :twitter, "Twitter name" %><br/>
-					<%= f.text_field :twitter, class: "artist_field" %>
-				</div>
-				 -->
-				<p style="margin-top: 20px">Which <%= website.brand_name %> products do you currently use? Select
-					your favorite product in the first slot.</p>
-				<%= f.fields_for :artist_products, @artist.artist_products do |p| %>
+  <div class="row">
+    <div class="medium-6 columns">
+      <%= f.input :name, label: "Enter Artist/Band Name" %>
+    </div>
+    <div class="medium-6 columns">
+      <%= f.input :invitation_code, hint: "(optional)" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="medium-6 columns">
+      <%= f.input :email %>
+    </div>
+    <div class="medium-6 columns">
+      <%= f.input :website, label: "Website address" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="medium-6 columns">
+      <%= f.input :password, hint: "(leave blank if you don't want to change it)" %>
+    </div>
+    <div class="medium-6 columns">
+      <%= f.input :password_confirmation %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="medium-6 columns">
+      <div class="panel">
+        <%= f.input :artist_photo, label: "Artist/Band Image",
+          hint: "(960 pixels by 400 pixels--leave blank to keep current image)" %>
+      </div>
+    </div>
+    <div class="medium-6 columns">
+      <div class="panel">
+        <%= f.input :artist_product_photo, label: "Artist/Band Image with product",
+          hint: "(960 pixels by 400 pixels--leave blank to keep current image)" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="medium-6 columns">
+      <%= f.input :bio, label: "Enter Band/Artist Biography", input_html: { style: "min-height: 200px" } %>
+      <%= f.input :notable_career_moments, label: "Notable Career Moments", input_html: { style: "min-height: 200px" } %>
+    </div>
+    <div class="medium-6 columns">
+      <%= f.input :main_instrument, label: "What is your main instrument?" %>
+
+      <!--
+        <%#= f.label :twitter, "Twitter name" %><br/>
+        <%#= f.text_field :twitter, class: "artist_field" %>
+       -->
+
+      <p>Which <%= website.brand_name %> products do you currently use? Select
+        your favorite product in the first slot.</p>
+
+      <%= f.simple_fields_for :artist_products, @artist.artist_products do |p| %>
 				<%= p.hidden_field :favorite %>
-				<div class="form_field">
-					<%= p.select :product_id, 
-						website.current_and_discontinued_products.collect{|p| [p.name, p.id]}, 
-						{ include_blank: true },
-						{ class: "artist_field" } %>
-						<% if p.object.favorite? %>
-						<span class="hint">favorite</span>
-						<% end %>
-				</div>
-				<div class="form_field">
-					<% if p.object.favorite? %>
-						<%= p.label :quote, "Why is this your favorite?" %><br/>
-						<%= p.text_area :quote, size: "30x2", class: "artist_field" %>
-					<% end %>
-				</div>
-				<% end %>
-				<div class="hint">(You can add more later if needed.)</div>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				&nbsp;
-			</td>
-			<td>
-				<div class="form_field">
-					<%= f.submit "Sign up" %>
-				</div>
-			</td>
-		</tr>
-	</table>
+
+        <%= p.association :product,
+          hint: p.object.favorite? ? "favorite" : '',
+          collection: website.current_and_discontinued_products.collect{|p| [p.name, p.id]} %>
+
+        <% if p.object.favorite? %>
+          <%= p.input :quote, label: "Why is this your favorite?" %>
+        <% end %>
+
+      <% end %>
+      <div class="hint">(You can add more later if needed.)</div>
+    </div>
+  </div>
+
+  <hr/>
+
+  <div class="row">
+    <div class="large-12 columns text-center">
+      <%= f.submit "Sign up", class: "radius button" %>
+    </div>
+  </div>
+
 <% end %>
-</div>
 
 <%#= render partial: "devise/shared/links" %>

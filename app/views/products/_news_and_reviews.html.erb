@@ -1,8 +1,18 @@
-<ul class="news">
-	<% product.news_and_reviews.each do |p| %>
-	<li><b><%=l p.post_on.to_date, format: :long %></b><br/>
-		<% if p.is_a?(ProductReview) %><%= t('product_page.review') %>:<% end %>
-		<%= link_to translate_content(p, :title), p %>
-	</li>
-	<% end %>
-</ul>
+<% product.news_and_reviews.each do |p| %>
+  <% if p.is_a?(News) %>
+    <%= render_partial 'news/news_row', news: p %>
+  <% else %>
+    <div class="row">
+      <div class="large-10 columns">
+        <b><%=l p.post_on.to_date, format: :long %></b><br/>
+        <% if p.is_a?(ProductReview) %><%= t('product_page.review') %>:<% end %>
+        <%= link_to translate_content(p, :title), p %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-10 columns">
+        <hr/>
+      </div>
+    </div>
+  <% end %>
+<% end %>

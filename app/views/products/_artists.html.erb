@@ -1,17 +1,18 @@
 <% if @product.approved_artists.size > 0 %>
-<div class="product_artists">
-	<% @product.approved_artists.each do |artist| %>
-	<div class="artist">
-		<% if !artist.artist_photo_file_name.blank? %>
-			<div class="photo">
-				<%= link_to(image_tag(artist.artist_photo.url(:tiny_square)), artist) %>
-			</div>
-		<% end %>
-			<div class="description">
-				<b><%= link_to(artist.name, (artist.featured) ? artist : all_artists_path(letter: artist.name.match(/^.{1}/).to_s.downcase, anchor: "artist_#{artist.id}")) %></b>
-			</div>
-	</div>
-	<% end %>
-	<div class="clear"></div>
-</div>
+  <div class="product_artists">
+    <ul class="medium-block-grid-4 small-block-grid-2">
+      <% @product.approved_artists.each do |artist| %>
+        <li>
+          <div class="artist text-center">
+            <% if !artist.artist_photo_file_name.blank? %>
+              <div class="photo">
+                <%= link_to(image_tag(artist.artist_photo.url(:tiny_square)), artist) %>
+              </div>
+            <% end %>
+            <%= link_to(artist.name.truncate(35), (artist.featured) ? artist : all_artists_path(letter: artist.name.match(/^.{1}/).to_s.downcase, anchor: "artist_#{artist.id}")) %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 <% end %>

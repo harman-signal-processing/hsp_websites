@@ -1,8 +1,8 @@
 <% @istomp = @product.parent_products.first.parent_product || Product.new(name: "iStomp") %>
 <% @stomp_shop = @istomp.softwares.first || Software.new %>
 
-<% 
-if @product.photo 
+<%
+if @product.photo
 	og_image = @product.photo.product_attachment.url(:original)
 	tw_image = @product.photo.product_attachment.url(:small)
 else
@@ -41,7 +41,7 @@ set_meta_tags title: @product.name,
 		type: 'product',
 		description: truncate(strip_html(translate_content(@product, :description)), length: 100),
 		title: "#{website.brand.name} #{@product.name}"
-	} 
+	}
 %>
 
 <% if @product.show_alert? %>
@@ -49,9 +49,8 @@ set_meta_tags title: @product.name,
 		<div id="product-notice"><%=raw textilize(@product.alert) %></div>
 	<% end %>
 <% end %>
-	
+
 <%= content_for :preload do %>
-	<%= image_tag("#{website.folder}/#{I18n.locale}/red_download_button_hover.png") %>
 	<% @product.product_attachments.each do |product_attachment| %>
 		<% if !product_attachment.product_attachment_file_name.blank? %>
 			<%= image_tag(product_attachment.product_attachment.url(:epedal)) %>
@@ -65,32 +64,31 @@ set_meta_tags title: @product.name,
 
 <header id="product_header">
 	<h1><%= @product.name %> <small><%= @product.short_description %></small></h1>
-        <% if @product.discontinued? %>
-          <span class="discontinued">(<%= t('discontinued') %>)</span>
-        <% end %>
+  <% if @product.discontinued? %>
+    <span class="discontinued">(<%= t('discontinued') %>)</span>
+  <% end %>
 </header>
-	
-<section id="product_content" class="epedal">
-	<h2><%#= @product.short_description %></h2>
-	<div id="left_column">
-		
+
+<section id="product_content" class="epedal row collapse">
+	<div class="medium-3 small-12 columns text-center">
+
 		<div id="viewer">
 			<% if @product.photo %>
 			<%= image_tag(@product.photo.product_attachment.url(:epedal),
 				 id: "pedal",
 				 data: { effecton: effect_on_image_path(@product) }
 				) %>
-			<% end %>	
+			<% end %>
 			<div class="burst">
 				<%= burst_for(@product) %>
 			</div>
 		</div>
-		
+
 		<% if @product.audio_demos.size > 0 %>
 		<ul class="graphic">
 		  	<li class="sm2_link">
-			<%= link_to(' Effect Demo', @product.audio_demos.first.wet_demo.url, 
-				id: 'current_pedal_sample', 
+			<%= link_to(' Effect Demo', @product.audio_demos.first.wet_demo.url,
+				id: 'current_pedal_sample',
 				class: 'inline-exclude',
 				data: {
 					wet: @product.audio_demos.first.wet_demo.url,
@@ -107,7 +105,7 @@ set_meta_tags title: @product.name,
 		  </li>
 		</ul>
 		<% end %>
-			
+
 		<div id="product_buy_now_box">
 			<% if included_epedals.include?(@product.to_param) %>
 				<div>
@@ -123,32 +121,31 @@ set_meta_tags title: @product.name,
 
 		</div>
 	</div>
-	
-	<div id="right_column">
-		<%= draw_main_tabs_content @product, tabs: "description" %>	
+
+  <div class="medium-5 small-12 columns" id="right_column">
+		<%= draw_main_tabs_content @product, tabs: "description" %>
 		<div><%=raw @product.extended_description %></div>
-		<div style="margin-top: 8px">
+		<div>
 			<%= link_to(image_tag("available_on_the_app_store.png", alt: "Available on the app store"), @stomp_shop) %>
 		</div>
 	</div>
-	
-	<div id="right_side_image">
+
+  <div class="medium-4 small-12 columns" id="right_side_image">
 		<% if @product.images_for("product_page").size >= 2 %>
-			<%= image_tag @product.images_for("product_page")[1].product_attachment.url(:vert_medium), 
+			<%= image_tag @product.images_for("product_page")[1].product_attachment.url(:vert_medium),
 				alt: "#{@product.name} with iStomp label" %>
 		<% end %>
     <%= render_partial "products/epedal_get_label" %>
 	</div>
 
-	<div class="clear"></div>
 </section>
 <% end %>
-	
+
 <div id="coverflow_settings" data-jump="false"></div>
 <%#= render_partial "products/istomp_coverflow", istomp: @istomp, pedal: @product, use_popups: true %>
 <%= render_partial "products/istomp_epedal_shelves", istomp: @istomp %>
-	
-<section id="product_bottom_content">
+
+<section id="product_bottom_content" class="hide-for-small">
 	<%= render_partial "products/stomp_shop_callout", position: :right, istomp: @istomp %>
 	<%= render_partial "products/istomp_callout", position: :left %>
 	<div class="clear"></div>

@@ -411,7 +411,24 @@ h2.special_offer {
     float: left;
   }
 }
-
+div.product_artists {
+  div.artist {
+    font-size: rem-calc(13px);
+    line-height: 1.3;
+  }
+}
+div.tones-container {
+  ul {
+    list-style-type: none;
+    li {
+      list-style-type: none;
+      font-size: rem-calc(14px);
+      line-height: 1.2;
+    }
+  }
+  max-height: 350px;
+  overflow: auto;
+}
 
 ul.graphic {
   li {

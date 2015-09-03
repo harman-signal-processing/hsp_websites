@@ -48,7 +48,6 @@ HarmanSignalProcessingWebsite::Application.configure do
     performancemanager.js
     introducing_epedal.css
     introducing_stompbox.css
-    istomp.js
     istomp.css
     admin.js
     admin.css

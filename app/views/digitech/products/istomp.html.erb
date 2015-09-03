@@ -118,7 +118,7 @@ set_meta_tags title: @product.name,
 <%#= render_partial "products/istomp_coverflow", istomp: @istomp %>
 <%= render_partial "products/istomp_epedal_shelves", istomp: @istomp %>
 
-<section id="product_bottom_content">
+<section id="product_bottom_content" class="hide-for-small">
 	<%= render_partial "products/featured_epedals_callout", position: :right %>
 	<%= render_partial "products/stomp_shop_callout", position: :left, istomp: @istomp %>
 	<div class="clear"></div>

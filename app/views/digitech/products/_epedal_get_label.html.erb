@@ -1,8 +1,8 @@
 <% if website.epedal_label_order_recipient && !website.epedal_label_order_recipient.blank? %>
   <% if @product.label_sheets.size > 0 %>
-    <div id="label_request_box">
+    <div id="label_request_box" class="text-center">
       have this epedal?<br/>
-      <%= link_to "Get The Label", epedal_labels_order_form_path(@product), class: "button" %>
+      <%= link_to "Get The Label", epedal_labels_order_form_path(@product), class: "tiny secondary button" %>
     </div>
   <% end %>
 <% end %>

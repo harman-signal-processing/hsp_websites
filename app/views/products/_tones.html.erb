@@ -2,15 +2,35 @@
 <p><%= t('blurbs.product_tone_library_explanation', model: @product.name) %></p>
 <% end %>
 
-<ul>
-	<% @product.tone_library_patches.each do |tlp| %>
-	<% if tlp.tone_library_song && tlp.tone_library_song.displayname %>
-	<li>
-		<%= image_tag("icons/x-edit_17.png", alt: "x-edit patch", style: "vertical-align:middle") %>
-		<%= link_to(tlp.tone_library_song.displayname, 
-				tone_download_path(product_id: @product.id, tone_library_song_id: tlp.tone_library_song, ext: tlp.extension)
-			) %>
-	</li>
-	<% end %>
-	<% end %>
-</ul>
+<div class="panel tones-container">
+  <div class="row">
+    <div class="large-6 medium-12 columns">
+      <ul>
+        <% @product.tone_library_patches.each_with_index do |tlp,i| %>
+          <% if (i % 2 > 0) && tlp.tone_library_song && tlp.tone_library_song.displayname %>
+            <li>
+              <%= image_tag("icons/x-edit_17.png", alt: "x-edit patch", style: "vertical-align:middle") %>
+              <%= link_to(tlp.tone_library_song.displayname,
+                  tone_download_path(product_id: @product.id, tone_library_song_id: tlp.tone_library_song, ext: tlp.extension)
+                ) %>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+    <div class="large-6 medium-12 columns">
+      <ul>
+        <% @product.tone_library_patches.each_with_index do |tlp,i| %>
+          <% if (i % 2 == 0) && tlp.tone_library_song && tlp.tone_library_song.displayname %>
+            <li>
+              <%= image_tag("icons/x-edit_17.png", alt: "x-edit patch", style: "vertical-align:middle") %>
+              <%= link_to(tlp.tone_library_song.displayname,
+                  tone_download_path(product_id: @product.id, tone_library_song_id: tlp.tone_library_song, ext: tlp.extension)
+                ) %>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

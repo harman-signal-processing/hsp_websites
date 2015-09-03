@@ -6,38 +6,36 @@
 
 <%= render_partial 'products/istomp_style' %>
 
-<%= content_for :preload do %>
-	<%= image_tag("#{website.folder}/#{I18n.locale}/red_download_app_button_hover.png") %>
-<% end %>
-
-<header id="product_header">
-	<%= image_tag("#{website.folder}/istomp/stomp_shop_logo.png", alt: @page_title) %>
-</header>
 
 <section id="product_content" class="stomp_shop">
-	<h2>e-pedal store and virtual road case</h2>
-	<div id="left_column">
-		<%= link_to download_software_path(@software, locale: I18n.locale) do %>
-	 		<%= image_tag "#{website.folder}/stomp_shop_icon.png", alt: "Stomp Shop", size: "128x128", style: "padding-left: 8px" %><br/>
-			<div class="free">Free</div>
-			<%= image_tag "#{website.folder}/#{I18n.locale}/red_download_app_button.png", 
-					alt: "Download", 
-					mouseover: "#{website.folder}/#{I18n.locale}/red_download_app_button_hover.png" %>
-		<% end %>
-	</div>
-	
-	<div id="right_column">
-		<div class="product_main_tab_content">
-			<%=raw @software.description %>
-			<%= image_tag "available_on_the_app_store.png", alt: "Available on the App Store" %>
-		</div>
-	</div>
+  <div class="row">
+    <div class="medium-12 columns">
+      <header id="product_header">
+        <%= image_tag("#{website.folder}/istomp/stomp_shop_logo.png", alt: @page_title) %>
+      </header>
+      <h2>e-pedal store and virtual road case</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="medium-3 small-12 columns text-center">
+      <%= link_to download_software_path(@software, locale: I18n.locale) do %>
+        <%= image_tag "#{website.folder}/stomp_shop_icon.png", alt: "Stomp Shop", size: "128x128", style: "padding-left: 8px" %><br/>
+        <div class="free">Free</div>
+      <% end %>
+      <%= link_to "Download", download_software_path(@software, locale: I18n.locale), class: "medium alert radius button" %>
+    </div>
+
+    <div class="medium-3 small-12 columns end">
+      <%=raw @software.description %>
+      <%= image_tag "available_on_the_app_store.png", alt: "Available on the App Store" %>
+    </div>
+  </div>
 </section>
 
 <%#= render_partial "products/istomp_coverflow", istomp: @istomp, use_popups: true %>
 <%= render_partial "products/istomp_epedal_shelves", istomp: @istomp %>
-	
-<section id="product_bottom_content">
+
+<section id="product_bottom_content" class="hide-for-small">
 	<%= render_partial "products/featured_epedals_callout", position: :right %>
 	<%= render_partial "products/istomp_callout", position: :left %>
 	<div class="clear"></div>
