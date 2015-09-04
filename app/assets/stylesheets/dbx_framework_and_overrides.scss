@@ -299,20 +299,22 @@ h4,h5 {
   line-height: 18px;
 }
 
+.video-container {
+}
 .headline_slide {
   color: white;
   @media only screen and (min-width: 720px) {
-    margin: 60px 0 0 80px;
+    margin: 360px 0 0 40px;
   }
   @media only screen and (max-width: 719px) {
     margin: 10px 0 0 0;
   }
-  height: 550px;
+  height: 200px;
   text-shadow: 0px 0px 10px rgba(0,0,0,0.7);
   h1 {
     color: white;
     @media only screen and (min-width: 720px) {
-      font-size: rem-calc(62px);
+      font-size: rem-calc(54px);
       line-height: 1.1;
     }
     @media only screen and (max-width: 719px) {
@@ -321,8 +323,9 @@ h4,h5 {
     }
   }
   p {
+    display: none; // hiding for gorack feature
     @media only screen and (min-width: 720px) {
-      font-size: rem-calc(48px);
+      font-size: rem-calc(36px);
       line-height: 1.2;
     }
     @media only screen and (max-width: 719px) {
