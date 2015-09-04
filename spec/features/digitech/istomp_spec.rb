@@ -48,12 +48,6 @@ feature "iStomp-specific features" do
       visit product_path(id: @istomp.to_param, locale: I18n.default_locale)
     end
 
-    it "istomp layout is used" do
-      expect(page).to have_xpath("//section[@id='product_content'][@class='#{@istomp.layout_class}']")
-      #expect(page).to have_xpath("//script[@src='/assets/istomp.js']")
-      #expect(page).to have_xpath("//link[@href='/assets/istomp.css']")
-    end
-
   	it "should have the featured epedal bottom panel" do
   		expect(page).to have_xpath("//div[@id='featured_callout'][@class='callout right_callout']")
   	end
@@ -97,10 +91,6 @@ feature "iStomp-specific features" do
   context "epedal page" do
   	before do
       visit product_path(id: @gooberator.to_param, locale: I18n.default_locale)
-  	end
-
-  	it "should use the epedal layout" do
-  		expect(page).to have_xpath("//section[@id='product_content'][@class='#{@gooberator.layout_class}']")
   	end
 
   	it "should NOT jump directly to siblings in coverflow" do

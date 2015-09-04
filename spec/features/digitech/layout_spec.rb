@@ -13,7 +13,6 @@ feature "Digitech brand layout" do
     visit root_path
 
     expect(page).to have_xpath("//body[@data-brand='#{@brand.name}']")
-    expect(page).to have_xpath("//div[@id='big_bottom_box_container']")
   end
 
 end
