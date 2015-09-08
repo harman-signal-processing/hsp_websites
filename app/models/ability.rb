@@ -50,6 +50,8 @@ class Ability
         can :create, MarketingProject
         can :manage, MarketingProject
         can :read, WarrantyRegistration
+        can :manage, PricingType
+        can :manage, ProductPrice
       end
       if user.role?(:marketing_staff)
         can [:read, :create, :update], MarketingTask
