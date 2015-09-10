@@ -1,14 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,300italic,400italic,500italic);
 @import 'foundation/functions';
-
-@font-face {
-	font-family: 'Scriber';
-	src: font-url('scriber_bold-webfont.eot?iefix=') format('embedded-opentype'),
-		 font-url('scriber_bold-webfont.woff') format('woff'),
-		 font-url('scriber_bold-webfont.ttf') format('truetype'),
-		 font-url('scriber_bold-webfont.svg#webfontvCLvcxrc') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
 
 $dark-gray: #575757;
 $medium-gray: #a8a8a8;
@@ -22,7 +13,7 @@ $default-float: left;
 
 $body-bg: #FFF;
 $body-font-color: #666;
-$body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$body-font-family: 'Roboto', "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $body-font-weight: 300;
 
 $primary-color: $dark_blue;
@@ -30,7 +21,7 @@ $secondary-color: $medium-gray;
 // $alert-color: #c60f13;
 // $success-color: #5da423;
 $include-print-styles: true;
-$header-font-family: 'Scriber', "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$header-font-family: 'Roboto', "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $header-font-weight: 400;
 // $header-font-style: normal;
 $header-font-color: $dark-gray;
@@ -273,21 +264,13 @@ $topbar-sticky-class:                  ".sticky";
 #feature_spacer {
 	#tagline {
 		font: {
-			family: 'Scriber';
+			family: 'Roboto';
 			size: 26px;
 		}
 	}
 }
 
-h1, h2 {
-  font-family: 'Scriber', Helvetica, Arial, sans-serif;
-  font-weight: 100;
-}
 h4,h5 {
-  font: {
-    family: 'Scriber';
-    weight: 700;
-  }
   color: #000;
   text-transform: uppercase;
 }
@@ -335,7 +318,6 @@ div.homepage_block {
 .quotebox {
   li {
     h2 {
-      font-family: 'Scriber';
       font-size: 26px;
       line-height: 1.2;
     }
@@ -343,24 +325,22 @@ div.homepage_block {
 }
 /***** Product Page *****/
 h3.content-nav {
-  font-family: 'Scriber';
   font-size: 22px;
 }
 div.product-title-block, div.small-title-block {
-  h3 {
-    font-family: 'Scriber', Helvetica;
-    font-size: 22px;
-    line-height: 32px;
+  h1 {
+    font-size: rem-calc(41px);
+    line-height: 1.3;
   }
-  div.product-price {
-    h6.price-label {
-      font-family: 'Scriber';
-    }
+  h3 {
+    font-size: rem-calc(19px);
+    line-height: 1.3;
+    color: scale-color($header-font-color, $lightness: 20%);
   }
   dl.side-nav {
     dd {
       font: {
-        family: 'Scriber';
+        family: 'Roboto';
         size: 13px;
         weight: 700;
       }
@@ -388,19 +368,13 @@ div.product-title-block, div.small-title-block {
     margin-bottom: 20px;
   }
   h3,h4,h5 {
-    font: {
-      family: 'Scriber';
-      weight: 700;
-      size: 13px;
-    }
     color: #000;
     text-transform: uppercase;
-    line-height: 18px;
   }
 }
 h2.special_offer {
   font: {
-    family: 'Scriber';
+    family: 'Roboto';
     weight: 700;
     size: 13px;
   }
