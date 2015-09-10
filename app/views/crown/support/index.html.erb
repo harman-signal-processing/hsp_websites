@@ -23,12 +23,12 @@
 				<p><%= t('blurbs.product_support') %></p>
 				<%= form_tag support_path, method: :get do |f| %>
 					<div class="row collapse">
-						<div class="large-10 small-9 columns">
+						<div class="medium-9 small-9 columns">
 							<%= select_tag :product_id,
 									options_from_collection_for_select(website.current_and_discontinued_products([:product_families]) - website.vintage_products, :to_param, :name) + vintage_options(), 
 									include_blank: true %>
 						</div>
-						<div class="large-2 small-3 columns">
+						<div class="medium-3 small-3 columns">
 							<%= submit_tag t('go'), class: "postfix button" %>
 						</div>
 					</div>

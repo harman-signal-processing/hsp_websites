@@ -54,29 +54,33 @@ end
 		</div>
 
 	<% else %>
+    <div class="row">
+      <div class="medium-10 medium-offset-1 columns">
 
-		<div class="product_thumb">
-		<% if product.photo %>
-			<% if extra_large %>
-				<%= link_to image_tag(product.photo.product_attachment.url(:medium)), this_url, target: target %>
-			<% else %>
-				<%= link_to image_tag(product.photo.product_attachment.url(:horiz_thumb)), this_url, target: target %>
-			<% end %>
-		<% end %>
-		</div>
-		<h3><%= link_to translate_content(product, :name), this_url, target: target %></h3>
-		<div class="product_description">
-			<%= translate_content(product, :short_description) %>
+        <div class="product_thumb">
+        <% if product.photo %>
+          <% if extra_large %>
+            <%= link_to image_tag(product.photo.product_attachment.url(:medium)), this_url, target: target %>
+          <% else %>
+            <%= link_to image_tag(product.photo.product_attachment.url(:horiz_thumb)), this_url, target: target %>
+          <% end %>
+        <% end %>
+        </div>
+        <h3><%= link_to translate_content(product, :name), this_url, target: target %></h3>
+        <div class="product_description">
+          <%= translate_content(product, :short_description) %>
 
-			<% if compare %>
-				<div class="compare_checkbox">
-					<label>
-						<%= check_box_tag "product_ids[]", product.to_param, false %>
-						<%= t('compare') %>
-					</label>
-				</div>
-			<% end %>
-		</div>
+          <% if compare %>
+            <div class="compare_checkbox">
+              <label>
+                <%= check_box_tag "product_ids[]", product.to_param, false %>
+                <%= t('compare') %>
+              </label>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
 
 	<% end %>
 </div>
