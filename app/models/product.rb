@@ -67,16 +67,21 @@ class Product < ActiveRecord::Base
 
   def slug_candidates
     [
-      :name,
-      [:brand_name, :name],
-      [:brand_name, :name, :sap_sku],
-      [:name, :short_description],
-      [:brand_name, :name, :short_description]
+      :formatted_name,
+      [:brand_name, :formatted_name],
+      [:brand_name, :formatted_name, :sap_sku],
+      [:formatted_name, :short_description],
+      [:brand_name, :formatted_name, :short_description]
     ]
   end
 
   def brand_name
     self.brand.name
+  end
+
+  # just for slug generation
+  def formatted_name
+    @formatted_name ||= self.name.gsub(/\s?\+/, ' plus')
   end
 
   def should_generate_new_friendly_id?
