@@ -1,0 +1,17 @@
+<%= cache ["features_carousel_strip", website.brand, I18n.locale] do %>
+  <% if @features.size > 0 %>
+    <div class="homepage_block white_strip">
+      <div class="container">
+        <div class="row">
+          <div class="large-12 small-12 columns featured-slider">
+            <% @features.each do |feature| %>
+              <div class="slide">
+                <%= feature_button(feature, carousel: true) %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

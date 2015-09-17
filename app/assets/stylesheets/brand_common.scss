@@ -25,6 +25,29 @@
 }
 .video-window { @include flex-video-container; }
 
+.featured-slider {
+  div.slide {
+    padding-right: rem-calc(20);
+    h5 {
+      font-size: rem-calc(15px);
+      letter-spacing: 1.1;
+      line-height: 1.1;
+      font-weight: 500;
+      margin-bottom: 0;
+    }
+    h6 {
+      margin-top: 0;
+      line-height: 1.3;
+      margin-bottom: 10px;
+      font-weight: $body-font-weight;
+    }
+    p {
+      font-size: rem-calc(14px);
+      line-height: 1.2;
+    }
+  }
+}
+
 #homepage-video-banner {
   position: relative;
   background: $strip-bg-even;
@@ -478,6 +501,11 @@ div.solutions {
   }
 }
 div.homepage_block {
+  h1, h2, h3, h4, h5, h6 {
+    a {
+      color: $body-font-color;
+    }
+  }
   &.dark {
     padding: 50px 0px;
     background-color: $primary-color;
@@ -508,6 +536,7 @@ div.homepage_block {
   }
   &.white_strip {
     padding: 60px 0px;
+    background-color: $white;
   }
   &.thin_strip {
     &.gray_strip {

@@ -1,10 +1,10 @@
 <li id="feature_<%= feature.id %>">
 	<span class="handle"><%= image_tag("icons/drag_handle.gif") %></span>
 	<%= image_tag(feature.slide.url(:tiny)) %>
-	<%= link_to_function(feature.name, "$('#feature_#{feature.id}_form').toggle();") %> 
-	<%= link_to(image_tag("icons/trash.gif"), 
-			admin_setting_path(feature), 
-			confirm: "Are you sure?", 
+	<%= link_to_function(feature.name, "$('#feature_#{feature.id}_form').toggle();") %>
+	<%= link_to(image_tag("icons/trash.gif"),
+			admin_setting_path(feature),
+			confirm: "Are you sure?",
 			remote: true,
 			method: :delete) %>
 	<span class="small">
@@ -25,7 +25,7 @@
 			<%= hidden_field_tag "called_from", "homepage" %>
 			<div class="row">
 				<div class="large-6 columns">
-					<%= f.input :name, hint: "(for your reference only)" %>
+					<%= f.input :name, hint: "prouct name, etc." %>
 				</div>
 				<div class="large-6 columns">
 					<%= f.input :slide, label: "image/button" %>
@@ -34,6 +34,8 @@
 
 			<%= f.input :string_value, label: "URL to link image to",
 				hint: "URLs beginning with a partial path (ie, \"products/rp1000\") will be relative to the visitor's selected language." %>
+
+      <%= f.input :text_value, label: "Short paragraph explanation" %>
 
 			<div class="row">
 				<div class="large-6 columns">

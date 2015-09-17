@@ -17,6 +17,7 @@
 //= require jquery.bxSlider.min
 //= require jquery.datetimepicker
 //= require jquery.pin
+//= require slick
 //= require soundmanager2-nodebug-jsmin
 //= require inline_player
 //= require global_functions
@@ -52,6 +53,12 @@ $(function(){
       fixed_top: 80,
       destination_threshold: 40,
     }
+  });
+  $('.featured-slider').slick({
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 4000
   });
 });
 

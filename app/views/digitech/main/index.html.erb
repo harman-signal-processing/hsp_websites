@@ -9,17 +9,11 @@
 	} %>
 
 <%= content_for :feature do %>
-	<%= cache ["slideshow", website.brand, I18n.locale] do %>
-		<% slides = Setting.slides(website) %>
-		<% if slides.size > 0 %>
-			<%= orbit_slideshow(slides: slides, duration: 6000, navigation_arrows: false, transition: "fade") %>
-		<% end %>
-		<%#= video_background_with_features(slides, tagline: true) %>
-	<% end %>
+  <%= render_partial 'shared/video_banner' %>
 <% end %>
 
 <%= content_for :big_bottom_box do %>
-
+  <%= render_partial "shared/features_carousel_strip" %>
   <%= render_partial "shared/featured_products_strip" %>
   <%= render_partial "shared/promotions_strip" %>
   <%= render_partial "shared/teaser_strip" %>

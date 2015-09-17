@@ -69,6 +69,7 @@ gem 'delayed_paperclip'
 gem 'cheetah_mail', "~> 0.6.0"
 gem 'rmagick', require: 'rmagick'
 gem 'typhoeus' # For link validator
+gem 'slick_rails' # slick carousel
 
 ### Could be useful in the future...
 # gem "bing_translate_yaml", "~> 0.1.7"

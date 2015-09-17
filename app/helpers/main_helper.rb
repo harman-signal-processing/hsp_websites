@@ -9,16 +9,31 @@ module MainHelper
     content_tag(:a, name, html_options.merge(:href => href, :onclick => onclick))
   end
 
-  def feature_button(feature)
+  def feature_button(feature, opts={})
+    panel = image_tag(feature.slide.url, class: "no-resize")
+
+    if opts[:carousel] == true
+      if feature.string_value.to_s.match(/famil/i)
+        panel += content_tag(:h5, "Featured Products")
+      elsif feature.string_value.to_s.match(/product/i)
+        panel += content_tag(:h5, "Featured Product")
+      else
+        panel += content_tag(:h5, "Feature")
+      end
+      panel += content_tag(:h6, feature.name)
+      panel += content_tag(:p, feature.text_value, style: 'color: black')
+      panel += content_tag(:p, 'LEARN MORE')
+    end
+
     if feature.string_value.blank?
-      image_tag(feature.slide.url)
+      panel
     else
       if feature.string_value =~ /^http\:/i
-        link_to(image_tag(feature.slide.url, class: "no-resize"), feature.string_value, target: "_blank")
+        link_to(panel, feature.string_value, target: "_blank")
       elsif feature.string_value =~ /^\//
-        link_to(image_tag(feature.slide.url, class: "no-resize"), feature.string_value)
+        link_to(panel, feature.string_value)
       else
-        link_to(image_tag(feature.slide.url, class: "no-resize"), "/#{params[:locale]}/#{feature.string_value}")
+        link_to(panel, "/#{params[:locale]}/#{feature.string_value}")
       end
     end
   end
