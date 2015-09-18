@@ -13,13 +13,6 @@ module MainHelper
     panel = image_tag(feature.slide.url, class: "no-resize")
 
     if opts[:carousel] == true
-      if feature.string_value.to_s.match(/famil/i)
-        panel += content_tag(:h5, "Featured Products")
-      elsif feature.string_value.to_s.match(/product/i)
-        panel += content_tag(:h5, "Featured Product")
-      else
-        panel += content_tag(:h5, "Feature")
-      end
       panel += content_tag(:h6, feature.name)
       panel += content_tag(:p, feature.text_value, style: 'color: black')
       panel += content_tag(:p, 'LEARN MORE')
