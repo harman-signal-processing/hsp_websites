@@ -340,7 +340,7 @@ module ProductsHelper
     ret = ""
     if product.audio_demos.size > 0
     # ret += '<div id="sm2-container"></div>'
-    ret += "<h3>Audio Demos</h3>"
+    ret += "<h5>Audio Demos</h5>"
     ret += '<ul class="graphic">'
     product.audio_demos.each do |audio_demo|
       ret += content_tag(:li, link_to(audio_demo.name, audio_demo.wet_demo.url, class: "sm2_link"))
