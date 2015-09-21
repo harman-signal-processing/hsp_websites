@@ -17,7 +17,7 @@ gem 'jquery-rails'
 # gem 'ruby-debug'
 
 # Bundle the extra gems:
-gem 'mysql2', '>= 0.3.13' # sphinx needs '0.3.12b4'
+gem 'mysql2', '~> 0.3.18' # sphinx needs '0.3.12b4'
 gem 'utf8-cleaner'
 gem "friendly_id"
 gem 'aws-sdk', '< 2.0'
