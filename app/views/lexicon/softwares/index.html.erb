@@ -2,13 +2,7 @@
                  description: "Downloads for: #{@current_products.collect{|s| s.name}.join(', ')}",
                  keywords: @current_products.collect{|s| s.name} %>
 
-<h1 class="page_title">
-<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/software_downloads_head.jpg")) %>
-	<%= image_tag("#{website.folder}/#{I18n.locale}/software_downloads_head.jpg", alt: t('software_downloads')) %>
-<% else %>
-	<%= t('software_downloads') %>
-<% end %>
-</h1>
+<h1 class="page_title"> <%= t('software') %> </h1>
 
 <%= cache ["softwares_index", website.brand, I18n.locale] do %>
 
@@ -31,7 +25,16 @@
 		</div>
 	<% end %>
 
-<%= render "table", products: @current_products + @discontinued_products %>
+  <% if @current_products.size > 0 %>
+    <h3 class="subheader">Software by Product:</h3>
+    <%= render_partial "softwares/table", products: @current_products %>
+  <% end %>
+
+  <% if @discontinued_products.size > 0 %>
+    <br/>
+    <h3 class="subheader">Software for Discontinued Products:</h3>
+    <%= render_partial "softwares/table", products: @discontinued_products %>
+  <% end %>
 <% end %>
 
 <% end %>

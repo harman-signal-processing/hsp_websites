@@ -1,4 +1,25 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,300italic,400italic,500italic);
+@font-face {
+    font-family: 'AsapRegular';
+    src: font-url('Asap-Regular-webfont.eot');
+    src: font-url('Asap-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         font-url('Asap-Regular-webfont.woff') format('woff'),
+         font-url('Asap-Regular-webfont.ttf') format('truetype'),
+         font-url('Asap-Regular-webfont.svg#AsapRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AsapBold';
+    src: font-url('Asap-Bold-webfont.eot');
+    src: font-url('Asap-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         font-url('Asap-Bold-webfont.woff') format('woff'),
+         font-url('Asap-Bold-webfont.ttf') format('truetype'),
+         font-url('Asap-Bold-webfont.svg#AsapBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 @import 'foundation/functions';
 
 $dark-gray: #575757;
@@ -7,13 +28,13 @@ $light-gray: #d0d0d0;
 $strip-bg-even: #E1E1E1;
 $strip-bg-odd: #000000;
 //$dark_blue: #14277c;
-$dark_blue: #002672;
+$dark_blue: #014fff;
 
 $default-float: left;
 
 $body-bg: #FFF;
 $body-font-color: #666;
-$body-font-family: 'Roboto', "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$body-font-family: 'AsapRegular', "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $body-font-weight: 300;
 
 $primary-color: $dark_blue;
@@ -21,7 +42,7 @@ $secondary-color: $medium-gray;
 // $alert-color: #c60f13;
 // $success-color: #5da423;
 $include-print-styles: true;
-$header-font-family: 'Roboto', "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$header-font-family: 'AsapBold', "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $header-font-weight: 400;
 // $header-font-style: normal;
 $header-font-color: $dark-gray;
@@ -234,9 +255,6 @@ $topbar-sticky-class:                  ".sticky";
 
 @import 'foundation';
 @import 'brand_common';
-@import 'slick';
-$slick-arrow-color: $dark-gray;
-@import 'slick-theme';
 
 .login-links {
   font-size: rem-calc(11);
@@ -262,12 +280,12 @@ $slick-arrow-color: $dark-gray;
 }
 
 .logo-container img {
-  padding: 22px 8px 0px;
+  padding: 16px 8px 0px 8px;
 }
 #feature_spacer {
 	#tagline {
 		font: {
-			family: 'Roboto';
+			family: 'AsapRegular';
 			size: 26px;
 		}
 	}
@@ -322,18 +340,18 @@ div.homepage_block {
   }
 }
 
-.quotebox {
-  li {
-    h2 {
-      font-size: 26px;
-      line-height: 1.2;
+@media only screen and (min-width: 720px) {
+  div.homepage_block {
+    h1 {
+      font-size: 2em;
+      line-height: 1.3;
     }
   }
 }
 /***** Product Page *****/
 h3.content-nav {
-  font-size: 22px;
   color: $oil;
+  font-size: 22px;
 }
 div.product-title-block, div.small-title-block {
   h1 {
@@ -348,7 +366,7 @@ div.product-title-block, div.small-title-block {
   dl.side-nav {
     dd {
       font: {
-        family: 'Roboto';
+        family: 'AsapBold';
         size: 13px;
         weight: 700;
       }
@@ -382,8 +400,6 @@ div.product-title-block, div.small-title-block {
 }
 h2.special_offer {
   font: {
-    family: 'Roboto';
-    weight: 700;
     size: 13px;
   }
 }

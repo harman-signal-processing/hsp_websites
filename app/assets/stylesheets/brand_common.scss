@@ -600,6 +600,7 @@ div.promotion_container {
   height: 220px;
   li {
     h2,h3 {
+      font-weight: $body-font-weight !important;
       padding: 50px 165px 0 165px;
     }
   }

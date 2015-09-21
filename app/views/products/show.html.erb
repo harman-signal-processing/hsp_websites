@@ -89,8 +89,10 @@ set_meta_tags title: @product.name,
       <div id="viewer">
         <% if @product.discontinued? %>
           <%= image_tag(@product.photo.product_attachment.url(:large)) %>
-        <% else %>
+        <% elsif @product.photo.updated_at.to_date > "2014-10-10".to_date %>
           <%= image_tag(@product.photo.product_attachment.url(:full_width)) %>
+        <% else %>
+          <%= image_tag(@product.photo.product_attachment.url(:horiz_medium)) %>
         <% end %>
       </div>
     </div>
