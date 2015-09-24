@@ -5,13 +5,13 @@
 # Disallow: /
 
 User-agent: *
-Sitemap: /sitemap.xml
+Sitemap: <%= sitemap_url(format: 'xml', host: website.brand.default_website.url).gsub(/\?.*/, '') %>
 Crawl-delay: 4.5
 
 # Yandex tries to pull support page as a jpeg for some reason
 User-agent: Yandex
-Disallow: /en-US/support
-Disallow: /en/support
+Disallow: /en-US/support.jpg
+Disallow: /en/support.jpg
 
 # Majestic12 bot hammers the site with DoS-style traffic
 User-agent: MJ12bot
