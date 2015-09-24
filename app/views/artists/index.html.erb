@@ -36,4 +36,6 @@
   <% end %>
 <% end %>
 
-<p class="text-right"><%= link_to "> all artists", all_artists_path, class: 'button' %></p>
+<p class="text-right">
+  <%= link_to website.brand.name.to_s.match(/lexicon/i) ? "> all pros" : "> all artists", all_artists_path, class: 'medium button' %>
+</p>

@@ -4,7 +4,7 @@ jQuery ($) ->
   # dbx product page.
   $('.product-title-block').pin
     containerSelector: $('#product-content-container')
-    padding: {top: 100}
+    padding: {top: 80}
 
   $('.sticky-side').pin
     containerSelector: $('.sticky-container')

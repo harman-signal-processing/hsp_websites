@@ -2,14 +2,14 @@
 	<% if @product.approved_artists.size > 0 %>
 	<div class="product_artists">
 		<% @product.approved_artists.each do |artist| %>
-		<div class="artist">
+		<div class="row">
 			<% if !artist.artist_photo_file_name.blank? %>
-				<div class="photo">
-					<%= link_to(image_tag(artist.artist_photo.url(:tiny_square)), artist) %>
+				<div class="medium-2 small-12 columns text-center">
+					<%= link_to(image_tag(artist.artist_photo.url(:thumb_square)), artist) %>
 				</div>
 			<% end %>
-			<div class="description">
-				<h3><%= link_to(artist.name, artist) %></h3>
+			<div class="medium-10 small-12 columns">
+				<h5 class="subheader"><%= link_to(artist.name, artist) %></h5>
 				<p style="font-style: oblique"><%= artist.quote_for(@product) %></p>
 			</div>
 		</div>

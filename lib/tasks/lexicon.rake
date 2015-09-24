@@ -10,7 +10,7 @@ namespace :lexicon do
 
     main_tabs = lexicon.settings.where(name: 'main_tabs').first_or_create
     main_tabs.update_attributes(setting_type: 'string',
-                                string_value: 'description|extended_description|documentation|downloads|features|specifications|training_modules|artists|tones|news_and_reviews|support')
+                                string_value: 'description|extended_description|documentation|downloads|features|specifications|training_modules|reviews|news|support')
 
     featured_products = lexicon.settings.where(name: 'featured_products').first_or_create
     featured_products.update_attributes(setting_type: 'string',

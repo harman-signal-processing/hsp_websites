@@ -194,6 +194,7 @@ set_meta_tags title: @product.name,
 
       <% end %>
 
+      <%= links_to_current_promotions(@product) %>
       <hr/>
 
       <%= draw_side_nav @product, active_tab: @active_tab %>
@@ -213,7 +214,6 @@ set_meta_tags title: @product.name,
 
       <%= draw_audio_demos @product %>
       <%= render 'shared/add_this' %>
-      <%= links_to_current_promotions(@product) %>
     </div>
 
 	</div>

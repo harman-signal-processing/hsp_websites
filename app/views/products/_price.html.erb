@@ -20,25 +20,32 @@
       <% end %>
     <% end %>
 
-    <% if !!@new_price && @new_price.to_f > 0.0 && @discount.to_f > 0.0 %>
+    <% if !!@new_price && @new_price.to_f > 0.0 && @discount_amount.to_f > 0.0 %>
       <% if @promo %>
+
         <%= link_to @promo do %>
           <div>
             <span class="sale">
               <%= number_to_currency(@new_price.to_f) %>
             </span>
           </div>
-
-          Save
-          <span class="sale">
-            <%= number_to_currency(@discount.to_f) %>
-          </span>
         <% end %>
 
       <% else %>
         <div><%= number_to_currency(@new_price.to_f) %></div>
-        <h6 class="price-label">Save <%= number_to_currency(@discount.to_f) %>!</h6>
       <% end %>
+
+      <% if @product.msrp.to_f > 0.0 && @product.street_price.to_f > 0.0 && (@promo || @product.street_price.to_f > @product.sale_price.to_f) %>
+        <h6 class="price-label">Save
+          <span class="strike">
+            <%= number_to_currency(@product.msrp.to_f - @product.street_price.to_f) %>
+          </span>
+        </h6>
+        <h6 class="price-label">Save <%= number_to_currency(@discount_amount.to_f + (@product.msrp.to_f - @product.street_price.to_f)) %>!</h6>
+      <% else %>
+        <h6 class="price-label">Save <%= number_to_currency(@discount_amount.to_f) %>!</h6>
+      <% end %>
+
     <% end %>
 
   <% end %>

@@ -505,6 +505,7 @@ module ProductsHelper
         if format == "text_only"
           content_tag(:div, link_to(promo.name, (promo.has_description?) ? promo : alt_url))
         else
+          tag(:br) +
           content_tag(:h2, class: "special_offer") {
             link_to(t('product_page.special_offer'), (promo.has_description?) ? promo : alt_url)
           } + content_tag(:div, class: "special_offer_contents") {
@@ -515,6 +516,7 @@ module ProductsHelper
         if format == "text_only"
           content_tag(:div, link_to(t('product_page.specal_offer'), promotions_path))
         else
+          tag(:br) +
           content_tag(:h2, class: "special_offer") {
             link_to(t('product_page.special_offer'), promotions_path)
           }
