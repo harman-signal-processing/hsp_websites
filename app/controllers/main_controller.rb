@@ -289,6 +289,12 @@ class MainController < ApplicationController
     render inline: '<script src="//connect.facebook.net/en_US/all.js"></script>', layout: false
   end
 
+  def robots
+    respond_to do |format|
+      format.txt
+    end
+  end
+
   private
 
   def teaser_layout
