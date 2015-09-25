@@ -1,14 +1,16 @@
 <ul class="downloads">
-<% product.active_softwares.each do |software| %>
-	<li>
-		<%= platform_icon(software, 17) %>
-		<%= link_to software.formatted_name, software %>
-	</li>
-<% end %>
+  <% product.active_softwares.each do |software| %>
+    <li>
+      <%= platform_icon(software, 17) %>
+      <%= link_to software.formatted_name, software %>
+    </li>
+  <% end %>
 	<% product.executable_site_elements.each do |site_element| %>
 	<li>
 			<%= link_to site_element.name, site_element.executable.url %>
 			[<%= number_to_human_size(site_element.executable_file_size) %>]
-	</li>	
+	</li>
 	<% end %>
 </ul>
+
+<%= draw_audio_demos product %>
