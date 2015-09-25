@@ -27,8 +27,28 @@ $medium-gray: #a8a8a8;
 $light-gray: #d0d0d0;
 $strip-bg-even: #E1E1E1;
 $strip-bg-odd: #000000;
-//$dark_blue: #14277c;
-$dark_blue: #014fff;
+//$bright_blue: #014fff;
+$gold: #b3912a;
+
+ $white       : #FFFFFF;
+ $ghost       : #FAFAFA;
+ $snow        : #F9F9F9;
+ $vapor       : #F6F6F6;
+ $white-smoke : #F5F5F5;
+ $silver      : #EFEFEF;
+ $smoke       : #EEEEEE;
+ $gainsboro   : #DDDDDD;
+ $iron        : #CCCCCC;
+ $base        : #AAAAAA;
+ $aluminum    : #999999;
+ $jumbo       : #888888;
+ $monsoon     : #777777;
+ $steel       : #666666;
+ $charcoal    : #555555;
+ $tuatara     : #444444;
+ $oil         : #333333;
+ $jet         : #222222;
+ $black       : #000000;
 
 $default-float: left;
 
@@ -37,7 +57,7 @@ $body-font-color: #666;
 $body-font-family: 'AsapRegular', "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $body-font-weight: 300;
 
-$primary-color: $dark_blue;
+$primary-color: $gold;
 $secondary-color: $medium-gray;
 // $alert-color: #c60f13;
 // $success-color: #5da423;
@@ -213,7 +233,7 @@ $table-head-font-color: $header-font-color;
 // $thumb-radius: $global-radius;
 // $thumb-transition-speed: 200ms;
 
-$topbar-bg-color: $primary-color;
+$topbar-bg-color: scale-color($primary-color, $lightness: -60%, $saturation: -80%);
 $topbar-bg: $topbar-bg-color !default;
 $topbar-height:                        rem-calc(80px);
 // $topbar-margin-bottom:                 rem-calc(26px);
