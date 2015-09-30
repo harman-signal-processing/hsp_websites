@@ -1315,6 +1315,18 @@ div.quicklinks {
     right: 0;
 }
 
+div.sitewide_notice {
+  text-align: center;
+  color: #333;
+  background: #ffff99;
+  padding: 2px;
+  font-size: rem-calc(13px);
+  a {
+    text-decoration: underline;
+    font-weight: 500;
+    color: #222;
+  }
+}
 .small-text {
   font-size: 90%;
   line-height: 1.2;

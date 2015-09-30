@@ -4,6 +4,11 @@
 
 <%= cache ["header", website.brand, I18n.locale] do %>
 <div class="sticky top-bar-container">
+  <% if website.sitewide_notice %>
+    <div class="sitewide_notice">
+      <%=raw website.sitewide_notice %>
+    </div>
+  <% end %>
 	<nav class="top-bar" data-topbar role="navigation">
 		<ul class="title-area">
 			<li class="name logo-container"><%= link_to image_tag(website.folder + '/logo-sm.png', alt: website.brand.name), locale_root_path %></li>
