@@ -619,17 +619,18 @@ h1.page_title {
   }
 }
 .small_product_box {
-  padding: 2px;
+  padding: 2px 2px 40px;
   background: white;
   position: relative;
   color: #444;
   overflow: hidden;
   width: 100%; // of the container
   img {
-    margin: 10px 0px 6px;
+    margin: 10px 2px 6px;
   }
   .product_thumb {
     width: 100%;
+    padding-right: 4px;
   }
   .compare_checkbox {
     margin-top: 10px;
@@ -638,7 +639,7 @@ h1.page_title {
     font-weight: 400;
     margin-bottom: 4px;
     &.vertical {
-      margin-top: 28px;
+      margin-top: 8px;
     }
   }
   .product_description {
