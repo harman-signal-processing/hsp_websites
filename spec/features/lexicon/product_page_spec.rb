@@ -40,14 +40,6 @@ feature "Lexicon product page" do
     expect(page).to have_xpath("//a[@href='#{@product.demo_link}']")
   end
 
-  scenario "should link directly to the downloads tab" do
-    visit product_path(@product, locale: I18n.default_locale, tab: "downloads_and_docs")
-    expect(page).to have_css("li#downloads_and_docs_tab.current")
-    expect(page).not_to have_css("li#description_tab.current")
-    expect(page).to have_css("div#downloads_and_docs_content")
-    expect(page).not_to have_xpath("//div[@id='downloads_and_docs_content'][@style='display: none;']")
-  end
-
   scenario "should link to related current promotion" do
     expect(page).to have_link @promo.name
   end

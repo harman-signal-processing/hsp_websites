@@ -12,14 +12,20 @@
 <% end %>
 
 <%= content_for :feature do %>
-  <div class="container product_family_header">
-    <div class="row">
-      <div class="large-8 small-12 columns">
-        <h1><%= translate_content(@product_family, :name) %></h1>
-        <p><%=raw translate_content(@product_family, :intro) %></p>
+  <% if @product_family.title_banner.present? %>
+    <div class="text-center">
+      <%= image_tag @product_family.title_banner.url, alt: @product_family.name %>
+    </div>
+  <% else %>
+    <div class="container product_family_header">
+      <div class="row">
+        <div class="large-8 small-12 columns">
+          <h1><%= translate_content(@product_family, :name) %></h1>
+          <p><%=raw translate_content(@product_family, :intro) %></p>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
 <% end %>
 
 <% if !!(website.show_comparisons) %>
