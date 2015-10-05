@@ -7,19 +7,17 @@
 <% end %>
 
 <% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
-<div class="callout panel" id="<%= product_family.to_param %>">
+<div id="<%= product_family.to_param %>">
 	<% if product_family.children_with_current_products(website).size > 0 %>
 		<h2><%= link_to translate_content(product_family, :name), product_family %></h2>
-		<% if product_family.children_with_current_products(website).size > 1 %>
-		<% end %>
 
-		<% product_family.children_with_current_products(website).each do |child| %>
-			<% if !child.family_photo_file_name.blank? %>
-	  		<span style="margin-right: 8px;">
-				<%= link_to(image_tag(child.family_photo.url), child) %>
-	  		</span>
-			<% end %>
-		<% end %>
+    <ul class="large-block-grid-3 medium-block-grid-2 small-block-grid-1">
+      <% product_family.children_with_current_products(website).each do |child| %>
+        <% if !child.family_photo_file_name.blank? %>
+          <li><%= link_to(image_tag(child.family_photo.url, alt: child.name), child) %></li>
+        <% end %>
+      <% end %>
+    </ul>
 
 	<% elsif !product_family.family_banner_file_name.blank? %>
 		<h2><%= link_to(image_tag(product_family.family_banner.url), product_family) %></h2>
