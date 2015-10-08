@@ -87,6 +87,12 @@
 </div>
 
 <div class="row">
+  <div class="large-6 columns">
+    <%= f.input :legal_disclaimer %>
+  </div>
+</div>
+
+<div class="row">
 	<div class="large-6 columns">
 		<fieldset>
 			<legend>Product Page Design &amp; Features</legend>
@@ -94,14 +100,14 @@
 				<%= f.input :has_pedals, label: "Has pedals. (call the \"effects\" tab \"pedals\")" %><br/>
 			<% end %>
 			<% if website.page_layouts %>
-				<%= f.input :layout_class, 
-					label: "Page layout style", 
+				<%= f.input :layout_class,
+					label: "Page layout style",
 					hint: "(not all brands have multiple layouts)",
 					collection: website.page_layouts.split("|") %>
 			<% end %>
 
 			<% if can?(:update, :product_background) %>
-				<%= f.input :background_color, 
+				<%= f.input :background_color,
 						hint: "(optional custom page background: ie \"#CCCCCC\" or \"blue\"" %>
 				<%= f.input :background_image, hint: "(optional background image--will be centered)" %>
 
@@ -122,7 +128,7 @@
 				</div>
 			</div>
 			<% end %>
-	
+
 			<%= f.input :rohs, label: "ROHS" %>
 
 		</fieldset>

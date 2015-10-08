@@ -4,6 +4,29 @@ RSpec.describe Product, :type => :model do
 
   before do
 	  @digitech = FactoryGirl.create(:digitech_brand)
+    @product = FactoryGirl.build_stubbed(:product)
+  end
+
+  subject { @product }
+  it { should respond_to(:brand) }
+  it { should respond_to(:sap_sku) }
+  it { should respond_to(:description) }
+  it { should respond_to(:short_description) }
+  it { should respond_to(:extended_description) }
+  it { should respond_to(:features) }
+  it { should respond_to(:legal_disclaimer) }
+  it { should respond_to(:product_families) }
+
+  describe "SKU validation" do
+    it "should allow blank SKUs" do
+      @product.sap_sku = nil
+      expect(@product.valid?).to be(true)
+    end
+
+    it "should not allow an email address" do
+      @product.sap_sku = "someone@email.com"
+      expect(@product.valid?).to be(false)
+    end
   end
 
 	describe "dod pedal" do
