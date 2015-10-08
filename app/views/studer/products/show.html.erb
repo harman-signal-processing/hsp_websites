@@ -166,6 +166,11 @@ set_meta_tags title: @product.name,
 
 		<!-- <%= @active_tab %> -->
     <%= draw_main_product_content @product, active_tab: @active_tab %>
+    <% if @product.legal_disclaimer.present? %>
+      <div class="legal_disclaimer">
+        <%= @product.legal_disclaimer %>
+      </div>
+    <% end %>
 	</div>
 
   <div class="large-4 small-12 columns">

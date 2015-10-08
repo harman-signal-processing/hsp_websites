@@ -122,6 +122,11 @@ set_meta_tags title: @product.name,
 				<div class="hide-for-small">
 					<%=raw translate_content(@product, :extended_description) %>
 				</div>
+        <% if @product.legal_disclaimer.present? %>
+          <div class="legal_disclaimer">
+            <%= @product.legal_disclaimer %>
+          </div>
+        <% end %>
 			</div>
 		</div>
 		<div class="large-4 columns">

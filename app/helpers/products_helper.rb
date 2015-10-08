@@ -295,12 +295,6 @@ module ProductsHelper
           class: 'content-nav',
           data: {:'magellan-destination' => product_tab.key}
         )
-      else
-        ret += content_tag(
-          :h3,
-          tab_title(product_tab, product: product),
-          class: 'content-nav'
-        )
       end
       ret += content_tag(:div, class: "product_main_tab_content content #{active_class}") do
         render_partial("products/#{product_tab.key}", product: product)
