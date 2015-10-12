@@ -28,7 +28,7 @@ gem 'paperclip-meta'
 gem 's3_direct_upload'
 gem 'meta-tags', '~> 1.5', require: 'meta_tags' # v 2.0.0 caused an error
 # As of 3/30/2015, this branch compiles assets into the asset pipeline...
-gem 'tinymce-rails', git: 'https://github.com/spohlenz/tinymce-rails.git', branch: 'compile-assets' #, '~> 3.5'
+gem 'tinymce-rails', git: 'https://github.com/spohlenz/tinymce-rails.git' #, branch: 'compile-assets' #, '~> 3.5'
 gem 'mechanize'
 gem 'geokit', '>= 1.8.5'
 gem 'geokit-rails'
@@ -48,7 +48,7 @@ gem 'dynamic_form'
 gem 'rails_autolink'
 gem 'swf_fu', '>=1.3.4', require: 'swf_fu'
 gem 'execjs'
-gem 'therubyracer'
+gem 'therubyrhino'
 gem 'rubyzip', require: 'zip'
 gem 'whenever' #, require: false
 gem "simple_form", ">= 2.0.2"
