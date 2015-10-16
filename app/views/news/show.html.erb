@@ -3,7 +3,7 @@ og_image = (@news.news_photo_file_name.blank?) ? image_url("#{website.folder}/lo
 
 set_meta_tags title: translate_content(@news, :title),
 	reverse: true,
-	canonical: news_url(@news),
+	#canonical: news_url(@news),
 	keywords: @news.keywords,
 	description: translate_content(@news, :title),
 	twitter: {
