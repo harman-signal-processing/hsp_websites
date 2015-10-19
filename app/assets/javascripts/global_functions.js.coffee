@@ -1,5 +1,13 @@
 jQuery ($) ->
 
+  $('a[data-newwindow="true"]').click (e) ->
+    e.preventDefault()
+    window.open(
+      "#{ $(@).data('href') }",
+      "newwindow",
+      "directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,height=#{ $(@).data('windowheight') },width=#{ $(@).data('windowwidth') }"
+    )
+
 	$('a#locale_menu').click (e) ->
 		e.preventDefault()
 		$('#locale_selections').toggle()
@@ -7,14 +15,14 @@ jQuery ($) ->
 	$('.ui-datepicker').datepicker
 		inline: true
 		numberOfMonths: 2
-		showButtonPanel: true	
+		showButtonPanel: true
 		dateFormat: "DD, MM d, yy"
 		constrainInput: true
 
 	$('.ui-datepicker-past-only').datepicker
 		inline: true
 		numberOfMonths: 1
-		showButtonPanel: true	
+		showButtonPanel: true
 		dateFormat: "DD, MM d, yy"
 		constrainInput: true
 		maxDate: 0
