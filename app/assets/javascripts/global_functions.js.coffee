@@ -1,13 +1,5 @@
 jQuery ($) ->
 
-  $('a[data-newwindow="true"]').click (e) ->
-    e.preventDefault()
-    window.open(
-      "#{ $(@).data('href') }",
-      "newwindow",
-      "directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,height=#{ $(@).data('windowheight') },width=#{ $(@).data('windowwidth') }"
-    )
-
 	$('a#locale_menu').click (e) ->
 		e.preventDefault()
 		$('#locale_selections').toggle()
@@ -39,3 +31,12 @@ jQuery ($) ->
 
 	# hide the text field with the date (don't use a hidden field so we can test the form)
 	# $("form#new_warranty_registration #warranty_registration_puchased_on").hide()
+
+  $('a[data-newwindow="true"]').click (e) ->
+    e.preventDefault()
+    window.open(
+      "#{ $(@).data('href') }",
+      "newwindow",
+      "directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,height=#{ $(@).data('windowheight') },width=#{ $(@).data('windowwidth') }"
+    )
+
