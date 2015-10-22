@@ -310,6 +310,7 @@ module ProductsHelper
     begin
       r << ProductTab.new("description") if selected_tabs.include?("description")
       r << ProductTab.new("extended_description") if !product.extended_description.blank? && selected_tabs.include?("extended_description")
+      r << ProductTab.new("audio_demos") if product.audio_demos.size > 0 && selected_tabs.include?("audio_demos")
       r << ProductTab.new("documentation") if (product.product_documents.size > 0 || product.current_and_recently_expired_promotions.size > 0 || product.viewable_site_elements.size > 0) && selected_tabs.include?("documentation")
       r << ProductTab.new("downloads") if (product.softwares.size > 0 || product.site_elements.size > 0 || product.executable_site_elements.size > 0) && selected_tabs.include?("downloads")
       r << ProductTab.new("downloads_and_docs") if (product.softwares.size > 0 || product.product_documents.size > 0 || product.site_elements.size > 0) && selected_tabs.include?("downloads_and_docs")
@@ -334,7 +335,6 @@ module ProductsHelper
     ret = ""
     if product.audio_demos.size > 0
     # ret += '<div id="sm2-container"></div>'
-    ret += "<h5>Audio Demos</h5>"
     ret += '<ul class="graphic">'
     product.audio_demos.each do |audio_demo|
       ret += content_tag(:li, link_to(audio_demo.name, audio_demo.wet_demo.url, class: "sm2_link"))

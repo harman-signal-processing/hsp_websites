@@ -252,7 +252,7 @@ class Brand < ActiveRecord::Base
     if tabs = self.value_for("main_tabs")
       tabs = tabs.gsub(/\s/, '')
     else
-      tabs = "description|extended_description|features|specifications"
+      tabs = "description|extended_description|audio_demos|features|specifications"
     end
     tabs.split("|")
   end

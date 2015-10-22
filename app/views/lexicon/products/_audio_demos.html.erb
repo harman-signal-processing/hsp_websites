@@ -1,0 +1,29 @@
+<% @product.audio_demos.group(:dry_demo_file_name).each do |group| %>
+  <% if @product.audio_demos.where(dry_demo_file_name: group.dry_demo_file_name).count > 1 %>
+    <div class="panel">
+      <h4><%= group.dry_demo_file_name.sub(/\.\w*$/, '').sub(/\-Dry/i, '').sub(/([a-z])([A-Z])/, '\1 \2') %></h4>
+      <% @product.audio_demos.where(dry_demo_file_name: group.dry_demo_file_name).each do |audio_demo| %>
+        <div class="row">
+          <div class="medium-6 columns">
+            <div class="row collapse">
+              <div class="small-9 columns">
+                <%= link_to(audio_demo.name.sub(/\-.*$/, ''), audio_demo.wet_demo.url, class: "medium button expand sm2_button") %>
+              </div>
+              <div class="small-3 columns">
+                <%= link_to(audio_demo.dry_demo.url, class: "medium secondary button expand sm2_button") do %>
+                  &empty;
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div class="medium-6 columns">
+            <label class="inline"><%= audio_demo.description %></label>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <%= draw_audio_demos(@product) %>
+  <% end %>
+<% end %>
+

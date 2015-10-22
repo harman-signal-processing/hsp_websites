@@ -262,6 +262,7 @@ class Product < ActiveRecord::Base
       unless self.package_tabs.size > 0
         r << ProductTab.new("features") if self.features && self.features.size > 15 && self.brand.side_tabs.include?("features")
       end
+      r << ProductTab.new("audio_demos") if self.audio_demos.length > 0 && self.brand.side_tabs.include?("audio_demos")
       r << ProductTab.new("specifications") if self.product_specifications.size > 0 && self.brand.side_tabs.include?("specifications")
       r << ProductTab.new("documentation") if (self.product_documents.size > 0 || self.current_and_recently_expired_promotions.size > 0 || self.viewable_site_elements.size > 0) && self.brand.side_tabs.include?("documentation")
       r << ProductTab.new("training_modules") if self.training_modules.size > 0 && self.brand.side_tabs.include?("training_modules")
@@ -286,6 +287,7 @@ class Product < ActiveRecord::Base
     r = []
     r << ProductTab.new("description")
     r << ProductTab.new("extended_description") if !self.extended_description.blank? && self.brand.main_tabs.include?("extended_description")
+    r << ProductTab.new("audio_demos") if self.audio_demos.length > 0 && self.brand.main_tabs.include?("audio_demos")
     r << ProductTab.new("features") if self.features && self.features.size > 15 && self.brand.main_tabs.include?("features")
     r << ProductTab.new("documentation") if (self.product_documents.size > 0 || self.current_and_recently_expired_promotions.size > 0 || self.viewable_site_elements.size > 0) && self.brand.main_tabs.include?("documentation")
     r << ProductTab.new("downloads") if (self.softwares.size > 0 || self.executable_site_elements.size > 0) && self.brand.main_tabs.include?("downloads")
