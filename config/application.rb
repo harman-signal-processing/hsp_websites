@@ -76,7 +76,6 @@ module HarmanSignalProcessingWebsite
     config.rso_invitation_code      = ENV['RSO_INVITATION_CODE']
     config.media_invitation_code    = ENV['MEDIA_INVITATION_CODE']
     config.toolkit_url              = "marketingtoolkit.harmanpro.com"
-    config.queue_url                = "marketingqueue.harmanpro.com"
     config.default_site_name        = "Harman Signal Processing"
     config.toolkit_admin_email_addresses = ENV['TOOLKIT_ADMIN_EMAIL_ADDRESSES'].split("|")
     config.toolkit_admin_contact_info    = ENV['TOOLKIT_ADMIN_CONTACT_INFO'].split("|")

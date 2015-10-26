@@ -1,8 +1,0 @@
-<% if @marketing_task.marketing_project %>
-$("#percent-complete-<%= @marketing_task.marketing_project_id %>").html(" <%=number_to_percentage @marketing_task.marketing_project.percent_complete, precision: 0 %>");
-var c = "tr#task-counter-<%= @marketing_task.marketing_project_id %>";
-$(c).data('completedcount', <%= @marketing_task.marketing_project.completed_marketing_tasks.count %>);
-$(c).data('incompletecount', <%= @marketing_task.marketing_project.incomplete_marketing_tasks.count %>);
-<% end %>
-
-$('#task_row_<%= @marketing_task.id %>').fadeOut();

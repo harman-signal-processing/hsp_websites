@@ -108,7 +108,6 @@ namespace :deploy do
     sudo "ln -nfs /var/www/hmg/hsp_websites/current/config/nginx/idx.conf /etc/nginx/conf.d/idx.conf"
     sudo "ln -nfs /var/www/hmg/hsp_websites/current/config/nginx/jbl_commercial.conf /etc/nginx/conf.d/jbl_commercial.conf"
     sudo "ln -nfs /var/www/hmg/hsp_websites/current/config/nginx/lexicon.conf /etc/nginx/conf.d/lexicon.conf"
-    sudo "ln -nfs /var/www/hmg/hsp_websites/current/config/nginx/queue.conf /etc/nginx/conf.d/queue.conf"
     # sudo "ln -nfs /var/www/hmg/hsp_websites/current/config/nginx/testsites.conf /etc/nginx/conf.d/testsites.conf"
     sudo "ln -nfs /var/www/hmg/hsp_websites/current/config/nginx/toolkits.conf /etc/nginx/conf.d/toolkits.conf"
     sudo "ln -nfs /var/www/hmg/hsp_websites/current/config/nginx/vocalist.conf /etc/nginx/conf.d/vocalist.conf"

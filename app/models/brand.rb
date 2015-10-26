@@ -4,8 +4,6 @@ class Brand < ActiveRecord::Base
 
   has_many :product_families
   has_many :market_segments, -> { order("created_at ASC") }
-  has_many :marketing_tasks
-  has_many :marketing_projects
   has_many :online_retailer_links, -> { where("active = 1").order("RAND()") }
   has_many :brand_dealers, dependent: :destroy
   has_many :dealers, through: :brand_dealers
@@ -310,26 +308,6 @@ class Brand < ActiveRecord::Base
     end
     counter.save
     counter.integer_value
-  end
-
-  def open_marketing_projects
-    @open_marketing_projects ||= MarketingProject.open.where(brand_id: self.id)
-  end
-
-  def open_marketing_projects_with_tasks
-    @open_marketing_projects_with_tasks ||= MarketingProject.open_with_tasks.where(brand_id: self.id)
-  end
-
-  def event_strips_for_month(shown_month)
-    marketing_projects.event_strips_for_month(shown_month)
-  end
-
-  def projects_for_staff_meeting
-    @projects_for_staff_meeting ||= self.open_marketing_projects_with_tasks.where("due_on <= ?", 5.months.from_now)
-  end
-
-  def non_project_tasks_for_staff_meeting
-    @non_project_tasks_for_staff_meeting ||= self.marketing_tasks.where(marketing_project_id: nil, completed_at: nil).where("due_on <= ?", 5.months.from_now)
   end
 
   def new_signups

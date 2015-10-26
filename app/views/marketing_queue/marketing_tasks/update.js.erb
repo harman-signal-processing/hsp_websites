@@ -1,8 +1,0 @@
-$("td#worker-<%= @marketing_task.id %>").html("<%= @marketing_task.worker ? @marketing_task.worker.name : 'Unassigned' %>");
-$("td#man-hours-<%= @marketing_task.id %>").html("<%= @marketing_task.man_hours ? @marketing_task.man_hours.to_f : '' %>");
-$("div#worker-<%= @marketing_task.id %>").html("Assigned to: <%= @marketing_task.worker ? @marketing_task.worker.name : 'Unassigned' %>");
-
-$("li#task_row_<%= @marketing_task.id %> .assigned").html("Assigned to: <%= @marketing_task.worker ? @marketing_task.worker.name : 'Unassigned' %>");
-
-$('#assign-task-<%= @marketing_task.id %>').foundation('reveal', 'close');
-$(".reveal-modal-bg").hide();

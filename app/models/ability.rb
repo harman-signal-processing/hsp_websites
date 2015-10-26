@@ -45,45 +45,12 @@ class Ability
         cannot :manage, Brand
         cannot :manage, ToolkitResourceType
         cannot :manage, ProductIntroduction
-        can :manage, MarketingTask
-        cannot :assign, MarketingTask
-        can :create, MarketingProject
-        can :manage, MarketingProject
         can :read, WarrantyRegistration
         can :manage, PricingType
         can :manage, ProductPrice
       end
       if user.role?(:marketing_staff)
-        can [:read, :create, :update], MarketingTask
-        can :destroy, MarketingTask, requestor_id: user.id
-        can :manage, MarketingAttachment
-        can :create, MarketingComment
-        can :manage, MarketingComment, user_id: user.id
-        can :estimate, MarketingTask, worker_id: user.id
-        can :manage, MarketingTask do |mt|
-          mt.requestor_id == user.id || mt.worker_id == user.id || (mt.marketing_project && mt.marketing_project.user_id == user.id)
-        end
-        can :create, MarketingProject
-        can :manage, MarketingProject, user_id: user.id
         can :manage, SupportSubject
-        # cannot :assign, MarketingTask # Makes it so admin can't assign either
-      end
-      if user.role?(:queue_admin)
-        can :manage, MarketingTask
-        can :assign, MarketingTask
-        can :manage, MarketingProject
-        can :manage, MarketingProjectType
-        can :manage, MarketingProjectTypeTask
-        can :manage, MarketingAttachment
-        can :manage, User, marketing_staff: true
-        can :manage, MarketingComment
-        can :estimate, MarketingTask
-      end
-      if user.role?(:project_manager)
-        can :manage, MarketingTask
-        cannot :assign, MarketingTask
-        can :create, MarketingProject
-        can :manage, MarketingProject
       end
       if user.role?(:sales_admin)
         can :read, Product
@@ -100,16 +67,6 @@ class Ability
         can :read, ToolkitResource, rso: true
       end
       if user.role?(:engineer)
-        can [:read, :create, :update], MarketingTask
-        can :destroy, MarketingTask, requestor_id: user.id
-        can :manage, MarketingAttachment
-        can :create, MarketingComment
-        can :manage, MarketingComment, user_id: user.id
-        can :manage, MarketingTask do |mt|
-          mt.requestor_id == user.id || mt.worker_id == user.id || (mt.marketing_project && mt.marketing_project.user_id == user.id)
-        end
-        can :create, MarketingProject
-        can :manage, MarketingProject, user_id: user.id
         can :manage, Software
         can :manage, ProductSoftware
         can :manage, SoftwareAttachment

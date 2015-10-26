@@ -50,7 +50,7 @@ RSpec.describe Admin::SupportSubjectsController, type: :controller do
     end
   end
 
-  describe "POST create" do
+  describe "POST create (successfully)" do
     before do
       @valid_params = { name: "Call my mom", recipient: "mom@home.com" }
     end
@@ -67,6 +67,16 @@ RSpec.describe Admin::SupportSubjectsController, type: :controller do
       post :create, support_subject: @valid_params
 
       expect(SupportSubject.last.brand_id).to eq(@brand.id)
+    end
+  end
+
+  describe "POST create (un-successfully)" do
+    before do
+      post :create, support_subject: { recipient: "foo" }
+    end
+
+    it "renders the 'new' action" do
+      expect(response).to render_template("admin/support_subjects/new")
     end
   end
 
@@ -103,6 +113,17 @@ RSpec.describe Admin::SupportSubjectsController, type: :controller do
 
     it "redirects to the index" do
       expect(response).to redirect_to(admin_support_subject_path(@support_subject))
+    end
+  end
+
+  describe "POST update (un-successfully)" do
+    before do
+      @support_subject = @support_subjects.first
+      post :update, id: @support_subject.id, support_subject: { name: '', recipient: ''}
+    end
+
+    it "renders the 'edit' action" do
+      expect(response).to render_template("admin/support_subjects/edit")
     end
   end
 

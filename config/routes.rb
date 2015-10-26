@@ -3,7 +3,6 @@ require "domain_conditions"
 HarmanSignalProcessingWebsite::Application.routes.draw do
 
   get "robots" => "main#robots", defaults: { format: 'txt' }
-  get "/images/bar/(:brand_id)_(:width)x(:height).png" => "marketing_queue#bar", as: :bar
   get "signups/new"
   get "signup/complete" => "signups#complete", as: :signup_complete
   get "epedal_labels/index"
@@ -49,51 +48,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :brands, only: :show do
         resources :products, :promotions, only: [:index, :show]
         resources :product_families, :toolkit_resources, :toolkit_resource_types, only: [:show]
-      end
-    end
-  end
-
-  constraints(QueueDomain) do
-    get '/' => 'marketing_queue#index', as: :marketing_queue_root
-    get 'staff_meeting' => 'marketing_queue#staff_meeting'
-    get 'user_workload/:id' => 'marketing_queue#workload', as: :user_workload
-    devise_for :marketing_queue_users,
-      path: "users",
-      class_name: "User",
-      controllers: {
-        sessions: "marketing_queue/users/sessions",
-        registrations: "marketing_queue/users/registrations",
-        confirmations: "marketing_queue/users/confirmations",
-        passwords: "marketing_queue/users/passwords",
-        unlocks: "marketing_queue/users/unlocks"
-      }
-    namespace :marketing_queue do
-      resources :brands do
-        get '/calendar(/:year(/:month))' => 'brands#index', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}
-        resources :marketing_projects, :marketing_tasks
-      end
-      resources :marketing_projects do
-        resources :marketing_comments, only: [:create, :destroy]
-        resources :marketing_attachments
-        collection do
-          get :overview
-        end
-      end
-      get 'load_marketing_calendar(/:id)' => 'marketing_calendars#show', as: :load_marketing_calendar
-      resources :marketing_calendars do
-        get ':id/calendar((/:year(/:month))/:brand_id)' => 'marketing_calendars#show', as: :project_calendar, constraints: {year: /\d{4}/, month: /\d{1,2}/}
-      end
-      resources :marketing_tasks,
-        :marketing_project_types,
-        :marketing_project_type_tasks,
-        :marketing_attachments
-      resources :marketing_tasks do
-        resources :marketing_comments, only: [:create, :destroy]
-        resources :marketing_attachments
-        member do
-          get :toggle
-          get :switch_currently_with
-        end
       end
     end
   end

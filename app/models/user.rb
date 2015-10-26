@@ -1,9 +1,6 @@
 class User < ActiveRecord::Base
   include Gravtastic
   gravtastic
-  has_many :marketing_projects
-  has_many :marketing_tasks, foreign_key: 'worker_id'
-  has_many :marketing_comments
   has_many :online_retailer_users, dependent: :destroy
   has_many :online_retailers, through: :online_retailer_users
   has_many :dealer_users, dependent: :destroy
@@ -66,24 +63,13 @@ class User < ActiveRecord::Base
     distributor
     dealer
     marketing_staff
-    queue_admin
     rso
     sales_admin
-    project_manager
     executive
     media]
 
   def self.staff
     where("marketing_staff = 1 OR admin = 1 OR market_manager = 1 OR artist_relations = 1 OR sales_admin = 1").order("UPPER(name)")
-  end
-
-  def self.queue_admin(options={})
-    default_options = { exclude_super_admins: true, all: false }
-    options = default_options.merge options
-    a = where(queue_admin: true)
-    a = a.where(admin: false) if options[:exclude_super_admins]
-
-    (options[:all]) ? a.order("name").all : a.order("created_at").first
   end
 
   def self.marketing_staff
@@ -169,22 +155,6 @@ class User < ActiveRecord::Base
       if first_distributor = Distributor.where(account_number: self.account_number.to_s).first
         self.distributors << first_distributor
       end
-    end
-  end
-
-  def completed_marketing_tasks
-    @completed_marketing_tasks ||= marketing_tasks.where("completed_at IS NOT NULL AND completed_at <= ?", Date.tomorrow)
-  end
-
-  def incomplete_marketing_tasks
-    @incomplete_marketing_tasks ||= marketing_tasks.where("completed_at IS NULL OR completed_at > ?", Date.tomorrow)
-  end
-
-  def allocation(offset=nil)
-    if offset
-      incomplete_marketing_tasks.where("man_hours > 0").where("due_on <= ?", offset).inject(0.0){|total, i| total + i.man_hours}
-    else
-      incomplete_marketing_tasks.where("man_hours > 0").inject(0.0){|total, i| total + i.man_hours}
     end
   end
 

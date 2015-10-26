@@ -1,7 +1,7 @@
 class ArtistsController < ApplicationController
   before_filter :set_locale
   before_filter :ensure_best_url, only: :show
-  
+
   # GET /artists
   # GET /artists.xml
   def index
@@ -28,16 +28,16 @@ class ArtistsController < ApplicationController
         # format.xml  { render xml: @artist }
       end
     else
-      redirect_to artists_path(anchor: "artist_#{@artist.id}") and return
+      redirect_to all_artists_path(letter: @artist.name.match(/\w/).to_s.downcase) and return false
     end
   end
-  
+
   # GET /artists/list
   # GET /artists/list.xml
   def list
     redirect_to action: "index"
   end
-  
+
   # GET /artists/touring
   # GET /artists/touring.xml
   def touring
@@ -45,14 +45,14 @@ class ArtistsController < ApplicationController
     respond_to do |format|
       format.html { render_template } # touring.html.erb
       # format.xml  { render xml: @products }
-    end    
+    end
   end
-  
+
   # Get /artists/become_an_artist
   def become
     render_template
   end
-  
+
   # Alphabetical list of artists
   def all
     params[:letter] ||= "a"
@@ -68,13 +68,16 @@ class ArtistsController < ApplicationController
       @all_artists[first_letter] << artist
     end
     @artists = @all_artists[params[:letter]]
+    render_template
   end
-  
+
   protected
-  
+
+  # :nocov:
   def ensure_best_url
     @artist = Artist.where(cached_slug: params[:id]).first || Artist.find(params[:id])
     # redirect_to @artist, status: :moved_permanently unless @artist.friendly_id_status.best?
   end
+  # :nocov:
 
 end

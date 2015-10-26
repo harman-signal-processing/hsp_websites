@@ -44,11 +44,11 @@ class LabelSheetOrdersController < ApplicationController
 
   def load_istomp
   	@istomp = Product.find("istomp") || Product.new(name: "iStomp")
-    @stomp_shop = @istomp.softwares.first || Software.new 
+    @stomp_shop = @istomp.softwares.first || Software.new
   end
 
   def label_sheet_order_params
     params.require(:label_sheet_order).permit(:name, :email, :address, :city, :state, :postal_code, :country, :subscribe, label_sheet_ids: [])
   end
-  
+
 end

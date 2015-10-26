@@ -39,7 +39,6 @@ RSpec.describe Faq, :type => :model do
       faq = Faq.new(question: "Why?", answer: "Becuz", faq_category_ids: [faq_category.id])
 
       is_valid = faq.valid?
-      puts faq.errors.inspect
 
       expect(is_valid).to be(true)
     end

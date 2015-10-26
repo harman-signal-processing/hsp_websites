@@ -80,7 +80,7 @@ class ApplicationController < ActionController::Base
   end
 
   def default_url_options(options={})
-    if !!(request.host.to_s.match(/toolkit|queue/i))
+    if !!(request.host.to_s.match(/toolkit/i))
       {}
     else
       # {locale: website.locale}
@@ -103,7 +103,7 @@ private
   # to cause problems.
   #
   def ensure_locale_for_site
-    if (website && website.folder) # (skips this filter for tooklit and queue)
+    if (website && website.folder) # (skips this filter for tooklit)
       if website.respond_to?(:list_of_available_locales)
         if params[:locale] && !params[:locale].to_s.match(/en/i) && l = website.list_of_available_locales
           unless l.include?(params[:locale].to_s)
@@ -312,8 +312,6 @@ private
   def current_ability
     if current_user
       @current_ability ||= Ability.new(current_user)
-    elsif current_marketing_queue_user
-      @current_ability ||= Ability.new(current_marketing_queue_user)
     elsif current_toolkit_user
       @current_ability ||= Ability.new(current_toolkit_user)
     elsif current_artist
@@ -326,7 +324,7 @@ private
   def after_sign_in_path_for(resource)
     if resource.is_a?(Artist)
       artist_root_path
-    elsif !!(request.host.match(/toolkit|queue/i))
+    elsif !!(request.host.match(/toolkit/i))
       root_path
     else
       admin_root_path

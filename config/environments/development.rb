@@ -55,7 +55,6 @@ HarmanSignalProcessingWebsite::Application.configure do
   config.rso_invitation_code = "RSO_INVITATION_CODE"
   config.media_invitation_code = "MEDIA_INVITATION_CODE"
   config.toolkit_url = "toolkit.lvh.me:3000"
-  config.queue_url   = "queue.lvh.me:3000"
 
 end
 
