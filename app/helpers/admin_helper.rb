@@ -26,6 +26,7 @@ module AdminHelper
     end
   end
 
+  # :nocov:
   def disable_field_for?(object, attribute)
     return false if can? :manage, :all
     object.disable_field?(attribute)
@@ -59,5 +60,6 @@ module AdminHelper
     end
     link_to(name, '#', class: "add_fields", data: {id: id, fields: fields.gsub("\n", "")})
   end
+  # :nocov:
 
 end

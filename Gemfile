@@ -27,8 +27,7 @@ gem "paperclip" #, "~> 3.0"
 gem 'paperclip-meta'
 gem 's3_direct_upload'
 gem 'meta-tags', '~> 1.5', require: 'meta_tags' # v 2.0.0 caused an error
-# As of 3/30/2015, this branch compiles assets into the asset pipeline...
-gem 'tinymce-rails', git: 'https://github.com/spohlenz/tinymce-rails.git' #, branch: 'compile-assets' #, '~> 3.5'
+gem 'tinymce-rails', git: 'https://github.com/spohlenz/tinymce-rails.git'
 gem 'mechanize'
 gem 'geokit', '>= 1.8.5'
 gem 'geokit-rails'
@@ -40,7 +39,7 @@ gem 'daemons'
 gem 'devise'
 gem 'cancan'
 gem 'gravtastic'
-gem "recaptcha", require: "recaptcha/rails" #'~> 0.3.6',  0.4.0 uses new API where each domain needs its own keys
+gem "recaptcha", require: "recaptcha/rails"
 gem 'to_xls-rails'
 gem 'acts_as_list'
 gem 'acts_as_tree'
@@ -62,7 +61,7 @@ gem 'will_paginate'
 gem "bing_translator"
 gem "rubyntlm" # optional dependency for bing_translator, but causes log errors without it
 gem "possessive"
-gem 'event-calendar', :require => 'event_calendar'
+#gem 'event-calendar', :require => 'event_calendar' # was for marketing queue, I think
 gem 'RedCloth'
 gem 'figaro'
 gem 'delayed_paperclip'
