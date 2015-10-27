@@ -15,6 +15,7 @@ notes/
 config/database.yml
 config/s3.yml
 notes/
+spec/test_files
 
 # Compiled source #
 ###################

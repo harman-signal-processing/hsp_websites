@@ -64,6 +64,21 @@ if Rails.env.production? || Rails.env.development?
     url: ':s3_alias_url',
     path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
   }
+
+elsif Rails.env.test?
+
+	Paperclip::Attachment.default_options.merge!({
+    url: '/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension',
+    storage: :filesystem,
+    path: ":rails_root/spec/test_files/:class/:attachment/:id_:timestamp/:basename_:style.:extension"
+	})
+
+  S3_STORAGE = {
+    url: '/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension',
+    storage: :filesystem,
+    path: ":rails_root/spec/test_files/:class/:attachment/:id_:timestamp/:basename_:style.:extension"
+  }
+
 else
 
 	Paperclip::Attachment.default_options.merge!({
@@ -83,6 +98,12 @@ end
 # without messing up the S3 stored slides, etc., but don't forget to edit the setting.rb model
 if Rails.env.production? || Rails.env.development?
   SETTINGS_STORAGE = S3_STORAGE
+elsif Rails.env.development?
+  SETTINGS_STORAGE = {
+    url: '/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension',
+    storage: :filesystem,
+    path: ":rails_root/spec/test_files/:class/:attachment/:id_:timestamp/:basename_:style.:extension"
+  }
 else
   SETTINGS_STORAGE = {
     url: '/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension',
