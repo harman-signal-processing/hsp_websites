@@ -19,7 +19,6 @@ FactoryGirl.define do
     has_training false
     show_pricing false
     has_suggested_products false
-    has_blogs false
     has_audio_demos false
     default_locale "en-US"
     dealers_from_brand_id nil

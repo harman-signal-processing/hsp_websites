@@ -33,8 +33,8 @@ class AddMissingSlugs < ActiveRecord::Migration
     add_index  :toolkit_resource_types, :cached_slug
 
     AmpModel.all.each{|r| r.save}
-    Blog.all.each{|r| r.save}
-    BlogArticle.all.each{|r| r.save}
+    #Blog.all.each{|r| r.save}
+    #BlogArticle.all.each{|r| r.save}
     Cabinet.all.each{|r| r.save}
     Effect.all.each{|r| r.save}
     ToneLibrarySong.all.each{|r| r.save}

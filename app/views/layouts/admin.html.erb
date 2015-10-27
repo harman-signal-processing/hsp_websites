@@ -36,7 +36,6 @@
 	<li class="has-dropdown"><%= link_to "Admin Menu", '#' %>
 		<ul class="dropdown">
 	<% if can?(:manage, Setting) || can?(:manage, Page) ||
-		can?(:manage, Blog) || can?(:manage, BlogArticle) ||
 		can?(:manage, SupportSubject) || can?(:manage, SiteElement) %>
 		<li class="has-dropdown"><%= link_to "Settings & Pages", '#' %>
 			<ul class="dropdown">
@@ -54,9 +53,6 @@
 				<% end %>
 				<% if can?(:manage, SiteElement) %>
 				<li><%= link_to "Site Resources & Downloads", admin_site_elements_path %></li>
-				<% end %>
-				<% if website.has_blogs? && (can?(:manage, Blog) || can?(:manage, BlogArticle)) %>
-				<li><%= link_to "Blogs", admin_blogs_path %></li>
 				<% end %>
 			</ul>
 		</li>

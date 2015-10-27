@@ -23,7 +23,6 @@ class Brand < ActiveRecord::Base
   has_many :site_elements
   has_many :training_modules
   has_many :training_classes
-  has_many :blogs
   has_many :pricing_types, -> { order('pricelist_order') }
   has_many :brand_toolkit_contacts, -> { order('position').includes(:user) }
   has_many :us_rep_regions

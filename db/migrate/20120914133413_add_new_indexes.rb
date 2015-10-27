@@ -65,9 +65,6 @@ class AddNewIndexes < ActiveRecord::Migration
   	add_index :content_translations, :locale
   	add_index :brand_distributors, :brand_id
   	add_index :brand_distributors, :distributor_id
-  	add_index :blogs, :brand_id
-  	add_index :blog_articles, :blog_id
-  	add_index :blog_articles, :author_id
   	add_index :audio_demos, :brand_id
   	add_index :artists, :artist_tier_id
   	add_index :artists, :approver_id

@@ -203,9 +203,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :product_training_modules, :software_training_modules, :parent_products, :product_softwares, :brand_toolkit_contacts do
         collection { post :update_order }
       end
-      resources :blogs do
-        resources :blog_articles
-      end
       resources :label_sheet_orders do
         collection { get :subscribers }
       end
@@ -355,9 +352,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       end
     end
     get 'products/:id(/:tab)' => 'products#show', as: :product
-    resources :blogs, only: [:index, :show] do
-      resources :blog_articles, only: :show
-    end
     resources :tone_library_songs, only: :index
     resources :product_documents, only: :index
 
