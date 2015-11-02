@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/spohlenz/tinymce-rails.git
-  revision: 363e8a290b44afc7b8010ccb24b90fb074964c6e
+  revision: 452ca69bb7fbd4ea89c537513ac20bd679ad8daa
   specs:
-    tinymce-rails (4.2.6)
+    tinymce-rails (4.2.7)
       railties (>= 3.1.1)
 
 GEM
@@ -253,7 +253,7 @@ GEM
     fog-serverlove (0.1.2)
       fog-core
       fog-json
-    fog-softlayer (1.0.0)
+    fog-softlayer (1.0.2)
       fog-core
       fog-json
     fog-storm_on_demand (0.1.1)
@@ -356,7 +356,7 @@ GEM
     json (1.8.3)
     json-schema (2.5.1)
       addressable (~> 2.3.7)
-    jwt (1.5.1)
+    jwt (1.5.2)
     launchy (2.4.3)
       addressable (~> 2.3)
     letter_opener (1.4.1)
@@ -394,7 +394,7 @@ GEM
     mime-types (2.6.2)
     mimemagic (0.3.0)
     mini_portile (0.6.2)
-    minitest (5.8.1)
+    minitest (5.8.2)
     monetize (1.1.0)
       money (~> 6.5.0)
     money (6.5.1)
