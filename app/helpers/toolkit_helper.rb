@@ -15,9 +15,9 @@ module ToolkitHelper
 	# Collects ToolkitResource for a particular object. Outputs an array:
 	#
 	# toolkit_support_files(object [, options] )
-	#  
+	#
 	#   valid options:
-	#      
+	#
 	#     only:    searches the ToolkitResourceType for the matching "name"
 	#              and only includes those types in the results.
 	#
@@ -37,12 +37,12 @@ module ToolkitHelper
 		if options[:exclude].present?
 			options[:exclude] = [options[:exclude]] if options[:exclude].is_a?(String)
 			options[:exclude].each do |opt|
-				toolkit_resource_types = toolkit_resource_types.where("name NOT LIKE ?", "%#{opt}%")	
+				toolkit_resource_types = toolkit_resource_types.where("name NOT LIKE ?", "%#{opt}%")
 			end
 		end
 
 		toolkit_resource_types.map do |trt|
-			trt.toolkit_resources.where(related_id: object.id).accessible_by(current_ability, :read) 
+			trt.toolkit_resources.where(related_id: object.id).accessible_by(current_ability, :read)
 		end.flatten
 	end
 
@@ -75,9 +75,9 @@ module ToolkitHelper
 
 			content_tag(:h5, "#{title}:", class: "subheader") +
 
-			content_tag(:ul, class: "large-block-grid-6 small-block-grid-2") do 
+			content_tag(:ul, class: "large-block-grid-6 small-block-grid-2") do
 				items.map do |item|
-					content_tag(:li, link_to_toolkit_item(brand, item, panel: true)) 
+					content_tag(:li, link_to_toolkit_item(brand, item, panel: true))
 				end.join.html_safe
 			end
 		end
@@ -100,7 +100,7 @@ module ToolkitHelper
 	# link_to_toolkit_item(brand, toolkit_resource [, options])
 	#
 	#   valid options:
-	#      
+	#
 	#   image_size: must correspond to the image sizes in the "tk_preview"
 	#               paperclip attachment of the ToolkitResource, ignored
 	#               when panel=true, instead the :tiny size is used.
@@ -115,8 +115,8 @@ module ToolkitHelper
 		path = toolkit_brand_toolkit_resource_path(brand, item)
 
 		if options[:panel] == true
-			link_to(path) do 
-				content_tag(:div, class: "panel image-container", style: "text-align: center;") do 
+			link_to(path) do
+				content_tag(:div, class: "panel image-container", style: "text-align: center;") do
 					image_tag(item.tk_preview.url(:tiny)) +
 					content_tag(:div, item.name, class: "fname") + size
 				end
@@ -125,7 +125,7 @@ module ToolkitHelper
 			size  = "" if options[:hide_size] == true
 			label = (options[:image_size].present?) ? image_tag(item.tk_preview.url(options[:image_size]), alt: item.name) : item.name
 
-			icon_for(item) + link_to(label, path) + size
+      (icon_for(item) + link_to(label, path) + size).html_safe
 		end
 	end
 
@@ -145,7 +145,7 @@ module ToolkitHelper
 					image_tag("icons/mac_17.png") + ' '
 				when "wav", "mp3", "aif"
 					image_tag("icons/icon_play.png") + ' '
-				when "m4v", "avi", "qt"
+				when "m4v", "avi", "qt", "mov", "mp4", "webm"
 					image_tag("icons/icon_play.png") + ' '
 				else
 					''
