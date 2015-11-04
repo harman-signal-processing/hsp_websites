@@ -1291,6 +1291,11 @@ div.quicklinks {
 
 @media only screen and (min-width: 720px) {
 	#promotion_side_button {
+    -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
+    -ms-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
 		transform: rotate(90deg);
 		transform-origin: right top 0;
 		position: fixed;
