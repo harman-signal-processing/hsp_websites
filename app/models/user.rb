@@ -145,12 +145,12 @@ class User < ActiveRecord::Base
   # If this is a dealer user, lookup associated dealer and
   # associate with each other
   def add_to_dealer_or_distributor
-    if self.dealer? && self.account_number.present?
+    if self.dealer? && self.account_number.present? && self.dealers.length == 0
       self.account_number.gsub!(/^0*/, '')
       if first_dealer = Dealer.where(account_number: self.account_number.to_s).first
         self.dealers << first_dealer
       end
-    elsif self.distributor? && self.account_number.present?
+    elsif self.distributor? && self.account_number.present? && self.distributors.length == 0
       self.account_number.gsub!(/^0*/, '')
       if first_distributor = Distributor.where(account_number: self.account_number.to_s).first
         self.distributors << first_distributor
