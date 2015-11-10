@@ -1,5 +1,5 @@
 FactoryGirl.define do
- 
+
   factory :setting do
     name "SettingName"
     string_value "SettingValue"
