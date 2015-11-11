@@ -94,6 +94,60 @@ RSpec.describe MainController do
     end
   end
 
+  describe "GET where_to_buy" do
+    it "assigns @countries and renders the template" do
+      distributor = FactoryGirl.create(:distributor, country: "Mexico")
+      distributor.brands << @brand
+
+      get :where_to_buy
+
+      expect(assigns(:countries).pluck(:country)).to include("Mexico")
+      expect(response).to render_template('where_to_buy')
+    end
+  end
+
+  describe "GET where_to_buy with params" do
+    class Dealer < ActiveRecord::Base
+      def geocode_address
+        self.lat = 1
+        self.lng = 2
+      end
+    end
+    before do
+      @dealer = FactoryGirl.create(:dealer)
+      @brand.dealers << @dealer
+    end
+
+    it "recovers from Geocoding errors" do
+      expect(Geokit::Geocoders::MultiGeocoder).to receive(:geocode).with(@dealer.zip).and_return(nil)
+
+      get :where_to_buy, zip: @dealer.zip
+
+      expect(response).to redirect_to(where_to_buy_path)
+    end
+
+    it "assigns dealers with exact match zipcode" do
+      skip "try to stub out geocoding"
+      expect(Geokit::Geocoders::MultiGeocoder).to receive(:geocode).with(@dealer.zip).and_return(Geokit::GeoLoc.new(lat: 0, lng: 0))
+      expect(@brand.dealers).to receive(:near).and_return(@brand.dealers)
+
+      get :where_to_buy, zip: @dealer.zip
+
+      expect(assigns(:results)).to include(@dealer)
+      expect(assigns(:js_map_loader)).to match(@dealer.lat)
+      expect(assigns(:js_map_loader)).to match(@dealer.lng)
+      expect(response).to render_template('where_to_buy')
+    end
+  end
+
+  describe "GET community" do
+    it "renders the template" do
+      get :community
+
+      expect(response).to render_template('community')
+    end
+  end
+
   describe "GET favicon" do
     it "checks for brand-specific favicon" do
       allow(@website).to receive(:folder).and_return('dbx')
@@ -126,5 +180,18 @@ RSpec.describe MainController do
 
       expect(response.content_type).to match 'text'
     end
+  end
+
+  describe "POST search" do
+
+    it "assigns search results" do
+      expect(ThinkingSphinx).to receive(:search).and_return(@website.products)
+
+      post :search, query: "test"
+
+      expect(assigns(:results)).to include(@website.products.first)
+      expect(response).to render_template('search')
+    end
+
   end
 end

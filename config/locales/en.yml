@@ -275,7 +275,7 @@ en:
       captcha_explanation: "Please answer this question so that we can verify you are not a spam robot. (There is only one \"correct\" answer)"
       tone_library_explanation: "Get started with these famous tones by connecting your GSP or RP unit to your Mac or PC. Visit our %{link} page if you don't have the sound librarian installed yet."
       product_tone_library_explanation: "Get started with these famous tones by connecting your %{model} to your Mac or PC. Use the software downloads links on this page to install the librarian on your computer."
-      international_distributors: "International Distributors assist with product sales, support, manual requests and warranty service. Warranty is only valid within the country of purchase."
+      international_distributors: "International Distributors assist with product sales, technical support, manual requests, spare parts and warranty service. Warranty is only valid within the country of purchase."
       parts_request_thankyou: "Your message has been received!  We will respond to your email within the next 24 hours."
       rma_request_thankyou: "Your message has been received!  We will respond to your email within the next 24 hours."
       software_downloads: "Find the latest drivers and other software for your %{brand} products"
