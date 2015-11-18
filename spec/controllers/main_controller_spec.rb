@@ -107,35 +107,28 @@ RSpec.describe MainController do
   end
 
   describe "GET where_to_buy with params" do
-    class Dealer < ActiveRecord::Base
-      def geocode_address
-        self.lat = 1
-        self.lng = 2
-      end
-    end
     before do
+      allow_any_instance_of(Dealer).to receive(:geocode_address).and_return(true)
       @dealer = FactoryGirl.create(:dealer)
       @brand.dealers << @dealer
     end
 
     it "recovers from Geocoding errors" do
-      expect(Geokit::Geocoders::MultiGeocoder).to receive(:geocode).with(@dealer.zip).and_return(nil)
+      expect(Geokit::Geocoders::MultiGeocoder).to receive(:geocode).with(@dealer.zip.reverse).and_raise
 
-      get :where_to_buy, zip: @dealer.zip
+      get :where_to_buy, zip: @dealer.zip.reverse
 
       expect(response).to redirect_to(where_to_buy_path)
     end
 
     it "assigns dealers with exact match zipcode" do
-      skip "try to stub out geocoding"
-      expect(Geokit::Geocoders::MultiGeocoder).to receive(:geocode).with(@dealer.zip).and_return(Geokit::GeoLoc.new(lat: 0, lng: 0))
-      expect(@brand.dealers).to receive(:near).and_return(@brand.dealers)
+      expect(Geokit::Geocoders::MultiGeocoder).to receive(:geocode).with(@dealer.zip).and_return(Geokit::GeoLoc.new(lat: 11.1, lng: 22.2))
+      #expect(@brand.dealers).to receive(:near).and_return(@brand.dealers)
 
       get :where_to_buy, zip: @dealer.zip
 
       expect(assigns(:results)).to include(@dealer)
-      expect(assigns(:js_map_loader)).to match(@dealer.lat)
-      expect(assigns(:js_map_loader)).to match(@dealer.lng)
+      expect(assigns(:js_map_loader)).to match(/map_init/)
       expect(response).to render_template('where_to_buy')
     end
   end
