@@ -1,0 +1,210 @@
+@import 'foundation/functions';
+
+$dark-gray: #575757;
+$medium-gray: #a8a8a8;
+$light-gray: #d0d0d0;
+$strip-bg-even: #E1E1E1;
+$strip-bg-odd: #000000;
+
+$body-bg: #FFF;
+$body-font-color: $dark-gray;
+$body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$body-font-weight: 400;
+$primary-color: #00162e;
+$secondary-color: $medium-gray;
+$include-print-styles: true;
+$header-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$header-font-weight: 600;
+$header-font-color: $dark-gray;
+$header-top-margin: .4em;
+
+$h1-font-size: rem-calc(28px);
+$h2-font-size: rem-calc(22px);
+$h3-font-size: rem-calc(18px);
+$h4-font-size: rem-calc(16px);
+$h5-font-size: rem-calc(14px);
+$h6-font-size: 1em;
+
+$subheader-font-color: lighten($dark-gray, 20%);
+$small-font-color: lighten($header-font-color, 35%);
+
+$paragraph-font-weight: 300;
+$accordion-navigation-padding: rem-calc(14);
+$accordion-navigation-bg-color: scale-color($light-gray, $lightness: 25%);
+$accordion-navigation-active-bg-color: scale-color($accordion-navigation-bg-color, $lightness: -13%);
+$accordion-content-padding: rem-calc(12);
+$accordion-navigation-font-size: rem-calc(13);
+$tabs-navigation-padding: rem-calc(12);
+$tabs-navigation-bg-color: $light-gray;
+$tabs-navigation-active-bg-color: white;
+$tabs-navigation-hover-bg-color: scale-color($tabs-navigation-bg-color, $lightness: -6%);
+$tabs-navigation-font-color: $dark-gray;
+$tabs-navigation-active-font-color: $tabs-navigation-font-color;
+$tabs-navigation-font-size: rem-calc(13);
+$tabs-navigation-font-family: $body-font-family;
+$anchor-font-color: #00275d;
+$anchor-font-color-hover: lighten($anchor-font-color, 5%);
+
+$form-spacing: rem-calc(18px);
+$form-label-font-weight: 400;
+$form-label-font-color: lighten($body-font-color, 30%);
+$input-font-color: rgba(0,0,0,0.65);
+$input-bg-color: darken(#fff, 2%);
+$input-focus-bg-color: #fff;
+$button-tny: rem-calc(5px);
+$button-sml: rem-calc(7px);
+$button-med: rem-calc(10px);
+$button-lrg: rem-calc(14px);
+$button-font-weight: 300;
+$button-border-style: none;
+$topbar-bg-color: $primary-color;
+$topbar-bg: $topbar-bg-color !default;
+$topbar-height:                        rem-calc(54px);
+$topbar-title-weight:                  bold;
+$topbar-dropdown-bg:                      rgba($topbar-bg-color, 0.7);
+$topbar-dropdown-link-bg:                 rgba(darken($topbar-bg-color, 2%),0.85);
+$topbar-dropdown-toggle-alpha:         0.5;
+$topbar-link-weight:                   light;
+$topbar-link-hover-lightness:          -30%; // Darken by 30%
+$topbar-link-bg-hover:                 darken($topbar-bg, 3%);
+$topbar-link-bg-active:                rgba($topbar-bg, 0.6);
+$topbar-menu-link-weight:              200;
+
+$topbar-sticky-class:                  ".sticky";
+
+@import 'foundation';
+@import 'brand_common';
+
+h1 { font-size: 37px; line-height: 34px; text-transform: uppercase; font-weight: normal; }
+h2 { font-size: 19px; line-height: initial; text-transform: uppercase; font-weight: normal; }
+
+.top-bar-section {
+  li:not(.has-form) a:not(.button) {
+    padding-left: rem-calc(10);
+    padding-right: rem-calc(10);
+  }
+  li.has-form {
+    padding-left: rem-calc(10);
+    padding-right: rem-calc(10);
+    width: 170px;
+  }
+}
+
+@media only screen and (min-width: 720px) {
+	.logo-container img {
+		padding: 10px 25px 0px 35px;
+	}
+	#main_container {
+		padding-bottom: 100px;
+	}
+}
+
+@media only screen and (max-width: 919px) {
+	.logo-container img {
+    height: 40px;
+		padding: 12px 0px 0px 6px;
+	}
+}
+@media only screen and (max-width: 919px) {
+  .top-bar-section {
+    li:not(.has-form) a:not(.button) {
+      padding-left: rem-calc(6);
+      padding-right: rem-calc(6);
+    }
+    li.has-form {
+      padding-left: rem-calc(2);
+      padding-right: rem-calc(2);
+      width: 130px;
+    }
+  }
+}
+body {
+	line-height: 1.5;
+}
+
+@media only screen and (min-width: 720px) {
+  div.homepage_block {
+    h1 {
+      font-size: 2.3em;
+      line-height: 1.1;
+    }
+    h2 {
+      font-size: 1.9em;
+    }
+    h3 {
+      font-size: 1.5em;
+    }
+  }
+}
+@media only screen and (max-width: 719px) {
+  div.homepage_block {
+    h1 {
+      font-size: 2em;
+    }
+  }
+}
+
+div.homepage_block {
+  &.market_segments {
+    li {
+      div.market-segment {
+        position: relative;
+        img {
+          width: 100%
+        }
+        div.text-center {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          max-height: 65px;
+          overflow: hidden;
+          background: rgb(255, 255, 255);
+          background: rgba(255, 255, 255, 0.8);
+          color: $dark-gray;
+          padding: 4px 0 1px;
+          p {
+            font-size: rem-calc(11px);
+          }
+          a {
+            color: $dark-gray;
+          }
+        }
+      }
+    }
+  }
+}
+
+div.market_segment_banner {
+  position: relative;
+  h1 {
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    background: rgb(255, 255, 255);
+    background: rgba(255, 255, 255, 0.8);
+    color: $dark-gray;
+    padding: 4px 10px;
+  }
+}
+
+div.product-title-block, div.small-title-block {
+  h1 {
+    font-size: 32px;
+    font-weight: 500;
+  }
+  h3 {
+    color: $medium-gray;
+    font-weight: 300;
+  }
+  dl.side-nav {
+    dd {
+      font-size: rem-calc(14px);
+      line-height: 1.5;
+      a {
+        color: $medium-gray;
+      }
+    }
+  }
+}
