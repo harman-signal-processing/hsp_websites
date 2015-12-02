@@ -23,7 +23,7 @@
 <% end %>
 <% if can?(:update, :product_password) %>
 	<div class="large-6 columns">
-		<%= f.input :password, hint: "(to allow non-admins to preview page before product is officially announced)", input_html: { autocomplete: "off" } %>
+		<%= f.input :password, as: :string, hint: "(to allow non-admins to preview page before product is officially announced)", input_html: { autocomplete: "off" } %>
 	</div>
 <% end %>
 </div>

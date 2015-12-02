@@ -79,6 +79,8 @@ HarmanSignalProcessingWebsite::Application.configure do
     studer.js
     akg.css
     akg.js
+    duran.css
+    duran.js
     jbl_professional.css
     jbl_professional.js
     )
