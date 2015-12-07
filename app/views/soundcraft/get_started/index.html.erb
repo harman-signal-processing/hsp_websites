@@ -1,0 +1,48 @@
+<%
+	@meta = Page.find_by lcl_name: 'get_started'
+	meta title: @meta.title,
+	description: strip_html(@meta.description),
+	keywords: @meta.keywords.gsub(" ", ",")
+
+%>
+<div id="header_bc">
+	<div id="header_spacer"></div>
+	<div id="header_bc_image" >
+	<%= image_tag('top_border.gif') %>
+	</div>
+	<div id="bc">
+	<nav class="breadcrumbs" role="menubar" aria-label="breadcrumbs">
+		<li class="unavailable"  aria-disabled="true">>></li>
+	    <li role="menuitem"><a href="/">Home</a></li>
+	    <li role="menuitem" class="current"><a href="#"><%= @meta.title %></a></li>
+	</nav>
+	</div>
+</div>
+<div class="row fullWidth">
+	<div class="small-12 columns" >
+		<br />
+		<h1><%= @meta.title %></h1>
+	</div>
+</div>
+<div class="row fullWidth" align="center">
+	<div class="small-12 column"  >
+		Welcome to the Soundcraft Get Started! Please select a product range to get started.<br/><br/>
+	</div>
+	<div class="small-12 medium-4 columns pad5 " align="center" >
+		<a href="/get-started/ui"><img src="http://soundcraft.com.s3.amazonaws.com/promotions/get-started/get-started-banner-ui-500.jpg" border="0" width="100%" class="radius5 fade image_border" /></a>
+	<br/></div>
+	<div class="small-12 medium-4 columns pad5 " align="center" >
+		<a href="/get-started/signature" ><img src="http://soundcraft.com.s3.amazonaws.com/promotions/get-started/get-started-banner-signature-500.jpg" border="0" width="100%" class="radius5 fade image_border" /></a>
+	<br/></div>
+	<div class="small-12 medium-4 columns pad5 " align="center" >
+		<a href="/get-started/signature-mtk" ><img src="http://soundcraft.com.s3.amazonaws.com/promotions/get-started/get-started-banner-signature-mtk-500.jpg" border="0" width="100%" class="radius5 fade image_border" /></a>
+	<br/></div>
+	<div class="small-12 medium-4 columns end pad5 " align="center" >
+		<a href="/get-started/si-impact" ><img src="http://soundcraft.com.s3.amazonaws.com/promotions/get-started/get-started-banner-si-impact-500.jpg" border="0" width="100%" class="radius5 fade image_border" /></a>
+	<br/></div>
+</div>
+
+<br/><br/><br/><br/>
+
+
+

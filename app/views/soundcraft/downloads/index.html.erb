@@ -1,0 +1,24 @@
+<%
+	@meta = Page.find_by lcl_name: 'downlaods'
+	meta title: 	@meta.title,
+	description: 	strip_html(@meta.description),
+	keywords: 		@meta.keywords.gsub(" ", ",")
+%>
+<div class="header_bc">
+	<nav class="breadcrumbs" role="menubar" aria-label="breadcrumbs">
+		<li class="unavailable"  aria-disabled="true">>></li>
+	    <li role="menuitem"><a href="/">Home</a></li>
+	    <li role="menuitem" class="current"><a href="#"><%= @meta.title %></a></li>
+	</nav>
+</div>
+<div class="row">
+<div class="small-12 columns" >
+	<br>
+<br>
+<br>
+	
+mixing with professionals
+<br>
+<br>
+</div>
+</div>

@@ -1,0 +1,52 @@
+<%
+	@meta = Page.find_by lcl_name: 'archived_news'
+	meta title: 	@meta.title,
+	description: 	strip_html(@meta.description),
+	keywords: 		@meta.keywords.gsub(" ", ",")
+%>
+<div id="header_bc">
+	<div id="header_spacer"></div>
+	<div id="header_bc_image" >
+	<%= image_tag('top_border.gif') %>
+	</div>
+	<div id="bc">
+	<nav class="breadcrumbs" role="menubar" aria-label="breadcrumbs">
+		<li class="unavailable"  aria-disabled="true">>></li>
+	    <li role="menuitem"><a href="/">Home</a></li>
+	    <li role="menuitem"><a href="/news">News</a></li>
+	    <li role="menuitem" class="current"><a href="#"><%= @meta.title %></a></li>
+	</nav>
+	</div>
+</div>
+
+<div class="row fullWidth">
+  <div class="small-12 medium-6 columns" align="left">
+  	<br />
+	<h1>News Archive</h1>
+  </div>
+  <div class="small-12 medium-6 columns" align="right">
+  	<br /><br />
+	<a href="/news" class="button radius">Go to Recent News Stories</a>
+  </div>
+</div>
+
+<div class="row">
+<div class="small-12 columns" >
+<%= cache ["archived_news", website.brand, I18n.locale] do %>
+<table>
+<% @news.each do |news| %>
+<tr>
+	<td valign="top" align="right" width="20%">
+	<%=l news.post_on, format: :long %></b>
+	</td>
+	<td valign="top" align="left" width="80%">
+	<%= link_to(news.name.html_safe, news_path(news, locale: I18n.locale))  %>
+	</td>
+</tr>
+<% end %>
+</table>
+<% end %>
+<div align="right">Looking for more news?<a href="/news" class="button radius5 margin-left">Go to Recent News Stories</a>
+</div>
+</div>
+</div>

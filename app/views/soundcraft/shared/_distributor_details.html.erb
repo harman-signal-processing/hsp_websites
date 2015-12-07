@@ -1,0 +1,21 @@
+<% Distributor.where(country_id: country.id).each do |distributor|  %>
+	<table>
+	  <tr>
+	    <td class="distributor_box">
+		<% if distributor.contact.size > 0 %><%= distributor.contact %><br /><% end %>
+		<strong class="color-accent2"><%= distributor.company %></strong><br />
+		<% if distributor.address_1.size > 0  %><%= distributor.address_1 %><br /><% end %>
+		<% if distributor.address_2.size > 0 %><%= distributor.address_2 %><br /><% end %>
+		<% if distributor.address_3.size > 0 %><%= distributor.address_3 %><br /><% end %>
+		<% if distributor.address_4.size > 0 %><%= distributor.address_4 %><br /><% end %>
+		<% if distributor.address_5.size > 0 %><%= distributor.address_5 %><br /><% end %>
+		<% if distributor.address_6.size > 0 %><%= distributor.address_6 %><br /><% end %>
+		<% if distributor.phone.size > 0 %>TEL: <%= distributor.phone %><br /><% end %>
+		<% if distributor.fax.size > 0 %>FAX: <%= distributor.fax %><br /><% end %>
+		<% if distributor.email_1.size > 0 %>EMAIL: <%= distributor.email_1 %><br /><% end %>
+		<% if distributor.email_2.size > 0 %>EMAIL2:<%= distributor.email_2 %><br /><% end %>
+		<% if distributor.website.size > 0 %>WEB: <%= distributor.website %><br /><% end %>
+	    </td>
+	  </tr>
+	</table>
+<% end %>

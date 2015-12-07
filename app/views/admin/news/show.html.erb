@@ -1,7 +1,7 @@
 <% set_meta_tags title: "News Admin - #{@news.title}",
 				 reverse: true,
-                 description: @news.title,
-                 keywords: @news.keywords %>
+         description: @news.title,
+         keywords: @news.keywords %>
 <h1><%= title @news.title %></h1>
 	<span class="little"><%= link_to(news_url(@news, locale: I18n.locale), news_url(@news, locale: I18n.locale)) %>
 	<%= link_to(image_tag("icons/external_link_icon.png"), news_url(@news, locale: I18n.locale)) %></span>

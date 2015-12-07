@@ -112,6 +112,42 @@ en:
   buy_it_now: "Buy It Now"
   add_to_cart: "Add To Cart"
   get_it: "Get It"
+  media: "Media"
+  whats_on: "What's On"
+  support: "Support"
+  support_services: Support Services
+  discontinued_products: Discontinued Products
+  legacy_products: Legacy Products
+  videos: Videos
+  white_papers: White Papers
+  images: Images
+  social_media: Social Media
+  mixing_with_professionals: Mixing With Professionals
+  training_courses: Training Courses
+  events_around_the_world: Events Around The World
+  rental_companies: Rental Companies
+  users_around_the_world: Users Around The World
+  knowledgebase: Knowledgebase
+  contact_us: Contact Us
+  product_registration: Product Registration
+  warranty: Warranty
+  tech_support: Tech Support
+  spare_part_sales: Spare Part Sales
+  find_my_serial_number: Find My Serial Number
+  go_to_top: back to top
+  sda: SDA
+  privacy_policy: Privacy Policy
+  sda_downloads: Downloads
+  sda_dealer_contacts: Dealer Contacts
+  sda_order_forms: Order Forms
+  sda_logout: Logout
+  sda_soundcraft_contacts: Soundcraft Contacts
+  sda_swags: Swags
+  get_started_not_registered: Serial not found!
+  ui_get_started_registered: Your Ui mixer has been registered. Access granted.
+  signature_get_started_registered: Your Signature console has been registered. Access granted.
+  signature_mtk_get_started_registered: Your Signature MTK console has been registered. Access granted.
+  si_impact_get_started_registered: Your Si Impact console has been registered. Access granted.
 
   language:
       en: English
@@ -119,7 +155,7 @@ en:
       fr: French
       de: German
       zh: Chinese
-      
+
   document_type:
       owners_manual: Owner's Manual
       cut_sheet: Cut Sheet
@@ -158,7 +194,7 @@ en:
       training_resource: Training Resource
       wallpaper: Wallpaper
       whitepaper: Whitepaper
-        
+
   product_page:
       select_products_to_compare: Select 2 to 4 products to compare
       compare_selected_products: Compare Selected Products

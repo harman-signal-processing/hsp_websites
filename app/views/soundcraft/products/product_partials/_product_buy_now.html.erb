@@ -1,0 +1,88 @@
+<div class="row fullWidth">
+	<div class="medium-6  columns">&nbsp;</div>
+	<div class="small-12 medium-6 columns  right_tag">
+	where to buy
+	</div>
+</div>
+<div class="row fullWidth">
+	<div class="medium-6  columns">&nbsp;</div>
+	<div class="small-12 medium-6 columns  div-border pad10">
+	
+	<% if @get_buy_nows.blank? %>
+
+		Please contact our worldwide distributors for sales enquiries.
+		<br /><br />
+		<%= link_to("Worldwide Distributors", where_to_buy_path, class: "button radius margin-right") %>
+		
+	<% elsif @geoip.country_name == "United States"%>
+		<div class="row">
+			
+		<% @get_buy_nows.each do |nb| %>
+		<% if nb == @get_buy_nows.last %>
+			<div class="small-3 end  column">
+		<% else %>
+			<div class="small-3  column">
+		<% end %>
+			
+			<div class="h4-size" align="center">
+				<%= nb.name %>:<br/>
+				$<%= number_with_delimiter(nb.map_price.floor) %> <br/>
+				<%=	
+				
+				link_to(
+				"Buy It Now", 
+				"/products/#{@products.slug}/buy_it_now", 
+					{
+					  :class => "button radius", 
+					  'data-reveal-id' => "buy-it-now-popup-#{nb.id}",
+					  'onclick' => "_gaq.push(['_trackEvent', 'BuyItNow', 'USA', '#{@products.name}'])"
+					}
+				)
+				
+
+				%>
+			</div>
+			
+			<div id="buy-it-now-popup-<%= nb.id %>" class="reveal-modal medium" data-reveal >
+				<div class="bg_white div-border pad10">
+					
+				  <% @get_online_retailers = ProductsOnlineRetailers.all_online_retailers(nb.id) %>
+				  <% if @get_online_retailers.blank? %>
+				  
+					Sorry, no online retailers available.<br/><br/>
+					
+				  <% else %>
+				  
+				    <div align="center">
+				    	<br/>
+				    	<h4>Online Retailers:</h4>
+						<% @get_online_retailers.each do |retailer|  %>
+							<%= link_to image_tag("/images/buy_now/#{retailer.online_retailer.logo}", :class => "image_border margin-left margin-left margin-bottom", :title => "Buy from #{retailer.online_retailer.name}"), retailer.url, :target => "_blank", :onclick => "_gaq.push(['_trackEvent', 'BuyItNow-Dealer', '#{retailer.online_retailer.name}', '#{nb.name}'])"  %>
+						<% end %>
+					</div>
+					<br/><br/>				
+					<img src="/images/buy_now/small-gray-world-map.png" > Also available from our <a href="/where-to-buy">worldwide distributors</a>.
+					<br/><br/>
+					
+				  <% end %>
+				  
+				</div>
+			  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+			</div>
+			</div>
+		<% end %>
+		</div>
+		
+		<img src="/images/buy_now/small-gray-world-map.png" > Also available from our <a href="/where-to-buy">worldwide distributors</a>.
+
+	<% else %>
+	
+		Please contact our worldwide distributors for sales enquiries.
+		<br /><br />
+		<%= link_to("Worldwide Distributors", where_to_buy_path, class: "button radius margin-right") %>
+
+	<% end %>
+	
+	</div>
+</div>
+<br />

@@ -1,0 +1,49 @@
+<%
+	@meta = Page.find_by lcl_name: 'legal'
+	meta title: @meta.title,
+	description: strip_html(@meta.description),
+	keywords: @meta.keywords.gsub(" ", ",")
+
+%>
+<div id="header_bc">
+	<div id="header_spacer"></div>
+	<div id="header_bc_image" >
+	<%= image_tag('top_border.gif') %>
+	</div>
+	<div id="bc">
+	<nav class="breadcrumbs" role="menubar" aria-label="breadcrumbs">
+		<li class="unavailable"  aria-disabled="true">>></li>
+	    <li role="menuitem"><a href="/">Home</a></li>
+	    <li role="menuitem" class="current"><a href="#"><%= @meta.title %></a></li>
+	</nav>
+	</div>
+</div>
+<div class="row fullWidth">
+	<div class="small-12 columns" >
+		<br />
+		<h1><%= @meta.title %></h1>
+	</div>
+</div>
+
+<div class="row">
+	<div class="small-12 columns"  >
+<h3>Documents</h3>
+<br />
+Permission to use Documents (such as white papers, press releases and other publications) from this site is granted by Harman International Industries, Incorporated ("Harman"), provided that: 1) use of such Documents from this site is for informational and non-commercial or personal purposes only; 2) the Documents are not copied or posted on any network computer or broadcast in any media; and 3) no modifications of any Documents are made. Use for any unauthorized purpose is expressly prohibited by law, and may result in severe civil and criminal penalties. Violators will be prosecuted to the maximum extent possible.<br />
+<br />
+The Documents referred to above do not include the design or layout of this Website. Elements of this Website are protected by trade dress and other laws, and may not be copied or imitated in whole or in part. Harman's numerous trademarks, trade names and logos are registered or otherwise protected in substantially all major industrialized countries. Their use for any purpose is strictly prohibited without Harman's express written consent in advance. Furthermore, no logo, graphic, sound or image from this Website may be copied or retransmitted unless expressly permitted in advance in writing by an authorized representative of Harman.<br />
+<br />
+HARMAN AND/OR ITS RESPECTIVE SUPPLIERS MAKE NO REPRESENTATIONS ABOUT THE SUITABILITY OF THE INFORMATION CONTAINED IN THE DOCUMENTS AND RELATED GRAPHICS FOR ANY PURPOSE. ALL SUCH DOCUMENTS AND RELATED GRAPHICS ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND AND ARE SUBJECT TO CHANGE WITHOUT NOTICE. THE ENTIRE RISK ARISING OUT OF THEIR USE REMAINS WITH THE RECIPIENT. IN NO EVENT SHALL HARMAN AND/OR ITS RESPECTIVE SUPPLIERS BE LIABLE FOR ANY DIRECT, CONSEQUENTIAL, INCIDENTAL, SPECIAL, PUNITIVE OR OTHER DAMAGES WHATSOEVER (INCLUDING, WITHOUT LIMITATION, DAMAGES FOR LOSS OF BUSINESS PROFITS, BUSINESS INTERRUPTION OR LOSS OF BUSINESS INFORMATION) ARISING FROM ANY USE OF SUCH MATERIALS, EVEN IF HARMAN HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.<br />
+<br />
+<br />
+<h3>Links to Third Party Sites</h3>
+<br />
+HARMAN PROVIDES LINKS TO YOU AS A CONVENIENCE ONLY, AND THE INCLUSION OF ANY LINK DOES NOT IMPLY ENDORSEMENT BY HARMAN OF THE SITE. LINKED SITES ARE NOT UNDER THE CONTROL OF HARMAN AND HARMAN IS NOT RESPONSIBLE FOR THE CONTENTS OF ANY LINKED SITE OR ANY LINK CONTAINED IN A LINKED SITE.<br />
+<br /><br /><br />
+	</div>
+</div>
+
+
+
+
+

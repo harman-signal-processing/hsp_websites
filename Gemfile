@@ -11,6 +11,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem "foundation-rails", '~> 5.5'
 gem 'lightbox2-rails'
+gem 'image_zoomer'
 gem 'jquery-rails'
 
 # To use debugger

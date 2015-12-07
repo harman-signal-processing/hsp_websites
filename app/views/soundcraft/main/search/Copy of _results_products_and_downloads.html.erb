@@ -1,0 +1,22 @@
+<a name="products"></a>
+<h3 data-magellan-destination="products" class="color-soundcraft"><%= write_search_result_records(@products.length, "product") %></h3>
+(with <%= write_search_result_records(@downloads.length, "download") %>)
+<br /><br />
+<% @products.each do |product| %>
+	<div class="row">
+		<div class="small-4 columns" align="center">
+			<%= link_to(image_tag(product.image.url(:medium), class: "radius5 fade image_border"), "/products/#{product.slug}")  %>
+			<%= link_to(product.name.html_safe, product_path(product, locale: I18n.locale))  %>
+		</div>
+		<div class="small-8 columns">
+			
+			<ul class="inline-list">
+			<% product.downloads.get_all_for_product(product.id, @query).each do |d| %>
+			  <li> [<%= d.title %>] </li>
+		  	<% end %>
+		  	</ul>
+		  	
+		</div>
+	</div>
+<% end %>
+

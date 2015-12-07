@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @product_sub_category.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @product_sub_category.description %>
+</p>
+
+<p>
+  <strong>Live:</strong>
+  <%= @product_sub_category.live %>
+</p>
+
+<p>
+  <strong>Orderby:</strong>
+  <%= @product_sub_category.orderby %>
+</p>
+
+<%= link_to 'Edit', edit_product_sub_category_path(@product_sub_category) %> |
+<%= link_to 'Back', product_sub_categories_path %>

@@ -1,0 +1,35 @@
+<%
+	@meta = Page.find_by lcl_name: 'product_reviews'
+	meta title: @meta.title,
+	description: strip_html(@meta.description),
+	keywords: @meta.keywords.gsub(" ", ",")
+
+%>
+<div id="header_bc">
+	<div id="header_spacer"></div>
+	<div id="header_bc_image" >
+	<%= image_tag('top_border.gif') %>
+	</div>
+	<div id="bc">
+	<nav class="breadcrumbs" role="menubar" aria-label="breadcrumbs">
+		<li class="unavailable"  aria-disabled="true">>></li>
+	    <li role="menuitem"><a href="/">Home</a></li>
+	    <li role="menuitem"><a href="/support">Support</a></li>
+	    <li role="menuitem" class="current"><a href="#"><%= @meta.title %></a></li>
+	</nav>
+	</div>
+</div>
+<div class="row fullWidth">
+	<div class="small-12 columns" >
+		<br />
+		<h1><%= @meta.title %></h1>
+	</div>
+</div>
+
+<div class="row">
+	<div class="small-12 columns" align="center" style="height: 400px;" >
+		<br />
+		<br />
+		<h3>coming on the 22nd</h3>
+	</div>
+</div>

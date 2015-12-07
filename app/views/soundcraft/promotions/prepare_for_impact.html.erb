@@ -1,0 +1,131 @@
+<%
+	@meta = Page.find_by lcl_name: 'prepare_for_impact'
+	meta title: @meta.title,
+	description: strip_html(@meta.description),
+	keywords: @meta.keywords.gsub(" ", ",")
+
+%>
+<div id="full-page"  style="background-color: black;">
+	<div id="header_bc">
+		<div id="header_spacer"></div>
+		<div id="header_bc_image_keep" >
+		<img src="http://soundcraft.com.s3.amazonaws.com/promotions/PrepareForImpactNoText2.jpg" width="100%" />
+		</div>
+		<div id="bc">
+		<nav class="breadcrumbs" role="menubar" aria-label="breadcrumbs">
+			<li class="unavailable"  aria-disabled="true">>></li>
+		    <li role="menuitem"><a href="/">Home</a></li>
+		    <li role="menuitem" class="current"><a href="#"><%= @meta.title %></a></li>
+		</nav>
+		</div>
+	</div>
+	<div class="row">
+		<div class="small-12 columns" >
+<img src="http://soundcraft.com.s3.amazonaws.com/promotions/transparent_1000x300.png" width="100%" />
+<div class="small-centered column" align="center">
+	<br/>
+	<font class="large-white-title">Prepare for impact</font>
+	<br/>
+	<% flash.each do |name, msg| %>
+	<%= content_tag :div, msg, class: "text-sub-header" %>
+	<% end %>
+	<br/>
+	<div style="width: 90%">
+	  <div class="flex-video">
+	    <iframe width="420" height="315" src="//www.youtube.com/embed/7mq69wkZ2Ks" frameborder="0" allowfullscreen></iframe>
+	  </div>
+    </div>
+ </div>
+<div class="row">
+	<div class="small-12 column" >
+		<br/>
+		<font class="white-text">
+		<h3 class="white-text">Exclusive product launch at Guitar Center</h3>
+The new Soundcraft console will be revealed at this exclusive in-store event. Sean Karpowicz, Soundcraft Product Manager and special guest Aaron Glas, Sound Engineer for Fitz And The Tantrums, will both be available to demo the new console during the event. To be the first to see the new console, you are duly invited to join us on this special event. Please note that numbers will be restricted and it will be a strict first come, first served basis.<br/><br/>
+Where:<br/>
+Guitar Center Hollywood store - 7425 Sunset Blvd. Hollywood, CA 
+<br/><br/>
+When: <br/>
+April 28th, 7-9pm
+<br/><br/>
+<h3 class="white-text">Be the first to know</h3>
+If you can't make the event but would like to be notified by email and be among the first to get exclusive product details, please provide your contact information below.
+</font>
+<br/><br/>
+		
+	</div>
+</div>
+	<%= form_for @user, url: prepare_for_impact_path, html: {class: "reg", "data-abide" => ''} do |f| %>
+		<div class="web-form-section">
+			
+			<div class="row">
+				<div class="small-12 column" ><h3>Sign me up</h3></div>
+			</div>
+			<div class="row">	
+				<div class="small-12 column" align="right"><font class="color-accent">* = Required Field</font></div>
+			</div>
+			<div class="row">
+			    <div class="small-12 medium-3 columns" align="right">
+			      <label>First Name <small class="color-accent bold">*</small></label>
+			    </div>
+			    <div class="small-12 medium-7 columns end">
+			      <%= f.text_field :first_name, required: '', pattern: "[a-zA-Z]+" %>
+				  <small class="error">First Name is required.</small>
+			    </div>
+			</div>
+			<div class="row">
+			    <div class="small-12 medium-3 columns" align="right">
+			      <label>Last Name <small class="color-accent bold">*</small></label>
+			    </div>
+			    <div class="small-12 medium-7 columns end">
+			      <%= f.text_field :last_name, required: '', pattern: "[a-zA-Z]+" %>
+				  <small class="error">Last Name is required.</small>
+			    </div>
+			</div>
+			<div class="row">
+			    <div class="small-12 medium-3 columns" align="right">
+			      <label>Email Address <small class="color-accent bold">*</small></label>
+			    </div>
+			    <div class="small-12 medium-9 columns">
+			      <%= f.text_field :email %>
+				  <small class="error">Email address is required.</small>
+			    </div>
+			</div>
+			<div class="row">
+			    <div class="small-12 medium-3 columns" align="right">
+			      <label>Country <small class="color-accent bold">*</small></label>
+			    </div>
+			    <div class="small-12 medium-7 columns end">
+			        <%= f.collection_select :country_id, Country.all_for_website(), :id, :name, prompt: true, required: '' %>
+			        <small class="error">Country is required.</small>
+			    </div>
+			</div>
+			<div class="row">
+			    <div class="small-12 medium-3 columns" align="right">
+			      <label>Application</label>
+			    </div>
+			    <div class="small-12 medium-7 columns end">
+			        <%= f.collection_select :info1, Application.all_for_website(),:name, :name, prompt: true %>
+			    </div>
+			</div>
+			<div class="row">
+			    <div class="small-12 medium-3 columns">
+			      &nbsp;
+			    </div>
+			    <div class="small-12 medium-9 columns">
+			        <%= f.check_box :info2, checked: true %>
+					<span class="color-gray-medium margin-left"><%= "Would you like to receive interested products and services from Soundcraft" %></span>
+			    </div>
+			</div>	
+		</div>
+		<div class="row">
+		<div class="small-12 columns" align="right">
+			<div class="right">
+				<%= f.submit t('submit'), class: 'button radius margin-top' %></div>
+		</div>
+		</div>
+	<br/><br/>
+	<% end %>
+		</div>
+	</div>
+</div>

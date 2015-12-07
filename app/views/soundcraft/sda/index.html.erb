@@ -1,0 +1,60 @@
+<%
+	@meta = Page.find_by lcl_name: 'sda'
+	@page_title = "Soundcraft Distributors Area"
+	meta title: 	@page_title,
+	robots: 		"noindex, nofollow"
+%>
+<div id="header_bc">
+	<div id="header_spacer"></div>
+	<div id="header_bc_image" >
+	<%= image_tag('top_border.gif') %>
+	</div>
+	<div id="bc">
+	<nav class="breadcrumbs" role="menubar" aria-label="breadcrumbs">
+		<li class="unavailable"  aria-disabled="true">>></li>
+	    <li role="menuitem"><a href="/">Home</a></li>
+	    <li role="menuitem" class="current"><a href="#">SDA</a></li>
+	</nav>
+	</div>
+</div>
+<div class="row fullWidth">
+<div class="small-12 columns" >
+<br>
+<h1><%= @page_title %></h1>
+</div>
+</div>
+<br />
+<div class="row fullWidth">
+	<div class="small-12 columns">
+		Hello <%= @user_name_and_company %>, welcome to the Soundcraft Distributors Area. <br /><br />
+	</div>
+</div>
+
+<div class="row fullWidth">
+	<div class="small-12 medium-4 columns">
+<h4>Here are your latest messages from Soundcraft:</h4>
+<div class="div-border">
+<% @messages.each do |message| %>
+  <font class="text-sub-header"><%= message.title %></font> <font class="color-gray-light"><%=l message.post_on, format: :short %></font>
+  <br />
+  <%= message.description %>
+  <br /><br />
+<% end %>
+</div>
+<br /><br />
+	</div>
+	<div class="small-12 medium-8 columns">
+		<h4>What would you like to do today?</h4>
+		<div class="div-border">
+		<a href="/sda/dealer_contacts" class="button radius">Dealer Listing</a><br />
+		<a href="/sda/downloads" class="button radius">Downloads</a><br />
+		<a href="/sda/order_forms" class="button radius">Literature Request Form</a><br />
+		<a href="/sda/soundcraft_contacts" class="button radius">Soundcraft Contact Names</a><br />
+		</div>
+	</div>
+</div>
+
+
+<br>
+<br>
+<%= render "sda/shared/logged_in" %>

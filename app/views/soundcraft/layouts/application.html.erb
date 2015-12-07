@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+	<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <meta name="author" content="Soundcraft by Harman">
+    <%= csrf_meta_tag %>
+    <%= cache ["meta_tags", request.url] do %>
+      <%= cached_meta_tags %>
+      <meta property="og:site_name" content="<%= website.site_name %>" />
+      <meta property="og:locale" content="<%= I18n.locale %>" />
+      <meta property="og:url" content="<%= request.url %>" />
+
+      <% if website.twitter_name %>
+        <meta property="twitter:site" value="@<%= website.twitter_name %>" />
+      <% end %>
+
+      <% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "logo.png")) %>
+      <link rel="image_src" href="<%= image_url("#{website.folder}/logo.png") %>" />
+      <% end %>
+      <!--[if lt IE 9]>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+        <script src="//s3.amazonaws.com/nwapi/nwmatcher/nwmatcher-1.2.5-min.js"></script>
+        <script src="//html5base.googlecode.com/svn-history/r38/trunk/js/selectivizr-1.0.3b.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
+      <![endif]-->
+      <link href="<%= rss_url(format: 'xml') %>" rel="alternate" title="RSS" type="application/rss+xml"/>
+      <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+      <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+      <%= app_meta_tags() %>
+
+    <% end %>
+
+		<%= javascript_include_tag website.folder %>
+		<%= javascript_include_tag "vendor/modernizr" %>
+		<%= yield :extra_header_code %>
+		<%= stylesheet_link_tag website.folder, media: :all %>
+
+		<%= yield :custom_css %>
+		<script>
+	  		<%= yield :extra_js %>
+	  </script>
+    <%= render_partial "shared/analytics" %>
+	</head>
+	<body data-brand="<%= website.brand.name %>">
+    <div id="above_nav"></div>
+
+    <script type="text/javascript">
+       document.documentElement.className += ' js';
+    </script>
+
+    <%= render_partial 'layouts/nav' %>
+
+    <div id="topper">
+      <%= yield %>
+      <%#= render_partial 'layouts/footer' %>
+      <%= render_partial 'shared/footer_jquery_scrollup' %>
+    </div>
+	</body>
+</html>

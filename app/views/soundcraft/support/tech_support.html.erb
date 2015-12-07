@@ -1,0 +1,85 @@
+<%
+	@meta = Page.find_by lcl_name: 'tech_support'
+	meta title: @meta.title,
+	description: strip_html(@meta.description),
+	keywords: @meta.keywords.gsub(" ", ",")
+
+%>
+<div id="header_bc">
+	<div id="header_spacer"></div>
+	<div id="header_bc_image" >
+	<%= image_tag('top_border.gif') %>
+	</div>
+	<div id="bc">
+	<nav class="breadcrumbs" role="menubar" aria-label="breadcrumbs">
+		<li class="unavailable"  aria-disabled="true">>></li>
+	    <li role="menuitem"><a href="/">Home</a></li>
+	    <li role="menuitem"><a href="/support">Support</a></li>
+	    <li role="menuitem" class="current"><a href="#"><%= @meta.title %></a></li>
+	</nav>
+	</div>
+</div>
+<div class="row fullWidth">
+	<div class="small-12 columns" >
+		<br />
+		<h1><%= @meta.title %></h1>
+	</div>
+</div>
+
+<div class="row fullWidth">
+	
+	<div class="small-12 large-4 columns" >
+		
+		<h3>Tech Support - Worldwide</h3>
+		<div class="div-border" style="background: #EEEEEE">
+		For technical support for your country, please contact your local Soundcraft Distributor first. They are authorised to provide you with everything you need.
+		<br /><br />
+		<a href="/where-to-buy" class="button radius">Soundcraft Distributors</a>
+		</div>
+		<br />
+		
+		<h3>Spare Parts</h3>
+		<div class="div-border" style="background: #EEEEEE">
+		<a href="/support/spare-parts" class="button radius">Click here for Spare Parts Sale</a>
+		</div>
+		<br />
+		
+		<h3>Warranty</h3>
+		<div class="div-border" style="background: #EEEEEE">
+		<a href="/support/warranty" class="button radius">Click here for product warranty</a>
+		</div>
+		
+	</div>	
+	
+	
+	<div class="small-12 large-8 columns" >
+		
+		<h3>Tech Support - USA only</h3>
+		<div class="div-border" style="background: #EEEEEE">
+		  <strong>Email Support:&nbsp;&nbsp;<a href="mailto:support@soundcraft.com">support@soundcraft.com</a></strong>
+		  <br/>
+		  <strong>Phone Support: 818 920 3292</strong>
+		</div>
+		<br />
+		
+		<h3>Tech Support - UK Only</h3>
+		<div class="div-border" style="background: #EEEEEE">
+		<br/>For UK Customer Service Support, please e-mail <a href="mailto:csd@soundcraft.com">csd@soundcraft.com</a> and a member of our team will get back to you. 
+		<br/>
+		Alternatively, if you would like to speak to someone, please call 44 (0) 1707 665000 &amp; ask for Soundcraft Tech Support.
+		<br/><br/>
+		<strong>Email Support:&nbsp;&nbsp;<a href="mailto:csd@soundcraft.com">csd@soundcraft.com</a></strong>
+		<br/>
+		<strong>Phone Support:&nbsp;&nbsp;44 (0) 1707 665000</strong>
+		<br/><br/><br/>
+		<h4><strong><i>Vi Series Consoles - Out-Of-Hours Technical Support</i></strong></h4> 
+		Phone Support: +44 (0) 1707 668 117
+		<div>Out-of-hours Technical Phone Support is available for Soundcraft Vi Series consoles, 9am - 9pm GMT daily, including weekends and public holidays.
+		<br /><br />
+		For all other consoles, please contact us during office hours - 9am to 5pm Monday to Friday.<br />
+		Phone Support: +44 (0) 1707 665 000
+		<br /><br /></div>
+		</div>
+
+	</div>
+</div>

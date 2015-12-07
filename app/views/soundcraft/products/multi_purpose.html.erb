@@ -1,0 +1,29 @@
+<%
+	@meta = Page.find_by lcl_name: 'multi_purpose'
+	meta title: @meta.title,
+	description: strip_html(@meta.description),
+	keywords: @meta.keywords.gsub(" ", ",")
+%>
+<div id="header_bc">
+	<div id="header_spacer"></div>
+	<div id="header_bc_image" >
+	<%= image_tag('top_border.gif') %>
+	</div>
+	<div id="bc">
+	<nav class="breadcrumbs" role="menubar" aria-label="breadcrumbs">
+		<li class="unavailable"  aria-disabled="true">>></li>
+	    <li role="menuitem"><a href="/">Home</a></li>
+	    <li role="menuitem"><a href="/products">Products</a></li>
+	    <li role="menuitem"><a href="/products/mixing-consoles">Mixing Consoles</a></li>
+	    <li role="menuitem" class="current"><a href="#"><%= @meta.title %></a></li>
+	</nav>
+	</div>
+</div>
+<br /><br />
+<div class="row fullWidth">
+	<div class="small-12 columns thick_left" align="left" >
+		<h1><%= @meta.title %></h1>
+	</div>
+</div>
+
+<%= render :partial => "products/product_partials/product_series", :locals => {:series_id => 7} %>

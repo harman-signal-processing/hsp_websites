@@ -1,0 +1,30 @@
+<%
+	@meta = Page.find_by lcl_name: 'sda'
+	page_title = "New Account"
+	meta title: 	page_title,
+	robots: 		"noindex, nofollow"
+%>
+<div class="header_bc">
+	<nav class="breadcrumbs" role="menubar" aria-label="breadcrumbs">
+		<li class="unavailable"  aria-disabled="true">>></li>
+	    <li role="menuitem"><a href="/">Home</a></li>
+	    <li role="menuitem"><a href="/sda">SDA</a></li>
+	    <li role="menuitem" class="current"><a href="#"><%= page_title %></a></li>
+	</nav>
+</div>
+
+<div class="row">
+	<div class="small-1 medium-3 large-3 columns">&nbsp;</div>
+	<div class="small-9 medium-6 large-6 columns end" >
+		<br />
+		<br />
+		<%= render "sda/shared/alert_message" %>
+		<h1><%= page_title %></h1> 
+		Please contact Soundcraft Marketing for login details.
+		<%= link_to "Back", :back %>
+		<br />
+		<br />
+	</div>
+	
+</div>
+

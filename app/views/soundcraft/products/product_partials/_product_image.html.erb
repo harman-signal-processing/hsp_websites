@@ -1,0 +1,20 @@
+<div id="product_image_bg" class="fullWidth">
+	<div class="row">
+		<div class="small-12 column" align="center">
+			<div class="main_product_features">
+				<% if @products.image2_file_size > 0 %>
+				  <%= image_tag(@products.image2.url(:main), :id => "product-features")  %>
+				<% else %>
+				  <img src="<%= "http://#{ENV['S3_HOST_NAME']}/products/main/blank_features.png" %>" id="product-features" />
+				<% end %>
+			</div>
+			<div class="main_product">
+		  		<a href="<%= @products.image.url %>" data-lightbox="collection">
+	  			<%= image_tag(@products.image.url(:main), :id => "tn_image", :class => "hover_up_no_trans")  %>
+	  			</a>				
+			</div>
+		</div>
+	</div>
+<%= render_partial 'products/product_partials/related_products' %>
+</div>
+	

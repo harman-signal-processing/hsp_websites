@@ -1,0 +1,32 @@
+	<div class="row">
+		<div class="small-12 columns"><h4 class="color-soundcraft">USB ASIO Driver</h4></div>
+	</div>
+	<div class="row">
+		<div class="small-2 medium-1 columns">&nbsp;</div>
+		<div class="small-11 medium-9 large-8 columns end">
+			<% @get_results = Download.get_all_downloads_for_get_started(@gs_code, 40)  %>
+			
+			<% if @get_results.blank? %>
+			
+			<div align="left" class="color-accent">COMING SOON</div>
+			
+			<% else %>
+			
+				<% @get_results.each do |dl| 
+				# very strange thing is happening with the model, 
+				# can't seem to put it in an object so had to loop it. 
+				# So inefficient - need to look into this when there's time
+				 FileContentType.where(file_content: dl.download_content_type).each do |test|
+				 	@EXT = "." + test.extension + " "
+				 end
+				%>
+				<div class="div-border product_cat_bg">
+					<font class="margin-left margin-right"><%= link_to dl.title.html_safe, '/serve-me-this/' + dl.id.to_s, target: "_blank" %></font>
+					<font class="small-text color-accent2"><%= @EXT %></font>
+				</div>
+				<% end %>
+			
+			<% end %>
+			<br />
+		</div>
+	</div>

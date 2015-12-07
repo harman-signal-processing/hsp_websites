@@ -1,0 +1,55 @@
+
+<div id="gotoTop" align="center">
+	<%= link_to(image_tag("up_arrow.png", alt: "top of page", class: "no-resize hover_up") + "<br/>".html_safe + t('go_to_top').upcase, "#", class: "scrollToTop") %>
+</div>
+<footer>
+  <div id="footer_top_space" >
+  </div>
+	<div>
+      <div class="small-12 medium-3 large-3 columns">
+    	<div align="center" class="footer-links">
+         <h4>SOUNDCRAFT BY HARMAN</h4>
+         <% @FooterAboutUsLinks.each do |lk| %>
+           <%= link_to(t(lk.page.lcl_name), lk.page.web_url) %><br />
+         <% end %>
+         <%= link_to "ISO 9001:2008 Certification", "/soundcraft_ISO_cert.pdf", :target => "_blank" %>
+          </div>
+	    </div>
+	    <div class="small-12 medium-3 large-3 columns">
+	    	<div align="center" class="footer-links">
+	        <h4>SUPPORT</h4>
+         <% @FooterSupportLinks.each do |lk| %>
+           <%= link_to(t(lk.page.lcl_name), lk.page.web_url) %><br />
+         <% end %>
+            </div>
+	    </div>
+	    <div class="small-12 medium-3 large-3 columns">
+	    	<div align="center" class="footer-links">
+	        <h4>MIXING WITH PROFESSIONALS</h4>
+         <% @FooterMWPLinks.each do |lk| %>
+           <%= link_to(t(lk.page.lcl_name), lk.page.web_url) %><br />
+         <% end %>
+            </div>
+	    </div>
+	    <div class="small-12 medium-3 large-3 columns">
+	      <div align="center" class="footer-links">
+	       <h4>MIX WITH US</h4>
+	        <div>
+	        <%= social_gray_buttons %>
+	        </div>
+	       </div>
+	    </div>
+    </div>
+	<div  class="small-12 columns" >
+	<%= hpro_footer %>
+	</div>
+	<div class="container row">
+		<div class="small-12 columns">
+				Copyright &copy; <%= Date.today.year %> 
+				<%= link_to(t('harman'), "http://www.harman.com/", target: "_blank") %>. 
+				<%= t('all_rights_reserved') %>
+		</div>
+	</div>
+</footer>
+
+

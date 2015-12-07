@@ -1,0 +1,56 @@
+<% 
+# fixing the menu covers the area to the right of the menu so can't click into the contents. Need workaround
+%>
+<div data-magellan-expedition="" >
+	<ul class=" tabs vertical" data-tab role="tablist">
+	 <%= write_product_section_menu(@products.id) %>
+	 	<div class="margin-top" align="right">
+	<%= render 'shared/add_this' %>	
+	</div>
+	</ul>
+
+</div>
+<div class="row fullWidth">
+	<div class="small-12 medium-9 large-9 columns" >
+		<div class="tabs-content">
+			<% ProductsSection.where(product_id: @products.id).order(:position).each_with_index do |ps, index| %>	
+			<%	if index == 0 %>
+			<section role="tabpanel" aria-hidden="false" class="content active" id="<%= "panel-#{ps.id}" %>">
+			<%	else %>
+			<section role="tabpanel" aria-hidden="true" class="content" id="<%= "panel-#{ps.id}" %>">
+			<%	end %>	
+			<h3 class="color-soundcraft"><%= ps.section.title.html_safe %></h3>
+			<br />
+			<% case ps.section.id %>
+			<% when 4 %>
+			  <%= ps.section_html.html_safe %>
+			  <%= render :partial => "products/product_partials/downloads_dims" %>
+			<% when 5  %>
+			<% 
+             # append external links to download sections.
+			%>
+			  <%= render :partial => "products/product_partials/external_links" %>
+			  <%= render :partial => "products/product_partials/downloads" %>
+			<% when 6  %>
+			  <%= render :partial => "products/product_partials/videos" %>
+			<% else  %>
+			  <%= ps.section_html.html_safe %>
+			<% end %>  
+			</section>
+			<% end %>
+			<br /><br />
+		</div>
+	</div>
+</div>
+<script>
+$(document).foundation({
+"magellan-expedition": {
+  active_class: 'active', // specify the class used for active sections
+  threshold: 0, // how many pixels until the magellan bar sticks, 0 = auto
+  destination_threshold: 50, // pixels from the top of destination for it to be considered active
+  throttle_delay: 100, // calculation throttling to increase framerate
+  fixed_top: 50, // top distance in pixels assigend to the fixed element on scroll
+  offset_by_height: false // whether to offset the destination by the expedition height. Usually you want this to be true, unless your expedition is on the side.
+}
+});
+</script>

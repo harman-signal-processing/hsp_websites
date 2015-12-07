@@ -1,0 +1,19 @@
+<a name="news"></a>
+<h3 data-magellan-destination="news" class="color-soundcraft"><%= write_search_result_records(@news.length, "news article") %></h3>
+
+<table class="bg_transparent">
+<% @news.each do |news| %>
+<tr>
+	<td >
+		<% if !news.image_file_name.blank? %>
+			<%=  link_to(image_tag(news.image.url(:thumb), class: "radius5 fade image_border"), news_path(news, locale: I18n.locale))  %>
+		<% end %>
+	</td>
+	<td>
+		<span class="text-sub-header"><%=l news.post_on, format: :short %></span><br />
+	<h4><%= link_to(news.name.html_safe, news_path(news, locale: I18n.locale))  %></h4>
+	</td>
+</tr>
+<% end %>
+</table>
+

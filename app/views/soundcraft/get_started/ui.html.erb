@@ -1,0 +1,174 @@
+<%
+	@meta = Page.find_by lcl_name: 'get_started_ui'
+	meta title: 	@meta.title,
+	description: 	strip_html(@meta.description),
+	keywords: 		@meta.keywords.gsub(" ", ",")
+	@gs_code = 'ui'
+%>
+<div id="header_bc">
+	<div id="header_spacer"></div>
+	<div id="header_bc_image" >
+	<%= image_tag('top_border.gif') %>
+	</div>
+	<div id="bc">
+	<nav class="breadcrumbs" role="menubar" aria-label="breadcrumbs">
+		<li class="unavailable"  aria-disabled="true">>></li>
+	    <li role="menuitem"><a href="/">Home</a></li>
+	    <li role="menuitem"><a href="/get-started">Get Started</a></li>
+	    <li role="menuitem" class="current"><a href="#"><%= @meta.title.gsub('Get Started! ', '') %></a></li>
+	</nav>
+	</div>
+</div>
+<div class="row">
+	<div class="small-12 columns" >
+		<img src="http://soundcraft.com.s3.amazonaws.com/promotions/get-started/get-started-banner-ui.jpg" width="100%" />
+		<br/>
+		<br/>
+		<h4>
+		Your new Ui packs a complete digital mixing system into a compact, road-rugged stagebox format, with built-in Wi-Fi and the ability to be controlled by any connected device via a standard web browser - no Apps, no OS limitations, no constraints on how or where you mix.
+		</h4>
+	</div>
+</div>
+<br/>
+<div class="row fullWidth ">
+	<div class="small-1 column left_tag">&nbsp;</div>
+	<div class="small-11 medium-9 large-6 column left_tag end" >
+	  <h1 class="product_title">Get Started! Ui Series</h1>
+	</div>
+</div>
+<div class="row">
+	<div class="small-12 columns" >
+
+
+		<br/>
+		<h3>Connecting your device to your Ui Mixer</h3>
+	
+Thank you for purchasing one of our fantastic Soundcraft Ui mixers. To control your Ui mixer, you will need to connect it to a device of your choice either wirelessly using WiFi or via a network (ethernet) cable. 
+You can control your Ui mixer using any device (tablet, phone, laptop or computer) that has an HTML5 web browser without the need to download an app.
+ <br/><br/>
+To set up your connection wirelessly via Wi-Fi:<br/><br/>
+<ol>
+  <li>Under "Wireless and Networks" setting of your device, check to make sure "Wi-Fi" is turned on. Enable "Wi-Fi" if it is not on.</li>
+  <li>In the Wi-Fi networks list, find the '<strong class="text-sub-header">Soundcraft Ui</strong>' wireless network and connect to it.</li>
+  <li>If you are prompted for a password, please type the default password '<strong class="text-sub-header">scuiwlan</strong>'.</li>
+  <li>Once the connection is successful, launch your device's HTML5 browser, such as Safari, Google Chrome or Mozilla Firefox.</li>
+  <li>In the browser's address bar, type in the Ui mixer's server address: <strong class="text-sub-header">ui-mixer.io</strong> to connect to it.</li>
+</ol>
+Once you have connected to the server and the web page has loaded, you should see the <strong class="text-sub-header">Device Selection Screen</strong>. 
+<br/>
+<img src="http://soundcraft.com.s3.amazonaws.com/promotions/get-started/ui-selection-screen.jpg" vspace="10" width="500" />
+<br/>
+Please choose the version that is applicable to your device; small screen icon for mobile phone and large screen icon for tablets, laptops and computers. 
+
+<br/><br/>
+And now your mixer is ready, plug in your equipments and start mixing!!
+<br/><br/><br/>
+<h3>Get more out of your Ui mixer!</h3>
+Register your Ui mixer and get up-to-date access to the latest news, software, user guides and more, including the exclusive Ableton Live 9 Lite music production software, that lets you easily create, produce and perform music within one intuitive interface. 
+<br/><br/>
+<% if @validate != "serial" %>
+If you have already registered and would like to access the files again, <a href="/get-started/ui?validate=serial">click here</a> to validate your serial number. 
+<br/><br/>	
+<% end %>
+</div>
+</div>
+
+<div id="product_sections">
+<div data-magellan-expedition="" >
+	<ul class=" tabs vertical" data-tab role="tablist">
+      <%= write_section_menu(1) %>
+	</ul>
+</div>
+	
+<div class="row fullWidth">
+	<div class="small-12 medium-9 large-9 columns" >
+		<div class="tabs-content">
+			<% GetStartedSection.where(get_started_id: 1).order(:position).each_with_index do |ps, index| %>	
+				<%	if index == 0 %>
+				<section role="tabpanel" aria-hidden="false" class="content active" id="<%= "panel-#{ps.id}" %>">
+				<%	else %>
+				<section role="tabpanel" aria-hidden="true" class="content" id="<%= "panel-#{ps.id}" %>">
+				<%	end %>	
+				
+				<% case ps.section.id %>
+					<% when 35, 31  %>
+					
+						<% if @validate == "serial" %>
+						  <h3  class="color-soundcraft">Validate My Serial Number</h3>	
+						<% else %>
+						  <h3  class="color-soundcraft">Register Your Product</h3>
+						<% end %>
+						
+						  <br />
+						  
+						<%
+						#flash for all messages
+						%>
+						<div class="row">
+							<div class="small-12 column">
+								
+								<% flash.each do |name, msg| %>
+								  <% if name == "notice_ui" %>
+								    <%= content_tag :div, msg, class: name %>
+								  <% end %>  
+								<% end %>
+						
+						<br />
+						</div>
+						</div>
+						
+						<% if @validate == "serial" %> 
+							<% if flash[:notice_ui] != t('ui_get_started_registered') %> 
+					  			Please enter your serial number to validate your account and press 'Return' to confirm.
+					  			<%= render :partial => "get_started/sections/check_serial_ui" %> 
+					  			<br/><br/>
+					  			<div class="text-sub-header">To go back to the Product Registration page, <a href="/get-started/ui?validate=reg">click here</a>.</div>
+					  			<br/><br/>
+				  			<% end %>
+						<% else %>
+					 		
+							<% if flash[:notice_ui] != t('ui_get_started_registered') %> 
+				  			Please fill in the form below and click 'submit' at the bottom on the page. 
+				  			<%= render :partial => "get_started/sections/product_registration" %> 
+				  			<% end %>
+				  			
+				  		<% end %>	
+				  		
+					<% when 32, 33, 34  %>
+						<h3 class="color-soundcraft"><%= ps.section.title.html_safe %></h3>
+						<br />
+						
+				 		<% if flash[:notice_ui] == t('ui_get_started_registered') %>  
+				 			<% case ps.section.id %>
+				 			  <% when 32  %>
+				  				<%= render :partial => "get_started/sections/user_guides" %>
+				  			  <% when 33  %>
+				  				<%= render :partial => "get_started/sections/software" %>
+				  			  <% when 34  %>
+				  				<%= render :partial => "get_started/sections/ableton" %>
+				  			<% end %> 
+				 		<%	else %>
+				  			<%= render :partial => "get_started/sections/locked" %>
+				 		<%	end %>	
+				 		
+					<% end %>  
+				</section>
+			<% end %>
+			<br /><br />
+		</div>
+	</div>
+</div>
+</div>
+<script>
+$(document).foundation({
+"magellan-expedition": {
+  active_class: 'active', // specify the class used for active sections
+  threshold: 0, // how many pixels until the magellan bar sticks, 0 = auto
+  destination_threshold: 50, // pixels from the top of destination for it to be considered active
+  throttle_delay: 100, // calculation throttling to increase framerate
+  fixed_top: 50, // top distance in pixels assigend to the fixed element on scroll
+  offset_by_height: false // whether to offset the destination by the expedition height. Usually you want this to be true, unless your expedition is on the side.
+}
+});
+</script>
+

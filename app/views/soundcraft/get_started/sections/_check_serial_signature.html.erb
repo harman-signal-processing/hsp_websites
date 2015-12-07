@@ -1,0 +1,10 @@
+<div class="row">
+	<div class="small-12 large-6 column">
+		
+		  <%= form_tag get_started_signature_path, method: :get %>
+            <%= text_field_tag :query, "", placeholder: "serial number" %>
+            <%= hidden_field_tag :validate, "serial" %>
+          </form>
+		
+	</div>
+</div>

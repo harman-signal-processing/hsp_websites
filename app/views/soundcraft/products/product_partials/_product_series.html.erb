@@ -1,0 +1,17 @@
+<div class="row fullWidth">
+	<div class="small-12 large-12 columns product_cat_bar" >
+		<div class="row product_cat_bg">
+			<div class="small-3 large-2 columns pad20" align="right" >
+			&nbsp;
+			</div>
+			<div class="small-9 large-10 columns margin-top-30" >
+				<ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-3" >
+					<% Product.all_with_prod_sub_cat_id(series_id, 1).each do |prod| %>
+			  		<%= render :partial => "products/product_partials/product_box", :locals => {:prod => prod, :style => "medium"} %>
+			  	  	<%  end %>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<br /><br /><br /><br />

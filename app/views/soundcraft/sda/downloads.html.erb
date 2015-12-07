@@ -1,0 +1,50 @@
+<%
+	@meta = Page.find_by lcl_name: 'sda'
+	@page_title = "Downloads"
+	meta title: 	@page_title,
+	robots: 		"noindex, nofollow"
+%>
+<div id="header_bc">
+	<div id="header_spacer"></div>
+	<div id="header_bc_image" >
+	<%= image_tag('top_border.gif') %>
+	</div>
+	<div id="bc">
+	<nav class="breadcrumbs" role="menubar" aria-label="breadcrumbs">
+		<li class="unavailable"  aria-disabled="true">>></li>
+	    <li role="menuitem"><a href="/">Home</a></li>
+	    <li role="menuitem"><a href="/sda">SDA</a></li>
+	    <li role="menuitem" class="current"><a href="#"><%= @page_title %></a></li>
+	</nav>
+	</div>
+</div>
+<div class="row fullWidth">
+<div class="small-12 columns" >
+<br />
+<h1><%= @page_title %></h1>
+</div>
+</div>
+<%= form_for @download, url: "/sda/downloads" do |f| %>
+<div class="row">
+	<div class="small-12 medium-6 large-6 columns">
+		<label>Select a download category:</label>
+		<%= f.collection_select(:downloadcategory, @download_categories, :id, :name, {:selected => @selectedcategory, :include_blank => 'Show All Categories'}, {:onchange => 'submit()'}) %>	
+	</div>
+	<div class="small-12 medium-6 large-6 columns">
+		<label>Select a product:</label>
+		<%= f.collection_select(:productname, @products, :id, :name, {:selected => @selectedproduct, prompt: true}, {:onchange => 'submit()'}) %>	
+	</div>
+</div>
+<% end %>
+<hr />
+<br>
+<div class="row">
+	<div class="small-12 columns">
+		<% if @selectedproduct.to_i > 0 %>
+		<%= render :partial => "sda/shared/downloads" %>
+		<% end %>
+	</div>
+</div>	
+<br>
+<br>
+<%= render "sda/shared/logged_in" %>

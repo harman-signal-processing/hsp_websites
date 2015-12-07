@@ -340,6 +340,7 @@ GEM
     httpi (2.4.1)
       rack
     i18n (0.7.0)
+    image_zoomer (0.0.2)
     inflecto (0.0.2)
     innertube (1.1.0)
     ipaddress (0.8.0)
@@ -684,6 +685,7 @@ DEPENDENCIES
   guard-bundler
   guard-rails
   guard-rspec
+  image_zoomer
   jquery-rails
   json-schema
   letter_opener

@@ -1,0 +1,22 @@
+<div class="sticky">
+  <nav class="top-bar" data-topbar  role="navigation">
+    <ul class="title-area">
+      <li class="name logo-container"><%= link_to image_tag(website.folder + '/logo.png', alt: website.brand.name), locale_root_path %></li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <ul class="left">
+        <%= render_partial 'layouts/nav_items' %>
+      </ul>
+
+      <ul class="right">
+        <li class="has-form" id="search_form">
+          <%= form_tag search_path, method: :get %>
+            <%= text_field_tag :query, "", placeholder: t('search') %>
+          </form>
+        </li>
+      </ul>
+    </section>
+  </nav>
+</div>

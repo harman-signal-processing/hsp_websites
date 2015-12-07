@@ -1,0 +1,25 @@
+<%  Download.get_all_download_categories_for_product_SDA(@selectedproduct, @selectedcategory).each do |cat| %>
+	<div class="row">
+		<div class="small-12 columns"><h4 class="color-soundcraft"><%= cat.name.html_safe  %></h4></div>
+	</div>
+	<div class="row">
+		<div class="small-1 columns">&nbsp;</div>
+		<div class="small-11 columns end">
+			<% Download.get_all_downloads_for_product_SDA(@selectedproduct, cat.id).each do |dl| 
+			# very strange thing is happening with the model, 
+			# can't seem to put it in an object so had to loop it. 
+			# So inefficient - need to look into this when there's time
+			 FileContentType.where(file_content: dl.download_content_type).each do |test|
+			 	@EXT = "." + test.extension + " "
+			 end
+			%>
+			<div style="height: 30px;" ><font class="margin-right"><%= link_to dl.title.html_safe, '/serve-me-this/' + dl.id.to_s, target: "_blank" %></font><font class="small-text color-accent2"><%= @EXT %></font></div>
+			<% end %><br />
+		</div>
+	</div>
+
+<% end %>
+<% if Download.get_all_download_categories_for_product_SDA(@selectedproduct, @selectedcategory).length == 0  %>
+	<h4>Sorry, there are currently no downloads available.</h4>
+<% end %>
+

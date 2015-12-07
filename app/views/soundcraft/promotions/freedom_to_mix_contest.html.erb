@@ -1,0 +1,167 @@
+<%
+	@meta = Page.find_by lcl_name: 'freedom_to_mix_contest'
+	meta title: @meta.title,
+	description: strip_html(@meta.description),
+	keywords: @meta.keywords.gsub(" ", ",")
+
+%>
+<div id="header_bc">
+	<div id="header_spacer"></div>
+	<div id="header_bc_image" >
+	<%= image_tag('top_border.gif') %>
+	</div>
+	<div id="bc">
+	<nav class="breadcrumbs" role="menubar" aria-label="breadcrumbs">
+		<li class="unavailable"  aria-disabled="true">>></li>
+	    <li role="menuitem"><a href="/">Home</a></li>
+	    <li role="menuitem" class="current"><a href="#"><%= @meta.title %></a></li>
+	</nav>
+	</div>
+</div>
+<div class="row fullWidth">
+	<div class="small-12 columns" >
+		<br />
+		<h1><%= @meta.title %></h1>
+	</div>
+</div>
+
+<div class="row">
+	<div class="small-12 columns" >
+		<br />
+<ul class="contest_banners" data-orbit data-options="animation:fade;timer_speed: 1000;animation_speed: 500;navigation_arrows: false;bullets: false;slide_number:false;timer:true;swipe: false;pause_on_hover: false">
+  <li>
+    <img src="http://soundcraft.com.s3.amazonaws.com/promotions/freedom/contest01.jpg" width="100%" />
+  </li>
+  <li>
+    <img src="http://soundcraft.com.s3.amazonaws.com/promotions/freedom/contest02.jpg" width="100%" />
+  </li>
+  <li>
+    <img src="http://soundcraft.com.s3.amazonaws.com/promotions/freedom/contest03.jpg" width="100%" />
+  </li>
+  <li>
+    <img src="http://soundcraft.com.s3.amazonaws.com/promotions/freedom/contest04.jpg" width="100%" />
+  </li>
+  <li>
+    <img src="http://soundcraft.com.s3.amazonaws.com/promotions/freedom/contest05.jpg" width="100%" />
+  </li>
+  <li>
+    <img src="http://soundcraft.com.s3.amazonaws.com/promotions/freedom/contest06.jpg" width="100%" />
+  </li>
+  <li>
+    <img src="http://soundcraft.com.s3.amazonaws.com/promotions/freedom/contest07.jpg" width="100%" />
+  </li>
+  <li>
+    <img src="http://soundcraft.com.s3.amazonaws.com/promotions/freedom/contest08.jpg" width="100%" />
+  </li>
+  <li>
+    <img src="http://soundcraft.com.s3.amazonaws.com/promotions/freedom/contest09.jpg" width="100%" />
+  </li>
+  <li>
+    <img src="http://soundcraft.com.s3.amazonaws.com/promotions/freedom/contest10.jpg" width="100%" />
+  </li>
+  <li>
+    <img src="http://soundcraft.com.s3.amazonaws.com/promotions/freedom/contest11.jpg" width="100%" />
+  </li>
+  <li>
+    <img src="http://soundcraft.com.s3.amazonaws.com/promotions/freedom/contest12.jpg" width="100%" />
+  </li>
+  <li>
+    <img src="http://soundcraft.com.s3.amazonaws.com/promotions/freedom/contest13.jpg" width="100%" />
+  </li>
+  <li>
+    <img src="http://soundcraft.com.s3.amazonaws.com/promotions/freedom/contest14.jpg" width="100%" />
+  </li>
+  <li>
+    <img src="http://soundcraft.com.s3.amazonaws.com/promotions/freedom/contest15.jpg" width="100%" />
+  </li>
+  <li>
+    <img src="http://soundcraft.com.s3.amazonaws.com/promotions/freedom/contest16.jpg" width="100%" />
+  </li>
+  <li>
+    <img src="http://soundcraft.com.s3.amazonaws.com/promotions/freedom/contest17.jpg" width="100%" />
+  </li>
+  <li>
+    <img src="http://soundcraft.com.s3.amazonaws.com/promotions/freedom/contest18.jpg" width="100%" />
+  </li>
+  <li>
+    <img src="http://soundcraft.com.s3.amazonaws.com/promotions/freedom/contest19.jpg" width="100%" />
+  </li>
+  <li>
+    <img src="http://soundcraft.com.s3.amazonaws.com/promotions/freedom/contest20.jpg" width="100%" />
+  </li>
+</ul>
+<br /><br />
+<h3>Mixing in  the corner, in darkness, or in the wild?  Does this sound familiar to you?</h3>
+<div>
+If you have ever experienced a situation where you could really do with a small device, such as an iPad, or even contemplated using your mobile phone to mix? 
+Now you can! All thanks to our new remote-controlled digital mixers, the <a href="/products/ui12">Soundcraft Ui12</a> and the <a href="/products/ui12">Soundcraft Ui16</a>. <br />
+
+To celebrate the launch of these 
+fantastic mixers, we have three mixers up for grab:
+<br />
+<br />
+<table align="center" width="310" cellpadding="3" cellspacing="2" class="bold">
+<tr>
+<td>Grand Prize:</td>
+<td>Soundcraft Ui16</td>
+</tr>
+<tr>
+<td>Runner-up Prize (x2):</td>
+<td>Soundcraft Ui12</td>
+</tr>
+</table>
+<div class="row">
+	<div class="small-12 medium-6 columns"><a href="/products/ui12" alt="Soundcraft Ui12"><img src="http://soundcraft.com.s3.amazonaws.com/products/original/ui12-front.jpg" /></a></div>
+	<div class="small-12 medium-6 columns"><a href="/products/ui16" alt="Soundcraft Ui16"><img src="http://soundcraft.com.s3.amazonaws.com/products/original/ui16-front.jpg" /></a></div>
+</div>
+
+
+<br />
+<br />
+<h3>How to win</h3>
+
+So how do I get my hands on one of these fastastic prizes? <br />
+<br />
+Simply share an image or a video of an unusual quirky environment where you think the new Soundcraft Ui Mixers would fit perfectly, at any one of social media channels below, using the hashtags <strong>#FreedomToMix #Contest</strong>. 
+<br /><br />
+<a href="<%= ENV['FACEBOOK_URL'] %>" target="_blank"><img alt="Facebook" class="fade"
+ src="<%= asset_path 'icons/circle/64x64/facebook.png' %>" style="vertical-align: middle;" width="64" /></a>
+<a href="<%= ENV['TWITTER_URL'] %>" target="_blank"><img alt="Twitter" class="fade" 
+	src="<%= asset_path 'icons/circle/64x64/twitter.png' %>" style="vertical-align: middle;" width="64" /></a>
+<a href="<%= ENV['INSTAGRAM_URL'] %>" target="_blank"><img alt="Instagram" class="fade"
+ src="<%= asset_path 'icons/circle/64x64/instagram.png' %>" style="vertical-align: middle;" width="64" /></a>
+
+<br /><br />
+<strong>Be creative, smart and funny, the best pictures / videos win !!</strong><br />
+<font color="#cc0000"><br />
+Contest has ended.</font> Thank you to everyone that has participated in the contest and we hope that you have enjoyed it as much as us. As you can see, the Ui Series mixers are great for many situations and we hope that you too feel more inspired and excited. 
+<br /><br />
+<div class="small-text">For full terms and conditions, please <a href="http://www.soundcraft.com/tnc/freedom-to-mix-contest">click here</a>.</div>
+<br />
+<br />
+<h3>The winners</h3><br />
+<div align="center">
+<img src="http://soundcraft.com.s3.amazonaws.com/promotions/freedom/henrik1.jpg" width="70%" /><br />
+<h4>Henrik Guttorm</h4>
+(Grand Prize - Soundcraft Ui16)<br /><br /><br />
+
+</div>
+<div align="center">
+<img src="http://soundcraft.com.s3.amazonaws.com/promotions/freedom/joshua2.jpg" width="70%" /><br />
+<h4>Joshua Price</h4>
+(Runner-up Prize - Soundcraft Ui12) <br /><br /><br />
+</div>
+<div align="center">
+<img src="http://soundcraft.com.s3.amazonaws.com/promotions/freedom/greg3.jpg" width="70%" /><br />
+<h4>Greg McKay</h4>
+(Runner-up Prize - Soundcraft Ui12)<br /><br /><br />
+
+</div>
+<br /> 
+Have fun!
+:)<br />
+<br />
+<br />
+</div >
+	</div>
+</div>

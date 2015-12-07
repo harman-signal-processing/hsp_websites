@@ -1,0 +1,19 @@
+<div class="row">
+	<div class="small-12 column">
+		<%= form_for @user, url: "/get-started/#{@gs_code}?validate=serial", html: {class: "reg", "data-abide" => ''} do |f| %>
+			<%= render :partial => "get_started/sections/form_contacts_section", :locals => {:f => f} %>
+			<%= render :partial => "get_started/sections/form_products_section", :locals => {:f => f} %>	  	
+			<%= render :partial => "get_started/sections/form_optins_section", :locals => {:f => f} %>
+			<div class="right"><%= f.submit t('submit'), class: 'button radius margin-top' %></div>
+		<% end %>
+	</div>
+</div>
+<script>
+$(function() {
+	$( "#user_users_products_attributes_0_purchased_date" ).datepicker({
+		numberOfMonths: 1,
+		dateFormat: "dd-mm-yy",
+		maxDate: 0
+	});
+});
+</script>

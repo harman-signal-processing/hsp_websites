@@ -1,0 +1,86 @@
+<%
+	@meta = Page.find_by lcl_name: 'videos'
+	meta title: @meta.title,
+	description: strip_html(@meta.description),
+	keywords: @meta.keywords.gsub(" ", ",")
+	
+	
+
+%>
+<div id="header_bc">
+	<div id="header_spacer"></div>
+	<div id="header_bc_image" >
+	<%= image_tag('top_border.gif') %>
+	</div>
+	<div id="bc">
+	<nav class="breadcrumbs" role="menubar" aria-label="breadcrumbs">
+		<li class="unavailable"  aria-disabled="true">>></li>
+	    <li role="menuitem"><a href="/">Home</a></li>
+	    <li role="menuitem"><a href="/media">Media</a></li>
+	    <li role="menuitem" class="current"><a href="#"><%= @meta.title %></a></li>
+	</nav>
+	</div>
+</div>
+<div class="row fullWidth">
+	<div class="small-12 columns" >
+		<br />
+		<h1><%= @meta.title %></h1>
+	</div>
+</div>
+<div class="row fullWidth">	
+	<div class="small-6 medium-4 large-2 columns">
+	<ul class="side-nav">
+	 <%= write_video_cat_menu() %>
+	</ul>
+	</div>
+	<div class="small-6 medium-8 large-10 columns">
+		<h3 class="color-soundcraft"><%=  @video_cat.name %></h3>
+		<% if @video_cat.id == 1 
+				@videocollection = Video.select(:video_sub_category_id).distinct.where(featured: 1)
+	 		else 
+				@videocollection = Video.select(:video_sub_category_id).distinct.where(video_category_id: @video_cat.id)
+	 		end 
+	 	%>
+		
+		<%  @videocollection.each do |sub| %>
+		  <% VideoSubCategory.where(id: sub.video_sub_category_id).order(:position).each_with_index do |sc| %>
+		    <div class="h4-bg"><h4><%= sc.name %></h4></div>
+			<ul class="small-block-grid-1 medium-block-grid-4 large-block-grid-6">
+			<% Video.get_all_video_cat(@video_cat.id, sc.id).each_with_index do |video| %>
+			    <li align="center">
+					<a href="#openModal" onclick="GetYoutubeSource('<%= video.youtube_code %>')" onmouseover="GetYoutubeSource('<%= video.youtube_code %>')"  >
+						<img src="http://img.youtube.com/vi/<%= video.youtube_code %>/0.jpg" class="radius5">
+	    				<font class="small-text "><%= video.title %></font>
+					</a>
+				</li>
+			<% end %>
+			</ul> 
+		  <% end %>
+		<% end %>
+		
+
+		<div id="openModal" class="modalDialog">
+			<div>
+				<a href="#" onclick="closethis()" title="Close" class="close">X</a>
+				<div class="flex-video">
+				<iframe name="videoIFrame" id="videoIFrame" width="853" height="480" src="" frameborder="0" allowfullscreen></iframe>
+				</div>
+			</div>
+		</div>
+				
+	</div>
+</div>
+<script>
+	
+function GetYoutubeSource(youtube_code) {
+	
+	  $('#videoIFrame').attr('src', 'http://www.youtube.com/embed/' + youtube_code + '?autostart=1&theme=light');
+
+	
+}
+
+function closethis() {
+	$('#videoIFrame').attr('src', '');
+}
+
+</script>

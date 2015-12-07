@@ -1,0 +1,46 @@
+<%
+	@meta = Page.find_by lcl_name: 'sda'
+	page_title = "Login"
+	meta title: 	page_title,
+	robots: 		"noindex, nofollow"
+%>
+<div id="header_bc">
+	<div id="header_spacer"></div>
+	<div id="header_bc_image" >
+	<%= image_tag('top_border.gif') %>
+	</div>
+	<div id="bc">
+	<nav class="breadcrumbs" role="menubar" aria-label="breadcrumbs">
+		<li class="unavailable"  aria-disabled="true">>></li>
+	    <li role="menuitem"><a href="/">Home</a></li>
+	    <li role="menuitem"><a href="/sda">SDA</a></li>
+	    <li role="menuitem" class="current"><a href="#"><%= page_title %></a></li>
+	</nav>
+	</div>
+</div>
+<div class="row">
+	<div class="small-1 medium-3 large-3 columns">&nbsp;</div>
+	<div class="small-9 medium-6 large-6 columns end" >
+		<br />
+		<br />
+		<%= render "sda/shared/alert_message" %>
+		<h1><%= page_title %></h1> 
+		<div class="sda_box">
+		<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+		  <div class="form-inputs">
+		    <%= f.input :email, required: false, autofocus: true %>
+		    <%= f.input :password, required: false %>
+		    <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+		  </div>
+		  <div class="form-actions">
+		    <%= f.button :submit, "Log in", class: "button radius" %>
+		  </div>
+		<% end %>
+		</div>
+		<%= render "sda/shared/links" %>
+		<br />
+		<br />
+	</div>
+	
+</div>
+

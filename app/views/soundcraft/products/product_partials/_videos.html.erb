@@ -1,0 +1,35 @@
+<% @videocollection = Video.select(:video_sub_category_id).distinct.joins(:products_videos).where(products_videos: {product_id: @products.id}) %>	
+		<%  @videocollection.each do |sub| %>
+		  <% VideoSubCategory.get_video_sub_cats(sub.video_sub_category_id).each do |sc| %>
+		    <div class="h4-bg"><h4><%= sc.name %></h4></div>
+			<ul class="small-block-grid-1 medium-block-grid-4 large-block-grid-6">
+			<% Video.get_product_videos(sc.id, @products.id).each_with_index do |video| %>
+			    <li align="center">
+					<a href="#openModal" onclick="GetYoutubeSource('<%= video.youtube_code %>')" onmouseover="GetYoutubeSource('<%= video.youtube_code %>')">
+						<img src="http://img.youtube.com/vi/<%= video.youtube_code %>/0.jpg" class="radius5">
+	    				<font class="small-text "><%= video.title %></font>
+					</a>
+				</li>
+			<% end %>
+			</ul> 
+		  <% end %>
+		<% end %>
+		<div id="openModal" class="modalDialog">
+			<div>
+				<a href="#" onclick="closethis()" title="Close" class="close">X</a>
+				<div class="flex-video">
+				<iframe name="videoIFrame" id="videoIFrame" width="853" height="480" src="" frameborder="0" allowfullscreen></iframe>
+				</div>
+			</div>
+		</div>
+<script>
+function GetYoutubeSource(youtube_code) {
+	
+
+	  $('#videoIFrame').attr('src', 'http://www.youtube.com/embed/' + youtube_code + '?autostart=1&theme=light');
+
+}
+function closethis() {
+	$('#videoIFrame').attr('src', '');
+}
+</script>

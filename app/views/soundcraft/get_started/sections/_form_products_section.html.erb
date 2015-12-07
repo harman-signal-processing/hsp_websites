@@ -1,0 +1,65 @@
+<%= f.fields_for :users_products do |builder| %>
+<div class="web-form-section" >
+<div class="row">
+	<div class="small-12 large-6 columns">
+		
+		<div>
+			<label>Product <small class="color-accent">(required field)</small></label>
+			<%= builder.collection_select :product_id, 
+			Product.get_all_downloads_for_get_started(@gs_code), 
+			:id, :name, prompt: true, required: '' %>
+			
+    		<small class="error">Product is required.</small>
+		</div>
+		<div>
+			<label>Serial Number <small class="color-accent">(required field)</small></label>
+			<%= builder.text_field :serial, required: '' %>
+			<% if @gs_code == "ui" %>
+			<div class="small-text">The serial number can be found on the white sticker at the back of the mixer.<br/>S/N: XXXXXXXXXXX - <a href="#" data-reveal-id="myModal">click here for info</a>.</div>
+			<div id="myModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+			  <h2 id="modalTitle">Ui Serial Number</h2>
+			  <img src="http://soundcraft.com.s3.amazonaws.com/promotions/get-started/serial_number_ui.jpg" border="0" />
+			  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+			</div>
+			<% end %>
+			<small class="error">Serial Number is required.</small>
+		</div>
+		<div>&nbsp;</div>
+		<div>
+			<label>What is your main application for the product?</label>
+			<%= builder.collection_select :application_id, 
+			Application.all_for_website_registration(), 
+			:id, :name, prompt: true %>
+		</div>
+		<div>
+			<label>What influenced you on your purchase?</label>
+			<%= builder.text_field :influence %>
+		</div>
+		<div>
+			<label>How did you hear about the product?</label>
+			<%= builder.text_field :hear_from %>
+		</div>
+		
+	</div>	
+	<div class="small-12 large-6 columns">
+		<div>
+			<label>Purchase Date <small class="color-accent">(required field)</small></label>
+			<%= builder.text_field :purchased_date, required: ''  %>
+			
+    		<small class="error">Purchase date is required.</small>
+		</div>
+		<div>
+			<label>Who did you buy the product from?</label>
+			<%= builder.text_field :purchased_from %>
+		</div>
+	</div>
+</div>
+<div>
+	<label>Is there anything else you would like to tell us?</label>
+	<%= builder.text_area :comment, size: "40x5" %>
+<br />
+</div>
+</div>
+<% end %>	
+
+
