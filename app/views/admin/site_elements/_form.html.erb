@@ -28,6 +28,20 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="large-6 columns">
+      <%= f.input :external_url, hint: "(Use this instead of the attachment fields above for resources hosted on external sites.)" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-6 columns">
+      <label>Broad Categories-select at least one in order to appear on product pages.</label>
+      <%= f.input :is_document, label: "This is a document" %>
+      <%= f.input :is_software, label: "This is software" %>
+    </div>
+  </div>
+
 	<%= f.input :show_on_public_site, label: "Show on public site in the downloads area" %>
   <br/><%= f.button :submit %>
 

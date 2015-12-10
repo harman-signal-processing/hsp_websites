@@ -193,7 +193,15 @@ class Website < ActiveRecord::Base
         downloads: []
       }
       thumbnail = nil
-      if !site_element.resource_file_name.blank? #&& site_element.is_image?
+      if site_element.external_url.present?
+        downloads[site_element.resource_type.parameterize][:downloads] << {
+          name: site_element.name,
+          file_name: site_element.url,
+          thumbnail: nil,
+          url: site_element.url,
+          path: site_element.url
+        }
+      elsif site_element.resource_file_name.present? #&& site_element.is_image?
         if site_element.is_image?
           thumbnail = site_element.resource.url(:tiny_square)
         end
@@ -204,7 +212,7 @@ class Website < ActiveRecord::Base
           url: site_element.resource.url,
           path: site_element.resource.path
         }
-      else
+      elsif site_element.executable_file_name.present?
         downloads[site_element.resource_type.parameterize][:downloads] << {
           name: site_element.name,
           file_name: site_element.executable_file_name,

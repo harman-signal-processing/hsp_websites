@@ -323,12 +323,12 @@ class Product < ActiveRecord::Base
 
   # Collects those site_elements where the download is software or a zip
   def executable_site_elements
-    @executable_site_elements ||= site_elements.where("executable_file_name IS NOT NULL").all.select{|se| se if !!!(se.executable_file_name.match(/pdf|jpg|png/i)) }
+    @executable_site_elements ||= site_elements.where(is_software: true)
   end
 
   # Collects those site_elements where the download is PDF or image
   def viewable_site_elements
-    @viewable_site_elements ||= site_elements.where("resource_file_name IS NOT NULL")
+    @viewable_site_elements ||= site_elements.where(is_document: true)
   end
 
   # Pretty awful hack to see if a custom tab name exists for the given tab "name".

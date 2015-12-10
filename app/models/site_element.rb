@@ -56,12 +56,24 @@ class SiteElement < ActiveRecord::Base
     !!(resource_file_name.to_s.match(/(png|jpg|jpeg|tif|tiff|bmp|gif)$/i))
   end
 
+  def url
+    if external_url.present?
+      external_url
+    elsif resource_file_name.present?
+      resource.url
+    elsif executable_file_name.present?
+      executable.url
+    end
+  end
+
   def resource_type_key
     self.resource_type.parameterize.underscore
   end
 
   def attachment_type
-    if resource_file_name.present?
+    if external_url.present?
+      'external'
+    elsif resource_file_name.present?
       'resource'
     elsif executable_file_name.present?
       'executable'
