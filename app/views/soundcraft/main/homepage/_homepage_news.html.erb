@@ -2,15 +2,21 @@
 	<div class="small-12 columns">
 		<h2 align="center">mix with the best</h2>
 		<ul class="example-orbit-content" data-orbit data-options="animation:slide;timer_speed: 4000;animation_speed: 800;navigation_arrows: false;bullets: false;slide_number:false;timer:true;swipe: true;pause_on_hover: false">
-		  <% @news = News.get_articles_for_homepage.each do |n| %>
+		  <% @news.each do |news| %>
 		  <li data-orbit-slide="headline-1">
 		    <div class="row">
-		    	<div class="small-1 column"><img src="images/quote_l.png" width="50" height="50"/></div>
-		    	<div class="small-10 columns news_header" align="center"><%= link_to(n.name, "/news/" + n.slug) %></div>
-		    	<div class="small-1 column"><img src="images/quote_r.png" width="50" height="50"/></div>
+          <div class="small-1 column"><%= image_tag "quote_l.png" %></div>
+		    	<div class="small-10 columns news_header" align="center"><%= link_to truncate(news.quote_or_headline, length: 100), news %></div>
+          <div class="small-1 column"><%= image_tag "quote_r.png" %></div>
 		     </div>
-		     <div class="row"> 
-		      <div class="small-12 columns news_subheader" align="center"><%= n.location %></div>
+		     <div class="row">
+           <div class="small-12 columns news_subheader" align="center">
+             <% if news.respond_to?(:location) && news.location.present? %>
+               <%= news.location %>
+             <% else %>
+              <%=l news.post_on, format: :short %>
+             <% end %>
+           </div>
 		    </div>
 		  </li>
 	  	<% end %>
