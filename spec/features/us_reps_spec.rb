@@ -13,7 +13,7 @@ feature "US Reps" do
   end
 
   after :all do
-    DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner.clean_with(:deletion)
   end
 
   describe "rep index" do

@@ -16,7 +16,7 @@ RSpec.describe LabelSheetOrdersController do
   end
 
   after :all do
-    DatabaseCleaner.clean_with :truncation
+    DatabaseCleaner.clean_with :deletion
   end
 
   describe "GET thanks without an order in the session" do

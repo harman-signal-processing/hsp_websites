@@ -24,7 +24,7 @@ feature "epedal labels ordering" do
   end
 
   after :all do
-    DatabaseCleaner.clean_with :truncation
+    DatabaseCleaner.clean_with :deletion
   end
 
   before :each do

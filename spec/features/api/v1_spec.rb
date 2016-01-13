@@ -18,7 +18,7 @@ feature "API version 1" do
 	end
 
   after :all do
-    DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner.clean_with(:deletion)
   end
 
 	describe "brands for employee store" do

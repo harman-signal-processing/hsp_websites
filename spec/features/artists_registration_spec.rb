@@ -13,7 +13,7 @@ feature "Artists registration" do
   end
 
   after :all do
-    DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner.clean_with(:deletion)
   end
 
   scenario "Signup without invitation will be an affiliate" do

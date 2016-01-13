@@ -1,9 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe "news/index.html.erb", :type => :view do
-  before do
-    @website = FactoryGirl.create(:website_with_products)
-    @news = FactoryGirl.create(:news, brand: @website.brand)
+  before :all do
+    @website = FactoryGirl.create(:website)
+    @news = FactoryGirl.build_stubbed(:news, brand: @website.brand)
+  end
+
+  before :each do
     allow(view).to receive(:website).and_return(@website)
     assign(:news, [@news])
     render
