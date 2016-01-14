@@ -3,7 +3,7 @@ require "rails_helper"
 feature "Managing FAQs", :devise do
 
   before :all do
-    @website = FactoryGirl.create(:website_with_products)
+    @website = FactoryGirl.create(:website)
     @user = FactoryGirl.create(:user, market_manager: true, password: "password", confirmed_at: 1.minute.ago)
   end
 

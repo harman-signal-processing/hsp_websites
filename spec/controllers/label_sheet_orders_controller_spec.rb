@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe LabelSheetOrdersController do
 
   before :all do
-    @website = FactoryGirl.create(:website_with_products)
+    @website = FactoryGirl.create(:website)
     @istomp = FactoryGirl.create(:product, name: "iStomp", brand: @website.brand, cached_slug: "istomp")
     @stompshop = FactoryGirl.create(:software, name: "Stomp Shop", layout_class: "stomp_shop", brand: @website.brand)
     FactoryGirl.create(:product_software, product: @istomp, software: @stompshop)

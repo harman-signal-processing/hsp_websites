@@ -3,7 +3,7 @@ require "rails_helper"
 feature "Artists registration" do
 
   before :all do
-    @website = FactoryGirl.create(:website_with_products, folder: "digitech")
+    @website = FactoryGirl.create(:website, folder: "digitech")
     @brand = @website.brand
     Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"

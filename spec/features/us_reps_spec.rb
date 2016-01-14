@@ -3,7 +3,7 @@ require "rails_helper"
 feature "US Reps" do
 
   before :all do
-    @website = FactoryGirl.create(:website_with_products)
+    @website = FactoryGirl.create(:website)
     Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"
     @rep1 = FactoryGirl.create(:us_rep)

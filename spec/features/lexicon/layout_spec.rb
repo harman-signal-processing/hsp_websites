@@ -4,7 +4,7 @@ feature "Lexicon brand" do
 
   before :all do
     @brand = FactoryGirl.create(:lexicon_brand)
-    @website = FactoryGirl.create(:website_with_products, folder: "lexicon", brand: @brand)
+    @website = FactoryGirl.create(:website, folder: "lexicon", brand: @brand)
     Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"
   end

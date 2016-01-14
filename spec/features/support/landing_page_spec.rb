@@ -3,7 +3,7 @@ require "rails_helper"
 feature "Support Landing Page" do
 
   before :all do
-    @website = FactoryGirl.create(:website_with_products)
+    @website = FactoryGirl.create(:website)
     @product = FactoryGirl.create(:discontinued_product, brand: @website.brand)
     Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"

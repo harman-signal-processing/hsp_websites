@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe SiteMailer, type: :mailer do
 
 	before :all do
-		@website = FactoryGirl.create(:website_with_products)
+		@website = FactoryGirl.create(:website)
     @brand = @website.brand
     @contact_message = FactoryGirl.build(:contact_message)
 	end

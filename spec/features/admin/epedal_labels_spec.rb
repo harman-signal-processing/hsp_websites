@@ -5,7 +5,7 @@ feature "Admin epedal Labels", :devise do
 
   before :all do
     @brand = FactoryGirl.create(:digitech_brand)
-    @website = FactoryGirl.create(:website_with_products, folder: "digitech", brand: @brand, istomp_coverflow: 1, url: "digitech.lvh.me")
+    @website = FactoryGirl.create(:website, folder: "digitech", brand: @brand, url: "digitech.lvh.me")
     @istomp = FactoryGirl.create(:product, name: "iStomp", brand: @brand, layout_class: "istomp")
     @gooberator = FactoryGirl.create(:product, name: "Gooberator", brand: @brand, layout_class: "epedal")
     @fooberator = FactoryGirl.create(:product, name: "Fooberator", brand: @brand, layout_class: "epedal")

@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Admin::NewsController do
 
   before :all do
-    @website = FactoryGirl.create(:website_with_products)
+    @website = FactoryGirl.create(:website)
     @brand = @website.brand
     @news = FactoryGirl.create(:news, brand: @brand)
     @user = FactoryGirl.create(:user, market_manager: true, confirmed_at: 1.minute.ago)

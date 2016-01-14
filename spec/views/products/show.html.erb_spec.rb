@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "products/show.html.erb", :type => :view do
   before :all do
-    @website = FactoryGirl.create(:website_with_products)
+    @website = FactoryGirl.create(:website)
     @product = FactoryGirl.create(:product, brand: @website.brand)
     @news = FactoryGirl.create(:news, brand: @website.brand)
     @future_news = FactoryGirl.create(:news, brand: @website.brand, post_on: 1.month.from_now, title: "Future News")
