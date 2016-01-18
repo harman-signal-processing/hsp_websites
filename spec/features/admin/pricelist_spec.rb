@@ -65,8 +65,8 @@ feature "Admin Pricing", :devise do
       fill_in "product_attr[#{@product.to_param}][product_prices_attributes[1]][price]", with: "19.99"
       click_on "save changes"
 
-      expect(@product.price_for(@dealer_pricing_type)).to eq(19.99)
-      expect(@product.price_for(@artist_pricing_type)).to eq(19.99)
+      expect(@product.price_for(@dealer_pricing_type).to_f).to eq(19.99)
+      expect(@product.price_for(@artist_pricing_type).to_f).to eq(19.99)
     end
   end
 
@@ -98,9 +98,9 @@ feature "Admin Pricing", :devise do
       click_on "save changes"
 
       @product.reload
-      expect(@product.msrp).to eq(199.99)
-      expect(@product.street_price).to eq(99.99)
-      expect(@product.price_for(@dealer_pricing_type)).to eq(19.99)
+      expect(@product.msrp.to_f).to eq(199.99)
+      expect(@product.street_price.to_f).to eq(99.99)
+      expect(@product.price_for(@dealer_pricing_type).to_f).to eq(19.99)
     end
   end
 
