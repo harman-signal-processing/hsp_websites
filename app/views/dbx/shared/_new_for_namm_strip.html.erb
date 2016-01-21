@@ -15,59 +15,80 @@
                 <%= image_tag powerrack8.photo.product_attachment.url, alt: "dbx 500 Series PowerRack8" %>
               <% end %>
             </p>
+            <p class="hide-for-small-down text-right">
+              <%= link_to 'more details...', new_family, class: "tiny button" %>
+            </p>
           </div>
           <div class="large-5 large-pull-7 small-12 columns">
             <p>Modular is back! Classic dbx modular processors
             return in the new, industry-standard 500 series
             form factor.</p>
-            <div class="row collapse">
-              <div class="large-4 small-6 columns">
-                <ul>
-                  <li>
-                    <%= link_to "/en-US/products/560a" do %>
-                      <strong>560A</strong>
-                    <% end %>
-                    <br/>Compressor
-                  </li>
-                  <li>
-                    <%= link_to "/en-US/products/580" do %>
-                      <strong>580</strong>
-                    <% end %>
-                    <br/>Mic Preamp
-                  </li>
-                </ul>
-              </div>
-              <div class="large-4 small-6 columns">
-                <ul>
-                  <li>
-                    <%= link_to "/en-US/products/520" do %>
-                      <strong>520</strong>
-                    <% end %>
-                    <br/>De-Esser
-                  </li>
-                  <li>
-                    <%= link_to "/en-US/products/530" do %>
-                      <strong>530</strong>
-                    <% end %>
-                    <br/>Parametric EQ
-                  </li>
-                </ul>
-              </div>
-              <div class="large-4 small-12 columns">
-                <ul>
-                  <li>
-                    <%= link_to "/en-US/products/510" do %>
-                      <strong>510</strong>
-                    <% end %>
-                    <br/>Subharmonic Synth
-                  </li>
-                </ul>
-              </div>
-            </div>
+            <ul class="medium-block-grid-3 small-block-grid-2">
+              <li>
+                <%= link_to "/en-US/products/510" do %>
+                  <strong>510</strong>
+                <% end %>
+                <br/>Subharmonic Synth
+              </li>
+              <li>
+                <%= link_to "/en-US/products/520" do %>
+                  <strong>520</strong>
+                <% end %>
+                <br/>De-Esser
+              </li>
+              <li>
+                <%= link_to "/en-US/products/530" do %>
+                  <strong>530</strong>
+                <% end %>
+                <br/>Parametric EQ
+              </li>
+              <li>
+                <%= link_to "/en-US/products/540" do %>
+                  <strong>540</strong>
+                <% end %>
+                <br/>Tube Mic Preamp
+              </li>
+              <li>
+                <%= link_to "/en-US/products/555" do %>
+                  <strong>555</strong>
+                <% end %>
+                <br/>5-Band Parametric EQ
+              </li>
+              <li>
+                <%= link_to "/en-US/products/560a" do %>
+                  <strong>560A</strong>
+                <% end %>
+                <br/>Compressor
+              </li>
+              <li>
+                <%= link_to "/en-US/products/565" do %>
+                  <strong>565</strong>
+                <% end %>
+                <br/>Optical Compressor
+              </li>
+              <li>
+                <%= link_to "/en-US/products/570" do %>
+                  <strong>570</strong>
+                <% end %>
+                <br/>Hi-Z Mic Preamp
+              </li>
+              <li>
+                <%= link_to "/en-US/products/580" do %>
+                  <strong>580</strong>
+                <% end %>
+                <br/>Mic Preamp
+              </li>
+              <li>
+                <%= link_to "/en-US/products/590" do %>
+                  <strong>590</strong>
+                <% end %>
+                <br/>Phase Manipulator
+              </li>
+            </ul>
           </div>
         </div>
-        <div class="row">
-          <div class="large-12 columns text-right">
+        <div class="row hide-for-medium-up">
+          <div class=" small-12 columns text-right">
             <p>
               <%= link_to 'more details...', new_family, class: "tiny button" %>
             </p>
@@ -76,6 +97,7 @@
       <% end %>
 
       <% if venu360 && venu360.show_on_website?(website) %>
+        <br/>
         <div class="row">
           <div class="large-7 columns">
             <%= link_to venu360 do %>
@@ -85,6 +107,8 @@
           <div class="large-5 columns">
             <h2><%= website.brand.name %> <%= venu360.name %></h2>
             <p><%=raw translate_content(venu360, :short_description_4) %></p>
+            <p>dbx now offers <%= link_to "BLU link", "/en-US/products/driverack-venu360-b" %>
+              and <%= link_to "Dante", "/en-US/products/driverack-venu360-d" %> models.</p>
           </div>
         </div>
         <div class="row">
