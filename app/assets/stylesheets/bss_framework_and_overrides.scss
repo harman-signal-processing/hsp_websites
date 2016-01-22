@@ -262,6 +262,9 @@ $topbar-sticky-class:                  ".sticky";
 
 @import 'foundation';
 @import 'brand_common';
+@import 'slick';
+$slick-arrow-color: $dark-gray;
+@import 'slick-theme';
 
 .top-bar-section .has-form {
   padding-top: 5px;

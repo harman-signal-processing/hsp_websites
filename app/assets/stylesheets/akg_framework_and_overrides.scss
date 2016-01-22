@@ -96,6 +96,9 @@ $topbar-sticky-class:                  ".sticky";
 
 @import 'foundation';
 @import 'brand_common';
+@import 'slick';
+$slick-arrow-color: $dark-gray;
+@import 'slick-theme';
 
 h1 { font-size: 37px; line-height: 34px; text-transform: uppercase; font-weight: normal; }
 h2 { font-size: 19px; line-height: initial; text-transform: uppercase; font-weight: normal; }

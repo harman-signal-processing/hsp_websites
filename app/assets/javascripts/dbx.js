@@ -14,8 +14,10 @@
 //= require jquery_ujs
 //= require jquery-ui.min
 //= require jquery.lightbox-0.5.min
+//= require jquery.bxSlider.min
 //= require jquery.datetimepicker
 //= require jquery.pin
+//= require slick
 //= require global_functions
 //= require maps
 //= require twitter
@@ -42,6 +44,12 @@ $(function(){
       fixed_top: 44,
       destination_threshold: 40,
     }
+  });
+  $('.featured-slider').slick({
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 4000
   });
 });
 

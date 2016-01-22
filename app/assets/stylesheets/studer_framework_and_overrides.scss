@@ -75,6 +75,9 @@ $topbar-sticky-class:                  ".sticky";
 
 @import 'foundation';
 @import 'brand_common';
+@import 'slick';
+$slick-arrow-color: $dark-gray;
+@import 'slick-theme';
 
 .top-bar-section {
   li:not(.has-form) a:not(.button) {
