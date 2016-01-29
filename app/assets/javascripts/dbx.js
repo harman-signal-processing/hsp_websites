@@ -24,7 +24,7 @@
 //= require homepage
 //= require foundation
 //= require lightbox
-//= require add2home
+// require add2home
 //= require jwplayer
 //= require swfobject
 //= require tools

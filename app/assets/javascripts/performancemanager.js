@@ -21,7 +21,7 @@
 //= require twitter
 //= require homepage
 //= require foundation
-//= require add2home
+// require add2home
 //= require_self
 
 document.createElement("article");  
