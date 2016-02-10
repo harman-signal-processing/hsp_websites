@@ -4,7 +4,7 @@ feature "dbx brand layout" do
 
   before :each do
     @brand = FactoryGirl.create(:dbx_brand)
-    @website = FactoryGirl.create(:website_with_products, folder: "dbx", brand: @brand)
+    @website = FactoryGirl.create(:website, folder: "dbx", brand: @brand)
     Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"
   end

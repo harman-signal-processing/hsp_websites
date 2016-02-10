@@ -4,7 +4,7 @@ feature "JBL commercial brand layout" do
 
   before :each do
     @brand = FactoryGirl.create(:jbl_commercial_brand)
-    @website = FactoryGirl.create(:website_with_products, folder: "jbl_commercial", brand: @brand)
+    @website = FactoryGirl.create(:website, folder: "jbl_commercial", brand: @brand)
     Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"
   end

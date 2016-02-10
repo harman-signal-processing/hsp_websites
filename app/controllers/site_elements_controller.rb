@@ -2,19 +2,17 @@ class SiteElementsController < ApplicationController
 
   def show
     @site_element = SiteElement.find(params[:id])
-    send_file(@site_element)
+    case @site_element.attachment_type
+    when 'resource'
+      send_resource_file(@site_element)
+    when 'executable'
+      send_executable_file(@site_element)
+    when 'external'
+      redirect_to @site_element.external_url
+    end
   end
 
   private
-
-  def send_file(site_element)
-    case site_element.attachment_type
-    when 'resource'
-      send_resource_file(site_element)
-    when 'executable'
-      send_executable_file(site_element)
-    end
-  end
 
   def send_executable_file(site_element)
     data = open(site_element.executable.url)

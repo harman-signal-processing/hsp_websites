@@ -3,7 +3,7 @@ require "rails_helper"
 feature "Artists registration" do
 
   before :all do
-    @website = FactoryGirl.create(:website_with_products, folder: "digitech")
+    @website = FactoryGirl.create(:website, folder: "digitech")
     @brand = @website.brand
     Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"
@@ -13,7 +13,7 @@ feature "Artists registration" do
   end
 
   after :all do
-    DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner.clean_with(:deletion)
   end
 
   scenario "Signup without invitation will be an affiliate" do

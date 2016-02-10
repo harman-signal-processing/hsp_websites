@@ -29,7 +29,7 @@
   </div>
 
   <div class="captcha">
-    <%= recaptcha_tags public_key: website.recaptcha_public_key  %>
+    <%= recaptcha_tags public_key: website.recaptcha_public_key, stoken: false  %>
   </div>
 
   <%= f.submit t('submit'), class: "medium button" %>

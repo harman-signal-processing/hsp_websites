@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "support/warranty_registration.html.erb", as: :view do
 
   before :all do
-    @website = FactoryGirl.create(:website_with_products)
+    @website = FactoryGirl.create(:website)
     @warranty_registration = FactoryGirl.build(:warranty_registration)
     assign(:warranty_registration, @warranty_registration)
   end

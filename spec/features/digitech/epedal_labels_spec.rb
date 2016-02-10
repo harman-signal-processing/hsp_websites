@@ -4,7 +4,7 @@ feature "epedal labels ordering" do
 
   before :all do
     @brand = FactoryGirl.create(:digitech_brand)
-    @website = FactoryGirl.create(:website_with_products, folder: "digitech", brand: @brand, url: "digitech.lvh.me")
+    @website = FactoryGirl.create(:website, folder: "digitech", brand: @brand, url: "digitech.lvh.me")
     stompboxes = FactoryGirl.create(:product_family, name: "Stompboxes", brand: @brand)
     @istomp = FactoryGirl.create(:product, name: "iStomp", brand: @brand, layout_class: "istomp")
     FactoryGirl.create(:product_family_product, product_family: stompboxes, product: @istomp)
@@ -24,7 +24,7 @@ feature "epedal labels ordering" do
   end
 
   after :all do
-    DatabaseCleaner.clean_with :truncation
+    DatabaseCleaner.clean_with :deletion
   end
 
   before :each do

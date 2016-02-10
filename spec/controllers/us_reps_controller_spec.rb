@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe UsRepsController do
 
   before :all do
-    @website = FactoryGirl.create(:website_with_products)
+    @website = FactoryGirl.create(:website)
     @rep_region = FactoryGirl.create(:us_rep_region, brand: @website.brand)
     @rep = @rep_region.us_rep
   end

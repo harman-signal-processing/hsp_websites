@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Admin::SupportSubjectsController, type: :controller do
 
   before :all do
-    @website = FactoryGirl.create(:website_with_products)
+    @website = FactoryGirl.create(:website)
     @brand = @website.brand
     @support_subjects = FactoryGirl.create_list(:support_subject, 2, brand_id: @brand.id)
     @user = FactoryGirl.create(:user, market_manager: true, confirmed_at: 1.minute.ago)

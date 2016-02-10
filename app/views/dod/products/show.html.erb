@@ -91,7 +91,7 @@ set_meta_tags title: @product.name,
 
     <% unless @product.layout_class.to_s.match(/horizontal/i) %>
       <% if @product.photo %>
-        <div class="text-center" style="margin: 20px 0px;">
+        <div class="text-center">
           <%= image_tag(@product.photo.product_attachment.url(:large)) %>
         </div>
       <% end %>

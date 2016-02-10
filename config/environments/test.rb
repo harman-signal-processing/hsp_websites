@@ -18,6 +18,8 @@ HarmanSignalProcessingWebsite::Application.configure do
   # Configure static asset server for tests with Cache-Control for performance
   config.serve_static_files = true
   config.static_cache_control = "public, max-age=3600"
+  config.assets.raise_runtime_errors = true
+  config.assets.digest = false
 
   # Log error messages when you accidentally call methods on nil.
   config.whiny_nils = true

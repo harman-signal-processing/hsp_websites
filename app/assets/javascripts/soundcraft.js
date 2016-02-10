@@ -21,11 +21,11 @@
 //= require twitter
 //= require homepage
 //= require foundation
-//= require add2home
+//= require lightbox
+// require add2home
 //= require jwplayer
 //= require swfobject
 //= require image_zoomer_main
-//= require lightbox
 //= require soundcraft_application
 //= require elevatezoom/jquery.elevatezoom
 //= require_self

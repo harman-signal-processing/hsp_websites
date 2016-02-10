@@ -16,7 +16,7 @@ HarmanSignalProcessingWebsite::Application.configure do
   config.action_controller.perform_caching = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_files = false
+  config.serve_static_files = true
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
@@ -33,57 +33,6 @@ HarmanSignalProcessingWebsite::Application.configure do
 
   # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = YOUR_PATH
-
-  # Add fonts to asset pipeline
-  config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
-  config.assets.precompile += %w( .svg .eot .woff .ttf )
-
-  # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( *.jpg *.png *.gif
-    lightbox/*
-    vendor/custom.modernizr.js
-    hiqnet.css
-    hiqnet.js
-    performancemanager.css
-    performancemanager.js
-    introducing_epedal.css
-    introducing_stompbox.css
-    istomp.css
-    admin.js
-    admin.css
-    archimedia.css
-    audio-architect.css
-    bss.js
-    bss.css
-    crown.css
-    crown.js
-    soundcraft.css
-    soundcraft.js
-    dbx.css
-    dbx.js
-    digitech.css
-    digitech.js
-    dod.css
-    dod.js
-    jbl_commercial.css
-    jbl_commercial.js
-    lexicon.css
-    lexicon.js
-    idx.css
-    site.css
-    toolkit.css
-    toolkit_application.js
-    teaser_application.js
-    dod_teaser.css
-    studer.css
-    studer.js
-    akg.css
-    akg.js
-    duran.css
-    duran.js
-    jbl_professional.css
-    jbl_professional.js
-    )
 
   # Specifies the header that your server uses for sending files
   # config.action_dispatch.x_sendfile_header = "X-Sendfile"

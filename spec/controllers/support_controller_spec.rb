@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe SupportController, :type => :controller do
 
   before :all do
-    @website = FactoryGirl.create(:website_with_products)
+    @website = FactoryGirl.create(:website)
     @brand = @website.brand
   end
 

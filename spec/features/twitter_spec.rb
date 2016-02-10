@@ -4,7 +4,7 @@ feature "Twitter" do
 
   before :all do
     @brand = FactoryGirl.create(:brand)
-    @website = FactoryGirl.create(:website_with_products, brand: @brand)
+    @website = FactoryGirl.create(:website, brand: @brand)
     Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"
   end

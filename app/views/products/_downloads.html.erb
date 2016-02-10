@@ -7,8 +7,10 @@
   <% end %>
 	<% product.executable_site_elements.each do |site_element| %>
 	<li>
-			<%= link_to site_element.name, site_element.executable.url %>
-			[<%= number_to_human_size(site_element.executable_file_size) %>]
+			<%= link_to site_element.name, site_element.url %>
+      <% unless site_element.external_url.present? %>
+        [<%= number_to_human_size(site_element.executable_file_size) %>]
+      <% end %>
 	</li>
 	<% end %>
 </ul>

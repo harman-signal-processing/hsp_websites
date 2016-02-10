@@ -4,7 +4,7 @@ RSpec.describe "artists/sessions/new.html.erb", as: :view do
 
   before do
     @brand = FactoryGirl.create(:digitech_brand)
-    @website = FactoryGirl.create(:website_with_products, folder: "digitech", brand: @brand)
+    @website = FactoryGirl.create(:website, folder: "digitech", brand: @brand)
     @affiliate_tier = FactoryGirl.create(:affiliate_tier)
     @top_tier = FactoryGirl.create(:top_tier)
 

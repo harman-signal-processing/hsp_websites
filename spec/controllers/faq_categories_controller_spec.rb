@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe FaqCategoriesController, :type => :controller do
 
   before :all do
-    @website = FactoryGirl.create(:website_with_products)
+    @website = FactoryGirl.create(:website)
     @brand = @website.brand
     @faq_category = FactoryGirl.create(:faq_category, brand: @brand)
     @faq_category.faqs << FactoryGirl.create(:faq)

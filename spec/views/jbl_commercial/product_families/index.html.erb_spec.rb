@@ -17,7 +17,7 @@ RSpec.describe "jbl_commercial/product_families/index.html.erb", as: :view do
   end
 
   after :all do
-    DatabaseCleaner.clean_with :truncation
+    DatabaseCleaner.clean_with :deletion
   end
 
   before :each do

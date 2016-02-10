@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "support/index.html.erb", as: :view do
 
   before :all do
-    @website = FactoryGirl.create(:website_with_products)
+    @website = FactoryGirl.create(:website)
     @other_brand = FactoryGirl.create(:brand)
     @other_product = FactoryGirl.create(:discontinued_product, brand: @other_brand)
   end
