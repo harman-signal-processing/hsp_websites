@@ -28,19 +28,24 @@ s3_homepage_edge_url = s3_homepage_features_path + edge_js + "/" + edge_js
 <div id="feature_container">
   <%= render_partial "main/homepage/homepage_main_features", s3_homepage_features_path: s3_homepage_features_path %>
 </div>
-<div id="homepage_news">
-  <%= render_partial 'main/homepage/homepage_news' %>
-</div>
 <div id="homepage_product_features">
   <%= render_partial "main/homepage/homepage_product_features", s3_homepage_products_path: s3_homepage_products_path %>
 </div>
 <div id="homepage_banners">
   <%= render_partial "main/homepage/homepage_banners", s3_homepage_path: s3_homepage_path %>
 </div>
-<div id="homepage_social_links" >
-	<h2 align="center">connect with us</h2>
-  <%= render_partial "main/homepage/homepage_social_links", s3_homepage_path: s3_homepage_path %>
-</div>
-<div id="homepage_connect_with_us" align="center">
-  <%= render_partial 'main/homepage/homepage_connect_with_us' %>
-</div>
+
+  <%= render_partial "shared/social_strip" %>
+  <%= render_partial "shared/news_and_reviews_strip" %>
+
+<%= content_for :preload do %>
+	<%= preload_background_images %>
+<% end %>
+
+<%= content_for :popup_code do %>
+	<% if website.homepage_popup %>
+		<%=raw website.homepage_popup %>
+	<% end %>
+<% end %>
+
+<div id="homepage-counter" data-counter="<%= @counter %>" data-nextevent="<%= @next_event %>" data-countdowncontainer="<%= @countdown_container %>"></div>

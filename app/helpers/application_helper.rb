@@ -356,6 +356,8 @@ module ApplicationHelper
         v = (v =~ /^http/i) ? v : "http://www.#{n}.com/#{v}"
         if options[:style] && File.exist?(Rails.root.join("app/assets/images/icons/#{options[:style]}/#{options[:size]}", "#{n}.png"))
           html += link_to(image_tag("icons/#{options[:style]}/#{options[:size]}/#{n}.png", style: "vertical-align: middle", size: options[:size]), v, target: "_blank")
+        elsif options[:gray]
+          html += link_to(image_tag("social/social-gray-#{n.downcase}.png", alt: n, class: "no-resize"), v, target: "_blank")
         elsif File.exist?(Rails.root.join("app/assets/images/icons", "#{n}.png"))
           html += link_to(image_tag("icons/#{n}.png", style: "vertical-align: middle", size: options[:size]), v, target: "_blank")
         else
