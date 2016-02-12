@@ -68,72 +68,87 @@
 <% else # No results loaded %>
 
 	<div class="row">
-		<div class="large-5 columns">
+		<div class="large-8 columns">
       <% if website.brand.has_dealers? %>
-        <h3><%= t('us_dealers') %></h3>
+        <div class="row">
+          <div class="medium-6 columns end">
+            <h3><%= t('us_dealers') %></h3>
 
-        <%= form_tag where_to_buy_path() %>
-          <div class="row collapse">
-            <div class="large-8 small-7 columns">
-              <%= text_field_tag "zip", session[:zip], placeholder: t('us_zip_code') %>
-            </div>
-            <div class="large-4 small-5 columns">
-              <%= submit_tag t('find_us_dealers'), class: "postfix button" %>
-            </div>
+            <%= form_tag where_to_buy_path() %>
+              <div class="row collapse">
+                <div class="large-8 small-7 columns">
+                  <%= text_field_tag "zip", session[:zip], placeholder: t('us_zip_code') %>
+                </div>
+                <div class="large-4 small-5 columns">
+                  <%= submit_tag t('find_us_dealers'), class: "postfix button" %>
+                </div>
+              </div>
+              <% if website.brand.has_us_sales_reps? %>
+                <i style="font-size: 80%">Or, <%= link_to "find a sales rep", us_reps_path %> to become a dealer.</i>
+              <% end %>
+            </form>
+            <br/>
           </div>
-          <% if website.brand.has_us_sales_reps? %>
-            <i style="font-size: 80%">Or, <%= link_to "find a sales rep", us_reps_path %> to become a dealer.</i>
-          <% end %>
-        </form>
-        <br/>
+        </div>
       <% elsif website.brand.has_us_sales_reps? %>
+        <div class="row">
+          <div class="medium-6 columns end">
 
-        <% if addr = website.address_and_phone %>
-          <p>To find a licensed <%= website.brand.name %> contractor/installer in the US, please contact us at:</p>
-          <blockquote><%=raw addr %>
-            <% if sup = website.support_email %>
-            <br/><%= mail_to sup, sup %>
+            <% if addr = website.address_and_phone %>
+              <p>To find a licensed <%= website.brand.name %> contractor/installer in the US, please contact us at:</p>
+              <blockquote><%=raw addr %>
+                <% if sup = website.support_email %>
+                <br/><%= mail_to sup, sup %>
+                <% end %>
+              </blockquote>
+              <p>Or, complete our <%= link_to "contact form", support_path %>.</p>
+            <% else %>
+              <p>To find a licensed <%= website.brand.name %> contractor/installer in the US, please contact us by filling out our <%= link_to "contact form", support_path %>.</p>
             <% end %>
-          </blockquote>
-          <p>Or, complete our <%= link_to "contact form", support_path %>.</p>
-        <% else %>
-          <p>To find a licensed <%= website.brand.name %> contractor/installer in the US, please contact us by filling out our <%= link_to "contact form", support_path %>.</p>
-        <% end %>
 
-        <h3><%= website.brand.name %> US Sales Reps</h3>
+            <h3><%= website.brand.name %> US Sales Reps</h3>
 
-        <%= form_tag search_us_reps_path, method: :get %>
-          <%= label_tag "Select your region" %>
-          <div class="row collapse">
-            <div class="large-8 small-7 columns">
-              <%= select_tag :us_region, options_from_collection_for_select(@us_regions, :id, :name, @us_region.id) %>
-            </div>
-            <div class="large-4 small-5 columns">
-              <%= submit_tag t('submit'), class: "postfix button" %>
-            </div>
+            <%= form_tag search_us_reps_path, method: :get %>
+              <%= label_tag "Select your region" %>
+              <div class="row collapse">
+                <div class="large-8 small-7 columns">
+                  <%= select_tag :us_region, options_from_collection_for_select(@us_regions, :id, :name, @us_region.id) %>
+                </div>
+                <div class="large-4 small-5 columns">
+                  <%= submit_tag t('submit'), class: "postfix button" %>
+                </div>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
       <% end %>
 
       <% if website.brand.has_distributors? %>
-        <h3><%= t('titles.international_distributors') %></h3>
-        <p><%= t("blurbs.international_distributors") %></p>
+        <div class="row">
+          <div class="medium-6 columns end">
 
-        <%= form_tag search_distributors_path, method: :get %>
+            <h3><%= t('titles.international_distributors') %></h3>
+            <p><%= t("blurbs.international_distributors") %></p>
 
-          <div class="row collapse">
-            <div class="large-8 small-7 columns">
-              <%= select_tag :country, options_from_collection_for_select(@countries, :country, :country, @country), prompt: t('select_your_country').capitalize %>
-            </div>
-            <div class="large-4 small-5 columns">
-              <%= submit_tag t('submit'), class: "postfix button" %>
-            </div>
+            <%= form_tag search_distributors_path, method: :get %>
+
+              <div class="row collapse">
+                <div class="large-8 small-7 columns">
+                  <%= select_tag :country, options_from_collection_for_select(@countries, :country, :country, @country), prompt: t('select_your_country').capitalize %>
+                </div>
+                <div class="large-4 small-5 columns">
+                  <%= submit_tag t('submit'), class: "postfix button" %>
+                </div>
+              </div>
+
+            </form>
           </div>
-
-        </form>
+        </div>
       <% end %>
+
+      <%= raw website.where_to_buy_extra_content %>
+
 		</div>
-    <div class="large-3 columns">&nbsp;</div>
     <div class="large-4 end columns">
       <% if website.where_to_buy_blurb %>
         <div class="panel">

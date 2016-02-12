@@ -6,25 +6,21 @@ class Admin::SignupsController < AdminController
   # GET /signups
   # GET /signups.xml
   def index
-    @signups = @signups.where(brand_id: website.brand_id).group(:campaign)
-    respond_to do |format|
-      format.html { render_template } # index.html.erb
-      format.xml  { render xml: @signups }
+    @signups = @signups.where(brand_id: website.brand_id)
+    if @signups.where("campaign IS NOT NULL").pluck(:campaign).uniq.length > 1
+      @signups = @signups.group(:campaign)
+      respond_to do |format|
+        format.html { render_template } # index.html.erb
+        format.xml  { render xml: @signups }
+      end
+    else
+      render_signups
     end
   end
 
   def show_campaign
     @signups = Signup.where(brand_id: website.brand_id, campaign: params[:id])
-    respond_to do |format|
-      format.html { render text: @signups.to_yaml }
-      format.text { render text: @signups.to_yaml }
-      format.xls {
-        send_data(@signups.to_xls(
-          headers: ["First Name", "Last Name", "Company", "Email", "Address", "City", "State", "Zip Code", "Date"],
-          columns: [:first_name, :last_name, :company, :email, :address, :city, :state, :zip, :created_at]),
-        filename: "#{params[:id].gsub(/\s/,"-")}.xls")
-      }
-    end
+    render_signups
   end
 
   # GET /signups/1
@@ -98,5 +94,23 @@ class Admin::SignupsController < AdminController
 
   def signup_params
     params.require(:signup).permit!
+  end
+
+  def render_signups
+    respond_to do |format|
+      format.html { render text: @signups.to_yaml }
+      format.text { render text: @signups.to_yaml }
+      format.xls {
+        if params[:id]
+          fn = "#{website.brand.name}_#{params[:id].gsub(/\s/,"-")}_signups.xls"
+        else
+          fn = "#{website.brand.name}_signups.xls"
+        end
+        send_data(@signups.to_xls(
+          headers: ["First Name", "Last Name", "Company", "Email", "Address", "City", "State", "Zip Code", "Date"],
+          columns: [:first_name, :last_name, :company, :email, :address, :city, :state, :zip, :created_at]),
+        filename: fn)
+      }
+    end
   end
 end
