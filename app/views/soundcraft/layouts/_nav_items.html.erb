@@ -14,11 +14,10 @@
 	</li>
 
   <li class="divider hide-for-medium"></li>
-  <li class="has-dropdown"><%= link_to t('media').titleize, "/media" %>
+  <li class="has-dropdown"><%= link_to t('media').titleize, {} %>
     <ul class="dropdown">
-      <%# @NavMediaLinks.each do |lk| %>
-        <li><%#= link_to t(lk.page.lcl_name), lk.page.web_url %></li>
-      <%# end %>
+      <li><%= link_to t('news').titleize, news_index_path %></li>
+      <li><%= link_to t('videos').titleize, videos_path %></li>
     </ul>
   </li>
 

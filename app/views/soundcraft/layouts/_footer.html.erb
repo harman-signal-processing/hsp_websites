@@ -9,24 +9,29 @@
       <div class="small-12 medium-3 large-3 columns">
     	<div align="center" class="footer-links">
          <h4>SOUNDCRAFT BY HARMAN</h4>
-         <%# @FooterAboutUsLinks.each do |lk| %>
-           <%#= link_to(t(lk.page.lcl_name), lk.page.web_url) %><br />
-         <%# end %>
-         <%= link_to "ISO 9001:2008 Certification", "/soundcraft_ISO_cert.pdf", :target => "_blank" %>
-          </div>
+         <%= link_to "Experience HARMAN", "/experience-harman" %><br/>
+         <%= link_to "About Soundcraft", "/about-soundcraft" %><br/>
+         <%= link_to "Imprint", "/soundcraft-imprint" %><br/>
+         <%= link_to "Legal", "/soundcraft-legal" %><br/>
+         <%= link_to t('privacy_policy').titleize, privacy_policy_path %><br/>
+         <%= link_to "Careers", "http://jobs.harman.com", target: "_blank" %><br/>
+         <%= link_to "ISO 9001:2008 Certification", "/soundcraft_ISO_cert.pdf", target: "_blank" %>
+        </div>
 	    </div>
 	    <div class="small-12 medium-3 large-3 columns">
 	    	<div align="center" class="footer-links">
 	        <h4>SUPPORT</h4>
-         <%# @FooterSupportLinks.each do |lk| %>
-           <%#= link_to(t(lk.page.lcl_name), lk.page.web_url) %><br />
-         <%# end %>
-            </div>
+          <%= link_to t('tech_support'), "/support/tech-support" %><br/>
+          <%= link_to t('where_to_buy').titleize, where_to_buy_path %><br/>
+          <%= link_to t('product_registration').titleize, warranty_registration_path %><br/>
+          <%= link_to t('warranty').titleize, warranty_path %><br/>
+          <%= link_to "SDA", "/sda" %>
+        </div>
 	    </div>
 	    <div class="small-12 medium-3 large-3 columns">
 	    	<div align="center" class="footer-links">
 	        <h4>MIXING WITH PROFESSIONALS</h4>
-          <%= link_to "Videos", videos_path %>
+          <%= link_to t('videos').titleize, videos_path %>
         </div>
 	    </div>
 	    <div class="small-12 medium-3 large-3 columns">
