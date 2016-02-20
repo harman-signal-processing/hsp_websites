@@ -88,7 +88,7 @@ module ApplicationHelper
   # ignored.
   #
   def orbit_slideshow(options={})
-    default_options = { duration: 7000, slide_number: false, navigation_arrows: true, slides: [] }
+    default_options = { duration: 7000, animation: 'slide', slide_number: false, navigation_arrows: true, slides: [] }
     options = default_options.merge options
 
     orbit_options = [
@@ -96,6 +96,7 @@ module ApplicationHelper
       "timer_speed:#{options[:duration]}",
       "slide_number:#{options[:slide_number]}",
       "animation_speed:#{(options[:duration] / 12).to_i}",
+      "animation:#{options[:transition]}",
       "navigation_arrows:#{options[:navigation_arrows]}"
     ]
     if options[:slides].length == 1 || options[:slides].length > 7

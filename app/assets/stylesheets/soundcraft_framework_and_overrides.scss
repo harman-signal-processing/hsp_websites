@@ -769,19 +769,6 @@ footer {
 }
 
 
-.container {
-    font-size: $tertiary-font-size;
-    text-align: center;
-    color: $color-gray-light;
-    a {
-      color: $color-gray-light;
-    }
-    a:hover {
-      color: $color-soundcraft;
-      background: transparent;
-    }
-    padding-bottom: 30px;
-  }
 
 #social_bar {
   text-align: center;
@@ -794,58 +781,6 @@ footer {
 }
 
 /* MAIN /////////////////////////////////// */
-
-#topper {
-  position: absolute;
-  top: 0px;
-  width: 100%;
-}
-
-#feature_container {
-  top: 0px;
-  width: 100%;
-  z-index: 1;
-}
-
-.orbit-container .orbit-timer {
-  position: absolute;
-  top: 5px;
-  right: 10px;
-  height: 20px;
-  width: 100px;
-  z-index: 10;
-}
-
-.orbit-container .orbit-timer .orbit-progress {
-  height: 7px;
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-@media only screen and (max-width: 720px) {
-
-  #topper {
-    position: absolute;
-    top: 50px;
-    width: 100%;
-  }
-
-  #feature_container {
-    position: relative;
-    top: 100 px;
-    height: 160px;
-  }
-}
-
-/* homepage #################### */
-
-.tagline {
-  margin: 50px 0px 50px 0px;
-  padding: 10px;
-  font-size: 2.5em;
-  font-weight: $font-light;
-  border-bottom: solid 1px $color-gray-medium;
-  color: $color-gray-medium;
-}
 
 #homepage_news {
    padding: 0px 0px 10px 0px;

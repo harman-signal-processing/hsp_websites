@@ -15,7 +15,7 @@
          <%= link_to "Legal", "/soundcraft-legal" %><br/>
          <%= link_to t('privacy_policy').titleize, privacy_policy_path %><br/>
          <%= link_to "Careers", "http://jobs.harman.com", target: "_blank" %><br/>
-         <%= link_to "ISO 9001:2008 Certification", "/soundcraft_ISO_cert.pdf", target: "_blank" %>
+         <%= link_to "ISO 9001:2008 Certification", "http://adn.harmanpro.com/site_elements/resources/1490_1455561610/soundcraft_ISO_cert_original.pdf", target: "_blank" %>
         </div>
 	    </div>
 	    <div class="small-12 medium-3 large-3 columns">
@@ -44,13 +44,16 @@
 	<div  class="small-12 columns" >
 	<%= hpro_footer %>
 	</div>
-	<div class="container row">
+	<div class="container row text-center">
 		<div class="small-12 columns">
+      <small>
 				Copyright &copy; <%= Date.today.year %>
 				<%= link_to(t('harman'), "http://www.harman.com/", target: "_blank") %>.
 				<%= t('all_rights_reserved') %>
+      </small>
 		</div>
 	</div>
+  <p>&nbsp;</p>
 </footer>
 
 

@@ -52,10 +52,45 @@
 
     <%= render_partial 'layouts/nav' %>
 
-    <div id="topper">
-      <%= yield %>
+		<% if content_for?(:feature) %>
+			<%= yield :feature %>
+		<% end %>
+
+    <% unless @hide_main_container == true %>
+      <div class="container" <% unless content_for?(:feature) %>id="main_container"<% end %>>
+        <div class="row">
+          <div class="large-12 small-12 columns content-container">
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+		<% if content_for?(:big_bottom_box) %>
+			<div class="container content-container">
+				<%= yield :big_bottom_box %>
+				<% if content_for?(:middle_stuff) %>
+				<div id="middle_features">
+					<div class="row">
+						<div class="large-12 small-12 columns">
+							<%= yield :middle_stuff %>
+						</div>
+					</div>
+				</div>
+				<% end %>
+			</div>
+		<% end %>
+
+		<%= cache ["footer", website.brand, I18n.locale] do %>
       <%= render_partial 'layouts/footer' %>
       <%= render_partial 'shared/footer_jquery_scrollup' %>
-    </div>
+		<% end %>
+
+		<div id="preload"><%= yield :preload %></div>
+		<% if content_for?(:popup_code) %>
+			<%= yield :popup_code %>
+		<% end %>
+
+    <%= render_partial "shared/pardot" %>
 	</body>
 </html>

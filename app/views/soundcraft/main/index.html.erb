@@ -7,36 +7,27 @@
     description: @website.site_name,
     title: @website.brand.name
   } %>
-<%
 
-#Set variables for the s3 path
-edge_js = "edge_vi3000"
-s3_homepage_path = "http://" + ENV['S3_HOST_NAME'] + "/homepage/"
-s3_homepage_features_path = s3_homepage_path + "features/"
-s3_homepage_products_path = s3_homepage_path + "products/"
-s3_homepage_edge_url = s3_homepage_features_path + edge_js + "/" + edge_js
+<%= content_for :feature do %>
+	<%= cache ["slideshow", website.brand, I18n.locale] do %>
+		<% slides = Setting.slides(website) %>
+		<% if slides.size > 0 %>
+			<%= orbit_slideshow(slides: slides, duration: 6000, navigation_arrows: false, transition: "fade") %>
+		<% end %>
+		<%#= video_background_with_features(slides, tagline: true) %>
+	<% end %>
+<% end %>
 
-# IMPORTANT! UPDATES FOR ***_edge.js file
-# update 1. im path for images path
-# update 2. load composition for EdgeAction.js path
-# "http://soundcraft.com.s3.amazonaws.com/homepage/features/edge_vi3000/" !! Remember to change the project name
+<%= render_partial "shared/news_and_reviews_strip" %>
+<%= render_partial "main/homepage_product_features" %>
 
-# IF there is more than one edge file, make sure all compositions are added to shared/homepage_adobe_edge_runtime script.
-# IF there are none, do not render shared/homepage_adobe_edge_runtime .
-
-%>
-<div id="feature_container">
-  <%= render_partial "main/homepage/homepage_main_features", s3_homepage_features_path: s3_homepage_features_path %>
-</div>
-<div id="homepage_product_features">
-  <%= render_partial "main/homepage/homepage_product_features", s3_homepage_products_path: s3_homepage_products_path %>
-</div>
+<!--
 <div id="homepage_banners">
-  <%= render_partial "main/homepage/homepage_banners", s3_homepage_path: s3_homepage_path %>
+  <%#= render_partial "main/homepage_banners", s3_homepage_path: s3_homepage_path %>
 </div>
+-->
 
-  <%= render_partial "shared/social_strip" %>
-  <%= render_partial "shared/news_and_reviews_strip" %>
+<%= render_partial "shared/social_strip" %>
 
 <%= content_for :preload do %>
 	<%= preload_background_images %>
