@@ -24,7 +24,11 @@
 	text-decoration: line-through;
 }
 .video-window { @include flex-video-container; }
-
+.video-category-container {
+  h3 {
+    border-bottom: 1px solid $secondary-color;
+  }
+}
 .featured-slider {
   max-width: 1200px;
   width: 90%;
@@ -375,7 +379,7 @@ div#pre-footer {
 footer {
   position: relative;
   margin: 0px 0px 30px;
-  height: 120px;
+  min-height: 120px;
   div#footer_info {
     text-align: right;
   }

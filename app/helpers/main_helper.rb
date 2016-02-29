@@ -59,9 +59,9 @@ module MainHelper
             ret += "<tr>"
             ret +=   "<td><div style='margin-left: auto; margin-right: auto; position: relative; width:120px; height:90px'>"
             ret +=     "<img src='#{thumbnail["url"]}' width='120' height='90'/>"
-            ret +=     "<div style='position:absolute; top: 30px; left: 45px; z-index: 1'>"
-            ret +=        link_to(image_tag("play.png", alt: video["title"]), link)
-            ret +=     "</div>"
+            #ret +=     "<div style='position:absolute; top: 30px; left: 45px; z-index: 1'>"
+            #ret +=        link_to(image_tag("play.png", alt: video["title"]), link)
+            #ret +=     "</div>"
             ret +=   "</div></td>"
             ret +=   "<td class='preview'><p><b>"
             ret +=   link_to(video["title"], link)
@@ -69,9 +69,10 @@ module MainHelper
             ret += "</tr>"
           else
             ret += "<div class='video_thumbnail'>"
-            ret +=     link_to("<img src='#{thumbnail["url"]}' width='180' height='135'/>".html_safe, link)
+            ret +=     link_to("<img src='#{thumbnail["url"]}' width='180' height='135'/>".html_safe, link,
+                               data: { videoid: video["resourceId"]["videoId"] }, class: 'start-video')
             ret +=     content_tag(:div, truncate(video["title"]))
-            ret +=     content_tag(:div, link_to(image_tag("play.png", alt: video["title"]), link), class: 'play_button')
+            #ret +=     content_tag(:div, link_to(image_tag("play.png", alt: video["title"]), link), class: 'play_button')
             ret += "</div>"
           end
 	      end
@@ -95,9 +96,10 @@ module MainHelper
           thumbnail = video["thumbnails"].find(height: 90).first[1]
           link = play_video_url(video["resourceId"]["videoId"])
           vids << content_tag(:li, class: 'video_thumbnail') do
-            content_tag(:div, link_to(image_tag("play.png", alt: video["title"]), link, target: "_blank"), class: 'play_button') +
-            link_to(image_tag(thumbnail["url"], width: 180, height: 135), link, target: "_blank") +
-            content_tag(:p, link_to(video["title"], link, target: "_blank"), class: 'video_title')
+            #content_tag(:div, link_to(image_tag("play.png", alt: video["title"]), link, target: "_blank"), class: 'play_button') +
+            link_to(image_tag(thumbnail["url"], width: 180, height: 135), link, target: "_blank",
+                               data: { videoid: video["resourceId"]["videoId"] }, class: 'start-video') +
+            content_tag(:p, video["title"], class: 'video_title')
           end
         end
         content_tag(:ul, raw(vids.join), id: 'video_list', class: "large-block-grid-4 medium-block-grid-4 small-block-grid-2")

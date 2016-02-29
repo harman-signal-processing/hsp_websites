@@ -1,19 +1,59 @@
-<div class="row">
-  <div class="large-10 columns">
-    <% @playlists.each do |playlist| %>
-        <h2><%= playlist['snippet']['title'] %></h2>
-        <p><%= playlist['snippet']['description'] %></p>
-      <%= cache ["playlist_feed", playlist['id']] do %>
-        <%= render partial: "video", collection: get_video_list_data(playlist["id"], limit: 50)["items"] %>
+<% set_meta_tags title: "Videos from #{ website.brand.name }",
+  description: "Watch the latest videos from #{ website.brand.name }",
+	reverse: true,
+	og: {
+		type: 'summary',
+    description: "Watch the latest videos from #{ website.brand.name }",
+    title: "#{ website.brand.name } Videos"
+  }
+%>
+
+<div class="row sticky-container">
+  <div class="large-3 medium-4 small-5 columns">
+    <div class="sticky-side">
+      <h1><%= t('videos').titleize %></h1>
+      <h6>Categories:</h6>
+      <ul>
+        <% @playlists.each do |playlist| %>
+          <li><%= link_to playlist['snippet']['title'], "##{ playlist['snippet']['title'].parameterize }" %></li>
+        <% end %>
+      </ul>
+      <% if @youtube_user.present? %>
+        <%= link_to("http://www.youtube.com/#{@youtube_user}", target: "_blank") do %>
+          <div class="panel text-center">
+            <%= image_tag("icons/circle/48x48/youtube.png", alt: "YouTube") %>
+            <p>Visit our channel on Youtube</p>
+          </div>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
 
-  <div class="large-2 text-center hide-for-medium-down columns">
-    <% if @youtube_user.present? %>
-      <p><%= link_to(image_tag("icons/circle/128x128/youtube.png", alt: "YouTube"), "http://www.youtube.com/#{@youtube_user}", target: "_blank") %></p>
-      <p>Visit our channel on Youtube</p>
+  <div class="large-9 medium-8 small-7 columns video-category-container">
+    <% @playlists.each do |playlist| %>
+      <a name="<%= playlist['snippet']['title'].parameterize %>"></a>
+      <h3><%= playlist['snippet']['title'] %></h3>
+      <p><%= playlist['snippet']['description'] %></p>
+      <%= cache ["playlist_feed", playlist['id']] do %>
+			<ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-5">
+        <% get_video_list_data(playlist["id"], limit: 50)["items"].each do |video_item| %>
+          <% video = video_item['snippet'] %>
+          <li align="center">
+            <%= link_to play_video_url(video["resourceId"]["videoId"]), data: { videoid: video["resourceId"]["videoId"]}, class: 'start-video' do %>
+              <img src="http://img.youtube.com/vi/<%= video["resourceId"]["videoId"] %>/0.jpg" class="radius5">
+              <small><%= video['title'] %></small>
+            <% end %>
+          </li>
+        <% end %>
+			</ul>
+      <% end %>
     <% end %>
   </div>
 </div>
 
+<div id="videoModal" class="reveal-modal" data-reveal aria-labelledby="Video" aria-hidden="true" role="dialog">
+  <div class="flex-video youtube">
+    <iframe name="videoIFrame" id="videoIFrame" src="" frameborder="0" allowfullscreen></iframe>
+  </div>
+  <a class="close-reveal-modal close-video" aria-label="Close">&#215;</a>
+</div>

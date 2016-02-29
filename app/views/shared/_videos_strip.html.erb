@@ -9,6 +9,14 @@
       </div>
     </div>
   </div>
+
+  <div id="videoModal" class="reveal-modal" data-reveal aria-labelledby="Video" aria-hidden="true" role="dialog">
+    <div class="flex-video youtube">
+      <iframe name="videoIFrame" id="videoIFrame" src="" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <a class="close-reveal-modal close-video" aria-label="Close">&#215;</a>
+  </div>
+
   <% elsif @featured_video %>
   <div class="homepage_block">
     <div class="container" id="homepage-video-banner">
