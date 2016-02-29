@@ -24,7 +24,11 @@
 	text-decoration: line-through;
 }
 .video-window { @include flex-video-container; }
-
+.video-category-container {
+  h3 {
+    border-bottom: 1px solid $secondary-color;
+  }
+}
 .featured-slider {
   max-width: 1200px;
   width: 90%;

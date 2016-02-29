@@ -1,5 +1,12 @@
 jQuery ($) ->
 
+  $('a.start-video').click (e) ->
+    video_id = $(@).data('videoid')
+    $('#videoIFrame').attr('src', 'http://www.youtube.com/embed/' + video_id + '?autostart=1')
+
+  $('a.close-video').click (e) ->
+    $('#videoIFrame').attr('src', '')
+
 	$('a#locale_menu').click (e) ->
 		e.preventDefault()
 		$('#locale_selections').toggle()
