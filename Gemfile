@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '4.2.5.1'
+gem 'rails', '4.2.5.2'
 gem 'responders', '~> 2.0'
 # Gems used only for assets and not required
 # in production environments by default.
@@ -11,7 +11,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem "foundation-rails", '~> 5.5'
 gem 'lightbox2-rails'
-gem 'jquery-rails'
+gem 'jquery-rails', "~> 4.0.5" # 4.1 broke buy it now popups
 
 # To use debugger
 # gem 'ruby-debug'
