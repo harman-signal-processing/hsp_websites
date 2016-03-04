@@ -56,6 +56,7 @@ RSpec.describe SeoHelper do
     it "generates alternate links for other languages" do
       skip "Revisit hreflang functions"
       website = FactoryGirl.create(:website)
+      website.available_locales << FactoryGirl.create(:website_locale, locale: "es", name: "Spanish")
       controller.request.host = website.url
       controller.request.path = "/es/products/test-product"
       allow(helper).to receive(:website).and_return(website)
