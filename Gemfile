@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '4.2.5.2'
+gem 'rails', '4.2.6'
 gem 'responders', '~> 2.0'
 # Gems used only for assets and not required
 # in production environments by default.
