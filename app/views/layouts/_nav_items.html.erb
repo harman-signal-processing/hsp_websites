@@ -9,7 +9,9 @@
         <li><%= link_to ucfirst(t('software_downloads')), software_index_path %></li>
       <% end %>
 			<li><%= link_to ucfirst(t('warranty_registration')), warranty_registration_path %></li>
-			<li><%= link_to "Promotions", promotions_path %></li>
+      <% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
+        <li><%= link_to "Promotions", promotions_path %></li>
+      <% end %>
 		</ul>
 	</li>
 
