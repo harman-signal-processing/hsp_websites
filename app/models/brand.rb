@@ -317,4 +317,8 @@ class Brand < ActiveRecord::Base
     faq_categories.select{|fc| fc if fc.faqs.length > 0 }
   end
 
+  def has_news?
+    News.where(brand_id: self.id).count > 0
+  end
+
 end

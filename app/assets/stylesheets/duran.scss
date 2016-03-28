@@ -9,3 +9,7 @@
 *= require add2home
 *= require_self
 */
+$dark-gray: #575757;
+@import 'slick';
+$slick-arrow-color: $dark-gray;
+@import 'slick-theme';

@@ -269,4 +269,8 @@ class Website < ActiveRecord::Base
     @twitter_name ||= self.brand.twitter_name
   end
 
+  def has_news?
+    self.brand.has_news?
+  end
+
 end

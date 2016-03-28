@@ -15,8 +15,10 @@
 		</ul>
 	</li>
 
-  <li class="divider hide-for-medium"></li>
-	<li><%= link_to t('news'), news_index_path %></li>
+  <% if website.has_news? %>
+    <li class="divider hide-for-medium"></li>
+    <li><%= link_to t('news'), news_index_path %></li>
+  <% end %>
 
 	<% if website.has_artists? %>
     <li class="divider hide-for-medium"></li>

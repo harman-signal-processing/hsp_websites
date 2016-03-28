@@ -1,4 +1,5 @@
 @import 'foundation/functions';
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,300italic,400italic,500italic);
 
 $dark-gray: #575757;
 $medium-gray: #a8a8a8;
@@ -13,7 +14,7 @@ $body-font-weight: 400;
 $primary-color: #00162e;
 $secondary-color: $medium-gray;
 $include-print-styles: true;
-$header-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$header-font-family: "Roboto", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $header-font-weight: 600;
 $header-font-color: $dark-gray;
 $header-top-margin: .4em;
