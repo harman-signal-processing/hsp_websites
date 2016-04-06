@@ -90,6 +90,11 @@ h2 { font-size: 19px; line-height: initial; text-transform: uppercase; font-weig
     width: 170px;
   }
 }
+.top-bar {
+  input, .button {
+    top: 32px;
+  }
+}
 
 @media only screen and (min-width: 720px) {
 	.logo-container img {
