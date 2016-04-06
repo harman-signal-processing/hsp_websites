@@ -18,10 +18,6 @@
     </ul>
   </li>
 
-  <% if website.has_software_downloads? %>
-    <li><%= link_to t('software_downloads').titleize, software_index_path %></li>
-  <% end %>
-
   <li class="has-dropdown">
     <%= link_to "Media", "", class: "disabled" %>
     <ul class="dropdown">

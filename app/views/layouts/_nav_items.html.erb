@@ -4,14 +4,14 @@
 			<% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
 				<%= product_family_nav_links(product_family) %>
 			<% end %>
-			<li><%= link_to "Discontinued Products", discontinued_products_path %></li>
-      <% if website.has_software_downloads? %>
+      <% if website.has_software? %>
         <li><%= link_to ucfirst(t('software_downloads')), software_index_path %></li>
       <% end %>
 			<li><%= link_to ucfirst(t('warranty_registration')), warranty_registration_path %></li>
       <% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
         <li><%= link_to "Promotions", promotions_path %></li>
       <% end %>
+			<li><%= link_to "Discontinued Products", discontinued_products_path %></li>
 		</ul>
 	</li>
 
