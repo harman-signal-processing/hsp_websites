@@ -44,7 +44,7 @@ feature "epedal labels ordering" do
       click_on "Label"
       ch = find(:xpath, "//input[@type='checkbox'][@value='#{@sheet.id}']")
 
-      expect(ch.checked?).to eq("checked")
+      expect(ch.checked?).to be(true)
     end
 
     it "should not show the button if the label is not on any sheets" do
