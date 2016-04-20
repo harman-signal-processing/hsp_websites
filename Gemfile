@@ -17,7 +17,7 @@ gem 'jquery-rails', "~> 4.0.5" # 4.1 broke buy it now popups
 # gem 'ruby-debug'
 
 # Bundle the extra gems:
-gem 'mysql2', '~> 0.3.18' # sphinx needs '0.3.12b4'
+gem 'mysql2' #, '~> 0.3.18' # sphinx needs '0.3.12b4'
 gem 'utf8-cleaner'
 gem "friendly_id"
 gem 'aws-sdk', '< 2.0'
@@ -84,7 +84,7 @@ group :production, :staging do
 end
 
 group :development do
-  gem 'web-console', '~> 2.0'
+  gem 'web-console' #, '~> 2.0'
   gem 'capistrano', '~> 3.4', require: false
   gem 'capistrano-rails', require: false
   gem 'capistrano-bundler', require: false

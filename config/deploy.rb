@@ -1,6 +1,6 @@
 #
 # config valid only for current version of Capistrano
-lock '3.4.0'
+lock '3.4.1'
 
 set :application, 'hsp_websites'
 set :repo_url, "https://github.com/harman-signal-processing/hsp_websites"
