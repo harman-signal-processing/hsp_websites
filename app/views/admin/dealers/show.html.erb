@@ -54,9 +54,15 @@
 
   <%= simple_form_for [:admin, @dealer] do |f| %>
 
-    <%= f.association :brands, as: :check_boxes, label: false, collection: Brand.where("dealers_from_brand_id IS NULL OR dealers_from_brand_id = 0").order("UPPER(name)") %>
+    <%= f.association :brands,
+      as: :check_boxes,
+      label: false,
+      collection: Brand.where(dealers_from_brand_id: [nil, "", 0], live_on_this_platform: true).order("UPPER(name)") %>
 
     <br/><%= f.button :submit %>
-    
+
+  <p><i><%= Brand.where("dealers_from_brand_id > 0").where(live_on_this_platform: true).pluck(:name).join(", ") %>
+  dealers are linked to one of the brands above.</i></p>
+
   <% end %>
 </div>

@@ -23,3 +23,21 @@
   <b>Account Number:</b>
   <%= @distributor.account_number %>
 </p>
+
+<div class="group">
+  <h4 class="subheader">Brands</h4>
+
+  <%= simple_form_for [:admin, @distributor] do |f| %>
+
+    <%= f.association :brands,
+      as: :check_boxes,
+      label: false,
+      collection: Brand.where(distributors_from_brand_id: [nil, "", 0], live_on_this_platform: true).order("UPPER(name)") %>
+
+    <br/><%= f.button :submit %>
+
+  <p><i><%= Brand.where("distributors_from_brand_id > 0").where(live_on_this_platform: true).pluck(:name).join(", ") %>
+  distributors are linked to one of the brands above.</i></p>
+
+  <% end %>
+</div>

@@ -337,7 +337,6 @@
 				<div class="group">
 					<h5>Dealers, Distributors<% if website.has_us_sales_reps? %> &amp; Reps<% end %></h5>
 					<dl class="sub-nav">
-						<dt>All:</dt>
 						<% if can?(:manage, Dealer) && website.has_dealers? %>
 							<dd><%= link_to "Dealers", admin_dealers_path %></dd>
 						<% end %>
@@ -350,6 +349,11 @@
 					</dl>
 
 				<% if can?(:manage, Dealer) && website.has_dealers? %>
+          <% if website.brand.dealers_from_brand_id.to_i > 0 %>
+            <div class="alert-box secondary">
+              Use the <%= Brand.find(website.dealers_from_brand_id).name %> site to manage dealers.
+            </div>
+          <% else %>
 				    <%= search_form_for [:admin, Dealer.ransack], class: "custom" do |f| %>
 				    <div class="row collapse">
 				    	<div class="large-8 small-6 columns">
@@ -363,8 +367,14 @@
 				      	</div>
 				    </div>
 				    <% end %>
+          <% end %>
 				<% end %>
-				<% if can?(:manage, Distributor) && website.has_distributors? %>
+        <% if can?(:manage, Distributor) && website.has_distributors? %>
+          <% if website.brand.distributors_from_brand_id.to_i > 0 %>
+            <div class="alert-box secondary">
+              Use the <%= Brand.find(website.distributors_from_brand_id).name %> site to manage distributors.
+            </div>
+          <% else %>
 				    <%= search_form_for [:admin, Distributor.ransack], class: "custom" do |f| %>
 				    <div class="row collapse">
 				    	<div class="large-8 small-6 columns">
@@ -378,6 +388,7 @@
 				      	</div>
 				    </div>
 				    <% end %>
+          <% end %>
 				<% end %>
 				<% if can?(:manage, UsRep) && website.has_us_sales_reps? %>
 				    <%= search_form_for [:admin, UsRep.ransack], class: "custom" do |f| %>
@@ -537,7 +548,6 @@
 						<%= link_to "New website", new_admin_website_path, class: "small round secondary button" %>
 					</h5>
 					<dl class="sub-nav">
-						<dt>All:</dt>
 						<dd><%= link_to "Brands", admin_brands_path %></dd>
 						<dd><%= link_to "Websites", admin_websites_path %></dd>
 					</dl>
