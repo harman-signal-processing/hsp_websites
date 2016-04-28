@@ -3,10 +3,43 @@
 				 reverse: true %>
 
 <% unless @promotion.tile_file_name.blank? %>
-	<%= image_tag(@promotion.tile.url, alt: @promotion.name) %>
+  <div class="row">
+    <div class="medium-12 small-12 columns text-center">
+      <%= image_tag(@promotion.tile.url, alt: @promotion.name) %>
+    </div>
+  </div>
 <% end %>
 
-<%= render @promotion %>
+<div class="row">
+  <div class="medium-12 small-12 columns">
+    <h1><%= translate_content(@promotion, :name) %></h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="medium-8 small-12 columns">
+    <% if @promotion.expired? %>
+    <p><i>Note: this promotion is expired. Information remains here until <%= l @promotion.show_end_on, format: :long %>
+      to allow participants time to download the rebate form.</i></p>
+    <% end %>
+    <p><%= t('valid') %> <%=l @promotion.start_on, format: :long %>-<%=l @promotion.end_on, format: :long %></p>
+    <%=raw translate_content(@promotion, :description) %>
+  </div>
+  <div class="medium-3 small-12 columns">
+    <% if @promotion.promo_form.present? %>
+      <%= link_to t('download_promotion_form'), @promotion.promo_form.url, class: "medium button expand" %>
+    <% end %>
+    <% if @promotion.products.size > 0 %>
+      <h6><%= t('related_products') %>:</h6>
+
+      <ul class="large-block-grid-1 small-block-grid-1">
+      <% @promotion.products.each do |product| %>
+        <li><%= render_partial "product_families/product_square", product: product, compare: false %></li>
+      <% end %>
+      </ul>
+    <% end %>
+  </div>
+</div>
 
 <%= render 'shared/add_this' %>
 
