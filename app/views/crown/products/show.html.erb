@@ -287,7 +287,6 @@ set_meta_tags title: @product.name,
 			<% end %>
 
 		<% end %>
-		<%= links_to_current_promotions(@product) %>
 
 		<% unless @product.demo_link.blank? %>
 			<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/demo_download_button.png")) %>
@@ -317,6 +316,7 @@ set_meta_tags title: @product.name,
 	</div>
 
 	<div class="large-4 columns">
+		<%= links_to_current_promotions(@product) %>
 		<%= draw_info_accordion @product %>
 		<%= draw_audio_demos @product %>
 		<%= render 'shared/add_this' %>
