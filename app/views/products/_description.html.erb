@@ -1,14 +1,4 @@
 <div class="description text-content">
-  <% if @product.current_and_recently_expired_promotions.size > 0 %>
-    <% promotion = @product.current_and_recently_expired_promotions.first %>
-    <h2><%= link_to promotion.homepage_headline.present? ? promotion.homepage_headline : promotion.name, promotion %></h2>
-    <% if promotion.start_on.present? && promotion.end_on.present? %>
-      <h4><%=l promotion.start_on, format: :long %> - <%=l promotion.end_on, format: :long %></h4>
-    <% end %>
-    <p><%=raw promotion.homepage_text %></p>
-
-    <%= link_to "Learn More", promotion, class: "medium button" %>
-  <% end %>
 
   <%=raw translate_content(@product, :description) %>
 
