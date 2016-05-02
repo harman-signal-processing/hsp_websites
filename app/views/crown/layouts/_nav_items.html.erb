@@ -49,7 +49,9 @@
         <% end %>
       <% end %>
       <li><%= link_to "Microphones", "/akg-mics" %></li>
-			<!-- <li><%#= link_to "Promotions", promotions_path %></li> -->
+      <% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
+        <li><%= link_to "Promotions", promotions_path %></li>
+      <% end %>
 			<li><%= link_to "Discontinued Products", discontinued_products_path %></li>
 		</ul>
 	</li>
