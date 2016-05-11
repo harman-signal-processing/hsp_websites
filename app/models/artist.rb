@@ -77,8 +77,11 @@ class Artist < ActiveRecord::Base
     !!(self.artist_brands.where(brand_id: website.brand_id).count > 0)
   end
 
-  def self.all_for_website(website)
-    where("(approver_id IS NOT NULL AND approver_id != '') OR featured = 1").joins(:artist_brands).where("artist_brands.brand_id = ?", website.brand_id).order("artists.name")
+  def self.all_for_website(website, order="name")
+    where("(approver_id IS NOT NULL AND approver_id != '') OR featured = 1").
+      joins(:artist_brands).
+      where("artist_brands.brand_id = ?", website.brand_id).
+      order("artists.#{order}")
   end
 
   # When a new artist signs up, build a few ArtistProduct slots
