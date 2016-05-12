@@ -60,7 +60,7 @@ $button-font-weight: 300;
 $button-border-style: none;
 $topbar-bg-color: $primary-color;
 $topbar-bg: $topbar-bg-color !default;
-$topbar-height:                        rem-calc(96px);
+$topbar-height:                        rem-calc(80px);
 $topbar-title-weight:                  bold;
 $topbar-dropdown-bg:                      rgba($topbar-bg-color, 0.7);
 $topbar-dropdown-link-bg:                 rgba(darken($topbar-bg-color, 2%),0.85);
@@ -92,13 +92,13 @@ h2 { font-size: 19px; line-height: initial; text-transform: uppercase; font-weig
 }
 .top-bar {
   input, .button {
-    top: 32px;
+    top: 25px;
   }
 }
 
 @media only screen and (min-width: 720px) {
 	.logo-container img {
-		padding: 10px 25px 0px 35px;
+		padding: 11px 35px 0px 35px;
 	}
 	#main_container {
 		padding-bottom: 100px;
