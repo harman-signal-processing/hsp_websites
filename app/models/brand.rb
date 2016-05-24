@@ -10,6 +10,7 @@ class Brand < ActiveRecord::Base
   has_many :news
   has_many :faq_categories
   has_many :pages
+  has_many :installations
   has_many :promotions
   has_many :service_centers
   has_many :softwares

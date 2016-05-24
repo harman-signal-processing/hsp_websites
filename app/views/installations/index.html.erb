@@ -1,0 +1,18 @@
+<% set_meta_tags reverse: true,
+  title: "#{website.brand.name} Installations"
+%>
+
+<div class="content container">
+  <div class="row">
+    <div class="large-12 columns text-content">
+      <h1><%= website.brand.name %> Installations</h1>
+
+      <ul>
+        <% @installations.each do |installation| %>
+          <li><%= link_to installation.title, installation %></li>
+        <% end %>
+      </ul>
+
+    </div>
+  </div>
+</div>

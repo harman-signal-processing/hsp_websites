@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151210160609) do
+ActiveRecord::Schema.define(version: 20160523180927) do
 
   create_table "admin_logs", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -249,6 +249,7 @@ ActiveRecord::Schema.define(version: 20151210160609) do
     t.boolean  "has_products"
     t.boolean  "has_system_configurator",                   default: false
     t.boolean  "offers_rentals"
+    t.boolean  "has_installations"
   end
 
   add_index "brands", ["cached_slug"], name: "index_brands_on_cached_slug", unique: true, using: :btree
@@ -501,6 +502,22 @@ ActiveRecord::Schema.define(version: 20151210160609) do
   add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
+
+  create_table "installations", force: :cascade do |t|
+    t.integer  "brand_id",     limit: 4
+    t.string   "title",        limit: 255
+    t.string   "keywords",     limit: 255
+    t.text     "description",  limit: 65535
+    t.text     "body",         limit: 65535
+    t.string   "custom_route", limit: 255
+    t.string   "cached_slug",  limit: 255
+    t.text     "custom_css",   limit: 65535
+    t.string   "layout_class", limit: 255
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "installations", ["brand_id"], name: "index_installations_on_brand_id", using: :btree
 
   create_table "label_sheet_orders", force: :cascade do |t|
     t.integer  "user_id",      limit: 4
