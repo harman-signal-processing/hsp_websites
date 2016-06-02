@@ -1,11 +1,4 @@
 GIT
-  remote: git://github.com/gavinkflam/lightbox2-rails.git
-  revision: 9eca8e4d7d66e0cb6c33a5ca8e7beabfdd99b7a1
-  specs:
-    lightbox2-rails (2.8.2.1)
-      railties (>= 3.1)
-
-GIT
   remote: https://github.com/spohlenz/tinymce-rails.git
   revision: 269680661491909f9cc4686486c1b3ea15dbaa2f
   specs:
@@ -392,6 +385,8 @@ GEM
       addressable (~> 2.3)
     letter_opener (1.4.1)
       launchy (~> 2.2)
+    lightbox2-rails (2.7.1)
+      railties (>= 3.1)
     listen (3.1.4)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -740,7 +735,7 @@ DEPENDENCIES
   jquery-rails (~> 4.0.5)
   json-schema
   letter_opener
-  lightbox2-rails!
+  lightbox2-rails (~> 2.7.1)
   mailgun_rails
   mechanize
   meta-tags (~> 1.5)

@@ -10,7 +10,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem "foundation-rails", '~> 5.5'
-gem 'lightbox2-rails', github: "gavinkflam/lightbox2-rails" # 6/1/2016 v2.8.2.1 stopped working. Pulling from the repo until the next version is released.
+gem 'lightbox2-rails', '~> 2.7.1' # 6/1/2016 v2.8.2.1 stopped working.
 gem 'jquery-rails', "~> 4.0.5" # 4.1 broke buy it now popups
 
 # To use debugger
