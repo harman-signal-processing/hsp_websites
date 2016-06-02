@@ -15,10 +15,8 @@
 		</ul>
 	</li>
 
-  <% if website.products.pluck(:cached_slug).include?("abf-260") %>
-    <li class="divider hider-for-medium"></li>
-    <li><%= link_to "Solution", website.products.find("abf-260") %></li>
-  <% end %>
+  <li class="divider hider-for-medium"></li>
+  <li><%= link_to "Solution", "/#{I18n.locale}/tunnel-solutions" %></li>
 
   <% if website.has_installations? %>
     <li class="divider hide-for-medium"></li>
