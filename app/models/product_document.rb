@@ -6,6 +6,8 @@ class ProductDocument < ActiveRecord::Base
   has_attached_file :document
   process_in_background :document
 
+  acts_as_list scope: :product_id
+
   validates :product_id, presence: true
   validates_attachment :document, presence: true
   do_not_validate_attachment_file_type :document

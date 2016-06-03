@@ -146,6 +146,9 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :product_attachments do
         collection { post :update_order }
       end
+      resources :product_documents do
+        collection { post :update_order }
+      end
       resources :artists do
         collection do
           post :update_order
@@ -255,7 +258,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :product_amp_models,
         :tone_library_songs,
         :product_promotions,
-        :product_documents,
         :product_cabinets,
         :online_retailers,
         :training_classes,

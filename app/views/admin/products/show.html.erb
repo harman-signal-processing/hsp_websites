@@ -150,7 +150,7 @@
 				<div id="new_product_document" style="display:none;">
 					<%= render "/admin/product_documents/form" %>
 				</div>
-				<ul id="product_documents" class="list">
+				<ul id="product_documents" class="sortable_list">
 					<% @product.product_documents.each do |product_document| %>
 						<%= render "/admin/shared/product_document_row", pd: product_document, called_from: 'product' %>
 					<% end %>

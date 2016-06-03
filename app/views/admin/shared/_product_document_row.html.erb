@@ -1,5 +1,6 @@
 <% called_from ||= 'product' %>
 <li id="product_document_<%= pd.id %>">
+	<span class="handle"><%= image_tag("icons/drag_handle.gif") %></span>
 	<%= (called_from == 'product') ? 
 			link_to(pd.name(hide_product_name: true), [:admin, pd]) : 
 			link_to(pd.product.name, [:admin, pd.product]) %> 
