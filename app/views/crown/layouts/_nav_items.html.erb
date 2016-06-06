@@ -92,7 +92,9 @@
       <% if !!(website.forum_link) %>
       <li><%= link_to t("forum").titleize, website.forum_link %></li>
       <% end %>
-      <li><%= link_to t("warranty_registration").titleize, warranty_registration_path %></li>
+      <% if website.has_product_registrations? %>
+        <li><%= link_to t("warranty_registration").titleize, warranty_registration_path %></li>
+      <% end %>
       <li class="has-dropdown"><%= link_to "Service", '#', class: "disabled" %>
         <ul class="dropdown">
           <li><%= link_to "Service Centers", support_path(action: "service_lookup") %></li>

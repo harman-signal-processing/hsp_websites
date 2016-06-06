@@ -8,7 +8,9 @@
       <% if website.has_software? %>
         <li><%= link_to ucfirst(t('software_downloads')), software_index_path %></li>
       <% end %>
-			<li><%= link_to ucfirst(t('warranty_registration')), warranty_registration_path %></li>
+      <% if website.has_product_registrations? %>
+        <li><%= link_to ucfirst(t('warranty_registration')), warranty_registration_path %></li>
+      <% end %>
 			<li><%= link_to "Promotions", promotions_path %></li>
 		</ul>
 	</li>

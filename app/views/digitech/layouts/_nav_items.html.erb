@@ -8,7 +8,9 @@
       <% if website.has_software? %>
         <li><%= link_to ucfirst(t('software_downloads')), software_index_path %></li>
       <% end %>
-			<li><%= link_to ucfirst(t('warranty_registration')), warranty_registration_path %></li>
+      <% if website.has_product_registrations? %>
+        <li><%= link_to ucfirst(t('warranty_registration')), warranty_registration_path %></li>
+      <% end %>
 			<li><%= link_to "Promotions", promotions_path %></li>
 		</ul>
 	</li>
@@ -32,5 +34,7 @@
 	<li><%= link_to t('product_support').titleize, support_path %></li>
 
   <li class="divider hide-for-medium"></li>
-  <li class="hide-for-medium"><%= link_to t('warranty_registration').titleize, main_app.warranty_registration_path %></li>
+  <% if website.has_product_registrations? %>
+    <li class="hide-for-medium"><%= link_to t('warranty_registration').titleize, main_app.warranty_registration_path %></li>
+  <% end %>
 <% end %>

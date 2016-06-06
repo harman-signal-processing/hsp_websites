@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160603201905) do
+ActiveRecord::Schema.define(version: 20160606151102) do
 
   create_table "admin_logs", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -250,6 +250,7 @@ ActiveRecord::Schema.define(version: 20160603201905) do
     t.boolean  "has_system_configurator",                   default: false
     t.boolean  "offers_rentals"
     t.boolean  "has_installations"
+    t.boolean  "has_product_registrations",                 default: true
   end
 
   add_index "brands", ["cached_slug"], name: "index_brands_on_cached_slug", unique: true, using: :btree
