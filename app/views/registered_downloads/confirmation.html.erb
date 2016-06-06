@@ -1,1 +1,13 @@
 <%= @registered_download.confirmation_page_content.html_safe %>
+
+<% if @download_registration && @download_registration.is_a?(DownloadRegistration) %>
+  <h3 style="text-align: center">Download Now:</h3>
+  <p style="text-align: center">&gt;&gt;&gt;&gt;
+  <%= link_to @registered_download.protected_software_file_name, registered_download_file_path(@registered_download.url, @download_registration.download_code) %>
+  &lt;&lt;&lt;&lt;
+  </p>
+
+<script type="text/javascript" charset="utf-8">
+	setTimeout("window.location = '<%= registered_download_file_path(@registered_download.url, @download_registration.download_code) %>'", 2000);
+</script>
+<% end %>
