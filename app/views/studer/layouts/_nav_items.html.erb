@@ -36,6 +36,8 @@
 	<li><%= link_to "Buy".titleize, where_to_buy_path %></li>
 	<% end %>
 
+  <li><%= link_to "Broadcast Truck", "/#{I18n.locale}/studer-truck" %></li>
+
   <li class="has-dropdown">
     <%= link_to t('product_support').titleize, support_path %>
     <ul class="dropdown">
