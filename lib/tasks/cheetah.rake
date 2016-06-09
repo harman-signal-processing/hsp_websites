@@ -30,7 +30,7 @@ namespace :cheetah do
               puts "Signing up #{signup.email}..."
               begin
                 subscription_params = {sub: sub}
-                subscription_params[:e] = event_id if !!event_id
+                subscription_params[:eid] = event_id if !!event_id
                 if ch.mailing_list_update(signup.email, subscription_params)
                   signup.synced_on = Time.now
                   signup.save(:validate => false)
