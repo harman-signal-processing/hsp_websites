@@ -24,7 +24,7 @@ RSpec.describe SiteMailer, type: :mailer do
 		end
 
 		it "should go to the brand's support_email" do
-			expect(mail.to).to eq ["support@harman.com"] # (from the 'setting')
+			expect(mail.to).to include "support@harman.com" # (from the 'setting')
 		end
 
 		it "should have the form information" do
