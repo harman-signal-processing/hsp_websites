@@ -143,9 +143,9 @@ class Website < ActiveRecord::Base
             name: I18n.locale.match(/zh/i) ? doctype : doctype.pluralize,
             downloads: []
           }
-          link_name = !!(doctype.match(/other/i)) ? product_document.document_file_name : ContentTranslation.translate_text_content(product, :name)
+          #link_name = !!(doctype.match(/other/i)) ? product_document.document_file_name : ContentTranslation.translate_text_content(product, :name)
           downloads[key][:downloads] << {
-            name: link_name,
+            name: product_document.name,
             file_name: product_document.document_file_name,
             url: product_document.document.url,
             path: product_document.document.path
