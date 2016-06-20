@@ -9,16 +9,28 @@
 	<% end %>
 </ul>
 
-<p>
-  <b>Locale:</b>
-  <%= (@setting.locale.blank?) ? "default" : @setting.locale %>
-</p>
+<% if @setting.description.present? %>
+<div class="callout panel">
+  <h4>How to use this setting</h4>
+  <p><%= @setting.description %></p>
+</div>
+<% end %>
+
 <p>
   <b>Setting type:</b>
   <%=h @setting.setting_type %>
 </p>
 
+<% if @setting.locale.present? %>
 <p>
+  <b>Locale:</b>
+  <%= @setting.locale %>
+</p>
+<% end %>
+
+<p>
+  <b>Value:</b><br/><br/>
+
   <%= value_for(@setting) %>
 </p>
 

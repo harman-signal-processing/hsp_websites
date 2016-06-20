@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160606151102) do
+ActiveRecord::Schema.define(version: 20160620153616) do
 
   create_table "admin_logs", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -1240,6 +1240,7 @@ ActiveRecord::Schema.define(version: 20160606151102) do
     t.datetime "updated_at"
     t.date     "start_on"
     t.date     "remove_on"
+    t.text     "description",        limit: 65535
   end
 
   add_index "settings", ["brand_id", "name", "locale"], name: "index_settings_on_brand_id_and_name_and_locale", using: :btree
