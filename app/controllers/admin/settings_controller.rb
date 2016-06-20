@@ -5,13 +5,13 @@ class Admin::SettingsController < AdminController
   # GET /admin/settings
   # GET /admin/settings.xml
   def index
-    @settings = @settings.where(brand_id: website.brand_id).order("locale, setting_type, name")
+    @settings = @settings.where(brand_id: website.brand_id).order("locale, Upper(name)")
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @settings }
     end
   end
-  
+
   def homepage
     @slides = Setting.slides(website, showall: true)
     @new_slide = Setting.new(setting_type: "slideshow frame")
@@ -32,9 +32,9 @@ class Admin::SettingsController < AdminController
       end
     end
     @column_options = [
-      ["News (comes from the news on this site)", "news"], 
-      ["Facebook Feed (provide your Facebook url as setting: 'facebook')", "facebook"], 
-      ["Youtube Feed (provide your Youtube ID as setting: 'youtube')", "youtube"], 
+      ["News (comes from the news on this site)", "news"],
+      ["Facebook Feed (provide your Facebook url as setting: 'facebook')", "facebook"],
+      ["Youtube Feed (provide your Youtube ID as setting: 'youtube')", "youtube"],
       ["Twitter Feed (provide your twitter name as setting 'twitter')", "twitter"],
       ["Featured Artists", "artists"],
       ["Where To Buy", "where_to_buy"]
@@ -46,7 +46,7 @@ class Admin::SettingsController < AdminController
       Setting.where(brand_id: website.brand_id, name: "homepage_column_4", setting_type: "string").first_or_initialize
     ]
   end
-  
+
   # POST /admin/big_bottom_box
   # updates the content in the big bottom box on the homepage
   def big_bottom_box
@@ -78,7 +78,7 @@ class Admin::SettingsController < AdminController
     render nothing: true
     website.add_log(user: current_user, action: "Updated homepage features order")
   end
-  
+
   def copy
     @setting = Setting.find(params[:id]).dup
     respond_to do |format|
@@ -99,6 +99,13 @@ class Admin::SettingsController < AdminController
   # GET /admin/settings/new
   # GET /admin/settings/new.xml
   def new
+    if params[:name]
+      other = Setting.where(name: params[:name]).where.not(brand_id: website.brand_id).limit(1)
+      if other.count > 0
+        @setting = other.first.dup
+        @setting.brand_id = website.brand_id
+      end
+    end
     respond_to do |format|
       format.html { render_template } # new.html.erb
       format.xml  { render xml: @setting }

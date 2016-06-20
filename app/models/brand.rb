@@ -93,6 +93,15 @@ class Brand < ActiveRecord::Base
     end
   end
 
+  # Settings that other brands have, but this brand doesn't have defined.
+  def unset_settings
+    Setting.where.not(
+      brand_id: self.id,
+      name: self.settings.pluck(:name),
+      setting_type: ["slideshow frame", "homepage feature"]
+    ).order("UPPER(name)").pluck(:name).uniq
+  end
+
   # This should work as a dynamic method, but mailers have troubles
   def support_email
     begin

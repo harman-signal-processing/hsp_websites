@@ -13,6 +13,19 @@ class Setting < ActiveRecord::Base
   belongs_to :brand, touch: true
   validates :name, presence: true, uniqueness: { scope: [:locale, :brand_id] }
 
+  after_initialize :steal_description
+
+  # Borrow description from another site setting with the same name if
+  # one exists.
+  def steal_description
+    if self.description.blank?
+      other = self.class.where(name: self.name).where.not(description: ['', nil]).limit(1)
+      if other.count > 0
+        self.description = other.first.description
+      end
+    end
+  end
+
   def skip_for_video
     ! slide_content_type.match(/video/)
   end
