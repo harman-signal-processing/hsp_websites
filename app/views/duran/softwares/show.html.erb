@@ -1,0 +1,91 @@
+<% set_meta_tags reverse: true,
+                 description: @software.description,
+                 keywords: [@software.name, @software.ware_file_name, @software.version] %>
+
+<% if @software.show_alert? %>
+	<%= content_for :extra_notice do %>
+		<div id="product-notice"><%=raw textilize(@software.alert) %></div>
+	<% end %>
+<% end %>
+
+<h1><%= @page_title %></h1>
+<%= render 'shared/add_this' %>
+
+<% if @software.replaced_by && @software.replaced_by.is_a?(Software) %>
+<div data-alert class="alert-box">
+	Note: this is an old version. The current version is: <%= link_to @software.replaced_by.formatted_name, @software.replaced_by %>.
+	<a href="#" class="close">&times;</a>
+</div>
+<% end %>
+
+		<%=raw @software.description %>
+		<% if @software.previous_versions.count > 0 %>
+		<p><%= link_to "Previous Versions", '#previous_versions' %></p>
+		<% end %>
+
+		<% if @software.training_modules.size > 0 %>
+			<h4>Training Modules</h4>
+			<%= link_to "Visit Training Page", training_path %>
+		<% end %>
+<div class="row">
+	<div class="small-12 medium-6 large-4 columns">
+    <% if @software.ware.present? || @software.link.present? %>
+      <div class="panel">
+        <div class="text-center">
+          <%= link_to download_software_path(@software, locale: I18n.locale), class: "large button" do %>
+            <%= image_tag "down_arrow.png", alt: '' %>
+            <%= t("download") %>
+          <% end %>
+        </div>
+
+        <ul class="list no-bullet">
+          <li>
+            <%= platform_icon(@software, 17) %>
+            <%= link_to(@software.formatted_name, download_software_path(@software, locale: I18n.locale)) %>
+            <% if @software.ware_file_size.present? %>
+            [<%= number_to_human_size(@software.ware_file_size)%>]
+            <% end %>
+          </li>
+
+          <% @software.software_attachments.each do |sa| %>
+          <li>
+            <% if sa.software_attachment_content_type.match(/pdf/i) %>
+              <%= image_tag("icons/pdf_17.png", style: "vertical-align: middle;") %>
+            <% end %>
+            <%= link_to sa.name, sa.software_attachment.url %>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+	</div>
+</div>
+
+<% if @software.products.size > 0 %>
+	<hr/>
+	<h3 class="subheader"><%= t('titles.related_products') %></h3>
+
+	<ul class="large-block-grid-3 small-block-grid-2">
+	<% @software.products.each do |product| %>
+		<li><%= render_partial "product_families/product_square", product: product, compare: false %></li>
+	<% end %>
+	</ul>
+<% end %>
+
+<% if @software.previous_versions.count > 0 %>
+	<hr/>
+	<h4 class="subheader" id='previous_versions'>Previous Versions</h4>
+
+	<ul class="list">
+		<% @software.previous_versions.each do |s| %>
+		<li><%= link_to s.formatted_name, s %> [<%= number_to_human_size(s.ware_file_size) %>]</li>
+		<% end %>
+	</ul>
+<% end %>
+
+<% if current_user && can?(:manage, @software) %>
+<div class="admin_function">
+	<%= link_to "edit", edit_admin_software_path(@software) %>
+</div>
+<% end %>
+
