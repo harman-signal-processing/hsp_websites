@@ -19,14 +19,8 @@
 
   <% elsif @featured_video %>
   <div class="homepage_block">
-    <div class="container" id="homepage-video-banner">
-      <div class="row">
-        <div class="large-10 large-offset-1 columns">
-          <div class="video-window widescreen text-center">
-            <iframe width="957" height="538" src="//www.youtube.com/embed/<%= @featured_video %>?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
-          </div>
-        </div>
-      </div>
+    <div class="container text-center" id="homepage-video-banner">
+      <iframe width="957" height="538" src="//www.youtube.com/embed/<%= @featured_video %>?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
     </div>
   </div>
   <% end %>
