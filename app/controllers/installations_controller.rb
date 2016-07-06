@@ -6,6 +6,7 @@ class InstallationsController < ApplicationController
   # GET /installations.xml
   def index
     @installations = website.brand.installations.order(:title)
+    render_template
   end
 
   # GET /installations/1
@@ -21,12 +22,6 @@ class InstallationsController < ApplicationController
       }
       format.xml  { render xml: @installation }
     end
-  end
-
-  # /solutions Added for BSS,Crown 6/2015
-  def solutions
-    @hide_main_container = true
-    render_template
   end
 
   private
