@@ -17,7 +17,7 @@ RSpec.describe AdminController do
       retailer = FactoryGirl.create(:online_retailer)
       retailer_user = FactoryGirl.create(:user, online_retailer: true, confirmed_at: 1.minute.ago)
       retailer.users << retailer_user
-      sign_in(:user, retailer_user)
+      sign_in(retailer_user, scope: :user)
 
       get :index
 
@@ -28,7 +28,7 @@ RSpec.describe AdminController do
   describe "GET index for a user with no access at all" do
     it "sets the @msg" do
       user = FactoryGirl.create(:user, confirmed_at: 1.minute.ago)
-      sign_in(:user, user)
+      sign_in(user, scope: :user)
 
       get :index
 

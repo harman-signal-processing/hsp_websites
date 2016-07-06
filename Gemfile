@@ -23,7 +23,7 @@ gem "friendly_id"
 gem 'aws-sdk', '< 2.0'
 gem 'fog'
 gem 'asset_sync'
-gem "paperclip" #, "~> 3.0"
+gem "paperclip", "4.3.6" # After this, AWS 2 is needed
 gem 'paperclip-meta'
 gem 's3_direct_upload'
 gem 'meta-tags', '~> 1.5', require: 'meta_tags' # v 2.0.0 caused an error
@@ -39,7 +39,7 @@ gem 'daemons'
 gem 'devise'
 gem 'cancan'
 gem 'gravtastic'
-gem "recaptcha", require: "recaptcha/rails"
+gem "recaptcha", '~> 1.3', require: "recaptcha/rails"
 gem 'to_xls-rails'
 gem 'acts_as_list'
 gem 'acts_as_tree'
@@ -116,4 +116,5 @@ group :test do
   gem 'simplecov', require: false
   gem 'json-schema'
   gem 'faker'
+  gem 'test_after_commit' # makes devise 4.1+ work with specs. This won't be needed with rails5
 end
