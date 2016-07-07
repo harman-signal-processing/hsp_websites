@@ -19,13 +19,37 @@
 <% end %>
 
 <%= render_partial "shared/news_and_reviews_strip" %>
-<%= render_partial "main/homepage_product_features" %>
 
-<!--
-<div id="homepage_banners">
-  <%#= render_partial "main/homepage_banners", s3_homepage_path: s3_homepage_path %>
-</div>
--->
+<%= cache [:homepage_feature, website.brand, I18n.locale] do %>
+  <div id="homepage_product_features">
+    <div class="row collapse">
+      <div class="small-12 medium-12 large-6 columns">
+        <div class="row collapse">
+          <div class="small-12 small-text-center columns  title_field" >
+            <h1>Professional Audio Mixing Consoles</h1>
+            <h3>since 1973</h3>
+            <a href="/products" class="button radius">click here to view products</a>
+          </div>
+        </div>
+        <div class="row collapse">
+          <% @features[1,2].each do |feature| %>
+            <div class="small-6 columns bg_transparent">
+              <%= link_to feature.string_value do %>
+                <%= image_tag feature.slide.url, alt: feature.name %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="small-12 medium-12 large-6 columns bg_transparent" >
+        <% feature = @features.first %>
+        <%= link_to feature.string_value do %>
+          <%= image_tag feature.slide.url, alt: feature.name %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
 
 <%= render_partial "shared/social_strip" %>
 

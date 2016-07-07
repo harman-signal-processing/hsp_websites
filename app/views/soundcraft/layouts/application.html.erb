@@ -83,7 +83,6 @@
 
 		<%= cache ["footer", website.brand, I18n.locale] do %>
       <%= render_partial 'layouts/footer' %>
-      <%= render_partial 'shared/footer_jquery_scrollup' %>
 		<% end %>
 
 		<div id="preload"><%= yield :preload %></div>
@@ -91,6 +90,6 @@
 			<%= yield :popup_code %>
 		<% end %>
 
-    <%= render_partial "shared/pardot" %>
+    <%= render_partial "shared/footer_scripts" %>
 	</body>
 </html>
