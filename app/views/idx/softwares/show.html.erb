@@ -19,6 +19,7 @@
 
 <div id="software-page-content">
 	<div class="aside">
+    <% if @software.ware.present? || @software.link.present? %>
 		<div class="download_box">
 			<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/download_button.png")) %>
 			<%= link_to image_tag("#{website.folder}/#{I18n.locale}/download_button.png", 
@@ -46,6 +47,7 @@
 			</p>
 			<% end %>
 		</div>
+  <% end %>
 
 		<%# if website.email_signup_url %>
 			<%#= render_partial 'shared/newsletter_signup' %>

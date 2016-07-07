@@ -11,7 +11,7 @@ RSpec.describe Admin::FaqsController, type: :controller do
 
   before :each do
     @request.host = @website.url
-    sign_in(:user, @user)
+    sign_in(@user, scope: :user)
   end
 
   describe "POST create" do

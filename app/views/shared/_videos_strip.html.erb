@@ -9,22 +9,22 @@
       </div>
     </div>
   </div>
+
+  <div id="videoModal" class="reveal-modal" data-reveal aria-labelledby="Video" aria-hidden="true" role="dialog">
+    <div class="flex-video youtube">
+      <iframe name="videoIFrame" id="videoIFrame" src="" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <a class="close-reveal-modal close-video" aria-label="Close">&#215;</a>
+  </div>
+
   <% elsif @featured_video %>
   <div class="homepage_block">
     <div class="container" id="homepage-video-banner">
       <div class="row">
         <div class="large-10 large-offset-1 columns">
-          <div class="video-window text-center">
-            <iframe width="853" height="480" src="//www.youtube.com/embed/<%= @featured_video %>" frameborder="0" allowfullscreen></iframe>
+          <div class="video-window widescreen text-center">
+            <iframe width="957" height="538" src="//www.youtube.com/embed/<%= @featured_video %>?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
           </div>
-        </div>
-      </div>
-      <div class="row hide-for-small">
-        <div class="large-6 columns">
-          <%= link_to videos_path do %>
-            <%= image_tag "icons/youtube.png" %>
-            more <%= website.brand.name %> videos ...
-          <% end %>
         </div>
       </div>
     </div>

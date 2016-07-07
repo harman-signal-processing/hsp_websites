@@ -1,0 +1,20 @@
+<h1>Installations</h1>
+
+<% if can? :create, Installation %>
+<ul class="button-group round">
+	<li><%= link_to 'New installation', new_admin_installation_path, class: "small success button" %></li>
+</ul>
+<% end %>
+
+<table class="data" width="100%">
+	<tr>
+		<th><b>Installation URL</b> (click to visit installation page)</th>
+		<th style="padding-left: 8px"><b>Title</b> (click to edit installation)</th>
+	</tr>
+<% @installations.each do |installation| %>
+	<tr>
+		<td><%= link_to installation_url(installation), installation_url(installation) %></td>
+		<td style="padding-left: 8px"><%= link_to installation.title, [:admin, installation] %></td>
+	</tr>
+<% end %>
+</table>

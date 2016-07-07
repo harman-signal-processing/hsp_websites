@@ -11,20 +11,49 @@
 	DON'T HAVE TO. Any setting which does not have a corresponding translation
 	will use the default language. This might be best in some cases like settings
 	for google analytics, twitter, etc.</p>
-	
+
 <p>However, if you do need to translate a setting (ie, slideshow frames), then
 	click the <%= link_to 'New setting', new_admin_setting_path %> link and be
 	sure to set the correct locale.</p>
 </div>
 
-<ul class="list">
+<table>
+  <tr>
+    <th>Setting Name</th>
+    <th>Current Value</th>
+  </tr>
 <% @settings.each_with_index do |setting,i| %>
   <% unless i==0 || setting.locale == @settings[(i-1)].locale %>
-    <h3><%= setting.locale %></h3>
+    <tr>
+      <td colspan="2"><h3><%= setting.locale %></h3></td>
+    </tr>
   <% end %>
-  <li><%= link_to setting.name, [:admin, setting] %> 
-	<span class="small"><%= setting.setting_type %></span>
-	<% if !setting.locale.blank? %>(<%= setting.locale %>)<% end %>
-	</li>
+  <tr>
+    <td><%= link_to setting.name, [:admin, setting] %>
+      <% if !setting.locale.blank? %>(<%= setting.locale %>)<% end %>
+    </td>
+    <td>
+      <% if setting.setting_type.to_s == "homepage feature" %>
+        <i>homepage feature content</i>
+      <% elsif setting.setting_type.to_s == "slideshow frame" %>
+        <i>homepage slideshow frame or video content</i>
+      <% else %>
+        <%= setting.value.to_s.truncate(40) %>
+      <% end %>
+    </td>
+	</tr>
 <% end %>
+</table>
+
+<h6>Unset Setting</h6>
+<p>The settings below are not defined for <%= website.brand.name %> but are
+defined for other brands on this system. These are listed here in case they
+need to be configured for <%= website.brand.name %>.</p>
+
+<ul>
+  <% website.brand.unset_settings.each do |s| %>
+    <li><%= link_to s, new_admin_setting_path(name: s) %>
+      (configured on: <%= Setting.where(name: s).joins(:brand).pluck("brands.name").uniq.join(", ") %>)
+    </li>
+  <% end %>
 </ul>

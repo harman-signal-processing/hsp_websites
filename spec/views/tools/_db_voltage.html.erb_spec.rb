@@ -10,7 +10,7 @@ RSpec.describe "tools/_db_voltage.html.erb", :type => :view do
   end
 
   it "should have the fields" do
-    expect(rendered).to have_css("input#mult[type=hidden][value='20']")
+    expect(rendered).to have_css("input#mult[type=hidden][value='20']", visible: false)
     expect(rendered).to have_css("input[name=pin]")
     expect(rendered).to have_css("input[name=pout]")
     expect(rendered).to have_css("input[name=pdB]")

@@ -103,6 +103,9 @@
 				<% if can?(:manage, ToneLibrarySong) && website.has_tone_library? %>
 					<li><%= link_to "Tone Library", admin_tone_library_songs_path %></li>
 				<% end %>
+        <% if can?(:manage, Installation) && website.has_installations? %>
+          <li><%= link_to "Installations", admin_installations_path %></li>
+        <% end %>
 			</ul>
 		</li>
 	<% end %>

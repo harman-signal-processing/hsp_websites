@@ -5,6 +5,7 @@ en:
   home: home
   products: products
   news: news
+  installations: installations
   artists: artists
   professionals: professionals
   sound_community: sound community
@@ -21,7 +22,7 @@ en:
   training: training
   all_rights_reserved: "All Rights Reserved."
   harman: HARMAN
-  us_zip_code: US City
+  us_zip_code: US City and State or Zipcode
   us_dealers: USA Dealers
   find_us_dealers: find local
   online_dealers_us: Online Dealers (US)

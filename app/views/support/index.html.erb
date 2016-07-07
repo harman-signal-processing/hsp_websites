@@ -85,16 +85,18 @@
 			</div>
 			<% end %>
 
-			<div class="panel">
-				<h4><%= link_to t('warranty_registration').titleize, warranty_registration_path %></h4>
-				<p><%= t('blurbs.warranty_registration', brand: website.brand_name) %></p>
-				<ul class="list">
-					<li><%= link_to t('warranty_registration'), warranty_registration_path %></li>
-					<% if !!website.brand.name.match(/bss|dbx/i) %>
-					<li><%= link_to t('warranty_policy'), warranty_policy_path %></li>
-					<% end %>
-				</ul>
-			</div>
+      <% if website.has_product_registrations? %>
+        <div class="panel">
+          <h4><%= link_to t('warranty_registration').titleize, warranty_registration_path %></h4>
+          <p><%= t('blurbs.warranty_registration', brand: website.brand_name) %></p>
+          <ul class="list">
+            <li><%= link_to t('warranty_registration'), warranty_registration_path %></li>
+            <% if !!website.brand.name.match(/bss|dbx/i) %>
+            <li><%= link_to t('warranty_policy'), warranty_policy_path %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
 			<% unless website.brand_name.match(/dod|studer/i) %>
 			<div class="panel">

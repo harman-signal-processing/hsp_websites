@@ -47,3 +47,11 @@ jQuery ($) ->
       "directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,height=#{ $(@).data('windowheight') },width=#{ $(@).data('windowwidth') }"
     )
 
+  $('a.start-video').click (e) ->
+    e.preventDefault()
+    video_id = $(@).data('videoid')
+    $('#videoIFrame').attr('src', 'http://www.youtube.com/embed/' + video_id + '?autostart=1').closest('#videoModal').foundation 'reveal', 'open'
+
+  $('a.close-video').click (e) ->
+    $('#videoIFrame').attr('src', '')
+

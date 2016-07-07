@@ -48,7 +48,15 @@ HarmanSignalProcessingWebsite::Application.configure do
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
+  #
+  # Use "letter_opener" to see test messages in the browser
   config.action_mailer.delivery_method = :letter_opener
+  # Or, use mailgun to actually send email...be careful
+  #config.action_mailer.delivery_method = :mailgun
+  #config.action_mailer.mailgun_settings = {
+  #  api_key: ENV['MAILGUN_API_KEY'],
+  #  domain: ENV['MAILGUN_DOMAIN']
+  #}
 
   config.i18n.fallbacks = true
 

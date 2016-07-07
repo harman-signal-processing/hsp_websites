@@ -39,7 +39,7 @@
         <% get_video_list_data(playlist["id"], limit: 50)["items"].each do |video_item| %>
           <% video = video_item['snippet'] %>
           <li align="center">
-          <%= link_to play_video_url(video["resourceId"]["videoId"]), data: { videoid: video["resourceId"]["videoId"], :'reveal-id' => "videoModal" }, class: 'start-video' do %>
+            <%= link_to play_video_url(video["resourceId"]["videoId"]), data: { videoid: video["resourceId"]["videoId"], :'reveal-id' => "videoModal" }, class: 'start-video' do %>
               <img src="http://img.youtube.com/vi/<%= video["resourceId"]["videoId"] %>/0.jpg" class="radius5">
               <small><%= video['title'] %></small>
             <% end %>

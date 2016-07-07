@@ -55,11 +55,11 @@ feature "Promotions" do
     end
 
   	it "lists current promos" do
-      expect(page).to have_link I18n.t(:download_promotion_form), href: @promo.promo_form.url
+      expect(page).to have_link @promo.name, href: promotion_path(@promo, locale: I18n.default_locale)
     end
 
     it "links to recently expired promotion" do
-      expect(page).to have_link I18n.t(:download_promotion_form), href: @recently_expired_promo.promo_form.url
+      expect(page).to have_link @recently_expired_promo.name, href: promotion_path(@recently_expired_promo, locale: I18n.default_locale)
     end
 
   	it "does not list expired promos" do

@@ -13,6 +13,7 @@
 //= require jquery.datetimepicker
 //= require jquery.bxSlider.min
 //= require jquery.pin
+//= require slick
 //= require jwplayer
 //= require soundmanager2-nodebug-jsmin
 //= require inline_player
@@ -41,3 +42,11 @@ soundManager.useFlashBlock = false; // optionally, enable when you're ready to d
 soundManager.debugMode = false;
 soundManager.preferFlash = false;
 
+$(function(){
+  $('.featured-slider').slick({
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 4000
+  });
+});

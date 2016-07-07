@@ -1,0 +1,27 @@
+<%= cache ["video_strip", website.brand, I18n.locale] do %>
+  <% if @youtube && !@youtube.blank? %>
+  <div class="homepage_block">
+    <div class="container" id="homepage-video-banner">
+      <div class="row">
+        <div class="large-12 small-12 columns">
+          <%= render_partial 'shared/column_for_youtube' %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="videoModal" class="reveal-modal" data-reveal aria-labelledby="Video" aria-hidden="true" role="dialog">
+    <div class="flex-video youtube">
+      <iframe name="videoIFrame" id="videoIFrame" src="" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <a class="close-reveal-modal close-video" aria-label="Close">&#215;</a>
+  </div>
+
+  <% elsif @featured_video %>
+  <div class="homepage_block">
+    <div class="container text-center" id="homepage-video-banner">
+      <iframe width="957" height="538" src="//www.youtube.com/embed/<%= @featured_video %>?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+  <% end %>
+<% end %>

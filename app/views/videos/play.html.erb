@@ -2,19 +2,18 @@
 <p><%= link_to "<< back to videos", videos_path %></p>
 
 <div class="row">
-  <div class="large-8 large-offset-2 small-12 columns">
-    <div class="video-window">
-      <iframe class="video-player" id="<%= @video_id %>" type="text/html" width="640" height="390" src="http://www.youtube.com/embed/<%= @video_id %>" frameborder="1"></iframe>
-    </div>
-    <div>
-      <%= render 'shared/add_this' %>
-      <% begin %>
-        <p><%= auto_link @video['description'] %></p>
-      <% rescue %>
-        <!-- Meta data could not be loaded -->
-      <% end %>
+  <div class="medium-12 large-10 large-offset-1 small-12 columns">
+    <div class="video-window flex-video youtube">
+      <iframe class="video-player" id="<%= @video_id %>" src="http://www.youtube.com/embed/<%= @video_id %>" frameborder="0"></iframe>
     </div>
 
+    <%= render 'shared/add_this' %>
+
+    <% begin %>
+      <p><%= auto_link @video['description'] %></p>
+    <% rescue %>
+      <!-- Meta data could not be loaded -->
+    <% end %>
 
     <%= cache "yt_side_bar_#{@video_id}" do %>
 			<%= related_product_links_for_video(@video) %>

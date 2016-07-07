@@ -2,7 +2,7 @@ class RegisteredDownloadsController < ApplicationController
   skip_before_filter :verify_authenticity_token
   before_filter :load_registered_download_and_set_layout
   layout :set_layout
-  
+
   # GET /:registered_download_url
   # POST /:registered_download_url/register
   def register
@@ -14,12 +14,17 @@ class RegisteredDownloadsController < ApplicationController
       params[:download_registration][:registered_download_id] = @registered_download.id
       @download_registration = DownloadRegistration.new(download_registration_params)
       if @download_registration.save
+        session["dreg"] = @download_registration.id
         redirect_to confirm_download_registration_path(@registered_download.url) and return
       end
     end
   end
-  
+
   def confirmation
+    @download_registration = false
+    if session["dreg"]
+      @download_registration = DownloadRegistration.find session["dreg"]
+    end
   end
 
   # GET /:registered_download_url/get_it/:download_code
@@ -41,7 +46,7 @@ class RegisteredDownloadsController < ApplicationController
       if @download_registration.download_count.to_i >= @registered_download.per_download_limit.to_i
         download_error("Download attempts exceeded limit")
       else
-        # send_file(@registered_download.protected_software.path, 
+        # send_file(@registered_download.protected_software.path,
         #   type: @registered_download.protected_software_content_type,
         #   filename: @registered_download.protected_software_file_name)
         redirect_to @registered_download.protected_software.expiring_url
@@ -53,9 +58,9 @@ class RegisteredDownloadsController < ApplicationController
       download_error("Invalid code.")
     end
   end
-  
+
   private
-  
+
   # error page
   def download_error(msg="Invalid code.")
     @message = msg
@@ -68,9 +73,9 @@ class RegisteredDownloadsController < ApplicationController
       download_error("Sorry, I couldn't find that file. Check the URL")
     end
   end
-  
+
   def set_layout
-    if @registered_download 
+    if @registered_download
       fn = @registered_download.html_layout_filename.to_s
       unless File.exist?(fn)
         @registered_download.save_templates_to_filesystem

@@ -13,7 +13,7 @@ class Product < ActiveRecord::Base
   has_many :product_reviews, through: :product_review_products
   has_many :news_products, dependent: :destroy
   has_many :news, through: :news_products
-  has_many :product_documents, -> { order("document_type, document_file_name") }, dependent: :destroy
+  has_many :product_documents, -> { order("position, document_type, document_file_name") }, dependent: :destroy
   has_many :product_softwares, -> { order("software_position") }, dependent: :destroy
   has_many :softwares, through: :product_softwares
   has_many :product_specifications, -> { order('position') }, dependent: :destroy

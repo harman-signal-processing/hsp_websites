@@ -31,33 +31,35 @@
 		<% end %>
 	</div>
 	<div class="large-5 columns">
-		<div class="panel">
-			<div class="text-center">
-				<%= link_to download_software_path(@software, locale: I18n.locale), class: "large button" do %>
-					<%= image_tag "down_arrow.png", alt: '' %>
-					<%= t("download") %>
-				<% end %>
-			</div>
+    <% if @software.ware.present? || @software.link.present? %>
+      <div class="panel">
+        <div class="text-center">
+          <%= link_to download_software_path(@software, locale: I18n.locale), class: "large button" do %>
+            <%= image_tag "down_arrow.png", alt: '' %>
+            <%= t("download") %>
+          <% end %>
+        </div>
 
-			<ul class="list no-bullet">
-				<li>
-					<%= platform_icon(@software, 17) %>
-					<%= link_to(@software.formatted_name, download_software_path(@software, locale: I18n.locale)) %>
-					<% if @software.ware_file_size.present? %>
-					[<%= number_to_human_size(@software.ware_file_size)%>]
-					<% end %>
-				</li>
+        <ul class="list no-bullet">
+          <li>
+            <%= platform_icon(@software, 17) %>
+            <%= link_to(@software.formatted_name, download_software_path(@software, locale: I18n.locale)) %>
+            <% if @software.ware_file_size.present? %>
+            [<%= number_to_human_size(@software.ware_file_size)%>]
+            <% end %>
+          </li>
 
-				<% @software.software_attachments.each do |sa| %>
-				<li>
-					<% if sa.software_attachment_content_type.match(/pdf/i) %>
-						<%= image_tag("icons/pdf_17.png", style: "vertical-align: middle;") %>
-					<% end %>
-					<%= link_to sa.name, sa.software_attachment.url %>
-				</li>
-				<% end %>
-			</ul>
-		</div>
+          <% @software.software_attachments.each do |sa| %>
+          <li>
+            <% if sa.software_attachment_content_type.match(/pdf/i) %>
+              <%= image_tag("icons/pdf_17.png", style: "vertical-align: middle;") %>
+            <% end %>
+            <%= link_to sa.name, sa.software_attachment.url %>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 	</div>
 </div>
 

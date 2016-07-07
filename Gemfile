@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '4.2.5.1'
+gem 'rails', '4.2.6'
 gem 'responders', '~> 2.0'
 # Gems used only for assets and not required
 # in production environments by default.
@@ -10,21 +10,21 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem "foundation-rails", '~> 5.5'
-gem 'lightbox2-rails'
+gem 'lightbox2-rails', '~> 2.7.1' # 6/1/2016 v2.8.2.1 stopped working.
 gem 'image_zoomer'
-gem 'jquery-rails'
+gem 'jquery-rails', "~> 4.0.5" # 4.1 broke buy it now popups
 
 # To use debugger
 # gem 'ruby-debug'
 
 # Bundle the extra gems:
-gem 'mysql2', '~> 0.3.18' # sphinx needs '0.3.12b4'
+gem 'mysql2' #, '~> 0.3.18' # sphinx needs '0.3.12b4'
 gem 'utf8-cleaner'
 gem "friendly_id"
 gem 'aws-sdk', '< 2.0'
 gem 'fog'
 gem 'asset_sync'
-gem "paperclip" #, "~> 3.0"
+gem "paperclip", "4.3.6" # After this, AWS 2 is needed
 gem 'paperclip-meta'
 gem 's3_direct_upload'
 gem 'meta-tags', '~> 1.5', require: 'meta_tags' # v 2.0.0 caused an error
@@ -33,14 +33,14 @@ gem 'mechanize'
 gem 'geokit', '>= 1.8.5'
 gem 'geokit-rails'
 gem 'thinking-sphinx', '~> 3.0'
-gem 'google-api-client', require: 'google/api_client'
+gem 'google-api-client', '~> 0.8.6', require: 'google/api_client'
 gem 'twitter', '~> 5.1'
 gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'devise'
 gem 'cancan'
 gem 'gravtastic'
-gem "recaptcha", require: "recaptcha/rails"
+gem "recaptcha", '~> 1.3', require: "recaptcha/rails"
 gem 'to_xls-rails'
 gem 'acts_as_list'
 gem 'acts_as_tree'
@@ -70,6 +70,7 @@ gem 'cheetah_mail', "~> 0.6.0"
 gem 'rmagick', require: 'rmagick'
 gem 'typhoeus' # For link validator
 gem 'slick_rails' # slick carousel
+gem 'mailgun_rails' # mailer service
 
 ### Could be useful in the future...
 # gem "bing_translate_yaml", "~> 0.1.7"
@@ -84,7 +85,7 @@ group :production, :staging do
 end
 
 group :development do
-  gem 'web-console', '~> 2.0'
+  gem 'web-console' #, '~> 2.0'
   gem 'capistrano', '~> 3.4', require: false
   gem 'capistrano-rails', require: false
   gem 'capistrano-bundler', require: false
@@ -116,4 +117,5 @@ group :test do
   gem 'simplecov', require: false
   gem 'json-schema'
   gem 'faker'
+  gem 'test_after_commit' # makes devise 4.1+ work with specs. This won't be needed with rails5
 end

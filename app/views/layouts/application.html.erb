@@ -114,18 +114,20 @@
 				<div class="large-6 columns hide-for-small" id="footer_info">
 					<span class="footer_text">
 						<% if website.has_software? %>
-						<%= link_to t('software_downloads').downcase, software_index_path %> &bull;
+              <%= link_to t('software_downloads').downcase, software_index_path %> &bull;
 						<% end %>
 						<%= link_to t('products'), product_families_path %> &bull;
 						<% if website.has_reviews? %>
 						<%#= link_to t('product_reviews').downcase, product_reviews_path %>
 						<% end %>
-						<%= link_to t('news'), news_index_path %> &bull;
+            <% if website.has_news? %>
+              <%= link_to t('news'), news_index_path %> &bull;
+            <% end %>
 						<% if website.has_artists? %>
-						<%= link_to t('artists'), artists_path %> &bull;
+              <%= link_to t('artists'), artists_path %> &bull;
 						<% end %>
 						<% if website.has_dealers? || website.has_online_retailers? || website.has_distributors? %>
-						<%= link_to t('where_to_buy'), where_to_buy_path %> &bull;
+              <%= link_to t('where_to_buy'), where_to_buy_path %> &bull;
 						<% end %>
 						<%= link_to t('product_support'), support_path %> &bull;
             <%= link_to 'careers', "http://jobs.harman.com", target: "_blank" %> &bull;
@@ -142,7 +144,7 @@
 			<%= yield :popup_code %>
 		<% end %>
 
-    <%= render_partial "shared/pardot" %>
+    <%= render_partial "shared/footer_scripts" %>
 
 	</body>
 </html>

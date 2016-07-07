@@ -21,9 +21,7 @@ end
 %>
 
 <div id="<%= product.to_param %>" class="small_product_box">
-
-	<% if product.layout_class == "vertical" %>
-
+	<% if product.layout_class.to_s.match(/vertical/i) %>
 		<div class="row collapse">
 			<div class="large-4 small-4 columns">
 				<div class="product_thumb">
@@ -54,7 +52,6 @@ end
 		</div>
 
 	<% else %>
-
 		<div class="product_thumb">
 		<% if product.photo %>
 			<% if extra_large %>

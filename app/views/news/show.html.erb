@@ -43,6 +43,10 @@ set_meta_tags title: translate_content(@news, :title),
 			</div>
 			<% end %>
 
+      <% if website.news_side_content %>
+        <%=raw website.news_side_content %>
+      <% end %>
+
 			<% if @recent_news.size > 0 %>
 			<div class="hide-for-small">
 				<br/>

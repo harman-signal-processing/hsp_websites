@@ -4,13 +4,14 @@ module VideosHelper
     products = []
     if video['tags'] && video['tags'].is_a?(Array)
       video['tags'].each do |tag|
-        #begin
-          if p = Product.find(tag.downcase.gsub(/\s/, "-"))
+        begin
+          if Product.exists?(tag.downcase.gsub(/\s/, "-"))
+            p = Product.find(tag.downcase.gsub(/\s/, "-"))
             products << link_to(p.name, p) if p.show_on_website?(website)
           end
-        #rescue
-        #  logger.debug "Record not found for #{tag.downcase.gsub(/\s/, '-')}"
-        #end
+        rescue
+          logger.debug "Record not found for #{tag.downcase.gsub(/\s/, '-')}"
+        end
       end
     end
     if products.length > 0

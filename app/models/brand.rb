@@ -10,6 +10,7 @@ class Brand < ActiveRecord::Base
   has_many :news
   has_many :faq_categories
   has_many :pages
+  has_many :installations
   has_many :promotions
   has_many :service_centers
   has_many :softwares
@@ -90,6 +91,15 @@ class Brand < ActiveRecord::Base
         end
       end
     end
+  end
+
+  # Settings that other brands have, but this brand doesn't have defined.
+  def unset_settings
+    Setting.where.not(
+      brand_id: self.id,
+      name: self.settings.pluck(:name),
+      setting_type: ["slideshow frame", "homepage feature"]
+    ).order("UPPER(name)").pluck(:name).uniq
   end
 
   # This should work as a dynamic method, but mailers have troubles
@@ -315,6 +325,10 @@ class Brand < ActiveRecord::Base
 
   def faq_categories_with_faqs
     faq_categories.select{|fc| fc if fc.faqs.length > 0 }
+  end
+
+  def has_news?
+    News.where(brand_id: self.id).count > 0
   end
 
 end

@@ -63,6 +63,13 @@ class Admin::ProductDocumentsController < AdminController
     end
   end
 
+  # POST /admin/product_documents/update_order
+  def update_order
+    update_list_order(ProductDocument, params["product_document"])
+    render nothing: true
+    website.add_log(user: current_user, action: "Sorted product documents")
+  end
+
   # DELETE /admin/product_documents/1
   # DELETE /admin/product_documents/1.xml
   def destroy

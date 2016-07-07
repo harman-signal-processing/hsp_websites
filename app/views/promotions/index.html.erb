@@ -13,21 +13,15 @@
 <div class="promotion_bug_container">
 <% @current_promotions.each do |promotion| %>
 	<div class="promotion_bug">
-		<% if promotion.tile_file_name.blank? %>
-			<h2> <%= (promotion.has_description?) ? link_to(translate_content(promotion, :name), promotion) : translate_content(promotion, :name) %> </h2>
-		<% else %>
+		<% if promotion.tile.present? %>
 			<%= (promotion.has_description?) ?
 					link_to(image_tag(promotion.tile.url(:medium), alt: promotion.name), promotion) :
 					image_tag(promotion.tile.url, alt: promotion.name) %>
 		<% end %>
+    <h2><%= link_to(translate_content(promotion, :name), promotion) %></h2>
 		<div><%= t('valid') %> <%=l promotion.start_on, format: :long %>-<%=l promotion.end_on, format: :long %>
-		<% if promotion.has_description? %>
-			<%= link_to t('more_info'), promotion, class: "small secondary button" %>
-		<% end %>
+    <br/><%= link_to t('more_info'), promotion, class: "tiny secondary button" %>
 		</div>
-		<% if !promotion.promo_form_file_name.blank? %>
-			<%= link_to t('download_promotion_form'), promotion.promo_form.url, class: "small button" %>
-		<% end %>
 	</div>
 <% end %>
 </div>
@@ -40,22 +34,14 @@
 
 	<% @expired_promotions.each do |promotion| %>
 		<div class="support_box">
-			<h4>
-				<%= (promotion.has_description?) ? link_to(translate_content(promotion, :name), promotion) : translate_content(promotion, :name) %>
-			</h4>
+			<h4><%= link_to(translate_content(promotion, :name), promotion) %></h4>
 			<div><%= t('valid') %> <%=l promotion.start_on, format: :long %>-<%=l promotion.end_on, format: :long %>
-			<% if promotion.has_description? %>
-				<%= link_to t('more_info'), promotion, class: "small secondary button" %>
-			<% end %>
+      <br/><%= link_to t('more_info'), promotion, class: "tiny secondary button" %>
 			</div>
-			<% if !promotion.promo_form_file_name.blank? %>
-				<%= link_to t('download_promotion_form'), promotion.promo_form.url, class: "small button" %>
-			<% end %>
 		</div>
 	<% end %>
 	</div>
 <% end %>
-
 
 <% unless (@current_promotions + @expired_promotions).size > 0 %>
 	<p>There are no current promotions. Check back soon.</p>

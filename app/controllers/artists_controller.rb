@@ -5,7 +5,7 @@ class ArtistsController < ApplicationController
   # GET /artists
   # GET /artists.xml
   def index
-    @featured_artists = Artist.all_for_website(website).where(featured: true).order("position")
+    @featured_artists = Artist.all_for_website(website, "position").where(featured: true)
     respond_to do |format|
       if website.brand.has_artists? # && @featured_artists.size > 0
         format.html { render_template }# index.html.erb

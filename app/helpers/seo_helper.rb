@@ -19,9 +19,9 @@ module SeoHelper
 
   def canonical_url
     url = request.protocol + website.brand.default_website.url
-    if request.path.match(/^\/(#{ dashed_locales_regex })\//)
+    if request.path.match(/^\/(#{ dashed_locales_regex })/)
       url_locale = $1
-      url + request.path.sub(/#{ url_locale }/, canonical_locale) # es-MX => en
+      url + request.path.sub(/^\/#{ url_locale }/, "/#{ canonical_locale }") # es-MX => es
     else
       url + request.path # /landing-page => unchanged
     end

@@ -50,3 +50,6 @@ INVENTORY_FILE: "/path/to/inventory.xml"
 PRICING_FILE: "/path/to/pricing.xml"
 EMPLOYEE_PRICING_PERCENT_OF_COST: "1.9"
 ARTIST_PRICING_PERCENT_OF_COST: "1.9"
+
+MAILGUN_API_KEY: key-1234567
+MAILGUN_DOMAIN: your-mailgun-domain

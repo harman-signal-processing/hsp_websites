@@ -1,0 +1,65 @@
+<%= cache ["nav_items", website.brand, I18n.locale] do %>
+	<li class="has-dropdown"><%= link_to t('products').titleize, product_families_path %>
+		<ul class="dropdown">
+			<% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
+				<%= product_family_nav_links(product_family) %>
+			<% end %>
+      <% if website.has_software? %>
+        <li><%= link_to ucfirst(t('software_downloads')), software_index_path %></li>
+      <% end %>
+      <% if website.has_product_registrations? %>
+        <li><%= link_to ucfirst(t('warranty_registration')), warranty_registration_path %></li>
+      <% end %>
+      <% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
+        <li><%= link_to "Promotions", promotions_path %></li>
+      <% end %>
+			<li><%= link_to "Discontinued Products", discontinued_products_path %></li>
+		</ul>
+	</li>
+
+  <li class="divider hider-for-medium"></li>
+  <li><%= link_to "Solution", "/#{I18n.locale}/tunnel-solutions" %></li>
+
+  <% if website.has_installations? %>
+    <li class="divider hide-for-medium"></li>
+    <li><%= link_to t('installations').titleize, installations_path %></li>
+  <% end %>
+
+  <% if website.has_news? %>
+    <li class="divider hide-for-medium"></li>
+    <li><%= link_to t('news').titleize, news_index_path %></li>
+  <% end %>
+
+  <li class="divider hide-for-medium"></li>
+  <li><%= link_to "technical papers".titleize, support_downloads_path %></li>
+
+	<% if website.has_artists? %>
+    <li class="divider hide-for-medium"></li>
+    <li><%= link_to t('artists').titleize, artists_path %></li>
+	<% end %>
+
+	<% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
+    <li class="divider hide-for-medium"></li>
+    <li><%= link_to t('where_to_buy').titleize, where_to_buy_path %></li>
+	<% end %>
+
+	<% if !!(website.forum_link) %>
+    <li class="divider hide-for-medium"></li>
+    <li class="hide-for-medium"><%= link_to t("forum").titleize, website.forum_link %></li>
+	<% end %>
+
+  <li class="divider hide-for-medium"></li>
+  <li class="has-dropdown">
+    <%= link_to "company".titleize, '#' %>
+    <ul class="dropdown">
+      <li><%= link_to t("about").titleize, '/about-duran' %></li>
+      <li><%= link_to "ISO9001", '/iso9001' %></li>
+      <li><%= link_to "ISO14001", '/iso14001' %></li>
+      <li><%= link_to "Social Responsibility", '/csr' %></li>
+      <li><%= link_to "Careers", "http://jobs.harman.com", target: "_blank" %></li>
+    </ul>
+  </li>
+
+  <li class="divider hide-for-medium"></li>
+	<li><%= link_to t('product_support').titleize, support_path %></li>
+<% end %>

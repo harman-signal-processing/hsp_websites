@@ -49,7 +49,9 @@
         <% end %>
       <% end %>
       <li><%= link_to "Microphones", "/akg-mics" %></li>
-			<!-- <li><%#= link_to "Promotions", promotions_path %></li> -->
+      <% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
+        <li><%= link_to "Promotions", promotions_path %></li>
+      <% end %>
 			<li><%= link_to "Discontinued Products", discontinued_products_path %></li>
 		</ul>
 	</li>
@@ -90,7 +92,9 @@
       <% if !!(website.forum_link) %>
       <li><%= link_to t("forum").titleize, website.forum_link %></li>
       <% end %>
-      <li><%= link_to t("warranty_registration").titleize, warranty_registration_path %></li>
+      <% if website.has_product_registrations? %>
+        <li><%= link_to t("warranty_registration").titleize, warranty_registration_path %></li>
+      <% end %>
       <li class="has-dropdown"><%= link_to "Service", '#', class: "disabled" %>
         <ul class="dropdown">
           <li><%= link_to "Service Centers", support_path(action: "service_lookup") %></li>

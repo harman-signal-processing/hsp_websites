@@ -24,7 +24,7 @@ require 'capistrano/rails/migrations'
 #TODO: re-enable this to restart passenger apps once all servers are
 # on passenger v5+
 #require 'capistrano/passenger'
-require 'capistrano/delayed-job'
+require 'capistrano/delayed_job'
 require 'thinking_sphinx/capistrano'
 
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined

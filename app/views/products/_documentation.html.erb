@@ -1,5 +1,5 @@
 <ul class="docs">
-	<% if product.current_and_recently_expired_promotions.length > 0 %>
+	<% if product.current_and_recently_expired_promotions.where.not(promo_form_file_name: [nil, '']).length > 0 %>
 	<li>
 		<%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
 		<%= link_to(t('product_page.rebate_forms'), promotions_path) %>

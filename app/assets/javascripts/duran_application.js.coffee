@@ -35,13 +35,13 @@ jQuery ($) ->
 
 		if scroll <= 0
 			$('.bouncing-arrow').not(':animated').fadeIn(500)
-			$("#video_background").css(bottom: '0px')
+      #$("#video_background").css(bottom: '0px')
 			$("#tagline").css(bottom: '-20px')
 			$("#tagline").fadeIn(900)
 		else
 			$('.bouncing-arrow').not(':animated').fadeOut(500)
 			$("#tagline").fadeOut(2500)
-			if scroll > 1000
-				$("#video_background").css(bottom: "150px")
-			else
-			 	$("#video_background").css('bottom', "#{scroll * 0.3}px")
+      #if scroll > 1000
+      #	$("#video_background").css(bottom: "150px")
+      #else
+      # 	$("#video_background").css('bottom', "#{scroll * 0.3}px")

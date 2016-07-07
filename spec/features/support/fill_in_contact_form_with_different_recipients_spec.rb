@@ -35,7 +35,7 @@ feature "Complete contact form with custom recipients" do
 
     last_email = get_last_email
     expect(last_email.subject).to eq(@subjects.last.name)
-    expect(last_email.to.length).to be(2)
+    expect(last_email.to.length).to be > 1
     expect(last_email.to).to include(@recipient1)
     expect(last_email.to).to include(@recipient2)
   end

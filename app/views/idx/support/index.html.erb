@@ -20,9 +20,11 @@
 	<% if !!(website.value_for("troubleshooting_url")) %>
 	<%= link_to t('troubleshooting').downcase, support_path(action: "troubleshooting") %> &bull;
 	<% end %>
+  <% if website.has_product_registrations? %>
 	<!--
 	<%#= link_to t('warranty_registration'), warranty_registration_path %> &bull;
 	-->
+  <% end %>
 	<%= link_to t('titles.rohs'), rohs_path %>
 </p>
 

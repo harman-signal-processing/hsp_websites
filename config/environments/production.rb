@@ -84,6 +84,11 @@ HarmanSignalProcessingWebsite::Application.configure do
     }
 
   config.action_mailer.default_url_options = { :host => 'www.digitech.com' }
+  config.action_mailer.delivery_method = :mailgun
+  config.action_mailer.mailgun_settings = {
+    api_key: ENV['MAILGUN_API_KEY'],
+    domain: ENV['MAILGUN_DOMAIN']
+  }
 
   # Disabled as of 10/15/2014 per Vinne Peng's incessant complaints. The problem is
   # sometimes auto translation overwrites what she had previously provided for

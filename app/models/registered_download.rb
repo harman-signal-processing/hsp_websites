@@ -81,8 +81,8 @@ class RegisteredDownload < ActiveRecord::Base
   end
 
   def email_layout_path
-    #Rails.root.join("public", "system", "mailers", brand.default_website.folder)
-    "../../public/system/mailers/#{brand.default_website.folder}"
+    Rails.root.join("public", "system", "mailers", brand.default_website.folder).to_s
+    #"../../public/system/mailers/#{brand.default_website.folder}"
   end
 
   def email_template_name

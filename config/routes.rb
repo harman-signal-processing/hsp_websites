@@ -146,6 +146,9 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :product_attachments do
         collection { post :update_order }
       end
+      resources :product_documents do
+        collection { post :update_order }
+      end
       resources :artists do
         collection do
           post :update_order
@@ -255,7 +258,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :product_amp_models,
         :tone_library_songs,
         :product_promotions,
-        :product_documents,
         :product_cabinets,
         :online_retailers,
         :training_classes,
@@ -267,6 +269,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :faq_categories,
         :us_rep_regions,
         :specifications,
+        :installations,
         :pricing_types,
         :site_elements,
         :news_products,
@@ -337,7 +340,13 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     end
     resources :training_modules, :training_classes, only: [:index, :show]
     get 'training' => 'support#training', as: :training
-    resources :market_segments, :pages, :product_reviews, :product_families, :demo_songs, :promotions, only: [:index, :show]
+    resources :market_segments,
+      :pages,
+      :installations,
+      :product_reviews,
+      :product_families,
+      :demo_songs,
+      :promotions, only: [:index, :show]
     get 'introducing/:id' => 'products#introducing', as: :product_introduction
     get 'products/songlist/:id.:format' => 'products#songlist', as: :product_songlist
     resources :products, only: [:index, :discontinued] do

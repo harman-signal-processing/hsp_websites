@@ -1,0 +1,28 @@
+<h1>
+	<%=h @installation.title %>
+	<span class="little"><%= link_to(installation_url(@installation), installation_url(@installation)) %>
+	<%= link_to(image_tag("icons/external_link_icon.png"), installation_url(@installation)) %></span>
+
+</h1>
+
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_installations_path, class: "small secondary button" %>	</li>
+	<li><%= link_to 'Edit', edit_admin_installation_path(@installation, locale: I18n.locale), class: "small secondary button" %></li>
+	<li><%= link_to 'Delete', [:admin, @installation], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
+
+<h5>Installation Preview:</h5>
+<p>(The font probably isn't correct below. That's because this admin interface doesn't have the same style as the actual website. Just use your imagination.)</p>
+
+<style type="text/css">
+	<%=raw @installation.custom_css %>
+</style>
+<div class="content container" style="background: white">
+	<div class="row">
+		<div class="large-8 columns large-offset-2 text-content">
+			<%=raw translate_content(@installation, :body) %>
+		</div>
+	</div>
+</div>
+
+

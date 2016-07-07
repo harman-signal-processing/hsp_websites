@@ -27,7 +27,7 @@ class Software < ActiveRecord::Base
   before_destroy :revert_version
   before_update  :revert_version_if_deactivated
   after_initialize :set_default_counter, :determine_platform
-  after_save :replace_old_version
+  after_save :replace_old_version, :touch_products
 
   belongs_to :brand, touch: true
 
@@ -81,6 +81,10 @@ class Software < ActiveRecord::Base
         ProductSoftware.where(software_id: self.id, product_id: ps.product_id).first_or_create
       end
     end
+  end
+
+  def touch_products
+    products.each {|p| p.touch}
   end
 
   def formatted_name

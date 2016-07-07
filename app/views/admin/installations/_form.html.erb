@@ -1,0 +1,25 @@
+<%= simple_form_for([:admin, @installation]) do |f| %>
+  <%= f.input :title %>
+
+  <div class="row">
+    <div class="large-6 columns">
+      <% if website.installation_layouts %>
+        <%= f.input :layout_class, label: "installation layout style",
+              collection: ["full", "wide", "narrow"] %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-6 columns">
+      <%= f.input :custom_css, label: "Custom CSS", input_html: { style: "height: 50px" } %>
+    </div>
+  </div>
+
+  <%#= f.input :keywords %>
+  <%#= f.input :description %>
+
+  <%= f.input :body, input_html: { class: "mceEditor", style: "height: 400px" } %>
+
+  <br/><%= f.button :submit %>
+<% end %>
