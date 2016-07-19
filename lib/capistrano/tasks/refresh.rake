@@ -51,7 +51,7 @@ namespace :refresh do
       execute :mkdir, "-p", folder
 
       within folder do
-        execute :mysqldump, "-u #{@db['username']} --password=#{@db['password']} -h #{@db['host']} --port=#{@db['port']} #{@db['database']} > #{@filename}"
+        execute :mysqldump, "--opt -u #{@db['username']} --password=#{@db['password']} -h #{@db['host']} --port=#{@db['port']} #{@db['database']} > #{@filename}"
         curr = capture(:pwd)
         download! "#{curr}/#{@filename}", "./#{@filename}"
         execute :rm, @filename
@@ -108,7 +108,7 @@ namespace :refresh do
           rake 'db:drop'
           rake 'db:create'
 
-          execute :mysqldump, "-u #{@db['production']['username']} --password=#{@db['production']['password']} -h #{@db['production']['host']} --port=#{@db['production']['port']} #{@db['production']['database']} | mysql -u #{@db['staging']['username']} --password=#{@db['staging']['password']} #{@db['staging']['database']}"
+          execute :mysqldump, "--opt -u #{@db['production']['username']} --password=#{@db['production']['password']} -h #{@db['production']['host']} --port=#{@db['production']['port']} #{@db['production']['database']} | mysql -u #{@db['staging']['username']} --password=#{@db['staging']['password']} #{@db['staging']['database']}"
 
           rake 'db:migrate'
           puts "Setting up staging sites"

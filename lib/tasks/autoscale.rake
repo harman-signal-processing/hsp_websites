@@ -43,4 +43,11 @@ namespace :rackspace do
     launch_config.save
   end
 
+  # Use this command to determine the overall CPU usage on the server:
+  #
+  # echo print `ps -A -o pcpu | tail -n+2 | paste -sd+ | bc `/ `nproc` | python
+  #
+  # But I probably need to log that number and see if it is something like
+  # more than 90% for 2 minutes in a row before scaling up.
+
 end
