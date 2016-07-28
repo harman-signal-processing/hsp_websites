@@ -39,7 +39,7 @@ class ContactMessage < ActiveRecord::Base
   end
 
   def require_purchase_date?
-    rma_request? && !self.brand.name.to_s.match(/crown/)
+    rma_request?
   end
 
   def require_country?
