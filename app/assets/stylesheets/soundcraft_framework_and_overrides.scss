@@ -18,22 +18,11 @@ $color-main-alpha: rgba($color-main, 0.9);
 $color-soundcraft: #004666;
 $color-soundcraft-alpha: rgba($color-soundcraft, 0.9);
 
-/* Adobe triad colors based on soundcraft blue */
-$color-accent: #BC0B24; /* red */
-$color-accent-alpha: rgba($color-accent, 0.9);
-
-$color-accent2: #B2AB00; /* yellow */
-$color-accent2-alpha: rgba($color-accent2, 0.9);
-$secondary-color: $color-accent2;
-
-$color-accent3: #33310B; /* green, secondary to yellow */
-$color-accent3-alpha: rgba($color-accent3, 0.9);
-
 $color-accent4: #3C8DB2; /* blue, secondary to soundcraft  */
 $color-accent4-alpha: rgba($color-accent4, 0.9);
 
-$color-link: $color-gray-lighter;
-$color-link-alpha: rgba($color-link, 0.9);
+$primary-color: $color-soundcraft;
+$secondary-color: #B2AB00; /* yellow */
 
 $primary-font: 'Lato', sans-serif;
 
@@ -322,28 +311,32 @@ footer {
     }
 }
 
- #homepage_banners {
-      img {
-    border-radius: 5px;
-    padding: 0px;
-    height: 100%;
-    width: 100%;
-    padding: 2px;
+#homepage_banners {
+    img {
+  border-radius: 5px;
+  padding: 0px;
+  height: 100%;
+  width: 100%;
+  padding: 2px;
+ }
+ .visit_us {
+   background: $color-soundcraft;
+   border-radius: 5px;
+   padding-top: 40px;
+    padding-bottom: 55px;
+   h3 {
+     font-size: 1.7em;
+    color: $color-gray-lighter;
    }
-   .visit_us {
-     background: $color-soundcraft;
-     border-radius: 5px;
-     padding-top: 40px;
-      padding-bottom: 55px;
-     h3 {
-       font-size: 1.7em;
-      color: $color-gray-lighter;
-     }
-     h4 {
-       font-size: 1em;
-       font-weight: thin;
-      color: $color-gray-lighter;
-     }
+   h4 {
+     font-size: 1em;
+     font-weight: thin;
+    color: $color-gray-lighter;
    }
  }
-
+}
+.product-title-block {
+  h3 {
+    font-weight: 200;
+  }
+}

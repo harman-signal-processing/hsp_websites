@@ -23,6 +23,8 @@
                 var offset = $this.offset();
                 var containerOffset = $container.offset();
                 var parentOffset = $this.offsetParent().offset();
+// This log helps debug problems
+console.log(parentOffset);
 
                 if (!$this.parent().is(".pin-wrapper")) {
                     $this.wrap("<div class='pin-wrapper'>");
@@ -43,7 +45,10 @@
                   });
                 }
 
-                $this.css({width: $this.outerWidth()});
+
+                // Trying fix from github
+                //$this.css({width: $this.outerWidth()});
+                $this.css({width: $this.parent().outerWidth()});
                 $this.parent().css("height", $this.outerHeight());
             }
         };
@@ -62,23 +67,24 @@
                   continue;
                 }
 
-                elmts.push($this); 
-                  
+                elmts.push($this);
+
                 var from = data.from - data.pad.bottom,
                     to = data.to - data.pad.top;
-              
+
                 if (from + $this.outerHeight() > data.end) {
                     $this.css('position', '');
                     continue;
                 }
-              
-                if (from < scrollY && to > scrollY) {
+
+                if (from < scrollY && to >= scrollY) {
                     !($this.css("position") == "fixed") && $this.css({
                         left: $this.offset().left,
                         top: data.pad.top
                     }).css("position", "fixed");
                     if (options.activeClass) { $this.addClass(options.activeClass); }
-                } else if (scrollY >= to) {
+                } else if (scrollY > to) {
+                  var computed = to - data.parentTop + data.pad.top;
                     $this.css({
                         left: "",
                         top: to - data.parentTop + data.pad.top
@@ -95,7 +101,7 @@
         var update = function () { recalculateLimits(); onScroll(); };
 
         this.each(function () {
-            var $this = $(this), 
+            var $this = $(this),
                 data  = $(this).data('pin') || {};
 
             if (data && data.update) { return; }
@@ -103,6 +109,8 @@
             $("img", this).one("load", recalculateLimits);
             data.update = update;
             $(this).data('pin', data);
+//adding this log line helps debug jumping around when the page is refreshed half-scrolled
+console.log(data);
         });
 
         $window.scroll(onScroll);
