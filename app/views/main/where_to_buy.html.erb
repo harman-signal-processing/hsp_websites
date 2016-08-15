@@ -95,7 +95,7 @@
           <div class="medium-6 columns end">
 
             <% if addr = website.address_and_phone %>
-              <p>To find a licensed <%= website.brand.name %> contractor/installer in the US, please contact us at:</p>
+              <p>To find a certified <%= website.brand.name %> representative, please contact us at:</p>
               <blockquote><%=raw addr %>
                 <% if sup = website.support_email %>
                 <br/><%= mail_to sup, sup %>
@@ -103,7 +103,7 @@
               </blockquote>
               <p>Or, complete our <%= link_to "contact form", support_path %>.</p>
             <% else %>
-              <p>To find a licensed <%= website.brand.name %> contractor/installer in the US, please contact us by filling out our <%= link_to "contact form", support_path %>.</p>
+              <p>To find a certified <%= website.brand.name %> representative, please contact us by filling out our <%= link_to "contact form", support_path %>.</p>
             <% end %>
 
             <h3><%= website.brand.name %> US Sales Reps</h3>
