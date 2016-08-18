@@ -125,6 +125,7 @@ module ApplicationHelper
 
   # Used by the "orbit_slideshow" method to render a frame
   def orbit_slideshow_frame(slide, position=0)
+    link_options = {}
     if slide.is_a?(Artist)
       artist = slide
       artist_brand = artist.artist_brands.where(brand_id: website.brand_id).first
@@ -139,9 +140,15 @@ module ApplicationHelper
     else
       slide_link = (slide.string_value =~ /^\// || slide.string_value =~ /^http/i) ? slide.string_value : "/#{params[:locale]}/#{slide.string_value}"
 
+      if slide.string_value.to_s.match(/http/i)
+        unless slide.string_value.to_s.match(/#{website.url}/i)
+          link_options[:target] = "_blank"
+        end
+      end
+
       slide_content = (slide.string_value.blank?) ?
           image_tag(slide.slide.url) :
-          link_to(image_tag(slide.slide.url), slide_link)
+          link_to(image_tag(slide.slide.url), slide_link, link_options)
     end
 
     # We may want to use the built-in captions
