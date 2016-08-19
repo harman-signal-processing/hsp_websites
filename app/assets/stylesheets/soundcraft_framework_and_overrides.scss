@@ -23,6 +23,7 @@ $color-accent4-alpha: rgba($color-accent4, 0.9);
 
 $primary-color: $color-soundcraft;
 $secondary-color: #B2AB00; /* yellow */
+$anchor-font-color: scale-color($color-soundcraft, $lightness: 20%);
 
 $primary-font: 'Lato', sans-serif;
 
@@ -239,28 +240,18 @@ footer {
 
 /* MAIN /////////////////////////////////// */
 
-#homepage_news {
-   padding: 0px 0px 10px 0px;
-   margin: 0px 0px 50px 0px;
-  .news_header {
-    margin: 30px 0px 0px 0px;
-    font-weight: $font-thin;
-    a {
-      color: $color-gray-medium;
-      font-size: 30px;
-    }
-     a:hover {
-       color: $color-soundcraft;
-       background: transparent;
-     }
-   }
-   .news_subheader{
-     color: $color-gray-medium;
-     font-size: 15px;
-     font-style: italic;
-   }
+#topper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
-
+#main_container {
+  margin-top: 80px;
+}
+.news_strip {
+  padding-top: 10px;
+}
 #homepage_product_features {
     h1 {
       font-size: 1.8em;
@@ -283,9 +274,9 @@ footer {
    }
    .title_field {
       background: $color-soundcraft;
-      padding-top: 60px;
-      padding-bottom: 32px;
-      border-radius: 5px;
+      padding-top: 30px;
+      padding-bottom: 30px;
+      border-radius: 4px;
     }
 }
 
@@ -339,4 +330,9 @@ footer {
   h3 {
     font-weight: 200;
   }
+}
+
+// Product family pages
+.product_family_header {
+  margin-top: 70px;
 }
