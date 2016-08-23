@@ -42,7 +42,7 @@ class Software < ActiveRecord::Base
   def increment_count
     set_default_counter
     self.download_count += 1
-    self.save
+    self.send(:update_without_callbacks)
   end
 
   # Store an unescaped version of the escaped URL that Amazon returns from direct upload.
