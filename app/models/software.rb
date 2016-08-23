@@ -41,8 +41,8 @@ class Software < ActiveRecord::Base
 
   def increment_count
     set_default_counter
-    self.download_count += 1
-    self.send(:update_without_callbacks)
+    new_count = self.download_count + 1
+    Software.where(id: self.id).update_all(download_count: new_count)
   end
 
   # Store an unescaped version of the escaped URL that Amazon returns from direct upload.
