@@ -2,7 +2,7 @@
 
   <%=raw translate_content(@product, :description) %>
 
-  <% if @product.market_segments.uniq.length > 0 %>
+  <% if @product.show_recommended_verticals && @product.market_segments.uniq.length > 0 %>
     <p>
       <i>Recommended for:
         <%=

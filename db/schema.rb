@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160620153616) do
+ActiveRecord::Schema.define(version: 20160829152534) do
 
   create_table "admin_logs", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -1129,6 +1129,7 @@ ActiveRecord::Schema.define(version: 20160620153616) do
     t.string   "extended_description_tab_name",  limit: 255
     t.string   "product_page_url",               limit: 255
     t.text     "legal_disclaimer",               limit: 65535
+    t.boolean  "show_recommended_verticals",                   default: true
   end
 
   add_index "products", ["brand_id", "product_status_id"], name: "index_products_on_brand_id_and_product_status_id", using: :btree
