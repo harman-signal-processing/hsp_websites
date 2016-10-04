@@ -1,0 +1,184 @@
+<% set_meta_tags title: t('titles.support'),
+				 description: t('meta.description.support', brand: website.brand_name),
+				 reverse: true %>
+
+<div class="row">
+
+	<div class="large-4 columns">
+		<%= cache ["support_body", website.brand, I18n.locale] do %>
+
+			<% if addr = website.value_for("address_and_phone") %>
+			<div class="panel">
+				<h4><%= t("titles.mailing_address") %></h4>
+				<p><%=raw addr %>
+					<% if sup = website.value_for("support_email") %>
+					<br/><%= mail_to sup, sup %>
+					<% end %>
+				</p>
+			</div>
+			<% end %>
+
+			<div class="panel">
+				<h4><%= t('titles.product_support') %></h4>
+				<p><%= t('blurbs.product_support') %></p>
+				<%= form_tag support_path, method: :get do |f| %>
+					<div class="row collapse">
+						<div class="medium-9 small-9 columns">
+							<%= select_tag :product_id,
+									options_from_collection_for_select(website.current_and_discontinued_products([:product_families]) - website.vintage_products, :to_param, :name) + vintage_options(), 
+									include_blank: true %>
+						</div>
+						<div class="medium-3 small-3 columns">
+							<%= submit_tag t('go'), class: "postfix button" %>
+						</div>
+					</div>
+				<% end %>
+				<ul class="list">
+					<% if !!website.brand.name.match(/^bss/i) %>
+					<li><%= link_to t('training'), "/training" %></li>
+					<% elsif !!website.folder.to_s.match(/archimedia/) %>
+					<li><%= link_to t('training'), "/en-US/onsite_training" %></li>
+					<% elsif !!(website.has_training) %>
+					<li><%= link_to "product training", training_path %></li>
+					<% end %>
+				</ul>
+			</div>
+
+			<% if website.has_service_centers? %>
+			<div class="panel">
+				<h4><%= t('titles.locate_us_service_center') %>:</h4>
+				<%= form_tag support_path(action: "service_lookup") do |f| %>
+					<div class="row collapse">
+						<div class="medium-9 small-9 columns">
+							<%= text_field_tag "zip", session[:zip], size: 8, placeholder: t('us_zip_code') %>
+						</div>
+						<div class="medium-3 small-3 columns">
+							<%= submit_tag t('go'), class: "postfix button" %>
+						</div>
+					</div>
+				<% end %>
+				<ul class="list">
+					<% if website.has_rma_form? %>
+					<li><%= link_to t('titles.factory_service'), rma_request_path %></li>
+					<% end %>
+					<% if website.has_parts_form? %>
+					<li><%= link_to t('titles.part_request'), parts_request_path %></li>
+					<% end %>
+				</ul>
+			</div>
+			<% end %>
+
+			<% if website.has_software? %>
+			<div class="panel">
+				<h4><%= link_to t('software_downloads').titleize, software_index_path %></h4>
+				<p><%= t('blurbs.software_downloads', brand: website.brand_name) %></p>
+				<ul class="list">
+					<li><%= link_to t('software_downloads'), software_index_path %></li>
+					<% if !!(website.has_third_party_downloads) %>
+					<li><%= link_to "3rd party controllers", "/en-US/3rd-party-controllers" %></li>
+					<% end %>
+					<% if !!(website.has_speaker_tunings) %>
+					<li><%= link_to "speaker tunings", support_path(action: "speaker_tunings") %></li>
+					<% end %>
+          <li><%= link_to "More Resources", support_downloads_path %></li>
+				</ul>
+			</div>
+			<% end %>
+
+      <% if website.has_product_registrations? %>
+        <div class="panel">
+          <h4><%= link_to t('warranty_registration').titleize, warranty_registration_path %></h4>
+          <p><%= t('blurbs.warranty_registration', brand: website.brand_name) %></p>
+          <ul class="list">
+            <li><%= link_to t('warranty_registration'), warranty_registration_path %></li>
+            <% if !!website.brand.name.match(/bss|dbx/i) %>
+            <li><%= link_to t('warranty_policy'), warranty_policy_path %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+			<% unless website.brand_name.match(/dod|studer/i) %>
+			<div class="panel">
+				<h4><%= t('titles.more_resources').titleize %></h4>
+				<ul class="list">
+          <% if website.brand_name.match(/digitech/i) %>
+            <li><%= link_to t("sound_community"), soundcomm_url, target: "_blank" %></li>
+            <li><%= link_to "guitarworkstation.com", "http://www.guitarworkstation.com", target: "_blank" %></li>
+          <% end %>
+					<% if !!(website.value_for("troubleshooting_url")) %>
+					<li><%= link_to t('troubleshooting').downcase, support_path(action: "troubleshooting") %></li>
+					<% end %>
+					<% if !!(website.has_cad_drawings) %>
+					<li><%= link_to "CAD files", support_path(action: "cad") %></li>
+					<% end %>
+					<li><%= link_to t('titles.rohs'), rohs_path %></li>
+					<% if !!(website.forum_link) %>
+					<li><%= link_to t("user_forum"), website.forum_link %></li>
+					<% end %>
+          <% if !!!(website.brand.name.to_s.match(/digitech|lexicon|dod/i)) %>
+            <li><%= link_to "System Design Tools", tools_calculators_path %></li>
+          <% end %>
+          <% if !website.has_software? %>
+            <li><%= link_to "More Resources", support_downloads_path %></li>
+          <% end %>
+				</ul>
+			</div>
+			<% end %>
+
+		<% end %>
+	</div>
+	<div class="large-8 columns">
+		<h1><%= t('titles.contact_us') %></h1>
+		<%= simple_form_for @contact_message, url: support_path(action: "contact"), html: {class: "contact"} do |f| %>
+
+      <%= f.input :name, label: t('your_name'), placeholder: t('your_name') %>
+      <%= f.input :email, label: ucfirst(t('email')), placeholder: ucfirst(t('email')) %>
+    <%= cache ["contact_form_products", website.brand] do %>
+      <%= f.input :product, as: :select,
+          collection: Product.all_for_website(website) + [Product.new(name: "other")],
+          value_method: :name,
+          label_method: :name,
+          required: @contact_message.require_product?,
+          prompt: "Select A Product" %>
+    <% end %>
+      <%= f.input :subject, as: :select, collection: ContactMessage.subjects(brand: website.brand).flatten, prompt: t('subjects.select_a_subject') %>
+      <%= f.input :product_serial_number, placeholder: 'Serial number' %>
+      <%#= f.input :operating_system, placeholder: "Operating system" %>
+      <%#= f.input :shipping_address, label: t("address"), input_html: { size: "40x2" }, placeholder: t("address") %>
+      <%= f.input :shipping_country, label: t("country"), required: @contact_message.require_country?, prompt: t("country") %>
+      <%#= f.input :phone, placeholder: "Phone" %>
+
+			<%= f.input :message, label: t('message'), as: :text, input_html: { style: "height: 100px" } %>
+			<div class="captcha">
+				<%= recaptcha_tags  public_key: website.recaptcha_public_key, stoken: false %>
+			</div>
+			<%= f.submit t('submit'), class: "medium button" %>
+		<% end %>
+	</div>
+</div>
+
+<%= content_for :support_chat_javascript do %>
+  <% if !!(website.olark_id) %>
+    <!-- begin olark code -->
+    <script data-cfasync="false" type='text/javascript'>/*<![CDATA[*/window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){
+    f[z]=function(){
+    (a.s=a.s||[]).push(arguments)};var a=f[z]._={
+    },q=c.methods.length;while(q--){(function(n){f[z][n]=function(){
+    f[z]("call",n,arguments)}})(c.methods[q])}a.l=c.loader;a.i=nt;a.p={
+    0:+new Date};a.P=function(u){
+    a.p[u]=new Date-a.p[0]};function s(){
+    a.P(r);f[z](r)}f.addEventListener?f.addEventListener(r,s,false):f.attachEvent("on"+r,s);var ld=function(){function p(hd){
+    hd="head";return["<",hd,"></",hd,"><",i,' onl' + 'oad="var d=',g,";d.getElementsByTagName('head')[0].",j,"(d.",h,"('script')).",k,"='",l,"//",a.l,"'",'"',"></",i,">"].join("")}var i="body",m=d[i];if(!m){
+    return setTimeout(ld,100)}a.P(1);var j="appendChild",h="createElement",k="src",n=d[h]("div"),v=n[j](d[h](z)),b=d[h]("iframe"),g="document",e="domain",o;n.style.display="none";m.insertBefore(n,m.firstChild).id=z;b.frameBorder="0";b.id=z+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){
+    b.src="javascript:false"}b.allowTransparency="true";v[j](b);try{
+    b.contentWindow[g].open()}catch(w){
+    c[e]=d[e];o="javascript:var d="+g+".open();d.domain='"+d.domain+"';";b[k]=o+"void(0);"}try{
+    var t=b.contentWindow[g];t.write(p());t.close()}catch(x){
+    b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({
+    loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
+    /* custom configuration goes here (www.olark.com/documentation) */
+    olark.identify('<%= website.olark_id %>');/*]]>*/</script><noscript><a href="https://www.olark.com/site/<%= website.olark_id %>/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript>
+    <!-- end olark code -->
+  <% end %>
+<% end %>
