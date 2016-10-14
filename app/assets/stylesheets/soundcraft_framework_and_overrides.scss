@@ -336,3 +336,10 @@ footer {
 .product_family_header {
   margin-top: 70px;
 }
+
+.thick_left {
+  border-left: solid 10px $color-soundcraft;
+}
+.product_cat_bar {
+  border-top: solid 1px $secondary-color;
+}
