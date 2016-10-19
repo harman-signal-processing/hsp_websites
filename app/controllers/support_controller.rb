@@ -39,7 +39,13 @@ class SupportController < ApplicationController
       @warranty_registration.brand_id = website.brand_id
       if verify_recaptcha(private_key: website.recaptcha_private_key) && @warranty_registration.valid?
         @warranty_registration.save
-        redirect_to support_path, alert: t('blurbs.warranty_registration_success') and return false
+        if @warranty_registration.product.get_started_page.present?
+          cookies[@warranty_registration.product.get_started_page.cookie_name] = { value: @warranty_registration.id, expires: 10.years.from_now }
+          redirect_path = get_started_path(@warranty_registration.product.get_started_page)
+        else
+          redirect_path = support_path
+        end
+        redirect_to redirect_path, alert: t('blurbs.warranty_registration_success') and return false
       end
     else
       @warranty_registration = WarrantyRegistration.new(subscribe: true, purchased_on: Date.yesterday)

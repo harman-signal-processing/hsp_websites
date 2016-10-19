@@ -6,6 +6,9 @@ RSpec.describe Brand, :type => :model do
     @brand = FactoryGirl.create(:brand)
   end
 
+  subject { @brand }
+  it { should respond_to :get_started_pages }
+
   it "should create the counter with a value of 1" do
     @brand.increment_homepage_counter
 

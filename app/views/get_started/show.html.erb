@@ -1,0 +1,84 @@
+<%= content_for :feature do %>
+  <div class="row get-started-page-header">
+    <div class="small-12 columns">
+      <% if @get_started_page.header_image.present? %>
+        <div class="text-center"><%= image_tag @get_started_page.header_image.url, alt: "Get Started with #{@get_started_page.name}" %></div>
+      <% end %>
+
+      <h4><%= translate_content(@get_started_page, :intro) %></h4>
+    </div>
+  </div>
+
+  <div class="row fullWidth collapse">
+    <div class="small-8 large-6 columns get-started-subheader">
+      <div class="small-12 large-11 large-offset-1 columns">
+        <h3>Get Started! <%= translate_content(@get_started_page, :name) %></h3>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div class="get-started-details">
+  <%=raw translate_content(@get_started_page, :details) %>
+
+  <% if @get_started_page.require_registration_to_unlock_panels? && !cookies[@get_started_page.cookie_name] %>
+    <p>If you have already registered and would like to access the files again,
+    <%= link_to "click here", '#', data: {"reveal-id": "validate"} %> to validate your serial number.
+    </p>
+
+    <div id="validate" class="reveal-modal small" data-reveal aria-labelledby="Validate Serial Number">
+      <h4>Validate My Serial Number</h4>
+      <%= simple_form_for WarrantyRegistration.new, url: get_started_validation_path do |f| %>
+        <%= f.input :product_id,
+            collection: @get_started_page.products,
+						value_method: :id,
+						label_method: :name,
+						prompt: "Select a product",
+						required: true %>
+        <%= f.input :serial_number, required: true %>
+        <%= f.submit 'Validate', class: "medium button" %>
+      <% end %>
+      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>
+  <% end %>
+
+  <div class="row collapse tabbed-content-container">
+    <div class="small-12 medium-3 columns">
+      <ul class="tabs vertical" data-tab>
+        <% if @get_started_page.require_registration_to_unlock_panels? %>
+          <li class="tab-title active"><a href="#register">Product Registration</a></li>
+        <% end %>
+        <% @get_started_page.get_started_panels.each do |panel| %>
+          <li class="tab-title"><a href="#<%= panel.name.parameterize %>"><%= panel.name %></a></li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="small-12 medium-9 columns">
+      <div class="tabs-content">
+        <% if @get_started_page.require_registration_to_unlock_panels? %>
+          <div class="content active" id="register">
+            <% if cookies[@get_started_page.cookie_name] %>
+              <p>Thank you for registering. Please click the remaining tabs on this page to view bonus content.</p>
+            <% else %>
+              <%= render_partial "support/warranty_registration_form" %>
+            <% end %>
+          </div>
+        <% end %>
+        <% @get_started_page.get_started_panels.each do |panel| %>
+          <div class="content" id="<%= panel.name.parameterize %>">
+            <h3><%= panel.name %></h3>
+            <% if panel.locked_until_registration? && !cookies[@get_started_page.cookie_name] %>
+              <div class="alert">Sorry, this section is currently locked.</div>
+              <p>Please register your product first. Once you've registered, this section will be available.</p>
+              <p>Thank you.</p>
+            <% else %>
+              <%=raw panel.content %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+</div>

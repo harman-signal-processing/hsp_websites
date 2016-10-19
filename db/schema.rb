@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160829152534) do
+ActiveRecord::Schema.define(version: 20161018162950) do
 
   create_table "admin_logs", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -251,6 +251,7 @@ ActiveRecord::Schema.define(version: 20160829152534) do
     t.boolean  "offers_rentals"
     t.boolean  "has_installations"
     t.boolean  "has_product_registrations",                 default: true
+    t.boolean  "has_get_started_pages",                     default: false
   end
 
   add_index "brands", ["cached_slug"], name: "index_brands_on_cached_slug", unique: true, using: :btree
@@ -503,6 +504,43 @@ ActiveRecord::Schema.define(version: 20160829152534) do
   add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
+
+  create_table "get_started_page_products", force: :cascade do |t|
+    t.integer  "get_started_page_id", limit: 4
+    t.integer  "product_id",          limit: 4
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "get_started_page_products", ["get_started_page_id"], name: "index_get_started_page_products_on_get_started_page_id", using: :btree
+  add_index "get_started_page_products", ["product_id"], name: "index_get_started_page_products_on_product_id", using: :btree
+
+  create_table "get_started_pages", force: :cascade do |t|
+    t.string   "name",                                  limit: 255
+    t.string   "header_image_file_name",                limit: 255
+    t.string   "header_image_content_type",             limit: 255
+    t.integer  "header_image_file_size",                limit: 4
+    t.datetime "header_image_updated_at"
+    t.text     "intro",                                 limit: 65535
+    t.text     "details",                               limit: 65535
+    t.integer  "brand_id",                              limit: 4
+    t.string   "cached_slug",                           limit: 255
+    t.datetime "created_at",                                                         null: false
+    t.datetime "updated_at",                                                         null: false
+    t.boolean  "require_registration_to_unlock_panels",               default: true
+  end
+
+  add_index "get_started_pages", ["cached_slug"], name: "index_get_started_pages_on_cached_slug", unique: true, using: :btree
+
+  create_table "get_started_panels", force: :cascade do |t|
+    t.integer  "get_started_page_id",       limit: 4
+    t.integer  "position",                  limit: 4
+    t.boolean  "locked_until_registration",               default: true
+    t.string   "name",                      limit: 255
+    t.text     "content",                   limit: 65535
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
+  end
 
   create_table "installations", force: :cascade do |t|
     t.integer  "brand_id",     limit: 4

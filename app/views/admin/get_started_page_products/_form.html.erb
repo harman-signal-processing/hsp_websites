@@ -1,0 +1,5 @@
+<%= simple_form_for([:admin, @get_started_page_product]) do |f| %>
+  <%= f.association :product %>
+  <%= f.association :get_started_page %>
+  <br/><%= f.button :submit %>
+<% end %>

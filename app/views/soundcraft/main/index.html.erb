@@ -25,7 +25,7 @@
     <div class="row collapse">
       <div class="small-12 medium-12 large-6 columns">
         <div class="row collapse">
-          <div class="small-12 small-text-center columns  title_field" >
+          <div class="small-12 text-center columns title_field" >
             <h1>Professional Audio Mixing Consoles</h1>
             <h3>since 1973</h3>
             <a href="/products" class="button radius">click here to view products</a>
@@ -40,11 +40,32 @@
             </div>
           <% end %>
         </div>
+        <% if @features.length > 3 %>
+          <% feature = @features[3] %>
+          <div class="row collapse">
+            <div class="small-12 columns bg_transparent">
+              <%= link_to feature.string_value do %>
+                <%= image_tag feature.slide.url, alt: feature.name %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
       </div>
       <div class="small-12 medium-12 large-6 columns bg_transparent" >
         <% feature = @features.first %>
         <%= link_to feature.string_value do %>
           <%= image_tag feature.slide.url, alt: feature.name %>
+        <% end %>
+        <% if @features.length > 4 %>
+          <div class="row collapse">
+            <% @features[4,2].each do |feature| %>
+              <div class="small-6 columns bg_transparent">
+                <%= link_to feature.string_value do %>
+                  <%= image_tag feature.slide.url, alt: feature.name %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
         <% end %>
       </div>
     </div>

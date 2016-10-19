@@ -1,0 +1,8 @@
+<%= simple_form_for([:admin, @get_started_page, @get_started_panel]) do |f| %>
+  <%= f.input :name, hint: "Becomes the tab name on the page" %>
+  <%= f.input :content, input_html: { class: "mceEditor", style: "height: 400px" } %>
+  <%= f.input :locked_until_registration %>
+	<br/>
+  <%= f.button :submit %>
+<% end %>
+

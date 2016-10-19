@@ -56,6 +56,10 @@ $h4-font-size: rem-calc(18px);
 $h5-font-size: rem-calc(15px);
 $h6-font-size: 1em;
 
+$tabs-navigation-bg-color: $color-soundcraft;
+$tabs-navigation-active-bg-color: scale-color($color-soundcraft, $lightness: 20%);
+$tabs-navigation-font-color: #FFF;
+
 $include-print-styles: true;
 
 @import 'foundation';
@@ -344,3 +348,33 @@ footer {
   border-top: solid 1px $secondary-color;
   padding: 20px 0;
 }
+// Get Started Pages
+.get-started-page-header {
+  margin-top: 90px;
+}
+.get-started-subheader {
+  background-color: $color-soundcraft;
+  margin: 20px 0px;
+  h3 {
+    color: $white;
+    font-weight: 200;
+    font-size: rem-calc(32);
+    padding: 4px 10px 10px;
+  }
+}
+.get-started-details {
+  .tabbed-content-container {
+    border-top: 1px solid $secondary-color;
+    border-bottom: 1px solid $secondary-color;
+    .tabs {
+      &.vertical {
+        width: initial;
+        max-width: initial;
+      }
+      .tab-title > a {
+        border-bottom: 1px solid scale-color($color-soundcraft, $lightness: 10%) !important;
+      }
+    }
+  }
+}
+

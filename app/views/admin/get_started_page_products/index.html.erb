@@ -1,0 +1,22 @@
+<h1>Listing Get Started Page Products</h1>
+
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Get Started Page</th>
+  </tr>
+
+<% @get_started_page_products.each do |gspp| %>
+  <tr>
+    <td><%=h gspp.product_id %></td>
+    <td><%=h gspp.get_started_page_id %></td>
+    <td><%= link_to 'Show', [:admin, gspp] %></td>
+    <td><%= link_to 'Edit', edit_admin_get_started_page_product_path(gspp) %></td>
+    <td><%= link_to 'Delete', [:admin, gspp], confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New', new_admin_get_started_page_product_path %>

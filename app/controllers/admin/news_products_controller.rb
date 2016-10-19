@@ -1,7 +1,7 @@
 class Admin::NewsProductsController < AdminController
   before_filter :initialize_news_product, only: :create
   load_and_authorize_resource
-  
+
   # GET /admin/news_products
   # GET /admin/news_products.xml
   def index

@@ -126,6 +126,7 @@ en:
   mixing_with_professionals: Mixing With Professionals
   training_courses: Training Courses
   events_around_the_world: Events Around The World
+  events: Events
   rental_companies: Rental Companies
   users_around_the_world: Users Around The World
   knowledgebase: Knowledgebase
@@ -138,17 +139,7 @@ en:
   go_to_top: back to top
   sda: SDA
   privacy_policy: Privacy Policy
-  sda_downloads: Downloads
-  sda_dealer_contacts: Dealer Contacts
-  sda_order_forms: Order Forms
-  sda_logout: Logout
-  sda_soundcraft_contacts: Soundcraft Contacts
-  sda_swags: Swags
   get_started_not_registered: Serial not found!
-  ui_get_started_registered: Your Ui mixer has been registered. Access granted.
-  signature_get_started_registered: Your Signature console has been registered. Access granted.
-  signature_mtk_get_started_registered: Your Signature MTK console has been registered. Access granted.
-  si_impact_get_started_registered: Your Si Impact console has been registered. Access granted.
 
   language:
       en: English

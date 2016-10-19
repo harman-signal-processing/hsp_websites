@@ -1,0 +1,17 @@
+<h1><%= @get_started_page.name %> Panel: <%= @get_started_panel.name %></h1>
+
+<ul class="button-group round">
+	<li><%= link_to 'Back', [:admin, @get_started_page], class: "small secondary button" %>	</li>
+	<li><%= link_to 'Edit', edit_admin_get_started_page_get_started_panel_path(@get_started_page, @get_started_panel, locale: I18n.locale), class: "small secondary button" %></li>
+	<li><%= link_to 'Delete', [:admin, @get_started_page, @get_started_panel], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
+
+<p>
+Lock this panel until user registers product?
+<%= (@get_started_panel.locked_until_registration?) ? "yes" : "no" %>
+</p>
+
+<p><strong>Content:</strong></p>
+
+<div><%=raw @get_started_panel.content %></div>
+

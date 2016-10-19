@@ -1,0 +1,14 @@
+<h1>Get Started</h1>
+
+<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
+  <% @get_started_pages.each do |gsp| %>
+    <li><%= link_to get_started_path(gsp) do %>
+      <% if gsp.header_image.present? %>
+        <%= image_tag gsp.header_image.url(:medium), alt: gsp.name %>
+      <% else %>
+        <div class="panel"><h3><%= gsp.name %></h3></div>
+      <% end %>
+    <% end %>
+    </li>
+  <% end %>
+</ul>

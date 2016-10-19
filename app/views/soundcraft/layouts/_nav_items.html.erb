@@ -28,17 +28,8 @@
 
   <li class="divider hide-for-medium"></li>
   <li><%= link_to t('product_support').titleize, support_path %></li>
-<% end %>
 
-<% if 1==2 && sda_user_signed_in? %>
   <li class="divider hide-for-medium"></li>
-
-  <li class="has-dropdown" id="sda_nav_button"><%= link_to "SDA", "/sda" %>
-    <ul class="dropdown">
-      <% @NavSDALinks.each do |lk| %>
-        <li><%= link_to t(lk.page.lcl_name), lk.page.web_url %></li>
-      <% end %>
-    </ul>
-  </li>
+  <li><%= link_to t('events').titleize, '/events' %></li>
 <% end %>
 

@@ -1,0 +1,11 @@
+<%= simple_form_for([:admin, @get_started_page]) do |f| %>
+
+  <%= f.input :name %>
+  <%= f.input :require_registration_to_unlock_panels %>
+  <%= f.input :header_image %>
+
+  <%= f.input :intro %>
+  <%= f.input :details, input_html: { class: "mceEditor", style: "height: 400px" } %>
+
+  <br/><%= f.button :submit %>
+<% end %>

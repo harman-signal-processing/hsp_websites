@@ -1,0 +1,61 @@
+<h1>
+	<%=h @get_started_page.name %>
+	<span class="little"><%= link_to(get_started_url(@get_started_page), get_started_url(@get_started_page)) %>
+	<%= link_to(image_tag("icons/external_link_icon.png"), get_started_url(@get_started_page)) %></span>
+
+</h1>
+
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_get_started_pages_path, class: "small secondary button" %>	</li>
+	<li><%= link_to 'Edit', edit_admin_get_started_page_path(@get_started_page, locale: I18n.locale), class: "small secondary button" %></li>
+	<li><%= link_to 'Delete', [:admin, @get_started_page], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
+
+<% if @get_started_page.header_image.present? %>
+  <div id="header_image">
+    <%= image_tag @get_started_page.header_image.url %>
+    <p><%= link_to "[x] delete image", delete_image_admin_get_started_page_path(@get_started_page), confirm: "Are you sure?" %></p>
+  </div>
+<% end %>
+
+<h4><%= @get_started_page.intro %></h4>
+<hr/>
+
+<div class="row">
+
+  <div class="small-12 medium-6 columns">
+    <div class="group">
+      <h4>Related Products:</h4>
+      <%= simple_form_for [:admin, @get_started_page_product], remote: true do |f| %>
+        <%= hidden_field_tag "called_from", "get_started_page" %>
+        <%= f.hidden_field :get_started_page_id %>
+        <div class="row collapse">
+          <div class="large-10 small-8 columns">
+            <%= f.association :product, label: false, collection: @products %>
+          </div>
+          <div class="large-2 small-4 columns">
+            <%= submit_tag 'add', class: "prefix button"  %>
+          </div>
+        </div>
+      <% end %>
+			<ul id="get_started_page_products" class="list">
+        <% @get_started_page.get_started_page_products.each do |gspp| %>
+					<%= render '/admin/shared/get_started_page_product_row', gspp: gspp, called_from: 'get_started_page' %>
+				<% end %>
+			</ul>
+    </div>
+  </div>
+
+  <div class="small-12 medium-6 columns">
+    <div class="group">
+      <h4>Panels</h4>
+      <%= link_to "New Panel", new_admin_get_started_page_get_started_panel_path(@get_started_page), class: "small round success button" %>
+      <ul>
+        <% @get_started_page.get_started_panels.each do |p| %>
+          <li><%= link_to p.name, [:admin, @get_started_page, p] %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+</div>

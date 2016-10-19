@@ -1,0 +1,113 @@
+<%= cache ["registration_form", website.brand, I18n.locale] do %>
+
+	<%= simple_form_for @warranty_registration, url: warranty_registration_path do |f| %>
+
+    <% unless website.brand.name.match(/crown/i) %>
+      <div class="row">
+        <div class="large-4 columns last">
+          <%= f.input :title, as: :select, collection: %w(Mr. Mrs. Ms. Miss) %>
+        </div>
+      </div>
+    <% end %>
+		<div class="row">
+			<div class="large-6 columns">
+				<%= f.input :first_name, required: true %>
+			</div>
+			<div class="large-6 columns">
+				<%= f.input :last_name, required: true %>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="large-6 columns">
+				<%= f.input :email, required: true %>
+			</div>
+      <% unless website.brand.name.match(/crown/i) %>
+        <div class="large-6 columns">
+          <%= f.input :company %>
+        </div>
+      <% end %>
+		</div>
+		<div class="row">
+			<div class="large-6 columns last">
+				<%= f.input :address1 %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="large-6 columns">
+				<%= f.input :city %>
+			</div>
+			<div class="large-2 columns">
+				<%= f.input :state %>
+			</div>
+			<div class="large-4 columns">
+				<%= f.input :zip %>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="large-6 columns">
+				<%= f.input :country, required: true %>
+			</div>
+			<div class="large-6 columns">
+				<%= f.input :phone %>
+			</div>
+		</div>
+
+    <legend>Product Information</legend>
+		<fieldset>
+			<div class="row">
+				<div class="large-6 columns">
+					<%= f.input :product_id,
+						collection: Product.all_for_website_registration(website),
+						value_method: :id,
+						label_method: :name,
+						prompt: "Select a product",
+						required: true %>
+				</div>
+				<div class="large-6 columns">
+					<%= f.input :purchased_on, as: :string, required: true, input_html: { class: 'ui-datepicker-past-only' } %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="large-6 columns">
+					<%= f.input :serial_number, required: true %>
+				</div>
+        <div class="large-6 columns">
+          <div class="hint">
+            <%= t('blurbs.use_date_code') %>
+          </div>
+        </div>
+			</div>
+
+      <% unless website.brand.name.match(/crown/i) %>
+        <div class="row">
+          <div class="large-6 columns">
+            <%= f.input :purchased_from %>
+          </div>
+          <div class="large-6 columns">
+            <%= f.input :purchase_price, placeholder: "$" %>
+          </div>
+        </div>
+      <% end %>
+		</fieldset>
+
+    <% unless website.brand.name.match(/crown/i) %>
+      <%= f.input :comments,
+        hint: raw(t('blurbs.warranty_comments',
+        support_form_link: raw(link_to(t('support_contact_form'), support_path, target: "_blank")))),
+        input_html: { style: "height: 80px" } %>
+    <% end %>
+
+		<p><br/><%= f.input :subscribe, label: t('blurbs.subscribe', brand: website.brand_name) %></p>
+
+    <div class="captcha">
+      <%= recaptcha_tags  public_key: website.recaptcha_public_key, stoken: false %>
+    </div>
+		<br/>
+		<div>
+			<%= f.submit t('submit_warranty_registration'), class: "medium button" %>
+		</div>
+
+	<% end %>
+<% end %>

@@ -1,0 +1,20 @@
+<h1>"Get Started" Pages</h1>
+
+<% if can? :create, GetStartedPage %>
+<ul class="button-group round">
+	<li><%= link_to 'New get started page', new_admin_get_started_page_path, class: "small success button" %></li>
+</ul>
+<% end %>
+
+<table class="data" width="100%">
+	<tr>
+		<th><b>Get Started Page URL</b> (click to visit page)</th>
+		<th style="padding-left: 8px"><b>Title</b> (click to edit page)</th>
+	</tr>
+<% @get_started_pages.each do |get_started_page| %>
+	<tr>
+		<td><%= link_to get_started_url(get_started_page), get_started_url(get_started_page) %></td>
+		<td style="padding-left: 8px"><%= link_to get_started_page.name, [:admin, get_started_page] %></td>
+	</tr>
+<% end %>
+</table>

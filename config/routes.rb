@@ -241,8 +241,15 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         collection { post :update_order }
       end
       resources :support_subjects
+      resources :get_started_pages do
+        member do
+          get :delete_image
+        end
+        resources :get_started_panels
+      end
       resources :service_centers,
         :software_training_classes,
+        :get_started_page_products,
         :product_training_classes,
         :product_review_products,
         :locale_product_families,
@@ -363,6 +370,10 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get 'products/:id(/:tab)' => 'products#show', as: :product
     resources :tone_library_songs, only: :index
     resources :product_documents, only: :index
+
+    get 'get_started' => 'get_started#index', as: :get_started_index
+    get 'get_started/:id' => 'get_started#show', as: :get_started
+    post 'get_started/validate' => 'get_started#validate', as: :get_started_validation
 
     get 'privacy_policy.html' => 'main#privacy_policy', as: :privacy_policy
     get 'terms_of_use.html' => 'main#terms_of_use', as: :terms_of_use

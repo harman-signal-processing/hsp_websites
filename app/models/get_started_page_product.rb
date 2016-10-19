@@ -1,0 +1,6 @@
+class GetStartedPageProduct < ActiveRecord::Base
+  belongs_to :get_started_page
+  belongs_to :product
+  validates :product, presence: true, uniqueness: { scope: :get_started_page }
+  validates :get_started_page, presence: true
+end

@@ -40,6 +40,8 @@ class Product < ActiveRecord::Base
   has_many :training_modules, through: :product_training_modules
   has_many :product_audio_demos, dependent: :destroy
   has_many :audio_demos, through: :product_audio_demos
+  has_many :get_started_page_products, dependent: :destroy
+  has_many :get_started_pages, through: :get_started_page_products
   belongs_to :product_status
   belongs_to :brand, touch: true
   has_many :parent_products # Where this is the child (ie, an e-pedal child of the iStomp)
@@ -473,5 +475,10 @@ class Product < ActiveRecord::Base
 
   def nonsafety_documents
     @nonsafety_documents ||= product_documents.where("document_type NOT LIKE '%safety%'")
+  end
+
+  # Just take the first one
+  def get_started_page
+    get_started_pages.first
   end
 end
