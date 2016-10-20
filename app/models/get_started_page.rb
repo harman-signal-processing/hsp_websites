@@ -22,5 +22,13 @@ class GetStartedPage < ActiveRecord::Base
   def cookie_name
     "registered_for_#{ self.friendly_id }".to_sym
   end
+
+  def has_user_guides?
+    ProductDocument.where(product_id: self.products.pluck(:id)).count > 0
+  end
+
+  def has_software?
+    ProductSoftware.joins(:software).where(product_id: self.products.pluck(:id), softwares: {active: true}).count > 0
+  end
 end
 

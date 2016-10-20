@@ -48,6 +48,12 @@
         <% if @get_started_page.require_registration_to_unlock_panels? %>
           <li class="tab-title active"><a href="#register">Product Registration</a></li>
         <% end %>
+        <% if @get_started_page.has_user_guides? %>
+          <li class="tab-title"><a href="#user_guides">User Guides</a></li>
+        <% end %>
+        <% if @get_started_page.has_software? %>
+          <li class="tab-title"><a href="#software">Software</a></li>
+        <% end %>
         <% @get_started_page.get_started_panels.each do |panel| %>
           <li class="tab-title"><a href="#<%= panel.name.parameterize %>"><%= panel.name %></a></li>
         <% end %>
@@ -65,13 +71,46 @@
             <% end %>
           </div>
         <% end %>
+        <% if @get_started_page.has_user_guides? %>
+          <div class="content" id="user_guides">
+            <h3>User Guides</h3>
+            <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
+            <% @get_started_page.products.each do |product| %>
+              <% if product.product_documents.length > 0 %>
+                <li>
+                  <h5><%= product.name %></h5>
+                  <%= render_partial "products/documentation", product: product %>
+                </li>
+              <% end %>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <% if @get_started_page.has_software? %>
+          <div class="content" id="software">
+            <h3>Software</h3>
+            <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
+            <% @get_started_page.products.each do |product| %>
+              <li>
+                <h5><%= product.name %></h5>
+                <%= render_partial "products/downloads", product: product %>
+              </li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
         <% @get_started_page.get_started_panels.each do |panel| %>
           <div class="content" id="<%= panel.name.parameterize %>">
             <h3><%= panel.name %></h3>
             <% if panel.locked_until_registration? && !cookies[@get_started_page.cookie_name] %>
-              <div class="alert">Sorry, this section is currently locked.</div>
-              <p>Please register your product first. Once you've registered, this section will be available.</p>
-              <p>Thank you.</p>
+              <div class="row">
+                <div class="small-12 column"><h4 class="color-accent"><strong>Sorry, this section is currently locked.</strong></h4></div>
+              </div>
+              <div class="row">
+                <div class="small-12 column">
+                  <br/>Please register your product first. Once you've registered, this section will be available.<br/><br/>Thank you.<br/><br/><br/>
+                </div>
+              </div>
             <% else %>
               <%=raw panel.content %>
             <% end %>

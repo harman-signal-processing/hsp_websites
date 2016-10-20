@@ -51,6 +51,11 @@
       <h4>Panels</h4>
       <%= link_to "New Panel", new_admin_get_started_page_get_started_panel_path(@get_started_page), class: "small round success button" %>
       <ul>
+        <% if @get_started_page.require_registration_to_unlock_panels? %>
+          <li>Product Registration <i>(included automatically)</i></li>
+        <% end %>
+        <li>User Guides <i>(included automatically)</i></li>
+        <li>Software <i>(included automatically)</i></li>
         <% @get_started_page.get_started_panels.each do |p| %>
           <li><%= link_to p.name, [:admin, @get_started_page, p] %></li>
         <% end %>
