@@ -371,9 +371,10 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     resources :tone_library_songs, only: :index
     resources :product_documents, only: :index
 
-    get 'get_started' => 'get_started#index', as: :get_started_index
-    get 'get_started/:id' => 'get_started#show', as: :get_started
-    post 'get_started/validate' => 'get_started#validate', as: :get_started_validation
+    get 'get-started' => 'get_started#index', as: :get_started_index
+    get 'get_started', to: redirect('/get-started'), as: :get_started_redirect
+    get 'get-started/:id' => 'get_started#show', as: :get_started
+    post 'get-started/validate' => 'get_started#validate', as: :get_started_validation
 
     get 'privacy_policy.html' => 'main#privacy_policy', as: :privacy_policy
     get 'terms_of_use.html' => 'main#terms_of_use', as: :terms_of_use
