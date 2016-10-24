@@ -8,6 +8,7 @@ RSpec.describe Brand, :type => :model do
 
   subject { @brand }
   it { should respond_to :get_started_pages }
+  it { should respond_to :events }
 
   it "should create the counter with a value of 1" do
     @brand.increment_homepage_counter

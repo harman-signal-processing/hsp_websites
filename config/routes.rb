@@ -295,6 +295,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :effects,
         :signups,
         :dealers,
+        :events,
         :brands,
         :pages,
         :faqs
@@ -370,6 +371,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get 'products/:id(/:tab)' => 'products#show', as: :product
     resources :tone_library_songs, only: :index
     resources :product_documents, only: :index
+    resources :events, only: [:index, :show]
 
     get 'get-started' => 'get_started#index', as: :get_started_index
     get 'get_started', to: redirect('/get-started'), as: :get_started_redirect

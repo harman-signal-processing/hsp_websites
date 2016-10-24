@@ -32,6 +32,7 @@ class Brand < ActiveRecord::Base
   has_many :signups
   has_many :tweets, -> { order("posted_at DESC") }
   has_many :get_started_pages
+  has_many :events
   has_attached_file :logo, {
     styles: { large: "640x480",
       medium: "480x360",

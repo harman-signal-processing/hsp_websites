@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161018162950) do
+ActiveRecord::Schema.define(version: 20161024205026) do
 
   create_table "admin_logs", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -455,6 +455,28 @@ ActiveRecord::Schema.define(version: 20161018162950) do
 
   add_index "effects", ["cached_slug"], name: "index_effects_on_cached_slug", using: :btree
   add_index "effects", ["effect_type_id"], name: "index_effects_on_effect_type_id", using: :btree
+
+  create_table "events", force: :cascade do |t|
+    t.string   "name",               limit: 255
+    t.text     "description",        limit: 65535
+    t.text     "page_content",       limit: 65535
+    t.string   "cached_slug",        limit: 255
+    t.date     "start_on"
+    t.date     "end_on"
+    t.string   "image_file_name",    limit: 255
+    t.string   "image_content_type", limit: 255
+    t.integer  "image_file_size",    limit: 4
+    t.datetime "image_updated_at"
+    t.boolean  "active",                           default: false
+    t.string   "more_info_link",     limit: 255
+    t.boolean  "new_window"
+    t.integer  "brand_id",           limit: 4
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+  end
+
+  add_index "events", ["brand_id"], name: "index_events_on_brand_id", using: :btree
+  add_index "events", ["cached_slug"], name: "index_events_on_cached_slug", unique: true, using: :btree
 
   create_table "faq_categories", force: :cascade do |t|
     t.string   "name",       limit: 255

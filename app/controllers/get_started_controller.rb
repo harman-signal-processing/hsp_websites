@@ -3,11 +3,19 @@ class GetStartedController < ApplicationController
   before_filter :load_this_brands_get_started_pages
 
   def index
+    respond_to do |format|
+      format.html { render_template } # index.html.erb
+      format.xml  { render xml: @get_started_pages }
+    end
   end
 
   def show
     @get_started_page = @get_started_pages.find(params[:id])
     @warranty_registration = WarrantyRegistration.new
+    respond_to do |format|
+      format.html { render_template } # show.html.erb
+      format.xml  { render xml: @get_started_page }
+    end
   end
 
   def validate
