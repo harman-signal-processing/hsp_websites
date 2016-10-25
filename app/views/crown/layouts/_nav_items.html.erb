@@ -77,6 +77,9 @@
     <ul class="dropdown">
       <li><%= link_to "Share Your Experience", '/share-your-experience' %></li>
       <li><%= link_to t('news').titleize, news_index_path %></li>
+      <% if website.has_events? %>
+        <li><%= link_to t('events'), events_path %></li>
+      <% end %>
     </ul>
   </li>
 

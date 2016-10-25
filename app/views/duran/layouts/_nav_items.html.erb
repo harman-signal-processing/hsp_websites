@@ -30,6 +30,11 @@
     <li><%= link_to t('news').titleize, news_index_path %></li>
   <% end %>
 
+  <% if website.has_events? %>
+    <li class="divider hide-for-medium"></li>
+    <li><%= link_to t('events'), events_path %></li>
+  <% end %>
+
   <li class="divider hide-for-medium"></li>
   <li><%= link_to "technical papers".titleize, support_downloads_path %></li>
 

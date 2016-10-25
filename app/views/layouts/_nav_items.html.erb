@@ -22,6 +22,11 @@
     <li><%= link_to t('news'), news_index_path %></li>
   <% end %>
 
+  <% if website.has_events? %>
+    <li class="divider hide-for-medium"></li>
+    <li><%= link_to t('events'), events_path %></li>
+  <% end %>
+
   <% if website.has_installations? %>
     <li class="divider hide-for-medium"></li>
     <li><%= link_to t('installations'), installations_path %></li>

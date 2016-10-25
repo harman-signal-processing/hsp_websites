@@ -5,6 +5,7 @@ en:
   home: home
   products: products
   news: news
+  events: events
   installations: installations
   artists: artists
   professionals: professionals
@@ -233,6 +234,7 @@ en:
   titles:
       buy_direct: "Buy Direct from %{brand}"
       news: "%{brand} News"
+      events: "%{brand} Events"
       blog: "%{brand} Blog"
       facebook_page: "%{brand} Facebook Page"
       archived_news: News Archive
@@ -379,7 +381,7 @@ en:
           subject: 'Reset password instructions'
         unlock_instructions:
           subject: 'Unlock Instructions'
-          
+
   date:
     formats:
       default: "%Y-%m-%d"
@@ -406,6 +408,7 @@ en:
       effect_type: Effect Type
       faq: FAQ
       news: News
+      events: Events
       online_retailer: Online Retailer
       page: Page
       product: Product

@@ -3,7 +3,11 @@ class EventsController < ApplicationController
   before_filter :ensure_best_url, only: :show
 
   def index
-    @events = Event.all_for_website(website)
+    all_events = Event.current_and_upcoming.
+      where(brand_id: website.brand_id).
+      where("start_on < ?", 6.months.from_now)
+    #@events = filter_by_locale(all_events)
+    @events = all_events
 
     respond_to do |format|
       format.html { render_template } # index.html.erb

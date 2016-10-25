@@ -1,2 +1,35 @@
-<h1>Events#show</h1>
-<p>Find me in app/views/events/show.html.erb</p>
+<% set_meta_tags title: @event.name,
+	reverse: true,
+	og: {
+		type: 'article',
+		description: @event.description,
+		title: @event.name
+	} %>
+
+
+<div id="breadcrumbs">
+  <%= t(:back_to) %>
+  <%= link_to t('events'), events_path %>
+</div>
+
+<% if @event.image.present? %>
+  <div class="text-center">
+    <%= image_tag @event.image.url, alt: @event.name %>
+  </div>
+<% end %>
+
+<h1><%= @event.name %></h1>
+<p>
+  <%=l @event.start_on, format: :long %>
+  <% if @event.end_on.present? && @event.end_on ||= @event.start_on %>
+    - <%=l @event.end_on, format: :long %>
+  <% end %>
+</p>
+
+<h4><%= @event.description %></h4>
+
+<div><%=raw @event.page_content %></div>
+
+<% if @event.more_info_link.present? %>
+  <p><%= link_to "more info", @event.more_info_link, target: @event.new_window? ? "_blank" : "", class: "tiny button" %></p>
+<% end %>

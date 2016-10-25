@@ -247,6 +247,11 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         end
         resources :get_started_panels
       end
+      resources :events do
+        member do
+          get :delete_image
+        end
+      end
       resources :service_centers,
         :software_training_classes,
         :get_started_page_products,
@@ -295,7 +300,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :effects,
         :signups,
         :dealers,
-        :events,
         :brands,
         :pages,
         :faqs

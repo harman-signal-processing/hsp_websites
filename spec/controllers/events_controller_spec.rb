@@ -16,7 +16,7 @@ RSpec.describe EventsController, type: :controller do
     it "returns http success" do
       get :index
       expect(assigns(:events)).to include(@event)
-      expect(response).to render_temlate(:index)
+      expect(response).to render_template(:index)
       expect(response).to have_http_status(:success)
     end
   end

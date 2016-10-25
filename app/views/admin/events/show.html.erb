@@ -1,0 +1,37 @@
+<% set_meta_tags title: "News Admin - #{@event.name}",
+				 reverse: true,
+         description: @event.name %>
+<h1><%= title @event.name %></h1>
+	<span class="little"><%= link_to(event_url(@event, locale: I18n.locale), event_url(@event, locale: I18n.locale)) %>
+	<%= link_to(image_tag("icons/external_link_icon.png"), event_url(@event, locale: I18n.locale)) %></span>
+<br/>
+<br/>
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_events_path, class: "small secondary button" %></li>
+	<li><%= link_to 'Edit', edit_admin_event_path(@event, locale: I18n.locale), class: "small secondary button" %> </li>
+	<li><%= link_to 'Delete', [:admin, @event], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
+
+<% if @event.image.present? %>
+  <div id="header_image">
+    <%= image_tag @event.image.url %>
+    <p><%= link_to "[x] delete image", delete_image_admin_event_path(@event), confirm: "Are you sure?" %></p>
+  </div>
+<% end %>
+
+<h4><%= @event.description %></h4>
+<p>Starts on: <%=l @event.start_on, format: :short %>
+<% if @event.end_on.present? %>
+  <br/>Ends on: <%=l @event.end_on, format: :short %>
+<% end %>
+</p>
+
+<p>Active? <%= @event.active? ? "yes" : "no" %></p>
+
+<% if @event.more_info_link.present? %>
+  <p>More info link: <%= link_to @event.more_info_link, @event.more_info_link, target: "_blank" %></p>
+<% end %>
+
+<hr/>
+
+<div><%=raw @event.page_content %></div>

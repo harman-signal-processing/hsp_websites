@@ -28,6 +28,11 @@
   <li class="divider hide-for-medium"></li>
 	<li><%= link_to t('news'), news_index_path %></li>
 
+  <% if website.has_events? %>
+    <li class="divider hide-for-medium"></li>
+    <li><%= link_to t('events'), events_path %></li>
+  <% end %>
+
   <li class="divider hide-for-medium"></li>
 	<li><%= link_to t('product_support'), support_path %></li>
 

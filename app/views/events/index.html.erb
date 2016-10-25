@@ -1,2 +1,25 @@
-<h1>Events#index</h1>
-<p>Find me in app/views/events/index.html.erb</p>
+<% set_meta_tags title: t('titles.events', brand: website.brand_name),
+	reverse: true,
+	og: {
+		type: 'article',
+		description: t('titles.events', brand: website.brand_name),
+		title: t('titles.events', brand: website.brand_name)
+	} %>
+
+<h1><%= t('titles.events', brand: website.brand_name) %></h1>
+
+<% if @events.count > 0 %>
+  <% @events.each do |event| %>
+    <h5><%= link_to event.name, event %></h5>
+    <p>
+      <%=l event.start_on, format: :short %>
+      <% if event.end_on.present? && event.end_on ||= event.start_on %>
+        - <%=l event.end_on, format: :short %>
+      <% end %>
+    </p>
+    <%=raw event.description %>
+    <p><%= link_to "details", event, class: "tiny button" %></p>
+  <% end %>
+<% else %>
+  <p><i>There are no currently scheduled events. Please check back soon.</i></p>
+<% end %>

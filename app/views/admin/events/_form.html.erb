@@ -1,0 +1,28 @@
+<%= simple_form_for([:admin, @event], html: {multipart: true}) do |f| %>
+
+  <%= f.input :name %>
+  <%= f.input :description, hint: "Brief summary of event" %>
+
+  <div class="row">
+    <div class="large-4 columns">
+      <%= f.input :start_on, as: :string, input_html: { class: 'ui-datepicker' } %>
+    </div>
+    <div class="large-4 columns">
+      <%= f.input :end_on, as: :string, input_html: { class: 'ui-datepicker'} %>
+    </div>
+    <div class="large-4 columns">
+      <%= f.input :image %>
+    </div>
+  </div>
+
+  <br/>
+  <%= f.input :page_content, input_html: { style: "height: 400px", class: "mceEditor" } %>
+  <br/>
+
+  <%= f.input :more_info_link %>
+  <%= f.input :new_window, label: "Open link in new window" %>
+  <%= f.input :active %>
+
+  <br/><%= f.button :submit %>
+
+<% end %>

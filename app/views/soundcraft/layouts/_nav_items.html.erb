@@ -29,7 +29,9 @@
   <li class="divider hide-for-medium"></li>
   <li><%= link_to t('product_support').titleize, support_path %></li>
 
-  <li class="divider hide-for-medium"></li>
-  <li><%= link_to t('events').titleize, '/events' %></li>
+  <% if website.has_events? %>
+    <li class="divider hide-for-medium"></li>
+    <li><%= link_to t('events'), events_path %></li>
+  <% end %>
 <% end %>
 

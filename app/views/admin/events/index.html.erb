@@ -1,0 +1,34 @@
+<h1>Listing Events</h1>
+
+<% if can? :create, Event %>
+<ul class="button-group round">
+	<li><%= link_to 'New event', new_admin_event_path, class: "small success button" %></li>
+</ul>
+<% end %>
+
+<%= search_form_for [:admin, @search] do |f| %>
+    <%= f.label :name_cont, "Name contains" %>
+  <div class="row collapse">
+    <div class="large-5 small-8 columns">
+      <%= f.text_field :name_cont %>
+    </div>
+    <div class="large-2 small-4 columns">
+      <%= f.submit "Search events", class: "button prefix" %>
+    </div>
+    <div class="large-5 columns"></div>
+  </div>
+<% end %>
+
+<table class="data" style="width: 100%">
+  <tr>
+    <th>Event Date</th>
+    <th>Name</th>
+  </tr>
+
+<% @events.each do |event| %>
+  <tr style="background: <%= cycle 'white', 'none' %>">
+    <td><%=l event.start_on, format: :short %></td>
+    <td><%=link_to truncate(event.name, length: 100), [:admin, event] %></td>
+  </tr>
+<% end %>
+</table>
