@@ -14,6 +14,7 @@ class Event < ActiveRecord::Base
     }}.merge(S3_STORAGE)
   validates_attachment :image, content_type: { content_type: /\Aimage/i }
   validates :start_on, presence: true
+  validates :end_on, presence: true
   validates :brand, presence: true
 
   # Events to display on the main area of the site.

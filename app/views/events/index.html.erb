@@ -13,7 +13,7 @@
     <h5><%= link_to event.name, event %></h5>
     <p>
       <%=l event.start_on, format: :short %>
-      <% if event.end_on.present? && event.end_on ||= event.start_on %>
+      <% if event.end_on > event.start_on %>
         - <%=l event.end_on, format: :short %>
       <% end %>
     </p>
@@ -23,3 +23,6 @@
 <% else %>
   <p><i>There are no currently scheduled events. Please check back soon.</i></p>
 <% end %>
+
+<p>For a complete list of HARMAN Professional Solutions events, visit
+<a href="http://pro.harman.com/events" target="_blank">pro.harman.com</a>.</p>

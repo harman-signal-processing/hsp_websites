@@ -27,7 +27,7 @@
 
 <% @events.each do |event| %>
   <tr style="background: <%= cycle 'white', 'none' %>">
-    <td><%=l event.start_on, format: :short %></td>
+    <td><%=l event.start_on, format: :short %> - <%=l event.end_on, format: :short %></td>
     <td><%=link_to truncate(event.name, length: 100), [:admin, event] %></td>
   </tr>
 <% end %>

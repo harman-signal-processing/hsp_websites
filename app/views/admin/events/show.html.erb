@@ -21,9 +21,7 @@
 
 <h4><%= @event.description %></h4>
 <p>Starts on: <%=l @event.start_on, format: :short %>
-<% if @event.end_on.present? %>
   <br/>Ends on: <%=l @event.end_on, format: :short %>
-<% end %>
 </p>
 
 <p>Active? <%= @event.active? ? "yes" : "no" %></p>

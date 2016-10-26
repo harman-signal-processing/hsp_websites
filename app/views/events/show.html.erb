@@ -21,7 +21,7 @@
 <h1><%= @event.name %></h1>
 <p>
   <%=l @event.start_on, format: :long %>
-  <% if @event.end_on.present? && @event.end_on ||= @event.start_on %>
+  <% if @event.end_on > @event.start_on %>
     - <%=l @event.end_on, format: :long %>
   <% end %>
 </p>
