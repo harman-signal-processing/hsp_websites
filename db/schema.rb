@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161025165649) do
+ActiveRecord::Schema.define(version: 20161027133737) do
 
   create_table "admin_logs", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -553,6 +553,7 @@ ActiveRecord::Schema.define(version: 20161025165649) do
     t.boolean  "require_registration_to_unlock_panels",               default: true
   end
 
+  add_index "get_started_pages", ["brand_id"], name: "index_get_started_pages_on_brand_id", using: :btree
   add_index "get_started_pages", ["cached_slug"], name: "index_get_started_pages_on_cached_slug", unique: true, using: :btree
 
   create_table "get_started_panels", force: :cascade do |t|
@@ -635,6 +636,7 @@ ActiveRecord::Schema.define(version: 20161025165649) do
     t.text     "description",               limit: 65535
   end
 
+  add_index "market_segments", ["brand_id"], name: "index_market_segments_on_brand_id", using: :btree
   add_index "market_segments", ["cached_slug"], name: "index_market_segments_on_cached_slug", using: :btree
 
   create_table "marketing_attachments", force: :cascade do |t|
@@ -1231,6 +1233,7 @@ ActiveRecord::Schema.define(version: 20161025165649) do
     t.boolean  "show_recalculated_price"
   end
 
+  add_index "promotions", ["brand_id"], name: "index_promotions_on_brand_id", using: :btree
   add_index "promotions", ["cached_slug"], name: "index_promotions_on_cached_slug", unique: true, using: :btree
 
   create_table "registered_downloads", force: :cascade do |t|
@@ -1264,6 +1267,8 @@ ActiveRecord::Schema.define(version: 20161025165649) do
     t.boolean  "require_receipt"
   end
 
+  add_index "registered_downloads", ["brand_id"], name: "index_registered_downloads_on_brand_id", using: :btree
+
   create_table "service_centers", force: :cascade do |t|
     t.string   "name",           limit: 100
     t.string   "name2",          limit: 100
@@ -1285,6 +1290,8 @@ ActiveRecord::Schema.define(version: 20161025165649) do
     t.integer  "brand_id",       limit: 4
     t.boolean  "vintage"
   end
+
+  add_index "service_centers", ["brand_id"], name: "index_service_centers_on_brand_id", using: :btree
 
   create_table "settings", force: :cascade do |t|
     t.string   "name",               limit: 255
@@ -1326,6 +1333,8 @@ ActiveRecord::Schema.define(version: 20161025165649) do
     t.string   "zip",        limit: 255
   end
 
+  add_index "signups", ["brand_id"], name: "index_signups_on_brand_id", using: :btree
+
   create_table "site_elements", force: :cascade do |t|
     t.string   "name",                    limit: 255
     t.integer  "brand_id",                limit: 4
@@ -1347,6 +1356,7 @@ ActiveRecord::Schema.define(version: 20161025165649) do
     t.boolean  "is_software"
   end
 
+  add_index "site_elements", ["brand_id"], name: "index_site_elements_on_brand_id", using: :btree
   add_index "site_elements", ["cached_slug"], name: "index_site_elements_on_cached_slug", using: :btree
 
   create_table "software_activations", force: :cascade do |t|
@@ -1424,6 +1434,7 @@ ActiveRecord::Schema.define(version: 20161025165649) do
     t.boolean  "show_alert",                            default: false
   end
 
+  add_index "softwares", ["brand_id"], name: "index_softwares_on_brand_id", using: :btree
   add_index "softwares", ["cached_slug"], name: "index_softwares_on_cached_slug", unique: true, using: :btree
 
   create_table "specifications", force: :cascade do |t|
@@ -1690,6 +1701,8 @@ ActiveRecord::Schema.define(version: 20161025165649) do
     t.datetime "updated_at"
   end
 
+  add_index "training_classes", ["brand_id"], name: "index_training_classes_on_brand_id", using: :btree
+
   create_table "training_modules", force: :cascade do |t|
     t.string   "name",                         limit: 255
     t.integer  "brand_id",                     limit: 4
@@ -1703,6 +1716,8 @@ ActiveRecord::Schema.define(version: 20161025165649) do
     t.integer  "width",                        limit: 4
     t.integer  "height",                       limit: 4
   end
+
+  add_index "training_modules", ["brand_id"], name: "index_training_modules_on_brand_id", using: :btree
 
   create_table "tweets", force: :cascade do |t|
     t.integer  "brand_id",          limit: 4
@@ -1735,6 +1750,9 @@ ActiveRecord::Schema.define(version: 20161025165649) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  add_index "us_rep_regions", ["brand_id", "us_region_id"], name: "index_us_rep_regions_on_brand_id_and_us_region_id", using: :btree
+  add_index "us_rep_regions", ["brand_id"], name: "index_us_rep_regions_on_brand_id", using: :btree
 
   create_table "us_reps", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -1848,6 +1866,7 @@ ActiveRecord::Schema.define(version: 20161025165649) do
     t.datetime "synced_on"
   end
 
+  add_index "warranty_registrations", ["brand_id"], name: "index_warranty_registrations_on_brand_id", using: :btree
   add_index "warranty_registrations", ["exported"], name: "index_warranty_registrations_on_exported", using: :btree
 
   create_table "website_locales", force: :cascade do |t|

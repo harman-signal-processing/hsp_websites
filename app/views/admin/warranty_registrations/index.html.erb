@@ -15,17 +15,18 @@
   <div class="large-6 columns">
     <div class="panel">
     <%= search_form_for [:admin, @search] do |f| %>
+      <p>Fill in any or none of the fields below with keywords for the corresponding fields...</p>
       <div class="form_field">
-        <%= f.label :first_name_cont, "First Name contains" %>
-        <%= f.text_field :first_name_cont %>
+        <%= f.label :first_name_or_last_name_or_email_cont, "First/Last Name, or Email contains..." %>
+        <%= f.text_field :first_name_or_last_name_or_email_cont %>
       </div>
       <div class="form_field">
-        <%= f.label :last_name_cont, "Last Name contains" %>
-        <%= f.text_field :last_name_cont %>
+        <%= f.label :product_name_cont, "Product" %>
+        <%= f.text_field :product_name_cont %>
       </div>
       <div class="form_field">
-        <%= f.label :email_cont, "Email contains" %>
-        <%= f.text_field :email_cont %>
+        <%= f.label :country_or_purchase_country_cont, "Country" %>
+        <%= f.text_field :country_or_purchase_country_cont %>
       </div>
       <%= f.submit "Search registrations", class: "small round button" %>
     <% end %>
@@ -33,30 +34,52 @@
   </div>
 </div>
 
-<% if @warranty_registrations.length > 0 %>
-<table class="data" style="width: 100%">
-  <tr>
-    <th>Name</th>
-    <th>Email</th>
-    <th>Product</th>
-    <th>Registration Date</th>
-  </tr>
+<% if @warranty_registrations.count > 0 %>
+  <div class="row">
+    <div class="small-6 columns">
+      <p><%= pluralize @warranty_registrations.count, "result" %> found:</p>
+    </div>
+    <div class="small-6 columns text-right">
+      <p><%= link_to "export results to excel", {format: :xls, params: request.query_parameters} %></p>
+    </div>
+  </div>
 
-<% @warranty_registrations.each do |warranty_registration| %>
-  <tr style="background: <%= cycle 'white', 'none' %>">
-    <td><%= link_to "#{warranty_registration.first_name} #{warranty_registration.last_name}",
-    			[:admin, warranty_registration] %></td>
-    <td><%= warranty_registration.email %></td>
-    <td>
-    	<% if can? :manage, warranty_registration.product %>
-    	<%= link_to warranty_registration.product.name, [:admin, warranty_registration.product] %>
-    	<% else %>
-    	<%= link_to warranty_registration.product.name, warranty_registration.product %>
-    	<% end %>
-    </td>
+  <table class="data" style="width: 100%">
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Product</th>
+      <th>Registration Date</th>
+      <th>Country</th>
+    </tr>
 
-    <td><%=l warranty_registration.created_at.to_date, format: :short %></td>
-  </tr>
+  <% removed = 0 %>
+  <% @warranty_registrations.each do |warranty_registration| %>
+    <% if warranty_registration.product.present? %>
+      <tr style="background: <%= cycle 'white', 'none' %>">
+        <td><%= link_to "#{warranty_registration.first_name} #{warranty_registration.last_name}",
+              [:admin, warranty_registration] %></td>
+        <td><%= warranty_registration.email %></td>
+        <td>
+          <% if can? :manage, warranty_registration.product %>
+          <%= link_to warranty_registration.product.name, [:admin, warranty_registration.product] %>
+          <% else %>
+          <%= link_to warranty_registration.product.name, warranty_registration.product %>
+          <% end %>
+        </td>
+
+        <td><%=l warranty_registration.created_at.to_date, format: :short %></td>
+        <td><%= warranty_registration.country %></td>
+      </tr>
+    <% else %>
+      <% removed += 1 %>
+    <% end %>
+  <% end %>
+  </table>
+
+  <% if removed > 0 %>
+    <p><i><%= pluralize removed, "record" %> could not be rendered since the corresponding product no longer exist.</i></p>
+  <% end %>
 <% end %>
-</table>
-<% end %>
+
+<br/><br/>

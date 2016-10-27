@@ -11,7 +11,7 @@ class Admin::WarrantyRegistrationsController < AdminController
     @brand_registrations = WarrantyRegistration.where(brand_id: website.brand_id)
     @search = @brand_registrations.ransack(params[:q])
     if params[:q]
-      @warranty_registrations = @search.result(:distinct => true)
+      @warranty_registrations = @search.result(:distinct => true).eager_load(:product)
     else
       @warranty_registrations = []
     end
