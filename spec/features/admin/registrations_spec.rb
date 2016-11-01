@@ -19,9 +19,7 @@ feature "Admin Registrations" do
   # end
 
   it "should search by name" do
-    fill_in "q_first_name_cont", with: @reg.first_name
-    fill_in "q_last_name_cont", with: ''
-    fill_in "q_email_cont", with: ''
+    fill_in "q_first_name_or_last_name_or_email_cont", with: @reg.first_name
     click_on "Search"
 
     expect(page).to have_link "#{@reg.first_name} #{@reg.last_name}"

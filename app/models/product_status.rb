@@ -1,6 +1,14 @@
 class ProductStatus < ActiveRecord::Base
   has_many :products
 
+  def self.current
+    where(show_on_website: true).where("discontinued != 1")
+  end
+
+  def self.current_ids
+    current.pluck(:id)
+  end
+
   def is_current?
     self.show_on_website && !self.discontinued
   end
@@ -28,5 +36,5 @@ class ProductStatus < ActiveRecord::Base
   def vintage?
     !!(self.name.match(/vintage/i))
   end
- 
+
 end

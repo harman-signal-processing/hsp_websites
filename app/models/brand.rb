@@ -185,8 +185,9 @@ class Brand < ActiveRecord::Base
 
   # Active software with active products
   def current_softwares
-    product_active = softwares.includes(:brand).where(active: true).includes(:products).select{|s| s if s.current_products.length > 0}.sort_by{|s| s.current_products.length}.reverse
-    (forced_current_softwares + product_active).uniq
+    @current_softwares ||= (softwares.where(active: true).
+      joins(:product_softwares).
+      where(product_softwares: { product_id: current_product_ids }) + forced_current_softwares).uniq
   end
 
   # Those software with this flag enabled: activate even if there are no active products
@@ -194,12 +195,14 @@ class Brand < ActiveRecord::Base
     @forced_current_softwares ||= softwares.includes(:brand).where(active: true, active_without_products: true).order(:name)
   end
 
+  def current_product_ids
+    product_families.includes(:products).
+      where(products: { product_status: ProductStatus.current_ids }).
+      pluck("products.id").uniq
+  end
+
   def current_products
-    p = []
-    product_families.includes(:products).each do |pf|
-      p += pf.current_products
-    end
-    p.uniq #.flatten.uniq.sort{|a,b| a.name.downcase <=> b.name.downcase}
+    Product.where(id: current_product_ids)
   end
 
   # Special selection of products just for the toolkit

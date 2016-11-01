@@ -169,16 +169,12 @@ class ProductFamily < ActiveRecord::Base
 
   # Determine only 'current' products for the ProductFamily
   def current_products
-    cp = []
-    self.products.includes(:product_status).each do |p|
-      cp << p if p.product_status.is_current?
-    end
-    cp
+    @current_products ||= products.where(product_status: ProductStatus.current_ids)
   end
 
   # Determine current and discontinued products for the ProductFamily
   def current_and_discontinued_products
-    current_products + discontinued_products
+    @current_and_discontinued_products ||= current_products + discontinued_products
   end
 
   # w = a Brand or a Website

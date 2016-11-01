@@ -21,7 +21,7 @@
 
 <%= cache ["softwares_index", website.brand, I18n.locale] do %>
 
-  <% if website.brand.current_softwares.length > 0 %>
+  <% if website.brand.current_softwares.length > 0 && website.brand.current_softwares.length < 14 %>
     <ul class="large-block-grid-4 small-block-grid-2">
       <% website.brand.current_softwares.sort_by{|s| s.name}.each do |software| %>
         <li>
