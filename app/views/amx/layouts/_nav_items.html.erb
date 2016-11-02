@@ -1,0 +1,68 @@
+<%= cache ["nav_items", website.brand, I18n.locale] do %>
+  <li class="has-dropdown"><%= link_to "Markets", '#', class: "disabled" %>
+    <ul class="dropdown">
+      <% MarketSegment.all_parents(website).each do |market_segment| %>
+        <li><%= link_to market_segment.name.titleize, market_segment %></li>
+      <% end %>
+    </ul>
+  </li>
+
+  <li class="divider hide-for-medium"></li>
+	<li class="has-dropdown"><%= link_to t('products').titleize, product_families_path %>
+		<ul class="dropdown">
+			<% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
+				<%= product_family_nav_links(product_family, depth: 1) %>
+			<% end %>
+		</ul>
+	</li>
+
+  <% if website.has_news? %>
+    <li class="divider hide-for-medium"></li>
+    <li><%= link_to t('news').titleize, news_index_path %></li>
+  <% end %>
+
+  <% if website.has_events? %>
+    <li class="divider hide-for-medium"></li>
+    <li><%= link_to t('events').titleize, events_path %></li>
+  <% end %>
+
+  <% if website.has_installations? %>
+    <li class="divider hide-for-medium"></li>
+    <li><%= link_to t('installations').titleize, installations_path %></li>
+  <% end %>
+
+	<% if website.has_artists? %>
+    <li class="divider hide-for-medium"></li>
+    <li><%= link_to t('artists').titleize, artists_path %></li>
+	<% end %>
+
+  <li class="divider hide-for-medium"></li>
+  <li class="has-dropdown"><a href="#" class="disabled">Showcase</a>
+    <ul class="dropdown">
+      <li><%= link_to "Network Security", '/network-security' %></li>
+      <li><%= link_to "Automation", '/automation' %></li>
+      <li><%= link_to "Education Alliance Program", '/education-alliancee-program' %></li>
+      <li><%= link_to "Schoolview", '/schoolview' %></li>
+    </ul>
+  </li>
+
+  <li class="divider hide-for-medium"></li>
+  <li><%= link_to "Learn", '#' %></li>
+
+  <li class="divider hide-for-medium"></li>
+	<li><%= link_to t('product_support').titleize, support_path %></li>
+
+	<% if !!(website.forum_link) %>
+    <li class="divider hide-for-medium"></li>
+    <li class="hide-for-medium"><%= link_to t("forum").titleize, website.forum_link %></li>
+	<% end %>
+
+  <li class="divider hide-for-medium"></li>
+  <li class="has-dropdown"><a href="#" class="disabled">Contacts</a>
+    <ul class="dropdown">
+      <li><%= link_to "Regions", '#' %></li>
+      <li><%= link_to "Sales", '#' %></li>
+      <li><%= link_to "Services", '#' %></li>
+    </ul>
+  </li>
+<% end %>
