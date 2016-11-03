@@ -192,32 +192,33 @@ en:
       select_products_to_compare: Select 2 to 4 products to compare
       compare_selected_products: Compare Selected Products
       larger_images: Larger Images
-      description: "Overview"
-      features: "Features"
+      description: Overview
+      features: Features
       specs_manuals_etc: "specs, manuals, reviews, etc..."
-      extended_description: "More Details"
-      details: "More Details"
-      reviews: "Reviews"
+      extended_description: More Details
+      details: More Details
+      reviews: Reviews
       news: News
       news_and_reviews: "News & Reviews"
-      specifications: "Specifications"
-      amp_models: "Amp Models"
-      cabinets: "Speaker Cabinets"
-      effects: "Effects"
-      pedals: "Pedals"
-      downloads: "Downloads"
+      specifications: Specifications
+      amp_models: Amp Models
+      cabinets: Speaker Cabinets
+      effects: Effects
+      pedals: Pedals
+      downloads: Downloads
       documentation: "Manuals/Documentation"
-      downloads_and_docs: "Downloads"
-      training_modules: "Training Modules"
+      downloads_and_docs: Downloads
+      training_modules: Training Modules
       support: "Support/FAQs"
-      artists: "Artists"
-      review: "Review"
-      faqs: "FAQs"
-      tones: "Tone Library"
-      special_offer: "Special Offer"
-      rebate_forms: "Rebate Forms"
-      gallery: "Gallery"
-      audio_demos: "Audio Demos"
+      artists: Artists
+      review: Review
+      faqs: FAQs
+      tones: Tone Library
+      special_offer: Special Offer
+      rebate_forms: Rebate Forms
+      gallery: Gallery
+      audio_demos: Audio Demos
+      videos: Videos
       labels:
           features: Features
           amp_models: Amps

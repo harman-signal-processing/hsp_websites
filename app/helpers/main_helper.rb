@@ -53,7 +53,7 @@ module MainHelper
         playlist = get_default_playlist_id(youtube_user)
         get_video_list_data(playlist, limit: limit)["items"].each do |v|
           video = v["snippet"]
-          thumbnail = video["thumbnails"].find(height: 90).first[1]
+          thumbnail = video["thumbnails"]["default"] #.find(height: 90).first[1]
           link = play_video_url(video["resourceId"]["videoId"])
           if style == "table"
             ret += "<tr>"
@@ -93,7 +93,7 @@ module MainHelper
         playlist = get_default_playlist_id(youtube_user)
         get_video_list_data(playlist, options)["items"].each do |v|
           video = v["snippet"]
-          thumbnail = video["thumbnails"].find(height: 90).first[1]
+          thumbnail = video["thumbnails"]["default"] #.find(height: 90).first[1]
           link = play_video_url(video["resourceId"]["videoId"])
           vids << content_tag(:li, class: 'video_thumbnail') do
             #content_tag(:div, link_to(image_tag("play.png", alt: video["title"]), link, target: "_blank"), class: 'play_button') +

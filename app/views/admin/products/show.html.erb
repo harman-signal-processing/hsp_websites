@@ -562,5 +562,27 @@
 			</div>
 		<% end %>
 
+    <div class="group">
+      <h5 class="subheader">Videos</h5>
+      <p>This section was added specifically for the Soundcraft site. It can work for other
+      brands as well, but has not yet been implemented on the product page template.</p>
+      <p>Note: if you add videos here, be sure NOT to change one of the big content blocks
+      for this product so it is named "Videos".</p>
+
+      <%= simple_form_for [:admin, @product_video], remote: true do |f| %>
+        <%= f.hidden_field :product_id %>
+        <%= hidden_field_tag :called_form, "product" %>
+        <%= f.input :youtube_id, label: "YouTube Video ID" %>
+        <%= f.input :group, label: "Group name", hint: "Something like: 'Product Demos'" %>
+        <%= f.submit "add video", class: "button" %>
+      <% end %>
+
+      <ul id="product_videos" class="list">
+        <% @product.product_videos.each do |pv| %>
+          <%= render "/admin/shared/product_video_row", pv: pv, called_from: "product" %>
+        <% end %>
+      </ul>
+    </div>
+
 	</div>
 </div>

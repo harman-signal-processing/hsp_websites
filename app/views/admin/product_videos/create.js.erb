@@ -1,0 +1,3 @@
+$('#product_videos').append('<%= escape_javascript(render "/admin/shared/product_video_row", pv: @product_video) %>');
+$('input#product_video_youtube_id').val("");
+<% flash.discard %>

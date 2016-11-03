@@ -278,6 +278,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :website_locales,
         :product_reviews,
         :artist_products,
+        :product_videos,
         :faq_categories,
         :us_rep_regions,
         :specifications,

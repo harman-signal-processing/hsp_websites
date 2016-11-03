@@ -63,8 +63,8 @@ RSpec.describe MainHelper do
 
     # stubbing youtube response
     before do
-      @thumbnail = [0, {"url" => "thumbnail_url"}]
-      @thumbnails = [@thumbnail]
+      @thumbnail = {"default" => {"url" => "thumbnail_url"}}
+      @thumbnails = @thumbnail
       video_item = {
         "snippet" => {
           "thumbnails" => @thumbnails,

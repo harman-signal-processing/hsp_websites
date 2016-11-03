@@ -42,6 +42,7 @@ class Product < ActiveRecord::Base
   has_many :audio_demos, through: :product_audio_demos
   has_many :get_started_page_products, dependent: :destroy
   has_many :get_started_pages, through: :get_started_page_products
+  has_many :product_videos, -> { order('position') }, dependent: :destroy
   belongs_to :product_status
   belongs_to :brand, touch: true
   has_many :parent_products # Where this is the child (ie, an e-pedal child of the iStomp)
@@ -264,6 +265,7 @@ class Product < ActiveRecord::Base
       unless self.package_tabs.size > 0
         r << ProductTab.new("features") if self.features && self.features.size > 15 && self.brand.side_tabs.include?("features")
       end
+      r << ProductTab.new("videos") if self.product_videos.length > 0 && self.brand.side_tabs.include?("videos")
       r << ProductTab.new("audio_demos") if self.audio_demos.length > 0 && self.brand.side_tabs.include?("audio_demos")
       r << ProductTab.new("specifications") if self.product_specifications.size > 0 && self.brand.side_tabs.include?("specifications")
       r << ProductTab.new("documentation") if (self.product_documents.size > 0 || self.current_and_recently_expired_promotions.size > 0 || self.viewable_site_elements.size > 0) && self.brand.side_tabs.include?("documentation")
@@ -289,6 +291,7 @@ class Product < ActiveRecord::Base
     r = []
     r << ProductTab.new("description")
     r << ProductTab.new("extended_description") if !self.extended_description.blank? && self.brand.main_tabs.include?("extended_description")
+    r << ProductTab.new("videos") if self.product_videos.length > 0 && self.brand.main_tabs.include?("videos")
     r << ProductTab.new("audio_demos") if self.audio_demos.length > 0 && self.brand.main_tabs.include?("audio_demos")
     r << ProductTab.new("features") if self.features && self.features.size > 15 && self.brand.main_tabs.include?("features")
     r << ProductTab.new("documentation") if (self.product_documents.size > 0 || self.current_and_recently_expired_promotions.size > 0 || self.viewable_site_elements.size > 0) && self.brand.main_tabs.include?("documentation")

@@ -1,0 +1,32 @@
+<%= cache ["product_videos", product] do %>
+
+  <% product.product_videos.group(:group).each do |pv_group| %>
+    <h5><%= pv_group.group %></h5>
+    <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-4">
+      <% product.product_videos.where(group: pv_group.group).each do |pv| %>
+        <%= cache ["product_video", pv.youtube_id ] do %>
+          <% begin %>
+            <% video = get_video(pv.youtube_id) %>
+            <li>
+              <%= link_to play_video_url(pv.youtube_id), data: { videoid: pv.youtube_id, :'reveal-id' => "videoModal" }, class: 'start-video' do %>
+                <img src="<%= video["thumbnails"]["default"]["url"] %>" class="radius">
+                <small><%= video['title'] %></small>
+              <% end %>
+            </li>
+          <% rescue %>
+            <!-- problem loading <%= pv.youtube_id %> -->
+          <% end %>
+        <% end %>
+      <% end %>
+    </ul>
+  <% end %>
+
+<% end %>
+
+<div id="videoModal" class="reveal-modal" data-reveal aria-labelledby="Video" aria-hidden="true" role="dialog">
+  <div class="flex-video youtube">
+    <iframe name="videoIFrame" id="videoIFrame" src="" frameborder="0" allowfullscreen></iframe>
+  </div>
+  <a class="close-reveal-modal close-video" aria-label="Close">&#215;</a>
+</div>
+
