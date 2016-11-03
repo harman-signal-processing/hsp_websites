@@ -10,7 +10,7 @@
             <li>
               <%= link_to play_video_url(pv.youtube_id), data: { videoid: pv.youtube_id, :'reveal-id' => "videoModal" }, class: 'start-video' do %>
                 <img src="<%= video["thumbnails"]["default"]["url"] %>" class="radius">
-                <small><%= video['title'] %></small>
+                <br/><%= video['title'] %>
               <% end %>
             </li>
           <% rescue %>
