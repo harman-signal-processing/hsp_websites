@@ -1,9 +1,9 @@
 <li id="product_video_<%= pv.id %>">
-  <span class="handle"><%= image_tag("icons/drag_handle.gif") %></span>
+  <span class="handle"><%#= image_tag("icons/drag_handle.gif") %></span>
   <% if pv.group.present? %>
     <%= pv.group %>:
   <% end %>
-  <%= pv.youtube_id %>
+  <%= link_to pv.youtube_id, "https://youtu.be/#{pv.youtube_id}", target: "_blank" %>
   <span class="little">
     <%= link_to(image_tag("icons/trash.gif"),
       admin_product_video_path(pv),

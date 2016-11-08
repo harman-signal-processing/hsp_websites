@@ -47,7 +47,21 @@
   </li>
 
   <li class="divider hide-for-medium"></li>
-  <li><%= link_to "Learn", '#' %></li>
+  <li class="has-dropdown"><%= link_to "Learn", '#', class: "disabled" %>
+    <ul class="dropdown">
+      <li><%= link_to "AV Basics", "/#{I18n.locale}/pages/av-basics" %></li>
+      <li><%= link_to "AV & IT", '#' %></li>
+      <li><%= link_to "Buying AV", '#' %></li>
+      <li><%= link_to "Collaboration", '#' %></li>
+      <li><%= link_to "Learning Spaces", '#' %></li>
+      <li><%= link_to "Meeting Rooms", '#' %></li>
+      <li><%= link_to "Video Conferencing", '#' %></li>
+      <li><%= link_to "Security", '#' %></li>
+      <li><%= link_to "Service & Support", '#' %></li>
+      <li><%= link_to "Standardization", '#' %></li>
+      <li><%= link_to "Sustainability", '#' %></li>
+    </ul>
+  </li>
 
   <li class="divider hide-for-medium"></li>
 	<li><%= link_to t('product_support').titleize, support_path %></li>
