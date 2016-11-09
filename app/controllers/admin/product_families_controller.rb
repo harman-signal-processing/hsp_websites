@@ -6,7 +6,7 @@ class Admin::ProductFamiliesController < AdminController
   # GET /admin/product_families.xml
   def index
     @product_families = ProductFamily.all_parents(website)
-    @children = (website.product_families - @product_families).sort_by(&:name)
+    @children = ProductFamily.where(brand: website.brand).order(:name) - @product_families
     if params[:q]
       @searched_product_families = ProductFamily.where(brand_id: website.brand_id).ransack(params[:q]).result.order(:name)
     end

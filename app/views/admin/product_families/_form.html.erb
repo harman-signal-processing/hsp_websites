@@ -12,7 +12,10 @@
 	<div class="row">
 		<div class="large-4 columns">
 			<%= f.association :parent,
-				collection: ProductFamily.all_parents(website) - [@product_family] - @product_family.children %>
+        collection: ProductFamily.where(brand_id: website.brand.id).order(:name) - [@product_family] - @product_family.children,
+        label_method: :tree_names
+      %>
+
 		</div>
 		<div class="large-4 columns">
 			<% if website.page_layouts %>
