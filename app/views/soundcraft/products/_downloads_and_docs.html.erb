@@ -1,0 +1,10 @@
+<div id="downloads_and_docs">
+	<% if product.softwares.count > 0 %>
+	<%= render "soundcraft/products/downloads", product: product %>
+	<% end %>
+
+	<% if product.product_documents.count > 0 %>
+	<%= render "soundcraft/products/documentation", product: product %>
+	<% end %>
+</div>
+

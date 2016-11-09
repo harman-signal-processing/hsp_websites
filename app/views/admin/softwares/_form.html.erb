@@ -39,11 +39,12 @@
           <%= f.input :version %>
         </div>
         <div class="large-6 columns">
-          <%= f.input :category, 
-                collection: [["GUI/Librarian", "gui"], 
-                  ["Updater", "updater"], 
-                  ["Plugin", "plugin"],
-                  ["Other", "other"]] %>  
+          <%= f.input :category,
+                collection: [["GUI/Librarian", "gui"],
+                             ["Online/Offline Editor", "editor"],
+                            ["Updater", "updater"],
+                            ["Plugin", "plugin"],
+                            ["Other", "other"]] %>
         </div>
       </div>
       <div class="row">

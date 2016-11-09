@@ -1,7 +1,7 @@
 <table class="info" style="margin-left: auto; margin-right: auto;">
   <tr>
 	<th>&nbsp;</th>
-    <th>GUI/Librarian</th>
+    <th>GUI/Librarian/Editors</th>
     <% if website.has_plugins? %>
     	<th><%= ucfirst(t('plugin')) %></th>
     <% end %>
@@ -14,7 +14,7 @@
     <% if product.discontinued? && reshow_header == true %>
       <tr>
 	     <th>&nbsp;</th>
-       <th>GUI/Librarian</th>
+       <th>GUI/Librarian/Editors</th>
       <% if website.has_plugins? %>
       	<th><%= ucfirst(t('plugin')) %></th>
       <% end %>
@@ -32,6 +32,7 @@
     		<%= product.name %>
     	</th>
     <td><%= software_category_links(product, 'gui') %>
+    <%= software_category_links(product, 'editor') %>
     </td>
     <% if website.has_plugins? %>
     	<td><%= software_category_links(product, 'plugin') %></td>

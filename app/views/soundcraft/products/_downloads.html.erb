@@ -1,0 +1,56 @@
+<%
+  category_names = {
+    "gui" => "GUI/Librarian",
+    "editor" => "Online/Offline Editor",
+    "updater" => "Updater",
+    "plugin" => "Plugin",
+    "other" => "Other Software"
+  }
+%>
+<% product.active_softwares.pluck(:category).uniq.each do |category| %>
+  <% if category.present? %>
+    <h5><%= category_names[category].pluralize %></h5>
+  <% else %>
+    <h5>More Downloads</h5>
+  <% end %>
+
+  <ul class="downloads">
+    <% product.active_softwares.each do |software| %>
+      <% if software.category == category %>
+        <li>
+          <%= platform_icon(software, 17) %>
+          <%= link_to software do %>
+            <%= software.formatted_name %>
+          <% end %>
+        </li>
+        <% software.software_attachments.each do |sa| %>
+          <li>
+            <% if sa.software_attachment_content_type.match(/pdf/i) %>
+              <%= image_tag("icons/pdf_17.png", style: "vertical-align: middle;") %>
+            <% end %>
+            <%= link_to sa.name, sa.software_attachment.url %>
+          </li>
+        <% end %>
+        <% if software.previous_versions.length > 0 %>
+          <li><%= link_to software.previous_versions.first do %>
+              [PREVIOUS]
+              <%= software.previous_versions.first.formatted_name %>
+            <% end %>
+          </li>
+        <% end %>
+      <% end %>
+    <% end %>
+  </ul>
+
+<% end %>
+
+<ul class="downloads">
+  <% product.executable_site_elements.each do |site_element| %>
+    <li>
+			<%= link_to site_element.name, site_element.url %>
+      <% unless site_element.external_url.present? %>
+        [<%= number_to_human_size(site_element.executable_file_size) %>]
+      <% end %>
+    </li>
+	<% end %>
+</ul>
