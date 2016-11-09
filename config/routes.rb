@@ -94,13 +94,13 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
 
   constraints(CrownDomain) do
     get '/trucktourgiveaway(.:format)' => 'signups#new', defaults: { campaign: "Crown-TruckTour-Flip-2015" }
-    get '/solutions' => 'pages#solutions'
+    get '/network-audio' => 'pages#network_audio'
   end
 
   constraints(BssDomain) do
-    get '/solutions' => 'pages#solutions'
-    get '/en-US/bss-network-audio' => 'pages#solutions'
-    get '/en/bss-network-audio' => 'pages#solutions'
+    get '/network-audio' => 'pages#network_audio'
+    get '/en-US/bss-network-audio' => 'pages#network_audio'
+    get '/en/bss-network-audio' => 'pages#network_audio'
   end
 
   # The constraint { locale: /#{WebsiteLocale.all_unique_locales.join('|')}/ } limits the locale

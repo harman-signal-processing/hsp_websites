@@ -1,0 +1,7 @@
+<li class="has-dropdown"><%= link_to 'Solutions', solutions_path %>
+  <ul class="dropdown">
+    <% website.solutions.order("name").each do |solution| %>
+      <li><%= link_to solution.name, solution %></li>
+    <% end %>
+  </ul>
+</li>

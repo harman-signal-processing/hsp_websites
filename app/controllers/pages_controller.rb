@@ -24,8 +24,9 @@ class PagesController < ApplicationController
     end
   end
 
+  # /network-audio replacing old BSS/Crown solutions page 11/2017
   # /solutions Added for BSS,Crown 6/2015
-  def solutions
+  def network_audio
     @hide_main_container = true
     render_template
   end

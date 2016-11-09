@@ -361,6 +361,8 @@ GEM
       domain_name (~> 0.5)
     http-form_data (1.0.1)
     http_parser.rb (0.6.0)
+    httparty (0.14.0)
+      multi_xml (>= 0.5.2)
     httpi (2.4.2)
       rack
       socksify
@@ -442,6 +444,7 @@ GEM
       railties (>= 3.0)
     mono_logger (1.1.0)
     multi_json (1.12.1)
+    multi_xml (0.5.5)
     multipart-post (2.0.0)
     mysql2 (0.4.5)
     naught (1.1.0)
@@ -740,6 +743,7 @@ DEPENDENCIES
   guard-bundler
   guard-rails
   guard-rspec
+  httparty
   image_zoomer
   jquery-rails (~> 4.0.5)
   json-schema

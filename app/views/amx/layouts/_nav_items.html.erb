@@ -16,6 +16,11 @@
 		</ul>
 	</li>
 
+  <% if website.has_solutions_pages? %>
+    <li class="divider hider-for-medium"></li>
+    <%= render_partial "shared/solutions_nav" %>
+  <% end %>
+
   <% if website.has_news? %>
     <li class="divider hide-for-medium"></li>
     <li><%= link_to t('news').titleize, news_index_path %></li>
@@ -50,7 +55,7 @@
   <li class="has-dropdown"><%= link_to "Learn", '#', class: "disabled" %>
     <ul class="dropdown">
       <li><%= link_to "AV Basics", "/#{I18n.locale}/pages/av-basics" %></li>
-      <li><%= link_to "AV & IT", '#' %></li>
+      <li><%= link_to "AV & IT", "/#{I18n.locale}/av-it" %></li>
       <li><%= link_to "Buying AV", '#' %></li>
       <li><%= link_to "Collaboration", '#' %></li>
       <li><%= link_to "Learning Spaces", '#' %></li>
