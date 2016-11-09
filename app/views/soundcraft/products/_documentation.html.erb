@@ -12,7 +12,11 @@
 <% end %>
 
 <% product.nonsafety_documents.pluck(:document_type).uniq.each do |document_type| %>
-  <h5><%= document_type.pluralize.titleize %></h5>
+  <% if document_type == "other" %>
+    <h5>Extras</h5>
+  <% else %>
+    <h5><%= document_type.pluralize.titleize %></h5>
+  <% end %>
   <ul class="docs">
     <% product.nonsafety_documents.includes(:product).where(document_type: document_type).each do |product_document| %>
       <li>

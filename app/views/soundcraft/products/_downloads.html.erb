@@ -1,15 +1,16 @@
 <%
   category_names = {
-    "gui" => "GUI/Librarian",
-    "editor" => "Online/Offline Editor",
-    "updater" => "Updater",
-    "plugin" => "Plugin",
-    "other" => "Other Software"
+    "gui" => "GUI/Librarians",
+    "editor" => "Online/Offline Editors",
+    "updater" => "Updaters",
+    "plugin" => "Plugins",
+    "other" => "Other Software",
+    "" => "More Downloads"
   }
 %>
-<% product.active_softwares.pluck(:category).uniq.each do |category| %>
+<% (category_names.keys & product.active_softwares.pluck(:category).uniq).each do |category| %>
   <% if category.present? %>
-    <h5><%= category_names[category].pluralize %></h5>
+    <h5><%= category_names[category] %></h5>
   <% else %>
     <h5>More Downloads</h5>
   <% end %>
@@ -18,16 +19,15 @@
     <% product.active_softwares.each do |software| %>
       <% if software.category == category %>
         <li>
-          <%= platform_icon(software, 17) %>
           <%= link_to software do %>
+            <% if software.previous_versions.length > 0 %>
+              [CURRENT]
+            <% end %>
             <%= software.formatted_name %>
           <% end %>
         </li>
         <% software.software_attachments.each do |sa| %>
           <li>
-            <% if sa.software_attachment_content_type.match(/pdf/i) %>
-              <%= image_tag("icons/pdf_17.png", style: "vertical-align: middle;") %>
-            <% end %>
             <%= link_to sa.name, sa.software_attachment.url %>
           </li>
         <% end %>
