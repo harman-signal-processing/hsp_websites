@@ -1,0 +1,11 @@
+<% called_from ||= 'product' %>
+<li id="product_solution_<%= ps.id %>">
+	<%= (called_from == 'product') ?
+			link_to(ps.solution.name, [:admin, ps.solution]) :
+			link_to(ps.product.name, [:admin, ps.product]) %>
+	<%= link_to(image_tag("icons/trash.gif"),
+			admin_solution_product_solution_path(ps.solution, ps),
+			confirm: "Are you sure? (This won't delete the product or the solution--it will only remove the association.)",
+			remote: true,
+			method: :delete) %>
+</li>

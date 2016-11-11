@@ -1,0 +1,6 @@
+$('#product_solution_<%= @product_solution.id %>').remove();
+$('#product_solution_product_id').html('<%= escape_javascript(options_from_collection_for_select(@products, 'id', 'name')) %>');
+$('#new_product_solution_product').each (function(){
+  this.reset();
+});
+<% flash.discard %>

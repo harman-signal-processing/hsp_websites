@@ -43,6 +43,8 @@ class Product < ActiveRecord::Base
   has_many :get_started_page_products, dependent: :destroy
   has_many :get_started_pages, through: :get_started_page_products
   has_many :product_videos, -> { order('position') }, dependent: :destroy
+  has_many :product_solutions, dependent: :destroy
+  has_many :solutions, through: :product_solutions
   belongs_to :product_status
   belongs_to :brand, touch: true
   has_many :parent_products # Where this is the child (ie, an e-pedal child of the iStomp)
@@ -80,6 +82,10 @@ class Product < ActiveRecord::Base
 
   def brand_name
     self.brand.name
+  end
+
+  def name_with_brand
+    "#{formatted_name} (#{brand_name})"
   end
 
   # just for slug generation

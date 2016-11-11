@@ -1,0 +1,23 @@
+<h1>Solution Pages</h1>
+
+<% if can? :create, Solution %>
+  <ul class="button-group round">
+    <li><%= link_to 'New Solution', new_admin_solution_path, class: "small success button" %></li>
+  </ul>
+<% end %>
+
+<table class="data" style="width: 100%">
+  <tr>
+    <th>Name</th>
+    <th>Brands</th>
+  </tr>
+
+<% @solutions.each do |solution| %>
+  <tr style="background: <%= cycle 'white', 'none' %>">
+    <td><%= link_to solution.name, [:admin, solution] %></td>
+    <td><%= solution.brands.map{|b| b.name}.join(", ") %></td>
+  </tr>
+<% end %>
+</table>
+
+

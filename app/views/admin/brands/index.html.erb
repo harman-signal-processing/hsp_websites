@@ -6,7 +6,7 @@
 <% end %>
 
 <ul class="list">
-<% @brands.each do |brand| %>
+<% @brands.order("UPPER(name)").each do |brand| %>
   <li><%= link_to brand.name, [:admin, brand] %></li>
 <% end %>
 </ul>

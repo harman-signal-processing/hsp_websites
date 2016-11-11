@@ -60,6 +60,7 @@
 
 	<% if can?(:manage, Product) ||
 		can?(:manage, ProductFamily) ||
+    can?(:manage, Solution) ||
 		can?(:manage, News) ||
     can?(:manage, Event) ||
 		(can?(:manage, Effect) && website.has_effects?) ||
@@ -77,6 +78,9 @@
 				<% if can?(:manage, Product) %>
 					<li><%= link_to "Products", admin_products_path %></li>
 				<% end %>
+        <% if can?(:manage, Solution) && website.has_solution_pages? %>
+          <li><%= link_to "Solutions", admin_solutions_path %></li>
+        <% end %>
         <% if can?(:manage, GetStartedPage) && website.has_get_started_pages? %>
           <li><%= link_to "Get Started Pages", admin_get_started_pages_path %></li>
         <% end %>

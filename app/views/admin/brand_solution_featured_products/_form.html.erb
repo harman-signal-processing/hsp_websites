@@ -1,0 +1,38 @@
+<h5 class="subheader">For the <%= @solution.name %> solution page.</h5>
+
+<%= simple_form_for([:admin, @solution, @brand_solution_featured_product], html: {multipart: true}) do |f| %>
+
+  <fieldset>
+    <legend>Product on this platform</legend>
+    <%= f.association :product,
+      as: :grouped_select,
+      group_method: :last,
+      collection: @all_products,
+      label_method: :name %>
+  </fieldset>
+
+  <h5>Note: either select a product on this platform OR link to an external product. Not both.</h5>
+
+  <fieldset>
+    <legend>Product on another site/platform</legend>
+    <%= f.input :name %>
+    <%= f.input :link %>
+    <div class="row">
+      <div class="medium-4 columns">
+        <%= f.input :image %>
+      </div>
+      <% if f.object.image.present? %>
+        <div class="medium-4 columns">
+          <small>Currently:</small><br/>
+          <%= link_to image_tag(f.object.image.url(:tiny)), f.object.image.url(:original) %>
+        </div>
+        <div class="medium-4 columns">
+          <%= f.input :delete_image, as: :boolean, label: "Delete image when submitting this form" %>
+        </div>
+      <% end %>
+    </div>
+    <%= f.input :description, label: "Brief description" %>
+  </fieldset>
+
+	<br/><%= f.button :submit %>
+<% end %>

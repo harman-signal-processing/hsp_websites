@@ -1,0 +1,90 @@
+<h1><%= @solution.name %>
+	<span class="little"><%= link_to(solution_url(@solution, locale: I18n.locale), solution_url(@solution, locale: I18n.locale)) %>
+	<%= link_to(image_tag("icons/external_link_icon.png"), product_url(@solution, locale: I18n.locale)) %></span>
+</h1>
+
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_solutions_path, class: "small secondary button" %></li>
+	<li><%= link_to 'Edit', edit_admin_solution_path(@solution, locale: I18n.locale), class: "small secondary button" %></li>
+	<li><%= link_to 'Delete', [:admin, @solution], confirm: 'Are you sure? This will affect ALL sites.', method: :delete, class: "small alert button" %> </li>
+</ul>
+
+<% if @solution.vertical_market_id.present? %>
+<p>
+  Related pro.harman.com vertical market:
+  <%= link_to @solution.vertical_market_id.titleize, "#{ENV['PRO_SITE_URL']}/applications/#{@solution.vertical_market_id}", target: "_blank" %>
+</p>
+<% end %>
+
+<p>
+  Appears on these brand sites: <%= @solution.brands.order("UPPER(name)").map{|b| b.name}.join(", ") %>
+</p>
+
+<div class="row">
+  <div class="medium-6 small-12 columns">
+    <div class="group">
+      <h5 class="subheader">Featured Products</h5>
+      <%= simple_form_for [:admin, @solution, BrandSolutionFeaturedProduct.new], remote: true do |f| %>
+        <%= hidden_field_tag "called_from", "solution" %>
+        <div class="row collapse">
+          <div class="medium-9 small-8 columns">
+            <%= f.association :product,
+              label: false,
+              as: :grouped_select,
+              group_method: :last,
+              collection: @all_products,
+              label_method: :name %>
+          </div>
+          <div class="medium-3 small-4 columns">
+            <%= submit_tag 'add', class: "small postfix button" %>
+          </div>
+        </div>
+        <p>Or, <%= link_to "add a product from a brand not part of this platform",
+          new_admin_solution_brand_solution_featured_product_path(@solution) %>...</p>
+      <% end %>
+      <p><i>These appear only on the <%= website.brand.name %> version of this solution page
+      although the mix can include products from other brands if needed.</i></p>
+      <ul id="brand_solution_featured_products" class="sortable_list">
+        <% @solution.brand_solution_featured_products.each do |bsfp| %>
+          <%= render "/admin/shared/brand_solution_featured_product_row", bsfp: bsfp, called_from: 'solution' %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="medium-6 small-12 columns">
+    <div class="group">
+      <h5 class="subheader">Related <%= website.brand.name %> Products</h5>
+      <%= simple_form_for [:admin, @solution, ProductSolution.new], remote: true do |f| %>
+        <%= hidden_field_tag "called_from", "solution" %>
+        <div class="row collapse">
+          <div class="medium-9 small-8 columns">
+            <%= f.association :product,
+              label: false,
+              collection: website.products - @solution.products
+            %>
+          </div>
+          <div class="medium-3 small-4 columns">
+            <%= submit_tag 'add', class: "small postfix button"  %>
+          </div>
+        </div>
+
+      <% end %>
+      <p><i>This allows the products below to link to this Solution's page
+      from the product page.</i></p>
+      <ul id="product_solutions" class="list">
+        <% @solution.product_solutions.includes(:product).order("products.name").each do |product_solution| %>
+          <%= render "/admin/shared/product_solution_row", ps: product_solution, called_from: 'solution' %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<% unless Rails.env.production? %>
+<pre>
+Notes for myself:
+* product pages need to link back to solutions page
+* solution page could use bg images on entertainment, enterprise boxes
+</pre>
+<% end %>
+

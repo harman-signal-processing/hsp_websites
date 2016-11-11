@@ -53,3 +53,6 @@ ARTIST_PRICING_PERCENT_OF_COST: "1.9"
 
 MAILGUN_API_KEY: key-1234567
 MAILGUN_DOMAIN: your-mailgun-domain
+
+PRO_SITE_URL: http://pro.harman.com
+

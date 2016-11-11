@@ -4,18 +4,22 @@ class SolutionMarket
   format :json
 
   def self.all
-    get_api_response(base_url, 8.hours)
+    get_api_response(base_url, 8.hours)["vertical_markets"]
   end
 
   def self.find(id)
     url = base_url + "/#{id}"
-    get_api_response(url, 8.hours)
+    get_api_response(url, 8.hours)["vertical_market"]
+  end
+
+  def self.parents
+    all.select{|v| v["parent_id"].nil?}
   end
 
   private
 
   def self.base_url
-    "http://pro.harman.com/applications"
+    "#{ENV['PRO_SITE_URL']}/applications"
   end
 
   # :nocov:

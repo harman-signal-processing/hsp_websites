@@ -1,0 +1,14 @@
+<%= simple_form_for([:admin, @solution]) do |f| %>
+  <%= f.input :name, hint: "Most likely, this should match what you select below, but it doesn't have to." %>
+  <%= f.input :vertical_market_id,
+    hint: "(These come from pro.harman.com)",
+    as: :select,
+    collection: SolutionMarket.all.map{|v| [v["name"], v["slug"]]}.sort_by{|name| name} %>
+
+  <%= f.association :brands,
+    as: :check_boxes,
+    hint: "This solution page will appear on the selected brands' website.",
+    collection: Brand.where(has_solution_pages: true).order(:name) %>
+
+	<br/><%= f.button :submit %>
+<% end %>

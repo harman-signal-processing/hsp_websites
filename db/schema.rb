@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161109163358) do
+ActiveRecord::Schema.define(version: 20161111211116) do
 
   create_table "admin_logs", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -193,6 +193,35 @@ ActiveRecord::Schema.define(version: 20161109163358) do
 
   add_index "brand_distributors", ["brand_id"], name: "index_brand_distributors_on_brand_id", using: :btree
   add_index "brand_distributors", ["distributor_id"], name: "index_brand_distributors_on_distributor_id", using: :btree
+
+  create_table "brand_solution_featured_products", force: :cascade do |t|
+    t.integer  "brand_id",           limit: 4
+    t.integer  "solution_id",        limit: 4
+    t.integer  "product_id",         limit: 4
+    t.string   "name",               limit: 255
+    t.string   "link",               limit: 255
+    t.text     "description",        limit: 65535
+    t.string   "image_file_name",    limit: 255
+    t.string   "image_content_type", limit: 255
+    t.datetime "image_updated_at"
+    t.integer  "image_file_size",    limit: 4
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.integer  "position",           limit: 4
+  end
+
+  add_index "brand_solution_featured_products", ["brand_id"], name: "index_brand_solution_featured_products_on_brand_id", using: :btree
+  add_index "brand_solution_featured_products", ["solution_id"], name: "index_brand_solution_featured_products_on_solution_id", using: :btree
+
+  create_table "brand_solutions", force: :cascade do |t|
+    t.integer  "brand_id",    limit: 4
+    t.integer  "solution_id", limit: 4
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "brand_solutions", ["brand_id"], name: "index_brand_solutions_on_brand_id", using: :btree
+  add_index "brand_solutions", ["solution_id"], name: "index_brand_solutions_on_solution_id", using: :btree
 
   create_table "brand_toolkit_contacts", force: :cascade do |t|
     t.integer  "brand_id",   limit: 4
@@ -1097,6 +1126,16 @@ ActiveRecord::Schema.define(version: 20161109163358) do
   add_index "product_softwares", ["product_id"], name: "index_product_softwares_on_product_id", using: :btree
   add_index "product_softwares", ["software_id"], name: "index_product_softwares_on_software_id", using: :btree
 
+  create_table "product_solutions", force: :cascade do |t|
+    t.integer  "product_id",  limit: 4
+    t.integer  "solution_id", limit: 4
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "product_solutions", ["product_id"], name: "index_product_solutions_on_product_id", using: :btree
+  add_index "product_solutions", ["solution_id"], name: "index_product_solutions_on_solution_id", using: :btree
+
   create_table "product_specifications", force: :cascade do |t|
     t.integer  "product_id",       limit: 4
     t.integer  "specification_id", limit: 4
@@ -1448,6 +1487,16 @@ ActiveRecord::Schema.define(version: 20161109163358) do
 
   add_index "softwares", ["brand_id"], name: "index_softwares_on_brand_id", using: :btree
   add_index "softwares", ["cached_slug"], name: "index_softwares_on_cached_slug", unique: true, using: :btree
+
+  create_table "solutions", force: :cascade do |t|
+    t.string   "name",               limit: 255
+    t.string   "cached_slug",        limit: 255
+    t.string   "vertical_market_id", limit: 255
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  add_index "solutions", ["cached_slug"], name: "index_solutions_on_cached_slug", unique: true, using: :btree
 
   create_table "specifications", force: :cascade do |t|
     t.string   "name",        limit: 255

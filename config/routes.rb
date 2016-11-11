@@ -252,6 +252,14 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
           get :delete_image
         end
       end
+      resources :solutions do
+        resources :brand_solutions
+        resources :brand_solution_featured_products
+        resources :product_solutions
+      end
+      resources :brand_solution_featured_products, only: :index do
+        collection { post :update_order }
+      end
       resources :service_centers,
         :software_training_classes,
         :get_started_page_products,
@@ -341,6 +349,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         end
       end
     end
+    resources :solutions, only: [:index, :show]
     resources :faq_categories, only: [:index, :show]
     get "faqs" => 'faq_categories#index', as: :faqs
     get "artists/become_an_artist" => 'artists#become', as: :become_an_artist

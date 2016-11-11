@@ -1,0 +1,12 @@
+<% called_from ||= 'solution' %>
+<li id="brand_solution_featured_product_<%= bsfp.id %>">
+	<span class="handle"><%= image_tag("icons/drag_handle.gif") %></span>
+  <%= link_to edit_admin_solution_brand_solution_featured_product_path(bsfp.solution, bsfp) do %>
+    <%= bsfp.product.present? ? bsfp.product.name_with_brand : bsfp.name %>
+  <% end %>
+	<%= link_to(image_tag("icons/trash.gif"),
+			admin_solution_brand_solution_featured_product_path(bsfp.solution, bsfp),
+			confirm: "Are you sure? (This won't delete the product or the solution--it will only remove the association.)",
+			remote: true,
+			method: :delete) %>
+</li>

@@ -1,0 +1,9 @@
+<h1>HARMAN Professional Solutions</h1>
+
+<ul>
+  <% website.brand.solutions.each do |solution| %>
+    <li><%= link_to solution.name, solution %></li>
+  <% end %>
+</ul>
+
+<p>Visit <%= link_to "pro.harman.com", "http://pro.harman.com", target: "_blank" %> for more information.</p>

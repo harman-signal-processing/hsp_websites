@@ -1,0 +1,6 @@
+$('#product_solutions').append('<%= escape_javascript(render "/admin/shared/product_solution_row", ps: @product_solution, called_from: @called_from) %>');
+$('#product_solution_product_id').html('<%= escape_javascript(options_from_collection_for_select(@products, 'id', 'name')) %>');
+$('#new_product_solution_product').each (function(){
+  this.reset();
+});
+<% flash.discard %>
