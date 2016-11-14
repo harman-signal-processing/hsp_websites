@@ -32,7 +32,7 @@
           <% if user_signed_in? %>
 			  <li class="divider"></li>
 
-<%= cache ["admin_menu", current_user, website, Date.today] do %>
+<%= cache ["admin_menu", current_user, website.brand, Date.today] do %>
 	<li class="has-dropdown"><%= link_to "Admin Menu", '#' %>
 		<ul class="dropdown">
 	<% if can?(:manage, Setting) || can?(:manage, Page) ||

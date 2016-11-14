@@ -72,7 +72,7 @@
       <p><i>This allows the products below to link to this Solution's page
       from the product page.</i></p>
       <ul id="product_solutions" class="list">
-        <% @solution.product_solutions.includes(:product).order("products.name").each do |product_solution| %>
+        <% @solution.product_solutions.includes(:product).where(products: {brand_id: website.brand_id}).order("products.name").each do |product_solution| %>
           <%= render "/admin/shared/product_solution_row", ps: product_solution, called_from: 'solution' %>
         <% end %>
       </ul>
@@ -83,7 +83,6 @@
 <% unless Rails.env.production? %>
 <pre>
 Notes for myself:
-* product pages need to link back to solutions page
 * solution page could use bg images on entertainment, enterprise boxes
 </pre>
 <% end %>

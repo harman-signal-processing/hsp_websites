@@ -1,3 +1,4 @@
+<% if website.solutions.length > 0 %>
 <li class="has-dropdown"><%= link_to 'Solutions', {}, class: "disabled" %>
   <ul class="dropdown">
     <% website.solutions.order("name").each do |solution| %>
@@ -5,3 +6,4 @@
     <% end %>
   </ul>
 </li>
+<% end %>

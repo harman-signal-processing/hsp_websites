@@ -1,0 +1,8 @@
+<div class="solutions">
+  <ul>
+    <% @product.solutions.each do |solution| %>
+      <li><%= link_to solution.name.titleize, solution %></li>
+    <% end %>
+  </ul>
+</div>
+
