@@ -23,6 +23,6 @@ class Solution < ActiveRecord::Base
   end
 
   def vertical_market_banner_url
-    @vertical_market_banner_url ||= "#{ENV['PRO_SITE_URL']}#{ vertical_market["banner_url"] }"
+    @vertical_market_banner_url ||= vertical_market["banner_url"]
   end
 end

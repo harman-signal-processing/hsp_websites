@@ -28,7 +28,7 @@
 //= require tools
 //= require math.min
 //= require bss_application
-//= require solutions
+//= require network_audio
 //= require configurator
 //= require_self
 

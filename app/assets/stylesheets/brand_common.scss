@@ -1417,3 +1417,29 @@ div.sitewide_notice {
     display: none;
   }
 }
+
+.vm-big-button {
+  display: block;
+  background-color: scale-color($primary-color, $lightness: -35%);
+  background-position: 50% 40%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #FFF;
+  padding: 100px;
+  h1,h2,h3,h4,h5,h6,p {
+    color: #FFF;
+    text-shadow: 2px 3px 3px #000;
+  }
+  &:hover {
+    background-color: scale-color($black, $lightness: 20%);
+    background-position: 47% 40%;
+    transition-timing-function: ease-in-out;
+    -moz-animation-duration: 2.4s;
+    -webkit-animation-duration: 2.4s;
+    -animation-duration: 2.4s;
+    color: #DDD;
+    h1,h2,h3,h4,h5,h6,p {
+      color: #DDD;
+    }
+  }
+}

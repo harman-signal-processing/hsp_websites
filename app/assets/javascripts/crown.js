@@ -25,7 +25,7 @@
 //= require jwplayer
 //= require swfobject
 //= require crown_application
-//= require solutions
+//= require network_audio
 //= require tools
 //= require_self
 

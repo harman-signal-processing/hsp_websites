@@ -104,16 +104,19 @@ set_meta_tags title: "#{@solution.name} Solutions",
   </div>
 
   <p>&nbsp;</p>
-  <div class="row">
+  <div class="row collapse">
     <% begin %>
       <% SolutionMarket.parents.each do |parent_vertical| %>
         <div class="medium-6 small-12 columns">
-          <div class="panel text-center">
-            <%= link_to "#{parent_vertical["name"]} Solutions",
-              "#{ENV['PRO_SITE_URL']}/applications/#{parent_vertical["slug"]}",
-              class: "button",
-              target: "_blank" %>
-          </div>
+          <%= link_to "#{ENV['PRO_SITE_URL']}/applications/#{parent_vertical["slug"]}",
+            class: "vm-big-button",
+            target: "_blank",
+            data: { background: parent_vertical["background_url"] } do %>
+              <div class="text-center">
+                Explore
+                <h3><%= "#{parent_vertical["name"]} Solutions" %></h3>
+              </div>
+          <% end %>
         </div>
       <% end %>
     <% end %>
