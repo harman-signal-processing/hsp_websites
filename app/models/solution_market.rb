@@ -25,7 +25,8 @@ class SolutionMarket
   # :nocov:
   def self.get_api_response(url, cache_for)
     url = url + ".json"
-    Rails.cache.fetch(url, expires: cache_for) do
+    cache_for = 1.minute unless Rails.env.production?
+    Rails.cache.fetch(url, expires_in: cache_for, race_condition_ttl: 10) do
       response = HTTParty.get(url)
       if response.success?
         response.parsed_response
