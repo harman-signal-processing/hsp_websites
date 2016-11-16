@@ -1,10 +1,21 @@
 <%= simple_form_for([:admin, @solution]) do |f| %>
-  <%= f.input :name, hint: "Most likely, this should match what you select below, but it doesn't have to." %>
-  <%= f.input :vertical_market_id,
-    hint: "(These come from pro.harman.com)",
-    as: :select,
-    collection: SolutionMarket.all.map{|v| [v["name"], v["slug"]]}.sort_by{|name| name} %>
+  <div class="row">
+    <div class="medium-6 small-12 columns">
+      <%= f.input :name, hint: "Most likely, this should match the selected vertical market, but it doesn't have to." %>
+    </div>
+    <div class="medium-6 small-12 columns">
+      <%= f.input :vertical_market_id,
+        hint: "(These come from pro.harman.com)",
+        as: :select,
+        collection: SolutionMarket.all.map{|v| [v["name"], v["slug"]]}.sort_by{|name| name} %>
+    </div>
+  </div>
 
+  <%= f.input :content,
+    label: "Content to separate vertical market text from the featured products",
+    input_html: { class: "mceEditor" } %>
+
+  <br/>
   <%= f.association :brands,
     as: :check_boxes,
     hint: "This solution page will appear on the selected brands' website.",

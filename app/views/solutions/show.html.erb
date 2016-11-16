@@ -67,6 +67,11 @@ set_meta_tags title: t('solutions_page.vertical_market_solutions', vertical_mark
   </div>
 <% end %>
 
+<% if @solution.content.present? %>
+  <p>&nbsp;</p>
+  <div><%= raw @solution.content %></div>
+<% end %>
+
 <p>&nbsp;</p>
 <ul class="large-block-grid-2 small-block-grid-1">
   <% @solution.brand_solution_featured_products.where(brand_id: website.brand.id).each do |fp| %>
