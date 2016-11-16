@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161111211116) do
+ActiveRecord::Schema.define(version: 20161115222958) do
 
   create_table "admin_logs", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -864,6 +864,7 @@ ActiveRecord::Schema.define(version: 20161111211116) do
     t.string   "username",     limit: 255
     t.text     "custom_css",   limit: 65535
     t.string   "layout_class", limit: 255
+    t.text     "custom_js",    limit: 65535
   end
 
   add_index "pages", ["brand_id"], name: "index_pages_on_brand_id", using: :btree

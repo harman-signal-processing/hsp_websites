@@ -46,10 +46,10 @@
 		<%= stylesheet_link_tag website.folder, media: :all %>
 
 		<%= yield :custom_css %>
-		<script>
-	  		<%= yield :extra_js %>
-	  	</script>
-	    <%= render_partial "shared/analytics" %>
+		<script type="text/javascript">
+      <%= yield :extra_js %>
+    </script>
+    <%= render_partial "shared/analytics" %>
 	</head>
 	<body data-brand="<%= website.brand.name %>">
 		<%= yield :extra_notice %>

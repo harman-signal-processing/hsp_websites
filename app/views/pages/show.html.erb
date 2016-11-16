@@ -27,6 +27,10 @@
 	</style>
 <% end %>
 
+<%= content_for :extra_js do %>
+  <%= raw @page.custom_js %>
+<% end %>
+
 <% if current_user && can?(:manage, @page) %>
 <div class="admin_function">
 	<%= link_to "edit", edit_admin_page_path(@page) %>
