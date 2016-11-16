@@ -4,5 +4,12 @@
       <li><%= link_to solution.name.titleize, solution %></li>
     <% end %>
   </ul>
+
+  <p><%= t('solutions_page.explore_more') %>
+    <%= link_to ENV['PRO_SITE_URL'], target: "_blank" do %>
+      <%= t('solutions_page.harman_professional_solutions') %>
+      <%= image_tag("icons/external_link_icon.png", style: "vertical-align: middle") %>
+    <% end %>
+  </p>
 </div>
 

@@ -1,5 +1,5 @@
 <%
-extra_large = false
+extra_large = true
 
 title = "#{website.brand.name} #{@solution.name} Solutions"
 description = title
@@ -23,7 +23,7 @@ twitter_params = {
   card: "summary"
 }
 
-set_meta_tags title: "#{@solution.name} Solutions",
+set_meta_tags title: t('solutions_page.vertical_market_solutions', vertical_market: @solution.name),
 	reverse: true,
 	description: short_description,
 	twitter: twitter_params,
@@ -41,7 +41,11 @@ set_meta_tags title: "#{@solution.name} Solutions",
       <% if @solution.vertical_market_id.present? %>
 
         <% if @solution.vertical_market["banner_url"] %>
-          <div><%= image_tag @solution.vertical_market_banner_url, alt: @solution.vertical_market_id.titleize %></div>
+          <div>
+            <%= link_to @solution.vertical_market_url, target: "_blank" do %>
+              <%= image_tag @solution.vertical_market_banner_url, alt: @solution.vertical_market_id.titleize %>
+            <% end %>
+          </div>
         <% end %>
 
         <h2><%= @solution.vertical_market["headline"] %></h2>
@@ -49,8 +53,14 @@ set_meta_tags title: "#{@solution.name} Solutions",
           <div><%= raw @solution.vertical_market["description"] %></div>
         <% end %>
 
+        <br/>
+        <%= link_to t('learn_more').titleize,
+          @solution.vertical_market_url,
+          target: "_blank",
+          class: "button" %>
+
       <% else %>
-        <h1><%= @solution.name %> Solutions</h1>
+        <h1><%= t('solutions_page.vertical_market_solutions', vertical_market: @solution.name) %></h1>
 
       <% end %>
     </div>
@@ -99,8 +109,8 @@ set_meta_tags title: "#{@solution.name} Solutions",
 <%= cache "solution_common_footer" do %>
 
   <div class="text-center">
-    <h3 class="subheader">The HARMAN Family of Brands and Products</h3>
-    <%= link_to "Explore Solutions", ENV['PRO_SITE_URL'], class: "button", target: "_blank" %>
+    <h3 class="subheader"><%= t('solutions_page.harman_family') %></h3>
+    <%= link_to t('solutions_page.explore_solutions').titleize, ENV['PRO_SITE_URL'], class: "button", target: "_blank" %>
   </div>
 
   <p>&nbsp;</p>
@@ -113,8 +123,8 @@ set_meta_tags title: "#{@solution.name} Solutions",
             target: "_blank",
             data: { background: parent_vertical["background_url"] } do %>
               <div class="text-center">
-                Explore
-                <h3><%= "#{parent_vertical["name"]} Solutions" %></h3>
+                <%= t('explore').titleize %>
+                <h3><%= t('solutions_page.vertical_market_solutions', vertical_market: parent_vertical["name"]).titleize %></h3>
               </div>
           <% end %>
         </div>

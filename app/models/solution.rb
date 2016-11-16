@@ -25,4 +25,8 @@ class Solution < ActiveRecord::Base
   def vertical_market_banner_url
     @vertical_market_banner_url ||= vertical_market["banner_url"]
   end
+
+  def vertical_market_url
+    @vertical_market_url ||= "#{ENV['PRO_SITE_URL']}/applications/#{vertical_market['slug']}"
+  end
 end

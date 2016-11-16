@@ -141,6 +141,8 @@ en:
   sda: SDA
   privacy_policy: Privacy Policy
   get_started_not_registered: Serial not found!
+  learn_more: learn more
+  explore: explore
 
   language:
       en: English
@@ -219,6 +221,7 @@ en:
       gallery: Gallery
       audio_demos: Audio Demos
       videos: Videos
+      solutions: Recommended For
       labels:
           features: Features
           amp_models: Amps
@@ -231,6 +234,13 @@ en:
       for_service_outside_the_us: "For service inquiries outside the US,"
       please_contact_your_distributor: "please contact your local %{brand} distributor."
       detailed_problem_description: Detailed problem description
+
+  solutions_page:
+    vertical_market_solutions: "%{vertical_market} solutions"
+    harman_family: "The HARMAN Family of Brands and Products"
+    explore_solutions: explore solutions
+    explore_more: Explore more
+    harman_pro_solutions: Harman Professional Solutions
 
   titles:
       buy_direct: "Buy Direct from %{brand}"
