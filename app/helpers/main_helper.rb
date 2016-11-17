@@ -10,7 +10,11 @@ module MainHelper
   end
 
   def feature_button(feature, opts={})
-    panel = image_tag(feature.slide.url, class: "no-resize")
+    if feature.name.present?
+      panel = image_tag(feature.slide.url, alt: feature.name)
+    else
+      panel = image_tag(feature.slide.url)
+    end
 
     if opts[:carousel] == true
       panel += content_tag(:h6, feature.name)

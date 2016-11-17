@@ -17,6 +17,7 @@
 //= require jquery.datetimepicker
 //= require jquery.pin
 //= require global_functions
+//= require slick
 //= require maps
 //= require twitter
 //= require homepage
@@ -39,4 +40,12 @@ document.createElement("hgroup");
 document.createElement("nav");
 document.createElement("section");
 
-$(function(){ $(document).foundation(); });
+$(function(){
+  $(document).foundation();
+  $('.featured-slider').slick({
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 4000
+  });
+});

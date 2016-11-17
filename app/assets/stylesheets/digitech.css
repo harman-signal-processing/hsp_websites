@@ -7,7 +7,7 @@
 *= require label_sheets
 *= require bouncing_arrow
 *= require jquery-ui.min
-*= require add2home
+* require add2home
 *= require_self
 */
 

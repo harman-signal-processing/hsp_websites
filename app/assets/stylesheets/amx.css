@@ -2,12 +2,12 @@
  * This is a manifest file that'll automatically include all the stylesheets available in this directory
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
-*= require solutions
 *= require amx_framework_and_overrides
+*= require solutions
 *= require lightbox
 *= require bouncing_arrow
 *= require jquery-ui.min
-*= require add2home
+* require add2home
 *= require_self
 */
 

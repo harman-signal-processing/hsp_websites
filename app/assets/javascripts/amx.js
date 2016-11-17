@@ -16,6 +16,7 @@
 //= require jquery.lightbox-0.5.min
 //= require jquery.datetimepicker
 //= require jquery.pin
+//= require slick
 //= require global_functions
 //= require maps
 //= require twitter
@@ -39,5 +40,10 @@ $(function(){
       destination_threshold: 40,
     }
   });
+  $('.featured-slider').slick({
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 4000
+  });
 });
-
