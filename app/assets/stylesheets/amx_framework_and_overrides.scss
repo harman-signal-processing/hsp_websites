@@ -291,6 +291,20 @@ div.homepage_block {
     line-height: 1.1;
   }
 }
+div.market-segment {
+  a {
+    color: $white;
+    h4 {
+      color: $white;
+    }
+    &:hover {
+      color: scale-color($white, $lightness: -20%);
+      h4 {
+        color: scale-color($white, $lightness: -20%);
+      }
+    }
+  }
+}
 
 /***** Product Family Page *****/
 .product_family_header {
