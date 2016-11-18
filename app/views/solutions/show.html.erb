@@ -54,10 +54,12 @@ set_meta_tags title: t('solutions_page.vertical_market_solutions', vertical_mark
         <% end %>
 
         <br/>
-        <%= link_to t('learn_more').titleize,
-          @solution.vertical_market_url,
-          target: "_blank",
-          class: "button" %>
+        <div class="text-center">
+          <%= link_to t('learn_more').titleize,
+            @solution.vertical_market_url,
+            target: "_blank",
+            class: "button" %>
+        </div>
 
       <% else %>
         <h1><%= t('solutions_page.vertical_market_solutions', vertical_market: @solution.name) %></h1>
