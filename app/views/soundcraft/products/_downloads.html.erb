@@ -37,6 +37,11 @@
               <%= software.previous_versions.first.formatted_name %>
             <% end %>
           </li>
+          <% software.previous_versions.first.software_attachments.each do |sa| %>
+            <li>
+              <%= link_to sa.name, sa.software_attachment.url %>
+            </li>
+          <% end %>
         <% end %>
       <% end %>
     <% end %>
