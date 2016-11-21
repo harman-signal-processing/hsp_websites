@@ -48,6 +48,7 @@ class Ability
         can :read, WarrantyRegistration
         can :manage, PricingType
         can :manage, ProductPrice
+        can :update, Brand
       end
       if user.role?(:marketing_staff)
         can :manage, SupportSubject

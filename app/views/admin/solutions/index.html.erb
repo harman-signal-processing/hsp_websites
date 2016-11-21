@@ -21,3 +21,13 @@
 </table>
 
 
+<hr/>
+<%= simple_form_for [:admin, website.brand] do |f| %>
+  <%= hidden_field_tag "called_from", "solutions" %>
+  <p>Use the controls below to configure which (if any) of the solutions
+  appear on the top menu of the <%= website.brand.name %> site.</p>
+
+  <%= f.input :show_enterprise_solutions %>
+  <%= f.input :show_entertainment_solutions %>
+  <%= f.submit "update", class: "button" %>
+<% end %>

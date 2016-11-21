@@ -6,9 +6,9 @@ class Admin::BrandsController < AdminController
   def index
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { 
+      format.xml  {
         @brands = Brand.all.order(:name)
-        render xml: @brands 
+        render xml: @brands
       }
     end
   end
@@ -55,7 +55,13 @@ class Admin::BrandsController < AdminController
   def update
     respond_to do |format|
       if @brand.update_attributes(brand_params)
-        format.html { redirect_to([:admin, @brand], notice: 'Brand was successfully updated.') }
+        format.html {
+          if params["called_from"] == "solutions"
+            redirect_to(admin_solutions_path, notice: 'Brand was successfully updated.')
+          else
+            redirect_to([:admin, @brand], notice: 'Brand was successfully updated.')
+          end
+        }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated brand: #{@brand.name}")
       else
