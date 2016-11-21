@@ -656,6 +656,15 @@ h1.page_title {
     line-height: 15px;
   }
 }
+.product_thumb_container {
+  display: table;
+  width: 100%;
+  .product_thumb {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+  }
+}
 @media only screen and (max-width: 719px) {
   .small_product_box {
     .product_description {

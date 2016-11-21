@@ -77,42 +77,63 @@ set_meta_tags title: t('solutions_page.vertical_market_solutions', vertical_mark
 
 <hr class="colored"/>
 <p>&nbsp;</p>
-<ul class="large-block-grid-2 small-block-grid-1">
-  <% @solution.brand_solution_featured_products.where(brand_id: website.brand.id).each do |fp| %>
-    <li>
-      <% if fp.product.present? %>
-        <% fp.product.layout_class = "vertical" %>
-        <%= render_partial "product_families/product_square",
-          product: fp.product,
-          extra_large: extra_large,
-          show_brand_name: true,
-          compare: false %>
-      <% elsif fp.link.present? %>
-        <div id="<%= fp.name.to_param %>" class="small_product_box">
-          <div class="row collapse">
-            <div class="large-4 small-4 columns">
-              <div class="product_thumb">
-              <% if fp.image.present? %>
-                <% if extra_large %>
-                  <%= link_to image_tag(fp.image.url(:small)), fp.link, target: "_blank" %>
-                <% else %>
-                  <%= link_to image_tag(fp.image.url(:thumb)), fp.link, target: "_blank" %>
-                <% end %>
+<div class="row">
+  <div class="small-12 columns">
+    <div data-equalizer="productpanels">
+      <ul class="medium-block-grid-2 small-block-grid-1">
+
+        <% @solution.brand_solution_featured_products.where(brand_id: website.brand.id).each do |fp| %>
+          <li>
+            <div class="text-center">
+              <% if fp.product.present? %>
+                <%
+                  product = fp.product
+                  product_name = "#{product.brand.name} #{product.name}"
+                  if product.belongs_to_this_brand?(website)
+                    this_url = product_url(product)
+                    target = "_self"
+                  else
+                    this_url = product_url(product, host: product.brand.default_website.url)
+                    target = "_blank"
+                  end
+                %>
+                <div class="product_thumb_container" data-equalizer-watch="productpanels">
+                  <div class="product_thumb">
+                    <% if product.photo %>
+                      <%= link_to image_tag(product.photo.product_attachment.url(:small)), this_url, target: target %>
+                    <% end %>
+                  </div>
+                </div>
+                <h3><%= link_to product_name, this_url, target: target %></h3>
+                <div class="product_description">
+                  <%= translate_content(product, :short_description) %>
+                </div>
+
+              <% elsif fp.link.present? %>
+
+                <div class="product_thumb_container" data-equalizer-watch="productpanels">
+                  <div class="product_thumb">
+                    <% if fp.image.present? %>
+                      <%= link_to image_tag(fp.image.url(:horiz_thumb)), fp.link, target: "_blank" %>
+                    <% end %>
+                  </div>
+                </div>
+                <h3><%= link_to fp.name, fp.link, target: "_blank" %></h3>
+                <div class="product_description">
+                  <%= fp.description %>
+                </div>
+
               <% end %>
-              </div>
             </div>
-            <div class="large-8 small-8 columns">
-              <h3 class="vertical"><%= link_to fp.name, fp.link, target: "_blank" %></h3>
-              <div class="product_description">
-                <%= fp.description %>
-              </div>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
+            <p>&nbsp;</p>
+          </li>
+        <% end %>
+
+      </ul>
+    </div>
+  </div>
+</div>
+
 <hr class="colored"/>
 <p>&nbsp;</p>
 
