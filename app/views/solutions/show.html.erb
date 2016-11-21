@@ -38,8 +38,8 @@ set_meta_tags title: t('solutions_page.vertical_market_solutions', vertical_mark
 <%= cache [@solution, "header"] do %>
   <div class="row">
     <div class="small-12 columns">
+      <h1><%= t('solutions_page.vertical_market_solutions', vertical_market: @solution.name).titleize %></h1>
       <% if @solution.vertical_market_id.present? %>
-
         <% if @solution.vertical_market["banner_url"] %>
           <div>
             <%= link_to @solution.vertical_market_url, target: "_blank" do %>
@@ -53,6 +53,11 @@ set_meta_tags title: t('solutions_page.vertical_market_solutions', vertical_mark
           <div><%= raw @solution.vertical_market["description"] %></div>
         <% end %>
 
+        <% if @solution.content.present? %>
+          <p>&nbsp;</p>
+          <div><%= raw @solution.content %></div>
+        <% end %>
+
         <br/>
         <div class="text-center">
           <%= link_to t('learn_more').titleize,
@@ -60,20 +65,17 @@ set_meta_tags title: t('solutions_page.vertical_market_solutions', vertical_mark
             target: "_blank",
             class: "button" %>
         </div>
-
       <% else %>
-        <h1><%= t('solutions_page.vertical_market_solutions', vertical_market: @solution.name) %></h1>
-
+        <% if @solution.content.present? %>
+          <p>&nbsp;</p>
+          <div><%= raw @solution.content %></div>
+        <% end %>
       <% end %>
     </div>
   </div>
 <% end %>
 
-<% if @solution.content.present? %>
-  <p>&nbsp;</p>
-  <div><%= raw @solution.content %></div>
-<% end %>
-
+<hr class="colored"/>
 <p>&nbsp;</p>
 <ul class="large-block-grid-2 small-block-grid-1">
   <% @solution.brand_solution_featured_products.where(brand_id: website.brand.id).each do |fp| %>
@@ -111,10 +113,10 @@ set_meta_tags title: t('solutions_page.vertical_market_solutions', vertical_mark
     </li>
   <% end %>
 </ul>
+<hr class="colored"/>
 <p>&nbsp;</p>
 
 <%= cache "solution_common_footer" do %>
-
   <div class="text-center">
     <h3 class="subheader"><%= t('solutions_page.harman_family') %></h3>
     <%= link_to t('solutions_page.explore_solutions').titleize, ENV['PRO_SITE_URL'], class: "button", target: "_blank" %>

@@ -343,3 +343,7 @@ div.product-title-block, div.small-title-block {
   }
 }
 
+hr.colored {
+  border: 1px solid scale-color($primary-color, $lightness: 35%);
+}
+
