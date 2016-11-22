@@ -42,7 +42,7 @@
 	<% end %>
 
   <li class="divider hide-for-medium"></li>
-  <li class="has-dropdown"><a href="#" class="disabled">Showcase</a>
+  <li class="has-dropdown"><%= link_to "Showcase", {}, class: "disabled" %></a>
     <ul class="dropdown">
       <li><%= link_to "Network Security", '/network-security' %></li>
       <li><%= link_to "Automation", '/automation' %></li>
@@ -52,19 +52,17 @@
   </li>
 
   <li class="divider hide-for-medium"></li>
-  <li class="has-dropdown"><%= link_to "Learn", '#', class: "disabled" %>
+  <li class="has-dropdown"><%= link_to "Learn", {}, class: "disabled" %>
     <ul class="dropdown">
-      <li><%= link_to "AV Basics", "/#{I18n.locale}/pages/av-basics" %></li>
-      <li><%= link_to "AV & IT", "/#{I18n.locale}/av-it" %></li>
-      <li><%= link_to "Buying AV", '#' %></li>
-      <li><%= link_to "Collaboration", '#' %></li>
-      <li><%= link_to "Learning Spaces", '#' %></li>
-      <li><%= link_to "Meeting Rooms", '#' %></li>
-      <li><%= link_to "Video Conferencing", '#' %></li>
-      <li><%= link_to "Security", '#' %></li>
-      <li><%= link_to "Service & Support", '#' %></li>
-      <li><%= link_to "Standardization", '#' %></li>
-      <li><%= link_to "Sustainability", '#' %></li>
+      <li><%= link_to "AV Basics", "/#{I18n.locale}/learn-av-basics" %></li>
+      <li><%= link_to "AV & IT", "/#{I18n.locale}/learn-av-it" %></li>
+      <li><%= link_to "Buying AV", "/#{I18n.locale}/learn-buying-av" %></li>
+      <li><%= link_to "Collaboration", "/#{I18n.locale}/learn-collaboration" %></li>
+      <li><%= link_to "Learning Spaces", "/#{I18n.locale}/learn-learning-spaces" %></li>
+      <li><%= link_to "Meeting Rooms", "/#{I18n.locale}/learn-meeting-rooms" %></li>
+      <li><%= link_to "Security", "/#{I18n.locale}/learn-security" %></li>
+      <li><%= link_to "Sustainability", "/#{I18n.locale}/learn-sustainability" %></li>
+      <li><%= link_to "Video Conferencing", "/#{I18n.locale}/learn-video-conferencing" %></li>
     </ul>
   </li>
 
