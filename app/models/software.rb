@@ -16,7 +16,12 @@ class Software < ActiveRecord::Base
   has_many :operating_systems, through: :software_operating_systems
 
   validates :name, :brand_id, presence: true
-  has_attached_file :ware, S3_STORAGE.merge({ path: ":class/:attachment/:id_:timestamp/:basename.:extension" })
+  has_attached_file :ware, S3_STORAGE.merge({
+    s3_headers: lambda { |attachment|
+      { "Content-Disposition" => %(attachment; filename="#{attachment.ware_file_name}") }
+    },
+    path: ":class/:attachment/:id_:timestamp/:basename.:extension"
+  })
   do_not_validate_attachment_file_type :ware
 
   # process_in_background :ware # replaced with direct to s3 upload
