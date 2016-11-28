@@ -1,8 +1,0 @@
-
-<% this_url = product_url(product) %>
-<div id="<%= product.to_param %>" class="div-border fade hightlight_bg margin-right" align="right" >
-	<% if product.image %>
-		<%= link_to(image_tag(product.image.url(:thumb)), this_url) %><br/>
-	<% end %>
-	<%= link_to(product.name, this_url) %></td></tr>
-</div>

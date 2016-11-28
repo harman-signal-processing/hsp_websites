@@ -1,7 +1,0 @@
-<div  align="center">
-  <% @products.products_images.each do |thumb| %>
-  <a href="<%= thumb.image.url %>" data-lightbox="collection">
-  	<span data-tooltip aria-haspopup="true" class="has-tip tip-top radius" title="<%= thumb.name %>"><%= image_tag(thumb.image.url(:thumb), :id => "tn_image", :class => "hover_up")  %></span>
-  </a>
-  <% end %>
-</div>

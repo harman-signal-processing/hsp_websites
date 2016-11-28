@@ -1,9 +1,0 @@
-<p class="small-text" align="center" style="padding-right: 15px;" >
-<% if sda_user_signed_in? %>
-  Logged in as <strong><%= current_sda_user.email %></strong>.
-  <%= link_to 'Change Password', edit_sda_user_registration_path, :class => 'navbar-link' %> |
-  <%= link_to "Logout", destroy_sda_user_session_path, method: :delete, :class => 'navbar-link'  %>
-<% else %>
-  <%= link_to "Login", new_sda_user_session_path, :class => 'navbar-link'  %>
-<% end %>
-</p>
