@@ -1,11 +1,12 @@
 class Admin::DistributorsController < AdminController
   before_filter :initialize_distributor, only: :create
   load_and_authorize_resource
-  
+
   # GET /admin/distributors
   # GET /admin/distributors.xml
   def index
-    @search = website.brand.distributors.ransack(params[:q])
+    @this_brand = !!(params[:this_brand].to_i > 0)
+    @search = (@this_brand) ? website.brand.distributors.ransack(params[:q]) : Distributor.ransack(params[:q])
     @distributors = @search.result.order(:name)
     respond_to do |format|
       format.html { render_template } # index.html.erb

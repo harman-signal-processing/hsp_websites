@@ -2,7 +2,7 @@
 
 <div class="instructions">
 <% if !website.dealers_from_brand_id.blank? %>
-	Note: <%= website.brand_name %> is configured to use the dealers from 
+	Note: <%= website.brand_name %> is configured to use the dealers from
 	<%= Brand.find(website.dealers_from_brand_id).name %>. Please manage
 	the dealers on its website instead of this one.
 <% else %>
