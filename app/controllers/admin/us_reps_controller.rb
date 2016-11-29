@@ -41,7 +41,8 @@ class Admin::UsRepsController < AdminController
   def create
     respond_to do |format|
       if @us_rep.save
-        @us_rep.create_brand_us_rep(website)
+        website.brand.us_reps << @us_rep
+        #@us_rep.create_brand_us_rep(website)
         format.html { redirect_to([:admin, @us_rep], notice: 'US Rep was successfully created.') }
         format.xml  { render xml: @us_rep, status: :created, location: @us_rep }
         website.add_log(user: current_user, action: "Created US Rep #{@us_rep.name}")

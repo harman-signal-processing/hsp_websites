@@ -1,12 +1,46 @@
 <%= simple_form_for([:admin, @us_rep]) do |f| %>
-  <%= f.input :name %>
-  <%= f.input :contact %>
-  <%= f.input :address %>
-  <%= f.input :city %>
-  <%= f.input :state %>
-  <%= f.input :zip %>
-  <%= f.input :phone %>
-  <%= f.input :fax %>
-  <%= f.input :email %>
+  <div class="row">
+    <div class="medium-6 columns">
+      <%= f.input :name %>
+    </div>
+    <div class="medium-6 columns">
+      <%= f.input :contact %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="medium-6 columns">
+      <%= f.input :address %>
+    </div>
+    <div class="medium-6 columns">
+      <%= f.input :city %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="medium-6 columns">
+      <%= f.input :state %>
+    </div>
+    <div class="medium-6 columns">
+      <%= f.input :zip %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="medium-6 columns">
+      <%= f.input :phone %>
+    </div>
+    <div class="medium-6 columns">
+      <%= f.input :fax %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="medium-6 columns">
+      <%= f.input :email %>
+    </div>
+    <%= f.fields_for :us_rep_regions do |reg| %>
+      <%#= reg.input :brand_id, value: website.brand_id, as: :hidden %>
+      <div class="medium-6 columns">
+        <%= reg.input :name, label: "Region name", hint: "Name just one region this rep represents. More can be added later." %>
+      </div>
+    <% end %>
+  </div>
   <br/><%= f.button :submit %>
 <% end %>

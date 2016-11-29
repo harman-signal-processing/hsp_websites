@@ -10,7 +10,7 @@ class BrandSolutionFeaturedProduct < ActiveRecord::Base
 
   validates :name, presence: true, if: "product_id.nil?"
   validates :link, presence: true, if: "product_id.nil?"
-  validates :description, presence: true, if: "product_id.nil?"
+  #validates :description, presence: true, if: "product_id.nil?"
 
   has_attached_file :image, {
     styles: {
