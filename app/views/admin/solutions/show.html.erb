@@ -20,6 +20,12 @@
   Appears on these brand sites: <%= @solution.brands.order("UPPER(name)").map{|b| b.name}.join(", ") %>
 </p>
 
+<div>
+  <%=raw @solution.content %>
+</div>
+
+<h3 style="text-center"><%= @solution.product_header %></h3>
+
 <div class="row">
   <div class="medium-6 small-12 columns">
     <div class="group">

@@ -15,6 +15,9 @@
     label: "Content to separate vertical market text from the featured products",
     input_html: { class: "mceEditor" } %>
 
+  <%= f.input :product_header,
+    hint: "Appears just above the featured products as a <h3> tag." %>
+
   <br/>
   <%= f.association :brands,
     as: :check_boxes,

@@ -76,7 +76,11 @@ set_meta_tags title: t('solutions_page.vertical_market_solutions', vertical_mark
 <% end %>
 
 <hr class="colored"/>
+<% if @solution.product_header.present? %>
+  <h3 class="text-center subheader"><%= @solution.product_header %></h3>
+<% end %>
 <p>&nbsp;</p>
+
 <div class="row">
   <div class="small-12 columns">
     <div data-equalizer="productpanels">
