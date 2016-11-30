@@ -314,7 +314,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :faqs
 
       #match "translations/:target_locale(/:action)" => "content_translations", as: :translations
-      scope path: '/:target_locale', target_locale: /#{WebsiteLocale.all_unique_locales.join('|')}/ do
+      scope path: '/:target_locale', target_locale: /#{WebsiteLocale.all_unique_and_incomplete_locales.join('|')}/ do
         resources :content_translations do
           collection {get :list, :combined}
           collection {post :combined}
