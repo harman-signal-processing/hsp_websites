@@ -35,12 +35,11 @@
     <div class="medium-6 columns">
       <%= f.input :email %>
     </div>
-    <%= f.fields_for :us_rep_regions do |reg| %>
-      <%#= reg.input :brand_id, value: website.brand_id, as: :hidden %>
-      <div class="medium-6 columns">
-        <%= reg.input :name, label: "Region name", hint: "Name just one region this rep represents. More can be added later." %>
-      </div>
-    <% end %>
+    <div class="medium-6 columns">
+      <%= label_tag :region_name, "Region name" %>
+      <%= text_field_tag :region_name %>
+      <span class="hint">Name just one region this rep represents. More can be added later.</span>
+    </div>
   </div>
   <br/><%= f.button :submit %>
 <% end %>

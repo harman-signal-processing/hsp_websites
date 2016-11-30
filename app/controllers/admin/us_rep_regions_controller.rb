@@ -1,7 +1,7 @@
 class Admin::UsRepRegionsController < AdminController
   before_filter :initialize_us_rep_region, only: :create
   load_and_authorize_resource
-  
+
   # GET /admin/us_rep_regions
   # GET /admin/us_rep_regions.xml
   def index
@@ -39,7 +39,7 @@ class Admin::UsRepRegionsController < AdminController
   # POST /admin/us_rep_regions.xml
   def create
     begin
-      us_region = UsRegion.new(params[:us_region])
+      us_region = UsRegion.new(params.require(:us_region).permit!)
       if us_region.save
         @us_rep_region.us_region = us_region
       end
@@ -47,7 +47,7 @@ class Admin::UsRepRegionsController < AdminController
       # probably didn't have a form that can provide a new region
     end
     respond_to do |format|
-      if @us_rep_region.save
+      if @us_rep_region.save!
         format.html { redirect_to([:admin, @us_rep_region.us_rep], notice: 'US Rep Region was successfully created.') }
         format.xml  { render xml: @us_rep_region, status: :created, location: @us_rep_region }
         format.js

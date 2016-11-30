@@ -1,3 +1,4 @@
 $('#us_rep_regions').append('<%= escape_javascript(render '/admin/shared/us_rep_region_row', usr: @us_rep_region) %>');
 $('#us_region_name').val('');
+$('div#ps_err').remove();
 <% flash.discard %>

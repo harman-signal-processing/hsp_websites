@@ -24,18 +24,29 @@
 		    <%= f.hidden_field :us_rep_id %>
 		    <%= f.hidden_field :brand_id %>
 
-				<span id="select_region">
-				<%= f.association :us_region, label: "Region Name", collection: UsRegion.order("name") %>
-				<%= link_to_function("new region", 
-					  "$('#select_region').toggle();$('#new_region').toggle()") if can?(:create, UsRegion) %>
-				</span>
-				<span id="new_region" style="display:none">
-				<%= simple_fields_for UsRegion.new do |reg| %>
-				<%= reg.input :name %>
-				<% end %>
-				<%= link_to_function "select existing region", 
-					  "$('#select_region').toggle();$('#new_region').toggle();$('#us_region_name').val('');"%>
-				</span>
+        <div class="row" id="select_region">
+          <div class="medium-8 columns">
+            <%= f.association :us_region, label: "Existing Region", collection: UsRegion.order("name") %>
+          </div>
+          <div class="medium-4 columns">
+            <br/>
+            <%= link_to_function("new region",
+                "$('#select_region').toggle();$('#new_region').toggle()") if can?(:create, UsRegion) %>
+          </div>
+        </div>
+
+        <div class="row" id="new_region" style="display:none">
+          <div class="medium-8 columns">
+            <%= simple_fields_for UsRegion.new do |reg| %>
+              <%= reg.input :name, label: "New Region" %>
+            <% end %>
+          </div>
+          <div class="medium-4 columns">
+            <br/>
+            <%= link_to_function "select existing region",
+                "$('#select_region').toggle();$('#new_region').toggle();$('#us_region_name').val('');"%>
+          </div>
+        </div>
 
 			<p><%= f.button :submit %>
 			<%= link_to_function "cancel", "$('#add_region_form').toggle();"%></p>
