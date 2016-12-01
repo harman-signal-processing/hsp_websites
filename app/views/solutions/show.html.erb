@@ -36,110 +36,88 @@ set_meta_tags title: t('solutions_page.vertical_market_solutions', vertical_mark
 %>
 
 <%= cache [@solution, "header"] do %>
-  <div class="row">
-    <div class="small-12 columns">
-      <h1><%= t('solutions_page.vertical_market_solutions', vertical_market: @solution.name).titleize %></h1>
-      <% if @solution.vertical_market_id.present? %>
-        <% if @solution.vertical_market["banner_url"] %>
-          <div>
-            <%= link_to @solution.vertical_market_url, target: "_blank" do %>
-              <%= image_tag @solution.vertical_market_banner_url, alt: @solution.vertical_market_id.titleize %>
-            <% end %>
-          </div>
-        <% end %>
+  <h1><%= t('solutions_page.vertical_market_solutions', vertical_market: @solution.name).titleize %></h1>
 
-        <h2><%= @solution.vertical_market["headline"] %></h2>
-        <% if @solution.vertical_market["description"] %>
-          <div><%= raw @solution.vertical_market["description"] %></div>
-        <% end %>
-
-        <% if @solution.content.present? %>
-          <p>&nbsp;</p>
-          <div><%= raw @solution.content %></div>
-        <% end %>
-
-        <br/>
-        <div class="text-center">
-          <%= link_to t('learn_more').titleize,
-            @solution.vertical_market_url,
-            target: "_blank",
-            class: "button" %>
-        </div>
-      <% else %>
-        <% if @solution.content.present? %>
-          <p>&nbsp;</p>
-          <div><%= raw @solution.content %></div>
-        <% end %>
+  <% if @solution.vertical_market_id.present? %>
+    <% if @solution.vertical_market["banner_url"] %>
+      <%= link_to @solution.vertical_market_url, target: "_blank" do %>
+        <%= image_tag @solution.vertical_market_banner_url, alt: @solution.vertical_market_id.titleize, style: "margin-bottom: 20px" %>
       <% end %>
+    <% end %>
+  <% end %>
+
+  <% if @solution.content.present? %>
+    <div style="margin: 20px 0px"><%= raw @solution.content %></div>
+  <% end %>
+
+  <% if @solution.vertical_market_id.present? %>
+    <div class="text-center" style="margin-top: 30px">
+      <%= link_to t('learn_more').titleize,
+        @solution.vertical_market_url,
+        target: "_blank",
+        class: "button" %>
     </div>
-  </div>
+  <% end %>
 <% end %>
 
 <hr class="colored"/>
 <% if @solution.product_header.present? %>
   <h3 class="text-center subheader"><%= @solution.product_header %></h3>
 <% end %>
-<p>&nbsp;</p>
 
-<div class="row">
-  <div class="small-12 columns">
-    <div data-equalizer="productpanels">
-      <ul class="medium-block-grid-2 small-block-grid-1">
+<div data-equalizer="productpanels" style="margin-bottom: -10px;">
+  <ul class="medium-block-grid-2 small-block-grid-1">
 
-        <% @solution.brand_solution_featured_products.where(brand_id: website.brand.id).each do |fp| %>
-          <li>
-            <div class="text-center">
-              <% if fp.product.present? %>
-                <%
-                  product = fp.product
-                  product_name = "#{product.brand.name} #{product.name}"
-                  if product.belongs_to_this_brand?(website)
-                    this_url = product_url(product)
-                    target = "_self"
-                  else
-                    this_url = product_url(product, host: product.brand.default_website.url)
-                    target = "_blank"
-                  end
-                %>
-                <div class="product_thumb_container" data-equalizer-watch="productpanels">
-                  <div class="product_thumb">
-                    <% if product.photo %>
-                      <%= link_to image_tag(product.photo.product_attachment.url(:small)), this_url, target: target %>
-                    <% end %>
-                  </div>
-                </div>
-                <h3><%= link_to product_name, this_url, target: target %></h3>
-                <div class="product_description">
-                  <%= translate_content(product, :short_description) %>
-                </div>
-
-              <% elsif fp.link.present? %>
-
-                <div class="product_thumb_container" data-equalizer-watch="productpanels">
-                  <div class="product_thumb">
-                    <% if fp.image.present? %>
-                      <%= link_to image_tag(fp.image.url(:small)), fp.link, target: "_blank" %>
-                    <% end %>
-                  </div>
-                </div>
-                <h3><%= link_to fp.name, fp.link, target: "_blank" %></h3>
-                <div class="product_description">
-                  <%= fp.description %>
-                </div>
-
-              <% end %>
+    <% @solution.brand_solution_featured_products.where(brand_id: website.brand.id).each do |fp| %>
+      <li>
+        <div class="text-center">
+          <% if fp.product.present? %>
+            <%
+              product = fp.product
+              product_name = "#{product.brand.name} #{product.name}"
+              if product.belongs_to_this_brand?(website)
+                this_url = product_url(product)
+                target = "_self"
+              else
+                this_url = product_url(product, host: product.brand.default_website.url)
+                target = "_blank"
+              end
+            %>
+            <div class="product_thumb_container" data-equalizer-watch="productpanels">
+              <div class="product_thumb">
+                <% if product.photo %>
+                  <%= link_to image_tag(product.photo.product_attachment.url(:small)), this_url, target: target %>
+                <% end %>
+              </div>
             </div>
-            <p>&nbsp;</p>
-          </li>
-        <% end %>
+            <h3><%= link_to product_name, this_url, target: target %></h3>
+            <div class="product_description">
+              <%= translate_content(product, :short_description) %>
+            </div>
 
-      </ul>
-    </div>
-  </div>
+          <% elsif fp.link.present? %>
+
+            <div class="product_thumb_container" data-equalizer-watch="productpanels">
+              <div class="product_thumb">
+                <% if fp.image.present? %>
+                  <%= link_to image_tag(fp.image.url(:small)), fp.link, target: "_blank" %>
+                <% end %>
+              </div>
+            </div>
+            <h3><%= link_to fp.name, fp.link, target: "_blank" %></h3>
+            <div class="product_description">
+              <%= fp.description %>
+            </div>
+
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+
+  </ul>
 </div>
 
 <hr class="colored"/>
-<p>&nbsp;</p>
 
 <%= cache "solution_common_footer" do %>
   <div class="text-center">
@@ -147,8 +125,7 @@ set_meta_tags title: t('solutions_page.vertical_market_solutions', vertical_mark
     <%= link_to t('solutions_page.explore_solutions').titleize, ENV['PRO_SITE_URL'], class: "button", target: "_blank" %>
   </div>
 
-  <p>&nbsp;</p>
-  <div class="row collapse">
+  <div class="row collapse" style="margin-top: 20px;">
     <% begin %>
       <% SolutionMarket.parents.each do |parent_vertical| %>
         <div class="medium-6 small-12 columns">

@@ -29,4 +29,10 @@ class Solution < ActiveRecord::Base
   def vertical_market_url
     @vertical_market_url ||= "#{ENV['PRO_SITE_URL']}/applications/#{vertical_market['slug']}"
   end
+
+  def copy_vm_content
+    if self.vertical_market_id.present?
+      update_column(:content, "<h2>#{ vertical_market['headline'] }</h2>\r\n#{ vertical_market['description'] }\r\n#{ content }")
+    end
+  end
 end
