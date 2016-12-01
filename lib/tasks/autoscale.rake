@@ -37,7 +37,7 @@ namespace :rackspace do
   end
 
   def delete_old_images(client, server_name)
-    images = server_images(server_name).sort
+    images = server_images(client, server_name).sort
     if images.length > 8
       client.images.get(images.first[1]).destroy
     end

@@ -660,9 +660,11 @@ h1.page_title {
   display: table;
   width: 100%;
   .product_thumb {
+    height: 80px;
     display: table-cell;
     text-align: center;
-    vertical-align: middle;
+    vertical-align: bottom;
+    overflow: hidden;
   }
 }
 @media only screen and (max-width: 719px) {

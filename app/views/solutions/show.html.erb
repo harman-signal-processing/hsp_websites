@@ -62,59 +62,61 @@ set_meta_tags title: t('solutions_page.vertical_market_solutions', vertical_mark
 
 <hr class="colored"/>
 <% if @solution.product_header.present? %>
-  <h3 class="text-center subheader"><%= @solution.product_header %></h3>
+  <h3 class="text-center subheader" style="margin-bottom: 10px;"><%=raw @solution.product_header %></h3>
 <% end %>
 
-<div data-equalizer="productpanels" style="margin-bottom: -10px;">
-  <ul class="medium-block-grid-2 small-block-grid-1">
+<div class="row" style="margin-bottom: -10px">
+  <div class="medium-12 columns">
+    <ul class="medium-block-grid-2 small-block-grid-1">
 
-    <% @solution.brand_solution_featured_products.where(brand_id: website.brand.id).each do |fp| %>
-      <li>
-        <div class="text-center">
-          <% if fp.product.present? %>
-            <%
-              product = fp.product
-              product_name = "#{product.brand.name} #{product.name}"
-              if product.belongs_to_this_brand?(website)
-                this_url = product_url(product)
-                target = "_self"
-              else
-                this_url = product_url(product, host: product.brand.default_website.url)
-                target = "_blank"
-              end
-            %>
-            <div class="product_thumb_container" data-equalizer-watch="productpanels">
-              <div class="product_thumb">
-                <% if product.photo %>
-                  <%= link_to image_tag(product.photo.product_attachment.url(:small)), this_url, target: target %>
-                <% end %>
+      <% @solution.brand_solution_featured_products.where(brand_id: website.brand.id).each do |fp| %>
+        <li>
+          <div class="text-center">
+            <% if fp.product.present? %>
+              <%
+                product = fp.product
+                product_name = "#{product.brand.name} #{product.name}"
+                if product.belongs_to_this_brand?(website)
+                  this_url = product_url(product)
+                  target = "_self"
+                else
+                  this_url = product_url(product, host: product.brand.default_website.url)
+                  target = "_blank"
+                end
+              %>
+              <div class="product_thumb_container">
+                <div class="product_thumb">
+                  <% if product.photo %>
+                    <%= link_to image_tag(product.photo.product_attachment.url(:small)), this_url, target: target %>
+                  <% end %>
+                </div>
               </div>
-            </div>
-            <h3><%= link_to product_name, this_url, target: target %></h3>
-            <div class="product_description">
-              <%= translate_content(product, :short_description) %>
-            </div>
-
-          <% elsif fp.link.present? %>
-
-            <div class="product_thumb_container" data-equalizer-watch="productpanels">
-              <div class="product_thumb">
-                <% if fp.image.present? %>
-                  <%= link_to image_tag(fp.image.url(:small)), fp.link, target: "_blank" %>
-                <% end %>
+              <h3><%= link_to product_name, this_url, target: target %></h3>
+              <div class="product_description">
+                <%= translate_content(product, :short_description) %>
               </div>
-            </div>
-            <h3><%= link_to fp.name, fp.link, target: "_blank" %></h3>
-            <div class="product_description">
-              <%= fp.description %>
-            </div>
 
-          <% end %>
-        </div>
-      </li>
-    <% end %>
+            <% elsif fp.link.present? %>
 
-  </ul>
+              <div class="product_thumb_container">
+                <div class="product_thumb">
+                  <% if fp.image.present? %>
+                    <%= link_to image_tag(fp.image.url(:small)), fp.link, target: "_blank" %>
+                  <% end %>
+                </div>
+              </div>
+              <h3><%= link_to fp.name, fp.link, target: "_blank" %></h3>
+              <div class="product_description">
+                <%= fp.description %>
+              </div>
+
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+
+    </ul>
+  </div>
 </div>
 
 <hr class="colored"/>
