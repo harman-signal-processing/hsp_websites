@@ -5,7 +5,7 @@ class BrandSolutionFeaturedProduct < ActiveRecord::Base
   validates :brand, presence: true
   validates :solution, presence: true
 
-  belongs_to :product # (maybe--if not, the static fields should be required)
+  belongs_to :product, touch: true # (maybe--if not, the static fields should be required)
   validates :product, presence: true, if: "name.nil?"
 
   validates :name, presence: true, if: "product_id.nil?"
