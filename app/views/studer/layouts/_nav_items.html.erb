@@ -4,7 +4,6 @@
 			<% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
 				<%= product_family_nav_links(product_family) %>
 			<% end %>
-			<li><%= link_to "Discontinued Products", discontinued_products_path %></li>
       <% if website.has_product_registrations? %>
         <li><%= link_to ucfirst(t('warranty_registration')), warranty_registration_path %></li>
       <% end %>
