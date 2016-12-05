@@ -1,10 +1,9 @@
 <h1>Solution Pages</h1>
 
-<% if can? :create, Solution %>
-  <ul class="button-group round">
-    <li><%= link_to 'New Solution', new_admin_solution_path, class: "small success button" %></li>
-  </ul>
-<% end %>
+<ul class="button-group round">
+  <li><%= link_to 'New Solution', new_admin_solution_path, class: "small success button" %></li>
+  <li><%= link_to 'Define Enterprise/Entertainment Products', solutions_admin_products_path, class: "small button" %></li>
+</ul>
 
 <table class="data" style="width: 100%">
   <tr>

@@ -98,7 +98,7 @@ class Admin::ProductsController < AdminController
     end
     website.add_log(user: current_user, action: "Deleted product: #{@product.name}")
   end
-  
+
   # Custom method to list all products and their RoHS status
   # GET /admin/products/rohs
   def rohs
@@ -108,7 +108,7 @@ class Admin::ProductsController < AdminController
       format.html { render_template } # only have html output for now
     end
   end
-  
+
   # Custom method to update RoHS status for all products at once
   # PUT /admin/products/update_rohs
   def update_rohs
@@ -149,17 +149,30 @@ class Admin::ProductsController < AdminController
     end
     redirect_to(harman_employee_pricing_admin_products_path, notice: "Pricing updated successfully.")
   end
-  
+
   # Delete custom background
   def delete_background
     @product = Product.find(params[:id])
     @product.update_attributes(background_image: nil)
     respond_to do |format|
       format.html { redirect_to(edit_admin_product_path(@product), notice: "Background was deleted.") }
-      format.js 
+      format.js
     end
     website.add_log(user: current_user, action: "Deleted #{@product.name} custom background")
   end
+
+  # Hacking together a page to update which products belong to enterprise or entertainment
+  def solutions
+    @products = website.products
+  end
+
+  def update_solutions
+    website.products.update_all(enterprise: false, entertainment: false)
+    website.products.where(id: params[:enterprise]).update_all(enterprise: true)
+    website.products.where(id: params[:entertainment]).update_all(entertainment: true)
+    redirect_to(admin_solutions_path, notice: "Product groups were updated successfully.")
+  end
+
   private
 
   def initialize_product
@@ -168,5 +181,5 @@ class Admin::ProductsController < AdminController
 
   def product_params
     params.require(:product).permit!
-  end  
+  end
 end

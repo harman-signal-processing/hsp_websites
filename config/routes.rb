@@ -126,6 +126,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
           get :harman_employee_pricing
           put :update_harman_employee_pricing
           get :artist_pricing
+          get :solutions
+          put :update_solutions
         end
         member do
           get :delete_background

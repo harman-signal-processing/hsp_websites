@@ -1,0 +1,44 @@
+<h1>Enterprise/Entertainment</h1>
+<p>Indicate which products belong to the Enterprise and/or
+Entertainment groups.</p>
+
+<%#= simple_form_for @products, url: update_solutions_admin_products_path do |f| %>
+
+<%= form_tag update_solutions_admin_products_path, method: :put %>
+  <%= submit_tag "save changes", class: "small round button" %>
+	<table>
+		<tr>
+			<th>Product</th>
+      <th class="text-center">Enterprise</th>
+      <th class="text-center">Entertainment</th>
+		</tr>
+    <tr>
+      <td class="text-right">check all</td>
+      <td class="text-center"><input type="checkbox" class="checkall" id="enterprise"/></td>
+      <td class="text-center"><input type="checkbox" class="checkall" id="entertainment"/></td>
+    </tr>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= link_to product.name, product, target: "_blank" %></td>
+        <td class="text-center">
+          <%= check_box_tag "enterprise[]", product.id, product.enterprise, class: "enterprise" %>
+        </td>
+        <td class="text-center">
+          <%= check_box_tag "entertainment[]", product.id, product.entertainment, class: "entertainment" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+  <%= submit_tag "save changes", class: "small round button" %>
+</form>
+
+<%= content_for :extra_js do %>
+  <script>
+    $( document ).ready(function() {
+      $("input.checkall").click( function() {
+        console.log("checked " + this.id);
+        $("input." + this.id).prop('checked', this.checked);
+      });
+    });
+  </script>
+<% end %>
