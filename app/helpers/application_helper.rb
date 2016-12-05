@@ -137,6 +137,12 @@ module ApplicationHelper
           content_tag(:p, artist_brand.intro.to_s.html_safe)
         end
       end
+    elsif slide.string_value.to_s.match(/^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/i)
+      video_id = $5
+
+      slide_content = link_to(play_video_url(video_id), target: "_blank", class: "start-video", data: { videoid: video_id } ) do
+        image_tag(slide.slide.url)
+      end
     else
       slide_link = (slide.string_value =~ /^\// || slide.string_value =~ /^http/i) ? slide.string_value : "/#{params[:locale]}/#{slide.string_value}"
 
@@ -147,8 +153,8 @@ module ApplicationHelper
       end
 
       slide_content = (slide.string_value.blank?) ?
-          image_tag(slide.slide.url) :
-          link_to(image_tag(slide.slide.url), slide_link, link_options)
+        image_tag(slide.slide.url) :
+        link_to(image_tag(slide.slide.url), slide_link, link_options)
     end
 
     # We may want to use the built-in captions
