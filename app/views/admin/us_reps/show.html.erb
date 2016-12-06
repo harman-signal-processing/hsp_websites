@@ -16,7 +16,7 @@
 <p><b>Email:</b> <%= @us_rep.email %></p>
 
 <div class="group">
-	<h3>Regions</h3>
+  <h4>Regions Where <%= @us_rep.name.titleize %> Represents <%= website.brand.name %></h4>
 	<%= link_to_function "add a region", "$('#add_region_form').toggle();", class: "small round success button" %>
 
 	<div id="add_region_form" style="display:none">
@@ -58,4 +58,6 @@
 	  	<%= render "/admin/shared/us_rep_region_row", usr: usr %>
 	  <% end %>
 	</ul>
+
+  <p><i>To manage this rep's regions for other brands, use the admin page for that brand.</i></p>
 </div>

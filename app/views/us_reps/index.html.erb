@@ -1,53 +1,53 @@
 <% set_meta_tags reverse: true, title: "US Sales Reps" %>
 
 <h1 class="page_title">
-<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/us_sales_reps_head.jpg")) %>
-	<%= image_tag("#{website.folder}/#{I18n.locale}/us_sales_reps_head.jpg", alt: "US Sales Reps") %>
-<% else %>
-	US Sales Reps
-<% end %>
-</h1>	
-	
+  <% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/us_sales_reps_head.jpg")) %>
+    <%= image_tag("#{website.folder}/#{I18n.locale}/us_sales_reps_head.jpg", alt: "US Sales Reps") %>
+  <% else %>
+    US Sales Reps
+  <% end %>
+</h1>
+
 <div class="row">
 
-	<div class="large-5 columns">
-		<p style="margin-bottom: 20px;">Our US sales reps are happy to assist in becoming a new <%= website.brand.name %> dealer or managing your <%= website.brand.name %> account.
-			<% if website.brand.has_dealers? %>
-			To purchase <%= website.brand.name %> products, please visit a <%= link_to "local #{website.brand.name} dealer", where_to_buy_path %>.
-			<% end %>
-		</p>
+  <div class="large-5 columns">
+    <p style="margin-bottom: 20px;">Our US sales reps are happy to assist in becoming a new <%= website.brand.name %> dealer or managing your <%= website.brand.name %> account.
+    <% if website.brand.has_dealers? %>
+      To purchase <%= website.brand.name %> products, please visit a <%= link_to "local #{website.brand.name} dealer", where_to_buy_path %>.
+    <% end %>
+    </p>
 
-		<%= form_tag search_us_reps_path, method: :get %>
-			<%= label_tag "Select your region" %>
-			<div class="row collapse">
-				<div class="large-9 small-8 columns">
-					<%= select_tag :us_region, options_from_collection_for_select(@us_regions, :id, :name, @us_region.id) %>
-				</div>
-				<div class="large-3 small-4 columns">
-					<%= submit_tag t('submit'), class: "postfix button" %>
-				</div>
-			</div>
-		</form>
-	</div>
+    <%= form_tag search_us_reps_path, method: :get %>
+    <%= label_tag "Select your region" %>
+    <div class="row collapse">
+      <div class="large-9 small-8 columns">
+        <%= select_tag :us_region, options_from_collection_for_select(@us_regions, :id, :name, @us_region.id) %>
+      </div>
+      <div class="large-3 small-4 columns">
+        <%= submit_tag t('submit'), class: "postfix button" %>
+      </div>
+    </div>
+    </form>
+  </div>
 
-<% if @us_reps.size > 0 %>
-	<% @us_reps.each do |us_rep| %>
-	<div class="large-6 large-offset-1 columns">
-		<div class="panel">
-		<h3><%= us_rep.name %></h3>
-		  <% if us_rep.contact.present? %><div><%= raw us_rep.contact %></div><% end %>
-		  	<p>
-			  <% if us_rep.address.present? %><%= us_rep.address %><br/> <% end %>
-			  <% if us_rep.city.present? %><%= us_rep.city %>, <% end %>
-			  <% if us_rep.state.present? %><%= us_rep.state %> <% end %>
-			  <% if us_rep.zip.present? %><%= us_rep.zip %> <% end %>
-			  <% if us_rep.phone.present? %><br/><%= us_rep.phone %> <% end %>
-			  <% if us_rep.fax.present? %><br/>Fax. <%= us_rep.fax %> <% end %>
-			  <% if us_rep.email.present? %><br/><%= mail_to us_rep.email, us_rep.email %> <% end %>
-			</p>
-		<% end %>
-		</div>
-	</div>
-<% end %>
+  <% if @us_reps.size > 0 %>
+    <% @us_reps.each do |us_rep| %>
+      <div class="large-6 large-offset-1 columns">
+        <div class="panel">
+          <h3><%= us_rep.name %></h3>
+          <% if us_rep.contact.present? %><div><%= raw us_rep.contact %></div><% end %>
+          <p>
+          <% if us_rep.address.present? %><%= us_rep.address %><br/> <% end %>
+          <% if us_rep.city.present? %><%= us_rep.city %>, <% end %>
+          <% if us_rep.state.present? %><%= us_rep.state %> <% end %>
+          <% if us_rep.zip.present? %><%= us_rep.zip %> <% end %>
+          <% if us_rep.phone.present? %><br/><%= us_rep.phone %> <% end %>
+          <% if us_rep.fax.present? %><br/>Fax. <%= us_rep.fax %> <% end %>
+          <% if us_rep.email.present? %><br/><%= mail_to us_rep.email, us_rep.email %> <% end %>
+          </p>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
 
 </div>

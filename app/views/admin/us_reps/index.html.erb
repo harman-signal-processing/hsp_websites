@@ -1,44 +1,52 @@
 <h1>US Sales Reps</h1>
 
 <% if !website.us_sales_reps_from_brand_id.blank? %>
-	Note: <%= website.brand_name %> is configured to use the reps from 
-	<%= Brand.find(website.us_sales_reps_from_brand_id).name %>. Please manage
-	the reps on its website instead of this one.
+  Note: <%= website.brand_name %> is configured to use the reps from
+  <%= Brand.find(website.us_sales_reps_from_brand_id).name %>. Please manage
+  the reps on its website instead of this one.
 <% else %>
 
-<% if can? :create, UsRep %>
-<ul class="button-group round">
-	<li><%= link_to 'New Rep', new_admin_us_rep_path, class: "small success button" %></li>
-</ul>
-<% end %>
+  <% if can? :create, UsRep %>
+    <ul class="button-group round">
+      <li><%= link_to 'New Rep', new_admin_us_rep_path, class: "small success button" %></li>
+    </ul>
+  <% end %>
 
-<div class="row">
-  <div class="large-6 columns">
-    <div class="panel">
-      <%= search_form_for [:admin, @search] do |f| %>
-        <div class="form_field">
-          <%= f.label :name_cont, "Name contains" %>
-          <%= f.text_field :name_cont %>
-        </div>
-        <%= f.submit "Search reps", class: "small round button" %>
-      <% end %>
+  <div class="row">
+    <div class="large-6 columns">
+      <div class="panel">
+        <%= search_form_for [:admin, @search] do |f| %>
+          <div class="form_field">
+            <%= f.label :name_cont, "Name contains" %>
+            <%= f.text_field :name_cont %>
+          </div>
+          <%= f.submit "Search reps", class: "small round button" %>
+        <% end %>
+      </div>
     </div>
   </div>
-</div>
 
-<table class="data" style="width: 100%">
-  <tr>
-    <th>Name</th>
-    <th>Regions</th>
-  </tr>
+  <p>Note: if no regions are listed for a given rep, then you can add them
+    to <%= website.brand.name %> by clicking on the rep firm name and adding
+    a region on the following page. Or, you can just leave them unassociated
+    with <%= website.brand.name %>.
+  </p>
+  <table class="data" style="width: 100%">
+    <tr>
+      <th>Name</th>
+      <th><%= website.brand.name %> Regions</th>
+      <th>Brands Represented</th>
+    </tr>
 
-<% @us_reps.each do |us_rep| %>
-  <tr style="background: <%= cycle 'white', 'none' %>">
-    <td><%= link_to us_rep.name, [:admin, us_rep] %></td>
-    <td><%= us_rep.us_rep_regions.where(brand_id: website.brand_id).map{|usr| usr.us_region.name}.join(', ') %></td>
-  </tr>
-<% end %>
-</table>
+    <% @us_reps.each do |us_rep| %>
+      <tr style="background: <%= cycle 'white', 'none' %>">
+        <td><%= link_to us_rep.name, [:admin, us_rep] %></td>
+        <td><%= us_rep.us_rep_regions.where(brand_id: website.brand_id).map{|usr| usr.us_region.name}.join(', ') %></td>
+        <td><%= Brand.where(id: us_rep.us_rep_regions.pluck(:brand_id)).order(:name).map{|brand| brand.name}.join(', ') %></td>
+      </tr>
+    <% end %>
+  </table>
+
 <% end %>
 
 

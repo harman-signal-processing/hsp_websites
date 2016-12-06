@@ -23,7 +23,7 @@ class UsRepsController < ApplicationController
 		@us_rep = UsRep.find(params[:id])
     respond_to do |format|
       format.html { render_template } # show.html.erb
-    end		
+    end
 	end
 
 end

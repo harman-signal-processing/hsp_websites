@@ -300,7 +300,7 @@ class Brand < ActiveRecord::Base
   # wrapper to inherit from another brand if necessary
   def us_regions_for_website
     this_brand = (self.us_sales_reps_from_brand_id.present?) ? Brand.find(self.us_sales_reps_from_brand_id) : self
-    @us_regions = this_brand.us_regions
+    @us_regions = this_brand.us_regions.group(:name)
   end
 
   # Figure out the default top domain for this brand

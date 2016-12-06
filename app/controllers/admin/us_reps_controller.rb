@@ -1,11 +1,11 @@
 class Admin::UsRepsController < AdminController
   before_filter :initialize_us_rep, only: :create
   load_and_authorize_resource
-  
+
   # GET /admin/us_reps
   # GET /admin/us_reps.xml
   def index
-    @search = website.brand.us_reps.ransack(params[:q])
+    @search = UsRep.ransack(params[:q])
     @us_reps = @search.result.uniq.order(:name)
     respond_to do |format|
       format.html { render_template } # index.html.erb
@@ -26,6 +26,7 @@ class Admin::UsRepsController < AdminController
   # GET /admin/us_reps/new
   # GET /admin/us_reps/new.xml
   def new
+    @us_rep.us_rep_regions.build
     respond_to do |format|
       format.html { render_template } # new.html.erb
       format.xml  { render xml: @us_rep }
@@ -41,9 +42,7 @@ class Admin::UsRepsController < AdminController
   def create
     respond_to do |format|
       if @us_rep.save
-        us_region = UsRegion.create!(name: params[:region_name])
-        UsRepRegion.create!(brand: website.brand, us_rep: @us_rep, us_region: us_region)
-        format.html { redirect_to([:admin, @us_rep], notice: 'US Rep was successfully created.') }
+        format.html { redirect_to([:admin, @us_rep], notice: 'Rep was successfully created. Be sure to add a region below.') }
         format.xml  { render xml: @us_rep, status: :created, location: @us_rep }
         website.add_log(user: current_user, action: "Created US Rep #{@us_rep.name}")
       else
