@@ -1,0 +1,9 @@
+<% ["enterprise", "entertainment"].each do |e| %>
+  <% if !!@product.send(e) %>
+    <%= link_to "#{ENV['PRO_SITE_URL']}/applications/#{e}", target: "_blank" do %>
+      <%= image_tag "#{e}_side_banner.jpg", alt: "#{e.titleize} Solutions" %>
+    <% end %>
+  <% end %>
+<% end %>
+
+

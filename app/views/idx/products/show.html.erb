@@ -116,6 +116,7 @@ set_meta_tags title: @product.name,
 		<%= draw_packaging_boxes @product %>
 		<%= draw_info_boxes @product, hide_on_load: false %>
 		<%#= render 'shared/add_this' %>
+    <%= render_partial 'products/side_banners' %>
 		<div>
 			<%#= render_partial "shared/newsletter_signup" %>
 		</div>

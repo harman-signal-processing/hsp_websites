@@ -180,6 +180,7 @@ set_meta_tags title: @product.name,
         <%= @product.legal_disclaimer %>
       </div>
     <% end %>
+    <%= render_partial 'products/side_banners' %>
 	</div>
 </div>
 
@@ -320,6 +321,7 @@ set_meta_tags title: @product.name,
 		<%= draw_info_accordion @product %>
 		<%= draw_audio_demos @product %>
 		<%= render 'shared/add_this' %>
+    <%= render_partial 'products/side_banners' %>
 	</div>
 
 </div>
