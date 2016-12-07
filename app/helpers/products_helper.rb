@@ -550,7 +550,7 @@ module ProductsHelper
     c.each_with_index {|p,i| evens << p if i.even? }
     evens.reverse + (c - evens)
   end
-  
+
   # Used to call directly from the Swf_fu gem, but rails 3.2 only works if it
   # is here:
   def swf_tag(source, options={}, &block)
@@ -561,5 +561,20 @@ module ProductsHelper
   def spec_value(val)
     (val.match(/^yes\s*?$/i)) ? image_tag("icons/check.png", alt: val) : val
   end
-  
+
+  # Finds the best side banner for the enterprise/entertainment thingey.
+  # First looks for a brand-specific, locale-specific image
+  # Then looks for just a brand-specific image
+  # Otherwise, delivers the global default image
+  def side_banner_image(banner_type)
+    banner_filename = "#{banner_type}_side_banner.jpg"
+    if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/#{banner_filename}"))
+      "#{website.folder}/#{I18n.locale}/#{banner_filename}"
+    elsif File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{banner_filename}"))
+      "#{website.folder}/#{banner_filename}"
+    else
+      banner_filename
+    end
+  end
+
 end
