@@ -32,7 +32,7 @@
 
   <% if @us_reps.size > 0 %>
     <% @us_reps.each do |us_rep| %>
-      <div class="medium-8 medium-offset-1 small-12 columns">
+      <div class="medium-8 small-12 columns">
         <div class="panel">
           <h3><%= us_rep.name %></h3>
           <% if us_rep.contact.present? %><div><%= raw us_rep.contact %></div><% end %>

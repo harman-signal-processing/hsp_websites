@@ -81,4 +81,31 @@ feature "US Reps" do
 
 	end
 
+  describe "a brand not-dependent on another brand us reps" do
+
+  	before do
+      @brand1 = @website.brand
+  		@brand2 = FactoryGirl.create(:brand)
+
+	    FactoryGirl.create(:us_rep_region, us_rep: @rep1, brand: @brand1, us_region: @region1)
+	    FactoryGirl.create(:us_rep_region, us_rep: @rep2, brand: @brand2, us_region: @region1)
+	    FactoryGirl.create(:us_rep_region, brand: @brand2, us_region: @region2)
+	  	visit us_reps_path(locale: I18n.default_locale)
+  	end
+
+	  it "should not use regions from other brand" do
+      expect(page).not_to have_xpath("//select[@id='us_region']/option[@value='#{@region2.id}']", text: @region2.name)
+	  end
+
+	  it "should show the reps only for the site's brand not the other brand" do
+	  	select(@region1.name, from: "us_region")
+	  	click_button('submit')
+
+      expect(page).to have_xpath("//select[@id='us_region']/option[@selected]", text: @region1.name)
+	  	expect(page).to have_content @rep1.name
+	  	expect(page).not_to have_content @rep2.name
+	  end
+
+	end
+
 end
