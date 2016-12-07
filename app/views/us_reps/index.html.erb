@@ -10,7 +10,7 @@
 
 <div class="row">
 
-  <div class="large-5 columns">
+  <div class="medium-4 small-12 columns">
     <p style="margin-bottom: 20px;">Our US sales reps are happy to assist in becoming a new <%= website.brand.name %> dealer or managing your <%= website.brand.name %> account.
     <% if website.brand.has_dealers? %>
       To purchase <%= website.brand.name %> products, please visit a <%= link_to "local #{website.brand.name} dealer", where_to_buy_path %>.
@@ -32,7 +32,7 @@
 
   <% if @us_reps.size > 0 %>
     <% @us_reps.each do |us_rep| %>
-      <div class="large-6 large-offset-1 columns">
+      <div class="medium-8 medium-offset-1 small-12 columns">
         <div class="panel">
           <h3><%= us_rep.name %></h3>
           <% if us_rep.contact.present? %><div><%= raw us_rep.contact %></div><% end %>
@@ -45,6 +45,7 @@
           <% if us_rep.fax.present? %><br/>Fax. <%= us_rep.fax %> <% end %>
           <% if us_rep.email.present? %><br/><%= mail_to us_rep.email, us_rep.email %> <% end %>
           </p>
+          <%= raw us_rep.contacts %>
         </div>
       </div>
     <% end %>

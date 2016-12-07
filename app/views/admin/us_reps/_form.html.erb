@@ -4,7 +4,7 @@
       <%= f.input :name %>
     </div>
     <div class="medium-6 columns">
-      <%= f.input :contact %>
+      <%= f.input :contact, label: "Primary Contact" %>
     </div>
   </div>
   <div class="row">
@@ -33,7 +33,14 @@
   </div>
   <div class="row">
     <div class="medium-6 columns">
-      <%= f.input :email %>
+      <%= f.input :email, label: "Primary Email" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="medium-12 columns">
+      <%= f.input :contacts,
+        input_html: { class: "mceEditor", style: "height: 400px;"} %>
+      <p class="hint"><br/>For tables, it will work best to not set static widths, although percentages should work fine.</p>
     </div>
   </div>
 

@@ -6,14 +6,24 @@
 	<li><%= link_to 'Delete', [:admin, @us_rep], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
 </ul>
 
-<p><b>Contact:</b> <%= @us_rep.contact %></p>
-<p><b>Address:</b> <%= @us_rep.address %></p>
-<p><b>City:</b> <%= @us_rep.city %></p>
-<p><b>State:</b> <%= @us_rep.state %></p>
-<p><b>Zip:</b> <%= @us_rep.zip %></p>
-<p><b>Phone:</b> <%= @us_rep.phone %></p>
-<p><b>Fax:</b> <%= @us_rep.fax %></p>
-<p><b>Email:</b> <%= @us_rep.email %></p>
+<div class="row">
+  <div class="medium-6 columns">
+    <p>
+      <b>Contact:</b> <%= @us_rep.contact %><br>
+      <b>Address:</b> <%= @us_rep.address %><br>
+      <b>City:</b> <%= @us_rep.city %><br>
+      <b>State:</b> <%= @us_rep.state %><br>
+      <b>Zip:</b> <%= @us_rep.zip %><br>
+      <b>Phone:</b> <%= @us_rep.phone %><br>
+      <b>Fax:</b> <%= @us_rep.fax %><br>
+      <b>Email:</b> <%= @us_rep.email %>
+    </p>
+  </div>
+  <div class="medium-6 columns">
+    <p><b>Contacts:</b></p>
+    <%= raw @us_rep.contacts %>
+  </div>
+</div>
 
 <div class="group">
   <h4>Regions Where <%= @us_rep.name.titleize %> Represents <%= website.brand.name %></h4>

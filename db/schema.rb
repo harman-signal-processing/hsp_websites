@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161205161136) do
+ActiveRecord::Schema.define(version: 20161207172537) do
 
   create_table "admin_logs", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -1833,8 +1833,9 @@ ActiveRecord::Schema.define(version: 20161205161136) do
     t.string   "fax",         limit: 255
     t.string   "email",       limit: 255
     t.string   "cached_slug", limit: 255
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.text     "contacts",    limit: 65535
   end
 
   add_index "us_reps", ["cached_slug"], name: "index_us_reps_on_cached_slug", using: :btree

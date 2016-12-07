@@ -11,9 +11,11 @@ class UsRepsController < ApplicationController
 	end
 
 	def search
+    # for search dropdown:
 		@us_regions = website.brand.us_regions_for_website
 		@us_region = UsRegion.find params[:us_region]
-		@us_reps = @us_regions.where(id: @us_region.id).collect{|reg| reg.us_reps}.flatten
+		#@us_reps = @us_regions.where(id: @us_region.id).collect{|reg| reg.us_reps}.flatten
+    @us_reps = @us_region.us_rep_regions.where(brand: website.brand).collect{|reg| reg.us_rep}.flatten
     respond_to do |format|
       format.html { render_template(action: "index") }
     end
