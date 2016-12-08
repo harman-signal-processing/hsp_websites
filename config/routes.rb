@@ -52,8 +52,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     end
   end
 
-  # Removed for rails4.1 (conflicts with custom routes below)
-  # resources :registered_downloads
   # debugging help
   get "/site_info" => 'main#site_info'
   get '/resource/:id' => "site_elements#show", as: :site_resource
@@ -99,8 +97,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
 
   constraints(BssDomain) do
     get '/network-audio' => 'pages#network_audio'
-    get '/en-US/bss-network-audio' => 'pages#network_audio'
-    get '/en/bss-network-audio' => 'pages#network_audio'
   end
 
   # The constraint { locale: /#{WebsiteLocale.all_unique_locales.join('|')}/ } limits the locale
@@ -110,6 +106,14 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
   # Main routing
   root to: 'main#default_locale'
   scope "(:locale)", locale: /#{WebsiteLocale.all_unique_locales.join('|')}/ do
+    constraints(AmxDomain) do
+      get 'contacts' => 'main#where_to_buy', as: :amx_contacts
+    end
+
+    constraints(BssDomain) do
+      get 'bss-network-audio' => 'pages#network_audio'
+    end
+
     scope "/admin" do
       devise_for :users, path: :site_users
       devise_scope :user do

@@ -3,8 +3,15 @@
 # from old URLs to new ones. It is not necessary to add to this file
 # if the domain doesn't have any site-specific routing it needs to do.
 #
-class DigitechDomain
+class AmxDomain
+  # :nocov:
+  def self.matches?(request)
+    !!(request.host.match(/amx/i))
+  end
+  # :nocov:
+end
 
+class DigitechDomain
   # :nocov:
   def self.matches?(request)
     !!(request.host.match(/digitech/i))
