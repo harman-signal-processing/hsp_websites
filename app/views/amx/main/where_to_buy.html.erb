@@ -105,7 +105,7 @@
               <%= label_tag "Select your region" %>
               <div class="row collapse">
                 <div class="large-8 small-7 columns">
-                  <%= select_tag :us_region, options_from_collection_for_select(@us_regions, :id, :name, @us_region.id) %>
+                  <%= select_tag :us_region, options_from_collection_for_select(@us_regions, :id, :name, @us_region.id), prompt: " " %>
                 </div>
                 <div class="large-4 small-5 columns">
                   <%= submit_tag t('submit'), class: "postfix button" %>
@@ -116,6 +116,13 @@
         </div>
       <% end %>
 
+      <ul>
+        <li><%= link_to "U.S. Consultant Sales", "/#{I18n.locale}/contact-us-consultant-sales" %></li>
+        <li><%= link_to "U.S. Education Sales", "/#{I18n.locale}/contact-us-education-sales" %></li>
+        <li><%= link_to "U.S. Government Sales", "/#{I18n.locale}/contact-us-government-sales" %></li>
+        <li><%= link_to "U.S. Training", "/#{I18n.locale}/contact-us-us-training" %></li>
+      </ul>
+
       <% if website.brand.has_distributors? %>
         <div class="row">
           <div class="medium-8 columns end">
@@ -125,9 +132,10 @@
 
             <%= form_tag search_distributors_path, method: :get %>
 
+              <%= label_tag t('select_your_country').titleize %>
               <div class="row collapse">
                 <div class="large-8 small-7 columns">
-                  <%= select_tag :country, options_from_collection_for_select(@countries, :country, :country, @country), prompt: t('select_your_country').capitalize %>
+                  <%= select_tag :country, options_from_collection_for_select(@countries, :country, :country, @country), prompt: " " %>
                 </div>
                 <div class="large-4 small-5 columns">
                   <%= submit_tag t('submit'), class: "postfix button" %>
