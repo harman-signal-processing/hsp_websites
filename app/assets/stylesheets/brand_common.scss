@@ -64,17 +64,9 @@
 }
 
 #homepage-video-banner {
-  position: relative;
   background: $strip-bg-even;
   padding: 50px 0px 90px;
   ul li.video_thumbnail {
-    position: relative;
-    div.play_button {
-      position: absolute;
-      top: 48px;
-      left: 86px;
-      z-index: 9;
-    }
     .video_title {
       width: 180px;
     }

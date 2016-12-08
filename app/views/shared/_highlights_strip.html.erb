@@ -1,14 +1,9 @@
 <%= cache ["highlights_strip", website.brand, I18n.locale] do %>
   <div class="homepage_block ">
-    <div class="container">
-      <div class="small-12 large-12 columns">
-
-        <ul class="medium-block-grid-<%= @features.length %> small-block-grid-1">
-          <% @features.each do |feature| %>
-            <li> <%= feature_button(feature, carousel: false) %> </li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
+    <ul class="medium-block-grid-<%= @features.length %> small-block-grid-1">
+      <% @features.each do |feature| %>
+        <li> <%= feature_button(feature, carousel: false) %> </li>
+      <% end %>
+    </ul>
   </div>
 <% end %>
