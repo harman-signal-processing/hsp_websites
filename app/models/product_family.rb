@@ -53,7 +53,7 @@ class ProductFamily < ActiveRecord::Base
   def self.all_with_current_products(website, locale)
     pf = []
     where(brand_id: website.brand_id).order("position").all.each do |f|
-      pf << f if f.current_products.size > 0 && f.locales(website).include?(locale.to_s)
+      pf << f if (f.current_products.size > 0 || f.children_with_current_products(website).size > 0) && f.locales(website).include?(locale.to_s)
     end
     pf
   end
@@ -200,12 +200,16 @@ class ProductFamily < ActiveRecord::Base
   # w = a Brand or a Website
   def children_with_current_products(w)
     brand_id = (w.is_a?(Brand)) ? w.id : w.brand_id
-    children.includes(:products).select{|pf| pf if pf.current_products.size > 0 && pf.brand_id == brand_id}
+    children.includes(:products).select do |pf|
+      pf if (pf.current_products.size > 0 || pf.children_with_current_products(w).size > 0) && pf.brand_id == brand_id
+    end
   end
 
   def children_with_toolkit_products(w)
     brand_id = (w.is_a?(Brand)) ? w.id : w.brand_id
-    children.includes(:products).select{|pf| pf if pf.toolkit_products.size > 0 && pf.brand_id == brand_id}
+    children.includes(:products).select do |pf|
+      pf if (pf.toolkit_products.size > 0 || pf.children_with_toolkit_products(w).size > 0) && pf.brand_id == brand_id
+    end
   end
 
   # Does this product family have a custom background image or color?
