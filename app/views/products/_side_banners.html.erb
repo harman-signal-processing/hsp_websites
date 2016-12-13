@@ -1,9 +1,20 @@
-<% ["enterprise", "entertainment"].each do |e| %>
-  <% if !!@product.send(e) %>
-    <%= link_to "#{ENV['PRO_SITE_URL']}/applications/#{e}", target: "_blank" do %>
-      <%= image_tag side_banner_image(e), alt: "#{e.titleize} Solutions" %>
-    <% end %>
-  <% end %>
-<% end %>
+<% if @product.entertainment? && @product.enterprise? %>
 
+  <%= link_to ENV['PRO_SITE_URL'], target: "_blank" do %>
+    <%= image_tag side_banner_image("enterprise_and_entertainment"), alt: "HARMAN Solutions" %>
+  <% end %>
+
+<% elsif @product.entertainment? %>
+
+  <%= link_to "#{ENV['PRO_SITE_URL']}/applications/entertainment", target: "_blank" do %>
+    <%= image_tag side_banner_image("entertainment"), alt: "Entertainment Solutions" %>
+  <% end %>
+
+<% elsif @product.enterprise? %>
+
+  <%= link_to "#{ENV['PRO_SITE_URL']}/applications/enterprise", target: "_blank" do %>
+    <%= image_tag side_banner_image("enterprise"), alt: "Enterprise Solutions" %>
+  <% end %>
+
+<% end %>
 
