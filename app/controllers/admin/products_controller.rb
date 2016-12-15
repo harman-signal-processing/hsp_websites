@@ -167,9 +167,9 @@ class Admin::ProductsController < AdminController
   end
 
   def update_solutions
-    website.products.update_all(enterprise: false, entertainment: false)
-    website.products.where(id: params[:enterprise]).update_all(enterprise: true)
-    website.products.where(id: params[:entertainment]).update_all(entertainment: true)
+    website.products.update_all(enterprise: false, entertainment: false, updated_at: Time.now)
+    website.products.where(id: params[:enterprise]).update_all(enterprise: true, updated_at: Time.now)
+    website.products.where(id: params[:entertainment]).update_all(entertainment: true, updated_at: Time.now)
     redirect_to(admin_solutions_path, notice: "Product groups were updated successfully.")
   end
 
