@@ -62,12 +62,12 @@
 
 <% end %>
 
-  <%= f.input :description, input_html: { class: "mceEditor", style: "height: 400px;"} %><br/>
+  <%= f.input :description, as: :text, input_html: { class: "mceEditor", style: "height: 400px;"} %><br/>
   <% if @product.layout_class == 'epedal' %> <span class="small"> For epedals, only provide the first paragraph description here.</span><% end %>
   <br />
 
 
-  <%= f.input :extended_description, input_html: { class: "mceEditor", style: "height: 300px;"} %><br/>
+  <%= f.input :extended_description, as: :text, input_html: { class: "mceEditor", style: "height: 300px;"} %><br/>
   <% if @product.layout_class == 'epedal' %> <span class="small"> For epedals, only provide the description of the controls here.</span><% end %>
 
 <div class="row">
@@ -77,7 +77,7 @@
 </div>
 
 <% unless @product.layout_class == 'epedal' %>
-	<%= f.input :features, input_html: { class: "mceEditor", style: "height: 250px;"} %><br/>
+	<%= f.input :features, as: :text, input_html: { class: "mceEditor", style: "height: 250px;"} %><br/>
 <% end %>
 
 <div class="row">

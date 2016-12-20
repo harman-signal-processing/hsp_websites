@@ -45,6 +45,7 @@ class Product < ActiveRecord::Base
   has_many :product_videos, -> { order('position') }, dependent: :destroy
   has_many :product_solutions, dependent: :destroy
   has_many :solutions, through: :product_solutions
+  has_many :product_descriptions, dependent: :destroy
   belongs_to :product_status
   belongs_to :brand, touch: true
   has_many :parent_products # Where this is the child (ie, an e-pedal child of the iStomp)
@@ -120,6 +121,51 @@ class Product < ActiveRecord::Base
     rescue
       false
     end
+  end
+
+  # Replacing "description" column with external table
+  def description_field
+    product_descriptions.where(content_name: "description").first_or_initialize
+  end
+
+  def description
+    description_field.content
+  end
+
+  def description=(content)
+    d = description_field
+    d.content = content
+    d.save
+  end
+
+  # Replacing "features" column with external table
+  def features_field
+    product_descriptions.where(content_name: "features").first_or_initialize
+  end
+
+  def features
+    features_field.content
+  end
+
+  def features=(content)
+    f = features_field
+    f.content = content
+    f.save
+  end
+
+  # Replacing "extended_description" column with external table
+  def extended_description_field
+    product_descriptions.where(content_name: "extended_description").first_or_initialize
+  end
+
+  def extended_description
+    extended_description_field.content
+  end
+
+  def extended_description=(content)
+    e = extended_description_field
+    e.content = content
+    e.save
   end
 
   def current_sub_products

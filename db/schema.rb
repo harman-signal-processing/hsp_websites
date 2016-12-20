@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161207172537) do
+ActiveRecord::Schema.define(version: 20161219185116) do
 
   create_table "admin_logs", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -956,6 +956,18 @@ ActiveRecord::Schema.define(version: 20161207172537) do
   add_index "product_cabinets", ["cabinet_id"], name: "index_product_cabinets_on_cabinet_id", using: :btree
   add_index "product_cabinets", ["product_id"], name: "index_product_cabinets_on_product_id", using: :btree
 
+  create_table "product_descriptions", force: :cascade do |t|
+    t.integer  "product_id",    limit: 4
+    t.string   "content_name",  limit: 255
+    t.text     "content_part1", limit: 65535
+    t.text     "content_part2", limit: 65535
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "product_descriptions", ["content_name"], name: "index_product_descriptions_on_content_name", using: :btree
+  add_index "product_descriptions", ["product_id"], name: "index_product_descriptions_on_product_id", using: :btree
+
   create_table "product_documents", force: :cascade do |t|
     t.integer  "product_id",            limit: 4
     t.string   "language",              limit: 255
@@ -1197,21 +1209,18 @@ ActiveRecord::Schema.define(version: 20161207172537) do
   create_table "products", force: :cascade do |t|
     t.string   "name",                           limit: 255
     t.string   "sap_sku",                        limit: 255
-    t.text     "description",                    limit: 65535
     t.text     "short_description",              limit: 65535
     t.text     "keywords",                       limit: 65535
     t.integer  "product_status_id",              limit: 4
     t.boolean  "rohs",                                         default: true
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "extended_description",           limit: 65535
     t.string   "cached_slug",                    limit: 255
     t.string   "background_image_file_name",     limit: 255
     t.integer  "background_image_file_size",     limit: 4
     t.string   "background_image_content_type",  limit: 255
     t.datetime "background_image_updated_at"
     t.string   "background_color",               limit: 255
-    t.text     "features",                       limit: 65535
     t.string   "password",                       limit: 255
     t.text     "previewers",                     limit: 65535
     t.boolean  "has_pedals",                                   default: false

@@ -470,7 +470,7 @@ module ApplicationHelper
 	# Tries to find a ContentTranslation for the provided field for current locale. Falls
 	# back to language only or default (english)
 	def translate_content(object, method)
-	  c = object[method] # (default)
+    c = object.send(method) # (default)
     return c if I18n.locale == I18n.default_locale || I18n.locale == 'en'
 	  parent_locale = (I18n.locale.to_s.match(/^(.*)-/)) ? $1 : false
 	  translations = ContentTranslation.where(content_type: object.class.to_s, content_id: object.id, content_method: method.to_s)
