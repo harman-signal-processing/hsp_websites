@@ -77,7 +77,7 @@ class ProductFamily < ActiveRecord::Base
       else
         current_children = 0
         f.children.includes(:products).each do |ch|
-          current_children += ch.current_products.size
+          current_children += ch.current_products_plus_child_products(website).count
         end
         if current_children > 0
           pf << f if f.locales(website).include?(locale.to_s)
@@ -247,3 +247,4 @@ class ProductFamily < ActiveRecord::Base
   end
 
 end
+
