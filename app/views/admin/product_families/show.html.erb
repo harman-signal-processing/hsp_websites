@@ -57,65 +57,85 @@
 </p>
 <% end %>
 
-<p>
-  <b>Intro Text:</b><br/>
-  <%= @product_family.intro %>
-</p>
-
-<% if @product_family.children.size > 0 %>
-<div class="group">
-	<h4 class="subheader">Child Categories:</h4>
-	<%= link_to "new category", new_admin_product_family_path, class: "small success button" %>
-	<ul id="product_families" class="sortable_list">
-		<%= render partial: "product_family", collection: @product_family.children %>
-	</ul>
-</div>
+<% if @product_family.features.count == 0 %>
+  <p>
+    <b>Intro Text:</b><br/>
+    <%= @product_family.intro %>
+  </p>
+  <p><%= link_to "Replace intro text with new fancy features",
+    new_admin_feature_path(featurable_type: "ProductFamily", featurable_id: @product_family.id) %></p>
+<% else %>
+  <h5>Features</h5>
+  <ul>
+    <% @product_family.features.each do |feature| %>
+      <li><%= link_to feature.name, [:admin, feature] %></li>
+    <% end %>
+  </ul>
+  <p><%= link_to "Add a fancy feature",
+    new_admin_feature_path(featurable_type: "ProductFamily", featurable_id: @product_family.id),
+    class: "tiny success button" %></p>
 <% end %>
 
-<div class="group">
-	<h4 class="subheader">Products in this family:</h4>
-	<%= simple_form_for [:admin, @product_family_product], remote: true do |f| %>
-		<%= hidden_field_tag "called_from", "product_family" %>
-    	<%= f.hidden_field :product_family_id %>
-    	<div class="row collapse">
-    		<div class="large-7 small-8 columns">
-    			<%= f.association :product, label: false, collection: website.products %>
-    		</div>
-    		<div class="large-2 small-4 columns">
-    			<%= submit_tag 'add', class: "postfix button"  %>
-    		</div>
-    		<div class="large-3 columns" style="padding: 10px;">
-    			<p>or, <%= link_to 'create a new product', new_admin_product_path %></p>
-    		</div>
-    	</div>
-	<% end %>
+<div class="row">
+  <div class="medium-6 columns">
+    <div class="group">
+      <h4 class="subheader">Products in this family:</h4>
+      <%= simple_form_for [:admin, @product_family_product], remote: true do |f| %>
+        <%= hidden_field_tag "called_from", "product_family" %>
+          <%= f.hidden_field :product_family_id %>
+          <div class="row collapse">
+            <div class="large-7 small-8 columns">
+              <%= f.association :product, label: false, collection: website.products %>
+            </div>
+            <div class="large-2 small-4 columns">
+              <%= submit_tag 'add', class: "postfix button"  %>
+            </div>
+            <div class="large-3 columns" style="padding: 10px;">
+              <p>or, <%= link_to 'create a new product', new_admin_product_path %></p>
+            </div>
+          </div>
+      <% end %>
 
-	<ul id="product_family_products" class="sortable_list">
-		<% @product_family.product_family_products.each do |pfp| %>
-			<%= render '/admin/shared/product_family_product_row', pfp: pfp, called_from: 'product_family' %>
-		<% end %>
-	</ul>
+      <ul id="product_family_products" class="sortable_list">
+        <% @product_family.product_family_products.each do |pfp| %>
+          <%= render '/admin/shared/product_family_product_row', pfp: pfp, called_from: 'product_family' %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="medium-6 columns">
+    <% if @product_family.children.size > 0 %>
+      <div class="group">
+        <h4 class="subheader">Child Categories:</h4>
+        <%= link_to "new category", new_admin_product_family_path, class: "small success button" %>
+        <ul id="product_families" class="sortable_list">
+          <%= render partial: "product_family", collection: @product_family.children %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="group">
+      <h4 class="subheader">Locales which should show this product family</h4>
+      <p>Leave blank to show this product family for all locales.</p>
+      <%= simple_form_for [:admin, @locale_product_family], remote: true do |f| %>
+        <%= f.hidden_field :product_family_id %>
+        <div class="row collapse">
+            <div class="large-7 small-8 columns">
+            <%= f.input :locale, label: false, collection: website.website_locales, value_method: :locale %>
+          </div>
+          <div class="large-2 small-4 columns">
+            <%= submit_tag 'add', class: "postfix button"  %>
+          </div>
+          <div class="large-3 columns"></div>
+        </div>
+      <% end %>
+
+      <ul id="locale_product_families" class="list">
+        <% @product_family.locale_product_families.each do |lpf| %>
+          <%= render "/admin/shared/locale_product_family_row", lpf: lpf %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 </div>
 
-<div class="group">
-	<h4 class="subheader">Locales which should show this product family</h4>
-	<p>Leave blank to show this product family for all locales.</p>
-	<%= simple_form_for [:admin, @locale_product_family], remote: true do |f| %>
-		<%= f.hidden_field :product_family_id %>
-		<div class="row collapse">
-    		<div class="large-7 small-8 columns">
-				<%= f.input :locale, label: false, collection: website.website_locales, value_method: :locale %>
-			</div>
-			<div class="large-2 small-4 columns">
-				<%= submit_tag 'add', class: "postfix button"  %>
-			</div>
-			<div class="large-3 columns"></div>
-		</div>
-	<% end %>
-
-	<ul id="locale_product_families" class="list">
-		<% @product_family.locale_product_families.each do |lpf| %>
-			<%= render "/admin/shared/locale_product_family_row", lpf: lpf %>
-		<% end %>
-	</ul>
-</div>

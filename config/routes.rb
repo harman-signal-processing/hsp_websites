@@ -311,6 +311,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :cabinets,
         :websites,
         :captchas,
+        :features,
         :us_reps,
         :effects,
         :signups,

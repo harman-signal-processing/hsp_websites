@@ -2,6 +2,14 @@ require "rails_helper"
 
 RSpec.describe ProductFamily, :type => :model do
 
+  before :all do
+    @product_family = FactoryGirl.create(:product_family)
+  end
+
+  subject { @product_family }
+  it { should respond_to :products }
+  it { should respond_to :features }
+
 	describe "tree" do
 
 		before :each do

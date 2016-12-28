@@ -1,0 +1,24 @@
+<h1>Feature details</h1>
+
+<ul class="button-group round">
+	<li><%= link_to 'Edit', edit_admin_feature_path(@feature, locale: I18n.locale), class: "small secondary button" %> </li>
+	<li><%= link_to 'Delete', [:admin, @feature], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
+
+<p><b>Related item:</b>
+<%= link_to @feature.featurable.name, [:admin, @feature.featurable] %></p>
+
+<p><b>Order:</b>
+<%= @feature.position %></p>
+
+<p><b>Style:</b>
+<%= @feature.layout_style %></p>
+
+<p><b>Image:</b><br/>
+<%= image_tag @feature.image.url(:thumb) %></p>
+
+<p><b>Pre-content:</b></p>
+<%= raw @feature.pre_content %>
+
+<p><b>Content:</b></p>
+<%= raw @feature.content %>

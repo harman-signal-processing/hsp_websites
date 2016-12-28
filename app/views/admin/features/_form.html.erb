@@ -1,0 +1,74 @@
+<%= simple_form_for [:admin, @feature], html: {multipart: true}  do |f| %>
+
+  <div class="row">
+    <% if f.object.featurable_type.present? %>
+      <%= f.input :featurable_type, as: :hidden %>
+      <% if f.object.featurable_id.present? %>
+        <%= f.input :featurable_id, as: :hidden %>
+        <div class="medium-8 columns">
+          <div class="panel">
+            Related <%= f.object.featurable_type.titleize %>:
+            <%= link_to f.object.featurable.name, [:admin, f.object.featurable] %>
+          </div>
+        </div>
+      <% else %>
+        <div class="medium-4 columns">
+          <div class="panel">
+            Related Type: <%= f.object.featurable_type %>
+          </div>
+        </div>
+        <div class="medium-4 columns">
+          <%= f.input :featurable_id,
+            as: :select,
+            label: "Related #{f.object.featurable_type.titleize}",
+            collection: website.send(f.object.featurable_type.underscore.pluralize.to_sym) %>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="medium-4 columns">
+        <%= f.input :featurable_type, label: "Related Type", as: :select, collection: Feature.featurable_options %>
+      </div>
+      <div class="medium-4 columns">
+        <% if f.object.featurable_id.present? %>
+          <div class="panel">
+            <%= f.input :featurable_id, as: :hidden %>
+            Related ID: <%= f.object.featurable_id %>
+          </div>
+        <% else %>
+          <%= f.input :featurable_id, label: "Related ID" %>
+        <% end %>
+      </div>
+    <% end %>
+    <div class="medium-4 columns">
+      <%= f.input :position, as: :integer, label: "Order of appearance" %>
+    </div>
+  </div>
+
+  <fieldset>
+    <legend>Design</legend>
+    <div class="row">
+      <div class="medium-4 columns">
+        <%= f.input :layout_style, as: :radio_buttons, collection: Feature.layout_options %>
+      </div>
+      <div class="medium-4 columns">
+        <%= f.input :content_position, as: :radio_buttons, label: "Text content position", collection: ["left", "right"] %>
+      </div>
+      <div class="medium-4 columns">
+        <%= f.input :image, label: "Background or side image" %>
+        <% if f.object.image.present? %>
+          <small>Currently:<br/></small>
+          <%= link_to(image_tag(f.object.image.url(:tiny)),
+                      f.object.image.url, target: "_blank") %>
+          <%= f.input :delete_image, as: :boolean %>
+        <% end %>
+      </div>
+    </div>
+  </fieldset>
+
+  <%= f.input :pre_content, label: "Content appearing before the feature", input_html: { class: "mceEditor" } %>
+  <br/>
+  <%= f.input :content, lable: "Text content", input_html: { class: "mceEditor" } %>
+  <br/>
+
+  <%= f.submit class: "button" %>
+<% end %>
