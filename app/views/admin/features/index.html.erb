@@ -1,0 +1,16 @@
+<h1>All Features</h1>
+
+<% if can? :create, Feature %>
+<ul class="button-group round">
+  <li><%= link_to 'New feature for a Product Family',
+    new_admin_feature_path(featurable_type: "ProductFamily"),
+    class: "small success button" %></li>
+</ul>
+<% end %>
+
+<p><i>This isn't the best way to manage features. But here goes...</i></p>
+<ul>
+  <% @features.each do |feature| %>
+    <li><%= link_to feature.name, [:admin, feature] %></li>
+  <% end %>
+</ul>

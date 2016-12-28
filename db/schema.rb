@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161219185116) do
+ActiveRecord::Schema.define(version: 20161227165545) do
 
   create_table "admin_logs", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -540,6 +540,24 @@ ActiveRecord::Schema.define(version: 20161219185116) do
   end
 
   add_index "faqs", ["product_id"], name: "index_faqs_on_product_id", using: :btree
+
+  create_table "features", force: :cascade do |t|
+    t.integer  "featurable_id",      limit: 4
+    t.string   "featurable_type",    limit: 255
+    t.integer  "position",           limit: 4
+    t.string   "layout_style",       limit: 255
+    t.string   "content_position",   limit: 255
+    t.text     "pre_content",        limit: 65535
+    t.text     "content",            limit: 65535
+    t.string   "image_file_name",    limit: 255
+    t.string   "image_content_type", limit: 255
+    t.datetime "image_updated_at"
+    t.integer  "image_file_size",    limit: 4
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
+  add_index "features", ["featurable_type", "featurable_id"], name: "index_features_on_featurable_type_and_featurable_id", using: :btree
 
   create_table "forem_categories", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false

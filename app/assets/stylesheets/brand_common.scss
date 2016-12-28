@@ -1454,3 +1454,45 @@ hr.colored {
 .api_hidden {
   display: none;
 }
+
+.borderless {
+  border: none !important;
+}
+
+.panel.feature-text {
+  font-size: 120%;
+  line-height: 1.2;
+  padding: 40px;
+}
+.wide-feature {
+  @media only screen and (min-width: 720px) {
+    padding: 80px 0;
+    min-height: 400px;
+  }
+  @media only screen and (max-width: 719px) {
+    padding: 60px 0;
+    min-height: 200px;
+  }
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  .feature-text {
+    background-color: rgba(lighten($panel-bg, 50%), 0.85) !important;
+  }
+}
+.split-feature {
+  .image-container {
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 400px;
+  }
+  .feature-text {
+    @media only screen and (min-width: 720px) {
+      height: 400px;
+    }
+    overflow: hidden;
+  }
+}
+
+
