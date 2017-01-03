@@ -1,7 +1,5 @@
 <h1>
 	<%=h @page.title %>
-	<span class="little"><%= link_to(page_link(@page), page_link(@page)) %>
-	<%= link_to(image_tag("icons/external_link_icon.png"), page_link(@page)) %></span>
 
 </h1>
 
@@ -10,6 +8,12 @@
 	<li><%= link_to 'Edit', edit_admin_page_path(@page, locale: I18n.locale), class: "small secondary button" %></li>
 	<li><%= link_to 'Delete', [:admin, @page], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
 </ul>
+
+<p><b>URL:</b>
+  <%= link_to(page_link(@page), page_link(@page)) %>
+	<%= link_to(image_tag("icons/external_link_icon.png"), page_link(@page)) %>
+</p>
+
 
 <p>
   <b>Keywords:</b>
@@ -28,6 +32,16 @@
 	password: <%= @page.password %>
 </p>
 <% end %>
+
+<h5>Features</h5>
+<ul>
+  <% @page.features.each do |feature| %>
+    <li><%= link_to feature.name, [:admin, feature] %></li>
+  <% end %>
+</ul>
+<p><%= link_to "Add a fancy feature",
+  new_admin_feature_path(featurable_type: "Page", featurable_id: @page.id),
+  class: "tiny success button" %></p>
 
 <h5>Page Preview:</h5>
 <p>(The font probably isn't correct below. That's because this admin interface doesn't have the same style as the actual website. Just use your imagination.)</p>

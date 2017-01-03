@@ -5,6 +5,11 @@
 
 <% if @page.layout_class == "full" %>
   <%= content_for :feature do %>
+    <% if @page.features.count > 0 %>
+      <% @page.features.each do |feature| %>
+        <%= render_feature feature %>
+      <% end %>
+    <% end %>
     <%= raw translate_content(@page, :body) %>
   <% end %>
 <% else %>
@@ -15,6 +20,11 @@
       <% else %>
         <div class="large-8 columns large-offset-2 text-content">
       <% end %>
+        <% if @page.features.count > 0 %>
+          <% @page.features.each do |feature| %>
+            <%= render_feature feature %>
+          <% end %>
+        <% end %>
         <%=raw translate_content(@page, :body) %>
       </div>
     </div>

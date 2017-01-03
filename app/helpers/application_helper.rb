@@ -402,10 +402,20 @@ module ApplicationHelper
   # Figure out what the link to a give Page should be
   def page_link(page)
     if page.is_a?(Page)
-      (page.custom_route.blank?) ? page_url(page, locale: I18n.locale) : custom_route_url(page.custom_route, locale: I18n.locale)
+      (page.custom_route.blank?) ?
+        page_url(page, locale: I18n.locale) :
+        custom_page_url(page) #custom_route_url(page.custom_route)
     else
-      (Rails.env.production? || Rails.env.staging?) ? "#{request.protocol}#{request.host}#{url_for(page)}" : "#{request.protocol}#{request.host_with_port}#{url_for(page)}"
+      (Rails.env.production? || Rails.env.staging?) ?
+        "#{request.protocol}#{request.host}#{url_for(page)}" :
+        "#{request.protocol}#{request.host_with_port}#{url_for(page)}"
     end
+  end
+
+  def custom_page_url(page)
+    (Rails.env.production? || Rails.env.staging?) ?
+      "#{request.protocol}#{request.host}/#{page.custom_route}" :
+      "#{request.protocol}#{request.host_with_port}/#{page.custom_route}"
   end
 
   # Platform icon. Make sure there are icons for all the different platforms and sizes

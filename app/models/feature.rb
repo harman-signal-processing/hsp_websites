@@ -35,7 +35,7 @@ class Feature < ActiveRecord::Base
   end
 
   def self.featurable_options
-    ["ProductFamily"]
+    [["Product Family", "ProductFamily"], ["Landing Page", "Page"]]
   end
 
   def name

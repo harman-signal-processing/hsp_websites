@@ -2,6 +2,8 @@ class Page < ActiveRecord::Base
   extend FriendlyId
   friendly_id :slug_candidates
 
+  has_many :features, -> { order('position') }, as: :featurable, dependent: :destroy
+
   validates :title, presence: true, uniqueness: { scope: :brand_id }
   validates :brand_id, presence: true
   validates :custom_route, uniqueness: true
@@ -31,6 +33,11 @@ class Page < ActiveRecord::Base
 
   def self.all_for_website(website)
     where(brand_id: website.brand_id).all
+  end
+
+  # Alias for fancy features list
+  def name
+    title
   end
 
   # Alias for search results link_name
