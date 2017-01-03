@@ -1,7 +1,7 @@
 class UsRepRegion < ActiveRecord::Base
-  validates :brand_id, presence: true
-  validates :us_region_id, presence: true
-  validates :us_rep_id, presence: true
+  validates :brand, presence: true
+  validates :us_region, presence: true
+  validates :us_rep, presence: true
 
   belongs_to :us_rep
   belongs_to :us_region

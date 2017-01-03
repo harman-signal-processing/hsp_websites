@@ -32,22 +32,24 @@
 
   <% if @us_reps.size > 0 %>
     <% @us_reps.each do |us_rep| %>
-      <div class="medium-8 small-12 columns">
-        <div class="panel">
-          <h3><%= us_rep.name %></h3>
-          <% if us_rep.contact.present? %><div><%= raw us_rep.contact %></div><% end %>
-          <p>
-          <% if us_rep.address.present? %><%= us_rep.address %><br/> <% end %>
-          <% if us_rep.city.present? %><%= us_rep.city %>, <% end %>
-          <% if us_rep.state.present? %><%= us_rep.state %> <% end %>
-          <% if us_rep.zip.present? %><%= us_rep.zip %> <% end %>
-          <% if us_rep.phone.present? %><br/><%= us_rep.phone %> <% end %>
-          <% if us_rep.fax.present? %><br/>Fax. <%= us_rep.fax %> <% end %>
-          <% if us_rep.email.present? %><br/><%= mail_to us_rep.email, us_rep.email %> <% end %>
-          </p>
-          <%= raw us_rep.contacts %>
+      <% if us_rep.is_a?(UsRep) %>
+        <div class="medium-8 small-12 columns">
+          <div class="panel">
+            <h3><%= us_rep.name %></h3>
+            <% if us_rep.contact.present? %><div><%= raw us_rep.contact %></div><% end %>
+            <p>
+            <% if us_rep.address.present? %><%= us_rep.address %><br/> <% end %>
+            <% if us_rep.city.present? %><%= us_rep.city %>, <% end %>
+            <% if us_rep.state.present? %><%= us_rep.state %> <% end %>
+            <% if us_rep.zip.present? %><%= us_rep.zip %> <% end %>
+            <% if us_rep.phone.present? %><br/><%= us_rep.phone %> <% end %>
+            <% if us_rep.fax.present? %><br/>Fax. <%= us_rep.fax %> <% end %>
+            <% if us_rep.email.present? %><br/><%= mail_to us_rep.email, us_rep.email %> <% end %>
+            </p>
+            <%= raw us_rep.contacts %>
+          </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
   <% end %>
 
