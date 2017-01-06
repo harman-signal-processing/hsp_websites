@@ -1466,8 +1466,10 @@ hr.colored {
 }
 .wide-feature {
   @media only screen and (min-width: 720px) {
-    padding: 80px 0;
-    min-height: 400px;
+    padding: 60px 0;
+    height: 400px;
+    font-size: 16px;
+    margin-bottom: 20px;
   }
   @media only screen and (max-width: 719px) {
     padding: 60px 0;
@@ -1477,6 +1479,7 @@ hr.colored {
   background-repeat: no-repeat;
   background-size: cover;
   .feature-text {
+    font-size: 16px;
     background-color: rgba(lighten($panel-bg, 50%), 0.85) !important;
   }
 }
@@ -1488,6 +1491,8 @@ hr.colored {
     height: 400px;
   }
   .feature-text {
+    background-color: #eeeeee !important;
+    font-size: 16px;
     @media only screen and (min-width: 720px) {
       height: 400px;
     }
