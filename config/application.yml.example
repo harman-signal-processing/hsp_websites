@@ -1,5 +1,12 @@
 # Add application configuration variables here, as shown below.
 
+development:
+# Set development's store the same as production if you want to see the
+# images, etc. from S3 in development mode. However, note that this is
+# dangerous in that if you use the admin to make any changes to assets,
+# those could affect production.
+  USE_PRODUCTION_ASSETS: "1"
+
 ASSET_HOST: 'http://assets.domain.com'
 ASSET_SYNC_ON: "1"
 

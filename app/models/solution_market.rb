@@ -4,16 +4,28 @@ class SolutionMarket
   format :json
 
   def self.all
-    get_api_response(base_url, 8.hours)["vertical_markets"]
+    begin
+      get_api_response(base_url, 8.hours)["vertical_markets"]
+    rescue
+      []
+    end
   end
 
   def self.find(id)
     url = base_url + "/#{id}"
-    get_api_response(url, 8.hours)["vertical_market"]
+    begin
+      get_api_response(url, 8.hours)["vertical_market"]
+    rescue
+      {}
+    end
   end
 
   def self.parents
-    all.select{|v| v["parent_id"].nil?}
+    begin
+      all.select{|v| v["parent_id"].nil?}
+    rescue
+      []
+    end
   end
 
   private

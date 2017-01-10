@@ -1,22 +1,27 @@
 <% if website.solutions.length > 0 %>
   <% if website.show_enterprise_solutions? || website.show_entertainment_solutions? %>
-    <li class="divider hider-for-medium"></li>
-    <li class="has-dropdown"><%= link_to 'Solutions', {}, class: "disabled" %>
-      <ul class="dropdown">
-        <% SolutionMarket.parents.each do |p| %>
-          <% if website.send("show_#{p["name"].downcase}_solutions?") %>
-            <li class="has-dropdown"><%= link_to p["name"], {} %>
-              <ul class="dropdown">
-                <% website.solutions.order("name").each do |solution| %>
-                  <% if solution.vertical_market["parent_id"] == p["id"] %>
-                    <li><%= link_to solution.name, solution %></li>
+    <% parent_solutions = SolutionMarket.parents %>
+    <% if parent_solutions.length > 0 %>
+
+      <li class="divider hider-for-medium"></li>
+      <li class="has-dropdown"><%= link_to 'Solutions', {}, class: "disabled" %>
+        <ul class="dropdown">
+          <% parent_solutions.each do |p| %>
+            <% if website.send("show_#{p["name"].downcase}_solutions?") %>
+              <li class="has-dropdown"><%= link_to p["name"], {} %>
+                <ul class="dropdown">
+                  <% website.solutions.order("name").each do |solution| %>
+                    <% if solution.vertical_market["parent_id"] == p["id"] %>
+                      <li><%= link_to solution.name, solution %></li>
+                    <% end %>
                   <% end %>
-                <% end %>
-              </ul>
-            </li>
+                </ul>
+              </li>
+            <% end %>
           <% end %>
-        <% end %>
-      </ul>
-    </li>
+        </ul>
+      </li>
+
+    <% end %>
   <% end %>
 <% end %>

@@ -37,7 +37,7 @@ AWS.config(Rails.configuration.aws)
 S3_CLOUDFRONT = 'adn.harmanpro.com' # 'd18nzrj3czoaty.cloudfront.net' #
 
 # Environment-specific settings:
-if Rails.env.production? #|| Rails.env.development?
+if Rails.env.production? || !!(ENV['USE_PRODUCTION_ASSETS'].to_i > 0)
 
 	Paperclip::Attachment.default_options.merge!({
     url: ':fog_public_url',
@@ -94,9 +94,7 @@ else
   }
 end
 
-# This can go away after merging the new dbx look back into the master branch. Needed for staging/dev
-# without messing up the S3 stored slides, etc., but don't forget to edit the setting.rb model
-if Rails.env.production?# || Rails.env.development?
+if Rails.env.production? || !!(ENV['USE_PRODUCTION_ASSETS'].to_i > 0)
   SETTINGS_STORAGE = S3_STORAGE
 elsif Rails.env.test?
   SETTINGS_STORAGE = {
