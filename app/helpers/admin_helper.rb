@@ -21,6 +21,8 @@ module AdminHelper
       object.title
     elsif object.respond_to?(:question)
       "#{object.product.name}: #{object.question}"
+    elsif object.respond_to?(:content_name)
+      "#{object.product.name} #{object.content_name}"
     else
       object.to_param
     end
