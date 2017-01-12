@@ -68,7 +68,7 @@ RSpec.describe ContentTranslation do
       f = ContentTranslation.fields_to_translate_for(product, brand)
 
       expect(f).to include("name")
-      expect(f).to include("description")
+      expect(f).to include("short_description")
     end
   end
 

@@ -5,7 +5,7 @@ class Admin::ContentTranslationsController < AdminController
 
   def index
   end
-  
+
   def list
     @model_class = params[:type].classify
     if @model_class == "ProductReview"
@@ -13,7 +13,7 @@ class Admin::ContentTranslationsController < AdminController
     elsif @model_class.constantize.new.respond_to?(:brand_id)
       @records = @model_class.constantize.where(brand_id: website.brand_id).all
     elsif @model_class.constantize.new.respond_to?(:product_id)
-      @records = @model_class.constantize.where(product_id: @brand.products.collect{|p| p.id})
+      @records = @model_class.constantize.where(product_id: website.brand.products.collect{|p| p.id})
     else
       @records = @model_class.constantize.all
     end
@@ -22,16 +22,16 @@ class Admin::ContentTranslationsController < AdminController
       format.xml { render @records.to_xml }
     end
   end
-  
+
   def combined
     @model_class = params[:type].classify
     @record = @model_class.constantize.find_by_id(params[:id])
     @content_translations = []
     ContentTranslation.fields_to_translate_for(@record, website.brand).each do |field_name|
       content_translation = ContentTranslation.where(
-        content_type: @model_class, 
-        content_id: @record.id, 
-        content_method: field_name, 
+        content_type: @model_class,
+        content_id: @record.id,
+        content_method: field_name,
         locale: @target_locale).first_or_initialize
       @content_translations << content_translation
     end
@@ -47,7 +47,7 @@ class Admin::ContentTranslationsController < AdminController
   end
 
   private
-  
+
   def get_target_locale
     @target_locale = params[:target_locale]
   end
