@@ -135,7 +135,7 @@ class Product < ActiveRecord::Base
   def description=(content)
     d = description_field
     d.content = content
-    d.save
+    d.save unless d.new_record?
   end
 
   # Replacing "features" column with external table
@@ -150,7 +150,7 @@ class Product < ActiveRecord::Base
   def features=(content)
     f = features_field
     f.content = content
-    f.save
+    f.save unless f.new_record?
   end
 
   # Replacing "extended_description" column with external table
@@ -165,7 +165,7 @@ class Product < ActiveRecord::Base
   def extended_description=(content)
     e = extended_description_field
     e.content = content
-    e.save
+    e.save unless e.new_record?
   end
 
   def current_sub_products
