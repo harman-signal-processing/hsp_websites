@@ -50,9 +50,24 @@ module FeaturesHelper
   # Renders just the text of a feature
   def render_feature_text(feature)
     content_tag :div, class: "borderless feature-text panel" do
-      raw(feature.content)
+      raw(update_youtube_links(feature.content))
     end
   end # def render_feature_text
+
+  # Inserts tags to cause any linked youtube videos to play in a popup
+  def update_youtube_links(content)
+    html = Nokogiri::HTML(content)
+    html.css('a').each do |l|
+      if l["href"].to_s.match(/^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/i)
+        video_id = $5
+        l["target"] = "_blank"
+        l["class"] = "start-video"
+        l["data-videoid"] = video_id
+        l["href"] = play_video_url(video_id)
+      end
+    end
+    html
+  end # def update_youtube_links
 
   def render_pre_content(feature)
     content_tag :div do
