@@ -1,3 +1,5 @@
+<%= render_partial 'shared/video_modal' %>
+
 <%= cache [website, "pardot", Date.today] do %>
   <% if website.pardot_piCId %>
     <script type="text/javascript">

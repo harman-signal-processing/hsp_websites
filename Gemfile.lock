@@ -757,6 +757,7 @@ DEPENDENCIES
   money
   money-rails
   mysql2
+  nokogiri
   paperclip (= 4.3.6)
   paperclip-meta
   passenger_monit

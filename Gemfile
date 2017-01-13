@@ -74,6 +74,7 @@ gem 'rmagick', require: 'rmagick'
 gem 'typhoeus' # For link validator
 gem 'slick_rails' # slick carousel
 gem 'mailgun_rails' # mailer service
+gem 'nokogiri'
 
 ### Could be useful in the future...
 # gem "bing_translate_yaml", "~> 0.1.7"
