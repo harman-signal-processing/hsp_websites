@@ -62,6 +62,7 @@
 
 <% end %>
 
+<% unless f.object.new_record? %>
   <%= f.input :description, as: :text, input_html: { class: "mceEditor", style: "height: 400px;"} %><br/>
   <% if @product.layout_class == 'epedal' %> <span class="small"> For epedals, only provide the first paragraph description here.</span><% end %>
   <br />
@@ -85,6 +86,7 @@
 		<%= f.input :features_tab_name, hint: "Show a different tab name for 'features'." %>
 	</div>
 </div>
+<% end %>
 
 <div class="row">
   <div class="large-6 columns">
