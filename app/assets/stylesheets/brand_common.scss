@@ -873,7 +873,7 @@ div#product_buy_now_box {
 .product_main_tab_content {
 	margin-bottom: 40px;
 	ul {
-		margin-left: 14px;
+		margin-left: 14px !important;
     &.news {
       li {
         margin-bottom: 20px;
@@ -927,7 +927,7 @@ dl.accordion {
 }
 
 ul.docs, ul.downloads, ul.support {
-  margin-left: 14px;
+  margin-left: 0 !important;
   list-style:none;
   li:before {
     content: ""
