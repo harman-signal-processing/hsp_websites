@@ -61,7 +61,7 @@ module FeaturesHelper
       if l["href"].to_s.match(/^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/i)
         video_id = $5
         l["target"] = "_blank"
-        l["class"] = "start-video"
+        l["class"] += " start-video"
         l["data-videoid"] = video_id
         l["href"] = play_video_url(video_id)
       end
