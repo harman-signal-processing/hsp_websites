@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe FaqCategory, :type => :model do
 
   before do
-    @faq_category = FactoryGirl.build_stubbed(:faq_category)
+    @faq_category = FactoryGirl.create(:faq_category)
   end
 
   subject { @faq_category }
