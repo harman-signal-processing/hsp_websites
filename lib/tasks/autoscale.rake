@@ -1,4 +1,4 @@
-require 'fog'
+#require 'fog'
 
 namespace :rackspace do
 

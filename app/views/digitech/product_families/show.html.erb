@@ -42,54 +42,28 @@
   <% end # content_for :feature do %>
 <% end # if @product_family.features.count > 0 %>
 
-
-<% if @product_family.parent_id.to_i == 0 && @product_family.children_with_current_products(website).length > 0 %>
-
-  <ul class="small-block-grid-2">
-  <% @product_family.children_with_current_products(website).each do |product_family| %>
-    <li><div id="<%= product_family.to_param %>">
-      <%= link_to product_family do %>
-        <% if !product_family.family_photo_file_name.blank? %>
-
-            <%= image_tag(product_family.family_photo.url) %>
-
-        <% else %>
-          <div class="product_family_box">
-            <h2><%= translate_content(product_family, :name) %></h2>
-            <p><%= truncate(translate_content(product_family, :intro), length: 100) %></p>
-          </div>
-        <% end %>
-      <% end %>
-    </div></li>
-  <% end %>
-  </ul>
-
-<% else %>
-
-  <div class="row">
-    <div class="large-12 columns">
-      <% if !!(website.show_comparisons) %>
-        <%= form_tag compare_products_path, method: :get %>
-      <% end %>
-
-      <%= render_partial "product_families/product_family", product_family: @product_family, skip_header: true  %>
-
-      <% @product_family.children_with_current_products(website).each do |sub_family| %>
-        <%= render_partial "product_families/product_family", product_family: sub_family %>
-      <% end %>
-
-      <% if !!(website.show_comparisons) %>
-        </form>
-      <% end %>
-
-    </div>
-  </div>
-  <p>&nbsp;</p>
-
+<% if !!(website.show_comparisons) %>
+	<%= form_tag compare_products_path, method: :get %>
 <% end %>
 
+<div class="row">
+	<div class="large-12 columns">
+    <%= render_partial "product_families/product_family", product_family: @product_family, skip_header: true  %>
+
+    <% @product_family.children_with_current_products(website).each do |sub_family| %>
+      <%= render_partial "product_families/product_family", product_family: sub_family %>
+    <% end %>
+
+    <% if !!(website.show_comparisons) %>
+      </form>
+    <% end %>
+
+	</div>
+</div>
+<p>&nbsp;</p>
+
 <% if current_user && can?(:manage, @product_family) %>
-  <div class="admin_function">
-    <%= link_to "edit", [:admin, @product_family] %>
-  </div>
+<div class="admin_function">
+	<%= link_to "edit", [:admin, @product_family] %>
+</div>
 <% end %>
