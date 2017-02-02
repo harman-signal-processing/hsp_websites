@@ -272,6 +272,17 @@ $slick-arrow-color: $dark-gray;
 .top-bar-section .has-form {
   padding-top: 10px;
 }
+.top-bar {
+  ul.dropdown {
+    li {
+      height: rem-calc(30);
+      a {
+        height: rem-calc(30);
+        line-height: rem-calc(30) !important;
+      }
+    }
+  }
+}
 
 #feature_spacer {
 	#tagline {
