@@ -2,14 +2,14 @@
 # config valid only for current version of Capistrano
 lock '3.6.1'
 
-set :application, 'hsp_websites'
+set :application, 'brandsites'
 set :repo_url, "https://github.com/harman-signal-processing/hsp_websites"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, "/var/www/hmg/#{fetch(:application)}"
+set :deploy_to, "/var/www/#{fetch(:application)}"
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -59,33 +59,3 @@ namespace :deploy do
   end
 
 end
-
-__END__
-
-# From original capistrano 2.x file...
-#
-
-require "bundler/capistrano"
-require "delayed/recipes"
-require "capistrano/ext/multistage"
-require 'thinking_sphinx/capistrano'
-
-load "config/recipes/base"
-load "config/recipes/refresh"
-load "config/recipes/nginx"
-load "config/recipes/monit"
-load 'deploy/assets'
-default_run_options[:pty] = true
-
-set :scm, :git
-set :deploy_via, :remote_cache
-set :repository, "https://github.com/harman-signal-processing/hsp_websites"
-
-set :stages, %w(staging production)
-set :default_stage, "production"
-set :user, "hmg"
-set :use_sudo, false
-
-before "deploy:restart", "deploy:migrate"
-after :deploy, "deploy:cleanup"
-
