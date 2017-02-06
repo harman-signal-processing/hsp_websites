@@ -71,6 +71,8 @@ gem 'RedCloth'
 gem 'figaro'
 gem 'delayed_paperclip'
 gem 'cheetah_mail', "~> 0.6.0"
+gem 'silverpop'
+gem 'oauth2'
 gem 'rmagick', require: 'rmagick'
 gem 'typhoeus' # For link validator
 gem 'slick_rails' # slick carousel
