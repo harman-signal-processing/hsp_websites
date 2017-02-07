@@ -78,6 +78,7 @@ gem 'typhoeus' # For link validator
 gem 'slick_rails' # slick carousel
 gem 'mailgun_rails' # mailer service
 gem 'nokogiri'
+gem 'email_validator'
 
 ### Could be useful in the future...
 # gem "bing_translate_yaml", "~> 0.1.7"

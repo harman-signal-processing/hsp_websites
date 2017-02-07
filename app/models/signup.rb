@@ -1,7 +1,7 @@
 class Signup < ActiveRecord::Base
   belongs_to :brand
 
-  validates :email, presence: true, format: /\A[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}\z/i
+  validates :email, presence: true, email: true
   validates :first_name, presence: true, if: :require_name?
   validates :last_name, presence: true, if: :require_name?
   validates :brand, presence: true
