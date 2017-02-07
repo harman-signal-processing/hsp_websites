@@ -147,6 +147,8 @@ GEM
     domain_name (0.5.20161129)
       unf (>= 0.0.5, < 1.0.0)
     dynamic_form (1.1.4)
+    email_validator (1.6.0)
+      activemodel
     equalizer (0.0.10)
     erubis (2.7.0)
     ethon (0.10.1)
@@ -628,6 +630,7 @@ DEPENDENCIES
   delayed_paperclip
   devise
   dynamic_form
+  email_validator
   exception_notification
   execjs
   factory_girl_rails (~> 4.0)

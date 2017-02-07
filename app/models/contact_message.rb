@@ -3,7 +3,7 @@ class ContactMessage < ActiveRecord::Base
   belongs_to :brand
 
   validates :name, :subject, :message_type, presence: true
-  validates :email, presence: true, format: {with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
+  validates :email, presence: true, email: true
   validates :message, presence: true, if: :support?
   validates :product, presence: true, if: :require_product?
   validates :shipping_country, presence: true, if: :require_country?

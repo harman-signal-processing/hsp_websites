@@ -25,15 +25,17 @@ namespace :silverpop do
           puts "(dbid: #{dbid}, sub: #{list_id})"
 
           brand.new_signups[0,per_brand_limit].each do |signup|
+            #puts "Trying #{ signup.email }..."
             if signup.valid?
               puts "Signing up #{signup.email}..."
               begin
-                user_params = { email: signup.email }
-                user_params[:first_name] = signup.first_name if signup.respond_to?(:first_name)
-                user_params[:last_name] = signup.last_name if signup.respond_to?(:last_name)
+                user_params = { email: signup.email, :"BR_#{brand.name}" => true }
+                user_params["First Name".to_sym] = signup.first_name if signup.respond_to?(:first_name)
+                user_params["Last Name".to_sym] = signup.last_name if signup.respond_to?(:last_name)
                 user_params[:country] = signup.country if signup.respond_to?(:country)
                 @client.add_recipient(user_params, dbid, [list_id])
-              rescue #CheetahMailException
+                signup.update_column(:synced_on, Date.today)
+              rescue
                 puts "There was some silverpop exception"
                 if signup.is_a?(WarrantyRegistration)
                   signup.subscribe = false
@@ -45,6 +47,9 @@ namespace :silverpop do
             elsif signup.is_a?(Signup)
               puts "Deleting invalid entry: #{signup.email}"
               signup.delete
+            elsif signup.is_a?(WarrantyRegistration)
+              puts "  unsubscribing invalid entry: #{signup.email}"
+              signup.update_column(:subscribe, false)
             end
           end
         end # if brand has silverpop settings
