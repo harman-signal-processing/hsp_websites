@@ -9,4 +9,8 @@ class Signup < ActiveRecord::Base
   def require_name?
     !!(self.campaign.to_s.match(/Crown-TruckTour/i))
   end
+
+  def needs_more_info?
+    !!(email.blank? || first_name.blank? || last_name.blank?)
+  end
 end

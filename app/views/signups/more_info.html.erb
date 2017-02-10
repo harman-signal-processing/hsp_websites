@@ -1,0 +1,20 @@
+<h1>Almost done</h1>
+
+<p>Let's get just a bit more info to make sure we can provide you with the most important updates.</p>
+
+<%= simple_form_for @signup do |f| %>
+	<% if @signup.errors.any? %>
+		<div data-alert class="alert-box alert">
+			Please make sure your email address is correct:
+		</div>
+	<% end %>
+	<div class="row">
+		<div class="medium-6 small-12 columns">
+      <%= f.input :first_name, required: true %>
+      <%= f.input :last_name, required: true %>
+      <%= f.input :email, placeholder: "your@email.com", required: true %>
+      <%= f.input :country %>
+    </div>
+	</div>
+  <%= f.submit "signup", class: "button" %>
+<% end %>

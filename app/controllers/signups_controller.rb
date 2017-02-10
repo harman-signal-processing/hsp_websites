@@ -11,7 +11,9 @@ class SignupsController < ApplicationController
   	@signup = Signup.new(signup_params)
   	respond_to do |format|
       @signup.brand_id = website.brand_id
-      if @signup.save
+      if @signup.needs_more_info?
+        format.html { render action: :more_info }
+      elsif @signup.save
         if @signup.campaign.present?
       	  cookies[@signup.campaign] = { value: @signup.email, expires: 1.year.from_now }
         end
@@ -24,6 +26,10 @@ class SignupsController < ApplicationController
     end
   end
 
+  def more_info
+  	@signup = Signup.new(signup_params)
+  end
+
   def complete
     render_template
   end
@@ -33,7 +39,7 @@ class SignupsController < ApplicationController
   def signup_params
     params.require(:signup).permit(:first_name, :last_name, :email,
                                    :campaign, :company, :address,
-                                   :city, :state, :zip)
+                                   :city, :state, :zip, :country)
   end
 
 end

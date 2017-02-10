@@ -4,6 +4,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
 
   get "robots" => "main#robots", defaults: { format: 'txt' }
   get "signups/new"
+  get "signups/more_info"
   get "signup/complete" => "signups#complete", as: :signup_complete
   get "epedal_labels/index"
 
