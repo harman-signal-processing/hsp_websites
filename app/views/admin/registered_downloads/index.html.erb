@@ -1,5 +1,7 @@
 <h1>Registered Downloads</h1>
 <% if can? :create, RegisteredDownload %>
+  <p>Note: email templates for the registered downloads now must be included in
+  the code repository for the sites in app/views/registered_downloads_mailer/</p>
 <ul class="button-group round">
 	<li><%= link_to 'New Registered Download', new_admin_registered_download_path, class: "small success button" %></li>
 </ul>

@@ -110,7 +110,7 @@ class DownloadRegistration < ActiveRecord::Base
   #
   def deliver_download_code
     if self.registered_download.send_coupon_code? || !self.registered_download.protected_software_file_name.blank?
-      RegisteredDownloadsMailer.download_link(self).deliver
+      RegisteredDownloadsMailer.delay.download_link(self)
     end
   end
 
@@ -119,7 +119,7 @@ class DownloadRegistration < ActiveRecord::Base
   #
   def deliver_admin_notice
     unless self.registered_download.cc.blank?
-      RegisteredDownloadsMailer.admin_notice(self).deliver
+      RegisteredDownloadsMailer.delay.admin_notice(self)
     end
   end
 
