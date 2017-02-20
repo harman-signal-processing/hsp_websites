@@ -11,7 +11,7 @@
 	</li>
 
   <li class="has-dropdown">
-    <%= link_to "Applications", "", class: "disabled" %>
+    <%= link_to "Applications", '#', class: "disabled" %>
     <ul class="dropdown">
       <% MarketSegment.all_parents(website).each do |market_segment| %>
         <%= market_segment_nav_links(market_segment) %>
@@ -20,7 +20,7 @@
   </li>
 
   <li class="has-dropdown">
-    <%= link_to "Media", "", class: "disabled" %>
+    <%= link_to "Media", '#', class: "disabled" %>
     <ul class="dropdown">
       <li><%= link_to t('news').titleize, news_index_path %></li>
       <li><%= link_to "Videos", videos_path %></li>
@@ -43,7 +43,7 @@
   <li><%= link_to "Broadcast Truck", "/#{I18n.locale}/broadcast-truck" %></li>
 
   <li class="has-dropdown">
-    <%= link_to t('product_support').titleize, "", class: "disabled" %>
+    <%= link_to t('product_support').titleize, '#', class: "disabled" %>
     <ul class="dropdown">
       <li><%= link_to "Contact Us", support_path %></li>
       <li><%= link_to "Meet the Team", '/studer-customer-service-contacts' %></li>
@@ -56,7 +56,7 @@
 	<% end %>
 
   <li class="has-dropdown">
-    <%= link_to "About Us", "", class: "disabled" %>
+    <%= link_to "About Us", '#', class: "disabled" %>
     <ul class="dropdown">
       <li><%= link_to "Create Sound", '/createsound' %></li>
       <li><%= link_to "Team Studer", '/team-studer' %></li>

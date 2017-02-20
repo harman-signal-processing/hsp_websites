@@ -4,6 +4,7 @@ class WarrantyRegistration < ActiveRecord::Base
   belongs_to :product
   validates :first_name, :last_name, :brand_id, :product_id, :country, :serial_number, :purchased_on, presence: true
   validates :email, presence: true, email: true
+  validates :company, presence: true, if: :require_company?
   after_create :send_email_confirmation, :execute_promotion, :sync_with_service_department
   attr_reader :purchase_city
 
@@ -35,6 +36,11 @@ class WarrantyRegistration < ActiveRecord::Base
     rescue
       logger.debug "problem executing a promotion"
     end
+  end
+
+  # Only Studer wants the company required
+  def require_company?
+    !!(self.brand && self.brand.name.to_s.match(/studer/i))
   end
 
   # String output matching the legacy format which SAP uses to import these records

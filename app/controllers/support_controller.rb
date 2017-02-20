@@ -48,7 +48,7 @@ class SupportController < ApplicationController
         redirect_to redirect_path, alert: t('blurbs.warranty_registration_success') and return false
       end
     else
-      @warranty_registration = WarrantyRegistration.new(subscribe: true, purchased_on: Date.yesterday)
+      @warranty_registration = WarrantyRegistration.new(subscribe: true, purchased_on: Date.yesterday, brand: website.brand)
       @warranty_registration.country = "United States" if params[:locale] =~ /\-US$/
       begin
         @warranty_registration.product = Product.find(params[:product_id]) if params[:product_id]
