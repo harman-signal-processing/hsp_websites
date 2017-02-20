@@ -18,8 +18,8 @@ class SiteMailer < ActionMailer::Base
     end
 
     mail(to: @recipient,
-      subject: @contact_message.subject,
-      from: @contact_message.email)
+         subject: @contact_message.subject,
+         from: @contact_message.email)
   end
 
   def promo_post_registration(warranty_registration, promotion)
@@ -27,8 +27,8 @@ class SiteMailer < ActionMailer::Base
     @brand = @warranty_registration.brand
     @promotion = promotion
     mail(to: @warranty_registration.email,
-      from: @brand.support_email,
-      subject: @promotion.post_registration_subject)
+         from: "#{@brand.name} <#{@brand.support_email}>",
+         subject: @promotion.post_registration_subject)
   end
 
   def news(news, recipient, from)
@@ -54,9 +54,9 @@ class SiteMailer < ActionMailer::Base
     end
 
     mail(to: recipient,
-      from: from,
-      subject: @news.title,
-      template_path: template_path)
+         from: from,
+         subject: @news.title,
+         template_path: template_path)
   end
 
   # Sends messages to AR when an artist changed info
@@ -64,9 +64,9 @@ class SiteMailer < ActionMailer::Base
   def artist_approval(artist, recipients)
     @artist = artist
     mail(to: recipients,
-      bcc: "adam.anderson@harman.com",
-      from: "support@digitech.com",
-      subject: "Artist relations approval")
+         bcc: "adam.anderson@harman.com",
+         from: "support@digitech.com",
+         subject: "Artist relations approval")
   end
 
   def label_sheet_order(order)
@@ -74,23 +74,23 @@ class SiteMailer < ActionMailer::Base
     brand = @order.expanded_label_sheets.first.decoded_products.first.brand
     @website = brand.default_website
     mail(to: @website.epedal_label_order_recipient,
-      from: @order.email,
-      subject: "epedal label sheet order")
+         from: @order.email,
+         subject: "epedal label sheet order")
   end
 
   def label_sheet_order_shipped(order)
     @order = order
     mail(to: @order.email,
-      from: "support@digitech.com",
-      subject: "Your epedal labels are on their way!")
+         from: "DigiTech <support@digitech.com>",
+         subject: "Your epedal labels are on their way!")
   end
 
   def confirm_product_registration(warranty_registration)
     @warranty_registration = warranty_registration
     @brand = @warranty_registration.brand
     mail(to: @warranty_registration.email,
-      from: @brand.support_email,
-      subject: "#{@brand.name} product registration")
+         from: "#{@brand.name} <#{@brand.support_email}>",
+         subject: "#{@brand.name} product registration")
   end
 
   def new_system_configuration(system_configuration)

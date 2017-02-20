@@ -8,7 +8,7 @@ class RegisteredDownloadsMailer < ActionMailer::Base
     @download_registration = download_registration
     mail(to: @download_registration.email,
       subject: @download_registration.registered_download.subject,
-      from: @download_registration.registered_download.from_email) do |format|
+      from: "#{@download_registration.registered_download.brand.name} <#{@download_registration.registered_download.from_email}>") do |format|
         format.html { render @download_registration.registered_download.email_template_name.to_s }
       end
   end
