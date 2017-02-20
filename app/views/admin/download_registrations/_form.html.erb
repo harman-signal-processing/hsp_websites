@@ -11,7 +11,5 @@
 	<% unless f.object.download_code.blank? %>
 	  <span class="hint">Full URL for download: <%= f.object.download_link %></div>
 	<% end %>
-  <%= f.input :auto_deliver,
-    label: "Auto-deliver the download immediately after registering. This improves end-user experience by avoiding the email confirmation step, but allows invalid email entries." %>
    <br/><%= f.button :submit %>
 <% end %>

@@ -24,23 +24,23 @@
 	<% end %>
 	</div>
 <br/>
-  <%= f.input :html_template, 
-    label: "HTML template for all pages associated with this download. All the HTML you want on every page. Be sure you have ~~content~~ somewhere.", 
+  <%= f.input :html_template,
+    label: "HTML template for all pages associated with this download. All the HTML you want on every page. Be sure you have ~~content~~ somewhere.",
     input_html: { class: "mceEditorFP" } %>
 
-  <br/><%= f.input :intro_page_content, 
+  <br/><%= f.input :intro_page_content,
     label: "Intro page content. This content appears ABOVE the registration form on the landing page.",
     input_html: { class: "mceEditor" } %>
 
-  <br/><%= f.input :confirmation_page_content, 
+  <br/><%= f.input :confirmation_page_content,
     label: "Confirmation page content. This appears on the page after the user registers.",
-    input_html: { class: "mceEditor" } %>    
+    input_html: { class: "mceEditor" } %>
 
   <br/><%= f.input :from_email, label: "Email address from which to send notifications" %>
   <%= f.input :subject, label: "Subject of the notification email" %>
 
-  <%= f.input :email_template, 
-    label: "Email template. All images, links, etc. need to have the full path (http://...). Make sure you have ~~download_link~~ somewhere.",
+  <%= f.input :email_template,
+    label: "Email template. All images, links, etc. need to have the full path (http://...). Make sure you have ~~download_link~~ somewhere. Make sure and update the github repo after changing this template.",
     input_html: { class: "mceEditorFP" } %>
 
   <br/><%= f.input :download_page_content,
@@ -48,6 +48,9 @@
     input_html: { class: "mceEditor" } %>
 
   <br/><%= f.input :cc, label: "Send a copy of registrations to this email address" %>
+
+  <%= f.input :auto_deliver,
+    label: "Auto-deliver the download immediately after registering. This improves end-user experience by avoiding the email confirmation step, but allows invalid email entries." %>
 
   <br/><%= f.button :submit %>
 <% end %>
