@@ -1,10 +1,10 @@
 <%= cache ["nav_items", website.brand, I18n.locale, Date.today] do %>
-  <li class="has-dropdown hide-for-medium"><%= link_to "Our Story", "/ourstory" %>
+  <li class="has-dropdown hide-for-medium"><%= link_to "Our Story", "/#{I18n.locale}/ourstory" %>
     <ul class="dropdown">
-      <li><%= link_to "About", "/ourstory" %></li>
-      <li><%= link_to "Quality", "/quality" %></li>
-      <li><%= link_to "Technology", "/technology" %></li>
-      <li><%= link_to "Crown Around The World", "/aroundtheworld" %></li>
+      <li><%= link_to "About", "/#{I18n.locale}/ourstory" %></li>
+      <li><%= link_to "Quality", "/#{I18n.locale}/quality" %></li>
+      <li><%= link_to "Technology", "/#{I18n.locale}/technology" %></li>
+      <li><%= link_to "Crown Around The World", "/#{I18n.locale}/aroundtheworld" %></li>
     </ul>
   </li>
 

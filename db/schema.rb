@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170210212556) do
+ActiveRecord::Schema.define(version: 20170220161606) do
 
   create_table "admin_logs", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -1348,6 +1348,7 @@ ActiveRecord::Schema.define(version: 20170210212556) do
     t.boolean  "send_coupon_code"
     t.text     "coupon_codes",                    limit: 65535
     t.boolean  "require_receipt"
+    t.boolean  "auto_deliver"
   end
 
   add_index "registered_downloads", ["brand_id"], name: "index_registered_downloads_on_brand_id", using: :btree
