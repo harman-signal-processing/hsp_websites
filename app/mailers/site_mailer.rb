@@ -90,6 +90,7 @@ class SiteMailer < ActionMailer::Base
     @brand = @warranty_registration.brand
     mail(to: @warranty_registration.email,
          from: "#{@brand.name} <#{@brand.support_email}>",
+         bcc: @brand.respond_to?(:bcc_product_registrations) ? @brand.bcc_product_registrations.split(/[\s\,\;]{1,}/) : [],
          subject: "#{@brand.name} product registration")
   end
 
