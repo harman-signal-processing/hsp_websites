@@ -2,7 +2,11 @@
 	confirmation of what we received:</p>
 
 <h4>Customer Info</h4>
-<p><%= @warranty_registration.first_name %> <%= @warranty_registration.last_name %></p>
+<p><%= @warranty_registration.first_name %> <%= @warranty_registration.last_name %>
+<% if @warranty_registration.company.present? %>
+  <br/>Company: <%= @warranty_registration.company %>
+<% end %>
+</p>
 
 <p><%= @warranty_registration.address1 %><br/>
 	<%= @warranty_registration.city %>
@@ -18,6 +22,12 @@
 	From: <%= @warranty_registration.purchased_from %><br/>
 	Price: <%= @warranty_registration.purchase_price %></p>
 
+<% if @warranty_registration.comments.present? %>
+<h4>Comment</h4>
+<p><%= @warranty_registration.comments %></p>
+<% end %>
+
+<p>-----------------------------</p>
 <p>Enjoy your new <%= @warranty_registration.product.name %>.
 	Let us know if we can help at our support address:
 	<%= @brand.support_email %></p>
