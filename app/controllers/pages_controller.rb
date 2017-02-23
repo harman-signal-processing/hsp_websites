@@ -40,25 +40,14 @@ class PagesController < ApplicationController
       @page = Page.where(custom_route: params[:custom_route]).first
     end
     unless @page
-      @registered_download = RegisteredDownload.where(url: params[:custom_route], brand_id: website.brand_id).first
-      if @registered_download
-        redirect_to register_to_download_path(@registered_download.url, params[:code]) and return
-      else
-        error_page(404)
-      end
+      @registered_download = RegisteredDownload.where(url: params[:custom_route], brand_id: website.brand_id).first!
+      redirect_to register_to_download_path(@registered_download.url, params[:code]) and return
     else
-      if !website.pages.include?(@page)
-        error_page(404)
-      else
-        if @page.requires_login?
-          authenticate_or_request_with_http_basic("#{@page.title} - Protected") do |user, password|
-            user == @page.username && password == @page.password
-          end
+      raise ActiveRecord::RecordNotFound unless website.pages.pluck(:id).include?(@page.id)
+      if @page.requires_login?
+        authenticate_or_request_with_http_basic("#{@page.title} - Protected") do |user, password|
+          user == @page.username && password == @page.password
         end
-        # Causing a double-render error:
-        # unless @page.friendly_id_status.best?
-        #   redirect_to @page, status: :moved_permanently and return
-        # end
       end
     end
   end
@@ -77,7 +66,7 @@ class PagesController < ApplicationController
         # If we're here, then there was no 'website' associated with the http request
         # that probably means someone is trying something tricky, so, just show them
         # a generic page not found page:
-        render template: "errors/404", layout: false, status: '404' and return
+        raise ActiveRecord::RecordNotFound
       end
     end
   end
