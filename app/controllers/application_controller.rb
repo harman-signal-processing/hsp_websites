@@ -9,15 +9,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   layout :set_layout
 
-  unless config.consider_all_requests_local || Rails.env.development?
-    # rescue_from Exception, with: :render_error
-    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
-    rescue_from ActionController::RoutingError, with: :render_not_found
-    rescue_from ActionController::UnknownController, with: :render_not_found
-    # customize these as much as you want, ie, different for every error or all the same
-    rescue_from ::AbstractController::ActionNotFound, with: :render_not_found
-  end
-
   # This method is getting complicated...It chooses the appropriate layout file based on
   # several criteria: whether or not this is a devise (user login) controller, whether or
   # not the website's brand has a custom layout (usually should), etc., whether or not
@@ -104,16 +95,16 @@ private
   #
   def ensure_locale_for_site
     if (website && website.folder) # (skips this filter for tooklit)
-      if website.respond_to?(:list_of_available_locales)
-        if params[:locale] && !params[:locale].to_s.match(/en/i) && l = website.list_of_available_locales
-          unless l.include?(params[:locale].to_s)
-            new_locale = website.default_locale || I18n.default_locale.to_s
-            redirect_to locale_root_path(new_locale), status: :moved_permanently and return false
-          end
+
+      raise ActionController::RoutingError("Site not found.") unless website.respond_to?(:list_of_available_locales)
+
+      if params[:locale] && !params[:locale].to_s.match(/en/i) && l = website.list_of_available_locales
+        unless l.include?(params[:locale].to_s)
+          new_locale = website.default_locale || I18n.default_locale.to_s
+          redirect_to locale_root_path(new_locale), status: :moved_permanently and return false
         end
-      else # this is not one of our configured sites
-        site_not_found and return false
       end
+
     end
   end
 
@@ -134,26 +125,6 @@ private
       end
     rescue
     end
-  end
-
-  def render_not_found(exception)
-    error_page(404)
-  end
-
-  def render_error(exception)
-    error_page(500)
-  end
-
-  def error_page(status=404)
-    root_folder = (website && website.folder) ? "#{website.folder}/" : ''
-    generic = "errors/#{status}"
-    brand_specific = "#{root_folder}#{generic}"
-    template = (File.exists?(Rails.root.join("app", "views", "#{brand_specific}.html.erb"))) ? brand_specific : generic
-    render template: template, layout: false, status: status and return
-  end
-
-  def site_not_found
-    error_page(404)
   end
 
   def website
@@ -284,23 +255,22 @@ private
       session['geo_country'] = "US"
       session['geo_usa'] = true
     end
+
+    raise ActionController::RoutingError.new("Site not found") unless website && website.respond_to?(:list_of_available_locales)
+
     # This is where we set the locale:
-    if website.respond_to?(:list_of_available_locales)
-      if params[:locale]
-        I18n.locale = params[:locale]
-      elsif !!(session['geo_usa']) && website.list_of_available_locales.include?("en-US")
-        I18n.locale = 'en-US'
-      elsif session['geo_country'] == "CN" && website.list_of_available_locales.include?("zh")
-        I18n.locale = 'zh'
-      elsif session['geo_country'] == "UK" && website.list_of_available_locales.include?("en")
-        I18n.locale = 'en'
-      elsif website.show_locales? && controller_path == "main" && action_name == "default_locale"
-        locale_selector # otherwise the default locale is appended to the URL. #ugly
-      else
-        redirect_to root_path, status: :moved_permanently and return false
-      end
+    if params[:locale]
+      I18n.locale = params[:locale]
+    elsif !!(session['geo_usa']) && website.list_of_available_locales.include?("en-US")
+      I18n.locale = 'en-US'
+    elsif session['geo_country'] == "CN" && website.list_of_available_locales.include?("zh")
+      I18n.locale = 'zh'
+    elsif session['geo_country'] == "UK" && website.list_of_available_locales.include?("en")
+      I18n.locale = 'en'
+    elsif website.show_locales? && controller_path == "main" && action_name == "default_locale"
+      locale_selector # otherwise the default locale is appended to the URL. #ugly
     else
-      site_not_found and return false
+      redirect_to root_path, status: :moved_permanently and return false
     end
   end
 
