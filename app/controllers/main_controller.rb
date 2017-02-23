@@ -118,7 +118,7 @@ class MainController < ApplicationController
     @query = params[:query]
     query = @query.to_s.gsub(/[\/\\]/, " ")
     ferret_results = ThinkingSphinx.search(
-      Riddle.escape(query),
+      ThinkingSphinx::Query.escape(query),
       page: params[:page],
       per_page: 10
     )
