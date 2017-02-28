@@ -1,5 +1,12 @@
-production:
-  bin_path: "/usr/local/bin"
-  searchd_binary_name: "searchd"
-  searchd_file_path: "/var/www/hmg/hsp_websites/shared/sphinx"
+development:
+  bin_path: /usr/local/bin
+  searchd_binary_name: searchd
   client_timeout: 200
+  morphology: stem_en
+  min_infix_len: 4
+production:
+  bin_path: "/usr/bin"
+  searchd_binary_name: "searchd"
+  client_timeout: 200
+  morphology: stem_en
+  min_infix_len: 4

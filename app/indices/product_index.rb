@@ -12,7 +12,7 @@ ThinkingSphinx::Index.define :product, :with => :active_record do
   	short_description_3,
   	short_description_4
 
-  indexes product_descriptions.content_part1 as: :description
+  indexes product_descriptions.content_part1, as: :description, :facet => true
   # :nocov:
 end
 
