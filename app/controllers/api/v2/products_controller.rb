@@ -8,7 +8,7 @@ module Api
       respond_to :xml, :json, :html
 
       def index
-        @products = @brand.current_products
+        @products = @brand.current_products.order(:name)
         respond_with @products
       end
 
