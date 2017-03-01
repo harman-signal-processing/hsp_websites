@@ -17,6 +17,7 @@
   </form>
 
   <% if @results.length > 0 %>
+    <%= will_paginate @results %>
     <ol id="search_results">
       <% @results.each do |result| %>
         <li><%= link_to result.link_name, page_link(result) %><br/>

@@ -119,8 +119,8 @@ class MainController < ApplicationController
     query = @query.to_s.gsub(/[\/\\]/, " ")
     ferret_results = ThinkingSphinx.search(
       ThinkingSphinx::Query.escape(query),
-      page: params[:page],
-      per_page: 100
+      page: 1, # we'll paginate after filtering out other brand assets
+      per_page: 1000
     )
     # Probably not the best way to do this, strip out Products from the
     # search results unless the status is set to 'show_on_website'. It
@@ -128,16 +128,14 @@ class MainController < ApplicationController
     # above, but since this is a multi-model search, there doesn't seem
     # to be a way to do SQL filtering on just one of the models being
     # searched.
-    @results = []
-    ferret_results.each do |r|
-      unless (
+    @results = ferret_results.select do |r|
+      r unless (
           (r.is_a?(Product) && !r.show_on_website?(website)) ||
           (r.has_attribute?(:brand_id) && r.brand_id != website.brand_id) ||
           (r.respond_to?(:belongs_to_this_brand?) && !r.belongs_to_this_brand?(website))
         )
-        @results << r
-      end
-    end
+    end.paginate(page: params[:page], per_page: 10)
+
     render_template
   end
 
