@@ -1072,16 +1072,17 @@ div.retailer_logo {
 }
 
 /******** Search ********/
-ol#search_results {
+ul#search_results {
 	margin: 8px;
-	margin-left: 20px;
+	margin-left: 0px;
 	li {
-		margin-bottom: 6px;
-		list-style-type: decimal;
+		margin-bottom: 20px;
+		list-style-type: none;
 	}
 }
 .search_link a:link,
 .search_link a:visited {
+  font-size: 80%;
 	color: green;
 }
 

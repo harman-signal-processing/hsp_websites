@@ -5,20 +5,19 @@
 
 <div class="wide_centered_box">
   <%= form_tag search_path %>
-  <p><%= t('search_again') %>:</p>
-  <div class="row collapse">
-    <div class="large-8 small-7 columns">
-      <%= text_field_tag :query, @query %>
+    <div class="row collapse">
+      <div class="large-8 small-7 columns">
+        <%= text_field_tag :query, @query %>
+      </div>
+      <div class="large-4 small-5 columns">
+        <%= submit_tag t('search'), class: "button" %>
+      </div>
     </div>
-    <div class="large-4 small-5 columns">
-      <%= submit_tag t('search'), class: "button" %>
-    </div>
-  </div>
   </form>
 
   <% if @results.length > 0 %>
     <%= will_paginate @results %>
-    <ol id="search_results">
+    <ul id="search_results">
       <% @results.each do |result| %>
         <li><%= link_to result.link_name, page_link(result) %><br/>
           <% if result.content_preview && !result.content_preview.blank? %>
@@ -29,7 +28,8 @@
           </span>
         </li>
       <% end %>
-    </ol>
+    </ul>
+    <%= will_paginate @results %>
   <% else %>
     <p><i>No results found.</i></p>
   <% end %>
