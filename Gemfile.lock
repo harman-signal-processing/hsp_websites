@@ -79,7 +79,7 @@ GEM
     buftok (0.2.0)
     builder (3.2.3)
     cancan (1.6.10)
-    capistrano (3.6.1)
+    capistrano (3.7.2)
       airbrussh (>= 1.0.0)
       capistrano-harrow
       i18n
@@ -576,7 +576,7 @@ GEM
       ethon (>= 0.9.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uglifier (3.1.1)
+    uglifier (3.1.2)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
@@ -614,7 +614,7 @@ DEPENDENCIES
   aws-sdk (< 2.0)
   bing_translator
   cancan
-  capistrano (= 3.6.1)
+  capistrano (= 3.7.2)
   capistrano-bundler
   capistrano-passenger
   capistrano-rails
