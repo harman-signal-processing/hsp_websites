@@ -115,7 +115,7 @@ class Setting < ActiveRecord::Base
   # from the string, text, integer, or slide attachment.
   def value(locale=I18n.locale)
     begin
-      (self.setting_type =~ /slide/) ? self.slide : eval("self.#{self.setting_type}_value")
+      (setting_type =~ /slide|feature/) ? slide : self.send("#{setting_type.to_param}_value")
     rescue
       nil
     end

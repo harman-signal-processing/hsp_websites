@@ -5,8 +5,12 @@
       <%= f.input :name %>
     </div>
     <div class="large-4 columns">
-      <%= f.input :locale, label: "Locale (en-US, es, de, etc.)", hint: "(leave blank to use this setting as a default)" %>
-    </div>
+      <%= f.input :locale,
+        collection: user_locale_options(current_user, website),
+        hint: "(leave blank to use this setting as a default)",
+        include_blank: !!!(current_user.roles.include?("translator"))
+      %>
+  </div>
   </div>
 
   <div class="row">

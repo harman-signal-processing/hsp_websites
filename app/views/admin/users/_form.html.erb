@@ -6,12 +6,14 @@
 			<%= f.input :phone_number %>
 			<%= f.input :job_title %>
 			<%= f.input :job_description %>
-			  <% if @user.new_record? %>
+      <%= f.input :locales, collection: WebsiteLocale.all_unique_and_incomplete_locales, as: :check_boxes,
+        hint: "If this user is a translator, set which locales he/she has access to." %>
+      <% if @user.new_record? %>
 			  <br/>
-			  		<%= f.input :invitation_code, hint: "RSOs, employees and media need a valid invitation code." %>
-					<%= f.input :password, input_html: { autocomplete: "off" } %>
-					<%= f.input :password_confirmation, input_html: { autocomplete: "off" } %>
-			  <% end %>
+        <%= f.input :invitation_code, hint: "RSOs, employees and media need a valid invitation code." %>
+        <%= f.input :password, input_html: { autocomplete: "off" } %>
+        <%= f.input :password_confirmation, input_html: { autocomplete: "off" } %>
+      <% end %>
 		</div>
 
 		<div class="large-6 columns">

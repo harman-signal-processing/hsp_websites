@@ -1,6 +1,6 @@
 class Admin::SettingsController < AdminController
   before_filter :initialize_setting, only: :create
-  load_and_authorize_resource
+  load_and_authorize_resource except: :new
 
   # GET /admin/settings
   # GET /admin/settings.xml
@@ -81,6 +81,11 @@ class Admin::SettingsController < AdminController
 
   def copy
     @setting = Setting.find(params[:id]).dup
+    if current_user.roles.include?(:translator)
+      if current_user.locales.length > 0
+        @setting.locale = current_user.locale.first
+      end
+    end
     respond_to do |format|
       format.html { render action: "new" }
       format.xml  { render xml: @setting }
@@ -99,13 +104,19 @@ class Admin::SettingsController < AdminController
   # GET /admin/settings/new
   # GET /admin/settings/new.xml
   def new
-    if params[:name]
+    @setting = Setting.new
+    if current_user.roles.include?("translator")
+      if current_user.locales.length > 0
+        @setting.locale = current_user.locales.first
+      end
+    elsif params[:name]
       other = Setting.where(name: params[:name]).where.not(brand_id: website.brand_id).limit(1)
       if other.count > 0
         @setting = other.first.dup
         @setting.brand_id = website.brand_id
       end
     end
+    authorize! :new, @setting
     respond_to do |format|
       format.html { render_template } # new.html.erb
       format.xml  { render xml: @setting }
@@ -141,7 +152,7 @@ class Admin::SettingsController < AdminController
         red = (params[:called_from] && params[:called_from] == "homepage") ? homepage_admin_settings_path : [:admin, @setting]
         format.html { redirect_to(red, notice: 'Setting was successfully updated.') }
         format.xml  { head :ok }
-        format.js 
+        format.js
         website.add_log(user: current_user, action: "Updated setting: #{@setting.name}")
       else
         format.html { render action: "edit" }
@@ -158,7 +169,7 @@ class Admin::SettingsController < AdminController
     respond_to do |format|
       format.html { redirect_to(admin_settings_url) }
       format.xml  { head :ok }
-      format.js 
+      format.js
     end
     website.add_log(user: current_user, action: "Deleted setting: #{@setting.name}")
   end
@@ -171,5 +182,5 @@ class Admin::SettingsController < AdminController
 
   def setting_params
     params.require(:setting).permit!
-  end  
+  end
 end

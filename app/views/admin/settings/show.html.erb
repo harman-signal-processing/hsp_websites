@@ -1,19 +1,23 @@
 <h1><%= @setting.name %></h1>
 
 <ul class="button-group round">
-	<li><%= link_to 'Settings', admin_settings_path, class: "small secondary button" %></li>
-	<% if can? :manage, @setting %>
-	<li><%= link_to 'Copy', copy_admin_setting_path(@setting, locale: I18n.locale), class: "small secondary button" %> </li>
-	<li><%= link_to 'Edit', edit_admin_setting_path(@setting, locale: I18n.locale), class: "small secondary button" %> </li>
-	<li><%= link_to 'Delete', [:admin, @setting], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
-	<% end %>
+  <li><%= link_to 'Settings', admin_settings_path, class: "small secondary button" %></li>
+  <% if can? :copy, @setting %>
+    <li><%= link_to 'Copy', copy_admin_setting_path(@setting, locale: I18n.locale), class: "small secondary button" %> </li>
+  <% end %>
+  <% if can? :update, @setting %>
+    <li><%= link_to 'Edit', edit_admin_setting_path(@setting, locale: I18n.locale), class: "small secondary button" %> </li>
+  <% end %>
+  <% if can? :manage, @setting %>
+    <li><%= link_to 'Delete', [:admin, @setting], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+  <% end %>
 </ul>
 
 <% if @setting.description.present? %>
-<div class="callout panel">
-  <h4>How to use this setting</h4>
-  <p><%= @setting.description %></p>
-</div>
+  <div class="callout panel">
+    <h4>How to use this setting</h4>
+    <p><%= @setting.description %></p>
+  </div>
 <% end %>
 
 <p>
@@ -21,12 +25,14 @@
   <%=h @setting.setting_type %>
 </p>
 
-<% if @setting.locale.present? %>
 <p>
   <b>Locale:</b>
-  <%= @setting.locale %>
+  <% if @setting.locale.present? %>
+    <%= @setting.locale %>
+  <% else %>
+    (default)
+  <% end %>
 </p>
-<% end %>
 
 <p>
   <b>Value:</b><br/><br/>

@@ -1,571 +1,573 @@
 <% show_all = false # use for testing panels I wouldn't normally see %>
 
 <% if !@msg.blank? %>
-   <div class="alert"><%= @msg %></div>
+  <div class="alert"><%= @msg %></div>
 <% end %>
 
 <%= content_for :dashboard do %>
 
-<% if user_signed_in? %>
-  <%#= cache ["admin_dashboard", current_user, website, Date.today] do %>
+  <% if user_signed_in? %>
+    <%#= cache ["admin_dashboard", current_user, website, Date.today] do %>
 
-	<ul class="small-block-grid-1 large-block-grid-3">
+      <ul class="small-block-grid-1 large-block-grid-3">
 
-		<%# if can?(:manage, SiteElement) %>
-			<%#= link_to "Site Resources & Downloads", admin_site_elements_path %>
-		<%# end %>
+        <%# if can?(:manage, SiteElement) %>
+        <%#= link_to "Site Resources & Downloads", admin_site_elements_path %>
+        <%# end %>
 
-		<% if can?(:manage, ProductFamily) %>
-			<li>
-				<div class="group">
-					<h5><%= link_to "Product Families", admin_product_families_path %>
-						<%= link_to "New product family", new_admin_product_family_path, class: "small round secondary button" %>
-					</h5>
-				    <%= search_form_for [:admin, ProductFamily.ransack], class: "custom" do |f| %>
-				    <div class="row collapse">
-				    	<div class="large-10 small-8 columns">
-				        	<%= f.text_field :name_cont, placeholder: "Name contains..." %>
-				      	</div>
-				      	<div class="large-2 small-4 columns">
-				      		<%= f.submit "Search", class: "postfix round secondary button" %>
-				      	</div>
-				    </div>
-				    <% end %>
-					<h6 class="subheader">Top-level product families:</h6>
-					<ul class="list">
-						<% ProductFamily.all_parents(website).each do |item| %>
-                  		<li><%= link_to item.name, [:admin, item] %></li>
-                  		<% end %>
-                  	</ul>
-                  	<br/>
-        		</div>
-			</li>
-		<% end %>
-
-		<% if can?(:manage, Product) %>
-			<li>
-				<div class="group">
-					<h5><%= link_to "Products", admin_products_path %>
-						<%= link_to "New product", new_admin_product_path, class: "small round secondary button" %>
-					</h5>
-				    <%= search_form_for [:admin, Product.ransack], class: "custom" do |f| %>
-				    <div class="row collapse">
-				    	<div class="large-10 small-8 columns">
-				        	<%= f.text_field :name_cont, placeholder: "Name contains..." %>
-				      	</div>
-				      	<div class="large-2 small-4 columns">
-				      		<%= f.submit "Search", class: "postfix round secondary button" %>
-				      	</div>
-				    </div>
-				    <% end %>
-					<h6 class="subheader">Recently created/changed:</h6>
-					<ul class="list">
-						<% website.products.sort_by(&:updated_at).reverse[0,6].each do |item| %>
-                  		<li><%= link_to item.name, [:admin, item] %></li>
-                  		<% end %>
-                  	</ul>
-                  	<br/>
-        		</div>
-			</li>
-		<% end %>
-
-		<% if can?(:manage, Setting) && can?(:manage, Product) && can?(:manage, Page) %>
-			<li>
-				<div class="group">
-					<h5>Site Pages
-						<%= link_to "New page", new_admin_page_path, class: "small round secondary button" %>
-					</h5>
-					<h6 class="subheader">Recent Pages:</h6>
-					<ul class="list">
-						<li><%= link_to "#{website.brand.name} Homepage", homepage_admin_settings_path %></li>
-						<% Page.where(brand_id: website.brand_id).order("updated_at DESC").limit(7).each do |item| %>
-                  		<li><%= link_to item.title.truncate(40), [:admin, item] %></li>
-                  		<% end %>
-                  	</ul>
-                  	<br/>
-					<%= link_to "All Landing Pages", admin_pages_path %>
-				</div>
-			</li>
-		<% end %>
-
-		<% if toolkit_brands.include?(website.brand) && can?(:manage, ToolkitResource) %>
-			<li>
-				<div class="group">
-					<h5><%= link_to "Toolkit Resources", admin_toolkit_resources_path %>
-						<%#= link_to "New resource", new_admin_toolkit_resource_path, class: "small round secondary button" %>
-					</h5>
-				    <%= search_form_for [:admin, ToolkitResource.ransack], class: "custom" do |f| %>
-				    <div class="row collapse">
-				    	<div class="large-10 small-8 columns">
-				        	<%= f.text_field :name_cont, placeholder: "Name contains..." %>
-				      	</div>
-				      	<div class="large-2 small-4 columns">
-				      		<%= f.submit "Search", class: "postfix round secondary button" %>
-				      	</div>
-				    </div>
-				    <% end %>
-
-					<% if @bad_toolkit_links.size > 0 %>
-						<h6><%= @bad_toolkit_links.size %> Possible Problems Found</h6>
-						<ul class="list">
-							<% @bad_toolkit_links.each do |toolkit_resource| %>
-							<li><span class="round alert label">!</span>
-								<%= link_to toolkit_resource.name.truncate(40), [:admin, toolkit_resource] %>
-							</li>
-							<% end %>
-						</ul>
-					<% else %>
-						<h6 class="subheader">Recently created/changed:</h6>
-						<ul class="list">
-							<% ToolkitResource.where(brand_id: website.brand_id).order("updated_at DESC").limit(7).each do |item| %>
-	                  		<li><%= link_to item.name.truncate(44), [:admin, item] %></li>
-	                  		<% end %>
-	                  	</ul>
-	                <% end %>
-        		</div>
-			</li>
-		<% end %>
-
-		<% if can? :manage, News %>
-			<li>
-				<div class="group">
-					<h5><%= link_to "News", admin_news_index_path %>
-						<%= link_to "New article", new_admin_news_path, class: "small round secondary button" %>
-					</h5>
-				    <%= search_form_for [:admin, News.ransack], class: "custom" do |f| %>
-				    <div class="row collapse">
-				    	<div class="large-10 small-8 columns">
-				        	<%= f.text_field :title_cont, placeholder: "Title contains..." %>
-				      	</div>
-				      	<div class="large-2 small-4 columns">
-				      		<%= f.submit "Search", class: "postfix round secondary button" %>
-				      	</div>
-				    </div>
-				    <% end %>
-					<h6 class="subheader">Recently created/changed:</h6>
-					<ul class="list">
-						<% News.where(brand_id: website.brand_id).order("updated_at DESC").limit(6).each do |item| %>
-                  		<li><%= link_to item.title.truncate(40), [:admin, item] %>
-                  			<small><%=l item.post_on, format: :short %></small>
-                  		</li>
-                  		<% end %>
-                  	</ul>
-                  	<br/>
-        		</div>
-			</li>
-		<% end %>
-
-		<% if can? :manage, Promotion %>
-			<li>
-				<div class="group">
-					<h5><%= link_to "Promotions", admin_promotions_path %>
-						<%= link_to "New promo", new_admin_promotion_path, class: "small round secondary button" %>
-					</h5>
-				    <%= search_form_for [:admin, Promotion.ransack], class: "custom" do |f| %>
-				    <div class="row collapse">
-				    	<div class="large-10 small-8 columns">
-				        	<%= f.text_field :name_cont, placeholder: "Name contains..." %>
-				      	</div>
-				      	<div class="large-2 small-4 columns">
-				      		<%= f.submit "Search", class: "postfix round secondary button" %>
-				      	</div>
-				    </div>
-				    <% end %>
-					<h6 class="subheader">Recently created/changed:</h6>
-					<ul class="list">
-						<% Promotion.where(brand_id: website.brand_id).order("updated_at DESC").limit(6).each do |item| %>
-                  		<li><%= link_to item.name.truncate(38), [:admin, item] %>
-                  			<small>starts: <%=l item.start_on, format: :short %></small>
-                  		</li>
-                  		<% end %>
-                  	</ul>
-                  	<br/>
-        		</div>
-			</li>
-		<% end %>
-
-		<%# TODO: list products missing key prices %>
-		<% if current_user.role?(:sales_admin) || show_all %>
-			<li>
-				<div class="group">
-					<h5>Pricing</h5><br/>
-					<%= link_to "Edit Price Sheet", admin_product_prices_path, class: "secondary round button" %><br/>
-					<%= link_to "Harman Employee Prices", harman_employee_pricing_admin_products_path, class: "secondary round button" %>
-	    		</div>
-	    	</li>
-
-			<% if website.brand.has_label_sheets? && can?(:manage, LabelSheetOrder) %>
-			<li>
-				<div class="group">
-					<h5><%= link_to "e-pedal Label Orders", admin_label_sheet_orders_path %></h5>
-				    <%= search_form_for [:admin, LabelSheetOrder.ransack], class: "custom" do |f| %>
-				    <div class="row collapse">
-				    	<div class="large-10 small-8 columns">
-				        	<%= f.text_field :name_cont, placeholder: "Name contains..." %>
-				      	</div>
-				      	<div class="large-2 small-4 columns">
-				      		<%= f.submit "Search", class: "postfix round secondary button" %>
-				      	</div>
-				    </div>
-				    <% end %>
-					<h6 class="subheader">Newest orders:</h6>
-					<ul class="list">
-						<% LabelSheetOrder.order("created_at DESC").limit(7).each do |item| %>
-                  		<li>
-                  			<% unless item.mailed_on.present? %>
-                  			<span class="round label">new!</span>
-                  			<% end %>
-                  			<%= link_to item.name, [:admin, item] %> <small><%= l item.created_at.to_date, format: :short %></small>
-                  		</li>
-                  		<% end %>
-                  	</ul>
-                  	<br/>
-        		</div>
-				
-			</li>
-			<% end %>
-		<% end %>
-
-		<%# if can? :manage, TrainingModule %>
-			<%#= link_to "Training Modules", admin_training_modules_path %>
-		<%# end %>
-		<%# if can? :manage, TrainingClass %>
-			<%#= link_to "Training Classes", admin_training_classes_path %>
-		<%# end %>
-
-		<% if website.has_artists? && (current_user.role?(:artist_relations) || show_all) %>
-			<li>
-				<div class="group">
-					<h5><%= link_to "Artists", admin_artists_path %>
-						<%= link_to "New", new_admin_artist_path, class: "small round secondary button" %>
-					</h5>
-				    <%= search_form_for [:admin, Artist.ransack], class: "custom" do |f| %>
-				    <div class="row collapse">
-				    	<div class="large-10 small-8 columns">
-				        	<%= f.text_field :name_cont, placeholder: "Name contains..." %>
-				      	</div>
-				      	<div class="large-2 small-4 columns">
-				      		<%= f.submit "Search", class: "postfix round secondary button" %>
-				      	</div>
-				    </div>
-				    <% end %>
-					<h6 class="subheader">Recently created/changed:</h6>
-					<ul class="list">
-						<% Artist.order("updated_at DESC").limit(5).each do |item| %>
-                  		<li><% unless item.approver %>
-                  			<span class="tiny round alert label">!</span>
-                  			<% end %>
-                  			<%= link_to item.name.truncate(40), [:admin, item] %>
-                  		</li>
-                  		<% end %>
-                  	</ul>
-                  	<br/>
-                  	<div class="small">
-                  		<span class="tiny round alert label">!</span> = Unapproved
-                  	</div>
-        		</div>
-			</li>
-		<% end %>
-
-		<% if can?(:manage, Software) && website.has_software? %>
-			<li>
-				<div class="group">
-					<h5><%= link_to "Software Downloads", admin_softwares_path %>
-						<%= link_to "New Software", new_admin_software_path, class: "small round secondary button" %>
-					</h5>
-				    <%= search_form_for [:admin, Software.ransack], class: "custom" do |f| %>
-				    <div class="row collapse">
-				    	<div class="large-10 small-8 columns">
-				        	<%= f.text_field :name_cont, placeholder: "Name contains..." %>
-				      	</div>
-				      	<div class="large-2 small-4 columns">
-				      		<%= f.submit "Search", class: "postfix round secondary button" %>
-				      	</div>
-				    </div>
-				    <% end %>
-					<h6 class="subheader">Recently created/changed:</h6>
-					<ul class="list">
-						<% Software.where(brand_id: website.brand_id).order("updated_at DESC").limit(5).each do |item| %>
-                  		<li><%= link_to item.name, [:admin, item] %></li>
-                  		<% end %>
-                  	</ul>
-                  	<br/>
-        		</div>
-			</li>
-		<% end %>
-
-		<% if (can?(:manage, OnlineRetailer) && website.has_online_retailers?) %>
-			<li>
-				<div class="group">
-					<h5><%= link_to "Online Retailers", admin_online_retailers_path %>
-						<%= link_to "New online retailer", new_admin_online_retailer_path, class: "small round secondary button" %>
-					</h5>
-
-				    <%= search_form_for [:admin, OnlineRetailer.ransack], class: "custom" do |f| %>
-				    <div class="row collapse">
-				    	<div class="large-10 small-8 columns">
-				        	<%= f.text_field :name_cont, placeholder: "Online Retailer name contains..." %>
-				      	</div>
-				      	<div class="large-2 small-4 columns">
-				      		<%= f.submit "Search", class: "postfix round secondary button" %>
-				      	</div>
-				    </div>
-				    <% end %>
-
-				    <% if @orl_problems.size > 0 %>
-					   	<h6>Possible Link Problems</h6>
-					   	<ul class="list">
-						   	<% @orl_problems.each do |orl| %>
-						   	<li>
-						   		<span class="round alert label">!</span>
-						   		<%= link_to orl.expanded_name, edit_admin_online_retailer_link_path(orl) %>
-						   	</li>
-						   	<% end %>
-						</ul>
-					<% else %>
-						<span class="round success label">:)</span>
-						<i>Good news. No link problems were found.</i>
-					<% end %>
-        		</div>
-			</li>
-		<% end %>
-
-		<% if (can?(:manage, Distributor) && website.has_distributors?) || 
-			  (can?(:manage, UsRep) && website.has_us_sales_reps?) || 
-			  (can?(:manage, Dealer) && website.has_dealers?)  %>
-			<li>
-				<div class="group">
-					<h5>Dealers, Distributors<% if website.has_us_sales_reps? %> &amp; Reps<% end %></h5>
-					<dl class="sub-nav">
-						<% if can?(:manage, Dealer) && website.has_dealers? %>
-							<dd><%= link_to "Dealers", admin_dealers_path %></dd>
-						<% end %>
-						<% if can?(:manage, Distributor) && website.has_distributors? %>
-							<dd><%= link_to "Distributors", admin_distributors_path %></dd>
-						<% end %>
-						<% if can?(:manage, UsRep) && website.has_us_sales_reps? %>
-							<dd><%= link_to "US Sales Reps", admin_us_reps_path %></dd>
-						<% end %>
-					</dl>
-
-				<% if can?(:manage, Dealer) && website.has_dealers? %>
-          <% if website.brand.dealers_from_brand_id.to_i > 0 %>
-            <div class="alert-box secondary">
-              Use the <%= Brand.find(website.dealers_from_brand_id).name %> site to manage dealers.
+        <% if can?(:manage, ProductFamily) %>
+          <li>
+            <div class="group">
+              <h5><%= link_to "Product Families", admin_product_families_path %>
+              <%= link_to "New product family", new_admin_product_family_path, class: "small round secondary button" %>
+              </h5>
+              <%= search_form_for [:admin, ProductFamily.ransack], class: "custom" do |f| %>
+                <div class="row collapse">
+                  <div class="large-10 small-8 columns">
+                    <%= f.text_field :name_cont, placeholder: "Name contains..." %>
+                  </div>
+                  <div class="large-2 small-4 columns">
+                    <%= f.submit "Search", class: "postfix round secondary button" %>
+                  </div>
+                </div>
+              <% end %>
+              <h6 class="subheader">Top-level product families:</h6>
+              <ul class="list">
+                <% ProductFamily.all_parents(website).each do |item| %>
+                  <li><%= link_to item.name, [:admin, item] %></li>
+                <% end %>
+              </ul>
+              <br/>
             </div>
-          <% else %>
-				    <%= search_form_for [:admin, Dealer.ransack], class: "custom" do |f| %>
-				    <div class="row collapse">
-				    	<div class="large-8 small-6 columns">
-				        	<%= f.text_field :name_cont, placeholder: "Dealer name contains..." %>
-				      	</div>
-				      	<div class="large-2 small-3 columns">
-				      		<%= f.submit "Search", class: "postfix secondary button" %>
-				      	</div>
-				      	<div class="large-2 small-3 columns">
-				      		<%= link_to "New", new_admin_dealer_path, class: "postfix round secondary button" %>
-				      	</div>
-				    </div>
-				    <% end %>
-          <% end %>
-				<% end %>
-        <% if can?(:manage, Distributor) && website.has_distributors? %>
-          <% if website.brand.distributors_from_brand_id.to_i > 0 %>
-            <div class="alert-box secondary">
-              Use the <%= Brand.find(website.distributors_from_brand_id).name %> site to manage distributors.
-            </div>
-          <% else %>
-				    <%= search_form_for [:admin, Distributor.ransack], class: "custom" do |f| %>
-				    <div class="row collapse">
-				    	<div class="large-8 small-6 columns">
-				        	<%= f.text_field :country_cont, placeholder: "Distributor country contains..." %>
-				      	</div>
-				      	<div class="large-2 small-3 columns">
-				      		<%= f.submit "Search", class: "postfix secondary button" %>
-				      	</div>
-				      	<div class="large-2 small-3 columns">
-				      		<%= link_to "New", new_admin_distributor_path, class: "postfix round secondary button" %>
-				      	</div>
-				    </div>
-				    <% end %>
-          <% end %>
-				<% end %>
-				<% if can?(:manage, UsRep) && website.has_us_sales_reps? %>
-				    <%= search_form_for [:admin, UsRep.ransack], class: "custom" do |f| %>
-				    <div class="row collapse">
-				    	<div class="large-8 small-6 columns">
-				        	<%= f.text_field :name_cont, placeholder: "Sales Rep name contains..." %>
-				      	</div>
-				      	<div class="large-2 small-3 columns">
-				      		<%= f.submit "Search", class: "postfix secondary button" %>
-				      	</div>
-				      	<div class="large-2 small-3 columns">
-				      		<%= link_to "New", new_admin_us_rep_path, class: "postfix round secondary button" %>
-				      	</div>
-				    </div>
-				    <% end %>
-				<% end %>
-        		</div>
-			</li>
-		<% end %>
-
-
-		<% if current_user.role?(:customer_service) || show_all %>
-
-			<li>
-				<div class="group">
-					<h5><%= link_to "Product Registrations", admin_warranty_registrations_path %></h5>
-				    <%= search_form_for [:admin, WarrantyRegistration.ransack], class: "custom" do |f| %>
-				    <div class="row collapse">
-				    	<div class="large-10 small-8 columns">
-				        	<%= f.text_field :email_cont, placeholder: "Email contains..." %>
-				      	</div>
-				      	<div class="large-2 small-4 columns">
-				      		<%= f.submit "Search", class: "postfix round secondary button" %>
-				      	</div>
-				    </div>
-				    <% end %>
-					<h6 class="subheader">Recently created/changed:</h6>
-					<ul class="list">
-						<% WarrantyRegistration.where(brand_id: website.brand_id).order("updated_at DESC").limit(7).each do |item| %>
-                  		<li><%= link_to "#{item.first_name} #{item.last_name}", [:admin, item] %>
-                  			<% if item.product %>
-                  			<i class="small"><%= item.product.name %></i>
-                  			<% end %>
-                  		</li>
-                  		<% end %>
-                  	</ul>
-                  	<br/>
-        		</div>
-			</li>
-
-			<% if website.has_service_centers? %>
-				<li>
-					<div class="group">
-						<h5><%= link_to "Service Centers", admin_service_centers_path %>
-						<% if can? :create, ServiceCenter %>
-							<%= link_to 'New service center', new_admin_service_center_path, class: "small secondary round button" %>
-						<% end %>
-						</h5>
-					    <%= search_form_for [:admin, ServiceCenter.ransack], class: "custom" do |f| %>
-					    <div class="row collapse">
-					    	<div class="large-10 small-8 columns">
-					        	<%= f.text_field :name_cont, placeholder: "Name contains..." %>
-					      	</div>
-					      	<div class="large-2 small-4 columns">
-					      		<%= f.submit "Search", class: "postfix round secondary button" %>
-					      	</div>
-					    </div>
-					    <% end %>
-						<h6 class="subheader">Recently changed:</h6>
-						<ul class="list">
-							<% ServiceCenter.where(brand_id: website.brand_id).order("updated_at DESC").limit(5).each do |item| %>
-	                  		<li><%= link_to item.name, [:admin, item] %></li>
-	                  		<% end %>
-	                  	</ul>
-	                  	<br/>
-	        		</div>
-				</li>
-			<% end %>
-
-			<% if can?(:manage, Faq) && website.has_faqs? %>
-				<li>
-					<div class="group">
-						<h5><%= link_to "FAQs", admin_faqs_path %>
-							<%= link_to "New FAQ", new_admin_faq_path, class: "small round secondary button" %>
-						</h5>
-					    <%= search_form_for [:admin, Faq.ransack], class: "custom" do |f| %>
-					    <div class="row collapse">
-					    	<div class="large-10 small-8 columns">
-					        	<%= f.text_field :question_cont, placeholder: "Question contains..." %>
-					      	</div>
-					      	<div class="large-2 small-4 columns">
-					      		<%= f.submit "Search", class: "postfix round secondary button" %>
-					      	</div>
-					    </div>
-					    <% end %>
-						<h6 class="subheader">Recent FAQs:</h6>
-						<ul class="list">
-							<% Faq.where(product_id: website.products.collect{|p| p.id}).order("updated_at DESC").limit(5).each do |item| %>
-	                  		<li><%= link_to item.question.truncate(50), [:admin, item] %></li>
-	                  		<% end %>
-	                  	</ul>
-	                  	<br/>
-	        		</div>
-				</li>
-			<% end %>
-
-		<% end %>
-
-		<% if current_user.role?(:translator) || show_all %>
-			<li>
-				<div class="group">
-					<h5>Content Translation</h5>
-					<ul class="list">
-						<% website.website_locales.each do |wl| %>
-							<% unless I18n.default_locale.to_s == wl.locale.to_s %>
-								<li><%= link_to(wl.name , admin_content_translations_path(wl.locale.to_s)) %></li>
-							<% end %>
-						<% end %>
-                  	</ul>
-                  	<br/>
-        		</div>
-        	</li>
+          </li>
         <% end %>
 
-		<% if can? :manage, User %>
-			<li>
-				<div class="group">
-					<h5><%= link_to "Users", admin_users_path %>
-						<%= link_to "New user", new_admin_user_path, class: "small round secondary button" %>
-					</h5>
-				    <%= search_form_for [:admin, User.ransack], class: "custom" do |f| %>
-				    <div class="row collapse">
-				    	<div class="large-10 small-8 columns">
-				        	<%= f.text_field :name_cont, placeholder: "Name contains..." %>
-				      	</div>
-				      	<div class="large-2 small-4 columns">
-				      		<%= f.submit "Search", class: "postfix round secondary button" %>
-				      	</div>
-				    </div>
-				    <% end %>
-				    <h6 class="subheader">Recently changed:</h6>
-					<ul class="list">
-						<% User.order("updated_at DESC").limit(5).each do |item| %>
-                  		<li><%= link_to item.name, [:admin, item] %> <span class="small">( <%= mail_to item.email, item.email %> )</small></li>
-                  		<% end %>
-                  	</ul>
-                  	<br/>
-        		</div>
-        	</li>
-		<% end %>
+        <% if can?(:manage, Product) %>
+          <li>
+            <div class="group">
+              <h5><%= link_to "Products", admin_products_path %>
+              <%= link_to "New product", new_admin_product_path, class: "small round secondary button" %>
+              </h5>
+              <%= search_form_for [:admin, Product.ransack], class: "custom" do |f| %>
+                <div class="row collapse">
+                  <div class="large-10 small-8 columns">
+                    <%= f.text_field :name_cont, placeholder: "Name contains..." %>
+                  </div>
+                  <div class="large-2 small-4 columns">
+                    <%= f.submit "Search", class: "postfix round secondary button" %>
+                  </div>
+                </div>
+              <% end %>
+              <h6 class="subheader">Recently created/changed:</h6>
+              <ul class="list">
+                <% website.products.sort_by(&:updated_at).reverse[0,6].each do |item| %>
+                  <li><%= link_to item.name, [:admin, item] %></li>
+                <% end %>
+              </ul>
+              <br/>
+            </div>
+          </li>
+        <% end %>
 
-		<% if can?(:manage, Brand) %>
-			<li>
-				<div class="group">
-					<h5>Brands &amp; Websites
-						<%= link_to "New brand", new_admin_brand_path, class: "small round secondary button" %>
-						<%= link_to "New website", new_admin_website_path, class: "small round secondary button" %>
-					</h5>
-					<dl class="sub-nav">
-						<dd><%= link_to "Brands", admin_brands_path %></dd>
-						<dd><%= link_to "Websites", admin_websites_path %></dd>
-					</dl>
-					<h6 class="subheader">Popular Brands:</h6>
-					<ul class="list">
-						<% toolkit_brands.each do |brand| %>
-                  		<li><%= link_to brand.name, [:admin, brand] %></li>
-                  		<% end %>
-                  	</ul>
-                  	<br/>
-        		</div>
-			</li>
-		<% end %>
+        <% if can?(:manage, Setting) && can?(:manage, Product) && can?(:manage, Page) %>
+          <li>
+            <div class="group">
+              <h5>Site Pages
+                <%= link_to "New page", new_admin_page_path, class: "small round secondary button" %>
+              </h5>
+              <h6 class="subheader">Recent Pages:</h6>
+              <ul class="list">
+                <li><%= link_to "#{website.brand.name} Homepage", homepage_admin_settings_path %></li>
+                <% Page.where(brand_id: website.brand_id).order("updated_at DESC").limit(7).each do |item| %>
+                  <li><%= link_to item.title.truncate(40), [:admin, item] %></li>
+                <% end %>
+              </ul>
+              <br/>
+              <%= link_to "All Landing Pages", admin_pages_path %>
+            </div>
+          </li>
+        <% end %>
 
-	</ul>
+        <% if toolkit_brands.include?(website.brand) && can?(:manage, ToolkitResource) %>
+          <li>
+            <div class="group">
+              <h5><%= link_to "Toolkit Resources", admin_toolkit_resources_path %>
+              <%#= link_to "New resource", new_admin_toolkit_resource_path, class: "small round secondary button" %>
+              </h5>
+              <%= search_form_for [:admin, ToolkitResource.ransack], class: "custom" do |f| %>
+                <div class="row collapse">
+                  <div class="large-10 small-8 columns">
+                    <%= f.text_field :name_cont, placeholder: "Name contains..." %>
+                  </div>
+                  <div class="large-2 small-4 columns">
+                    <%= f.submit "Search", class: "postfix round secondary button" %>
+                  </div>
+                </div>
+              <% end %>
 
-  <%# end  # cache%>
-<% end %>
+              <% if @bad_toolkit_links.size > 0 %>
+                <h6><%= @bad_toolkit_links.size %> Possible Problems Found</h6>
+                <ul class="list">
+                  <% @bad_toolkit_links.each do |toolkit_resource| %>
+                    <li><span class="round alert label">!</span>
+                      <%= link_to toolkit_resource.name.truncate(40), [:admin, toolkit_resource] %>
+                    </li>
+                  <% end %>
+                </ul>
+              <% else %>
+                <h6 class="subheader">Recently created/changed:</h6>
+                <ul class="list">
+                  <% ToolkitResource.where(brand_id: website.brand_id).order("updated_at DESC").limit(7).each do |item| %>
+                    <li><%= link_to item.name.truncate(44), [:admin, item] %></li>
+                  <% end %>
+                </ul>
+              <% end %>
+            </div>
+          </li>
+        <% end %>
 
-<% end %>
+        <% if can? :manage, News %>
+          <li>
+            <div class="group">
+              <h5><%= link_to "News", admin_news_index_path %>
+              <%= link_to "New article", new_admin_news_path, class: "small round secondary button" %>
+              </h5>
+              <%= search_form_for [:admin, News.ransack], class: "custom" do |f| %>
+                <div class="row collapse">
+                  <div class="large-10 small-8 columns">
+                    <%= f.text_field :title_cont, placeholder: "Title contains..." %>
+                  </div>
+                  <div class="large-2 small-4 columns">
+                    <%= f.submit "Search", class: "postfix round secondary button" %>
+                  </div>
+                </div>
+              <% end %>
+              <h6 class="subheader">Recently created/changed:</h6>
+              <ul class="list">
+                <% News.where(brand_id: website.brand_id).order("updated_at DESC").limit(6).each do |item| %>
+                  <li><%= link_to item.title.truncate(40), [:admin, item] %>
+                  <small><%=l item.post_on, format: :short %></small>
+                  </li>
+                <% end %>
+              </ul>
+              <br/>
+            </div>
+          </li>
+        <% end %>
+
+        <% if can? :manage, Promotion %>
+          <li>
+            <div class="group">
+              <h5><%= link_to "Promotions", admin_promotions_path %>
+              <%= link_to "New promo", new_admin_promotion_path, class: "small round secondary button" %>
+              </h5>
+              <%= search_form_for [:admin, Promotion.ransack], class: "custom" do |f| %>
+                <div class="row collapse">
+                  <div class="large-10 small-8 columns">
+                    <%= f.text_field :name_cont, placeholder: "Name contains..." %>
+                  </div>
+                  <div class="large-2 small-4 columns">
+                    <%= f.submit "Search", class: "postfix round secondary button" %>
+                  </div>
+                </div>
+              <% end %>
+              <h6 class="subheader">Recently created/changed:</h6>
+              <ul class="list">
+                <% Promotion.where(brand_id: website.brand_id).order("updated_at DESC").limit(6).each do |item| %>
+                  <li><%= link_to item.name.truncate(38), [:admin, item] %>
+                  <small>starts: <%=l item.start_on, format: :short %></small>
+                  </li>
+                <% end %>
+              </ul>
+              <br/>
+            </div>
+          </li>
+        <% end %>
+
+        <%# TODO: list products missing key prices %>
+        <% if current_user.role?(:sales_admin) || show_all %>
+          <li>
+            <div class="group">
+              <h5>Pricing</h5><br/>
+              <%= link_to "Edit Price Sheet", admin_product_prices_path, class: "secondary round button" %><br/>
+              <%= link_to "Harman Employee Prices", harman_employee_pricing_admin_products_path, class: "secondary round button" %>
+            </div>
+          </li>
+
+          <% if website.brand.has_label_sheets? && can?(:manage, LabelSheetOrder) %>
+            <li>
+              <div class="group">
+                <h5><%= link_to "e-pedal Label Orders", admin_label_sheet_orders_path %></h5>
+                <%= search_form_for [:admin, LabelSheetOrder.ransack], class: "custom" do |f| %>
+                  <div class="row collapse">
+                    <div class="large-10 small-8 columns">
+                      <%= f.text_field :name_cont, placeholder: "Name contains..." %>
+                    </div>
+                    <div class="large-2 small-4 columns">
+                      <%= f.submit "Search", class: "postfix round secondary button" %>
+                    </div>
+                  </div>
+                <% end %>
+                <h6 class="subheader">Newest orders:</h6>
+                <ul class="list">
+                  <% LabelSheetOrder.order("created_at DESC").limit(7).each do |item| %>
+                    <li>
+                      <% unless item.mailed_on.present? %>
+                        <span class="round label">new!</span>
+                      <% end %>
+                      <%= link_to item.name, [:admin, item] %> <small><%= l item.created_at.to_date, format: :short %></small>
+                    </li>
+                  <% end %>
+                </ul>
+                <br/>
+              </div>
+
+            </li>
+          <% end %>
+        <% end %>
+
+        <%# if can? :manage, TrainingModule %>
+        <%#= link_to "Training Modules", admin_training_modules_path %>
+        <%# end %>
+        <%# if can? :manage, TrainingClass %>
+        <%#= link_to "Training Classes", admin_training_classes_path %>
+        <%# end %>
+
+        <% if website.has_artists? && (current_user.role?(:artist_relations) || show_all) %>
+          <li>
+            <div class="group">
+              <h5><%= link_to "Artists", admin_artists_path %>
+              <%= link_to "New", new_admin_artist_path, class: "small round secondary button" %>
+              </h5>
+              <%= search_form_for [:admin, Artist.ransack], class: "custom" do |f| %>
+                <div class="row collapse">
+                  <div class="large-10 small-8 columns">
+                    <%= f.text_field :name_cont, placeholder: "Name contains..." %>
+                  </div>
+                  <div class="large-2 small-4 columns">
+                    <%= f.submit "Search", class: "postfix round secondary button" %>
+                  </div>
+                </div>
+              <% end %>
+              <h6 class="subheader">Recently created/changed:</h6>
+              <ul class="list">
+                <% Artist.order("updated_at DESC").limit(5).each do |item| %>
+                  <li><% unless item.approver %>
+                    <span class="tiny round alert label">!</span>
+                  <% end %>
+                  <%= link_to item.name.truncate(40), [:admin, item] %>
+                  </li>
+                <% end %>
+              </ul>
+              <br/>
+              <div class="small">
+                <span class="tiny round alert label">!</span> = Unapproved
+              </div>
+            </div>
+          </li>
+        <% end %>
+
+        <% if can?(:manage, Software) && website.has_software? %>
+          <li>
+            <div class="group">
+              <h5><%= link_to "Software Downloads", admin_softwares_path %>
+              <%= link_to "New Software", new_admin_software_path, class: "small round secondary button" %>
+              </h5>
+              <%= search_form_for [:admin, Software.ransack], class: "custom" do |f| %>
+                <div class="row collapse">
+                  <div class="large-10 small-8 columns">
+                    <%= f.text_field :name_cont, placeholder: "Name contains..." %>
+                  </div>
+                  <div class="large-2 small-4 columns">
+                    <%= f.submit "Search", class: "postfix round secondary button" %>
+                  </div>
+                </div>
+              <% end %>
+              <h6 class="subheader">Recently created/changed:</h6>
+              <ul class="list">
+                <% Software.where(brand_id: website.brand_id).order("updated_at DESC").limit(5).each do |item| %>
+                  <li><%= link_to item.name, [:admin, item] %></li>
+                <% end %>
+              </ul>
+              <br/>
+            </div>
+          </li>
+        <% end %>
+
+        <% if (can?(:manage, OnlineRetailer) && website.has_online_retailers?) %>
+          <li>
+            <div class="group">
+              <h5><%= link_to "Online Retailers", admin_online_retailers_path %>
+              <%= link_to "New online retailer", new_admin_online_retailer_path, class: "small round secondary button" %>
+              </h5>
+
+              <%= search_form_for [:admin, OnlineRetailer.ransack], class: "custom" do |f| %>
+                <div class="row collapse">
+                  <div class="large-10 small-8 columns">
+                    <%= f.text_field :name_cont, placeholder: "Online Retailer name contains..." %>
+                  </div>
+                  <div class="large-2 small-4 columns">
+                    <%= f.submit "Search", class: "postfix round secondary button" %>
+                  </div>
+                </div>
+              <% end %>
+
+              <% if @orl_problems.size > 0 %>
+                <h6>Possible Link Problems</h6>
+                <ul class="list">
+                  <% @orl_problems.each do |orl| %>
+                    <li>
+                      <span class="round alert label">!</span>
+                      <%= link_to orl.expanded_name, edit_admin_online_retailer_link_path(orl) %>
+                    </li>
+                  <% end %>
+                </ul>
+              <% else %>
+                <span class="round success label">:)</span>
+                <i>Good news. No link problems were found.</i>
+              <% end %>
+            </div>
+          </li>
+        <% end %>
+
+        <% if (can?(:manage, Distributor) && website.has_distributors?) || 
+            (can?(:manage, UsRep) && website.has_us_sales_reps?) || 
+            (can?(:manage, Dealer) && website.has_dealers?)  %>
+          <li>
+            <div class="group">
+              <h5>Dealers, Distributors<% if website.has_us_sales_reps? %> &amp; Reps<% end %></h5>
+              <dl class="sub-nav">
+                <% if can?(:manage, Dealer) && website.has_dealers? %>
+                  <dd><%= link_to "Dealers", admin_dealers_path %></dd>
+                <% end %>
+                <% if can?(:manage, Distributor) && website.has_distributors? %>
+                  <dd><%= link_to "Distributors", admin_distributors_path %></dd>
+                <% end %>
+                <% if can?(:manage, UsRep) && website.has_us_sales_reps? %>
+                  <dd><%= link_to "US Sales Reps", admin_us_reps_path %></dd>
+                <% end %>
+              </dl>
+
+              <% if can?(:manage, Dealer) && website.has_dealers? %>
+                <% if website.brand.dealers_from_brand_id.to_i > 0 %>
+                  <div class="alert-box secondary">
+                    Use the <%= Brand.find(website.dealers_from_brand_id).name %> site to manage dealers.
+                  </div>
+                <% else %>
+                  <%= search_form_for [:admin, Dealer.ransack], class: "custom" do |f| %>
+                    <div class="row collapse">
+                      <div class="large-8 small-6 columns">
+                        <%= f.text_field :name_cont, placeholder: "Dealer name contains..." %>
+                      </div>
+                      <div class="large-2 small-3 columns">
+                        <%= f.submit "Search", class: "postfix secondary button" %>
+                      </div>
+                      <div class="large-2 small-3 columns">
+                        <%= link_to "New", new_admin_dealer_path, class: "postfix round secondary button" %>
+                      </div>
+                    </div>
+                  <% end %>
+                <% end %>
+              <% end %>
+              <% if can?(:manage, Distributor) && website.has_distributors? %>
+                <% if website.brand.distributors_from_brand_id.to_i > 0 %>
+                  <div class="alert-box secondary">
+                    Use the <%= Brand.find(website.distributors_from_brand_id).name %> site to manage distributors.
+                  </div>
+                <% else %>
+                  <%= search_form_for [:admin, Distributor.ransack], class: "custom" do |f| %>
+                    <div class="row collapse">
+                      <div class="large-8 small-6 columns">
+                        <%= f.text_field :country_cont, placeholder: "Distributor country contains..." %>
+                      </div>
+                      <div class="large-2 small-3 columns">
+                        <%= f.submit "Search", class: "postfix secondary button" %>
+                      </div>
+                      <div class="large-2 small-3 columns">
+                        <%= link_to "New", new_admin_distributor_path, class: "postfix round secondary button" %>
+                      </div>
+                    </div>
+                  <% end %>
+                <% end %>
+              <% end %>
+              <% if can?(:manage, UsRep) && website.has_us_sales_reps? %>
+                <%= search_form_for [:admin, UsRep.ransack], class: "custom" do |f| %>
+                  <div class="row collapse">
+                    <div class="large-8 small-6 columns">
+                      <%= f.text_field :name_cont, placeholder: "Sales Rep name contains..." %>
+                    </div>
+                    <div class="large-2 small-3 columns">
+                      <%= f.submit "Search", class: "postfix secondary button" %>
+                    </div>
+                    <div class="large-2 small-3 columns">
+                      <%= link_to "New", new_admin_us_rep_path, class: "postfix round secondary button" %>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          </li>
+        <% end %>
+
+
+        <% if current_user.role?(:customer_service) || show_all %>
+
+          <li>
+            <div class="group">
+              <h5><%= link_to "Product Registrations", admin_warranty_registrations_path %></h5>
+              <%= search_form_for [:admin, WarrantyRegistration.ransack], class: "custom" do |f| %>
+                <div class="row collapse">
+                  <div class="large-10 small-8 columns">
+                    <%= f.text_field :email_cont, placeholder: "Email contains..." %>
+                  </div>
+                  <div class="large-2 small-4 columns">
+                    <%= f.submit "Search", class: "postfix round secondary button" %>
+                  </div>
+                </div>
+              <% end %>
+              <h6 class="subheader">Recently created/changed:</h6>
+              <ul class="list">
+                <% WarrantyRegistration.where(brand_id: website.brand_id).order("updated_at DESC").limit(7).each do |item| %>
+                  <li><%= link_to "#{item.first_name} #{item.last_name}", [:admin, item] %>
+                  <% if item.product %>
+                    <i class="small"><%= item.product.name %></i>
+                  <% end %>
+                  </li>
+                <% end %>
+              </ul>
+              <br/>
+            </div>
+          </li>
+
+          <% if website.has_service_centers? %>
+            <li>
+              <div class="group">
+                <h5><%= link_to "Service Centers", admin_service_centers_path %>
+                <% if can? :create, ServiceCenter %>
+                  <%= link_to 'New service center', new_admin_service_center_path, class: "small secondary round button" %>
+                <% end %>
+                </h5>
+                <%= search_form_for [:admin, ServiceCenter.ransack], class: "custom" do |f| %>
+                  <div class="row collapse">
+                    <div class="large-10 small-8 columns">
+                      <%= f.text_field :name_cont, placeholder: "Name contains..." %>
+                    </div>
+                    <div class="large-2 small-4 columns">
+                      <%= f.submit "Search", class: "postfix round secondary button" %>
+                    </div>
+                  </div>
+                <% end %>
+                <h6 class="subheader">Recently changed:</h6>
+                <ul class="list">
+                  <% ServiceCenter.where(brand_id: website.brand_id).order("updated_at DESC").limit(5).each do |item| %>
+                    <li><%= link_to item.name, [:admin, item] %></li>
+                  <% end %>
+                </ul>
+                <br/>
+              </div>
+            </li>
+          <% end %>
+
+          <% if can?(:manage, Faq) && website.has_faqs? %>
+            <li>
+              <div class="group">
+                <h5><%= link_to "FAQs", admin_faqs_path %>
+                <%= link_to "New FAQ", new_admin_faq_path, class: "small round secondary button" %>
+                </h5>
+                <%= search_form_for [:admin, Faq.ransack], class: "custom" do |f| %>
+                  <div class="row collapse">
+                    <div class="large-10 small-8 columns">
+                      <%= f.text_field :question_cont, placeholder: "Question contains..." %>
+                    </div>
+                    <div class="large-2 small-4 columns">
+                      <%= f.submit "Search", class: "postfix round secondary button" %>
+                    </div>
+                  </div>
+                <% end %>
+                <h6 class="subheader">Recent FAQs:</h6>
+                <ul class="list">
+                  <% Faq.where(product_id: website.products.collect{|p| p.id}).order("updated_at DESC").limit(5).each do |item| %>
+                    <li><%= link_to item.question.truncate(50), [:admin, item] %></li>
+                  <% end %>
+                </ul>
+                <br/>
+              </div>
+            </li>
+          <% end %>
+
+        <% end %>
+
+        <% if current_user.role?(:translator) || show_all %>
+          <li>
+            <div class="group">
+              <h5>Content Translation</h5>
+              <ul class="list">
+                <% website.website_locales.each do |wl| %>
+                  <% unless I18n.default_locale.to_s == wl.locale.to_s %>
+                    <% if current_user.locales.include?(wl.locale.to_s) %>
+                      <li><%= link_to(wl.name , admin_content_translations_path(wl.locale.to_s)) %></li>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </ul>
+              <br/>
+            </div>
+          </li>
+        <% end %>
+
+        <% if can? :manage, User %>
+          <li>
+            <div class="group">
+              <h5><%= link_to "Users", admin_users_path %>
+              <%= link_to "New user", new_admin_user_path, class: "small round secondary button" %>
+              </h5>
+              <%= search_form_for [:admin, User.ransack], class: "custom" do |f| %>
+                <div class="row collapse">
+                  <div class="large-10 small-8 columns">
+                    <%= f.text_field :name_cont, placeholder: "Name contains..." %>
+                  </div>
+                  <div class="large-2 small-4 columns">
+                    <%= f.submit "Search", class: "postfix round secondary button" %>
+                  </div>
+                </div>
+              <% end %>
+              <h6 class="subheader">Recently changed:</h6>
+              <ul class="list">
+                <% User.order("updated_at DESC").limit(5).each do |item| %>
+                  <li><%= link_to item.name, [:admin, item] %> <span class="small">( <%= mail_to item.email, item.email %> )</small></li>
+                <% end %>
+              </ul>
+              <br/>
+            </div>
+          </li>
+        <% end %>
+
+        <% if can?(:manage, Brand) %>
+          <li>
+            <div class="group">
+              <h5>Brands &amp; Websites
+                <%= link_to "New brand", new_admin_brand_path, class: "small round secondary button" %>
+                <%= link_to "New website", new_admin_website_path, class: "small round secondary button" %>
+              </h5>
+              <dl class="sub-nav">
+                <dd><%= link_to "Brands", admin_brands_path %></dd>
+                <dd><%= link_to "Websites", admin_websites_path %></dd>
+              </dl>
+              <h6 class="subheader">Popular Brands:</h6>
+              <ul class="list">
+                <% toolkit_brands.each do |brand| %>
+                  <li><%= link_to brand.name, [:admin, brand] %></li>
+                <% end %>
+              </ul>
+              <br/>
+            </div>
+          </li>
+        <% end %>
+
+      </ul>
+
+      <%# end  # cache%>
+    <% end %>
+
+  <% end %>
 

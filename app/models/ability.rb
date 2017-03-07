@@ -125,9 +125,21 @@ class Ability
         can :read, ToolkitResource, distributor: true
       end
       if user.role?(:translator)
-        can :manage, Setting
-        can :manage, ContentTranslation
-        can :manage, SupportSubject
+        can :read, Setting
+        can :copy, Setting
+        can :update, Setting do |setting|
+          user.locales.include?(setting.locale)
+        end
+        can :create, Setting do |setting|
+          user.locales.include?(setting.locale)
+        end
+        can :manage, ContentTranslation do |ct|
+          user.locales.include?(ct.locale)
+        end
+        can :manage, SupportSubject do |ss|
+          user.locales.include?(ss.locale)
+        end
+        can :view, SupportSubject
       end
       if user.role?(:customer_service)
         can :manage, ServiceCenter

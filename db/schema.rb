@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170220161606) do
+ActiveRecord::Schema.define(version: 20170307162258) do
 
   create_table "admin_logs", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -1919,6 +1919,7 @@ ActiveRecord::Schema.define(version: 20170220161606) do
     t.boolean  "project_manager"
     t.boolean  "executive"
     t.string   "account_number",             limit: 255
+    t.string   "locales",                    limit: 255
   end
 
   add_index "users", ["account_number"], name: "index_users_on_account_number", using: :btree

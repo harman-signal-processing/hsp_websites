@@ -23,6 +23,8 @@ class User < ActiveRecord::Base
     }
   validates_attachment :profile_pic, content_type: { content_type: /\Aimage/i }
 
+  serialize :locales, Array # List of locales this person can translate (if they have translator role)
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable,
   # :omniauthable, :validatable, :registerable
