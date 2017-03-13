@@ -81,13 +81,16 @@ class DownloadRegistration < ActiveRecord::Base
     !!(self.registered_download.require_manager_name?)
   end
 
-  # When the user returns to download a file, this checks to see
-  # if the provided code matches the one we generated earlier.
+  # If the offer requires a code, check that it matches.
   #
   def download_code_is_valid
     rd = RegisteredDownload.find(self.registered_download_id)
-    unless rd.valid_code.blank? || (rd.valid_code == code_you_received) || (rd.valid_code.gsub(/\-/, "") == code_you_received.gsub(/\-/, ""))
-      errors.add(:code_you_received, "does not appear to be valid.")
+    if rd.valid_code.present?
+      code = code_you_received.to_s.gsub(/\-/, "").downcase.strip
+      valid_code = rd.valid_code.to_s.gsub(/\-/, "").downcase.strip
+      unless code == valid_code
+        errors.add(:code_you_received, "does not appear to be valid.")
+      end
     end
   end
 
