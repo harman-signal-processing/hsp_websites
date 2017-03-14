@@ -174,11 +174,17 @@
 
 	<div class="row">
 		<div class="large-12 columns">
-		<div class="panel">
-			<h5>Alert</h5>
-			<%= f.input :alert, label: "Optional alert to show on the top of the product page." %>
-			<%= f.input :show_alert, label: "Enable the alert message." %>
-		</div>
+      <div class="panel">
+        <h5>Alert</h5>
+        <%= f.input :alert, label: "Optional alert to show on the top of the product page." %>
+        <%= f.input :show_alert, label: "Enable the alert message." %>
+      </div>
+      <div class="panel">
+        <h5>Registration Notice</h5>
+        <p>When a customer registers this product, they'll receive a standard confirmation email with basic
+        information. If owners of this product should receive additional information in that email, provide
+        the content below. Basic HTML formatting is permitted.</p>
+        <%= f.input :registration_notice, label: false %>
 		</div>
 	</div>
 

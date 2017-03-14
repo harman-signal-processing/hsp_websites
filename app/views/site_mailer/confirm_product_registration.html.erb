@@ -27,6 +27,11 @@
 <p><%= @warranty_registration.comments %></p>
 <% end %>
 
+<% if @warranty_registration.product.registration_notice.present? %>
+<h4>Additional Information for <%= @warranty_registration.product.name %> Owners</h4>
+<%=raw @warranty_registration.product.registration_notice %>
+<% end %>
+
 <p>-----------------------------</p>
 <p>Enjoy your new <%= @warranty_registration.product.name %>.
 	Let us know if we can help at our support address:
