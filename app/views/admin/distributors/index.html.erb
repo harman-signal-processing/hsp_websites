@@ -1,39 +1,60 @@
 <h1>International Distributors</h1>
 
 <% if !website.distributors_from_brand_id.blank? %>
-	Note: <%= website.brand_name %> is configured to use the distributors from
-	<%= Brand.find(website.distributors_from_brand_id).name %>. Please manage
-	the distributors on its website instead of this one.
+  Note: <%= website.brand_name %> is configured to use the distributors from
+  <%= Brand.find(website.distributors_from_brand_id).name %>. Please manage
+  the distributors on its website instead of this one.
 <% else %>
 
-<% if can? :create, Distributor %>
-<ul class="button-group round">
-	<li><%= link_to 'New Distributor', new_admin_distributor_path, class: "small success button" %></li>
-</ul>
+  <% if can? :create, Distributor %>
+    <ul class="button-group round">
+      <li><%= link_to 'New Distributor', new_admin_distributor_path, class: "small success button" %></li>
+    </ul>
+  <% end %>
+
+  <div class="row">
+    <div class="small-12 medium-6 columns">
+      <div class="panel">
+        <%= search_form_for [:admin, @search] do |f| %>
+          <%= f.label :name_cont, "Name contains" %>
+          <%= f.text_field :name_cont %>
+          <%= f.label :country_cont, "Country contains" %>
+          <%= f.text_field :country_cont %>
+          <%= f.submit "Search distributors", class: "small round button" %>
+          <div class="input boolean optional this_brand">
+            <input name="this_brand" type="hidden" value="0" />
+            <label class="boolean optional control-label checkbox" for="this_brand">
+              <%= check_box_tag :this_brand, 1, @this_brand %> Only <%= website.brand.name %> dealers
+            </label>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <% if @distributors.length > 0 %>
+    <div class="row">
+      <div class="small-6 columns">
+        <p><%= pluralize @distributors.count, "distributor" %> found:</p>
+      </div>
+      <div class="small-6 columns text-right">
+        <p><%= link_to "export results to excel", {format: :xls, params: request.query_parameters} %></p>
+      </div>
+    </div>
+
+    <table class="data" style="width: 100%">
+      <tr>
+        <th>Name</th>
+        <th>Country</th>
+      </tr>
+
+      <% @distributors.each do |distributor| %>
+        <tr style="background: <%= cycle 'white', 'none' %>">
+          <td><%= link_to distributor.name, [:admin, distributor] %></td>
+          <td><%= distributor.country %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+
 <% end %>
-
-<%= search_form_for [:admin, @search] do |f| %>
-  <%= f.label :name_cont, "Name contains" %>
-  <%= f.text_field :name_cont %>
-  <%= f.label :country_cont, "Country contains" %>
-  <%= f.text_field :country_cont %>
-  <%= f.submit "Search distributors", class: "small round button" %>
-  <div class="input boolean optional this_brand"><input name="this_brand" type="hidden" value="0" /><label class="boolean optional control-label checkbox" for="this_brand"><%= check_box_tag :this_brand, 1, @this_brand %> Only <%= website.brand.name %> dealers</label></div><br/>
-<% end %>
-
-<table class="data" style="width: 100%">
-  <tr>
-    <th>Name</th>
-    <th>Country</th>
-  </tr>
-
-<% @distributors.each do |distributor| %>
-  <tr style="background: <%= cycle 'white', 'none' %>">
-    <td><%= link_to distributor.name, [:admin, distributor] %></td>
-    <td><%= distributor.country %></td>
-  </tr>
-<% end %>
-</table>
-<% end %>
-
-

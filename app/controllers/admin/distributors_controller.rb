@@ -11,6 +11,12 @@ class Admin::DistributorsController < AdminController
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @distributors }
+      format.xls {
+        send_data(@distributors.to_xls( only: [:name, :country, :email, :account_number, :detail] ),
+          filename: "#{website.brand.name}_distributors_#{I18n.l Date.today}.xls",
+          type: "application/excel; charset=utf-8; header=present"
+        )
+      }
     end
   end
 
