@@ -150,6 +150,7 @@ class Ability
         can :read, ToolkitResource
         can :manage, SupportSubject
         can :manage, RegisteredDownload
+        can :manage, DownloadRegistration
       end
       if user.role?(:rohs)
         can :read, Product
