@@ -61,6 +61,7 @@ if Rails.env.production? || !!(ENV['USE_PRODUCTION_ASSETS'].to_i > 0)
     bucket: Rails.configuration.aws[:bucket],
     s3_credentials: Rails.configuration.aws,
     s3_host_alias: S3_CLOUDFRONT,
+    s3_protocol: 'https',
     url: ':s3_alias_url',
     path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
   }
