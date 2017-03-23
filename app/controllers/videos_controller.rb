@@ -18,7 +18,7 @@ class VideosController < ApplicationController
       render_template
     rescue
       if !youtube_user.blank?
-        redirect_to "http://www.youtube.com/user/#{youtube_user}", status: :moved_permanently and return false
+        redirect_to "https://www.youtube.com/user/#{youtube_user}", status: :moved_permanently and return false
       else
         render text: "Error loading playlist"
       end
@@ -35,7 +35,7 @@ class VideosController < ApplicationController
       @page_title = @video['title']
       render_template
     rescue
-      redirect_to "http://youtube.com/watch?v=#{@video_id}", status: :moved_permanently and return false
+      redirect_to "https://youtube.com/watch?v=#{@video_id}", status: :moved_permanently and return false
     end
   end
 

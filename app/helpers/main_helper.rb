@@ -84,7 +84,7 @@ module MainHelper
         raw(ret)
       rescue
         if !youtube_user.blank?
-          link_to("YouTube Channel", "http://www.youtube.com/user/#{youtube_user}", target: "_blank")
+          link_to("YouTube Channel", "https://www.youtube.com/user/#{youtube_user}", target: "_blank")
         end
       end
     end
@@ -109,7 +109,7 @@ module MainHelper
         content_tag(:ul, raw(vids.join), id: 'video_list', class: "large-block-grid-4 medium-block-grid-4 small-block-grid-2")
       rescue
         if !youtube_user.blank?
-          link_to("YouTube Channel", "http://www.youtube.com/user/#{youtube_user}", target: "_blank")
+          link_to("YouTube Channel", "https://www.youtube.com/user/#{youtube_user}", target: "_blank")
         end
       end
     end
@@ -238,7 +238,7 @@ module MainHelper
     # An ugly exception to show JBL Commercial under the Commercial
     # category for Crown.
     if product_family.name.to_s.match(/commercial/i) && product_family.brand.name.to_s.match(/crown/i)
-      child_links << content_tag(:li, link_to("JBL Commercial", "http://www.jblcommercialproducts.com/", target: "_blank"))
+      child_links << content_tag(:li, link_to("JBL Commercial", "//www.jblcommercialproducts.com/", target: "_blank"))
     end
 
     dropdown_class = (child_links + product_links).length > 0 ? "has-dropdown" : ""

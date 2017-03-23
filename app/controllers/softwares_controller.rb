@@ -49,7 +49,7 @@ class SoftwaresController < ApplicationController
     # end
     @software.increment_count
     if !@software.link.blank?
-      @software.link = "http://" + @software.link unless @software.link.match(/^http/)
+      @software.link = "https://" + @software.link unless @software.link.match(/^http/)
       redirect_to @software.link, status: :moved_permanently and return
     else
       # Used to use send_file to take advantage of nginx caching, but now we just

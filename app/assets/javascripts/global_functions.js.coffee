@@ -42,7 +42,7 @@ jQuery ($) ->
 
   $('a.start-video').click (e) ->
     e.preventDefault()
-    video_url = "http://www.youtube.com/embed/#{ $(@).data('videoid') }?autostart=1"
+    video_url = "https://www.youtube.com/embed/#{ $(@).data('videoid') }?autostart=1"
     $('#videoIFrame').attr 'data-src', video_url
     $('#videoModal').foundation 'reveal', 'open'
 

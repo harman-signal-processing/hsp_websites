@@ -121,7 +121,7 @@
 				<% end %>
 			<% end %>
 
-			<%= f.input :demo_link, placeholder: "http://#{website.url}/#{I18n.default_locale}/..." %>
+			<%= f.input :demo_link, placeholder: "https://#{website.url}/#{I18n.default_locale}/..." %>
 
 			<% unless @product.layout_class == 'epedal' %>
 			<div class="row">
@@ -150,9 +150,9 @@
 				<%= f.input :msrp, label: "MSRP", placeholder: "0.00" %>
 				<%= f.input :street_price, placeholder: "0.00" %>
 				<%= f.input :sale_price, placeholder: "0.00" %>
-				<%= f.input :direct_buy_link, 
-					hint: "(aka, add to cart link)", 
-					placeholder: "http://#{website.url}/add-to-cart/..." %>
+				<%= f.input :direct_buy_link,
+					hint: "(aka, add to cart link)",
+					placeholder: "https://#{website.url}/add-to-cart/..." %>
 
 				<div class="bigger_hint">Providing a link above will convert the "Buy It Now" button on the product page
 					into an "Add To Cart" button linking directly to the link above. If you'd rather include
@@ -163,7 +163,7 @@
 			<% if website.brand.employee_store? && !website.brand.live_on_this_platform? %>
 			<p>
 				<%= f.label :more_info_url %> (for employee store)<br/>
-				<%= f.url_field :more_info_url, size: 40, placeholder: "http://..." %>
+				<%= f.url_field :more_info_url, size: 40, placeholder: "https://..." %>
 			</p>
 			<% end %>
 

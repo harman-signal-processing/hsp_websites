@@ -18,7 +18,7 @@
 <% @registered_downloads.each do |registered_download| %>
   <tr style="background: <%= cycle 'white', 'none' %>">
     <td><%= link_to registered_download.name, [:admin, registered_download] %></td>
-    <td><%= link_to "http://#{website.default_website.url}/#{registered_download.url}", "http://#{website.url}/#{registered_download.url}" %></td>
+    <td><%= link_to "https://#{website.default_website.url}/#{registered_download.url}", "https://#{website.url}/#{registered_download.url}" %></td>
     <td><%= registered_download.valid_code %></td>
     <td><%=number_with_delimiter registered_download.download_count %></td>
   </tr>
