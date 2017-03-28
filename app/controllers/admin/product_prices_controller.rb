@@ -1,5 +1,5 @@
 class Admin::ProductPricesController < AdminController
-  before_filter :initialize_product_price, only: :create
+  before_action :initialize_product_price, only: :create
   load_and_authorize_resource
   
   # GET /admin/product_prices

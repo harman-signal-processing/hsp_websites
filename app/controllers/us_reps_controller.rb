@@ -1,5 +1,5 @@
 class UsRepsController < ApplicationController
-  before_filter :set_locale
+  before_action :set_locale
 
 	def index
 		@us_reps = []

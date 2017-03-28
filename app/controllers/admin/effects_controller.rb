@@ -1,5 +1,5 @@
 class Admin::EffectsController < AdminController
-  before_filter :initialize_effect, only: :create
+  before_action :initialize_effect, only: :create
   load_and_authorize_resource
   
   # GET /effects

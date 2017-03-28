@@ -12,7 +12,7 @@ class WebsiteLocale < ActiveRecord::Base
       if Rails.env.test? # not cool, but only thing I can get working for testing
         [I18n.default_locale]
       else
-        where(complete: true).pluck(:locale).uniq
+        where(complete: true).pluck(:locale).distinct
       end
     rescue
       AVAILABLE_LOCALES
@@ -27,7 +27,7 @@ class WebsiteLocale < ActiveRecord::Base
       if Rails.env.test? # not cool, but only thing I can get working for testing
         [I18n.default_locale]
       else
-        pluck(:locale).uniq
+        pluck(:locale).distinct
       end
     rescue
       AVAILABLE_LOCALES

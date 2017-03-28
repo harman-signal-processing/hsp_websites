@@ -1,5 +1,5 @@
 class Admin::ProductIntroductionsController < AdminController
-  before_filter :initialize_product_introduction, only: :create
+  before_action :initialize_product_introduction, only: :create
   load_and_authorize_resource
   
   # GET /product_introductions

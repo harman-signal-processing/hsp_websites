@@ -1,5 +1,5 @@
 class Admin::AmpModelsController < AdminController
-  before_filter :initialize_amp_model, only: :create
+  before_action :initialize_amp_model, only: :create
   load_and_authorize_resource
 
   # GET /amp_models

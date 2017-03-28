@@ -1,6 +1,6 @@
 require 'csv'
 class Admin::RegisteredDownloadsController < AdminController
-  before_filter :initialize_registered_download, only: :create
+  before_action :initialize_registered_download, only: :create
   load_and_authorize_resource
   
   # GET /registered_downloads

@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '4.2.8'
+gem 'rails', '5.0.2'
 gem 'responders', '~> 2.0'
 # Gems used only for assets and not required
 # in production environments by default.
@@ -12,7 +12,7 @@ gem 'coffee-rails' #, '~> 4.1.0'
 gem "foundation-rails", '~> 5.5'
 gem 'lightbox2-rails', '~> 2.7.1' # 6/1/2016 v2.8.2.1 stopped working.
 gem 'image_zoomer'
-gem 'jquery-rails', "~> 4.0.5" # 4.1 broke buy it now popups
+gem 'jquery-rails' #, "~> 4.0.5" # 4.1 broke buy it now popups
 
 # To use debugger
 # gem 'ruby-debug'
@@ -21,11 +21,11 @@ gem 'jquery-rails', "~> 4.0.5" # 4.1 broke buy it now popups
 gem 'mysql2' #, '~> 0.3.18' # sphinx needs '0.3.12b4'
 gem 'utf8-cleaner'
 gem "friendly_id", "~> 5.1.0" # 5.2.0 had a problem 12/6/2016
-gem 'aws-sdk', '< 2.0'
+gem 'aws-sdk' #, '< 2.0'
 gem 'fog-rackspace'
 gem 'fog-aws'
 gem 'asset_sync'
-gem "paperclip", "4.3.6" # After this, AWS 2 is needed
+gem "paperclip" #, "4.3.6" # After this, AWS 2 is needed
 gem 'paperclip-meta'
 gem 's3_direct_upload'
 gem 'meta-tags', '~> 1.5', require: 'meta_tags' # v 2.0.0 caused an error
@@ -36,7 +36,7 @@ gem 'mechanize'
 gem 'geokit', '>= 1.8.5'
 gem 'geokit-rails'
 gem 'thinking-sphinx', '~> 3.0'
-gem 'google-api-client', '~> 0.8.6', require: 'google/api_client'
+gem 'google-api-client'#, '~> 0.8.6', require: 'google/api_client'
 gem 'twitter', '~> 5.1'
 gem 'delayed_job_active_record'
 gem 'daemons'
@@ -126,5 +126,8 @@ group :test do
   gem 'simplecov', require: false
   gem 'json-schema'
   gem 'faker'
-  gem 'test_after_commit' # makes devise 4.1+ work with specs. This won't be needed with rails5
+  # This brings back the 'assigns' method I used a lot in testing which DHH
+  # now discourages. But, requiring it here breaks other tests. So I do the
+  # require in spec/rails_helper.rb
+  gem 'rails-controller-testing', require: false
 end

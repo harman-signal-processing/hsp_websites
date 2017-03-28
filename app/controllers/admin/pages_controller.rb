@@ -1,5 +1,5 @@
 class Admin::PagesController < AdminController
-  before_filter :initialize_page, only: :create
+  before_action :initialize_page, only: :create
   load_and_authorize_resource
   
   # GET /admin/pages

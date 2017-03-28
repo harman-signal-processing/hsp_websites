@@ -1,5 +1,5 @@
 class Admin::ProductSoftwaresController < AdminController
-  before_filter :initialize_product_software, only: :create
+  before_action :initialize_product_software, only: :create
   load_and_authorize_resource
   
   # GET /admin/product_softwares

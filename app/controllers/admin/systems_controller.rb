@@ -1,5 +1,5 @@
 class Admin::SystemsController < AdminController
-  before_filter :initialize_system, only: :create
+  before_action :initialize_system, only: :create
   load_and_authorize_resource
 
   # GET /admin/systems

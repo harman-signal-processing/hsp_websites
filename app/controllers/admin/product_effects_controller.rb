@@ -1,5 +1,5 @@
 class Admin::ProductEffectsController < AdminController
-  before_filter :initialize_product_effect, only: :create
+  before_action :initialize_product_effect, only: :create
   load_and_authorize_resource
   
   # GET /admin/product_effects

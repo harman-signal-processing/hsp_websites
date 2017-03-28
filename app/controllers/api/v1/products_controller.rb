@@ -1,8 +1,8 @@
 module Api
   module V1
     class ProductsController < ApplicationController
-      skip_before_filter :miniprofiler
-      before_filter :restrict_api_access
+      skip_before_action :miniprofiler
+      before_action :restrict_api_access
       respond_to :json, :xml
       
       def index
@@ -13,7 +13,7 @@ module Api
       # TODO: actually control featured products
       def features
         @brand = Brand.find(params[:id])
-        @products = @brand.product_families.map{|p| p.employee_store_products}.flatten.uniq.shuffle[0,3]
+        @products = @brand.product_families.map{|p| p.employee_store_products}.flatten.distinct.shuffle[0,3]
         respond_with @products
       end
       

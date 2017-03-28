@@ -1,5 +1,5 @@
 class Admin::SoftwareAttachmentsController < AdminController
-  before_filter :initialize_software_attachment, only: :create
+  before_action :initialize_software_attachment, only: :create
   load_and_authorize_resource
 
   # GET /admin/software_attachments

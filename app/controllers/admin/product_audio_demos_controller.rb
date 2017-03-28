@@ -1,5 +1,5 @@
 class Admin::ProductAudioDemosController < AdminController
-  before_filter :initialize_product_audio_demo, only: :create
+  before_action :initialize_product_audio_demo, only: :create
   load_and_authorize_resource
   
   # GET /admin/product_audio_demos

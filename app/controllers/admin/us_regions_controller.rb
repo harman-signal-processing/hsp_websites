@@ -1,12 +1,12 @@
 class Admin::UsRegionsController < AdminController
-  before_filter :initialize_us_region, only: :create
+  before_action :initialize_us_region, only: :create
   load_and_authorize_resource
   
   # GET /admin/us_regions
   # GET /admin/us_regions.xml
   def index
     @search = website.brand.us_regions.ransack(params[:q])
-    @us_regions = @search.result.uniq.order(:name)
+    @us_regions = @search.result.distinct.order(:name)
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @us_regions }

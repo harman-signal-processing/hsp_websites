@@ -1,5 +1,5 @@
 class Admin::SignupsController < AdminController
-  before_filter :initialize_signup, only: :create
+  before_action :initialize_signup, only: :create
   load_and_authorize_resource except: :show_campaign
   skip_authorization_check only: :show_campaign
 
@@ -7,7 +7,7 @@ class Admin::SignupsController < AdminController
   # GET /signups.xml
   def index
     @signups = @signups.where(brand_id: website.brand_id)
-    if @signups.where("campaign IS NOT NULL").pluck(:campaign).uniq.length > 1
+    if @signups.where("campaign IS NOT NULL").pluck(:campaign).distinct.length > 1
       @signups = @signups.group(:campaign)
       respond_to do |format|
         format.html { render_template } # index.html.erb

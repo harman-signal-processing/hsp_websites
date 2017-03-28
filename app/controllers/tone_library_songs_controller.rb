@@ -1,5 +1,5 @@
 class ToneLibrarySongsController < ApplicationController
-  before_filter :set_locale
+  before_action :set_locale
   # GET /tone_library_songs
   # GET /tone_library_songs.xml
   def index

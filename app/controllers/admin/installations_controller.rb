@@ -1,5 +1,5 @@
 class Admin::InstallationsController < AdminController
-  before_filter :initialize_installation, only: :create
+  before_action :initialize_installation, only: :create
   load_and_authorize_resource
 
   # GET /admin/installations

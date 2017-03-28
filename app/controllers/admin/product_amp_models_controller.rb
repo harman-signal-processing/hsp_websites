@@ -1,5 +1,5 @@
 class Admin::ProductAmpModelsController < AdminController
-  before_filter :initialize_product_amp_model, only: :create
+  before_action :initialize_product_amp_model, only: :create
   load_and_authorize_resource
   
   # GET /admin/product_amp_models

@@ -1,5 +1,5 @@
 class Admin::PricingTypesController < AdminController
-  before_filter :initialize_pricing_type, only: :create
+  before_action :initialize_pricing_type, only: :create
   load_and_authorize_resource
   # GET /admin/pricing_types
   # GET /admin/pricing_types.xml

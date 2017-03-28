@@ -19,7 +19,7 @@ class SystemOption < ActiveRecord::Base
 	accepts_nested_attributes_for :system_option_values, reject_if: :all_blank, allow_destroy: true
 
 	def self.all_with_values
-		ids = SystemOptionValue.where.not(system_option_id: nil).pluck(:system_option_id).uniq
+		ids = SystemOptionValue.where.not(system_option_id: nil).pluck(:system_option_id).distinct
 		where(id: ids).order('name')
 	end
 

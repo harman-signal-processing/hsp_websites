@@ -1,12 +1,12 @@
 class Admin::UsRepsController < AdminController
-  before_filter :initialize_us_rep, only: :create
+  before_action :initialize_us_rep, only: :create
   load_and_authorize_resource
 
   # GET /admin/us_reps
   # GET /admin/us_reps.xml
   def index
     @search = UsRep.ransack(params[:q])
-    @us_reps = @search.result.uniq.order(:name)
+    @us_reps = @search.result.distinct.order(:name)
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @us_reps }

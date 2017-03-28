@@ -1,5 +1,5 @@
 class Admin::CabinetsController < AdminController
-  before_filter :initialize_cabinet, only: :create
+  before_action :initialize_cabinet, only: :create
   load_and_authorize_resource
   
   # GET /cabinets

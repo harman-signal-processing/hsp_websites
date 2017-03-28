@@ -1,5 +1,5 @@
 class Admin::ArtistProductsController < AdminController
-  before_filter :initialize_artist_product, only: :create
+  before_action :initialize_artist_product, only: :create
   load_and_authorize_resource
   # GET /artist_products
   # GET /artist_products.xml

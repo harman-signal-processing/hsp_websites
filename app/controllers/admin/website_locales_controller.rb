@@ -1,5 +1,5 @@
 class Admin::WebsiteLocalesController < AdminController
-  before_filter :initialize_website_locale, only: :create
+  before_action :initialize_website_locale, only: :create
   load_and_authorize_resource
   
   # GET /website_locales

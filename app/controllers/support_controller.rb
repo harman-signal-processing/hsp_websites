@@ -1,5 +1,5 @@
 class SupportController < ApplicationController
-  before_filter :set_locale
+  before_action :set_locale
   # Support home page
   def index
     @contact_message = ContactMessage.new

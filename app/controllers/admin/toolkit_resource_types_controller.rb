@@ -1,5 +1,5 @@
 class Admin::ToolkitResourceTypesController < AdminController
-  before_filter :initialize_toolkit_resource_type, only: :create
+  before_action :initialize_toolkit_resource_type, only: :create
   load_and_authorize_resource
   
   # GET /toolkit_resource_types

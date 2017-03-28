@@ -1,5 +1,5 @@
 class LabelSheetOrdersController < ApplicationController
-  before_filter :load_istomp
+  before_action :load_istomp
 
   def new
   	@label_sheet_order = LabelSheetOrder.new(subscribe: true)

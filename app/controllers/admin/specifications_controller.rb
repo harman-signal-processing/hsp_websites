@@ -1,5 +1,5 @@
 class Admin::SpecificationsController < AdminController
-  before_filter :initialize_specification, only: :create
+  before_action :initialize_specification, only: :create
   load_and_authorize_resource
   
   # GET /admin/specifications

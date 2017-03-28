@@ -103,7 +103,7 @@ class Brand < ActiveRecord::Base
       brand_id: self.id,
       name: self.settings.pluck(:name),
       setting_type: ["slideshow frame", "homepage feature"]
-    ).order("UPPER(name)").pluck(:name).uniq
+    ).order("UPPER(name)").pluck(:name).distinct
   end
 
   # This should work as a dynamic method, but mailers have troubles
@@ -189,7 +189,7 @@ class Brand < ActiveRecord::Base
   def current_softwares
     @current_softwares ||= (softwares.where(active: true).
       joins(:product_softwares).
-      where(product_softwares: { product_id: current_product_ids }) + forced_current_softwares).uniq
+      where(product_softwares: { product_id: current_product_ids }) + forced_current_softwares).distinct
   end
 
   # Those software with this flag enabled: activate even if there are no active products
@@ -200,7 +200,7 @@ class Brand < ActiveRecord::Base
   def current_product_ids
     product_families.includes(:products).
       where(products: { product_status: ProductStatus.current_ids }).
-      pluck("products.id").uniq
+      pluck("products.id").distinct
   end
 
   def current_products

@@ -1,5 +1,5 @@
 class ProductDocumentsController < ApplicationController
-  before_filter :set_locale
+  before_action :set_locale
   # GET /product_documents
   # GET /product_documents.xml
   def index

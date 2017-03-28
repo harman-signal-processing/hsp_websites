@@ -1,8 +1,8 @@
 module Api
   module V1
     class BrandsController < ApplicationController
-      skip_before_filter :miniprofiler
-      before_filter :restrict_api_access
+      skip_before_action :miniprofiler
+      before_action :restrict_api_access
       respond_to :json, :xml
       
       def index

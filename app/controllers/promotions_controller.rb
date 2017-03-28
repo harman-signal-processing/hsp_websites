@@ -1,6 +1,6 @@
 class PromotionsController < ApplicationController
-  before_filter :set_locale
-  before_filter :ensure_best_url, only: :show
+  before_action :set_locale
+  before_action :ensure_best_url, only: :show
 
   # GET /promotions
   # GET /promotions.xml

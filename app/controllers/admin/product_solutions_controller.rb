@@ -1,6 +1,6 @@
 class Admin::ProductSolutionsController < AdminController
   before_action :load_solution
-  before_filter :initialize_product_solution, only: :create
+  before_action :initialize_product_solution, only: :create
   load_and_authorize_resource
 
   # GET /admin/product_solutions

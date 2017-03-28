@@ -1,5 +1,5 @@
 class Admin::SupportSubjectsController < AdminController
-  before_filter :initialize_support_subject, only: :create
+  before_action :initialize_support_subject, only: :create
   load_and_authorize_resource
 
   # GET /support_subjects

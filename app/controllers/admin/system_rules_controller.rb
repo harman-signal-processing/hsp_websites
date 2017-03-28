@@ -1,5 +1,5 @@
 class Admin::SystemRulesController < AdminController
-  before_filter :initialize_system_rule, only: :create
+  before_action :initialize_system_rule, only: :create
   before_action :set_system
   load_and_authorize_resource
 

@@ -1,41 +1,21 @@
-require File.expand_path('../boot', __FILE__)
-#require File.expand_path('lib/custom_domain_cookie.rb') # see below...
+require_relative 'boot'
+
 require 'rails/all'
 
-if defined?(Bundler)
-  # If you precompile assets before deploying to production, use this line
-  # Bundler.require(*Rails.groups(:assets => %w(development test)))
-  # If you want your assets lazily compiled in production, use this line
-  Bundler.require(:default, :assets, Rails.env)
-end
+# Require the gems listed in Gemfile, including any gems
+# you've limited to :test, :development, or :production.
+Bundler.require(*Rails.groups)
 
 module HarmanSignalProcessingWebsite
   class Application < Rails::Application
-
-    # Trying to re-write fixes with bad URL params like this:
-    # /en-US/videos/play/TeZN3dGmT10%20?iframe=true&width=100%&height=100%
-    # config.middleware.insert_before(Rack::Lock, Rack::Rewrite) do
-    #   r301   %r{/([\w\/\-]*)(\%20)?\?iframe.*},  '/$1'
-    # end
-
-    # This was a good idea to use different domains in cookies depending on
-    # the site being called, but it broke stuff...maybe with the upgrade to rails 3.2.1
-    # config.middleware.use CustomDomainCookie, "digitech.com"
-
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-
-    # Custom directories with classes and modules you want to be autoloadable.
-    # config.autoload_paths += %W(#{config.root}/extras)
-
-    # Only load the plugins named here, in the order given (default is alphabetical).
-    # :all can be used as a placeholder for all plugins not explicitly named.
-    # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
-
-    # Activate observers that should always be running.
-    # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
-
+    #
+    #============================================
+    # All the below came from the rails 4.2.8 app
+    #============================================
+    #
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     config.time_zone = 'Mountain Time (US & Canada)'
@@ -57,16 +37,11 @@ module HarmanSignalProcessingWebsite
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 
-    # Trying to encourage asset pipeline to precompile the images in the vendor/assets folders
-    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
-
     config.generators do |g|
         g.fixture_replacement :factory_girl, dir: "spec/factories"
     end
 
     config.active_job.queue_adapter = :delayed_job
-
-    config.active_record.raise_in_transactional_callbacks = true
 
     # Override these in environment configs...
     config.employee_invitation_code = ENV['EMPLOYEE_INVITATION_CODE']

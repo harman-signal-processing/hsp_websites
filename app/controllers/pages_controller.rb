@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
-  before_filter :set_locale_for_pages
-  before_filter :load_and_authorize_page, only: :show
-  skip_before_filter :verify_authenticity_token
+  before_action :set_locale_for_pages
+  before_action :load_and_authorize_page, only: :show
+  skip_before_action :verify_authenticity_token
 
   # GET /pages
   # GET /pages.xml

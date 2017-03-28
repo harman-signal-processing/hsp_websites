@@ -7,7 +7,7 @@
 # TODO: Create the HTML views just in case.
 #
 class Admin::ProductFamilyProductsController < AdminController
-  before_filter :initialize_product_family_product, only: :create
+  before_action :initialize_product_family_product, only: :create
   load_and_authorize_resource
     
   # GET /admin/product_family_products

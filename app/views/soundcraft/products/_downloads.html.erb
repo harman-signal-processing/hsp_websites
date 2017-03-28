@@ -8,7 +8,7 @@
     "" => "More Downloads"
   }
 %>
-<% (category_names.keys & product.active_softwares.pluck(:category).uniq).each do |category| %>
+<% (category_names.keys & product.active_softwares.pluck(:category).distinct).each do |category| %>
   <% if category.present? %>
     <h5><%= category_names[category] %></h5>
   <% else %>

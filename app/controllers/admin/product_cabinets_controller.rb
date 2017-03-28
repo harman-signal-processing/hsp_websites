@@ -1,5 +1,5 @@
 class Admin::ProductCabinetsController < AdminController
-  before_filter :initialize_product_cabinet, only: :create
+  before_action :initialize_product_cabinet, only: :create
   load_and_authorize_resource
   
   # GET /admin/product_cabinets

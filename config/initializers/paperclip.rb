@@ -1,5 +1,3 @@
-require 'aws-sdk'
-
 # Disable content spoofing detector which is really buggy as of 6/2014
 require 'paperclip/media_type_spoof_detector'
 module Paperclip
@@ -28,8 +26,8 @@ end
 # Amazon account 'hspwww' access keys:
 c = YAML.load_file(File.join(Rails.root, 'config/s3.yml')).symbolize_keys
 Rails.configuration.aws = ((c[Rails.env.to_sym]) ? c[Rails.env.to_sym] : c.first).symbolize_keys!
-AWS.config(logger: Rails.logger)
-AWS.config(Rails.configuration.aws)
+#AWS.config(logger: Rails.logger)
+#AWS.config(Rails.configuration.aws)
 
 # Cloudfront only seems to work with an S3 bucket OR some other source (not both).
 # So, since cdn.harmanpro.com is setup as an alias of assets.harmanpro.com, we need

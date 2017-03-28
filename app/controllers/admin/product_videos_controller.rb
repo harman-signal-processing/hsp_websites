@@ -1,5 +1,5 @@
 class Admin::ProductVideosController < AdminController
-  before_filter :initialize_product_video, only: :create
+  before_action :initialize_product_video, only: :create
   load_and_authorize_resource
   # GET /product_videos
   # GET /product_videos.xml

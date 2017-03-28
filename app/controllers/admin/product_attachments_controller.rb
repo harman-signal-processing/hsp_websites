@@ -7,7 +7,7 @@
 # TODO: Create the HTML views just in case.
 #
 class Admin::ProductAttachmentsController < AdminController
-  before_filter :initialize_product_attachment, only: :create
+  before_action :initialize_product_attachment, only: :create
   load_and_authorize_resource
   
   # GET /admin/product_attachments

@@ -1,5 +1,5 @@
 class Admin::FeaturesController < AdminController
-  before_filter :initialize_feature, only: :create
+  before_action :initialize_feature, only: :create
   load_and_authorize_resource
 
   def index

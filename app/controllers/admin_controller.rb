@@ -1,7 +1,7 @@
 class AdminController < ApplicationController
-  skip_before_filter :set_default_meta_tags, :verify_authenticity_token, :set_locale
-  # before_filter :require_admin_authentication
-  before_filter :authenticate_user!
+  skip_before_action :verify_authenticity_token, :set_locale
+  # before_action :require_admin_authentication
+  before_action :authenticate_user!
   check_authorization
   skip_authorization_check only: [:index]
   layout 'admin'

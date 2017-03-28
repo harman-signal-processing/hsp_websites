@@ -1,10 +1,9 @@
 class ApplicationController < ActionController::Base
-  # before_filter :set_locale
-  # before_filter :set_default_meta_tags
-  before_filter :respond_to_htm
-  before_filter :configure_permitted_parameters, if: :devise_controller?
-  before_filter :ensure_locale_for_site, except: [:locale_root, :default_locale, :locale_selector]
-  before_filter :catch_criminals
+  # before_action :set_locale
+  before_action :respond_to_htm
+  before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :ensure_locale_for_site, except: [:locale_root, :default_locale, :locale_selector]
+  before_action :catch_criminals
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   layout :set_layout
@@ -58,16 +57,6 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to admin_root_path, alert: exception.message
-  end
-
-  def set_default_meta_tags
-    begin
-      @page_description = website.value_for('default_meta_tag_description')
-      @page_keywords = website.value_for("default_meta_tag_keywords")
-    rescue
-      @page_description = ""
-      @page_keywords = ""
-    end
   end
 
   def default_url_options(options={})

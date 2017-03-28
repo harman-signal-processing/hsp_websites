@@ -1,5 +1,5 @@
 class Admin::ProductsController < AdminController
-  before_filter :initialize_product, only: :create
+  before_action :initialize_product, only: :create
   load_and_authorize_resource
   skip_authorize_resource only: [:rohs, :update_rohs, :harman_employee_pricing, :update_harman_employee_pricing]
   

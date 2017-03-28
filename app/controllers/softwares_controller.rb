@@ -1,5 +1,5 @@
 class SoftwaresController < ApplicationController
-  before_filter :set_locale, except: [:activate]
+  before_action :set_locale, except: [:activate]
 
   # GET /softwares
   # GET /softwares.xml

@@ -11,7 +11,7 @@
   </ul>
 <% end %>
 
-<% product.nonsafety_documents.pluck(:document_type).uniq.each do |document_type| %>
+<% product.nonsafety_documents.pluck(:document_type).distinct.each do |document_type| %>
   <% if document_type == "other" %>
     <h5>Extras</h5>
   <% else %>

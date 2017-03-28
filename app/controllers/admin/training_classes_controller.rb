@@ -1,5 +1,5 @@
 class Admin::TrainingClassesController < AdminController
-  before_filter :initialize_training_class, only: :create
+  before_action :initialize_training_class, only: :create
   load_and_authorize_resource 
   
   # GET /admin/training_classes

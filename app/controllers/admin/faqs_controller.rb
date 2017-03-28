@@ -1,5 +1,5 @@
 class Admin::FaqsController < AdminController
-  before_filter :initialize_faq, only: :create
+  before_action :initialize_faq, only: :create
   load_and_authorize_resource except: :index
   # GET /faqs
   # GET /faqs.xml

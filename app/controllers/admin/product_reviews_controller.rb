@@ -1,5 +1,5 @@
 class Admin::ProductReviewsController < AdminController
-  before_filter :initialize_product_review, only: :create
+  before_action :initialize_product_review, only: :create
   load_and_authorize_resource
 
   # GET /admin/product_reviews

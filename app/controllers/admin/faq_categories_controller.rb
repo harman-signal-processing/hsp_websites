@@ -1,5 +1,5 @@
 class Admin::FaqCategoriesController < AdminController
-  before_filter :initialize_faq_category, only: :create
+  before_action :initialize_faq_category, only: :create
   load_and_authorize_resource
   # GET /faq_categories
   # GET /faq_categories.xml

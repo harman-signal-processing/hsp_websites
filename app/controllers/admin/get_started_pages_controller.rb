@@ -1,5 +1,5 @@
 class Admin::GetStartedPagesController < AdminController
-  before_filter :initialize_get_started_page, only: :create
+  before_action :initialize_get_started_page, only: :create
   load_and_authorize_resource
 
   # GET /admin/get_started_pages

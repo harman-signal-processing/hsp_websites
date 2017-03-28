@@ -1,5 +1,5 @@
 class MarketSegmentsController < ApplicationController
-  before_filter :set_locale
+  before_action :set_locale
 
   # GET /market_segments
   # GET /market_segments.xml

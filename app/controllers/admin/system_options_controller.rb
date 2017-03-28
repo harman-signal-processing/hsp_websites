@@ -1,5 +1,5 @@
 class Admin::SystemOptionsController < AdminController
-  before_filter :initialize_system_option, only: :create
+  before_action :initialize_system_option, only: :create
   before_action :set_system, except: [:update_order]
   load_and_authorize_resource
 

@@ -1,7 +1,7 @@
 class Admin::BrandSolutionFeaturedProductsController < AdminController
   before_action :load_solution, except: [:index, :update_order]
-  before_filter :initialize_brand_solution_featured_product, only: :create
-  before_filter :load_product_options, only: [:new, :edit]
+  before_action :initialize_brand_solution_featured_product, only: :create
+  before_action :load_product_options, only: [:new, :edit]
   load_and_authorize_resource
 
   # GET /admin/brand_solution_featured_products

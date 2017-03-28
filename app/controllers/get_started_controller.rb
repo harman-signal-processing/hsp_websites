@@ -1,6 +1,6 @@
 class GetStartedController < ApplicationController
-  before_filter :set_locale
-  before_filter :load_this_brands_get_started_pages
+  before_action :set_locale
+  before_action :load_this_brands_get_started_pages
 
   def index
     respond_to do |format|

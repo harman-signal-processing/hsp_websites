@@ -1,5 +1,5 @@
 class Admin::SettingsController < AdminController
-  before_filter :initialize_setting, only: :create
+  before_action :initialize_setting, only: :create
   load_and_authorize_resource except: :new
 
   # GET /admin/settings
