@@ -1,17 +1,17 @@
 <%= cache ["nav_items", website.brand, I18n.locale, Date.today] do %>
-  <li class="has-dropdown hide-for-medium"><%= link_to "Our Story", "/#{I18n.locale}/ourstory" %>
+  <li class="has-dropdown hide-for-medium"><%= link_to t("nav.our_story").titleize, "/#{I18n.locale}/ourstory" %>
     <ul class="dropdown">
-      <li><%= link_to "About", "/#{I18n.locale}/ourstory" %></li>
-      <li><%= link_to "Quality", "/#{I18n.locale}/quality" %></li>
-      <li><%= link_to "Technology", "/#{I18n.locale}/technology" %></li>
-      <li><%= link_to "Crown Around The World", "/#{I18n.locale}/aroundtheworld" %></li>
+      <li><%= link_to t("nav.about").titleize, "/#{I18n.locale}/ourstory" %></li>
+      <li><%= link_to t("nav.quality").titleize, "/#{I18n.locale}/quality" %></li>
+      <li><%= link_to t("nav.technology").titleize, "/#{I18n.locale}/technology" %></li>
+      <li><%= link_to t("nav.crown_around_the_world").titleize, "/#{I18n.locale}/aroundtheworld" %></li>
     </ul>
   </li>
 
   <li class="divider"></li>
 	<li class="has-dropdown"><%= link_to t('products').titleize, product_families_path %>
 		<ul class="dropdown">
-      <li class="has-dropdown"><%= link_to "Amplifiers", product_families_path %>
+      <li class="has-dropdown"><%= link_to t("nav.amplifiers").titleize, product_families_path %>
         <ul class="dropdown">
           <%
             amp_families = ProductFamily.parents_with_current_products(website, I18n.locale)
@@ -24,7 +24,7 @@
         </ul>
       </li>
       <% MarketSegment.with_current_products(website, I18n.locale).each do |market_segment| %>
-        <li class="has-dropdown"><%= link_to market_segment.name, market_segment, class: "disabled" %>
+        <li class="has-dropdown"><%= link_to translate_content(market_segment, :name), market_segment, class: "disabled" %>
           <ul class="dropdown">
             <% market_segment.product_families_with_current_products.each do |product_family| %>
               <%= product_family_nav_links(product_family, depth: 1) %>
@@ -40,52 +40,42 @@
           <%= product_family_nav_links(product_family, depth: 1) %>
         <% end %>
       <% end %>
-      <%
-        if Product.exists?("empower-by-crown")
-          empower = Product.find("empower-by-crown")
-          unless empower.discontinued?
-        %>
-            <li><%= link_to empower.name, empower %></li>
-        <% end %>
-      <% end %>
-      <li><%= link_to "Microphones", "/akg-mics" %></li>
-      <% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
+
+      <li><%= link_to t("nav.microphones").titleize, "/#{I18n.locale}/akg-mics" %></li>
+      <% if I18n.locale == I18n.default_locale && (website.has_dealers? || website.has_distributors? || website.has_online_retailers?) %>
         <li><%= link_to "Promotions", promotions_path %></li>
       <% end %>
-			<li><%= link_to "Discontinued Products", discontinued_products_path %></li>
+			<li><%= link_to t('discontinued_products').titleize, discontinued_products_path %></li>
 		</ul>
 	</li>
 
-  <% if website.has_solution_pages? %>
+  <% if website.has_solution_pages? && I18n.locale.to_s.match(/en/i) %>
     <%= render_partial "shared/solutions_nav" %>
   <% end %>
 
   <li class="divider"></li>
-  <li class="has-dropdown"><%= link_to 'Network Audio', '/network-audio' %>
+  <li class="has-dropdown"><%= link_to t('nav.network_audio').titleize, "/#{I18n.locale}/network-audio" %>
     <ul class="dropdown">
-      <li><%= link_to "About Our Solutions", '/network-audio' %></li>
-      <li><%= link_to "BLU link", "/network-audio#blu-link" %></li>
-      <li><%= link_to "Dante", "/network-audio#dante" %></li>
-      <li><%= link_to "CobraNet", "/network-audio#cobranet" %></li>
-      <li><%= link_to "AVB", "/network-audio#avb" %></li>
+      <li><%= link_to "About Our Solutions", "/#{I18n.locale}/network-audio" %></li>
+      <li><%= link_to "BLU link", "/#{I18n.locale}/network-audio#blu-link" %></li>
+      <li><%= link_to "Dante", "/#{I18n.locale}/network-audio#dante" %></li>
+      <li><%= link_to "CobraNet", "/#{I18n.locale}/network-audio#cobranet" %></li>
+      <li><%= link_to "AVB", "/#{I18n.locale}/network-audio#avb" %></li>
     </ul>
   </li>
 
 	<% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
-	<li class="divider"></li>
-	<li><%= link_to t('where_to_buy').titleize, where_to_buy_path %></li>
+    <li class="divider"></li>
+    <li><%= link_to t('where_to_buy').titleize, where_to_buy_path %></li>
 	<% end %>
 
 	<li class="divider hide-for-medium"></li>
-  <li class="hide-for-medium has-dropdown"><%= link_to "media".titleize, '#' %>
-    <ul class="dropdown">
-      <li><%= link_to "Share Your Experience", '/share-your-experience' %></li>
-      <li><%= link_to t('news').titleize, news_index_path %></li>
-      <% if website.has_events? %>
-        <li><%= link_to t('events'), events_path %></li>
-      <% end %>
-    </ul>
-  </li>
+  <li class="hide-for-medium"><%= link_to t('news').titleize, news_index_path %></li>
+
+  <% if website.has_events? %>
+    <li class="divider hide-for-medium"></li>
+    <li><%= link_to t('events'), events_path %></li>
+  <% end %>
 
 	<li class="divider"></li>
   <li class="has-dropdown"><%= link_to t('product_support').titleize, support_path %>

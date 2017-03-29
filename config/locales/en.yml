@@ -19,7 +19,10 @@ en:
   outlet_store: outlet store
   sitemap: sitemap
   company: company
+  our_story: our story
   about: about
+  quality: quality
+  technology: technology
   training: training
   all_rights_reserved: "All Rights Reserved."
   harman: HARMAN
@@ -143,6 +146,16 @@ en:
   get_started_not_registered: Serial not found!
   learn_more: learn more
   explore: explore
+
+  nav:
+    our_story: our story
+    about: about
+    quality: quality
+    technology: technology
+    crown_around_the_world: crown around the world
+    amplifiers: amplifiers
+    microphones: microphones
+    network_audio: network audio
 
   language:
       en: English

@@ -103,6 +103,17 @@ zh:
   buy_it_now: 立即购买
   add_to_cart: 添加到购物车
   get_it: 得到它
+  discontinued_products: 停产型号
+
+  nav:
+    our_story: 关于我们
+    about: 公司简介
+    quality: 质量保证
+    technology: 专利技术
+    crown_around_the_world: 世界各地的皇冠功放
+    amplifiers: 功放
+    microphones: 麦克风
+    network_audio: 网络音频传输
 
   language:
       en:  英语

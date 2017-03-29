@@ -113,6 +113,11 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
 
     constraints(BssDomain) do
       get 'bss-network-audio' => 'pages#network_audio'
+      get 'network-audio' => 'pages#network_audio'
+    end
+
+    constraints(CrownDomain) do
+      get 'network-audio' => 'pages#network_audio'
     end
 
     scope "/admin" do
