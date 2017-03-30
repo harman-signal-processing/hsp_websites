@@ -56,7 +56,7 @@
 <% else %>
 <p>
   <b>Protected software:</b>
-  <%= @registered_download.protected_software_file_name %>
+  <%= link_to @registered_download.protected_software_file_name, @registered_download.protected_software.expiring_url %>
   <%= number_to_human_size(@registered_download.protected_software_file_size) %>
 </p>
 
