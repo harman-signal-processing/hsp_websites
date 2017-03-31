@@ -435,6 +435,9 @@ div.featured_product_container {
   position: relative;
   margin-top: 40px;
   margin-bottom: 30px;
+  @media only screen and (min-width: 720px) {
+    min-height: 240px;
+  }
   div.featured_image_container {
     overflow: hidden;
     position: absolute;

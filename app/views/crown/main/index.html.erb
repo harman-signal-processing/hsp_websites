@@ -39,13 +39,11 @@
   <div class="homepage_block dark around-the-world">
     <div class="row">
       <div class="large-5 large-offset-7 small-7 columns">
-        <h2>Crown Around The World</h2>
+        <h2><%= t("crown.crown_around_the_world") %></h2>
         <br/>
-        <h4>Check out Concerts, Stadiums<br/>
-          and more powered by Crown</h4>
-        <p>Click below to read all about
-        the exciting things we are doing!</p>
-        <%= link_to "check it out", "/aroundtheworld", class: "small secondary button" %>
+        <h4><%= t("crown.around_the_world_blurb") %></h4>
+        <p><%= t("crown.read_about_the_exciting") %></p>
+        <%= link_to t("check_it_out"), "/#{I18n.locale}/aroundtheworld", class: "small secondary button" %>
       </div>
     </div>
   </div>
