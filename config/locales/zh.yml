@@ -240,6 +240,7 @@ zh:
       part_request: 部分请求
       factory_service: 工厂服务回报授权书
       youtube_channel: "%{brand} （品牌）频道"
+      connect_with_us: 与我们建立联系
 
   errors:
       geocoding:  您提供的地址/邮编有误
