@@ -17,7 +17,7 @@
 
 <% if @results.size > 0 %>
 	<%= content_for :custom_css do %>
-		<script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
+ <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_KEY'] %>" type="text/javascript"></script>
 		<script type="text/javascript" charset="utf-8">
       markers_json = <%= raw @results.to_json(except: [:account_number, :brand_id, :created_at, :updated_at, :name2, :name3, :name4]) %>;
 
