@@ -1,0 +1,65 @@
+<%
+if @product.photo
+	og_image = @product.photo.product_attachment.url(:original)
+	tw_image = @product.photo.product_attachment.url(:small)
+else
+	og_image = image_url("#{website.folder}/logo.png")
+	tw_image = image_url("#{website.folder}/logo.png")
+end
+
+if website.show_pricing? && @product.msrp && @product.msrp.to_f > 0
+	twitter_params = {
+		image: {
+			src: tw_image
+		},
+		card: "product",
+		data1: "#{number_to_currency(@product.msrp)} USD",
+		label1: "MSRP",
+		data2: translate_content(@product, :short_description),
+		label2: "Product Type"
+	}
+else
+	twitter_params = {
+		image: {
+			src: tw_image
+		},
+		card: "summary"
+	}
+end
+
+set_meta_tags title: @product.name,
+	reverse: true,
+	#canonical: product_url(@product),
+	description: translate_content(@product, :short_description),
+	keywords: translate_content(@product, :keywords),
+	twitter: twitter_params,
+	og: {
+		image: og_image,
+		type: 'product',
+		description: truncate(strip_html(translate_content(@product, :description)), length: 100),
+		title: "#{website.brand.name} #{@product.name}"
+	}
+%>
+
+<% if @product.show_alert? %>
+	<%= content_for :extra_notice do %>
+		<div id="product-notice"><%=raw textilize(@product.alert) %></div>
+	<% end %>
+<% end %>
+
+<% if @product.has_custom_background? %>
+	<%= content_for :custom_css do %>
+	<style type="text/css" media="screen">
+		body { <%= @product.custom_background %> }
+	</style>
+	<% end %>
+<% end %>
+
+<%= cache ["product_page", @product, @online_retailer_link, @active_tab, I18n.locale, session['geo_country']] do %>
+
+  <%= content_for :feature do %>
+    <%= raw translate_content(@product, :description) %>
+  <% end %>
+
+<% end # cache %>
+
