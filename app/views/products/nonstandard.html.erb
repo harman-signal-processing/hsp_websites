@@ -55,11 +55,14 @@ set_meta_tags title: @product.name,
 	<% end %>
 <% end %>
 
+<%= content_for :feature do %>
+  <%= raw translate_content(@product, :description) %>
+<% end %>
+
 <%= cache ["product_page", @product, @online_retailer_link, @active_tab, I18n.locale, session['geo_country']] do %>
 
-  <%= content_for :feature do %>
-    <%= raw translate_content(@product, :description) %>
-  <% end %>
+  <%= raw translate_content(@product, :extended_description) %>
+  <%= raw translate_content(@product, :features) %>
 
 <% end # cache %>
 
