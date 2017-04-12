@@ -19,7 +19,10 @@ en:
   outlet_store: outlet store
   sitemap: sitemap
   company: company
+  our_story: our story
   about: about
+  quality: quality
+  technology: technology
   training: training
   all_rights_reserved: "All Rights Reserved."
   harman: HARMAN
@@ -38,6 +41,8 @@ en:
   near_zipcode: "near %{zip}"
   more: more
   more_info: more info
+  more_details: more details
+  check_it_out: check it out
   rohs: rohs compliance
   visit: visit
   visit_the: visit the
@@ -143,6 +148,16 @@ en:
   get_started_not_registered: Serial not found!
   learn_more: learn more
   explore: explore
+
+  nav:
+    our_story: our story
+    about: about
+    quality: quality
+    technology: technology
+    crown_around_the_world: crown around the world
+    amplifiers: amplifiers
+    microphones: microphones
+    network_audio: network audio
 
   language:
       en: English
@@ -282,9 +297,10 @@ en:
       tone_library: Tone Library
       featured_pedal: Featured Pedal
       youtube_channel: "%{brand} Channel"
-      part_request: "Part Request"
-      factory_service: "Factory Service/Return Authorization Form"
-      rma_request: "Return Authorization Request"
+      part_request: Part Request
+      factory_service: Factory Service/Return Authorization Form
+      rma_request: Return Authorization Request"
+      connect_with_us: Connect With Us
       
   errors:
       geocoding: "There was an error geocoding the address/zipcode you provided."
@@ -485,3 +501,8 @@ en:
   jbl_commercial:
     cs_series: CS Series
     commercial_solutions_series: Commercial Solutions Series
+
+  crown:
+    crown_around_the_world: Crown Around The World
+    around_the_world_blurb: Check out Concerts, Stadiums and more powered by Crown
+    read_about_the_exciting: "Click below to read all about the exciting things we are doing!"

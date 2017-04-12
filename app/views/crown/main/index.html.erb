@@ -39,43 +39,11 @@
   <div class="homepage_block dark around-the-world">
     <div class="row">
       <div class="large-5 large-offset-7 small-7 columns">
-        <h2>Crown Around The World</h2>
+        <h2><%= t("crown.crown_around_the_world") %></h2>
         <br/>
-        <h4>Check out Concerts, Stadiums<br/>
-          and more powered by Crown</h4>
-        <p>Click below to read all about
-        the exciting things we are doing!</p>
-        <%= link_to "check it out", "/aroundtheworld", class: "small secondary button" %>
-      </div>
-    </div>
-  </div>
-
-  <div class="homepage_block gray_strip thin_strip">
-    <div class="row">
-      <div class="large-7 small-12 columns">
-        <h2>Want More Product Information?</h2>
-      </div>
-      <div class="large-5 small-12 columns">
-        <h5>Order a HARMAN Professional DVD Catalog now...</h5>
-        <p>And see all the products HARMAN has to offer.</p>
-        <%= link_to "order now", catalog_request_path, class: "small secondary button" %>
-      </div>
-    </div>
-  </div>
-
-  <div class="homepage_block dark">
-    <div class="row">
-      <div class="large-7 small-12 large-push-5 columns text-center">
-        <%= link_to image_tag("crown/swag.png", alt: "Crown Swag Store"),
-          "http://www.costore.com/harmanprofessional/welcome.asp", target: "_blank" %>
-      </div>
-      <div class="large-5 small-12 large-pull-7 columns">
-        <h2>Shop Crown Swag!</h2>
-        <br/>
-        <h4>Literature, apparel, gadgets and more!</h4>
-        <p>Click below to see what kind of cool Crown Swag we have available now.</p>
-        <%= link_to "shop now", "http://www.costore.com/harmanprofessional/welcome.asp",
-          target: "_blank", class: "secondary small button" %>
+        <h4><%= t("crown.around_the_world_blurb") %></h4>
+        <p><%= t("crown.read_about_the_exciting") %></p>
+        <%= link_to t("check_it_out"), "/#{I18n.locale}/aroundtheworld", class: "small secondary button" %>
       </div>
     </div>
   </div>

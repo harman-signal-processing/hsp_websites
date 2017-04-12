@@ -22,7 +22,7 @@
 
           <p><%=raw translate_content(featured_product, :short_description_4) %></p>
 
-          <%= link_to 'more details...', featured_product, class: "small secondary button" %>
+          <%= link_to t('more_details'), featured_product, class: "small secondary button" %>
           <% if featured_product.in_production? %>
             <%= buy_it_now_link(featured_product, html_button: true, downcase: true, button_class: "small button") %>
           <% end %>
@@ -42,7 +42,7 @@
 
           <p><%=raw translate_content(featured_product, :short_description_4) %></p>
 
-          <%= link_to 'more details...', featured_product, class: "small secondary button" %>
+          <%= link_to t('more_details'), featured_product, class: "small secondary button" %>
           <% if featured_product.in_production? %>
             <%= buy_it_now_link(featured_product, html_button: true, downcase: true, button_class: "small button") %>
           <% end %>

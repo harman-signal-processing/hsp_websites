@@ -32,6 +32,8 @@ zh:
   near_zipcode: " 附近 %{zip}"
   more: 更多
   more_info: 更多资讯
+  more_details: 更多详情
+  check_it_out: 了解更多
   rohs: rohs合规
   visit: 访问
   visit_the: 访问
@@ -103,6 +105,17 @@ zh:
   buy_it_now: 立即购买
   add_to_cart: 添加到购物车
   get_it: 得到它
+  discontinued_products: 停产型号
+
+  nav:
+    our_story: 关于我们
+    about: 公司简介
+    quality: 质量保证
+    technology: 专利技术
+    crown_around_the_world: 世界各地的皇冠功放
+    amplifiers: 功放
+    microphones: 麦克风
+    network_audio: 网络音频传输
 
   language:
       en:  英语
@@ -227,6 +240,7 @@ zh:
       part_request: 部分请求
       factory_service: 工厂服务回报授权书
       youtube_channel: "%{brand} （品牌）频道"
+      connect_with_us: 与我们建立联系
 
   errors:
       geocoding:  您提供的地址/邮编有误
@@ -570,3 +584,8 @@ zh:
   jbl_commercial:
     cs_series: CS 系统
     commercial_solutions_series: 商用解决方案
+
+  crown:
+    crown_around_the_world: 世界各地的皇冠功放
+    around_the_world_blurb: 了解皇冠功放在音乐会、体育馆以及更多其它场所的应用
+    read_about_the_exciting: 请点击以下按键
