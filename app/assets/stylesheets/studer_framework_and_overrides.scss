@@ -9,7 +9,7 @@ $strip-bg-odd: #000000;
 $body-bg: #FFF;
 $body-font-color: $dark-gray;
 $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-$body-font-weight: 400;
+$body-font-weight: 300;
 $primary-color: #242424;
 $secondary-color: #0085AF;
 $include-print-styles: true;
@@ -40,7 +40,7 @@ $tabs-navigation-active-bg-color: $secondary-color;
 $tabs-navigation-hover-bg-color: scale-color($tabs-navigation-bg-color, $lightness: -10%);
 $tabs-navigation-font-color: white;
 $tabs-navigation-active-font-color: white;
-$tabs-navigation-font-size: rem-calc(13);
+$tabs-navigation-font-size: rem-calc(14);
 $tabs-navigation-font-family: $body-font-family;
 $anchor-font-color: #00275d;
 $anchor-font-color-hover: lighten($anchor-font-color, 5%);
@@ -219,6 +219,7 @@ ul.tabs {
     border: 1px solid $dark-gray;
     border-bottom: none;
     margin-right: 4px;
+    letter-spacing: rem-calc(1px);
   }
 }
 .tabs-content {
