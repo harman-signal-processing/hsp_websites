@@ -184,7 +184,7 @@ class ProductFamily < ActiveRecord::Base
     children_with_current_products(w).each do |pf|
       cp += pf.current_products_plus_child_products(w)
     end
-    cp.uniq.sort_by(&:name)
+    cp.sort_by(&:name).uniq
   end
 
   # Alias for search results link_name
