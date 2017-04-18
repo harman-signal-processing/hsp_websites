@@ -1,4 +1,4 @@
-class SoftwareAttachment < ActiveRecord::Base
+class SoftwareAttachment < ApplicationRecord
   belongs_to :software, touch: true
   has_attached_file :software_attachment, S3_STORAGE
   validates :software_id, presence: true

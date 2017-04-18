@@ -1,4 +1,4 @@
-class ContactMessage < ActiveRecord::Base
+class ContactMessage < ApplicationRecord
   before_validation :set_defaults
   belongs_to :brand
 

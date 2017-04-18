@@ -1,4 +1,4 @@
-class OperatingSystem < ActiveRecord::Base
+class OperatingSystem < ApplicationRecord
   has_many :software_operating_systems, dependent: :destroy
   has_many :softwares, through: :software_operating_systems
 

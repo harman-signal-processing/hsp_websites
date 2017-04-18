@@ -1,7 +1,7 @@
 class Admin::LabelSheetsController < AdminController
   before_action :initialize_label_sheet, only: :create
   load_and_authorize_resource
-  
+
   # GET /label_sheets
   # GET /label_sheets.xml
   def index

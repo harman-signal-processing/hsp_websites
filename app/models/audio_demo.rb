@@ -1,4 +1,4 @@
-class AudioDemo < ActiveRecord::Base
+class AudioDemo < ApplicationRecord
   has_many :product_audio_demos, dependent: :destroy
   has_many :products, through: :product_audio_demos
   validates :name, presence: true

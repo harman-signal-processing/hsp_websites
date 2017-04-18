@@ -20,7 +20,7 @@ gem 'jquery-rails' #, "~> 4.0.5" # 4.1 broke buy it now popups
 # Bundle the extra gems:
 gem 'mysql2' #, '~> 0.3.18' # sphinx needs '0.3.12b4'
 gem 'utf8-cleaner'
-gem "friendly_id", "~> 5.1.0" # 5.2.0 had a problem 12/6/2016
+gem 'friendly_id', '>= 5.2'
 gem 'aws-sdk' #, '< 2.0'
 gem 'fog-rackspace'
 gem 'fog-aws'

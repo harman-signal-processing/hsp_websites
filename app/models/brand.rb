@@ -1,4 +1,4 @@
-class Brand < ActiveRecord::Base
+class Brand < ApplicationRecord
   extend FriendlyId
   friendly_id :name
 
@@ -70,7 +70,7 @@ class Brand < ActiveRecord::Base
 
   def news
     # First, select news story IDs with a product associated with this brand...
-    product_news = News.find_by_sql("SELECT DISTINCT news.id FROM news
+    product_news = News.find_by_sql("SELECT DISTINCT news.id, news.post_on FROM news
       INNER JOIN news_products ON news_products.news_id = news.id
       INNER JOIN products ON products.id = news_products.product_id
       INNER JOIN product_family_products ON product_family_products.product_id = products.id
@@ -103,7 +103,7 @@ class Brand < ActiveRecord::Base
       brand_id: self.id,
       name: self.settings.pluck(:name),
       setting_type: ["slideshow frame", "homepage feature"]
-    ).order("UPPER(name)").pluck(:name).distinct
+    ).order("UPPER(name)").pluck(:name).uniq
   end
 
   # This should work as a dynamic method, but mailers have troubles
@@ -189,7 +189,7 @@ class Brand < ActiveRecord::Base
   def current_softwares
     @current_softwares ||= (softwares.where(active: true).
       joins(:product_softwares).
-      where(product_softwares: { product_id: current_product_ids }) + forced_current_softwares).distinct
+      where(product_softwares: { product_id: current_product_ids }) + forced_current_softwares).uniq
   end
 
   # Those software with this flag enabled: activate even if there are no active products
@@ -200,7 +200,7 @@ class Brand < ActiveRecord::Base
   def current_product_ids
     product_families.includes(:products).
       where(products: { product_status: ProductStatus.current_ids }).
-      pluck("products.id").distinct
+      pluck("products.id").uniq
   end
 
   def current_products

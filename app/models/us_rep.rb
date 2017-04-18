@@ -1,4 +1,4 @@
-class UsRep < ActiveRecord::Base
+class UsRep < ApplicationRecord
   extend FriendlyId
   friendly_id :name_for_id
 

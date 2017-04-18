@@ -1,4 +1,4 @@
-class ToolkitResource < ActiveRecord::Base
+class ToolkitResource < ApplicationRecord
   extend FriendlyId
   friendly_id :name, slug_column: 'slug'
 

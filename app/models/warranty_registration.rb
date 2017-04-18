@@ -1,4 +1,4 @@
-class WarrantyRegistration < ActiveRecord::Base
+class WarrantyRegistration < ApplicationRecord
   include ActionView::Helpers::NumberHelper
   belongs_to :brand
   belongs_to :product

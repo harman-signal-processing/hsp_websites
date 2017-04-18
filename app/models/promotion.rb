@@ -1,4 +1,4 @@
-class Promotion < ActiveRecord::Base
+class Promotion < ApplicationRecord
   extend FriendlyId
   friendly_id :sanitized_name
 

@@ -1,4 +1,4 @@
-class Faq < ActiveRecord::Base
+class Faq < ApplicationRecord
 
   belongs_to :product, touch: true
   has_many :faq_category_faqs, inverse_of: :faq, dependent: :destroy

@@ -1,4 +1,4 @@
-class GetStartedPanel < ActiveRecord::Base
+class GetStartedPanel < ApplicationRecord
   belongs_to :get_started_page
 
   validates :get_started_page, presence: true

@@ -1,4 +1,4 @@
-class ArtistTier < ActiveRecord::Base
+class ArtistTier < ApplicationRecord
   has_many :artists
   validates :name, presence: true, uniqueness: true
   validates :invitation_code, uniqueness: true

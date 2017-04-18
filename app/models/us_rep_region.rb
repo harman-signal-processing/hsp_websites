@@ -1,4 +1,4 @@
-class UsRepRegion < ActiveRecord::Base
+class UsRepRegion < ApplicationRecord
   validates :brand, presence: true
   validates :us_region, presence: true
   validates :us_rep, presence: true

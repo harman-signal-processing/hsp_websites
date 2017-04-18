@@ -1,4 +1,4 @@
-class OnlineRetailer < ActiveRecord::Base
+class OnlineRetailer < ApplicationRecord
   extend FriendlyId
   friendly_id :name
 
@@ -63,5 +63,5 @@ class OnlineRetailer < ActiveRecord::Base
       return false
     end
   end
-  
+
 end

@@ -1,4 +1,4 @@
-class ProductSpecification < ActiveRecord::Base
+class ProductSpecification < ApplicationRecord
   belongs_to :product, touch: true
   belongs_to :specification
   acts_as_list scope: :product_id

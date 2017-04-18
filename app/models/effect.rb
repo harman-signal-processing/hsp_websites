@@ -1,4 +1,4 @@
-class Effect < ActiveRecord::Base
+class Effect < ApplicationRecord
   extend FriendlyId
   friendly_id :name
 

@@ -1,4 +1,4 @@
-class ProductCabinet < ActiveRecord::Base
+class ProductCabinet < ApplicationRecord
   belongs_to :product, touch: true
   belongs_to :cabinet
   validates :product_id, presence: true

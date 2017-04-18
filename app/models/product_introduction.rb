@@ -1,4 +1,4 @@
-class ProductIntroduction < ActiveRecord::Base
+class ProductIntroduction < ApplicationRecord
   belongs_to :product
 
   validates :product_id, presence: true

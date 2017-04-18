@@ -1,4 +1,4 @@
-class ContentTranslation < ActiveRecord::Base
+class ContentTranslation < ApplicationRecord
   require 'bing_translator'
   validates :content_id, presence: true
   validates :content_method, presence: true

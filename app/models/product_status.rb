@@ -1,4 +1,4 @@
-class ProductStatus < ActiveRecord::Base
+class ProductStatus < ApplicationRecord
   has_many :products
 
   def self.current

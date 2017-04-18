@@ -1,4 +1,4 @@
-class Cabinet < ActiveRecord::Base
+class Cabinet < ApplicationRecord
   extend FriendlyId
   friendly_id :name
 

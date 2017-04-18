@@ -1,4 +1,4 @@
-class SystemConfigurationOptionValue < ActiveRecord::Base
+class SystemConfigurationOptionValue < ApplicationRecord
   belongs_to :system_configuration_option
   belongs_to :system_option_value
 

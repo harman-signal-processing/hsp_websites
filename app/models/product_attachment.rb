@@ -1,4 +1,4 @@
-class ProductAttachment < ActiveRecord::Base
+class ProductAttachment < ApplicationRecord
   belongs_to :product, touch: true
 
   has_attached_file :product_attachment, {

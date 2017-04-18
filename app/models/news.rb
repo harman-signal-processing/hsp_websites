@@ -5,7 +5,7 @@
 #
 # Need to authenticate first in order to use it
 #
-class News < ActiveRecord::Base
+class News < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
 

@@ -1,4 +1,4 @@
-class ProductTrainingModule < ActiveRecord::Base
+class ProductTrainingModule < ApplicationRecord
   belongs_to :training_module, touch: true
   belongs_to :product, touch: true
   validates :product_id, presence: true

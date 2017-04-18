@@ -1,4 +1,4 @@
-class MarketSegment < ActiveRecord::Base
+class MarketSegment < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates
 

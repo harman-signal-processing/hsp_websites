@@ -1,4 +1,4 @@
-class Setting < ActiveRecord::Base
+class Setting < ApplicationRecord
   before_save :fix_locale
   has_attached_file :slide, {
     styles: { large: "600>x370",

@@ -1,4 +1,4 @@
-class Feature < ActiveRecord::Base
+class Feature < ApplicationRecord
   belongs_to :featurable, polymorphic: true
 
   validates :featurable_type, presence: true

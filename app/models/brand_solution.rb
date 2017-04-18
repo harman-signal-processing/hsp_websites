@@ -1,4 +1,4 @@
-class BrandSolution < ActiveRecord::Base
+class BrandSolution < ApplicationRecord
   belongs_to :brand
   belongs_to :solution
 

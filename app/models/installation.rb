@@ -1,4 +1,4 @@
-class Installation < ActiveRecord::Base
+class Installation < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates
 

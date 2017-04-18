@@ -1,4 +1,4 @@
-class SoftwareOperatingSystem < ActiveRecord::Base
+class SoftwareOperatingSystem < ApplicationRecord
   belongs_to :software
   belongs_to :operating_system
   validates :software_id, presence: true, uniqueness: { scope: :operating_system_id }

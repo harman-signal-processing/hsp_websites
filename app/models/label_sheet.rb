@@ -1,4 +1,4 @@
-class LabelSheet < ActiveRecord::Base
+class LabelSheet < ApplicationRecord
   include ActionView::Helpers::TextHelper
 
   after_commit do

@@ -1,4 +1,4 @@
-class GetStartedPage < ActiveRecord::Base
+class GetStartedPage < ApplicationRecord
   extend FriendlyId
   friendly_id :name
 

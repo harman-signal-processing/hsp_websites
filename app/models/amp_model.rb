@@ -1,4 +1,4 @@
-class AmpModel < ActiveRecord::Base
+class AmpModel < ApplicationRecord
   extend FriendlyId
   friendly_id :name
 

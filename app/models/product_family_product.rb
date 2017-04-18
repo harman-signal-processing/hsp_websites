@@ -1,4 +1,4 @@
-class ProductFamilyProduct < ActiveRecord::Base
+class ProductFamilyProduct < ApplicationRecord
   belongs_to :product_family, touch: true
   belongs_to :product, touch: true
   acts_as_list scope: :product_family_id

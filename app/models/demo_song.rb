@@ -1,4 +1,4 @@
-class DemoSong < ActiveRecord::Base
+class DemoSong < ApplicationRecord
   belongs_to :product_attachment, touch: true
   validates :product_attachment_id, presence: true
   has_attached_file :mp3

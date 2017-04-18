@@ -1,4 +1,4 @@
-class ProductFamily < ActiveRecord::Base
+class ProductFamily < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates
 

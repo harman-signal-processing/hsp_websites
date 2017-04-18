@@ -3,7 +3,7 @@
 # a mailed card with a "valid_code" on the card. People who register
 # to download the file are instances of DownloadRegistration.
 #
-class RegisteredDownload < ActiveRecord::Base
+class RegisteredDownload < ApplicationRecord
   has_many :download_registrations
   belongs_to :brand
   validates :name, :brand, :from_email, :subject, presence: true

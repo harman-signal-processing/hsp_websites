@@ -1,4 +1,4 @@
-class ProductPromotion < ActiveRecord::Base
+class ProductPromotion < ApplicationRecord
   belongs_to :product, touch: true
   belongs_to :promotion, touch: true
   validates :promotion_id, presence: true

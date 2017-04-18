@@ -1,4 +1,4 @@
-class ProductReview < ActiveRecord::Base
+class ProductReview < ApplicationRecord
   extend FriendlyId
   friendly_id :sanitized_title
 

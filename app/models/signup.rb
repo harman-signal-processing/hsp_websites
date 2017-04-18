@@ -1,4 +1,4 @@
-class Signup < ActiveRecord::Base
+class Signup < ApplicationRecord
   belongs_to :brand
 
   validates :email, presence: true, email: true

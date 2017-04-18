@@ -1,4 +1,4 @@
-class WebsiteLocale < ActiveRecord::Base
+class WebsiteLocale < ApplicationRecord
   belongs_to :website, touch: true
   validates :website_id, presence: true
   validates :locale, presence: true
