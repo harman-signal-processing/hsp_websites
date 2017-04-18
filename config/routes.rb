@@ -422,12 +422,20 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     match '/support/warranty_registration(/:product_id)' => 'support#warranty_registration', as: :warranty_registration, via: :all
     match '/support/parts' => 'support#parts', as: :parts_request, via: :all
     match '/support/rma' => 'support#rma', as: :rma_request, via: :all
+    match '/support/contact' => 'support#contact', as: :support_contact, via: :all
+    match '/support/service_lookup' => 'support#service_lookup', as: :service_lookup, via: :all
+    match '/support/troubleshooting' => 'support#troubleshooting', as: :support_troubleshooting, via: :all
+    get '/support/speaker_tunings' => 'support#speaker_tunings', as: :speaker_tunings
+    get '/support/cad' => 'support#cad', as: :support_cad
+    match '/support/vintage_repair' => 'support#vintage_repair', as: :vintage_repair, via: :all
+    match '/support/all_repair' => 'support#all_repair', as: :support_all_repair, via: :all
     match '/catalog_request' => 'support#catalog_request', as: :catalog_request, via: :all
     get '/support/warranty_policy' => 'support#warranty_policy', as: :warranty_policy
     match '/international_distributors' => 'distributors#index', as: :international_distributors, via: :all
     match '/sitemap(.:format)' => 'main#locale_sitemap', as: :locale_sitemap, via: :all
     match '/where_to_buy(/:zip)' => 'main#where_to_buy', as: :where_to_buy , via: :all
-    match '/support(/:action(/:id))' => "support", as: :support, via: :all
+    #match '/support(/:action(/:id))' => "support", as: :support, via: :all
+    get '/support(/:product_id)' => "support#index", as: :support
     match '/community' => 'main#community', as: :community, via: :all
     match '/rss(.:format)' => 'main#rss', as: :rss, via: :all, defaults: { format: :xml }
     match '/search' => 'main#search', as: :search, via: :all
@@ -435,7 +443,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     match 'distributors_for/:brand_id' => 'distributors#minimal', as: :minimal_distributor_search, via: :all
     get 'tools/calculators'
     match '/' => 'main#index', as: :locale_root, via: :all
-    match '/:controller(/:action(/:id))', via: :all
+#    match '/:controller(/:action(/:id))', via: :all # Deprecated dynamic action segment
     match "*custom_route" => "pages#show", as: :custom_route, via: :all
   end
 

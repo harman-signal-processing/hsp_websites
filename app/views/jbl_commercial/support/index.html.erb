@@ -19,7 +19,7 @@
 <div class="row">
 
 	<div class="large-7 columns">
-		<%= simple_form_for @contact_message, url: support_path(action: "contact"), html: {class: "contact"} do |f| %>
+		<%= simple_form_for @contact_message, url: support_contact_path, html: {class: "contact"} do |f| %>
 
 			<%= f.input :name, label: t('your_name') %>
 			<%= f.input :email, label: ucfirst(t('email')) %>
