@@ -126,8 +126,4 @@ group :test do
   gem 'simplecov', require: false
   gem 'json-schema'
   gem 'faker'
-  # This brings back the 'assigns' method I used a lot in testing which DHH
-  # now discourages. But, requiring it here breaks other tests. So I do the
-  # require in spec/rails_helper.rb
-  gem 'rails-controller-testing', require: false
 end

@@ -27,8 +27,8 @@ feature "Admin epedal Labels", :devise do
   end
 
   describe "managing label sheets" do
-    before do
-      @zooberator = FactoryGirl.create(:product, name: "Fooberator", brand: @brand, layout_class: "epedal")
+    before :each do
+      @zooberator = FactoryGirl.create(:product, name: "Zooberator", brand: @brand, layout_class: "epedal")
       FactoryGirl.create(:parent_product, product: @zooberator, parent_product: @istomp)
       visit admin_label_sheets_path(locale: I18n.default_locale)
     end
