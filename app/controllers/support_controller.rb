@@ -237,7 +237,7 @@ class SupportController < ApplicationController
   end
 
   def zipped_downloads
-    render text: "Dynamic zips are no longer available."
+    render plain: "Dynamic zips are no longer available."
     # temp_file = website.zip_downloads(params[:download_type])
     # send_file temp_file.path, type: 'application/zip', disposition: 'attachment', filename: "#{params[:download_type]}.zip"
     # temp_file.close

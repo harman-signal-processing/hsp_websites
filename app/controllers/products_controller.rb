@@ -58,7 +58,7 @@ class ProductsController < ApplicationController
             if !@product.password.blank?
               redirect_to preview_product_path(@product) and return
             else
-              render text: "Not available" and return
+              render plain: "Not available" and return
             end
           end
         end
@@ -113,7 +113,7 @@ class ProductsController < ApplicationController
         render_template
       end
     else
-      render text: "No active product found" and return
+      render plain: "No active product found" and return
     end
   end
 
@@ -135,7 +135,7 @@ class ProductsController < ApplicationController
       format.xml { render xml: @product.randomized_retailer_links }
     end
   end
-  
+
   # GET /products/1/preview
   # PUT /products/1/preview
   def preview
@@ -191,7 +191,7 @@ class ProductsController < ApplicationController
       @songs = [DemoSong.new]
     end
     respond_to do |format|
-      format.html { render text: "This method is designed as an XML call only. Please add '.xml' to your request."}
+      format.html { render plain: "This method is designed as an XML call only. Please add '.xml' to your request."}
       format.xml
     end
   end

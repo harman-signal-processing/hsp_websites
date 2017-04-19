@@ -98,8 +98,8 @@ class Admin::SignupsController < AdminController
 
   def render_signups
     respond_to do |format|
-      format.html { render text: @signups.to_yaml }
-      format.text { render text: @signups.to_yaml }
+      format.html { render plain: @signups.to_yaml }
+      format.text { render plain: @signups.to_yaml }
       format.xls {
         if params[:id]
           fn = "#{website.brand.name}_#{params[:id].gsub(/\s/,"-")}_signups.xls"

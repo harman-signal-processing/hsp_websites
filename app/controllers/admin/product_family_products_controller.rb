@@ -49,12 +49,12 @@ class Admin::ProductFamilyProductsController < AdminController
       if @product_family_product.save
         format.html { redirect_to([:admin, @product_family_product], notice: 'Product was successfully added to family.') }
         format.xml  { render xml: @product_family_product, status: :created, location: @product_family_product }
-        format.js 
+        format.js
         website.add_log(user: current_user, action: "Added #{@product_family_product.product.name} to #{@product_family_product.product_family.name}")
       else
         format.html { render action: "new" }
         format.xml  { render xml: @product_family_product.errors, status: :unprocessable_entity }
-        format.js { render text: "Error"}
+        format.js { render plain: "Error"}
       end
     end
   end

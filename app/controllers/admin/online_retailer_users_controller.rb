@@ -41,12 +41,12 @@ class Admin::OnlineRetailerUsersController < AdminController
       if @online_retailer_user.save
         format.html { redirect_to([:admin, @online_retailer_user], notice: 'User was successfully created.') }
         format.xml  { render xml: @online_retailer_user, status: :created, location: @online_retailer_user }
-        format.js 
+        format.js
         website.add_log(user: current_user, action: "Created #{@online_retailer_user.online_retailer.name} user: #{@online_retailer_user.user.name}")
       else
         format.html { render action: "new" }
         format.xml  { render xml: @online_retailer_user.errors, status: :unprocessable_entity }
-        format.js { render text: "Error"}
+        format.js { render plain: "Error"}
       end
     end
   end
@@ -58,11 +58,11 @@ class Admin::OnlineRetailerUsersController < AdminController
       if @online_retailer_user.update_attributes(online_retailer_user_params)
         format.html { redirect_to([:admin, @online_retailer_user.online_retailer], notice: 'User was successfully updated.') }
         format.xml  { head :ok }
-        format.js 
+        format.js
       else
         format.html { render action: "edit" }
         format.xml  { render xml: @online_retailer_user.errors, status: :unprocessable_entity }
-        format.js { render text: "Error"}
+        format.js { render plain: "Error"}
       end
     end
   end

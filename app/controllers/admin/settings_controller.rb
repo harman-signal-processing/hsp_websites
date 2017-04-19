@@ -62,8 +62,8 @@ class Admin::SettingsController < AdminController
   end
 
   def update_slides_order
-    order = params["setting"]
-    order.to_a.each_with_index do |item, pos|
+    order = params["setting"].to_unsafe_h
+    Array(order).each_with_index do |item, pos|
       Setting.update(item, integer_value: (pos + 1))
     end
     render nothing: true
@@ -71,8 +71,8 @@ class Admin::SettingsController < AdminController
   end
 
   def update_features_order
-    order = params["feature"]
-    order.to_a.each_with_index do |item, pos|
+    order = params["feature"].to_unsafe_h
+    Array(order).each_with_index do |item, pos|
       Setting.update(item, integer_value: (pos + 1))
     end
     render nothing: true
