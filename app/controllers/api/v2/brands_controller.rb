@@ -3,7 +3,6 @@
 module Api
   module V2
     class BrandsController < ApplicationController
-      skip_before_action :miniprofiler
       respond_to :xml, :json, :html
 
       def index

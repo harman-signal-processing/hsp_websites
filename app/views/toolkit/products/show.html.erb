@@ -1,7 +1,7 @@
 <%= content_for :breadcrumbs do %>
   <li><%= link_to @brand.name, [:toolkit, @brand] %></li>
   <li><%= link_to "Products", toolkit_brand_products_path(@brand) %></li>
-  <li class="unavailable"><%= link_to @product.name %></li>
+  <li class="unavailable"><%= link_to @product.name, '#' %></li>
   <% @product.product_families.each do |pf| %>
   <li><%= link_to pf.name, toolkit_brand_product_family_path(@brand, pf) %></li>
   <% end %>

@@ -12,7 +12,7 @@ class System < ApplicationRecord
 	validates :name, presence: true, uniqueness: { scope: :brand_id }
 
 	def options_with_possible_values
-		option_ids = SystemOptionValue.where(id: self.system_options).pluck(:system_option_id).distinct
+		option_ids = SystemOptionValue.where(id: self.system_options).pluck(:system_option_id).uniq
 		system_options.where(id: option_ids)
 	end
 
