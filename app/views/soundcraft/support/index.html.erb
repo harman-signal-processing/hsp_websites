@@ -10,11 +10,7 @@
 			<% if addr = website.value_for("address_and_phone") %>
 			<div class="panel">
 				<h4><%= t("titles.mailing_address") %></h4>
-				<p><%=raw addr %>
-					<% if sup = website.value_for("support_email") %>
-					<br/><%= mail_to sup, sup %>
-					<% end %>
-				</p>
+				<p><%=raw addr %></p>
 			</div>
 			<% end %>
 
