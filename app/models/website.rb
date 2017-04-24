@@ -131,7 +131,7 @@ class Website < ActiveRecord::Base
     downloads = {}
     self.current_and_discontinued_products([:product_documents, :product_attachments]).each do |product|
       product.product_documents.each do |product_document|
-        key = product_document.document_type.parameterize
+        key = product_document.document_type.singularize.downcase.gsub(/[^a-z]/, '')
         doctype = (product_document.document_type.blank?) ? "Misc" : I18n.t("document_type.#{product_document.document_type}")
         if !product_document.language.blank?
           doctype = "#{I18n.t("language.#{product_document.language}")} #{doctype}" unless doctype.to_s.match(/CAD/)
@@ -144,8 +144,12 @@ class Website < ActiveRecord::Base
             downloads: []
           }
           #link_name = !!(doctype.match(/other/i)) ? product_document.document_file_name : ContentTranslation.translate_text_content(product, :name)
+          link_name = product_document.name
+          unless link_name.match(/#{product.name}/)
+            link_name = "#{product.name} #{link_name}"
+          end
           downloads[key][:downloads] << {
-            name: product_document.name,
+            name: link_name,
             file_name: product_document.document_file_name,
             url: product_document.document.url,
             path: product_document.document.path
@@ -187,14 +191,15 @@ class Website < ActiveRecord::Base
     end
     self.site_elements.where(show_on_public_site: true).where("resource_type IS NOT NULL AND resource_type != ''").each do |site_element|
       name = I18n.t("resource_type.#{site_element.resource_type_key}", default: site_element.resource_type)
-      downloads[site_element.resource_type.parameterize] ||= {
+      key = name.to_s.singularize.downcase.gsub(/[^a-z]/, '')
+      downloads[key] ||= {
         param_name: site_element.resource_type.parameterize,
         name: I18n.locale.match(/zh/i) ? name : name.to_s.pluralize,
         downloads: []
       }
       thumbnail = nil
       if site_element.external_url.present?
-        downloads[site_element.resource_type.parameterize][:downloads] << {
+        downloads[key][:downloads] << {
           name: site_element.name,
           file_name: site_element.url,
           thumbnail: nil,
@@ -205,7 +210,7 @@ class Website < ActiveRecord::Base
         if site_element.is_image?
           thumbnail = site_element.resource.url(:tiny_square)
         end
-        downloads[site_element.resource_type.parameterize][:downloads] << {
+        downloads[key][:downloads] << {
           name: site_element.name,
           file_name: site_element.resource_file_name,
           thumbnail: thumbnail,
@@ -213,7 +218,7 @@ class Website < ActiveRecord::Base
           path: site_element.resource.path
         }
       elsif site_element.executable_file_name.present?
-        downloads[site_element.resource_type.parameterize][:downloads] << {
+        downloads[key][:downloads] << {
           name: site_element.name,
           file_name: site_element.executable_file_name,
           thumbnail: nil,
