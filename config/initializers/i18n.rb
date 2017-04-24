@@ -17,3 +17,4 @@ AVAILABLE_LOCALES = [I18n.default_locale, "en"]
 # Used for the admin interface to add translations before they're
 # listed in the "AVAILABLE_LOCALES"
 ALL_LOCALES = AVAILABLE_LOCALES + ["es", "de", "nl", "zh", "pt-BR"]
+
