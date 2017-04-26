@@ -1464,42 +1464,30 @@ hr.colored {
 }
 
 .panel.feature-text {
-  font-size: 120%;
   line-height: 1.2;
   padding: 40px;
 }
 .wide-feature {
+  padding: 60px 0;
   @media only screen and (min-width: 720px) {
-    padding: 60px 0;
-    height: 400px;
-    font-size: 16px;
     margin-bottom: 20px;
-  }
-  @media only screen and (max-width: 719px) {
-    padding: 60px 0;
-    min-height: 200px;
   }
   background-position: bottom center;
   background-repeat: no-repeat;
   background-size: cover;
   .feature-text {
-    font-size: 16px;
     background-color: rgba(lighten($panel-bg, 50%), 0.85) !important;
   }
 }
 .split-feature {
+  padding-bottom: 20px;
   .image-container {
     background-position: bottom center;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 400px;
   }
   .feature-text {
     background-color: #eeeeee !important;
-    font-size: 16px;
-    @media only screen and (min-width: 720px) {
-      height: 400px;
-    }
     overflow: hidden;
   }
 }

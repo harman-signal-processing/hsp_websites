@@ -34,11 +34,12 @@ module FeaturesHelper
     end
     image_panel = content_tag :div, raw('&nbsp;'),
       class: "medium-7 hide-for-small columns image-container",
-      style: "background-image: url(#{feature.image.url});"
-    text_panel = content_tag :div, class: "medium-5 small-12 columns" do
-      render_feature_text(feature)
-    end
-    content_tag :div, class: "row collapse split-feature" do
+      style: "background-image: url(#{feature.image.url});",
+      data: { 'equalizer-watch': "feature_#{feature.to_param}" }
+    text_panel = content_tag :div, render_feature_text(feature),
+      class: "medium-5 small-12 columns",
+      data: { 'equalizer-watch': "feature_#{feature.to_param}" }
+    content_tag :div, class: "row collapse split-feature", data: { equalizer: "feature_#{feature.to_param}" } do
       if feature.content_position.to_s == "right"
         small_image_panel + image_panel + text_panel
       else
@@ -49,7 +50,8 @@ module FeaturesHelper
 
   # Renders just the text of a feature
   def render_feature_text(feature)
-    content_tag :div, class: "borderless feature-text panel" do
+    content_tag :div, class: "borderless feature-text panel",
+      data: { 'equalizer-watch': "feature_#{feature.to_param}" } do
       raw(update_youtube_links(feature.content))
     end
   end # def render_feature_text
