@@ -400,9 +400,12 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     resources :product_documents, only: :index
     resources :events, only: [:index, :show]
 
+    get 'getting-started/ui', to: redirect('/get-started/ui-series')
+    get 'get-started/ui', to: redirect('/get-started/ui-series')
     get 'get-started' => 'get_started#index', as: :get_started_index
     get 'get_started', to: redirect('/get-started'), as: :get_started_redirect
     get 'get-started/:id' => 'get_started#show', as: :get_started
+    get 'getting-started/:id' => 'get_started#show'
     post 'get-started/validate' => 'get_started#validate', as: :get_started_validation
 
     get 'privacy_policy.html' => 'main#privacy_policy', as: :privacy_policy
