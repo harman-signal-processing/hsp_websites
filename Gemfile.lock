@@ -325,8 +325,8 @@ GEM
     memoist (0.15.0)
     memoizable (0.4.2)
       thread_safe (~> 0.3, >= 0.3.1)
-    meta-tags (1.6.0)
-      actionpack (>= 3.0.0)
+    meta-tags (2.4.0)
+      actionpack (>= 3.2.0, <= 5.1.0)
     method_source (0.8.2)
     middleware (0.1.0)
     mime-types (3.1)
@@ -663,7 +663,7 @@ DEPENDENCIES
   lightbox2-rails (~> 2.7.1)
   mailgun_rails
   mechanize
-  meta-tags (~> 1.5)
+  meta-tags
   money
   money-rails
   mysql2

@@ -1,6 +1,7 @@
 require_relative 'boot'
 
 require 'rails/all'
+ActiveSupport::Deprecation.debug = true if Rails.env.development?
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
