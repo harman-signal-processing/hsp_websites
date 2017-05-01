@@ -1,6 +1,495 @@
 ---
 pt-BR:
+  home: home
+  products: produtos
+  news: novidades
+  events: eventos
+  installations: instalações
+  artists: artistas
+  professionals: profissionais
+  sound_community: comunidade de áudio
+  community: comunidade
+  where_to_buy: onde comprar
+  buy: compre
+  find_a_dealer_near_you: encontre um representante
+  product_support: suporte
+  store: loja
+  outlet_store: outlet
+  sitemap: mapa do site
+  company: companhia
+  our_story: nossa história
+  about: sobre
+  quality: qualidade
+  technology: tecnologia
+  training: treinamento
+  all_rights_reserved: "Todos os direitos reservados"
+  harman: HARMAN
+  us_zip_code: Cidade e Estado ou CEP
+  us_dealers: Representantes
+  find_us_dealers: Encontre um Representante
+  online_dealers_us: Revendas Online (US)
+  international_distributors: Distribuidores pelo mundo
+  select_your_country: selecione o seu país
+  country: país
+  dealer_distance: distância
+  address: endereço
+  back_to_news_list: Volte às notícias
+  back_to_artists: Volte aos artistas
+  view_full_line: Veja toda a linha
+  near_zipcode: "próximo %{cep}"
+  more: mais
+  more_info: mais informações
+  more_details: mais detalhes
+  check_it_out: confira
+  rohs: compliance rohs
+  visit: visite
+  visit_the: visite a
+  browse_products: procure produtos
+  product_reviews: reviews de produtos
+  news_signup: "receba nossas novidades"
+  warranty_registration: registro de produto
+  search: Busca
+  search_again: Procure novamente
+  related_products: produtos relacionados
+  version: versão
+  back: voltar
+  promotions: promoções
+  download: download
+  downloads: downloads
+  software_downloads: software
+  resource_downloads: recursos
+  software: software
+  pop_explanation: Muitos de nossos lojistas oferecem a possibilidade de você testar os nossos produtos e descobrir qual você prefere.
+  products_used_by: "Produtos usados por %{artist}"
+  valid: válido
+  download_promotion_form: Faça o download do formulário de promoção
+  submit: Enviar
+  your_name: Seu Nome
+  email: e-mail
+  subject: Assunto
+  message: Mensagem
+  older: Mais Antigas
+  current_news: Novidades Atuais
+  submit_warranty_registration: Envie Registro
+  cancel: Cancelar
+  register_your_product: "Registre seu %{product}"
+  contact_tech_support: "Contate Suporte Técnico"
+  support_contact_form: Formulário Suporte Técnico
+  go: Ir
+  discontinued: Descontinuado
+  troubleshooting: FAQs de problemas e dicas
+  close: fechar
+  name: nome
+  platform: plataforma
+  updater: atualizador
+  windows_gui: "Windows GUI/ Biblioteca "
+  mac_gui: "Mac GUI/Biblioteca"
+  plugin: "Plug-in"
+  other: outros
+  discontinued_products_downloads: "Download de Produtos Descontinuados"
+  related_products: Produtos Relacionados
+  touring_with: turnê com
+  on_tour_with: em turnê com
+  regarding: A respeito
+  uses: Utilização
+  compare: compare
+  click_icons_for_features: "Clique em ícones para recursos"
+  back_to: voltar
+  forum: fórum
+  user_forum: fórum usuários
+  user_groups: grupos usuários
+  language_region: "Idioma/Região"
+  subscribe_via_rss: Subscribe por RSS
+  dealer_login: Login Lojista
+  privacy_policy: política de privacidade
+  warranty_policy: política de garantia
+  terms_of_use: termos de uso
+  looking_for_software: Porcurando por um software/firmware?
+  check_our_software_page: Confira a nossa Página de downloads de software.
+  jump_to_a_download_type: "Escolha o tipo de download:"
+  zip_all: "zip (tudo)"
+  shipping_address: Endereço para Envio
+  billing_address: Endereço para cobrança 
+  product_details: Detalhes do produto
+  yes: sim
+  no: não
+  brief_legal_disclaimer: "Os nomes dos produtos modelados neste produto são marcas registradas de suas respectivas empresas que não endossam e não estão associadas ou filiadas à DigiTech. Role para baixo para obter informações completas."
+  buy_it_now: "Compre agora"
+  add_to_cart: "Adicione ao carrinho"
+  get_it: "Obtenha"
+  media: "Mídia"
+  whats_on: "O que está acontecendo"
+  support: "Suporte"
+  support_services: Serviços de Assistência
+  discontinued_products: Produtos Descontinuados
+  legacy_products: Legado de Produtos
+  videos: Vídeos
+  white_papers: Formulários
+  images: Imagens
+  social_media: Mídia Social
+  mixing_with_professionals: Mixando com profissionais
+  training_courses: Cursos de treinamento
+  events_around_the_world: Eventos pelo Mundo
+  events: Eventos
+  rental_companies: Locadoras
+  users_around_the_world: Usuários pelo Mundo
+  knowledgebase: Base de conhecimento
+  contact_us: Conecte-se
+  product_registration: Registro de Produto
+  warranty: Garantia
+  tech_support: Suporte Técnico
+  spare_part_sales: Venda de Reparos
+  find_my_serial_number: Encontre meu Número de Série
+  go_to_top: de Volta ao Topo
+  sda: SDA
+  privacy_policy: Política de Privacidade
+  get_started_not_registered: Número de série não encontrado!
+  learn_more: Saiba mais
+  explore: explore
+
+  nav:
+    our_story: nossa história
+    about: sobre
+    quality: qualidade
+    technology: tecnologia
+    crown_around_the_world: crown pelo mundo
+    amplifiers: amplificadores
+    microphones: microfones
+    network_audio: Áudio em Rede
+
+  language:
+      en: English
+      es: Spanish
+      fr: French
+      de: German
+      zh: Chinese
+
+  document_type:
+      owners_manual: Manual do Usuário
+      cut_sheet: Folheto Técnico
+      quickstart_guide: Guia de Inicialização Rápida
+      quick_reference_guide: Guia de Referência Rápida
+      application_guide: Guia de Aplicação
+      install_guide: Manual de Instalação
+      preset_list: Lista de Configurações
+      brochure: Brochura
+      schematic: Esquema
+      parts_list: Lista de Partes
+      service_manual: Manual de Serviço
+      calibration_procedure: Procedimento de Calibração
+      cad_files: Arquivos CAD
+      cad_drawing_front: Desenho Frente CAD
+      cad_drawing_rear: Desenho Traseira CAD
+      safety_sheet: Folheto de Segurança
+      other: Outros Documentos
+      photo: Foto
+
+  resource_type:
+      3rd_party_resource: Recursos de Terceiros
+      application_guide: Guia de Aplicação
+      brochure: Brochura
+      custom_controls: Controles Personalizados
+      data_sheet: Folheto
+      image: Imagem
+      information_document: Documentos de Informação
+      install_guide: Guia de Instalação
+      launch_poster: Pôster de Lançamento
+      license_agreement: Termos de Licença
+      owner_s_manuals: Manual do Usuário
+      readme: Leia
+      speaker_tuning: Tuning de Falantes
+      tech_note: Nota Técnica
+      training_resource: Recursos de Treinamento
+      wallpaper: Fundo de Tela
+      whitepaper: Formulário
+
+  product_page:
+      select_products_to_compare: Selecione de 2 a 4 produtos para comparar
+      compare_selected_products: Compare Produtos Selecionados
+      larger_images: Imagens Grandes
+      description: Visão Geral
+      features: Recursos
+      specs_manuals_etc: "specificações, manuais, reviews, etc..."
+      extended_description: Mais detalhes
+      details: Mais detalhes
+      reviews: Reviews
+      news: Notícias
+      news_and_reviews: "Notícias & Reviews"
+      specifications: Especificações
+      amp_models: Modelos de Amplificadores
+      cabinets: Gabinete de Falantes
+      effects: Efeitos
+      pedals: Pedais
+      downloads: Downloads
+      documentation: Documentação
+      downloads_and_docs: Downloads
+      training_modules: Módulos de Treinamento
+      support: "Suporte/FAQs"
+      artists: Artistas
+      review: Review
+      faqs: FAQs
+      tones: Biblioteca de Áudio
+      special_offer: Oferta Especial
+      rebate_forms: Formulários de Reembolso
+      gallery: Galeria
+      audio_demos: Demos de Áudio
+      videos: Vídeos
+      solutions: Recomendado para
+      labels:
+          features: Recursos
+          amp_models: Amplificadores
+          cabinets: Cabos
+          effects: Efeitos
+          pedals: Pedais
+          accessories: Acessórios
+
+  product_support_page:
+      for_service_outside_the_us: "Para consulta de serviços fora dos EUA."
+      please_contact_your_distributor: "Por favor, contate o seu distribuidor local %{brand}."
+      detailed_problem_description: Descrição detalhada do problema
+
+  solutions_page:
+    vertical_market_solutions: "Soluções %{vertical_market} "
+    harman_family: "A família HARMAN de marcas e produtos"
+    explore_solutions: explore soluções
+    explore_more: Explore mais
+    harman_pro_solutions: Harman Professional Solutions
+
+  titles:
+      buy_direct: "Compre direto de %{brand}"
+      news: "%{brand} Notícias"
+      events: "%{brand} Eventos"
+      blog: "%{brand} Blog"
+      facebook_page: "%{brand} Facebook "
+      archived_news: Arquivo de Notícias
+      more_resources: Mais Recursos
+      where_to_buy: Onde comprar
+      dealer_search_results: Resultado da pesquisa de Revendedores
+      buy_online: "Clique na loja abaixo para comprar online:"
+      buy_now: Compre agora
+      international_distributors: Distribuidores Globais
+      product_families: Produtos
+      products: Todos os Produtos
+      product_comparison: Comparativo de Produtos
+      products_on_tour: Produtos em turnê
+      artists: Artistas
+      featured_artists: Artistas em Destaque
+      rohs: Diretiva RoHS
+      related_products: Produtos Relacioandos
+      contact: Contatos
+      contact_us: Contate-nos
+      about_us: "Sobre %{brand}"
+      search_results: Resultado de Busca
+      product_reviews: Reviews de Produtos
+      pop: Obtenha uma demonstração
+      current_promotions: Promoções Atuais
+      promotions: Promoções
+      community: "Comunidade de Áudio & Guitarra"
+      guitar_workstation: Área de Trabalho de Guitarra
+      support: Suporte
+      product_support: Suporte de Produto
+      warranty_registration: Registro de Produto
+      mailing_address: Endereço de Correspondência
+      service_centers: Assistência Técnica
+      locate_us_service_center: Localize a assistência mais próxima a você (US)
+      tone_library: Biblioteca de Áudio
+      featured_pedal: Pedal em Destaque
+      youtube_channel: "%{brand} Canal"
+      part_request: Solicitação De Peça
+      factory_service: Formulário de Autorização de Serviço / Devolução de Fábrica
+      rma_request: Pedido de Autorização de Devolução"
+      connect_with_us: Conecte-se conosco
+
+  errors:
+      geocoding: "Houve um erro para geolocalizar o endereço/CEP que você informou.."
+      no_dealers_found: "Desculpe, não foram encontradas revendas próximas a %{zip}"
+      no_service_centers_found: "Desculpe, não foram encontradas assistências técnicas próximas a %{zip}"
+
+  meta:
+      description:
+          where_to_buy: "Onde comprar produtos %{brand} "
+          artists: "Saiba como os músicos colocam os produtos %{brand} em bom uso."
+          featured_artists: "Músicos Premium usam produtos %{brand}."
+          products_on_tour: Descubra quais produtos estão em turnê e com quais artistas.
+          support: "Recursos de suporte para o seu produto %{brand} incluindo faqs, manuais, registro de produtos e assistências."
+          warranty_registration: "Registre agora o seu produto %{brand}."
+
+      keywords:
+          where_to_buy: Compras, Revendedores, USA
+
+  blurbs:
+      sound_community: "A comunidade de som original da web para músicos. Troque músicas, compartilhe ideias e pacotes para todos os seus produtos DigiTech."
+      guitar_workstation: "Especialmente projetado para os produtos de área de trabalho GNX4 e GNX3000. Como bônus adicional, você irá encontrar dicas de Craig Anderton."
+      rohs_intro: "No que se refere à Diretiva 2002/95 / CE do Parlamento Europeu e do Conselho, de 27 de Janeiro de 2003, relativa à restrição do uso de determinadas substâncias perigosas em equipamentos eléctricos e eletrônicos, declaramos que, produtos listados abaixo satisfazem e cumprem todos os requisitos da referida diretiva"
+      product_support: "Procure material de suporte para o seu produto selecionando o número do modelo abaixo:"
+      warranty_registration_success: "Obrigado por registrar o seu produto conosco. Por favor, mantenha guardado o seu recibo de compra da loja, como prova de compra. "
+      use_date_code: "Alguns de nossos produtos não possuem número de série. Neste caso, insira o código de data na caixa do produto ou na parte de trás da unidade."
+      subscribe: "Inscreva-se para receber mensagens periódicas de %{brand} sobre lançamentos e atualizações de produtos e promoções especiais."
+      warranty_comments: "Atenção: Se você possui alguma dúvida/problema, por favor envie via %{support_form_link}."
+      contact_form_thankyou: "Obrigado por nos contatar. Nós vamos entrar em contato em breve. "
+      captcha_explanation: "Por favor responda esta questão para que possamos verificar se você não é um robô. (Há apenas uma resposta \"correta\")"
+      tone_library_explanation: "Comece com esses tons famosos conectando o GSP ou unidade RP ao seu Mac ou PC. Use nossa Página %{link} se você ainda não possui a biblioteca de áudio instalada. "
+      product_tone_library_explanation: "Comece com esses tons famosos conectando o seu %{model} ao seu Mac ou PC. Use os links de downloads de software nesta página para instalar a biblioteca de áudio em seu computador"
+      international_distributors: "Distribuidores Internacionais auxiliam com a venda de produtos, suporte técnico, solicitações de manuais, reparos e garantia. A garantia é apenas válida no país de compra. "
+      parts_request_thankyou: " Sua mensagem foi recebida! Nós vamos responder o seu e-mail dentro das próximas 24 horas."
+      rma_request_thankyou: "Sua mensagem foi recebida! Nós vamos responder o seu e-mail dentro das próximas 24 horas. "
+      software_downloads: "Encontre os drivers e softwares mais recentes para os seus produtos %{brand}"
+      warranty_registration: "Proteja o seu investimento registrando o seu produto %{brand} e para se manter atualizado sobre as últimas notícias e outros desenvolvimentos."
+  subjects:
+      select_a_subject: Selecione um Assunto
+      product_question: Questões de Produto
+      technical_support: Suporte Técnico
+      manual_request: Solicitação de Manual
+      product_repair: Peças de Reparo
+      product_parts: Partes de Produtos
+      general_questions: Dúvida gerais/Outras
+      order_status: Status da compra (Apenas Revendedores)
+      dealer_questions: Dúvidas de Revendedores
+      web_comments: Comentários na Web
+  devise:
+      artist_registrations:
+          artist:
+              inactive_signed_up: "Obrigado! Um e-mail de confirmação será enviado para o seu e-mail. Confira as instruções para continuar. "
+              signed_up: 'Seja bem vindo! Você se inscreveu com sucesso.'
+              signed_up_but_unconfirmed: 'Uma mensagem com o link de confirmação foi enviada para o seu e-mail. Confira a sua caixa de entrada e abra o link para ativar a sua conta. '
+              signed_up_but_inactive: 'Você se inscreveu com sucesso. Entretanto nós não conseguimos te conectar pois a sua conta não está ativada'
+              signed_up_but_locked: 'Você se inscreveu com sucesso. Entretanto nós não conseguimos te conectar pois sua conta está bloqueada. '
+              updated: 'Você atualizou a sua conta com sucesso.'
+              update_needs_confirmation: "Você atualizou a sua conta com sucesso, mas nós precisamos confirmer a sua conta de e-mail. Por favor, confira a sua caixa de entrada e clique no link de confirmação para finalizar a atualização de seu novo endereço de e-mail. "
+              destroyed: 'Tchau! Sua conta foi cancelada com sucesso. Esperamos te ver novamente. '
+      failure:
+        already_authenticated: 'Você já está logado'
+        unauthenticated: 'Você precisa se inscrever ou realizar o log in para continuar.'
+        unconfirmed: 'Você precisa confirmar a sua senha antes de continuar. '
+        locked: 'Sua conta está bloqueada.'
+        invalid: 'E-mail ou senha inválidos.'
+        invalid_token: 'Token de ativação inválido.'
+        timeout: 'Sua sessão expirou, por favor, faça o log in para continuar.'
+        inactive: 'Sua conta não foi ativada ainda.'
+      sessions:
+        signed_in: 'Você entrou com sucesso.'
+        signed_out: 'Você saiu com êxito'
+      passwords:
+        send_instructions: 'Você irá receber um e-mail com instruções sobre como recuperar a sua senha em alguns minutos.'
+        updated: ' Sua senha foi alterada com sucesso. Você está agora conectado.'
+        updated_not_active: 'Sua senha foi alterada com sucesso.'
+        send_paranoid_instructions: "Se o seu e-mail existe em nosso banco de dados, você irá receber um link para recuperação de senha no seu e-mail em alguns minutos. "
+        no_token: "Você não pode acessar esta página sem vir de um e-mail de redefinição de senha. Se você tiver copiado esta URL de um e-mail de redefinição de senha, verifique se usou o URL completo fornecido."
+      confirmations:
+        send_instructions: 'Você irá receber um e-mail com instruções de como confirmar a sua conta em alguns minutos. '
+        send_paranoid_instructions: 'Se o seu e-mail existe em nosso banco de dados, você irá receber um e-mail com instruções sobre como confirmar a sua conta em alguns minutos. '
+        confirmed: 'Sua conta foi confirmada com sucesso. Você agora está conectado. '
+      registrations:
+        signed_up: 'Bem vindo! Você se inscreveu com sucesso. '
+        signed_up_but_unconfirmed: 'Um mensagem com o link de confirmação foi enviada para o seu e-mail. Por favor, cheque a sua caixa de entrada e clique no link de confirmação enviado para o seu e-mail.'
+        signed_up_but_inactive: 'Você se inscreveu com sucesso. No entanto, não foi possível fazer log in porque sua conta ainda não está ativada.'
+        signed_up_but_locked: 'Você se inscreveu com sucesso. No entanto, não foi possível fazer log in porque sua conta está bloqueada.'
+        updated: 'Você atualizou a sua conta com sucesso.'
+        update_needs_confirmation: "Você atualizou a sua conta com sucesso, mas nós precisamos verificar o seu novo e-mail. Por favor, cheque a sua caixa de entrada e clique no link de confirmação enviado para o seu e-mail. "
+        destroyed: 'Tchau! A sua conta foi cancelada com sucesso. Esperamos te ver novamente. '
+      unlocks:
+        send_instructions: 'Você irá receber um e-mail com instruções de como desbloquear a sua conta em alguns minutos.'
+        unlocked: 'Sua conta foi desbloqueada com sucesso. Por favor, faça o login para continuar. '
+        send_paranoid_instructions: 'Se a sua conta existe, você irá receber um e-mail com instruções sobre como desbloquear a sua conta em alguns minutos. '
+      omniauth_callbacks:
+        success: 'Autenticado com Sucesso de %{kind} conta.'
+        failure: 'Não conseguiu autenticar você de %{kind} porque "%{reason}".'
+      mailer:
+        toolkit_confirmation_instructions:
+          subject: ' Link de confirmação HARMAN Toolkit'
+        dealer_confirmation_instructions:
+          subject: 'Instruções de Confirmação do HARMAN Toolkit '
+        confirmation_instructions:
+          subject: 'Instruções de Confirmação'
+        reset_password_instructions:
+          subject: 'Instruções para nova senha'
+        unlock_instructions:
+          subject: 'Instruções para desbloqueio'
+  jbl_commercial:
+    cs_series: Série CS
+    commercial_solutions_series: Série de Soluções Comerciais
+
+  crown:
+    crown_around_the_world: Crown pelo Mundo
+    around_the_world_blurb: Confira os shows, Estádios e outros locais, todos amplificados pela Crown
+    read_about_the_exciting: "Clique abaixo e descubra tudo sobre as coisas incríveis que estamos fazendo!"
+
   activerecord:
+    models:
+      amp_model: Modelo de Amplificador
+      artist: Artista
+      artist_tier: Lista de Artistas
+      brand: Marca
+      cabinet: Gabinete
+      dealer: Revendedor
+      distributor: DIstribuidor
+      effect: Efeito
+      effect_type: Tipo de Efeito
+      faq: FAQ
+      news: Notícias
+      events: Eventos
+      online_retailer: Loja Online
+      page: Página
+      product: Produto
+      promotion: Promoção
+      service_center: Assistência Técnica
+      software: Software
+      specification: Especificações
+      warranty_registration: Registro de Produto
+      download_registration: Download de Registro
+      registered_download: Download Registrado
+      site_element: Recurso do Site
+      website: Website
+      market_segment: Vertical Market
+      marketing_project_type: Template de Projeto
+      marketing_project: Projeto
+      marketing_task: Tarefa
+      marketing_attachment: Anexo
+
+    attributes:
+      warranty_registration:
+        title: Título
+        first_name: Nome
+        last_name: Sobrenome
+        email: E-mail
+        address1: Endereço
+        city: Cidade
+        state: Estado
+        zip: CEP
+        country: País
+        phone: Telefone
+        product_id: Produto
+        serial_number: Número de Série
+        purchased_from: Compra do revendedor autorizado
+        purchased_on: Data de compra
+        purchase_price: Preço de compra
+        comments: Comentários
+      contact_message:
+        product: Produto
+        product_serial_number: Número de Série do Produto
+        product_sku: Número SKU
+        purchased_on: Data de compra
+        part_number: Código HARMAN
+        board_location: Localização da placa de circuito
+        operating_system: Sistema de Operação
+        phone: Telefone
+        fax: Fax
+        company: Empresa
+        account_number: Número da Conta
+        shipping_address: Endereço
+        shipping_city: Cidade
+        shipping_state: Estado US
+        shipping_zip: CEP
+        shipping_country: País
+        billing_address: Endereço
+        billing_city: Cidade
+        billing_state: Estado US
+        billing_zip: CEP
+        warranty: "Sob garantia?"
+      download_registration:
+          serial_number: Número de Série do Produto
+          code_you_received: Número de Série Único
+
     errors:
       messages:
         record_invalid: 'A validação falhou: %{errors}'
@@ -42,6 +531,10 @@ pt-BR:
       default: "%d/%m/%Y"
       long: "%d de %B de %Y"
       short: "%d de %B"
+      month_day: "%b %d"
+      blog_month_day: "%B %d"
+      mmddyy: "%m/%d/%y"
+      mmddyyyy: "%m/%d/%Y"
     month_names:
     -
     - Janeiro
@@ -212,6 +705,7 @@ pt-BR:
   time:
     am: ''
     formats:
+      log: "%b %d, %Y, %I:%M %p"
       default: "%a, %d de %B de %Y, %H:%M:%S %z"
       long: "%d de %B de %Y, %H:%M"
       short: "%d de %B, %H:%M"
