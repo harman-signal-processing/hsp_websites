@@ -1,5 +1,5 @@
 class SignupsController < ApplicationController
-	before_filter :set_locale
+	before_action :set_locale
 
   def new
     campaign = (params[:campaign].present?) ? params[:campaign] : "#{website.brand.name}-#{Date.today.month}/#{Date.today.year}"

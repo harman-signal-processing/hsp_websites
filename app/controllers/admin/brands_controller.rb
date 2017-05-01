@@ -1,5 +1,5 @@
 class Admin::BrandsController < AdminController
-  before_filter :initialize_brand, only: :create
+  before_action :initialize_brand, only: :create
   load_and_authorize_resource
   # GET /admin/brands
   # GET /admin/brands.xml

@@ -18,7 +18,7 @@
 		<%= link_to t('training'), website.training_url %> &bull;
 	<% end %>
 	<% if !!(website.value_for("troubleshooting_url")) %>
-	<%= link_to t('troubleshooting').downcase, support_path(action: "troubleshooting") %> &bull;
+	<%= link_to t('troubleshooting').downcase, support_troubleshooting_path %> &bull;
 	<% end %>
   <% if website.has_product_registrations? %>
 	<!--
@@ -33,7 +33,7 @@
 	
 		<div class="column_one" style="width: 65%">
 			<h2><%= t('titles.contact_us') %></h2>
-			<%= form_for :contact_message, url: support_path(action: "contact"), html: {class: "contact"} do |f| %>
+			<%= form_for :contact_message, url: support_contact_path, html: {class: "contact"} do |f| %>
 				<%= f.error_messages %>
 
 				<div><%= f.label :name, t('your_name') %><br/>

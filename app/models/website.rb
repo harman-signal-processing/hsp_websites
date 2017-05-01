@@ -1,4 +1,4 @@
-class Website < ActiveRecord::Base
+class Website < ApplicationRecord
   belongs_to :brand, touch: true
   has_many :website_locales
   validates :url, presence: true, uniqueness: true

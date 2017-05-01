@@ -5,7 +5,7 @@
 #
 # Need to authenticate first in order to use it
 #
-class News < ActiveRecord::Base
+class News < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
 
@@ -73,7 +73,7 @@ class News < ActiveRecord::Base
     limit = (options[:limit]) ? " LIMIT #{options[:limit]} " : ""
 
     # First, select news story IDs with a product associated with this brand...
-    product_news = News.find_by_sql("SELECT DISTINCT news.id FROM news
+    product_news = News.find_by_sql("SELECT DISTINCT news.id, news.post_on FROM news
       INNER JOIN news_products ON news_products.news_id = news.id
       INNER JOIN products ON products.id = news_products.product_id
       INNER JOIN product_family_products ON product_family_products.product_id = products.id
@@ -90,7 +90,7 @@ class News < ActiveRecord::Base
   # Older news for the archived page. These are articles older than 1.5 year.
   def self.archived(website)
     # First, select news story IDs with a product associated with this brand...
-    product_news = News.find_by_sql("SELECT DISTINCT news.id FROM news
+    product_news = News.find_by_sql("SELECT DISTINCT news.id, news.post_on FROM news
       INNER JOIN news_products ON news_products.news_id = news.id
       INNER JOIN products ON products.id = news_products.product_id
       INNER JOIN product_family_products ON product_family_products.product_id = products.id

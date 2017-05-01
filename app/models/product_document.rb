@@ -1,4 +1,4 @@
-class ProductDocument < ActiveRecord::Base
+class ProductDocument < ApplicationRecord
   extend FriendlyId
   friendly_id :document_file_name
 

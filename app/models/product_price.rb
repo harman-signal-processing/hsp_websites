@@ -1,4 +1,4 @@
-class ProductPrice < ActiveRecord::Base
+class ProductPrice < ApplicationRecord
   belongs_to :product
   belongs_to :pricing_type
   monetize  :price_cents

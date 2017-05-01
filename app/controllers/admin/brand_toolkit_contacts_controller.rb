@@ -1,5 +1,5 @@
 class Admin::BrandToolkitContactsController < AdminController
-  before_filter :initialize_brand_toolkit_contact, only: :create
+  before_action :initialize_brand_toolkit_contact, only: :create
   load_and_authorize_resource except: [:load_user]
   skip_authorization_check :only => [:load_user]
 

@@ -1,4 +1,4 @@
-class DealerUser < ActiveRecord::Base
+class DealerUser < ApplicationRecord
   belongs_to :dealer
   belongs_to :user
   # FIXME: can't get tests to pass with uniqueness

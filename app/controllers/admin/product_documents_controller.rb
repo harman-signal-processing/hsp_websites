@@ -1,5 +1,5 @@
 class Admin::ProductDocumentsController < AdminController
-  before_filter :initialize_product_document, only: :create
+  before_action :initialize_product_document, only: :create
   load_and_authorize_resource
   
   # GET /admin/product_documents

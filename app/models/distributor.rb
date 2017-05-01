@@ -1,4 +1,4 @@
-class Distributor < ActiveRecord::Base
+class Distributor < ApplicationRecord
   validates :name, :country, presence: true
   validates :account_number, presence: true, uniqueness: true
   has_many :brand_distributors, dependent: :destroy

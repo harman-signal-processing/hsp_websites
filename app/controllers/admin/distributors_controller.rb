@@ -1,5 +1,5 @@
 class Admin::DistributorsController < AdminController
-  before_filter :initialize_distributor, only: :create
+  before_action :initialize_distributor, only: :create
   load_and_authorize_resource
 
   # GET /admin/distributors

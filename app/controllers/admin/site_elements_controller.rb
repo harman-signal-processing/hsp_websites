@@ -1,5 +1,5 @@
 class Admin::SiteElementsController < AdminController
-  before_filter :initialize_site_element, only: :create
+  before_action :initialize_site_element, only: :create
   load_and_authorize_resource
 
   # GET /site_elements

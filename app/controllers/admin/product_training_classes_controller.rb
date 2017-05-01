@@ -1,5 +1,5 @@
 class Admin::ProductTrainingClassesController < AdminController
-  before_filter :initialize_product_training_class, only: :create
+  before_action :initialize_product_training_class, only: :create
   load_and_authorize_resource
   
   # GET /product_training_classes

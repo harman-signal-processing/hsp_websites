@@ -3,7 +3,6 @@
 module Api
   module V2
     class SoftwaresController < ApplicationController
-      skip_before_filter :miniprofiler
       before_action :set_brand
       respond_to :xml, :json, :html
 

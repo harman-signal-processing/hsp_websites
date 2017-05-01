@@ -1,4 +1,4 @@
-class SystemConfigurationOption < ActiveRecord::Base
+class SystemConfigurationOption < ApplicationRecord
 	belongs_to :system_configuration
 	belongs_to :system_option
   has_many :system_configuration_option_values, inverse_of: :system_configuration_option

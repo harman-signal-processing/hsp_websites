@@ -1,5 +1,5 @@
 class Admin::EventsController < AdminController
-  before_filter :initialize_event, only: :create
+  before_action :initialize_event, only: :create
   load_and_authorize_resource
 
   # GET /admin/events

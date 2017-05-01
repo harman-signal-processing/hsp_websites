@@ -1,4 +1,4 @@
-class SoftwareActivation < ActiveRecord::Base
+class SoftwareActivation < ApplicationRecord
   belongs_to :software
   validates :software, presence: true
   validates :challenge, presence: true, uniqueness: {scope: :software_id}

@@ -1,4 +1,4 @@
-class UsRegion < ActiveRecord::Base
+class UsRegion < ApplicationRecord
   extend FriendlyId
   friendly_id :name
 

@@ -1,6 +1,6 @@
 class RegisteredDownloadsController < ApplicationController
-  skip_before_filter :verify_authenticity_token
-  before_filter :load_registered_download_and_set_layout
+  skip_before_action :verify_authenticity_token
+  before_action :load_registered_download_and_set_layout
   layout :set_layout
 
   # GET /:registered_download_url

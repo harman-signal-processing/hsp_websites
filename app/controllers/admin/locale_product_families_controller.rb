@@ -1,5 +1,5 @@
 class Admin::LocaleProductFamiliesController < AdminController
-  before_filter :initialize_locale_product_family, only: :create
+  before_action :initialize_locale_product_family, only: :create
   load_and_authorize_resource
   
   def create

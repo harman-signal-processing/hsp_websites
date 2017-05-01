@@ -7,7 +7,7 @@
 # TODO: Create the HTML views just in case.
 #
 class Admin::ProductAttachmentsController < AdminController
-  before_filter :initialize_product_attachment, only: :create
+  before_action :initialize_product_attachment, only: :create
   load_and_authorize_resource
   
   # GET /admin/product_attachments
@@ -53,7 +53,7 @@ class Admin::ProductAttachmentsController < AdminController
       else
         format.html { redirect_to([:admin, @product_attachment.product], notice: 'There was a problem creating the Product Attachment.') }
         format.xml  { render xml: @product_attachment.errors, status: :unprocessable_entity }
-        format.js { render text: "Error" }
+        format.js { render plain: "Error" }
       end
     end
   end
@@ -73,7 +73,7 @@ class Admin::ProductAttachmentsController < AdminController
       else
         format.html { render action: "edit" }
         format.xml  { render xml: @product_attachment.errors, status: :unprocessable_entity }
-        format.js { render text: "Error" }
+        format.js { render plain: "Error" }
       end
     end
   end

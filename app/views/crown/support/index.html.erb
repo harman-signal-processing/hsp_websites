@@ -62,7 +62,7 @@
 	</div>
 	<div class="large-8 columns">
 		<h1><%= t('titles.contact_us') %></h1>
-		<%= simple_form_for @contact_message, url: support_path(action: "contact"), html: {class: "contact"} do |f| %>
+		<%= simple_form_for @contact_message, url: support_contact_path, html: {class: "contact"} do |f| %>
 
       <%= f.input :name, label: t('your_name'), placeholder: t('your_name') %>
       <%= f.input :email, label: ucfirst(t('email')), placeholder: ucfirst(t('email')) %>

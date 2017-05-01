@@ -88,37 +88,37 @@ RSpec.describe ToolkitHelper do
     it "returns the pdf icon" do
       @toolkit_resource.download_path = "test.pdf"
 
-      expect(helper.icon_for(@toolkit_resource)).to match "pdf-icon.png"
+      expect(helper.icon_for(@toolkit_resource)).to match(/pdf\-icon.*png/)
     end
 
     it "returns the zip icon" do
       @toolkit_resource.download_path = "test.zip"
 
-      expect(helper.icon_for(@toolkit_resource)).to match "zip-icon.png"
+      expect(helper.icon_for(@toolkit_resource)).to match(/zip\-icon.*png/)
     end
 
     it "returns the windows icon" do
       @toolkit_resource.download_path = "test.exe"
 
-      expect(helper.icon_for(@toolkit_resource)).to match "windows_17.png"
+      expect(helper.icon_for(@toolkit_resource)).to match(/windows_17.*png/)
     end
 
     it "returns the mac icon" do
       @toolkit_resource.download_path = "test.dmg"
 
-      expect(helper.icon_for(@toolkit_resource)).to match "mac_17.png"
+      expect(helper.icon_for(@toolkit_resource)).to match(/mac_17.*png/)
     end
 
     it "returns the mp3 icon" do
       @toolkit_resource.download_path = "test.mp3"
 
-      expect(helper.icon_for(@toolkit_resource)).to match "icon_play.png"
+      expect(helper.icon_for(@toolkit_resource)).to match(/icon_play.*png/)
     end
 
     it "returns the video icon" do
       @toolkit_resource.download_path = "test.mp4"
 
-      expect(helper.icon_for(@toolkit_resource)).to match "icon_play.png"
+      expect(helper.icon_for(@toolkit_resource)).to match(/icon_play.*png/i)
     end
 
     it "returns no icon for unknowns" do

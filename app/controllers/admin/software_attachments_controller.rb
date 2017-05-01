@@ -1,5 +1,5 @@
 class Admin::SoftwareAttachmentsController < AdminController
-  before_filter :initialize_software_attachment, only: :create
+  before_action :initialize_software_attachment, only: :create
   load_and_authorize_resource
 
   # GET /admin/software_attachments
@@ -41,7 +41,7 @@ class Admin::SoftwareAttachmentsController < AdminController
         format.html { redirect_to([:admin, @software_attachment.software], notice: 'Software attachment was successfully created.') }
         format.xml  { render xml: @software_attachment, status: :created, location: @software_attachment }
       else
-        format.html { render text: "Sorry, there was a problem with the upload. Please go back and try again." }
+        format.html { render plain: "Sorry, there was a problem with the upload. Please go back and try again." }
         format.xml  { render xml: @software_attachment.errors, status: :unprocessable_entity }
       end
     end

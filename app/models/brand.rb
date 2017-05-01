@@ -1,4 +1,4 @@
-class Brand < ActiveRecord::Base
+class Brand < ApplicationRecord
   extend FriendlyId
   friendly_id :name
 
@@ -70,7 +70,7 @@ class Brand < ActiveRecord::Base
 
   def news
     # First, select news story IDs with a product associated with this brand...
-    product_news = News.find_by_sql("SELECT DISTINCT news.id FROM news
+    product_news = News.find_by_sql("SELECT DISTINCT news.id, news.post_on FROM news
       INNER JOIN news_products ON news_products.news_id = news.id
       INNER JOIN products ON products.id = news_products.product_id
       INNER JOIN product_family_products ON product_family_products.product_id = products.id
@@ -300,7 +300,7 @@ class Brand < ActiveRecord::Base
   # wrapper to inherit from another brand if necessary
   def us_regions_for_website
     this_brand = (self.us_sales_reps_from_brand_id.present?) ? Brand.find(self.us_sales_reps_from_brand_id) : self
-    @us_regions = this_brand.us_regions.group(:name)
+    @us_regions ||= this_brand.us_regions.distinct
   end
 
   # Figure out the default top domain for this brand

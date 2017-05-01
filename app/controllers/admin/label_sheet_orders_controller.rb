@@ -1,5 +1,5 @@
 class Admin::LabelSheetOrdersController < AdminController
-  before_filter :initialize_label_sheet_order, only: :create
+  before_action :initialize_label_sheet_order, only: :create
   load_and_authorize_resource 
 
   # GET /label_sheet_orders

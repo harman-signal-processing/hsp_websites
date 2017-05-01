@@ -1,7 +1,7 @@
 class Admin::ProductPricesController < AdminController
-  before_filter :initialize_product_price, only: :create
+  before_action :initialize_product_price, only: :create
   load_and_authorize_resource
-  
+
   # GET /admin/product_prices
   # GET /admin/product_prices.xml
   def index
@@ -14,7 +14,7 @@ class Admin::ProductPricesController < AdminController
         send_data(
           Pricelist.new(website.brand, loc: @loc, website: website, locale: I18n.locale).to_s,
         	filename: "#{website.brand.name}_#{@loc.upcase}_price_list_#{Time.zone.now.year}-#{Time.zone.now.month}-#{Time.zone.now.day}.xls"
-        )    
+        )
       }
     end
   end
@@ -68,7 +68,7 @@ class Admin::ProductPricesController < AdminController
   # Update action for the myharman.com pricing form
   def update_all
     authorize! :manage, ProductPrice
-    params[:product_attr].to_a.each do |key, attr|
+    Array(params[:product_attr].to_unsafe_h).each do |key, attr|
       product = Product.find(key)
       product.update_attributes(attr)
     end

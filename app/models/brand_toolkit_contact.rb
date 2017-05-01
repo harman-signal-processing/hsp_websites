@@ -1,4 +1,4 @@
-class BrandToolkitContact < ActiveRecord::Base
+class BrandToolkitContact < ApplicationRecord
   default_scope { order("position") }
   belongs_to :brand
   belongs_to :user

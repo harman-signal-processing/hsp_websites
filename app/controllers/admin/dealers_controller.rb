@@ -1,5 +1,5 @@
 class Admin::DealersController < AdminController
-  before_filter :initialize_dealer, only: :create
+  before_action :initialize_dealer, only: :create
   load_and_authorize_resource
   # GET /admin/dealers
   # GET /admin/dealers.xml

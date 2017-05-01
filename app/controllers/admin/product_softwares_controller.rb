@@ -1,5 +1,5 @@
 class Admin::ProductSoftwaresController < AdminController
-  before_filter :initialize_product_software, only: :create
+  before_action :initialize_product_software, only: :create
   load_and_authorize_resource
   
   # GET /admin/product_softwares
@@ -67,7 +67,7 @@ class Admin::ProductSoftwaresController < AdminController
 
   # POST /admin/product_softwares/update_order
   def update_order
-    params["product_software"].to_a.each_with_index do |item, pos|
+    Array(params["product_software"].to_unsafe_h).each_with_index do |item, pos|
       if params[:called_from] == "software"
         ProductSoftware.update(item, product_position: (pos + 1))
       else

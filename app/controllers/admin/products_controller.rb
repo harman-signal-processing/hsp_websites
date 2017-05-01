@@ -1,5 +1,5 @@
 class Admin::ProductsController < AdminController
-  before_filter :initialize_product, only: :create
+  before_action :initialize_product, only: :create
   load_and_authorize_resource
   skip_authorize_resource only: [:rohs, :update_rohs, :harman_employee_pricing, :update_harman_employee_pricing]
   
@@ -143,7 +143,7 @@ class Admin::ProductsController < AdminController
   # Update action for the myharman.com pricing form
   def update_harman_employee_pricing
     authorize! :update, :harman_employee_pricing
-    params[:product_attr].to_a.each do |key, attr|
+    Array(params[:product_attr].to_unsafe_h).each do |key, attr|
       product = Product.find(key)
       product.update_attributes(attr)
     end

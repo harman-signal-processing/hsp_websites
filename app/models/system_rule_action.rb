@@ -2,7 +2,7 @@
 # of a System configuration. The action can be either show/hide an option/value or
 # show an alert.
 #
-class SystemRuleAction < ActiveRecord::Base
+class SystemRuleAction < ApplicationRecord
 	include ActionView::Helpers::JavaScriptHelper
 
 	belongs_to :system_rule

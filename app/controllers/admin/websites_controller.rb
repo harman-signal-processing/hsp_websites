@@ -1,5 +1,5 @@
 class Admin::WebsitesController < AdminController
-  before_filter :initialize_website, only: :create
+  before_action :initialize_website, only: :create
   load_and_authorize_resource only: :index
   
   # GET /admin/websites

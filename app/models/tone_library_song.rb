@@ -1,4 +1,4 @@
-class ToneLibrarySong < ActiveRecord::Base
+class ToneLibrarySong < ApplicationRecord
   extend FriendlyId
   friendly_id :title
 

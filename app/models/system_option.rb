@@ -2,7 +2,7 @@
 # Certain options may be hidden by default, only to appear if certain SystemRules are met.
 # This is usually based on the selected SystemOptionValue for the given SystemOption.
 #
-class SystemOption < ActiveRecord::Base
+class SystemOption < ApplicationRecord
 	enum option_types: [:boolean, :radio, :checkbox, :integer, :string, :dropdown, :multi_dropdown]
 
 	belongs_to :system

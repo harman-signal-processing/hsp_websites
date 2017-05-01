@@ -1,4 +1,4 @@
-class LabelSheetOrder < ActiveRecord::Base
+class LabelSheetOrder < ApplicationRecord
   require 'securerandom'
 
   belongs_to :user

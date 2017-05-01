@@ -1,5 +1,5 @@
 class Admin::SoftwareTrainingModulesController < AdminController
-  before_filter :initialize_software_training_module, only: :create
+  before_action :initialize_software_training_module, only: :create
   load_and_authorize_resource
   
   # GET /software_training_modules

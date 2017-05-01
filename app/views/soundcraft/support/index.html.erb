@@ -43,7 +43,7 @@
 			<% if website.has_service_centers? %>
 			<div class="panel">
 				<h4><%= t('titles.locate_us_service_center') %>:</h4>
-				<%= form_tag support_path(action: "service_lookup") do |f| %>
+				<%= form_tag service_lookup_path do |f| %>
 					<div class="row collapse">
 						<div class="medium-9 small-9 columns">
 							<%= text_field_tag "zip", session[:zip], size: 8, placeholder: t('us_zip_code') %>
@@ -74,7 +74,7 @@
 					<li><%= link_to "3rd party controllers", "/en-US/3rd-party-controllers" %></li>
 					<% end %>
 					<% if !!(website.has_speaker_tunings) %>
-					<li><%= link_to "speaker tunings", support_path(action: "speaker_tunings") %></li>
+					<li><%= link_to "speaker tunings", speaker_tunings_path %></li>
 					<% end %>
           <li><%= link_to "More Resources", support_downloads_path %></li>
 				</ul>
@@ -103,10 +103,10 @@
             <li><%= link_to "guitarworkstation.com", "http://www.guitarworkstation.com", target: "_blank" %></li>
           <% end %>
 					<% if !!(website.value_for("troubleshooting_url")) %>
-					<li><%= link_to t('troubleshooting').downcase, support_path(action: "troubleshooting") %></li>
+					<li><%= link_to t('troubleshooting').downcase, support_troubleshooting_path %></li>
 					<% end %>
 					<% if !!(website.has_cad_drawings) %>
-					<li><%= link_to "CAD files", support_path(action: "cad") %></li>
+					<li><%= link_to "CAD files", support_cad_path %></li>
 					<% end %>
 					<li><%= link_to t('titles.rohs'), rohs_path %></li>
 					<% if !!(website.forum_link) %>
@@ -126,7 +126,7 @@
 	</div>
 	<div class="large-8 columns">
 		<h1><%= t('titles.contact_us') %></h1>
-		<%= simple_form_for @contact_message, url: support_path(action: "contact"), html: {class: "contact"} do |f| %>
+		<%= simple_form_for @contact_message, url: support_contact_path, html: {class: "contact"} do |f| %>
 
       <%= f.input :name, label: t('your_name'), placeholder: t('your_name') %>
       <%= f.input :email, label: ucfirst(t('email')), placeholder: ucfirst(t('email')) %>

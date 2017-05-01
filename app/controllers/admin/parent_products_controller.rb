@@ -1,5 +1,5 @@
 class Admin::ParentProductsController < AdminController
-  before_filter :initialize_parent_product, only: :create
+  before_action :initialize_parent_product, only: :create
   load_and_authorize_resource
   
   # GET /admin/parent_products

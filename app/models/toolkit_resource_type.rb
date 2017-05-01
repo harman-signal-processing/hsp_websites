@@ -1,4 +1,4 @@
-class ToolkitResourceType < ActiveRecord::Base
+class ToolkitResourceType < ApplicationRecord
   extend FriendlyId
   friendly_id :name
 

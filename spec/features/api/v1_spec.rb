@@ -91,8 +91,8 @@ feature "API version 1" do
 		end
 
 		it "should provide a missing image url" do
-      expect(page).to have_content "http://#{@website.url}/assets/missing-image-22x22.png"
-      expect(page).to have_content "http://#{@website.url}/assets/missing-image-128x128.png"
+      expect(page.html).to match(/missing-image-22x22/)
+      expect(page.html).to match(/missing-image-128x128/)
 		end
 	end
 
@@ -150,7 +150,7 @@ feature "API version 1" do
 		end
 
 		it "should provide a missing thumbnail url" do
-      expect(page).to have_content "http://#{@website.url}/assets/missing-image-22x22.png"
+      expect(page.html).to match(/missing-image-22x22/)
 		end
 	end
 

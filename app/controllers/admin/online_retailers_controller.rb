@@ -1,5 +1,5 @@
 class Admin::OnlineRetailersController < AdminController
-  before_filter :initialize_online_retailer, only: :create
+  before_action :initialize_online_retailer, only: :create
   load_and_authorize_resource
   
   # GET /admin/online_retailers

@@ -1,4 +1,4 @@
-class OnlineRetailerLink < ActiveRecord::Base
+class OnlineRetailerLink < ApplicationRecord
   belongs_to :online_retailer, touch: true
   belongs_to :brand
   belongs_to :product, touch: true

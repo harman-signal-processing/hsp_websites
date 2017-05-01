@@ -1,5 +1,5 @@
 class LabelSheetOrdersController < ApplicationController
-  before_filter :load_istomp
+  before_action :load_istomp
 
   def new
   	@label_sheet_order = LabelSheetOrder.new(subscribe: true)
@@ -34,9 +34,9 @@ class LabelSheetOrdersController < ApplicationController
   	if @label_sheet_order.verify_code(params[:secret_code])
 	  	@label_sheet_order.mailed_on = Date.today
 	  	@label_sheet_order.save
-  		render text: "Success. Shipping date was logged."
+  		render plain: "Success. Shipping date was logged."
   	else
-  		render text: "Hmmm. Something isn't right with that link."
+  		render plain: "Hmmm. Something isn't right with that link."
   	end
   end
 

@@ -1,4 +1,4 @@
-class ToneLibraryPatch < ActiveRecord::Base
+class ToneLibraryPatch < ApplicationRecord
   belongs_to :tone_library_song, touch: true
   belongs_to :product, touch: true
   has_attached_file :patch, {

@@ -1,4 +1,4 @@
-class BrandDealer < ActiveRecord::Base
+class BrandDealer < ApplicationRecord
   belongs_to :brand
   belongs_to :dealer
   validates :brand_id, presence: true

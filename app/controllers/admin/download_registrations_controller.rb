@@ -1,5 +1,5 @@
 class Admin::DownloadRegistrationsController < AdminController
-  before_filter :initialize_download_registration, only: :create
+  before_action :initialize_download_registration, only: :create
   load_and_authorize_resource
   
   # GET /download_registrations

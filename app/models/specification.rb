@@ -1,4 +1,4 @@
-class Specification < ActiveRecord::Base
+class Specification < ApplicationRecord
   extend FriendlyId
   friendly_id :name
 

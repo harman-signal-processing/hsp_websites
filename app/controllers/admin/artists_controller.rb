@@ -1,5 +1,5 @@
 class Admin::ArtistsController < AdminController
-  before_filter :initialize_artist, only: :create
+  before_action :initialize_artist, only: :create
   load_and_authorize_resource
 
   # GET /admin/artists

@@ -1,5 +1,5 @@
 class Admin::ToneLibraryPatchesController < AdminController
-  before_filter :initialize_tone_library_patch, only: :create
+  before_action :initialize_tone_library_patch, only: :create
   load_and_authorize_resource
   
   # GET /admin/tone_library_patches

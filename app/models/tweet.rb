@@ -1,4 +1,4 @@
-class Tweet < ActiveRecord::Base
+class Tweet < ApplicationRecord
   belongs_to :brand
   validates :tweet_id, presence: true, uniqueness: true
 

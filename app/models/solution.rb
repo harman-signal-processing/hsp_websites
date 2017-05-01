@@ -1,4 +1,4 @@
-class Solution < ActiveRecord::Base
+class Solution < ApplicationRecord
   extend FriendlyId
   friendly_id :name
 

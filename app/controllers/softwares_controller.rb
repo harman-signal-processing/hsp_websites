@@ -1,5 +1,5 @@
 class SoftwaresController < ApplicationController
-  before_filter :set_locale, except: [:activate]
+  before_action :set_locale, except: [:activate]
 
   # GET /softwares
   # GET /softwares.xml
@@ -71,7 +71,7 @@ class SoftwaresController < ApplicationController
     software_name = params[:software_name]
     challenge = params[:challenge]
     if software_name.blank? || challenge.blank?
-      render text: "Incomplete information. Please try again." and return
+      render plain: "Incomplete information. Please try again." and return
     else
       software = Software.where(activation_name: software_name).first
       @activation = SoftwareActivation.create(software: software, challenge: challenge)

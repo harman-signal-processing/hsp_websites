@@ -1,4 +1,4 @@
-class Dealer < ActiveRecord::Base
+class Dealer < ApplicationRecord
   attr_accessor :sold_to, :del_flag, :del_block, :order_block # extra fields from import report
   acts_as_mappable
   validates :address, :city, :state, :name, presence: true

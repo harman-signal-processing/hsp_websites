@@ -1,4 +1,4 @@
-class FaqCategory < ActiveRecord::Base
+class FaqCategory < ApplicationRecord
 
   belongs_to :brand
   has_many :faq_category_faqs, dependent: :destroy

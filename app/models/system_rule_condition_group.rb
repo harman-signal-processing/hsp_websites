@@ -1,7 +1,7 @@
 # SystemRuleConditionGroup is just what it says, really. One or more conditions grouped
 # together so that they can be organized by either AND or OR.
 #
-class SystemRuleConditionGroup < ActiveRecord::Base
+class SystemRuleConditionGroup < ApplicationRecord
 	enum logic_types: ["AND", "OR"]
 	belongs_to :system_rule
 	has_many :system_rule_conditions, dependent: :destroy, inverse_of: :system_rule_condition_group

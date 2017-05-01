@@ -1,5 +1,5 @@
 class Admin::ArtistTiersController < AdminController
-  before_filter :initialize_artist_tier, only: :create
+  before_action :initialize_artist_tier, only: :create
   load_and_authorize_resource
 
   # GET /artist_tiers

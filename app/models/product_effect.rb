@@ -1,4 +1,4 @@
-class ProductEffect < ActiveRecord::Base
+class ProductEffect < ApplicationRecord
   belongs_to :product, touch: true
   belongs_to :effect
   validates :product_id, presence: true

@@ -1,4 +1,4 @@
-class NewsProduct < ActiveRecord::Base
+class NewsProduct < ApplicationRecord
   belongs_to :news, touch: true
   belongs_to :product, touch: true
 

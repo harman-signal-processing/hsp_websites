@@ -1,4 +1,4 @@
-class TrainingModule < ActiveRecord::Base
+class TrainingModule < ApplicationRecord
   has_many :product_training_modules, dependent: :destroy
   has_many :products, through: :product_training_modules
   has_many :software_training_modules, dependent: :destroy

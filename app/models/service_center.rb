@@ -1,4 +1,4 @@
-class ServiceCenter < ActiveRecord::Base
+class ServiceCenter < ApplicationRecord
   acts_as_mappable
   validates :address, presence: true
   validates :city, presence: true

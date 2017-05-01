@@ -1,4 +1,4 @@
-class BrandDistributor < ActiveRecord::Base
+class BrandDistributor < ApplicationRecord
   belongs_to :brand
   belongs_to :distributor, touch: true
   validates :brand_id, presence: true

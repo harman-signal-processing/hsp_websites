@@ -1,4 +1,4 @@
-class SiteElement < ActiveRecord::Base
+class SiteElement < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates
 

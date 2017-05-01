@@ -1,5 +1,5 @@
 class Admin::GetStartedPanelsController < AdminController
-  before_filter :initialize_get_started_panel, only: :create
+  before_action :initialize_get_started_panel, only: :create
   before_action :set_get_started_page
   load_and_authorize_resource
 

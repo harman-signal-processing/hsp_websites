@@ -1,7 +1,7 @@
 require 'csv'
 
 class Admin::WarrantyRegistrationsController < AdminController
-  before_filter :initialize_warranty_registration, only: :create
+  before_action :initialize_warranty_registration, only: :create
   load_and_authorize_resource except: :index
 
   # GET /admin/warranty_registrations

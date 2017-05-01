@@ -106,20 +106,6 @@ feature "iStomp-specific features" do
   	end
   end
 
-  context "featured on-sale epedal page" do
-    before do
-      visit product_path(@gooberator, locale: I18n.default_locale)
-    end
-
-    it "should have the 99 cent price burst" do
-      expect(page).to have_xpath("//img[@src='/assets/digitech/istomp/99cent_burst.png']")
-    end
-
-    it "should have the regular price" do
-      expect(page).to have_content "Regular Price: $#{@gooberator.msrp.to_s}"
-    end
-  end
-
   context "featured artist pedal page" do
     before do
       visit product_path(@impossible, locale: I18n.default_locale)

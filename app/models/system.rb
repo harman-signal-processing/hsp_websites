@@ -1,7 +1,7 @@
 # System is used to configure IDX (and possibly other) systems. It consists of nested
 # options and values. Selected values may trigger one or more SystemActions.
 #
-class System < ActiveRecord::Base
+class System < ApplicationRecord
 	has_many :system_options, -> { order(:position) }
 	has_many :system_rules
 	has_many :system_configurations

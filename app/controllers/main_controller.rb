@@ -1,6 +1,6 @@
 class MainController < ApplicationController
-  skip_before_filter :verify_authenticity_token
-  before_filter :set_locale, except: [:sitemap, :site_info, :favicon]
+  skip_before_action :verify_authenticity_token
+  before_action :set_locale, except: [:sitemap, :site_info, :favicon]
 
   # The main site homepage
   #

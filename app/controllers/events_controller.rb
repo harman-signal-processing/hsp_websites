@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
-  before_filter :set_locale
-  before_filter :ensure_best_url, only: :show
+  before_action :set_locale
+  before_action :ensure_best_url, only: :show
 
   def index
     all_events = Event.current_and_upcoming.

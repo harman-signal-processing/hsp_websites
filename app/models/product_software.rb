@@ -1,4 +1,4 @@
-class ProductSoftware < ActiveRecord::Base
+class ProductSoftware < ApplicationRecord
   default_scope { order("software_position") }
   belongs_to :product, touch: true
   belongs_to :software, touch: true

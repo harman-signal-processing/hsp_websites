@@ -1,5 +1,5 @@
 class Admin::OnlineRetailerLinksController < AdminController
-  before_filter :initialize_online_retailer_link, only: :create
+  before_action :initialize_online_retailer_link, only: :create
   load_and_authorize_resource
 
   # GET /admin/online_retailer_links
@@ -47,7 +47,7 @@ class Admin::OnlineRetailerLinksController < AdminController
       else
         format.html { render action: "new" }
         format.xml  { render xml: @online_retailer_link.errors, status: :unprocessable_entity }
-        format.js { render text: "Error"}
+        format.js { render plain: "Error"}
       end
     end
   end
@@ -66,7 +66,7 @@ class Admin::OnlineRetailerLinksController < AdminController
       else
         format.html { render action: "edit" }
         format.xml  { render xml: @online_retailer_link.errors, status: :unprocessable_entity }
-        format.js { render text: "Error"}
+        format.js { render plain: "Error"}
       end
     end
   end

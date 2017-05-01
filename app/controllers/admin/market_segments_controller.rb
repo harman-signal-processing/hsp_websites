@@ -1,5 +1,5 @@
 class Admin::MarketSegmentsController < AdminController
-  before_filter :initialize_market_segment, only: :create
+  before_action :initialize_market_segment, only: :create
   load_and_authorize_resource
   # GET /admin/market_segments
   # GET /admin/market_segments.xml

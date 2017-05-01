@@ -8,13 +8,13 @@
   near your zipcode, please <%=link_to "contact the factory", support_path %>.</p>
 
 	<% if !!(website.brand.has_vintage_repair?) %>
-	<p>Click here for <%= link_to "vintage #{website.brand.name} repair services", support_path(action: 'vintage_repair') %>.</p>
+	<p>Click here for <%= link_to "vintage #{website.brand.name} repair services", vintage_repair_path %>.</p>
 	<% end %>
 
   <div class="row">
     <div class="large-4 columns">
       <div class="panel">
-        <%= form_tag support_path(action: "service_lookup") do |f| %>
+        <%= form_tag service_lookup_path do |f| %>
           US City/Zip code:
           <div class="row collapse">
             <div class="large-10 small-9 columns">
@@ -58,7 +58,7 @@
 
       <% unless @err.blank? %>
         <p><%= @err %></p>
-        <p>Try checking out the <%= link_to "complete list", support_path(action: 'all_repair') %>.</p>
+        <p>Try checking out the <%= link_to "complete list", support_all_repair_path %>.</p>
       <% end %>
     </div>
   </div>

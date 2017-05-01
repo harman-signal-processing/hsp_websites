@@ -1,5 +1,5 @@
 class Admin::ServiceCentersController < AdminController
-  before_filter :initialize_service_center, only: :create
+  before_action :initialize_service_center, only: :create
   load_and_authorize_resource
   
   # GET /service_centers

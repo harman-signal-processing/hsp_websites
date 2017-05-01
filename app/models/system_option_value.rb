@@ -3,7 +3,7 @@
 # Selecting/de-selecting values may trigger certain SystemRuleActions and should
 # alter the total_price for the System.
 #
-class SystemOptionValue < ActiveRecord::Base
+class SystemOptionValue < ApplicationRecord
 	belongs_to :system_option
   has_many :system_configuration_option_values, inverse_of: :system_option_value
 

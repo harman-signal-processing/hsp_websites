@@ -1,5 +1,5 @@
 class Admin::ProductSuggestionsController < ApplicationController
-  before_filter :initialize_product_suggestion, only: :create
+  before_action :initialize_product_suggestion, only: :create
   load_and_authorize_resource
   
   # GET /admin/product_suggestions

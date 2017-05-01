@@ -20,7 +20,7 @@ class VideosController < ApplicationController
       if !youtube_user.blank?
         redirect_to "https://www.youtube.com/user/#{youtube_user}", status: :moved_permanently and return false
       else
-        render text: "Error loading playlist"
+        render plain: "Error loading playlist"
       end
     end
   end

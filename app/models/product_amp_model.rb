@@ -1,4 +1,4 @@
-class ProductAmpModel < ActiveRecord::Base
+class ProductAmpModel < ApplicationRecord
   belongs_to :product, touch: true
   belongs_to :amp_model
   validates :product_id, presence: true

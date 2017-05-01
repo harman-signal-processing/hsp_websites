@@ -1,4 +1,4 @@
-class SoftwareTrainingClass < ActiveRecord::Base
+class SoftwareTrainingClass < ApplicationRecord
   belongs_to :training_class
   belongs_to :software
   validates :software_id, presence: true

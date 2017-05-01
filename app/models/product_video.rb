@@ -1,4 +1,4 @@
-class ProductVideo < ActiveRecord::Base
+class ProductVideo < ApplicationRecord
   belongs_to :product, touch: true
 
   validates :product, presence: true

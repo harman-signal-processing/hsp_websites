@@ -1,5 +1,5 @@
 class Admin::ProductPromotionsController < AdminController
-  before_filter :initialize_product_promotion, only: :create
+  before_action :initialize_product_promotion, only: :create
   load_and_authorize_resource
   # GET /product_promotions
   # GET /product_promotions.xml

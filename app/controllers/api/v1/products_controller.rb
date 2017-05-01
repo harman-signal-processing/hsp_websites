@@ -1,10 +1,9 @@
 module Api
   module V1
     class ProductsController < ApplicationController
-      skip_before_filter :miniprofiler
-      before_filter :restrict_api_access
+      before_action :restrict_api_access
       respond_to :json, :xml
-      
+
       def index
         @products = Product.all
         respond_with @products
@@ -16,22 +15,22 @@ module Api
         @products = @brand.product_families.map{|p| p.employee_store_products}.flatten.uniq.shuffle[0,3]
         respond_with @products
       end
-      
+
       def show
         @product = Product.find(params[:id])
         respond_with @product
       end
-      
+
       # def create
       #   @product = Product.create(params[:product])
       #   respond_with @product
       # end
-      
+
       # def update
       #   @product = Product.update(params[:id], params[:products])
       #   respond_with @product
       # end
-      
+
       # def destroy
       #   @product = Product.destroy(params[:id])
       #   respond_with @product

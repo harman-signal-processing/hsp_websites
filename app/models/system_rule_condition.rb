@@ -3,7 +3,7 @@
 # show/hide dependent options or show an alert. The action is determined by the
 # related SystemRuleAction.
 #
-class SystemRuleCondition < ActiveRecord::Base
+class SystemRuleCondition < ApplicationRecord
 	enum logic_types: ["AND", "OR"]
 
 	belongs_to :system_rule_condition_group
