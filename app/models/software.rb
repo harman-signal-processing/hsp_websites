@@ -151,7 +151,7 @@ protected
     if !self.direct_upload_url.blank? && self.direct_upload_url_changed?
       direct_upload_url_data = DIRECT_UPLOAD_URL_FORMAT.match(direct_upload_url)
       s3 = Aws::S3::Resource.new
-      direct_upload_head = s3.buckets(Rails.configuration.aws[:bucket]).object(direct_upload_url_data[:path]).head
+      direct_upload_head = s3.bucket(Rails.configuration.aws[:bucket]).object(direct_upload_url_data[:path]).head
 
       self.ware_file_name = direct_upload_url_data[:filename]
       self.ware_file_size = direct_upload_head.content_length
