@@ -28,7 +28,7 @@ gem 'asset_sync'
 gem "paperclip" #, "4.3.6" # After this, AWS 2 is needed
 gem 'paperclip-meta'
 gem 's3_direct_upload'
-gem 'meta-tags' #, '~> 1.5', require: 'meta_tags' # v 2.0.0 caused an error
+gem 'meta-tags'
 gem 'tinymce-rails',
   git: 'https://github.com/spohlenz/tinymce-rails.git',
   ref: '4cbaab8b885cc4ba800cec88377733cba8a12e2f'

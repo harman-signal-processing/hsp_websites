@@ -26,8 +26,8 @@ end
 # Amazon account 'hspwww' access keys:
 c = YAML.load_file(File.join(Rails.root, 'config/s3.yml')).symbolize_keys
 Rails.configuration.aws = ((c[Rails.env.to_sym]) ? c[Rails.env.to_sym] : c.first).symbolize_keys!
-#AWS.config(logger: Rails.logger)
-#AWS.config(Rails.configuration.aws)
+#Aws.config(logger: Rails.logger)
+#Aws.config(Rails.configuration.aws)
 
 # Cloudfront only seems to work with an S3 bucket OR some other source (not both).
 # So, since cdn.harmanpro.com is setup as an alias of assets.harmanpro.com, we need
@@ -60,6 +60,7 @@ if Rails.env.production? || !!(ENV['USE_PRODUCTION_ASSETS'].to_i > 0)
     s3_credentials: Rails.configuration.aws,
     s3_host_alias: S3_CLOUDFRONT,
     s3_protocol: 'https',
+    s3_region: ENV['AWS_REGION'],
     url: ':s3_alias_url',
     path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
   }
@@ -113,6 +114,7 @@ end
 S3DirectUpload.config do |config|
   config.access_key_id = Rails.configuration.aws[:access_key_id]
   config.secret_access_key = Rails.configuration.aws[:secret_access_key]
+  config.region = ENV['AWS_REGION']
   config.bucket = Rails.configuration.aws[:bucket]
   config.url = "https://#{config.bucket}.s3.amazonaws.com/"
 end

@@ -128,18 +128,18 @@ class Software < ApplicationRecord
   def self.transfer_and_cleanup(id)
     software = find(id)
     direct_upload_url_data = DIRECT_UPLOAD_URL_FORMAT.match(software.direct_upload_url)
-    s3 = AWS::S3.new
+    s3 = Aws::S3::Resource.new
 
     path_interpolation = ":class/:attachment/:id_:timestamp/:basename.:extension"
     paperclip_file_path = Paperclip::Interpolations.interpolate(path_interpolation, software.ware, 'original')
 
     # paperclip_file_path = "documents/uploads/#{id}/original/#{direct_upload_url_data[:filename]}"
-    s3.buckets[Rails.configuration.aws[:bucket]].objects[paperclip_file_path].copy_from(direct_upload_url_data[:path], acl: :public_read)
+    s3.bucket(Rails.configuration.aws[:bucket]).object(paperclip_file_path).copy_from(direct_upload_url_data[:path], acl: :public_read)
 
     software.processed = true
     software.save
 
-    s3.buckets[Rails.configuration.aws[:bucket]].objects[direct_upload_url_data[:path]].delete
+    s3.buckets(Rails.configuration.aws[:bucket]).object(direct_upload_url_data[:path]).delete
   end
 
 protected
@@ -150,15 +150,15 @@ protected
     tries ||= 5
     if !self.direct_upload_url.blank? && self.direct_upload_url_changed?
       direct_upload_url_data = DIRECT_UPLOAD_URL_FORMAT.match(direct_upload_url)
-      s3 = AWS::S3.new
-      direct_upload_head = s3.buckets[Rails.configuration.aws[:bucket]].objects[direct_upload_url_data[:path]].head
+      s3 = Aws::S3::Resource.new
+      direct_upload_head = s3.buckets(Rails.configuration.aws[:bucket]).object(direct_upload_url_data[:path]).head
 
       self.ware_file_name = direct_upload_url_data[:filename]
       self.ware_file_size = direct_upload_head.content_length
       self.ware_content_type = direct_upload_head.content_type
       self.ware_updated_at = direct_upload_head.last_modified
     end
-  rescue AWS::S3::Errors::NoSuchKey
+  rescue Aws::S3::Errors::NoSuchKey
     tries -= 1
     if tries > 0
       sleep(3)
