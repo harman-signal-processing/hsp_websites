@@ -134,12 +134,21 @@ class Software < ApplicationRecord
     paperclip_file_path = Paperclip::Interpolations.interpolate(path_interpolation, software.ware, 'original')
 
     # paperclip_file_path = "documents/uploads/#{id}/original/#{direct_upload_url_data[:filename]}"
-    s3.bucket(Rails.configuration.aws[:bucket]).object(paperclip_file_path).copy_from(direct_upload_url_data[:path], acl: :public_read)
+    bucket = s3.bucket(Rails.configuration.aws[:bucket])
+    uploaded_object = bucket.object(direct_upload_url_data[:path])
+    options = { acl: 'public-read' }
+    # 7zip files cause problems for Windows users unless we explicitely set the following:
+    if direct_upload_url_data[:filename].to_s.match(/\.7z$/i)
+      options[:metadata_directive] = "REPLACE"
+      options[:content_type] = "binary/octet-stream"
+      options[:content_disposition] = "attachment"
+    end
+    bucket.object(paperclip_file_path).copy_from(uploaded_object, options)
 
     software.processed = true
     software.save
 
-    s3.buckets(Rails.configuration.aws[:bucket]).object(direct_upload_url_data[:path]).delete
+    uploaded_object.delete
   end
 
 protected
