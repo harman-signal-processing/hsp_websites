@@ -137,10 +137,19 @@ class Website < ApplicationRecord
           doctype = "#{I18n.t("language.#{product_document.language}")} #{doctype}" unless doctype.to_s.match(/CAD/)
           key = I18n.t("language.#{product_document.language}", locale: 'en') + "-#{key}"
         end
+        doctype_name = I18n.locale.match(/zh/i) ? doctype : doctype.pluralize
+        if key == "cutsheet"
+          if product.discontinued?
+            key += "-discontinued"
+            doctype_name += " (Discontinued)"
+          else
+            doctype_name += " (Current)"
+          end
+        end
         if I18n.locale.to_s.match(/^en/i) || product_document.language.to_s.match(/^en/i) || I18n.locale.to_s.match(/#{product_document.language.to_s}/i)
           downloads[key] ||= {
             param_name: key.parameterize,
-            name: I18n.locale.match(/zh/i) ? doctype : doctype.pluralize,
+            name: doctype_name,
             downloads: []
           }
           #link_name = !!(doctype.match(/other/i)) ? product_document.document_file_name : ContentTranslation.translate_text_content(product, :name)
@@ -192,9 +201,19 @@ class Website < ApplicationRecord
     self.site_elements.where(show_on_public_site: true).where("resource_type IS NOT NULL AND resource_type != ''").each do |site_element|
       name = I18n.t("resource_type.#{site_element.resource_type_key}", default: site_element.resource_type)
       key = name.to_s.singularize.downcase.gsub(/[^a-z]/, '')
+      doctype_name = I18n.locale.match(/zh/i) ? name : name.to_s.pluralize
+      if key == "cutsheet"
+        # This file is related to one or more products, but all of those products are discontinued
+        if site_element.products.length > 0 && site_element.products.where(product_status: ProductStatus.current_ids).count == 0
+          key += "-discontinued"
+          doctype_name += " (Discontinued)"
+        else
+          doctype_name += " (Current)"
+        end
+      end
       downloads[key] ||= {
         param_name: site_element.resource_type.parameterize,
-        name: I18n.locale.match(/zh/i) ? name : name.to_s.pluralize,
+        name: doctype_name,
         downloads: []
       }
       thumbnail = nil
