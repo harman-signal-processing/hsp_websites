@@ -43,17 +43,34 @@ class ApplicationController < ActionController::Base
     template
   end
 
+  # Used as a replacement for rails' built-in renderer. This one checks the filesystem
+  # to see if any brand or locale specific views have been provided. If so, it renders
+  # that. If not, it renders the usual rails view.
+  #
   def render_template(options={})
-    default_options = {controller: controller_path, action: action_name, layout: set_layout}
+    default_options = {
+      controller: controller_path,
+      action: action_name,
+      layout: set_layout, locale: I18n.locale
+    }
     options = default_options.merge options
     root_folder = (website && website.folder) ? "#{website.folder}/" : ''
+
+    brand_and_locale_specific = "#{root_folder}#{options[:controller]}/#{options[:locale]}/#{options[:action]}"
     brand_specific = "#{root_folder}#{options[:controller]}/#{options[:action]}"
-    generic = "#{options[:controller]}/#{options[:action]}"
-    template = (File.exists?(Rails.root.join("app", "views", "#{brand_specific}.html.erb"))) ? brand_specific : generic
-    logger.debug "------> Brand template: #{brand_specific}"
-    logger.debug "----------------------------> Selected Template: #{template}"
+    locale_specific = "#{options[:controller]}/#{options[:locale]}/#{options[:action]}"
+    template = "#{options[:controller]}/#{options[:action]}" # the default
+
+    if File.exists?(Rails.root.join("app", "views", "#{brand_and_locale_specific}.html.erb"))
+      template = brand_and_locale_specific
+    elsif File.exists?(Rails.root.join("app", "views", "#{brand_specific}.html.erb"))
+      template = brand_specific
+    elsif File.exists?(Rails.root.join("app", "views", "#{locale_specific}.html.erb"))
+      template = locale_specific
+    end
+
     render template: template, layout: options[:layout]
-  end
+  end # def render_template
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to admin_root_path, alert: exception.message

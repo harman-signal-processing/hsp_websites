@@ -72,6 +72,7 @@ namespace :refresh do
         dev_db = db['development']
         filename = "#{prd_db['database']}_#{@timestamp}.sql"
 
+        rake 'db:environment:set RAILS_ENV=development'
         rake 'db:drop'
         rake 'db:create'
 
@@ -112,6 +113,7 @@ namespace :refresh do
         end
 
         within release_path do
+          rake 'db:environment:set RAILS_ENV=staging'
           rake 'db:drop'
           rake 'db:create'
 

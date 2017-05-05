@@ -158,6 +158,11 @@ en:
     amplifiers: amplifiers
     microphones: microphones
     network_audio: network audio
+    about_our_solutions: About Our Solutions
+    blu_link: BLU link
+    dante: Dante
+    cobranet: CobraNet
+    avb: AVB
 
   language:
       en: English

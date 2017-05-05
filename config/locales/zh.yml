@@ -106,6 +106,7 @@ zh:
   add_to_cart: 添加到购物车
   get_it: 得到它
   discontinued_products: 停产型号
+  contact_us:  联系我们
 
   nav:
     our_story: 关于我们
@@ -116,6 +117,11 @@ zh:
     amplifiers: 功放
     microphones: 麦克风
     network_audio: 网络音频传输
+    about_our_solutions: 我们的解决方案
+    blu_link: BLU link
+    dante: Dante
+    cobranet: CobraNet
+    avb: AVB
 
   language:
       en:  英语
