@@ -2,7 +2,7 @@ require 'csv'
 class Admin::RegisteredDownloadsController < AdminController
   before_action :initialize_registered_download, only: :create
   load_and_authorize_resource
-  
+
   # GET /registered_downloads
   # GET /registered_downloads.xml
   def index
@@ -19,11 +19,11 @@ class Admin::RegisteredDownloadsController < AdminController
     respond_to do |format|
       format.html # show.html.erb
       format.xml { render xml: @registered_download.download_registrations  }
-      format.xls { 
-        send_data(@registered_download.download_registrations.to_xls(
+      format.xls {
+        send_data(@registered_download.download_registrations.to_a.to_xls(
           headers: @registered_download.headers_for_export,
-          columns: @registered_download.columns_for_export), 
-        filename: "#{@registered_download.name.gsub(/\s/,"-")}.xls") 
+          columns: @registered_download.columns_for_export),
+        filename: "#{@registered_download.name.gsub(/\s/,"-")}.xls")
       }
     end
   end
@@ -86,7 +86,7 @@ class Admin::RegisteredDownloadsController < AdminController
     end
     website.add_log(user: current_user, action: "Deleted registered download: #{@registered_download.name}")
   end
-  
+
   # GET /registered_downloads/1/send_messages
   # Queues up the download messages for ALL associated registrations which
   # have not yet downlaoded the file.
@@ -94,7 +94,7 @@ class Admin::RegisteredDownloadsController < AdminController
     @registered_download.send_messages_to_undownloaded
     respond_to do |format|
       format.html { redirect_to [:admin, @registered_download], notice: "Messages are being sent now..."}
-      format.js 
+      format.js
     end
     website.add_log(user: current_user, action: "Sent messages to registrants for #{@registered_download.name}")
   end

@@ -106,7 +106,7 @@ class Admin::SignupsController < AdminController
         else
           fn = "#{website.brand.name}_signups.xls"
         end
-        send_data(@signups.to_xls(
+        send_data(@signups.to_a.to_xls(
           headers: ["First Name", "Last Name", "Company", "Email", "Address", "City", "State", "Zip Code", "Date"],
           columns: [:first_name, :last_name, :company, :email, :address, :city, :state, :zip, :created_at]),
         filename: fn)

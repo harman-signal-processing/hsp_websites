@@ -1,6 +1,6 @@
 class Admin::LabelSheetOrdersController < AdminController
   before_action :initialize_label_sheet_order, only: :create
-  load_and_authorize_resource 
+  load_and_authorize_resource
 
   # GET /label_sheet_orders
   # GET /label_sheet_orders.xml
@@ -12,8 +12,8 @@ class Admin::LabelSheetOrdersController < AdminController
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @label_sheet_orders }
-      format.xls { 
-        send_data(@label_sheet_orders.to_xls(
+      format.xls {
+        send_data(@label_sheet_orders.to_a.to_xls(
           headers: ["Name", "Address", "City", "State", "Zip", "Country", "Email", "Subscribe", "Created"],
           columns: [:name, :address, :city, :state, :postal_code, :country, :email, :subscribe, :created_at])
         )

@@ -21,7 +21,7 @@ class Admin::WarrantyRegistrationsController < AdminController
         if @warranty_registrations == []
           @warranty_registrations = @brand_registrations
         end
-        send_data(@warranty_registrations.to_xls(
+        send_data(@warranty_registrations.to_a.to_xls(
           headers: ["title", "first name", "last name", "middle", "company", "job title",
                     "address", "city", "state", "zip",  "country", "phone", "fax", "email",
                     "subscribe", "brand", "product", "serial number", "registered date",
