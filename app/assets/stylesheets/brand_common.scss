@@ -1481,14 +1481,16 @@ hr.colored {
 }
 .split-feature {
   padding-bottom: 20px;
+  min-height: 400px;
   .image-container {
     background-position: bottom center;
     background-repeat: no-repeat;
     background-size: cover;
+    min-height: 400px;
   }
   .feature-text {
     background-color: #eeeeee !important;
-    overflow: hidden;
+    min-height: 400px;
   }
 }
 

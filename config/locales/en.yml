@@ -163,6 +163,8 @@ en:
     dante: Dante
     cobranet: CobraNet
     avb: AVB
+    system_design_tools: System Design Tools
+    service: service
 
   language:
       en: English
