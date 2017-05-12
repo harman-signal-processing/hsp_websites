@@ -86,10 +86,9 @@
       <% if I18n.locale == I18n.default_locale %>
         <li><%= link_to t('contact_us').titleize, support_path %></li>
       <% elsif I18n.locale.match(/zh/) %>
-        <%# Add chinese contact us link here %>
-        <%# t('contact_us') %>
+        <li><%= link_to t('contact_us').titleize, "/zh/china-crown-contacts" %></li>
       <% end %>
-      <li><%= link_to t('downloads').titleize, support_downloads_path %></li>
+      <li><%= link_to t('nav.downloads').titleize, support_downloads_path %></li>
       <% if website.faq_categories_with_faqs.length > 0 %>
         <li><%= link_to t('product_page.faqs'), faqs_path %></li>
       <% end %>
@@ -109,8 +108,7 @@
           </ul>
         </li>
       <% elsif I18n.locale.match(/zh/) %>
-        <%# Add chinese service link here %>
-        <%# t('nav.service').titleize %>
+        <li><%= link_to t('nav.service').titleize, "/zh/china-crown-support" %></li>
       <% end %>
       <li><%= link_to t('software_downloads').titleize, software_index_path %></li>
       <li><%= link_to t('nav.system_design_tools'), tools_calculators_path %></li>
