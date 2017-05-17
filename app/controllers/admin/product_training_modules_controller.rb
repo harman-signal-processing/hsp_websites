@@ -67,7 +67,7 @@ class Admin::ProductTrainingModulesController < AdminController
   # POST /admin/product_training_modules/update_order
   def update_order
     update_list_order(ProductTrainingModule, params["product_training_module"])
-    render nothing: true
+    head :ok
     website.add_log(user: current_user, action: "Sorted product training modules")
   end
 

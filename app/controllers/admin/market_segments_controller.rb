@@ -54,7 +54,7 @@ class Admin::MarketSegmentsController < AdminController
   # PUT /admin/market_segments/update_order
   def update_order
     update_list_order(MarketSegment, params["market_segment"])
-    render nothing: true
+    head :ok
     website.add_log(user: current_user, action: "Sorted market segments")
   end
 

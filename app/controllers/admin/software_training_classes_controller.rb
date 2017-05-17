@@ -65,7 +65,7 @@ class Admin::SoftwareTrainingClassesController < AdminController
   # POST /admin/software_training_classes/update_order
   def update_order
     update_list_order(SoftwareTrainingClass, params["software_training_class"])
-    render nothing:true
+    head :ok
   end
 
   # DELETE /software_training_classes/1

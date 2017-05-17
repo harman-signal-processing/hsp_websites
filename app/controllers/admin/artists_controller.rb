@@ -75,7 +75,7 @@ class Admin::ArtistsController < AdminController
   # PUT /admin/product_families/update_order
   def update_order
     update_list_order(Artist, params["artist"])
-    render nothing:true
+    head :ok
     website.add_log(user: current_user, action: "Changed the artist sort order")
   end
   

@@ -59,7 +59,7 @@ class Admin::ProductFamiliesController < AdminController
   # PUT /admin/product_families/update_order
   def update_order
     update_list_order(ProductFamily, params["product_family"])
-    render nothing: true
+    head :ok
     website.add_log(user: current_user, action: "Sorted product families")
   end
 

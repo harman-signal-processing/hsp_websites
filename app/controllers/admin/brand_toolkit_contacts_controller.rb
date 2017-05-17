@@ -49,7 +49,7 @@ class Admin::BrandToolkitContactsController < AdminController
 
   def update_order
     update_list_order(BrandToolkitContact, params["brand_toolkit_contact"])
-    render nothing: true
+    head :ok
     website.add_log(user: current_user, action: "Sorted toolkit contacts")
   end
 

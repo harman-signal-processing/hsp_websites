@@ -68,7 +68,7 @@ class Admin::ParentProductsController < AdminController
   # POST /admin/parent_products/update_order
   def update_order
     update_list_order(ParentProduct, params["parent_product"])
-    render nothing: true
+    head :ok
     website.add_log(user: current_user, action: "Sorted parent products list")
   end
   

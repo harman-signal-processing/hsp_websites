@@ -70,7 +70,7 @@ class Admin::BrandSolutionFeaturedProductsController < AdminController
 
   def update_order
     update_list_order(BrandSolutionFeaturedProduct, params["brand_solution_featured_product"])
-    render nothing: true
+    head :ok
   end
 
   # DELETE /admin/brand_solution_featured_products/1

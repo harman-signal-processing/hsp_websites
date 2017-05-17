@@ -55,7 +55,7 @@ class Admin::EffectTypesController < AdminController
   # PUT /admin/effect_types/update_order
   def update_order
     update_list_order(EffectType, params["effect_type"])
-    render nothing:true
+    head :ok
     website.add_log(user: current_user, action: "Re-ordered effect types")
   end
 

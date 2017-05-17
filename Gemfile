@@ -42,7 +42,7 @@ gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'httparty'
 gem 'devise'
-gem 'cancan'
+gem 'cancancan'
 gem 'gravtastic'
 gem "recaptcha", '~> 1.3', require: "recaptcha/rails"
 gem 'to_xls-rails'

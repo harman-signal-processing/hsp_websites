@@ -62,20 +62,20 @@ class Admin::SettingsController < AdminController
   end
 
   def update_slides_order
-    order = params["setting"].to_unsafe_h
-    Array(order).each_with_index do |item, pos|
+    order = params["setting"]
+    order.to_a.each_with_index do |item, pos|
       Setting.update(item, integer_value: (pos + 1))
     end
-    render nothing: true
+    head :ok
     website.add_log(user: current_user, action: "Updated homepage slides order")
   end
 
   def update_features_order
-    order = params["feature"].to_unsafe_h
-    Array(order).each_with_index do |item, pos|
+    order = params["feature"]
+    order.to_a.each_with_index do |item, pos|
       Setting.update(item, integer_value: (pos + 1))
     end
-    render nothing: true
+    head :ok
     website.add_log(user: current_user, action: "Updated homepage features order")
   end
 
@@ -157,7 +157,7 @@ class Admin::SettingsController < AdminController
       else
         format.html { render action: "edit" }
         format.xml  { render xml: @setting.errors, status: :unprocessable_entity }
-        format.js   { render nothing: true}
+        format.js   { head :ok }
       end
     end
   end

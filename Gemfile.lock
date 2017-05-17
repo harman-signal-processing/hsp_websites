@@ -84,7 +84,7 @@ GEM
       savon (~> 2.10.0)
     buftok (0.2.0)
     builder (3.2.3)
-    cancan (1.6.10)
+    cancancan (1.16.0)
     capistrano (3.7.2)
       airbrussh (>= 1.0.0)
       capistrano-harrow
@@ -618,7 +618,7 @@ DEPENDENCIES
   asset_sync
   aws-sdk
   bing_translator
-  cancan
+  cancancan
   capistrano (= 3.7.2)
   capistrano-bundler
   capistrano-passenger

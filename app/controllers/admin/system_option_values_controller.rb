@@ -62,7 +62,7 @@ class Admin::SystemOptionValuesController < AdminController
   # PUT /admin/system_option_values/update_order
   def update_order
     update_list_order(SystemOptionValue, params["system_option_value"])
-    render nothing: true
+    head :ok
     website.add_log(user: current_user, action: "Sorted system option_values")
   end
 

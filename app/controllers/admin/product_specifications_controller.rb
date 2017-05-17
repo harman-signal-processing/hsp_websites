@@ -80,7 +80,7 @@ class Admin::ProductSpecificationsController < AdminController
   # POST /admin/product_families/update_order
   def update_order
     update_list_order(ProductSpecification, params["product_specification"])
-    render nothing: true
+    head :ok
     website.add_log(user: current_user, action: "Sorted product specs")
   end
 

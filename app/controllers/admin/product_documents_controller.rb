@@ -66,7 +66,7 @@ class Admin::ProductDocumentsController < AdminController
   # POST /admin/product_documents/update_order
   def update_order
     update_list_order(ProductDocument, params["product_document"])
-    render nothing: true
+    head :ok
     website.add_log(user: current_user, action: "Sorted product documents")
   end
 

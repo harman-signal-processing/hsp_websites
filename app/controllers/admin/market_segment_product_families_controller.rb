@@ -68,7 +68,7 @@ class Admin::MarketSegmentProductFamiliesController < AdminController
   # POST /admin/market_segment_product_families/update_order
   def update_order
     update_list_order(MarketSegmentProductFamily, params["market_segment_product_family"])
-    render nothing: true
+    head :ok
     website.add_log(user: current_user, action: "Re-ordered market segment/product families")
   end
 

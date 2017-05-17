@@ -81,7 +81,7 @@ class Admin::ProductAttachmentsController < AdminController
   # POST /admin/product_attachments/update_order
   def update_order
     update_list_order(ProductAttachment, params["product_attachment"])
-    render nothing: true
+    head :ok
     website.add_log(user: current_user, action: "Sorted product attachments")
   end
   
