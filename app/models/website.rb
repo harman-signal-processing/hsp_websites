@@ -146,6 +146,7 @@ class Website < ApplicationRecord
             doctype_name += " (Current)"
           end
         end
+        key = key.parameterize
         if I18n.locale.to_s.match(/^en/i) || product_document.language.to_s.match(/^en/i) || I18n.locale.to_s.match(/#{product_document.language.to_s}/i)
           downloads[key] ||= {
             param_name: key.parameterize,
@@ -165,38 +166,6 @@ class Website < ApplicationRecord
           }
         end
       end
-      # images need better name (non-redundant)
-      product.product_attachments.each do |product_attachment|
-        if product_attachment.is_photo?
-          key = "photo"
-          doctype = I18n.t("document_type.photo")
-          downloads[key] ||= {
-            param_name: key.parameterize,
-            name: I18n.locale.match(/zh/i) ? doctype : doctype.pluralize,
-            downloads: []
-          }
-          begin
-            thumbnail = product_attachment.product_attachment.url(:tiny_square)
-          rescue
-            thumbnail = nil
-          end
-          downloads[key][:downloads] << {
-            name: product_attachment.product_attachment_file_name,
-            file_name: product_attachment.product_attachment_file_name,
-            thumbnail: thumbnail,
-            url: product_attachment.product_attachment.url,
-            path: product_attachment.product_attachment.path
-          }
-        end
-      end
-      # product.softwares.each do |software|
-      #   doctype = "Software"
-      #   downloads[doctype.parameterize] ||= {param_name: doctype.parameterize, name: doctype, downloads: []}
-      #   downloads[doctype.parameterize][:downloads] << {name: software.formatted_name, url: download_software_url(software)}
-      # end
-      # if downloads["Software".parameterize]
-      #   downloads["Software".parameterize][:downloads].uniq!
-      # end
     end
     self.site_elements.where(show_on_public_site: true).where("resource_type IS NOT NULL AND resource_type != ''").each do |site_element|
       name = I18n.t("resource_type.#{site_element.resource_type_key}", default: site_element.resource_type)
@@ -211,6 +180,7 @@ class Website < ApplicationRecord
           doctype_name += " (Current)"
         end
       end
+      key = key.parameterize
       downloads[key] ||= {
         param_name: site_element.resource_type.parameterize,
         name: doctype_name,
