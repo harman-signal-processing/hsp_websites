@@ -895,3 +895,41 @@ div.quicklinks {
 }
 
 
+/******* Download Page *******/
+.download_nav {
+  border: 1px solid #999;
+  @media only screen and (min-width: 641px) {
+    height: 510px;
+    padding-top: 5px;
+  }
+  .columns {
+    @media only screen and (min-width: 641px) {
+      height: 500px;
+      &.middle {
+        border-left: 1px dotted #999;
+        border-right: 1px dotted #999;
+      }
+    }
+    @media only screen and (max-width: 640px) {
+      &.middle {
+        max-height: 250px;
+        border-top: 1px dotted #999;
+        border-bottom: 1px dotted #999;
+      }
+    }
+    overflow: scroll;
+    @media only screen and (min-width: 800px) {
+      &.downloads {
+        position: relative;
+        a.ppage {
+          position: absolute;
+          top: 5px;
+          right: 10px;
+        }
+      }
+      .subtitle {
+        max-width: 60%;
+      }
+    }
+  }
+}

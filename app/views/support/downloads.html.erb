@@ -1,67 +1,106 @@
 <h1 class="page_title"><%= ucfirst(t("downloads")) %></h1>
 
-<a name="top"></a>
-
-<div class="row">
-  <div class="large-3 small-12 columns quicklinks">
-    <h3 class="subheader"><%= t('jump_to_a_download_type') %></h3>
-    <ul>
-      <% @downloads.each do |download_collection| %>
-      <li><%= link_to download_collection[:name], "##{download_collection[:param_name]}" %></li>
-      <% end %>
-    </ul>
-  </div>
-
-  <div class="large-9 small-12 columns">
-
-    <% @downloads.each do |download_collection| %>
-      <a name="<%= download_collection[:param_name] %>"></a>
-      <table class="download-collection" style="width: 100%">
-        <thead>
-          <tr>
-            <th colspan="4">
-              <%= download_collection[:name] %>
-          <% if download_collection[:downloads].size > 1 %>
-            <%# TODO: revive the zip-to-download feature. Had to disabled when moving assets to S3 %>
-            <%#= link_to image_tag("icons/zip-icon.png", alt: "", style: "vertical-align: middle; margin-left: 2px; border: none"),
-                zipped_downloads_path(download_collection[:param_name]) %>&nbsp;
-             <%#= link_to t('zip_all'), zipped_downloads_path(download_collection[:param_name]) %>
-          <% end %>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <% if download_collection[:downloads].first[:thumbnail] %>
-            <% download_collection[:downloads].in_groups_of(4, false).each do |downloads| %>
-              <tr>
-                <% downloads.each do |download| %>
-                  <td valign="top" style="text-align: center" width="25%">
-                    <% if download[:thumbnail] %>
-                    <%= link_to(image_tag(download[:thumbnail], style: "vertical-align: middle; padding-right: 4px"), download[:url]) %><br/>
-                    <% end %>
-                    <%= link_to download[:name], download[:url] %>
-                  </td>
-                <% end %>
-              </tr>
+<div class="row download_nav">
+  <div class="medium-3 small-12 columns">
+      <ul class="side-nav">
+        <li <% if params[:view_by] == "products" %>class="active"<% end %>>
+          <%= link_to "View by Product", view_by: "products" %>
+        </li>
+        <li <% if params[:view_by] == "download_types" %>class="active"<% end %>>
+          <%= link_to "View by Download Type", view_by: "download_types" %>
+        </li>
+        <!--
+        <li><%= link_to "View by Language", view_by: "languages" %></li>
+        -->
+        <% if website.has_software? %>
+          <li>
+            <%= link_to softwares_path do %>
+              <%= t(:software).titleize %>
+              <%= image_tag("icons/external_link_icon.png") %>
             <% end %>
-          <% else %>
-            <tr>
-              <% download_collection[:downloads].in_groups(4, false).each do |downloads| %>
-                <td width="25%" valign="top">
-                  <ul style="margin-left: 25px; list-style-type: disc;">
-                    <% downloads.each do |download| %>
-                    <li><%= link_to download[:name], download[:url] %></li>
-                    <% end %>
-                  </ul>
-                </td>
-              <% end %>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <span class="tiny"><%= link_to "back to top", '#top' %></span>
-    <% end %>
+          </li>
+        <% end %>
+      </ul>
 
+      <div class="alert-box info hide-for-small">
+        Note: some browsers hide scrollbars until you begin scrolling.
+        If you don't see scrollbars on these panels, position your mouse
+        over a panel and scroll with your mouse wheel. Or use two fingers
+        on most touchpads and touchscreens.
+      </div>
+  </div>
+  <div class="medium-4 large-3 small-12 columns middle">
+      <% if @products %>
+        <ul class="side-nav">
+          <% @products.each do |product| %>
+            <% if product.product_documents.count > 0 || product.softwares.count > 0 %>
+              <li <% if params[:selected_object] && params[:selected_object] == product.to_param %>class="active"<% end %>>
+                <%= link_to translate_content(product, :name), { view_by: "products", selected_object: product } %>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+        <% if @discontinued_products %>
+          <h5><%= t(:discontinued_products) %></h5>
+          <ul class="side-nav">
+            <% @discontinued_products.each do |product| %>
+              <% if product.product_documents.count > 0 || product.softwares.count > 0 %>
+                <li <% if params[:selected_object] && params[:selected_object] == product.to_param %>class="active"<% end %>>
+                  <%= link_to translate_content(product, :name), { view_by: "products", selected_object: product } %>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+        <% end %>
+      <% elsif @download_types %>
+        <ul class="side-nav">
+          <% @download_types.each do |download_type| %>
+            <li <% if params[:selected_object] && params[:selected_object] == download_type[:param_name] %>class="active"<% end %>>
+              <%= link_to download_type[:name], { view_by: "download_types", selected_object: download_type[:param_name] } %>
+            </li>
+          <% end %>
+        </ul>
+      <% elsif @languages %>
+        <% @languages.each do |language| %>
+          <ul>
+            <li><%= link_to language[:name], { view_by: "languages", selected_object: language[:id] } %></li>
+          </ul>
+        <% end %>
+      <% end %>
+  </div>
+  <div class="medium-5 large-6 small-12 columns downloads">
+      <% if @product %>
+        <h4 class="subtitle"><%= translate_content(@product, :name) %> <%= t("resource_downloads").titleize %></h4>
+        <% if @product.softwares.count > 0 %>
+        <%= render_partial "products/downloads", product: @product %>
+        <% end %>
+
+        <% if @product.product_documents.count > 0 %>
+        <%= render_partial "products/documentation", product: @product %>
+        <% end %>
+
+        <% if @product.in_production? %>
+          <%= link_to @product, class: "ppage" do %>
+            <%= t(:product_details).downcase %>
+            <%= image_tag("icons/external_link_icon.png") %>
+          <% end %>
+        <% end %>
+
+      <% end %>
+      <% if @download_type %>
+        <h5><%= @download_type[:name] %></h5>
+        <ul>
+          <% @download_type[:downloads].each do |d| %>
+            <li><%= link_to d[:name], d[:url] %></li>
+          <% end %>
+        </ul>
+      <% end %>
+      <% if @language %>
+        <ul>
+          <li>downloads for language appear</li>
+        </ul>
+      <% end %>
   </div>
 </div>
+
 

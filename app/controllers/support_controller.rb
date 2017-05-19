@@ -231,8 +231,24 @@ class SupportController < ApplicationController
 
   # Downloads page
   def downloads
-    downloads = website.all_downloads
-    @downloads = downloads.keys.sort{|a,b| a.to_s.downcase <=> b.to_s.downcase}.collect{|k| downloads[k]}
+    if params[:view_by].present?
+      if params[:view_by] == "products"
+        @discontinued_products = website.discontinued_and_vintage_products
+        @products = website.current_and_discontinued_products - @discontinued_products
+        if params[:selected_object]
+          @product = Product.find(params[:selected_object])
+        end
+      elsif params[:view_by] == "download_types"
+        downloads = website.all_downloads
+        if params[:selected_object]
+          @download_type = downloads[params[:selected_object]]
+        end
+        @download_types = downloads.keys.sort{|a,b| a.to_s.downcase <=> b.to_s.downcase}.collect{|k| downloads[k]}
+      end
+    elsif website.brand.name.to_s.match(/architect/i) # for all legacy style download pages:
+      downloads = website.all_downloads
+      @downloads = downloads.keys.sort{|a,b| a.to_s.downcase <=> b.to_s.downcase}.collect{|k| downloads[k]}
+    end
     render_template
   end
 
