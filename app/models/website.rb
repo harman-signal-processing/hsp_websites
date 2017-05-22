@@ -149,7 +149,7 @@ class Website < ApplicationRecord
         key = key.parameterize
         if I18n.locale.to_s.match(/^en/i) || product_document.language.to_s.match(/^en/i) || I18n.locale.to_s.match(/#{product_document.language.to_s}/i)
           downloads[key] ||= {
-            param_name: key.parameterize,
+            param_name: key,
             name: doctype_name,
             downloads: []
           }
@@ -182,7 +182,7 @@ class Website < ApplicationRecord
       end
       key = key.parameterize
       downloads[key] ||= {
-        param_name: site_element.resource_type.parameterize,
+        param_name: key,
         name: doctype_name,
         downloads: []
       }
