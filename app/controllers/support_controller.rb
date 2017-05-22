@@ -243,7 +243,7 @@ class SupportController < ApplicationController
         if params[:selected_object]
           @download_type = downloads[params[:selected_object]]
         end
-        @download_types = downloads.keys.sort{|a,b| a.to_s.downcase <=> b.to_s.downcase}.collect{|k| downloads[k]}
+        @download_types = downloads.keys.sort.collect{|k| downloads[k]}
       end
     elsif website.brand.name.to_s.match(/architect/i) # for all legacy style download pages:
       downloads = website.all_downloads

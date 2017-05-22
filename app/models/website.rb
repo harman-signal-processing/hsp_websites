@@ -169,7 +169,7 @@ class Website < ApplicationRecord
     end
     self.site_elements.where(show_on_public_site: true).where("resource_type IS NOT NULL AND resource_type != ''").each do |site_element|
       name = I18n.t("resource_type.#{site_element.resource_type_key}", default: site_element.resource_type)
-      key = name.to_s.singularize.downcase.gsub(/[^a-z]/, '')
+      key = name.to_s.singularize.downcase.gsub(/[^a-z0-9]/, '')
       doctype_name = I18n.locale.match(/zh/i) ? name : name.to_s.pluralize
       if key == "cutsheet"
         # This file is related to one or more products, but all of those products are discontinued
