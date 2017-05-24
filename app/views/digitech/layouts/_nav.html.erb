@@ -9,7 +9,7 @@
   <% end %>
 </div>
 
-<%= cache ["header", website.brand, I18n.locale] do %>
+<%#= cache ["header", website.brand, I18n.locale] do %>
 <div class="sticky top-bar-container">
   <% if website.sitewide_notice %>
     <div class="sitewide_notice">
@@ -62,4 +62,4 @@
 	</nav>
 </div>
 
-<% end %>
+<%# end %>
