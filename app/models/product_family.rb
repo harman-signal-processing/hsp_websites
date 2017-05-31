@@ -25,7 +25,6 @@ class ProductFamily < ApplicationRecord
 
   acts_as_tree order: :position, scope: :brand_id
   # acts_as_list scope: :brand_id, -> { order('position') }
-  after_save :translate
 
   def slug_candidates
     [
@@ -236,12 +235,6 @@ class ProductFamily < ApplicationRecord
   def tree_names
     self.parent ? "#{name} (#{parent.name})" : name
   end
-
-  # Translates this record into other languages.
-  def translate
-    ContentTranslation.auto_translate(self, self.brand)
-  end
-  handle_asynchronously :translate
 
   def parent_not_itself
     errors.add(:parent_id, "can't be itself") if !self.new_record? && self.parent_id == self.id

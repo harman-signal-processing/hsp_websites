@@ -82,10 +82,6 @@ module HarmanSignalProcessingWebsite
       ["German", "de"]
     ]
 
-    config.bing_translator_id  = ENV['BING_TRANSLATOR_ID']
-    config.bing_translator_key = ENV['BING_TRANSLATOR_KEY']
-    config.auto_translate      = false # override in environment configs as needed
-
     config.hpro_execs = ENV['TOOLKIT_ADMIN_EMAIL_ADDRESSES'].split("|")
   end
 end

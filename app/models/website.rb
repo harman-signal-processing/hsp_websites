@@ -61,10 +61,6 @@ class Website < ApplicationRecord
     self.website_locales.collect{|website_locale| website_locale.locale}
   end
 
-  def auto_translate_locales
-    list_of_all_locales.reject{|i| i.match(/en/)}
-  end
-
   def has_mac_software?
     begin
       Software.where(brand_id: self.brand_id).where("category LIKE '%mac%' or platform LIKE '%mac%'").all.size > 0

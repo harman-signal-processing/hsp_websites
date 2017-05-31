@@ -179,7 +179,7 @@ protected
 
   # Queue file processing
   def queue_processing
-    Software.delay.transfer_and_cleanup(id) if !self.direct_upload_url.blank? && self.direct_upload_url_changed?
+    Software.delay.transfer_and_cleanup(id) if !self.direct_upload_url.blank? && self.saved_change_to_attribute?(:direct_upload_url)
   end
 
 end

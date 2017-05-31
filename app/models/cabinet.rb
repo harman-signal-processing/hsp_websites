@@ -16,14 +16,4 @@ class Cabinet < ApplicationRecord
     }
   validates_attachment :cab_image, content_type: { content_type: /\Aimage/i }
 
-  after_save :translate
-
-  # Translates this record into other languages.
-  def translate
-    if self.products && self.products.first
-      ContentTranslation.auto_translate(self, self.products.first.brand)
-    end
-  end
-  handle_asynchronously :translate
-
 end

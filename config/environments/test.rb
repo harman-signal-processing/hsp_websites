@@ -47,6 +47,16 @@ Rails.application.configure do
   config.rso_invitation_code = "INVITED"
   config.media_invitation_code = "MEDIA"
   config.toolkit_url = "test.toolkit.lvh.me"
-  config.auto_translate      = false
 
 end
+
+# Make our tests fast by avoiding asset compilation
+# but do not raise when assets are not compiled either
+# Borrowed from:
+# https://grosser.it/2017/04/29/rails-5-1-do-not-compile-asset-in-test-vs-asset-is-not-present-in-the-asset-pipeline/
+Rails.application.config.assets.compile = false
+Sprockets::Rails::Helper.prepend(Module.new do
+  def resolve_asset_path(path, *)
+    super || path
+  end
+end)

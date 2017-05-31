@@ -26,8 +26,6 @@ class MarketSegment < ApplicationRecord
 
   acts_as_tree order: :position, scope: :brand_id
 
-  after_save :translate
-
   def slug_candidates
     [
       :name,
@@ -50,12 +48,6 @@ class MarketSegment < ApplicationRecord
     brand_id = (w.is_a?(Brand)) ? w.id : w.brand_id
     where(brand_id: brand_id).where(parent_id: nil).order(:position)
   end
-
-  # Translates this record into other languages.
-  def translate
-    ContentTranslation.auto_translate(self, self.brand)
-  end
-  handle_asynchronously :translate
 
   def self.with_current_products(website, locale)
     segments = []

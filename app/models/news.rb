@@ -31,7 +31,6 @@ class News < ApplicationRecord
   validates :post_on, presence: true
 
   before_save :strip_harmans_from_title
-  after_save :translate
   attr_accessor :from, :to
 
   # When presenting the site to Rob before going live, he asked that we remove
@@ -117,12 +116,6 @@ class News < ApplicationRecord
   def quote_or_headline
     @quote_or_headline ||= self.quote.present? ? self.quote : self.title
   end
-
-  # Translates this record into other languages.
-  def translate
-    ContentTranslation.auto_translate(self, self.brand)
-  end
-  handle_asynchronously :translate
 
   def notify(options={})
     default_options = { from: 'support@digitech.com', to: 'config.hpro_execs' }

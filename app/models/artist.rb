@@ -17,7 +17,6 @@ class Artist < ApplicationRecord
   has_many :brands, through: :artist_brands
   belongs_to :approver, class_name: "User", foreign_key: "approver_id"
   before_save :clear_approval, :fix_website_format
-  after_save :translate
 
   has_attached_file :artist_photo, {
     styles: { feature: "940x400#",
@@ -157,13 +156,4 @@ class Artist < ApplicationRecord
     (self.approver_id.blank?) ? "Pending" : "Approved by #{self.approver.name}"
   end
 
-  # Translates this record into other languages.
-  def translate
-    if self.brands
-      self.brands.each do |brand|
-        ContentTranslation.auto_translate(self, brand)
-      end
-    end
-  end
-  handle_asynchronously :translate
 end

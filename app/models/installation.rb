@@ -6,7 +6,6 @@ class Installation < ApplicationRecord
   validates :brand_id, presence: true
 
   belongs_to :brand
-  after_save :translate
 
   def slug_candidates
     [
@@ -40,14 +39,5 @@ class Installation < ApplicationRecord
   def content_preview
     self.body
   end
-
-  # Translates this record into other languages.
-  def translate
-    unless self.body.size > 65000 # large pages cause delayed job problems
-      ContentTranslation.auto_translate(self, self.brand)
-    end
-  end
-  # Uncomment below to enable auto-translation of Pages. However, we've seen problems with these (mostly Archimedia pages)
-  # handle_asynchronously :translate
 
 end

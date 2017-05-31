@@ -17,28 +17,11 @@ module TranslationHelper
         elsif t = translations.where(["locale LIKE ?", "'#{parent_locale}%%'"]).first
           c = t.content
         end
-      elsif auto = auto_translate(object, method)
-        c = auto
       end
       c.to_s.html_safe
     else
       product_description = object.send("#{method}_field")
       translate_content(product_description, "content_part1")
-    end
-  end
-
-  # Bing translate, store results, rescue in case of error
-  def auto_translate(object, method)
-    if HarmanSignalProcessingWebsite::Application.config.auto_translate
-      begin
-        if translated = ContentTranslation.create_or_update_with_auto_translate(object, method, I18n.locale)
-          translated.content
-        end
-      rescue
-        object[method]
-      end
-    else
-      object[method]
     end
   end
 

@@ -1,5 +1,4 @@
 class ContentTranslation < ApplicationRecord
-  require 'bing_translator'
   validates :content_id, presence: true
   validates :content_method, presence: true
   validates :locale, presence: true
@@ -45,55 +44,6 @@ class ContentTranslation < ApplicationRecord
     translatables(brand)[object.class.name.underscore]
   end
 
-  # :nocov:
-  def self.auto_translate(object, brand)
-    if HarmanSignalProcessingWebsite::Application.config.auto_translate
-      locales = brand.default_website.auto_translate_locales
-      fields_to_translate_for(object, brand).each do |method|
-        locales.each do |locale|
-          create_or_update_with_auto_translate(object, method, locale)
-        end
-      end
-    end
-  end
-  # :nocov:
-
-  # Bing translate, store results
-  # :nocov:
-  def self.create_or_update_with_auto_translate(object, method, locale)
-    if exists?(content_type: object.class.to_s, content_id: object.id, content_method: method, locale: locale)
-      update_with_auto_translate(object, method, locale)
-    else
-      create_with_auto_translate(object, method, locale)
-    end
-  end
-  # :nocov:
-
-  # :nocov:
-  def auto_translate(object)
-    if HarmanSignalProcessingWebsite::Application.config.auto_translate
-      from = I18n.default_locale.to_s.gsub(/\-.*$/, '') || 'en'
-      target = locale
-      target = "zh-CHS" if target.to_s.match(/^zh/i)
-      original_content = object[self.content_method]
-
-      #logger.debug " ------>     from: #{from}"
-      #logger.debug " ------>   target: #{target}"
-      #logger.debug " ------> original: #{original_content}"
-
-      unless from == target || original_content.blank?
-        t = translator
-        if t.supported_language_codes.include?(target) && t.supported_language_codes.include?(from)
-          if content = t.translate(original_content, from: from, to: target)
-            self.content = content
-            self.save
-          end
-        end
-      end
-    end
-  end
-  # :nocov:
-
   # Tries to find a ContentTranslation for the provided field for current locale. Falls
   # back to language only or default (english)
   def self.translate_text_content(object, method)
@@ -114,31 +64,5 @@ class ContentTranslation < ApplicationRecord
     end
     c
   end
-
-private
-
-  # :nocov:
-  def self.create_with_auto_translate(object, method, locale)
-    self.new(
-      content_type: object.class.to_s,
-      content_id: object.id,
-      content_method: method,
-      locale: locale
-    ).auto_translate(object)
-  end
-
-  def self.update_with_auto_translate(object, method, locale)
-    self.where(
-      content_type: object.class.to_s,
-      content_id: object.id,
-      content_method: method,
-      locale: locale
-    ).first.auto_translate(object)
-  end
-
-  def translator
-    BingTranslator.new(HarmanSignalProcessingWebsite::Application.config.bing_translator_id, HarmanSignalProcessingWebsite::Application.config.bing_translator_key)
-  end
-  # :nocov:
 
 end

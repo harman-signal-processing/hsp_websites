@@ -53,8 +53,6 @@ class Product < ApplicationRecord
   after_initialize :set_default_status
   accepts_nested_attributes_for :product_prices, reject_if: :all_blank
 
-  after_save :translate
-
   monetize :harman_employee_price_cents, :allow_nil => true
   monetize :msrp_cents, :allow_nil => true
   monetize :street_price_cents, :allow_nil => true
@@ -519,12 +517,6 @@ class Product < ApplicationRecord
       false
     end
   end
-
-  # Translates this record into other languages.
-  def translate
-    ContentTranslation.auto_translate(self, self.brand)
-  end
-  handle_asynchronously :translate
 
   def safety_documents
     @safety_documents ||= product_documents.where("document_type LIKE '%safety%'")

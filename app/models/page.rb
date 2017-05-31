@@ -9,7 +9,6 @@ class Page < ApplicationRecord
   validates :custom_route, uniqueness: true
 
   belongs_to :brand
-  after_save :translate
 
   def slug_candidates
     [
@@ -63,14 +62,5 @@ class Page < ApplicationRecord
       !!(brand.settings.where("name LIKE '%url%' AND string_value LIKE '%#{value}%'").count > 0)
     end
   end
-
-  # Translates this record into other languages.
-  def translate
-    unless self.body.size > 65000 # large pages cause delayed job problems
-      ContentTranslation.auto_translate(self, self.brand)
-    end
-  end
-  # Uncomment below to enable auto-translation of Pages. However, we've seen problems with these (mostly Archimedia pages)
-  # handle_asynchronously :translate
 
 end

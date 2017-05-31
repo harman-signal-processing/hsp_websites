@@ -3,13 +3,6 @@ require "rails_helper"
 RSpec.describe TrainingModulesHelper do
 
   describe "show_module" do
-    it "shows swf module inline" do
-      tm = FactoryGirl.build_stubbed(:training_module, training_module_file_name: 'test.swf')
-
-      content = helper.show_module(tm)
-
-      expect(content).to eq (swf_tag(tm.training_module.url, size: "#{tm.width}x#{tm.height}"))
-    end
 
     it "shows a link to download mov modules" do
       tm = FactoryGirl.build_stubbed(:training_module, training_module_file_name: 'test.mov')
@@ -27,5 +20,7 @@ RSpec.describe TrainingModulesHelper do
 
       expect(content).to match(/Loading the player/)
     end
+
   end
+
 end

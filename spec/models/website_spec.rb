@@ -36,15 +36,6 @@ RSpec.describe Website, :type => :model do
       expect(@website.locale.to_s).to eq I18n.default_locale.to_s
     end
 
-    it "determines any locales up for translation" do
-      website = FactoryGirl.create(:website)
-      FactoryGirl.create(:website_locale, locale: "zh", website: website)
-      FactoryGirl.create(:website_locale, locale: "en-GB", website: website)
-
-      expect(website.auto_translate_locales).to include "zh"
-      expect(website.auto_translate_locales).not_to include "en-GB"
-    end
-
   end
 
 end

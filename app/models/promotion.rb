@@ -32,8 +32,6 @@ class Promotion < ApplicationRecord
     }}.merge(S3_STORAGE)
   validates_attachment :homepage_banner, content_type: { content_type: /\Aimage/i }
 
-  after_save :translate
-
   def sanitized_name
     self.name.gsub(/[\'\"]/, "")
   end
@@ -74,11 +72,5 @@ class Promotion < ApplicationRecord
   def expired?
     (end_on <= Date.today)
   end
-
-  # Translates this record into other languages.
-  def translate
-    ContentTranslation.auto_translate(self, self.brand)
-  end
-  handle_asynchronously :translate
 
 end

@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '5.0.2'
+gem 'rails', '~> 5.1'
 gem 'responders', '~> 2.0'
 # Gems used only for assets and not required
 # in production environments by default.
@@ -63,8 +63,6 @@ gem "rabl"
 gem "money"
 gem 'money-rails'
 gem 'will_paginate'
-gem "bing_translator"
-gem "rubyntlm" # optional dependency for bing_translator, but causes log errors without it
 gem "possessive"
 #gem 'event-calendar', :require => 'event_calendar' # was for marketing queue, I think
 gem 'RedCloth'

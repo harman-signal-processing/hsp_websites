@@ -36,7 +36,7 @@ class WebsiteLocale < ApplicationRecord
 
   # Restart the site if a new locale is activated
   def restart_site
-    if self.complete? && self.complete_changed?
+    if self.complete? && self.saved_change_to_attribute?(:complete)
       `touch #{Rails.root.join("tmp", "restart.txt")}`
     end
   end

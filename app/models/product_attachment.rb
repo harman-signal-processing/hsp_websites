@@ -58,7 +58,7 @@ class ProductAttachment < ApplicationRecord
         ProductAttachment.where(product_id: self.product_id).where.not(id: self.id).update_all(primary_photo: false)
       end
     else
-      self.update_attributes(primary_photo: true)
+      self.update_column(:primary_photo, true)
     end
   end
 

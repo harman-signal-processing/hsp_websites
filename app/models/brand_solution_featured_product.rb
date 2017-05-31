@@ -6,10 +6,10 @@ class BrandSolutionFeaturedProduct < ApplicationRecord
   validates :solution, presence: true
 
   belongs_to :product, touch: true # (maybe--if not, the static fields should be required)
-  validates :product, presence: true, if: "name.nil?"
+  validates :product, presence: true, if: :name_is_blank?
 
-  validates :name, presence: true, if: "product_id.nil?"
-  validates :link, presence: true, if: "product_id.nil?"
+  validates :name, presence: true, if: :product_is_blank?
+  validates :link, presence: true, if: :product_is_blank?
   #validates :description, presence: true, if: "product_id.nil?"
 
   has_attached_file :image, {
@@ -42,6 +42,14 @@ class BrandSolutionFeaturedProduct < ApplicationRecord
         self.image = nil
       end
     end
+  end
+
+  def name_is_blank?
+    name.nil?
+  end
+
+  def product_is_blank?
+    product_id.nil?
   end
 
 end

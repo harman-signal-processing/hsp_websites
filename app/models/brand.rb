@@ -53,12 +53,12 @@ class Brand < ApplicationRecord
 
   def update_products
     begin
-    if live_on_this_platform_changed? && live_on_this_platform?
-      self.products.each do |p|
-        p.more_info_url = nil
-        p.save
+      if self.saved_change_to_attribute?(:live_on_this_platform) && live_on_this_platform?
+        self.products.each do |p|
+          p.more_info_url = nil
+          p.save
+        end
       end
-    end
     rescue
       # oh well.
     end
