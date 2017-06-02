@@ -21,11 +21,11 @@ gem 'jquery-rails' #, "~> 4.0.5" # 4.1 broke buy it now popups
 gem 'mysql2' #, '~> 0.3.18' # sphinx needs '0.3.12b4'
 gem 'utf8-cleaner'
 gem 'friendly_id', '>= 5.2'
-gem 'aws-sdk' #, '< 2.0'
+gem 'aws-sdk', '2.9.14' # hunting down problems after 2.9.19
 gem 'fog-rackspace'
 gem 'fog-aws'
 gem 'asset_sync'
-gem "paperclip" #, "4.3.6" # After this, AWS 2 is needed
+gem "paperclip", '5.0' # hunting down problems after 5.1
 gem 'paperclip-meta'
 gem 's3_direct_upload'
 gem 'meta-tags'
