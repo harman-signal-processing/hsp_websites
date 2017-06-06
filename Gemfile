@@ -93,7 +93,7 @@ end
 
 group :development do
   gem 'web-console' #, '~> 2.0'
-  gem 'capistrano', '3.7.2'
+  gem 'capistrano', '~> 3'
   gem 'capistrano-rails'
   gem 'capistrano-bundler'
   gem 'capistrano3-delayed-job', '~> 1.0'
