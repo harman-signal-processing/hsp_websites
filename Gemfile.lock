@@ -65,13 +65,13 @@ GEM
       addressable (>= 2.3.1)
       extlib (>= 0.9.15)
       multi_json (>= 1.0.0)
-    aws-sdk (2.9.14)
-      aws-sdk-resources (= 2.9.14)
-    aws-sdk-core (2.9.14)
+    aws-sdk (2.9.28)
+      aws-sdk-resources (= 2.9.28)
+    aws-sdk-core (2.9.28)
       aws-sigv4 (~> 1.0)
       jmespath (~> 1.0)
-    aws-sdk-resources (2.9.14)
-      aws-sdk-core (= 2.9.14)
+    aws-sdk-resources (2.9.28)
+      aws-sdk-core (= 2.9.28)
     aws-sigv4 (1.0.0)
     bcrypt (3.1.11)
     bindex (0.5.0)
@@ -360,7 +360,7 @@ GEM
       rack (>= 1.2, < 3)
     orm_adapter (0.5.0)
     os (0.9.6)
-    paperclip (5.0.0)
+    paperclip (5.1.0)
       activemodel (>= 4.2.0)
       activesupport (>= 4.2.0)
       cocaine (~> 0.5.5)
@@ -590,7 +590,7 @@ DEPENDENCIES
   acts_as_list
   acts_as_tree
   asset_sync
-  aws-sdk (= 2.9.14)
+  aws-sdk
   cancancan
   capistrano (= 3.7.2)
   capistrano-bundler
@@ -642,7 +642,7 @@ DEPENDENCIES
   mysql2
   nokogiri
   oauth2
-  paperclip (= 5.0)
+  paperclip
   paperclip-meta
   passenger_monit
   possessive
