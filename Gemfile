@@ -9,7 +9,7 @@ gem 'sprockets-rails' #, '2.2.4'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails' #, '~> 4.1.0'
-gem "foundation-rails", '~> 5.5'
+gem "foundation-rails", '5.5.1' # 5.5.3 has a bug with Magellan https://github.com/zurb/foundation-sites/issues/8416
 gem 'lightbox2-rails', '~> 2.7.1' # 6/1/2016 v2.8.2.1 stopped working.
 gem 'image_zoomer'
 gem 'jquery-rails' #, "~> 4.0.5" # 4.1 broke buy it now popups

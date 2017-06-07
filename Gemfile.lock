@@ -65,13 +65,13 @@ GEM
       addressable (>= 2.3.1)
       extlib (>= 0.9.15)
       multi_json (>= 1.0.0)
-    aws-sdk (2.9.32)
-      aws-sdk-resources (= 2.9.32)
-    aws-sdk-core (2.9.32)
+    aws-sdk (2.9.34)
+      aws-sdk-resources (= 2.9.34)
+    aws-sdk-core (2.9.34)
       aws-sigv4 (~> 1.0)
       jmespath (~> 1.0)
-    aws-sdk-resources (2.9.32)
-      aws-sdk-core (= 2.9.32)
+    aws-sdk-resources (2.9.34)
+      aws-sdk-core (= 2.9.34)
     aws-sigv4 (1.0.0)
     bcrypt (3.1.11)
     bindex (0.5.0)
@@ -191,7 +191,7 @@ GEM
       fog-core
       nokogiri (>= 1.5.11, < 2.0.0)
     formatador (0.2.5)
-    foundation-rails (5.5.3.2)
+    foundation-rails (5.5.1.0)
       railties (>= 3.1.0)
       sass (>= 3.3.0, < 3.5)
     friendly_id (5.2.1)
@@ -615,7 +615,7 @@ DEPENDENCIES
   figaro
   fog-aws
   fog-rackspace
-  foundation-rails (~> 5.5)
+  foundation-rails (= 5.5.1)
   friendly_id (>= 5.2)
   geokit (>= 1.8.5)
   geokit-rails
