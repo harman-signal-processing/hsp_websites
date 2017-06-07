@@ -37,7 +37,7 @@ class SupportController < ApplicationController
     if request.post?
       @warranty_registration = WarrantyRegistration.new(warranty_registration_params)
       @warranty_registration.brand_id = website.brand_id
-      if verify_recaptcha(private_key: website.recaptcha_private_key) && @warranty_registration.valid?
+      if verify_recaptcha(model: @warranty_registration, secret_key: website.recaptcha_private_key) && @warranty_registration.valid?
         @warranty_registration.save
         if @warranty_registration.product.get_started_page.present?
           cookies[@warranty_registration.product.get_started_page.cookie_name] = { value: @warranty_registration.id, expires: 10.years.from_now }
@@ -72,7 +72,7 @@ class SupportController < ApplicationController
         c.brand = website.brand
         c.require_country = true if require_country?
       end
-      if verify_recaptcha(private_key: website.recaptcha_private_key) && @contact_message.valid?
+      if verify_recaptcha(model: @contact_message, secret_key: website.recaptcha_private_key) && @contact_message.valid?
         @contact_message.save
         SiteMailer.delay.contact_form(@contact_message)
         redirect_to support_path, notice: t('blurbs.contact_form_thankyou') and return false
@@ -142,7 +142,7 @@ class SupportController < ApplicationController
         c.message_type = "catalog_request"
         c.brand = website.brand
       end
-      if @contact_message.valid? && verify_recaptcha(private_key: website.recaptcha_private_key)
+      if @contact_message.valid? && verify_recaptcha(model: @contact_message, secret_key: website.recaptcha_private_key)
         @contact_message.save
         SiteMailer.delay.contact_form(@contact_message)
         redirect_to support_path, notice: "Thank you for your catalog request. We'll get it out to you shortly." and return false

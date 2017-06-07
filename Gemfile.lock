@@ -65,13 +65,13 @@ GEM
       addressable (>= 2.3.1)
       extlib (>= 0.9.15)
       multi_json (>= 1.0.0)
-    aws-sdk (2.9.31)
-      aws-sdk-resources (= 2.9.31)
-    aws-sdk-core (2.9.31)
+    aws-sdk (2.9.32)
+      aws-sdk-resources (= 2.9.32)
+    aws-sdk-core (2.9.32)
       aws-sigv4 (~> 1.0)
       jmespath (~> 1.0)
-    aws-sdk-resources (2.9.31)
-      aws-sdk-core (= 2.9.31)
+    aws-sdk-resources (2.9.32)
+      aws-sdk-core (= 2.9.32)
     aws-sigv4 (1.0.0)
     bcrypt (3.1.11)
     bindex (0.5.0)
@@ -419,7 +419,7 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.8)
       ffi (>= 0.5.0)
-    recaptcha (1.3.0)
+    recaptcha (4.3.1)
       json
     redis (3.3.3)
     redis-namespace (1.5.3)
@@ -651,7 +651,7 @@ DEPENDENCIES
   rb-fchange
   rb-fsevent
   rb-inotify
-  recaptcha (~> 1.3)
+  recaptcha
   responders (~> 2.0)
   rmagick
   rspec-rails

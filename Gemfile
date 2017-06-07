@@ -44,7 +44,7 @@ gem 'httparty'
 gem 'devise'
 gem 'cancancan'
 gem 'gravtastic'
-gem "recaptcha", '~> 1.3', require: "recaptcha/rails"
+gem "recaptcha", require: "recaptcha/rails"
 gem 'to_xls-rails'
 gem 'acts_as_list'
 gem 'acts_as_tree'

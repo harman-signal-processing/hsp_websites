@@ -2,7 +2,7 @@
 
 <h1 class="page_title"><%= @page_title %></h1>
 
-<%= simple_form_for @contact_message, url: catalog_request_path do |f| %>
+<%= simple_form_for @contact_message, url: catalog_request_path, html: { id: 'invisible-recaptcha-form' } do |f| %>
 
 	<div class="row">
 		<div class="large-8 columns">
@@ -29,7 +29,7 @@
   </div>
 
   <div class="captcha">
-    <%= recaptcha_tags public_key: website.recaptcha_public_key, stoken: false  %>
+    <%= recaptcha_tags site_key: website.recaptcha_public_key %>
   </div>
 
   <%= f.submit t('submit'), class: "medium button" %>

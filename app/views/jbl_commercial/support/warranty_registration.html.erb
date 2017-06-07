@@ -108,7 +108,7 @@
 		<p><br/><%= f.input :subscribe, label: t('blurbs.subscribe', brand: website.brand_name) %></p>
 
     <div class="captcha">
-      <%= recaptcha_tags  public_key: website.recaptcha_public_key, stoken: false %>
+      <%= recaptcha_tags site_key: website.recaptcha_public_key %>
     </div>
 		<br/>
 		<div>
