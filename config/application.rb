@@ -59,6 +59,7 @@ module HarmanSignalProcessingWebsite
       ["Cut Sheet", "cut_sheet"],
       ["Quickstart Guide", "quickstart_guide"],
       ["Quick Reference Guide", "quick_reference_guide"],
+      ["VoIP Reference Guide", "voip_reference_guide"],
       ["Application Guide", "application_guide"],
       ["Install Guide", "install_guide"],
       ["Preset List", "preset_list"],

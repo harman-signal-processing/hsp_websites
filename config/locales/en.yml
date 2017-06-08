@@ -192,6 +192,7 @@ en:
       cad_drawing_rear: CAD drawing rear
       safety_sheet: Safety Sheet
       other: Other Document
+      voip_reference_guide: VoIP Reference Guide
       photo: Photo
 
   resource_type:
