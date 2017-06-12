@@ -116,6 +116,9 @@ class MainController < ApplicationController
   def search
     @page_title = t('titles.search_results')
     @query = params[:query]
+    if @query.to_s.match(/union\s{1,}select/i)
+      render plain: "Search not allowed", status: 400 and return false
+    end
     query = @query.to_s.gsub(/[\/\\]/, " ")
     ferret_results = ThinkingSphinx.search(
       ThinkingSphinx::Query.escape(query),
