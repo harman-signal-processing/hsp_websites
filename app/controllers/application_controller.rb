@@ -129,6 +129,12 @@ private
         # send this idiot back to his own ISP
         redirect_to "http://www.securitymetrics.com#{ENV['REQUEST_URI']}" and return false
       end
+      if params && params[:page]
+        page = params[:page]
+        if page.to_s.match(/union\s{1,}select/i) || page.to_s.match(/and|\&*\s{1,}sleep/i) || page.to_s.match(/order\s{1,}by/i)
+          render plain: "Not allowed", status: 400 and return false
+        end
+      end
     rescue
     end
   end
