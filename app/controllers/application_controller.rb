@@ -131,7 +131,10 @@ private
       end
       if params && params[:page]
         page = params[:page]
-        if page.to_s.match(/union\s{1,}select/i) || page.to_s.match(/and|\&*\s{1,}sleep/i) || page.to_s.match(/order\s{1,}by/i)
+        if page.to_s.match(/union\s{1,}select/i) ||
+            page.to_s.match(/and|\&*\s{1,}sleep/i) ||
+            page.to_s.match(/select\*/i) ||
+            page.to_s.match(/order\s{1,}by/i)
           render plain: "Not allowed", status: 400 and return false
         end
       end
