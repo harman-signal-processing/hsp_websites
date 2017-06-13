@@ -25,7 +25,7 @@ module MainHelper
     if feature.string_value.blank?
       panel
     else
-      if feature.string_value =~ /^http\:/i
+      if feature.string_value =~ /^https?\:/i
         link_to(panel, feature.string_value, target: "_blank")
       elsif feature.string_value =~ /^\//
         link_to(panel, feature.string_value)
