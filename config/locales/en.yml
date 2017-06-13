@@ -166,6 +166,21 @@ en:
     system_design_tools: System Design Tools
     service: Service
     downloads: Downloads
+    markets: Markets
+    k12_education: K-12 Education
+    higher_education: Higher Education
+    learn: Learn
+    av_basics: AV Basics
+    av_and_it: AV & IT
+    buying_av: Buying AV
+    collaboration: Collaboration
+    learning_spaces: Learning Spaces
+    meeting_rooms: Meeting Rooms
+    security: Security
+    sustainability: Sustainability
+    video_conferencing: Video Conferencing
+    case_studies: Case Studies
+    solution_guides: Solution Guides
 
   language:
       en: English

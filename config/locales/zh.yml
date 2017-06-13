@@ -38,7 +38,7 @@ zh:
   visit: 访问
   visit_the: 访问
   browse_products: 浏览产品
-  product_reviews: 产品评测 
+  product_reviews: 产品评测
   news_signup: 报名加入我们的邮件列表
   warranty_registration: 产品登记
   search: 搜索
@@ -125,6 +125,21 @@ zh:
     system_design_tools: 系统设计工具
     service: 售后服务
     downloads: 资料下载
+    markets: 细分市场
+    k12_education: 基础教育阶段
+    higher_education: 高等教育阶段
+    learn: 学习
+    av_basics: 音视基础知识
+    av_and_it: 音视与 IT
+    buying_av: 购买音视系统
+    collaboration: 协作系统
+    learning_spaces: 学习空间
+    meeting_rooms: 会议室
+    security: 安全
+    sustainability: 可持续性
+    video_conferencing: 视频会议
+    case_studies: 案例研究
+    solution_guides: 解决方案指南
 
   language:
       en:  英语
@@ -168,7 +183,7 @@ zh:
       training_resource: 培训资源
       wallpaper: 壁纸
       whitepaper: 研究文件
-      
+
   product_page:
       select_products_to_compare: 选择2〜4个产品进行比较
       compare_selected_products: 比较选定的产品
@@ -260,7 +275,7 @@ zh:
   meta:
       description:
           where_to_buy: " 哪里购买 %{brand}"
-          artists: " 了解乐手如何更好使用产品 %{brand}" 
+          artists: " 了解乐手如何更好使用产品 %{brand}"
           featured_artists:  首席乐手使用的产品
           products_on_tour:  搜寻哪位乐手在巡演途中以及他使用的产品
           support: "%{brand}  提供资源予你的（品牌）产品包括最常见问题，使用手册，产品登记以及服务中心"

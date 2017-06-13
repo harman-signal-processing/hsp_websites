@@ -1,17 +1,17 @@
 <%= cache ["nav_items", website.brand, I18n.locale] do %>
-  <li class="has-dropdown"><%= link_to "Markets", '#', class: "disabled" %>
+  <li class="has-dropdown"><%= link_to t("nav.markets"), '#', class: "disabled" %>
     <ul class="dropdown">
       <% MarketSegment.all_parents(website).each do |market_segment| %>
         <%# ugly hack to add child items to Education section %>
         <% if market_segment.name.to_s =~ /education/i %>
-          <li class="has-dropdown"><%= link_to market_segment.name.titleize, market_segment %>
+          <li class="has-dropdown"><%= link_to translate_content(market_segment, :name).titleize, market_segment %>
             <ul class="dropdown">
-              <li><%= link_to "K-12 Education", "/#{I18n.locale}/k-12-education" %></li>
-              <li><%= link_to "Higher Education", "/#{I18n.locale}/higher-education" %></li>
+              <li><%= link_to t("nav.k12_education"), "/#{I18n.locale}/k-12-education" %></li>
+              <li><%= link_to t("nav.higher_education"), "/#{I18n.locale}/higher-education" %></li>
             </ul>
           </li>
         <% else %>
-          <li><%= link_to market_segment.name.titleize, market_segment %></li>
+          <li><%= link_to translate_content(market_segment, :name).titleize, market_segment %></li>
         <% end %>
       <% end %>
     </ul>
@@ -63,19 +63,19 @@
   -->
 
   <li class="divider hide-for-medium"></li>
-  <li class="has-dropdown"><%= link_to "Learn", "/#{I18n.locale}/learn" %>
+  <li class="has-dropdown"><%= link_to t("nav.learn"), "/#{I18n.locale}/learn" %>
     <ul class="dropdown">
-      <li><%= link_to "AV Basics", "/#{I18n.locale}/learn-av-basics" %></li>
-      <li><%= link_to "AV & IT", "/#{I18n.locale}/learn-av-it" %></li>
-      <li><%= link_to "Buying AV", "/#{I18n.locale}/learn-buying-av" %></li>
-      <li><%= link_to "Collaboration", "/#{I18n.locale}/learn-collaboration" %></li>
-      <li><%= link_to "Learning Spaces", "/#{I18n.locale}/learn-learning-spaces" %></li>
-      <li><%= link_to "Meeting Rooms", "/#{I18n.locale}/learn-meeting-rooms" %></li>
-      <li><%= link_to "Security", "/#{I18n.locale}/learn-security" %></li>
-      <li><%= link_to "Sustainability", "/#{I18n.locale}/learn-sustainability" %></li>
-      <li><%= link_to "Video Conferencing", "/#{I18n.locale}/learn-video-conferencing" %></li>
-      <li><%= link_to "Case Studies", "/#{I18n.locale}/case-studies" %></li>
-      <li><%= link_to "Solution Guides", "/#{I18n.locale}/solution-guides" %></li>
+      <li><%= link_to t("nav.av_basics"), "/#{I18n.locale}/learn-av-basics" %></li>
+      <li><%= link_to t("nav.av_and_it"), "/#{I18n.locale}/learn-av-it" %></li>
+      <li><%= link_to t("nav.buying_av"), "/#{I18n.locale}/learn-buying-av" %></li>
+      <li><%= link_to t("nav.collaboration"), "/#{I18n.locale}/learn-collaboration" %></li>
+      <li><%= link_to t("nav.learning_spaces"), "/#{I18n.locale}/learn-learning-spaces" %></li>
+      <li><%= link_to t("nav.meeting_rooms"), "/#{I18n.locale}/learn-meeting-rooms" %></li>
+      <li><%= link_to t("nav.security"), "/#{I18n.locale}/learn-security" %></li>
+      <li><%= link_to t("nav.sustainability"), "/#{I18n.locale}/learn-sustainability" %></li>
+      <li><%= link_to t("nav.video_conferencing"), "/#{I18n.locale}/learn-video-conferencing" %></li>
+      <li><%= link_to t("nav.case_studies"), "/#{I18n.locale}/case-studies" %></li>
+      <li><%= link_to t("nav.solution_guides"), "/#{I18n.locale}/solution-guides" %></li>
     </ul>
   </li>
 
@@ -91,5 +91,5 @@
 	<% end %>
 
   <li class="divider hide-for-medium"></li>
-  <li><%= link_to "Contact Us", amx_contacts_path %></li>
+  <li><%= link_to t("contact_us"), amx_contacts_path %></li>
 <% end %>
