@@ -10,7 +10,7 @@ class ToneLibrarySongsController < ApplicationController
       format.xml  { render xml: @tone_library_songs }
     end
   end
-      
+
   # Utility function to force the download of a patch
   #
   # As of 10/2013, this method isn't really used anymore. It used to be linked to like this:
@@ -22,17 +22,13 @@ class ToneLibrarySongsController < ApplicationController
   def download
     product = Product.find params[:product_id]
     song = ToneLibrarySong.find params[:tone_library_song_id]
-    tone_library_patch = ToneLibraryPatch.where(product_id: product.id, tone_library_song_id: song.id).first
-    begin
-      data = open(tone_library_patch.patch.url)
-      send_file(data, 
-        filename: tone_library_patch.patch_file_name.to_s,
-        type: tone_library_patch.mime_type,
-        disposition: 'attachment'
-      )
-    rescue
-    # Redirects directly to the file
-      redirect_to tone_library_patch.patch.url, status: :moved_permanently
-    end
+    tone_library_patch = ToneLibraryPatch.where(product_id: product.id, tone_library_song_id: song.id).first!
+    data = open(tone_library_patch.patch.url)
+    send_file(data,
+      filename: tone_library_patch.patch_file_name.to_s,
+      type: tone_library_patch.mime_type,
+      disposition: 'attachment'
+    )
   end
+
 end
