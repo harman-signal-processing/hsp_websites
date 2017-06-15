@@ -3,7 +3,10 @@ class ToneLibraryPatch < ApplicationRecord
   belongs_to :product, touch: true
   has_attached_file :patch, {
     s3_headers: lambda { |f|
-      {"Content-Type" => f.mime_type}
+      {
+        "Content-Type" => f.mime_type,
+        "Content-Disposition" => %(attachment; filename="#{f.patch_file_name}")
+      }
     }}.merge(S3_STORAGE)
 
   validates_attachment :patch, presence: true

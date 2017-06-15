@@ -23,12 +23,7 @@ class ToneLibrarySongsController < ApplicationController
     product = Product.find params[:product_id]
     song = ToneLibrarySong.find params[:tone_library_song_id]
     tone_library_patch = ToneLibraryPatch.where(product_id: product.id, tone_library_song_id: song.id).first!
-    data = open(tone_library_patch.patch.url)
-    send_file(data,
-      filename: tone_library_patch.patch_file_name.to_s,
-      type: tone_library_patch.mime_type,
-      disposition: 'attachment'
-    )
+    redirect_to tone_library_patch.patch.url
   end
 
 end
