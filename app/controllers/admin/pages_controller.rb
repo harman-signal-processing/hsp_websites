@@ -1,7 +1,8 @@
 class Admin::PagesController < AdminController
+  skip_before_action :catch_criminals # looks for SQLi in the "page" param but conflicts with this controller
   before_action :initialize_page, only: :create
   load_and_authorize_resource
-  
+
   # GET /admin/pages
   # GET /admin/pages.xml
   def index
