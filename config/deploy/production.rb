@@ -9,7 +9,7 @@
 
 server "rackspace1",  user: 'brandsites', roles: %w{web app db background}, primary: true
 server "rackspace2",  user: 'brandsites', roles: %w{web app}
-#server "10.10.23.86", user: 'brandsites', roles: %w{web app}
+server "10.10.23.86", user: 'brandsites', roles: %w{web app}
 #server "10.10.23.15", user: 'brandsites', roles: %w{app}
 
 
