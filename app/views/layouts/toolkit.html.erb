@@ -24,16 +24,6 @@
               background-repeat: no-repeat;
             }
           </style>
-        <% elsif tw = @brand.default_website.twitter_name %>
-          <% t = Tweet.client.user(tw) %>
-          <style type="text/css">
-            body {
-              background-color: #<%= t.profile_background_color %>;
-              background-image: url('<%= t.profile_background_image_url %>');
-              background-position: top left;
-              background-repeat: no-repeat;
-            }
-          </style>
         <% end %>
         <%= app_meta_tags(title: @brand.name, folder: @brand.default_website.folder) %>
       <% end %>
