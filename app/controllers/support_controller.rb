@@ -219,7 +219,7 @@ class SupportController < ApplicationController
   # All repair facilities
   def all_repair
     @page_title = "All Repair Facilities"
-    @results = ServiceCenter.where(brand_id: website.brand_id).order("UPPER(name)")
+    @service_centers = website.brand.service_centers
   end
 
   # Power Supplies page. Really, this could be used to build a similar page for

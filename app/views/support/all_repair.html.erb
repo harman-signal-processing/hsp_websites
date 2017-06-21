@@ -3,24 +3,24 @@
 
 <h1 class="page_title"><%= @page_title %></h1>
 
-<div>
+<% @service_centers.order(:state).pluck(:state).uniq.each do |state| %>
+  <h4><%= state %></h4>
+  <ul class="list service_center_results">
+    <% @service_centers.where(state: state).order("UPPER(name)").each do |service_center| %>
+      <li><b><%= service_center.name %></b>
+        <br/><%= service_center.address %>
+        <br/><%= service_center.city %> <%= service_center.state %> <%= service_center.zip %>
+        <br/><%= service_center.telephone %>
+        <% if !service_center.email.blank? %> &bull; <%= mail_to service_center.email.downcase %><% end %>
+        <% if !service_center.website.blank? %>
+          &bull; <%= link_to service_center.website,
+            service_center.website.to_s.match(/^http/i) ? service_center.website : "http://#{service_center.website}",
+            target: "_blank" %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
 
-	<ul class="list dealer_results">
-		<% @results.each do |dealer| %>
-		<li><b><%= dealer.name %></b>
-      <br/><%= dealer.address %>
-      <br/><%= dealer.city %> <%= dealer.state %> <%= dealer.zip %>
-      <br/><%= dealer.telephone %>
-      <% if !dealer.email.blank? %> &bull; <%= mail_to dealer.email.downcase %><% end %>
-      <% if !dealer.website.blank? %>
-        &bull; <%= link_to dealer.website,
-          dealer.website.to_s.match(/^http/i) ? dealer.website : "http://#{dealer.website}",
-          target: "_blank" %>
-      <% end %>
-		</li>
-		<% end %>
-	</ul>
-
-</div>
 
 
