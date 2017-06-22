@@ -11,7 +11,7 @@
                 market_segment.banner_image_file_name.blank? ? "#{website.folder}/market_segment_placeholder.jpg" : market_segment.banner_image.url,
                 alt: translate_content(market_segment, :name)) %>
               <div class="text-center">
-                <h4><%= market_segment.name %></h4>
+                <h4><%= translate_content market_segment, :name %></h4>
                 <% if market_segment.children.length > 0 %>
                   <p><%=raw market_segment.children.map{|c| c.name }.join(" &bull; ") %></p>
                 <% end %>
