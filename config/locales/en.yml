@@ -148,6 +148,7 @@ en:
   get_started_not_registered: Serial not found!
   learn_more: learn more
   explore: explore
+  last_updated: Last updated
 
   nav:
     our_story: our story
@@ -325,6 +326,7 @@ en:
       factory_service: Factory Service/Return Authorization Form
       rma_request: Return Authorization Request"
       connect_with_us: Connect With Us
+      safety_and_certifications: "Safety & Certifications"
       
   errors:
       geocoding: "There was an error geocoding the address/zipcode you provided."

@@ -407,6 +407,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get 'get-started/:id' => 'get_started#show', as: :get_started
     get 'getting-started/:id' => 'get_started#show'
     post 'get-started/validate' => 'get_started#validate', as: :get_started_validation
+    get 'safetyandcertifications' => 'pages#safetyandcertifications'
 
     get 'privacy_policy.html' => 'main#privacy_policy', as: :privacy_policy
     get 'terms_of_use.html' => 'main#terms_of_use', as: :terms_of_use

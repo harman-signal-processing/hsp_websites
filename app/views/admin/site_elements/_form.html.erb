@@ -9,6 +9,8 @@
   <div class="row">
     <div class="large-6 columns">
       <%= f.input :resource_type, collection: SiteElement.resource_types %>
+      <p><i>"Safety" and "Certification" resource types appear on the
+      <%= link_to "/safetyandcertifications", safetyandcertifications_path %> page.</i></p>
     </div>
     <div class="large-6 columns">
       <br/>

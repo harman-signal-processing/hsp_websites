@@ -31,6 +31,13 @@ class PagesController < ApplicationController
     render_template
   end
 
+  # /safetyandcertifications
+  # Designed to replace all the redundant uploads for the safety and compliance docs
+  def safetyandcertifications
+    @documents = website.brand.site_elements.where(["resource_type REGEXP ?", "safety|certif|complian"]).order("name")
+    render_template
+  end
+
   private
 
   def load_and_authorize_page
