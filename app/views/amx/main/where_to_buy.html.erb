@@ -116,19 +116,25 @@
         </div>
       <% end %>
 
-      <ul>
-        <li><%= link_to "U.S. Consultant Sales", "/#{I18n.locale}/contact-us-consultant-sales" %></li>
-        <li><%= link_to "U.S. Education Sales", "/#{I18n.locale}/contact-us-education-sales" %></li>
-        <li><%= link_to "U.S. Government Sales", "/#{I18n.locale}/contact-us-government-sales" %></li>
-        <li><%= link_to "U.S. Residential Sales", "/#{I18n.locale}/contact-us-residential-sales" %></li>
-        <li><%= link_to "U.S. Training", "/#{I18n.locale}/contact-us-us-training" %></li>
-      </ul>
+      <% if I18n.locale.match(/en|us/i) %>
+        <ul>
+          <li><%= link_to "U.S. Consultant Sales", "/#{I18n.locale}/contact-us-consultant-sales" %></li>
+          <li><%= link_to "U.S. Education Sales", "/#{I18n.locale}/contact-us-education-sales" %></li>
+          <li><%= link_to "U.S. Government Sales", "/#{I18n.locale}/contact-us-government-sales" %></li>
+          <li><%= link_to "U.S. Residential Sales", "/#{I18n.locale}/contact-us-residential-sales" %></li>
+          <li><%= link_to "U.S. Training", "/#{I18n.locale}/contact-us-us-training" %></li>
+        </ul>
+      <% end %>
 
       <% if website.brand.has_distributors? %>
         <div class="row">
           <div class="medium-8 columns end">
 
-            <h3><%= t('titles.international_distributors') %></h3>
+            <h3>
+              <%= website.brand.name %>
+              <% if I18n.locale.match(/en/) %> Sales and <% end %>
+              <%= t('titles.international_distributors') %>
+            </h3>
             <p><%= t("blurbs.international_distributors") %></p>
 
             <%= form_tag search_distributors_path, method: :get %>
