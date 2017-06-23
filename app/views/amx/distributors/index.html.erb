@@ -7,6 +7,7 @@
 	<%= image_tag("#{website.folder}/#{I18n.locale}/worldwide_distributors_head.jpg", alt: t('titles.international_distributors')) %>
 <% else %>
   <%= website.brand.name %>
+  <% if I18n.locale.match(/en/) %> Sales and <% end %>
   <%= t('titles.international_distributors') %>
 <% end %>
 </h1>
