@@ -11,9 +11,9 @@ class ContentTranslation < ApplicationRecord
   def self.translatables(brand=Brand.first)
     t = {
       "product"        => %w{name short_description keywords},
-      #"product"        => %w{name description extended_description features short_description keywords},
       "product_description" => %w{content_part1},
       "product_family" => %w{name intro keywords},
+      "feature"        => %w{pre_content content},
       "specification"  => %w{name},
       "news"           => %w{title body},
       "page"           => %w{title description body},
@@ -35,7 +35,7 @@ class ContentTranslation < ApplicationRecord
       t["faq"] = %w{question answer}
     end
     if brand.has_market_segments?
-      t["market_segment"] = %w{name}
+      t["market_segment"] = %w{name description}
     end
     t
   end

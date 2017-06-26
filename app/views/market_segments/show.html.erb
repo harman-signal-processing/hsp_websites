@@ -1,4 +1,4 @@
-<% set_meta_tags title: t('titles.product_families'),
+<% set_meta_tags title: "#{translate_content(@market_segment, :name)} #{t('titles.product_families')}",
 				 reverse: true %>
 
 <%= content_for :feature do %>
@@ -13,7 +13,7 @@
             <%= translate_content(@market_segment, :name) %>
           <% end %>
         </h1>
-        <div><%=raw @market_segment.description %></div>
+        <div><%=raw translate_content(@market_segment, :description) %></div>
       </div>
     </div>
 <% end %>

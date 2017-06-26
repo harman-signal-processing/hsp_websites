@@ -52,7 +52,7 @@ module FeaturesHelper
   def render_feature_text(feature)
     content_tag :div, class: "borderless feature-text panel",
       data: { 'equalizer-watch': "feature_#{feature.to_param}" } do
-      raw(update_youtube_links(feature.content))
+      raw(update_youtube_links(translate_content(feature, :content)))
     end
   end # def render_feature_text
 
