@@ -37,7 +37,7 @@ class SupportController < ApplicationController
     if request.post?
       @warranty_registration = WarrantyRegistration.new(warranty_registration_params)
       @warranty_registration.brand_id = website.brand_id
-      if verify_recaptcha(model: @warranty_registration, secret_key: website.recaptcha_private_key) && @warranty_registration.valid?
+      if @warranty_registration.valid? && verify_recaptcha(model: @warranty_registration, secret_key: website.recaptcha_private_key)
         @warranty_registration.save
         if @warranty_registration.product && @warranty_registration.product.get_started_page.present?
           cookies[@warranty_registration.product.get_started_page.cookie_name] = { value: @warranty_registration.id, expires: 10.years.from_now }

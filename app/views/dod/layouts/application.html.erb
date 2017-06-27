@@ -70,31 +70,23 @@
       <%= yield :feature %>
 		<% end %>
 
-		<div class="container">
-		    <div class="row">
-		      <div class="large-12 columns">
-
-		        <% flash.each do |name, msg| %>
-		          <%
-		            css_class = 'alert-box'
-		            if name.match(/notice/i)
-		              css_class += ' success'
-		            elsif name.match(/alert|warn/)
-		              css_class += ' alert'
-		            else
-		              css_class += ' secondary'
-		            end
-		          %>
-
-		            <%= content_tag :div, msg, class: css_class if msg.is_a?(String) %>
-		        <% end %>
-		      </div>
-		    </div>
-		</div>
-
 		<div class="container" <% unless content_for?(:feature) %>id="main_container"<% end %>>
 			<div class="row">
 				<div class="large-12 small-12 columns content-container">
+          <% flash.each do |name, msg| %>
+            <%
+              css_class = 'alert-box'
+              if name.match(/notice/i)
+                css_class += ' success'
+              elsif name.match(/alert|warn/)
+                css_class += ' alert'
+              else
+                css_class += ' secondary'
+              end
+            %>
+
+              <%= content_tag :div, msg, class: css_class if msg.is_a?(String) %>
+          <% end %>
 					<%= yield %>
 				</div>
 			</div>

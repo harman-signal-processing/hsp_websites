@@ -1,6 +1,9 @@
 <%= cache ["registration_form", website.brand, I18n.locale] do %>
 
 	<%= simple_form_for @warranty_registration, url: warranty_registration_path do |f| %>
+    <% if f.object.errors.any? %>
+       <%= f.error_messages %>
+     <% end %>
 
     <div class="row">
       <div class="large-4 columns last">
@@ -94,7 +97,7 @@
 		<p><br/><%= f.input :subscribe, label: t('blurbs.subscribe', brand: website.brand_name) %></p>
 
     <div class="captcha">
-       <%= recaptcha_tags site_key: website.recaptcha_public_key%>
+       <%= recaptcha_tags site_key: website.recaptcha_public_key %>
     </div>
 		<br/>
 		<div>
