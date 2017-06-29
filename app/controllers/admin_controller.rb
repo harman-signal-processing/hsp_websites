@@ -1,5 +1,5 @@
 class AdminController < ApplicationController
-  skip_before_action :verify_authenticity_token, :set_locale, raise: false
+  skip_before_action :verify_authenticity_token, :ensure_locale_for_site, raise: false
   # before_action :require_admin_authentication
   before_action :authenticate_user!
   check_authorization
@@ -28,6 +28,13 @@ class AdminController < ApplicationController
     default_options = {controller: controller_path, action: action_name, layout: "admin"}
     options = default_options.merge options
     render template: "#{options[:controller]}/#{options[:action]}", layout: options[:layout]
+  end
+
+  private
+
+  # Always operate admin in default locale
+  def set_locale
+    I18n.locale = I18n.default_locale
   end
 
 end
