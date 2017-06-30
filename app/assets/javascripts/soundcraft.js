@@ -29,6 +29,7 @@
 //= require image_zoomer_main
 //= require soundcraft_application
 //= require elevatezoom/jquery.elevatezoom
+//= require tools
 //= require_self
 
 /* vendor/jquery.js (v2) doesn't work with Muse scrolling so downgraded to muse/jquery-1.8.3.min.js 30/12/2014 */

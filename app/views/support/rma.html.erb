@@ -86,7 +86,10 @@
       <%= f.input :product_sku,
         hint: link_to("where to find the SKU", image_path("#{website.folder}/sku.jpg")) %>
 
-      <%= f.input :purchased_on, as: :string, required: true, input_html: { class: 'ui-datepicker-past-only' } %>
+      <%= f.input :purchased_on,
+        as: :string,
+        required: true,
+        input_html: { class: 'ui-datepicker-past-only' } %>
 
       <%= f.input :warranty,
         as: :boolean,
