@@ -5,7 +5,8 @@
 	<h1><%= @page_title %></h1>
   <p>Authorized Service Centers provide warranty and non-warranty repair services.
   Proof of purchase is required for all warranty claims. If there are no locations
-  near your zipcode, please <%=link_to "contact the factory", support_path %>.</p>
+  near your zipcode, please <%=link_to "contact the factory", support_path %> or view
+  the <%= link_to "complete list of service centers", support_all_repair_path %>.</p>
 
 	<% if !!(website.brand.has_vintage_repair?) %>
 	<p>Click here for <%= link_to "vintage #{website.brand.name} repair services", vintage_repair_path %>.</p>
