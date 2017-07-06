@@ -290,6 +290,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :product_amp_models,
         :tone_library_songs,
         :product_promotions,
+        :contact_messages,
         :product_cabinets,
         :online_retailers,
         :training_classes,

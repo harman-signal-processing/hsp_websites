@@ -1,0 +1,47 @@
+<h1>Contact Form Messages</h1>
+
+<p>You know that contact form on the website? Well, it gets emailed to the brand's support
+staff, but you can also look at the messages here.</p>
+
+<div class="row">
+  <div class="medium-6 columns">
+    <div class="panel">
+      <h4>Message Search</h4>
+      <%= search_form_for [:admin, @search] do |f| %>
+        <%= f.label :name_cont, "Name" %>
+        <%= f.text_field :name_cont %>
+        <%= f.label :email_cont, "Email" %>
+        <%= f.text_field :email_cont %>
+        <%= f.label :message_cont, "Message" %>
+        <%= f.text_field :message_cont %>
+        <%= f.submit "Search messages", class: "button" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<% unless @search_attempted %>
+  <p>Here are the most recent messages received</p>
+<% end %>
+
+<table class="data" style="width: 100%">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Subject</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @contact_messages.each do |contact_message| %>
+      <tr>
+        <td><%= link_to l(contact_message.created_at, format: :long), [:admin, contact_message] %></td>
+        <td><%= link_to contact_message.name, [:admin, contact_message] %></td>
+        <td><%= mail_to contact_message.email, contact_message.email %></td>
+        <td><%= link_to contact_message.subject, [:admin, contact_message] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -46,12 +46,14 @@ class Ability
         cannot :manage, ToolkitResourceType
         cannot :manage, ProductIntroduction
         can :read, WarrantyRegistration
+        can :read, ContactMessage
         can :manage, PricingType
         can :manage, ProductPrice
         can :update, Brand
       end
       if user.role?(:marketing_staff)
         can :manage, SupportSubject
+        can :read, ContactMessage
       end
       if user.role?(:sales_admin)
         can :read, Product
@@ -63,6 +65,7 @@ class Ability
         can :manage, ProductPrice
         can :manage, PricingType
         can :read, WarrantyRegistration
+        can :read, ContactMessage
       end
       if user.role?(:rso)
         can :read, ToolkitResource, rso: true
@@ -145,6 +148,7 @@ class Ability
         can :manage, ServiceCenter
         can :manage, Faq
         can :manage, WarrantyRegistration
+        can :read, ContactMessage
         can :manage, Dealer
         can :manage, Distributor
         can :read, ToolkitResource

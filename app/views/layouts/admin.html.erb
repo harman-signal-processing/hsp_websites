@@ -124,6 +124,7 @@
                   <% if can?(:manage, Promotion) ||
                       can?(:update, :harman_employee_pricing) ||
                       can?(:read, WarrantyRegistration) ||
+                      can?(:read,ContactMessage) ||
                       can?(:manage, ProductPrice) ||
                       can?(:manage, LabelSheet) ||
                       can?(:update, :harman_employee_pricing) ||
@@ -135,6 +136,9 @@
                       <% end %>
                       <% if can?(:read, WarrantyRegistration) %>
                         <li><%= link_to "Product Registrations", admin_warranty_registrations_path %></li>
+                      <% end %>
+                      <% if can?(:read, ContactMessage) %>
+                        <li><%= link_to "Contact Form Messages", admin_contact_messages_path %></li>
                       <% end %>
                       <% if website.brand.has_label_sheets? %>
                         <% if can?(:manage, LabelSheet) %>
