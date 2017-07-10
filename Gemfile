@@ -18,7 +18,7 @@ gem 'jquery-rails' #, "~> 4.0.5" # 4.1 broke buy it now popups
 # gem 'ruby-debug'
 
 # Bundle the extra gems:
-gem 'mysql2' #, '~> 0.3.18' # sphinx needs '0.3.12b4'
+gem 'mysql2' , '< 0.4.7' # internal server wouldn't install 0.4.7
 gem 'utf8-cleaner'
 gem 'friendly_id', '>= 5.2'
 gem 'aws-sdk'
