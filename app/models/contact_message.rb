@@ -95,4 +95,39 @@ class ContactMessage < ApplicationRecord
     ]
   end
 
+  def recipients
+    @recipients ||= get_recipients
+  end
+
+  private
+
+  def get_recipients
+    # Route by message type
+    if catalog_request?
+      return ["service@sullivangroupusa.com"]
+    elsif rma_request?
+      return [brand.rma_email]
+    elsif part_request?
+      return [brand.parts_email]
+    end
+
+    recipients = [brand.support_email]
+
+    # Route by country
+    if brand.send_contact_form_to_distributors? &&
+        self.shipping_country.present? &&
+        brand.distributors.where(country: self.shipping_country).where("email IS NOT NULL").count == 1
+      recipients = brand.distributors.where(country: self.shipping_country).where("email IS NOT NULL").pluck(:email)
+
+    # Route by subject
+    elsif subj = SupportSubject.where(brand_id: brand_id, name: subject).first
+      recipients << subj.recipient if subj.recipient.present?
+    end
+
+    if brand.try(:support_cc_list)
+      recipients += brand.support_cc_list.split(/[\,\;\s]\s?/)
+    end
+
+    recipients
+  end
 end

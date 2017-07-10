@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170314154953) do
+ActiveRecord::Schema.define(version: 20170706162441) do
 
   create_table "admin_logs", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "user_id"
@@ -271,6 +271,7 @@ ActiveRecord::Schema.define(version: 20170314154953) do
     t.boolean "has_solution_pages", default: false
     t.boolean "show_enterprise_solutions"
     t.boolean "show_entertainment_solutions"
+    t.boolean "send_contact_form_to_distributors"
     t.index ["cached_slug"], name: "index_brands_on_cached_slug", unique: true
     t.index ["name"], name: "index_brands_on_name", unique: true
   end

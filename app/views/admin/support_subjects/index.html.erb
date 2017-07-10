@@ -4,6 +4,13 @@
 	<li><%= link_to 'New', new_admin_support_subject_path, class: "small success button" %></li>
 </ul>
 
+<% if website.brand.send_contact_form_to_distributors? %>
+  <div class="alert-box info">Note: this brand is configured to send contact forms to the
+    distributors where possible. That takes priority over this page which routes contact forms
+    based on subject.
+  </div>
+<% end %>
+
 <% if @support_subjects && @support_subjects.length > 0 %>
 
   <table>
