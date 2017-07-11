@@ -43,6 +43,7 @@ namespace :maintain do
     Typhoeus.get(
       url,
       followlocation: true,
+      timeout: 20,
       headers: {
         "User-Agent" => "Harman link verifier. Contact adam.anderson@harman.com"
       }
