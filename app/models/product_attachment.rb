@@ -28,6 +28,7 @@ class ProductAttachment < ApplicationRecord
     bucket: Rails.configuration.aws[:bucket],
     s3_credentials: Rails.configuration.aws,
     s3_host_alias: S3_CLOUDFRONT,
+    s3_region: ENV['AWS_REGION'],
     url: ':s3_alias_url',
     path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
   has_attached_file :product_media_thumb, styles: {thumb: "100x100>", tiny: "64x64>"},
@@ -35,6 +36,7 @@ class ProductAttachment < ApplicationRecord
     bucket: Rails.configuration.aws[:bucket],
     s3_credentials: Rails.configuration.aws,
     s3_host_alias: S3_CLOUDFRONT,
+    s3_region: ENV['AWS_REGION'],
     url: ':s3_alias_url',
     path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
 
