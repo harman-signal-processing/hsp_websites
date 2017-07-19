@@ -27,6 +27,8 @@ Rails.application.config.assets.precompile += %w( lightbox/*
     audio-architect.css
     amx.js
     amx.css
+    martin.js
+    martin.css
     bss.js
     bss.css
     crown.css
