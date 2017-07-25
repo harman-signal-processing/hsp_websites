@@ -74,7 +74,7 @@
 				<%#= image_tag("dod/vintage-dod.png", alt: Setting.site_name(website)) %>
 			</div>
 			<div>
-				<% if website.has_software? %>
+        <% if website.has_software? && (website.current_softwares.length > 0 || website.forced_current_softwares.length > 0) %>
 				<%= link_to t('software_downloads').downcase, software_index_path %> &bull;
 				<% end %>
 				<%= link_to t('products'), product_families_path %> &bull;

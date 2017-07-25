@@ -111,7 +111,7 @@
 				</div>
 				<div class="large-6 columns hide-for-small" id="footer_info">
 					<span class="footer_text">
-						<% if website.has_software? %>
+            <% if website.has_software? && (website.current_softwares.length > 0 || website.forced_current_softwares.length > 0) %>
               <%= link_to t('software_downloads').downcase, software_index_path %> &bull;
 						<% end %>
 						<%= link_to t('products'), product_families_path %> &bull;

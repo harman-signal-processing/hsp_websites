@@ -12,7 +12,7 @@
         <!--
         <li><%= link_to "View by Language", view_by: "languages" %></li>
         -->
-        <% if website.has_software? %>
+        <% if website.has_software? && (website.current_softwares.length > 0 || website.forced_current_softwares.length > 0) %>
           <li>
             <%= link_to softwares_path do %>
               <%= t(:software).titleize %>

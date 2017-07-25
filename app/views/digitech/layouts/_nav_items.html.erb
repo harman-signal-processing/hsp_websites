@@ -5,7 +5,7 @@
 				<%= product_family_nav_links(product_family, depth: 1) %>
 			<% end %>
 			<li><%= link_to "Discontinued Products", discontinued_products_path %></li>
-      <% if website.has_software? %>
+      <% if website.has_software? && (website.current_softwares.length > 0 || website.forced_current_softwares.length > 0) %>
         <li><%= link_to ucfirst(t('software_downloads')), software_index_path %></li>
       <% end %>
       <% if website.has_product_registrations? %>

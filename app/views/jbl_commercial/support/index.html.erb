@@ -7,7 +7,7 @@
 <dl class="sub-nav">
 	<dt><%= t('titles.support') %> options:</dt>
 	<dd class="active"><%= link_to t('titles.contact_us').downcase, support_path %></dd>
-	<% if website.has_software? %>
+  <% if website.has_software? && (website.current_softwares.length > 0 || website.forced_current_softwares.length > 0) %>
 	<dd><%= link_to t('software_downloads'), software_index_path %></dd>
 	<% end %>
   <% if website.has_product_registrations? %>

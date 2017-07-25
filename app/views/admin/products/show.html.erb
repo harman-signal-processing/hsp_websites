@@ -20,7 +20,7 @@
 <p>
 	<b>Intro page:</b>
 	<% if !!(@product.product_introduction) %>
-	<%= link_to "Edit", edit_admin_product_introduction_path(@product.product_introduction) %> 
+	<%= link_to "Edit", edit_admin_product_introduction_path(@product.product_introduction) %>
 	<% else %>
 	<%= link_to "Create", new_admin_product_introduction_path(product_id: @product.to_param) %>
 	<% end %>
@@ -53,7 +53,7 @@
 	sale price: <%= number_to_currency(@product.sale_price) %>
 	<% end %>
 </p>
-	
+
 
 <div class="row">
 	<div class="large-6 columns">
@@ -62,7 +62,7 @@
 		<div id="product_photos" class="group">
 			<h5 class="subheader">Product photos, videos, audio, flash, etc.</h5>
 			<% if @product.layout_class == 'epedal' %>
-			<p><%= link_to_function "new photo", 
+			<p><%= link_to_function "new photo",
 					"$('#new_photo_form').show();$('#new_mm_form').hide();$('#new_swf_form').hide();",
 					class: "small success button" %></p>
 			<p>Note: e-pedals have some specific requirements. Upload them in this order:</p>
@@ -80,10 +80,10 @@
 			 		"$('#new_photo_form').show();$('#new_mm_form').hide();$('#new_swf_form').hide();",
 			 		class: "small success button" %></li>
 			   <% if can? :mangle, Product %>
-			   <li><%= link_to_function "new audio/video", 
+			   <li><%= link_to_function "new audio/video",
 					"$('#new_photo_form').hide();$('#new_mm_form').show();$('#new_swf_form').hide();",
 					class: "small success button" %></li>
-			   <li><%= link_to_function "new swf (flash)", 
+			   <li><%= link_to_function "new swf (flash)",
 					"$('#new_photo_form').hide();$('#new_mm_form').hide();$('#new_swf_form').show();",
 					class: "small success button" %></li>
 				<% end %>
@@ -93,23 +93,23 @@
 			<%= simple_form_for [:admin, @product_attachment], html: {multipart: true} do |f| %>
 				<%= f.hidden_field :product_id %>
 				<%= f.input :product_attachment, label: false %>
-				<%= submit_tag "upload", class: "small round button"  %> 
+				<%= submit_tag "upload", class: "small round button"  %>
 				<%= link_to_function "cancel", "$('#new_photo_form').hide()"%>
 			<% end %>
 			</div>
-			
+
 			<% if can? :mangle, Product %>
 			<div id="new_mm_form" style="display: none;">
 				<%= simple_form_for [:admin, @product_attachment], html: {multipart: true} do |f| %>
 					<%= f.hidden_field :product_id %>
 					<%= f.input :product_media %>
 					<%= f.input :product_media_thumb, label: "thumbnail/icon" %>
-					<p><%= submit_tag "upload", class: "small round button"  %> 
+					<p><%= submit_tag "upload", class: "small round button"  %>
 						<%= link_to_function "cancel", "$('#new_mm_form').hide()"%>
 					</p>
-				<% end %>		
+				<% end %>
 			</div>
-			
+
 			<div id="new_swf_form" style="display: none;">
 				<%= simple_form_for [:admin, @product_attachment], html: {multipart: true} do |f| %>
 					<%= f.hidden_field :product_id %>
@@ -125,12 +125,12 @@
 					</div>
 					<div class="small">(product page viewer window is 550x360)</div>
 
-					<br/><%= submit_tag "upload", class: "small round button"  %> 
+					<br/><%= submit_tag "upload", class: "small round button"  %>
 					<%= link_to_function "cancel", "$('#new_swf_form').hide()"%>
 				<% end %>
-			</div>	
+			</div>
 			<% end %>
-			
+
 			<ul id="product_attachments" class="sortable_list">
 				<% @product.product_attachments.each do |pa| %>
 					<%= render '/admin/shared/product_attachment_row', pa: pa %>
@@ -166,17 +166,17 @@
 					<%= f.hidden_field :product_id %>
 					<div class="row collapse">
 						<div class="large-10 small-8 columns">
-							<%= f.association :software, label: false, 
+							<%= f.association :software, label: false,
 									collection: Software.where(brand_id: website.brand_id).all.sort_by(&:formatted_name),
 									label_method: :formatted_name %>
 						</div>
 						<div class="large-2 small-4 columns">
 							<%= submit_tag 'submit', class: "postfix button"  %>
 						</div>
-					</div> 
+					</div>
 					or <%= link_to "upload new software", new_admin_software_path %>
 
-				<% end %>	
+				<% end %>
 				<ul id="product_softwares" class="sortable_list">
 					<% @product.product_softwares.each do |product_software| %>
 						<%= render "/admin/shared/product_software_row", ps: product_software, called_from: 'product' %>
@@ -191,7 +191,7 @@
 				<%= simple_form_for [:admin, @product_training_module], remote: true do |f| %>
 					<%= hidden_field_tag "called_from", "product" %>
 			    	<%= f.hidden_field :product_id %>
-					<%= f.association :training_module, collection: website.training_modules %> 
+					<%= f.association :training_module, collection: website.training_modules %>
 					<%= submit_tag 'add existing training module', class: "small round button"  %>
 					<%= link_to 'create a new training module', new_admin_training_module_path %>
 				<% end %>
@@ -210,7 +210,7 @@
 				<%= simple_form_for [:admin, @product_training_class], remote: true do |f| %>
 					<%= hidden_field_tag "called_from", "product" %>
 			    	<%= f.hidden_field :product_id %>
-					<%= f.association :training_class, collection: website.training_classes %> 
+					<%= f.association :training_class, collection: website.training_classes %>
 					<%= submit_tag 'add existing training class', class: "small round button"  %>
 					<%= link_to 'create a new training class', new_admin_training_class_path %>
 				<% end %>
@@ -264,14 +264,14 @@
 					<div style="margin-bottom: 20px;">
 						<span id="select_spec_name">
 							<%= f.association :specification, collection: Specification.order("name") %>
-							<%= link_to_function("new spec name", 
+							<%= link_to_function("new spec name",
 								  "$('span#select_spec_name').toggle();$('span#new_spec_name').toggle()") if can?(:create, Specification) %>
 						</span>
 						<span id="new_spec_name" style="display:none">
 							<%= simple_fields_for Specification.new do |spec| %>
 								<%= spec.input :name, label: "New Spec Name" %>
 							<% end %>
-							<%= link_to_function "select existing spec name", 
+							<%= link_to_function "select existing spec name",
 								  "$('span#select_spec_name').toggle();$('span#new_spec_name').toggle();$('input#specification_name').val('');"%>
 						</span>
 					</div>
@@ -285,9 +285,9 @@
 
 			<div id="copy_specifications_form" style="display:none">
 				<%= simple_form_for [:admin, @product_specification], url: copy_admin_product_specification_path do |f| %>
-				  <%= f.association :product, 
-				  	label: "Copy ALL specs from:", 
-				  	collection: (website.products - [@product]), 
+				  <%= f.association :product,
+				  	label: "Copy ALL specs from:",
+				  	collection: (website.products - [@product]),
 				  	hint: "(can be edited after copying)" %>
 				  <%= submit_tag "copy specs", class: "small round button"  %>
 				  <%= link_to_function "cancel", "$('#copy_specifications_form').toggle();"%>
@@ -315,14 +315,14 @@
 						<div style="margin-bottom: 30px;">
 							<span id="select_amp_model_name">
 							<%= f.association :amp_model, collection: AmpModel.order("name") %>
-							<%= link_to_function "new amp model", 
+							<%= link_to_function "new amp model",
 								  "$('#select_amp_model_name').toggle();$('#new_amp_model_name').toggle()"%>
 							</span>
 							<span id="new_amp_model_name" style="display:none">
 							<%= simple_fields_for AmpModel.new do |amp| %>
 								<%= amp.input :name, label: "New amp model name" %>
 							<% end %>
-							<%= link_to_function "select existing amp model", 
+							<%= link_to_function "select existing amp model",
 								  "$('#select_amp_model_name').toggle();$('#new_amp_model_name').toggle();$('#amp_model_name').val('');"%>
 							</span>
 						</div>
@@ -350,14 +350,14 @@
 						<div style="margin-bottom: 30px;">
 							<span id="select_cabinet_name">
 							<%= f.association :cabinet, collection: Cabinet.order("name") %>
-							<%= link_to_function "new cab", 
+							<%= link_to_function "new cab",
 								  "$('#select_cabinet_name').toggle();$('#new_cabinet_name').toggle()"%>
 							</span>
 							<span id="new_cabinet_name" style="display:none">
 							<%= simple_fields_for Cabinet.new do |cab| %>
 								<%= cab.input :name, label: "New cabinet name" %>
 							<% end %>
-							<%= link_to_function "select existing cab", 
+							<%= link_to_function "select existing cab",
 								  "$('#select_cabinet_name').toggle();$('#new_cabinet_name').toggle();$('#cabinet_name').val('');"%>
 							</span>
 						</div>
@@ -385,7 +385,7 @@
 						<div style="margin-bottom: 30px;">
 							<span id="select_effect_name">
 								<%= f.association :effect, collection: Effect.order("name") %>
-								<%= link_to_function "new effect", 
+								<%= link_to_function "new effect",
 									  "$('#select_effect_name').toggle();$('#new_effect_name').toggle()"%>
 							</span>
 							<span id="new_effect_name" style="display:none">
@@ -393,7 +393,7 @@
 									<%= effect.association :effect_type, collection: EffectType.order(:position) %>
 									<%= effect.input :name %>
 								<% end %>
-								<%= link_to_function "select existing effect", 
+								<%= link_to_function "select existing effect",
 									  "$('#select_effect_name').toggle();$('#new_effect_name').toggle();$('#effect_name').val('');"%>
 							</span>
 						</div>
@@ -416,12 +416,15 @@
 		<% if can? :manage, @product.product_families %>
 			<div class="group">
 				<h5 class="subheader">Belongs to the following product families:</h5>
+        <p>Note: most brands do not have products in the top-level families--only in the lower level families.</p>
 				<%= simple_form_for [:admin, @product_family_product], remote: true do |f| %>
 					<%= hidden_field_tag "called_from", "product" %>
 				    <%= f.hidden_field :product_id %>
 				    <div class="row collapse">
 				    	<div class="large-10 small-8 columns">
-				    		<%= f.association :product_family, label: false, collection: website.product_families %> 
+                <%=raw f.association(:product_family,
+                                     label: false,
+                                     collection: ProductFamily.nested_options(website)).gsub(/\&amp\;/, '&') %>
 				    	</div>
 				    	<div class="large-2 small-4 columns">
 				    		<%= submit_tag 'add', class: "prefix button"  %>

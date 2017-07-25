@@ -1,7 +1,7 @@
 <h1 class="page_title"><%= ucfirst(t("downloads")) %></h1>
 
 <a name="top"></a>
-<% if website.has_software? %>
+<% if website.has_software? && (website.current_softwares.length > 0 || website.forced_current_softwares.length > 0) %>
 <div class="alert">
 	<%= t('looking_for_software') %> <%= link_to t("check_our_software_page"), softwares_path %>.
 </div>

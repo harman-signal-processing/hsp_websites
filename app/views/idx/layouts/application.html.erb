@@ -68,7 +68,7 @@
 				<ul>
 					<li><%= link_to t('home'), locale_root_path %></li>
 					<li><%= link_to t('products'), product_families_path %></li>
-				<% if website.has_software? %>
+        <% if website.has_software? && (website.current_softwares.length > 0 || website.forced_current_softwares.length > 0) %>
 					<li><%= link_to t('downloads'), software_index_path %></li>
 				<% end %>
 					<li><%= link_to t('news'), news_index_path %></li>
@@ -137,7 +137,7 @@
 		<footer>
 			<%= hpro_footer %>
 			<div id="footer_info">
-				<% if website.has_software? %>
+        <% if website.has_software? && (website.current_softwares.length > 0 || website.forced_current_softwares.length > 0) %>
 				<%= link_to t('software_downloads').downcase, software_index_path %> &bull;
 				<% end %>
 				<%= link_to t('products'), product_families_path %> &bull;

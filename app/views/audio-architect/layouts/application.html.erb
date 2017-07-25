@@ -126,7 +126,7 @@
 		<footer>
 			<%= hpro_footer %>
 			<div id="footer_info">
-				<% if website.has_software? %>
+        <% if website.has_software? && (website.current_softwares.length > 0 || website.forced_current_softwares.length > 0) %>
 				<%= link_to t('software_downloads').downcase, software_index_path %> &bull;
 				<% end %>
 				<% if website.has_reviews? %>

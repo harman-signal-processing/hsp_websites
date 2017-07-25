@@ -1,4 +1,5 @@
 @import 'foundation/functions';
+@import url(https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500);
 
 $dark-gray: #575757;
 $darker-gray: #121212;
@@ -9,13 +10,13 @@ $strip-bg-odd: #000000;
 
 $body-bg: #FFF;
 $body-font-color: black;
-$body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$body-font-family: "Roboto", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $body-font-weight: 300;
 $primary-color: #d9b229;
 $secondary-color: $dark-gray;
 $include-print-styles: true;
-$header-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-$header-font-weight: 600;
+$header-font-family: "Roboto", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$header-font-weight: 500;
 $header-font-color: $dark-gray;
 $header-top-margin: .4em;
 
@@ -189,11 +190,6 @@ div.market_segment_banner {
     color: $dark-gray;
     padding: 4px 10px;
   }
-}
-
-h1, h2 {
-	font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-	font-weight: 200;
 }
 
 div.product-title-block, div.small-title-block {

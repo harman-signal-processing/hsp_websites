@@ -11,7 +11,7 @@
 </h1>
 
 <p style="text-align: center;">
-	<% if website.has_software? %>
+  <% if website.has_software? && (website.current_softwares.length > 0 || website.forced_current_softwares.length > 0) %>
 	<%= link_to t('software_downloads'), software_index_path %> &bull;
 	<% end %>
 	<% if website.training_url %>

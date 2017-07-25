@@ -5,7 +5,7 @@
 				<%= product_family_nav_links(product_family) %>
 			<% end %>
 			<li><%= link_to t('legacy_products').titleize, discontinued_products_path %></li>
-      <% if website.has_software_downloads? %>
+      <% if website.has_software? && (website.current_softwares.length > 0 || website.forced_current_softwares.length > 0) %>
         <li><%= link_to t('software_downloads').titleize, software_index_path %></li>
       <% end %>
 			<li><%= link_to t('warranty_registration').titleize, warranty_registration_path %></li>

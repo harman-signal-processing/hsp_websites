@@ -49,6 +49,30 @@ class ProductFamily < ApplicationRecord
     where(brand_id: brand_id).where(parent_id: nil).order(:position)
   end
 
+  def self.nested_options(w)
+    options = []
+    all_parents(w).each do |p|
+      options << OpenStruct.new(name: p.name, id: p.id)
+      if p.children.length > 0
+        options += p.children_options(1)
+      end
+      options << OpenStruct.new()
+    end
+    options
+  end
+
+  def children_options(indent = 0)
+    bump = "&#160;" * indent * 2
+    options = []
+    children.each do |c|
+      options << OpenStruct.new(name: "#{bump}#{c.name}", id: c.id)
+      if c.children.length > 0
+        options += c.children_options(indent + 1)
+      end
+    end
+    options
+  end
+
   # Collection of all families with at least one active product
   def self.all_with_current_products(website, locale)
     pf = []
