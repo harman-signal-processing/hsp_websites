@@ -54,7 +54,7 @@
         <div class="large-6 columns">
           <%= f.input :bit, hint: "(32, 64, leave blank if not applicable)" %>
         </div>
-      </div>          
+      </div>
 
       <div class="row">
         <div class="large-12 columns">
@@ -62,11 +62,11 @@
         </div>
       </div>
     </div>
-  </div>    
+  </div>
 
   <div class="row">
     <div class="large-12 columns" style="padding-top: 20px; padding-bottom: 30px;">
-      <%= f.input :description, 
+      <%= f.input :description,
           label: "Description (Leave the description blank if you want incoming links to go directly to the download.)", 
           input_html: { class: "mceEditor" } %>
     </div>
@@ -76,13 +76,13 @@
     <div class="large-8 columns">
       <div class="row">
         <div class="large-6 columns">
-          <%= f.input :replaces_id, 
+          <%= f.input :replaces_id,
                 label: "Replaces current version of",
                 collection: [[]] + website.softwares.where(active: true).order("name").map{|s| [s.formatted_name, s.id]} %>
         </div>
         <div class="large-6 columns">
           <% if website.page_layouts %>
-            <%= f.input :layout_class, 
+            <%= f.input :layout_class,
                 label: "Page layout style",
                 hint:  "(not all brands have multiple layouts)",
                 collection: website.page_layouts.split("|") %>
@@ -112,7 +112,7 @@
 
     <div class="large-6 columns">
       <%= f.input :activation_name, hint: "(passed in the URL during activation)" %>
-    	<%= f.input :multipliers, 
+    	<%= f.input :multipliers,
           label: "Hex numbers to use to multiply each challenge segment during activation",
           input_html: { rows: 5 } %>
     </div>

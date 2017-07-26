@@ -36,13 +36,23 @@ class Admin::SiteElementsController < AdminController
   def edit
   end
 
+  # POST /admin/site_elements/upload
+  # Callback after uploading a file directly to S3. Adds the temporary S3 path
+  # to the form before creating new software.
+  def upload
+    @direct_upload_url = params[:direct_upload_url]
+    respond_to do |format|
+      format.js
+    end
+  end
+
   # POST /site_elements
   # POST /site_elements.xml
   def create
     @site_element.brand_id = website.brand_id
     respond_to do |format|
       if @site_element.save
-        format.html { redirect_to([:admin, @site_element], notice: 'Resource was successfully created.') }
+        format.html { redirect_to([:admin, @site_element], notice: 'Resource was successfully created. It may take a few seconds to process and transfer the file.') }
         format.xml  { render xml: @site_element, status: :created, location: @site_element }
         website.add_log(user: current_user, action: "Uploaded a site element: #{@site_element.name}")
       else
@@ -57,7 +67,7 @@ class Admin::SiteElementsController < AdminController
   def update
     respond_to do |format|
       if @site_element.update_attributes(site_element_params)
-        format.html { redirect_to([:admin, @site_element], notice: 'Resource was successfully updated.') }
+        format.html { redirect_to([:admin, @site_element], notice: 'Resource was successfully updated. It may take a few seconds to process and transfer the file to the right place.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated a site element: #{@site_element.name}")
       else

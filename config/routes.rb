@@ -152,15 +152,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :warranty_registrations do
         collection { put :search }
       end
-      resources :product_family_products do
-        collection { post :update_order }
-      end
-      resources :product_attachments do
-        collection { post :update_order }
-      end
-      resources :product_documents do
-        collection { post :update_order }
-      end
       resources :artists do
         collection do
           post :update_order
@@ -212,12 +203,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
           post :update_order
         end
       end
-      resources :market_segment_product_families do
-        collection { post :update_order }
-      end
-      resources :product_training_modules, :software_training_modules, :parent_products, :product_softwares, :brand_toolkit_contacts do
-        collection { post :update_order }
-      end
       resources :label_sheet_orders do
         collection { get :subscribers }
       end
@@ -229,9 +214,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       end
       resources :news do
         member { put :notify }
-      end
-      resources :softwares do
-        collection { post :upload }
       end
       resources :systems do
         resources :system_options do
@@ -248,9 +230,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
           end
           resources :system_rule_actions
         end
-      end
-      resources :system_options do
-        collection { post :update_order }
       end
       resources :support_subjects
       resources :get_started_pages do
@@ -273,12 +252,17 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         collection { post :update_order }
       end
       resources :service_centers,
+        :market_segment_product_families,
         :software_training_classes,
+        :software_training_modules,
         :get_started_page_products,
+        :product_training_modules,
         :product_training_classes,
         :product_review_products,
+        :product_family_products,
         :locale_product_families,
         :toolkit_resource_types,
+        :brand_toolkit_contacts,
         :product_site_elements,
         :product_introductions,
         :online_retailer_links,
@@ -287,9 +271,12 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :software_attachments,
         :product_audio_demos,
         :product_suggestions,
+        :product_attachments,
         :product_amp_models,
         :tone_library_songs,
         :product_promotions,
+        :product_softwares,
+        :product_documents,
         :contact_messages,
         :product_cabinets,
         :online_retailers,
@@ -299,14 +286,16 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :website_locales,
         :product_reviews,
         :artist_products,
+        :parent_products,
         :product_videos,
         :faq_categories,
         :us_rep_regions,
         :specifications,
+        :system_options,
         :installations,
         :pricing_types,
-        :site_elements,
         :news_products,
+        :site_elements,
         :label_sheets,
         :distributors,
         :artist_tiers,
@@ -315,6 +304,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :amp_models,
         :us_regions,
         :demo_songs,
+        :softwares,
         :cabinets,
         :websites,
         :captchas,
@@ -325,7 +315,10 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :dealers,
         :brands,
         :pages,
-        :faqs
+        :faqs do
+        collection { post :update_order }
+        collection { post :upload }
+      end
 
       #match "translations/:target_locale(/:action)" => "content_translations", as: :translations
       scope path: '/:target_locale', target_locale: /#{WebsiteLocale.all_unique_and_incomplete_locales.join('|')}/ do

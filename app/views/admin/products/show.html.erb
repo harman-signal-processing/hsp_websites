@@ -567,8 +567,13 @@
 
     <div class="group">
       <h5 class="subheader">Videos</h5>
-      <p>This section was added specifically for the Soundcraft site. It can work for other
-      brands as well, but has not yet been implemented on the product page template.</p>
+      <% unless website.main_tabs.include?("videos") %>
+        <p>This section was originally added for the Soundcraft site.
+        It can work for this site, but it has not yet been implemented
+        on the product page template. To do so, add "videos" to the
+        main tabs in the site settings.
+        </p>
+      <% end %>
       <p>Note: if you add videos here, be sure NOT to change one of the big content blocks
       for this product so it is named "Videos".</p>
 

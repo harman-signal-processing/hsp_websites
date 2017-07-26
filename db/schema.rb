@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170706162441) do
+ActiveRecord::Schema.define(version: 20170726162257) do
 
   create_table "admin_logs", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "user_id"
@@ -947,6 +947,8 @@ ActiveRecord::Schema.define(version: 20170706162441) do
     t.string "cached_slug"
     t.string "name_override"
     t.integer "position"
+    t.string "direct_upload_url"
+    t.boolean "processed", default: false
     t.index ["cached_slug"], name: "index_product_documents_on_cached_slug", unique: true
     t.index ["product_id"], name: "index_product_documents_on_product_id"
   end
@@ -1368,6 +1370,8 @@ ActiveRecord::Schema.define(version: 20170706162441) do
     t.string "external_url"
     t.boolean "is_document"
     t.boolean "is_software"
+    t.string "direct_upload_url"
+    t.boolean "processed", default: false
     t.index ["brand_id"], name: "index_site_elements_on_brand_id"
     t.index ["cached_slug"], name: "index_site_elements_on_cached_slug"
   end

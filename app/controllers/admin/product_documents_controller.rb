@@ -1,7 +1,7 @@
 class Admin::ProductDocumentsController < AdminController
   before_action :initialize_product_document, only: :create
   load_and_authorize_resource
-  
+
   # GET /admin/product_documents
   # GET /admin/product_documents.xml
   def index
@@ -31,6 +31,16 @@ class Admin::ProductDocumentsController < AdminController
 
   # GET /admin/product_documents/1/edit
   def edit
+  end
+
+  # POST /admin/site_elements/upload
+  # Callback after uploading a file directly to S3. Adds the temporary S3 path
+  # to the form before creating new software.
+  def upload
+    @direct_upload_url = params[:direct_upload_url]
+    respond_to do |format|
+      format.js
+    end
   end
 
   # POST /admin/product_documents
