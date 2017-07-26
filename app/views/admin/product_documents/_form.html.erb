@@ -1,29 +1,4 @@
-<%= s3_uploader_form callback_url: upload_admin_product_documents_url,
-    id: "product_document_s3_uploader",
-    callback_param: "direct_upload_url",
-    acl: "public-read",
-    expiration: 24.hours.from_now.utc.iso8601,
-    max_file_size: 900.megabytes do %>
-      <p><%= "#{ @product_document.new_record? ? 'Start' : 'If you want to replace the file, start' } the upload before filling out the rest of the form:" %></p>
-      <%= file_field_tag :file %>
-
-      <div class="row">
-        <div class="large-6 columns" id="product_document_progress">
-          <div id="product_document_uploads_container"></div>
-          <script id="template-upload" type="text/x-tmpl">
-          <div id="upload_{%=o.unique_id%}" class="upload">
-            {%=o.name%}
-            <div class="progress success progress-striped active"><span class="bar meter" style="width: 0%"></span></div>
-            <div id="upload_instruct" class="hint">Wait for the upload to complete before submitting the form.</div>
-          </div>
-          </script>
-        </div>
-      </div>
-
-<% end %>
-
-<%= simple_form_for [:admin, @product_document] do |f| %>
-  <%= f.input :direct_upload_url, as: :hidden %>
+<%= simple_form_for([:admin, @product_document], html: {multipart: true}) do |f| %>
 
   <%= f.association :product, collection: website.products %>
   <div class="row">
@@ -35,5 +10,6 @@
     </div>
   </div>
   <%= f.input :name_override, hint: "Overrides the auto-generated link name. (optional)" %>
+  <%= f.input :document %>
   <br/><%= f.button :submit %>
 <% end %>
