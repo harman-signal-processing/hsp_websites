@@ -1,4 +1,7 @@
 <h1>Editing product attachment</h1>
+<ul class="button-group radius">
+  <li><%= link_to "<< back to product", [:admin, @product_attachment.product], class: "secondary small button" %></li>
+</ul>
 
 <%= render "form" %>
 

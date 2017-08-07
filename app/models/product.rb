@@ -530,4 +530,12 @@ class Product < ApplicationRecord
   def get_started_page
     get_started_pages.first
   end
+
+  def has_full_width_banner?
+    full_width_banners.count > 0
+  end
+
+  def full_width_banners
+    product_attachments.where(show_as_full_width_banner: true)
+  end
 end

@@ -47,6 +47,23 @@ set_meta_tags title: @product.name,
 	<% end %>
 <% end %>
 
+<% if @product.has_full_width_banner? %>
+  <%= content_for :feature do %>
+    <div class="fullWidth">
+    <% @product.full_width_banners.each do |banner| %>
+      <div class="full_width_banner text-center">
+        <% if banner.full_width_banner_url.present? %>
+          <%= link_to banner.full_width_banner_url, target: "_blank" do %>
+            <%= image_tag banner.product_attachment.url %>
+          <% end %>
+        <% else %>
+          <%= image_tag banner.product_attachment.url %>
+        <% end %>
+      </div>
+    <% end %>
+    </div>
+  <% end %>
+<% end %>
 
 <%= cache ["product_page", @product, @online_retailer_link, @active_tab, I18n.locale, session['geo_country']] do %>
 

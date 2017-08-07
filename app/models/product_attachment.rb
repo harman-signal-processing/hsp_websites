@@ -51,6 +51,7 @@ class ProductAttachment < ApplicationRecord
   validates :product_id, presence: true
   validates_uniqueness_of :songlist_tag, allow_blank: true
   acts_as_list scope: :product_id
+  before_save :hide_banner_from_carousel
   after_save :update_primary_photo
   after_destroy :remove_as_primary_photo
 
@@ -67,6 +68,12 @@ class ProductAttachment < ApplicationRecord
   def remove_as_primary_photo
     if self.product && !self.product.photo && self.product.product_attachments.size > 0
       self.product.product_attachments.first.update_attributes(primary_photo: true)
+    end
+  end
+
+  def hide_banner_from_carousel
+    if show_as_full_width_banner?
+      self.hide_from_product_page = true
     end
   end
 

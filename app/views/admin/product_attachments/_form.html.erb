@@ -8,10 +8,10 @@
 		<%= f.input :no_lightbox, label: "Don't use lightbox viewer on this image. (The site's global settings takes precedence over this one.)" %>
 	<% end %>
 
-	<br/><%= f.input :hide_from_product_page, label: "Hide from the thumbnail collection on the product page." %><br/>
+	<%= f.input :hide_from_product_page, label: "Hide from the thumbnail collection on the product page." %>
 
 	<% if f.object.new_record? || (!f.object.product_media_file_name.present? && !f.object.product_attachment_file_name.present?) %>
-	<br/><h5 class="subheader">Note: only provide a static image (above) OR a flash/video (below). Not both.</h5>
+    <h5 class="subheader">Note: only provide a static image (above) OR a flash/video (below). Not both.</h5>
 	<% end %>
 
 	<% unless f.object.product_attachment_file_name.present? %>
@@ -68,6 +68,16 @@
 			</div>
 		</div>
 	<% end %>
+
+  <fieldset>
+    <legend>Banner</legend>
+    <p>Complete the fields below if this image is a banner which should appear at the top of the product page. There
+    should only be <strong>one</strong> banner for a given product.</p>
+    <%= f.input :show_as_full_width_banner %>
+    <%= f.input :full_width_banner_url,
+      placeholder: "example: https://url.to/some/landing/page",
+      hint: "Where does the banner link to when a visitor clicks on it?" %>
+  </fieldset>
 
 	<br/><%= f.button :submit %>
 <% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170726162257) do
+ActiveRecord::Schema.define(version: 20170807152154) do
 
   create_table "admin_logs", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "user_id"
@@ -901,6 +901,8 @@ ActiveRecord::Schema.define(version: 20170726162257) do
     t.boolean "no_lightbox"
     t.boolean "hide_from_product_page"
     t.text "product_attachment_meta"
+    t.string "full_width_banner_url"
+    t.boolean "show_as_full_width_banner", default: false
     t.index ["product_id", "primary_photo"], name: "index_product_attachments_on_product_id_and_primary_photo"
     t.index ["product_id"], name: "index_product_attachments_on_product_id"
   end
