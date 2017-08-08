@@ -14,13 +14,20 @@ module FeaturesHelper
 
   # Renders wide feature with text overlay
   def render_wide_feature(feature)
-    position_class = "medium-6 small-11 columns end"
-    position_class += " medium-offset-6 small-offset-1 " if feature.content_position.to_s == "right"
+    if feature.image.present? || feature.content.present?
+      position_class = "medium-6 small-11 columns end"
+      position_class += " medium-offset-6 small-offset-1 " if feature.content_position.to_s == "right"
 
-    content_tag :div, class: "wide-feature container", style: "background-image: url(#{feature.image.url(:extra_large)});" do
-      content_tag :div, class: "row" do
-        content_tag :div, class: position_class do
-          render_feature_text(feature)
+      content_class = { class: "wide-feature container" }
+      if feature.image.present?
+        content_class[:style] = "background-image: url(#{feature.image.url(:extra_large)});"
+      end
+
+      content_tag :div, content_class  do
+        content_tag :div, class: "row" do
+          content_tag :div, class: position_class do
+            render_feature_text(feature)
+          end
         end
       end
     end
@@ -50,9 +57,11 @@ module FeaturesHelper
 
   # Renders just the text of a feature
   def render_feature_text(feature)
-    content_tag :div, class: "borderless feature-text panel",
-      data: { 'equalizer-watch': "feature_#{feature.to_param}" } do
-      raw(update_youtube_links(translate_content(feature, :content)))
+    if feature.content.present?
+      content_tag :div, class: "borderless feature-text panel",
+        data: { 'equalizer-watch': "feature_#{feature.to_param}" } do
+        raw(update_youtube_links(translate_content(feature, :content)))
+      end
     end
   end # def render_feature_text
 
