@@ -1,38 +1,40 @@
-<% if @product.entertainment? && @product.enterprise? %>
+<%# The enterprise/entertainment designations were discontinued by Harman early in 2017 %>
+<% if Date.today < "2017-05-01".to_date %>
+  <% if @product.entertainment? && @product.enterprise? %>
 
-  <%= link_to ENV['PRO_SITE_URL'], target: "_blank" do %>
-    <%#= image_tag side_banner_image("enterprise_and_entertainment"), alt: "HARMAN Solutions" %>
-    <div style="border: 1px solid #CCC" class="text-center">
-      <div class="button" style="width: 100%">EXPLORE MORE</div>
-      <div style="padding: 0px 50px 25px;">
-        <h2 class="subheader">HARMAN ENTERPRISE AND ENTERTAINMENT SOLUTIONS</h2>
+    <%= link_to ENV['PRO_SITE_URL'], target: "_blank" do %>
+      <%#= image_tag side_banner_image("enterprise_and_entertainment"), alt: "HARMAN Solutions" %>
+      <div style="border: 1px solid #CCC" class="text-center">
+        <div class="button" style="width: 100%">EXPLORE MORE</div>
+        <div style="padding: 0px 50px 25px;">
+          <h2 class="subheader">HARMAN ENTERPRISE AND ENTERTAINMENT SOLUTIONS</h2>
+        </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
 
-<% elsif @product.entertainment? %>
+  <% elsif @product.entertainment? %>
 
-  <%= link_to "#{ENV['PRO_SITE_URL']}/applications/entertainment", target: "_blank" do %>
-    <%#= image_tag side_banner_image("entertainment"), alt: "Entertainment Solutions" %>
-    <div style="border: 1px solid #CCC" class="text-center">
-      <div class="button" style="width: 100%">EXPLORE MORE</div>
-      <div style="padding: 0px 50px 25px;">
-        <h2 class="subheader">HARMAN ENTERTAINMENT SOLUTIONS</h2>
+    <%= link_to "#{ENV['PRO_SITE_URL']}/applications/entertainment", target: "_blank" do %>
+      <%#= image_tag side_banner_image("entertainment"), alt: "Entertainment Solutions" %>
+      <div style="border: 1px solid #CCC" class="text-center">
+        <div class="button" style="width: 100%">EXPLORE MORE</div>
+        <div style="padding: 0px 50px 25px;">
+          <h2 class="subheader">HARMAN ENTERTAINMENT SOLUTIONS</h2>
+        </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
 
-<% elsif @product.enterprise? %>
+  <% elsif @product.enterprise? %>
 
-  <%= link_to "#{ENV['PRO_SITE_URL']}/applications/enterprise", target: "_blank" do %>
-    <%#= image_tag side_banner_image("enterprise"), alt: "Enterprise Solutions" %>
-    <div style="border: 1px solid #CCC" class="text-center">
-      <div class="button" style="width: 100%">EXPLORE MORE</div>
-      <div style="padding: 0px 50px 25px;">
-        <h2 class="subheader">HARMAN ENTERPRISE SOLUTIONS</h2>
+    <%= link_to "#{ENV['PRO_SITE_URL']}/applications/enterprise", target: "_blank" do %>
+      <%#= image_tag side_banner_image("enterprise"), alt: "Enterprise Solutions" %>
+      <div style="border: 1px solid #CCC" class="text-center">
+        <div class="button" style="width: 100%">EXPLORE MORE</div>
+        <div style="padding: 0px 50px 25px;">
+          <h2 class="subheader">HARMAN ENTERPRISE SOLUTIONS</h2>
+        </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
 
+  <% end %>
 <% end %>
-

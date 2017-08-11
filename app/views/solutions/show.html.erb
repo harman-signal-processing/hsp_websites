@@ -35,7 +35,7 @@ set_meta_tags title: t('solutions_page.vertical_market_solutions', vertical_mark
 	}
 %>
 
-<%= cache [@solution, "header"] do %>
+<%= cache [@solution, "header", I18n.locale] do %>
   <h1><%= t('solutions_page.vertical_market_solutions', vertical_market: @solution.name).titleize %></h1>
 
   <% if @solution.vertical_market_id.present? %>
@@ -121,7 +121,7 @@ set_meta_tags title: t('solutions_page.vertical_market_solutions', vertical_mark
 
 <hr class="colored"/>
 
-<%= cache "solution_common_footer" do %>
+<%= cache ["solution_common_footer", I18n.locale] do %>
   <div class="text-center">
     <h3 class="subheader"><%= t('solutions_page.harman_family') %></h3>
     <%= link_to t('solutions_page.explore_solutions').titleize, ENV['PRO_SITE_URL'], class: "button", target: "_blank" %>
