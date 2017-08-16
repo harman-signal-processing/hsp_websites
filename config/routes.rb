@@ -336,6 +336,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get 'teaser' => 'main#teaser'
     get 'teaser2' => 'main#teaser'
     resources :signups, only: [:new, :create]
+    get "signup" => "signups#new"
+    get "signups" => "signups#new"
     get 'now-youll-know' => 'main#teaser_complete', as: :teaser_complete
     resources :us_reps, :distributors, only: [:index, :show] do
       collection { get :search }

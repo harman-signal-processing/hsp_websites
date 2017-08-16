@@ -1,27 +1,18 @@
 <h1>What's happening with <%= website.brand.name %>?</h1>
 
-<%= form_for @signup do |f| %>
+<%= simple_form_for @signup do |f| %>
 	<% if @signup.errors.any? %>
 		<div data-alert class="alert-box alert">
 			Please make sure your email address is correct:
 		</div>
 	<% end %>
-	<%= f.hidden_field :campaign %>
 	<div class="row">
-		<div class="large-6 large-offset-3 columns" style="text-align: left;">
-  		<%= f.label :email, "Be the first to find out:" %>
-  	</div>
-  </div>
-	<div class="row">
-    <div class="large-6 large-offset-3 columns">
-      <div class="row collapse">
-        <div class="small-8 columns">
-        	<%= f.text_field :email, placeholder: "your@email.com" %>
-        </div>
-        <div class="small-4 columns">
-        	<%= f.submit "signup", class: "large button postfix" %>
-        </div>
-      </div>
+		<div class="medium-6 small-12 columns">
+      <%= f.input :first_name, required: true %>
+      <%= f.input :last_name, required: true %>
+      <%= f.input :email, placeholder: "your@email.com", required: true %>
+      <%= f.input :country %>
     </div>
 	</div>
+  <%= f.submit "signup", class: "button" %>
 <% end %>
