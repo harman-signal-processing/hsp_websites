@@ -113,6 +113,11 @@ class ContactMessage < ApplicationRecord
 
     recipients = [brand.support_email]
 
+    # Fix "United States of America" which should be "United States"
+    if self.shipping_country.present? && self.shipping_country == "United States of America"
+      self.shipping_country = "United States"
+    end
+
     # Route by country
     if brand.send_contact_form_to_distributors? &&
         self.shipping_country.present? &&
