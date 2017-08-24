@@ -17,18 +17,27 @@ class PagesController < ApplicationController
         if !@page.layout_class.blank? && File.exists?(Rails.root.join("app", "views", website.folder, "pages", "#{@page.layout_class}.html.erb"))
           render template: "#{website.folder}/pages/#{@page.layout_class}", layout: set_layout
         else
-          render_template
+          render_template(action: 'show')
         end
       }
       format.xml  { render xml: @page }
     end
   end
 
-  # /network-audio replacing old BSS/Crown solutions page 11/2017
+  # Using CMS page "network-audio" if present as of 08/2017
+  # /network-audio replacing old BSS/Crown solutions page 11/2016
   # /solutions Added for BSS,Crown 6/2015
   def network_audio
-    @hide_main_container = true
-    render_template
+    if Page.exists?(custom_route: "network-audio-#{website.brand.name.to_param.downcase}")
+      @page = Page.where(custom_route: "network-audio-#{website.brand.name.to_param.downcase}").first
+      show and return false
+    elsif Page.exists?(custom_route: "network-audio")
+      @page = Page.where(custom_route: "network-audio").first
+      show and return false
+    else
+      @hide_main_container = true
+      render_template
+    end
   end
 
   # /safetyandcertifications
