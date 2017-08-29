@@ -30,9 +30,15 @@ namespace :silverpop do
               puts "Signing up #{signup.email}..."
               begin
                 user_params = { email: signup.email, :"BR_#{brand.name}" => true }
-                user_params["First Name".to_sym] = signup.first_name if signup.respond_to?(:first_name)
-                user_params["Last Name".to_sym] = signup.last_name if signup.respond_to?(:last_name)
-                user_params[:country] = signup.country if signup.respond_to?(:country)
+                user_params["0001_First_Name".to_sym] = signup.first_name if signup.respond_to?(:first_name)
+                user_params["0002_Last_Name".to_sym] = signup.last_name if signup.respond_to?(:last_name)
+                user_params["0011_Country"] = signup.country if signup.respond_to?(:country)
+                user_params["Opt In Details".to_sym] = "Submitted via #{brand.default_website.url} "
+                if signup.campaign.present?
+                  user_params["Opt In Details".to_sym] += "(campaign: #{signup.campaign.to_s}) "
+                elsif signup.is_a?(WarrantyRegistration)
+                  user_params["Opt In Details".to_sym] += "(via warranty registration for: #{signup.product.name}) "
+                end
                 @client.add_recipient(user_params, dbid, [list_id])
                 signup.update_column(:synced_on, Date.today)
               rescue
