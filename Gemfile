@@ -21,7 +21,7 @@ gem 'jquery-rails' #, "~> 4.0.5" # 4.1 broke buy it now popups
 gem 'mysql2' , '< 0.4.7' # internal server wouldn't install 0.4.7
 gem 'utf8-cleaner'
 gem 'friendly_id', '>= 5.2'
-gem 'aws-sdk'
+gem 'aws-sdk', '< 3' # v3 modularizes AWS services, tough to work with paperclip
 gem 'fog-rackspace'
 gem 'fog-aws'
 gem 'asset_sync'
