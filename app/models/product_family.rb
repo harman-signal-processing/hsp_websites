@@ -9,6 +9,8 @@ class ProductFamily < ApplicationRecord
   has_many :market_segment_product_families, dependent: :destroy
   has_many :features, -> { order('position') }, as: :featurable, dependent: :destroy
 
+  has_many :content_translations, as: :translatable, foreign_key: "content_id", foreign_type: "content_type"
+
   has_attached_file :family_photo, { styles: { medium: "300x300>", thumb: "100x100>" }}.merge(S3_STORAGE)
   has_attached_file :family_banner, { styles: { medium: "300x300>", thumb: "100x100>" }}.merge(S3_STORAGE)
   has_attached_file :title_banner, { styles: { medium: "300x300>", thumb: "100x100>" }}.merge(S3_STORAGE)
@@ -212,12 +214,21 @@ class ProductFamily < ApplicationRecord
 
   # Alias for search results link_name
   def link_name
-    self.name
+    self.send(:link_name_method)
+  end
+
+  def link_name_method
+    :name
   end
 
   # Alias for search results content_preview
   def content_preview
-    "#{self.intro} " + self.current_products.collect{|p| p.name}.join(", ")
+    #"#{self.intro} " + self.current_products.collect{|p| p.name}.join(", ")
+    self.send(content_preview_method)
+  end
+
+  def content_preview_method
+    :intro
   end
 
   # Load this ProductFamily's children families with at least one active product

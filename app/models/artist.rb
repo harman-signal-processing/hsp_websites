@@ -18,6 +18,8 @@ class Artist < ApplicationRecord
   belongs_to :approver, class_name: "User", foreign_key: "approver_id"
   before_save :clear_approval, :fix_website_format
 
+  has_many :content_translations, as: :translatable, foreign_key: "content_id", foreign_type: "content_type"
+
   has_attached_file :artist_photo, {
     styles: { feature: "940x400#",
       large: "400>x370",
@@ -138,12 +140,20 @@ class Artist < ApplicationRecord
 
   # Alias for search results link_name
   def link_name
-    self.name
+    self.send(link_name_method)
+  end
+
+  def link_name_method
+    :name
   end
 
   # Alias for search results content_preview
   def content_preview
-    self.name
+    self.send(content_preview_method)
+  end
+
+  def content_preview_method
+    :name
   end
 
   def has_summary?

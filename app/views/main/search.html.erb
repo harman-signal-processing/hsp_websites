@@ -19,9 +19,9 @@
     <%= will_paginate @results %>
     <ul id="search_results">
       <% @results.each do |result| %>
-        <li><%= link_to result.link_name, page_link(result) %><br/>
+        <li><%= link_to translate_content(result, result.link_name_method), page_link(result) %><br/>
           <% if result.content_preview && !result.content_preview.blank? %>
-            <%= truncate(strip_html(result.content_preview), length: 200) %><br/>
+            <%= truncate(strip_html(translate_content(result, result.content_preview_method)), length: 200) %><br/>
           <% end %>
           <span class="search_link">
             <%= link_to page_link(result), page_link(result) %>
