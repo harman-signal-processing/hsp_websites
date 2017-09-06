@@ -26,7 +26,7 @@ class ProductReview < ApplicationRecord
   has_many :product_review_products, dependent: :destroy
   has_many :products, through: :product_review_products
 
-  has_many :content_translations, as: :content
+  has_many :content_translations, as: :translatable, foreign_key: "content_id", foreign_type: "content_type"
 
   before_save :clear_blank_body, :reset_link_status, :stamp_link
 

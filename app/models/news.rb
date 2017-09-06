@@ -26,6 +26,8 @@ class News < ApplicationRecord
   has_many :products, through: :news_products
   belongs_to :brand, touch: true
 
+  has_many :content_translations, as: :translatable, foreign_key: "content_id", foreign_type: "content_type"
+
   validates :brand_id, presence: true
   validates :title, presence: true
   validates :post_on, presence: true
@@ -105,12 +107,20 @@ class News < ApplicationRecord
 
   # Alias for search results link name
   def link_name
-    self.title
+    self.send(:link_name_method)
+  end
+
+  def link_name_method
+    :title
   end
 
   # Alias for search results content preview
   def content_preview
     "#{I18n.l(self.created_at.to_date, format: :long)} - #{self.body}"
+  end
+
+  def content_preview_method
+    :body
   end
 
   def quote_or_headline

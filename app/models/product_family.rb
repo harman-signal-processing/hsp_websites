@@ -9,7 +9,7 @@ class ProductFamily < ApplicationRecord
   has_many :market_segment_product_families, dependent: :destroy
   has_many :features, -> { order('position') }, as: :featurable, dependent: :destroy
 
-  has_many :content_translations, as: :content
+  has_many :content_translations, as: :translatable, foreign_key: "content_id", foreign_type: "content_type"
 
   has_attached_file :family_photo, { styles: { medium: "300x300>", thumb: "100x100>" }}.merge(S3_STORAGE)
   has_attached_file :family_banner, { styles: { medium: "300x300>", thumb: "100x100>" }}.merge(S3_STORAGE)

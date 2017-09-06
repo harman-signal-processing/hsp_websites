@@ -415,9 +415,10 @@ module ApplicationHelper
   end
 
   def custom_page_url(page)
+    locale_path = I18n.locale.to_s.match(/en/i) ? "" : "#{I18n.locale.to_s}/"
     (Rails.env.production? || Rails.env.staging?) ?
-      "#{request.protocol}#{request.host}/#{page.custom_route}" :
-      "#{request.protocol}#{request.host_with_port}/#{page.custom_route}"
+      "#{request.protocol}#{request.host}/#{locale_path}#{page.custom_route}" :
+      "#{request.protocol}#{request.host_with_port}/#{locale_path}#{page.custom_route}"
   end
 
   # Platform icon. Make sure there are icons for all the different platforms and sizes

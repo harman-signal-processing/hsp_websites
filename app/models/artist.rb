@@ -18,7 +18,7 @@ class Artist < ApplicationRecord
   belongs_to :approver, class_name: "User", foreign_key: "approver_id"
   before_save :clear_approval, :fix_website_format
 
-  has_many :content_translations, as: :content
+  has_many :content_translations, as: :translatable, foreign_key: "content_id", foreign_type: "content_type"
 
   has_attached_file :artist_photo, {
     styles: { feature: "940x400#",

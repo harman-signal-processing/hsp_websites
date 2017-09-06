@@ -53,7 +53,7 @@ class Product < ApplicationRecord
   after_initialize :set_default_status
   accepts_nested_attributes_for :product_prices, reject_if: :all_blank
 
-  has_many :content_translations, as: :content
+  has_many :content_translations, as: :translatable, foreign_key: "content_id", foreign_type: "content_type"
 
   monetize :harman_employee_price_cents, :allow_nil => true
   monetize :msrp_cents, :allow_nil => true
