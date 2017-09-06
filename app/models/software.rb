@@ -15,6 +15,8 @@ class Software < ApplicationRecord
   has_many :software_operating_systems, dependent: :destroy
   has_many :operating_systems, through: :software_operating_systems
 
+  has_many :content_translations, as: :content
+
   validates :name, :brand_id, presence: true
   has_attached_file :ware, S3_STORAGE.merge({
     s3_headers: lambda { |attachment|
@@ -111,9 +113,17 @@ class Software < ApplicationRecord
     self.formatted_name
   end
 
+  def link_name_method
+    :name
+  end
+
   # Alias for search results content_preview
   def content_preview
-    self.description
+    self.send(content_preview_method)
+  end
+
+  def content_preview_method
+    :description
   end
 
   def has_additional_info?

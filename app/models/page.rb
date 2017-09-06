@@ -4,6 +4,8 @@ class Page < ApplicationRecord
 
   has_many :features, -> { order('position') }, as: :featurable, dependent: :destroy
 
+  has_many :content_translations, as: :content
+
   validates :title, presence: true, uniqueness: { scope: :brand_id }
   validates :brand_id, presence: true
   validates :custom_route, uniqueness: true
@@ -41,12 +43,20 @@ class Page < ApplicationRecord
 
   # Alias for search results link_name
   def link_name
-    self.title
+    self.send(link_name_method)
+  end
+
+  def link_name_method
+    :title
   end
 
   # Alias for search results content_preview
   def content_preview
-    self.body
+    self.send(content_preview_method)
+  end
+
+  def content_preview_method
+    :body
   end
 
   # Checks if this page requires a username and password:

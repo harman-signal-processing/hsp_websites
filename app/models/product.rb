@@ -53,6 +53,8 @@ class Product < ApplicationRecord
   after_initialize :set_default_status
   accepts_nested_attributes_for :product_prices, reject_if: :all_blank
 
+  has_many :content_translations, as: :content
+
   monetize :harman_employee_price_cents, :allow_nil => true
   monetize :msrp_cents, :allow_nil => true
   monetize :street_price_cents, :allow_nil => true
@@ -407,12 +409,20 @@ class Product < ApplicationRecord
 
   # Alias for search results link_name
   def link_name
-    self.name
+    self.send(:link_name_method)
+  end
+
+  def link_name_method
+    :name
   end
 
   # Alias for search results content_preview
   def content_preview
-    self.description
+    self.send(content_preview_method)
+  end
+
+  def content_preview_method
+    :description
   end
 
   # Does this product have a custom background image or color?

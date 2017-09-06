@@ -1,4 +1,5 @@
 class ContentTranslation < ApplicationRecord
+  belongs_to :content, polymorphic: true
   validates :content_id, presence: true
   validates :content_method, presence: true
   validates :locale, presence: true

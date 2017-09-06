@@ -122,6 +122,7 @@ class MainController < ApplicationController
     query = @query.to_s.gsub(/[\/\\]/, " ")
     ferret_results = ThinkingSphinx.search(
       ThinkingSphinx::Query.escape(query),
+      indices: locale_indices,
       page: 1, # we'll paginate after filtering out other brand assets
       per_page: 1000
     )
@@ -304,4 +305,9 @@ class MainController < ApplicationController
       "#{website.folder}/layouts/teaser" : "teaser"
   end
 
+  def locale_indices
+    ['artist', 'news', 'page', 'product_family', 'product', 'product_review' 'software'].map do |index|
+      "#{index}_#{I18n.locale.to_s.gsub(/\-/, '_')}_core"
+    end
+  end
 end

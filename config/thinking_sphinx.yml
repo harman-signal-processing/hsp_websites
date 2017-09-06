@@ -4,9 +4,11 @@ development:
   client_timeout: 200
   morphology: stem_en
   min_infix_len: 4
+  mysql41: 9433
 production:
   bin_path: "/usr/bin"
   searchd_binary_name: "searchd"
   client_timeout: 200
   morphology: stem_en
   min_infix_len: 4
+  mysql41: 9433

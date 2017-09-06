@@ -25,6 +25,9 @@ class ProductReview < ApplicationRecord
 
   has_many :product_review_products, dependent: :destroy
   has_many :products, through: :product_review_products
+
+  has_many :content_translations, as: :content
+
   before_save :clear_blank_body, :reset_link_status, :stamp_link
 
   def sanitized_title
@@ -67,12 +70,20 @@ class ProductReview < ApplicationRecord
 
   # Alias for search results link_name
   def link_name
-    self.title
+    self.send(link_name_method)
+  end
+
+  def link_name_method
+    :title
   end
 
   # Alias for search results content_preview
   def content_preview
-    self.body
+    self.send(content_preview_method)
+  end
+
+  def content_preview_method
+    :body
   end
 
   # Used for link checking
