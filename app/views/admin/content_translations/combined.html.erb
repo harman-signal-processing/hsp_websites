@@ -1,36 +1,60 @@
 <%= content_for :dashboard do %>
   <h1>"<%= @target_locale %>" translation for <%= @model_class.titleize %>:</h1>
-  <h3 class="subheader"><%= name_for(@record) %></h3>
+  <% if @product %>
+    <h3 class="subheader"><%= name_for(@product) %></h3>
+  <% elsif @record %>
+    <h3 class="subheader"><%= name_for(@record) %></h3>
+  <% end %>
 
-  <%= form_tag combined_admin_content_translations_path(target_locale: @target_locale), method: :post %>
-    <table width="100%">
-    <% @content_translations.each do |content_translation| %>
-      <tr>
-        <th style="background: #ccc; border-bottom: 1px dotted #CCC" width="50%">
-          "<%= content_translation.content_method.titleize %>" <%= I18n.default_locale %>:
-        </th>
-        <th style="background: #ccc; border-bottom: 1px dotted #CCC" width="50%">
-          "<%= content_translation.content_method.titleize %>" <%= @target_locale %>:
-        </th>
-      </tr>
-      <tr>
-        <td valign="top" style="padding-right: 40px">
-          <%=raw eval("@record.#{content_translation.content_method}") %>
-        </td>
-        <td valign="top" style="border-left: 1px dotted #CCC; padding-left: 10px;">
-          <% if eval("@record.class.columns_hash['#{content_translation.content_method}'].type == :string") %>
-          <%= text_field_tag "content[#{content_translation.content_method}]", content_translation.content %>
-          <% else %>
-          <%= text_area_tag "content[#{content_translation.content_method}]", content_translation.content, class: "mceEditor", style: "min-height: 400px" %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-    </table>
+  <% if @content_translations.length > 0 %>
 
-    <%= hidden_field_tag "id", @record.id %>
-    <%= hidden_field_tag "type", @record.class.name.underscore %>
-    <%= submit_tag "save changes", class: "small round button"  %>
+    <%= form_tag combined_admin_content_translations_path(target_locale: @target_locale), method: :post %>
+      <table width="100%">
+      <% @content_translations.each do |content_translation| %>
+        <tr>
+          <th style="background: #ccc; border-bottom: 1px dotted #CCC" width="50%">
+            <%= content_translation.header %> <%= I18n.default_locale %>:
+          </th>
+          <th style="background: #ccc; border-bottom: 1px dotted #CCC" width="50%">
+            <%= content_translation.header %> <%= @target_locale %>:
+          </th>
+        </tr>
+        <tr>
+          <td valign="top" style="padding-right: 40px">
+            <%=raw content_translation.original_value %>
+          </td>
+          <td valign="top" style="border-left: 1px dotted #CCC; padding-left: 10px;">
+            <% if content_translation.original_item.class.columns_hash[content_translation.content_method].type == :string %>
+              <%= text_field_tag "content[i#{content_translation.content_id}][#{content_translation.content_method}]", content_translation.content %>
+            <% else %>
+              <%= text_area_tag "content[i#{content_translation.content_id}][#{content_translation.content_method}]", content_translation.content, class: "mceEditor", style: "min-height: 400px" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </table>
 
-  </form>
+      <% if @product %>
+        <%= hidden_field_tag "product_id", @product.id %>
+        <%= hidden_field_tag "type", @new_record.class.name.underscore %>
+      <% elsif @record %>
+        <%= hidden_field_tag "id", @record.id %>
+        <%= hidden_field_tag "type", @record.class.name.underscore %>
+      <% end %>
+      <%= submit_tag "save changes", class: "small round button"  %>
+
+    </form>
+
+  <% else %>
+
+    <div class="row">
+      <div class="small-12 medium-6 medium-offset-3 columns">
+        <div class="alert-box alert">
+          Nothing to translate. If you expected to see something here, make sure the content team
+          has uploaded the English content first.
+        </div>
+      </div>
+    </div>
+
+  <% end %>
 <% end %>

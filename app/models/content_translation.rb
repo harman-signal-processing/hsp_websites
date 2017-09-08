@@ -17,6 +17,7 @@ class ContentTranslation < ApplicationRecord
       "product_family" => %w{name intro keywords},
       "feature"        => %w{pre_content content},
       "specification"  => %w{name},
+      "product_specification" => %w{value},
       "news"           => %w{title body},
       "page"           => %w{title description body},
       "promotion"      => %w{name description}
@@ -65,6 +66,22 @@ class ContentTranslation < ApplicationRecord
       end
     end
     c
+  end
+
+  def original_item
+    content_type.classify.constantize.find(content_id)
+  end
+
+  def original_value
+    original_item.send(content_method)
+  end
+
+  def header
+    @header ||= if original_item.respond_to?(:specification)
+                  original_item.specification.name.titleize
+                elsif original_item.respond_to?(:content_name)
+                  original_item.content_name.titleize
+                end.to_s + " \"#{content_method.titleize}\""
   end
 
 end

@@ -558,8 +558,9 @@ module ProductsHelper
   end
 
   # Returns a checkmark if the specification value is "yes"
-  def spec_value(val)
-    (val.match(/^yes\s*?$/i)) ? image_tag("icons/check.png", alt: val) : val
+  def spec_value(product_spec)
+    val = product_spec.value
+    (val.match(/^yes\s*?$/i)) ? image_tag("icons/check.png", alt: val) : translate_content(product_spec, :value)
   end
 
   # Finds the best side banner for the enterprise/entertainment thingey.

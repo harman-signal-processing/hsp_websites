@@ -76,7 +76,7 @@
 		<% @products.each do |product| %>
 		<td class="spec_value">
 			<% if ps = product.product_specifications.where(specification_id: spec.id).first %>
-				<%= spec_value(ps.value) %>
+				<%= spec_value(ps) %>
 			<% else %>
 				--
 			<% end %>

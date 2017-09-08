@@ -1,7 +1,22 @@
 <h1><%= @model_class.pluralize %> for "<%= @target_locale %>"</h1>
 
-<table border="0" cellspacing="5" cellpadding="5">
-	<% @records.each do |record| %>
-		<tr><td><%= link_to_translate(record, @target_locale) %></td></tr>
-	<% end %>
-</table>
+<% if @new_instance.respond_to?(:product) %>
+  Select a product:
+  <ul>
+		<% website.products.each do |product| %>
+      <li><%= link_to product.name,
+        combined_admin_content_translations_path(
+          locale: I18n.locale,
+          target_locale: @target_locale,
+          type: @new_instance.class.to_s.underscore,
+          product_id: product.id ) %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <ul>
+    <% @records.each do |record| %>
+      <li><%= link_to_translate(record, @target_locale) %></li>
+    <% end %>
+  </ul>
+<% end %>
