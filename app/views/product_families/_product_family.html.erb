@@ -2,7 +2,7 @@
   hlevel ||= product_family.parent_id.blank? ? 'h1' : 'h2'
   skip_header ||= false
 %>
-<% if product_family.current_products.length > 0 %>
+<% if product_family.current_products.length > 0 && product_family.locales(website).include?(I18n.locale.to_s) %>
   <% unless skip_header %>
     <<%= hlevel %>>
       <%= translate_content(product_family, :name) %>

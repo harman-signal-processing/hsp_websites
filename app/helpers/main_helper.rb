@@ -213,40 +213,42 @@ module MainHelper
   end
 
   def product_family_nav_links(product_family, options={})
-    default_options = {depth: 99}
-    options = default_options.merge options
+    if product_family.locales(website).include?(I18n.locale.to_s)
+      default_options = {depth: 99}
+      options = default_options.merge options
 
-    child_links = []
-    product_links = []
+      child_links = []
+      product_links = []
 
-    relevant_children = product_family.children_with_current_products(website)
-    options[:depth] += 1 if relevant_children.length > 0
-
-    if options[:depth] > 1
-      child_links = relevant_children.map do |sub_family|
-        product_family_nav_links(sub_family, options)
-      end
-      options[:depth] -= 1
+      relevant_children = product_family.children_with_current_products(website)
+      options[:depth] += 1 if relevant_children.length > 0
 
       if options[:depth] > 1
-        product_links = product_family.current_products.map do |product|
-          content_tag(:li, link_to(translate_content(product, :name), product))
+        child_links = relevant_children.map do |sub_family|
+          product_family_nav_links(sub_family, options)
+        end
+        options[:depth] -= 1
+
+        if options[:depth] > 1
+          product_links = product_family.current_products.map do |product|
+            content_tag(:li, link_to(translate_content(product, :name), product))
+          end
         end
       end
+
+      # An ugly exception to show JBL Commercial under the Commercial
+      # category for Crown.
+      if product_family.name.to_s.match(/commercial/i) && product_family.brand.name.to_s.match(/crown/i)
+        child_links << content_tag(:li, link_to("JBL Commercial", "//www.jblcommercialproducts.com/", target: "_blank"))
+      end
+
+      dropdown_class = (child_links + product_links).length > 0 ? "has-dropdown" : ""
+
+      content_tag(:li, class: dropdown_class) do
+        link_to(translate_content(product_family, :name), product_family) +
+        content_tag(:ul, child_links.join.html_safe + product_links.join.html_safe, class: "dropdown")
+      end.html_safe
     end
-
-    # An ugly exception to show JBL Commercial under the Commercial
-    # category for Crown.
-    if product_family.name.to_s.match(/commercial/i) && product_family.brand.name.to_s.match(/crown/i)
-      child_links << content_tag(:li, link_to("JBL Commercial", "//www.jblcommercialproducts.com/", target: "_blank"))
-    end
-
-    dropdown_class = (child_links + product_links).length > 0 ? "has-dropdown" : ""
-
-    content_tag(:li, class: dropdown_class) do
-      link_to(translate_content(product_family, :name), product_family) +
-      content_tag(:ul, child_links.join.html_safe + product_links.join.html_safe, class: "dropdown")
-    end.html_safe
   end
 
   def market_segment_nav_links(market_segment, options={})
