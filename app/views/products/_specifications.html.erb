@@ -1,8 +1,42 @@
-<table class="specs">
-	<% product.product_specifications.includes(:specification).each do |product_spec| %>
-	<tr>
-		<td class="name"><%= translate_content(product_spec.specification, :name) %></td>
-		<td><%= spec_value(product_spec) %></td>
-	</tr>
-	<% end %>
-</table>
+<% if website.brand.use_flattened_specs? || product.specification_groups.count == 0 %>
+
+  <table class="specs">
+    <% product.product_specifications.includes(:specification).each do |product_spec| %>
+      <tr>
+        <td class="name"><%= translate_content(product_spec.specification, :name) %></td>
+        <td><%= spec_value(product_spec) %></td>
+      </tr>
+    <% end %>
+  </table>
+
+<% else %>
+
+  <table class="specs">
+    <% product.specification_groups.each do |spec_group| %>
+      <tr>
+        <th colspan="2"><%= translate_content(spec_group, :name) %></th>
+      </tr>
+
+      <% product.product_specifications.where(specification_id: spec_group.specifications_for(product).pluck(:id)).includes(:specification).each do |product_spec| %>
+        <tr>
+          <td class="name"><%= translate_content(product_spec.specification, :name) %></td>
+          <td><%= spec_value(product_spec) %></td>
+        </tr>
+      <% end %>
+    <% end %>
+
+    <% if product.ungrouped_product_specifications.length > 0 %>
+      <tr>
+        <th colspan="2">Other Specifications</th>
+      </tr>
+
+      <% product.ungrouped_product_specifications.each do |product_spec| %>
+        <tr>
+          <td class="name"><%= translate_content(product_spec.specification, :name) %></td>
+          <td><%= spec_value(product_spec) %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+
+<% end %>

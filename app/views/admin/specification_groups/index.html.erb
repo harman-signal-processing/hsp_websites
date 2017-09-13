@@ -1,0 +1,10 @@
+<h1>Listing specifications groups</h1>
+
+<%= link_to 'New Specification Group', new_admin_specification_group_path, class: "small round success button" %>
+
+<ul class="list">
+<% @specification_groups.each do |specification_group| %>
+  <li><%= link_to specification_group.name, [:admin, specification_group] %></li>
+<% end %>
+</ul>
+

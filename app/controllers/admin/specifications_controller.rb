@@ -1,10 +1,11 @@
 class Admin::SpecificationsController < AdminController
   before_action :initialize_specification, only: :create
   load_and_authorize_resource
-  
+
   # GET /admin/specifications
   # GET /admin/specifications.xml
   def index
+    @specification_groups = SpecificationGroup.order("position", "name")
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @specifications }

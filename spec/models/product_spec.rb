@@ -71,4 +71,36 @@ RSpec.describe Product, :type => :model do
       expect(@product.market_segments).to include(@market)
     end
   end
+
+  describe "specifications" do
+    before do
+      @product_with_specs = FactoryGirl.create(:product)
+      @spec_group = FactoryGirl.create(:specification_group)
+      @specification = FactoryGirl.create(:specification, specification_group: @spec_group)
+      @other_spec = FactoryGirl.create(:specification)
+      @product_specification = FactoryGirl.create(:product_specification, specification: @specification, product: @product_with_specs)
+      @other_product_specification = FactoryGirl.create(:product_specification, specification: @other_spec, product: @product_with_specs)
+    end
+
+    describe "flattened" do
+
+      it "has specs" do
+        expect(@product_with_specs.specifications).to include(@specification)
+        expect(@product_with_specs.specifications).to include(@other_spec)
+      end
+    end
+
+    describe "in groups" do
+
+      it "has groups" do
+        expect(@product_with_specs.specification_groups).to include(@spec_group)
+      end
+
+      it "has un-grouped specs" do
+        expect(@product_with_specs.ungrouped_product_specifications).to include(@other_product_specification)
+        expect(@product_with_specs.ungrouped_product_specifications).not_to include(@product_specification)
+      end
+
+    end
+  end
 end

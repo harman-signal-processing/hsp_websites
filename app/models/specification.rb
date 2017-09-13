@@ -2,9 +2,11 @@ class Specification < ApplicationRecord
   extend FriendlyId
   friendly_id :name
 
-  belongs_to :product_specification
+  belongs_to :specification_group
   has_many :product_specifications
   validates :name, presence: true, uniqueness: true
+
+  acts_as_list scope: :specification_group_id
 
   def values_with_products
     r = {}

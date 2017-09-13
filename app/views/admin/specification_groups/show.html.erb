@@ -1,0 +1,14 @@
+<p>
+  <b>Name:</b>
+  <%= @specification_group.name %>
+</p>
+
+<h5>Specs in this group</h5>
+<ul>
+  <% @specification_group.specifications.each do |spec| %>
+    <li><%= link_to spec.name, [:admin, spec] %></li>
+  <% end %>
+</ul>
+
+<%= link_to 'Edit', edit_admin_specification_group_path(@specification_group, locale: I18n.locale) %> |
+<%= link_to 'Back', admin_specification_groups_path %>

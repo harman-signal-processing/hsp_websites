@@ -17,6 +17,8 @@ class Product < ApplicationRecord
   has_many :product_softwares, -> { order("software_position") }, dependent: :destroy
   has_many :softwares, through: :product_softwares
   has_many :product_specifications, -> { order('position') }, dependent: :destroy
+  has_many :specifications, through: :product_specifications
+  has_many :specification_groups, through: :specifications
   has_many :artist_products, dependent: :destroy, inverse_of: :product
   has_many :artists, through: :artist_products
   has_many :product_site_elements, dependent: :destroy, inverse_of: :product
@@ -548,4 +550,9 @@ class Product < ApplicationRecord
   def full_width_banners
     product_attachments.where(show_as_full_width_banner: true)
   end
+
+  def ungrouped_product_specifications
+    product_specifications.select{|ps| ps unless ps.specification.specification_group}
+  end
+
 end

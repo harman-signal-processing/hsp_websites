@@ -269,6 +269,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :online_retailer_users,
         :tone_library_patches,
         :software_attachments,
+        :specification_groups,
         :product_audio_demos,
         :product_suggestions,
         :product_attachments,

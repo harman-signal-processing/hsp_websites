@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170807152154) do
+ActiveRecord::Schema.define(version: 20170911171340) do
 
   create_table "admin_logs", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "user_id"
@@ -1465,12 +1465,22 @@ ActiveRecord::Schema.define(version: 20170807152154) do
     t.index ["cached_slug"], name: "index_solutions_on_cached_slug", unique: true
   end
 
+  create_table "specification_groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "specifications", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "cached_slug"
+    t.integer "specification_group_id"
+    t.integer "position"
     t.index ["cached_slug"], name: "index_specifications_on_cached_slug", unique: true
+    t.index ["specification_group_id"], name: "index_specifications_on_specification_group_id"
   end
 
   create_table "support_subjects", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

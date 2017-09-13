@@ -3,6 +3,16 @@
   <%= @specification.name %>
 </p>
 
+<% unless website.brand.use_flattened_specs? %>
+  <p>
+    <b>Belongs to group:</b>
+    <% if @specification.specification_group.present? %>
+      <%= @specification.specification_group.name %>
+    <% else %>
+      (none)
+    <% end %>
+  </p>
+<% end %>
 
 <%= link_to 'Edit', edit_admin_specification_path(@specification, locale: I18n.locale) %> |
 <%= link_to 'Back', admin_specifications_path %>

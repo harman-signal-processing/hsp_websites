@@ -1,10 +1,31 @@
-<h1>Listing specifications</h1>
+<div class="row">
 
-<%= link_to 'New Specification', new_admin_specification_path, class: "small round success button" %>
+  <% unless website.brand.use_flattened_specs? %>
+    <div class="medium-6 columns">
+      <h4>Spec Groups</h4>
 
-<ul class="list">
-<% @specifications.each do |specification| %>
-  <li><%= link_to specification.name, [:admin, specification] %></li>
-<% end %>
-</ul>
+      <%= link_to "New Group", new_admin_specification_group_path, class: "small round success button" %>
+
+      <ul class="list">
+        <% @specification_groups.each do |specification_group| %>
+          <li><%= link_to specification_group.name, [:admin, specification_group] %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="medium-6 columns">
+    <h4>Specification Names</h4>
+
+
+    <%= link_to 'New Specification', new_admin_specification_path, class: "small round success button" %>
+
+    <ul class="list">
+      <% @specifications.each do |specification| %>
+        <li><%= link_to specification.name, [:admin, specification] %></li>
+      <% end %>
+    </ul>
+  </div>
+
+</div>
 

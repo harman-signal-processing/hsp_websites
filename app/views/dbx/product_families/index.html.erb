@@ -10,7 +10,7 @@
 <% end %>
 </h1>
 
-<ul class="small-block-grid-2">
+<ul class="large-block-grid-5 small-block-grid-2">
 <% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
 	<li><div id="<%= product_family.to_param %>">
 		<%= link_to product_family do %>

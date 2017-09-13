@@ -1,4 +1,7 @@
 <%= simple_form_for([:admin, @specification]) do |f| %>
     <%= f.input :name %>
+    <% unless website.brand.use_flattened_specs? %>
+      <%= f.association :specification_group %>
+    <% end %>
     <%= f.button :submit %>
 <% end %>

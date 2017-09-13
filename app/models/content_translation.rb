@@ -18,6 +18,7 @@ class ContentTranslation < ApplicationRecord
       "feature"        => %w{pre_content content},
       "specification"  => %w{name},
       "product_specification" => %w{value},
+      "specification_group" => %w{name},
       "news"           => %w{title body},
       "page"           => %w{title description body},
       "promotion"      => %w{name description}

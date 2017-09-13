@@ -339,4 +339,8 @@ class Brand < ApplicationRecord
     News.where(brand_id: self.id).count > 0
   end
 
+  def use_flattened_specs?
+    self.respond_to?(:use_flattened_specs) && !!(self.use_flattened_specs.to_i > 0)
+  end
+
 end
