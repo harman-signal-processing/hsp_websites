@@ -81,10 +81,8 @@
                       <% if can?(:manage, Product) %>
                         <li><%= link_to "Products", admin_products_path %></li>
                       <% end %>
-                      <% unless website.brand.use_flattened_specs? %>
-                        <% if can?(:manage, SpecificationGroup) || can?(:manage, Specification) %>
-                          <li><%= link_to "Specifications", admin_specification_groups_path %></li>
-                        <% end %>
+                      <% if can?(:manage, SpecificationGroup) || can?(:manage, Specification) %>
+                        <li><%= link_to "Specifications", admin_specifications_path %></li>
                       <% end %>
                       <% if can?(:manage, Solution) && website.has_solution_pages? %>
                         <li><%= link_to "Solutions", admin_solutions_path %></li>

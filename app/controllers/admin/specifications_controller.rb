@@ -6,6 +6,7 @@ class Admin::SpecificationsController < AdminController
   # GET /admin/specifications.xml
   def index
     @specification_groups = SpecificationGroup.order("position", "name")
+    @specifications = @specifications.order("name")
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @specifications }
