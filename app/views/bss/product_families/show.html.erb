@@ -18,12 +18,10 @@
         <h1><%= translate_content(@product_family, :name) %></h1>
         <p><%=raw translate_content(@product_family, :intro) %></p>
       </div>
-      <% # TODO: Upload the actual comparison chart to the product family instead of this hack... %>
-      <% # Had to do it this way as a temporary fix during the bss2015 transition to zurb %>
-      <% if @product_family.title_banner_file_name.present? %>
+      <% if @product_family == ProductFamily.find("soundweb-london") %>
         <div class="large-4 small-12 columns text-center">
-          <%= link_to( image_path('bss/SoundwebLondonChart.pdf'), target: "_blank") do %>
-            <%= image_tag('bss/SoundwebLondonChart_thumb.png', alt: translate_content(@product_family, :name)) %>
+          <%= link_to( "/resource/london-comparison-chart.pdf", target: "_blank") do %>
+            <%= image_tag('/resource/soundweb-london-comparison-chart-thumbnail.png', alt: translate_content(@product_family, :name)) %>
             <h5>Soundweb London<br/>Comparison Chart</h5>
           <% end %>
         </div>
