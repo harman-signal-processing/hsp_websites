@@ -1,4 +1,4 @@
-<%= cache ["registration_form", website.brand, I18n.locale] do %>
+<%#= cache ["registration_form", website.brand, I18n.locale] do %>
 
 	<%= simple_form_for @warranty_registration, url: warranty_registration_path do |f| %>
     <% if f.object.errors.any? %>
@@ -105,4 +105,4 @@
 		</div>
 
 	<% end %>
-<% end %>
+<%# end %>
