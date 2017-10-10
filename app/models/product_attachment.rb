@@ -23,22 +23,12 @@ class ProductAttachment < ApplicationRecord
     }}.merge(S3_STORAGE)
   validates_attachment :product_attachment, content_type: { content_type: /\Aimage/i }
 
-  has_attached_file :product_media,
-    storage: :s3,
-    bucket: Rails.configuration.aws[:bucket],
-    s3_credentials: Rails.configuration.aws,
-    s3_host_alias: S3_CLOUDFRONT,
-    s3_region: ENV['AWS_REGION'],
-    url: ':s3_alias_url',
-    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
-  has_attached_file :product_media_thumb, styles: {thumb: "100x100>", tiny: "64x64>"},
-    storage: :s3,
-    bucket: Rails.configuration.aws[:bucket],
-    s3_credentials: Rails.configuration.aws,
-    s3_host_alias: S3_CLOUDFRONT,
-    s3_region: ENV['AWS_REGION'],
-    url: ':s3_alias_url',
-    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
+  has_attached_file :product_media, S3_STORAGE
+  has_attached_file :product_media_thumb, {
+    styles: {
+      thumb: "100x100>",
+      tiny: "64x64>"
+    }}.merge(S3_STORAGE)
 
   do_not_validate_attachment_file_type :product_media
   validates_attachment :product_media_thumb, content_type: { content_type: /\Aimage/i }

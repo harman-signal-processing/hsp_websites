@@ -15,14 +15,7 @@ class SiteElement < ApplicationRecord
     }}.merge(S3_STORAGE)
   do_not_validate_attachment_file_type :resource
 
-  has_attached_file :executable,
-    storage: :s3,
-    bucket: Rails.configuration.aws[:bucket],
-    s3_credentials: Rails.configuration.aws,
-    s3_region: ENV['AWS_REGION'],
-    s3_host_alias: S3_CLOUDFRONT,
-    url: ':s3_domain_url',
-    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
+  has_attached_file :executable, S3_STORAGE
   do_not_validate_attachment_file_type :executable
 
   validates :brand, :name, presence: true
@@ -62,6 +55,16 @@ class SiteElement < ApplicationRecord
   # Store an unescaped version of the escaped URL that Amazon returns from direct upload.
   def direct_upload_url=(escaped_url)
     write_attribute(:direct_upload_url, (CGI.unescape(escaped_url) rescue nil))
+  end
+
+  def extension
+    if external_url.present?
+      ''
+    elsif resource_file_name.present?
+      resource_file_name[/\.(\w*)$/, 1].downcase
+    elsif executable_file_name.present?
+      executable_file_name[/\.(\w*)$/, 1].downcase
+    end
   end
 
   def url

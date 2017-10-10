@@ -113,7 +113,7 @@
       <p>Or, use this permalink which always points to the most recent version of this resource:</p>
       <ul class="list">
         <li><b>
-          <%= link_to site_resource_url(@site_element).gsub(/\?.*/, ''), site_resource_url(@site_element).gsub(/\?.*/, '')  %>
+          <%= link_to site_resource_url(@site_element).gsub(/\?.*/, '')+"."+@site_element.extension, site_resource_url(@site_element).gsub(/\?.*/, '')+"."+@site_element.extension  %>
         </b></li>
       </ul>
       <p><i>Note: the permalink is built of the name of the resource. Don't rename it if you want to keep the permalink active.</i></p>
