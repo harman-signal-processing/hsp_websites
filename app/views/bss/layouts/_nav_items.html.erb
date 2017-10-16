@@ -13,19 +13,19 @@
   <% end %>
 
   <li class="divider hide-for-medium"></li>
-  <li class="has-dropdown hide-for-medium"><%= link_to 'Network Audio', '/network-audio' %>
+  <li class="has-dropdown hide-for-medium"><%= link_to t('nav.network_audio').titleize, "/#{I18n.locale}/network-audio" %>
     <ul class="dropdown hide-for-medium">
-      <li><%= link_to "About Our Solutions", '/network-audio' %></li>
-      <li><%= link_to "BLU link", "/network-audio#blu-link" %></li>
-      <li><%= link_to "Dante", "/network-audio#dante" %></li>
-      <li><%= link_to "CobraNet", "/network-audio#cobranet" %></li>
-      <li><%= link_to "AVB", "/network-audio#avb" %></li>
+      <li><%= link_to t('nav.about_our_solutions'), "/#{I18n.locale}/network-audio" %></li>
+      <li><%= link_to t('nav.blu_link'), "/#{I18n.locale}/network-audio#blu-link" %></li>
+      <li><%= link_to t('nav.dante'), "/#{I18n.locale}/network-audio#dante" %></li>
+      <li><%= link_to t('nav.cobranet'), "/#{I18n.locale}/network-audio#cobranet" %></li>
+      <li><%= link_to t('nav.avb'), "/#{I18n.locale}/network-audio#avb" %></li>
     </ul>
   </li>
 
 	<% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
     <li class="divider hide-for-medium"></li>
-    <li class="hide-for-medium"><%= link_to 'where to buy'.titleize, where_to_buy_path %></li>
+    <li class="hide-for-medium"><%= link_to t('where_to_buy').titleize, where_to_buy_path %></li>
 	<% end %>
 
   <li class="divider"></li>

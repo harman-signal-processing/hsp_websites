@@ -2,6 +2,7 @@ zh:
   home: 首页
   products: 产品
   news: 新闻
+  events: 事件
   artists: 艺人
   professionals: 专业人士
   sound_community: 音频社区
@@ -46,6 +47,7 @@ zh:
   related_products: 相关产品
   version: 版本
   back: 回往
+  promotions: 促销
   download: 下载
   downloads: 下载
   software_downloads: 软件下载
@@ -105,6 +107,7 @@ zh:
   buy_it_now: 立即购买
   add_to_cart: 添加到购物车
   get_it: 得到它
+  legacy_products: 停产型号
   discontinued_products: 停产型号
   contact_us:  联系我们
 
@@ -140,6 +143,8 @@ zh:
     video_conferencing: 视频会议
     case_studies: 案例研究
     solution_guides: 解决方案指南
+    media: 媒体
+    videos: 视频
 
   language:
       en:  英语
