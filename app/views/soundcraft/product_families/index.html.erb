@@ -11,60 +11,64 @@
 </h1>
 
 <% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
-  <div class="row">
-    <div class="small-12 columns thick_left" >
-      <%= link_to product_family do %>
-        <h3><%= translate_content(product_family, :name) %></h3>
-      <% end %>
+  <% if product_family.locales(website).include?(I18n.locale.to_s) %>
+    <div class="row">
+      <div class="small-12 columns thick_left" >
+        <%= link_to product_family do %>
+          <h3><%= translate_content(product_family, :name) %></h3>
+        <% end %>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="small-12 columns product_cat_bar">
-      <ul class="small-block-grid-2 medium-block-grid-4 large-block-grid-6">
-        <% if product_family.children_with_current_products(website).count > 1 %>
-          <% product_family.children_with_current_products(website).each do |pf| %>
-            <li>
-              <%= link_to pf do %>
-                <% if p = pf.current_products.first %>
-                  <% if p.photo %>
-                    <%= image_tag(p.photo.product_attachment.url(:medium)) %>
+    <div class="row">
+      <div class="small-12 columns product_cat_bar">
+        <ul class="small-block-grid-2 medium-block-grid-4 large-block-grid-6">
+          <% if product_family.children_with_current_products(website).count > 1 %>
+            <% product_family.children_with_current_products(website).each do |pf| %>
+              <% if pf.locales(website).include?(I18n.locale.to_s) %>
+                <li>
+                  <%= link_to pf do %>
+                    <% if p = pf.current_products.first %>
+                      <% if p.photo %>
+                        <%= image_tag(p.photo.product_attachment.url(:medium)) %>
+                        <br/>
+                      <% end %>
+                    <% end %>
+                    <%= translate_content(pf, :name) %>
+                  <% end %>
+                </li>
+              <% end %>
+            <% end %>
+          <% elsif product_family.children_with_current_products(website).count == 1 %>
+            <% product_family.children_with_current_products(website).first.current_products.each do |product| %>
+              <li>
+                <%= link_to product do %>
+                  <% if product.photo %>
+                    <%= image_tag(product.photo.product_attachment.url(:medium)) %>
                     <br/>
                   <% end %>
+                  <%= translate_content(product, :name) %>
                 <% end %>
-                <%= translate_content(pf, :name) %>
-              <% end %>
-            </li>
-          <% end %>
-        <% elsif product_family.children_with_current_products(website).count == 1 %>
-          <% product_family.children_with_current_products(website).first.current_products.each do |product| %>
-            <li>
-              <%= link_to product do %>
-                <% if product.photo %>
-                  <%= image_tag(product.photo.product_attachment.url(:medium)) %>
-                  <br/>
+              </li>
+            <% end %>
+          <% elsif product_family.current_products.count > 0 %>
+            <% product_family.current_products.each do |product| %>
+              <li>
+                <%= link_to product do %>
+                  <% if product.photo %>
+                    <%= image_tag(product.photo.product_attachment.url(:medium)) %>
+                    <br/>
+                  <% end %>
+                  <%= translate_content(product, :name) %>
                 <% end %>
-                <%= translate_content(product, :name) %>
-              <% end %>
-            </li>
+              </li>
+            <% end %>
+          <% else %>
+            &nbsp;
           <% end %>
-        <% elsif product_family.current_products.count > 0 %>
-          <% product_family.current_products.each do |product| %>
-            <li>
-              <%= link_to product do %>
-                <% if product.photo %>
-                  <%= image_tag(product.photo.product_attachment.url(:medium)) %>
-                  <br/>
-                <% end %>
-                <%= translate_content(product, :name) %>
-              <% end %>
-            </li>
-          <% end %>
-        <% else %>
-          &nbsp;
-        <% end %>
-      </ul>
+        </ul>
+      </div>
     </div>
-  </div>
+  <% end %>
 <% end %>
 
 <% if @discontinued_products.count > 0 %>
