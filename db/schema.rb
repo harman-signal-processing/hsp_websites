@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170911171340) do
+ActiveRecord::Schema.define(version: 20171018174346) do
 
   create_table "admin_logs", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "user_id"
@@ -441,6 +441,7 @@ ActiveRecord::Schema.define(version: 20170911171340) do
     t.integer "receipt_file_size"
     t.string "receipt_content_type"
     t.datetime "receipt_updated_at"
+    t.string "country"
   end
 
   create_table "effect_types", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

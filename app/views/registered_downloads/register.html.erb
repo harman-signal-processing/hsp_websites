@@ -26,6 +26,10 @@
 			<td style="padding-right: 8px;"><%= f.label :email %></td>
 			<td><%= f.email_field :email %></td>
 		</tr>
+    <tr>
+      <td style="padding-right: 8px;"><%= f.label :country %></td>
+      <td><%= f.country_select :country, {}, prompt: "Select A Country" %></td>
+    </tr>
 		<% if @download_registration.require_serial_number? %>
 		<tr>
 			<td style="padding-right: 8px;"><%= f.label :serial_number %></td>

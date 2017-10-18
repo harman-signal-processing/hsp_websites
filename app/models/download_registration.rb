@@ -37,6 +37,8 @@ class DownloadRegistration < ApplicationRecord
   validate :download_code_is_valid,
     on: :create
 
+  validates :country, presence: true
+
   attr_accessor :code_you_received
   before_create :create_download_code
   after_create :deliver_download_code, :deliver_admin_notice

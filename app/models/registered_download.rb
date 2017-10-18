@@ -133,6 +133,7 @@ class RegisteredDownload < ApplicationRecord
     else
       h << "Downloads"
     end
+    h << "Country"
     h
   end
 
@@ -150,6 +151,7 @@ class RegisteredDownload < ApplicationRecord
     else
       c << :download_count
     end
+    c << :country
     c
   end
 
@@ -166,7 +168,7 @@ class RegisteredDownload < ApplicationRecord
   # Convenience method gathers the required fields for this download.
   #
   def required_fields
-    r = ["first name", "last name", "email"]
+    r = ["first name", "last name", "email", "country"]
     r << "code received (postcard, etc.)" unless self.send_coupon_code? || self.valid_code.blank?
     r << "receipt (scan/photo)" if self.require_receipt?
     r << "serial number" if self.require_serial_number?
