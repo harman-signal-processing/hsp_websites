@@ -105,7 +105,8 @@ class RegisteredDownloadsController < ApplicationController
       :employee_number,
       :store_number,
       :manager_name,
-      :receipt
+      :receipt,
+      :country
     )
   end
 
