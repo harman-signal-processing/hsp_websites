@@ -2,11 +2,11 @@ require "rails_helper"
 
 feature "Complete parts form" do
   before :all do
-    @website = FactoryGirl.create(:website_with_products)
+    @website = FactoryBot.create(:website_with_products)
   end
 
   scenario "message is delivered to custom recipient" do
-    FactoryGirl.create(:setting, brand: @website.brand, name: "parts_email", string_value: "rickky@support.com")
+    FactoryBot.create(:setting, brand: @website.brand, name: "parts_email", string_value: "rickky@support.com")
     @website.brand.update_column(:has_parts_form, true)
     visit parts_request_url(host: @website.url)
     fill_in_form

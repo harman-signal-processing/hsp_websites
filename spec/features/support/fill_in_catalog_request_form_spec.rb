@@ -6,7 +6,7 @@ require 'rails_helper'
 #   So I can get a catalog and maybe buy stuff
 feature "Complete catalog request form" do
   before do
-    @website = FactoryGirl.create(:website)
+    @website = FactoryBot.create(:website)
 
     visit catalog_request_url(host: @website.url)
   end

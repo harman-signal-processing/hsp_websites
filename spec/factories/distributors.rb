@@ -1,6 +1,6 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
-FactoryGirl.define do
+FactoryBot.define do
 	factory :distributor do
 		sequence(:name) {|n| "Distributor #{n}" }
     detail "124 some foreign address..."
@@ -10,7 +10,7 @@ FactoryGirl.define do
 	end
 end
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :distributor_user do
     distributor
     user

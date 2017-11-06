@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :get_started_page do
     name "MyString"
     header_image { File.new(Rails.root.join('spec', 'fixtures', 'test.jpg')) }

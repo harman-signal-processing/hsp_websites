@@ -4,7 +4,7 @@ RSpec.describe VideosHelper do
 
   describe "related_product_links_for_video" do
     it "shows links when there are related products found" do
-      website = FactoryGirl.create(:website_with_products)
+      website = FactoryBot.create(:website_with_products)
       product = website.products.first
       expect(helper).to receive(:website).and_return(website)
 

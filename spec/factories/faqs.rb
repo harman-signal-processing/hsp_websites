@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :faq do
     sequence(:question) {|n|  "Question ##{n}?"}
     answer "It's time for lunch."

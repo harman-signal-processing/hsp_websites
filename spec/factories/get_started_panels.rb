@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :get_started_panel do
     get_started_page
     locked_until_registration true

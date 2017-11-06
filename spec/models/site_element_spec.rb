@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe SiteElement, :type => :model do
 
   before do
-    @site_element = FactoryGirl.build_stubbed(:site_element)
+    @site_element = FactoryBot.build_stubbed(:site_element)
   end
 
   subject { @site_element }

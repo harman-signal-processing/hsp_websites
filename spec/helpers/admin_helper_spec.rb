@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe AdminHelper do
 
   before :all do
-    @website = FactoryGirl.create(:website_with_products)
+    @website = FactoryBot.create(:website_with_products)
   end
 
   describe "link_to_translate" do
@@ -25,13 +25,13 @@ RSpec.describe AdminHelper do
     end
 
     it "returns a news title" do
-      news = FactoryGirl.build_stubbed(:news)
+      news = FactoryBot.build_stubbed(:news)
 
       expect(helper.name_for(news)).to eq(news.title)
     end
 
     it "returns a question" do
-      faq = FactoryGirl.build_stubbed(:faq, product: @website.products.first)
+      faq = FactoryBot.build_stubbed(:faq, product: @website.products.first)
 
       expect(helper.name_for(faq)).to match(faq.question)
     end

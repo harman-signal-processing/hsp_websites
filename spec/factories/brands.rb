@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
 
   factory :brand do
     sequence(:name) {|n| "HSP Brand #{n}"}
@@ -34,9 +34,9 @@ FactoryGirl.define do
     # logo_file_size 10000
     # news_feed_url nil
     # after(:create) do |brand|
-    #   FactoryGirl.create(:setting, brand: brand, brand_id: brand.id, name: "support_email", string_value: "adam.anderson@harman.com")
-    #   FactoryGirl.create(:setting, brand: brand, brand_id: brand.id, name: "default_meta_tag_description", string_value: "HSP brand website")
-    #   FactoryGirl.create(:setting, brand: brand, brand_id: brand.id, name: "default_meta_tag_keywords", string_value: "HSP brand website")
+    #   FactoryBot.create(:setting, brand: brand, brand_id: brand.id, name: "support_email", string_value: "adam.anderson@harman.com")
+    #   FactoryBot.create(:setting, brand: brand, brand_id: brand.id, name: "default_meta_tag_description", string_value: "HSP brand website")
+    #   FactoryBot.create(:setting, brand: brand, brand_id: brand.id, name: "default_meta_tag_keywords", string_value: "HSP brand website")
     # end
     factory :lexicon_brand do
       name "Lexicon"

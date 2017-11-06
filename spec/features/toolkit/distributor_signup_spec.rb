@@ -9,7 +9,7 @@ feature "Distributor signs up for Toolkit" do
   end
 
   before :each do
-    @distributor = FactoryGirl.create(:distributor)
+    @distributor = FactoryBot.create(:distributor)
     visit root_url(host: @host)
     within('.top-bar') do
       click_on "Sign up"
@@ -28,7 +28,7 @@ feature "Distributor signs up for Toolkit" do
   end
 
   scenario "should create a new unconfirmed user, belonging to matching distributor" do
-    user = FactoryGirl.build(:user, email: "someone@distributor.com")
+    user = FactoryBot.build(:user, email: "someone@distributor.com")
 
     fill_in_new_distributor_user_form(user, @distributor)
 
@@ -38,7 +38,7 @@ feature "Distributor signs up for Toolkit" do
   end
 
   scenario "should send the confirmation email to the distributor and the user" do
-    user = FactoryGirl.build(:user, email: "someone@distributor.com")
+    user = FactoryBot.build(:user, email: "someone@distributor.com")
 
     fill_in_new_distributor_user_form(user, @distributor)
 
@@ -51,8 +51,8 @@ feature "Distributor signs up for Toolkit" do
   end
 
   scenario "should NOT send an email error to user where no distributor is found" do
-    user = FactoryGirl.build(:user, email: "someone@distributor.com")
-    distributor = FactoryGirl.build(:distributor) # un-saved, so should error when looking up
+    user = FactoryBot.build(:user, email: "someone@distributor.com")
+    distributor = FactoryBot.build(:distributor) # un-saved, so should error when looking up
 
     fill_in_new_distributor_user_form(user, distributor)
 
@@ -64,7 +64,7 @@ feature "Distributor signs up for Toolkit" do
   end
 
   scenario "should store the account number with the user record" do
-    user = FactoryGirl.build(:user, email: "someone@dealer.com")
+    user = FactoryBot.build(:user, email: "someone@dealer.com")
 
     fill_in_new_distributor_user_form(user, @distributor)
 

@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Website, :type => :model do
 
   before do
-    @website = FactoryGirl.create(:website)
+    @website = FactoryBot.create(:website)
   end
 
   subject { @website }

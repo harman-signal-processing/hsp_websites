@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe SupportSubject, :type => :model do
 
   before do
-    @support_subject = FactoryGirl.create(:support_subject)
+    @support_subject = FactoryBot.create(:support_subject)
     @brand = @support_subject.brand
   end
 

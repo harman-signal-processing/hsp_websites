@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :installation do
     brand_id 1
     title "MyString"

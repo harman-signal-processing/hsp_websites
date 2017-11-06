@@ -3,7 +3,7 @@ require "rails_helper.rb"
 RSpec.describe "toolkit/index.html.erb", as: :view do
 
   before :all do
-    @brand = FactoryGirl.create(:brand, toolkit: true)
+    @brand = FactoryBot.create(:brand, toolkit: true)
   end
 
   before :each do

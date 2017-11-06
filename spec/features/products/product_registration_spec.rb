@@ -4,7 +4,7 @@ feature "Product Registration" do
   include ActiveJob::TestHelper
 
   before :all do
-    @website = FactoryGirl.create(:website_with_products)
+    @website = FactoryBot.create(:website_with_products)
     Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"
   end

@@ -5,7 +5,7 @@ RSpec.describe TrainingModulesHelper do
   describe "show_module" do
 
     it "shows a link to download mov modules" do
-      tm = FactoryGirl.build_stubbed(:training_module, training_module_file_name: 'test.mov')
+      tm = FactoryBot.build_stubbed(:training_module, training_module_file_name: 'test.mov')
 
       content = helper.show_module(tm)
 
@@ -13,8 +13,8 @@ RSpec.describe TrainingModulesHelper do
     end
 
     it "shows other videos inline" do
-      tm = FactoryGirl.build_stubbed(:training_module, training_module_file_name: 'test.mp4')
-      expect(helper).to receive(:website).and_return(FactoryGirl.build_stubbed(:website))
+      tm = FactoryBot.build_stubbed(:training_module, training_module_file_name: 'test.mp4')
+      expect(helper).to receive(:website).and_return(FactoryBot.build_stubbed(:website))
 
       content = helper.show_module(tm)
 

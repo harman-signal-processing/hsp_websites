@@ -3,11 +3,11 @@ require "rails_helper"
 RSpec.describe "artists/index.html.erb", as: :view do
 
   before :all do
-    @website = FactoryGirl.create(:website_with_products, folder: "digitech")
+    @website = FactoryBot.create(:website_with_products, folder: "digitech")
     @brand = @website.brand
-    @affiliate_tier = FactoryGirl.create(:affiliate_tier)
-    @top_tier = FactoryGirl.create(:top_tier)
-    artist_attr = FactoryGirl.attributes_for(:artist, featured: true)
+    @affiliate_tier = FactoryBot.create(:affiliate_tier)
+    @top_tier = FactoryBot.create(:top_tier)
+    artist_attr = FactoryBot.attributes_for(:artist, featured: true)
     @artist = Artist.new(artist_attr)
     @artist.artist_tier = @top_tier
     @artist.skip_unapproval = true
@@ -15,8 +15,8 @@ RSpec.describe "artists/index.html.erb", as: :view do
     @artist.initial_brand = @brand
     @artist.skip_confirmation!
     @artist.save!
-    FactoryGirl.create(:artist_brand, artist: @artist, brand: @brand)
-    FactoryGirl.create(:artist_product, product: @website.products.first, artist: @artist)
+    FactoryBot.create(:artist_brand, artist: @artist, brand: @brand)
+    FactoryBot.create(:artist_product, product: @website.products.first, artist: @artist)
     assign(:featured_artists, [@artist])
   end
 

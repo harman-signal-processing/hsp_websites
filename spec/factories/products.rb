@@ -1,6 +1,6 @@
-FactoryGirl.define do
+FactoryBot.define do
 
-  # FactoryGirl.create(:product_family_with_products, products_count: 10)
+  # FactoryBot.create(:product_family_with_products, products_count: 10)
   factory :product_family do
     name "Super Signal Processors"
     brand
@@ -9,8 +9,8 @@ FactoryGirl.define do
         products_count 2
       end
       after(:create) do |product_family, evaluator|
-        FactoryGirl.create_list(:product, evaluator.products_count, brand: product_family.brand).each do |product|
-          FactoryGirl.create(:product_family_product, product_family: product_family, product: product)
+        FactoryBot.create_list(:product, evaluator.products_count, brand: product_family.brand).each do |product|
+          FactoryBot.create(:product_family_product, product_family: product_family, product: product)
         end
       end
     end

@@ -34,7 +34,7 @@ feature "Media rep signs up for Toolkit" do
   end
 
   scenario "should create a new unconfirmed user" do
-    user = FactoryGirl.build(:user)
+    user = FactoryBot.build(:user)
 
     fill_in_new_media_user_form(user)
 
@@ -43,7 +43,7 @@ feature "Media rep signs up for Toolkit" do
   end
 
   scenario "should send the confirmation email to the new user" do
-    user = FactoryGirl.build(:user)
+    user = FactoryBot.build(:user)
 
     fill_in_new_media_user_form(user)
 

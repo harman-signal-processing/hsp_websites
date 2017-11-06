@@ -4,17 +4,17 @@ feature "Admin epedal Labels", :devise do
   include ActiveJob::TestHelper
 
   before :all do
-    @brand = FactoryGirl.create(:digitech_brand)
-    @website = FactoryGirl.create(:website, folder: "digitech", brand: @brand, url: "digitech.lvh.me")
-    @istomp = FactoryGirl.create(:product, name: "iStomp", brand: @brand, layout_class: "istomp")
-    @gooberator = FactoryGirl.create(:product, name: "Gooberator", brand: @brand, layout_class: "epedal")
-    @fooberator = FactoryGirl.create(:product, name: "Fooberator", brand: @brand, layout_class: "epedal")
-    FactoryGirl.create(:parent_product, product: @gooberator, parent_product: @istomp)
-    FactoryGirl.create(:parent_product, product: @fooberator, parent_product: @istomp)
+    @brand = FactoryBot.create(:digitech_brand)
+    @website = FactoryBot.create(:website, folder: "digitech", brand: @brand, url: "digitech.lvh.me")
+    @istomp = FactoryBot.create(:product, name: "iStomp", brand: @brand, layout_class: "istomp")
+    @gooberator = FactoryBot.create(:product, name: "Gooberator", brand: @brand, layout_class: "epedal")
+    @fooberator = FactoryBot.create(:product, name: "Fooberator", brand: @brand, layout_class: "epedal")
+    FactoryBot.create(:parent_product, product: @gooberator, parent_product: @istomp)
+    FactoryBot.create(:parent_product, product: @fooberator, parent_product: @istomp)
     Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"
-    @sheet = FactoryGirl.create(:label_sheet, products: [@gooberator.id, @fooberator.id].join(", "))
-    @user = FactoryGirl.create(:user, market_manager: true, password: "password", confirmed_at: 1.second.ago)
+    @sheet = FactoryBot.create(:label_sheet, products: [@gooberator.id, @fooberator.id].join(", "))
+    @user = FactoryBot.create(:user, market_manager: true, password: "password", confirmed_at: 1.second.ago)
   end
 
   before :each do
@@ -28,8 +28,8 @@ feature "Admin epedal Labels", :devise do
 
   describe "managing label sheets" do
     before :each do
-      @zooberator = FactoryGirl.create(:product, name: "Zooberator", brand: @brand, layout_class: "epedal")
-      FactoryGirl.create(:parent_product, product: @zooberator, parent_product: @istomp)
+      @zooberator = FactoryBot.create(:product, name: "Zooberator", brand: @brand, layout_class: "epedal")
+      FactoryBot.create(:parent_product, product: @zooberator, parent_product: @istomp)
       visit admin_label_sheets_path(locale: I18n.default_locale)
     end
 
@@ -50,7 +50,7 @@ feature "Admin epedal Labels", :devise do
 
   describe "managing label sheet orders" do
     before do
-      @order = FactoryGirl.create(:label_sheet_order, label_sheet_ids: [@sheet.id], subscribe: true)
+      @order = FactoryBot.create(:label_sheet_order, label_sheet_ids: [@sheet.id], subscribe: true)
       visit admin_label_sheet_orders_path(locale: I18n.default_locale)
     end
 
@@ -75,7 +75,7 @@ feature "Admin epedal Labels", :devise do
 
   describe "label order fulfillment" do
     before do
-      @order = FactoryGirl.create(:label_sheet_order, label_sheet_ids: [@sheet.id, @sheet.id])
+      @order = FactoryBot.create(:label_sheet_order, label_sheet_ids: [@sheet.id, @sheet.id])
       visit admin_label_sheet_order_path(@order, locale: I18n.default_locale)
     end
 
@@ -98,7 +98,7 @@ feature "Admin epedal Labels", :devise do
 
   describe "data export" do
     before do
-      @order = FactoryGirl.create(:label_sheet_order, label_sheet_ids: [@sheet.id, @sheet.id])
+      @order = FactoryBot.create(:label_sheet_order, label_sheet_ids: [@sheet.id, @sheet.id])
       visit admin_label_sheet_orders_path(locale: I18n.default_locale)
     end
 

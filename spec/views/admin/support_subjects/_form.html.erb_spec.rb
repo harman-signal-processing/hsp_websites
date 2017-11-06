@@ -3,9 +3,9 @@ require "rails_helper"
 RSpec.describe "admin/support_subjects/_form.html.erb", type: :view do
 
   before :all do
-    @brand = FactoryGirl.create(:brand)
-    @website = FactoryGirl.create(:website, brand: @brand)
-    @support_subject = FactoryGirl.create(:support_subject, brand: @brand)
+    @brand = FactoryBot.create(:brand)
+    @website = FactoryBot.create(:website, brand: @brand)
+    @support_subject = FactoryBot.create(:support_subject, brand: @brand)
   end
 
   before :each do

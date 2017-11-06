@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :solution do
     name "MyString"
     vertical_market_id "MyString"

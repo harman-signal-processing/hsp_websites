@@ -3,31 +3,31 @@ require "rails_helper"
 feature "iStomp-specific features" do
 
   before :all do
-    @brand = FactoryGirl.create(:digitech_brand)
-    @website = FactoryGirl.create(:website, folder: "digitech", brand: @brand)
-    stompboxes = FactoryGirl.create(:product_family, name: "Stompboxes", brand: @brand)
-    @istomp = FactoryGirl.create(:product, name: "iStomp", brand: @brand, layout_class: "istomp")
-    FactoryGirl.create(:product_family_product, product_family: stompboxes, product: @istomp)
-    @gooberator = FactoryGirl.create(:product,
+    @brand = FactoryBot.create(:digitech_brand)
+    @website = FactoryBot.create(:website, folder: "digitech", brand: @brand)
+    stompboxes = FactoryBot.create(:product_family, name: "Stompboxes", brand: @brand)
+    @istomp = FactoryBot.create(:product, name: "iStomp", brand: @brand, layout_class: "istomp")
+    FactoryBot.create(:product_family_product, product_family: stompboxes, product: @istomp)
+    @gooberator = FactoryBot.create(:product,
       name: "Gooberator",
       brand: @brand,
       msrp: 4.99,
       layout_class: "epedal")
-    @fooberator = FactoryGirl.create(:product,
+    @fooberator = FactoryBot.create(:product,
       name: "Fooberator",
       brand: @brand,
       layout_class: "epedal")
-    @impossible = FactoryGirl.create(:product,
+    @impossible = FactoryBot.create(:product,
       name: "The Impossible",
       brand: @brand,
       msrp: 19.99,
       sale_price: 19.99,
       layout_class: "epedal")
-    FactoryGirl.create(:parent_product, product: @gooberator, parent_product: @istomp)
-    FactoryGirl.create(:parent_product, product: @fooberator, parent_product: @istomp)
-    FactoryGirl.create(:parent_product, product: @impossible, parent_product: @istomp)
-    @stompshop = FactoryGirl.create(:software, name: "Stomp Shop", layout_class: "stomp_shop", brand: @brand)
-    FactoryGirl.create(:product_software, product: @istomp, software: @stompshop)
+    FactoryBot.create(:parent_product, product: @gooberator, parent_product: @istomp)
+    FactoryBot.create(:parent_product, product: @fooberator, parent_product: @istomp)
+    FactoryBot.create(:parent_product, product: @impossible, parent_product: @istomp)
+    @stompshop = FactoryBot.create(:software, name: "Stomp Shop", layout_class: "stomp_shop", brand: @brand)
+    FactoryBot.create(:product_software, product: @istomp, software: @stompshop)
 
     Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"

@@ -3,18 +3,18 @@ require "rails_helper"
 feature "API version 1" do
 
 	before :all do
-    @digitech = FactoryGirl.create(:digitech_brand)
-    @website = FactoryGirl.create(:website_with_products, folder: "digitech", brand: @digitech)
+    @digitech = FactoryBot.create(:digitech_brand)
+    @website = FactoryBot.create(:website_with_products, folder: "digitech", brand: @digitech)
     Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"
 
     # More stuff needed for API
-    @lexicon = FactoryGirl.create(:lexicon_brand)
-    @lexicon_site = FactoryGirl.create(:website_with_products, folder: "lexicon", brand: @lexicon)
-    @dbx = FactoryGirl.create(:dbx_brand)
-    @dbx_site = FactoryGirl.create(:website_with_products, folder: "dbx", brand: @dbx)
-    @dod = FactoryGirl.create(:dod_brand)
-    @dod_site = FactoryGirl.create(:website_with_products, folder: "dod", brand: @dod)
+    @lexicon = FactoryBot.create(:lexicon_brand)
+    @lexicon_site = FactoryBot.create(:website_with_products, folder: "lexicon", brand: @lexicon)
+    @dbx = FactoryBot.create(:dbx_brand)
+    @dbx_site = FactoryBot.create(:website_with_products, folder: "dbx", brand: @dbx)
+    @dod = FactoryBot.create(:dod_brand)
+    @dod_site = FactoryBot.create(:website_with_products, folder: "dod", brand: @dod)
 	end
 
   after :all do
@@ -99,7 +99,7 @@ feature "API version 1" do
 	describe "with image" do
 		before do
 			@product = @digitech.products.first
-			FactoryGirl.create(:product_attachment, product: @product, primary_photo: true)
+			FactoryBot.create(:product_attachment, product: @product, primary_photo: true)
 			visit api_v1_product_path(@product.friendly_id)
 		end
 
@@ -114,8 +114,8 @@ feature "API version 1" do
 
 	describe "brand not live on this system" do
 		before do
-      @other_brand = FactoryGirl.create(:brand, employee_store: true, live_on_this_platform: false)
-      @other_product = FactoryGirl.create(:product, brand: @other_brand, more_info_url: "http://foo.lvh.me/foobar")
+      @other_brand = FactoryBot.create(:brand, employee_store: true, live_on_this_platform: false)
+      @other_product = FactoryBot.create(:product, brand: @other_brand, more_info_url: "http://foo.lvh.me/foobar")
 			@external_url = "http://brandx.com"
       allow_any_instance_of(Brand).to receive(:external_url).and_return(@external_url)
 		end
@@ -158,7 +158,7 @@ feature "API version 1" do
 		before do
 			@product_family = @digitech.product_families.first
 			@product = @product_family.products.first
-			FactoryGirl.create(:product_attachment, product: @product, primary_photo: true)
+			FactoryBot.create(:product_attachment, product: @product, primary_photo: true)
 			visit api_v1_product_family_path(@product_family.friendly_id)
 		end
 

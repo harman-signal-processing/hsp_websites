@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe "support/catalog_request.html.erb", :type => :view do
 
   before :all do
-    @website = FactoryGirl.create(:website)
-    @contact_message = FactoryGirl.build(:contact_message, message_type: "catalog_request")
+    @website = FactoryBot.create(:website)
+    @contact_message = FactoryBot.build(:contact_message, message_type: "catalog_request")
   end
 
   before do

@@ -3,12 +3,12 @@ require "rails_helper"
 feature "Buy It Now" do
 
   before :all do
-    @website = FactoryGirl.create(:website_with_products)
+    @website = FactoryBot.create(:website_with_products)
     Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"
     @product = @website.products.first
-    @online_retailer = FactoryGirl.create(:online_retailer)
-    @retailer_link = FactoryGirl.create(:online_retailer_link, online_retailer: @online_retailer, product: @product, brand: @website.brand)
+    @online_retailer = FactoryBot.create(:online_retailer)
+    @retailer_link = FactoryBot.create(:online_retailer_link, online_retailer: @online_retailer, product: @product, brand: @website.brand)
   end
 
   after :all do
@@ -33,8 +33,8 @@ feature "Buy It Now" do
 
     describe "preferred retailer" do
     	it "should appear first" do
-    		preferred_retailer = FactoryGirl.create(:online_retailer, preferred: 1)
-    		preferred_link = FactoryGirl.create(:online_retailer_link, online_retailer: preferred_retailer, product: @product, brand: @website.brand)
+    		preferred_retailer = FactoryBot.create(:online_retailer, preferred: 1)
+    		preferred_link = FactoryBot.create(:online_retailer_link, online_retailer: preferred_retailer, product: @product, brand: @website.brand)
     		visit product_path(@product, locale: I18n.default_locale)
     		expect(page).to have_xpath("//div[@id='dealers']/div[@id='online_retailers']/ul/li[@class='retailer_logo preferred']/a[@href='#{preferred_link.url}']")
     	end
@@ -72,8 +72,8 @@ feature "Buy It Now" do
 
   describe "product buyitnow page" do
   	before do
-  		@preferred_retailer = FactoryGirl.create(:online_retailer, preferred: 1)
-    	@preferred_link = FactoryGirl.create(:online_retailer_link, online_retailer: @preferred_retailer, product: @product, brand: @website.brand)
+  		@preferred_retailer = FactoryBot.create(:online_retailer, preferred: 1)
+    	@preferred_link = FactoryBot.create(:online_retailer_link, online_retailer: @preferred_retailer, product: @product, brand: @website.brand)
     	visit buy_it_now_product_path(@product, locale: I18n.default_locale)
     end
 
@@ -82,8 +82,8 @@ feature "Buy It Now" do
     end
 
   	it "preferred should appear first" do
-  		preferred_retailer = FactoryGirl.create(:online_retailer, preferred: 1)
-  		preferred_link = FactoryGirl.create(:online_retailer_link, online_retailer: preferred_retailer, product: @product, brand: @website.brand)
+  		preferred_retailer = FactoryBot.create(:online_retailer, preferred: 1)
+  		preferred_link = FactoryBot.create(:online_retailer_link, online_retailer: preferred_retailer, product: @product, brand: @website.brand)
   		visit product_path(@product, locale: I18n.default_locale)
   		expect(page).to have_xpath("//div[@id='dealers']/div[@id='online_retailers']/ul/li[@class='retailer_logo preferred']/a[@href='#{preferred_link.url}']")
   	end

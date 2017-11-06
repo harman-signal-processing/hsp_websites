@@ -2,11 +2,11 @@ require "rails_helper"
 
 feature "Complete rma form" do
   before :all do
-    @website = FactoryGirl.create(:website_with_products)
+    @website = FactoryBot.create(:website_with_products)
   end
 
   scenario "message is delivered to custom recipient" do
-    FactoryGirl.create(:setting, brand: @website.brand, name: "rma_email", string_value: "ramesh@support.com")
+    FactoryBot.create(:setting, brand: @website.brand, name: "rma_email", string_value: "ramesh@support.com")
     @website.brand.update_column(:has_rma_form, true)
     visit rma_request_url(host: @website.url)
     fill_in_form

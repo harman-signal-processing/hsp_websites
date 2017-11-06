@@ -3,10 +3,10 @@ require "rails_helper"
 feature "Admin Registrations" do
 
   before :all do
-    @website = FactoryGirl.create(:website_with_products)
+    @website = FactoryBot.create(:website_with_products)
     @brand = @website.brand
-    @user = FactoryGirl.create(:user, customer_service: true, password: "password", confirmed_at: 1.minute.ago)
-    @reg = FactoryGirl.create(:warranty_registration, brand: @brand, product: @website.products.first)
+    @user = FactoryBot.create(:user, customer_service: true, password: "password", confirmed_at: 1.minute.ago)
+    @reg = FactoryBot.create(:warranty_registration, brand: @brand, product: @website.products.first)
   end
 
   before :each do

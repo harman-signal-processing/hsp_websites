@@ -4,7 +4,7 @@ RSpec.describe SeoHelper do
 
   describe "canonical URLs" do
     it "replaces locale with default for site" do
-      website = FactoryGirl.create(:website)
+      website = FactoryBot.create(:website)
       controller.request.host = website.url
       controller.request.path = "/en-GB/products/test-product"
       allow(helper).to receive(:website).and_return(website)
@@ -16,7 +16,7 @@ RSpec.describe SeoHelper do
     end
 
     it "does not replace locale for non-locale URLs" do
-      website = FactoryGirl.create(:website)
+      website = FactoryBot.create(:website)
       controller.request.host = website.url
       controller.request.path = "/test-page"
       allow(helper).to receive(:website).and_return(website)
@@ -28,7 +28,7 @@ RSpec.describe SeoHelper do
     end
 
     it "rewrites complex, non-default locales to the default" do
-      website = FactoryGirl.create(:website)
+      website = FactoryBot.create(:website)
       controller.request.host = website.url
       controller.request.path = "/es-MX/products/test-product"
       allow(helper).to receive(:website).and_return(website)
@@ -40,7 +40,7 @@ RSpec.describe SeoHelper do
     end
 
     it "rewrites parent 'en-US' to 'en'" do
-      website = FactoryGirl.create(:website)
+      website = FactoryBot.create(:website)
       controller.request.host = website.url
       controller.request.path = "/en-US/products/test-product"
       allow(helper).to receive(:website).and_return(website)
@@ -55,8 +55,8 @@ RSpec.describe SeoHelper do
   describe "hreflang links" do
     it "generates alternate links for other languages" do
       skip "Revisit hreflang functions"
-      website = FactoryGirl.create(:website)
-      website.available_locales << FactoryGirl.create(:website_locale, locale: "es", name: "Spanish")
+      website = FactoryBot.create(:website)
+      website.available_locales << FactoryBot.create(:website_locale, locale: "es", name: "Spanish")
       controller.request.host = website.url
       controller.request.path = "/es/products/test-product"
       allow(helper).to receive(:website).and_return(website)

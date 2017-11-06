@@ -3,15 +3,15 @@ require "rails_helper"
 feature "Promotions" do
 
   before :all do
-    @website = FactoryGirl.create(:website_with_products)
+    @website = FactoryBot.create(:website_with_products)
     Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"
-    @promo = FactoryGirl.create(:promotion, brand: @website.brand)
-    @expired_promo = FactoryGirl.create(:expired_promotion, brand: @website.brand)
-    @recently_expired_promo = FactoryGirl.create(:recently_expired_promotion, brand: @website.brand)
+    @promo = FactoryBot.create(:promotion, brand: @website.brand)
+    @expired_promo = FactoryBot.create(:expired_promotion, brand: @website.brand)
+    @recently_expired_promo = FactoryBot.create(:recently_expired_promotion, brand: @website.brand)
   	@product = @website.products.first
-    @product.product_promotions << FactoryGirl.create(:product_promotion, promotion: @promo, product: @product)
-    @product.product_promotions << FactoryGirl.create(:product_promotion, promotion: @expired_promo, product: @product)
+    @product.product_promotions << FactoryBot.create(:product_promotion, promotion: @promo, product: @product)
+    @product.product_promotions << FactoryBot.create(:product_promotion, promotion: @expired_promo, product: @product)
   end
 
   after :all do
@@ -40,7 +40,7 @@ feature "Promotions" do
   describe "product page when promo is recently expired" do
     it "should show link to rebate forms" do
       product = @website.products.last
-      product.product_promotions << FactoryGirl.create(:product_promotion, promotion: @recently_expired_promo, product: product)
+      product.product_promotions << FactoryBot.create(:product_promotion, promotion: @recently_expired_promo, product: product)
 
       visit product_path(product, locale: I18n.default_locale)
 

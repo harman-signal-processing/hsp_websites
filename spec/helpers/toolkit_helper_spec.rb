@@ -3,12 +3,12 @@ require "rails_helper"
 RSpec.describe ToolkitHelper do
 
   before :all do
-    @website = FactoryGirl.create(:website_with_products)
+    @website = FactoryBot.create(:website_with_products)
     @brand = @website.brand
     @brand.update_attributes(toolkit: true)
     @product = @website.products.first
-    @toolkit_resource_type = FactoryGirl.create(:toolkit_resource_type, related_model: "Product")
-    @toolkit_resource = FactoryGirl.create(:toolkit_resource,
+    @toolkit_resource_type = FactoryBot.create(:toolkit_resource_type, related_model: "Product")
+    @toolkit_resource = FactoryBot.create(:toolkit_resource,
                                            brand: @brand,
                                            toolkit_resource_type: @toolkit_resource_type,
                                            related_id: @product.id)
@@ -23,7 +23,7 @@ RSpec.describe ToolkitHelper do
 
   describe "toolkit_brands" do
     it "returns a set of brands" do
-      non_toolkit_brand = FactoryGirl.create(:brand, toolkit: false)
+      non_toolkit_brand = FactoryBot.create(:brand, toolkit: false)
       @toolkit_brands = helper.toolkit_brands
 
       expect(@toolkit_brands).to include(@brand)

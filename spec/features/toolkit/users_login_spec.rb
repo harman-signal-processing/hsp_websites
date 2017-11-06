@@ -11,9 +11,9 @@ feature "Toolkit users login" do
   before :each do
     allow_any_instance_of(Dealer).to receive(:geocode_address).and_return(true)
 
-    @dealer = FactoryGirl.create(:dealer)
+    @dealer = FactoryBot.create(:dealer)
     @password = "pass123"
-    @user = FactoryGirl.create(:user,
+    @user = FactoryBot.create(:user,
       dealer: true,
       account_number: @dealer.account_number,
       password: @password,

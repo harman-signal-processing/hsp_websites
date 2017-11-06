@@ -3,8 +3,8 @@ require "rails_helper"
 feature "DOD brand layout" do
 
   before :each do
-    @brand = FactoryGirl.create(:dod_brand)
-    @website = FactoryGirl.create(:website, folder: "dod", brand: @brand)
+    @brand = FactoryBot.create(:dod_brand)
+    @website = FactoryBot.create(:website, folder: "dod", brand: @brand)
     Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"
   end

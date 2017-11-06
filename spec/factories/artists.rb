@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :artist_tier do
   	sequence(:name) {|n| "Tier #{n}"}
   	factory :top_tier do
@@ -26,7 +26,7 @@ FactoryGirl.define do
   end
 end
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :artist do
   	sequence(:name) {|n| "Artist #{n}"}
     bio "I am the best player this side of the Mississippi."
@@ -68,7 +68,7 @@ FactoryGirl.define do
   end
 end
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :artist_product do
   	artist
   	product
@@ -77,7 +77,7 @@ FactoryGirl.define do
   end
 end
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :artist_brand do
   	artist
   	brand

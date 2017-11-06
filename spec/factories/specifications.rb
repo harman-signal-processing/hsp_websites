@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :specification do
   	sequence(:name) {|n| "Specification #{n}"}
   end

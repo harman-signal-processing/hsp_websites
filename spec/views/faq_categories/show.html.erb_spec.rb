@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "faq_categories/show.html.erb", :type => :view do
   before do
-    @faq_category = FactoryGirl.create(:faq_category)
-    @faq = FactoryGirl.create(:faq)
+    @faq_category = FactoryBot.create(:faq_category)
+    @faq = FactoryBot.create(:faq)
     @faq_category.faqs << @faq
 
     assign(:faq_category, @faq_category)

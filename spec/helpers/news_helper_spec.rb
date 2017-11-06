@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe NewsHelper do
 
   before :all do
-    @news = FactoryGirl.build_stubbed(:news)
+    @news = FactoryBot.build_stubbed(:news)
   end
 
   describe "interchange_news_thumbnail" do

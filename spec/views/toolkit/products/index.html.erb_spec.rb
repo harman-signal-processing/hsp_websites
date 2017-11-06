@@ -3,11 +3,11 @@ require "rails_helper"
 RSpec.describe 'toolkit/products/index.html.erb', as: :view do
 
   before :all do
-    @brand = FactoryGirl.create(:brand)
+    @brand = FactoryBot.create(:brand)
   end
 
   before :each do
-    @product = FactoryGirl.build(:product, brand: @brand)
+    @product = FactoryBot.build(:product, brand: @brand)
     assign(:brand, @brand)
   end
 
@@ -20,7 +20,7 @@ RSpec.describe 'toolkit/products/index.html.erb', as: :view do
   end
 
   it "should include products which are announced but not yet in production" do
-    announced = FactoryGirl.create(:product_status, shipping: false, discontinued: false, show_on_website: true)
+    announced = FactoryBot.create(:product_status, shipping: false, discontinued: false, show_on_website: true)
     @product.product_status = announced
     @product.save
 
@@ -34,7 +34,7 @@ RSpec.describe 'toolkit/products/index.html.erb', as: :view do
   # As of 10/17/2014, the answer is "Yes." However, I can't get it to show on the
   # main page. It does show up when you go into the product family page.
   it "should NOT include products which are in development" do
-    in_development = FactoryGirl.create(:product_status, shipping: false, show_on_website: false)
+    in_development = FactoryBot.create(:product_status, shipping: false, show_on_website: false)
     @product.product_status = in_development
     @product.save
 
@@ -44,7 +44,7 @@ RSpec.describe 'toolkit/products/index.html.erb', as: :view do
   end
 
   it "should NOT link to discontinued products" do
-    discontinued = FactoryGirl.create(:product_status, shipping: false, discontinued: true)
+    discontinued = FactoryBot.create(:product_status, shipping: false, discontinued: true)
     @product.product_status = discontinued
     @product.save
 

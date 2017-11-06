@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Event, type: :model do
 
   before do
-    @event = FactoryGirl.create(:event)
+    @event = FactoryBot.create(:event)
   end
 
   subject { @event }

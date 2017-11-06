@@ -3,8 +3,8 @@ require "rails_helper"
 feature "Managing FAQs", :devise do
 
   before :all do
-    @website = FactoryGirl.create(:website)
-    @user = FactoryGirl.create(:user, market_manager: true, password: "password", confirmed_at: 1.minute.ago)
+    @website = FactoryBot.create(:website)
+    @user = FactoryBot.create(:user, market_manager: true, password: "password", confirmed_at: 1.minute.ago)
   end
 
   before :each do
@@ -25,7 +25,7 @@ feature "Managing FAQs", :devise do
   end
 
   scenario "create an FAQ belonging to a category" do
-    category = FactoryGirl.create(:faq_category, brand: @website.brand)
+    category = FactoryBot.create(:faq_category, brand: @website.brand)
     start_faqs = Faq.count
     click_on "New FAQ"
 

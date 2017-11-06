@@ -3,8 +3,8 @@ require "rails_helper"
 feature "Twitter" do
 
   before :all do
-    @brand = FactoryGirl.create(:brand)
-    @website = FactoryGirl.create(:website, brand: @brand)
+    @brand = FactoryBot.create(:brand)
+    @website = FactoryBot.create(:website, brand: @brand)
     Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"
   end

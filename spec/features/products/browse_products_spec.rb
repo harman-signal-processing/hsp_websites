@@ -3,7 +3,7 @@ require "rails_helper"
 feature "Browse Products" do
 
   before :all do
-    @website = FactoryGirl.create(:website)
+    @website = FactoryBot.create(:website)
     Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"
   end
@@ -26,12 +26,12 @@ feature "Browse Products" do
 
   describe "product family page" do
     before :all do
-      @product_family = FactoryGirl.create(:product_family_with_products, brand: @website.brand, products_count: 5)
-      @multiple_parent = FactoryGirl.create(:product_family, brand: @website.brand)
-      2.times { FactoryGirl.create(:product_family_with_products, brand: @website.brand, parent_id: @multiple_parent.id)}
-      @single_parent = FactoryGirl.create(:product_family, brand: @website.brand)
-      FactoryGirl.create(:product_family_with_products, brand: @website.brand, parent_id: @single_parent.id, products_count: 1)
-      FactoryGirl.create(:product_family, brand: @website.brand, parent_id: @single_parent.id)
+      @product_family = FactoryBot.create(:product_family_with_products, brand: @website.brand, products_count: 5)
+      @multiple_parent = FactoryBot.create(:product_family, brand: @website.brand)
+      2.times { FactoryBot.create(:product_family_with_products, brand: @website.brand, parent_id: @multiple_parent.id)}
+      @single_parent = FactoryBot.create(:product_family, brand: @website.brand)
+      FactoryBot.create(:product_family_with_products, brand: @website.brand, parent_id: @single_parent.id, products_count: 1)
+      FactoryBot.create(:product_family, brand: @website.brand, parent_id: @single_parent.id)
     end
 
     it "should not link to full line for a family with one product in one sub-family" do
@@ -101,7 +101,7 @@ feature "Browse Products" do
 
   describe "discontinued product page" do
     before do
-      @product = FactoryGirl.create(:discontinued_product, brand: @website.brand)
+      @product = FactoryBot.create(:discontinued_product, brand: @website.brand)
     end
 
     it "should label the product as discontinued" do

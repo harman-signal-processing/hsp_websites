@@ -3,13 +3,13 @@ require "rails_helper"
 feature "Admin Pricing", :devise do
 
   before :all do
-    @website = FactoryGirl.create(:website_with_products)
+    @website = FactoryBot.create(:website_with_products)
     @brand = @website.brand
     Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"
-    @user = FactoryGirl.create(:user, market_manager: true, password: "password", confirmed_at: 1.minute.ago)
-    @dealer_pricing_type = FactoryGirl.create(:pricing_type, brand: @brand, pricelist_order: 1)
-    @artist_pricing_type = FactoryGirl.create(:pricing_type, brand: @brand, pricelist_order: 0)
+    @user = FactoryBot.create(:user, market_manager: true, password: "password", confirmed_at: 1.minute.ago)
+    @dealer_pricing_type = FactoryBot.create(:pricing_type, brand: @brand, pricelist_order: 1)
+    @artist_pricing_type = FactoryBot.create(:pricing_type, brand: @brand, pricelist_order: 0)
   end
 
   before :each do
@@ -55,8 +55,8 @@ feature "Admin Pricing", :devise do
   describe "Updating prices" do
     before do
       @product = @website.products.first
-      @product_price = FactoryGirl.create(:product_price, product: @product, pricing_type: @dealer_pricing_type, price: 200.99)
-      @product_price = FactoryGirl.create(:product_price, product: @product, pricing_type: @artist_pricing_type, price: 199.95)
+      @product_price = FactoryBot.create(:product_price, product: @product, pricing_type: @dealer_pricing_type, price: 200.99)
+      @product_price = FactoryBot.create(:product_price, product: @product, pricing_type: @artist_pricing_type, price: 199.95)
       visit admin_product_prices_path(locale: I18n.default_locale)
     end
 

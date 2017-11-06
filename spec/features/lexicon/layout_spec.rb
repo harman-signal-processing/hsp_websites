@@ -3,8 +3,8 @@ require "rails_helper"
 feature "Lexicon brand" do
 
   before :all do
-    @brand = FactoryGirl.create(:lexicon_brand)
-    @website = FactoryGirl.create(:website, folder: "lexicon", brand: @brand)
+    @brand = FactoryBot.create(:lexicon_brand)
+    @website = FactoryBot.create(:website, folder: "lexicon", brand: @brand)
     Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"
   end

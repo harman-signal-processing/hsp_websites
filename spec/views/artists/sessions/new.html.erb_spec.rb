@@ -3,10 +3,10 @@ require "rails_helper"
 RSpec.describe "artists/sessions/new.html.erb", as: :view do
 
   before do
-    @brand = FactoryGirl.create(:digitech_brand)
-    @website = FactoryGirl.create(:website, folder: "digitech", brand: @brand)
-    @affiliate_tier = FactoryGirl.create(:affiliate_tier)
-    @top_tier = FactoryGirl.create(:top_tier)
+    @brand = FactoryBot.create(:digitech_brand)
+    @website = FactoryBot.create(:website, folder: "digitech", brand: @brand)
+    @affiliate_tier = FactoryBot.create(:affiliate_tier)
+    @top_tier = FactoryBot.create(:top_tier)
 
     allow(view).to receive(:website).and_return(@website)
     allow(view).to receive(:resource).and_return(Artist.new)

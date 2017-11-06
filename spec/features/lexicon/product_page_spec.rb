@@ -3,17 +3,17 @@ require "rails_helper"
 feature "Lexicon product page" do
 
   before :all do
-    @brand = FactoryGirl.create(:lexicon_brand)
-    @website = FactoryGirl.create(:website_with_products, folder: "lexicon", brand: @brand)
+    @brand = FactoryBot.create(:lexicon_brand)
+    @website = FactoryBot.create(:website_with_products, folder: "lexicon", brand: @brand)
     @product = @website.products.first
-    @software = FactoryGirl.create(:software, brand: @brand)
-    @product.product_softwares << FactoryGirl.create(:product_software, software: @software, product: @product)
+    @software = FactoryBot.create(:software, brand: @brand)
+    @product.product_softwares << FactoryBot.create(:product_software, software: @software, product: @product)
     @product.features_tab_name = "Culture"
     @product.features = "This is content for the features"
     @product.demo_link = 'http://demo.lvh.me/download/the/demo/form'
     @product.save
-    @promo = FactoryGirl.create(:promotion)
-    @product.product_promotions << FactoryGirl.create(:product_promotion, promotion: @promo, product: @product)
+    @promo = FactoryBot.create(:promotion)
+    @product.product_promotions << FactoryBot.create(:product_promotion, promotion: @promo, product: @product)
     Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"
   end

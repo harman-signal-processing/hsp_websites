@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Signup, :type => :model do
 
   before do
-    @signup = FactoryGirl.create(:signup)
+    @signup = FactoryBot.create(:signup)
   end
 
   it "should not require name" do

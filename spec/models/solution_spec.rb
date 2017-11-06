@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Solution, type: :model do
   before :all do
-    @solution = FactoryGirl.build_stubbed(:solution)
+    @solution = FactoryBot.build_stubbed(:solution)
   end
 
   subject { @solution }

@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe "admin/support_subjects/index.html.erb" do
 
   before :all do
-    @brand = FactoryGirl.create(:brand)
-    @website = FactoryGirl.create(:website, brand: @brand)
+    @brand = FactoryBot.create(:brand)
+    @website = FactoryBot.create(:website, brand: @brand)
   end
 
   before :each do
@@ -20,7 +20,7 @@ RSpec.describe "admin/support_subjects/index.html.erb" do
 
   context "with existing subjects" do
     before do
-      @support_subjects = FactoryGirl.create_list(:support_subject, 3, brand: @brand)
+      @support_subjects = FactoryBot.create_list(:support_subject, 3, brand: @brand)
       assign(:support_subjects, @support_subjects)
       render
     end

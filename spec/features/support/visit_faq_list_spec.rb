@@ -6,9 +6,9 @@ require 'rails_helper'
 #   So that I can avoid calling tech support and use my product
 feature "Visit FAQ page" do
   before do
-    @website = FactoryGirl.create(:website)
-    @faq = FactoryGirl.create(:faq)
-    @faq_category = FactoryGirl.create(:faq_category, brand: @website.brand)
+    @website = FactoryBot.create(:website)
+    @faq = FactoryBot.create(:faq)
+    @faq_category = FactoryBot.create(:faq_category, brand: @website.brand)
     @faq_category.faqs << @faq
 
     visit faqs_url(host: @website.url)

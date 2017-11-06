@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :brand_solution do
     brand
     solution

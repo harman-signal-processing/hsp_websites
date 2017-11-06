@@ -3,13 +3,13 @@ require "rails_helper"
 feature "Artists registration" do
 
   before :all do
-    @website = FactoryGirl.create(:website, folder: "digitech")
+    @website = FactoryBot.create(:website, folder: "digitech")
     @brand = @website.brand
     Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"
 
-    @affiliate_tier = FactoryGirl.create(:affiliate_tier)
-    @top_tier = FactoryGirl.create(:top_tier)
+    @affiliate_tier = FactoryBot.create(:affiliate_tier)
+    @top_tier = FactoryBot.create(:top_tier)
   end
 
   after :all do

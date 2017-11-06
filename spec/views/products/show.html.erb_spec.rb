@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe "products/show.html.erb", :type => :view do
   before :all do
-    @website = FactoryGirl.create(:website)
-    @product = FactoryGirl.create(:product, brand: @website.brand)
-    @news = FactoryGirl.create(:news, brand: @website.brand)
-    @future_news = FactoryGirl.create(:news, brand: @website.brand, post_on: 1.month.from_now, title: "Future News")
+    @website = FactoryBot.create(:website)
+    @product = FactoryBot.create(:product, brand: @website.brand)
+    @news = FactoryBot.create(:news, brand: @website.brand)
+    @future_news = FactoryBot.create(:news, brand: @website.brand, post_on: 1.month.from_now, title: "Future News")
     @product.news += [@news, @future_news]
     assign(:product, @product)
   end

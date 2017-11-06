@@ -13,7 +13,7 @@ RSpec.describe MainHelper do
   describe "feature_button()" do
 
     before do
-      @feature = FactoryGirl.build_stubbed(:setting, slide: File.open(Rails.root.join("spec/fixtures/test.jpg")))
+      @feature = FactoryBot.build_stubbed(:setting, slide: File.open(Rails.root.join("spec/fixtures/test.jpg")))
     end
 
     it "renders the image" do
@@ -129,7 +129,7 @@ RSpec.describe MainHelper do
 
   describe "preload_background_images()" do
     it "returns a 0-sized image" do
-      website = FactoryGirl.create(:website_with_products)
+      website = FactoryBot.create(:website_with_products)
       product = website.products.first
       product.update_attributes(background_image: File.open(Rails.root.join("spec/fixtures/test.jpg")))
 

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
 
   factory :online_retailer do
     sequence(:name) {|n| "Musicians Enemy #{n}"}

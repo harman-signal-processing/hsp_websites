@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe GetStartedPage, type: :model do
 
   before do
-    @get_started_page = FactoryGirl.create(:get_started_page)
+    @get_started_page = FactoryBot.create(:get_started_page)
   end
 
   subject { @get_started_page }

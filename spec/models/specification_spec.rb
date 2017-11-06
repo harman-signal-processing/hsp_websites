@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Specification, type: :model do
 
   before :all do
-    @specification = FactoryGirl.create(:specification)
+    @specification = FactoryBot.create(:specification)
   end
 
   subject { @specification }

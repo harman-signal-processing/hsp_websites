@@ -4,7 +4,7 @@ RSpec.describe ContentTranslation do
 
   describe "#translatables" do
     it "looks up things that can be translated for the brand" do
-      brand = FactoryGirl.build_stubbed(:brand)
+      brand = FactoryBot.build_stubbed(:brand)
 
       t = ContentTranslation.translatables(brand)
 
@@ -17,7 +17,7 @@ RSpec.describe ContentTranslation do
     end
 
     it "includes effects if the brand has them" do
-      brand = FactoryGirl.build_stubbed(:brand, has_effects: true)
+      brand = FactoryBot.build_stubbed(:brand, has_effects: true)
 
       t = ContentTranslation.translatables(brand)
 
@@ -28,7 +28,7 @@ RSpec.describe ContentTranslation do
     end
 
     it "includes product_reviews if the brand has reviews" do
-      brand = FactoryGirl.build_stubbed(:brand, has_reviews: true)
+      brand = FactoryBot.build_stubbed(:brand, has_reviews: true)
 
       t = ContentTranslation.translatables(brand)
 
@@ -36,7 +36,7 @@ RSpec.describe ContentTranslation do
     end
 
     it "includes artists if the brand has artists" do
-      brand = FactoryGirl.build_stubbed(:brand, has_artists: true)
+      brand = FactoryBot.build_stubbed(:brand, has_artists: true)
 
       t = ContentTranslation.translatables(brand)
 
@@ -44,7 +44,7 @@ RSpec.describe ContentTranslation do
     end
 
     it "includes faqs if the brand has them" do
-      brand = FactoryGirl.build_stubbed(:brand, has_faqs: true)
+      brand = FactoryBot.build_stubbed(:brand, has_faqs: true)
 
       t = ContentTranslation.translatables(brand)
 
@@ -52,7 +52,7 @@ RSpec.describe ContentTranslation do
     end
 
     it "includes market segments if the brand has them" do
-      brand = FactoryGirl.build_stubbed(:brand, has_market_segments: true)
+      brand = FactoryBot.build_stubbed(:brand, has_market_segments: true)
 
       t = ContentTranslation.translatables(brand)
 
@@ -62,8 +62,8 @@ RSpec.describe ContentTranslation do
 
   describe "fields to translate for" do
     it "includes the fields from #translatables" do
-      brand = FactoryGirl.build_stubbed(:brand)
-      product = FactoryGirl.build_stubbed(:product, brand: brand)
+      brand = FactoryBot.build_stubbed(:brand)
+      product = FactoryBot.build_stubbed(:product, brand: brand)
 
       f = ContentTranslation.fields_to_translate_for(product, brand)
 
@@ -74,8 +74,8 @@ RSpec.describe ContentTranslation do
 
   describe "translate text content" do
     it "looks up the translation from a parent locale" do
-      product = FactoryGirl.create(:product)
-      ct = FactoryGirl.build(:content_translation,
+      product = FactoryBot.create(:product)
+      ct = FactoryBot.build(:content_translation,
                          content_type: "Product",
                          content_method: "name",
                          content_id: product.id,
@@ -92,8 +92,8 @@ RSpec.describe ContentTranslation do
     end
 
     it "looks up the translation from an exact locale" do
-      product = FactoryGirl.create(:product)
-      ct = FactoryGirl.build(:content_translation,
+      product = FactoryBot.create(:product)
+      ct = FactoryBot.build(:content_translation,
                          content_type: "Product",
                          content_method: "name",
                          content_id: product.id,
@@ -109,8 +109,8 @@ RSpec.describe ContentTranslation do
     end
 
     it "looks up the translation from a sister locale" do
-      product = FactoryGirl.create(:product)
-      ct = FactoryGirl.build(:content_translation,
+      product = FactoryBot.create(:product)
+      ct = FactoryBot.build(:content_translation,
                          content_type: "Product",
                          content_method: "name",
                          content_id: product.id,

@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe News, :type => :model do
 
   before do
-    @news = FactoryGirl.build_stubbed(:news)
+    @news = FactoryBot.build_stubbed(:news)
   end
 
   subject { @news }

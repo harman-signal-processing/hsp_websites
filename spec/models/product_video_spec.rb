@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe ProductVideo, type: :model do
 
   before :all do
-    @product_video = FactoryGirl.create(:product_video)
+    @product_video = FactoryBot.create(:product_video)
   end
 
   subject { @product_video }

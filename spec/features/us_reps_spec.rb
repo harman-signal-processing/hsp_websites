@@ -3,13 +3,13 @@ require "rails_helper"
 feature "US Reps" do
 
   before :all do
-    @website = FactoryGirl.create(:website)
+    @website = FactoryBot.create(:website)
     Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"
-    @rep1 = FactoryGirl.create(:us_rep)
-    @rep2 = FactoryGirl.create(:us_rep)
-    @region1 = FactoryGirl.create(:us_region)
-    @region2 = FactoryGirl.create(:us_region)
+    @rep1 = FactoryBot.create(:us_rep)
+    @rep2 = FactoryBot.create(:us_rep)
+    @region1 = FactoryBot.create(:us_region)
+    @region2 = FactoryBot.create(:us_region)
   end
 
   after :all do
@@ -19,8 +19,8 @@ feature "US Reps" do
   describe "rep index" do
 
   	before do
-	    FactoryGirl.create(:us_rep_region, us_rep: @rep1, brand: @website.brand, us_region: @region1)
-	    FactoryGirl.create(:us_rep_region, us_rep: @rep2, brand: @website.brand, us_region: @region2)
+	    FactoryBot.create(:us_rep_region, us_rep: @rep1, brand: @website.brand, us_region: @region1)
+	    FactoryBot.create(:us_rep_region, us_rep: @rep2, brand: @website.brand, us_region: @region2)
 
 	  	visit us_reps_path(locale: I18n.default_locale)
   	end
@@ -50,12 +50,12 @@ feature "US Reps" do
   describe "a brand dependent on another brand us reps" do
 
   	before do
-  		@master_brand = FactoryGirl.create(:brand)
+  		@master_brand = FactoryBot.create(:brand)
   		@website.brand.us_sales_reps_from_brand_id = @master_brand.id
   		@website.brand.save
 
-	    FactoryGirl.create(:us_rep_region, us_rep: @rep1, brand: @master_brand, us_region: @region1)
-	    FactoryGirl.create(:us_rep_region, us_rep: @rep2, brand: @master_brand, us_region: @region2)
+	    FactoryBot.create(:us_rep_region, us_rep: @rep1, brand: @master_brand, us_region: @region1)
+	    FactoryBot.create(:us_rep_region, us_rep: @rep2, brand: @master_brand, us_region: @region2)
 	  	visit us_reps_path(locale: I18n.default_locale)
   	end
 
@@ -85,11 +85,11 @@ feature "US Reps" do
 
   	before do
       @brand1 = @website.brand
-  		@brand2 = FactoryGirl.create(:brand)
+  		@brand2 = FactoryBot.create(:brand)
 
-	    FactoryGirl.create(:us_rep_region, us_rep: @rep1, brand: @brand1, us_region: @region1)
-	    FactoryGirl.create(:us_rep_region, us_rep: @rep2, brand: @brand2, us_region: @region1)
-	    FactoryGirl.create(:us_rep_region, brand: @brand2, us_region: @region2)
+	    FactoryBot.create(:us_rep_region, us_rep: @rep1, brand: @brand1, us_region: @region1)
+	    FactoryBot.create(:us_rep_region, us_rep: @rep2, brand: @brand2, us_region: @region1)
+	    FactoryBot.create(:us_rep_region, brand: @brand2, us_region: @region2)
 	  	visit us_reps_path(locale: I18n.default_locale)
   	end
 

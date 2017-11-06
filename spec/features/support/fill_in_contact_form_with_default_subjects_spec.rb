@@ -6,7 +6,7 @@ require 'rails_helper'
 #   So I can get an answer to my question
 feature "Complete contact form with standard subjects" do
   before do
-    @website = FactoryGirl.create(:website_with_products)
+    @website = FactoryBot.create(:website_with_products)
 
     visit support_url(host: @website.url)
     fill_in_form

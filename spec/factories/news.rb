@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
 
   factory :news do
     sequence(:title) {|n| "The most amazing story #{n}" }

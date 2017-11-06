@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe BrandSolutionFeaturedProduct, type: :model do
 
   before :all do
-    @bsfp = FactoryGirl.build_stubbed(:brand_solution_featured_product)
+    @bsfp = FactoryBot.build_stubbed(:brand_solution_featured_product)
   end
 
   subject { @bsfp }

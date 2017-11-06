@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe ProductFamily, :type => :model do
 
   before :all do
-    @product_family = FactoryGirl.create(:product_family)
+    @product_family = FactoryBot.create(:product_family)
   end
 
   subject { @product_family }
@@ -13,8 +13,8 @@ RSpec.describe ProductFamily, :type => :model do
 	describe "tree" do
 
 		before :each do
-			@digitech = FactoryGirl.create(:digitech_brand)
-			@pedals = FactoryGirl.create(:product_family, brand: @digitech)
+			@digitech = FactoryBot.create(:digitech_brand)
+			@pedals = FactoryBot.create(:product_family, brand: @digitech)
 		end
 
 	  it "should not be its own parent" do

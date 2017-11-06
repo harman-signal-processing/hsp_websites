@@ -2,8 +2,8 @@ require "rails_helper"
 
 RSpec.describe ContactMessage, :type => :model do
   before do
-    @brand = FactoryGirl.create(:brand)
-    @contact_message = FactoryGirl.build(:contact_message, brand: @brand)
+    @brand = FactoryBot.create(:brand)
+    @contact_message = FactoryBot.build(:contact_message, brand: @brand)
   end
 
   subject { @contact_message }
@@ -25,7 +25,7 @@ RSpec.describe ContactMessage, :type => :model do
     end
 
     it "loads brand-specific subjects when provided" do
-      support_subject = FactoryGirl.create(:support_subject, brand_id: @brand.id)
+      support_subject = FactoryBot.create(:support_subject, brand_id: @brand.id)
 
       subjects = ContactMessage.subjects(brand: @brand)
       expect(subjects).to be_an(Array)
@@ -34,8 +34,8 @@ RSpec.describe ContactMessage, :type => :model do
     end
 
     it "loads translated brand-specific subjects" do
-      english_subject = FactoryGirl.create(:support_subject, brand_id: @brand.id)
-      chinese_subject = FactoryGirl.create(:support_subject, brand_id: @brand.id, locale: "zh")
+      english_subject = FactoryBot.create(:support_subject, brand_id: @brand.id)
+      chinese_subject = FactoryBot.create(:support_subject, brand_id: @brand.id, locale: "zh")
 
       subjects = ContactMessage.subjects(brand: @brand, locale: "zh-CN")
       expect(subjects.flatten).to include(chinese_subject.name)
@@ -46,10 +46,10 @@ RSpec.describe ContactMessage, :type => :model do
   describe "country recipients" do
 
     it "sends to the distributor if there is exactly one for the country" do
-      distributor = FactoryGirl.create(:distributor)
-      brand = FactoryGirl.create(:brand, send_contact_form_to_distributors: true)
+      distributor = FactoryBot.create(:distributor)
+      brand = FactoryBot.create(:brand, send_contact_form_to_distributors: true)
       brand.distributors << distributor
-      contact_message = FactoryGirl.build_stubbed(:contact_message,
+      contact_message = FactoryBot.build_stubbed(:contact_message,
         shipping_country: distributor.country,
         brand: brand)
 
@@ -57,12 +57,12 @@ RSpec.describe ContactMessage, :type => :model do
     end
 
     it "sends to the brand default if there is more than one distributor for the country" do
-      distributor = FactoryGirl.create(:distributor)
-      distributor2 = FactoryGirl.create(:distributor, country: distributor.country)
-      brand = FactoryGirl.build(:brand, send_contact_form_to_distributors: true)
+      distributor = FactoryBot.create(:distributor)
+      distributor2 = FactoryBot.create(:distributor, country: distributor.country)
+      brand = FactoryBot.build(:brand, send_contact_form_to_distributors: true)
       brand.distributors << distributor
       brand.distributors << distributor2
-      contact_message = FactoryGirl.build(:contact_message,
+      contact_message = FactoryBot.build(:contact_message,
         shipping_country: distributor.country,
         brand: brand)
 
@@ -71,10 +71,10 @@ RSpec.describe ContactMessage, :type => :model do
     end
 
     it "sends to the brand default if the brand is not configured to send to distributors" do
-      distributor = FactoryGirl.create(:distributor)
-      brand = FactoryGirl.build(:brand, send_contact_form_to_distributors: false)
+      distributor = FactoryBot.create(:distributor)
+      brand = FactoryBot.build(:brand, send_contact_form_to_distributors: false)
       brand.distributors << distributor
-      contact_message = FactoryGirl.build_stubbed(:contact_message,
+      contact_message = FactoryBot.build_stubbed(:contact_message,
         shipping_country: distributor.country,
         brand: brand)
 
@@ -83,10 +83,10 @@ RSpec.describe ContactMessage, :type => :model do
     end
 
     it "sends to the brand default if the distributor's email is blank" do
-      distributor = FactoryGirl.create(:distributor, email: nil)
-      brand = FactoryGirl.build(:brand, send_contact_form_to_distributors: true)
+      distributor = FactoryBot.create(:distributor, email: nil)
+      brand = FactoryBot.build(:brand, send_contact_form_to_distributors: true)
       brand.distributors << distributor
-      contact_message = FactoryGirl.build_stubbed(:contact_message,
+      contact_message = FactoryBot.build_stubbed(:contact_message,
         shipping_country: distributor.country,
         brand: brand)
 
@@ -96,7 +96,7 @@ RSpec.describe ContactMessage, :type => :model do
 
   describe "RMA" do
     it "sends to the brand's repair email" do
-      contact_message = FactoryGirl.build_stubbed(:contact_message, message_type: "repair_request")
+      contact_message = FactoryBot.build_stubbed(:contact_message, message_type: "repair_request")
 
       expect(contact_message.recipients).to include(contact_message.brand.rma_email)
     end
@@ -104,7 +104,7 @@ RSpec.describe ContactMessage, :type => :model do
 
   describe "Parts request" do
     it "sends to the brand's parts email" do
-      contact_message = FactoryGirl.build_stubbed(:contact_message, message_type: "part_request")
+      contact_message = FactoryBot.build_stubbed(:contact_message, message_type: "part_request")
 
       expect(contact_message.recipients).to include(contact_message.brand.parts_email)
     end

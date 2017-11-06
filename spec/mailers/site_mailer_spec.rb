@@ -3,9 +3,9 @@ require "rails_helper"
 RSpec.describe SiteMailer, type: :mailer do
 
 	before :all do
-		@website = FactoryGirl.create(:website)
+		@website = FactoryBot.create(:website)
     @brand = @website.brand
-    @contact_message = FactoryGirl.build(:contact_message)
+    @contact_message = FactoryBot.build(:contact_message)
 	end
 
 	describe "contact form" do

@@ -3,21 +3,21 @@ require "rails_helper"
 feature "epedal labels ordering" do
 
   before :all do
-    @brand = FactoryGirl.create(:digitech_brand)
-    @website = FactoryGirl.create(:website, folder: "digitech", brand: @brand, url: "digitech.lvh.me")
-    stompboxes = FactoryGirl.create(:product_family, name: "Stompboxes", brand: @brand)
-    @istomp = FactoryGirl.create(:product, name: "iStomp", brand: @brand, layout_class: "istomp")
-    FactoryGirl.create(:product_family_product, product_family: stompboxes, product: @istomp)
-    @gooberator = FactoryGirl.create(:product, name: "Gooberator", brand: @brand, layout_class: "epedal")
-    @fooberator = FactoryGirl.create(:product, name: "Fooberator", brand: @brand, layout_class: "epedal")
-    @zooberator = FactoryGirl.create(:product, name: "Zooberator", brand: @brand, layout_class: "epedal")
-    FactoryGirl.create(:parent_product, product: @gooberator, parent_product: @istomp)
-    FactoryGirl.create(:parent_product, product: @fooberator, parent_product: @istomp)
-    FactoryGirl.create(:parent_product, product: @zooberator, parent_product: @istomp)
-    @stompshop = FactoryGirl.create(:software, name: "Stomp Shop", layout_class: "stomp_shop", brand: @brand)
-    FactoryGirl.create(:product_software, product: @istomp, software: @stompshop)
-    @sheet = FactoryGirl.create(:label_sheet, products: [@gooberator.id, @fooberator.id].join(", "))
-    @sheet2 = FactoryGirl.create(:label_sheet, products: [@zooberator.id].join(", "))
+    @brand = FactoryBot.create(:digitech_brand)
+    @website = FactoryBot.create(:website, folder: "digitech", brand: @brand, url: "digitech.lvh.me")
+    stompboxes = FactoryBot.create(:product_family, name: "Stompboxes", brand: @brand)
+    @istomp = FactoryBot.create(:product, name: "iStomp", brand: @brand, layout_class: "istomp")
+    FactoryBot.create(:product_family_product, product_family: stompboxes, product: @istomp)
+    @gooberator = FactoryBot.create(:product, name: "Gooberator", brand: @brand, layout_class: "epedal")
+    @fooberator = FactoryBot.create(:product, name: "Fooberator", brand: @brand, layout_class: "epedal")
+    @zooberator = FactoryBot.create(:product, name: "Zooberator", brand: @brand, layout_class: "epedal")
+    FactoryBot.create(:parent_product, product: @gooberator, parent_product: @istomp)
+    FactoryBot.create(:parent_product, product: @fooberator, parent_product: @istomp)
+    FactoryBot.create(:parent_product, product: @zooberator, parent_product: @istomp)
+    @stompshop = FactoryBot.create(:software, name: "Stomp Shop", layout_class: "stomp_shop", brand: @brand)
+    FactoryBot.create(:product_software, product: @istomp, software: @stompshop)
+    @sheet = FactoryBot.create(:label_sheet, products: [@gooberator.id, @fooberator.id].join(", "))
+    @sheet2 = FactoryBot.create(:label_sheet, products: [@zooberator.id].join(", "))
 
     Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"
@@ -48,8 +48,8 @@ feature "epedal labels ordering" do
     end
 
     it "should not show the button if the label is not on any sheets" do
-      @mooberator = FactoryGirl.create(:product, name: "Mooberator", brand: @brand, layout_class: "epedal")
-      FactoryGirl.create(:parent_product, product: @mooberator, parent_product: @istomp)
+      @mooberator = FactoryBot.create(:product, name: "Mooberator", brand: @brand, layout_class: "epedal")
+      FactoryBot.create(:parent_product, product: @mooberator, parent_product: @istomp)
 
       visit product_path(id: @mooberator.to_param, locale: I18n.default_locale)
 
@@ -148,7 +148,7 @@ feature "epedal labels ordering" do
 
   context "label order fulfillment" do
     before do
-      @order = FactoryGirl.create(:label_sheet_order, label_sheet_ids: [@sheet.id])
+      @order = FactoryBot.create(:label_sheet_order, label_sheet_ids: [@sheet.id])
       @last_email = ActionMailer::Base.deliveries.last
     end
 

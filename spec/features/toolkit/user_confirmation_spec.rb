@@ -13,8 +13,8 @@ feature "User confirmation" do
   end
 
   scenario "should confirm the new user" do
-    @dealer = FactoryGirl.create(:dealer)
-    @user = FactoryGirl.create(:user, dealer: true, account_number: @dealer.account_number)
+    @dealer = FactoryBot.create(:dealer)
+    @user = FactoryBot.create(:user, dealer: true, account_number: @dealer.account_number)
 
     last_email = ActionMailer::Base.deliveries.last
     last_email.body.to_s.match(/href\=\"(.*)\"+/)

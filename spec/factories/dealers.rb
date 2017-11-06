@@ -1,6 +1,6 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :dealer do
     sequence(:name) {|n| "Dealer #{n}" }
     address "123 Street"
@@ -14,7 +14,7 @@ FactoryGirl.define do
   end
 end
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :dealer_user do
     dealer
     user

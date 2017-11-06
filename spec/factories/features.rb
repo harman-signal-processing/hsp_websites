@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :feature do
     featurable_type "ProductFamily"
     featurable_id 1

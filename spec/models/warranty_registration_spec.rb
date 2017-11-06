@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe WarrantyRegistration, :type => :model do
 
   before do
-    @warranty_registration = FactoryGirl.build(:warranty_registration)
+    @warranty_registration = FactoryBot.build(:warranty_registration)
   end
 
   subject { @warranty_registration }

@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe ProductDocument, :type => :model do
 
   before do
-    @product_document = FactoryGirl.build_stubbed(:product_document)
+    @product_document = FactoryBot.build_stubbed(:product_document)
   end
 
   subject { @product_document }

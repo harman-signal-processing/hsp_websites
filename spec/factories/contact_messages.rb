@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :contact_message do
     name "Axl Rose"
     subject "Product Question"

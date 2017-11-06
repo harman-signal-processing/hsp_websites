@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :training_module do
     sequence(:name) { |n| "Module##{n}" }
     brand

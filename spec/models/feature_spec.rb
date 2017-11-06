@@ -3,15 +3,15 @@ require 'rails_helper'
 RSpec.describe Feature, type: :model do
 
   it "should respond to name" do
-    feature = FactoryGirl.create(:feature)
+    feature = FactoryBot.create(:feature)
 
     expect(feature).to respond_to :name
   end
 
   describe "for ProductFamilies" do
     before do
-      @product_family = FactoryGirl.create(:product_family)
-      @feature = FactoryGirl.create(:feature)
+      @product_family = FactoryBot.create(:product_family)
+      @feature = FactoryBot.create(:feature)
     end
 
     it "should associate" do

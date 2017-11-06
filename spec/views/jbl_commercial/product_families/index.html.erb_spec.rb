@@ -3,14 +3,14 @@ require "rails_helper"
 RSpec.describe "jbl_commercial/product_families/index.html.erb", as: :view do
 
   before :all do
-    @brand = FactoryGirl.create(:jbl_commercial_brand)
-    @website = FactoryGirl.create(:website_with_products, folder: "jbl_commercial", brand: @brand)
+    @brand = FactoryBot.create(:jbl_commercial_brand)
+    @website = FactoryBot.create(:website_with_products, folder: "jbl_commercial", brand: @brand)
     @product_family = @website.product_families.first
-    @multiple_parent = FactoryGirl.create(:product_family, brand: @website.brand)
-    2.times { FactoryGirl.create(:product_family_with_products, brand: @website.brand, parent_id: @multiple_parent.id)}
-    @single_parent = FactoryGirl.create(:product_family, brand: @website.brand)
-    FactoryGirl.create(:product_family_with_products, brand: @website.brand, parent_id: @single_parent.id, products_count: 1)
-    FactoryGirl.create(:product_family, brand: @website.brand, parent_id: @single_parent.id)
+    @multiple_parent = FactoryBot.create(:product_family, brand: @website.brand)
+    2.times { FactoryBot.create(:product_family_with_products, brand: @website.brand, parent_id: @multiple_parent.id)}
+    @single_parent = FactoryBot.create(:product_family, brand: @website.brand)
+    FactoryBot.create(:product_family_with_products, brand: @website.brand, parent_id: @single_parent.id, products_count: 1)
+    FactoryBot.create(:product_family, brand: @website.brand, parent_id: @single_parent.id)
 
     assign(:product_families, @website.product_families)
     assign(:discontinued_products, [])

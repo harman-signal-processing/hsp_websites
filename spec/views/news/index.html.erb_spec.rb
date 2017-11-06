@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "news/index.html.erb", :type => :view do
   before :all do
-    @website = FactoryGirl.create(:website)
-    @news = FactoryGirl.build_stubbed(:news, brand: @website.brand)
+    @website = FactoryBot.create(:website)
+    @news = FactoryBot.build_stubbed(:news, brand: @website.brand)
   end
 
   before :each do

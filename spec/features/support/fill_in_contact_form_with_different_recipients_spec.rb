@@ -7,8 +7,8 @@ require 'rails_helper'
 #   So I can get an answer to my question
 feature "Complete contact form with custom recipients" do
   before :all do
-    @website = FactoryGirl.create(:website_with_products)
-    @subjects = FactoryGirl.create_list(:support_subject, 2, brand_id: @website.brand_id)
+    @website = FactoryBot.create(:website_with_products)
+    @subjects = FactoryBot.create_list(:support_subject, 2, brand_id: @website.brand_id)
     @subjects.first.update_column(:recipient, "mrcool@harman.com")
   end
 

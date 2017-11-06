@@ -3,10 +3,10 @@ require "rails_helper"
 feature "Admin News", :devise do
 
   before :all do
-    @website = FactoryGirl.create(:website)
+    @website = FactoryBot.create(:website)
     Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"
-    @user = FactoryGirl.create(:user, market_manager: true, password: "password", confirmed_at: 1.minute.ago)
+    @user = FactoryBot.create(:user, market_manager: true, password: "password", confirmed_at: 1.minute.ago)
   end
 
   before :each do

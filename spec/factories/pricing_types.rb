@@ -1,6 +1,6 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :pricing_type do
     sequence(:name) {|n| "Special Price #{n}"}
     brand

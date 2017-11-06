@@ -3,9 +3,9 @@ require "rails_helper"
 RSpec.describe "support/index.html.erb", as: :view do
 
   before :all do
-    @website = FactoryGirl.create(:website)
-    @other_brand = FactoryGirl.create(:brand)
-    @other_product = FactoryGirl.create(:discontinued_product, brand: @other_brand)
+    @website = FactoryBot.create(:website)
+    @other_brand = FactoryBot.create(:brand)
+    @other_product = FactoryBot.create(:discontinued_product, brand: @other_brand)
   end
 
   before :each do

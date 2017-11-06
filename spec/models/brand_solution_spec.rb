@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe BrandSolution, type: :model do
 
   before :all do
-    @bs = FactoryGirl.build_stubbed(:brand_solution)
+    @bs = FactoryBot.build_stubbed(:brand_solution)
   end
 
   subject { @bs }
