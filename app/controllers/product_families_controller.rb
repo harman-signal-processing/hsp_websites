@@ -21,12 +21,23 @@ class ProductFamiliesController < ApplicationController
     end
     respond_to do |format|
       format.html {
-        if @product_family.current_products.size == 1
+
+        # If the family has no fancy features and only one product
+        if @product_family.features.length == 0 && @product_family.current_products.size == 1
           redirect_to @product_family.current_products.first, status: :moved_permanently and return
-        elsif @product_family.children_with_current_products(website).size == 1 && @product_family.children_with_current_products(website).first.current_products.size == 1
-          redirect_to @product_family.children_with_current_products(website).first.current_products.first, status: :moved_permanently and return 
-        elsif !@product_family.layout_class.blank? && File.exists?(Rails.root.join("app", "views", website.folder, "product_families", "#{@product_family.layout_class}.html.erb"))
-          render template: "#{website.folder}/product_families/#{@product_family.layout_class}", layout: set_layout
+
+        # If the family has no fancy features and only one child with one active product
+        elsif @product_family.features.length == 0 &&
+          @product_family.children_with_current_products(website).size == 1 &&
+          @product_family.children_with_current_products(website).first.current_products.size == 1
+            redirect_to @product_family.children_with_current_products(website).first.current_products.first, status: :moved_permanently and return
+
+        # If the family has a "layout_class" defined and we can find a template with that name
+        elsif !@product_family.layout_class.blank? &&
+          File.exists?(Rails.root.join("app", "views", website.folder, "product_families", "#{@product_family.layout_class}.html.erb"))
+            render template: "#{website.folder}/product_families/#{@product_family.layout_class}", layout: set_layout
+
+        # Otherwise, use the default render method
         else
           render_template
         end
