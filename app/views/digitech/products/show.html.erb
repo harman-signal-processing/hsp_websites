@@ -37,7 +37,9 @@ set_meta_tags title: @product.name,
 		image: og_image,
 		type: 'product',
 		description: truncate(strip_html(translate_content(@product, :description)), length: 100),
-		title: "#{website.brand.name} #{@product.name}"
+		title: "#{website.brand.name} #{@product.name}",
+    url: product_url(@product),
+    updated_time: @product.updated_at.strftime("%FT%T")
 	}
 %>
 

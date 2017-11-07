@@ -1,6 +1,17 @@
 <% set_meta_tags reverse: true,
-                 description: @software.description,
-                 keywords: [@software.name, @software.ware_file_name, @software.version] %>
+   description: @software.description,
+   keywords: [@software.name, @software.ware_file_name, @software.version],
+   og: {
+    title: @software.formatted_name,
+    type: "website",
+    updated_time: @software.updated_at.strftime("%FT%T"),
+    url: software_url(@software)
+   },
+   article: {
+     published_time: @software.created_at.strftime("%FT%T"),
+     modified_time: @software.updated_at.strftime("%FT%T")
+   }
+%>
 
 <% if @software.show_alert? %>
 	<%= content_for :extra_notice do %>
@@ -20,6 +31,7 @@
 
 <div class="row">
 	<div class="large-7 columns text-content">
+    <p><small>Last Updated: <%=l @software.updated_at.to_date, format: :short %></small></p>
 		<%=raw @software.description %>
 		<% if @software.previous_versions.count > 0 %>
 		<p><%= link_to "Previous Versions", '#previous_versions' %></p>

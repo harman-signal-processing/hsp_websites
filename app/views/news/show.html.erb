@@ -12,10 +12,16 @@ set_meta_tags title: translate_content(@news, :title),
 	og: {
 		image: og_image,
 		type: 'article',
+    url: news_url(@news),
 		description: truncate(strip_html(translate_content(@news, :body)), length: 100),
-		title: translate_content(@news, :title)
-	} %>
-
+		title: translate_content(@news, :title),
+    updated_time: @news.updated_at.strftime("%FT%T")
+   },
+   article: {
+     published_time: @news.post_on.to_time.strftime("%FT%T"),
+     modified_time: @news.updated_at.strftime("%FT%T")
+   }
+%>
 <h1><%= translate_content(@news, :title) %></h1>
 <div class="content container">
 	<h5 class="subheader">

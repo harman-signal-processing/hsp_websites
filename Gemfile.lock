@@ -65,13 +65,13 @@ GEM
       addressable (>= 2.3.1)
       extlib (>= 0.9.15)
       multi_json (>= 1.0.0)
-    aws-sdk (2.10.78)
-      aws-sdk-resources (= 2.10.78)
-    aws-sdk-core (2.10.78)
+    aws-sdk (2.10.79)
+      aws-sdk-resources (= 2.10.79)
+    aws-sdk-core (2.10.79)
       aws-sigv4 (~> 1.0)
       jmespath (~> 1.0)
-    aws-sdk-resources (2.10.78)
-      aws-sdk-core (= 2.10.78)
+    aws-sdk-resources (2.10.79)
+      aws-sdk-core (= 2.10.79)
     aws-sigv4 (1.0.2)
     bcrypt (3.1.11)
     bindex (0.5.0)
@@ -679,4 +679,4 @@ DEPENDENCIES
   will_paginate
 
 BUNDLED WITH
-   1.15.4
+   1.16.0
