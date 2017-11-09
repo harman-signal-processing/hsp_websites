@@ -156,9 +156,9 @@ set_meta_tags title: @product.name,
           <% @product.images_for("product_page").each do |product_attachment| %>
             <% unless product_attachment.hide_from_product_page? %>
               <% if product_attachment.product_media_thumb_file_name.present? %>
-                <li><%= link_to_product_attachment(product_attachment) %></li>
+                <li><div><%= link_to_product_attachment(product_attachment) %></div></li>
               <% else %>
-                <li><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square)), product_attachment.product_attachment.url(:original)) %></li>
+                <li><div><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square)), product_attachment.product_attachment.url(:original)) %></div></li>
               <% end %>
             <% end %>
           <% end %>
@@ -168,13 +168,15 @@ set_meta_tags title: @product.name,
           <% @product.images_for("product_page").each do |product_attachment| %>
             <% unless product_attachment.hide_from_product_page? %>
               <% if product_attachment.product_media_thumb_file_name.present? %>
-                <li><%= link_to_product_attachment(product_attachment) %></li>
+                <li><div><%= link_to_product_attachment(product_attachment) %></div></li>
               <% else %>
                 <li>
-                <%= link_to(product_attachment.product_attachment.url(:original),
-                  data: product_attachment.no_lightbox? ? {} : { lightbox: 'product-thumbnails' }) do %>
-                    <%= image_tag(product_attachment.product_attachment.url(:tiny_square)) %>
-                  <% end %>
+                  <div>
+                    <%= link_to(product_attachment.product_attachment.url(:original),
+                      data: product_attachment.no_lightbox? ? {} : { lightbox: 'product-thumbnails' }) do %>
+                      <%= image_tag(product_attachment.product_attachment.url(:tiny_square)) %>
+                    <% end %>
+                  </div>
                 </li>
               <% end %>
             <% end %>

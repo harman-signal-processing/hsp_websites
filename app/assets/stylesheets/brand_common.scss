@@ -838,28 +838,23 @@ div.product-title-block, div.small-title-block {
   }
 }
 .larger_tag {
-	margin-left: 0px;
 	font-size: 13px;
 	color: #989898;
-  margin-bottom: 80px;
+  margin: 2px 0 60px;
   @media only screen and (max-width: 719px) {
     margin-bottom: 40px;
   }
 }
 ul#product_thumbnails {
-	margin: 4px 0px 10px 0px;
-	padding: 0px;
-	text-align: left;
+  margin: 0 -2px;
 	li {
-		padding: 2px;
-		border: 1px solid #CCC;
-		margin-right: 6px;
-		background: white;
-		overflow: hidden;
-		text-align: center;
-    @media only screen and (max-width: 719px) {
-      width: 40px;
-      height: 40px;
+    padding: 2px;
+    div {
+      padding: 1px;
+      border: 1px solid #CCC;
+      background: white;
+      overflow: hidden;
+      text-align: center;
     }
 	}
 }
