@@ -1,7 +1,7 @@
 <%= cache ["news_strip", website.brand, I18n.locale] do %>
   <% if website.has_news? %>
     <div class="homepage_block text-center news_strip hide-for-medium-down">
-      <h2 class="text-center">The Latest From <%= website.brand.name %>...</h2>
+      <h2 class="text-center"><%= homepage_news_header %></h2>
       <%= render_partial 'shared/column_for_news_and_reviews' %>
     </div>
   <% end %>

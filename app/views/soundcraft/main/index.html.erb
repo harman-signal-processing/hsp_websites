@@ -26,9 +26,7 @@
       <div class="small-12 medium-12 large-6 columns">
         <div class="row collapse">
           <div class="small-12 text-center columns title_field" >
-            <h1>Professional Audio Mixing Consoles</h1>
-            <h3>since 1973</h3>
-            <a href="/<%= I18n.locale %>/products" class="button radius">click here to view products</a>
+            <%=raw website.homepage_product_grid_box1.to_s.gsub(/\/en\//i, "/#{I18n.locale.to_s}/") %>
           </div>
         </div>
         <div class="row collapse">

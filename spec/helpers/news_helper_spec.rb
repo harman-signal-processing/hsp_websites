@@ -13,4 +13,18 @@ RSpec.describe NewsHelper do
       expect(img).to have_xpath("//img[@data-interchange]")
     end
   end
+
+  describe "quote_or_headline" do
+    it "should revert to headline when quote empty" do
+      @news.quote = ""
+
+      expect(helper.quote_or_headline(@news)).to eq @news.title
+    end
+
+    it "should use the quote when present" do
+      @news.quote = "Clever quote goes here."
+
+      expect(helper.quote_or_headline(@news)).to eq @news.quote
+    end
+  end
 end

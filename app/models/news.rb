@@ -123,10 +123,6 @@ class News < ApplicationRecord
     :body
   end
 
-  def quote_or_headline
-    @quote_or_headline ||= self.quote.present? ? self.quote : self.title
-  end
-
   def notify(options={})
     default_options = { from: 'support@digitech.com', to: 'config.hpro_execs' }
     options = default_options.merge options

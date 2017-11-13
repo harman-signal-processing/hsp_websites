@@ -13,4 +13,18 @@ module NewsHelper
       data: { interchange: q.join(", ") })
   end
 
+  def quote_or_headline(news)
+    #src = news.quote.present? ? :quote : :title
+    #translate_content(news, src)
+    "fooo"
+  end
+
+  def homepage_news_header
+    if website.homepage_news_header
+      website.homepage_news_header
+    else
+      "The Latest From #{ website.brand.name }..."
+    end
+  end
+
 end

@@ -19,7 +19,7 @@ class ContentTranslation < ApplicationRecord
       "specification"  => %w{name},
       "product_specification" => %w{value},
       "specification_group" => %w{name},
-      "news"           => %w{title body},
+      "news"           => %w{title quote body},
       "page"           => %w{title description body},
       "promotion"      => %w{name description}
     }

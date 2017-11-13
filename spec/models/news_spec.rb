@@ -11,18 +11,4 @@ RSpec.describe News, :type => :model do
   it { should respond_to(:brand) }
   it { should respond_to(:quote) }
 
-  describe "#quote_or_headline" do
-    it "should revert to headline when quote empty" do
-      @news.quote = ""
-
-      expect(@news.quote_or_headline).to eq @news.title
-    end
-
-    it "should use the quote when present" do
-      @news.quote = "Clever quote goes here."
-
-      expect(@news.quote_or_headline).to eq @news.quote
-    end
-  end
-
 end
