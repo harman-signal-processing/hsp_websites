@@ -59,6 +59,7 @@ feature "Browse Products" do
     describe "comparisons" do
       before do
         allow_any_instance_of(Website).to receive(:show_comparisons).and_return("1")
+        allow_any_instance_of(Brand).to receive(:show_comparisons).and_return("1")
 
         visit product_family_path(@product_family, locale: I18n.default_locale)
       end

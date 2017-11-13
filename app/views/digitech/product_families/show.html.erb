@@ -42,7 +42,7 @@
   <% end # content_for :feature do %>
 <% end # if @product_family.features.count > 0 %>
 
-<% if !!(website.show_comparisons) %>
+<% if @product_family.show_comparisons? %>
 	<%= form_tag compare_products_path, method: :get %>
 <% end %>
 
@@ -54,13 +54,13 @@
       <%= render_partial "product_families/product_family", product_family: sub_family %>
     <% end %>
 
-    <% if !!(website.show_comparisons) %>
-      </form>
-    <% end %>
-
 	</div>
 </div>
 <p>&nbsp;</p>
+
+<% if @product_family.show_comparisons? %>
+  </form>
+<% end %>
 
 <% if current_user && can?(:manage, @product_family) %>
 <div class="admin_function">

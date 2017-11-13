@@ -13,10 +13,15 @@
 
   <ul class="large-block-grid-2 small-block-grid-1">
     <% product_family.current_products.each do |product| %>
-      <li><%= render_partial("product_families/product_square", product: product, extra_large: true) %></li>
+      <li>
+        <%= render_partial("product_families/product_square",
+                           product: product,
+                           extra_large: true,
+                           compare: product_family.show_comparisons?) %>
+      </li>
     <% end %>
   </ul>
-  <% if !!(website.show_comparisons) %>
+  <% if product_family.show_comparisons? %>
     <div class="compare_button">
       <br/><%= submit_tag t('product_page.compare_selected_products'), class: "small button" %>
       &nbsp;

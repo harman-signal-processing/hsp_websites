@@ -231,6 +231,12 @@ class ProductFamily < ApplicationRecord
     :intro
   end
 
+  # Determine if we should show product comparison boxes for this product family
+  def show_comparisons?
+    @show_comparisons ||= brand.respond_to?(:show_comparisons) &&
+      !!(brand.show_comparisons) &&
+      (self.current_products.length > 1 || self.children_with_current_products(brand).length > 0)
+  end
   # Load this ProductFamily's children families with at least one active product
   # w = a Brand or a Website
   def children_with_current_products(w)

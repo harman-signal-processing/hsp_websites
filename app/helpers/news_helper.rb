@@ -14,9 +14,8 @@ module NewsHelper
   end
 
   def quote_or_headline(news)
-    #src = news.quote.present? ? :quote : :title
-    #translate_content(news, src)
-    "fooo"
+    src = news.quote.present? ? :quote : :title
+    translate_content(news, src)
   end
 
   def homepage_news_header

@@ -22,7 +22,7 @@
   </div>
 <% end %>
 
-<% if !!(website.show_comparisons) %>
+<% if @product_family.show_comparisons? %>
 	<%= form_tag compare_products_path, method: :get %>
 <% end %>
 
@@ -34,16 +34,16 @@
       <%= render_partial "product_families/product_family", product_family: sub_family %>
     <% end %>
 
-    <% if !!(website.show_comparisons) %>
-      </form>
-    <% end %>
-
     <% if @product_family.parent && @product_family.siblings_with_current_products.size > 0 %>
       <div class="related_products"><%= t('related_products') %>:
       <%= links_to_related_product_families(@product_family) %></div>
     <% end %>
 	</div>
 </div>
+
+<% if @product_family.show_comparisons? %>
+  </form>
+<% end %>
 
 <% if current_user && can?(:manage, @product_family) %>
 <div class="admin_function">
