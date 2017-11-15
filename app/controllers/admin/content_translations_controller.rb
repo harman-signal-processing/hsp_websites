@@ -34,7 +34,7 @@ class Admin::ContentTranslationsController < AdminController
     @content_translations = []
 
     if params[:product_id]
-      @product = Product.find(params[:product_id])
+      @product = Product.where(id: params[:product_id]).first
       @new_record = @model_class.constantize.new
 
       @model_class.constantize.where(product_id: params[:product_id]).each do |record|
