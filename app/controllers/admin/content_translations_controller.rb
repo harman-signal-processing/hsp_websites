@@ -18,9 +18,9 @@ class Admin::ContentTranslationsController < AdminController
     else
       @records = @model_class.constantize.all
     end
-    if @new_instance.respond_to?(:name)
+    if @new_instance.has_attribute?(:name)
       @records = @records.order('name')
-    elsif @new_instance.respond_to?(:title)
+    elsif @new_instance.has_attribute?(:title)
       @records = @records.order('title')
     end
     respond_to do |format|
