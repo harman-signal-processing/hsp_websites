@@ -40,7 +40,7 @@ module HarmanSignalProcessingWebsite
     config.filter_parameters += [:password]
 
     config.generators do |g|
-        g.fixture_replacement :factory_girl, dir: "spec/factories"
+        g.fixture_replacement :factory_bot, dir: "spec/factories"
     end
 
     config.active_job.queue_adapter = :delayed_job
