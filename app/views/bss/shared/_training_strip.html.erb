@@ -6,7 +6,7 @@
           <%= image_tag("#{website.folder}/shield.png", alt: "") %>
         </div>
         <div class="large-8 small-8 columns">
-          <h1 class="text-left">College of<br/><strong>BSS Audio</strong></h1>
+          <h1 class="text-left"><%=raw website.training_title %></h1>
         </div>
       </div>
     </div>
@@ -14,24 +14,18 @@
     <div class="row">
       <div class="large-4 medium-4 small-12 columns text-center">
         <%= image_tag("#{website.folder}/self-paced.png", alt: "Self-paced Training") %>
-        <h3>Self-Paced</h3>
-        <p>We offer self-paced training videos to help you get started. Learn at
-        your own pace, whenever and wherever is convenient for you.</p>
+        <%=raw website.training_column_1 %>
       </div>
       <div class="large-4 medium-4 small-12 columns text-center">
         <%= image_tag("#{website.folder}/online.png", alt: "Online Training") %>
-        <h3>Online</h3>
-        <p>We offer live webinars which allow you to learn while interacting
-        with factory experts online.</p>
+        <%=raw website.training_column_2 %>
       </div>
       <div class="large-4 medium-4 small-12 columns text-center">
         <%= image_tag("#{website.folder}/live.png", alt: "Live Training") %>
-        <h3>In-Person</h3>
-        <p>Gain official certification by attending one of our globally-standardized,
-        InfoComm-accredited training courses at a location near you.</p>
+        <%=raw website.training_column_3 %>
       </div>
     </div>
     <br/>
-    <%= link_to "Go to Training", '//bssaudio.com/training', class: "large button" %>
+    <%= link_to website.training_button, '//bssaudio.com/training', class: "large button" %>
   </div>
 <% end %>
