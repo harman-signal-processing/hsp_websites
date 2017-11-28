@@ -14,6 +14,23 @@ staff, but you can also look at the messages here.</p>
         <%= f.text_field :email_cont %>
         <%= f.label :message_cont, "Message" %>
         <%= f.text_field :message_cont %>
+        <%= f.label :subject_cont, "Subject" %>
+        <%= f.text_field :subject_cont %>
+        <%= f.label "Message Created" %>
+        <div class="row">
+          <div class="small-1 columns text-center">
+            from
+          </div>
+          <div class="small-5 columns">
+            <%= f.text_field :created_at_gteq, class: "ui-datepicker" %>
+          </div>
+          <div class="small-1 columns text-center">
+            to
+          </div>
+          <div class="small-5 columns">
+            <%= f.text_field :created_at_lteq, class: "ui-datepicker" %>
+          </div>
+        </div>
         <%= f.submit "Search messages", class: "button" %>
       <% end %>
     </div>
@@ -22,6 +39,8 @@ staff, but you can also look at the messages here.</p>
 
 <% unless @search_attempted %>
   <p>Here are the most recent messages received</p>
+<% else %>
+  <p><%=pluralize @contact_messages.length.to_i, "message" %> found.</p>
 <% end %>
 
 <table class="data" style="width: 100%">
