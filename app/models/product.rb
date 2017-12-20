@@ -308,78 +308,83 @@ class Product < ApplicationRecord
 
   # Collect tabs of info to be displayed on product page.
   # To create a new tab:
-  # 1. Add it to this array
+  # 1. Add it to this array by appending the brand's "side_tabs" setting
   # 2. Add a corresponding translation in each config/locales YAML file under "product_page"
   # 3. Create a corresponding partial in app/views/products
   #
   def tabs
-    r = []
-    begin
-      # r << ProductTab.new(key: "details") if !self.extended_description.blank? # (moved to main content area)
-      unless self.package_tabs.size > 0
-        r << ProductTab.new("features") if self.features && self.features.size > 15 && self.brand.side_tabs.include?("features")
-      end
-      r << ProductTab.new("solutions") if self.solutions.length > 0 && self.brand.side_tabs.include?("solutions")
-      r << ProductTab.new("videos") if self.product_videos.length > 0 && self.brand.side_tabs.include?("videos")
-      r << ProductTab.new("audio_demos") if self.audio_demos.length > 0 && self.brand.side_tabs.include?("audio_demos")
-      r << ProductTab.new("specifications") if self.product_specifications.size > 0 && self.brand.side_tabs.include?("specifications")
-      r << ProductTab.new("documentation") if (self.product_documents.size > 0 || self.current_and_recently_expired_promotions.size > 0 || self.viewable_site_elements.size > 0) && self.brand.side_tabs.include?("documentation")
-      r << ProductTab.new("training_modules") if self.training_modules.size > 0 && self.brand.side_tabs.include?("training_modules")
-      r << ProductTab.new("downloads") if (self.softwares.size > 0 || self.executable_site_elements.size > 0) && self.brand.side_tabs.include?("downloads")
-      r << ProductTab.new("downloads_and_docs") if (self.softwares.size > 0 || self.product_documents.size > 0 || self.site_elements.size > 0) && self.brand.side_tabs.include?("downloads_and_docs")
-      r << ProductTab.new("reviews") if (self.product_reviews.size > 0 || self.artists.size > 0) && self.brand.side_tabs.include?("reviews")
-      r << ProductTab.new("artists") if self.artists.size > 0 && self.brand.side_tabs.include?("artists")
-      r << ProductTab.new("tones") if self.tone_library_patches.size > 0 && self.brand.side_tabs.include?("tones")
-      r << ProductTab.new("news_and_reviews") if self.news_and_reviews.size > 0 && self.brand.side_tabs.include?("news_and_reviews")
-      r << ProductTab.new("news") if self.news.size > 0 && self.brand.side_tabs.include?("news")
-      r << ProductTab.new("support") if self.brand.side_tabs.include?("support")
-    rescue
-      # fine, no tabs for you
-    end
-    r
+    @tabs ||= collect_tabs(brand.side_tabs)
   end
 
-  # Collect main content area tabs
-  # All these tabs methods are prime candidates for refactoring. They've grown
-  # to be kind of verbose and redundant
+  # Collect tabs of info to be displayed on product page.
+  # To create a new tab:
+  # 1. Add it to this array by appending the brand's "main_tabs" setting
+  # 2. Add a corresponding translation in each config/locales YAML file under "product_page"
+  # 3. Create a corresponding partial in app/views/products
+  #
   def main_tabs
-    r = []
-    r << ProductTab.new("description")
-    r << ProductTab.new("extended_description") if !self.extended_description.blank? && self.brand.main_tabs.include?("extended_description")
-    r << ProductTab.new("solutions") if self.solutions.length > 0 && self.brand.main_tabs.include?("solutions")
-    r << ProductTab.new("videos") if self.product_videos.length > 0 && self.brand.main_tabs.include?("videos")
-    r << ProductTab.new("audio_demos") if self.audio_demos.length > 0 && self.brand.main_tabs.include?("audio_demos")
-    r << ProductTab.new("features") if self.features && self.features.size > 15 && self.brand.main_tabs.include?("features")
-    r << ProductTab.new("documentation") if (self.product_documents.size > 0 || self.current_and_recently_expired_promotions.size > 0 || self.viewable_site_elements.size > 0) && self.brand.main_tabs.include?("documentation")
-    r << ProductTab.new("downloads") if (self.softwares.size > 0 || self.executable_site_elements.size > 0) && self.brand.main_tabs.include?("downloads")
-    r << ProductTab.new("specifications") if self.product_specifications.size > 0 && self.brand.main_tabs.include?("specifications")
-    r << ProductTab.new("training_modules") if self.training_modules.size > 0 && self.brand.main_tabs.include?("training_modules")
-    r << ProductTab.new("downloads_and_docs") if (self.softwares.size > 0 || self.product_documents.size > 0 || self.site_elements.size > 0) && self.brand.main_tabs.include?("downloads_and_docs")
-    r << ProductTab.new("news") if self.current_news.size > 0 && self.brand.main_tabs.include?("news")
-    r << ProductTab.new("reviews") if (self.product_reviews.size > 0 || self.artists.size > 0) && self.brand.main_tabs.include?("reviews")
-    r << ProductTab.new("artists") if self.artists.size > 0 && self.brand.main_tabs.include?("artists")
-    r << ProductTab.new("tones") if self.tone_library_patches.size > 0 && self.brand.main_tabs.include?("tones")
-    r << ProductTab.new("news_and_reviews") if self.news_and_reviews.size > 0 && self.brand.main_tabs.include?("news_and_reviews")
-    r << ProductTab.new("support") if self.brand.main_tabs.include?("support")
-    r
+    @main_tabs ||= collect_tabs(brand.main_tabs)
   end
 
-  # Same as #tabs, but grouped separately for display purposes
-  def package_tabs
-    r = []
-    if self.has_pedals # (instead of "effects")
-      r << ProductTab.new("pedals", self.product_effects.size) if self.product_effects.size > 0
-      r << ProductTab.new("amp_models", self.product_amp_models.size) if self.product_amp_models.size > 0
-      r << ProductTab.new("cabinets", self.product_cabinets.size) if self.product_cabinets.size > 0
-    else
-      r << ProductTab.new("amp_models", self.product_amp_models.size) if self.product_amp_models.size > 0
-      r << ProductTab.new("cabinets", self.product_cabinets.size) if self.product_cabinets.size > 0
-      r << ProductTab.new("effects", self.product_effects.size) if self.product_effects.size > 0
+  def collect_tabs(tabs)
+    tabs.map do |tab|
+      ProductTab.new(tab) if has_content_for?(tab)
+    end.compact
+  end
+
+  def has_content_for?(tab)
+    if self.respond_to?("#{tab}_content_present?")
+      return send("#{tab}_content_present?")
     end
-    if r.size > 0
-      r.unshift(ProductTab.new("features")) if self.features && self.features.size > 35
-    end
-    r
+
+    return true if tab == "description" || tab == "support"
+
+    value = self.send(tab)
+    (value.respond_to?(:length) && value.length > 0) || (value.respond_to?(:present?) && value.present?)
+  end
+
+  def extended_description_content_present?
+    extended_description.present?
+  end
+
+  def features_content_present?
+    features.size > 15
+  end
+
+  def videos_content_present?
+    product_videos.length > 0
+  end
+
+  def documentation_content_present?
+    product_documents.size > 0 || current_and_recently_expired_promotions.size > 0 || viewable_site_elements.size > 0
+  end
+
+  def downloads_content_present?
+    softwares.size > 0 || executable_site_elements.size > 0
+  end
+
+  def specifications_content_present?
+    product_specifications.size > 0
+  end
+
+  def downloads_and_docs_content_present?
+    documentation_content_present? || downloads_content_present?
+  end
+
+  def news_content_present?
+    current_news.size > 0
+  end
+
+  def reviews_content_present?
+    product_reviews.size > 0
+  end
+
+  def tones_content_present?
+    tone_library_patches.size > 0
+  end
+
+  def news_and_reviews_content_present?
+    news_content_present? || reviews_content_present?
   end
 
   # Collects those site_elements where the download is software or a zip

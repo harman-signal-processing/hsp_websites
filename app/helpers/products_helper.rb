@@ -117,31 +117,6 @@ module ProductsHelper
     raw(ret)
   end
 
-  def draw_packaging_boxes(product)
-    if product.package_tabs.size > 0
-    ret = "<div id='product_packaging_tabs'><ul>"
-    hider = product.package_tabs.collect{|t| "$('##{t.key}_content').hide();$('##{t.key}').removeClass('current')"}.join(";")
-    product.package_tabs.each_with_index do |product_tab,i|
-      current = (i == 0) ? "class='current'" : ""
-      # show-er = something that shows, not a place to clean one's body
-      shower = "$('##{product_tab.key}_content').show();$('##{product_tab.key}').addClass('current');"
-      ret += "<li id=\"#{product_tab.key}\" #{current}>"
-      ret += link_to_function(image_tag("icons/#{product_tab.key}_icon.png", alt: "", style: "vertical-align: middle") + tab_title(product_tab, shorten: true), "#{hider};#{shower}") 
-      ret += "</li>"
-    end
-    ret += "<li style=\"color: #666; padding-top: 6px; padding-left: 6px;font-style: oblique\"></li>"
-    ret += "</ul></div><div id='product_packaging_contents'>"
-    product.package_tabs.each_with_index do |product_tab, i|
-      hidden = (i == 0) ? "" : "display: none;"
-      ret += content_tag(:div, id: "#{product_tab.key}_content", style: hidden, class: "product_package_content") do
-          render_partial("products/#{product_tab.key}", product: product, title: tab_title(product_tab))
-        end
-    end
-    ret += "</div>"
-    raw(ret)
-    end
-  end
-
   # So, these are the tabs that can be clicked on to show the contents
   def draw_main_tabs(product, options={})
     main_tabs = (options[:tabs]) ? parse_tabs(options[:tabs], product) : product.main_tabs
