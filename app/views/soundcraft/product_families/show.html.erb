@@ -11,30 +11,16 @@
 	<% end %>
 <% end %>
 
-<% if @product_family.features.count > 0 %>
-  <% @product_family.features.each do |feature| %>
-    <%= render_feature feature %>
-  <% end %>
-<% else %>
-  <%= content_for :feature do %>
-    <div class="container product_family_header">
-      <div class="row">
-        <div class="large-8 small-12 columns">
-          <h1><%= translate_content(@product_family, :name) %></h1>
-          <p><%=raw translate_content(@product_family, :intro) %></p>
-        </div>
-        <% if @product_family == ProductFamily.find("soundweb-london") %>
-          <div class="large-4 small-12 columns text-center">
-            <%= link_to( "/resource/london-comparison-chart.pdf", target: "_blank") do %>
-              <img src="/resource/soundweb-london-comparison-chart-thumbnail"  alt="<%= translate_content(@product_family, :name) %>">
-              <h5>Soundweb London<br/>Comparison Chart</h5>
-            <% end %>
-          </div>
-        <% end %>
+<%= content_for :feature do %>
+  <div class="container product_family_header">
+    <div class="row">
+      <div class="large-8 small-12 columns">
+        <h1><%= translate_content(@product_family, :name) %></h1>
+        <p><%=raw translate_content(@product_family, :intro) %></p>
       </div>
     </div>
-  <% end %>
-<% end # if @product_family.features.count > 0 %>
+  </div>
+<% end %>
 
 <% if @product_family.show_comparisons? %>
 	<%= form_tag compare_products_path, method: :get %>

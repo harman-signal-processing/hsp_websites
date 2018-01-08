@@ -12,28 +12,36 @@
 <% end %>
 
 <% if @product_family.features.count > 0 %>
-  <% @product_family.features.each do |feature| %>
-    <%= render_feature feature %>
+  <% content_for :feature do %>
+    <% @product_family.features.each do |feature| %>
+      <%= render_feature feature %>
+    <% end %>
   <% end %>
 <% else %>
   <%= content_for :feature do %>
-    <div class="container product_family_header">
-      <div class="row">
-        <div class="large-8 small-12 columns">
-          <h1><%= translate_content(@product_family, :name) %></h1>
-          <p><%=raw translate_content(@product_family, :intro) %></p>
-        </div>
-        <% if @product_family == ProductFamily.find("soundweb-london") %>
-          <div class="large-4 small-12 columns text-center">
-            <%= link_to( "/resource/london-comparison-chart.pdf", target: "_blank") do %>
-              <img src="/resource/soundweb-london-comparison-chart-thumbnail"  alt="<%= translate_content(@product_family, :name) %>">
-              <h5>Soundweb London<br/>Comparison Chart</h5>
-            <% end %>
-          </div>
-        <% end %>
+    <% if @product_family.title_banner.present? %>
+      <div class="product-family-banner-container text-center">
+        <%= image_tag @product_family.title_banner.url, alt: @product_family.name %>
       </div>
-    </div>
-  <% end %>
+      <% if @product_family.intro.present? %>
+        <br/>
+        <div class="row">
+          <div class="medium-8 small-12 columns">
+            <%= raw translate_content(@product_family, :intro) %>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="container product_family_header">
+        <div class="row">
+          <div class="large-8 small-12 columns">
+            <h1><%= translate_content(@product_family, :name) %></h1>
+            <p><%=raw translate_content(@product_family, :intro) %></p>
+          </div>
+        </div>
+      </div>
+    <% end # if @product_family.title_banner.present? %>
+  <% end # content_for :feature do %>
 <% end # if @product_family.features.count > 0 %>
 
 <% if @product_family.show_comparisons? %>
