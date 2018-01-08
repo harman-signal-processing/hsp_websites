@@ -23,7 +23,7 @@ feature "Lexicon product page" do
   end
 
   before :each do
-    allow_any_instance_of(Brand).to receive(:main_tabs).and_return("description|extended_description|features|specifications|reviews|downloads_and_docs")
+    allow_any_instance_of(Brand).to receive(:main_tabs).and_return(%w(description extended_description features specifications reviews downloads_and_docs))
 
     visit product_path(id: @product)
   end
