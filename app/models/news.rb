@@ -10,7 +10,9 @@ class News < ApplicationRecord
   friendly_id :slug_candidates, use: :slugged
 
   has_attached_file :news_photo, {
-    styles: { large: "600>x370",
+    styles: {
+      banner: "1500>x400",
+      large: "600>x370",
       email: "580",
       medium: "350x350>",
       small: "240",
@@ -22,9 +24,10 @@ class News < ApplicationRecord
     }}.merge(S3_STORAGE)
   validates_attachment :news_photo, content_type: { content_type: /\Aimage/i }
 
+  belongs_to :brand, touch: true
   has_many :news_products, dependent: :destroy
   has_many :products, through: :news_products
-  belongs_to :brand, touch: true
+  has_many :news_images, dependent: :destroy
 
   has_many :content_translations, as: :translatable, foreign_key: "content_id", foreign_type: "content_type"
 

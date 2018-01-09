@@ -34,7 +34,7 @@ set_meta_tags title: translate_content(@news, :title),
 		<div class="large-5 push-7 columns">
 			<% if !@news.news_photo_file_name.blank? %>
 			<div style="margin-bottom: 20px;">
-			  <%= image_tag(@news.news_photo.url(:medium)) %>
+			  <%= image_tag(@news.news_photo.url(:email)) %>
 			</div>
 			<% end %>
 
@@ -70,6 +70,18 @@ set_meta_tags title: translate_content(@news, :title),
 			<% end %>
 		</div>
 		<div class="large-7 pull-5 columns">
+      <% if @news.news_images.length > 0 %>
+        <ul class="block-grid-8 clearing-thumbs" data-clearing>
+          <% @news.news_images.each do |news_image| %>
+            <li>
+              <%= link_to news_image.image.url do %>
+                <%= image_tag news_image.image.url(:medium) %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+
 			<%=raw translate_content(@news, :body) %>
 		</div>
 	</div>

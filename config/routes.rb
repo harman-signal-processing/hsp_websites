@@ -213,7 +213,11 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         member { get :delete_preview }
       end
       resources :news do
-        member { put :notify }
+        member {
+          put :notify  # no longer used--sends out press releases from admin tool
+          get :delete_news_photo
+        }
+        resources :news_images
       end
       resources :systems do
         resources :system_options do

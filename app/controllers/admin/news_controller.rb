@@ -5,7 +5,6 @@ class Admin::NewsController < AdminController
   # GET /admin/news
   # GET /admin/news.xml
   def index
-    # @news = @news.where(brand_id: website.brand_id).order("post_on DESC")
     @search = website.brand.news.ransack(params[:q])
     @news = @search.result
     respond_to do |format|
@@ -21,6 +20,7 @@ class Admin::NewsController < AdminController
     @news.to = "config.hpro_execs"
     @news_product = NewsProduct.new(news: @news)
     @products = Product.all_for_website(website)
+    @news_image = NewsImage.new(news: @news)
     respond_to do |format|
       format.html { render_template } # show.html.erb
       format.xml  { render xml: @news }
@@ -71,12 +71,18 @@ class Admin::NewsController < AdminController
     end
   end
 
+  # Not used anymore--used to send out press releases
   # POST /admin/news/1/notify
   def notify
     from = params[:news][:from] || website.support_email
     to = params[:news][:to] || "config.hpro_execs"
     @news.notify(from: from, to: to)
     redirect_to([:admin, @news], notice: 'Notifications to the Harman Pro executives are being sent.')
+  end
+
+  def delete_news_photo
+    @news.update_attributes(news_photo: nil)
+    redirect_to([:admin, @news], notice: "Main photo was removed.")
   end
 
   # DELETE /admin/news/1

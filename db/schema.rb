@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171018174346) do
+ActiveRecord::Schema.define(version: 20180109174519) do
 
   create_table "admin_logs", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "user_id"
@@ -768,6 +768,18 @@ ActiveRecord::Schema.define(version: 20171018174346) do
     t.text "quote"
     t.index ["brand_id"], name: "index_news_on_brand_id"
     t.index ["cached_slug"], name: "index_news_on_cached_slug", unique: true
+  end
+
+  create_table "news_images", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "news_id"
+    t.boolean "hide_from_page"
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.integer "image_file_size"
+    t.datetime "image_updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["news_id"], name: "index_news_images_on_news_id"
   end
 
   create_table "news_products", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

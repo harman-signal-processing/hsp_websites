@@ -1,0 +1,43 @@
+<h1>News Image</h1>
+
+<%= image_tag @news_image.image.url(:medium) %>
+
+<h6>Sizes:</h6>
+
+<ul class="list">
+  <li>
+  <%= link_to @news_image.image.url("banner", timestamp: false) do %>
+    <%= @news_image.image.url("banner", timestamp: false) %>
+  <% end %>
+  </li>
+  <li>
+  <%= link_to @news_image.image.url("large", timestamp: false) do %>
+    <%= @news_image.image.url("large", timestamp: false) %>
+  <% end %>
+  </li>
+  <li>
+  <%= link_to @news_image.image.url("medium", timestamp: false) do %>
+    <%= @news_image.image.url("medium", timestamp: false) %>
+  <% end %>
+  </li>
+  <li>
+  <%= link_to @news_image.image.url("small", timestamp: false) do %>
+    <%= @news_image.image.url("small", timestamp: false) %>
+  <% end %>
+  </li>
+  <li>
+  <%= link_to @news_image.image.url("thumb", timestamp: false) do %>
+    <%= @news_image.image.url("thumb", timestamp: false) %>
+  <% end %>
+  </li>
+  <li>
+  <%= link_to @news_image.image.url("tiny", timestamp: false) do %>
+    <%= @news_image.image.url("tiny", timestamp: false) %>
+  <% end %>
+  </li>
+  <li>
+  <%= link_to @news_image.image.url("tiny_square", timestamp: false) do %>
+    <%= @news_image.image.url("tiny_square", timestamp: false) %>
+  <% end %>
+  </li>
+</ul>

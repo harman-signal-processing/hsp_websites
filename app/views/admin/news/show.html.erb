@@ -2,7 +2,7 @@
 				 reverse: true,
          description: @news.title,
          keywords: @news.keywords %>
-<h1><%= title @news.title %></h1>
+<h3><%= title @news.title %></h3>
 	<span class="little"><%= link_to(news_url(@news, locale: I18n.locale), news_url(@news, locale: I18n.locale)) %>
 	<%= link_to(image_tag("icons/external_link_icon.png"), news_url(@news, locale: I18n.locale)) %></span>
 <br/>
@@ -13,51 +13,175 @@
 	<li><%= link_to 'Delete', [:admin, @news], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
 </ul>
 
+<p>Publish on: <%=l @news.post_on, format: :long %></p>
+
+<% if @news.quote.present? %>
+  <p>Quote:</p>
+  <%=raw @news.quote %>
+<% end %>
+<p>&nbsp;</p>
+
 <div class="row">
-	<div class="large-4 columns">
-    <p>Quote:</p>
-    <% if @news.quote.present? %>
-      <%=raw @news.quote %>
-    <% else %>
-      <i>none provided.</i>
-    <% end %>
-  </div>
-	<div class="large-4 columns">
-		<p>Publish on: <%=l @news.post_on, format: :long %></p>
-		<%#=truncate(strip_html(@news.body), length: 75) %>
+	<div class="large-6 columns">
+    <h5>Article Content Preview:</h5>
+
+    <%=raw @news.body %>
 	</div>
-	<div class="large-4 columns">
-		<% if !@news.news_photo_file_name.blank? %>
-  			<%= image_tag(@news.news_photo.url(:thumb)) %>
+
+	<div class="large-6 columns">
+    <div class="group">
+      <h4 class="subheader">Image Library</h4>
+
+      <% if @news.news_photo.present? %>
+        <div>Main pic:<br/>
+          <div class="row">
+            <div class="small-6 columns">
+              <%= link_to image_tag(@news.news_photo.url) do %>
+                <%= image_tag(@news.news_photo.url(:medium)) %>
+              <% end %>
+            </div>
+            <div class="small-6 columns">
+              <%= link_to "Edit the article", edit_admin_news_path(@news) %>
+              to update the main image. Or,
+              <%= link_to "click here", delete_news_photo_admin_news_path(@news), data: { confirm: "Are you sure?" } %>
+              to delete it.
+            </div>
+          </div>
+        </div>
   		<% end %>
-  	</div>
-</div>
 
+      <hr/>
+      <h6>More pics:</h6>
 
-<div class="row">
-	<div class="large-6 columns">
-		<div class="group">
-			<h4 class="subheader">Send News Email</h4>
-			<p><i>Regardless of the publication date, this will send notifications now.</i></p>
-			<%= simple_form_for [:admin, @news], url: notify_admin_news_path(@news) do |f| %>
-				<%= f.input :from, hint: "(must be a valid address)" %>
-				<%= f.input :to, hint: "(default sends it to HPro Executive list)" %>
-				<%= f.submit "Send News", class: "small round button" %> 
-			<% end %>
-			<p>config.hpro_execs = <%= HarmanSignalProcessingWebsite::Application.config.hpro_execs.join(", ") %></p>
-		</div>	
-	</div>
-	<div class="large-6 columns">
+      <%= link_to "+ add image",
+        new_admin_news_news_image_path(@news),
+        class: "small success button",
+        data: {
+          :"reveal-id" => "new_image_form"
+        }
+      %>
+
+      <div id="new_image_form" class="small reveal-modal" data-reveal aria-labelledby="New Image" aria-hidden="true" role="dialog">
+        <h4>Select a new image to upload</h4>
+        <p>&nbsp;</p>
+        <%= simple_form_for [:admin, @news, @news_image] do |f| %>
+          <%= f.input :image, label: false %>
+          <p>&nbsp;</p>
+          <%= f.submit class: "button" %>
+        <% end %>
+        <p><i>This takes a minute after submitting...</i></p>
+        <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+      </div>
+
+      <ul class="medium-block-grid-4 small-block-grid-2">
+        <% @news.news_images.each do |news_image| %>
+          <li>
+            <%= link_to [:admin, @news, news_image], data: { :"reveal-id" => "news_image_#{news_image.id}" } do %>
+              <%= image_tag news_image.image.url(:small_square) %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+
+    </div>
+
+    <% @news.news_images.each do |news_image| %>
+      <div id="news_image_<%= news_image.id %>" class="medium reveal-modal" data-reveal aria-labelledby="News Image" aria-hidden="true" role="dialog">
+
+        <div class="row">
+          <div class="medium-5 small-5 columns">
+            <%= link_to image_tag(news_image.image.url) do %>
+              <%= image_tag(news_image.image.url(:medium)) %>
+            <% end %>
+          </div>
+          <div class="medium-6 small-6 columns end">
+            Use any of the sizes below to include this image inline in the HTML for
+            the news article (or wherever you'd like).
+          </div>
+        </div>
+
+        <h6>Available Sizes:</h6>
+
+        <ul class="list">
+          <li>
+            <%= link_to news_image.image.url("original", timestamp: false) do %>
+              <%= news_image.image.url("original", timestamp: false) %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to news_image.image.url("banner", timestamp: false) do %>
+              <%= news_image.image.url("banner", timestamp: false) %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to news_image.image.url("large", timestamp: false) do %>
+              <%= news_image.image.url("large", timestamp: false) %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to news_image.image.url("medium", timestamp: false) do %>
+              <%= news_image.image.url("medium", timestamp: false) %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to news_image.image.url("small", timestamp: false) do %>
+              <%= news_image.image.url("small", timestamp: false) %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to news_image.image.url("thumb", timestamp: false) do %>
+              <%= news_image.image.url("thumb", timestamp: false) %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to news_image.image.url("tiny", timestamp: false) do %>
+              <%= news_image.image.url("tiny", timestamp: false) %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to news_image.image.url("tiny_square", timestamp: false) do %>
+              <%= news_image.image.url("tiny_square", timestamp: false) %>
+            <% end %>
+          </li>
+        </ul>
+
+        <div class="panel">
+          <%= simple_form_for [:admin, @news, news_image] do |f| %>
+            <div class="row">
+              <div class="small-6 columns">
+                <h5>Settings</h5>
+                <%= f.input :hide_from_page, label: "Hide this image from the thumbnails on the news view." %>
+              </div>
+              <div class="small-6 columns">
+                <br/>
+                <%= f.submit "Update", class: "button" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <p>
+          <i>
+            If you want to replace it, just upload a new image. Then
+            <%= link_to "delete", [:admin, @news, news_image], method: :delete, data: { confirm: "Are you sure?" } %>
+            this one.
+          </i>
+        </p>
+
+        <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+      </div>
+    <% end %>
+
 		<% if @products.count > 0 || @news.news_products.count > 0 %>
 		<div class="group">
-			<h4 class="subheader">This news is associated with the following product(s):</h4>
+			<h5 class="subheader">This article is associated with the following product(s):</h5>
 			<% if @products.count > 0 %>
 				<%= simple_form_for [:admin, @news_product], remote: true do |f| %>
 					<%= hidden_field_tag "called_from", "news" %>
 				    <%= f.hidden_field :news_id %>
 				    <div class="row collapse">
 				    	<div class="large-8 small-8 columns">
-				    		<%= f.association :product, collection: @products, label: false %> 
+				    		<%= f.association :product, collection: @products, label: false %>
 				    	</div>
 				    	<div class="large-4 small-4 columns">
 				    		<%= submit_tag 'add', class: "prefix button"  %>
