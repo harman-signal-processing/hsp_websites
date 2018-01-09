@@ -1,0 +1,14 @@
+<ul class="large-block-grid-3 medium-block-grid-3 small-block-grid-2">
+  <% News.all_for_website(website)[0,6].each do |news| %>
+    <li>
+      <%= link_to news do %>
+        <%= image_tag news.news_photo(:email), alt: translate_content(news, :title) %><br/>
+        <h5><%= translate_content(news, :title) %></h5>
+        <small><%=l news.post_on, format: :long %></small>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+
+
