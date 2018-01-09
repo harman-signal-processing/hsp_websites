@@ -65,13 +65,14 @@ module HarmanSignalProcessingWebsite
       ["Preset List", "preset_list"],
       ["Schematic", "schematic"],
       ["Service Manual", "service_manual"],
+      ["Spec Sheet", "spec_sheet"],
       ["Parts List", "parts_list"],
       ["Calibration Procedure", "calibration_procedure"],
       ["CAD Files", "cad_files"],
       ["CAD Drawing front", "cad_drawing_front"],
       ["CAD Drawing rear", "cad_drawing_rear"],
       ["Brochure", "brochure"],
-      ["Safety Sheet", "safety_sheet"],
+      ["Safety & Compliance", "safety_sheet"],
       ["Other", "other"]
     ]
 

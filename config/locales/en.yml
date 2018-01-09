@@ -202,13 +202,14 @@ en:
       preset_list: Preset List
       brochure: Brochure
       schematic: Schematic
+      spec_sheet: Spec Sheet
       parts_list: Parts List
       service_manual: Service Manual
       calibration_procedure: Calibration Procedure
       cad_files: CAD files
       cad_drawing_front: CAD drawing front
       cad_drawing_rear: CAD drawing rear
-      safety_sheet: Safety Sheet
+      safety_sheet: Safety & Compliance Document
       other: Other Document
       voip_reference_guide: VoIP Reference Guide
       photo: Photo
