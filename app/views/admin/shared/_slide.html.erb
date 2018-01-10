@@ -1,48 +1,56 @@
 <li id="setting_<%= slide.id %>">
-	<span class="handle"><%= image_tag("icons/drag_handle.gif") %></span>
-	<%= image_tag(slide.slide.url(:tiny)) %>
-	<%= link_to_function(slide.name, "$('#slide_#{slide.id}_form').toggle();") %> 
-	<%= link_to(image_tag("icons/trash.gif"), 
-			admin_setting_path(slide), 
-			confirm: "Are you sure?", 
-			remote: true,
-			method: :delete) %>
-	<span class="small">
-	<% if slide.start_on.present? %>
-		Starts On: <%=l slide.start_on, format: :short %>
-		<% if slide.remove_on.present? %>
-		 --
-		<% end %>
-	<% end %>
-	<% if slide.remove_on.present? %>
-		Removed On: <%=l slide.remove_on, format: :short %>
-	<% end %>
-	</span>
-	<span class="small"><br/>links to: <%= slide.string_value %></span>
-	<div id="slide_<%= slide.id %>_form" style="margin: 10px; display:none;" class="instructions">
-		<%= simple_form_for([:admin, slide], html: {multipart: true}) do |f| %>
-			<%= f.error_messages %>
-			<%= hidden_field_tag "called_from", "homepage" %>
-			<div class="row">
-				<div class="large-6 columns">
-					<%= f.input :name, hint: "For your reference only" %>
-				</div>
-				<div class="large-6 columns">
-					<%= f.input :slide, label: "Slide graphic" %>
-				</div>
-			</div>
-		    <%= f.input :string_value, label: "URL to link slide to",
-		    	hint: "URLs beginning with a partial path (ie, \"products/rp1000\") will be relative to the visitor's selected language." %>
-		    <div class="row">
-		    	<div class="large-6 columns">
-		    		<%= f.input :start_on, as: :string, input_html: { class: 'ui-datepicker', id: "setting_#{slide.id}_start_on" } %>
-		    	</div>
-		    	<div class="large-6 columns">
-		    		<%= f.input :remove_on, as: :string, input_html: { class: 'ui-datepicker', id: "setting_#{slide.id}_remove_on" } %>
-		    	</div>
-		    </div>
-			<%= f.submit "update slide", class: "tiny round button" %>
-			<%= link_to_function "cancel", "$('#slide_#{slide.id}_form').hide()" %>
-		<% end %>
-	</div>
+  <span class="handle"><%= image_tag("icons/drag_handle.gif") %></span>
+  <%= image_tag(slide.slide.url(:tiny)) %>
+  <%= link_to_function(slide.name, "$('#slide_#{slide.id}_form').toggle();") %>
+  <%= link_to(image_tag("icons/trash.gif"),
+              admin_setting_path(slide),
+              confirm: "Are you sure?",
+              remote: true,
+              method: :delete) %>
+  <span class="small">
+    <% if slide.start_on.present? %>
+      Starts On: <%=l slide.start_on, format: :short %>
+      <% if slide.remove_on.present? %>
+        --
+      <% end %>
+    <% end %>
+    <% if slide.remove_on.present? %>
+      Removed On: <%=l slide.remove_on, format: :short %>
+    <% end %>
+  </span>
+  <span class="small"><br/>links to: <%= slide.string_value %></span>
+  <div id="slide_<%= slide.id %>_form" style="margin: 10px; display:none;" class="instructions">
+    <%= simple_form_for([:admin, slide], html: {multipart: true}) do |f| %>
+      <%= f.error_messages %>
+      <%= hidden_field_tag "called_from", "homepage" %>
+      <div class="row">
+        <div class="large-6 columns">
+          <%= f.input :name, hint: "For your reference only" %>
+        </div>
+        <div class="large-6 columns">
+          <%= f.input :slide, label: "Slide graphic" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="medium-6 columns">
+          <%= f.input :string_value, label: "URL to link slide to",
+            hint: "URLs beginning with a partial path (ie, \"products/super-good-widget\") will be relative to the visitor's selected language." %>
+        </div>
+        <div class="medium-6 columns">
+          <%= f.input :text_value, label: "Content overlay on the slide (text/html)",
+            hint: "How/where text appears depends on the brand's stylesheet and may not be configured yet." %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="large-6 columns">
+          <%= f.input :start_on, as: :string, input_html: { class: 'ui-datepicker', id: "setting_#{slide.id}_start_on" } %>
+        </div>
+        <div class="large-6 columns">
+          <%= f.input :remove_on, as: :string, input_html: { class: 'ui-datepicker', id: "setting_#{slide.id}_remove_on" } %>
+        </div>
+      </div>
+      <%= f.submit "update slide", class: "tiny round button" %>
+      <%= link_to_function "cancel", "$('#slide_#{slide.id}_form').hide()" %>
+    <% end %>
+  </div>
 </li>

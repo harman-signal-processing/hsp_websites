@@ -152,9 +152,16 @@ module ApplicationHelper
         end
       end
 
+      slide_innards = image_tag(slide.slide.url)
+      if slide.text_value.present?
+        slide_innards += content_tag(:div, class: "homepage-orbit-caption orbit-caption") do
+          content_tag(:div, slide.text_value.html_safe, class: "caption-content")
+        end
+      end
+
       slide_content = (slide.string_value.blank?) ?
-        image_tag(slide.slide.url) :
-        link_to(image_tag(slide.slide.url), slide_link, link_options)
+        slide_innards :
+        link_to(slide_innards, slide_link, link_options)
     end
 
     # We may want to use the built-in captions

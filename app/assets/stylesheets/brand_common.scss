@@ -128,6 +128,41 @@
     }
   }
 }
+.slideshow-wrapper {
+  .homepage-orbit-caption.orbit-caption {
+    top: 0px;
+    left: 0px;
+    background: {
+      image: asset-url('greyOverlay.png');
+      repeat: no-repeat;
+      color: transparent;
+      size: cover;
+      position: top right;
+    }
+    @include grid-column(
+      $columns: 5
+    );
+    .caption-content {
+      padding-left: 20px;
+      color: white;
+      h1,h2,h3,h4,h5,h6,p {
+        color: white;
+        line-height: 1.2;
+        text-transform: uppercase;
+      }
+      h1 {
+        font-size: rem-calc(48);
+        line-height: 1.1;
+      }
+      h2 {
+        font-weight: 200;
+      }
+      @include grid-column(
+        $columns: 10
+      );
+    }
+  }
+}
 
 @media only screen and (min-width: 720px) {
   ul.large-block-grid-4 {
@@ -436,6 +471,7 @@ div.superpadded {
   width: 100%;
   margin: 0 auto;
 }
+
 
 div.featured_product_container {
   position: relative;

@@ -1,112 +1,120 @@
 <h1>Homepage Stuff</h1>
 
 <div class="group">
-	<h4 class="subheader">Slideshow</h4>
-	<%= link_to_function "new slide", "$('#new_slide_form').toggle()", class: "small round success button" %>
-	<div id="new_slide_form" style="margin: 10px; display:none;" class="instructions">
-		<%= simple_form_for([:admin, @new_slide], html: {multipart: true}) do |f| %>
-			<%= hidden_field_tag "called_from", "homepage" %>
-		    <%= f.hidden_field :setting_type %>
-			<%= f.hidden_field :integer_value %>
+  <h4 class="subheader">Slideshow</h4>
+  <%= link_to_function "new slide", "$('#new_slide_form').toggle()", class: "small round success button" %>
+  <div id="new_slide_form" style="margin: 10px; display:none;" class="instructions">
+    <%= simple_form_for([:admin, @new_slide], html: {multipart: true}) do |f| %>
+      <%= hidden_field_tag "called_from", "homepage" %>
+      <%= f.hidden_field :setting_type %>
+      <%= f.hidden_field :integer_value %>
 
-			<div class="row">
-				<div class="large-6 columns">
-					<%= f.input :name, hint: "For your reference only" %>
-				</div>
-				<div class="large-6 columns">
-					<%= f.input :slide, label: "Slide graphic" %>
-				</div>
-			</div>
-		    <%= f.input :string_value, label: "URL to link slide to",
-		    	hint: "URLs beginning with a partial path (ie, \"products/rp1000\") will be relative to the visitor's selected language." %>
-		    <div class="row">
-		    	<div class="large-6 columns">
-		    		<%= f.input :start_on, as: :string, input_html: { class: 'ui-datepicker', id: "new_slide_start_on"} %>
-		    	</div>
-		    	<div class="large-6 columns">
-		    		<%= f.input :remove_on, as: :string, input_html: { class: 'ui-datepicker', id: "new_slide_remove_on"} %>
-		    	</div>
-		    </div>
+      <div class="row">
+        <div class="large-6 columns">
+          <%= f.input :name, hint: "For your reference only" %>
+        </div>
+        <div class="large-6 columns">
+          <%= f.input :slide, label: "Slide graphic" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="medium-6 columns">
+          <%= f.input :string_value, label: "URL to link slide to",
+            hint: "URLs beginning with a partial path (ie, \"products/best-widget-ever\") will be relative to the visitor's selected language." %>
+        </div>
+        <div class="medium-6 columns">
+          <%= f.input :text_value, label: "Content overlay on the slide (text/html)",
+            hint: "How/where text appears depends on the brand's stylesheet and may not be configured yet." %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="large-6 columns">
+          <%= f.input :start_on, as: :string, input_html: { class: 'ui-datepicker', id: "new_slide_start_on"} %>
+        </div>
+        <div class="large-6 columns">
+          <%= f.input :remove_on, as: :string, input_html: { class: 'ui-datepicker', id: "new_slide_remove_on"} %>
+        </div>
+      </div>
 
-			<%= f.submit "create slide", class: "tiny round button" %>
-			<%= link_to_function "cancel", "$('#new_slide_form').hide()" %>
-		<% end %>
-	</div>
-	<ul id="slides" class="sortable_list" style="margin-top: 20px;">
-		<%= render partial: "admin/shared/slide", collection: @slides %>
-	</ul>
+      <%= f.submit "create slide", class: "tiny round button" %>
+      <%= link_to_function "cancel", "$('#new_slide_form').hide()" %>
+    <% end %>
+  </div>
+  <ul id="slides" class="sortable_list" style="margin-top: 20px;">
+    <%= render partial: "admin/shared/slide", collection: @slides %>
+  </ul>
 </div>
 
 <div class="group">
-	<h4 class="subheader">Feature Buttons</h4>
-	<div class="instructions">These appear in the middle section of the homepage...arranged horizontally. (If you leave these blank, then the site will show the product family buttons instead.)</div>
-	<%= link_to_function "new feature", "$('#new_feature_form').toggle()", class: "small round success button" %>
-	<div id="new_feature_form" style="margin: 10px; display:none;" class="instructions">
-		<%= simple_form_for([:admin, @new_feature], html: {multipart: true}) do |f| %>
-			<%= f.error_messages %>
-			<%= hidden_field_tag "called_from", "homepage" %>
-		    <%= f.hidden_field :setting_type %>
-			<%= f.hidden_field :integer_value %>
+  <h4 class="subheader">Feature Buttons</h4>
+  <div class="instructions">These appear in the middle section of the homepage...arranged horizontally. (If you leave these blank, then the site will show the product family buttons instead.)</div>
+  <%= link_to_function "new feature", "$('#new_feature_form').toggle()", class: "small round success button" %>
+  <div id="new_feature_form" style="margin: 10px; display:none;" class="instructions">
+    <%= simple_form_for([:admin, @new_feature], html: {multipart: true}) do |f| %>
+      <%= f.error_messages %>
+      <%= hidden_field_tag "called_from", "homepage" %>
+      <%= f.hidden_field :setting_type %>
+      <%= f.hidden_field :integer_value %>
 
-			<div class="row">
-				<div class="large-6 columns">
-					<%= f.input :name, hint: "product name, etc." %>
-				</div>
-				<div class="large-6 columns">
-					<%= f.input :slide, label: "image/button" %>
-				</div>
-			</div>
+      <div class="row">
+        <div class="large-6 columns">
+          <%= f.input :name, hint: "product name, etc." %>
+        </div>
+        <div class="large-6 columns">
+          <%= f.input :slide, label: "image/button" %>
+        </div>
+      </div>
 
-			<%= f.input :string_value, label: "URL to link image to",
-				hint: "URLs beginning with a partial path (ie, \"products/rp1000\") will be relative to the visitor's selected language." %>
+      <%= f.input :string_value, label: "URL to link image to",
+        hint: "URLs beginning with a partial path (ie, \"products/rp1000\") will be relative to the visitor's selected language." %>
 
       <%= f.input :text_value, label: "Short paragraph explanation" %>
 
-			<div class="row">
-				<div class="large-6 columns">
-					<%= f.input :start_on, as: :string, input_html: { class: 'ui-datepicker', id: "new_feature_start_on" } %>
-				</div>
-				<div class="large-6 columns">
-					<%= f.input :remove_on, as: :string, input_html: { class: 'ui-datepicker', id: "new_feature_remove_on" } %>
-				</div>
-			</div>
+      <div class="row">
+        <div class="large-6 columns">
+          <%= f.input :start_on, as: :string, input_html: { class: 'ui-datepicker', id: "new_feature_start_on" } %>
+        </div>
+        <div class="large-6 columns">
+          <%= f.input :remove_on, as: :string, input_html: { class: 'ui-datepicker', id: "new_feature_remove_on" } %>
+        </div>
+      </div>
 
-			<%= f.submit "create feature", class: "tiny round button" %>
-			<%= link_to_function "cancel", "$('#new_feature_form').hide()" %>
-		<% end %>
-	</div>
-	<ul id="features" class="sortable_list" style="margin-top: 20px;">
-		<%= render partial: "admin/shared/feature", collection: @features %>
-	</ul>
+      <%= f.submit "create feature", class: "tiny round button" %>
+      <%= link_to_function "cancel", "$('#new_feature_form').hide()" %>
+    <% end %>
+  </div>
+  <ul id="features" class="sortable_list" style="margin-top: 20px;">
+    <%= render partial: "admin/shared/feature", collection: @features %>
+  </ul>
 </div>
 
 <div class="group">
-	<h4 class="subheader">Big Bottom Box</h4>
-	<div class="instructions">If your site has a big bottom box on the homepage, then use these settings to control which content appears in the columns. If you don't know if your site has this, please don't ask Adam using phrases like, "Do I have a big bottom..."</div>
+  <h4 class="subheader">Big Bottom Box</h4>
+  <div class="instructions">If your site has a big bottom box on the homepage, then use these settings to control which content appears in the columns. If you don't know if your site has this, please don't ask Adam using phrases like, "Do I have a big bottom..."</div>
 
-	<%= simple_form_for(:settings, url: big_bottom_box_admin_settings_path) do |f| %>
-		<% @columns.each_with_index do |column,i| %>
-		<%= f.fields_for "setting[#{i}]", column do |col| %>
-			<div class="row">
-				<div class="large-3 columns">
-					<%= col.label :string_value, column.name.titleize, class: "right inline" %>
-				</div>
-				<div class="large-5 columns">
-					<%= col.select :string_value, [[]] + @column_options  + [["HTML (edit text for setting 'homepage_column_#{i+1}')", "html_column_#{i+1}"]] %>
-				</div>
-				<div class="large-4 columns">
-					<span class="small"><% if i == 3 %>(not all sites have 4 columns)<% end %></span>
-					<%= col.hidden_field :setting_type %>
-					<%= col.hidden_field :brand_id %>
-					<%= col.hidden_field :name %>
-				</div>
-			</div>
-		<% end %>
-		<% end %>
-		<div class="row">
-			<div class="large-5 large-offset-3 columns">
-				<%= f.submit class: "small round button" %>
-			</div>
-		</div>
-	<% end %>
+  <%= simple_form_for(:settings, url: big_bottom_box_admin_settings_path) do |f| %>
+    <% @columns.each_with_index do |column,i| %>
+      <%= f.fields_for "setting[#{i}]", column do |col| %>
+        <div class="row">
+          <div class="large-3 columns">
+            <%= col.label :string_value, column.name.titleize, class: "right inline" %>
+          </div>
+          <div class="large-5 columns">
+            <%= col.select :string_value, [[]] + @column_options  + [["HTML (edit text for setting 'homepage_column_#{i+1}')", "html_column_#{i+1}"]] %>
+          </div>
+          <div class="large-4 columns">
+            <span class="small"><% if i == 3 %>(not all sites have 4 columns)<% end %></span>
+            <%= col.hidden_field :setting_type %>
+            <%= col.hidden_field :brand_id %>
+            <%= col.hidden_field :name %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    <div class="row">
+      <div class="large-5 large-offset-3 columns">
+        <%= f.submit class: "small round button" %>
+      </div>
+    </div>
+  <% end %>
 </div>
