@@ -1,0 +1,61 @@
+<% set_meta_tags title: t('titles.news', brand: website.brand_name),
+	reverse: true,
+	og: {
+		type: 'article',
+		description: t('titles.news', brand: website.brand_name),
+		title: t('titles.news', brand: website.brand_name)
+	} %>
+
+<%
+	latest_news = @news[0,20]
+	featured_news = @news.first
+%>
+
+<% if featured_news && featured_news.news_photo.present? %>
+  <%= content_for :feature do %>
+    <div class="text-center news_banner">
+      <%= link_to(image_tag(featured_news.news_photo.url(:original)), featured_news) %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="row">
+	<div class="medium-9 columns">
+    <% if latest_news.length > 0 %>
+      <h2><%= t "titles.news", brand: website.brand.name %></h2>
+      <ul class="medium-block-grid-4 small-block-grid-2">
+        <% latest_news.each do |news,i| %>
+          <li>
+            <% if news.news_photo.present? %>
+              <div class="text-center">
+                <%= link_to(image_tag(news.news_photo.url(:small_square)), news) %>
+              </div>
+            <% end %>
+            <small><%=l news.post_on, format: :long %></small>
+            <p><%= link_to translate_content(news, :title), news_path(news, locale: I18n.locale) %></p>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+	</div>
+	<div class="medium-3 columns hide-for-small">
+		<br/>
+    <% if (@news - latest_news).length > 0 %>
+      <h3 class="subheader">More <%= website.brand.name %> <%= t('news').titleize %></h3>
+
+      <% (@news - latest_news)[1,75].each do |news| %>
+        <p><small><%=l news.post_on, format: :short %></small><br/>
+          <%= link_to translate_content(news, :title), news %></p>
+      <% end %>
+
+      <p>
+        <%= link_to(image_tag('icons/rss.png', alt: "rss", style: "vertical-align: middle"), rss_url(format: "xml")) %>
+        <%= link_to("Subscribe via RSS", rss_url(format: "xml")) %>
+      </p>
+		<% end %>
+	</div>
+</div>
+
+<% if @news.length == 0 %>
+  <i>No news was found. Please check back later.</i>
+<% end %>

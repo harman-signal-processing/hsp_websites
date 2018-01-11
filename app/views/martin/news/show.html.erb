@@ -22,15 +22,19 @@ set_meta_tags title: translate_content(@news, :title),
      modified_time: @news.updated_at.strftime("%FT%T")
    }
 %>
+
+<% if @news.news_photo.present? %>
+  <%= content_for :feature do %>
+    <div class="text-center news_banner">
+      <%= image_tag @news.news_photo.url(:original) %>
+    </div>
+  <% end %>
+<% end %>
+
 <h1><%= translate_content(@news, :title) %></h1>
+
 <div class="row">
   <div class="medium-5 push-7 columns">
-    <% if !@news.news_photo_file_name.blank? %>
-      <div style="margin-bottom: 20px;">
-        <%= image_tag(@news.news_photo.url(:email)) %>
-      </div>
-    <% end %>
-
     <% if @news.news_images.length > 0 %>
       <small><%=t "product_page.larger_images" %>:</small>
       <ul class="small-block-grid-4">
@@ -49,7 +53,7 @@ set_meta_tags title: translate_content(@news, :title),
     <% if @news.products.size > 0 %>
       <div class="hide-for-small">
         <h2 class="subheader"><%= t('titles.related_products') %></h2>
-        <ul class="medium-block-grid-2 small-block-grid-1">
+        <ul class="large-block-grid-2 small-block-grid-1">
           <% @news.products.each do |product| %>
             <li><%= render_partial "product_families/product_square", product: product, compare: false %></li>
           <% end %>

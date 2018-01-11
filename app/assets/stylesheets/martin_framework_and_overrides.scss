@@ -113,10 +113,6 @@ $slick-arrow-color: $dark-gray;
 }
 @media only screen and (max-width: 919px) {
   .top-bar-section {
-    li:not(.has-form) a:not(.button) {
-      padding-left: rem-calc(6);
-      padding-right: rem-calc(6);
-    }
     li.has-form {
       padding-left: rem-calc(2);
       padding-right: rem-calc(2);
@@ -225,4 +221,17 @@ ul.tabs {
 .tabs-content {
   border: 1px solid $dark-gray;
   padding: 10px 20px;
+}
+.news_banner {
+  @media only screen and (min-width: 810px) {
+    position: relative;
+    z-index: -99999;
+    max-height: 700px;
+    min-height: 500px;
+    img {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+  }
 }
