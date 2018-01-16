@@ -1,0 +1,140 @@
+<h2><%= @product.name %> Photometrics</h2>
+
+<div class="row">
+	<div class="medium-6 columns">
+		<div class="iframecontainer">
+      <iframe id="iframe"
+              width=""
+              height="1400px"
+              src="http://photometric.martin.com/spec/photometfull.asp?product=<%= @product.photometric_id %>&advv=0&dopdf=1&letter=1&region=eu"
+              frameborder="0"></iframe>
+		</div>
+	</div>
+	<div class="medium-5 columns">
+		<h3 class="category">Filter</h3>
+
+		<div class="advv photoFilter">
+			<input type="radio" name="advv" value="0" checked=""><label>Basic View</label>
+			<input type="radio" name="advv" value="1"><label>Advanced View</label>
+			<input type="radio" name="advv" value="2"><label>Only data files</label>
+			<input type="radio" name="advv" value="3"><label>Photometric report</label>
+		</div>
+
+		<div class="region photoFilter">
+			<input type="radio" name="region" value="us"><label>US</label>
+			<input type="radio" name="region" value="eu" checked=""><label>EU</label>
+		</div>
+
+		<div class="dopdf photoFilter">
+			<input type="radio" name="dopdf" value="1" checked=""><label>Web</label>
+			<input type="radio" name="dopdf" value="2"><label>PDF</label>
+		</div>
+		<div class="dopdf photoFilter">
+			<input type="radio" name="letter" value="1" checked=""><label>A4</label>
+			<input type="radio" name="letter" value="2"><label>Letter</label>
+		</div>
+		<a id="submitPhoto" class="button" href="javascript:void(0);" onclick="createPhotometric()">Create Photometric</a>
+	</div>
+</div>
+
+<style>
+	iframe {
+		background: #fff;
+	}
+
+	.iframecontainer {
+		position: relative;
+		padding-bottom: 65.25%;
+		padding-top: 30px;
+		height:0;
+		min-height: 1024px;
+		overflow: auto;
+		-webkit-overflow-scrolling:touch; //<<--- THIS IS THE KEY
+		border: solid black 1px;
+		margin-bottom: 40px;
+	}
+
+	.iframecontainer iframe {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	.photoFilter input, .photoFilter label {
+		float: left;
+	}
+
+	.photoFilter {
+		overflow: auto;
+		margin-bottom: 8px;
+		border-bottom: 1px solid #ffd300;
+	}
+
+	.photoFilter input {
+		clear: both;
+		margin-top: 5px;
+    margin-left: 1px;
+	}
+
+	.photoFilter label {
+		margin-left: 10px;
+	}
+
+</style>
+
+
+<script>
+
+	var getProdID = "<%= @product.photometric_id %>";
+
+	$(document).ready(function () {
+		// on document ready get url parametre photometric, to get productid for iframe
+		//var getProdID = gup ('Photometric');
+		var getProdID = "<%= @product.photometric_id %>";
+
+		//change Iframe src to selected productid
+
+		//$('#iframe').attr('src', 'http://prod.photometric.martin.com/spec/photometfull.asp?product=' + getProdID + '&advv=3&dopdf=1&letter=1&region=us');
+			//$('#iframe').attr('src', 'http://prod.photometric.martin.com/spec/photometfull.asp?product=' + getProdID + '&advv=1&dopdf=1&letter=1&region=eu');
+
+			//reloadIframe();
+
+			/*
+		var source='http://photometric.martin.com/spec/photometfull.asp?product=' + getProdID + '&advv=1&dopdf=1&letter=1&region=eu';
+		$('#iframe').attr('src', source);
+
+		createPhotometric();
+		*/
+
+		createPhotometric();
+	});
+
+
+	// reload iframe with new src
+	function reloadIframe () {
+		$('iframe').attr('src', $('#iframe').attr('src'));
+	}
+
+
+	function createPhotometric() {
+		var adccRadio = $(".advv input[type='radio']:checked").val();
+		var regionRadio = $(".region input[type='radio']:checked").val();
+		var dopdfRadio = $(".dopdf input[type='radio']:checked").val();
+
+		$('#iframe').attr('src', 'http://photometric.martin.com/spec/photometfull.asp?product=' + getProdID + '&advv=' + adccRadio + '&dopdf=' + dopdfRadio + '&letter=1&region=' + regionRadio + '');
+
+		if (dopdfRadio === '2') {
+				$('#iframe').attr('src', 'http://martin.com/pdfgenerator/?printurl=http://photometric.martin.com/spec/photometfull.asp?product=' + getProdID + '&advv=' + adccRadio + '&dopdf=' + dopdfRadio + '&letter=1&region=' + regionRadio + '');
+		}
+
+		console.log($('#iframe').attr('src'));
+		reloadIframe();
+	}
+
+</script>
+
+
+
+

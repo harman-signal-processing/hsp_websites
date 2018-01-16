@@ -32,6 +32,11 @@
 	<div class="large-6 columns">
 		<%= f.input :short_description, label: "Sub-title", as: :string %>
 	</div>
+  <% if website.brand.has_photometrics? %>
+    <div class="large-6 columns">
+      <%= f.input :photometric_id, label: "Photometric ID" %>
+    </div>
+  <% end %>
 </div>
 <div class="row">
 	<div class="large-6 columns">

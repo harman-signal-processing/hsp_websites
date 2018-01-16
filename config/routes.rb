@@ -390,6 +390,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         get :buy_it_now
         get :songlist
         get :preview
+        get :photometric
         put :preview
       end
       collection do

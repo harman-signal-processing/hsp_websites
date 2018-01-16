@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_locale
-  before_action :ensure_best_url, only: [:show, :buy_it_now, :preview, :introducing]
+  before_action :ensure_best_url, only: [:show, :buy_it_now, :preview, :introducing, :photometric]
 
   # GET /products
   # GET /products.xml
@@ -193,6 +193,15 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.html { render plain: "This method is designed as an XML call only. Please add '.xml' to your request."}
       format.xml
+    end
+  end
+
+  # GET /product/ID/photometric
+  # New for the martin.com site migration, setting up an iframe page for products whose
+  # photometric_id is not blank. The iframe will load data from photometrics.martin.com
+  def photometric
+    if @product.photometric_id.blank?
+      redirect_to @product and return false
     end
   end
 

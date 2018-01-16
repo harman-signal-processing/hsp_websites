@@ -196,17 +196,28 @@ module ProductsHelper
         else
           current = (i == 0) ? "active" : ""
         end
-        ret += content_tag(
-          :dd,
-          link_to(
-            tab_title(product_tab, product: product),
-            "##{product_tab.key}",
-          ),
-          class: current,
-          data: {
-            :'magellan-arrival' => product_tab.key
-          }
-        )
+        if product_tab.key == "photometrics"
+          ret += content_tag(
+            :dd,
+            link_to(
+              tab_title(product_tab, product: product),
+              photometric_product_path(product),
+              target: "_blank"
+            )
+          )
+        else
+          ret += content_tag(
+            :dd,
+            link_to(
+              tab_title(product_tab, product: product),
+              "##{product_tab.key}",
+            ),
+            class: current,
+            data: {
+              :'magellan-arrival' => product_tab.key
+            }
+          )
+        end
       end
       ret += "</dl>"
       ret += "</div>"

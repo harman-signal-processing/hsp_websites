@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180109174519) do
+ActiveRecord::Schema.define(version: 20180116172556) do
 
   create_table "admin_logs", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "user_id"
@@ -272,6 +272,7 @@ ActiveRecord::Schema.define(version: 20180109174519) do
     t.boolean "show_enterprise_solutions"
     t.boolean "show_entertainment_solutions"
     t.boolean "send_contact_form_to_distributors"
+    t.boolean "has_photometrics"
     t.index ["cached_slug"], name: "index_brands_on_cached_slug", unique: true
     t.index ["name"], name: "index_brands_on_name", unique: true
   end
@@ -1228,6 +1229,7 @@ ActiveRecord::Schema.define(version: 20180109174519) do
     t.boolean "enterprise", default: false
     t.boolean "entertainment", default: false
     t.text "registration_notice"
+    t.string "photometric_id"
     t.index ["brand_id", "product_status_id"], name: "index_products_on_brand_id_and_product_status_id"
     t.index ["brand_id"], name: "index_products_on_brand_id"
     t.index ["cached_slug"], name: "index_products_on_cached_slug", unique: true

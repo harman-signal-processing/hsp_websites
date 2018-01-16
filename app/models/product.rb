@@ -387,6 +387,10 @@ class Product < ApplicationRecord
     news_content_present? || reviews_content_present?
   end
 
+  def photometrics_content_present?
+    photometric_id.present?
+  end
+
   # Collects those site_elements where the download is software or a zip
   def executable_site_elements
     @executable_site_elements ||= site_elements.where(is_software: true)
