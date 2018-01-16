@@ -116,7 +116,7 @@
 					<% if !!(website.forum_link) %>
 					<li><%= link_to t("user_forum"), website.forum_link %></li>
 					<% end %>
-          <% if !!!(website.brand.name.to_s.match(/digitech|lexicon|dod/i)) %>
+          <% if !!!(website.brand.name.to_s.match(/digitech|lexicon|dod|martin|amx/i)) %>
             <li><%= link_to "System Design Tools", tools_calculators_path %></li>
           <% end %>
           <% if !website.has_software? %>
@@ -144,7 +144,9 @@
     <% end %>
       <%= f.input :subject, as: :select, collection: ContactMessage.subjects(brand: website.brand).flatten, prompt: t('subjects.select_a_subject') %>
       <%= f.input :product_serial_number, placeholder: 'Serial number' %>
-      <%= f.input :operating_system, placeholder: "Operating system" %>
+      <% if website.brand.to_s.match(/dbx|bss|lexicon|digitech|dod/i) %>
+        <%= f.input :operating_system, placeholder: "Operating system" %>
+      <% end %>
       <%= f.input :shipping_address, label: t("address"), input_html: { size: "40x2" }, placeholder: t("address") %>
       <%= f.input :shipping_country, label: t("country"), required: @contact_message.require_country?, prompt: t("country") %>
       <%= f.input :phone, placeholder: "Phone" %>

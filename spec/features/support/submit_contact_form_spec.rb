@@ -19,7 +19,7 @@ feature "Submit contact form" do
     fill_in "contact_message_email", with: "joe@joe.com"
     select @website.products.first.name, from: "contact_message_product"
     fill_in "contact_message_product_serial_number", with: "12345"
-    fill_in "contact_message_operating_system", with: "Lion"
+#    fill_in "contact_message_operating_system", with: "Lion"
     fill_in "contact_message_shipping_address", with: "123 Anywhere"
     select "United States", from: "contact_message_shipping_country"
     fill_in "contact_message_phone", with: "555-5555"
