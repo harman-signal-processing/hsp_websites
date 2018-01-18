@@ -153,6 +153,7 @@ module ProductsHelper
     ret = "<div class=\"section-container tabs-content\">"
 
     main_tabs.each_with_index do |product_tab,i|
+      next if product_tab.key == "photometrics"
 
       if options[:zurb]
 
@@ -266,6 +267,7 @@ module ProductsHelper
     ret = ""
 
     main_tabs.each_with_index do |product_tab,i|
+      next if product_tab.key == "photometrics"
 
       if options[:active_tab]
         active_class = (product_tab.key == options[:active_tab]) ? "active" : ""

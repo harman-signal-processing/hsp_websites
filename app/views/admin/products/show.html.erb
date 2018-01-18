@@ -592,5 +592,18 @@
       </ul>
     </div>
 
+    <div class="group">
+      <h5 class="subheader">Highlights</h5>
+      <p>Highlights appear as a slideshow just after the product description on the product page.</p>
+      <ul>
+        <% @product.highlights.each do |highlight| %>
+          <li><%= link_to highlight.name, [:admin, highlight] %></li>
+        <% end %>
+      </ul>
+      <p><%= link_to "Add a highlight",
+        new_admin_feature_path(featurable_type: "Product", featurable_id: @product.id),
+        class: "tiny success button" %></p>
+    </div>
+
 	</div>
 </div>
