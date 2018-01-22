@@ -194,6 +194,17 @@ ul.no-bullet {
   ul {
     margin-left: 14px !important;
   }
+  .orbit-container {
+    ul {
+      margin: 0 !important;
+    }
+    a.orbit-next, a.orbit-prev {
+      background-color: #CCC !important;
+      &:hover {
+        background-color: #888 !important;
+      }
+    }
+  }
 }
 img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 #video_background {
