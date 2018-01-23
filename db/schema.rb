@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180116172556) do
+ActiveRecord::Schema.define(version: 20180123182053) do
 
   create_table "admin_logs", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "user_id"
@@ -367,6 +367,14 @@ ActiveRecord::Schema.define(version: 20180116172556) do
     t.boolean "exclude"
     t.boolean "skip_sync_from_sap"
     t.string "website"
+    t.string "google_map_place_id"
+    t.string "country"
+    t.boolean "resale", default: true
+    t.boolean "rush", default: false
+    t.boolean "rental", default: false
+    t.boolean "installation", default: false
+    t.string "represented_in_country"
+    t.boolean "service", default: false
     t.index ["account_number"], name: "index_dealers_on_account_number"
     t.index ["exclude"], name: "index_dealers_on_exclude"
     t.index ["lat", "lng"], name: "index_dealers_on_lat_and_lng"
