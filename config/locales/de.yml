@@ -22,7 +22,10 @@ de:
     harman: Harman
     us_zip_code: US Zipcode
     find_us_dealers: find local
+    find_dealers: find local
     online_dealers_us: Online Dealers (US)
+    global_dealers: Worldwide Dealers
+    global_search_location: Target Location
     international_distributors: worldwide
     select_your_country: select your country
     dealer_distance: miles

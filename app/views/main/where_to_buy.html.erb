@@ -32,10 +32,10 @@
 			<%= form_tag where_to_buy_path() %>
 				<div class="row collapse">
 					<div class="large-8 small-7 columns">
-						<%= text_field_tag "zip", session[:zip], placeholder: t('us_zip_code') %>
+						<%= text_field_tag "zip", session[:zip], placeholder: website.brand.dealers_are_us_only? ? t('us_zip_code') : t('global_search_location') %>
 					</div>
 					<div class="large-4 small-5 columns">
-						<%= submit_tag t('find_us_dealers'), class: "postfix button" %>
+						<%= submit_tag t('find_dealers'), class: "postfix button" %>
 					</div>
 				</div>
 			</form>
@@ -72,15 +72,19 @@
       <% if website.brand.has_dealers? %>
         <div class="row">
           <div class="medium-6 columns end">
-            <h3><%= t('us_dealers') %></h3>
+            <% if website.brand.dealers_are_us_only? %>
+              <h3><%= t('us_dealers') %></h3>
+            <% else %>
+              <h3><%= t('global_dealers') %></h3>
+            <% end %>
 
             <%= form_tag where_to_buy_path() %>
               <div class="row collapse">
                 <div class="large-8 small-7 columns">
-                  <%= text_field_tag "zip", session[:zip], placeholder: t('us_zip_code') %>
+                  <%= text_field_tag "zip", session[:zip], placeholder: website.brand.dealers_are_us_only? ? t('us_zip_code') : t('global_search_location') %>
                 </div>
                 <div class="large-4 small-5 columns">
-                  <%= submit_tag t('find_us_dealers'), class: "postfix button" %>
+                  <%= submit_tag t('find_dealers'), class: "postfix button" %>
                 </div>
               </div>
               <% if website.brand.has_us_sales_reps? %>

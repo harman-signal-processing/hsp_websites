@@ -12,6 +12,9 @@
       <%= @dealer.city %>,
       <%= @dealer.state %>
       <%= @dealer.zip %>
+      <% if @dealer.country.present? %>
+        <br/><%= @dealer.country %>
+      <% end %>
     </td>
   </tr>
   <tr>
@@ -37,8 +40,31 @@
     <td><%= @dealer.account_number %></td>
   </tr>
   <tr>
+    <th>Dealer type</th>
+    <td>
+      <ul>
+        <% if @dealer.resale? %>
+          <li>Resale</li>
+        <% end %>
+        <% if @dealer.rental? %>
+          <li>Rental</li>
+        <% end %>
+        <% if @dealer.installation? %>
+          <li>Installation</li>
+        <% end %>
+        <% if @dealer.service? %>
+          <li>Service</li>
+        <% end %>
+      </ul>
+    </td>
+  </tr>
+  <tr>
     <th>Lat/Lng</th>
     <td><%= @dealer.lat %> / <%= @dealer.lng %></td>
+  </tr>
+  <tr>
+    <th>Google Place ID</th>
+    <td><%= @dealer.google_place_id %></td>
   </tr>
 </table>
 
