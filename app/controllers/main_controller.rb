@@ -72,11 +72,20 @@ class MainController < ApplicationController
       @js_map_loader = ''
 
       begin
-        origin = Geokit::Geocoders::MultiGeocoder.geocode(zip)
-        brand.dealers.near(origin: origin, within: 60).order("distance ASC").all.each do |d|
-          unless count > 15 || d.exclude?
-            @results << d
-            count += 1
+        if Rails.env.production?
+          origin = Geokit::Geocoders::MultiGeocoder.geocode(zip)
+          brand.dealers.near(origin: origin, within: 60).order("distance ASC").all.each do |d|
+            unless count > 15 || d.exclude? || filter_out?(d)
+              @results << d
+              count += 1
+            end
+          end
+        else # skipping geocoding for dev/test
+          brand.dealers.all.each do |d|
+            unless count > 15 || d.exclude? || filter_out?(d)
+              @results << d
+              count += 1
+            end
           end
         end
       rescue
@@ -87,7 +96,7 @@ class MainController < ApplicationController
       # Add those with exact zipcode matches if none have been found by geocoding
       if count == 0 && params[:zip].to_s.match(/^\d*$/)
         brand.dealers.where("zip LIKE ?", params[:zip]).each do |d|
-          unless count > 15 || d.exclude?
+          unless count > 15 || d.exclude? || filter_out?(d)
             @results << d
             count += 1
           end
@@ -310,4 +319,20 @@ class MainController < ApplicationController
       "#{index}_#{I18n.locale.to_s.gsub(/\-/, '_')}_core"
     end
   end
+
+  # Returning true would remove the dealer from results
+  def filter_out?(dealer)
+    if params[:apply_filters].present? && !!(params[:apply_filters].to_i == 1)
+      @filter_resale = !!params[:resale]
+      @filter_rental = !!params[:rental]
+      @filter_service = !!params[:service]
+
+      return false if @filter_resale && dealer.resale?
+      return false if @filter_rental && dealer.rental?
+      return false if @filter_service && dealer.service?
+
+      true
+    end
+  end
+
 end

@@ -69,7 +69,7 @@ class Dealer < ApplicationRecord
 
   # Format the address, city, state, zip into a single string for geocoding
   def address_string
-    "#{address}, #{city}, #{state} #{zip}"
+    "#{address}, #{city}, #{state} #{zip} #{country}"
   end
 
   def name_and_address
@@ -79,6 +79,10 @@ class Dealer < ApplicationRecord
   # Geocode if the address has changed
   def regeocode
     self.geocode_address if self.address_changed? || self.city_changed? || self.state_changed?
+  end
+
+  def regeocode!
+    geocode_address && save(validate: false)
   end
 
   # Geocode the address and store the lat/lng

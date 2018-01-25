@@ -1,3 +1,5 @@
+@import "font-awesome";
+
 .fullWidth {
   width: 100%;
   margin-left: auto;
@@ -1092,9 +1094,14 @@ div#dealer_lookup_floater {
 		color: white;
 	}
 }
-ul.dealer_results li {
-	margin-left: 12px;
-	margin-bottom: 12px;
+ul.dealer_results {
+  margin-left: 0;
+
+  li {
+    margin-left: 0px;
+    margin-bottom: 12px;
+    list-style-type: none;
+  }
 }
 div#pop_info {
 	width: 275px;
@@ -1112,7 +1119,7 @@ div#pop_info {
 @media only screen and (min-width: 720px) {
 	div#dealer_results {
 		height: 600px;
-		overflow: auto;
+		overflow: scroll;
 	}
 }
 

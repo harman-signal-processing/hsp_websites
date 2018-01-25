@@ -32,7 +32,7 @@ namespace :import do
       dealer.service ||= row[19]
       dealer.represented_in_country ||= row[20]
       dealer.lat ||= row[21]
-      dealer.lng || row[22]
+      dealer.lng ||= row[22]
       dealer.google_map_place_id ||= row[23]
       dealer.account_number ||= "Martin-#{row[0]}"
 

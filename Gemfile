@@ -13,7 +13,7 @@ gem "foundation-rails", '5.5.1' # 5.5.3 has a bug with Magellan https://github.c
 gem 'lightbox2-rails', '~> 2.7.1' # 6/1/2016 v2.8.2.1 stopped working.
 gem 'image_zoomer'
 gem 'jquery-rails' #, "~> 4.0.5" # 4.1 broke buy it now popups
-
+gem 'font-awesome-rails'
 # To use debugger
 # gem 'ruby-debug'
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180124150316) do
+ActiveRecord::Schema.define(version: 20180125201039) do
 
   create_table "admin_logs", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "user_id"
@@ -274,6 +274,7 @@ ActiveRecord::Schema.define(version: 20180124150316) do
     t.boolean "send_contact_form_to_distributors"
     t.boolean "has_photometrics"
     t.boolean "dealers_are_us_only", default: true
+    t.boolean "dealers_include_rental_and_service", default: false
     t.index ["cached_slug"], name: "index_brands_on_cached_slug", unique: true
     t.index ["name"], name: "index_brands_on_name", unique: true
   end
