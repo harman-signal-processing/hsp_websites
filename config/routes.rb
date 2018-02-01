@@ -81,6 +81,54 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
   # config/initializers/redirects.rb
   # These are only needed for site-specific routing (where you don't want a particular URL
   # to work on the other sites)
+  
+  constraints(AkgDomain) do
+    # Social Media routes for AKG
+    get '/facebook', to: redirect('https://www.facebook.com/AKG?_ga=1.29192636.1674201073.1456831551')
+    get '/twitter', to: redirect('https://twitter.com/AKGaudio')
+    get '/instagram', to: redirect('http://instagram.com/akgaudio')
+  end  #  constraints(AkgDomain) do
+  
+  constraints(AmxDomain) do
+    # Social Media routes for AMX
+    get '/twitter', to: redirect('http://www.twitter.com/amxtalk')
+    get '/facebook', to: redirect('https://www.facebook.com/amxtalk')
+    get '/youtube', to: redirect('https://www.youtube.com/user/AMXtalk')
+    get '/google', to: redirect('https://www.google.com/+amxautomate')
+    get '/linkedin', to: redirect('https://www.linkedin.com/company/amx')
+  end  #  constraints(AmxDomain) do
+  
+  constraints(BssDomain) do
+    get '/network-audio' => 'pages#network_audio'
+    
+    # Social Media routes for BSS
+    get '/twitter', to: redirect('http://www.twitter.com/bssaudio')
+    get '/youtube', to: redirect('https://www.youtube.com/user/bssaudio')
+    get '/google', to: redirect('https://plus.google.com/116673860909914873281/posts')
+  end  #  constraints(BssDomain) do
+  
+
+  constraints(CrownDomain) do
+    get '/trucktourgiveaway(.:format)' => 'signups#new', defaults: { campaign: "Crown-TruckTour-Flip-2015" }
+    get '/network-audio' => 'pages#network_audio'
+    
+    # Social Media routes for Crown
+    get '/twitter', to: redirect('http://www.twitter.com/crownaudio')
+    get '/facebook', to: redirect('https://www.facebook.com/CrownbyHarman')
+    get '/youtube', to: redirect('https://www.youtube.com/user/CrownInternational')
+    get '/google', to: redirect('https://plus.google.com/100964114345403679773')
+    get '/instgram', to: redirect('https://instagram.com/crown_audio')
+    get '/linkedin', to: redirect('https://www.linkedin.com/company/crown-international')
+  end  #  constraints(CrownDomain) do
+
+  constraints(DbxDomain) do
+    #  Social Media routes for dbx
+    get '/twitter', to: redirect('http://www.twitter.com/dbxpro')
+    get '/facebook', to: redirect('https://www.facebook.com/dbxpro')
+    get '/youtube', to: redirect('https://www.youtube.com/user/dbxprofessional')
+    get '/google', to: redirect('https://plus.google.com/u/0/100759493077882514506/posts')
+  end  #  constraints(DbxDomain) do
+
   constraints(DigitechDomain) do
     # match '/soundcomm(/:page)', to: redirect("/#{I18n.default_locale}/soundcomm"), as: :soundcomm, locale: I18n.default_locale
     match '/soundcomm(/:page)', to: redirect('http://soundcommunity.digitech.com/'), as: :soundcomm, locale: I18n.default_locale, via: :all
@@ -89,17 +137,49 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get 'epedal_labels/new(/:epedal_id)' => 'label_sheet_orders#new', as: :epedal_labels_order_form
     get 'epedal_label_thanks' => 'label_sheet_orders#thanks', as: :thanks_label_sheet_order
     resources :label_sheet_orders, only: [:new, :create]
-  end
-
-  constraints(CrownDomain) do
-    get '/trucktourgiveaway(.:format)' => 'signups#new', defaults: { campaign: "Crown-TruckTour-Flip-2015" }
-    get '/network-audio' => 'pages#network_audio'
-  end
-
-  constraints(BssDomain) do
-    get '/network-audio' => 'pages#network_audio'
-  end
-
+  
+    # Social Media routes for Digitech
+    get '/twitter', to: redirect('http://www.twitter.com/DigiTech')
+    get '/facebook', to: redirect('https://www.facebook.com/digitech')
+    get '/youtube', to: redirect('https://www.youtube.com/user/digitechfx')
+    get '/google', to: redirect('https://plus.google.com/+DigiTechFX/posts')
+    get '/instagram', to: redirect('https://instagram.com/digitechfx')
+  
+  end  #  constraints(DigitechDomain) do
+  
+  constraints(JblProDomain) do
+    # Social Media routes for JBL Pro
+    get '/instagram', to: redirect('https://www.instagram.com/jbl_pro/')
+    get '/facebook', to: redirect('https://www.facebook.com/jblprofessional')
+    get '/twitter', to: redirect('https://twitter.com/TheJBLpro')
+    get '/youtube', to: redirect('http://www.youtube.com/TheJBLProfessional')
+  end  #  constraints(JblProDomain) do
+  
+  constraints(LexiconDomain) do
+    # Social Media routes for LexiconPro
+    get '/twitter', to: redirect('http://www.twitter.com/LexiconPro')
+    get '/facebook', to: redirect('https://www.facebook.com/lexiconpro')
+    get '/youtube', to: redirect('https://www.youtube.com/user/LexiconPro')
+    get '/google', to: redirect('https://plus.google.com/100996659132374613095/posts/')
+  end  #  constraints(LexiconDomain) do
+  
+  constraints(SoundcraftDomain) do
+    # Social Media routes for Soundcraft
+    get '/twitter', to: redirect('http://www.twitter.com/SoundcraftUK')
+    get '/facebook', to: redirect('https://www.facebook.com/SoundcraftMixers')
+    get '/youtube', to: redirect('https://www.youtube.com/SoundcraftUK')
+    get '/instagram', to: redirect('https://instagram.com/soundcraftmixers')
+    get '/linkedin', to: redirect('https://www.linkedin.com/company/soundcraft-studer')
+  end  #  constraints(SoundcraftDomain) do
+  
+  constraints(StuderDomain) do
+    # Social Media routes for Studer
+    get '/twitter', to: redirect('http://www.twitter.com/StuderAudio')
+    get '/facebook', to: redirect('https://www.facebook.com/StuderCreateSound/')
+    get '/youtube', to: redirect('https://www.youtube.com/StuderProfessional')
+    get '/linkedin', to: redirect('https://www.linkedin.com/company/studer-professional-audio-gmbh')
+  end  #  constraints(StuderDomain) do
+  
   # The constraint { locale: /#{WebsiteLocale.all_unique_locales.join('|')}/ } limits the locale
   # to those configured in the WebsiteLocale model which is configured in the admin area and reverts
   # to AVAILABLE_LOCALES in config/initializers/i18n.rb in case of problems
@@ -109,7 +189,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
   scope "(:locale)", locale: /#{WebsiteLocale.all_unique_locales.join('|')}/ do
     constraints(AmxDomain) do
       get 'contacts' => 'main#where_to_buy', as: :amx_contacts
-    end
+    end  
 
     constraints(BssDomain) do
       get 'bss-network-audio' => 'pages#network_audio'
