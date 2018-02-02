@@ -591,12 +591,12 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     match '/support/parts' => 'support#parts', as: :parts_request, via: :all
     match '/support/rma' => 'support#rma', as: :rma_request, via: :all
     match '/support/contact' => 'support#contact', as: :support_contact, via: :all
-    match '/support/service_lookup' => 'support#service_lookup', as: :service_lookup, via: :all
+    match '/support/service_lookup', to: redirect('https://pro.harman.com/service_centers'), as: :service_lookup, via: :all
     match '/support/troubleshooting' => 'support#troubleshooting', as: :support_troubleshooting, via: :all
     get '/support/speaker_tunings' => 'support#speaker_tunings', as: :speaker_tunings
     get '/support/cad' => 'support#cad', as: :support_cad
     match '/support/vintage_repair' => 'support#vintage_repair', as: :vintage_repair, via: :all
-    match '/support/all_repair' => 'support#all_repair', as: :support_all_repair, via: :all
+    match '/support/all_repair', to: redirect('https://pro.harman.com/service_centers'), as: :support_all_repair, via: :all
     match '/catalog_request' => 'support#catalog_request', as: :catalog_request, via: :all
     get '/support/warranty_policy' => 'support#warranty_policy', as: :warranty_policy
     match '/international_distributors' => 'distributors#index', as: :international_distributors, via: :all
