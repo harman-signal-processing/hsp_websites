@@ -17,6 +17,17 @@ namespace :rackspace do
     update_autoscale_image(img)
   end
 
+  # The web-based interface adds new servers to the HTTPS load balancer, but since
+  # it can only add to one load balancer, we need to manually add new servers to the
+  # HTTP load balancer:
+  desc "Adds all servers to the HTTP load balancer"
+  task :add_to_http_load_balancer => :environment do
+    client = compute_client
+    balancer = load_balancer_client.load_balancers.get(434547)
+
+    add_servers_to_load_balancer(balancer, client.servers, 2)
+  end
+
   def get_most_recent_image_id
     client = compute_client
     server_name = "HICGLXRAILS02"
@@ -53,6 +64,22 @@ namespace :rackspace do
     images
   end
 
+  def add_servers_to_load_balancer(load_balancer, servers, weight=2)
+    node_addresses = load_balancer.nodes.map{|n| n.address}
+
+    servers.each do |server|
+      server_ip = server.addresses["private"].first["addr"]
+      unless node_addresses.include?(server_ip)
+        load_balancer.nodes.create(
+          address: server_ip,
+          port: 80,
+          condition: "ENABLED",
+          weight: weight
+        )
+      end
+    end
+  end
+
   def autoscale_client
     Fog::Rackspace::AutoScale.new(
       rackspace_username: ENV['RACKSPACE_USERNAME'],
@@ -64,6 +91,14 @@ namespace :rackspace do
   def compute_client
     Fog::Compute.new(
       provider: 'rackspace',
+      rackspace_username: ENV['RACKSPACE_USERNAME'],
+      rackspace_api_key: ENV['RACKSPACE_API_KEY'],
+      rackspace_region: :ord
+    )
+  end
+
+  def load_balancer_client
+    Fog::Rackspace::LoadBalancers.new(
       rackspace_username: ENV['RACKSPACE_USERNAME'],
       rackspace_api_key: ENV['RACKSPACE_API_KEY'],
       rackspace_region: :ord
