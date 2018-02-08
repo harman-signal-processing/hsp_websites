@@ -46,4 +46,8 @@ $(function(){
     autoplay: true,
     autoplaySpeed: 4000
   });
+  
+
+  $('#amx-overlay-modal').foundation('reveal', 'open');
+  
 });
