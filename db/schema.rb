@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180125201039) do
+ActiveRecord::Schema.define(version: 20180220193246) do
 
   create_table "admin_logs", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "user_id"
@@ -1017,6 +1017,7 @@ ActiveRecord::Schema.define(version: 20180125201039) do
     t.string "title_banner_content_type"
     t.integer "title_banner_file_size"
     t.datetime "title_banner_updated_at"
+    t.text "post_content"
     t.index ["brand_id"], name: "index_product_families_on_brand_id"
     t.index ["cached_slug"], name: "index_product_families_on_cached_slug", unique: true
     t.index ["parent_id"], name: "index_product_families_on_parent_id"

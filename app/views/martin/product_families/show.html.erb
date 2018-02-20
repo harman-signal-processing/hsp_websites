@@ -68,6 +68,10 @@
   </form>
 <% end %>
 
+<% if @product_family.post_content.present? %>
+  <%= raw @product_family.post_content %>
+<% end %>
+
 <% if current_user && can?(:manage, @product_family) %>
 <div class="admin_function">
 	<%= link_to "edit", [:admin, @product_family] %>

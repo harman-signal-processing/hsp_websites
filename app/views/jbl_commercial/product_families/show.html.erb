@@ -61,7 +61,9 @@
 		<%= links_to_related_product_families(@product_family) %></div>
 	<% end %>
 
-
+<% if @product_family.post_content.present? %>
+  <%= raw @product_family.post_content %>
+<% end %>
 
 <% if current_user && can?(:manage, @product_family) %>
 <div class="admin_function">

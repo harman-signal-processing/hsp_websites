@@ -79,6 +79,13 @@
 		</div>
 	</div>
 
+  <div class="row">
+    <div class="large-8 columns">
+      <%= f.input :post_content, label: "Content to appear after the products on the family page.",
+        input_html: { class: "mceEditor" } %>
+    </div>
+  </div>
+
 	<br/><%= f.input :hide_from_homepage, label: "Hide from homepage. (only applicable to parent categories)" %>
 
 	<br/><%= f.button :submit %>
