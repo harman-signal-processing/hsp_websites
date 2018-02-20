@@ -40,9 +40,14 @@ jQuery ($) ->
       "directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,height=#{ $(@).data('windowheight') },width=#{ $(@).data('windowwidth') }"
     )
 
+  $('a.update-and-play-inline-video').click (e) ->
+    e.preventDefault()
+    video_url = "https://www.youtube.com/embed/#{ $(@).data('videoid') }?autostart=1&autoplay=1&rel=0"
+    $("##{ $(@).data('containerid') } iframe").attr 'src', video_url
+
   $('a.start-video').click (e) ->
     e.preventDefault()
-    video_url = "https://www.youtube.com/embed/#{ $(@).data('videoid') }?autostart=1"
+    video_url = "https://www.youtube.com/embed/#{ $(@).data('videoid') }?autostart=1&autoplay=1&rel=0"
     $('#videoIFrame').attr 'data-src', video_url
     $('#videoModal').foundation 'reveal', 'open'
 
