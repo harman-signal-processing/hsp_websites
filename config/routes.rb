@@ -6,7 +6,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
   get "signups/new"
   get "signups/more_info"
   get "signup/complete" => "signups#complete", as: :signup_complete
-  get "epedal_labels/index"
 
   get "warranty" => "support#warranty_policy"
   get "register" => "support#warranty_registration"
@@ -168,11 +167,13 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
   constraints(DigitechDomain) do
     # match '/soundcomm(/:page)', to: redirect("/#{I18n.default_locale}/soundcomm"), as: :soundcomm, locale: I18n.default_locale
     match '/soundcomm(/:page)', to: redirect('http://soundcommunity.digitech.com/'), as: :soundcomm, locale: I18n.default_locale, via: :all
-    get 'gctraining' => 'pages#gctraining'
-    get 'epedal_labels/fulfilled/:id/:secret_code' => 'label_sheet_orders#fulfill', as: :label_sheet_order_fulfillment
-    get 'epedal_labels/new(/:epedal_id)' => 'label_sheet_orders#new', as: :epedal_labels_order_form
-    get 'epedal_label_thanks' => 'label_sheet_orders#thanks', as: :thanks_label_sheet_order
-    resources :label_sheet_orders, only: [:new, :create]
+    #get 'gctraining' => 'pages#gctraining'
+    # E-pedal label sheet ordering removed 2018-02-21
+    #get "epedal_labels/index"
+    #get 'epedal_labels/fulfilled/:id/:secret_code' => 'label_sheet_orders#fulfill', as: :label_sheet_order_fulfillment
+    #get 'epedal_labels/new(/:epedal_id)' => 'label_sheet_orders#new', as: :epedal_labels_order_form
+    #get 'epedal_label_thanks' => 'label_sheet_orders#thanks', as: :thanks_label_sheet_order
+    #resources :label_sheet_orders, only: [:new, :create]
 
     begin
       Brand.find("digitech").products.each do |product|
