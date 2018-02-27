@@ -106,6 +106,14 @@
             <li><%= link_to t("sound_community"), soundcomm_url, target: "_blank" %></li>
             <li><%= link_to "guitarworkstation.com", "http://www.guitarworkstation.com", target: "_blank" %></li>
           <% end %>
+          <% if !website.has_service_centers? %>
+            <% if website.has_rma_form? %>
+            <li><%= link_to t('titles.factory_service'), rma_request_path %></li>
+            <% end %>
+            <% if website.has_parts_form? %>
+            <li><%= link_to t('titles.part_request'), parts_request_path %></li>
+            <% end %>
+          <% end %>
 					<% if !!(website.value_for("troubleshooting_url")) %>
 					<li><%= link_to t('troubleshooting').downcase, support_troubleshooting_path %></li>
 					<% end %>

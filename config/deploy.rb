@@ -2,7 +2,7 @@
 lock '~> 3.10.0'
 
 set :application, 'brandsites'
-set :repo_url, "https://github.com/harman-signal-processing/hsp_websites"
+set :repo_url, 'ssh://git@github.com/harman-signal-processing/hsp_websites.git'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp

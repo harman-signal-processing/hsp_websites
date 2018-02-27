@@ -2,21 +2,37 @@ class Admin::ProductsController < AdminController
   before_action :initialize_product, only: :create
   load_and_authorize_resource
   skip_authorize_resource only: [:rohs, :update_rohs, :harman_employee_pricing, :update_harman_employee_pricing]
-  
+
   # GET /admin/products
   # GET /admin/products.xml
   def index
     @search = website.products.ransack(params[:q])
     @products = @search.result
     respond_to do |format|
-      format.html { 
+      format.html {
         if params[:q] && @products.size == 1
           redirect_to [:admin, @products.first]
         else
-          render_template 
+          render_template
         end
       } # index.html.erb
       format.xml  { render xml: @products }
+
+      # This is not a complete export of product data. There was a specific request to audit
+      # the downloads for the products via spreadsheet. So here it is...
+      format.csv {
+        send_data(
+          CSV.generate(headers: true) do |csv|
+            csv << ["model", "short description", "status", "downloads"]
+
+            @products.each do |p|
+              csv << [p.name, p.short_description, p.product_status.name, p.product_documents.map{|d| d.document_file_name}.join(", ")]
+            end
+          end,
+          filename: "#{website.brand.name.parameterize}_products_downloads_#{I18n.l Date.today}.csv",
+          type: "application/excel; charset=utf-8; header=present"
+        )
+      }
     end
   end
 
