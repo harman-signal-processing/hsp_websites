@@ -26,7 +26,9 @@
 				</div>
 		</div>
 		<div class="large-3 columns">
-			<p>For local service in the US, please see the US Service Centers locator on our <%= link_to "support page", support_path %>.</p>
+      <% if webste.has_service_centers? %>
+        <p>For local service in the US, please see the US Service Centers locator on our <%= link_to "support page", support_path %>.</p>
+      <% end %>
 			<p><%= t('product_support_page.for_service_outside_the_us') %>
 				<%= link_to t("product_support_page.please_contact_your_distributor", brand: website.brand_name), international_distributors_path %></p>
 		</div>
