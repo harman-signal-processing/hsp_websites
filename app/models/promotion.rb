@@ -32,6 +32,9 @@ class Promotion < ApplicationRecord
     }}.merge(S3_STORAGE)
   validates_attachment :homepage_banner, content_type: { content_type: /\Aimage/i }
 
+  process_in_background :tile
+  process_in_background :homepage_banner
+
   def sanitized_name
     self.name.gsub(/[\'\"]/, "")
   end
