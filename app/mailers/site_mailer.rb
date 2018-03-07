@@ -88,4 +88,21 @@ class SiteMailer < ActionMailer::Base
          subject: "New System Configuration Submitted")
   end
 
+  def fixtures_request(data)
+    @fixtures_request = data
+    if @fixtures_request.attachment.present?
+      begin
+        attachments[@fixtures_request.attachment_file_name] = {
+          mime_type: @fixtures_request.attachment_content_type,
+          content: open(@fixtures_request.attachment.url).read
+        }
+      rescue
+        # couldn't attach the file, but we'll link to it anyway
+      end
+    end
+    mail(to: ENV['MARTIN_FIXTURES_RECIPIENT'],
+         from: @fixtures_request.email,
+         subject: "Martin Fixtures Request")
+  end
+
 end

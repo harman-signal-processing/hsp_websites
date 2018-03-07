@@ -1,0 +1,24 @@
+<p>The following fixtures request was received from the Martin website.
+Please respond accordingly:</p>
+
+<h3>Lighting Controllers:</h3>
+<%= @fixtures_request.lighting_controller %><br/>
+
+<h3>Fixture Details:</h3>
+Manufacturer: <%= @fixtures_request.manufacturer %><br/>
+Fixture Name: <%= @fixtures_request.fixture_name %><br/>
+Product Link: <%= link_to @fixtures_request.product_link, @fixtures_request.product_link %><br/>
+Required Modes: <%= @fixtures_request.required_modes %><br/>
+Required By: <%= @fixtures_request.required_on %><br/>
+Notes: <%= @fixtures_request.notes %><br/>
+
+<h3>Contact Details:</h3>
+Name: <%= @fixtures_request.name %><br/>
+Phone: <%= @fixtures_request.phone %><br/>
+Country: <%= @fixtures_request.country %><br/>
+Email: <%= @fixtures_request.email %><br/>
+
+<% if @fixtures_request.attachment.present? %>
+  <p>Attachment: <%= link_to @fixtures_request.attachment_file_name, @fixtures_request.attachment.url %></p>
+<% end %>
+

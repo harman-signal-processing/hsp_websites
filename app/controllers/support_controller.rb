@@ -151,6 +151,20 @@ class SupportController < ApplicationController
     render_template
   end
 
+  # Fixtures requeset--added for Martin
+  def fixtures_request
+    @page_title = "Fixtures Request"
+    @fixtures_request = FixturesRequest.new
+    if request.post?
+      @fixtures_request = FixturesRequest.new(fixtures_request_params)
+      if @fixtures_request.valid?
+        @fixtures_request.save
+        redirect_to support_path, notice: t('blurbs.fixtures_request_thankyou') and return false
+      end
+    end
+    render_template
+  end
+
   def warranty_policy
     @page_title = "Warranty Policy"
     products = Product.all_for_website(website) - Product.non_supported(website)
@@ -293,6 +307,12 @@ class SupportController < ApplicationController
 
   def contact_message_params
     params.require(:contact_message).permit(:name, :email, :subject, :message, :product, :operating_system, :company, :account_number, :phone, :fax, :billing_address, :billing_city, :billing_state, :billing_zip, :shipping_address, :shipping_city, :shipping_state, :shipping_zip, :product_sku, :product_serial_number, :warranty, :purchased_on, :part_number, :board_location, :shipping_country)
+  end
+
+  def fixtures_request_params
+    params.require(:fixtures_request).permit(:name, :email, :country, :phone, :lighting_controllers,
+                                             :fixture_name, :manufacturer, :product_link, :required_modes,
+                                             :required_on, :notes, :attachment)
   end
 
 end

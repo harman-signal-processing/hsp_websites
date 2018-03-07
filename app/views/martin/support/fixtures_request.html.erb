@@ -1,0 +1,91 @@
+<h1>Controller fixture request</h1>
+
+<p>Fixture libraries for Martin controllers can be requested with the form below.</p>
+
+<p>Please check the following links first if your desired fixture exists already for
+your controller. Download links are provided on the products support pages.</p>
+
+<p><strong>Martin Lightjockey:</strong><br/>
+    <a href="//martinprofessional.app.box.com/ljprofiles" target="_blank">martinprofessional.app.box.com/ljprofiles</a>
+</p>
+
+<p><strong>Martin Showdesigner:</strong><br/>
+  <a href="//lighthouse.nl/fixtures/MSD/d_fixtures.htm" target="_blank">lighthouse.nl/fixtures/MSD/d_fixtures.htm</a>
+</p>
+
+<p><strong>M-Series, Maxxyz, Maxedia:</strong><br/>
+  <a href="//controllersupport.martin.com" target="_blank">controllersupport.martin.com</a>
+</p>
+
+<p>If the desired fixture profile does not exist, please fill out the form. Provide as much
+information as possible, including links to manual, support pages etc. Also provide your contact
+info for questions and so we can notify you once the fixture profile is available.</p>
+
+<p>Please note that LightJockey profiles are limited to 32 channels per device, and no profiles can
+be made for fixtures over 32 channels. We recommend to use Martin M-PC instead.</p>
+
+<p>Please allow 3-7 business days and indicate if the fixture is needed sooner so we can prioritize
+our efforts.</p>
+
+<p><strong>Please note that not all fixture request can be accepted. We reserve the right refuse
+  certain request base on IP infringement of Martin products</strong></p>
+
+<h2>Request Form</h2>
+<%= simple_form_for @fixtures_request, url: fixtures_request_path do |f| %>
+  <%= field_set_tag "1. Select the Martin Controller the fixture library should be built for (at least one) (*)" do %>
+    <%= f.input :lighting_controller,
+      label: false,
+      as: :check_boxes,
+      collection: [" M-Series", " Lightjockey", " Martin Showdesigner 6"] %>
+  <% end %>
+
+  <%= field_set_tag "2. Fill out the required information below:" do %>
+    <%= f.input :manufacturer %>
+    <div class="row">
+      <div class="small-12 medium-6 columns">
+        <%= f.input :fixture_name %>
+      </div>
+      <div class="small-12 medium-6 columns">
+        <%= f.input :product_link %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-12 medium-6 columns">
+        <%= f.input :required_modes %>
+      </div>
+      <div class="small-12 medium-6 columns">
+        <%= f.input :required_on,
+          label: "Required by (optional)",
+          as: :string,
+          input_html: { class: "ui-datepicker" } %>
+      </div>
+    </div>
+    <%= f.input :notes %>
+  <% end %>
+
+  <%= field_set_tag "3. Upload file attachment" do %>
+    <p>(Supported file formats: .zip, .pdf)</p>
+    <%= f.input :attachment %>
+  <% end %>
+
+  <%= field_set_tag "4. Your contact info:" do %>
+    <div class="row">
+      <div class="small-12 medium-6 columns">
+        <%= f.input :name %>
+      </div>
+      <div class="small-12 medium-6 columns">
+        <%= f.input :email %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-12 medium-6 columns">
+        <%= f.input :phone %>
+      </div>
+      <div class="small-12 medium-6 columns">
+        <%= f.input :country %>
+      </div>
+    </div>
+  <% end %>
+
+  <%= f.submit "Send Request", class: "radius button" %>
+<% end %>

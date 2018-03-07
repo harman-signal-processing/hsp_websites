@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180220193246) do
+ActiveRecord::Schema.define(version: 20180307152535) do
 
   create_table "admin_logs", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "user_id"
@@ -540,6 +540,26 @@ ActiveRecord::Schema.define(version: 20180220193246) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["featurable_type", "featurable_id"], name: "index_features_on_featurable_type_and_featurable_id"
+  end
+
+  create_table "fixtures_requests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.string "phone"
+    t.string "country"
+    t.string "email"
+    t.string "lighting_controller"
+    t.string "manufacturer"
+    t.string "fixture_name"
+    t.string "product_link"
+    t.string "required_modes"
+    t.text "notes"
+    t.date "required_on"
+    t.string "attachment_file_name"
+    t.string "attachment_content_type"
+    t.integer "attachment_file_size"
+    t.datetime "attachment_updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "forem_categories", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|

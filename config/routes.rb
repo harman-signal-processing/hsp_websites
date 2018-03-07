@@ -80,14 +80,14 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
   # config/initializers/redirects.rb
   # These are only needed for site-specific routing (where you don't want a particular URL
   # to work on the other sites)
-  
+
   constraints(AkgDomain) do
     # Social Media routes for AKG
     get '/facebook', to: redirect('https://www.facebook.com/AKG?_ga=1.29192636.1674201073.1456831551')
     get '/twitter', to: redirect('https://twitter.com/AKGaudio')
     get '/instagram', to: redirect('http://instagram.com/akgaudio')
   end  #  constraints(AkgDomain) do
-  
+
   constraints(AmxDomain) do
     # Social Media routes for AMX
     get '/twitter', to: redirect('http://www.twitter.com/amxtalk')
@@ -226,6 +226,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     rescue
       # No Martin brand found--probably a fresh test database which doesn't matter.
     end
+    match "/en-us/fixtures-request" => "support#fixtures_request", as: "fixtures_request", via: [:get, :post]
   end  #  constraints(MartinDomain) do
 
   constraints(SoundcraftDomain) do

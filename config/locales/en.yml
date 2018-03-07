@@ -370,6 +370,7 @@ en:
       rma_request_thankyou: "Your message has been received!  We will respond to your email within the next 24 hours."
       software_downloads: "Find the latest drivers and other software for your %{brand} products"
       warranty_registration: "Protect your investment by registering your %{brand} products to stay up-to-date on the latest news and other developments."
+      fixtures_request_thankyou: "Thanks for contacting us. We will field your fixtures request and get back to you as soon as possible."
       
   subjects:
       select_a_subject: Select a Subject

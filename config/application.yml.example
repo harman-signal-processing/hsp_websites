@@ -63,3 +63,4 @@ MAILGUN_DOMAIN: your-mailgun-domain
 
 PRO_SITE_URL: http://pro.harman.com
 
+MARTIN_FIXTURES_RECIPIENT: someone@example.com
