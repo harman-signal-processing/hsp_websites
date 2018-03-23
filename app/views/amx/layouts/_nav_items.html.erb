@@ -89,7 +89,12 @@
   <li><%= link_to t('training').titleize, "http://pro.harman.com/training", target: "_blank" %></li>
 
   <li class="divider hide-for-medium"></li>
-  <li><%= link_to t('product_support').titleize, "/#{I18n.locale}/amx-support" %></li>
+  <li class="has-dropdown"><%= link_to t('product_support').titleize, "/#{I18n.locale}/amx-support" %>
+    <ul class="dropdown">
+      <li><%= link_to t('nav.consultant_support'), "https://pro.harman.com/consultant", target: "_blank" %></li>
+      <li><%= link_to t('product_support').titleize, "/#{I18n.locale}/amx-support" %></li>
+    </ul>
+  </li>
 
 	<% if !!(website.forum_link) %>
     <li class="divider hide-for-medium"></li>

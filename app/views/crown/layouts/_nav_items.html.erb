@@ -83,6 +83,7 @@
       <% if I18n.locale == I18n.default_locale %>
         <li><%= link_to "Authorized Service Information", "/authorizedserviceinformation" %></li>
       <% end %>
+      <li><%= link_to t('nav.consultant_support'), "https://pro.harman.com/consultant", target: "_blank" %></li>
       <% if I18n.locale == I18n.default_locale %>
         <li><%= link_to t('contact_us').titleize, support_path %></li>
       <% elsif I18n.locale.match(/zh/) %>
