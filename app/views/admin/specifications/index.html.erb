@@ -2,20 +2,20 @@
 
   <% unless website.brand.use_flattened_specs? %>
     <div class="medium-6 columns">
-      <h4>Spec Groups</h4>
+      <h4>Specs by Groups</h4>
 
       <%= link_to "New Group", new_admin_specification_group_path, class: "small round success button" %>
 
-      <ul class="list">
+      <ul id="specification_groups" class="sortable_list">
         <% @specification_groups.each do |specification_group| %>
-          <li><%= link_to specification_group.name, [:admin, specification_group] %></li>
+          <%= render '/admin/shared/specification_group_row', spec_group: specification_group %>
         <% end %>
       </ul>
     </div>
   <% end %>
 
   <div class="medium-6 columns">
-    <h4>Specification Names</h4>
+    <h4>All Specification Names</h4>
 
 
     <%= link_to 'New Specification', new_admin_specification_path, class: "small round success button" %>

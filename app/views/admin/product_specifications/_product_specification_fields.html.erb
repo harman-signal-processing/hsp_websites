@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="small-1 text-right columns">
+    <% unless f.object.new_record? || !website.brand.use_flattened_specs? %>
+      <span class="handle"><%= image_tag("icons/drag_handle.gif") %></span>
+    <% else %>
+      &nbsp;
+    <% end %>
+  </div>
+  <div class="small-5 columns">
+    <%= f.association :specification,
+      collection: Specification.order(:name),
+      label_method: website.brand.use_flattened_specs? ? :name : :name_with_group,
+      label: false %>
+  </div>
+  <div class="small-5 columns"><%= f.input :value, label: false %></div>
+  <div class="small-1 columns">
+    <%= f.input :_destroy, as: :hidden %>
+    <%= link_to '[x]', '#', class: 'remove_fields small secondary button' %>
+  </div>
+</div>

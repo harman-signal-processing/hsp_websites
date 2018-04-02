@@ -1,7 +1,7 @@
 <% if website.brand.use_flattened_specs? || product.specification_groups.count == 0 %>
 
   <table class="specs">
-    <% product.product_specifications.includes(:specification).each do |product_spec| %>
+    <% product.product_specifications.includes(:specification).order("product_specifications.position").each do |product_spec| %>
       <tr>
         <td class="name"><%= translate_content(product_spec.specification, :name) %></td>
         <td><%= spec_value(product_spec) %></td>
@@ -12,12 +12,12 @@
 <% else %>
 
   <table class="specs">
-    <% product.specification_groups.each do |spec_group| %>
+    <% product.specification_groups.order(:position).each do |spec_group| %>
       <tr>
         <th colspan="2"><%= translate_content(spec_group, :name) %></th>
       </tr>
 
-      <% product.product_specifications.where(specification_id: spec_group.specifications_for(product).pluck(:id)).includes(:specification).each do |product_spec| %>
+      <% product.product_specifications.where(specification_id: spec_group.specifications_for(product).pluck(:id)).includes(:specification).order("specifications.position").each do |product_spec| %>
         <tr>
           <td class="name"><%= translate_content(product_spec.specification, :name) %></td>
           <td><%= spec_value(product_spec) %></td>

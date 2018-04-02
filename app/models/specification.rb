@@ -17,4 +17,8 @@ class Specification < ApplicationRecord
     r
   end
 
+  def name_with_group
+    specification_group.present? ? "#{name} (#{specification_group.name})" : name
+  end
+
 end

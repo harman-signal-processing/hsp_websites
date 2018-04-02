@@ -52,8 +52,14 @@ class Admin::SpecificationGroupsController < AdminController
   # PUT /admin/specification_groups/1.xml
   def update
     respond_to do |format|
-      if @specification_group.update_attributes(specification_group_params)
+      sgp = specification_group_params
+      if sgp.include?(:specification_ids)
+        @specification = Specification.find(sgp.delete(:specification_ids))
+        @specification_group.specifications << @specification
+      end
+      if @specification_group.update_attributes(sgp)
         format.html { redirect_to([:admin, @specification_group], notice: 'Specification group was successfully updated.') }
+        format.js
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated spec group: #{@specification_group.name}")
       else
@@ -61,6 +67,12 @@ class Admin::SpecificationGroupsController < AdminController
         format.xml  { render xml: @specification_group.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  # POST /admin/specification_groups/update_order
+  def update_order
+    update_list_order(SpecificationGroup, params["specification_group"])
+    head :ok
   end
 
   # DELETE /admin/specification_groups/1

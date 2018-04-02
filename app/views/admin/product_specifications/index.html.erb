@@ -1,29 +1,51 @@
-<h1>Listing product_specifications</h1>
+<h1>Specs for <%= @product.name %></h1>
 
-<table>
-  <tr>
-    <th>Product</th>
-    <th>Specification</th>
-    <th>Value</th>
-    <th>Position</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<ul class="button-group round">
+	<li><%= link_to 'Back To Product', [:admin, @product], class: "small secondary button" %></li>
+</ul>
 
-<% @product_specifications.each do |product_specification| %>
-  <tr>
-    <td><%= product_specification.product_id %></td>
-    <td><%= product_specification.specification_id %></td>
-    <td><%= product_specification.value %></td>
-    <td><%= product_specification.position %></td>
-    <td><%= link_to 'Show', [:admin, product_specification] %></td>
-    <td><%= link_to 'Edit', edit_admin_product_specification_path(product_specification) %></td>
-    <td><%= link_to 'Delete', [:admin, product_specification], confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
+<%= simple_form_for [:admin, @product] do |f| %>
+
+  <% unless website.brand.use_flattened_specs? %>
+    <div class="row">
+      <div class="small-12 medium-10 medium-offset-1 columns">
+        <div class="alert-box info">Notice: <%= website.brand.name %> uses grouped specifications. The order of the specs remains
+          the same across all products. To adjust the sort order, <%= link_to "edit the spec groups", admin_specifications_path %>.
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="small-1 columns">&nbsp;</div>
+    <div class="small-5 columns">
+      Specification Name
+    </div>
+    <div class="small-5 columns">
+      Value (HTML okay)
+    </div>
+    <div class="small-1 columns">&nbsp;</div>
+  </div>
+
+  <% if website.use_flattened_specs %>
+    <ul id="product_specifications" class="sortable_list">
+      <%= f.simple_fields_for :product_specifications do |ps| %>
+        <li id="product_specification_<%= ps.object.id %>"><%= render 'product_specification_fields', f: ps, parent: f.object %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <%= f.simple_fields_for :product_specifications do |ps| %>
+      <%= render 'product_specification_fields', f: ps, parent: f.object %>
+    <% end %>
+  <% end %>
+
+  <div class="row">
+    <div class="small-1 small-offset-11 columns">
+      <%= link_to_add_fields '[+]', f, :product_specifications, class: 'small success button' %>
+    </div>
+  </div>
+
+  <hr/>
+  <%= f.submit "Save Changes", class: "medium button" %>
 <% end %>
-</table>
 
-<br />
-
-<%= link_to 'New Product specification', new_admin_product_specification_path %>

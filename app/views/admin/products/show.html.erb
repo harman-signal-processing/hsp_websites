@@ -250,57 +250,58 @@
 		<% end %>
 
 		<% if can? :manage, ProductSpecification %>
-		<div class="group">
-			<h5 class="subheader">Specifications</h5>
-			<ul class="button-group">
-				<li><%= link_to_function "add a spec", "$('#add_specification_form').toggle();", class: "small success button" %></li>
-				<li><%= link_to_function "copy specs from another product", "$('#copy_specifications_form').toggle();", class: "small secondary button" %></li>
-			</ul>
+      <div class="group">
+        <h5 class="subheader">Specifications</h5>
+        <ul class="button-group">
+          <li><%= link_to_function "add a spec", "$('#add_specification_form').toggle();", class: "small success button" %></li>
+          <li><%= link_to_function "copy specs from another product", "$('#copy_specifications_form').toggle();", class: "small secondary button" %></li>
+          <li><%= link_to "do it the new way", admin_product_product_specifications_path(@product), class: "small button" %></li>
+        </ul>
 
-			<div id="add_specification_form" style="display:none">
-				<%= simple_form_for [:admin, @product_specification], remote: true do |f| %>
-				    <%= f.hidden_field :product_id %>
+        <div id="add_specification_form" style="display:none">
+          <%= simple_form_for [:admin, @product_specification], remote: true do |f| %>
+              <%= f.hidden_field :product_id %>
 
-					<div style="margin-bottom: 20px;">
-						<span id="select_spec_name">
-							<%= f.association :specification, collection: Specification.order("name") %>
-							<%= link_to_function("new spec name",
-								  "$('span#select_spec_name').toggle();$('span#new_spec_name').toggle()") if can?(:create, Specification) %>
-						</span>
-						<span id="new_spec_name" style="display:none">
-							<%= simple_fields_for Specification.new do |spec| %>
-								<%= spec.input :name, label: "New Spec Name" %>
-							<% end %>
-							<%= link_to_function "select existing spec name",
-								  "$('span#select_spec_name').toggle();$('span#new_spec_name').toggle();$('input#specification_name').val('');"%>
-						</span>
-					</div>
+            <div style="margin-bottom: 20px;">
+              <span id="select_spec_name">
+                <%= f.association :specification, collection: Specification.order("name") %>
+                <%= link_to_function("new spec name",
+                    "$('span#select_spec_name').toggle();$('span#new_spec_name').toggle()") if can?(:create, Specification) %>
+              </span>
+              <span id="new_spec_name" style="display:none">
+                <%= simple_fields_for Specification.new do |spec| %>
+                  <%= spec.input :name, label: "New Spec Name" %>
+                <% end %>
+                <%= link_to_function "select existing spec name",
+                    "$('span#select_spec_name').toggle();$('span#new_spec_name').toggle();$('input#specification_name').val('');"%>
+              </span>
+            </div>
 
-					<%= f.input :value %>
+            <%= f.input :value %>
 
-					<br/><%= f.button :submit %>
-					<%= link_to_function "cancel", "$('#add_specification_form').toggle();"%></p>
-				<% end %>
-			</div>
+            <br/><%= f.button :submit %>
+            <%= link_to_function "cancel", "$('#add_specification_form').toggle();"%></p>
+          <% end %>
+        </div>
 
-			<div id="copy_specifications_form" style="display:none">
-				<%= simple_form_for [:admin, @product_specification], url: copy_admin_product_specification_path do |f| %>
-				  <%= f.association :product,
-				  	label: "Copy ALL specs from:",
-				  	collection: (website.products - [@product]),
-				  	hint: "(can be edited after copying)" %>
-				  <%= submit_tag "copy specs", class: "small round button"  %>
-				  <%= link_to_function "cancel", "$('#copy_specifications_form').toggle();"%>
-				<% end %>
-			</div>
+        <div id="copy_specifications_form" style="display:none">
+          <%= simple_form_for [:admin, @product_specification], url: copy_admin_product_specification_path do |f| %>
+            <%= f.association :product,
+              label: "Copy ALL specs from:",
+              collection: (website.products - [@product]),
+              hint: "(can be edited after copying)" %>
+            <%= submit_tag "copy specs", class: "small round button"  %>
+            <%= link_to_function "cancel", "$('#copy_specifications_form').toggle();"%>
+          <% end %>
+        </div>
 
-			<ul id="product_specifications" class="sortable_list">
-			  <% @product.product_specifications.each do |ps| %>
-			  <%= render "/admin/shared/product_specification_row", ps: ps %>
-			  <% end %>
-			</ul>
+        <ul id="product_specifications" class="sortable_list">
+          <% @product.product_specifications.order(:position).each do |ps| %>
+          <%= render "/admin/shared/product_specification_row", ps: ps %>
+          <% end %>
+        </ul>
 
-		</div>
+      </div>
 		<% end %>
 
 		<% if website.has_effects? %>
