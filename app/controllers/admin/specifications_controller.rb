@@ -65,6 +65,23 @@ class Admin::SpecificationsController < AdminController
     end
   end
 
+  # POST /admin/specifications/update_order
+  def update_order
+    update_list_order(Specification, params["specification"])
+    head :ok
+  end
+
+  # PATCH /admin/specifications/1
+  def remove_from_group
+    @specification_group = @specification.specification_group
+    respond_to do |format|
+      if @specification.update_attributes(specification_group_id: nil)
+        format.html { redirect_to([:admin, @specification_group]) }
+        format.js
+      end
+    end
+  end
+
   # DELETE /admin/specifications/1
   # DELETE /admin/specifications/1.xml
   def destroy

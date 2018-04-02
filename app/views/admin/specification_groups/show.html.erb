@@ -1,14 +1,39 @@
-<p>
-  <b>Name:</b>
-  <%= @specification_group.name %>
-</p>
+<h1><%= @specification_group.name %></h1>
 
-<h5>Specs in this group</h5>
-<ul>
-  <% @specification_group.specifications.each do |spec| %>
-    <li><%= link_to spec.name, [:admin, spec] %></li>
-  <% end %>
+<ul class="button-group round">
+  <li><%= link_to 'Back', admin_specification_groups_path, class: "small secondary button" %></li>
+  <li><%= link_to 'Edit', edit_admin_specification_group_path(@specification_group, locale: I18n.locale), class: "small secondary button" %></li>
 </ul>
 
-<%= link_to 'Edit', edit_admin_specification_group_path(@specification_group, locale: I18n.locale) %> |
-<%= link_to 'Back', admin_specification_groups_path %>
+<div class="row">
+  <div class="medium-6 small-12 columns">
+    <div class="panel">
+    <%= simple_form_for [:admin, @specification_group], remote: true do |f| %>
+      <label>Add a spec to this group:</label>
+      <div class="row collapse">
+        <div class="medium-10 small-9 columns">
+          <%= f.association :specifications,
+            label: false,
+            collection: Specification.where(specification_group_id: nil).order(:name),
+            hint: "Showing specs not currently part of a group",
+            input_html: { multiple: false} %>
+        </div>
+        <div class="medium-2 small-3 columns end">
+          <%= submit_tag 'submit', class: "postfix button"  %>
+        </div>
+      </div>
+      or <%= link_to "create a new specification", new_admin_specification_path %>
+    <% end %>
+    </div>
+  </div>
+</div>
+
+<% if @specification_group.specifications.length > 0 %>
+<h5>Specs in this group</h5>
+<ul id="specifications" class="sortable_list">
+  <% @specification_group.specifications.order(:position).each do |spec| %>
+    <%= render '/admin/shared/specification_row', spec: spec %>
+  <% end %>
+</ul>
+<% end %>
+

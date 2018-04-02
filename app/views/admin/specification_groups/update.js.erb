@@ -1,0 +1,4 @@
+<% if @specification && @specification_group.specifications.include?(@specification) %>
+    $("#specifications").append('<%= escape_javascript(render '/admin/shared/specification_row', spec: @specification) %>');
+<% end %>
+<% flash.discard %>

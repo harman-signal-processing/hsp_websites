@@ -1,11 +1,13 @@
 class Admin::ProductSpecificationsController < AdminController
+  before_action :load_product, except: [:update_order]
   before_action :initialize_product_specification, only: :create
-  load_and_authorize_resource except: [:copy, :update_order]
+  load_and_authorize_resource except: [:index, :copy, :update_order]
   skip_authorization_check only: [:copy, :update_order]
 
   # GET /admin/product_specifications
   # GET /admin/product_specifications.xml
   def index
+    3.times { @product.product_specifications.build }
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @product_specifications }
@@ -24,6 +26,7 @@ class Admin::ProductSpecificationsController < AdminController
   # GET /admin/product_specifications/new
   # GET /admin/product_specifications/new.xml
   def new
+    @product_specification.product = @product
     respond_to do |format|
       format.html { render_template } # new.html.erb
       format.xml  { render xml: @product_specification }
@@ -112,6 +115,10 @@ class Admin::ProductSpecificationsController < AdminController
   end
 
   private
+
+  def load_product
+    @product = Product.find(params[:product_id])
+  end
 
   def initialize_product_specification
     @product_specification = ProductSpecification.new(product_specification_params)

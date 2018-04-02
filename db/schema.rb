@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180307152535) do
+ActiveRecord::Schema.define(version: 20180323165357) do
 
   create_table "admin_logs", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "user_id"
@@ -1157,7 +1157,7 @@ ActiveRecord::Schema.define(version: 20180307152535) do
   create_table "product_specifications", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "product_id"
     t.integer "specification_id"
-    t.string "value"
+    t.text "value"
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"

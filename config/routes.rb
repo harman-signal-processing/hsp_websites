@@ -306,6 +306,14 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         member do
           get :delete_background
         end
+        resources :product_specifications do
+          member do
+            post :copy
+          end
+          collection do
+            post :update_order
+          end
+        end
       end
       resources :product_families do
         collection { post :update_order }
@@ -419,6 +427,10 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :brand_solution_featured_products, only: :index do
         collection { post :update_order }
       end
+      resources :specifications do
+        member { patch :remove_from_group }
+        collection { post :update_order }
+      end
       resources :service_centers,
         :market_segment_product_families,
         :software_training_classes,
@@ -459,7 +471,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :product_videos,
         :faq_categories,
         :us_rep_regions,
-        :specifications,
         :system_options,
         :installations,
         :pricing_types,

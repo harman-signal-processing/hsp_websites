@@ -1,0 +1,6 @@
+<li id="specification_<%= spec.id %>">
+  <span class="handle"><%= image_tag("icons/drag_handle.gif") %></span>
+  <%= link_to spec.name, [:admin, spec] %>
+  <%= link_to image_tag("trash.gif"), remove_from_group_admin_specification_path(spec), method: :patch, remote: true %>
+</li>
+
