@@ -9,7 +9,7 @@
   <div class="medium-6 small-12 columns">
     <div class="panel">
     <%= simple_form_for [:admin, @specification_group], remote: true do |f| %>
-      <label>Add a spec to this group:</label>
+      <label>Add an existing spec to this group:</label>
       <div class="row collapse">
         <div class="medium-10 small-9 columns">
           <%= f.association :specifications,
@@ -22,7 +22,19 @@
           <%= submit_tag 'submit', class: "postfix button"  %>
         </div>
       </div>
-      or <%= link_to "create a new specification", new_admin_specification_path %>
+    <% end %>
+    <label>Or create a new specification:</label>
+    <%= simple_form_for [:admin, @specification_group, @specification],
+      url: add_specification_admin_specification_group_path, remote: true do |f| %>
+      <div class="row collapse">
+        <div class="medium-10 small-9 columns">
+          <%= f.input :name, label: false %>
+        </div>
+        <div class="medium-2 small-3 columns end">
+          <%= f.input :specification_group_id, as: :hidden %>
+          <%= submit_tag 'submit', class: "postfix button" %>
+        </div>
+      </div>
     <% end %>
     </div>
   </div>

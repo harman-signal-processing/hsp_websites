@@ -42,6 +42,7 @@ class Admin::SpecificationsController < AdminController
       if @specification.save
         format.html { redirect_to([:admin, @specification], notice: 'Specification was successfully created.') }
         format.xml  { render xml: @specification, status: :created, location: @specification }
+        format.js
         website.add_log(user: current_user, action: "Created spec: #{@specification.name}")
       else
         format.html { render action: "new" }
@@ -91,7 +92,7 @@ class Admin::SpecificationsController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted spec: #{@specification.name}")
-  end  
+  end
 
   private
 

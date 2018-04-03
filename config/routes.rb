@@ -432,6 +432,10 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         member { patch :remove_from_group }
         collection { post :update_order }
       end
+      resources :specification_groups do
+        member { post :add_specification }
+        collection { post :update_order }
+      end
       resources :service_centers,
         :market_segment_product_families,
         :software_training_classes,
@@ -450,7 +454,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :online_retailer_users,
         :tone_library_patches,
         :software_attachments,
-        :specification_groups,
         :product_audio_demos,
         :product_suggestions,
         :product_attachments,

@@ -14,6 +14,7 @@ class Admin::SpecificationGroupsController < AdminController
   # GET /admin/specification_groups/1
   # GET /admin/specification_groups/1.xml
   def show
+    @specification = Specification.new(specification_group: @specification_group)
     respond_to do |format|
       format.html { render_template } # show.html.erb
       format.xml  { render xml: @specification_group }
@@ -69,6 +70,15 @@ class Admin::SpecificationGroupsController < AdminController
     end
   end
 
+  def add_specification
+    @specification = Specification.new(specification_params)
+    respond_to do |format|
+      if @specification.save
+        format.js { render action: "update" }
+      end
+    end
+  end
+
   # POST /admin/specification_groups/update_order
   def update_order
     update_list_order(SpecificationGroup, params["specification_group"])
@@ -96,5 +106,8 @@ class Admin::SpecificationGroupsController < AdminController
     params.require(:specification_group).permit!
   end
 
+  def specification_params
+    params.require(:specification).permit!
+  end
 
 end
