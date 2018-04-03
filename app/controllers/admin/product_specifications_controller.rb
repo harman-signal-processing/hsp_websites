@@ -80,7 +80,31 @@ class Admin::ProductSpecificationsController < AdminController
     end
   end
 
-  # POST /admin/product_families/update_order
+  # POST /admin/product/1/products_specifications/bulk_update
+  def bulk_update
+    product_params = sanitized_product_params
+    respond_to do |format|
+      if product_params["product_specifications_attributes"].present?
+        product_params["product_specifications_attributes"].each do |key, psa|
+          if psa.include?("specification_attributes") # creating a new spec
+            specification = Specification.where(psa["specification_attributes"]).first_or_create
+            psa["specification_id"] = specification.id
+            psa.delete("specification_attributes")
+          end
+        end
+      end
+      if @product.update_attributes(product_params)
+        format.html { redirect_to([:admin, @product], notice: 'Product was successfully updated.') }
+        format.xml  { head :ok }
+        website.add_log(user: current_user, action: "Updated product: #{@product.name}")
+      else
+        format.html { render action: "index" }
+        format.xml  { render xml: @product.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # POST /admin/product_specifications/update_order
   def update_order
     update_list_order(ProductSpecification, params["product_specification"])
     head :ok
@@ -126,5 +150,9 @@ class Admin::ProductSpecificationsController < AdminController
 
   def product_specification_params
     params.require(:product_specification).permit!
+  end
+
+  def sanitized_product_params
+    params.require(:product).permit!
   end
 end

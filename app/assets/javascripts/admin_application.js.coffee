@@ -24,6 +24,10 @@ jQuery ($) ->
   show_hide_related_actions()
   $(".additional_instruction").hide()
 
+  $('form.bulk_specifications_update').submit (e) ->
+    $(@).find("span:hidden").remove()
+    return true
+
   $('form').on 'click', '.remove_fields', (event) ->
     $(@).closest('div.row').find('input[type=hidden]').val('1')
     $(@).closest('div.row').hide()

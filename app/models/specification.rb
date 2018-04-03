@@ -3,7 +3,7 @@ class Specification < ApplicationRecord
   friendly_id :name
 
   belongs_to :specification_group
-  has_many :product_specifications
+  has_many :product_specifications, inverse_of: :specification
   validates :name, presence: true, uniqueness: true
 
   acts_as_list scope: :specification_group_id

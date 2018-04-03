@@ -4,7 +4,12 @@
 	<li><%= link_to 'Back To Product', [:admin, @product], class: "small secondary button" %></li>
 </ul>
 
-<%= simple_form_for [:admin, @product] do |f| %>
+<%= simple_form_for [:admin, @product],
+  url: bulk_update_admin_product_product_specifications_path(@product),
+  method: :post,
+  html: { class: "bulk_specifications_update" } do |f| %>
+
+  <%= f.error_messages %>
 
   <% unless website.brand.use_flattened_specs? %>
     <div class="row">
@@ -41,7 +46,7 @@
 
   <div class="row">
     <div class="small-1 small-offset-11 columns">
-      <%= link_to_add_fields '[+]', f, :product_specifications, class: 'small success button' %>
+      <%= link_to_add_fields "<i class='fa fa-plus'></i>".html_safe, f, :product_specifications, class: 'small success button' %>
     </div>
   </div>
 

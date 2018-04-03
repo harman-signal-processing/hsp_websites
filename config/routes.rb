@@ -312,6 +312,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
           end
           collection do
             post :update_order
+            post :bulk_update
           end
         end
       end

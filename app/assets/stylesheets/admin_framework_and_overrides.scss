@@ -21,6 +21,7 @@ $topbar-divider-border-top:            solid 1px darken($topbar-bg-color, 10%);
 
 //not sure why it doesn't work, so including in parent css file
 @import "foundation";
+@import "font-awesome";
 
 body {
 	background: #F0F3F4;
