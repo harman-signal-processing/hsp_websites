@@ -48,6 +48,6 @@ $(function(){
   });
   
 
-  //$('#amx-overlay-modal').foundation('reveal', 'open');
+  $('#amx-overlay-modal').foundation('reveal', 'open');
   
 });

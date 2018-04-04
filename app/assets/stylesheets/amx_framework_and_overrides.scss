@@ -357,3 +357,35 @@ hr.colored {
   border: 1px solid scale-color($primary-color, $lightness: 35%);
 }
 
+/***** Overlay Message *****/
+@media only screen and (max-width: 40em) {
+  #amx-overlay-modal
+  {
+    top:60px;
+    position:absolute;
+  }
+  .reveal-modal, dialog {
+    min-height: 34vh;
+    // width: 300px;
+    // left: 31px;
+    width: 335px;
+    left: 14px;    
+    background-color: transparent; 
+    border: transparent;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
+
+@media only screen and (min-width: 40em) {
+  #amx-overlay-modal
+  {
+    top:60px;
+    width:600px;
+    position:absolute;
+  }
+  .reveal-modal, dialog {
+    background-color: transparent; 
+    border: transparent;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);    
+  }
+}
