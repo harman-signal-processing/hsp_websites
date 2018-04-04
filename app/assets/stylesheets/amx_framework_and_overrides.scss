@@ -357,3 +357,37 @@ hr.colored {
   border: 1px solid scale-color($primary-color, $lightness: 35%);
 }
 
+/***** Overlay Message *****/
+@media only screen and (max-width: 40em) {
+  /* line 168, /usr/local/rvm/gems/ruby-2.4.1@hsp/gems/foundation-rails-5.5.1.0/vendor/assets/stylesheets/foundation/components/_reveal.scss */
+  #amx-overlay-modal
+  {
+    top:60px;
+    position:absolute;
+  }
+  .reveal-modal, dialog {
+    min-height: 34vh;
+    // width: 300px;
+    // left: 31px;
+    width: 335px;
+    left: 14px;    
+    background-color: transparent; 
+    border: transparent;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
+
+@media only screen and (min-width: 40em) {
+  /* line 168, /usr/local/rvm/gems/ruby-2.4.1@hsp/gems/foundation-rails-5.5.1.0/vendor/assets/stylesheets/foundation/components/_reveal.scss */
+  #amx-overlay-modal
+  {
+    top:60px;
+    width:600px;
+    position:absolute;
+  }
+  .reveal-modal, dialog {
+    background-color: transparent; 
+    border: transparent;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);    
+  }
+}
