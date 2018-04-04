@@ -1,16 +1,7 @@
 <% rand_id = f.object_id %>
 <div class="row">
   <div class="small-1 text-right columns">
-    <% if f.object.new_record? %>
-      <span class="select_spec_name_<%= rand_id %>">
-        <%= link_to_function("<i class='fa fa-pencil'></i>".html_safe,
-                             "$('.select_spec_name_#{ rand_id }').toggle();$('.new_spec_name_#{ rand_id }').toggle()") %>
-      </span>
-      <span class="new_spec_name_<%= rand_id %>" style="display: none;">
-        <%= link_to_function("<i class='fa fa-bars'></i>".html_safe,
-                             "$('.select_spec_name_#{ rand_id }').toggle();$('.new_spec_name_#{ rand_id }').toggle()") %>
-      </span>
-    <% elsif website.brand.use_flattened_specs? %>
+    <% if !f.object.new_record? && website.brand.use_flattened_specs? %>
       <span class="handle"><%= image_tag("icons/drag_handle.gif") %></span>
     <% else %>
       &nbsp;
@@ -18,17 +9,31 @@
   </div>
   <div class="small-5 columns">
     <% if f.object.new_record? %>
-      <span class="new_spec_name_<%= rand_id %>" style="display: none">
-        <%= f.simple_fields_for :specification, Specification.new do |s| %>
-          <%= s.input :name, label: false %>
-        <% end %>
-      </span>
-      <span class="select_spec_name_<%= rand_id %>">
-        <%= f.association :specification,
-          collection: Specification.order(:name),
-          label_method: website.brand.use_flattened_specs? ? :name : :name_with_group,
-          label: false %>
-      </span>
+      <div class="row collapse new_spec_name_<%= rand_id %>" style="display: none">
+        <div class="small-11 columns">
+          <%= f.simple_fields_for :specification, Specification.new do |s| %>
+            <%= s.input :name, label: false %>
+          <% end %>
+        </div>
+        <div class="small-1 columns">
+          <%= link_to_function("<i class='fa fa-bars'></i>".html_safe,
+                             "$('.select_spec_name_#{ rand_id }').toggle();$('.new_spec_name_#{ rand_id }').toggle()",
+                           class: "small secondary button postfix") %>
+        </div>
+      </div>
+      <div class="row collapse select_spec_name_<%= rand_id %>">
+        <div class="small-11 columns">
+          <%= f.association :specification,
+            collection: Specification.order(:name),
+            label_method: website.brand.use_flattened_specs? ? :name : :name_with_group,
+            label: false %>
+        </div>
+        <div class="small-1 columns">
+          <%= link_to_function("<i class='fa fa-pencil'></i>".html_safe,
+                               "$('.select_spec_name_#{ rand_id }').toggle();$('.new_spec_name_#{ rand_id }').toggle()",
+                              class: "small secondary button postfix") %>
+        </div>
+      </div>
     <% else %>
       <%= f.association :specification,
         collection: Specification.order(:name),
@@ -36,9 +41,28 @@
         label: false %>
     <% end %>
   </div>
-  <div class="small-5 columns"><%= f.input :value, label: false %></div>
+  <div class="small-5 columns">
+    <% if f.object.new_record? %>
+      <%= f.input :value, as: :string, label: false %>
+    <% else %>
+      <div class="row collapse">
+        <div class="small-11 columns">
+          <%= f.input :value, as: :string, label: false %>
+        </div>
+        <div class="small-1 columns">
+          <%= link_to "<i class='fa fa-edit'></i>".html_safe,
+            edit_admin_product_specification_path(f.object),
+            class: 'small button postfix',
+            data: { confirm: "Navigating away from this page will lose any changes you haven't saved. Are you sure you want to leave this page?" }
+          %>
+        </div>
+      </div>
+    <% end %>
+  </div>
   <div class="small-1 columns">
     <%= f.input :_destroy, as: :hidden %>
-    <%= link_to "<i class='fa fa-trash'></i>".html_safe, '#', class: 'remove_fields small secondary button' %>
+    <%= link_to "<i class='fa fa-trash'></i>".html_safe,
+      '#',
+      class: 'remove_fields small secondary button postfix' %>
   </div>
 </div>

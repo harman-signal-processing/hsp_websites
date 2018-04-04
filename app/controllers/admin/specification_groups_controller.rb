@@ -71,7 +71,7 @@ class Admin::SpecificationGroupsController < AdminController
   end
 
   def add_specification
-    @specification = Specification.new(specification_params)
+    @specification = Specification.where(specification_params).first_or_initialize
     respond_to do |format|
       if @specification.save
         format.js { render action: "update" }

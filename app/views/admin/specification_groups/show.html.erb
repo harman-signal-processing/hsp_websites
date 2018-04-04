@@ -40,12 +40,10 @@
   </div>
 </div>
 
-<% if @specification_group.specifications.length > 0 %>
 <h5>Specs in this group</h5>
 <ul id="specifications" class="sortable_list">
   <% @specification_group.specifications.order(:position).each do |spec| %>
     <%= render '/admin/shared/specification_row', spec: spec %>
   <% end %>
 </ul>
-<% end %>
 

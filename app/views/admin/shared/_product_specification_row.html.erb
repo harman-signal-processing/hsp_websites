@@ -1,7 +1,7 @@
 <li id="product_specification_<%= ps.id %>">
 	<span class="handle"><%= image_tag("icons/drag_handle.gif") %></span>
 	<b><%= ps.specification.name %>:</b>
-	<%= link_to ps.value, edit_admin_product_specification_path(ps) %>
+	<%= link_to ps.value.truncate(30), edit_admin_product_specification_path(ps) %>
 	<%= link_to(image_tag('icons/trash.gif'),
 		  admin_product_specification_path(ps),
 		  remote: true,

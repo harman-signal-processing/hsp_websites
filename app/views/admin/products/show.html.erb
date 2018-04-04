@@ -255,7 +255,11 @@
         <ul class="button-group">
           <li><%= link_to_function "add a spec", "$('#add_specification_form').toggle();", class: "small success button" %></li>
           <li><%= link_to_function "copy specs from another product", "$('#copy_specifications_form').toggle();", class: "small secondary button" %></li>
-          <li><%= link_to "do it the new way", admin_product_product_specifications_path(@product), class: "small button" %></li>
+          <li><%= link_to admin_product_product_specifications_path(@product), class: "small button" do %>
+              <i class="fa fa-edit"></i>
+              edit all at once
+            <% end %>
+          </li>
         </ul>
 
         <div id="add_specification_form" style="display:none">
@@ -264,7 +268,10 @@
 
             <div style="margin-bottom: 20px;">
               <span id="select_spec_name">
-                <%= f.association :specification, collection: Specification.order("name") %>
+                <%= f.association :specification,
+                  collection: Specification.order("upper(name)"),
+                  label_method: website.brand.use_flattened_specs? ? :name : :name_with_group
+                %>
                 <%= link_to_function("new spec name",
                     "$('span#select_spec_name').toggle();$('span#new_spec_name').toggle()") if can?(:create, Specification) %>
               </span>

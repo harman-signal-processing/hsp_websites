@@ -1,7 +1,11 @@
 <h1>Specs for <%= @product.name %></h1>
 
-<ul class="button-group round">
+<ul class="button-group radius">
 	<li><%= link_to 'Back To Product', [:admin, @product], class: "small secondary button" %></li>
+  <li><%= link_to new_admin_product_product_specification_path(@product), class: "small success button" do %>
+    <i class="fa fa-plus"></i> Add a spec using HTML editor
+  <% end %>
+  </li>
 </ul>
 
 <%= simple_form_for [:admin, @product],
@@ -24,10 +28,14 @@
   <div class="row">
     <div class="small-1 columns">&nbsp;</div>
     <div class="small-5 columns">
-      Specification Name
+      <h5>Specification Name
+        <% unless website.brand.use_flattened_specs? %>
+          <small>group names appear in parenthesis (if any)</small>
+        <% end %>
+      </h5>
     </div>
     <div class="small-5 columns">
-      Value (HTML okay)
+      <h5>Value <small>use the <i class="fa fa-edit"></i> edit button on the right to get an HTML editor</small></h5>
     </div>
     <div class="small-1 columns">&nbsp;</div>
   </div>
@@ -45,12 +53,14 @@
   <% end %>
 
   <div class="row">
-    <div class="small-1 small-offset-11 columns">
-      <%= link_to_add_fields "<i class='fa fa-plus'></i>".html_safe, f, :product_specifications, class: 'small success button' %>
+    <div class="small-10 medium-2 medium-offset-1 columns">
+      <%= f.submit "Save Changes", class: "medium button" %>
+    </div>
+    <div class="small-1 medium-1 columns">
+      <%= link_to_add_fields "<i class='fa fa-plus'></i>".html_safe, f,
+        :product_specifications, class: 'small success button postfix' %>
     </div>
   </div>
 
-  <hr/>
-  <%= f.submit "Save Changes", class: "medium button" %>
 <% end %>
 

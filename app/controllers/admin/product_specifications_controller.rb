@@ -1,5 +1,5 @@
 class Admin::ProductSpecificationsController < AdminController
-  before_action :load_product, except: [:update_order]
+  before_action :load_product, except: [:edit, :update, :update_order]
   before_action :initialize_product_specification, only: :create
   load_and_authorize_resource except: [:index, :copy, :update_order]
   skip_authorization_check only: [:copy, :update_order]
@@ -70,7 +70,7 @@ class Admin::ProductSpecificationsController < AdminController
   def update
     respond_to do |format|
       if @product_specification.update_attributes(product_specification_params)
-        format.html { redirect_to([:admin, @product_specification.product], notice: 'Product specification was successfully updated.') }
+        format.html { redirect_to(admin_product_product_specifications_path(@product_specification.product), notice: 'Product specification was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated #{@product_specification.specification.name} for #{@product_specification.product.name}")
       else

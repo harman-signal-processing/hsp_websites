@@ -1,9 +1,15 @@
 <%= simple_form_for([:admin, @product_specification]) do |f| %>
-  <%= f.association :product, collection: website.products %>
-  <%= f.association :specification, collection: Specification.order("upper(name)") %>
-  <%= f.input :value %>
-<!--   <div class="field">
-    <%= f.input :position %>
-  </div> -->
+  <div class="row">
+    <div class="small-12 medium-6 columns">
+      <%= f.association :product, collection: website.products %>
+    </div>
+    <div class="small-12 medium-6 columns">
+      <%= f.association :specification,
+          collection: Specification.order("upper(name)"),
+          label_method: website.brand.use_flattened_specs? ? :name : :name_with_group
+        %>
+    </div>
+  </div>
+  <%= f.input :value, as: :text, input_html: { class: "mceEditor" } %>
   <br/><%= f.button :submit %>
 <% end %>
