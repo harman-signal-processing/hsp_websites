@@ -42,7 +42,7 @@
   <li class="divider"></li>
   <li class="has-dropdown"><%= link_to t('product_support').titleize, support_path %>
     <ul class="dropdown">
-      <li><%= link_to t('nav.consultant_support'), "https://pro.harman.com/consultant", target: "_blank" %></li>
+      <%#= link_to t('nav.consultant_support'), "https://pro.harman.com/consultant", target: "_blank" %>
       <li><%= link_to t('titles.contact_us').titleize, support_path %></li>
       <li><%= link_to t('downloads').titleize, support_downloads_path %></li>
       <% if !!(website.forum_link) %>
