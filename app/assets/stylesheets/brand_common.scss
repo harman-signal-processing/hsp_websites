@@ -1021,6 +1021,21 @@ table.specs {
 		border-bottom: 2px solid #333;
 	}
 }
+span.smalColHeader {
+  display: block;
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 20px;
+  line-height: 1.75;
+}
+
+span.specContent {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+
 .odd {}
 .even {
 	background: #EEE;

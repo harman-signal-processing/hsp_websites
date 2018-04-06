@@ -11,32 +11,37 @@
 
 <% else %>
 
-  <table class="specs">
-    <% product.specification_groups.order(:position).each do |spec_group| %>
-      <tr>
-        <th colspan="2"><%= translate_content(spec_group, :name) %></th>
-      </tr>
+    <ul class="medium-block-grid-2 small-block-grid-1" style="margin-left: 0 !important;">
+      <% product.specification_groups.order("specification_groups.position").each do |spec_group| %>
+        <li style="margin-left: 0; padding-left:0">
+          <span class="smalColHeader"><%= translate_content(spec_group, :name) %></span>
 
-      <% product.product_specifications.where(specification_id: spec_group.specifications_for(product).pluck(:id)).includes(:specification).order("specifications.position").each do |product_spec| %>
-        <tr>
-          <td class="name"><%= translate_content(product_spec.specification, :name) %></td>
-          <td><%= spec_value(product_spec) %></td>
-        </tr>
+          <% spec_group.specifications.order(:position).each do |specification| %>
+            <% product_spec = product.product_specifications.where(specification_id: specification.id) %>
+            <% if product_spec.exists? %>
+              <span class="specContent">
+                <% unless specification.name.downcase == "#{spec_group.name.downcase} notes" %>
+                  <%= translate_content(specification, :name) %>:
+                <% end %>
+                <%= spec_value(product_spec.first) %>
+              </span>
+            <% end %>
+          <% end %>
+        </li>
       <% end %>
-    <% end %>
 
-    <% if product.ungrouped_product_specifications.length > 0 %>
-      <tr>
-        <th colspan="2">Other Specifications</th>
-      </tr>
+      <% if product.ungrouped_product_specifications.length > 0 %>
+        <li style="margin-left: 0; padding-left: 0;">
+          <span class="smalColHeader">Other Specifications</span>
 
-      <% product.ungrouped_product_specifications.each do |product_spec| %>
-        <tr>
-          <td class="name"><%= translate_content(product_spec.specification, :name) %></td>
-          <td><%= spec_value(product_spec) %></td>
-        </tr>
+          <% product.ungrouped_product_specifications.each do |product_spec| %>
+            <span class="specContent">
+              <%= translate_content(product_spec.specification, :name) %>:
+              <%= spec_value(product_spec) %>
+            </span>
+          <% end %>
+        </li>
       <% end %>
-    <% end %>
-  </table>
+    </ul>
 
 <% end %>

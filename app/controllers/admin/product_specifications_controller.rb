@@ -1,5 +1,5 @@
 class Admin::ProductSpecificationsController < AdminController
-  before_action :load_product, except: [:edit, :update, :update_order]
+  before_action :load_product, except: [:edit, :update, :create, :update_order]
   before_action :initialize_product_specification, only: :create
   load_and_authorize_resource except: [:index, :copy, :update_order]
   skip_authorization_check only: [:copy, :update_order]
@@ -53,7 +53,7 @@ class Admin::ProductSpecificationsController < AdminController
     end
     respond_to do |format|
       if @product_specification.save
-        format.html { redirect_to([:admin, @product_specification.product], notice: 'Product specification was successfully created.') }
+        format.html { redirect_to(admin_product_product_specifications_path(@product), notice: 'Product specification was successfully created.') }
         format.xml  { render xml: @product_specification, status: :created, location: @product_specification }
         format.js
         website.add_log(user: current_user, action: "Added a #{@product_specification.specification.name} spec to #{@product_specification.product.name}")
