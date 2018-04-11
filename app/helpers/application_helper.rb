@@ -443,7 +443,9 @@ module ApplicationHelper
       when /android/i
         "icons/android_#{size}.png"
       else
-        "icons/none_#{size}.png"
+        #binding.pry
+        #"icons/none_#{size}.png"
+        "icons/download_#{size}.png"
     end
     image_tag img, style: "vertical-align: middle"
 	end

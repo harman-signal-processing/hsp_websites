@@ -107,6 +107,7 @@ group :development do
   gem 'rb-inotify', :require=>false
   gem 'sshkit'
   gem 'colorize'
+  gem 'pry-byebug'
 end
 
 group :development, :test do
