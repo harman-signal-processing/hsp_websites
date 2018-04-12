@@ -146,6 +146,10 @@
 		<% if can? :manage, ProductDocument %>
 			<div id="product_lit" class="group">
 				<h5 class="subheader">Product Manuals, Cut Sheets and other lit</h5>
+        <p>Hi there. If the file that you're about to upload is related to
+        more than one product, please upload it as a
+        <%= link_to "site resource", admin_site_elements_path %> and choose
+        "This is a document" to make it show up on the product page.</p>
 				<p><%= link_to_function "new document", "$('#new_product_document').toggle()", class: "small success button" %></p>
 				<div id="new_product_document" style="display:none;">
 					<%= render "/admin/product_documents/form" %>
@@ -155,6 +159,18 @@
 						<%= render "/admin/shared/product_document_row", pd: product_document, called_from: 'product' %>
 					<% end %>
 				</ul>
+
+        <% if @product.site_elements.length > 0 %>
+          <hr/>
+          <h6 class="subheader">Oh, and here are the "site resources" linked to this product:</h6>
+          <ul>
+            <% @product.site_elements.each do |site_element| %>
+              <li>
+                <%= link_to site_element.name, [:admin, site_element] %>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
 			</div>
 		<% end %>
 
