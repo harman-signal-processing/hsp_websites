@@ -38,16 +38,19 @@ $(function(){
     "magellan-expedition": {
       fixed_top: 44,
       destination_threshold: 40,
+    },
+    equalizer: {
+      equalize_on_stack: true
     }
   });
+
   $('.featured-slider').slick({
     slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 4000
   });
-  
 
   $('#amx-overlay-modal').foundation('reveal', 'open');
-  
+
 });

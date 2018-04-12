@@ -29,12 +29,23 @@
 //= require tools
 //= require_self
 
-document.createElement("article");
-document.createElement("footer");
-document.createElement("header");
-document.createElement("hgroup");
-document.createElement("nav");
-document.createElement("section");
+$(function(){
 
-$(function(){ $(document).foundation(); });
+  $(document).foundation({
+    "magellan-expedition": {
+      fixed_top: 44,
+      destination_threshold: 40,
+    },
+    equalizer: {
+      equalize_on_stack: true
+    }
+  });
 
+  $('.featured-slider').slick({
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 4000
+  });
+
+});

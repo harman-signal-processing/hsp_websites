@@ -11,7 +11,7 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery_ujs 
+//= require jquery_ujs
 //= require jquery-ui.min
 //= require jquery.lightbox-0.5.min
 //= require jquery.datetimepicker
@@ -23,13 +23,6 @@
 //= require foundation
 // require add2home
 //= require_self
-
-document.createElement("article");  
-document.createElement("footer");  
-document.createElement("header");  
-document.createElement("hgroup");  
-document.createElement("nav"); 
-document.createElement("section"); 
 
 // soundManager.url = '/swfs/';
 // soundManager.flashVersion = 9; // optional: shiny features (default = 8)

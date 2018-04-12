@@ -14,7 +14,7 @@ class ContentTranslation < ApplicationRecord
     t = {
       "product"        => %w{name short_description keywords},
       "product_description" => %w{content_part1},
-      "product_family" => %w{name intro keywords},
+      "product_family" => %w{name intro short_description keywords},
       "feature"        => %w{pre_content content},
       "specification"  => %w{name},
       "product_specification" => %w{value},

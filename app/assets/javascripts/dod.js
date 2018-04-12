@@ -29,18 +29,14 @@
 //= require dod_application
 //= require_self
 
-document.createElement("article");
-document.createElement("footer");
-document.createElement("header");
-document.createElement("hgroup");
-document.createElement("nav");
-document.createElement("section");
-
 $(function(){
   $(document).foundation({
     "magellan-expedition": {
       fixed_top: 80,
       destination_threshold: 40,
+    },
+    equalizer: {
+      equalize_on_stack: true
     }
   });
 });

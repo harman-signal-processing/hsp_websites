@@ -212,6 +212,19 @@ class ProductFamily < ApplicationRecord
     cp.sort_by(&:name).uniq
   end
 
+  def first_product_with_photo(w)
+    if current_products.length > 0
+      current_products.each do |product|
+        return product if product.primary_photo.present?
+      end
+    elsif current_products_plus_child_products(w).length > 0
+      current_products_plus_child_products(w).each do |product|
+        return product if product.primary_photo.present?
+      end
+    end
+    false
+  end
+
   # Alias for search results link_name
   def link_name
     self.send(:link_name_method)

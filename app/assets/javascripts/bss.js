@@ -33,20 +33,17 @@
 //= require configurator
 //= require_self
 
-document.createElement("article");
-document.createElement("footer");
-document.createElement("header");
-document.createElement("hgroup");
-document.createElement("nav");
-document.createElement("section");
-
 $(function(){
   $(document).foundation({
     "magellan-expedition": {
       fixed_top: 44,
       destination_threshold: 40,
+    },
+    equalizer: {
+      equalize_on_stack: true
     }
   });
+
   $('.featured-slider').slick({
     slidesToShow: 3,
     slidesToScroll: 1,

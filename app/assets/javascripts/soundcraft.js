@@ -34,15 +34,17 @@
 
 /* vendor/jquery.js (v2) doesn't work with Muse scrolling so downgraded to muse/jquery-1.8.3.min.js 30/12/2014 */
 
-document.createElement("article");
-document.createElement("footer");
-document.createElement("header");
-document.createElement("hgroup");
-document.createElement("nav");
-document.createElement("section");
-
 $(function(){
-  $(document).foundation();
+  $(document).foundation({
+    "magellan-expedition": {
+      fixed_top: 44,
+      destination_threshold: 40,
+    },
+    equalizer: {
+      equalize_on_stack: true
+    }
+  });
+
   $('.featured-slider').slick({
     slidesToShow: 3,
     slidesToScroll: 1,

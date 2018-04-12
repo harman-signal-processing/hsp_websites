@@ -11,7 +11,7 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery_ujs 
+//= require jquery_ujs
 //= require jquery-ui.min
 //= require jquery.lightbox-0.5.min
 //= require jquery.datetimepicker
@@ -26,32 +26,35 @@
 //= require tools
 //= require_self
 
-document.createElement("article");  
-document.createElement("footer");  
-document.createElement("header");  
-document.createElement("hgroup");  
-document.createElement("nav"); 
-document.createElement("section"); 
-
 // soundManager.url = '/swfs/';
 // soundManager.flashVersion = 9; // optional: shiny features (default = 8)
 // soundManager.useFlashBlock = false; // optionally, enable when you're ready to dive in
 // soundManager.debugMode = false;
 // soundManager.preferFlash = false;
 
-$(function(){ $(document).foundation(); });
+$(function(){
+  $(document).foundation({
+    "magellan-expedition": {
+      fixed_top: 44,
+      destination_threshold: 40,
+    },
+    equalizer: {
+      equalize_on_stack: true
+    }
+  });
+});
 
 //
 // Stretchy background image
 //
-$(window).load(function() {    
+$(window).load(function() {
 
 	var theWindow        = $(window),
 	    $bg              = $("#bg"),
 	    aspectRatio      = $bg.width() / $bg.height();
-	    			    		
+
 	function resizeBg() {
-		
+
 		if ( (theWindow.width() / theWindow.height()) < aspectRatio ) {
 		    $bg
 		    	.removeClass()
@@ -61,9 +64,9 @@ $(window).load(function() {
 		    	.removeClass()
 		    	.addClass('bgwidth');
 		}
-					
+
 	}
-	                   			
+
 	theWindow.resize(resizeBg).trigger("resize");
 
 });
