@@ -10,7 +10,13 @@ class EventsController < ApplicationController
     @events = all_events
 
     respond_to do |format|
-      format.html { render_template } # index.html.erb
+      format.html {
+        if @events.length > 0
+          render_template
+        else
+          redirect_to "https://pro.harman.com/events" and return false
+        end
+      }
       format.xml  { render xml: @events }
     end
   end
