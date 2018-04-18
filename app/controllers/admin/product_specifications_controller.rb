@@ -86,7 +86,7 @@ class Admin::ProductSpecificationsController < AdminController
     respond_to do |format|
       if product_params["product_specifications_attributes"].present?
         product_params["product_specifications_attributes"].each do |key, psa|
-          if psa.include?("specification_attributes") # creating a new spec
+          if psa.include?("specification_attributes") && psa["specification_attributes"]["name"].present? # creating a new spec
             specification = Specification.where(psa["specification_attributes"]).first_or_create
             psa["specification_id"] = specification.id
             psa.delete("specification_attributes")
