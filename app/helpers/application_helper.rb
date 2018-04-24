@@ -448,21 +448,6 @@ module ApplicationHelper
     image_tag img, style: "vertical-align: middle"
 	end
 
-	# Links to software packages for a product that fit a given category
-	def software_category_links(product, category="other")
-	  links = []
-	  product.softwares.each do |software|
-	    if (software.category == category || (software.category.blank? && category=="other")) && software.active?
-	      icon = platform_icon(software)
-	      link = link_to(software.name, software_path(software, locale: I18n.locale))
-        platform_and_version = software.version
-        platform_and_version += " (#{software.platform})" if software.platform.present?
-	      links << "#{icon} #{link} #{platform_and_version}"
-	    end
-	  end
-	  raw(links.join("<br/>"))
-	end
-
   def seconds_to_HMS(time)
     time = time.to_i
     [time/3600, time/60 % 60, time % 60].map{|t| t.to_s.rjust(2,'0')}.join(':')

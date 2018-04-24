@@ -1,46 +1,18 @@
 <table class="info" style="margin-left: auto; margin-right: auto;">
-  <tr>
-	<th>&nbsp;</th>
-    <th>GUI/Librarian/Editors</th>
-    <% if website.has_plugins? %>
-    	<th><%= ucfirst(t('plugin')) %></th>
-    <% end %>
-    <th><%= ucfirst(t('other')) %></th>
-  </tr>
 
-<% reshow_header = false %>
-<% products.each do |product| %>
-  <% if product.active_softwares.size > 0 %>
-    <% if product.discontinued? && reshow_header == true %>
+  <% products.each do |product| %>
+    <% if product.active_softwares.size > 0 %>
       <tr>
-	     <th>&nbsp;</th>
-       <th>GUI/Librarian/Editors</th>
-      <% if website.has_plugins? %>
-      	<th><%= ucfirst(t('plugin')) %></th>
-      <% end %>
-      <th><%= ucfirst(t('other')) %></th>
+        <th>
+          <% if product.photo && !product.discontinued? %>
+            <%= image_tag product.photo.product_attachment.url(:tiny) %><br/>
+          <% end %>
+          <%= product.name %>
+        </th>
+        <td>
+          <%= render_partial "products/downloads", product: product %>
+        </td>
       </tr>
     <% end %>
-    <tr>
-	   <th>
-    		<% if product.photo && !product.discontinued? %>
-    			<% reshow_header = true %>
-    			<%= image_tag product.photo.product_attachment.url(:tiny) %><br/>
-    		<% else %>
-    			<% reshow_header = false %>
-    		<% end %>
-    		<%= product.name %>
-    	</th>
-    <td><%= software_category_links(product, 'gui') %>
-    <%= software_category_links(product, 'editor') %>
-    </td>
-    <% if website.has_plugins? %>
-    	<td><%= software_category_links(product, 'plugin') %></td>
-    <% end %>
-    <td><%= software_category_links(product, 'updater') %>
-	   <br/><%= software_category_links(product, 'other') %>
-    </td>
-  </tr>
   <% end %>
-<% end %>
 </table>

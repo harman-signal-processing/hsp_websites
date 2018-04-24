@@ -41,7 +41,15 @@
 	<% end %>
 
   <li class="divider hide-for-medium"></li>
-	<li><%= link_to t('product_support').titleize, support_path %></li>
+  <li class="has-dropdown"><%= link_to t('product_support').titleize, support_path %>
+    <ul class="dropdown">
+      <li><%= link_to "Product Support Documents", support_downloads_path %></li>
+      <% if website.pages.pluck(:custom_route).include?('contact-service') %>
+        <li><%= link_to t('nav.service').titleize, "/#{I18n.locale}/contact-service" %></li>
+      <% end %>
+      <li><%= link_to t('contact_us').titleize, support_path %></li>
+    </ul>
+  </li>
 
 	<% if !!(website.forum_link) %>
     <li class="divider hide-for-medium"></li>

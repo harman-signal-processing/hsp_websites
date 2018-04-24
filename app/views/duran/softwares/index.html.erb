@@ -39,13 +39,13 @@
 
   <% if @current_products.size > 0 %>
     <h3 class="subheader">Software by Product:</h3>
-    <%= render "table", products: @current_products %>
+			<%= render_partial "softwares/table", products: @current_products %>
   <% end %>
 
   <% if @discontinued_products.size > 0 %>
     <br/>
     <h3 class="subheader">Software for Discontinued Products:</h3>
-    <%= render "table", products: @discontinued_products %>
+			<%= render_partial "softwares/table", products: @discontinued_products %>
   <% end %>
 
 <% end %>
