@@ -111,33 +111,34 @@
 			<%= hpro_footer(include_hpro: true) %>
 
 			<div class="container">
-				<div class="large-6 columns" id="footer_left">
+				<div class="medium-4 small-12 columns" id="footer_left">
 					<span class="footer_text">
 						&copy; <%= Date.today.year %>
 						<%= link_to(image_tag('harman.jpg', alt: t('harman')), "http://www.harman.com/", target: "_blank") %>
 						<%= t('all_rights_reserved') %>
 					</span>
 				</div>
-				<div class="large-6 columns hide-for-small" id="footer_info">
+				<div class="medium-8 columns hide-for-small" id="footer_info">
 					<span class="footer_text">
+            <%= link_to t('new_products'), new_products_path %> &bull;
             <% if website.has_software? && (website.current_softwares.length > 0 || website.forced_current_softwares.length > 0) %>
-						<%= link_to t('software_downloads').downcase, software_index_path %> &bull;
+						<%= link_to t('software_downloads').titleize, software_index_path %> &bull;
 						<% end %>
-						<%= link_to t('products'), product_families_path %> &bull;
+						<%= link_to t('products').titleize, product_families_path %> &bull;
 						<% if website.has_reviews? %>
-						<%#= link_to t('product_reviews').downcase, product_reviews_path %>
+						<%#= link_to t('product_reviews').titleize, product_reviews_path %>
 						<% end %>
-						<%= link_to t('news'), news_index_path %> &bull;
+						<%= link_to t('news').titleize, news_index_path %> &bull;
 						<% if website.has_artists? %>
-						<%= link_to t('professionals'), artists_path %> &bull;
+						<%= link_to t('professionals').titleize, artists_path %> &bull;
 						<% end %>
 						<% if website.has_dealers? || website.has_online_retailers? || website.has_distributors? %>
-						<%= link_to t('where_to_buy'), where_to_buy_path %> &bull;
+						<%= link_to t('where_to_buy').titleize, where_to_buy_path %> &bull;
 						<% end %>
-						<%= link_to t('product_support'), support_path %> &bull;
-            <%= link_to 'careers', "http://jobs.harman.com", target: "_blank" %> &bull;
-						<%= link_to t('privacy_policy'), privacy_policy_path %> &bull;
-						<%= link_to t('terms_of_use'), terms_of_use_path %>
+						<%= link_to t('product_support').titleize, support_path %> &bull;
+            <%= link_to 'careers'.titleize, "http://jobs.harman.com", target: "_blank" %> &bull;
+						<%= link_to t('privacy_policy').titleize, privacy_policy_path %> &bull;
+						<%= link_to t('terms_of_use').titleize, terms_of_use_path %>
 					</span>
 				</div>
 			</div>

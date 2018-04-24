@@ -106,20 +106,21 @@
       </div>
 
 			<div class="container">
-				<div class="large-6 columns" id="footer_left">
+				<div class="medium-4 small-12 columns" id="footer_left">
 					<span class="footer_text">
 						&copy; <%= Date.today.year %>
 						<%= link_to(image_tag('harman.jpg', alt: t('harman')), "//www.harman.com/", target: "_blank") %>.
 						<%= t('all_rights_reserved') %>
 					</span>
 				</div>
-				<div class="large-6 columns hide-for-small" id="footer_info">
+				<div class="medium-8 columns hide-for-small" id="footer_info">
 					<span class="footer_text">
-						<%= link_to t('privacy_policy'), privacy_policy_path %> &bull;
-						<%= link_to t('terms_of_use'), terms_of_use_path %> &bull;
-            <%= link_to 'careers', "http://jobs.harman.com", target: "_blank" %> &bull;
-						<%= link_to 'contact us', support_path %> &bull;
-            <%= link_to 'RSO support', "/salessupport" %>
+            <%= link_to t('new_products'), new_products_path %> &bull;
+						<%= link_to t('privacy_policy').titleize, privacy_policy_path %> &bull;
+						<%= link_to t('terms_of_use').titleize, terms_of_use_path %> &bull;
+            <%= link_to 'careers'.titleize, "http://jobs.harman.com", target: "_blank" %> &bull;
+						<%= link_to 'contact us'.titleize, support_path %> &bull;
+            <%= link_to 'RSO Support', "/salessupport" %>
 					</span>
 				</div>
 			</div>
