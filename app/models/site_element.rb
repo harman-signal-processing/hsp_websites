@@ -22,6 +22,7 @@ class SiteElement < ApplicationRecord
   validates :resource_type, presence: true, if: :show_on_public_site?
   has_many :product_site_elements, dependent: :destroy, inverse_of: :site_element
   has_many :products, through: :product_site_elements
+  belongs_to :access_level
 
   before_save :set_upload_attributes
   after_save :queue_processing

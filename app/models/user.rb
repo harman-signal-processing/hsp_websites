@@ -68,6 +68,7 @@ class User < ApplicationRecord
     rso
     sales_admin
     executive
+    technician
     media]
 
   def self.staff
@@ -128,6 +129,10 @@ class User < ApplicationRecord
 
   def media?
     role?(:media)
+  end
+
+  def technician?
+    role?(:technician)
   end
 
   def needs_account_number?

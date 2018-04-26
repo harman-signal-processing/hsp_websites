@@ -79,9 +79,10 @@ module HarmanSignalProcessingWebsite
     config.document_languages = [
       ["English", "en"],
       ["Chinese", "zh"],
-      ["Spanish", "es"],
       ["French", "fr"],
-      ["German", "de"]
+      ["German", "de"],
+      ["Italian", "it"],
+      ["Spanish", "es"]
     ]
 
     config.hpro_execs = ENV['TOOLKIT_ADMIN_EMAIL_ADDRESSES'].split("|")

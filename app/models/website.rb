@@ -123,7 +123,7 @@ class Website < ApplicationRecord
   # Working here. I'm thinking I need to collect the resources, then translate the hash key of each AFTER. Of course
   # I'd also have to store the locale of each collection.
   #
-  def all_downloads
+  def all_downloads(user)
     downloads = {}
     self.current_and_discontinued_products([:product_documents, :product_attachments]).each do |product|
       product.product_documents.each do |product_document|
@@ -163,60 +163,63 @@ class Website < ApplicationRecord
         end
       end
     end
+    ability = Ability.new(user)
     self.site_elements.where(show_on_public_site: true).where("resource_type IS NOT NULL AND resource_type != ''").each do |site_element|
-      name = I18n.t("resource_type.#{site_element.resource_type_key}", default: site_element.resource_type)
-      key = name.to_s.singularize.downcase.gsub(/[^a-z0-9]/, '')
-      doctype_name = I18n.locale.match(/zh/i) ? name : name.to_s.pluralize
-      if key == "cutsheet"
-        # This file is related to one or more products, but all of those products are discontinued
-        if site_element.products.length > 0 && site_element.products.where(product_status: ProductStatus.current_ids).count == 0
-          key += "-discontinued"
-          doctype_name += " (Discontinued)"
-        else
-          doctype_name += " (Current)"
+      if ability.can?(:read, site_element)
+        name = I18n.t("resource_type.#{site_element.resource_type_key}", default: site_element.resource_type)
+        key = name.to_s.singularize.downcase.gsub(/[^a-z0-9]/, '')
+        doctype_name = I18n.locale.match(/zh/i) ? name : name.to_s.pluralize
+        if key == "cutsheet"
+          # This file is related to one or more products, but all of those products are discontinued
+          if site_element.products.length > 0 && site_element.products.where(product_status: ProductStatus.current_ids).count == 0
+            key += "-discontinued"
+            doctype_name += " (Discontinued)"
+          else
+            doctype_name += " (Current)"
+          end
         end
-      end
-      key = key.parameterize
-      downloads[key] ||= {
-        param_name: key,
-        name: doctype_name,
-        downloads: []
-      }
-      thumbnail = nil
-      if site_element.external_url.present?
-        downloads[key][:downloads] << {
-          name: site_element.name,
-          file_name: site_element.url,
-          thumbnail: nil,
-          url: site_element.url,
-          path: site_element.url
+        key = key.parameterize
+        downloads[key] ||= {
+          param_name: key,
+          name: doctype_name,
+          downloads: []
         }
-      elsif site_element.resource_file_name.present? #&& site_element.is_image?
-        if site_element.is_image?
-          thumbnail = site_element.resource.url(:tiny_square)
+        thumbnail = nil
+        if site_element.external_url.present?
+          downloads[key][:downloads] << {
+            name: site_element.name,
+            file_name: site_element.url,
+            thumbnail: nil,
+            url: site_element.url,
+            path: site_element.url
+          }
+        elsif site_element.resource_file_name.present? #&& site_element.is_image?
+          if site_element.is_image?
+            thumbnail = site_element.resource.url(:tiny_square)
+          end
+          downloads[key][:downloads] << {
+            name: site_element.name,
+            file_name: site_element.resource_file_name,
+            thumbnail: thumbnail,
+            url: site_element.resource.url,
+            path: site_element.resource.path
+          }
+        elsif site_element.executable_file_name.present?
+          downloads[key][:downloads] << {
+            name: site_element.name,
+            file_name: site_element.executable_file_name,
+            thumbnail: nil,
+            url: site_element.executable.url,
+            path: site_element.executable.path
+          }
         end
-        downloads[key][:downloads] << {
-          name: site_element.name,
-          file_name: site_element.resource_file_name,
-          thumbnail: thumbnail,
-          url: site_element.resource.url,
-          path: site_element.resource.path
-        }
-      elsif site_element.executable_file_name.present?
-        downloads[key][:downloads] << {
-          name: site_element.name,
-          file_name: site_element.executable_file_name,
-          thumbnail: nil,
-          url: site_element.executable.url,
-          path: site_element.executable.path
-        }
       end
     end
     downloads
   end
 
-  def zip_downloads(download_type)
-    downloads = self.all_downloads[download_type][:downloads]
+  def zip_downloads(download_type, user)
+    downloads = self.all_downloads(user)[download_type][:downloads]
 
     t = Tempfile.new("#{self.brand.name.parameterize}-temp-filename-#{Time.now}")
     Zip::OutputStream.open(t.path) do |z|

@@ -9,41 +9,73 @@
 <div class="row">
   <div class="large-3 columns">
     <p>
-    <b>Resource file name:</b>
-    <% if @site_element.external_url.present? %>
-      <%= link_to @site_element.external_url, @site_element.external_url %>
-    <% elsif @site_element.resource_file_name.present? %>
-      <%= link_to @site_element.resource_file_name, @site_element.resource.url %>
-    <% elsif @site_element.executable_file_name.present? %>
-      <%= link_to @site_element.executable_file_name, @site_element.executable.url %>
-    <% end %>
+      <b>Resource file name:</b>
+      <% if @site_element.external_url.present? %>
+        <%= link_to @site_element.external_url, @site_element.external_url %>
+      <% elsif @site_element.resource_file_name.present? %>
+        <%= link_to @site_element.resource_file_name, @site_element.resource.url %>
+      <% elsif @site_element.executable_file_name.present? %>
+        <%= link_to @site_element.executable_file_name, @site_element.executable.url %>
+      <% end %>
     </p>
 
     <% if @site_element.is_image? %>
       <p>
-      <%= link_to(image_tag(@site_element.resource.url(:small)), @site_element.resource.url) %>
+        <%= link_to(image_tag(@site_element.resource.url(:small)), @site_element.resource.url) %>
       </p>
     <% end %>
 
     <p>
-    <b>Resource type:</b>
-    <%= @site_element.resource_type %>
+      <b>Resource type:</b>
+      <%= @site_element.resource_type %>
+    </p>
+
+    <% if @site_element.version.present? %>
+      <p>
+        <b>Version:</b>
+        <%= @site_element.version %>
+      </p>
+    <% end %>
+
+    <% if @site_element.language.present? %>
+      <p>
+        <b>Language:</b>
+        <%= @site_element.language %>
+      </p>
+    <% end %>
+
+    <p>
+      <b>Show on public site on downloads page?</b>
+      <%= (@site_element.show_on_public_site?) ? "Yes" : "No" %>
     </p>
 
     <p>
-    <b>Show on public site on downloads page?</b>
-    <%= (@site_element.show_on_public_site?) ? "Yes" : "No" %>
+      <b>Is a document?</b>
+      <%= @site_element.is_document? ? "yes" : "no" %>
     </p>
 
     <p>
-    <b>Is a document?</b>
-    <%= @site_element.is_document? ? "yes" : "no" %>
+      <b>Is software?</b>
+      <%= @site_element.is_software? ? "yes" : "no" %>
     </p>
 
-    <p>
-    <b>Is software?</b>
-    <%= @site_element.is_software? ? "yes" : "no" %>
-    </p>
+    <% if @site_element.access_level.present? %>
+      <p>
+        <b>Access level:</b>
+        <%= @site_element.access_level.long_name %>
+      </p>
+
+      <div class="info alert-box">Note: As an admin, you have access
+        to see everything. So, to test whether this item appears on
+        the product pages and/or support downloads page, you'll need
+        to use a different browser or open an incognito window.
+      </div>
+
+    <% else %>
+      <p>
+        <b>Access level:</b> all can access
+      </p>
+    <% end %>
 
   </div>
 
@@ -117,6 +149,16 @@
               <%= link_to site_resource_url(@site_element).gsub(/\?.*/, '')+"."+@site_element.extension, site_resource_url(@site_element).gsub(/\?.*/, '')+"."+@site_element.extension  %>
             <% else %>
               <%= link_to site_resource_url(@site_element).gsub(/\?.*/, ""), site_resource_url(@site_element).gsub(/\?.*/, '') %>
+            <% end %>
+        </b></li>
+      </ul>
+      <p>Linking from within this same site can use the path only:</p>
+      <ul class="list">
+        <li><b>
+            <% if @site_element.extension.present? %>
+              <%= link_to site_resource_path(@site_element).gsub(/\?.*/, '')+"."+@site_element.extension, site_resource_path(@site_element).gsub(/\?.*/, '')+"."+@site_element.extension  %>
+            <% else %>
+              <%= link_to site_resource_path(@site_element).gsub(/\?.*/, ""), site_resource_path(@site_element).gsub(/\?.*/, '') %>
             <% end %>
         </b></li>
       </ul>

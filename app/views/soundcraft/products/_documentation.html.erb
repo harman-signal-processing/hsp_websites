@@ -32,17 +32,19 @@
 
 <ul class="docs">
   <% product.viewable_site_elements.each do |site_element| %>
-    <% if site_element.external_url.present? || site_element.executable_file_name.present? %>
-      <li>
-        <%= link_to site_element.name, site_element.url %>
-      </li>
-    <% elsif site_element.resource_file_name.present? %>
-      <li>
-        <% if site_element.resource_content_type.to_s.match(/pdf/i) || site_element.resource_file_name.to_s.match(/pdf$/i) %>
-          <%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
-        <% end %>
-        <%= link_to site_element.name, site_element.resource.url %>
-      </li>
+    <% if can?(:read, site_element) %>
+      <% if site_element.external_url.present? || site_element.executable_file_name.present? %>
+        <li>
+          <%= link_to site_element.name, site_element.url %>
+        </li>
+      <% elsif site_element.resource_file_name.present? %>
+        <li>
+          <% if site_element.resource_content_type.to_s.match(/pdf/i) || site_element.resource_file_name.to_s.match(/pdf$/i) %>
+            <%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
+          <% end %>
+          <%= link_to site_element.name, site_element.resource.url %>
+        </li>
+      <% end %>
     <% end %>
   <% end %>
 </ul>

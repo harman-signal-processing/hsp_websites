@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180412171642) do
+ActiveRecord::Schema.define(version: 20180425211505) do
+
+  create_table "access_levels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.boolean "distributor"
+    t.boolean "dealer"
+    t.boolean "technician"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "admin_logs", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "user_id"
@@ -1421,6 +1430,10 @@ ActiveRecord::Schema.define(version: 20180412171642) do
     t.boolean "is_software"
     t.string "direct_upload_url"
     t.boolean "processed", default: false
+    t.string "version"
+    t.string "language"
+    t.integer "access_level_id"
+    t.index ["access_level_id"], name: "index_site_elements_on_access_level_id"
     t.index ["brand_id"], name: "index_site_elements_on_brand_id"
     t.index ["cached_slug"], name: "index_site_elements_on_cached_slug"
   end
@@ -1885,6 +1898,7 @@ ActiveRecord::Schema.define(version: 20180412171642) do
     t.boolean "executive"
     t.string "account_number"
     t.string "locales"
+    t.boolean "technician"
     t.index ["account_number"], name: "index_users_on_account_number"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

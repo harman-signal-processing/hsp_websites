@@ -253,14 +253,14 @@ class SupportController < ApplicationController
           @product = Product.find(params[:selected_object])
         end
       elsif params[:view_by] == "download_types"
-        downloads = website.all_downloads
+        downloads = website.all_downloads(current_user)
         if params[:selected_object]
           @download_type = downloads[params[:selected_object]]
         end
         @download_types = downloads.keys.sort.collect{|k| downloads[k]}
       end
     elsif website.brand.name.to_s.match(/architect/i) # for all legacy style download pages:
-      downloads = website.all_downloads
+      downloads = website.all_downloads(current_user)
       @downloads = downloads.keys.sort{|a,b| a.to_s.downcase <=> b.to_s.downcase}.collect{|k| downloads[k]}
     end
     render_template
@@ -268,7 +268,7 @@ class SupportController < ApplicationController
 
   def zipped_downloads
     render plain: "Dynamic zips are no longer available."
-    # temp_file = website.zip_downloads(params[:download_type])
+    # temp_file = website.zip_downloads(params[:download_type], current_user)
     # send_file temp_file.path, type: 'application/zip', disposition: 'attachment', filename: "#{params[:download_type]}.zip"
     # temp_file.close
   end

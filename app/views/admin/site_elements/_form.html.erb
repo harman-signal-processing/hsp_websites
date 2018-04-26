@@ -33,38 +33,52 @@
   <%= f.input :direct_upload_url, as: :hidden %>
 
   <div class="row">
-    <div class="large-6 columns">
+    <div class="medium-6 small-12 columns">
       <%= f.input :name %>
+    </div>
+    <div class="medium-6 small-12 columns">
+      <%= f.input :external_url, hint: "(Use this instead of the attachment field above for resources hosted on external sites.)" %>
     </div>
   </div>
 
   <div class="row">
-    <div class="large-6 columns">
+    <div class="medium-6 small-12 columns">
+      <%= f.input :language, collection: HarmanSignalProcessingWebsite::Application.config.document_languages %>
+    </div>
+    <div class="medium-6 small-12 columns">
+      <%= f.input :version %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="medium-6 columns">
       <%= f.input :resource_type, collection: SiteElement.resource_types %>
       <p><i>"Safety" and "Certification" resource types appear on the
       <%= link_to "/safetyandcertifications", safetyandcertifications_path %> page.</i></p>
     </div>
-    <div class="large-6 columns">
+    <div class="medium-6 columns">
       <br/>
       <%= link_to_function "new resource type", "new_resource_type()", id: "new_resource_type_link" %>
     </div>
   </div>
 
   <div class="row">
-    <div class="large-6 columns">
-      <%= f.input :external_url, hint: "(Use this instead of the attachment field above for resources hosted on external sites.)" %>
+    <div class="medium-6 small-12 columns">
+      <label>Broad Categories-select at least one in order to appear on product pages.</label>
+      <%= f.input :is_document, label: "This is a document" %>
+      <%= f.input :is_software, label: "This is software" %>
+      <%= f.input :show_on_public_site, label: "Show on public site in the downloads area" %>
     </div>
   </div>
 
   <div class="row">
     <div class="large-6 columns">
-      <label>Broad Categories-select at least one in order to appear on product pages.</label>
-      <%= f.input :is_document, label: "This is a document" %>
-      <%= f.input :is_software, label: "This is software" %>
+      <%= f.association :access_level,
+        label_method: :long_name,
+        hint: "(optional--leave blank to allow all access)" %>
     </div>
   </div>
 
-	<%= f.input :show_on_public_site, label: "Show on public site in the downloads area" %>
   <br/><%= f.button :submit %>
 
 <%= content_for :extra_js do %>

@@ -174,6 +174,9 @@ class Ability
         can :read, ToolkitResource
         can :read, ToolkitResourceType
       end
+      can :read, SiteElement do |site_element|
+        site_element.access_level.blank? || site_element.access_level.readable_by?(user)
+      end
     end
   end
 end
