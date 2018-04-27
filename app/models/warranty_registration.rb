@@ -12,10 +12,9 @@ class WarrantyRegistration < ApplicationRecord
     # The fields to be exported to the file which is later imported into SAP. This list
     # of attributes is in the order SAP expects to see them.
     def export_fields
-      %w{title first_name last_name middle_initial company jobtitle address1 city state zip country phone fax
-        email subscribe brand_name model serial_number registered_on purchased_on purchased_from purchase_city purchase_country
-        purchase_price age marketing_question1 marketing_question2 marketing_question3 marketing_question4 marketing_question5
-        marketing_question6 marketing_question7 comments}
+      %w{title first_name last_name middle_initial company jobtitle country
+        email subscribe brand_name model serial_number registered_on purchased_on
+        purchased_from purchase_city purchase_country purchase_price comments}
     end
   end
 
@@ -104,20 +103,10 @@ class WarrantyRegistration < ApplicationRecord
     form.txtPurchaseDate = I18n.l(purchased_on, format: :mmddyyyy)
     form.txtFirstName    = first_name
     form.txtLastName     = last_name
-    form.txtAddress      = address1
-    form.txtCity         = city
-    form.txtPostalCode   = zip
+    form.txtAddress      = ""
+    form.txtCity         = ""
+    form.txtPostalCode   = ""
     form.txtEmail        = email
-
-    begin
-      if state.match(/^\w{2}$/)
-        form.field_with(name: "ddlState").option_with(value: state.upcase).click
-      else
-        form.field_with(name: "ddlState").option_with(text: state.downcase.titleize).click
-      end
-    rescue
-      # couldn't select state
-    end
 
     begin
       if country.to_s.match(/^US$/i) || country.to_s.match(/United States/i)
@@ -126,14 +115,6 @@ class WarrantyRegistration < ApplicationRecord
       form.field_with(name: "ddlCountry").option_with(text: country).click
     rescue
       # Couldn't select country
-    end
-
-    begin
-      if phone.to_s.match(/(\d{1,})/)
-        form.txtTelephoneNo  = number_to_phone($1, raise: true)
-      end
-    rescue InvalidNumberError
-      # leave phone empty
     end
 
     button = form.button_with(name: "btnSubmit")

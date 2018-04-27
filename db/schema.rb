@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180425211505) do
+ActiveRecord::Schema.define(version: 20180427151924) do
 
   create_table "access_levels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -1911,13 +1911,7 @@ ActiveRecord::Schema.define(version: 20180425211505) do
     t.string "middle_initial", limit: 4
     t.string "company", limit: 100
     t.string "jobtitle", limit: 100
-    t.string "address1"
-    t.string "city", limit: 100
-    t.string "state", limit: 100
-    t.string "zip", limit: 100
     t.string "country", limit: 100
-    t.string "phone", limit: 50
-    t.string "fax", limit: 50
     t.string "email", limit: 100
     t.boolean "subscribe"
     t.integer "brand_id"
@@ -1928,14 +1922,6 @@ ActiveRecord::Schema.define(version: 20180425211505) do
     t.string "purchased_from", limit: 100
     t.string "purchase_country", limit: 100
     t.string "purchase_price", limit: 100
-    t.string "age", limit: 40
-    t.string "marketing_question1", limit: 100
-    t.string "marketing_question2", limit: 100
-    t.string "marketing_question3", limit: 100
-    t.string "marketing_question4", limit: 100
-    t.string "marketing_question5", limit: 100
-    t.string "marketing_question6", limit: 100
-    t.string "marketing_question7", limit: 100
     t.text "comments"
     t.datetime "created_at"
     t.datetime "updated_at"

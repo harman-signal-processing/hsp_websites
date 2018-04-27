@@ -19,7 +19,7 @@ feature "Browse Products" do
     it "should have nav links" do
       visit root_path
 
-      expect(page).to have_link "products", href: product_families_path(locale: I18n.default_locale)
+      expect(page).to have_link "Products", href: product_families_path(locale: I18n.default_locale)
     end
 
   end

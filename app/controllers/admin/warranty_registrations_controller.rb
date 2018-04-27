@@ -23,18 +23,14 @@ class Admin::WarrantyRegistrationsController < AdminController
         end
         send_data(@warranty_registrations.to_a.to_xls(
           headers: ["title", "first name", "last name", "middle", "company", "job title",
-                    "address", "city", "state", "zip",  "country", "phone", "fax", "email",
+                    "country", "email",
                     "subscribe", "brand", "product", "serial number", "registered date",
-                    "purchase date", "purchased from", "purchase country", "purchase price",
-                    "age", "question 1", "question 2", "question 3", "question 4", "question 5",
-                    "question 6", "question 7", "comments"],
+                    "purchase date", "purchased from", "purchase country", "purchase price"],
           columns: [:title, :first_name, :last_name, :middle_initial, :company, :jobtitle,
-                    :address1, :city, :state, :zip, :country, :phone, :fax, :email,
+                    :country, :email,
                     :subscribe, :brand_name, :product_name, :serial_number, :registered_on,
                     :purchased_on, :purchased_from, :purchase_country, :purchase_price,
-                    :age, :marketing_question1, :marketing_question2, :marketing_question3,
-                    :marketing_question4, :marketing_question5, :marketing_question6,
-                    :marketing_question7, :comments]
+                    :comments]
           ),
           filename: "#{website.brand.name}_product_registrations_#{I18n.l Date.today}.xls",
           type: "application/excel; charset=utf-8; header=present"

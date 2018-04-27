@@ -22,7 +22,7 @@ feature "Lexicon brand" do
   end
 
   scenario "should label Artists Professionals" do
-    expect(page).to have_link "professionals", href: artists_path(locale: I18n.default_locale)
+    expect(page).to have_link "Professionals", href: artists_path(locale: I18n.default_locale)
   end
 
 end

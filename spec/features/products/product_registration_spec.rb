@@ -53,11 +53,6 @@ feature "Product Registration" do
     fill_in 'warranty_registration_first_name',     with: "John"
     fill_in 'warranty_registration_last_name',      with: "Johnson"
     fill_in 'warranty_registration_email',          with: "johnny@johnson.com"
-    fill_in 'warranty_registration_address1',       with: "123 Anywhere"
-    fill_in 'warranty_registration_city',           with: "Anytown"
-    fill_in 'warranty_registration_state',          with: "CA"
-    fill_in 'warranty_registration_zip',            with: "90210"
-    fill_in 'warranty_registration_phone',          with: "555-555-5555"
     fill_in 'warranty_registration_serial_number',  with: "123" + rand().to_s
     # Not needed, js calendar fills in default date
     # fill_in 'warranty_registration_purchased_on',   with: 2.weeks.ago.to_s

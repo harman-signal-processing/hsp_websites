@@ -302,7 +302,7 @@ class SupportController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def warranty_registration_params
-    params.require(:warranty_registration).permit(:title, :first_name, :last_name, :middle_initial, :company, :jobtitle, :address1, :city, :state, :zip, :country, :phone, :fax, :email, :subscribe, :product_id, :serial_number, :registered_on, :purchased_on, :purchased_from, :purchase_country, :purchase_price, :age, :marketing_question1, :marketing_question2, :marketing_question3, :marketing_question4, :marketing_question5, :marketing_question6, :marketing_question7, :comments)
+    params.require(:warranty_registration).permit(:title, :first_name, :last_name, :middle_initial, :company, :jobtitle, :country, :email, :subscribe, :product_id, :serial_number, :registered_on, :purchased_on, :purchased_from, :purchase_country, :purchase_price, :comments)
   end
 
   def contact_message_params
