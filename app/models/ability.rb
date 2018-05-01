@@ -15,6 +15,7 @@ class Ability
       rep: false,
       dealer: false,
       distributor: false,
+      technician: false,
       rso: false
     })
     # The first argument to `can` is the action you are giving the user permission to do.
@@ -37,6 +38,7 @@ class Ability
     else
       # can :read, :all
       cannot :mangle, Product
+      can :read, SiteElement, :access_level_id => [false, nil, 0]
       if user.role?(:market_manager)
         can :manage, :all
         cannot :manage, User
@@ -50,8 +52,10 @@ class Ability
         can :manage, PricingType
         can :manage, ProductPrice
         can :update, Brand
+        can :manage, SiteElement
       end
       if user.role?(:marketing_staff)
+        can :manage, SiteElement
         can :manage, SupportSubject
         can :read, ContactMessage
       end
@@ -125,9 +129,15 @@ class Ability
           dealer.users.include?(user)
         end
         cannot :create, Dealer
+        can :read, SiteElement do |site_element|
+          site_element.access_level.blank? || site_element.access_level.readable_by?(user)
+        end
       end
       if user.role?(:distributor)
         can :read, ToolkitResource, distributor: true
+        can :read, SiteElement do |site_element|
+          site_element.access_level.blank? || site_element.access_level.readable_by?(user)
+        end
       end
       if user.role?(:translator)
         can :read, Setting
@@ -174,8 +184,10 @@ class Ability
         can :read, ToolkitResource
         can :read, ToolkitResourceType
       end
-      can :read, SiteElement do |site_element|
-        site_element.access_level.blank? || site_element.access_level.readable_by?(user)
+      if user.role?(:technician)
+        can :read, SiteElement do |site_element|
+          site_element.access_level.blank? || site_element.access_level.readable_by?(user)
+        end
       end
     end
   end
