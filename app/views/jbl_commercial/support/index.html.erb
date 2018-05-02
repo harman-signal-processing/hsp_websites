@@ -33,6 +33,7 @@
 				<%= recaptcha_tags site_key: website.recaptcha_public_key %>
 			</div>
 
+      <%= render_partial 'support/gdpr_consent' %>
 			<%= f.submit t('submit'), class: "medium round button" %>
 		<% end %>
 	</div>

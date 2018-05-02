@@ -446,6 +446,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :product_review_products,
         :product_family_products,
         :locale_product_families,
+        :product_part_group_part,
         :toolkit_resource_types,
         :brand_toolkit_contacts,
         :product_site_elements,
@@ -460,6 +461,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :product_amp_models,
         :tone_library_songs,
         :product_promotions,
+        :product_part_group,
         :product_softwares,
         :product_documents,
         :contact_messages,
@@ -499,6 +501,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :dealers,
         :brands,
         :pages,
+        :parts,
         :faqs do
         collection { post :update_order }
         collection { post :upload }

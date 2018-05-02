@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180427151924) do
+ActiveRecord::Schema.define(version: 20180502182658) do
 
   create_table "access_levels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -284,6 +284,7 @@ ActiveRecord::Schema.define(version: 20180427151924) do
     t.boolean "has_photometrics"
     t.boolean "dealers_are_us_only", default: true
     t.boolean "dealers_include_rental_and_service", default: false
+    t.boolean "has_parts_library"
     t.index ["cached_slug"], name: "index_brands_on_cached_slug", unique: true
     t.index ["name"], name: "index_brands_on_name", unique: true
   end
@@ -909,6 +910,17 @@ ActiveRecord::Schema.define(version: 20180427151924) do
     t.index ["product_id"], name: "index_parent_products_on_product_id"
   end
 
+  create_table "parts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "part_number"
+    t.string "description"
+    t.string "photo_file_name"
+    t.integer "photo_file_size"
+    t.string "photo_content_type"
+    t.datetime "photo_updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "pricing_types", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "name"
     t.integer "brand_id"
@@ -1084,6 +1096,25 @@ ActiveRecord::Schema.define(version: 20180427151924) do
     t.string "page_bg_image_content_type"
     t.datetime "page_bg_image_updated_at"
     t.index ["product_id"], name: "index_product_introductions_on_product_id"
+  end
+
+  create_table "product_part_group_parts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "product_part_group_id"
+    t.integer "part_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["part_id"], name: "index_product_part_group_parts_on_part_id"
+    t.index ["product_part_group_id"], name: "index_product_part_group_parts_on_product_part_group_id"
+  end
+
+  create_table "product_part_groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "product_id"
+    t.string "name"
+    t.integer "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_product_part_groups_on_parent_id"
+    t.index ["product_id"], name: "index_product_part_groups_on_product_id"
   end
 
   create_table "product_prices", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -1913,7 +1944,7 @@ ActiveRecord::Schema.define(version: 20180427151924) do
     t.string "jobtitle", limit: 100
     t.string "country", limit: 100
     t.string "email", limit: 100
-    t.boolean "subscribe"
+    t.boolean "subscribe", default: false
     t.integer "brand_id"
     t.integer "product_id"
     t.string "serial_number", limit: 100

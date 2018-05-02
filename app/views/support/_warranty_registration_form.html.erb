@@ -74,12 +74,17 @@
       support_form_link: raw(link_to(t('support_contact_form'), support_path, target: "_blank")))),
       input_html: { style: "height: 80px" } %>
 
-		<p><br/><%= f.input :subscribe, label: t('blurbs.subscribe', brand: website.brand_name) %></p>
-
     <div class="captcha">
        <%= recaptcha_tags site_key: website.recaptcha_public_key %>
     </div>
 		<br/>
+
+    <div class="secondary alert-box">
+      Information gathered on this form is solely used to provide you with important product
+      updates and to expedite warranty service as needed. To agree with these terms click
+      the button below.
+    </div>
+
 		<div>
 			<%= f.submit t('submit_warranty_registration'), class: "medium button" %>
 		</div>

@@ -105,6 +105,7 @@
     required: true,
     input_html: { style: "height: 150px"} %>
 
+    <%= render_partial 'support/gdpr_consent' %>
 		<p><%= submit_tag t('submit'), class: "button" %></p>
 	</div>
 <% end %>
