@@ -54,8 +54,7 @@ class Ability
         can :update, Brand
         can :manage, SiteElement
         can :manage, Part
-        can :manage, ProductPartGroup
-        can :manage, ProductPartGroupPart
+        can :manage, ProductPart
       end
       if user.role?(:marketing_staff)
         can :manage, SiteElement
@@ -136,8 +135,7 @@ class Ability
           site_element.access_level.blank? || site_element.access_level.readable_by?(user)
         end
         can :read, Part
-        can :read, ProductPartGroup
-        can :read, ProductPartGroupPart
+        can :read, ProductPart
       end
       if user.role?(:distributor)
         can :read, ToolkitResource, distributor: true
@@ -145,8 +143,7 @@ class Ability
           site_element.access_level.blank? || site_element.access_level.readable_by?(user)
         end
         can :read, Part
-        can :read, ProductPartGroup
-        can :read, ProductPartGroupPart
+        can :read, ProductPart
       end
       if user.role?(:translator)
         can :read, Setting
@@ -177,8 +174,7 @@ class Ability
         can :manage, RegisteredDownload
         can :manage, DownloadRegistration
         can :manage, Part
-        can :manage, ProductPartGroup
-        can :manage, ProductPartGroupPart
+        can :manage, ProductPart
       end
       if user.role?(:rohs)
         can :read, Product
@@ -198,8 +194,7 @@ class Ability
       end
       if user.role?(:technician)
         can :read, Part
-        can :read, ProductPartGroup
-        can :read, ProductPartGroupPart
+        can :read, ProductPart
         can :read, SiteElement do |site_element|
           site_element.access_level.blank? || site_element.access_level.readable_by?(user)
         end

@@ -1,7 +1,6 @@
 class Part < ApplicationRecord
-  has_many :product_part_group_parts
-  has_many :product_part_groups, through: :product_part_group_parts
-  has_many :products, through: :product_part_groups
+  has_many :product_parts, dependent: :destroy
+  has_many :products, through: :product_parts
 
   has_attached_file :photo, {
     styles: {
@@ -19,5 +18,7 @@ class Part < ApplicationRecord
   validates_attachment :photo, content_type: { content_type: /\Aimage/i }
 
   validates :part_number, presence: true
+
+  acts_as_tree
 
 end

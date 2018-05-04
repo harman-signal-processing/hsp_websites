@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180502182658) do
+ActiveRecord::Schema.define(version: 20180503175051) do
 
   create_table "access_levels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -919,6 +919,8 @@ ActiveRecord::Schema.define(version: 20180502182658) do
     t.datetime "photo_updated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "parent_id"
+    t.index ["parent_id"], name: "index_parts_on_parent_id"
   end
 
   create_table "pricing_types", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -1115,6 +1117,15 @@ ActiveRecord::Schema.define(version: 20180502182658) do
     t.datetime "updated_at", null: false
     t.index ["parent_id"], name: "index_product_part_groups_on_parent_id"
     t.index ["product_id"], name: "index_product_part_groups_on_product_id"
+  end
+
+  create_table "product_parts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "product_id"
+    t.integer "part_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["part_id"], name: "index_product_parts_on_part_id"
+    t.index ["product_id"], name: "index_product_parts_on_product_id"
   end
 
   create_table "product_prices", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
