@@ -116,6 +116,9 @@
 				<div class="medium-8 columns hide-for-small" id="footer_info">
 					<span class="footer_text">
             <%= link_to t('new_products'), new_products_path %> &bull;
+            <% if website.email_signup_url %>
+              <%= link_to t('news_signup').titleize, website.email_signup_url %> &bull;
+            <% end %>
 						<%= link_to t('privacy_policy').titleize, privacy_policy_path %> &bull;
 						<%= link_to t('terms_of_use').titleize, terms_of_use_path %> &bull;
             <%= link_to 'careers'.titleize, "http://jobs.harman.com", target: "_blank" %> &bull;

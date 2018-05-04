@@ -17,15 +17,11 @@
     </div>
 
     <% if website.email_signup_url %>
-    <div class="row">
-      <div class="large-8 large-offset-2 columns">
-        <div class="row" style="margin-top: 40px">
-          <div class="large-6 large-offset-3 columns">
-            <%= render_partial 'shared/newsletter_signup' %>
-          </div>
+      <div class="row" style="margin-top: 40px">
+        <div class="medium-4 medium-offset-4 small-12 columns">
+          <%= render_partial 'shared/newsletter_signup' %>
         </div>
       </div>
-    </div>
     <% end %>
   </div>
 <% end %>
