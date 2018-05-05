@@ -12,8 +12,8 @@ namespace :martin do
     @agent = Mechanize.new
     p = @agent.get("#{ @root_site }/support")
     login_form = p.form_with id: "ExtUserForm"
-    login_form.Username = "adamanderson"
-    login_form.Password = "harman123"
+    login_form.Username = ENV['MARTIN_ADMIN']
+    login_form.Password = ENV['MARTIN_PASSWORD']
     logged_in_page = login_form.click_button
 
     if logged_in_page.code == "200"
