@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_locale
-  before_action :ensure_best_url, only: [:show, :buy_it_now, :preview, :introducing, :photometric]
+  before_action :ensure_best_url, only: [:show, :buy_it_now, :preview, :introducing, :photometric, :bom]
 
   # GET /products
   # GET /products.xml
@@ -202,6 +202,17 @@ class ProductsController < ApplicationController
   def photometric
     if @product.photometric_id.blank?
       redirect_to @product and return false
+    end
+  end
+
+  # GET /product/ID/bom
+  # New for martin.com, display the bill of materials for a product. Only available
+  # to roles with access to view parts
+  def bom
+    if can?(:read, Part)
+      render_template
+    else
+      redirect_to product, alert: "Bill of material access denied." and return false
     end
   end
 

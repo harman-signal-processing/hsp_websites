@@ -1,0 +1,16 @@
+<% set_meta_tags title: "#{ @product.name } Bill of Materials" %>
+
+<h1><%= link_to @product.name, @product %> Bill of Materials</h1>
+
+<div class="row">
+  <div class="small-6 medium-8 columns">
+    <% if @product.parts.length == 0 %>
+      <i>Sorry, no parts found.</i>
+    <% else %>
+      <%= render_parts_tree(@product.parts.where(parent_id: nil)) %>
+    <% end %>
+  </div>
+  <div class="small-6 medium-4 columns">
+    <%# Future use: show where else a part is used when it is clicked %>
+  </div>
+</div>

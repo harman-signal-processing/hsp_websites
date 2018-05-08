@@ -573,6 +573,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         get :songlist
         get :preview
         get :photometric
+        get :bom
         put :preview
       end
       collection do

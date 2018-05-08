@@ -16,6 +16,7 @@
 //= require jquery.lightbox-0.5.min
 //= require jquery.datetimepicker
 //= require jquery.pin
+//= require jquery.bonsai
 //= require global_functions
 //= require maps
 //= require twitter
@@ -38,5 +39,8 @@ $(function(){
     equalizer: {
       equalize_on_stack: true
     }
+  });
+  $("#partslist").bonsai({
+    expandAll: false
   });
 });

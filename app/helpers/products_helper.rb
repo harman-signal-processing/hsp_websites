@@ -206,6 +206,16 @@ module ProductsHelper
               target: "_blank"
             )
           )
+        elsif product_tab.key == "parts"
+          if can?(:read, Part)
+            ret += content_tag(
+              :dd,
+              link_to(
+                tab_title(product_tab, product: product),
+                bom_product_path(product)
+              )
+            )
+          end
         else
           ret += content_tag(
             :dd,
@@ -267,7 +277,7 @@ module ProductsHelper
     ret = ""
 
     main_tabs.each_with_index do |product_tab,i|
-      next if product_tab.key == "photometrics"
+      next if product_tab.key == "photometrics" || product_tab.key == "parts"
 
       if options[:active_tab]
         active_class = (product_tab.key == options[:active_tab]) ? "active" : ""
@@ -453,16 +463,16 @@ module ProductsHelper
   end
 
   def buy_it_now_direct_from_factory(product, button, options={})
-    link_to(button, 
-      product.direct_buy_link, 
+    link_to(button,
+      product.direct_buy_link,
       class: button_class(button, options),
-      target: "_blank", 
+      target: "_blank",
       onclick: raw("_gaq.push(['_trackEvent', 'AddToCart', 'USA (#{session['geo_country']})', '#{product.name}'])"))
   end
 
   def buy_it_now_international(product, button, options={})
-    link_to(button, 
-      international_distributors_path, 
+    link_to(button,
+      international_distributors_path,
       class: button_class(button, options),
       onclick: raw("_gaq.push(['_trackEvent', 'BuyItNow', 'non-USA (#{session['geo_country']})', '#{product.name}'])"))
   end
@@ -475,9 +485,9 @@ module ProductsHelper
       ""
     else
       options[:button_class] ? options[:button_class] : "medium button"
-    end    
+    end
   end
-  
+
   def links_to_current_promotions(product, options={})
     format = options[:format] || "full"
     begin
@@ -504,11 +514,11 @@ module ProductsHelper
           }
         end
       end
-    rescue 
+    rescue
       ""
     end
   end
-  
+
   def breadcrumbs(product)
     crumbs = []
     crumbs << link_to(t('products'), product_families_path)
@@ -563,6 +573,28 @@ module ProductsHelper
       "#{website.folder}/#{banner_filename}"
     else
       banner_filename
+    end
+  end
+
+  def render_parts_tree(nodes, options={})
+    options[:ulid] ||= "partslist"
+    return ''.html_safe if nodes.empty?
+    content_tag(:ul, id: options[:ulid]) do
+      nodes.map do |node|
+        content_tag(:li) do
+          render_part(node) + render_parts_tree(node.children, ulid: "node_#{node.id}")
+        end
+      end.join.html_safe
+    end
+  end
+
+  def render_part(part)
+    img = part.photo.present? ? image_tag(part.photo.url(:tiny_square)) : "&nbsp;".html_safe
+    desc = content_tag(:h5, part.part_number) + part.description
+    content_tag(:table) do
+      content_tag(:tr) do
+        content_tag(:td, img) + content_tag(:td, desc)
+      end
     end
   end
 
