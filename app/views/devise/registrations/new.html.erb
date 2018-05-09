@@ -1,27 +1,24 @@
 <%= content_for :title do %>Sign Up<% end %>
 
-<div class="twelve columns">
+<div class="small-12 medium-6 medium-offset-3 columns">
 
-<h3>Sign up</h3>
-
-<div class="row">
-<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <%#= devise_error_messages! %>
-  <div class="six columns offset-by-three end panel">
-    <div class="form-inputs">
-    	<%= f.input :name %>
-    	<%= f.input :email %>
-    	<%= f.input :password %>
-    	<%= f.input :password_confirmation %>
-    	<%#= f.input :employee_id, placeholder: "(eTime number)" %>
-    </div>
-  	<div class="form-actions">
-		<%= f.submit "Sign up", class: "button" %>
-  	</div>
+  <div class="text-center">
+    <h2>Sign up</h2>
+    If you already have an account, <%= link_to "sign in here", new_session_path(resource_name) %>.
   </div>
-<% end %>
-</div>
+  <br/>
 
-<%= render "devise/shared/links" %>  
+  <div class="panel">
+    <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+      <%#= devise_error_messages! %>
+      <%= f.input :name %>
+      <%= f.input :email %>
+      <%= f.input :invitation_code, required: true,
+        hint: "Check with customer service to get the invitation code." %>
+      <%= f.input :password %>
+      <%= f.input :password_confirmation %>
+      <%= f.button :submit, "Sign up", class: "button" %>
+    <% end %>
+  </div>
 
 </div>

@@ -85,6 +85,9 @@ $topbar-sticky-class:                  ".sticky";
 $slick-arrow-color: $dark-gray;
 @import 'slick-theme';
 
+a {
+  color: $medium-gray;
+}
 #above-nav-space {
   display: none !important;
   height: 0;

@@ -32,18 +32,22 @@ class User < ApplicationRecord
     :recoverable,
     :rememberable,
     :trackable,
-    :confirmable,
+    #    :confirmable, # 2018-05 Removing confirmable. Too complicated with multi-tenancy
     :registerable
 
+  before_create :assign_invited_role
   before_save :add_to_dealer_or_distributor
 
   validates :name, :email, presence: true
   validates :email, uniqueness: true
   validates :password, presence: true, confirmation: true, on: :create
   validates :invitation_code, presence: true,
-    inclusion: {in: [HarmanSignalProcessingWebsite::Application.config.rso_invitation_code,
-        HarmanSignalProcessingWebsite::Application.config.employee_invitation_code,
-        HarmanSignalProcessingWebsite::Application.config.media_invitation_code],
+    inclusion: {in: [ENV['RSO_INVITATION_CODE'],
+        ENV['EMPLOYEE_INVITATION_CODE'],
+        ENV['DISTRIBUTOR_INVITATION_CODE'],
+        ENV['DEALER_INVITATION_CODE'],
+        ENV['TECHNICIAN_INVITATION_CODE'],
+        ENV['MEDIA_INVITATION_CODE'] ],
       message: "is invalid. (it is cAsE sEnSiTiVe.)"},
     on: :create,
     if: :needs_invitation_code?
@@ -85,6 +89,16 @@ class User < ApplicationRecord
     end
     u.save(validate: false)
     u
+  end
+
+  def assign_invited_role
+    if self.invitation_code.present?
+      ROLES.each do |role|
+        if self.invitation_code == ENV["#{role.upcase}_INVITATION_CODE"]
+          self.send("#{role}=", true)
+        end
+      end
+    end
   end
 
   def initials
@@ -140,7 +154,8 @@ class User < ApplicationRecord
   end
 
   def needs_invitation_code?
-    rso? || self.employee? || media?
+    #self.rso? || self.employee? || self.media? || self.technician?
+    !!!self.account_number.present?
   end
 
   # Collect those who have the artist relations role

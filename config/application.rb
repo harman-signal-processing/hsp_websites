@@ -46,9 +46,6 @@ module HarmanSignalProcessingWebsite
     config.active_job.queue_adapter = :delayed_job
 
     # Override these in environment configs...
-    config.employee_invitation_code = ENV['EMPLOYEE_INVITATION_CODE']
-    config.rso_invitation_code      = ENV['RSO_INVITATION_CODE']
-    config.media_invitation_code    = ENV['MEDIA_INVITATION_CODE']
     config.toolkit_url              = "marketingtoolkit.harmanpro.com"
     config.default_site_name        = "Harman Signal Processing"
     config.toolkit_admin_email_addresses = ENV['TOOLKIT_ADMIN_EMAIL_ADDRESSES'].split("|")

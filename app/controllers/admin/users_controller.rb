@@ -30,7 +30,7 @@ class Admin::UsersController < AdminController
   # GET /admin/users/new
   # GET /admin/users/new.xml
   def new
-    @user.invitation_code = HarmanSignalProcessingWebsite::Application.config.employee_invitation_code
+    @user.invitation_code = ENV['EMPLOYEE_INVITATION_CODE']
     respond_to do |format|
       format.html { render_template } # new.html.erb
       format.xml  { render xml: @user }

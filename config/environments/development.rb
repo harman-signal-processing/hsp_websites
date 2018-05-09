@@ -67,9 +67,6 @@ Rails.application.configure do
 
   config.i18n.fallbacks = true
 
-  config.employee_invitation_code = "EMPLOYEE_INVITATION_CODE"
-  config.rso_invitation_code = "RSO_INVITATION_CODE"
-  config.media_invitation_code = "MEDIA_INVITATION_CODE"
   config.toolkit_url = "toolkit.lvh.me:3000"
 
 end

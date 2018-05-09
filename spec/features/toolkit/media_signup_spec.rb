@@ -34,6 +34,7 @@ feature "Media rep signs up for Toolkit" do
   end
 
   scenario "should create a new unconfirmed user" do
+    skip "Confirmable disabled"
     user = FactoryBot.build(:user)
 
     fill_in_new_media_user_form(user)
@@ -43,6 +44,7 @@ feature "Media rep signs up for Toolkit" do
   end
 
   scenario "should send the confirmation email to the new user" do
+    skip "Confirmable disabled"
     user = FactoryBot.build(:user)
 
     fill_in_new_media_user_form(user)
@@ -58,7 +60,7 @@ feature "Media rep signs up for Toolkit" do
     within('#new_toolkit_user') do
       fill_in :toolkit_user_name, with: user.name
       fill_in :toolkit_user_email, with: user.email
-      fill_in :toolkit_user_invitation_code, with: HarmanSignalProcessingWebsite::Application.config.media_invitation_code
+      fill_in :toolkit_user_invitation_code, with: ENV['MEDIA_INVITATION_CODE']
       fill_in :toolkit_user_password, with: "pass123"
       fill_in :toolkit_user_password_confirmation, with: "pass123"
       click_on "Sign up"

@@ -1,21 +1,24 @@
 
-<div class="twelve columns">
+<div class="small-12 medium-6 medium-offset-3 columns">
 
-<h3>Forgot your password?</h3>
+  <div class="text-center">
+    <h2>Forgot your password?</h2>
+    Enter the email address you used to register, and we'll
+    send a link to reset your password.
+  </div>
+  <br/>
 
-<div class="row">
+  <div class="panel">
 
-<%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= devise_error_messages! %>
+    <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+      <%= devise_error_messages! %>
 
-	<div class="six columns offset-by-three end panel">
-  		<%= f.input :email %>
-		<%= f.button :submit, "Send me reset password instructions", class: "button" %>
-	</div>
-<% end %>
+      <%= f.input :email %>
+      <%= f.button :submit, "Send password reset instructions", class: "button" %>
+    <% end %>
 
-</div>
+  </div>
 
-<%= render "devise/shared/links" %>
+  <%= render "devise/shared/links" %>
 
 </div>

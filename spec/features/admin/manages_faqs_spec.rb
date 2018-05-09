@@ -4,6 +4,8 @@ feature "Managing FAQs", :devise do
 
   before :all do
     @website = FactoryBot.create(:website)
+    Capybara.default_host = "http://#{@website.url}"
+    Capybara.app_host = "http://#{@website.url}"
     @user = FactoryBot.create(:user, market_manager: true, password: "password", confirmed_at: 1.minute.ago)
   end
 

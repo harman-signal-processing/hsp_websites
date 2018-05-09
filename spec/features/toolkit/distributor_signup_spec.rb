@@ -33,11 +33,12 @@ feature "Distributor signs up for Toolkit" do
     fill_in_new_distributor_user_form(user, @distributor)
 
     u = User.last
-    expect(u.confirmed?).to be(false)
+    #expect(u.confirmed?).to be(false)
     expect(u.distributors).to include(@distributor)
   end
 
   scenario "should send the confirmation email to the distributor and the user" do
+    skip "Confirmable disabled"
     user = FactoryBot.build(:user, email: "someone@distributor.com")
 
     fill_in_new_distributor_user_form(user, @distributor)
@@ -51,6 +52,7 @@ feature "Distributor signs up for Toolkit" do
   end
 
   scenario "should NOT send an email error to user where no distributor is found" do
+    skip "Confirmable disabled"
     user = FactoryBot.build(:user, email: "someone@distributor.com")
     distributor = FactoryBot.build(:distributor) # un-saved, so should error when looking up
 

@@ -373,13 +373,9 @@ input.boolean, input[type='radio'] {
 fieldset {
 	background-color: #EEE;
 }
-.bglink {
-	a {
-		font-size: 80%;
-	}
-}
 
 div.text-right.bglink {
+  font-size: 80%;
 	padding-right: 3px;
 	padding-bottom: 1px;
 }

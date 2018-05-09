@@ -29,6 +29,7 @@ feature "Dealer signs up for Toolkit" do
   end
 
   scenario "should create a new unconfirmed user, belonging to matching dealer" do
+    skip "Confirmable is disabled for now"
     user = FactoryBot.build(:user, email: "someone@dealer.com")
 
     fill_in_new_dealer_user_form(user, @dealer)
@@ -39,6 +40,7 @@ feature "Dealer signs up for Toolkit" do
   end
 
   scenario "should send confirmation email to user and dealer" do
+    skip "Confirmable is disabled for now"
     user = FactoryBot.build(:user, email: "someone@dealer.com")
 
     fill_in_new_dealer_user_form(user, @dealer)
@@ -52,6 +54,7 @@ feature "Dealer signs up for Toolkit" do
   end
 
   scenario "should NOT send an email error to user where no dealer is found" do
+    skip "Confirmable is disabled for now"
     user = FactoryBot.build(:user, email: "someone@dealer.com")
     dealer = FactoryBot.build(:dealer) # un-saved, so should error when looking up
 

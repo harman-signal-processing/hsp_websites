@@ -5,6 +5,8 @@ feature "Admin Registrations" do
   before :all do
     @website = FactoryBot.create(:website_with_products)
     @brand = @website.brand
+    Capybara.default_host = "http://#{@website.url}"
+    Capybara.app_host = "http://#{@website.url}"
     @user = FactoryBot.create(:user, customer_service: true, password: "password", confirmed_at: 1.minute.ago)
     @reg = FactoryBot.create(:warranty_registration, brand: @brand, product: @website.products.first)
   end

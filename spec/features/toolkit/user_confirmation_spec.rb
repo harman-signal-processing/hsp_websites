@@ -13,6 +13,7 @@ feature "User confirmation" do
   end
 
   scenario "should confirm the new user" do
+    skip "Confirmable disabled"
     @dealer = FactoryBot.create(:dealer)
     @user = FactoryBot.create(:user, dealer: true, account_number: @dealer.account_number)
 

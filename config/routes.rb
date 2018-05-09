@@ -284,10 +284,10 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       get 'network-audio' => 'pages#network_audio'
     end
 
+    devise_for :users
     scope "/admin" do
-      devise_for :users, path: :site_users
       devise_scope :user do
-        get 'admin', to: 'admin#index', as: :user_root
+        get 'admin', to: 'admin#index', as: :admin_user_root
       end
     end
     namespace :admin do
@@ -621,6 +621,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     match '/support/all_repair', to: redirect('https://pro.harman.com/service_centers'), as: :support_all_repair, via: :all
     match '/catalog_request' => 'support#catalog_request', as: :catalog_request, via: :all
     get '/support/warranty_policy' => 'support#warranty_policy', as: :warranty_policy
+    get '/support/protected' => 'gated_support#index', as: :gated_support
+
     match '/international_distributors' => 'distributors#index', as: :international_distributors, via: :all
     match '/sitemap(.:format)' => 'main#locale_sitemap', as: :locale_sitemap, via: :all
     match '/where_to_buy(/:zip)' => 'main#where_to_buy', as: :where_to_buy , via: :all

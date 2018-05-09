@@ -28,8 +28,8 @@ class ApplicationController < ActionController::Base
         elsif File.exists?(Rails.root.join("app", "views", "#{brand_specific}.html.erb"))
           template = brand_specific
         end
-      elsif devise_controller? && resource_name == :user
-        template = "admin"
+      #elsif devise_controller? && resource_name == :user
+      #  template = "admin"
       elsif controller_path == 'main' && action_name == 'index' && File.exists?(Rails.root.join("app", "views", "#{homepage}.html.erb"))
         template = homepage
       elsif File.exists?(Rails.root.join("app", "views", "#{controller_brand_specific}.html.erb"))
@@ -303,13 +303,20 @@ private
     end
   end
 
+  def storable_location?
+    request.get? && is_navigational_format? && !devise_controller? && !request.xhr?
+  end
+
+  def store_user_location!
+    store_location_for(:user, request.fullpath)
+  end
+
   def after_sign_in_path_for(resource)
     if resource.is_a?(Artist)
       artist_root_path
-    elsif !!(request.host.match(/toolkit/i))
-      root_path
     else
-      admin_root_path
+      session["#{ resource.class.name.downcase }_return_to".to_sym] ||
+        stored_location_for(resource) || super
     end
   end
 
@@ -319,7 +326,7 @@ private
     elsif !!(request.host.match(/toolkit/i))
       "/users/sign_in?utm=mommy"
     else
-      admin_root_path
+      super
     end
   end
 

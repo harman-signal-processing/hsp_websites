@@ -100,9 +100,9 @@
 
 				<ul class="list">
 					<li>Dealers and Distributors can register to access the toolkit by providing their SAP account number. Most already have an auto-created account with their email address and the default password: toolkit</li>
-					<li>RSOs and Sales Reps can register to access the toolkit by entering the following invitation code: <b><%= HarmanSignalProcessingWebsite::Application.config.rso_invitation_code %></b></li>
-					<li>Harman employees can register to access the toolkit by entering the following invitation code: <b><%= HarmanSignalProcessingWebsite::Application.config.employee_invitation_code %></b></li>
-					<li>Media reps (magazines, etc.) can register to access the toolkit by entering the following invitation code: <b><%= HarmanSignalProcessingWebsite::Application.config.media_invitation_code %></b></li>
+					<li>RSOs and Sales Reps can register to access the toolkit by entering the following invitation code: <b><%= ENV['RSO_INVITATION_CODE'] %></b></li>
+					<li>Harman employees can register to access the toolkit by entering the following invitation code: <b><%= ENV['EMPLOYEE_INVITATION_CODE'] %></b></li>
+					<li>Media reps (magazines, etc.) can register to access the toolkit by entering the following invitation code: <b><%= ENV['MEDIA_INVITATION_CODE'] %></b></li>
 				</ul>
 
 			<p><i>A Harman employee who already has access to this admin (for any brands) already has access

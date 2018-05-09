@@ -43,9 +43,6 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  config.employee_invitation_code = "EMPLOYEE"
-  config.rso_invitation_code = "INVITED"
-  config.media_invitation_code = "MEDIA"
   config.toolkit_url = "test.toolkit.lvh.me"
 
 end

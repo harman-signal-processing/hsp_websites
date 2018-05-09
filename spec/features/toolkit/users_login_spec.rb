@@ -18,7 +18,7 @@ feature "Toolkit users login" do
       account_number: @dealer.account_number,
       password: @password,
       password_confirmation: @password)
-    @user.confirm
+#    @user.confirm
 
     visit new_toolkit_user_session_url(host: @host)
     fill_in :toolkit_user_email, with: @user.email

@@ -21,6 +21,6 @@ FactoryBot.define do
     dealer false
     distributor false
     marketing_staff false
-    invitation_code HarmanSignalProcessingWebsite::Application.config.employee_invitation_code
+    invitation_code ENV['EMPLOYEE_INVITATION_CODE']
   end
 end

@@ -48,6 +48,7 @@
         <li><%= link_to t('nav.service').titleize, "/#{I18n.locale}/contact-service" %></li>
       <% end %>
       <li><%= link_to t('contact_us').titleize, support_path %></li>
+      <li><%= link_to "Support Login".titleize, gated_support_path %></li>
     </ul>
   </li>
 
