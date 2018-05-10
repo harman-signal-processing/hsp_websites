@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180503175051) do
+ActiveRecord::Schema.define(version: 20180510160936) do
 
   create_table "access_levels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -1313,6 +1313,7 @@ ActiveRecord::Schema.define(version: 20180503175051) do
     t.boolean "entertainment", default: false
     t.text "registration_notice"
     t.string "photometric_id"
+    t.text "hidden_content"
     t.index ["brand_id", "product_status_id"], name: "index_products_on_brand_id_and_product_status_id"
     t.index ["brand_id"], name: "index_products_on_brand_id"
     t.index ["cached_slug"], name: "index_products_on_cached_slug", unique: true
