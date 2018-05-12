@@ -14,7 +14,7 @@
     <% if can?(:read, site_element) %>
       <li>
         <%= image_tag "icons/download_17.png", style: "vertical-align: middle" %>
-        <%= link_to site_element.name, site_element.url %>
+        <%= link_to site_element.long_name, site_element.url %>
         <% unless site_element.external_url.present? %>
           [<%= number_to_human_size(site_element.executable_file_size) %>]
         <% end %>

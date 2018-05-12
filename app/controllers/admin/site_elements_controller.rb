@@ -54,7 +54,7 @@ class Admin::SiteElementsController < AdminController
       if @site_element.save
         format.html { redirect_to([:admin, @site_element], notice: 'Resource was successfully created. It may take a few seconds to process and transfer the file.') }
         format.xml  { render xml: @site_element, status: :created, location: @site_element }
-        website.add_log(user: current_user, action: "Uploaded a site element: #{@site_element.name}")
+        website.add_log(user: current_user, action: "Uploaded a site element: #{@site_element.long_name}")
       else
         format.html { render action: "new" }
         format.xml  { render xml: @site_element.errors, status: :unprocessable_entity }
@@ -69,7 +69,7 @@ class Admin::SiteElementsController < AdminController
       if @site_element.update_attributes(site_element_params)
         format.html { redirect_to([:admin, @site_element], notice: 'Resource was successfully updated. It may take a few seconds to process and transfer the file to the right place.') }
         format.xml  { head :ok }
-        website.add_log(user: current_user, action: "Updated a site element: #{@site_element.name}")
+        website.add_log(user: current_user, action: "Updated a site element: #{@site_element.long_name}")
       else
         format.html { render action: "edit" }
         format.xml  { render xml: @site_element.errors, status: :unprocessable_entity }
@@ -85,7 +85,7 @@ class Admin::SiteElementsController < AdminController
       format.html { redirect_to(admin_site_elements_url) }
       format.xml  { head :ok }
     end
-    website.add_log(user: current_user, action: "Deleted a site element: #{@site_element.name}")
+    website.add_log(user: current_user, action: "Deleted a site element: #{@site_element.long_name}")
   end
 
   private

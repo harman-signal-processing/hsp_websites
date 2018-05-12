@@ -166,7 +166,7 @@
           <ul>
             <% @product.site_elements.each do |site_element| %>
               <li>
-                <%= link_to site_element.name, [:admin, site_element] %>
+                <%= link_to site_element.long_name, [:admin, site_element] %>
               </li>
             <% end %>
           </ul>

@@ -187,7 +187,7 @@ class Website < ApplicationRecord
         thumbnail = nil
         if site_element.external_url.present?
           downloads[key][:downloads] << {
-            name: site_element.name,
+            name: site_element.long_name,
             file_name: site_element.url,
             thumbnail: nil,
             url: site_element.url,
@@ -198,7 +198,7 @@ class Website < ApplicationRecord
             thumbnail = site_element.resource.url(:tiny_square)
           end
           downloads[key][:downloads] << {
-            name: site_element.name,
+            name: site_element.long_name,
             file_name: site_element.resource_file_name,
             thumbnail: thumbnail,
             url: site_element.resource.url,
@@ -206,7 +206,7 @@ class Website < ApplicationRecord
           }
         elsif site_element.executable_file_name.present?
           downloads[key][:downloads] << {
-            name: site_element.name,
+            name: site_element.long_name,
             file_name: site_element.executable_file_name,
             thumbnail: nil,
             url: site_element.executable.url,

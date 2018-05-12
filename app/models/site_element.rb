@@ -92,6 +92,14 @@ class SiteElement < ApplicationRecord
     end
   end
 
+  # Long name includes version and language if present
+  def long_name
+    n = name
+    n += " rev#{ version }" if version.present?
+    n+= " #{ language }" if language.present?
+    n
+  end
+
   # Final upload processing step
   def self.transfer_and_cleanup(id)
     element = find(id)

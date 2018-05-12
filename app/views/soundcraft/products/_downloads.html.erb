@@ -53,7 +53,7 @@
   <% product.executable_site_elements.each do |site_element| %>
     <% if can?(:read, site_element) %>
       <li>
-        <%= link_to site_element.name, site_element.url %>
+        <%= link_to site_element.long_name, site_element.url %>
         <% unless site_element.external_url.present? %>
           [<%= number_to_human_size(site_element.executable_file_size) %>]
         <% end %>

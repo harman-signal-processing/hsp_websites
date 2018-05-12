@@ -11,9 +11,10 @@ namespace :martin do
     @agent = Mechanize.new
     logged_in_page = login_to_support_page
 
+    to_be_deleted = ProductStatus.where(name: "_delete").first_or_create
     if logged_in_page.code == "200"
       puts "Logged in."
-      Product.where(brand: martin).each do |product|
+      Product.where(brand: martin).where("created_at > ?", "2018-05-08".to_time).each do |product|
 #      Product.where(cached_slug: "mac-quantum-wash").each do |product|
         puts "Getting #{ product.name }"
         begin
@@ -35,10 +36,12 @@ namespace :martin do
             end
             successes << product
           else
+            product.update_column(:product_status_id, to_be_deleted.id)
             puts "  well that didn't work."
             problems << product
           end
         rescue
+          product.update_column(:product_status_id, to_be_deleted.id)
           puts "  well that didn't work."
           problems << product
         end
@@ -53,6 +56,52 @@ namespace :martin do
     puts "============================="
     puts "Problems: #{ problems.length }"
     puts "Successes: #{ successes.length }"
+  end
+
+  desc "Create missing Martin products"
+  task create_products: :environment do
+    martin = Brand.find "martin"
+    discontinued = ProductStatus.where(name: "Discontinued").first_or_create
+    imported = ProductStatus.where(name: "_Imported").first_or_create
+    new_products = []
+
+    csv_file = File.join(Rails.root, "db", "productnames.csv")
+    CSV.foreach(csv_file, encoding: 'ISO-8859-1', headers: true).each do |row|
+      # Need to downcase the "name" then search for the cached slug first
+      probable_id = row["ProductName"].downcase.gsub(/\-{1,}/, "-").gsub(/\_/, "-")
+      product_name = row["ProductName"].gsub(/\-{1,}/, "-").gsub(/\-|\_/, " ")
+
+      next if product_name.match(/printed|copy|test|swag/i)
+      next if new_products.include?(probable_id)
+
+      if Product.exists?(probable_id)
+        product = Product.find(probable_id)
+        unless product.brand == martin
+          product = Product.where(name: product_name, brand: martin).first_or_initialize
+        end
+      else
+        product = Product.where(name: product_name, brand: martin).first_or_initialize
+      end
+
+      next unless product.new_record?
+      product.cached_slug = row["ProductName"].downcase
+
+      product.product_status = imported
+      if row["ProductDiscontinued"].to_i == 1
+        product.product_status = discontinued
+      end
+
+      product.layout_class = "vertical"
+      product.extended_description_tab_name = "Tech Specs"
+      product.hide_buy_it_now_button = true
+
+      puts "Creating product #{ product.name } (#{ product.product_status.name })"
+      new_products << probable_id
+      product.save
+    end
+
+    puts "================================="
+    puts "New products: #{ new_products.count }"
   end
 
   def parse_bomitem(bomitem, product, product_id, page_id, parent)
@@ -144,12 +193,283 @@ namespace :martin do
     end
   end
 
-  def login_to_support_page
+  desc "Add descriptions, etc. to martin products"
+  task add_content: :environment do
+
+    @root_site = "http://www.martin.com"
+    martin = Brand.find "martin"
+    problems = []
+    successes = []
+
+    @agent = Mechanize.new
+
+    Product.where(brand: martin).where("created_at > ?", "2018-05-08".to_time).where("product_status_id != 7").each do |product|
+      puts "Getting #{ product.name }"
+      begin
+        page = @agent.get("#{ @root_site }/en-us/product-details/#{ product.friendly_id }")
+        if page.code == "200"
+          add_descriptions_to_product(product, page)
+          add_gallery_to_product(product, page)
+          add_main_image(product, page)
+          add_specs_to_product(product, page)
+          successes << product
+        else
+          puts "  well that didn't work."
+          problems << product
+        end
+      rescue
+        puts "  well that didn't work."
+        problems << product
+      end
+    end
+
+    puts "Problems:"
+    puts "============================="
+    problems.each do |product|
+      puts "    #{product.name}"
+    end
+    puts "============================="
+    puts "Problems: #{ problems.length }"
+    puts "Successes: #{ successes.length }"
+
+  end
+
+  desc "Add gated content to martin products"
+  task add_gated_content: :environment do
+
+    @root_site = "http://www.martin.com"
+    martin = Brand.find "martin"
+    problems = []
+    successes = []
+
+    @agent = Mechanize.new
+    logged_in_page = login_to_support_page(username: "#{ENV['MARTIN_ADMIN']}200")
+
+    if logged_in_page.code == "200"
+      Product.where(brand: martin).where("product_status_id != 7").limit(999).each do |product|
+        puts "Getting #{ product.name }"
+        begin
+          page = @agent.get("#{ @root_site }/en-us/support/product-details/#{ product.friendly_id }")
+          if page.code == "200"
+            add_downloads_to_product(product, page)
+            successes << product
+          else
+            puts "  well that didn't work."
+            problems << product
+          end
+        rescue
+          puts "  well that didn't work."
+          problems << product
+        end
+      end
+    end
+
+    puts "Problems:"
+    puts "============================="
+    problems.each do |product|
+      puts "    #{product.name}"
+    end
+    puts "============================="
+    puts "Problems: #{ problems.length }"
+    puts "Successes: #{ successes.length }"
+  end
+
+  def add_downloads_to_product(product, page)
+    page.css("table.Prod_Documentlist tbody tr").each do |row|
+      begin
+        fields = {}
+        cells = row.css("td")
+        unless cells[4].content.to_s.match(/html|link/i)
+          thelink = cells[0].css("a")[0]
+          file_url = thelink["href"]
+          fn = file_url.split(/\//).last
+          fields[:name] = thelink.content.strip
+
+          security_level = thelink["class"].gsub(/level/, "")
+          unless security_level == "999"
+            access_level = AccessLevel.where(name: security_level).first_or_create
+            fields[:access_level_id] = access_level.id
+          end
+          fields[:version] = cells[1].content.strip
+          fields[:language] = cells[2]["data-sort"].downcase
+          fields[:created_at] = cells[5]["data-sort"].to_time
+          fields[:resource_type] = cells[6].content.strip.titleize
+          fields[:brand_id] = product.brand_id
+          fields[:show_on_public_site] = true
+          fields[:is_document] = true
+
+          #unless security_level == "999"
+            puts "  Found: #{ fields.inspect }, url: #{ file_url }"
+            add_downloads_part_two(product, fields, file_url, fn)
+          #end
+        end
+      rescue
+        puts "....Problem with #{ row.inspect }"
+      end
+    end
+  end
+
+  def add_downloads_part_two(product, fields, file_url, fn)
+    se = SiteElement.where(
+      brand_id: fields[:brand_id],
+      name: fields[:name],
+      version: fields[:version],
+      language: fields[:language]
+    ).first_or_initialize
+
+    if se.new_record?
+      fields.each do |k,v|
+        se[k] = v
+      end
+      if @agent.get(file_url).save("tmp/#{fn}")
+        download = File.open("tmp/#{fn}")
+        if !!(fn.match(/(png|jpg|jpeg|tif|tiff|bmp|gif)$/i))
+          se.resource = download
+        else
+          se.executable = download
+        end
+        download.close
+        se.save
+        File.delete("tmp/#{fn}")
+      else
+        puts "   ERROR getting #{file_url }"
+      end
+    else
+      if se.access_level_id != fields[:access_level_id]
+        fields[:access_level_id] = AccessLevel.where(name: "300").first_or_create.id
+      end
+    end
+
+    se.update_attributes(fields)
+
+    ProductSiteElement.where(product: product, site_element: se).first_or_create
+  end
+
+  def add_descriptions_to_product(product, page)
+    puts "Updating description..."
+    new_description = ""
+    begin
+      new_description = page.css(".prodDescription")[0].css(".prodDesc")[0].inner_html.strip
+      if page.css("#prodSellingPoints").length > 0
+        new_description += page.css("#prodSellingPoints")[0].inner_html.strip
+      end
+    rescue
+      puts "Problem adding description"
+    end
+    product.description = new_description
+
+    puts "Updating features..."
+    begin
+      product.features = page.css("#features .infoBox")[0].inner_html.strip
+    rescue
+      puts "Problem adding features"
+    end
+    product.save
+  end
+
+  def add_gallery_to_product(product, page)
+    puts "Scanning the gallery..."
+    page.css("ul#listGallery li").each do |gallery_item|
+      thelink = gallery_item.css("a")[0]
+      if thelink["href"].to_s.match(/youtube\.com\/embed\/(.*)\?+/)
+        # add a video
+        pv = ProductVideo.where(product_id: product.id, youtube_id: $1, group: "Product Demos").first_or_create
+        puts " ... adding video #{ pv.youtube_id }"
+      else
+        img_url = thelink["href"]
+        fn = img_url.split(/\//).last
+        puts " ... getting image #{ fn }"
+        unless product.product_attachments.pluck(:product_attachment_file_name).include?(fn)
+          begin
+            add_one_image_to_product(product, img_url, fn)
+          rescue
+            puts "Problem adding img #{ img_url } to #{ product.name }"
+          end
+        end
+      end
+    end
+    product.save
+  end
+
+  def add_main_image(product, page)
+    if product.product_attachments.length == 0
+      if page.css("#prodTop").css("img.img-responsive").length > 0
+        img_url = page.css("#prodTop").css("img.img-responsive")[0]["src"]
+        if img_url.to_s.match(/Image\=\/Files\/images\/Products\/(.*)\/&+/)
+          fn = $1
+        else
+          fn = "#{product.name.parameterize}.jpg"
+        end
+        puts " ...getting #{ fn }"
+        add_one_image_to_product(product, img_url, fn)
+      end
+    end
+  end
+
+  def add_one_image_to_product(product, img_url, fn)
+    if @agent.get(img_url).save("tmp/#{fn}")
+      img = File.open("tmp/#{fn}")
+      product.product_attachments << ProductAttachment.new(product_attachment: img)
+      img.close
+      product.save
+      File.delete("tmp/#{fn}")
+    end
+  end
+
+  def add_specs_to_product(product, page)
+    puts "Updating specs..."
+    new_images = {
+      "CE" => "/resource/martin-ce-mark.png",
+      "ETL C US Intertek" => "/resource/martin-etl-mark.png",
+      "C-Tick" => "/resource/martin-c-tick-mark.png",
+      "Aus" => "/resource/rcm-mark.png",
+      "IK08" => "/resource/ik08-mark.png",
+      "UL C US" => "/resource/martin-ul-mark.jpg"
+    }
+    begin
+      approvals = []
+      if page.css("#techSpecs .approval").length > 0
+        page.css("#techSpecs .approval")[0].css("img").each do |appr_img|
+          approvals << appr_img["title"]
+        end
+      end
+
+      tech_specs = '<div class="row">'
+      tech_specs += '<div class="small-12 medium-6 columns">'
+      tech_specs += page.css("#techSpecs .specsCol1")[0].inner_html.strip
+      tech_specs += '</div><div class="small-12 medium-6 columns">'
+
+      page.css("#techSpecs .specsCol2")[0].css("div.spec").each do |spec|
+        tech_specs += '<div class="spec">' + spec.inner_html.strip
+        if spec.content.to_s.match(/Approvals/)
+          tech_specs += '<div class="spec approval">'
+            approvals.each do |approval|
+              if new_images.keys.include?(approval)
+                tech_specs += "<img src=\"#{new_images[approval]}\" alt=\"#{ approval }\" title=\"#{ approval }\"/>&nbsp;"
+              else
+                tech_specs += "<span class=\"missing-mark\">#{ approval }</span>&nbsp;"
+              end
+            end
+          tech_specs += '</div>'
+        end
+        tech_specs += '</div>'
+      end
+      tech_specs += '</div>'
+      tech_specs += '</div>'
+
+      product.extended_description = tech_specs
+    rescue
+      puts "Problem adding tech specs"
+    end
+    product.save
+  end
+
+  def login_to_support_page(opts={})
     # Login to get gated content
     p = @agent.get("#{ @root_site }/support")
     login_form = p.form_with id: "ExtUserForm"
-    login_form.Username = ENV['MARTIN_ADMIN']
-    login_form.Password = ENV['MARTIN_PASSWORD']
+    login_form.Username = opts[:username] || ENV['MARTIN_ADMIN']
+    login_form.Password = opts[:password] || ENV['MARTIN_PASSWORD']
     login_form.click_button
   end
 end

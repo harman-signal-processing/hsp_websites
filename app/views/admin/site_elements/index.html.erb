@@ -15,7 +15,7 @@
 
 <% @site_elements.each do |site_element| %>
   <tr>
-    <td><%= link_to site_element.name, [:admin, site_element] %></td>
+    <td><%= link_to site_element.long_name, [:admin, site_element] %></td>
     <td><%= (!site_element.resource_file_name.blank?) ? site_element.resource_file_name : site_element.executable_file_name %></td>
     <td><%= site_element.resource_type %></td>
   </tr>

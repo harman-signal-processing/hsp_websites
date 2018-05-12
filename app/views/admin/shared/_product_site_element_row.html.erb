@@ -1,7 +1,7 @@
 <% called_from ||= 'product' %>
 <li id="product_site_element_<%= pse.id %>">
 	<%= (called_from == 'product') ? 
-			link_to(pse.site_element.name, [:admin, pse.site_element]) : 
+			link_to(pse.site_element.long_name, [:admin, pse.site_element]) : 
 			link_to(pse.product.name, [:admin, pse.product]) %> 
 	<%= link_to(image_tag("icons/trash.gif"), 
 			admin_product_site_element_path(pse), 
