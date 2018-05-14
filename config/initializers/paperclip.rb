@@ -53,6 +53,9 @@ if Rails.env.production? || !!(ENV['USE_PRODUCTION_ASSETS'].to_i > 0)
    #  url: ':s3_alias_url',
    #  path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
 	})
+	
+	# Allow Paperclip to get image from S3 url
+  Paperclip::UriAdapter.register
 
   S3_STORAGE = {
     storage: :s3,

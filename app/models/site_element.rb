@@ -128,7 +128,12 @@ class SiteElement < ApplicationRecord
       options[:content_type] = "binary/octet-stream"
       options[:content_disposition] = "attachment"
     end
-    bucket.object(paperclip_file_path).copy_from(uploaded_object, options)
+    
+    if self.is_image?
+      self.resource = URI.parse(URI.escape(direct_upload_url)) # use paperclip to process image(s)
+    else
+      bucket.object(paperclip_file_path).copy_from(uploaded_object, options) # does not use paperclip, just copies the item from the upload bucket to the appropriate final destination bucket for the element 
+    end
 
     process_in_background attachment_type.to_sym
 
