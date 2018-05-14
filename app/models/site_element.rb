@@ -135,7 +135,7 @@ class SiteElement < ApplicationRecord
       bucket.object(paperclip_file_path).copy_from(uploaded_object, options) # does not use paperclip, just copies the item from the upload bucket to the appropriate final destination bucket for the element 
     end
 
-    process_in_background attachment_type.to_sym
+    # process_in_background attachment_type.to_sym
 
     self.processed = true
     save
