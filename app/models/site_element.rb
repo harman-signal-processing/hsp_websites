@@ -95,8 +95,11 @@ class SiteElement < ApplicationRecord
   # Long name includes version and language if present
   def long_name
     n = name
-    n += " rev#{ version }" if version.present?
-    n+= " #{ language }" if language.present?
+    n += " (" if version.present? || language.present?
+    n += "rev#{ version }" if version.present?
+    n += "-" if version.present? && language.present?
+    n += "#{ language.upcase }" if language.present?
+    n += ")" if version.present? || language.present?
     n
   end
 

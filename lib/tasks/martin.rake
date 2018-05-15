@@ -10,15 +10,17 @@ namespace :martin do
 
     @agent = Mechanize.new
     logged_in_page = login_to_support_page
+    products = Product.where(brand: martin).where("created_at > ?", "2018-05-08".to_time)
+    #products = load_mismatches
 
     to_be_deleted = ProductStatus.where(name: "_delete").first_or_create
     if logged_in_page.code == "200"
       puts "Logged in."
-      Product.where(brand: martin).where("created_at > ?", "2018-05-08".to_time).each do |product|
-#      Product.where(cached_slug: "mac-quantum-wash").each do |product|
+      products.each do |product|
         puts "Getting #{ product.name }"
         begin
-          page = @agent.get("#{ @root_site }/en-us/support/product-details/#{ product.friendly_id }")
+          friendly_id = product.old_id.present? ? product.old_id : product.friendly_id
+          page = @agent.get("#{ @root_site }/en-us/support/product-details/#{ friendly_id }")
           if page.code == "200"
             product_id = nil
             page_id = nil
@@ -203,10 +205,14 @@ namespace :martin do
 
     @agent = Mechanize.new
 
-    Product.where(brand: martin).where("created_at > ?", "2018-05-08".to_time).where("product_status_id != 7").each do |product|
+    products = Product.where(brand: martin).where("created_at > ?", "2018-05-08".to_time).where("product_status_id != 7")
+    #products = load_mismatches
+
+    products.each do |product|
       puts "Getting #{ product.name }"
       begin
-        page = @agent.get("#{ @root_site }/en-us/product-details/#{ product.friendly_id }")
+        friendly_id = product.old_id.present? ? product.old_id : product.friendly_id
+        page = @agent.get("#{ @root_site }/en-us/product-details/#{ friendly_id }")
         if page.code == "200"
           add_descriptions_to_product(product, page)
           add_gallery_to_product(product, page)
@@ -245,11 +251,15 @@ namespace :martin do
     @agent = Mechanize.new
     logged_in_page = login_to_support_page(username: "#{ENV['MARTIN_ADMIN']}200")
 
+    products = Product.where(brand: martin).where("product_status_id != 7").limit(999)
+    #products = load_mismatches
+
     if logged_in_page.code == "200"
-      Product.where(brand: martin).where("product_status_id != 7").limit(999).each do |product|
+      products.each do |product|
         puts "Getting #{ product.name }"
         begin
-          page = @agent.get("#{ @root_site }/en-us/support/product-details/#{ product.friendly_id }")
+          friendly_id = product.old_id.present? ? product.old_id : product.friendly_id
+          page = @agent.get("#{ @root_site }/en-us/support/product-details/#{ friendly_id }")
           if page.code == "200"
             add_downloads_to_product(product, page)
             successes << product
@@ -462,6 +472,18 @@ namespace :martin do
       puts "Problem adding tech specs"
     end
     product.save
+  end
+
+  def load_mismatches
+    p = []
+    csv_file = File.join(Rails.root, "db", "martin-mismatches.csv")
+    CSV.foreach(csv_file, encoding: 'ISO-8859-1', headers: true).each do |row|
+      next unless row["new_id"].present?
+      product = Product.find(row["new_id"])
+      product.old_id = row["old_id"]
+      p << product
+    end
+    p
   end
 
   def login_to_support_page(opts={})
