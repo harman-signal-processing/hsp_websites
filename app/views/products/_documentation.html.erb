@@ -33,6 +33,7 @@
         <li>
           <%= image_tag "icons/download_17.png", style: "vertical-align: middle" %>
           <%= link_to site_element.long_name, site_element.url %>
+          <%= keys_for(site_element) %>
           <% if site_element.resource_file_size.present? %>
             [<%= number_to_human_size(site_element.resource_file_size) %>]
           <% end %>
@@ -46,6 +47,7 @@
             <%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
           <% end %>
           <%= link_to site_element.long_name, site_element.resource.url %>
+          <%= keys_for(site_element) %>
           [<%= number_to_human_size(site_element.resource_file_size) %>]
         </li>
       <% end %>

@@ -211,7 +211,7 @@ module ProductsHelper
             ret += content_tag(
               :dd,
               link_to(
-                tab_title(product_tab, product: product),
+                "#{tab_title(product_tab, product: product)} #{fa_icon('key')}".html_safe,
                 bom_product_path(product)
               )
             )
@@ -589,13 +589,26 @@ module ProductsHelper
   end
 
   def render_part(part)
-    img = part.photo.present? ? image_tag(part.photo.url(:tiny_square)) : "&nbsp;".html_safe
-    desc = content_tag(:h5, part.part_number) + part.description
+    img = part.photo.present? ?
+      link_to(image_tag(part.photo.url(:tiny_square)), "#", data: {:"reveal-id" => "modal#{part.id}"}) :
+      "&nbsp;".html_safe
+    desc = content_tag(:h5) do
+      link_to(part.part_number, '#', data: {:"reveal-id" => "modal#{part.id}"})
+    end + part.description
     content_tag(:table) do
       content_tag(:tr) do
         content_tag(:td, img) + content_tag(:td, desc)
       end
     end
+  end
+
+  def keys_for(site_element)
+    if site_element.access_level.present?
+      "&nbsp;" +
+        site_element.access_level.keys.times.map do
+          fa_icon("key")
+      end.join
+    end.to_s.html_safe
   end
 
 end
