@@ -43,7 +43,7 @@ class Admin::UsersController < AdminController
 
   # POST /admin/users/1/reset_password
   def reset_password
-    new_password = "Hsp123!"
+    new_password = ENV['DEFAULT_PASSWORD']
     @user.password = new_password
     @user.password_confirmation = @user.password
     respond_to do |format|

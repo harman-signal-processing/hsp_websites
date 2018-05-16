@@ -284,6 +284,11 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       get 'network-audio' => 'pages#network_audio'
     end
 
+    # Martin distributors and dealers are mixed together on the WTB page
+    constraints(MartinDomain) do
+      get 'distributors', to: redirect("/en/where_to_buy")
+    end
+
     devise_for :users
     scope "/admin" do
       devise_scope :user do
