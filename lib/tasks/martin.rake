@@ -205,8 +205,13 @@ namespace :martin do
 
     @agent = Mechanize.new
 
-    products = Product.where(brand: martin).where("created_at > ?", "2018-05-08".to_time).where("product_status_id != 7")
-    #products = load_mismatches
+    products = []
+    #products = Product.where(brand: martin).where("created_at > ?", "2018-05-08".to_time).where("product_status_id != 7")
+    #["fog", "haze", "low-fog", "fluid"].each do |k|
+    #  pf = ProductFamily.find k
+    #  products += pf.products
+    #end
+    products = load_mismatches
 
     products.each do |product|
       puts "Getting #{ product.name }"
@@ -215,8 +220,8 @@ namespace :martin do
         page = @agent.get("#{ @root_site }/en-us/product-details/#{ friendly_id }")
         if page.code == "200"
           add_descriptions_to_product(product, page)
-          add_gallery_to_product(product, page)
-          add_main_image(product, page)
+          #add_gallery_to_product(product, page)
+          #add_main_image(product, page)
           add_specs_to_product(product, page)
           successes << product
         else

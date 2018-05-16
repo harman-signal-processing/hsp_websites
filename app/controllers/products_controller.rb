@@ -211,6 +211,13 @@ class ProductsController < ApplicationController
   # to roles with access to view parts
   def bom
     if can?(:read, Part)
+      @search = @product.parts.ransack(params[:q])
+      @searched = false
+      @search_results = []
+      if params[:q]
+        @search_results = @search.result(:distinct => true)
+        @searched = true
+      end
       render_template
     else
       redirect_to product, alert: "Bill of material access denied." and return false

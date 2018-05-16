@@ -595,9 +595,9 @@ module ProductsHelper
     desc = content_tag(:h5) do
       link_to(part.part_number, '#', data: {:"reveal-id" => "modal#{part.id}"})
     end + part.description
-    content_tag(:table) do
+    content_tag(:table, style: "width: 100%") do
       content_tag(:tr) do
-        content_tag(:td, img) + content_tag(:td, desc)
+        content_tag(:td, img, style: "width: 100px") + content_tag(:td, desc)
       end
     end
   end

@@ -3,17 +3,40 @@
 <h1><%= link_to @product.name, @product %> Bill of Materials</h1>
 
 <div class="row">
-  <div class="small-6 medium-8 columns">
+  <div class="small-6 medium-6 columns">
     <% if @product.parts.length == 0 %>
       <i>Sorry, no parts found.</i>
     <% else %>
       <%= cache ["product_parts_tree", @product, I18n.locale] do %>
         <%= render_parts_tree(@product.parts.where(parent_id: nil)) %>
       <% end %>
+      <p><i>Click a part number or image to see where else it is used.</i></p>
     <% end %>
   </div>
   <div class="small-6 medium-4 columns">
-    <%# Future use: show where else a part is used when it is clicked %>
+    <div class="panel">
+      <%= search_form_for [@product, @search], url: bom_product_path(@product), method: :post do |f| %>
+        <%= f.label :part_number_or_description_cont, "Part search" %>
+        <div class="row collapse">
+          <div class="small-9 columns">
+            <%= f.text_field :part_number_or_description_cont %>
+          </div>
+          <div class="small-3 columns">
+            <%= f.submit "Search", class: "button postfix" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <% if @searched %>
+      <% if @search_results.length > 0 %>
+        <% @search_results.each do |part| %>
+          <%= render_part(part) %>
+        <% end %>
+      <% else %>
+        <i>Sorry, no results were found.</i>
+      <% end %>
+    <% end %>
   </div>
 </div>
 

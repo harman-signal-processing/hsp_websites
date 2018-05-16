@@ -579,6 +579,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         get :preview
         get :photometric
         get :bom
+        post :bom
         put :preview
       end
       collection do
