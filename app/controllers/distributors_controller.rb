@@ -3,18 +3,21 @@ class DistributorsController < ApplicationController
   # GET /distributors
   # GET /distributors.xml
   def index
+    unless website.brand.has_distributors?
+      redirect_to where_to_buy_path and return false
+    end
     @distributors = []
     @countries = [Distributor.new(country: "USA")] + Distributor.countries(website)
     @country = nil
     respond_to do |format|
       format.html { render_template }
-      # format.xml  { 
+      # format.xml  {
       #   @distributors = Distributor.all
-      #   render xml: @distributors 
+      #   render xml: @distributors
       # }
     end
   end
-  
+
   # PUT /distributors/search
   def search
     @country = params[:country]

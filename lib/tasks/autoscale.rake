@@ -5,10 +5,9 @@ namespace :rackspace do
   desc "Create an image of the main server and delete old image"
   task :create_image => :environment do
     client = compute_client
-    server_name = "HICGLXRAILS02"
-    delete_old_images(client, server_name)
-    server = client.servers.find(name: server_name).first
-    server.create_image("Daily-#{Time.now.to_i}-#{server_name}")
+    server = client.servers.get("31d10f1a-59d4-4648-89cd-29e758f16f8b")
+    delete_old_images(client, server.name)
+    server.create_image("Daily-#{Time.now.to_i}-#{server.name}")
   end
 
   desc "Update the autoscale settings"
@@ -49,7 +48,7 @@ namespace :rackspace do
 
   def delete_old_images(client, server_name)
     images = server_images(client, server_name).sort
-    if images.length > 8
+    if images.length > 6
       client.images.get(images.first[1]).destroy
     end
   end
@@ -69,7 +68,7 @@ namespace :rackspace do
 
     servers.each do |server|
       server_ip = server.addresses["private"].first["addr"]
-      unless node_addresses.include?(server_ip)
+      unless node_addresses.include?(server_ip) || server.name.to_s.match?(/temp/i)
         load_balancer.nodes.create(
           address: server_ip,
           port: 80,
