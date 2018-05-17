@@ -548,6 +548,10 @@ class Product < ApplicationRecord
     @safety_documents ||= product_documents.where("document_type LIKE '%safety%'")
   end
 
+  def safety_site_elements
+    @safety_site_elements ||= site_elements.where("resource_type LIKE '%safety%'").where(is_document: true)
+  end
+
   def nonsafety_documents
     @nonsafety_documents ||= product_documents.where("document_type NOT LIKE '%safety%'")
   end

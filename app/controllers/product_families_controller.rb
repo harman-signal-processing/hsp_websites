@@ -1,6 +1,6 @@
 class ProductFamiliesController < ApplicationController
   before_action :set_locale
-  before_action :ensure_best_url, only: :show
+  before_action :ensure_best_url, only: [:show, :safety_documents]
 
   # GET /product_families
   # GET /product_families.xml
@@ -44,6 +44,10 @@ class ProductFamiliesController < ApplicationController
       }
       # format.xml  { render xml: @product_family }
     end
+  end
+
+  def safety_documents
+    render_template
   end
 
   protected

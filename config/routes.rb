@@ -286,6 +286,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
 
     # Martin distributors and dealers are mixed together on the WTB page
     constraints(MartinDomain) do
+      get 'safety-documents', to: redirect('/en-US/product_families/effect-fluids/safety-documents'), as: :martin_safety_documents
       get 'distributors', to: redirect("/en/where_to_buy")
     end
 
@@ -567,9 +568,13 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       :pages,
       :installations,
       :product_reviews,
-      :product_families,
       :demo_songs,
       :promotions, only: [:index, :show]
+    resources :product_families, only: [:index, :show] do
+      member do
+        get 'safety-documents'
+      end
+    end
     get 'introducing/:id' => 'products#introducing', as: :product_introduction
     get 'products/songlist/:id.:format' => 'products#songlist', as: :product_songlist
     resources :products, only: [:index, :discontinued] do
