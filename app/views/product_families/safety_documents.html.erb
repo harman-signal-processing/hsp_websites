@@ -1,0 +1,82 @@
+<h3>Safety documents for <%= @product_family.name %></h3>
+
+<div class="row">
+  <div class="small-12 medium-4 columns">
+    Please choose a product:
+    <ul>
+      <% @product_family.current_products.sort_by{|p| p.name.upcase}.each do |product| %>
+        <% if product.safety_documents.length > 0 || product.safety_site_elements.length > 0 %>
+          <li><%= link_to product.name,
+            product,
+            class: "safety-panel-link",
+            data: { panel: "safety_for_#{ product.to_param }" } %>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="small-12 medium-8 columns">
+    <% @product_family.current_products.each do |product| %>
+      <% if product.safety_documents.length > 0 || product.safety_site_elements.length > 0 %>
+        <div id="safety_for_<%= product.to_param %>" class="safety-panel" style="display: none">
+          <div class="text-center">
+            <% if product.photo %>
+              <%= link_to image_tag(product.photo.product_attachment.url(:medium)), product %>
+            <% end %>
+          </div>
+          <h5><%= product.name %> Safety Documents</h5>
+
+          <table>
+            <thead>
+              <tr>
+                <td>Name</td>
+                <td>Version</td>
+                <td>Language</td>
+                <td>Size</td>
+              </tr>
+            </thead>
+            <tbody>
+          <% (product.safety_documents + product.safety_site_elements).sort_by{|p| p.name.upcase}.each do |f| %>
+            <% if can?(:read, f) %>
+              <tr>
+                <td>
+                  <% if f.is_a?(ProductDocument) %>
+                    <%= link_to f.name, f.document.url %>
+                  <% elsif f.is_a?(SiteElement) %>
+                    <% if f.external_url.present? || f.executable_file_name.present? %>
+                      <%= link_to f.name, f.url %>
+                      <%= keys_for(site_element) %>
+                    <% elsif f.resource_file_name.present? %>
+                      <%= link_to f.long_name, f.resource.url %>
+                      <%= keys_for(f) %>
+                    <% end %>
+                  <% end %>
+                </td>
+                <td>
+                  <% if f.respond_to?(:version) %><%= f.version %><% end %>&nbsp;
+                </td>
+                <td>
+                  <% if f.respond_to?(:language) %><%= f.language %><% end %>&nbsp;
+                </td>
+                <td>
+                  <% if f.is_a?(ProductDocument) %>
+                    [<%= number_to_human_size(f.document_file_size) %>]
+                  <% elsif f.is_a?(SiteElement) %>
+                    <% if f.resource_file_size.present? %>
+                      [<%= number_to_human_size(f.resource_file_size) %>]
+                    <% elsif f.executable_file_size.present? %>
+                      [<%= number_to_human_size(f.executable_file_size) %>]
+                    <% end %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
