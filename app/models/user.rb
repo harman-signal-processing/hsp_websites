@@ -47,6 +47,7 @@ class User < ApplicationRecord
         ENV['DISTRIBUTOR_INVITATION_CODE'],
         ENV['DEALER_INVITATION_CODE'],
         ENV['TECHNICIAN_INVITATION_CODE'],
+        ENV['SUPER_TECHNICIAN_INVITATION_CODE'],
         ENV['MEDIA_INVITATION_CODE'] ],
       message: "is invalid. (it is cAsE sEnSiTiVe.)"},
     on: :create,
@@ -73,6 +74,7 @@ class User < ApplicationRecord
     sales_admin
     executive
     technician
+    super_technician
     media]
 
   def self.staff
@@ -147,6 +149,10 @@ class User < ApplicationRecord
 
   def technician?
     role?(:technician)
+  end
+
+  def super_technician?
+    role?(:super_technician)
   end
 
   def needs_account_number?

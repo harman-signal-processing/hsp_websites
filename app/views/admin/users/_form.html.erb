@@ -18,9 +18,7 @@
 
 		<div class="large-6 columns">
 			<%= f.input :admin, label: "Super Admin" %>
-			<% unless @user.new_record? %>
 			<%= f.input :employee %>
-			<% end %>
 			<%= f.input :market_manager %>
 			<%= f.input :marketing_staff %>
 			<%= f.input :artist_relations %>
@@ -34,6 +32,8 @@
 			<%= f.input :rep %>
 			<%= f.input :dealer %>
 			<%= f.input :distributor %>
+      <%= f.input :technician %>
+      <%= f.input :super_technician %>
 
 			<% unless @user.new_record? %>
 			 <%= f.input :rso, label: "RSO" %>

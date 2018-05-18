@@ -46,7 +46,7 @@
                   <% elsif f.is_a?(SiteElement) %>
                     <% if f.external_url.present? || f.executable_file_name.present? %>
                       <%= link_to f.name, f.url %>
-                      <%= keys_for(site_element) %>
+                      <%= keys_for(f) %>
                     <% elsif f.resource_file_name.present? %>
                       <%= link_to f.name, f.resource.url %>
                       <%= keys_for(f) %>

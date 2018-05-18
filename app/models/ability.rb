@@ -16,6 +16,7 @@ class Ability
       dealer: false,
       distributor: false,
       technician: false,
+      super_technician: false,
       rso: false
     })
     # The first argument to `can` is the action you are giving the user permission to do.
@@ -192,7 +193,7 @@ class Ability
         can :read, ToolkitResource
         can :read, ToolkitResourceType
       end
-      if user.role?(:technician)
+      if user.role?(:technician) || user.role?(:super_technician)
         can :read, Part
         can :read, ProductPart
         can :read, SiteElement do |site_element|

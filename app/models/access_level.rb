@@ -43,18 +43,4 @@ class AccessLevel < ApplicationRecord
     end
   end
 
-  # Dumb way to figure out how many keys to show next to the file names
-  def keys
-    case self.name
-    when "100"
-      1
-    when "200"
-      2
-    when "300"
-      2
-    when "400"
-      3
-    end
-  end
-
 end
