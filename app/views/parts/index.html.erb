@@ -1,0 +1,55 @@
+<h3>Parts search</h3>
+
+<div class="row">
+  <div class="small-12 medium-4 columns">
+    <div class="panel">
+      <%= search_form_for @parts do |f| %>
+        <%= f.label :part_number_or_description_cont, "Part search" %>
+        <div class="row collapse">
+          <div class="small-9 columns">
+            <%= f.text_field :part_number_or_description_cont %>
+          </div>
+          <div class="small-3 columns">
+            <%= f.submit "Search", class: "button postfix" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <% if @searched %>
+      <% if @search_results.length > 0 %>
+        <p><small><i>Click the part number or image to see where the part is used.</i></small></p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="small-12 medium-7 columns">
+    <% if @searched %>
+      <% if @search_results.length > 0 %>
+        <% @search_results.each do |part| %>
+          <%= render_part(part) %>
+        <% end %>
+      <% else %>
+        <i>Sorry, no results were found.</i>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<% if @search_results.length > 0 %>
+  <%= cache ["product_part_modals", @product, I18n.locale] do %>
+    <% @search_results.each do |part| %>
+      <%= cache ["part_modal", part, I18n.locale] do %>
+        <div class="reveal-modal small" id="modal<%= part.id %>" data-reveal>
+          <h2 id="modalTitle">Where Used</h2>
+          <p>Part <%= part.part_number %> is used in the following products:</p>
+          <ul>
+            <% part.products.map do |product| %>
+              <li><%= link_to(product.name, product) %></li>
+            <% end %>
+          </ul>
+          <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

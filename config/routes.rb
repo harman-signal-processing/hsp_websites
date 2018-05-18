@@ -593,6 +593,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get 'products/:id(/:tab)' => 'products#show', as: :product
     resources :tone_library_songs, only: :index
     resources :product_documents, only: :index
+    resources :parts, only: [:index]
     resources :events, only: [:index, :show]
 
     get 'getting-started/ui', to: redirect('/get-started/ui-series')

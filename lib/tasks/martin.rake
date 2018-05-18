@@ -10,9 +10,9 @@ namespace :martin do
 
     @agent = Mechanize.new
     logged_in_page = login_to_support_page
-    #products = Product.where(brand: martin).where("created_at > ?", "2018-05-08".to_time)
+    products = Product.where(brand: martin).where(product_status: ProductStatus.where(name: "Discontinued").first)
     #products = load_mismatches
-    products = load_the_problematic_ones("_delete")
+    #products = load_the_problematic_ones("_delete")
 
     #to_be_deleted = ProductStatus.where(name: "_delete").first_or_create
     if logged_in_page.code == "200"
@@ -211,26 +211,32 @@ namespace :martin do
 
     products = []
     #products = Product.where(brand: martin).where("created_at > ?", "2018-05-08".to_time).where("product_status_id != 7")
+    products = Product.where(brand: martin).where(product_status: ProductStatus.where(name: "Discontinued").first)
     #["fog", "haze", "low-fog", "fluid"].each do |k|
     #  pf = ProductFamily.find k
     #  products += pf.products
     #end
     #products = load_mismatches
-    products = load_the_problematic_ones("_delete")
+    #products = load_the_problematic_ones("_delete")
+
+    #wife = Product.find("wife-updater")
+    #wife.old_id = "PROD330"
+    #products = [wife]
 
     products.each do |product|
       puts "Getting #{ product.name }"
       begin
         friendly_id = product.old_id.present? ? product.old_id : product.friendly_id
+        puts "Loading page for #{ friendly_id }"
         # Newer products use this format:
         #page = @agent.get("#{ @root_site }/en-us/product-details/#{ friendly_id }")
         # Older products use this format:
         page = @agent.get("#{ @root_site }/en-us/product-details?ProductID=#{ friendly_id }")
         if page.code == "200"
           add_descriptions_to_product(product, page)
-          #add_gallery_to_product(product, page)
-          #add_main_image(product, page)
-          #add_specs_to_product(product, page)
+          add_gallery_to_product(product, page)
+          add_main_image(product, page)
+          add_specs_to_product(product, page)
           successes << product
         else
           puts "  well that didn't work."
@@ -266,7 +272,8 @@ namespace :martin do
 
     #products = Product.where(brand: martin).where("product_status_id != 7").limit(999)
     #products = load_mismatches
-    products = load_the_problematic_ones("_delete")
+    #products = load_the_problematic_ones("_delete")
+    products = Product.where(brand: martin).where(product_status: ProductStatus.where(name: "Discontinued").first)
 
     if logged_in_page.code == "200"
       products.each do |product|
@@ -383,17 +390,21 @@ namespace :martin do
     rescue
       puts "Problem adding description"
     end
-    product.description = new_description
+    if product.description.blank? || !new_description.blank?
+      product.description = new_description
+    end
 
     puts "Updating features..."
+    new_features = ""
     begin
-      product.features = page.css("#features .infoBox")[0].inner_html.strip
+      new_features = page.css("#features .infoBox")[0].inner_html.strip
     rescue
       puts "Problem adding features"
     end
-    puts "Description: #{ product.description }"
-    puts "Features: #{ product.features }"
-    #product.save
+    if product.features.blank? && !new_features.blank?
+      product.features = new_features
+    end
+    product.save
   end
 
   def add_gallery_to_product(product, page)
@@ -446,51 +457,55 @@ namespace :martin do
   end
 
   def add_specs_to_product(product, page)
-    puts "Updating specs..."
-    new_images = {
-      "CE" => "/resource/martin-ce-mark.png",
-      "ETL C US Intertek" => "/resource/martin-etl-mark.png",
-      "C-Tick" => "/resource/martin-c-tick-mark.png",
-      "Aus" => "/resource/rcm-mark.png",
-      "IK08" => "/resource/ik08-mark.png",
-      "UL C US" => "/resource/martin-ul-mark.jpg"
-    }
-    begin
-      approvals = []
-      if page.css("#techSpecs .approval").length > 0
-        page.css("#techSpecs .approval")[0].css("img").each do |appr_img|
-          approvals << appr_img["title"]
+    if product.extended_description.blank?
+      puts "Updating specs..."
+      new_images = {
+        "CE" => "/resource/martin-ce-mark.png",
+        "ETL C US Intertek" => "/resource/martin-etl-mark.png",
+        "C-Tick" => "/resource/martin-c-tick-mark.png",
+        "Aus" => "/resource/rcm-mark.png",
+        "IK08" => "/resource/ik08-mark.png",
+        "UL C US" => "/resource/martin-ul-mark.jpg"
+      }
+      begin
+        approvals = []
+        if page.css("#techSpecs .approval").length > 0
+          page.css("#techSpecs .approval")[0].css("img").each do |appr_img|
+            approvals << appr_img["title"]
+          end
         end
-      end
 
-      tech_specs = '<div class="row">'
-      tech_specs += '<div class="small-12 medium-6 columns">'
-      tech_specs += page.css("#techSpecs .specsCol1")[0].inner_html.strip
-      tech_specs += '</div><div class="small-12 medium-6 columns">'
+        tech_specs = '<div class="row">'
+        tech_specs += '<div class="small-12 medium-6 columns">'
+        tech_specs += page.css("#techSpecs .specsCol1")[0].inner_html.strip
+        tech_specs += '</div><div class="small-12 medium-6 columns">'
 
-      page.css("#techSpecs .specsCol2")[0].css("div.spec").each do |spec|
-        tech_specs += '<div class="spec">' + spec.inner_html.strip
-        if spec.content.to_s.match(/Approvals/)
-          tech_specs += '<div class="spec approval">'
-            approvals.each do |approval|
-              if new_images.keys.include?(approval)
-                tech_specs += "<img src=\"#{new_images[approval]}\" alt=\"#{ approval }\" title=\"#{ approval }\"/>&nbsp;"
-              else
-                tech_specs += "<span class=\"missing-mark\">#{ approval }</span>&nbsp;"
+        page.css("#techSpecs .specsCol2")[0].css("div.spec").each do |spec|
+          tech_specs += '<div class="spec">' + spec.inner_html.strip
+          if spec.content.to_s.match(/Approvals/)
+            tech_specs += '<div class="spec approval">'
+              approvals.each do |approval|
+                if new_images.keys.include?(approval)
+                  tech_specs += "<img src=\"#{new_images[approval]}\" alt=\"#{ approval }\" title=\"#{ approval }\"/>&nbsp;"
+                else
+                  tech_specs += "<span class=\"missing-mark\">#{ approval }</span>&nbsp;"
+                end
               end
-            end
+            tech_specs += '</div>'
+          end
           tech_specs += '</div>'
         end
         tech_specs += '</div>'
-      end
-      tech_specs += '</div>'
-      tech_specs += '</div>'
+        tech_specs += '</div>'
 
-      product.extended_description = tech_specs
-    rescue
-      puts "Problem adding tech specs"
+        product.extended_description = tech_specs
+      rescue
+        puts "Problem adding tech specs"
+      end
+      product.save
+    else
+      puts "Skipping specs (already present)"
     end
-    product.save
   end
 
   def load_mismatches
@@ -507,26 +522,30 @@ namespace :martin do
 
   def load_the_problematic_ones(product_status_name)
     products = []
+    scanned_prod_ids = []
     product_status = ProductStatus.where(name: product_status_name).first
     martin = Brand.find "martin"
     csv_file = File.join(Rails.root, "db", "productnames.csv")
     CSV.foreach(csv_file, encoding: 'ISO-8859-1', headers: true).each do |row|
-      #begin
-      probable_id = row["ProductName"].downcase.gsub(/\+/, "-plus").gsub(/\#|\*|\(|\)/, "").gsub(/\_/, "-").gsub(/\-{1,}/, "-")
+      next if scanned_prod_ids.include?(row["ProductID"])
+      scanned_prod_ids << row["ProductID"]
+      next if row["ProductName"].to_s.match?(/test|printed|swag|copy/i)
+      probable_id = row["ProductName"].downcase.gsub(/\+/, "-plus").gsub(/\#|\*|\(|\)/, "").gsub(/\_|¥/, "-").gsub(/\-{1,}/, "-")
+      probable_id.gsub!(/\-*$/, "")
+      probable_id.gsub!(/ð/, "d")
+      probable_id.gsub!(/\&\-/, "")
       if probable_id == "edit"
         probable_id = "martin-edit"
       end
-        puts "Looking for #{ probable_id }"
-        product = Product.find(probable_id)
-        if product.product_status == product_status && product.brand == martin
-          product.old_id = row["ProductID"]
-          products << product
-        end
-      #rescue
-      #  puts "couldn't find product #{ row["ProductName"] } in the database."
-      #end
+      next if probable_id == "exterior-400-image-projector"
+      product = Product.find(probable_id)
+      if product.product_status == product_status && product.brand == martin
+        product.old_id = row["ProductID"]
+        products << product
+        puts "Loaded #{ product.name }, old id: #{ product.old_id }"
+      end
     end
-    products
+    products.uniq
   end
 
   def login_to_support_page(opts={})
