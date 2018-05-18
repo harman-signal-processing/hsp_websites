@@ -48,7 +48,7 @@
                       <%= link_to f.name, f.url %>
                       <%= keys_for(site_element) %>
                     <% elsif f.resource_file_name.present? %>
-                      <%= link_to f.long_name, f.resource.url %>
+                      <%= link_to f.name, f.resource.url %>
                       <%= keys_for(f) %>
                     <% end %>
                   <% end %>

@@ -226,7 +226,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     rescue
       # No Martin brand found--probably a fresh test database which doesn't matter.
     end
-    match "/en-us/fixtures-request" => "support#fixtures_request", as: "fixtures_request", via: [:get, :post]
+    # Removed as requested:
+    #match "/en-us/fixtures-request" => "support#fixtures_request", as: "fixtures_request", via: [:get, :post]
   end  #  constraints(MartinDomain) do
 
   constraints(SoundcraftDomain) do

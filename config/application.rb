@@ -76,9 +76,12 @@ module HarmanSignalProcessingWebsite
     config.document_languages = [
       ["English", "en"],
       ["Chinese", "zh"],
+      ["Danish", "da"],
       ["French", "fr"],
       ["German", "de"],
       ["Italian", "it"],
+      ["Norwegian", "no"],
+      ["Portuguese", "pt"],
       ["Spanish", "es"]
     ]
 

@@ -10,17 +10,21 @@ namespace :martin do
 
     @agent = Mechanize.new
     logged_in_page = login_to_support_page
-    products = Product.where(brand: martin).where("created_at > ?", "2018-05-08".to_time)
+    #products = Product.where(brand: martin).where("created_at > ?", "2018-05-08".to_time)
     #products = load_mismatches
+    products = load_the_problematic_ones("_delete")
 
-    to_be_deleted = ProductStatus.where(name: "_delete").first_or_create
+    #to_be_deleted = ProductStatus.where(name: "_delete").first_or_create
     if logged_in_page.code == "200"
       puts "Logged in."
       products.each do |product|
         puts "Getting #{ product.name }"
         begin
           friendly_id = product.old_id.present? ? product.old_id : product.friendly_id
-          page = @agent.get("#{ @root_site }/en-us/support/product-details/#{ friendly_id }")
+          # Newer products use this format:
+          #page = @agent.get("#{ @root_site }/en-us/support/product-details/#{ friendly_id }")
+          # Older products use this format:
+          page = @agent.get("#{ @root_site }/en-us/support/product-details?ProductID=#{ friendly_id }")
           if page.code == "200"
             product_id = nil
             page_id = nil
@@ -38,12 +42,12 @@ namespace :martin do
             end
             successes << product
           else
-            product.update_column(:product_status_id, to_be_deleted.id)
+    #        product.update_column(:product_status_id, to_be_deleted.id)
             puts "  well that didn't work."
             problems << product
           end
         rescue
-          product.update_column(:product_status_id, to_be_deleted.id)
+    #      product.update_column(:product_status_id, to_be_deleted.id)
           puts "  well that didn't work."
           problems << product
         end
@@ -211,18 +215,22 @@ namespace :martin do
     #  pf = ProductFamily.find k
     #  products += pf.products
     #end
-    products = load_mismatches
+    #products = load_mismatches
+    products = load_the_problematic_ones("_delete")
 
     products.each do |product|
       puts "Getting #{ product.name }"
       begin
         friendly_id = product.old_id.present? ? product.old_id : product.friendly_id
-        page = @agent.get("#{ @root_site }/en-us/product-details/#{ friendly_id }")
+        # Newer products use this format:
+        #page = @agent.get("#{ @root_site }/en-us/product-details/#{ friendly_id }")
+        # Older products use this format:
+        page = @agent.get("#{ @root_site }/en-us/product-details?ProductID=#{ friendly_id }")
         if page.code == "200"
           add_descriptions_to_product(product, page)
           #add_gallery_to_product(product, page)
           #add_main_image(product, page)
-          add_specs_to_product(product, page)
+          #add_specs_to_product(product, page)
           successes << product
         else
           puts "  well that didn't work."
@@ -256,15 +264,19 @@ namespace :martin do
     @agent = Mechanize.new
     logged_in_page = login_to_support_page(username: "#{ENV['MARTIN_ADMIN']}200")
 
-    products = Product.where(brand: martin).where("product_status_id != 7").limit(999)
+    #products = Product.where(brand: martin).where("product_status_id != 7").limit(999)
     #products = load_mismatches
+    products = load_the_problematic_ones("_delete")
 
     if logged_in_page.code == "200"
       products.each do |product|
         puts "Getting #{ product.name }"
         begin
           friendly_id = product.old_id.present? ? product.old_id : product.friendly_id
-          page = @agent.get("#{ @root_site }/en-us/support/product-details/#{ friendly_id }")
+          # Newer products use this format:
+          #page = @agent.get("#{ @root_site }/en-us/support/product-details/#{ friendly_id }")
+          # Older products use this format:
+          page = @agent.get("#{ @root_site }/en-us/support/product-details?ProductID=#{ friendly_id }")
           if page.code == "200"
             add_downloads_to_product(product, page)
             successes << product
@@ -379,7 +391,9 @@ namespace :martin do
     rescue
       puts "Problem adding features"
     end
-    product.save
+    puts "Description: #{ product.description }"
+    puts "Features: #{ product.features }"
+    #product.save
   end
 
   def add_gallery_to_product(product, page)
@@ -489,6 +503,30 @@ namespace :martin do
       p << product
     end
     p
+  end
+
+  def load_the_problematic_ones(product_status_name)
+    products = []
+    product_status = ProductStatus.where(name: product_status_name).first
+    martin = Brand.find "martin"
+    csv_file = File.join(Rails.root, "db", "productnames.csv")
+    CSV.foreach(csv_file, encoding: 'ISO-8859-1', headers: true).each do |row|
+      #begin
+      probable_id = row["ProductName"].downcase.gsub(/\+/, "-plus").gsub(/\#|\*|\(|\)/, "").gsub(/\_/, "-").gsub(/\-{1,}/, "-")
+      if probable_id == "edit"
+        probable_id = "martin-edit"
+      end
+        puts "Looking for #{ probable_id }"
+        product = Product.find(probable_id)
+        if product.product_status == product_status && product.brand == martin
+          product.old_id = row["ProductID"]
+          products << product
+        end
+      #rescue
+      #  puts "couldn't find product #{ row["ProductName"] } in the database."
+      #end
+    end
+    products
   end
 
   def login_to_support_page(opts={})
