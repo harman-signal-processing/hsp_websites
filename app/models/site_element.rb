@@ -62,9 +62,9 @@ class SiteElement < ApplicationRecord
     if external_url.present?
       ''
     elsif resource_file_name.present?
-      resource_file_name[/\.(\w*)$/, 1].downcase
+      resource_file_name[/\.(\w*)$/, 1].to_s.downcase
     elsif executable_file_name.present?
-      executable_file_name[/\.(\w*)$/, 1].downcase
+      executable_file_name[/\.(\w*)$/, 1].to_s.downcase
     end
   end
 

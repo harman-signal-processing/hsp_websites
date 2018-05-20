@@ -603,12 +603,16 @@ module ProductsHelper
   end
 
   def keys_for(site_element)
-    if site_element.access_level.present?
-      "&nbsp;" +
-        site_element.access_level.keys.times.map do
-          fa_icon("key")
-      end.join
-    end.to_s.html_safe
+    begin
+      if site_element.access_level.present?
+        "&nbsp;" +
+          site_element.access_level.keys.times.map do
+            fa_icon("key")
+        end.join
+      end.to_s.html_safe
+    rescue
+      ""
+    end
   end
 
 end

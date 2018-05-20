@@ -12,7 +12,7 @@ namespace :martin do
     logged_in_page = login_to_support_page
     products = Product.where(brand: martin).where(product_status: ProductStatus.where(name: "Discontinued").first)
     #products = load_mismatches
-    #products = load_the_problematic_ones("_delete")
+    products += load_the_problematic_ones("Discontinued")
 
     #to_be_deleted = ProductStatus.where(name: "_delete").first_or_create
     if logged_in_page.code == "200"
@@ -21,10 +21,11 @@ namespace :martin do
         puts "Getting #{ product.name }"
         begin
           friendly_id = product.old_id.present? ? product.old_id : product.friendly_id
-          # Newer products use this format:
-          #page = @agent.get("#{ @root_site }/en-us/support/product-details/#{ friendly_id }")
-          # Older products use this format:
-          page = @agent.get("#{ @root_site }/en-us/support/product-details?ProductID=#{ friendly_id }")
+          if friendly_id.to_s.match(/PROD/)
+            page = @agent.get("#{ @root_site }/en-us/support/product-details?ProductID=#{ friendly_id }")
+          else
+            page = @agent.get("#{ @root_site }/en-us/support/product-details/#{ friendly_id }")
+          end
           if page.code == "200"
             product_id = nil
             page_id = nil
@@ -211,27 +212,24 @@ namespace :martin do
 
     products = []
     #products = Product.where(brand: martin).where("created_at > ?", "2018-05-08".to_time).where("product_status_id != 7")
-    products = Product.where(brand: martin).where(product_status: ProductStatus.where(name: "Discontinued").first)
+    #products = Product.where(brand: martin).where(product_status: ProductStatus.where(name: "Discontinued").first)
     #["fog", "haze", "low-fog", "fluid"].each do |k|
     #  pf = ProductFamily.find k
     #  products += pf.products
     #end
     #products = load_mismatches
-    #products = load_the_problematic_ones("_delete")
-
-    #wife = Product.find("wife-updater")
-    #wife.old_id = "PROD330"
-    #products = [wife]
+    products += load_the_problematic_ones("_delete")
 
     products.each do |product|
       puts "Getting #{ product.name }"
       begin
         friendly_id = product.old_id.present? ? product.old_id : product.friendly_id
         puts "Loading page for #{ friendly_id }"
-        # Newer products use this format:
-        #page = @agent.get("#{ @root_site }/en-us/product-details/#{ friendly_id }")
-        # Older products use this format:
-        page = @agent.get("#{ @root_site }/en-us/product-details?ProductID=#{ friendly_id }")
+        if friendly_id.to_s.match?(/PROD/i)
+          page = @agent.get("#{ @root_site }/en-us/product-details?ProductID=#{ friendly_id }")
+        else
+          page = @agent.get("#{ @root_site }/en-us/product-details/#{ friendly_id }")
+        end
         if page.code == "200"
           add_descriptions_to_product(product, page)
           add_gallery_to_product(product, page)
@@ -266,24 +264,26 @@ namespace :martin do
     martin = Brand.find "martin"
     problems = []
     successes = []
+    @software_pages = []
 
     @agent = Mechanize.new
-    logged_in_page = login_to_support_page(username: "#{ENV['MARTIN_ADMIN']}200")
+    logged_in_page = login_to_support_page()
 
     #products = Product.where(brand: martin).where("product_status_id != 7").limit(999)
     #products = load_mismatches
-    #products = load_the_problematic_ones("_delete")
     products = Product.where(brand: martin).where(product_status: ProductStatus.where(name: "Discontinued").first)
+    products += load_the_problematic_ones("Discontinued")
 
     if logged_in_page.code == "200"
       products.each do |product|
         puts "Getting #{ product.name }"
         begin
           friendly_id = product.old_id.present? ? product.old_id : product.friendly_id
-          # Newer products use this format:
-          #page = @agent.get("#{ @root_site }/en-us/support/product-details/#{ friendly_id }")
-          # Older products use this format:
-          page = @agent.get("#{ @root_site }/en-us/support/product-details?ProductID=#{ friendly_id }")
+          if friendly_id.to_s.match(/PROD/)
+            page = @agent.get("#{ @root_site }/en-us/support/product-details?ProductID=#{ friendly_id }")
+          else
+            page = @agent.get("#{ @root_site }/en-us/support/product-details/#{ friendly_id }")
+          end
           if page.code == "200"
             add_downloads_to_product(product, page)
             successes << product
@@ -298,14 +298,89 @@ namespace :martin do
       end
     end
 
-    puts "Problems:"
-    puts "============================="
-    problems.each do |product|
-      puts "    #{product.name}"
+    #puts "Problems:"
+    #puts "============================="
+    #problems.each do |product|
+    #  puts "    #{product.name}"
+    #end
+    #puts "============================="
+    #puts "Problems: #{ problems.length }"
+    #puts "Successes: #{ successes.length }"
+    puts "============================"
+    puts " Software to be uploaded: "
+    @software_pages.each do |s|
+      puts s.to_param
     end
-    puts "============================="
-    puts "Problems: #{ problems.length }"
-    puts "Successes: #{ successes.length }"
+  end
+
+  desc "Clean up duplicate uploads"
+  task cleanup: :environment do
+
+    martin = Brand.find "martin"
+
+    #products = Product.where(brand: martin).where("product_status_id != 7").limit(999)
+    #products = load_mismatches
+    #products = load_the_problematic_ones("_delete")
+    #products = Product.where(brand: martin).where(product_status: ProductStatus.where(name: "Discontinued").first)
+    #products = martin.products
+
+    #products.each do |product|
+    #  puts "########################## Checking #{product.name}"
+      #site_element_filenames = product.site_elements.map do |se|
+      #  se.resource_file_name.present? ? se.resource_file_name : se.executable_file_name
+      #end
+
+      # This is done
+#      product.product_documents.each do |pd|
+#        if site_element_filenames.include?(pd.document_file_name)
+#          puts "  deleting #{ pd.name }"
+#          pd.destroy
+#        end
+#      end
+    #end
+
+    destroyed = []
+    total_dups = 0
+    martin.site_elements.where(access_level_id: nil).each do |se|
+      #puts "###### Inspecting #{ se.long_name }"
+      this_fn = ""
+      this_fn = se.resource_file_name if se.resource_file_name.present?
+      this_fn = se.executable_file_name if se.executable_file_name.present?
+      unless this_fn.blank?
+        #puts "   filename: #{ this_fn }"
+        others = []
+        others += martin.site_elements.where(
+          executable_file_name: this_fn,
+          version: se.version,
+          language: se.language).where("id != ?", se.id)
+        others += martin.site_elements.where(
+          resource_file_name: this_fn,
+          version: se.version,
+          language: se.language).where("id != ?", se.id)
+        if others.length > 0
+          total_dups += others.length
+          puts "#{se.long_name} found #{others.length} matches"
+          others.each do |other|
+            if se.products.pluck(:name).sort == other.products.pluck(:name).sort
+              #puts "  products are the same"
+            else
+              #puts "  products are DIFFERENT"
+              #puts "    #{ se.products.pluck(:name).sort }"
+              #puts "    #{ other.products.pluck(:name).sort }"
+              other.products.each do |p|
+                se.products << p unless se.products.include?(p)
+              end
+            end
+            puts "Deleting #{ other.long_name }"
+    #        other.destroy
+            destroyed << "#{ other.long_name }, #{ other.products.pluck(:name) }"
+          end
+        end
+      end
+      se.save # keep all the products we added
+    end
+    puts "Duplicates found: #{ total_dups }"
+    puts destroyed.inspect
   end
 
   def add_downloads_to_product(product, page)
@@ -313,7 +388,11 @@ namespace :martin do
       begin
         fields = {}
         cells = row.css("td")
-        unless cells[4].content.to_s.match(/html|link/i)
+        if cells[4].content.to_s.match(/html|link/i) && cells[6].content.to_s.match?(/software/i)
+          if product.softwares.length == 0
+            @software_pages << product unless @software_pages.include?(product)
+          end
+        else
           thelink = cells[0].css("a")[0]
           file_url = thelink["href"]
           fn = file_url.split(/\//).last
@@ -332,8 +411,8 @@ namespace :martin do
           fields[:show_on_public_site] = true
           fields[:is_document] = true
 
-          #unless security_level == "999"
-            puts "  Found: #{ fields.inspect }, url: #{ file_url }"
+          #unless security_level == "999" || security_level == "100" || security_level == "200"
+            #puts "  Found: #{ fields.inspect }, url: #{ file_url }"
             add_downloads_part_two(product, fields, file_url, fn)
           #end
         end
@@ -344,14 +423,29 @@ namespace :martin do
   end
 
   def add_downloads_part_two(product, fields, file_url, fn)
-    se = SiteElement.where(
-      brand_id: fields[:brand_id],
-      name: fields[:name],
-      version: fields[:version],
-      language: fields[:language]
-    ).first_or_initialize
+    #the_stored_fn = fn.gsub(/(\.\w*)$/, "_original"+'/1')
+    the_stored_fn = fn.gsub(/\s/, "_")
+    #the_stored_fn = Paperclip::Interpolations.interpolate(":basename.:extension", attachment, :original)
+    if !!(fn.match(/(png|jpg|jpeg|tif|tiff|bmp|gif)$/i))
+      se = SiteElement.where(
+        brand_id: fields[:brand_id],
+        name: fields[:name],
+        version: fields[:version],
+        language: fields[:language],
+        resource_file_name: the_stored_fn
+      ).first_or_initialize
+    else
+      se = SiteElement.where(
+        brand_id: fields[:brand_id],
+        name: fields[:name],
+        version: fields[:version],
+        language: fields[:language],
+        executable_file_name: the_stored_fn
+      ).first_or_initialize
+    end
 
     if se.new_record?
+      #puts "This would be a new record: #{ se.inspect } (original fn: #{fn})"
       fields.each do |k,v|
         se[k] = v
       end
@@ -363,14 +457,14 @@ namespace :martin do
           se.executable = download
         end
         download.close
-        se.save
+#        se.save
         File.delete("tmp/#{fn}")
       else
         puts "   ERROR getting #{file_url }"
       end
     else
       if se.access_level_id != fields[:access_level_id]
-        fields[:access_level_id] = AccessLevel.where(name: "300").first_or_create.id
+        #fields[:access_level_id] = AccessLevel.where(name: "300").first_or_create.id
       end
     end
 
@@ -390,7 +484,7 @@ namespace :martin do
     rescue
       puts "Problem adding description"
     end
-    if product.description.blank? || !new_description.blank?
+    if product.description.blank? && !new_description.blank?
       product.description = new_description
     end
 
