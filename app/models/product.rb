@@ -365,7 +365,7 @@ class Product < ApplicationRecord
   end
 
   def downloads_content_present?
-    softwares.size > 0 || executable_site_elements.size > 0
+    softwares.size > 0 || executable_site_elements.size > 0 || (site_elements.size > 0 && self.brand.name.to_s.match?(/martin/i))
   end
 
   def specifications_content_present?
@@ -398,12 +398,20 @@ class Product < ApplicationRecord
 
   # Collects those site_elements where the download is software or a zip
   def executable_site_elements
-    @executable_site_elements ||= site_elements.where(is_software: true)
+    @executable_site_elements ||= site_elements.where(id: deduped_site_element_ids, is_software: true)
   end
 
   # Collects those site_elements where the download is PDF or image
   def viewable_site_elements
-    @viewable_site_elements ||= site_elements.where(is_document: true)
+    @viewable_site_elements ||= site_elements.where(id: deduped_site_element_ids, is_document: true)
+  end
+
+  def deduped_site_element_ids
+    site_elements.select{|s| s.id if latest_version_of_site_element?(s)}
+  end
+
+  def latest_version_of_site_element?(site_element)
+    site_element == site_elements.where(name: site_element.name).order(:version).last
   end
 
   # Pretty awful hack to see if a custom tab name exists for the given tab "name".
