@@ -4,17 +4,19 @@ class GatedSupportController < ApplicationController
   # before_action :require_admin_authentication
   before_action :authenticate_user!
   check_authorization
-  skip_authorization_check only: [:index]
+  skip_authorization_check
 
   def index
     render_template
   end
 
-  private
-
-  # Always operate admin in default locale
-  def set_locale
-    I18n.locale = I18n.default_locale
+  def super_tech_upgrade
+    if current_user && current_user.technician?
+      current_user.update_attributes(super_technician: true, technician: false)
+      redirect_to gated_support_path, notice: "You now have super-tech level access. Enjoy!"
+    else
+      redirect_to gated_support_path, alert: "Sorry, your account must first have \"Technician\" access in order to be upgraded."
+    end
   end
 
 end

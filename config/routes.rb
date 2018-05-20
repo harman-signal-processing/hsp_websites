@@ -287,6 +287,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
 
     constraints(MartinDomain) do
       get 'safety-documents', to: redirect('/en-US/product_families/effect-fluids/safety-documents'), as: :martin_safety_documents
+      get 'upgrade-me-to-supertech-just-this-once' => "gated_support#super_tech_upgrade"
     end
 
     devise_for :users

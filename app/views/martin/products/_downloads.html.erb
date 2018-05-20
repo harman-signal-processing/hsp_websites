@@ -56,7 +56,7 @@
     <%
     # I hate putting this in the view...
     show_this_row = false
-    if resource_type.to_s.match?(/software/)
+    if resource_type.to_s.match?(/software/i)
       show_this_row = true if product.active_softwares.count > 0
     end
     unless show_this_row == true
@@ -70,7 +70,7 @@
       <tr>
         <td colspan="4">
           <h6>
-          <% if resource_type.to_s.match?(/software/) %>
+          <% if resource_type.to_s.match?(/software/i) %>
             <%= resource_type.titleize %>
           <% else %>
             <%= resource_type.titleize.pluralize %>
