@@ -674,6 +674,14 @@ ActiveRecord::Schema.define(version: 20180522151421) do
     t.datetime "updated_at"
   end
 
+  create_table "manufacturer_partners", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.string "url"
+    t.boolean "amx_device_discovery"
+    t.integer "site_element_id"
+    t.index ["site_element_id"], name: "index_manufacturer_partners_on_site_element_id"
+  end
+
   create_table "market_segment_product_families", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "market_segment_id"
     t.integer "product_family_id"
@@ -2042,4 +2050,5 @@ ActiveRecord::Schema.define(version: 20180522151421) do
     t.index ["url"], name: "index_websites_on_url", unique: true
   end
 
+  add_foreign_key "manufacturer_partners", "site_elements"
 end

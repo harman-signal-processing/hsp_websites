@@ -1,0 +1,27 @@
+<h1>Manufacturer Partners</h1>
+
+<% #if can? :create, SiteElement %>
+<ul class="button-group round">
+	<li><%= link_to 'New Manufacturer Partner', new_admin_manufacturer_partner_path, class: "small success button" %></li>
+</ul>
+<% #end %>
+
+<table class="data">
+  <tr>
+    <th></th>
+    <th>Name</th>
+    <th>URL</th>
+    <th style="text-align: center;">Logo</th>
+    <th>AMX Devise Discovery</th>
+  </tr>
+
+<% @manufacturer_partners.each do |manufacturer_partner| %>
+  <tr style="vertical-align:text-bottom;">
+    <td><%= link_to 'Edit', [:admin, manufacturer_partner], class: "small round button" %></td>
+    <td><%= manufacturer_partner.name%></td>
+    <td><%= link_to manufacturer_partner.url, manufacturer_partner.url %></td>
+    <td style="text-align: center;"><%= image_tag(manufacturer_partner.site_element.resource.url(:original), size: "80", alt: manufacturer_partner.name, title: manufacturer_partner.name) %></td>
+    <td style="text-align: center;"><%if manufacturer_partner.amx_device_discovery%><%= image_tag "/resource/logo_amx-inconcert-partners.png", size:"40x35", alt: "Has AMX Device Discovery", title: "Has AMX Device Discovery" %><%end%></td>
+  </tr>
+<% end %>
+</table>

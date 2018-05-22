@@ -1,0 +1,12 @@
+<%= simple_form_for([:admin, @manufacturer_partner]) do |f| %>
+  <%= f.input :name, label: "Manufacturer" %>
+  <%= f.input :url, placeholder: "http://www.somemanufacturer.com" %>
+
+    <%= f.input :amx_device_discovery, label: "Check if Manufacturer has AMX Device Discovery" %>
+  
+    <%= f.hidden_field :site_element_id %>
+    <%= f.association :site_element, collection: @logos, label: "Pick Logo" %>
+
+    </br>
+  <%= f.button :submit %>
+<% end # simple_form_for([:admin, @manufacturer_partner]) do |f|%>
