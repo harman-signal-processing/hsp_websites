@@ -4,12 +4,10 @@
 # should be called via AJAX and return Javascript to update whatever view
 # sent the method call.
 #
-# TODO: Create the HTML views just in case.
-#
 class Admin::ProductAttachmentsController < AdminController
   before_action :initialize_product_attachment, only: :create
   load_and_authorize_resource
-  
+
   # GET /admin/product_attachments
   # GET /admin/product_attachments.xml
   def index

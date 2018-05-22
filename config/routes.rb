@@ -442,6 +442,10 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         member { post :add_specification }
         collection { post :update_order }
       end
+      resources :site_elements do
+        resources :site_element_attachments
+        collection { post :upload }
+      end
       resources :service_centers,
         :market_segment_product_families,
         :software_training_classes,
@@ -487,7 +491,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :installations,
         :pricing_types,
         :news_products,
-        :site_elements,
         :label_sheets,
         :distributors,
         :artist_tiers,
@@ -596,6 +599,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     resources :product_documents, only: :index
     resources :parts, only: [:index]
     resources :events, only: [:index, :show]
+    resources :site_elements, only: [:show]
 
     get 'getting-started/ui', to: redirect('/get-started/ui-series')
     get 'get-started/ui', to: redirect('/get-started/ui-series')

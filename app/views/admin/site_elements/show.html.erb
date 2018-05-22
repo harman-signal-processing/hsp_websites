@@ -165,22 +165,43 @@
       <p><i>Note: the permalink is built of the name of the resource. Don't rename it if you want to keep the permalink active.</i></p>
 
     </div>
-    <div class="group">
-      <p>Choose one or more product below. Doing so will add this file to the
-      manuals/documentation area on each associated product page.</p>
+    <div class="row">
+      <div class="small-12 medium-6 columns">
+        <div class="group">
+          <p>Choose one or more product below. Doing so will add this file to the
+          manuals/documentation area on each associated product page.</p>
 
-      <%= simple_form_for [:admin, @product_site_element], remote: true do |f| %>
-        <%= f.hidden_field :site_element_id %>
-        <%= hidden_field_tag :called_from, "site_element" %>
-        <%= f.association :product, collection: website.products, label: false %>
-        <%= f.submit "add product", class: "small round button" %>
-      <% end %>
+          <%= simple_form_for [:admin, @product_site_element], remote: true do |f| %>
+            <%= f.hidden_field :site_element_id %>
+            <%= hidden_field_tag :called_from, "site_element" %>
+            <%= f.association :product, collection: website.products, label: false %>
+            <%= f.submit "add product", class: "small round button" %>
+          <% end %>
 
-      <ul id="product_site_elements" class="list">
-        <% @site_element.product_site_elements.each do |pse| %>
-          <%= render "/admin/shared/product_site_element_row", pse: pse, called_from: "site_element" %>
+          <ul id="product_site_elements" class="list">
+            <% @site_element.product_site_elements.each do |pse| %>
+              <%= render "/admin/shared/product_site_element_row", pse: pse, called_from: "site_element" %>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+      <div class="small-12 medium-6 columns">
+        <p>If this is one of the new HTML resources, you may want to
+        add some images, etc. to use in your HTML code:</p>
+        <%= simple_form_for [:admin, @site_element, @site_element_attachment] do |f| %>
+          <%= f.input :attachment %>
+          <%= f.submit "upload", class: "tiny button"%>
         <% end %>
-      </ul>
+
+        <ul>
+          <% @site_element.site_element_attachments.each do |att| %>
+            <li id="site_element_attachment_<%= att.id %>">
+              <%= link_to att.attachment_file_name, att.attachment.url, target: "_blank" %>
+              <%= link_to image_tag("trash.png"), [:admin, @site_element, att], method: :delete, remote: true %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
     </div>
   </div>
 </div>

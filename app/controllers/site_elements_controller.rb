@@ -9,6 +9,8 @@ class SiteElementsController < ApplicationController
       send_executable_file(@site_element)
     when 'external'
       redirect_to @site_element.external_url
+    when 'html'
+      render_template
     end
   end
 

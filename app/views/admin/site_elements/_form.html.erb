@@ -79,6 +79,36 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="small-8 columns">
+      <%= f.input :content,
+        label: "HTML content--in order for this to work, do not attach a file above or link to an external resource.",
+        input_html: { class: "mceEditor", style: "height: 400px" } %>
+    </div>
+    <div class="small-4 columns">
+      <h4>Attachments</h4>
+      <div class="panel">
+        New for Martin, you can use the Site Resources to create an
+        HTML resource. Since you may need to include images, etc. in
+        your HTML, this is where you do it.
+        <% if @site_element.new_record? %>
+          However since this is a new record, you'll have to first
+          save this and then return to add images, etc.
+        <% else %>
+          Right-click and copy the path for the items below to
+          include them in your HTML.
+        <% end %>
+      </div>
+      <% unless @site_element.new_record? %>
+        <ul>
+          <% @site_element.site_element_attachments.each do |att| %>
+            <li><%= link_to att.attachment_file_name, att.attachment.url %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+
   <br/><%= f.button :submit %>
 
 <%= content_for :extra_js do %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180518210702) do
+ActiveRecord::Schema.define(version: 20180522151421) do
 
   create_table "access_levels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -1454,6 +1454,17 @@ ActiveRecord::Schema.define(version: 20180518210702) do
     t.index ["brand_id"], name: "index_signups_on_brand_id"
   end
 
+  create_table "site_element_attachments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "site_element_id"
+    t.string "attachment_file_name"
+    t.string "attachment_content_type"
+    t.integer "attachment_file_size"
+    t.datetime "attachment_updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_element_id"], name: "index_site_element_attachments_on_site_element_id"
+  end
+
   create_table "site_elements", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.integer "brand_id"
@@ -1478,6 +1489,7 @@ ActiveRecord::Schema.define(version: 20180518210702) do
     t.string "version"
     t.string "language"
     t.integer "access_level_id"
+    t.text "content"
     t.index ["access_level_id"], name: "index_site_elements_on_access_level_id"
     t.index ["brand_id"], name: "index_site_elements_on_brand_id"
     t.index ["cached_slug"], name: "index_site_elements_on_cached_slug"
@@ -1746,6 +1758,36 @@ ActiveRecord::Schema.define(version: 20180518210702) do
 
   create_table "tags", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
+  end
+
+  create_table "tech_note_attachments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "tech_note_id"
+    t.string "attachment_file_name"
+    t.string "attachment_content_type"
+    t.datetime "attachment_updated_at"
+    t.integer "attachment_file_size"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tech_note_id"], name: "index_tech_note_attachments_on_tech_note_id"
+  end
+
+  create_table "tech_note_products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "tech_note_id"
+    t.integer "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_tech_note_products_on_product_id"
+    t.index ["tech_note_id"], name: "index_tech_note_products_on_tech_note_id"
+  end
+
+  create_table "tech_notes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.text "content"
+    t.integer "access_level_id"
+    t.string "version"
+    t.string "language"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tone_library_patches", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

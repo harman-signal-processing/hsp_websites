@@ -22,6 +22,7 @@ class SiteElement < ApplicationRecord
   validates :resource_type, presence: true, if: :show_on_public_site?
   has_many :product_site_elements, dependent: :destroy, inverse_of: :site_element
   has_many :products, through: :product_site_elements
+  has_many :site_element_attachments, dependent: :destroy # added for martin
   belongs_to :access_level
 
   before_save :set_upload_attributes
@@ -65,6 +66,8 @@ class SiteElement < ApplicationRecord
       resource_file_name[/\.(\w*)$/, 1].to_s.downcase
     elsif executable_file_name.present?
       executable_file_name[/\.(\w*)$/, 1].to_s.downcase
+    elsif content.present?
+      'html'
     end
   end
 
@@ -75,6 +78,8 @@ class SiteElement < ApplicationRecord
       resource.url
     elsif executable_file_name.present?
       executable.url
+    elsif content.present?
+      "/resource/#{self.to_param}.html"
     end
   end
 
@@ -89,6 +94,8 @@ class SiteElement < ApplicationRecord
       'resource'
     elsif executable_file_name.present?
       'executable'
+    elsif content.present?
+      'html'
     end
   end
 

@@ -106,11 +106,27 @@
               <%= link_to site_element.name, site_element.resource.url %>
               <%= keys_for(site_element) %>
             </td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td>
+              <%= site_element.version %>&nbsp;
+            </td>
+            <td>
+              <%= site_element.language.to_s.upcase %>&nbsp;
+            </td>
             <td>
               <%= number_to_human_size(site_element.resource_file_size) %>
             </td>
+          <% elsif site_element.content.present? %>
+            <td>
+              <%= link_to site_element.name, site_element %>
+              <%= keys_for(site_element) %>
+            </td>
+            <td>
+              <%= site_element.version %>&nbsp;
+            </td>
+            <td>
+              <%= site_element.language.to_s.upcase %>&nbsp;
+            </td>
+            <td>&nbsp;</td>
           <% end %>
         </tr>
       <% end %>
@@ -174,11 +190,27 @@
               <%= link_to site_element.name, site_element.resource.url %>
               <%= keys_for(site_element) %>
             </td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td>
+              <%= site_element.version %>&nbsp;
+            </td>
+            <td>
+              <%= site_element.language.to_s.upcase %>&nbsp;
+            </td>
             <td>
               <%= number_to_human_size(site_element.resource_file_size) %>
             </td>
+          <% elsif site_element.content.present? %>
+            <td>
+              <%= link_to site_element.name, site_element %>
+              <%= keys_for(site_element) %>
+            </td>
+            <td>
+              <%= site_element.version %>&nbsp;
+            </td>
+            <td>
+              <%= site_element.language.to_s.upcase %>&nbsp;
+            </td>
+            <td>&nbsp;</td>
           <% end %>
         </tr>
       <% end %>

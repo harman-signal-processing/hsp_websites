@@ -16,6 +16,7 @@ class Admin::SiteElementsController < AdminController
   # GET /site_elements/1.xml
   def show
     @product_site_element = ProductSiteElement.new(site_element_id: @site_element.id)
+    @site_element_attachment = SiteElementAttachment.new
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render xml: @site_element }

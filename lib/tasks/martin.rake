@@ -271,8 +271,9 @@ namespace :martin do
 
     #products = Product.where(brand: martin).where("product_status_id != 7").limit(999)
     #products = load_mismatches
-    products = Product.where(brand: martin).where(product_status: ProductStatus.where(name: "Discontinued").first)
-    products += load_the_problematic_ones("Discontinued")
+    #products = Product.where(brand: martin).where(product_status: ProductStatus.where(name: "Discontinued").first)
+    #products += load_the_problematic_ones("Discontinued")
+    products = Product.where(name: "RUSH MH 11 Beam")
 
     if logged_in_page.code == "200"
       products.each do |product|
@@ -311,76 +312,6 @@ namespace :martin do
     @software_pages.each do |s|
       puts s.to_param
     end
-  end
-
-  desc "Clean up duplicate uploads"
-  task cleanup: :environment do
-
-    martin = Brand.find "martin"
-
-    #products = Product.where(brand: martin).where("product_status_id != 7").limit(999)
-    #products = load_mismatches
-    #products = load_the_problematic_ones("_delete")
-    #products = Product.where(brand: martin).where(product_status: ProductStatus.where(name: "Discontinued").first)
-    #products = martin.products
-
-    #products.each do |product|
-    #  puts "########################## Checking #{product.name}"
-      #site_element_filenames = product.site_elements.map do |se|
-      #  se.resource_file_name.present? ? se.resource_file_name : se.executable_file_name
-      #end
-
-      # This is done
-#      product.product_documents.each do |pd|
-#        if site_element_filenames.include?(pd.document_file_name)
-#          puts "  deleting #{ pd.name }"
-#          pd.destroy
-#        end
-#      end
-    #end
-
-    destroyed = []
-    total_dups = 0
-    martin.site_elements.where(access_level_id: nil).each do |se|
-      #puts "###### Inspecting #{ se.long_name }"
-      this_fn = ""
-      this_fn = se.resource_file_name if se.resource_file_name.present?
-      this_fn = se.executable_file_name if se.executable_file_name.present?
-      unless this_fn.blank?
-        #puts "   filename: #{ this_fn }"
-        others = []
-        others += martin.site_elements.where(
-          executable_file_name: this_fn,
-          version: se.version,
-          language: se.language).where("id != ?", se.id)
-        others += martin.site_elements.where(
-          resource_file_name: this_fn,
-          version: se.version,
-          language: se.language).where("id != ?", se.id)
-        if others.length > 0
-          total_dups += others.length
-          puts "#{se.long_name} found #{others.length} matches"
-          others.each do |other|
-            if se.products.pluck(:name).sort == other.products.pluck(:name).sort
-              #puts "  products are the same"
-            else
-              #puts "  products are DIFFERENT"
-              #puts "    #{ se.products.pluck(:name).sort }"
-              #puts "    #{ other.products.pluck(:name).sort }"
-              other.products.each do |p|
-                se.products << p unless se.products.include?(p)
-              end
-            end
-            puts "Deleting #{ other.long_name }"
-    #        other.destroy
-            destroyed << "#{ other.long_name }, #{ other.products.pluck(:name) }"
-          end
-        end
-      end
-      se.save # keep all the products we added
-    end
-    puts "Duplicates found: #{ total_dups }"
-    puts destroyed.inspect
   end
 
   def add_downloads_to_product(product, page)
