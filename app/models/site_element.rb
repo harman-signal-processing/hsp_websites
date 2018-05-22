@@ -25,6 +25,8 @@ class SiteElement < ApplicationRecord
   has_many :site_element_attachments, dependent: :destroy # added for martin
   belongs_to :access_level
 
+  has_many :manufacturer_partners
+
   before_save :set_upload_attributes
   after_save :queue_processing
 
