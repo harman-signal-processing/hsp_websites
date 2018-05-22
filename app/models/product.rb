@@ -406,6 +406,11 @@ class Product < ApplicationRecord
     @viewable_site_elements ||= site_elements.where(id: deduped_site_element_ids, is_document: true)
   end
 
+  # Collects software site elements
+  def software_site_elements
+    @software_site_elements ||= site_elements.where(id: deduped_site_element_ids).where("resource_type LIKE '%Software%'")
+  end
+
   def deduped_site_element_ids
     site_elements.select{|s| s.id if latest_version_of_site_element?(s)}
   end
