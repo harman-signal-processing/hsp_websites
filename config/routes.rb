@@ -105,6 +105,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       # No AMX brand found--probably a fresh test database which doesn't matter.
     end
 
+    get '/partners' => 'manufacturer_partners#index'
+
   end  #  constraints(AmxDomain) do
 
   constraints(BssDomain) do
@@ -463,6 +465,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :product_introductions,
         :online_retailer_links,
         :online_retailer_users,
+        :manufacturer_partners,
         :tone_library_patches,
         :software_attachments,
         :product_audio_demos,

@@ -1,0 +1,7 @@
+<ul class="button-group round">
+    <li><%= link_to 'Back To List', admin_manufacturer_partners_path, class: "small button round" %>	</li>
+    <li><%= link_to 'Delete', [:admin, @manufacturer_partner], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
+<h1>Edit Manufacturer Partner</h1>
+
+<%= render "form" %>
