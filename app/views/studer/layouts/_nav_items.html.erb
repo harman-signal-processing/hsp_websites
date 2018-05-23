@@ -42,12 +42,11 @@
 
   <li><%= link_to "Broadcast Truck", "/#{I18n.locale}/broadcast-truck" %></li>
 
-  <li class="has-dropdown">
-    <%= link_to t('product_support').titleize, '#', class: "disabled" %>
-    <ul class="dropdown">
-      <li><%= link_to "Contact Us", support_path %></li>
-      <li><%= link_to "Online Training", 'http://cras-vista.com/moodle/', target: "_blank" %></li>
-    </ul>
+  <li>
+    <%= link_to t('product_support').titleize, support_path %>
+      <%#= link_to "Contact Us", support_path %>
+      <%# Removed 5/2018 for GDPR %>
+      <%#= link_to "Online Training", 'http://cras-vista.com/moodle/', target: "_blank" %>
   </li>
 
 	<% if !!(website.forum_link) %>
