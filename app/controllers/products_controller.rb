@@ -11,9 +11,14 @@ class ProductsController < ApplicationController
   # Index of discontinued products
   # GET /discontinued_products
   def discontinued_index
-    @products = website.discontinued_and_vintage_products.sort_by{ :name }
-    @product_families = @products.map{|p| p.product_families}.flatten.uniq.select{|pf| pf if pf.brand_id == website.brand_id }.sort_by{ :name }
-    render_template
+    if request.post? && params[:product] && params[:product][:id]
+      product = Product.find(params[:product][:id])
+      redirect_to product and return false
+    else
+      @products = website.discontinued_and_vintage_products.sort_by{|p| p.name.upcase }
+      @product_families = @products.map{|p| p.product_families}.flatten.uniq.select{|pf| pf if pf.brand_id == website.brand_id }.sort_by{ :name }
+      render_template
+    end
   end
 
   # GET /products/1

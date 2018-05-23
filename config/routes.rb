@@ -617,7 +617,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get 'terms_of_use.html', to: redirect('http://www.harman.com/terms-use'), as: :terms_of_use
     get 'new_products.html', to: redirect('http://pro.harman.com/lp/new-products'), as: :new_products
 
-    get 'discontinued_products' => 'products#discontinued_index', as: :discontinued_products
+    match 'discontinued_products' => 'products#discontinued_index', as: :discontinued_products, via: :all
     get 'channel' => 'main#channel'
     get "videos(/:id)" => "videos#index", as: :videos
     get "videos/play/:id" => "videos#play", as: :play_video

@@ -1,41 +1,30 @@
 <% set_meta_tags title: "Discontinued Products",
 				 reverse: true %>
-<h1 class="page_title">Discontinued Products</h1>
+<h1 class="page_title">Discontinued Product Support</h1>
 
-<% displayed_products = [] %>
-
-<% @product_families.each do |product_family| %>
-  <div class="row" id="<%= product_family.to_param %>">
-    <div class="small-12 columns thick_left" >
-      <h3><%= translate_content(product_family, :name) %></h3>
-    </div>
+<div class="row">
+  <div class="small-12 medium-6 large-4 columns">
+    <label>Select your product:</label>
+    <%= simple_form_for :product do |f| %>
+      <div class="row collapse">
+        <div class="small-8 columns">
+          <%= f.input :id,
+            as: :select,
+            label: false,
+            collection: @products,
+            value_method: :to_param
+          %>
+        </div>
+        <div class="small-4 columns">
+          <%= f.submit "Go", class: "postfix button"%>
+        </div>
+    <% end %>
   </div>
-  <div class="row">
-    <div class="small-12 columns product_cat_bar">
-      <% this_group = [] %>
-      <% @products.each do |product| %>
-        <% if product.product_families.include?(product_family) %>
-          <% this_group << product %>
-          <% displayed_products << product %>
-        <% end %>
-      <% end %>
-      <div class="row">
-        <% this_group.in_groups(3).each do |product_group| %>
-          <div class="small-12 medium-4 columns">
-            <ul>
-              <% product_group.each do |product| %>
-                <% if product.is_a?(Product) %>
-                  <li><%= link_to product.name, product %>
-                    <%= product.short_description %></li>
-                <% end %>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
-      </div>
-      <p>&nbsp;</p>
-    </div>
-  </div>
-<% end %>
+</div>
 
-<%# Not showing uncategorized discontinued products for martin %>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
