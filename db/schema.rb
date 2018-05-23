@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180522151421) do
+ActiveRecord::Schema.define(version: 20180523031814) do
 
   create_table "access_levels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -1498,6 +1498,7 @@ ActiveRecord::Schema.define(version: 20180522151421) do
     t.string "language"
     t.integer "access_level_id"
     t.text "content"
+    t.string "source"
     t.index ["access_level_id"], name: "index_site_elements_on_access_level_id"
     t.index ["brand_id"], name: "index_site_elements_on_brand_id"
     t.index ["cached_slug"], name: "index_site_elements_on_cached_slug"
