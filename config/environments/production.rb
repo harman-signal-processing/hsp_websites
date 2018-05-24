@@ -95,7 +95,6 @@ Rails.application.configure do
       :exception_recipients => ENV['EXCEPTION_RECIPIENTS'].split("|")
     }
 
-  config.action_mailer.default_url_options = { :host => 'www.digitech.com' }
   config.action_mailer.delivery_method = :mailgun
   config.action_mailer.mailgun_settings = {
     api_key: ENV['MAILGUN_API_KEY'],

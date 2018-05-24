@@ -4,4 +4,9 @@
 
 <p>Click the link below to unlock your account:</p>
 
-<p><%= link_to 'Unlock my account', unlock_url(@resource, :unlock_token => @token) %></p>
+<p><%= link_to 'Unlock my account',
+  unlock_url(
+    @resource,
+    unlock_token: @token,
+    host: @resource.respond_to?(:last_host) && @resource.last_host.present? ? @resource.last_host : UserMailer.default_url_options[:host]
+  ) %></p>

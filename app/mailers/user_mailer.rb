@@ -1,5 +1,5 @@
 class UserMailer < Devise::Mailer
-	self.default :from => 'hsp_marketing@harman.com'
+	self.default :from => 'support@harmanpro.com'
   default_url_options[:host] = HarmanSignalProcessingWebsite::Application.config.toolkit_url
 
   def confirmation_instructions(record, token, opts={})
