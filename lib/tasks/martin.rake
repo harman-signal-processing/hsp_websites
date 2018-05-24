@@ -581,4 +581,166 @@ namespace :martin do
     login_form.Password = opts[:password] || ENV['MARTIN_PASSWORD']
     login_form.click_button
   end
+
+  desc "Find all the missing HTML tech docs"
+  task audit_content: :environment do
+
+    @root_site = "http://www.martin.com"
+    martin = Brand.find "martin"
+    problems = []
+    successes = []
+
+    @agent = Mechanize.new
+    login_to_support_page()
+
+    #products = Product.where(brand: martin).where("product_status_id != 7").limit(999)
+    #products = load_mismatches
+    products = Product.where(brand: martin)
+    products += load_the_problematic_ones("Discontinued")
+    #products = Product.where(name: "RUSH MH 11 Beam")
+
+    CSV.open("htmls.csv", "w") do |csv|
+      csv << ["Product", "Resource Name", "Security", "Version", "Language", "Resource Type", "Created", "Link"]
+      products.each do |product|
+        puts "Getting #{ product.name }"
+        begin
+          friendly_id = product.old_id.present? ? product.old_id : product.friendly_id
+          if friendly_id.to_s.match(/PROD/)
+            page = @agent.get("#{ @root_site }/en-us/support/product-details?ProductID=#{ friendly_id }")
+          else
+            page = @agent.get("#{ @root_site }/en-us/support/product-details/#{ friendly_id }")
+          end
+          if page.code == "200"
+            html_pages = get_htmls_for_product(product, page)
+            html_pages.each do |html|
+              csv << html
+            end
+            successes << product
+          else
+            puts "  well that didn't work."
+            problems << product
+          end
+        rescue
+          puts "  well that didn't work."
+          problems << product
+        end
+      end
+    end
+
+    puts "wrote output lines to csv output"
+  end
+
+  def get_htmls_for_product(product, page)
+    htmls = []
+    page.css("table.Prod_Documentlist tbody tr").each do |row|
+      begin
+        fields = {}
+        cells = row.css("td")
+        thelink = cells[0].css("a")[0]
+        file_url = thelink["href"]
+        fields[:name] = thelink.content.strip
+        security_level = thelink["class"].gsub(/level/, "")
+        fields[:version] = cells[1].content.strip
+        fields[:language] = cells[2]["data-sort"].downcase
+        fields[:created_at] = cells[5]["data-sort"].to_time
+        fields[:resource_type] = cells[6].content.strip.titleize
+        fields[:brand_id] = product.brand_id
+        fields[:show_on_public_site] = true
+        fields[:is_document] = true
+        if cells[4].content.to_s.match(/html|link/i)
+          htmls << [
+            product.to_param,
+            fields[:name],
+            security_level,
+            fields[:version],
+            fields[:language],
+            fields[:resource_type],
+            fields[:created_at],
+            file_url
+          ]
+        end
+      rescue
+        #puts "....Problem with #{ row.inspect }"
+      end
+    end
+    htmls
+  end
+
+  task pull_html: :environment do
+    @root_site = "http://www.martin.com"
+    martin = Brand.find "martin"
+    problems = []
+    successes = []
+
+    @agent = Mechanize.new
+    login_to_support_page()
+
+    CSV.foreach("htmls.csv", headers: true) do |row|
+      next if row["Resource Type"].to_s.match?(/software/i)
+
+      if row["Link"].to_s.match(/\?file\=(.*\.html)\&+/)
+        path = $1
+      else
+        path = row["Link"]
+      end
+      link = "#{@root_site}#{path}"
+      if path.blank?
+        puts " problem getting path from #{row['Link']}"
+        problems << row["Link"]
+      end
+
+      row["Security"].to_s.match(/(\d{1,})/)
+      security = $1
+      se = SiteElement.where(source: link).first_or_initialize
+
+      begin
+        if se.new_record?
+          # get it
+          page = @agent.get(link)
+          se.content = page.content
+          se.name = row["Resource Name"]
+          se.version = row["Version"]
+          se.language = row["Language"]
+          se.resource_type = row["Resource Type"]
+          se.brand = martin
+          se.created_at = row["Created"].to_time
+          se.is_document = true
+          se.show_on_public_site = true
+        end
+
+        if security.to_s == "999"
+          se.access_level_id = nil
+        else
+          se.access_level = AccessLevel.where(name: security).first_or_create
+        end
+
+        product = Product.find(row["Product"])
+        se.products << product unless se.products.include?(product)
+        se.save
+        #puts "Adding #{product.to_param} to #{ se.id }"
+      rescue
+        puts "  --> oops"
+        problems << row["Link"]
+      end
+
+    end
+
+    puts "Problems:"
+    puts problems.inspect
+  end
+
 end
+
+
+__END__
+
+Notes about scraping the HTML resources.
+
+  Skip the SOFTWARE ones for now
+  Strip the URL down to the html file itself
+  Store that for deduping.
+  Get the HTML content and store it
+  For now, setup nginx to proxy the image requests
+  Do all the linking to products, etc.
+
+

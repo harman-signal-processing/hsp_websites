@@ -31,7 +31,21 @@ class OnlineRetailer < ApplicationRecord
 
   # Retrieves a randomized list of OnlineRetailers who have a brand_link defined
   def self.random(website)
-    where(active: true).select(
+    preferred(website) + random_without_preferred(website)
+  end
+
+  def self.preferred(website)
+    where(active: true).where("preferred > 0").select(
+      "online_retailers.*, online_retailer_links.url as direct_link"
+    ).joins(
+      "INNER JOIN online_retailer_links ON online_retailer_links.online_retailer_id = online_retailers.id"
+    ).where(
+      "online_retailer_links.brand_id = ?", website.brand_id
+    ).sort_by{|o| o.preferred}
+  end
+
+  def self.random_without_preferred(website)
+    where(active: true).where("preferred IS NULL or preferred < 1").select(
       "online_retailers.*, online_retailer_links.url as direct_link"
     ).joins(
       "INNER JOIN online_retailer_links ON online_retailer_links.online_retailer_id = online_retailers.id"
