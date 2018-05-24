@@ -19,7 +19,7 @@ class Admin::ManufacturerPartnersController < AdminController
   # GET /manufacturer_partners/1.json
   def show
     @manufacturer_partner = ManufacturerPartner.find(params[:id])
-    @logos = SiteElement.where("name LIKE '%logo_inconcert_%'")
+    @logos = SiteElement.where("name LIKE '%logo_inconcert_%'").order(:name)
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render xml: @manufacturer_partner }
@@ -29,7 +29,7 @@ class Admin::ManufacturerPartnersController < AdminController
   
   def new
     @manufacturer_partner = ManufacturerPartner.new()
-    @logos = SiteElement.where("name LIKE '%logo_inconcert_%'")
+    @logos = SiteElement.where("name LIKE '%logo_inconcert_%'").order(:name)
   end
   
   def create
