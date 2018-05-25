@@ -1769,36 +1769,6 @@ ActiveRecord::Schema.define(version: 20180524204438) do
     t.string "name"
   end
 
-  create_table "tech_note_attachments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "tech_note_id"
-    t.string "attachment_file_name"
-    t.string "attachment_content_type"
-    t.datetime "attachment_updated_at"
-    t.integer "attachment_file_size"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["tech_note_id"], name: "index_tech_note_attachments_on_tech_note_id"
-  end
-
-  create_table "tech_note_products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "tech_note_id"
-    t.integer "product_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_tech_note_products_on_product_id"
-    t.index ["tech_note_id"], name: "index_tech_note_products_on_tech_note_id"
-  end
-
-  create_table "tech_notes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name"
-    t.text "content"
-    t.integer "access_level_id"
-    t.string "version"
-    t.string "language"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "tone_library_patches", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "tone_library_song_id"
     t.integer "product_id"
