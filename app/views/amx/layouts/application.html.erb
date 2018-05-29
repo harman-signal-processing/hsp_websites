@@ -129,8 +129,8 @@
 						<% if website.has_artists? %>
               <%= link_to t('artists').titleize, artists_path %> &bull;
 						<% end %>
-            <%= link_to t('contact_us').titleize, amx_contacts_path %> &bull;
-						<%= link_to t('product_support').titleize, "/#{I18n.locale}/amx-support" %> &bull;
+            <%= link_to t('contact_us').titleize, "/#{I18n.locale}/support" %> &bull;
+						<%= link_to t('product_support').titleize, "/#{I18n.locale}/support" %> &bull;
             <%= link_to t('titles.about_us'.titleize, brand: website.brand.name), "/#{I18n.locale}/about-amx" %> &bull;
             <%= link_to 'careers'.titleize, "http://jobs.harman.com", target: "_blank" %> &bull;
 						<%= link_to t('privacy_policy').titleize, privacy_policy_path %> &bull;

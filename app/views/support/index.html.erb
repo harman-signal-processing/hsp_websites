@@ -132,6 +132,11 @@
           <% end %>
 				</ul>
 			</div>
+			
+				<% if website.brand.name == "AMX" %>
+				 <%= render_partial 'support/amx_additional_links' %>
+				<% end %>
+				
 			<% end %>
 
 		<% end %>
