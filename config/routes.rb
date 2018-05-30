@@ -627,6 +627,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     match '/product_documents(/:language(/:document_type))' => "product_documents#index", via: :all
     match '/downloads(/:language(/:document_type))' => "product_documents#index", as: :downloads, via: :all
     get '/support_downloads(/:view_by(/:selected_object))' => "support#downloads", as: :support_downloads
+    post '/support_downloads' => "support#downloads_search", as: :support_downloads_search
     match '/tone_library/:product_id/:tone_library_song_id(.:ext)' => "tone_library_songs#download", as: :tone_download, via: :all
     match '/tone_library' => "tone_library_songs#index", as: :tone_library, via: :all
     match '/software' => 'softwares#index', as: :software_index, via: :all

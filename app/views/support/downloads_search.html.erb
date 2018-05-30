@@ -1,0 +1,94 @@
+<div class="row">
+  <div class="small-12 medium-8 columns">
+    <h1 class="page_title"><%= t("downloads").titleize %> <%= t("titles.search_results").titleize %></h1>
+  </div>
+  <div class="small-12 medium-4 columns">
+    <%= search_form_for @site_elements, url: support_downloads_search_path, method: :post do |f| %>
+      <div class="row collapse">
+        <div class="small-9 columns">
+          <%= f.text_field :name_or_resource_file_name_or_executable_file_name_or_resource_type_or_content_cont %>
+        </div>
+        <div class="small-3 columns">
+          <%= f.submit "Search", class: "button postfix" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 columns">
+    <% if @results.length > 0 %>
+      <table style="width: 100%">
+        <thead>
+          <tr>
+            <td>Filename</td>
+            <td>Version</td>
+            <td>Language</td>
+            <td>Size</td>
+          </tr>
+        </thead>
+        <tbody>
+      <%#= will_paginate @results %>
+        <% @results.each do |site_element| %>
+          <% if can?(:read, site_element) %>
+            <tr>
+              <% if site_element.external_url.present? || site_element.executable_file_name.present? %>
+                <td>
+                  <%= image_tag "icons/download_17.png", style: "vertical-align: middle" %>
+                  <%= link_to site_element.name, site_element.url %>
+                  <%= keys_for(site_element) %>
+                </td>
+                <td>
+                  <%= site_element.version %>&nbsp;
+                </td>
+                <td>
+                  <%= site_element.language.to_s.upcase %>&nbsp;
+                </td>
+                <td>
+                  <% if site_element.resource_file_size.present? %>
+                    <%= number_to_human_size(site_element.resource_file_size) %>
+                  <% end %>
+                  <% if site_element.executable_file_size.present? %>
+                    <%= number_to_human_size(site_element.executable_file_size) %>
+                  <% end %>
+                </td>
+              <% elsif site_element.resource_file_name.present? %>
+                <td>
+                  <% if site_element.resource_content_type.to_s.match(/pdf/i) || site_element.resource_file_name.to_s.match(/pdf$/i) %>
+                    <%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
+                  <% end %>
+                  <%= link_to site_element.name, site_element.resource.url %>
+                  <%= keys_for(site_element) %>
+                </td>
+                <td>
+                  <%= site_element.version %>&nbsp;
+                </td>
+                <td>
+                  <%= site_element.language.to_s.upcase %>&nbsp;
+                </td>
+                <td>
+                  <%= number_to_human_size(site_element.resource_file_size) %>
+                </td>
+              <% elsif site_element.content.present? %>
+                <td>
+                  <%= link_to site_element.name, site_element %>
+                  <%= keys_for(site_element) %>
+                </td>
+                <td>
+                  <%= site_element.version %>&nbsp;
+                </td>
+                <td>
+                  <%= site_element.language.to_s.upcase %>&nbsp;
+                </td>
+                <td>&nbsp;</td>
+              <% end %>
+            </tr>
+          <% end %>
+        <% end %>
+      </table>
+    <% else %>
+      <i>Sorry, no results were found.</i>
+    <% end %>
+  </div>
+</div>

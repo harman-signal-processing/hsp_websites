@@ -118,8 +118,7 @@ class SupportController < ApplicationController
       website.add_log(user: User.default, action: "RMA attempted, but redirected since brand doesn't support it.")
       #redirect_to support_path and return false
     end
-    
-    
+
     if request.post?
       @contact_message = ContactMessage.new(contact_message_params) do |c|
         # Amx needs to split rma into repair or credit, all other brands use one rma type
@@ -250,6 +249,7 @@ class SupportController < ApplicationController
 
   # Downloads page
   def downloads
+    @site_elements = SiteElement.where(brand_id: website.brand_id, show_on_public_site: true).ransack(params[:q])
     if params[:view_by].present?
       if params[:view_by] == "products"
         @discontinued_products = website.discontinued_and_vintage_products
@@ -268,6 +268,12 @@ class SupportController < ApplicationController
       downloads = website.all_downloads(current_user)
       @downloads = downloads.keys.sort{|a,b| a.to_s.downcase <=> b.to_s.downcase}.collect{|k| downloads[k]}
     end
+    render_template
+  end
+
+  def downloads_search
+    @site_elements = SiteElement.where(brand_id: website.brand_id, show_on_public_site: true).ransack(params[:q])
+    @results = @site_elements.result(:distinct => true)
     render_template
   end
 
