@@ -11,7 +11,7 @@
 			<div class="panel">
 				<h4><%= t("titles.mailing_address") %></h4>
 				<p><%=raw addr %>
-					<% if sup = website.value_for("support_email") %>
+					<% if sup = website.value_for("support_email") && website.brand.name != "AMX" %>
 					<br/><%= mail_to sup, sup %>
 					<% end %>
 				</p>

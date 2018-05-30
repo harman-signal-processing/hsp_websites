@@ -633,6 +633,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     match '/support/warranty_registration(/:product_id)' => 'support#warranty_registration', as: :warranty_registration, via: :all
     match '/support/parts' => 'support#parts', as: :parts_request, via: :all
     match '/support/rma' => 'support#rma', as: :rma_request, via: :all
+    match '/support/rma_repair' => 'support#rma', as: :rma_repair_request, message_type: "rma_repair_request", via: :all
+    match '/support/rma_credit' => 'support#rma', as: :rma_credit_request, message_type: "rma_credit_request", via: :all
     match '/support/contact' => 'support#contact', as: :support_contact, via: :all
     match '/support/service_lookup', to: redirect('https://pro.harman.com/service_centers'), as: :service_lookup, via: :all
     match '/support/troubleshooting' => 'support#troubleshooting', as: :support_troubleshooting, via: :all

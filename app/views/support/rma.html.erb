@@ -1,8 +1,15 @@
 <% set_meta_tags reverse: true %>
 
-<h1 class="page_title"><%= @page_title %></h1>
+<h1 class="page_title"><%= @page_title %>
+<% if @contact_message.rma_repair_request? %>
+ (Service or Repair)
+<% elsif @contact_message.rma_credit_request? %>
+ (Credit Return)
+<% end %>
+</h1>
 
 <%= simple_form_for @contact_message, url: rma_request_path do |f| %>
+	<%= f.hidden_field :message_type, value: @contact_message.message_type %>
 
 	<div class="row">
 
@@ -109,7 +116,6 @@
 
     <%= render_partial 'support/gdpr_consent' %>
 		<p><%= submit_tag t('submit'), class: "button" %></p>
-	</div>
 <% end %>
 
 <% if website.support_survey_link %>
