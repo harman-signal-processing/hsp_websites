@@ -118,9 +118,13 @@ class SupportController < ApplicationController
       website.add_log(user: User.default, action: "RMA attempted, but redirected since brand doesn't support it.")
       #redirect_to support_path and return false
     end
+    
+    
     if request.post?
       @contact_message = ContactMessage.new(contact_message_params) do |c|
-        c.message_type = "rma_request"
+        # Amx needs to split rma into repair or credit, all other brands use one rma type
+        rma_message_type = params[:contact_message][:message_type] ? params[:contact_message][:message_type] : "rma_request"
+        c.message_type = rma_message_type
         c.brand = website.brand
       end
       if @contact_message.valid?
@@ -129,7 +133,8 @@ class SupportController < ApplicationController
         redirect_to support_path, notice: t('blurbs.rma_request_thankyou') and return false
       end
     else
-      @contact_message = ContactMessage.new(message_type: "rma_request")
+      rma_message_type = params[:message_type] ? params[:message_type] : "rma_request"
+      @contact_message = ContactMessage.new(message_type: rma_message_type)
     end
     render_template
   end
@@ -306,7 +311,7 @@ class SupportController < ApplicationController
   end
 
   def contact_message_params
-    params.require(:contact_message).permit(:name, :email, :subject, :message, :product, :operating_system, :company, :account_number, :phone, :fax, :billing_address, :billing_city, :billing_state, :billing_zip, :shipping_address, :shipping_city, :shipping_state, :shipping_zip, :product_sku, :product_serial_number, :warranty, :purchased_on, :part_number, :board_location, :shipping_country)
+    params.require(:contact_message).permit(:name, :email, :subject, :message, :product, :operating_system, :company, :account_number, :phone, :fax, :billing_address, :billing_city, :billing_state, :billing_zip, :shipping_address, :shipping_city, :shipping_state, :shipping_zip, :product_sku, :product_serial_number, :warranty, :purchased_on, :part_number, :board_location, :shipping_country, :message_type)
   end
 
   def fixtures_request_params

@@ -27,6 +27,9 @@ class ContactMessage < ApplicationRecord
     self.message_type ||= "support" #others: rma_request, part_request
     self.subject ||= "Parts Request" if self.part_request?
     self.subject ||= "RMA Request" if self.rma_request?
+    # Amx needs to split rma into repair or credit, all other brands use one rma type
+    self.subject ||= "RMA Repair Request" if self.rma_repair_request?
+    self.subject ||= "RMA Credit Request" if self.rma_credit_request?
     self.subject ||= "HARMAN Professional Catalog request" if self.catalog_request?
     self.email.to_s.gsub!(/\s*$/, '')
   end
@@ -56,6 +59,14 @@ class ContactMessage < ApplicationRecord
 
   def rma_request?
     !!(self.message_type.to_s.match(/rma_request/))
+  end
+
+  def rma_repair_request?
+    !!(self.message_type.to_s.match(/rma_repair_request/))
+  end
+  
+  def rma_credit_request?
+    !!(self.message_type.to_s.match(/rma_credit_request/))
   end
 
   def catalog_request?
@@ -107,6 +118,10 @@ class ContactMessage < ApplicationRecord
       return ["service@sullivangroupusa.com"]
     elsif rma_request?
       return [brand.rma_email]
+    elsif rma_repair_request?
+      return [brand.rma_repair_email]
+    elsif rma_credit_request?
+      return [brand.rma_credit_email]
     elsif part_request?
       return [brand.parts_email]
     end

@@ -89,13 +89,25 @@
   <li><%= link_to t('training').titleize, "http://pro.harman.com/training", target: "_blank" %></li>
 
   <li class="divider hide-for-medium"></li>
-  <li><%= link_to t('product_support').titleize, "/#{I18n.locale}/amx-support" %></li>
+    <li class="has-dropdown"><%= link_to t('product_support').titleize, "/#{I18n.locale}/support" %>
+    <ul class="dropdown">
+      <li><%= link_to t("nav.contact_us"), "/#{I18n.locale}/support" %></li>
+      <li><%= link_to t("nav.warranty"), "/#{I18n.locale}/amx-warranty" %></li>
+      <li class="has-dropdown"><%= link_to "RMA", "/#{I18n.locale}/support/rma_repair" %>
+      <ul class="dropdown">
+        <li><%= link_to "RMA (Repair)", "/#{I18n.locale}/support/rma_repair" %></li>
+        <li><%= link_to "RMA (Credit)", "/#{I18n.locale}/support/rma_credit" %></li>
+      </ul>
+      <li><%= link_to t("nav.downloads"), "/#{I18n.locale}/support_downloads" %></li>
+      <li><%= link_to t("nav.quality"), "/#{I18n.locale}/amx-quality-assurance" %></li>
+    </ul>
+  </li>
+  
 
 	<% if !!(website.forum_link) %>
     <li class="divider hide-for-medium"></li>
     <li class="hide-for-medium"><%= link_to t("forum").titleize, website.forum_link %></li>
 	<% end %>
 
-  <li class="divider hide-for-medium"></li>
-  <li><%= link_to t("contact_us"), amx_contacts_path %></li>
+
 <% end %>
