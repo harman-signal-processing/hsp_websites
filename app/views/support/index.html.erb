@@ -59,7 +59,7 @@
 				<% end %>
 				<ul class="list">
 					<% if website.has_rma_form? %>
-					<li><%= link_to t('titles.factory_service'), rma_request_path %></li>
+						<li><%= link_to t('titles.factory_service'), rma_request_path %></li>
 					<% end %>
 					<% if website.has_parts_form? %>
 					<li><%= link_to t('titles.part_request'), parts_request_path %></li>
@@ -108,7 +108,12 @@
           <% end %>
           <% if !website.has_service_centers? %>
             <% if website.has_rma_form? %>
-            <li><%= link_to t('titles.factory_service'), rma_request_path %></li>
+            	<% if website.brand.name == "AMX" %>
+								<li><%= link_to "Return Authorization Request (Repair)", rma_repair_request_path %></li>
+								<li><%= link_to "Return Authorization Request (Credit)", rma_credit_request_path %></li>
+							<% else %>
+            		<li><%= link_to t('titles.factory_service'), rma_request_path %></li>
+            	<% end %>
             <% end %>
             <% if website.has_parts_form? %>
             <li><%= link_to t('titles.part_request'), parts_request_path %></li>
