@@ -131,6 +131,22 @@ class Brand < ApplicationRecord
       self.support_email
     end
   end
+  
+  def rma_credit_email
+    begin
+      self.settings.find_by(name: "rma_credit_email").value
+    rescue
+      self.support_email
+    end
+  end
+  
+  def rma_repair_email
+    begin
+      self.settings.find_by(name: "rma_repair_email").value
+    rescue
+      self.support_email
+    end
+  end
 
   # Those brands which should appear on the myharman.com store (via the API)
   def self.for_employee_store

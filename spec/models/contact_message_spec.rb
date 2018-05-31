@@ -101,6 +101,22 @@ RSpec.describe ContactMessage, :type => :model do
       expect(contact_message.recipients).to include(contact_message.brand.rma_email)
     end
   end
+  
+  describe "RMA credit return request" do
+    it "sends to the brand's rma_credit_email" do
+      contact_message = FactoryBot.build_stubbed(:contact_message, message_type: "rma_credit_request")
+
+      expect(contact_message.recipients).to include(contact_message.brand.rma_credit_email)
+    end
+  end  
+
+  describe "RMA repair return request" do
+    it "sends to the brand's rma_repair_email" do
+      contact_message = FactoryBot.build_stubbed(:contact_message, message_type: "rma_repair_request")
+
+      expect(contact_message.recipients).to include(contact_message.brand.rma_repair_email)
+    end
+  end 
 
   describe "Parts request" do
     it "sends to the brand's parts email" do
