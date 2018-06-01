@@ -1,0 +1,69 @@
+<% if can?(:read, item) %>
+  <tr>
+    <% if item.is_a?(SiteElement) %>
+
+      <% if item.external_url.present? || item.executable_file_name.present? %>
+        <td>
+          <%= image_tag "icons/download_17.png", style: "vertical-align: middle" %>
+          <%= link_to item.name, item.url %>
+          <%= keys_for(item) %>
+        </td>
+        <td class="text-center"> <%= item.version %>&nbsp; </td>
+        <td class="text-center"> <%= flag_for(item) %>&nbsp; </td>
+        <td>
+          <% if item.executable_file_size.present? %>
+            <%= number_to_human_size(item.executable_file_size) %>
+          <% end %>
+        </td>
+        <td><%=l item.created_at.to_date, format: :short %></td>
+
+      <% elsif item.resource_file_name.present? %>
+        <td>
+          <% if item.resource_content_type.to_s.match(/pdf/i) || item.resource_file_name.to_s.match(/pdf$/i) %>
+            <%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
+          <% end %>
+          <%= link_to item.name, item.resource.url %>
+          <%= keys_for(item) %>
+        </td>
+        <td class="text-center"> <%= item.version %>&nbsp;</td>
+        <td class="text-center"> <%= flag_for(item) %>&nbsp; </td>
+        <td> <%= number_to_human_size(item.resource_file_size) %> </td>
+        <td><%=l item.created_at.to_date, format: :short %></td>
+
+      <% elsif item.content.present? %>
+        <td>
+          <%= link_to item.name, item %>
+          <%= keys_for(item) %>
+        </td>
+        <td class="text-center"> <%= item.version %>&nbsp; </td>
+        <td class="text-center"> <%= flag_for(item) %>&nbsp; </td>
+        <td>&nbsp;</td>
+        <td><%=l item.created_at.to_date, format: :short %></td>
+      <% end %>
+
+    <% elsif item.is_a?(ProductDocument) %>
+      <td> <%= link_to item.name, item.document.url %> </td>
+      <td class="text-center"> <% if item.respond_to?(:version) %><%= item.version %><% end %>&nbsp; </td>
+      <td class="text-center"> <%= flag_for(item) %>&nbsp; </td>
+      <td> <%= number_to_human_size(item.document_file_size) %> </td>
+      <td><%=l item.created_at.to_date, format: :short %></td>
+
+    <% elsif item.is_a?(Software) %>
+      <td>
+        <%= platform_icon(item, 17) %>
+        <%= link_to item.name, item %>
+      </td>
+      <td class="text-center"><%= item.version %>&nbsp;</td>
+      <td class="text-center"> <%= flag_for(item) %>&nbsp; </td>
+      <td>
+        <% if item.ware_file_size.to_i > 0 %>
+          <%= number_to_human_size(item.ware_file_size) %>
+        <% end %>
+      </td>
+      <td><%=l item.created_at.to_date, format: :short %></td>
+    <% end %>
+
+  </tr>
+
+<% end %>
+

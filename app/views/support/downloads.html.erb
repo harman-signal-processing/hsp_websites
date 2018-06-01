@@ -124,3 +124,30 @@
 
   </div>
 </div>
+
+<br/>
+<div class="row">
+  <div class="small-12 columns">
+    <h3>Recent Uploads</h3>
+    <table style="width: 100%">
+      <thead>
+        <tr>
+          <td>Filename</td>
+          <td>Version</td>
+          <td>Language</td>
+          <td>Size</td>
+          <td>Uploaded</td>
+        </tr>
+      </thead>
+      <tbody>
+      <% website.brand.site_elements.where(show_on_public_site: true).order("created_at DESC").limit(40).group_by(&:resource_type).each do |resource_type, site_elements| %>
+        <%= downloads_header_row(resource_type, site_elements, columns: 5) %>
+        <% site_elements.each do |site_element| %>
+          <%= render_partial 'shared/download_table_row', item: site_element %>
+        <% end %>
+      <% end %>
+      </tbody>
+    </table>
+
+  </div>
+</div>

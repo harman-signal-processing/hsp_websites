@@ -7,13 +7,14 @@
         <td>Version</td>
         <td>Language</td>
         <td>Size</td>
+        <td>Uploaded</td>
       </tr>
     </thead>
     <tbody>
 
 	<% if product.current_and_recently_expired_promotions.where.not(promo_form_file_name: [nil, '']).length > 0 %>
     <tr>
-      <td colspan="4">
+      <td colspan="5">
         <%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
         <%= link_to(t('product_page.rebate_forms'), promotions_path) %>
       </td>
@@ -21,201 +22,35 @@
 	<% end %>
 
 	<% product.safety_documents.includes(:product).each do |product_document| %>
-    <tr>
-      <td>
-        <% if product_document.document_content_type.to_s.match(/pdf/i) || product_document.document_file_name.to_s.match(/pdf$/i) %>
-          <%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
-        <% end %>
-        <%= link_to product_document.name(hide_product_name: true), product_document.document.url %>
-      </td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>
-        <%= number_to_human_size(product_document.document_file_size) %>
-      </td>
-    </tr>
+    <%= render_partial 'shared/download_table_row', item: product_document %>
 	<% end %>
 
 	<% product.nonsafety_documents.includes(:product).each do |product_document| %>
-    <tr>
-      <td>
-        <% if product_document.document_content_type.to_s.match(/pdf/i) || product_document.document_file_name.to_s.match(/pdf$/i) %>
-          <%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
-        <% end %>
-        <%= link_to product_document.name(hide_product_name: true), product_document.document.url %>
-      </td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>
-        <%= number_to_human_size(product_document.document_file_size) %>
-      </td>
-    </tr>
+    <%= render_partial 'shared/download_table_row', item: product_document %>
 	<% end %>
 
   <% if product.active_softwares.length > 0 || product.software_site_elements.length > 0%>
     <tr>
-      <td colspan="4">
-        <h6>
-          Software
-        </h6>
+      <td colspan="5">
+        <h6> Software </h6>
       </td>
     </tr>
     <% product.active_softwares.each do |software| %>
-      <tr>
-        <td>
-          <%= platform_icon(software, 17) %>
-          <%= link_to software.name, software %>
-        </td>
-        <td><%= software.version %>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>
-          <% if software.ware_file_size.to_i > 0 %>
-            <%= number_to_human_size(software.ware_file_size) %>
-          <% end %>
-        </td>
-      </tr>
+      <%= render_partial 'shared/download_table_row', item: software %>
     <% end %>
     <% product.software_site_elements.each do |site_element| %>
-      <% if can?(:read, site_element) %>
-        <tr>
-          <% if site_element.external_url.present? || site_element.executable_file_name.present? %>
-            <td>
-              <%= image_tag "icons/download_17.png", style: "vertical-align: middle" %>
-              <%= link_to site_element.name, site_element.url %>
-              <%= keys_for(site_element) %>
-            </td>
-            <td>
-              <%= site_element.version %>&nbsp;
-            </td>
-            <td>
-              <%= site_element.language.to_s.upcase %>&nbsp;
-            </td>
-            <td>
-              <% if site_element.resource_file_size.present? %>
-                <%= number_to_human_size(site_element.resource_file_size) %>
-              <% end %>
-              <% if site_element.executable_file_size.present? %>
-                <%= number_to_human_size(site_element.executable_file_size) %>
-              <% end %>
-            </td>
-          <% elsif site_element.resource_file_name.present? %>
-            <td>
-              <% if site_element.resource_content_type.to_s.match(/pdf/i) || site_element.resource_file_name.to_s.match(/pdf$/i) %>
-                <%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
-              <% end %>
-              <%= link_to site_element.name, site_element.resource.url %>
-              <%= keys_for(site_element) %>
-            </td>
-            <td>
-              <%= site_element.version %>&nbsp;
-            </td>
-            <td>
-              <%= site_element.language.to_s.upcase %>&nbsp;
-            </td>
-            <td>
-              <%= number_to_human_size(site_element.resource_file_size) %>
-            </td>
-          <% elsif site_element.content.present? %>
-            <td>
-              <%= link_to site_element.name, site_element %>
-              <%= keys_for(site_element) %>
-            </td>
-            <td>
-              <%= site_element.version %>&nbsp;
-            </td>
-            <td>
-              <%= site_element.language.to_s.upcase %>&nbsp;
-            </td>
-            <td>&nbsp;</td>
-          <% end %>
-        </tr>
-      <% end %>
+      <%= render_partial 'shared/download_table_row', item: site_element %>
     <% end %>
 
   <% end %>
 
 	<% (product.viewable_site_elements + product.executable_site_elements).group_by(&:resource_type).each do |resource_type, site_elements| %>
-    <%
-      # I hate putting this in the view...
-      show_this_row = false
-      site_elements.each do |site_element|
-        next if show_this_row == true
-        show_this_row = true if can?(:read, site_element)
-      end
-      if resource_type.to_s.match?(/software/i)
-        show_this_row = false
-      end
-    %>
-    <% if show_this_row == true %>
-      <tr>
-        <td colspan="4">
-          <h6>
-          <% if resource_type.to_s.match?(/software/i) %>
-            <%= resource_type.titleize %>
-          <% else %>
-            <%= resource_type.titleize.pluralize %>
-          <% end %>
-          </h6>
-        </td>
-      </tr>
-    <% end %>
+    <%= downloads_header_row(resource_type, site_elements, columns: 5) %>
     <% site_elements.each do |site_element| %>
-      <% if can?(:read, site_element) %>
-        <tr>
-          <% if site_element.external_url.present? || site_element.executable_file_name.present? %>
-            <td>
-              <%= image_tag "icons/download_17.png", style: "vertical-align: middle" %>
-              <%= link_to site_element.name, site_element.url %>
-              <%= keys_for(site_element) %>
-            </td>
-            <td>
-              <%= site_element.version %>&nbsp;
-            </td>
-            <td>
-              <%= site_element.language.to_s.upcase %>&nbsp;
-            </td>
-            <td>
-              <% if site_element.resource_file_size.present? %>
-                <%= number_to_human_size(site_element.resource_file_size) %>
-              <% end %>
-              <% if site_element.executable_file_size.present? %>
-                <%= number_to_human_size(site_element.executable_file_size) %>
-              <% end %>
-            </td>
-          <% elsif site_element.resource_file_name.present? %>
-            <td>
-              <% if site_element.resource_content_type.to_s.match(/pdf/i) || site_element.resource_file_name.to_s.match(/pdf$/i) %>
-                <%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
-              <% end %>
-              <%= link_to site_element.name, site_element.resource.url %>
-              <%= keys_for(site_element) %>
-            </td>
-            <td>
-              <%= site_element.version %>&nbsp;
-            </td>
-            <td>
-              <%= site_element.language.to_s.upcase %>&nbsp;
-            </td>
-            <td>
-              <%= number_to_human_size(site_element.resource_file_size) %>
-            </td>
-          <% elsif site_element.content.present? %>
-            <td>
-              <%= link_to site_element.name, site_element %>
-              <%= keys_for(site_element) %>
-            </td>
-            <td>
-              <%= site_element.version %>&nbsp;
-            </td>
-            <td>
-              <%= site_element.language.to_s.upcase %>&nbsp;
-            </td>
-            <td>&nbsp;</td>
-          <% end %>
-        </tr>
-      <% end %>
+      <%= render_partial 'shared/download_table_row', item: site_element %>
     <% end %>
 	<% end %>
 
+    </tbody>
   </table>
 </div>

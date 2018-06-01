@@ -34,45 +34,13 @@
                 <td>Version</td>
                 <td>Language</td>
                 <td>Size</td>
+                <td>Uploaded</td>
               </tr>
             </thead>
             <tbody>
-          <% (product.safety_documents + product.safety_site_elements).sort_by{|p| p.name.upcase}.each do |f| %>
-            <% if can?(:read, f) %>
-              <tr>
-                <td>
-                  <% if f.is_a?(ProductDocument) %>
-                    <%= link_to f.name, f.document.url %>
-                  <% elsif f.is_a?(SiteElement) %>
-                    <% if f.external_url.present? || f.executable_file_name.present? %>
-                      <%= link_to f.name, f.url %>
-                      <%= keys_for(f) %>
-                    <% elsif f.resource_file_name.present? %>
-                      <%= link_to f.name, f.resource.url %>
-                      <%= keys_for(f) %>
-                    <% end %>
-                  <% end %>
-                </td>
-                <td>
-                  <% if f.respond_to?(:version) %><%= f.version %><% end %>&nbsp;
-                </td>
-                <td>
-                  <% if f.respond_to?(:language) %><%= f.language %><% end %>&nbsp;
-                </td>
-                <td>
-                  <% if f.is_a?(ProductDocument) %>
-                    [<%= number_to_human_size(f.document_file_size) %>]
-                  <% elsif f.is_a?(SiteElement) %>
-                    <% if f.resource_file_size.present? %>
-                      [<%= number_to_human_size(f.resource_file_size) %>]
-                    <% elsif f.executable_file_size.present? %>
-                      [<%= number_to_human_size(f.executable_file_size) %>]
-                    <% end %>
-                  <% end %>
-                </td>
-              </tr>
+            <% (product.safety_documents + product.safety_site_elements).sort_by{|p| p.name.upcase}.each do |f| %>
+              <%= render_partial 'shared/download_table_row', item: f %>
             <% end %>
-          <% end %>
             </tbody>
           </table>
         </div>
