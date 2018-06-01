@@ -26,66 +26,14 @@
             <td>Version</td>
             <td>Language</td>
             <td>Size</td>
+            <td>Uploaded</td>
           </tr>
         </thead>
         <tbody>
-      <%#= will_paginate @results %>
         <% @results.each do |site_element| %>
-          <% if can?(:read, site_element) %>
-            <tr>
-              <% if site_element.external_url.present? || site_element.executable_file_name.present? %>
-                <td>
-                  <%= image_tag "icons/download_17.png", style: "vertical-align: middle" %>
-                  <%= link_to site_element.name, site_element.url %>
-                  <%= keys_for(site_element) %>
-                </td>
-                <td>
-                  <%= site_element.version %>&nbsp;
-                </td>
-                <td>
-                  <%= site_element.language.to_s.upcase %>&nbsp;
-                </td>
-                <td>
-                  <% if site_element.resource_file_size.present? %>
-                    <%= number_to_human_size(site_element.resource_file_size) %>
-                  <% end %>
-                  <% if site_element.executable_file_size.present? %>
-                    <%= number_to_human_size(site_element.executable_file_size) %>
-                  <% end %>
-                </td>
-              <% elsif site_element.resource_file_name.present? %>
-                <td>
-                  <% if site_element.resource_content_type.to_s.match(/pdf/i) || site_element.resource_file_name.to_s.match(/pdf$/i) %>
-                    <%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
-                  <% end %>
-                  <%= link_to site_element.name, site_element.resource.url %>
-                  <%= keys_for(site_element) %>
-                </td>
-                <td>
-                  <%= site_element.version %>&nbsp;
-                </td>
-                <td>
-                  <%= site_element.language.to_s.upcase %>&nbsp;
-                </td>
-                <td>
-                  <%= number_to_human_size(site_element.resource_file_size) %>
-                </td>
-              <% elsif site_element.content.present? %>
-                <td>
-                  <%= link_to site_element.name, site_element %>
-                  <%= keys_for(site_element) %>
-                </td>
-                <td>
-                  <%= site_element.version %>&nbsp;
-                </td>
-                <td>
-                  <%= site_element.language.to_s.upcase %>&nbsp;
-                </td>
-                <td>&nbsp;</td>
-              <% end %>
-            </tr>
-          <% end %>
+          <%= render_partial 'shared/download_table_row', item: site_element %>
         <% end %>
+        </tbody>
       </table>
     <% else %>
       <i>Sorry, no results were found.</i>
