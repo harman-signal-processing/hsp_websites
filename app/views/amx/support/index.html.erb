@@ -10,11 +10,7 @@
 			<% if addr = website.value_for("address_and_phone") %>
 			<div class="panel">
 				<h4><%= t("titles.mailing_address") %></h4>
-				<p><%=raw addr %>
-					<% if sup = website.value_for("support_email") %>
-					<br/><%= mail_to sup, sup %>
-					<% end %>
-				</p>
+				<p><%=raw addr %></p>
 			</div>
 			<% end %>
 
@@ -34,11 +30,7 @@
 					</div>
 				<% end %>
 				<ul class="list">
-					<% if !!website.brand.name.match(/^bss/i) %>
-					<li><%= link_to t('training'), "/training" %></li>
-					<% elsif !!website.folder.to_s.match(/archimedia/) %>
-					<li><%= link_to t('training'), "/en-US/onsite_training" %></li>
-					<% elsif !!(website.has_training) %>
+					<% if !!(website.has_training) %>
 					<li><%= link_to "product training", training_path %></li>
 					<% end %>
 				</ul>
@@ -98,13 +90,13 @@
         </div>
       <% end %>
 
-			<% unless website.brand_name.match(/dod/i) %>
 			<div class="panel">
 				<h4><%= t('titles.more_resources').titleize %></h4>
 				<ul class="list">
           <% if !website.has_service_centers? %>
             <% if website.has_rma_form? %>
-              <li><%= link_to t('titles.factory_service'), rma_request_path %></li>
+              <li><%= link_to "Return Authorization Request (Repair)", rma_repair_request_path %></li>
+              <li><%= link_to "Return Authorization Request (Credit)", rma_credit_request_path %></li>
             <% end %>
             <% if website.has_parts_form? %>
             <li><%= link_to t('titles.part_request'), parts_request_path %></li>
@@ -120,15 +112,12 @@
 					<% if !!(website.forum_link) %>
 					<li><%= link_to t("user_forum"), website.forum_link %></li>
 					<% end %>
-          <% if !!!(website.brand.name.to_s.match(/digitech|lexicon|dod|martin/i)) %>
-            <li><%= link_to "System Design Tools", tools_calculators_path %></li>
-          <% end %>
           <% if !website.has_software? %>
             <li><%= link_to "More Resources", support_downloads_path %></li>
           <% end %>
 				</ul>
 			</div>
-			<% end %>
+      <%= render_partial 'support/amx_additional_links' %>
 
 		<% end %>
 	</div>
@@ -148,9 +137,6 @@
     <% end %>
       <%= f.input :subject, as: :select, collection: ContactMessage.subjects(brand: website.brand).flatten, prompt: t('subjects.select_a_subject') %>
       <%= f.input :product_serial_number, placeholder: 'Serial number' %>
-      <% if website.brand.to_s.match(/dbx|bss|lexicon|digitech|dod/i) %>
-        <%= f.input :operating_system, placeholder: "Operating system" %>
-      <% end %>
       <%= f.input :shipping_address, label: t("address"), input_html: { size: "40x2" }, placeholder: t("address") %>
       <%= f.input :shipping_country, label: t("country"), required: @contact_message.require_country?, prompt: t("country") %>
       <%= f.input :phone, placeholder: "Phone" %>
