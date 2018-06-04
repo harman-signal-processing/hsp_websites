@@ -38,6 +38,8 @@ class Ability
       can :disable, OnlineRetailer
     else
       # can :read, :all
+      can :read, Software
+      can :read, ProductDocument
       cannot :mangle, Product
       can :read, SiteElement, :access_level_id => [false, nil, 0]
       if user.role?(:market_manager)

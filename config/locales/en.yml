@@ -190,7 +190,9 @@ en:
     media: Media
     videos: Videos
     consultant_support: Consultant Support
-    
+    safety_documents: Safety Documents (SDS)
+    support_login: Support Login
+
   language:
       en: English
       es: Spanish

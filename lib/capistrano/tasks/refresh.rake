@@ -85,6 +85,7 @@ namespace :refresh do
         rake 'db:migrate'
         puts "Setting up localhost sites"
         rake 'db:setup_development_from_production'
+        rake 'db:test:prepare'
       end
     end
   end

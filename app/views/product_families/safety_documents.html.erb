@@ -1,4 +1,4 @@
-<h3>Safety documents for <%= @product_family.name %></h3>
+<h3><%= t('nav.safety_documents') %> for <%= @product_family.name %></h3>
 
 <div class="row">
   <div class="small-12 medium-4 columns">
@@ -14,10 +14,25 @@
         <% end %>
       <% end %>
     </ul>
+
+    <% if @product_family.discontinued_products.count > 0 %>
+      <h5 class="subheader">Discontinued Products</h5>
+      <ul>
+        <% @product_family.discontinued_products.sort_by{|p| p.name.upcase}.each do |product| %>
+          <% if product.safety_documents.length > 0 || product.safety_site_elements.length > 0 %>
+            <li><%= link_to product.name,
+              product,
+              class: "safety-panel-link",
+              data: { panel: "safety_for_#{ product.to_param }" } %>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    <% end %>
   </div>
 
   <div class="small-12 medium-8 columns">
-    <% @product_family.current_products.each do |product| %>
+    <% @product_family.current_and_discontinued_products.each do |product| %>
       <% if product.safety_documents.length > 0 || product.safety_site_elements.length > 0 %>
         <div id="safety_for_<%= product.to_param %>" class="safety-panel" style="display: none">
           <div class="text-center">
