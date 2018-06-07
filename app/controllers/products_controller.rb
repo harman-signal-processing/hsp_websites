@@ -225,7 +225,7 @@ class ProductsController < ApplicationController
       end
       render_template
     else
-      redirect_to product, alert: "Bill of material access denied." and return false
+      redirect_to @product, alert: "Bill of material access denied." and return false
     end
   end
 

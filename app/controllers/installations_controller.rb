@@ -30,7 +30,7 @@ class InstallationsController < ApplicationController
     if params[:id]
       @installation = Installation.find(params[:id])
       if !website.installations.include?(@installation)
-        error_installation(404)
+        redirect_to root_path and return false
       end
     end
   end
