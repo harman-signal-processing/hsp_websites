@@ -54,8 +54,15 @@ class SoftwaresController < ApplicationController
     else
       # Used to use send_file to take advantage of nginx caching, but now we just
       # redirect to S3/Cloudfront url.
-      # send_file @software.ware.path, content_type: @software.ware_content_type
-      redirect_to @software.ware.url, status: :moved_permanently
+      if @software.ware_file_name.to_s.match?(/\.mu3$/i)
+        data = open(@software.ware.url)
+        send_data data.read,
+          filename: @software.ware_file_name,
+          content_type: @software.ware_content_type,
+          disposition: :attachment
+      else
+        redirect_to @software.ware.url, status: :moved_permanently
+      end
     end
   end
 
