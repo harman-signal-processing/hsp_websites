@@ -26,6 +26,9 @@ class SiteElement < ApplicationRecord
   belongs_to :access_level
 
   has_many :manufacturer_partners
+  
+  has_many :programmer_site_elements, dependent: :destroy, foreign_key: "site_element_id", class_name: "Vip::ProgrammerSiteElement"
+  has_many :programmers, through: :programmer_site_elements, class_name: "Vip::Programmer"
 
   before_save :set_upload_attributes
   after_save :queue_processing

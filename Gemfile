@@ -107,7 +107,7 @@ group :development do
   gem 'rb-inotify', :require=>false
   gem 'sshkit'
   gem 'colorize'
-  gem 'pry-byebug'
+  # gem 'pry-byebug'
 end
 
 group :development, :test do
@@ -117,6 +117,7 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'rspec-rails'
   gem "factory_bot_rails", "~> 4.0"
+  gem 'pry-byebug'
 end
 
 group :test do
