@@ -1,0 +1,20 @@
+<h1>AMX VIP Service Areas</h1>
+
+<ul class="button-group round">
+  <li><%= link_to 'Locations List', admin_vip_locations_path, class: "small button round" %>	</li>
+	<li><%= link_to 'New AMX VIP Service Area', new_admin_vip_service_area_path, class: "small success button" %></li>
+</ul>
+
+<table class="data">
+  <tr>
+  	<th></th>
+    <th>Name</th>
+  </tr>
+
+<% @vip_service_areas.each do |service_area| %>
+  <tr style="vertical-align:text-bottom;">
+    <td><%= link_to 'Edit', edit_admin_vip_service_area_path(service_area), class: "small round button" %></td>
+    <td><%= service_area.name %></td>
+  </tr>
+<% end %>
+</table>

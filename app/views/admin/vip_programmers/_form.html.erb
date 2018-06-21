@@ -1,0 +1,12 @@
+<%= simple_form_for([:admin, @vip_programmer]) do |f| %>
+  <%= f.input :name, label: "Name" %>
+  <%= f.input :description, as: :text, input_html: { class: "mceEditor", style: "height: 200px;"} %>
+  <%= f.input :examples, as: :text, input_html: { class: "mceEditor", style: "height: 200px;"} %>
+  <%= f.input :security_clearance, label: "Security Clearance", hint: "Security Clearance is normally blank" %>
+  
+  <%= f.association :site_elements, collection: @logos, label: "Pick Logo", :input_html => { :multiple => false } %>
+
+    </br>
+  <%= f.button :submit %>
+<% end # simple_form_for([:admin, @vip_programmer]) do |f|%>
+

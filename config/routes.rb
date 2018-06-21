@@ -450,6 +450,34 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         resources :site_element_attachments
         collection { post :upload }
       end
+      
+
+      resources :vip_programmers,
+        :vip_locations,
+        :vip_global_regions,
+        :vip_service_areas,
+        :vip_programmer_locations,
+        :vip_location_global_regions,
+        :vip_location_service_areas,
+        :vip_certifications,
+        :vip_programmer_certifications,
+        :vip_trainings,
+        :vip_programmer_trainings,
+        :vip_services,
+        :vip_programmer_services,
+        :vip_skills,
+        :vip_programmer_skills,
+        :vip_markets,
+        :vip_programmer_markets,
+        :vip_websites,
+        :vip_programmer_websites,
+        :vip_emails,
+        :vip_programmer_emails,
+        :vip_phones,
+        :vip_programmer_phones,
+        :vip_service_categories,
+        :vip_service_service_categories
+      
       resources :service_centers,
         :market_segment_product_families,
         :software_training_classes,

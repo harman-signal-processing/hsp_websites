@@ -1,0 +1,22 @@
+<h1>AMX VIP Phones</h1>
+
+<ul class="button-group round">
+	<li><%= link_to 'Programmers List', admin_vip_programmers_path, class: "small button round" %>	</li>
+	<li><%= link_to 'New AMX VIP phone', new_admin_vip_phone_path, class: "small success button" %></li>
+</ul>
+
+<table class="data">
+  <tr>
+  	<th></th>
+    <th>Label</th>
+    <th>Phone</th>
+  </tr>
+
+<% @vip_phones.each do |phone| %>
+  <tr style="vertical-align:text-bottom;">
+    <td><%= link_to 'Edit', edit_admin_vip_phone_path(phone), class: "small round button" %></td>
+    <td><%= phone.label %></td>
+    <td><%= phone.phone %></td>
+  </tr>
+<% end %>
+</table>

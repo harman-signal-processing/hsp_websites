@@ -1,0 +1,10 @@
+<%= simple_form_for([:admin, @vip_location]) do |f| %>
+  <%= f.input :name, label: "Name" %>
+  <%= f.input :city, label: "City" %>
+  <%= f.input :state, label: "State" %>
+  <%= f.input :country, label: "Country" %>
+
+
+    </br>
+  <%= f.button :submit %>
+<% end # simple_form_for([:admin, @vip_location]) do |f|%>

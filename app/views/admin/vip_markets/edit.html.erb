@@ -1,0 +1,7 @@
+<ul class="button-group round">
+    <li><%= link_to 'Markets List', admin_vip_markets_path, class: "small button round" %>	</li>
+    <li><%= link_to 'Delete', admin_vip_market_path(@vip_market), confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
+<h1>Edit AMX VIP Market</h1>
+
+<%= render "form" %>
