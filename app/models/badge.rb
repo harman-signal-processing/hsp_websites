@@ -4,14 +4,9 @@ class Badge < ApplicationRecord
 
   has_attached_file :image, {
     styles: {
-      large: "128x128#",
-      medium: "64x64#",
-      small: "32x32#"
-    },
-    convert_options: {
-      large: "-gravity center -extent 128x128",
-      medium: "-gravity center -extent 64x64",
-      small: "-gravity center -extent 32x32"
+      large: "128x128",
+      medium: "64x64",
+      small: "32x32"
     }
   }.merge(S3_STORAGE)
 
