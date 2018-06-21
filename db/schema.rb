@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180524204438) do
+ActiveRecord::Schema.define(version: 20180620204121) do
 
   create_table "access_levels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -148,6 +148,16 @@ ActiveRecord::Schema.define(version: 20180524204438) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["brand_id"], name: "index_audio_demos_on_brand_id"
+  end
+
+  create_table "badges", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.integer "image_file_size"
+    t.datetime "image_updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "blog_articles", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
@@ -991,6 +1001,15 @@ ActiveRecord::Schema.define(version: 20180524204438) do
     t.datetime "updated_at", null: false
     t.index ["audio_demo_id"], name: "index_product_audio_demos_on_audio_demo_id"
     t.index ["product_id"], name: "index_product_audio_demos_on_product_id"
+  end
+
+  create_table "product_badges", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "badge_id"
+    t.integer "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["badge_id"], name: "index_product_badges_on_badge_id"
+    t.index ["product_id"], name: "index_product_badges_on_product_id"
   end
 
   create_table "product_cabinets", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

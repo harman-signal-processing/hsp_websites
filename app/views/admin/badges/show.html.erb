@@ -1,0 +1,39 @@
+<h1><%= @badge.name %></h1>
+
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_badges_path, class: "small secondary button" %></li>
+	<li><%= link_to 'Edit', edit_admin_badge_path(@badge), class: "small secondary button" %> </li>
+	<li><%= link_to 'Delete', [:admin, @badge], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
+
+<% if @badge.image.present? %>
+  <div>
+    <%= image_tag @badge.image.url(:medium) %>
+  </div>
+<% end %>
+
+<div class="group">
+	<h4 class="subheader">Available in these Products:</h4>
+
+	<div id="add_badge_form">
+		<%= simple_form_for [:admin, @product_badge], remote: true do |f| %>
+			<%= hidden_field_tag :badge_name %>
+			<%= hidden_field_tag :called_from, "badge" %>
+		    <%= f.hidden_field :badge_id %>
+		    <div class="row collapse">
+		    	<div class="small-8 columns">
+		    		<%= f.association :product, collection: website.products, label: false %>
+		    	</div>
+		    	<div class="small-4 columns">
+		    		<%= f.submit "add product", class: "postfix button" %>
+		    	</div>
+		    </div>
+		<% end %>
+	</div>
+
+	<ul id="product_badges" class="list">
+	  <% @badge.product_badges.each do |pb| %>
+      <%= render "/admin/shared/product_badge_row", pb: pb, called_from: "badge" %>
+	  <% end %>
+	</ul>
+</div>

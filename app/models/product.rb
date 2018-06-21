@@ -52,6 +52,8 @@ class Product < ApplicationRecord
   has_many :highlights, -> { order('position') }, as: :featurable, class_name: "Feature", dependent: :destroy
   has_many :product_parts
   has_many :parts, through: :product_parts
+  has_many :product_badges, dependent: :destroy
+  has_many :badges, through: :product_badges
   belongs_to :product_status
   belongs_to :brand, touch: true
   has_many :parent_products # Where this is the child (ie, an e-pedal child of the iStomp)

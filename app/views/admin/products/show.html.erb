@@ -617,6 +617,30 @@
     </div>
 
     <div class="group">
+      <h5 class="subheader">Badges</h5>
+
+      <%= simple_form_for [:admin, @product_badge], remote: true do |f| %>
+        <%= f.hidden_field :product_id %>
+        <%= hidden_field_tag :called_form, "product" %>
+        <div class="row collapse">
+          <div class="small-8 columns">
+            <%= f.association :badge, label: false %>
+          </div>
+          <div class="small-4 columns">
+            <%= f.submit "add badge", class: "button postfix" %>
+          </div>
+        </div>
+      <% end %>
+      <p><small>Or, <%= link_to "create a new badge", new_admin_badge_path %>.</small></p>
+
+      <ul id="product_badges" class="list">
+        <% @product.product_badges.each do |pb| %>
+          <%= render "/admin/shared/product_badge_row", pb: pb, called_from: "product" %>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="group">
       <h5 class="subheader">Highlights</h5>
       <p>Highlights appear as a slideshow just after the product description on the product page.</p>
       <ul>
