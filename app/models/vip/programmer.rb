@@ -2,10 +2,17 @@ class Vip::Programmer < ApplicationRecord
 	validates :name, presence: true
 	
 	has_many :programmer_locations, dependent: :destroy, foreign_key: "vip_programmer_id"
-	has_many :locations, -> { order 'position' }, through: :programmer_locations
+	has_many :locations, -> { order 'vip_programmer_locations.position' }, through: :programmer_locations
+
+	# connecting the programmer to global regions, vip_programmer --> vip_programmer_locations --> vip_locations --> vip_location_global_regions --> vip_global_regions
+	has_many :global_regions, through: :locations
 
 	has_many :programmer_services, dependent: :destroy, foreign_key: "vip_programmer_id"
-	has_many :services, -> { order 'position' }, through: :programmer_services
+	has_many :services, -> { order 'vip_programmer_services.position' }, through: :programmer_services
+	
+	# connecting the programmer to service categories, vip_programmer --> vip_programmer_services --> vip_services --> vip_service_service_categories --> vip_service_categories
+	has_many :category_associations, through: :services, source: :service_service_categories
+	has_many :categories, through: :category_associations, source: :service_category
 	
 	has_many :programmer_certifications, dependent: :destroy, foreign_key: "vip_programmer_id"
 	has_many :certifications, -> { order 'position' }, through: :programmer_certifications

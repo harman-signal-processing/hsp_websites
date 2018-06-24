@@ -1,10 +1,10 @@
 <h1>AMX VIP Programmers</h1>
 
-<% #if can? :create, SiteElement %>
 <ul class="button-group round">
 	<li><%= link_to 'New AMX VIP Programmer', new_admin_vip_programmer_path, class: "small success button" %></li>
 </ul>
-<% #end %>
+
+count: <%= @vip_programmers.count %>
 
 <table class="data">
   <tr>

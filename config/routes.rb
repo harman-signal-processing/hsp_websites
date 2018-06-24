@@ -104,9 +104,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     rescue
       # No AMX brand found--probably a fresh test database which doesn't matter.
     end
-
-    get '/partners' => 'manufacturer_partners#index'
-
   end  #  constraints(AmxDomain) do
 
   constraints(BssDomain) do
@@ -276,7 +273,9 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
   scope "(:locale)", locale: /#{WebsiteLocale.all_unique_locales.join('|')}/ do
     constraints(AmxDomain) do
       get 'contacts' => 'main#where_to_buy', as: :amx_contacts
-    end
+      get '/partners' => 'manufacturer_partners#index'
+      resources :vip_programmers, only: [:index, :show]      
+    end  # constraints(AmxDomain) do
 
     constraints(BssDomain) do
       get 'bss-network-audio' => 'pages#network_audio'
@@ -688,6 +687,9 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get 'tools/calculators'
     match '/' => 'main#index', as: :locale_root, via: :all
 #    match '/:controller(/:action(/:id))', via: :all # Deprecated dynamic action segment
+
+
+
     match "*custom_route" => "pages#show", as: :custom_route, via: :all
   end
 

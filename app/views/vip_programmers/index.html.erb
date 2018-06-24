@@ -1,0 +1,147 @@
+<h2>AMX Valued Independent Partners</h2>
+
+<p>AMX Valued Independent Partners (VIP) represent an elite level of AV control system programming and user interface design expertise. VIPs maintain yearly ACE certification, hold certification by at least one AV trade organization, and meet stringent business practice criteria to be hand-selected for AMX's VIP program. What does this mean to you? Reliable, reputable, and thoroughly knowledgeable service for any project.</p>
+
+<%= render "filters" %>	
+
+
+<div style="font-size:12px;margin-bottom:4px;">
+<strong><%= @programmers.count %></strong> showing for 
+Region: <% if @region.nil? %> <strong>All</strong> <% else %> <strong><%=@region%></strong> <% end %>
+ | Category: <% if @category.nil? %> <strong>All</strong> <% else %> <strong><%=@category%></strong> <% end %>
+ | Certification: <% if @certification.nil? %> <strong>All</strong> <% else %> <strong><%=@certification%></strong> <% end %> 
+ | Training: <% if @training.nil? %> <strong>All</strong> <% else %> <strong><%=@training%></strong> <% end %>  
+ | Service: <% if @service.nil? %> <strong>All</strong> <% else %> <strong><%=@service%></strong> <% end %>   
+ | Skill: <% if @skill.nil? %> <strong>All</strong> <% else %> <strong><%=@skill%></strong> <% end %>    
+ | Market: <% if @market.nil? %> <strong>All</strong> <% else %> <strong><%=@market%></strong> <% end %>  
+</div>
+
+<table class="info">
+	<thead>
+  <tr>
+    <th>Name</th>
+    <th>Locations</th>
+    <th>Certifications</th>
+    <th>Trainings</th>
+    <th>Services</th>
+    <th>Skills</th>
+    <th>Markets</th>
+
+  </tr>
+  </thead>
+  
+<% @programmers.each do |programmer| %>
+  <tr style="vertical-align:text-bottom;">
+
+    <!-- Programmer  -->
+    <td>
+    	
+    	<!-- Logo  -->
+    	<% if programmer.site_elements.present? && programmer.site_elements.where(resource_type:'Logo').first.resource.present? %>
+    		<%= image_tag(programmer.site_elements.where(resource_type:'Logo').first.resource.url(:original), size: "150", alt: programmer.name, title: programmer.name) %>
+    	<% end %>
+    	<!-- Name -->
+    	<br /><%= programmer.name%>
+    	
+    	<!-- Websites -->
+	    <% programmer.websites.each do |website| %>
+	      <br /><%=link_to website.url, website.url, target: "_blank"%>
+	    <% end %>    	
+
+		<!-- Emails -->
+	    <% programmer.emails.each do |email| %>
+	      <br /><%=email.email%> <!--<%#if !email.label.empty?%> (<%#=email.label%>) <%# end %> -->
+	     <% end %>
+	     
+	     <!-- Phones -->
+	    <% programmer.phones.each do |phone| %>
+	      <br /><%=phone.phone%> <!-- <%#if !phone.label.empty?%> (<%#=phone.label%>) <%# end %> -->
+	    <% end %>
+    	
+    </td>
+    
+    <!-- Locations  -->
+    <% if programmer.locations.count > 0 %>
+      <td width="200">
+        <ul>
+          <% programmer.locations.each do |location| %>
+            <li><%=location.city%><br />(<%=location.country%>)</li> 
+          <% end %>
+        </ul>
+      </td>
+    <% else%>
+      <td></td>
+    <% end %>
+    
+    <!-- Certifications  -->
+    <% if programmer.certifications.count > 0 %>
+      <td>
+        <ul>
+          <% programmer.certifications.each do |cert| %>
+            <li><%=cert.name%></li>
+          <% end %>
+        </ul>
+      </td>
+    <% else%>
+      <td></td>
+    <% end %>    
+    
+    <!-- Trainings  -->
+    <% if programmer.trainings.count > 0 %>
+      <td>
+        <ul>
+          <% programmer.trainings.each do |training| %>
+            <li><%=training.name%></li>
+          <% end %>
+        </ul>
+      </td>
+    <% else%>
+      <td></td>
+    <% end %>    
+    
+    <!-- Services  -->
+    <% if programmer.services.count > 0 %>
+      <td>
+        <ul>
+          <% programmer.services.each do |service| %>
+            <li><%=service.name%></li>
+          <% end %>
+        </ul>
+        
+      </td>
+    <% else%>
+      <td></td>
+    <% end %>     
+    
+    <!-- Skills  -->
+    <% if programmer.skills.count > 0 %>
+      <td>
+        <ul>
+          <% programmer.skills.each do |skill| %>
+            <li><%=skill.name%></li>
+          <% end %>
+        </ul>
+      </td>
+    <% else%>
+      <td></td>
+    <% end %>     
+    
+    
+    <!-- Markets -->
+    <% if programmer.markets.count > 0 %>
+      <td>
+        <ul>
+          <% programmer.markets.each do |market| %>
+            <li><%=market.name%></li>
+          <% end %>
+        </ul>
+      </td>
+    <% else%>
+      <td></td>
+    <% end %>     
+
+  </tr>
+<% end %>
+</table>  
+
+
