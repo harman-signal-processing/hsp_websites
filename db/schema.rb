@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20180615180600) do
-=======
 ActiveRecord::Schema.define(version: 20180620204121) do
->>>>>>> master
 
   create_table "access_levels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
