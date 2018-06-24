@@ -16,7 +16,7 @@ RSpec.describe 'toolkit/products/index.html.erb', as: :view do
 
     render
 
-    expect(rendered).to have_link(@product.name, toolkit_brand_product_path(@brand, @product))
+    expect(rendered).to have_link(@product.name, href: toolkit_brand_product_path(@brand, @product))
   end
 
   it "should include products which are announced but not yet in production" do

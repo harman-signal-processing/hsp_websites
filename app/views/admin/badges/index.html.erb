@@ -1,0 +1,13 @@
+<h1>Listing Badges</h1>
+
+<% if can? :create, Badge %>
+<ul class="button-group round">
+	<li><%= link_to 'New Badge', new_admin_badge_path, class: "small success button" %></li>
+</ul>
+<% end %>
+
+<ul class="list">
+	<% @badges.each do |badge| %>
+	<li><%= link_to badge.name, [:admin, badge] %></li>
+	<% end %>
+</ul>

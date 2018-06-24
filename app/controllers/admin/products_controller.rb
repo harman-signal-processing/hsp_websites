@@ -54,6 +54,7 @@ class Admin::ProductsController < AdminController
     @product_suggestion     = ProductSuggestion.new(product: @product)
     @parent_product         = ParentProduct.new(product_id: @product.id)
     @product_video          = ProductVideo.new(product_id: @product.id)
+    @product_badge          = ProductBadge.new(product_id: @product.id)
     respond_to do |format|
       format.html { render_template } # show.html.erb
       format.xml  { render xml: @product }

@@ -170,6 +170,15 @@ set_meta_tags title: @product.name,
       </h1>
       <h3><%= translate_content(@product, :short_description) %></h3>
 
+      <% if @product.badges.count > 0 %>
+        <hr/>
+        <div class="badge-container">
+          <% @product.badges.each do |badge| %>
+            <%= image_tag(badge.image.url(:medium), alt: badge.name) %>&nbsp;
+          <% end %>
+        </div>
+      <% end %>
+
       <% if (website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !@product.direct_buy_link.blank?) && !@product.hide_buy_it_now_button? %>
 
         <% if (website.has_customer_reviews? && @product.has_customer_reviews?) ||

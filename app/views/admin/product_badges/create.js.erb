@@ -1,0 +1,3 @@
+$('#product_badges').append('<%= escape_javascript(render "/admin/shared/product_badge_row", pb: @product_badge, called_from: @called_from) %>');
+$('#badge_name').val('');
+<% flash.discard %>

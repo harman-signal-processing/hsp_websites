@@ -87,6 +87,9 @@
                       <% if can?(:manage, Part) || can?(:manage, ProductPartGroup) || can?(:manage, ProductPartGroupPart) %>
                         <li><%= link_to "Part Library", admin_parts_path %></li>
                       <% end %>
+                      <% if can?(:manage, Badge) %>
+                        <li><%= link_to "Badges", admin_badges_path %></li>
+                      <% end %>
                       <% if can?(:manage, Solution) && website.has_solution_pages? %>
                         <li><%= link_to "Solutions", admin_solutions_path %></li>
                       <% end %>

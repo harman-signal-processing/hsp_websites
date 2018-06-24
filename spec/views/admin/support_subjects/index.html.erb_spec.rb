@@ -14,7 +14,7 @@ RSpec.describe "admin/support_subjects/index.html.erb" do
   context "with no existing subjects" do
     it "gives a message explaining defaults are used" do
       render
-      expect(rendered).to have_content("default subjects")
+      expect(rendered).to have_content("Default Subjects")
     end
   end
 

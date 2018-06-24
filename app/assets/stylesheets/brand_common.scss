@@ -931,6 +931,9 @@ div.product-title-block, div.small-title-block {
       }
     }
   }
+  div.badge-container {
+    margin-bottom: 40px;
+  }
 }
 .larger_tag {
 	font-size: 13px;
@@ -1070,8 +1073,9 @@ span.smalColHeader {
   display: block;
   font-size: 16px;
   font-weight: 500;
-  margin-top: 20px;
+  margin-top: 30px;
   line-height: 1.85;
+  clear: both;
 }
 
 span.specContent {
@@ -1086,6 +1090,9 @@ span.specContent {
   .Footnote {
     font-style: oblique;
   }
+}
+.spec {
+  clear: both;
 }
 
 .odd {}

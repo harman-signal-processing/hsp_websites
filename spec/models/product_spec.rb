@@ -17,6 +17,7 @@ RSpec.describe Product, :type => :model do
   it { should respond_to(:legal_disclaimer) }
   it { should respond_to(:product_families) }
   it { should respond_to(:product_videos) }
+  it { should respond_to(:badges) }
 
   describe "SKU validation" do
     it "should allow blank SKUs" do
