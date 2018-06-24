@@ -1,0 +1,7 @@
+<ul class="button-group round">
+    <li><%= link_to 'Back To List', admin_vip_programmers_path, class: "small button round" %>	</li>
+    <li><%= link_to 'Delete', admin_vip_programmer_path(@vip_programmer), confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
+<h1>Edit AMX VIP Programmer</h1>
+
+<%= render "form" %>

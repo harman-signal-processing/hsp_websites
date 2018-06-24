@@ -1,0 +1,20 @@
+<h1>AMX VIP Trainings</h1>
+
+<ul class="button-group round">
+	<li><%= link_to 'Programmers List', admin_vip_programmers_path, class: "small button round" %>	</li>
+	<li><%= link_to 'New AMX VIP training', new_admin_vip_training_path, class: "small success button" %></li>
+</ul>
+
+<table class="data">
+  <tr>
+  	<th></th>
+    <th>Name</th>
+  </tr>
+
+<% @vip_trainings.each do |training| %>
+  <tr style="vertical-align:text-bottom;">
+    <td><%= link_to 'Edit', edit_admin_vip_training_path(training), class: "small round button" %></td>
+    <td><%= training.name %></td>
+  </tr>
+<% end %>
+</table>

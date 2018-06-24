@@ -1,0 +1,273 @@
+
+<ul class="button-group round">
+    <li><%= link_to 'Programmers List', admin_vip_programmers_path, class: "small button round" %></li>
+</ul>
+
+<h1>Update AMX VIP Programmer Associations</h1>
+
+<h3><%=@vip_programmer.name%></h3>
+
+<!-- first row  -->
+<div class="row">
+  <!-- Locations  -->
+	<div class="small-12 medium-6 columns">
+        <div class="group">
+          <h4>Locations</h4>
+          <p>Choose one or more location below. Doing so will associate this programmer with the location.</p>
+
+          <%= simple_form_for [:admin, @vip_programmer_location], remote: true do |f| %>
+            <%= f.hidden_field :vip_programmer_id %>
+            <%= hidden_field_tag :called_from, "vip_programmer" %>
+            <%= f.association :location, collection: @vip_locations, label: false %>
+            <%= f.submit "add location", class: "small round button" %>
+          <% end %>
+					
+					Current locations
+          <ul id="vip_programmer_locations" class="list">
+            <% @vip_programmer_locations.each do |association| %>
+              <%= render "/admin/shared/vip_programmer_location_row", association: association, called_from: "vip_programmer" %>
+            <% end %>
+          </ul>
+          
+          <p>
+          	Can't find the location in the list above? <%= link_to "Create a new location", new_admin_vip_location_path %>.
+          </p>
+          
+        </div>
+        
+  </div>
+  <!-- Certifications  -->
+	<div class="small-12 medium-6 columns">
+        <div class="group">
+          <h4>Certifications</h4>
+          <p>Choose one or more certification below. Doing so will associate this programmer with the certification.</p>
+
+          <%= simple_form_for [:admin, @vip_programmer_certification], remote: true do |f| %>
+            <%= f.hidden_field :vip_programmer_id %>
+            <%= hidden_field_tag :called_from, "vip_programmer" %>
+            <%= f.association :certification, collection: @vip_certifications, label: false %>
+            <%= f.submit "add certification", class: "small round button" %>
+          <% end %>
+					
+					Current certifications
+          <ul id="vip_programmer_certifications" class="list">
+            <% @vip_programmer_certifications.each do |association| %>
+              <%= render "/admin/shared/vip_programmer_certification_row", association: association, called_from: "vip_programmer" %>
+            <% end %>
+          </ul>
+          
+          <p>
+          	Can't find the certification in the list above? <%= link_to "Create a new certification", new_admin_vip_certification_path %>.
+          </p>
+          
+        </div>
+        
+  </div>  
+</div>
+
+<!-- second row -->
+<div class="row">
+  <!-- Trainings  -->
+	<div class="small-12 medium-6 columns" id="Trainings">
+        <div class="group">
+          <h4>Trainings</h4>
+          <p>Choose one or more training below. Doing so will associate this programmer with the training.</p>
+
+          <%= simple_form_for [:admin, @vip_programmer_training], remote: true do |f| %>
+            <%= f.hidden_field :vip_programmer_id %>
+            <%= hidden_field_tag :called_from, "vip_programmer" %>
+            <%= f.association :training, collection: @vip_trainings, label: false %>
+            <%= f.submit "add training", class: "small round button" %>
+          <% end %>
+					
+					Current trainings
+          <ul id="vip_programmer_trainings" class="list">
+            <% @vip_programmer_trainings.each do |association| %>
+              <%= render "/admin/shared/vip_programmer_training_row", association: association, called_from: "vip_programmer" %>
+            <% end %>
+          </ul>
+          
+          <p>
+          	Can't find the training in the list above? <%= link_to "Create a new training", new_admin_vip_training_path %>.
+          </p>
+          <a href="#">Go to top</a>
+        </div>
+        
+  </div>  
+  
+  <!-- Services  -->
+	<div class="small-12 medium-6 columns" id="Services">
+        <div class="group">
+          <h4>Services</h4>
+          <p>Choose one or more service below. Doing so will associate this programmer with the service.</p>
+
+          <%= simple_form_for [:admin, @vip_programmer_service], remote: true do |f| %>
+            <%= f.hidden_field :vip_programmer_id %>
+            <%= hidden_field_tag :called_from, "vip_programmer" %>
+            <%= f.association :service, collection: @vip_services, label: false %>
+            <%= f.submit "add service", class: "small round button" %>
+          <% end %>
+					
+					Current services
+          <ul id="vip_programmer_services" class="list">
+            <% @vip_programmer_services.each do |association| %>
+              <%= render "/admin/shared/vip_programmer_service_row", association: association, called_from: "vip_programmer" %>
+            <% end %>
+          </ul>
+          
+          <p>
+          	Can't find the service in the list above? <%= link_to "Create a new service", new_admin_vip_service_path %>.
+          </p>
+          <a href="#">Go to top</a>
+        </div>
+        
+  </div>   
+  
+</div>
+
+<!-- third row  -->
+<div class="row">
+  <!-- Skills  -->
+	<div class="small-12 medium-6 columns" id="Skills">
+        <div class="group">
+          <h4>Skills</h4>
+          <p>Choose one or more skill below. Doing so will associate this programmer with the skill.</p>
+
+          <%= simple_form_for [:admin, @vip_programmer_skill], remote: true do |f| %>
+            <%= f.hidden_field :vip_programmer_id %>
+            <%= hidden_field_tag :called_from, "vip_programmer" %>
+            <%= f.association :skill, collection: @vip_skills, label: false %>
+            <%= f.submit "add skill", class: "small round button" %>
+          <% end %>
+					
+					Current skills
+          <ul id="vip_programmer_skills" class="list">
+            <% @vip_programmer_skills.each do |association| %>
+              <%= render "/admin/shared/vip_programmer_skill_row", association: association, called_from: "vip_programmer" %>
+            <% end %>
+          </ul>
+          
+          <p>
+          	Can't find the skill in the list above? <%= link_to "Create a new skill", new_admin_vip_skill_path %>.
+          </p>
+          <a href="#">Go to top</a>
+        </div>
+        
+  </div>   
+  <!-- Markets  -->
+	<div class="small-12 medium-6 columns" id="Markets">
+        <div class="group">
+          <h4>Markets</h4>
+          <p>Choose one or more market below. Doing so will associate this programmer with the market.</p>
+
+          <%= simple_form_for [:admin, @vip_programmer_market], remote: true do |f| %>
+            <%= f.hidden_field :vip_programmer_id %>
+            <%= hidden_field_tag :called_from, "vip_programmer" %>
+            <%= f.association :market, collection: @vip_markets, label: false %>
+            <%= f.submit "add market", class: "small round button" %>
+          <% end %>
+					
+					Current markets
+          <ul id="vip_programmer_markets" class="list">
+            <% @vip_programmer_markets.each do |association| %>
+              <%= render "/admin/shared/vip_programmer_market_row", association: association, called_from: "vip_programmer" %>
+            <% end %>
+          </ul>
+          
+          <p>
+          	Can't find the market in the list above? <%= link_to "Create a new market", new_admin_vip_market_path %>.
+          </p>
+          <a href="#">Go to top</a>
+        </div>
+        
+  </div>  
+</div>
+
+<!-- forth row  -->
+<div class="row">
+  <!-- Websites  -->
+	<div class="small-12 medium-6 columns" id="Websites">
+        <div class="group">
+          <h4>Websites</h4>
+          <p>Choose one or more website below. Doing so will associate this programmer with the website.</p>
+
+          <%= simple_form_for [:admin, @vip_programmer_website], remote: true do |f| %>
+            <%= f.hidden_field :vip_programmer_id %>
+            <%= hidden_field_tag :called_from, "vip_programmer" %>
+            <%= f.association :website, collection: @vip_websites, label_method: :url, label: false %>
+            <%= f.submit "add website", class: "small round button" %>
+          <% end %>
+					
+					Current websites
+          <ul id="vip_programmer_websites" class="list">
+            <% @vip_programmer_websites.each do |association| %>
+              <%= render "/admin/shared/vip_programmer_website_row", association: association, called_from: "vip_programmer" %>
+            <% end %>
+          </ul>
+          
+          <p>
+          	Can't find the website in the list above? <%= link_to "Create a new website", new_admin_vip_website_path %>.
+          </p>
+          <a href="#">Go to top</a>
+        </div>
+        
+  </div>  
+  <!-- Emails  -->
+	<div class="small-12 medium-6 columns" id="Emails">
+        <div class="group">
+          <h4>Emails</h4>
+          <p>Choose one or more email below. Doing so will associate this programmer with the email.</p>
+
+          <%= simple_form_for [:admin, @vip_programmer_email], remote: true do |f| %>
+            <%= f.hidden_field :vip_programmer_id %>
+            <%= hidden_field_tag :called_from, "vip_programmer" %>
+            <%= f.association :email, collection: @vip_emails, label_method: :email, label: false %>
+            <%= f.submit "add email", class: "small round button" %>
+          <% end %>
+					
+					Current emails
+          <ul id="vip_programmer_emails" class="list">
+            <% @vip_programmer_emails.each do |association| %>
+              <%= render "/admin/shared/vip_programmer_email_row", association: association, called_from: "vip_programmer" %>
+            <% end %>
+          </ul>
+          
+          <p>
+          	Can't find the email in the list above? <%= link_to "Create a new email", new_admin_vip_email_path %>.
+          </p>
+          <a href="#">Go to top</a>
+        </div>
+        
+  </div>   
+</div>
+
+<!-- fifth row  -->
+<div class="row">
+  <!-- Phones  -->
+	<div class="small-12 medium-6 columns" id="Phones">
+        <div class="group">
+          <h4>Phones</h4>
+          <p>Choose one or more phone below. Doing so will associate this programmer with the phone.</p>
+
+          <%= simple_form_for [:admin, @vip_programmer_phone], remote: true do |f| %>
+            <%= f.hidden_field :vip_programmer_id %>
+            <%= hidden_field_tag :called_from, "vip_programmer" %>
+            <%= f.association :phone, collection: @vip_phones, label_method: :phone, label: false %>
+            <%= f.submit "add phone", class: "small round button" %>
+          <% end %>
+					
+					Current phones
+          <ul id="vip_programmer_phones" class="list">
+            <% @vip_programmer_phones.each do |association| %>
+              <%= render "/admin/shared/vip_programmer_phone_row", association: association, called_from: "vip_programmer" %>
+            <% end %>
+          </ul>
+          
+          <p>
+          	Can't find the phone in the list above? <%= link_to "Create a new phone", new_admin_vip_phone_path %>.
+          </p>
+          <a href="#">Go to top</a>
+        </div>
+        
+  </div>  
+</div>

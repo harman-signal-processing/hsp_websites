@@ -104,9 +104,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     rescue
       # No AMX brand found--probably a fresh test database which doesn't matter.
     end
-
-    get '/partners' => 'manufacturer_partners#index'
-
   end  #  constraints(AmxDomain) do
 
   constraints(BssDomain) do
@@ -276,7 +273,9 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
   scope "(:locale)", locale: /#{WebsiteLocale.all_unique_locales.join('|')}/ do
     constraints(AmxDomain) do
       get 'contacts' => 'main#where_to_buy', as: :amx_contacts
-    end
+      get '/partners' => 'manufacturer_partners#index'
+      resources :vip_programmers, only: [:index, :show]      
+    end  # constraints(AmxDomain) do
 
     constraints(BssDomain) do
       get 'bss-network-audio' => 'pages#network_audio'
@@ -450,6 +449,34 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         resources :site_element_attachments
         collection { post :upload }
       end
+      
+
+      resources :vip_programmers,
+        :vip_locations,
+        :vip_global_regions,
+        :vip_service_areas,
+        :vip_programmer_locations,
+        :vip_location_global_regions,
+        :vip_location_service_areas,
+        :vip_certifications,
+        :vip_programmer_certifications,
+        :vip_trainings,
+        :vip_programmer_trainings,
+        :vip_services,
+        :vip_programmer_services,
+        :vip_skills,
+        :vip_programmer_skills,
+        :vip_markets,
+        :vip_programmer_markets,
+        :vip_websites,
+        :vip_programmer_websites,
+        :vip_emails,
+        :vip_programmer_emails,
+        :vip_phones,
+        :vip_programmer_phones,
+        :vip_service_categories,
+        :vip_service_service_categories
+      
       resources :service_centers,
         :market_segment_product_families,
         :software_training_classes,
@@ -662,6 +689,9 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get 'tools/calculators'
     match '/' => 'main#index', as: :locale_root, via: :all
 #    match '/:controller(/:action(/:id))', via: :all # Deprecated dynamic action segment
+
+
+
     match "*custom_route" => "pages#show", as: :custom_route, via: :all
   end
 

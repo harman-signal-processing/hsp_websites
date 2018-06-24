@@ -1,0 +1,7 @@
+<ul class="button-group round">
+    <li><%= link_to 'Back To List', admin_vip_service_areas_path, class: "small button round" %>	</li>
+    <li><%= link_to 'Delete', admin_vip_service_area_path(@vip_service_area), confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
+<h1>Edit AMX VIP Service Area</h1>
+
+<%= render "form" %>

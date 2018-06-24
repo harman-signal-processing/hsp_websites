@@ -1,0 +1,59 @@
+<ul class="button-group round">
+    <li><%= link_to 'Locations List', admin_vip_locations_path, class: "small button round" %>	</li>
+</ul>
+<h1>Update AMX VIP Location Associations</h1>
+
+<h3><%=@vip_location.name%></h3>
+
+<div class="row">
+	<div class="small-12 medium-6 columns">
+        <div class="group">
+          <p>Choose one or more global region below. Doing so will associate this location with the global region.</p>
+
+          <%= simple_form_for [:admin, @vip_location_global_region], remote: true do |f| %>
+            <%= f.hidden_field :vip_location_id %>
+            <%= hidden_field_tag :called_from, "vip_location" %>
+            <%= f.association :global_region, collection: @vip_global_regions, label: false %>
+            <%= f.submit "add global region", class: "small round button" %>
+          <% end %>
+					
+					Current global regions
+          <ul id="vip_location_global_regions" class="list">
+            <% @vip_location_global_regions.each do |association| %>
+              <%= render "/admin/shared/vip_location_global_region_row", association: association, called_from: "vip_location" %>
+            <% end %>
+          </ul>
+          
+          <p>
+          	Can't find the global region in the list above? <%= link_to "Create a new global region", new_admin_vip_global_region_path %>.
+          </p>
+          
+        </div>
+        
+  </div>
+	<div class="small-12 medium-6 columns">
+        <div class="group">
+          <p>Choose one or more service areas below. Doing so will associate this location with the service area.</p>
+
+          <%= simple_form_for [:admin, @vip_location_service_area], remote: true do |f| %>
+            <%= f.hidden_field :vip_location_id %>
+            <%= hidden_field_tag :called_from, "vip_location" %>
+            <%= f.association :service_area, collection: @vip_service_areas, label: false %>
+            <%= f.submit "add service are", class: "small round button" %>
+          <% end %>
+					
+					Current service areas
+          <ul id="vip_location_service_areas" class="list">
+            <% @vip_location_service_areas.each do |association| %>
+              <%= render "/admin/shared/vip_location_service_area_row", association: association, called_from: "vip_location" %>
+            <% end %>
+          </ul>
+          
+          <p>
+          	Can't find the service area in the list above? <%= link_to "Create a new service area", new_admin_vip_service_area_path %>.
+          </p>
+          
+        </div>
+        
+  </div>  
+</div>

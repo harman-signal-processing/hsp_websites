@@ -1991,6 +1991,220 @@ ActiveRecord::Schema.define(version: 20180620204121) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "vip_certifications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "vip_emails", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "label"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "vip_global_regions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "vip_location_global_regions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "position"
+    t.bigint "vip_location_id"
+    t.bigint "vip_global_region_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["vip_global_region_id"], name: "index_vip_location_global_regions_on_vip_global_region_id"
+    t.index ["vip_location_id"], name: "index_vip_location_global_regions_on_vip_location_id"
+  end
+
+  create_table "vip_location_service_areas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "position"
+    t.bigint "vip_location_id"
+    t.bigint "vip_service_area_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["vip_location_id"], name: "index_vip_location_service_areas_on_vip_location_id"
+    t.index ["vip_service_area_id"], name: "index_vip_location_service_areas_on_vip_service_area_id"
+  end
+
+  create_table "vip_locations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.string "city"
+    t.string "state"
+    t.string "country"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "vip_markets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "vip_phones", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "label"
+    t.string "phone"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "vip_programmer_certifications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "position"
+    t.bigint "vip_programmer_id"
+    t.bigint "vip_certification_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["vip_certification_id"], name: "index_vip_programmer_certifications_on_vip_certification_id"
+    t.index ["vip_programmer_id"], name: "index_vip_programmer_certifications_on_vip_programmer_id"
+  end
+
+  create_table "vip_programmer_emails", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "position"
+    t.bigint "vip_programmer_id"
+    t.bigint "vip_email_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["vip_email_id"], name: "index_vip_programmer_emails_on_vip_email_id"
+    t.index ["vip_programmer_id"], name: "index_vip_programmer_emails_on_vip_programmer_id"
+  end
+
+  create_table "vip_programmer_locations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "position"
+    t.bigint "vip_programmer_id"
+    t.bigint "vip_location_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["vip_location_id"], name: "index_vip_programmer_locations_on_vip_location_id"
+    t.index ["vip_programmer_id"], name: "index_vip_programmer_locations_on_vip_programmer_id"
+  end
+
+  create_table "vip_programmer_markets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "position"
+    t.bigint "vip_programmer_id"
+    t.bigint "vip_market_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["vip_market_id"], name: "index_vip_programmer_markets_on_vip_market_id"
+    t.index ["vip_programmer_id"], name: "index_vip_programmer_markets_on_vip_programmer_id"
+  end
+
+  create_table "vip_programmer_phones", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "position"
+    t.bigint "vip_programmer_id"
+    t.bigint "vip_phone_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["vip_phone_id"], name: "index_vip_programmer_phones_on_vip_phone_id"
+    t.index ["vip_programmer_id"], name: "index_vip_programmer_phones_on_vip_programmer_id"
+  end
+
+  create_table "vip_programmer_services", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "position"
+    t.bigint "vip_programmer_id"
+    t.bigint "vip_service_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["vip_programmer_id"], name: "index_vip_programmer_services_on_vip_programmer_id"
+    t.index ["vip_service_id"], name: "index_vip_programmer_services_on_vip_service_id"
+  end
+
+  create_table "vip_programmer_site_elements", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "vip_programmer_id"
+    t.bigint "site_element_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["vip_programmer_id"], name: "index_vip_programmer_site_elements_on_vip_programmer_id"
+  end
+
+  create_table "vip_programmer_skills", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "position"
+    t.bigint "vip_programmer_id"
+    t.bigint "vip_skill_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["vip_programmer_id"], name: "index_vip_programmer_skills_on_vip_programmer_id"
+    t.index ["vip_skill_id"], name: "index_vip_programmer_skills_on_vip_skill_id"
+  end
+
+  create_table "vip_programmer_trainings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "position"
+    t.bigint "vip_programmer_id"
+    t.bigint "vip_training_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["vip_programmer_id"], name: "index_vip_programmer_trainings_on_vip_programmer_id"
+    t.index ["vip_training_id"], name: "index_vip_programmer_trainings_on_vip_training_id"
+  end
+
+  create_table "vip_programmer_websites", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "position"
+    t.bigint "vip_programmer_id"
+    t.bigint "vip_website_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["vip_programmer_id"], name: "index_vip_programmer_websites_on_vip_programmer_id"
+    t.index ["vip_website_id"], name: "index_vip_programmer_websites_on_vip_website_id"
+  end
+
+  create_table "vip_programmers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.text "description"
+    t.text "examples"
+    t.string "security_clearance"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "vip_service_areas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "vip_service_categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "vip_service_service_categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "position"
+    t.bigint "vip_service_id"
+    t.bigint "vip_service_category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["vip_service_category_id"], name: "index_vip_service_service_categories_on_vip_service_category_id"
+    t.index ["vip_service_id"], name: "index_vip_service_service_categories_on_vip_service_id"
+  end
+
+  create_table "vip_services", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "vip_skills", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "vip_trainings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "vip_websites", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "warranty_registrations", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title", limit: 10
     t.string "first_name", limit: 100
@@ -2042,4 +2256,29 @@ ActiveRecord::Schema.define(version: 20180620204121) do
   end
 
   add_foreign_key "manufacturer_partners", "site_elements"
+  add_foreign_key "vip_location_global_regions", "vip_global_regions"
+  add_foreign_key "vip_location_global_regions", "vip_locations"
+  add_foreign_key "vip_location_service_areas", "vip_locations"
+  add_foreign_key "vip_location_service_areas", "vip_service_areas"
+  add_foreign_key "vip_programmer_certifications", "vip_certifications"
+  add_foreign_key "vip_programmer_certifications", "vip_programmers"
+  add_foreign_key "vip_programmer_emails", "vip_emails"
+  add_foreign_key "vip_programmer_emails", "vip_programmers"
+  add_foreign_key "vip_programmer_locations", "vip_locations"
+  add_foreign_key "vip_programmer_locations", "vip_programmers"
+  add_foreign_key "vip_programmer_markets", "vip_markets"
+  add_foreign_key "vip_programmer_markets", "vip_programmers"
+  add_foreign_key "vip_programmer_phones", "vip_phones"
+  add_foreign_key "vip_programmer_phones", "vip_programmers"
+  add_foreign_key "vip_programmer_services", "vip_programmers"
+  add_foreign_key "vip_programmer_services", "vip_services"
+  add_foreign_key "vip_programmer_site_elements", "vip_programmers"
+  add_foreign_key "vip_programmer_skills", "vip_programmers"
+  add_foreign_key "vip_programmer_skills", "vip_skills"
+  add_foreign_key "vip_programmer_trainings", "vip_programmers"
+  add_foreign_key "vip_programmer_trainings", "vip_trainings"
+  add_foreign_key "vip_programmer_websites", "vip_programmers"
+  add_foreign_key "vip_programmer_websites", "vip_websites"
+  add_foreign_key "vip_service_service_categories", "vip_service_categories"
+  add_foreign_key "vip_service_service_categories", "vip_services"
 end

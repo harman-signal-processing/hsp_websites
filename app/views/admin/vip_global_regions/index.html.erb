@@ -1,0 +1,20 @@
+<h1>AMX VIP Global Regions</h1>
+
+<ul class="button-group round">
+	<li><%= link_to 'Locations List', admin_vip_locations_path, class: "small button round" %>	</li>
+	<li><%= link_to 'New AMX VIP Global Region', new_admin_vip_global_region_path, class: "small success button" %></li>
+</ul>
+
+<table class="data">
+  <tr>
+  	<th></th>
+    <th>Name</th>
+  </tr>
+
+<% @vip_global_regions.each do |region| %>
+  <tr style="vertical-align:text-bottom;">
+    <td><%= link_to 'Edit', edit_admin_vip_global_region_path(region), class: "small round button" %></td>
+    <td><%= region.name %></td>
+  </tr>
+<% end %>
+</table>

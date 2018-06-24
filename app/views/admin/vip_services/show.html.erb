@@ -1,0 +1,34 @@
+<ul class="button-group round">
+    <li><%= link_to 'Services List', admin_vip_services_path, class: "small button round" %>	</li>
+</ul>
+<h1>Update AMX VIP Service Associations</h1>
+
+<h3><%=@vip_service.name%></h3>
+
+<div class="row">
+	<div class="small-12 medium-6 columns">
+        <div class="group">
+          <p>Choose one or more service categories below. Doing so will associate this service with the service category.</p>
+
+          <%= simple_form_for [:admin, @vip_service_service_category], remote: true do |f| %>
+            <%= f.hidden_field :vip_service_id %>
+            <%= hidden_field_tag :called_from, "vip_service" %>
+            <%= f.association :service_category, collection: @vip_service_categories, label: false %>
+            <%= f.submit "add service category", class: "small round button" %>
+          <% end %>
+					
+					Current service categories
+          <ul id="vip_service_service_categories" class="list">
+            <% @vip_service_service_categories.each do |association| %>
+              <%= render "/admin/shared/vip_service_service_category_row", association: association, called_from: "vip_service" %>
+            <% end %>
+          </ul>
+          
+          <p>
+          	Can't find the service category in the list above? <%= link_to "Create a new service category", new_admin_vip_service_category_path %>.
+          </p>
+          
+        </div>
+        
+  </div>  
+</div>

@@ -1,0 +1,168 @@
+<h1>AMX VIP Programmers</h1>
+
+<ul class="button-group round">
+	<li><%= link_to 'New AMX VIP Programmer', new_admin_vip_programmer_path, class: "small success button" %></li>
+</ul>
+
+count: <%= @vip_programmers.count %>
+
+<table class="data">
+  <tr>
+    <th></th>
+    <th>Name</th>
+    <th style="text-align: center;">Logo</th>
+    <th>Locations</th>
+    <th>Certifications</th>
+    <th>Trainings</th>
+    <th>Services</th>
+    <th>Skills</th>
+    <th>Markets</th>
+    <th>Websites</th>
+    <th>Emails</th>
+    <th>Phones</th>
+  </tr>
+
+<% @vip_programmers.each do |programmer| %>
+  <tr style="vertical-align:text-bottom;">
+    <!-- Edit -->
+    <td><%= link_to 'Edit', edit_admin_vip_programmer_path(programmer), class: "small round button" %></td>
+    <!-- Programmer Name  -->
+    <td><%= programmer.name%></td>
+    
+    <!-- Logo  -->
+    <% if programmer.site_elements.present? && programmer.site_elements.where(resource_type:'Logo').first.resource.present? %>
+      <td style="text-align: center;"><%= image_tag(programmer.site_elements.where(resource_type:'Logo').first.resource.url(:original), size: "80", alt: programmer.name, title: programmer.name) %></td>
+    <% else %>
+      <td></td>
+    <% end %>
+    
+    <!-- Locations  -->
+    <% if programmer.locations.count > 0 %>
+      <td>
+        <ul>
+          <% programmer.locations.each do |location| %>
+            <li><%=location.city%> (<%=location.global_regions.first.name%>) (<%=location.service_areas.first.name%>)</li>
+          <% end %>
+        </ul>
+        <%= link_to "Add or remove Location", admin_vip_programmer_path(programmer, anchor:"Locations"), class: "clear tiny round button secondary" %>
+      </td>
+    <% else%>
+      <td><%= link_to "Add Location", admin_vip_programmer_path(programmer, anchor:"Locations"), class: "clear tiny round button secondary" %></td>
+    <% end %>
+    
+    <!-- Certifications  -->
+    <% if programmer.certifications.count > 0 %>
+      <td>
+        <ul>
+          <% programmer.certifications.each do |cert| %>
+            <li><%=cert.name%></li>
+          <% end %>
+        </ul>
+        <%= link_to "Add or remove Certification", admin_vip_programmer_path(programmer, anchor:"Certifications"), class: "clear tiny round button secondary" %>
+      </td>
+    <% else%>
+      <td><%= link_to "Add Certification", admin_vip_programmer_path(programmer, anchor:"Certifications"), class: "clear tiny round button secondary" %></td>
+    <% end %>    
+    
+    <!-- Trainings  -->
+    <% if programmer.trainings.count > 0 %>
+      <td>
+        <ul>
+          <% programmer.trainings.each do |training| %>
+            <li><%=training.name%></li>
+          <% end %>
+        </ul>
+        <%= link_to "Add or remove Training", admin_vip_programmer_path(programmer, anchor:"Trainings"), class: "clear tiny round button secondary" %>
+      </td>
+    <% else%>
+      <td><%= link_to "Add Training", admin_vip_programmer_path(programmer, anchor:"Trainings"), class: "clear tiny round button secondary" %></td>
+    <% end %>    
+    
+    <!-- Services  -->
+    <% if programmer.services.count > 0 %>
+      <td>
+        <ul>
+          <% programmer.services.each do |service| %>
+            <li><%=service.name%></li>
+          <% end %>
+        </ul>
+        <%= link_to "Add or remove Service", admin_vip_programmer_path(programmer, anchor:"Services"), class: "clear tiny round button secondary" %>
+      </td>
+    <% else%>
+      <td><%= link_to "Add Service", admin_vip_programmer_path(programmer, anchor:"Services"), class: "clear tiny round button secondary" %></td>
+    <% end %>     
+    
+    <!-- Skills  -->
+    <% if programmer.skills.count > 0 %>
+      <td>
+        <ul>
+          <% programmer.skills.each do |skill| %>
+            <li><%=skill.name%></li>
+          <% end %>
+        </ul>
+        <%= link_to "Add or remove Skill", admin_vip_programmer_path(programmer, anchor:"Skills"), class: "clear tiny round button secondary"  %>
+      </td>
+    <% else%>
+      <td><%= link_to "Add Skill", admin_vip_programmer_path(programmer, anchor:"Skills"), class: "clear tiny round button secondary" %></td>
+    <% end %>     
+    
+    
+    <!-- Markets -->
+    <% if programmer.markets.count > 0 %>
+      <td>
+        <ul>
+          <% programmer.markets.each do |market| %>
+            <li><%=market.name%></li>
+          <% end %>
+        </ul>
+        <%= link_to "Add or remove Market", admin_vip_programmer_path(programmer, anchor:"Markets"), class: "clear tiny round button secondary" %>
+      </td>
+    <% else%>
+      <td><%= link_to "Add Market", admin_vip_programmer_path(programmer, anchor:"Markets"), class: "clear tiny round button secondary" %></td>
+    <% end %>     
+    
+    <!-- Websites -->
+    <% if programmer.websites.count > 0 %>
+      <td>
+        <ul>
+          <% programmer.websites.each do |website| %>
+            <li><%=website.url%></li>
+          <% end %>
+        </ul>
+        <%= link_to "Add or remove Website", admin_vip_programmer_path(programmer, anchor:"Websites"), class: "clear tiny round button secondary" %>
+      </td>
+    <% else%>
+      <td><%= link_to "Add Website", admin_vip_programmer_path(programmer, anchor:"Websites"), class: "clear tiny round button secondary" %></td>
+    <% end %>     
+    
+    <!-- Emails  -->
+    <% if programmer.emails.count > 0 %>
+      <td>
+        <ul>
+          <% programmer.emails.each do |email| %>
+            <li><%=email.email%> <%if !email.label.empty?%> (<%=email.label%>) <% end %></li>
+          <% end %>
+        </ul>
+        <%= link_to "Add or remove Email", admin_vip_programmer_path(programmer, anchor:"Emails"), class: "clear tiny round button secondary" %>
+      </td>
+    <% else%>
+      <td><%= link_to "Add Email", admin_vip_programmer_path(programmer, anchor:"Emails"), class: "clear tiny round button secondary" %></td>
+    <% end %> 
+    
+    <!-- Phones  -->
+    <% if programmer.phones.count > 0 %>
+      <td>
+        <ul>
+          <% programmer.phones.each do |phone| %>
+            <li><%=phone.phone%> <%if !phone.label.empty?%> (<%=phone.label%>) <% end %></li>
+          <% end %>
+        </ul>
+        <%= link_to "Add or remove Phone", admin_vip_programmer_path(programmer, anchor:"Phones"), class: "clear tiny round button secondary" %>
+      </td>
+    <% else%>
+      <td><%= link_to "Add Phone", admin_vip_programmer_path(programmer, anchor:"Phones"), class: "clear tiny round button secondary" %></td>
+    <% end %>     
+    
+  </tr>
+<% end %>
+</table>

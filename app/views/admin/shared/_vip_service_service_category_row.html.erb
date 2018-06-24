@@ -1,0 +1,9 @@
+<% called_from ||= 'vip_service' %>
+<li id="vip_service_service_category_<%= association.id %>">
+	<%= (called_from == 'vip_service') ? link_to(association.service_category.name, [:admin, association.service_category]) : link_to(association.service.name, [:admin, association.service]) %> 
+	<%= link_to(image_tag("icons/trash.gif"), 
+			admin_vip_service_service_category_path(association), 
+			confirm: "Are you sure? (This won't delete the service_category --it will only remove the association.)", 
+			remote: true,
+			method: :delete) %>
+</li>

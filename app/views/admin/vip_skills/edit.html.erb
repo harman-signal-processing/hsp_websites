@@ -1,0 +1,7 @@
+<ul class="button-group round">
+    <li><%= link_to 'Skills List', admin_vip_skills_path, class: "small button round" %>	</li>
+    <li><%= link_to 'Delete', admin_vip_skill_path(@vip_skill), confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
+<h1>Edit AMX VIP Skill</h1>
+
+<%= render "form" %>

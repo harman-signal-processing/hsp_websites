@@ -1,0 +1,7 @@
+<ul class="button-group round">
+    <li><%= link_to 'Phones List', admin_vip_phones_path, class: "small button round" %>	</li>
+    <li><%= link_to 'Delete', admin_vip_phone_path(@vip_phone), confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
+<h1>Edit AMX VIP Phone</h1>
+
+<%= render "form" %>

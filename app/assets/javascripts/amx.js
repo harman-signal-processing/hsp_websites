@@ -16,6 +16,7 @@
 //= require jquery.lightbox-0.5.min
 //= require jquery.datetimepicker
 //= require jquery.pin
+//= require jquery.cookie
 //= require slick
 //= require global_functions
 //= require maps
@@ -52,5 +53,27 @@ $(function(){
   });
 
   $('#amx-overlay-modal').foundation('reveal', 'open');
+  
+  /*used on /vip_programmers*/
+  $("#vipOtherFiltersToggleSwitch").click(function() {
+      $this = $(this);
+      $("#vipOtherFilters").fadeToggle();
+      //$this.html() == "Hide extra filters" ? $this.html('Show more filters') : $this.html('Hide extra filters');
+      var filterAreShowing = $this.html() == "Hide extra filters";
+      filterAreShowing ? filtersShowing($this) : filtersNotShowing($this);
+      
+      function filtersShowing($this)
+      {
+        //This will update the text after the toggle has happened. To read it seems backwards but this works.
+        $this.html('Show more filters')
+        $.removeCookie("show_all_vip_filters");
+      }
+      function filtersNotShowing($this)
+      {
+        $this.html('Hide extra filters')
+        //set showfilters cookie
+        $.cookie("show_all_vip_filters", 1);
+      }
+  });  
 
 });

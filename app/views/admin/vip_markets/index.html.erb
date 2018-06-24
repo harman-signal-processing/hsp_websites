@@ -1,0 +1,20 @@
+<h1>AMX VIP Markets</h1>
+
+<ul class="button-group round">
+	<li><%= link_to 'Programmers List', admin_vip_programmers_path, class: "small button round" %>	</li>
+	<li><%= link_to 'New AMX VIP market', new_admin_vip_market_path, class: "small success button" %></li>
+</ul>
+
+<table class="data">
+  <tr>
+  	<th></th>
+    <th>Name</th>
+  </tr>
+
+<% @vip_markets.each do |market| %>
+  <tr style="vertical-align:text-bottom;">
+    <td><%= link_to 'Edit', edit_admin_vip_market_path(market), class: "small round button" %></td>
+    <td><%= market.name %></td>
+  </tr>
+<% end %>
+</table>

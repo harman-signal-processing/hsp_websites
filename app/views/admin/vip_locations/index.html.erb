@@ -1,0 +1,40 @@
+<h1>AMX VIP Locations</h1>
+
+<ul class="button-group round">
+	<li><%= link_to 'Programmers List', admin_vip_programmers_path, class: "small button round" %>	</li>
+	<li><%= link_to 'New AMX VIP Location', new_admin_vip_location_path, class: "small success button" %></li>
+</ul>
+
+<table class="data">
+  <tr>
+    <th></th>
+    <th>Name</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Country</th>
+    <th>Global Region</th>
+    <th>Service Area</th>
+  </tr>
+
+<% @vip_locations.each do |location| %>
+  <tr style="vertical-align:text-bottom;">
+    <td><%= link_to 'Edit', edit_admin_vip_location_path(location), class: "small round button" %></td>
+    <td><%= location.name %></td>
+    <td><%= location.city %></td>
+    <td><%= location.state %></td>
+    <td><%= location.country %></td>
+    <td>
+      <% location.global_regions.each do |global_region|%>
+        <%= global_region.name %><br />
+      <% end %>
+      <%= link_to "Add or remove Global Region", admin_vip_location_path(location) %>
+    </td>
+    <td>
+      <% location.service_areas.each do |service_area|%>
+        <%=service_area.name%><br />
+      <% end %>
+      <%= link_to "Add or remove Service Area", admin_vip_location_path(location) %>
+    </td>
+  </tr>
+<% end %>
+</table>
