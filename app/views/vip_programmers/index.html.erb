@@ -65,7 +65,7 @@ Region: <% if @region.nil? %> <strong>All</strong> <% else %> <strong><%=@region
       <td width="200">
         <ul>
           <% programmer.locations.each do |location| %>
-            <li><%=location.city%><br />(<%=location.country%>)</li> 
+            <li><%=location.city%><%if !location.state.empty? %>, <%=location.state%><%end%><br />(<%=location.country%>)</li> 
           <% end %>
         </ul>
       </td>
