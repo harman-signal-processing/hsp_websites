@@ -1,13 +1,13 @@
 class VipProgrammersController < ApplicationController
   def index
     # These are for building the filters the user will use on the page
-    @all_global_regions = Vip::GlobalRegion.all.reverse_order
-    @all_categories = Vip::ServiceCategory.all
-    @all_certifications = Vip::Certification.all
-    @all_trainings = Vip::Training.all
-    @all_services = Vip::Service.all
-    @all_skills = Vip::Skill.all
-    @all_markets = Vip::Market.all
+    @all_global_regions = Vip::GlobalRegion.all.order(:name)
+    @all_categories = Vip::ServiceCategory.all.order(:name)
+    @all_certifications = Vip::Certification.all.order(:name)
+    @all_trainings = Vip::Training.all.order(:name)
+    @all_services = Vip::Service.all.order(:name)
+    @all_skills = Vip::Skill.all.order(:name)
+    @all_markets = Vip::Market.all.order(:name)
     
     # Parameters the user selected to filter the list
     @region = params[:region]
