@@ -272,7 +272,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
   root to: 'main#default_locale'
   scope "(:locale)", locale: /#{WebsiteLocale.all_unique_locales.join('|')}/ do
     constraints(AmxDomain) do
-      get 'contacts' => 'main#where_to_buy', as: :amx_contacts
+      # get 'contacts' => 'main#where_to_buy', as: :amx_contacts
+      get '/contacts' => 'support#index'
       get '/partners' => 'manufacturer_partners#index'
       resources :vip_programmers, only: [:index, :show]      
     end  # constraints(AmxDomain) do
