@@ -365,15 +365,23 @@ hr.colored {
     position:absolute;
   }
   .reveal-modal, dialog {
-    min-height: 34vh;
-    // width: 300px;
-    // left: 31px;
-    width: 335px;
-    left: 14px;    
-    background-color: transparent; 
+    min-height: 21vh;
+    width: 84%;
+    left: 8%;    
+    // background-color: transparent; 
     border: transparent;
     box-shadow: 0 0 0 rgba(0, 0, 0, 0);
   }
+  .reveal-modal .close-reveal-modal
+  {
+      font-size: 0.75rem;
+      position: absolute;
+      top: 1.25em;
+      right: 2.375rem;
+      color: #AAAAAA;
+      font-weight: bold;
+      cursor: pointer;
+  }  
 }
 
 @media only screen and (min-width: 40em) {
@@ -384,8 +392,18 @@ hr.colored {
     position:absolute;
   }
   .reveal-modal, dialog {
-    background-color: transparent; 
+    // background-color: transparent; 
     border: transparent;
     box-shadow: 0 0 0 rgba(0, 0, 0, 0);    
   }
+  .reveal-modal .close-reveal-modal
+  {
+      font-size: 1.75rem;
+      position: absolute;
+      top: 0.45em;
+      right: 3.375rem;
+      color: #AAAAAA;
+      font-weight: bold;
+      cursor: pointer;
+  }   
 }
