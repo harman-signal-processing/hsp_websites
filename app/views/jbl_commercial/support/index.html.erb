@@ -45,7 +45,7 @@
 			<h2><%= t("titles.mailing_address") %></h2>
 			<p>
 				<%=raw addr %>
-				<% if sup = website.value_for("support_email") %>
+        <% if (sup = website.value_for("support_email")) && !(website.hide_support_email) %>
 				<br/><%= (sup =~ /jbl/) ? mail_to(sup, sup) : "" %>
 				<% end %>
 			</p>

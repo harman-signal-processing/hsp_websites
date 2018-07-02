@@ -582,7 +582,7 @@ module ProductsHelper
     content_tag(:ul, id: options[:ulid]) do
       nodes.map do |node|
         content_tag(:li) do
-          render_part(node) + render_parts_tree(node.children, ulid: "node_#{node.id}")
+          render_part(node.part) + render_parts_tree(node.children, ulid: "node_#{node.id}")
         end
       end.join.html_safe
     end

@@ -20,6 +20,7 @@ namespace :martin do
       puts "Logged in."
       products.each do |product|
         puts "Getting #{ product.name }"
+        next if product.product_parts.where(parent_id: -1).count > 0
         begin
           friendly_id = product.old_id.present? ? product.old_id : product.friendly_id
           if friendly_id.to_s.match(/PROD/)
@@ -39,6 +40,7 @@ namespace :martin do
               end
             end
             puts "  determined (old) product ID: #{ product_id.to_s }"
+            ProductPart.where(product_id: product.id).where("parent_id IS NULL or parent_id = 0").update_all(parent_id: -1)
             page.css("div#sparepartListTree").css('div.bomitem').each do |bomitem|
               parse_bomitem(bomitem, product, product_id, page_id, false)
             end
@@ -49,7 +51,7 @@ namespace :martin do
             problems << product
           end
         rescue
-    #      product.update_column(:product_status_id, to_be_deleted.id)
+          #product.update_column(:product_status_id, to_be_deleted.id)
           puts "  well that didn't work."
           problems << product
         end
@@ -113,13 +115,13 @@ namespace :martin do
   end
 
   def parse_bomitem(bomitem, product, product_id, page_id, parent)
-    new_part = find_or_create_part(bomitem, product, parent)
+    new_product_part = find_or_create_part(bomitem, product, parent)
 
     if bomitem.search('a.showbomitems') # this has children
-      child_url = "#{ @root_site }/Martin.Ajax.aspx?cmd=sp:getbomitems&bomid=#{ new_part.part_number }&pageid=#{ page_id.to_s }&productid=#{ product_id.to_s }"
+      child_url = "#{ @root_site }/Martin.Ajax.aspx?cmd=sp:getbomitems&bomid=#{ new_product_part.part.part_number }&pageid=#{ page_id.to_s }&productid=#{ product_id.to_s }"
       ajax = @agent.get(child_url)
       ajax.css('div.bomitem').each do |thisbomitem|
-        parse_bomitem(thisbomitem, product, product_id, page_id, new_part)
+        parse_bomitem(thisbomitem, product, product_id, page_id, new_product_part)
       end
     end
   end
@@ -161,7 +163,7 @@ namespace :martin do
     else
       part = Part.where(part_number: part_number).first_or_initialize
       part.description = description unless part.description.present?
-      part.parent ||= parent
+      #part.parent ||= parent
 
       if part.photo.blank?
         img_url = "#{ @root_site }/files/images/products/#{ part_number }.jpg"
@@ -193,15 +195,8 @@ namespace :martin do
 
       part.save
       puts "Created/updated part #{ part.part_number } desc: #{ part.description }"
-      pp = ProductPart.where(product_id: product.id, part_id: part.id).first_or_initialize
-      if parent
-        pp.parent_part_id = parent.id
-      else
-        pp.parent_part_id = nil
-      end
-      pp.save
-
-      part
+      parent_id = parent.present? ? parent.id : nil
+      ProductPart.where(product_id: product.id, part_id: part.id, parent_id: parent_id).first_or_create
     end
   end
 

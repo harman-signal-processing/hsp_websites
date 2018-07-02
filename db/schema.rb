@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180629210426) do
+ActiveRecord::Schema.define(version: 20180702144928) do
 
   create_table "access_levels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -1154,6 +1154,8 @@ ActiveRecord::Schema.define(version: 20180629210426) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "parent_part_id"
+    t.integer "parent_id"
+    t.index ["parent_id"], name: "index_product_parts_on_parent_id"
     t.index ["parent_part_id"], name: "index_product_parts_on_parent_part_id"
     t.index ["part_id"], name: "index_product_parts_on_part_id"
     t.index ["product_id"], name: "index_product_parts_on_product_id"

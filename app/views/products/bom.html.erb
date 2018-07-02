@@ -8,7 +8,7 @@
       <i>Sorry, no parts found.</i>
     <% else %>
       <%= cache ["product_parts_tree", @product, I18n.locale] do %>
-        <%= render_parts_tree(@product.product_parts.where(parent_part_id: nil).map{|pp| pp.part}) %>
+        <%= render_parts_tree(@product.product_parts.where(parent_id: nil)) %>
       <% end %>
       <p><i>Click a part number or image to see where else it is used.</i></p>
     <% end %>
