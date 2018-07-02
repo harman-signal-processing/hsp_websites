@@ -10,9 +10,10 @@ namespace :martin do
 
     @agent = Mechanize.new
     logged_in_page = login_to_support_page
-    products = Product.where(brand: martin).where(product_status: ProductStatus.where(name: "Discontinued").first)
+    products = Product.where(brand: martin)
     #products = load_mismatches
     products += load_the_problematic_ones("Discontinued")
+    #products = Product.where(name: "Mac Viper Performance")
 
     #to_be_deleted = ProductStatus.where(name: "_delete").first_or_create
     if logged_in_page.code == "200"
@@ -156,7 +157,7 @@ namespace :martin do
     end
 
     if part_number.blank?
-      puts "  skipping blank part number"
+      puts "  **************** skipping blank part number"
     else
       part = Part.where(part_number: part_number).first_or_initialize
       part.description = description unless part.description.present?
@@ -192,9 +193,13 @@ namespace :martin do
 
       part.save
       puts "Created/updated part #{ part.part_number } desc: #{ part.description }"
-      unless product.parts.include?(part)
-        product.parts << part
+      pp = ProductPart.where(product_id: product.id, part_id: part.id).first_or_initialize
+      if parent
+        pp.parent_part_id = parent.id
+      else
+        pp.parent_part_id = nil
       end
+      pp.save
 
       part
     end
@@ -563,11 +568,15 @@ namespace :martin do
         probable_id = "martin-edit"
       end
       next if probable_id == "exterior-400-image-projector"
-      product = Product.find(probable_id)
-      if product.product_status == product_status && product.brand == martin
-        product.old_id = row["ProductID"]
-        products << product
-        puts "Loaded #{ product.name }, old id: #{ product.old_id }"
+      begin
+        product = Product.find(probable_id)
+        if product.product_status == product_status && product.brand == martin
+          product.old_id = row["ProductID"]
+          products << product
+          puts "Loaded #{ product.name }, old id: #{ product.old_id }"
+        end
+      rescue
+        puts "Couldn't load #{probable_id}"
       end
     end
     products.uniq
