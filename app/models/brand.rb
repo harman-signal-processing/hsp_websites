@@ -36,6 +36,7 @@ class Brand < ApplicationRecord
   has_many :brand_solutions, dependent: :destroy
   has_many :solutions, through: :brand_solutions
   has_many :contact_messages
+  has_many :sales_regions
   has_attached_file :logo, {
     styles: { large: "640x480",
       medium: "480x360",

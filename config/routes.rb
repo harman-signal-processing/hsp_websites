@@ -450,7 +450,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         resources :site_element_attachments
         collection { post :upload }
       end
-      
 
       resources :vip_programmers,
         :vip_locations,
@@ -477,7 +476,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :vip_programmer_phones,
         :vip_service_categories,
         :vip_service_service_categories
-      
+
       resources :service_centers,
         :market_segment_product_families,
         :software_training_classes,
@@ -491,6 +490,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :product_part_group_part,
         :toolkit_resource_types,
         :brand_toolkit_contacts,
+        :sales_region_countries,
         :product_site_elements,
         :product_introductions,
         :online_retailer_links,
@@ -525,6 +525,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :installations,
         :pricing_types,
         :news_products,
+        :sales_regions,
         :label_sheets,
         :distributors,
         :artist_tiers,

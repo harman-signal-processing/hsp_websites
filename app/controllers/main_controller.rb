@@ -74,7 +74,7 @@ class MainController < ApplicationController
       begin
         if Rails.env.production?
           origin = Geokit::Geocoders::MultiGeocoder.geocode(zip)
-          brand.dealers.near(origin: origin, within: 60).order("distance ASC").all.each do |d|
+          brand.dealers.near(origin: origin, within: 200).order("distance ASC").all.each do |d|
             unless count > 15 || d.exclude? || filter_out?(d)
               @results << d
               count += 1

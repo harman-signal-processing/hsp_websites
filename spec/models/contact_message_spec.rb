@@ -94,6 +94,36 @@ RSpec.describe ContactMessage, :type => :model do
     end
   end
 
+  describe "Regional recipients" do
+    it "sends to the corresponding support email for the country's region" do
+      country = "Fooberland"
+      brand = FactoryBot.create(:brand, send_contact_form_to_regional_support: true)
+      sales_region = FactoryBot.create(:sales_region, brand: brand)
+      sales_region.sales_region_countries << FactoryBot.build(:sales_region_country, name: country)
+
+      contact_message = FactoryBot.build_stubbed(:contact_message,
+                                                 shipping_country: country,
+                                                 brand: brand)
+
+      expect(contact_message.recipients).to include(sales_region.support_email)
+    end
+
+    it "sends to the default recipient when no matching region is found" do
+      country = "Fooberland"
+      brand = FactoryBot.create(:brand, send_contact_form_to_regional_support: true)
+      sales_region = FactoryBot.create(:sales_region, brand: brand)
+      sales_region.sales_region_countries << FactoryBot.build(:sales_region_country, name: country)
+
+      contact_message = FactoryBot.build_stubbed(:contact_message,
+                                                 shipping_country: "SomethingElse",
+                                                 brand: brand)
+
+      expect(contact_message.recipients).not_to include(sales_region.support_email)
+      expect(contact_message.recipients).to include(brand.support_email)
+    end
+
+  end
+
   describe "RMA" do
     it "sends to the brand's repair email" do
       contact_message = FactoryBot.build_stubbed(:contact_message, message_type: "repair_request")
@@ -101,7 +131,7 @@ RSpec.describe ContactMessage, :type => :model do
       expect(contact_message.recipients).to include(contact_message.brand.rma_email)
     end
   end
-  
+
   describe "RMA credit return request" do
     it "sends to the brand's rma_credit_email" do
       contact_message = FactoryBot.build_stubbed(:contact_message, message_type: "rma_credit_request")

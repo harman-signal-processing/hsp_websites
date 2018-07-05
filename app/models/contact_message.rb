@@ -136,8 +136,14 @@ class ContactMessage < ApplicationRecord
     # Route by country
     if brand.send_contact_form_to_distributors? &&
         self.shipping_country.present? &&
-        brand.distributors.where(country: self.shipping_country).where("email IS NOT NULL").count == 1
-      recipients = brand.distributors.where(country: self.shipping_country).where("email IS NOT NULL").pluck(:email)
+        distributors.count == 1
+      recipients = distributors.pluck(:email)
+
+    # Route by intl sales region
+    elsif brand.send_contact_form_to_regional_support? &&
+        self.shipping_country.present? &&
+        regions.exists?
+      recipients = regions.pluck(:support_email)
 
     # Route by subject
     elsif subj = SupportSubject.where(brand_id: brand_id, name: subject).first
@@ -148,6 +154,17 @@ class ContactMessage < ApplicationRecord
       recipients += brand.support_cc_list.split(/[\,\;\s]\s?/)
     end
 
-    recipients
+    recipients.uniq
+  end
+
+  def distributors
+    @distributors ||= brand.distributors.where(country: self.shipping_country).where("email IS NOT NULL")
+  end
+
+  def regions
+    @regions ||= brand.sales_regions.
+      includes(:sales_region_countries).
+      where("support_email IS NOT NULL").
+      where(sales_region_countries: { name: self.shipping_country})
   end
 end

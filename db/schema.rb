@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180702144928) do
+ActiveRecord::Schema.define(version: 20180705160609) do
 
   create_table "access_levels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -297,6 +297,7 @@ ActiveRecord::Schema.define(version: 20180702144928) do
     t.boolean "dealers_are_us_only", default: true
     t.boolean "dealers_include_rental_and_service", default: false
     t.boolean "has_parts_library"
+    t.boolean "send_contact_form_to_regional_support", default: false
     t.index ["cached_slug"], name: "index_brands_on_cached_slug", unique: true
     t.index ["name"], name: "index_brands_on_name", unique: true
   end
@@ -1419,6 +1420,23 @@ ActiveRecord::Schema.define(version: 20180702144928) do
     t.boolean "require_receipt"
     t.boolean "auto_deliver"
     t.index ["brand_id"], name: "index_registered_downloads_on_brand_id"
+  end
+
+  create_table "sales_region_countries", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.integer "sales_region_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sales_region_id"], name: "index_sales_region_countries_on_sales_region_id"
+  end
+
+  create_table "sales_regions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.integer "brand_id"
+    t.string "support_email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["brand_id"], name: "index_sales_regions_on_brand_id"
   end
 
   create_table "service_centers", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

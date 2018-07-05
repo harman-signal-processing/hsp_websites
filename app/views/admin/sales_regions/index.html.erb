@@ -1,0 +1,13 @@
+<h1>Sales Regions</h1>
+
+<% if can? :create, SalesRegion %>
+<ul class="button-group round">
+	<li><%= link_to 'New region', new_admin_sales_region_path, class: "small success button" %></li>
+</ul>
+<% end %>
+
+<ul>
+  <% @sales_regions.each do |region| %>
+    <li><%= link_to region.name, [:admin, region] %></li>
+  <% end %>
+</ul>

@@ -186,9 +186,9 @@
                     </li>
                   <% end %>
 
-                  <% if (can?(:manage, Artist) && website.has_artists?) || 
+                  <% if (can?(:manage, Artist) && website.has_artists?) ||
                       (can?(:manage, ArtistTier) && website.has_artists?) %>
-                    <li class="has-dropdown"> 
+                    <li class="has-dropdown">
                       <%= link_to "Artists", '#' %>
                       <ul class="dropdown">
                         <% if can?(:manage, ArtistTier) && website.has_artists? %>
@@ -217,9 +217,10 @@
                     </li>
                   <% end %>
 
-                  <% if (can?(:manage, OnlineRetailer) && website.has_online_retailers?) || 
-                      (can?(:manage, Distributor) && website.has_distributors?) || 
-                      (can?(:manage, Dealer) && website.has_dealers?) || 
+                  <% if (can?(:manage, OnlineRetailer) && website.has_online_retailers?) ||
+                      (can?(:manage, Distributor) && website.has_distributors?) ||
+                      (can?(:manage, Dealer) && website.has_dealers?) ||
+                      (can?(:manage, SalesRegion) && website.send_contact_form_to_regional_support?) ||
                       (can?(:manage, ServiceCenter) && website.has_service_centers?) %>
                     <li class="has-dropdown"><%= link_to "Partners", '#' %>
                     <ul class="dropdown">
@@ -231,6 +232,9 @@
                       <% end %>
                       <% if can?(:manage, Distributor) && website.has_distributors? %>
                         <li><%= link_to "Distributors", admin_distributors_path %></li>
+                      <% end %>
+                      <% if (can?(:manage, SalesRegion) && website.send_contact_form_to_regional_support?) %>
+                        <li><%= link_to "Global Sales Regions", admin_sales_regions_path %></li>
                       <% end %>
                       <% if can?(:manage, UsRep) && website.has_us_sales_reps? %>
                         <li><%= link_to "US Sales Reps", admin_us_reps_path %></li>

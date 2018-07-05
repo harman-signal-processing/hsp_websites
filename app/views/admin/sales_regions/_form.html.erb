@@ -1,0 +1,9 @@
+<div class="row">
+  <div class="medium-6 small-12 columns">
+    <%= simple_form_for([:admin, @sales_region]) do |f| %>
+      <%= f.input :name %>
+      <%= f.input :support_email %>
+      <%= f.button :submit %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<h1> <%=h @sales_region.name %> </h1>
+
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_sales_regions_path, class: "small secondary button" %>	</li>
+	<li><%= link_to 'Edit', edit_admin_sales_region_path(@sales_region, locale: I18n.locale), class: "small secondary button" %></li>
+	<li><%= link_to 'Delete', [:admin, @sales_region], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
+
+<p>
+  <b>Support Email:</b> <%= @sales_region.support_email %>
+</p>
+
+<div class="row">
+  <div class="medium-6 small-12 columns">
+    <h4>Countries in this region:</h4>
+
+    <%= simple_form_for [:admin, @sales_region_country], remote: true do |f| %>
+      <%= hidden_field_tag "called_from", "sales_region" %>
+      <%= f.hidden_field :sales_region_id %>
+      <div class="row collapse">
+        <div class="large-8 small-8 columns">
+          <%= f.input :name, as: :country, label: false %>
+        </div>
+        <div class="large-4 small-4 columns">
+          <%= submit_tag 'add', class: "prefix button"  %>
+        </div>
+      </div>
+    <% end %>
+
+    <ul id="sales_region_countries" class="list">
+      <% @sales_region.sales_region_countries.each do |src| %>
+        <%= render '/admin/shared/sales_region_country_row', src: src, called_from: 'sales_region' %>
+      <% end %>
+    </ul>
+  </div>
+</div>
