@@ -733,6 +733,58 @@ namespace :martin do
     puts problems.inspect
   end
 
+  desc "Move spec sheets to site resources"
+  task move_spec_sheets: :environment do
+    @agent = Mechanize.new
+    martin = Brand.find "martin"
+    martin.products.each do |product|
+      puts "#{product.name}: "
+      product.product_documents.where(document_type: "spec_sheet").each do |spec_sheet|
+
+        se = SiteElement.where(
+          name: spec_sheet.name(hide_language: true),
+          brand_id: martin.id,
+          language: spec_sheet.language,
+          is_document: true,
+          show_on_public_site: true,
+          resource_type: "Specifications"
+        ).first_or_initialize
+
+        puts "  init: #{ se.name } (#{ se.new_record? ? 'new' : 'old' } record)"
+        unless se.executable_file_name == spec_sheet.document_file_name
+          puts "     downloading...#{ spec_sheet.document.url }"
+          if @agent.get(spec_sheet.document.url).save("tmp/#{spec_sheet.document_file_name}")
+            download = File.open("tmp/#{spec_sheet.document_file_name}")
+            se.executable = download
+            download.close
+            se.save
+            File.delete("tmp/#{spec_sheet.document_file_name}")
+          else
+            puts "   ERROR getting #{spec_sheet.document.url }"
+          end
+        end
+
+        if se.new_record?
+          puts " #*#*#*#*#*#* The SiteElement never got saved. #*#*#*#*#*#*#*#*#"
+        else
+          unless se.products.include?(product)
+            ProductSiteElement.create!(
+              product: product,
+              site_element: se
+            )
+          end
+          se.reload
+          if se.products.include?(product)
+            spec_sheet.destroy
+          else
+            puts " #*#*#*#*#*#*# The Product didn't get associated with the SiteElement. #*#*#*#*#*#*#*#*#"
+          end
+        end
+
+      end
+    end
+  end
+
 end
 
 

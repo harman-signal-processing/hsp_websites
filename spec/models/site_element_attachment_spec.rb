@@ -1,5 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe SiteElementAttachment, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  before do
+    @sea = FactoryBot.create(:site_element_attachment)
+  end
+
+  subject { @sea }
+  it { should respond_to :site_element }
+  it { should respond_to :attachment }
+
 end

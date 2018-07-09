@@ -37,34 +37,6 @@ feature "Distributor signs up for Toolkit" do
     expect(u.distributors).to include(@distributor)
   end
 
-  scenario "should send the confirmation email to the distributor and the user" do
-    skip "Confirmable disabled"
-    user = FactoryBot.build(:user, email: "someone@distributor.com")
-
-    fill_in_new_distributor_user_form(user, @distributor)
-
-    last_email = ActionMailer::Base.deliveries.last
-    expect(last_email.subject).to match "Harman Toolkit Confirmation instructions"
-    expect(last_email.to).to include(@distributor.email)
-    expect(last_email.to).to include(user.email)
-    expect(last_email.body).to have_content user.name
-    expect(last_email.body).to have_content user.email
-  end
-
-  scenario "should NOT send an email error to user where no distributor is found" do
-    skip "Confirmable disabled"
-    user = FactoryBot.build(:user, email: "someone@distributor.com")
-    distributor = FactoryBot.build(:distributor) # un-saved, so should error when looking up
-
-    fill_in_new_distributor_user_form(user, distributor)
-
-    last_email = ActionMailer::Base.deliveries.last
-    expect(last_email.subject).to match "Harman Toolkit Confirmation instructions"
-    expect(last_email.to).to include(user.email)
-    expect(last_email.body).to have_content user.name
-    expect(last_email.body).to have_content user.email
-  end
-
   scenario "should store the account number with the user record" do
     user = FactoryBot.build(:user, email: "someone@dealer.com")
 

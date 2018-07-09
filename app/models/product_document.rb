@@ -23,7 +23,7 @@ class ProductDocument < ApplicationRecord
     else
       doctype = I18n.t("document_type.#{self.document_type}")
       ret = (options[:hide_product_name]) ? doctype : "#{self.product.name} #{doctype}"
-      unless self.language.blank? || !!(self.document_type.match(/^cad/))
+      unless self.language.blank? || !!(self.document_type.match(/^cad/)) || (options[:hide_language])
         lang = I18n.t("language.#{self.language}")
         ret += "-#{lang}"
       end

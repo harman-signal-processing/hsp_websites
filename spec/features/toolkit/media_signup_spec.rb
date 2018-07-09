@@ -33,29 +33,6 @@ feature "Media rep signs up for Toolkit" do
     expect(page).to have_content "it is cAsE sEnSiTiVe."
   end
 
-  scenario "should create a new unconfirmed user" do
-    skip "Confirmable disabled"
-    user = FactoryBot.build(:user)
-
-    fill_in_new_media_user_form(user)
-
-    u = User.last
-    expect(u.confirmed?).to be(false)
-  end
-
-  scenario "should send the confirmation email to the new user" do
-    skip "Confirmable disabled"
-    user = FactoryBot.build(:user)
-
-    fill_in_new_media_user_form(user)
-
-    last_email = ActionMailer::Base.deliveries.last
-    expect(last_email.subject).to match "HARMAN Toolkit Confirmation link"
-    expect(last_email.to).to include(user.email)
-    expect(last_email.body).to have_content user.name
-    expect(last_email.body).to have_content user.email
-  end
-
   def fill_in_new_media_user_form(user)
     within('#new_toolkit_user') do
       fill_in :toolkit_user_name, with: user.name

@@ -33,16 +33,6 @@ feature "Employee signs up for Toolkit" do
     expect(page).to have_content "it is cAsE sEnSiTiVe."
   end
 
-  scenario "should create a new confirmed user" do
-    skip "Confirmable disabled"
-    user = FactoryBot.build(:user)
-
-    fill_in_new_employee_user_form(user)
-
-    u = User.last
-    expect(u.email).to eq(user.email)
-  end
-
   def fill_in_new_employee_user_form(user)
     within('#new_toolkit_user') do
       fill_in :toolkit_user_name, with: user.name
