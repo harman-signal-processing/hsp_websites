@@ -78,7 +78,7 @@ class Dealer < ApplicationRecord
 
   # Geocode if the address has changed
   def regeocode
-    self.geocode_address if (address_changed? || city_changed? || state_changed?) && !(lat.changed? && lng.changed?)
+    geocode_address if (address_changed? || city_changed? || state_changed?) && !(lat_changed? && lng_changed?)
   end
 
   def regeocode!
@@ -93,7 +93,7 @@ class Dealer < ApplicationRecord
         self.lat, self.lng = geo.lat, geo.lng
       else
         puts geo.class
-        errors.add(:address, "Could not Geocode address")
+        errors.add(:lat, "Could not Geocode address")
       end
     end
   end

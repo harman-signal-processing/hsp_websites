@@ -36,7 +36,7 @@
   <% end %>
 
   <li class="divider hide-for-medium"></li>
-  <li><%= link_to "technical papers".titleize, support_downloads_path %></li>
+  <li><%= link_to t("nav.downloads").titleize, support_downloads_path %></li>
 
 	<% if website.has_artists? %>
     <li class="divider hide-for-medium"></li>
@@ -58,7 +58,6 @@
     <%= link_to "company".titleize, '#' %>
     <ul class="dropdown">
       <li><%= link_to t("about").titleize, '/about-duran' %></li>
-      <li><%= link_to "Social Responsibility", '/csr' %></li>
       <li><%= link_to "Careers", "http://jobs.harman.com", target: "_blank" %></li>
       <li><%= link_to "ISO 9001", "/iso9001" %></li>
       <!-- removed 2018-05-31
