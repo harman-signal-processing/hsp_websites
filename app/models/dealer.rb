@@ -78,7 +78,7 @@ class Dealer < ApplicationRecord
 
   # Geocode if the address has changed
   def regeocode
-    self.geocode_address if self.address_changed? || self.city_changed? || self.state_changed?
+    self.geocode_address if (address_changed? || city_changed? || state_changed?) && !(lat.changed? && lng.changed?)
   end
 
   def regeocode!
@@ -87,12 +87,14 @@ class Dealer < ApplicationRecord
 
   # Geocode the address and store the lat/lng
   def geocode_address
-    geo = Geokit::Geocoders::MultiGeocoder.geocode(self.address_string)
-    if geo.success
-      self.lat, self.lng = geo.lat, geo.lng
-    else
-      puts geo.class
-      errors.add(:address, "Could not Geocode address")
+    if lat.blank? || lng.blank?
+      geo = Geokit::Geocoders::MultiGeocoder.geocode(self.address_string)
+      if geo.success
+        self.lat, self.lng = geo.lat, geo.lng
+      else
+        puts geo.class
+        errors.add(:address, "Could not Geocode address")
+      end
     end
   end
 

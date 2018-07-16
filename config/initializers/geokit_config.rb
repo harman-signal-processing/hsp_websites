@@ -26,9 +26,9 @@ Geokit::Geocoders::request_timeout = 6
 # filled in at a minimum.  If the proxy requires authentication, the username
 # and password can be provided as well.
 
-unless (Rails.env.production? || Rails.env.staging?)
-  Geokit::Geocoders::proxy = 'http://10.10.68.244:8080'
-end
+#unless (Rails.env.production? || Rails.env.staging?)
+#  Geokit::Geocoders::proxy = 'http://10.10.68.244:8080'
+#end
 
 # This is your yahoo application key for the Yahoo Geocoder.
 # See http://developer.yahoo.com/faq/index.html#appid

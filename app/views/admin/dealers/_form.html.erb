@@ -17,6 +17,9 @@
    <%= f.input :service %>
    <%= f.input :represented_in_country %>
    <%= f.input :account_number %>
+   <%= f.input :lat, label: "Latitude",
+     hint: "The application will try to find the coordinates, but if it fails, try filling them in here. You should be able to get them with the Google." %>
+   <%= f.input :lng, label: "Longitude" %>
    <%= f.input :exclude, label: "Exclude from site listings" %><br/>
 
   <br/><%= f.button :submit %>
