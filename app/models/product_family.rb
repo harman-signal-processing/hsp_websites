@@ -204,12 +204,16 @@ class ProductFamily < ApplicationRecord
   end
 
   # w = a Brand or a Website
-  def current_products_plus_child_products(w)
+  def current_products_plus_child_products(w, opts={})
     cp = self.current_products
     children_with_current_products(w).each do |pf|
-      cp += pf.current_products_plus_child_products(w)
+      cp += pf.current_products_plus_child_products(w, opts)
     end
-    cp.sort_by(&:name).uniq
+    if opts[:nosort]
+      cp.uniq
+    else
+      cp.sort_by(&:name).uniq
+    end
   end
 
   def first_product_with_photo(w)
@@ -218,7 +222,7 @@ class ProductFamily < ApplicationRecord
         return product if product.primary_photo.present?
       end
     elsif current_products_plus_child_products(w).length > 0
-      current_products_plus_child_products(w).each do |product|
+      current_products_plus_child_products(w, nosort: true).each do |product|
         return product if product.primary_photo.present?
       end
     end
