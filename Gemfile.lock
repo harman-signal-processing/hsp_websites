@@ -281,6 +281,7 @@ GEM
     json-schema (2.8.0)
       addressable (>= 2.4)
     jwt (1.5.6)
+    language_list (1.2.1)
     launchy (2.4.3)
       addressable (~> 2.3)
     letter_opener (1.6.0)
@@ -640,6 +641,7 @@ DEPENDENCIES
   image_zoomer
   jquery-rails
   json-schema
+  language_list
   letter_opener
   lightbox2-rails (~> 2.7.1)
   mailgun_rails
