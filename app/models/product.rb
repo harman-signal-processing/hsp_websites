@@ -22,7 +22,7 @@ class Product < ApplicationRecord
   has_many :specification_groups, through: :specifications
   has_many :artist_products, dependent: :destroy, inverse_of: :product
   has_many :artists, through: :artist_products
-  has_many :product_site_elements, dependent: :destroy, inverse_of: :product
+  has_many :product_site_elements, -> { order('position') }, dependent: :destroy, inverse_of: :product
   has_many :site_elements, through: :product_site_elements
   has_many :product_promotions, dependent: :destroy
   has_many :product_suggestions, -> { order('position') }, dependent: :destroy

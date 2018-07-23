@@ -1,6 +1,7 @@
 class Admin::ProductSiteElementsController < AdminController
   before_action :initialize_product_site_element, only: :create
-  load_and_authorize_resource
+  load_and_authorize_resource except: [:update_order]
+  skip_authorization_check only: [:update_order]
   
   # GET /admin/product_site_elements
   # GET /admin/product_site_elements.xml
@@ -71,6 +72,13 @@ class Admin::ProductSiteElementsController < AdminController
         format.xml  { render xml: @product_site_element.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  # POST /admin/product_site_elements/update_order
+  def update_order
+    update_list_order(ProductSiteElement, params["product_site_element"])
+    head :ok
+    website.add_log(user: current_user, action: "Sorted product site elements")
   end
 
   # DELETE /admin/product_site_elements/1
