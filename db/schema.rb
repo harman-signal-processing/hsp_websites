@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180705160609) do
+ActiveRecord::Schema.define(version: 20180723154151) do
 
   create_table "access_levels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -1216,6 +1216,7 @@ ActiveRecord::Schema.define(version: 20180705160609) do
     t.integer "site_element_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "position"
     t.index ["product_id"], name: "index_product_site_elements_on_product_id"
     t.index ["site_element_id"], name: "index_product_site_elements_on_site_element_id"
   end

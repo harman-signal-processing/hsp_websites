@@ -65,12 +65,12 @@ $(function(){
       function filtersShowing($this)
       {
         //This will update the text after the toggle has happened. To read it seems backwards but this works.
-        $this.html('Show more filters')
+        $this.html('Show more filters');
         $.removeCookie("show_all_vip_filters");
       }
       function filtersNotShowing($this)
       {
-        $this.html('Hide extra filters')
+        $this.html('Hide extra filters');
         //set showfilters cookie
         $.cookie("show_all_vip_filters", 1);
       }

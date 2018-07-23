@@ -163,11 +163,9 @@
         <% if @product.site_elements.length > 0 %>
           <hr/>
           <h6 class="subheader">Oh, and here are the "site resources" linked to this product:</h6>
-          <ul>
-            <% @product.site_elements.each do |site_element| %>
-              <li>
-                <%= link_to site_element.long_name, [:admin, site_element] %>
-              </li>
+          <ul id="product_site_elements" class="sortable_list">
+            <% @product.product_site_elements.order(:position).each do |pse| %>
+            	<%= render "/admin/shared/product_site_element_row", pse: pse, called_from: 'product' %>
             <% end %>
           </ul>
         <% end %>

@@ -450,6 +450,10 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         resources :site_element_attachments
         collection { post :upload }
       end
+      
+      resources :product_site_elements do 
+        collection { post :update_order }
+      end
 
       resources :vip_programmers,
         :vip_locations,
@@ -491,7 +495,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :toolkit_resource_types,
         :brand_toolkit_contacts,
         :sales_region_countries,
-        :product_site_elements,
         :product_introductions,
         :online_retailer_links,
         :online_retailer_users,
