@@ -277,7 +277,7 @@ module MainHelper
 
   def flag_for(item)
     if item.respond_to?(:language) && item.language.present?
-      image_tag("flags/#{item.language.to_s.upcase}.png", alt: item.language)
+      image_tag("flags/#{item.language.to_s.downcase}.png", alt: item.language)
     end
   end
 end
