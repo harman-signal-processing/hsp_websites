@@ -3,7 +3,7 @@ class VideosController < ApplicationController
   # Split the "playlist_ids" setting by comma, retrieve each
   # playlist and show it in the browser
   def index
-    if website.brand_name.downcase == "amx"
+    if website.brand_always_redirect_to_youtube?
       redirect_user_to_youtube_channel
     else
       @playlists = []

@@ -80,6 +80,10 @@ class Website < ApplicationRecord
   def brand_name
     @brand_name ||= self.brand.name
   end
+  
+  def brand_always_redirect_to_youtube?
+    self.brand.always_redirect_to_youtube.nil? ? false : self.brand.always_redirect_to_youtube
+  end
 
   def method_missing(sym, *args)
     super if respond_to_without_attributes?(sym, true)
