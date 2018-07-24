@@ -906,7 +906,7 @@ div.product-title-block, div.small-title-block {
   div.side-nav-container {
     margin: 0;
     padding: 0;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
   }
   dl.side-nav {
     list-style-type: none;
@@ -1662,4 +1662,25 @@ hr.colored {
   }
 }
 
-
+.find-a-dealer {
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding-left: 12px;
+  font-size: 94%;
+  img {
+    padding-right: 4px;
+    margin-right: 2px;
+    height: 20px;
+  }
+}
+.have-a-question {
+  text-transform: uppercase;
+  white-space: nowrap;
+  margin-left: 2px;
+  padding-left: 7px;
+  font-size: 94%;
+  img {
+    padding-right: 4px;
+    height: 20px;
+  }
+}

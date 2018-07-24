@@ -231,6 +231,7 @@ module ProductsHelper
         end
       end
       ret += "</dl>"
+      ret += "<br/>" + hpro_contact_buttons
       ret += "</div>"
       raw(ret)
     end
@@ -612,6 +613,26 @@ module ProductsHelper
       end.to_s.html_safe
     rescue
       ""
+    end
+  end
+
+  def hpro_contact_buttons
+    find_a_dealer = content_tag :div, class: "medium-6 small-12 columns" do
+        link_to "https://pro.harman.com/contacts/channel",
+          target: "_blank",
+          class: "button expand radius find-a-dealer" do
+          image_tag("find_dealer.png", alt: "f") + t("find_a_dealer")
+        end
+      end
+    have_a_question = content_tag :div, class: "medium-6 small-12 columns" do
+        link_to "https://pro.harman.com/contacts",
+          target: "_blank",
+          class: "button radius have-a-question" do
+          image_tag("have_question.png", alt: "q") + t("have_a_question")
+        end
+      end
+    content_tag :div, class: "row collapse" do
+      find_a_dealer + have_a_question
     end
   end
 
