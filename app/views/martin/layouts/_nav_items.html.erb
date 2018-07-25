@@ -1,15 +1,27 @@
+<% # Martin is special. They need two product menus. So there's some messy stuff here... %>
 <%= cache ["nav_items", website.brand, I18n.locale] do %>
-	<li class="has-dropdown"><%= link_to t('products').titleize, product_families_path %>
+  <% secondary_product_family_groups = website.brand.product_families.where(name: "Product Ranges") %>
+	<li class="has-dropdown"><%= link_to t('product_types').titleize, product_families_path %>
 		<ul class="dropdown">
-			<% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
+			<% (ProductFamily.parents_with_current_products(website, I18n.locale) - secondary_product_family_groups).each do |product_family| %>
 				<%= product_family_nav_links(product_family, depth: 1) %>
 			<% end %>
-      <% if website.has_product_registrations? %>
-        <li><%= link_to ucfirst(t('warranty_registration')), warranty_registration_path %></li>
-      <% end %>
 			<li><%= link_to "Discontinued Products", discontinued_products_path %></li>
 		</ul>
 	</li>
+
+  <% if secondary_product_family_groups.exists? %>
+    <% secondary_product_family_groups.each do |secondary_product_family_group| %>
+      <li class="divider hide-for-medium"></li>
+      <li class="has-dropdown"><%= link_to translate_content(secondary_product_family_group, :name), secondary_product_family_group %>
+        <ul class="dropdown">
+          <% secondary_product_family_group.children_with_current_products(website).each do |product_family| %>
+            <%= product_family_nav_links(product_family, depth: 1) %>
+          <% end %>
+        </ul>
+      </li>
+    <% end %>
+  <% end %>
 
   <% if website.has_solution_pages? %>
     <%= render_partial "shared/solutions_nav" %>
@@ -50,6 +62,9 @@
       <li><%= link_to t('contact_us').titleize, support_path %></li>
       <li><%= link_to t('nav.safety_documents'), martin_safety_documents_path %></li>
       <li><%= link_to t('nav.support_login'), gated_support_path %></li>
+      <% if website.has_product_registrations? %>
+        <li><%= link_to ucfirst(t('warranty_registration')), warranty_registration_path %></li>
+      <% end %>
     </ul>
   </li>
 
