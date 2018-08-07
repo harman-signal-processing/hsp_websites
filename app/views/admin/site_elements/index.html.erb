@@ -1,12 +1,31 @@
-<h1>Site Resources</h1>
 
-<% if can? :create, SiteElement %>
-<ul class="button-group round">
-	<li><%= link_to 'New Resource', new_admin_site_element_path, class: "small success button" %></li>
-</ul>
-<% end %>
+<div class="row">
+  <div class="small-12 medium-8 columns">
+    <h1>Site Resources</h1>
+    <% if can? :create, SiteElement %>
+    <ul class="button-group round">
+      <li><%= link_to 'New Resource', new_admin_site_element_path, class: "small success button" %></li>
+    </ul>
+    <% end %>
+  </div>
+  <div class="small-12 medium-4 columns">
+    <div class="panel">
+      <%= search_form_for [:admin, @search] do |f| %>
+        <div class="row collapse">
+          <div class="small-8 columns">
+            <%= f.text_field :name_or_resource_file_name_or_executable_file_name_or_content_or_resource_type_cont %>
+          </div>
+          <div class="small-4 columns">
+            <%= f.submit "Search", class: "expand postfix button" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
 
-<table class="data">
+
+<table class="data" width="100%">
   <tr>
     <th>Name</th>
     <th>Resource file name</th>

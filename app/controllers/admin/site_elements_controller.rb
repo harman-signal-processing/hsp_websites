@@ -5,7 +5,13 @@ class Admin::SiteElementsController < AdminController
   # GET /site_elements
   # GET /site_elements.xml
   def index
-    @site_elements = @site_elements.where(brand_id: website.brand_id)
+    brand_site_elements = @site_elements.where(brand_id: website.brand_id)
+    @search = brand_site_elements.ransack(params[:q])
+    if params[:q]
+      @site_elements = @search.result.order(:name, :version)
+    else
+      @site_elements = brand_site_elements
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render xml: @site_elements }
