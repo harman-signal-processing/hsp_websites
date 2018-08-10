@@ -407,3 +407,61 @@ hr.colored {
       cursor: pointer;
   }   
 }
+
+/* AMX VIP Programmers /vip_programmers */
+#vip_table {
+  .viptitle.vipheading  {
+	  font-family:'Arial W01 Narrow Bold';
+  }
+
+
+  .bigdot {
+  	font-family:Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif;
+  	font-size:36px;
+  	text-align:center;
+  	line-height:7px;
+  	padding-bottom:27px;
+  }
+
+  .borderbottomright {
+  	border-right:1px black solid;
+  	border-bottom:1px black solid;
+  }
+
+  .borderleft {
+  	border-left:1px black solid;
+  }
+
+  .bordertop {
+  	border-top:1px black solid;
+  }
+
+  .viptitle {
+  	padding-bottom:10px;
+  }
+
+  .viptitle a {
+  	font-size:12px;
+  	font-family:'Arial W01 Narrow';
+  	color:#000000;	
+  	text-decoration:underline;
+  }
+}
+
+$vip-programmer-table-odd-row-color: #eee7e0;
+
+
+#programmer-info-container table tr.odd
+{
+  background-color:$vip-programmer-table-odd-row-color;
+}
+
+#programmer-info-container table{
+  border: 1px solid #B3B3B3;
+  width: 96%;
+}
+
+#programmer-info-container table tr td ul {
+  line-height:.5;
+  margin-bottom:0;
+}

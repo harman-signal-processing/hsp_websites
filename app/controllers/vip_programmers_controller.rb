@@ -1,7 +1,22 @@
 class VipProgrammersController < ApplicationController
   def index
+    filtered_programmers_list
+  end # def index
+
+  def list
+    # recreating the old trade site vip list
+    filtered_programmers_list
+  end
+
+  def show
+    @vip_programmer = Vip::Programmer.find(params[:id])
+  end
+  
+  private
+  
+  def filtered_programmers_list
     # These are for building the filters the user will use on the page
-    @all_global_regions = Vip::GlobalRegion.all.order(:name)
+    @all_global_regions = Vip::GlobalRegion.all
     @all_categories = Vip::ServiceCategory.all.order(:name)
     @all_certifications = Vip::Certification.all.order(:name)
     @all_trainings = Vip::Training.all.order(:name)
@@ -10,7 +25,7 @@ class VipProgrammersController < ApplicationController
     @all_markets = Vip::Market.all.order(:name)
     
     # Parameters the user selected to filter the list
-    @region = params[:region]
+    @region = params[:region] || "North America"
     @service_category = params[:service_category]
     @certification = params[:certification]
     @training = params[:training]
@@ -39,10 +54,7 @@ class VipProgrammersController < ApplicationController
     
     # build where clause
     where_clause_columns = column_name_array.map{|column| column + " = ?"}.join(" and ")
-    @programmers = Vip::Programmer.joins(joins_array).where("#{where_clause_columns}",*values_array).distinct.order(:name)
-  end # def index
-
-  def show
-    @vip_programmer = Vip::Programmer.find(params[:id])
+    @programmers = Vip::Programmer.joins(joins_array).where("#{where_clause_columns}",*values_array).distinct.order(:name)    
   end
+  
 end

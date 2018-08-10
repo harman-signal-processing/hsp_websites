@@ -16,5 +16,21 @@ module VipProgrammersHelper
 		end
 	end
 
+	def provides_service(programmer, service_name)
+		if programmer.services.map{|service| service.name == service_name}.any?
+			"."
+		end
+	end
+	
+	def for_market(programmer, market_name)
+		if programmer.markets.map{|market| market.name == market_name}.any?
+			"."
+		end		
+	end
+	
+	def is_amx_solutions_master?(programmer)
+		programmer.certifications.map{|cert| cert.name == "AMX Solutions Master"}.any?
+	end
+
 end
 

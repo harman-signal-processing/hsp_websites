@@ -1,2 +1,98 @@
-<h1><%=@vip_programmer.name%></h1>
 
+
+<ul class="button-group round" style="margin-bottom:20px;">
+	<li><%= link_to "<< AMX VIP List", "/vip_programmers_list#{'?region=' + params["region"] unless params['region'].nil? }", class: "tiny button round" %></li>	
+</ul>
+
+<div class="row" id="programmer-info-container">
+	<div class="large-8 small-12 columns" id="programmer-services-container">
+		  <!-- Logo  -->
+		  <div id="logo-container" style="margin-bottom:60px;">
+	    	<% if @vip_programmer.site_elements.present? && @vip_programmer.site_elements.where(resource_type:'Logo').first.resource.present? %>
+	    		<%= image_tag(@vip_programmer.site_elements.where(resource_type:'Logo').first.resource.url(:original), size: "150", alt: @vip_programmer.name, title: @vip_programmer.name) %>
+	    	<% end %>  
+		  </div><!-- <div id="logo-container"> -->
+    	
+    	<!-- Certifications  -->
+    	<% if @vip_programmer.certifications.count > 0 %>
+	    	<div id="certifications">
+	    		<h6>Industry Certifications</h6>
+	    		<% 
+	    			@list = @vip_programmer.certifications 
+	    			@slice_count = 2
+	    		%>
+	    		<%= render "item_table" %>     		
+	    	</div><!-- <div id="certifications"> -->
+    	<% end %>
+    	
+    	<% if @vip_programmer.trainings.count > 0 %>
+	    	<div id="trainings">
+	    		<h6>Manufacturer Product Training</h6>
+	    		<% 
+	    			@list = @vip_programmer.trainings 
+	    			@slice_count = 2 
+	    		%>
+	    		<%= render "item_table" %>    		
+	    	</div><!-- <div id="trainings"> -->
+    	<% end %>
+    	
+    	<% if @vip_programmer.services.count > 0 %>
+	    	<div id="services">
+	    		<h6>Other Services</h6>
+	    		<% 
+		    		@list = @vip_programmer.services 
+		    		@slice_count = 2 
+	    		%>
+	    		<%= render "item_table" %>	    		
+	    	</div><!-- <div id="services"> -->
+    	<% end %>
+    	
+    	<% if @vip_programmer.skills.count > 0 %>
+	    	<div id="skills">
+	    		<h6>Strategic Programming Skills</h6>
+	    		<% 
+	    			@list = @vip_programmer.skills 
+	    			@slice_count = 2 
+	    		%>
+	    		<%= render "item_table" %>	
+	    	</div><!-- <div id="skills"> -->
+    	<% end %>
+    	
+	</div><!-- <div class="large-8 small-12 columns" id="programmer-services-container"> -->
+	
+	<div class="large-4 small-12 columns" id="programmer-location-container">
+		<div id="location-info">
+			<h3><%=@vip_programmer.name%></h3>
+            <% @vip_programmer.locations.each do |location| %>
+            	<%= location.city %>, <%= location.state %> <% if location.state.present? %>,<% end %>
+            	<%= location.country %><br />
+            <% end %>
+            <% @vip_programmer.phones.each do |phone| %>
+            	<%= phone.phone %><br />
+            <% end %>
+            <% @vip_programmer.websites.each do |website| %>
+				<%=link_to website.url, website.url, target: "_blank"%><br />
+            <% end %>  			
+		</div><!-- <div id="location-info"> -->
+		<div id="service-area">
+			<h6>Service Area:</h6>
+			<table>
+			  <tbody>
+				<tr class="odd">
+					<td><ul><li><%= @vip_programmer.locations.first.service_areas.first.name %></li></ul></td>
+				</tr>
+			  </tbody>
+			</table>  			
+		</div><!-- <div id="service-area"> -->
+		
+		<div id="markets">
+			<h6>Markets:</h6>
+    		<% 
+    			@list = @vip_programmer.markets 
+    			@slice_count = 1 
+    		%>
+    		<%= render "item_table" %>			
+		</div><!-- <div id="markets"> -->
+		
+	</div><!-- <div class="large-4 small-12 columns" id="programmer-location-container"> -->
+</div><!-- <div class="row" id="programmer-info-container"> -->
