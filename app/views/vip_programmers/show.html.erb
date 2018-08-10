@@ -67,9 +67,15 @@
             	<%= location.city %>, <%= location.state %> <% if location.state.present? %>,<% end %>
             	<%= location.country %><br />
             <% end %>
+
             <% @vip_programmer.phones.each do |phone| %>
             	<%= phone.phone %><br />
             <% end %>
+            
+            <% @vip_programmer.emails.each do |email| %>
+            	<%= mail_to email.email, email.email %><br />
+            <% end %>
+            
             <% @vip_programmer.websites.each do |website| %>
 				<%=link_to website.url, website.url, target: "_blank"%><br />
             <% end %>  			
