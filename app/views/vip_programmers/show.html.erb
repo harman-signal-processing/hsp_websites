@@ -84,7 +84,7 @@
 			<h6>Service Area:</h6>
 			<table>
 			  <tbody>
-				<tr class="odd">
+				<tr>
 					<td><ul><li><%= @vip_programmer.locations.first.service_areas.first.name %></li></ul></td>
 				</tr>
 			  </tbody>
@@ -92,13 +92,26 @@
 		</div><!-- <div id="service-area"> -->
 		
 		<div id="markets">
-			<h6>Markets:</h6>
+			<h6>Primary Markets:</h6>
     		<% 
     			@list = @vip_programmer.markets 
     			@slice_count = 1 
     		%>
     		<%= render "item_table" %>			
 		</div><!-- <div id="markets"> -->
+		
+		<%if @vip_programmer.security_clearance.present? %>
+			<div id="security-clearance">
+				<h6>Active Security Clearance:</h6>
+				<table>
+				  <tbody>
+					<tr>
+						<td><ul><li><%= @vip_programmer.security_clearance %></li></ul></td>
+					</tr>
+				  </tbody>
+				</table>  			
+			</div><!-- <div id="security-clearance"> -->	
+		<% end %>
 		
 	</div><!-- <div class="large-4 small-12 columns" id="programmer-location-container"> -->
 </div><!-- <div class="row" id="programmer-info-container"> -->
