@@ -1,0 +1,16 @@
+			<table>
+			  <tbody>
+					<% @list.each_slice(@slice_count).with_index do |row_items, i| 
+							if i % 2 == 0 
+							 row_style = "class=odd" 
+						 	end 
+						 	cell_width = (100 / @slice_count)
+					%>
+					<tr <%=row_style%>>
+						<% row_items.each do |item| %>
+							<td width="<%=cell_width%>%"><ul><li><%= item.name %></li></ul></td>
+						<% end %>
+					</tr>
+				<% end %>  	
+			  </tbody>
+			</table>     
