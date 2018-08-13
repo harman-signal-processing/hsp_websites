@@ -36,11 +36,13 @@
 	    	</div><!-- <div id="trainings"> -->
     	<% end %>
     	
-    	<% if @vip_programmer.services.count > 0 %>
+    	<%
+    		vip_services_list_non_rms_items = @vip_programmer.services.reject{|item| item.name.starts_with?("RMS ") }
+    		if vip_services_list_non_rms_items.count > 0 %>
 	    	<div id="services">
 	    		<h6>Other Services</h6>
 	    		<% 
-		    		@list = @vip_programmer.services 
+		    		@list = vip_services_list_non_rms_items 
 		    		@slice_count = 2 
 	    		%>
 	    		<%= render "item_table" %>	    		
@@ -111,7 +113,20 @@
 				  </tbody>
 				</table>  			
 			</div><!-- <div id="security-clearance"> -->	
-		<% end %>
+		<% end %>		
 		
+    	<%
+    		vip_services_list_only_rms_items = @vip_programmer.services.select{|item| item.name.starts_with?("RMS ") }
+    		if vip_services_list_non_rms_items.count > 0 %>
+	    	<div id="rms_services">
+	    		<h6>RMS Programming Services:</h6>
+	    		<% 
+		    		@list = vip_services_list_only_rms_items 
+		    		@slice_count = 1 
+	    		%>
+	    		<%= render "item_table" %>	    		
+	    	</div><!-- <div id="rms_services"> -->
+    	<% end %>		
+
 	</div><!-- <div class="large-4 small-12 columns" id="programmer-location-container"> -->
 </div><!-- <div class="row" id="programmer-info-container"> -->
