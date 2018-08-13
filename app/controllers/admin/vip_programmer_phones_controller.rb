@@ -1,6 +1,7 @@
 class Admin::VipProgrammerPhonesController < AdminController
 	before_action :initialize_vip_programmer_phone, only: :create
-  load_and_authorize_resource class: "Vip::ProgrammerPhone"	
+  load_and_authorize_resource class: "Vip::ProgrammerPhone", except: [:update_order]
+  skip_authorization_check only: [:update_order]
   
   
   # GET /admin/vip_programmer_phones
@@ -65,6 +66,12 @@ class Admin::VipProgrammerPhonesController < AdminController
       end
     end
   end  
+  
+  def update_order
+    update_list_order(Vip::ProgrammerPhone, params["vip_programmer_phone"]) # update_list_order is in application_controller
+    head :ok
+    website.add_log(user: current_user, action: "Sorted VIP programmer phones")
+  end    
   
   # DELETE /admin/vip_programmer_phones/1
   # DELETE /admin/vip_programmer_phones/1.xml

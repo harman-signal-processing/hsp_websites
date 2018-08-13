@@ -1,6 +1,7 @@
 class Admin::VipProgrammerServicesController < AdminController
 	before_action :initialize_vip_programmer_service, only: :create
-  load_and_authorize_resource class: "Vip::ProgrammerService"	
+  load_and_authorize_resource class: "Vip::ProgrammerService",	except: [:update_order]
+  skip_authorization_check only: [:update_order]
   
   
   # GET /admin/vip_programmer_services
@@ -65,6 +66,12 @@ class Admin::VipProgrammerServicesController < AdminController
       end
     end
   end  
+  
+  def update_order
+    update_list_order(Vip::ProgrammerService, params["vip_programmer_service"]) # update_list_order is in application_controller
+    head :ok
+    website.add_log(user: current_user, action: "Sorted VIP programmer services")
+  end
   
   # DELETE /admin/vip_programmer_services/1
   # DELETE /admin/vip_programmer_services/1.xml
