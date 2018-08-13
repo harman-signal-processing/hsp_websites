@@ -1,6 +1,7 @@
 class Admin::VipProgrammerEmailsController < AdminController
 	before_action :initialize_vip_programmer_email, only: :create
-  load_and_authorize_resource class: "Vip::ProgrammerEmail"	
+  load_and_authorize_resource class: "Vip::ProgrammerEmail", except: [:update_order]
+  skip_authorization_check only: [:update_order]
   
   
   # GET /admin/vip_programmer_emails
@@ -65,6 +66,12 @@ class Admin::VipProgrammerEmailsController < AdminController
       end
     end
   end  
+  
+  def update_order
+    update_list_order(Vip::ProgrammerEmail, params["vip_programmer_email"]) # update_list_order is in application_controller
+    head :ok
+    website.add_log(user: current_user, action: "Sorted VIP programmer emails")
+  end   
   
   # DELETE /admin/vip_programmer_emails/1
   # DELETE /admin/vip_programmer_emails/1.xml

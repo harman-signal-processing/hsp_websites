@@ -23,8 +23,8 @@
           <% end %>
 					
 					Current locations
-          <ul id="vip_programmer_locations" class="list">
-            <% @vip_programmer_locations.each do |association| %>
+          <ul id="vip_programmer_locations" class="sortable_list">
+            <% @vip_programmer_locations.order(:position).each do |association| %>
               <%= render "/admin/shared/vip_programmer_location_row", association: association, called_from: "vip_programmer" %>
             <% end %>
           </ul>
@@ -50,8 +50,8 @@
           <% end %>
 					
 					Current certifications
-          <ul id="vip_programmer_certifications" class="list">
-            <% @vip_programmer_certifications.each do |association| %>
+          <ul id="vip_programmer_certifications" class="sortable_list">
+            <% @vip_programmer_certifications.order(:position).each do |association| %>
               <%= render "/admin/shared/vip_programmer_certification_row", association: association, called_from: "vip_programmer" %>
             <% end %>
           </ul>
@@ -81,7 +81,7 @@
           <% end %>
 					
 					Current trainings
-          <ul id="vip_programmer_trainings" class="list">
+          <ul id="vip_programmer_trainings" class="sortable_list">
             <% @vip_programmer_trainings.each do |association| %>
               <%= render "/admin/shared/vip_programmer_training_row", association: association, called_from: "vip_programmer" %>
             <% end %>
@@ -109,8 +109,8 @@
           <% end %>
 					
 					Current services
-          <ul id="vip_programmer_services" class="list">
-            <% @vip_programmer_services.each do |association| %>
+          <ul id="vip_programmer_services" class="sortable_list">
+            <% @vip_programmer_services.order(:position).each do |association| %>
               <%= render "/admin/shared/vip_programmer_service_row", association: association, called_from: "vip_programmer" %>
             <% end %>
           </ul>
@@ -141,7 +141,7 @@
           <% end %>
 					
 					Current skills
-          <ul id="vip_programmer_skills" class="list">
+          <ul id="vip_programmer_skills" class="sortable_list">
             <% @vip_programmer_skills.each do |association| %>
               <%= render "/admin/shared/vip_programmer_skill_row", association: association, called_from: "vip_programmer" %>
             <% end %>
@@ -168,7 +168,7 @@
           <% end %>
 					
 					Current markets
-          <ul id="vip_programmer_markets" class="list">
+          <ul id="vip_programmer_markets" class="sortable_list">
             <% @vip_programmer_markets.each do |association| %>
               <%= render "/admin/shared/vip_programmer_market_row", association: association, called_from: "vip_programmer" %>
             <% end %>
@@ -199,7 +199,7 @@
           <% end %>
 					
 					Current websites
-          <ul id="vip_programmer_websites" class="list">
+          <ul id="vip_programmer_websites" class="sortable_list">
             <% @vip_programmer_websites.each do |association| %>
               <%= render "/admin/shared/vip_programmer_website_row", association: association, called_from: "vip_programmer" %>
             <% end %>
@@ -226,7 +226,7 @@
           <% end %>
 					
 					Current emails
-          <ul id="vip_programmer_emails" class="list">
+          <ul id="vip_programmer_emails" class="sortable_list">
             <% @vip_programmer_emails.each do |association| %>
               <%= render "/admin/shared/vip_programmer_email_row", association: association, called_from: "vip_programmer" %>
             <% end %>
@@ -257,7 +257,7 @@
           <% end %>
 					
 					Current phones
-          <ul id="vip_programmer_phones" class="list">
+          <ul id="vip_programmer_phones" class="sortable_list">
             <% @vip_programmer_phones.each do |association| %>
               <%= render "/admin/shared/vip_programmer_phone_row", association: association, called_from: "vip_programmer" %>
             <% end %>

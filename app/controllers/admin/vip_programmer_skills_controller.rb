@@ -1,6 +1,7 @@
 class Admin::VipProgrammerSkillsController < AdminController
 	before_action :initialize_vip_programmer_skill, only: :create
-  load_and_authorize_resource class: "Vip::ProgrammerSkill"	
+  load_and_authorize_resource class: "Vip::ProgrammerSkill", except: [:update_order]
+  skip_authorization_check only: [:update_order]
   
   
   # GET /admin/vip_programmer_skills
@@ -64,6 +65,12 @@ class Admin::VipProgrammerSkillsController < AdminController
         format.xml  { render xml: @vip_programmer_skill.errors, status: :unprocessable_entity }
       end
     end
+  end  
+  
+  def update_order
+    update_list_order(Vip::ProgrammerSkill, params["vip_programmer_skill"]) # update_list_order is in application_controller
+    head :ok
+    website.add_log(user: current_user, action: "Sorted VIP programmer skills")
   end  
   
   # DELETE /admin/vip_programmer_skills/1

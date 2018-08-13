@@ -1,6 +1,7 @@
 class Admin::VipProgrammerLocationsController < AdminController
 	before_action :initialize_vip_programmer_location, only: :create
-  load_and_authorize_resource class: "Vip::ProgrammerLocation"
+  load_and_authorize_resource class: "Vip::ProgrammerLocation", except: [:update_order]
+  skip_authorization_check only: [:update_order]
   
   
   # GET /admin/vip_programmer_locations
@@ -66,6 +67,12 @@ class Admin::VipProgrammerLocationsController < AdminController
         format.xml  { render xml: @vip_programmer_location.errors, status: :unprocessable_entity }
       end
     end
+  end
+  
+  def update_order
+    update_list_order(Vip::ProgrammerLocation, params["vip_programmer_location"]) # update_list_order is in application_controller
+    head :ok
+    website.add_log(user: current_user, action: "Sorted VIP programmer locations")    
   end
   
   # DELETE /admin/vip_programmer_locations/1
