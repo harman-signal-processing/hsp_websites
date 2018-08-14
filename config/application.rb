@@ -74,7 +74,7 @@ module HarmanSignalProcessingWebsite
       ["Other", "other"]
     ]
 
-    config.document_languages = LanguageList::COMMON_LANGUAGES.map{|l| [l.name, l.iso_639_1]}
+    config.document_languages = LanguageList::COMMON_LANGUAGES.map{|l| [l.name, l.iso_639_1]} + [["Australia", "au"]]
 
     config.hpro_execs = ENV['TOOLKIT_ADMIN_EMAIL_ADDRESSES'].split("|")
   end
