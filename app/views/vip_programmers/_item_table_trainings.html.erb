@@ -1,0 +1,17 @@
+			<% if local_assigns.has_key?(:heading) && heading != "Other" %><h8 style="font-size:.8rem; font-weight:400;"><%=heading%></h8><% end %>
+			<table>
+			  <tbody>
+					<% @list.each_slice(@slice_count).with_index do |row_items, i| 
+							if i % 2 == 0 
+							 row_style = "class=odd" 
+						 	end 
+						 	cell_width = (100 / @slice_count)
+					%>
+					<tr <%=row_style%>>
+						<% row_items.each do |item| %>
+							<td width="<%=cell_width%>%"><ul><li><%= clean_training_name(item.name) %></li></ul></td>
+						<% end %>
+					</tr>
+				<% end %>  	
+			  </tbody>
+			</table>     

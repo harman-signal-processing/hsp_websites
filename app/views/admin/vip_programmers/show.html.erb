@@ -32,7 +32,7 @@
           <p>
           	Can't find the location in the list above? <%= link_to "Create a new location", new_admin_vip_location_path %>.
           </p>
-          
+          <p>Go to: <%= link_to "Locations List", admin_vip_locations_path %></p>
         </div>
         
   </div>
@@ -59,7 +59,7 @@
           <p>
           	Can't find the certification in the list above? <%= link_to "Create a new certification", new_admin_vip_certification_path %>.
           </p>
-          
+          <p>Go to: <%= link_to "Certifications List", admin_vip_certifications_path %></p>
         </div>
         
   </div>  
@@ -70,7 +70,7 @@
   <!-- Trainings  -->
 	<div class="small-12 medium-6 columns" id="Trainings">
         <div class="group">
-          <h4>Trainings</h4>
+          <h4>Harman Product Certifications</h4>
           <p>Choose one or more training below. Doing so will associate this programmer with the training.</p>
 
           <%= simple_form_for [:admin, @vip_programmer_training], remote: true do |f| %>
@@ -90,6 +90,7 @@
           <p>
           	Can't find the training in the list above? <%= link_to "Create a new training", new_admin_vip_training_path %>.
           </p>
+          <p>Go to: <%= link_to "Trainings List", admin_vip_trainings_path %></p>
           <a href="#">Go to top</a>
         </div>
         
@@ -118,6 +119,7 @@
           <p>
           	Can't find the service in the list above? <%= link_to "Create a new service", new_admin_vip_service_path %>.
           </p>
+          <p>Go to: <%= link_to "Services List", admin_vip_services_path %></p>
           <a href="#">Go to top</a>
         </div>
         
@@ -130,7 +132,7 @@
   <!-- Skills  -->
 	<div class="small-12 medium-6 columns" id="Skills">
         <div class="group">
-          <h4>Skills</h4>
+          <h4>Skills (No longer used, to be removed)</h4>
           <p>Choose one or more skill below. Doing so will associate this programmer with the skill.</p>
 
           <%= simple_form_for [:admin, @vip_programmer_skill], remote: true do |f| %>
@@ -150,6 +152,7 @@
           <p>
           	Can't find the skill in the list above? <%= link_to "Create a new skill", new_admin_vip_skill_path %>.
           </p>
+          <p>Go to: <%=link_to "Skills List", admin_vip_skills_path %></p>
           <a href="#">Go to top</a>
         </div>
         
@@ -177,6 +180,7 @@
           <p>
           	Can't find the market in the list above? <%= link_to "Create a new market", new_admin_vip_market_path %>.
           </p>
+          <p>Go to: <%= link_to "Markets List", admin_vip_markets_path %></p>
           <a href="#">Go to top</a>
         </div>
         
@@ -208,6 +212,7 @@
           <p>
           	Can't find the website in the list above? <%= link_to "Create a new website", new_admin_vip_website_path %>.
           </p>
+          <p>Go to: <%= link_to "Websites List", admin_vip_websites_path %></p>
           <a href="#">Go to top</a>
         </div>
         
@@ -235,6 +240,7 @@
           <p>
           	Can't find the email in the list above? <%= link_to "Create a new email", new_admin_vip_email_path %>.
           </p>
+          <p>Go to: <%= link_to "Emails List", admin_vip_emails_path %></p>
           <a href="#">Go to top</a>
         </div>
         
@@ -266,6 +272,7 @@
           <p>
           	Can't find the phone in the list above? <%= link_to "Create a new phone", new_admin_vip_phone_path %>.
           </p>
+          <p>Go to: <%= link_to "Phones List", admin_vip_phones_path %></p>
           <a href="#">Go to top</a>
         </div>
         
