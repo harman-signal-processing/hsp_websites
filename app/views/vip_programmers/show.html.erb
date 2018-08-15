@@ -17,48 +17,45 @@
     	<% if @vip_programmer.certifications.count > 0 %>
 	    	<div id="certifications">
 	    		<h6>Industry Certifications</h6>
-	    		<% 
-	    			@list = @vip_programmer.certifications 
-	    			@slice_count = 2
-	    		%>
-	    		<%= render "item_table" %>     		
+	    		<div class="tables-container">
+	    			<%= show_items_table(@vip_programmer.certifications, 2)%>
+	    		</div>
 	    	</div><!-- <div id="certifications"> -->
     	<% end %>
     	
     	<% if @vip_programmer.trainings.count > 0 %>
 	    	<div id="trainings">
-	    		<h6>Manufacturer Product Training</h6>
-	    		<% 
-	    			@list = @vip_programmer.trainings 
-	    			@slice_count = 2 
-	    		%>
-	    		<%= render "item_table" %>    		
+	    		<h6>Harman Product Certifications</h6>
+	    		<div class="tables-container">
+		    		<%= show_trainings(@vip_programmer.trainings, "Other", 2) %>    		
+		    		<%= show_trainings(@vip_programmer.trainings, "Audio", 2) %>    		
+		    		<%= show_trainings(@vip_programmer.trainings, "Control", 2) %>    		
+		    		<%= show_trainings(@vip_programmer.trainings, "Networked AV", 2) %>    		
+		    	</div>
 	    	</div><!-- <div id="trainings"> -->
     	<% end %>
     	
     	<%
-    		vip_services_list_non_rms_items = @vip_programmer.services.reject{|item| item.name.starts_with?("RMS ") }
+    		vip_services_list_non_rms_items = @vip_programmer.services.reject{|item| item.name.starts_with?("RMS") }
     		if vip_services_list_non_rms_items.count > 0 %>
 	    	<div id="services">
 	    		<h6>Other Services</h6>
-	    		<% 
-		    		@list = vip_services_list_non_rms_items 
-		    		@slice_count = 2 
-	    		%>
-	    		<%= render "item_table" %>	    		
+	    		<div class="tables-container">
+	    			<%= show_items_table(vip_services_list_non_rms_items, 2)%> 
+	    		</div>
 	    	</div><!-- <div id="services"> -->
     	<% end %>
     	
-    	<% if @vip_programmer.skills.count > 0 %>
-	    	<div id="skills">
-	    		<h6>Strategic Programming Skills</h6>
+    	<%# if @vip_programmer.skills.count > 0 %>
+	    	<!--<div id="skills">-->
+	    		<!--<h6>Strategic Programming Skills</h6>-->
 	    		<% 
-	    			@list = @vip_programmer.skills 
-	    			@slice_count = 2 
+	    		#	@list = @vip_programmer.skills 
+	    		#	@slice_count = 2 
 	    		%>
-	    		<%= render "item_table" %>	
-	    	</div><!-- <div id="skills"> -->
-    	<% end %>
+	    		<%#= render "item_table" %>	
+	    	<!--</div>--><!-- <div id="skills"> -->
+    	<%# end %>
     	
 	</div><!-- <div class="large-8 small-12 columns" id="programmer-services-container"> -->
 	
@@ -95,11 +92,7 @@
 		
 		<div id="markets">
 			<h6>Primary Markets:</h6>
-    		<% 
-    			@list = @vip_programmer.markets 
-    			@slice_count = 1 
-    		%>
-    		<%= render "item_table" %>			
+    		<%= show_items_table(@vip_programmer.markets, 1)%>
 		</div><!-- <div id="markets"> -->
 		
 		<%if @vip_programmer.security_clearance.present? %>
@@ -116,15 +109,11 @@
 		<% end %>		
 		
     	<%
-    		vip_services_list_only_rms_items = @vip_programmer.services.select{|item| item.name.starts_with?("RMS ") }
-    		if vip_services_list_non_rms_items.count > 0 %>
+    		vip_services_list_only_rms_items = @vip_programmer.services.select{|item| item.name.starts_with?("RMS") }
+    		if vip_services_list_only_rms_items.count > 0 %>
 	    	<div id="rms_services">
 	    		<h6>RMS Programming Services:</h6>
-	    		<% 
-		    		@list = vip_services_list_only_rms_items 
-		    		@slice_count = 1 
-	    		%>
-	    		<%= render "item_table" %>	    		
+	    		<%= show_items_table(vip_services_list_only_rms_items, 1)%>
 	    	</div><!-- <div id="rms_services"> -->
     	<% end %>		
 

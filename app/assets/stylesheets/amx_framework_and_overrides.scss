@@ -414,7 +414,6 @@ hr.colored {
 	  font-family:'Arial W01 Narrow Bold';
   }
 
-
   .bigdot {
   	font-family:Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif;
   	font-size:36px;
@@ -462,6 +461,11 @@ $vip-programmer-table-odd-row-color: #eee7e0;
 }
 
 #programmer-info-container table tr td ul {
-  line-height:.5;
+  /*line-height:.5;*/
+  font-size: .8rem;
   margin-bottom:0;
+}
+
+#programmer-info-container .tables-container {
+  width:98%;margin-left:auto;margin-right:auto;
 }
