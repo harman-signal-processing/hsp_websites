@@ -46,21 +46,24 @@ module VipProgrammersHelper
 	
 	def show_trainings(trainings, category, column_count)
 		@list = get_trainings_based_on_category(trainings, category)
+		list_count = @list.nil? ? 0 : @list.count
 		@slice_count = column_count
-		render partial: "item_table_trainings", locals: {heading: category } if @list.count > 0
+		
+		render partial: "item_table_trainings", locals: {heading: category } if list_count > 0
 	end
 	
 	def get_trainings_based_on_category(trainings, category)
-		case category.downcase
-		when 'audio'
-			list = audio_trainings(trainings)
-		when 'control'
-			list = control_trainings(trainings)
-		when 'neworked av'
-			list = networked_av_trainings(trainings)
-		else
-			list = other_trainings((trainings))
-		end
+		case category
+			when 'Audio'
+				list = audio_trainings(trainings)
+			when 'Control'
+				list = control_trainings(trainings)
+			when 'Networked AV'
+				list = networked_av_trainings(trainings)
+			else
+				list = other_trainings((trainings))
+		end  #  case category
+		list
 	end
 	
 	def clean_training_name(training_name)
@@ -68,19 +71,19 @@ module VipProgrammersHelper
 	end
 	
 	def audio_trainings(trainings)
-		@vip_programmer.trainings.select{|item| item.name.starts_with?("Audio Professional | ") }
+		trainings.select{|item| item.name.starts_with?("Audio ") }
 	end
 	
 	def control_trainings(trainings)
-		@vip_programmer.trainings.select{|item| item.name.starts_with?("Control Professional | ") }
+		trainings.select{|item| item.name.starts_with?("Control ") }
 	end
 	
 	def networked_av_trainings(trainings)
-		@vip_programmer.trainings.select{|item| item.name.starts_with?("Networked AV Professional | ") }
+		trainings.select{|item| item.name.starts_with?("Networked AV ") }
 	end
 	
 	def other_trainings(trainings)
-		@vip_programmer.trainings.reject{|item| item.name.starts_with?("Audio Professional | ") || item.name.starts_with?("Control Professional | ") || item.name.starts_with?("Networked AV Professional | ") }
+		trainings.reject{|item| item.name.starts_with?("Audio ") || item.name.starts_with?("Control ") || item.name.starts_with?("Networked AV ") }
 	end
 
 end
