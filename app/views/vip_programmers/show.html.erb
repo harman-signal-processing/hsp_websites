@@ -90,10 +90,12 @@
 			</table>  			
 		</div><!-- <div id="service-area"> -->
 		
-		<div id="markets">
-			<h6>Primary Markets:</h6>
-    		<%= show_items_table(@vip_programmer.markets, 1)%>
-		</div><!-- <div id="markets"> -->
+		<% if @vip_programmer.markets.count > 0 %>
+			<div id="markets">
+				<h6>Primary Markets:</h6>
+	    		<%= show_items_table(@vip_programmer.markets, 1)%>
+			</div><!-- <div id="markets"> -->
+		<% end %>
 		
 		<%if @vip_programmer.security_clearance.present? %>
 			<div id="security-clearance">

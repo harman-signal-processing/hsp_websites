@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180724184332) do
+ActiveRecord::Schema.define(version: 20180816203124) do
 
   create_table "access_levels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -2010,6 +2010,7 @@ ActiveRecord::Schema.define(version: 20180724184332) do
     t.boolean "technician"
     t.boolean "super_technician", default: false
     t.string "last_host"
+    t.boolean "vip_programmers_admin", default: false
     t.index ["account_number"], name: "index_users_on_account_number"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

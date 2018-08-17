@@ -6,12 +6,12 @@ class Admin::VipProgrammersController < AdminController
   # GET /vip_programmers.xml
   # GET /vip_programmers.json
   def index
-    @vip_programmers = Vip::Programmer.all.order(:name)
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render xml: @vip_programmer }
-      format.json  { render json: @vip_programmer }
-    end
+      @vip_programmers = Vip::Programmer.all.order(:name)
+      respond_to do |format|
+        format.html # index.html.erb
+        format.xml  { render xml: @vip_programmer }
+        format.json  { render json: @vip_programmer }
+      end
   end
 
   def new
