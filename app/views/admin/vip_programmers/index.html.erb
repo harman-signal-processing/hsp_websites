@@ -1,5 +1,7 @@
 <h1>AMX VIP Programmers</h1>
+<%=@msg%>
 
+<%# if current_user.role?(:vip_programmers_admin)%>
 <ul class="button-group round">
 	<li><%= link_to 'New AMX VIP Programmer', new_admin_vip_programmer_path, class: "small success button" %></li>
 </ul>
@@ -12,10 +14,9 @@ count: <%= @vip_programmers.count %>
     <th>Name</th>
     <th style="text-align: center;">Logo</th>
     <th>Locations</th>
-    <th>Certifications</th>
-    <th>Trainings</th>
+    <th>Industry Certifications</th>
+    <th>Harman Certifications</th>
     <th>Services</th>
-    <th>Skills</th>
     <th>Markets</th>
     <th>Websites</th>
     <th>Emails</th>
@@ -72,10 +73,10 @@ count: <%= @vip_programmers.count %>
             <li><%=training.name%></li>
           <% end %>
         </ul>
-        <%= link_to "Add or remove Training", admin_vip_programmer_path(programmer, anchor:"Trainings"), class: "clear tiny round button secondary" %>
+        <%= link_to "Add or remove Harman Certification", admin_vip_programmer_path(programmer, anchor:"Trainings"), class: "clear tiny round button secondary" %>
       </td>
     <% else%>
-      <td><%= link_to "Add Training", admin_vip_programmer_path(programmer, anchor:"Trainings"), class: "clear tiny round button secondary" %></td>
+      <td><%= link_to "Add Harman Certification", admin_vip_programmer_path(programmer, anchor:"Trainings"), class: "clear tiny round button secondary" %></td>
     <% end %>    
     
     <!-- Services  -->
@@ -92,20 +93,7 @@ count: <%= @vip_programmers.count %>
       <td><%= link_to "Add Service", admin_vip_programmer_path(programmer, anchor:"Services"), class: "clear tiny round button secondary" %></td>
     <% end %>     
     
-    <!-- Skills  -->
-    <% if programmer.skills.count > 0 %>
-      <td>
-        <ul>
-          <% programmer.skills.each do |skill| %>
-            <li><%=skill.name%></li>
-          <% end %>
-        </ul>
-        <%= link_to "Add or remove Skill", admin_vip_programmer_path(programmer, anchor:"Skills"), class: "clear tiny round button secondary"  %>
-      </td>
-    <% else%>
-      <td><%= link_to "Add Skill", admin_vip_programmer_path(programmer, anchor:"Skills"), class: "clear tiny round button secondary" %></td>
-    <% end %>     
-    
+
     
     <!-- Markets -->
     <% if programmer.markets.count > 0 %>
@@ -166,3 +154,7 @@ count: <%= @vip_programmers.count %>
   </tr>
 <% end %>
 </table>
+
+<%# else %>
+<!--You do not have access to admin VIP Programmers-->
+<%# end %>

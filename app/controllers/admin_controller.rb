@@ -15,7 +15,7 @@ class AdminController < ApplicationController
       if can?(:read, OnlineRetailer)
         redirect_to admin_online_retailers_path and return
       else
-        @msg = "You don't appear to have access to any resources. Please contact adam.anderson@harman.com."
+        @msg = "You don't appear to have access to any resources. Please contact adam.anderson@harman.com or darryl.dalton@harman.com."
       end
     end
     @orl_problems = OnlineRetailerLink.problems

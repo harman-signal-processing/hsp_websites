@@ -5,7 +5,13 @@
 
 <h1>Update AMX VIP Programmer Associations</h1>
 
-<h3><%=@vip_programmer.name%></h3>
+<h3>
+<% if @vip_programmer.site_elements.present? && @vip_programmer.site_elements.where(resource_type:'Logo').first.resource.present? %>
+  <%= image_tag(@vip_programmer.site_elements.where(resource_type:'Logo').first.resource.url(:original), size: "80", alt: @vip_programmer.name, title: @vip_programmer.name) %>
+<% end %>  
+  <%=@vip_programmer.name%></h3>
+
+
 
 <!-- first row  -->
 <div class="row">
@@ -39,7 +45,7 @@
   <!-- Certifications  -->
 	<div class="small-12 medium-6 columns">
         <div class="group">
-          <h4>Certifications</h4>
+          <h4>Industry Certifications</h4>
           <p>Choose one or more certification below. Doing so will associate this programmer with the certification.</p>
 
           <%= simple_form_for [:admin, @vip_programmer_certification], remote: true do |f| %>
@@ -49,7 +55,7 @@
             <%= f.submit "add certification", class: "small round button" %>
           <% end %>
 					
-					Current certifications
+					Current industry certifications
           <ul id="vip_programmer_certifications" class="sortable_list">
             <% @vip_programmer_certifications.order(:position).each do |association| %>
               <%= render "/admin/shared/vip_programmer_certification_row", association: association, called_from: "vip_programmer" %>
@@ -57,9 +63,9 @@
           </ul>
           
           <p>
-          	Can't find the certification in the list above? <%= link_to "Create a new certification", new_admin_vip_certification_path %>.
+          	Can't find the industy certification in the list above? <%= link_to "Create a new certification", new_admin_vip_certification_path %>.
           </p>
-          <p>Go to: <%= link_to "Certifications List", admin_vip_certifications_path %></p>
+          <p>Go to: <%= link_to "Industry Certifications List", admin_vip_certifications_path %></p>
         </div>
         
   </div>  
@@ -70,8 +76,8 @@
   <!-- Trainings  -->
 	<div class="small-12 medium-6 columns" id="Trainings">
         <div class="group">
-          <h4>Harman Product Certifications</h4>
-          <p>Choose one or more training below. Doing so will associate this programmer with the training.</p>
+          <h4>Harman Certifications</h4>
+          <p>Choose one or more Harman certification below. Doing so will associate this programmer with the Harman certification.</p>
 
           <%= simple_form_for [:admin, @vip_programmer_training], remote: true do |f| %>
             <%= f.hidden_field :vip_programmer_id %>
@@ -80,7 +86,7 @@
             <%= f.submit "add training", class: "small round button" %>
           <% end %>
 					
-					Current trainings
+					Current Harman certifications
           <ul id="vip_programmer_trainings" class="sortable_list">
             <% @vip_programmer_trainings.each do |association| %>
               <%= render "/admin/shared/vip_programmer_training_row", association: association, called_from: "vip_programmer" %>
@@ -88,9 +94,9 @@
           </ul>
           
           <p>
-          	Can't find the training in the list above? <%= link_to "Create a new training", new_admin_vip_training_path %>.
+          	Can't find the Harman certification in the list above? <%= link_to "Create a new Harman Certification", new_admin_vip_training_path %>.
           </p>
-          <p>Go to: <%= link_to "Trainings List", admin_vip_trainings_path %></p>
+          <p>Go to: <%= link_to "Harman Certifications List", admin_vip_trainings_path %></p>
           <a href="#">Go to top</a>
         </div>
         
@@ -129,34 +135,6 @@
 
 <!-- third row  -->
 <div class="row">
-  <!-- Skills  -->
-	<div class="small-12 medium-6 columns" id="Skills">
-        <div class="group">
-          <h4>Skills (No longer used, to be removed)</h4>
-          <p>Choose one or more skill below. Doing so will associate this programmer with the skill.</p>
-
-          <%= simple_form_for [:admin, @vip_programmer_skill], remote: true do |f| %>
-            <%= f.hidden_field :vip_programmer_id %>
-            <%= hidden_field_tag :called_from, "vip_programmer" %>
-            <%= f.association :skill, collection: @vip_skills, label: false %>
-            <%= f.submit "add skill", class: "small round button" %>
-          <% end %>
-					
-					Current skills
-          <ul id="vip_programmer_skills" class="sortable_list">
-            <% @vip_programmer_skills.each do |association| %>
-              <%= render "/admin/shared/vip_programmer_skill_row", association: association, called_from: "vip_programmer" %>
-            <% end %>
-          </ul>
-          
-          <p>
-          	Can't find the skill in the list above? <%= link_to "Create a new skill", new_admin_vip_skill_path %>.
-          </p>
-          <p>Go to: <%=link_to "Skills List", admin_vip_skills_path %></p>
-          <a href="#">Go to top</a>
-        </div>
-        
-  </div>   
   <!-- Markets  -->
 	<div class="small-12 medium-6 columns" id="Markets">
         <div class="group">
@@ -184,11 +162,7 @@
           <a href="#">Go to top</a>
         </div>
         
-  </div>  
-</div>
-
-<!-- forth row  -->
-<div class="row">
+  </div> 
   <!-- Websites  -->
 	<div class="small-12 medium-6 columns" id="Websites">
         <div class="group">
@@ -216,7 +190,11 @@
           <a href="#">Go to top</a>
         </div>
         
-  </div>  
+  </div>   
+</div>
+
+<!-- forth row  -->
+<div class="row">
   <!-- Emails  -->
 	<div class="small-12 medium-6 columns" id="Emails">
         <div class="group">
@@ -245,10 +223,6 @@
         </div>
         
   </div>   
-</div>
-
-<!-- fifth row  -->
-<div class="row">
   <!-- Phones  -->
 	<div class="small-12 medium-6 columns" id="Phones">
         <div class="group">
@@ -278,3 +252,4 @@
         
   </div>  
 </div>
+

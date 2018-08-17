@@ -17,7 +17,8 @@ class Ability
       distributor: false,
       technician: false,
       super_technician: false,
-      rso: false
+      rso: false,
+      vip_programmers_admin: false
     })
     # The first argument to `can` is the action you are giving the user permission to do.
     # If you pass :manage it will apply to every action. Other common actions here are
@@ -201,6 +202,34 @@ class Ability
         can :read, SiteElement do |site_element|
           site_element.access_level.blank? || site_element.access_level.readable_by?(user)
         end
+      end
+      if user.role?(:vip_programmers_admin)
+        can :manage, Vip::Certification
+        can :manage, Vip::Email
+        can :manage, Vip::GlobalRegion
+        can :manage, Vip::Location
+        can :manage, Vip::LocationGlobalRegion
+        can :manage, Vip::LocationServiceArea
+        can :manage, Vip::Market
+        can :manage, Vip::Phone
+        can :manage, Vip::Programmer
+        can :manage, Vip::ProgrammerCertification
+        can :manage, Vip::ProgrammerEmail
+        can :manage, Vip::ProgrammerLocation
+        can :manage, Vip::ProgrammerMarket
+        can :manage, Vip::ProgrammerPhone
+        can :manage, Vip::ProgrammerService
+        can :manage, Vip::ProgrammerSiteElement
+        can :manage, Vip::ProgrammerSkill
+        can :manage, Vip::ProgrammerTraining
+        can :manage, Vip::ProgrammerWebsite
+        can :manage, Vip::Service
+        can :manage, Vip::ServiceArea
+        can :manage, Vip::ServiceCategory
+        can :manage, Vip::ServiceServiceCategory
+        can :manage, Vip::Skill
+        can :manage, Vip::Training
+        can :manage, Vip::Website
       end
     end
   end

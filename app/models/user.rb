@@ -75,7 +75,8 @@ class User < ApplicationRecord
     executive
     technician
     super_technician
-    media]
+    media
+    vip_programmers_admin]
 
   def self.staff
     where("marketing_staff = 1 OR admin = 1 OR market_manager = 1 OR artist_relations = 1 OR sales_admin = 1").order("UPPER(name)")
@@ -153,6 +154,10 @@ class User < ApplicationRecord
 
   def super_technician?
     role?(:super_technician)
+  end
+
+  def vip_programmers_admin?
+    role?(:vip_programmers_admin)
   end
 
   def needs_account_number?

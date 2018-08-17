@@ -261,6 +261,39 @@
                   <% if website.has_system_configurator? && can?(:manage, System) %>
                     <li><%= link_to('System Configurator', admin_systems_path) %></li>
                   <% end %>
+                  
+                  <% if can?(:manage, Vip::Programmer) %>
+                  <li class="has-dropdown"><%= link_to "VIP Programmers", admin_vip_programmers_path %>
+                    <ul class="dropdown">
+                      <li><%= link_to "VIP Programmers", admin_vip_programmers_path %></li>
+                      <% if can? :manage, Vip::Certification %>
+                        <li><%= link_to "Industry Certifications", admin_vip_certifications_path %></li>
+                      <% end %>
+                      <% if can? :manage, Vip::Training %>
+                        <li><%= link_to "Harman Certifications", admin_vip_trainings_path %></li>
+                      <% end %>
+                      <% if can? :manage, Vip::Service %>
+                        <li><%= link_to "Services", admin_vip_services_path %></li>
+                      <% end %>   
+                      <% if can? :manage, Vip::Market %>
+                        <li><%= link_to "Markets", admin_vip_markets_path %></li>
+                      <% end %>   
+                      <% if can? :manage, Vip::Location %>
+                        <li><%= link_to "Locations", admin_vip_locations_path %></li>
+                      <% end %>                       
+                      <% if can? :manage, Vip::Website %>
+                        <li><%= link_to "Websites", admin_vip_websites_path %></li>
+                      <% end %>   
+                      <% if can? :manage, Vip::Email %>
+                        <li><%= link_to "Emails", admin_vip_emails_path %></li>
+                      <% end %>           
+                      <% if can? :manage, Vip::Phone %>
+                        <li><%= link_to "Phones", admin_vip_phones_path %></li>
+                      <% end %>
+                    </ul>
+                    </li>
+                  <% end %>                  
+                  
                 </ul>
                 </li>
 
@@ -283,10 +316,10 @@
                   </ul>
                   </li>
                 <% end %>
+                
+              <% end %> <%#cache ["admin_menu", current_user, website.brand, Date.today] do%>
 
-              <% end %>
-
-            <% end %>
+            <% end %> <%#if user_signed_in?%>
           </ul>
 
           <% if user_signed_in? %>

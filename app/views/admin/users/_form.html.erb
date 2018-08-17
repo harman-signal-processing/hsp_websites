@@ -34,6 +34,7 @@
 			<%= f.input :distributor %>
       <%= f.input :technician %>
       <%= f.input :super_technician %>
+      <%= f.input :vip_programmers_admin, label: "AMX VIP Programmers Admin" %>
 
 			<% unless @user.new_record? %>
 			 <%= f.input :rso, label: "RSO" %>
