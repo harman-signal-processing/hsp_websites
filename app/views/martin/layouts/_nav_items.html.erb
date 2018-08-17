@@ -3,6 +3,7 @@
   <% secondary_product_family_groups = website.brand.product_families.where(name: "Product Ranges") %>
 	<li class="has-dropdown"><%= link_to t('product_types').titleize, '#' %>
 		<ul class="dropdown">
+		  <li><%= link_to t('new_products'), new_products_path %></li>
 			<% (ProductFamily.parents_with_current_products(website, I18n.locale) - secondary_product_family_groups).each do |product_family| %>
 				<%= product_family_nav_links(product_family, depth: 1) %>
 			<% end %>
