@@ -12,8 +12,9 @@
 <% else %>
 
     <ul class="medium-block-grid-2 small-block-grid-1" style="margin-left: 0 !important;">
-      <% product.specification_groups.order("specification_groups.position").each do |spec_group| %>
-        <li style="margin-left: 0; padding-left:0">
+      <% spec_groups = product.specification_groups.order("specification_groups.position").uniq %>
+      <li style="margin-left: 0; padding-left:0">
+        <% spec_groups.each_with_index do |spec_group, i| %>
           <span class="smalColHeader"><%= translate_content(spec_group, :name) %></span>
 
           <% spec_group.specifications.order(:position).each do |specification| %>
@@ -27,11 +28,13 @@
               </span>
             <% end %>
           <% end %>
-        </li>
-      <% end %>
+          <% if i == (spec_groups.length / 2).to_i %>
+            </li>
+            <li style="margin-left: 0; padding-left: 0">
+          <% end %>
+        <% end %>
 
-      <% if product.ungrouped_product_specifications.length > 0 %>
-        <li style="margin-left: 0; padding-left: 0;">
+        <% if product.ungrouped_product_specifications.length > 0 %>
           <span class="smalColHeader">Other Specifications</span>
 
           <% product.ungrouped_product_specifications.each do |product_spec| %>
@@ -40,8 +43,8 @@
               <%= spec_value(product_spec) %>
             </span>
           <% end %>
-        </li>
-      <% end %>
+        <% end %>
+      </li>
     </ul>
 
 <% end %>
