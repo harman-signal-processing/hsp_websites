@@ -4,7 +4,7 @@ class VipProgrammersController < ApplicationController
   end # def index
 
   def list
-    # recreating the old trade site vip list
+    # uses first version of view that contained multiple filters on the page
     filtered_programmers_list
   end
 
