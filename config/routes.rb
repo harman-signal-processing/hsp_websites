@@ -275,8 +275,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       # get 'contacts' => 'main#where_to_buy', as: :amx_contacts
       get '/contacts' => 'support#index'
       get '/partners' => 'manufacturer_partners#index'
-      resources :vip_programmers, only: [:index, :show]      
-      get '/partners_list' => 'vip_programmers#list'
+      resources :vip_programmers, as: :vips, path: "vips", only: [:index, :show]
     end  # constraints(AmxDomain) do
 
     constraints(BssDomain) do

@@ -1,147 +1,135 @@
-<h2>AMX Valued Independent Partners</h2>
+<h2>Valued Independent Partners</h2>
 
-<p>AMX Valued Independent Partners (VIP) represent an elite level of AV control system programming and user interface design expertise. VIPs maintain yearly ACE certification, hold certification by at least one AV trade organization, and meet stringent business practice criteria to be hand-selected for AMX's VIP program. What does this mean to you? Reliable, reputable, and thoroughly knowledgeable service for any project.</p>
+<p>Valued Independent Partners (VIP) represent an elite level of AV control system programming and user interface design expertise. VIPs maintain yearly ACE certification, hold certification by at least one AV trade organization, and meet stringent business practice criteria to be hand-selected for the VIP program. What does this mean to you? Reliable, reputable, and thoroughly knowledgeable service for any project.</p>
 
-<%= render "filters" %>	
+<%= render "filters_region_for_list" %>
 
+<!-- recreating the old trade site vip list -->
 
-<div style="font-size:12px;margin-bottom:4px;">
-<strong><%= @programmers.count %></strong> showing for 
-Region: <% if @region.nil? %> <strong>All</strong> <% else %> <strong><%=@region%></strong> <% end %>
- | Category: <% if @category.nil? %> <strong>All</strong> <% else %> <strong><%=@category%></strong> <% end %>
- | Certification: <% if @certification.nil? %> <strong>All</strong> <% else %> <strong><%=@certification%></strong> <% end %> 
- | Training: <% if @training.nil? %> <strong>All</strong> <% else %> <strong><%=@training%></strong> <% end %>  
- | Service: <% if @service.nil? %> <strong>All</strong> <% else %> <strong><%=@service%></strong> <% end %>   
- | Skill: <% if @skill.nil? %> <strong>All</strong> <% else %> <strong><%=@skill%></strong> <% end %>    
- | Market: <% if @market.nil? %> <strong>All</strong> <% else %> <strong><%=@market%></strong> <% end %>  
-</div>
+<table width="100%" cellspacing="0" cellpadding="5" id="vip_table">
+		<tbody>
+			<!-- header row -->
+			<tr>
+            <!--<td style="width: 3%">&nbsp;</td>-->
+            <!--<td rowspan="2" valign="bottom" class="borderbottomright bordertop borderleft" style="width:24%"><div class="vipheading">Business Name</div></td>-->
+            <td rowspan="2" valign="bottom" class="borderbottomright bordertop borderleft" style="width: 24%">
+                <div class="vipheading">&nbsp;<%= image_tag(website.folder + '/imgs/vip/Logo-CollegeOfAMX-shield.png', width:'10', alt: 'AMX Certified Solutions Master') %><small> = AMX Certified Solutions Master</small> </div>
+            </td>
+            <td align="center" bgcolor="#F7F2E0" class="borderbottomright bordertop" style="width: 8%">
+                <div class="vipheading">Service Area</div>
+            </td>
 
-<table class="info">
-	<thead>
-  <tr>
-    <th>Name</th>
-    <th>Locations</th>
-    <th>Certifications</th>
-    <th>Trainings</th>
-    <th>Services</th>
-    <th>Skills</th>
-    <th>Markets</th>
-
-  </tr>
-  </thead>
-  
-<% @programmers.each do |programmer| %>
-  <tr style="vertical-align:text-bottom;">
-
-    <!-- Programmer  -->
-    <td>
-    	
-    	<!-- Logo  -->
-    	<% if programmer.site_elements.present? && programmer.site_elements.where(resource_type:'Logo').first.resource.present? %>
-    		<%= image_tag(programmer.site_elements.where(resource_type:'Logo').first.resource.url(:original), size: "150", alt: programmer.name, title: programmer.name) %>
-    	<% end %>
-    	<!-- Name -->
-    	<br /><%= programmer.name%>
-    	
-    	<!-- Websites -->
-	    <% programmer.websites.each do |website| %>
-	      <br /><%=link_to website.url, website.url, target: "_blank"%>
-	    <% end %>    	
-
-		<!-- Emails -->
-	    <% programmer.emails.each do |email| %>
-	      <br /><%=email.email%> <!--<%#if !email.label.empty?%> (<%#=email.label%>) <%# end %> -->
-	     <% end %>
-	     
-	     <!-- Phones -->
-	    <% programmer.phones.each do |phone| %>
-	      <br /><%=phone.phone%> <!-- <%#if !phone.label.empty?%> (<%#=phone.label%>) <%# end %> -->
-	    <% end %>
-    	
-    </td>
-    
-    <!-- Locations  -->
-    <% if programmer.locations.count > 0 %>
-      <td width="200">
-        <ul>
-          <% programmer.locations.each do |location| %>
-            <li><%=location.city%><%if !location.state.empty? %>, <%=location.state%><%end%><br />(<%=location.country%>)</li> 
-          <% end %>
-        </ul>
-      </td>
-    <% else%>
-      <td></td>
-    <% end %>
-    
-    <!-- Certifications  -->
-    <% if programmer.certifications.count > 0 %>
-      <td>
-        <ul>
-          <% programmer.certifications.each do |cert| %>
-            <li><%=cert.name%></li>
-          <% end %>
-        </ul>
-      </td>
-    <% else%>
-      <td></td>
-    <% end %>    
-    
-    <!-- Trainings  -->
-    <% if programmer.trainings.count > 0 %>
-      <td>
-        <ul>
-          <% programmer.trainings.each do |training| %>
-            <li><%=training.name%></li>
-          <% end %>
-        </ul>
-      </td>
-    <% else%>
-      <td></td>
-    <% end %>    
-    
-    <!-- Services  -->
-    <% if programmer.services.count > 0 %>
-      <td>
-        <ul>
-          <% programmer.services.each do |service| %>
-            <li><%=service.name%></li>
-          <% end %>
-        </ul>
-        
-      </td>
-    <% else%>
-      <td></td>
-    <% end %>     
-    
-    <!-- Skills  -->
-    <% if programmer.skills.count > 0 %>
-      <td>
-        <ul>
-          <% programmer.skills.each do |skill| %>
-            <li><%=skill.name%></li>
-          <% end %>
-        </ul>
-      </td>
-    <% else%>
-      <td></td>
-    <% end %>     
-    
-    
-    <!-- Markets -->
-    <% if programmer.markets.count > 0 %>
-      <td>
-        <ul>
-          <% programmer.markets.each do |market| %>
-            <li><%=market.name%></li>
-          <% end %>
-        </ul>
-      </td>
-    <% else%>
-      <td></td>
-    <% end %>     
-
-  </tr>
-<% end %>
-</table>  
-
-
+            <td colspan="6" align="center" bgcolor="#DDE9E6" class="borderbottomright bordertop">
+                <div class="vipheading">Programming Services</div>
+            </td>
+            <td colspan="3" align="center" bgcolor="#DCD7E0" class="borderbottomright bordertop">
+                <div class="vipheading">Commissioning Services</div>
+            </td>
+            <td colspan="8" align="center" bgcolor="#F8DCCE" class="borderbottomright bordertop">
+                <div class="vipheading">
+                    Top 4 Markets<br>
+                    As Identified By Provider
+                </div>
+            </td>
+        </tr>
+			<tr>
+            <!--<td>&nbsp;</td>-->
+            <td align="center" valign="middle" bgcolor="#F7F2E0" class="borderbottomright" style="height: 200px">
+                <!--<img src="/imgs/vip/heading1.png" alt="" width="12" height="198"/>-->
+            </td>
+            
+            <!-- Programming Services -->
+                <!-- AMX -->
+            <td align="center" valign="middle" bgcolor="#DDE9E6" class="borderbottomright" style="width: 3%">
+                <%=image_tag(website.folder + '/imgs/vip/certification-amx.png', width:'12', height:'198', alt: 'AMX')%></td>
+                <!-- BSS -->
+            <td align="center" valign="middle" bgcolor="#DDE9E6" class="borderbottomright" style="width: 3%">
+                <%=image_tag(website.folder + '/imgs/vip/certification-bss.png', width:'12', height:'198', alt: 'BSS')%></td>
+                <!-- SVSI -->
+            <td align="center" valign="middle" bgcolor="#DDE9E6" class="borderbottomright" style="width: 3%">
+                <%=image_tag(website.folder + '/imgs/vip/certification-svsi.png', width:'12', height:'198', alt: 'SVSI')%></td>
+                <!-- Device Module Authoring -->
+            <td align="center" valign="middle" bgcolor="#DDE9E6" class="borderbottomright" style="width: 3%">
+                <%=image_tag(website.folder + '/imgs/vip/service-device-module-authoring.png', width:'12', height:'198', alt: 'Device Module Authoring')%></td>
+                <!-- Cafe Duet Developer -->
+            <td align="center" valign="middle" bgcolor="#DDE9E6" class="borderbottomright" style="width: 3%">
+                <%=image_tag(website.folder + '/imgs/vip/service-cafe-duet-developer.png', width:'12', height:'198', alt: 'Cafe Duet Developer')%></td>
+                <!-- RMS -->
+            <td align="center" valign="middle" bgcolor="#DDE9E6" class="borderbottomright" style="width: 3%">
+                <%=image_tag(website.folder + '/imgs/vip/service-rms.png', width:'12', height:'198', alt: 'RMS')%></td>
+                
+            <!-- Commissioning Services -->    
+            <td align="center" valign="middle" bgcolor="#DCD7E0" class="borderbottomright" style="width: 2%">
+                <%=image_tag(website.folder + '/imgs/vip/service-hardware-installation.png', width:'12', height:'198', alt: 'Hardware Installation')%></td>
+                <!-- Onsite Commissioning -->
+            <td align="center" valign="middle" bgcolor="#DCD7E0" class="borderbottomright" style="width: 2%">
+                <%=image_tag(website.folder + '/imgs/vip/service-onsite-commissioning.png', width:'12', height:'198', alt: 'Onsite Commissioning')%></td>
+                <!-- Virtual Presence -->
+            <td align="center" valign="middle" bgcolor="#DCD7E0" class="borderbottomright" style="width: 2%">
+                <%=image_tag(website.folder + '/imgs/vip/service-virtual-presence.png', width:'12', height:'198', alt: 'Virtual Presence')%></td>
+                
+            <!-- Vertical Market Expertise -->
+                <!-- Corporate -->
+            <td align="center" valign="middle" bgcolor="#F8DCCE" class="borderbottomright" style="width: 3%">
+                <%=image_tag(website.folder + '/imgs/vip/market-corporate.png', width:'12', height:'198', alt: 'Corporate')%></td>
+                <!-- Education -->
+            <td align="center" valign="middle" bgcolor="#F8DCCE" class="borderbottomright" style="width: 3%">
+                <%=image_tag(website.folder + '/imgs/vip/market-education.png', width:'12', height:'198', alt: 'Education')%></td>
+                <!-- Government (Civilian) -->
+            <td align="center" valign="middle" bgcolor="#F8DCCE" class="borderbottomright" style="width: 3%">
+                <%=image_tag(website.folder + '/imgs/vip/market-government-civilian.png', width:'12', height:'198', alt: 'Government (Civilian)')%></td>
+                <!-- Government (Military) -->
+            <td align="center" valign="middle" bgcolor="#F8DCCE" class="borderbottomright" style="width: 3%">
+                <%=image_tag(website.folder + '/imgs/vip/market-government-military.png', width:'12', height:'198', alt: 'Government (Military)')%></td>
+                <!-- Residential -->
+            <td align="center" valign="middle" bgcolor="#F8DCCE" class="borderbottomright" style="width: 3%">
+                <%=image_tag(website.folder + '/imgs/vip/market-residential.png', width:'12', height:'198', alt: 'Residential')%></td>
+                <!-- Entertainment -->
+            <td align="center" valign="middle" bgcolor="#F8DCCE" class="borderbottomright" style="width: 3%">
+                <%=image_tag(website.folder + '/imgs/vip/market-entertainment.png', width:'12', height:'198', alt: 'Entertainment')%></td>
+                <!-- Large Venue -->
+            <td align="center" valign="middle" bgcolor="#F8DCCE" class="borderbottomright" style="width: 3%">
+                <%=image_tag(website.folder + '/imgs/vip/market-large-venue.png', width:'12', height:'198', alt: 'Large Venue')%></td>
+                <!-- Hospitality -->
+            <td align="center" valign="middle" bgcolor="#F8DCCE" class="borderbottomright" style="width: 3%">
+                <%=image_tag(website.folder + '/imgs/vip/market-hospitality.png', width:'12', height:'198', alt: 'Hospitality')%></td>                
+        </tr>    
+      
+      <!-- table body content -->  
+      <% @programmers.each do |programmer| %>  
+		<tr>
+            <!--<td>&nbsp;</td>-->
+            <td class="borderbottomright borderleft">
+            	<%= link_to vip_path(programmer, :region => @region) do %>
+                <div style="padding: 5px;"><%= programmer.name %><% if is_amx_solutions_master?(programmer) %>&nbsp;<%= image_tag(website.folder + '/imgs/vip/Logo-CollegeOfAMX-shield.png', width:'10', alt: 'AMX Certified Solutions Master') %><% end %></div>
+            	<% end %>
+            </td>
+            <td bgcolor="#F3EAC7" class="borderbottomright servicearea">
+                <div style="padding: 5px;"><%= programmer.locations.first.service_areas.first.name %></div>
+            </td>
+            <!-- AMX -->
+            <td bgcolor="#BFD7D1" class="borderbottomright bigdot"><%= has_training(programmer,"Control Professional | Programming (HCCP-P)") %></td>
+            <!-- BSS -->
+            <td bgcolor="#BFD7D1" class="borderbottomright bigdot"><%= has_training(programmer,"Audio Professional | Programming (HCAP-P)") %></td>
+            <!-- SVSI -->
+            <td bgcolor="#BFD7D1" class="borderbottomright bigdot"><%= has_training(programmer,"Networked AV Associate | Programming (HCNA-P)") %></td>
+            <td bgcolor="#BFD7D1" class="borderbottomright bigdot"><%= provides_service(programmer,"Device Module Authoring") %></td>
+            <td bgcolor="#BFD7D1" class="borderbottomright bigdot"><%= provides_service(programmer,"Cafe Duet Developer") %></td>
+            <!-- RMS -->
+            <td bgcolor="#BFD7D1" class="borderbottomright bigdot"><%= has_training(programmer,"Control Professional | Management (HCCP-M)") %></td>
+            <td bgcolor="#C3B9CA" class="borderbottomright bigdot"><%= provides_service(programmer,"Hardware Installation") %></td>
+            <td bgcolor="#C3B9CA" class="borderbottomright bigdot"><%= provides_service(programmer,"Onsite Commissioning") %></td>
+            <td bgcolor="#C3B9CA" class="borderbottomright bigdot"><%= provides_service(programmer,"Virtual Presence") %></td>
+            <td bgcolor="#F2BDA8" class="borderbottomright bigdot"><%= for_market(programmer,"Corporate") %></td>
+            <td bgcolor="#F2BDA8" class="borderbottomright bigdot"><%= for_market(programmer,"Education") %></td>
+            <td bgcolor="#F2BDA8" class="borderbottomright bigdot"><%= for_market(programmer,"Government (Civilian)") %></td>
+            <td bgcolor="#F2BDA8" class="borderbottomright bigdot"><%= for_market(programmer,"Government (Military)") %></td>
+            <td bgcolor="#F2BDA8" class="borderbottomright bigdot"><%= for_market(programmer,"Residential") %></td>
+            <td bgcolor="#F2BDA8" class="borderbottomright bigdot"><%= for_market(programmer,"Entertainment") %></td>
+            <td bgcolor="#F2BDA8" class="borderbottomright bigdot"><%= for_market(programmer,"Large Venue") %></td>
+            <td bgcolor="#F2BDA8" class="borderbottomright bigdot"><%= for_market(programmer,"Hospitality") %></td>
+        </tr>      
+      <% end %> <%# @programmers.each do |programmer| %>
+		</tbody>
+	
+</table>
