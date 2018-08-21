@@ -99,7 +99,11 @@
         <li><%= link_to "RMA (Repair)", "/#{I18n.locale}/support/rma_repair" %></li>
         <li><%= link_to "RMA (Credit)", "/#{I18n.locale}/support/rma_credit" %></li>
       </ul>
-      <li><%= link_to t("nav.downloads"), "/#{I18n.locale}/support_downloads" %></li>
+      <li class="has-dropdown"><%= link_to t("nav.downloads"), "/#{I18n.locale}/support_downloads" %>
+      <ul class="dropdown">
+        <li><%= link_to t("nav.downloads"), "/#{I18n.locale}/support_downloads" %></li>
+        <li><%= link_to "InConcert Search", "https://trade.amx.com/login/login.aspx?fromUrl=/Net/Inconcert/Devices/InConcertMainPage.aspx", target: "_blank" %></li>
+      </ul>
       
       <li class="has-dropdown"><%= link_to "Partners", "/#{I18n.locale}/partners" %>
       <ul class="dropdown">
