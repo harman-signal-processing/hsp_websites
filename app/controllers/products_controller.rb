@@ -60,7 +60,7 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.html {
         unless @product.show_on_website?(website)
-          unless can?(:manage, @product) || (session[:preview_products] && session[:preview_products].include?(@product.id))
+          unless can?(:manage, @product) || (session[:preview_products] && session[:preview_products].include?(@product.friendly_id))
             if !@product.password.blank?
               redirect_to preview_product_path(@product) and return
             else
@@ -153,7 +153,7 @@ class ProductsController < ApplicationController
           @product.previewers << params[:email]
           @product.save
           session[:preview_products] ||= []
-          session[:preview_products] << @product.id
+          session[:preview_products] << @product.friendly_id
           redirect_to @product and return false
         end
       end

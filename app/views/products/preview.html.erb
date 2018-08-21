@@ -4,18 +4,18 @@
   <p style="font-size: 120%; color: red;"><%= @errors %></p>
 <% end %>
 
-<%= form_for @product, url: preview_product_path(id: @product.id) do |f| %>
+<%= form_for @product, url: preview_product_path(@product), method: :put do |f| %>
 
 	<div class="form_field" style="margin: 10px 0px;">
 		<%= f.label :password, "Enter the password you received" %><br/>
-		<%= f.password_field :password, style: "font-size: 140%; padding: 2px;", size: 15, autocomplete: "off" %>
+		<%= f.text_field :password, style: "font-size: 140%; padding: 2px;", size: 15, autocomplete: "off" %>
 	</div>
-	
+
 	<div style="overflow: auto; max-height: 180px; margin: 20px 0px;">
 		<p><b>Terms &amp; Conditions</b></p>
 		<%=raw @terms_and_conditions %>
 	</div>
-	
+
 	<div class="form_field" style="margin: 10px 0px;">
 		Enter your email address if you agree<br/>
 		<%= text_field_tag :email, "", size: 40, style: "font-size: 120%; padding: 2px;" %>
