@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180816203124) do
+ActiveRecord::Schema.define(version: 20180827204041) do
 
   create_table "access_levels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -829,8 +829,11 @@ ActiveRecord::Schema.define(version: 20180816203124) do
     t.string "cached_slug"
     t.integer "brand_id"
     t.text "quote"
+    t.string "video_ids"
+    t.string "old_id"
     t.index ["brand_id"], name: "index_news_on_brand_id"
     t.index ["cached_slug"], name: "index_news_on_cached_slug", unique: true
+    t.index ["old_id"], name: "index_news_on_old_id"
   end
 
   create_table "news_images", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
