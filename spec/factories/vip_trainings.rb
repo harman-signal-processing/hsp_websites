@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :vip_training, class: 'Vip::Training' do
-    name "AMX"
+    name { "AMX" }
   end
 end

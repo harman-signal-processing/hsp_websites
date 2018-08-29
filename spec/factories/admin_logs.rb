@@ -4,6 +4,6 @@ FactoryBot.define do
   factory :admin_log do
     user
     website
-    action "MyText"
+    action { "MyText" }
   end
 end

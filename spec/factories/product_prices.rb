@@ -4,6 +4,6 @@ FactoryBot.define do
   factory :product_price do
     product
     pricing_type
-    price_cents 19900
+    price_cents { 19900 }
   end
 end

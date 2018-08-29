@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :signup do
-    email "name@email.com"
-    campaign "MyString"
+    email { "name@email.com" }
+    campaign { "MyString" }
     brand
   end
 end

@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :system_rule_condition_group do
     system_rule
-    logic_type "Boolean"
+    logic_type { "Boolean" }
   end
 end

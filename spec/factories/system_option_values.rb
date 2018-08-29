@@ -3,10 +3,10 @@
 FactoryBot.define do
   factory :system_option_value do
     system_option
-    name "MyString"
-    position 1
-    description "MyText"
-    default false
-    price 1
+    name { "MyString" }
+    position { 1 }
+    description { "MyText" }
+    default { false }
+    price { 1 }
   end
 end

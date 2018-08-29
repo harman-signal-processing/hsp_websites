@@ -2,6 +2,6 @@ FactoryBot.define do
   factory :product_specification do
     product
     specification
-    value "spec-value"
+    value { "spec-value" }
   end
 end

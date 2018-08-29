@@ -3,7 +3,7 @@ FactoryBot.define do
   factory :website do
     sequence(:url) {|n| "example#{n}.lvh.me" }
     brand
-    folder "testbrand"
+    folder { "testbrand" }
     after(:create) do |website|
       FactoryBot.create(:website_locale, website: website, default: true)
     end
@@ -15,10 +15,10 @@ FactoryBot.define do
   end
 
   factory :website_locale do
-    name "English (USA)"
-    locale I18n.default_locale
-    complete true
-    default false
+    name { "English (USA)" }
+    locale { I18n.default_locale }
+    complete { true }
+    default { false }
     website
   end
 

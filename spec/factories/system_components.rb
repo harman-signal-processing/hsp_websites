@@ -2,9 +2,9 @@
 
 FactoryBot.define do
   factory :system_component do
-    name "MyString"
+    name { "MyString" }
     system
     product
-    description "MyText"
+    description { "MyText" }
   end
 end

@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :system_configuration do
     system
-    name "MyString"
+    name { "MyString" }
     user
   end
 end

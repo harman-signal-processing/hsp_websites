@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :operating_system do
-    name "MyString"
-    version "MyString"
-    arch "MyString"
+    name { "MyString" }
+    version { "MyString" }
+    arch { "MyString" }
   end
 end

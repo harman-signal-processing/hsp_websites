@@ -4,6 +4,6 @@ FactoryBot.define do
   factory :system_configuration_component do
     system_configuration
     system_component
-    quantity 1
+    quantity { 1 }
   end
 end

@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :label_sheet do
-    name "MyString"
-    products []
+    name { "MyString" }
+    products { [] }
   end
 end

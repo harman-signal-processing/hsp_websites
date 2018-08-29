@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :system do
-    name "MyString"
+    name { "MyString" }
     brand
-    description "MyText"
+    description { "MyText" }
   end
 end

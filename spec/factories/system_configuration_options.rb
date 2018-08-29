@@ -5,6 +5,6 @@ FactoryBot.define do
     system_configuration
     system_option
     system_option_value
-    direct_value "MyString"
+    direct_value { "MyString" }
   end
 end

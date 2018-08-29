@@ -4,6 +4,6 @@ FactoryBot.define do
   factory :brand_toolkit_contact do
     brand
     user
-    position 1
+    position { 1 }
   end
 end

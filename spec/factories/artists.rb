@@ -2,26 +2,26 @@ FactoryBot.define do
   factory :artist_tier do
   	sequence(:name) {|n| "Tier #{n}"}
   	factory :top_tier do
-  		name "Icon"
-  		show_on_artist_page true
-  		position 1
-  		invitation_code "ICON"
+  		name { "Icon" }
+  		show_on_artist_page { true }
+  		position { 1 }
+  		invitation_code { "ICON" }
   	end
   	factory :second_tier do
-  		name "Master"
-  		show_on_artist_page true
-  		position 2
-  		invitation_code "MASTER"
+  		name { "Master" }
+  		show_on_artist_page { true }
+  		position { 2 }
+  		invitation_code { "MASTER" }
   	end
   	factory :third_tier do
-  		name "Rocker"
-  		show_on_artist_page true
-  		position 3
-  		invitation_code "ROCKER"
+  		name { "Rocker" }
+  		show_on_artist_page { true }
+  		position { 3 }
+  		invitation_code { "ROCKER" }
   	end
   	factory :affiliate_tier do
-  		name "Affiliate"
-  		show_on_artist_page false
+  		name { "Affiliate" }
+  		show_on_artist_page { false }
   	end
   end
 end
@@ -29,15 +29,15 @@ end
 FactoryBot.define do
   factory :artist do
   	sequence(:name) {|n| "Artist #{n}"}
-    bio "I am the best player this side of the Mississippi."
+    bio { "I am the best player this side of the Mississippi." }
     artist_photo { File.new(Rails.root.join('spec', 'fixtures', 'test.jpg')) }
-    website "http://facebook.com/supercoolartist"
-    twitter "supercoolartist"
-    position 99
-    featured false
+    website { "http://facebook.com/supercoolartist" }
+    twitter { "supercoolartist" }
+    position { 99 }
+    featured { false }
     sequence(:email) { |n| "artist#{n}@gmail.com" }
     ## Devise fields: ##
-    password "pass123"
+    password { "pass123" }
     password_confirmation { password }
     # encrypted_password
     # reset_password_token
@@ -61,9 +61,9 @@ FactoryBot.define do
     # notable_career_moments
     artist_tier
     transient do
-    	skip_unapproval false
-    	approved false
-    	initial_brand Brand.new
+    	skip_unapproval { false }
+    	approved { false }
+    	initial_brand { Brand.new }
     end
   end
 end
@@ -72,8 +72,8 @@ FactoryBot.define do
   factory :artist_product do
   	artist
   	product
-  	quote "It be good at musick stuff"
-  	favorite false
+  	quote { "It be good at musick stuff" }
+  	favorite { false }
   end
 end
 
@@ -81,6 +81,6 @@ FactoryBot.define do
   factory :artist_brand do
   	artist
   	brand
-  	intro "I like da sounds it makez."
+  	intro { "I like da sounds it makez." }
   end
 end
