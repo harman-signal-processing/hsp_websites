@@ -586,6 +586,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     end
     resources :news, only: [:index, :show] do
       collection { get :archived }
+      member { get :martin_redirect }
     end
     resources :systems, only: [:index, :show] do
       resources :system_configurations, only: [:new, :create, :edit, :update] do

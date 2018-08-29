@@ -41,6 +41,20 @@ class NewsController < ApplicationController
     end
   end
 
+  # GET /news/martin_redirect/CaseStory:1
+  def martin_redirect
+    old_id = params[:id]
+    if params[:id].match(/\:/)
+      old_id = params[:id].split(/\:/).last
+    end
+
+    redirect_path = news_index_path
+    if website.brand.news.where(old_id: old_id).exists?
+      redirect_path = website.brand.news.where(old_id: old_id).first
+    end
+    redirect_to redirect_path, status: :moved_permanently and return
+  end
+
   protected
 
   def ensure_best_url

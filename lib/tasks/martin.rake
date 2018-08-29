@@ -200,6 +200,129 @@ namespace :martin do
     end
   end
 
+  desc "Slurp up all the martin case studies"
+  task import_case_studies: :environment do
+
+    @root_site = "https://www.martin.com"
+    martin = Brand.find "martin"
+    headlines = martin.news.pluck(:title)
+    problems = []
+    duplicates = []
+    successes = []
+
+    @agent = Mechanize.new
+
+    (3577..16000).each do |i|
+    #[1, 520, 12500, 15314].each do |i|
+      cs_url = "#{@root_site}/en-us/view-case?pid=13699&id=217&itemId=CaseStory:#{i}"
+
+      page = @agent.get(cs_url)
+      # if the page didn't redirect,
+      if page.uri.to_s == cs_url
+        puts "---------------------"
+        puts "Getting ID #{i}"
+        story = News.new(brand: martin)
+        # find div#csMainContent
+        #   -> h1 = title
+        #   -> div.csDate = post date
+        #   -> the rest is the body of the article, strip out share button, PDF link
+        page.css("div#csMainContent").each do |mainContent|
+          story.title = mainContent.css("h1").text.strip
+          puts "  Title: #{ story.title }"
+          found_date = mainContent.css(".csDate").text.strip
+          unless found_date.blank?
+            story.post_on = found_date.to_date
+            puts "  Date: #{ story.post_on }"
+            story.created_at = story.post_on.to_time
+          else
+            story.created_at = 5.years.ago.to_time
+          end
+          mainContent.css("h1").remove
+          mainContent.css(".csDate").remove
+          mainContent.css("a").each do |link|
+            if link.attributes["href"].to_s.match(/facebook|pdfgenerator/i)
+              link.remove
+            end
+          end
+          mainContent.css(".fb-share-button").remove
+          mainContent.css(".morebtnCon").remove
+          story.body = mainContent.css(".csTextContent").inner_html
+        end
+        if story.body.blank?
+          puts "  The content was blank, so let's skip it."
+          problems << i
+        else
+          # Create the case study as a news story UNLESS the title already exists.
+          unless headlines.include?(story.title) || martin.news.pluck(:old_id).include?(i)
+            # find div#csMainImgContainer
+            #   -> div#csMainImg, style="background: url(/*****)"
+            page.css("div#csMainImg").each do |img|
+              if img.attributes["style"].value.match(/Image\=([\w\.\/\-]*)\&/)
+                img_url = $1
+                fn = img_url.split(/\//).last
+                begin
+                  @agent.get(img_url).save("tmp/#{fn}")
+                  download = File.open("tmp/#{fn}")
+                  story.news_photo = download
+                  download.close
+                  File.delete("tmp/#{fn}")
+                rescue
+                  puts "   ERROR getting #{img_url }"
+                end
+              end
+            end
+            # find div.video-container
+            #   -> iframe src = youtube video URL
+            video_ids = []
+            page.css("div.video-container").each do |vid|
+              vid.css("iframe").each do |iframe|
+                video_ids << iframe.attributes["src"].to_s
+              end
+            end
+            story.video_ids = video_ids.join(",")
+            # find div.piItemList
+            #   -> div.piItem
+            #     -> a href = related product
+            page.css("div.piItem").each do |pi|
+              href = pi.css("a").first.attributes["href"].value
+              friendly_id = href.split(/\//).last
+              friendly_id.gsub!(/\..*$/, "")
+              begin
+                news.products << Product.find(friendly_id)
+              rescue
+                # couldn't find product--probably really old
+              end
+            end
+            # Store the old ID for ease in redirecting old URLs
+            story.old_id = i
+            if story.title.blank? || (story.news_photo.blank? && story.body.length < 200)
+              puts "Story ##{i} doesn't have enough info to save it."
+              problems << story
+            else
+              puts "Saving story ##{i} (body length: #{story.body.length})"
+              if story.save
+                headlines << story.title
+                successes << story
+              else
+                problems << i
+              end
+            end
+          else
+            duplicates << story
+          end
+        end
+      else
+        problems << i
+      end
+    end
+
+    puts "Summary:"
+    puts "======================"
+    puts "  Successes:  #{ successes.count }"
+    puts "  Duplicates: #{ duplicates.count }"
+    puts "  Problems:   #{ problems.count }"
+  end
+
   desc "Add descriptions, etc. to martin products"
   task add_content: :environment do
 
