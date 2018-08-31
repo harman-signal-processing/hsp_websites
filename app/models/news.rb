@@ -88,7 +88,7 @@ class News < ApplicationRecord
     product_news_query = (product_news.blank?) ? "" : " OR id IN (#{product_news}) "
 
     # Second, add in those stories associated with the brand only (no products linked)
-    select("DISTINCT *").where("(brand_id = ? AND post_on >= ? AND post_on <= ?) #{product_news_query}", website.brand_id, 18.months.ago, Date.today).order("post_on DESC #{limit}")
+    select("DISTINCT *").where("(brand_id = ? AND post_on >= ? AND post_on <= ?) #{product_news_query}", website.brand_id, 18.months.ago, Date.today).order(Arel.sql("post_on DESC #{limit}"))
   end
 
   # Older news for the archived page. These are articles older than 1.5 year.

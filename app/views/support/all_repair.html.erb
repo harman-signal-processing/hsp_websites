@@ -6,7 +6,7 @@
 <% @service_centers.order(:state).pluck(:state).uniq.each do |state| %>
   <h4><%= state %></h4>
   <ul class="list service_center_results">
-    <% @service_centers.where(state: state).order("UPPER(name)").each do |service_center| %>
+    <% @service_centers.where(state: state).order(Arel.sql("UPPER(name)")).each do |service_center| %>
       <li><b><%= service_center.name %></b>
         <br/><%= service_center.address %>
         <br/><%= service_center.city %> <%= service_center.state %> <%= service_center.zip %>

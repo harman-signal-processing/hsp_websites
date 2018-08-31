@@ -5,7 +5,7 @@ class Admin::GetStartedPagesController < AdminController
   # GET /admin/get_started_pages
   # GET /admin/get_started_pages.xml
   def index
-    @get_started_pages = @get_started_pages.where(brand_id: website.brand_id).order("UPPER(name)")
+    @get_started_pages = @get_started_pages.where(brand_id: website.brand_id).order(Arel.sql("UPPER(name)"))
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @get_started_pages }

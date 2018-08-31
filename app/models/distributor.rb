@@ -3,7 +3,7 @@ class Distributor < ApplicationRecord
   validates :account_number, presence: true, uniqueness: true
   has_many :brand_distributors, dependent: :destroy
   has_many :brands, through: :brand_distributors
-  has_many :distributor_users, dependent: :destroy
+  has_many :distributor_users, dependent: :destroy, inverse_of: :distributor
   has_many :users, through: :distributor_users
 
   def self.countries(f)

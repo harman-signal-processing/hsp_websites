@@ -5,7 +5,7 @@ class Admin::SettingsController < AdminController
   # GET /admin/settings
   # GET /admin/settings.xml
   def index
-    @settings = @settings.where(brand_id: website.brand_id).order("locale, Upper(name)")
+    @settings = @settings.where(brand_id: website.brand_id).order(Arel.sql("locale, Upper(name)"))
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @settings }

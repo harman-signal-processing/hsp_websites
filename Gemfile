@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 5.1'
+gem 'rails', '~> 5.2'
 gem 'responders', '~> 2.0'
 # Gems used only for assets and not required
 # in production environments by default.
@@ -21,11 +21,12 @@ gem 'font-awesome-rails'
 gem 'mysql2' , '< 0.4.7' # internal server wouldn't install 0.4.7
 gem 'utf8-cleaner'
 gem 'friendly_id', '>= 5.2'
-gem 'aws-sdk', '< 3' # v3 modularizes AWS services, tough to work with paperclip
+#gem 'aws-sdk', '< 3' # v3 modularizes AWS services, tough to work with paperclip
+gem 'aws-sdk-s3' # modularized AWS service, only S3 needed
 gem 'fog-rackspace'
 gem 'fog-aws'
 gem 'asset_sync'
-gem "paperclip"
+gem "paperclip" #, '< 6.0'
 gem 'paperclip-meta'
 gem 's3_direct_upload'
 gem 'meta-tags'
@@ -56,7 +57,7 @@ gem 'therubyrhino'
 gem 'rubyzip', require: 'zip'
 gem 'whenever' #, require: false
 gem "simple_form", ">= 2.0.2"
-gem 'country_select', '~> 1.3.1' # v2+ switches to store 2-letter ISO for country which breaks our current setup
+gem 'country_select' #, '~> 1.3.1' # v2+ switches to store 2-letter ISO for country which breaks our current setup
 gem 'language_list'
 gem 'ransack'
 gem "dalli"

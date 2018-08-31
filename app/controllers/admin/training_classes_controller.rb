@@ -1,16 +1,16 @@
 class Admin::TrainingClassesController < AdminController
   before_action :initialize_training_class, only: :create
-  load_and_authorize_resource 
-  
+  load_and_authorize_resource
+
   # GET /admin/training_classes
   # GET /admin/training_classes.xml
   def index
-    @training_classes = @training_classes.where(brand_id: website.brand_id).order("UPPER(name)")
+    @training_classes = @training_classes.where(brand_id: website.brand_id).order(Arel.sql("UPPER(name)"))
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { 
+      format.xml  {
         @training_classes = TrainingClass.all
-        render xml: @training_classes 
+        render xml: @training_classes
       }
     end
   end

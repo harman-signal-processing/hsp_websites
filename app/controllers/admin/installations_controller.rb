@@ -5,7 +5,7 @@ class Admin::InstallationsController < AdminController
   # GET /admin/installations
   # GET /admin/installations.xml
   def index
-    @installations = @installations.where(brand_id: website.brand_id).order("UPPER(title)")
+    @installations = @installations.where(brand_id: website.brand_id).order(Arel.sql("UPPER(title)"))
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @installations }

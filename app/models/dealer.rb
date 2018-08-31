@@ -7,7 +7,7 @@ class Dealer < ApplicationRecord
   before_validation :geocode_address, on: :create
   before_validation :auto_exclude
   before_update :regeocode
-  has_many :dealer_users, dependent: :destroy
+  has_many :dealer_users, dependent: :destroy, inverse_of: :dealer
   has_many :users, through: :dealer_users
   has_many :brand_dealers, dependent: :destroy
   has_many :brands, through: :brand_dealers

@@ -105,7 +105,7 @@ class Brand < ApplicationRecord
       brand_id: self.id,
       name: self.settings.pluck(:name),
       setting_type: ["slideshow frame", "homepage feature"]
-    ).order("UPPER(name)").pluck(:name).uniq
+    ).order(Arel.sql("UPPER(name)")).pluck(:name).uniq
   end
 
   # This should work as a dynamic method, but mailers have troubles
@@ -132,7 +132,7 @@ class Brand < ApplicationRecord
       self.support_email
     end
   end
-  
+
   def rma_credit_email
     begin
       self.settings.find_by(name: "rma_credit_email").value
@@ -140,7 +140,7 @@ class Brand < ApplicationRecord
       self.support_email
     end
   end
-  
+
   def rma_repair_email
     begin
       self.settings.find_by(name: "rma_repair_email").value
@@ -151,12 +151,12 @@ class Brand < ApplicationRecord
 
   # Those brands which should appear on the myharman.com store (via the API)
   def self.for_employee_store
-    where(employee_store: true).order("UPPER(name)") || where(name: ["DigiTech", "Lexicon", "dbx", "DOD"])
+    where(employee_store: true).order(Arel.sql("UPPER(name)")) || where(name: ["DigiTech", "Lexicon", "dbx", "DOD"])
   end
 
   # Those brands which should appear on the marketing toolkits
   def self.for_toolkit
-    where(toolkit: true).order("UPPER(name)").includes(:websites)
+    where(toolkit: true).order(Arel.sql("UPPER(name)")).includes(:websites)
   end
 
   def has_where_to_buy?
@@ -241,9 +241,9 @@ class Brand < ApplicationRecord
   def products
     fp = self.family_products.collect{|p| p.id}.join(', ')
     if fp.blank?
-      Product.where(brand_id: self.id).order("UPPER(name)")
+      Product.where(brand_id: self.id).order(Arel.sql("UPPER(name)"))
     else
-      Product.select("DISTINCT *").where("brand_id = ? OR id IN (#{fp})", self.id).order("UPPER(name)")
+      Product.select("DISTINCT *").where("brand_id = ? OR id IN (#{fp})", self.id).order(Arel.sql("UPPER(name)"))
     end
     # Product.find_by_sql("SELECT DISTINCT products.* FROM products
     #   INNER JOIN product_family_products ON product_family_products.product_id = products.id

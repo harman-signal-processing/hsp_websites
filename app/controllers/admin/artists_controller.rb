@@ -10,7 +10,7 @@ class Admin::ArtistsController < AdminController
       @artists_search_results = @search.result.order(:name)
     else
       @featured_artists = website.artists.where(featured: true).sort_by(&:position)
-      @unapproved_artists = @artists.where("approver_id IS NULL OR approver_id = ''").order("UPPER('name')")
+      @unapproved_artists = @artists.where("approver_id IS NULL OR approver_id = ''").order(Arel.sql("UPPER('name')"))
       @the_rest = @artists - @featured_artists - @unapproved_artists
     end
     respond_to do |format|

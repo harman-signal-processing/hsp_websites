@@ -283,7 +283,7 @@
             <div style="margin-bottom: 20px;">
               <span id="select_spec_name">
                 <%= f.association :specification,
-                  collection: Specification.order("upper(name)"),
+                  collection: Specification.order(Arel.sql("UPPER(name)")),
                   label_method: website.brand.use_flattened_specs? ? :name : :name_with_group
                 %>
                 <%= link_to_function("new spec name",

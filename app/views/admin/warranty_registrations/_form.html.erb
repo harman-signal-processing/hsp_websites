@@ -53,7 +53,7 @@
   </div>
   <div class="field">
     <%= f.label :product_id %>
-    <%= f.collection_select :product_id, Product.order("UPPER(name)"), :id, :name %>
+    <%= f.collection_select :product_id, Product.order(Arel.sql("UPPER(name)")), :id, :name %>
   </div>
   <div class="field">
     <%= f.label :serial_number %>
