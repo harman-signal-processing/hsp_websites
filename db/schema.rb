@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180827204041) do
+ActiveRecord::Schema.define(version: 20180905185851) do
 
   create_table "access_levels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -299,6 +299,7 @@ ActiveRecord::Schema.define(version: 20180827204041) do
     t.boolean "has_parts_library"
     t.boolean "send_contact_form_to_regional_support", default: false
     t.boolean "always_redirect_to_youtube", default: false
+    t.boolean "show_consultant_button"
     t.index ["cached_slug"], name: "index_brands_on_cached_slug", unique: true
     t.index ["name"], name: "index_brands_on_name", unique: true
   end
