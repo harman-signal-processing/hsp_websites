@@ -1,0 +1,29 @@
+<!-- Global Regions -->
+<ul class="button-group round">
+	<% @all_global_regions.each do |region|%>
+		<li><%= link_to region.name, request.query_parameters.merge({ region: region.name }), class: "tiny button round #{'success' if ((@region == region.name) or (region.name == "North America" and @region.nil?)) }" %></li>
+	<% end %>
+</ul>
+
+<!-- Services -->
+<select class="tiny round button success" style="width:40%;height:25px;" onchange="location = this.options[this.selectedIndex].value;">
+	<option value="<%=vips_path(request.query_parameters.except("service"))%>">All Services</option>
+	<% @all_services.each do |service|%>
+		<option value="<%=vips_path(request.query_parameters.merge({ service: service.name }))%>" <%="#{'selected' if @service == service.name }"%>>Service:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=service.name%></option>
+	<%end%>
+</select>
+	
+<!-- Markets -->
+<ul class="button-group round">
+	<li><%= link_to 'All Markets', vips_path(request.query_parameters.except("market")), class: "tiny button round #{'success' if @market.nil? }" %></li>	
+	<% @all_markets.each do |market|%>
+		<li><%= link_to market.name, vips_path(request.query_parameters.merge({ market: market.name })), class: "tiny button round #{'success' if @market == market.name }" %></li>
+	<% end %>
+</ul>	
+	
+<div style="font-size:12px;margin-bottom:4px;">
+<strong><%= @programmers.count %></strong> showing for 
+Region: <% if @region.nil? %> <strong>All</strong> <% else %> <strong><%=@region%></strong> <% end %>
+ | Service: <% if @service.nil? %> <strong>All</strong> <% else %> <strong><%=@service%></strong> <% end %>   
+ | Market: <% if @market.nil? %> <strong>All</strong> <% else %> <strong><%=@market%></strong> <% end %>  
+</div>	
