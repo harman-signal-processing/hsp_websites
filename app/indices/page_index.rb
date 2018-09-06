@@ -4,7 +4,7 @@ ThinkingSphinx::Index.define :page, name: "page_en", with: :active_record do
   # :nocov:
 end
 
-ThinkingSphinx::Index.define :page, name: "page_en-US", with: :active_record do
+ThinkingSphinx::Index.define :page, name: "page_en_US", with: :active_record do
   # :nocov:
   indexes title, keywords, description, body, custom_route
   # :nocov:

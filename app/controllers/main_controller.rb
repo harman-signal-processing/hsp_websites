@@ -132,6 +132,7 @@ class MainController < ApplicationController
     ferret_results = ThinkingSphinx.search(
       ThinkingSphinx::Query.escape(query),
       indices: locale_indices,
+      star: true,
       page: 1, # we'll paginate after filtering out other brand assets
       per_page: 1000
     )
