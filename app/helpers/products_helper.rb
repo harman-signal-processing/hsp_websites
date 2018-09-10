@@ -616,6 +616,28 @@ module ProductsHelper
     end
   end
 
+  # For Martin, list the names of the resource types in the order they
+  # should appear on the page. Anything else, will just appear after the
+  # sorted results.
+  # NOTE: Software is actually loaded first and is hard-coded on the table.
+  def download_group_sort_order(resource_type_name)
+    logger.debug ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> #{ resource_type_name }"
+    resource_types = [
+      "Software",
+      "Manuals", "Manual",
+      "Brochures", "Brochure",
+      "Specifications", "Specification",
+      "3D Symbols", "3D Symbol",
+      "Illustrations", "Illustration",
+      "CAD Drawings", "CAD Drawing",
+      "Tech Notes", "Tech Note",
+      "Technical Papers", "Technical Paper",
+      "Hints And Tips",
+      "Parts", "Part"
+    ]
+    resource_types.include?(resource_type_name) ?  resource_types.index(resource_type_name) : 99
+  end
+
   def hpro_contact_buttons
     find_a_dealer = content_tag :div, class: "medium-6 small-12 columns" do
       link_to "https://pro.harman.com/contacts/channel",
