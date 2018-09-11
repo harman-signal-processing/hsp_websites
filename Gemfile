@@ -36,7 +36,7 @@ gem 'tinymce-rails',
 gem 'mechanize'
 gem 'geokit', '>= 1.8.5'
 gem 'geokit-rails'
-gem 'thinking-sphinx', '~> 3.0'
+gem 'thinking-sphinx', '~> 4.0'
 gem 'google-api-client', '~> 0.8.6', require: 'google/api_client'
 gem 'twitter', '~> 5.1'
 gem 'delayed_job_active_record'

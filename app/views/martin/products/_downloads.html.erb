@@ -44,7 +44,7 @@
 
   <% end %>
 
-	<% (product.viewable_site_elements + product.executable_site_elements).group_by(&:resource_type).each do |resource_type, site_elements| %>
+  <% (product.viewable_site_elements + product.executable_site_elements).group_by(&:resource_type).sort_by{|r,i| download_group_sort_order(r)}.each do |resource_type, site_elements| %>
     <% next if resource_type.to_s.match?(/software/i) %>
     <%= downloads_header_row(resource_type, site_elements, columns: 5) %>
     <% site_elements.each do |site_element| %>

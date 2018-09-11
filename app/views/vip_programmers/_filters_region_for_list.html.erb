@@ -1,6 +1,0 @@
-<!-- Global Regions -->
-<ul class="button-group round">
-	<% @all_global_regions.each do |region|%>
-		<li><%= link_to region.name, request.query_parameters.merge({ region: region.name }), class: "tiny button round #{'success' if ((@region == region.name) or (region.name == "North America" and @region.nil?)) }" %></li>
-	<% end %>
-</ul>

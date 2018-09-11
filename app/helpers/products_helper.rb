@@ -616,24 +616,52 @@ module ProductsHelper
     end
   end
 
+  # For Martin, list the names of the resource types in the order they
+  # should appear on the page. Anything else, will just appear after the
+  # sorted results.
+  # NOTE: Software is actually loaded first and is hard-coded on the table.
+  def download_group_sort_order(resource_type_name)
+    resource_types = [
+      "Software",
+      "Manuals", "Manual",
+      "Brochures", "Brochure",
+      "Specifications", "Specification",
+      "3D Symbols", "3D Symbol",
+      "Illustrations", "Illustration",
+      "CAD Drawings", "CAD Drawing",
+      "Tech Notes", "Tech Note",
+      "Technical Papers", "Technical Paper",
+      "Hints And Tips",
+      "Parts", "Part"
+    ]
+    resource_types.include?(resource_type_name) ?  resource_types.index(resource_type_name) : 99
+  end
+
   def hpro_contact_buttons
     find_a_dealer = content_tag :div, class: "medium-6 small-12 columns" do
-        link_to "https://pro.harman.com/contacts/channel",
-          target: "_blank",
-          class: "button expand radius find-a-dealer" do
-          image_tag("find_dealer.png", alt: "f") + t("find_a_dealer")
-        end
+      link_to "https://pro.harman.com/contacts/channel",
+        target: "_blank",
+        class: "button expand radius find-a-dealer" do
+        image_tag("find_dealer.png", alt: "f") + t("find_a_dealer")
       end
-    have_a_question = content_tag :div, class: "medium-6 small-12 columns" do
-        link_to "https://pro.harman.com/contacts",
-          target: "_blank",
-          class: "button radius have-a-question" do
-          image_tag("have_question.png", alt: "q") + t("have_a_question")
-        end
-      end
-    content_tag :div, class: "row collapse" do
-      find_a_dealer + have_a_question
     end
+    have_a_question = content_tag :div, class: "medium-6 small-12 columns" do
+      link_to "https://pro.harman.com/contacts",
+        target: "_blank",
+        class: "button radius have-a-question" do
+        image_tag("have_question.png", alt: "q") + t("have_a_question")
+      end
+    end
+    contact_consultant = content_tag :div, class: "medium-12 small-12 columns" do
+      link_to "https://pro.harman.com/consultant",
+        target: "_blank",
+        class: "button radius expand contact-consultant" do
+        image_tag("contact-consultant.png", alt: "c") + t("contact_consultant")
+      end
+    end
+    buttons = find_a_dealer + have_a_question
+    buttons += contact_consultant if website.brand.show_consultant_button?
+    content_tag :div, buttons, class: "row collapse"
   end
 
 end
