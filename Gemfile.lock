@@ -617,7 +617,7 @@ DEPENDENCIES
   acts_as_list
   acts_as_tree
   asset_sync
-  aws-sdk-s3 (< 3)
+  aws-sdk-s3
   cancancan
   capistrano (~> 3)
   capistrano-bundler
