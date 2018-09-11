@@ -1,4 +1,14 @@
 <%= cache ["nav_items", website.brand, I18n.locale] do %>
+	<li class="has-dropdown"><%= link_to t('products').titleize, product_families_path %>
+		<ul class="dropdown">
+		  <li><%= link_to t('new_products'), new_products_path %></li>
+			<% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
+				<%= product_family_nav_links(product_family, depth: 8) %>
+			<% end %>
+		</ul>
+	</li>
+
+  <li class="divider hide-for-medium"></li>
   <li class="has-dropdown"><%= link_to t("nav.markets"), '#', class: "disabled" %>
     <ul class="dropdown">
       <% MarketSegment.all_parents(website).each do |market_segment| %>
@@ -22,16 +32,6 @@
       <% end %>
     </ul>
   </li>
-
-  <li class="divider hide-for-medium"></li>
-	<li class="has-dropdown"><%= link_to t('products').titleize, product_families_path %>
-		<ul class="dropdown">
-		  <li><%= link_to t('new_products'), new_products_path %></li>
-			<% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
-				<%= product_family_nav_links(product_family, depth: 8) %>
-			<% end %>
-		</ul>
-	</li>
 
   <% if website.has_solution_pages? %>
     <%= render_partial "shared/solutions_nav" %>

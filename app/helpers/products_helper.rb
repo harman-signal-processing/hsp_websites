@@ -621,7 +621,6 @@ module ProductsHelper
   # sorted results.
   # NOTE: Software is actually loaded first and is hard-coded on the table.
   def download_group_sort_order(resource_type_name)
-    logger.debug ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> #{ resource_type_name }"
     resource_types = [
       "Software",
       "Manuals", "Manual",
