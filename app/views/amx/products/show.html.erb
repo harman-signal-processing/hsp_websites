@@ -134,6 +134,7 @@ set_meta_tags title: @product.name,
       <% end %>
     <% end %>
 
+    <!-- PRODUCT THUMBNAILS  -->
 		<% if @product.images_for("product_page").size > 0 %>
       <% if !!(website.no_lightbox) %>
         <ul id="product_thumbnails" class="medium-block-grid-10 small-block-grid-3">
@@ -170,8 +171,8 @@ set_meta_tags title: @product.name,
       <div class="larger_tag"><%= t('product_page.larger_images') %></div>
 		<% end %>
 
+    <!-- REPLACEMENT PRODUCTS  -->
     <% if @product.discontinued? && @product.alternatives.size > 0 %>
-
       	<hr/>
       	<h3 class="subheader"><%= t('titles.replacement_products') %></h3>
       
@@ -181,13 +182,13 @@ set_meta_tags title: @product.name,
       	<% end %>
       	</ul>      
       	<hr/>
-      
     <% end %>
     
    
-
+    <!-- MAIN CONTENT  -->
 		<!-- <%= @active_tab %> -->
     <%= draw_main_product_content @product, active_tab: @active_tab %>
+
 
     <% if @product.legal_disclaimer.present? %>
       <div class="legal_disclaimer">

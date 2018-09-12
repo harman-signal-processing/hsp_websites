@@ -382,6 +382,10 @@ class Product < ApplicationRecord
     current_news.size > 0
   end
 
+  def recommended_accessories_content_present?
+    !discontinued? && alternatives.size > 0
+  end
+
   def reviews_content_present?
     product_reviews.size > 0
   end
