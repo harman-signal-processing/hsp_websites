@@ -1,8 +1,10 @@
 <% called_from ||= 'product' %>
 <li id="product_suggestion_<%= ps.id %>">
+	<span class="handle"><%= image_tag("icons/drag_handle.gif") %></span>
 	<%= (called_from == 'product') ? 
 			link_to(ps.suggested_product.name, [:admin, ps.suggested_product]) : 
 			link_to(ps.product.name, [:admin, ps.product]) %> 
+			
 	<%= link_to(image_tag("icons/trash.gif"), 
 			admin_product_suggestion_path(ps), 
 			confirm: "Are you sure? (This won't delete either product--it will only remove the association.)", 

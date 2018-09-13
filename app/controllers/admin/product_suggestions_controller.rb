@@ -1,6 +1,7 @@
 class Admin::ProductSuggestionsController < ApplicationController
   before_action :initialize_product_suggestion, only: :create
-  load_and_authorize_resource
+  load_and_authorize_resource except: [:update_order]
+  skip_authorization_check only: [:update_order]
   
   # GET /admin/product_suggestions
   # GET /admin/product_suggestions.xml
@@ -64,6 +65,12 @@ class Admin::ProductSuggestionsController < ApplicationController
       end
     end
   end
+  
+  def update_order
+    update_list_order(ProductSuggestion,  params["product_suggestion"]) # update_list_order is in application_controller
+    head :ok
+    website.add_log(user: current_user, action: "Sorted product suggestions")
+  end 
 
   # DELETE /admin/product_suggestions/1
   # DELETE /admin/product_suggestions/1.xml
