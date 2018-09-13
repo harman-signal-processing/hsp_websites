@@ -1,5 +1,5 @@
-      	<ul class="large-block-grid-3 small-block-grid-2">
-      	<% @product.alternatives.each do |product| %>
-      		<li><%= render_partial "product_families/product_square", product: product, compare: false %></li>
-      	<% end %>
-      	</ul>   
+<ul class="large-block-grid-3 small-block-grid-2">
+	<% @product.alternatives.each do |product| %>
+		<li><%= render_partial "product_families/product_square", product: product, compare: false %></li>
+	<% end %>
+</ul>   
