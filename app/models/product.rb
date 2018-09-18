@@ -386,6 +386,10 @@ class Product < ApplicationRecord
     !discontinued? && alternatives.size > 0
   end
 
+  def configuration_tool_content_present?
+    self.site_elements.find {|item| item.resource_type.downcase == "configuration tools"}.present?
+  end
+
   def reviews_content_present?
     product_reviews.size > 0
   end
