@@ -180,11 +180,11 @@ module ProductsHelper
         end
 
       end
-    end
+    end  #  main_tabs.each_with_index do |product_tab,i|
 
     ret += "</div>"
     raw(ret)
-  end
+  end  #  def draw_main_tabs_content(product, options={})
 
   def draw_side_nav(product, options={})
     main_tabs = (options[:tabs]) ? parse_tabs(options[:tabs], product) : product.main_tabs
@@ -298,10 +298,10 @@ module ProductsHelper
       ret += content_tag(:div, class: "product_main_tab_content content #{active_class}") do
         render_partial("products/#{product_tab.key}", product: product)
       end
-    end
+    end  #  main_tabs.each_with_index do |product_tab,i|
 
     raw(ret)
-  end
+  end  #  def draw_main_product_content(product, options={})
 
   def parse_tabs(tabs, product)
     selected_tabs = tabs.split("|")
@@ -310,6 +310,7 @@ module ProductsHelper
       r << ProductTab.new("description") if selected_tabs.include?("description")
       r << ProductTab.new("extended_description") if !product.extended_description.blank? && selected_tabs.include?("extended_description")
       r << ProductTab.new("audio_demos") if product.audio_demos.size > 0 && selected_tabs.include?("audio_demos")
+      r << ProductTab.new("configuration_tool") if product.configuration_tool_content_present? && selected_tabs.include?("configuration_tool")
       r << ProductTab.new("documentation") if (product.product_documents.size > 0 || product.current_and_recently_expired_promotions.size > 0 || product.viewable_site_elements.size > 0) && selected_tabs.include?("documentation")
       r << ProductTab.new("downloads") if (product.softwares.size > 0 || product.site_elements.size > 0 || product.executable_site_elements.size > 0) && selected_tabs.include?("downloads")
       r << ProductTab.new("downloads_and_docs") if (product.softwares.size > 0 || product.product_documents.size > 0 || product.site_elements.size > 0) && selected_tabs.include?("downloads_and_docs")
