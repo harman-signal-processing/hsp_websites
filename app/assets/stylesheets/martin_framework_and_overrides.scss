@@ -249,3 +249,7 @@ ul.tabs {
   background-color: #f8d448;
   color: white;
 }
+.product_family_header {
+  background-color: scale-color($primary-color, $lightness: -20%);
+  padding: 0;
+}
