@@ -271,14 +271,15 @@ private
     raise ActionController::RoutingError.new("Site not found") unless website && website.respond_to?(:list_of_available_locales)
 
     # This is where we set the locale:
-    if params[:locale]
-      I18n.locale = params[:locale]
-    elsif !!(session['geo_usa']) && website.list_of_available_locales.include?("en-US")
+    I18n.locale = website.default_locale
+    if !!(session['geo_usa']) && website.list_of_available_locales.include?("en-US")
       I18n.locale = 'en-US'
     elsif session['geo_country'] == "CN" && website.list_of_available_locales.include?("zh")
       I18n.locale = 'zh'
     elsif session['geo_country'] == "UK" && website.list_of_available_locales.include?("en")
       I18n.locale = 'en'
+    elsif params[:locale]
+      I18n.locale = params[:locale]
     elsif website.show_locales? && controller_path == "main" && action_name == "default_locale"
       locale_selector # otherwise the default locale is appended to the URL. #ugly
     else
