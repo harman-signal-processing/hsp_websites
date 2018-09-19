@@ -374,8 +374,8 @@ module ProductsHelper
         no_buy_it_now(product)
       elsif product.hide_buy_it_now_button?
         ""
-		  #elsif !session["geo_usa"] || I18n.locale != I18n.default_locale
-      #  buy_it_now_international(product, button, options)
+		  elsif !session["geo_usa"] #|| I18n.locale != I18n.default_locale
+        buy_it_now_international(product, button, options)
 		  elsif !product.direct_buy_link.blank?
         buy_it_now_direct_from_factory(product, button, options)
       elsif @online_retailer_link # http param[:bin] provided
