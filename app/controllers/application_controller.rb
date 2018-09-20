@@ -277,8 +277,10 @@ private
       I18n.locale = 'zh'
     elsif session['geo_country'] == "UK" && website.list_of_available_locales.include?("en")
       I18n.locale = 'en'
-    elsif params[:locale]
+    elsif params.key?(:locale)
       I18n.locale = params[:locale]
+    elsif website.locale
+      I18n.locale = website.locale
     elsif website.show_locales? && controller_path == "main" && action_name == "default_locale"
       locale_selector # otherwise the default locale is appended to the URL. #ugly
     else
