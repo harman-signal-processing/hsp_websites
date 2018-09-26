@@ -1205,13 +1205,37 @@ div.retailer_logo {
 }
 
 /******** Search ********/
+// ul#search_results {
+// 	margin: 8px;
+// 	margin-left: 0px;
+// 	li {
+// 		margin-bottom: 20px;
+// 		list-style-type: none;
+// 	}
+// }
 ul#search_results {
-	margin: 8px;
-	margin-left: 0px;
-	li {
-		margin-bottom: 20px;
-		list-style-type: none;
-	}
+  margin-top:30px;
+}
+ul#search_results .result-type-header {
+  background-color:#ededed;padding:4px;border-radius:.2em;
+}
+ul#search_results .result-item-number {
+  float:right;font-size:xx-small;color:#999;
+}
+ul#search_results .result-item-title-link {
+  display:block;margin-bottom:5px;
+}
+ul#search_results .result-item-image-link {
+  float:left;padding-right:5px;
+}
+#search_results_count_message {
+  margin-top:-15px;
+  margin-bottom:15px;
+}
+em.current {
+    padding: 0px 2px;
+    font-style: normal;
+    background-color: #cccccc6e;
 }
 .search_link a:link,
 .search_link a:visited {

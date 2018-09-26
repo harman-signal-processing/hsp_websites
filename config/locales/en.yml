@@ -551,3 +551,14 @@ en:
     around_the_world_blurb: Check out Concerts, Stadiums and more powered by Crown
     crown_around_the_world: Crown Around The World
     read_about_the_exciting: "Click below to read all about the exciting things we are doing!"
+
+  search_page:
+    artist: Artist
+    news: News
+    page: Landing Page
+    product: Product
+    productfamily: Product Family
+    productreview: Product Review
+    software: Software
+    
+    
