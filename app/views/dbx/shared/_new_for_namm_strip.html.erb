@@ -5,21 +5,19 @@
     <div class="homepage_block dark">
       <% if new_family && new_family.current_products.length > 0 %>
         <div class="row">
-          <div class="large-12 columns">
-            <h2><%= website.brand.name %> <%= new_family.name %> Processors</h2>
-          </div>
-          <div class="large-7 large-push-5 small-12 columns">
+          <div class="large-6 large-push-6 small-12 columns">
             <p>
-              <% powerrack8 = Product.find("powerrack8") %>
+              <% dbx560a = Product.find("560a") %>
               <%= link_to new_family do %>
-                <%= image_tag powerrack8.photo.product_attachment.url, alt: "dbx 500 Series PowerRack8" %>
+                <%= image_tag dbx560a.product_attachments[1].product_attachment.url(:medium), alt: "dbx 500 Series 560A" %>
               <% end %>
             </p>
             <p class="hide-for-small-down text-right">
               <%= link_to 'more details...', new_family, class: "tiny button" %>
             </p>
           </div>
-          <div class="large-5 large-pull-7 small-12 columns">
+          <div class="large-6 large-pull-6 small-12 columns">
+            <h2><%= website.brand.name %> <%= new_family.name %> Processors</h2>
             <p>Modular is back! Classic dbx modular processors
             return in the new, industry-standard 500 series
             form factor.</p>
