@@ -107,6 +107,10 @@
 						&copy; <%= Date.today.year %>
 						<%= link_to(image_tag('harman.jpg', alt: t('harman')), "http://www.harman.com/", target: "_blank") %>
 						<%= t('all_rights_reserved') %>
+            <% if website.legal_footer_link %>
+              &bull;
+              <%= link_to "Legal", website.legal_footer_link %>
+            <% end %>
 					</span>
 				</div>
 				<div class="medium-8 columns hide-for-small" id="footer_info">
