@@ -54,7 +54,7 @@ class VipProgrammersController < ApplicationController
     
     # build where clause
     where_clause_columns = column_name_array.map{|column| column + " = ?"}.join(" and ")
-    @programmers = Vip::Programmer.joins(joins_array).where("#{where_clause_columns}",*values_array).distinct.order(:name)    
+    @programmers = Vip::Programmer.joins(joins_array).where("#{where_clause_columns}",*values_array).distinct.order("RAND()")    
   end
   
 end
