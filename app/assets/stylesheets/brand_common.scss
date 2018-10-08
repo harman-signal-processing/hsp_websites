@@ -1717,3 +1717,21 @@ hr.colored {
     height: 20px;
   }
 }
+/** Added by Kent 10/2018 **/
+.videothumbnail {
+	overflow: hidden;
+  position: relative;
+}
+.videoplay {
+	position: absolute;
+	background-image: url(https://pro.harman.com/resource-library/984);
+	background-size: 64px 46px;
+	bottom: 0;
+	left: 0;
+	height: 46px;
+	margin: auto;
+	opacity: 0.8;
+	right: 0;
+	top: 0;
+	width: 64px;
+}
