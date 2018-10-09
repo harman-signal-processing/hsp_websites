@@ -23,6 +23,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :brands, only: [:index, :show] do
         resources :softwares, as: :software, only: [:index, :show]
         resources :products, only: [:index, :show]
+        resources :pdfs, only: [:index]
       end
       resources :products, only: :show # for backwards compat
     end
