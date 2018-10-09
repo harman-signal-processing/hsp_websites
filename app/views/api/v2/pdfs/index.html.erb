@@ -1,0 +1,6 @@
+<h2><%=website.brand.name%> PDFs</h2>
+<%count = 1%>
+<% @pdfs.each do |pdf|%>
+	(<%=count%>) <%= link_to pdf[:name] +" - "+ pdf[:url], pdf[:url] %><br />
+	<%count += 1%>
+<% end %>
