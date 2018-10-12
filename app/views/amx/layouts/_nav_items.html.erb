@@ -113,14 +113,10 @@
       </ul>
       
       <li><%= link_to t("nav.quality"), "/#{I18n.locale}/amx-quality-assurance" %></li>
+      <% if !!(website.forum_link) %>
+        <li><%= link_to t("forum").titleize, website.forum_link %></li>
+      <% end %>
     </ul>
   </li>
-  
-
-	<% if !!(website.forum_link) %>
-    <li class="divider hide-for-medium"></li>
-    <li class="hide-for-medium"><%= link_to t("forum").titleize, website.forum_link %></li>
-	<% end %>
-
 
 <% end %>

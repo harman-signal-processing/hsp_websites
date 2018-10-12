@@ -38,6 +38,11 @@
   <li class="divider hide-for-medium"></li>
 	<li><%= link_to t('product_support').titleize, support_path %></li>
 
+	<% if !!(website.forum_link) %>
+    <li class="divider hide-for-medium"></li>
+    <li class="hide-for-medium"><%= link_to t("forum").titleize, website.forum_link %></li>
+	<% end %>
+
   <li class="divider hide-for-medium"></li>
   <% if website.has_product_registrations? %>
     <li class="hide-for-medium"><%= link_to t('warranty_registration').titleize, main_app.warranty_registration_path %></li>

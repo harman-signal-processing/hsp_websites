@@ -66,11 +66,11 @@
       <% if website.has_product_registrations? %>
         <li><%= link_to ucfirst(t('warranty_registration')), warranty_registration_path %></li>
       <% end %>
+    	<% if !!(website.forum_link) %>
+        <li class="hide-for-medium"><%= link_to t("forum").titleize, website.forum_link %></li>
+    	<% end %>      
     </ul>
   </li>
 
-	<% if !!(website.forum_link) %>
-    <li class="divider hide-for-medium"></li>
-    <li class="hide-for-medium"><%= link_to t("forum").titleize, website.forum_link %></li>
-	<% end %>
+
 <% end %>
