@@ -24,6 +24,9 @@
           <%= link_to t('tech_support'), support_path %><br/>
           <%= link_to t('where_to_buy').titleize, where_to_buy_path %><br/>
           <%= link_to t('product_registration').titleize, warranty_registration_path %><br/>
+          <% if !!(website.forum_link) %>
+            <%= link_to t("forum").titleize, website.forum_link %><br/>
+          <% end %>          
           <%= link_to t('warranty').titleize, warranty_path %><br/>
           <%= link_to "SDA", "/sda" %>
         </div>
