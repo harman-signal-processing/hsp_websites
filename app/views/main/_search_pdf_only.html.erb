@@ -1,0 +1,68 @@
+<h1><%= @page_title %> (PDF Files Only)</h1>
+
+<div class="wide_centered_box" id="search_page_container">
+  <%= form_tag search_path %>
+    <div class="row collapse">
+      <div class="large-8 small-7 columns">
+        <%= text_field_tag :query, @query %>
+        <%= check_box_tag :pdf_only, 'yes', @pdf_only %> PDF Files Only
+      </div>
+      <div class="large-4 small-5 columns">
+        <%= submit_tag t('search'), class: "button" %>
+      </div>
+    </div>
+  </form>
+  
+  <% if @pdf_results.present? && @pdf_results.length > 0 %>
+    <div id="search_results_count_message"><%=@pdf_results[:Summary][:TotalNum]%> results found, showing <%=@pdf_results[:Summary][:Start]%> - <%=@pdf_results[:Summary][:End]%> for: <strong><%=@query%></strong></div>
+
+    <%= will_paginate @pdf_results_paginated_list, params:{query:@query, paginate_pdf_only:@pdf_only} %>
+    
+    <ul id="search_results" class="large-block-grid-3">
+      <%count = 1%>
+      <% @pdf_results[:ResultList].each do |result| %>
+        <li>
+          <div class="result-type-header"><strong><%= t("search_page.#{get_pdf_item_category(result).downcase}")%></strong>: <span class="result-item-number"><%=result[:Num]%></span></div>
+
+          <!-- item title link  -->
+          <%= link_to result[:Url], class:"result-item-title-link" do %>
+            <%= image_tag "icons/pdf_17.png", style: "vertical-align: middle" %>
+            <%=get_pdf_item_title(result)%>
+          <% end %>
+          <!-- item image link  -->
+          <% image = get_result_image(result)%>
+          <% if image.present? %>
+            <%= link_to image_tag(image), page_link(result), class:"result-item-image-link" %>
+          <%end%>
+          <!-- item description  -->
+          <%=strip_html(result[:Abstract])%><br />
+          
+          <!-- item link  -->
+          <span class="related_products_links">
+            <%#= link_to page_link(result), page_link(result) %>
+            <%related_products = get_pdf_item_related_products(result)%>
+            <%if related_products.present? %>
+              <h6>Related Products:</h6>
+              <% if related_products.class.name == "Product" %>
+                <%= link_to related_products.name, related_products %>
+              <% else %>
+                <ul class="large-block-grid-3">
+                <% related_products.each do |product| %>
+                  <li><%= link_to product.name, product %></li>
+                <% end %>
+                </ul>
+              <% end %>
+              <%#binding.pry%>
+            <% end %>
+          </span>
+          
+        </li>
+        <%count += 1%>
+      <% end %>
+    </ul>
+
+    <%= will_paginate @pdf_results_paginated_list, params:{query:@query, paginate_pdf_only:@pdf_only} %>
+  <% else %>
+    <p><i>No results found.</i></p>
+  <% end %>
+</div><!-- <div class="wide_centered_box">  -->
