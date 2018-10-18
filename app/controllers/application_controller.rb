@@ -264,8 +264,8 @@ private
         end
       end
     rescue
-      session['geo_country'] = "US"
-      session['geo_usa'] = true
+      #session['geo_country'] = "US"
+      #session['geo_usa'] = true
     end
 
     raise ActionController::RoutingError.new("Site not found") unless website && website.respond_to?(:list_of_available_locales)
