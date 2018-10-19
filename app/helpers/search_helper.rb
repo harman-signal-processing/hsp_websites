@@ -90,7 +90,6 @@ module SearchHelper
 				language = HarmanSignalProcessingWebsite::Application.config.document_languages.select{|l| l[1] == "#{pdf_item.language}"}[0][0]
 				# add the language to the title if it is not present for non english documents
 				title = (pdf_item.name.include? language) ? pdf_item.name : pdf_item.name + " (#{language})"
-				 #binding.pry
 			else
 				title = pdf_item.name
 			end
