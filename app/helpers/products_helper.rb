@@ -374,7 +374,7 @@ module ProductsHelper
         no_buy_it_now(product)
       elsif product.hide_buy_it_now_button?
         ""
-      elsif I18n.locale.to_s != "en-US"
+      elsif !(I18n.locale.to_s.match(/en/i))
         buy_it_now_international(product, button, options)
 		  elsif !product.direct_buy_link.blank?
         buy_it_now_direct_from_factory(product, button, options)

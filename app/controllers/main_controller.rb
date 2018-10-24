@@ -56,7 +56,7 @@ class MainController < ApplicationController
     @page_title = t('titles.where_to_buy')
     @err = ""
     @results = []
-    unless I18n.locale.to_s == "en-US"
+    unless I18n.locale.to_s.match(/en/i)
       redirect_to international_distributors_path and return
     end
     @us_regions = website.brand.us_regions_for_website
