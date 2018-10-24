@@ -157,7 +157,7 @@ set_meta_tags title: @product.name,
 	</div>
 <% end # cache %>
 
-<% if session["geo_usa"] && !@product.hide_buy_it_now_button? %>
+<% if I18n.locale.to_s == "en-US" && !@product.hide_buy_it_now_button? %>
 <%= content_for :dealer_popup do %>
 	<%= cache ["online_retailer_links_for", @product] do %>
 	<div>

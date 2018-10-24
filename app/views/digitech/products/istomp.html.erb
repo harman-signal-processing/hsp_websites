@@ -94,7 +94,7 @@ set_meta_tags title: @product.name,
 
 		<% if website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !@product.direct_buy_link.blank? %>
 		<div id="product_buy_now_box">
-			<% if session["geo_usa"] && !@product.street_price.blank? %>
+			<% if I18n.locale.to_s == "en-US" && !@product.street_price.blank? %>
 				<span class="price_label">Est. Street Price:</span>
 				<span class="price"><%= number_to_currency(@product.street_price) %></span>
 			<% end %>
@@ -126,7 +126,7 @@ set_meta_tags title: @product.name,
 
 <%= render_partial 'products/istomp_videos' %>
 
-<% if session["geo_usa"]  && !@product.hide_buy_it_now_button? %>
+<% if I18n.locale.to_s == "en-US"  && !@product.hide_buy_it_now_button? %>
 <%= content_for :dealer_popup do %>
 	<%= cache ["online_retailer_links_for", @product] do %>
 	<div>
