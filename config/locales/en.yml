@@ -554,7 +554,9 @@ en:
 
   search_page:
     artist: Artist
+    cut_sheet: Cut Sheet
     news: News
+    other: Other
     page: Landing Page
     product: Product
     productfamily: Product Family

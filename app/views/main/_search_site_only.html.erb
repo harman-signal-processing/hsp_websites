@@ -1,0 +1,52 @@
+
+<h1><%= @page_title %></h1>
+
+<div class="wide_centered_box" id="search_page_container">
+  <%= form_tag search_path %>
+    <div class="row collapse">
+      <div class="large-8 small-7 columns">
+        <%= text_field_tag :query, @query %>
+        <%= check_box_tag :pdf_only, 'yes' %> PDF Files Only
+      </div>
+      <div class="large-4 small-5 columns">
+        <%= submit_tag t('search'), class: "button" %>
+      </div>
+    </div>
+  </form>
+  
+  <% if @results.length > 0 %>
+    <div id="search_results_count_message"><%=@results.total_entries%> results found, showing <%= results_item_count_range_for_page(@results) %> for: <strong><%=@query%></strong></div>
+
+    <%= will_paginate @results, params:{query:@query} %>
+    
+    <ul id="search_results" class="large-block-grid-3">
+      <%count = 1%>
+      <% @results.each do |result| %>
+        <li>
+          <div class="result-type-header"><strong><%= category_name(result.class.name)%></strong>: <span class="result-item-number"><%=current_item_number(@results, count)%></span></div>
+
+          <!-- item title link  -->
+          <%= link_to translate_content(result, result.link_name_method), page_link(result), class:"result-item-title-link" %>
+          <!-- item image link  -->
+          <% image = get_result_image(result)%>
+          <% if image.present? %>
+            <%= link_to image_tag(image), page_link(result), class:"result-item-image-link" %>
+          <%end%>
+          <!-- item description  -->
+          <%=result_description(result)%><br />
+          
+          <!-- item link  -->
+          <span class="search_link">
+            <%#= link_to page_link(result), page_link(result) %>
+          </span>
+          
+        </li>
+        <%count += 1%>
+      <% end %>
+    </ul>
+
+    <%= will_paginate @results, params:{query:@query} %>
+  <% else %>
+    <p><i>No results found.</i></p>
+  <% end %>
+</div><!-- <div class="wide_centered_box">  -->

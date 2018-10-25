@@ -1235,6 +1235,9 @@ div.retailer_logo {
 // 		list-style-type: none;
 // 	}
 // }
+#query {
+  margin-bottom:5px;
+}
 ul#search_results {
   margin-top:30px;
 }
@@ -1251,7 +1254,7 @@ ul#search_results .result-item-image-link {
   float:left;padding-right:5px;
 }
 #search_results_count_message {
-  margin-top:-15px;
+  margin-top:0px;
   margin-bottom:15px;
 }
 em.current {
@@ -1263,6 +1266,16 @@ em.current {
 .search_link a:visited {
   font-size: 80%;
 	color: green;
+}
+ul#search_results .related_products_links a:link,
+ul#search_results .related_products_links a:visited {
+  font-size: 80%;
+}
+ul#search_results .related_products_links ul {
+  margin:0;
+}
+ul#search_results .related_products_links li {
+  padding:0;
 }
 
 /******* Support *******/
