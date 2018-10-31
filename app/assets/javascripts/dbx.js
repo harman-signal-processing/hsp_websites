@@ -17,6 +17,7 @@
 //= require jquery.bxSlider.min
 //= require jquery.datetimepicker
 //= require jquery.pin
+//= require jquery.rwdImageMaps.min
 //= require slick
 //= require global_functions
 //= require maps

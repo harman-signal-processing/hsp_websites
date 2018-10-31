@@ -15,6 +15,7 @@
 //= require jquery-ui.min
 //= require jquery.lightbox-0.5.min
 //= require jquery.datetimepicker
+//= require jquery.rwdImageMaps.min
 //= require global_functions
 //= require buy_it_now
 //= require maps

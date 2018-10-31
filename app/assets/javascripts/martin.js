@@ -17,6 +17,7 @@
 //= require jquery.datetimepicker
 //= require jquery.pin
 //= require jquery.bonsai
+//= require jquery.rwdImageMaps.min
 //= require global_functions
 //= require maps
 //= require twitter

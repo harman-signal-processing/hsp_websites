@@ -17,6 +17,7 @@
 //= require jquery.bxSlider.min
 //= require jquery.datetimepicker
 //= require jquery.pin
+//= require jquery.rwdImageMaps.min
 //= require slick
 //= require soundmanager2-nodebug-jsmin
 //= require inline_player
