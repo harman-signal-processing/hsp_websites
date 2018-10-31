@@ -43,6 +43,8 @@ $(function(){
       equalize_on_stack: true
     }
   });
+
+  $('img[usemap]').rwdImageMaps();
 });
 
 //

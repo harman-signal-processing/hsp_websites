@@ -53,6 +53,8 @@ $(function(){
     autoplaySpeed: 4000
   });
 
+  $('img[usemap]').rwdImageMaps();
+
   $('#amx-overlay-modal').foundation('reveal', 'open');
   
   /*used on /vip_programmers*/

@@ -44,4 +44,6 @@ $(function(){
   $("#partslist").bonsai({
     expandAll: false
   });
+
+  $('img[usemap]').rwdImageMaps();
 });

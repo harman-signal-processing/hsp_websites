@@ -49,4 +49,6 @@ $(function(){
     autoplaySpeed: 4000
   });
 
+  $('img[usemap]').rwdImageMaps();
+
 });

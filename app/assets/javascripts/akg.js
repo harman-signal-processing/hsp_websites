@@ -41,4 +41,5 @@ $(function(){
     }
   });
 
+  $('img[usemap]').rwdImageMaps();
 });
