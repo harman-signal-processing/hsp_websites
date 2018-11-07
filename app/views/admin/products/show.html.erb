@@ -516,7 +516,7 @@
 						</div>
 					</div>
 				<% end %>
-				<ul id="product_suggestions" class="list">
+				<ul id="product_suggestions" class="sortable_list">
 					<% @product.product_suggestions.each do |product_suggestion| %>
 						<%= render "/admin/shared/product_suggestion_row", ps: product_suggestion, called_from: 'product' %>
 					<% end %>

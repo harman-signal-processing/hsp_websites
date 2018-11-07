@@ -743,3 +743,13 @@ pt-BR:
       long: "%d de %B de %Y, %H:%M"
       short: "%d de %B, %H:%M"
     pm: ''
+
+  search_page:
+    artist: Artista
+    news: Notícia
+    page: Página
+    product: Produto
+    productfamily: Product Familiar
+    productreview: Revisão do Produto
+    software: Programas
+    

@@ -102,14 +102,14 @@
 			<%= hpro_footer(include_hpro: true) %>
 
 			<div class="container">
-				<div class="medium-4 small-12 columns" id="footer_left">
+				<div class="medium-3 small-12 columns" id="footer_left">
 					<span class="footer_text">
 						&copy; <%= Date.today.year %>
 						<%= link_to(image_tag('harman.jpg', alt: t('harman')), "http://www.harman.com/", target: "_blank") %>
 						<%= t('all_rights_reserved') %>
 					</span>
 				</div>
-				<div class="medium-8 columns hide-for-small" id="footer_info">
+				<div class="medium-9 columns hide-for-small" id="footer_info">
 					<span class="footer_text">
             <%= link_to t('new_products'), new_products_path %> &bull;
             <% if website.email_signup_url %>
@@ -131,6 +131,9 @@
 						<%= link_to t('where_to_buy').titleize, where_to_buy_path %> &bull;
 						<% end %>
 						<%= link_to t('product_support').titleize, support_path %> &bull;
+						<% if !!(website.forum_link) %>
+					    <%= link_to t("forum").titleize, website.forum_link %> &bull;
+						<% end %> 						
             <%= link_to 'careers'.titleize, "http://jobs.harman.com", target: "_blank" %> &bull;
             <%= link_to 'ISO 9001:2008', '/resource/iso-9001-2008-certification', target: "_blank" %> &bull;
 						<%= link_to t('privacy_policy').titleize, privacy_policy_path %> &bull;

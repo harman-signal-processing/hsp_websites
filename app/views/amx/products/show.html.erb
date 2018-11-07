@@ -1,0 +1,344 @@
+<%
+if @product.photo
+	og_image = @product.photo.product_attachment.url(:original)
+	tw_image = @product.photo.product_attachment.url(:small)
+else
+	og_image = image_url("#{website.folder}/logo.png")
+	tw_image = image_url("#{website.folder}/logo.png")
+end
+
+if website.show_pricing? && @product.msrp && @product.msrp.to_f > 0 && !@product.hide_buy_it_now_button?
+	twitter_params = {
+		image: {
+			src: tw_image
+		},
+		card: "product",
+		data1: "#{number_to_currency(@product.msrp)} USD",
+		label1: "MSRP",
+		data2: translate_content(@product, :short_description),
+		label2: "Product Type"
+	}
+else
+	twitter_params = {
+		image: {
+			src: tw_image
+		},
+		card: "summary"
+	}
+end
+
+set_meta_tags title: @product.name,
+	reverse: true,
+	#canonical: product_url(@product),
+	description: translate_content(@product, :short_description),
+	keywords: translate_content(@product, :keywords),
+	twitter: twitter_params,
+	og: {
+		image: og_image,
+		type: 'product',
+		description: truncate(strip_html(translate_content(@product, :description)), length: 100),
+    title: "#{website.brand.name} #{@product.name}",
+    url: product_url(@product),
+    updated_time: @product.updated_at.strftime("%FT%T")
+	}
+%>
+
+<% if @product.show_alert? %>
+	<%= content_for :extra_notice do %>
+		<div id="product-notice"><%=raw textilize(@product.alert) %></div>
+	<% end %>
+<% end %>
+
+<% if @product.has_custom_background? %>
+	<%= content_for :custom_css do %>
+	<style type="text/css" media="screen">
+		body { <%= @product.custom_background %> }
+	</style>
+	<% end %>
+<% end %>
+
+<% if @product.has_full_width_banner? %>
+  <%= content_for :feature do %>
+    <div class="fullWidth">
+    <% @product.full_width_banners.each do |banner| %>
+      <div class="full_width_banner text-center">
+        <% if banner.full_width_banner_url.present? %>
+          <%= link_to banner.full_width_banner_url, target: "_blank" do %>
+            <%= image_tag banner.product_attachment.url %>
+          <% end %>
+        <% else %>
+          <%= image_tag banner.product_attachment.url %>
+        <% end %>
+      </div>
+    <% end %>
+    </div>
+  <% end %>
+<% end %>
+
+<%= cache ["product_page", @product, @online_retailer_link, @active_tab, I18n.locale, session['geo_country']] do %>
+
+<div id="breadcrumbs"><%= breadcrumbs(@product) %></div>
+
+<div class="hide-for-large-up small-title-block">
+  <div class="row">
+    <div class="small-6 columns">
+      <h1><%= title translate_content(@product, :name) %>
+        <% if @product.discontinued? %>
+          <span class="discontinued">(<%= t('discontinued') %>)</span>
+        <% end %>
+      </h1>
+      <h3><%= translate_content(@product, :short_description) %></h3>
+    </div>
+    <div class="small-6 columns text-right">
+      <% if (website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !@product.direct_buy_link.blank?) && !@product.hide_buy_it_now_button %>
+        <%= render_partial 'price' %>
+        <%= buy_it_now_link(@product, html_button: true, reveal_id: "buy-it-now-popup") %>
+      <% end %>
+    </div>
+  </div>
+
+  <%#= draw_top_subnav @product, active_tab: @active_tab %>
+</div>
+
+<a name="description" data-magellan-destination="description"></a>
+
+<%# vertical pages have the image in the next row...#%>
+<% unless @product.layout_class.to_s.match(/vertical/i) %>
+  <% if @product.photo %>
+    <div id="viewer_container" class="text-center">
+      <div id="viewer">
+        <% if @product.discontinued? %>
+          <%= image_tag(@product.photo.product_attachment.url(:large)) %>
+        <% elsif @product.photo.updated_at.to_date > "2014-10-01".to_date %>
+          <%= image_tag(@product.photo.product_attachment.url(:full_width)) %>
+        <% else %>
+          <%= image_tag(@product.photo.product_attachment.url(:horiz_medium)) %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="row" id="product-content-container" >
+	<div class="large-8 small-12 columns">
+
+    <% if @product.layout_class.to_s.match(/vertical/i) %>
+      <% if @product.photo %>
+      <div class="text-center" style="margin: 20px 0px;">
+        <% if @product.discontinued? %>
+          <%= image_tag(@product.photo.product_attachment.url(:large)) %>
+        <% else %>
+          <%= image_tag(@product.photo.product_attachment.url(:vert_medium)) %>
+        <% end %>
+      </div>
+      <% end %>
+    <% end %>
+
+    <!-- PRODUCT THUMBNAILS  -->
+		<% if @product.images_for("product_page").size > 0 %>
+      <% if !!(website.no_lightbox) %>
+        <ul id="product_thumbnails" class="medium-block-grid-10 small-block-grid-3">
+          <% @product.images_for("product_page").each do |product_attachment| %>
+            <% unless product_attachment.hide_from_product_page? %>
+              <% if product_attachment.product_media_thumb_file_name.present? %>
+                <li><div><%= link_to_product_attachment(product_attachment) %></div></li>
+              <% else %>
+                <li><div><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square)), product_attachment.product_attachment.url(:original)) %></div></li>
+              <% end %>
+            <% end %>
+          <% end %>
+        </ul>
+      <% else %>
+        <ul id="product_thumbnails" class="medium-block-grid-10 small-block-grid-3">
+          <% @product.images_for("product_page").each do |product_attachment| %>
+            <% unless product_attachment.hide_from_product_page? %>
+              <% if product_attachment.product_media_thumb_file_name.present? %>
+                <li><div><%= link_to_product_attachment(product_attachment) %></div></li>
+              <% else %>
+                <li>
+                  <div>
+                    <%= link_to(product_attachment.product_attachment.url(:original),
+                      data: product_attachment.no_lightbox? ? {} : { lightbox: 'product-thumbnails' }) do %>
+                      <%= image_tag(product_attachment.product_attachment.url(:tiny_square)) %>
+                    <% end %>
+                  </div>
+                </li>
+              <% end %>
+            <% end %>
+          <% end %>
+        </ul>
+      <% end %>
+      <div class="larger_tag"><%= t('product_page.larger_images') %></div>
+		<% end %>
+
+    <!-- REPLACEMENT PRODUCTS  -->
+    <% if @product.discontinued? && @product.alternatives.size > 0 %>
+      	<hr/>
+      	<h3 class="subheader"><%= t('titles.replacement_products') %></h3>
+      
+      	<ul class="large-block-grid-3 small-block-grid-2">
+      	<% @product.alternatives.each do |product| %>
+      		<li><%= render_partial "product_families/product_square", product: product, compare: false %></li>
+      	<% end %>
+      	</ul>      
+      	<hr/>
+    <% end %>
+    
+   
+    <!-- MAIN CONTENT  -->
+		<!-- <%= @active_tab %> -->
+    <%= draw_main_product_content @product, active_tab: @active_tab %>
+
+
+    <% if @product.legal_disclaimer.present? %>
+      <div class="legal_disclaimer">
+        <%= raw textilize @product.legal_disclaimer %>
+      </div>
+    <% end %>
+
+	</div>
+
+  <div class="large-4 small-12 columns">
+    <div class="product-title-block show-for-large-up">
+      <h1><%= title translate_content(@product, :name) %>
+      <% if @product.discontinued? %>
+        <span class="discontinued">(<%= t('discontinued') %>)</span>
+      <% end %>
+      </h1>
+      <h3><%= translate_content(@product, :short_description) %></h3>
+
+      <% if @product.badges.count > 0 %>
+        <hr/>
+        <div class="badge-container">
+          <% @product.badges.each do |badge| %>
+            <%= image_tag(badge.image.url(:medium), alt: badge.name) %>&nbsp;
+          <% end %>
+        </div>
+      <% end %>
+
+      <% if !@product.discontinued? && (website.has_online_retailers? ||
+          website.has_distributors? ||
+          website.has_dealers? ||
+          !@product.direct_buy_link.blank?) &&
+         !@product.hide_buy_it_now_button? %>
+
+        <% if (website.has_customer_reviews? && @product.has_customer_reviews?) ||
+            (website.show_pricing? && !@product.hide_buy_it_now_button?) %>
+        <% end %>
+        <hr/>
+
+        <div class="product-price-row">
+
+          <div class="row collapse">
+            <div class="large-6 small-6 columns">
+              <%= render_partial 'price' %>
+            </div>
+            <div class="large-6 small-6 columns text-right buy-it-now-button-container">
+              <%= buy_it_now_link(@product, html_button: true, reveal_id: "buy-it-now-popup") %>
+            </div>
+          </div>
+
+          <% if website.has_customer_reviews? && @product.has_customer_reviews? %>
+            <div class="row collapse">
+              <div class="large-6 small-6 columns">
+                <%# number of stars %>
+              </div>
+              <div class="large-6 small-6 columns text-right">
+                <%# link to read reviews %>
+              </div>
+            </div>
+          <% end %>
+
+        </div>
+
+      <% end %>
+
+      <%= links_to_current_promotions(@product) %>
+      <hr/>
+
+      <%= draw_side_nav @product, active_tab: @active_tab %>
+
+      <%= draw_info_accordion @product %>
+
+      <% unless @product.demo_link.blank? %>
+        <% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/demo_download_button.png")) %>
+          <%= link_to(image_tag("#{website.folder}/#{I18n.locale}/demo_download_button.png",
+              alt: "Demo Download",
+              mouseover: "#{website.folder}/#{I18n.locale}/demo_download_button_hover.png") ,
+            @product.demo_link) %>
+        <% else %>
+          <p><strong><%= link_to "Demo Download", @product.demo_link %></strong></p>
+        <% end %>
+      <% end %>
+
+      <%= render 'shared/add_this' %>
+      <%= render_partial 'products/side_banners' %>
+    </div>
+
+	</div>
+</div>
+
+<% end # cache %>
+
+<% if I18n.locale.to_s.match(/en/i) && !@online_retailer_link && !@product.hide_buy_it_now_button? %>
+  <div id="buy-it-now-popup" class="medium reveal-modal" data-reveal aria-labelledby="Buy <%= @product.name %>" aria-hidden="true" role="dialog">
+    <div class="text-right">
+      <a class="close-reveal-modal">&#215;</a>
+    </div>
+    <%= cache ["online_retailer_links_for", @product] do %>
+    <div id="dealers">
+      <div id="online_retailers">
+        <%= render_partial "shared/buynow", product: @product %>
+      </div>
+    </div>
+    <% end %>
+    <div class="row">
+      <div class="large-7 columns">
+        <%= form_tag where_to_buy_path() %>
+        <div class="row collapse">
+          <div class="large-8 small-7 columns">
+            <%= text_field_tag "zip", session[:zip], placeholder: t('us_zip_code') %>
+          </div>
+          <div class="large-4 small-5 columns">
+            <%= submit_tag t('find_us_dealers'), class: "postfix button" %>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+    <p><%= image_tag "small-gray-world-map.png", alt: "" %>
+      Also available from <%= link_to t("international_distributors"), international_distributors_path %> distributors.</p>
+  </div>
+<% end %>
+
+<%= content_for :extra_js do %>
+
+	<% if @product.audio_demos.size > 0 %>
+
+	var inlinePlayer = null;
+
+	soundManager.debugMode = true; // disable or enable debug output
+
+	soundManager.preferFlash = false; // use HTML5 audio for MP3/MP4, if available
+	soundManager.useFlashBlock = false;
+	soundManager.url = '/swfs/'; // path to directory containing SM2 SWF
+
+	// optional: enable MPEG-4/AAC support (requires flash 9)
+	soundManager.flashVersion = 9;
+
+	// ----
+
+	soundManager.onready(function() {
+	  // soundManager.createSound() etc. may now be called
+	  inlinePlayer = new InlinePlayer();
+	});
+
+
+	<% end %>
+<% end %>
+
+<% if current_user && can?(:manage, @product) %>
+<div class="admin_function">
+	<%#= link_to "edit", [:admin, @product] %>
+</div>
+<% end %>

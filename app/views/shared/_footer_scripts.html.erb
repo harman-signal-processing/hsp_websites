@@ -10,3 +10,13 @@
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/rem/1.3.4/js/rem.min.js"></script>
 
+<% unless Rails.env.production? %>
+<hr/>
+<pre>
+session['geo_country'] = <%= session['geo_country'] %>
+session['geo_usa'] = <%= session['geo_usa'] %>
+</pre>
+<br/>
+<br/>
+<hr/>
+<% end %>

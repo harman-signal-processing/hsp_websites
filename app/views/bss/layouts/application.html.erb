@@ -134,6 +134,9 @@
 						<% end %>
             <%= link_to 'careers'.titleize, "http://jobs.harman.com", target: "_blank" %> &bull;
 						<%= link_to t('product_support').titleize, support_path %> &bull;
+	          <% if !!(website.forum_link) %>
+	            <%= link_to t("forum").titleize, website.forum_link %> &bull;
+	          <% end %> 						
 						<%= link_to t('privacy_policy').titleize, privacy_policy_path %> &bull;
 						<%= link_to t('terms_of_use').titleize, terms_of_use_path %>
 					</span>

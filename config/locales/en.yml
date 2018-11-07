@@ -2,200 +2,200 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  home: home
-  products: products
-  product_types: product types
-  news: news
-  events: events
-  installations: installations
-  artists: artists
-  professionals: professionals
-  sound_community: sound community
-  community: community
-  where_to_buy: where to buy
-  buy: buy
-  find_a_dealer_near_you: find a dealer near you
-  product_support: support
-  store: store
-  outlet_store: outlet store
-  sitemap: sitemap
-  company: company
-  our_story: our story
   about: about
-  quality: quality
-  technology: technology
-  training: training
+  add_to_cart: "Buy It Now"
+  address: Address
   all_rights_reserved: "All Rights Reserved."
-  harman: HARMAN
-  us_zip_code: US City and State or Zipcode
-  us_dealers: USA Dealers
-  find_us_dealers: find local
+  artists: artists
+  back: back
+  back_to: back to
+  back_to_artists: Back to artists
+  back_to_news_list: Back to news list
+  billing_address: Billing Address
+  brief_legal_disclaimer: "Product names modeled in this product are trademarks of their respective companies that do not endorse and are not associated or affiliated with DigiTech. Scroll down for complete information."
+  browse_products: Browse Products
+  buy: buy
+  buy_it_now: "Buy It Now"
+  cancel: cancel
+  check_it_out: check it out
+  check_our_software_page: Check our software downloads page.
+  click_icons_for_features: "click icons for features"
+  close: close
+  community: community
+  company: company
+  compare: compare
+  contact_consultant: Support for Consultants
+  contact_tech_support: "Contact Technical Support"
+  contact_us: Contact Us
+  country: Country
+  current_news: current news
+  dealer_distance: miles
+  dealer_login: dealer login
+  discontinued: discontinued
+  discontinued_products: Discontinued Products
+  discontinued_products_downloads: "Discontinued Products Downloads"
+  download: download
+  download_promotion_form: download promotion form
+  downloads: downloads
+  email: email
+  events: events
+  events: Events
+  events_around_the_world: Events Around The World
+  explore: explore
+  find_a_dealer: Find a Dealer
+  find_a_dealer_near_you: find a dealer near you
   find_dealers: find local
-  online_dealers_us: Online Dealers (US)
+  find_my_serial_number: Find My Serial Number
+  find_us_dealers: find local
+  forum: forum
+  get_it: "Get It"
+  get_started_not_registered: Serial not found!
   global_dealers: Worldwide Dealers
   global_search_location: Target Location
+  go: go
+  go_to_top: back to top
+  harman: HARMAN
+  have_a_question: Have a Question?
+  home: home
+  images: Images
+  installations: installations
   international_distributors: worldwide
-  select_your_country: select your country
-  country: Country
-  dealer_distance: miles
-  address: Address
-  back_to_news_list: Back to news list
-  back_to_artists: Back to artists
-  view_full_line: view full line
-  near_zipcode: "near %{zip}"
+  jump_to_a_download_type: "Choose a download type:"
+  knowledgebase: Knowledgebase
+  language_region: "Language/Region"
+  last_updated: Last updated
+  learn_more: learn more
+  legacy_products: Legacy Products
+  looking_for_software: Looking for software/firmware?
+  mac_gui: "Mac GUI/Librarian"
+  media: "Media"
+  message: Message
+  mixing_with_professionals: Mixing With Professionals
   more: more
-  more_info: more info
   more_details: more details
-  check_it_out: check it out
-  rohs: rohs compliance
-  visit: visit
-  visit_the: visit the
-  browse_products: Browse Products
-  product_reviews: product reviews
+  more_info: more info
+  name: name
+  near_zipcode: "near %{zip}"
+  new_products: New HARMAN Products
+  news: news
   news_signup: Join our mailing list
-  warranty_registration: product registration
+  no: no
+  older: older...
+  on_tour_with: on tour with
+  online_dealers_us: Online Dealers (US)
+  other: other
+  our_story: our story
+  outlet_store: outlet store
+  platform: platform
+  plugin: "Plug-in"
+  pop_explanation: Many of our retailers feature our interactive product display which will allow you to try out our products and find out just how much Jimi you've got.
+  privacy_policy: privacy policy
+  privacy_policy: Privacy Policy
+  product_details: Product Details
+  product_registration: Product Registration
+  product_reviews: product reviews
+  product_support: support
+  product_types: product types
+  products: products
+  products_used_by: "Products used by %{artist}"
+  professionals: professionals
+  promotions: promotions
+  quality: quality
+  regarding: regarding
+  register_your_product: "Register Your %{product}"
+  related_products: Related products
+  related_products: related products
+  rental_companies: Rental Companies
+  resource_downloads: resources
+  rohs: rohs compliance
+  sda: SDA
   search: search
   search_again: search again
-  related_products: related products
-  version: version
-  back: back
-  promotions: promotions
-  download: download
-  downloads: downloads
-  software_downloads: software
-  resource_downloads: resources
+  select_your_country: select your country
+  shipping_address: Shipping Address
+  sitemap: sitemap
+  social_media: Social Media
   software: software
-  pop_explanation: Many of our retailers feature our interactive product display which will allow you to try out our products and find out just how much Jimi you've got.
-  products_used_by: "Products used by %{artist}"
-  valid: valid
-  download_promotion_form: download promotion form
-  submit: submit
-  your_name: Your Name
-  email: email
+  software_downloads: software
+  sound_community: sound community
+  spare_part_sales: Spare Part Sales
+  store: store
   subject: Subject
-  message: Message
-  older: older...
-  current_news: current news
+  submit: submit
   submit_warranty_registration: submit registration
-  cancel: cancel
-  register_your_product: "Register Your %{product}"
-  contact_tech_support: "Contact Technical Support"
+  subscribe_via_rss: Subscribe via RSS
+  support: "Support"
   support_contact_form: support contact form
-  go: go
-  discontinued: discontinued
-  troubleshooting: Troubleshooting Tips and FAQs
-  close: close
-  name: name
-  platform: platform
-  updater: updater
-  windows_gui: "Windows GUI/Librarian"
-  mac_gui: "Mac GUI/Librarian"
-  plugin: "Plug-in"
-  other: other
-  discontinued_products_downloads: "Discontinued Products Downloads"
-  related_products: Related products
+  support_services: Support Services
+  tech_support: Tech Support
+  technology: technology
+  terms_of_use: terms of use
   touring_with: touring with
-  on_tour_with: on tour with
-  regarding: regarding
-  uses: uses
-  compare: compare
-  click_icons_for_features: "click icons for features"
-  back_to: back to
-  forum: forum
+  training: training
+  training_courses: Training Courses
+  troubleshooting: Troubleshooting Tips and FAQs
+  updater: updater
+  us_dealers: USA Dealers
+  us_zip_code: US City and State or Zipcode
   user_forum: user forum
   user_groups: user groups
-  language_region: "Language/Region"
-  subscribe_via_rss: Subscribe via RSS
-  dealer_login: dealer login
-  privacy_policy: privacy policy
-  warranty_policy: warranty policy
-  terms_of_use: terms of use
-  looking_for_software: Looking for software/firmware?
-  check_our_software_page: Check our software downloads page.
-  jump_to_a_download_type: "Choose a download type:"
-  zip_all: "zip (all)"
-  shipping_address: Shipping Address
-  billing_address: Billing Address
-  product_details: Product Details
-  yes: yes
-  no: no
-  brief_legal_disclaimer: "Product names modeled in this product are trademarks of their respective companies that do not endorse and are not associated or affiliated with DigiTech. Scroll down for complete information."
-  buy_it_now: "Buy It Now"
-  add_to_cart: "Buy It Now"
-  get_it: "Get It"
-  media: "Media"
-  whats_on: "What's On"
-  support: "Support"
-  support_services: Support Services
-  discontinued_products: Discontinued Products
-  legacy_products: Legacy Products
-  videos: Videos
-  white_papers: White Papers
-  images: Images
-  social_media: Social Media
-  mixing_with_professionals: Mixing With Professionals
-  training_courses: Training Courses
-  events_around_the_world: Events Around The World
-  events: Events
-  rental_companies: Rental Companies
   users_around_the_world: Users Around The World
-  knowledgebase: Knowledgebase
-  contact_us: Contact Us
-  product_registration: Product Registration
+  uses: uses
+  valid: valid
+  version: version
+  videos: Videos
+  view_full_line: view full line
+  visit: visit
+  visit_the: visit the
   warranty: Warranty
-  tech_support: Tech Support
-  spare_part_sales: Spare Part Sales
-  find_my_serial_number: Find My Serial Number
-  go_to_top: back to top
-  sda: SDA
-  privacy_policy: Privacy Policy
-  get_started_not_registered: Serial not found!
-  learn_more: learn more
-  explore: explore
-  last_updated: Last updated
-  new_products: New HARMAN Products
-  have_a_question: Have a Question?
-  find_a_dealer: Find a Dealer
-  contact_consultant: Support for Consultants
+  warranty_policy: warranty policy
+  warranty_registration: product registration
+  whats_on: "What's On"
+  where_to_buy: where to buy
+  white_papers: White Papers
+  windows_gui: "Windows GUI/Librarian"
+  yes: yes
+  your_name: Your Name
+  zip_all: "zip (all)"
 
   nav:
-    our_story: our story
     about: about
-    quality: Quality Assurance
-    technology: technology
-    crown_around_the_world: crown around the world
+    about_our_solutions: About Our Solutions
     amplifiers: amplifiers
+    av_and_it: AV & IT
+    av_basics: AV Basics
+    avb: AVB
+    blu_link: BLU link
+    buying_av: Buying AV
+    case_studies: Case Studies
+    cobranet: CobraNet
+    collaboration: Collaboration
+    consultant_support: Consultant Support
+    crown_around_the_world: crown around the world
+    dante: Dante
+    downloads: Downloads
+    higher_education: Higher Education
+    k12_education: K-12 Education
+    learn: Learn
+    learning_spaces: Learning Spaces
+    markets: Markets
+    media: Media
+    meeting_rooms: Meeting Rooms
     microphones: microphones
     network_audio: network audio
-    about_our_solutions: About Our Solutions
-    blu_link: BLU link
-    dante: Dante
-    cobranet: CobraNet
-    avb: AVB
-    system_design_tools: System Design Tools
-    service: Service
-    downloads: Downloads
-    markets: Markets
-    k12_education: K-12 Education
-    higher_education: Higher Education
-    secure_av: Secure AV
-    learn: Learn
-    av_basics: AV Basics
-    av_and_it: AV & IT
-    buying_av: Buying AV
-    collaboration: Collaboration
-    learning_spaces: Learning Spaces
-    meeting_rooms: Meeting Rooms
-    security: Security
-    sustainability: Sustainability
-    video_conferencing: Video Conferencing
-    case_studies: Case Studies
-    solution_guides: Solution Guides
-    media: Media
-    videos: Videos
-    consultant_support: Consultant Support
+    our_story: our story
+    quality: Quality Assurance
     safety_documents: Safety Documents (SDS)
+    secure_av: Secure AV
+    security: Security
+    service: Service
+    solution_guides: Solution Guides
     support_login: Support Login
+    sustainability: Sustainability
+    system_design_tools: System Design Tools
+    technology: technology
+    video_conferencing: Video Conferencing
+    videos: Videos
 
   language:
       en: English
@@ -205,26 +205,26 @@ en:
       zh: Chinese
 
   document_type:
-      owners_manual: Owner's Manual
-      cut_sheet: Cut Sheet
-      quickstart_guide: Quickstart Guide
-      quick_reference_guide: Quick Reference Guide
       application_guide: Application Guide
-      install_guide: Install Guide
-      preset_list: Preset List
       brochure: Brochure
-      schematic: Schematic
-      spec_sheet: Spec Sheet
-      parts_list: Parts List
-      service_manual: Service Manual
-      calibration_procedure: Calibration Procedure
-      cad_files: CAD files
       cad_drawing_front: CAD drawing front
       cad_drawing_rear: CAD drawing rear
-      safety_sheet: Safety & Compliance Document
+      cad_files: CAD files
+      calibration_procedure: Calibration Procedure
+      cut_sheet: Cut Sheet
+      install_guide: Install Guide
       other: Other Document
-      voip_reference_guide: VoIP Reference Guide
+      owners_manual: Owner's Manual
+      parts_list: Parts List
       photo: Photo
+      preset_list: Preset List
+      quick_reference_guide: Quick Reference Guide
+      quickstart_guide: Quickstart Guide
+      safety_sheet: Safety & Compliance Document
+      schematic: Schematic
+      service_manual: Service Manual
+      spec_sheet: Spec Sheet
+      voip_reference_guide: VoIP Reference Guide
 
   resource_type:
       3rd_party_resource: 3rd Party Resource
@@ -246,104 +246,105 @@ en:
       whitepaper: Whitepaper
 
   product_page:
-      select_products_to_compare: Select 2 to 4 products to compare
-      compare_selected_products: Compare Selected Products
-      larger_images: Larger Images
-      description: Overview
-      features: Features
-      specs_manuals_etc: "specs, manuals, reviews, etc..."
-      extended_description: More Details
-      details: More Details
-      reviews: Reviews
-      news: News
-      news_and_reviews: "News & Reviews"
-      specifications: Specifications
       amp_models: Amp Models
-      cabinets: Speaker Cabinets
-      effects: Effects
-      pedals: Pedals
-      downloads: Downloads
-      documentation: Documentation
-      downloads_and_docs: Downloads
-      photometrics: Photometrics
-      parats: Parts
-      training_modules: Training Modules
-      support: "Support/FAQs"
       artists: Artists
-      review: Review
-      faqs: FAQs
-      tones: Tone Library
-      special_offer: Special Offer
-      rebate_forms: Rebate Forms
-      gallery: Gallery
       audio_demos: Audio Demos
-      videos: Videos
-      solutions: Recommended For
+      cabinets: Speaker Cabinets
+      compare_selected_products: Compare Selected Products
+      description: Overview
+      details: More Details
+      documentation: Documentation
+      downloads: Downloads
+      downloads_and_docs: Downloads
+      effects: Effects
+      extended_description: More Details
+      faqs: FAQs
+      features: Features
+      gallery: Gallery
       labels:
-          features: Features
+          accessories: Accessories
           amp_models: Amps
           cabinets: Cabs
           effects: Effects
+          features: Features
           pedals: Pedals
-          accessories: Accessories
+      larger_images: Larger Images
+      news: News
+      news_and_reviews: "News & Reviews"
+      parats: Parts
+      pedals: Pedals
+      photometrics: Photometrics
+      rebate_forms: Rebate Forms
+      review: Review
+      reviews: Reviews
+      select_products_to_compare: Select 2 to 4 products to compare
+      solutions: Recommended For
+      special_offer: Special Offer
+      specifications: Specifications
+      specs_manuals_etc: "specs, manuals, reviews, etc..."
+      support: "Support/FAQs"
+      tones: Tone Library
+      training_modules: Training Modules
+      videos: Videos
 
   product_support_page:
+      detailed_problem_description: Detailed problem description
       for_service_outside_the_us: "For service inquiries outside the US,"
       please_contact_your_distributor: "please contact your local %{brand} distributor."
-      detailed_problem_description: Detailed problem description
 
   solutions_page:
-    vertical_market_solutions: "%{vertical_market} solutions"
-    harman_family: "The HARMAN Family of Brands and Products"
-    explore_solutions: explore solutions
     explore_more: Explore more
+    explore_solutions: explore solutions
+    harman_family: "The HARMAN Family of Brands and Products"
     harman_pro_solutions: Harman Professional Solutions
+    vertical_market_solutions: "%{vertical_market} solutions"
 
   titles:
-      buy_direct: "Buy Direct from %{brand}"
-      news: "%{brand} News"
-      events: "%{brand} Events"
-      blog: "%{brand} Blog"
-      facebook_page: "%{brand} Facebook Page"
+      about_us: "About %{brand}"
       archived_news: News Archive
-      more_resources: More Resources
-      where_to_buy: Where To Buy
-      dealer_search_results: Dealer Search Results
-      buy_online: "Click a retailer logo below to buy online:"
-      buy_now: Buy Now
-      international_distributors: Worldwide Distributors
-      product_families: Products
-      products: All Products
-      product_comparison: Product Comparison
-      products_on_tour: Products On Tour
       artists: Artists
-      featured_artists: Featured Artists
-      rohs: RoHS Directive
-      related_products: Related Products
+      blog: "%{brand} Blog"
+      buy_direct: "Buy Direct from %{brand}"
+      buy_now: Buy Now
+      buy_online: "Click a retailer logo below to buy online:"
+      community: "Guitar & Sound Communities"
+      connect_with_us: Connect With Us
       contact: Contacts
       contact_us: Contact Us
-      about_us: "About %{brand}"
-      search_results: Search Results
-      product_reviews: Product Reviews
-      pop: Get a hands-on demo
       current_promotions: Current Promotions
-      promotions: Promotions
-      community: "Guitar & Sound Communities"
-      guitar_workstation: Guitar Workstation
-      support: Support
-      product_support: Product Support
-      warranty_registration: Product Registration
-      mailing_address: Mailing Address
-      service_centers: Service Centers
-      locate_us_service_center: Locate your nearest service center (US)
-      tone_library: Tone Library
-      featured_pedal: Featured Pedal
-      youtube_channel: "%{brand} Channel"
-      part_request: Part Request
+      dealer_search_results: Dealer Search Results
+      events: "%{brand} Events"
+      facebook_page: "%{brand} Facebook Page"
       factory_service: Factory Service/Return Authorization Form
+      featured_artists: Featured Artists
+      featured_pedal: Featured Pedal
+      guitar_workstation: Guitar Workstation
+      international_distributors: Worldwide Distributors
+      locate_us_service_center: Locate your nearest service center (US)
+      mailing_address: Mailing Address
+      more_resources: More Resources
+      news: "%{brand} News"
+      part_request: Part Request
+      pop: Get a hands-on demo
+      product_comparison: Product Comparison
+      product_families: Products
+      product_reviews: Product Reviews
+      product_support: Product Support
+      products: All Products
+      products_on_tour: Products On Tour
+      promotions: Promotions
+      related_products: Related Products
+      replacement_products: Replacement Products
       rma_request: Return Authorization Request
-      connect_with_us: Connect With Us
+      rohs: RoHS Directive
       safety_and_certifications: "Safety & Certifications"
+      search_results: Search Results
+      service_centers: Service Centers
+      support: Support
+      tone_library: Tone Library
+      warranty_registration: Product Registration
+      where_to_buy: Where To Buy
+      youtube_channel: "%{brand} Channel"
       
   errors:
       geocoding: "There was an error geocoding the address/zipcode you provided."
@@ -352,95 +353,95 @@ en:
       
   meta:
       description:
-          where_to_buy: "Where to buy %{brand} products"
           artists: "Learn how musicians put %{brand} products to good use."
           featured_artists: "Premier musicians use %{brand} products."
           products_on_tour: Find out which products are currently on tour with which artists.
           support: "Support resources for your %{brand} products including faqs, manuals, product registration and service centers."
           warranty_registration: "Register your %{brand} product."
+          where_to_buy: "Where to buy %{brand} products"
           
       keywords:
           where_to_buy: purchase, buy, dealers, usa
 
   blurbs:
-      sound_community: "The web's original sound community for musicians. Exchange music, share ideas and patches for all of your DigiTech gear."
-      guitar_workstation: "Specifically designed for the GNX4 and GNX3000 workstation products. As an added bonus you'll find tips from Craig Anderton."
-      rohs_intro: "With regards to the RoHS Directive 2002 / 95 / EC of the European Parliament and of the Council of 27 January 2003 on the restriction of the use of certain hazardous substances in electrical and electronic equipment, we declare that to the best of our knowledge, all products listed below meet and fulfill all the requirements of the aforementioned directive."
-      product_support: "Browse support material for your product by selecting the model number below:"
-      warranty_registration_success: "Thank you for registering your product with us. Please be sure to keep your dated store receipt as proof of purchase."
-      use_date_code: "Some of our products do not have serial numbers. In this case, enter the date code from the product box or the back of the unit."
-      subscribe: "Sign up to receive periodic messages from %{brand} regarding product updates and special promotions."
-      warranty_comments: "Note: if you have a technical question/problem, please submit it via our %{support_form_link}."
-      contact_form_thankyou: "Thank you for contacting us. We will get back with you shortly."
       captcha_explanation: "Please answer this question so that we can verify you are not a spam robot. (There is only one \"correct\" answer)"
-      tone_library_explanation: "Get started with these famous tones by connecting your GSP or RP unit to your Mac or PC. Visit our %{link} page if you don't have the sound librarian installed yet."
-      product_tone_library_explanation: "Get started with these famous tones by connecting your %{model} to your Mac or PC. Use the software downloads links on this page to install the librarian on your computer."
+      contact_form_thankyou: "Thank you for contacting us. We will get back with you shortly."
+      fixtures_request_thankyou: "Thanks for contacting us. We will field your fixtures request and get back to you as soon as possible."
+      guitar_workstation: "Specifically designed for the GNX4 and GNX3000 workstation products. As an added bonus you'll find tips from Craig Anderton."
       international_distributors: "International Distributors assist with product sales, technical support, manual requests, spare parts and warranty service. Warranty is only valid within the country of purchase."
       parts_request_thankyou: "Your message has been received!  We will respond to your email within the next 24 hours."
+      product_support: "Browse support material for your product by selecting the model number below:"
+      product_tone_library_explanation: "Get started with these famous tones by connecting your %{model} to your Mac or PC. Use the software downloads links on this page to install the librarian on your computer."
       rma_request_thankyou: "Your message has been received!  We will respond to your email within the next 24 hours."
+      rohs_intro: "With regards to the RoHS Directive 2002 / 95 / EC of the European Parliament and of the Council of 27 January 2003 on the restriction of the use of certain hazardous substances in electrical and electronic equipment, we declare that to the best of our knowledge, all products listed below meet and fulfill all the requirements of the aforementioned directive."
       software_downloads: "Find the latest drivers and other software for your %{brand} products"
+      sound_community: "The web's original sound community for musicians. Exchange music, share ideas and patches for all of your DigiTech gear."
+      subscribe: "Sign up to receive periodic messages from %{brand} regarding product updates and special promotions."
+      tone_library_explanation: "Get started with these famous tones by connecting your GSP or RP unit to your Mac or PC. Visit our %{link} page if you don't have the sound librarian installed yet."
+      use_date_code: "Some of our products do not have serial numbers. In this case, enter the date code from the product box or the back of the unit."
+      warranty_comments: "Note: if you have a technical question/problem, please submit it via our %{support_form_link}."
       warranty_registration: "Protect your investment by registering your %{brand} products to stay up-to-date on the latest news and other developments."
-      fixtures_request_thankyou: "Thanks for contacting us. We will field your fixtures request and get back to you as soon as possible."
+      warranty_registration_success: "Thank you for registering your product with us. Please be sure to keep your dated store receipt as proof of purchase."
       
   subjects:
-      select_a_subject: Select a Subject
-      product_question: Product Question
-      technical_support: Technical Support
-      manual_request: Manual Request
-      product_repair: Product Repair
-      product_parts: Product Parts
-      general_questions: General Question/Other
-      order_status: Order Status (Dealers only)
       dealer_questions: Questions from Dealers
+      general_questions: General Question/Other
+      manual_request: Manual Request
+      order_status: Order Status (Dealers only)
+      product_parts: Product Parts
+      product_question: Product Question
+      product_repair: Product Repair
+      select_a_subject: Select a Subject
+      technical_support: Technical Support
       web_comments: Web Comments
   devise:
       artist_registrations:
           artist:
+              destroyed: 'Bye! Your account was successfully cancelled. We hope to see you again soon.'
               inactive_signed_up: "Thanks! A confirmation email will be sent to you. Please refer to the instructions in the email to continue."
               signed_up: 'Welcome! You have signed up successfully.'
-              signed_up_but_unconfirmed: 'A message with a confirmation link has been sent to your email address. Please open the link to activate your account.'
               signed_up_but_inactive: 'You have signed up successfully. However, we could not sign you in because your account is not yet activated.'
               signed_up_but_locked: 'You have signed up successfully. However, we could not sign you in because your account is locked.'
-              updated: 'You updated your account successfully.'
+              signed_up_but_unconfirmed: 'A message with a confirmation link has been sent to your email address. Please open the link to activate your account.'
               update_needs_confirmation: "You updated your account successfully, but we need to verify your new email address. Please check your email and click on the confirm link to finalize confirming your new email address."
-              destroyed: 'Bye! Your account was successfully cancelled. We hope to see you again soon.'
+              updated: 'You updated your account successfully.'
       failure:
         already_authenticated: 'You are already signed in.'
-        unauthenticated: 'You need to sign in or sign up before continuing.'
-        unconfirmed: 'You have to confirm your account before continuing.'
-        locked: 'Your account is locked.'
+        inactive: 'Your account was not activated yet.'
         invalid: 'Invalid email or password.'
         invalid_token: 'Invalid authentication token.'
+        locked: 'Your account is locked.'
         timeout: 'Your session expired, please sign in again to continue.'
-        inactive: 'Your account was not activated yet.'
+        unauthenticated: 'You need to sign in or sign up before continuing.'
+        unconfirmed: 'You have to confirm your account before continuing.'
       sessions:
         signed_in: 'Signed in successfully.'
         signed_out: 'Signed out successfully.'
       passwords:
+        no_token: "You can't access this page without coming from a password reset email. If you do come from a password reset email, please make sure you used the full URL provided."
         send_instructions: 'You will receive an email with instructions about how to reset your password in a few minutes.'
+        send_paranoid_instructions: "If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes."
         updated: 'Your password was changed successfully. You are now signed in.'
         updated_not_active: 'Your password was changed successfully.'
-        send_paranoid_instructions: "If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes."
-        no_token: "You can't access this page without coming from a password reset email. If you do come from a password reset email, please make sure you used the full URL provided."
       confirmations:
+        confirmed: 'Your account was successfully confirmed. You are now signed in.'
         send_instructions: 'You will receive an email with instructions about how to confirm your account in a few minutes.'
         send_paranoid_instructions: 'If your email address exists in our database, you will receive an email with instructions about how to confirm your account in a few minutes.'
-        confirmed: 'Your account was successfully confirmed. You are now signed in.'
       registrations:
+        destroyed: 'Bye! Your account was successfully cancelled. We hope to see you again soon.'
         signed_up: 'Welcome! You have signed up successfully.'
-        signed_up_but_unconfirmed: 'A message with a confirmation link has been sent to your email address. Please open the link to activate your account.'
         signed_up_but_inactive: 'You have signed up successfully. However, we could not sign you in because your account is not yet activated.'
         signed_up_but_locked: 'You have signed up successfully. However, we could not sign you in because your account is locked.'
-        updated: 'You updated your account successfully.'
+        signed_up_but_unconfirmed: 'A message with a confirmation link has been sent to your email address. Please open the link to activate your account.'
         update_needs_confirmation: "You updated your account successfully, but we need to verify your new email address. Please check your email and click on the confirm link to finalize confirming your new email address."
-        destroyed: 'Bye! Your account was successfully cancelled. We hope to see you again soon.'
+        updated: 'You updated your account successfully.'
       unlocks:
         send_instructions: 'You will receive an email with instructions about how to unlock your account in a few minutes.'
-        unlocked: 'Your account has been unlocked successfully. Please sign in to continue.'
         send_paranoid_instructions: 'If your account exists, you will receive an email with instructions about how to unlock it in a few minutes.'
+        unlocked: 'Your account has been unlocked successfully. Please sign in to continue.'
       omniauth_callbacks:
-        success: 'Successfully authenticated from %{kind} account.'
         failure: 'Could not authenticate you from %{kind} because "%{reason}".'
+        success: 'Successfully authenticated from %{kind} account.'
       mailer:
         toolkit_confirmation_instructions:
           subject: 'HARMAN Toolkit Confirmation link'
@@ -475,78 +476,91 @@ en:
       cabinet: Cabinet
       dealer: Dealer
       distributor: Distributor
+      download_registration: Download Registration
       effect: Effect
       effect_type: Effect Type
-      faq: FAQ
-      news: News
       events: Events
+      faq: FAQ
+      market_segment: Vertical Market
+      marketing_attachment: Attachment
+      marketing_project: Project
+      marketing_project_type: Project Template
+      marketing_task: Task
+      news: News
       online_retailer: Online Retailer
       page: Page
       product: Product
       promotion: Promotion
+      registered_download: Registered Download
       service_center: Service Center
+      site_element: Site Resource
       software: Software
       specification: Specification
       warranty_registration: Product Registration
-      download_registration: Download Registration
-      registered_download: Registered Download
-      site_element: Site Resource
       website: Website
-      market_segment: Vertical Market
-      marketing_project_type: Project Template
-      marketing_project: Project
-      marketing_task: Task
-      marketing_attachment: Attachment
 
     attributes:
       warranty_registration:
-        title: Title
-        first_name: First Name
-        last_name: Last Name
-        email: Email
         address1: Address
         city: City
-        state: State
-        zip: Zip/Postal Code
+        comments: Comments
         country: Country
+        email: Email
+        first_name: First Name
+        last_name: Last Name
         phone: Phone
         product_id: Product
-        serial_number: Serial number
+        purchase_price: Purchase price
         purchased_from: Authorized Retailer purchased from
         purchased_on: Purchase date
-        purchase_price: Purchase price
-        comments: Comments
+        serial_number: Serial number
+        state: State
+        title: Title
+        zip: Zip/Postal Code
       contact_message:
-        product: Product
-        product_serial_number: Product serial number
-        product_sku: SKU number
-        purchased_on: Purchase date
-        part_number: HARMAN part number
-        board_location: Circuit board location
-        operating_system: Operating System
-        phone: Phone
-        fax: Fax
-        company: Company
         account_number: Account Number
-        shipping_address: Address
-        shipping_city: City
-        shipping_state: US State
-        shipping_zip: Zip/Postal Code
-        shipping_country: Country
         billing_address: Address
         billing_city: City
         billing_state: US State
         billing_zip: Zip/Postal Code
+        board_location: Circuit board location
+        company: Company
+        fax: Fax
+        operating_system: Operating System
+        part_number: HARMAN part number
+        phone: Phone
+        product: Product
+        product_serial_number: Product serial number
+        product_sku: SKU number
+        purchased_on: Purchase date
+        shipping_address: Address
+        shipping_city: City
+        shipping_country: Country
+        shipping_state: US State
+        shipping_zip: Zip/Postal Code
         warranty: "Under warranty?"
       download_registration:
-          serial_number: Product serial number
           code_you_received: Unique serial number
+          serial_number: Product serial number
 
   jbl_commercial:
-    cs_series: CS Series
     commercial_solutions_series: Commercial Solutions Series
+    cs_series: CS Series
 
   crown:
-    crown_around_the_world: Crown Around The World
     around_the_world_blurb: Check out Concerts, Stadiums and more powered by Crown
+    crown_around_the_world: Crown Around The World
     read_about_the_exciting: "Click below to read all about the exciting things we are doing!"
+
+  search_page:
+    artist: Artist
+    cut_sheet: Cut Sheet
+    news: News
+    other: Other
+    page: Landing Page
+    product: Product
+    productfamily: Product Family
+    productreview: Product Review
+    software: Software
+    
+    

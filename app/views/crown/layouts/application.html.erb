@@ -119,11 +119,14 @@
             <% if website.email_signup_url %>
               <%= link_to t('news_signup').titleize, website.email_signup_url %> &bull;
             <% end %>
-						<%= link_to t('privacy_policy').titleize, privacy_policy_path %> &bull;
-						<%= link_to t('terms_of_use').titleize, terms_of_use_path %> &bull;
             <%= link_to 'careers'.titleize, "http://jobs.harman.com", target: "_blank" %> &bull;
 						<%= link_to 'contact us'.titleize, support_path %> &bull;
-            <%= link_to 'RSO Support', "/salessupport" %>
+            <%= link_to 'RSO Support', "/salessupport" %> &bull;
+	          <% if !!(website.forum_link) %>
+	            <%= link_to t("forum").titleize, website.forum_link %> &bull;
+	          <% end %>             
+						<%= link_to t('privacy_policy').titleize, privacy_policy_path %> &bull;
+						<%= link_to t('terms_of_use').titleize, terms_of_use_path %>
 					</span>
 				</div>
 			</div>

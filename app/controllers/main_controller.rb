@@ -56,7 +56,7 @@ class MainController < ApplicationController
     @page_title = t('titles.where_to_buy')
     @err = ""
     @results = []
-    unless session['geo_usa']
+    unless I18n.locale.to_s.match(/en/i)
       redirect_to international_distributors_path and return
     end
     @us_regions = website.brand.us_regions_for_website
@@ -125,30 +125,12 @@ class MainController < ApplicationController
   def search
     @page_title = t('titles.search_results')
     @query = params[:query]
-    if @query.to_s.match(/union\s{1,}select/i) || @query.to_s.match(/(and|\&*)\s{1,}sleep/i) || @query.to_s.match(/order\s{1,}by/i)
-      render plain: "Not allowed", status: 400 and return false
+
+    if pdf_only_search_results?
+      fetch_thunderstone_pdf_results
+    else
+      fetch_thinking_sphinx_results
     end
-    query = @query.to_s.gsub(/[\/\\]/, " ")
-    ferret_results = ThinkingSphinx.search(
-      ThinkingSphinx::Query.escape(query),
-      indices: locale_indices,
-      star: true,
-      page: 1, # we'll paginate after filtering out other brand assets
-      per_page: 1000
-    )
-    # Probably not the best way to do this, strip out Products from the
-    # search results unless the status is set to 'show_on_website'. It
-    # would be better to filter these out during the query
-    # above, but since this is a multi-model search, there doesn't seem
-    # to be a way to do SQL filtering on just one of the models being
-    # searched.
-    @results = ferret_results.select do |r|
-      r unless (
-          (r.is_a?(Product) && !r.show_on_website?(website)) ||
-          (r.has_attribute?(:brand_id) && r.brand_id != website.brand_id) ||
-          (r.respond_to?(:belongs_to_this_brand?) && !r.belongs_to_this_brand?(website))
-        )
-    end.paginate(page: params[:page], per_page: 10)
 
     render_template
   end
@@ -335,5 +317,60 @@ class MainController < ApplicationController
       true
     end
   end
+
+  def pdf_only_search_results?
+    # The user wants PDF only search if they check the box or they are clicking the pagination links after they have submitted a PDF only search.
+    # If they want to exit the PDF only search they will just need to uncheck the box and click search
+    checkbox_pdf_only = [true,'true','yes',1,'1','on'].include?(params[:pdf_only])
+    paginate_pdf_only = [true,'true','yes',1,'1','on'].include?(params[:paginate_pdf_only])
+    if checkbox_pdf_only == true || paginate_pdf_only == true
+      @pdf_only = true
+    else
+      @pdf_only = false
+    end    
+    @pdf_only
+  end
+
+  def fetch_thinking_sphinx_results
+    if @query.to_s.match(/union\s{1,}select/i) || @query.to_s.match(/(and|\&*)\s{1,}sleep/i) || @query.to_s.match(/order\s{1,}by/i)
+      render plain: "Not allowed", status: 400 and return false
+    end
+    query = @query.to_s.gsub(/[\/\\]/, " ")
+    ferret_results = ThinkingSphinx.search(
+      ThinkingSphinx::Query.escape(query),
+      indices: locale_indices,
+      star: true,
+      page: 1, # we'll paginate after filtering out other brand assets
+      per_page: 1000
+    )
+    # Probably not the best way to do this, strip out Products from the
+    # search results unless the status is set to 'show_on_website'. It
+    # would be better to filter these out during the query
+    # above, but since this is a multi-model search, there doesn't seem
+    # to be a way to do SQL filtering on just one of the models being
+    # searched.
+    @results = ferret_results.select do |r|
+      r unless (
+          (r.is_a?(Product) && !r.show_on_website?(website)) ||
+          (r.has_attribute?(:brand_id) && r.brand_id != website.brand_id) ||
+          (r.respond_to?(:belongs_to_this_brand?) && !r.belongs_to_this_brand?(website))
+        )
+    end.paginate(page: params[:page], per_page: 10)    
+  end  #  def fetch_thinking_sphinx_results
+
+  def fetch_thunderstone_pdf_results
+    current_page = params[:page].nil? ? 1 : params[:page].to_i
+    per_page = 10
+    #jump tells Thunderstone where to start the next fetch
+    jump = current_page == 1 ? 0 : (current_page-1)*per_page
+    
+    if @query.present?
+      thunderstone_search_profile = website.brand.name.downcase == "dbx" ? "dbxpro pdfs" : website.brand.name.downcase + " pdfs"
+      @pdf_results = ThunderstoneSearch.find(@query, thunderstone_search_profile, jump)
+      @pdf_results_paginated_list = WillPaginate::Collection.create(current_page, per_page, @pdf_results[:Summary][:TotalNum].to_i) do |pager|
+        pager.replace(@pdf_results[:ResultList].to_ary)
+      end    
+    end     
+  end  #  def fetch_thunderstone_pdf_results
 
 end

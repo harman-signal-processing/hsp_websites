@@ -34,5 +34,11 @@
     <li class="divider hide-for-medium"></li>
     <li class="hide-for-medium"><%= link_to t('events'), events_path %></li>
   <% end %>
+  
+	<% if !!(website.forum_link) %>
+    <li class="divider hide-for-medium"></li>
+    <li class="hide-for-medium"><%= link_to t("forum").titleize, website.forum_link %></li>
+	<% end %>  
+  
 <% end %>
 

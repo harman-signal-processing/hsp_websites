@@ -264,25 +264,31 @@ private
         end
       end
     rescue
-      session['geo_country'] = "US"
-      session['geo_usa'] = true
+      #session['geo_country'] = "US"
+      #session['geo_usa'] = true
     end
 
     raise ActionController::RoutingError.new("Site not found") unless website && website.respond_to?(:list_of_available_locales)
 
     # This is where we set the locale:
-    if params[:locale]
-      I18n.locale = params[:locale]
-    elsif !!(session['geo_usa']) && website.list_of_available_locales.include?("en-US")
+    if !!(session['geo_usa']) && website.list_of_available_locales.include?("en-US")
       I18n.locale = 'en-US'
     elsif session['geo_country'] == "CN" && website.list_of_available_locales.include?("zh")
       I18n.locale = 'zh'
     elsif session['geo_country'] == "UK" && website.list_of_available_locales.include?("en")
       I18n.locale = 'en'
+    elsif params.key?(:locale)
+      I18n.locale = params[:locale]
+    elsif website.locale
+      I18n.locale = website.locale
     elsif website.show_locales? && controller_path == "main" && action_name == "default_locale"
       locale_selector # otherwise the default locale is appended to the URL. #ugly
     else
       redirect_to root_path, status: :moved_permanently and return false
+    end
+
+    if params[:locale] && params[:locale].to_s != I18n.locale.to_s
+      redirect_to url_for(request.params.merge(locale: I18n.locale)) and return false
     end
   end
 

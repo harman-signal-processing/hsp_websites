@@ -238,7 +238,7 @@ set_meta_tags title: @product.name,
 
 <% end # cache %>
 
-<% if session["geo_usa"] && !@online_retailer_link && !@product.hide_buy_it_now_button? %>
+<% if I18n.locale.to_s.match(/en/i) && !@online_retailer_link && !@product.hide_buy_it_now_button? %>
 <div id="buy-it-now-popup" class="medium reveal-modal" data-reveal>
   <div class="text-right">
     <a class="close-reveal-modal">&#215;</a>

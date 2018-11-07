@@ -23,6 +23,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :brands, only: [:index, :show] do
         resources :softwares, as: :software, only: [:index, :show]
         resources :products, only: [:index, :show]
+        resources :pdfs, only: [:index]
       end
       resources :products, only: :show # for backwards compat
     end
@@ -97,9 +98,12 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get '/linkedin', to: redirect('https://www.linkedin.com/company/amx')
 
     begin
+      Brand.find("amx").product_families.each do |product_family|
+        get product_family.friendly_id, to: redirect("/en-US/product_families/#{product_family.friendly_id}")
+      end
       Brand.find("amx").products.each do |product|
-        get "/#{product.friendly_id}", to: redirect("/products/#{product.friendly_id}")
-        get "/#{product.friendly_id.gsub(/\W/, '')}", to: redirect("/products/#{product.friendly_id}")
+        get "/#{product.friendly_id}", to: redirect("/en-US/products/#{product.friendly_id}")
+        get "/#{product.friendly_id.gsub(/\W/, '')}", to: redirect("/en-US/products/#{product.friendly_id}")
       end
     rescue
       # No AMX brand found--probably a fresh test database which doesn't matter.
@@ -110,9 +114,12 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get '/network-audio' => 'pages#network_audio'
 
     begin
+      Brand.find("bss").product_families.each do |product_family|
+        get product_family.friendly_id, to: redirect("/en-US/product_families/#{product_family.friendly_id}")
+      end
       Brand.find("bss").products.each do |product|
-        get "/#{product.friendly_id}", to: redirect("/products/#{product.friendly_id}")
-        get "/#{product.friendly_id.gsub(/\W/, '')}", to: redirect("/products/#{product.friendly_id}")
+        get "/#{product.friendly_id}", to: redirect("/en-US/products/#{product.friendly_id}")
+        get "/#{product.friendly_id.gsub(/\W/, '')}", to: redirect("/en-US/products/#{product.friendly_id}")
       end
     rescue
       # No BSS brand found--probably a fresh test database which doesn't matter.
@@ -129,9 +136,12 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get '/network-audio' => 'pages#network_audio'
 
     begin
+      Brand.find("crown").product_families.each do |product_family|
+        get product_family.friendly_id, to: redirect("/en-US/product_families/#{product_family.friendly_id}")
+      end
       Brand.find("crown").products.each do |product|
-        get "/#{product.friendly_id}", to: redirect("/products/#{product.friendly_id}")
-        get "/#{product.friendly_id.gsub(/\W/, '')}", to: redirect("/products/#{product.friendly_id}")
+        get "/#{product.friendly_id}", to: redirect("/en-US/products/#{product.friendly_id}")
+        get "/#{product.friendly_id.gsub(/\W/, '')}", to: redirect("/en-US/products/#{product.friendly_id}")
       end
     rescue
       # No Crown brand found--probably a fresh test database which doesn't matter.
@@ -154,9 +164,12 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get '/google', to: redirect('https://plus.google.com/u/0/100759493077882514506/posts')
 
     begin
+      Brand.find("dbx").product_families.each do |product_family|
+        get product_family.friendly_id, to: redirect("/en-US/product_families/#{product_family.friendly_id}")
+      end
       Brand.find("dbx").products.each do |product|
-        get "/#{product.friendly_id}", to: redirect("/products/#{product.friendly_id}")
-        get "/#{product.friendly_id.gsub(/\W/, '')}", to: redirect("/products/#{product.friendly_id}")
+        get "/#{product.friendly_id}", to: redirect("/en-US/products/#{product.friendly_id}")
+        get "/#{product.friendly_id.gsub(/\W/, '')}", to: redirect("/en-US/products/#{product.friendly_id}")
       end
     rescue
       # No dbx brand found--probably a fresh test database which doesn't matter.
@@ -175,9 +188,12 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     #resources :label_sheet_orders, only: [:new, :create]
 
     begin
+      Brand.find("digitech").product_families.each do |product_family|
+        get product_family.friendly_id, to: redirect("/en-US/product_families/#{product_family.friendly_id}")
+      end
       Brand.find("digitech").products.each do |product|
-        get "/#{product.friendly_id}", to: redirect("/products/#{product.friendly_id}")
-        get "/#{product.friendly_id.gsub(/\W/, '')}", to: redirect("/products/#{product.friendly_id}")
+        get "/#{product.friendly_id}", to: redirect("/en-US/products/#{product.friendly_id}")
+        get "/#{product.friendly_id.gsub(/\W/, '')}", to: redirect("/en-US/products/#{product.friendly_id}")
       end
     rescue
       # No digitech brand found--probably a fresh test database which doesn't matter.
@@ -207,9 +223,12 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get '/google', to: redirect('https://plus.google.com/100996659132374613095/posts/')
 
     begin
+      Brand.find("lexicon").product_families.each do |product_family|
+        get product_family.friendly_id, to: redirect("/en-US/product_families/#{product_family.friendly_id}")
+      end
       Brand.find("lexicon").products.each do |product|
-        get "/#{product.friendly_id}", to: redirect("/products/#{product.friendly_id}")
-        get "/#{product.friendly_id.gsub(/\W/, '')}", to: redirect("/products/#{product.friendly_id}")
+        get "/#{product.friendly_id}", to: redirect("/en-US/products/#{product.friendly_id}")
+        get "/#{product.friendly_id.gsub(/\W/, '')}", to: redirect("/en-US/products/#{product.friendly_id}")
       end
     rescue
       # No Lexicon brand found--probably a fresh test database which doesn't matter.
@@ -218,9 +237,12 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
 
   constraints(MartinDomain) do
     begin
+      Brand.find("martin").product_families.each do |product_family|
+        get product_family.friendly_id, to: redirect("/en-US/product_families/#{product_family.friendly_id}")
+      end
       Brand.find("martin").products.each do |product|
-        get "/#{product.friendly_id}", to: redirect("/products/#{product.friendly_id}")
-        get "/#{product.friendly_id.gsub(/\W/, '')}", to: redirect("/products/#{product.friendly_id}")
+        get "/#{product.friendly_id}", to: redirect("/en-US/products/#{product.friendly_id}")
+        get "/#{product.friendly_id.gsub(/\W/, '')}", to: redirect("/en-US/products/#{product.friendly_id}")
       end
     rescue
       # No Martin brand found--probably a fresh test database which doesn't matter.
@@ -238,9 +260,12 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get '/linkedin', to: redirect('https://www.linkedin.com/company/soundcraft-studer')
 
     begin
+      Brand.find("soundcraft").product_families.each do |product_family|
+        get product_family.friendly_id, to: redirect("/en/product_families/#{product_family.friendly_id}")
+      end
       Brand.find("soundcraft").products.each do |product|
-        get "/#{product.friendly_id}", to: redirect("/products/#{product.friendly_id}")
-        get "/#{product.friendly_id.gsub(/\W/, '')}", to: redirect("/products/#{product.friendly_id}")
+        get "/#{product.friendly_id}", to: redirect("/en/products/#{product.friendly_id}")
+        get "/#{product.friendly_id.gsub(/\W/, '')}", to: redirect("/en/products/#{product.friendly_id}")
       end
     rescue
       # No Soundcraft brand found--probably a fresh test database which doesn't matter.
@@ -255,9 +280,12 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get '/linkedin', to: redirect('https://www.linkedin.com/company/studer-professional-audio-gmbh')
 
     begin
+      Brand.find("studer").product_families.each do |product_family|
+        get product_family.friendly_id, to: redirect("/en/product_families/#{product_family.friendly_id}")
+      end
       Brand.find("studer").products.each do |product|
-        get "/#{product.friendly_id}", to: redirect("/products/#{product.friendly_id}")
-        get "/#{product.friendly_id.gsub(/\W/, '')}", to: redirect("/products/#{product.friendly_id}")
+        get "/#{product.friendly_id}", to: redirect("/en/products/#{product.friendly_id}")
+        get "/#{product.friendly_id.gsub(/\W/, '')}", to: redirect("/en/products/#{product.friendly_id}")
       end
     rescue
       # No Studer brand found--probably a fresh test database which doesn't matter.

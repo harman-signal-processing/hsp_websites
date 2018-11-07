@@ -42,7 +42,14 @@ count: <%= @vip_programmers.count %>
       <td>
         <ul>
           <% programmer.locations.each do |location| %>
-            <li><%=location.city%> (<%=location.global_regions.first.name%>) (<%=location.service_areas.first.name%>)</li>
+            <li><%=location.city%> 
+              <% if location.global_regions.first.present? %>
+                (<%=location.global_regions.first.name%>) 
+              <% end%>
+              <% if location.service_areas.first.present? %>
+                (<%=location.service_areas.first.name%>)
+              <% end %>
+            </li>
           <% end %>
         </ul>
         <%= link_to "Add or remove Location", admin_vip_programmer_path(programmer, anchor:"Locations"), class: "clear tiny round button secondary" %>
