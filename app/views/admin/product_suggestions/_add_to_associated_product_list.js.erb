@@ -1,0 +1,10 @@
+(function(){
+	var $list_of_associated_products = $('#product_suggestions');
+	build_list_of_products_associated_with_this_product($list_of_associated_products);
+	
+	function build_list_of_products_associated_with_this_product($list_of_associated_products) {
+		<% @product_suggestions.each do |product_suggestion| %>
+			$('#product_suggestions').append('<%= escape_javascript(render "/admin/shared/product_suggestion_row", ps: product_suggestion, called_from: @called_from) %>');
+		<% end %>
+	}  //  function build_list_of_products_associated_with_this_product($list_of_associated_products)
+})();

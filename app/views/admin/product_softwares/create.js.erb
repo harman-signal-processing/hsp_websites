@@ -1,21 +1,9 @@
-(function(){
-	<%if @called_from == "product" %>
-		<%= render "/admin/product_softwares/rebuild_software_list" %>
-	<% end %>	
-	
-	<%if @called_from == "software" %>
-		<%= render "/admin/product_softwares/rebuild_product_list" %>
-	<% end %>
+<%if @called_from == "product" %>
+	<%= render "/admin/product_softwares/rebuild_software_select_list" %>
+<% end %>	
 
-	var $list_of_associated_products = $('#product_softwares');
+<%if @called_from == "software" %>
+	<%= render "/admin/product_softwares/rebuild_product_select_list" %>
+<% end %>
 
-	build_list_of_products_associated_with_this_software($list_of_associated_products);
-
-	function build_list_of_products_associated_with_this_software($list_of_associated_products) {
-		<% @product_softwares.each do |product_software| %>
-			$list_of_associated_products.append('<%= escape_javascript(render "/admin/shared/product_software_row", ps: product_software, called_from: @called_from) %>');
-		<% end %>	
-	}  //  function build_list_of_products_associated_with_this_site_element($list_of_associated_products)
-
-})();
-
+<%= render "/admin/product_softwares/add_to_associated_product_list" %>

@@ -1,0 +1,10 @@
+(function(){
+	var $list_of_associated_products = $('#product_site_elements');
+	build_list_of_products_associated_with_this_site_element($list_of_associated_products);
+	
+	function build_list_of_products_associated_with_this_site_element($list_of_associated_products) {
+		<% @product_site_elements.each do |pse| %>
+			$list_of_associated_products.append('<%= escape_javascript(render "/admin/shared/product_site_element_row", pse: pse, called_from: "site_element") %>');
+		<% end %>	
+	}  //  function build_list_of_products_associated_with_this_site_element($list_of_associated_products)
+})();

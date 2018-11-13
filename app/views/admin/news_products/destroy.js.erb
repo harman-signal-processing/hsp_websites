@@ -3,7 +3,7 @@
     $('#news_product_<%= @news_product.id %>').remove();
     
 	<%if @called_from == "news" %>
-		<%= render "/admin/news_products/rebuild_product_list" %>
+		<%= render "/admin/news_products/rebuild_product_select_list" %>
 	<% end %>
 })();
 

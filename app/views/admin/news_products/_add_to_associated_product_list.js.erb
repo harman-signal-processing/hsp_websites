@@ -1,0 +1,15 @@
+(function(){
+	var $list_of_associated_products = $('#news_products');
+
+	build_list_of_products_associated_with_this_news_item($list_of_associated_products);
+
+	function build_list_of_products_associated_with_this_news_item($list_of_associated_products) {
+		<% if @news_products.present? %>
+			<% @news_products.each do |news_product| %>
+				$list_of_associated_products.append('<%= escape_javascript(render "/admin/shared/news_product_row", np: news_product, called_from: @called_from) %>');
+			<% end %>	
+		<% else %>
+				$list_of_associated_products.append('<%= escape_javascript(render "/admin/shared/news_product_row", np: @news_product, called_from: @called_from) %>');
+		<% end %>
+	}  //  function build_list_of_products_associated_with_this_news_item($list_of_associated_products)
+})();

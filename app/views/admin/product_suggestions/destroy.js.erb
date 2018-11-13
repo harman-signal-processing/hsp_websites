@@ -1,25 +1,6 @@
 (function(){
-	var $products_dropdown = $('#product_suggestion_suggested_product_id');
+  // remove associated product
+  $('#product_suggestion_<%= @product_suggestion.id %>').remove();
 
-    // remove associated product
-    $('#product_suggestion_<%= @product_suggestion.id %>').remove();
-
-  rebuild_product_suggestion_list_after_product_unassociated($products_dropdown);
-
-	function rebuild_product_suggestion_list_after_product_unassociated($products_dropdown) {
-	
-		// clear the product list before we rebuild it
-		$products_dropdown.empty();
-		
-		// rebuild product dropdown list
-		$products_dropdown.append($("<option></option>"));
-		<% products_not_associated_and_not_self = (Product.not_associated_with_these_products(@product_suggestion.product.alternatives, website) - [@product_suggestion.product]).sort_by(&:name)%>
-		<% products_not_associated_and_not_self.each do |product| %>
-			$products_dropdown.append($("<option value='<%=product.id%>'><%=product.name%></option>"));
-		<% end %>
-		
-		// let chosen know the product dropdown list has been updated
-		$products_dropdown.trigger('chosen:updated');	
-	
-	}  //  function rebuild_product_suggestion_list_after_product_unassociated($products_dropdown)
+	<%= render "/admin/product_suggestions/rebuild_product_select_list" %>
 })();

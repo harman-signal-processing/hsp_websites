@@ -2,6 +2,6 @@
 	$('#parent_product_<%= @parent_product.id %>').remove();
 
 	<%if @called_from == "product" %>
-		<%= render "/admin/parent_products/rebuild_parent_product_list" %>		
+		<%= render "/admin/parent_products/rebuild_parent_product_select_list" %>		
 	<% end %>
 })();

@@ -1,0 +1,15 @@
+(function(){
+	var $products_dropdown = $('#product_suggestion_suggested_product_id');
+
+	// clear the product list before we rebuild it
+	$products_dropdown.empty();
+	
+	// rebuild product dropdown list
+	$products_dropdown.append($("<option></option>"));		
+	<% (Product.not_associated_with_these_products(@product_suggestion.product.alternatives, website) - [@product_suggestion.product]).each do |product| %>
+		$products_dropdown.append($("<option value='<%=product.id%>'><%=product.name%></option>"));
+	<% end %>
+	
+	// let chosen know the product dropdown list has been updated
+	$products_dropdown.trigger('chosen:updated');
+})();

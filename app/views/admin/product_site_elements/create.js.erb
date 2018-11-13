@@ -1,34 +1,5 @@
+<%if @called_from == "site_element" %>
+	<%= render "/admin/product_site_elements/rebuild_product_select_list" %>
+<% end %>	
 
-// Using immediate function so as to not pollute the javascript global scope with variables only used here
-(function(){
-
-	var 
-		$products_dropdown = $('#product_site_element_product_id'),
-		$list_of_associated_products = $('#product_site_elements');
-		
-	rebuild_product_list_after_selections_made($products_dropdown);
-	build_list_of_products_associated_with_this_site_element($list_of_associated_products);
-	
-	function rebuild_product_list_after_selections_made($products_dropdown) {
-	
-		// clear the product list before we rebuild it
-		$products_dropdown.empty();
-		
-		// rebuild product dropdown list
-		$products_dropdown.append($("<option></option>"));
-		<% Product.not_associated_with_this_site_element(@product_site_element.site_element, website).each do |product| %>
-			$products_dropdown.append($("<option value='<%=product.id%>'><%=product.name%></option>"));
-		<% end %>
-		
-		// let chosen know the product dropdown list has been updated
-		$products_dropdown.trigger('chosen:updated');	
-	
-	}  //  function rebuild_product_list($products_dropdown)
-
-	function build_list_of_products_associated_with_this_site_element($list_of_associated_products) {
-		<% @product_site_elements.each do |pse| %>
-			$list_of_associated_products.append('<%= escape_javascript(render "/admin/shared/product_site_element_row", pse: pse, called_from: "site_element") %>');
-		<% end %>	
-	}  //  function build_list_of_products_associated_with_this_site_element($list_of_associated_products)
-
-})();
+<%= render "/admin/product_site_elements/add_to_associated_product_list" %>
