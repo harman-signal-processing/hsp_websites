@@ -38,6 +38,12 @@ class Software < ApplicationRecord
 
   belongs_to :brand, touch: true
 
+  scope :not_associated_with_this_product, -> (product, website) { 
+    software_ids_already_associated_with_this_product = ProductSoftware.where("product_id = ?", product.id).map{|ps| ps.software_id }
+    software_not_associated_with_this_product = website.brand.softwares.where.not(id: software_ids_already_associated_with_this_product)    
+    software_not_associated_with_this_product
+  }
+
   def should_generate_new_friendly_id?
     true
   end

@@ -1,0 +1,16 @@
+(function(){
+	var $product_family_dropdown = $('#product_family_product_product_family_id');
+
+	// clear the product family list before we rebuild it
+	$product_family_dropdown.empty();
+	
+	// rebuild product family dropdown list
+	$product_family_dropdown.append($("<option></option>"));		
+
+	<% ProductFamily.options_not_associated_with_this_product(@product_family_product.product, website).each do |product_family| %>
+		$product_family_dropdown.append($("<option value='<%=product_family.id%>'><%= CGI.unescapeHTML(product_family.name) %></option>"));
+	<% end %>		
+	
+	// let chosen know the software dropdown list has been updated
+	$product_family_dropdown.trigger('chosen:updated');
+})();	

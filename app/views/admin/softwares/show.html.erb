@@ -48,11 +48,14 @@
 <div id="software" class="group">
 	<h4 class="subheader">Related Products</h4>
 	<%= simple_form_for [:admin, @product_software], remote: true do |f| %>
-		<%= f.association :product, label: false, collection: website.products %>
+		<%= f.association :product, 
+		label: false, 
+		collection: Product.not_associated_with_this_software(@software, website),
+		input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Related Products'} }%>
 
 		<%= hidden_field_tag "called_from", "software" %>
 		<%= f.hidden_field :software_id %>
-		<%= submit_tag 'submit', class: "small round button"  %> 
+		<%= submit_tag 'submit', class: "small round button", style: "margin-top:10px;"  %> 
 		<% if can? :create, Product %>
 		or <%= link_to "create a new product", new_admin_product_path %>
 		<% end %>

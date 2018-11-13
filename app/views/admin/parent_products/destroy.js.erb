@@ -1,1 +1,7 @@
-$('#parent_product_<%= @parent_product.id %>').remove();
+(function(){
+	$('#parent_product_<%= @parent_product.id %>').remove();
+
+	<%if @called_from == "product" %>
+		<%= render "/admin/parent_products/rebuild_parent_product_list" %>		
+	<% end %>
+})();

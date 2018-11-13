@@ -85,7 +85,10 @@
           <%= f.hidden_field :product_family_id %>
           <div class="row collapse">
             <div class="large-7 small-8 columns">
-              <%= f.association :product, label: false, collection: website.products %>
+              <%= f.association :product, 
+              label: false, 
+              collection: Product.not_associated_with_this_product_family(@product_family_product.product_family, website),
+              input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Products'} }%>
             </div>
             <div class="large-2 small-4 columns">
               <%= submit_tag 'add', class: "postfix button"  %>

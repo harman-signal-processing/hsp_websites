@@ -1,2 +1,16 @@
-$("#product_software_<%= @product_software.id %>").remove();
-<% flash.discard %>
+(function(){
+
+    // remove associated product_software item
+    $("#product_software_<%= @product_software.id %>").remove();
+    
+	<%if @called_from == "product" %>
+		<%= render "/admin/product_softwares/rebuild_software_list" %>
+	<% end %>	
+	
+	<%if @called_from == "software" %>
+		<%= render "/admin/product_softwares/rebuild_product_list" %>
+	<% end %>
+	
+})();
+
+

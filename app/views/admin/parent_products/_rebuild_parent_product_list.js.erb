@@ -1,0 +1,16 @@
+(function(){
+		var $parent_products_dropdown = $('#parent_product_parent_product_id');
+		
+		// clear the product list before we rebuild it
+		$parent_products_dropdown.empty();
+		
+		// rebuild product dropdown list
+		$parent_products_dropdown.append($("<option></option>"));			
+		
+		<% Product.not_associated_with_these_parent_products(@parent_product.product.parent_products, website).sort_by(&:name).each do |parent_product| %>
+			$parent_products_dropdown.append($("<option value='<%=parent_product.id%>'><%=h parent_product.name%></option>"));
+		<% end %>
+		
+		// let chosen know the parent product dropdown list has been updated
+		$parent_products_dropdown.trigger('chosen:updated');
+})();

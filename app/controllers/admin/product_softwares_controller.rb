@@ -38,18 +38,35 @@ class Admin::ProductSoftwaresController < AdminController
   def create
     @called_from = params[:called_from] || 'product'
     respond_to do |format|
-      if @product_software.save
-        format.html { redirect_to([:admin, @product_software], notice: 'Product Software was successfully created.') }
-        format.xml  { render xml: @product_software, status: :created, location: @product_software }
-        format.js
-        website.add_log(user: current_user, action: "Added #{@product_software.software.name} to #{@product_software.product.name}")
-      else
-        format.html { render action: "new" }
-        format.xml  { render xml: @product_software.errors, status: :unprocessable_entity }
-        format.js
-      end
-    end
-  end
+      if @product_softwares.present?
+        begin
+          @product_softwares.each do |product_software|
+            begin
+              product_software.save!
+              website.add_log(user: current_user, action: "Added #{product_software.software.name} to #{product_software.product.name}")
+              format.js
+            rescue
+              # format.js { render template: "admin/product_site_elements/create_error" }
+            end
+          end  #  @product_softwares.each do |product_software|
+        rescue
+          # format.js { render template: "admin/product_site_elements/create_error" }
+        end      
+      elsif @product_software.present?
+      
+        if @product_software.save
+          format.html { redirect_to([:admin, @product_software], notice: 'Product Software was successfully created.') }
+          format.xml  { render xml: @product_software, status: :created, location: @product_software }
+          format.js
+          website.add_log(user: current_user, action: "Added #{@product_software.software.name} to #{@product_software.product.name}")
+        else
+          format.html { render action: "new" }
+          format.xml  { render xml: @product_software.errors, status: :unprocessable_entity }
+          format.js
+        end  #  if @product_software.save 
+      end  #  if @product_softwares.present?
+    end  #  respond_to do |format|
+  end  #  def create
 
   # PUT /admin/product_softwares/1
   # PUT /admin/product_softwares/1.xml
@@ -81,6 +98,7 @@ class Admin::ProductSoftwaresController < AdminController
   # DELETE /admin/product_softwares/1
   # DELETE /admin/product_softwares/1.xml
   def destroy
+    @called_from = params[:called_from] || 'product'
     @product_software.destroy
     respond_to do |format|
       format.html { redirect_to(admin_product_softwares_url) }
@@ -93,8 +111,23 @@ class Admin::ProductSoftwaresController < AdminController
   private
 
   def initialize_product_software
-    @product_software = ProductSoftware.new(product_software_params)
-  end
+    # will be an array if coming from chosen-rails multiple select dropdown
+    if product_software_params[:product_id].is_a?(Array)
+      @product_softwares = []
+      software_id = product_software_params[:software_id]
+      product_software_params[:product_id].reject(&:blank?).each do |product|
+        @product_softwares << ProductSoftware.new({software_id: software_id, product_id: product})
+      end  
+    elsif product_software_params[:software_id].is_a?(Array)
+      @product_softwares = []
+      product_id = product_software_params[:product_id]
+      product_software_params[:software_id].reject(&:blank?).each do |software|
+        @product_softwares << ProductSoftware.new({software_id: software, product_id: product_id})
+      end      
+    else
+      @product_software = ProductSoftware.new(product_software_params)
+    end
+  end  #  def initialize_product_software
 
   def product_software_params
     params.require(:product_software).permit!
