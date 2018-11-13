@@ -1,2 +1,10 @@
-$('#news_product_<%= @news_product.id %>').remove();
+(function(){
+    // remove associated news_product item
+    $('#news_product_<%= @news_product.id %>').remove();
+    
+	<%if @called_from == "news" %>
+		<%= render "/admin/news_products/rebuild_product_list" %>
+	<% end %>
+})();
+
 <% flash.discard %>

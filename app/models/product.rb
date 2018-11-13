@@ -111,6 +111,12 @@ class Product < ApplicationRecord
     parent_products_not_associated_with_this_product
   }
 
+  scope :not_associated_with_this_news_item, -> (news_item, website) { 
+    product_ids_already_associated_with_this_news_item = NewsProduct.where("news_id = ?", news_item.id).map{|ps| ps.product_id }
+    products_not_associated_with_this_news_item = website.products.where.not(id: product_ids_already_associated_with_this_news_item)    
+    products_not_associated_with_this_news_item
+  }
+
   def slug_candidates
     [
       :formatted_name,
