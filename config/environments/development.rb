@@ -65,7 +65,7 @@ Rails.application.configure do
   #  domain: ENV['MAILGUN_DOMAIN']
   #}
 
-  config.i18n.fallbacks = true
+  config.i18n.fallbacks = [:en]
 
   config.toolkit_url = "toolkit.lvh.me:3000"
   config.action_mailer.default_url_options = { :host => "toolkit.lvh.me", protocol: "http", port: 3000 }

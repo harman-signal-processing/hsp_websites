@@ -43,8 +43,8 @@ $tabs-navigation-font-color: white;
 $tabs-navigation-active-font-color: white;
 $tabs-navigation-font-size: rem-calc(14);
 $tabs-navigation-font-family: $body-font-family;
-$anchor-font-color: #00275d;
-$anchor-font-color-hover: lighten($anchor-font-color, 5%);
+$anchor-font-color: saturate(lighten($primary-color, 10%), 10%);
+$anchor-font-color-hover: darken($anchor-font-color, 10%);
 
 $form-spacing: rem-calc(18px);
 $form-label-font-weight: 400;

@@ -22,6 +22,7 @@ gem 'mysql2' , '< 0.4.7' # internal server wouldn't install 0.4.7
 gem 'utf8-cleaner'
 gem 'friendly_id', '>= 5.2'
 gem 'aws-sdk', '< 3' # v3 modularizes AWS services, tough to work with paperclip
+gem 'fog-core', '< 2.1.1'
 gem 'fog-rackspace'
 gem 'fog-aws'
 gem 'asset_sync'

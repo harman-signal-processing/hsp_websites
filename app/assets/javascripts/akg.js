@@ -16,6 +16,7 @@
 //= require jquery.lightbox-0.5.min
 //= require jquery.datetimepicker
 //= require jquery.pin
+//= require jquery.rwdImageMaps.min
 //= require global_functions
 //= require maps
 //= require twitter
@@ -40,4 +41,5 @@ $(function(){
     }
   });
 
+  $('img[usemap]').rwdImageMaps();
 });
