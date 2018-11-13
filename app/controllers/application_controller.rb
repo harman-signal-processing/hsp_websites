@@ -156,10 +156,22 @@ private
     @youtube_client ||= Google::APIClient.new(key: ENV['GOOGLE_YOUTUBE_API_KEY'],
       authorization: nil,
       application_name: "HSP-WWW",
-      application_version: "1.0.0"
+      application_version: "1.0.0",
+      user_agent: youtube_user_agent # likely won't be needed when upgrading google-api gem
     )
   end
   helper_method :youtube_client
+
+  # Builds a custom user agent to prevent Google::APIClient to
+  # use an invalid auto-generated one
+  def youtube_user_agent
+    [
+      "HSP-Brandsites/1.0",
+      "google-api-ruby-client/#{Google::APIClient::VERSION::STRING}",
+      Google::APIClient::ENV::OS_VERSION,
+      '(gzip)'
+    ].join(' ').delete("\n")
+  end
 
   def youtube_api
     @youtube_api ||= youtube_client.discovered_api('youtube', 'v3')
