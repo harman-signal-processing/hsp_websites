@@ -1,5 +1,5 @@
 class Admin::ProductSpecificationsController < AdminController
-  before_action :load_product, except: [:edit, :update, :create, :update_order, :destroy]
+  before_action :load_product, except: [:edit, :update, :create, :update_order, :copy, :destroy]
   before_action :initialize_product_specification, only: :create
   load_and_authorize_resource except: [:index, :copy, :update_order]
   skip_authorization_check only: [:copy, :update_order]
