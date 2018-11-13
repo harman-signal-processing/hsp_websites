@@ -1,5 +1,4 @@
 (function(){
-
 	<%if @called_from == "product" %>
 		<%= render "/admin/product_softwares/rebuild_software_list" %>
 	<% end %>	
@@ -7,7 +6,6 @@
 	<%if @called_from == "software" %>
 		<%= render "/admin/product_softwares/rebuild_product_list" %>
 	<% end %>
-
 
 	var $list_of_associated_products = $('#product_softwares');
 
@@ -20,3 +18,4 @@
 	}  //  function build_list_of_products_associated_with_this_site_element($list_of_associated_products)
 
 })();
+

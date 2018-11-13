@@ -1,21 +1,15 @@
 (function(){
 	<%if @called_from == "product" %>
 		<%= render "/admin/product_family_products/rebuild_product_family_list" %>
-		
-		<% @product_family_products.each do |product_family_product| %>
-			$('#product_family_products').append('<%= escape_javascript(render '/admin/shared/product_family_product_row', pfp: product_family_product, called_from: @called_from) %>');
-		<% end %>		
-		
 	<% end %>	
 	
 	<%if @called_from == "product_family" %>
 		<%= render "/admin/product_family_products/rebuild_product_list" %>
-		
-		<% @product_family_products.each do |product_family_product| %>
-			$('#product_family_products').append('<%= escape_javascript(render '/admin/shared/product_family_product_row', pfp: product_family_product, called_from: @called_from) %>');
-		<% end %>			
-		
 	<% end %>
+	
+	<% @product_family_products.each do |product_family_product| %>
+		$('#product_family_products').append('<%= escape_javascript(render '/admin/shared/product_family_product_row', pfp: product_family_product, called_from: @called_from) %>');
+	<% end %>			
 })();
 
 <% flash.discard %>

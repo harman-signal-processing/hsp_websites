@@ -1,5 +1,4 @@
 (function(){
-
     // remove associated product_software item
     $("#product_software_<%= @product_software.id %>").remove();
     
@@ -10,7 +9,5 @@
 	<%if @called_from == "software" %>
 		<%= render "/admin/product_softwares/rebuild_product_list" %>
 	<% end %>
-	
 })();
-
 
