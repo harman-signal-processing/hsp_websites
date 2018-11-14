@@ -23,7 +23,10 @@
 		    <%= f.hidden_field :badge_id %>
 		    <div class="row collapse">
 		    	<div class="small-8 columns">
-		    		<%= f.association :product, collection: website.products, label: false %>
+		    		<%= f.association :product, 
+		    		collection: Product.not_associated_with_this_badge(@product_badge.badge, website).sort_by(&:name), 
+		    		label: false,
+		    		input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Products'} }%>
 		    	</div>
 		    	<div class="small-4 columns">
 		    		<%= f.submit "add product", class: "postfix button" %>

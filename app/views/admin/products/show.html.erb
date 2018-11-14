@@ -635,7 +635,10 @@
         <%= hidden_field_tag :called_form, "product" %>
         <div class="row collapse">
           <div class="small-8 columns">
-            <%= f.association :badge, label: false %>
+            <%= f.association :badge, 
+            collection: Badge.not_associated_with_this_product(@product_badge.product, website),
+            label: false,
+            input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Badges'} }%>
           </div>
           <div class="small-4 columns">
             <%= f.submit "add badge", class: "button postfix" %>

@@ -116,6 +116,12 @@ class Product < ApplicationRecord
     products_not_associated_with_this_news_item = website.products.where.not(id: product_ids_already_associated_with_this_news_item)    
     products_not_associated_with_this_news_item
   }
+  
+  scope :not_associated_with_this_badge, -> (badge, website) { 
+    product_ids_already_associated_with_this_badge = ProductBadge.where("badge_id = ?", badge.id).map{|ps| ps.product_id }
+    products_not_associated_with_this_badge = website.products.where.not(id: product_ids_already_associated_with_this_badge)    
+    products_not_associated_with_this_badge
+  }  
 
   def slug_candidates
     [
