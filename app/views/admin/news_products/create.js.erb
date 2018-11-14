@@ -1,2 +1,7 @@
-$('#news_products').append('<%= escape_javascript(render "/admin/shared/news_product_row", np: @news_product, called_from: @called_from) %>');
+<%if @called_from == "news" %>
+	<%= render "/admin/news_products/rebuild_product_select_list" %>
+<% end %>	
+
+<%= render "/admin/news_products/add_to_associated_item_list" %>
+
 <% flash.discard %>

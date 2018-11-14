@@ -1,2 +1,7 @@
-$('#parent_products').append('<%= escape_javascript(render "/admin/shared/parent_product_row", pp: @parent_product, called_from: @called_from) %>');
+<%if @called_from == "product" %>
+	<%= render "/admin/parent_products/rebuild_parent_product_select_list" %>
+<% end %>
+
+<%= render "/admin/parent_products/add_to_associated_item_list" %>
+
 <% flash.discard %>

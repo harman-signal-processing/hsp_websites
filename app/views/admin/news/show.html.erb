@@ -181,7 +181,11 @@
 				    <%= f.hidden_field :news_id %>
 				    <div class="row collapse">
 				    	<div class="large-8 small-8 columns">
-				    		<%= f.association :product, collection: @products, label: false %>
+				    		<%= f.association :product, 
+				    		# collection: @products, 
+				    		collection: Product.not_associated_with_this_news_item(@news, website), 
+				    		label: false,
+				    		input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Products'} }%>
 				    	</div>
 				    	<div class="large-4 small-4 columns">
 				    		<%= submit_tag 'add', class: "prefix button"  %>

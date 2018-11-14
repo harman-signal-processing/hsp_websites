@@ -28,6 +28,16 @@ class ProductFamily < ApplicationRecord
   acts_as_tree order: :position, scope: :brand_id
   # acts_as_list scope: :brand_id, -> { order('position') }
 
+  scope :options_not_associated_with_this_product, -> (product, website) { 
+    product_family_ids_already_associated_with_this_product = ProductFamilyProduct.where("product_id = ?", product.id).map{|pfp| pfp.product_family_id }
+    product_families_not_associated_with_this_product = self.nested_options(website)
+        .select{|item| product_family_ids_already_associated_with_this_product.exclude?(item.keys[0]) }
+        .reject(&:empty?)
+        .map{|item| ProductFamily.new(id: item.keys[0], name: item.values[0]) }
+
+    product_families_not_associated_with_this_product
+  }
+
   def slug_candidates
     [
       :name,
@@ -54,11 +64,11 @@ class ProductFamily < ApplicationRecord
   def self.nested_options(w)
     options = []
     all_parents(w).each do |p|
-      options << OpenStruct.new(name: p.name, id: p.id)
+      options << { p.id => p.name  }
       if p.children.length > 0
         options += p.children_options(1)
       end
-      options << OpenStruct.new()
+      options << {}
     end
     options
   end
@@ -67,7 +77,7 @@ class ProductFamily < ApplicationRecord
     bump = "&#160;" * indent * 2
     options = []
     children.each do |c|
-      options << OpenStruct.new(name: "#{bump}#{c.name}", id: c.id)
+      options << { c.id => "#{bump}#{c.name}" }
       if c.children.length > 0
         options += c.children_options(indent + 1)
       end

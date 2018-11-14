@@ -1,11 +1,15 @@
 <p>
+  <b>Brand:</b>
+  <%=@product_software.product.brand.name %>
+</p>
+<p>
   <b>Product:</b>
-  <%=h @product_software.product_id %>
+  <%=link_to @product_software.product.name, [:admin, @product_software.product] %>
 </p>
 
 <p>
   <b>Software:</b>
-  <%=h @product_software.software_id %>
+  <%=link_to @product_software.software.name + " " + @product_software.software.version, [:admin, @product_software.software] %>
 </p>
 
 

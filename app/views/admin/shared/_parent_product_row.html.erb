@@ -5,7 +5,7 @@
 			link_to(pp.parent_product.name, [:admin, pp.parent_product]) : 
 			link_to(pp.product.name, [:admin, pp.product]) %> 
 	<%= link_to(image_tag("icons/trash.gif"), 
-			admin_parent_product_path(pp), 
+			admin_parent_product_path(pp, called_from: called_from), 
 			confirm: "Are you sure? (This won't delete either product--it will only remove the association.)", 
 			remote: true,
 			method: :delete) %>

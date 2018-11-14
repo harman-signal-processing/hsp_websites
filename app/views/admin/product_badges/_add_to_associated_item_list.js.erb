@@ -1,0 +1,11 @@
+(function(){
+	var $list_of_associated_products = $('#product_badges');
+
+	build_list_of_products_associated_with_this_badge($list_of_associated_products);
+
+	function build_list_of_products_associated_with_this_badge($list_of_associated_products) {
+		<% @product_badges.each do |product_badge| %>
+			$list_of_associated_products.append('<%= escape_javascript(render "/admin/shared/product_badge_row", pb: product_badge, called_from: @called_from) %>');
+		<% end %>	
+	}  //  function build_list_of_products_associated_with_this_badge($list_of_associated_products)
+})();

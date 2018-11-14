@@ -1,2 +1,5 @@
-$('#product_suggestions').append('<%= escape_javascript(render "/admin/shared/product_suggestion_row", ps: @product_suggestion, called_from: @called_from) %>');
-<% flash.discard %>
+<%if @called_from == "product" %>
+	<%= render "/admin/product_suggestions/rebuild_product_select_list" %>
+<% end %>			
+	
+<%= render "/admin/product_suggestions/add_to_associated_item_list" %>

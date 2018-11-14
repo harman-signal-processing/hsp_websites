@@ -1,2 +1,14 @@
-$('#product_badge_<%= @product_badge.id %>').remove();
+(function(){
+    // remove associated product_badge item
+    $('#product_badge_<%= @product_badge.id %>').remove();
+    
+	<%if @called_from == "product" %>
+		<%= render "/admin/product_badges/rebuild_badge_select_list" %>
+	<% end %>	
+	
+	<%if @called_from == "badge" %>
+		<%= render "/admin/product_badges/rebuild_product_select_list" %>
+	<% end %>
+})();
+
 <% flash.discard %>
