@@ -1,2 +1,9 @@
-$('#product_site_element_<%= @product_site_element.id %>').remove();
-<% flash.discard %>
+(function(){
+    // remove associated product
+    $('#product_site_element_<%= @product_site_element.id %>').remove();
+    
+<%if @called_from == "site_element" %>
+	<%= render "/admin/product_site_elements/rebuild_product_select_list" %>
+<% end %>	
+
+})();

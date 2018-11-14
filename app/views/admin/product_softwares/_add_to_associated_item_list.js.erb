@@ -1,0 +1,11 @@
+(function(){
+	var $list_of_associated_products = $('#product_softwares');
+
+	build_list_of_products_associated_with_this_software($list_of_associated_products);
+
+	function build_list_of_products_associated_with_this_software($list_of_associated_products) {
+		<% @product_softwares.each do |product_software| %>
+			$list_of_associated_products.append('<%= escape_javascript(render "/admin/shared/product_software_row", ps: product_software, called_from: @called_from) %>');
+		<% end %>	
+	}  //  function build_list_of_products_associated_with_this_software($list_of_associated_products)
+})();

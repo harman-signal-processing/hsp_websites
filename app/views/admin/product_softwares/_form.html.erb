@@ -1,5 +1,17 @@
 <%= simple_form_for([:admin, @product_software]) do |f| %>
-  <%= f.association :product %>
-  <%= f.association :software %>
+  <ul id="edit_product_software_associaton" class="large-block-grid-2">
+    <li>
+      	<%= f.association :product, 
+    		collection: website.brand.products.sort_by(&:name),
+    		input_html: { class: 'chosen-select' }%>
+  	</li>
+  	<li>
+        <%= f.association :software, 
+        collection: (website.brand.softwares).sort_by(&:name),
+        label_method: -> (software) { "#{software.name} #{software.version}" },
+        input_html: { class: 'chosen-select' } %>
+    </li>
+  </ul>    
+  
   <br/><%= f.button :submit %>
 <% end %>

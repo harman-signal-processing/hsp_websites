@@ -1,2 +1,14 @@
-$('#product_family_products').append('<%= escape_javascript(render '/admin/shared/product_family_product_row', pfp: @product_family_product, called_from: @called_from) %>');
+(function(){
+	<%if @called_from == "product" %>
+		<%= render "/admin/product_family_products/rebuild_product_family_select_list" %>
+	<% end %>	
+	
+	<%if @called_from == "product_family" %>
+		<%= render "/admin/product_family_products/rebuild_product_select_list" %>
+	<% end %>
+	
+	<%= render "/admin/product_family_products/add_to_associated_item_list" %>	
+})();
+
 <% flash.discard %>
+

@@ -181,8 +181,10 @@
 					<div class="row collapse">
 						<div class="large-10 small-8 columns">
 							<%= f.association :software, label: false,
-									collection: Software.where(brand_id: website.brand_id).all.sort_by(&:formatted_name),
-									label_method: :formatted_name %>
+									# collection: Software.where(brand_id: website.brand_id).all.sort_by(&:formatted_name),
+									collection: Software.not_associated_with_this_product(@product_software.product, website).sort_by(&:formatted_name),
+									label_method: :formatted_name,
+									input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Software'} }%>
 						</div>
 						<div class="large-2 small-4 columns">
 							<%= submit_tag 'submit', class: "postfix button"  %>
@@ -283,8 +285,9 @@
             <div style="margin-bottom: 20px;">
               <span id="select_spec_name">
                 <%= f.association :specification,
-                  collection: Specification.order(Arel.sql("UPPER(name)")),
-                  label_method: website.brand.use_flattened_specs? ? :name : :name_with_group
+                  collection: Specification.order(Arel.sql("upper(name)")),
+                  label_method: website.brand.use_flattened_specs? ? :name : :name_with_group,
+                  input_html: { class: 'chosen-select', data: { placeholder: 'Select Specification'} }
                 %>
                 <%= link_to_function("new spec name",
                     "$('span#select_spec_name').toggle();$('span#new_spec_name').toggle()") if can?(:create, Specification) %>
@@ -446,7 +449,10 @@
 				    	<div class="large-10 small-8 columns">
                 <%=raw f.association(:product_family,
                                      label: false,
-                                     collection: ProductFamily.nested_options(website)).gsub(/\&amp\;/, '&') %>
+                                     #collection: ProductFamily.nested_options(website),
+                                     collection: ProductFamily.options_not_associated_with_this_product(@product_family_product.product, website),
+                                     input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Product Family'} }
+                                     ).gsub(/\&amp\;/, '&')%>
 				    	</div>
 				    	<div class="large-2 small-4 columns">
 				    		<%= submit_tag 'add', class: "prefix button"  %>
@@ -478,7 +484,11 @@
 						<%= f.hidden_field :product_id %>
 						<div class="row collapse">
 							<div class="large-10 small-8 columns">
-								<%= f.association :parent_product, collection: (website.products - [@product]), label: false %>
+								<%= f.association :parent_product, 
+								# collection: (website.products - [@product]), 
+								collection: (	Product.not_associated_with_these_parent_products(@product.parent_products, website) - [@product]), 
+								label: false,
+								input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Parent Products'} }%>
 							</div>
 							<div class="large-2 small-4 columns">
 								<%= submit_tag 'add', class: "postfix button"  %>
@@ -508,8 +518,11 @@
 					<div class="row collapse">
 						<div class="large-10 small-8 columns">
 							<%= f.association :suggested_product, 
-							  collection: (website.current_products - [@product]).sort_by(&:name),
-							  label: false %>
+							  # collection: (website.current_products - [@product]).sort_by(&:name),
+							  collection: (Product.not_associated_with_these_products(@product.alternatives,website) - [@product]).sort_by(&:name),
+							  label: false,
+							  input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Suggested Products'} }
+							  %>
 						</div>
 						<div class="large-2 small-4 columns">
 							<%= submit_tag 'submit', class: "postfix button"  %>
@@ -622,7 +635,10 @@
         <%= hidden_field_tag :called_form, "product" %>
         <div class="row collapse">
           <div class="small-8 columns">
-            <%= f.association :badge, label: false %>
+            <%= f.association :badge, 
+            collection: Badge.not_associated_with_this_product(@product_badge.product, website),
+            label: false,
+            input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Badges'} }%>
           </div>
           <div class="small-4 columns">
             <%= f.submit "add badge", class: "button postfix" %>

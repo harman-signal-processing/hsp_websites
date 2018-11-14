@@ -1,3 +1,5 @@
-$('#product_site_elements').append('<%= escape_javascript(render "/admin/shared/product_site_element_row", pse: @product_site_element, called_from: @called_from) %>');
-$('#site_element_name').val('');
-<% flash.discard %>
+<%if @called_from == "site_element" %>
+	<%= render "/admin/product_site_elements/rebuild_product_select_list" %>
+<% end %>	
+
+<%= render "/admin/product_site_elements/add_to_associated_item_list" %>

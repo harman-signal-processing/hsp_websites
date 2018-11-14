@@ -35,20 +35,11 @@ class Admin::ProductSuggestionsController < ApplicationController
   end
 
   # POST /admin/product_suggestions
-  # POST /admin/product_suggestions.xml
   def create
     @called_from = params[:called_from] || 'product'
     respond_to do |format|
-      if @product_suggestion.save
-        format.html { redirect_to([:admin, @product_suggestion], notice: 'Product Suggestion was successfully created.') }
-        format.xml  { render xml: @product_suggestion, status: :created, location: @product_suggestion }
-        format.js
-        website.add_log(user: current_user, action: "Created a product suggestion for #{@product_suggestion.product.name} (suggesting #{@product_suggestion.suggested_product.name})")
-      else
-        format.html { render action: "new" }
-        format.xml  { render xml: @product_suggestion.errors, status: :unprocessable_entity }
-        format.js
-      end
+      @product_suggestions.each(&:save)
+      format.js
     end
   end
 
@@ -81,13 +72,17 @@ class Admin::ProductSuggestionsController < ApplicationController
       format.xml  { head :ok }
       format.js
     end
-    website.add_log(user: current_user, action: "Removed suggested product from #{@product_suggestion.product.name}")
+    website.add_log(user: current_user, action: "Removed suggested product: #{Product.find(@product_suggestion.suggested_product_id).name} from #{@product_suggestion.product.name}")
   end
 
   private
 
   def initialize_product_suggestion
-    @product_suggestion = ProductSuggestion.new(product_suggestion_params)
+    @product_suggestions = []
+    product_id = product_suggestion_params[:product_id]
+    product_suggestion_params[:suggested_product_id].reject(&:blank?).each do |suggested_product|
+      @product_suggestions << ProductSuggestion.new({product_id: product_id, suggested_product_id: suggested_product})
+    end
   end
 
   def product_suggestion_params

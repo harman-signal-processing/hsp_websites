@@ -1,2 +1,12 @@
-$("#product_family_product_<%= @product_family_product.id %>").remove();
+(function(){
+	$("#product_family_product_<%= @product_family_product.id %>").remove();
+	
+	<%if @called_from == "product" %>
+		<%= render "/admin/product_family_products/rebuild_product_family_select_list" %>
+	<% end %>	
+	<%if @called_from == "product_family" %>
+		<%= render "/admin/product_family_products/rebuild_product_select_list" %>
+	<% end %>
+})();
+
 <% flash.discard %>

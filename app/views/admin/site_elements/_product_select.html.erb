@@ -1,0 +1,10 @@
+  <%= simple_form_for [:admin, @product_site_element], remote: true do |f| %>
+    <%= f.hidden_field :site_element_id %>
+    <%= hidden_field_tag :called_from, "site_element" %>
+    <%= f.association :product, 
+        collection: Product.not_associated_with_this_site_element(site_element,website), 
+        label: false, 
+        input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Products'} } %>
+    <%= f.submit "add products", class: "small round button", style:"margin-top:10px;" %>
+  <% end %>
+  

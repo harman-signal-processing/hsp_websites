@@ -46,18 +46,39 @@ class Admin::ProductFamilyProductsController < AdminController
   def create
     @called_from = params[:called_from] || 'product'
     respond_to do |format|
-      if @product_family_product.save
-        format.html { redirect_to([:admin, @product_family_product], notice: 'Product was successfully added to family.') }
-        format.xml  { render xml: @product_family_product, status: :created, location: @product_family_product }
-        format.js
-        website.add_log(user: current_user, action: "Added #{@product_family_product.product.name} to #{@product_family_product.product_family.name}")
+      
+      if @product_family_products.present?
+        begin
+          @product_family_products.each do |product_family_product|
+            begin
+              product_family_product.save!
+              website.add_log(user: current_user, action: "Added #{product_family_product.product.name} to #{product_family_product.product_family.name}")
+              format.js
+            rescue
+              # format.js { render template: "admin/product_family_products/create_error" }
+            end
+          end  #  @product_family_products.each do |product_family_product|
+          
+        rescue
+          # format.js { render template: "admin/product_family_products/create_error" }
+        end  
+        
       else
-        format.html { render action: "new" }
-        format.xml  { render xml: @product_family_product.errors, status: :unprocessable_entity }
-        format.js { render plain: "Error"}
-      end
-    end
-  end
+      
+        if @product_family_product.save
+          format.html { redirect_to([:admin, @product_family_product], notice: 'Product was successfully added to family.') }
+          format.xml  { render xml: @product_family_product, status: :created, location: @product_family_product }
+          format.js
+          website.add_log(user: current_user, action: "Added #{@product_family_product.product.name} to #{@product_family_product.product_family.name}")
+        else
+          format.html { render action: "new" }
+          format.xml  { render xml: @product_family_product.errors, status: :unprocessable_entity }
+          format.js { render plain: "Error"}
+        end
+      end  # else of if @product_family_products.present?
+      
+    end  #  respond_to do |format|
+  end  #  def create
 
   # PUT /admin/product_family_products/1
   # PUT /admin/product_family_products/1.xml
@@ -83,6 +104,7 @@ class Admin::ProductFamilyProductsController < AdminController
   # DELETE /admin/product_family_products/1
   # DELETE /admin/product_family_products/1.xml
   def destroy
+    @called_from = params[:called_from] || 'product'
     @product_family_product.destroy
     respond_to do |format|
       format.html { redirect_to(admin_product_family_products_url) }
@@ -95,8 +117,23 @@ class Admin::ProductFamilyProductsController < AdminController
   private
 
   def initialize_product_family_product
-    @product_family_product = ProductFamilyProduct.new(product_family_product_params)
-  end
+    # will be an array if coming from chosen-rails multiple select dropdown
+    if product_family_product_params[:product_id].is_a?(Array)
+      @product_family_products = []
+      product_family_id = product_family_product_params[:product_family_id]
+      product_family_product_params[:product_id].reject(&:blank?).each do |product|
+        @product_family_products << ProductFamilyProduct.new({product_family_id: product_family_id, product_id: product})
+      end       
+    elsif product_family_product_params[:product_family_id].is_a?(Array)
+      @product_family_products = []
+      product_id = product_family_product_params[:product_id]
+      product_family_product_params[:product_family_id].reject(&:blank?).each do |product_family|
+        @product_family_products << ProductFamilyProduct.new({product_family_id: product_family, product_id: product_id})
+      end          
+    else
+      @product_family_product = ProductFamilyProduct.new(product_family_product_params)    
+    end
+  end  #  def initialize_product_family_product
 
   def product_family_product_params
     params.require(:product_family_product).permit!

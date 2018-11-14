@@ -1,0 +1,16 @@
+(function(){
+	var $software_dropdown = $('#product_software_software_id');
+
+	// clear the software list before we rebuild it
+	$software_dropdown.empty();
+	
+	// rebuild software dropdown list
+	$software_dropdown.append($("<option></option>"));		
+
+	<% Software.not_associated_with_this_product(@product_software.product, website).sort_by(&:name).each do |software| %>
+		$software_dropdown.append($("<option value='<%=software.id%>'><%=software.formatted_name%></option>"));
+	<% end %>		
+	
+	// let chosen know the software dropdown list has been updated
+	$software_dropdown.trigger('chosen:updated');
+})();

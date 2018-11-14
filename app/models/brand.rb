@@ -243,7 +243,7 @@ class Brand < ApplicationRecord
     if fp.blank?
       Product.where(brand_id: self.id).order(Arel.sql("UPPER(name)"))
     else
-      Product.select("DISTINCT *").where("brand_id = ? OR id IN (#{fp})", self.id).order(Arel.sql("UPPER(name)"))
+      Product.select("DISTINCT *").where("brand_id = ? OR products.id IN (#{fp})", self.id).order(Arel.sql("UPPER(name)"))
     end
     # Product.find_by_sql("SELECT DISTINCT products.* FROM products
     #   INNER JOIN product_family_products ON product_family_products.product_id = products.id

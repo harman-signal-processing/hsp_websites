@@ -1,2 +1,6 @@
-$('#product_suggestion_<%= @product_suggestion.id %>').remove();
-<% flash.discard %>
+(function(){
+  // remove associated product
+  $('#product_suggestion_<%= @product_suggestion.id %>').remove();
+
+	<%= render "/admin/product_suggestions/rebuild_product_select_list" %>
+})();

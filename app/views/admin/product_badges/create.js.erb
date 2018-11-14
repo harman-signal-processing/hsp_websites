@@ -1,3 +1,11 @@
-$('#product_badges').append('<%= escape_javascript(render "/admin/shared/product_badge_row", pb: @product_badge, called_from: @called_from) %>');
-$('#badge_name').val('');
+<%if @called_from == "product" %>
+	<%= render "/admin/product_badges/rebuild_badge_select_list" %>
+<% end %>	
+
+<%if @called_from == "badge" %>
+	<%= render "/admin/product_badges/rebuild_product_select_list" %>
+<% end %>
+
+<%= render "/admin/product_badges/add_to_associated_item_list" %>
+
 <% flash.discard %>

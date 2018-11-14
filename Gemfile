@@ -59,6 +59,7 @@ gem 'rubyzip', require: 'zip'
 gem 'whenever' #, require: false
 gem "simple_form", ">= 2.0.2"
 gem 'country_select' #, '~> 1.3.1' # v2+ switches to store 2-letter ISO for country which breaks our current setup
+gem 'chosen-rails'
 gem 'language_list'
 gem 'ransack'
 gem "dalli"

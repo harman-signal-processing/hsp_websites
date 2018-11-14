@@ -1,0 +1,5 @@
+(function(){
+	<% @product_family_products.each do |product_family_product| %>
+		$('#product_family_products').append('<%= escape_javascript(render '/admin/shared/product_family_product_row', pfp: product_family_product, called_from: @called_from) %>');
+	<% end %>	
+})();
