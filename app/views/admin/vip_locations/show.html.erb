@@ -13,8 +13,11 @@
           <%= simple_form_for [:admin, @vip_location_global_region], remote: true do |f| %>
             <%= f.hidden_field :vip_location_id %>
             <%= hidden_field_tag :called_from, "vip_location" %>
-            <%= f.association :global_region, collection: @vip_global_regions, label: false %>
-            <%= f.submit "add global region", class: "small round button" %>
+            <%= f.association :global_region, 
+            collection: Vip::GlobalRegion.not_associated_with_this_location(@vip_location_global_region.location), 
+            label: false,
+            input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Global Regions'} }%>
+            <%= f.submit "add global region", class: "small round button", style:"margin-top:10px;" %>
           <% end %>
 					
 					Current global regions
@@ -38,8 +41,11 @@
           <%= simple_form_for [:admin, @vip_location_service_area], remote: true do |f| %>
             <%= f.hidden_field :vip_location_id %>
             <%= hidden_field_tag :called_from, "vip_location" %>
-            <%= f.association :service_area, collection: @vip_service_areas, label: false %>
-            <%= f.submit "add service are", class: "small round button" %>
+            <%= f.association :service_area, 
+            collection: Vip::ServiceArea.not_associated_with_this_location(@vip_location_service_area.location), 
+            label: false,
+            input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Service Areas'} }%>
+            <%= f.submit "add service are", class: "small round button", style: "margin-top:10px;" %>
           <% end %>
 					
 					Current service areas

@@ -10,5 +10,11 @@ class Vip::Location < ApplicationRecord
 	
 	has_many :location_service_areas, dependent: :destroy, foreign_key: "vip_location_id"
 	has_many :service_areas, through: :location_service_areas
-	
+
+  scope :not_associated_with_this_programmer, -> (programmer) { 
+    location_ids_already_associated_with_this_programmer = Vip::ProgrammerLocation.where("vip_programmer_id = ?", programmer.id).map{|programmer_location| programmer_location.vip_location_id }
+    locations_not_associated_with_this_programmer = Vip::Location.where.not(id: location_ids_already_associated_with_this_programmer)    
+    locations_not_associated_with_this_programmer
+  }
+
 end

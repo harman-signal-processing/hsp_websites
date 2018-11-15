@@ -1,2 +1,11 @@
-$('#vip_location_global_region_<%= @vip_location_global_region.id %>').remove();
+(function(){
+    // remove associated global region
+    $('#vip_location_global_region_<%= @vip_location_global_region.id %>').remove();
+    
+<%if @called_from == "vip_location" %>
+	<%= render "/admin/vip_location_global_regions/rebuild_global_region_select_list" %>
+<% end %>	
+})();
+
 <% flash.discard %>
+

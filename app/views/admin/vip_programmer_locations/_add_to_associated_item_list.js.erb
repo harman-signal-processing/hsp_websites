@@ -1,0 +1,10 @@
+(function(){
+	var $list_of_associated_locations = $('#vip_programmer_locations');
+	build_list_of_locations_associated_with_this_programmer($list_of_associated_locations);
+	
+	function build_list_of_locations_associated_with_this_programmer($list_of_associated_locations) {
+		<% @vip_programmer_locations.each do |vip_programmer_location| %>
+			$list_of_associated_locations.append('<%= escape_javascript(render "/admin/shared/vip_programmer_location_row", association: vip_programmer_location, called_from: @called_from) %>');
+		<% end %>	
+	}  //  function build_list_of_locations_associated_with_this_programmer($list_of_associated_locations)
+})();

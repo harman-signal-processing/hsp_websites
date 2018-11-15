@@ -1,0 +1,10 @@
+(function(){
+	var $list_of_associated_certifications = $('#vip_programmer_certifications');
+	build_list_of_certifications_associated_with_this_programmer($list_of_associated_certifications);
+	
+	function build_list_of_certifications_associated_with_this_programmer($list_of_associated_certifications) {
+		<% @vip_programmer_certifications.each do |vip_programmer_certification| %>
+			$list_of_associated_certifications.append('<%= escape_javascript(render "/admin/shared/vip_programmer_certification_row", association: vip_programmer_certification, called_from: @called_from) %>');
+		<% end %>	
+	}  //  function build_list_of_locations_associated_with_this_programmer($list_of_associated_certifications)
+})();

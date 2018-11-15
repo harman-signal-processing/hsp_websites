@@ -41,18 +41,37 @@ class Admin::VipProgrammerLocationsController < AdminController
   def create
     @called_from = params[:called_from] || "vip_programmer"
     respond_to do |format|
-      if @vip_programmer_location.save
-        format.html { redirect_to([:admin, @vip_programmer_location], notice: 'Programmer location was successfully created.') }
-        format.xml  { render xml: @vip_programmer_location, status: :created, location: @vip_programmer_location }
-        format.js 
-        website.add_log(user: current_user, action: "Associated a location with #{@vip_programmer_location.programmer.name}")
-      else
-        format.html { render action: "new" }
-        format.xml  { render xml: @vip_programmer_location.errors, status: :unprocessable_entity }
-        format.js { render template: "admin/vip_programmer_locations/create_error" }
-      end
-    end
-  end  
+      
+      if @vip_programmer_locations.present?
+        begin
+          @vip_programmer_locations.each do |vip_programmer_location|
+            begin
+              vip_programmer_location.save!
+              website.add_log(user: current_user, action: "Associated #{vip_programmer_location.programmer.name} with #{vip_programmer_location.location.name}")
+              format.js
+            rescue
+              format.js { render template: "admin/vip_programmer_locations/create_error" }
+            end
+          end  #  @vip_programmer_locations.each do |vip_programmer_location|
+          
+        rescue
+          format.js { render template: "admin/vip_programmer_locations/create_error" }
+        end        
+      else      
+      
+        if @vip_programmer_location.save
+          format.html { redirect_to([:admin, @vip_programmer_location], notice: 'Programmer location was successfully created.') }
+          format.xml  { render xml: @vip_programmer_location, status: :created, location: @vip_programmer_location }
+          format.js 
+          website.add_log(user: current_user, action: "Associated #{vip_programmer_location.programmer.name} with #{vip_programmer_location.location.name}")
+        else
+          format.html { render action: "new" }
+          format.xml  { render xml: @vip_programmer_location.errors, status: :unprocessable_entity }
+          format.js { render template: "admin/vip_programmer_locations/create_error" }
+        end
+      end  #  if @product_site_elements.present?
+    end  #  respond_to do |format|
+  end  #  def create
   
   
   # PUT /admin/vip_programmer_locations/1
@@ -78,6 +97,7 @@ class Admin::VipProgrammerLocationsController < AdminController
   # DELETE /admin/vip_programmer_locations/1
   # DELETE /admin/vip_programmer_locations/1.xml
   def destroy
+    @called_from = params[:called_from] || "vip_programmer"
     @vip_programmer_location.destroy
     respond_to do |format|
       format.html { redirect_to(admin_vip_programmer_locations_url) }
@@ -90,8 +110,16 @@ class Admin::VipProgrammerLocationsController < AdminController
   private
 
 	  def initialize_vip_programmer_location
-	    @vip_programmer_location = Vip::ProgrammerLocation.new(vip_programmer_location_params)
-	  end
+      if vip_programmer_location_params[:vip_location_id].is_a?(Array)
+        @vip_programmer_locations = []
+        vip_programmer_id = vip_programmer_location_params[:vip_programmer_id]
+        vip_programmer_location_params[:vip_location_id].reject(&:blank?).each do |location|
+          @vip_programmer_locations << Vip::ProgrammerLocation.new({vip_programmer_id: vip_programmer_id, vip_location_id: location})
+        end        
+      else
+        @vip_programmer_location = Vip::ProgrammerLocation.new(vip_programmer_location_params)
+      end	    
+	  end  #  def initialize_vip_programmer_location
 	
 	  def vip_programmer_location_params
 	    params.require(:vip_programmer_location).permit!

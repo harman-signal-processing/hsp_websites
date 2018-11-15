@@ -1,0 +1,15 @@
+(function(){
+	var $locations_dropdown = $('#vip_programmer_location_vip_location_id');
+
+	// clear the location list before we rebuild it
+	$locations_dropdown.empty();
+	
+	// rebuild location dropdown list
+	$locations_dropdown.append($("<option></option>"));		
+	<% Vip::Location.not_associated_with_this_programmer(@vip_programmer_location.programmer).each do |location| %>
+		$locations_dropdown.append($("<option value='<%=location.id%>'><%=location.name%></option>"));
+	<% end %>
+	
+	// let chosen know the location dropdown list has been updated
+	$locations_dropdown.trigger('chosen:updated');
+})();

@@ -1,3 +1,7 @@
-$('#vip_programmer_websites').append('<%= escape_javascript(render "/admin/shared/vip_programmer_website_row", association: @vip_programmer_website, called_from: @called_from) %>');
-$('#website_name').val('');
+<%if @called_from == "vip_programmer" %>
+	<%= render "/admin/vip_programmer_websites/rebuild_website_select_list" %>
+<% end %>	
+
+<%= render "/admin/vip_programmer_websites/add_to_associated_item_list" %>
+
 <% flash.discard %>

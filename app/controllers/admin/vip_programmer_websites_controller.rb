@@ -40,18 +40,37 @@ class Admin::VipProgrammerWebsitesController < AdminController
   def create
     @called_from = params[:called_from] || "vip_programmer"
     respond_to do |format|
-      if @vip_programmer_website.save
-        format.html { redirect_to([:admin, @vip_programmer_website], notice: 'Programmer website was successfully created.') }
-        format.xml  { render xml: @vip_programmer_website, status: :created, location: @vip_programmer_website }
-        format.js 
-        website.add_log(user: current_user, action: "Associated a website with #{@vip_programmer_website.programmer.name}")
-      else
-        format.html { render action: "new" }
-        format.xml  { render xml: @vip_programmer_website.errors, status: :unprocessable_entity }
-        format.js { render template: "admin/vip_programmer_websites/create_error" }
+      if @vip_programmer_websites.present?
+        begin
+          @vip_programmer_websites.each do |vip_programmer_website|
+            begin
+              vip_programmer_website.save!
+              website.add_log(user: current_user, action: "Associated #{vip_programmer_website.programmer.name} with #{vip_programmer_website.website.url}")
+              format.js
+            rescue => e
+              @error = "Error: #{e.message} : #{vip_programmer_website.website.url}"
+              format.js { render template: "admin/vip_programmer_websites/create_error" }
+            end
+          end  #  @vip_programmer_websites.each do |vip_programmer_website|
+          
+        rescue => e
+          @error = "Error: #{e.message}"
+          format.js { render template: "admin/vip_programmer_websites/create_error" }
+        end        
+      else       
+        if @vip_programmer_website.save
+          format.html { redirect_to([:admin, @vip_programmer_website], notice: 'Programmer website was successfully created.') }
+          format.xml  { render xml: @vip_programmer_website, status: :created, location: @vip_programmer_website }
+          format.js 
+          website.add_log(user: current_user, action: "Associated #{vip_programmer_website.programmer.name} with #{vip_programmer_website.website.url}")
+        else
+          format.html { render action: "new" }
+          format.xml  { render xml: @vip_programmer_website.errors, status: :unprocessable_entity }
+          format.js { render template: "admin/vip_programmer_websites/create_error" }
+        end
       end
-    end
-  end  
+    end  #  respond_to do |format|
+  end  #  def create   
   
   # PUT /admin/vip_programmer_websites/1
   # PUT /admin/vip_programmer_websites/1.xml
@@ -76,6 +95,7 @@ class Admin::VipProgrammerWebsitesController < AdminController
   # DELETE /admin/vip_programmer_websites/1
   # DELETE /admin/vip_programmer_websites/1.xml
   def destroy
+    @called_from = params[:called_from] || "vip_programmer"
     @vip_programmer_website.destroy
     respond_to do |format|
       format.html { redirect_to(admin_vip_programmer_websites_url) }
@@ -88,8 +108,16 @@ class Admin::VipProgrammerWebsitesController < AdminController
   private
 
 	  def initialize_vip_programmer_website
-	    @vip_programmer_website = Vip::ProgrammerWebsite.new(vip_programmer_website_params)
-	  end
+      if vip_programmer_website_params[:vip_website_id].is_a?(Array)
+        @vip_programmer_websites = []
+        vip_programmer_id = vip_programmer_website_params[:vip_programmer_id]
+        vip_programmer_website_params[:vip_website_id].reject(&:blank?).each do |website|
+          @vip_programmer_websites << Vip::ProgrammerWebsite.new({vip_programmer_id: vip_programmer_id, vip_website_id: website})
+        end        
+      else
+        @vip_programmer_website = Vip::ProgrammerWebsite.new(vip_programmer_website_params)
+      end	 	    
+	  end  #  def initialize_vip_programmer_website
 	
 	  def vip_programmer_website_params
 	    params.require(:vip_programmer_website).permit!

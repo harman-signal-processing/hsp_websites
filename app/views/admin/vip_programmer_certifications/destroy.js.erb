@@ -1,2 +1,10 @@
-$('#vip_programmer_certification_<%= @vip_programmer_certification.id %>').remove();
+(function(){
+    // remove associated certification
+    $('#vip_programmer_certification_<%= @vip_programmer_certification.id %>').remove();
+    
+<%if @called_from == "vip_programmer" %>
+	<%= render "/admin/vip_programmer_certifications/rebuild_certification_select_list" %>
+<% end %>	
+})();
+
 <% flash.discard %>

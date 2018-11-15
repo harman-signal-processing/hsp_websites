@@ -1,3 +1,7 @@
-$('#vip_programmer_services').append('<%= escape_javascript(render "/admin/shared/vip_programmer_service_row", association: @vip_programmer_service, called_from: @called_from) %>');
-$('#service_name').val('');
+<%if @called_from == "vip_programmer" %>
+	<%= render "/admin/vip_programmer_services/rebuild_service_select_list" %>
+<% end %>	
+
+<%= render "/admin/vip_programmer_services/add_to_associated_item_list" %>
+
 <% flash.discard %>
