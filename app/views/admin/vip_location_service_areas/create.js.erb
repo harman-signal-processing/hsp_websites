@@ -1,3 +1,7 @@
-$('#vip_location_service_areas').append('<%= escape_javascript(render "/admin/shared/vip_location_service_area_row", association: @vip_location_service_area, called_from: @called_from) %>');
-$('#location_service_area_name').val('');
+<%if @called_from == "vip_location" %>
+	<%= render "/admin/vip_location_service_areas/rebuild_service_area_select_list" %>
+<% end %>	
+
+<%= render "/admin/vip_location_service_areas/add_to_associated_item_list" %>
+
 <% flash.discard %>

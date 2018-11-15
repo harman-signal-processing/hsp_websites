@@ -1,2 +1,10 @@
-$('#vip_programmer_website_<%= @vip_programmer_website.id %>').remove();
+(function(){
+    // remove associated website
+    $('#vip_programmer_website_<%= @vip_programmer_website.id %>').remove();
+    
+<%if @called_from == "vip_programmer" %>
+	<%= render "/admin/vip_programmer_websites/rebuild_website_select_list" %>
+<% end %>	
+})();
+
 <% flash.discard %>

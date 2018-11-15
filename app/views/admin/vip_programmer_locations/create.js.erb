@@ -1,3 +1,7 @@
-$('#vip_programmer_locations').append('<%= escape_javascript(render "/admin/shared/vip_programmer_location_row", association: @vip_programmer_location, called_from: @called_from) %>');
-$('#location_name').val('');
+<%if @called_from == "vip_programmer" %>
+	<%= render "/admin/vip_programmer_locations/rebuild_location_select_list" %>
+<% end %>	
+
+<%= render "/admin/vip_programmer_locations/add_to_associated_item_list" %>
+
 <% flash.discard %>

@@ -1,0 +1,15 @@
+(function(){
+	var $phones_dropdown = $('#vip_programmer_phone_vip_phone_id');
+
+	// clear the phone list before we rebuild it
+	$phones_dropdown.empty();
+	
+	// rebuild phone dropdown list
+	$phones_dropdown.append($("<option></option>"));		
+	<% Vip::Phone.not_associated_with_this_programmer(@vip_programmer_phone.programmer).each do |phone| %>
+		$phones_dropdown.append($("<option value='<%=phone.id%>'><%=phone.phone%></option>"));
+	<% end %>
+	
+	// let chosen know the phone dropdown list has been updated
+	$phones_dropdown.trigger('chosen:updated');
+})();

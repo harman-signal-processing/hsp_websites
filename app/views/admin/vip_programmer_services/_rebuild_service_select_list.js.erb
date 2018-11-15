@@ -1,0 +1,15 @@
+(function(){
+	var $services_dropdown = $('#vip_programmer_service_vip_service_id');
+
+	// clear the service list before we rebuild it
+	$services_dropdown.empty();
+	
+	// rebuild service dropdown list
+	$services_dropdown.append($("<option></option>"));		
+	<% Vip::Service.not_associated_with_this_programmer(@vip_programmer_service.programmer).each do |service| %>
+		$services_dropdown.append($("<option value='<%=service.id%>'><%=service.name%></option>"));
+	<% end %>
+	
+	// let chosen know the service dropdown list has been updated
+	$services_dropdown.trigger('chosen:updated');
+})();

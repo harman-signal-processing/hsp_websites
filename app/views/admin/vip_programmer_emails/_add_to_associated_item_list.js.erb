@@ -1,0 +1,10 @@
+(function(){
+	var $list_of_associated_emails = $('#vip_programmer_emails');
+	build_list_of_emails_associated_with_this_programmer($list_of_associated_emails);
+	
+	function build_list_of_emails_associated_with_this_programmer($list_of_associated_emails) {
+		<% @vip_programmer_emails.each do |vip_programmer_email| %>
+			$list_of_associated_emails.append('<%= escape_javascript(render "/admin/shared/vip_programmer_email_row", association: vip_programmer_email, called_from: @called_from) %>');
+		<% end %>	
+	}  //  function build_list_of_emails_associated_with_this_programmer($list_of_associated_emails)
+})();

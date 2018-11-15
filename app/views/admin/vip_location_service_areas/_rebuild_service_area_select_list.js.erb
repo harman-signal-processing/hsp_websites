@@ -1,0 +1,15 @@
+(function(){
+	var $service_areas_dropdown = $('#vip_location_service_area_vip_service_area_id');
+	
+	// clear the service_areas list before we rebuild it
+	$service_areas_dropdown.empty();
+	
+	// rebuild service_areas dropdown list
+	$service_areas_dropdown.append($("<option></option>"));		
+	<% Vip::ServiceArea.not_associated_with_this_location(@vip_location_service_area.location).each do |service_area| %>
+		$service_areas_dropdown.append($("<option value='<%=service_area.id%>'><%=service_area.name%></option>"));
+	<% end %>
+	
+	// let chosen know the service_areas dropdown list has been updated
+	$service_areas_dropdown.trigger('chosen:updated');
+})();

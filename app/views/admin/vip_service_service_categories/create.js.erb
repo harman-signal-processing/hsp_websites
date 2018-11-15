@@ -1,3 +1,7 @@
-$('#vip_service_service_categories').append('<%= escape_javascript(render "/admin/shared/vip_service_service_category_row", association: @vip_service_service_category, called_from: @called_from) %>');
-$('#service_service_category_name').val('');
+<%if @called_from == "vip_service" %>
+	<%= render "/admin/vip_service_service_categories/rebuild_category_select_list" %>
+<% end %>	
+
+<%= render "/admin/vip_service_service_categories/add_to_associated_item_list" %>
+
 <% flash.discard %>

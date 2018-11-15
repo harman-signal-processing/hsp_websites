@@ -1,3 +1,7 @@
-$('#vip_programmer_markets').append('<%= escape_javascript(render "/admin/shared/vip_programmer_market_row", association: @vip_programmer_market, called_from: @called_from) %>');
-$('#market_name').val('');
+<%if @called_from == "vip_programmer" %>
+	<%= render "/admin/vip_programmer_markets/rebuild_market_select_list" %>
+<% end %>	
+
+<%= render "/admin/vip_programmer_markets/add_to_associated_item_list" %>
+
 <% flash.discard %>

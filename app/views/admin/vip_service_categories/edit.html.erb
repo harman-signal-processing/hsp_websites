@@ -1,6 +1,9 @@
+<ul class="button-group round">
+  <li><%= link_to 'Back to Categories List', admin_vip_service_categories_path, class: "small button round" %>	</li>
+</ul>
 <%= simple_form_for([:admin, @vip_service_category]) do |f| %>
   <%= f.input :name, label: "Name" %>
 
     </br>
-  <%= f.button :submit %>
+  <%= f.button :submit, "Update Category" %>
 <% end # simple_form_for([:admin, @vip_service_category]) do |f|%>

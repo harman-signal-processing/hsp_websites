@@ -1,2 +1,10 @@
-$('#vip_programmer_service_<%= @vip_programmer_service.id %>').remove();
+(function(){
+    // remove associated service
+    $('#vip_programmer_service_<%= @vip_programmer_service.id %>').remove();
+    
+<%if @called_from == "vip_programmer" %>
+	<%= render "/admin/vip_programmer_services/rebuild_service_select_list" %>
+<% end %>	
+})();
+
 <% flash.discard %>

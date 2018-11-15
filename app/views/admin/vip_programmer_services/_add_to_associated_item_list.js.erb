@@ -1,0 +1,10 @@
+(function(){
+	var $list_of_associated_services = $('#vip_programmer_services');
+	build_list_of_services_associated_with_this_programmer($list_of_associated_services);
+	
+	function build_list_of_services_associated_with_this_programmer($list_of_associated_services) {
+		<% @vip_programmer_services.each do |vip_programmer_service| %>
+			$list_of_associated_services.append('<%= escape_javascript(render "/admin/shared/vip_programmer_service_row", association: vip_programmer_service, called_from: @called_from) %>');
+		<% end %>	
+	}  //  function build_list_of_services_associated_with_this_programmer($list_of_associated_services)
+})();
