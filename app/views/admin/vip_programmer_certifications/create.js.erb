@@ -1,3 +1,7 @@
-$('#vip_programmer_certifications').append('<%= escape_javascript(render "/admin/shared/vip_programmer_certification_row", association: @vip_programmer_certification, called_from: @called_from) %>');
-$('#certification_name').val('');
+<%if @called_from == "vip_programmer" %>
+	<%= render "/admin/vip_programmer_certifications/rebuild_certification_select_list" %>
+<% end %>	
+
+<%= render "/admin/vip_programmer_certifications/add_to_associated_item_list" %>
+
 <% flash.discard %>

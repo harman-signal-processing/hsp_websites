@@ -1,2 +1,10 @@
-$('#vip_programmer_location_<%= @vip_programmer_location.id %>').remove();
+(function(){
+    // remove associated location
+    $('#vip_programmer_location_<%= @vip_programmer_location.id %>').remove();
+    
+<%if @called_from == "vip_programmer" %>
+	<%= render "/admin/vip_programmer_locations/rebuild_location_select_list" %>
+<% end %>	
+})();
+
 <% flash.discard %>

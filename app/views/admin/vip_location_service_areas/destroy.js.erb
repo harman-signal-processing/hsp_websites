@@ -1,2 +1,11 @@
-$('#vip_location_service_area_<%= @vip_location_service_area.id %>').remove();
+(function(){
+    // remove associated service area
+    $('#vip_location_service_area_<%= @vip_location_service_area.id %>').remove();
+    
+<%if @called_from == "vip_location" %>
+	<%= render "/admin/vip_location_service_areas/rebuild_service_area_select_list" %>
+<% end %>	
+})();
+
 <% flash.discard %>
+

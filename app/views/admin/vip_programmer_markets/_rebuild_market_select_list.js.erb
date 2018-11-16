@@ -1,0 +1,15 @@
+(function(){
+	var $markets_dropdown = $('#vip_programmer_market_vip_market_id');
+
+	// clear the market list before we rebuild it
+	$markets_dropdown.empty();
+	
+	// rebuild market dropdown list
+	$markets_dropdown.append($("<option></option>"));		
+	<% Vip::Market.not_associated_with_this_programmer(@vip_programmer_market.programmer).each do |market| %>
+		$markets_dropdown.append($("<option value='<%=market.id%>'><%=market.name%></option>"));
+	<% end %>
+	
+	// let chosen know the market dropdown list has been updated
+	$markets_dropdown.trigger('chosen:updated');
+})();

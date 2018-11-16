@@ -1,0 +1,10 @@
+(function(){
+	var $list_of_associated_phones = $('#vip_programmer_phones');
+	build_list_of_phones_associated_with_this_programmer($list_of_associated_phones);
+	
+	function build_list_of_phones_associated_with_this_programmer($list_of_associated_phones) {
+		<% @vip_programmer_phones.each do |vip_programmer_phone| %>
+			$list_of_associated_phones.append('<%= escape_javascript(render "/admin/shared/vip_programmer_phone_row", association: vip_programmer_phone, called_from: @called_from) %>');
+		<% end %>	
+	}  //  function build_list_of_phones_associated_with_this_programmer($list_of_associated_phones)
+})();

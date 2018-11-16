@@ -1,0 +1,15 @@
+(function(){
+	var $certifications_dropdown = $('#vip_programmer_certification_vip_certification_id');
+
+	// clear the certification list before we rebuild it
+	$certifications_dropdown.empty();
+	
+	// rebuild certification dropdown list
+	$certifications_dropdown.append($("<option></option>"));		
+	<% Vip::Certification.not_associated_with_this_programmer(@vip_programmer_certification.programmer).each do |certification| %>
+		$certifications_dropdown.append($("<option value='<%=certification.id%>'><%=certification.name%></option>"));
+	<% end %>
+	
+	// let chosen know the certification dropdown list has been updated
+	$certifications_dropdown.trigger('chosen:updated');
+})();

@@ -1,2 +1,11 @@
-$('#vip_service_service_category_<%= @vip_service_service_category.id %>').remove();
+(function(){
+    // remove associated category
+    $('#vip_service_service_category_<%= @vip_service_service_category.id %>').remove();
+    
+<%if @called_from == "vip_service" %>
+	<%= render "/admin/vip_service_service_categories/rebuild_category_select_list" %>
+<% end %>	
+})();
+
 <% flash.discard %>
+

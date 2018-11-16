@@ -1,0 +1,10 @@
+(function(){
+	var $list_of_associated_websites = $('#vip_programmer_websites');
+	build_list_of_websites_associated_with_this_programmer($list_of_associated_websites);
+	
+	function build_list_of_websites_associated_with_this_programmer($list_of_associated_websites) {
+		<% @vip_programmer_websites.each do |vip_programmer_website| %>
+			$list_of_associated_websites.append('<%= escape_javascript(render "/admin/shared/vip_programmer_website_row", association: vip_programmer_website, called_from: @called_from) %>');
+		<% end %>	
+	}  //  function build_list_of_websites_associated_with_this_programmer($list_of_associated_websites)
+})();

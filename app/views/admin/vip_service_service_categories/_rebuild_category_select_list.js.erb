@@ -1,0 +1,15 @@
+(function(){
+	var $categories_dropdown = $('#vip_service_service_category_vip_service_category_id');
+
+	// clear the categories list before we rebuild it
+	$categories_dropdown.empty();
+	
+	// rebuild categories dropdown list
+	$categories_dropdown.append($("<option></option>"));		
+	<% Vip::ServiceCategory.not_associated_with_this_service(@vip_service_service_category.service).each do |category| %>
+		$categories_dropdown.append($("<option value='<%=category.id%>'><%=category.name%></option>"));
+	<% end %>
+	
+	// let chosen know the categories dropdown list has been updated
+	$categories_dropdown.trigger('chosen:updated');
+})();

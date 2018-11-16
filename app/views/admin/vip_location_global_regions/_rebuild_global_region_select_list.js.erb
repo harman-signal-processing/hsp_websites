@@ -1,0 +1,15 @@
+(function(){
+	var $global_regions_dropdown = $('#vip_location_global_region_vip_global_region_id');
+	
+	// clear the global_regions list before we rebuild it
+	$global_regions_dropdown.empty();
+	
+	// rebuild global_regions dropdown list
+	$global_regions_dropdown.append($("<option></option>"));		
+	<% Vip::GlobalRegion.not_associated_with_this_location(@vip_location_global_region.location).each do |global_region| %>
+		$global_regions_dropdown.append($("<option value='<%=global_region.id%>'><%=global_region.name%></option>"));
+	<% end %>
+	
+	// let chosen know the global_regions dropdown list has been updated
+	$global_regions_dropdown.trigger('chosen:updated');
+})();

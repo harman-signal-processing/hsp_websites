@@ -1,0 +1,10 @@
+(function(){
+	var $list_of_associated_global_regions = $('#vip_location_global_regions');
+	build_list_of_global_regions_associated_with_this_location($list_of_associated_global_regions);
+	
+	function build_list_of_global_regions_associated_with_this_location($list_of_associated_global_regions) {
+		<% @vip_location_global_regions.each do |global_region| %>
+			$list_of_associated_global_regions.append('<%= escape_javascript(render "/admin/shared/vip_location_global_region_row", association: global_region, called_from: @called_from) %>');
+		<% end %>	
+	}  //  function build_list_of_global_regions_associated_with_this_location($list_of_associated_global_regions)
+})();

@@ -40,18 +40,35 @@ class Admin::VipProgrammerMarketsController < AdminController
   def create
     @called_from = params[:called_from] || "vip_programmer"
     respond_to do |format|
-      if @vip_programmer_market.save
-        format.html { redirect_to([:admin, @vip_programmer_market], notice: 'Programmer market was successfully created.') }
-        format.xml  { render xml: @vip_programmer_market, status: :created, location: @vip_programmer_market }
-        format.js 
-        website.add_log(user: current_user, action: "Associated a market with #{@vip_programmer_market.programmer.name}")
-      else
-        format.html { render action: "new" }
-        format.xml  { render xml: @vip_programmer_market.errors, status: :unprocessable_entity }
-        format.js { render template: "admin/vip_programmer_markets/create_error" }
+      if @vip_programmer_markets.present?
+        begin
+          @vip_programmer_markets.each do |vip_programmer_market|
+            begin
+              vip_programmer_market.save!
+              website.add_log(user: current_user, action: "Associated #{vip_programmer_market.programmer.name} with #{vip_programmer_market.market.name}")
+              format.js
+            rescue
+              format.js { render template: "admin/vip_programmer_markets/create_error" }
+            end
+          end  #  @vip_programmer_markets.each do |vip_programmer_market|
+          
+        rescue
+          format.js { render template: "admin/vip_programmer_markets/create_error" }
+        end        
+      else       
+        if @vip_programmer_market.save
+          format.html { redirect_to([:admin, @vip_programmer_market], notice: 'Programmer market was successfully created.') }
+          format.xml  { render xml: @vip_programmer_market, status: :created, location: @vip_programmer_market }
+          format.js 
+          website.add_log(user: current_user, action: "Associated a market with #{@vip_programmer_market.programmer.name}")
+        else
+          format.html { render action: "new" }
+          format.xml  { render xml: @vip_programmer_market.errors, status: :unprocessable_entity }
+          format.js { render template: "admin/vip_programmer_markets/create_error" }
+        end
       end
-    end
-  end  
+    end  #  respond_to do |format|
+  end  #  def create   
   
   # PUT /admin/vip_programmer_markets/1
   # PUT /admin/vip_programmer_markets/1.xml
@@ -76,6 +93,7 @@ class Admin::VipProgrammerMarketsController < AdminController
   # DELETE /admin/vip_programmer_markets/1
   # DELETE /admin/vip_programmer_markets/1.xml
   def destroy
+    @called_from = params[:called_from] || "vip_programmer"
     @vip_programmer_market.destroy
     respond_to do |format|
       format.html { redirect_to(admin_vip_programmer_markets_url) }
@@ -88,8 +106,16 @@ class Admin::VipProgrammerMarketsController < AdminController
   private
 
 	  def initialize_vip_programmer_market
-	    @vip_programmer_market = Vip::ProgrammerMarket.new(vip_programmer_market_params)
-	  end
+      if vip_programmer_market_params[:vip_market_id].is_a?(Array)
+        @vip_programmer_markets = []
+        vip_programmer_id = vip_programmer_market_params[:vip_programmer_id]
+        vip_programmer_market_params[:vip_market_id].reject(&:blank?).each do |market|
+          @vip_programmer_markets << Vip::ProgrammerMarket.new({vip_programmer_id: vip_programmer_id, vip_market_id: market})
+        end        
+      else
+        @vip_programmer_market = Vip::ProgrammerMarket.new(vip_programmer_market_params)
+      end	 	    
+	  end  #  def initialize_vip_programmer_market
 	
 	  def vip_programmer_market_params
 	    params.require(:vip_programmer_market).permit!

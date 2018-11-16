@@ -20,12 +20,14 @@
         <div class="group">
           <h4>Locations</h4>
           <p>Choose one or more location below. Doing so will associate this programmer with the location.</p>
-
           <%= simple_form_for [:admin, @vip_programmer_location], remote: true do |f| %>
             <%= f.hidden_field :vip_programmer_id %>
             <%= hidden_field_tag :called_from, "vip_programmer" %>
-            <%= f.association :location, collection: @vip_locations, label: false %>
-            <%= f.submit "add location", class: "small round button" %>
+            <%= f.association :location, 
+            collection: Vip::Location.not_associated_with_this_programmer(@vip_programmer_location.programmer), 
+            label: false, 
+            input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Locations'} }%>
+            <%= f.submit "add location", class: "small round button", style:"margin-top:10px;" %>
           <% end %>
 					
 					Current locations
@@ -51,8 +53,11 @@
           <%= simple_form_for [:admin, @vip_programmer_certification], remote: true do |f| %>
             <%= f.hidden_field :vip_programmer_id %>
             <%= hidden_field_tag :called_from, "vip_programmer" %>
-            <%= f.association :certification, collection: @vip_certifications, label: false %>
-            <%= f.submit "add certification", class: "small round button" %>
+            <%= f.association :certification, 
+            collection: Vip::Certification.not_associated_with_this_programmer(@vip_programmer_certification.programmer),
+            label: false,
+            input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Certifications'} }%>
+            <%= f.submit "add certification", class: "small round button", style:"margin-top:10px;" %>
           <% end %>
 					
 					Current industry certifications
@@ -82,8 +87,11 @@
           <%= simple_form_for [:admin, @vip_programmer_training], remote: true do |f| %>
             <%= f.hidden_field :vip_programmer_id %>
             <%= hidden_field_tag :called_from, "vip_programmer" %>
-            <%= f.association :training, collection: @vip_trainings, label: false %>
-            <%= f.submit "add training", class: "small round button" %>
+            <%= f.association :training, 
+            collection: Vip::Training.not_associated_with_this_programmer(@vip_programmer_training.programmer),
+            label: false,
+            input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Trainings'} }%>
+            <%= f.submit "add training", class: "small round button", style:"margin-top:10px;" %>
           <% end %>
 					
 					Current Harman certifications
@@ -102,8 +110,8 @@
         
   </div>  
   
-  <!-- Services  -->
-	<div class="small-12 medium-6 columns" id="Services">
+  <!-- markets  -->
+	<div class="small-12 medium-6 columns" id="markets">
         <div class="group">
           <h4>Services</h4>
           <p>Choose one or more service below. Doing so will associate this programmer with the service.</p>
@@ -111,8 +119,11 @@
           <%= simple_form_for [:admin, @vip_programmer_service], remote: true do |f| %>
             <%= f.hidden_field :vip_programmer_id %>
             <%= hidden_field_tag :called_from, "vip_programmer" %>
-            <%= f.association :service, collection: @vip_services, label: false %>
-            <%= f.submit "add service", class: "small round button" %>
+            <%= f.association :service, 
+            collection: Vip::Service.not_associated_with_this_programmer(@vip_programmer_service.programmer),
+            label: false,
+            input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select services'} }%>
+            <%= f.submit "add service", class: "small round button", style:"margin-top:10px;" %>
           <% end %>
 					
 					Current services
@@ -144,8 +155,11 @@
           <%= simple_form_for [:admin, @vip_programmer_market], remote: true do |f| %>
             <%= f.hidden_field :vip_programmer_id %>
             <%= hidden_field_tag :called_from, "vip_programmer" %>
-            <%= f.association :market, collection: @vip_markets, label: false %>
-            <%= f.submit "add market", class: "small round button" %>
+            <%= f.association :market, 
+            collection: Vip::Market.not_associated_with_this_programmer(@vip_programmer_market.programmer),
+            label: false,
+            input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select markets'} }%>
+            <%= f.submit "add market", class: "small round button", style:"margin-top:10px;" %>
           <% end %>
 					
 					Current markets
@@ -163,7 +177,7 @@
         </div>
         
   </div> 
-  <!-- Websites  -->
+  <!-- phones  -->
 	<div class="small-12 medium-6 columns" id="Websites">
         <div class="group">
           <h4>Websites</h4>
@@ -172,8 +186,12 @@
           <%= simple_form_for [:admin, @vip_programmer_website], remote: true do |f| %>
             <%= f.hidden_field :vip_programmer_id %>
             <%= hidden_field_tag :called_from, "vip_programmer" %>
-            <%= f.association :website, collection: @vip_websites, label_method: :url, label: false %>
-            <%= f.submit "add website", class: "small round button" %>
+            <%= f.association :website, 
+            collection: Vip::Website.not_associated_with_this_programmer(@vip_programmer_website.programmer),
+            label: false,
+            label_method: :url,
+            input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select websites'} }%>
+            <%= f.submit "add website", class: "small round button", style:"margin-top:10px;" %>
           <% end %>
 					
 					Current websites
@@ -204,8 +222,12 @@
           <%= simple_form_for [:admin, @vip_programmer_email], remote: true do |f| %>
             <%= f.hidden_field :vip_programmer_id %>
             <%= hidden_field_tag :called_from, "vip_programmer" %>
-            <%= f.association :email, collection: @vip_emails, label_method: :email, label: false %>
-            <%= f.submit "add email", class: "small round button" %>
+            <%= f.association :email, 
+            collection: Vip::Email.not_associated_with_this_programmer(@vip_programmer_email.programmer),
+            label: false,
+            label_method: :email,
+            input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select emails'} }%>
+            <%= f.submit "add email", class: "small round button", style:"margin-top:10px;" %>
           <% end %>
 					
 					Current emails
@@ -232,8 +254,12 @@
           <%= simple_form_for [:admin, @vip_programmer_phone], remote: true do |f| %>
             <%= f.hidden_field :vip_programmer_id %>
             <%= hidden_field_tag :called_from, "vip_programmer" %>
-            <%= f.association :phone, collection: @vip_phones, label_method: :phone, label: false %>
-            <%= f.submit "add phone", class: "small round button" %>
+            <%= f.association :phone, 
+            collection: Vip::Phone.not_associated_with_this_programmer(@vip_programmer_phone.programmer),
+            label: false,
+            label_method: :phone,
+            input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select phones'} }%>
+            <%= f.submit "add phone", class: "small round button", style:"margin-top:10px;" %>
           <% end %>
 					
 					Current phones

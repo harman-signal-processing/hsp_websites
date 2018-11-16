@@ -1,0 +1,10 @@
+(function(){
+	var $list_of_associated_service_areas = $('#vip_location_service_areas');
+	build_list_of_service_areas_associated_with_this_location($list_of_associated_service_areas);
+	
+	function build_list_of_service_areas_associated_with_this_location($list_of_associated_service_areas) {
+		<% @vip_location_service_areas.each do |service_area| %>
+			$list_of_associated_service_areas.append('<%= escape_javascript(render "/admin/shared/vip_location_service_area_row", association: service_area, called_from: @called_from) %>');
+		<% end %>	
+	}  //  function build_list_of_service_areas_associated_with_this_location($list_of_associated_service_areas)
+})();

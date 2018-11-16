@@ -1,8 +1,8 @@
 <% called_from ||= 'vip_location' %>
 <li id="vip_location_global_region_<%= association.id %>">
-	<%= (called_from == 'vip_location') ? link_to(association.global_region.name, [:admin, association.global_region]) : link_to(association.location.name, [:admin, association.location]) %> 
+	<%= (called_from == 'vip_location') ? association.global_region.name : link_to(association.location.name, [:admin, association.location]) %> 
 	<%= link_to(image_tag("icons/trash.gif"), 
-			admin_vip_location_global_region_path(association), 
+			admin_vip_location_global_region_path(association, called_from: called_from), 
 			confirm: "Are you sure? (This won't delete the global region --it will only remove the association.)", 
 			remote: true,
 			method: :delete) %>

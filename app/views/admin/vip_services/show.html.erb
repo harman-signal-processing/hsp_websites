@@ -13,8 +13,11 @@
           <%= simple_form_for [:admin, @vip_service_service_category], remote: true do |f| %>
             <%= f.hidden_field :vip_service_id %>
             <%= hidden_field_tag :called_from, "vip_service" %>
-            <%= f.association :service_category, collection: @vip_service_categories, label: false %>
-            <%= f.submit "add service category", class: "small round button" %>
+            <%= f.association :service_category, 
+            collection: Vip::ServiceCategory.not_associated_with_this_service(@vip_service_service_category.service),
+            label: false,
+            input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Categories'} }%>
+            <%= f.submit "add service category", class: "small round button", style:"margin-top:10px;" %>
           <% end %>
 					
 					Current service categories

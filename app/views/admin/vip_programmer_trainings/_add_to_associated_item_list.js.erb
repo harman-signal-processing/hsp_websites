@@ -1,0 +1,10 @@
+(function(){
+	var $list_of_associated_trainings = $('#vip_programmer_trainings');
+	build_list_of_trainings_associated_with_this_programmer($list_of_associated_trainings);
+	
+	function build_list_of_trainings_associated_with_this_programmer($list_of_associated_trainings) {
+		<% @vip_programmer_trainings.each do |vip_programmer_training| %>
+			$list_of_associated_trainings.append('<%= escape_javascript(render "/admin/shared/vip_programmer_training_row", association: vip_programmer_training, called_from: @called_from) %>');
+		<% end %>	
+	}  //  function build_list_of_trainings_associated_with_this_programmer($list_of_associated_trainings)
+})();

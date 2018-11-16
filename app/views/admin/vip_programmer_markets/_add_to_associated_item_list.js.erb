@@ -1,0 +1,10 @@
+(function(){
+	var $list_of_associated_markets = $('#vip_programmer_markets');
+	build_list_of_markets_associated_with_this_programmer($list_of_associated_markets);
+	
+	function build_list_of_markets_associated_with_this_programmer($list_of_associated_markets) {
+		<% @vip_programmer_markets.each do |vip_programmer_market| %>
+			$list_of_associated_markets.append('<%= escape_javascript(render "/admin/shared/vip_programmer_market_row", association: vip_programmer_market, called_from: @called_from) %>');
+		<% end %>	
+	}  //  function build_list_of_markets_associated_with_this_programmer($list_of_associated_markets)
+})();

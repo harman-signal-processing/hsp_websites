@@ -1,0 +1,15 @@
+(function(){
+	var $trainings_dropdown = $('#vip_programmer_training_vip_training_id');
+
+	// clear the training list before we rebuild it
+	$trainings_dropdown.empty();
+	
+	// rebuild training dropdown list
+	$trainings_dropdown.append($("<option></option>"));		
+	<% Vip::Training.not_associated_with_this_programmer(@vip_programmer_training.programmer).each do |training| %>
+		$trainings_dropdown.append($("<option value='<%=training.id%>'><%=training.name%></option>"));
+	<% end %>
+	
+	// let chosen know the training dropdown list has been updated
+	$trainings_dropdown.trigger('chosen:updated');
+})();

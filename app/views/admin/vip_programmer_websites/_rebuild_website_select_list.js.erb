@@ -1,0 +1,15 @@
+(function(){
+	var $websites_dropdown = $('#vip_programmer_website_vip_website_id');
+
+	// clear the website list before we rebuild it
+	$websites_dropdown.empty();
+	
+	// rebuild website dropdown list
+	$websites_dropdown.append($("<option></option>"));		
+	<% Vip::Website.not_associated_with_this_programmer(@vip_programmer_website.programmer).each do |website| %>
+		$websites_dropdown.append($("<option value='<%=website.id%>'><%=website.url%></option>"));
+	<% end %>
+	
+	// let chosen know the website dropdown list has been updated
+	$websites_dropdown.trigger('chosen:updated');
+})();
