@@ -1,3 +1,9 @@
+<ul class="button-group round">
+	<li><%= link_to 'Back to List', admin_site_elements_path, class: "small secondary button" %>	</li>
+  <li><%= link_to 'Back to Overview', [:admin, @site_element], class: "small secondary button" %>	</li>
+  <li><%= link_to 'Delete', [:admin, @site_element], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
+
 <h1>Editing Resource</h1>
 
 <%= render 'form' %>

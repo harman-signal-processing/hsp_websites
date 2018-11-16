@@ -225,6 +225,8 @@ tr.strike td,
     background-position-y: 10px;     
 }
 
+
+#site_element_resource_type_chosen.chosen-container-single .chosen-single div b,
 #edit_product_software_associaton .chosen-container-single .chosen-single div b, 
 .product_specification_specification .chosen-container-single .chosen-single div b {
     display: block;
@@ -239,6 +241,7 @@ tr.strike td,
     background-position: -18px 10px;
 }
 
+#site_element_resource_type_chosen.chosen-container-single .chosen-single div b,
 #edit_product_software_associaton .chosen-container-active.chosen-with-drop .chosen-single div b, 
 .product_specification_specification .chosen-container-active.chosen-with-drop .chosen-single div b {
     //background-position: -18px 10px;
