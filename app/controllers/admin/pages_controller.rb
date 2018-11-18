@@ -6,7 +6,7 @@ class Admin::PagesController < AdminController
   # GET /admin/pages
   # GET /admin/pages.xml
   def index
-    @pages = @pages.where(brand_id: website.brand_id).order("UPPER(title)")
+    @pages = @pages.where(brand_id: website.brand_id).order(Arel.sql("UPPER(title)"))
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @pages }

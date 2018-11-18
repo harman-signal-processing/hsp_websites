@@ -1,7 +1,7 @@
 class Admin::ServiceCentersController < AdminController
   before_action :initialize_service_center, only: :create
   load_and_authorize_resource
-  
+
   # GET /service_centers
   # GET /service_centers.xml
   def index
@@ -9,7 +9,7 @@ class Admin::ServiceCentersController < AdminController
     if params[:q]
       @service_centers = @search.result.order(:name)
     else
-      @service_centers = ServiceCenter.where(brand_id: website.brand_id).order("UPPER(name)")
+      @service_centers = ServiceCenter.where(brand_id: website.brand_id).order(Arel.sql("UPPER(name)"))
     end
     respond_to do |format|
       format.html { render_template } # index.html.erb

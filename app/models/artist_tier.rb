@@ -17,6 +17,6 @@ class ArtistTier < ApplicationRecord
   end
 
   def artists_for(website)
-    artists.where("approver_id IS NOT NULL AND approver_id != ''").joins(:artist_brands).where("artist_brands.brand_id = ?", website.brand_id).order("UPPER(artists.name)")
+    artists.where("approver_id IS NOT NULL AND approver_id != ''").joins(:artist_brands).where("artist_brands.brand_id = ?", website.brand_id).order(Arel.sql("UPPER(artists.name)"))
   end
 end

@@ -14,7 +14,7 @@
 	<ul>
 	<% toolkit_brands.each do |brand| %>
 		<% if brand.logo.blank? %>
-		<li><%= link_to(image_tag(brand.logo, alt: brand.name), [:toolkit, brand]) %></li>
+		<li><%= link_to(image_tag(brand.logo.url, alt: brand.name), [:toolkit, brand]) %></li>
 		<% end %>
 	<% end %>
 	</ul>

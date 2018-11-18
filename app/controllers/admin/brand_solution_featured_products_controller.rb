@@ -96,7 +96,7 @@ class Admin::BrandSolutionFeaturedProductsController < AdminController
 
   def load_product_options
     @all_products = [[website.brand.name, website.products]]
-    Brand.where(live_on_this_platform: true).where.not(id: website.brand_id).order("UPPER(name)").each do |brand|
+    Brand.where(live_on_this_platform: true).where.not(id: website.brand_id).order(Arel.sql("UPPER(name)")).each do |brand|
       if Product.where(brand_id: brand.id).count > 0
         @all_products << [brand.name, Product.where(product_status_id: ProductStatus.current_ids, brand_id: brand.id).order("name")]
       end

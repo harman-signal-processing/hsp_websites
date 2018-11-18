@@ -285,7 +285,7 @@
             <div style="margin-bottom: 20px;">
               <span id="select_spec_name">
                 <%= f.association :specification,
-                  collection: Specification.order("upper(name)"),
+                  collection: Specification.order(Arel.sql("upper(name)")),
                   label_method: website.brand.use_flattened_specs? ? :name : :name_with_group,
                   input_html: { class: 'chosen-select', data: { placeholder: 'Select Specification'} }
                 %>

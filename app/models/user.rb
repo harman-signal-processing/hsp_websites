@@ -3,9 +3,9 @@ class User < ApplicationRecord
   gravtastic
   has_many :online_retailer_users, dependent: :destroy
   has_many :online_retailers, through: :online_retailer_users
-  has_many :dealer_users, dependent: :destroy
+  has_many :dealer_users, dependent: :destroy, inverse_of: :user
   has_many :dealers, through: :dealer_users
-  has_many :distributor_users, dependent: :destroy
+  has_many :distributor_users, dependent: :destroy, inverse_of: :user
   has_many :distributors, through: :distributor_users
   has_many :tones
   has_many :tone_user_ratings
@@ -79,7 +79,7 @@ class User < ApplicationRecord
     vip_programmers_admin]
 
   def self.staff
-    where("marketing_staff = 1 OR admin = 1 OR market_manager = 1 OR artist_relations = 1 OR sales_admin = 1").order("UPPER(name)")
+    where("marketing_staff = 1 OR admin = 1 OR market_manager = 1 OR artist_relations = 1 OR sales_admin = 1").order(Arel.sql("UPPER(name)"))
   end
 
   def self.marketing_staff

@@ -5,7 +5,7 @@
     </div>
     <div class="small-12 medium-6 columns">
       <%= f.association :specification,
-          collection: Specification.order("upper(name)"),
+          collection: Specification.order(Arel.sql("UPPER(name)")),
           label_method: website.brand.use_flattened_specs? ? :name : :name_with_group
         %>
     </div>

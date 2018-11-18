@@ -32,7 +32,7 @@
     <%= f.association :brands,
       as: :check_boxes,
       label: false,
-      collection: Brand.where(distributors_from_brand_id: [nil, "", 0]).order("UPPER(name)") %>
+      collection: Brand.where(distributors_from_brand_id: [nil, "", 0]).order(Arel.sql("UPPER(name)")) %>
 
     <br/><%= f.button :submit %>
 

@@ -17,7 +17,7 @@
 <% end %>
 
 <p>
-  Appears on these brand sites: <%= @solution.brands.order("UPPER(name)").map{|b| b.name}.join(", ") %>
+  Appears on these brand sites: <%= @solution.brands.order(Arel.sql("UPPER(name)")).map{|b| b.name}.join(", ") %>
 </p>
 
 <div>
