@@ -176,7 +176,7 @@
 			<%= yield :middle_stuff %>
 		</div>
 		<% end %>
-		
+
 		<% if content_for?(:big_bottom_box) %>
 		<div class="container">
 			<div id="big_bottom_box_container">
@@ -186,7 +186,7 @@
 			</div>
 		</div>
 		<% end %>
-		
+
 		<%= cache ["footer", website.brand, I18n.locale] do %>
 		<footer>
 			<div class="row">
@@ -204,7 +204,7 @@
 				</div>
 				<div class="medium-8 columns hide-for-small" id="footer_info">
 					<span class="footer_text">
-            <%= link_to t('new_products'), new_products_path %> &bull;
+            <%= link_to t('new_products'), new_products_path, target: "_blank" %> &bull;
             <% if website.email_signup_url %>
               <%= link_to t('news_signup').titleize, website.email_signup_url %> &bull;
             <% end %>
