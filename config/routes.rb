@@ -468,7 +468,10 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       end
       resources :specifications do
         member { patch :remove_from_group }
-        collection { post :update_order }
+        collection {
+          post :update_order
+          get :report
+        }
       end
       resources :specification_groups do
         member { post :add_specification }
@@ -478,8 +481,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         resources :site_element_attachments
         collection { post :upload }
       end
-      
-      resources :product_site_elements do 
+
+      resources :product_site_elements do
         collection { post :update_order }
       end
 

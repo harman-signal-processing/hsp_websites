@@ -1,0 +1,15 @@
+<% @product_families.each do |pf| %>
+  <div>
+    <h3><%= pf.name %> Specifications</h3>
+    <table>
+      <tr>
+      <% pf.products.map{|p| p.product_specifications.map{|ps| ps.specification.name }}.flatten.uniq.sort.each do |n| %>
+        <td><%= n %></td>
+      <% end%>
+      </tr>
+    </table>
+
+    <p>&nbsp;</p>
+    <hr/>
+  </div>
+<% end %>

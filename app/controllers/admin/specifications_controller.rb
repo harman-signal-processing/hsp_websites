@@ -66,6 +66,11 @@ class Admin::SpecificationsController < AdminController
     end
   end
 
+  # GET /admin/specifications/report
+  def report
+    @product_families = website.brand.product_families.order("UPPER(name)")
+  end
+
   # POST /admin/specifications/update_order
   def update_order
     update_list_order(Specification, params["specification"])
