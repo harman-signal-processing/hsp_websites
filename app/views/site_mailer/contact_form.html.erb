@@ -26,7 +26,7 @@
 	<% unless @contact_message.product_serial_number.blank? %>
 		<br/><b>Serial:</b> <%= @contact_message.product_serial_number %>
 	<% end %>
-	<% if @contact_message.rma_request? %>
+	<% if @contact_message.rma_request? || @contact_message.rma_repair_request? || @contact_message.rma_credit_request? %>
 		<br/><b>Under Warranty?</b> <%= (@contact_message.warranty?) ? "Yes" : "No" %>
 	<% end %>
 	<% unless @contact_message.purchased_on.blank? %>
@@ -43,7 +43,7 @@
 	<% end %>
 </p>
 
-<% if @contact_message.rma_request? || @contact_message.catalog_request? %>
+<% if (@contact_message.rma_request? || @contact_message.rma_repair_request? || @contact_message.rma_credit_request?) || @contact_message.catalog_request? %>
   <h3>Shipping Address:</h3>
   <p>
     <%= @contact_message.shipping_address %><br/>
@@ -55,7 +55,7 @@
     <% end %>
   </p>
 
-  <% if @contact_message.rma_request? %>
+  <% if @contact_message.rma_request? || @contact_message.rma_repair_request? || @contact_message.rma_credit_request? %>
     <h3>Billing Address:</h3>
     <% if @contact_message.billing_address.blank? && @contact_message.billing_city.blank? &&
       @contact_message.billing_state.blank? && @contact_message.billing_zip.blank? %>
