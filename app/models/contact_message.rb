@@ -21,6 +21,13 @@ class ContactMessage < ApplicationRecord
     :shipping_zip,
     :shipping_country, presence: true, if: :catalog_request?
   validates :warranty, inclusion: {in: [true, false]}, if: :rma_request?
+  
+  validates :shipping_address,
+    :shipping_city,
+    :shipping_state,
+    :shipping_zip,
+    :shipping_country, presence: true, if: :require_shipping_address? 
+  
   attr_accessor :require_country
 
   def set_defaults
@@ -32,6 +39,7 @@ class ContactMessage < ApplicationRecord
     self.subject ||= "RMA Credit Request" if self.rma_credit_request?
     self.subject ||= "HARMAN Professional Catalog request" if self.catalog_request?
     self.email.to_s.gsub!(/\s*$/, '')
+    self.shipping_country ||= "United States"
   end
 
   # Used to only require product some of the time, now require
@@ -67,6 +75,10 @@ class ContactMessage < ApplicationRecord
   
   def rma_credit_request?
     !!(self.message_type.to_s.match(/rma_credit_request/))
+  end
+
+  def require_shipping_address?
+    self.rma_request? || self.rma_repair_request? || self.rma_credit_request?
   end
 
   def catalog_request?
