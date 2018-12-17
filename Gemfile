@@ -23,7 +23,7 @@ gem 'utf8-cleaner'
 gem 'friendly_id', '>= 5.2'
 #gem 'aws-sdk', '< 3' # v3 modularizes AWS services, tough to work with paperclip
 gem 'aws-sdk-s3' # modularized AWS service, only S3 needed
-gem 'fog-core', '< 2.1.1'
+gem 'fog-core', '< 2.1.1' # fog-rackspace isn't working with fog-core after 2.1.0
 gem 'fog-rackspace'
 gem 'fog-aws'
 gem 'asset_sync'
