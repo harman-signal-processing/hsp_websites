@@ -31,19 +31,31 @@ child @product.images_for("product_page") => :images do
   extends 'api/v2/product_attachments/show'
 end
 
-child (@product.product_documents.includes(:product) + @product.viewable_site_elements) => :documents do
+child (@product.product_documents.includes(:product) + @product.viewable_site_elements.select{|d| d if can?(:read, d)}) => :documents do
   node(:name) { |d| (d.is_a?(SiteElement)) ? d.name : d.name(hide_product_name: true) }
   node(:url) do |d|
-    url = (d.is_a?(SiteElement)) ? d.resource.url : d.document.url
+    url = (d.is_a?(SiteElement)) ? d.url : d.document.url
     url = "http://#{request.host}#{url}" if S3_STORAGE[:storage] == :filesystem
     url
   end
-  node(:type) { |d| (d.is_a?(SiteElement)) ? d.resource_content_type : d.document_content_type }
+  node(:type) do |d|
+    if d.is_a?(SiteElement)
+      (d.resource_content_type.present?) ? d.resource_content_type : d.executable_content_type
+    else
+      d.document_content_type
+    end
+  end
   node(:doctype) { |d| (d.is_a?(SiteElement)) ? d.resource_type : I18n.t("document_type.#{d.document_type}") }
-  node(:size) { |d| (d.is_a?(SiteElement)) ? d.resource_file_size : d.document_file_size }
+  node(:size) do |d|
+    if d.is_a?(SiteElement)
+      (d.resource_file_size.present?) ? d.resource_file_size : d.executable_file_size
+    else
+      d.document_file_size
+    end
+  end
 end
 
-child (@product.active_softwares + @product.executable_site_elements) => :software do
+child (@product.active_softwares + @product.executable_site_elements.select{|d| d if can(:read, d)}) => :software do
   node(:name) { |d| (d.is_a?(SiteElement)) ? d.name : d.formatted_name }
   node(:url) do |d|
     if d.is_a?(SiteElement)
