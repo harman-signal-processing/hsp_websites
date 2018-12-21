@@ -270,7 +270,7 @@ class ProductFamily < ApplicationRecord
   def children_with_current_products(w)
     brand_id = (w.is_a?(Brand)) ? w.id : w.brand_id
     children.includes(:products).select do |pf|
-      pf if (pf.current_products.size > 0 || pf.children_with_current_products(w).size > 0) && pf.brand_id == brand_id && !requires_login?
+      pf if (pf.current_products.size > 0 || pf.children_with_current_products(w).size > 0) && pf.brand_id == brand_id && !pf.requires_login?
     end
   end
 
