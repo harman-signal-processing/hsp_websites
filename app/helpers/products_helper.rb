@@ -526,9 +526,9 @@ module ProductsHelper
     crumbs = []
     crumbs << link_to(t('products'), product_families_path)
     product.product_families.where(brand_id: website.brand_id).includes(:products, :parent).each do |pf|
-      crumbs << link_to(translate_content(pf.parent, :name).downcase, pf.parent) if pf.parent && pf.parent.locales(website).include?(I18n.locale.to_s)
+      crumbs << link_to(translate_content(pf.parent, :name).downcase, pf.parent) if pf.parent && pf.parent.locales(website).include?(I18n.locale.to_s) && !pf.requires_login?
       unless pf.current_products.size < 2
-        crumbs << link_to(strip_html(translate_content(pf, :name)).downcase, pf) if pf.locales(website).include?(I18n.locale.to_s)
+        crumbs << link_to(strip_html(translate_content(pf, :name)).downcase, pf) if pf.locales(website).include?(I18n.locale.to_s) && !pf.requires_login?
       end
     end
     raw("#{t(:back_to)} #{crumbs.uniq.join(" :: ")}")

@@ -264,12 +264,13 @@ class ProductFamily < ApplicationRecord
       !!(brand.show_comparisons) &&
       (self.current_products.length > 1 || self.children_with_current_products(brand).length > 0)
   end
+
   # Load this ProductFamily's children families with at least one active product
   # w = a Brand or a Website
   def children_with_current_products(w)
     brand_id = (w.is_a?(Brand)) ? w.id : w.brand_id
     children.includes(:products).select do |pf|
-      pf if (pf.current_products.size > 0 || pf.children_with_current_products(w).size > 0) && pf.brand_id == brand_id
+      pf if (pf.current_products.size > 0 || pf.children_with_current_products(w).size > 0) && pf.brand_id == brand_id && !requires_login?
     end
   end
 
@@ -306,6 +307,11 @@ class ProductFamily < ApplicationRecord
 
   def parent_not_itself
     errors.add(:parent_id, "can't be itself") if !self.new_record? && self.parent_id == self.id
+  end
+
+  # Checks if this password requires a username and password:
+  def requires_login?
+    !!!(self.preview_username.blank? && self.preview_password.blank?)
   end
 
 end

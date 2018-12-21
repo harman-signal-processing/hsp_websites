@@ -88,6 +88,18 @@
 
 	<br/><%= f.input :hide_from_homepage, label: "Hide from homepage. (only applicable to parent categories)" %>
 
+  <div class="row">
+    <div class="small-12 medium-6 columns">
+      <fieldset>
+        <legend>Security</legend>
+        <p>If anything is here, the family is hidden from the site and can only be accessed with the direct URL and the login info.</p>
+        <%= f.input :preview_username %>
+        <%= f.input :preview_password, as: :string %>
+        <p><i>This is an experimental feature. Please report any issues where the family appears if it is supposed to be hidden.</i></p>
+      </fieldset>
+    </div>
+  </div>
+
 	<br/><%= f.button :submit %>
 
 <% end %>

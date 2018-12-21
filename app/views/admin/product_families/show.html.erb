@@ -15,6 +15,17 @@
 	<li><%= link_to 'Delete', [:admin, @product_family], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
 </ul>
 
+<% if @product_family.requires_login? %>
+  <div class="alert-box info">
+    <h4>Note</h4>
+    <p>This product family requires a login to view:<br/>
+    Username: <%= @product_family.preview_username %><br/>
+    Password: <%= @product_family.preview_password %></p>
+    <p>You'll also need the direct URL:<br/>
+    <%= product_family_url(@product_family) %></p>
+  </div>
+<% end %>
+
 <div class="row">
 	<div class="large-4 columns">
 		<div class="panel">

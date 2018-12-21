@@ -1,6 +1,7 @@
 class ProductFamiliesController < ApplicationController
   before_action :set_locale
   before_action :ensure_best_url, only: [:show, :safety_documents]
+  before_action :authorize_product_family, only: :show
 
   # GET /product_families
   # GET /product_families.xml
@@ -56,4 +57,13 @@ class ProductFamiliesController < ApplicationController
     @product_family = ProductFamily.where(cached_slug: params[:id]).first || ProductFamily.find(params[:id])
     # redirect_to @product_family, status: :moved_permanently unless @product_family.friendly_id_status.best?
   end
+
+  def authorize_product_family
+    if @product_family.requires_login?
+      authenticate_or_request_with_http_basic("#{@product_family.name} - Protected") do |user, password|
+        user == @product_family.preview_username && password == @product_family.preview_password
+      end
+    end
+  end
+
 end
