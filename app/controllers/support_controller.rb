@@ -26,14 +26,6 @@ class SupportController < ApplicationController
 
   # Warranty registration form
   def warranty_registration
-    # Crown has special needs. Srsly. Special.
-    # "We need the registrations to go into SAP. It is broken."
-    # "No, we haven't checked it though."
-    # Also, there have only been 10 registrations in the first week.
-    # So, I give up. Here you go, Crown. Have your old, ugly form back.
-    if website.brand.name.match(/crown/i)
-      redirect_to ENV['warranty_sync_url'] and return false
-    end
     if request.post?
       @warranty_registration = WarrantyRegistration.new(warranty_registration_params)
       @warranty_registration.brand_id = website.brand_id
