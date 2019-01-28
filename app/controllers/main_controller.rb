@@ -290,6 +290,18 @@ class MainController < ApplicationController
     end
   end
 
+  def analytics
+    @ga = website.value_for('google_analytics_account')
+    @add_to_ga = website.value_for('google_analytics_add_email')
+    respond_to do |format|
+      format.txt {
+        unless @ga.present? && @add_to_ga.present?
+          render plain: "No email address to add." and return false
+        end
+      }
+    end
+  end
+
   private
 
   def teaser_layout
