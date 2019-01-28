@@ -21,7 +21,8 @@ class News < ApplicationRecord
       thumb_square: "100x100#",
       tiny: "64x64>",
       tiny_square: "64x64#"
-    }}.merge(S3_STORAGE)
+    }, default_url: "harman-logo.png"
+  }.merge(S3_STORAGE)
   validates_attachment :news_photo, content_type: { content_type: /\Aimage/i }
 
   belongs_to :brand, touch: true
