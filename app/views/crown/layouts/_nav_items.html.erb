@@ -82,24 +82,19 @@
   <li class="has-dropdown"><%= link_to t('product_support').titleize, support_path %>
     <ul class="dropdown">
       <% if I18n.locale == I18n.default_locale %>
-        <li><%= link_to "Authorized Service Information", "/authorizedserviceinformation" %></li>
-      <% end %>
-      <%#= link_to t('nav.consultant_support'), "https://pro.harman.com/consultant", target: "_blank" %>
-      <% if I18n.locale == I18n.default_locale %>
         <li><%= link_to t('contact_us').titleize, support_path %></li>
       <% elsif I18n.locale.match(/zh/) %>
         <li><%= link_to t('contact_us').titleize, "/zh/china-crown-contacts" %></li>
       <% end %>
+      <li><%= link_to t('software_downloads').titleize, software_index_path %></li>
       <li><%= link_to t('nav.downloads').titleize, support_downloads_path %></li>
-      <% if website.faq_categories_with_faqs.length > 0 %>
-        <li><%= link_to t('product_page.faqs'), faqs_path %></li>
-      <% end %>
-      <% if !!(website.forum_link) && I18n.locale == I18n.default_locale %>
-      <li><%= link_to t("forum").titleize, website.forum_link %></li>
-      <% end %>
+      <li><%= link_to t('warranty').titleize, warranty_path %></li>
       <% if website.has_product_registrations? && I18n.locale == I18n.default_locale %>
         <li><%= link_to t("warranty_registration").titleize, warranty_registration_path %></li>
       <% end %>
+      <% if !!(website.forum_link) %>
+        <li><%= link_to t("forum").titleize, website.forum_link %></li>
+      <% end %>      
       <% if I18n.locale == I18n.default_locale %>
         <li class="has-dropdown"><%= link_to t('nav.service').titleize, '#', class: "disabled" %>
           <ul class="dropdown">
@@ -112,8 +107,10 @@
       <% elsif I18n.locale.match(/zh/) %>
         <li><%= link_to t('nav.service').titleize, "/zh/china-crown-service" %></li>
       <% end %>
-      <li><%= link_to t('software_downloads').titleize, software_index_path %></li>
       <li><%= link_to t('nav.system_design_tools'), tools_calculators_path %></li>
+      <% if website.faq_categories_with_faqs.length > 0 %>
+        <li><%= link_to t('product_page.faqs'), faqs_path %></li>
+      <% end %>
     </ul>
   </li>
 
