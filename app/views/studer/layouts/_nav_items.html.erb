@@ -5,9 +5,6 @@
 			<% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
 				<%= product_family_nav_links(product_family) %>
 			<% end %>
-      <% if website.has_product_registrations? %>
-        <li><%= link_to ucfirst(t('warranty_registration')), warranty_registration_path %></li>
-      <% end %>
 		</ul>
 	</li>
 
@@ -43,16 +40,19 @@
 
   <li><%= link_to "Broadcast Truck", "/#{I18n.locale}/broadcast-truck" %></li>
 
-  <li>
-    <%= link_to t('product_support').titleize, support_path %>
-      <%#= link_to "Contact Us", support_path %>
-      <%# Removed 5/2018 for GDPR %>
-      <%#= link_to "Online Training", 'http://cras-vista.com/moodle/', target: "_blank" %>
+  <li class="has-dropdown"><%= link_to t('product_support').titleize, support_path %>
+    <ul class="dropdown">
+      <li><%= link_to t('contact_us').titleize, support_path %></li>
+      <li><%= link_to t('software_downloads').titleize, software_index_path %></li>
+      <li><%= link_to t('warranty').titleize, warranty_path %></li>
+      <% if website.has_product_registrations? && I18n.locale == I18n.default_locale %>
+        <li><%= link_to t("warranty_registration").titleize, warranty_registration_path %></li>
+      <% end %>
+      <% if !!(website.forum_link) %>
+        <li><%= link_to t("forum").titleize, website.forum_link %></li>
+      <% end %>      
+    </ul>
   </li>
-
-	<% if !!(website.forum_link) %>
-	<li><%= link_to t("forum").titleize, website.forum_link %></li>
-	<% end %>
 
   <li class="has-dropdown">
     <%= link_to "About Us", '#', class: "disabled" %>
