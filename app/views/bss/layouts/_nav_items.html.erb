@@ -45,14 +45,15 @@
     <ul class="dropdown">
       <%#= link_to t('nav.consultant_support'), "https://pro.harman.com/consultant", target: "_blank" %>
       <li><%= link_to t('titles.contact_us').titleize, support_path %></li>
+      <li><%= link_to t('software_downloads').titleize, software_index_path %></li>
       <li><%= link_to t('downloads').titleize, support_downloads_path %></li>
-      <% if !!(website.forum_link) %>
-        <li><%= link_to t("forum").titleize, website.forum_link %></li>
-      <% end %>
+      <li><%= link_to t('warranty').titleize, warranty_path %></li>
       <% if website.has_product_registrations? %>
         <li><%= link_to t('warranty_registration').titleize, warranty_registration_path %></li>
       <% end %>
-      <li><%= link_to t('software_downloads').titleize, software_index_path %></li>
+      <% if !!(website.forum_link) %>
+        <li><%= link_to t("forum").titleize, website.forum_link %></li>
+      <% end %>
     </ul>
   </li>
 <% end %>
