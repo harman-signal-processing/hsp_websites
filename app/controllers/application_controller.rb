@@ -264,8 +264,8 @@ private
       else
         unless session['geo_country']
           ip = request.env["HTTP_X_FORWARDED_FOR"] || request.remote_ip
-          lookup = GeoKit::Geocoders::GeoPluginGeocoder.do_geocode(ip)
-          # lookup = GeoKit::Geocoders::MultiGeocoder.do_geocode(ip)
+          lookup = Geokit::Geocoders::GeoPluginGeocoder.do_geocode(ip)
+          # lookup = Geokit::Geocoders::MultiGeocoder.do_geocode(ip)
           if lookup.success? || lookup.country_code
             session['geo_country'] = lookup.country_code
             session['geo_usa'] = lookup.is_us?
