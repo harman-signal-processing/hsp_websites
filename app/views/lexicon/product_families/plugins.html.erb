@@ -1,0 +1,200 @@
+<% set_meta_tags title: translate_content(@product_family, :name),
+				 reverse: true,
+                 description: translate_content(@product_family, :intro),
+                 keywords: translate_content(@product_family, :keywords) %>
+
+<% if @product_family.has_custom_background? %>
+	<%= content_for :custom_css do %>
+		<style type="text/css" media="screen">
+			body { <%= @product_family.custom_background %> }
+		</style>
+	<% end %>
+<% end %>
+
+<% if @product_family.features.count > 0 %>
+  <% @product_family.features.each do |feature| %>
+    <%= render_feature feature %>
+  <% end %>
+<% else %>
+  <%= content_for :feature do %>
+    <% if @product_family.title_banner.present? %>
+      <div class="product-family-banner-container text-center">
+        <%= image_tag @product_family.title_banner.url, alt: @product_family.name %>
+      </div>
+      <% if @product_family.intro.present? %>
+        <br/>
+        <div class="row">
+          <div class="medium-8 small-12 columns">
+            <%= raw translate_content(@product_family, :intro) %>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="container product_family_header">
+        <div class="row">
+          <div class="large-8 small-12 columns">
+            <h1><%= translate_content(@product_family, :name) %></h1>
+            <p><%=raw translate_content(@product_family, :intro) %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% current_products = @product_family.current_products %>
+<% mpx = current_products.find("mpx-native-reverb") %>
+<% main_products = current_products.where("name NOT LIKE ?", mpx.name) %>
+<% compatible_with = Specification.where("name = 'Compatible with'").first %>
+<% if current_products.length > 0 && @product_family.locales(website).include?(I18n.locale.to_s) %>
+  <div class="row">
+    <div class="large-12 columns show-for-medium-up">
+      <h2>Compare and Buy:</h2>
+        <table class="plugin-chart">
+          <thead>
+            <tr>
+              <td class="top_corner" colspan="2" width="<%= 100 / (current_products.length + 1) %>%">&nbsp;</td>
+              <% current_products.each do |product| %>
+                <td width="<%= 100 / (current_products.length + 1) %>%">
+                  <h4><%= product.name %></h4>
+                  <% if product.photo %>
+                    <%= link_to image_tag(product.photo.product_attachment.url(:small)), product %>
+                  <% end %>
+                  <%
+                    @product = product
+                    p = @product.current_promotions.where(show_recalculated_price: true).where("discount > 0")
+                    @promo = (p.length > 0) ? p.first : nil
+                  %>
+                  <%= render 'products/price' %>
+                </td>
+              <% end %>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="2" class="row-label">Description</td>
+              <% current_products.each do |product| %>
+                <td class="content">
+                  <% matches = product.short_description.match(/^(?<num>\d*)/) %>
+                  <h2 class: "text-center"><%= matches[:num].present? ? matches[:num] : "1" %></h2>
+                  <p><%= product.short_description.gsub(/^\d*/, "") %></p>
+                </td>
+              <% end %>
+            </tr>
+            <tr>
+              <td colspan="2" class="row-label">Confirmed<br/>Compatibility</td>
+              <% current_products.each do |product| %>
+                <td class="content">
+                  <% begin %>
+                    <%= spec_value product.product_specifications.where(specification: compatible_with).first %>
+                  <% end %>
+                </td>
+              <% end %>
+            </tr>
+
+            <% EffectType.find(main_products.map{|p| p.effects.map{|e| e.effect_type_id}}).each_with_index do |effect_group, effect_group_i| %>
+
+              <% effects = main_products.map{|p| p.effects.where(effect_type: effect_group)}.flatten.uniq %>
+              <% effects.each_with_index do |effect, i| %>
+                <tr>
+                  <% if i == 0 %>
+                    <td rowspan="<%= effects.length %>" class="group-label"><div><%= effect_group.name.pluralize %></div></td>
+                  <% end %>
+                  <td class="row-label"><%= effect.name %></td>
+                  <% current_products.each do |product| %>
+                    <% if product == mpx %>
+                      <% if i == 0 %>
+                        <td rowspan="<%= effects.length %>" class="content">
+                          <% if effect_group_i == 0 %>
+                            <h6>Single polymorphic plug-in with 7 reverb types:</h6>
+                            <% mpx.effects.each do |e| %>
+                              <%= e.name %><br/>
+                            <% end %>
+                          <% else %>
+                              None
+                          <% end %>
+                        </td>
+                      <% end %>
+                    <% else %>
+                      <td class="content">
+                        <% if product.effects.include?(effect) %>
+                          <div class="yes">X</div>
+                        <% else %>
+                          &nbsp;
+                        <% end %>
+                      </td>
+                    <% end %>
+                  <% end %>
+                </tr>
+              <% end %>
+            <% end %>
+
+            <tr>
+              <td colspan="2" class="bottom_corner">&nbsp;</td>
+              <% current_products.each do |product| %>
+                <td class="content">
+                  <%= link_to "Learn More", product, class: "button" %><br/>
+                  <%= buy_it_now_link product, class: "button" %>
+                </td>
+              <% end %>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+
+  <div class="show-for-small-down">
+    <h2>Compare and Buy:</h2>
+    <% current_products.each do |product| %>
+      <div class="plugin-container">
+        <div class="plugin pic">
+          <h1><%= product.name %></h1>
+          <% if product.photo %>
+            <%= link_to image_tag(product.photo.product_attachment.url(:small)), product %>
+          <% end %>
+          <%
+            @product = product
+            p = @product.current_promotions.where(show_recalculated_price: true).where("discount > 0")
+            @promo = (p.length > 0) ? p.first : nil
+          %>
+          <%= render 'products/price' %>
+        </div>
+        <div class="plugin desc">
+          <% matches = product.short_description.match(/^(?<num>\d*)/) %>
+          <h2><%= matches[:num].present? ? matches[:num] : "1" %></h2>
+          <p><%= product.short_description.gsub(/^\d*/, "") %></p>
+        </div>
+        <div class="plugin compat">
+          <h3>Confirmed Compatibility</h3>
+          <% begin %>
+            <%= spec_value product.product_specifications.where(specification: compatible_with).first %>
+          <% end %>
+        </div>
+        <div class="plugin effect-list">
+          <% product.effects.map{|e| e.effect_type}.uniq.each do |effect_group| %>
+            <h3><%= effect_group.name.pluralize %></h3>
+            <% product.effects.where(effect_type: effect_group).each do |effect| %>
+              <%= effect.name %><br/>
+            <% end %>
+            <br/>
+          <% end %>
+        </div>
+        <div class="plugin cta">
+          <br/>
+          <%= link_to "Learn More", product, class: "button" %>
+          <%= buy_it_now_link product, class: "button" %>
+        </div>
+      </div>
+    <% end %>
+    <p>&nbsp;</p>
+  </div>
+<% end %>
+
+  </div>
+</div>
+<p>&nbsp;</p>
+
+
+<% if @product_family.post_content.present? %>
+  <%= raw @product_family.post_content %>
+<% end %>

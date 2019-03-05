@@ -36,7 +36,7 @@
         <div>Main pic:<br/>
           <div class="row">
             <div class="small-6 columns">
-              <%= link_to image_tag(@news.news_photo.url) do %>
+              <%= link_to @news.news_photo.url do %>
                 <%= image_tag(@news.news_photo.url(:medium)) %>
               <% end %>
             </div>
