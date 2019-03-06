@@ -18,13 +18,13 @@
 <% else %>
   <%= content_for :feature do %>
     <% if @product_family.title_banner.present? %>
-      <div class="product-family-banner-container text-center">
+      <div class=" text-center">
         <%= image_tag @product_family.title_banner.url, alt: @product_family.name %>
       </div>
       <% if @product_family.intro.present? %>
         <br/>
         <div class="row">
-          <div class="medium-8 small-12 columns">
+          <div class="medium-12 small-12 columns">
             <%= raw translate_content(@product_family, :intro) %>
           </div>
         </div>
@@ -32,7 +32,7 @@
     <% else %>
       <div class="container product_family_header">
         <div class="row">
-          <div class="large-8 small-12 columns">
+          <div class="large-12 small-12 columns">
             <h1><%= translate_content(@product_family, :name) %></h1>
             <p><%=raw translate_content(@product_family, :intro) %></p>
           </div>
