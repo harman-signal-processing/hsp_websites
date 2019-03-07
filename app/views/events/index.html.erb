@@ -6,6 +6,14 @@
 		title: t('titles.events', brand: website.brand_name)
 	} %>
 
+<% if @banner_event %>
+  <%= content_for :feature do %>
+    <div class="text-center">
+      <%= image_tag @banner_event.image.url %>
+    </div>
+  <% end %>
+<% end %>
+
 <h1><%= t('titles.events', brand: website.brand_name) %></h1>
 
 <% if @events.count > 0 %>
