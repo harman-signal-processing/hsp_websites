@@ -104,12 +104,8 @@
       <% if !!(website.forum_link) %>
         <li><%= link_to t("forum").titleize, website.forum_link %></li>
       <% end %>
-      <li class="has-dropdown"><%= link_to "RMA", "/#{I18n.locale}/support/rma_repair" %>
-      <ul class="dropdown">
-        <li><%= link_to "RMA (Repair)", "/#{I18n.locale}/support/rma_repair" %></li>
-        <li><%= link_to "RMA (Credit)", "/#{I18n.locale}/support/rma_credit" %></li>
-      </ul>
-      
+      <li><%= link_to "RMA", "/#{I18n.locale}/support/rma" %>
+
       <li class="has-dropdown"><%= link_to "Partners", "/#{I18n.locale}/partners" %>
       <ul class="dropdown">
         <li><%= link_to "InConcert Partners", "/#{I18n.locale}/partners" %></li>
