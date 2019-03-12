@@ -1,9 +1,6 @@
 <% set_meta_tags reverse: true %>
 
 <h1 class="page_title"><%= @page_title %></h1>
-<p>For parts inquiries outside the US, please contact your local
-  <%= link_to "#{website.brand_name} Distributor", international_distributors_path %>.
-</p>
 
 <%= simple_form_for @contact_message, url: parts_request_path do |f| %>
 
@@ -53,6 +50,9 @@
           </div>
           <hr/>
         <% end %>
+        <p>For parts inquiries outside the US, please contact your local
+          <%= link_to "#{website.brand_name} Distributor", international_distributors_path %>.
+        </p>
       </div>
 		</div>
 	</div>
