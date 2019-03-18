@@ -33,7 +33,7 @@ class Software < ApplicationRecord
 
   before_destroy :revert_version
   before_update  :revert_version_if_deactivated
-  after_initialize :set_default_counter, :determine_platform
+  after_initialize :set_default_counter
   after_save :replace_old_version, :touch_products
 
   belongs_to :brand, touch: true
@@ -105,13 +105,6 @@ class Software < ApplicationRecord
     f += " v#{self.version}" unless self.version.blank?
     f += " (#{self.platform})" unless self.platform.blank?
     f
-  end
-
-  # If the platform field is blank
-  def determine_platform
-    if platform.blank?
-      (self.operating_systems.pluck(:name) + self.operating_systems.pluck(:arch)).join(" ")
-    end
   end
 
   # Alias for search results link_name

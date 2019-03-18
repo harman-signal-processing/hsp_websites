@@ -472,6 +472,7 @@ GEM
     retriable (1.4.1)
     riddle (2.3.2)
     rmagick (2.16.0)
+    rorvswild (1.4.2)
     rspec (3.8.0)
       rspec-core (~> 3.8.0)
       rspec-expectations (~> 3.8.0)
@@ -695,6 +696,7 @@ DEPENDENCIES
   recaptcha
   responders (~> 2.0)
   rmagick
+  rorvswild
   rspec-rails
   rubyzip
   s3_direct_upload
