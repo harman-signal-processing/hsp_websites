@@ -169,7 +169,7 @@ class Product < ApplicationRecord
   def belongs_to_this_brand?(brand)
     brand = brand.brand if brand.is_a?(Website) # if a Website is passed in instead of a Brand
     begin
-      self.brand_id == brand.id || self.product_families.collect{|pf| pf.brand_id}.include?(brand.id)
+      self.brand_id == brand.id || self.product_families.pluck(:brand_id).include?(brand.id)
     rescue
       false
     end
@@ -324,9 +324,10 @@ class Product < ApplicationRecord
     self.product_status.show_on_website? && self.belongs_to_this_website?(website)
   end
 
+  # AA 2019-03-18. Removing the condition about p.discontinue? || ... I can't tell what it's for besides slowing us down
   def belongs_to_this_website?(website)
     p = (self.parents.length > 0) ? self.parents.first : self
-    p.belongs_to_this_brand?(website) && (p.discontinued? || !(p.product_families & website.product_families).empty?)
+    p.belongs_to_this_brand?(website)# && (p.discontinued? || !(p.product_families & website.product_families).empty?)
   end
 
   def show_on_toolkit?
