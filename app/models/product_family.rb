@@ -88,7 +88,7 @@ class ProductFamily < ApplicationRecord
   # Collection of all families with at least one active product
   def self.all_with_current_products(website, locale)
     where(brand_id: website.brand_id).order("position").select do |f|
-      f if (f.current_products.count > 0 || f.children_with_current_products(website).count > 0) && f.locales(website).include?(locale.to_s)
+      f if (f.current_products.size > 0 || f.children_with_current_products(website).size > 0) && f.locales(website).include?(locale.to_s)
     end
   end
 
@@ -96,7 +96,7 @@ class ProductFamily < ApplicationRecord
   # for the given website and locale
   def self.all_with_current_or_discontinued_products(website, locale)
     where(brand_id: website.brand_id).order("position").select do |f|
-      f if (f.current_and_discontinued_products.count > 0 || f.current_products_plus_child_products(website).count > 0) && f.locales(website).include?(locale.to_s)
+      f if (f.current_and_discontinued_products.size > 0 || f.current_products_plus_child_products(website).size > 0) && f.locales(website).include?(locale.to_s)
     end
   end
 
@@ -110,7 +110,7 @@ class ProductFamily < ApplicationRecord
         else
           current_children = 0
           f.children.includes(:products).each do |ch|
-            current_children += ch.current_products_plus_child_products(website).count
+            current_children += ch.current_products_plus_child_products(website).size
             last if current_children > 0
           end
           pf << f if current_children > 0
@@ -186,7 +186,7 @@ class ProductFamily < ApplicationRecord
   # By definition, it should include ALL locales unless there is one or more
   # limitation specified.
   def locales(website)
-    @locales ||= (locale_product_families.count > 0) ? locale_product_families.pluck(:locale) : website.list_of_all_locales
+    @locales ||= (locale_product_families.size > 0) ? locale_product_families.pluck(:locale) : website.list_of_all_locales
   end
 
   # Sibling categories with at least one active product
@@ -266,7 +266,7 @@ class ProductFamily < ApplicationRecord
   def children_with_current_products(w)
     brand_id = (w.is_a?(Brand)) ? w.id : w.brand_id
     children.where(brand_id: brand_id).includes(:products).select do |pf|
-      pf if !pf.requires_login? && (pf.current_products.count > 0 || pf.children_with_current_products(w).count > 0)
+      pf if !pf.requires_login? && (pf.current_products.size > 0 || pf.children_with_current_products(w).size > 0)
     end
   end
 

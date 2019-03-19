@@ -69,7 +69,7 @@ class Page < ApplicationRecord
     value = eval("self.#{attribute.to_s}")
     if attribute == :custom_route
       return false if value.blank?
-      !!(brand.settings.where("name LIKE '%url%' AND string_value LIKE '%#{value}%'").count > 0)
+      !!(brand.settings.where("name LIKE '%url%' AND string_value LIKE '%#{value}%'").size > 0)
     end
   end
 

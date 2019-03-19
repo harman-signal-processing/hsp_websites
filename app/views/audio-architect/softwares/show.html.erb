@@ -56,7 +56,7 @@
 		<div class="clear"></div>
 	</div>
 
-	<% if @software.previous_versions.count > 0 %>
+	<% if @software.previous_versions.size > 0 %>
 	<p><%= link_to "Previous Versions", '#previous_versions' %></p>
 	<% end %>
 	<%=raw @software.description %>
@@ -79,7 +79,7 @@
 		<div class="clear"></div>
 	<% end %>
 
-<% if @software.previous_versions.count > 0 %>
+<% if @software.previous_versions.size > 0 %>
 	<hr/>
 	<h4 id='previous_versions'>Previous Versions</h4>
 

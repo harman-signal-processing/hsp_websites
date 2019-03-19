@@ -629,7 +629,7 @@ class Product < ApplicationRecord
   end
 
   def has_full_width_banner?
-    full_width_banners.count > 0
+    full_width_banners.size > 0
   end
 
   def full_width_banners

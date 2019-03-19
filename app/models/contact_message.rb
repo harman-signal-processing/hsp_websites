@@ -148,7 +148,7 @@ class ContactMessage < ApplicationRecord
     # Route by country
     if brand.send_contact_form_to_distributors? &&
         self.shipping_country.present? &&
-        distributors.count == 1
+        distributors.size == 1
       recipients = distributors.pluck(:email)
 
     # Route by intl sales region

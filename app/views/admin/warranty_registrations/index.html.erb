@@ -36,10 +36,10 @@
   </div>
 </div>
 
-<% if @warranty_registrations.count > 0 %>
+<% if @warranty_registrations.size > 0 %>
   <div class="row">
     <div class="small-6 columns">
-      <p><%= pluralize @warranty_registrations.count, "result" %> found:</p>
+      <p><%= pluralize @warranty_registrations.size, "result" %> found:</p>
     </div>
     <div class="small-6 columns text-right">
       <p><%= link_to "export results to excel", {format: :xls, params: request.query_parameters} %></p>

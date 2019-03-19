@@ -35,7 +35,7 @@
   <% if @distributors.length > 0 %>
     <div class="row">
       <div class="small-6 columns">
-        <p><%= pluralize @distributors.count, "distributor" %> found:</p>
+        <p><%= pluralize @distributors.size, "distributor" %> found:</p>
       </div>
       <div class="small-6 columns text-right">
         <p><%= link_to "export results to excel", {format: :xls, params: request.query_parameters} %></p>

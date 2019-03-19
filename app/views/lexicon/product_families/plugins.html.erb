@@ -11,7 +11,7 @@
 	<% end %>
 <% end %>
 
-<% if @product_family.features.count > 0 %>
+<% if @product_family.features.size > 0 %>
   <% @product_family.features.each do |feature| %>
     <%= render_feature feature %>
   <% end %>

@@ -68,7 +68,7 @@
 </p>
 <% end %>
 
-<% if @product_family.features.count == 0 %>
+<% if @product_family.features.size == 0 %>
   <p>
     <b>Intro Text:</b><br/>
     <%= @product_family.intro %>

@@ -126,7 +126,7 @@ class Software < ApplicationRecord
   end
 
   def has_additional_info?
-    !!(self.description.present? || self.training_modules.count > 0 || self.software_attachments.count > 0 || self.training_classes.count > 0)
+    !!(self.description.present? || self.training_modules.size > 0 || self.software_attachments.size > 0 || self.training_classes.size > 0)
   end
 
   def current_products

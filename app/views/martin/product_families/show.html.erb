@@ -11,7 +11,7 @@
 	<% end %>
 <% end %>
 
-<% if @product_family.features.count > 0 %>
+<% if @product_family.features.size > 0 %>
   <% content_for :feature do %>
     <% @product_family.features.each do |feature| %>
       <%= render_feature feature %>
@@ -42,7 +42,7 @@
       </div>
     <% end # if @product_family.title_banner.present? %>
   <% end # content_for :feature do %>
-<% end # if @product_family.features.count > 0 %>
+<% end # if @product_family.features.size > 0 %>
 
 <% if @product_family.show_comparisons? %>
 	<%= form_tag compare_products_path, method: :get %>

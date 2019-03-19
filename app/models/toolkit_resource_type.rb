@@ -6,7 +6,7 @@ class ToolkitResourceType < ApplicationRecord
   has_many :toolkit_resources
 
   def self.menu_items(brand)
-  	where("position > 0").order(:position).select{|trt| trt if trt.brand_resources(brand).count > 0}
+  	where("position > 0").order(:position).select{|trt| trt if trt.brand_resources(brand).size > 0}
   end
 
   def brand_resources(brand)

@@ -1,7 +1,7 @@
 <%= form_for([:admin, @warranty_registration]) do |f| %>
   <% if @warranty_registration.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@warranty_registration.errors.count, "error") %> prohibited this warranty_registration from being saved:</h2>
+      <h2><%= pluralize(@warranty_registration.errors.size, "error") %> prohibited this warranty_registration from being saved:</h2>
 
       <ul>
       <% @warranty_registration.errors.full_messages.each do |msg| %>

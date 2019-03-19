@@ -20,7 +20,7 @@ class Setting < ApplicationRecord
   def steal_description
     if self.description.blank?
       other = self.class.where(name: self.name).where.not(description: ['', nil]).limit(1)
-      if other.count > 0
+      if other.size > 0
         self.description = other.first.description
       end
     end

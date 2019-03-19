@@ -37,7 +37,7 @@
       <% if @products %>
         <ul class="side-nav">
           <% @products.each do |product| %>
-            <% if product.product_documents.count > 0 || product.softwares.count > 0 %>
+            <% if product.product_documents.size > 0 || product.softwares.size > 0 %>
               <li <% if params[:selected_object] && params[:selected_object] == product.to_param %>class="active"<% end %>>
                 <%= link_to translate_content(product, :name), { view_by: "products", selected_object: product } %>
               </li>
@@ -48,7 +48,7 @@
           <h5><%= t(:discontinued_products) %></h5>
           <ul class="side-nav">
             <% @discontinued_products.each do |product| %>
-              <% if product.product_documents.count > 0 || product.softwares.count > 0 %>
+              <% if product.product_documents.size > 0 || product.softwares.size > 0 %>
                 <li <% if params[:selected_object] && params[:selected_object] == product.to_param %>class="active"<% end %>>
                   <%= link_to translate_content(product, :name), { view_by: "products", selected_object: product } %>
                 </li>
@@ -75,11 +75,11 @@
   <div class="medium-5 large-6 small-12 columns downloads">
       <% if @product %>
         <h4 class="subtitle"><%= translate_content(@product, :name) %> <%= t("resource_downloads").titleize %></h4>
-        <% if @product.softwares.count > 0 %>
+        <% if @product.softwares.size > 0 %>
         <%= render_partial "products/downloads", product: @product %>
         <% end %>
 
-        <% if @product.product_documents.count > 0 %>
+        <% if @product.product_documents.size > 0 %>
         <%= render_partial "products/documentation", product: @product %>
         <% end %>
 

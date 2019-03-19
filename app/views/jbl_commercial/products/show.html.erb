@@ -117,7 +117,7 @@ set_meta_tags title: @product.name,
       <span class="discontinued">(<%= t('discontinued') %>)</span>
     <% end %>
   </h1>
-  <% if @product.badges.count > 0 %>
+  <% if @product.badges.size > 0 %>
     <div class="badge-container">
       <% @product.badges.each do |badge| %>
         <%= image_tag(badge.image.url(:medium), alt: badge.name) %>&nbsp;

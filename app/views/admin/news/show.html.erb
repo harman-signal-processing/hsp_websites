@@ -172,18 +172,18 @@
       </div>
     <% end %>
 
-		<% if @products.count > 0 || @news.news_products.count > 0 %>
+		<% if @products.size > 0 || @news.news_products.size > 0 %>
 		<div class="group">
 			<h5 class="subheader">This article is associated with the following product(s):</h5>
-			<% if @products.count > 0 %>
+			<% if @products.size > 0 %>
 				<%= simple_form_for [:admin, @news_product], remote: true do |f| %>
 					<%= hidden_field_tag "called_from", "news" %>
 				    <%= f.hidden_field :news_id %>
 				    <div class="row collapse">
 				    	<div class="large-8 small-8 columns">
-				    		<%= f.association :product, 
-				    		# collection: @products, 
-				    		collection: Product.not_associated_with_this_news_item(@news, website), 
+				    		<%= f.association :product,
+				    		# collection: @products,
+				    		collection: Product.not_associated_with_this_news_item(@news, website),
 				    		label: false,
 				    		input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Products'} }%>
 				    	</div>

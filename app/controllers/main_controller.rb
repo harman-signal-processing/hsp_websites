@@ -192,7 +192,7 @@ class MainController < ApplicationController
       @pages << { url: buy_it_now_product_url(product),
         updated_at: product.updated_at,
         changefreq: 'weekly',
-        priority: 0.7 } if product.active_retailer_links.length > 0 && !(product.parent_products.count > 0)
+        priority: 0.7 } if product.active_retailer_links.length > 0 && !(product.parent_products.size > 0)
     end
     if website.has_software?
       @pages << { url: softwares_url,

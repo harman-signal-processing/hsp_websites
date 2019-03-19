@@ -85,11 +85,11 @@
 
 	<div class="small-12 large-6 columns">
 		<h5 class="subheader">Documentation:</h5>
-		<%= render "documentation", product: @product if @product.product_documents.count > 0 %>
+		<%= render "documentation", product: @product if @product.product_documents.size > 0 %>
 	</div>
 
 	<div class="small-12 large-6 columns">
-		<% if @product.softwares.count > 0 || @product.site_elements.count > 0  %>
+		<% if @product.softwares.size > 0 || @product.site_elements.size > 0  %>
 		<h5 class="subheader">Downloads:</h5>
 		<%= render "downloads", product: @product %>
 		<% end %>

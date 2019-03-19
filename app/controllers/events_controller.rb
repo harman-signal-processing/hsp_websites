@@ -11,7 +11,7 @@ class EventsController < ApplicationController
 
     @banner_event = nil
     banner_events = @events.where.not(image_file_name: [nil, ""])
-    if banner_events.count > 0
+    if banner_events.size > 0
       @banner_event = banner_events.first
     end
 
