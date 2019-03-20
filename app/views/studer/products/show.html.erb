@@ -90,7 +90,7 @@ set_meta_tags title: @product.name,
       <h3><%= translate_content(@product, :short_description) %></h3>
     </div>
     <div class="small-6 columns text-right">
-      <% if website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !@product.direct_buy_link.blank? %>
+      <% if website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !@product.direct_buy_link.blank? && !@product.discontinued %>
 
         <div class="product-price">
           <% if website.show_pricing? && I18n.default_locale.match(/#{I18n.locale}/i) %>
@@ -213,12 +213,9 @@ set_meta_tags title: @product.name,
         </div>
       <% end %>
 
-      <% if website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !@product.direct_buy_link.blank? %>
+      <% if website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !@product.direct_buy_link.blank? && !@product.discontinued? %>
 
-        <% if (website.has_customer_reviews? && @product.has_customer_reviews?) ||
-            (website.show_pricing? && !@product.hide_buy_it_now_button?) %>
           <hr/>
-        <% end %>
 
         <div class="product-price-row">
 
