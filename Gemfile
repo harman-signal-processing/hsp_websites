@@ -76,7 +76,7 @@ gem 'cheetah_mail', "~> 0.6.0"
 gem 'silverpop'
 gem 'hashie', '~> 3.4.6' # 3.5.1 was causing errors with some silverpop transactions
 gem 'oauth2'
-gem 'rmagick', require: 'rmagick'
+gem 'rmagick', "< 3.0", require: 'rmagick' #v3+ requires ImageMagick >= 6.8
 gem 'typhoeus' # For link validator
 gem 'slick_rails' # slick carousel
 gem 'mailgun_rails' # mailer service

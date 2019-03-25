@@ -90,7 +90,7 @@ set_meta_tags title: @product.name,
       <h3><%= translate_content(@product, :short_description) %></h3>
     </div>
     <div class="small-6 columns text-right">
-      <% if (website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !@product.direct_buy_link.blank?) && !@product.hide_buy_it_now_button && !@product.discontinued %>
+      <% if (website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !@product.direct_buy_link.blank?) && !@product.hide_buy_it_now_button && !@product.discontinued? %>
         <%= render_partial 'price' %>
         <%= buy_it_now_link(@product, html_button: true, reveal_id: "buy-it-now-popup") %>
       <% end %>
