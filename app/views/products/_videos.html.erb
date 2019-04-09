@@ -1,24 +1,40 @@
 <%= cache ["product_videos", product] do %>
 
-  <% product.product_videos.group(:group).each do |pv_group| %>
-    <h5><%= pv_group.group %></h5>
-    <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-4">
-      <% product.product_videos.where(group: pv_group.group).each do |pv| %>
-        <%= cache ["product_video", pv.youtube_id ] do %>
-          <% begin %>
-            <% video = get_video(pv.youtube_id) %>
-            <li>
-              <%= link_to play_video_url(pv.youtube_id), data: { videoid: pv.youtube_id, :'reveal-id' => "videoModal" }, class: 'start-video' do %>
-                <img src="<%= video["thumbnails"]["default"]["url"] %>" class="radius">
-                <br/><%= video['title'] %>
-              <% end %>
-            </li>
-          <% rescue %>
-            <!-- problem loading <%= pv.youtube_id %> -->
+  <% if product.product_videos.length > 10 %>
+    <% # Use the old way to show thumbnails when there's lots of 'em %>
+    <% product.product_videos.group(:group).each do |pv_group| %>
+      <h5><%= pv_group.group %></h5>
+      <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-4">
+        <% product.product_videos.where(group: pv_group.group).each do |pv| %>
+          <%= cache ["product_video", pv.youtube_id ] do %>
+            <% begin %>
+              <% video = get_video(pv.youtube_id) %>
+              <li>
+                <%= link_to play_video_url(pv.youtube_id), data: { videoid: pv.youtube_id, :'reveal-id' => "videoModal" }, class: 'start-video' do %>
+                  <img src="<%= video["thumbnails"]["default"]["url"] %>" class="radius">
+                  <br/><%= video['title'] %>
+                <% end %>
+              </li>
+            <% rescue %>
+              <!-- problem loading <%= pv.youtube_id %> -->
+            <% end %>
           <% end %>
         <% end %>
+      </ul>
+    <% end %>
+  <% else %>
+    <% product.product_videos.each do |pv| %>
+      <% begin %>
+        <% video = get_video(pv.youtube_id) %>
+        <div class="flex-video">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= pv.youtube_id %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <%= video['title'] %>
+        <p>&nbsp;</p>
+      <% rescue %>
+        <!-- problem loading <%= pv.youtube_id %> -->
       <% end %>
-    </ul>
+    <% end %>
   <% end %>
 
 <% end %>
