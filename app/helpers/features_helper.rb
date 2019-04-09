@@ -1,32 +1,48 @@
 module FeaturesHelper
 
   # Selects which type of feature to render
-  def render_feature(feature)
-    render_pre_content(feature) + case feature.layout_style
-    when "wide"
-      render_wide_feature(feature)
-    when "split"
-      render_split_feature(feature)
-    else
-      render_feature_text(feature)
-    end
+  def render_feature(feature, opt={})
+#    if opt[:format].present? && opt[:format] == "mobile"
+#      render_pre_content(feature) + render_mobile_feature(feature)
+#    else
+      render_pre_content(feature) + case feature.layout_style
+      when "wide"
+        render_wide_feature(feature, opt)
+      when "split"
+        render_split_feature(feature, opt)
+      else
+        render_feature_text(feature, opt)
+      end
+#    end
   end # def render_feature
 
   # Renders wide feature with text overlay
-  def render_wide_feature(feature)
+  def render_wide_feature(feature, opt={})
     if feature.image.present? || feature.content.present?
-      position_class = "medium-6 small-11 columns end"
-      position_class += " medium-offset-6 small-offset-1 " if feature.content_position.to_s == "right"
+      position_class = "medium-6 small-12 columns end"
+      position_class += " medium-offset-6 " if feature.content_position.to_s == "right"
 
       content_class = { class: "wide-feature container" }
+      img = ""
       if feature.image.present?
-        content_class[:style] = "background-image: url(#{feature.image.url(:extra_large)});"
+        if opt[:format].present? && opt[:format] == "mobile"
+          img = feature.image.url(:medium)
+        else
+          img = feature.image.url(:extra_large)
+        end
+        content_class[:style] = "background-image: url(#{img});"
       end
 
-      content_tag :div, content_class  do
-        content_tag :div, class: "row" do
-          content_tag :div, class: position_class do
-            render_feature_text(feature)
+      if opt[:format].present? && opt[:format] == "mobile"
+        content_tag :div, class: "wide-feature"  do
+          image_tag(img) + render_feature_text(feature, opt)
+        end
+      else
+        content_tag :div, content_class  do
+          content_tag :div, class: "row" do
+            content_tag :div, class: position_class do
+              render_feature_text(feature, opt)
+            end
           end
         end
       end
@@ -34,7 +50,7 @@ module FeaturesHelper
   end # def render_wide_feature
 
   # Renders split-panel features with text on one side
-  def render_split_feature(feature)
+  def render_split_feature(feature, opt={})
     small_image_panel = content_tag :div,
       class: "hide-for-medium-up show-for-small small-12 columns" do
       image_tag feature.image.url(:large)
@@ -43,7 +59,7 @@ module FeaturesHelper
       class: "medium-7 hide-for-small columns image-container",
       style: "background-image: url(#{feature.image.url});",
       data: { 'equalizer-watch': "feature_#{feature.to_param}" }
-    text_panel = content_tag :div, render_feature_text(feature),
+    text_panel = content_tag :div, render_feature_text(feature, opt),
       class: "medium-5 small-12 columns",
       data: { 'equalizer-watch': "feature_#{feature.to_param}" }
     content_tag :div, class: "row collapse split-feature", data: { equalizer: "feature_#{feature.to_param}" } do
@@ -56,10 +72,11 @@ module FeaturesHelper
   end # def render_split_feature
 
   # Renders just the text of a feature
-  def render_feature_text(feature)
+  def render_feature_text(feature, opt={})
+    data = (opt[:format].present? && opt[:format] == "mobile") ? {} :
+      { 'equalizer-watch': "feature_#{feature.to_param}" }
     if feature.content.present?
-      content_tag :div, class: "borderless feature-text panel",
-        data: { 'equalizer-watch': "feature_#{feature.to_param}" } do
+      content_tag :div, class: "borderless feature-text panel", data: data do
         raw(update_youtube_links(translate_content(feature, :content)))
       end
     end

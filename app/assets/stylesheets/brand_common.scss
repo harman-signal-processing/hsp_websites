@@ -1695,13 +1695,25 @@ hr.colored {
   padding: 40px;
 }
 .wide-feature {
-  padding: 60px 0;
+  width: 100%;
   @media only screen and (min-width: 720px) {
+    padding: 60px 0;
     margin-bottom: 20px;
+    background-position: bottom center;
+    background-size: cover;
   }
-  background-position: bottom center;
+  @media only screen and (max-width: 719px) {
+    outline: 1px solid #DDD;
+    margin-bottom: 10px;
+    h4 {
+      font-size:rem-calc(16);
+      line-height: 1.2 !important;
+    }
+    .panel {
+      padding: 20px;
+    }
+  }
   background-repeat: no-repeat;
-  background-size: cover;
   .feature-text {
     background-color: rgba(lighten($panel-bg, 50%), 0.85) !important;
   }
