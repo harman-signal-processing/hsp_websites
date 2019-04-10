@@ -470,7 +470,11 @@ class Product < ApplicationRecord
   end
 
   def latest_version_of_site_element?(site_element)
-    site_element == site_elements.where(name: site_element.name, language: site_element.language).order(:version).last
+    latest_versions[site_element.to_param] ||= site_element == site_elements.where(name: site_element.name, language: site_element.language).order(:version).last
+  end
+
+  def latest_versions
+    @latest_versions ||= {}
   end
 
   # Pretty awful hack to see if a custom tab name exists for the given tab "name".
@@ -638,6 +642,10 @@ class Product < ApplicationRecord
 
   def ungrouped_product_specifications
     product_specifications.select{|ps| ps unless ps.specification.specification_group}
+  end
+
+  def all_related_downloads
+    @all_related_downloads = viewable_site_elements + executable_site_elements + active_softwares
   end
 
 end

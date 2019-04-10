@@ -160,6 +160,11 @@ class Software < ApplicationRecord
     uploaded_object.delete
   end
 
+  # Allows this item to be treated as a Site Element for sorting
+  def resource_type
+    "Software"
+  end
+
 protected
 
   # Set attachment attributes from the direct upload

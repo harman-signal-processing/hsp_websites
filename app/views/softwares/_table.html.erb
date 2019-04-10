@@ -1,18 +1,36 @@
-<table class="info" style="margin-left: auto; margin-right: auto;">
-
-  <% products.each do |product| %>
-    <% if product.active_softwares.size > 0 %>
-      <tr>
-        <th>
-          <% if product.photo && !product.discontinued? %>
-            <%= image_tag product.photo.product_attachment.url(:tiny) %><br/>
-          <% end %>
-          <%= product.name %>
-        </th>
-        <td>
-          <%= render_partial "products/downloads", product: product %>
-        </td>
-      </tr>
-    <% end %>
+<hr/>
+<% products.each do |product| %>
+  <% if product.active_softwares.length > 0 || product.executable_site_elements.where(resource_type: "Software").length > 0 %>
+    <div class="row">
+      <div class="small-12 columns" style="margin-bottom: 10px; padding: 10px;">
+        <div class="row">
+          <div class="large-2 medium-3 small-12 columns text-center">
+            <% if product.photo %>
+              <%= image_tag product.photo.product_attachment.url(:tiny) %><br/>
+            <% end %>
+            <%= link_to product.name, product %>
+          </div>
+          <div class="large-10 medium-9 small-12 columns">
+            <table style="width: 100%">
+              <thead>
+                <tr>
+                  <td width="52%"><%= product.name %> Software</td>
+                  <td width="10%">Version</td>
+                  <td width="10%">Language</td>
+                  <td width="12%">Size</td>
+                  <td width="15%">Uploaded</td>
+                </tr>
+              </thead>
+              <tbody>
+                <% (product.active_softwares + product.executable_site_elements.where(resource_type: "Software")).each do |site_element| %>
+                  <%= render_partial 'shared/download_table_row', item: site_element %>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr/>
   <% end %>
-</table>
+<% end %>
