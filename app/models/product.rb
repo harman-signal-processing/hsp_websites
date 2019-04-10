@@ -470,11 +470,7 @@ class Product < ApplicationRecord
   end
 
   def latest_version_of_site_element?(site_element)
-    latest_versions[site_element.to_param] ||= site_element == site_elements.where(name: site_element.name, language: site_element.language).order(:version).last
-  end
-
-  def latest_versions
-    @latest_versions ||= {}
+    site_element == site_elements.where(name: site_element.name, language: site_element.language).order(:version).last
   end
 
   # Pretty awful hack to see if a custom tab name exists for the given tab "name".
