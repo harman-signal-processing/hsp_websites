@@ -1003,6 +1003,9 @@ div#product_buy_now_box {
         margin-bottom: 20px;
       }
     }
+    &.small-block-grid-1, &.medium-block-grid-3 {
+      margin-left: -10px !important;
+    }
 	}
   p {
     margin-bottom: 20px;
