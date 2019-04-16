@@ -23,6 +23,7 @@
 //= require homepage
 //= require foundation
 //= require lightbox
+//= require will_paginate_infinite
 // require add2home
 //= require tools
 //= require_self

@@ -1149,6 +1149,20 @@ h2.special_offer {
 }
 
 /****** News ********/
+.news_banner {
+  @media only screen and (min-width: 1200px) {
+    margin-top: rem-calc(65px);
+    position: relative;
+    z-index: -99999;
+    max-height: 700px;
+    min-height: 500px;
+    img {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+  }
+}
 .news_strip {
 	padding-top: 80px;
 	margin-bottom: none !important;

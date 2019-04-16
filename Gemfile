@@ -67,6 +67,7 @@ gem "rabl"
 gem "money"
 gem 'money-rails', ">= 1.9.0" # 2017-12-01
 gem 'will_paginate'
+gem 'will_paginate_infinite'
 gem "possessive"
 #gem 'event-calendar', :require => 'event_calendar' # was for marketing queue, I think
 gem 'RedCloth'

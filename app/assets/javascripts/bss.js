@@ -29,6 +29,7 @@
 //= require swfobject
 //= require tools
 //= require math.min
+//= require will_paginate_infinite
 //= require bss_application
 //= require network_audio
 //= require configurator

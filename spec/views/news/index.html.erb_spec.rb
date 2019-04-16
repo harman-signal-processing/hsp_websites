@@ -3,12 +3,12 @@ require 'rails_helper'
 RSpec.describe "news/index.html.erb", :type => :view do
   before :all do
     @website = FactoryBot.create(:website)
-    @news = FactoryBot.build_stubbed(:news, brand: @website.brand)
+    @news = FactoryBot.create(:news, brand: @website.brand)
   end
 
   before :each do
     allow(view).to receive(:website).and_return(@website)
-    assign(:news, [@news])
+    assign(:news, News.all.paginate(page: 1, per_page: 20))
     render
   end
 

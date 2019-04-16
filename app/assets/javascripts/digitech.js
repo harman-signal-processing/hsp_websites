@@ -30,6 +30,7 @@
 //= require jwplayer
 //= require swfobject
 //= require tools
+//= require will_paginate_infinite
 //= require digitech_application
 //= require istomp
 //= require_self

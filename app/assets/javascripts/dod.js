@@ -27,6 +27,7 @@
 //= require jwplayer
 //= require swfobject
 //= require tools
+//= require will_paginate_infinite
 //= require dod_application
 //= require_self
 
