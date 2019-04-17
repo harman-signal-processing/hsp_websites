@@ -6,12 +6,12 @@ class Admin::ContactMessagesController < AdminController
   def index
     # @contact_messages = @contact_messages.where(brand_id: website.brand_id).order("post_on DESC")
     @search = website.brand.contact_messages.ransack(params[:q])
-    @contact_messages = @search.result
+    @contact_messages = @search.result.paginate(page: params[:page], per_page: 50)
     @search_attempted = false
     if params[:q]
       @search_attempted = true
     else
-      @contact_messages = website.brand.contact_messages.order("created_at DESC").limit(50)
+      @contact_messages = website.brand.contact_messages.order("created_at DESC").paginate(page: params[:page], per_page: 50)
     end
     respond_to do |format|
       format.html { render_template } # index.html.erb

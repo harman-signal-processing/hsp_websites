@@ -39,9 +39,9 @@ staff, but you can also look at the messages here.</p>
 
 <% unless @search_attempted %>
   <p>Here are the most recent messages received</p>
-<% else %>
-  <p><%=pluralize @contact_messages.length.to_i, "message" %> found.</p>
 <% end %>
+
+<%= will_paginate @contact_messages %>
 
 <table class="data" style="width: 100%">
   <thead>
@@ -64,3 +64,5 @@ staff, but you can also look at the messages here.</p>
     <% end %>
   </tbody>
 </table>
+
+<%= will_paginate @contact_messages %>

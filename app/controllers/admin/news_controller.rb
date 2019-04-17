@@ -6,7 +6,7 @@ class Admin::NewsController < AdminController
   # GET /admin/news.xml
   def index
     @search = website.brand.news.ransack(params[:q])
-    @news = @search.result
+    @news = @search.result.paginate(page: params[:page], per_page: 20)
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @news }
