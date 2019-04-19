@@ -4,15 +4,15 @@ gem 'rails', '~> 5.2'
 gem 'responders', '~> 2.0'
 # Gems used only for assets and not required
 # in production environments by default.
-gem 'sprockets' #, '< 3.0' # v3.0 caused deploy problems with capistrano as of 4/15/15
-gem 'sprockets-rails' #, '2.2.4'
+gem 'sprockets'
+gem 'sprockets-rails'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails' #, '~> 4.1.0'
+gem 'coffee-rails'
 gem "foundation-rails", '5.5.1' # 5.5.3 has a bug with Magellan https://github.com/zurb/foundation-sites/issues/8416
 gem 'lightbox2-rails', '~> 2.7.1' # 6/1/2016 v2.8.2.1 stopped working.
 gem 'image_zoomer'
-gem 'jquery-rails' #, "~> 4.0.5" # 4.1 broke buy it now popups
+gem 'jquery-rails'
 gem 'font-awesome-rails'
 # To use debugger
 # gem 'ruby-debug'
@@ -69,7 +69,6 @@ gem 'money-rails', ">= 1.9.0" # 2017-12-01
 gem 'will_paginate'
 gem 'will_paginate_infinite'
 gem "possessive"
-#gem 'event-calendar', :require => 'event_calendar' # was for marketing queue, I think
 gem 'RedCloth'
 gem 'figaro'
 gem 'delayed_paperclip'
@@ -83,13 +82,6 @@ gem 'slick_rails' # slick carousel
 gem 'mailgun_rails' # mailer service
 gem 'nokogiri'
 gem 'email_validator'
-
-### Could be useful in the future...
-# gem "bing_translate_yaml", "~> 0.1.7"
-
-### New Sound Community stuff
-# gem 'forem', git: "http://github.com/radar/forem.git"
-# gem 'forem-theme-twist', git: "http://github.com/radar/forem-theme-twist.git"
 
 group :production, :staging do
   gem 'passenger_monit'
@@ -113,7 +105,6 @@ group :development do
   gem 'sshkit'
   gem 'colorize'
   gem 'rorvswild'
-  # gem 'pry-byebug'
 end
 
 group :development, :test do
@@ -122,7 +113,7 @@ group :development, :test do
   gem 'guard-rails'
   gem 'guard-rspec'
   gem 'rspec-rails'
-  gem "factory_bot_rails", "~> 4.0"
+  gem "factory_bot_rails" #, "~> 4.0"
   gem 'pry-byebug'
 end
 
