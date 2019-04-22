@@ -166,7 +166,7 @@
                       <% if can?(:update, :harman_employee_pricing) %>
                         <li><%= link_to "Harman Employee Pricing", harman_employee_pricing_admin_products_path %></li>
                       <% end %>
-                      <% if website.brand.signups.count > 0  %>
+                      <% if website.brand.signups.size > 0  %>
                         <li><%= link_to "Signups", admin_signups_path %></li>
                       <% end %>
                     </ul>
@@ -225,7 +225,7 @@
                     <li class="has-dropdown"><%= link_to "Partners", '#' %>
                     <ul class="dropdown">
                       <% if can?(:manage, OnlineRetailer) && website.has_online_retailers? %>
-                        <li><%= link_to "Online Retailers (#{ pluralize(OnlineRetailerLink.problems.count, 'problem') })", admin_online_retailers_path %></li>
+                        <li><%= link_to "Online Retailers (#{ pluralize(OnlineRetailerLink.problems.size, 'problem') })", admin_online_retailers_path %></li>
                       <% end %>
                       <% if can?(:manage, Dealer) && website.has_dealers? %>
                         <li><%= link_to "Dealers", admin_dealers_path %></li>

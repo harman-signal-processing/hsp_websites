@@ -15,7 +15,7 @@
       <% end %>
     </ul>
 
-    <% if @product_family.discontinued_products.count > 0 %>
+    <% if @product_family.discontinued_products.size > 0 %>
       <h5 class="subheader">Discontinued Products</h5>
       <ul>
         <% @product_family.discontinued_products.sort_by{|p| p.name.upcase}.each do |product| %>

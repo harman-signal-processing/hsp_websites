@@ -262,9 +262,7 @@ private
         session['geo_usa'] = (params['geo'] == "US") ? true : false
       else
         unless session['geo_country']
-          ip = request.env["HTTP_X_FORWARDED_FOR"] || request.remote_ip
-          lookup = Geokit::Geocoders::GeoPluginGeocoder.do_geocode(ip)
-          # lookup = GeoKit::Geocoders::MultiGeocoder.do_geocode(ip)
+          lookup = Geokit::Geocoders::GeoPluginGeocoder.do_geocode(request.remote_ip)
           if lookup.success? || lookup.country_code
             session['geo_country'] = lookup.country_code
             session['geo_usa'] = lookup.is_us?
@@ -282,14 +280,14 @@ private
     raise ActionController::RoutingError.new("Site not found") unless website && website.respond_to?(:list_of_available_locales)
 
     # This is where we set the locale:
-    if !!(session['geo_usa']) && website.list_of_available_locales.include?("en-US")
+    if params.key?(:locale)
+      I18n.locale = params[:locale]
+    elsif !!(session['geo_usa']) && website.list_of_available_locales.include?("en-US")
       I18n.locale = 'en-US'
     elsif session['geo_country'] == "CN" && website.list_of_available_locales.include?("zh")
       I18n.locale = 'zh'
     elsif session['geo_country'] == "UK" && website.list_of_available_locales.include?("en")
       I18n.locale = 'en'
-    elsif params.key?(:locale)
-      I18n.locale = params[:locale]
     elsif website.locale
       I18n.locale = website.locale
     elsif website.show_locales? && controller_path == "main" && action_name == "default_locale"

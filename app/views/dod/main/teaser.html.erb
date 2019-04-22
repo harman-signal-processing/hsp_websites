@@ -40,7 +40,7 @@
                 </div>
               <% end %>
             </li>
-    			<% elsif product.product_attachments.count >= 5 %>
+    			<% elsif product.product_attachments.size >= 5 %>
             <li>
               <%= link_to product do %>
                 <div class="pedal_link" style="z-index: <%= 100 - i %>;">

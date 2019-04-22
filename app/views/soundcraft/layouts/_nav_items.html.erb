@@ -6,10 +6,6 @@
 				<%= product_family_nav_links(product_family) %>
 			<% end %>
 			<li><%= link_to t('legacy_products').titleize, discontinued_products_path %></li>
-      <% if website.has_software? && (website.current_softwares.length > 0 || website.forced_current_softwares.length > 0) %>
-        <li><%= link_to t('software_downloads').titleize, software_index_path %></li>
-      <% end %>
-			<li><%= link_to t('warranty_registration').titleize, warranty_registration_path %></li>
 			<li><%= link_to t("promotions"), promotions_path %></li>
 		</ul>
 	</li>
@@ -28,17 +24,24 @@
 	<% end %>
 
   <li class="divider hide-for-medium"></li>
-  <li><%= link_to t('product_support').titleize, support_path %></li>
+  <li class="has-dropdown"><%= link_to t('product_support').titleize, support_path %>
+    <ul class="dropdown">
+      <li><%= link_to t('contact_us').titleize, support_path %></li>
+      <li><%= link_to t('software_downloads').titleize, software_index_path %></li>
+      <li><%= link_to t('warranty').titleize, warranty_path %></li>
+      <% if website.has_product_registrations? %>
+        <li><%= link_to t("warranty_registration").titleize, warranty_registration_path %></li>
+      <% end %>
+      <% if !!(website.forum_link) %>
+        <li><%= link_to t("forum").titleize, website.forum_link %></li>
+      <% end %>      
+    </ul>
+  </li>
 
   <% if website.has_events? %>
     <li class="divider hide-for-medium"></li>
     <li class="hide-for-medium"><%= link_to t('events'), events_path %></li>
   <% end %>
-
-	<% if !!(website.forum_link) %>
-    <li class="divider hide-for-medium"></li>
-    <li class="hide-for-medium"><%= link_to t("forum").titleize, website.forum_link %></li>
-	<% end %>
 
 <% end %>
 

@@ -10,10 +10,10 @@
 <% @online_retailers.each do |online_retailer| %>
   <% if can? :update, online_retailer %>
   <li><%= link_to online_retailer.name, [:admin, online_retailer] %>
-	<!-- <%= online_retailer.online_retailer_links.count %> links -->
-	<% if online_retailer.bad_links.count > 0 %>
+	<!-- <%= online_retailer.online_retailer_links.size %> links -->
+	<% if online_retailer.bad_links.size > 0 %>
 	<span style="color: red; margin-left: 2px">
-		<%= pluralize(online_retailer.bad_links.count, "possible problem") %> found!
+		<%= pluralize(online_retailer.bad_links.size, "possible problem") %> found!
 	</span>
 	<% end %>
 	</li>

@@ -1003,6 +1003,9 @@ div#product_buy_now_box {
         margin-bottom: 20px;
       }
     }
+    &.small-block-grid-1, &.medium-block-grid-3 {
+      margin-left: -10px !important;
+    }
 	}
   p {
     margin-bottom: 20px;
@@ -1146,6 +1149,20 @@ h2.special_offer {
 }
 
 /****** News ********/
+.news_banner {
+  @media only screen and (min-width: 1200px) {
+    margin-top: rem-calc(65px);
+    position: relative;
+    z-index: -99999;
+    max-height: 700px;
+    min-height: 500px;
+    img {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+  }
+}
 .news_strip {
 	padding-top: 80px;
 	margin-bottom: none !important;
@@ -1695,13 +1712,25 @@ hr.colored {
   padding: 40px;
 }
 .wide-feature {
-  padding: 60px 0;
+  width: 100%;
   @media only screen and (min-width: 720px) {
+    padding: 60px 0;
     margin-bottom: 20px;
+    background-position: bottom center;
+    background-size: cover;
   }
-  background-position: bottom center;
+  @media only screen and (max-width: 719px) {
+    outline: 1px solid #DDD;
+    margin-bottom: 10px;
+    h4 {
+      font-size:rem-calc(16);
+      line-height: 1.2 !important;
+    }
+    .panel {
+      padding: 20px;
+    }
+  }
   background-repeat: no-repeat;
-  background-size: cover;
   .feature-text {
     background-color: rgba(lighten($panel-bg, 50%), 0.85) !important;
   }

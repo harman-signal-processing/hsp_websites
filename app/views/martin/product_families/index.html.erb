@@ -22,7 +22,7 @@
     <div class="row">
       <div class="small-12 columns product_cat_bar">
         <ul class="small-block-grid-2 medium-block-grid-4 large-block-grid-6">
-          <% if product_family.children_with_current_products(website).count > 1 %>
+          <% if product_family.children_with_current_products(website).size > 1 %>
             <% product_family.children_with_current_products(website).each do |pf| %>
               <% if pf.locales(website).include?(I18n.locale.to_s) %>
                 <li>
@@ -38,7 +38,7 @@
                 </li>
               <% end %>
             <% end %>
-          <% elsif product_family.children_with_current_products(website).count == 1 %>
+          <% elsif product_family.children_with_current_products(website).size == 1 %>
             <% product_family.children_with_current_products(website).first.current_products.each do |product| %>
               <li>
                 <%= link_to product do %>
@@ -50,7 +50,7 @@
                 <% end %>
               </li>
             <% end %>
-          <% elsif product_family.current_products.count > 0 %>
+          <% elsif product_family.current_products.size > 0 %>
             <% product_family.current_products.each do |product| %>
               <li>
                 <%= link_to product do %>
@@ -71,7 +71,7 @@
   <% end %>
 <% end %>
 
-<% if @discontinued_products.count > 0 %>
+<% if @discontinued_products.size > 0 %>
 <p>&nbsp;</p>
 <p><%= link_to "legacy products", discontinued_products_path %></p>
 <% end %>

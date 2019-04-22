@@ -22,7 +22,7 @@
           <% if item.resource_content_type.to_s.match(/pdf/i) || item.resource_file_name.to_s.match(/pdf$/i) %>
             <%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
           <% end %>
-          <%= link_to item.name, item.resource.url %>
+          <%= link_to item.name, item.url %>
           <%= keys_for(item) %>
         </td>
         <td class="text-center"> <%= item.version %>&nbsp;</td>

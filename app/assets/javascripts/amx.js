@@ -30,6 +30,7 @@
 //= require swfobject
 //= require tools
 //= require math.min
+//= require will_paginate_infinite
 //= require amx_application
 //= require network_audio
 //= require configurator

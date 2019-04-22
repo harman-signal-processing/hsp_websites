@@ -24,11 +24,11 @@ class GetStartedPage < ApplicationRecord
   end
 
   def has_user_guides?
-    ProductDocument.where(product_id: self.products.pluck(:id)).count > 0
+    ProductDocument.where(product_id: self.products.pluck(:id)).size > 0
   end
 
   def has_software?
-    ProductSoftware.joins(:software).where(product_id: self.products.pluck(:id), softwares: {active: true}).count > 0
+    ProductSoftware.joins(:software).where(product_id: self.products.pluck(:id), softwares: {active: true}).size > 0
   end
 end
 

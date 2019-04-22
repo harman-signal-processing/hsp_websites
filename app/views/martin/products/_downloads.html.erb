@@ -3,7 +3,8 @@
   <table style="width: 100%">
     <thead>
       <tr>
-        <td>Filename</td>
+        <%# Robert Svensson really hates the work "Filename". %>
+        <td><!--Filename-->&nbsp;</td>
         <td>Version</td>
         <td>Language</td>
         <td>Size</td>
@@ -12,46 +13,32 @@
     </thead>
     <tbody>
 
-	<% if product.current_and_recently_expired_promotions.where.not(promo_form_file_name: [nil, '']).length > 0 %>
-    <tr>
-      <td colspan="5">
-        <%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
-        <%= link_to(t('product_page.rebate_forms'), promotions_path) %>
-      </td>
-    </tr>
-	<% end %>
-
-	<% product.safety_documents.includes(:product).each do |product_document| %>
-    <%= render_partial 'shared/download_table_row', item: product_document %>
-	<% end %>
-
-	<% product.nonsafety_documents.includes(:product).each do |product_document| %>
-    <%= render_partial 'shared/download_table_row', item: product_document %>
-	<% end %>
-
-  <% if product.active_softwares.length > 0 || product.software_site_elements.length > 0%>
-    <tr>
-      <td colspan="5">
-        <h6> Software </h6>
-      </td>
-    </tr>
-    <% product.active_softwares.each do |software| %>
-      <%= render_partial 'shared/download_table_row', item: software %>
-    <% end %>
-    <% product.software_site_elements.each do |site_element| %>
-      <%= render_partial 'shared/download_table_row', item: site_element %>
+    <% if product.current_and_recently_expired_promotions.where.not(promo_form_file_name: [nil, '']).length > 0 %>
+      <tr>
+        <td colspan="5">
+          <%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
+          <%= link_to(t('product_page.rebate_forms'), promotions_path) %>
+        </td>
+      </tr>
     <% end %>
 
-  <% end %>
-
-  <% (product.viewable_site_elements + product.executable_site_elements).group_by(&:resource_type).sort_by{|r,i| download_group_sort_order(r)}.each do |resource_type, site_elements| %>
-    <% next if resource_type.to_s.match?(/software/i) %>
-    <%= downloads_header_row(resource_type, site_elements, columns: 5) %>
-    <% site_elements.each do |site_element| %>
-      <%= render_partial 'shared/download_table_row', item: site_element %>
+    <% product.safety_documents.includes(:product).each do |product_document| %>
+      <%= render_partial 'shared/download_table_row', item: product_document %>
     <% end %>
-	<% end %>
+
+    <% product.nonsafety_documents.includes(:product).each do |product_document| %>
+      <%= render_partial 'shared/download_table_row', item: product_document %>
+    <% end %>
+
+    <% (product.all_related_downloads).group_by(&:resource_type).sort_by{|r,i| download_group_sort_order(r)}.each do |resource_type, site_elements| %>
+      <%= downloads_header_row(resource_type, site_elements, columns: 5) %>
+      <% site_elements.each do |site_element| %>
+        <%= render_partial 'shared/download_table_row', item: site_element %>
+      <% end %>
+    <% end %>
 
     </tbody>
   </table>
+  <p><i>If any of the links above result in strange characters in your browser, please right-click the file
+    to save it to your computer.</i></p>
 </div>

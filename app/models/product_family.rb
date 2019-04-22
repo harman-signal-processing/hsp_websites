@@ -87,36 +87,33 @@ class ProductFamily < ApplicationRecord
 
   # Collection of all families with at least one active product
   def self.all_with_current_products(website, locale)
-    pf = []
-    where(brand_id: website.brand_id).order("position").all.each do |f|
-      pf << f if (f.current_products.size > 0 || f.children_with_current_products(website).size > 0) && f.locales(website).include?(locale.to_s)
+    where(brand_id: website.brand_id).order("position").select do |f|
+      f if (f.current_products.size > 0 || f.children_with_current_products(website).size > 0) && f.locales(website).include?(locale.to_s)
     end
-    pf
   end
 
   # Collection of all families with at least one current or discontinued product
   # for the given website and locale
   def self.all_with_current_or_discontinued_products(website, locale)
-    pf = []
-    where(brand_id: website.brand_id).order("position").all.each do |f|
-      pf << f if (f.current_products_plus_child_products(website).length > 0 || f.current_and_discontinued_products.length > 0) && f.locales(website).include?(locale.to_s)
+    where(brand_id: website.brand_id).order("position").select do |f|
+      f if (f.current_and_discontinued_products.size > 0 || f.current_products_plus_child_products(website).size > 0) && f.locales(website).include?(locale.to_s)
     end
-    pf
   end
 
   # Parent categories with at least one active product
   def self.parents_with_current_products(website, locale)
     pf = []
     top_level_for(website).each do |f|
-      if f.current_products.size > 0
-        pf << f if f.locales(website).include?(locale.to_s)
-      else
-        current_children = 0
-        f.children.includes(:products).each do |ch|
-          current_children += ch.current_products_plus_child_products(website).count
-        end
-        if current_children > 0
-          pf << f if f.locales(website).include?(locale.to_s)
+      if f.locales(website).include?(locale.to_s)
+        if f.current_products.size > 0
+          pf << f
+        else
+          current_children = 0
+          f.children.includes(:products).each do |ch|
+            current_children += ch.current_products_plus_child_products(website).size
+            last if current_children > 0
+          end
+          pf << f if current_children > 0
         end
       end
     end
@@ -182,15 +179,14 @@ class ProductFamily < ApplicationRecord
   end
 
   def discontinued_products
-    products.includes(:product_status).select{|p| p if p.discontinued?}
+    discontinued_products ||= products.includes(:product_status).where(product_status: ProductStatus.discontinued_ids)
   end
 
   # Collection of all the locales where this ProductFamily should appear.
   # By definition, it should include ALL locales unless there is one or more
   # limitation specified.
   def locales(website)
-    limit = self.locale_product_families.all
-    (limit.size > 0) ? limit.collect{|lpf| lpf.locale} : website.list_of_all_locales
+    @locales ||= (locale_product_families.size > 0) ? locale_product_families.pluck(:locale) : website.list_of_all_locales
   end
 
   # Sibling categories with at least one active product
@@ -269,8 +265,8 @@ class ProductFamily < ApplicationRecord
   # w = a Brand or a Website
   def children_with_current_products(w)
     brand_id = (w.is_a?(Brand)) ? w.id : w.brand_id
-    children.includes(:products).select do |pf|
-      pf if (pf.current_products.size > 0 || pf.children_with_current_products(w).size > 0) && pf.brand_id == brand_id && !pf.requires_login?
+    children.where(brand_id: brand_id).includes(:products).select do |pf|
+      pf if !pf.requires_login? && (pf.current_products.size > 0 || pf.children_with_current_products(w).size > 0)
     end
   end
 

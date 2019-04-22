@@ -7,102 +7,37 @@
 	} %>
 
 <%
-	latest_news = @news[0,6]
 	featured_news = @news.first
 %>
 
-<% if featured_news && !featured_news.news_photo_file_name.blank? %>
-<div class="row">
-	<div class="large-12 columns text-center featured-news-image-container">
-		<%= link_to(interchange_news_thumbnail(featured_news), featured_news) %>
-	</div>
-</div>
+<% if featured_news && featured_news.news_photo.present? %>
+  <%= content_for :feature do %>
+    <div class="text-center news_banner">
+      <%= link_to(image_tag(featured_news.news_photo.url(:original)), featured_news) %>
+    </div>
+  <% end %>
 <% end %>
 
 <div class="row">
-	<div class="large-9 columns">
-    <% if featured_news %>
-      <div class="news_container row ">
-        <div class="large-3 columns hide-for-small">
-          <div class="blog-date panel" style="margin-top: 26px">
-            <h2 class="subheader"><%=l featured_news.post_on, format: :blog_month_day %><br/>
-            <small><%= featured_news.post_on.year %></small></h2>
-          </div>
-          <% if featured_news.products.size > 0 %>
-          <div class="hide-for-small" style="margin-top: 20px;">
-            <h3 class="subheader"><%= t('titles.related_products') %></h3>
-            <ul class="large-block-grid-1 small-block-grid-1">
-            <% featured_news.products[0,4].each do |product| %>
-              <li><%= render_partial "product_families/product_square", product: product, compare: false %></li>
-            <% end %>
-            </ul>
-          </div>
-          <% end %>
-        </div>
-        <div class="large-9 columns">
-
-          <h3 class="subheader show-for-small" style="margin: 10px 0px"><%=l featured_news.post_on, format: :long %></h3>
-          <h1><%= link_to translate_content(featured_news, :title), news_path(featured_news, locale: I18n.locale) %></h1>
-
-          <div class="hide-for-small">
-            <%=raw translate_content(featured_news, :body) %>
-          </div>
-        </div>
-      </div>
-    <% end %>
-    <% if latest_news.length > 0 %>
-      <% latest_news[1,6].each do |news,i| %>
-        <div class="news_container row">
-          <div class="large-3 columns hide-for-small" style="margin-left: -15px; margin-right: 0px;">
-
-            <div class="blog-date panel">
-              <h2 class="subheader"><%=l news.post_on, format: :blog_month_day %><br/>
-              <small><%= news.post_on.year %></small></h2>
-            </div>
-            <% if news.products.size > 0 %>
-            <div class="hide-for-small" style="margin-top: 20px;">
-              <h3 class="subheader"><%= t('titles.related_products') %></h3>
-              <ul class="large-block-grid-1 small-block-grid-1">
-              <% news.products[0,4].each do |product| %>
-                <li><%= render_partial "product_families/product_square", product: product, compare: false %></li>
-              <% end %>
-              </ul>
-            </div>
-            <% end %>
-
-          </div>
-          <div class="large-9 columns">
-            <% if !news.news_photo_file_name.blank? %>
-              <div class="text-center">
-                <br/>
-                <%= link_to(interchange_news_thumbnail(news), news) %>
-              </div>
-            <% end %>
-            <h3 class="subheader show-for-small" style="margin: 10px 0px"><%=l news.post_on, format: :long %></h3>
-            <h1><%= link_to translate_content(news, :title), news_path(news, locale: I18n.locale) %></h1>
-            <div class="hide-for-small">
-              <%=raw translate_content(news, :body) %>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    <% end %>
-	</div>
-	<div class="large-3 columns hide-for-small">
-		<br/>
+	<div class="medium-9 columns list-news">
     <% if @news.length > 0 %>
-      <h3 class="subheader">More <%= website.brand.name %> <%= t('news') %></h3>
+      <h2><%= t "titles.news", brand: website.brand.name %></h2>
+      <ul class="medium-block-grid-4 small-block-grid-2">
+        <% @news.each do |item| %>
+          <%= render item %>
+        <% end %>
+      </ul>
+    <% end %>
 
-      <% @news[1,99].each do |news| %>
-        <p><small><%=l news.post_on, format: :short %></small><br/>
-          <%= link_to translate_content(news, :title), news %></p>
-      <% end %>
+    <%= will_paginate @news, renderer: WillPaginateInfinite::InfinitePagination %>
+	</div>
+	<div class="medium-3 columns hide-for-small">
+		<br/>
 
-      <p>
-        <%= link_to(image_tag('icons/rss.png', alt: "rss", style: "vertical-align: middle"), rss_url(format: "xml")) %>
-        <%= link_to("Subscribe via RSS", rss_url(format: "xml")) %>
-      </p>
-		<% end %>
+    <p>
+      <%= link_to(image_tag('icons/rss.png', alt: "rss", style: "vertical-align: middle"), rss_url(format: "xml")) %>
+      <%= link_to("Subscribe via RSS", rss_url(format: "xml")) %>
+    </p>
 	</div>
 </div>
 

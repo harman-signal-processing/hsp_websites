@@ -372,6 +372,102 @@ div.homepage_block {
     }
   }
 }
+/***** Plugins Page *****/
+table.plugin-chart {
+  border-collapse: collapse;
+  thead td {
+    text-align: center;
+  }
+  div.product-price {
+    h6.price-label {
+      font-weight: 200;
+      font-family: "AsapRegular";
+      line-height: 1;
+    }
+    text-align: center;
+    div {
+      color: $primary-color;
+      font-size: rem-calc(28px);
+      font-family: "AsapBold";
+    }
+  }
+  td {
+    border: 1px solid #999;
+    padding: 20px;
+    &.row-label {
+      text-align: right;
+    }
+    &.content {
+      text-align: center;
+      .yes {
+        font-family: "AsapBold";
+        font-size: rem-calc(26px);
+        color: $primary-color;
+        font-weight: 800;
+      }
+    }
+    &.group-label {
+      background: #555;
+      position: relative;
+      width: 40px;
+      div {
+        line-height: 1;
+        font-size: rem-calc(16px);
+        transform: rotate(270deg);
+        transform-origin: left top 0;
+        text-transform: uppercase;
+        color: white;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        top: 250px;
+        left: 12px;
+        letter-spacing: rem-calc(4);
+      }
+    }
+    &.top_corner {
+      border-top: none;
+      border-left: none;
+    }
+    &.bottom_corner {
+      border-left: none;
+      border-bottom: none;
+    }
+  }
+}
+div.plugin-container {
+  text-align: center;
+  background-color: #EEE;
+  margin-bottom: 30px;
+  div.plugin {
+    padding: 20px;
+    &.desc, &.effect-list { background: #DDD;
+    }
+    h2 {
+      font-size: rem-calc(40);
+      color: #444;
+    }
+    h3 {
+      font-size: rem-calc(20);
+      color: #444;
+    }
+  }
+  div.product-price {
+    h6.price-label {
+      font-weight: 200;
+      font-family: "AsapRegular";
+      line-height: 1;
+    }
+    text-align: center;
+    div {
+      color: $primary-color;
+      font-size: rem-calc(36px);
+      font-family: "AsapBold";
+      line-height: 1;
+    }
+  }
+}
+
 /***** Product Page *****/
 h3.content-nav {
   color: $oil;

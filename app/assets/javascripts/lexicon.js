@@ -31,6 +31,7 @@
 //= require jwplayer
 //= require swfobject
 //= require tools
+//= require will_paginate_infinite
 //= require lexicon_application
 //= require_self
 

@@ -14,7 +14,7 @@ class LabelSheet < ApplicationRecord
   end
 
   def blank_labels
-  	if self.product_ids.count < 6
+  	if self.product_ids.size < 6
       " + " + pluralize((6 - self.product_ids.length), "blank label")
   	end
   end

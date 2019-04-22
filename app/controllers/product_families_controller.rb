@@ -17,7 +17,7 @@ class ProductFamiliesController < ApplicationController
   # GET /product_families/1
   # GET /product_families/1.xml
   def show
-    if !website.product_families.include?(@product_family)
+    unless @product_family.brand == website.brand || website.product_families.include?(@product_family)
       redirect_to product_families_path, status: :moved_permanently and return
     end
     respond_to do |format|

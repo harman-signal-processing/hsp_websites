@@ -111,7 +111,7 @@ class Admin::SettingsController < AdminController
       end
     elsif params[:name]
       other = Setting.where(name: params[:name]).where.not(brand_id: website.brand_id).limit(1)
-      if other.count > 0
+      if other.size > 0
         @setting = other.first.dup
         @setting.brand_id = website.brand_id
       end

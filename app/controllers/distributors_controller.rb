@@ -11,6 +11,7 @@ class DistributorsController < ApplicationController
     @country = nil
     respond_to do |format|
       format.html { render_template }
+      format.json { render json: @website.brand.distributors }
       # format.xml  {
       #   @distributors = Distributor.all
       #   render xml: @distributors

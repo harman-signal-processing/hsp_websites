@@ -24,9 +24,7 @@ class SiteElement < ApplicationRecord
   has_many :products, through: :product_site_elements
   has_many :site_element_attachments, dependent: :destroy # added for martin
   belongs_to :access_level
-
   has_many :manufacturer_partners
-  
   has_many :programmer_site_elements, dependent: :destroy, foreign_key: "site_element_id", class_name: "Vip::ProgrammerSiteElement"
   has_many :programmers, through: :programmer_site_elements, class_name: "Vip::Programmer"
 
@@ -138,12 +136,12 @@ class SiteElement < ApplicationRecord
 
     options = { acl: 'public-read' }
     # 7zip files cause problems for Windows users unless we explicitely set the following:
-    if direct_upload_url_data[:filename].to_s.match(/\.7z$|\.mu3$/i)
+    if direct_upload_url_data[:filename].to_s.match(/\.7z$|\.mu3|\.dwg|\.3ds$/i)
       options[:metadata_directive] = "REPLACE"
       options[:content_type] = "binary/octet-stream"
       options[:content_disposition] = "attachment"
     end
-    
+
     if self.is_image?
       self.resource = URI.parse(URI.escape(direct_upload_url)) # use paperclip to process image(s)
     else

@@ -175,7 +175,7 @@ class Website < ApplicationRecord
         doctype_name = I18n.locale.match(/zh/i) ? name : name.to_s.pluralize
         if key == "cutsheet"
           # This file is related to one or more products, but all of those products are discontinued
-          if site_element.products.length > 0 && site_element.products.where(product_status: ProductStatus.current_ids).count == 0
+          if site_element.products.length > 0 && site_element.products.where(product_status: ProductStatus.current_ids).size == 0
             key += "-discontinued"
             doctype_name += " (Discontinued)"
           else

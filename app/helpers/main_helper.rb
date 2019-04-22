@@ -144,7 +144,7 @@ module MainHelper
 
     @current_promotions ||= Promotion.all_for_website(website)
 
-    if @current_promotions.count > 0
+    if @current_promotions.size > 0
       out += "<li>" if options[:zurb]
       #if File.exists?(Rails.root.join("app", "assets", "images", website.folder, loc, "promotions.png"))
         out += link_to(image_tag("#{website.folder}/#{I18n.locale}/promotions.png", alt: "promotions"), promotions_path)
@@ -153,7 +153,7 @@ module MainHelper
       #end
       out += "</li>" if options[:zurb]
       pf_limit = options[:limit] - 1
-    elsif website.brand.name.match(/digitech/i) && @product_families.count < options[:limit]
+    elsif website.brand.name.match(/digitech/i) && @product_families.size < options[:limit]
       out += "<li>" if options[:zurb]
       out += link_to(image_tag("#{website.folder}/#{I18n.locale}/community.png", alt: "community"), community_path)
       out += "</li>" if options[:zurb]
@@ -221,7 +221,7 @@ module MainHelper
       product_links = []
 
       relevant_children = product_family.children_with_current_products(website)
-      options[:depth] += 1 if relevant_children.length > 0
+      options[:depth] += 1 if relevant_children.size > 0
 
       if options[:depth] > 1
         child_links = relevant_children.map do |sub_family|

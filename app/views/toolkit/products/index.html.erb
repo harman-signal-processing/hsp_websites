@@ -33,9 +33,9 @@
 <h5 class="subheader">More Products</h5>
 <ul class="list disc">
 <% ProductFamily.all_parents(@brand).each do |product_family| %>
-	<% if product_family.toolkit_products.count > 0 %>
+	<% if product_family.toolkit_products.size > 0 %>
 	<li><%= link_to product_family.name, toolkit_brand_product_family_path(@brand, product_family) %>
-		(<%= pluralize product_family.toolkit_products.count, "product" %>)
+		(<%= pluralize product_family.toolkit_products.size, "product" %>)
 	</li>
 	<% end %>
 <% end %>

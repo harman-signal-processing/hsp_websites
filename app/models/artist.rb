@@ -54,7 +54,7 @@ class Artist < ApplicationRecord
       self.brands.first
     elsif self.initial_brand.present?
       self.initial_brand
-    elsif Brand.all.count > 0
+    elsif Brand.all.size > 0
       Brand.first
     else
       Brand.new
@@ -75,7 +75,7 @@ class Artist < ApplicationRecord
   end
 
   def belongs_to_this_brand?(website)
-    !!(self.artist_brands.where(brand_id: website.brand_id).count > 0)
+    !!(self.artist_brands.where(brand_id: website.brand_id).size > 0)
   end
 
   def self.all_for_website(website, order="name")

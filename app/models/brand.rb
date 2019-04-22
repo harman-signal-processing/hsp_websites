@@ -353,7 +353,7 @@ class Brand < ApplicationRecord
   end
 
   def has_news?
-    News.where(brand_id: self.id).count > 0
+    News.where(brand_id: self.id).size > 0
   end
 
   def use_flattened_specs?

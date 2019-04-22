@@ -1,4 +1,4 @@
-<% if website.brand.use_flattened_specs? || product.specification_groups.count == 0 %>
+<% if website.brand.use_flattened_specs? || product.specification_groups.size == 0 %>
 
   <table class="specs">
     <% product.product_specifications.includes(:specification).order("product_specifications.position").each do |product_spec| %>

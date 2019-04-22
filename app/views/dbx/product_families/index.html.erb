@@ -31,7 +31,7 @@
 <% end %>
 </ul>
 
-<% if @discontinued_products.count > 0 %>
+<% if @discontinued_products.size > 0 %>
 <p>&nbsp;</p>
 <p><%= link_to "discontinued products", discontinued_products_path %></p>
 <% end %>

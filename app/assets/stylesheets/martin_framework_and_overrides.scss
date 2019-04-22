@@ -231,20 +231,6 @@ ul.tabs {
   border: 1px solid $dark-gray;
   padding: 10px 20px;
 }
-.news_banner {
-  @media only screen and (min-width: 1200px) {
-    margin-top: rem-calc(65px);
-    position: relative;
-    z-index: -99999;
-    max-height: 700px;
-    min-height: 500px;
-    img {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-    }
-  }
-}
 .find-a-dealer, .have-a-question, .contact-consultant {
   background-color: #f8d448;
   color: white;

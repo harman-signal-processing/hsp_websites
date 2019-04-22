@@ -10,9 +10,11 @@
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/rem/1.3.4/js/rem.min.js"></script>
 
-<% unless Rails.env.production? %>
+<% if !Rails.env.production? || params[:dev] == "true" %>
 <hr/>
 <pre>
+IP = <%= request.remote_ip %>
+HTTP_X_FORWARDED_FOR = <%= request.env["HTTP_X_FORWARDED_FOR"] %>
 session['geo_country'] = <%= session['geo_country'] %>
 session['geo_usa'] = <%= session['geo_usa'] %>
 </pre>

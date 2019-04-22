@@ -8,9 +8,9 @@ class Admin::SiteElementsController < AdminController
     brand_site_elements = @site_elements.where(brand_id: website.brand_id)
     @search = brand_site_elements.ransack(params[:q])
     if params[:q]
-      @site_elements = @search.result.order(:name, :version)
+      @site_elements = @search.result.order(:name, :version).paginate(page: params[:page], per_page: 50)
     else
-      @site_elements = brand_site_elements
+      @site_elements = brand_site_elements.paginate(page: params[:page], per_page: 50)
     end
     respond_to do |format|
       format.html # index.html.erb

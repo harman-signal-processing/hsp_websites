@@ -11,6 +11,7 @@ the public product pages.</strong></p>
 			<th>Product</th>
 			<th>SKU</th>
 			<th>MSRP</th>
+      <th>MAP</th>
 			<th>Harman Emp. Price</th>
 		</tr>
 	<% @products.each do |product| %>
@@ -23,6 +24,9 @@ the public product pages.</strong></p>
 			<td><%= text_field_tag "product_attr[#{product.to_param}][msrp]", 
 						(product.msrp.to_f > 0.0) ? product.msrp.to_f : nil, 
 						size: 10, placeholder: "0.00" %></td>
+      <td><%= text_field_tag "product_attr[#{product.to_param}][street_price]", 
+            (product.street_price.to_f > 0.0) ? product.street_price.to_f : nil, 
+            size: 10, placeholder: "0.00" %></td>
 			<td><%= text_field_tag "product_attr[#{product.to_param}][harman_employee_price]", 
 						(product.harman_employee_price.to_f > 0.0) ? product.harman_employee_price.to_f : nil, 
 						size: 10, placeholder: "0.00" %></td>

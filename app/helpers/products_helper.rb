@@ -621,22 +621,29 @@ module ProductsHelper
   # For Martin, list the names of the resource types in the order they
   # should appear on the page. Anything else, will just appear after the
   # sorted results.
-  # NOTE: Software is actually loaded first and is hard-coded on the table.
   def download_group_sort_order(resource_type_name)
-    resource_types = [
-      "Software",
-      "Manuals", "Manual",
-      "Brochures", "Brochure",
-      "Specifications", "Specification",
-      "3D Symbols", "3D Symbol",
-      "Illustrations", "Illustration",
-      "CAD Drawings", "CAD Drawing",
-      "Tech Notes", "Tech Note",
-      "Technical Papers", "Technical Paper",
-      "Hints And Tips",
-      "Parts", "Part"
-    ]
-    resource_types.include?(resource_type_name) ?  resource_types.index(resource_type_name) : 99
+    resource_types_in_order.include?(resource_type_name) ?  resource_types_in_order.index(resource_type_name) : 99
+  end
+
+  def resource_types_in_order
+    @resource_types_in_order ||= (website.resource_type_order.present?) ?
+      website.resource_type_order.split(/\r\n|\r|\n/) :
+      [
+        "Specifications", "Specification",
+        "Manuals", "Manual",
+        "Photometric", "Photometrics",
+        "Brochures", "Brochure",
+        "Illustrations", "Illustration",
+        "3D Symbols", "3D Symbol",
+        "CAD Drawings", "CAD Drawing",
+        "Compliance", "Compliances",
+        "Tech Notes", "Tech Note",
+        "Technical Papers", "Technical Paper",
+        "Servicee Notes", "Service Note",
+        "Software",
+        "Hints And Tips",
+        "Parts", "Part"
+      ]
   end
 
   def hpro_contact_buttons

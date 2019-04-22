@@ -2,12 +2,18 @@
 
   <%=raw translate_content(@product, :description) %>
 
-  <% if @product.highlights.count > 0 %>
-    <ul data-orbit data-options="timer: false; bullets: false; slide_number: false; animation: fade;">
+  <% if @product.highlights.size > 0 %>
+    <ul data-orbit data-options="timer: false; bullets: false; slide_number: false; animation: fade;" class="show-for-medium-up">
       <% @product.highlights.each do |highlight| %>
         <li><%= render_feature highlight %></li>
       <% end %>
     </ul>
+
+    <div class="show-for-small-down">
+      <% @product.highlights.each do |highlight| %>
+        <%= render_feature highlight, format: 'mobile' %>
+      <% end %>
+    </div>
   <% end %>
 
   <% if @product.show_recommended_verticals && @product.market_segments.distinct.length > 0 %>

@@ -11,9 +11,11 @@ class NewsController < ApplicationController
       @news += News.archived(website)
       @hide_archive = true
     end
+    @news = @news.paginate(page: params[:page], per_page: 20)
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @news }
+      format.js
     end
   end
 

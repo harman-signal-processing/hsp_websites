@@ -33,7 +33,7 @@ class Software < ApplicationRecord
 
   before_destroy :revert_version
   before_update  :revert_version_if_deactivated
-  after_initialize :set_default_counter, :determine_platform
+  after_initialize :set_default_counter
   after_save :replace_old_version, :touch_products
 
   belongs_to :brand, touch: true
@@ -107,13 +107,6 @@ class Software < ApplicationRecord
     f
   end
 
-  # If the platform field is blank
-  def determine_platform
-    if platform.blank?
-      (self.operating_systems.pluck(:name) + self.operating_systems.pluck(:arch)).join(" ")
-    end
-  end
-
   # Alias for search results link_name
   def link_name
     self.formatted_name
@@ -133,7 +126,7 @@ class Software < ApplicationRecord
   end
 
   def has_additional_info?
-    !!(self.description.present? || self.training_modules.count > 0 || self.software_attachments.count > 0 || self.training_classes.count > 0)
+    !!(self.description.present? || self.training_modules.size > 0 || self.software_attachments.size > 0 || self.training_classes.size > 0)
   end
 
   def current_products
@@ -165,6 +158,11 @@ class Software < ApplicationRecord
     software.save
 
     uploaded_object.delete
+  end
+
+  # Allows this item to be treated as a Site Element for sorting
+  def resource_type
+    "Software"
   end
 
 protected

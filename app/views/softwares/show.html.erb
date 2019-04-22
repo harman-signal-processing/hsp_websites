@@ -33,7 +33,7 @@
 	<div class="large-7 columns text-content">
     <p><small>Last Updated: <%=l @software.updated_at.to_date, format: :short %></small></p>
 		<%=raw @software.description %>
-		<% if @software.previous_versions.count > 0 %>
+		<% if @software.previous_versions.size > 0 %>
 		<p><%= link_to "Previous Versions", '#previous_versions' %></p>
 		<% end %>
 
@@ -86,7 +86,7 @@
 	</ul>
 <% end %>
 
-<% if @software.previous_versions.count > 0 %>
+<% if @software.previous_versions.size > 0 %>
 	<hr/>
 	<h4 class="subheader" id='previous_versions'>Previous Versions</h4>
 

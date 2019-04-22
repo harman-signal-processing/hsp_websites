@@ -9,6 +9,12 @@ class EventsController < ApplicationController
     #@events = filter_by_locale(all_events)
     @events = all_events
 
+    @banner_event = nil
+    banner_events = @events.where.not(image_file_name: [nil, ""])
+    if banner_events.size > 0
+      @banner_event = banner_events.first
+    end
+
     respond_to do |format|
       format.html {
         if @events.length > 0
