@@ -67,7 +67,8 @@ gem "rabl"
 gem "money"
 gem 'money-rails', ">= 1.9.0" # 2017-12-01
 gem 'will_paginate'
-gem 'will_paginate_infinite'
+gem 'will_paginate_infinite',
+  github: 'adamtao/will_paginate_infinite'
 gem "possessive"
 gem 'RedCloth'
 gem 'figaro'
