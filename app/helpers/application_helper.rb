@@ -537,4 +537,18 @@ module ApplicationHelper
     content_tag :div, raw(links.join), id: "harmanpro_bar", class: "hide-for-medium-down"
   end
 
+  def country_name(country_code)
+    country = ISO3166::Country[country_code]
+    # country.translations[I18n.locale.to_s] || country.name
+    country.name
+  end
+  
+  def country_code
+    session['geo_country']
+  end
+
+  def country_is_usa
+    session['geo_usa'] == true
+  end
+
 end
