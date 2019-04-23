@@ -1,6 +1,7 @@
 GIT
   remote: https://github.com/adamtao/will_paginate_infinite.git
   revision: acd94832693989e03e239095e6071668c34a7ff4
+  ref: acd94832693989e03e239095e6071668c34a7ff4
   specs:
     will_paginate_infinite (0.1.4)
       will_paginate (~> 3.1.0)

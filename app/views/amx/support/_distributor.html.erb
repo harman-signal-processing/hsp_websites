@@ -1,0 +1,46 @@
+<li>
+	<div class="panel">
+				<h3><%= distributor[:name] %></h3>
+				<% distributor[:locations].each do |location| %>
+					<div style="margin-top:10px;">
+	  				<div><strong><%= location[:name]%></strong></div>
+	    			<div>
+	    				<%=raw address_html(location)%>
+	    			</div>
+	    			<div>
+					<%=raw get_list_html(location, "phones", "phone") %>
+	    			</div>
+	    			
+	    			<div>
+	    				<%=raw get_list_html(location, "emails", "email") %>
+	    			</div>	 
+	    			
+	    			<div>
+					<%=raw get_list_html(location, "websites", "url") %>
+	    			</div>	        			
+	    			
+	    			<% if location[:contacts].present?%>
+	    			<div style="margin-top:10px;">
+	    				<% location[:contacts].each do |contact| %>
+	    					<%= contact[:name]%><br />
+	    					<% if contact[:title].present? %>
+	    						<%= contact[:title]%><br />
+	    					<% end %>
+	    					
+	    					<%=raw get_list_html(contact, "phones", "phone") %>
+	    					<%=raw get_list_html(contact, "emails", "email") %>
+	    					<%=raw get_list_html(contact, "websites", "url") %>
+	    					
+	    				<% end %> <%# location[:contacts].each do |contact| %>
+	    			</div>
+	    			<% end %>
+	  			</div>
+				<% end %> <%# distributor[:locations].each do |location| %>
+				
+				<div style="margin-top:10px;">
+					<%=raw get_list_html(distributor, "phones", "phone") %>
+					<%=raw get_list_html(distributor, "emails", "email") %>
+					<%=raw get_list_html(distributor, "websites", "url") %>        			
+				</div>
+	</div>  <!-- <div class="panel"> -->
+</li>

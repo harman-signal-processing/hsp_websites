@@ -1,4 +1,6 @@
 class SupportController < ApplicationController
+  include HTTParty
+  
   before_action :set_locale
   # Support home page
   def index
@@ -13,6 +15,24 @@ class SupportController < ApplicationController
         end
       end
     end
+    render_template
+  end
+
+  def tech_support
+    
+    brand = @website.brand.name.downcase
+    country_code = params[:geo].nil? ? "us" : params[:geo].downcase
+    
+    url = "https://pro.harman.com/distributor_info/distributors/#{brand}/#{country_code}.json"
+    
+    response = HTTParty.get(url)
+      if response.success?
+        result = response.deep_symbolize_keys
+      else
+        raise response.message
+      end
+    
+    @distributors = result[:distributors]
     render_template
   end
 

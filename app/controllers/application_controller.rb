@@ -60,7 +60,6 @@ class ApplicationController < ActionController::Base
     brand_specific = "#{root_folder}#{options[:controller]}/#{options[:action]}"
     locale_specific = "#{options[:controller]}/#{options[:locale]}/#{options[:action]}"
     template = "#{options[:controller]}/#{options[:action]}" # the default
-
     if File.exists?(Rails.root.join("app", "views", "#{brand_and_locale_specific}.html.erb"))
       template = brand_and_locale_specific
     elsif File.exists?(Rails.root.join("app", "views", "#{brand_specific}.html.erb"))
