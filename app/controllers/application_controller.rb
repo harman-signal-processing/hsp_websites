@@ -259,7 +259,7 @@ private
     begin
       if params['geo']
         session['geo_country'] = params['geo']
-        session['geo_usa'] = (params['geo'] == "US") ? true : false
+        session['geo_usa'] = (params['geo'].downcase == "us") ? true : false
       else
         unless session['geo_country']
           lookup = Geokit::Geocoders::GeoPluginGeocoder.do_geocode(request.remote_ip)
