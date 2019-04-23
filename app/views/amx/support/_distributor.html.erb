@@ -22,15 +22,16 @@
 	    			<% if location[:contacts].present?%>
 	    			<div style="margin-top:10px;">
 	    				<% location[:contacts].each do |contact| %>
-	    					<%= contact[:name]%><br />
-	    					<% if contact[:title].present? %>
-	    						<%= contact[:title]%><br />
-	    					<% end %>
-	    					
-	    					<%=raw get_list_html(contact, "phones", "phone") %>
-	    					<%=raw get_list_html(contact, "emails", "email") %>
-	    					<%=raw get_list_html(contact, "websites", "url") %>
-	    					
+	    					<div style="margin-top:10px;">
+		    					<strong><%= contact[:name]%></strong><br />
+		    					<% if contact[:title].present? %>
+		    						<%= contact[:title]%><br />
+		    					<% end %>
+		    					
+		    					<%=raw get_list_html(contact, "phones", "phone") %>
+		    					<%=raw get_list_html(contact, "emails", "email") %>
+		    					<%=raw get_list_html(contact, "websites", "url") %>
+	    					</div>
 	    				<% end %> <%# location[:contacts].each do |contact| %>
 	    			</div>
 	    			<% end %>
