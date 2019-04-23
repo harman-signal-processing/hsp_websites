@@ -65,7 +65,10 @@ set_meta_tags title: translate_content(@news, :title),
       <div class="hide-for-small">
         <br/>
         <h3 class="subheader">Recent <%= website.brand.name %> <%= ucfirst(t('news')) %></h3>
-        <% @recent_news.each do |news| %>
+        <% @recent_news[0,4].each do |news| %>
+          <% if news.news_photo.present? %>
+            <%= link_to image_tag(news.news_photo.url(:email)), news %>
+          <% end %>
           <p><small><%=l news.post_on, format: :short %></small><br/>
           <%= link_to translate_content(news, :title), news %></p>
         <% end %>
@@ -86,6 +89,28 @@ set_meta_tags title: translate_content(@news, :title),
     <%= render 'shared/add_this' %>
 
     <%=raw translate_content(@news, :body) %>
+
+    <% if @news.tag_list.present? %>
+      <p><em><strong>TAGS:</strong> <%= @news.tag_list %></em></p>
+    <% end %>
+
+    <% if can? :update, @news %>
+      <div class="callout panel">
+        <h5>Update Tags</h5>
+        <%= simple_form_for @news do |f| %>
+          <div class="row collapse">
+            <div class="small-8 medium-9 columns">
+              <%= f.input :tag_list, label: false, input_html: { value: f.object.tag_list.to_s } %>
+            </div>
+            <div class="small-4 medium-3 columns">
+              <%= f.submit "Update", class: "button expand"%>
+            </div>
+          </div>
+        <% end %>
+        <div class="hint" style="font-size: 75%; margin-top: -10px">(Use commas to separate tags.)</div>
+      </div>
+    <% end %>
+
   </div>
 </div>
 

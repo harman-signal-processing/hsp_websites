@@ -9,6 +9,10 @@ class News < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
 
+  acts_as_taggable
+  scope :by_post_date, -> { order("post_on DESC") }
+  scope :active, -> { where("post_on <= ?", Date.today) }
+
   has_attached_file :news_photo, {
     styles: {
       banner: "1500>x400",

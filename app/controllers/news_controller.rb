@@ -43,6 +43,20 @@ class NewsController < ApplicationController
     end
   end
 
+  def update
+    @news = News.where(cached_slug: params[:id]).first || News.find(params[:id])
+    authorize! :update, @news
+    respond_to do |format|
+      if @news.update_attributes(news_params)
+        format.html { redirect_to(@news, notice: 'Article was successfully updated.') }
+        format.xml  { head :ok }
+      else
+        format.html { render action: "show" }
+        format.xml  { render xml: @product.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # GET /news/martin_redirect/CaseStory:1
   def martin_redirect
     old_id = params[:id]
@@ -62,6 +76,10 @@ class NewsController < ApplicationController
   def ensure_best_url
     @news = News.where(cached_slug: params[:id]).first || News.find(params[:id])
     # redirect_to @news, status: :moved_permanently unless @news.friendly_id_status.best?
+  end
+
+  def news_params
+    params.require(:news).permit(:tag_list, :tags)
   end
 
 end

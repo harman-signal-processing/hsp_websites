@@ -63,6 +63,7 @@ class Ability
       if user.role?(:marketing_staff)
         can :manage, SiteElement
         can :manage, SupportSubject
+        can :update, News
         can :read, ContactMessage
       end
       if user.role?(:sales_admin)
