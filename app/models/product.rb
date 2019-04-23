@@ -59,7 +59,7 @@ class Product < ApplicationRecord
   has_many :parent_products # Where this is the child (ie, an e-pedal child of the iStomp)
   has_many :sub_products, -> { order('position') }, class_name: "ParentProduct", foreign_key: "parent_product_id"
   after_initialize :set_default_status
-  accepts_nested_attributes_for :product_prices, reject_if: :all_blank
+  accepts_nested_attributes_for :product_prices, reject_if: proc { |pp| pp['price'].blank? }
   accepts_nested_attributes_for :product_specifications, reject_if: proc { |ps| ps['value'].blank? }, allow_destroy: true
 
   has_many :content_translations, as: :translatable, foreign_key: "content_id", foreign_type: "content_type"
