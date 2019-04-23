@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_19_173045) do
+ActiveRecord::Schema.define(version: 2019_04_22_190443) do
 
   create_table "access_levels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -832,6 +832,7 @@ ActiveRecord::Schema.define(version: 2019_03_19_173045) do
     t.text "quote"
     t.string "video_ids"
     t.string "old_id"
+    t.string "old_url"
     t.index ["brand_id"], name: "index_news_on_brand_id"
     t.index ["cached_slug"], name: "index_news_on_cached_slug", unique: true
     t.index ["old_id"], name: "index_news_on_old_id"
@@ -1100,6 +1101,7 @@ ActiveRecord::Schema.define(version: 2019_03_19_173045) do
     t.string "preview_password"
     t.string "preview_username"
     t.integer "product_family_products_count"
+    t.string "old_url"
     t.index ["brand_id"], name: "index_product_families_on_brand_id"
     t.index ["cached_slug"], name: "index_product_families_on_cached_slug", unique: true
     t.index ["parent_id"], name: "index_product_families_on_parent_id"
@@ -1357,6 +1359,7 @@ ActiveRecord::Schema.define(version: 2019_03_19_173045) do
     t.text "registration_notice"
     t.string "photometric_id"
     t.text "hidden_content"
+    t.string "old_url"
     t.index ["brand_id", "product_status_id"], name: "index_products_on_brand_id_and_product_status_id"
     t.index ["brand_id"], name: "index_products_on_brand_id"
     t.index ["cached_slug"], name: "index_products_on_cached_slug", unique: true
@@ -1808,15 +1811,27 @@ ActiveRecord::Schema.define(version: 2019_03_19_173045) do
 
   create_table "taggings", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "tag_id"
-    t.integer "taggable_id"
     t.string "taggable_type"
+    t.integer "taggable_id"
+    t.string "tagger_type"
+    t.integer "tagger_id"
+    t.string "context", limit: 128
     t.datetime "created_at"
+    t.index ["context"], name: "index_taggings_on_context"
+    t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
     t.index ["tag_id"], name: "index_taggings_on_tag_id"
-    t.index ["taggable_id", "taggable_type"], name: "index_taggings_on_taggable_id_and_taggable_type"
+    t.index ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
+    t.index ["taggable_id", "taggable_type", "tagger_id", "context"], name: "taggings_idy"
+    t.index ["taggable_id"], name: "index_taggings_on_taggable_id"
+    t.index ["taggable_type"], name: "index_taggings_on_taggable_type"
+    t.index ["tagger_id", "tagger_type"], name: "index_taggings_on_tagger_id_and_tagger_type"
+    t.index ["tagger_id"], name: "index_taggings_on_tagger_id"
   end
 
   create_table "tags", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
+    t.string "name", collation: "utf8_bin"
+    t.integer "taggings_count", default: 0
+    t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
   create_table "tone_library_patches", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

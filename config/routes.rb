@@ -616,7 +616,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     resources :softwares, only: [:index, :show] do
       member { get :download }
     end
-    resources :news, only: [:index, :show] do
+    resources :news, only: [:index, :show, :update] do
       collection { get :archived }
       member { get :martin_redirect }
     end

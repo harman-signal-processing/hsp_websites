@@ -5,7 +5,7 @@
   <div class="row">
     <div class="large-4 columns">
       <%= f.input :post_on, as: :string, input_html: { class: 'ui-datepicker' } %>
-      <%#= f.input :keywords %>
+      <%= f.input :tag_list, input_html: { value: f.object.tag_list.to_s }, hint: "Use commas to separate tags" %>
       <%= f.input :news_photo %>
     </div>
   </div>

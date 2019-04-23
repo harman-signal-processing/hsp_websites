@@ -199,8 +199,17 @@
 					<%= render '/admin/shared/news_product_row', np: np, called_from: 'news' %>
 				<% end %>
 			</ul>
+
 		</div>
-		<% end %>
+
+  <% end %>
+
+  <% if @news.tag_list.present? %>
+    <div class="group">
+      <h5 class="subheader">Tags:</h5>
+      <%= @news.tag_list %>
+    </div>
+  <% end %>
 	</div>
 </div>
 
