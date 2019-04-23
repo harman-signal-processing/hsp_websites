@@ -95,7 +95,8 @@
 				<ul class="list">
           <% if !website.has_service_centers? %>
             <% if website.has_rma_form? %>
-              <li><%= link_to "Return Authorization Request", rma_request_path %></li>
+              <li><%= link_to "Return Authorization Request (Repair)", rma_repair_request_path %></li>
+              <li><%= link_to "Return Authorization Request (Credit)", rma_credit_request_path %></li>
             <% end %>
             <% if website.has_parts_form? %>
             <li><%= link_to t('titles.part_request'), parts_request_path %></li>
@@ -120,8 +121,30 @@
 
 		<% end %>
 	</div>
-	<%#=render_partial "support/support_index_new"%>
-	<%=render_partial "support/support_index_old"%>
+
+    <div class="large-8 columns">
+    <h1>International Tech Support</h1>
+        <% if @distributors.size > 0 %>
+          <div>Below are the distributors for your country.</div>
+        	<div class="large-12 columns">
+        		<ul class="large-block-grid-2 medium-block-grid-1 small-block-grid-1">
+	        		<% @distributors.each do |distributor| %>
+			        		<%=render_partial "support/distributor", distributor: distributor %>
+	        		<% end %> <%# @distributors.each do |distributor| %>
+        		</ul>
+        	</div>
+        <% else %>
+            <div>We didn't find a distributor in your country. Please contact us with the information below.</div>
+        	<% if addr = website.value_for("address_and_phone") %>
+        	<div class="panel">
+        		<h4><%= t("titles.mailing_address") %></h4>
+        		<p><%=raw addr %></p>
+        	</div>
+        	<% end %>
+        <% end %>
+    </div>    
+
+
 </div>
 
 <%=render_partial "shared/support_chat_javascript"%>

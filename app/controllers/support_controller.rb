@@ -1,4 +1,6 @@
 class SupportController < ApplicationController
+  include HTTParty
+  
   before_action :set_locale
   # Support home page
   def index
@@ -12,6 +14,16 @@ class SupportController < ApplicationController
           redirect_to product, status: :moved_permanently and return
         end
       end
+    end
+    render_template
+  end
+
+  def tech_support
+    if session['geo_usa']
+      @contact_message = ContactMessage.new
+      @contact_message.require_country = true if require_country?
+    else
+      get_international_distributors
     end
     render_template
   end
@@ -317,5 +329,25 @@ class SupportController < ApplicationController
                                              :fixture_name, :manufacturer, :product_link, :required_modes,
                                              :required_on, :notes, :attachment)
   end
+
+  private
+  
+  def get_international_distributors
+    brand = @website.brand.name.downcase
+    country_code = params[:geo].nil? ? "us" : params[:geo].downcase
+    
+    url = "https://pro.harman.com/distributor_info/distributors/#{brand}/#{country_code}.json"
+    
+    response = HTTParty.get(url)
+      if response.success?
+        result = response.deep_symbolize_keys
+      else
+        raise response.message
+      end
+    
+    @distributors = result[:distributors]    
+  end
+  
+  
 
 end

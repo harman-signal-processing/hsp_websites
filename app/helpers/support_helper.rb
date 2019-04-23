@@ -27,5 +27,37 @@ module SupportHelper
       end
     end
   end
+  
+  def get_list_html(item, listname, keyname)
+    listname_sym = listname.to_sym
+    html = ""
+			if item[listname_sym].present?
+			 # key = listname.singularize
+				  item[listname_sym].each do |hash|
+					  if hash[:label].present?
+						  html += "#{hash[:label]}: "
+					  end 
+					  html += "#{mail_to hash[keyname.to_sym]}<br />"
+				end # item[listname_sym].each do |hash|
+			end  # if item[symbol].present?
+    html
+  end  #  def get_list_html(item, listname, keyname)
+
+  def address_html(item)
+    html = ""
+		html += "#{item[:address1]}<br />"
+		if item[:address2].present?
+			html += "#{item[:address2]}<br />"
+		end
+		if item[:address3].present?
+			html += "#{item[:address3]}<br />"
+		end
+		html += "#{item[:city]} "
+		if item[:state].present?
+			html += " #{item[:state]} "
+		end
+		html += "#{item[:postal]}<br />"
+		html += country_name(item[:country])
+  end  #  def address_html(item)
 
 end

@@ -60,7 +60,6 @@ class ApplicationController < ActionController::Base
     brand_specific = "#{root_folder}#{options[:controller]}/#{options[:action]}"
     locale_specific = "#{options[:controller]}/#{options[:locale]}/#{options[:action]}"
     template = "#{options[:controller]}/#{options[:action]}" # the default
-
     if File.exists?(Rails.root.join("app", "views", "#{brand_and_locale_specific}.html.erb"))
       template = brand_and_locale_specific
     elsif File.exists?(Rails.root.join("app", "views", "#{brand_specific}.html.erb"))
@@ -260,7 +259,7 @@ private
     begin
       if params['geo']
         session['geo_country'] = params['geo']
-        session['geo_usa'] = (params['geo'] == "US") ? true : false
+        session['geo_usa'] = (params['geo'].downcase == "us") ? true : false
       else
         unless session['geo_country']
           lookup = Geokit::Geocoders::GeoPluginGeocoder.do_geocode(request.remote_ip)
