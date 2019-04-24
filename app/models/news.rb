@@ -10,8 +10,6 @@ class News < ApplicationRecord
   friendly_id :slug_candidates, use: :slugged
 
   acts_as_taggable
-  scope :by_post_date, -> { order("post_on DESC") }
-  scope :active, -> { where("post_on <= ?", Date.today) }
 
   has_attached_file :news_photo, {
     styles: {
@@ -43,6 +41,27 @@ class News < ApplicationRecord
   before_save :strip_harmans_from_title
   attr_accessor :from, :to
 
+  scope :product_news, ->(website, options) {
+    select("DISTINCT news.id, news.post_on").
+      joins("INNER JOIN news_products ON news_products.news_id = news.id").
+      joins("INNER JOIN products ON products.id = news_products.product_id").
+      joins("INNER JOIN product_family_products ON product_family_products.product_id = products.id").
+      joins("INNER JOIN product_families ON product_families.id = product_family_products.product_family_id").
+      where("post_on > ?", options[:start_on]).
+      where("post_on <= ?", options[:end_on]).
+      where("product_families.brand_id = ?", website.brand_id ).
+      order("post_on DESC")
+  }
+
+  scope :query_for_website, ->(website, options) {
+    limit = (options[:limit].present?) ? "LIMIT #{options[:limit]}" : ""
+    select("DISTINCT news.*").
+      where("brand_id = ?  #{product_news_query(website, options)}", website.brand_id).
+      where("post_on >= ? AND post_on <= ?", options[:start_on], options[:end_on]).
+      order(Arel.sql("post_on DESC #{limit}"))
+  }
+
+
   # When presenting the site to Rob before going live, he asked that we remove
   # the the word "HARMAN's" from the beginning of the news titles.
   def strip_harmans_from_title
@@ -70,40 +89,20 @@ class News < ApplicationRecord
     true
   end
 
-  # News to display on the main area of the site. This set of news articles
-  # includes entries from the past year and a half.
   def self.all_for_website(website, options={})
-
-    # First, select news story IDs with a product associated with this brand...
-    product_news = News.find_by_sql("SELECT DISTINCT news.id, news.post_on FROM news
-      INNER JOIN news_products ON news_products.news_id = news.id
-      INNER JOIN products ON products.id = news_products.product_id
-      INNER JOIN product_family_products ON product_family_products.product_id = products.id
-      INNER JOIN product_families ON product_families.id = product_family_products.product_family_id
-      WHERE product_families.brand_id = #{website.brand_id}
-      AND post_on >= '#{120.months.ago}' AND post_on <= '#{Date.today}'
-      ORDER BY post_on").collect{|p| p.id}.join(", ")
-    product_news_query = (product_news.blank?) ? "" : " OR id IN (#{product_news}) "
-
-    # Second, add in those stories associated with the brand only (no products linked)
-    select("DISTINCT *").where("(brand_id = ? AND post_on >= ? AND post_on <= ?) #{product_news_query}", website.brand_id, 120.months.ago, Date.today).order(Arel.sql("post_on DESC"))
+    default_options = { start_on: 120.months.ago, end_on: Date.today }
+    query_for_website(website, default_options.merge(options))
   end
 
-  # Older news for the archived page. These are articles older than 1.5 year.
-  def self.archived(website)
-    # First, select news story IDs with a product associated with this brand...
-    product_news = News.find_by_sql("SELECT DISTINCT news.id, news.post_on FROM news
-      INNER JOIN news_products ON news_products.news_id = news.id
-      INNER JOIN products ON products.id = news_products.product_id
-      INNER JOIN product_family_products ON product_family_products.product_id = products.id
-      INNER JOIN product_families ON product_families.id = product_family_products.product_family_id
-      WHERE product_families.brand_id = #{website.brand_id}
-      AND post_on <= '#{120.months.ago}'
-      ORDER BY post_on DESC").collect{|p| p.id}.join(", ")
-    product_news_query = (product_news.blank?) ? "" : " OR id IN (#{product_news}) "
+  # Older news for the archived page.
+  def self.archived(website, options={})
+    default_options = { start_on: 99.years.ago, end_on: 120.months.ago }
+    query_for_website(website, default_options.merge(options))
+  end
 
-    # Second, add in those stories associated with the brand only (no products linked)
-    select("DISTINCT *").where("(brand_id = ? AND post_on <= ?) #{product_news_query}", website.brand_id, 120.months.ago).order("post_on DESC")
+  def self.product_news_query(website, options)
+    product_news_ids = product_news(website, options).pluck("news.id").join(", ")
+    (product_news_ids.blank?) ? "" : " OR news.id IN (#{product_news_ids}) "
   end
 
   # Alias for search results link name
@@ -122,17 +121,6 @@ class News < ApplicationRecord
 
   def content_preview_method
     :body
-  end
-
-  def notify(options={})
-    default_options = { from: 'support@digitech.com', to: 'config.hpro_execs' }
-    options = default_options.merge options
-    if options[:to].to_s.match(/\@/)
-      SiteMailer.delay.news(self, options[:to], options[:from])
-    elsif options[:to].to_s.match(/^config/)
-      list = eval("HarmanSignalProcessingWebsite::Application.#{options[:to]}")
-      list.each{ |executive| SiteMailer.delay.news(self, executive, options[:from]) }
-    end
   end
 
 end

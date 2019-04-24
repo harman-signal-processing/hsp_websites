@@ -32,12 +32,20 @@
     <%= will_paginate @news, renderer: WillPaginateInfinite::InfinitePagination %>
 	</div>
 	<div class="medium-3 columns hide-for-small">
-		<br/>
 
     <p class="text-right">
       <%= link_to(image_tag('icons/rss.png', alt: "rss", style: "vertical-align: middle"), rss_url(format: "xml")) %>
       <%= link_to("Subscribe via RSS", rss_url(format: "xml")) %>
     </p>
+
+    <% if @news.tag_counts_on(:tags).inject(0) {|total, tag| total + tag.taggings_count} >= 20 %>
+      <br/>
+      <h5>FILTER BY TAG</h5>
+      <% tag_cloud(@news.tag_counts_on(:tags), %w(css1 css2 css3 css4)) do |tag, css_class| %>
+        <%= link_to tag.name, tag_filtered_news_path( tag: tag.name ), class: css_class %>
+      <% end %>
+      <br/><small> <%= link_to "all news", news_index_path %></small>
+    <% end %>
 	</div>
 </div>
 

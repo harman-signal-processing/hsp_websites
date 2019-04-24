@@ -1,5 +1,6 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+  include ActsAsTaggableOn::TagsHelper
 
   # Generates a link to the current page, with the given locale
   def switch_locale(new_locale)
@@ -495,6 +496,7 @@ module ApplicationHelper
   # Replacement for render :partial, this version considers the
   # site's brand and checks for a custom partial.
   def render_partial(name, options={})
+    name = name.to_s
     if File.exists?(Rails.root.join("app", "views", "#{website.folder}/#{name.gsub(/\/(?!.*\/)/, "/_")}.html.erb"))
       name = "#{website.folder}/#{name}"
     end

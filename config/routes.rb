@@ -425,10 +425,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         member { get :delete_preview }
       end
       resources :news do
-        member {
-          put :notify  # no longer used--sends out press releases from admin tool
-          get :delete_news_photo
-        }
+        member { get :delete_news_photo }
         resources :news_images
       end
       resources :systems do
@@ -620,6 +617,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       collection { get :archived }
       member { get :martin_redirect }
     end
+    get "news/filter_by_tag/:tag" => 'news#filter_by_tag', as: :tag_filtered_news
     resources :systems, only: [:index, :show] do
       resources :system_configurations, only: [:new, :create, :edit, :update] do
         member do

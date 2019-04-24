@@ -71,15 +71,6 @@ class Admin::NewsController < AdminController
     end
   end
 
-  # Not used anymore--used to send out press releases
-  # POST /admin/news/1/notify
-  def notify
-    from = params[:news][:from] || website.support_email
-    to = params[:news][:to] || "config.hpro_execs"
-    @news.notify(from: from, to: to)
-    redirect_to([:admin, @news], notice: 'Notifications to the Harman Pro executives are being sent.')
-  end
-
   def delete_news_photo
     @news.update_attributes(news_photo: nil)
     redirect_to([:admin, @news], notice: "Main photo was removed.")

@@ -5,15 +5,18 @@ class NewsController < ApplicationController
   # GET /news
   # GET /news.xml
   def index
-    @news = News.all_for_website(website)
-    @hide_archive = false
-    if @news.length < 5
-      @news += News.archived(website)
-      @hide_archive = true
-    end
-    @news = @news.paginate(page: params[:page], per_page: 20)
+    @news = News.all_for_website(website).paginate(page: params[:page], per_page: 20)
     respond_to do |format|
       format.html { render_template } # index.html.erb
+      format.xml  { render xml: @news }
+      format.js
+    end
+  end
+
+  def filter_by_tag
+    @news = News.all_for_website(website).tagged_with(params[:tag]).paginate(page: params[:page], per_page: 20)
+    respond_to do |format|
+      format.html { render_template action: 'index' }
       format.xml  { render xml: @news }
       format.js
     end
@@ -35,8 +38,10 @@ class NewsController < ApplicationController
     if !website.news.include?(@news) || (@news.post_on.to_date > Date.today && !(can?(:manage, @news)))
       redirect_to news_index_path, status: :moved_permanently and return
     end
-    @old_news = !!(News.archived(website))
-    @recent_news = News.all_for_website(website, limit: 6) - [@news]
+    @related_news = @news.find_related_tags.where("post_on <= ?", Date.today).order("post_on DESC").limit(6)
+    unless @related_news.length > 0
+      @recent_news = News.all_for_website(website, limit: 6) - [@news]
+    end
     respond_to do |format|
       format.html { render_template } # show.html.erb
       format.xml  { render xml: @news }

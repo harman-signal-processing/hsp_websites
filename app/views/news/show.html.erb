@@ -22,12 +22,22 @@ set_meta_tags title: translate_content(@news, :title),
      modified_time: @news.updated_at.strftime("%FT%T")
    }
 %>
+
+<% if @news.news_photo.present? && (website.brand.name == "Martin" || @news.post_on > "2019-04-01".to_date) %>
+  <%= content_for :feature do %>
+    <div class="text-center news_banner">
+      <%= image_tag @news.news_photo.url(:original) %>
+    </div>
+  <% end %>
+<% end %>
+
 <h1><%= translate_content(@news, :title) %></h1>
+
 <div class="row">
   <div class="medium-5 push-7 columns">
-    <% if !@news.news_photo_file_name.blank? %>
+    <% if @news.news_photo.present? && (website.brand.name != "Martin" && @news.post_on < "2019-04-01".to_date) %>
       <div style="margin-bottom: 20px;">
-        <%= image_tag(@news.news_photo.url(:email)) %>
+        <%= image_tag @news.news_photo.url(:email) %>
       </div>
     <% end %>
 
@@ -49,7 +59,7 @@ set_meta_tags title: translate_content(@news, :title),
     <% if @news.products.size > 0 %>
       <div class="hide-for-small">
         <h2 class="subheader"><%= t('titles.related_products') %></h2>
-        <ul class="medium-block-grid-2 small-block-grid-1">
+        <ul class="large-block-grid-2 small-block-grid-1">
           <% @news.products.each do |product| %>
             <li><%= render_partial "product_families/product_square", product: product, compare: false %></li>
           <% end %>
@@ -61,22 +71,22 @@ set_meta_tags title: translate_content(@news, :title),
       <%=raw website.news_side_content %>
     <% end %>
 
-    <% if @recent_news.size > 0 %>
+
+    <% if @related_news.length > 0 %>
+      <div class="hide-for-small">
+        <br/>
+        <h3 class="subheader">Related <%= website.brand.name %> <%= ucfirst(t('news')) %></h3>
+        <% @related_news[0,4].each do |news| %>
+          <%= render_partial :news_item, news: news %>
+        <% end %>
+      </div>
+    <% elsif @recent_news.size > 0 %>
       <div class="hide-for-small">
         <br/>
         <h3 class="subheader">Recent <%= website.brand.name %> <%= ucfirst(t('news')) %></h3>
-        <% @recent_news[0,4].each do |news| %>
-          <% if news.news_photo.present? %>
-            <%= link_to image_tag(news.news_photo.url(:email)), news %>
-          <% end %>
-          <p><small><%=l news.post_on, format: :short %></small><br/>
-          <%= link_to translate_content(news, :title), news %></p>
+        <% @recent_news.each do |news| %>
+          <%= render_partial :news_item, news: news %>
         <% end %>
-
-        <p>
-          <%= link_to(image_tag('icons/rss.png', alt: "rss", style: "vertical-align: middle"), rss_url(format: "xml")) %>
-          <%= link_to("Subscribe via RSS", rss_url(format: "xml")) %>
-        </p>
       </div>
     <% end %>
   </div>
@@ -91,7 +101,9 @@ set_meta_tags title: translate_content(@news, :title),
     <%=raw translate_content(@news, :body) %>
 
     <% if @news.tag_list.present? %>
-      <p><em><strong>TAGS:</strong> <%= @news.tag_list %></em></p>
+      <p><em><strong>TAGS:</strong>
+        <%= @news.tag_list.map{|tag| link_to(tag, tag_filtered_news_path( tag: tag ))}.join(", ").html_safe %>
+      </em></p>
     <% end %>
 
     <% if can? :update, @news %>
