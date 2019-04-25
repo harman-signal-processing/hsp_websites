@@ -81,47 +81,35 @@ class Product < ApplicationRecord
   validates :sap_sku, format: { with: /\A[\w\-\s]*\z/, message: "only allows letters and numbers" }
 
 
-  scope :not_associated_with_this_site_element, -> (site_element, website) { 
-    product_ids_already_associated_with_this_site_element = ProductSiteElement.where("site_element_id = ?", site_element.id).map{|pse| pse.product_id }
-    products_not_associated_with_this_site_element = website.products.where.not(id: product_ids_already_associated_with_this_site_element)    
-    products_not_associated_with_this_site_element
+  scope :not_associated_with_this_site_element, -> (site_element, website) {
+    website.products.where.not(id: site_element.products.pluck(:id))
   }
 
-  scope :not_associated_with_this_software, -> (software, website) { 
-    product_ids_already_associated_with_this_software = ProductSoftware.where("software_id = ?", software.id).map{|ps| ps.product_id }
-    products_not_associated_with_this_software = website.products.where.not(id: product_ids_already_associated_with_this_software)    
-    products_not_associated_with_this_software
+  scope :not_associated_with_this_software, -> (software, website) {
+    website.products.where.not(id: software.products.pluck(:id))
   }
 
-  scope :not_associated_with_these_products, -> (associated_products, website) { 
+  scope :not_associated_with_these_products, -> (associated_products, website) {
     product_ids_already_associated_with_this_product = associated_products.map{|associated_product| associated_product.id }
-    products_not_associated_with_this_product = website.products.where.not(id: product_ids_already_associated_with_this_product)    
-    products_not_associated_with_this_product
+    website.products.where.not(id: product_ids_already_associated_with_this_product)
   }
 
-  scope :not_associated_with_this_product_family, -> (product_family, website) { 
-    product_ids_already_associated_with_this_product_family = ProductFamilyProduct.where("product_family_id = ?", product_family.id).map{|pfp| pfp.product_id }
-    products_not_associated_with_this_product_family = website.products.where.not(id: product_ids_already_associated_with_this_product_family)    
-    products_not_associated_with_this_product_family
+  scope :not_associated_with_this_product_family, -> (product_family, website) {
+    website.products.where.not(id: product_family.products.pluck(:id))
   }
-  
-    scope :not_associated_with_these_parent_products, -> (parent_products, website) { 
+
+  scope :not_associated_with_these_parent_products, -> (parent_products, website) {
     parent_product_ids_already_associated_with_this_product = parent_products.map{|parent_product| parent_product.parent_product_id }
-    parent_products_not_associated_with_this_product = website.products.where.not(id: parent_product_ids_already_associated_with_this_product)    
-    parent_products_not_associated_with_this_product
+    website.products.where.not(id: parent_product_ids_already_associated_with_this_product)
   }
 
-  scope :not_associated_with_this_news_item, -> (news_item, website) { 
-    product_ids_already_associated_with_this_news_item = NewsProduct.where("news_id = ?", news_item.id).map{|ps| ps.product_id }
-    products_not_associated_with_this_news_item = website.products.where.not(id: product_ids_already_associated_with_this_news_item)    
-    products_not_associated_with_this_news_item
+  scope :not_associated_with_this_news_item, -> (news_item, website) {
+    website.products.where.not(id: news_item.products.pluck(:id))
   }
-  
-  scope :not_associated_with_this_badge, -> (badge, website) { 
-    product_ids_already_associated_with_this_badge = ProductBadge.where("badge_id = ?", badge.id).map{|ps| ps.product_id }
-    products_not_associated_with_this_badge = website.products.where.not(id: product_ids_already_associated_with_this_badge)    
-    products_not_associated_with_this_badge
-  }  
+
+  scope :not_associated_with_this_badge, -> (badge, website) {
+    website.products.where.not(id: badge.products.pluck(:id))
+  }
 
   def slug_candidates
     [

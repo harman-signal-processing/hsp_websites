@@ -17,12 +17,19 @@ class Event < ApplicationRecord
   validates :end_on, presence: true
   validates :brand, presence: true
 
-  # Events to display on the main area of the site.
-  def self.all_for_website(website, options={})
-    brand = website.is_a?(Website) ? website.brand : website
+  scope :current_and_upcoming, -> {
+    where(active: true).where("end_on >= ?", Date.today).order(start_on: :asc)
+  }
 
+  scope :recent, -> {
+    where(active: true).where("end_on <= ? AND end_on >= ?", Date.today, 6.months.ago).order(start_on: :desc)
+  }
+
+  # Events to display on the main area of the site.
+  scope :all_for_website, -> (website, options={}) {
+    brand = website.is_a?(Website) ? website.brand : website
     brand.events
-  end
+  }
 
   def slug_candidates
     [
@@ -33,14 +40,6 @@ class Event < ApplicationRecord
 
   def should_generate_new_friendly_id?
     true
-  end
-
-  def self.current_and_upcoming
-    where(active: true).where("end_on >= ?", Date.today).order(start_on: :asc)
-  end
-
-  def self.recent
-    where(active: true).where("end_on <= ? AND end_on >= ?", Date.today, 6.months.ago).order(start_on: :desc)
   end
 
 end
