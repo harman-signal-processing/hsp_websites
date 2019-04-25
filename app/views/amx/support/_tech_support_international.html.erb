@@ -128,7 +128,6 @@
           <div>Below are the distributors for your country.</div>
         	<div class="large-12 columns">
         		<ul class="large-block-grid-2 medium-block-grid-1 small-block-grid-1">
-        			<%#binding.pry%>
 	        		<% @distributors.sort_by!{|d| d[:sort_order_for_country]}.each do |distributor| %>
 			        		<%=render_partial "support/distributor", distributor: distributor %>
 	        		<% end %> <%# @distributors.each do |distributor| %>
