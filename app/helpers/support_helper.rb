@@ -28,12 +28,12 @@ module SupportHelper
     end
   end
   
-  def get_list_html(item, listname, keyname)
+  def get_list_html(item, listname, keyname, sort_attribute)
     listname_sym = listname.to_sym
     html = ""
 			if item[listname_sym].present?
 			 # key = listname.singularize
-				  item[listname_sym].each do |hash|
+				  item[listname_sym].sort_by!{|item| item[sort_attribute.to_sym]}.each do |hash|
 					  if hash[:label].present?
 						  html += "#{hash[:label]}: "
 					  end 

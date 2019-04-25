@@ -1,36 +1,36 @@
 <li>
 	<div class="panel">
 				<h3><%= distributor[:name] %></h3>
-				<% distributor[:locations].each do |location| %>
+				<% distributor[:locations].sort_by!{|l| l[:location_sort_order_for_distributor]}.each do |location| %>
 					<div style="margin-top:10px;">
 	  				<div><strong><%= location[:name]%></strong></div>
 	    			<div>
 	    				<%=raw address_html(location)%>
 	    			</div>
 	    			<div>
-					<%=raw get_list_html(location, "phones", "phone") %>
+					<%=raw get_list_html(location, "phones", "phone", "phone_sort_order_for_location") %>
 	    			</div>
 	    			
 	    			<div>
-	    				<%=raw get_list_html(location, "emails", "email") %>
+	    				<%=raw get_list_html(location, "emails", "email", "email_sort_order_for_location") %>
 	    			</div>	 
 	    			
 	    			<div>
-					<%=raw get_list_html(location, "websites", "url") %>
+					<%=raw get_list_html(location, "websites", "url", "website_sort_order_for_location") %>
 	    			</div>	        			
 	    			
 	    			<% if location[:contacts].present?%>
 	    			<div style="margin-top:10px;">
-	    				<% location[:contacts].each do |contact| %>
+	    				<% location[:contacts].sort_by!{|c| c[:contact_sort_order_for_location]}.each do |contact| %>
 	    					<div style="margin-top:10px;">
 		    					<strong><%= contact[:name]%></strong><br />
 		    					<% if contact[:title].present? %>
 		    						<%= contact[:title]%><br />
 		    					<% end %>
 		    					
-		    					<%=raw get_list_html(contact, "phones", "phone") %>
-		    					<%=raw get_list_html(contact, "emails", "email") %>
-		    					<%=raw get_list_html(contact, "websites", "url") %>
+		    					<%=raw get_list_html(contact, "phones", "phone", "phone_sort_order_for_contact") %>
+		    					<%=raw get_list_html(contact, "emails", "email", "email_sort_order_for_contact") %>
+		    					<%=raw get_list_html(contact, "websites", "url", "website_sort_order_for_contact") %>
 	    					</div>
 	    				<% end %> <%# location[:contacts].each do |contact| %>
 	    			</div>
@@ -39,9 +39,9 @@
 				<% end %> <%# distributor[:locations].each do |location| %>
 				
 				<div style="margin-top:10px;">
-					<%=raw get_list_html(distributor, "phones", "phone") %>
-					<%=raw get_list_html(distributor, "emails", "email") %>
-					<%=raw get_list_html(distributor, "websites", "url") %>        			
+					<%=raw get_list_html(distributor, "phones", "phone", "phone_sort_order_for_distributor") %>
+					<%=raw get_list_html(distributor, "emails", "email", "email_sort_order_for_distributor") %>
+					<%=raw get_list_html(distributor, "websites", "url", "website_sort_order_for_distributor") %>        			
 				</div>
 	</div>  <!-- <div class="panel"> -->
 </li>
