@@ -3,7 +3,7 @@ class ProductFamily < ApplicationRecord
   friendly_id :slug_candidates
 
   belongs_to :brand, touch: true
-  has_many :product_family_products, -> { order('position').includes(:product) }, dependent: :destroy
+  has_many :product_family_products, -> { order('product_family_products.position').includes(:product) }, dependent: :destroy
   has_many :products, -> { order("product_family_products.position").includes([:product_status, :product_families]) }, through: :product_family_products
   has_many :locale_product_families
   has_many :market_segment_product_families, dependent: :destroy
