@@ -28,16 +28,23 @@ module SupportHelper
     end
   end
   
-  def get_list_html(item, listname, keyname, sort_attribute)
+  def get_list_html(item, listname, keyname)
     listname_sym = listname.to_sym
     html = ""
 			if item[listname_sym].present?
 			 # key = listname.singularize
-				  item[listname_sym].sort_by!{|item| item[sort_attribute.to_sym]}.each do |hash|
+				  item[listname_sym].each do |hash|
 					  if hash[:label].present?
 						  html += "#{hash[:label]}: "
 					  end 
-					  html += "#{mail_to hash[keyname.to_sym]}<br />"
+					  case listname
+					  when "emails"
+					    html += "#{mail_to hash[keyname.to_sym]}<br />"
+					  when "websites"
+					    html += "#{link_to hash[keyname.to_sym], hash[keyname.to_sym], target:"_blank"}<br />"
+					  else
+					    html += "#{hash[keyname.to_sym]}<br />"
+					  end
 				end # item[listname_sym].each do |hash|
 			end  # if item[symbol].present?
     html
