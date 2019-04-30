@@ -39,11 +39,14 @@
       <% end %>
 
       <% if @product.msrp.to_f > 0.0 && @product.street_price.to_f > 0.0 && (@promo || @product.street_price.to_f > @product.sale_price.to_f) %>
+        <%# Hiding Noel's weird pricing thing %>
+        <!--
         <h6 class="price-label">Save
           <span class="strike">
             <%= number_to_currency(@product.msrp.to_f - @product.street_price.to_f) %>
           </span>
         </h6>
+        -->
         <h6 class="price-label">Save <%= number_to_currency(@discount_amount.to_f + (@product.msrp.to_f - @product.street_price.to_f)) %>!</h6>
       <% else %>
         <h6 class="price-label">Save <%= number_to_currency(@discount_amount.to_f) %>!</h6>
