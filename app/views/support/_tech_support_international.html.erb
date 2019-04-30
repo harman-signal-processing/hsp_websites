@@ -10,7 +10,11 @@
 			<% if addr = website.value_for("address_and_phone") %>
 			<div class="panel">
 				<h4><%= t("titles.mailing_address") %></h4>
-				<p><%=raw addr %></p>
+				<p><%=raw addr %>
+					<% if (sup = website.value_for("support_email")) && !(website.hide_support_email) %>
+					<br/><%= mail_to sup, sup %>
+					<% end %>
+				</p>
 			</div>
 			<% end %>
 
@@ -30,7 +34,11 @@
 					</div>
 				<% end %>
 				<ul class="list">
-					<% if !!(website.has_training) %>
+					<% if !!website.brand.name.match(/^bss/i) %>
+					<li><%= link_to t('training'), "/training" %></li>
+					<% elsif !!website.folder.to_s.match(/archimedia/) %>
+					<li><%= link_to t('training'), "/en-US/onsite_training" %></li>
+					<% elsif !!(website.has_training) %>
 					<li><%= link_to "product training", training_path %></li>
 					<% end %>
 				</ul>
@@ -90,13 +98,13 @@
         </div>
       <% end %>
 
+			<% unless website.brand_name.match(/dod/i) %>
 			<div class="panel">
 				<h4><%= t('titles.more_resources').titleize %></h4>
 				<ul class="list">
           <% if !website.has_service_centers? %>
             <% if website.has_rma_form? %>
-              <li><%= link_to "Return Authorization Request (Repair)", rma_repair_request_path %></li>
-              <li><%= link_to "Return Authorization Request (Credit)", rma_credit_request_path %></li>
+              <li><%= link_to t('titles.factory_service'), rma_request_path %></li>
             <% end %>
             <% if website.has_parts_form? %>
             <li><%= link_to t('titles.part_request'), parts_request_path %></li>
@@ -112,12 +120,15 @@
 					<% if !!(website.forum_link) %>
 					<li><%= link_to t("user_forum"), website.forum_link %></li>
 					<% end %>
+          <% if !!!(website.brand.name.to_s.match(/digitech|lexicon|dod|martin/i)) %>
+            <li><%= link_to "System Design Tools", tools_calculators_path %></li>
+          <% end %>
           <% if !website.has_software? %>
             <li><%= link_to "More Resources", support_downloads_path %></li>
           <% end %>
 				</ul>
 			</div>
-      <%= render_partial 'support/amx_additional_links' %>
+			<% end %>
 
 		<% end %>
 	</div>
