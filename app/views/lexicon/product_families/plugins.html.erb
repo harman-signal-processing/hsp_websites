@@ -82,7 +82,7 @@
               <% end %>
             </tr>
             <tr>
-              <td colspan="2" class="row-label">Confirmed<br/>Compatibility</td>
+              <td colspan="2" class="row-label">OS Compatibility</td>
               <% current_products.each do |product| %>
                 <td class="content">
                   <% begin %>
@@ -111,7 +111,7 @@
                               <%= e.name %><br/>
                             <% end %>
                           <% else %>
-                              None
+                            &nbsp;
                           <% end %>
                         </td>
                       <% end %>
@@ -165,7 +165,7 @@
           <p><%= product.short_description.gsub(/^\d*/, "") %></p>
         </div>
         <div class="plugin compat">
-          <h3>Confirmed Compatibility</h3>
+          <h3>OS Compatibility</h3>
           <% begin %>
             <%= spec_value product.product_specifications.where(specification: compatible_with).first %>
           <% end %>
