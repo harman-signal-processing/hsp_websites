@@ -18,7 +18,7 @@ gem 'font-awesome-rails'
 # gem 'ruby-debug'
 
 # Bundle the extra gems:
-gem 'mysql2' , '< 0.4.7' # internal server wouldn't install 0.4.7
+gem 'mysql2'
 gem 'utf8-cleaner'
 gem 'friendly_id', '>= 5.2'
 #gem 'aws-sdk', '< 3' # v3 modularizes AWS services, tough to work with paperclip
