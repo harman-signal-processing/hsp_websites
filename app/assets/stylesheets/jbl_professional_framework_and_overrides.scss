@@ -10,7 +10,7 @@ $body-bg: #FFF;
 $body-font-color: $dark-gray;
 $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $body-font-weight: 400;
-$primary-color: #f37736;
+$primary-color: #fa4616;
 $secondary-color: $medium-gray;
 $include-print-styles: true;
 $header-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
@@ -42,7 +42,7 @@ $tabs-navigation-font-color: $dark-gray;
 $tabs-navigation-active-font-color: $tabs-navigation-font-color;
 $tabs-navigation-font-size: rem-calc(13);
 $tabs-navigation-font-family: $body-font-family;
-$anchor-font-color: #00275d;
+$anchor-font-color: $primary-color;
 $anchor-font-color-hover: lighten($anchor-font-color, 5%);
 
 $form-spacing: rem-calc(18px);
@@ -59,7 +59,7 @@ $button-font-weight: 300;
 $button-border-style: none;
 $topbar-bg-color: $primary-color;
 $topbar-bg: $topbar-bg-color !default;
-$topbar-height:                        rem-calc(54px);
+$topbar-height:                        rem-calc(80px);
 $topbar-title-weight:                  bold;
 $topbar-dropdown-bg:                      rgba($topbar-bg-color, 0.7);
 $topbar-dropdown-link-bg:                 rgba(darken($topbar-bg-color, 2%),0.85);
@@ -83,23 +83,21 @@ $topbar-sticky-class:                  ".sticky";
   li.has-form {
     padding-left: rem-calc(10);
     padding-right: rem-calc(10);
+    padding-top: rem-calc(12);
     width: 170px;
   }
 }
 
 @media only screen and (min-width: 720px) {
 	.logo-container img {
-		padding: 10px 25px 0px 35px;
-	}
-	#main_container {
-		padding-bottom: 100px;
+		padding: 4px 2px 0px 6px;
 	}
 }
 
 @media only screen and (max-width: 919px) {
 	.logo-container img {
-    height: 40px;
-		padding: 12px 0px 0px 6px;
+    //height: 40px;
+		padding: 4px 0px 0px 6px;
 	}
 }
 @media only screen and (max-width: 919px) {
@@ -188,7 +186,6 @@ div.market_segment_banner {
 
 h1, h2 {
 	font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-	font-weight: 200;
 }
 
 div.product-title-block, div.small-title-block {
@@ -209,4 +206,22 @@ div.product-title-block, div.small-title-block {
       }
     }
   }
+}
+.product_family_header {
+  background-color: black;
+}
+.button {
+  letter-spacing: 0.05em;
+}
+.find-a-dealer {
+  font-size: 80%;
+}
+.have-a-question {
+  font-size: 80%;
+  img {
+    padding-right: 3px;
+  }
+}
+.contact-consultant {
+  font-size: 80%;
 }
