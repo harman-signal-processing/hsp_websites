@@ -11,13 +11,15 @@
 	<% end %>
 <% end %>
 
-<%= cache ["product_family_features", @product_family, I18n.locale, session['geo_country']] do %>
-  <% if @product_family.features.size > 0 %>
+<% if @product_family.features.size > 0 %>
+  <%= cache ["product_family_features", @product_family, I18n.locale, session['geo_country']] do %>
     <% @product_family.features.each do |feature| %>
       <%= render_feature feature %>
     <% end %>
-  <% else %>
-    <%= content_for :feature do %>
+  <% end %>
+<% else %>
+  <%= content_for :feature do %>
+    <%= cache ["product_family_features", @product_family, I18n.locale, session['geo_country']] do %>
       <% if @product_family.title_banner.present? %>
         <div class="product-family-banner-container text-center">
           <%= image_tag @product_family.title_banner.url, alt: @product_family.name %>
