@@ -1,29 +1,30 @@
-<% set_meta_tags title: t('titles.promotions'),
-                 keywords: @current_promotions.pluck(:name),
-				 reverse: true %>
+<% set_meta_tags title: t('titles.promotions'), keywords: @current_promotions.pluck(:name), reverse: true %>
 
-<h1 class="page_title">
-<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/promotions_head.jpg")) %>
-	<%= image_tag("#{website.folder}/#{I18n.locale}/promotions_head.jpg", alt: t('titles.promotions')) %>
-<% else %>
-	<%= t('titles.promotions') %>
+<% if @featured_promotion %>
+  <div class="row">
+    <div class="medium-12 small-12 columns text-center">
+      <%= image_tag @featured_promotion.tile.url, alt: t('titles.promotions') %>
+    </div>
+  </div>
 <% end %>
-</h1>
+
+<h3 class="page_title">
+  <% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/promotions_head.jpg")) %>
+    <%= image_tag("#{website.folder}/#{I18n.locale}/promotions_head.jpg", alt: t('titles.promotions')) %>
+  <% else %>
+    <%= t('titles.promotions') %>
+  <% end %>
+</h3>
 
 <div class="promotion_bug_container">
-<% @current_promotions.each do |promotion| %>
-	<div class="promotion_bug">
-		<% if promotion.tile.present? %>
-			<%= (promotion.has_description?) ?
-					link_to(image_tag(promotion.tile.url(:medium), alt: promotion.name), promotion) :
-					image_tag(promotion.tile.url, alt: promotion.name) %>
-		<% end %>
-    <h2><%= link_to(translate_content(promotion, :name), promotion) %></h2>
-		<div><%= t('valid') %> <%=l promotion.start_on, format: :long %>-<%=l promotion.end_on, format: :long %>
-    <br/><%= link_to t('more_info'), promotion, class: "tiny secondary button" %>
-		</div>
-	</div>
-<% end %>
+  <% @current_promotions.each do |promotion| %>
+    <div class="promotion_bug">
+      <h2><%= link_to(translate_content(promotion, :name), promotion) %></h2>
+      <div><%= t('valid') %> <%=l promotion.start_on, format: :long %>-<%=l promotion.end_on, format: :long %>
+      <br/><%= link_to t('more_info'), promotion, class: "tiny secondary button" %>
+      </div>
+    </div>
+  <% end %>
 </div>
 
 <% if @expired_promotions.length > 0 %>

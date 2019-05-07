@@ -5,7 +5,14 @@ class PromotionsController < ApplicationController
   # GET /promotions
   # GET /promotions.xml
   def index
+    @featured_promotion = nil
     @current_promotions = Promotion.current_for_website(website)
+    if @current_promotions.length > 0
+      promos_with_image = @current_promotions.where("tile_file_name IS NOT NULL")
+      if promos_with_image.length > 0
+        @featured_promotion = promos_with_image.first
+      end
+    end
     @expired_promotions = Promotion.recently_expired_for_website(website)
     respond_to do |format|
       format.html { render_template } # index.html.erb
@@ -24,9 +31,9 @@ class PromotionsController < ApplicationController
       # format.xml  { render xml: @promotion }
     end
   end
-  
+
   protected
-  
+
   def ensure_best_url
     @promotion = Promotion.where(cached_slug: params[:id]).first || Promotion.find(params[:id])
     # redirect_to @promotion, status: :moved_permanently unless @promotion.friendly_id_status.best?
