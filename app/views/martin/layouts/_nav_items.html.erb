@@ -5,7 +5,7 @@
 		<ul class="dropdown">
 		  <li><%= link_to t('new_products'), new_products_path, target: "_blank" %></li>
 			<% (ProductFamily.parents_with_current_products(website, I18n.locale) - secondary_product_family_groups).each do |product_family| %>
-				<%= product_family_nav_links(product_family, depth: 1) %>
+				<%= product_family_nav_links(product_family, depth: 2) %>
 			<% end %>
 			<li><%= link_to "Discontinued Products", discontinued_products_path %></li>
 		</ul>
@@ -17,7 +17,7 @@
       <li class="has-dropdown"><%= link_to translate_content(secondary_product_family_group, :name), '#' %>
         <ul class="dropdown">
           <% secondary_product_family_group.children_with_current_products(website).each do |product_family| %>
-            <%= product_family_nav_links(product_family, depth: 1) %>
+            <%= product_family_nav_links(product_family, depth: 2) %>
           <% end %>
         </ul>
       </li>
@@ -65,8 +65,8 @@
       <% end %>
     	<% if !!(website.forum_link) %>
         <li class="hide-for-medium"><%= link_to t("forum").titleize, website.forum_link %></li>
-    	<% end %>      
-      
+    	<% end %>
+
       <% if website.pages.pluck(:custom_route).include?('contact-service') %>
         <li><%= link_to t('nav.service').titleize, "/#{I18n.locale}/contact-service" %></li>
       <% end %>

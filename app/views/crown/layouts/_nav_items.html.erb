@@ -19,7 +19,7 @@
           %>
           <% amp_families.each do |product_family| %>
             <% unless product_family.hide_from_homepage? %>
-              <%= product_family_nav_links(product_family, depth: 1) %>
+              <%= product_family_nav_links(product_family, depth: 2) %>
             <% end %>
           <% end %>
         </ul>

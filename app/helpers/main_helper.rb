@@ -221,7 +221,7 @@ module MainHelper
       product_links = []
 
       relevant_children = product_family.children_with_current_products(website)
-      options[:depth] += 1 if relevant_children.size > 0
+      #options[:depth] += 1 if relevant_children.size > 0
 
       if options[:depth] > 1
         child_links = relevant_children.map do |sub_family|

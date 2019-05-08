@@ -36,6 +36,54 @@ namespace :jblpro do
 
   end
 
+  desc "Import JBL news"
+  task import_news: :environment do
+    @root_site = "http://www.jblpro.com"
+    @agent = Mechanize.new
+    @links_followed = []
+
+    news_article_links = []
+    (1..16).each do |page_num|
+      news_index = @agent.get("#{ @root_site }/www/news/press-releases/page/#{page_num}")
+
+      news_index.css("li.sfnewsListItem").each do |li|
+        news_article_links << li.css("a").attr('href').value
+      end
+    end
+
+    news_article_links.each do |article_link|
+      puts article_link
+      @agent.get("#{ @root_site }/www/news/press-releases/page/1")
+      article_page = @agent.get(article_link)
+
+      news = News.where(
+        brand_id: jblpro.id,
+        title: article_page.css("h1.sfnewsTitle").text.strip
+      ).first_or_initialize
+
+      news.post_on = article_page.css(".sfnewsAuthorAndDate").text.strip.gsub(/^.*\|+/, "").to_date
+      news.old_url = "#{@root_site}#{article_link}"
+      news.quote = article_page.css(".sfnewsSummary").text.strip
+      article_page.css(".sfnewsContent img").each do |img|
+        next unless news.news_photo.blank?
+        img_url = img.attr('src')
+        fn = img_url.split(/\//).last
+        if @agent.get(img_url).save("tmp/#{fn}")
+          img_content = File.open("tmp/#{fn}")
+          news.news_photo = img_content
+          img_content.close
+          File.delete("tmp/#{fn}")
+        end
+      end
+      body = article_page.css(".sfnewsContent")
+      body.css("img").remove
+      news.body = body.inner_html
+
+      news.save!
+    end
+
+  end
+
   def find_or_create_family(family_page, parent_family = nil)
     #begin
       if family_page.css(".FamilyPageDescription").length > 0
