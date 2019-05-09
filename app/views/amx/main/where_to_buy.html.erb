@@ -116,15 +116,17 @@
         </div>
       <% end %>
 
-      <% if I18n.locale.match(/en|us/i) %>
-        <ul>
-          <li><%= link_to "U.S. Education Sales", "/#{I18n.locale}/contact-us-education-sales" %></li>
-          <li><%= link_to "U.S. Government Sales", "/#{I18n.locale}/contact-us-government-sales" %></li>
-          <li><%= link_to "U.S. Residential Sales", "/#{I18n.locale}/contact-us-residential-sales" %></li>
-          <li><%= link_to "U.S. Training", "/#{I18n.locale}/contact-us-us-training" %></li>
-          <li><%= link_to "Consultant Support", "/#{I18n.locale}/contact-us-consultant-sales" %></li>
-        </ul>
-      <% end %>
+      <%# if I18n.locale.match(/en|us/i) %>
+        <!--<ul>-->
+        <!--
+          <li><%#= link_to "U.S. Education Sales", "/#{I18n.locale}/contact-us-education-sales" %></li>
+          <li><%#= link_to "U.S. Government Sales", "/#{I18n.locale}/contact-us-government-sales" %></li>
+          <li><%#= link_to "U.S. Residential Sales", "/#{I18n.locale}/contact-us-residential-sales" %></li>
+          <li><%#= link_to "U.S. Training", "/#{I18n.locale}/contact-us-us-training" %></li>
+          <li><%#= link_to "Consultant Support", "/#{I18n.locale}/contact-us-consultant-sales" %></li>
+          -->
+        <!--</ul>-->
+      <%# end %>
 
       <% if website.brand.has_distributors? %>
         <div class="row">
