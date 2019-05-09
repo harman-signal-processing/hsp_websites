@@ -3,10 +3,8 @@
 				 reverse: true %>
 
 <div class="row">
-
-	<%=render_partial "support/support_left_side_bar"%>
-
-    <div class="large-8 columns">
+	<%=render_partial "support/support_left_side_bar" %>
+  <div class="large-8 columns">
     <h1>International Tech Support</h1>
         <% if @distributors.size > 0 %>
           <div>Below are the distributors for your country.</div>
@@ -27,8 +25,6 @@
         	<% end %>
         <% end %>
     </div>    
-
-
-</div>
+</div> <!-- <div class="row"> -->
 
 <%=render_partial "shared/support_chat_javascript"%>
