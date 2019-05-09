@@ -37,6 +37,11 @@
     <%= render_partial "shared/solutions_nav" %>
   <% end %>
 
+	<% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
+    <li class="divider hide-for-medium"></li>
+    <li><%= link_to t('where_to_buy').titleize, where_to_buy_path %></li>
+	<% end %>
+
   <% if website.has_news? %>
     <li class="divider hide-for-medium"></li>
     <li><%= link_to t('news').titleize, news_index_path %></li>
