@@ -96,4 +96,4 @@ $(function(){
     	width: '100%'
     });
 
-});
+});  //  $(function(){

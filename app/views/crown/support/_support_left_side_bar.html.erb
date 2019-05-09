@@ -1,0 +1,58 @@
+<!-- begin left side bar -->
+<div class="large-4 columns">
+		<%= cache ["support_body", website.brand, I18n.locale] do %>
+
+			<% if addr = website.value_for("address_and_phone") %>
+			<div class="panel">
+				<h4><%= t("titles.mailing_address") %></h4>
+				<p><%=raw addr %>
+					<% if (sup = website.value_for("support_email")) && !(website.hide_support_email) %>
+					<br/><%= mail_to sup, sup %>
+					<% end %>
+				</p>
+			</div>
+			<% end %>
+
+			<div class="panel">
+				<h4><%= t('titles.product_support') %></h4>
+				<p><%= t('blurbs.product_support') %></p>
+				<%= form_tag support_path, method: :get do |f| %>
+					<div class="row collapse">
+						<div class="medium-9 small-9 columns">
+							<%= select_tag :product_id,
+									options_from_collection_for_select(website.current_and_discontinued_products([:product_families]) - website.vintage_products, :to_param, :name) + vintage_options(), 
+									include_blank: true %>
+						</div>
+						<div class="medium-3 small-3 columns">
+							<%= submit_tag t('go'), class: "postfix button" %>
+						</div>
+					</div>
+				<% end %>
+				<ul class="list">
+					<% if !!website.brand.name.match(/^bss/i) %>
+					<li><%= link_to t('training'), "/training" %></li>
+					<% elsif !!website.folder.to_s.match(/archimedia/) %>
+					<li><%= link_to t('training'), "/en-US/onsite_training" %></li>
+					<% elsif !!(website.has_training) %>
+					<li><%= link_to "product training", training_path %></li>
+					<% end %>
+				</ul>
+			</div>
+
+      <% if website.email_signup_url %>
+        <div class="panel">
+          <%= render_partial 'shared/newsletter_signup' %>
+        </div>
+      <% end %>
+
+      <div class="panel">
+        <%= link_to "HARMAN Pro Catalog Request", catalog_request_path %>
+      </div>
+
+			<div class="panel">
+        <%= link_to "RSO Support", "/salessupport" %>
+			</div>
+
+		<% end %>
+	</div>
+<!-- end left side bar -->

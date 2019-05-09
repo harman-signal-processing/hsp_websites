@@ -17,6 +17,7 @@
 //= require jquery.datetimepicker
 //= require jquery.rwdImageMaps.min
 //= require global_functions
+//= require slick
 //= require maps
 //= require twitter
 //= require homepage
@@ -30,6 +31,7 @@
 //= require network_audio
 //= require tools
 //= require_self
+//= require chosen-jquery
 
 $(function(){
 
@@ -52,4 +54,19 @@ $(function(){
 
   $('img[usemap]').rwdImageMaps();
 
-});
+  /*used in /support area of brand sites */
+  $('#country-switch').change(function(e){
+    var $this = $(this),
+        country_code = $this.val();
+    location.search = 'geo=' + country_code.toLowerCase();
+  });
+
+  // enable chosen js
+  $('.chosen-select').chosen(
+  	{
+    	allow_single_deselect: true,
+    	no_results_text: 'No results matched',
+    	width: '100%'
+    });
+
+});  //  $(function(){
