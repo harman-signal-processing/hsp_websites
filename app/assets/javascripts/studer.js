@@ -30,6 +30,7 @@
 //= require will_paginate_infinite
 //= require studer_application
 //= require_self
+//= require chosen-jquery
 
 $(function(){
   $(document).foundation({
@@ -43,4 +44,20 @@ $(function(){
   });
 
   $('img[usemap]').rwdImageMaps();
-});
+  
+  /*used in /support area of brand sites */
+  $('#country-switch').change(function(e){
+    var $this = $(this),
+        country_code = $this.val();
+    location.search = 'geo=' + country_code.toLowerCase();
+  });
+
+  // enable chosen js
+  $('.chosen-select').chosen(
+  	{
+    	allow_single_deselect: true,
+    	no_results_text: 'No results matched',
+    	width: '100%'
+    });    
+  
+});  //  $(function(){
