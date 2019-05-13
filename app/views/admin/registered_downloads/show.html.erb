@@ -83,7 +83,7 @@
 	</p>
 <% end %>
 
-
+<%= will_paginate @download_registrations %>
 	<table class="data" width="100%">
 	  <tr>
 	    <th>Name</th>
@@ -105,8 +105,8 @@
 		<% end %>
 	  </tr>
 
-	<% @registered_download.download_registrations.each do |download_registration| %>
-	  <tr style="background: <%= cycle 'white', 'none' %>">
+	<% @download_registrations.each do |download_registration| %>
+	  <tr>
 	    <td><%= link_to "#{download_registration.first_name} #{download_registration.last_name}", edit_admin_download_registration_path(download_registration) %></td>
 	    <td><%= mail_to download_registration.email, download_registration.email %></td>
 		<td align="center"><%= (download_registration.subscribe?) ? "Yes" : "No" %></td>
@@ -131,4 +131,5 @@
 		<% end %>
 	  </tr>
 	<% end %>
-	</table>	
+  </table>
+<%= will_paginate @download_registrations %>

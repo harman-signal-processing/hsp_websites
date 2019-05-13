@@ -264,6 +264,9 @@ $topbar-menu-link-weight:              200;
 
 $topbar-sticky-class:                  ".sticky";
 
+$reveal-position-top: rem-calc(10);
+$reveal-default-width: 60%;
+$reveal-max-width: 75%;
 @import 'foundation';
 @import 'brand_common';
 @import 'slick';

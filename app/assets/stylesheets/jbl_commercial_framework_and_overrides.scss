@@ -250,6 +250,9 @@ $topbar-link-bg-active:                darken($topbar-bg, 3%);
 
 $topbar-sticky-class:                  ".sticky";
 
+$reveal-position-top: rem-calc(10);
+$reveal-default-width: 60%;
+$reveal-max-width: 75%;
 @import "foundation";
 
 img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }

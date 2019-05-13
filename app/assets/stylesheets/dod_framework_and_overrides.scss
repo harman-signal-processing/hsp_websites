@@ -146,6 +146,9 @@ $topbar-breakpoint:                    rem-calc(800px); // Change to 9999px for 
 // $topbar-divider-border-top:            solid 1px darken($topbar-bg-color, 10%);
 
 $topbar-sticky-class:                  ".sticky";
+$reveal-position-top: rem-calc(10);
+$reveal-default-width: 60%;
+$reveal-max-width: 75%;
 @import 'foundation';
 @import 'brand_common';
 
