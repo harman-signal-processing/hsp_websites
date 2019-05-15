@@ -396,6 +396,7 @@ module ApplicationHelper
   # pre-formatted HTML)
   def strip_html(string="")
     begin
+      string = strip_tags(string)
       string = string.gsub(/<\/?[^>]*>/,  "")
       string = string.gsub(/\&+\w*\;/, " ") # replace &nbsp; with a space
       string.html_safe
