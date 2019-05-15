@@ -16,7 +16,12 @@ class Admin::RegisteredDownloadsController < AdminController
   # GET /registered_downloads/1
   # GET /registered_downloads/1.xml
   def show
-    @download_registrations = @registered_download.download_registrations.paginate(page: params[:page], per_page: 100)
+    @search = @registered_download.download_registrations.ransack(params[:q])
+    if params[:q]
+      @download_registrations = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
+    else
+      @download_registrations = @registered_download.download_registrations.paginate(page: params[:page], per_page: 100)
+    end
     respond_to do |format|
       format.html # show.html.erb
       format.xml { render xml: @registered_download.download_registrations  }

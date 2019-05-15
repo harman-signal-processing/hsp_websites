@@ -75,13 +75,30 @@
   <%= @registered_download.html_layout_filename %>
 </p> -->
 
-<h4 class="subheader" style="margin-top: 40px;">Registrants (<%= @registered_download.download_registrations.size %>)</h4>
-<% if @registered_download.download_registrations.size > 0 %>
-	<p>
-		<%= link_to image_tag("icons/spreadsheet.png"), admin_registered_download_path(@registered_download, format: "xls") %>
-		<%= link_to "export to excel", admin_registered_download_path(@registered_download, format: "xls") %>
-	</p>
-<% end %>
+<div class="row" style="margin-top: 40px">
+  <div class="small-12 medium-6 columns">
+    <h4 class="subheader">Registrants (<%=number_with_delimiter @registered_download.download_registrations.size %>)</h4>
+    <% if @registered_download.download_registrations.size > 0 %>
+      <p>
+        <%= link_to image_tag("icons/spreadsheet.png"), admin_registered_download_path(@registered_download, format: "xls") %>
+        <%= link_to "export to excel", admin_registered_download_path(@registered_download, format: "xls") %>
+      </p>
+    <% end %>
+  </div>
+  <div class="small-12 medium-6 columns">
+    Search registered users:
+    <%= search_form_for [:admin, @search], url: [:admin, @registered_download] do |f| %>
+      <div class="row collapse">
+        <div class="small-7 medium-9 columns">
+          <%= f.text_field :first_name_or_last_name_or_email_cont %>
+        </div>
+        <div class="small-5 medium-3 columns">
+          <%= f.submit "Search", class: "button expand" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
 
 <%= will_paginate @download_registrations %>
 	<table class="data" width="100%">
