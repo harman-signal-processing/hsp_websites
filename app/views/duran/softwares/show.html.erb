@@ -9,7 +9,6 @@
 <% end %>
 
 <h1><%= @page_title %></h1>
-<%= render 'shared/add_this' %>
 
 <% if @software.replaced_by && @software.replaced_by.is_a?(Software) && (@software.replaced_by.active? || @software.replaced_by.active_without_products?) %>
 <div data-alert class="alert-box">

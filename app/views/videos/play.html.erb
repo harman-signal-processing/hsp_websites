@@ -7,8 +7,6 @@
       <iframe class="video-player" id="<%= @video_id %>" src="http://www.youtube.com/embed/<%= @video_id %>" frameborder="0"></iframe>
     </div>
 
-    <%= render 'shared/add_this' %>
-
     <% begin %>
       <p><%= auto_link @video['description'] %></p>
     <% rescue %>

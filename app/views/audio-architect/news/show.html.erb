@@ -21,7 +21,6 @@ set_meta_tags title: translate_content(@news, :title),
 <p class="little">
   <%=l @news.post_on, format: :long %>
 </p>
-<%= render 'shared/add_this' %>	
 
 <% if !@news.news_photo_file_name.blank? %>
 <div style="float: right; margin: 8px;">
