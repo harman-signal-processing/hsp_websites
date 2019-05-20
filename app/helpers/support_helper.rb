@@ -34,14 +34,14 @@ module SupportHelper
 			if item[listname_sym].present?
 			 # key = listname.singularize
 				  item[listname_sym].each do |hash|
-					  if hash[:label].present?
-						  html += "#{hash[:label]}: "
-					  end 
+				  	has_label = hash[:label].present?
 					  case listname
 					  when "emails"
-					    html += "#{mail_to hash[keyname.to_sym]}<br />"
+					    html += "<i class='fa fa-envelope' aria-hidden='true'></i>&nbsp;#{mail_to hash[keyname.to_sym]}<br />"
 					  when "websites"
-					    html += "#{link_to hash[keyname.to_sym], hash[keyname.to_sym], target:"_blank"}<br />"
+					    html += "<i class='fa fa-external-link' aria-hidden='true'></i>&nbsp;#{link_to hash[keyname.to_sym], hash[keyname.to_sym], target:"_blank"}<br />"
+					  when "phones"
+							html += phone_html(has_label, hash, keyname)
 					  else
 					    html += "#{hash[keyname.to_sym]}<br />"
 					  end
@@ -67,4 +67,18 @@ module SupportHelper
 		html += country_name(item[:country])
   end  #  def address_html(item)
 
-end
+	def phone_html(has_label, hash, keyname)
+		html = ""
+  	if has_label && hash[:label].downcase == "fax"
+  		html += "<i class='fa fa-fax' aria-hidden='true'></i>&nbsp;" 
+  	else
+  		html += "<i class='fa fa-phone' aria-hidden='true'></i>&nbsp;"
+  	end
+
+	  html += "#{hash[:label]}: " if has_label
+  	html += "#{hash[keyname.to_sym]}<br />"		
+  	
+  	html
+	end  #  def phone_html(has_label, hash, keyname)
+
+end  #  module SupportHelper
