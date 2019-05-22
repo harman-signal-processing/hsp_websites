@@ -39,7 +39,7 @@ module SupportHelper
 					  when "emails"
 					    html += "<i class='fa fa-envelope' aria-hidden='true'></i>&nbsp;#{mail_to hash[keyname.to_sym]}<br />"
 					  when "websites"
-					    html += "<i class='fa fa-external-link' aria-hidden='true'></i>&nbsp;#{link_to hash[keyname.to_sym], hash[keyname.to_sym], target:"_blank"}<br />"
+					    html += "<i class='fa fa-external-link' aria-hidden='true'></i>&nbsp;#{link_to hash[keyname.to_sym], hash[keyname.to_sym], target:"_blank"}<br />" if hash[keyname.to_sym].present?
 					  when "phones"
 							html += phone_html(has_label, hash, keyname)
 					  else

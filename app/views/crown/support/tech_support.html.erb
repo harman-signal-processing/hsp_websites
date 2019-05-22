@@ -1,21 +1,8 @@
 <% set_meta_tags title: t('titles.support'),
 				 description: t('meta.description.support', brand: website.brand_name),
 				 reverse: true %>
-<div class="row">
-    <div class="large-8 large-offset-4 small-8 columns" style="border: solid red 0px;">
-        <div style="float:left; border: solid red 0px;">
-            Your country is <%=country_name(country_code)%> <%=image_tag "https://www.countryflags.io/#{country_code}/flat/32.png" %>
-        </div>
-        <div style="float:left; border: solid red 0px; width: 400px; margin-top: 4px; margin-left: 20px;">
-            <%= select_tag "country-switch", 
-            options_from_collection_for_select(ISO3166::Country.countries.sort_by(&:name), 'un_locode', 'name', country_code.upcase), 
-            prompt: "Select Your Country", title:"https://www.countryflags.io/#{country_code}/flat/32.png",
-            class: 'chosen-select'
-            %>
-        </div>
-        <div style="clear: left;"></div>
-    </div>
-</div> <!-- <div class="row"> -->
+
+<%=render_partial "support/country_switch" %>
 
 <%if country_is_usa %>
   <%=render_partial "support/tech_support_usa" %>
