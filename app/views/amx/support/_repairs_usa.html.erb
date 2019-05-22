@@ -7,18 +7,18 @@
 	<%=render_partial "support/support_left_side_bar"%>
 
     <div class="large-8 columns">
-    <h1>International Tech Support</h1>
-        <% if @distributors.size > 0 %>
-          <div>Below are the distributors for your country.</div>
+    <h1>United States Repairs</h1>
+        <% if @service_centers.size > 0 %>
+          <div>Below are the service centers for the united states.</div>
         	<div class="large-12 columns">
         		<ul class="large-block-grid-2 medium-block-grid-1 small-block-grid-1">
-	        		<% @distributors.each do |distributor| %>
-			        		<%=render_partial "support/distributor", distributor: distributor %>
-	        		<% end %> <%# @distributors.each do |distributor| %>
+	        		<% @service_centers.each do |service_center| %>
+			        	<%=render_partial "support/service_center", service_center: service_center %>
+	        		<% end %> <%# @service_centers.each do |service_center| %>
         		</ul>
         	</div>
         <% else %>
-            <div>We didn't find a distributor in your country. Please contact us with the information below.</div>
+            <div>We didn't find a service center in your country. Please contact us with the information below.</div>
         	<% if addr = website.value_for("address_and_phone") %>
         	<div class="panel">
         		<h4><%= t("titles.mailing_address") %></h4>

@@ -715,6 +715,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get '/support/warranty_policy' => 'support#warranty_policy', as: :warranty_policy
     get '/support/protected' => 'gated_support#index', as: :gated_support
     get "support/tech_support" => "support#tech_support"
+    get "support/repairs" => "support#repairs"
 
     match '/international_distributors' => 'distributors#index', as: :international_distributors, via: :all
     match '/sitemap(.:format)' => 'main#locale_sitemap', as: :locale_sitemap, via: :all
