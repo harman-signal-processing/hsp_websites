@@ -1,0 +1,15 @@
+<%= content_for :extra_js do %>
+	<script type="text/javascript" charset="utf-8">
+		function new_resource_type() {
+			$('div.site_element_resource_type').replaceWith('<%= escape_javascript(f.input :resource_type, size: 20) %>');
+			$('input#site_element_resource_type').val('');
+			$('#new_resource_type_link').replaceWith('<%= escape_javascript(link_to_function "select existing resource type", "existing_resource_type()", id: "existing_type_link") %>');
+		}
+		function existing_resource_type() {
+			$('div.site_element_resource_type').replaceWith('<%= escape_javascript(f.input :resource_type, collection: SiteElement.resource_types, input_html: { class: "chosen-select", data: { placeholder: "Select Resource Type"} }) %>');
+      $('.chosen-select').chosen({ allow_single_deselect: true, no_results_text: 'No results matched', width: '100%' });
+			$('#existing_type_link').replaceWith('<%= escape_javascript(link_to_function "new resource type", "new_resource_type()", id: "new_resource_type_link") %>');
+		}
+	</script>
+<% end %>
+

@@ -61,11 +61,11 @@ class SiteElement < ApplicationRecord
   end
 
   def other_versions
-    all_versions.where.not(id: self.id)
+    @other_versions ||= all_versions.where.not(id: self.id)
   end
 
   def all_versions
-    self.class.where(name: self.name, language: self.language, brand_id: self.brand_id).order(:version)
+    @all_versions ||= self.class.where(name: self.name, language: self.language, brand_id: self.brand_id).order(:version)
   end
 
   def latest_version
@@ -88,6 +88,14 @@ class SiteElement < ApplicationRecord
       self.is_document = old_element.is_document
       self.is_software = old_element.is_software
       self.products = old_element.products
+    end
+  end
+
+  # If a resource's name or language change, then we have to update the previous
+  # versions as well. Otherwise the versioning relationship gets broken.
+  def catchup_with_latest_version(latest_version)
+    if name != latest_version.name || language != latest_version.language
+      update_columns(name: latest_version.name, language: latest_version.language)
     end
   end
 
