@@ -13,7 +13,7 @@
         <% if @service_centers.size > 0 %>
     			<%=render_partial "support/state_switch"%>
     			
-          <div>Below are the service centers for your country.</div>
+          <div>Below are the service centers for your location.</div>
         	<div class="large-12 columns" data-equalizer="service-center-box">
         		<ul id="service_center_list" class="large-block-grid-2 medium-block-grid-1 small-block-grid-1">
 	        		<% @service_centers.each do |service_center| %>
@@ -21,8 +21,18 @@
 	        		<% end %> <%# @service_centers.each do |service_center| %>
         		</ul>
         	</div>
+        	
+        	<div id="default_service_center_message" style="display:none;">
+            	<% if addr = website.value_for("address_and_phone") %>
+            	<div class="panel">
+            		<h4><%= t("titles.mailing_address") %></h4>
+            		<p><%=raw addr %></p>
+            	</div>
+            	<% end %>        	    
+        	</div>        	
+        	
         <% else %>
-            <div>We didn't find a distributor in your country. Please contact us with the information below.</div>
+            <div>We didn't find a service centers in your location. Please contact us with the information below.</div>
         	<% if addr = website.value_for("address_and_phone") %>
         	<div class="panel">
         		<h4><%= t("titles.mailing_address") %></h4>
