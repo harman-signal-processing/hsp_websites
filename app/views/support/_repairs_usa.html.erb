@@ -3,18 +3,20 @@
 				 reverse: true %>
 
 <div class="row">
-
+	<!-- left nav -->
 	<%=render_partial "support/support_left_side_bar"%>
-
-    <div class="large-8 columns">
-    <h1>International Tech Support</h1>
-        <% if @distributors.size > 0 %>
-          <div>Below are the distributors for your country.</div>
+	
+	<!-- main content -->
+	<div class="large-8 columns">
+		
+    <h1>US Repairs</h1>
+        <% if @service_centers.size > 0 %>
+          <div>Below are the service centers for your country.</div>
         	<div class="large-12 columns">
         		<ul class="large-block-grid-2 medium-block-grid-1 small-block-grid-1">
-	        		<% @distributors.each do |distributor| %>
-			        		<%=render_partial "support/distributor", distributor: distributor %>
-	        		<% end %> <%# @distributors.each do |distributor| %>
+	        		<% @service_centers.each do |service_center| %>
+			        		<%=render_partial "support/service_center", service_center: service_center %>
+	        		<% end %> <%# @service_centers.each do |service_center| %>
         		</ul>
         	</div>
         <% else %>
@@ -25,10 +27,9 @@
         		<p><%=raw addr %></p>
         	</div>
         	<% end %>
-        <% end %>
-    </div>    
+        <% end %>		
+		
+	</div>
+</div>  <!-- <div class="row"> -->
 
-
-</div>
-
-<%=render_partial "shared/support_chat_javascript"%>
+<%=render_partial "shared/support_chat_javascript"%>	

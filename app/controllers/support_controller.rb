@@ -28,6 +28,15 @@ class SupportController < ApplicationController
     render_template
   end
 
+  def repairs
+    if session['geo_usa']
+      get_service_centers
+    else
+      get_international_distributors
+    end
+    render_template
+  end
+
   # Routes to /:locale/training
   def training
     @page_title = "#{website.brand.name} Training"
@@ -348,6 +357,20 @@ class SupportController < ApplicationController
     @distributors = result[:distributors]    
   end
   
-  
+  def get_service_centers
+    brand = @website.brand.name.downcase
+    state = params[:state].nil? ? "any" : params[:state].downcase    
+    
+    url = "https://pro.harman.com/service_centers/#{brand}/#{state}.json"
+    
+    response = HTTParty.get(url)
+      if response.success?
+        result = response.deep_symbolize_keys
+      else
+        raise response.message
+      end
+    
+    @service_centers = result[:service_centers]    
+  end
 
 end
