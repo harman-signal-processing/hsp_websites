@@ -1,0 +1,53 @@
+<% set_meta_tags reverse: true %>
+
+<%= simple_form_for @contact_message, url: parts_request_new_path do |f| %>
+
+	<div class="row">
+		<!-- left nav -->
+		<%=render_partial "support/support_left_side_bar"%>
+		
+		<!-- main content -->
+		<div class="large-8 columns">
+			<h1 class="page_title"><%= @page_title %></h1>
+			
+			<%= f.input :name, label: t('your_name'), required: true %>
+			<%= f.input :email, label: ucfirst(t('email')), required: true %>
+			<div class="row">
+				<div class="large-4 columns">
+					<%= f.input :phone %>
+				</div>
+				<div class="large-4 columns">
+					<%= f.input :fax %>
+				</div>
+				<div class="large-4 columns">
+					<%= f.input :account_number, hint: "If dealer or service center" %>
+				</div>
+			</div>
+
+			<h3><%= t('product_details') %></h3>
+
+			<%= cache ["parts_form_products", website.brand] do %>
+			<div><%= f.label :product, nil, class: "required" %>
+				<%= f.collection_select :product,
+						Product.repairable(website) + [Product.new(name: "other")],
+						:name, :name, prompt: true %></div>
+			<% end %>
+			<div class="row">
+				<div class="large-6 columns">
+					<%= f.input :part_number %>
+				</div>
+				<div class="large-6 columns">
+					<%= f.input :board_location %>
+				</div>
+			</div>
+
+			<%= f.input :message, label: "Additional Info", input_html: { style: "height: 120px" } %>
+
+      <%= render_partial 'support/gdpr_consent' %>
+		</div>
+	</div> <!-- <div class="row"> -->
+
+
+	<p><%= submit_tag t('submit'), class: "button" %></p>
+
+<% end %>

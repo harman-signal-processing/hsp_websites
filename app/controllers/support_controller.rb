@@ -121,6 +121,36 @@ class SupportController < ApplicationController
     render_template
   end
 
+  # Parts request form (this temporary, until the new support section is completed)
+  def parts_new
+    if session['geo_usa']
+      @page_title = t('titles.part_request')
+        # 4/2015 There have been problems with the Crown parts and RMA
+        # forms. I'm temporarily removing the filter to redirect non-parts
+        # brands so we can see if that is the problem...
+      unless website.has_parts_form?
+        website.add_log(user: User.default, action: "Parts form attempted, but redirected since brand doesn't support it.")
+        #redirect_to support_path and return false
+      end
+      if request.post?
+        @contact_message = ContactMessage.new(contact_message_params) do |c|
+          c.message_type = 'part_request'
+          c.brand = website.brand
+        end
+        if @contact_message.valid?
+          @contact_message.save
+          SiteMailer.delay.contact_form(@contact_message)
+          redirect_to support_path, notice: t('blurbs.parts_request_thankyou') and return false
+        end
+      else
+        @contact_message = ContactMessage.new(message_type: "part_request")
+      end
+    else
+      get_international_distributors
+    end
+    render_template
+  end
+
   # RMA request form
   def rma
     @page_title = t('titles.rma_request')
