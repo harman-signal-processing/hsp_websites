@@ -214,6 +214,20 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get '/facebook', to: redirect('https://www.facebook.com/jblprofessional')
     get '/twitter', to: redirect('https://twitter.com/TheJBLpro')
     get '/youtube', to: redirect('http://www.youtube.com/TheJBLProfessional')
+
+    begin
+      Brand.find("jbl-professional").product_families.where("old_url IS NOT NULL").each do |product_family|
+        get product_family.old_url.match(/\.com(.*)/)[1], to: redirect("/en-US/product_families/#{product_family.friendly_id}")
+      end
+      Brand.find("jbl-professional").products.where("old_url IS NOT NULL").each do |product|
+        get product.old_url.match(/\.com(.*)/)[1], to: redirect("/en-US/products/#{product.friendly_id}")
+      end
+      Brand.find("jbl-professional").news.where("old_url IS NOT NULL").each do |news|
+        get news.old_url.match(/\.com\.{0,2}(.*)/)[1], to: redirect("/en-US/news/#{news.friendly_id}")
+      end
+    rescue
+      # No JBL Professional brand found--probably a fresh test database
+    end
   end  #  constraints(JblProDomain) do
 
   constraints(LexiconDomain) do
