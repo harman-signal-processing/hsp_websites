@@ -3,6 +3,9 @@
 <ul class="button-group round">
   <li><%= link_to 'Back', admin_site_elements_path, class: "small secondary button" %>	</li>
   <li><%= link_to 'Edit', edit_admin_site_element_path(@site_element, locale: I18n.locale), class: "small secondary button" %></li>
+  <% if @site_element.is_latest_version? %>
+    <li><%= link_to 'Upload New Version', new_version_admin_site_element_path(@site_element), class: "small success button" %></li>
+  <% end %>
   <li><%= link_to 'Delete', [:admin, @site_element], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
 </ul>
 
@@ -30,12 +33,15 @@
       <%= @site_element.resource_type %>
     </p>
 
-    <% if @site_element.version.present? %>
-      <p>
-        <b>Version:</b>
-        <%= @site_element.version %>
-      </p>
-    <% end %>
+    <p>
+      <b>Created:</b>
+      <%=l @site_element.created_at %>
+    </p>
+
+    <p>
+      <b>Last Updated:</b>
+      <%=l @site_element.updated_at %>
+    </p>
 
     <% if @site_element.language.present? %>
       <p>
@@ -75,6 +81,32 @@
       <p>
         <b>Access level:</b> all can access
       </p>
+    <% end %>
+
+    <% if @site_element.version.present? %>
+      <p>
+        <b>Version:</b>
+        <%= @site_element.version %>
+      </p>
+    <% end %>
+
+    <% if @site_element.has_other_versions? %>
+      <% if @site_element.is_latest_version? %>
+        <h5>Previous Versions:</h5>
+        <ul>
+          <% @site_element.other_versions.order(:version).reverse.each do |other| %>
+            <li>
+              <%= link_to (other.version.present?) ? other.version : "n/a", [:admin, other] %>
+              (<%=l other.created_at.to_date, format: :short %>)
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <h5>Latest Version:</h5>
+        <p><%= link_to (@site_element.latest_version.version.present?) ? @site_element.latest_version.version : "latest",
+          [:admin, @site_element.latest_version] %> (<%=l @site_element.latest_version.created_at.to_date, format: :short %>)
+        </p>
+      <% end %>
     <% end %>
 
   </div>
@@ -162,7 +194,7 @@
             <% end %>
         </b></li>
       </ul>
-      <p><i>Note: the permalink is built of the name of the resource. Don't rename it if you want to keep the permalink active.</i></p>
+      <p><i>Note: the permalink is built from the name of the resource. Don't rename it if you want to keep the permalink active.</i></p>
 
     </div>
     <div class="row">

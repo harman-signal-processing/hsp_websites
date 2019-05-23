@@ -1,0 +1,65 @@
+<h1>Replace a Resource</h1>
+
+<p>All you need to replace a resource is the new file and a new version number.
+The rest <i>should</i> happen by magic. The resource type, associated products,
+etc. will all be the same as the resource you're replacing.</p>
+
+<div class="panel">
+<%= s3_uploader_form callback_url: upload_admin_site_elements_url,
+    id: "s3_uploader",
+    callback_param: "direct_upload_url",
+    acl: "public-read",
+    expiration: 24.hours.from_now.utc.iso8601,
+    max_file_size: 900.megabytes do %>
+  <div class="row">
+    <div class="large-8 columns">
+      <p><%= "#{ @site_element.new_record? ? 'Start' : 'If you want to replace the file, start' } the upload before filling out the rest of the form:" %></p>
+      <div class="row">
+        <div class="large-6 columns">
+          <%= file_field_tag :file %>
+        </div>
+        <div class="large-6 columns" id="site_element_progress">
+          <div id="uploads_container"></div>
+          <script id="template-upload" type="text/x-tmpl">
+          <div id="upload_{%=o.unique_id%}" class="upload">
+            {%=o.name%}
+            <div class="progress success progress-striped active"><span class="bar meter" style="width: 0%"></span></div>
+            <div id="upload_instruct" class="hint">Wait for the upload to complete before submitting the form.</div>
+          </div>
+          </script>
+        </div>
+      </div>
+
+    </div>
+  </div>
+<% end %>
+</div>
+
+<%= simple_form_for [:admin, @site_element] do |f| %>
+  <%= f.input :direct_upload_url, as: :hidden %>
+  <%= f.input :replaces_element, as: :hidden %>
+
+  <div class="row">
+    <div class="medium-6 small-12 columns">
+      <%= f.input :version, hint: "The one you're replacing is version #{@old_element.version}" %>
+    </div>
+  </div>
+
+  <br/><%= f.button :submit %>
+
+  <%= content_for :extra_js do %>
+    <script type="text/javascript" charset="utf-8">
+      function new_resource_type() {
+        $('div.site_element_resource_type').replaceWith('<%= escape_javascript(f.input :resource_type, size: 20) %>');
+        $('input#site_element_resource_type').val('');
+        $('#new_resource_type_link').replaceWith('<%= escape_javascript(link_to_function "select existing resource type", "existing_resource_type()", id: "existing_type_link") %>');
+      }
+      function existing_resource_type() {
+        $('div.site_element_resource_type').replaceWith('<%= escape_javascript(f.input :resource_type, collection: SiteElement.resource_types, input_html: { class: "chosen-select", data: { placeholder: "Select Resource Type"} }) %>');
+        $('.chosen-select').chosen({ allow_single_deselect: true, no_results_text: 'No results matched', width: '100%' });
+        $('#existing_type_link').replaceWith('<%= escape_javascript(link_to_function "new resource type", "new_resource_type()", id: "new_resource_type_link") %>');
+      }
+    </script>
+  <% end %>
+
+<% end %>

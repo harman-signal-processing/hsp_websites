@@ -39,6 +39,12 @@ class Admin::SiteElementsController < AdminController
     end
   end
 
+  def new_version
+    @old_element = @site_element
+    @site_element = SiteElement.new
+    @site_element.replaces_element = @old_element.to_param
+  end
+
   # GET /site_elements/1/edit
   def edit
   end

@@ -18,6 +18,8 @@ class SiteElement < ApplicationRecord
   has_attached_file :executable, S3_STORAGE
   do_not_validate_attachment_file_type :executable
 
+  attr_accessor :replaces_element
+
   validates :brand, :name, presence: true
   validates :resource_type, presence: true, if: :show_on_public_site?
   has_many :product_site_elements, dependent: :destroy, inverse_of: :site_element
@@ -28,6 +30,7 @@ class SiteElement < ApplicationRecord
   has_many :programmer_site_elements, dependent: :destroy, foreign_key: "site_element_id", class_name: "Vip::ProgrammerSiteElement"
   has_many :programmers, through: :programmer_site_elements, class_name: "Vip::Programmer"
 
+  after_initialize :copy_attributes_from_previous_version
   before_save :set_upload_attributes
   after_save :queue_processing
 
@@ -51,6 +54,41 @@ class SiteElement < ApplicationRecord
 
   def brand_name
     brand.name
+  end
+
+  def has_other_versions?
+    other_versions.length > 0
+  end
+
+  def other_versions
+    all_versions.where.not(id: self.id)
+  end
+
+  def all_versions
+    self.class.where(name: self.name, language: self.language, brand_id: self.brand_id).order(:version)
+  end
+
+  def latest_version
+    all_versions.last
+  end
+
+  def is_latest_version?
+    self == latest_version
+  end
+
+  def copy_attributes_from_previous_version
+    if self.replaces_element.present?
+      old_element = self.class.find(self.replaces_element)
+      self.name = old_element.name
+      self.language = old_element.language
+      self.resource_type = old_element.resource_type
+      self.brand = old_element.brand
+      self.access_level = old_element.access_level
+      self.show_on_public_site = old_element.show_on_public_site
+      self.is_document = old_element.is_document
+      self.is_software = old_element.is_software
+      self.products = old_element.products
+    end
   end
 
   def is_image?
