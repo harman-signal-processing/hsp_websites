@@ -35,6 +35,8 @@
 //= require lexicon_application
 //= require_self
 //= require chosen-jquery
+//= require enable_chosen_jquery
+//= require country_state_switch
 
 soundManager.url = '/swfs/';
 soundManager.flashVersion = 9; // optional: shiny features (default = 8)
@@ -42,6 +44,7 @@ soundManager.useFlashBlock = false; // optionally, enable when you're ready to d
 soundManager.debugMode = false;
 soundManager.preferFlash = false;
 
+//lexicon.js
 $(function(){
   $(document).foundation({
     "magellan-expedition": {
@@ -61,21 +64,6 @@ $(function(){
   });
 
   $('img[usemap]').rwdImageMaps();
-  
-  /*used in /support area of brand sites */
-  $('#country-switch').change(function(e){
-    var $this = $(this),
-        country_code = $this.val();
-    location.search = 'geo=' + country_code.toLowerCase();
-  });
-
-   // enable chosen js
-  $('.chosen-select').chosen(
-  	{
-    	allow_single_deselect: true,
-    	no_results_text: 'No results matched',
-    	width: '100%'
-    }); 
   
 });  //  $(function(){
 

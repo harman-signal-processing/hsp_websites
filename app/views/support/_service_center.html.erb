@@ -7,8 +7,8 @@ location[:postal] = service_center[:zip]
 location[:country] = "us"
 
 %>
-<li>
-	<div class="panel">
+<li id='<%="#{service_center[:id]}_#{location[:state]}"%>'>
+	<div class="panel" data-equalizer-watch="service-center-box">
 				<h3><%= service_center[:name] %></h3>
 				
 		    		<div>

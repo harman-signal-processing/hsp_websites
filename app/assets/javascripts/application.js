@@ -42,6 +42,7 @@ soundManager.useFlashBlock = false; // optionally, enable when you're ready to d
 soundManager.debugMode = false;
 soundManager.preferFlash = false;
 
+//application.js
 $(function(){
   $('.featured-slider').slick({
     slidesToShow: 3,
@@ -49,4 +50,4 @@ $(function(){
     autoplay: true,
     autoplaySpeed: 4000
   });
-});
+});  //  $(function(){

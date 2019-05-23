@@ -1,0 +1,22 @@
+<% if country_is_usa %>
+    <div class="row" style="margin-bottom:20px;">
+        <div class="large-8 small-8 columns" style="border: solid red 0px;">
+            <div style="float:left; border: solid red 0px;">
+                Filter by state
+            </div>
+            <div style="float:left; border: solid red 0px; width: 200px; margin-top: 0px; margin-left: 20px;">
+
+						<%selected_state = "Texas"%>
+            <%= select_tag "state-switch", 
+            options_from_collection_for_select(us_states, :first, :last, selected_state), 
+            # options_for_select(us_states), 
+            prompt: "Select Your State", 
+            # include_blank: "Select Your State",
+            class: 'chosen-select'
+            %>                
+                
+            </div>
+            <div style="clear: left;"></div>
+        </div>
+    </div> <!-- <div class="row"> -->    
+<% end %>

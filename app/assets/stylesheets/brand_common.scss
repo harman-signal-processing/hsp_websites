@@ -1809,3 +1809,11 @@ hr.colored {
 .css3 { font-size: 1.4em; padding-right: 6px; }
 .css4 { font-size: 1.6em; padding-right: 6px; }
 
+/** 
+This allows javascript dynamically shown/hidden blocks to flow properly.
+This issue comes into play on support/repairs when united states of america is selected.
+This solution was found here: https://foundation.zurb.com/forum/posts/581-block-grid-in-combination-with-visibility-not-working-as-expected
+**/
+[class*="block-grid-"] > li {
+     clear: none !important;
+}  

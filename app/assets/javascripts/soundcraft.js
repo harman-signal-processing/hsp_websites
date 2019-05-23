@@ -34,9 +34,12 @@
 //= require tools
 //= require_self
 //= require chosen-jquery
+//= require enable_chosen_jquery
+//= require country_state_switch
 
 /* vendor/jquery.js (v2) doesn't work with Muse scrolling so downgraded to muse/jquery-1.8.3.min.js 30/12/2014 */
 
+//soundcraft.js
 $(function(){
   $(document).foundation({
     "magellan-expedition": {
@@ -56,20 +59,5 @@ $(function(){
   });
 
   $('img[usemap]').rwdImageMaps();
-  
-  /*used in /support area of brand sites */
-  $('#country-switch').change(function(e){
-    var $this = $(this),
-        country_code = $this.val();
-    location.search = 'geo=' + country_code.toLowerCase();
-  });
-
-  // enable chosen js
-  $('.chosen-select').chosen(
-  	{
-    	allow_single_deselect: true,
-    	no_results_text: 'No results matched',
-    	width: '100%'
-    });  
   
 });  //  $(function(){

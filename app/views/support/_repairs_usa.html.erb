@@ -11,9 +11,11 @@
 		
     <h1>US Repairs</h1>
         <% if @service_centers.size > 0 %>
+    			<%=render_partial "support/state_switch"%>
+    			
           <div>Below are the service centers for your country.</div>
-        	<div class="large-12 columns">
-        		<ul class="large-block-grid-2 medium-block-grid-1 small-block-grid-1">
+        	<div class="large-12 columns" data-equalizer="service-center-box">
+        		<ul id="service_center_list" class="large-block-grid-2 medium-block-grid-1 small-block-grid-1">
 	        		<% @service_centers.each do |service_center| %>
 			        		<%=render_partial "support/service_center", service_center: service_center %>
 	        		<% end %> <%# @service_centers.each do |service_center| %>
