@@ -212,6 +212,10 @@ div.product-title-block, div.small-title-block {
 }
 .product_family_header {
   background-color: black;
+  h1 {
+    font-size: rem-calc(32);
+    color: #e8e8e8;
+  }
 }
 .button {
   letter-spacing: 0.05em;
