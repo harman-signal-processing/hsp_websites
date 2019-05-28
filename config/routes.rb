@@ -646,6 +646,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     resources :solutions, only: [:index, :show]
     resources :faq_categories, only: [:index, :show]
     get "faqs" => 'faq_categories#index', as: :faqs
+    resources :faqs, only: [:index, :show]
+    get "product_faqs" => 'faqs#index', as: :product_faqs
     get "artists/become_an_artist" => 'artists#become', as: :become_an_artist
     get "artists/all(/:letter)" => 'artists#all', as: :all_artists
     resources :artists, only: [:index, :show] do
