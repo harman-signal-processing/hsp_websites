@@ -1,0 +1,36 @@
+<hr/>
+<% products.sort_by(&:name).each do |product| %>
+	<div class="row">
+		<div class="small-12 columns" style="margin-bottom: 10px; padding: 10px;">
+			<div class="row">
+          <div class="large-2 medium-3 small-12 columns text-center">
+            <% if product.photo %>
+              <%= image_tag product.photo.product_attachment.url(:tiny) %><br/>
+            <% end %>
+            <%= link_to product.name, product %>
+          </div>
+          <div class="large-10 medium-9 small-12 columns">
+            <table style="width: 100%">
+              <thead>
+                <tr>
+                  <td width="52%"><%= product.name %> <%="FAQ".pluralize(product.faqs.count)%></td>
+                  <td width="48%">Updated</td>
+                </tr>
+              </thead>
+              <tbody>
+              	<%product.faqs.each do |faq|%>
+              		<tr>
+              			<td>
+              				<div><em><%=faq.question%></em></div>
+              				<div class="panel"><%=raw faq.answer%></div>
+              			</td>
+              			<td style="vertical-align:top;"><%=faq.updated_at%></td>
+              		</tr>
+              	<% end %>
+              </tbody>
+            </table>
+          </div>
+			</div> <!-- <div class="row"> -->
+		</div> <!-- <div class="small-12 columns" style="margin-bottom: 10px; padding: 10px;"> -->
+	</div> <!-- <div class="row"> -->
+<% end%>
