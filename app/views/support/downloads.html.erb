@@ -90,12 +90,8 @@
     <% if @product %>
       <h4 class="subtitle"><%= translate_content(@product, :name) %> <%= t("resource_downloads").titleize %></h4>
 
-      <% if @product.softwares.count > 0 %>
+      <% if @product.softwares.count > 0 || @product.product_documents.size > 0 %>
         <%= render_partial "products/downloads", product: @product %>
-      <% end %>
-
-      <% if @product.product_documents.size > 0 %>
-        <%= render_partial "products/documentation", product: @product %>
       <% end %>
 
       <% if @product.in_production? %>
