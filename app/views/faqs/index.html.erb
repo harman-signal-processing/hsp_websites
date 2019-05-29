@@ -1,0 +1,14 @@
+<% set_meta_tags reverse: true,
+                 description: "FAQs for: #{@products.collect{|s| s.name}.join(', ')}",
+                 keywords: @products.collect{|s| s.name} %>
+
+<h1>Frequently Asked Questions</h1>
+
+<%= cache ["product_faqs_index", website.brand, I18n.locale] do %>
+	<% if @products.size > 0 %>
+	  <h3 class="subheader">FAQs by Product:</h3>
+	  <%= render "table", products: @products %>
+	<%else%>
+		<p>No product FAQs available.</p>
+	<% end %>
+<% end %>
