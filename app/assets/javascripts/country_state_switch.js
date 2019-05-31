@@ -40,7 +40,7 @@ $(function()
 	}  // function filter_by_state(state)
 	
 	//If the page loaded with a state selected go ahead and filter by the selected state
-	if ($("#state-switch").val().length > 0)
+	if ($("#state-switch").length > 0 && $("#state-switch").val().length > 0)
 	{
 	  filter_by_state($('#state-switch').val());
 	}	
