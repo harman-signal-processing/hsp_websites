@@ -7,10 +7,17 @@ $(function()
     location.search = 'geo=' + country_code.toLowerCase();
   });	
 	
+	filter_by_state($('#state-switch').val());
+	
   $('#state-switch').change(function(e){
     var $this = $(this),
-        selected_state = $this.val(),
-        has_service_centers = false,
+        selected_state = $this.val();
+        filter_by_state(selected_state);
+  });		//  $('#state-switch').change(function(e){
+	
+	function filter_by_state(selected_state)
+	{
+	  var  has_service_centers = false,
         $default_service_center_message = $("#default_service_center_message");
         
     $default_service_center_message.hide('slow');
@@ -30,8 +37,7 @@ $(function()
     });  //  $("#service_center_list li").each(function(i)
     
     if (!has_service_centers)
-    {$default_service_center_message.show('slow');}
-    
-  });		//  $('#state-switch').change(function(e){
-	
+    {$default_service_center_message.show('slow');}	  
+	  
+	}  // function filter_by_state(state)
 });  //  $(function()

@@ -6,12 +6,10 @@
             </div>
             <div style="float:left; border: solid red 0px; width: 200px; margin-top: 0px; margin-left: 20px;">
 
-						<%selected_state = "Texas"%>
+			<%selected_state = params[:state].presence || user_usa_state_code%>
             <%= select_tag "state-switch", 
-            options_from_collection_for_select(us_states, :first, :last, selected_state), 
-            # options_for_select(us_states), 
+            options_from_collection_for_select(us_states, :first, :last, selected_state.upcase), 
             prompt: "Select Your State", 
-            # include_blank: "Select Your State",
             class: 'chosen-select'
             %>                
                 

@@ -26,7 +26,6 @@
     <% end %>
 
     <% product.nonsafety_documents.includes(:product).each do |product_document| %>
-    <%#binding.pry%>
       <%= render_partial 'shared/download_table_row', item: product_document %>
     <% end %>
 

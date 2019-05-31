@@ -406,9 +406,10 @@ class SupportController < ApplicationController
   
   def get_service_centers
     brand = @website.brand.name.downcase
-    state = params[:state].nil? ? "any" : params[:state].downcase    
+    # state = params[:state].presence || helpers.user_usa_state_code.to_s || "any"
+    state = params[:state].presence || "any"
     
-    url = "https://pro.harman.com/service_centers/#{brand}/#{state}.json"
+    url = "https://pro.harman.com/service_centers/#{brand}/#{state.downcase}.json"
     
     response = HTTParty.get(url)
       if response.success?
