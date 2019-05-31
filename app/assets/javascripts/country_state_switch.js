@@ -7,8 +7,6 @@ $(function()
     location.search = 'geo=' + country_code.toLowerCase();
   });	
 	
-	filter_by_state($('#state-switch').val());
-	
   $('#state-switch').change(function(e){
     var $this = $(this),
         selected_state = $this.val();
@@ -40,4 +38,11 @@ $(function()
     {$default_service_center_message.show('slow');}	  
 	  
 	}  // function filter_by_state(state)
+	
+	//If the page loaded with a state selected go ahead and filter by the selected state
+	if ($("#state-switch").val().length > 0)
+	{
+	  filter_by_state($('#state-switch').val());
+	}	
+	
 });  //  $(function()
