@@ -8,11 +8,11 @@
 			</div>
 			<% end %>
 
-			<div class="panel">
-				<% if country_is_usa %>
-         <%= link_to "Request Factory Repair", rma_request_path, class:"button" %>
-        <% end %>
-      </div>
+			<% if country_is_usa %>
+				<div class="panel">
+       		<%= link_to "Request Factory Repair", rma_request_path, class:"button" %>
+    		</div>
+      <% end %>
 
 			<div class="panel">
 				<h4><%= t('titles.product_support') %></h4>
