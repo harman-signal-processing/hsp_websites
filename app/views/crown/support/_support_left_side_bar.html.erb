@@ -14,6 +14,12 @@
 			<% end %>
 
 			<div class="panel">
+				<% if country_is_usa %>
+         <%= link_to "Request Factory Repair", rma_request_path, class:"button" %>
+        <% end %>
+      </div>
+
+			<div class="panel">
 				<h4><%= t('titles.product_support') %></h4>
 				<p><%= t('blurbs.product_support') %></p>
 				<%= form_tag support_path, method: :get do |f| %>
