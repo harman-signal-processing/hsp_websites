@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="medium-6 columns end">
+
+      <h3><%= t('titles.international_distributors') %></h3>
+      <p><%= t("blurbs.international_distributors") %></p>
+
+      <%= form_tag distributor_search_new_path, method: :get %>
+        <%= label_tag t('select_your_country').titleize %>
+        <div class="row collapse">
+          <div class="large-8 small-7 columns">
+            <%= select_tag :geo, 
+            options_from_collection_for_select(ISO3166::Country.countries.sort_by(&:name), 'un_locode', 'name', country_code.upcase), 
+            # class: 'chosen-select',
+            prompt: "Select Your Country"
+            %>            
+          </div>
+          <div class="large-4 small-5 columns">
+            <%= submit_tag t('submit'), class: "postfix button" %>
+          </div>
+        </div>
+
+      </form>
+    </div>
+</div> <!-- <div class="row"> -->

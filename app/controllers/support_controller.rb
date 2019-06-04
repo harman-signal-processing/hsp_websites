@@ -1,5 +1,6 @@
 class SupportController < ApplicationController
-  include HTTParty
+  include Distributors
+  include ServiceCenters
   
   before_action :set_locale
   
@@ -40,16 +41,23 @@ class SupportController < ApplicationController
       @contact_message = ContactMessage.new
       @contact_message.require_country = true if require_country?
     else
-      get_international_distributors
+      brand = @website.brand.name.downcase
+      country_code = params[:geo].nil? ? "us" : params[:geo].downcase      
+      @distributors = get_international_distributors(brand, country_code)
     end
     render_template
   end
 
   def repairs
     if session['geo_usa']
-      get_service_centers
+      brand = @website.brand.name.downcase
+      # state = params[:state].presence || helpers.user_usa_state_code.to_s || "any"
+      state = params[:state].presence || "any"
+      @service_centers = get_service_centers(brand, state)
     else
-      get_international_distributors
+      brand = @website.brand.name.downcase
+      country_code = params[:geo].nil? ? "us" : params[:geo].downcase      
+      @distributors = get_international_distributors(brand, country_code)      
     end
     render_template
   end
@@ -386,39 +394,4 @@ class SupportController < ApplicationController
                                              :required_on, :notes, :attachment)
   end
 
-  private
-  
-  def get_international_distributors
-    brand = @website.brand.name.downcase
-    country_code = params[:geo].nil? ? "us" : params[:geo].downcase
-    
-    url = "https://pro.harman.com/distributor_info/distributors/#{brand}/#{country_code}.json"
-    
-    response = HTTParty.get(url)
-      if response.success?
-        result = response.deep_symbolize_keys
-      else
-        raise response.message
-      end
-    
-    @distributors = result[:distributors]    
-  end
-  
-  def get_service_centers
-    brand = @website.brand.name.downcase
-    # state = params[:state].presence || helpers.user_usa_state_code.to_s || "any"
-    state = params[:state].presence || "any"
-    
-    url = "https://pro.harman.com/service_centers/#{brand}/#{state.downcase}.json"
-    
-    response = HTTParty.get(url)
-      if response.success?
-        result = response.deep_symbolize_keys
-      else
-        raise response.message
-      end
-    
-    @service_centers = result[:service_centers]    
-  end
-
-end
+end  #  class SupportController < ApplicationController

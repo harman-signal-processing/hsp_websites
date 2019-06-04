@@ -1,4 +1,6 @@
 class DistributorsController < ApplicationController
+  include Distributors
+  
   before_action :set_locale
   # GET /distributors
   # GET /distributors.xml
@@ -19,6 +21,12 @@ class DistributorsController < ApplicationController
     end
   end
 
+  def index_new
+    brand = @website.brand.name.downcase
+    @selected_country_code = params[:geo].nil? ? "us" : params[:geo].downcase      
+    @distributors = get_international_distributors(brand, @selected_country_code)   
+  end
+
   # PUT /distributors/search
   def search
     @country = params[:country]
@@ -32,7 +40,7 @@ class DistributorsController < ApplicationController
       # format.xml { render xml: @distributors }
     end
   end
-
+  
   # GET /distributors/1
   # GET /distributors/1.xml
   def show
