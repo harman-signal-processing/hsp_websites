@@ -8,7 +8,7 @@
         <% product.product_videos.where(group: pv_group.group).each do |pv| %>
           <%= cache ["product_video", pv.youtube_id ] do %>
             <% begin %>
-              <% video = get_video(pv.youtube_id) %>
+              <% video = Youtube.get_video(pv.youtube_id) %>
               <li>
                 <%= link_to play_video_url(pv.youtube_id), data: { videoid: pv.youtube_id, :'reveal-id' => "videoModal" }, class: 'start-video' do %>
                   <img src="<%= video["thumbnails"]["default"]["url"] %>" class="radius">
@@ -25,7 +25,7 @@
   <% else %>
     <% product.product_videos.each do |pv| %>
       <% begin %>
-        <% video = get_video(pv.youtube_id) %>
+        <% video = Youtube.get_video(pv.youtube_id) %>
         <div class="flex-video">
           <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= pv.youtube_id %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>

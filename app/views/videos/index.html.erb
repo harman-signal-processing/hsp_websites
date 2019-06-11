@@ -10,23 +10,20 @@
 
 <div class="row sticky-container">
   <div class="large-3 medium-4 small-5 columns">
-    <div class="sticky-side">
-      <h1><%= t('videos').titleize %></h1>
-      <h6>Categories:</h6>
-      <ul>
-        <% @playlists.each do |playlist| %>
-          <li><%= link_to playlist['snippet']['title'], "##{ playlist['snippet']['title'].parameterize }" %></li>
-        <% end %>
-      </ul>
-      <% if @youtube_user.present? %>
-        <%= link_to("http://www.youtube.com/#{@youtube_user}", target: "_blank") do %>
-          <div class="panel text-center">
-            <%= image_tag("icons/circle/48x48/youtube.png", alt: "YouTube") %>
-            <p>Visit our channel on Youtube</p>
-          </div>
-        <% end %>
+    <h6>Playlists:</h6>
+    <ul>
+      <% @playlists.each do |playlist| %>
+        <li><%= link_to playlist['snippet']['title'], "##{ playlist['snippet']['title'].parameterize }" %></li>
       <% end %>
-    </div>
+    </ul>
+    <% if @youtube_user.present? %>
+      <%= link_to("http://www.youtube.com/#{@youtube_user}", target: "_blank") do %>
+        <div class="panel text-center">
+          <%= image_tag("icons/circle/48x48/youtube.png", alt: "YouTube") %>
+          <p>Visit our channel on Youtube</p>
+        </div>
+      <% end %>
+    <% end %>
   </div>
 
   <div class="large-9 medium-8 small-7 columns video-category-container">
@@ -36,14 +33,17 @@
       <p><%= playlist['snippet']['description'] %></p>
       <%= cache ["playlist_feed", playlist['id']] do %>
 			<ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-5">
-        <% get_video_list_data(playlist["id"], limit: 50)["items"].each do |video_item| %>
+        <% Youtube.get_video_list_data(playlist["id"], limit: 50)["items"].each do |video_item| %>
           <% video = video_item['snippet'] %>
-          <li align="center">
-            <%= link_to play_video_url(video["resourceId"]["videoId"]), data: { videoid: video["resourceId"]["videoId"], :'reveal-id' => "videoModal" }, class: 'start-video' do %>
-              <img src="<%= video["thumbnails"]["default"]["url"] %>" class="radius">
-              <small><%= video['title'] %></small>
-            <% end %>
-          </li>
+          <% if video["thumbnails"] %>
+            <li align="center">
+              <%= link_to play_video_url(video["resourceId"]["videoId"]), data: { videoid: video["resourceId"]["videoId"], :'reveal-id' => "videoModal" }, class: 'start-video' do %>
+                <img src="<%= video["thumbnails"]["default"]["url"] %>" class="radius">
+                <br/>
+                <small><%= video['title'] %></small>
+              <% end %>
+            </li>
+          <% end %>
         <% end %>
 			</ul>
       <% end %>

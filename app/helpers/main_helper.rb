@@ -54,8 +54,8 @@ module MainHelper
     if youtube_user
       begin
 	      ret = (style == "table") ? '<table class="news_list" style="margin-left: 20px">' : '<div id="video_list">'
-        playlist = get_default_playlist_id(youtube_user)
-        get_video_list_data(playlist, limit: limit)["items"].each do |v|
+        playlist = Youtube.get_default_playlist_id(youtube_user)
+        Youtube.get_video_list_data(playlist, limit: limit)["items"].each do |v|
           video = v["snippet"]
           thumbnail = video["thumbnails"]["default"] #.find(height: 90).first[1]
           link = play_video_url(video["resourceId"]["videoId"])
@@ -94,8 +94,8 @@ module MainHelper
     if youtube_user
       begin
         vids = []
-        playlist = get_default_playlist_id(youtube_user)
-        get_video_list_data(playlist, options)["items"].each do |v|
+        playlist = Youtube.get_default_playlist_id(youtube_user)
+        Youtube.get_video_list_data(playlist, options)["items"].each do |v|
           video = v["snippet"]
           thumbnail = video["thumbnails"]["default"] #.find(height: 90).first[1]
           link = play_video_url(video["resourceId"]["videoId"])

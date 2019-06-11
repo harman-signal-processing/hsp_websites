@@ -8,20 +8,20 @@ class VideosController < ApplicationController
     else
       @playlists = []
       @page_title = t('titles.youtube_channel', brand: website.brand_name)
-      begin
+      #begin
         if playlist_ids = website.playlist_ids
-          @playlists = get_specific_playlists(playlist_ids)
+          @playlists = Youtube.get_specific_playlists(playlist_ids)
         else
-          @playlists = get_user_playlists(youtube_user)
+          @playlists = Youtube.get_user_playlists(youtube_user)
         end
         if @playlists.length == 0
-          default_playlist_id = get_default_playlist_id(youtube_user)
-          @playlists << get_specific_playlists(default_playlist_id)
+          default_playlist_id = Youtube.get_default_playlist_id(youtube_user)
+          @playlists << Youtube.get_specific_playlists(default_playlist_id)
         end
         render_template
-      rescue
-        redirect_user_to_youtube_channel
-      end
+      #rescue
+      #  redirect_user_to_youtube_channel
+      #end
     end #  if website.brand_name.downcase == "amx"
   end  #  def index
 
@@ -31,7 +31,7 @@ class VideosController < ApplicationController
   def play
     @video_id = params[:id]
     begin
-      @video = get_video(@video_id)
+      @video = Youtube.get_video(@video_id)
       @page_title = @video['title']
       render_template
     rescue
@@ -46,11 +46,11 @@ class VideosController < ApplicationController
   end
 
   def redirect_user_to_youtube_channel
-        if !youtube_user.blank?
-          redirect_to "https://www.youtube.com/user/#{youtube_user}", status: :moved_permanently and return false
-        else
-          render plain: "Error loading playlist"
-        end    
+    if !youtube_user.blank?
+      redirect_to "https://www.youtube.com/user/#{youtube_user}", status: :moved_permanently and return false
+    else
+      render plain: "Error loading playlist"
+    end
   end
 
 end

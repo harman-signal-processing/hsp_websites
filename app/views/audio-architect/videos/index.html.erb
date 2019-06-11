@@ -6,7 +6,7 @@
       </th>
     </tr>
     <%= cache ["playlist_feed", playlist['id']] do %>
-      <% get_video_list_data(playlist["id"], limit: 50)["items"].each do |v| %>
+      <% Youtube.get_video_list_data(playlist["id"], limit: 50)["items"].each do |v| %>
         <%= render_partial "videos/video", video: v %>
       <% end %>
     <% end %>
