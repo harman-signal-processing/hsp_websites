@@ -7,7 +7,7 @@
 	<tr>
 		<th>&nbsp;</th>
 	<% @products.each do |product| %>
-		<th style="text-align: center" width="<%= (780 / @products.count).to_i %>">
+		<th style="text-align: center" width="<%= (680 / @products.count).to_i %>">
 			<h3><%= link_to translate_content(product, :name), product %></h3>
 			<% if product.photo %>
 				<% if product.layout_class == "horizontal" %>
@@ -70,20 +70,46 @@
 	</tr>
 	<% end %>
 
-	<% @specs.each do |spec| %>
-	<tr>
-		<td class="spec_name"><%= translate_content(spec, :name) %></td>
-		<% @products.each do |product| %>
-		<td class="spec_value">
-			<% if ps = product.product_specifications.where(specification_id: spec.id).first %>
-				<%= spec_value(ps) %>
-			<% else %>
-				--
-			<% end %>
-		</td>
-		<% end %>
-	</tr>
-	<% end %> 
+  <% if @spec_groups.length > 0 %>
+    <% @spec_groups.each do |spec_group| %>
+      <tr>
+        <td colspan="<%= @products.count + 1 %>">
+          <h4><%= spec_group.name %></h4>
+        </td>
+      </tr>
+      <% spec_group.specifications.each do |spec| %>
+        <% if @specs.include?(spec) %>
+          <tr>
+            <td class="spec_name"><%= translate_content(spec, :name) %></td>
+            <% @products.each do |product| %>
+              <td class="spec_value">
+                <% if ps = product.product_specifications.where(specification_id: spec.id).first %>
+                  <%= spec_value(ps) %>
+                <% else %>
+                  --
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% elsif @specs.length > 0 %>
+    <% @specs.each do |spec| %>
+    <tr>
+      <td class="spec_name"><%= translate_content(spec, :name) %></td>
+      <% @products.each do |product| %>
+      <td class="spec_value">
+        <% if ps = product.product_specifications.where(specification_id: spec.id).first %>
+          <%= spec_value(ps) %>
+        <% else %>
+          --
+        <% end %>
+      </td>
+      <% end %>
+    </tr>
+    <% end %>
+  <% end %>
 
 </table>
 

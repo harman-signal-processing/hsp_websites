@@ -169,12 +169,12 @@ class ProductsController < ApplicationController
   def compare
     @products = []
     @specs = []
+    @spec_groups = []
     # params[:product_ids] ||= []
     if params[:product_ids]
       params[:product_ids].each do |p|
         product = Product.find(p)
         @products << product
-        @specs += product.product_specifications.collect{|ps| ps.specification}
       end
     end
     if @products.size <= 1
@@ -182,7 +182,12 @@ class ProductsController < ApplicationController
     elsif @products.size > 4
       redirect_to product_families_path, alert: "Select no more than 4 products to compare."
     else
-      @specs.uniq!
+      spec_ids = @products.collect{|p| p.product_specifications.collect{|ps| ps.specification_id}}.flatten.uniq
+      @specs = Specification.where(id: spec_ids)
+      if !website.brand.use_flattened_specs? && @specs.where("specification_group_id IS NOT NULL").count > 0
+        spec_group_ids = @specs.where("specification_group_id IS NOT NULL").pluck(:specification_group_id).uniq.compact
+        @spec_groups = SpecificationGroup.where(id: spec_group_ids).order("position")
+      end
       render_template
     end
   end
