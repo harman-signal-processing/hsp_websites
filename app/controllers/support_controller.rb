@@ -1,6 +1,7 @@
 class SupportController < ApplicationController
   include Distributors
   include ServiceCenters
+  include Rsos
   
   before_action :set_locale
   
@@ -61,6 +62,15 @@ class SupportController < ApplicationController
     end
     render_template
   end
+
+  def rsos
+    if session['geo_usa']
+    else
+      country_code = params[:geo].nil? ? "us" : params[:geo].downcase      
+      @rsos = get_rsos(country_code)   
+    end
+    render_template
+  end  #  def rsos
 
   # Routes to /:locale/training
   def training
@@ -171,7 +181,9 @@ class SupportController < ApplicationController
         @contact_message = ContactMessage.new(message_type: "part_request")
       end
     else
-      get_international_distributors
+      brand = @website.brand.name.downcase
+      country_code = params[:geo].nil? ? "us" : params[:geo].downcase      
+      @distributors = get_international_distributors(brand, country_code)
     end
     render_template
   end
