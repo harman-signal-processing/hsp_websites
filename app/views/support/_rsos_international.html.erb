@@ -1,0 +1,34 @@
+<% set_meta_tags title: t('titles.support'),
+				 description: t('meta.description.support', brand: website.brand_name),
+				 reverse: true %>
+
+<div class="row">
+
+	<%=render_partial "support/support_left_side_bar"%>
+
+    <div class="large-8 columns">
+    <h1>Harman International RSOs</h1>
+        <% if @rsos.size > 0 %>
+          <div>Below are the RSOs for your country.</div>
+        	<div class="large-12 columns">
+        		<ul class="large-block-grid-2 medium-block-grid-1 small-block-grid-1">
+	        		<% @rsos.each do |rso| %>
+			        		<%=render_partial "support/rso", rso: rso %>
+	        		<% end %> <%# @rsos.each do |rso| %>
+        		</ul>
+        	</div>
+        <% else %>
+            <div>We didn't find a RSO in your country. Please contact us with the information below.</div>
+        	<% if addr = website.value_for("address_and_phone") %>
+        	<div class="panel">
+        		<h4><%= t("titles.mailing_address") %></h4>
+        		<p><%=raw addr %></p>
+        	</div>
+        	<% end %>
+        <% end %>
+    </div>    
+
+
+</div>
+
+<%=render_partial "shared/support_chat_javascript"%>

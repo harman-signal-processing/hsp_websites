@@ -1,0 +1,11 @@
+<% set_meta_tags title: t('titles.support'),
+				 description: t('meta.description.support', brand: website.brand_name),
+				 reverse: true %>
+
+<%=render_partial "support/country_switch" %>
+
+<%if country_is_usa %>
+  <%=render_partial "support/rsos_usa" %>
+<%else%>
+  <%=render_partial "support/rsos_international" %>
+<%end%>

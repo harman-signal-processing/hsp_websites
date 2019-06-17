@@ -736,6 +736,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get '/support/protected' => 'gated_support#index', as: :gated_support
     get "support/tech_support" => "support#tech_support"
     get "support/repairs" => "support#repairs"
+    get "support/rsos" => "support#rsos"
 
     match '/international_distributors' => 'distributors#index', as: :international_distributors, via: :all
     match '/international_distributors_new' => 'distributors#index_new', as: :international_distributors_new, via: :all
