@@ -1,12 +1,12 @@
 <li>
-	<div class="panel">
-				<h3><%= rso[:name] %></h3>
-				
-				<div style="margin-top:10px;">
-					<%=raw get_list_html(rso, "phones", "phone") %>
-					<%=raw get_list_html(rso, "emails", "email") %>
-					<%=raw get_list_html(rso, "websites", "url") %>        			
-				</div>				
+	<div class="panel" data-equalizer-watch="contact-box">
+		<h3><%= rso[:name] %></h3>
+		
+		<div style="margin-top:10px;">
+			<%=raw get_list_html(rso, "phones", "phone") %>
+			<%=raw get_list_html(rso, "emails", "email") %>
+			<%=raw get_list_html(rso, "websites", "url") %>        			
+		</div>				
 
 	</div>  <!-- <div class="panel"> -->
 </li>

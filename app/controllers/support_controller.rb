@@ -64,11 +64,8 @@ class SupportController < ApplicationController
   end
 
   def rsos
-    if session['geo_usa']
-    else
-      country_code = params[:geo].nil? ? "us" : params[:geo].downcase      
-      @rsos = get_rsos(country_code)   
-    end
+    country_code = params[:geo].nil? ? "us" : params[:geo].downcase      
+    @rsos = get_rsos(country_code)   
     render_template
   end  #  def rsos
 
