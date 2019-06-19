@@ -1,13 +1,4 @@
 <%= cache ["nav_items", website.brand, I18n.locale, Date.today] do %>
-  <li class="has-dropdown hide-for-medium"><%= link_to t("nav.our_story").titleize, "/#{I18n.locale}/ourstory" %>
-    <ul class="dropdown">
-      <li><%= link_to t("nav.about").titleize, "/#{I18n.locale}/ourstory" %></li>
-      <li><%= link_to t("nav.quality").titleize, "/#{I18n.locale}/quality" %></li>
-      <li><%= link_to t("nav.technology").titleize, "/#{I18n.locale}/technology" %></li>
-      <li><%= link_to t("nav.crown_around_the_world").titleize, "/#{I18n.locale}/aroundtheworld" %></li>
-    </ul>
-  </li>
-
   <li class="divider"></li>
 	<li class="has-dropdown"><%= link_to t('products').titleize, product_families_path %>
 		<ul class="dropdown">
@@ -73,6 +64,15 @@
 	<li class="divider hide-for-medium"></li>
   <li class="hide-for-medium"><%= link_to t('news').titleize, news_index_path %></li>
 
+  <li class="has-dropdown hide-for-medium"><%= link_to t("nav.our_story").titleize, "/#{I18n.locale}/ourstory" %>
+    <ul class="dropdown">
+      <li><%= link_to t("nav.about").titleize, "/#{I18n.locale}/ourstory" %></li>
+      <li><%= link_to t("nav.quality").titleize, "/#{I18n.locale}/quality" %></li>
+      <li><%= link_to t("nav.technology").titleize, "/#{I18n.locale}/technology" %></li>
+      <li><%= link_to t("nav.crown_around_the_world").titleize, "/#{I18n.locale}/aroundtheworld" %></li>
+    </ul>
+  </li>
+
   <% if website.has_events? %>
     <li class="divider hide-for-medium"></li>
     <li><%= link_to t('events'), events_path %></li>
@@ -94,7 +94,7 @@
       <% end %>
       <% if !!(website.forum_link) %>
         <li><%= link_to t("forum").titleize, website.forum_link %></li>
-      <% end %>      
+      <% end %>
       <% if I18n.locale == I18n.default_locale %>
         <li class="has-dropdown"><%= link_to t('nav.service').titleize, '#', class: "disabled" %>
           <ul class="dropdown">

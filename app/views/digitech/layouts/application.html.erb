@@ -128,14 +128,6 @@
             <% if website.has_software? && (website.current_softwares.length > 0 || website.forced_current_softwares.length > 0) %>
 						<%= link_to t('software_downloads').titleize, software_index_path %> &bull;
 						<% end %>
-						<%= link_to t('products').titleize, product_families_path %> &bull;
-						<% if website.has_reviews? %>
-						<%#= link_to t('product_reviews').titleize, product_reviews_path %>
-						<% end %>
-						<%= link_to t('news').titleize, news_index_path %> &bull;
-						<% if website.has_artists? %>
-						<%= link_to t('artists').titleize, artists_path %> &bull;
-						<% end %>
 						<% if website.has_dealers? || website.has_online_retailers? || website.has_distributors? %>
 						<%= link_to t('where_to_buy').titleize, where_to_buy_path %> &bull;
 						<% end %>
@@ -143,6 +135,7 @@
 	          <% if !!(website.forum_link) %>
 	            <%= link_to t("forum").titleize, website.forum_link %> &bull;
 	          <% end %>
+            <%= link_to 'Logo Store', "https://harman.axomo.com", target: "_blank" %> &bull;
             <%= link_to 'careers'.titleize, "http://jobs.harman.com", target: "_blank" %> &bull;
 						<%= link_to t('privacy_policy').titleize, privacy_policy_path %> &bull;
 						<%= link_to t('terms_of_use').titleize, terms_of_use_path %>

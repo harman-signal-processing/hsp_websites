@@ -36,6 +36,18 @@ namespace :jblpro do
 
   end
 
+  desc "Manually import one JBL product"
+  task import_product: :environment do
+    @root_site = "http://www.jblpro.com"
+    @agent = Mechanize.new
+    @links_followed = []
+
+    page = @agent.get("http://www.jblpro.com/www/products/installed-sound/intellivox-series/dc500")
+    product_family = ProductFamily.find("intellivox-series")
+
+    find_or_create_product(page, product_family)
+  end
+
   desc "Import JBL news"
   task import_news: :environment do
     @root_site = "http://www.jblpro.com"
@@ -119,6 +131,9 @@ namespace :jblpro do
   def find_or_create_product( product_page, parent )
     #begin
       product_name = product_page.css(".ProductPageTitle").text
+      if !product_name.present?
+        product_name = product_page.css('div[class^="ProductPageTitle_"]').text
+      end
       if product_name.present?
         product = Product.where(name: product_name.strip, brand: jblpro).first_or_initialize
 

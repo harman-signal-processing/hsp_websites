@@ -1,4 +1,5 @@
 @import 'foundation/functions';
+@import url(https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500);
 
 $dark-gray: #575757;
 $medium-gray: #a8a8a8;
@@ -8,7 +9,7 @@ $strip-bg-odd: #000000;
 
 $body-bg: #FFF;
 $body-font-color: $dark-gray;
-$body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$body-font-family: "Roboto", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $body-font-weight: 400;
 $primary-color: #fa4616;
 $secondary-color: $medium-gray;
@@ -40,7 +41,7 @@ $tabs-navigation-active-bg-color: white;
 $tabs-navigation-hover-bg-color: scale-color($tabs-navigation-bg-color, $lightness: -6%);
 $tabs-navigation-font-color: $dark-gray;
 $tabs-navigation-active-font-color: $tabs-navigation-font-color;
-$tabs-navigation-font-size: rem-calc(13);
+$tabs-navigation-font-size: rem-calc(14);
 $tabs-navigation-font-family: $body-font-family;
 $anchor-font-color: $primary-color;
 $anchor-font-color-hover: lighten($anchor-font-color, 5%);
@@ -59,16 +60,19 @@ $button-font-weight: 300;
 $button-border-style: none;
 $topbar-bg-color: $primary-color;
 $topbar-bg: $topbar-bg-color !default;
-$topbar-height:                        rem-calc(80px);
+$topbar-height:                        rem-calc(90px);
 $topbar-title-weight:                  bold;
 $topbar-dropdown-bg:                      rgba($topbar-bg-color, 0.7);
 $topbar-dropdown-link-bg:                 rgba(darken($topbar-bg-color, 2%),0.85);
 $topbar-dropdown-toggle-alpha:         0.5;
+$topbar-link-font-size:                rem-calc(15);
 $topbar-link-weight:                   light;
 $topbar-link-hover-lightness:          -30%; // Darken by 30%
 $topbar-link-bg-hover:                 darken($topbar-bg, 3%);
 $topbar-link-bg-active:                rgba($topbar-bg, 0.6);
 $topbar-menu-link-weight:              200;
+$topbar-divider-border-bottom: solid 1px $topbar-bg-color;
+$topbar-divider-border-top: solid 1px $topbar-bg-color;
 
 $topbar-sticky-class:                  ".sticky";
 
@@ -78,23 +82,15 @@ $reveal-max-width: 75%;
 @import 'foundation';
 @import 'brand_common';
 
-.top-bar-section {
-  li:not(.has-form) a:not(.button) {
-    padding-left: rem-calc(10);
-    padding-right: rem-calc(10);
-  }
-  li.has-form {
-    padding-left: rem-calc(10);
-    padding-right: rem-calc(10);
-    padding-top: rem-calc(12);
-    width: 170px;
-  }
-}
-
 @media only screen and (min-width: 720px) {
 	.logo-container img {
-		padding: 4px 2px 0px 6px;
+		padding: 8px 12px 0px 20px;
 	}
+  .top-bar-section {
+    li.has-form {
+      padding-top: rem-calc(17);
+    }
+  }
 }
 
 @media only screen and (max-width: 919px) {
@@ -102,8 +98,6 @@ $reveal-max-width: 75%;
     //height: 40px;
 		padding: 4px 0px 0px 6px;
 	}
-}
-@media only screen and (max-width: 919px) {
   .top-bar-section {
     li:not(.has-form) a:not(.button) {
       padding-left: rem-calc(6);

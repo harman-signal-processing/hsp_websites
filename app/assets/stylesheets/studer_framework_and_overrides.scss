@@ -73,6 +73,8 @@ $topbar-link-bg-active:                rgba($topbar-bg, 0.6);
 $topbar-menu-link-weight:              200;
 
 $topbar-sticky-class:                  ".sticky";
+$topbar-divider-border-bottom: solid 1px $topbar-bg-color;
+$topbar-divider-border-top: solid 1px $topbar-bg-color;
 
 $reveal-position-top: rem-calc(10);
 $reveal-default-width: 60%;

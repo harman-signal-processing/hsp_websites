@@ -230,6 +230,8 @@ $topbar-menu-link-weight:              200;
 // $topbar-media-query:                   "only screen and (min-width: #{$topbar-breakpoint})";
 // $topbar-divider-border-bottom:         solid 1px lighten($topbar-bg-color, 10%);
 // $topbar-divider-border-top:            solid 1px darken($topbar-bg-color, 10%);
+$topbar-divider-border-bottom: solid 1px $topbar-bg-color;
+$topbar-divider-border-top: solid 1px $topbar-bg-color;
 
 $topbar-sticky-class:                  ".sticky";
 
