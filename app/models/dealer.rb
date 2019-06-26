@@ -69,7 +69,7 @@ class Dealer < ApplicationRecord
 
   # Format the address, city, state, zip into a single string for geocoding
   def address_string
-    "#{address}, #{city}, #{state} #{zip} #{country}"
+    "#{address}, #{city}, #{state} #{zip} #{country}".gsub(/<br>/i, ' ').gsub(/, ,/, ',').gsub(/\s{2,}/, ' ')
   end
 
   def name_and_address
@@ -94,6 +94,7 @@ class Dealer < ApplicationRecord
       else
         puts geo.class
         errors.add(:lat, "Could not Geocode address")
+        logger.debug "Could not Geocode #{self.address_string}"
       end
     end
   end

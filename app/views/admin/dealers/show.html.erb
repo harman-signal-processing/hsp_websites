@@ -66,6 +66,12 @@
     <th>Google Place ID</th>
     <td><%= @dealer.google_map_place_id %></td>
   </tr>
+  <% if @dealer.products.present? %>
+    <tr>
+      <th>Products</th>
+      <td><%= @dealer.products %></td>
+    </tr>
+  <% end %>
 </table>
 
 <br/>
@@ -83,11 +89,11 @@
     <%= f.association :brands,
       as: :check_boxes,
       label: false,
-      collection: Brand.where(dealers_from_brand_id: [nil, "", 0], live_on_this_platform: true).order(Arel.sql("UPPER(name)")) %>
+      collection: Brand.where(dealers_from_brand_id: [nil, "", 0]).order(Arel.sql("UPPER(name)")) %>
 
     <br/><%= f.button :submit %>
 
-  <p><i><%= Brand.where("dealers_from_brand_id > 0").where(live_on_this_platform: true).pluck(:name).join(", ") %>
+  <p><i><%= Brand.where("dealers_from_brand_id > 0").pluck(:name).join(", ") %>
   dealers are linked to one of the brands above.</i></p>
 
   <% end %>

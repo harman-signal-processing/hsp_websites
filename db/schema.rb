@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_22_190443) do
+ActiveRecord::Schema.define(version: 2019_06_26_151431) do
 
   create_table "access_levels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -402,9 +402,12 @@ ActiveRecord::Schema.define(version: 2019_04_22_190443) do
     t.boolean "installation", default: false
     t.string "represented_in_country"
     t.boolean "service", default: false
+    t.string "products"
+    t.string "region"
     t.index ["account_number"], name: "index_dealers_on_account_number"
     t.index ["exclude"], name: "index_dealers_on_exclude"
     t.index ["lat", "lng"], name: "index_dealers_on_lat_and_lng"
+    t.index ["region"], name: "index_dealers_on_region"
     t.index ["skip_sync_from_sap"], name: "index_dealers_on_skip_sync_from_sap"
   end
 

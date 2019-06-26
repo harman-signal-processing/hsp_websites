@@ -42,10 +42,12 @@ namespace :jblpro do
     @agent = Mechanize.new
     @links_followed = []
 
-    page = @agent.get("http://www.jblpro.com/www/products/installed-sound/intellivox-series/dc500")
-    product_family = ProductFamily.find("intellivox-series")
+    ["g28", "s28"].each do |pid|
+      page = @agent.get("http://www.jblpro.com/www/products/tour-sound/vtx-subwoofer-series/#{pid}")
+      product_family = ProductFamily.find("vtx-a-series")
 
-    find_or_create_product(page, product_family)
+      find_or_create_product(page, product_family)
+    end
   end
 
   desc "Import JBL news"
@@ -93,7 +95,78 @@ namespace :jblpro do
 
       news.save!
     end
+  end
 
+  desc "Importing VERTEC list"
+  task import_vertec: :environment do
+    @agent = Mechanize.new
+    jbl = Brand.find "jbl-professional"
+
+    page = @agent.get("http://www.jblpro.com/catalog/support/vertec-owners-list")
+    form = page.form(id: "form1")
+    button = form.button_with(value: "Refresh")
+    res = form.click_button(button)
+
+    current_region = nil
+    current_country = nil
+    records =[]
+
+    res.css("table.OwnersListTable").xpath("./tr").each do |row|
+      case row.attr('class')
+      when "RegionHeaderRow"
+        # find or create create region, set current_region
+        current_region = row.css("td.RegionHeaderCell").text.strip.gsub(/\A\p{Space}*|\p{Space}*\z/, '')
+        current_region.gsub!(/\s{2,}/, ' ')
+      when "CountryHeaderRow"
+        # find or create country, add it to the current_region and set current_country
+        current_country = row.css("td.CountryHeaderCell").text.strip.gsub(/\A\p{Space}*|\p{Space}*\z/, '')
+        current_country.gsub!(/\s{2,}/, ' ')
+      else
+        # If class is blank, it is either a blank row, or actual data
+        next if row.css("td.CountryHeaderCellHorizontalRule").length > 0
+        # Find or create owner record, add it to the current_country
+        record = {
+          region: current_region,
+          country: current_country
+        }
+        row.xpath("./td").each do |cell|
+          if cell.css("strong").length > 0
+            record[:name] = cell.css("strong").text.strip.gsub(/\A\p{Space}*|\p{Space}*\z/, '')
+            cell.css("strong").remove
+            record[:address] = cell.css("font").inner_html.strip
+            record[:address].gsub!(/^<br>/i, '')
+            record[:address].gsub(/\A\p{Space}*|\p{Space}*\z/, '')
+          elsif cell.css("table").length > 0
+            this_label = nil
+            cell.css("table td").each do |subcell|
+              if subcell.attr('class') == "OwnersListTableLabel"
+                this_label = subcell.text.strip.gsub!(/\:/, '').downcase
+                this_label = "telephone" if this_label == "phone"
+              elsif subcell.xpath("./a").length > 0
+                record[this_label.to_sym] = subcell.css("a").text.strip.gsub(/\A\p{Space}*|\p{Space}*\z/, '')
+              else
+                if this_label == "models"
+                  models = subcell.inner_html.strip.gsub(/\A\p{Space}*|\p{Space}*\z/, '').split(/<br>/i)
+                  record[:products] = models.join(", ")
+                else
+                  record[this_label.to_sym] = subcell.text.strip.gsub(/\A\p{Space}*|\p{Space}*\z/, '')
+                end
+              end
+            end
+          else
+            record[:name2] = cell.text.strip
+          end
+        end
+        record[:rental] = true
+        record[:resale] = false
+        new_dealer = Dealer.where(record).first_or_create!
+        records << new_dealer
+        jbl.dealers << new_dealer unless jbl.dealers.include?(new_dealer)
+        puts new_dealer.name
+        sleep(30)
+      end
+    end
+    puts "Records found/created: #{records.length}"
   end
 
   def find_or_create_family(family_page, parent_family = nil)
