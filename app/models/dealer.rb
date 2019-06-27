@@ -69,7 +69,7 @@ class Dealer < ApplicationRecord
 
   # Format the address, city, state, zip into a single string for geocoding
   def address_string
-    "#{address}, #{city}, #{state} #{zip} #{country}".gsub(/<br>/i, ' ').gsub(/, ,/, ',').gsub(/\s{2,}/, ' ')
+    "#{address}, #{city}, #{state} #{zip} #{country}".gsub(/<br>/i, ' ').gsub(/,\s?,/, ',').gsub(/\r\n|\r|\n|\t/, ' ').gsub(/\&amp\;/, '&').gsub(/\s{2,}/, ' ')
   end
 
   def name_and_address

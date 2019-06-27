@@ -163,10 +163,20 @@ namespace :jblpro do
         records << new_dealer
         jbl.dealers << new_dealer unless jbl.dealers.include?(new_dealer)
         puts new_dealer.name
-        sleep(30)
       end
     end
     puts "Records found/created: #{records.length}"
+  end
+
+  task geocode_vertec: :environment do
+    jbl = Brand.find "jbl-professional"
+
+    jbl.dealers.where(rental: true).each do |dlr|
+      dlr.geocode_address && dlr.save(validate: false)
+      puts dlr.name
+      puts "   Lat: #{dlr.lat}, Lng: #{dlr.lng}"
+      sleep(30)
+    end
   end
 
   def find_or_create_family(family_page, parent_family = nil)

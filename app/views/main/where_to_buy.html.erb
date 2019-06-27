@@ -40,29 +40,27 @@
 				</div>
         <% if website.brand.dealers_include_rental_and_service? %>
           <input type="hidden" name="apply_filters" value="1"/>
-          <ul class="medium-block-grid-3 small-block-grid-12">
-            <li>
-              <label for="resale">
-                <input type="checkbox" value="1" name="resale" id="resale" <% if @filter_resale %>checked="checked"<% end %>> Resellers
-              </label>
-            </li>
-            <li>
-              <label for="rental">
-                <input type="checkbox" value="1" name="rental" id="rental" <% if @filter_rental %>checked="checked"<% end %>> Rentals
-              </label>
-            </li>
-            <li>
-              <label for="service">
-                <input type="checkbox" value="1" name="service" id="service" <% if @filter_service %>checked="checked"<% end %>> Service
-              </label>
-            </li>
-          </ul>
+          <label for="resale">
+            <input type="checkbox" value="1" name="resale" id="resale" <% if @filter_resale %>checked="checked"<% end %>> Resellers
+          </label>
+          <% if website.brand.dealers.where(rental: true).count > 0 %>
+            <label for="rental">
+              <input type="checkbox" value="1" name="rental" id="rental" <% if @filter_rental %>checked="checked"<% end %>> Rentals
+              <% if website.brand.name == "JBL Professional" %>
+                (aka "VERTEC/VTX owner list")
+              <% end %>
+            </label>
+          <% end %>
+          <% if website.brand.dealers.where(service: true).count > 0 %>
+            <label for="service">
+              <input type="checkbox" value="1" name="service" id="service" <% if @filter_service %>checked="checked"<% end %>> Service
+            </label>
+          <% end %>
         <% end %>
 			</form>
 			<div id="map" style="width: 100%; height: 520px;"></div>
 		</div>
 		<div class="large-5 large-offset-1 columns" id="dealer_results">
-			<h3 id="dealer_search_results"><%= t('titles.dealer_search_results') %></h3>
 			<ul class="dealer_results">
 				<% @results.each_with_index do |dealer,i| %>
 				<li id="sidebar-item-<%=(i + 1)%>" class="sidebar-item">
@@ -81,9 +79,19 @@
           <% if dealer.try(:distance) %>
             (<%= dealer.distance.to_i %> <%= t('dealer_distance') %>)
           <% end %>
-					<br/><%= dealer.address %>
-					<br/><%= dealer.city %> <%= dealer.state %> <%= dealer.zip %>
-					<br/><%= dealer.telephone %>
+          <% if dealer.rental? && dealer.products.present? %>
+            <br/><i>Products available: <%= dealer.products %></i>
+          <% end %>
+					<br/><%=raw dealer.address %>
+          <% if dealer.city.present? || dealer.state.present? || dealer.zip.present? %>
+            <br/><%= dealer.city %> <%= dealer.state %> <%= dealer.zip %>
+          <% end %>
+          <% if dealer.country.present? %>
+            <br/><%= dealer.country %>
+          <% end %>
+          <% if dealer.telephone.present? %>
+            <br/><%= dealer.telephone %>
+          <% end %>
           <% if dealer.website.present? %>
             <br/><%= link_to dealer.website.downcase, dealer.website_link, target: "_blank" %>
           <% elsif !dealer.email.blank? %>
@@ -121,23 +129,22 @@
               <% if website.brand.dealers_include_rental_and_service? %>
                 <input type="hidden" name="apply_filters" value="1"/>
                 <h5>Filter Results:</h5>
-                <ul class="medium-block-grid-3 small-block-grid-12">
-                  <li>
-                    <label for="resale">
-                      <input type="checkbox" value="1" name="resale" id="resale" checked="checked"> Resellers
-                    </label>
-                  </li>
-                  <li>
+                  <label for="resale">
+                    <input type="checkbox" value="1" name="resale" id="resale" checked="checked"> Resellers
+                  </label>
+                <% if website.brand.dealers.where(rental: true).count > 0 %>
                     <label for="rental">
                       <input type="checkbox" value="1" name="rental" id="rental" checked="checked"> Rentals
+                      <% if website.brand.name == "JBL Professional" %>
+                        (aka "VERTEC/VTX owners")
+                      <% end %>
                     </label>
-                  </li>
-                  <li>
+                <% end %>
+                <% if website.brand.dealers.where(service: true).count > 0 %>
                     <label for="service">
                       <input type="checkbox" value="1" name="service" id="service" checked="checked"> Service
                     </label>
-                  </li>
-                </ul>
+                <% end %>
               <% end %>
               <% if website.brand.has_us_sales_reps? %>
                 <i style="font-size: 80%">Or, <%= link_to "find a sales rep", us_reps_path %> to become a dealer.</i>
