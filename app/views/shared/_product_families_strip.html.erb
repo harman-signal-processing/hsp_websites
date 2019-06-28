@@ -1,0 +1,25 @@
+<%= cache ["product_families_strip", website.brand, I18n.locale] do %>
+  <% product_families = ProductFamily.parents_with_current_products(website, I18n.locale) %>
+  <% if product_families.length > 0 %>
+    <h2 class="text-center">Browse By Application</h2>
+    <div class="homepage_block thin_strip product_families">
+      <p>&nbsp;</p>
+      <ul class="medium-block-grid-<%= product_families.length %> small-block-grid-1">
+        <% product_families.each do |pf| %>
+          <li>
+            <%= link_to pf do %>
+              <% p = pf.first_product_with_photo(website) %>
+              <% if p %>
+                <%= image_tag p.primary_photo.product_attachment.url %>
+              <% end %>
+              <h3 class="text-center"><%= pf.name %></h3>
+            <% end %>
+            <div class="text-center">
+              <%= pluralize pf.current_products_plus_child_products(website).length, "product", plural: "products" %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% end %>

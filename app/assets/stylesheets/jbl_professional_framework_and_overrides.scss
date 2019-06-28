@@ -137,29 +137,34 @@ body {
 }
 
 div.homepage_block {
-  &.market_segments {
-    li {
-      div.market-segment {
-        position: relative;
-        img {
-          width: 100%
-        }
-        div.text-center {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          max-height: 65px;
-          overflow: hidden;
-          background: rgb(255, 255, 255);
-          background: rgba(255, 255, 255, 0.8);
-          color: $dark-gray;
-          padding: 4px 0 1px;
-          p {
-            font-size: rem-calc(11px);
+  &.product_families {
+    color: #888;
+    padding: 60px 20px;
+    background-color: #212121;
+    background-image: asset-url("jbl_professional/grill-bg.jpg");
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    ul {
+      li {
+        padding: 10px;
+        a {
+          h3 {
+            color: white;
           }
-          a {
-            color: $dark-gray;
+          img {
+            background: white;
+            outline: 2px solid $primary-color;
+          }
+          color: white;
+          &:hover {
+            h3 {
+              color: $primary-color;
+            }
+            color: $primary-color;
+            img {
+              outline: 3px solid white;
+            }
           }
         }
       }
