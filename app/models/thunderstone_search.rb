@@ -3,7 +3,7 @@ class ThunderstoneSearch
   format :json
 
   def self.find(query, profile, jump)
-    url = base_url + "query=#{query}&profile=#{profile}&jump=#{jump}"
+    url = "#{base_url}query=#{query}&profile=#{profile}&jump=#{jump}"
     begin
       get_api_response(url)
     rescue
