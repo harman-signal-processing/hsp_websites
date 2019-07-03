@@ -2,22 +2,22 @@
 	<h1><%= t('titles.support') %></h1>
 	<ul class="large-block-grid-2 medium-block-grid-2 small-block-grid-1">
         <li>
-			<a href="/support/tech_support">
+		<% if country_code.present? %><a href="/support/tech_support?geo=<%=country_code%>"><% else %><a href="/support/tech_support"><% end %>
                 <div class="expand button" data-equalizer-watch="support-selector-box">Technical Support</div>
     		</a>
         </li>
         <li>
-        	<a href="/support/repairs">
+        	<% if country_code.present? %><a href="/support/repairs?geo=<%=country_code%>"><% else %><a href="/support/repairs"><% end %>
                 <div class="expand button" data-equalizer-watch="support-selector-box">Repair</div>
             </a>
         </li>
         <li>
-        	<a href="/support/parts_new">
+        	<% if country_code.present? %><a href="/support/parts_new?geo=<%=country_code%>"><% else %><a href="/support/parts_new"><% end %>
                 <div class="expand button" data-equalizer-watch="support-selector-box">Spare Parts</div>
             </a>
         </li>
         <li>
-        	<a href="/support/rsos">
+        	<% if country_code.present? %><a href="/support/rsos?geo=<%=country_code%>"><% else %><a href="/support/rsos"><% end %>
                 <div class="expand button" data-equalizer-watch="support-selector-box">Harman Accounts</div>
             </a>
         </li>            
