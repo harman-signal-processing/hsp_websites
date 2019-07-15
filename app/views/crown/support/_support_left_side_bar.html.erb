@@ -1,8 +1,8 @@
 <!-- begin left side bar -->
 <div class="large-4 columns">
+		<%= render_partial 'support/default_us_tech_support_contact' %>
+		
 		<%= cache ["support_body", website.brand, I18n.locale] do %>
-
-			<%= render_partial 'support/default_us_tech_support_contact' %>
 
 			<div class="panel">
 				<h4><%= t('titles.product_support') %></h4>
@@ -18,18 +18,16 @@
 							<%= submit_tag t('go'), class: "postfix button" %>
 						</div>
 					</div>
-				<% end %>
+				<% end %> <%#= form_tag support_path, method: :get do |f| %>
 				<ul class="list">
 					<li><%= link_to "product training", "https://pro.harman.com/training", target: "_blank" %></li>
 				</ul>
-			</div>
+			</div> <!-- <div class="panel"> -->
 
-      <%# if website.email_signup_url %>
-        <div class="panel">
-          <%= render_partial 'shared/newsletter_signup' %>
-        </div>
-      <%# end %>
+	        <div class="panel">
+	          <%= render_partial 'shared/newsletter_signup' %>
+	        </div>
 
-		<% end %>
-	</div>
+	  <% end %> <%#= cache ["support_body", website.brand, I18n.locale] do %>
+</div>
 <!-- end left side bar -->
