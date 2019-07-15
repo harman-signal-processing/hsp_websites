@@ -233,6 +233,7 @@ div.homepage_block {
   border: 1px solid #aaa;
   /* background: url(/assets/chosen-sprite-8aa69ee6b2376505578d758bfbbc52aec88fa5e591f1a7cabd8adfa80a7b613a.png) no-repeat 100% -20px; */
   background: none;
+  background-attachment:fixed; /* this fixes the unwanted artifacts in the search box that appear at some resolutions */
   font-size: 1em;
   font-family: sans-serif;
   line-height: normal;

@@ -7,9 +7,9 @@
 	<%=render_partial "support/support_left_side_bar"%>
 
     <div class="large-8 columns">
-    <h1>Harman Accounts</h1>
+    <h1>Channel Partner Support</h1>
         <% if @rsos.size > 0 %>
-          <div style="margin-bottom:20px;">Below are the Harman support contacts for your country.</div>
+          <div style="margin-bottom:20px;"><h3>Below are the HARMAN support contacts for your country.</h3></div>
         	<div class="large-12 columns" data-equalizer="contact-box">
         		<ul class="large-block-grid-2 medium-block-grid-1 small-block-grid-1">
 	        		<% @rsos.each do |rso| %>
@@ -18,7 +18,7 @@
         		</ul>
         	</div>
         <% else %>
-            <div>We didn't find a Harman support contact in your country. Please contact us with the information below.</div>
+            <div>We didn't find a HARMAN support contact in your country. Please contact us with the information below.</div>
         	<% if addr = website.value_for("address_and_phone") %>
         	<div class="panel">
         		<h4><%= t("titles.mailing_address") %></h4>

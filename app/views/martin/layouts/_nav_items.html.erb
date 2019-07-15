@@ -66,10 +66,6 @@
     	<% if !!(website.forum_link) %>
         <li class="hide-for-medium"><%= link_to t("forum").titleize, website.forum_link %></li>
     	<% end %>
-
-      <% if website.pages.pluck(:custom_route).include?('contact-service') %>
-        <li><%= link_to t('nav.service').titleize, "/#{I18n.locale}/contact-service" %></li>
-      <% end %>
       <li><%= link_to t('nav.safety_documents'), martin_safety_documents_path %></li>
       <li><%= link_to t('nav.support_login'), gated_support_path %></li>
     </ul>
