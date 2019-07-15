@@ -1,14 +1,16 @@
 <div class="large-4 columns">
+	
+		<% # studer has different address/contact info in left nav %>
+		<% if country_is_usa && (request.path_info.include?('tech_support') || request.path_info.include?('parts')) %>
+			<% if studer_us_tech_support_and_repair = website.value_for("studer_us_tech_support_and_repair") %>
+				<div class="panel">
+					<p><%=raw studer_us_tech_support_and_repair %></p>
+				</div>
+			<% end %>
+		<% end %>	
+	
 		<%= cache ["support_body", website.brand, I18n.locale] do %>
 
-			<% # studer has different address/contact info in left nav %>
-			<% if country_is_usa && (request.path_info.include?('tech_support') || request.path_info.include?('parts')) %>
-				<% if studer_us_tech_support_and_repair = website.value_for("studer_us_tech_support_and_repair") %>
-					<div class="panel">
-						<p><%=raw studer_us_tech_support_and_repair %></p>
-					</div>
-				<% end %>
-			<% end %>
 			<div class="panel">
 				<h4><%= t('titles.product_support') %></h4>
 				<p><%= t('blurbs.product_support') %></p>
@@ -30,55 +32,55 @@
 			</div>
 
 
-      <% if website.has_software? && (website.current_softwares.length > 0 || website.forced_current_softwares.length > 0) %>
-			<div class="panel">
-				<h4><%= link_to t('software_downloads').titleize, software_index_path %></h4>
-				<p><%= t('blurbs.software_downloads', brand: website.brand_name) %></p>
-				<ul class="list">
-					<li><%= link_to t('software_downloads'), software_index_path %></li>
-					<% if !!(website.has_third_party_downloads) %>
-					<li><%= link_to "3rd party controllers", "/en-US/3rd-party-controllers" %></li>
-					<% end %>
-					<% if !!(website.has_speaker_tunings) %>
-					<li><%= link_to "speaker tunings", speaker_tunings_path %></li>
-					<% end %>
-          <li><%= link_to "More Resources", support_downloads_path %></li>
-				</ul>
-			</div>
-			<% end %>
+      		<% if website.has_software? && (website.current_softwares.length > 0 || website.forced_current_softwares.length > 0) %>
+				<div class="panel">
+					<h4><%= link_to t('software_downloads').titleize, software_index_path %></h4>
+					<p><%= t('blurbs.software_downloads', brand: website.brand_name) %></p>
+					<ul class="list">
+						<li><%= link_to t('software_downloads'), software_index_path %></li>
+						<% if !!(website.has_third_party_downloads) %>
+						<li><%= link_to "3rd party controllers", "/en-US/3rd-party-controllers" %></li>
+						<% end %>
+						<% if !!(website.has_speaker_tunings) %>
+						<li><%= link_to "speaker tunings", speaker_tunings_path %></li>
+						<% end %>
+	          			<li><%= link_to "More Resources", support_downloads_path %></li>
+					</ul>
+				</div>
+			<% end %> <%# if website.has_software? && (website.current_softwares.length > 0 || website.forced_current_softwares.length > 0) %>
 
 			<% unless website.brand_name.match(/dod|studer/i) %>
-			<div class="panel">
-				<h4><%= t('titles.more_resources').titleize %></h4>
-				<ul class="list">
-          <% if website.brand_name.match(/digitech/i) %>
-            <li><%= link_to t("sound_community"), soundcomm_url, target: "_blank" %></li>
-            <li><%= link_to "guitarworkstation.com", "http://www.guitarworkstation.com", target: "_blank" %></li>
-          <% end %>
-					<% if !!(website.value_for("troubleshooting_url")) %>
-					<li><%= link_to t('troubleshooting').downcase, support_troubleshooting_path %></li>
-					<% end %>
-					<% if !!(website.has_cad_drawings) %>
-					<li><%= link_to "CAD files", support_cad_path %></li>
-					<% end %>
-					<li><%= link_to t('titles.rohs'), rohs_path %></li>
-					<% if !!(website.forum_link) %>
-					<li><%= link_to t("user_forum"), website.forum_link %></li>
-					<% end %>
-          <% if !!!(website.brand.name.to_s.match(/digitech|lexicon|dod/i)) %>
-            <li><%= link_to "System Design Tools", tools_calculators_path %></li>
-          <% end %>
-          <% if !website.has_software? %>
-            <li><%= link_to "More Resources", support_downloads_path %></li>
-          <% end %>
-				</ul>
-			</div>
-			<% end %>
+				<div class="panel">
+					<h4><%= t('titles.more_resources').titleize %></h4>
+					<ul class="list">
+				          <% if website.brand_name.match(/digitech/i) %>
+				            <li><%= link_to t("sound_community"), soundcomm_url, target: "_blank" %></li>
+				            <li><%= link_to "guitarworkstation.com", "http://www.guitarworkstation.com", target: "_blank" %></li>
+				          <% end %>
+						  <% if !!(website.value_for("troubleshooting_url")) %>
+						  	<li><%= link_to t('troubleshooting').downcase, support_troubleshooting_path %></li>
+						  <% end %>
+						  <% if !!(website.has_cad_drawings) %>
+						  	<li><%= link_to "CAD files", support_cad_path %></li>
+						  <% end %>
+						  	<li><%= link_to t('titles.rohs'), rohs_path %></li>
+						  <% if !!(website.forum_link) %>
+						  	<li><%= link_to t("user_forum"), website.forum_link %></li>
+						  <% end %>
+				          <% if !!!(website.brand.name.to_s.match(/digitech|lexicon|dod/i)) %>
+				            <li><%= link_to "System Design Tools", tools_calculators_path %></li>
+				          <% end %>
+				          <% if !website.has_software? %>
+				            <li><%= link_to "More Resources", support_downloads_path %></li>
+				          <% end %>
+					</ul>
+				</div>
+			<% end %> <%# unless website.brand_name.match(/dod|studer/i) %>
 
-		<% end %>
+		<% end %> <%#= cache ["support_body", website.brand, I18n.locale] do %>
 		
 	    <div class="panel">
 	      <%= render_partial 'shared/newsletter_signup' %>
 	    </div>		
 		
-	</div>
+</div> <!-- <div class="large-4 columns"> -->
