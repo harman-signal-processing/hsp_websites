@@ -125,9 +125,6 @@
 						<% if website.has_dealers? || website.has_online_retailers? || website.has_distributors? %>
               <%= link_to t('where_to_buy').titleize, where_to_buy_path %> &bull;
 						<% end %>
-            <% if website.pages.pluck(:custom_route).include?('contact-service') %>
-              <%= link_to t('nav.service').titleize, "/#{I18n.locale}/contact-service" %> &bull;
-            <% end %>
             <%= link_to t('product_support').titleize, support_path %> &bull;
 	          <% if !!(website.forum_link) %>
 	            <%= link_to t("forum").titleize, website.forum_link %> &bull;

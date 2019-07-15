@@ -1,22 +1,14 @@
 <div class="large-4 columns">
 		<%= cache ["support_body", website.brand, I18n.locale] do %>
 
-			<% if addr = website.value_for("address_and_phone") %>
-			<div class="panel">
-				<p><%=raw addr %>
-					<% if (sup = website.value_for("support_email")) && !(website.hide_support_email) %>
-					<br/><%= mail_to sup, sup %>
-					<% end %>
-				</p>
-			</div>
+			<% # studer has different address/contact info in left nav %>
+			<% if country_is_usa && (request.path_info.include?('tech_support') || request.path_info.include?('parts')) %>
+				<% if studer_us_tech_support_and_repair = website.value_for("studer_us_tech_support_and_repair") %>
+					<div class="panel">
+						<p><%=raw studer_us_tech_support_and_repair %></p>
+					</div>
+				<% end %>
 			<% end %>
-
-			<% if country_is_usa %>
-				<div class="panel">
-       		<%= link_to "Request Factory Repair", rma_request_path, class:"button" %>
-    		</div>
-      <% end %>
-
 			<div class="panel">
 				<h4><%= t('titles.product_support') %></h4>
 				<p><%= t('blurbs.product_support') %></p>
@@ -33,36 +25,10 @@
 					</div>
 				<% end %>
 				<ul class="list">
-					<% if !!website.brand.name.match(/^bss/i) %>
-					<li><%= link_to t('training'), "/training" %></li>
-					<% elsif !!website.folder.to_s.match(/archimedia/) %>
-					<li><%= link_to t('training'), "/en-US/onsite_training" %></li>
-					<% elsif !!(website.has_training) %>
-					<li><%= link_to "product training", training_path %></li>
-					<% end %>
+					<li><%= link_to "product training", "https://pro.harman.com/training", target: "_blank" %></li>
 				</ul>
 			</div>
 
-			<% if website.has_service_centers? %>
-			<div class="panel">
-				<h4><%= t('titles.locate_us_service_center') %>:</h4>
-				<%= form_tag service_lookup_path do |f| %>
-					<div class="row collapse">
-						<div class="medium-9 small-9 columns">
-							<%= text_field_tag "zip", session[:zip], size: 8, placeholder: t('us_zip_code') %>
-						</div>
-						<div class="medium-3 small-3 columns">
-							<%= submit_tag t('go'), class: "postfix button" %>
-						</div>
-					</div>
-				<% end %>
-				<ul class="list">
-					<% if website.has_parts_form? %>
-					<li><%= link_to t('titles.part_request'), parts_request_path %></li>
-					<% end %>
-				</ul>
-			</div>
-			<% end %>
 
       <% if website.has_software? && (website.current_softwares.length > 0 || website.forced_current_softwares.length > 0) %>
 			<div class="panel">
@@ -80,19 +46,6 @@
 				</ul>
 			</div>
 			<% end %>
-
-      <% if website.has_product_registrations? %>
-        <div class="panel">
-          <h4><%= link_to t('warranty_registration').titleize, warranty_registration_path %></h4>
-          <p><%= t('blurbs.warranty_registration', brand: website.brand_name) %></p>
-          <ul class="list">
-            <li><%= link_to t('warranty_registration'), warranty_registration_path %></li>
-            <% if !!website.brand.name.match(/bss|dbx/i) %>
-            <li><%= link_to t('warranty_policy'), warranty_policy_path %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
 
 			<% unless website.brand_name.match(/dod|studer/i) %>
 			<div class="panel">
@@ -123,4 +76,9 @@
 			<% end %>
 
 		<% end %>
+		
+	    <div class="panel">
+	      <%= render_partial 'shared/newsletter_signup' %>
+	    </div>		
+		
 	</div>

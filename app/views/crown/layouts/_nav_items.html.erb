@@ -95,18 +95,6 @@
       <% if !!(website.forum_link) %>
         <li><%= link_to t("forum").titleize, website.forum_link %></li>
       <% end %>
-      <% if I18n.locale == I18n.default_locale %>
-        <li class="has-dropdown"><%= link_to t('nav.service').titleize, '#', class: "disabled" %>
-          <ul class="dropdown">
-            <li><%= link_to "Service Centers", service_lookup_path %></li>
-            <li><%= link_to "Returns", rma_request_path %></li>
-            <li><%= link_to "Parts", parts_request_path %></li>
-            <li><%= link_to "Warranty", warranty_policy_path %></li>
-          </ul>
-        </li>
-      <% elsif I18n.locale.match(/zh/) %>
-        <li><%= link_to t('nav.service').titleize, "/zh/china-crown-service" %></li>
-      <% end %>
       <li><%= link_to t('nav.system_design_tools'), tools_calculators_path %></li>
       <% if website.faq_categories_with_faqs.length > 0 %>
         <li><%= link_to t('product_page.faqs'), faqs_path %></li>

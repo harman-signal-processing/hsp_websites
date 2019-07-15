@@ -1,0 +1,7 @@
+<% if country_is_usa && request.path_info.include?('tech_support') %>
+	<% if default_us_tech_support_contact = website.value_for("default_us_tech_support_contact") %>
+		<div class="panel">
+			<p><%=raw default_us_tech_support_contact %></p>
+		</div>
+	<% end %>
+<% end %>

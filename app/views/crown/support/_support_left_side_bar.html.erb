@@ -2,22 +2,7 @@
 <div class="large-4 columns">
 		<%= cache ["support_body", website.brand, I18n.locale] do %>
 
-			<% if addr = website.value_for("address_and_phone") %>
-			<div class="panel">
-				<h4><%= t("titles.mailing_address") %></h4>
-				<p><%=raw addr %>
-					<% if (sup = website.value_for("support_email")) && !(website.hide_support_email) %>
-					<br/><%= mail_to sup, sup %>
-					<% end %>
-				</p>
-			</div>
-			<% end %>
-
-			<% if country_is_usa %>
-				<div class="panel">
-       		<%= link_to "Request Factory Repair", rma_request_path, class:"button" %>
-    		</div>
-      <% end %>
+			<%= render_partial 'support/default_us_tech_support_contact' %>
 
 			<div class="panel">
 				<h4><%= t('titles.product_support') %></h4>
@@ -35,13 +20,7 @@
 					</div>
 				<% end %>
 				<ul class="list">
-					<% if !!website.brand.name.match(/^bss/i) %>
-					<li><%= link_to t('training'), "/training" %></li>
-					<% elsif !!website.folder.to_s.match(/archimedia/) %>
-					<li><%= link_to t('training'), "/en-US/onsite_training" %></li>
-					<% elsif !!(website.has_training) %>
-					<li><%= link_to "product training", training_path %></li>
-					<% end %>
+					<li><%= link_to "product training", "https://pro.harman.com/training", target: "_blank" %></li>
 				</ul>
 			</div>
 
@@ -50,14 +29,6 @@
           <%= render_partial 'shared/newsletter_signup' %>
         </div>
       <%# end %>
-
-      <div class="panel">
-        <%= link_to "HARMAN Pro Catalog Request", catalog_request_path %>
-      </div>
-
-			<div class="panel">
-        <%= link_to "RSO Support", "/salessupport" %>
-			</div>
 
 		<% end %>
 	</div>

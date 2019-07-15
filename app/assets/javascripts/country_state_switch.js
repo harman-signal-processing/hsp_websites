@@ -18,28 +18,25 @@ $(function()
 	
 	function filter_by_state(selected_state)
 	{
-	  var  has_service_centers = false,
-        $default_service_center_message = $("#default_service_center_message");
-        
-    $default_service_center_message.hide('slow');
+        $("#service_center_list li").each(function(i)
+        {
+        	var $li = $(this);
+        	
+        	if ($li.attr('id') == "harman-default")
+        	{
+        	    return true; // skip, do not act on the default
+        	}
+        	
+        	var service_center_state = $li.attr('id').split('_')[1];
+			
+			$li.hide('slow');
+			
+			if(selected_state == service_center_state)
+			{
+				$li.show('slow');
+			}
+        });  //  $("#service_center_list li").each(function(i)
     
-    $("#service_center_list li").each(function(i)
-    {
-    	var $li = $(this),
-    			service_center_state = $li.attr('id').split('_')[1];
-    			
-    			$li.hide('slow');
-    			
-    			if(selected_state == service_center_state)
-    			{
-    				$li.show('slow');
-    				has_service_centers = true;
-    			}
-    });  //  $("#service_center_list li").each(function(i)
-    
-    if (!has_service_centers)
-    {$default_service_center_message.show('slow');}	  
-	  
 	}  // function filter_by_state(state)
 	
 	//If the page loaded with a state selected go ahead and filter by the selected state
