@@ -4,8 +4,9 @@ module ServiceCenters
   def get_service_centers(brand, state)
     
     url = "https://pro.harman.com/service_centers/#{brand}/#{state.downcase}.json"
+    encoded_url = URI.encode(url)
     
-    response = HTTParty.get(url)
+    response = HTTParty.get(encoded_url)
       if response.success?
         result = response.deep_symbolize_keys
       else

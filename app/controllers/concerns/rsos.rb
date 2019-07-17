@@ -4,8 +4,9 @@ module Rsos
   def get_rsos(country_code)
     
     url = "https://pro.harman.com/contact_info/rso/#{country_code}.json"
+    encoded_url = URI.encode(url)
     
-    response = HTTParty.get(url)
+    response = HTTParty.get(encoded_url)
       if response.success?
         result = response.deep_symbolize_keys
       else
