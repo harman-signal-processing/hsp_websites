@@ -49,14 +49,11 @@
 			</ul>
 		</section>
 	</nav>
+  <% if current_user %>
+    <div id="account_links">
+      Welcome, <%= current_user.email %> |
+      <%= link_to "Logout", destroy_user_session_path %>
+    </div>
+  <% end %>
 </div>
 
-<% unless current_page?(locale_root_path) %>
-  <div class="container text-right bglink">
-    <%#= link_to t("dealer_login"), "/toolkit", target: "_blank" %>
-    <% if current_user %>
-      Welcome, <%= current_user.email %>. |
-      <%= link_to "Logout", destroy_user_session_path %>
-    <% end %>
-  </div>
-<% end %>

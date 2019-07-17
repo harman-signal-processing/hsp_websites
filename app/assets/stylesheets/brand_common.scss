@@ -401,6 +401,17 @@ div.text-right.bglink {
 	padding-right: 3px;
 	padding-bottom: 1px;
 }
+#account_links {
+  font-size: 75%;
+  position: absolute;
+  top: 2px;
+  right: 10px;
+  color: white;
+  a {
+    color: white;
+    text-decoration: underline;
+  }
+}
 .hint {
   font-size: 70%;
   color: #444;
