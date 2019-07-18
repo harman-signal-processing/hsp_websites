@@ -439,7 +439,15 @@ class MainController < ApplicationController
     jump = current_page == 1 ? 0 : (current_page-1)*per_page
     
     if @query.present?
-      thunderstone_search_profile = website.brand.name.downcase == "dbx" ? "dbxpro pdfs" : website.brand.name.downcase + " pdfs"
+      case website.brand.name.downcase
+      when "dbx"
+        thunderstone_search_profile = "dbxpro pdfs"
+      when "duran audio"
+        thunderstone_search_profile = "harmantunnel pdfs"
+      else
+        thunderstone_search_profile = website.brand.name.downcase + " pdfs"
+      end
+      
       @pdf_results = ThunderstoneSearch.find(@query, thunderstone_search_profile, jump)
       @pdf_results_paginated_list = WillPaginate::Collection.create(current_page, per_page, @pdf_results[:Summary][:TotalNum].to_i) do |pager|
         pager.replace(@pdf_results[:ResultList].to_ary)
