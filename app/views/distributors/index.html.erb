@@ -16,11 +16,15 @@
 	<div class="large-5 columns">
 		<p><%= t("blurbs.international_distributors") %></p>
 
-		<%= form_tag search_distributors_path, method: :get %>
+		<%= form_tag distributor_search_new_path, method: :get %>
 			<%= label_tag t('select_your_country') %>
 			<div class="row collapse">
 				<div class="large-9 small-8 columns">
-					<%= select_tag :country, options_from_collection_for_select(@countries, :country, :country, @country) %>
+            <%= select_tag :geo, 
+            options_from_collection_for_select(ISO3166::Country.countries.sort_by(&:name), 'un_locode', 'name', @selected_country_code.upcase), 
+            # class: 'chosen-select',
+            prompt: "Select Your Country"
+            %> 
 				</div>
 				<div class="large-3 small-4 columns">
 					<%= submit_tag t('submit'), class: "postfix button" %>
@@ -29,15 +33,22 @@
 		</form>
 	</div>
 
+<div class="large-6 large-offset-1 columns">
 <% if @distributors.size > 0 %>
-	<div class="large-6 large-offset-1 columns">
-		<% @distributors.each do |distributor| %>
-		<div class="panel">
-			<h3><%= distributor.name %></h3>
-			<div><%=raw distributor.detail %></div>
-		</div>
-		<% end %>
-	</div>
+		<ul class="large-block-grid-1 medium-block-grid-1 small-block-grid-1">
+  		<% @distributors.each do |distributor| %>
+      		<%=render_partial "support/distributor", distributor: distributor %>
+  		<% end %> <%# @distributors.each do |distributor| %>
+		</ul>
+<% else %>	
+    <div>We didn't find a distributor in your country. Please contact us with the information below.</div>
+  	<% if addr = website.value_for("address_and_phone") %>
+	  	<div class="panel">
+	  		<h4><%= t("titles.mailing_address") %></h4>
+	  		<p><%=raw addr %></p>
+	  	</div>
+  	<% end %>
 <% end %>
-
 </div>
+
+</div> <!-- <div class="row"> -->
