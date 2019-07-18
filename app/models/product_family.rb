@@ -270,6 +270,18 @@ class ProductFamily < ApplicationRecord
     end
   end
 
+  def all_children(w)
+    brand_id = (w.is_a?(Brand)) ? w.id : w.brand_id
+    all = []
+    children.where(brand_id: brand_id).each do |ch|
+      all << ch
+      if ch.children.length > 0
+        all += ch.all_children(w)
+      end
+    end
+    all.flatten.uniq
+  end
+
   def children_with_toolkit_products(w)
     brand_id = (w.is_a?(Brand)) ? w.id : w.brand_id
     children.includes(:products).select do |pf|
