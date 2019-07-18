@@ -1,15 +1,14 @@
-<div class="search_form_container">
+<div class="search_form_container" style="margin-left:20px;">
 	<%= form_tag minimal_distributor_search_path(@brand.to_param), method: :get %>	
-		<%= select_tag :country, options_from_collection_for_select(@countries, :country, :country, @country) %>
+		<%= select_tag :country, options_from_collection_for_select(ISO3166::Country.countries.sort_by(&:name), 'un_locode', 'name', params[:country].upcase) %>
 		<%= submit_tag t('submit') %>
 	</form>
 </div>
 
 <% if @distributors.size > 0 %>
+	<ul style="margin-left:20px;">
 	<% @distributors.each do |distributor| %>
-	<div class="distributor_container">
-		<h2><%= distributor.name %></h2>
-		<div><%=raw distributor.detail %></div>
-	</div>
+		<%=render_partial "support/distributor", distributor: distributor %>
 	<% end %>
+	</ul>
 <% end %>
