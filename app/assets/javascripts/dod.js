@@ -30,6 +30,9 @@
 //= require will_paginate_infinite
 //= require dod_application
 //= require_self
+//= require chosen-jquery
+//= require enable_chosen_jquery
+//= require country_state_switch
 
 $(function(){
   $(document).foundation({
