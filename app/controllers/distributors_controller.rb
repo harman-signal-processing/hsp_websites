@@ -23,6 +23,7 @@ class DistributorsController < ApplicationController
 
   def index_new
     brand = @website.brand.name.downcase
+    brand = "axys tunnel by jbl" if brand == "duran audio"
     @selected_country_code = params[:geo].nil? ? "us" : params[:geo].downcase      
     @distributors = get_international_distributors(brand, @selected_country_code)   
   end
