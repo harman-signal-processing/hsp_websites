@@ -43,6 +43,7 @@ class SupportController < ApplicationController
       @contact_message.require_country = true if require_country?
     else
       brand = @website.brand.name.downcase
+      brand = "axys tunnel by jbl" if brand == "duran audio"
       country_code = params[:geo].nil? ? "us" : params[:geo].downcase      
       @distributors = get_international_distributors(brand, country_code)
     end
@@ -50,13 +51,14 @@ class SupportController < ApplicationController
   end
 
   def repairs
-    if session['geo_usa']
       brand = @website.brand.name.downcase
+      brand = "axys tunnel by jbl" if brand == "duran audio"
+      
+    if session['geo_usa']
       # state = params[:state].presence || helpers.user_usa_state_code.to_s || "any"
       state = params[:state].presence || "any"
       @service_centers = get_service_centers(brand, state)
     else
-      brand = @website.brand.name.downcase
       country_code = params[:geo].nil? ? "us" : params[:geo].downcase      
       @distributors = get_international_distributors(brand, country_code)      
     end
@@ -179,6 +181,7 @@ class SupportController < ApplicationController
       end
     else
       brand = @website.brand.name.downcase
+      brand = "axys tunnel by jbl" if brand == "duran audio"
       country_code = params[:geo].nil? ? "us" : params[:geo].downcase      
       @distributors = get_international_distributors(brand, country_code)
     end
