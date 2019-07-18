@@ -81,10 +81,10 @@
 	<li class="divider"></li>
   <li class="has-dropdown"><%= link_to t('product_support').titleize, support_path %>
     <ul class="dropdown">
-      <% if I18n.locale == I18n.default_locale %>
-        <li><%= link_to t('contact_us').titleize, support_path %></li>
-      <% elsif I18n.locale.match(/zh/) %>
+      <% if I18n.locale.match(/zh/) %>
         <li><%= link_to t('contact_us').titleize, "/zh/china-crown-contacts" %></li>
+      <% else %>
+        <li><%= link_to t('contact_us').titleize, support_path %></li>
       <% end %>
       <li><%= link_to t('software_downloads').titleize, software_index_path %></li>
       <li><%= link_to t('nav.downloads').titleize, support_downloads_path %></li>
