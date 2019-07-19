@@ -2313,6 +2313,16 @@ ul#search_results .related_products_links li {
     margin-top: 6px;    	
 }
 
+.panel {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #c5c5c5;
+    margin-bottom: 1.25rem;
+    padding: 1.25rem;
+    background: #dedede;
+    color: #333333
+}
+
 /************ foundation stuff (used on search page) ************/
 .row {
     width: 100%;

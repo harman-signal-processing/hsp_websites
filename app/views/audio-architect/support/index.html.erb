@@ -27,9 +27,13 @@
 				<td width="50%">
 					<h3><%= t('titles.international_distributors') %></h3>
 
-					<%= form_tag search_distributors_path, method: :get %>
+					<%= form_tag distributor_search_new_path, method: :get %>
 						<p><%= label_tag t('select_your_country') %>:<br/>
-							<%= select_tag :country, options_from_collection_for_select(@countries, :country, :country, @country) %>
+									<%= select_tag :geo, 
+			            options_from_collection_for_select(ISO3166::Country.countries.sort_by(&:name), 'un_locode', 'name', country_code.upcase), 
+			           # class: 'chosen-select',
+			            prompt: "Select Your Country"
+			            %> 
 							<%= submit_tag t('submit') %>
 						</p>
 					</form>
