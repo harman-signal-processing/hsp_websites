@@ -21,7 +21,6 @@
             <div><h3>We didn't find a distributor in your country. Please contact us with the information below.</h3></div>
         	<% if addr = website.value_for("address_and_phone") %>
         	<div class="panel">
-        		<h4><%= t("titles.mailing_address") %></h4>
         		<p><%=raw addr %></p>
         	</div>
         	<% end %>
