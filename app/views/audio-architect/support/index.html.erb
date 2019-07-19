@@ -30,7 +30,7 @@
 					<%= form_tag distributor_search_new_path, method: :get %>
 						<p><%= label_tag t('select_your_country') %>:<br/>
 									<%= select_tag :geo, 
-			            options_from_collection_for_select(ISO3166::Country.countries.sort_by(&:name), 'un_locode', 'name', country_code.upcase), 
+			            options_from_collection_for_select(ISO3166::Country.countries.sort_by(&:name), 'un_locode', 'name', @country_code.upcase), 
 			           # class: 'chosen-select',
 			            prompt: "Select Your Country"
 			            %> 

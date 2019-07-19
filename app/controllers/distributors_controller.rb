@@ -6,8 +6,8 @@ class DistributorsController < ApplicationController
   # GET /distributors.xml
   def index
     brand = brand_name_to_use_when_getting_distributors
-    @selected_country_code = params[:geo].nil? ? "us" : params[:geo].downcase      
-    @distributors = get_international_distributors(brand, @selected_country_code)  
+    @country_code = params[:geo].nil? ? "us" : params[:geo].downcase
+    @distributors = get_international_distributors(brand, @country_code)  
     respond_to do |format|
       format.html { render_template }
     end
@@ -15,8 +15,8 @@ class DistributorsController < ApplicationController
 
   def index_new
     brand = brand_name_to_use_when_getting_distributors
-    @selected_country_code = params[:geo].nil? ? "us" : params[:geo].downcase      
-    @distributors = get_international_distributors(brand, @selected_country_code)  
+    @country_code = params[:geo].nil? ? "us" : params[:geo].downcase      
+    @distributors = get_international_distributors(brand, @country_code)  
     respond_to do |format|
       format.html { render_template }
     end    
@@ -28,8 +28,10 @@ class DistributorsController < ApplicationController
     if @country == "USA" || @country == "United States of America"
       redirect_to where_to_buy_path, status: :moved_permanently and return false
     end
-    @distributors = Distributor.find_all_by_country(@country, website)
-    @countries = Distributor.countries(website)
+    @country_code = ISO3166::Country.find_country_by_name(@country).alpha2
+    brand = brand_name_to_use_when_getting_distributors
+    
+    @distributors = get_international_distributors(brand, @country_code)
     respond_to do |format|
       format.html { render_template(action: "index") }
       # format.xml { render xml: @distributors }

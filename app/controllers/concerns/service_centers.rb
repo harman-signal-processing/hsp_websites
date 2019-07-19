@@ -3,7 +3,7 @@ module ServiceCenters
 	
   def get_service_centers(brand, state)
     
-    url = "https://pro.harman.com/service_centers/#{brand}/#{state.downcase}.json"
+    url = "https://pro.harman.com/service_centers/#{brand.downcase}/#{state.downcase}.json"
     encoded_url = URI.encode(url)
     
     response = HTTParty.get(encoded_url)

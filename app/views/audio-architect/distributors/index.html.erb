@@ -13,37 +13,39 @@
 
 <div class="row">
 
-	<div class="large-5 columns">
+	<div class="large-12 columns">
 		<p><%= t("blurbs.international_distributors") %></p>
 
 		<%= form_tag distributor_search_new_path, method: :get %>
 			<%= label_tag t('select_your_country') %>
 			<div class="row collapse">
-				<div class="large-9 small-8 columns">
-            <%= select_tag :geo, 
-            options_from_collection_for_select(ISO3166::Country.countries.sort_by(&:name), 'un_locode', 'name', @selected_country_code.upcase), 
-            # class: 'chosen-select',
-            prompt: "Select Your Country"
-            %> 
+				<div style="margin-bottom:20px;">
+		            <%= select_tag :geo, 
+		            options_from_collection_for_select(ISO3166::Country.countries.sort_by(&:name), 'un_locode', 'name', @country_code.upcase), 
+		            # class: 'chosen-select',
+		            prompt: "Select Your Country"
+		            %> 
+		            <%= submit_tag t('submit'), class: "postfix button", style:"margin-left:20px;" %>
 				</div>
-				<div class="large-3 small-4 columns">
-					<%= submit_tag t('submit'), class: "postfix button" %>
-				</div>
+
 			</div>
 		</form>
 	</div>
 
-<div class="large-6 large-offset-1 columns">
+</div> <!-- <div class="row"> -->
+
+<div class="row">
+<div class="large-12  columns">
 <% if @distributors.size > 0 %>
-		<ul class="large-block-grid-1 medium-block-grid-1 small-block-grid-1">
+		<ul class="large-block-grid-3 medium-block-grid-1 small-block-grid-1">
   		<% @distributors.each do |distributor| %>
       		<%=render_partial "support/distributor", distributor: distributor %>
   		<% end %> <%# @distributors.each do |distributor| %>
 		</ul>
 <% else %>	
-    <div>We didn't find a distributor in your country. Please contact us with the information below.</div>
+    <div style="margin-top:20px;">We didn't find a distributor in your country. Please contact us with the information below.</div>
   	<% if addr = website.value_for("address_and_phone") %>
-	  	<div class="panel">
+	  	<div class="panel" style="width:50%;">
 	  		<h4><%= t("titles.mailing_address") %></h4>
 	  		<p><%=raw addr %></p>
 	  	</div>
