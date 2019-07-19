@@ -3,7 +3,7 @@ module Rsos
 	
   def get_rsos(country_code)
     
-    url = "https://pro.harman.com/contact_info/rso/#{country_code}.json"
+    url = "https://pro.harman.com/contact_info/rso/#{country_code.downcase}.json"
     encoded_url = URI.encode(url)
     
     response = HTTParty.get(encoded_url)

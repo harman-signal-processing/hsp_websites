@@ -3,7 +3,7 @@ module Distributors
 	
   def get_international_distributors(brand, country_code)
     
-    url = "https://pro.harman.com/distributor_info/distributors/#{brand}/#{country_code}.json"
+    url = "https://pro.harman.com/distributor_info/distributors/#{brand.downcase}/#{country_code.downcase}.json"
     encoded_url = URI.encode(url)
     
     response = HTTParty.get(encoded_url)
