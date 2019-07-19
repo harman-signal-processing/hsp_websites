@@ -5,8 +5,7 @@ class DistributorsController < ApplicationController
   # GET /distributors
   # GET /distributors.xml
   def index
-    brand = @website.brand.name.downcase
-    brand = "axys tunnel by jbl" if brand == "duran audio"
+    brand = brand_name_to_use_when_getting_distributors
     @selected_country_code = params[:geo].nil? ? "us" : params[:geo].downcase      
     @distributors = get_international_distributors(brand, @selected_country_code)  
     respond_to do |format|
@@ -15,10 +14,12 @@ class DistributorsController < ApplicationController
   end
 
   def index_new
-    brand = @website.brand.name.downcase
-    brand = "axys tunnel by jbl" if brand == "duran audio"
+    brand = brand_name_to_use_when_getting_distributors
     @selected_country_code = params[:geo].nil? ? "us" : params[:geo].downcase      
-    @distributors = get_international_distributors(brand, @selected_country_code)   
+    @distributors = get_international_distributors(brand, @selected_country_code)  
+    respond_to do |format|
+      format.html { render_template }
+    end    
   end
 
   # PUT /distributors/search
@@ -49,12 +50,28 @@ class DistributorsController < ApplicationController
   def minimal
     @brand = Brand.find(params[:brand_id])
     
-    brand = @brand.name.downcase
-    brand = "axys tunnel by jbl" if brand == "duran audio"
+    brand = brand_name_to_use_when_getting_distributors
     @selected_country_code = params[:country].nil? ? "us" : params[:country].downcase     
     @distributors = get_international_distributors(brand, @selected_country_code)
 
     render layout: 'tiny'
   end
 
-end
+  private
+  
+  # Get the brand name to use when getting distributors from pro site
+  def brand_name_to_use_when_getting_distributors
+    brand_name = @website.brand.name.downcase
+    case brand_name
+    when "duran audio"
+      brand_name = "axys tunnel by jbl"
+    when "audio architect"
+      brand_name = "bss"
+    else
+      brand_name
+    end
+    
+    brand_name
+  end  #  def brand_name_to_use_when_getting_distributors
+
+end  #  class DistributorsController < ApplicationController
