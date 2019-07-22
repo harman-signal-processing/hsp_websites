@@ -1,9 +1,0 @@
-<% set_meta_tags reverse: true %>
-
-<%=render_partial "support/country_switch" %>
-
-<%if country_is_usa %>
-  <%=render_partial "support/parts_usa" %>
-<%else%>
-  <%=render_partial "support/parts_international" %>
-<%end%>
