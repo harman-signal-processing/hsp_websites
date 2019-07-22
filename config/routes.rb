@@ -743,9 +743,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     match '/international_distributors' => 'distributors#index_new', as: :international_distributors, via: :all
     match '/international_distributors_new' => 'distributors#index_new', as: :international_distributors_new, via: :all
     match '/sitemap(.:format)' => 'main#locale_sitemap', as: :locale_sitemap, via: :all
-    # match '/where_to_buy(/:zip)' => 'main#where_to_buy', as: :where_to_buy , via: :all
-    match '/where_to_buy(/:zip)' => 'main#where_to_buy_new', as: :where_to_buy , via: :all
-    match '/where_to_buy_new(/:zip)' => 'main#where_to_buy_new', as: :where_to_buy_new , via: :all
+    match '/where_to_buy(/:zip)' => 'main#where_to_buy', as: :where_to_buy , via: :all
+
     #match '/support(/:action(/:id))' => "support", as: :support, via: :all
     get '/support(/:product_id)' => "support#index", as: :support
     match '/community' => 'main#community', as: :community, via: :all

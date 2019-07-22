@@ -113,67 +113,6 @@ class MainController < ApplicationController
     render_template
   end
   
-  # This is temporary, this is only to allow testing with the new template, functionality of this method was not changed
-  def where_to_buy_new
-    @page_title = t('titles.where_to_buy')
-    @err = ""
-    @results = []
-    unless I18n.locale.to_s.match(/en/i)
-      redirect_to international_distributors_path and return
-    end
-    @us_regions = website.brand.us_regions_for_website
-    @us_region = UsRegion.new
-    if params[:zip]
-      session[:zip] = params[:zip]
-      @page_title += " " + t('near_zipcode', zip: params[:zip])
-
-      @results = []
-      count = 0
-      brand = Brand.find(website.dealers_from_brand_id || website.brand_id)
-      zip = params[:zip] #(params[:zip].to_s.match(/^\d*$/)) ? "zipcode #{params[:zip]}" : params[:zip]
-      @js_map_loader = ''
-
-      begin
-        if Rails.env.production?
-          origin = Geokit::Geocoders::MultiGeocoder.geocode(zip)
-          brand.dealers.near(origin: origin, within: 200).order("distance ASC").all.each do |d|
-            unless count > 15 || d.exclude? || filter_out?(d)
-              @results << d
-              count += 1
-            end
-          end
-        else # skipping geocoding for dev/test
-          brand.dealers.all.each do |d|
-            unless count > 15 || d.exclude? || filter_out?(d)
-              @results << d
-              count += 1
-            end
-          end
-        end
-      rescue
-        redirect_to(where_to_buy_path, alert: t('errors.geocoding')) and return false
-      end
-        # @results = brand.dealers.limit(20) # for testing
-
-      # Add those with exact zipcode matches if none have been found by geocoding
-      if count == 0 && params[:zip].to_s.match(/^\d*$/)
-        brand.dealers.where("zip LIKE ?", params[:zip]).each do |d|
-          unless count > 15 || d.exclude? || filter_out?(d)
-            @results << d
-            count += 1
-          end
-        end
-      end
-      unless @results.size > 0
-        @err = t('errors.no_dealers_found', zip: params[:zip])
-      else
-        @js_map_loader = "map_init('#{@results.first.lat}','#{@results.first.lng}',12,false)"
-      end
-    end
-    @countries = Distributor.countries(website)
-    @country = nil
-    render_template
-  end  #  def where_to_buy_new
 
   # Simple community start page. This could redirect to a phpBB folder
   # or an external site--or it could do nothing and simply render the
