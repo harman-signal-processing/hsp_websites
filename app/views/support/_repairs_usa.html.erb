@@ -16,7 +16,7 @@
           <div><h3>Below are the service centers for your location.</h3></div>
         	<div class="large-12 columns" data-equalizer="service-center-box">
         		<ul id="service_center_list" class="large-block-grid-2 medium-block-grid-1 small-block-grid-1 js-dynamic">
-	        		<% @service_centers.each do |service_center| %>
+	        		<% @service_centers.sort_by{|sc| [sc[:state], sc[:name]] }.each do |service_center| %>
 			        		<%=render_partial "support/service_center", service_center: service_center %>
 	        		<% end %> <%# @service_centers.each do |service_center| %>
 	        		

@@ -18,10 +18,10 @@ location[:country] = "us"
 			<div style="margin-top:10px;margin-bottom:30px;">
 
 					<div style="margin-top:10px;">
-    					<%=raw get_list_html({phones: [{label:"", phone: service_center[:phone]}]}, "phones", "phone") %>
     					<%service_center[:email].split("/").each do |email|%>
     						<%=raw get_list_html({emails: [{label:"", email: email}]}, "emails", "email") %>
     					<% end %>
+    					<%=raw get_list_html({phones: [{label:"", phone: service_center[:phone]}]}, "phones", "phone") %>
     					<%=raw get_list_html({websites: [{label:"", website: service_center[:website]}]}, "websites", "website") %>
     					
     					<% if service_center[:uses_rma_form] == true %>
