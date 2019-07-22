@@ -6,28 +6,20 @@ class DistributorsController < ApplicationController
   # GET /distributors.xml
   def index
     brand = brand_name_to_use_when_getting_distributors
-    @country_code = params[:geo].nil? ? "us" : params[:geo].downcase
+    @country_code = params[:geo].nil? ? (session['geo_country'].nil? ? "us" : session['geo_country']) : params[:geo].downcase
     @distributors = get_international_distributors(brand, @country_code)  
     respond_to do |format|
       format.html { render_template }
     end
-  end
-
-  def index_new
-    brand = brand_name_to_use_when_getting_distributors
-    @country_code = params[:geo].nil? ? "us" : params[:geo].downcase      
-    @distributors = get_international_distributors(brand, @country_code)  
-    respond_to do |format|
-      format.html { render_template }
-    end    
   end
 
   # PUT /distributors/search
   def search
-    @country = params[:country]
+    @country = params[:country].nil? ? "United States of America" : params[:country]
     if @country == "USA" || @country == "United States of America"
       redirect_to where_to_buy_path, status: :moved_permanently and return false
     end
+    
     @country_code = ISO3166::Country.find_country_by_name(@country).alpha2
     brand = brand_name_to_use_when_getting_distributors
     
