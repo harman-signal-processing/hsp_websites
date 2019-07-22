@@ -718,9 +718,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     match '/tone_library' => "tone_library_songs#index", as: :tone_library, via: :all
     match '/software' => 'softwares#index', as: :software_index, via: :all
     match '/support/warranty_registration(/:product_id)' => 'support#warranty_registration', as: :warranty_registration, via: :all
-    # match '/support/parts' => 'support#parts', as: :parts_request, via: :all
-    match '/support/parts' => 'support#parts_new', as: :parts_request, via: :all
-    match '/support/parts_new' => 'support#parts_new', as: :parts_request_new, via: :all
+    match '/support/parts' => 'support#parts', as: :parts_request, via: :all
     match '/support_new' => 'support#support_new', as: :support_new, via: :all
     match '/support/rma' => 'support#rma', as: :rma_request, via: :all
     match '/support/rma_repair' => 'support#rma', as: :rma_repair_request, message_type: "rma_repair_request", via: :all

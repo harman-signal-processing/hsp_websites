@@ -1,6 +1,6 @@
 <% set_meta_tags reverse: true %>
 
-<%= simple_form_for @contact_message, url: parts_request_new_path do |f| %>
+<%= simple_form_for @contact_message, url: parts_request_path do |f| %>
 
 	<div class="row">
 		<!-- left nav -->
@@ -43,11 +43,14 @@
 
 			<%= f.input :message, label: "Additional Info", input_html: { style: "height: 120px" } %>
 
-      <%= render_partial 'support/gdpr_consent' %>
-		</div>
+      		<%= render_partial 'support/gdpr_consent' %>
+      
+      		<p><%= submit_tag t('submit'), class: "button" %></p>
+      
+		</div><!-- <div class="large-8 columns"> -->
 	</div> <!-- <div class="row"> -->
 
 
-	<p><%= submit_tag t('submit'), class: "button" %></p>
+	
 
 <% end %>
