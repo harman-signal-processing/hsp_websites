@@ -21,22 +21,6 @@ class SupportController < ApplicationController
     render_template
   end
 
-  # This is temporary (for showing for coming support section)
-  def support_new
-    @contact_message = ContactMessage.new
-    @contact_message.require_country = true if require_country?
-    if params[:product_id]
-      if product = Product.find(params[:product_id])
-        if url_matches?("lexicon") && !product.discontinued?
-          redirect_to product_path(product, tab: "downloads_and_docs"), status: :moved_permanently and return
-        else
-          redirect_to product, status: :moved_permanently and return
-        end
-      end
-    end
-    render_template
-  end
-
   def tech_support
     if session['geo_usa']
       @contact_message = ContactMessage.new
