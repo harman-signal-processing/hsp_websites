@@ -622,7 +622,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get "signup" => "signups#new"
     get "signups" => "signups#new"
     get 'now-youll-know' => 'main#teaser_complete', as: :teaser_complete
-    get 'distributors/search_new' => 'distributors#index_new', as: :distributor_search_new
+    get 'distributors/search_new' => 'distributors#index', as: :distributor_search_new
     resources :us_reps, :distributors, only: [:index, :show] do
       collection { get :search }
     end
@@ -739,9 +739,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get "support/repairs" => "support#repairs"
     get "support/rsos" => "support#rsos"
 
-    # match '/international_distributors' => 'distributors#index', as: :international_distributors, via: :all
-    match '/international_distributors' => 'distributors#index_new', as: :international_distributors, via: :all
-    match '/international_distributors_new' => 'distributors#index_new', as: :international_distributors_new, via: :all
+    match '/international_distributors' => 'distributors#index', as: :international_distributors, via: :all
+
     match '/sitemap(.:format)' => 'main#locale_sitemap', as: :locale_sitemap, via: :all
     match '/where_to_buy(/:zip)' => 'main#where_to_buy', as: :where_to_buy , via: :all
 
