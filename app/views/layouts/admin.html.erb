@@ -231,7 +231,7 @@
                         <li><%= link_to "Dealers", admin_dealers_path %></li>
                       <% end %>
                       <% if can?(:manage, Distributor) && website.has_distributors? %>
-                        <li><%= link_to "Distributors", admin_distributors_path %></li>
+                        <li><%= link_to "Distributors", "https://pro.harman.com/distributor_info/admin/distributors", target: "_blank" %></li>
                       <% end %>
                       <% if (can?(:manage, SalesRegion) && website.send_contact_form_to_regional_support?) %>
                         <li><%= link_to "Global Sales Regions", admin_sales_regions_path %></li>
