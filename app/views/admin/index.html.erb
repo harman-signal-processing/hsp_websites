@@ -341,7 +341,7 @@
                   <dd><%= link_to "Dealers", admin_dealers_path %></dd>
                 <% end %>
                 <% if can?(:manage, Distributor) && website.has_distributors? %>
-                  <dd><%= link_to "Distributors", admin_distributors_path %></dd>
+                  <dd><%= link_to "Distributors", "https://pro.harman.com/distributor_info/admin/distributors", target: "_blank" %></dd>
                 <% end %>
                 <% if can?(:manage, UsRep) && website.has_us_sales_reps? %>
                   <dd><%= link_to "US Sales Reps", admin_us_reps_path %></dd>
@@ -369,27 +369,7 @@
                   <% end %>
                 <% end %>
               <% end %>
-              <% if can?(:manage, Distributor) && website.has_distributors? %>
-                <% if website.brand.distributors_from_brand_id.to_i > 0 %>
-                  <div class="alert-box secondary">
-                    Use the <%= Brand.find(website.distributors_from_brand_id).name %> site to manage distributors.
-                  </div>
-                <% else %>
-                  <%= search_form_for [:admin, Distributor.ransack], class: "custom" do |f| %>
-                    <div class="row collapse">
-                      <div class="large-8 small-6 columns">
-                        <%= f.text_field :country_cont, placeholder: "Distributor country contains..." %>
-                      </div>
-                      <div class="large-2 small-3 columns">
-                        <%= f.submit "Search", class: "postfix secondary button" %>
-                      </div>
-                      <div class="large-2 small-3 columns">
-                        <%= link_to "New", new_admin_distributor_path, class: "postfix round secondary button" %>
-                      </div>
-                    </div>
-                  <% end %>
-                <% end %>
-              <% end %>
+
               <% if can?(:manage, UsRep) && website.has_us_sales_reps? %>
                 <%= search_form_for [:admin, UsRep.ransack], class: "custom" do |f| %>
                   <div class="row collapse">
