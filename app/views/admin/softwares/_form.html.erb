@@ -3,7 +3,7 @@
     callback_param: "direct_upload_url",
     acl: "public-read",
     expiration: 24.hours.from_now.utc.iso8601,
-    max_file_size: 900.megabytes do %>
+    max_file_size: 5.gigabytes do %>
   <div class="row">
     <div class="large-8 columns">
       <p><%= "#{ @software.new_record? ? 'Start' : 'If you want to replace the file, start' } the upload before filling out the rest of the form:" %></p>
