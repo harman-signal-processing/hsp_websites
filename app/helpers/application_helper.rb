@@ -541,9 +541,7 @@ module ApplicationHelper
   end
 
   def country_name(country_code)
-    country = ISO3166::Country[country_code]
-    # country.translations[I18n.locale.to_s] || country.name
-    country.name
+    CountryList.countries.select {|country| country[:alpha2] == country_code.upcase}.first[:harman_name]
   end
   
   def country_code

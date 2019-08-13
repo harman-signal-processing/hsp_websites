@@ -7,7 +7,6 @@
 					<%=raw get_list_html(distributor, "phones", "phone") %>
 					<%=raw get_list_html(distributor, "websites", "url") %>        			
 				</div>				
-				
 				<% distributor[:locations].each do |location| %>
 					<div style="margin-top:10px;">
 	  				<div><strong><%= location[:name]%></strong></div>

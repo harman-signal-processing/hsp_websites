@@ -5,7 +5,7 @@
         </div>
         <div style="float:left; border: solid red 0px; width: 400px; margin-top: 4px; margin-left: 20px;">
             <%= select_tag "country-switch", 
-            options_from_collection_for_select(ISO3166::Country.countries.sort_by(&:name), 'un_locode', 'name', country_code.upcase), 
+            options_for_select(CountryList.countries.sort_by { |item| item[:harman_name]}.map {|country| [country[:harman_name], country[:alpha2]] }, country_code.upcase), 
             prompt: "Select Your Country", title:"https://www.countryflags.io/#{country_code}/flat/32.png",
             class: 'chosen-select'
             %>
