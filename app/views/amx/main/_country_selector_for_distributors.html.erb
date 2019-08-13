@@ -14,7 +14,7 @@
               <div class="row collapse">
                 <div class="large-8 small-7 columns">
 			            <%= select_tag :geo, 
-			            options_from_collection_for_select(ISO3166::Country.countries.sort_by(&:name), 'un_locode', 'name', country_code.upcase), 
+			            options_for_select(CountryList.countries.sort_by { |item| item[:harman_name]}.map {|country| [country[:harman_name], country[:alpha2]] }, country_code.upcase), 
 			           # class: 'chosen-select',
 			            prompt: "Select Your Country"
 			            %> 
