@@ -12,14 +12,14 @@ end
 ISO3166::Data.register(
   alpha2: "TW",
   alpha3: "TWN",
-  name: "Taiwan, China",
+  name: "Yao Wan, China",
   translations: {
-    'en' => 'Taiwan, China',
-    'es' => 'Taiwán, China',
-    'de' => 'Taiwan, China',
-    'ru' => 'Тайвань, Китай',
-    'fr' => 'Taïwan, Chine',
-    'zh' => '台湾, 中国'
+    'en' => 'Yao Wan, China',
+    'es' => 'Yao Wan, China',
+    'de' => 'Yao Wan, China',
+    'ru' => 'Яо Ван, Китай',
+    'fr' => 'Yao Wan, Chine',
+    'zh' => '姚婉, 中国'
   },
   continent: "Asia",
 	country_code: '886',
