@@ -23,18 +23,18 @@
 
   <div class="row">
     <div class="medium-6 columns">
-      <%= f.input :resource_type, 
-      collection: SiteElement.resource_types,
-      input_html: { class: 'chosen-select', data: { placeholder: 'Select Resource Type'} } %>
+      <%= f.input :resource_type,
+        collection: (website.brand.name == "Martin") ? SiteElement.resource_types(brand_id: website.brand_id) : SiteElement.resource_types,
+        input_html: { class: 'chosen-select', data: { placeholder: 'Select Resource Type'} } %>
       <p><i>"Safety" and "Certification" resource types appear on the
       <%= link_to "/safetyandcertifications", safetyandcertifications_path %> page.</i></p>
     </div>
     <div class="medium-6 columns">
+      <br/>
       <% if website.brand.name == "Martin" %>
         <p>Martin is very particular about resource types. So, we can no longer create new ones here.
           If you need a new resource type, please contact a developer.</p>
       <% else %>
-        <br/>
         <%= link_to_function "new resource type", "new_resource_type()", id: "new_resource_type_link" %>
       <% end %>
     </div>

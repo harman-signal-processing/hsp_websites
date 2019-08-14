@@ -34,11 +34,13 @@ class SiteElement < ApplicationRecord
   before_save :set_upload_attributes
   after_save :queue_processing
 
-  def self.resource_types
-    defaults = ["Wallpaper"]
+  def self.resource_types(options={})
+    defaults = ["Image"]
     begin
-      from_db = select("distinct(resource_type)").order("resource_type").all.collect{|r| r.resource_type}
-      (from_db + defaults).uniq.sort{|a,b| a.downcase <=> b.downcase}
+      db_resource_types = (options.length > 0) ?
+        where(options).pluck(:resource_type) :
+        pluck(:resource_type)
+      (db_resource_types.uniq + defaults).uniq.sort{|a,b| a.downcase <=> b.downcase}
     rescue
       defaults
     end
