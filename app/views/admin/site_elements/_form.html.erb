@@ -30,8 +30,13 @@
       <%= link_to "/safetyandcertifications", safetyandcertifications_path %> page.</i></p>
     </div>
     <div class="medium-6 columns">
-      <br/>
-      <%= link_to_function "new resource type", "new_resource_type()", id: "new_resource_type_link" %>
+      <% if website.brand.name == "Martin" %>
+        <p>Martin is very particular about resource types. So, we can no longer create new ones here.
+          If you need a new resource type, please contact a developer.</p>
+      <% else %>
+        <br/>
+        <%= link_to_function "new resource type", "new_resource_type()", id: "new_resource_type_link" %>
+      <% end %>
     </div>
   </div>
 
