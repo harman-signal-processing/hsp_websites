@@ -9,6 +9,8 @@ CountrySelect::FORMATS[:default] = lambda do |country|
   ]
 end
 
+COUNTRY_EXCLUSIONS = %w(HK TW MO)
+
 ISO3166::Data.register(
   alpha2: "TW",
   alpha3: "TWN",

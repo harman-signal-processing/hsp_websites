@@ -11,7 +11,7 @@
       <%= f.input :first_name, required: true %>
       <%= f.input :last_name, required: true %>
       <%= f.input :email, placeholder: "your@email.com", required: true %>
-      <%= f.input :country %>
+      <%= f.input :country, except: COUNTRY_EXCLUSIONS %>
     </div>
 	</div>
   <%= f.submit "signup", class: "button" %>

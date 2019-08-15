@@ -5,7 +5,7 @@
    <%= f.input :city %>
    <%= f.input :state %>
    <%= f.input :zip %>
-   <%= f.input :country %>
+   <%= f.input :country, except: COUNTRY_EXCLUSIONS %>
    <%= f.input :telephone %>
    <%= f.input :fax %>
    <%= f.input :email %>

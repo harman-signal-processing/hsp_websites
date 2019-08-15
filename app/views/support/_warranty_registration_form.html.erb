@@ -29,7 +29,7 @@
 		</div>
 		<div class="row">
 			<div class="large-6 columns">
-				<%= f.input :country, required: true %>
+				<%= f.input :country, required: true, except: COUNTRY_EXCLUSIONS %>
 			</div>
 		</div>
 

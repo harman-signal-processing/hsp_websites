@@ -82,7 +82,7 @@ our efforts.</p>
         <%= f.input :phone %>
       </div>
       <div class="small-12 medium-6 columns">
-        <%= f.input :country %>
+        <%= f.input :country, except: COUNTRY_EXCLUSIONS %>
       </div>
     </div>
   <% end %>

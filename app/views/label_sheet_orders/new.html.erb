@@ -37,7 +37,7 @@
 		<%= f.input :city %>
 		<%= f.input :state %>
 		<%= f.input :postal_code %>
-		<%= f.input :country %>
+		<%= f.input :country, except: COUNTRY_EXCLUSIONS %>
 		<%= f.input :subscribe, label: "Notify me when new epedals and labels are available, and notify me with special offers from #{website.brand.name}." %>
 	</div>
 
