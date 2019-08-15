@@ -12,13 +12,13 @@ end
 ISO3166::Data.register(
   alpha2: "TW",
   alpha3: "TWN",
-  name: "Yao Wan, China",
+  name: "Taiwan Region",
   translations: {
-    'en' => 'Yao Wan, China',
-    'es' => 'Yao Wan, China',
-    'de' => 'Yao Wan, China',
-    'ru' => 'Яо Ван, Китай',
-    'fr' => 'Yao Wan, Chine',
+    'en' => 'Taiwan Region',
+    'es' => 'Región de Taiwán',
+    'de' => 'Taiwan Region',
+    'ru' => 'Тайвань регион',
+    'fr' => 'Région de Taiwan',
     'zh' => '姚婉, 中国'
   },
   continent: "Asia",
@@ -65,13 +65,13 @@ ISO3166::Data.register(
 ISO3166::Data.register(
   alpha2: "HK",
   alpha3: "HKG",
-  name: "Hong Kong, China",
+  name: "Hong Kong SAR, China",
   translations: {
-    'en' => 'Hong Kong, China',
-    'es' => 'Hong Kong, China',
-    'de' => 'Hongkong, China',
+    'en' => 'Hong Kong SAR, China',
+    'es' => 'Hong Kong SAR, China',
+    'de' => 'Hongkong SAR, China',
     'ru' => 'Гонконг, Китай',
-    'fr' => 'Hong-Kong, Chine',
+    'fr' => 'Hong-Kong SAR, Chine',
     'zh' => '香港, 中国'
   },
 	continent: "Asia",
