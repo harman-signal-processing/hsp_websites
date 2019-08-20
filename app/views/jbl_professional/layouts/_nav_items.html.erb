@@ -37,6 +37,11 @@
     <li><%= link_to t('installations').titleize, installations_path %></li>
   <% end %>
 
+  <% if website.has_training? %>
+    <li class="divider hide-for-medium"></li>
+    <li><%= link_to t('training').titleize, training_path %></li>
+  <% end %>
+
 	<% if website.has_artists? %>
     <li class="divider hide-for-medium"></li>
     <li><%= link_to t('artists').titleize, artists_path %></li>

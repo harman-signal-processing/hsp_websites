@@ -1,0 +1,32 @@
+<%= simple_form_for [:admin, @training_course, @training_class] do |f| %>
+  <p>Course: <%= link_to @training_course.name, [:admin, @training_course] %></p>
+  <div class="row">
+    <div class="medium-6 columns">
+      <%= f.association :instructor, collection: User.where(clinician: true).order(:email) %>
+    </div>
+    <div class="medium-6 columns">
+      <br/>
+      <p>Instructor options come from the "User" database. Super admins can manage these.
+      Make sure the user has the "Clinician" role.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="medium-6 columns">
+      <%= f.input :location %>
+    </div>
+    <div class="medium-6 columns">
+      <%= f.input :language, collection: HarmanSignalProcessingWebsite::Application.config.document_languages %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="medium-6 columns">
+      <%= f.input :start_at, as: :string, input_html: { class: 'ui-datetimepicker' } %>
+    </div>
+    <div class="medium-6 columns">
+      <%= f.input :end_at, as: :string, input_html: { class: 'ui-datetimepicker' } %>
+    </div>
+  </div>
+
+  <%= f.submit "Submit", class: "button" %>
+
+<% end %>
