@@ -1,0 +1,82 @@
+<% set_meta_tags title: @page_title,
+				 reverse: true %>
+
+<h1 class="page_title"><%= @page_title %></h1>
+
+<% if @training_courses.length > 0 %>
+  <ul class="small-block-grid-12 medium-block-grid-3 large-block-grid-<%= @training_courses.length %>">
+    <% @training_courses.each do |training_course| %>
+      <li>
+        <h4><%= training_course.name %></h4>
+        <div>
+          <%=raw training_course.short_description %>
+        </div>
+        <%= link_to t('more_info'),
+          (training_course.more_info_url.present?) ? training_course.more_info_url : training_course,
+          target: (training_course.more_info_url.present?) ? "_blank" : "" %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if @upcoming_classes.length > 0 %>
+  <% @upcoming_classes.each do |training_class| %>
+    <div class="row training_class_row collapse">
+      <div class="small-12 medium-8 large-10 columns">
+        <h5><%= training_class.name %></h5>
+        Date(s): <%=l training_class.start_at, format: :log %>
+        <% if training_class.end_at.present? %>
+          - <%=l training_class.end_at, format: :log %>
+        <% end %>
+      </div>
+      <div class="small-12 medium-4 large-2 columns text-right">
+        <%= link_to "Register", new_training_course_training_class_training_class_registration_path(training_class.training_course, training_class), class: "tiny button" %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="row">
+  <% if @software_training_modules.length > 0 %>
+    <div class="large-6 columns">
+      <h3>Software Training Modules</h3>
+      <% @software_training_modules.collect{|stm| stm.active_softwares}.flatten.uniq.each do |software| %>
+        <h4 class="subheader"><%= software.name %></h4>
+        <ol class="list">
+          <% @software_training_modules.each do |stm| %>
+          <% if stm.active_softwares.include?(software) %>
+          <li> <%= link_to stm.name, (stm.training_module_file_name.to_s.match(/mov$/i)) ? stm.training_module.url('original', false) : stm %> </li>
+          <% end %>
+          <% end %>
+        </ol>
+      <% end %>
+    </div>
+  <% end %>
+  <% if (@product_training_modules - @software_training_modules).length > 0 %>
+    <div class="large-6 columns">
+      <h3>Hardware Training Modules</h3>
+      <ul class="list">
+        <% (@product_training_modules - @software_training_modules).each do |ptm| %>
+        <li> <%= link_to ptm.name, (ptm.training_module_file_name.to_s.match(/mov$/i)) ? ptm.training_module.url('original', false) : ptm %>
+          <div class="hint"><%= ptm.products.collect{|p| p.name}.join(", ") %></div>
+          <br/>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="small-12 medium-6 columns">
+    <h3>HARMAN Professional University</h3>
+    <%= link_to "Login", "https://traininglogin.harmanpro.com/", target: "_blank"%>
+  </div>
+  <div class="small-12 medium-6 columns">
+    <% if website.live_online_training_url %>
+      <h3>Live/Online Training from <%= website.brand.name %></h3>
+      <%= link_to "Login", website.live_online_training_url, target: "_blank" %>
+    <% end %>
+  </div>
+</div>
+

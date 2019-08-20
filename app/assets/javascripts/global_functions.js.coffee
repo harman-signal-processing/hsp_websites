@@ -20,6 +20,7 @@ jQuery ($) ->
     maxDate: 0
 
   $('.ui-datetimepicker').datetimepicker
+    dateFormat: "DD, MM d, yy"
     ampm: true
 
   $("div#purchased_on_picker").datepicker

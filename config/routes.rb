@@ -500,6 +500,12 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         collection { post :update_order }
       end
 
+      resources :training_courses do
+        resources :training_classes do
+          resources :training_class_registrations
+        end
+      end
+
       resources :vip_programmers,
         :vip_locations,
         :vip_global_regions,
@@ -561,7 +567,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :contact_messages,
         :product_cabinets,
         :online_retailers,
-        :training_classes,
         :training_modules,
         :product_effects,
         :website_locales,
@@ -656,8 +661,13 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         get :touring
       }
     end
-    resources :training_modules, :training_classes, only: [:index, :show]
-    get 'training' => 'support#training', as: :training
+    get 'training' => 'training#index', as: :training
+    resources :training_modules, only: [:index, :show]
+    resources :training_courses, only: [:show] do
+      resources :training_classes, only: :show do
+        resources :training_class_registrations
+      end
+    end
     resources :market_segments,
       :pages,
       :installations,

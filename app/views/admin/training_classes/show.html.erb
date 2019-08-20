@@ -1,49 +1,40 @@
 <h1><%= @training_class.name %></h1>
 
 <ul class="button-group round">
-	<li><%= link_to 'Back', admin_training_classes_path, class: "small secondary button" %></li>
-	<li><%= link_to 'Edit', edit_admin_training_class_path(@training_class), class: "small secondary button" %> </li>
-	<li><%= link_to 'Delete', [:admin, @training_class], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+	<li><%= link_to 'Back', [:admin, @training_course], class: "small secondary button" %></li>
+	<li><%= link_to 'Edit', edit_admin_training_course_training_class_path(@training_course, @training_class), class: "small secondary button" %> </li>
+	<li><%= link_to 'Delete', [:admin, @training_course, @training_class], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
 </ul>
 
-<% if can?(:manage, ProductTrainingClass) %>
-<div class="group">
-	<h3>Products associated with this training class:</h3>
-	<%= form_for [:admin, @product_training_class], remote: true do |f| %>
-		<%= hidden_field_tag "called_from", "training_class" %>
-    	<%= f.hidden_field :training_class_id %>
-		<%= f.collection_select :product_id, website.products, :id, :name %> 
-		<%= submit_tag 'add existing product', class: "small round button"  %>
-		<%= link_to 'create a new product', new_admin_product_path %>
-	<% end %>
 
-	<ul id="product_training_classes">
-		<% @training_class.product_training_classes.each do |ptm| %>
-			<%= render '/admin/shared/product_training_class_row', ptm: ptm, called_from: 'training_class' %>
-		<% end %>
-	</ul>
-</div>
+<% if @training_class.instructor.present? %>
+<p>
+  <b>Instructor:</b> <%= @training_class.instructor.name %> (<%= @training_class.instructor.email %>)
+</p>
 <% end %>
 
-<% if website.has_software? && can?(:manage, SoftwareTrainingClass) %>
-<div id="software" class="group">
-	<h3>Related Software</h3>
-	<%= form_for [:admin, @software_training_class], remote: true do |f| %>
-		<p>
-			<%= f.collection_select :software_id, 
-					Software.where(brand_id: website.brand_id).all.sort_by(&:formatted_name),
-					:id, :formatted_name %>
-			&nbsp;
-			<%= hidden_field_tag "called_from", "training_class" %>
-			<%= f.hidden_field :training_class_id %>
-			<%= submit_tag 'submit', class: "small round button"  %> 
-			or <%= link_to "upload new software", new_admin_software_path %>
-		</p>
-	<% end %>	
-	<ul id="software_training_classes">
-		<% @training_class.software_training_classes.each do |stm| %>
-			<%= render "/admin/shared/software_training_class_row", stm: stm, called_from: 'training_class' %>
-		<% end %>
-	</ul>
-</div>
-<% end %>
+<p><b>When:</b> <%=l @training_class.start_at, format: :log %> to <%=l @training_class.end_at, format: :log %></p>
+<p><b>Where:</b> <%= @training_class.location %></p>
+<p><b>What:</b> <%= @training_course.name %></p>
+
+<hr/>
+<h3>Registrations</h3>
+
+<table>
+  <thead>
+    <tr>
+      <td>Name</td>
+      <td>Email</td>
+      <td>Comments</td>
+    </tr>
+  </thead>
+  <tbody>
+  <% @training_class.training_class_registrations.each do |tcr| %>
+    <tr>
+      <td><%= tcr.name %></td>
+      <td><%= tcr.email %></td>
+      <td><%= tcr.comments %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

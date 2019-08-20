@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_26_151431) do
+ActiveRecord::Schema.define(version: 2019_07_30_153616) do
 
   create_table "access_levels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -1897,9 +1897,17 @@ ActiveRecord::Schema.define(version: 2019_06_26_151431) do
     t.index ["slug"], name: "index_toolkit_resources_on_slug"
   end
 
-  create_table "training_classes", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+  create_table "training_class_registrations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "training_class_id"
     t.string "name"
-    t.integer "brand_id"
+    t.string "email"
+    t.text "comments"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["training_class_id"], name: "index_training_class_registrations_on_training_class_id"
+  end
+
+  create_table "training_classes", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.datetime "start_at"
     t.datetime "end_at"
     t.string "language"
@@ -1907,14 +1915,29 @@ ActiveRecord::Schema.define(version: 2019_06_26_151431) do
     t.string "more_info_url"
     t.string "location"
     t.boolean "filled"
-    t.string "class_info_file_name"
-    t.integer "class_info_file_size"
-    t.string "class_info_content_type"
-    t.datetime "class_info_updated_at"
     t.boolean "canceled"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["brand_id"], name: "index_training_classes_on_brand_id"
+    t.integer "training_course_id"
+    t.index ["training_course_id"], name: "index_training_classes_on_training_course_id"
+  end
+
+  create_table "training_courses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.integer "brand_id"
+    t.text "description"
+    t.string "cached_slug"
+    t.string "send_registrations_to"
+    t.string "image_file_name"
+    t.integer "image_file_size"
+    t.datetime "image_updated_at"
+    t.string "image_content_type"
+    t.text "short_description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "more_info_url"
+    t.index ["brand_id"], name: "index_training_courses_on_brand_id"
+    t.index ["cached_slug"], name: "index_training_courses_on_cached_slug"
   end
 
   create_table "training_modules", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|

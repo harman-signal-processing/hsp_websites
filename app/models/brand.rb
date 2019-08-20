@@ -23,7 +23,8 @@ class Brand < ApplicationRecord
   has_many :settings
   has_many :site_elements
   has_many :training_modules
-  has_many :training_classes
+  has_many :training_courses
+  has_many :training_classes, through: :training_courses
   has_many :pricing_types, -> { order('pricelist_order') }
   has_many :brand_toolkit_contacts, -> { order('position').includes(:user) }
   has_many :us_rep_regions
@@ -356,4 +357,7 @@ class Brand < ApplicationRecord
     self.respond_to?(:use_flattened_specs) && !!(self.use_flattened_specs.to_i > 0)
   end
 
+  def upcoming_training_classes
+    training_classes.where("start_at >= ?", Date.today).order(:start_at)
+  end
 end

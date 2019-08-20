@@ -1,0 +1,17 @@
+<p>Hello,</p>
+
+<p>The following training class registration was received via the website. Please
+register the customer for the given class and confirm the registration with them.</p>
+
+<p>Training Class:<br/>
+<%= @training_class_registration.training_class.name %><br/>
+Date(s): <%=l @training_class_registration.training_class.start_at, format: :log %>
+<% if @training_class_registration.training_class.end_at.present? %>
+  - <%=l @training_class_registration.training_class.end_at, format: :log %>
+<% end %>
+</p>
+
+<p><b>Name:</b> <%= @training_class_registration.name %></p>
+<p><b>Email:</b> <%= @training_class_registration.email %></p>
+<p><b>Comments:</b><br/>
+<%= @training_class_registration.comments %></p>

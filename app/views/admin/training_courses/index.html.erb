@@ -1,0 +1,17 @@
+<h1>Training Courses</h1>
+
+<p>Note: A "Training Course" usually is not a one-time event. It will have one or more sessions
+which are loaded as a "Training Class" after creating the course.</p>
+
+<ul class="button-group round">
+	<li><%= link_to "New Training Course", new_admin_training_course_path, class: "small success button" %></li>
+</ul>
+
+<ul>
+	<% @training_courses.each do |training_course| %>
+    <li>
+      <%= link_to training_course.name, [:admin, training_course] %>
+      (<%= pluralize(training_course.upcoming_classes.count, "upcoming class", plural: "upcoming classes") %>)
+    </li>
+	<% end %>
+</ul>

@@ -60,6 +60,14 @@ class SiteMailer < ActionMailer::Base
          subject: "New System Configuration Submitted")
   end
 
+  def training_class_registration_notice(training_class_registration)
+    @training_class_registration = training_class_registration
+
+    mail(to: @training_class_registration.registration_recipients,
+         from: @training_class_registration.email,
+         subject: @training_class_registration.training_class.name)
+  end
+
   def fixtures_request(data)
     @fixtures_request = data
     if @fixtures_request.attachment.present?

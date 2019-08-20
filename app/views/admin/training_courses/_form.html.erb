@@ -1,0 +1,10 @@
+<%= simple_form_for [:admin, @training_course] do |f| %>
+  <%= f.input :name %>
+  <%= f.input :short_description %>
+  <%= f.input :more_info_url, hint: "Use only for courses residing outside of this website.", placeholder: "http://..." %>
+  <%= f.input :image %>
+  <%= f.input :send_registrations_to, placeholder: "example: someone.cool@harman.com"%>
+  <%= f.input :description, label: "Landing page content",
+    as: :text, input_html: { class: "mceEditor", style: "height: 300px;"} %><br/>
+  <%= f.button :submit, class: "button" %>
+<% end %>

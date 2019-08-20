@@ -1,0 +1,40 @@
+<h1><%= @training_course.name %></h1>
+
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_training_courses_path, class: "small secondary button" %></li>
+	<li><%= link_to 'Edit', edit_admin_training_course_path(@training_course), class: "small secondary button" %> </li>
+	<li><%= link_to 'Delete', [:admin, @training_course], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
+
+<p>Short description: <%= @training_course.short_description %></p>
+<p>Send registrations to: <%= @training_course.send_registrations_to %></p>
+<p>More info URL: <%= @training_course.more_info_url %></p>
+
+<% if can?(:manage, TrainingClass) %>
+  <div class="group">
+    <h3>Classes scheduled for this training course:</h3>
+    <%= link_to 'Add A Class', new_admin_training_course_training_class_path(@training_course), class: "small success button" %>
+
+    <table>
+      <thead>
+        <tr>
+          <td>Location</td>
+          <td>When</td>
+          <td>Instructor</td>
+          <td>Registrations</td>
+        </tr>
+      </thead>
+      <tbody>
+      <% @training_course.training_classes.each do |tc| %>
+        <tr>
+          <td><%= link_to tc.location, [:admin, @training_course, tc] %></td>
+          <td><%=l tc.start_at.to_date, format: :short %></td>
+          <td><%= tc.instructor.name if tc.instructor.present? %></td>
+          <td><%= tc.training_class_registrations.length %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
