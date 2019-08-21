@@ -48,18 +48,18 @@
 <div id="software" class="group">
 	<h4 class="subheader">Related Products</h4>
 	<%= simple_form_for [:admin, @product_software], remote: true do |f| %>
-		<%= f.association :product, 
-		label: false, 
+		<%= f.association :product,
+		label: false,
 		collection: Product.not_associated_with_this_software(@software, website),
 		input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Related Products'} }%>
 
 		<%= hidden_field_tag "called_from", "software" %>
 		<%= f.hidden_field :software_id %>
-		<%= submit_tag 'submit', class: "small round button", style: "margin-top:10px;"  %> 
+		<%= submit_tag 'submit', class: "small round button", style: "margin-top:10px;"  %>
 		<% if can? :create, Product %>
 		or <%= link_to "create a new product", new_admin_product_path %>
 		<% end %>
-	<% end %>	
+	<% end %>
 	<ul id="product_softwares" class="list">
 		<% @software.product_softwares.each do |product_software| %>
 			<%= render "/admin/shared/product_software_row", ps: product_software, called_from: 'software' %>
@@ -85,7 +85,7 @@
 	<ul id="software_attachments_list" class="list">
 		<% @software.software_attachments.each do |sa| %>
 		<% if !sa.software_attachment_file_name.blank? %>
-			<%= render '/admin/shared/software_attachment_row', sa: sa %>		
+			<%= render '/admin/shared/software_attachment_row', sa: sa %>
 		<% end %>
 		<% end %>
 	</ul>
@@ -98,32 +98,13 @@
 		<%= f.association :training_module, label: false, collection: website.training_modules %>
 		<%= hidden_field_tag "called_from", "software" %>
 		<%= f.hidden_field :software_id %>
-		<%= submit_tag 'submit', class: "small round button"  %> 
+		<%= submit_tag 'submit', class: "small round button"  %>
 		or <%= link_to "add new training module", new_admin_training_module_path %>
-	<% end %>	
+	<% end %>
 
 	<ul id="software_training_modules" class="list">
 		<% @software.software_training_modules.each do |stm| %>
 			<%= render "/admin/shared/software_training_module_row", stm: stm, called_from: 'software' %>
-		<% end %>
-	</ul>
-</div>
-<% end %>
-
-<% if website.has_training? && can?(:manage, SoftwareTrainingClass) %>
-<div class="group">
-	<h4 class="subheader">Training Classes</h4>
-	<%= simple_form_for [:admin, @software_training_class], remote: true do |f| %>
-		<%= hidden_field_tag "called_from", "software" %>
-    	<%= f.hidden_field :training_class_id %>
-		<%= f.association :training_class, label: false, collection: website.training_classes %> 
-		<%= submit_tag 'add existing training class', class: "small round button"  %>
-		<%= link_to 'create a new training class', new_admin_training_class_path %>
-	<% end %>
-
-	<ul id="software_training_classes" class="list">
-		<% @software.software_training_classes.each do |stc| %>
-			<%= render '/admin/shared/software_training_class_row', stc: stc, called_from: 'software' %>
 		<% end %>
 	</ul>
 </div>

@@ -222,25 +222,6 @@
 			</div>
 		<% end %>
 
-		<% if website.has_training? && can?(:manage, ProductTrainingClass) %>
-			<div class="group">
-				<h5 class="subheader">Training classes for this product:</h3>
-				<%= simple_form_for [:admin, @product_training_class], remote: true do |f| %>
-					<%= hidden_field_tag "called_from", "product" %>
-			    	<%= f.hidden_field :product_id %>
-					<%= f.association :training_class, collection: website.training_classes %>
-					<%= submit_tag 'add existing training class', class: "small round button"  %>
-					<%= link_to 'create a new training class', new_admin_training_class_path %>
-				<% end %>
-
-				<ul id="product_training_classes" class="list">
-					<% @product.product_training_classes.each do |ptc| %>
-						<%= render '/admin/shared/product_training_class_row', ptc: ptc, called_from: 'product' %>
-					<% end %>
-				</ul>
-			</div>
-		<% end %>
-
 		<% if website.has_online_retailers? && can?(:manage, OnlineRetailer) && !@product.hide_buy_it_now_button %>
 			<div class="group">
 				<h5 class="subheader">Buy-it-now Links</h5>

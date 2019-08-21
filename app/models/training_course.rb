@@ -12,6 +12,7 @@ class TrainingCourse < ApplicationRecord
       tiny_square: "64x64#"
     }
   }.merge(S3_STORAGE)
+  validates_attachment :image, content_type: { content_type: /\Aimage/i }
 
   has_many :training_classes
   belongs_to :brand
