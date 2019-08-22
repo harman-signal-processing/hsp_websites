@@ -63,7 +63,7 @@ feature "User browses training courses" do
       visit training_path
 
       expect(page).to have_content("HARMAN Professional University")
-      expect(page).to have_link("Login", href: "https://traininglogin.harmanpro.com/")
+      expect(page).to have_link("Get started", href: "https://traininglogin.harmanpro.com/")
     end
 
     it "should link to brand-specific online training portal (if any)" do
@@ -72,7 +72,7 @@ feature "User browses training courses" do
       visit training_path
 
       expect(page).to have_content("Live/Online Training from #{ @brand.name }")
-      expect(page).to have_link("Login", href: "http://foo.com")
+      expect(page).to have_link("Get started", href: "http://foo.com")
     end
 
     it "should show the short description of the course" do

@@ -4,22 +4,37 @@
 <h1 class="page_title"><%= @page_title %></h1>
 
 <% if @training_courses.length > 0 %>
-  <ul class="small-block-grid-12 medium-block-grid-3 large-block-grid-<%= @training_courses.length %>">
-    <% @training_courses.each do |training_course| %>
-      <li>
-        <h4><%= training_course.name %></h4>
-        <div>
-          <%=raw training_course.short_description %>
-        </div>
-        <%= link_to t('more_info'),
-          (training_course.more_info_url.present?) ? training_course.more_info_url : training_course,
-          target: (training_course.more_info_url.present?) ? "_blank" : "" %>
-      </li>
-    <% end %>
-  </ul>
+  <div data-equalizer="tc-desc" style="display: table">
+    <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-<%= @training_courses.length %>" data-equalizer="tc-image">
+      <% @training_courses.each do |training_course| %>
+        <li>
+          <div class="panel">
+            <div class="text-center tc_image" data-equalizer-watch="tc-image" style="display: table-cell; vertical-align: middle;">
+              <% if training_course.image.present? %>
+                <%= image_tag training_course.image.url, alt: training_course.name %>
+              <% end %>
+            </div>
+            <div class="tc_desc" data-equalizer-watch="tc-desc">
+              <h4><%= training_course.name %></h4>
+              <div> <%=raw training_course.short_description %> </div>
+            </div>
+            <div class="text-center">
+              <br/>
+              <%= link_to t('more_info'),
+                (training_course.more_info_url.present?) ? training_course.more_info_url : training_course,
+                target: (training_course.more_info_url.present?) ? "_blank" : "",
+                class: "medium button" %>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 <% end %>
 
 <% if @upcoming_classes.length > 0 %>
+  <br/>
+  <h2>Global Education Schedule</h2>
   <% @upcoming_classes.each do |training_class| %>
     <div class="row training_class_row collapse">
       <div class="small-12 medium-8 large-10 columns">
@@ -30,10 +45,18 @@
         <% end %>
       </div>
       <div class="small-12 medium-4 large-2 columns text-right">
-        <%= link_to "Register", new_training_course_training_class_training_class_registration_path(training_class.training_course, training_class), class: "tiny button" %>
+        <%= link_to "Register",
+          new_training_course_training_class_training_class_registration_path(training_class.training_course, training_class),
+          class: "tiny button",
+          data: {
+            :"reveal-ajax" => true,
+            :"reveal-id" => "regform-modal"
+          } %>
       </div>
     </div>
   <% end %>
+  <div id="regform-modal" class="reveal-modal" data-reveal aria-labelledby="Registration Form" aria-hidden="true" role="dialog">
+  </div>
 <% end %>
 
 <div class="row">
@@ -67,15 +90,45 @@
   <% end %>
 </div>
 
+<br/>
+<h2>Online Education Portal</h2>
 <div class="row">
   <div class="small-12 medium-6 columns">
-    <h3>HARMAN Professional University</h3>
-    <%= link_to "Login", "https://traininglogin.harmanpro.com/", target: "_blank"%>
+    <div class="row">
+      <div class="small-12 medium-12 large-4 columns">
+        <%= link_to "https://traininglogin.harmanpro.com", target: "_blank" do %>
+          <%= image_tag "hpu-logo.jpg", alt: "Harman Pro University Logo", style: "margin-top: 10px" %>
+        <% end %>
+      </div>
+      <div class="small-12 medium-12 large-8 columns">
+        <%= link_to "https://traininglogin.harmanpro.com/", target: "_blank" do %>
+          <h4>HARMAN Professional University</h4>
+        <% end %>
+        <p>Certification courses and in-depth training content. <i>Requires creating an account</i>.
+          <%= link_to "Get started.", "https://traininglogin.harmanpro.com/", target: "_blank" %>
+        </p>
+      </div>
+    </div>
   </div>
   <div class="small-12 medium-6 columns">
     <% if website.live_online_training_url %>
-      <h3>Live/Online Training from <%= website.brand.name %></h3>
-      <%= link_to "Login", website.live_online_training_url, target: "_blank" %>
+      <div class="row">
+        <div class="small-12 medium-12 large-4 columns">
+          <% if website.live_online_training_url.to_s.match?(/youtube/i) %>
+            <%= link_to website.live_online_training_url, target: "_blank" do %>
+              <%= image_tag "yt-logo.jpg", alt: "YouTube Logo", style: "margin-top: 10px" %>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="small-12 medium-12 large-8 columns">
+          <%= link_to website.live_online_training_url, target: "_blank" do %>
+            <h4>Live/Online Training from <%= website.brand.name %></h4>
+          <% end %>
+          <p>Quick tutorials and overviews. <i>No login required.</i>
+            <%= link_to "Get started.", website.live_online_training_url, target: "_blank" %>
+          </p>
+        </div>
+      </div>
     <% end %>
   </div>
 </div>

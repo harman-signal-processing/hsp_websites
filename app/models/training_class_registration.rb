@@ -10,13 +10,32 @@ class TrainingClassRegistration < ApplicationRecord
     end
   end
 
+  def training_course
+    @training_course ||= training_class.training_course
+  end
+
+  def default_recipient
+    begin
+      training_course.brand.support_email
+    rescue
+      "support@harman.com"
+    end
+  end
+
   def registration_recipients
     rr = []
-    rr << training_class.training_course.send_registrations_to
+
+    if training_course.send_registrations_to.present?
+      rr << training_course.send_registrations_to
+    end
+
     if training_class.instructor.present? && training_class.instructor.email.present?
       rr << training_class.instructor.email
     end
     rr.flatten
+
+    rr << default_recipient if rr.length == 0
     rr
   end
+
 end
