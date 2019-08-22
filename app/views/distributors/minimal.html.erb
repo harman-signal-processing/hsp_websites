@@ -1,6 +1,6 @@
 <div class="search_form_container" style="margin-left:20px;">
 	<%= form_tag minimal_distributor_search_path(@brand.to_param), method: :get %>	
-		<%= select_tag :country, ptions_for_select(CountryList.countries.sort_by { |item| item[:harman_name]}.map {|country| [country[:harman_name], country[:alpha2]] }, @country_code.upcase) %>
+		<%= select_tag :country, options_for_select(CountryList.countries.sort_by { |item| item[:harman_name]}.map {|country| [country[:harman_name], country[:alpha2]] }, @country_code.upcase) %>
 		<%= submit_tag t('submit') %>
 	</form>
 </div>
