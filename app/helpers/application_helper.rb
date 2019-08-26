@@ -545,11 +545,11 @@ module ApplicationHelper
   end
   
   def country_code
-    session['geo_country']
+    session['geo_country'].gsub(/[^a-zA-Z]/, '').slice(0..1).downcase
   end
 
   def country_is_usa
-    (session['geo_usa'] == true) || (params['geo'] == 'us')
+    (session['geo_usa'] == true) || (clean_geo == 'us')
   end
   
   def user_has_usa_state?
