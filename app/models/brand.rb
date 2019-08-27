@@ -360,4 +360,15 @@ class Brand < ApplicationRecord
   def upcoming_training_classes
     training_classes.where("start_at >= ?", Date.today).order(:start_at)
   end
+
+  def default_layout_class_for_products
+    begin
+      @default_layout_class_for_products ||= products.select("layout_class, COUNT(id) as count").group(:layout_class).map do |p|
+        [p.count, p.layout_class]
+      end.sort_by{|p| p[0]}.reverse.first[1]
+    rescue
+      "vertical"
+    end
+  end
+
 end

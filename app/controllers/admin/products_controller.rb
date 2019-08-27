@@ -64,6 +64,7 @@ class Admin::ProductsController < AdminController
   # GET /admin/products/new
   # GET /admin/products/new.xml
   def new
+    @product.layout_class = website.brand.default_layout_class_for_products
     respond_to do |format|
       format.html { render_template } # new.html.erb
       format.xml  { render xml: @product }
@@ -78,6 +79,7 @@ class Admin::ProductsController < AdminController
   # POST /admin/products.xml
   def create
     @product.brand = website.brand
+    @product.layout_class ||= @product.brand.default_layout_class_for_products
     respond_to do |format|
       if @product.save
         format.html { redirect_to([:admin, @product], notice: 'Product was successfully created.') }
