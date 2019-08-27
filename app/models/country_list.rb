@@ -6,22 +6,6 @@ class CountryList
     ENV['PRO_SITE_URL']
   end  
   
-  def self.countries1
-    url = "#{base_url}/location_info/countries.json"
-    cache_for = 1.minute unless Rails.env.production?
-    Rails.cache.fetch(url, expires_in: cache_for, race_condition_ttl: 10) do  
-      response = HTTParty.get(url, format: :plain)
-      if response.success?
-        data = JSON.parse response, symbolize_names: true
-        countries = data[:locations]
-        countries
-      else
-        raise response.message
-      end     
-    end  #  Rails.cache.fetch(url, expires_in: cache_for, race_condition_ttl: 10) do 
-      
-  end  #  def self.countries
-  
   def self.countries
       url = "#{base_url}/location_info/countries.json"
     begin
