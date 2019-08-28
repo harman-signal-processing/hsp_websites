@@ -153,8 +153,8 @@ private
     # to be smart and pick the user's country for "Buy It Now"
     begin
       if params['geo']
-        session['geo_country'] = clean_geo
-        session['geo_usa'] = (clean_geo == "us") ? true : false
+        session['geo_country'] = clean_country_code
+        session['geo_usa'] = (clean_country_code == "us") ? true : false
       else
         unless session['geo_country']
           lookup = Geokit::Geocoders::GeoPluginGeocoder.do_geocode(request.remote_ip)
@@ -364,9 +364,12 @@ private
   end  #  us_states
   helper_method :us_states
 
-  def clean_geo
-    params['geo'].nil? ? "us" : params['geo'].gsub(/[^a-zA-Z]/, '').slice(0..1).downcase
+  def clean_country_code
+    (params[:geo].blank?) ? (session['geo_country'].blank? ? "us" : get_clean_first_two_characters_downcased(session['geo_country'])) : get_clean_first_two_characters_downcased(params[:geo])
   end
-  helper_method :clean_geo
+  helper_method :clean_country_code
 
+  def get_clean_first_two_characters_downcased(text)
+    text.gsub(/[^a-zA-Z]/, '').slice(0..1).downcase
+  end
 end  #  class ApplicationController < ActionController::Base
