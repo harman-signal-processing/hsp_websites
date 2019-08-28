@@ -28,7 +28,7 @@ class SupportController < ApplicationController
     else
       brand = @website.brand.name.downcase
       brand = "axys tunnel by jbl" if brand == "duran audio"
-      country_code = clean_geo
+      country_code = clean_country_code
       @distributors = get_international_distributors(brand, country_code)
     end
     render_template
@@ -43,14 +43,14 @@ class SupportController < ApplicationController
       state = params[:state].presence || "any"
       @service_centers = get_service_centers(brand, state)
     else
-      country_code = clean_geo
+      country_code = clean_country_code
       @distributors = get_international_distributors(brand, country_code)      
     end
     render_template
   end
 
   def rsos
-    country_code = clean_geo
+    country_code = clean_country_code
     @rsos = get_rsos(country_code)   
     render_template
   end  #  def rsos
@@ -141,7 +141,7 @@ class SupportController < ApplicationController
     else
       brand = @website.brand.name.downcase
       brand = "axys tunnel by jbl" if brand == "duran audio"
-      country_code = clean_geo
+      country_code = clean_country_code
       @distributors = get_international_distributors(brand, country_code)
     end
     render_template

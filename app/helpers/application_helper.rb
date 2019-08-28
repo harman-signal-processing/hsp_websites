@@ -549,7 +549,7 @@ module ApplicationHelper
   end
 
   def country_is_usa
-    (session['geo_usa'] == true) || (clean_geo == 'us')
+    (session['geo_usa'] == true) || (clean_country_code == 'us')
   end
   
   def user_has_usa_state?

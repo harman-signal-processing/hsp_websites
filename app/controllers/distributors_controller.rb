@@ -6,7 +6,7 @@ class DistributorsController < ApplicationController
   # GET /distributors.xml
   def index
     brand = brand_name_to_use_when_getting_distributors
-    @country_code = (params[:geo].blank?) ? (session['geo_country'].blank? ? "us" : session['geo_country']) : clean_geo
+    @country_code = clean_country_code
     @distributors = get_international_distributors(brand, @country_code)  
     respond_to do |format|
       format.html { render_template }
