@@ -1,5 +1,5 @@
 class Feature < ApplicationRecord
-  belongs_to :featurable, polymorphic: true
+  belongs_to :featurable, polymorphic: true, touch: true
 
   validates :featurable_type, presence: true
   validates :featurable_id, presence: true
