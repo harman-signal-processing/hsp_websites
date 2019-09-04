@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_30_153616) do
+ActiveRecord::Schema.define(version: 2019_09_04_163438) do
 
   create_table "access_levels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -1632,6 +1632,7 @@ ActiveRecord::Schema.define(version: 2019_07_30_153616) do
     t.boolean "processed", default: false
     t.text "alert"
     t.boolean "show_alert", default: false
+    t.text "side_content"
     t.index ["brand_id"], name: "index_softwares_on_brand_id"
     t.index ["cached_slug"], name: "index_softwares_on_cached_slug", unique: true
   end

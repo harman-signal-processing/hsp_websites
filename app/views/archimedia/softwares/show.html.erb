@@ -49,6 +49,11 @@
 		<% if website.email_signup_url %>
 			<%= render_partial 'shared/newsletter_signup' %>
 		<% end %>
+    <% if @software.side_content.present? %>
+      <div>
+        <%=raw @software.side_content %>
+      </div>
+    <% end %>
 
 		<div class="clear"></div>
 	</div>

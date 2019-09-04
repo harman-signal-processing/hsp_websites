@@ -57,6 +57,11 @@
         </ul>
       </div>
     <% end %>
+    <% if @software.side_content.present? %>
+      <div>
+        <%=raw @software.side_content %>
+      </div>
+    <% end %>
 	</div>
 </div>
 

@@ -42,12 +42,24 @@ namespace :jblpro do
     @agent = Mechanize.new
     @links_followed = []
 
-    ["g28", "s28"].each do |pid|
-      page = @agent.get("http://www.jblpro.com/www/products/tour-sound/vtx-subwoofer-series/#{pid}")
-      product_family = ProductFamily.find("vtx-a-series")
+    ["pro-soundbar"].each do |pid|
+      page = @agent.get("http://www.jblpro.com/www/products/installed-sound/#{pid}")
+      product_family = ProductFamily.find("commercial-soundbars")
 
       find_or_create_product(page, product_family)
     end
+  end
+
+  desc "Manually crawl one JBL product family"
+  task import_family: :environment do
+    @root_site = "http://www.jblpro.com"
+    @agent = Mechanize.new
+    @links_followed = []
+
+    family_page = @agent.get("https://www.jblpro.com/www/products/cinema-market/200-series")
+    parent_family = ProductFamily.find "jbl-professional-cinema"
+
+    find_or_create_family(family_page, parent_family)
   end
 
   desc "Import JBL news"
