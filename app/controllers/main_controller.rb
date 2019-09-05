@@ -53,7 +53,7 @@ class MainController < ApplicationController
   # TODO: Test to see if a dealer's flagged as excluded during SQL query instead of after SQL query
   #
   def where_to_buy
-    @page_title = t('titles.where_to_buy')
+    @page_title = website.brand.name.to_s.match(/duran audio/i) ? t('titles.enquire') : t('titles.where_to_buy')
     @err = ""
     @results = []
     unless I18n.locale.to_s.match(/en/i)

@@ -750,6 +750,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
 
     match '/sitemap(.:format)' => 'main#locale_sitemap', as: :locale_sitemap, via: :all
     match '/where_to_buy(/:zip)' => 'main#where_to_buy', as: :where_to_buy , via: :all
+    match '/enquire(/:zip)' => 'main#where_to_buy', as: :enquire , via: :all
 
     #match '/support(/:action(/:id))' => "support", as: :support, via: :all
     get '/support(/:product_id)' => "support#index", as: :support
