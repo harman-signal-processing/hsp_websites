@@ -32,6 +32,13 @@
                         <%= image_tag(p.photo.product_attachment.url(:medium)) %>
                         <br/>
                       <% end %>
+                    <% elsif subpf = pf.children.first %>
+                      <% if p = subpf.current_products.first %>
+                        <% if p.photo %>
+                          <%= image_tag(p.photo.product_attachment.url(:medium)) %>
+                          <br/>
+                        <% end %>
+                      <% end %>
                     <% end %>
                     <%= translate_content(pf, :name) %>
                   <% end %>
