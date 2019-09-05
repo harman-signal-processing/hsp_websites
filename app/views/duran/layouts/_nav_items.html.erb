@@ -20,6 +20,11 @@
   <li class="divider hider-for-medium"></li>
   <li><%= link_to "Solution", "/#{I18n.locale}/tunnel-solutions" %></li>
 
+  <% if website.has_distributors? %>
+    <li class="divider hide-for-medium"></li>
+    <li><%= link_to t('enquire').titleize, enquire_path %></li>
+  <% end %>
+
   <% if website.has_installations? %>
     <li class="divider hide-for-medium"></li>
     <li><%= link_to t('installations').titleize, installations_path %></li>
@@ -43,10 +48,6 @@
     <li><%= link_to t('artists').titleize, artists_path %></li>
 	<% end %>
 
-	<% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
-    <li class="divider hide-for-medium"></li>
-    <li><%= link_to t('where_to_buy').titleize, where_to_buy_path %></li>
-	<% end %>
 
 	<% if !!(website.forum_link) %>
     <li class="divider hide-for-medium"></li>

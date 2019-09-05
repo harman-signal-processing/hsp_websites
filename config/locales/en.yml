@@ -38,6 +38,7 @@ en:
   download_promotion_form: download promotion form
   downloads: downloads
   email: email
+  enquire: enquire
   events: events
   events: Events
   events_around_the_world: Events Around The World
@@ -316,6 +317,7 @@ en:
       contact_us: Contact Us
       current_promotions: Current Promotions
       dealer_search_results: Dealer Search Results
+      enquire: Enquire with Distributor Partners
       events: "%{brand} Events"
       facebook_page: "%{brand} Facebook Page"
       factory_service: Factory Service/Return Authorization Form
