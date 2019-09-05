@@ -32,9 +32,10 @@
   </div>
 <% end %>
 
+<br/>
+<h2>Global Education Schedule</h2>
+
 <% if @upcoming_classes.length > 0 %>
-  <br/>
-  <h2>Global Education Schedule</h2>
   <% @upcoming_classes.each do |training_class| %>
     <div class="row training_class_row collapse">
       <div class="small-12 medium-8 large-10 columns">
@@ -57,6 +58,8 @@
   <% end %>
   <div id="regform-modal" class="reveal-modal" data-reveal aria-labelledby="Registration Form" aria-hidden="true" role="dialog">
   </div>
+<% else %>
+  <p><i>No classes currently scheduled. Check back soon.</i></p>
 <% end %>
 
 <div class="row">
@@ -132,4 +135,9 @@
     <% end %>
   </div>
 </div>
+
+<% if website.landing_page_id_with_extra_training_content %>
+  <% page = Page.find(website.landing_page_id_with_extra_training_content) %>
+  <%=raw page.body %>
+<% end %>
 
