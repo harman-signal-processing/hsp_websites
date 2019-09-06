@@ -1,8 +1,22 @@
 <% set_meta_tags reverse: true %>
-<h1 class="page_title text-center"><%= website.brand.name %> Warranty Policy (US only)</h1>
+<h1 class="page_title text-center">
+	<% if website.brand.name == "Duran Audio" %>
+		AXYS Tunnel by HARMAN
+	<% else %>
+		<%= website.brand.name %> 
+	<% end %>
+	Warranty Policy (US only)</h1>
 
 <div class="text-center">
-  <p><%= website.brand.name %> is a HARMAN Professional brand and its products are covered by the below Limited Product Warranty.</p>
+  
+  <p>
+  	<% if website.brand.name == "Duran Audio" %>
+  		AXYS Tunnel
+  	<% else %>
+  		<%= website.brand.name %> 
+  	<% end %>
+  	
+  	is a HARMAN Professional brand and its products are covered by the below Limited Product Warranty.</p>
   <h4>LIMITED PRODUCT WARRANTY</h4>
   For HARMAN Professional Products<br/>
   Purchased from HARMAN Professional Authorized Dealers<br/>
