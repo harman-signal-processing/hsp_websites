@@ -6,8 +6,12 @@
 <% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/worldwide_distributors_head.jpg")) %>
 	<%= image_tag("#{website.folder}/#{I18n.locale}/worldwide_distributors_head.jpg", alt: t('titles.international_distributors')) %>
 <% else %>
-  <%= website.brand.name %>
-  <%= t('titles.international_distributors') %>
+  <% if website.brand.name == "Duran Audio" %>
+  	AXYS Tunnel by Harman Distributors
+  <% else %>
+	  <%= website.brand.name %>
+	  <%= t('titles.international_distributors') %>  
+  <% end %>
 <% end %>
 </h1>
 
