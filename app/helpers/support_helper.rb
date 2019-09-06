@@ -39,9 +39,11 @@ module SupportHelper
 					  when "emails"
 					    html += "<i class='fa fa-envelope' aria-hidden='true'></i>&nbsp;#{mail_to hash[keyname.to_sym]}<br />"
 					  when "websites"
-					  	#make sure the url contains the protocol
-					  	url = hash[keyname.to_sym].match(/^http/).nil? ? "http://#{hash[keyname.to_sym]}" : hash[keyname.to_sym]
-					    html += "<i class='fa fa-external-link' aria-hidden='true'></i>&nbsp;#{link_to hash[keyname.to_sym], url, target:"_blank"}<br />" if hash[keyname.to_sym].present?
+					  	if hash[keyname.to_sym].present?
+						  	#make sure the url contains the protocol
+						  	url = hash[keyname.to_sym].match(/^http/).nil? ? "http://#{hash[keyname.to_sym]}" : hash[keyname.to_sym]
+						    html += "<i class='fa fa-external-link' aria-hidden='true'></i>&nbsp;#{link_to hash[keyname.to_sym], url, target:"_blank"}<br />"
+					  	end
 					  when "phones"
 							html += phone_html(has_label, hash, keyname)
 					  else
