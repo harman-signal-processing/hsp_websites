@@ -49,9 +49,11 @@
             <% if website.brand.dealers.where(rental: true).count > 0 %>
               <li>
                 <label for="rental">
-                  <input type="checkbox" value="1" name="rental" id="rental" <% if @filter_rental %>checked="checked"<% end %>> Rentals
+                  <input type="checkbox" value="1" name="rental" id="rental" <% if @filter_rental %>checked="checked"<% end %>>
                   <% if website.brand.name == "JBL Professional" %>
-                    (aka "VERTEC/VTX owner list")
+                    VERTEC/VTX owner list
+                  <% else %>
+                    Rentals
                   <% end %>
                 </label>
               </li>
@@ -142,9 +144,11 @@
                 </label>
                 <% if website.brand.dealers.where(rental: true).count > 0 %>
                   <label for="rental">
-                    <input type="checkbox" value="1" name="rental" id="rental" checked="checked"> Rentals
+                    <input type="checkbox" value="1" name="rental" id="rental" checked="checked">
                     <% if website.brand.name == "JBL Professional" %>
-                      (aka "VERTEC/VTX owners")
+                        VERTEC/VTX owners
+                    <% else %>
+                        Rentals
                     <% end %>
                   </label>
                 <% end %>
