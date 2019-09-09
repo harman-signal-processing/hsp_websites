@@ -1,0 +1,20 @@
+<% set_meta_tags reverse: true %>
+
+<%=render_partial "support/country_switch" %>
+
+<%if country_is_usa %>
+  <%=render_partial "support/parts_usa" %>
+<%elsif @distributors.count > 0 %>  
+  <%=render_partial "support/parts_international" %>
+<% else # has no distributors %> 
+    <% @contact_message = ContactMessage.new %>
+    <% if in_apac? %>
+        <%=render_partial("support/tech_support_form", email_to: website.brand.tech_support_apac) %>
+    <% elsif in_emea? %>
+        <%=render_partial("support/tech_support_form", email_to: website.brand.tech_support_emea) %>
+    <% elsif (in_caribbean? || in_central_america? || in_south_america?)%>
+        <%=render_partial "support/tech_support_form" %> <%# same as usa%>
+    <% else %>  
+        <%=render_partial("support/tech_support_form", email_to: website.brand.tech_support_emea) %>
+    <% end %>
+<%end%>

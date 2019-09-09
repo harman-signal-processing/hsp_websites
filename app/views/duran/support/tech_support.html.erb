@@ -1,0 +1,21 @@
+<% set_meta_tags title: t('titles.support'),
+				 description: t('meta.description.support', brand: website.brand_name),
+				 reverse: true %>
+
+<%=render_partial "support/country_switch" %>
+
+<%if country_is_usa %>
+  <%=render_partial "support/tech_support_form" %>
+<%elsif @distributors.count > 0 %>
+  <%=render_partial "support/tech_support_international" %>
+<% else # has no distributors %> 
+    <% if in_apac? %>
+        <%=render_partial("support/tech_support_form", email_to: website.brand.tech_support_apac) %>
+    <% elsif in_emea? %>
+        <%=render_partial("support/tech_support_form", email_to: website.brand.tech_support_emea) %>
+    <% elsif (in_caribbean? || in_central_america? || in_south_america?)%>
+        <%=render_partial "support/tech_support_form" %> <%# same as usa%>
+    <% else %>  
+        <%=render_partial("support/tech_support_form", email_to: website.brand.tech_support_emea) %>
+    <% end %>
+<%end%>

@@ -22,15 +22,15 @@ class SupportController < ApplicationController
   end
 
   def tech_support
-    if session['geo_usa']
+    # if session['geo_usa']
       @contact_message = ContactMessage.new
       @contact_message.require_country = true if require_country?
-    else
+    # else
       brand = @website.brand.name.downcase
       brand = "axys tunnel by jbl" if brand == "duran audio"
       country_code = clean_country_code
       @distributors = get_international_distributors(brand, country_code)
-    end
+    # end
     render_template
   end
 
@@ -102,6 +102,7 @@ class SupportController < ApplicationController
       @contact_message = ContactMessage.new(contact_message_params) do |c|
         c.brand = website.brand
         c.require_country = true if require_country?
+        c.email_to = params[:contact_message][:email_to] if params[:contact_message][:email_to].present?
       end
       if verify_recaptcha(model: @contact_message, secret_key: website.recaptcha_private_key) && @contact_message.valid?
         @contact_message.save
