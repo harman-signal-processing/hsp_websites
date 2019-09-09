@@ -28,7 +28,7 @@ class ContactMessage < ApplicationRecord
     :shipping_zip,
     :shipping_country, presence: true, if: :require_shipping_address? 
   
-  attr_accessor :require_country
+  attr_accessor :require_country, :email_to
 
   def set_defaults
     self.message_type ||= "support" #others: rma_request, part_request
@@ -40,7 +40,7 @@ class ContactMessage < ApplicationRecord
     self.subject ||= "HARMAN Professional Catalog request" if self.catalog_request?
     self.email.to_s.gsub!(/\s*$/, '')
     self.shipping_country ||= "United States"
-  end
+  end  #  def set_defaults
 
   # Used to only require product some of the time, now require
   # it all the time (per Trevor's request)
@@ -139,6 +139,7 @@ class ContactMessage < ApplicationRecord
     end
 
     recipients = [brand.support_email]
+    recipients << self.email_to if self.email_to.present?
 
     # Fix "United States of America" which should be "United States"
     if self.shipping_country.present? && self.shipping_country == "United States of America"
@@ -167,7 +168,7 @@ class ContactMessage < ApplicationRecord
     end
 
     recipients.uniq
-  end
+  end  #  def get_recipients
 
   def distributors
     @distributors ||= brand.distributors.where(country: self.shipping_country).where("email IS NOT NULL")
@@ -178,5 +179,5 @@ class ContactMessage < ApplicationRecord
       includes(:sales_region_countries).
       where("support_email IS NOT NULL").
       where(sales_region_countries: { name: self.shipping_country})
-  end
-end
+  end  #  def regions
+end  #  class ContactMessage < ApplicationRecord
