@@ -41,17 +41,19 @@
         <% if website.brand.dealers_include_rental_and_service? %>
           <input type="hidden" name="apply_filters" value="1"/>
           <ul class="medium-block-grid-3 small-block-grid-12">
-            <li>
-              <label for="resale">
-                <input type="checkbox" value="1" name="resale" id="resale" <% if @filter_resale %>checked="checked"<% end %>> Resellers
-              </label>
-            </li>
+            <% unless website.value_for("dont_actually_show_dealers") %>
+              <li>
+                <label for="resale">
+                  <input type="checkbox" value="1" name="resale" id="resale" <% if @filter_resale %>checked="checked"<% end %>> Resellers
+                </label>
+              </li>
+            <% end %>
             <% if website.brand.dealers.where(rental: true).count > 0 %>
               <li>
                 <label for="rental">
                   <input type="checkbox" value="1" name="rental" id="rental" <% if @filter_rental %>checked="checked"<% end %>>
                   <% if website.brand.name == "JBL Professional" %>
-                    VERTEC/VTX owner list
+                    VERTEC/VTX owners
                   <% else %>
                     Rentals
                   <% end %>
@@ -139,14 +141,16 @@
               <% if website.brand.dealers_include_rental_and_service? %>
                 <input type="hidden" name="apply_filters" value="1"/>
                 <h5>Filter Results:</h5>
-                <label for="resale">
-                  <input type="checkbox" value="1" name="resale" id="resale" checked="checked"> Resellers
-                </label>
+                <% unless website.value_for("dont_actually_show_dealers") %>
+                  <label for="resale">
+                    <input type="checkbox" value="1" name="resale" id="resale" checked="checked"> Resellers
+                  </label>
+                <% end %>
                 <% if website.brand.dealers.where(rental: true).count > 0 %>
                   <label for="rental">
                     <input type="checkbox" value="1" name="rental" id="rental" checked="checked">
                     <% if website.brand.name == "JBL Professional" %>
-                        VERTEC/VTX owners
+                        VERTEC/VTX owner list
                     <% else %>
                         Rentals
                     <% end %>
