@@ -231,7 +231,9 @@ module ProductsHelper
         end
       end
       ret += "</dl>"
-      ret += "<br/>" + hpro_contact_buttons
+      unless website.brand.name.match(/DOD|DigiTech|dbx|Lexicon/i)
+        ret += "<br/>" + hpro_contact_buttons
+      end
       ret += "</div>"
       raw(ret)
     end
