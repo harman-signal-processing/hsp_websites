@@ -29,11 +29,12 @@ RSpec.describe Feature, type: :model do
     end
 
     it "should update the product family timestamp" do
-      timestamp = @product_family.updated_at
-      @product_family.features << @feature
-      @product_family.reload
+      product_family = FactoryBot.create(:product_family, updated_at: 1.day.ago)
+      timestamp = product_family.updated_at
+      product_family.features << @feature
+      product_family.reload
 
-      expect(@product_family.updated_at).not_to eq(timestamp)
+      expect(product_family.updated_at).not_to eq(timestamp)
     end
   end
 end

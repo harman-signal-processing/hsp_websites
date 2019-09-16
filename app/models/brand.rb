@@ -86,6 +86,18 @@ class Brand < ApplicationRecord
     News.select("DISTINCT *").where("brand_id = ? #{product_news_query}", self.id).order("post_on DESC")
   end
 
+  def promotions
+    product_promos = Promotion.find_by_sql("SELECT DISTINCT promotions.id FROM promotions
+                                           INNER JOIN product_promotions ON product_promotions.promotion_id = promotions.id
+                                           INNER JOIN products ON products.id = product_promotions.product_id
+                                           INNER JOIN product_family_products ON product_family_products.product_id = products.id
+                                           INNER JOIN product_families ON product_families.id = product_family_products.product_family_id
+                                           WHERE product_families.brand_id = #{self.id}").collect{|p| p.id}.join(", ")
+    product_promos_query = (product_promos.blank?) ? "" : " OR id IN (#{product_promos}) "
+
+    Promotion.select("DISTINCT *").where("brand_id = ? #{product_promos_query}", self.id)
+  end
+
   # Dynamically create methods based on this Brand's settings.
   # This is a smarter alternative to using method_missing
   def dynamic_methods
