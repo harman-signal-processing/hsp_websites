@@ -7,7 +7,10 @@ class ProductSpecification < ApplicationRecord
 
   accepts_nested_attributes_for :specification, reject_if: :all_blank
 
+  after_save ThinkingSphinx::RealTime.callback_for(:product, [:product])  
+
   def content_name
     specification.name
   end
+  
 end
