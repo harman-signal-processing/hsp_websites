@@ -3,21 +3,13 @@ ThinkingSphinx::Index.define :product, name: "product_en", with: :active_record 
   indexes name,
   	sap_sku,
   	keywords,
-#  	description,
   	short_description,
-#  	extended_description,
-#  	features,
-  # 	accessory_specifications_content,
   	short_description_1,
   	short_description_2,
   	short_description_3,
   	short_description_4
 
   indexes product_descriptions.content_part1, as: :description, :facet => true
-  # indexes product_specifications.joins(:specification).where("specifications.name like ?","%accessories%").collect(&:value).join(","), as: :accessories
-  
-  # indexes product_specifications.value, as: :accessories
-  
   # :nocov:
 end
 
@@ -30,22 +22,13 @@ ThinkingSphinx::Index.define :product, name: "product_en_US", with: :active_reco
   indexes name,
   	sap_sku,
   	keywords,
-#  	description,
   	short_description,
-#  	extended_description,
-#  	features,
-  # 	accessory_specifications_content,
-  # product.product_specifications.joins(:specification).where("specifications.name like ?","%accessories%"),
   	short_description_1,
   	short_description_2,
   	short_description_3,
   	short_description_4
 
   indexes product_descriptions.content_part1, as: :description, :facet => true
-  
-  # indexes product_specifications.joins(:specification).where("specifications.name like ?","%accessories%").collect(&:value).join(","), as: :accessories
-  # indexes product_specifications.value, as: :accessories
-  
   # :nocov:
 end
 
