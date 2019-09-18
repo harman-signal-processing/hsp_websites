@@ -371,7 +371,7 @@ private
 
   def get_clean_first_two_characters_downcased(text)
     clean = text.gsub(/[^a-zA-Z]/, '').slice(0..1).downcase
-    clean
+    clean.blank? ? "us" : clean
   end
   
   def in_apac?
