@@ -373,6 +373,10 @@ class MainController < ApplicationController
   end  #  def fetch_thinking_sphinx_results
 
   def fetch_thunderstone_pdf_results
+    if @query.to_s.match(/union\s{1,}select/i) || @query.to_s.match(/(and|\&*)\s{1,}sleep/i) || @query.to_s.match(/order\s{1,}by/i)
+      render plain: "Not allowed", status: 400 and return false
+    end
+    
     current_page = params[:page].nil? ? 1 : params[:page].to_i
     per_page = 10
     #jump tells Thunderstone where to start the next fetch
@@ -388,11 +392,15 @@ class MainController < ApplicationController
         thunderstone_search_profile = website.brand.name.downcase + " pdfs"
       end
       
-      @pdf_results = ThunderstoneSearch.find(@query, thunderstone_search_profile, jump)
-      @pdf_results_paginated_list = WillPaginate::Collection.create(current_page, per_page, @pdf_results[:Summary][:TotalNum].to_i) do |pager|
-        pager.replace(@pdf_results[:ResultList].to_ary)
-      end    
-    end     
+      sanitized_query = ActionController::Base.helpers.sanitize(@query).gsub(/[\/\\]/, " ")
+      @pdf_results = ThunderstoneSearch.find(sanitized_query, thunderstone_search_profile, jump)
+      if @pdf_results.blank?
+      else
+        @pdf_results_paginated_list = WillPaginate::Collection.create(current_page, per_page, @pdf_results[:Summary][:TotalNum].to_i) do |pager|
+          pager.replace(@pdf_results[:ResultList].to_ary)
+        end  
+      end  #  else of if @pdf_results.blank?
+    end  #  if @query.present?
   end  #  def fetch_thunderstone_pdf_results
 
-end
+end  #  class MainController < ApplicationController
