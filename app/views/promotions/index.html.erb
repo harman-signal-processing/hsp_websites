@@ -1,11 +1,13 @@
 <% set_meta_tags title: t('titles.promotions'), keywords: @current_promotions.pluck(:name), reverse: true %>
 
-<% if @featured_promotion %>
-  <div class="row">
-    <div class="medium-12 small-12 columns text-center">
-      <%= image_tag @featured_promotion.tile.url, alt: t('titles.promotions') %>
+<% unless File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/promotions_head.jpg")) %>
+  <% if @featured_promotion %>
+    <div class="row">
+      <div class="medium-12 small-12 columns text-center">
+        <%= image_tag @featured_promotion.tile.url, alt: t('titles.promotions') %>
+      </div>
     </div>
-  </div>
+  <% end %>
 <% end %>
 
 <h3 class="page_title">

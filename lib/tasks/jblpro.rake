@@ -56,8 +56,8 @@ namespace :jblpro do
     @agent = Mechanize.new
     @links_followed = []
 
-    family_page = @agent.get("https://www.jblpro.com/www/products/cinema-market/200-series")
-    parent_family = ProductFamily.find "jbl-professional-cinema"
+    family_page = @agent.get("https://www.jblpro.com/www/products/portable-market/prx800-series")
+    parent_family = ProductFamily.find "live-portable"
 
     find_or_create_family(family_page, parent_family)
   end
