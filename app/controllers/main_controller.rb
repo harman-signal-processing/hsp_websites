@@ -311,7 +311,7 @@ class MainController < ApplicationController
   end
 
   def locale_indices
-    ['artist', 'news', 'page', 'product_family', 'product', 'product_review' 'software'].map do |index|
+    ['artist', 'news', 'page', 'product_family', 'product', 'product_real_time', 'product_review' 'software'].map do |index|
       "#{index}_#{I18n.locale.to_s.gsub(/\-/, '_')}_core"
     end
   end
@@ -356,6 +356,7 @@ class MainController < ApplicationController
       page: 1, # we'll paginate after filtering out other brand assets
       per_page: 1000
     )
+    
     # Probably not the best way to do this, strip out Products from the
     # search results unless the status is set to 'show_on_website'. It
     # would be better to filter these out during the query

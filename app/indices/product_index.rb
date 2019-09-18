@@ -3,10 +3,7 @@ ThinkingSphinx::Index.define :product, name: "product_en", with: :active_record 
   indexes name,
   	sap_sku,
   	keywords,
-#  	description,
   	short_description,
-#  	extended_description,
-#  	features,
   	short_description_1,
   	short_description_2,
   	short_description_3,
@@ -16,15 +13,16 @@ ThinkingSphinx::Index.define :product, name: "product_en", with: :active_record 
   # :nocov:
 end
 
+ThinkingSphinx::Index.define :product, name: "product_real_time_en", with: :real_time do
+  indexes specifications_accessories_content
+end
+
 ThinkingSphinx::Index.define :product, name: "product_en_US", with: :active_record do
   # :nocov:
   indexes name,
   	sap_sku,
   	keywords,
-#  	description,
   	short_description,
-#  	extended_description,
-#  	features,
   	short_description_1,
   	short_description_2,
   	short_description_3,
@@ -32,6 +30,10 @@ ThinkingSphinx::Index.define :product, name: "product_en_US", with: :active_reco
 
   indexes product_descriptions.content_part1, as: :description, :facet => true
   # :nocov:
+end
+
+ThinkingSphinx::Index.define :product, name: "product_real_time_en_US", with: :real_time do
+  indexes specifications_accessories_content
 end
 
 (WebsiteLocale.pluck(:locale).uniq - ["en", "en-US"]).each do |locale|
@@ -45,4 +47,5 @@ end
     where "content_translations.locale = '#{ locale.to_s }'"
     # :nocov:
   end
+
 end

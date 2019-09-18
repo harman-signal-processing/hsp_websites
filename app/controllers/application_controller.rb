@@ -370,7 +370,8 @@ private
   helper_method :clean_country_code
 
   def get_clean_first_two_characters_downcased(text)
-    text.gsub(/[^a-zA-Z]/, '').slice(0..1).downcase
+    clean = text.gsub(/[^a-zA-Z]/, '').slice(0..1).downcase
+    clean
   end
   
   def in_apac?
