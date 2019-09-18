@@ -56,7 +56,7 @@ class Promotion < ApplicationRecord
   # All CURRENT promotions (those which are not expired) for the given Website
   #
   def self.current_for_website(website)
-    website.brand.promotions.where(["show_start_on IS NOT NULL AND show_end_on IS NOT NULL AND start_on <= ? AND end_on >= ?", Date.today, Date.today]).order("end_on ASC")
+    website.brand.promotions.where(["show_start_on IS NOT NULL AND show_end_on IS NOT NULL AND start_on <= ? AND (end_on >= ? OR end_on IS NULL or end_on = '')", Date.today, Date.today]).order("end_on ASC")
   end
 
   # Promotions which are still scheduled to appear on the Website, but whose
@@ -73,7 +73,7 @@ class Promotion < ApplicationRecord
   end
 
   def expired?
-    (end_on <= Date.today)
+    (end_on.present? && end_on <= Date.today)
   end
 
 end
