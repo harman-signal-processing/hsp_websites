@@ -36,6 +36,15 @@
     <li><%= link_to t('training').titleize, training_path %></li>
   <% end %>
 
+    <li class="divider hide-for-medium"></li>
+    <li class="has-dropdown"><%= link_to t('about').titleize, '#' %>
+      <ul class="dropdown">
+        <li><%= link_to 'innovation'.titleize, '/innovation' %></li>
+        <li><%= link_to 'case studies'.titleize, 'https://pro.harman.com/case_studies', target: "_blank" %></li>
+        <li><%= link_to 'history'.titleize, '/history' %></li>
+      </ul>
+    </li>
+
 	<% if website.has_artists? %>
     <li class="divider hide-for-medium"></li>
     <li><%= link_to t('artists').titleize, artists_path %></li>

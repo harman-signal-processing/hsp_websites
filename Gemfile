@@ -6,7 +6,7 @@ gem 'responders', '~> 2.0'
 # in production environments by default.
 gem 'sprockets'
 gem 'sprockets-rails'
-gem 'sass-rails'
+gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails'
 gem "foundation-rails", '5.5.1' # 5.5.3 has a bug with Magellan https://github.com/zurb/foundation-sites/issues/8416

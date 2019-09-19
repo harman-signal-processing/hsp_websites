@@ -52,20 +52,4 @@ RSpec.describe SeoHelper do
     end
   end
 
-  describe "hreflang links" do
-    it "generates alternate links for other languages" do
-      skip "Revisit hreflang functions"
-      website = FactoryBot.create(:website)
-      website.available_locales << FactoryBot.create(:website_locale, locale: "es", name: "Spanish")
-      controller.request.host = website.url
-      controller.request.path = "/es/products/test-product"
-      allow(helper).to receive(:website).and_return(website)
-
-      links = helper.hreflang_links
-
-      expect(links).to match controller.request.url
-      expect(links).to match "/en/products/test-product"
-      expect(links).to match "/en-US/products/test-product"
-    end
-  end
 end

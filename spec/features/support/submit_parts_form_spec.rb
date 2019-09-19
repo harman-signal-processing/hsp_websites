@@ -6,6 +6,7 @@ feature "Complete parts form" do
   end
 
   scenario "message is delivered to custom recipient" do
+    allow(CountryList).to receive(:countries).and_return([{"id":35,"name":"United States of America","harman_name":"United States of America","alpha2":"US","alpha3":"USA","continent":"North America","region":"Americas","sub_region":"Northern America","world_region":"AMER","harman_world_region":"AMER","calling_code":1,"numeric_code":840}])
     FactoryBot.create(:setting, brand: @website.brand, name: "parts_email", string_value: "rickky@support.com")
     @website.brand.update_column(:has_parts_form, true)
     visit parts_request_url(host: @website.url)
@@ -17,13 +18,6 @@ feature "Complete parts form" do
     last_email = get_last_email
     expect(last_email.subject).to eq("Parts Request")
     expect(last_email.to).to include("rickky@support.com")
-  end
-
-  scenario "brand doesn't support online parts form" do
-    skip "Temporarily allowing parts form for all brands to debug Crown problem (4/2015)"
-    visit parts_request_url(host: @website.url)
-
-    expect(current_path).to eq(support_path(locale: I18n.default_locale))
   end
 
   def fill_in_form

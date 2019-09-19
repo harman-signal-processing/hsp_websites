@@ -11,6 +11,8 @@ RSpec.describe "support/index.html.erb", as: :view do
   before :each do
     allow(view).to receive(:website).and_return(@website)
     assign(:contact_message, ContactMessage.new)
+    allow(view).to receive(:clean_country_code).and_return('US')
+    allow(view).to receive(:country_code).and_return('US')
 
     render
   end

@@ -19,13 +19,6 @@ feature "Complete rma form" do
     expect(last_email.to).to include("ramesh@support.com")
   end
 
-  scenario "brand doesn't support online rma form" do
-    skip "Temporarily allowing RMA form for all brands to debug Crown problem (4/2015)"
-    visit rma_request_url(host: @website.url)
-
-    expect(current_path).to eq(support_path(locale: I18n.default_locale))
-  end
-
   def fill_in_form
     fill_in "Your Name", with: "Bobby"
     fill_in "Email", with: "bobby@bobberson.com"

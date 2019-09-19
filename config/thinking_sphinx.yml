@@ -22,3 +22,5 @@ production:
   ngram_len: 1
   ngram_chars: U+3000..U+2FA1F
   mysql41: 9433
+test:
+  mysql41: 9307
