@@ -1,3 +1,4 @@
+<div class="docs">
 <%
   category_names = {
     "gui" => "GUI/Librarians",
@@ -8,56 +9,62 @@
     "" => "More Downloads"
   }
 %>
-<% (category_names.keys & product.active_softwares.pluck(:category).uniq).each do |category| %>
-  <% if category.present? %>
-    <h5><%= category_names[category] %></h5>
-  <% else %>
-    <h5>More Downloads</h5>
-  <% end %>
 
-  <ul class="downloads">
+  <table style="width: 100%">
+    <thead>
+      <tr>
+        <%# Robert Svensson really hates the work "Filename". %>
+        <td><!--Filename-->&nbsp;</td>
+        <td>Version</td>
+        <td>Language</td>
+        <td>Size</td>
+        <td>Uploaded</td>
+      </tr>
+    </thead>
+    <tbody>
+
+<% (category_names.keys & product.active_softwares.pluck(:category).uniq).each do |category| %>
+  <tr>
+    <td colspan=5>
+      <% if category.present? %>
+        <h5><%= category_names[category] %></h5>
+      <% else %>
+        <h5>More Downloads</h5>
+      <% end %>      
+    </td>
+  </tr>
+
+
+
     <% product.active_softwares.each do |software| %>
       <% if software.category == category %>
-        <li>
-          <%= link_to software do %>
-            <% if software.previous_versions.length > 0 %>
-              [CURRENT]
-            <% end %>
-            <%= software.formatted_name %>
-          <% end %>
-        </li>
+        <%= render_partial 'products/download_table_row', item: software %>
+        
         <% software.software_attachments.each do |sa| %>
-          <li>
-            <%= link_to sa.name, sa.software_attachment.url %>
-          </li>
-        <% end %>
+          <%= render_partial 'products/download_table_row', item: sa %>
+        <% end %> <%# software.software_attachments.each do |sa| %>
         <% if software.previous_versions.length > 0 %>
-          <li><%= link_to software.previous_versions.first do %>
-              [PREVIOUS]
-              <%= software.previous_versions.first.formatted_name %>
-            <% end %>
-          </li>
+          <%= render_partial 'products/download_table_row', item: software.previous_versions.first %>
+
           <% software.previous_versions.first.software_attachments.each do |sa| %>
-            <li>
-              <%= link_to sa.name, sa.software_attachment.url %>
-            </li>
-          <% end %>
-        <% end %>
-      <% end %>
-    <% end %>
-  </ul>
+            <%= render_partial 'products/download_table_row', item: sa %>
+          <% end %> <%# software.previous_versions.first.software_attachments.each do |sa| %>
+        <% end %> <%# if software.previous_versions.length > 0 %>
+      <% end %> <%# if software.category == category %>
+    <% end %> <%# product.active_softwares.each do |software| %>
 
-<% end %>
 
-<ul class="downloads">
+<% end %> <%# (category_names.keys & product.active_softwares.pluck(:category).uniq).each do |category| %>
+
+
   <% product.executable_site_elements.each do |site_element| %>
     <% if can?(:read, site_element) %>
-      <li>
-        <%= link_to site_element.long_name, site_element.url %>
-        <% unless site_element.external_url.present? %>
-          [<%= number_to_human_size(site_element.executable_file_size) %>]
-        <% end %>
-      </li>
+      <%= render_partial 'products/download_table_row', item: site_element %>
     <% end %>
 	<% end %>
-</ul>
+
+
+    </tbody>
+  </table>
+
+</div> <!-- <div class="docs"> -->

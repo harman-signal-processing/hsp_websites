@@ -399,7 +399,7 @@ class Product < ApplicationRecord
   end
 
   def downloads_content_present?
-    softwares.size > 0 || executable_site_elements.size > 0 || site_elements.size > 0
+    softwares.size > 0 || executable_site_elements.size > 0 || site_elements.size > 0 || product_documents.size > 0
   end
 
   def specifications_content_present?
