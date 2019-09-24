@@ -1,0 +1,112 @@
+<% if can?(:read, item) %>
+  <tr>
+    <% if item.is_a?(SiteElement) %>
+
+      <% if item.external_url.present? || item.executable_file_name.present? %>
+        <td>
+          <%= image_tag "icons/download_17.png", style: "vertical-align: middle" %>
+          <%= link_to item.name, item.url %>
+          <%= keys_for(item) %>
+        </td>
+        <td class="text-center"> <%= item.version %>&nbsp; </td>
+        <td class="text-center"> <%= flag_for(item) %>&nbsp; </td>
+        <td>
+          <% if item.executable_file_size.present? %>
+            <%= number_to_human_size(item.executable_file_size) %>
+          <% end %>
+        </td>
+        <td><%=l item.updated_at.to_date, format: :short %></td>
+
+      <% elsif item.resource_file_name.present? %>
+        <td>
+          <% if item.resource_content_type.to_s.match(/pdf/i) || item.resource_file_name.to_s.match(/pdf$/i) %>
+            <%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
+          <% end %>
+          <%= link_to item.name, item.url %>
+          <%= keys_for(item) %>
+        </td>
+        <td class="text-center"> <%= item.version %>&nbsp;</td>
+        <td class="text-center"> <%= flag_for(item) %>&nbsp; </td>
+        <td> <%= number_to_human_size(item.resource_file_size) %> </td>
+        <td><%=l item.updated_at.to_date, format: :short %></td>
+
+      <% elsif item.content.present? %>
+        <td>
+          <%= link_to item.name, item %>
+          <%= keys_for(item) %>
+        </td>
+        <td class="text-center"> <%= item.version %>&nbsp; </td>
+        <td class="text-center"> <%= flag_for(item) %>&nbsp; </td>
+        <td>&nbsp;</td>
+        <td><%=l item.updated_at.to_date, format: :short %></td>
+      <% end %>
+
+    <% elsif item.is_a?(ProductDocument) %>
+      <td> 
+        <% if item.document_content_type.to_s.match(/pdf/i) || item.document_file_name.to_s.match(/pdf$/i) %>
+            <%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
+        <% end %>
+        <%= link_to item.name, item.document.url %> 
+      </td>
+      <td class="text-center"> <% if item.respond_to?(:version) %><%= item.version %><% end %>&nbsp; </td>
+      <td class="text-center"> <%= flag_for(item) %>&nbsp; </td>
+      <td> <%= number_to_human_size(item.document_file_size) %> </td>
+      <td><%=l item.updated_at.to_date, format: :short %></td>
+
+    <% elsif item.is_a?(Software) %>
+      <td>
+        <%= platform_icon(item, 17) %>
+            <% if item.previous_versions.length > 0 %>
+              
+                <%if item.replaced_by.nil? %>
+                    <%= link_to item do %>
+                        [CURRENT] <%= item.name %>
+                    <% end %> <%#= link_to item do %>
+                <% else %>
+                    <%= link_to item.previous_versions.first do %>
+                        [PREVIOUS] <%= item.previous_versions.first.formatted_name %>
+                    <% end %> <%#= link_to item.previous_versions.first do %>       
+                <% end %> <%# end of if item.replaced_by.nil? %>
+              
+            <% else %>
+                <% if item.replaced_by.nil? %>
+                    <%= link_to item.name, item %>
+                <% else %>
+                    <%= link_to item do %>
+                        [PREVIOUS] <%= item.name %>
+                    <% end %> <%#= link_to item.previous_versions.first do %>                    
+                <% end %>
+            <% end %> <%# end of if item.previous_versions.length > 0 %>
+      </td>
+      <td class="text-center"><%= item.version %>&nbsp;</td>
+      <td class="text-center"> <%= flag_for(item) %>&nbsp; </td>
+      <td>
+        <% if item.ware_file_size.to_i > 0 %>
+          <%= number_to_human_size(item.ware_file_size) %>
+        <% end %>
+      </td>
+      <td><%=l item.updated_at.to_date, format: :short %></td>
+      
+    <% end %>
+
+  </tr>
+
+  <%# Software Attachments %>
+  <% if item.respond_to?(:software_attachments) && item.software_attachments.count > 0 %>
+    <% item.software_attachments.each do |sa| %>
+      <tr>
+        <td> <%= link_to sa.name, sa.software_attachment.url %> </td>
+        <td class="text-center"> <% if sa.respond_to?(:version) %><%= sa.version %><% end %>&nbsp; </td>
+        <td class="text-center"> <%= flag_for(sa) %>&nbsp; </td>
+        <td>
+          <% if sa.software_attachment_file_size.to_i > 0 %>
+            <%= number_to_human_size(sa.software_attachment_file_size) %>
+          <% end %>
+        </td>
+        <td><%=l item.updated_at.to_date, format: :short %></td>        
+      </tr>
+    <% end %> <%# item.software_attachments.each do |sa| %>
+  <% end %> <%# if item.respond_to?(:software_attachments) && item.software_attachments.count > 0 %>
+
+<% end %> <%# if can?(:read, item) %>
+
