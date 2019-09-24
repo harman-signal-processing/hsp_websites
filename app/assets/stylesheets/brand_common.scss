@@ -743,6 +743,14 @@ h1.page_title {
   text-transform: capitalize;
 }
 /***** Product Family Page *****/
+a {
+  .subtext {
+    color: scale-color($body-font-color, $lightness: 20%);
+    font-size: 85%;
+    line-height: 1.25;
+    margin-top: 6px;
+  }
+}
 .product_family_header {
   background-color: scale-color($primary-color, $lightness: 40%);
   color: white;
