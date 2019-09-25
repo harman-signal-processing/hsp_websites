@@ -42,7 +42,12 @@
       <% end %>
 
     <% elsif item.is_a?(ProductDocument) %>
-      <td> <%= link_to item.name, item.document.url %> </td>
+      <td> 
+        <% if item.document_content_type.to_s.match(/pdf/i) || item.document_file_name.to_s.match(/pdf$/i) %>
+            <%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
+        <% end %>      
+        <%= link_to item.name, item.document.url %> 
+      </td>
       <td class="text-center"> <% if item.respond_to?(:version) %><%= item.version %><% end %>&nbsp; </td>
       <td class="text-center"> <%= flag_for(item) %>&nbsp; </td>
       <td> <%= number_to_human_size(item.document_file_size) %> </td>
