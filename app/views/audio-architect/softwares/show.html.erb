@@ -39,9 +39,7 @@
 			
 			<% @software.software_attachments.each do |sa| %>
 			<p>
-				<% if sa.software_attachment_content_type.match(/pdf/i) %>
-					<%= image_tag("icons/pdf_17.png", style: "vertical-align: middle;") %>
-				<% end %>
+				<%= file_type_icon(sa) %>
 				<%= link_to sa.name, sa.software_attachment.url %>
 			</p>
 			<% end %>

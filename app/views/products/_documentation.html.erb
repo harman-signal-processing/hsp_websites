@@ -9,9 +9,7 @@
 
 	<% product.safety_documents.includes(:product).each do |product_document| %>
 	<li>
-		<% if product_document.document_content_type.to_s.match(/pdf/i) || product_document.document_file_name.to_s.match(/pdf$/i) %>
-			<%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
-		<% end %>
+		<%= file_type_icon(product_document) %>
 		<%= link_to product_document.name(hide_product_name: true), product_document.document.url %>
 		[<%= number_to_human_size(product_document.document_file_size) %>]
 	</li>
@@ -19,9 +17,7 @@
 
 	<% product.nonsafety_documents.includes(:product).each do |product_document| %>
 	<li>
-		<% if product_document.document_content_type.to_s.match(/pdf/i) || product_document.document_file_name.to_s.match(/pdf$/i) %>
-			<%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
-		<% end %>
+		<%= file_type_icon(product_document) %>
 		<%= link_to product_document.name(hide_product_name: true), product_document.document.url %>
 		[<%= number_to_human_size(product_document.document_file_size) %>]
 	</li>
@@ -31,7 +27,7 @@
     <% if can?(:read, site_element) %>
       <% if site_element.external_url.present? || site_element.executable_file_name.present? %>
         <li>
-          <%= image_tag "icons/download_17.png", style: "vertical-align: middle" %>
+          <%= file_type_icon(site_element) %>
           <%= link_to site_element.long_name, site_element.url %>
           <%= keys_for(site_element) %>
           <% if site_element.resource_file_size.present? %>
@@ -43,9 +39,7 @@
         </li>
       <% elsif site_element.resource_file_name.present? %>
         <li>
-          <% if site_element.resource_content_type.to_s.match(/pdf/i) || site_element.resource_file_name.to_s.match(/pdf$/i) %>
-            <%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
-          <% end %>
+					<%= file_type_icon(site_element) %>
           <%= link_to site_element.long_name, site_element.resource.url %>
           <%= keys_for(site_element) %>
           [<%= number_to_human_size(site_element.resource_file_size) %>]

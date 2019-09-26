@@ -2,9 +2,7 @@
   <h5>Safety Documentation</h5>
   <ul class="docs">
     <li>
-      <% if product_document.document_content_type.to_s.match(/pdf/i) || product_document.document_file_name.to_s.match(/pdf$/i) %>
-        <%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
-      <% end %>
+      <%= file_type_icon(product_document) %>
       <%= link_to product_document.name(hide_product_name: true), product_document.document.url %>
       [<%= number_to_human_size(product_document.document_file_size) %>]
     </li>
@@ -20,9 +18,7 @@
   <ul class="docs">
     <% product.nonsafety_documents.includes(:product).where(document_type: document_type).each do |product_document| %>
       <li>
-        <% if product_document.document_content_type.to_s.match(/pdf/i) || product_document.document_file_name.to_s.match(/pdf$/i) %>
-          <%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
-        <% end %>
+        <%= file_type_icon(product_document) %>
         <%= link_to product_document.name(hide_product_name: true), product_document.document.url %>
         [<%= number_to_human_size(product_document.document_file_size) %>]
       </li>
@@ -39,9 +35,7 @@
         </li>
       <% elsif site_element.resource_file_name.present? %>
         <li>
-          <% if site_element.resource_content_type.to_s.match(/pdf/i) || site_element.resource_file_name.to_s.match(/pdf$/i) %>
-            <%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
-          <% end %>
+          <%= file_type_icon(site_element) %>
           <%= link_to site_element.long_name, site_element.resource.url %>
         </li>
       <% end %>
