@@ -7,9 +7,7 @@
 	<ul>
 		<% @product_documents.each do |product_document| %>
 		<li>
-			<% if product_document.document_content_type.match(/pdf/i) %>
-				<%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
-			<% end %>
+			<%= file_type_icon(product_document) %>
 			<%= link_to product_document.name, product_document.document.url %>
 		</li>
 		<% end %>

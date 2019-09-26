@@ -450,6 +450,28 @@ module ApplicationHelper
     image_tag img, style: "vertical-align: middle"
 	end
 
+  def file_type_icon(item, size=17)
+    img = case true
+          when 
+            # item.is_a?(SiteElement) 
+            (item.respond_to?(:executable_content_type) && !!item.executable_content_type.to_s.match(/pdf/i)) || 
+            (item.respond_to?(:resource_content_type) && !!item.resource_content_type.to_s.match(/pdf/i)) || 
+            (item.respond_to?(:resource_file_name) && !!item.resource_file_name.to_s.match(/pdf$/i)) ||
+            
+            # item.is_a?(ProductDocument)
+            (item.respond_to?(:document_content_type) && !!item.document_content_type.to_s.match(/pdf/i)) || 
+            (item.respond_to?(:document_file_name) && !!item.document_file_name.to_s.match(/pdf$/i)) ||
+            
+            # item.is_a?(SoftwareAttachment)
+            (item.respond_to?(:software_attachment_content_type) && !!item.software_attachment_content_type.to_s.match(/pdf/i))
+            
+            "icons/pdf_#{size}.png"
+          else
+            "icons/download_#{size}.png"
+          end
+    image_tag img, style: "vertical-align: middle"
+  end  #  def file_type_icon(item)
+
   def seconds_to_HMS(time)
     time = time.to_i
     [time/3600, time/60 % 60, time % 60].map{|t| t.to_s.rjust(2,'0')}.join(':')
