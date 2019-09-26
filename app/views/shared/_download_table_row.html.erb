@@ -4,7 +4,7 @@
 
       <% if item.external_url.present? || item.executable_file_name.present? %>
         <td>
-          <%= image_tag "icons/download_17.png", style: "vertical-align: middle" %>
+          <%= file_type_icon(item) %>
           <%= link_to item.name, item.url %>
           <%= keys_for(item) %>
         </td>
@@ -19,9 +19,7 @@
 
       <% elsif item.resource_file_name.present? %>
         <td>
-          <% if item.resource_content_type.to_s.match(/pdf/i) || item.resource_file_name.to_s.match(/pdf$/i) %>
-            <%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
-          <% end %>
+          <%= file_type_icon(item) %>
           <%= link_to item.name, item.url %>
           <%= keys_for(item) %>
         </td>
@@ -43,9 +41,7 @@
 
     <% elsif item.is_a?(ProductDocument) %>
       <td> 
-        <% if item.document_content_type.to_s.match(/pdf/i) || item.document_file_name.to_s.match(/pdf$/i) %>
-            <%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
-        <% end %>      
+        <%= file_type_icon(item) %>  
         <%= link_to item.name, item.document.url %> 
       </td>
       <td class="text-center"> <% if item.respond_to?(:version) %><%= item.version %><% end %>&nbsp; </td>
