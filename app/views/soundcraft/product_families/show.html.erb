@@ -11,16 +11,7 @@
 	<% end %>
 <% end %>
 
-<%= content_for :feature do %>
-  <div class="container product_family_header">
-    <div class="row">
-      <div class="large-8 small-12 columns">
-        <h1><%= translate_content(@product_family, :name) %></h1>
-        <p><%=raw translate_content(@product_family, :intro) %></p>
-      </div>
-    </div>
-  </div>
-<% end %>
+<%= render_partial 'features' %>
 
 <% if @product_family.show_comparisons? %>
 	<%= form_tag compare_products_path, method: :get %>

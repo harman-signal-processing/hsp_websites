@@ -11,36 +11,7 @@
 	<% end %>
 <% end %>
 
-<% if @product_family.features.size > 0 %>
-  <% @product_family.features.each do |feature| %>
-    <%= render_feature feature %>
-  <% end %>
-<% else %>
-  <%= content_for :feature do %>
-    <% if @product_family.title_banner.present? %>
-      <div class="product-family-banner-container text-center">
-        <%= image_tag @product_family.title_banner.url, alt: @product_family.name %>
-      </div>
-      <% if @product_family.intro.present? %>
-        <br/>
-        <div class="row">
-          <div class="medium-8 small-12 columns">
-            <%= raw translate_content(@product_family, :intro) %>
-          </div>
-        </div>
-      <% end %>
-    <% else %>
-      <div class="container product_family_header">
-        <div class="row">
-          <div class="large-8 small-12 columns">
-            <h1><%= translate_content(@product_family, :name) %></h1>
-            <p><%=raw translate_content(@product_family, :intro) %></p>
-          </div>
-        </div>
-      </div>
-    <% end # if @product_family.title_banner.present? %>
-  <% end # content_for :feature do %>
-<% end # if @product_family.features.count > 0 %>
+<%= render_partial 'features' %>
 
 <% if @product_family.show_comparisons? %>
 	<%= form_tag compare_products_path, method: :get %>

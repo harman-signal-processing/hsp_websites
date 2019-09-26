@@ -15,7 +15,6 @@
         collection: ProductFamily.where(brand_id: website.brand.id).order(:name) - [@product_family] - @product_family.children,
         label_method: :tree_names
       %>
-
 		</div>
 		<div class="large-4 columns">
 			<% if website.page_layouts %>
@@ -87,6 +86,7 @@
   </div>
 
 	<br/><%= f.input :hide_from_homepage, label: "Hide from homepage. (only applicable to parent categories)" %>
+  <br/><%= f.input :has_full_width_features %>
 
   <div class="row">
     <div class="small-12 medium-6 columns">

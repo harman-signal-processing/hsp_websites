@@ -12,8 +12,18 @@
 <% end %>
 
 <% if @product_family.features.size > 0 %>
-  <% @product_family.features.each do |feature| %>
-    <%= render_feature feature %>
+  <%= cache ["product_family_features", @product_family, I18n.locale, session['geo_country']] do %>
+    <% if @product_family.has_full_width_features? %>
+      <% content_for :feature do %>
+        <% @product_family.features.each do |feature| %>
+          <%= render_feature feature %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <% @product_family.features.each do |feature| %>
+        <%= render_feature feature %>
+      <% end %>
+    <% end %>
   <% end %>
 <% else %>
   <%= content_for :feature do %>
