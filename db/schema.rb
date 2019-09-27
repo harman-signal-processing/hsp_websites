@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_26_175307) do
+ActiveRecord::Schema.define(version: 2019_09_27_185225) do
 
   create_table "access_levels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -1083,7 +1083,7 @@ ActiveRecord::Schema.define(version: 2019_09_26_175307) do
     t.integer "parent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean "hide_from_homepage", default: false
+    t.boolean "hide_from_navigation", default: false
     t.string "cached_slug"
     t.string "background_image_file_name"
     t.integer "background_image_file_size"

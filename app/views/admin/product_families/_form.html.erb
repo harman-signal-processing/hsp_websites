@@ -85,8 +85,9 @@
     </div>
   </div>
 
-	<br/><%= f.input :hide_from_homepage, label: "Hide from homepage. (only applicable to parent categories)" %>
-  <br/><%= f.input :has_full_width_features %>
+  <br/>
+	<%= f.input :hide_from_navigation, hint: "Experimental. May not hide everywhere." %>
+  <%= f.input :has_full_width_features %>
 
   <div class="row">
     <div class="small-12 medium-6 columns">
