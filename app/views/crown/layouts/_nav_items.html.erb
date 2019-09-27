@@ -9,7 +9,7 @@
             amp_families = ProductFamily.parents_with_current_products(website, I18n.locale)
           %>
           <% amp_families.each do |product_family| %>
-            <% unless product_family.hide_from_homepage? %>
+            <% unless product_family.hide_from_navigation? %>
               <%= product_family_nav_links(product_family, depth: 2) %>
             <% end %>
           <% end %>
@@ -28,7 +28,7 @@
         </li>
       <% end %>
       <% amp_families.each do |product_family| %>
-        <% if product_family.hide_from_homepage? %>
+        <% if product_family.hide_from_navigation? %>
           <%= product_family_nav_links(product_family, depth: 1) %>
         <% end %>
       <% end %>

@@ -120,18 +120,9 @@ class ProductFamily < ApplicationRecord
     pf
   end
 
-  # Parent categories for super nav (originally designed for Lexicon site)
-  def self.parents_for_supernav(website, locale)
-    pf = []
-    top_level_for(website).each do |f|
-      pf << f if !(f.hide_from_homepage) && f.locales(website).include?(locale.to_s) && (f.current_products.size > 0 || f.children_with_current_products(website).size > 0)
-    end
-    pf
-  end
-
   def self.top_level_for(brand)
     brand_id = brand.is_a?(Website) ? brand.brand_id : brand.id
-    where(brand_id: brand_id).where("parent_id IS NULL or parent_id = 0").order('position').includes(:products)
+    where(brand_id: brand_id, hide_from_navigation: false).where("parent_id IS NULL or parent_id = 0").order('position').includes(:products)
   end
 
   # We flatten the families for the employee store.
@@ -265,7 +256,7 @@ class ProductFamily < ApplicationRecord
   # w = a Brand or a Website
   def children_with_current_products(w)
     brand_id = (w.is_a?(Brand)) ? w.id : w.brand_id
-    children.where(brand_id: brand_id).includes(:products).select do |pf|
+    children.where(brand_id: brand_id, hide_from_navigation: false).includes(:products).select do |pf|
       pf if !pf.requires_login? && (pf.current_products.size > 0 || pf.children_with_current_products(w).size > 0)
     end
   end

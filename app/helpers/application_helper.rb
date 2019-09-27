@@ -494,26 +494,14 @@ module ApplicationHelper
     rescue
       ""
     end
-	end
+  end
 
-	def image_url(source)
+  def image_url(source)
     abs_path = image_path(source)
     unless abs_path =~ /^http/
       abs_path = "#{request.protocol}#{request.host_with_port}#{abs_path}"
     end
     abs_path
-  end
-
-  # Render an unordered list of the top top nav
-  def supernav
-    families = ProductFamily.parents_for_supernav(website, I18n.locale)
-    ret = "<ul>"
-    families.each do |product_family|
-      lastchild = (product_family == families.last) ? "last-child" : ""
-      ret += content_tag(:li, link_to(translate_content(product_family, :name), product_family), class: lastchild)
-    end
-    ret += "</ul>"
-    ret.html_safe
   end
 
   # Replacement for render :partial, this version considers the
