@@ -8,7 +8,7 @@
 	$products_dropdown.append($("<option></option>"));		
 
 	<% Product.not_associated_with_this_site_element(@product_site_element.site_element, website).each do |product| %>
-		$products_dropdown.append($("<option value='<%=product.id%>'><%=product.name%></option>"));
+		$products_dropdown.append($("<option value='<%=product.id%>'><%=escape_javascript(product.name.strip)%></option>"));
 	<% end %>
 	
 	// let chosen know the product dropdown list has been updated

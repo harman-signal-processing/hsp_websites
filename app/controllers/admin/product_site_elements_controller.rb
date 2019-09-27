@@ -102,6 +102,7 @@ class Admin::ProductSiteElementsController < AdminController
   # DELETE /admin/product_site_elements/1
   # DELETE /admin/product_site_elements/1.xml
   def destroy
+    @called_from = params[:called_from] || "product"
     @product_site_element.destroy
     respond_to do |format|
       format.html { redirect_to(admin_product_site_elements_url) }
