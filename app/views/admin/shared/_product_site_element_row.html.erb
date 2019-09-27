@@ -5,7 +5,7 @@
 			link_to(pse.site_element.long_name, [:admin, pse.site_element]) : 
 			link_to(pse.product.name, [:admin, pse.product]) %> 
 	<%= link_to(image_tag("icons/trash.gif"), 
-			admin_product_site_element_path(pse), 
+			admin_product_site_element_path(pse, called_from: called_from), 
 			confirm: "Are you sure? (This won't delete the product or the resource--it will only remove the association.)", 
 			remote: true,
 			method: :delete) %>
