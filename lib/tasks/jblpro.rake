@@ -56,8 +56,8 @@ namespace :jblpro do
     @agent = Mechanize.new
     @links_followed = []
 
-    family_page = @agent.get("https://www.jblpro.com/www/products/portable-market/prx800-series")
-    parent_family = ProductFamily.find "live-portable"
+    family_page = @agent.get("https://www.jblpro.com/www/products/cinema-market/vip-rooms")
+    parent_family = ProductFamily.find "jbl-professional-cinema"
 
     find_or_create_family(family_page, parent_family)
   end
@@ -199,6 +199,9 @@ namespace :jblpro do
       else # we have one of those fancy new product family pages
         pf_name = family_page.title.gsub(/\|.*/, '').strip
         intro = ""
+      end
+      if pf_name.blank? && family_page.css(".Header-Orange").length > 0
+        pf_name = family_page.css(".Header-Orange").text
       end
       if pf_name.present?
         product_family = ProductFamily.where(name: pf_name.strip, brand: jblpro).first_or_initialize
@@ -452,6 +455,7 @@ namespace :jblpro do
   end
 
   def log_problem(msg)
+    puts msg
     File.open("log/jblimport_problems.txt", 'a') do |f|
       f.puts "#{Time.now.to_s} - #{msg}"
     end
