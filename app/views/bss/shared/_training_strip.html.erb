@@ -26,6 +26,6 @@
       </div>
     </div>
     <br/>
-    <%= link_to website.training_button, 'https://pro.harman.com/training', target: "_blank", class: "large button" %>
+    <%= link_to website.training_button, "#{ENV['PRO_SITE_URL']}/training", target: "_blank", class: "large button" %>
   </div>
 <% end %>

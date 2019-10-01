@@ -6,7 +6,7 @@ module Distributors
     if brand.empty? || country_code.empty?
       return []
     else
-      url = "https://pro.harman.com/distributor_info/distributors/#{brand.downcase}/#{country_code.downcase}.json"
+      url = "#{ENV['PRO_SITE_URL']}/distributor_info/distributors/#{brand.downcase}/#{country_code.downcase}.json"
       encoded_url = URI.encode(url)
       
       response = HTTParty.get(encoded_url)

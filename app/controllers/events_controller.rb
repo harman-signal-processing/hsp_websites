@@ -20,7 +20,7 @@ class EventsController < ApplicationController
         if @events.length > 0
           render_template
         else
-          redirect_to "https://pro.harman.com/events" and return false
+          redirect_to "#{ENV['PRO_SITE_URL']}/events" and return false
         end
       }
       format.xml  { render xml: @events }

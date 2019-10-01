@@ -5,7 +5,7 @@ module Rsos
     if country_code.empty?
       return []
     else
-      url = "https://pro.harman.com/contact_info/rso/#{country_code.downcase}.json"
+      url = "#{ENV['PRO_SITE_URL']}/contact_info/rso/#{country_code.downcase}.json"
       encoded_url = URI.encode(url)
       
       response = HTTParty.get(encoded_url)
