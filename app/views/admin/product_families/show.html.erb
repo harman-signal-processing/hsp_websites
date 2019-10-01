@@ -151,6 +151,26 @@
         <% end %>
       </ul>
     </div>
+
+    <div class="group">
+      <h4 class="subheader">Case Studies</h4>
+
+      <p>Let's make this easy. Just paste the ID of a case study from the pro site.
+      (The ID is just the last part of the URL. Something like "case-study-name".)</p>
+
+      <%= simple_form_for [:admin, @product_family_case_study], remote: true do |f| %>
+        <%= f.hidden_field :product_family_id %>
+        <%= hidden_field_tag :called_form, "product_family" %>
+        <%= f.input :case_study_id, hint: "If the URL is #{ENV['PRO_SITE_URL']}/case_studies/i-like-brown-cars then just put i-like-brown-cars above." %>
+        <%= f.submit "add case study", class: "button" %>
+      <% end %>
+
+      <ul id="product_family_case_studies" class="list">
+        <% @product_family.product_family_case_studies.each do |pfcs| %>
+          <%= render "/admin/shared/product_family_case_study_row", pfcs: pfcs, called_from: "product_family" %>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </div>
 

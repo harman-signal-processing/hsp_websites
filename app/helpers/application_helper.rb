@@ -524,7 +524,7 @@ module ApplicationHelper
 
     links = []
     if options[:include_hpro]
-      links << link_to(image_tag("pro_brands/harmanpro.png", alt: "HarmanPro", class: "no-resize"), "http://pro.harman.com", target: "_blank")
+      links << link_to(image_tag("pro_brands/harmanpro.png", alt: "HarmanPro", class: "no-resize"), ENV['PRO_SITE_URL'], target: "_blank")
     end
 
     pro_brands = [

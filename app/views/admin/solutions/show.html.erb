@@ -11,7 +11,7 @@
 
 <% if @solution.vertical_market_id.present? %>
 <p>
-  Related pro.harman.com vertical market:
+Related <%= ENV['PRO_SITE_URL'] %> vertical market:
   <%= link_to @solution.vertical_market_id.titleize, "#{ENV['PRO_SITE_URL']}/applications/#{@solution.vertical_market_id}", target: "_blank" %>
 </p>
 <% end %>

@@ -1,0 +1,16 @@
+<% if @product_family.product_family_case_studies.length > 0 %>
+  <h3>Solutions Featuring <%= @product_family.name %> Products</h3>
+  <ul class="large-block-grid-4 medium-block-grid-2 small-block-grid-1">
+    <% @product_family.product_family_case_studies.each do |pfcs| %>
+      <li>
+        <%= link_to "#{ENV['PRO_SITE_URL']}/case_studies/#{pfcs.case_study_id}", target: "_blank" do %>
+          <% if pfcs.small_panel_banner_url.present? %>
+            <%= image_tag pfcs.small_panel_banner_url, alt: pfcs.headline %>
+          <% end %>
+          <h5><%= pfcs.headline %></h5>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+

@@ -19,8 +19,9 @@ class Admin::ProductFamiliesController < AdminController
   # GET /admin/product_families/1
   # GET /admin/product_families/1.xml
   def show
-    @product_family_product = ProductFamilyProduct.new(product_family: @product_family)
-    @locale_product_family = LocaleProductFamily.new(product_family: @product_family)
+    @product_family_product    = ProductFamilyProduct.new(product_family: @product_family)
+    @locale_product_family     = LocaleProductFamily.new(product_family: @product_family)
+    @product_family_case_study = ProductFamilyCaseStudy.new(product_family: @product_family)
     respond_to do |format|
       format.html { render_template } # show.html.erb
       format.xml  { render xml: @product_family }

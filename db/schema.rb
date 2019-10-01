@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_27_185225) do
+ActiveRecord::Schema.define(version: 2019_09_30_201407) do
 
   create_table "access_levels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -1109,6 +1109,15 @@ ActiveRecord::Schema.define(version: 2019_09_27_185225) do
     t.index ["brand_id"], name: "index_product_families_on_brand_id"
     t.index ["cached_slug"], name: "index_product_families_on_cached_slug", unique: true
     t.index ["parent_id"], name: "index_product_families_on_parent_id"
+  end
+
+  create_table "product_family_case_studies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "product_family_id"
+    t.string "case_study_id"
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_family_id"], name: "index_product_family_case_studies_on_product_family_id"
   end
 
   create_table "product_family_products", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

@@ -341,7 +341,7 @@
                   <dd><%= link_to "Dealers", admin_dealers_path %></dd>
                 <% end %>
                 <% if can?(:manage, Distributor) && website.has_distributors? %>
-                  <dd><%= link_to "Distributors", "https://pro.harman.com/distributor_info/admin/distributors", target: "_blank" %></dd>
+                  <dd><%= link_to "Distributors", "#{ENV['PRO_SITE_URL']}/distributor_info/admin/distributors", target: "_blank" %></dd>
                 <% end %>
                 <% if can?(:manage, UsRep) && website.has_us_sales_reps? %>
                   <dd><%= link_to "US Sales Reps", admin_us_reps_path %></dd>

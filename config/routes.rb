@@ -537,6 +537,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
 
       resources :service_centers,
         :market_segment_product_families,
+        :product_family_case_studies,
         :software_training_classes,
         :software_training_modules,
         :get_started_page_products,
@@ -713,7 +714,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
 
     get 'privacy_policy.html', to: redirect('http://www.harman.com/privacy-policy'), as: :privacy_policy
     get 'terms_of_use.html', to: redirect('http://www.harman.com/terms-use'), as: :terms_of_use
-    get 'new_products.html', to: redirect('http://pro.harman.com/lp/new-products'), as: :new_products
+    get 'new_products.html', to: redirect("#{ENV['PRO_SITE_URL']}/lp/new-products"), as: :new_products
 
     match 'discontinued_products' => 'products#discontinued_index', as: :discontinued_products, via: :all
     get 'channel' => 'main#channel'
@@ -733,12 +734,12 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     match '/support/rma_repair' => 'support#rma', as: :rma_repair_request, message_type: "rma_repair_request", via: :all
     match '/support/rma_credit' => 'support#rma', as: :rma_credit_request, message_type: "rma_credit_request", via: :all
     match '/support/contact' => 'support#contact', as: :support_contact, via: :all
-    match '/support/service_lookup', to: redirect('https://pro.harman.com/service_centers'), as: :service_lookup, via: :all
+    match '/support/service_lookup', to: redirect("#{ENV['PRO_SITE_URL']}/service_centers"), as: :service_lookup, via: :all
     match '/support/troubleshooting' => 'support#troubleshooting', as: :support_troubleshooting, via: :all
     get '/support/speaker_tunings' => 'support#speaker_tunings', as: :speaker_tunings
     get '/support/cad' => 'support#cad', as: :support_cad
     match '/support/vintage_repair' => 'support#vintage_repair', as: :vintage_repair, via: :all
-    match '/support/all_repair', to: redirect('https://pro.harman.com/service_centers'), as: :support_all_repair, via: :all
+    match '/support/all_repair', to: redirect("#{ENV['PRO_SITE_URL']}/service_centers"), as: :support_all_repair, via: :all
     match '/catalog_request' => 'support#catalog_request', as: :catalog_request, via: :all
     get '/support/warranty_policy' => 'support#warranty_policy', as: :warranty_policy
     get '/support/protected' => 'gated_support#index', as: :gated_support

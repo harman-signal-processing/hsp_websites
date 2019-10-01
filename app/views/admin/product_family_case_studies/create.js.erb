@@ -1,0 +1,3 @@
+$('#product_family_case_studies').append('<%= escape_javascript(render "/admin/shared/product_family_case_study_row", pfcs: @product_family_case_study) %>');
+$('input#product_family_case_study_case_study_id').val("");
+<% flash.discard %>

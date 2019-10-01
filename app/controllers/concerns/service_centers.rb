@@ -5,7 +5,7 @@ module ServiceCenters
     if brand.empty? || state.empty?
       return []
     else
-      url = "https://pro.harman.com/service_centers/#{brand.downcase}/#{state.downcase}.json"
+      url = "#{ENV['PRO_SITE_URL']}/service_centers/#{brand.downcase}/#{state.downcase}.json"
       encoded_url = URI.encode(url)
       
       response = HTTParty.get(encoded_url)
