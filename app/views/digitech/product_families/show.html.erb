@@ -21,7 +21,7 @@
 	<div class="large-12 columns">
     <%= render_partial "product_families/product_family", product_family: @product_family, skip_header: true  %>
 
-    <% @product_family.children_with_current_products(website).each do |sub_family| %>
+    <% @children_with_current_products.each do |sub_family| %>
       <%= render_partial "product_families/product_family", product_family: sub_family %>
     <% end %>
 

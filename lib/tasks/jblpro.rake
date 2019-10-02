@@ -105,7 +105,7 @@ namespace :jblpro do
       body.css("img").remove
       news.body = body.inner_html
 
-      news.save!
+      news.save
     end
   end
 

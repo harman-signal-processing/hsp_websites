@@ -7,14 +7,16 @@
 	} %>
 
 <%
-	featured_news = @news.first
+  unless website.hide_featured_news.to_i > 0
+    featured_news = @news.first
 %>
 
-<% if featured_news && featured_news.news_photo.present? %>
-  <%= content_for :feature do %>
-    <div class="text-center news_banner">
-      <%= link_to(image_tag(featured_news.news_photo.url(:original)), featured_news) %>
-    </div>
+  <% if featured_news && featured_news.news_photo.present? %>
+    <%= content_for :feature do %>
+      <div class="text-center news_banner">
+        <%= link_to(image_tag(featured_news.news_photo.url(:original)), featured_news) %>
+      </div>
+    <% end %>
   <% end %>
 <% end %>
 

@@ -20,6 +20,7 @@ class ProductFamiliesController < ApplicationController
     unless @product_family.brand == website.brand || website.product_families.include?(@product_family)
       redirect_to product_families_path, status: :moved_permanently and return
     end
+    @children_with_current_products = @product_family.children_with_current_products(website)
     respond_to do |format|
       format.html {
 
@@ -29,9 +30,9 @@ class ProductFamiliesController < ApplicationController
 
         # If the family has no fancy features and only one child with one active product
         elsif @product_family.features.length == 0 &&
-          @product_family.children_with_current_products(website).size == 1 &&
-          @product_family.children_with_current_products(website).first.current_products.size == 1
-            redirect_to @product_family.children_with_current_products(website).first.current_products.first, status: :moved_permanently and return
+          @children_with_current_products.size == 1 &&
+          @children_with_current_products.first.current_products.size == 1
+            redirect_to @children_with_current_products.first.current_products.first, status: :moved_permanently and return
 
         # If the family has a "layout_class" defined and we can find a template with that name
         elsif !@product_family.layout_class.blank? &&
