@@ -18,40 +18,54 @@
 
     <div data-equalizer="family_thumbs" data-equalizer-mq="medium-up">
       <h5>Product Categories</h5>
-    <ul class="small-block-grid-1 medium-block-grid-4">
-    <% @children_with_current_products.each do |product_family| %>
-      <% if product_family.locales(website).include?(I18n.locale.to_s) %>
-        <li><div id="<%= product_family.to_param %>">
-          <%= link_to product_family do %>
-            <div class="product_family_box">
-              <% unless @children_with_current_products.length > 16 %>
-                <div data-equalizer-watch="family_thumbs" class="family_thumb">
-                  <% if !product_family.family_photo_file_name.blank? %>
-                    <%= image_tag(product_family.family_photo.url, alt: translate_content(product_family, :name)) %>
-                  <% elsif product_family.first_product_with_photo(website) %>
-                    <%= image_tag(product_family.first_product_with_photo(website).primary_photo.product_attachment.url(:medium),
-                                  alt: translate_content(product_family, :name)) %>
+      <% if @children_with_current_products.length > 16 %>
+        <div class="row">
+          <% @children_with_current_products.in_groups(3).each do |group| %>
+            <div class="large-4 medium-4 small-12 columns">
+              <ul>
+              <% group.each do |product_family| %>
+                <% if product_family.is_a? ProductFamily %>
+                  <li><%= link_to translate_content(product_family, :name), product_family %></li>
+                <% end %>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <ul class="small-block-grid-1 medium-block-grid-4">
+        <% @children_with_current_products.each do |product_family| %>
+          <% if product_family.locales(website).include?(I18n.locale.to_s) %>
+            <li><div id="<%= product_family.to_param %>">
+              <%= link_to product_family do %>
+                <div class="product_family_box">
+                  <div data-equalizer-watch="family_thumbs" class="family_thumb">
+                    <% if !product_family.family_photo_file_name.blank? %>
+                      <%= image_tag(product_family.family_photo.url, alt: translate_content(product_family, :name)) %>
+                    <% elsif product_family.first_product_with_photo(website) %>
+                      <%= image_tag(product_family.first_product_with_photo(website).primary_photo.product_attachment.url(:medium),
+                                    alt: translate_content(product_family, :name)) %>
+                    <% end %>
+                  </div>
+                  <% if product_family.family_photo_file_name.blank? %>
+                    <h2><%= translate_content(product_family, :name) %></h2>
+                  <% end %>
+                  <% if product_family.short_description.present? %>
+                    <p class="subtext"><%=strip_html translate_content(product_family, :short_description) %></p>
+                  <% elsif product_family.intro.present? %>
+                    <p class="subtext"><%= truncate(strip_html(translate_content(product_family, :intro)), length: 100) %></p>
+                  <% elsif product_family.current_products_plus_child_products(website).length == 10 %>
+                    <p class="subtext"><%= truncate(strip_html(translate_content(product_family.current_products_plus_child_products(website).first, :short_description)), length: 100) %></p>
+                  <% elsif product_family.current_products_plus_child_products(website).length > 0 %>
+                    <p class="subtext"><%= truncate(product_family.current_products_plus_child_products(website).map{|p| translate_content(p, :name)}.join(", "), length: 100) %></p>
                   <% end %>
                 </div>
               <% end %>
-              <% if product_family.family_photo_file_name.blank? %>
-                <h2><%= translate_content(product_family, :name) %></h2>
-              <% end %>
-              <% if product_family.short_description.present? %>
-                <p class="subtext"><%=strip_html translate_content(product_family, :short_description) %></p>
-              <% elsif product_family.intro.present? %>
-                <p class="subtext"><%= truncate(strip_html(translate_content(product_family, :intro)), length: 100) %></p>
-              <% elsif product_family.current_products_plus_child_products(website).length == 10 %>
-                <p class="subtext"><%= truncate(strip_html(translate_content(product_family.current_products_plus_child_products(website).first, :short_description)), length: 100) %></p>
-              <% elsif product_family.current_products_plus_child_products(website).length > 0 %>
-                <p class="subtext"><%= truncate(product_family.current_products_plus_child_products(website).map{|p| translate_content(p, :name)}.join(", "), length: 100) %></p>
-              <% end %>
-            </div>
+            </div></li>
           <% end %>
-        </div></li>
+        <% end %>
+        </ul>
       <% end %>
-    <% end %>
-    </ul>
     </div>
 
   <% else %>
