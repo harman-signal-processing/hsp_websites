@@ -89,7 +89,7 @@ class ProductFamily < ApplicationRecord
   # Collection of all families with at least one active product
   def self.all_with_current_products(website, locale)
     where(brand_id: website.brand_id).order("position").select do |f|
-      f if (f.current_products.size > 0 || f.children_with_current_products(website).size > 0) && f.locales(website).include?(locale.to_s)
+      f if (f.current_products.size > 0 || f.children_with_current_products(website, locale: locale).size > 0) && f.locales(website).include?(locale.to_s)
     end
   end
 
@@ -204,7 +204,7 @@ class ProductFamily < ApplicationRecord
   # w = a Brand or a Website
   def current_products_plus_child_products(w, opts={})
     cp = self.current_products
-    children_with_current_products(w).each do |pf|
+    children_with_current_products(w, opts).each do |pf|
       cp += pf.current_products_plus_child_products(w, opts)
     end
     if opts[:nosort]
@@ -255,10 +255,12 @@ class ProductFamily < ApplicationRecord
 
   # Load this ProductFamily's children families with at least one active product
   # w = a Brand or a Website
-  def children_with_current_products(w)
+  def children_with_current_products(w, options={})
     brand_id = (w.is_a?(Brand)) ? w.id : w.brand_id
     children.where(brand_id: brand_id, hide_from_navigation: false).includes(:products).select do |pf|
-      pf if !pf.requires_login? && (pf.current_products.size > 0 || pf.children_with_current_products(w).size > 0)
+      if !pf.requires_login? && (pf.current_products.size > 0 || pf.children_with_current_products(w, options).size > 0)
+        pf unless options[:locale].present? && !pf.locales(w).include?(options[:locale].to_s)
+      end
     end
   end
 

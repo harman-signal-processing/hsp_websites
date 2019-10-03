@@ -16,7 +16,7 @@
       <li class="divider hide-for-medium"></li>
       <li class="has-dropdown"><%= link_to translate_content(secondary_product_family_group, :name), '#' %>
         <ul class="dropdown">
-          <% secondary_product_family_group.children_with_current_products(website).each do |product_family| %>
+          <% secondary_product_family_group.children_with_current_products(website, locale: I18n.locale).each do |product_family| %>
             <%= product_family_nav_links(product_family, depth: 2) %>
           <% end %>
         </ul>

@@ -42,10 +42,9 @@ namespace :jblpro do
     @agent = Mechanize.new
     @links_followed = []
 
-    ["pro-soundbar"].each do |pid|
-      page = @agent.get("http://www.jblpro.com/www/products/installed-sound/#{pid}")
-      product_family = ProductFamily.find("commercial-soundbars")
-
+    %w(css8006bm css-bb6bm).each do |pid|
+      page = @agent.get("https://www.jblpro.com/china/products/installed-sound/commercial-series/#{pid}")
+      product_family = ProductFamily.find("css-commercial-speakers")
       find_or_create_product(page, product_family)
     end
   end
@@ -56,10 +55,11 @@ namespace :jblpro do
     @agent = Mechanize.new
     @links_followed = []
 
-    family_page = @agent.get("https://www.jblpro.com/www/products/cinema-market/vip-rooms")
-    parent_family = ProductFamily.find "jbl-professional-cinema"
-
-    find_or_create_family(family_page, parent_family)
+    %w(cv1000-series cv3000-series).each do |pid|
+      family_page = @agent.get("https://www.jblpro.com/china/products/installed-sound/#{pid}")
+      parent_family = ProductFamily.find "installed"
+      find_or_create_family(family_page, parent_family)
+    end
   end
 
   desc "Import JBL news"
@@ -254,6 +254,7 @@ namespace :jblpro do
           product.description = description.inner_html
           product.features    = product_page.css("#ProductFeatures").inner_html
           product.old_url = product_page.uri
+          product.layout_class ||= "vertical"
 
           # Add pricing
           if product_page.css("div.BuyNowPrice").length > 0

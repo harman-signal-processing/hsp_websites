@@ -41,7 +41,7 @@ feature "Browse Products" do
     end
 
     it "should go directly to the product page where only one product exists in the family" do
-      child_family = @single_parent.children_with_current_products(@website).first
+      child_family = @single_parent.children_with_current_products(@website, locale: I18n.default_locale).first
 
       visit product_family_path(child_family, locale: I18n.default_locale)
 
@@ -49,7 +49,7 @@ feature "Browse Products" do
     end
 
     it "should go directly to the product page where only one product exists in all the children" do
-      child_family = @single_parent.children_with_current_products(@website).first
+      child_family = @single_parent.children_with_current_products(@website, locale: I18n.locale).first
 
       visit product_family_path(@single_parent, locale: I18n.default_locale)
 
