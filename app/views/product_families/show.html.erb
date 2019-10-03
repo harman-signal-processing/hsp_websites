@@ -24,7 +24,7 @@
             <div class="large-4 medium-4 small-12 columns">
               <ul>
               <% group.each do |product_family| %>
-                <% if product_family.is_a? ProductFamily && product_family.locales(website).include?(I18n.locale.to_s) %>
+                <% if product_family.is_a?(ProductFamily) && product_family.locales(website).include?(I18n.locale.to_s) %>
                   <li><%= link_to translate_content(product_family, :name), product_family %></li>
                 <% end %>
               <% end %>
