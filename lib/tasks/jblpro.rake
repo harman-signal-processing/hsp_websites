@@ -42,11 +42,11 @@ namespace :jblpro do
     @agent = Mechanize.new
     @links_followed = []
 
-    %w(css8006bm css-bb6bm).each do |pid|
-      page = @agent.get("https://www.jblpro.com/china/products/installed-sound/commercial-series/#{pid}")
-      product_family = ProductFamily.find("css-commercial-speakers")
+    #%w(dc115 dc180 dc280 dc380 dc430 dc500 dc808 ds808).each do |pid|
+      page = @agent.get("https://www.jblpro.com/china/products/portable-market/eon600-series/eon-connect")
+      product_family = ProductFamily.find("eon-connect")
       find_or_create_product(page, product_family)
-    end
+    #end
   end
 
   desc "Manually crawl one JBL product family"
@@ -55,11 +55,11 @@ namespace :jblpro do
     @agent = Mechanize.new
     @links_followed = []
 
-    %w(cv1000-series cv3000-series).each do |pid|
-      family_page = @agent.get("https://www.jblpro.com/china/products/installed-sound/#{pid}")
-      parent_family = ProductFamily.find "installed"
+    #%w(nano-k-series).each do |pid|
+    family_page = @agent.get("https://www.jblpro.com/china/products/portable-market/srx700-series")
+      parent_family = ProductFamily.find "live-portable"
       find_or_create_family(family_page, parent_family)
-    end
+    #end
   end
 
   desc "Import JBL news"
@@ -358,6 +358,17 @@ namespace :jblpro do
               end
             end
           end
+          product_page.css(".sfimageWrp").css("img").each do |img|
+            img_url = img[:src].gsub(/([\_\-])t\./, '\1z.').gsub(/\?.*$/, '')
+            unless img_url.blank?
+              fn = img_url.split(/\//).last
+              puts " ... getting image #{ fn }"
+              unless product.product_attachments.pluck(:product_attachment_file_name).include?(fn)
+                  add_one_image_to_product(product, img_url, fn)
+              end
+            end
+          end
+
         end
 
       else
@@ -394,7 +405,7 @@ namespace :jblpro do
   end
 
   def add_one_image_to_product(product, img_url, fn)
-    begin
+#    begin
       if @agent.get(img_url).save("tmp/#{fn}")
         img = File.open("tmp/#{fn}")
         product.product_attachments << ProductAttachment.new(product_attachment: img)
@@ -402,9 +413,9 @@ namespace :jblpro do
         product.save
         File.delete("tmp/#{fn}")
       end
-    rescue Mechanize::ResponseCodeError
-      log_problem "Couldn't get image #{img_url}"
-    end
+#    rescue Mechanize::ResponseCodeError
+#      log_problem "Couldn't get image #{img_url}"
+#    end
   end
 
   def add_downloads_part_two(product, fields, file_url, fn)

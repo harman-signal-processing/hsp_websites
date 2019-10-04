@@ -22,13 +22,18 @@
         <div class="row">
           <% @children_with_current_products.in_groups(3).each do |group| %>
             <div class="large-4 medium-4 small-12 columns">
-              <ul>
               <% group.each do |product_family| %>
-                <% if product_family.is_a?(ProductFamily) %>
-                  <li><%= link_to translate_content(product_family, :name), product_family %></li>
+                <% if product_family.is_a?(ProductFamily) && product_family.parent_id == @product_family.id %>
+                  <%= link_to translate_content(product_family, :name), product_family %> <br/>
+                  <% if product_family.children_with_current_products(website, locale: I18n.locale).length > 0 %>
+                    <ul>
+                      <% product_family.children_with_current_products(website, locale: I18n.locale).each do |pf| %>
+                        <li><%= link_to translate_content(pf, :name), pf %></li>
+                      <% end %>
+                    </ul>
+                  <% end %>
                 <% end %>
               <% end %>
-              </ul>
             </div>
           <% end %>
         </div>

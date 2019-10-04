@@ -256,12 +256,22 @@ class ProductFamily < ApplicationRecord
   # Load this ProductFamily's children families with at least one active product
   # w = a Brand or a Website
   def children_with_current_products(w, options={})
+    default_options = { depth: 1 }
+    options = default_options.merge options
     brand_id = (w.is_a?(Brand)) ? w.id : w.brand_id
-    children.where(brand_id: brand_id, hide_from_navigation: false).includes(:products).select do |pf|
+    ids = []
+    children.where(brand_id: brand_id, hide_from_navigation: false).includes(:products).each do |pf|
       if !pf.requires_login? && (pf.current_products.size > 0 || pf.children_with_current_products(w, options).size > 0)
-        pf unless options[:locale].present? && !pf.locales(w).include?(options[:locale].to_s)
+        unless options[:locale].present? && !pf.locales(w).include?(options[:locale].to_s)
+          ids << pf.id
+          if options[:depth] > 1
+            sub_options = options.merge(depth: options[:depth] - 1)
+            ids += pf.children_with_current_products(w, sub_options).pluck(:id)
+          end
+        end
       end
     end
+    ProductFamily.where(id: ids.flatten.uniq).order("position")
   end
 
   def all_children(w)
