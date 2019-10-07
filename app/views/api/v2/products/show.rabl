@@ -31,7 +31,7 @@ child @product.images_for("product_page") => :images do
   extends 'api/v2/product_attachments/show'
 end
 
-child (@product.product_documents.includes(:product) + @product.viewable_site_elements.select{|d| d if can?(:read, d)}) => :documents do
+child (@product.product_documents.includes(:product) + @product.viewable_site_elements.select{|d| d if current_ability.can?(:read, d)}) => :documents do
   node(:name) { |d| (d.is_a?(SiteElement)) ? d.name : d.name(hide_product_name: true) }
   node(:url) do |d|
     url = (d.is_a?(SiteElement)) ? d.url : d.document.url
@@ -55,7 +55,7 @@ child (@product.product_documents.includes(:product) + @product.viewable_site_el
   end
 end
 
-child (@product.active_softwares + @product.executable_site_elements.select{|d| d if can(:read, d)}) => :software do
+child (@product.active_softwares + @product.executable_site_elements.select{|d| d if current_ability.can?(:read, d)}) => :software do
   node(:name) { |d| (d.is_a?(SiteElement)) ? d.name : d.formatted_name }
   node(:url) do |d|
     if d.is_a?(SiteElement)

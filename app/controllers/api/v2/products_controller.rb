@@ -3,7 +3,7 @@
 module Api
   module V2
     class ProductsController < ApplicationController
-      before_action :set_brand
+      before_action :set_brand, :set_ability
       respond_to :xml, :json, :html
 
       def index
@@ -24,6 +24,11 @@ module Api
 
       def set_brand
         @brand = Brand.find(params[:brand_id])
+      end
+
+      # Since V2 is wide open read-only, use the cancan ability for a non-authenticated user
+      def set_ability
+        @current_ability ||= Ability.new(User.new)
       end
 
     end
