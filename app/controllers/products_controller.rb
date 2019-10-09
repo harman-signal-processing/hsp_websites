@@ -41,6 +41,10 @@ class ProductsController < ApplicationController
   #    /en-US/products/istomp?rbin=1
   #
   def show
+    unless @product.locales(website).include?(I18n.locale.to_s)
+      product_locale = @product.locales(website).first
+      redirect_to product_path(@product, locale: product_locale), status: :moved_permanently and return
+    end
     if website.has_suggested_products?
       @suggestions = @product.suggested_products
     end

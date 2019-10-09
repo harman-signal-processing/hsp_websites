@@ -131,25 +131,36 @@
 
     <div class="group">
       <h4 class="subheader">Locales which should show this product family</h4>
-      <p>Leave blank to show this product family for all locales.</p>
-      <%= simple_form_for [:admin, @locale_product_family], remote: true do |f| %>
-        <%= f.hidden_field :product_family_id %>
-        <div class="row collapse">
-            <div class="large-7 small-8 columns">
-            <%= f.input :locale, label: false, collection: website.website_locales, value_method: :locale %>
+      <% if @product_family.parent.present? && @product_family.parent.locale_product_families.length > 0 %>
+        <p>This product family is automatically restricted to locales because its parent
+        has locale restrictions configured. So, to edit the list below, edit
+        <%= link_to @product_family.parent.name, [:admin, @product_family.parent] %>.</p>
+        <ul id="locale_product_families" class="list">
+          <% @product_family.parent.locale_product_families.each do |lpf| %>
+            <li><%= lpf.locale %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p>Leave blank to show this product family for all locales.</p>
+        <%= simple_form_for [:admin, @locale_product_family], remote: true do |f| %>
+          <%= f.hidden_field :product_family_id %>
+          <div class="row collapse">
+              <div class="large-7 small-8 columns">
+              <%= f.input :locale, label: false, collection: website.website_locales, value_method: :locale %>
+            </div>
+            <div class="large-2 small-4 columns">
+              <%= submit_tag 'add', class: "postfix button"  %>
+            </div>
+            <div class="large-3 columns"></div>
           </div>
-          <div class="large-2 small-4 columns">
-            <%= submit_tag 'add', class: "postfix button"  %>
-          </div>
-          <div class="large-3 columns"></div>
-        </div>
-      <% end %>
-
-      <ul id="locale_product_families" class="list">
-        <% @product_family.locale_product_families.each do |lpf| %>
-          <%= render "/admin/shared/locale_product_family_row", lpf: lpf %>
         <% end %>
-      </ul>
+
+        <ul id="locale_product_families" class="list">
+          <% @product_family.locale_product_families.each do |lpf| %>
+            <%= render "/admin/shared/locale_product_family_row", lpf: lpf %>
+          <% end %>
+        </ul>
+      <% end %>
     </div>
 
     <div class="group">

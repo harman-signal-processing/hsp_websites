@@ -452,6 +452,12 @@
 					<% end %>
 				</ul>
 
+        <% if @product.product_families.length > 0 %>
+          <p>The product families above make this product available on these locales:<br/>
+           <%= @product.locales(website).join(", ") %>
+          </p>
+        <% end %>
+
 				<% if @product.sub_products.size > 1 %>
 					<h5 class="subheader">These are sub-products of this product</h5>
 					<ul id="parent_products" class="sortable_list">

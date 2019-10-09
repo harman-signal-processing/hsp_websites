@@ -743,6 +743,19 @@ h1.page_title {
   text-transform: capitalize;
 }
 /***** Product Family Page *****/
+.panel.product_family {
+  background: white;
+  height: 200px;
+  text-align: center;
+  &:hover {
+    border-color: $primary-color;
+    color: $primary-color;
+  }
+  img {
+    max-height: 100px;
+    width: auto;
+  }
+}
 a {
   .subtext {
     color: scale-color($body-font-color, $lightness: 20%);

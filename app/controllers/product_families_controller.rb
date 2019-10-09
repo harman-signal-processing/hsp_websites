@@ -20,6 +20,10 @@ class ProductFamiliesController < ApplicationController
     unless @product_family.brand == website.brand || website.product_families.include?(@product_family)
       redirect_to product_families_path, status: :moved_permanently and return
     end
+    unless @product_family.locales(website).include?(I18n.locale.to_s)
+      pf_locale = @product_family.locales(website).first
+      redirect_to product_family_path(@product_family, locale: pf_locale), status: :moved_permanently and return
+    end
     @children_with_current_products = @product_family.children_with_current_products(website, locale: I18n.locale, depth: 9)
     respond_to do |format|
       format.html {

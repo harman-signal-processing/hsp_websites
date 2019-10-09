@@ -26,20 +26,22 @@
             <% product_family.children_with_current_products(website, locale: I18n.locale).each do |pf| %>
               <li>
                 <%= link_to pf do %>
-                  <% if p = pf.current_products.first %>
-                    <% if p.photo %>
-                      <%= image_tag(p.photo.product_attachment.url(:medium)) %>
-                      <br/>
-                    <% end %>
-                  <% elsif subpf = pf.children.first %>
-                    <% if p = subpf.current_products.first %>
+                  <div class="panel product_family">
+                    <% if p = pf.current_products.first %>
                       <% if p.photo %>
                         <%= image_tag(p.photo.product_attachment.url(:medium)) %>
                         <br/>
                       <% end %>
+                    <% elsif subpf = pf.children.first %>
+                      <% if p = subpf.current_products.first %>
+                        <% if p.photo %>
+                          <%= image_tag(p.photo.product_attachment.url(:medium)) %>
+                          <br/>
+                        <% end %>
+                      <% end %>
                     <% end %>
-                  <% end %>
-                  <%= translate_content(pf, :name) %>
+                    <%= translate_content(pf, :name) %>
+                  </div>
                 <% end %>
               </li>
             <% end %>
@@ -47,13 +49,15 @@
             <% product_family.current_products.each do |product| %>
               <li>
                 <%= link_to product do %>
-                  <% if product.photo %>
-                    <%= image_tag(product.photo.product_attachment.url(:medium)) %>
-                    <br/>
+                  <div class="panel">
+                    <% if product.photo %>
+                      <%= image_tag(product.photo.product_attachment.url(:medium)) %>
+                      <br/>
+                    <% end %>
+                    <%= translate_content(product, :name) %>
                   <% end %>
-                  <%= translate_content(product, :name) %>
-                <% end %>
-              </li>
+                </li>
+              </div>
             <% end %>
           <% else %>
             &nbsp;

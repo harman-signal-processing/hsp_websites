@@ -331,6 +331,19 @@ class Product < ApplicationRecord
     rp.uniq
   end
 
+  # Collection of all the locales where this Product should appear.
+  # By definition, it should include ALL locales unless there is one or more
+  # limitation specified in the related ProductFamilies
+  def locales(website)
+    if product_families.length > 0
+      @locales ||= product_families.map do |pf|
+        pf.locales(website)
+      end.flatten.uniq
+    else
+      website.list_of_all_locales
+    end
+  end
+
   # Selects all ACTIVE retailer links for this Product
   def active_retailer_links
     @active_retailer_links ||= self.online_retailer_links.includes(:online_retailer, :product).select{|orl| orl if orl.online_retailer.active}
