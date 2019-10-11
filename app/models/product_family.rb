@@ -10,6 +10,8 @@ class ProductFamily < ApplicationRecord
   has_many :features, -> { order('position') }, as: :featurable, dependent: :destroy
   has_many :product_family_case_studies, -> { order('position') }, dependent: :destroy
   has_many :content_translations, as: :translatable, foreign_key: "content_id", foreign_type: "content_type"
+  has_many :product_family_testimonials, -> { order('position') }, dependent: :destroy
+  has_many :testimonials, through: :product_family_testimonials
 
   has_attached_file :family_photo, { styles: { medium: "300x300>", thumb: "100x100>" }}.merge(S3_STORAGE)
   has_attached_file :family_banner, { styles: { medium: "300x300>", thumb: "100x100>" }}.merge(S3_STORAGE)
@@ -28,7 +30,7 @@ class ProductFamily < ApplicationRecord
   acts_as_tree order: :position, scope: :brand_id
   # acts_as_list scope: :brand_id, -> { order('position') }
 
-  scope :options_not_associated_with_this_product, -> (product, website) { 
+  scope :options_not_associated_with_this_product, -> (product, website) {
     product_family_ids_already_associated_with_this_product = ProductFamilyProduct.where("product_id = ?", product.id).map{|pfp| pfp.product_family_id }
     product_families_not_associated_with_this_product = self.nested_options(website)
         .select{|item| product_family_ids_already_associated_with_this_product.exclude?(item.keys[0]) }
@@ -36,6 +38,14 @@ class ProductFamily < ApplicationRecord
         .map{|item| ProductFamily.new(id: item.keys[0], name: item.values[0]) }
 
     product_families_not_associated_with_this_product
+  }
+
+  scope :options_not_associated_with_this_testimonial, -> (testimonial, website) {
+    product_family_ids_already_associated_with_this_testimonial = ProductFamilyTestimonial.where(testimonial: testimonial).pluck(:product_family_id)
+    self.nested_options(website)
+      .select{|item| product_family_ids_already_associated_with_this_testimonial.exclude?(item.keys[0]) }
+      .reject(&:empty?)
+      .map{|item| ProductFamily.new(id: item.keys[0], name: item.values[0]) }
   }
 
   def slug_candidates

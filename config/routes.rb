@@ -538,6 +538,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :service_centers,
         :market_segment_product_families,
         :product_family_case_studies,
+        :product_family_testimonials,
         :software_training_classes,
         :software_training_modules,
         :get_started_page_products,
@@ -586,6 +587,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :label_sheets,
         :distributors,
         :artist_tiers,
+        :testimonials,
         :audio_demos,
         :promotions,
         :amp_models,
@@ -676,10 +678,12 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       :demo_songs,
       :promotions, only: [:index, :show]
     resources :product_families, only: [:index, :show] do
+      resources :testimonials, only: :index
       member do
         get 'safety-documents'
       end
     end
+    resources :testimonials, only: :show
     get 'introducing/:id' => 'products#introducing', as: :product_introduction
     get 'products/songlist/:id.:format' => 'products#songlist', as: :product_songlist
     resources :products, only: [:index, :discontinued] do

@@ -43,6 +43,14 @@
   <%= raw @product_family.post_content %>
 <% end %>
 
+<% if @product_family.testimonials.length > 0 %>
+  <div class="row">
+    <div class="small-12 columns">
+      <%= link_to "#{ @product_family.name } Testimonials", [@product_family, :testimonials], class: "medium button" %>
+    </div>
+  </div>
+<% end %>
+
 <% if current_user && can?(:manage, @product_family) %>
 <div class="admin_function">
 	<%= link_to "edit", [:admin, @product_family] %>

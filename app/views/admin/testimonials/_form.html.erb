@@ -1,0 +1,33 @@
+<%= simple_form_for([:admin, @testimonial], html: {multipart: true}) do |f| %>
+
+  <%= f.input :title %>
+  <%= f.input :subtitle %>
+  <%= f.input :summary, input_html: { style: "height: 100px" } %>
+
+  <div class="row">
+    <div class="medium-6 small-12 columns">
+      <%= f.input :banner %>
+      <% if f.object.banner.present? %>
+        <small>Currently: <%= link_to(image_tag(f.object.banner.url(:small)), f.object.banner.url, target: "_blank") %>.</small>
+      <% end %>
+    </div>
+    <div class="medium-6 small-12 columns">
+      <%= f.input :image, label: "Square image" %>
+      <% if f.object.image.present? %>
+        <small>Currently: <%= link_to(image_tag(f.object.image.url(:small)), f.object.image.url, target: "_blank") %>.</small>
+      <% end %>
+    </div>
+  </div>
+
+  <%= f.input :content, input_html: { style: "height: 400px", class: "mceEditor" } %>
+
+  <br/>
+  <%= f.input :attachment %>
+  <% if f.object.attachment.present? %>
+    <div><small>Currently: <%= link_to f.object.attachment_file_name, f.object.attachment.url, target: "_blank" %>.</small></div>
+  <% end %>
+
+
+  <%= f.button :submit %>
+
+<% end %>

@@ -1,0 +1,12 @@
+<p>
+  <b>Product Family:</b>
+  <%=h @product_family_testimonial.product_family.name %>
+</p>
+
+<p>
+  <b>Testimonial:</b>
+  <%=h @product_family_testimonial.testimonial.title %>
+</p>
+
+
+<%= link_to 'Edit', edit_admin_product_family_testimonial_path(@product_family_testimonial, locale: I18n.locale) %> |

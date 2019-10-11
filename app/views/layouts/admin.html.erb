@@ -60,6 +60,7 @@
 
                   <% if can?(:manage, Product) ||
                       can?(:manage, ProductFamily) ||
+                      can?(:manage, Testimonial) ||
                       can?(:manage, Solution) ||
                       can?(:manage, SpecificationGroup) ||
                       can?(:manage, Specification) ||
@@ -113,6 +114,9 @@
                       <% end %>
                       <% if can? :manage, News %>
                         <li><%= link_to "News", admin_news_index_path %></li>
+                      <% end %>
+                      <% if can? :manage, Testimonial %>
+                        <li><%= link_to "Testimonials", admin_testimonials_path %></li>
                       <% end %>
                       <% if website.has_events? && can?(:manage, Event) %>
                         <li><%= link_to "Events", admin_events_path %></li>
@@ -261,7 +265,7 @@
                   <% if website.has_system_configurator? && can?(:manage, System) %>
                     <li><%= link_to('System Configurator', admin_systems_path) %></li>
                   <% end %>
-                  
+
                   <% if can?(:manage, Vip::Programmer) %>
                   <li class="has-dropdown"><%= link_to "VIP Programmers", admin_vip_programmers_path %>
                     <ul class="dropdown">
@@ -274,26 +278,26 @@
                       <% end %>
                       <% if can? :manage, Vip::Service %>
                         <li><%= link_to "Services", admin_vip_services_path %></li>
-                      <% end %>   
+                      <% end %>
                       <% if can? :manage, Vip::Market %>
                         <li><%= link_to "Markets", admin_vip_markets_path %></li>
-                      <% end %>   
+                      <% end %>
                       <% if can? :manage, Vip::Location %>
                         <li><%= link_to "Locations", admin_vip_locations_path %></li>
-                      <% end %>                       
+                      <% end %>
                       <% if can? :manage, Vip::Website %>
                         <li><%= link_to "Websites", admin_vip_websites_path %></li>
-                      <% end %>   
+                      <% end %>
                       <% if can? :manage, Vip::Email %>
                         <li><%= link_to "Emails", admin_vip_emails_path %></li>
-                      <% end %>           
+                      <% end %>
                       <% if can? :manage, Vip::Phone %>
                         <li><%= link_to "Phones", admin_vip_phones_path %></li>
                       <% end %>
                     </ul>
                     </li>
-                  <% end %>                  
-                  
+                  <% end %>
+
                 </ul>
                 </li>
 
@@ -316,7 +320,7 @@
                   </ul>
                   </li>
                 <% end %>
-                
+
               <% end %> <%#cache ["admin_menu", current_user, website.brand, Date.today] do%>
 
             <% end %> <%#if user_signed_in?%>
@@ -341,9 +345,9 @@
         <div class="large-12 columns">
 
           <% flash.each do |name, msg| %>
-            <% 
+            <%
                 css_class = 'alert-box'
-            if name.match(/notice/i) 
+            if name.match(/notice/i)
               css_class += ' success'
             elsif name.match(/alert|warn/)
               css_class += ' alert'

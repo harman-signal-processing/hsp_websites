@@ -1,0 +1,9 @@
+<% if @called_from == "testimonial" %>
+	<%= render "/admin/product_family_testimonials/rebuild_product_family_select_list" %>
+<% elsif @called_from == "product_family" %>
+  <%= render "/admin/product_family_testimonials/rebuild_testimonial_select_list" %>
+<% end %>
+
+<%= render "/admin/product_family_testimonials/add_to_associated_item_list" %>
+
+<% flash.discard %>

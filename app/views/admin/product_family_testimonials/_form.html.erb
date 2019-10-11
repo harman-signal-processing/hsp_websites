@@ -1,0 +1,5 @@
+<%= simple_form_for([:admin, @product_family_testimonial]) do |f| %>
+  <%= f.association :product_family %>
+  <%= f.association :testimonial %>
+  <br/><%= f.button :submit %>
+<% end %>
