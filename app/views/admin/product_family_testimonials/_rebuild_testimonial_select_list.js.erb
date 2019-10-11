@@ -1,0 +1,14 @@
+(function(){
+	var $testimonials_dropdown = $('#product_family_testimonial_testimonial_id');
+
+	$testimonials_dropdown.empty();
+
+	$testimonials_dropdown.append($("<option></option>"));
+
+	<% Testimonial.not_associated_with_this_product_family(@product_family_testimonial.product_family, website).sort_by(&:title).each do |testimonial| %>
+		$testimonials_dropdown.append($("<option value='<%=testimonial.id%>'><%= testimonial.title%></option>"));
+	<% end %>
+
+	$testimonials_dropdown.trigger('chosen:updated');
+})();
+

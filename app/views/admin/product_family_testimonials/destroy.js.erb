@@ -1,0 +1,10 @@
+(function(){
+    // remove associated news_product item
+    $('#product_family_testimonial_<%= @product_family_testimonial.id %>').remove();
+
+	<%if @called_from == "testimonial" %>
+		<%= render "/admin/product_family_testimonials/rebuild_product_family_select_list" %>
+	<% end %>
+})();
+
+<% flash.discard %>

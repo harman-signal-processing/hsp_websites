@@ -1,0 +1,22 @@
+<h1>Listing Product family Testimonial</h1>
+
+<table>
+  <tr>
+    <th>Product Family</th>
+    <th>Testimonial</th>
+  </tr>
+
+<% @product_family_testimonials.each do |pft| %>
+  <tr>
+    <td><%=h pft.product_family.name %></td>
+    <td><%=h pft.testimonial.title %></td>
+    <td><%= link_to 'Show', [:admin, pft] %></td>
+    <td><%= link_to 'Edit', edit_admin_product_family_testimonial_path(pft) %></td>
+    <td><%= link_to 'Delete', [:admin, pft], confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New', new_admin_product_family_testimonial_path%>

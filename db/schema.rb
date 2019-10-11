@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_30_201407) do
+ActiveRecord::Schema.define(version: 2019_10_11_185845) do
 
   create_table "access_levels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -1130,6 +1130,16 @@ ActiveRecord::Schema.define(version: 2019_09_30_201407) do
     t.index ["product_id"], name: "index_product_family_products_on_product_id"
   end
 
+  create_table "product_family_testimonials", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "product_family_id"
+    t.integer "testimonial_id"
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_family_id"], name: "index_product_family_testimonials_on_product_family_id"
+    t.index ["testimonial_id"], name: "index_product_family_testimonials_on_testimonial_id"
+  end
+
   create_table "product_introductions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.integer "product_id"
     t.string "layout_class"
@@ -1846,6 +1856,31 @@ ActiveRecord::Schema.define(version: 2019_09_30_201407) do
     t.string "name", collation: "utf8_bin"
     t.integer "taggings_count", default: 0
     t.index ["name"], name: "index_tags_on_name", unique: true
+  end
+
+  create_table "testimonials", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "brand_id"
+    t.string "title"
+    t.string "subtitle"
+    t.string "summary"
+    t.text "content"
+    t.string "banner_file_name"
+    t.string "banner_content_type"
+    t.integer "banner_file_size"
+    t.datetime "banner_updated_at"
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.integer "image_file_size"
+    t.datetime "image_updated_at"
+    t.string "attachment_file_name"
+    t.string "attachment_content_type"
+    t.integer "attachment_file_size"
+    t.datetime "attachment_updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "cached_slug"
+    t.index ["brand_id"], name: "index_testimonials_on_brand_id"
+    t.index ["cached_slug"], name: "index_testimonials_on_cached_slug"
   end
 
   create_table "tone_library_patches", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

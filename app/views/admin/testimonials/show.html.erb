@@ -1,0 +1,77 @@
+<h3><%= title @testimonial.title %></h3>
+	<span class="little"><%= link_to(testimonial_url(@testimonial, locale: I18n.locale), testimonial_url(@testimonial, locale: I18n.locale)) %>
+	<%= link_to(image_tag("icons/external_link_icon.png"), testimonial_url(@testimonial, locale: I18n.locale)) %></span>
+<br/>
+<br/>
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_testimonials_path, class: "small secondary button" %></li>
+	<li><%= link_to 'Edit', edit_admin_testimonial_path(@testimonial, locale: I18n.locale), class: "small secondary button" %> </li>
+	<li><%= link_to 'Delete', [:admin, @testimonial], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
+
+<% if @testimonial.subtitle.present? %>
+  <p>Subtitle:</p>
+  <%=@testimonial.subtitle %>
+<% end %>
+<p>&nbsp;</p>
+
+<div class="row">
+  <div class="large-6 columns">
+    <% if @testimonial.banner.present? %>
+      <p>Banner:</p>
+      <%= image_tag @testimonial.banner.url %>
+    <% end %>
+    <p>&nbsp;</p>
+
+    <% if @testimonial.image.present? %>
+      <p>Square Image:</p>
+      <%= image_tag @testimonial.image.url %>
+    <% end %>
+    <p>&nbsp;</p>
+
+    <% if @testimonial.attachment.present? %>
+      <p>Attachment:</p>
+      <%= link_to @testimonial.attachment_file_name, @testimonial.attachment.url %>
+    <% end %>
+    <p>&nbsp;</p>
+
+    <h5>Content Preview:</h5>
+    <div>
+    <%=raw @testimonial.content %>
+    </div>
+  </div>
+
+	<div class="large-6 columns">
+		<% if can? :manage, @testimonial.product_families %>
+			<div class="group">
+				<h5 class="subheader">Belongs to the following product families:</h5>
+				<%= simple_form_for [:admin, @product_family_testimonial], remote: true do |f| %>
+					<%= hidden_field_tag "called_from", "testimonial" %>
+				    <%= f.hidden_field :testimonial_id %>
+				    <div class="row collapse">
+				    	<div class="large-10 small-8 columns">
+                <%=raw f.association(:product_family,
+                                     label: false,
+                                     collection: ProductFamily.options_not_associated_with_this_testimonial(@testimonial, website),
+                                     input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Product Family'} }
+                                     ).gsub(/\&amp\;/, '&')%>
+				    	</div>
+				    	<div class="large-2 small-4 columns">
+				    		<%= submit_tag 'add', class: "prefix button"  %>
+				    	</div>
+				    </div>
+					<p style="text-align: right">
+						or <%= link_to 'create a new family', new_admin_product_family_path %>
+					</p>
+				<% end %>
+
+				<ul id="product_family_testimonials" class="list">
+					<% @testimonial.product_family_testimonials.each do |pft| %>
+						<%= render '/admin/shared/product_family_testimonial_row', pft: pft, called_from: 'testimonial' %>
+					<% end %>
+				</ul>
+      </div>
+    <% end %>
+  </div>
+</div>
+

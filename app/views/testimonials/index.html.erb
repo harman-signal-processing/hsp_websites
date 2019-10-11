@@ -1,0 +1,27 @@
+<% set_meta_tags title: "#{translate_content(@product_family, :name)} Testimonials",
+  reverse: true,
+  description: "Key users describe experience with #{translate_content(@product_family, :name)} products" %>
+
+<h1><%= translate_content(@product_family, :name) %> Testimonials</h1>
+
+<% @testimonials.each do |testimonial| %>
+  <div class="row">
+    <div class="small-12 medium-4 columns">
+      <% if testimonial.image.present? %>
+        <%= link_to testimonial do %>
+          <%= image_tag testimonial.image.url, alt: "#{testimonial.title} thumbnail image" %>
+        <% end %>
+      <% else %>
+        &nbsp;
+      <% end %>
+    </div>
+    <div class="small-12 medium-8 columns">
+      <h4><%= link_to testimonial.title, testimonial %></h4>
+      <% if testimonial.subtitle.present? %>
+        <h5 class="subheader"><%= testimonial.subtitle %></h5>
+      <% end %>
+      <%=raw testimonial.summary %>
+      <p><%= link_to t('more_info'), testimonial, class: "small button" %></p>
+    </div>
+  </div>
+<% end %>

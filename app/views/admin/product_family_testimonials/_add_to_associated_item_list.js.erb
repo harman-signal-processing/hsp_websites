@@ -1,0 +1,15 @@
+(function(){
+	var $list_of_associated_product_families = $('#product_family_testimonials');
+
+	build_list_of_product_families_associated_with_this_testimonial($list_of_associated_product_families);
+
+	function build_list_of_product_families_associated_with_this_testimonial($list_of_associated_product_families) {
+		<% if @product_family_testimonials.present? %>
+			<% @product_family_testimonials.each do |product_family_testimonial| %>
+				$list_of_associated_product_families.append('<%= escape_javascript(render "/admin/shared/product_family_testimonial_row", pft: product_family_testimonial, called_from: @called_from) %>');
+			<% end %>
+		<% else %>
+				$list_of_associated_product_families.append('<%= escape_javascript(render "/admin/shared/product_family_testimonial_row", pft: @product_family_testimonial, called_from: @called_from) %>');
+		<% end %>
+	}
+})();
