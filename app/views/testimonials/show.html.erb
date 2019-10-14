@@ -19,5 +19,18 @@
 </div>
 
 <% if @testimonial.attachment.present? %>
-  <p>Download: <%= link_to @testimonial.attachment_file_name, @testimonial.attachment.url, target: "_blank" %></p>
+  <p>&nbsp;</p>
+  <p>
+  <%= link_to @testimonial.attachment.url, target: "_blank" do %>
+    <% if @testimonial.attachment_file_name.to_s.match?(/\.pdf$/i) %>
+      <%= image_tag("icons/pdf_17.png", alt: "PDF Icon", style: "vertical-align: middle") %>
+    <% end %>
+    Download
+    <% if @testimonial.attachment_file_name.to_s.match?(/poster/) %>
+      Poster
+    <% else %>
+      <%= @testimonial.attachment_file_name.gsub(/\..*$/, '').titleize %>
+    <% end %>
+  <% end %>
+  </p>
 <% end %>
