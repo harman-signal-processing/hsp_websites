@@ -1,12 +1,15 @@
 <div class="row">
     <div class="large-8 large-offset-4 small-8 columns" style="border: solid red 0px;">
         <div style="float:left; border: solid red 0px;">
-            Your country is <%=country_name(country_code)%> <%=image_tag "https://www.countryflags.io/#{country_code}/flat/32.png" %>
+            <% country_name = country_name(country_code)
+            if country_name.present? %>
+                Your country is <%=country_name%> <%=image_tag "https://www.countryflags.io/#{country_code}/flat/32.png" %>
+            <% end %>
         </div>
         <div style="float:left; border: solid red 0px; width: 400px; margin-top: 4px; margin-left: 20px;">
             <%= select_tag "country-switch", 
             options_for_select(CountryList.countries.sort_by { |item| item[:harman_name]}.map {|country| [country[:harman_name], country[:alpha2]] }, country_code.upcase), 
-            prompt: "Select Your Country", title:"https://www.countryflags.io/#{country_code}/flat/32.png",
+            prompt: "Select Your Country", title:"#{country_name}",
             class: 'chosen-select'
             %>
         </div>
