@@ -1862,7 +1862,7 @@ ActiveRecord::Schema.define(version: 2019_10_11_185845) do
     t.integer "brand_id"
     t.string "title"
     t.string "subtitle"
-    t.string "summary"
+    t.text "summary"
     t.text "content"
     t.string "banner_file_name"
     t.string "banner_content_type"

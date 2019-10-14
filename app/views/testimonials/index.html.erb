@@ -6,7 +6,7 @@
 
 <% @testimonials.each do |testimonial| %>
   <div class="row">
-    <div class="small-12 medium-4 columns">
+    <div class="small-12 medium-2 columns">
       <% if testimonial.image.present? %>
         <%= link_to testimonial do %>
           <%= image_tag testimonial.image.url, alt: "#{testimonial.title} thumbnail image" %>
@@ -15,7 +15,7 @@
         &nbsp;
       <% end %>
     </div>
-    <div class="small-12 medium-8 columns">
+    <div class="small-12 medium-10 columns">
       <h4><%= link_to testimonial.title, testimonial %></h4>
       <% if testimonial.subtitle.present? %>
         <h5 class="subheader"><%= testimonial.subtitle %></h5>
@@ -24,4 +24,5 @@
       <p><%= link_to t('more_info'), testimonial, class: "small button" %></p>
     </div>
   </div>
+  <p>&nbsp;</p>
 <% end %>
