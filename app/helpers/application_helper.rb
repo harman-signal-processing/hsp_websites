@@ -551,7 +551,8 @@ module ApplicationHelper
   end
 
   def country_name(country_code)
-    CountryList.countries.select {|country| country[:alpha2] == country_code.upcase}.first[:harman_name]
+    country_names = CountryList.countries.select {|country| country[:alpha2] == country_code.upcase}
+    country_names.present? ? country_names.first[:harman_name] : ""
   end
   
   def country_code
