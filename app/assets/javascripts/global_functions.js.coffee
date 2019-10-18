@@ -47,12 +47,11 @@ jQuery ($) ->
     $("##{ $(@).data('containerid') } iframe").attr 'src', video_url
 
   $('a.start-video').click (e) ->
-    e.preventDefault()
     video_url = "https://www.youtube.com/embed/#{ $(@).data('videoid') }?autostart=1&autoplay=1&rel=0"
     $('#videoIFrame').attr 'data-src', video_url
-    $('#videoModal').foundation 'reveal', 'open'
 
   $('a.close-video').click (e) ->
+    $('#videoModal').foundation 'reveal', 'close'
     $('#videoIFrame').attr('src', '')
 
   $(".vm-big-button").each ->
