@@ -1,0 +1,3 @@
+$('#product_accessories').append('<%= escape_javascript(render '/admin/shared/product_accessory_row', pa: @product_accessory) %>');
+$('#product_accessory_accessory_product_id').val('');
+<% flash.discard %>

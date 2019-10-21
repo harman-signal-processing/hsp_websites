@@ -54,6 +54,8 @@ class Product < ApplicationRecord
   has_many :parts, through: :product_parts
   has_many :product_badges, dependent: :destroy
   has_many :badges, through: :product_badges
+  has_many :product_accessories
+  has_many :accessory_products, through: :product_accessories
   belongs_to :product_status
   belongs_to :brand, touch: true
   has_many :parent_products # Where this is the child (ie, an e-pedal child of the iStomp)
@@ -418,7 +420,7 @@ class Product < ApplicationRecord
   def specifications_content_present?
     product_specifications.size > 0
   end
-  
+
   def specifications_accessories_content
     specification_ids = specifications.where("name like ?","%accessories%").collect(&:id)
     content = product_specifications.where(specification_id:specification_ids).pluck(:value).join(", ")
@@ -657,6 +659,10 @@ class Product < ApplicationRecord
 
   def all_related_downloads
     @all_related_downloads = viewable_site_elements + executable_site_elements + active_softwares
+  end
+
+  def accessories
+    accessory_products
   end
 
 end
