@@ -1,6 +1,10 @@
 <% @product.accessories.each do |accessory| %>
   <%= link_to accessory do %>
-    <h5 style="background: #CCC; padding: 5px;"><%= translate_content(accessory, :name) %></h5>
+    <h5 style="background: #CCC; padding: 5px;"><%= translate_content(accessory, :name) %>
+      <% if accessory.short_description.present? %>
+        | <%= translate_content(accessory, :short_description) %>
+      <% end %>
+    </h5>
   <% end %>
   <div class="row">
 
