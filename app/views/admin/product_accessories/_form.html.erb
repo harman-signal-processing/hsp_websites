@@ -1,0 +1,11 @@
+<%= simple_form_for([:admin, @product_accessory]) do |f| %>
+  <div class="row">
+    <div class="small-12 medium-6 columns">
+      <%= f.association :product, collection: website.products %>
+    </div>
+    <div class="small-12 medium-6 columns">
+      <%= f.association :accessory_product, collection: website.products %>
+    </div>
+  </div>
+  <br/><%= f.button :submit %>
+<% end %>

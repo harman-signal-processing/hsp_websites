@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_11_185845) do
+ActiveRecord::Schema.define(version: 2019_10_18_211256) do
 
   create_table "access_levels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -963,6 +963,15 @@ ActiveRecord::Schema.define(version: 2019_10_11_185845) do
     t.boolean "us"
     t.boolean "intl"
     t.index ["brand_id"], name: "index_pricing_types_on_brand_id"
+  end
+
+  create_table "product_accessories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "product_id"
+    t.integer "accessory_product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["accessory_product_id"], name: "index_product_accessories_on_accessory_product_id"
+    t.index ["product_id"], name: "index_product_accessories_on_product_id"
   end
 
   create_table "product_amp_models", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
