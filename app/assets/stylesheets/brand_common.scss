@@ -824,6 +824,26 @@ div.family_thumb {
     }
   }
 }
+.product-subgroups {
+  h3 {
+    display: block;
+    padding: 5px 10px;
+    background: $medium-gray;
+    color: white;
+    font-weight: 400;
+    letter-spacing: 1.2;
+    a {
+      color: white;
+    }
+  }
+  ul {
+    li {
+      list-style-type: none;
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+  }
+}
 .related_products {
   margin: 20px 0px;
   font-style: oblique;
