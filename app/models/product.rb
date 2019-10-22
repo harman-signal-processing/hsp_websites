@@ -662,7 +662,7 @@ class Product < ApplicationRecord
   end
 
   def accessories
-    accessory_products
+    accessory_products.includes(:product_status).where(product_statuses: {show_on_website: true})
   end
 
 end
