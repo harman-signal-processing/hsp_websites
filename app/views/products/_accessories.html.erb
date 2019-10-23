@@ -1,5 +1,5 @@
 <% @product.accessories.each do |accessory| %>
-  <%= link_to accessory do %>
+  <%= link_to accessory, target: (accessory.product_page_url.present?) ? "_blank" : "_self" do %>
     <h5 style="background: #CCC; padding: 5px;"><%= translate_content(accessory, :name) %>
       <% if accessory.short_description.present? %>
         | <%= translate_content(accessory, :short_description) %>

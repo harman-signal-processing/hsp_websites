@@ -45,6 +45,10 @@ class ProductsController < ApplicationController
       product_locale = @product.locales(website).first
       redirect_to product_path(@product, locale: product_locale), status: :moved_permanently and return
     end
+    # After JBL goes live, we can revisit this...
+    if @product.product_page_url.present? && @product.product_page_url.to_s.match(/jblbag/i)
+      redirect_to @product.product_page_url and return false
+    end
     if website.has_suggested_products?
       @suggestions = @product.suggested_products
     end

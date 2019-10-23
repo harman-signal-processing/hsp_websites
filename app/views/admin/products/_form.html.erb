@@ -55,17 +55,13 @@
 	</div>
 </div>
 
-<% unless website.brand.live_on_this_platform? %>
-
   <div class="row">
     <div class="large-8 columns">
       <%= f.input :product_page_url,
         label: "External product page URL",
-        hint: "For brands' products where the brand is not live on this platform." %>
+        hint: "Not commonly used. Example usage is when the brand isn't live on this platform or the product is managed by a 3rd party." %>
     </div>
   </div>
-
-<% end %>
 
   <%= f.input :description, as: :text, input_html: { class: "mceEditor", style: "height: 400px;"} %><br/>
   <% if @product.layout_class == 'epedal' %> <span class="small"> For epedals, only provide the first paragraph description here.</span><% end %>
