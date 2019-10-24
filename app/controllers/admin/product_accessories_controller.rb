@@ -36,6 +36,7 @@ class Admin::ProductAccessoriesController < AdminController
   # POST /admin/product_accessories
   # POST /admin/product_accessories.xml
   def create
+    @called_from = params[:called_from] || 'product'
     respond_to do |format|
       if @product_accessory.save
         format.html { redirect_to([:admin, @product_accessory.product], notice: 'Product Accessory was successfully created.') }

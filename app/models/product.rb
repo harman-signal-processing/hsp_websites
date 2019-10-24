@@ -665,4 +665,12 @@ class Product < ApplicationRecord
     accessory_products.includes(:product_status).where(product_statuses: {show_on_website: true})
   end
 
+  def product_accessories_where_this_is_the_accessory
+    ProductAccessory.where(accessory_product_id: self.id)
+  end
+
+  def accessory_to_products
+    Product.where(id: product_accessories_where_this_is_the_accessory.pluck(:product_id))
+  end
+
 end

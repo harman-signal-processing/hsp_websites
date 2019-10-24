@@ -56,6 +56,7 @@ class Admin::ProductsController < AdminController
     @product_video          = ProductVideo.new(product_id: @product.id)
     @product_badge          = ProductBadge.new(product_id: @product.id)
     @product_accessory      = ProductAccessory.new(product_id: @product.id)
+    @accessory_product      = ProductAccessory.new(accessory_product_id: @product.id)
     respond_to do |format|
       format.html { render_template } # show.html.erb
       format.xml  { render xml: @product }
