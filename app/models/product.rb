@@ -25,10 +25,10 @@ class Product < ApplicationRecord
   has_many :product_site_elements, -> { order('position') }, dependent: :destroy, inverse_of: :product
   has_many :site_elements, through: :product_site_elements
   has_many :product_promotions, dependent: :destroy
+  has_many :promotions, through: :product_promotions
   has_many :product_suggestions, -> { order('position') }, dependent: :destroy
   has_many :product_prices, dependent: :destroy
   has_many :suggested_fors, class_name: "ProductSuggestion", foreign_key: "suggested_product_id", dependent: :destroy
-  has_many :promotions, through: :product_promotions
   has_many :tone_library_patches, -> { order("tone_library_songs.artist_name, tone_library_songs.title").includes(:tone_library_song) }
   has_many :faqs
   has_many :product_amp_models, dependent: :destroy
@@ -561,25 +561,29 @@ class Product < ApplicationRecord
 
   # Promotions which are current and relate to this Product
   def current_promotions
-    self.promotions.where(["show_start_on IS NOT NULL AND show_end_on IS NOT NULL AND start_on <= ? AND (end_on >= ? OR end_on IS NULL OR end_on = '')", Date.today, Date.today]).order("start_on")
+    promotions.where(["show_start_on IS NOT NULL AND show_end_on IS NOT NULL AND start_on <= ? AND (end_on >= ? OR end_on IS NULL OR end_on = '')", Date.today, Date.today]).order("start_on")
+  end
+
+  def first_promo_with_price_adjustment
+    current_promotions.where(show_recalculated_price: true).where("discount > 0").first
   end
 
   def current_and_recently_expired_promotions
-    self.promotions.where(["show_start_on IS NOT NULL AND show_end_on IS NOT NULL AND show_start_on <= ? AND show_end_on >= ?", Date.today, Date.today]).order("start_on")
+    promotions.where(["show_start_on IS NOT NULL AND show_end_on IS NOT NULL AND show_start_on <= ? AND show_end_on >= ?", Date.today, Date.today]).order("start_on")
   end
 
   def recently_expired_promotions
-    (self.current_and_recently_expired_promotions - self.current_promotions)
+    (current_and_recently_expired_promotions - current_promotions)
   end
 
   # Pick only those artists who are approved
   def approved_artists
-    self.artists.where("approver_id > 0 AND artist_tier_id > 0").order("artist_tier_id ASC, name ASC")
+    artists.where("approver_id > 0 AND artist_tier_id > 0").order("artist_tier_id ASC, name ASC")
   end
 
   # Currently active software
   def active_softwares
-    self.softwares.where(active: true)
+    softwares.where(active: true)
   end
 
   # Collects suggested products

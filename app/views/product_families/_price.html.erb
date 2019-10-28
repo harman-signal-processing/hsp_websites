@@ -1,0 +1,12 @@
+<% if (website.has_online_retailers? || website.has_distributors? || website.has_dealers? || !product.direct_buy_link.blank?) && !product.hide_buy_it_now_button && !product.discontinued? %>
+  <% if I18n.locale.to_s.match(/US/i) %>
+    <% if promo = product.first_promo_with_price_adjustment %>
+      <%= link_to product do %>
+        <div class="label radius success">
+          Save <%=number_to_currency calculate_promotion_discount(product, promo) %> now!
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+

@@ -61,9 +61,7 @@ class ProductsController < ApplicationController
     end
     @active_tab = params[:tab] || 'description'
 
-    @promo = nil # to use for recalculation
-    p = @product.current_promotions.where(show_recalculated_price: true).where("discount > 0")
-    @promo = p.first if p.length > 0
+    @promo = @product.first_promo_with_price_adjustment
 
     respond_to do |format|
       format.html {
