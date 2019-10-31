@@ -828,7 +828,7 @@ div.family_thumb {
   h3 {
     display: block;
     padding: 5px 10px;
-    background: $medium-gray;
+    background: $dark-gray;
     color: white;
     font-weight: 400;
     letter-spacing: 1.2;
@@ -837,10 +837,22 @@ div.family_thumb {
     }
   }
   ul {
+    margin-left: 0;
     li {
+      background-color: white;
       list-style-type: none;
       line-height: 1.15;
-      margin-bottom: 10px;
+      font-size: 90%;
+      padding: 8px;
+      &:nth-child(odd) {
+        background-color: #eee;
+      }
+      a {
+        color: $body-font-color;
+        &:hover {
+          color: $primary-color;
+        }
+      }
     }
   }
 }
