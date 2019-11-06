@@ -103,56 +103,53 @@
 
           <div class="row" style="clear:both">
             <div class="medium-4 small-12 columns">
-              <span class="footer_text">
-                <div>
-                  &copy; <%= Date.today.year %>
-                  <%= link_to('HARMAN', "http://www.harman.com/", target: "_blank") %>
-                  <%= t('all_rights_reserved') %>
-                </div>
-                <%= link_to t('privacy_policy').titleize, privacy_policy_path %> |
-                <%= link_to t('terms_of_use').titleize, terms_of_use_path %>
-                <% if website.legal_footer_link %>
-                  | <%= link_to "Legal", website.legal_footer_link %>
-                <% end %>
-              </span>
+              <div>
+                &copy; <%= Date.today.year %>
+                <%= link_to('HARMAN', "http://www.harman.com/", target: "_blank") %>
+                <%= t('all_rights_reserved') %>
+              </div>
+              <%= link_to t('privacy_policy').titleize, privacy_policy_path %> |
+              <%= link_to t('terms_of_use').titleize, terms_of_use_path %>
+              <% if website.legal_footer_link %>
+                | <%= link_to "Legal", website.legal_footer_link %>
+              <% end %>
             </div>
-            <div class="medium-8 columns hide-for-small">
+            <div class="medium-8 columns hide-for-small footer-links">
               <div class="row">
                 <div class="medium-3 columns ">
-                  <span class="footer_text">
-                    <%= link_to t('new_products'), new_products_path, target: "_blank" %> &bull;
-                    <% if website.email_signup_url %>
-                      <%= link_to t('news_signup').titleize, website.email_signup_url %> &bull;
-                    <% end %>
-                  </span>
+                  <%= link_to t('new_products'), new_products_path, target: "_blank" %>
+                  <br/><%= link_to t('products'), product_families_path %>
+                  <% if website.has_software? && (website.current_softwares.length > 0 || website.forced_current_softwares.length > 0) %>
+                    <br/><%= link_to t('software_downloads').titleize, software_index_path %>
+                  <% end %>
                 </div>
                 <div class="medium-2 columns ">
-                  <span class="footer_text">
-                    <% if website.has_software? && (website.current_softwares.length > 0 || website.forced_current_softwares.length > 0) %>
-                      <%= link_to t('software_downloads').titleize, software_index_path %> &bull;
-                    <% end %>
-                    <% if website.has_dealers? || website.has_online_retailers? || website.has_distributors? %>
-                      <%= link_to t('where_to_buy').titleize, where_to_buy_path %> &bull;
-                    <% end %>
-                  </span>
+                  <% if website.has_dealers? || website.has_online_retailers? || website.has_distributors? %>
+                    <%= link_to t('where_to_buy').titleize, where_to_buy_path %><br/>
+                  <% end %>
+                  <%= link_to 'service', support_path %><br/>
+                  <%= link_to t('product_support').titleize, support_path %>
                 </div>
                 <div class="medium-2 columns ">
-                  <span class="footer_text">
-                    <%= link_to t('product_support').titleize, support_path %> &bull;
-                    <% if !!(website.forum_link) %>
-                      <%= link_to t("forum").titleize, website.forum_link %> &bull;
-                    <% end %>
-                  </span>
+                  <%= link_to "downloads", support_downloads_path %>
+                  <br/><%= link_to "warranty", warranty_policy_path %>
+                  <% if !!(website.forum_link) %>
+                    <br/><%= link_to t("forum").titleize, website.forum_link %>
+                  <% end %>
                 </div>
                 <div class="medium-2 columns ">
-                  <span class="footer_text">
-                    <%= link_to 'Logo Store', "https://harman.axomo.com", target: "_blank" %> &bull;
-                  </span>
+                  <%#= link_to 'Logo Store', "https://harman.axomo.com", target: "_blank" %>
+                  <%= link_to 'contact us', support_path %>
+                  <br/><%= link_to "news", news_index_path %>
+                  <br/><%= link_to 'careers'.titleize, "http://jobs.harman.com", target: "_blank" %>
                 </div>
                 <div class="medium-3 columns ">
-                  <span class="footer_text">
-                    <%= link_to 'careers'.titleize, "http://jobs.harman.com", target: "_blank" %> &bull;
-                  </span>
+                  <% if website.email_signup_url %>
+                    <%= link_to website.email_signup_url, class: "small secondary button" do %>
+                      <%= fa_icon 'envelope' %>
+                      <%= t('news_signup').titleize %>
+                    <% end %>
+                  <% end %>
                 </div>
               </div>
             </div>

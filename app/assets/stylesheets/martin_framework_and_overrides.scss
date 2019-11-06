@@ -415,11 +415,20 @@ ul.tabs {
 
 footer {
   color: $medium-gray;
+  font-size: 12px;
   a {
     color: $medium-gray;
     &:hover {
       color: $pale-gray;
     }
+    &.button {
+      letter-spacing: .5px !important;
+    }
+  }
+  .footer-links {
+    text-transform: uppercase;
+    letter-spacing: 1.29px;
+    line-height: 2.5;
   }
 }
 div#harmanpro_bar {
