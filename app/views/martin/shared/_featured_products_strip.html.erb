@@ -1,0 +1,20 @@
+<%= cache ["featured_products_strip", website.brand, I18n.locale] do %>
+  <% if @featured_products && @featured_products.length > 0 %>
+    <div class="homepage_block featured_products">
+      <div class="overline" aria-hidden="true">&nbsp;</div>
+      <h2>New From <%= @website.brand.name %></h2>
+      <div class="products-slider">
+      <% @featured_products.each_with_index do |featured_product, i| %>
+        <div class="slide">
+          <%= link_to featured_product do %>
+            <h5><%= featured_product.name %></h5>
+            <div class="product-photo">
+              <%= link_to(image_tag(featured_product.photo.product_attachment.url(:original)), featured_product) %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

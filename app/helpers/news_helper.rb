@@ -22,7 +22,7 @@ module NewsHelper
     if website.homepage_news_header
       website.homepage_news_header
     else
-      "The Latest From #{ website.brand.name }..."
+      "The Latest From #{ website.brand.name }"
     end
   end
 

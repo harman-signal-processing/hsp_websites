@@ -1,0 +1,61 @@
+<div class="sticky top-bar-container">
+  <% if website.sitewide_notice %>
+    <div class="sitewide_notice">
+      <%=raw website.sitewide_notice %>
+    </div>
+  <% end %>
+	<nav class="top-bar" data-topbar role="navigation">
+		<ul class="title-area">
+			<li class="name logo-container"><%= link_to image_tag(website.folder + '/martin-logo.svg', alt: website.brand.name), locale_root_path %></li>
+			<li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+		</ul>
+
+    <section class="top-bar-section">
+      <ul class="right">
+				<%# search is only available in default language for now...%>
+				<%# if I18n.locale.to_s.match(/#{I18n.default_locale.to_s.split('-')[0]}/i) && website.value_for("enable_search") %>
+				<% if website.value_for("enable_search") %>
+
+					<li class="has-form show-for-large-up" id="search_form">
+						<%= form_tag search_path, method: :get %>
+							<%= text_field_tag :query, "", placeholder: t('search') %>
+						</form>
+					</li>
+				<% end %>
+			<% if website.show_locales? %>
+				<li class="has-dropdown">
+
+					<%= link_to '#', id: "locale_menu" do %>
+						<%= image_tag "icons/globe_white.png", alt: t('language_region') %>
+					<% end %>
+					<ul class="dropdown">
+						<% website.available_locales.each do |website_locale| %>
+							<% if website_locale.locale.to_s == I18n.locale.to_s %>
+							<li><%= link_to '#', class: "active" do %>
+									<%= image_tag 'icons/check_white.png' %>
+									<%= website_locale.name %>
+								<% end %>
+							</li>
+							<% else %>
+							<li><%= link_to website_locale.name, switch_locale(website_locale.locale) %></li>
+							<% end %>
+						<% end %>
+					</ul>
+				</li>
+			<% end %>
+			</ul>
+		</section>
+		<section class="top-bar-section right">
+			<ul class="left">
+				<%= render_partial 'layouts/nav_items' %>
+      </ul>
+    </section>
+	</nav>
+  <% if current_user %>
+    <div id="account_links">
+      Welcome, <%= current_user.email %> |
+      <%= link_to "Logout", destroy_user_session_path %>
+    </div>
+  <% end %>
+</div>
+

@@ -1,16 +1,18 @@
-<ul class="large-block-grid-3 medium-block-grid-3 small-block-grid-2">
-  <% News.all_for_website(website)[0,6].each do |news| %>
-    <li>
+<div class="news-slider" data-equalizer="news-headline">
+  <% News.all_for_website(website)[0,20].each do |news| %>
+    <div class="slide">
       <%= link_to news do %>
         <div class="text-center">
-          <%= image_tag news.news_photo(:email), alt: translate_content(news, :title) %>
+          <%= image_tag news.news_photo(:medium_square), alt: translate_content(news, :title) %>
         </div>
-        <h5><%= translate_content(news, :title) %></h5>
-        <small><%=l news.post_on, format: :long %></small>
+        <div class="white-text-box" data-equalizer-watch="news-headline">
+          <h5><%= translate_content(news, :title) %></h5>
+          <small><%=l news.post_on, format: :long %></small>
+        </div>
       <% end %>
-    </li>
+    </div>
   <% end %>
-</ul>
+</div>
 
 
 

@@ -29,7 +29,7 @@
       ul {
         li {
           a {
-            padding: 0 18px !important;
+            padding: 0 14px !important;
             &:after {
               margin-right: 4px !important;
             }
@@ -43,7 +43,7 @@
       ul {
         li {
           a {
-            padding: 0 16px !important;
+            padding: 0 12px !important;
             &:after {
               margin-right: 2px !important;
             }
@@ -57,7 +57,7 @@
       ul {
         li {
           a {
-            padding: 0 10px !important;
+            padding: 0 8px !important;
             &:after {
               margin-right: 2px !important;
             }
@@ -117,7 +117,16 @@
     }
   }
 }
-
+.news-slider {
+  div.slide {
+    padding-right: rem-calc(20);
+  }
+}
+.products-slider {
+  div.slide {
+    padding-right: rem-calc(20);
+  }
+}
 #homepage-video-banner {
   background: $strip-bg-even;
   padding: 50px 0px 90px;
@@ -515,6 +524,10 @@ footer {
   }
 }
 div#harmanpro_bar {
+  .hlogo {
+    max-height: 60px;
+    width: auto;
+  }
   background: #464749;
   padding-top: 9px;
   height: 80px;

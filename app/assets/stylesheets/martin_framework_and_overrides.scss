@@ -1,31 +1,38 @@
 @import 'foundation/functions';
 @import url(https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500);
 
-$row-width: rem-calc(1170);
+$row-width: rem-calc(1400);
+$martin-yellow: #fdd301;
+$pale-gray: #f8f8f9;
+$medium-gray: #9b9b9b;
+$fuchsia: #af3480;
+$pink: #f35f6d;
+$orange: #ee7625;
+$green: #6cb33f;
+$blue: #008fd5;
 $dark-gray: #575757;
 $darker-gray: #121212;
-$medium-gray: #a8a8a8;
-$light-gray: #d0d0d0;
-$strip-bg-even: #E1E1E1;
+$light-gray: $pale-gray;
+$strip-bg-even: #000000;
 $strip-bg-odd: #000000;
 
-$body-bg: #FFF;
+$body-bg: #000;
 $body-font-color: black;
 $body-font-family: "Roboto", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-$body-font-weight: 300;
-$primary-color: #b1b3b5;
-$secondary-color: #d9b229;
+$body-font-weight: normal;
+$primary-color: $medium-gray;
+$secondary-color: $martin-yellow;
 $include-print-styles: true;
 $header-font-family: "Roboto", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $header-font-weight: 500;
 $header-font-color: $dark-gray;
 $header-top-margin: .4em;
 
-$h1-font-size: rem-calc(28px);
-$h2-font-size: rem-calc(22px);
-$h3-font-size: rem-calc(18px);
-$h4-font-size: rem-calc(16px);
-$h5-font-size: rem-calc(14px);
+$h1-font-size: rem-calc(62px);
+$h2-font-size: rem-calc(25px);
+$h3-font-size: rem-calc(20px);
+$h4-font-size: rem-calc(18px);
+$h5-font-size: rem-calc(15px);
 $h6-font-size: 1em;
 
 $subheader-font-color: lighten($dark-gray, 20%);
@@ -60,18 +67,18 @@ $button-med: rem-calc(10px);
 $button-lrg: rem-calc(14px);
 $button-font-weight: 300;
 $button-border-style: none;
-$topbar-bg-color: $darker-gray;
+$topbar-bg-color: black;
 $topbar-bg: $topbar-bg-color !default;
-$topbar-height:                        rem-calc(68px);
+$topbar-height:                        rem-calc(100px);
 $topbar-input-height:                  rem-calc(12);
-$topbar-title-weight:                  bold;
+$topbar-title-weight:                  500;
 $topbar-dropdown-bg:                      rgba($topbar-bg-color, 0.7);
 $topbar-dropdown-link-bg:                 rgba(darken($topbar-bg-color, 2%),0.85);
 $topbar-dropdown-toggle-alpha:         0.5;
-$topbar-link-font-size:                rem-calc(15);
-$topbar-link-weight:                   light;
+$topbar-link-font-size:                rem-calc(14);
+$topbar-link-weight:                   500;
 $topbar-link-hover-lightness:          -30%; // Darken by 30%
-$topbar-link-bg-hover:                 darken($topbar-bg, 3%);
+$topbar-link-bg-hover:                 lighten($topbar-bg, 3%);
 $topbar-link-bg-active:                rgba($topbar-bg, 0.6);
 $topbar-menu-link-weight:              200;
 $topbar-divider-border-bottom: solid 1px $topbar-bg-color;
@@ -88,29 +95,67 @@ $reveal-max-width: 75%;
 $slick-arrow-color: $dark-gray;
 @import 'slick-theme';
 
-a {
-  color: $medium-gray;
-}
 #above-nav-space {
   display: none !important;
   height: 0;
 }
-.top-bar-section {
-  li.has-form {
-    padding-left: rem-calc(10);
-    padding-right: rem-calc(10);
-    width: 170px;
-    input {
-      margin-top: 8px;
-      background: #454545;
-      border: none;
+.button {
+  &.secondary {
+    color: black;
+  }
+  &:hover {
+    &.secondary {
+      color: black;
     }
   }
 }
-
+.top-bar-section {
+  ul {
+    li {
+      &.has-form {
+        padding-left: rem-calc(10);
+        padding-right: rem-calc(0);
+        width: 170px;
+        input {
+          margin-top: 20px;
+          background: #454545;
+          border: none;
+        }
+      }
+      a {
+        padding: 0 12px !important;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        &:hover {
+          color: $secondary-color !important;
+        }
+      }
+    }
+  }
+}
+@media only screen and (max-width: 1200px) and (min-width: 1076px) {
+  .top-bar-section {
+    ul {
+      li {
+        a {
+          padding: 0 12px !important;
+          &:after {
+            margin-right: 4px !important;
+          }
+        }
+      }
+    }
+  }
+}
 @media only screen and (min-width: 720px) {
-	.logo-container img {
-		padding: 10px 25px 0px 35px;
+	.logo-container {
+		padding: 14px 0px 0px 30px;
+    margin: 0;
+    img {
+      padding: none;
+      height: 50px;
+      width: auto;
+    }
 	}
 	#main_container {
 		padding-bottom: 100px;
@@ -122,8 +167,6 @@ a {
     height: 40px;
 		padding: 12px 0px 0px 6px;
 	}
-}
-@media only screen and (max-width: 919px) {
   .top-bar-section {
     li.has-form {
       padding-left: rem-calc(2);
@@ -132,8 +175,62 @@ a {
     }
   }
 }
+h1 {
+  font-family: Roboto;
+  font-size: 62px;
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: black;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-family: Roboto;
+  font-size: 25px;
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 3.87px;
+  color: black;
+  text-transform: uppercase;
+}
+
+h3 {
+  font-family: Roboto;
+  font-size: 20px;
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 2.73px;
+  color: black;
+  text-transform: uppercase;
+}
+
+h5 {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.56;
+  letter-spacing: normal;
+  color: black;
+  text-transform: uppercase;
+}
+.overline {
+  width: 80px;
+  height: 10px;
+  border-bottom: 1px solid $martin-yellow;
+  display: block;
+}
 body {
-	line-height: 1.5;
+	line-height: 1.87;
 }
 
 @media only screen and (min-width: 720px) {
@@ -159,6 +256,15 @@ body {
 }
 
 div.homepage_block {
+  padding: 60px 40px;
+  h1,h2,h3,h4,h5,h6 {
+    color: $pale-gray;
+  }
+  h2 {
+    font-size: 20px;
+    font-weight: 300;
+    letter-spacing: 2.73px;
+  }
   &.market_segments {
     li {
       div.market-segment {
@@ -187,8 +293,72 @@ div.homepage_block {
       }
     }
   }
+  &.featured_products {
+    background-image: asset-url("martin/featured-products-bg.png");
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
+.white-text-box {
+  border-top: 1px solid $primary-color;
+  background: white;
+  color: black;
+  padding: 10px;
+  h5 {
+    color: black;
+  }
 }
 
+.news-slider {
+  margin-top: 20px;
+  .slide {
+    color: black;
+    h5 {
+      color: black;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 1.56;
+    }
+  }
+}
+.products-slider {
+  margin-top: 20px;
+  .slide {
+    margin-right: 20px;
+    position: relative;
+    object-fit: contain;
+    background: rgba(0, 0, 0, 0.48);
+    color: white;
+    padding: 363px 0 39px 37px;
+    .product-photo {
+      opacity: 50%;
+      z-index: -1;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    &:hover {
+      color: $martin-yellow;
+      h5 {
+        color: $martin-yellow;
+        a {
+          color: $martin-yellow;
+        }
+      }
+      .product-photo {
+        opacity: 85%;
+      }
+    }
+    h5 {
+      z-index: 999;
+      color: $pale-gray;
+      font-weight: 300;
+      font-size: 25px;
+      letter-spacing: 3.87px;
+    }
+  }
+}
 div.market_segment_banner {
   position: relative;
   h1 {
@@ -243,6 +413,12 @@ ul.tabs {
   padding: 0;
 }
 
+div#harmanpro_bar {
+  background: none;
+  padding-top: 9px;
+  height: auto;
+  margin-bottom: 8px;
+}
 /********** for search results */
 input#query {
   color: #CCC;

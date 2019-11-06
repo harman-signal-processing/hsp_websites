@@ -18,6 +18,7 @@
 //= require jquery.pin
 //= require jquery.bonsai
 //= require jquery.rwdImageMaps.min
+//= require slick
 //= require global_functions
 //= require maps
 //= require twitter
@@ -50,6 +51,20 @@ $(function(){
     expandAll: false
   });
 
+  $('.news-slider').slick({
+    slidesToShow: 4.2,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 4000
+  });
+
+  $('.products-slider').slick({
+    slidesToShow: 2.4,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 6000
+  });
+
   $('img[usemap]').rwdImageMaps();
-  
+
 });  //  $(function(){

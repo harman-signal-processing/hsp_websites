@@ -515,7 +515,7 @@ module ApplicationHelper
   end
 
   def hpro_footer(options={})
-    default_options = {exclude: "", include_hpro: false}
+    default_options = {exclude: ""}
     options = default_options.merge options
 
     if website.footer_exclusion
@@ -523,10 +523,6 @@ module ApplicationHelper
     end
 
     links = []
-    if options[:include_hpro]
-      links << link_to(image_tag("pro_brands/harmanpro.png", alt: "HarmanPro", class: "no-resize"), ENV['PRO_SITE_URL'], target: "_blank")
-    end
-
     pro_brands = [
       {name: "AKG",    web: "http://www.akg.com"},
       {name: "AMX",    web: "http://www.amx.com"},
@@ -534,7 +530,6 @@ module ApplicationHelper
       {name: "Crown",  web: "http://www.crownaudio.com"},
       {name: "dbx",    web: "http://www.dbxpro.com"},
       {name: "DigiTech",   web: "http://www.digitech.com"},
-#      {name: "IDX",    web: "http://idx.harman.com"},
       {name: "JBL",    web: "http://www.jblpro.com" },
       {name: "Lexicon",    web: "http://www.lexiconpro.com"},
       {name: "Martin",  web: "http://www.martin.com"},
@@ -542,19 +537,35 @@ module ApplicationHelper
       {name: "Studer", web: "http://www.studer.ch"},
       {name: "HiQnet", web: "http://hiqnet.harmanpro.com"}
     ]
+
     pro_brands.each do |b|
       unless website.brand.name.match(/#{b[:name]}/i) || options[:exclude].match(/#{b[:name]}/i)
-        links << link_to(image_tag("pro_brands/#{b[:name].downcase}.png", alt: b[:name], class: "no-resize"), b[:web], target: "_blank")
+        links << link_to(b[:web], target: "_blank") do
+          image_tag("pro_brands/#{b[:name].downcase}.png", alt: b[:name])
+        end
       end
     end
-    content_tag :div, raw(links.join), id: "harmanpro_bar", class: "hide-for-medium-down"
+
+    harman_link = link_to(ENV['PRO_SITE_URL'], target: "_blank") do
+      image_tag("pro_brands/harman.png", alt: "Harman Professional", class:"hlogo")
+    end
+
+    content_tag :div, id: "harmanpro_bar", class: "row hide-for-medium-down" do
+      concat(content_tag(:div, harman_link, class: "large-3 columns text-center"))
+      concat(content_tag(:div, class: "large-8 columns") do
+        content_tag(:ul, class: "large-block-grid-#{links.length}") do
+          raw(links.map{|link| content_tag(:li, link)}.join)
+        end
+      end)
+      concat(content_tag(:div, "&nbsp;", class: "large-1 column"))
+    end
   end
 
   def country_name(country_code)
     country_names = CountryList.countries.select {|country| country[:alpha2] == country_code.upcase}
     country_names.present? ? country_names.first[:harman_name] : ""
   end
-  
+
   def country_code
     session['geo_country'].gsub(/[^a-zA-Z]/, '').slice(0..1).downcase
   end
@@ -562,7 +573,7 @@ module ApplicationHelper
   def country_is_usa
     (session['geo_usa'] == true) || (clean_country_code == 'us')
   end
-  
+
   def user_has_usa_state?
     !session['geo_usa_state'].nil?
   end
@@ -575,5 +586,4 @@ module ApplicationHelper
     user_has_usa_state? ? us_states.key(user_usa_state) : ''
   end
 
-
-end  #  module ApplicationHelper
+end
