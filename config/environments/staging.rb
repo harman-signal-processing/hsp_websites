@@ -1,4 +1,4 @@
-HarmanSignalProcessingWebsite::Application.configure do
+Rails.configure do
   # Settings specified here will take precedence over those in config/environment.rb
 
   # The production environment is meant for finished, "live" apps.
@@ -16,10 +16,10 @@ HarmanSignalProcessingWebsite::Application.configure do
   config.action_controller.perform_caching = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_files = true
+  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Compress JavaScripts and CSS
-  config.assets.compress = true
+  config.assets.js_compressor = :uglifier
 
   # Compress JavaScripts and CSS.
   #config.assets.js_compressor = :uglifier
@@ -29,7 +29,7 @@ HarmanSignalProcessingWebsite::Application.configure do
   config.assets.compile = false
 
   # Generate digests for assets URLs
-  config.assets.digest = true
+  #config.assets.digest = true
 
   # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = YOUR_PATH
@@ -59,14 +59,17 @@ HarmanSignalProcessingWebsite::Application.configure do
   # Enable serving of images, stylesheets, and javascripts from an asset server
   config.action_controller.asset_host = ENV['ASSET_HOST']
 
-  # Disable delivery errors, bad email addresses will be ignored
+  # Use a real queuing backend for Active Job (and separate queues per environment)
+  # config.active_job.queue_adapter     = :resque
+  # config.active_job.queue_name_prefix = "harman_signal_processing_website_#{Rails.env}"
+  config.action_mailer.perform_caching = false
+
+  # Ignore bad email addresses and do not raise email delivery errors.
+  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
-  # Enable threaded mode
-  #config.threadsafe!
-
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
-  # the I18n.default_locale when a translation can not be found)
+  # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = [:en]
 
   # Send deprecation notices to registered listeners
@@ -76,6 +79,4 @@ HarmanSignalProcessingWebsite::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-
-  config.action_mailer.default_url_options = { :host => 'www.digitech.com' }
 end

@@ -413,6 +413,15 @@ ul.tabs {
   padding: 0;
 }
 
+footer {
+  color: $medium-gray;
+  a {
+    color: $medium-gray;
+    &:hover {
+      color: $pale-gray;
+    }
+  }
+}
 div#harmanpro_bar {
   background: none;
   padding-top: 9px;

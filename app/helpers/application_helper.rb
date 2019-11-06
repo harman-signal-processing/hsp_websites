@@ -557,7 +557,7 @@ module ApplicationHelper
           raw(links.map{|link| content_tag(:li, link)}.join)
         end
       end)
-      concat(content_tag(:div, "&nbsp;", class: "large-1 column"))
+      concat(content_tag(:div, " ", class: "large-1 column"))
     end
   end
 
