@@ -473,14 +473,14 @@
 						<%= f.hidden_field :product_id %>
 						<div class="row collapse">
 							<div class="large-10 small-8 columns">
-								<%= f.association :parent_product, 
-								# collection: (website.products - [@product]), 
-								collection: (	Product.not_associated_with_these_parent_products(@product.parent_products, website) - [@product]), 
+								<%= f.association :parent_product,
+								# collection: (website.products - [@product]),
+								collection: (	Product.not_associated_with_these_parent_products(@product.parent_products, website) - [@product]),
 								label: false,
 								input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Parent Products'} }%>
 							</div>
 							<div class="large-2 small-4 columns">
-								<%= submit_tag 'add', class: "postfix button"  %>
+								<%= submit_tag 'add', class: "postfix button" %>
 							</div>
 						</div>
 					<% end %>
@@ -493,6 +493,57 @@
 				<% end %>
 			</div>
 		<% end %>
+
+    <div class="group">
+      <h5 class="subheader">Accessories</h5>
+
+      <p>This product has the following accessories:</p>
+      <%= simple_form_for [:admin, @product_accessory], remote: true do |f| %>
+        <%= hidden_field_tag "called_from", "product" %>
+        <%= f.hidden_field :product_id %>
+        <div class="row collapse">
+          <div class="large-10 small-8 columns">
+            <%= f.association :accessory_product,
+              collection: (website.products - [@product]),
+              label: false
+            %>
+          </div>
+          <div class="large-2 small-4 columns">
+            <%= submit_tag 'add', class: "postfix button" %>
+          </div>
+        </div>
+      <% end %>
+
+      <ul id="product_accessories" class="nosort list">
+        <% @product.product_accessories.each do |pa| %>
+          <%= render '/admin/shared/product_accessory_row', pa: pa, called_from: 'product' %>
+        <% end %>
+      </ul>
+
+      <hr/>
+      <p>On the other hand, this product is an accessory to the following:</p>
+      <%= simple_form_for [:admin, @accessory_product], remote: true do |f| %>
+        <%= hidden_field_tag "called_from", "accessory_product" %>
+        <%= f.hidden_field :accessory_product_id %>
+        <div class="row collapse">
+          <div class="large-10 small-8 columns">
+            <%= f.association :product,
+              collection: (website.products - [@product]),
+              label: false
+            %>
+          </div>
+          <div class="large-2 small-4 columns">
+            <%= submit_tag 'add', class: "postfix button" %>
+          </div>
+        </div>
+      <% end %>
+
+      <ul id="accessory_to_products" class="nosort list">
+        <% @product.product_accessories_where_this_is_the_accessory.each do |pa| %>
+          <%= render '/admin/shared/product_accessory_row', pa: pa, called_from: 'accessory_product' %>
+        <% end %>
+      </ul>
+    </div>
 
 		<% if website.has_suggested_products? && can?(:manage, ProductSuggestion) %>
 			<div class="group">

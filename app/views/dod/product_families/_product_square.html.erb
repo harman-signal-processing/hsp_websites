@@ -41,6 +41,7 @@ end
 				<div class="product_description">
 					<%= translate_content(product, :short_description) %>
 				</div>
+        <%= render_partial 'product_families/price', product: product %>
 
 				<% if compare %>
 					<div class="compare_checkbox">
@@ -69,6 +70,7 @@ end
         <h3><%= link_to translate_content(product, :name), this_url, target: target %></h3>
         <div class="product_description">
           <%= translate_content(product, :short_description) %>
+          <%= render_partial 'product_families/price', product: product %>
 
           <% if compare %>
             <div class="compare_checkbox">

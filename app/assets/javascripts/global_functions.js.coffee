@@ -53,6 +53,7 @@ jQuery ($) ->
     $('#videoModal').foundation 'reveal', 'open'
 
   $('a.close-video').click (e) ->
+    $('#videoModal').foundation 'reveal', 'close'
     $('#videoIFrame').attr('src', '')
 
   $(".vm-big-button").each ->

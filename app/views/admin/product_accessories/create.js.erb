@@ -1,0 +1,6 @@
+<% if @called_from == "product" %>
+$('#product_accessories').append('<%= escape_javascript(render '/admin/shared/product_accessory_row', pa: @product_accessory, called_from: @called_from) %>');
+<% else %>
+$('#accessory_to_products').append('<%= escape_javascript(render '/admin/shared/product_accessory_row', pa: @product_accessory, called_from: @called_from) %>');
+<% end %>
+<% flash.discard %>

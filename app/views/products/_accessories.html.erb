@@ -1,0 +1,74 @@
+<% @product.accessories.each do |accessory| %>
+  <%= link_to accessory, target: (accessory.product_page_url.present?) ? "_blank" : "_self" do %>
+    <h5 style="background: #CCC; padding: 5px;"><%= translate_content(accessory, :name) %>
+      <% if accessory.short_description.present? %>
+        | <%= translate_content(accessory, :short_description) %>
+      <% end %>
+    </h5>
+  <% end %>
+  <div class="row">
+
+    <div class="small-12 medium-5 columns">
+      <% if accessory.photo %>
+        <%= image_tag(accessory.photo.product_attachment.url(:large), alt: "#{ accessory.name } Main photo") %>
+      <% end %>
+      <h6 class="subheader"><%= t('product_page.larger_images') %></h6>
+      <% accessory.images_for("product_page").each do |product_attachment| %>
+        <% unless product_attachment.hide_from_product_page? %>
+          <% if product_attachment.product_media_thumb_file_name.present? %>
+            <%= link_to_product_attachment(product_attachment) %>
+          <% else %>
+            <%= link_to(product_attachment.product_attachment.url(:original),
+                        data: product_attachment.no_lightbox? ? {} : { lightbox: "#{accessory.id}product-thumbnails" }) do %>
+              <%= image_tag(product_attachment.product_attachment.url(:tiny_square)) %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="small-12 medium-7 columns">
+      <div><%= raw translate_content(accessory, :description) %></div>
+      <div><%= raw translate_content(accessory, :features) %></div>
+      <hr/>
+      <% if accessory.product_documents.length > 0 || accessory.viewable_site_elements.length > 0 %>
+        <h6 class="subheader">Documentation</h6>
+        <ul>
+          <% accessory.product_documents.includes(:product).each do |product_document| %>
+          <li>
+            <%= file_type_icon(product_document) %>
+            <%= link_to product_document.name(hide_product_name: true), product_document.document.url %>
+            [<%= number_to_human_size(product_document.document_file_size) %>]
+          </li>
+          <% end %>
+
+          <% accessory.viewable_site_elements.each do |site_element| %>
+            <% if can?(:read, site_element) %>
+              <% if site_element.external_url.present? || site_element.executable_file_name.present? %>
+                <li>
+                  <%= file_type_icon(site_element) %>
+                  <%= link_to site_element.long_name, site_element.url %>
+                  <%= keys_for(site_element) %>
+                  <% if site_element.resource_file_size.present? %>
+                    [<%= number_to_human_size(site_element.resource_file_size) %>]
+                  <% end %>
+                  <% if site_element.executable_file_size.present? %>
+                    [<%= number_to_human_size(site_element.executable_file_size) %>]
+                  <% end %>
+                </li>
+              <% elsif site_element.resource_file_name.present? %>
+                <li>
+                  <%= file_type_icon(site_element) %>
+                  <%= link_to site_element.long_name, site_element.resource.url %>
+                  <%= keys_for(site_element) %>
+                  [<%= number_to_human_size(site_element.resource_file_size) %>]
+                </li>
+              <% end %>
+            <% end %>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+
+  </div>
+<% end %>

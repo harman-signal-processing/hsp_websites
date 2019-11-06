@@ -37,7 +37,7 @@
           <% video = video_item['snippet'] %>
           <% if video["thumbnails"] %>
             <li align="center">
-              <%= link_to play_video_url(video["resourceId"]["videoId"]), data: { videoid: video["resourceId"]["videoId"], :'reveal-id' => "videoModal" }, class: 'start-video' do %>
+              <%= link_to play_video_url(video["resourceId"]["videoId"]), data: { videoid: video["resourceId"]["videoId"]}, class: 'start-video' do %>
                 <img src="<%= video["thumbnails"]["default"]["url"] %>" class="radius">
                 <br/>
                 <small><%= video['title'] %></small>

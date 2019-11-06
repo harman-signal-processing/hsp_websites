@@ -24,7 +24,7 @@
   .top-bar input {
     border: none;
   }
-  @media only screen and (max-width: 1200px) and (min-width: 1076px) {
+  @media only screen and (max-width: 1300px) and (min-width: 1076px) {
     .top-bar-section {
       ul {
         li {
@@ -834,6 +834,38 @@ div.family_thumb {
   .small_product_box {
     .product_description {
       line-height: 16px;
+    }
+  }
+}
+.product-subgroups {
+  h3 {
+    display: block;
+    padding: 5px 10px;
+    background: $dark-gray;
+    color: white;
+    font-weight: 400;
+    letter-spacing: 1.2;
+    a {
+      color: white;
+    }
+  }
+  ul {
+    margin-left: 0;
+    li {
+      background-color: white;
+      list-style-type: none;
+      line-height: 1.15;
+      font-size: 90%;
+      padding: 8px;
+      &:nth-child(odd) {
+        background-color: #eee;
+      }
+      a {
+        color: $body-font-color;
+        &:hover {
+          color: $primary-color;
+        }
+      }
     }
   }
 }
