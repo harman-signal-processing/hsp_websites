@@ -10,7 +10,7 @@
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/rem/1.3.4/js/rem.min.js"></script>
 
-<% if !Rails.env.production? || params[:dev] == "true" %>
+<% if Rails.env.development? || params[:dev] == "true" %>
 <hr/>
 <pre>
 IP = <%= request.remote_ip %>

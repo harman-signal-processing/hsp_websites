@@ -377,15 +377,28 @@ module ApplicationHelper
       elsif v = website.value_for(n)
         unless v.blank?
           v = (v =~ /^http/i) ? v : "http://www.#{n}.com/#{v}"
-          if options[:style] && File.exist?(Rails.root.join("app/assets/images/icons/#{options[:style]}/#{options[:size]}", "#{n}.png"))
-            html += link_to(image_tag("icons/#{options[:style]}/#{options[:size]}/#{n}.png", style: "vertical-align: middle", size: options[:size]), v, target: "_blank")
+          presentation = n
+          if options[:style] == "font-awesome"
+            presentation = fa_icon("#{n} 2x", :"aria-label" => n)
+          elsif options[:style] && File.exist?(Rails.root.join("app/assets/images/icons/#{options[:style]}/#{options[:size]}", "#{n}.png"))
+            presentation = image_tag("icons/#{options[:style]}/#{options[:size]}/#{n}.png",
+                                     style: "vertical-align: middle",
+                                     size: options[:size],
+                                     alt: n,
+                                     :"aria-label" => n)
           elsif options[:gray]
-            html += link_to(image_tag("social/social-gray-#{n.downcase}.png", alt: n, class: "no-resize"), v, target: "_blank")
+            presentation = image_tag("social/social-gray-#{n.downcase}.png",
+                                     class: "no-resize",
+                                     alt: n,
+                                     :"aria-label" => n)
           elsif File.exist?(Rails.root.join("app/assets/images/icons", "#{n}.png"))
-            html += link_to(image_tag("icons/#{n}.png", style: "vertical-align: middle", size: options[:size]), v, target: "_blank")
-          else
-            html += link_to(n, v, target: "_blank")
+            presentation = image_tag("icons/#{n}.png",
+                                     style: "vertical-align: middle",
+                                     size: options[:size],
+                                     alt: n,
+                                     :"aria-label" => n)
           end
+          html += link_to(presentation, v, target: "_blank")
         end
       end
     end
