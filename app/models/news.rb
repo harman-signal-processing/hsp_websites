@@ -16,6 +16,7 @@ class News < ApplicationRecord
       banner: "1500>x400",
       large: "600>x370",
       email: "580",
+      medium_square: "480x480#",
       medium: "350x350>",
       small: "240",
       small_square: "250x250#",
