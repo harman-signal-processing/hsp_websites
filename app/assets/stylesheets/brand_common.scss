@@ -1251,6 +1251,10 @@ h2.special_offer {
 	padding-top: 80px;
 	margin-bottom: none !important;
 }
+.news-summary {
+  @include panel;
+  border: none;
+}
 @media only screen and (min-width: 720px) {
 	.news_container {
 		padding-bottom: 40px;

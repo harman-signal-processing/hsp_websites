@@ -59,30 +59,34 @@
         <%= render_partial 'layouts/nav' %>
 
         <% if content_for?(:feature) %>
+          <div class="row">
           <%= yield :feature %>
+          </div>
         <% end %>
 
-        <div class="container" <% unless content_for?(:feature) %>id="main_container"<% end %>>
-          <div class="row">
-            <div class="large-12 small-12 columns content-container">
-              <% flash.each do |name, msg| %>
-                <%
-                  css_class = 'alert-box'
-                  if name.match(/notice/i)
-                    css_class += ' success'
-                  elsif name.match(/alert|warn/)
-                    css_class += ' alert'
-                  else
-                    css_class += ' secondary'
-                  end
-                %>
+        <% unless controller_name == "main" && action_name == "index" %>
+          <div class="container" <% unless content_for?(:feature) %>id="main_container"<% end %>>
+            <div class="row">
+              <div class="large-12 small-12 columns content-container">
+                <% flash.each do |name, msg| %>
+                  <%
+                    css_class = 'alert-box'
+                    if name.match(/notice/i)
+                      css_class += ' success'
+                    elsif name.match(/alert|warn/)
+                      css_class += ' alert'
+                    else
+                      css_class += ' secondary'
+                    end
+                  %>
 
-                  <%= content_tag :div, msg, class: css_class if msg.is_a?(String) %>
-              <% end %>
-              <%= yield %>
+                    <%= content_tag :div, msg, class: css_class if msg.is_a?(String) %>
+                <% end %>
+                <%= yield %>
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
 
         <% if content_for?(:big_bottom_box) %>
           <%= yield :big_bottom_box %>
@@ -146,7 +150,7 @@
                 <div class="medium-3 columns ">
                   <% if website.email_signup_url %>
                     <%= link_to website.email_signup_url, class: "small secondary button" do %>
-                      <%= fa_icon 'envelope' %>
+                      <%= fa_icon 'envelope', :"aria-hidden" => "true" %>
                       <%= t('news_signup').titleize %>
                     <% end %>
                   <% end %>

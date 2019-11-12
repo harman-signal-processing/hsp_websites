@@ -47,6 +47,7 @@ $(function(){
       equalize_on_stack: true
     }
   });
+
   $("#partslist").bonsai({
     expandAll: false
   });
@@ -58,6 +59,10 @@ $(function(){
     autoplaySpeed: 4000
   });
 
+  $('form#filtered_news_form select#tag_filter').change(function() {
+    window.location.href = $( this ).val();
+  });
+
   $('.products-slider').slick({
     slidesToShow: 2.4,
     slidesToScroll: 1,
@@ -67,4 +72,4 @@ $(function(){
 
   $('img[usemap]').rwdImageMaps();
 
-});  //  $(function(){
+});

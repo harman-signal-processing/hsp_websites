@@ -1,0 +1,14 @@
+<div class="row collapse">
+  <div class="small-4 columns">
+    <div class="news-image-thumbnail-bg" style="background-image: url(<%= news.news_photo.url(:small_square) %>)">
+      &nbsp;
+    </div>
+  </div>
+  <div class="small-8 columns news-summary">
+    <p><small><%=l news.post_on, format: :short %></small></p>
+    <p><%= link_to news do %>
+        <%= truncate translate_content(news, :title), length: 90 %>
+      <% end %>
+    </p>
+  </div>
+</div>

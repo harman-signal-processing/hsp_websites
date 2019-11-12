@@ -1,9 +1,9 @@
 <li>
-  <% if news.news_photo.present? %>
-    <div class="text-center">
-      <%= link_to(image_tag(news.news_photo.url(:small_square)), news) %>
-    </div>
-  <% end %>
-  <small><%=l news.post_on, format: :long %></small>
-  <p><%= link_to translate_content(news, :title), news_path(news, locale: I18n.locale) %></p>
+  <div class="text-center">
+    <%= link_to(image_tag(news.news_photo.url(:medium_square)), news) %>
+  </div>
+  <div class="news-summary">
+    <p><%= link_to translate_content(news, :title), news_path(news, locale: I18n.locale) %></p>
+    <small><%=l news.post_on, format: :long %></small>
+  </div>
 </li>

@@ -384,4 +384,8 @@ class Brand < ApplicationRecord
     end
   end
 
+  def news_tags
+    News.where(brand: self).tag_counts
+  end
+
 end
