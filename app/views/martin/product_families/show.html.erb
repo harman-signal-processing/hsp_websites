@@ -22,8 +22,8 @@
     <%= render_partial "product_families/product_family", product_family: @product_family, skip_header: true  %>
 
     <% @children_with_current_products.each do |sub_family| %>
+      <div class="overline"></div>
       <%= render_partial "product_families/product_family", product_family: sub_family %>
-      <hr/>
     <% end %>
 
     <% if @product_family.parent && @product_family.siblings_with_current_products.size > 0 %>

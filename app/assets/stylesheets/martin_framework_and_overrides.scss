@@ -213,6 +213,9 @@ h3 {
   letter-spacing: 2.73px;
   color: black;
   text-transform: uppercase;
+  &.content-nav {
+    color: black;
+  }
 }
 
 h5 {
@@ -450,13 +453,11 @@ div.news-sidebar {
       color: black;
     }
   }
-  div.related-news div.recent-news {
-    h3 {
-      font-size: 20px;
-      text-transform: uppercase;
-      font-weight: 300;
-      letter-spacing: 2.73px;
-    }
+  h3 {
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 300;
+    letter-spacing: 2.73px;
   }
   div.news-image-thumbnail-bg {
     background-color: $primary-color;
@@ -550,8 +551,28 @@ ul.tabs {
   color: white;
 }
 .product_family_header {
-  background-color: scale-color($primary-color, $lightness: -20%);
-  padding: 0;
+  background-color: scale-color($primary-color, $lightness: -80%);
+  background-image: asset-url("martin/product_family_header_bg.jpg");
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: rem-calc(29px) rem-calc(59px);
+  h1 {
+    text-transform: uppercase;
+    letter-spacing: 2.9px;
+  }
+}
+.feature-pre {
+  color: $pale-gray;
+  h1,h2 {
+    color: white;
+  }
+  h3,h4,h5,h6 {
+    color: $pale-gray;
+  }
+  a {
+    color: white;
+  }
 }
 
 footer {

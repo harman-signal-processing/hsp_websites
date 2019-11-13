@@ -1178,9 +1178,11 @@ span.smalColHeader {
   display: block;
   font-size: 16px;
   font-weight: 500;
-  margin-top: 30px;
   line-height: 1.85;
   clear: both;
+}
+div.specgroup {
+  margin-bottom: rem-calc(29px);
 }
 
 span.specContent {

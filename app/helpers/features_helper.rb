@@ -98,7 +98,7 @@ module FeaturesHelper
   end # def update_youtube_links
 
   def render_pre_content(feature)
-    content_tag :div do
+    content_tag :div, class: "feature-pre" do
       raw(feature.pre_content)
     end
   end
