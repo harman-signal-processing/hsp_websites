@@ -166,6 +166,10 @@ nav.top-bar {
 		padding-bottom: 100px;
 	}
 }
+.content-container {
+  padding: rem-calc(59px);
+  margin-bottom: rem-calc(39px);
+}
 
 @media only screen and (max-width: 919px) {
 	.logo-container img {
@@ -335,38 +339,41 @@ div.homepage_block {
 }
 .products-slider {
   margin-top: 20px;
+  a {
+    display: block;
+    &:hover {
+      background: rgba(0, 0, 0, 0.1);
+      color: $martin-yellow;
+      h5 {
+        color: $martin-yellow;
+        background: rgba(0,0,0,0.48);
+      }
+      .product-photo {
+        opacity: 90%;
+      }
+    }
+  }
   .slide {
     margin-right: 20px;
     position: relative;
     object-fit: contain;
-    background: rgba(0, 0, 0, 0.48);
+    background-color: rgba(0, 0, 0, 0.38);
     color: white;
-    padding: 363px 0 39px 37px;
+    height: 500px;
+    padding-right: 0 !important;
     .product-photo {
-      opacity: 70%;
-      z-index: -1;
-      position: absolute;
-      left: 0;
-      top: 0;
-    }
-    &:hover {
-      color: $martin-yellow;
-      h5 {
-        color: $martin-yellow;
-        a {
-          color: $martin-yellow;
-        }
-      }
-      .product-photo {
-        opacity: 100%;
-      }
+      opacity: 75%;
     }
     h5 {
+      position: absolute;
+      left: 0;
+      bottom: 10px;
       z-index: 999;
       color: $pale-gray;
       font-weight: 300;
       font-size: 25px;
       letter-spacing: 3.87px;
+      padding: 10px 20px;
     }
   }
 }
@@ -423,7 +430,7 @@ div.list-news {
   margin: rem-calc(60px) rem-calc(30px);
 }
 div.news-main-image {
-  margin-left: -15px;
+  margin-left: -60px;
   margin-top: -20px;
 }
 div.news-summary {
@@ -441,7 +448,7 @@ div.news-summary {
   padding: 10px 20px;
 }
 div.news-sidebar {
-  padding: rem-calc(59px) rem-calc(39px) 0 0;
+  padding-top: rem-calc(59px);
   margin-left: -29px;
   div.back-to-news {
     margin-bottom: rem-calc(59px);
@@ -477,7 +484,7 @@ div.news-sidebar {
   }
 }
 div.news-content {
-  padding: 60px;
+  padding-top: 60px;
   h1 {
     margin-bottom: rem-calc(29px);
   }

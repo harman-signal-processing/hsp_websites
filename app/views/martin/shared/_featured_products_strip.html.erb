@@ -5,14 +5,14 @@
       <h2>New From <%= @website.brand.name %></h2>
       <div class="products-slider">
       <% @featured_products.each_with_index do |featured_product, i| %>
-        <div class="slide">
-          <%= link_to featured_product do %>
-            <h5><%= featured_product.name %></h5>
+        <%= link_to featured_product do %>
+          <div class="slide">
             <div class="product-photo">
-              <%= link_to(image_tag(featured_product.photo.product_attachment.url(:original)), featured_product) %>
+              <%= image_tag(featured_product.photo.product_attachment.url(:original)) %>
             </div>
-          <% end %>
-        </div>
+            <h5><%= featured_product.name %></h5>
+          </div>
+        <% end %>
       <% end %>
       </div>
     </div>
