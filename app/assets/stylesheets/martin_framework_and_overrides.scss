@@ -52,8 +52,8 @@ $tabs-navigation-font-color: white;
 $tabs-navigation-active-font-color: white;
 $tabs-navigation-font-size: rem-calc(14);
 $tabs-navigation-font-family: $body-font-family;
-$anchor-font-color: #00275d;
-$anchor-font-color-hover: lighten($anchor-font-color, 5%);
+$anchor-font-color: $darker-gray;
+$anchor-font-color-hover: lighten($anchor-font-color, 25%);
 
 $form-spacing: rem-calc(18px);
 $form-label-font-weight: 400;
@@ -169,6 +169,9 @@ nav.top-bar {
 .content-container {
   padding: rem-calc(59px);
   margin-bottom: rem-calc(39px);
+  .overline {
+    height: rem-calc(39px);
+  }
 }
 
 @media only screen and (max-width: 919px) {
@@ -219,6 +222,7 @@ h3 {
   text-transform: uppercase;
   &.content-nav {
     color: black;
+    margin-bottom: rem-calc(39px);
   }
 }
 
@@ -243,10 +247,40 @@ body {
 	line-height: 1.87;
 }
 
+#breadcrumbs {
+	font-size: rem-calc(12px);
+	text-align: left;
+	letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.larger_tag {
+	font-size: rem-calc(12px);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+}
 .content-container {
 	background: white;
 	margin-top: 0 !important;
   padding-top: rem-calc(20px);
+}
+.smalColHeader {
+  font-size: rem-calc(13px);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.docs {
+  table {
+    h6 {
+      margin: rem-calc(10px) 0;
+      color: black;
+      text-transform: uppercase;
+      font-weight: 500;
+      letter-spacing: 1.2px;
+    }
+    thead tr td:not(:first-child) {
+      text-align: center;
+    }
+  }
 }
 @media only screen and (min-width: 720px) {
   div.homepage_block {
@@ -485,16 +519,13 @@ div.news-sidebar {
 }
 div.news-content {
   padding-top: 60px;
-  h1 {
-    margin-bottom: rem-calc(29px);
-  }
   h5 {
     font-size: 20px;
     font-weight: 300;
     letter-spacing: 2.73px;
   }
   div.news-body {
-    margin-top: rem-calc(29px);
+    margin-top: rem-calc(39px);
   }
 }
 div.infinite-pagination {
@@ -539,6 +570,40 @@ div.product-title-block, div.small-title-block {
         color: $medium-gray;
       }
     }
+  }
+}
+.product_main_tab_content {
+  ul {
+    margin-left: 40px !important;
+    li {
+      font-weight: 300;
+    }
+  }
+}
+.small_product_box {
+  padding: 0;
+  background: $pale-gray;
+  border: 1px solid scale-color($medium-gray, $lightness: 70%);
+  position: relative;
+  color: $dark-gray;
+  width: 100%; // of the container
+  img {
+    margin: 0;
+    background: white; // most of our images are jpg on white bg. This helps standardize those that are transparent pngs.
+  }
+  h3 {
+    font-weight: 400;
+    letter-spacing: 1.1px;
+    margin: rem-calc(20px) 0;
+    &.vertical {
+      margin-top: rem-calc(20px);
+    }
+  }
+  .product_description {
+    font-size: rem-calc(16px);
+    letter-spacing: 1.1px;
+    width: 50%;
+    line-height: 1.5;
   }
 }
 ul.tabs {
