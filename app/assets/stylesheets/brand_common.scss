@@ -780,7 +780,7 @@ a {
     margin-top: 6px;
   }
 }
-.product_family_header {
+.product_family_header, .where_to_buy_header {
   background-color: scale-color($primary-color, $lightness: 40%);
   color: white;
   padding: rem-calc(30) 0;

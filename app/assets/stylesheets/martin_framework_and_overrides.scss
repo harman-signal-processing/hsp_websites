@@ -622,6 +622,111 @@ ul.tabs {
   background-color: #f8d448;
   color: white;
 }
+.where_to_buy_header {
+  position: relative;
+  padding-top: rem-calc(59px);
+  padding-bottom: rem-calc(159px);
+  background-color: scale-color($primary-color, $lightness: -80%);
+  background-image: asset-url("martin/wheretobuy_header_bg.jpg");
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
+  h1 {
+    color: $pale-gray;
+    font-size: 62px;
+    font-weight: 300 !important;
+    text-transform: capitalize !important;
+  }
+  div.filters {
+    position: absolute;
+    bottom: 0px;
+    height: 100px;
+    padding-top: 28px;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.48);
+    color: white;
+    form {
+      outline: 2px solid white;
+      select, input {
+        background: transparent;
+        color: $pale-gray;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        border: none;
+        outline: none;
+        margin-bottom: 0;
+        box-shadow: none;
+        text-transform: uppercase;
+      }
+      ::-webkit-input-placehoder {
+        color: $pale-gray;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+      ::-ms-input-placeholder {
+        color: $pale-gray;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+      ::placeholder {
+        color: $pale-gray;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+      i {
+        margin-top: 11px;
+      }
+      .button {
+        margin: 0 !important;
+        background: rgba(0, 0, 0, 0.32);
+      }
+    }
+  }
+}
+.wtb-main {
+  margin-top: rem-calc(59px);
+}
+.wtb_side_panel {
+  .panel {
+    background: white;
+    border: none;
+    h4 {
+      font-size: 20px;
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 2.73px;
+      margin-bottom: rem-calc(29px);
+      line-height: 1.2;
+    }
+    font-size: 15px;
+    font-weight: normal;
+    line-height: 1.87;
+    p {
+      font-size: 15px;
+      font-weight: normal;
+      line-height: 1.87;
+      margin-bottom: rem-calc(29px);
+    }
+    a.button {
+      font-size: 14px;
+      letter-spacing: 1px;
+      color: black;
+      background: none;
+      padding: 0;
+    }
+
+  }
+}
+
 .product_family_header {
   background-color: scale-color($primary-color, $lightness: -80%);
   background-image: asset-url("martin/product_family_header_bg.jpg");
