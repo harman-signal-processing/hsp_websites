@@ -6,7 +6,7 @@
 
 <%= content_for :feature do %>
   <div class="where_to_buy_header">
-    <h1><%= @page_title %></h1>
+    <h1><%= t('titles.where_to_buy') %></h1>
     <div class="filters">
       <div class="row">
         <div class="small-12 medium-4 medium-offset-2 columns">
@@ -35,31 +35,32 @@
   </div>
 <% end %>
 
-<% unless @err.blank? %>
-	<div class="alert-box alert"><%= @err %></div>
-<% end %>
+<div class="row" id="wtb_container">
+  <div class="large-8 columns wtb-main">
+    <% unless @err.blank? %>
+      <div class="alert-box alert"><%= @err %></div>
+    <% end %>
 
-<% if @results.size > 0 %>
-	<%= content_for :custom_css do %>
-   <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_KEY'] %>" type="text/javascript"></script>
-		<script type="text/javascript" charset="utf-8">
-      markers_json = <%= raw @results.to_json(except: [:account_number, :brand_id, :created_at, :updated_at, :name2, :name3, :name4]) %>;
+    <% if @results.size > 0 %>
+      <%= content_for :custom_css do %>
+       <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_KEY'] %>" type="text/javascript"></script>
+        <script type="text/javascript" charset="utf-8">
+          markers_json = <%= raw @results.to_json(except: [:account_number, :brand_id, :created_at, :updated_at, :name2, :name3, :name4]) %>;
 
-			$(document).ready(function() {
-				<%= raw @js_map_loader %>
-			});
-		</script>
-	<% end %>
+          $(document).ready(function() {
+            <%= raw @js_map_loader %>
+          });
+        </script>
+      <% end %>
 
-	<div class="row" id="wtb_container">
-		<div class="large-8 columns wtb-main">
-			<div id="map" style="width: 100%; height: 400px;"></div>
-		</div>
-		<div class="large-4 large-offset-1 columns" id="dealer_results">
-			<ul class="dealer_results">
-				<% @results.each_with_index do |dealer,i| %>
-				<li id="sidebar-item-<%=(i + 1)%>" class="sidebar-item">
-					<b><%= link_to_function(dealer.name, "focusPoint(#{(i + 1)});") %></b>
+      <div id="map" style="width: 100%; height: 400px;"></div>
+      <p>&nbsp;</p>
+      <div class="overline"></div>
+      <h3><%= @page_title %></h3>
+      <ul class="dealer_results">
+        <% @results.each_with_index do |dealer,i| %>
+        <li id="sidebar-item-<%=(i + 1)%>" class="sidebar-item">
+          <b><%= link_to_function(dealer.name, "focusPoint(#{(i + 1)});") %></b>
           <% if website.brand.dealers_include_rental_and_service? %>
             <% if dealer.resale? %>
               <%= fa_icon "shopping-cart", title: "Reseller" %>
@@ -92,42 +93,33 @@
           <% elsif !dealer.email.blank? %>
             <br/><%= mail_to dealer.email.downcase %>
           <% end %>
-				</li>
-				<% end %>
-			</ul>
-		</div>
+        </li>
+        <% end %>
+      </ul>
 
-	</div>
+    <% else # No results loaded %>
 
-<% else # No results loaded %>
-
-	<%= content_for :custom_css do %>
-   <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_KEY'] %>" type="text/javascript"></script>
-	<% end %>
-
-	<div class="row">
-		<div class="large-8 columns wtb-main">
       <%= image_tag "map-placeholder.jpg", alt: "Map Placeholder" %>
       <%= raw website.where_to_buy_extra_content %>
-		</div>
 
-    <div class="large-4 columns wtb_side_panel">
-      <% if website.where_to_buy_blurb %>
-        <div class="panel">
-          <div class="overline"></div>
-          <h4><%= t('titles.buy_direct', brand: website.brand.name) %></h4>
-          <%= raw website.where_to_buy_blurb %>
-        </div>
-      <% end %>
-      <%= render_partial "shared/rental" %>
-      <%= render_partial "shared/consultant_portal" %>
-      <% if !!!(website.brand.name.to_s.match(/duran audio/i)) %>
-        <%= render_partial "shared/hef" %>
-      <% end %>
-    </div>
-	</div>
+    <% end %>
 
-<% end %>
+  </div>
+
+  <div class="large-4 columns wtb_side_panel">
+    <% if website.where_to_buy_blurb %>
+      <div class="panel">
+        <div class="overline"></div>
+        <h4><%= t('titles.buy_direct', brand: website.brand.name) %></h4>
+        <%= raw website.where_to_buy_blurb %>
+      </div>
+    <% end %>
+    <%= render_partial "shared/rental" %>
+    <%= render_partial "shared/consultant_portal" %>
+    <%= render_partial "shared/hef" %>
+  </div>
+</div>
+
 
 <% if website.brand.has_online_retailers? %>
 	<br/>
