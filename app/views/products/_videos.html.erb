@@ -9,7 +9,7 @@
         
           <%= cache ["product_video", pv.youtube_id ] do %>
           
-              <% is_playlist = pv.youtube_id.start_with?('PL-') %>
+              <% is_playlist = pv.youtube_id.start_with?('PL') %>
             
               <% if is_playlist %>
                 <% begin %>
