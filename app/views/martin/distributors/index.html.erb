@@ -5,7 +5,7 @@
 <%= content_for :feature do %>
   <div class="where_to_buy_header">
     <h1><%= t('titles.where_to_buy') %></h1>
-    <div class="filters">
+    <div class="filters hide-for-small">
       <div class="row">
         <div class="small-12 medium-4 medium-offset-2 columns">
           <%= form_tag where_to_buy_path() %>
@@ -36,6 +36,27 @@
 <div class="row">
 
 	<div class="large-8 columns wtb-main">
+    <div class="mobile-filters hide-for-medium-up">
+      <%= form_tag where_to_buy_path() %>
+        <div class="row collapse">
+          <div class="small-1 columns text-center">
+            <%= fa_icon "search", :"aria-hidden" => true %>
+          </div>
+          <div class="small-9 columns">
+            <%= text_field_tag "zip", session[:zip], placeholder: "Search Worldwide Dealers"%>
+          </div>
+          <div class="small-2 columns">
+            <%= submit_tag t('go'), class: "postfix button" %>
+          </div>
+        </div>
+      </form>
+
+      <% if website.brand.has_distributors? %>
+        <%= render_partial "main/country_selector_for_distributors"%>
+      <% end %>
+      <p>&nbsp;</p>
+    </div>
+
     <h2>Distributors <% if @country %>For <%= @country %><% end %></h2>
     <hr/>
 

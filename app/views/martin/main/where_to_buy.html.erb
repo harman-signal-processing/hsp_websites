@@ -7,9 +7,9 @@
 <%= content_for :feature do %>
   <div class="where_to_buy_header">
     <h1><%= t('titles.where_to_buy') %></h1>
-    <div class="filters">
+    <div class="filters hide-for-small">
       <div class="row">
-        <div class="small-12 medium-4 medium-offset-2 columns">
+        <div class="small-12 medium-5 medium-offset-1 large-4 large-offset-2 columns">
           <%= form_tag where_to_buy_path() %>
             <div class="row collapse">
               <div class="small-1 columns">
@@ -25,7 +25,7 @@
           </form>
         </div>
 
-        <div class="small-12 medium-4 columns end">
+        <div class="small-12 medium-5 large-4 columns end">
           <% if website.brand.has_distributors? %>
             <%= render_partial "main/country_selector_for_distributors"%>
           <% end %>
@@ -40,6 +40,26 @@
     <% unless @err.blank? %>
       <div class="alert-box alert"><%= @err %></div>
     <% end %>
+
+    <div class="mobile-filters hide-for-medium-up">
+      <%= form_tag where_to_buy_path() %>
+        <div class="row collapse">
+          <div class="small-1 columns text-center">
+            <%= fa_icon "search", :"aria-hidden" => true %>
+          </div>
+          <div class="small-9 columns">
+            <%= text_field_tag "zip", session[:zip], placeholder: "Search Worldwide Dealers"%>
+          </div>
+          <div class="small-2 columns">
+            <%= submit_tag t('go'), class: "postfix button" %>
+          </div>
+        </div>
+      </form>
+
+      <% if website.brand.has_distributors? %>
+        <%= render_partial "main/country_selector_for_distributors"%>
+      <% end %>
+    </div>
 
     <% if @results.size > 0 %>
       <%= content_for :custom_css do %>
@@ -99,7 +119,9 @@
 
     <% else # No results loaded %>
 
-      <%= image_tag "map-placeholder.jpg", alt: "Map Placeholder" %>
+      <div class="hide-for-small">
+        <%= image_tag "map-placeholder.jpg", alt: "Map Placeholder" %>
+      </div>
       <%= raw website.where_to_buy_extra_content %>
 
     <% end %>

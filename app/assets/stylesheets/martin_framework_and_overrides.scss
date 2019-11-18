@@ -89,6 +89,10 @@ $topbar-sticky-class:                  ".sticky";
 $reveal-position-top: rem-calc(10);
 $reveal-default-width: 60%;
 $reveal-max-width: 75%;
+
+$medium-breakpoint: em-calc(1056) !default;
+$medium-range: (em-calc(641), $medium-breakpoint) !default;
+$large-range: ($medium-breakpoint + em-calc(1), em-calc(1440)) !default;
 @import 'foundation';
 @import 'brand_common';
 @import 'slick';
@@ -98,9 +102,6 @@ $slick-arrow-color: $dark-gray;
 #above-nav-space {
   display: none !important;
   height: 0;
-}
-nav.top-bar {
-  padding-right: 10px;
 }
 .button {
   text-transform: uppercase;
@@ -118,7 +119,7 @@ nav.top-bar {
   ul {
     li {
       &.has-form {
-        padding-left: rem-calc(10);
+        padding-left: rem-calc(20);
         padding-right: rem-calc(0);
         width: 170px;
         input {
@@ -135,6 +136,14 @@ nav.top-bar {
           color: $secondary-color !important;
         }
       }
+      &.has-dropdown {
+        a {
+          padding: 0 14px !important;
+          &:after {
+            margin-right: 1px !important;
+          }
+        }
+      }
     }
   }
 }
@@ -145,27 +154,26 @@ nav.top-bar {
         a {
           padding: 0 12px !important;
           &:after {
-            margin-right: 4px !important;
+            margin-right: 2px !important;
           }
         }
       }
     }
   }
 }
-@media only screen and (min-width: 720px) {
-	.logo-container {
-		padding: 14px 0px 0px 30px;
-    margin: 0;
-    img {
-      padding: none;
-      height: 50px;
-      width: auto;
+@media only screen and (max-width: 800px) {
+	.logo-container img {
+    height: 40px;
+		padding: 12px 0px 0px 6px;
+	}
+  .top-bar-section {
+    li.has-form {
+      padding-left: rem-calc(2);
+      width: 130px;
     }
-	}
-	#main_container {
-		padding-bottom: 100px;
-	}
+  }
 }
+
 .content-container {
   padding: rem-calc(59px);
   margin-bottom: rem-calc(39px);
@@ -174,19 +182,6 @@ nav.top-bar {
   }
 }
 
-@media only screen and (max-width: 919px) {
-	.logo-container img {
-    height: 40px;
-		padding: 12px 0px 0px 6px;
-	}
-  .top-bar-section {
-    li.has-form {
-      padding-left: rem-calc(2);
-      padding-right: rem-calc(2);
-      width: 130px;
-    }
-  }
-}
 h1 {
   font-family: Roboto;
   font-size: 40px;
@@ -396,6 +391,8 @@ div.homepage_block {
     height: 500px;
     padding-right: 0 !important;
     .product-photo {
+      background: white;
+      height: 100%;
       opacity: 75%;
     }
     h5 {
@@ -422,7 +419,10 @@ div.homepage_block {
   max-height: auto;
   min-height: auto;
   padding-top: rem-calc(59px);
-  padding-bottom: rem-calc(159px);
+  padding-bottom: rem-calc(59px);
+  @media only screen and (min-width: 641px) {
+    padding-bottom: rem-calc(159px);
+  }
   background-image: asset-url("martin/news-header.jpg");
   background-position: top left;
   background-repeat: no-repeat;
@@ -539,6 +539,57 @@ div.infinite-pagination {
     letter-spacing: 1px;
   }
 }
+div.mobile-filters {
+  left: 0;
+  width: 100%;
+  background: white;
+  color: black;
+  form {
+    margin-bottom: rem-calc(29px);
+    outline: 2px solid black;
+    select, input {
+      background: transparent;
+      color: $dark-gray;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      border: none;
+      outline: none;
+      margin-bottom: 0;
+      box-shadow: none;
+      text-transform: uppercase;
+    }
+    ::-webkit-input-placehoder {
+      color: $dark-gray;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    ::-ms-input-placeholder {
+      color: $dark-gray;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    ::placeholder {
+      color: $dark-gray;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    i {
+      margin-top: 11px;
+    }
+    .button {
+      margin: 0 !important;
+      background: black;
+      color: white;
+    }
+  }
+}
 div.market_segment_banner {
   position: relative;
   h1 {
@@ -561,6 +612,12 @@ div.product-title-block, div.small-title-block {
   h3 {
     color: $medium-gray;
     font-weight: 300;
+  }
+  div.side-nav-container {
+    .button {
+      font-size: rem-calc(12px);
+      letter-spacing: 1px;
+    }
   }
   dl.side-nav {
     dd {
@@ -622,10 +679,97 @@ ul.tabs {
   background-color: #f8d448;
   color: white;
 }
+.events_header {
+  position: relative;
+  padding-top: rem-calc(59px);
+  padding-bottom: rem-calc(59px);
+  @media only screen and (min-width: 641px) {
+    padding-bottom: rem-calc(159px);
+  }
+  background-color: scale-color($primary-color, $lightness: -80%);
+  background-image: asset-url("martin/events-header-bg.jpg");
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
+  h1 {
+    color: $pale-gray;
+    font-size: 62px;
+    font-weight: 300 !important;
+    text-transform: capitalize !important;
+  }
+  div.filters {
+    position: absolute;
+    bottom: 0px;
+    height: 100px;
+    padding-top: 28px;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.48);
+    color: white;
+    a {
+      color: $pale-gray;
+      &:hover {
+        color: white;
+      }
+    }
+  }
+}
+.event-list {
+  h2 {
+    font-size: rem-calc(40px);
+    font-weight: 300;
+    letter-spacing: normal;
+    color: black;
+  }
+  h5 {
+    font-size: rem-calc(20px);
+    font-weight: 300;
+    letter-spacing: 2.73px;
+    color: black;
+    margin: rem-calc(29px) 0;
+  }
+  a.arrow {
+    font-size: rem-calc(60px);
+    font-weight: 100;
+    color: $martin-yellow;
+  }
+  padding: rem-calc(29px) 0;
+  border-bottom: 1px solid $medium-gray;
+}
+div.event-side {
+  padding-top: rem-calc(59px);
+  margin-left: -29px;
+  #breadcrumbs {
+    margin-bottom: rem-calc(39px);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    a {
+      color: black;
+    }
+  }
+}
+div.event-main {
+  padding-top: 60px;
+  h5 {
+    font-size: 20px;
+    font-weight: 300;
+    letter-spacing: 2.73px;
+  }
+  div.event-body {
+    margin-top: rem-calc(39px);
+  }
+}
+
 .where_to_buy_header {
   position: relative;
   padding-top: rem-calc(59px);
-  padding-bottom: rem-calc(159px);
+  padding-bottom: rem-calc(59px);
+  @media only screen and (min-width: 641px) {
+    padding-bottom: rem-calc(159px);
+  }
   background-color: scale-color($primary-color, $lightness: -80%);
   background-image: asset-url("martin/wheretobuy_header_bg.jpg");
   background-position: top center;

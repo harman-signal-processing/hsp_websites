@@ -53,10 +53,25 @@ $(function(){
   });
 
   $('.news-slider').slick({
-    slidesToShow: 4.2,
+    mobileFirst: true,
+    slidesToShow: 1.2,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 4000
+    autoplaySpeed: 4000,
+    responsive: [
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 2.5,
+        }
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4.2,
+        },
+      }
+    ]
   });
 
   $('form#filtered_news_form select#tag_filter').change(function() {
@@ -64,10 +79,25 @@ $(function(){
   });
 
   $('.products-slider').slick({
-    slidesToShow: 2.4,
+    mobileFirst: true,
+    slidesToShow: 1.1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 6000
+    autoplaySpeed: 6000,
+    responsive: [
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 1.8,
+        }
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2.4,
+        },
+      }
+    ]
   });
 
   $('img[usemap]').rwdImageMaps();

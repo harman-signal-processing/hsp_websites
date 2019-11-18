@@ -106,7 +106,43 @@
           <%= hpro_footer() %>
 
           <div class="row" style="clear:both">
-            <div class="medium-4 small-12 columns">
+            <div class="large-5 small-12 large-push-4 columns footer-links">
+              <div class="row">
+                <div class="large-3 small-6 columns ">
+                  <%= link_to t('new_products'), new_products_path, target: "_blank" %>
+                  <br/><%= link_to t('products'), product_families_path %>
+                  <% if website.has_software? && (website.current_softwares.length > 0 || website.forced_current_softwares.length > 0) %>
+                    <br/><%= link_to t('software_downloads').titleize, software_index_path %>
+                  <% end %>
+                </div>
+
+                <div class="large-3 small-6 columns ">
+                  <% if website.has_dealers? || website.has_online_retailers? || website.has_distributors? %>
+                    <%= link_to t('where_to_buy').titleize, where_to_buy_path %><br/>
+                  <% end %>
+                  <%= link_to 'service', support_path %><br/>
+                  <%= link_to t('product_support').titleize, support_path %>
+                </div>
+
+                <div class="large-3 small-6 columns ">
+                  <%= link_to "downloads", support_downloads_path %>
+                  <br/><%= link_to "warranty", warranty_policy_path %>
+                  <% if !!(website.forum_link) %>
+                    <br/><%= link_to t("forum").titleize, website.forum_link %>
+                  <% end %>
+                </div>
+
+                <div class="large-3 small-6 columns ">
+                  <%#= link_to 'Logo Store', "https://harman.axomo.com", target: "_blank" %>
+                  <%= link_to 'contact us', support_path %>
+                  <br/><%= link_to "news", news_index_path %>
+                  <br/><%= link_to 'careers'.titleize, "http://jobs.harman.com", target: "_blank" %>
+                </div>
+              </div>
+            </div>
+
+            <div class="large-4 large-pull-5 small-6 columns">
+              <div class="hide-for-large-up"><p>&nbsp;</p></div>
               <div>
                 &copy; <%= Date.today.year %>
                 <%= link_to('HARMAN', "http://www.harman.com/", target: "_blank") %>
@@ -118,57 +154,28 @@
                 | <%= link_to "Legal", website.legal_footer_link %>
               <% end %>
             </div>
-            <div class="medium-8 columns hide-for-small footer-links">
-              <div class="row">
-                <div class="medium-3 columns ">
-                  <%= link_to t('new_products'), new_products_path, target: "_blank" %>
-                  <br/><%= link_to t('products'), product_families_path %>
-                  <% if website.has_software? && (website.current_softwares.length > 0 || website.forced_current_softwares.length > 0) %>
-                    <br/><%= link_to t('software_downloads').titleize, software_index_path %>
-                  <% end %>
-                </div>
-                <div class="medium-2 columns ">
-                  <% if website.has_dealers? || website.has_online_retailers? || website.has_distributors? %>
-                    <%= link_to t('where_to_buy').titleize, where_to_buy_path %><br/>
-                  <% end %>
-                  <%= link_to 'service', support_path %><br/>
-                  <%= link_to t('product_support').titleize, support_path %>
-                </div>
-                <div class="medium-2 columns ">
-                  <%= link_to "downloads", support_downloads_path %>
-                  <br/><%= link_to "warranty", warranty_policy_path %>
-                  <% if !!(website.forum_link) %>
-                    <br/><%= link_to t("forum").titleize, website.forum_link %>
-                  <% end %>
-                </div>
-                <div class="medium-2 columns ">
-                  <%#= link_to 'Logo Store', "https://harman.axomo.com", target: "_blank" %>
-                  <%= link_to 'contact us', support_path %>
-                  <br/><%= link_to "news", news_index_path %>
-                  <br/><%= link_to 'careers'.titleize, "http://jobs.harman.com", target: "_blank" %>
-                </div>
-                <div class="medium-3 columns ">
-                  <% if website.email_signup_url %>
-                    <%= link_to website.email_signup_url, class: "small secondary button" do %>
-                      <%= fa_icon 'envelope', :"aria-hidden" => "true" %>
-                      <%= t('news_signup').titleize %>
-                    <% end %>
-                  <% end %>
-                  <br/>
-                  <%= social_media_links 'twitter',
-                    'facebook',
-                    'youtube',
-                    'youku',
-                    'google+',
-                    'instagram',
-                    'linkedin',
-                    'wechat',
-                    'weibo',
-                    'tmall',
-                    style: 'font-awesome',
-                    size: '32x32' %>
-                </div>
-              </div>
+
+            <div class="large-3 small-6 columns large-text-right">
+              <div class="hide-for-large-up"><p>&nbsp;</p></div>
+              <% if website.email_signup_url %>
+                <%= link_to website.email_signup_url, class: "small secondary button" do %>
+                  <%= fa_icon 'envelope', :"aria-hidden" => "true" %>
+                  <%= t('news_signup').titleize %>
+                <% end %>
+              <% end %>
+              <br/>
+              <%= social_media_links 'twitter',
+                'facebook',
+                'youtube',
+                'youku',
+                'google+',
+                'instagram',
+                'linkedin',
+                'wechat',
+                'weibo',
+                'tmall',
+                style: 'font-awesome',
+                size: '32x32' %>
             </div>
           </div>
         </footer>

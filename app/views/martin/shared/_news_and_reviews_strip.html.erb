@@ -2,11 +2,11 @@
   <% if website.has_news? %>
       <div class="homepage_block">
         <div class="row">
-          <div class="medium-6 small-12 columns">
+          <div class="small-8 columns">
             <div class="overline" aria-hidden="true">&nbsp;</div>
             <h2><%= homepage_news_header %></h2>
           </div>
-          <div class="medium-6 small-12 columns text-right">
+          <div class="small-4 columns text-right">
             <%= link_to news_index_path, class: "secondary small button" do %>
               <%= t :more %>
               <%= t :news %>

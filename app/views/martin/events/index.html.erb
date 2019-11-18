@@ -1,0 +1,49 @@
+<% set_meta_tags title: t('titles.events', brand: website.brand_name),
+	reverse: true,
+	og: {
+		type: 'article',
+		description: t('titles.events', brand: website.brand_name),
+		title: t('titles.events', brand: website.brand_name)
+	} %>
+
+<%= content_for :feature do %>
+  <div class="events_header">
+    <h1><%= t('titles.events', brand: website.brand_name) %></h1>
+    <div class="filters hide-for-small text-center">
+      <p><strong>For a complete list of HARMAN Professional Solutions events:</strong><br/>
+      Please visit <a href="<%= ENV['PRO_SITE_URL'] %>/events" target="_blank"><%= ENV['PRO_SITE_URL'] %></a>.</p>
+    </div>
+  </div>
+<% end %>
+
+<div class="show-for-small text-center">
+  <p><strong>For a complete list of HARMAN Professional Solutions events:</strong><br/>
+  Please visit <a href="<%= ENV['PRO_SITE_URL'] %>/events" target="_blank"><%= ENV['PRO_SITE_URL'] %></a>.</p>
+</div>
+
+<div class="row">
+  <div class="small-12 medium-10 medium-offset-1 large-8 large-offset-2 columns">
+    <% if @events.size > 0 %>
+      <% @events.each do |event| %>
+        <div class="row event-list">
+          <div class="small-10 columns">
+            <h2><%= link_to event.name, event %></h2>
+            <h5>
+              <%=l event.start_on, format: :short %>
+              <% if event.end_on > event.start_on %>
+                - <%=l event.end_on, format: :short %>
+              <% end %>
+            </h5>
+            <%=raw event.description %>
+          </div>
+          <div class="small-2 columns text-right">
+            <br/>
+            <%= link_to ">", event, class: "arrow" %>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <p><i>There are no currently scheduled events. Please check back soon.</i></p>
+    <% end %>
+  </div>
+</div>

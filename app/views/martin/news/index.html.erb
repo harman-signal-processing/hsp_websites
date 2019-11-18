@@ -9,9 +9,9 @@
 <%= content_for :feature do %>
   <div class="text-center news_banner">
     <h1><%= t('titles.news', brand: website.brand_name) %></h1>
-    <div class="filters">
+    <div class="filters hide-for-small">
       <div class="row">
-        <div class="small-12 medium-2 medium-offset-5 columns">
+        <div class="medium-4 medium-offset-4 large-2 large-offset-5 columns">
           <form id="filtered_news_form">
             <div class="row collapse">
               <div class="small-2 columns">
@@ -37,6 +37,27 @@
 <% end %>
 
 <div class="list-news">
+  <div class="mobile-filters hide-for-medium-up">
+    <form id="filtered_news_form">
+      <div class="row collapse">
+        <div class="small-1 text-center columns">
+          <%= fa_icon "filter", :"aria-hidden" => true %>
+        </div>
+        <div class="small-10 columns">
+          <select name="tag_filter" id="tag_filter">
+            <option>FILTER BY TAGS</option>
+            <% website.brand.news_tags.order(:name).each do |tag| %>
+              <option value="<%= tag_filtered_news_path(tag: tag.name) %>"><%= tag.name.titleize %></option>
+            <% end %>
+          </select>
+        </div>
+        <div class="small-1 columns">
+          <%= fa_icon "chevron-down", :"aria-hidden" => true %>
+        </div>
+      </div>
+    </form>
+  </div>
+
   <% if @subtitle.present? %>
     <div class="row">
       <div class="small-12 medium-6 columns">
@@ -49,7 +70,7 @@
   <% end %>
 
   <% if @news.length > 0 %>
-    <ul class="medium-block-grid-3 small-block-grid-1">
+    <ul class="medium-block-grid-2 large-block-grid-3 small-block-grid-1">
       <% @news.each do |item| %>
         <%= render item %>
       <% end %>
