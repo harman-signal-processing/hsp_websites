@@ -563,14 +563,15 @@ module ApplicationHelper
       image_tag("pro_brands/harman.png", alt: "Harman Professional", class:"hlogo")
     end
 
-    content_tag :div, id: "harmanpro_bar", class: "row hide-for-medium-down" do
-      concat(content_tag(:div, harman_link, class: "large-3 columns text-center"))
-      concat(content_tag(:div, class: "large-8 columns") do
-        content_tag(:ul, class: "large-block-grid-#{links.length}") do
-          raw(links.map{|link| content_tag(:li, link)}.join)
-        end
-      end)
-      concat(content_tag(:div, " ", class: "large-1 column"))
+    content_tag :div, id: "harmanpro_bar" do
+      content_tag :div, class: "row hide-for-medium-down" do
+        concat(content_tag(:div, harman_link, class: "large-3 columns text-center"))
+        concat(content_tag(:div, class: "large-9 columns") do
+          content_tag(:ul, class: "large-block-grid-#{links.length}") do
+            raw(links.map{|link| content_tag(:li, link)}.join)
+          end
+        end)
+      end
     end
   end
 

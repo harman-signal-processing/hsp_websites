@@ -918,6 +918,23 @@ div.event-main {
     width: 100%;
     background: rgba(0, 0, 0, 0.48);
     color: white;
+    .chosen-container {
+      outline: 2px solid white;
+      text-align: left;
+    }
+    .chosen-container-single {
+      text-align: left;
+      .chosen-single {
+        background: transparent;
+        color: $pale-gray;
+        border: none;
+        box-shadow: none;
+        text-align: left;
+        font-size: rem-calc(14px);
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+      }
+    }
     form {
       outline: 2px solid white;
       select, input {
