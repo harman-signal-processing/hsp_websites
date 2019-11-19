@@ -1,0 +1,29 @@
+<% set_meta_tags title: t('titles.support'),
+  description: t('meta.description.support', brand: website.brand_name),
+  reverse: true %>
+
+<div class="row">
+
+  <div class="large-8 columns">
+    <% if @distributors.size > 0 %>
+      <p>Post-sales support in your country is provided by our distribution partners below.</p>
+      <ul class="large-block-grid-2 medium-block-grid-1 small-block-grid-1">
+        <% @distributors.each do |distributor| %>
+          <%=render_partial "support/distributor", distributor: distributor %>
+        <% end %> <%# @distributors.each do |distributor| %>
+      </ul>
+    <% else %>
+      <p>We didn't find a distributor in your country. Please contact us with the information below.</p>
+      <% if addr = website.value_for("address_and_phone") %>
+        <div class="panel">
+          <p><%=raw addr %></p>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <%=render_partial "support/support_left_side_bar"%>
+
+</div>
+
+<%=render_partial "shared/support_chat_javascript"%>

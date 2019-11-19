@@ -138,7 +138,7 @@ $slick-arrow-color: $dark-gray;
       }
       &.has-dropdown {
         a {
-          padding: 0 14px !important;
+          padding-right: 14px !important;
           &:after {
             margin-right: 1px !important;
           }
@@ -146,6 +146,9 @@ $slick-arrow-color: $dark-gray;
       }
     }
   }
+}
+.logo-container img {
+  padding: 24px 0px 0px 69px;
 }
 @media only screen and (max-width: 1300px) and (min-width: 1076px) {
   .top-bar-section {
@@ -163,8 +166,8 @@ $slick-arrow-color: $dark-gray;
 }
 @media only screen and (max-width: 800px) {
 	.logo-container img {
-    height: 40px;
-		padding: 12px 0px 0px 6px;
+    height: 60px;
+		padding: 18px 0px 0px 6px;
 	}
   .top-bar-section {
     li.has-form {
@@ -389,6 +392,9 @@ div.homepage_block {
     background-color: rgba(0, 0, 0, 0.38);
     color: white;
     height: 500px;
+    @media only screen and (max-width: 641px) {
+      height: 275px;
+    }
     padding-right: 0 !important;
     .product-photo {
       background: white;
@@ -884,6 +890,113 @@ div.event-main {
   margin-top: rem-calc(29px);
 }
 
+.support_header {
+  position: relative;
+  padding-top: rem-calc(59px);
+  padding-bottom: rem-calc(59px);
+  @media only screen and (min-width: 641px) {
+    padding-bottom: rem-calc(159px);
+  }
+  background-color: scale-color($primary-color, $lightness: -80%);
+  background-image: asset-url("martin/support_bg.jpg");
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
+  h1 {
+    color: $pale-gray;
+    font-size: 62px;
+    font-weight: 300 !important;
+    text-transform: capitalize !important;
+  }
+  div.filters {
+    position: absolute;
+    bottom: 0px;
+    height: 100px;
+    padding-top: 28px;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.48);
+    color: white;
+    form {
+      outline: 2px solid white;
+      select, input {
+        background: transparent;
+        color: $pale-gray;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        border: none;
+        outline: none;
+        margin-bottom: 0;
+        box-shadow: none;
+        text-transform: uppercase;
+      }
+      ::-webkit-input-placehoder {
+        color: $pale-gray;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+      ::-ms-input-placeholder {
+        color: $pale-gray;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+      ::placeholder {
+        color: $pale-gray;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+      i {
+        margin-top: 11px;
+      }
+      .button {
+        margin: 0 !important;
+        background: rgba(0, 0, 0, 0.32);
+      }
+    }
+  }
+}
+
+.support-main {
+  padding-top: rem-calc(39px);
+}
+.support-side {
+  .panel {
+    background: white;
+    border: none;
+    h4 {
+      font-size: 20px;
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 2.73px;
+      margin-bottom: rem-calc(29px);
+      line-height: 1.2;
+    }
+    font-size: 15px;
+    font-weight: normal;
+    line-height: 1.87;
+    p {
+      font-size: 15px;
+      font-weight: normal;
+      line-height: 1.87;
+      margin-bottom: rem-calc(29px);
+    }
+    a.button {
+      font-size: 14px;
+      letter-spacing: 1px;
+      color: black;
+      background: none;
+      padding: 0;
+    }
+  }
+}
 
 .product_family_header {
   background-color: scale-color($primary-color, $lightness: -80%);
@@ -891,7 +1004,7 @@ div.event-main {
   background-position: top center;
   background-repeat: no-repeat;
   background-size: cover;
-  padding: rem-calc(29px) rem-calc(59px);
+  padding: rem-calc(59px) 0;
   h1 {
     text-transform: uppercase;
     letter-spacing: 2.9px;
@@ -970,3 +1083,8 @@ input#query {
 
 /********** end chosen-rails style overrides */
 
+.alert-box {
+  &.secondary {
+    color: black;
+  }
+}

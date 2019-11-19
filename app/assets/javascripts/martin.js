@@ -54,7 +54,7 @@ $(function(){
 
   $('.news-slider').slick({
     mobileFirst: true,
-    slidesToShow: 1.2,
+    slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 4000,
@@ -80,7 +80,7 @@ $(function(){
 
   $('.products-slider').slick({
     mobileFirst: true,
-    slidesToShow: 1.1,
+    slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 6000,

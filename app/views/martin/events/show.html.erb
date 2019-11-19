@@ -24,7 +24,9 @@
       <div><%=raw @event.page_content %></div>
 
       <% if @event.more_info_link.present? %>
-        <p><%= link_to "LEARN MORE", @event.more_info_link, target: @event.new_window? ? "_blank" : "", class: "button" %></p>
+        <p>&nbsp;</p>
+        <p><%= link_to "LEARN MORE", @event.more_info_link, target: @event.new_window? ? "_blank" : "", class: "secondary button" %></p>
+        <p>&nbsp;</p>
       <% end %>
 
       <% if @event.image.present? %>
