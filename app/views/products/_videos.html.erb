@@ -6,30 +6,60 @@
       <h5><%= pv_group.group %></h5>
       <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-4">
         <% product.product_videos.where(group: pv_group.group).each do |pv| %>
+        
           <%= cache ["product_video", pv.youtube_id ] do %>
-            <% begin %>
-              <% video = Youtube.get_video(pv.youtube_id) %>
-              <li>
-                <%= link_to play_video_url(pv.youtube_id), data: { videoid: pv.youtube_id, :'reveal-id' => "videoModal" }, class: 'start-video' do %>
-                  <img src="<%= video["thumbnails"]["default"]["url"] %>" class="radius">
-                  <br/><%= video['title'] %>
+          
+              <% is_playlist = pv.youtube_id.start_with?('PL') %>
+            
+              <% if is_playlist %>
+                <% begin %>
+                <% playlist = Youtube.get_specific_playlists(pv.youtube_id) %>
+                    <li>
+                      <%= link_to play_video_url(pv.youtube_id), data: { videoid: pv.youtube_id }, class: 'start-video' do %>
+                        <img src="<%= playlist.first["snippet"]["thumbnails"]["default"]["url"] %>" class="radius">
+                        <br/><%= playlist.first["snippet"]["title"] %>
+                      <% end %>
+                    </li>   
+                <% rescue => e %>
+                  <!-- problem loading playlist <%= pv.youtube_id %> -->
                 <% end %>
-              </li>
-            <% rescue %>
-              <!-- problem loading <%= pv.youtube_id %> -->
-            <% end %>
-          <% end %>
+              <% else %>
+                <% begin %>
+                    <% video = Youtube.get_video(pv.youtube_id) %>
+                    <li>
+                      <%= link_to play_video_url(pv.youtube_id), data: { videoid: pv.youtube_id}, class: 'start-video' do %>
+                        <img src="<%= video["thumbnails"]["default"]["url"] %>" class="radius">
+                        <br/><%= video['title'] %>
+                      <% end %>
+                    </li>        
+                <% rescue => e %>
+                  <!-- problem loading video <%= pv.youtube_id %> -->
+                <% end %>
+              <% end %>
+            
+          <% end %> <%# cache ["product_video", pv.youtube_id ] do %>
         <% end %>
       </ul>
     <% end %>
   <% else %>
     <% product.product_videos.each do |pv| %>
       <% begin %>
-        <% video = Youtube.get_video(pv.youtube_id) %>
-        <div class="flex-video">
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= pv.youtube_id %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-        <%= video['title'] %>
+      <% is_playlist = pv.youtube_id.start_with?('PL') %>
+      
+        <% if is_playlist %>
+          <% playlist = Youtube.get_specific_playlists(pv.youtube_id) %>
+          <div class="flex-video">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=<%= pv.youtube_id %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <%= playlist['title'] %>      
+        <% else %>
+          <% video = Youtube.get_video(pv.youtube_id) %>
+          <div class="flex-video">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= pv.youtube_id %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <%= video['title'] %>      
+        <% end %>
+
         <p>&nbsp;</p>
       <% rescue %>
         <!-- problem loading <%= pv.youtube_id %> -->
