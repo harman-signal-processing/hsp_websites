@@ -564,10 +564,10 @@ module ApplicationHelper
     end
 
     content_tag :div, id: "harmanpro_bar" do
-      content_tag :div, class: "row hide-for-medium-down" do
-        concat(content_tag(:div, harman_link, class: "large-3 columns text-center"))
-        concat(content_tag(:div, class: "large-9 columns") do
-          content_tag(:ul, class: "large-block-grid-#{links.length}") do
+      content_tag(:div, class: "row") do
+        concat(content_tag(:div, harman_link, class: "large-3 columns hide-for-medium-down text-center"))
+        concat(content_tag(:div, class: "large-9 small-12 columns") do
+          content_tag(:ul, class: "large-block-grid-#{links.length} small-block-grid-5") do
             raw(links.map{|link| content_tag(:li, link)}.join)
           end
         end)

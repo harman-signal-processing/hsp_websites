@@ -143,20 +143,34 @@
 
             <div class="large-4 large-pull-5 small-6 columns">
               <div class="hide-for-large-up"><p>&nbsp;</p></div>
-              <div>
-                &copy; <%= Date.today.year %>
-                <%= link_to('HARMAN', "http://www.harman.com/", target: "_blank") %>
-                <%= t('all_rights_reserved') %>
+              <div class="row">
+                <div class="small-5 small-offset-2 medium-3 medium-offset-0 columns show-for-medium-down text-center">
+                  <%= link_to(ENV['PRO_SITE_URL'], target: "_blank") do %>
+                    <%= image_tag("pro_brands/harman.png", alt: "Harman Professional", class:"hlogo") %>
+                  <% end %>
+                </div>
+                <div class="small-4 columns show-for-small">&nbsp;</div>
+                <div class="small-12 columns show-for-small"><br/></div>
+                <div class="small-12 medium-9 large-12 columns">
+                  <div>
+                    &copy; <%= Date.today.year %>
+                    <%= link_to('HARMAN', "http://www.harman.com/", target: "_blank") %>
+                    <%= t('all_rights_reserved') %>
+                  </div>
+                  <%= link_to t('privacy_policy').titleize, privacy_policy_path %> |
+                  <%= link_to t('terms_of_use').titleize, terms_of_use_path %>
+                  <% if website.legal_footer_link %>
+                    | <%= link_to "Legal", website.legal_footer_link %>
+                  <% end %>
+                </div>
               </div>
-              <%= link_to t('privacy_policy').titleize, privacy_policy_path %> |
-              <%= link_to t('terms_of_use').titleize, terms_of_use_path %>
-              <% if website.legal_footer_link %>
-                | <%= link_to "Legal", website.legal_footer_link %>
-              <% end %>
             </div>
 
             <div class="large-3 small-6 columns large-text-right">
-              <div class="hide-for-large-up"><p>&nbsp;</p></div>
+              <div class="hide-for-large-up">
+                <p>&nbsp;</p>
+                <p class="show-for-small">&nbsp;</p>
+              </div>
               <% if website.email_signup_url %>
                 <%= link_to website.email_signup_url, class: "small secondary button" do %>
                   <%= fa_icon 'envelope', :"aria-hidden" => "true" %>

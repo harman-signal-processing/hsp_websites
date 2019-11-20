@@ -146,6 +146,10 @@ $slick-arrow-color: $dark-gray;
       }
     }
   }
+      .dropdown {
+        padding-right: 10px !important;
+        background: $topbar-bg;
+      }
 }
 .logo-container img {
   padding: 24px 0px 0px 69px;
