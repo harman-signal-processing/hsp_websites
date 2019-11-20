@@ -18,7 +18,7 @@
 
     <div data-equalizer="family_thumbs" data-equalizer-mq="medium-up">
       <h5>Product Categories</h5>
-      <% if @children_with_current_products.length > 16 %>
+      <% if @children_with_current_products.length > 19 || @product_family.name.to_s.match?(/install/i) %>
         <div class="row">
           <% @children_with_current_products.in_groups(3).each do |group| %>
             <div class="large-4 medium-4 small-12 columns product-subgroups">

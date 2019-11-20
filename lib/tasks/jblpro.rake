@@ -56,8 +56,8 @@ namespace :jblpro do
     @links_followed = []
 
     #%w(nano-k-series).each do |pid|
-    family_page = @agent.get("https://www.jblpro.com/china/products/portable-market/srx700-series")
-      parent_family = ProductFamily.find "live-portable"
+    family_page = @agent.get("https://cn.jblpro.com/china/products/entertainment-sound/pasion-series")
+      parent_family = ProductFamily.find "entertainment-sound"
       find_or_create_family(family_page, parent_family)
     #end
   end
