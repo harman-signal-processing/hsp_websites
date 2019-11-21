@@ -1,0 +1,27 @@
+<div class="large-8 columns">
+  <div class="overline"></div>
+  <h3>End Users</h3>
+  <div class="row">
+    <div class="small-12 medium-4 columns">
+      <%= link_to (country_code.present?) ? "/support/tech_support?geo=#{country_code}" : "/support/tech_support", class: "expand secondary button" do %>
+        Technical Support
+      <% end %>
+    </div>
+    <div class="small-12 medium-4 columns">
+      <%= link_to (country_code.present?) ? "/support/repairs?geo=#{country_code}" : "/support/repairs", class: "expand secondary button" do %>
+        Repair
+      <% end %>
+    </div>
+    <div class="small-12 medium-4 columns">
+      <%= link_to (country_code.present?) ? "/support/parts?geo=#{country_code}" : "/support/parts_new", class: "expand secondary button" do %>
+        Spare Parts
+      <% end %>
+    </div>
+  </div>
+
+  <div class="overline"></div>
+  <h3>HARMAN Account Holders</h3>
+  <%= link_to (country_code.present?) ? "/support/rsos?geo=#{country_code}" : "/support/rsos", class: "secondary button" do %>
+    Channel Partner Support
+  <% end %>
+</div>

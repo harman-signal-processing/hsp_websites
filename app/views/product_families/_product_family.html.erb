@@ -4,6 +4,7 @@
 %>
 <% if product_family.current_products.length > 0 && product_family.locales(website).include?(I18n.locale.to_s) %>
   <% unless skip_header %>
+    <div class="overline"></div>
     <<%= hlevel %>>
       <%= translate_content(product_family, :name) %>
     </<%= hlevel %>>

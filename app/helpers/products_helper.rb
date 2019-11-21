@@ -290,6 +290,7 @@ module ProductsHelper
 
       if i > 0
         ret += link_to('', '', name: product_tab.key)
+        ret += content_tag(:div, '', class: "overline")
         ret += content_tag(
           :h3,
           tab_title(product_tab, product: product),

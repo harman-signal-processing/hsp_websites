@@ -2,18 +2,21 @@
 				 keywords: ProductFamily.parents_with_current_products(website, I18n.locale).collect{|p| p.name}.join(", "),
 				 reverse: true %>
 
-<h1>
-<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/products_head.jpg")) %>
-	<%= image_tag("#{website.folder}/#{I18n.locale}/products_head.jpg", alt: t('titles.product_families')) %>
-<% else %>
-	<%= t('titles.product_families') %>
+<%= content_for :feature do %>
+  <div class="container product_family_header">
+    <div class="row">
+      <div class="medium-8 medium-offset-2 large-6 large-offset-3 small-12 columns">
+        <h1 class="text-center"><%= website.brand.name %> <%= t('titles.product_families') %></h1>
+      </div>
+    </div>
+  </div>
 <% end %>
-</h1>
 
 <% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
   <% if product_family.locales(website).include?(I18n.locale.to_s) %>
     <div class="row">
       <div class="small-12 columns thick_left" >
+        <div class="overline"></div>
         <%= link_to product_family do %>
           <h3><%= translate_content(product_family, :name) %></h3>
         <% end %>
@@ -84,5 +87,5 @@
 
 <% if @discontinued_products.size > 0 %>
 <p>&nbsp;</p>
-<p><%= link_to "legacy products", discontinued_products_path %></p>
+<p><%= link_to "legacy products", discontinued_products_path, class: "tiny button" %></p>
 <% end %>

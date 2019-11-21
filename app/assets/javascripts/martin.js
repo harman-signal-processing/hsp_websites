@@ -18,6 +18,7 @@
 //= require jquery.pin
 //= require jquery.bonsai
 //= require jquery.rwdImageMaps.min
+//= require slick
 //= require global_functions
 //= require maps
 //= require twitter
@@ -46,10 +47,59 @@ $(function(){
       equalize_on_stack: true
     }
   });
+
   $("#partslist").bonsai({
     expandAll: false
   });
 
+  $('.news-slider').slick({
+    mobileFirst: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 4000,
+    responsive: [
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 2.5,
+        }
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4.2,
+        },
+      }
+    ]
+  });
+
+  $('form#filtered_news_form select#tag_filter').change(function() {
+    window.location.href = $( this ).val();
+  });
+
+  $('.products-slider').slick({
+    mobileFirst: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 6000,
+    responsive: [
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 1.8,
+        }
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2.4,
+        },
+      }
+    ]
+  });
+
   $('img[usemap]').rwdImageMaps();
-  
-});  //  $(function(){
+
+});

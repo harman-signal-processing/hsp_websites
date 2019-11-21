@@ -1,17 +1,20 @@
 <%= cache ["news_strip", website.brand, I18n.locale] do %>
   <% if website.has_news? %>
-    <div class="row">
-    <div class="medium-12 small-12 columns homepage_block">
-      <h2 class="text-center"><%= homepage_news_header %></h2>
-      <%= render_partial 'shared/column_for_news_and_reviews' %>
-      <p>
-        <%= link_to news_index_path, class: "small button" do %>
-          <%= t :more %>
-          <%= t :news %>
-        <% end %>
-      </p>
-    </div>
-    </div>
+      <div class="homepage_block">
+        <div class="row">
+          <div class="small-8 columns">
+            <div class="overline" aria-hidden="true">&nbsp;</div>
+            <h2><%= homepage_news_header %></h2>
+          </div>
+          <div class="small-4 columns text-right">
+            <%= link_to news_index_path, class: "secondary small button" do %>
+              <%= t :more %>
+              <%= t :news %>
+            <% end %>
+          </div>
+        </div>
+        <%= render_partial 'shared/column_for_news_and_reviews' %>
+      </div>
   <% end %>
 <% end %>
 

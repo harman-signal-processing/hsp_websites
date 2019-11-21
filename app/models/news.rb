@@ -17,14 +17,14 @@ class News < ApplicationRecord
       large: "600>x370",
       email: "580",
       medium_square: "480x480#",
-      medium: "350x350>",
+      medium: "480x480>",
       small: "240",
       small_square: "250x250#",
       thumb: "100x100>",
       thumb_square: "100x100#",
       tiny: "64x64>",
       tiny_square: "64x64#"
-    }, default_url: "harman-logo.png"
+    }, default_url: "news_photo.jpg"
   }.merge(S3_STORAGE)
   validates_attachment :news_photo, content_type: { content_type: /\Aimage/i }
 

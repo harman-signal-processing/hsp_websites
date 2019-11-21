@@ -15,19 +15,21 @@
       <% spec_groups = product.specification_groups.order("specification_groups.position").uniq %>
       <li style="margin-left: 0; padding-left:0">
         <% spec_groups.each_with_index do |spec_group, i| %>
-          <span class="smalColHeader"><%= translate_content(spec_group, :name) %></span>
+          <div class="specgroup">
+            <span class="smalColHeader"><%= translate_content(spec_group, :name) %></span>
 
-          <% spec_group.specifications.order(:position).each do |specification| %>
-            <% product_spec = product.product_specifications.where(specification_id: specification.id) %>
-            <% if product_spec.exists? %>
-              <span class="specContent">
-                <% unless specification.name.downcase == "#{spec_group.name.downcase} notes" %>
-                  <%= translate_content(specification, :name) %>:
-                <% end %>
-                <%= spec_value(product_spec.first) %>
-              </span>
+            <% spec_group.specifications.order(:position).each do |specification| %>
+              <% product_spec = product.product_specifications.where(specification_id: specification.id) %>
+              <% if product_spec.exists? %>
+                <span class="specContent">
+                  <% unless specification.name.downcase == "#{spec_group.name.downcase} notes" %>
+                    <%= translate_content(specification, :name) %>:
+                  <% end %>
+                  <%= spec_value(product_spec.first) %>
+                </span>
+              <% end %>
             <% end %>
-          <% end %>
+          </div>
           <% if i == (i > 1 && (spec_groups.length / 2).to_i - 1) %>
             </li>
             <li style="margin-left: 0; padding-left: 0">

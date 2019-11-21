@@ -1,0 +1,172 @@
+<% set_meta_tags title: @page_title,
+  reverse: true,
+   description: t('meta.description.where_to_buy', brand: website.brand_name),
+   keywords: t('meta.keywords.where_to_buy')
+%>
+
+<%= content_for :feature do %>
+  <div class="where_to_buy_header">
+    <h1><%= t('titles.where_to_buy') %></h1>
+    <div class="filters hide-for-small">
+      <div class="row">
+        <div class="small-12 medium-5 medium-offset-1 large-4 large-offset-2 columns">
+          <%= form_tag where_to_buy_path() %>
+            <div class="row collapse">
+              <div class="small-1 columns">
+                <%= fa_icon "search", :"aria-hidden" => true %>
+              </div>
+              <div class="small-9 columns">
+                <%= text_field_tag "zip", session[:zip], placeholder: "Search Worldwide Dealers"%>
+              </div>
+              <div class="small-2 columns">
+                <%= submit_tag t('go'), class: "postfix button" %>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="small-12 medium-5 large-4 columns end">
+          <% if website.brand.has_distributors? %>
+            <%= render_partial "main/country_selector_for_distributors"%>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div class="row" id="wtb_container">
+  <div class="large-8 columns wtb-main">
+    <% unless @err.blank? %>
+      <div class="alert-box alert"><%= @err %></div>
+    <% end %>
+
+    <div class="mobile-filters hide-for-medium-up">
+      <%= form_tag where_to_buy_path() %>
+        <div class="row collapse">
+          <div class="small-1 columns text-center">
+            <%= fa_icon "search", :"aria-hidden" => true %>
+          </div>
+          <div class="small-9 columns">
+            <%= text_field_tag "zip", session[:zip], placeholder: "Search Worldwide Dealers"%>
+          </div>
+          <div class="small-2 columns">
+            <%= submit_tag t('go'), class: "postfix button" %>
+          </div>
+        </div>
+      </form>
+
+      <% if website.brand.has_distributors? %>
+        <%= render_partial "main/country_selector_for_distributors"%>
+      <% end %>
+    </div>
+
+    <% if @results.size > 0 %>
+      <%= content_for :custom_css do %>
+       <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_KEY'] %>" type="text/javascript"></script>
+        <script type="text/javascript" charset="utf-8">
+          markers_json = <%= raw @results.to_json(except: [:account_number, :brand_id, :created_at, :updated_at, :name2, :name3, :name4]) %>;
+
+          $(document).ready(function() {
+            <%= raw @js_map_loader %>
+          });
+        </script>
+      <% end %>
+
+      <div id="map" style="width: 100%; height: 400px;"></div>
+      <p>&nbsp;</p>
+      <div class="overline"></div>
+      <h3><%= @page_title %></h3>
+      <ul class="dealer_results">
+        <% @results.each_with_index do |dealer,i| %>
+        <li id="sidebar-item-<%=(i + 1)%>" class="sidebar-item">
+          <b><%= link_to_function(dealer.name, "focusPoint(#{(i + 1)});") %></b>
+          <% if website.brand.dealers_include_rental_and_service? %>
+            <% if dealer.resale? %>
+              <%= fa_icon "shopping-cart", title: "Reseller" %>
+            <% end %>
+            <% if dealer.rental? %>
+              <%= fa_icon "road", title: "Rentals" %>
+            <% end %>
+            <% if dealer.service? %>
+              <%= fa_icon "wrench", title: "Service" %>
+            <% end %>
+          <% end %>
+          <% if dealer.try(:distance) %>
+            (<%= dealer.distance.to_i %> <%= t('dealer_distance') %>)
+          <% end %>
+          <% if dealer.rental? && dealer.products.present? %>
+            <br/><i>Products available: <%= dealer.products %></i>
+          <% end %>
+          <br/><%=raw dealer.address %>
+          <% if dealer.city.present? || dealer.state.present? || dealer.zip.present? %>
+            <br/><%= dealer.city %> <%= dealer.state %> <%= dealer.zip %>
+          <% end %>
+          <% if dealer.country.present? %>
+            <br/><%= dealer.country %>
+          <% end %>
+          <% if dealer.telephone.present? %>
+            <br/><%= dealer.telephone %>
+          <% end %>
+          <% if dealer.website.present? %>
+            <br/><%= link_to dealer.website.downcase, dealer.website_link, target: "_blank" %>
+          <% elsif !dealer.email.blank? %>
+            <br/><%= mail_to dealer.email.downcase %>
+          <% end %>
+        </li>
+        <% end %>
+      </ul>
+
+    <% else # No results loaded %>
+
+      <div class="hide-for-small">
+        <%= image_tag "map-placeholder.jpg", alt: "Map Placeholder" %>
+      </div>
+      <%= raw website.where_to_buy_extra_content %>
+
+    <% end %>
+
+  </div>
+
+  <div class="large-4 columns wtb_side_panel">
+    <% if website.where_to_buy_blurb %>
+      <div class="panel">
+        <div class="overline"></div>
+        <h4><%= t('titles.buy_direct', brand: website.brand.name) %></h4>
+        <%= raw website.where_to_buy_blurb %>
+      </div>
+    <% end %>
+    <%= render_partial "shared/rental" %>
+    <%= render_partial "shared/consultant_portal" %>
+    <%= render_partial "shared/hef" %>
+  </div>
+</div>
+
+
+<% if website.brand.has_online_retailers? %>
+	<br/>
+  <div class="row">
+    <div class="large-12 columns">
+      <h3><%= t('titles.buy_online') %></h3>
+
+      <ul class="large-block-grid-6 small-block-grid-3">
+      <% OnlineRetailer.random(website)[0,24].each do |online_retailer| %>
+        <li>
+          <% if !online_retailer.retailer_logo_file_name.blank? %>
+            <%= link_to(image_tag(online_retailer.retailer_logo(:fixed)), online_retailer.direct_link, target: "_blank")%>
+          <% else %>
+            <%= link_to online_retailer.name, online_retailer.direct_link, target: "_blank" %>
+          <% end %>
+        </li>
+      <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
+
+<%= content_for :extra_js do %>
+	$(document).ready(function() {
+		$('#zip').focus();
+	});
+<% end %>
+

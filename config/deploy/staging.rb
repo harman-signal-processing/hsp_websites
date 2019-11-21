@@ -7,7 +7,7 @@
 #
 # server-based syntax
 
-server "10.10.23.15", user: 'hmg', roles: %w{web app db}, primary: true
+server "rackspace1",  user: 'brandsites', roles: %w{web app db}, primary: true
 
 # Configuration
 # =============
@@ -20,7 +20,7 @@ set :branch, `git symbolic-ref --short HEAD`.chomp
 
 # Keeping our special paperclip.rb initializer which lets us use production
 # assets in staging environment. Comment this out if that behaviour is not needed.
-set :linked_files, fetch(:linked_files, []).push('config/initializers/paperclip.rb')
+#set :linked_files, fetch(:linked_files, []).push('config/initializers/paperclip.rb')
 
 namespace :deploy do
 
@@ -32,6 +32,6 @@ namespace :deploy do
       execute :ln, "-nfs  #{shared_asset_path} #{target_asset_path}"
     end
   end
-  before 'deploy:assets:precompile', 'deploy:link_special_assets'
+#  before 'deploy:assets:precompile', 'deploy:link_special_assets'
 
 end

@@ -1,0 +1,28 @@
+<% set_meta_tags title: t('titles.support'),
+				 description: t('meta.description.support', brand: website.brand_name),
+				 reverse: true %>
+
+<%= content_for :feature do %>
+  <div class="support_header">
+    <% if country_is_usa %>
+      <h1><%= t('titles.contact_tech_support') %></h1>
+    <% else %>
+      <h1>International Tech Support</h1>
+    <% end %>
+    <div class="filters hide-for-small">
+    <%=render_partial "support/country_switch" %>
+    </div>
+  </div>
+<% end %>
+
+<div class="support-main">
+  <div class="mobile-filters show-for-small">
+    <%=render_partial "support/country_switch" %>
+  </div>
+
+  <%if country_is_usa %>
+    <%=render_partial "support/tech_support_usa" %>
+  <%else%>
+    <%=render_partial "support/tech_support_international" %>
+  <%end%>
+</div>

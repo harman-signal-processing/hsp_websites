@@ -1,0 +1,40 @@
+<% set_meta_tags title: t('titles.support'),
+  description: t('meta.description.support', brand: website.brand_name),
+  reverse: true %>
+
+<div class="row">
+
+  <div class="large-8 columns">
+    <% if @service_centers.size > 0 %>
+      <%=render_partial "support/state_switch"%>
+
+      <h5>Below are the service centers for your location.</h5>
+      <div data-equalizer="service-center-box">
+        <ul id="service_center_list" class="large-block-grid-2 medium-block-grid-1 small-block-grid-1 js-dynamic">
+          <% @service_centers.sort_by{|sc| [sc[:state], sc[:name]] }.each do |service_center| %>
+            <%=render_partial "support/service_center", service_center: service_center %>
+          <% end %>
+
+          <% if default_us_repair_contact = website.value_for("default_us_repair_contact")%>
+            <li id="harman-default"><div class="panel" data-equalizer-watch="service-center-box"><%= raw default_us_repair_contact %></div></li>
+          <% end %>
+        </ul>
+      </div>
+
+    <% else %>
+      <p>We didn't find a service center in your location. </br>Please contact us with the information below.</p>
+      <div data-equalizer="service-center-box">
+        <ul id="service_center_list" class="large-block-grid-2 medium-block-grid-1 small-block-grid-1 js-dynamic">
+
+          <% if default_us_repair_contact = website.value_for("default_us_repair_contact")%>
+            <li><div class="panel" data-equalizer-watch="service-center-box"><%= raw default_us_repair_contact %></div></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+
+  <%=render_partial "support/support_left_side_bar"%>
+</div>
+
+<%=render_partial "shared/support_chat_javascript"%>

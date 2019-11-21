@@ -1,0 +1,121 @@
+<% set_meta_tags reverse: true,
+				 title: (@country) ? "#{@country} | #{ucfirst(t('titles.international_distributors'))}" : ucfirst(t('titles.international_distributors')),
+                 description: "International distributors" %>
+
+<%= content_for :feature do %>
+  <div class="where_to_buy_header">
+    <h1><%= t('titles.where_to_buy') %></h1>
+    <div class="filters hide-for-small">
+      <div class="row">
+        <div class="small-12 medium-4 medium-offset-2 columns">
+          <%= form_tag where_to_buy_path() %>
+            <div class="row collapse">
+              <div class="small-1 columns">
+                <%= fa_icon "search", :"aria-hidden" => true %>
+              </div>
+              <div class="small-9 columns">
+                <%= text_field_tag "zip", session[:zip], placeholder: "Search Worldwide Dealers"%>
+              </div>
+              <div class="small-2 columns">
+                <%= submit_tag t('go'), class: "postfix button" %>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="small-12 medium-4 columns end">
+          <% if website.brand.has_distributors? %>
+            <%= render_partial "main/country_selector_for_distributors"%>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div class="row">
+
+	<div class="large-8 columns wtb-main">
+    <div class="mobile-filters hide-for-medium-up">
+      <%= form_tag where_to_buy_path() %>
+        <div class="row collapse">
+          <div class="small-1 columns text-center">
+            <%= fa_icon "search", :"aria-hidden" => true %>
+          </div>
+          <div class="small-9 columns">
+            <%= text_field_tag "zip", session[:zip], placeholder: "Search Worldwide Dealers"%>
+          </div>
+          <div class="small-2 columns">
+            <%= submit_tag t('go'), class: "postfix button" %>
+          </div>
+        </div>
+      </form>
+
+      <% if website.brand.has_distributors? %>
+        <%= render_partial "main/country_selector_for_distributors"%>
+      <% end %>
+      <p>&nbsp;</p>
+    </div>
+
+    <h2>Distributors <% if @country %>For <%= @country %><% end %></h2>
+    <hr/>
+
+    <% if @distributors.size > 0 %>
+      <% @distributors.each do |distributor| %>
+        <div class="row distributor-data">
+          <div class="small-12 medium-4 columns">
+            <h5><%= distributor[:name] %></h5>
+          </div>
+          <div class="small-12 medium-4 columns">
+            <% distributor[:locations].each do |location| %>
+              <div><strong><%= location[:name]%></strong></div>
+              <div> <%=raw address_html(location)%> </div>
+              <div> <%=raw get_list_html(location, "phones", "phone") %> </div>
+              <div> <%=raw get_list_html(location, "emails", "email") %> </div>
+              <div> <%=raw get_list_html(location, "websites", "url") %> </div>
+              <% if location[:contacts].present?%>
+                <div style="margin-top:10px;margin-bottom:30px;">
+                  <% location[:contacts].each do |contact| %>
+                    <div>
+                      <i class='fa fa-user-circle' aria-hidden='true'></i>&nbsp;<strong><%= contact[:name]%></strong><br />
+                      <% if contact[:title].present? %>
+                        <%= contact[:title]%><br />
+                      <% end %>
+                      <%=raw get_list_html(contact, "phones", "phone") %>
+                      <%=raw get_list_html(contact, "emails", "email") %>
+                      <%=raw get_list_html(contact, "websites", "url") %>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="small-12 medium-4 columns">
+            <%=raw get_list_html(distributor, "emails", "email") %>
+            <%=raw get_list_html(distributor, "phones", "phone") %>
+            <%=raw get_list_html(distributor, "websites", "url") %>
+          </div>
+
+        </div>
+        <hr/>
+      <% end %>
+    <% else %>
+      <p>We didn't find a distributor in your country. Please contact us using the information below.</p>
+      <% if addr = website.value_for("address_and_phone") %>
+          <div><%=raw addr %></div>
+      <% end %>
+      <hr/>
+    <% end %>
+  </div>
+  <div class="large-4 columns wtb_side_panel">
+    <div class="panel">
+      <div class="overline"></div>
+      <h4><%= t('titles.international_distributors') %></h4>
+      <p><%= t("blurbs.international_distributors") %></p>
+    </div>
+    <%= render_partial "shared/rental" %>
+    <%= render_partial "shared/consultant_portal" %>
+    <%= render_partial "shared/hef" %>
+  </div>
+
+</div>

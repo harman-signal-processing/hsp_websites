@@ -1,0 +1,138 @@
+<%
+og_image = (@news.news_photo_file_name.blank?) ? image_url("#{website.folder}/logo.png") : "#{request.protocol}#{request.host_with_port}#{@news.news_photo.url(:original)}"
+
+set_meta_tags title: translate_content(@news, :title),
+	reverse: true,
+	#canonical: news_url(@news),
+	keywords: @news.keywords,
+	description: translate_content(@news, :title),
+	twitter: {
+		card: "summary"
+	},
+	og: {
+		image: og_image,
+		type: 'article',
+    url: news_url(@news),
+		description: truncate(strip_html(translate_content(@news, :body)), length: 100),
+		title: translate_content(@news, :title),
+    updated_time: @news.updated_at.strftime("%FT%T")
+   },
+   article: {
+     published_time: @news.post_on.to_time.strftime("%FT%T"),
+     modified_time: @news.updated_at.strftime("%FT%T")
+   }
+%>
+
+<div class="row">
+  <div class="medium-4 push-8 columns news-sidebar">
+    <div class="back-to-news">
+      <%= link_to news_index_path do %>
+        <%= fa_icon "long-arrow-left", :"aria-hidden" => true %>
+        <%= t('back_to_news_list') %>
+      <% end %>
+    </div>
+
+    <% if @news.news_images.length > 0 %>
+      <small><%=t "product_page.larger_images" %>:</small>
+      <ul class="small-block-grid-4">
+        <% @news.news_images.each do |news_image| %>
+          <% unless news_image.hide_from_page? %>
+            <li>
+              <%= link_to news_image.image.url, data: { lightbox: "news_photos" } do %>
+                <%= image_tag news_image.image.url(:thumb_square) %>
+              <% end %>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <% if @news.products.size > 0 %>
+      <div class="hide-for-small">
+        <div class="overline"></div>
+        <h3><%= t('titles.related_products') %></h3>
+        <% @news.products.each do |product| %>
+          <%= render_partial "product_families/product_square", product: product, compare: false %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% if website.news_side_content %>
+      <%=raw website.news_side_content %>
+    <% end %>
+
+
+    <% if @related_news.length > 0 %>
+      <div class="hide-for-small related-news">
+        <div class="overline"></div>
+        <h3>Related <%= ucfirst(t('news')) %></h3>
+        <p>&nbsp;</p>
+        <% @related_news[0,4].each do |news| %>
+          <%= render_partial 'news/news_item', news: news %>
+        <% end %>
+      </div>
+      <p>&nbsp;</p>
+    <% end %>
+    <% if @recent_news.size > 0 %>
+      <div class="hide-for-small recent-news">
+        <div class="overline"></div>
+        <h3>Recent <%= ucfirst(t('news')) %></h3>
+        <p>&nbsp;</p>
+        <% @recent_news.each do |news| %>
+          <%= render_partial 'news/news_item', news: news %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="medium-7 pull-5 columns">
+    <% if @news.news_photo.present? %>
+      <div class="news-main-image">
+        <%= image_tag @news.news_photo.url(:original) %>
+      </div>
+    <% end %>
+
+    <div class="news-content">
+      <h1><%= translate_content(@news, :title) %></h1>
+
+      <div class="overline"></div>
+      <h5> <%=l @news.post_on, format: :long %> </h5>
+
+      <div class="news-body">
+        <%=raw translate_content(@news, :body) %>
+      </div>
+
+      <% if @news.tag_list.present? %>
+        <p><em><strong>TAGS:</strong>
+          <%= @news.tag_list.map{|tag| link_to(tag, tag_filtered_news_path( tag: tag ))}.join(", ").html_safe %>
+        </em></p>
+      <% end %>
+
+      <% if can? :update, @news %>
+        <br/>
+        <div class="callout panel">
+          <h5>Update Tags</h5>
+          <%= simple_form_for @news do |f| %>
+            <div class="row collapse">
+              <div class="small-8 medium-9 columns">
+                <%= f.input :tag_list, label: false, input_html: { value: f.object.tag_list.to_s } %>
+              </div>
+              <div class="small-4 medium-3 columns">
+                <%= f.submit "Update", class: "button expand"%>
+              </div>
+            </div>
+          <% end %>
+          <div class="hint" style="font-size: 75%; margin-top: -10px">(Use commas to separate tags.)</div>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>
+
+
+<% if current_user && can?(:manage, @news) %>
+  <div class="admin_function">
+    <%= link_to "edit", edit_admin_news_path(@news) %>
+  </div>
+<% end %>

@@ -1,0 +1,17 @@
+<% set_meta_tags title: t('titles.support'),
+  description: t('meta.description.support', brand: website.brand_name),
+  reverse: true %>
+
+
+<%= content_for :feature do %>
+  <div class="support_header">
+    <h1><%= t('titles.support') %></h1>
+  </div>
+<% end %>
+
+<div class="row">
+	<%=render_partial "support/support_index_new"%>
+	<%=render_partial "support/support_left_side_bar"%>
+</div>
+
+<%=render_partial "shared/support_chat_javascript"%>

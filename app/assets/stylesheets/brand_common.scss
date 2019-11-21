@@ -29,7 +29,7 @@
       ul {
         li {
           a {
-            padding: 0 18px !important;
+            padding: 0 14px !important;
             &:after {
               margin-right: 4px !important;
             }
@@ -43,7 +43,7 @@
       ul {
         li {
           a {
-            padding: 0 16px !important;
+            padding: 0 12px !important;
             &:after {
               margin-right: 2px !important;
             }
@@ -57,7 +57,7 @@
       ul {
         li {
           a {
-            padding: 0 10px !important;
+            padding: 0 8px !important;
             &:after {
               margin-right: 2px !important;
             }
@@ -117,7 +117,16 @@
     }
   }
 }
-
+.news-slider {
+  div.slide {
+    padding-right: rem-calc(20);
+  }
+}
+.products-slider {
+  div.slide {
+    padding-right: rem-calc(20);
+  }
+}
 #homepage-video-banner {
   background: $strip-bg-even;
   padding: 50px 0px 90px;
@@ -513,8 +522,15 @@ footer {
   .footer_text {
     font-size: 80%;
   }
+  .fa {
+    margin-right: 20px;
+  }
 }
 div#harmanpro_bar {
+  .hlogo {
+    max-height: 60px;
+    width: auto;
+  }
   background: #464749;
   padding-top: 9px;
   height: 80px;
@@ -764,7 +780,7 @@ a {
     margin-top: 6px;
   }
 }
-.product_family_header {
+.product_family_header, .where_to_buy_header {
   background-color: scale-color($primary-color, $lightness: 40%);
   color: white;
   padding: rem-calc(30) 0;
@@ -1162,15 +1178,18 @@ span.smalColHeader {
   display: block;
   font-size: 16px;
   font-weight: 500;
-  margin-top: 30px;
   line-height: 1.85;
   clear: both;
+}
+div.specgroup {
+  margin-bottom: rem-calc(29px);
 }
 
 span.specContent {
   display: block;
   font-size: 13px;
   line-height: 2;
+  font-weight: 300;
   .Subheading {
     font-size: 14px;
     font-weight: 500;
@@ -1234,6 +1253,10 @@ h2.special_offer {
 .news_strip {
 	padding-top: 80px;
 	margin-bottom: none !important;
+}
+.news-summary {
+  @include panel;
+  border: none;
 }
 @media only screen and (min-width: 720px) {
 	.news_container {

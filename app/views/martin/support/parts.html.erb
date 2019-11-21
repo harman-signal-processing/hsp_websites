@@ -1,0 +1,27 @@
+<% set_meta_tags reverse: true %>
+
+<%= content_for :feature do %>
+  <div class="support_header">
+    <%if country_is_usa %>
+      <h1><%= @page_title %></h1>
+    <% else %>
+      <h1>International Parts</h1>
+    <% end %>
+
+    <div class="filters hide-for-small">
+    <%=render_partial "support/country_switch" %>
+    </div>
+  </div>
+<% end %>
+
+<div class="support-main">
+  <div class="mobile-filters show-for-small">
+    <%=render_partial "support/country_switch" %>
+  </div>
+
+  <%if country_is_usa %>
+    <%=render_partial "support/parts_usa" %>
+  <%else%>
+    <%=render_partial "support/parts_international" %>
+  <%end%>
+</div>

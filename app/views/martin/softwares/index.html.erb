@@ -1,0 +1,42 @@
+<% set_meta_tags reverse: true,
+                 description: "Downloads for: #{@current_products.collect{|s| s.name}.join(', ')}",
+                 keywords: @current_products.collect{|s| s.name} %>
+
+<%= content_for :feature do %>
+  <div class="support_header">
+    <h1><%= t('titles.software') %></h1>
+  </div>
+<% end %>
+
+<%= cache ["softwares_index", website.brand, I18n.locale] do %>
+
+  <% if website.brand.current_softwares.length > 0 && website.brand.current_softwares.length < 14 %>
+    <ul class="large-block-grid-4 small-block-grid-2">
+      <% website.brand.current_softwares.sort_by{|s| s.name}.each do |software| %>
+        <li>
+          <%= link_to software do %>
+            <div class="panel">
+              <h3><%= software.name %></h3>
+              <%= "v#{software.version}" unless software.version.blank? %>
+              <%= "(#{software.platform})" unless software.platform.blank? %>
+            </div>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <% if @current_products.size > 0 %>
+    <div class="overline"></div>
+    <h3>Software by Product:</h3>
+    <%= render "table", products: @current_products %>
+  <% end %>
+
+  <% if @discontinued_products.size > 0 %>
+    <br/>
+    <div class="overline"></div>
+    <h3>Software for Discontinued Products:</h3>
+    <%= render "table", products: @discontinued_products %>
+  <% end %>
+
+<% end %>

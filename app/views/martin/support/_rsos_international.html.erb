@@ -1,0 +1,31 @@
+<% set_meta_tags title: t('titles.support'),
+  description: t('meta.description.support', brand: website.brand_name),
+  reverse: true %>
+
+<div class="row">
+
+  <div class="large-8 columns">
+    <% if @rsos.size > 0 %>
+      <h5>Below are the HARMAN support contacts for your country.</h5>
+      <div data-equalizer="contact-box">
+        <ul class="large-block-grid-2 medium-block-grid-1 small-block-grid-1">
+          <% @rsos.each do |rso| %>
+            <%=render_partial "support/rso", rso: rso %>
+          <% end %> <%# @rsos.each do |rso| %>
+          </ul>
+      </div>
+    <% else %>
+      <p>We didn't find a HARMAN support contact in your country. Please contact us with the information below.</p>
+      <% if addr = website.value_for("address_and_phone") %>
+        <div class="panel">
+          <p><%=raw addr %></p>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+	<%=render_partial "support/support_left_side_bar"%>
+
+</div>
+
+<%=render_partial "shared/support_chat_javascript"%>

@@ -1,0 +1,20 @@
+<%= form_tag distributor_search_new_path, method: :get %>
+  <div class="row collapse">
+    <div class="small-1 text-center hide-for-medium-up columns">
+      <%= fa_icon "chevron-down", :"aria-hidden" => true %>
+    </div>
+    <div class="small-9 medium-8 columns">
+      <%= select_tag :geo,
+      options_for_select(CountryList.countries.sort_by { |item| item[:harman_name]}.map {|country| [country[:harman_name], country[:alpha2]] }, country_code.upcase),
+      prompt: "View Worldwide Distributors"
+      %>
+    </div>
+    <div class="medium-2 hide-for-small columns">
+      <%= fa_icon "chevron-down", :"aria-hidden" => true %>
+    </div>
+    <div class="small-2 columns">
+      <%= submit_tag t('go'), class: "postfix button" %>
+    </div>
+  </div>
+
+</form>

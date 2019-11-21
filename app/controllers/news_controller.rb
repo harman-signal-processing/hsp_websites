@@ -5,7 +5,8 @@ class NewsController < ApplicationController
   # GET /news
   # GET /news.xml
   def index
-    @news = News.all_for_website(website).paginate(page: params[:page], per_page: 20)
+    @news = News.all_for_website(website).paginate(page: params[:page], per_page: 12)
+    @subtitle = ""
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @news }
@@ -15,6 +16,7 @@ class NewsController < ApplicationController
 
   def filter_by_tag
     @news = News.all_for_website(website).tagged_with(params[:tag]).paginate(page: params[:page], per_page: 20)
+    @subtitle = "Filtered by tag: #{params[:tag]}"
     respond_to do |format|
       format.html { render_template action: 'index' }
       format.xml  { render xml: @news }
@@ -39,9 +41,7 @@ class NewsController < ApplicationController
       redirect_to news_index_path, status: :moved_permanently and return
     end
     @related_news = @news.find_related_tags.where("post_on <= ?", Date.today).order("post_on DESC").limit(6)
-    unless @related_news.length > 0
-      @recent_news = News.all_for_website(website, limit: 6) - [@news]
-    end
+    @recent_news = News.all_for_website(website, limit: 6) - [@news] - @related_news
     respond_to do |format|
       format.html { render_template } # show.html.erb
       format.xml  { render xml: @news }
