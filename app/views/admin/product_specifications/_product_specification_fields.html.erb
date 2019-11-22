@@ -24,7 +24,7 @@
       <div class="row collapse select_spec_name_<%= rand_id %>">
         <div class="small-11 columns">
           <%= f.association :specification,
-            collection: Specification.order(:name),
+            collection: Specification.options_for_select,
             label_method: website.brand.use_flattened_specs? ? :name : :name_with_group,
             label: false %>
         </div>
@@ -36,7 +36,7 @@
       </div>
     <% else %>
       <%= f.association :specification,
-        collection: Specification.order(:name),
+        collection: Specification.options_for_select,
         label_method: website.brand.use_flattened_specs? ? :name : :name_with_group,
         label: false %>
     <% end %>

@@ -8,6 +8,10 @@ class Specification < ApplicationRecord
 
   acts_as_list scope: :specification_group_id
 
+  def self.options_for_select
+    @options_for_select ||= order(:name)
+  end
+
   def values_with_products
     r = {}
     product_specifications.each do |product_specification|

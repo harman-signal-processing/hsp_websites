@@ -17,6 +17,7 @@ class Admin::ProductSpecificationsController < AdminController
   # GET /admin/product_specifications/1
   # GET /admin/product_specifications/1.xml
   def show
+    Specification.options_for_select.clear
     respond_to do |format|
       format.html { render_template } # show.html.erb
       format.xml  { render xml: @product_specification }
