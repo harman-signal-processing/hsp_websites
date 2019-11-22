@@ -463,6 +463,10 @@ div.homepage_block {
         border: none;
         outline: none;
         margin-bottom: 0;
+        &:focus option, option {
+          color: white;
+          background: rgba(0, 0, 0, 0.68);
+        }
       }
       i {
         margin-top: 11px;
@@ -814,6 +818,10 @@ div.event-main {
         margin-bottom: 0;
         box-shadow: none;
         text-transform: uppercase;
+        &:focus option, option {
+          color: white;
+          background: rgba(0, 0, 0, 0.68);
+        }
       }
       ::-webkit-input-placehoder {
         color: $pale-gray;
