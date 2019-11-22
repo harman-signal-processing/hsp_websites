@@ -146,10 +146,10 @@ $slick-arrow-color: $dark-gray;
       }
     }
   }
-      .dropdown {
-        padding-right: 10px !important;
-        background: $topbar-bg;
-      }
+  .dropdown {
+    padding-right: 10px !important;
+    background: $topbar-bg;
+  }
 }
 .logo-container img {
   padding: 24px 0px 0px 69px;
@@ -406,11 +406,11 @@ div.homepage_block {
       opacity: 75%;
     }
     h5 {
+      background: rgba(0,0,0,0.68);
       position: absolute;
       left: 0;
       bottom: 10px;
       z-index: 999;
-      color: $pale-gray;
       font-weight: 300;
       font-size: 25px;
       letter-spacing: 3.87px;
