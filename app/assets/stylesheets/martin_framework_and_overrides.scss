@@ -345,7 +345,7 @@ div.homepage_block {
     }
   }
   &.featured_products {
-    background-image: asset-url("martin/featured-products-bg.png");
+    background-image: asset-url("martin/featured-products-bg.jpg");
     background-position: bottom center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -414,6 +414,10 @@ div.homepage_block {
       font-weight: 300;
       font-size: 25px;
       letter-spacing: 3.87px;
+      @media only screen and (max-width: 641px) {
+        font-size: 18px;
+        letter-spacing: 2.87px;
+      }
       padding: 10px 20px;
     }
   }
