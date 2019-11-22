@@ -24,7 +24,7 @@
     </div>
     <div class="row">
       <div class="small-12 columns product_cat_bar">
-        <ul class="small-block-grid-2 medium-block-grid-4 large-block-grid-6">
+        <ul class="small-block-grid-1 medium-block-grid-4 large-block-grid-6">
           <% if product_family.children_with_current_products(website, locale: I18n.locale).size > 1 %>
             <% product_family.children_with_current_products(website, locale: I18n.locale).each do |pf| %>
               <li>

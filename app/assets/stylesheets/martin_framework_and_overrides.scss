@@ -673,7 +673,9 @@ div.product-title-block, div.small-title-block {
   .product_description {
     font-size: rem-calc(16px);
     letter-spacing: 1.1px;
-    width: 50%;
+    @media only screen and (min-width: 641px) {
+      width: 50%;
+    }
     line-height: 1.5;
   }
 }

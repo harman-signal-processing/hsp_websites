@@ -106,9 +106,9 @@
           <%= hpro_footer() %>
 
           <div class="row" style="clear:both">
-            <div class="large-5 small-12 large-push-4 columns footer-links">
+            <div class="large-6 small-12 large-push-3 columns footer-links">
               <div class="row">
-                <div class="large-3 small-6 columns ">
+                <div class="large-4 small-6 columns ">
                   <%= link_to t('new_products'), new_products_path, target: "_blank" %>
                   <br/><%= link_to t('products'), product_families_path %>
                   <% if website.has_software? && (website.current_softwares.length > 0 || website.forced_current_softwares.length > 0) %>
@@ -132,16 +132,16 @@
                   <% end %>
                 </div>
 
-                <div class="large-3 small-6 columns ">
+                <div class="large-2 small-6 columns ">
                   <%#= link_to 'Logo Store', "https://harman.axomo.com", target: "_blank" %>
-                  <%= link_to 'contact us', support_path %>
-                  <br/><%= link_to "news", news_index_path %>
+                  <%= link_to t('contact_us'), support_path %>
+                  <br/><%= link_to t('news'), news_index_path %>
                   <br/><%= link_to 'careers'.titleize, "http://jobs.harman.com", target: "_blank" %>
                 </div>
               </div>
             </div>
 
-            <div class="large-4 large-pull-5 small-6 columns">
+            <div class="large-3 large-pull-6 small-6 columns">
               <div class="hide-for-large-up"><p>&nbsp;</p></div>
               <div class="row">
                 <div class="small-5 small-offset-2 medium-3 medium-offset-0 columns show-for-medium-down text-center">
