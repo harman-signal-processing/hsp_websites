@@ -9,13 +9,11 @@
 			<li class="name logo-container"><%= link_to image_tag(website.folder + '/martin-logo.svg', alt: website.brand.name), locale_root_path %></li>
 			<li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
 		</ul>
-		<section class="top-bar-section left hide-for-medium-up">
-			<ul class="left">
-				<%= render_partial 'layouts/mobile_nav_items' %>
+		<section class="top-bar-section">
+			<ul class="left hide-for-medium-up">
+				<%= render_partial 'layouts/nav_items' %>
       </ul>
-    </section>
 
-    <section class="top-bar-section">
       <ul class="right">
 				<%# search is only available in default language for now...%>
 				<%# if I18n.locale.to_s.match(/#{I18n.default_locale.to_s.split('-')[0]}/i) && website.value_for("enable_search") %>

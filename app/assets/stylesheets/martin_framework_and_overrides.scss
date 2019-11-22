@@ -146,10 +146,6 @@ $slick-arrow-color: $dark-gray;
       }
     }
   }
-  .dropdown {
-    padding-right: 10px !important;
-    background: $topbar-bg;
-  }
 }
 .logo-container img {
   padding: 24px 0px 0px 69px;
@@ -183,6 +179,9 @@ $slick-arrow-color: $dark-gray;
 
 .content-container {
   padding: rem-calc(59px);
+  @media only screen and (max-width: 640px) {
+    padding: rem-calc(29px);
+  }
   margin-bottom: rem-calc(39px);
   .overline {
     height: rem-calc(39px);
@@ -1121,5 +1120,12 @@ input#query {
 .alert-box {
   &.secondary {
     color: black;
+  }
+}
+#account_links {
+  color: $medium-gray;
+  a {
+    color: $pale-gray;
+    text-decoration: underline;
   }
 }
