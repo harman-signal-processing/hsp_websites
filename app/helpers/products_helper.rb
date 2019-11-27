@@ -660,7 +660,7 @@ module ProductsHelper
     have_a_question = content_tag :div, class: "medium-6 small-12 columns" do
       link_to "#{ENV['PRO_SITE_URL']}/contacts",
         target: "_blank",
-        class: "button radius have-a-question" do
+        class: "button expand radius have-a-question" do
         image_tag("have_question.png", alt: "q") + t("have_a_question")
       end
     end
