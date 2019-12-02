@@ -43,6 +43,10 @@ class ProductFamiliesController < ApplicationController
           File.exists?(Rails.root.join("app", "views", website.folder, "product_families", "#{@product_family.layout_class}.html.erb"))
             render template: "#{website.folder}/product_families/#{@product_family.layout_class}", layout: set_layout
 
+        # If the family has products, but they're all discontinued
+        elsif @product_family.current_products.size == 0 && @children_with_current_products.length == 0 && @product_family.discontinued_products.length > 0
+          redirect_to discontinued_products_path and return false
+
         # Otherwise, use the default render method
         else
           render_template
