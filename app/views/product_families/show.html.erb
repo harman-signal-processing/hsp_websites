@@ -39,7 +39,7 @@
         </div>
       <% else %>
         <ul class="small-block-grid-1 medium-block-grid-3">
-        <% @children_with_current_products.each do |product_family| %>
+        <% @children_with_current_products.where(parent_id: @product_family.id).each do |product_family| %>
           <li>
             <div id="<%= product_family.to_param %>">
               <%= link_to product_family do %>

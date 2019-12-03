@@ -4,7 +4,7 @@ module ApplicationHelper
 
   # Generates a link to the current page, with the given locale
   def switch_locale(new_locale)
-    request.path.sub(/^\/[a-zA-Z\-]{2,5}/, "/#{new_locale}")
+    request.path.sub(/^\/[a-zA-Z\-]{2,8}/, "/#{new_locale}")
   end
 
   # Apple iOS icons for a given Website.brand
