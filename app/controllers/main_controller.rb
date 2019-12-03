@@ -112,14 +112,7 @@ class MainController < ApplicationController
     @country = nil
     render_template
   end
-  
 
-  # Simple community start page. This could redirect to a phpBB folder
-  # or an external site--or it could do nothing and simply render the
-  # corresponding view.
-  def community
-    render_template
-  end
 
   # The site's search engine:
   # TODO: Figure out how to search on related fields (ProductDocument.product.name)

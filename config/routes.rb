@@ -622,15 +622,10 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
 
     end # end admin scope
 
-    # constraints(DigitechDomain) do
-    #   mount Forem::Engine, at: "/soundcomm"
-    # end
     get 'teaser' => 'main#teaser'
-    get 'teaser2' => 'main#teaser'
     resources :signups, only: [:new, :create]
     get "signup" => "signups#new"
     get "signups" => "signups#new"
-    get 'now-youll-know' => 'main#teaser_complete', as: :teaser_complete
     get 'distributors/search_new' => 'distributors#index', as: :distributor_search_new
     resources :us_reps, :distributors, only: [:index, :show] do
       collection { get :search }
@@ -760,7 +755,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
 
     #match '/support(/:action(/:id))' => "support", as: :support, via: :all
     get '/support(/:product_id)' => "support#index", as: :support
-    match '/community' => 'main#community', as: :community, via: :all
     match '/rss(.:format)' => 'main#rss', as: :rss, via: :all, defaults: { format: :xml }
     match '/search' => 'main#search', as: :search, via: :all
     match '/rohs' => 'support#rohs', as: :rohs, via: :all
