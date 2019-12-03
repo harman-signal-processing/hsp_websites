@@ -2,8 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '~> 5.2'
 gem 'responders', '~> 2.0'
-# Gems used only for assets and not required
-# in production environments by default.
+gem 'bootsnap', require: false
 gem 'sprockets'
 gem 'sprockets-rails'
 gem 'sass-rails', '~> 5.0'
@@ -11,7 +10,6 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails'
 gem "foundation-rails", '5.5.1' # 5.5.3 has a bug with Magellan https://github.com/zurb/foundation-sites/issues/8416
 gem 'lightbox2-rails', '~> 2.7.1' # 6/1/2016 v2.8.2.1 stopped working.
-gem 'image_zoomer'
 gem 'jquery-rails'
 gem 'font-awesome-rails'
 # To use debugger
@@ -21,8 +19,7 @@ gem 'font-awesome-rails'
 gem 'mysql2'
 gem 'utf8-cleaner'
 gem 'friendly_id', '>= 5.2'
-#gem 'aws-sdk', '< 3' # v3 modularizes AWS services, tough to work with paperclip
-gem 'aws-sdk-s3' # modularized AWS service, only S3 needed
+gem 'aws-sdk-s3'
 gem 'fog-core', '< 2.1.1' # fog-rackspace isn't working with fog-core after 2.1.0
 gem 'fog-rackspace'
 gem 'fog-aws'
@@ -39,7 +36,6 @@ gem 'geokit', '>= 1.8.5'
 gem 'geokit-rails'
 gem 'thinking-sphinx', '~> 4.0'
 gem 'google-api-client', '~> 0.8.6', require: 'google/api_client'
-gem 'twitter', '~> 5.1'
 gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'httparty'
@@ -59,7 +55,7 @@ gem 'therubyrhino'
 gem 'rubyzip', require: 'zip'
 gem 'whenever' #, require: false
 gem "simple_form", ">= 5.0.0"
-gem 'country_select' #, '~> 1.3.1' # v2+ switches to store 2-letter ISO for country which breaks our current setup
+gem 'country_select'
 gem 'chosen-rails'
 gem 'language_list'
 gem 'ransack'
@@ -92,6 +88,7 @@ group :production, :staging do
 end
 
 group :development do
+  gem 'bumbler'
   gem 'web-console' #, '~> 2.0'
   gem 'capistrano', '~> 3'
   gem 'capistrano-rails'

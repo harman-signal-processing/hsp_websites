@@ -3,8 +3,6 @@ class AddNewIndexes < ActiveRecord::Migration
   	add_index :websites, :url, unique: true
   	add_index :websites, :brand_id
   	add_index :website_locales, [:locale, :website_id]
-  	add_index :tweets, :brand_id
-  	add_index :tweets, :tweet_id
   	add_index :settings, :brand_id
   	add_index :settings, [:brand_id, :name]
   	add_index :settings, [:brand_id, :name, :locale]

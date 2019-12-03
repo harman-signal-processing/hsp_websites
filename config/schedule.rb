@@ -23,6 +23,3 @@ every 1.day, :at => '9:15 am' do
   rake "maintain:buynow_links"
 end
 
-every 30.minutes do
-  rake "cache:pull_new_tweets"
-end

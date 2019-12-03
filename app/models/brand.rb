@@ -31,7 +31,6 @@ class Brand < ApplicationRecord
   has_many :us_reps, through: :us_rep_regions
   has_many :us_regions, -> { order('name') }, through: :us_rep_regions
   has_many :signups
-  has_many :tweets, -> { order("posted_at DESC") }
   has_many :get_started_pages
   has_many :events
   has_many :brand_solutions, dependent: :destroy
@@ -187,18 +186,6 @@ class Brand < ApplicationRecord
 
   def default_website=(website)
     self.default_website_id = website.id
-  end
-
-  def self.pull_tweets
-    all.each{|b| b.pull_tweets if b.twitter_name}
-  end
-
-  def pull_tweets
-    Tweet.pull_tweets(self)
-  end
-
-  def recent_tweets(num=6)
-    tweets.limit(num)
   end
 
   def twitter_name

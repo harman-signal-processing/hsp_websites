@@ -27,10 +27,8 @@
 // require add2home
 //= require jwplayer
 //= require swfobject
-//= require image_zoomer_main
 //= require will_paginate_infinite
 //= require soundcraft_application
-//= require elevatezoom/jquery.elevatezoom
 //= require tools
 //= require_self
 //= require chosen-jquery
