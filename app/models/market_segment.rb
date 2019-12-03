@@ -24,7 +24,7 @@ class MarketSegment < ApplicationRecord
   validates :name, presence: true
   validates :brand_id, presence: true
 
-  acts_as_tree order: :position, scope: :brand_id
+  acts_as_tree order: :position, scope: :brand_id, touch: true
 
   def slug_candidates
     [

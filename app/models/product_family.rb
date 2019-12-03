@@ -27,7 +27,7 @@ class ProductFamily < ApplicationRecord
   validates :name, presence: true
   validate :parent_not_itself
 
-  acts_as_tree order: :position, scope: :brand_id
+  acts_as_tree order: :position, scope: :brand_id, touch: true
   # acts_as_list scope: :brand_id, -> { order('position') }
 
   scope :options_not_associated_with_this_product, -> (product, website) {
