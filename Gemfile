@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '~> 5.2'
 gem 'responders', '~> 2.0'
-gem 'bootsnap', require: false
+#gem 'bootsnap', require: false
 gem 'sprockets'
 gem 'sprockets-rails'
 gem 'sass-rails', '~> 5.0'
