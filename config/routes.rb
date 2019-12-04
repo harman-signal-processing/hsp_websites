@@ -78,143 +78,19 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
   # An example of a custom top-level landing page route:
   # match "/switchyourthinking" => "pages#show", custom_route: "switchyourthinking", locale: I18n.default_locale
 
-  # Legacy links redirected to current links. The constant "_REDIRECTS" are found in
-  # config/initializers/redirects.rb
   # These are only needed for site-specific routing (where you don't want a particular URL
   # to work on the other sites)
 
-  constraints(AkgDomain) do
-    # Social Media routes for AKG
-    get '/facebook', to: redirect('https://www.facebook.com/AKG?_ga=1.29192636.1674201073.1456831551')
-    get '/twitter', to: redirect('https://twitter.com/AKGaudio')
-    get '/instagram', to: redirect('http://instagram.com/akgaudio')
-  end  #  constraints(AkgDomain) do
-
-  constraints(AmxDomain) do
-    # Social Media routes for AMX
-    get '/twitter', to: redirect('http://www.twitter.com/amxtalk')
-    get '/facebook', to: redirect('https://www.facebook.com/amxtalk')
-    get '/youtube', to: redirect('https://www.youtube.com/user/AMXtalk')
-    get '/google', to: redirect('https://www.google.com/+amxautomate')
-    get '/linkedin', to: redirect('https://www.linkedin.com/company/amx')
-
-    begin
-      Brand.find("amx").product_families.each do |product_family|
-        get product_family.friendly_id, to: redirect("/en-US/product_families/#{product_family.friendly_id}")
-      end
-      Brand.find("amx").products.each do |product|
-        get "/#{product.friendly_id}", to: redirect("/en-US/products/#{product.friendly_id}")
-        get "/#{product.friendly_id.gsub(/\W/, '')}", to: redirect("/en-US/products/#{product.friendly_id}")
-      end
-    rescue
-      # No AMX brand found--probably a fresh test database which doesn't matter.
-    end
-  end  #  constraints(AmxDomain) do
-
   constraints(BssDomain) do
     get '/network-audio' => 'pages#network_audio'
-
-    begin
-      Brand.find("bss").product_families.each do |product_family|
-        get product_family.friendly_id, to: redirect("/en-US/product_families/#{product_family.friendly_id}")
-      end
-      Brand.find("bss").products.each do |product|
-        get "/#{product.friendly_id}", to: redirect("/en-US/products/#{product.friendly_id}")
-        get "/#{product.friendly_id.gsub(/\W/, '')}", to: redirect("/en-US/products/#{product.friendly_id}")
-      end
-    rescue
-      # No BSS brand found--probably a fresh test database which doesn't matter.
-    end
-
-    # Social Media routes for BSS
-    get '/twitter', to: redirect('http://www.twitter.com/bssaudio')
-    get '/youtube', to: redirect('https://www.youtube.com/user/bssaudio')
-    get '/google', to: redirect('https://plus.google.com/116673860909914873281/posts')
-  end  #  constraints(BssDomain) do
+  end
 
   constraints(CrownDomain) do
     get '/trucktourgiveaway(.:format)' => 'signups#new', defaults: { campaign: "Crown-TruckTour-Flip-2015" }
     get '/network-audio' => 'pages#network_audio'
-
-    begin
-      Brand.find("crown").product_families.each do |product_family|
-        get product_family.friendly_id, to: redirect("/en-US/product_families/#{product_family.friendly_id}")
-      end
-      Brand.find("crown").products.each do |product|
-        get "/#{product.friendly_id}", to: redirect("/en-US/products/#{product.friendly_id}")
-        get "/#{product.friendly_id.gsub(/\W/, '')}", to: redirect("/en-US/products/#{product.friendly_id}")
-      end
-    rescue
-      # No Crown brand found--probably a fresh test database which doesn't matter.
-    end
-
-    # Social Media routes for Crown
-    get '/twitter', to: redirect('http://www.twitter.com/crownaudio')
-    get '/facebook', to: redirect('https://www.facebook.com/CrownbyHarman')
-    get '/youtube', to: redirect('https://www.youtube.com/user/CrownInternational')
-    get '/google', to: redirect('https://plus.google.com/100964114345403679773')
-    get '/instgram', to: redirect('https://instagram.com/crown_audio')
-    get '/linkedin', to: redirect('https://www.linkedin.com/company/crown-international')
-  end  #  constraints(CrownDomain) do
-
-  constraints(DbxDomain) do
-    #  Social Media routes for dbx
-    get '/twitter', to: redirect('http://www.twitter.com/dbxpro')
-    get '/facebook', to: redirect('https://www.facebook.com/dbxpro')
-    get '/youtube', to: redirect('https://www.youtube.com/user/dbxprofessional')
-    get '/google', to: redirect('https://plus.google.com/u/0/100759493077882514506/posts')
-
-    begin
-      Brand.find("dbx").product_families.each do |product_family|
-        get product_family.friendly_id, to: redirect("/en-US/product_families/#{product_family.friendly_id}")
-      end
-      Brand.find("dbx").products.each do |product|
-        get "/#{product.friendly_id}", to: redirect("/en-US/products/#{product.friendly_id}")
-        get "/#{product.friendly_id.gsub(/\W/, '')}", to: redirect("/en-US/products/#{product.friendly_id}")
-      end
-    rescue
-      # No dbx brand found--probably a fresh test database which doesn't matter.
-    end
-  end  #  constraints(DbxDomain) do
-
-  constraints(DigitechDomain) do
-    # match '/soundcomm(/:page)', to: redirect("/#{I18n.default_locale}/soundcomm"), as: :soundcomm, locale: I18n.default_locale
-    match '/soundcomm(/:page)', to: redirect('http://soundcommunity.digitech.com/'), as: :soundcomm, locale: I18n.default_locale, via: :all
-    #get 'gctraining' => 'pages#gctraining'
-    # E-pedal label sheet ordering removed 2018-02-21
-    #get "epedal_labels/index"
-    #get 'epedal_labels/fulfilled/:id/:secret_code' => 'label_sheet_orders#fulfill', as: :label_sheet_order_fulfillment
-    #get 'epedal_labels/new(/:epedal_id)' => 'label_sheet_orders#new', as: :epedal_labels_order_form
-    #get 'epedal_label_thanks' => 'label_sheet_orders#thanks', as: :thanks_label_sheet_order
-    #resources :label_sheet_orders, only: [:new, :create]
-
-    begin
-      Brand.find("digitech").product_families.each do |product_family|
-        get product_family.friendly_id, to: redirect("/en-US/product_families/#{product_family.friendly_id}")
-      end
-      Brand.find("digitech").products.each do |product|
-        get "/#{product.friendly_id}", to: redirect("/en-US/products/#{product.friendly_id}")
-        get "/#{product.friendly_id.gsub(/\W/, '')}", to: redirect("/en-US/products/#{product.friendly_id}")
-      end
-    rescue
-      # No digitech brand found--probably a fresh test database which doesn't matter.
-    end
-
-    # Social Media routes for Digitech
-    get '/twitter', to: redirect('http://www.twitter.com/DigiTech')
-    get '/facebook', to: redirect('https://www.facebook.com/digitech')
-    get '/youtube', to: redirect('https://www.youtube.com/user/digitechfx')
-    get '/google', to: redirect('https://plus.google.com/+DigiTechFX/posts')
-    get '/instagram', to: redirect('https://instagram.com/digitechfx')
-  end  #  constraints(DigitechDomain) do
+  end
 
   constraints(JblProDomain) do
-    # Social Media routes for JBL Pro
-    get '/instagram', to: redirect('https://www.instagram.com/jbl_pro/')
-    get '/facebook', to: redirect('https://www.facebook.com/jblprofessional')
-    get '/twitter', to: redirect('https://twitter.com/TheJBLpro')
-    get '/youtube', to: redirect('http://www.youtube.com/TheJBLProfessional')
-
     begin
       Brand.find("jbl-professional").product_families.where("old_url IS NOT NULL").each do |product_family|
         get product_family.old_url.match(/\.com(.*)/)[1], to: redirect("/en-US/product_families/#{product_family.friendly_id}")
@@ -229,83 +105,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       # No JBL Professional brand found--probably a fresh test database
     end
   end  #  constraints(JblProDomain) do
-
-  constraints(LexiconDomain) do
-    # Social Media routes for LexiconPro
-    get '/twitter', to: redirect('http://www.twitter.com/LexiconPro')
-    get '/facebook', to: redirect('https://www.facebook.com/lexiconpro')
-    get '/youtube', to: redirect('https://www.youtube.com/user/LexiconPro')
-    get '/google', to: redirect('https://plus.google.com/100996659132374613095/posts/')
-
-    begin
-      Brand.find("lexicon").product_families.each do |product_family|
-        get product_family.friendly_id, to: redirect("/en-US/product_families/#{product_family.friendly_id}")
-      end
-      Brand.find("lexicon").products.each do |product|
-        get "/#{product.friendly_id}", to: redirect("/en-US/products/#{product.friendly_id}")
-        get "/#{product.friendly_id.gsub(/\W/, '')}", to: redirect("/en-US/products/#{product.friendly_id}")
-      end
-    rescue
-      # No Lexicon brand found--probably a fresh test database which doesn't matter.
-    end
-  end  #  constraints(LexiconDomain) do
-
-  constraints(MartinDomain) do
-    begin
-      Brand.find("martin").product_families.each do |product_family|
-        get product_family.friendly_id, to: redirect("/en-US/product_families/#{product_family.friendly_id}")
-      end
-      Brand.find("martin").products.each do |product|
-        get "/#{product.friendly_id}", to: redirect("/en-US/products/#{product.friendly_id}")
-        get "/#{product.friendly_id.gsub(/\W/, '')}", to: redirect("/en-US/products/#{product.friendly_id}")
-      end
-    rescue
-      # No Martin brand found--probably a fresh test database which doesn't matter.
-    end
-    # Removed as requested:
-    #match "/en-us/fixtures-request" => "support#fixtures_request", as: "fixtures_request", via: [:get, :post]
-  end  #  constraints(MartinDomain) do
-
-  constraints(SoundcraftDomain) do
-    # Social Media routes for Soundcraft
-    get '/twitter', to: redirect('http://www.twitter.com/SoundcraftUK')
-    get '/facebook', to: redirect('https://www.facebook.com/SoundcraftMixers')
-    get '/youtube', to: redirect('https://www.youtube.com/SoundcraftUK')
-    get '/instagram', to: redirect('https://instagram.com/soundcraftmixers')
-    get '/linkedin', to: redirect('https://www.linkedin.com/company/soundcraft-studer')
-
-    begin
-      Brand.find("soundcraft").product_families.each do |product_family|
-        get product_family.friendly_id, to: redirect("/en/product_families/#{product_family.friendly_id}")
-      end
-      Brand.find("soundcraft").products.each do |product|
-        get "/#{product.friendly_id}", to: redirect("/en/products/#{product.friendly_id}")
-        get "/#{product.friendly_id.gsub(/\W/, '')}", to: redirect("/en/products/#{product.friendly_id}")
-      end
-    rescue
-      # No Soundcraft brand found--probably a fresh test database which doesn't matter.
-    end
-  end  #  constraints(SoundcraftDomain) do
-
-  constraints(StuderDomain) do
-    # Social Media routes for Studer
-    get '/twitter', to: redirect('http://www.twitter.com/StuderAudio')
-    get '/facebook', to: redirect('https://www.facebook.com/StuderCreateSound/')
-    get '/youtube', to: redirect('https://www.youtube.com/StuderProfessional')
-    get '/linkedin', to: redirect('https://www.linkedin.com/company/studer-professional-audio-gmbh')
-
-    begin
-      Brand.find("studer").product_families.each do |product_family|
-        get product_family.friendly_id, to: redirect("/en/product_families/#{product_family.friendly_id}")
-      end
-      Brand.find("studer").products.each do |product|
-        get "/#{product.friendly_id}", to: redirect("/en/products/#{product.friendly_id}")
-        get "/#{product.friendly_id.gsub(/\W/, '')}", to: redirect("/en/products/#{product.friendly_id}")
-      end
-    rescue
-      # No Studer brand found--probably a fresh test database which doesn't matter.
-    end
-  end  #  constraints(StuderDomain) do
 
   # The constraint { locale: /#{WebsiteLocale.all_unique_locales.join('|')}/ } limits the locale
   # to those configured in the WebsiteLocale model which is configured in the admin area and reverts
@@ -703,10 +502,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     resources :events, only: [:index, :show]
     resources :site_elements, only: [:show]
 
-    get 'getting-started/ui', to: redirect('/get-started/ui-series')
-    get 'get-started/ui', to: redirect('/get-started/ui-series')
     get 'get-started' => 'get_started#index', as: :get_started_index
-    get 'get_started', to: redirect('/get-started'), as: :get_started_redirect
     get 'get-started/:id' => 'get_started#show', as: :get_started
     get 'getting-started/:id' => 'get_started#show'
     post 'get-started/validate' => 'get_started#validate', as: :get_started_validation
