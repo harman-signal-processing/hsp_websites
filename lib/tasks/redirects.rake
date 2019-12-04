@@ -6,28 +6,58 @@ namespace :redirects do
     Brand.all.each do |brand|
 
       fn = Rails.root.join("tmp", "redirects", "#{brand.friendly_id}_redirects.config")
-      family_ids = brand.product_families.pluck(:cached_slug).uniq
-      product_ids = brand.products.pluck(:cached_slug).uniq - family_ids
       tracked_ids = []
 
       open(fn, 'w') do |f|
-        family_ids.each do |product_family|
-          f.puts "location = /#{product_family} { return 301 /product_families/#{product_family}; }"
-          tracked_ids << product_family
-        end
-        product_ids.each do |product|
-          next if tracked_ids.include?(product)
-          f.puts "location = /#{product} { return 301 /products/#{product}; }"
-          tracked_ids << product
-          if product.match(/\W/)
-            shortened_id = product.gsub(/\W/, '')
-            next if tracked_ids.include?(shortened_id)
-            f.puts "location = /#{shortened_id} { return 301 /products/#{product}; }"
-            tracked_ids << shortened_id
+
+        # Product Families
+        brand.product_families.each do |product_family|
+          f.puts "location = /#{product_family.friendly_id} { return 301 /product_families/#{product_family.friendly_id}; }"
+          tracked_ids << product_family.friendly_id
+
+          if product_family.old_url.present?
+            old_path = product_family.old_url.match(/\.com(.*)/)[1]
+            unless tracked_ids.include?(old_path)
+              f.puts "location = #{old_path} { return 301 /product_families/#{product_family.friendly_id}; }"
+              tracked_ids << old_path
+            end
           end
         end
-      end
-    end
+
+        # Products
+        brand.products.each do |product|
+          unless tracked_ids.include?(product.friendly_id)
+            f.puts "location = /#{product.friendly_id} { return 301 /products/#{product.friendly_id}; }"
+            tracked_ids << product.friendly_id
+          end
+
+          if product.friendly_id.match(/\W/)
+            shortened_id = product.friendly_id.gsub(/\W/, '')
+            unless tracked_ids.include?(shortened_id)
+              f.puts "location = /#{shortened_id} { return 301 /products/#{product.friendly_id}; }"
+              tracked_ids << shortened_id
+            end
+          end
+
+          if product.old_url.present?
+            old_path = product.old_url.match(/\.com(.*)/)[1]
+            unless tracked_ids.include?(old_path)
+              f.puts "location = #{old_path} { return 301 /products/#{product.friendly_id}; }"
+              tracked_ids << old_path
+            end
+          end
+        end
+
+        # News
+        brand.news.where("old_url IS NOT NULL").each do |news|
+          old_path = news.old_url.match(/\.com\.{0,2}(.*)/)[1]
+          unless tracked_ids.include?(old_path)
+            f.puts "location = #{old_path} { return 301 /news/#{news.friendly_id}; }"
+            tracked_ids << old_path
+          end
+        end
+      end # close the file
+    end # brand loop
 
   end
 end
