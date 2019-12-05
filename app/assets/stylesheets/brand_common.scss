@@ -532,10 +532,13 @@ div#harmanpro_bar {
     width: auto;
   }
   background: #464749;
-  padding-top: 19px;
+  padding-top: 9px;
   min-height: 80px;
   margin-bottom: 8px;
   text-align: center;
+  ul {
+    margin-top: 10px;
+  }
 }
 
 #social_media_links {

@@ -548,7 +548,7 @@ module ApplicationHelper
       {name: "Martin",  web: "http://www.martin.com"},
       {name: "Soundcraft", web: "http://www.soundcraft.com"},
       {name: "Studer", web: "http://www.studer.ch"},
-      {name: "HiQnet", web: "http://hiqnet.harmanpro.com"}
+      #{name: "HiQnet", web: "http://hiqnet.harmanpro.com"}
     ]
 
     pro_brands.each do |b|
