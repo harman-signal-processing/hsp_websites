@@ -539,6 +539,9 @@ div#harmanpro_bar {
   ul {
     margin-top: 10px;
   }
+  .row {
+    max-width: rem-calc(1400);
+  }
 }
 
 #social_media_links {
