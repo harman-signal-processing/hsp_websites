@@ -3,17 +3,22 @@ namespace :redirects do
   desc "Generates NGINX style redirects for each brand"
   task :generate => :environment do
 
+    # Manual exclusion list
+    exclusions = %w(eon-one eon-one-pro eon-one-compact)
+
     Brand.all.each do |brand|
 
       fn = Rails.root.join("tmp", "redirects", "#{brand.friendly_id}_redirects.config")
-      tracked_ids = []
+      tracked_ids = exclusions
 
       open(fn, 'w') do |f|
 
         # Product Families
         brand.product_families.each do |product_family|
-          f.puts "location = /#{product_family.friendly_id} { return 301 /product_families/#{product_family.friendly_id}; }"
-          tracked_ids << product_family.friendly_id
+          unless tracked_ids.include?(product_family.friendly_id)
+            f.puts "location = /#{product_family.friendly_id} { return 301 /product_families/#{product_family.friendly_id}; }"
+            tracked_ids << product_family.friendly_id
+          end
 
           if product_family.old_url.present?
             old_path = product_family.old_url.match(/\.com(.*)/)[1]
