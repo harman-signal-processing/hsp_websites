@@ -2010,6 +2010,20 @@ ActiveRecord::Schema.define(version: 2019_10_18_211256) do
     t.index ["brand_id"], name: "index_training_modules_on_brand_id"
   end
 
+  create_table "tweets", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+    t.integer "brand_id"
+    t.string "tweet_id"
+    t.string "screen_name"
+    t.text "content"
+    t.string "profile_image_url"
+    t.datetime "posted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["brand_id"], name: "index_tweets_on_brand_id"
+    t.index ["tweet_id"], name: "index_tweets_on_tweet_id"
+    t.index ["tweet_id"], name: "tweet_id", unique: true
+  end
+
   create_table "us_regions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name"
     t.string "cached_slug"
