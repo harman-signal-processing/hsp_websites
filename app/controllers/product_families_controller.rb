@@ -34,6 +34,7 @@ class ProductFamiliesController < ApplicationController
 
         # If the family has no fancy features and only one child with one active product
         elsif @product_family.features.length == 0 &&
+          @product_family.current_products.size == 0 &&
           @children_with_current_products.size == 1 &&
           @children_with_current_products.first.current_products.size == 1
             redirect_to @children_with_current_products.first.current_products.first, status: :moved_permanently and return
