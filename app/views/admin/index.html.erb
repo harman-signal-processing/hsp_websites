@@ -544,6 +544,23 @@
           </li>
         <% end %>
 
+        <li>
+          <div class="group">
+            <h5><%= website.brand.name %> Content Stats</h5>
+
+            <ul>
+              <li><%=number_with_delimiter website.brand.product_families.length %> Product Families</li>
+              <li><%=number_with_delimiter website.brand.products.length %> Products</li>
+              <li><%=number_with_delimiter website.brand.products.inject(0){|t,p| t += p.product_attachments.length} %> Product Images</li>
+              <li><%=number_with_delimiter website.brand.products.inject(0){|t,p| t += p.product_specifications.length} %> Product Specifications</li>
+              <li><%=number_with_delimiter website.brand.news.length %> News Articles</li>
+              <li><%=number_with_delimiter website.brand.site_elements.length +
+                website.brand.softwares.length +
+                website.brand.products.inject(0){|t,p| t+= p.product_documents.length} %> Site Resources (software, documents, extra images, etc.)</li>
+            </ul>
+          </div>
+        </li>
+
       </ul>
 
       <%# end  # cache%>
