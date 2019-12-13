@@ -2,25 +2,75 @@
 
    <%= f.input :name %>
    <%= f.input :address %>
-   <%= f.input :city %>
-   <%= f.input :state %>
-   <%= f.input :zip %>
-   <%= f.input :country, except: COUNTRY_EXCLUSIONS %>
-   <%= f.input :telephone %>
-   <%= f.input :fax %>
-   <%= f.input :email %>
-   <%= f.input :website %>
-   <%= f.input :google_map_place_id %>
-   <%= f.input :resale %>
-   <%= f.input :rental %>
-   <%= f.input :installation %>
-   <%= f.input :service %>
-   <%= f.input :represented_in_country %>
-   <%= f.input :account_number %>
-   <%= f.input :lat, label: "Latitude",
-     hint: "The application will try to find the coordinates, but if it fails, try filling them in here. You should be able to get them with the Google." %>
-   <%= f.input :lng, label: "Longitude" %>
-   <%= f.input :exclude, label: "Exclude from site listings" %><br/>
+   <div class="row">
+     <div class="medium-4 small-8 columns">
+       <%= f.input :city %>
+     </div>
+     <div class="medium-2 small-4 columns">
+       <%= f.input :state %>
+     </div>
+     <div class="medium-6 small-12 columns">
+       <%= f.input :zip %>
+     </div>
+   </div>
+   <% unless website.brand.dealers_are_us_only? %>
+     <div class="row">
+       <div class="medium-6 small-12 columns">
+         <%= f.input :country, except: COUNTRY_EXCLUSIONS %>
+       </div>
+       <div class="medium-6 small-12 columns">
+         <%= f.input :represented_in_country %>
+       </div>
+     </div>
+   <% end %>
+   <div class="row">
+     <div class="small-12 medium-6 columns">
+       <%= f.input :telephone %>
+     </div>
+     <div class="small-12 medium-6 columns">
+       <%= f.input :fax %>
+     </div>
+   </div>
+   <div class="row">
+     <div class="small-12 medium-6 columns">
+       <%= f.input :email %>
+     </div>
+     <div class="small-12 medium-6 columns">
+       <%= f.input :website %>
+     </div>
+   </div>
+   <div class="row">
+     <div class="small-12 medium-6 columns">
+       <%= f.input :account_number, hint: "Enter the phone number here if you don't have the account number." %>
+     </div>
+     <div class="small-12 medium-6 columns">
+       <%= f.input :google_map_place_id, label: "Google map place ID" %>
+     </div>
+   </div>
+   <div class="row">
+     <div class="small-12 medium-6 columns">
+       <label>Dealer Type:</label>
+       <%= f.input :resale %>
+       <%= f.input :rental %>
+       <%= f.input :installation %>
+       <%= f.input :service %>
+     </div>
+     <div class="small-12 medium-6 columns">
+       <%= f.input :products, label: "For rental dealers, indicate the products offered:" %>
+     </div>
+   </div>
+   <div class="panel">
+     <p>The application will try to find the coordinates, but if it fails, try filling them in here. You should be able to get them with the Google.</p>
+     <div class="row">
+       <div class="small-12 medium-6 columns">
+         <%= f.input :lat, label: "Latitude" %>
+       </div>
+       <div class="small-12 medium-6 columns">
+         <%= f.input :lng, label: "Longitude" %>
+       </div>
+     </div>
+   </div>
+   <%= f.input :exclude, label: "Exclude from site listings", hint: "Useful when external sources are used to import data with some records we need to hide." %><br/>
 
   <br/><%= f.button :submit %>
 
