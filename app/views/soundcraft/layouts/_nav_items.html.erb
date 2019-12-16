@@ -6,7 +6,9 @@
 				<%= product_family_nav_links(product_family) %>
 			<% end %>
 			<li><%= link_to t('legacy_products').titleize, discontinued_products_path %></li>
-			<li><%= link_to t("promotions"), promotions_path %></li>
+      <% if ( website.has_dealers? || website.has_distributors? || website.has_online_retailers? ) && I18n.locale.to_s.match?(/us/i) %>
+        <li><%= link_to t("promotions"), promotions_path %></li>
+      <% end %>
 		</ul>
 	</li>
 

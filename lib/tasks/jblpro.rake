@@ -171,7 +171,14 @@ namespace :jblpro do
         end
         record[:rental] = true
         record[:resale] = false
-        new_dealer = Dealer.where(record).first_or_create!
+
+        new_dealer = Dealer.where(name: record[:name], rental: record[:rental]).first_or_initialize
+
+        record.each do |key,value|
+          new_dealer[key] ||= value
+        end
+        new_dealer.products = record[:products]
+        new_dealer.save!
         records << new_dealer
         jbl.dealers << new_dealer unless jbl.dealers.include?(new_dealer)
         puts new_dealer.name
