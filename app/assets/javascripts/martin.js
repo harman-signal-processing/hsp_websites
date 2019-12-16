@@ -62,13 +62,13 @@ $(function(){
       {
         breakpoint: 640,
         settings: {
-          slidesToShow: 2.5,
+          slidesToShow: 2,
         }
       },
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 4.2,
+          slidesToShow: 4,
         },
       }
     ]
@@ -88,13 +88,13 @@ $(function(){
       {
         breakpoint: 640,
         settings: {
-          slidesToShow: 1.8,
+          slidesToShow: 2,
         }
       },
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 2.4,
+          slidesToShow: 3,
         },
       }
     ]
