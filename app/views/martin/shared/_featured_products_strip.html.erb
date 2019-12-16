@@ -2,7 +2,7 @@
   <% if @featured_products && @featured_products.length > 0 %>
     <div class="homepage_block featured_products">
       <div class="overline" aria-hidden="true">&nbsp;</div>
-      <h2>New From <%= @website.brand.name %></h2>
+      <h2>New Products</h2>
       <div class="products-slider">
       <% @featured_products.each_with_index do |featured_product, i| %>
         <%= link_to featured_product do %>
