@@ -497,27 +497,29 @@ module ProductsHelper
   def links_to_current_promotions(product, options={})
     format = options[:format] || "full"
     begin
-      if product.current_promotions.size == 1
-        promo = product.current_promotions.first
-        alt_url = (promo.promo_form_file_name.blank?) ? promotions_path : promo.promo_form.url
-        if format == "text_only"
-          content_tag(:div, link_to(promo.name, (promo.has_description?) ? promo : alt_url))
-        else
-          tag(:br) +
-          content_tag(:h2, class: "special_offer") {
-            link_to(t('product_page.special_offer'), (promo.has_description?) ? promo : alt_url)
-          } + content_tag(:div, class: "special_offer_contents") {
-            link_to(promo.name, (promo.has_description?) ? promo : alt_url)
-          }
-        end
-      elsif product.current_promotions.size > 1
-        if format == "text_only"
-          content_tag(:div, link_to(t('product_page.specal_offer'), promotions_path))
-        else
-          tag(:br) +
-          content_tag(:h2, class: "special_offer") {
-            link_to(t('product_page.special_offer'), promotions_path)
-          }
+      if I18n.locale.to_s.match?(/us/i)
+        if product.current_promotions.size == 1
+          promo = product.current_promotions.first
+          alt_url = (promo.promo_form_file_name.blank?) ? promotions_path : promo.promo_form.url
+          if format == "text_only"
+            content_tag(:div, link_to(promo.name, (promo.has_description?) ? promo : alt_url))
+          else
+            tag(:br) +
+            content_tag(:h2, class: "special_offer") {
+              link_to(t('product_page.special_offer'), (promo.has_description?) ? promo : alt_url)
+            } + content_tag(:div, class: "special_offer_contents") {
+              link_to(promo.name, (promo.has_description?) ? promo : alt_url)
+            }
+          end
+        elsif product.current_promotions.size > 1
+          if format == "text_only"
+            content_tag(:div, link_to(t('product_page.specal_offer'), promotions_path))
+          else
+            tag(:br) +
+            content_tag(:h2, class: "special_offer") {
+              link_to(t('product_page.special_offer'), promotions_path)
+            }
+          end
         end
       end
     rescue
