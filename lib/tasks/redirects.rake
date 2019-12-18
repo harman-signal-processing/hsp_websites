@@ -24,6 +24,7 @@ namespace :redirects do
             old_path = product_family.old_url.match(/\.com(.*)/)[1]
             unless tracked_ids.include?(old_path)
               f.puts "location = #{old_path} { return 301 /product_families/#{product_family.friendly_id}; }"
+              f.puts "location = #{old_path}/ { return 301 /product_families/#{product_family.friendly_id}; }"
               tracked_ids << old_path
             end
           end
@@ -48,6 +49,7 @@ namespace :redirects do
             old_path = product.old_url.match(/\.com(.*)/)[1]
             unless tracked_ids.include?(old_path)
               f.puts "location = #{old_path} { return 301 /products/#{product.friendly_id}; }"
+              f.puts "location = #{old_path}/ { return 301 /products/#{product.friendly_id}; }"
               tracked_ids << old_path
             end
           end
