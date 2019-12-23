@@ -654,6 +654,18 @@ div.product-title-block, div.small-title-block {
     }
   }
 }
+#product-content-container {
+  .text-content {
+    a {
+      font-weight: 400;
+      color: $dark-gray;
+      text-decoration: underline;
+      &:hover {
+        color: black;
+      }
+    }
+  }
+}
 .small_product_box {
   padding: 0;
   background: $pale-gray;
