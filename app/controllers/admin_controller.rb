@@ -1,6 +1,7 @@
 class AdminController < ApplicationController
   skip_before_action :verify_authenticity_token, :ensure_locale_for_site, raise: false
   before_action :store_user_location!, if: :storable_location?
+  before_action :set_locale
   # before_action :require_admin_authentication
   before_action :authenticate_user!
   check_authorization
