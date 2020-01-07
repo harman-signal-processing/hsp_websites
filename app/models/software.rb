@@ -14,6 +14,7 @@ class Software < ApplicationRecord
   has_many :training_modules, through: :software_training_modules
   has_many :software_operating_systems, dependent: :destroy
   has_many :operating_systems, through: :software_operating_systems
+  has_many :locale_softwares
 
   has_many :content_translations, as: :translatable, foreign_key: "content_id", foreign_type: "content_type"
 
@@ -131,6 +132,13 @@ class Software < ApplicationRecord
 
   def current_products
     @current_products ||= self.products & brand.current_products
+  end
+
+  # Collection of all the locales where this Software should appear.
+  # By definition, it should include ALL locales unless there is one or more
+  # limitation specified.
+  def locales(website)
+    @locales ||= (locale_softwares.size > 0) ? locale_softwares.pluck(:locale) : website.list_of_all_locales
   end
 
   # Final upload processing step

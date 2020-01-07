@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_18_211256) do
+ActiveRecord::Schema.define(version: 2020_01_07_162309) do
 
   create_table "access_levels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -688,6 +688,14 @@ ActiveRecord::Schema.define(version: 2019_10_18_211256) do
     t.integer "product_family_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "locale_softwares", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "locale"
+    t.integer "software_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["software_id"], name: "index_locale_softwares_on_software_id"
   end
 
   create_table "manufacturer_partners", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

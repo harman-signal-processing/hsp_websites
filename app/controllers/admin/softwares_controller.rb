@@ -19,6 +19,7 @@ class Admin::SoftwaresController < AdminController
     @software_attachment = SoftwareAttachment.new(software: @software)
     @software_training_module = SoftwareTrainingModule.new(software: @software)
     @software_training_class = SoftwareTrainingClass.new(software: @software)
+    @locale_software = LocaleSoftware.new(software: @software)
     respond_to do |format|
       format.html { render_template } # show.html.erb
       format.xml  { render xml: @software }

@@ -29,7 +29,7 @@
       <%= render_partial 'shared/download_table_row', item: product_document %>
     <% end %>
 
-    <% (product.all_related_downloads).group_by(&:resource_type).sort_by{|r,i| download_group_sort_order(r)}.each do |resource_type, site_elements| %>
+    <% (product.all_related_downloads(I18n.locale.to_s, website)).group_by(&:resource_type).sort_by{|r,i| download_group_sort_order(r)}.each do |resource_type, site_elements| %>
       <%= downloads_header_row(resource_type, site_elements, columns: 5) %>
       <% site_elements.each do |site_element| %>
         <%= render_partial 'shared/download_table_row', item: site_element %>

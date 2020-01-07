@@ -350,6 +350,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :product_part_group,
         :product_softwares,
         :product_documents,
+        :locale_softwares,
         :contact_messages,
         :product_cabinets,
         :online_retailers,

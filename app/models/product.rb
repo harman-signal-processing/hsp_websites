@@ -582,8 +582,8 @@ class Product < ApplicationRecord
   end
 
   # Currently active software
-  def active_softwares
-    softwares.where(active: true)
+  def active_softwares(locale = I18n.default_locale.to_s, website = brand.default_website)
+    softwares.where(active: true).select{|s| s if s.locales(website).include?(locale)}
   end
 
   # Collects suggested products
@@ -661,8 +661,8 @@ class Product < ApplicationRecord
     product_specifications.select{|ps| ps unless ps.specification.specification_group}
   end
 
-  def all_related_downloads
-    @all_related_downloads = viewable_site_elements + executable_site_elements + active_softwares
+  def all_related_downloads(locale = I18n.default_locale.to_s, website = brand.default_website)
+    @all_related_downloads = viewable_site_elements + executable_site_elements + active_softwares(locale, website)
   end
 
   def accessories

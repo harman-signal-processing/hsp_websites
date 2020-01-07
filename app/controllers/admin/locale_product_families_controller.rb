@@ -1,7 +1,7 @@
 class Admin::LocaleProductFamiliesController < AdminController
   before_action :initialize_locale_product_family, only: :create
   load_and_authorize_resource
-  
+
   def create
     respond_to do |format|
       if @locale_product_family.save
@@ -13,9 +13,9 @@ class Admin::LocaleProductFamiliesController < AdminController
         format.xml  { render xml: @locale_product_family.errors, status: :unprocessable_entity }
       end
     end
-    website.add_log(user: current_user, action: "Created a locale/product family")    
+    website.add_log(user: current_user, action: "Created a locale/product family")
   end
-  
+
   def destroy
     @locale_product_family.destroy
     respond_to do |format|
