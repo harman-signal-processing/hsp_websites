@@ -64,7 +64,7 @@
       <% @distributors.each do |distributor| %>
         <div class="row distributor-data">
           <div class="small-12 medium-4 columns">
-            <h5><%= distributor[:name] %></h5>
+            <h5><%= raw distributor[:name] %></h5>
           </div>
           <div class="small-12 medium-4 columns">
             <% distributor[:locations].each do |location| %>
