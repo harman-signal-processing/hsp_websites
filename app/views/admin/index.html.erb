@@ -16,172 +16,145 @@
         <%# end %>
 
         <% if can?(:manage, ProductFamily) %>
-          <li>
-            <div class="group">
-              <h5><%= link_to "Product Families", admin_product_families_path %>
-              <%= link_to "New product family", new_admin_product_family_path, class: "small round secondary button" %>
-              </h5>
-              <%= search_form_for [:admin, ProductFamily.ransack], class: "custom" do |f| %>
-                <div class="row collapse">
-                  <div class="large-10 small-8 columns">
-                    <%= f.text_field :name_cont, placeholder: "Name contains..." %>
+
+          <%= cache ["dashboard_product_families", website.brand, Date.today] do %>
+            <li>
+              <div class="group">
+                <h5><%= link_to "Product Families", admin_product_families_path %>
+                <%= link_to "New product family", new_admin_product_family_path, class: "small round secondary button" %>
+                </h5>
+                <%= search_form_for [:admin, ProductFamily.ransack], class: "custom" do |f| %>
+                  <div class="row collapse">
+                    <div class="large-10 small-8 columns">
+                      <%= f.text_field :name_cont, placeholder: "Name contains..." %>
+                    </div>
+                    <div class="large-2 small-4 columns">
+                      <%= f.submit "Search", class: "postfix round secondary button" %>
+                    </div>
                   </div>
-                  <div class="large-2 small-4 columns">
-                    <%= f.submit "Search", class: "postfix round secondary button" %>
-                  </div>
-                </div>
-              <% end %>
-              <h6 class="subheader">Top-level product families:</h6>
-              <ul class="list">
-                <% ProductFamily.all_parents(website).each do |item| %>
-                  <li><%= link_to item.name, [:admin, item] %></li>
                 <% end %>
-              </ul>
-              <br/>
-            </div>
-          </li>
+                <h6 class="subheader">Top-level product families:</h6>
+                <ul class="list">
+                  <% ProductFamily.all_parents(website).each do |item| %>
+                    <li><%= link_to item.name, [:admin, item] %></li>
+                  <% end %>
+                </ul>
+                <br/>
+              </div>
+            </li>
+          <% end %>
         <% end %>
 
         <% if can?(:manage, Product) %>
-          <li>
-            <div class="group">
-              <h5><%= link_to "Products", admin_products_path %>
-              <%= link_to "New product", new_admin_product_path, class: "small round secondary button" %>
-              </h5>
-              <%= search_form_for [:admin, Product.ransack], class: "custom" do |f| %>
-                <div class="row collapse">
-                  <div class="large-10 small-8 columns">
-                    <%= f.text_field :name_cont, placeholder: "Name contains..." %>
+          <%= cache ["dashboard_products", website.brand, Date.today] do %>
+            <li>
+              <div class="group">
+                <h5><%= link_to "Products", admin_products_path %>
+                <%= link_to "New product", new_admin_product_path, class: "small round secondary button" %>
+                </h5>
+                <%= search_form_for [:admin, Product.ransack], class: "custom" do |f| %>
+                  <div class="row collapse">
+                    <div class="large-10 small-8 columns">
+                      <%= f.text_field :name_cont, placeholder: "Name contains..." %>
+                    </div>
+                    <div class="large-2 small-4 columns">
+                      <%= f.submit "Search", class: "postfix round secondary button" %>
+                    </div>
                   </div>
-                  <div class="large-2 small-4 columns">
-                    <%= f.submit "Search", class: "postfix round secondary button" %>
-                  </div>
-                </div>
-              <% end %>
-              <h6 class="subheader">Recently created/changed:</h6>
-              <ul class="list">
-                <% website.products.sort_by(&:updated_at).reverse[0,6].each do |item| %>
-                  <li><%= link_to item.name, [:admin, item] %></li>
                 <% end %>
-              </ul>
-              <br/>
-            </div>
-          </li>
+                <h6 class="subheader">Recently created/changed:</h6>
+                <ul class="list">
+                  <% website.products.sort_by(&:updated_at).reverse[0,6].each do |item| %>
+                    <li><%= link_to item.name, [:admin, item] %></li>
+                  <% end %>
+                </ul>
+                <br/>
+              </div>
+            </li>
+          <% end %>
         <% end %>
 
         <% if can?(:manage, Setting) && can?(:manage, Product) && can?(:manage, Page) %>
-          <li>
-            <div class="group">
-              <h5>Site Pages
-                <%= link_to "New page", new_admin_page_path, class: "small round secondary button" %>
-              </h5>
-              <h6 class="subheader">Recent Pages:</h6>
-              <ul class="list">
-                <li><%= link_to "#{website.brand.name} Homepage", homepage_admin_settings_path %></li>
-                <% Page.where(brand_id: website.brand_id).order("updated_at DESC").limit(7).each do |item| %>
-                  <li><%= link_to item.title.truncate(40), [:admin, item] %></li>
-                <% end %>
-              </ul>
-              <br/>
-              <%= link_to "All Landing Pages", admin_pages_path %>
-            </div>
-          </li>
-        <% end %>
-
-        <% if toolkit_brands.include?(website.brand) && can?(:manage, ToolkitResource) %>
-          <li>
-            <div class="group">
-              <h5><%= link_to "Toolkit Resources", admin_toolkit_resources_path %>
-              <%#= link_to "New resource", new_admin_toolkit_resource_path, class: "small round secondary button" %>
-              </h5>
-              <%= search_form_for [:admin, ToolkitResource.ransack], class: "custom" do |f| %>
-                <div class="row collapse">
-                  <div class="large-10 small-8 columns">
-                    <%= f.text_field :name_cont, placeholder: "Name contains..." %>
-                  </div>
-                  <div class="large-2 small-4 columns">
-                    <%= f.submit "Search", class: "postfix round secondary button" %>
-                  </div>
-                </div>
-              <% end %>
-
-              <% if @bad_toolkit_links.size > 0 %>
-                <h6><%= @bad_toolkit_links.size %> Possible Problems Found</h6>
+          <%= cache ["dashboard_landing_pages", website.brand, Date.today] do %>
+            <li>
+              <div class="group">
+                <h5>Site Pages
+                  <%= link_to "New page", new_admin_page_path, class: "small round secondary button" %>
+                </h5>
+                <h6 class="subheader">Recent Pages:</h6>
                 <ul class="list">
-                  <% @bad_toolkit_links.each do |toolkit_resource| %>
-                    <li><span class="round alert label">!</span>
-                      <%= link_to toolkit_resource.name.truncate(40), [:admin, toolkit_resource] %>
-                    </li>
+                  <li><%= link_to "#{website.brand.name} Homepage", homepage_admin_settings_path %></li>
+                  <% Page.where(brand_id: website.brand_id).order("updated_at DESC").limit(7).each do |item| %>
+                    <li><%= link_to item.title.truncate(40), [:admin, item] %></li>
                   <% end %>
                 </ul>
-              <% else %>
-                <h6 class="subheader">Recently created/changed:</h6>
-                <ul class="list">
-                  <% ToolkitResource.where(brand_id: website.brand_id).order("updated_at DESC").limit(7).each do |item| %>
-                    <li><%= link_to item.name.truncate(44), [:admin, item] %></li>
-                  <% end %>
-                </ul>
-              <% end %>
-            </div>
-          </li>
+                <br/>
+                <%= link_to "All Landing Pages", admin_pages_path %>
+              </div>
+            </li>
+          <% end %>
         <% end %>
 
         <% if can? :manage, News %>
-          <li>
-            <div class="group">
-              <h5><%= link_to "News", admin_news_index_path %>
-              <%= link_to "New article", new_admin_news_path, class: "small round secondary button" %>
-              </h5>
-              <%= search_form_for [:admin, News.ransack], class: "custom" do |f| %>
-                <div class="row collapse">
-                  <div class="large-10 small-8 columns">
-                    <%= f.text_field :title_cont, placeholder: "Title contains..." %>
+          <%= cache ["dashboard_news", website.brand, Date.today] do %>
+            <li>
+              <div class="group">
+                <h5><%= link_to "News", admin_news_index_path %>
+                <%= link_to "New article", new_admin_news_path, class: "small round secondary button" %>
+                </h5>
+                <%= search_form_for [:admin, News.ransack], class: "custom" do |f| %>
+                  <div class="row collapse">
+                    <div class="large-10 small-8 columns">
+                      <%= f.text_field :title_cont, placeholder: "Title contains..." %>
+                    </div>
+                    <div class="large-2 small-4 columns">
+                      <%= f.submit "Search", class: "postfix round secondary button" %>
+                    </div>
                   </div>
-                  <div class="large-2 small-4 columns">
-                    <%= f.submit "Search", class: "postfix round secondary button" %>
-                  </div>
-                </div>
-              <% end %>
-              <h6 class="subheader">Recently created/changed:</h6>
-              <ul class="list">
-                <% News.where(brand_id: website.brand_id).order("updated_at DESC").limit(6).each do |item| %>
-                  <li><%= link_to item.title.truncate(40), [:admin, item] %>
-                  <small><%=l item.post_on, format: :short %></small>
-                  </li>
                 <% end %>
-              </ul>
-              <br/>
-            </div>
-          </li>
+                <h6 class="subheader">Recently created/changed:</h6>
+                <ul class="list">
+                  <% News.where(brand_id: website.brand_id).order("updated_at DESC").limit(6).each do |item| %>
+                    <li><%= link_to item.title.truncate(40), [:admin, item] %>
+                    <small><%=l item.post_on, format: :short %></small>
+                    </li>
+                  <% end %>
+                </ul>
+                <br/>
+              </div>
+            </li>
+          <% end %>
         <% end %>
 
         <% if can? :manage, Promotion %>
-          <li>
-            <div class="group">
-              <h5><%= link_to "Promotions", admin_promotions_path %>
-              <%= link_to "New promo", new_admin_promotion_path, class: "small round secondary button" %>
-              </h5>
-              <%= search_form_for [:admin, Promotion.ransack], class: "custom" do |f| %>
-                <div class="row collapse">
-                  <div class="large-10 small-8 columns">
-                    <%= f.text_field :name_cont, placeholder: "Name contains..." %>
+          <%= cache ["dashboard_promos", website.brand, Date.today] do %>
+            <li>
+              <div class="group">
+                <h5><%= link_to "Promotions", admin_promotions_path %>
+                <%= link_to "New promo", new_admin_promotion_path, class: "small round secondary button" %>
+                </h5>
+                <%= search_form_for [:admin, Promotion.ransack], class: "custom" do |f| %>
+                  <div class="row collapse">
+                    <div class="large-10 small-8 columns">
+                      <%= f.text_field :name_cont, placeholder: "Name contains..." %>
+                    </div>
+                    <div class="large-2 small-4 columns">
+                      <%= f.submit "Search", class: "postfix round secondary button" %>
+                    </div>
                   </div>
-                  <div class="large-2 small-4 columns">
-                    <%= f.submit "Search", class: "postfix round secondary button" %>
-                  </div>
-                </div>
-              <% end %>
-              <h6 class="subheader">Recently created/changed:</h6>
-              <ul class="list">
-                <% Promotion.where(brand_id: website.brand_id).order("updated_at DESC").limit(6).each do |item| %>
-                  <li><%= link_to item.name.truncate(38), [:admin, item] %>
-                  <small>starts: <%=l item.start_on, format: :short %></small>
-                  </li>
                 <% end %>
-              </ul>
-              <br/>
-            </div>
-          </li>
+                <h6 class="subheader">Recently created/changed:</h6>
+                <ul class="list">
+                  <% Promotion.where(brand_id: website.brand_id).order("updated_at DESC").limit(6).each do |item| %>
+                    <li><%= link_to item.name.truncate(38), [:admin, item] %>
+                    <small>starts: <%=l item.start_on, format: :short %></small>
+                    </li>
+                  <% end %>
+                </ul>
+                <br/>
+              </div>
+            </li>
+          <% end %>
         <% end %>
 
         <%# TODO: list products missing key prices %>
@@ -268,70 +241,74 @@
         <% end %>
 
         <% if can?(:manage, Software) && website.has_software? %>
-          <li>
-            <div class="group">
-              <h5><%= link_to "Software Downloads", admin_softwares_path %>
-              <%= link_to "New Software", new_admin_software_path, class: "small round secondary button" %>
-              </h5>
-              <%= search_form_for [:admin, Software.ransack], class: "custom" do |f| %>
-                <div class="row collapse">
-                  <div class="large-10 small-8 columns">
-                    <%= f.text_field :name_cont, placeholder: "Name contains..." %>
+          <%= cache ["dashboard_software", website.brand, Date.today] do %>
+            <li>
+              <div class="group">
+                <h5><%= link_to "Software Downloads", admin_softwares_path %>
+                <%= link_to "New Software", new_admin_software_path, class: "small round secondary button" %>
+                </h5>
+                <%= search_form_for [:admin, Software.ransack], class: "custom" do |f| %>
+                  <div class="row collapse">
+                    <div class="large-10 small-8 columns">
+                      <%= f.text_field :name_cont, placeholder: "Name contains..." %>
+                    </div>
+                    <div class="large-2 small-4 columns">
+                      <%= f.submit "Search", class: "postfix round secondary button" %>
+                    </div>
                   </div>
-                  <div class="large-2 small-4 columns">
-                    <%= f.submit "Search", class: "postfix round secondary button" %>
-                  </div>
-                </div>
-              <% end %>
-              <h6 class="subheader">Recently created/changed:</h6>
-              <ul class="list">
-                <% Software.where(brand_id: website.brand_id).order("updated_at DESC").limit(5).each do |item| %>
-                  <li><%= link_to item.name, [:admin, item] %></li>
                 <% end %>
-              </ul>
-              <br/>
-            </div>
-          </li>
+                <h6 class="subheader">Recently created/changed:</h6>
+                <ul class="list">
+                  <% Software.where(brand_id: website.brand_id).order("updated_at DESC").limit(5).each do |item| %>
+                    <li><%= link_to item.name, [:admin, item] %></li>
+                  <% end %>
+                </ul>
+                <br/>
+              </div>
+            </li>
+          <% end %>
         <% end %>
 
         <% if (can?(:manage, OnlineRetailer) && website.has_online_retailers?) %>
-          <li>
-            <div class="group">
-              <h5><%= link_to "Online Retailers", admin_online_retailers_path %>
-              <%= link_to "New online retailer", new_admin_online_retailer_path, class: "small round secondary button" %>
-              </h5>
+          <%= cache ["dashboard_orls", website.brand, Date.today] do %>
+            <li>
+              <div class="group">
+                <h5><%= link_to "Online Retailers", admin_online_retailers_path %>
+                <%= link_to "New online retailer", new_admin_online_retailer_path, class: "small round secondary button" %>
+                </h5>
 
-              <%= search_form_for [:admin, OnlineRetailer.ransack], class: "custom" do |f| %>
-                <div class="row collapse">
-                  <div class="large-10 small-8 columns">
-                    <%= f.text_field :name_cont, placeholder: "Online Retailer name contains..." %>
+                <%= search_form_for [:admin, OnlineRetailer.ransack], class: "custom" do |f| %>
+                  <div class="row collapse">
+                    <div class="large-10 small-8 columns">
+                      <%= f.text_field :name_cont, placeholder: "Online Retailer name contains..." %>
+                    </div>
+                    <div class="large-2 small-4 columns">
+                      <%= f.submit "Search", class: "postfix round secondary button" %>
+                    </div>
                   </div>
-                  <div class="large-2 small-4 columns">
-                    <%= f.submit "Search", class: "postfix round secondary button" %>
-                  </div>
-                </div>
-              <% end %>
+                <% end %>
 
-              <% if @orl_problems.size > 0 %>
-                <h6>Possible Link Problems</h6>
-                <ul class="list">
-                  <% @orl_problems.each do |orl| %>
-                    <li>
-                      <span class="round alert label">!</span>
-                      <%= link_to orl.expanded_name, edit_admin_online_retailer_link_path(orl) %>
-                    </li>
-                  <% end %>
-                </ul>
-              <% else %>
-                <span class="round success label">:)</span>
-                <i>Good news. No link problems were found.</i>
-              <% end %>
-            </div>
-          </li>
+                <% if @orl_problems.size > 0 %>
+                  <h6>Possible Link Problems</h6>
+                  <ul class="list">
+                    <% @orl_problems.each do |orl| %>
+                      <li>
+                        <span class="round alert label">!</span>
+                        <%= link_to orl.expanded_name, edit_admin_online_retailer_link_path(orl) %>
+                      </li>
+                    <% end %>
+                  </ul>
+                <% else %>
+                  <span class="round success label">:)</span>
+                  <i>Good news. No link problems were found.</i>
+                <% end %>
+              </div>
+            </li>
+          <% end %>
         <% end %>
 
-        <% if (can?(:manage, Distributor) && website.has_distributors?) || 
-            (can?(:manage, UsRep) && website.has_us_sales_reps?) || 
+        <% if (can?(:manage, Distributor) && website.has_distributors?) ||
+            (can?(:manage, UsRep) && website.has_us_sales_reps?) ||
             (can?(:manage, Dealer) && website.has_dealers?)  %>
           <li>
             <div class="group">
@@ -544,22 +521,24 @@
           </li>
         <% end %>
 
-        <li>
-          <div class="group">
-            <h5><%= website.brand.name %> Content Stats</h5>
+        <%= cache ["site_stats", website.brand, Date.today] do %>
+          <li>
+            <div class="group">
+              <h5><%= website.brand.name %> Content Stats</h5>
 
-            <ul>
-              <li><%=number_with_delimiter website.brand.product_families.length %> Product Families</li>
-              <li><%=number_with_delimiter website.brand.products.length %> Products</li>
-              <li><%=number_with_delimiter website.brand.products.inject(0){|t,p| t += p.product_attachments.length} %> Product Images</li>
-              <li><%=number_with_delimiter website.brand.products.inject(0){|t,p| t += p.product_specifications.length} %> Product Specifications</li>
-              <li><%=number_with_delimiter website.brand.news.length %> News Articles</li>
-              <li><%=number_with_delimiter website.brand.site_elements.length +
-                website.brand.softwares.length +
-                website.brand.products.inject(0){|t,p| t+= p.product_documents.length} %> Site Resources (software, documents, extra images, etc.)</li>
-            </ul>
-          </div>
-        </li>
+              <ul>
+                <li><%=number_with_delimiter website.brand.product_families.length %> Product Families</li>
+                <li><%=number_with_delimiter website.brand.products.length %> Products</li>
+                <li><%=number_with_delimiter website.brand.products.inject(0){|t,p| t += p.product_attachments.length} %> Product Images</li>
+                <li><%=number_with_delimiter website.brand.products.inject(0){|t,p| t += p.product_specifications.length} %> Product Specifications</li>
+                <li><%=number_with_delimiter website.brand.news.length %> News Articles</li>
+                <li><%=number_with_delimiter website.brand.site_elements.length +
+                  website.brand.softwares.length +
+                  website.brand.products.inject(0){|t,p| t+= p.product_documents.length} %> Site Resources (software, documents, extra images, etc.)</li>
+              </ul>
+            </div>
+          </li>
+        <% end %>
 
       </ul>
 
