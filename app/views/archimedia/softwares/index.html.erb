@@ -1,6 +1,6 @@
 <% set_meta_tags reverse: true,
-                 description: "Downloads for: #{@current_products.collect{|s| s.name}.join(', ')}",
-                 keywords: @current_products.collect{|s| s.name} %>
+                 description: "Software for #{website.brand.name} products",
+                 keywords: website.brand.current_softwares.collect{|s| s.name} %>
 
 <h1 class="page_title">
 <% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/software_downloads_head.jpg")) %>
@@ -31,13 +31,6 @@
 					</div>
 				<% end %>
 			<% end %>
-		</div>
-	<% end %>
-	<% if @discontinued_products.length > 0 %>
-		<div style="clear: both;"></div>
-		<div style="margin: 50px;">
-			<h4 class="subheader" style="text-align: center">Discontinued Product Software</h4>
-			<%= render_partial "softwares/table", products: @discontinued_products %>
 		</div>
 	<% end %>
 <% end %>
