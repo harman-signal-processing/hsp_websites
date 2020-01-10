@@ -47,12 +47,11 @@
       </div>
       <div class="small-12 medium-4 large-2 columns text-right">
         <%= link_to "Register",
-          new_training_course_training_class_training_class_registration_path(training_class.training_course, training_class),
-          class: "tiny button",
-          data: {
-            :"reveal-ajax" => true,
-            :"reveal-id" => "regform-modal"
-          } %>
+          training_class.registration_url.present? ?
+            training_class.registration_url : 'https://traininglogin.harmanpro.com/enroll/links.aspx',
+          target: "_blank",
+          class: "tiny button"
+          %>
       </div>
     </div>
   <% end %>
