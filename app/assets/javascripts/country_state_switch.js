@@ -44,6 +44,25 @@ $(function()
 	{
 	  filter_by_state($('#state-switch').val());
 	}	
+	else // page loaded without state information
+	{
+	  hide_all_but_default();
+	}
+	
+	function hide_all_but_default() 
+	{
+        $("#service_center_list li").each(function(i)
+        {
+        	var $li = $(this);
+        	
+			$li.hide('slow');
+			
+			if ($li.attr('id') == "harman-default")
+			{
+				$li.show('slow');
+			}
+        });  //  $("#service_center_list li").each(function(i)		
+	}
 	
 	function ensureGeoUrlParamIsPresentWhenCountrySelectorPresent()
 	{
