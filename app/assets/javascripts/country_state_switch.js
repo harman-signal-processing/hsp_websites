@@ -37,6 +37,7 @@ $(function()
 			}
         });  //  $("#service_center_list li").each(function(i)
     
+		equalize_dynamic_content();
 	}  // function filter_by_state(state)
 	
 	//If the page loaded with a state selected go ahead and filter by the selected state
@@ -61,7 +62,13 @@ $(function()
 			{
 				$li.show('slow');
 			}
-        });  //  $("#service_center_list li").each(function(i)		
+        });  //  $("#service_center_list li").each(function(i)	
+        equalize_dynamic_content();
+	}  //  function hide_all_but_default() 
+	
+	function equalize_dynamic_content() {
+    	//hack for getting founation to re-equalize dynamic content
+    	$(document).foundation({});		
 	}
 	
 	function ensureGeoUrlParamIsPresentWhenCountrySelectorPresent()
