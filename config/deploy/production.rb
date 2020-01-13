@@ -8,9 +8,8 @@
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
 server "rackspace1",  user: 'brandsites', roles: %w{web app background}
-server "rackspace2019",  user: 'brandsites', roles: %w{web app db background}, primary: true
-#server "rackspace2",  user: 'brandsites', roles: %w{web app}
-#server "rackspace3",  user: 'brandsites', roles: %w{web app}
+server "rackspace2019",  user: 'brandsites', roles: %w{web app background}
+server "rackspace2020",  user: 'brandsites', roles: %w{web app db background}, primary: true
 #server "lxrails2", user: 'brandsites', roles: %w{web app}
 #server "10.10.23.15", user: 'brandsites', roles: %w{app}
 
