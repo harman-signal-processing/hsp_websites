@@ -59,6 +59,7 @@
 	<li class="has-dropdown"><%= link_to t('product_support').titleize, support_path %>
     <ul class="dropdown">
       <li><%= link_to t('contact_us').titleize, support_path %></li>
+      <li><%= link_to "Consultant Portal", "#{ENV['PRO_SITE_URL']}/consultant", target: "_blank" %></li>
       <li><%= link_to t('software_downloads').titleize, software_index_path %></li>
       <li><%= link_to t('nav.downloads').titleize, support_downloads_path %></li>
       <li><%= link_to t('warranty').titleize, warranty_path %></li>
