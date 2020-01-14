@@ -40,7 +40,8 @@ class SupportController < ApplicationController
       
     if session['geo_usa']
       # state = params[:state].presence || helpers.user_usa_state_code.to_s || "any"
-      state = params[:state].presence || "any"
+      # state = params[:state].presence || "any"
+      state = params[:state].presence || ""
       @service_centers = get_service_centers(brand, state)
     else
       country_code = clean_country_code
