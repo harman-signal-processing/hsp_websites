@@ -8,7 +8,7 @@ location[:country] = "us"
 
 %>
 <li id='<%="#{service_center[:id]}_#{location[:state]}"%>'>
-	<div class="panel" data-equalizer-watch="service-center-box">
+	<div class="panel">
 			<h3><%= service_center[:name] %></h3>
 			
     		<div>
@@ -23,6 +23,17 @@ location[:country] = "us"
     					<% end %>
     					<%=raw get_list_html({phones: [{label:"", phone: service_center[:phone]}]}, "phones", "phone") %>
     					<%=raw get_list_html({websites: [{label:"", website: service_center[:website]}]}, "websites", "website") %>
+    					
+    					<% if service_center[:service_groups].count > 0 && ['jbl professional','soundcraft'].include?(website.brand.name.downcase) %>
+    						<div style="margin-top:25px;">
+    							<em>Providing service for</em>
+	    						<ul>
+		    					<%service_center[:service_groups].each do |sg|%>
+		    						<li><%=sg[:name]%></li>
+		    					<%end%>
+		    					</ul>
+	    					</div>
+    					<%end%>    					
     					
     					<% if service_center[:uses_rma_form] == true %>
     						<div style="margin-top:25px;">

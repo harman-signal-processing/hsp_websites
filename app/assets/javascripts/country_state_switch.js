@@ -13,63 +13,9 @@ $(function()
   $('#state-switch').change(function(e){
     var $this = $(this),
         selected_state = $this.val();
-        filter_by_state(selected_state);
+    location.search = 'geo=' + location.search.split('geo=')[1].split('&')[0] + '&state=' + selected_state.toLowerCase();
   });		//  $('#state-switch').change(function(e){
-	
-	function filter_by_state(selected_state)
-	{
-        $("#service_center_list li").each(function(i)
-        {
-        	var $li = $(this);
-        	
-        	if ($li.attr('id') == "harman-default")
-        	{
-        	    return true; // skip, do not act on the default
-        	}
-        	
-        	var service_center_state = $li.attr('id').split('_')[1];
-			
-			$li.hide('slow');
-			
-			if(selected_state == service_center_state)
-			{
-				$li.show('slow');
-			}
-        });  //  $("#service_center_list li").each(function(i)
-    
-		equalize_dynamic_content();
-	}  // function filter_by_state(state)
-	
-	//If the page loaded with a state selected go ahead and filter by the selected state
-	if ($("#state-switch").length > 0 && $("#state-switch").val().length > 0)
-	{
-	  filter_by_state($('#state-switch').val());
-	}	
-	else // page loaded without state information
-	{
-	  hide_all_but_default();
-	}
-	
-	function hide_all_but_default() 
-	{
-        $("#service_center_list li").each(function(i)
-        {
-        	var $li = $(this);
-        	
-			$li.hide('slow');
-			
-			if ($li.attr('id') == "harman-default")
-			{
-				$li.show('slow');
-			}
-        });  //  $("#service_center_list li").each(function(i)	
-        equalize_dynamic_content();
-	}  //  function hide_all_but_default() 
-	
-	function equalize_dynamic_content() {
-    	//hack for getting founation to re-equalize dynamic content
-    	$(document).foundation({});		
-	}
+
 	
 	function ensureGeoUrlParamIsPresentWhenCountrySelectorPresent()
 	{
