@@ -31,7 +31,7 @@
             <div class="large-12 columns" data-equalizer="service-center-box">
 	            <ul id="service_center_list" class="large-block-grid-2 medium-block-grid-1 small-block-grid-1 js-dynamic">
 		        	<% if studer_us_tech_support_and_repair = website.value_for("studer_us_tech_support_and_repair") %>
-		        		<li>
+		        		<li id="harman-default">
 			        	<div class="panel" data-equalizer-watch="service-center-box">
 			        		<p><%=raw studer_us_tech_support_and_repair %></p>
 			        	</div>
@@ -39,7 +39,7 @@
 		        	<% end %> <%# if studer_us_tech_support_and_repair = website.value_for("studer_us_tech_support_and_repair") %>		
 			
 				    <% if default_us_repair_contact = website.value_for("default_us_repair_contact")%>
-		    			<li><div class="panel" data-equalizer-watch="service-center-box"><%= raw default_us_repair_contact %></div></li>
+		    			<li id="harman-default"><div class="panel" data-equalizer-watch="service-center-box"><%= raw default_us_repair_contact %></div></li>
 		    		<% end %> <%# if default_us_repair_contact = website.value_for("default_us_repair_contact")%>
 				</ul>
 			</div> <!-- <div class="large-12 columns" data-equalizer="service-center-box"> -->

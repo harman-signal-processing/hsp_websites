@@ -37,6 +37,7 @@ $(function()
 			}
         });  //  $("#service_center_list li").each(function(i)
     
+		equalize_dynamic_content();
 	}  // function filter_by_state(state)
 	
 	//If the page loaded with a state selected go ahead and filter by the selected state
@@ -44,6 +45,31 @@ $(function()
 	{
 	  filter_by_state($('#state-switch').val());
 	}	
+	else // page loaded without state information
+	{
+	  hide_all_but_default();
+	}
+	
+	function hide_all_but_default() 
+	{
+        $("#service_center_list li").each(function(i)
+        {
+        	var $li = $(this);
+        	
+			$li.hide('slow');
+			
+			if ($li.attr('id') == "harman-default")
+			{
+				$li.show('slow');
+			}
+        });  //  $("#service_center_list li").each(function(i)	
+        equalize_dynamic_content();
+	}  //  function hide_all_but_default() 
+	
+	function equalize_dynamic_content() {
+    	//hack for getting founation to re-equalize dynamic content
+    	$(document).foundation({});		
+	}
 	
 	function ensureGeoUrlParamIsPresentWhenCountrySelectorPresent()
 	{
