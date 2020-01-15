@@ -1,0 +1,8 @@
+<% if request.path_info.include?('repairs') %>
+	<% if default_us_repair_contact = website.value_for("default_us_repair_contact") %>
+		<div class="panel">
+      		<div class="overline"></div>
+			<div><%=raw default_us_repair_contact %></div>
+		</div>
+	<% end %>
+<% end %>
