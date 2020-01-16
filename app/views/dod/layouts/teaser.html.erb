@@ -37,6 +37,11 @@
 		<%= javascript_include_tag 'teaser_application' %>
 		<%= javascript_include_tag "vendor/modernizr" %>
 		<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:700,400,300' rel='stylesheet' type='text/css'>
+    <%= cache [website, "other_header_scripts", Date.today, I18n.locale] do %>
+      <% if Rails.env.production? && !!website.value_for('other_header_scripts') %>
+        <%= raw website.value_for('other_header_scripts') %>
+      <% end %>
+    <% end %>
 		<%= stylesheet_link_tag "#{website.folder}_teaser", cache: false %>
 
 		<%= yield :custom_css %>

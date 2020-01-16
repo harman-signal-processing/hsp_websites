@@ -5,7 +5,7 @@ namespace :rackspace do
   desc "Create an image of the main server and delete old image"
   task :create_image => :environment do
     client = compute_client
-    server = client.servers.get("31d10f1a-59d4-4648-89cd-29e758f16f8b")
+    server = client.servers.get("5e3f2121-718f-416c-9a64-e6db31e267af")
     delete_old_images(client, server.name)
     server.create_image("Daily-#{Time.now.to_i}-#{server.name}")
   end
@@ -29,7 +29,7 @@ namespace :rackspace do
 
   def get_most_recent_image_id
     client = compute_client
-    server_name = "HICGLXRAILS02"
+    server_name = "HICGLXRAILS2020"
     server_images(client, server_name).sort.last[1]
   end
 

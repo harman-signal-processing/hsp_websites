@@ -43,6 +43,11 @@
 		<%= javascript_include_tag website.folder %>
 		<%= javascript_include_tag "vendor/modernizr" %>
 		<%= yield :extra_header_code %>
+    <%= cache [website, "other_header_scripts", Date.today, I18n.locale] do %>
+      <% if Rails.env.production? && !!website.value_for('other_header_scripts') %>
+        <%= raw website.value_for('other_header_scripts') %>
+      <% end %>
+    <% end %>
     <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,300,600,700' rel='stylesheet' type='text/css'>
 		<% if content_for?(:page_css) %>
 			<%= yield :page_css %>
@@ -58,6 +63,11 @@
 	</head>
 
 	<body data-brand="<%= website.brand.name %>">
+    <%= cache [website, "other_body_scripts", Date.today, I18n.locale] do %>
+      <% if Rails.env.production? && !!website.value_for('other_body_scripts') %>
+        <%= raw website.value_for('other_body_scripts') %>
+      <% end %>
+    <% end %>
 		<%#= render_partial "shared/admin_dashboard_link" %>
 
 		<%= render_partial 'layouts/nav' %>

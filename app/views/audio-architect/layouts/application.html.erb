@@ -33,6 +33,11 @@
 		<%= javascript_include_tag 'application' %>
 		<%= stylesheet_link_tag website.folder %>
 		<%= yield :extra_header_code %>
+    <%= cache [website, "other_header_scripts", Date.today, I18n.locale] do %>
+      <% if Rails.env.production? && !!website.value_for('other_header_scripts') %>
+        <%= raw website.value_for('other_header_scripts') %>
+      <% end %>
+    <% end %>
 
 		<%= yield :custom_css %>
 		<script>
@@ -41,6 +46,11 @@
 	    <%= render_partial "shared/analytics" %>
 	</head>
 	<body data-brand="<%= website.brand.name %>">
+    <%= cache [website, "other_body_scripts", Date.today, I18n.locale] do %>
+      <% if Rails.env.production? && !!website.value_for('other_body_scripts') %>
+        <%= raw website.value_for('other_body_scripts') %>
+      <% end %>
+    <% end %>
 		<div id="fb-root"></div>
 		<script>(function(d, s, id) {
 		  var js, fjs = d.getElementsByTagName(s)[0];

@@ -1,8 +1,9 @@
 <%= render_partial 'shared/video_modal' %>
 
-<%= cache [website, "other_footer_scripts", Date.today] do %>
-  <% if Rails.env.production? && website.other_footer_scripts %>
-    <%= raw website.other_footer_scripts %>
+<%= cache [website, "other_footer_scripts", Date.today, I18n.locale] do %>
+  <%# if Rails.env.production? && website.value_for('other_footer_scripts') %>
+  <% if website.value_for('other_footer_scripts') %>
+    <%= raw website.value_for('other_footer_scripts') %>
   <% end %>
 <% end %>
 
