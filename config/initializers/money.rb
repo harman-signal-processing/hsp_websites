@@ -1,6 +1,7 @@
 # encoding : utf-8
 
 Money.locale_backend = :i18n
+Money.rounding_mode = BigDecimal::ROUND_HALF_UP
 
 MoneyRails.configure do |config|
 
