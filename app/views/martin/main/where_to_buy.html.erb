@@ -165,8 +165,10 @@
 <% end %>
 
 <%= content_for :extra_js do %>
-	$(document).ready(function() {
-		$('#zip').focus();
-	});
+  <script>
+    $(document).ready(function() {
+      $('#zip').focus();
+    });
+  </script>
 <% end %>
 

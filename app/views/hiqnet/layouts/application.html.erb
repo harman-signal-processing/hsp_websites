@@ -35,15 +35,13 @@
 		<%= stylesheet_link_tag website.folder, media: :all %>
 
 		<%= yield :custom_css %>
-		<script>
-	  		<%= yield :extra_js %>
-	  	</script>
-	    <%= render_partial "shared/analytics" %>
+    <%= yield :extra_js %>
+    <%= render_partial "shared/analytics" %>
 	</head>
 	<body data-brand="<%= website.brand.name %>">
 		<%= yield :extra_notice %>
 		<%#= render_partial "shared/locale_switcher" %>
-		<%#= render_partial "shared/admin_dashboard_link" %>		
+		<%#= render_partial "shared/admin_dashboard_link" %>
 
 		<div class="text-center">
 			<h1>
@@ -56,9 +54,9 @@
 		      <div class="large-12 columns">
 
 		        <% flash.each do |name, msg| %>
-		          <% 
+		          <%
 		            css_class = 'alert-box'
-		            if name.match(/notice/i) 
+		            if name.match(/notice/i)
 		              css_class += ' success'
 		            elsif name.match(/alert|warn/)
 		              css_class += ' alert'

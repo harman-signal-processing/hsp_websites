@@ -266,6 +266,7 @@ set_meta_tags title: @product.name,
 <% end %>
 
 <%= content_for :extra_js do %>
+  <script>
 
 	<% if @product.audio_demos.size > 0 %>
 
@@ -287,6 +288,7 @@ set_meta_tags title: @product.name,
 	  inlinePlayer = new InlinePlayer();
 	});
 
+  </script>
 
 	<% end %>
 <% end %>

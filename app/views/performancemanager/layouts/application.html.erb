@@ -35,10 +35,8 @@
 		<%= stylesheet_link_tag website.folder, media: :all %>
 
 		<%= yield :custom_css %>
-		<script>
-	  		<%= yield :extra_js %>
-	  	</script>
-	    <%= render_partial "shared/analytics" %>
+    <%= yield :extra_js %>
+    <%= render_partial "shared/analytics" %>
 	</head>
 	<body data-brand="<%= website.brand.name %>">
 
@@ -52,8 +50,8 @@
 		}(document, 'script', 'facebook-jssdk'));</script>
 		<%= yield :extra_notice %>
 		<%= render_partial "shared/locale_switcher" %>
-		<%= render_partial "shared/admin_dashboard_link" %>		
-		
+		<%= render_partial "shared/admin_dashboard_link" %>
+
 		<%= cache ["header", website, I18n.locale] do %>
 		<div id="header-container" class="sticky">
 

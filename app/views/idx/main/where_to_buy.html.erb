@@ -102,9 +102,9 @@
 			<br/>
 			<h4><%= t('titles.international_distributors') %></h4>
 			<p><%= t("blurbs.international_distributors") %></p>
-			
+
 			<%= form_tag search_distributors_path, method: :get %>
-				
+
 				<p><%= label_tag t('select_your_country') %><br/>
 					<%= select_tag :country, options_from_collection_for_select(@countries, :country, :country, @country) %>
 					<%= submit_tag t('submit') %>
@@ -138,8 +138,10 @@
 <% end %>
 
 <%= content_for :extra_js do %>
-	$(document).ready(function() {
-		$('#zip').focus();
-	});
+  <script>
+    $(document).ready(function() {
+      $('#zip').focus();
+    });
+  </script>
 <% end %>
 

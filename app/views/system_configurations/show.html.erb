@@ -42,7 +42,9 @@
 </div>
 
 <%= content_for :extra_js do %>
-  $( document ).ready(function(){
-    window.print();
-  });
+  <script>
+    $( document ).ready(function(){
+      window.print();
+    });
+  </script>
 <% end %>

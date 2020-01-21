@@ -93,11 +93,11 @@
 
 				<div class="row collapse">
 					<div class="large-8 small-7 columns">
-			            <%= select_tag :geo, 
+			            <%= select_tag :geo,
 			            options_for_select(CountryList.countries.sort_by { |item| item[:harman_name]}.map {|country| [country[:harman_name], country[:alpha2]] }, country_code.upcase), 
 			           # class: 'chosen-select',
 			            prompt: "Select Your Country"
-			            %> 						
+			            %>
 					</div>
 					<div class="large-4 small-5 columns">
 						<%= submit_tag t('submit'), class: "postfix button" %>
@@ -133,8 +133,10 @@
 </div>
 
 <%= content_for :extra_js do %>
-	$(document).ready(function() {
-		$('#zip').focus();
-	});
+  <script>
+    $(document).ready(function() {
+      $('#zip').focus();
+    });
+  </script>
 <% end %>
 

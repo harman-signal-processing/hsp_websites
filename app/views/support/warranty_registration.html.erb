@@ -11,7 +11,9 @@
 </div>
 
 <%= content_for :extra_js do %>
-	$(document).ready(function() {
-		$('#warranty_registration_first_name').focus();
-	});
+  <script>
+    $(document).ready(function() {
+      $('#warranty_registration_first_name').focus();
+    });
+  </script>
 <% end %>

@@ -22,9 +22,7 @@
 		<%= stylesheet_link_tag website.folder, media: :all %>
 
 		<%= yield :custom_css %>
-		<script>
-      <%= yield :extra_js %>
-    </script>
+    <%= yield :extra_js %>
     <%= render_partial "shared/analytics" %>
 	</head>
 	<body>

@@ -35,10 +35,8 @@
 		<%= stylesheet_link_tag "#{website.folder}_teaser", cache: false %>
 
 		<%= yield :custom_css %>
-		<script>
-	  		<%= yield :extra_js %>
-	  	</script>
-	    <%= render_partial "shared/analytics" %>
+    <%= yield :extra_js %>
+    <%= render_partial "shared/analytics" %>
 	</head>
 	<body data-brand="<%= website.brand.name %>">
 		<div id="fb-root"></div>
@@ -68,7 +66,7 @@
 				<%= yield %>
 			</div>
 		</div>
-		
+
 		<div id="footer">
 			<div id="logo">
 				<%#= image_tag("dod/vintage-dod.png", alt: Setting.site_name(website)) %>

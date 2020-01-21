@@ -82,21 +82,21 @@
 <div id="dealer_results" style="width: 400px">
 	<h4><%= t('titles.international_distributors') %></h4>
 	<p><%= t("blurbs.international_distributors") %></p>
-	
+
 	<%= form_tag search_distributors_path, method: :get %>
-		
+
 		<p><%= label_tag t('select_your_country') %><br/>
 			<%= select_tag :country, options_from_collection_for_select(@countries, :country, :country, @country) %>
 			<%= submit_tag t('submit') %>
 		</p>
-			
+
 	</form>
 </div>
 <div style="width: 350px;	padding: 14px;">
 	<h4><%= website.brand.name %> US Sales Reps</h4>
 
 	<%= form_tag search_us_reps_path, method: :get %>
-		
+
 		<p><%= label_tag "Select your region" %><br/>
 			<%= select_tag :us_region, options_from_collection_for_select(@us_regions, :id, :name, @us_region.id) %>
 			<%= submit_tag t('submit') %>
@@ -141,8 +141,10 @@
 <% end %>
 
 <%= content_for :extra_js do %>
-	$(document).ready(function() {
-		$('#zip').focus();
-	});
+  <script>
+    $(document).ready(function() {
+      $('#zip').focus();
+    });
+  </script>
 <% end %>
 
