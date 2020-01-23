@@ -391,6 +391,9 @@ GEM
       mime-types
       mimemagic (~> 0.3.0)
       terrapin (~> 0.6.0)
+    paperclip-compression (0.3.16)
+      os (~> 0.9.6)
+      paperclip (>= 4.3.6)
     paperclip-meta (3.1.0)
       paperclip (>= 5.0)
     passenger_monit (0.1.1)
@@ -659,6 +662,7 @@ DEPENDENCIES
   nokogiri
   oauth2
   paperclip
+  paperclip-compression
   paperclip-meta
   passenger_monit
   possessive

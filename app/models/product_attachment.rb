@@ -17,7 +17,7 @@ class ProductAttachment < ApplicationRecord
       tiny: "64x64",
       tiny_square: "64x64#",
       soundcomm: "160x160"
-    },
+    }, processors: [:thumbnail, :compression] ,
     convert_options: {
       soundcomm: "-gravity center -extent 160x160"
     }}.merge(S3_STORAGE)

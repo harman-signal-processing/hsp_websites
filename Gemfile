@@ -26,6 +26,7 @@ gem 'fog-aws'
 gem 'asset_sync'
 gem "paperclip" #, '< 6.0'
 gem 'paperclip-meta'
+gem 'paperclip-compression'
 gem 's3_direct_upload'
 gem 'meta-tags'
 gem 'tinymce-rails',

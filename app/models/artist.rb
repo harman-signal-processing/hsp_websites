@@ -29,7 +29,7 @@ class Artist < ApplicationRecord
       wide_thumb: "200x100#",
       tiny: "64x64>",
       tiny_square: "64x64#"
-    }}.merge(S3_STORAGE)
+    }, processors: [:thumbnail, :compression] }.merge(S3_STORAGE)
   validates_attachment :artist_photo, content_type: { content_type: /\Aimage/i }
 
   has_attached_file :artist_product_photo, {
@@ -40,7 +40,7 @@ class Artist < ApplicationRecord
       thumb_square: "100x100#",
       tiny: "64x64>",
       tiny_square: "64x64#"
-    }}.merge(S3_STORAGE)
+    }, processors: [:thumbnail, :compression] }.merge(S3_STORAGE)
   validates_attachment :artist_product_photo, content_type: { content_type: /\Aimage/i }
 
   validates :name, presence: true

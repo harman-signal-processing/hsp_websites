@@ -29,7 +29,7 @@ class Promotion < ApplicationRecord
       thumb: "100x100",
       tiny: "64x64",
       tiny_square: "64x64#"
-    }}.merge(S3_STORAGE)
+    }, processors: [:thumbnail, :compression] }.merge(S3_STORAGE)
   validates_attachment :homepage_banner, content_type: { content_type: /\Aimage/i }
 
   process_in_background :tile

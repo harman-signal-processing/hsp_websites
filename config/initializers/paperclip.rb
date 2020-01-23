@@ -8,6 +8,11 @@ module Paperclip
   end
 end
 
+Paperclip::Attachment.default_options[:compression] = {
+  png: "-o 5 -quiet",
+  jpeg: "-copy none -optimize -progressive"
+}
+
 # Don't use the timestamp in the generated URLs
 Paperclip::Attachment.default_options[:use_timestamp] = false
 

@@ -6,7 +6,7 @@ class Setting < ApplicationRecord
               thumb: "100x100>",
               tiny: "64x64>",
               tiny_square: "64x64#"
-  }}.merge(SETTINGS_STORAGE)
+  }, processors: [:thumbnail, :compression] }.merge(SETTINGS_STORAGE)
   validates_attachment :slide, content_type: { content_type: /\Aimage|video/i }
   before_post_process :skip_for_video, :skip_for_gifs
 

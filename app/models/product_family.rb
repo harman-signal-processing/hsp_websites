@@ -13,9 +13,9 @@ class ProductFamily < ApplicationRecord
   has_many :product_family_testimonials, -> { order('position') }, dependent: :destroy
   has_many :testimonials, through: :product_family_testimonials
 
-  has_attached_file :family_photo, { styles: { medium: "300x300>", thumb: "100x100>" }}.merge(S3_STORAGE)
-  has_attached_file :family_banner, { styles: { medium: "300x300>", thumb: "100x100>" }}.merge(S3_STORAGE)
-  has_attached_file :title_banner, { styles: { medium: "300x300>", thumb: "100x100>" }}.merge(S3_STORAGE)
+  has_attached_file :family_photo, { styles: { medium: "300x300>", thumb: "100x100>" }, processors: [:thumbnail, :compression] }.merge(S3_STORAGE)
+  has_attached_file :family_banner, { styles: { medium: "300x300>", thumb: "100x100>" }, processors: [:thumbnail, :compression] }.merge(S3_STORAGE)
+  has_attached_file :title_banner, { styles: { medium: "300x300>", thumb: "100x100>" }, processors: [:thumbnail, :compression] }.merge(S3_STORAGE)
   has_attached_file :background_image, S3_STORAGE
 
   validates_attachment :family_photo, content_type: { content_type: /\Aimage/i }

@@ -24,7 +24,7 @@ class News < ApplicationRecord
       thumb_square: "100x100#",
       tiny: "64x64>",
       tiny_square: "64x64#"
-    }, default_url: "news_photo.jpg"
+    }, processors: [:thumbnail, :compression] , default_url: "news_photo.jpg"
   }.merge(S3_STORAGE)
   validates_attachment :news_photo, content_type: { content_type: /\Aimage/i }
 

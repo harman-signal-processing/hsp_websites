@@ -11,7 +11,7 @@ class Event < ApplicationRecord
       thumb: "150x75",
       tiny: "75x32",
       tiny_square: "32x32#"
-    }}.merge(S3_STORAGE)
+    }, processors: [:thumbnail, :compression] }.merge(S3_STORAGE)
   validates_attachment :image, content_type: { content_type: /\Aimage/i }
   validates :start_on, presence: true
   validates :end_on, presence: true

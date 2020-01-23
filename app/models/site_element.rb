@@ -12,7 +12,7 @@ class SiteElement < ApplicationRecord
       thumb: "100x100",
       tiny: "64x64",
       tiny_square: "64x64#"
-    }}.merge(S3_STORAGE)
+    }, processors: [:thumbnail, :compression] }.merge(S3_STORAGE)
   do_not_validate_attachment_file_type :resource
 
   has_attached_file :executable, S3_STORAGE

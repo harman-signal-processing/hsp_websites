@@ -27,7 +27,7 @@ class BrandSolutionFeaturedProduct < ApplicationRecord
       thumb: "100x100",
       tiny: "64x64",
       tiny_square: "64x64#"
-    }}.merge(S3_STORAGE)
+    }, processors: [:thumbnail, :compression] }.merge(S3_STORAGE)
   validates_attachment :image, content_type: { content_type: /\Aimage/i }
 
   acts_as_list scope: [:solution, :brand]
