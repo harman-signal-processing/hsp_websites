@@ -10,6 +10,10 @@
 			<meta property="og:locale" content="<%= I18n.locale %>" />
 			<meta property="og:url" content="<%= request.url %>" />
 
+      <% if website.color %>
+        <meta name="theme-color" content="<%= website.color %>">
+      <% end %>
+
 			<% if website.twitter_name %>
 				<meta property="twitter:site" value="@<%= website.twitter_name %>" />
 			<% end %>
