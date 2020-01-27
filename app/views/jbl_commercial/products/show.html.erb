@@ -120,7 +120,7 @@ set_meta_tags title: @product.name,
   <% if @product.badges.size > 0 %>
     <div class="badge-container">
       <% @product.badges.each do |badge| %>
-        <%= image_tag(badge.image.url(:medium), alt: badge.name) %>&nbsp;
+        <%= image_tag(badge.image.url(:medium), alt: badge.name, lazy: false) %>&nbsp;
       <% end %>
     </div>
   <% end %>

@@ -198,7 +198,7 @@ set_meta_tags title: @product.name,
         <hr/>
         <div class="badge-container">
           <% @product.badges.each do |badge| %>
-            <%= image_tag(badge.image.url(:medium), alt: badge.name) %>&nbsp;
+            <%= image_tag(badge.image.url(:medium), alt: badge.name, lazy: false) %>&nbsp;
           <% end %>
         </div>
       <% end %>
@@ -297,8 +297,8 @@ set_meta_tags title: @product.name,
 
 <%= content_for :extra_js do %>
 
-  <script>
 	<% if @product.audio_demos.size > 0 %>
+  <script>
 
 	var inlinePlayer = null;
 
