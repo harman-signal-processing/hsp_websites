@@ -11,9 +11,9 @@ module MainHelper
 
   def feature_button(feature, opts={})
     if feature.name.present?
-      panel = image_tag(feature.slide.url, alt: feature.name)
+      panel = image_tag(feature.slide.url, alt: feature.name, lazy: false)
     else
-      panel = image_tag(feature.slide.url)
+      panel = image_tag(feature.slide.url, lazy: false)
     end
 
     if opts[:carousel] == true
@@ -127,7 +127,7 @@ module MainHelper
     begin
       content = ""
       website.products.where("background_image_file_name IS NOT NULL").each do |product|
-  		  content += image_tag(product.background_image.url("original", false), height: 0, width: 0)
+  		  content += image_tag(product.background_image.url("original", false), height: 0, width: 0, lazy: false)
   	  end
   	  content.html_safe
 	  rescue

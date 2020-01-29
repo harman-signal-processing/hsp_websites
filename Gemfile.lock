@@ -304,6 +304,8 @@ GEM
     language_list (1.2.1)
     launchy (2.4.3)
       addressable (~> 2.3)
+    lazyload-rails (0.5.0)
+      nokogiri (~> 1.5)
     letter_opener (1.7.0)
       launchy (~> 2.2)
     lightbox2-rails (2.7.1)
@@ -651,6 +653,7 @@ DEPENDENCIES
   jquery-rails
   json-schema
   language_list
+  lazyload-rails
   letter_opener
   lightbox2-rails (~> 2.7.1)
   mailgun_rails

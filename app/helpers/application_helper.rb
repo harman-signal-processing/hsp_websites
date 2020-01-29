@@ -132,7 +132,7 @@ module ApplicationHelper
       artist_brand = artist.artist_brands.where(brand_id: website.brand_id).first
 
       slide_content = link_to(artist) do
-        image_tag(artist.artist_photo.url(:feature)) +
+        image_tag(artist.artist_photo.url(:feature), alt: artist.name, lazy: false) +
         content_tag(:div, class:"orbit-caption") do
           content_tag(:h2, artist.name) +
           content_tag(:p, artist_brand.intro.to_s.html_safe)
@@ -142,7 +142,7 @@ module ApplicationHelper
       video_id = $5
 
       slide_content = link_to(play_video_url(video_id), target: "_blank", class: "start-video", data: { videoid: video_id } ) do
-        image_tag(slide.slide.url)
+        image_tag(slide.slide.url, lazy: false)
       end
     else
       slide_link = (slide.string_value =~ /^\// || slide.string_value =~ /^http/i) ? slide.string_value : "/#{params[:locale]}/#{slide.string_value}"
@@ -153,7 +153,7 @@ module ApplicationHelper
         end
       end
 
-      slide_innards = image_tag(slide.slide.url)
+      slide_innards = image_tag(slide.slide.url, lazy: false)
       if slide.text_value.present?
         slide_innards += content_tag(:div, class: "homepage-orbit-caption orbit-caption") do
           content_tag(:div, slide.text_value.html_safe, class: "caption-content")
@@ -204,8 +204,8 @@ module ApplicationHelper
 
     target = (slide.text_value.to_s.match(/new.window|blank|new.tab/i)) ? "_blank" : ""
     slide_content = (slide.string_value.blank?) ?
-        image_tag(slide.slide.url) :
-        link_to(image_tag(slide.slide.url), slide_link, target: target)
+        image_tag(slide.slide.url, lazy: false) :
+        link_to(image_tag(slide.slide.url, lazy: false), slide_link, target: target)
 
     if p = website.value_for('countdown_overlay_position')
       if p == position && cd = website.value_for('countdown_container')
@@ -280,11 +280,11 @@ module ApplicationHelper
 
         if anim = slides.find{|f| /gif/i =~ f.slide_content_type && /^#{fname}\./ =~ f.slide_file_name }
           ret += content_tag(:div, class: "bg-gif") do
-            image_tag( anim.slide.url )
+            image_tag( anim.slide.url, lazy: false )
           end
         elsif poster
           ret += content_tag(:div, class: "bg-gif") do
-            image_tag( poster.slide.url )
+            image_tag( poster.slide.url, lazy: false )
           end
         end
 
@@ -554,13 +554,13 @@ module ApplicationHelper
     pro_brands.each do |b|
       unless website.brand.name.match(/#{b[:name]}/i) || options[:exclude].match(/#{b[:name]}/i)
         links << link_to(b[:web], target: "_blank") do
-          image_tag("pro_brands/#{b[:name].downcase}.png", alt: b[:name])
+          image_tag("pro_brands/#{b[:name].downcase}.png", alt: b[:name], lazy: false)
         end
       end
     end
 
     harman_link = link_to(ENV['PRO_SITE_URL'], target: "_blank") do
-      image_tag("pro_brands/harman.png", alt: "Harman Professional", class:"hlogo")
+      image_tag("pro_brands/harman.png", alt: "Harman Professional", class:"hlogo", lazy: false)
     end
 
     content_tag :div, id: "harmanpro_bar" do

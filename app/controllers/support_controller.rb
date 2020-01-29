@@ -296,7 +296,7 @@ class SupportController < ApplicationController
         @discontinued_products = website.discontinued_and_vintage_products
         @products = website.current_and_discontinued_products - @discontinued_products
         if params[:selected_object]
-          @product = Product.find(params[:selected_object])
+          @product = Product.find(params[:id])
         end
       elsif params[:view_by] == "download_types"
         downloads = website.all_downloads(current_user)
@@ -310,6 +310,25 @@ class SupportController < ApplicationController
       @downloads = downloads.keys.sort{|a,b| a.to_s.downcase <=> b.to_s.downcase}.collect{|k| downloads[k]}
     end
     render_template
+  end
+
+  def downloads_by_product
+    respond_to do |format|
+      format.html { redirect_to support_downloads_path(view_by: "products", selected_object: params[:id]) }
+      format.js {
+        @product = Product.find(params[:id])
+      }
+    end
+  end
+
+  def downloads_by_type
+    respond_to do |format|
+      format.html { redirect_to support_downloads_path(view_by: "download_type", selected_object: params[:id]) }
+      format.js {
+        downloads = website.all_downloads(current_user)
+        @download_type = downloads[params[:id]]
+      }
+    end
   end
 
   def downloads_search

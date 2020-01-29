@@ -53,7 +53,7 @@
           <% @products.each do |product| %>
             <% if product.documentation_content_present? || product.downloads_content_present? %>
               <li <% if params[:selected_object] && params[:selected_object] == product.to_param %>class="active"<% end %>>
-                <%= link_to translate_content(product, :name), { view_by: "products", selected_object: product } %>
+                <%= link_to translate_content(product, :name), support_downloads_by_product_path(product), remote: true %>
               </li>
             <% end %>
           <% end %>
@@ -64,7 +64,7 @@
             <% @discontinued_products.each do |product| %>
             <% if product.documentation_content_present? || product.downloads_content_present? %>
                 <li <% if params[:selected_object] && params[:selected_object] == product.to_param %>class="active"<% end %>>
-                  <%= link_to translate_content(product, :name), { view_by: "products", selected_object: product } %>
+                  <%= link_to translate_content(product, :name), support_downloads_by_product_path(product), remote: true %>
                 </li>
               <% end %>
             <% end %>
@@ -75,7 +75,7 @@
       <ul class="side-nav">
         <% @download_types.each do |download_type| %>
           <li <% if params[:selected_object] && params[:selected_object] == download_type[:param_name] %>class="active"<% end %>>
-            <%= link_to download_type[:name], { view_by: "download_types", selected_object: download_type[:param_name] } %>
+            <%= link_to download_type[:name], support_downloads_by_type_path(download_type[:param_name]), remote: true %>
           </li>
         <% end %>
       </ul>
@@ -88,32 +88,13 @@
     <% end %>
   </div>
 
-  <div class="medium-5 large-6 small-12 columns downloads">
+  <div class="medium-5 large-6 small-12 columns downloads" id="downloads_box">
     <% if @product %>
-      <h4 class="subtitle"><%= translate_content(@product, :name) %> <%= t("resource_downloads").titleize %></h4>
-
-      <% if @product.documentation_content_present? || @product.downloads_content_present? %>
-        <%= render_partial "products/downloads", product: @product %>
-      <% end %>
-
-      <% if @product.in_production? %>
-        <%= link_to @product, class: "ppage" do %>
-          <%= t(:product_details).downcase %>
-          <%= image_tag("icons/external_link_icon.png") %>
-        <% end %>
-      <% end %>
-
+      <%= render_partial "downloads_by_product" %>
     <% end %>
 
     <% if @download_type %>
-      <h5><%= @download_type[:name] %></h5>
-      <%= cache ["download-type-list", @download_type, I18n.locale] do %>
-        <ul>
-          <% @download_type[:downloads].sort{|a,b| a[:name] <=> b[:name]}.each do |d| %>
-            <li><%= link_to d[:name], d[:url] %></li>
-          <% end %>
-        </ul>
-      <% end %>
+      <%= render_partial "downloads_by_type" %>
     <% end %>
 
     <% if @language %>

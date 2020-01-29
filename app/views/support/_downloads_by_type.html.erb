@@ -1,0 +1,9 @@
+<h5><%= @download_type[:name] %></h5>
+<%= cache ["download-type-list", @download_type, I18n.locale] do %>
+  <ul>
+    <% @download_type[:downloads].sort{|a,b| a[:name] <=> b[:name]}.each do |d| %>
+      <li><%= link_to d[:name], d[:url] %></li>
+    <% end %>
+  </ul>
+<% end %>
+

@@ -113,15 +113,15 @@ class Website < ApplicationRecord
 
   def current_and_discontinued_products(included_attributes=[])
     included_attributes << :product_status
-    @current_and_discontinued_products ||= self.brand.products.includes(included_attributes).select{|p| p if p.show_on_website?(self)}
+    @current_and_discontinued_products ||= brand.products.includes(included_attributes).where(product_status_id: ProductStatus.current.pluck(:id))
   end
 
   def discontinued_and_vintage_products
-    @discontinued_and_vintage_products ||= self.brand.products.includes(:product_status).select{|p| p if !!(p.product_status.name.match(/discontinue|vintage/i))}
+    @discontinued_and_vintage_products ||= brand.products.includes(:product_status).select{|p| p if !!(p.product_status.name.match(/discontinue|vintage/i))}
   end
 
   def vintage_products
-    @vintage_products ||= self.brand.products.includes(:product_status).select{|p| p if !!(p.product_status.name.match(/vintage/i))}
+    @vintage_products ||= brand.products.includes(:product_status).select{|p| p if !!(p.product_status.name.match(/vintage/i))}
   end
 
   # Working here. I'm thinking I need to collect the resources, then translate the hash key of each AFTER. Of course
@@ -129,42 +129,41 @@ class Website < ApplicationRecord
   #
   def all_downloads(user)
     downloads = {}
-    self.current_and_discontinued_products([:product_documents, :product_attachments]).each do |product|
-      product.product_documents.each do |product_document|
-        key = product_document.document_type.singularize.downcase.gsub(/[^a-z]/, '')
-        doctype = (product_document.document_type.blank?) ? "Misc" : I18n.t("document_type.#{product_document.document_type}")
-        if !product_document.language.blank?
-          doctype = "#{I18n.t("language.#{product_document.language}")} #{doctype}" unless doctype.to_s.match(/CAD/)
-          key = I18n.t("language.#{product_document.language}", locale: 'en') + "-#{key}"
+    products = brand.products.where(product_status_id: ProductStatus.current.pluck(:id))
+    ProductDocument.where(product_id: products.pluck(:id)).each do |product_document|
+      key = product_document.document_type.singularize.downcase.gsub(/[^a-z]/, '')
+      doctype = (product_document.document_type.blank?) ? "Misc" : I18n.t("document_type.#{product_document.document_type}")
+      if !product_document.language.blank?
+        doctype = "#{I18n.t("language.#{product_document.language}")} #{doctype}" unless doctype.to_s.match(/CAD/)
+        key = I18n.t("language.#{product_document.language}", locale: 'en') + "-#{key}"
+      end
+      doctype_name = I18n.locale.match(/zh/i) ? doctype : doctype.pluralize
+      if key == "cutsheet"
+        if product_document.product.discontinued?
+          key += "-discontinued"
+          doctype_name += " (Discontinued)"
+        else
+          doctype_name += " (Current)"
         end
-        doctype_name = I18n.locale.match(/zh/i) ? doctype : doctype.pluralize
-        if key == "cutsheet"
-          if product.discontinued?
-            key += "-discontinued"
-            doctype_name += " (Discontinued)"
-          else
-            doctype_name += " (Current)"
-          end
+      end
+      key = key.parameterize
+      if I18n.locale.to_s.match(/^en/i) || product_document.language.to_s.match(/^en/i) || I18n.locale.to_s.match(/#{product_document.language.to_s}/i)
+        downloads[key] ||= {
+          param_name: key,
+          name: doctype_name,
+          downloads: []
+        }
+        #link_name = !!(doctype.match(/other/i)) ? product_document.document_file_name : ContentTranslation.translate_text_content(product, :name)
+        link_name = product_document.name
+        unless link_name.match(/#{product_document.product.name}/)
+          link_name = "#{product_document.product.name} #{link_name}"
         end
-        key = key.parameterize
-        if I18n.locale.to_s.match(/^en/i) || product_document.language.to_s.match(/^en/i) || I18n.locale.to_s.match(/#{product_document.language.to_s}/i)
-          downloads[key] ||= {
-            param_name: key,
-            name: doctype_name,
-            downloads: []
-          }
-          #link_name = !!(doctype.match(/other/i)) ? product_document.document_file_name : ContentTranslation.translate_text_content(product, :name)
-          link_name = product_document.name
-          unless link_name.match(/#{product.name}/)
-            link_name = "#{product.name} #{link_name}"
-          end
-          downloads[key][:downloads] << {
-            name: link_name,
-            file_name: product_document.document_file_name,
-            url: product_document.document.url,
-            path: product_document.document.path
-          }
-        end
+        downloads[key][:downloads] << {
+          name: link_name,
+          file_name: product_document.document_file_name,
+          url: product_document.document.url,
+          path: product_document.document.path
+        }
       end
     end
     ability = Ability.new(user)

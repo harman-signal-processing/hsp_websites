@@ -6,7 +6,7 @@
   <% end %>
 	<nav class="top-bar" data-topbar role="navigation">
 		<ul class="title-area">
-			<li class="name logo-container"><%= link_to image_tag(website.folder + '/martin-logo.svg', alt: website.brand.name), locale_root_path %></li>
+			<li class="name logo-container"><%= link_to image_tag(website.folder + '/martin-logo.svg', alt: website.brand.name, lazy: false), locale_root_path %></li>
 			<li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
 		</ul>
 		<section class="top-bar-section">

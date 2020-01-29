@@ -10,13 +10,14 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
+//= require jquery2
 //= require jquery_ujs
 //= require jquery-ui.min
 //= require jquery.lightbox-0.5.min
 //= require jquery.datetimepicker
 //= require jquery.pin
 //= require jquery.rwdImageMaps.min
+//= require jquery.lazyload
 //= require global_functions
 //= require maps
 //= require twitter
@@ -47,5 +48,6 @@ $(function(){
   });
 
   $('img[usemap]').rwdImageMaps();
+  $("img").lazyload();
   
 });  //  $(function(){

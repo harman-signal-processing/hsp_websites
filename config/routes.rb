@@ -505,6 +505,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get '/zips/:download_type.zip' => 'support#zipped_downloads', as: :zipped_downloads
     match '/product_documents(/:language(/:document_type))' => "product_documents#index", via: :all
     match '/downloads(/:language(/:document_type))' => "product_documents#index", as: :downloads, via: :all
+    get '/support_downloads/product/:id(.:format)' => "support#downloads_by_product", as: :support_downloads_by_product, defaults: { format: :js }
+    get '/support_downloads/type/:id(.:format)' => "support#downloads_by_type", as: :support_downloads_by_type, defaults: { format: :js }
     get '/support_downloads(/:view_by(/:selected_object))' => "support#downloads", as: :support_downloads
     post '/support_downloads' => "support#downloads_search", as: :support_downloads_search
     match '/tone_library/:product_id/:tone_library_song_id(.:ext)' => "tone_library_songs#download", as: :tone_download, via: :all

@@ -41,7 +41,7 @@ feature "User browses training courses" do
     end
 
     it "should show the training schedule" do
-      training_class = FactoryBot.create :training_class, training_course: @training_course
+      training_class = FactoryBot.create :training_class, training_course: @training_course, registration_url: "http://foo.com"
 
       visit training_path
 
@@ -52,7 +52,8 @@ feature "User browses training courses" do
     end
 
     it "should have registration form" do
-      training_class = FactoryBot.create :training_class, training_course: @training_course
+      instructor = FactoryBot.create :user
+      training_class = FactoryBot.create :training_class, training_course: @training_course, instructor: instructor
 
       visit training_path
 
@@ -102,7 +103,8 @@ feature "User browses training courses" do
 
     context "course page" do
       before :each do
-        @training_class = FactoryBot.create :training_class, training_course: @training_course
+        instructor = FactoryBot.create :user
+        @training_class = FactoryBot.create :training_class, training_course: @training_course, instructor: instructor
 
         visit training_course_path(@training_course, locale: I18n.default_locale)
       end

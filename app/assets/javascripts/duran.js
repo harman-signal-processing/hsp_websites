@@ -1,10 +1,11 @@
-//= require jquery
+//= require jquery2
 //= require jquery_ujs
 //= require jquery-ui.min
 //= require jquery.lightbox-0.5.min
 //= require jquery.bxSlider.min
 //= require jquery.datetimepicker
 //= require jquery.pin
+//= require jquery.lazyload
 //= require slick
 //= require global_functions
 //= require maps
@@ -40,4 +41,5 @@ $(function(){
     autoplay: true,
     autoplaySpeed: 4000
   });
+  $("img").lazyload();
 });
