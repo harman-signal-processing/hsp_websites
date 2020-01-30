@@ -58,5 +58,6 @@ $(function(){
   });
 
   $('img[usemap]').rwdImageMaps();
+  $("img").lazyload();
   
 });  //  $(function(){
