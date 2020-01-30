@@ -3,8 +3,6 @@ class ProductFamiliesController < ApplicationController
   before_action :ensure_best_url, only: [:show, :safety_documents]
   before_action :authorize_product_family, only: :show
 
-  caches_action :index, :show
-
   # GET /product_families
   # GET /product_families.xml
   def index
