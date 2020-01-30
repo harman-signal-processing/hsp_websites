@@ -97,37 +97,43 @@ class ProductFamily < ApplicationRecord
 
   # Collection of all families with at least one active product
   def self.all_with_current_products(website, locale)
-    where(brand_id: website.brand_id).order("position").select do |f|
-      f if (f.current_products.size > 0 || f.children_with_current_products(website, locale: locale).size > 0) && f.locales(website).include?(locale.to_s)
+    Rails.cache.fetch("#{website.cache_key_with_version}/#{locale}/product_families/all_with_current_products", expires_in: 2.hours) do
+      where(brand_id: website.brand_id).order("position").select do |f|
+        f if (f.current_products.size > 0 || f.children_with_current_products(website, locale: locale).size > 0) && f.locales(website).include?(locale.to_s)
+      end
     end
   end
 
   # Collection of all families with at least one current or discontinued product
   # for the given website and locale
   def self.all_with_current_or_discontinued_products(website, locale)
-    where(brand_id: website.brand_id).order("position").select do |f|
-      f if (f.current_and_discontinued_products.size > 0 || f.current_products_plus_child_products(website).size > 0) && f.locales(website).include?(locale.to_s)
+    Rails.cache.fetch("#{website.cache_key_with_version}/#{locale}/product_families/all_with_current_or_discontinued_products", expires_in: 2.hours) do
+      where(brand_id: website.brand_id).order("position").select do |f|
+        f if (f.current_and_discontinued_products.size > 0 || f.current_products_plus_child_products(website).size > 0) && f.locales(website).include?(locale.to_s)
+      end
     end
   end
 
   # Parent categories with at least one active product
   def self.parents_with_current_products(website, locale)
-    pf = []
-    top_level_for(website).each do |f|
-      if f.locales(website).include?(locale.to_s)
-        if f.current_products.size > 0
-          pf << f
-        else
-          current_children = 0
-          f.children.includes(:products).each do |ch|
-            current_children += ch.current_products_plus_child_products(website).size
-            last if current_children > 0
+    Rails.cache.fetch("#{website.cache_key_with_version}/#{locale}/product_families/parents_with_current_products", expires_in: 2.hours) do
+      pf = []
+      top_level_for(website).each do |f|
+        if f.locales(website).include?(locale.to_s)
+          if f.current_products.size > 0
+            pf << f
+          else
+            current_children = 0
+            f.children.includes(:products).each do |ch|
+              current_children += ch.current_products_plus_child_products(website).size
+              last if current_children > 0
+            end
+            pf << f if current_children > 0
           end
-          pf << f if current_children > 0
         end
       end
+      pf
     end
-    pf
   end
 
   def self.top_level_for(brand)
@@ -171,16 +177,20 @@ class ProductFamily < ApplicationRecord
 
   # Recurses down the product family trees to collect all the disontinued products (for the toolkit)
   def all_discontinued_products
-    products = []
-    products += discontinued_products
-    children.each do |child|
-      products += child.all_discontinued_products
+    Rails.cache.fetch("#{cache_key_with_version}/all_discontinued_products", expires_in: 12.hours) do
+      products = []
+      products += discontinued_products
+      children.each do |child|
+        products += child.all_discontinued_products
+      end
+      products.flatten.uniq
     end
-    products.flatten.uniq
   end
 
   def discontinued_products
-    discontinued_products ||= products.includes(:product_status).where(product_status: ProductStatus.discontinued_ids)
+    Rails.cache.fetch("#{cache_key_with_version}/discontinued_products", expires_in: 12.hours) do
+      products.includes(:product_status).where(product_status: ProductStatus.discontinued_ids)
+    end
   end
 
   # Collection of all the locales where this ProductFamily should appear.
@@ -216,14 +226,16 @@ class ProductFamily < ApplicationRecord
 
   # w = a Brand or a Website
   def current_products_plus_child_products(w, opts={})
-    cp = self.current_products
-    children_with_current_products(w, opts).each do |pf|
-      cp += pf.current_products_plus_child_products(w, opts)
-    end
-    if opts[:nosort]
-      cp.uniq
-    else
-      cp.sort_by(&:name).uniq
+    Rails.cache.fetch("#{cache_key_with_version}/#{w.cache_key_with_version}/#{opts.values.join}/current_products_plus_child_products", expires_in: 2.hours) do
+      cp = self.current_products
+      children_with_current_products(w, opts).each do |pf|
+        cp += pf.current_products_plus_child_products(w, opts)
+      end
+      if opts[:nosort]
+        cp.uniq
+      else
+        cp.sort_by(&:name).uniq
+      end
     end
   end
 

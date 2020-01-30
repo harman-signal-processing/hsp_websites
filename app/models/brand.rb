@@ -72,30 +72,34 @@ class Brand < ApplicationRecord
   end
 
   def news
-    # First, select news story IDs with a product associated with this brand...
-    product_news = News.find_by_sql("SELECT DISTINCT news.id, news.post_on FROM news
-      INNER JOIN news_products ON news_products.news_id = news.id
-      INNER JOIN products ON products.id = news_products.product_id
-      INNER JOIN product_family_products ON product_family_products.product_id = products.id
-      INNER JOIN product_families ON product_families.id = product_family_products.product_family_id
-      WHERE product_families.brand_id = #{self.id}
-      ORDER BY post_on DESC").collect{|p| p.id}.join(", ")
-    product_news_query = (product_news.blank?) ? "" : " OR id IN (#{product_news}) "
+    Rails.cache.fetch("#{cache_key_with_version}/news", expires_in: 6.hours) do
+      # First, select news story IDs with a product associated with this brand...
+      product_news = News.find_by_sql("SELECT DISTINCT news.id, news.post_on FROM news
+        INNER JOIN news_products ON news_products.news_id = news.id
+        INNER JOIN products ON products.id = news_products.product_id
+        INNER JOIN product_family_products ON product_family_products.product_id = products.id
+        INNER JOIN product_families ON product_families.id = product_family_products.product_family_id
+        WHERE product_families.brand_id = #{self.id}
+        ORDER BY post_on DESC").collect{|p| p.id}.join(", ")
+      product_news_query = (product_news.blank?) ? "" : " OR id IN (#{product_news}) "
 
-    # Second, add in those stories associated with the brand only (no products linked)
-    News.select("DISTINCT *").where("brand_id = ? #{product_news_query}", self.id).order("post_on DESC")
+      # Second, add in those stories associated with the brand only (no products linked)
+      News.select("DISTINCT *").where("brand_id = ? #{product_news_query}", self.id).order("post_on DESC")
+    end
   end
 
   def promotions
-    product_promos = Promotion.find_by_sql("SELECT DISTINCT promotions.id FROM promotions
-                                           INNER JOIN product_promotions ON product_promotions.promotion_id = promotions.id
-                                           INNER JOIN products ON products.id = product_promotions.product_id
-                                           INNER JOIN product_family_products ON product_family_products.product_id = products.id
-                                           INNER JOIN product_families ON product_families.id = product_family_products.product_family_id
-                                           WHERE product_families.brand_id = #{self.id}").collect{|p| p.id}.join(", ")
-    product_promos_query = (product_promos.blank?) ? "" : " OR id IN (#{product_promos}) "
+    Rails.cache.fetch("#{cache_key_with_version}/promotions", expires_in: 6.hours) do
+      product_promos = Promotion.find_by_sql("SELECT DISTINCT promotions.id FROM promotions
+                                             INNER JOIN product_promotions ON product_promotions.promotion_id = promotions.id
+                                             INNER JOIN products ON products.id = product_promotions.product_id
+                                             INNER JOIN product_family_products ON product_family_products.product_id = products.id
+                                             INNER JOIN product_families ON product_families.id = product_family_products.product_family_id
+                                             WHERE product_families.brand_id = #{self.id}").collect{|p| p.id}.join(", ")
+      product_promos_query = (product_promos.blank?) ? "" : " OR id IN (#{product_promos}) "
 
-    Promotion.select("DISTINCT *").where("brand_id = ? #{product_promos_query}", self.id)
+      Promotion.select("DISTINCT *").where("brand_id = ? #{product_promos_query}", self.id)
+    end
   end
 
   # Dynamically create methods based on this Brand's settings.
@@ -217,13 +221,17 @@ class Brand < ApplicationRecord
   end
 
   def current_product_ids
-    product_families.includes(:products).
-      where(products: { product_status: ProductStatus.current_ids }).
-      pluck("products.id").uniq
+    Rails.cache.fetch("#{cache_key_with_version}/current_product_ids}", expires_in: 6.hours) do
+      product_families.includes(:products).
+        where(products: { product_status: ProductStatus.current_ids }).
+        pluck("products.id").uniq
+    end
   end
 
   def current_products
-    Product.where(id: current_product_ids)
+    Rails.cache.fetch("#{cache_key_with_version}/current_products", expires_in: 6.hours) do
+      Product.where(id: current_product_ids)
+    end
   end
 
   # Special selection of products just for the toolkit
@@ -232,11 +240,13 @@ class Brand < ApplicationRecord
   end
 
   def family_products
-    p = []
-    product_families.includes(:products).each do |pf|
-      p += pf.products
+    Rails.cache.fetch("#{cache_key_with_version}/family_products", expires_in: 6.hours) do
+      p = []
+      product_families.includes(:products).each do |pf|
+        p += pf.products
+      end
+      p.sort{|a,b| a.name.downcase <=> b.name.downcase}
     end
-    p.sort{|a,b| a.name.downcase <=> b.name.downcase}
   end
 
   def products

@@ -80,7 +80,7 @@ class Website < ApplicationRecord
   def brand_name
     @brand_name ||= self.brand.name
   end
-  
+
   def brand_always_redirect_to_youtube?
     self.brand.always_redirect_to_youtube.nil? ? false : self.brand.always_redirect_to_youtube
   end
@@ -98,83 +98,59 @@ class Website < ApplicationRecord
   end
 
   def featured_products
-    begin
-      @featured_products ||= self.brand.respond_to?(:featured_products) ?
-        self.brand.featured_products.split(/\,|\|\s?/).map{|i| Product.find_by(cached_slug: i)}.select{|p| p if p.show_on_website?(self)} :
+    Rails.cache.fetch("#{cache_key_with_version}/featured_products", expires_in: 6.hours) do
+      begin
+        @featured_products ||= self.brand.respond_to?(:featured_products) ?
+          self.brand.featured_products.split(/\,|\|\s?/).map{|i| Product.find_by(cached_slug: i)}.select{|p| p if p.show_on_website?(self)} :
+          Array.new
+      rescue
         Array.new
-    rescue
-      Array.new
+      end
     end
   end
 
   def product_families
-    @product_families ||= ProductFamily.all_with_current_or_discontinued_products(self, I18n.locale)
+    Rails.cache.fetch("#{cache_key_with_version}/product_families", expires_in: 6.hours) do
+      ProductFamily.all_with_current_or_discontinued_products(self, I18n.locale)
+    end
   end
 
   def current_and_discontinued_products(included_attributes=[])
     included_attributes << :product_status
-    @current_and_discontinued_products ||= brand.products.includes(included_attributes).where(product_status_id: ProductStatus.current.pluck(:id))
+    Rails.cache.fetch("#{cache_key_with_version}/#{included_attributes.join}/current_and_discontinued_products", expires_in: 2.hours) do
+      brand.products.includes(included_attributes).where(product_status_id: ProductStatus.current_and_discontinued_ids)
+    end
   end
 
   def discontinued_and_vintage_products
-    @discontinued_and_vintage_products ||= brand.products.includes(:product_status).select{|p| p if !!(p.product_status.name.match(/discontinue|vintage/i))}
+    Rails.cache.fetch("#{cache_key_with_version}/discontinued_and_vintage_products", expires_in: 6.hours) do
+      brand.products.includes(:product_status).select{|p| p if !!(p.product_status.name.match(/discontinue|vintage/i))}
+    end
   end
 
   def vintage_products
-    @vintage_products ||= brand.products.includes(:product_status).select{|p| p if !!(p.product_status.name.match(/vintage/i))}
+    Rails.cache.fetch("#{ cache_key_with_version}/vintage_products", expires_in: 1.week) do
+      brand.products.includes(:product_status).select{|p| p if !!(p.product_status.name.match(/vintage/i))}
+    end
   end
 
   # Working here. I'm thinking I need to collect the resources, then translate the hash key of each AFTER. Of course
   # I'd also have to store the locale of each collection.
   #
   def all_downloads(user)
-    downloads = {}
-    products = brand.products.where(product_status_id: ProductStatus.current.pluck(:id))
-    ProductDocument.where(product_id: products.pluck(:id)).each do |product_document|
-      key = product_document.document_type.singularize.downcase.gsub(/[^a-z]/, '')
-      doctype = (product_document.document_type.blank?) ? "Misc" : I18n.t("document_type.#{product_document.document_type}")
-      if !product_document.language.blank?
-        doctype = "#{I18n.t("language.#{product_document.language}")} #{doctype}" unless doctype.to_s.match(/CAD/)
-        key = I18n.t("language.#{product_document.language}", locale: 'en') + "-#{key}"
-      end
-      doctype_name = I18n.locale.match(/zh/i) ? doctype : doctype.pluralize
-      if key == "cutsheet"
-        if product_document.product.discontinued?
-          key += "-discontinued"
-          doctype_name += " (Discontinued)"
-        else
-          doctype_name += " (Current)"
+    Rails.cache.fetch("#{cache_key_with_version}/#{user}/all_downloads", expires_in: 6.hours) do
+      downloads = {}
+      products = brand.products.where(product_status_id: ProductStatus.current_and_discontinued_ids)
+      ProductDocument.where(product_id: products.pluck(:id)).each do |product_document|
+        key = product_document.document_type.singularize.downcase.gsub(/[^a-z]/, '')
+        doctype = (product_document.document_type.blank?) ? "Misc" : I18n.t("document_type.#{product_document.document_type}")
+        if !product_document.language.blank?
+          doctype = "#{I18n.t("language.#{product_document.language}")} #{doctype}" unless doctype.to_s.match(/CAD/)
+          key = I18n.t("language.#{product_document.language}", locale: 'en') + "-#{key}"
         end
-      end
-      key = key.parameterize
-      if I18n.locale.to_s.match(/^en/i) || product_document.language.to_s.match(/^en/i) || I18n.locale.to_s.match(/#{product_document.language.to_s}/i)
-        downloads[key] ||= {
-          param_name: key,
-          name: doctype_name,
-          downloads: []
-        }
-        #link_name = !!(doctype.match(/other/i)) ? product_document.document_file_name : ContentTranslation.translate_text_content(product, :name)
-        link_name = product_document.name
-        unless link_name.match(/#{product_document.product.name}/)
-          link_name = "#{product_document.product.name} #{link_name}"
-        end
-        downloads[key][:downloads] << {
-          name: link_name,
-          file_name: product_document.document_file_name,
-          url: product_document.document.url,
-          path: product_document.document.path
-        }
-      end
-    end
-    ability = Ability.new(user)
-    self.site_elements.where(show_on_public_site: true).where("resource_type IS NOT NULL AND resource_type != ''").each do |site_element|
-      if ability.can?(:read, site_element)
-        name = I18n.t("resource_type.#{site_element.resource_type_key}", default: site_element.resource_type)
-        key = name.to_s.singularize.downcase.gsub(/[^a-z0-9]/, '')
-        doctype_name = I18n.locale.match(/zh/i) ? name : name.to_s.pluralize
+        doctype_name = I18n.locale.match(/zh/i) ? doctype : doctype.pluralize
         if key == "cutsheet"
-          # This file is related to one or more products, but all of those products are discontinued
-          if site_element.products.length > 0 && site_element.products.where(product_status: ProductStatus.current_ids).size == 0
+          if product_document.product.discontinued?
             key += "-discontinued"
             doctype_name += " (Discontinued)"
           else
@@ -182,43 +158,79 @@ class Website < ApplicationRecord
           end
         end
         key = key.parameterize
-        downloads[key] ||= {
-          param_name: key,
-          name: doctype_name,
-          downloads: []
-        }
-        thumbnail = nil
-        if site_element.external_url.present?
-          downloads[key][:downloads] << {
-            name: site_element.long_name,
-            file_name: site_element.url,
-            thumbnail: nil,
-            url: site_element.url,
-            path: site_element.url
+        if I18n.locale.to_s.match(/^en/i) || product_document.language.to_s.match(/^en/i) || I18n.locale.to_s.match(/#{product_document.language.to_s}/i)
+          downloads[key] ||= {
+            param_name: key,
+            name: doctype_name,
+            downloads: []
           }
-        elsif site_element.resource_file_name.present? #&& site_element.is_image?
-          if site_element.is_image?
-            thumbnail = site_element.resource.url(:tiny_square)
+          #link_name = !!(doctype.match(/other/i)) ? product_document.document_file_name : ContentTranslation.translate_text_content(product, :name)
+          link_name = product_document.name
+          unless link_name.match(/#{product_document.product.name}/)
+            link_name = "#{product_document.product.name} #{link_name}"
           end
           downloads[key][:downloads] << {
-            name: site_element.long_name,
-            file_name: site_element.resource_file_name,
-            thumbnail: thumbnail,
-            url: site_element.resource.url,
-            path: site_element.resource.path
-          }
-        elsif site_element.executable_file_name.present?
-          downloads[key][:downloads] << {
-            name: site_element.long_name,
-            file_name: site_element.executable_file_name,
-            thumbnail: nil,
-            url: site_element.executable.url,
-            path: site_element.executable.path
+            name: link_name,
+            file_name: product_document.document_file_name,
+            url: product_document.document.url,
+            path: product_document.document.path
           }
         end
       end
+      ability = Ability.new(user)
+      self.site_elements.where(show_on_public_site: true).where("resource_type IS NOT NULL AND resource_type != ''").each do |site_element|
+        if ability.can?(:read, site_element)
+          name = I18n.t("resource_type.#{site_element.resource_type_key}", default: site_element.resource_type)
+          key = name.to_s.singularize.downcase.gsub(/[^a-z0-9]/, '')
+          doctype_name = I18n.locale.match(/zh/i) ? name : name.to_s.pluralize
+          if key == "cutsheet"
+            # This file is related to one or more products, but all of those products are discontinued
+            if site_element.products.length > 0 && site_element.products.where(product_status: ProductStatus.current_ids).size == 0
+              key += "-discontinued"
+              doctype_name += " (Discontinued)"
+            else
+              doctype_name += " (Current)"
+            end
+          end
+          key = key.parameterize
+          downloads[key] ||= {
+            param_name: key,
+            name: doctype_name,
+            downloads: []
+          }
+          thumbnail = nil
+          if site_element.external_url.present?
+            downloads[key][:downloads] << {
+              name: site_element.long_name,
+              file_name: site_element.url,
+              thumbnail: nil,
+              url: site_element.url,
+              path: site_element.url
+            }
+          elsif site_element.resource_file_name.present? #&& site_element.is_image?
+            if site_element.is_image?
+              thumbnail = site_element.resource.url(:tiny_square)
+            end
+            downloads[key][:downloads] << {
+              name: site_element.long_name,
+              file_name: site_element.resource_file_name,
+              thumbnail: thumbnail,
+              url: site_element.resource.url,
+              path: site_element.resource.path
+            }
+          elsif site_element.executable_file_name.present?
+            downloads[key][:downloads] << {
+              name: site_element.long_name,
+              file_name: site_element.executable_file_name,
+              thumbnail: nil,
+              url: site_element.executable.url,
+              path: site_element.executable.path
+            }
+          end
+        end
+      end
+      downloads
     end
-    downloads
   end
 
   def zip_downloads(download_type, user)

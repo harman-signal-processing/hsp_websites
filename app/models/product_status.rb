@@ -17,6 +17,14 @@ class ProductStatus < ApplicationRecord
     discontinued.pluck(:id)
   end
 
+  def self.current_and_discontinued
+    current + discontinued
+  end
+
+  def self.current_and_discontinued_ids
+    current_and_discontinued.pluck(:id)
+  end
+
   def is_current?
     self.show_on_website && !self.discontinued
   end
