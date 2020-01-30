@@ -1,6 +1,6 @@
 <% called_from ||= 'vip_programmer' %>
 <li id="vip_programmer_service_<%= association.id %>">
-	<% if called_from == 'vip_programmer' %><span class="handle"><%= image_tag("icons/drag_handle.gif") %></span><% end %>
+	<% if called_from == 'vip_programmer' %><span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span><% end %>
 	<%= (called_from == 'vip_programmer') ? link_to(association.service.name, [:admin, association.service]) : link_to(association.programmer.name, [:admin, association.programmer]) %> 
 	<%= link_to(image_tag("icons/trash.gif"), 
 			admin_vip_programmer_service_path(association, called_from: called_from), 

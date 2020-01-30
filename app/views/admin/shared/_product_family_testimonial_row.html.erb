@@ -1,12 +1,12 @@
 <% called_from ||= 'testimonial' %>
 <li id="product_family_testimonial_<%= pft.id %>">
 	<% unless called_from == 'some-day-we-will-add-drag-to-sort-to-this' %>
-	<span class="handle"><%= image_tag("icons/drag_handle.gif") %></span>
+	<span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
 	<% end %>
 	<%= (called_from == 'testimonial') ?
 			link_to(pft.product_family.name, [:admin, pft.product_family]) :
 			link_to(pft.testimonial.title, [:admin, pft.testimonial]) %>
-	<%= link_to(image_tag("icons/trash.gif"),
+	<%= link_to(image_tag("icons/trash.gif", lazy: false),
 			admin_product_family_testimonial_path(pft, called_from: called_from),
 			confirm: "Are you sure? (This won't delete the testimonial or the product family--it will only remove the testimonial from the family.)",
 			remote: true,

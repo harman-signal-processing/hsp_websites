@@ -1,10 +1,10 @@
 <% called_from ||= 'product' %>
 <li id="product_document_<%= pd.id %>">
-	<span class="handle"><%= image_tag("icons/drag_handle.gif") %></span>
+	<span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
 	<%= (called_from == 'product') ? 
 			link_to(pd.name(hide_product_name: true), [:admin, pd]) : 
 			link_to(pd.product.name, [:admin, pd.product]) %> 
-	<%= link_to(image_tag("icons/trash.gif"), 
+	<%= link_to(image_tag("icons/trash.gif", lazy: false), 
 			admin_product_document_path(pd), 
 			remote: true,
 			confirm: "Are you sure?", 

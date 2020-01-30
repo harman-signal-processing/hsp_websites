@@ -1,5 +1,5 @@
 <li id="specification_group_<%= spec_group.id %>">
-  <span class="handle"><%= image_tag("icons/drag_handle.gif") %></span>
+  <span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
   <%= link_to spec_group.name, [:admin, spec_group] %>
 </li>
 

@@ -1,11 +1,11 @@
 <% called_from ||= 'product' %>
 <li id="news_product_<%= np.id %>">
-	<%= (called_from == 'product') ? 
-			link_to(np.news.title, [:admin, np.news]) : 
-			link_to(np.product.name, [:admin, np.product]) %> 
-	<%= link_to(image_tag("icons/trash.gif"), 
+	<%= (called_from == 'product') ?
+			link_to(np.news.title, [:admin, np.news]) :
+			link_to(np.product.name, [:admin, np.product]) %>
+	<%= link_to(image_tag("icons/trash.gif", lazy: false),
 			admin_news_product_path(np, called_from: called_from),
-			remote: true, 
-			confirm: "Are you sure? (This won't delete the product or the news--it will only remove the association.)", 
+			remote: true,
+			confirm: "Are you sure? (This won't delete the product or the news--it will only remove the association.)",
 			method: :delete) %>
 </li>

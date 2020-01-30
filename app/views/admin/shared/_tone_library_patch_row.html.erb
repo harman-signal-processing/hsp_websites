@@ -1,5 +1,5 @@
 <li id="tone_library_patch_<%= tlp.id %>">
-	<%= link_to(image_tag("icons/trash.gif"), 
+	<%= link_to(image_tag("icons/trash.gif", lazy: false), 
 			admin_tone_library_patch_path(tlp), 
 			remote: true,
 			confirm: "Are you sure?", 

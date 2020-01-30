@@ -1,8 +1,8 @@
 <li id="feature_<%= feature.id %>">
-	<span class="handle"><%= image_tag("icons/drag_handle.gif") %></span>
+	<span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
 	<%= image_tag(feature.slide.url(:tiny)) %>
 	<%= link_to_function(feature.name, "$('#feature_#{feature.id}_form').toggle();") %>
-	<%= link_to(image_tag("icons/trash.gif"),
+	<%= link_to(image_tag("icons/trash.gif", lazy: false),
 			admin_setting_path(feature),
 			confirm: "Are you sure?",
 			remote: true,

@@ -1,6 +1,6 @@
 <li id="locale_software_<%= ls.id %>">
 	<%= ls.locale %>
-	<%= link_to(image_tag("icons/trash.gif"),
+	<%= link_to(image_tag("icons/trash.gif", lazy: false),
 			admin_locale_software_path(ls),
 			confirm: "Are you sure? (This won't delete the software or the locale--it will only remove the association.)",
 			remote: true,

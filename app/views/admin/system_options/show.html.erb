@@ -57,7 +57,7 @@
 <ul id="system_options" class="sortable_list">
 	<% @system_option.children.each do |child| %>
     <li id="system_option_<%= child.id %>">
-      <span class="handle"><%= image_tag("icons/drag_handle.gif") %></span>
+      <span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
       <%= link_to child.name, [:admin, @system, child] %>
     </li>
 	<% end %>

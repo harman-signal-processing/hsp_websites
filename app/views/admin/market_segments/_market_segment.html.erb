@@ -1,4 +1,4 @@
 <li id="market_segment_<%= market_segment.id %>">
-	<span class="handle"><%= image_tag("icons/drag_handle.gif") %></span>
+	<span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
 	<%= link_to market_segment.name, [:admin, market_segment] %>
 </li>

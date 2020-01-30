@@ -1,6 +1,6 @@
 <li id="locale_product_family_<%= lpf.id %>">
 	<%= lpf.locale %>
-	<%= link_to(image_tag("icons/trash.gif"),
+	<%= link_to(image_tag("icons/trash.gif", lazy: false),
 			admin_locale_product_family_path(lpf),
 			confirm: "Are you sure? (This won't delete the product family or the locale--it will only remove the association.)",
 			remote: true,

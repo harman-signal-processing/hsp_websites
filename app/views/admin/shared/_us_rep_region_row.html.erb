@@ -1,5 +1,5 @@
 <li id="us_rep_region_<%= usr.id %>">
-	<%= link_to(image_tag('icons/trash.gif', alt: "delete"), [:admin, usr], 
+	<%= link_to(image_tag('icons/trash.gif', alt: "delete", lazy: false), [:admin, usr], 
 	confirm: "Are you sure? (This won't delete the region--it will only remove the association with this rep.)", 
 	remote: true,
 	method: :delete) %>

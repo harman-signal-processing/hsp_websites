@@ -3,7 +3,7 @@
   <%= (called_from == 'product') ?
     link_to(gspp.get_started_page.name, [:admin, gspp.get_started_page]) :
     link_to(gspp.product.name, [:admin, gspp.product]) %>
-  <%= link_to(image_tag("icons/trash.gif"),
+  <%= link_to(image_tag("icons/trash.gif", lazy: false),
     admin_get_started_page_product_path(gspp),
     remote: true,
     confirm: "Are you sure? (This won't delete the product or the page, just remove the association.)",

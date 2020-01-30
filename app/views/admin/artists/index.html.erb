@@ -40,7 +40,7 @@
 <ul id="artists" class="sortable_list">
 <% @featured_artists.each do |artist| %>
   <li id="artist_<%= artist.id %>">
-	<span class="handle"><%= image_tag("icons/drag_handle.gif") %></span>
+	<span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
   	<%= link_to artist.name, [:admin, artist] %>
   </li>
 <% end %>
