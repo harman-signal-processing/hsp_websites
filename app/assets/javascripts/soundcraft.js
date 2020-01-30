@@ -17,6 +17,7 @@
 //= require jquery.datetimepicker
 //= require jquery.pin
 //= require jquery.rwdImageMaps.min
+//= require jquery.lazyload
 //= require global_functions
 //= require slick
 //= require maps
