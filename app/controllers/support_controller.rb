@@ -4,6 +4,7 @@ class SupportController < ApplicationController
   include Rsos
   
   before_action :set_locale
+  caches_action :downloads_by_product, :selected_downloads_by_product, :downloads_by_type, :selected_downloads_by_type
   
   # Support home page
   def index
