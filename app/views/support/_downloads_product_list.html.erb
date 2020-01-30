@@ -1,0 +1,24 @@
+<%= cache ["downloads-product-list", website, Date.today, I18n.locale] do %>
+  <ul class="side-nav">
+    <% @products.each do |product| %>
+      <% if product.documentation_content_present? || product.downloads_content_present? %>
+        <li <% if params[:selected_object] && params[:selected_object] == product.to_param %>class="active"<% end %>>
+          <%= link_to translate_content(product, :name), support_downloads_by_product_path(product), remote: true, class: "c3spinner" %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+  <% if @discontinued_products %>
+    <h5><%= t(:discontinued_products) %></h5>
+    <ul class="side-nav">
+      <% @discontinued_products.each do |product| %>
+      <% if product.documentation_content_present? || product.downloads_content_present? %>
+          <li <% if params[:selected_object] && params[:selected_object] == product.to_param %>class="active"<% end %>>
+            <%= link_to translate_content(product, :name), support_downloads_by_product_path(product), remote: true, class: "c3spinner" %>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>
+

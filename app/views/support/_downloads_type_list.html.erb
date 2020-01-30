@@ -1,0 +1,8 @@
+<ul class="side-nav">
+  <% @download_types.each do |download_type| %>
+    <li <% if params[:selected_object] && params[:selected_object] == download_type[:param_name] %>class="active"<% end %>>
+      <%= link_to download_type[:name], support_downloads_by_type_path(download_type[:param_name]), remote: true, class: "c3spinner" %>
+    </li>
+  <% end %>
+</ul>
+

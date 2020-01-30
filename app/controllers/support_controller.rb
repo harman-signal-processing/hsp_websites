@@ -312,6 +312,26 @@ class SupportController < ApplicationController
     render_template
   end
 
+  def selected_downloads_by_product
+    respond_to do |format|
+      format.html { redirect_to support_downloads_path(view_by: "products") }
+      format.js {
+        @discontinued_products = website.discontinued_and_vintage_products
+        @products = website.current_and_discontinued_products - @discontinued_products
+      }
+    end
+  end
+
+  def selected_downloads_by_type
+    respond_to do |format|
+      format.html { redirect_to support_downloads_path(view_by: "download_type") }
+      format.js {
+        downloads = website.all_downloads(current_user)
+        @download_types = downloads.keys.sort.collect{|k| downloads[k]}
+      }
+    end
+  end
+
   def downloads_by_product
     respond_to do |format|
       format.html { redirect_to support_downloads_path(view_by: "products", selected_object: params[:id]) }

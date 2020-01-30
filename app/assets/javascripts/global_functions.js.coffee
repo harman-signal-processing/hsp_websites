@@ -30,6 +30,14 @@ jQuery ($) ->
     numberOfMonths: 1
     maxDate: 0
 
+  $('a.c2spinner').on 'click', ->
+    column = $('div#column2')
+    $(column).html("<img src='#{column.data("loading")}' style='padding: 20px'>")
+
+  $('a.c3spinner').on 'click', ->
+    column = $('div#column3')
+    $(column).html("<img src='#{column.data("loading")}' style='padding: 20px'>")
+
   # hide the text field with the date (don't use a hidden field so we can test the form)
   # $("form#new_warranty_registration #warranty_registration_puchased_on").hide()
 
