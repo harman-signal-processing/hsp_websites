@@ -4,7 +4,7 @@ class SupportController < ApplicationController
   include Rsos
 
   before_action :set_locale
-  protect_from_forgery except: [
+  skip_forgery_protection only: [
     :selected_downloads_by_product,
     :selected_downloads_by_type,
     :downloads_by_product,

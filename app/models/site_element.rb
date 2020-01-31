@@ -182,7 +182,7 @@ class SiteElement < ApplicationRecord
       paperclip_file_path = Paperclip::Interpolations.interpolate(path_interpolation, executable, 'original')
     end
 
-    options = { acl: 'public-read' }
+    options = { acl: 'public-read', cache_control: "max-age=7776000" }
     # 7zip files cause problems for Windows users unless we explicitely set the following:
     if direct_upload_url_data[:filename].to_s.match(/\.7z$|\.mu3|\.dwg|\.3ds$/i)
       options[:metadata_directive] = "REPLACE"
