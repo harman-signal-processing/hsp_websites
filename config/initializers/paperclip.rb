@@ -49,6 +49,9 @@ if Rails.env.production? || !!(ENV['USE_PRODUCTION_ASSETS'].to_i > 0)
     fog_credentials: FOG_CREDENTIALS,
     fog_directory: ENV['FOG_PAPERCLIP_CONTAINER'],
     fog_public: true,
+    fog_file: {
+       cache_control: 'max-age=7776000'
+    },
     fog_host: ENV['FOG_HOST_ALIAS']
 
 	  # storage: :s3,
