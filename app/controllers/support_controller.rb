@@ -2,10 +2,16 @@ class SupportController < ApplicationController
   include Distributors
   include ServiceCenters
   include Rsos
-  
+
   before_action :set_locale
+  protect_from_forgery except: [
+    :selected_downloads_by_product,
+    :selected_downloads_by_type,
+    :downloads_by_product,
+    :downloads_by_type
+  ]
   caches_action :selected_downloads_by_product, :selected_downloads_by_type
-  
+
   # Support home page
   def index
     @contact_message = ContactMessage.new
@@ -38,7 +44,7 @@ class SupportController < ApplicationController
   def repairs
       brand = @website.brand.name.downcase
       brand = "axys tunnel by jbl" if brand == "duran audio"
-      
+
     if session['geo_usa']
       # state = params[:state].presence || helpers.user_usa_state_code.to_s || "any"
       # state = params[:state].presence || "any"
@@ -46,14 +52,14 @@ class SupportController < ApplicationController
       @service_centers = get_service_centers(brand, state)
     else
       country_code = clean_country_code
-      @distributors = get_international_distributors(brand, country_code)      
+      @distributors = get_international_distributors(brand, country_code)
     end
     render_template
   end
 
   def rsos
     country_code = clean_country_code
-    @rsos = get_rsos(country_code)   
+    @rsos = get_rsos(country_code)
     render_template
   end  #  def rsos
 
@@ -132,7 +138,7 @@ class SupportController < ApplicationController
           c.message_type = 'part_request'
           c.brand = website.brand
         end
-        
+
         if @contact_message.valid?
           @contact_message.save
           SiteMailer.delay.contact_form(@contact_message)

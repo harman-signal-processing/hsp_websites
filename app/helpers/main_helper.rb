@@ -109,7 +109,6 @@ module MainHelper
           thumbnail = video["thumbnails"]["medium"]
           link = play_video_url(video["resourceId"]["videoId"])
           vids << content_tag(:li, class: 'video-thumbnail') do
-            #content_tag(:div, link_to(image_tag("yt_play.png", alt: video["title"]), link, target: "_blank"), class: 'play_button') +
             link_to(image_tag(thumbnail["url"], width: 320, height: 180) + play_button, link, target: "_blank",
                                data: { videoid: video["resourceId"]["videoId"] }, class: 'videothumbnail start-video') +
             content_tag(:p, video["title"], class: 'video_title')
