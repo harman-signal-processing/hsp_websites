@@ -122,7 +122,7 @@ class Admin::ProductFamilyProductsController < AdminController
       @product_family_products = []
       product_family_id = product_family_product_params[:product_family_id]
       product_family_product_params[:product_id].reject(&:blank?).each do |product|
-        @product_family_products << ProductFamilyProduct.new({product_family_id: product_family_id, product_id: product})
+        @product_family_products << ProductFamilyProduct.new({product_family_id: product_family_id, product: Product.find(product)})
       end       
     elsif product_family_product_params[:product_family_id].is_a?(Array)
       @product_family_products = []

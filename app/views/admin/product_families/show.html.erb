@@ -105,13 +105,20 @@
         <%= hidden_field_tag "called_from", "product_family" %>
           <%= f.hidden_field :product_family_id %>
           <div class="row collapse">
-            <div class="large-10 small-8 columns">
+            <div class="small-12 medium-3 columns">
+              <%= select_tag :brand_id,
+                options_from_collection_for_select(
+                  Brand.where(id: Product.pluck(:brand_id).uniq).order("upper(name)"),
+                  "cached_slug", "name", website.brand.cached_slug
+              ), class: "brand-select" %>
+            </div>
+            <div class="small-8 medium-6 columns">
               <%= f.association :product,
               label: false,
               collection: Product.not_associated_with_this_product_family(@product_family_product.product_family, website),
               input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Products'} }%>
             </div>
-            <div class="large-2 small-4 columns">
+            <div class="small-4 medium-3 columns">
               <%= submit_tag 'add', class: "postfix button"  %>
             </div>
           </div>
@@ -123,6 +130,7 @@
           <%= render '/admin/shared/product_family_product_row', pfp: pfp, called_from: 'product_family' %>
         <% end %>
       </ul>
+
     </div>
 
 		<% if can? :manage, @product_family.testimonials %>

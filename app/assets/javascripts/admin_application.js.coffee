@@ -42,3 +42,11 @@ jQuery ($) ->
     show_hide_related_actions()
     event.preventDefault()
 
+  $('select.brand-select').change (e) ->
+    ps = $("select#product_family_product_product_id")
+    ps.empty()
+    $.getJSON "/api/v2/brands/#{ $(@).val() }/products.json", (data) ->
+      $.each data, (index, item) ->
+        opt = new Option item.name, item.id
+        ps.append opt
+    ps.chosen("destroy").attr(multiple: false)
