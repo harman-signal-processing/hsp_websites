@@ -41,5 +41,10 @@ $(function(){
     autoplay: true,
     autoplaySpeed: 4000
   });
-  $("img").lazyload();
+
+  $("img").lazyload({
+    threshold: 200,
+    effect: "fadeIn"
+  });
 });
+

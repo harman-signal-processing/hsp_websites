@@ -8,7 +8,11 @@
         <%= link_to featured_product do %>
           <div class="slide">
             <div class="product-photo">
-              <%= image_tag(featured_product.photo.product_attachment.url(:original)) %>
+              <%= image_tag(featured_product.photo.product_attachment.url(:original),
+                            lazy: false,
+                            data: { lazy: featured_product.photo.product_attachment.url(:original) },
+                            alt: featured_product.name
+                           ) %>
             </div>
             <h5><%= featured_product.name %></h5>
           </div>

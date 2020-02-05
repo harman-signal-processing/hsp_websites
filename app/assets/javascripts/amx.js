@@ -60,8 +60,11 @@ $(function(){
   });
 
   $('img[usemap]').rwdImageMaps();
-  $("img").lazyload();
 
+  $("img").lazyload({
+    threshold: 200,
+    effect: "fadeIn"
+  });
 
   /*used on /vip_programmers*/
   $("#vipOtherFiltersToggleSwitch").click(function() {
@@ -70,7 +73,7 @@ $(function(){
       //$this.html() == "Hide extra filters" ? $this.html('Show more filters') : $this.html('Hide extra filters');
       var filterAreShowing = $this.html() == "Hide extra filters";
       filterAreShowing ? filtersShowing($this) : filtersNotShowing($this);
-      
+
       function filtersShowing($this)
       {
         //This will update the text after the toggle has happened. To read it seems backwards but this works.
@@ -83,6 +86,7 @@ $(function(){
         //set showfilters cookie
         $.cookie("show_all_vip_filters", 1);
       }
-  });  
+  });
 
 });  //  $(function(){
+

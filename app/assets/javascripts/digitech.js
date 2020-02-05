@@ -65,7 +65,10 @@ $(function(){
   });
 
   $('img[usemap]').rwdImageMaps();
-  $("img").lazyload();
-  
+
+  $("img").lazyload({
+    threshold: 200,
+    effect: "fadeIn"
+  });
 });  //  $(function(){
 

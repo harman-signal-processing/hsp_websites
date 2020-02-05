@@ -56,7 +56,11 @@ $(function(){
     autoplaySpeed: 4000
   });
 
-
   $('img[usemap]').rwdImageMaps();
-  $("img").lazyload();
+
+  $("img").lazyload({
+    threshold: 200,
+    effect: "fadeIn"
+  });
 });
+

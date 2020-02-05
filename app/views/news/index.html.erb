@@ -24,7 +24,7 @@
 	<div class="medium-9 columns list-news">
     <% if @news.length > 0 %>
       <h2><%= t "titles.news", brand: website.brand.name %></h2>
-      <ul class="medium-block-grid-4 small-block-grid-2">
+      <ul class="medium-block-grid-3 small-block-grid-2">
         <% @news.each do |item| %>
           <%= render item %>
         <% end %>
