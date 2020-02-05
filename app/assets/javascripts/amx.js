@@ -62,8 +62,7 @@ $(function(){
   $('img[usemap]').rwdImageMaps();
   $("img").lazyload();
 
-  $('#amx-overlay-modal').foundation('reveal', 'open');
-  
+
   /*used on /vip_programmers*/
   $("#vipOtherFiltersToggleSwitch").click(function() {
       $this = $(this);
