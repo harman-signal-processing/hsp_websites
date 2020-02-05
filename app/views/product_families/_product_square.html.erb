@@ -9,7 +9,9 @@ unless defined? show_brand_name
   show_brand_name = false
 end
 
-lazy = !(product.photo.product_attachment_file_name.to_s.match?(/\.png$/i))
+if product.photo
+  lazy = !(product.photo.product_attachment_file_name.to_s.match?(/\.png$/i))
+end
 %>
 <%= cache ["product_square", product, website, compare, extra_large, I18n.locale] do %>
 
