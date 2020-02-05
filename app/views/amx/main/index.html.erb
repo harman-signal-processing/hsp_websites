@@ -43,17 +43,6 @@
 <div id="homepage-counter" data-counter="<%= @counter %>" data-nextevent="<%= @next_event %>" data-countdowncontainer="<%= @countdown_container %>"></div>
 
 
+<%#=render_partial "main/homepage_modal_message" %>
 
-
-<%if cookies[:seen_amx_overlay_message].nil? %>
-
-    <div id="amx-overlay-modal" class="reveal-modal" data-reveal="" aria-labelledby="modalTitle" aria-hidden="true" role="dialog" style="display: none; opacity: 1; visibility: hidden;">
-				<a href="https://www.amx.com/en-US/product_families/networked-av" target="_blank"><img src="https://www.amx.com/resource/banner-overlay-truth-about-networked-av.png" /></a>
-        <a class="close-reveal-modal" aria-label="Close">close</a>
-    </div>
-    
-		<% 
-		   cookies[:seen_amx_overlay_message] = { :value => 'seen-it', :expires => 30.days.from_now }
-		%>    
-    
-<%end%>  
+ 
