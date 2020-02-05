@@ -485,6 +485,10 @@ module ApplicationHelper
     image_tag img, style: "vertical-align: middle"
   end  #  def file_type_icon(item)
 
+  def product_photo_is_png?(product)
+    product.photo.present? ? !(product.photo.product_attachment_file_name.to_s.match?(/\.png$/i)) : false
+  end
+
   def seconds_to_HMS(time)
     time = time.to_i
     [time/3600, time/60 % 60, time % 60].map{|t| t.to_s.rjust(2,'0')}.join(':')
