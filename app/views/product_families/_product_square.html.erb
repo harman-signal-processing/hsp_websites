@@ -8,6 +8,8 @@ end
 unless defined? show_brand_name
   show_brand_name = false
 end
+
+lazy = !(product.photo.product_attachment_file_name.to_s.match?(/\.png$/i))
 %>
 <%= cache ["product_square", product, website, compare, extra_large, I18n.locale] do %>
 
@@ -36,9 +38,9 @@ end
 				<div class="product_thumb">
 				<% if product.photo %>
 					<% if extra_large %>
-						<%= link_to image_tag(product.photo.product_attachment.url(:small)), this_url, target: target %>
+						<%= link_to image_tag(product.photo.product_attachment.url(:small), lazy: lazy), this_url, target: target %>
 					<% else %>
-						<%= link_to image_tag(product.photo.product_attachment.url(:thumb)), this_url, target: target %>
+						<%= link_to image_tag(product.photo.product_attachment.url(:thumb), lazy: lazy), this_url, target: target %>
 					<% end %>
 				<% end %>
 				</div>
@@ -64,9 +66,9 @@ end
 		<div class="product_thumb">
 		<% if product.photo %>
 			<% if extra_large %>
-				<%= link_to image_tag(product.photo.product_attachment.url(:medium)), this_url, target: target %>
+				<%= link_to image_tag(product.photo.product_attachment.url(:medium), lazy: lazy), this_url, target: target %>
 			<% else %>
-				<%= link_to image_tag(product.photo.product_attachment.url(:horiz_thumb)), this_url, target: target %>
+				<%= link_to image_tag(product.photo.product_attachment.url(:horiz_thumb), lazy: lazy), this_url, target: target %>
 			<% end %>
 		<% end %>
 		</div>
