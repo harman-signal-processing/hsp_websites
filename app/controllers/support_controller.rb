@@ -10,7 +10,7 @@ class SupportController < ApplicationController
     :downloads_by_product,
     :downloads_by_type
   ]
-  caches_action :selected_downloads_by_product, :selected_downloads_by_type
+#  caches_action :selected_downloads_by_product, :selected_downloads_by_type
 
   # Support home page
   def index
