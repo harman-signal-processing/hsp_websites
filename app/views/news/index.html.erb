@@ -21,10 +21,14 @@
 <% end %>
 
 <div class="row">
-	<div class="medium-9 columns list-news">
+  <% if @news.tag_counts_on(:tags).inject(0) {|total, tag| total + tag.taggings_count} >= 20 %>
+	<div class="small-12 medium-9 columns list-news">
+  <% else %>
+	<div class="small-12 columns list-news">
+  <% end %>
     <% if @news.length > 0 %>
       <h2><%= t "titles.news", brand: website.brand.name %></h2>
-      <ul class="medium-block-grid-3 small-block-grid-2">
+      <ul class="medium-block-grid-4 small-block-grid-2">
         <% @news.each do |item| %>
           <%= render item %>
         <% end %>
@@ -33,22 +37,17 @@
 
     <%= will_paginate @news, renderer: WillPaginateInfinite::InfinitePagination %>
 	</div>
-	<div class="medium-3 columns hide-for-small">
+  <% if @news.tag_counts_on(:tags).inject(0) {|total, tag| total + tag.taggings_count} >= 20 %>
+    <div class="medium-3 columns hide-for-small">
 
-    <p class="text-right">
-      <%= link_to(image_tag('icons/rss.png', alt: "rss", style: "vertical-align: middle"), rss_url(format: "xml")) %>
-      <%= link_to("Subscribe via RSS", rss_url(format: "xml")) %>
-    </p>
-
-    <% if @news.tag_counts_on(:tags).inject(0) {|total, tag| total + tag.taggings_count} >= 20 %>
       <br/>
       <h5>FILTER BY TAG</h5>
       <% tag_cloud(@news.tag_counts_on(:tags), %w(css1 css2 css3 css4)) do |tag, css_class| %>
         <%= link_to tag.name, tag_filtered_news_path( tag: tag.name ), class: css_class %>
       <% end %>
       <br/><small> <%= link_to "all news", news_index_path %></small>
-    <% end %>
-	</div>
+    </div>
+  <% end %>
 </div>
 
 <% if @news.length == 0 %>

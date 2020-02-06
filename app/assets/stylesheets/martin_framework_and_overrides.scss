@@ -93,7 +93,6 @@ $reveal-max-width: 75%;
 $medium-breakpoint: em-calc(1056) !default;
 $medium-range: (em-calc(641), $medium-breakpoint) !default;
 $large-range: ($medium-breakpoint + em-calc(1), em-calc(1440)) !default;
-@import 'foundation';
 @import 'brand_common';
 @import 'slick';
 $slick-arrow-color: $dark-gray;

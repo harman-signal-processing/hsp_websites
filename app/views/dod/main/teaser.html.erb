@@ -58,7 +58,7 @@
     <div class="row">
       <div class="large-8 large-offset-2 columns">
       	<div id="logo" class="text-center">
-			<h4><%= image_tag("dod/vintage-dod-dark.png", alt: Setting.site_name(website)) %></h4>
+			<h4><%= image_tag("dod/vintage-dod-dark.png", alt: Setting.site_name(website), lazy: false) %></h4>
 		</div>
 		<div class="row">
 			<div class="large-6 columns">
@@ -70,7 +70,7 @@
 			</div>
 		</div>
 		<div class="text-center">
-			<%= link_to(image_tag('dod/learn-more-button.png', mouseover: 'dod/learn-more-button-over.png'), "/en-US/product_families/effect-pedals") %>		
+			<%= link_to(image_tag('dod/learn-more-button.png', mouseover: 'dod/learn-more-button-over.png'), "/en-US/product_families/effect-pedals") %>
 		</div>
 	  </div>
 	</div>
@@ -90,15 +90,15 @@
 
 <%= content_for :parralax do %>
 	<div id="parallax-bg3">
-		<%= image_tag "dod/parallax-foreground.png", width: 1200, height: 2952, id: 'bg3-1' %>
+		<%= image_tag "dod/parallax-foreground.png", width: 1200, height: 2952, id: 'bg3-1', lazy: false %>
 	</div>
 
 	<div id="parallax-bg2">
-		<%= image_tag "dod/parallax-midground.png", width: 1200, height: 1034, id: 'bg2-1' %>
+		<%= image_tag "dod/parallax-midground.png", width: 1200, height: 1034, id: 'bg2-1', lazy: false %>
 	</div>
 
 	<div id="parallax-bg1">
-		<%= image_tag "dod/parallax-background.png", width: 1200, height: 1044, id: 'bg1-1' %>
+		<%= image_tag "dod/parallax-background.png", width: 1200, height: 1044, id: 'bg1-1', lazy: false %>
 	</div>
 
 	<div class="bouncing-arrow"></div>

@@ -1,0 +1,12 @@
+<h4 class="subtitle"><%= translate_content(@product, :name) %> <%= t("resource_downloads").titleize %></h4>
+
+<%= render_partial "products/downloads_and_docs", product: @product %>
+
+<% if @product.in_production? %>
+  <%= link_to @product, class: "ppage" do %>
+    <%= t(:product_details).downcase %>
+    <%= image_tag("icons/external_link_icon.png") %>
+  <% end %>
+<% end %>
+
+

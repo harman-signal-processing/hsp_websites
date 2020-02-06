@@ -1,5 +1,5 @@
 $("#column3").html(" ");
-$("#column2").html("<%= escape_javascript( render_partial("downloads_product_list") ) %>");
+$("#column2").html("<%= escape_javascript( render_partial("support/downloads_product_list") ) %>");
 $("a.c3spinner").on('click', function() {
   $("div#column3").html("<img src='<%= escape_javascript( image_path ('loading.gif') ) %>' style='padding: 20px'>");
 });
