@@ -5,6 +5,7 @@
         <div class="text-center">
           <%= image_tag news.news_photo(:medium_square),
             alt: translate_content(news, :title),
+            lazy: false,
             data: { lazy: news.news_photo(:medium_square) } %>
         </div>
         <div class="white-text-box" data-equalizer-watch="news-headline">
