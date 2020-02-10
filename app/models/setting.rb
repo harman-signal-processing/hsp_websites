@@ -1,14 +1,15 @@
 class Setting < ApplicationRecord
   before_save :fix_locale
   has_attached_file :slide, {
-    styles: { large: "600>x370",
-              medium: "350x350>",
-              thumb: "100x100>",
-              tiny: "64x64>",
-              tiny_square: "64x64#"
-  }, processors: [:thumbnail, :compression] }.merge(SETTINGS_STORAGE)
-  validates_attachment :slide, content_type: { content_type: /\Aimage|video/i }
-  before_post_process :skip_for_video, :skip_for_gifs
+    styles: {
+      large: "600>x370",
+      medium: "350x350>",
+      thumb: "100x100>",
+      tiny: "64x64>",
+      tiny_square: "64x64#"
+    }, processors: [:thumbnail, :compression] }.merge(SETTINGS_STORAGE)
+  validates_attachment :slide, content_type: { content_type: /\A(image|video)/i }
+  before_slide_post_process :skip_for_video, :skip_for_gifs
 
   belongs_to :brand, touch: true
   validates :name, presence: true, uniqueness: { scope: [:locale, :brand_id] }
@@ -27,11 +28,11 @@ class Setting < ApplicationRecord
   end
 
   def skip_for_video
-    ! slide_content_type.match(/video/)
+    ! slide_content_type.match?(/video/)
   end
 
   def skip_for_gifs
-    ! slide_content_type.match(/gif/)
+    ! slide_content_type.match?(/gif/)
   end
 
   def self.setting_types
