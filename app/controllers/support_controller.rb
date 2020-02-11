@@ -353,7 +353,7 @@ class SupportController < ApplicationController
       format.html { redirect_to support_downloads_path(view_by: "download_type", selected_object: params[:id]) }
       format.js {
         downloads = website.all_downloads(current_user)
-        @download_type = downloads[params[:id]]
+        @download_type = downloads[params[:id]].present? ? downloads[params[:id]] : {}
       }
     end
   end
