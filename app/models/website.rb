@@ -138,7 +138,7 @@ class Website < ApplicationRecord
   # I'd also have to store the locale of each collection.
   #
   def all_downloads(user)
-    # Rails.cache.fetch("#{cache_key_with_version}/#{user}/#{I18n.locale}/all_downloads", expires_in: 6.hours) do
+    Rails.cache.fetch("#{cache_key_with_version}/#{user}/#{I18n.locale}/all_downloads", expires_in: 6.hours) do
       downloads = {}
       products = brand.products.where(product_status_id: ProductStatus.current_and_discontinued_ids)
       ProductDocument.where(product_id: products.pluck(:id)).each do |product_document|
@@ -230,7 +230,7 @@ class Website < ApplicationRecord
         end
       end
       downloads
-    # end  #  Rails.cache.fetch("#{cache_key_with_version}/#{user}/#{I18n.locale}/all_downloads", expires_in: 6.hours) do
+    end  #  Rails.cache.fetch("#{cache_key_with_version}/#{user}/#{I18n.locale}/all_downloads", expires_in: 6.hours) do
   end  #  def all_downloads(user)
 
   def zip_downloads(download_type, user)
