@@ -86,4 +86,8 @@ class SoftwaresController < ApplicationController
     end
   end
 
+  def martin_firmware
+    # binding.pry
+  end
+
 end
