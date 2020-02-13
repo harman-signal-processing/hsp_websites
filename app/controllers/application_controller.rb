@@ -373,31 +373,38 @@ private
     clean = text.gsub(/[^a-zA-Z]/, '').slice(0..1).downcase
     clean.blank? ? "us" : clean
   end
-  
+
   def in_apac?
     ISO3166::Country.find_all_countries_by_world_region('APAC').collect(&:alpha2).include? clean_country_code.upcase
-  end  
+  end
   helper_method :in_apac?
-  
+
   def in_caribbean?
     ISO3166::Country.find_all_countries_by_subregion('Caribbean').collect(&:alpha2).include? clean_country_code.upcase
-  end  
+  end
   helper_method :in_caribbean?
-  
+
   def in_central_america?
     ISO3166::Country.find_all_countries_by_subregion('Central America').collect(&:alpha2).include? clean_country_code.upcase
-  end  
+  end
   helper_method :in_central_america?
-  
+
   def in_emea?
     ISO3166::Country.find_all_countries_by_world_region('EMEA').collect(&:alpha2).include? clean_country_code.upcase
   end
   helper_method :in_emea?
-  
+
   def in_south_america?
     ISO3166::Country.find_all_countries_by_subregion('South America').collect(&:alpha2).include? clean_country_code.upcase
-  end  
+  end
   helper_method :in_south_america?
 
-  
+
 end  #  class ApplicationController < ActionController::Base
+
+class ::Hash
+  def deep_merge(second)
+    merger = proc { |_, v1, v2| Hash === v1 && Hash === v2 ? v1.merge(v2, &merger) : Array === v1 && Array === v2 ? v1 | v2 : [:undefined, nil, :nil].include?(v2) ? v1 : v2 }
+    merge(second.to_h, &merger)
+  end
+end

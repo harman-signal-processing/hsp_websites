@@ -204,7 +204,80 @@ class SiteElement < ApplicationRecord
     uploaded_object.delete
   end
 
+  # This file is related to one or more products, but all of those products are discontinued
+  def discontinued?
+    @discontinued ||= (products.length > 0 && products.where(product_status: ProductStatus.current_ids).size == 0)
+  end
+
+  # Refactored from the Website model, this collects and caches all the SiteElements that
+  # are relevant to the given Website and accessible by the given User.
+  def self.downloads(website, user)
+    Rails.cache.fetch("#{website.cache_key_with_version}/#{user}/#{I18n.locale}/se_downloads", expires_in: 6.hours) do
+      downloads = {}
+      ability = Ability.new(user)
+      website.site_elements.where(show_on_public_site: true).where("resource_type IS NOT NULL AND resource_type != ''").each do |site_element|
+        if ability.can?(:read, site_element)
+          downloads = downloads.deep_merge( { site_element.hash_key => site_element.details_hash } )
+        end
+      end
+      downloads
+    end
+  end
+
+  # Collects and caches hash data for the current SiteElement. Caching here helps speed up
+  # caching the same data for multiple users with different access when both users can access
+  # this SiteElement.
+  def details_hash
+    Rails.cache.fetch("#{cache_key_with_version}/#{I18n.locale}/details_hash", expires_in: 6.days) do
+      {
+        param_name: hash_key,
+        name: doctype_name,
+        downloads: [download_details_hash]
+      }
+    end
+  end
+
+  # Determines the key to be used in the big hash of all the downloads
+  def hash_key
+    name = I18n.t("resource_type.#{resource_type_key}", default: resource_type)
+    key = name.to_s.singularize.downcase.gsub(/[^a-z0-9]/, '')
+    key += "-discontinued" if key == "cutsheet" && discontinued?
+    key.parameterize
+  end
+
 protected
+
+  # Determines the doctype_name to be associated with this item in the big hash of all downloads
+  def doctype_name
+    name = I18n.t("resource_type.#{resource_type_key}", default: resource_type)
+    doctype_name = I18n.locale.match(/zh/i) ? name : name.to_s.pluralize
+    if hash_key.match?(/cutsheet/)
+      doctype_name += discontinued? ? " (Discontinued)" : " (Current)"
+    end
+    doctype_name
+  end
+
+  # Just a simple collection of attributes to be used the big hash of all downloads
+  def download_details_hash
+    {
+      name: long_name,
+      file_name: file_name,
+      thumbnail: is_image? ? resource.url(:tiny_square) : nil,
+      url: url,
+    }
+  end
+
+  # Determines the file name to be used in this item's download_details_hash
+  def file_name
+    case attachment_type
+    when 'resource'
+      resource_file_name
+    when 'executable'
+      executable_file_name
+    else
+      url
+    end
+  end
 
   # Set attachment attributes from the direct upload
   # @note Retry logic handles S3 "eventual consistency" lag.

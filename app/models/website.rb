@@ -122,6 +122,12 @@ class Website < ApplicationRecord
     end
   end
 
+  def current_and_discontinued_product_ids
+    Rails.cache.fetch("#{cache_key_with_version}/current_and_discontinued_product_ids", expires_in: 2.hours) do
+      brand.products.where(product_status_id: ProductStatus.current_and_discontinued_ids).pluck(:id)
+    end
+  end
+
   def discontinued_and_vintage_products
     Rails.cache.fetch("#{cache_key_with_version}/discontinued_and_vintage_products", expires_in: 6.hours) do
       brand.products.includes(:product_status).select{|p| p if !!(p.product_status.name.match(/discontinue|vintage/i))}
@@ -134,105 +140,13 @@ class Website < ApplicationRecord
     end
   end
 
-  # Working here. I'm thinking I need to collect the resources, then translate the hash key of each AFTER. Of course
-  # I'd also have to store the locale of each collection.
-  #
   def all_downloads(user)
-    Rails.cache.fetch("#{cache_key_with_version}/#{user}/#{I18n.locale}/all_downloads", expires_in: 6.hours) do
-      downloads = {}
-      products = brand.products.where(product_status_id: ProductStatus.current_and_discontinued_ids)
-      ProductDocument.where(product_id: products.pluck(:id)).each do |product_document|
-        key = product_document.document_type.singularize.downcase.gsub(/[^a-z]/, '')
-        doctype = (product_document.document_type.blank?) ? "Misc" : I18n.t("document_type.#{product_document.document_type}")
-        if !product_document.language.blank?
-          doctype = "#{I18n.t("language.#{product_document.language}")} #{doctype}" unless doctype.to_s.match(/CAD/)
-          key = I18n.t("language.#{product_document.language}", locale: 'en') + "-#{key}"
-        end
-        doctype_name = I18n.locale.match(/zh/i) ? doctype : doctype.pluralize
-        if key == "cutsheet"
-          if product_document.product.discontinued?
-            key += "-discontinued"
-            doctype_name += " (Discontinued)"
-          else
-            doctype_name += " (Current)"
-          end
-        end
-        key = key.parameterize
-        if I18n.locale.to_s.match(/^en/i) || product_document.language.to_s.match(/^en/i) || I18n.locale.to_s.match(/#{product_document.language.to_s}/i)
-          downloads[key] ||= {
-            param_name: key,
-            name: doctype_name,
-            downloads: []
-          }
-          #link_name = !!(doctype.match(/other/i)) ? product_document.document_file_name : ContentTranslation.translate_text_content(product, :name)
-          link_name = product_document.name
-          unless link_name.match(/#{product_document.product.name}/)
-            link_name = "#{product_document.product.name} #{link_name}"
-          end
-          downloads[key][:downloads] << {
-            name: link_name,
-            file_name: product_document.document_file_name,
-            url: product_document.document.url,
-            path: product_document.document.path
-          }
-        end
-      end
-      ability = Ability.new(user)
-      self.site_elements.where(show_on_public_site: true).where("resource_type IS NOT NULL AND resource_type != ''").each do |site_element|
-        if ability.can?(:read, site_element)
-          name = I18n.t("resource_type.#{site_element.resource_type_key}", default: site_element.resource_type)
-          key = name.to_s.singularize.downcase.gsub(/[^a-z0-9]/, '')
-          doctype_name = I18n.locale.match(/zh/i) ? name : name.to_s.pluralize
-          if key == "cutsheet"
-            # This file is related to one or more products, but all of those products are discontinued
-            if site_element.products.length > 0 && site_element.products.where(product_status: ProductStatus.current_ids).size == 0
-              key += "-discontinued"
-              doctype_name += " (Discontinued)"
-            else
-              doctype_name += " (Current)"
-            end
-          end
-          key = key.parameterize
-          downloads[key] ||= {
-            param_name: key,
-            name: doctype_name,
-            downloads: []
-          }
-          thumbnail = nil
-          if site_element.external_url.present?
-            downloads[key][:downloads] << {
-              name: site_element.long_name,
-              file_name: site_element.url,
-              thumbnail: nil,
-              url: site_element.url,
-              path: site_element.url
-            }
-          elsif site_element.resource_file_name.present? #&& site_element.is_image?
-            if site_element.is_image?
-              thumbnail = site_element.resource.url(:tiny_square)
-            end
-            downloads[key][:downloads] << {
-              name: site_element.long_name,
-              file_name: site_element.resource_file_name,
-              thumbnail: thumbnail,
-              url: site_element.resource.url,
-              path: site_element.resource.path
-            }
-          elsif site_element.executable_file_name.present?
-            downloads[key][:downloads] << {
-              name: site_element.long_name,
-              file_name: site_element.executable_file_name,
-              thumbnail: nil,
-              url: site_element.executable.url,
-              path: site_element.executable.path
-            }
-          end
-        end
-      end
-      downloads
-    end  #  Rails.cache.fetch("#{cache_key_with_version}/#{user}/#{I18n.locale}/all_downloads", expires_in: 6.hours) do
-  end  #  def all_downloads(user)
+    SiteElement.downloads(self, user).deep_merge ProductDocument.downloads(self)
+  end
 
+  # Most likely not used anymore. This was useful when all the site elements and documents
+  # were stored locally on the server. Then we could offer a zip-and-download-all function
+  # which isn't really feasible now with external storage and the giant quantity of files.
   def zip_downloads(download_type, user)
     downloads = self.all_downloads(user)[download_type][:downloads]
 
