@@ -39,7 +39,7 @@
     </div>
     <div class="bouncing-arrow"></div>
   <% else %>
-    <% slides = Setting.slides(website) %>
+    <% slides = Setting.slides(website, limit: 5) %>
     <%= video_background_with_features(slides, tagline: true, hide_for_small: true, pattern_overlay: true) %>
   <% end %>
 <% end %>

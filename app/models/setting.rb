@@ -8,7 +8,9 @@ class Setting < ApplicationRecord
       tiny: "64x64>",
       tiny_square: "64x64#"
     }, processors: [:thumbnail, :compression] }.merge(SETTINGS_STORAGE)
-  validates_attachment :slide, content_type: { content_type: /\A(image|video)/i }
+  validates_attachment :slide,
+    content_type: { content_type: /\A(image|video)/i },
+    size: { in: 0..300.kilobytes }
   before_slide_post_process :skip_for_video, :skip_for_gifs
 
   belongs_to :brand, touch: true
@@ -61,7 +63,8 @@ class Setting < ApplicationRecord
         end
       end
     end
-    (locale_slides) ? locale_slides : defaults
+    slides = (locale_slides) ? locale_slides : defaults
+    (options[:limit].present?) ? slides.limit(options[:limit]) : slides
   end
 
   # Collect all Settings which are homepage features
