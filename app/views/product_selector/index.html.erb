@@ -1,0 +1,29 @@
+<ul class="small-block-grid-<%= (@product_families.length / 2).to_i %>  medium-block-grid-<%= @product_families.length %>">
+  <% @product_families.each do |pf| %>
+    <li id="product_family_<%= pf.to_param %>" class="product_family_box">
+      <%= link_to [:product_selector, pf], remote: true do %>
+        <% p = pf.first_product_with_photo(website) %>
+        <% if p %>
+          <%= image_tag p.primary_photo.product_attachment.url(:medium), lazy: !(p.primary_photo.product_attachment_file_name.match?(/png/i)), alt: pf.name %>
+        <% end %>
+        <h3 class="text-center"><%= pf.name %></h3>
+      <% end %>
+      <div class="text-center">
+        <%#= pluralize pf.current_products_plus_child_products(website).length, "product", plural: "products" %>
+      </div>
+    </li>
+  <% end %>
+</ul>
+
+<br/>
+<div class="row">
+  <div class="small-4 medium-3 columns" id="options-container">
+  </div>
+
+  <div class="small-8 medium-9 columns" id="results-container">
+    <%= form_tag compare_products_path, method: :get %>
+    </form>
+  </div>
+</div>
+
+<ul id="hidden-products" style="display:none;"></ul>

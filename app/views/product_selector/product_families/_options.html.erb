@@ -1,0 +1,11 @@
+<%= form_tag [:product_selector, @product_family], remote: true, id: "filters" do %>
+  <% if @product_family.children_with_current_products(website).length > 0 %>
+    <h3>Sub-categories</h3>
+    <% @product_family.children_with_current_products(website).sort_by(&:name).each do |sub_family| %>
+      <%= label_tag do %>
+        <%= check_box_tag "sub_family[]", sub_family.id, false, id: sub_family.to_param %>
+        <%= sub_family.name.gsub(/\s?Products$/i, "") %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -488,6 +488,11 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     resources :events, only: [:index, :show]
     resources :site_elements, only: [:show]
 
+    get 'product_selector' => 'product_selector#index', as: :product_selector
+    namespace :product_selector do
+      resources :product_families, only: :show
+    end
+
     get 'get-started' => 'get_started#index', as: :get_started_index
     get 'get-started/:id' => 'get_started#show', as: :get_started
     get 'getting-started/:id' => 'get_started#show'

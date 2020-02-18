@@ -1,0 +1,21 @@
+$("li.product_family_box").css("outline", "none");
+$("div#results-container form").html("<%= escape_javascript(
+  content_tag(:ul, class: "small-block-grid-1 medium-block-grid-2 large-block-grid-3", id: "product-boxes") do
+    @products.each_with_index.map { |product,i|
+      content_tag(
+        :li,
+        render( product),
+        id: "product_box_#{ product.to_param }",
+        class: "product-list-item",
+        data: {
+          position: i,
+          families: "#{ product.product_families.pluck(:id).join(',') }"
+        }
+      )
+    }.join.html_safe
+  end + submit_tag("Compare Selected Products", class: "button")
+) %>");
+$("li#product_family_<%= @product_family.to_param %>").css("outline", "1px solid #CCC");
+
+$("div#options-container").html("<%= escape_javascript( render 'options' ) %>");
+

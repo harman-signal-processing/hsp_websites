@@ -1,0 +1,2 @@
+module ProductSelectorHelper
+end
