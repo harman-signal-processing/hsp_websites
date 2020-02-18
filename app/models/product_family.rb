@@ -351,5 +351,10 @@ class ProductFamily < ApplicationRecord
     !!!(self.preview_username.blank? && self.preview_password.blank?)
   end
 
+  def family_tree
+    unless self.root?
+      [parent, parent.family_tree].flatten
+    end
+  end
 end
 

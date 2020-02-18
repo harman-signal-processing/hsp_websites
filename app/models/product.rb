@@ -677,4 +677,7 @@ class Product < ApplicationRecord
     Product.where(id: product_accessories_where_this_is_the_accessory.pluck(:product_id))
   end
 
+  def product_family_tree
+    product_families.map{|pf| [pf, pf.family_tree]}.flatten.uniq.reject{|i| i.blank?}
+  end
 end

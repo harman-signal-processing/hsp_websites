@@ -9,7 +9,7 @@ $("div#results-container form").html("<%= escape_javascript(
         class: "product-list-item",
         data: {
           position: i,
-          families: "#{ product.product_families.pluck(:id).join(',') }"
+          families: "#{ product.product_family_tree.pluck(:id).join(',') }"
         }
       )
     }.join.html_safe
