@@ -1,5 +1,5 @@
 class Website < ApplicationRecord
-  belongs_to :brand, touch: true
+  belongs_to :brand
   has_many :website_locales
   validates :url, presence: true, uniqueness: true
   validates :brand_id, presence: true

@@ -51,6 +51,7 @@ class Brand < ApplicationRecord
 
   after_initialize :dynamic_methods
   after_update :update_products
+  after_touch :touch_websites
 
   validates :name, presence: true, uniqueness: true
 
@@ -65,6 +66,10 @@ class Brand < ApplicationRecord
     rescue
       # oh well.
     end
+  end
+
+  def touch_websites
+    websites.each{|w| w.touch }
   end
 
   def should_generate_new_friendly_id?
