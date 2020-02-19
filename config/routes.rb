@@ -117,7 +117,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     constraints(MartinDomain) do
       get 'safety-documents', to: redirect('/en-US/product_families/effect-fluids/safety-documents'), as: :martin_safety_documents
       get 'upgrade-me-to-supertech-just-this-once' => "gated_support#super_tech_upgrade"
-      get '/firmware' => "softwares#martin_firmware", as: :martin_firmware
+      # get '/firmware' => "softwares#martin_firmware", as: :martin_firmware
     end
 
     devise_for :users, controllers: {
@@ -515,6 +515,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     match '/tone_library/:product_id/:tone_library_song_id(.:ext)' => "tone_library_songs#download", as: :tone_download, via: :all
     match '/tone_library' => "tone_library_songs#index", as: :tone_library, via: :all
     match '/software' => 'softwares#index', as: :software_index, via: :all
+    match '/firmware' => 'softwares#firmware', as: :firmware_index, via: :all
     match '/support/warranty_registration(/:product_id)' => 'support#warranty_registration', as: :warranty_registration, via: :all
     match '/support/parts' => 'support#parts', as: :parts_request, via: :all
     match '/support/rma' => 'support#rma', as: :rma_request, via: :all

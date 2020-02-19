@@ -86,8 +86,12 @@ class SoftwaresController < ApplicationController
     end
   end
 
-  def martin_firmware
-    # binding.pry
+  # def martin_firmware
+  #   # binding.pry
+  # end
+  
+  def firmware
+    render_template
   end
 
 end
