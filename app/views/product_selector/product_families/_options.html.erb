@@ -4,7 +4,7 @@
     <% @product_family.children_with_current_products(website).sort_by(&:name).each do |sub_family| %>
       <%= label_tag do %>
         <%= check_box_tag "sub_family[]", sub_family.id, false, id: sub_family.to_param %>
-        <%= sub_family.name.gsub(/\s?Products$/i, "") %>
+        <%= sub_family.name.gsub(/\s?Products$/i, "").gsub(/SERIES/i, "Series") %>
       <% end %>
     <% end %>
   <% end %>

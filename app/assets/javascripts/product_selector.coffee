@@ -4,6 +4,11 @@
 #
 
 jQuery ($) ->
+  $(".ps-start-spinner").click ->
+    $(".spinner").show()
+    $("#results-container form").empty()
+    $("#options-container").empty()
+
   $("#options-container").on 'click', 'form#filters input[type="checkbox"]', ->
 
     product_elements_to_show = []

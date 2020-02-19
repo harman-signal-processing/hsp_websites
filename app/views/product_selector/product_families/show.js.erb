@@ -18,4 +18,5 @@ $("div#results-container form").html("<%= escape_javascript(
 $("li#product_family_<%= @product_family.to_param %>").css("outline", "1px solid #CCC");
 
 $("div#options-container").html("<%= escape_javascript( render 'options' ) %>");
+$(".spinner").hide();
 
