@@ -86,4 +86,8 @@ class SoftwaresController < ApplicationController
     end
   end
 
+  def firmware
+    render_template
+  end
+
 end

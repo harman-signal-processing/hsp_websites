@@ -1,0 +1,41 @@
+<% set_meta_tags reverse: true,
+                 description: "Firmware for #{website.brand.name} products",
+                 keywords: website.brand.current_firmwares.collect{|s| s.name} %>
+
+<div class="row">
+	<div class="large-6 columns">
+		<h1 class="page_title">
+		<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/software_downloads_head.jpg")) %>
+			<%= image_tag("#{website.folder}/#{I18n.locale}/software_downloads_head.jpg", alt: t('firmware_downloads')) %>
+		<% else %>
+      <%= website.brand.name %>
+			<%= t('firmware_downloads') %>
+		<% end %>
+		</h1>
+	</div>
+
+</div>
+
+<%= cache ["firmwares_index", website.brand, I18n.locale] do %>
+
+  <table>
+    <thead>
+      <tr>
+        <td>Firmware</td>
+        <td>Latest Version</td>
+        <td>Related Products</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% website.brand.current_firmwares.sort_by{|s| s.name}.each do |firmware| %>
+        <tr>
+          <td><%= link_to firmware.name, firmware %></td>
+          <td><%= firmware.version unless firmware.version.blank? %></td>
+          <td><%=raw firmware.current_products.map{ |product| link_to product.name, product }.join(", ") %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+<% end %>

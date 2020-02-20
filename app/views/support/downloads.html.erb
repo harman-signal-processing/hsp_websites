@@ -36,6 +36,14 @@
           <% end %>
         </li>
       <% end %>
+      <% if (website.current_firmwares.length > 0 || website.forced_current_firmwares.length > 0) %>
+        <li>
+          <%= link_to firmware_index_path do %>
+            <%= t(:firmware).titleize %>
+            <%= image_tag("icons/external_link_icon.png") %>
+          <% end %>
+        </li>
+      <% end %>      
     </ul>
 
   </div>

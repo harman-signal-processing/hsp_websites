@@ -10,6 +10,7 @@
   <tr>
     <th>Name</th>
     <th>Version</th>
+    <th>Category</th>
     <th>Platform</th>
     <th>Active?</th>
     <th>Downloads</th>
@@ -20,6 +21,7 @@
   <tr style="background: <%= cycle 'white', 'none' %>">
     <td><%= link_to software.name, [:admin, software] %></td>
     <td><%= software.version %></td>
+    <td><%= software.category %></td>
     <td><%= software.platform %></td>
     <td><%= (software.active) ? "yes" : "no" %></td>
     <td style="text-align: center"><%=number_with_delimiter(software.download_count) %></td>
