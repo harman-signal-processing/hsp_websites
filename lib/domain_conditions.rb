@@ -47,7 +47,6 @@ class MartinDomain
   # :nocov:
   def self.matches?(request)
     # !!(request.host.match(/martin/i))
-    true
   end
   # :nocov:
 end
