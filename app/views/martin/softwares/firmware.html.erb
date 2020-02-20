@@ -1,10 +1,8 @@
-<div class="row">
-	<div class="large-6 columns">
-		<h1 class="page_title">
-          Martin <%= t('firmware_downloads') %>
-		</h1>
-	</div>
-</div>
+<%= content_for :feature do %>
+  <div class="support_header">
+    <h1><%= t('titles.firmware') %></h1>
+  </div>
+<% end %>
 
 <% firmware_items = MartinFirmwareService.get_firmware_items %>
 <% firmware_items.each do |firmware_category|
@@ -12,7 +10,7 @@
     category_items = firmware_category[1][:items]
 %>
     <h3><%=category_name%></h3>
-    <table style="width:500px;">
+    <table style="width:600px;">
         <thead><tr><th style="width:80%;">Product</th><th>Latest Version</th></tr></thead>
         <tbody>
             <% category_items.group_by {|item| item[:product]}.each do |product_version_item| %>
@@ -21,4 +19,4 @@
             <% end %>
         </tbody>
     </table>
-<% end %>
+<% end %> <%  #  firmware_items.each do |firmware_category|%>

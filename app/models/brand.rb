@@ -215,7 +215,7 @@ class Brand < ApplicationRecord
 
   # Active software with active products
   def current_softwares
-    @current_softwares ||= (softwares.where(active: true).
+    @current_softwares ||= (softwares.where("active = true and category != 'firmware'").
       joins(:product_softwares).
       where(product_softwares: { product_id: current_product_ids }) + forced_current_softwares).uniq
   end
@@ -229,7 +229,7 @@ class Brand < ApplicationRecord
 
   # Those software with this flag enabled: activate even if there are no active products
   def forced_current_softwares
-    @forced_current_softwares ||= softwares.includes(:brand).where(active: true, active_without_products: true).order(:name)
+    @forced_current_softwares ||= softwares.includes(:brand).where("active = true and active_without_products = true and category != 'firmware'").order(:name)
   end
   
   # Those firmware with this flag enabled: activate even if there are no active products
