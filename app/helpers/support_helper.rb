@@ -17,7 +17,7 @@ module SupportHelper
       content_tag(:tr) do
         content_tag(:td, colspan: options[:columns].to_i) do
           content_tag(:h6) do
-            if resource_type.to_s.match?(/software/i)
+            if (resource_type.to_s.match?(/software/i) || resource_type.to_s.match?(/firmware/i))
               resource_type.titleize
             else
               resource_type.titleize.pluralize.gsub(/3\s*D/i, "3D")
