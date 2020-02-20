@@ -583,8 +583,18 @@ class Product < ApplicationRecord
 
   # Currently active software
   def active_softwares(locale = I18n.default_locale.to_s, website = brand.default_website)
-    softwares.where(active: true).select{|s| s if s.locales(website).include?(locale)}
+    softwares.where("active = true and category <> 'firmware'").select{|s| s if s.locales(website).include?(locale)}
   end
+  
+  # This method is to accommodate Soundcraft's product page needs
+  def active_softwares_soundcraft(locale = I18n.default_locale.to_s, website = brand.default_website)
+    softwares.where(active: true).select{|s| s if s.locales(website).include?(locale)}
+  end  
+  
+  # Currently active firmware
+  def active_firmwares(locale = I18n.default_locale.to_s, website = brand.default_website)
+    softwares.where(active: true, category: "firmware").select{|s| s if s.locales(website).include?(locale)}
+  end  
 
   # Collects suggested products
   def suggested_products
@@ -662,7 +672,7 @@ class Product < ApplicationRecord
   end
 
   def all_related_downloads(locale = I18n.default_locale.to_s, website = brand.default_website)
-    @all_related_downloads = viewable_site_elements + executable_site_elements + active_softwares(locale, website)
+    @all_related_downloads = viewable_site_elements + executable_site_elements + active_softwares(locale, website) + active_firmwares(locale, website)
   end
 
   def accessories
