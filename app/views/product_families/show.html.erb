@@ -49,7 +49,7 @@
                       <%= image_tag(product_family.family_photo.url, alt: translate_content(product_family, :name)) %>
                     <% elsif product_family.first_product_with_photo(website) %>
                       <%= image_tag(product_family.first_product_with_photo(website).primary_photo.product_attachment.url(:medium),
-                                    alt: translate_content(product_family, :name)) %>
+                                    alt: translate_content(product_family, :name), lazy: false) %>
                     <% end %>
                   </div>
                   <h2><%= translate_content(product_family, :name) %></h2>
