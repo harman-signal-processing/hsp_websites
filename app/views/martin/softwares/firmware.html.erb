@@ -4,6 +4,8 @@
   </div>
 <% end %>
 
+<%= raw website.value_for("firmware_page_header_text") %>
+
 <% firmware_items = MartinFirmwareService.get_firmware_items %>
 <% firmware_items.each do |firmware_category|
     category_name = firmware_category.first.to_s
