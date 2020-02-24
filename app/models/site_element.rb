@@ -32,7 +32,7 @@ class SiteElement < ApplicationRecord
 
   after_initialize :copy_attributes_from_previous_version
   before_save :set_upload_attributes
-  after_save :queue_processing
+  after_save :queue_processing, :touch_products
 
   def self.resource_types(options={})
     defaults = ["Image"]
@@ -91,6 +91,10 @@ class SiteElement < ApplicationRecord
       self.is_software = old_element.is_software
       self.products = old_element.products
     end
+  end
+
+  def touch_products
+    products.each{|p| p.touch}
   end
 
   # If a resource's name or language change, then we have to update the previous
