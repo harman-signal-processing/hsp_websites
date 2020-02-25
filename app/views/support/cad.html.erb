@@ -24,7 +24,7 @@
 			<td class="name"><%= product.name %></td>
 			<td class="divided">
 				<% if front %>
-				<%= link_to front.name, front.document.url %>
+				<%= link_to front.name, front %>
 				[<%= number_to_human_size(front.document_file_size) %>]
 				<% else %>
 				&nbsp;
@@ -32,7 +32,7 @@
 			</td>
 			<td class="divided">
 				<% if rear %>
-				<%= link_to rear.name, rear.document.url %>
+				<%= link_to rear.name, rear %>
 				[<%= number_to_human_size(rear.document_file_size) %>]
 				<% else %>
 				&nbsp;
@@ -40,7 +40,7 @@
 			</td>
 			<td class="divided">
 				<% if other %>
-				<%= link_to other.name, other.document.url %>
+				<%= link_to other.name, other %>
 				[<%= number_to_human_size(other.document_file_size) %>]
 				<% else %>
 				&nbsp;

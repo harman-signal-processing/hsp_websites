@@ -31,6 +31,10 @@ class ProductDocument < ApplicationRecord
     end
   end
 
+  def url
+    "/#{I18n.locale.to_s}/product_documents/#{self.to_param}"
+  end
+
   # Gathers up all the ProductDocument downloads for a given website. Returns a hash
   # that is used by the support downloads page.
   def self.downloads(website)
@@ -89,7 +93,7 @@ protected
     {
       name: name.to_s.match?(/#{product.name}/) ? name : "#{product.name} #{name}",
       file_name: document_file_name,
-      url: document.url,
+      url: url,
     }
   end
 

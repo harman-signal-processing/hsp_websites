@@ -6,7 +6,7 @@
       <h1><%= website.brand.name %> <%= t 'titles.safety_and_certifications' %></h1>
 
       <% @documents.each do |document| %>
-        <p><strong><%= link_to document.name, document.url %></strong><br/>
+        <p><strong><%= link_to document.name, document %></strong><br/>
         <i><%= t(:last_updated) %>: <%=l document.updated_at.to_date, format: :long %></i></p>
       <% end %>
 

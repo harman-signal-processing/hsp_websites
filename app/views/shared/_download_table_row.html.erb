@@ -5,7 +5,7 @@
       <% if item.external_url.present? || item.executable_file_name.present? %>
         <td>
           <%= file_type_icon(item) %>
-          <%= link_to item.name, item.url %>
+          <%= link_to item.name, item %>
           <%= keys_for(item) %>
           <div class="show-for-small">
             <%= flag_for(item) %>
@@ -27,7 +27,7 @@
       <% elsif item.resource_file_name.present? %>
         <td>
           <%= file_type_icon(item) %>
-          <%= link_to item.name, item.url %>
+          <%= link_to item.name, item %>
           <%= keys_for(item) %>
           <div class="show-for-small">
             <%= flag_for(item) %>
@@ -63,7 +63,7 @@
     <% elsif item.is_a?(ProductDocument) %>
       <td>
         <%= file_type_icon(item) %>
-        <%= link_to item.name, item.document.url %>
+        <%= link_to item.name, item %>
         <div class="show-for-small">
           <%= flag_for(item) %>
           <i>

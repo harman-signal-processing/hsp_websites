@@ -2,7 +2,7 @@
 	<% product.product_documents.each do |product_document| %>
 	<li>
 			<%= file_type_icon(product_document) %>
-			<%= link_to product_document.name, product_document.document.url %> 
+			<%= link_to product_document.name, product_document %> 
 			[<%= number_to_human_size(product_document.document_file_size) %>]
 			
 			<%= list_toolkit_support_files_for(product_document, @brand) %>
