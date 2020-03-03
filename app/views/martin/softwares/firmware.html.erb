@@ -16,7 +16,7 @@
         <thead><tr><th style="width:80%;">Product</th><th>Latest Version</th></tr></thead>
         <tbody>
             <% category_items.group_by {|item| item[:product]}.each do |product_version_item| %>
-                <% product_version_item_to_use = latest_product_version_item(product_version_item) %>
+                <% product_version_item_to_use = MartinFirmwareService.latest_product_version_item(product_version_item[1]) %>
                 <tr><td><%=product_version_item_to_use[:product]%></td><td><%=product_version_item_to_use[:version]%></td></tr>
             <% end %>
         </tbody>
