@@ -1,7 +1,6 @@
 <% if can?(:read, item) %>
   <tr>
     <% if item.is_a?(SiteElement) %>
-
       <% if item.external_url.present? || item.executable_file_name.present? %>
         <td>
           <%= file_type_icon(item) %>
@@ -54,7 +53,13 @@
             </i>
           </div>
         </td>
-        <td class="text-center hide-for-small"> <%= item.version %>&nbsp; </td>
+        <td class="text-center hide-for-small">
+        <% if website.brand.name.to_s.match(/martin/i) && !item.version.present? %>
+          <%= MartinFirmwareService.firmware_version(@product.name)%>
+        <% else %>
+          <%= item.version %>
+        <% end %>        
+        &nbsp; </td>
         <td class="text-center hide-for-small"> <%= flag_for(item) %>&nbsp; </td>
         <td>&nbsp;</td>
         <td class="hide-for-small"><%=l item.updated_at.to_date, format: :short %></td>
@@ -89,7 +94,13 @@
           </i>
         </div>
       </td>
-      <td class="text-center hide-for-small"><%= item.version %>&nbsp;</td>
+      <td class="text-center hide-for-small">
+        <% if website.brand.name.to_s.match(/martin/i) && !item.version.present? %>
+          <%= MartinFirmwareService.firmware_version(@product.name)%>
+        <% else %>
+          <%= item.version %>
+        <% end %>
+        &nbsp;</td>
       <td class="text-center hide-for-small"> <%= flag_for(item) %>&nbsp; </td>
       <td>
         <% if item.ware_file_size.to_i > 0 %>
