@@ -5,7 +5,7 @@
 *= require chosen
 *= require amx_framework_and_overrides
 *= require solutions
-*= require jquery.fancybox.min
+*= require jquery.fancybox
 *= require bouncing_arrow
 *= require jquery-ui.min
 *= require_self
