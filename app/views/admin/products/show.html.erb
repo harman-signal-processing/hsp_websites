@@ -311,6 +311,51 @@
       </div>
 		<% end %>
 
+    <% if can? :manage, ProductProductFilterValue %>
+      <div class="group">
+        <h5 class="subheader">Filters for Product Selector</h5>
+        <p>Filters associated with this product's related top-level families
+        (<%= @product.root_product_families.map{|pf| link_to(pf.name, [:admin, pf])}.join(", ").html_safe %>)
+        are shown below.</p>
+        <%= simple_form_for [:admin, @product] do |f| %>
+          <% @product.available_product_filter_values.each do |product_product_filter_value| %>
+
+            <%= f.simple_fields_for :product_product_filter_values, product_product_filter_value do |ppfv|%>
+              <% product_filter = ppfv.object.product_filter %>
+              <%= ppfv.association :product_filter, as: :hidden %>
+              <hr/>
+              <div class="row">
+                <div class="small-6 columns">
+                  <%= product_filter.name %>
+                  <% if product_filter.min_value.present? || product_filter.max_value.present? %>
+                    <br/><small>
+                      From <%= product_filter.min_value.present? ? product_filter.min_value : "0" %>
+                      to <%= product_filter.max_value.present? ? product_filter.max_value : "??" %>
+                      <% if product_filter.uom.present? %>
+                        <%= product_filter.uom %>.
+                      <% end %>
+                    </small>
+                  <% end %>
+                </div>
+                <div class="small-6 columns">
+                  <% if product_filter.is_boolean? %>
+                    <%= ppfv.input :boolean_value, as: :radio_buttons, label: false %>
+                  <% elsif product_filter.is_number? %>
+                    <%= ppfv.input "number_value".to_sym, label: false, hint: "Number only" %>
+                  <% else %>
+                    <%= ppfv.input "#{product_filter.value_type}_value".to_sym, label: false %>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+
+          <% end %>
+          <hr/>
+          <%= f.submit "Update Filter Values", class: "button"%>
+        <% end %>
+      </div>
+    <% end %>
+
 		<% if website.has_effects? %>
 			<% if can?(:manage, ProductAmpModel) %>
 			<div class="group">

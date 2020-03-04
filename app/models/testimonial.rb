@@ -37,7 +37,7 @@ class Testimonial < ApplicationRecord
 
   validates :brand, :title, presence: true
 
-  scope :not_associated_with_this_product_family, -> (product_family, website) {
+  scope :not_associated_with_this_product_family, -> (product_family) {
     testimonial_ids_already_associated_with_this_product_family = ProductFamilyTestimonial.where(product_family: product_family).pluck(:testimonial_id)
     Testimonial.where.not(id: testimonial_ids_already_associated_with_this_product_family)
   }

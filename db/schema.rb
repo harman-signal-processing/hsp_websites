@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_10_195610) do
+ActiveRecord::Schema.define(version: 2020_02_26_213727) do
 
   create_table "access_levels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -1137,6 +1137,16 @@ ActiveRecord::Schema.define(version: 2020_01_10_195610) do
     t.index ["product_family_id"], name: "index_product_family_case_studies_on_product_family_id"
   end
 
+  create_table "product_family_product_filters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "product_family_id"
+    t.integer "product_filter_id"
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_family_id"], name: "index_product_family_product_filters_on_product_family_id"
+    t.index ["product_filter_id"], name: "index_product_family_product_filters_on_product_filter_id"
+  end
+
   create_table "product_family_products", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "product_id"
     t.integer "product_family_id"
@@ -1155,6 +1165,16 @@ ActiveRecord::Schema.define(version: 2020_01_10_195610) do
     t.datetime "updated_at", null: false
     t.index ["product_family_id"], name: "index_product_family_testimonials_on_product_family_id"
     t.index ["testimonial_id"], name: "index_product_family_testimonials_on_testimonial_id"
+  end
+
+  create_table "product_filters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "value_type"
+    t.string "min_value"
+    t.string "max_value"
+    t.string "uom"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "product_introductions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
@@ -1221,6 +1241,18 @@ ActiveRecord::Schema.define(version: 2020_01_10_195610) do
     t.datetime "updated_at", null: false
     t.index ["pricing_type_id"], name: "index_product_prices_on_pricing_type_id"
     t.index ["product_id"], name: "index_product_prices_on_product_id"
+  end
+
+  create_table "product_product_filter_values", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "product_id"
+    t.integer "product_filter_id"
+    t.string "string_value"
+    t.boolean "boolean_value"
+    t.integer "number_value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_filter_id"], name: "index_product_product_filter_values_on_product_filter_id"
+    t.index ["product_id"], name: "index_product_product_filter_values_on_product_id"
   end
 
   create_table "product_promotions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

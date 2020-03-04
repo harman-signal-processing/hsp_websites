@@ -60,9 +60,16 @@ class Product < ApplicationRecord
   belongs_to :brand, touch: true
   has_many :parent_products # Where this is the child (ie, an e-pedal child of the iStomp)
   has_many :sub_products, -> { order('position') }, class_name: "ParentProduct", foreign_key: "parent_product_id"
+  has_many :product_product_filter_values
+  has_many :product_filters, through: :product_product_filter_values
   after_initialize :set_default_status
   accepts_nested_attributes_for :product_prices, reject_if: proc { |pp| pp['price'].blank? }
   accepts_nested_attributes_for :product_specifications, reject_if: proc { |ps| ps['value'].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :product_product_filter_values, reject_if: :reject_filter_value?
+
+  def reject_filter_value?(ppfv)
+    (ppfv['string_value'].blank? && ppfv['boolean_value'].blank? && ppfv['number_value'].blank?)
+  end
 
   has_many :content_translations, as: :translatable, foreign_key: "content_id", foreign_type: "content_type"
 
@@ -680,4 +687,26 @@ class Product < ApplicationRecord
   def product_family_tree
     product_families.map{|pf| [pf, pf.family_tree]}.flatten.uniq.reject{|i| i.blank?}
   end
+
+  def root_product_families
+    product_families.map{|pf| pf.root}.uniq
+  end
+
+  def available_product_filters
+    root_product_families.map{|pf| pf.product_filters}.flatten.uniq
+  end
+
+  def available_product_filter_values
+    available_product_filters.map do |product_filter|
+      if self.product_filters.include?(product_filter)
+        self.product_product_filter_values.where(product_filter: product_filter).first
+      else
+        ProductProductFilterValue.new(
+          product: self,
+          product_filter: product_filter
+        )
+      end
+    end
+  end
+
 end

@@ -1,0 +1,27 @@
+<h3><%= title @product_filter.name %></h3>
+
+<ul class="button-group round">
+	<li><%= link_to 'Back', admin_product_filters_path, class: "small secondary button" %></li>
+	<li><%= link_to 'Edit', edit_admin_product_filter_path(@product_filter, locale: I18n.locale), class: "small secondary button" %> </li>
+	<li><%= link_to 'Delete', [:admin, @product_filter], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
+
+<p>
+  <strong>Filter Type:</strong>
+  <%= @product_filter.value_type %>
+</p>
+
+<% if @product_filter.min_value.present? || @product_filter.max_value.present? %>
+  <p>
+    <strong>Min/Max:</strong>
+    <%= @product_filter.min_value %> to <%= @product_filter.max_value %>
+  </p>
+<% end %>
+
+<% if @product_filter.uom.present? %>
+  <p>
+    <strong>Unit of Measure:</strong>
+    <%= @product_filter.uom %>
+  </p>
+<% end %>
+

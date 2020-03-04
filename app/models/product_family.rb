@@ -8,6 +8,8 @@ class ProductFamily < ApplicationRecord
   has_many :locale_product_families
   has_many :market_segment_product_families, dependent: :destroy
   has_many :features, -> { order('position') }, as: :featurable, dependent: :destroy
+  has_many :product_family_product_filters, -> { order('position') }
+  has_many :product_filters, through: :product_family_product_filters
   has_many :product_family_case_studies, -> { order('position') }, dependent: :destroy
   has_many :content_translations, as: :translatable, foreign_key: "content_id", foreign_type: "content_type"
   has_many :product_family_testimonials, -> { order('position') }, dependent: :destroy
