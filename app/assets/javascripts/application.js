@@ -7,14 +7,12 @@
 //= require jquery2
 //= require jquery_ujs
 //= require foundation
-//= require lightbox
 //= require jquery-ui.min
-//= require jquery.lightbox-0.5.min
+//= require jquery.fancybox.min
 //= require jquery.datetimepicker
 //= require jquery.bxSlider.min
 //= require jquery.pin
 //= require slick
-//= require jwplayer
 //= require soundmanager2-nodebug-jsmin
 //= require inline_player
 //= require global_functions

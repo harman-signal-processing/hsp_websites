@@ -5,7 +5,7 @@
 <h1>
 	<%= title @product.name %>
 	<span class="little"><%= link_to(product_url(@product, locale: I18n.locale), product_url(@product, locale: I18n.locale)) %>
-	<%= link_to(image_tag("icons/external_link_icon.png"), product_url(@product, locale: I18n.locale)) %></span>
+	<%= link_to(image_tag("icons/external_link_icon.png", lazy: false), product_url(@product, locale: I18n.locale)) %></span>
 </h1>
 
 <ul class="button-group round">

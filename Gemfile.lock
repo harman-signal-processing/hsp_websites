@@ -310,8 +310,6 @@ GEM
       nokogiri (~> 1.5)
     letter_opener (1.7.0)
       launchy (~> 2.2)
-    lightbox2-rails (2.7.1)
-      railties (>= 3.1)
     listen (3.2.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -656,7 +654,6 @@ DEPENDENCIES
   language_list
   lazyload-rails
   letter_opener
-  lightbox2-rails (~> 2.7.1)
   mailgun_rails
   mechanize
   meta-tags

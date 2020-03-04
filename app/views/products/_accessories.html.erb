@@ -19,7 +19,7 @@
             <%= link_to_product_attachment(product_attachment) %>
           <% else %>
             <%= link_to(product_attachment.product_attachment.url(:original),
-                        data: product_attachment.no_lightbox? ? {} : { lightbox: "#{accessory.id}product-thumbnails" }) do %>
+                        data: product_attachment.no_lightbox? ? {} : { fancybox: "#{accessory.id}product-thumbnails" }) do %>
               <%= image_tag(product_attachment.product_attachment.url(:tiny_square)) %>
             <% end %>
           <% end %>
