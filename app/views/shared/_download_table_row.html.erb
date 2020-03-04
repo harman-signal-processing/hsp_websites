@@ -54,8 +54,9 @@
           </div>
         </td>
         <td class="text-center hide-for-small">
-        <% if website.brand.name.to_s.match(/martin/i) && !item.version.present? %>
-          <%= MartinFirmwareService.firmware_version(@product.name)%>
+        <% # If Martin and version number is missing and item is firmware, then lookup the version number from the Martin Companion data source%>
+        <% if website.brand.name.to_s.match(/martin/i) && !item.version.present? && (item.resource_type == "Software") && (item.name.include? "Firmware") %>
+          <%= MartinFirmwareService.firmware_version(item.name.gsub(/ \- Firmware/, ''))%>
         <% else %>
           <%= item.version %>
         <% end %>        
@@ -95,8 +96,9 @@
         </div>
       </td>
       <td class="text-center hide-for-small">
-        <% if website.brand.name.to_s.match(/martin/i) && !item.version.present? %>
-          <%= MartinFirmwareService.firmware_version(@product.name)%>
+        <% # If Martin and version number is missing and item is firmware, then lookup the version number from the Martin Companion data source%>
+        <% if website.brand.name.to_s.match(/martin/i) && !item.version.present? && item.category == "firmware" %>
+          <%= MartinFirmwareService.firmware_version(item.name.gsub(/ \- Firmware/, ''))%>
         <% else %>
           <%= item.version %>
         <% end %>
