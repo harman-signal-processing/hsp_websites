@@ -36,7 +36,7 @@
 					<span id="family_photo">
 						<%= link_to image_tag("icons/trash.gif", lazy: false), delete_family_photo_admin_product_family_path(f.object), remote: true %>
 						currently:
-						<%= link_to image_tag(f.object.family_photo.url(:thumb)), f.object.family_photo.url %>
+						<%= link_to image_tag(f.object.family_photo.url(:original), lazy: false), f.object.family_photo.url %>
 
 					</span>
 				<% end %>
