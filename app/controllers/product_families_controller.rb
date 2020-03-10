@@ -29,15 +29,8 @@ class ProductFamiliesController < ApplicationController
       format.html {
 
         # If the family has no fancy features and only one product
-        if @product_family.features.length == 0 && @product_family.current_products.size == 1
-          redirect_to @product_family.current_products.first, status: :moved_permanently and return
-
-        # If the family has no fancy features and only one child with one active product
-        elsif @product_family.features.length == 0 &&
-          @product_family.current_products.size == 0 &&
-          @children_with_current_products.size == 1 &&
-          @children_with_current_products.first.current_products.size == 1
-            redirect_to @children_with_current_products.first.current_products.first, status: :moved_permanently and return
+        if @product_family.features.length == 0 && @product_family.current_products_plus_child_products(website).length == 1
+          redirect_to @product_family.current_products_plus_child_products(website).first, status: :moved_permanently and return
 
         # If the family has a "layout_class" defined and we can find a template with that name
         elsif !@product_family.layout_class.blank? &&

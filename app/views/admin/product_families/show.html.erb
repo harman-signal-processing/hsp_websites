@@ -3,10 +3,10 @@
   description: @product_family.intro,
   keywords: @product_family.keywords %>
 
-<% if @product_family.features.length == 0 && @product_family.current_products.size == 1 %>
+<% if @product_family.features.length == 0 && @product_family.current_products_plus_child_products(website).length == 1 %>
   <div class="alert-box info radius" data-alert>
     This family has one active product and no fancy features to display. That means the public site will
-    redirect directly to the <strong><%= @product_family.current_products.first.name %> page</strong> instead
+    redirect directly to the <strong><%= @product_family.current_products_plus_child_products(website).first.name %> page</strong> instead
     of showing a family page.
     <a href="#" class="close">&times;</a>
   </div>
