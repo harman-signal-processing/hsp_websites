@@ -12,15 +12,23 @@
       <% end %>
 
     <% elsif product_filter.is_number? %>
-      <%= product_filter.min_value.present? ? product_filter.min_value : "0" %>
-      &lt;----&gt;
-      <%= product_filter.max_value.present? ? product_filter.max_value : "gazillion" %>
-      <%= product_filter.uom if product_filter.uom.present? %>
+
+      <div class="slider-range-container" id="filter_<%= product_filter.to_param %>_slider"
+                                data-min="<%= product_filter.min_value.present? ? product_filter.min_value : 0 %>"
+                                data-max="<%= product_filter.max_value.present? ? product_filter.max_value : 9999999 %>"
+                                data-uom="<%= product_filter.uom.present? ? product_filter.uom : "" %>">
+                                <div class="slider-range"></div>
+                                <%= text_field_tag "filter_#{product_filter.to_param}", "", class: "unstyled" %>
+      </div>
 
     <% elsif product_filter.is_string? %>
       <% product_filter.unique_values_for(@product_family).each do |val| %>
         <%= label_tag do %>
-          <%= check_box_tag "filter_#{product_filter.to_param}[]", val %> <%= val %>
+          <%= check_box_tag "filter_#{product_filter.to_param}",
+            val,
+            false,
+            class: "text-filter",
+            id: "filter_#{product_filter.to_param}_#{val.to_param}" %> <%= val %>
         <% end %>
       <% end %>
     <% end %>
@@ -31,7 +39,7 @@
     <h3>Sub-categories</h3>
     <% @product_family.children_with_current_products(website).sort_by(&:name).each do |sub_family| %>
       <%= label_tag do %>
-        <%= check_box_tag "sub_family[]", sub_family.id, false, id: sub_family.to_param %>
+        <%= check_box_tag "sub_family[]", sub_family.id, false, id: sub_family.to_param, class: "sub_family_filter" %>
         <%= sub_family.name.gsub(/\s?Products$/i, "").gsub(/SERIES/i, "Series") %>
       <% end %>
     <% end %>

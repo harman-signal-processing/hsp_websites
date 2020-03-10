@@ -1968,3 +1968,10 @@ This solution was found here: https://foundation.zurb.com/forum/posts/581-block-
     margin-top: 20px;
   }
 }
+
+/** Product selector **/
+input.unstyled {
+  border: none;
+  background: none;
+  padding: 0
+}
