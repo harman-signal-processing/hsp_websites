@@ -46,10 +46,10 @@
                 <div class="product_family_box">
                   <div data-equalizer-watch="family_thumbs" class="family_thumb">
                     <% if !product_family.family_photo_file_name.blank? %>
-                      <%= image_tag(product_family.family_photo.url, alt: translate_content(product_family, :name)) %>
+                      <%= image_tag(product_family.family_photo.url, alt: translate_content(product_family, :name), lazy: false) %>
                     <% elsif product_family.first_product_with_photo(website) %>
                       <%= image_tag(product_family.first_product_with_photo(website).primary_photo.product_attachment.url(:small),
-                                    alt: translate_content(product_family, :name)) %>
+                                    alt: translate_content(product_family, :name), lazy: false) %>
                     <% end %>
                   </div>
                   <% if product_family.family_photo_file_name.blank? %>
@@ -75,22 +75,25 @@
 
   <% end %>
 
-  <div class="row">
-    <div class="large-12 columns">
-      <% if @product_family.show_comparisons? %>
-        <%= form_tag compare_products_path, method: :get %>
-      <% end %>
+  <% if @product_family.current_products.length > 0 %>
+    <div class="row">
+      <div class="large-12 columns">
+        <h5>Products</h5>
+        <% if @product_family.show_comparisons? %>
+          <%= form_tag compare_products_path, method: :get %>
+        <% end %>
 
-      <%= render_partial "product_families/product_family", product_family: @product_family, skip_header: true  %>
+        <%= render_partial "product_families/product_family", product_family: @product_family, skip_header: true  %>
 
 
-      <% if @product_family.show_comparisons? %>
-        </form>
-      <% end %>
+        <% if @product_family.show_comparisons? %>
+          </form>
+        <% end %>
 
+      </div>
     </div>
-  </div>
-  <p>&nbsp;</p>
+    <p>&nbsp;</p>
+  <% end %>
 
 <% end %>
 

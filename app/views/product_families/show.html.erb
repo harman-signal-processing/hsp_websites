@@ -73,21 +73,25 @@
 
   <% end %>
 
-  <div class="row">
-    <div class="large-12 columns">
-      <% if @product_family.show_comparisons? %>
-        <%= form_tag compare_products_path, method: :get %>
-      <% end %>
+  <% if @product_family.current_products.length > 0 %>
+    <div class="row">
+      <div class="large-12 columns">
+        <h5>Products</h5>
+        <% if @product_family.show_comparisons? %>
+          <%= form_tag compare_products_path, method: :get %>
+        <% end %>
 
-      <%= render_partial "product_families/product_family", product_family: @product_family, skip_header: true  %>
+        <%= render_partial "product_families/product_family", product_family: @product_family, skip_header: true  %>
 
-      <% if @product_family.show_comparisons? %>
-        </form>
-      <% end %>
 
+        <% if @product_family.show_comparisons? %>
+          </form>
+        <% end %>
+
+      </div>
     </div>
-  </div>
-  <p>&nbsp;</p>
+    <p>&nbsp;</p>
+  <% end %>
 
 <% end %>
 
