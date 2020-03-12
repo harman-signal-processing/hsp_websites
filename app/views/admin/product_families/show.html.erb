@@ -167,15 +167,25 @@
   </div>
 
   <div class="medium-6 columns">
-    <% if @product_family.children.size > 0 %>
-      <div class="group">
-        <h4 class="subheader">Child Categories:</h4>
-        <%= link_to "new category", new_admin_product_family_path, class: "small success button" %>
-        <ul id="product_families" class="sortable_list">
-          <%= render partial: "product_family", collection: @product_family.children %>
-        </ul>
-      </div>
-    <% end %>
+    <div class="group">
+      <h4 class="subheader">Child Categories:</h4>
+      <%= simple_form_for [:admin, ProductFamily.new(parent_id: @product_family.id)], remote: true do |f| %>
+        <%= f.input :parent_id, as: :hidden %>
+        <%= label_tag "New Child Category Name" %>
+        <div class="row collapse">
+          <div class="small-8 columns">
+            <%= f.input :name, label: false %>
+          </div>
+          <div class="small-4 columns">
+            <%= f.submit "Create Child Category", class: "success button postfix" %>
+          </div>
+        </div>
+      <% end %>
+
+      <ul id="product_families" class="sortable_list">
+        <%= render partial: "product_family", collection: @product_family.children %>
+      </ul>
+    </div>
 
     <div class="group">
       <h4 class="subheader">Locales which should show this product family</h4>

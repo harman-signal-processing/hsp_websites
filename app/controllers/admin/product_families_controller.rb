@@ -50,6 +50,7 @@ class Admin::ProductFamiliesController < AdminController
       if @product_family.save
         format.html { redirect_to([:admin, @product_family], notice: 'ProductFamily was successfully created.') }
         format.xml  { render xml: @product_family, status: :created, location: @product_family }
+        format.js
         website.add_log(user: current_user, action: "Created product family: #{@product_family.name}")
       else
         format.html { render action: "new" }
