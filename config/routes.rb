@@ -157,6 +157,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         collection { post :update_order }
         member do
           get :delete_background, :delete_family_photo, :delete_family_banner, :delete_title_banner
+          put :copy
         end
       end
       resources :warranty_registrations do

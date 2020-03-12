@@ -58,6 +58,14 @@ class Admin::ProductFamiliesController < AdminController
     end
   end
 
+  def copy
+    new_product_family = @product_family.copy!
+    redirect_to(
+      [:admin, new_product_family],
+      notice: "The new product family (below) is hidden from navigation. Update that field when you're ready to launch it."
+    )
+  end
+
   # PUT /admin/product_families/update_order
   def update_order
     update_list_order(ProductFamily, params["product_family"])
@@ -70,7 +78,13 @@ class Admin::ProductFamiliesController < AdminController
   def update
     respond_to do |format|
       if @product_family.update_attributes(product_family_params)
-        format.html { redirect_to([:admin, @product_family], notice: 'ProductFamily was successfully updated.') }
+        format.html {
+          if @product_family.brand == website.brand
+            redirect_to([:admin, @product_family], notice: 'Product Family was successfully updated.')
+          else
+            redirect_to( admin_product_families_path, notice: "The family was moved to #{ @product_family.brand.name }. You'll need to manage it on the #{ @product_family.brand.name } admin site.")
+          end
+        }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated product family: #{@product_family.name}")
       else
@@ -97,7 +111,7 @@ class Admin::ProductFamiliesController < AdminController
     @product_family.update_attributes(background_image: nil)
     respond_to do |format|
       format.html { redirect_to(edit_admin_product_family_path(@product_family), notice: "Background was deleted.") }
-      format.js 
+      format.js
     end
     website.add_log(user: current_user, action: "Deleted background for family #{@product_family.name}")
   end
@@ -108,7 +122,7 @@ class Admin::ProductFamiliesController < AdminController
     @product_family.update_attributes(family_photo: nil)
     respond_to do |format|
       format.html { redirect_to(edit_admin_product_family_path(@product_family), notice: "Family photo was deleted.") }
-      format.js 
+      format.js
     end
     website.add_log(user: current_user, action: "Deleted family photo from #{@product_family.name}")
   end
@@ -119,7 +133,7 @@ class Admin::ProductFamiliesController < AdminController
     @product_family.update_attributes(family_banner: nil)
     respond_to do |format|
       format.html { redirect_to(edit_admin_product_family_path(@product_family), notice: "Family banner was deleted.") }
-      format.js 
+      format.js
     end
     website.add_log(user: current_user, action: "Deleted family banner image from #{@product_family.name}")
   end
@@ -130,7 +144,7 @@ class Admin::ProductFamiliesController < AdminController
     @product_family.update_attributes(title_banner: nil)
     respond_to do |format|
       format.html { redirect_to(edit_admin_product_family_path(@product_family), notice: "Title banner was deleted.") }
-      format.js 
+      format.js
     end
     website.add_log(user: current_user, action: "Deleted title banner image from #{@product_family.name}")
   end
@@ -144,5 +158,5 @@ class Admin::ProductFamiliesController < AdminController
   def product_family_params
     params.require(:product_family).permit!
   end
-  
+
 end
