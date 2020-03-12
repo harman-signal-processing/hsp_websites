@@ -21,6 +21,7 @@
 <ul class="button-group round">
 	<li><%= link_to 'Back', admin_product_families_path, class: "small secondary button" %></li>
 	<li><%= link_to 'Edit', edit_admin_product_family_path(@product_family, locale: I18n.locale), class: "small secondary button" %></li>
+  <li><%= link_to 'Copy Family', copy_admin_product_family_path(@product_family, locale: I18n.locale), method: :put, class: "small success button" %></li>
 	<li><%= link_to 'Delete', [:admin, @product_family], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
 </ul>
 
@@ -108,7 +109,7 @@
             <div class="small-12 medium-3 columns">
               <%= select_tag :brand_id,
                 options_from_collection_for_select(
-                  Brand.where(id: Product.pluck(:brand_id).uniq).order("upper(name)"),
+                  Brand.where(id: Product.pluck(:brand_id).uniq).order(Arel.sql("upper(name)")),
                   "cached_slug", "name", website.brand.cached_slug
               ), class: "brand-select" %>
             </div>
