@@ -397,26 +397,36 @@ div#big_bottom_box_content {
 }
 
 footer {
-	margin: 20px 0px 30px;
-	height: 90px;
-	div#footer_info {
-		text-align: right;
-		margin-top: 10px;
-	}	
-	div#footer_left {
-		margin: 10px 0px;
-		img {
-		}
-	}
-	.footer_text {
-		font-size: 80%;
-	}
+  position: relative;
+  margin: 0px 0px 30px;
+  min-height: 120px;
+  div#footer_info {
+    text-align: right;
+  }
+
+  .footer_text {
+    font-size: 80%;
+  }
+  .fa {
+    margin-right: 20px;
+  }
 }
 div#harmanpro_bar {
-	background: #5a5b5e;
-	padding: 0px;
-	margin-bottom: 8px;
-	text-align: center;
+  .hlogo {
+    max-height: 60px;
+    width: auto;
+  }
+  background: #464749;
+  padding-top: 9px;
+  min-height: 80px;
+  margin-bottom: 8px;
+  text-align: center;
+  ul {
+    margin-top: 10px;
+  }
+  .row {
+    max-width: rem-calc(1400);
+  }
 }
 
 #social_media_links {

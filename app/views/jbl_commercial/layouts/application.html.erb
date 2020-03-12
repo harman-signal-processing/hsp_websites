@@ -57,7 +57,7 @@
         <%= raw website.value_for('other_body_scripts') %>
       <% end %>
     <% end %>
-		<%= image_tag 'jbl_commercial/bg.png', alt: "", id: "bg"%>
+		<%#= image_tag 'jbl_commercial/bg.png', alt: "", id: "bg"%>
 		<div id="fb-root"></div>
 		<script>(function(d, s, id) {
 		  var js, fjs = d.getElementsByTagName(s)[0];
@@ -135,15 +135,13 @@
 			</div>
 		</div>
 		<% end %>
-		
+
 		<% if content_for?(:feature) %>
-		<div class="container"> 
 			<div class="row">
 				<div class="large-12 columns hide-for-small">
 					<%= yield :feature %>
 				</div>
 			</div>
-		</div>
 		<% end %>
 
 		<div class="container">
@@ -151,9 +149,9 @@
 		      <div class="large-12 columns">
 
 		        <% flash.each do |name, msg| %>
-		          <% 
+		          <%
 		            css_class = 'alert-box'
-		            if name.match(/notice/i) 
+		            if name.match(/notice/i)
 		              css_class += ' success'
 		            elsif name.match(/alert|warn/)
 		              css_class += ' alert'
@@ -175,7 +173,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<% if content_for?(:middle_stuff) %>
 		<div id="middle_container">
 			<%= yield :middle_stuff %>
@@ -194,16 +192,12 @@
 
 		<%= cache ["footer", website.brand, I18n.locale] do %>
 		<footer>
-			<div class="row">
-				<div class="large-12 columns hide-for-small">
-					<%= hpro_footer(exclude: "DigiTech") %>
-				</div>
-			</div>
-			<div class="row">
+			<%= hpro_footer(exclude: "DigiTech") %>
+			<div class="container">
 				<div class="medium-4 small-12 columns" id="footer_left">
 					<span class="footer_text">
 						&copy; <%= Date.today.year %>
-						<%= link_to(image_tag('harman.jpg', alt: t('harman')), "http://www.harman.com/", target: "_blank") %>.
+						<%= link_to(t('harman'), "http://www.harman.com/", target: "_blank") %>.
 						<%= t('all_rights_reserved') %>
 					</span>
 				</div>
