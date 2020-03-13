@@ -132,6 +132,31 @@
         <% end %>
       </ul>
 
+      <small>
+        <%= link_to_function "copy/move all products to another family", "$('#copymove').toggle()" %>
+      </small>
+      <div id="copymove" style="display:none;" class="panel">
+        <%= form_tag copy_products_admin_product_family_path(@product_family), method: :post %>
+
+          <label>I want to:</label>
+          <div>
+            <%= radio_button_tag :action_type, :copy %>
+            <%= label_tag :action_type, "Copy", value: :copy %>
+            <%= radio_button_tag :action_type, :move %>
+            <%= label_tag :action_type, "Move", value: :move %>
+          </div>
+
+          <label>These products to:</label>
+          <%= select_tag :target_family_id,
+            options_from_collection_for_select(
+              (ProductFamily.where(brand_id: website.brand.id).order(:name) - [@product_family]),
+              :id,
+              :tree_names)
+          %>
+
+          <%= submit_tag "Go For It", class: "small button" %>
+        </form>
+      </div>
     </div>
 
 		<% if can? :manage, @product_family.testimonials %>
@@ -168,16 +193,16 @@
 
   <div class="medium-6 columns">
     <div class="group">
-      <h4 class="subheader">Child Categories:</h4>
+      <h4 class="subheader">Sub-Families:</h4>
       <%= simple_form_for [:admin, ProductFamily.new(parent_id: @product_family.id)], remote: true do |f| %>
         <%= f.input :parent_id, as: :hidden %>
-        <%= label_tag "New Child Category Name" %>
+        <%= label_tag "New Sub-Family Name" %>
         <div class="row collapse">
           <div class="small-8 columns">
             <%= f.input :name, label: false %>
           </div>
           <div class="small-4 columns">
-            <%= f.submit "Create Child Category", class: "success button postfix" %>
+            <%= f.submit "Create Sub-Family", class: "success button postfix" %>
           </div>
         </div>
       <% end %>

@@ -67,6 +67,19 @@ class Admin::ProductFamiliesController < AdminController
     )
   end
 
+  def copy_products
+    if request.post?
+      target_family = ProductFamily.find(params[:target_family_id])
+      target_family.products += @product_family.products
+      target_family.save
+      if params[:action_type].to_s.match?(/move/i)
+        @product_family.products = []
+        @product_family.save
+      end
+      redirect_to([:admin, target_family], notice: "Products from #{ @product_family.name } have been added below.") and return false
+    end
+  end
+
   # PUT /admin/product_families/update_order
   def update_order
     update_list_order(ProductFamily, params["product_family"])

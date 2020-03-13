@@ -1,0 +1,21 @@
+<%= form_tag copy_products_admin_product_family_path(@product_family), method: :post %>
+
+  <label>I want to:</label>
+  <div>
+    <%= radio_button_tag :action_type, :copy %>
+    <%= label_tag :action_type, "Copy", value: :copy %>
+    <%= radio_button_tag :action_type, :move %>
+    <%= label_tag :action_type, "Move", value: :move %>
+  </div>
+
+  <label>Products to the family:</label>
+  <%= select_tag :target_family_id,
+    options_from_collection_for_select(
+      (ProductFamily.where(brand_id: website.brand.id).order(:name) - [@product_family]),
+      :id,
+      :tree_names)
+  %>
+
+  <%= submit_tag "Go For It", class: "small button" %>
+</form>
+
