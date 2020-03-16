@@ -1,4 +1,4 @@
-<h1>US Dealers</h1>
+<h1>Dealers</h1>
 
 <div class="instructions">
 <% if !website.dealers_from_brand_id.blank? %>
@@ -36,6 +36,7 @@
       <th>Name</th>
       <th>City</th>
       <th>State</th>
+      <th>Country</th>
       <th>Email</th>
       <th>Account number</th>
     </tr>
@@ -46,6 +47,7 @@
         <td><%= link_to dealer.name, [:admin, dealer] %></td>
         <td><%= dealer.city %></td>
         <td><%= dealer.state %></td>
+        <td><%= dealer.country %></td>
         <td><%= dealer.email %></td>
         <td><%= dealer.account_number %></td>
     	<% unless dealer.exclude? %>
