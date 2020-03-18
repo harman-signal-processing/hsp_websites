@@ -47,6 +47,10 @@
 
     <%= will_paginate @results, params:{query:@query} %>
   <% else %>
-    <p><i>No results found.</i></p>
+    <% if !@query.present? %>
+      <p><i>Enter a search term above.</i></p>
+    <% else%>
+      <p><i>No results found.</i></p>
+    <% end %>
   <% end %>
 </div><!-- <div class="wide_centered_box">  -->
