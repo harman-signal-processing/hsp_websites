@@ -1,6 +1,7 @@
-var  master_product_list = [];
-var  product_elements_to_show = [];
-var  product_elements_to_hide = [];
+var master_product_list = [];
+var product_elements_to_show = [];
+var product_elements_to_hide = [];
+var slider_filter_data = {};
 
 // Each slider element is initialized and given a callback
 // function for when the values change.
@@ -11,6 +12,13 @@ function initializeSliders() {
     var uom = $(this).data("uom");
     var slider = $(this).children("div.slider-range");
     var input = $(this).children("input");
+    var filter_name = $(this).attr("data-filtername");
+    slider_filter_data[filter_name] = {
+      min: $(this).attr("data-min"),
+      max: $(this).attr("data-max"),
+      selected_min: $(this).attr("data-min"),
+      selected_max: $(this).attr("data-max")
+    };
     slider.slider({
       range: true,
       min: min,
@@ -21,6 +29,8 @@ function initializeSliders() {
         input.val( ui.values[0] + " - " + ui.values[1] + " " + uom );
       },
       change: function(event, ui) {
+        slider_filter_data[filter_name]["selected_min"] = ui.values[0];
+        slider_filter_data[filter_name]["selected_max"] = ui.values[1];
         performFilter();
       }
     });
@@ -91,11 +101,58 @@ function productFamilyFilter(item, selected_sub_families) {
   return false;
 }
 
+function textFilter(item, filter_name, selected_values) {
+  if ( typeof $(item).attr("data-"+filter_name) !== 'undefined' ) {
+    var this_values = $(item).attr("data-"+filter_name).split(",");
+    for (var i = 0; i < this_values.length; i++) {
+      var value = this_values[i];
+      if (selected_values.indexOf(value) >= 0) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+function booleanFilter(item, filter_name, selected_values) {
+  if ( typeof $(item).attr("data-"+filter_name) !== 'undefined' ) {
+    var this_values = $(item).attr("data-"+filter_name).split(",");
+    for (var i = 0; i < this_values.length; i++) {
+      var value = this_values[i];
+      if (selected_values.indexOf(value) >= 0) {
+        return true;
+      }
+    }
+  // Here we treat empty values for a product as if they were marked 'false'.
+  // This may not be desired, but probably makes sense.
+  } else if ( selected_values.indexOf("false") >= 0 ) {
+    return true;
+  }
+  return false;
+}
+
+function sliderFilter(item, filter_name, selected_values) {
+  // if the slider hasn't moved, return true for all products
+  if ( parseInt(selected_values["selected_min"]) == parseInt(selected_values["min"]) &&
+    parseInt(selected_values["selected_max"]) == parseInt(selected_values["max"]) ) {
+      return true;
+  } else if ( typeof $(item).attr("data-"+filter_name) !== 'undefined' ) {
+    var this_value = $(item).attr("data-"+filter_name);
+    if (this_value >= selected_values["min"] && this_value <= selected_values["max"]) {
+      return true;
+    }
+  }
+  return false;
+}
+
 function performFilter() {
   window.product_elements_to_show = [];
   window.product_elements_to_hide = [];
-  selected_sub_families = [];
+  var selected_sub_families = [];
+  var text_filter_data = {};
+  var boolean_filter_data = {};
 
+  // figure out which product families are selected
   $("input[name='sub_family[]']:checked").each(function() {
     selected_sub_families.push(this.value);
   });
@@ -106,12 +163,44 @@ function performFilter() {
     });
   }
 
+  // build data of other filter checkbox inputs
+  $.each($("input.text-filter[type='checkbox']:checked"), function() {
+    var filter_name = $(this).attr("name");
+    text_filter_data[filter_name] = text_filter_data[filter_name] || [];
+    text_filter_data[filter_name].push( $(this).val() );
+  });
+
+  // build data for boolean inputs
+  $.each($("input.boolean-filter[type='checkbox']:checked"), function() {
+    var filter_name = $(this).attr("name");
+    boolean_filter_data[filter_name] = boolean_filter_data[filter_name] || [];
+    boolean_filter_data[filter_name].push( $(this).val() );
+  });
+
   // loop through each product
   $.each((master_product_list), function() {
     var failed_filter_count = 0;
     // apply each filter
     if ($("input[name='sub_family[]']").length > 0) {
       if (productFamilyFilter(this, selected_sub_families) == false) {
+        failed_filter_count++;
+      }
+    }
+
+    for (const filter_name in text_filter_data) {
+      if (textFilter(this, filter_name, text_filter_data[filter_name]) == false) {
+        failed_filter_count++;
+      }
+    }
+
+    for (const filter_name in boolean_filter_data) {
+      if (booleanFilter(this, filter_name, boolean_filter_data[filter_name]) == false) {
+        failed_filter_count++;
+      }
+    }
+
+    for (const filter_name in slider_filter_data) {
+      if (sliderFilter(this, filter_name, slider_filter_data[filter_name]) == false) {
         failed_filter_count++;
       }
     }
@@ -132,17 +221,6 @@ jQuery(function($) {
     $(".spinner").show();
     $("#results-container form").empty();
     $("#options-container").empty();
-  });
-
-  // Observe checkbox-style filters and determine which
-  // products to show or hide.
-  $("#options-container").on('click', 'form#filters input.text-filter[type="checkbox"]', function(){
-    var filter_name = $(this).attr("name");
-    var selected_values = [];
-    $.each($("input[name='" + filter_name + "']:checked"), function() {
-      selected_values.push($(this).val());
-    });
-    console.log("Checked something: " + selected_values);
   });
 
   // Observe the form containing all the filters and

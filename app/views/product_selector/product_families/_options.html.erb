@@ -4,31 +4,32 @@
 
     <% if product_filter.is_boolean?%>
       <%= label_tag do %>
-        <%= check_box_tag "filter_#{product_filter.to_param}", true, false %> Yes
+        <%= check_box_tag "filter-#{product_filter.to_param}", true, false, id: "filter-#{product_filter.to_param}_true", class: "boolean-filter" %> Yes
       <% end %>
 
       <%= label_tag do %>
-        <%= check_box_tag "filter_#{product_filter.to_param}", false, false %> No
+        <%= check_box_tag "filter-#{product_filter.to_param}", false, false, id: "filter-#{product_filter.to_param}_false", class: "boolean-filter" %> No
       <% end %>
 
     <% elsif product_filter.is_number? %>
 
       <div class="slider-range-container" id="filter_<%= product_filter.to_param %>_slider"
-                                data-min="<%= product_filter.min_value.present? ? product_filter.min_value : 0 %>"
-                                data-max="<%= product_filter.max_value.present? ? product_filter.max_value : 9999999 %>"
-                                data-uom="<%= product_filter.uom.present? ? product_filter.uom : "" %>">
-                                <div class="slider-range"></div>
-                                <%= text_field_tag "filter_#{product_filter.to_param}", "", class: "unstyled" %>
+        data-filtername="filter-<%=product_filter.to_param %>"
+        data-min="<%= product_filter.min_value.present? ? product_filter.min_value : 0 %>"
+        data-max="<%= product_filter.max_value.present? ? product_filter.max_value : 9999999 %>"
+        data-uom="<%= product_filter.uom.present? ? product_filter.uom : "" %>">
+        <div class="slider-range"></div>
+        <%= text_field_tag "filter-#{product_filter.to_param}", "", class: "unstyled slider-filter" %>
       </div>
 
     <% elsif product_filter.is_string? %>
       <% product_filter.unique_values_for(@product_family).each do |val| %>
         <%= label_tag do %>
-          <%= check_box_tag "filter_#{product_filter.to_param}",
+          <%= check_box_tag "filter-#{product_filter.to_param}",
             val,
             false,
             class: "text-filter",
-            id: "filter_#{product_filter.to_param}_#{val.to_param}" %> <%= val %>
+            id: "filter-#{product_filter.to_param}_#{val.to_param}" %> <%= val %>
         <% end %>
       <% end %>
     <% end %>

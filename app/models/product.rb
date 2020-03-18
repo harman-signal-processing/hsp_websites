@@ -709,4 +709,8 @@ class Product < ApplicationRecord
     end
   end
 
+  def filter_value(product_filter)
+    product_product_filter_values.where(product_filter: product_filter).first_or_initialize.value
+  end
+
 end

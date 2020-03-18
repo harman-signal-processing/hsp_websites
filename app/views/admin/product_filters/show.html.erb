@@ -25,3 +25,14 @@
   </p>
 <% end %>
 
+<h4>Products with this filter defined:</h4>
+
+<table>
+  <% @product_filter.products.order(Arel.sql("upper(name)")).each do |product| %>
+    <tr>
+      <td><%= link_to product.name, [:admin, product] %></td>
+      <td><%= product.filter_value(@product_filter) %></td>
+    </tr>
+  <% end %>
+</table>
+
