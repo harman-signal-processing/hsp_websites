@@ -1,11 +1,10 @@
 <% if can?(:read, item) %>
   <tr>
     <% if item.is_a?(SiteElement) %>
-
       <% if item.external_url.present? || item.executable_file_name.present? %>
         <td>
           <%= file_type_icon(item) %>
-          <%= link_to item.name, item.url %>
+          <%= link_to item.name, item %>
           <%= keys_for(item) %>
           <div class="show-for-small">
             <%= flag_for(item) %>
@@ -27,7 +26,7 @@
       <% elsif item.resource_file_name.present? %>
         <td>
           <%= file_type_icon(item) %>
-          <%= link_to item.name, item.url %>
+          <%= link_to item.name, item %>
           <%= keys_for(item) %>
           <div class="show-for-small">
             <%= flag_for(item) %>
@@ -54,7 +53,14 @@
             </i>
           </div>
         </td>
-        <td class="text-center hide-for-small"> <%= item.version %>&nbsp; </td>
+        <td class="text-center hide-for-small">
+        <% # If Martin and version number is missing and item is firmware, then lookup the version number from the Martin Companion data source%>
+        <% if website.brand.name.to_s.match(/martin/i) && !item.version.present? && (item.resource_type == "Software") && (item.name.include? "Firmware") %>
+          <%= MartinFirmwareService.firmware_version(item.name.gsub(/ \- Firmware/, ''))%>
+        <% else %>
+          <%= item.version %>
+        <% end %>        
+        &nbsp; </td>
         <td class="text-center hide-for-small"> <%= flag_for(item) %>&nbsp; </td>
         <td>&nbsp;</td>
         <td class="hide-for-small"><%=l item.updated_at.to_date, format: :short %></td>
@@ -63,7 +69,7 @@
     <% elsif item.is_a?(ProductDocument) %>
       <td>
         <%= file_type_icon(item) %>
-        <%= link_to item.name, item.document.url %>
+        <%= link_to item.name, item %>
         <div class="show-for-small">
           <%= flag_for(item) %>
           <i>
@@ -89,7 +95,14 @@
           </i>
         </div>
       </td>
-      <td class="text-center hide-for-small"><%= item.version %>&nbsp;</td>
+      <td class="text-center hide-for-small">
+        <% # If Martin and version number is missing and item is firmware, then lookup the version number from the Martin Companion data source%>
+        <% if website.brand.name.to_s.match(/martin/i) && !item.version.present? && item.category == "firmware" %>
+          <%= MartinFirmwareService.firmware_version(item.name.gsub(/ \- Firmware/, ''))%>
+        <% else %>
+          <%= item.version %>
+        <% end %>
+        &nbsp;</td>
       <td class="text-center hide-for-small"> <%= flag_for(item) %>&nbsp; </td>
       <td>
         <% if item.ware_file_size.to_i > 0 %>

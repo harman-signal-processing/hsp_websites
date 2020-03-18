@@ -9,7 +9,7 @@
 	} %>
 
 <%= content_for :feature do %>
-  <% slides = Setting.slides(website) %>
+  <% slides = Setting.slides(website, limit: 5) %>
   <% if slides.pluck(:slide_content_type).any? {|c| c.match?(/video/i) } %>
     <%= render_partial 'shared/video_banner' %>
   <% else %>

@@ -51,6 +51,7 @@ class Brand < ApplicationRecord
 
   after_initialize :dynamic_methods
   after_update :update_products
+  after_touch :touch_websites
 
   validates :name, presence: true, uniqueness: true
 
@@ -65,6 +66,10 @@ class Brand < ApplicationRecord
     rescue
       # oh well.
     end
+  end
+
+  def touch_websites
+    websites.each{|w| w.touch }
   end
 
   def should_generate_new_friendly_id?
@@ -210,15 +215,27 @@ class Brand < ApplicationRecord
 
   # Active software with active products
   def current_softwares
-    @current_softwares ||= (softwares.where(active: true).
+    @current_softwares ||= (softwares.where("active = true and category != 'firmware'").
       joins(:product_softwares).
       where(product_softwares: { product_id: current_product_ids }) + forced_current_softwares).uniq
   end
+  
+  # Active firmware with active products
+  def current_firmwares
+    @current_firmwares ||= (softwares.where(active: true, category: "firmware").
+      joins(:product_softwares).
+      where(product_softwares: { product_id: current_product_ids }) + forced_current_firmwares).uniq
+  end  
 
   # Those software with this flag enabled: activate even if there are no active products
   def forced_current_softwares
-    @forced_current_softwares ||= softwares.includes(:brand).where(active: true, active_without_products: true).order(:name)
+    @forced_current_softwares ||= softwares.includes(:brand).where("active = true and active_without_products = true and category != 'firmware'").order(:name)
   end
+  
+  # Those firmware with this flag enabled: activate even if there are no active products
+  def forced_current_firmwares
+    @forced_current_firmwares ||= softwares.includes(:brand).where(active: true, category: "firmware", active_without_products: true).order(:name)
+  end  
 
   def current_product_ids
     Rails.cache.fetch("#{cache_key_with_version}/current_product_ids}", expires_in: 6.hours) do

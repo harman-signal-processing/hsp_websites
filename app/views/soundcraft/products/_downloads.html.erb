@@ -1,6 +1,7 @@
 <div class="docs">
 <%
   category_names = {
+    "firmware" => "Firmware",
     "gui" => "GUI/Librarians",
     "editor" => "Offline Editors",
     "updater" => "Software Updaters",
@@ -23,7 +24,7 @@
     </thead>
     <tbody>
 
-<% (category_names.keys & product.active_softwares.pluck(:category).uniq).each do |category| %>
+<% (category_names.keys & product.active_softwares_soundcraft.pluck(:category).uniq).each do |category| %>
   <tr>
     <td colspan=5>
       <% if category.present? %>
@@ -34,9 +35,7 @@
     </td>
   </tr>
 
-
-
-    <% product.active_softwares.each do |software| %>
+    <% product.active_softwares_soundcraft.each do |software| %>
       <% if software.category == category %>
         <%= render_partial 'products/download_table_row', item: software %>
         
@@ -53,9 +52,7 @@
       <% end %> <%# if software.category == category %>
     <% end %> <%# product.active_softwares.each do |software| %>
 
-
-<% end %> <%# (category_names.keys & product.active_softwares.pluck(:category).uniq).each do |category| %>
-
+<% end %> <%# (category_names.keys & product.active_softwares_soundcraft.pluck(:category).uniq).each do |category| %>
 
   <% product.executable_site_elements.each do |site_element| %>
     <% if can?(:read, site_element) %>

@@ -18,7 +18,7 @@ module Api
           if item.present?
             case item.class.name
               when "ProductDocument"
-                {name:item.name,url:item.document.url}
+                {name:item.name,url:item.url}
               when "SiteElement"
                 {name:item.long_name,url:item.url}
               else

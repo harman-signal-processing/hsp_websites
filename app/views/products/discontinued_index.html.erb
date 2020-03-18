@@ -5,7 +5,6 @@
 
 <% displayed_products = [] %>
 
-<%= cache ["disc_pr_index", website.brand, I18n.locale, @products] do %>
 <% ProductFamily.all_parents(website).select{|pf| pf if pf.all_discontinued_products.length > 0}.each do |parent| %>
   <h2><%= translate_content(parent, :name) %></h2>
   <hr/>
@@ -82,5 +81,4 @@
 	<li><%= link_to product.name, product %></li>
 	<% end %>
 </ul>
-<% end %>
 <% end %>

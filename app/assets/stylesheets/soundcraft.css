@@ -10,10 +10,9 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
-  *= require chosen 
+  *= require chosen
   *= require soundcraft_framework_and_overrides
-  *= require lightbox
+  *= require jquery.fancybox
   *= require jquery-ui.min
-  *= require add2home
   *= require_self
  */

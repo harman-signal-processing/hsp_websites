@@ -358,5 +358,33 @@ class ProductFamily < ApplicationRecord
       [parent, parent.family_tree].flatten
     end
   end
+
+  def copy!(options = {})
+    npf = self.dup
+    if options[:parent_id]
+      npf.parent_id = options[:parent_id]
+    else
+      npf.hide_from_navigation = true
+    end
+    npf.family_photo = family_photo if family_photo.present?
+    npf.family_banner = family_banner if family_banner.present?
+    npf.title_banner = title_banner if title_banner.present?
+    npf.save
+
+    npf.products = products
+    npf.testimonials = testimonials
+
+    features.each do |f|
+      new_feature = f.dup
+      new_feature.featurable = npf
+      new_feature.image = f.image if f.image.present?
+      new_feature.save
+    end
+
+    children.each{ |c| c.copy!(parent_id: npf.id) }
+
+    npf
+  end
+
 end
 

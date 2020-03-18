@@ -36,7 +36,7 @@
 					<span id="family_photo">
 						<%= link_to image_tag("icons/trash.gif", lazy: false), delete_family_photo_admin_product_family_path(f.object), remote: true %>
 						currently:
-						<%= link_to image_tag(f.object.family_photo.url(:thumb)), f.object.family_photo.url %>
+						<%= link_to image_tag(f.object.family_photo.url(:original), lazy: false), f.object.family_photo.url %>
 
 					</span>
 				<% end %>
@@ -89,6 +89,10 @@
 	<%= f.input :hide_from_navigation, hint: "Experimental. May not hide everywhere." %>
   <%= f.input :has_full_width_features %>
 
+  <% unless f.object.new_record? %>
+    <%= f.association :brand, label: "Move this family to another brand" %>
+  <% end %>
+
   <div class="row">
     <div class="small-12 medium-6 columns">
       <fieldset>
@@ -96,7 +100,6 @@
         <p>If anything is here, the family is hidden from the site and can only be accessed with the direct URL and the login info.</p>
         <%= f.input :preview_username %>
         <%= f.input :preview_password, as: :string %>
-        <p><i>This is an experimental feature. Please report any issues where the family appears if it is supposed to be hidden.</i></p>
       </fieldset>
     </div>
   </div>

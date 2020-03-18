@@ -3,10 +3,10 @@
   description: @product_family.intro,
   keywords: @product_family.keywords %>
 
-<% if @product_family.features.length == 0 && @product_family.current_products.size == 1 %>
+<% if @product_family.features.length == 0 && @product_family.current_products_plus_child_products(website).length == 1 %>
   <div class="alert-box info radius" data-alert>
     This family has one active product and no fancy features to display. That means the public site will
-    redirect directly to the <strong><%= @product_family.current_products.first.name %> page</strong> instead
+    redirect directly to the <strong><%= @product_family.current_products_plus_child_products(website).first.name %> page</strong> instead
     of showing a family page.
     <a href="#" class="close">&times;</a>
   </div>
@@ -21,6 +21,7 @@
 <ul class="button-group round">
 	<li><%= link_to 'Back', admin_product_families_path, class: "small secondary button" %></li>
 	<li><%= link_to 'Edit', edit_admin_product_family_path(@product_family, locale: I18n.locale), class: "small secondary button" %></li>
+  <li><%= link_to 'Copy Family', copy_admin_product_family_path(@product_family, locale: I18n.locale), method: :put, class: "small success button" %></li>
 	<li><%= link_to 'Delete', [:admin, @product_family], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
 </ul>
 
@@ -39,8 +40,8 @@
 	<div class="large-4 columns">
 		<div class="panel">
 			<h6 class="subheader">Family Button:</h6>
-			<% if !@product_family.family_photo_file_name.blank? %>
-			  <%= image_tag @product_family.family_photo.url %>
+			<% if @product_family.family_photo_file_name.present? %>
+			  <%= image_tag(@product_family.family_photo.url(:original), lazy: false) %>
 			<% else %>
 			  <i>(none)</i>
 			<% end %>
@@ -108,7 +109,7 @@
             <div class="small-12 medium-3 columns">
               <%= select_tag :brand_id,
                 options_from_collection_for_select(
-                  Brand.where(id: Product.pluck(:brand_id).uniq).order("upper(name)"),
+                  Brand.where(id: Product.pluck(:brand_id).uniq).order(Arel.sql("upper(name)")),
                   "cached_slug", "name", website.brand.cached_slug
               ), class: "brand-select" %>
             </div>
@@ -131,6 +132,31 @@
         <% end %>
       </ul>
 
+      <small>
+        <%= link_to_function "copy/move all products to another family", "$('#copymove').toggle()" %>
+      </small>
+      <div id="copymove" style="display:none;" class="panel">
+        <%= form_tag copy_products_admin_product_family_path(@product_family), method: :post %>
+
+          <label>I want to:</label>
+          <div>
+            <%= radio_button_tag :action_type, :copy %>
+            <%= label_tag :action_type, "Copy", value: :copy %>
+            <%= radio_button_tag :action_type, :move %>
+            <%= label_tag :action_type, "Move", value: :move %>
+          </div>
+
+          <label>These products to:</label>
+          <%= select_tag :target_family_id,
+            options_from_collection_for_select(
+              (ProductFamily.where(brand_id: website.brand.id).order(:name) - [@product_family]),
+              :id,
+              :tree_names)
+          %>
+
+          <%= submit_tag "Go For It", class: "small button" %>
+        </form>
+      </div>
     </div>
 
 		<% if can? :manage, @product_family.testimonials %>
@@ -195,15 +221,25 @@
   </div>
 
   <div class="medium-6 columns">
-    <% if @product_family.children.size > 0 %>
-      <div class="group">
-        <h4 class="subheader">Child Categories:</h4>
-        <%= link_to "new category", new_admin_product_family_path, class: "small success button" %>
-        <ul id="product_families" class="sortable_list">
-          <%= render partial: "product_family", collection: @product_family.children %>
-        </ul>
-      </div>
-    <% end %>
+    <div class="group">
+      <h4 class="subheader">Sub-Families:</h4>
+      <%= simple_form_for [:admin, ProductFamily.new(parent_id: @product_family.id)], remote: true do |f| %>
+        <%= f.input :parent_id, as: :hidden %>
+        <%= label_tag "New Sub-Family Name" %>
+        <div class="row collapse">
+          <div class="small-8 columns">
+            <%= f.input :name, label: false %>
+          </div>
+          <div class="small-4 columns">
+            <%= f.submit "Create Sub-Family", class: "success button postfix" %>
+          </div>
+        </div>
+      <% end %>
+
+      <ul id="product_families" class="sortable_list">
+        <%= render partial: "product_family", collection: @product_family.children %>
+      </ul>
+    </div>
 
     <div class="group">
       <h4 class="subheader">Locales which should show this product family</h4>

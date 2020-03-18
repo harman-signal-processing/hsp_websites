@@ -13,7 +13,7 @@
 //= require jquery2
 //= require jquery_ujs
 //= require jquery-ui.min
-//= require jquery.lightbox-0.5.min
+//= require jquery.fancybox.min
 //= require jquery.datetimepicker
 //= require jquery.rwdImageMaps.min
 //= require jquery.lazyload
@@ -23,9 +23,7 @@
 //= require twitter
 //= require homepage
 //= require foundation
-//= require lightbox
 //= require will_paginate_infinite
-// require add2home
 //= require tools
 //= require_self
 

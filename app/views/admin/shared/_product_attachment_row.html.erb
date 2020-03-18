@@ -1,17 +1,17 @@
 <li id="product_attachment_<%= pa.id %>">
 	<span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
 	<% if pa.is_photo? %>
-	<%= link_to(image_tag(pa.product_attachment.url(:thumb)), 
+	<%= link_to(image_tag(pa.product_attachment.url(:thumb), lazy: false),
 			pa.product_attachment.url) %>
 	<% else %>
-	<%= link_to(!pa.product_media_thumb_file_name.blank? ? image_tag(pa.product_media_thumb.url(:thumb)) : pa.product_media_file_name, 
+	<%= link_to(!pa.product_media_thumb_file_name.blank? ? image_tag(pa.product_media_thumb.url(:thumb), lazy: false) : pa.product_media_file_name, 
 			pa.product_media.url) %>
-	<% end %>	
+	<% end %>
 	<span class="little">
-	<%= link_to(image_tag("icons/trash.gif", lazy: false), 
-			admin_product_attachment_path(pa), 
+	<%= link_to(image_tag("icons/trash.gif", lazy: false),
+			admin_product_attachment_path(pa),
 			remote: true,
-			confirm: "Are you sure?", 
+			confirm: "Are you sure?",
 			method: :delete) %>
 	<%= link_to 'edit', edit_admin_product_attachment_path(pa) %> &nbsp;
 	<% if pa.is_photo? %>

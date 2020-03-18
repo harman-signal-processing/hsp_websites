@@ -10,7 +10,7 @@
 <% end %>
 </h1>
 
-<ul class="small-block-grid-2">
+<ul class="small-block-grid-2 large-block-grid-5">
 <% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
   <% if product_family.locales(website).include?(I18n.locale.to_s) %>
     <li><div id="<%= product_family.to_param %>">
@@ -31,7 +31,7 @@
 <% end %>
 </ul>
 
-<% if @discontinued_products.size > 0 %>
+<% if @discontinued_products.size > 0 && !website.brand.name.to_s.match?(/studer/i) %>
 <p>&nbsp;</p>
 <p><%= link_to "discontinued products", discontinued_products_path %></p>
 <% end %>

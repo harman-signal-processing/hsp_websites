@@ -1,0 +1,24 @@
+<%= content_for :feature do %>
+  <div class="support_header">
+    <h1><%= t('titles.firmware') %></h1>
+  </div>
+<% end %>
+
+<%= raw website.value_for("firmware_page_header_text") %>
+
+<% firmware_items = MartinFirmwareService.get_firmware_items %>
+<% firmware_items.each do |firmware_category|
+    category_name = firmware_category.first.to_s
+    category_items = firmware_category[1][:items]
+%>
+    <h3><%=category_name%></h3>
+    <table style="width:600px;">
+        <thead><tr><th style="width:80%;">Product</th><th>Latest Version</th></tr></thead>
+        <tbody>
+            <% category_items.group_by {|item| item[:product]}.each do |product_version_item| %>
+                <% product_version_item_to_use = MartinFirmwareService.latest_product_version_item(product_version_item[1]) %>
+                <tr><td><%=product_version_item_to_use[:product]%></td><td><%=product_version_item_to_use[:version]%></td></tr>
+            <% end %>
+        </tbody>
+    </table>
+<% end %> <%  #  firmware_items.each do |firmware_category|%>

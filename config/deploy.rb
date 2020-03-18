@@ -1,9 +1,10 @@
 # config valid only for current version of Capistrano
-lock '~> 3.11.0'
+lock '~> 3'
 
 set :application, 'brandsites'
 set :repo_url, 'ssh://git@github.com/harman-signal-processing/hsp_websites.git'
 
+set :ssh_options, compression: false, keepalive: true
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 

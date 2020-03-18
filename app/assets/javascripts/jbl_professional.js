@@ -13,7 +13,7 @@
 //= require jquery2
 //= require jquery_ujs
 //= require jquery-ui.min
-//= require jquery.lightbox-0.5.min
+//= require jquery.fancybox.min
 //= require jquery.bxSlider.min
 //= require jquery.datetimepicker
 //= require jquery.pin
@@ -27,8 +27,6 @@
 //= require twitter
 //= require homepage
 //= require foundation
-//= require lightbox
-//= require jwplayer
 //= require swfobject
 //= require tools
 //= require will_paginate_infinite

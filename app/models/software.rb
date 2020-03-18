@@ -170,7 +170,7 @@ class Software < ApplicationRecord
 
   # Allows this item to be treated as a Site Element for sorting
   def resource_type
-    "Software"
+    self.category == "firmware" ? "Firmware" : "Software"
   end
 
 protected

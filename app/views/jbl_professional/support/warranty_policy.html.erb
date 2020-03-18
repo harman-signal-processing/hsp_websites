@@ -1,0 +1,47 @@
+<% set_meta_tags reverse: true %>
+<h1 class="page_title text-center">
+	JBL Professional Warranty Policy (US only)</h1>
+
+<div class="text-center">
+  
+  <p>
+    JBL Professional is a HARMAN Professional brand and its products are covered by the below Limited Product Warranty.</p>
+  <h4>LIMITED PRODUCT WARRANTY</h4>
+  For HARMAN Professional Products<br/>
+  Purchased from HARMAN Professional Authorized Dealers<br/>
+  (USA Only)
+</div>
+
+<div class="row">
+  <div class="large-8 small-12 columns">
+  	<%= render_partial "shared/standard_warranty_details" %>
+  </div>
+  <div class="large-4 small-12 columns">
+    <%= render_partial "shared/extended_warranty" %>
+
+		<table class="specs">
+			<tr>
+				<th>Product</th>
+				<th>Warranty Period</th>
+			</tr>
+			<% @products.each do |product| %>
+			<tr>
+				<td class="name"><%= link_to product.name, product %></td>
+				<td><%= pluralize(product.warranty_period, "year") %></td>
+			</tr>
+			<% end %>
+			<tr>
+			    <td class="name">JBL Pro Transducers, sold as stand-alone products or components of a loudspeaker system</td>
+			    <td>5 year</td>
+			</tr>
+			<tr>
+			    <td class="name">JBL Pro Amplifiers, sold as stand-alone products or components of a loudspeaker system</td>
+			    <td>3 year</td>
+			</tr>
+			<tr>
+			    <td class="name">JBL Pro Enclosures and Accessories sold as stand-alone products or components of a loudspeaker system</td>
+			    <td>2 year</td>
+			</tr>
+		</table>
+	</div>
+</div>

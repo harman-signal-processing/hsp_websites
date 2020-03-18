@@ -1,48 +1,9 @@
 module ProductsHelper
 
-  # Using zurb foundation to show the product images
-  #
-  def interchange_product_image(product)
-    q = []
-
-    q << "[#{product.photo.product_attachment.url(:medium)}, (default)]"
-    q << "[#{product.photo.product_attachment.url(:large)}, (only screen and (min-width: 1350px))]"
-    q << "[#{product.photo.product_attachment.url(:medium)}, (only screen and (min-width: 1024px) and (max-width: 1349px))]"
-    q << "[#{product.photo.product_attachment.url(:small)}, (only screen and (max-width: 768px))]"
-
-    image_tag(product.photo.product_attachment.url(:medium),
-      data: { interchange: q.join(", ") })
-  end
-
-  # Zurb's abide way of doing the lightbox image links
-  #
-  def abide_link_to_product_attachment(product_attachment)
-    if !product_attachment.product_attachment_file_name.blank?
-      link_to(image_tag(product_attachment.product_attachment.url(:tiny_square), style: "vertical-align: middle"),
-          product_attachment.product_attachment.url)
-    else
-      img = product_attachment.product_media_thumb.url(:tiny)
-      if product_attachment.product_media_file_name.to_s.match(/swf$/i)
-        width = (product_attachment.width.blank?) ? "100%" : product_attachment.width
-        height = (product_attachment.height.blank?) ? "100%" : product_attachment.height
-        new_content = swf_tag(product_attachment.product_media.url, size: "#{width}x#{height}")
-      elsif product_attachment.product_media_file_name.to_s.match(/flv|mp4|mov|mpeg|mp3|m4v$/i)
-        # At one point, I prepended the protocol and host. Not sure why, but I'm trying it without
-        # this to see if I can get it to come through the Amazon cloudfont CDN. (10/2013)
-        # media_url = request.protocol + request.host_with_port + product_attachment.product_media.url('original', false)
-
-        new_content = render_partial("shared/player", media_url: product_attachment.product_media.url)
-      else
-        new_content = product_attachment.product_attachment.url
-      end
-      link_to_function image_tag(img, style: "vertical-align: middle"), "$('#viewer').html('#{escape_javascript(new_content)}')"
-    end
-  end
-
   def link_to_product_attachment(product_attachment)
     if product_attachment.product_attachment_file_name.present?
       link_to product_attachment.product_attachment.url(:original),
-        data: product_attachment.no_lightbox? ? {} : { lightbox: 'product-thumbnails' } do
+        data: product_attachment.no_lightbox? ? {} : { fancybox: 'product-thumbnails' } do
           image_tag(product_attachment.product_attachment.url(:tiny), style: 'vertical-align: middle')
       end
     else
@@ -51,16 +12,16 @@ module ProductsHelper
         width = (product_attachment.width.blank?) ? "100%" : product_attachment.width
         height = (product_attachment.height.blank?) ? "100%" : product_attachment.height
         new_content = swf_tag(product_attachment.product_media.url, size: "#{width}x#{height}")
+        link_to_function image_tag(img, style: "vertical-align: middle"), "$('#viewer').html('#{escape_javascript(new_content)}')"
       elsif product_attachment.product_media_file_name.to_s.match(/flv|mp4|mov|mpeg|mp3|m4v$/i)
-        # At one point, I prepended the protocol and host. Not sure why, but I'm trying it without
-        # this to see if I can get it to come through the Amazon cloudfont CDN. (10/2013)
-        # media_url = request.protocol + request.host_with_port + product_attachment.product_media.url('original', false)
-
-        new_content = render_partial("shared/player", media_url: product_attachment.product_media.url)
+        link_to product_attachment.product_media.url,
+          data: product_attachment.no_lightbox? ? {} : { fancybox: 'product-thumbnails' } do
+            image_tag(img, style: 'vertical-align: middle', alt: "Product Video")
+        end
       else
         new_content = product_attachment.product_attachment.url
+        link_to_function image_tag(img, style: "vertical-align: middle"), "$('#viewer').html('#{escape_javascript(new_content)}')"
       end
-      link_to_function image_tag(img, style: "vertical-align: middle"), "$('#viewer').html('#{escape_javascript(new_content)}')"
     end
   end
 

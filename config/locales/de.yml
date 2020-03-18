@@ -48,6 +48,7 @@ de:
     back: back
     download: download
     downloads: downloads
+    firmware_downloads: firmware downloads
     software_downloads: software downloads
     pop_explanation: Many DigiTech retailers feature our interactive product display which will allow you to try out our products and find out just how much Jimi you've got.
     products_used_by: "Products used by %{artist}"

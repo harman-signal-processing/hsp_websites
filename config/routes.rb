@@ -157,7 +157,9 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :product_families do
         collection { post :update_order }
         member do
-          get :delete_background, :delete_family_photo, :delete_family_banner, :delete_title_banner
+          get :delete_background, :delete_family_photo, :delete_family_banner, :delete_title_banner, :copy_products
+          put :copy
+          post :copy_products
         end
       end
       resources :warranty_registrations do
@@ -486,7 +488,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     end
     get 'products/:id(/:tab)' => 'products#show', as: :product
     resources :tone_library_songs, only: :index
-    resources :product_documents, only: :index
+    resources :product_documents, only: [:index, :show]
     resources :parts, only: [:index]
     resources :events, only: [:index, :show]
     resources :site_elements, only: [:show]
@@ -522,6 +524,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     match '/tone_library/:product_id/:tone_library_song_id(.:ext)' => "tone_library_songs#download", as: :tone_download, via: :all
     match '/tone_library' => "tone_library_songs#index", as: :tone_library, via: :all
     match '/software' => 'softwares#index', as: :software_index, via: :all
+    match '/firmware' => 'softwares#firmware', as: :firmware_index, via: :all
     match '/support/warranty_registration(/:product_id)' => 'support#warranty_registration', as: :warranty_registration, via: :all
     match '/support/parts' => 'support#parts', as: :parts_request, via: :all
     match '/support/rma' => 'support#rma', as: :rma_request, via: :all

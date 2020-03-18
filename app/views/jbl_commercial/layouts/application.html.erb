@@ -57,7 +57,7 @@
         <%= raw website.value_for('other_body_scripts') %>
       <% end %>
     <% end %>
-		<%= image_tag 'jbl_commercial/bg.png', alt: "", id: "bg"%>
+		<%#= image_tag 'jbl_commercial/bg.png', alt: "", id: "bg"%>
 		<div id="fb-root"></div>
 		<script>(function(d, s, id) {
 		  var js, fjs = d.getElementsByTagName(s)[0];
@@ -79,9 +79,7 @@
 				<div class="large-10 small-9 columns">
 					<div class="row collapse">
 						<div class="large-12 columns hide-for-small" style="text-align: right">
-							<%= link_to(image_tag("#{website.folder}/jbl_consumer.png", alt: "JBL Consumer"), "http://www.jbl.com", target: "_blank") %>
-							<%= link_to(image_tag("#{website.folder}/jbl_professional.png", alt: "JBL Professional"), "http://www.jblpro.com", target: "_blank") %>
-							<%= link_to(image_tag("#{website.folder}/jbl_synthesis.png", alt: "JBL Synthesis"), "http://www.jblsynthesis.com", target: "_blank") %>
+							<h2>COMMERCIAL SOLUTIONS SERIES</h2>
 						</div>
 						<div class="large-12 columns">
 							<nav class="top-bar" data-topbar role="navigation">
@@ -92,25 +90,21 @@
 								<section class="top-bar-section">
 									<ul class="left">
 										<li><%= link_to locale_root_path do %>
-											<strong>CS</strong>
 											<%= t('home').upcase %>
 											<% end %>
 										</li>
 										<li class="divider"></li>
 										<li><%= link_to product_families_path do %>
-											<strong>CS</strong>
 											<%= t('products').upcase %>
 											<% end %>
 										</li>
 										<li class="divider"></li>
 										<li><%= link_to support_path do %>
-											<strong>CS</strong>
 											<%= t('product_support').upcase %>
 											<% end %>
 										</li>
 										<li class="divider"></li>
 										<li><%= link_to support_downloads_path do %>
-											<strong>CS</strong>
 											<%= t('downloads').upcase %>
 											<% end %>
 										</li>
@@ -118,7 +112,6 @@
 										<li><%= link_to t('about').upcase, "/#{I18n.locale}/company" %></li>
 										<li class="divider"></li>
 										<li><%= link_to news_index_path do %>
-											<strong>CS</strong>
 											<%= t('news').upcase %>
 											<% end %>
 										</li>
@@ -142,15 +135,13 @@
 			</div>
 		</div>
 		<% end %>
-		
+
 		<% if content_for?(:feature) %>
-		<div class="container"> 
 			<div class="row">
 				<div class="large-12 columns hide-for-small">
 					<%= yield :feature %>
 				</div>
 			</div>
-		</div>
 		<% end %>
 
 		<div class="container">
@@ -158,9 +149,9 @@
 		      <div class="large-12 columns">
 
 		        <% flash.each do |name, msg| %>
-		          <% 
+		          <%
 		            css_class = 'alert-box'
-		            if name.match(/notice/i) 
+		            if name.match(/notice/i)
 		              css_class += ' success'
 		            elsif name.match(/alert|warn/)
 		              css_class += ' alert'
@@ -182,7 +173,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<% if content_for?(:middle_stuff) %>
 		<div id="middle_container">
 			<%= yield :middle_stuff %>
@@ -201,16 +192,12 @@
 
 		<%= cache ["footer", website.brand, I18n.locale] do %>
 		<footer>
-			<div class="row">
-				<div class="large-12 columns hide-for-small">
-					<%= hpro_footer(exclude: "DigiTech") %>
-				</div>
-			</div>
-			<div class="row">
+			<%= hpro_footer(exclude: "DigiTech") %>
+			<div class="container">
 				<div class="medium-4 small-12 columns" id="footer_left">
 					<span class="footer_text">
 						&copy; <%= Date.today.year %>
-						<%= link_to(image_tag('harman.jpg', alt: t('harman')), "http://www.harman.com/", target: "_blank") %>.
+						<%= link_to(t('harman'), "http://www.harman.com/", target: "_blank") %>.
 						<%= t('all_rights_reserved') %>
 					</span>
 				</div>

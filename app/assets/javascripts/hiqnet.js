@@ -13,7 +13,7 @@
 //= require jquery2
 //= require jquery_ujs
 //= require jquery-ui.min
-//= require jquery.lightbox-0.5.min
+//= require jquery.fancybox.min
 //= require jquery.datetimepicker
 //= require global_functions
 //= require buy_it_now

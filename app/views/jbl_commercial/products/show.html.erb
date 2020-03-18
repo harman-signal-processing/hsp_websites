@@ -74,7 +74,7 @@ set_meta_tags title: @product.name,
 			<div class="large-12 columns">
 				<div id="viewer">
 				<% if @product.photo %>
-					<%= link_to(interchange_product_image(@product), @product.photo.product_attachment.url) %>
+					<%= link_to(image_tag(@product.photo.product_attachment.url(:large)), @product.photo.product_attachment.url) %>
 				<% end %>
 				</div>
 
@@ -98,7 +98,7 @@ set_meta_tags title: @product.name,
                   <li>
                     <div>
                       <%= link_to(product_attachment.product_attachment.url(:original),
-                        data: product_attachment.no_lightbox? ? {} : { lightbox: 'product-thumbnails' }) do %>
+                        data: product_attachment.no_lightbox? ? {} : { fancybox: 'product-thumbnails' }) do %>
                         <%= image_tag(product_attachment.product_attachment.url(:tiny_square)) %>
                       <% end %>
                     </div>

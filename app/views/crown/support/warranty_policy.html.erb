@@ -1,0 +1,38 @@
+<% set_meta_tags reverse: true %>
+<h1 class="page_title text-center">
+Crown Warranty Policy (US only)</h1>
+
+<div class="text-center" style="margin-bottom:40px;">
+  
+  <p><%= website.brand.name %> 
+  	is a HARMAN Professional brand and its products are covered by the below Limited Product Warranty.</p>
+  <h4>LIMITED PRODUCT WARRANTY</h4>
+  For HARMAN Professional Products<br/>
+  Purchased from HARMAN Professional Authorized Dealers<br/>
+  (USA Only)
+  
+  <p style="margin-top:20px;"><%= image_tag("https://www.crownaudio.com/resource/crown-warranty-page-banner-1700x650.jpg") %></p>
+  <p><em>Extended warranty promotion not valid in Brazil, China, India or Russia.</em></p>
+</div>
+
+<div class="row">
+  <div class="large-8 small-12 columns">
+      <%= render_partial "shared/standard_warranty_details" %>
+  </div>
+  <div class="large-4 small-12 columns">
+    <%= render_partial "shared/extended_warranty" %>
+		<p>The following warranty periods apply for new products purchased prior to January 1, 2020. New products purchased between January 1 and December 31, 2020 have an extended 6 year warranty, excluding purchases in Brazil, China, India, and Russia.</p>
+		<table class="specs">
+			<tr>
+				<th>Product</th>
+				<th>Warranty Period</th>
+			</tr>
+			<% @products.each do |product| %>
+			<tr>
+				<td class="name"><%= link_to product.name, product %></td>
+				<td><%= pluralize(product.warranty_period, "year") %></td>
+			</tr>
+			<% end %>
+		</table>
+	</div>
+</div>

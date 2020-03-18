@@ -12,8 +12,7 @@ Rails.application.config.assets.paths << Rails.root.join('app', 'assets', 'fonts
 
 Rails.application.config.assets.precompile += %w( .svg .eot .woff .ttf .jpg .png .gif )
 
-Rails.application.config.assets.precompile += %w( lightbox/*
-    vendor/custom.modernizr.js
+Rails.application.config.assets.precompile += %w(
     hiqnet.css
     hiqnet.js
     performancemanager.css

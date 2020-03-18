@@ -5,7 +5,7 @@
 <h1>
 	<%= title @product.name %>
 	<span class="little"><%= link_to(product_url(@product, locale: I18n.locale), product_url(@product, locale: I18n.locale)) %>
-	<%= link_to(image_tag("icons/external_link_icon.png"), product_url(@product, locale: I18n.locale)) %></span>
+	<%= link_to(image_tag("icons/external_link_icon.png", lazy: false), product_url(@product, locale: I18n.locale)) %></span>
 </h1>
 
 <ul class="button-group round">
@@ -79,14 +79,9 @@
 				<li><%= link_to_function "new photo",
 			 		"$('#new_photo_form').show();$('#new_mm_form').hide();$('#new_swf_form').hide();",
 			 		class: "small success button" %></li>
-			   <% if can? :mangle, Product %>
-			   <li><%= link_to_function "new audio/video",
+			   <li><%= link_to_function "new video (non-youtube)",
 					"$('#new_photo_form').hide();$('#new_mm_form').show();$('#new_swf_form').hide();",
 					class: "small success button" %></li>
-			   <li><%= link_to_function "new swf (flash)",
-					"$('#new_photo_form').hide();$('#new_mm_form').hide();$('#new_swf_form').show();",
-					class: "small success button" %></li>
-				<% end %>
 			</ul>
 			<% end %>
 			<div id="new_photo_form" style="display: none;">
@@ -98,7 +93,6 @@
 			<% end %>
 			</div>
 
-			<% if can? :mangle, Product %>
 			<div id="new_mm_form" style="display: none;">
 				<%= simple_form_for [:admin, @product_attachment], html: {multipart: true} do |f| %>
 					<%= f.hidden_field :product_id %>
@@ -109,27 +103,6 @@
 					</p>
 				<% end %>
 			</div>
-
-			<div id="new_swf_form" style="display: none;">
-				<%= simple_form_for [:admin, @product_attachment], html: {multipart: true} do |f| %>
-					<%= f.hidden_field :product_id %>
-					<%= f.input :product_media, label: false %>
-					<%= f.input :product_media_thumb, label: "thumbnail/icon" %>
-					<div class="row">
-						<div class="large-6 small-6 columns">
-							<%= f.input :width, label: "Width (px)" %>
-						</div>
-						<div class="large-6 small-6 columns">
-							<%= f.input :height, label: "Height (px)" %>
-						</div>
-					</div>
-					<div class="small">(product page viewer window is 550x360)</div>
-
-					<br/><%= submit_tag "upload", class: "small round button"  %>
-					<%= link_to_function "cancel", "$('#new_swf_form').hide()"%>
-				<% end %>
-			</div>
-			<% end %>
 
 			<ul id="product_attachments" class="sortable_list">
 				<% @product.product_attachments.each do |pa| %>

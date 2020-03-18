@@ -4,9 +4,8 @@
  * the top of the compiled file, but it's generally better to create a new file per style scope.
 *= require chosen
 *= require jbl_professional_framework_and_overrides
-*= require lightbox
+*= require jquery.fancybox
 *= require bouncing_arrow
 *= require jquery-ui.min
-*= require add2home
 *= require_self
 */

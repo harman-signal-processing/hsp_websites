@@ -2,6 +2,10 @@
 
 <div class="group">
   <h4 class="subheader">Slideshow</h4>
+  <div class="info alert-box">
+    Note: To preserve performance, only the first 5 active slides will appear.
+    Ideally, let's try to keep it to 3 active slides only.
+  </div>
   <%= link_to_function "new slide", "$('#new_slide_form').toggle()", class: "small round success button" %>
   <div id="new_slide_form" style="margin: 10px; display:none;" class="instructions">
     <%= simple_form_for([:admin, @new_slide], html: {multipart: true}) do |f| %>
@@ -14,7 +18,7 @@
           <%= f.input :name, hint: "For your reference only" %>
         </div>
         <div class="large-6 columns">
-          <%= f.input :slide, label: "Slide graphic" %>
+          <%= f.input :slide, label: "Slide graphic", hint: "300KB max. If your file is larger, use Photoshop to reduce the size by exporting a JPEG and reducing the quality." %>
         </div>
       </div>
       <div class="row">
@@ -88,6 +92,7 @@
   </ul>
 </div>
 
+<% if website.brand.name.to_s.match?(/archi|commercial|idx/i) %>
 <div class="group">
   <h4 class="subheader">Big Bottom Box</h4>
   <div class="instructions">If your site has a big bottom box on the homepage, then use these settings to control which content appears in the columns. If you don't know if your site has this, please don't ask Adam using phrases like, "Do I have a big bottom..."</div>
@@ -118,3 +123,4 @@
     </div>
   <% end %>
 </div>
+<% end %>

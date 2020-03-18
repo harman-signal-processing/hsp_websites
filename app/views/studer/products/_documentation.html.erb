@@ -3,7 +3,7 @@
   <ul class="docs">
     <li>
       <%= file_type_icon(product_document) %>
-      <%= link_to product_document.name(hide_product_name: true), product_document.document.url %>
+      <%= link_to product_document.name(hide_product_name: true), product_document %>
       [<%= number_to_human_size(product_document.document_file_size) %>]
     </li>
   </ul>
@@ -19,7 +19,7 @@
     <% product.nonsafety_documents.includes(:product).where(document_type: document_type).each do |product_document| %>
       <li>
         <%= file_type_icon(product_document) %>
-        <%= link_to product_document.name(hide_product_name: true), product_document.document.url %>
+        <%= link_to product_document.name(hide_product_name: true), product_document %>
         [<%= number_to_human_size(product_document.document_file_size) %>]
       </li>
     <% end %>

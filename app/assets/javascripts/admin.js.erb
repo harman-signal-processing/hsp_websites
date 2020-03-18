@@ -2,7 +2,7 @@
 //= require jquery_ujs
 //= require jquery-ui.min
 //= require s3_direct_upload
-//= require jquery.lightbox-0.5.min
+//= require jquery.fancybox.min
 //= require jquery.datetimepicker
 //= require jquery.textareaCounter.plugin
 //= require foundation
@@ -20,7 +20,7 @@ $(document).ready(function(){
 		var new_val = $(this).val()
 		$.get("/admin/brand_toolkit_contacts/load_user/" + new_val);
 	});
-	
+
   // enable chosen js
   $('.chosen-select').chosen(
   	{
@@ -28,7 +28,6 @@ $(document).ready(function(){
     	no_results_text: 'No results matched',
     	width: '100%'
     });
-	
 
 <% ["effect_types",
 	"artists",
@@ -106,4 +105,5 @@ $(document).ready(function(){
 	});
 <% end %>
 
+  $(document).foundation();
 });

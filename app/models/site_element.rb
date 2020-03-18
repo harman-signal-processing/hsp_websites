@@ -32,7 +32,7 @@ class SiteElement < ApplicationRecord
 
   after_initialize :copy_attributes_from_previous_version
   before_save :set_upload_attributes
-  after_save :queue_processing
+  after_save :queue_processing, :touch_products
 
   def self.resource_types(options={})
     defaults = ["Image"]
@@ -93,6 +93,10 @@ class SiteElement < ApplicationRecord
     end
   end
 
+  def touch_products
+    products.each{|p| p.touch}
+  end
+
   # If a resource's name or language change, then we have to update the previous
   # versions as well. Otherwise the versioning relationship gets broken.
   def catchup_with_latest_version(latest_version)
@@ -126,9 +130,9 @@ class SiteElement < ApplicationRecord
     if external_url.present?
       external_url
     elsif resource_file_name.present?
-      resource.url
+      "/#{I18n.locale.to_s}/site_elements/#{self.to_param}"
     elsif executable_file_name.present?
-      executable.url
+      "/#{I18n.locale.to_s}/site_elements/#{self.to_param}"
     elsif content.present?
       "/resource/#{self.to_param}.html"
     end

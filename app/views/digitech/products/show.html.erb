@@ -139,7 +139,7 @@ set_meta_tags title: @product.name,
                 <li>
                   <div>
                     <%= link_to(product_attachment.product_attachment.url(:original),
-                      data: product_attachment.no_lightbox? ? {} : { lightbox: 'product-thumbnails' }) do %>
+                      data: product_attachment.no_lightbox? ? {} : { fancybox: 'product-thumbnails' }) do %>
                       <%= image_tag(product_attachment.product_attachment.url(:tiny_square)) %>
                     <% end %>
                   </div>

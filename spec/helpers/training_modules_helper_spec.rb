@@ -12,15 +12,6 @@ RSpec.describe TrainingModulesHelper do
       expect(content).to eq(link_to("Download Quicktime Movie", tm.training_module.url('original', false)))
     end
 
-    it "shows other videos inline" do
-      tm = FactoryBot.build_stubbed(:training_module, training_module_file_name: 'test.mp4')
-      expect(helper).to receive(:website).and_return(FactoryBot.build_stubbed(:website))
-
-      content = helper.show_module(tm)
-
-      expect(content).to match(/Loading the player/)
-    end
-
   end
 
 end

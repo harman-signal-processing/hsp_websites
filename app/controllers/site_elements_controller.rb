@@ -22,7 +22,7 @@ class SiteElementsController < ApplicationController
       disposition: :attachment,
       stream: true,
       buffer_size: '4096',
-      filename: site_element.executable_file_name,
+      filename: site_element.executable_file_name.gsub(/_original/, ''),
       type: site_element.executable_content_type
   end
 
@@ -32,7 +32,7 @@ class SiteElementsController < ApplicationController
       disposition: 'inline',
       stream: true,
       buffer_size: '4096',
-      filename: site_element.resource_file_name,
+      filename: site_element.resource_file_name.gsub(/_original/, ''),
       type: site_element.resource_content_type
   end
 
