@@ -308,6 +308,12 @@ class MainController < ApplicationController
       "#{index}_#{I18n.locale.to_s.gsub(/\-/, '_')}_core"
     end
   end
+  
+  def en_locale_indices_only
+    ['artist', 'news', 'page', 'product_family', 'product', 'product_real_time', 'product_review' 'software'].map do |index|
+      "#{index}_en_core"
+    end
+  end
 
   # Returning true would remove the dealer from results
   def filter_out?(dealer)
@@ -342,13 +348,13 @@ class MainController < ApplicationController
       render plain: "Not allowed", status: 400 and return false
     end
     query = @query.to_s.gsub(/[\/\\]/, " ")
-    ferret_results = ThinkingSphinx.search(
-      ThinkingSphinx::Query.escape(query),
-      indices: locale_indices,
-      star: true,
-      page: 1, # we'll paginate after filtering out other brand assets
-      per_page: 1000
-    )
+    
+    if query.empty? 
+      @results = []
+      return false
+    end
+    
+    ferret_results = thinking_sphinx_results_for_locale(query)
     
     # Probably not the best way to do this, strip out Products from the
     # search results unless the status is set to 'show_on_website'. It
@@ -364,6 +370,46 @@ class MainController < ApplicationController
         )
     end.paginate(page: params[:page], per_page: 10)    
   end  #  def fetch_thinking_sphinx_results
+
+  def thinking_sphinx_results_for_locale(query)
+    
+    is_searching_en_locale = (["en", "en-US"].grep "#{I18n.locale.to_s}").present?
+    
+    if is_searching_en_locale
+    
+      ferret_results = ThinkingSphinx.search(
+        ThinkingSphinx::Query.escape(query),
+        indices: en_locale_indices_only,
+        star: true,
+        page: 1, # we'll paginate after filtering out other brand assets
+        per_page: 1000
+      )
+    
+    else  #  not searching en locale
+      
+      # Gather search results for chosen local and en locale, then return the combination
+      
+      ferret_results_for_other_locales = ThinkingSphinx.search(
+        ThinkingSphinx::Query.escape(query),
+        indices: locale_indices,
+        star: true,
+        page: 1, # we'll paginate after filtering out other brand assets
+        per_page: 1000
+      )      
+      
+      ferret_results_for_en = ThinkingSphinx.search(
+        ThinkingSphinx::Query.escape(query),
+        indices: en_locale_indices_only,
+        star: true,
+        page: 1, # we'll paginate after filtering out other brand assets
+        per_page: 1000
+      )      
+      
+      ferret_results = ferret_results_for_other_locales.to_a + ferret_results_for_en.to_a
+    end  #  end of else of if is_searching_en_locale    
+    
+    ferret_results
+  end  #  def thinking_sphinx_results_for_locale(query)
 
   def fetch_thunderstone_pdf_results
     if @query.to_s.match(/union\s{1,}select/i) || @query.to_s.match(/(and|\&*)\s{1,}sleep/i) || @query.to_s.match(/order\s{1,}by/i)
