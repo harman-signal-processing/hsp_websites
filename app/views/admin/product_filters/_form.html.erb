@@ -1,0 +1,22 @@
+<%= simple_form_for [:admin, @product_filter] do |f| %>
+
+  <%= f.input :name %>
+  <%= f.input :value_type, as: :select, collection: ProductFilter.value_types %>
+
+  <%= field_set_tag "For numeric filters" do %>
+    <div class="row">
+      <div class="small-12 medium-4 columns">
+        <%= f.input :min_value %>
+      </div>
+      <div class="small-12 medium-4 columns">
+        <%= f.input :max_value %>
+      </div>
+      <div class="small-12 medium-4 columns">
+        <%= f.input :uom, label: "Unit of Measure" %>
+      </div>
+    </div>
+  <% end %>
+
+  <%= f.button :submit %>
+
+<% end %>

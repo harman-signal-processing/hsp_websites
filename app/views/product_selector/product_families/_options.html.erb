@@ -1,0 +1,48 @@
+<%= form_tag [:product_selector, @product_family], remote: true, id: "filters" do %>
+  <% @product_family.product_filters.each do |product_filter| %>
+    <h3><%= product_filter.name %></h3>
+
+    <% if product_filter.is_boolean?%>
+      <%= label_tag do %>
+        <%= check_box_tag "filter-#{product_filter.to_param}", true, false, id: "filter-#{product_filter.to_param}_true", class: "boolean-filter" %> Yes
+      <% end %>
+
+      <%= label_tag do %>
+        <%= check_box_tag "filter-#{product_filter.to_param}", false, false, id: "filter-#{product_filter.to_param}_false", class: "boolean-filter" %> No
+      <% end %>
+
+    <% elsif product_filter.is_number? %>
+
+      <div class="slider-range-container" id="filter_<%= product_filter.to_param %>_slider"
+        data-filtername="filter-<%=product_filter.to_param %>"
+        data-min="<%= product_filter.min_value.present? ? product_filter.min_value : 0 %>"
+        data-max="<%= product_filter.max_value.present? ? product_filter.max_value : 9999999 %>"
+        data-uom="<%= product_filter.uom.present? ? product_filter.uom : "" %>">
+        <div class="slider-range"></div>
+        <%= text_field_tag "filter-#{product_filter.to_param}", "", class: "unstyled slider-filter" %>
+      </div>
+
+    <% elsif product_filter.is_string? %>
+      <% product_filter.unique_values_for(@product_family).each do |val| %>
+        <%= label_tag do %>
+          <%= check_box_tag "filter-#{product_filter.to_param}",
+            val,
+            false,
+            class: "text-filter",
+            id: "filter-#{product_filter.to_param}_#{val.to_param}" %> <%= val %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+  <% end %>
+
+  <% if @product_family.product_filters.length == 0 && @product_family.children_with_current_products(website).length > 0 %>
+    <h3>Sub-categories</h3>
+    <% @product_family.children_with_current_products(website).sort_by(&:name).each do |sub_family| %>
+      <%= label_tag do %>
+        <%= check_box_tag "sub_family[]", sub_family.id, false, id: sub_family.to_param, class: "sub_family_filter" %>
+        <%= sub_family.name.gsub(/\s?Products$/i, "").gsub(/SERIES/i, "Series") %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

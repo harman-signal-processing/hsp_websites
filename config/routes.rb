@@ -152,6 +152,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
             post :bulk_update
           end
         end
+        resources :product_filter_values
       end
       resources :product_families do
         collection { post :update_order }
@@ -323,6 +324,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
 
       resources :service_centers,
         :market_segment_product_families,
+        :product_family_product_filters,
         :product_family_case_studies,
         :product_family_testimonials,
         :software_training_classes,
@@ -363,6 +365,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :product_reviews,
         :artist_products,
         :parent_products,
+        :product_filters,
         :product_badges,
         :product_videos,
         :faq_categories,
@@ -489,6 +492,11 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     resources :parts, only: [:index]
     resources :events, only: [:index, :show]
     resources :site_elements, only: [:show]
+
+    get 'product_selector' => 'product_selector#index', as: :product_selector
+    namespace :product_selector do
+      resources :product_families, only: :show
+    end
 
     get 'get-started' => 'get_started#index', as: :get_started_index
     get 'get-started/:id' => 'get_started#show', as: :get_started

@@ -169,7 +169,7 @@
 				    	<div class="large-10 small-8 columns">
                 <%=raw f.association(:testimonial,
                                      label: false,
-                                     collection: Testimonial.not_associated_with_this_product_family(@product_family, website),
+                                     collection: Testimonial.not_associated_with_this_product_family(@product_family),
                                      input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Testimonial'} }
                                      ).gsub(/\&amp\;/, '&')%>
 				    	</div>
@@ -187,6 +187,35 @@
 						<%= render '/admin/shared/product_family_testimonial_row', pft: pft, called_from: 'product_family' %>
 					<% end %>
 				</ul>
+      </div>
+    <% end %>
+
+    <% if @product_family.parent_id.blank? && can?(:manage, ProductFamilyProductFilter) %>
+      <div class="group">
+        <h5 class="subheader">Filters for the Product Selector</h5>
+        <%= simple_form_for [:admin, @product_family_product_filter], remote: true do |f| %>
+          <%= hidden_field_tag "called_from", "product_family" %>
+          <%= f.hidden_field :product_family_id %>
+          <div class="row collapse">
+            <div class="large-10 small-8 columns">
+              <%= f.association :product_filter,
+                label: false,
+                collection: ProductFilter.not_associated_with_this_product_family(@product_family) %>
+            </div>
+            <div class="large-2 small-4 columns">
+              <%= submit_tag 'add', class: "prefix button" %>
+            </div>
+          </div>
+          <p class="text-right">
+            <%= link_to 'create a new filter', new_admin_product_filter_path %>
+          </p>
+        <% end %>
+
+        <ul id="product_family_product_filters" class="list">
+          <% @product_family.product_family_product_filters.each do |pfpf| %>
+            <%= render '/admin/shared/product_family_product_filter_row', pfpf: pfpf, called_from: 'product_family' %>
+          <% end %>
+        </ul>
       </div>
     <% end %>
   </div>
