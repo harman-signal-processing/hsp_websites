@@ -86,6 +86,15 @@ function showFilteredProducts() {
   for (j = 0; j < window.product_elements_to_hide.length; j++) {
     $("ul#hidden-products").append(window.product_elements_to_hide[j]);
   }
+
+  if (window.product_elements_to_show.length > 1) {
+    $("form#compare_form .button").show();
+  } else {
+    $("form#compare_form .button").hide();
+  }
+  if (window.product_elements_to_show.length < 1) {
+    $("ul#product-boxes").append("<li>Sorry, no products match your criteria.</li>");
+  }
 }
 
 // Product Family filters and determine which
@@ -138,7 +147,13 @@ function sliderFilter(item, filter_name, selected_values) {
       return true;
   } else if ( typeof $(item).attr("data-"+filter_name) !== 'undefined' ) {
     var this_value = $(item).attr("data-"+filter_name);
-    if (this_value >= selected_values["min"] && this_value <= selected_values["max"]) {
+    // if the value has a dash in it, then consider it a range
+    if (this_value.indexOf("-") >= 0) {
+      var this_range = this_value.split("-");
+      if (parseInt(this_range[0]) >= selected_values["selected_min"] && parseInt(this_range[1]) <= selected_values["selected_max"]) {
+        return true;
+      }
+    } else if (this_value >= selected_values["selected_min"] && this_value <= selected_values["selected_max"]) {
       return true;
     }
   }

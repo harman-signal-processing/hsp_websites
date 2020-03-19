@@ -314,7 +314,9 @@
                   <% if product_filter.is_boolean? %>
                     <%= ppfv.input :boolean_value, as: :radio_buttons, label: false %>
                   <% elsif product_filter.is_number? %>
-                    <%= ppfv.input "number_value".to_sym, label: false, hint: "Number only" %>
+                    <%= ppfv.input :number_value, label: false, hint: "Number only" %>
+                  <% elsif product_filter.is_range? %>
+                    <%= ppfv.input :string_value, label: false, hint: "Example: 25-300 (numbers and dash only)" %>
                   <% else %>
                     <%= ppfv.input "#{product_filter.value_type}_value".to_sym, label: false %>
                   <% end %>

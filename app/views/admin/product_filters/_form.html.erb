@@ -3,7 +3,7 @@
   <%= f.input :name %>
   <%= f.input :value_type, as: :select, collection: ProductFilter.value_types %>
 
-  <%= field_set_tag "For numeric filters" do %>
+  <%= field_set_tag "For numeric/range filters" do %>
     <div class="row">
       <div class="small-12 medium-4 columns">
         <%= f.input :min_value %>

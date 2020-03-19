@@ -2,7 +2,7 @@
 
 <% if can? :create, ProductFilter %>
 <ul class="button-group round">
-	<li><%= link_to 'New Product Filter', new_admin_product_filters_path, class: "small success button" %></li>
+	<li><%= link_to 'New Product Filter', new_admin_product_filter_path, class: "small success button" %></li>
 </ul>
 <% end %>
 
@@ -23,13 +23,11 @@
 
 <table class="data" style="width: 100%">
   <tr>
-    <th>Create Date</th>
     <th>Name</th>
   </tr>
 
 <% @product_filters.each do |product_filter| %>
-  <tr style="background: <%= cycle 'white', 'none' %>">
-    <td><%=l product_filter.created_at.to_date, format: :short %></td>
+  <tr>
     <td><%=link_to product_filter.name, [:admin, product_filter] %></td>
   </tr>
 <% end %>

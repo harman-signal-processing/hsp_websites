@@ -16,7 +16,8 @@ class ProductFilter < ApplicationRecord
     [
       [ "Yes/No", "boolean"],
       [ "Text", "string"],
-      [ "Numeric", "number"]
+      [ "Numeric", "number"],
+      [ "Range", "range"]
     ]
   end
 
@@ -30,6 +31,10 @@ class ProductFilter < ApplicationRecord
 
   def is_number?
     (self.value_type.to_s.match?(/number/i))
+  end
+
+  def is_range?
+    (self.value_type.to_s.match?(/range/i))
   end
 
   def unique_values_for(product_family)

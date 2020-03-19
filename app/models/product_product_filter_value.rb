@@ -8,4 +8,9 @@ class ProductProductFilterValue < ApplicationRecord
   def value
     self.send "#{self.product_filter.value_type}_value"
   end
+
+  # The range value is stored in the text input field
+  def range_value
+    string_value
+  end
 end

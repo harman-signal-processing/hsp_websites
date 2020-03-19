@@ -1970,8 +1970,23 @@ This solution was found here: https://foundation.zurb.com/forum/posts/581-block-
 }
 
 /** Product selector **/
-input.unstyled {
-  border: none;
-  background: none;
-  padding: 0
+form#filters {
+  h5 {
+    margin-bottom: 4px;
+    margin-top: 12px;
+    font-size: rem-calc(14px);
+  }
+  input {
+    margin-bottom: 4px;
+    padding-bottom: 0;
+    color: #787878;
+    &.unstyled {
+      border: none;
+      background: none;
+      padding: 0;
+    }
+  }
+  label {
+    color: #787878;
+  }
 }

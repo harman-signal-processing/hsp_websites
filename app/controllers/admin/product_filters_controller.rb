@@ -5,7 +5,7 @@ class Admin::ProductFiltersController < AdminController
   # GET /admin/product_filters
   # GET /admin/product_filters.xml
   def index
-    @search = website.brand.product_filters.ransack(params[:q])
+    @search = ProductFilter.ransack(params[:q])
     @product_filters = @search.result.paginate(page: params[:page], per_page: 20)
     respond_to do |format|
       format.html { render_template } # index.html.erb
