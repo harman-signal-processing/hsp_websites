@@ -115,8 +115,8 @@ module SearchHelper
 	
 	def find_pdf_item_in_db(result)
 		filename = URI.decode(File.basename(result[:Url]).split('#')[0].gsub("_original.pdf",".pdf"))
-		site_element = SiteElement.find_by(resource_file_name:"#{filename}")
-		product_document = ProductDocument.find_by(document_file_name:"#{filename}")
+		site_element = SiteElement.find_by(cached_slug:"#{filename}")
+		product_document = ProductDocument.find_by(cached_slug:"#{filename}")
 		
 		if site_element.present?
 			pdf_item = site_element
