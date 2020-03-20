@@ -112,12 +112,9 @@ function productFamilyFilter(item, selected_sub_families) {
 
 function textFilter(item, filter_name, selected_values) {
   if ( typeof $(item).attr("data-"+filter_name) !== 'undefined' ) {
-    var this_values = $(item).attr("data-"+filter_name).split(",");
-    for (var i = 0; i < this_values.length; i++) {
-      var value = this_values[i];
-      if (selected_values.indexOf(value) >= 0) {
-        return true;
-      }
+    var this_value = $(item).attr("data-"+filter_name);
+    if (selected_values.indexOf(this_value) >= 0) {
+      return true;
     }
   }
   return false;
@@ -125,12 +122,9 @@ function textFilter(item, filter_name, selected_values) {
 
 function booleanFilter(item, filter_name, selected_values) {
   if ( typeof $(item).attr("data-"+filter_name) !== 'undefined' ) {
-    var this_values = $(item).attr("data-"+filter_name).split(",");
-    for (var i = 0; i < this_values.length; i++) {
-      var value = this_values[i];
-      if (selected_values.indexOf(value) >= 0) {
-        return true;
-      }
+    var this_value = $(item).attr("data-"+filter_name);
+    if (selected_values.indexOf(this_value) >= 0) {
+      return true;
     }
   // Here we treat empty values for a product as if they were marked 'false'.
   // This may not be desired, but probably makes sense.
