@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 5.2'
+gem 'rails', '~> 5.2.4'
 gem 'actionpack-action_caching'
 gem 'responders', '~> 2.0'
 gem 'bootsnap', require: false
