@@ -23,12 +23,6 @@
 			<tr>
 				<th colspan="4">
 					<%= download_collection[:name] %>
-			<% if download_collection[:downloads].size > 1 %>
-				<%# TODO: revive the zip-to-download feature. Had to disabled when moving assets to S3 %>
-				<%#= link_to image_tag("icons/zip-icon.png", alt: "", style: "vertical-align: middle; margin-left: 2px; border: none"),
-				 		zipped_downloads_path(download_collection[:param_name]) %>&nbsp;
-				 <%#= link_to t('zip_all'), zipped_downloads_path(download_collection[:param_name]) %>
-			<% end %>
 				</th>
 			</tr>
 		</thead>

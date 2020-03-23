@@ -144,22 +144,6 @@ class Website < ApplicationRecord
     SiteElement.downloads(self, user).deep_merge ProductDocument.downloads(self)
   end
 
-  # Most likely not used anymore. This was useful when all the site elements and documents
-  # were stored locally on the server. Then we could offer a zip-and-download-all function
-  # which isn't really feasible now with external storage and the giant quantity of files.
-  def zip_downloads(download_type, user)
-    downloads = self.all_downloads(user)[download_type][:downloads]
-
-    t = Tempfile.new("#{self.brand.name.parameterize}-temp-filename-#{Time.now}")
-    Zip::OutputStream.open(t.path) do |z|
-      downloads.each do |dl|
-        z.put_next_entry(dl[:file_name])
-        z.print IO.read(dl[:path])
-      end
-    end
-    t
-  end
-
   def artists
     Artist.all_for_website(self)
   end

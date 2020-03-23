@@ -512,7 +512,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get 'channel' => 'main#channel'
     get "videos(/:id)" => "videos#index", as: :videos
     get "videos/play/:id" => "videos#play", as: :play_video
-    get '/zips/:download_type.zip' => 'support#zipped_downloads', as: :zipped_downloads
     match '/product_documents(/:language(/:document_type))' => "product_documents#index", via: :all
     match '/downloads(/:language(/:document_type))' => "product_documents#index", as: :downloads, via: :all
     get '/support_downloads/product' => "support#selected_downloads_by_product", as: :selected_downloads_by_product, defaults: { format: :js }

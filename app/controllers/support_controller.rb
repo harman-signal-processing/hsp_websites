@@ -364,13 +364,6 @@ class SupportController < ApplicationController
     render_template
   end
 
-  def zipped_downloads
-    render plain: "Dynamic zips are no longer available."
-    # temp_file = website.zip_downloads(params[:download_type], current_user)
-    # send_file temp_file.path, type: 'application/zip', disposition: 'attachment', filename: "#{params[:download_type]}.zip"
-    # temp_file.close
-  end
-
   # For dbx, a quick list of CAD files
   def cad
     @page_title = "CAD Files"
