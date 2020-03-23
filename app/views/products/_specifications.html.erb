@@ -1,9 +1,11 @@
 <% if website.brand.use_flattened_specs? || product.specification_groups.size == 0 %>
-
   <table class="specs">
     <% product.product_specifications.includes(:specification).order("product_specifications.position").each do |product_spec| %>
       <tr>
-        <td class="name"><%= translate_content(product_spec.specification, :name) %></td>
+        <% # if custom_spec_layout do not include the spec name column %>
+        <% unless product_spec.specification.name.downcase == "custom_spec_layout" %>
+          <td class="name"><%= translate_content(product_spec.specification, :name) %></td>
+        <% end %>
         <td><%= spec_value(product_spec) %></td>
       </tr>
     <% end %>
