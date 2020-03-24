@@ -114,6 +114,7 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'rspec-rails'
   gem "factory_bot_rails" #, "~> 4.0"
+  gem 'pry', "0.12.2"
   gem 'pry-byebug'
 end
 
