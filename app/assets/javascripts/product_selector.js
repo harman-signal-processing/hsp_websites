@@ -120,6 +120,16 @@ function textFilter(item, filter_name, selected_values) {
   return false;
 }
 
+function selectFilter(item, filter_name, selected_values) {
+  if ( typeof $(item).attr("data-"+filter_name) !== 'undefined' ) {
+    var this_value = $(item).attr("data-"+filter_name);
+    if (selected_values.indexOf(this_value) >= 0) {
+      return true;
+    }
+  }
+  return false;
+}
+
 function booleanFilter(item, filter_name, selected_values) {
   if ( typeof $(item).attr("data-"+filter_name) !== 'undefined' ) {
     var this_value = $(item).attr("data-"+filter_name);
@@ -159,12 +169,14 @@ function performFilter() {
   window.product_elements_to_hide = [];
   var selected_sub_families = [];
   var text_filter_data = {};
+  var select_filter_data = {};
   var boolean_filter_data = {};
 
   // figure out which product families are selected
   $("input[name='sub_family[]']:checked").each(function() {
     selected_sub_families.push(this.value);
   });
+
   // if no families are selected, pretend they're all selected
   if (selected_sub_families.length == 0) {
     $("input[name='sub_family[]']").each(function() {
@@ -177,6 +189,15 @@ function performFilter() {
     var filter_name = $(this).attr("name");
     text_filter_data[filter_name] = text_filter_data[filter_name] || [];
     text_filter_data[filter_name].push( $(this).val() );
+  });
+
+  // build data of select inputs
+  $.each($("select.select-filter"), function() {
+    var filter_name = $(this).attr("name");
+    var selected_value = $(this).val();
+    if (selected_value.length) {
+      select_filter_data[filter_name] = selected_value;
+    }
   });
 
   // build data for boolean inputs
@@ -198,6 +219,12 @@ function performFilter() {
 
     for (const filter_name in text_filter_data) {
       if (textFilter(this, filter_name, text_filter_data[filter_name]) == false) {
+        failed_filter_count++;
+      }
+    }
+
+    for (const filter_name in select_filter_data) {
+      if (selectFilter(this, filter_name, select_filter_data[filter_name]) == false) {
         failed_filter_count++;
       }
     }
@@ -234,7 +261,10 @@ jQuery(function($) {
 
   // Observe the form containing all the filters and
   // loop through each product whenever a filter is clicked
-  $("#options-container").on('click', 'form#filters', function() {
+  $("#options-container").on('click', 'form#filters input', function() {
+    performFilter();
+  });
+  $("#options-container").on('change', 'form#filters select', function() {
     performFilter();
   });
 
