@@ -17,7 +17,7 @@ gem 'font-awesome-rails'
 # gem 'ruby-debug'
 
 # Bundle the extra gems:
-gem 'mysql2'
+gem 'mysql2', '< 0.5.3' # rackspace1 has a problem installing 0.5.3
 gem 'utf8-cleaner'
 gem 'friendly_id', '>= 5.2'
 gem 'aws-sdk-s3'
