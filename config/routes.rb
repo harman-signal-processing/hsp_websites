@@ -322,9 +322,14 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
           collection { post :update_order }
         end
 
+      resources :product_family_product_filters do
+        collection {
+          post :update_order
+        }
+      end
+
       resources :service_centers,
         :market_segment_product_families,
-        :product_family_product_filters,
         :product_family_case_studies,
         :product_family_testimonials,
         :software_training_classes,

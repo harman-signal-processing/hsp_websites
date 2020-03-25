@@ -65,6 +65,14 @@ class Admin::ProductFamilyProductFiltersController < AdminController
     end
   end
 
+  # POST /admin/product_family_product_filters/update_order
+  def update_order
+    update_list_order(ProductFamilyProductFilter, params["product_family_product_filter"])
+    head :ok
+    website.add_log(user: current_user, action: "Sorted product family product filters")
+  end
+
+
   # DELETE /admin/product_family_product_filters/1
   # DELETE /admin/product_family_product_filters/1.xml
   def destroy
