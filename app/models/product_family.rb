@@ -389,6 +389,10 @@ class ProductFamily < ApplicationRecord
     end
   end
 
+  def subgroups_for_product_selector
+    children.where(product_selector_behavior: "subgroup")
+  end
+
   def copy!(options = {})
     npf = self.dup
     if options[:parent_id]

@@ -245,6 +245,12 @@
             <% end %>
           </ul>
 
+        <% elsif @product_family.product_selector_behavior == "exclude" %>
+          <hr/>
+          <p>While this family is set to be excluded from the product selector,
+          if any of its products are part of another family which is included,
+          then those products will appear in the product selector.</p>
+
         <% end %>
       </div>
     <% end %>
