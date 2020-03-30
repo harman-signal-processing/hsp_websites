@@ -4,9 +4,9 @@
     <%= filter_input_for(product_filter, @product_family) %>
   <% end %>
 
-  <% if @product_family.product_filters.length == 0 && @product_family.children_with_current_products(website).length > 0 %>
+  <% if @product_family.product_filters.length == 0 && @product_family.children_with_current_products(website, check_for_product_selector_exclusions: true).length > 0 %>
     <h5>Sub-categories</h5>
-    <% @product_family.children_with_current_products(website).sort_by(&:name).each do |sub_family| %>
+    <% @product_family.children_with_current_products(website, check_for_product_selector_exclusions: true).sort_by(&:name).each do |sub_family| %>
       <%= label_tag do %>
         <%= check_box_tag "sub_family[]", sub_family.id, false, id: sub_family.to_param, class: "sub_family_filter" %>
         <%= sub_family.name.gsub(/\s?Products$/i, "").gsub(/SERIES/i, "Series") %>

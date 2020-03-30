@@ -190,34 +190,65 @@
       </div>
     <% end %>
 
-    <% if @product_family.parent_id.blank? && can?(:manage, ProductFamilyProductFilter) %>
+    <% if can?(:manage, ProductFamilyProductFilter) %>
       <div class="group">
-        <h5 class="subheader">Filters for the Product Selector</h5>
-        <%= simple_form_for [:admin, @product_family_product_filter], remote: true do |f| %>
-          <%= hidden_field_tag "called_from", "product_family" %>
-          <%= f.hidden_field :product_family_id %>
-          <div class="row collapse">
-            <div class="large-10 small-8 columns">
-              <%= f.association :product_filter,
-                label: false,
-                collection: ProductFilter.not_associated_with_this_product_family(@product_family) %>
-            </div>
-            <div class="large-2 small-4 columns">
-              <%= submit_tag 'add', class: "prefix button" %>
-            </div>
-          </div>
-          <p class="text-right">
-            <%= link_to 'create a new filter', new_admin_product_filter_path %>
-          </p>
+        <h5 class="subheader">Product Selector</h5>
+
+        <%= simple_form_for [:admin, @product_family] do |f| %>
+          <%= f.input :product_selector_behavior,
+                as: :radio_buttons,
+                label: "Choose the desired behavior for this family",
+                collection: @product_family.selector_behavior_options %>
+          <%= submit_tag 'update', class: "small button" %>
         <% end %>
 
-        <ul id="product_family_product_filters" class="list">
-          <% @product_family.product_family_product_filters.each do |pfpf| %>
-            <%= render '/admin/shared/product_family_product_filter_row', pfpf: pfpf, called_from: 'product_family' %>
+        <% if @product_family.can_have_filters? %>
+          <hr/>
+          <h6>Filters</h6>
+          <p>The filters listed here will be available on all the products
+          of all the subfamilies under the <%= @product_family.name %> family.</p>
+          <%= simple_form_for [:admin, @product_family_product_filter], remote: true do |f| %>
+            <%= hidden_field_tag "called_from", "product_family" %>
+            <%= f.hidden_field :product_family_id %>
+            <div class="row collapse">
+              <div class="large-10 small-8 columns">
+                <%= f.association :product_filter,
+                  label: false,
+                  collection: ProductFilter.not_associated_with_this_product_family(@product_family) %>
+              </div>
+              <div class="large-2 small-4 columns">
+                <%= submit_tag 'add', class: "prefix button" %>
+              </div>
+            </div>
+            <p class="text-right">
+              <%= link_to 'create a new filter', new_admin_product_filter_path %>
+            </p>
           <% end %>
-        </ul>
+
+          <ul id="product_family_product_filters" class="sortable_list">
+            <% @product_family.product_family_product_filters.each do |pfpf| %>
+              <%= render '/admin/shared/product_family_product_filter_row', pfpf: pfpf, called_from: 'product_family' %>
+            <% end %>
+          </ul>
+        <% elsif @product_family.product_selector_behavior.to_s == "root_with_subgroups" %>
+          <hr/>
+          <h6>Sub-groups</h6>
+          <p>The <%= @product_family.name %> family is configured as a "Root with sub-groups".
+          The sub-families below act as the sub-groups. To add sub-groups, create or edit a
+          sub-family and mark its behavior as "Sub-group under <%= @product_family.name %>".
+          <em>Tip: hidden families can be used as a sub-group if needed.</em> (If all this is
+          too confusing, blame Zanis.)</p>
+
+          <ul class="list">
+            <% @product_family.sub_groups.each do |sub_group| %>
+              <li><%= link_to sub_group.name, [:admin, sub_group] %></li>
+            <% end %>
+          </ul>
+
+        <% end %>
       </div>
     <% end %>
+
   </div>
 
   <div class="medium-6 columns">
