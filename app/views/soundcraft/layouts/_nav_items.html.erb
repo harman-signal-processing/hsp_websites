@@ -42,9 +42,9 @@
     </ul>
   </li>
 
-  <% if website.has_events? %>
+  <% if website.has_learning_sessions.present? && website.has_learning_sessions == 1 %>
     <li class="divider hide-for-medium"></li>
-    <li class="hide-for-medium"><%= link_to t('events'), events_path %></li>
+    <li><%= link_to t('learning_sessions').titleize, "https://pro.harman.com/learning-sessions", target: "_blank" %></li>
   <% end %>
 
 <% end %>

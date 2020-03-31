@@ -29,14 +29,14 @@
 	<li><%= link_to t('artists').titleize, artists_path %></li>
 	<% end %>
 
+  <% if website.has_learning_sessions.present? && website.has_learning_sessions == 1 %>
+    <li class="divider hide-for-medium"></li>
+    <li><%= link_to t('learning_sessions').titleize, "https://pro.harman.com/learning-sessions", target: "_blank" %></li>
+  <% end %>
+
 	<% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
 	<li><%= link_to "Buy".titleize, where_to_buy_path %></li>
 	<% end %>
-
-  <% if website.has_events? %>
-    <li class="divider hide-for-medium"></li>
-    <li><%= link_to t('events'), events_path %></li>
-  <% end %>
 
   <li><%= link_to "Broadcast Truck", "/#{I18n.locale}/broadcast-truck" %></li>
 
@@ -60,7 +60,6 @@
     <ul class="dropdown">
       <li><%= link_to "Create Sound", '/createsound' %></li>
       <li><%= link_to "Team Studer", '/team-studer' %></li>
-      <li><%= link_to "Events", '/studer-events' %></li>
       <li><%= link_to "About Studer", '/about-studer' %></li>
     </ul>
   </li>
