@@ -35,7 +35,7 @@
   <% if website.has_events? && website.has_learning_sessions %>
     <li class="divider hide-for-medium"></li>
     <!--<li><%#= link_to t('events').titleize, events_path %></li>-->
-    <li><%= link_to t('learning_sessions').titleize, "learning-sessions" %></li>
+    <li><%= link_to t('learning_sessions').titleize, "/learning-sessions" %></li>
   <% end %>
 
   <% if website.has_training? %>
