@@ -1,0 +1,19 @@
+<li id="product_family_<%= product_family.to_param %>" class="product_family_box <% unless product_family.root? %>subgroup<% end %>">
+  <%= link_to [:product_selector, product_family], class: "ps-start-spinner", remote: true do %>
+    <% p = product_family.first_product_with_photo(website) %>
+    <% if p %>
+      <%= image_tag p.primary_photo.product_attachment.url(:medium),
+        lazy: false,
+        alt: product_family.name %>
+    <% end %>
+    <% if product_family.root? %>
+      <h3 class="text-center"><%= product_family.name %></h3>
+    <% else %>
+      <div class="text-center"><%= product_family.name %></div>
+    <% end %>
+  <% end %>
+  <div class="text-center">
+    <%#= pluralize product_family.current_products_plus_child_products(website).length, "product", plural: "products" %>
+  </div>
+</li>
+

@@ -66,6 +66,32 @@ class ProductFamily < ApplicationRecord
     true
   end
 
+  def selector_behavior_options
+    opts = [["Default", ""]]
+    if self.root?
+      opts << ["Root with sub-groups", "root_with_subgroups"]
+    elsif self.root == self.parent && self.root.product_selector_behavior == "root_with_subgroups"
+      opts << ["Sub-group under #{self.root.name}", "subgroup"]
+    end
+    opts << ["Exclude", "exclude"]
+  end
+
+  def can_have_filters?
+    can_have_root_filters? || can_have_subgroup_filters?
+  end
+
+  def can_have_root_filters?
+    !!(self.root? && self.product_selector_behavior.blank?)
+  end
+
+  def can_have_subgroup_filters?
+    !!(self.product_selector_behavior == "subgroup")
+  end
+
+  def sub_groups
+    children.where(product_selector_behavior: "subgroup")
+  end
+
   # All top-level ProductFamilies--not locale aware
   #  w = a Brand or a Website
   def self.all_parents(w)
@@ -287,7 +313,11 @@ class ProductFamily < ApplicationRecord
     options = default_options.merge options
     brand_id = (w.is_a?(Brand)) ? w.id : w.brand_id
     ids = []
-    children.where(brand_id: brand_id, hide_from_navigation: false).includes(:products).each do |pf|
+    these_children = children.where(brand_id: brand_id, hide_from_navigation: false)
+    if !!options[:check_for_product_selector_exclusions]
+      these_children = these_children.where.not(product_selector_behavior: "exclude").or(these_children.where(product_selector_behavior: nil))
+    end
+    these_children.includes(:products).each do |pf|
       if !pf.requires_login? && (pf.current_products.size > 0 || pf.children_with_current_products(w, options).size > 0)
         unless options[:locale].present? && !pf.locales(w).include?(options[:locale].to_s)
           ids << pf.id
@@ -357,6 +387,10 @@ class ProductFamily < ApplicationRecord
     unless self.root?
       [parent, parent.family_tree].flatten
     end
+  end
+
+  def subgroups_for_product_selector
+    children.where(product_selector_behavior: "subgroup")
   end
 
   def copy!(options = {})

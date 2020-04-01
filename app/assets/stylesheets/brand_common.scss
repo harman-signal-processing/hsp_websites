@@ -1970,9 +1970,15 @@ This solution was found here: https://foundation.zurb.com/forum/posts/581-block-
 }
 
 /** Product selector **/
+div.top-level-families {
+  margin-bottom: rem-calc(12px);
+}
+div#subgroups {
+  margin-bottom: rem-calc(12px);
+}
 form#filters {
   h5 {
-    margin-bottom: 4px;
+    margin-bottom: 5px;
     margin-top: 12px;
     font-size: rem-calc(14px);
   }
@@ -1989,5 +1995,13 @@ form#filters {
   }
   label {
     color: #787878;
+  }
+  div.slider-range {
+    margin-left: 10px;
+  }
+  div.range-label {
+    margin-top: 5px;
+    font-size: rem-calc(11px);
+    font-color: #787878;
   }
 }

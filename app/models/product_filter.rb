@@ -48,4 +48,48 @@ class ProductFilter < ApplicationRecord
       ppfv if ppfv.product.root_product_families.include?(product_family)
     end
   end
+
+  # Determine the minimum value for the given product family
+  def min_value_for(product_family)
+    begin
+      m = unique_values_for(product_family).map do |v|
+        v.to_s.split(/-/).first.to_i
+      end.sort.first.to_i - stepsize.to_i
+      (m < fallback_min) ? fallback_min : m
+    rescue
+      fallback_min
+    end
+  end
+
+  # Determine the maximum value for the given product family
+  def max_value_for(product_family)
+    begin
+      m = unique_values_for(product_family).map do |v|
+        v.to_s.split(/-/).last.to_i
+      end.sort.last.to_i
+      m = roundup(m)
+      (m > fallback_max) ? fallback_max : m
+    rescue
+      fallback_max
+    end
+  end
+
+  def fallback_min
+    (min_value.present? ? min_value : 0).to_i
+  end
+
+  def fallback_max
+    (max_value.present? ? max_value : 0).to_i
+  end
+
+  private
+
+  def roundup(num)
+    exp = (num.digits.length > 1) ? (num.digits.length - 1) : 1
+    step = 10**exp
+    whole, remainder = num.divmod(step)
+    num_steps = remainder > 0 ? whole + 1 : whole
+    num_steps * step
+  end
+
 end
