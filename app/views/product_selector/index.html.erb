@@ -1,12 +1,16 @@
-<div class="top-level-families">
-  <ul class="small-block-grid-<%= (@product_families.length / 2).to_i %>  medium-block-grid-<%= @product_families.length %>">
-    <% @product_families.each do |product_family| %>
-      <%= render 'product_selector/product_families/product_family', product_family: product_family %>
-    <% end %>
-  </ul>
+<div id="ps-top-nav">
+	<div class="top-level-families">
+		<ul class="small-block-grid-<%= (@product_families.length / 2).to_i %>  medium-block-grid-<%= @product_families.length %>">
+			<% @product_families.each do |product_family| %>
+				<%= render 'product_selector/product_families/product_family', product_family: product_family %>
+			<% end %>
+		</ul>
+	</div>
 </div>
 
-<div id="subgroups"></div>
+<div id="ps-sub-nav">
+	<div id="subgroups"></div>
+</div>
 
 <div class="spinner" style="display:none;">
   <div style="text-align: center">

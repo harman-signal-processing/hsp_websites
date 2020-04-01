@@ -4,7 +4,7 @@ module ProductSelectorHelper
     if product_filter.is_boolean?
       boolean_filter_input(product_filter)
     elsif product_filter.is_number? || product_filter.is_range?
-      number_or_range_filter_input(product_filter)
+      number_or_range_filter_input(product_filter, product_family)
     else
       text_filter_input(product_filter, product_family)
     end
@@ -32,19 +32,23 @@ module ProductSelectorHelper
     end
   end
 
-  def number_or_range_filter_input(product_filter)
+  def number_or_range_filter_input(product_filter, product_family)
     filter_title(product_filter) +
     content_tag(:div,
       class: "slider-range-container",
       id: "filter_#{ product_filter.to_param }_slider",
       data: {
         filtername: "filter-#{product_filter.to_param}",
-        min: product_filter.min_value.present? ? product_filter.min_value : 0,
-        max: product_filter.max_value.present? ? product_filter.max_value : 9999999,
-        uom: product_filter.uom.present? ? product_filter.uom : ""
+        min: product_filter.min_value_for(product_family),
+        max: product_filter.max_value_for(product_family),
+        stepsize: product_filter.stepsize.present? ? product_filter.stepsize : 1,
+        uom: product_filter.uom.present? ? product_filter.uom : "",
+        secondary_uom: product_filter.secondary_uom.present? ? product_filter.secondary_uom : "",
+        secondary_uom_formula: product_filter.secondary_uom_formula.present? ? product_filter.secondary_uom_formula : ""
       }) do
       content_tag(:div, "", class: "slider-range") +
-      text_field_tag("filter-#{product_filter.to_param}", "", class: "unstyled slider-filter")
+      #text_field_tag("filter-#{product_filter.to_param}", "", class: "unstyled slider-filter") +
+      content_tag(:div, "", class: "range-label")
     end
   end
 

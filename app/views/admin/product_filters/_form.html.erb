@@ -5,14 +5,25 @@
 
   <%= field_set_tag "For numeric/range filters" do %>
     <div class="row">
-      <div class="small-12 medium-4 columns">
+      <div class="small-12 medium-3 columns">
+        <%= f.input :uom, label: "Unit of Measure" %>
+      </div>
+      <div class="small-12 medium-3 columns">
         <%= f.input :min_value %>
       </div>
-      <div class="small-12 medium-4 columns">
+      <div class="small-12 medium-3 columns">
         <%= f.input :max_value %>
       </div>
-      <div class="small-12 medium-4 columns">
-        <%= f.input :uom, label: "Unit of Measure" %>
+      <div class="small-12 medium-3 columns">
+        <%= f.input :stepsize, hint: "Distance between selectable points on the slider." %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-12 medium-3 columns">
+        <%= f.input :secondary_uom, label: "Secondary Unit of Measure" %>
+      </div>
+      <div class="small-12 medium-9 column">
+        <%= f.input :secondary_uom_formula, label: "Conversion formula for secondary measure" %>
       </div>
     </div>
   <% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_27_173014) do
+ActiveRecord::Schema.define(version: 2020_03_31_155400) do
 
   create_table "access_levels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -1176,6 +1176,9 @@ ActiveRecord::Schema.define(version: 2020_03_27_173014) do
     t.string "uom"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "secondary_uom"
+    t.string "secondary_uom_formula"
+    t.integer "stepsize", default: 1
   end
 
   create_table "product_introductions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
@@ -1249,7 +1252,7 @@ ActiveRecord::Schema.define(version: 2020_03_27_173014) do
     t.integer "product_filter_id"
     t.string "string_value"
     t.boolean "boolean_value"
-    t.integer "number_value"
+    t.float "number_value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["product_filter_id"], name: "index_product_product_filter_values_on_product_filter_id"

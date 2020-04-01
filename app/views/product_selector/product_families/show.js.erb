@@ -1,6 +1,4 @@
 <% if @product_family.product_selector_behavior.to_s == "root_with_subgroups" %>
-  $("li.product_family_box").css("outline", "none");
-  $("li#product_family_<%= @product_family.to_param %>").css("outline", "1px solid #CCC");
 
   <% subgroups = @product_family.subgroups_for_product_selector %>
   $("div#results-container form").empty();
@@ -12,16 +10,9 @@
       }.join.html_safe
     end
   ) %>");
-<% else %>
-  <% if @product_family.product_selector_behavior.to_s == "subgroup" %>
-    $("li.subgroup").css("outline", "none");
-    $("li#product_family_<%= @product_family.to_param %>").css("outline", "1px solid #CCC");
 
-  <% else %>
-    $("li.product_family_box").css("outline", "none");
-    $("li#product_family_<%= @product_family.to_param %>").css("outline", "1px solid #CCC");
-    $("div#subgroups").empty();
-  <% end %>
+<% else %>
+
   $("div#results-container form").html("<%= escape_javascript(
     content_tag(:ul, class: "small-block-grid-1 medium-block-grid-2 large-block-grid-3", id: "product-boxes") do
       @products.each_with_index.map { |product,i|

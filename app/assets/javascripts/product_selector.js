@@ -10,9 +10,12 @@ function initializeSliders() {
     var min = $(this).data("min");
     var max = $(this).data("max");
     var uom = $(this).data("uom");
+    var secondary_uom = $(this).data("secondary-uom");
+    var secondary_uom_formula = $(this).data("secondary-uom-formula");
     var slider = $(this).children("div.slider-range");
-    var input = $(this).children("input");
+    var range_label = $(this).children("div.range-label");
     var filter_name = $(this).attr("data-filtername");
+    var stepsize = $(this).attr("data-stepsize");
     slider_filter_data[filter_name] = {
       min: $(this).attr("data-min"),
       max: $(this).attr("data-max"),
@@ -24,9 +27,15 @@ function initializeSliders() {
       min: min,
       max: max,
       values: [ min, max ],
-      //step: ((max - min)/100),
+      step: parseInt(stepsize),
       slide: function(event, ui) {
-        input.val( ui.values[0] + " - " + ui.values[1] + " " + uom );
+        slider_values = ui.values[0] + " - " + ui.values[1] + " " + uom;
+        if (secondary_uom.length && secondary_uom_formula.length) {
+          alt_min = eval(ui.values[0] + secondary_uom_formula).toFixed(1);
+          alt_max = eval(ui.values[1] + secondary_uom_formula).toFixed(1);
+          slider_values += "<br/>" + alt_min + " - " + alt_max + " " + secondary_uom;
+        }
+        range_label.html(slider_values);
       },
       change: function(event, ui) {
         slider_filter_data[filter_name]["selected_min"] = ui.values[0];
@@ -35,7 +44,13 @@ function initializeSliders() {
       }
     });
 
-    input.val( slider.slider("values", 0) + " - " + slider.slider("values", 1) + " " + uom );
+    range_label_value = slider.slider("values", 0) + " - " + slider.slider("values", 1) + " " + uom
+    if (secondary_uom.length && secondary_uom_formula.length) {
+      alt_min = eval(slider.slider("values", 0) + secondary_uom_formula).toFixed(1);
+      alt_max = eval(slider.slider("values", 1) + secondary_uom_formula).toFixed(1);
+      range_label_value += "<br/>" + alt_min + " - " + alt_max + " " + secondary_uom;
+    }
+    range_label.html(range_label_value);
   });
 }
 
@@ -146,15 +161,15 @@ function booleanFilter(item, filter_name, selected_values) {
 
 function sliderFilter(item, filter_name, selected_values) {
   // if the slider hasn't moved, return true for all products
-  if ( parseInt(selected_values["selected_min"]) == parseInt(selected_values["min"]) &&
-    parseInt(selected_values["selected_max"]) == parseInt(selected_values["max"]) ) {
+  if ( parseFloat(selected_values["selected_min"]) == parseFloat(selected_values["min"]) &&
+    parseFloat(selected_values["selected_max"]) == parseFloat(selected_values["max"]) ) {
       return true;
   } else if ( typeof $(item).attr("data-"+filter_name) !== 'undefined' ) {
     var this_value = $(item).attr("data-"+filter_name);
     // if the value has a dash in it, then consider it a range
     if (this_value.indexOf("-") >= 0) {
       var this_range = this_value.split("-");
-      if (parseInt(this_range[0]) >= selected_values["selected_min"] && parseInt(this_range[1]) <= selected_values["selected_max"]) {
+      if (parseFloat(this_range[0]) >= selected_values["selected_min"] && parseFloat(this_range[1]) <= selected_values["selected_max"]) {
         return true;
       }
     } else if (this_value >= selected_values["selected_min"] && this_value <= selected_values["selected_max"]) {
@@ -253,7 +268,18 @@ function performFilter() {
 }
 
 jQuery(function($) {
-  $(".ps-start-spinner").click(function() {
+  $("#ps-top-nav").on('click', ".ps-start-spinner", function() {
+		$("li.product_family_box").css("outline", "none");
+    $(this).parent("li").css("outline", "1px solid #CCC");
+    $(".spinner").show();
+    $("#results-container form").empty();
+    $("#options-container").empty();
+    $("div#subgroups").empty();
+  });
+
+  $("#ps-sub-nav").on('click', ".ps-start-spinner", function() {
+    $("li.subgroup").css("outline", "none");
+    $(this).parent("li").css("outline", "1px solid #CCC");
     $(".spinner").show();
     $("#results-container form").empty();
     $("#options-container").empty();
