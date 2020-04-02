@@ -398,7 +398,11 @@ class ProductFamily < ApplicationRecord
   end
 
   def parents_with_filters
-    family_tree.select{|pf| pf if pf.is_a?(ProductFamily) && pf.product_filters.length > 0}
+    if !!family_tree
+      family_tree.select{|pf| pf if pf.is_a?(ProductFamily) && pf.product_filters.length > 0}
+    else
+      []
+    end
   end
 
   def copy!(options = {})
