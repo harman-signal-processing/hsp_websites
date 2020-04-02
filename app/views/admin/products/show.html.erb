@@ -287,9 +287,6 @@
     <% if can? :manage, ProductProductFilterValue %>
       <div class="group">
         <h5 class="subheader">Filters for Product Selector</h5>
-        <p>Filters associated with this product's related top-level families
-        (<%= @product.root_product_families.map{|pf| link_to(pf.name, [:admin, pf])}.join(", ").html_safe %>)
-        are shown below.</p>
         <%= simple_form_for [:admin, @product] do |f| %>
           <% @product.available_product_filter_values.each do |product_product_filter_value| %>
 

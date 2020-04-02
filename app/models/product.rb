@@ -698,12 +698,12 @@ class Product < ApplicationRecord
     product_families.map{|pf| [pf, pf.family_tree]}.flatten.uniq.reject{|i| i.blank?}
   end
 
-  def root_product_families
-    product_families.map{|pf| pf.root}.uniq
+  def parent_families_with_filters
+    product_families.map{|pf| pf.self_and_parents_with_filters}.flatten.uniq
   end
 
   def available_product_filters
-    root_product_families.map{|pf| pf.product_filters}.flatten.uniq
+    parent_families_with_filters.map{|pf| pf.product_filters}.flatten.uniq
   end
 
   def available_product_filter_values

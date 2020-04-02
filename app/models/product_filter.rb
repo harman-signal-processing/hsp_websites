@@ -45,7 +45,7 @@ class ProductFilter < ApplicationRecord
 
   def product_filter_values_for(product_family)
     product_product_filter_values.select do |ppfv|
-      ppfv if ppfv.product.root_product_families.include?(product_family)
+      ppfv if ppfv.product.parent_families_with_filters.include?(product_family)
     end
   end
 

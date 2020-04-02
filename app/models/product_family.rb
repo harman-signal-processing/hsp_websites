@@ -393,6 +393,14 @@ class ProductFamily < ApplicationRecord
     children.where(product_selector_behavior: "subgroup")
   end
 
+  def self_and_parents_with_filters
+    (product_filters.length > 0) ? [self] + parents_with_filters : parents_with_filters
+  end
+
+  def parents_with_filters
+    family_tree.select{|pf| pf if pf.is_a?(ProductFamily) && pf.product_filters.length > 0}
+  end
+
   def copy!(options = {})
     npf = self.dup
     if options[:parent_id]
