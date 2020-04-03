@@ -1,7 +1,7 @@
 class ProductFilter < ApplicationRecord
-  has_many :product_family_product_filters
+  has_many :product_family_product_filters, dependent: :destroy
   has_many :product_families, through: :product_family_product_filters
-  has_many :product_product_filter_values
+  has_many :product_product_filter_values, dependent: :destroy
   has_many :products, through: :product_product_filter_values
 
   validates :name, presence: true, uniqueness: true
