@@ -165,6 +165,9 @@
               <% if website.brand.has_us_sales_reps? %>
                 <i style="font-size: 80%">Or, <%= link_to "find a sales rep", us_reps_path %> to become a dealer.</i>
               <% end %>
+              <% if website.has_vertec_vtx_signup %>
+                <p><i style="font-size: 80%">To be added to the VERTEC/VTX Owners List <%= link_to "start here", "/vtx-vertec-owner-sign-up" %>.</i></p>
+              <% end %>              
             </form>
             <br/>
           </div>
@@ -225,6 +228,9 @@
         <% if !!!(website.brand.name.to_s.match(/duran audio/i)) %>
           <%= render_partial "shared/hef" %>
         <% end %>
+        
+        <%= render_partial "shared/vtx_vertec_signup" %>
+        
       <% end %>
     </div>
 	</div>
