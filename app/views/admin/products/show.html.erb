@@ -11,6 +11,7 @@
 <ul class="button-group round">
 	<li><%= link_to 'Back', admin_products_path, class: "small secondary button" %></li>
 	<li><%= link_to 'Edit Product Descriptions & Settings', edit_admin_product_path(@product, locale: I18n.locale), class: "small secondary button" %></li>
+  <li><%= link_to 'Duplicate Product', copy_admin_product_path(@product, locale: I18n.locale), method: :put, class: "small secondary button" %></li>
 	<li><%= link_to 'Delete', [:admin, @product], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
 </ul>
 

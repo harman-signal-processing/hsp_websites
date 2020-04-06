@@ -94,6 +94,14 @@ class Admin::ProductsController < AdminController
     end
   end
 
+  def copy
+    new_product = @product.copy!
+    redirect_to(
+      [:admin, new_product],
+      notice: "The new product (below) is hidden from the public site. Update the product status when you're ready to launch it."
+    )
+  end
+
   # PUT /admin/products/1
   # PUT /admin/products/1.xml
   def update

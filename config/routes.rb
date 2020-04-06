@@ -142,6 +142,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         end
         member do
           get :delete_background
+          put :copy
         end
         resources :product_specifications do
           member do

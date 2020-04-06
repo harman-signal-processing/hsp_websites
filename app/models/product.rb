@@ -610,8 +610,8 @@ class Product < ApplicationRecord
     possibilities = (self.brand.current_products - sp - [self])
     until sp.size >= 2 || possibilities.size == 0
       sp << possibilities[rand(possibilities.size)]
-      possibilities -= sp
     end
+      possibilities -= sp
     sp
   end
 
@@ -721,6 +721,47 @@ class Product < ApplicationRecord
 
   def filter_value(product_filter)
     product_product_filter_values.where(product_filter: product_filter).first_or_initialize.value
+  end
+
+  def copy!
+    new_product = self.dup
+    new_product.product_status = ProductStatus.where(show_on_website: false).first
+    new_product.name += " COPY"
+    new_product.save
+
+    new_product.product_families = product_families
+    new_product.news = news
+    new_product.softwares = softwares
+    new_product.site_elements = site_elements
+    new_product.promotions = promotions
+    new_product.artists = artists
+    new_product.market_segments = market_segments
+    new_product.badges = badges
+    new_product.parts = parts
+    new_product.accessory_products = accessory_products
+    new_product.product_filters = product_filters
+
+    product_attachments.each do |pa|
+      new_pa = pa.dup
+      new_pa.product_attachment = pa.product_attachment
+      new_pa.product_media = pa.product_media
+      new_pa.product = new_product
+      new_pa.save
+    end
+
+    product_specifications.each do |ps|
+      new_ps = ps.dup
+      new_ps.product = new_product
+      new_ps.save
+    end
+
+    product_descriptions.each do |pd|
+      new_pd = pd.dup
+      new_pd.product = new_product
+      new_pd.save
+    end
+
+    new_product
   end
 
 end
