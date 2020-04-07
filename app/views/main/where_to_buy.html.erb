@@ -225,11 +225,7 @@
       <% if !!!(website.brand.name.to_s.match(/digitech|lexicon|dod/i)) %>
         <%= render_partial "shared/rental" %>
         <%= render_partial "shared/consultant_portal" %>
-        <% if !!!(website.brand.name.to_s.match(/duran audio/i)) %>
-          <%= render_partial "shared/hef" %>
-        <% end %>
-        
-        
+
       <% end %>
     </div>
 	</div>
