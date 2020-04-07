@@ -3,9 +3,20 @@
 	<%= link_to(image_tag("icons/external_link_icon.png"), software_url(@software, locale: I18n.locale)) %></span></h1>
 
 <ul class="button-group round">
-	<li><%= link_to 'Back', admin_softwares_path, class: "small secondary button" %></li>
-	<li><%= link_to 'Edit', edit_admin_software_path(@software), class: "small secondary button" %></li>
-	<li><%= link_to 'Delete', [:admin, @software], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+	<li><%= link_to admin_softwares_path, class: "small secondary button" do %>
+    <%= fa_icon "angle-double-left" %>
+  <% end %>
+  </li>
+	<li><%= link_to edit_admin_software_path(@software), class: "small secondary button" do %>
+      <%= fa_icon "edit" %>
+      Edit
+    <% end %>
+  </li>
+	<li><%= link_to [:admin, @software], confirm: 'Are you sure?', method: :delete, class: "small alert button" do %>
+    <%= fa_icon "trash" %>
+    Delete
+  <% end %>
+  </li>
 </ul>
 
 <p>

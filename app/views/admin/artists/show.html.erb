@@ -5,9 +5,20 @@
 </h1>
 
 <ul class="button-group round">
-	<li><%= link_to 'Back', admin_artists_path, class: "small secondary button" %></li>
-	<li><%= link_to 'Edit', edit_admin_artist_path(@artist, locale: I18n.locale), class: "small secondary button" %></li>
-	<li><%= link_to 'Delete', [:admin, @artist], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+	<li><%= link_to admin_artists_path, class: "small secondary button" do %>
+    <%= fa_icon "angle-double-left" %>
+  <% end %>
+  </li>
+	<li><%= link_to edit_admin_artist_path(@artist, locale: I18n.locale), class: "small secondary button" do %>
+      <%= fa_icon "edit" %>
+      Edit
+    <% end %>
+  </li>
+	<li><%= link_to [:admin, @artist], confirm: 'Are you sure?', method: :delete, class: "small alert button" do %>
+    <%= fa_icon "trash" %>
+    Delete
+  <% end %>
+  </li>
 </ul>
 
 <div class="row">

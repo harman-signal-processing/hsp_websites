@@ -1,8 +1,16 @@
 <h1>Feature details</h1>
 
 <ul class="button-group round">
-	<li><%= link_to 'Edit', edit_admin_feature_path(@feature, locale: I18n.locale), class: "small secondary button" %> </li>
-	<li><%= link_to 'Delete', [:admin, @feature], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+	<li><%= link_to edit_admin_feature_path(@feature, locale: I18n.locale), class: "small secondary button" do %>
+      <%= fa_icon "edit" %>
+      Edit
+    <% end %>
+  </li>
+	<li><%= link_to [:admin, @feature], confirm: 'Are you sure?', method: :delete, class: "small alert button" do %>
+    <%= fa_icon "trash" %>
+    Delete
+  <% end %>
+  </li>
 </ul>
 
 <p><b>Related item:</b>

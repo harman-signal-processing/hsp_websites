@@ -1,9 +1,20 @@
 <h1><%= @audio_demo.name %></h1>
 
 <ul class="button-group round">
-	<li><%= link_to 'Back', admin_audio_demos_path, class: "small secondary button" %></li>
-	<li><%= link_to 'Edit', edit_admin_audio_demo_path(@audio_demo, locale: I18n.locale), class: "small secondary button" %> </li>
-	<li><%= link_to 'Delete', [:admin, @audio_demo], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+	<li><%= link_to admin_audio_demos_path, class: "small secondary button" do %>
+    <%= fa_icon "angle-double-left" %>
+  <% end %>
+  </li>
+	<li><%= link_to edit_admin_audio_demo_path(@audio_demo, locale: I18n.locale), class: "small secondary button" do %>
+      <%= fa_icon "edit" %>
+      Edit
+    <% end %>
+  </li>
+	<li><%= link_to [:admin, @audio_demo], confirm: 'Are you sure?', method: :delete, class: "small alert button" do %>
+    <%= fa_icon "trash" %>
+    Delete
+  <% end %>
+  </li>
 </ul>
 
 <div><%= @audio_demo.description %></div>
@@ -27,7 +38,7 @@
     	<%= f.hidden_field :audio_demo_id %>
     	<div class="row collapse">
     		<div class="large-10 small-8 columns">
-    			<%= f.association :product, collection: website.products, label: false %> 
+    			<%= f.association :product, collection: website.products, label: false %>
     		</div>
     		<div class="large-2 small-4 columns">
     			<%= submit_tag 'add product', class: "postfix button" %>

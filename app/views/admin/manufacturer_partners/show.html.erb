@@ -1,6 +1,14 @@
 <ul class="button-group round">
-    <li><%= link_to 'Back To List', admin_manufacturer_partners_path, class: "small button round" %>	</li>
-    <li><%= link_to 'Delete', [:admin, @manufacturer_partner], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+    <li><%= link_to admin_manufacturer_partners_path, class: "small button round" do %>
+      <%= fa_icon "angle-double-left" %>
+      Back To List
+    <% end %>
+    </li>
+    <li><%= link_to [:admin, @manufacturer_partner], confirm: 'Are you sure?', method: :delete, class: "small alert button" do %>
+      <%= fa_icon "trash" %>
+      Delete
+    <% end %>
+    </li>
 </ul>
 <h1>Edit Manufacturer Partner</h1>
 

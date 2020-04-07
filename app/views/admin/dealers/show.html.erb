@@ -1,8 +1,15 @@
 <h1><%= @dealer.name %></h1>
 
 <ul class="button-group round">
-	<li><%= link_to 'Back', admin_dealers_path, class: "small secondary button" %></li>
-	<li><%= link_to 'Edit', edit_admin_dealer_path(@dealer, locale: I18n.locale), class: "small secondary button" %> </li>
+	<li><%= link_to admin_dealers_path, class: "small secondary button" do %>
+    <%= fa_icon "angle-double-left" %>
+  <% end %>
+  </li>
+	<li><%= link_to edit_admin_dealer_path(@dealer, locale: I18n.locale), class: "small secondary button" do %>
+      <%= fa_icon "edit" %>
+      Edit
+    <% end %>
+  </li>
 </ul>
 
 <table class="data">

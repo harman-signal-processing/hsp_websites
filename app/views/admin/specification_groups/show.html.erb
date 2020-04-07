@@ -1,8 +1,15 @@
 <h1><%= @specification_group.name %></h1>
 
 <ul class="button-group round">
-  <li><%= link_to 'Back', admin_specification_groups_path, class: "small secondary button" %></li>
-  <li><%= link_to 'Edit', edit_admin_specification_group_path(@specification_group, locale: I18n.locale), class: "small secondary button" %></li>
+  <li><%= link_to admin_specification_groups_path, class: "small secondary button" do %>
+    <%= fa_icon "angle-double-left" %>
+  <% end %>
+  </li>
+  <li><%= link_to edit_admin_specification_group_path(@specification_group, locale: I18n.locale), class: "small secondary button" do %>
+      <%= fa_icon "edit" %>
+      Edit
+    <% end %>
+  </li>
 </ul>
 
 <div class="row">

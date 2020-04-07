@@ -19,10 +19,25 @@
 </h1>
 
 <ul class="button-group round">
-	<li><%= link_to 'Back', admin_product_families_path, class: "small secondary button" %></li>
-	<li><%= link_to 'Edit', edit_admin_product_family_path(@product_family, locale: I18n.locale), class: "small secondary button" %></li>
-  <li><%= link_to 'Copy Family', copy_admin_product_family_path(@product_family, locale: I18n.locale), method: :put, class: "small success button" %></li>
-	<li><%= link_to 'Delete', [:admin, @product_family], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+  <li><%= link_to admin_product_families_path, class: "small secondary button" do %>
+    <%= fa_icon "angle-double-left" %>
+  <% end %>
+  </li>
+  <li><%= link_to edit_admin_product_family_path(@product_family, locale: I18n.locale), class: "small secondary button" do %>
+      <%= fa_icon "edit" %>
+      Edit
+    <% end %>
+  </li>
+  <li><%= link_to copy_admin_product_family_path(@product_family, locale: I18n.locale), method: :put, class: "small secondary button" do %>
+      <%= fa_icon "copy" %>
+      Duplicate Family
+    <% end %>
+  </li>
+  <li><%= link_to [:admin, @product_family], confirm: 'Are you sure?', method: :delete, class: "small alert button" do %>
+    <%= fa_icon "trash" %>
+    Delete
+  <% end %>
+  </li>
 </ul>
 
 <% if @product_family.requires_login? %>
@@ -132,9 +147,11 @@
         <% end %>
       </ul>
 
-      <small>
-        <%= link_to_function "copy/move all products to another family", "$('#copymove').toggle()" %>
-      </small>
+      <br/>
+      <p>
+        <%= link_to_function(fa_icon("share") + " copy/move all products to another family",
+                             "$('#copymove').toggle()") %>
+      </p>
       <div id="copymove" style="display:none;" class="panel">
         <%= form_tag copy_products_admin_product_family_path(@product_family), method: :post %>
 
@@ -159,40 +176,10 @@
       </div>
     </div>
 
-		<% if can? :manage, @product_family.testimonials %>
-			<div class="group">
-				<h5 class="subheader">Testimonials about this family:</h5>
-				<%= simple_form_for [:admin, @product_family_testimonial], remote: true do |f| %>
-					<%= hidden_field_tag "called_from", "product_family" %>
-				    <%= f.hidden_field :product_family_id %>
-				    <div class="row collapse">
-				    	<div class="large-10 small-8 columns">
-                <%=raw f.association(:testimonial,
-                                     label: false,
-                                     collection: Testimonial.not_associated_with_this_product_family(@product_family),
-                                     input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Testimonial'} }
-                                     ).gsub(/\&amp\;/, '&')%>
-				    	</div>
-				    	<div class="large-2 small-4 columns">
-				    		<%= submit_tag 'add', class: "prefix button"  %>
-				    	</div>
-				    </div>
-            <p class="text-right">
-              <%= link_to 'create a new testimonial', new_admin_testimonial_path %>
-            </p>
-				<% end %>
-
-				<ul id="product_family_testimonials" class="list">
-					<% @product_family.product_family_testimonials.each do |pft| %>
-						<%= render '/admin/shared/product_family_testimonial_row', pft: pft, called_from: 'product_family' %>
-					<% end %>
-				</ul>
-      </div>
-    <% end %>
-
     <% if can?(:manage, ProductFamilyProductFilter) %>
       <div class="group">
-        <h5 class="subheader">Product Selector</h5>
+        <h5 class="subheader">Product Selector
+          <%= link_to product_selector_path, target: "_blank" do %><%= fa_icon 'link' %><% end %></h5>
 
         <%= simple_form_for [:admin, @product_family] do |f| %>
           <%= f.input :product_selector_behavior,
@@ -331,6 +318,37 @@
         <% end %>
       </ul>
     </div>
+
+		<% if can? :manage, @product_family.testimonials %>
+			<div class="group">
+				<h5 class="subheader">Testimonials about this family:</h5>
+				<%= simple_form_for [:admin, @product_family_testimonial], remote: true do |f| %>
+					<%= hidden_field_tag "called_from", "product_family" %>
+				    <%= f.hidden_field :product_family_id %>
+				    <div class="row collapse">
+				    	<div class="large-10 small-8 columns">
+                <%=raw f.association(:testimonial,
+                                     label: false,
+                                     collection: Testimonial.not_associated_with_this_product_family(@product_family),
+                                     input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Testimonial'} }
+                                     ).gsub(/\&amp\;/, '&')%>
+				    	</div>
+				    	<div class="large-2 small-4 columns">
+				    		<%= submit_tag 'add', class: "prefix button"  %>
+				    	</div>
+				    </div>
+            <p class="text-right">
+              <%= link_to 'create a new testimonial', new_admin_testimonial_path %>
+            </p>
+				<% end %>
+
+				<ul id="product_family_testimonials" class="list">
+					<% @product_family.product_family_testimonials.each do |pft| %>
+						<%= render '/admin/shared/product_family_testimonial_row', pft: pft, called_from: 'product_family' %>
+					<% end %>
+				</ul>
+      </div>
+    <% end %>
   </div>
 </div>
 

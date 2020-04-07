@@ -8,9 +8,20 @@
 </p>
 
 <ul class="button-group round">
-	<li><%= link_to 'Back', admin_effects_path, class: "small secondary button" %></li>
-	<li><%= link_to 'Edit', edit_admin_effect_path(@effect), class: "small secondary button" %> </li>
-	<li><%= link_to 'Delete', [:admin, @effect], confirm: 'Are you sure?', method: :delete, class: "small alert button" %></li>
+	<li><%= link_to admin_effects_path, class: "small secondary button" do %>
+    <%= fa_icon "angle-double-left" %>
+  <% end %>
+  </li>
+	<li><%= link_to edit_admin_effect_path(@effect), class: "small secondary button" do %>
+      <%= fa_icon "edit" %>
+      Edit
+    <% end %>
+  </li>
+	<li><%= link_to [:admin, @effect], confirm: 'Are you sure?', method: :delete, class: "small alert button" do %>
+    <%= fa_icon "trash" %>
+    Delete
+  <% end %>
+  </li>
 </ul>
 
 <p>
@@ -30,7 +41,7 @@
 		    <%= f.hidden_field :effect_id %>
 		    <div class="row collapse">
 		    	<div class="large-10 small-8 columns">
-		    		<%= f.association :product, collection: website.products, label: false %> 
+		    		<%= f.association :product, collection: website.products, label: false %>
 		    	</div>
 		    	<div class="large-2 small-4 columns">
 		    		<%= f.submit "add", class: "postfix button" %>

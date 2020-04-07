@@ -1,10 +1,25 @@
 <h1>FAQ Category: <%= @faq_category.name %></h1>
 
 <ul class="button-group round">
-  <li><%= link_to 'Back', admin_faqs_path, class: "small secondary button" %></li>
-  <li><%= link_to 'Edit', edit_admin_faq_category_path(@faq_category), class: "small secondary button" %></li>
-  <li><%= link_to 'New FAQ', new_admin_faq_path, class: "small success button" %></li>
-  <li><%= link_to 'Delete', [:admin, @faq_category], confirm: "Are you sure?", method: :delete, class: "small alert button" %></li>
+  <li><%= link_to admin_faqs_path, class: "small secondary button" do %>
+    <%= fa_icon "angle-double-left" %>
+  <% end %>
+  </li>
+  <li><%= link_to edit_admin_faq_category_path(@faq_category), class: "small secondary button" do %>
+      <%= fa_icon "edit" %>
+      Edit
+    <% end %>
+  </li>
+  <li><%= link_to new_admin_faq_path, class: "small success button" do %>
+      <%= fa_icon "plus" %>
+      New FAQ
+    <% end %>
+  </li>
+  <li><%= link_to [:admin, @faq_category], confirm: "Are you sure?", method: :delete, class: "small alert button" do %>
+    <%= fa_icon "trash" %>
+    Delete
+  <% end %>
+  </li>
 </ul>
 
 <h3 class="subheader">Questions</h3>

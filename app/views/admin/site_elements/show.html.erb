@@ -1,12 +1,27 @@
 <h1><%= @site_element.long_name %></h1>
 
 <ul class="button-group round">
-  <li><%= link_to 'Back', admin_site_elements_path, class: "small secondary button" %>	</li>
-  <li><%= link_to 'Edit', edit_admin_site_element_path(@site_element, locale: I18n.locale), class: "small secondary button" %></li>
-  <% if @site_element.is_latest_version? %>
-    <li><%= link_to 'Upload New Version', new_version_admin_site_element_path(@site_element), class: "small success button" %></li>
+  <li><%= link_to admin_site_elements_path, class: "small secondary button" do %>
+    <%= fa_icon "angle-double-left" %>
   <% end %>
-  <li><%= link_to 'Delete', [:admin, @site_element], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+  </li>
+  <li><%= link_to edit_admin_site_element_path(@site_element, locale: I18n.locale), class: "small secondary button" do %>
+      <%= fa_icon "edit" %>
+      Edit
+    <% end %>
+  </li>
+  <% if @site_element.is_latest_version? %>
+    <li><%= link_to new_version_admin_site_element_path(@site_element), class: "small success button" do %>
+        <%= fa_icon "arrow-up" %>
+        Upload New Version
+      <% end %>
+    </li>
+  <% end %>
+  <li><%= link_to [:admin, @site_element], confirm: 'Are you sure?', method: :delete, class: "small alert button" do %>
+    <%= fa_icon "trash" %>
+    Delete
+  <% end %>
+  </li>
 </ul>
 
 <div class="row">
