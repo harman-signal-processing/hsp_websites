@@ -739,7 +739,6 @@ class Product < ApplicationRecord
     new_product.badges = badges
     new_product.parts = parts
     new_product.accessory_products = accessory_products
-    new_product.product_filters = product_filters
 
     product_attachments.each do |pa|
       new_pa = pa.dup
