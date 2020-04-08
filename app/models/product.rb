@@ -761,6 +761,12 @@ class Product < ApplicationRecord
       new_pd.save
     end
 
+    product_product_filter_values.each do |ppfv|
+      new_ppfv = ppfv.dup
+      new_ppfv.product = new_product
+      new_ppfv.save
+    end
+
     new_product
   end
 
