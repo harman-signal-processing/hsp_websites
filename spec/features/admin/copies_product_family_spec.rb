@@ -23,7 +23,7 @@ feature "Admin copies a product family" do
     product_family_count = @brand.product_families.length
     target_family = @brand.product_families.first
     click_on target_family.name
-    click_on "Copy Family"
+    click_on "Duplicate Family"
 
     @brand.reload
     new_family = @brand.product_families.last
