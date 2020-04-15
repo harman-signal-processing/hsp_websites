@@ -393,9 +393,9 @@ module ProductsHelper
   def no_buy_it_now(product)
     folder = folder_for(product)
     if product.show_on_website?(website)
-      image_tag("#{folder}/#{I18n.locale}/coming_soon.png", alt: "coming soon")
+      image_tag("#{folder}/#{I18n.locale}/coming_soon.png", alt: "coming soon", lazy: false)
     else
-      image_tag("#{folder}/#{I18n.locale}/confidential.png", alt: "confidential")
+      image_tag("#{folder}/#{I18n.locale}/confidential.png", alt: "confidential", lazy: false)
     end    
   end
 
