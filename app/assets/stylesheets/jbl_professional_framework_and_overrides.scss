@@ -93,6 +93,24 @@ $reveal-max-width: 75%;
   }
 }
 
+@media only screen and (min-width: 1301px) {
+  .top-bar-section {
+    li:not(.has-form) a:not(.button) {
+      padding: 0 14px !important;
+    }
+    li {
+      &.has-dropdown {
+        a {
+          padding-right: 14px !important;
+          &:after {
+            margin-right: 1px !important;
+          }
+        }
+      }
+    }
+  }
+}
+
 @media only screen and (max-width: 919px) {
 	.logo-container img {
     //height: 40px;
