@@ -8,6 +8,10 @@ class Specification < ApplicationRecord
 
   acts_as_list scope: :specification_group_id
 
+  scope :not_for_brand_comparison, -> (brand) {
+    where.not(id: brand.specification_for_comparisons.pluck(:specification_id)).order("name")
+  }
+
   def self.options_for_select
     @options_for_select ||= order(:name)
   end

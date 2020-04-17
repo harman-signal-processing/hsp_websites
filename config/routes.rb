@@ -277,13 +277,12 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         member { post :add_specification }
         collection { post :update_order }
       end
+      resources :brand_specification_for_comparisons
       resources :site_elements do
         resources :site_element_attachments
         collection { post :upload }
         member { get :new_version }
-
       end
-
       resources :product_site_elements do
         collection { post :update_order }
       end

@@ -189,7 +189,13 @@ class ProductsController < ApplicationController
       redirect_to product_families_path, alert: "Select no more than 4 products to compare."
     else
       spec_ids = @products.collect{|p| p.product_specifications.collect{|ps| ps.specification_id}}.flatten.uniq
-      @specs = Specification.where(id: spec_ids)
+      product_specs = Specification.where(id: spec_ids)
+      if website.brand.specification_for_comparisons.length > 0
+        brand_specs = website.brand.specification_for_comparisons.where(specification_id: spec_ids)
+        @specs = (brand_specs.length > 0) ? brand_specs.map{|s| s.specification} : product_specs
+      else
+        @specs = Specification.where(id: spec_ids)
+      end
       if !website.brand.use_flattened_specs? && @specs.where("specification_group_id IS NOT NULL").count > 0
         spec_group_ids = @specs.where("specification_group_id IS NOT NULL").pluck(:specification_group_id).uniq.compact
         @spec_groups = SpecificationGroup.where(id: spec_group_ids).order("position")
