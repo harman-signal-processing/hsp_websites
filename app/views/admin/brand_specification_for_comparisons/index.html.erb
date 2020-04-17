@@ -1,0 +1,25 @@
+<h1>Brand Specifications For Comparisons</h1>
+
+<p>If any specifications appear here, then ONLY those specifications
+will be used for comparisons. Otherwise, all specifications will be
+available for comparisons.</p>
+
+<div class="panel">
+  <%= simple_form_for [:admin, @brand_specification_for_comparison] do |f| %>
+    <%= f.label "Specification" %>
+    <div class="row collapse">
+      <div class="small-7 medium-8 columns">
+        <%= f.association :specification, label: false, collection: Specification.not_for_brand_comparison(website.brand) %>
+      </div>
+      <div class="small-5 medium-4 columns">
+        <%= f.submit "Add", class: "button postfix" %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<ul>
+  <% @brand_specification_for_comparisons.each do |bsfc| %>
+    <li><%= link_to bsfc.specification.name, [:admin, bsfc.specification] %></li>
+  <% end %>
+</ul>

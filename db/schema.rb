@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_31_155400) do
+ActiveRecord::Schema.define(version: 2020_04_14_183035) do
 
   create_table "access_levels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -228,6 +228,16 @@ ActiveRecord::Schema.define(version: 2020_03_31_155400) do
     t.datetime "updated_at", null: false
     t.index ["brand_id"], name: "index_brand_solutions_on_brand_id"
     t.index ["solution_id"], name: "index_brand_solutions_on_solution_id"
+  end
+
+  create_table "brand_specification_for_comparisons", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "brand_id"
+    t.integer "specification_id"
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["brand_id"], name: "index_brand_specification_for_comparisons_on_brand_id"
+    t.index ["specification_id"], name: "index_brand_specification_for_comparisons_on_specification_id"
   end
 
   create_table "brand_toolkit_contacts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
