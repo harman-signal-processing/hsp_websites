@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="medium-9 columns">
+    <div class="case-studies">
+      <% @case_studies.each do |case_study| %>
+        <div class="row">
+          <div class="small-12 medium-3 columns">
+            <%#binding.pry%>
+            <%= link_to case_study_path(case_study[:slug]) do %>
+              <%= image_tag case_study[:banner_urls][:small_panel], alt: "#{case_study[:headline]} thumbnail image" %>
+            <% end %>
+          </div>
+          <div class="small-12 medium-9 columns">
+            <h5><%= link_to case_study[:headline], case_study_path(case_study[:slug]) %></h5>
+            <div><strong><%=l case_study[:created_at].to_date, format: :long %></strong></div>
+            <div class="show-for-small">
+              <%= raw case_study[:description] %>
+            </div>
+            <div class="show-for-medium-up">
+              <p><%= truncate(strip_html(textilize(case_study[:content])), length: 250).gsub(/The Opportunity\s?/, "The Opportunity: ") %></p>
+            </div>
+          </div>
+        </div>
+        <hr/>
+      <% end %>
+    </div>
+    <%#= will_paginate @case_studies, renderer: WillPaginateInfinite::InfinitePagination %>
+  </div>
+
+  <div class="medium-3 columns">
+    <div class="callout panel">
+      <h5>Case Studies by Application</h5>
+
+      <ul>
+        <%# vertical_markets_with_case_studies.each do |v| %>
+          <li>
+            <%# if @vertical_market && @vertical_market == v %>
+              <em style="color: #888"><%#= v.name %> (<%#= v.case_studies.count %>)</em>
+            <%# else %>
+              <%#= link_to vertical_market_case_studies_path(v) do %>
+                <%#= v.name %> (<%#= v.case_studies.count %>)
+              <%# end %>
+            <%# end %>
+          </li>
+        <%# end %>
+        <%# if @vertical_market %>
+          <li><%#= link_to case_studies_path do %>
+            <%#= t('all').titleize %> <%#= t('case_study').pluralize.titleize %>
+            <%# end %>
+          </li>
+        <%# end %>
+      </ul>
+    </div>
+  </div>
+
+</div>

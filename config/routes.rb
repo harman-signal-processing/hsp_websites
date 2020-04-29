@@ -562,14 +562,15 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     match 'distributors_for/:brand_id' => 'distributors#minimal', as: :minimal_distributor_search, via: :all
     get 'tools/calculators'
     match '/' => 'main#index', as: :locale_root, via: :all
-#    match '/:controller(/:action(/:id))', via: :all # Deprecated dynamic action segment
+    # match '/:controller(/:action(/:id))', via: :all # Deprecated dynamic action segment
 
-
+    get '/case_studies' => 'case_studies#index', as: :case_studies
+    get '/case_studies/:slug' => 'case_studies#show', as: :case_study
 
     match "*custom_route" => "pages#show", as: :custom_route, via: :all
-  end
+  end  # scope "(:locale)", locale: /
 
 
   match '*a', to: 'errors#404', via: :all
 
-end
+end  #  HarmanSignalProcessingWebsite::Application.routes.draw do
