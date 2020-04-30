@@ -13,15 +13,7 @@
   <li class="has-dropdown"><%= link_to t("nav.markets"), '#', class: "disabled" %>
     <ul class="dropdown">
       <% MarketSegment.all_parents(website).each do |market_segment| %>
-        <%# ugly hack to add child items to Education section %>
-        <% if market_segment.name.to_s =~ /education/i %>
-          <li class="has-dropdown"><%= link_to translate_content(market_segment, :name).titleize, market_segment %>
-            <ul class="dropdown">
-              <li><%= link_to t("nav.k12_education"), "/#{I18n.locale}/k-12-education" %></li>
-              <li><%= link_to t("nav.higher_education"), "/#{I18n.locale}/higher-education" %></li>
-            </ul>
-          </li>
-        <% elsif market_segment.name.to_s =~ /government/i %>
+        <% if market_segment.name.to_s =~ /government/i %>
           <li class="has-dropdown"><%= link_to translate_content(market_segment, :name).titleize, market_segment %>
             <ul class="dropdown">
               <li><%= link_to t("nav.secure_av"), "/#{I18n.locale}/secureav" %></li>
