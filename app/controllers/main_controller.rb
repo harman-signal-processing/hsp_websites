@@ -348,14 +348,19 @@ class MainController < ApplicationController
       render plain: "Not allowed", status: 400 and return false
     end
     query = @query.to_s.gsub(/[\/\\]/, " ")
-    
+
     if query.empty? 
       @results = []
       return false
     end
-    
+
     ferret_results = thinking_sphinx_results_for_locale(query)
     
+    user_is_searching_for_fg_number = query.downcase.starts_with? "fg"
+    if user_is_searching_for_fg_number
+      ferret_results = (Product.where("sap_sku like ?","%#{query}%").to_a + ferret_results.to_a).uniq
+    end
+
     # Probably not the best way to do this, strip out Products from the
     # search results unless the status is set to 'show_on_website'. It
     # would be better to filter these out during the query
