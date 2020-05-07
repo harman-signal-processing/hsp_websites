@@ -1,4 +1,9 @@
 <h1>Editing setting</h1>
-
+<ul class="button-group round">
+  <li><%= link_to admin_settings_path, class: "small secondary button" do %>
+    <%= fa_icon "angle-double-left" %>
+  <% end %>
+  </li>
+</ul>
 <%= render "form" %>
 

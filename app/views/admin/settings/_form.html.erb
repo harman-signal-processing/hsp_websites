@@ -32,6 +32,10 @@
         <%= f.input :string_value %>
         <%= f.input :integer_value, hint: "Use this field for the \"position\" of slides/homepage features." %>
         <%= f.input :slide, label: "Slide or feature image", hint: "To make this image link to some other page, put the URL in the \"string value\"." %>
+        <%if @setting.slide.present?%>
+          Current image:
+          <%=image_tag(@setting.slide.url(:original), lazy: false)%>
+        <%end%>
       </div>
     </div>
 
