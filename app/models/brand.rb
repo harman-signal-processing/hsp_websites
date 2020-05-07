@@ -127,7 +127,7 @@ class Brand < ApplicationRecord
     Setting.where.not(
       brand_id: self.id,
       name: self.settings.pluck(:name),
-      setting_type: ["slideshow frame", "homepage feature"]
+      setting_type: ["slideshow frame", "homepage feature", "products homepage slideshow frame"]
     ).order(Arel.sql("UPPER(name)")).pluck(:name).uniq
   end
 

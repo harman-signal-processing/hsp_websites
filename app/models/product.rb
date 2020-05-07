@@ -433,7 +433,13 @@ class Product < ApplicationRecord
     content = product_specifications.where(specification_id:specification_ids).pluck(:value).join(", ")
     content
   end
-
+  
+  def specifications_fg_numbers_content
+    specification_ids = specifications.where("name like ?","%fg numbers%").collect(&:id)
+    content = product_specifications.where(specification_id:specification_ids).pluck(:value).join(", ")
+    content
+  end  
+  
   def downloads_and_docs_content_present?
     documentation_content_present? || downloads_content_present?
   end

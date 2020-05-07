@@ -38,6 +38,12 @@
 <p>
   <b>Setting type:</b>
   <%=h @setting.setting_type %>
+  <%if @setting.slide.present?%>
+    <br /><b>String value</b>: <%=@setting.string_value%>
+    <br /><b>Integer value</b>: <%=@setting.integer_value%>
+    <br /><b>Current image:</b>
+    <%=image_tag(@setting.slide.url(:original), lazy: false)%>
+  <%end%>
 </p>
 
 <p>
