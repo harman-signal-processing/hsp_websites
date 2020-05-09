@@ -4,7 +4,7 @@
 	<span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
 	<% end %>
 	<%= (called_from == 'product') ?
-			link_to(pfp.product_family.name, [:admin, pfp.product_family]) :
+			link_to(pfp.product_family.name, [:admin, pfp.product_family]) + raw(" <span style='color:#888;'>[") + pfp.product_family.locales(website).sort.join(", ") + raw("]</span>") :
 			link_to(pfp.product.name, [:admin, pfp.product]) %>
 	<%= link_to(image_tag("icons/trash.gif", lazy: false),
 			admin_product_family_product_path(pfp, called_from: called_from),
