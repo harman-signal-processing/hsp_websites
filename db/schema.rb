@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_14_183035) do
+ActiveRecord::Schema.define(version: 2020_05_11_212141) do
 
   create_table "access_levels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -1446,6 +1446,7 @@ ActiveRecord::Schema.define(version: 2020_04_14_183035) do
     t.string "photometric_id"
     t.text "hidden_content"
     t.string "old_url"
+    t.string "hidden_locales"
     t.index ["brand_id", "product_status_id"], name: "index_products_on_brand_id_and_product_status_id"
     t.index ["brand_id"], name: "index_products_on_brand_id"
     t.index ["cached_slug"], name: "index_products_on_cached_slug", unique: true

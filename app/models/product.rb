@@ -347,10 +347,14 @@ class Product < ApplicationRecord
     if product_families.length > 0
       @locales ||= product_families.map do |pf|
         pf.locales(website)
-      end.flatten.uniq
+      end.flatten.uniq - locales_where_hidden
     else
-      website.list_of_all_locales
+      website.list_of_all_locales - locales_where_hidden
     end
+  end
+
+  def locales_where_hidden
+    hidden_locales.to_s.split(',')
   end
 
   # Selects all ACTIVE retailer links for this Product
