@@ -300,7 +300,7 @@
       </div>
 		<% end %>
 
-    <% if can? :manage, ProductProductFilterValue %>
+    <% if can?(:manage, ProductProductFilterValue) && @product.available_product_filter_values.length > 0 %>
       <div class="group">
         <h5 class="subheader">Filters for Product Selector</h5>
         <%= simple_form_for [:admin, @product] do |f| %>
