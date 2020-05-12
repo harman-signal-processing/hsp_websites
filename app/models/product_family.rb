@@ -244,12 +244,12 @@ class ProductFamily < ApplicationRecord
 
   # Determine only 'current' products for the ProductFamily
   def current_products
-    products.where(id: product_ids_for_current_locale, product_status: ProductStatus.current_ids)
+    products.distinct.where(id: product_ids_for_current_locale, product_status: ProductStatus.current_ids)
   end
 
   def product_ids_for_current_locale
-    Rails.cache.fetch("#{cache_key_with_version}/product_ids_for_current_locale/#{I18n.locale.to_s}", expires_in: 12.hours) do
-      products.select{|p| p.id unless p.locales_where_hidden.include?(I18n.locale.to_s)}
+    Rails.cache.fetch("#{cache_key_with_version}/product_ids_for_current_locale/#{I18n.locale.to_s}", expires_in: 1.hour) do
+      products.select{|p| p unless p.locales_where_hidden.include?(I18n.locale.to_s)}.pluck(:id)
     end
   end
 
