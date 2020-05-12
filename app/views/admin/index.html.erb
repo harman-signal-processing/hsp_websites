@@ -36,7 +36,7 @@
                 <h6 class="subheader">Top-level product families:</h6>
                 <ul class="list">
                   <% ProductFamily.all_parents(website).each do |item| %>
-                    <li><%= link_to item.name, [:admin, item] %></li>
+                    <li><%= link_to item.name, [:admin, item] %> <span style="color:#888;">[<%=item.locales(website).sort.join(", ")%>]</span></li>
                   <% end %>
                 </ul>
                 <br/>

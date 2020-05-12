@@ -81,6 +81,7 @@ class Product < ApplicationRecord
   monetize :artist_price_cents, :allow_nil => true
 
   before_save :set_employee_price
+  after_save :touch_families
 
   serialize :previewers, Array
   has_attached_file :background_image
@@ -145,6 +146,10 @@ class Product < ApplicationRecord
 
   def should_generate_new_friendly_id?
     true
+  end
+
+  def touch_families
+    product_families.each{|pf| pf.touch}
   end
 
   def set_employee_price
@@ -347,10 +352,14 @@ class Product < ApplicationRecord
     if product_families.length > 0
       @locales ||= product_families.map do |pf|
         pf.locales(website)
-      end.flatten.uniq
+      end.flatten.uniq - locales_where_hidden
     else
-      website.list_of_all_locales
+      website.list_of_all_locales - locales_where_hidden
     end
+  end
+
+  def locales_where_hidden
+    hidden_locales.to_s.split(',')
   end
 
   # Selects all ACTIVE retailer links for this Product
@@ -433,7 +442,13 @@ class Product < ApplicationRecord
     content = product_specifications.where(specification_id:specification_ids).pluck(:value).join(", ")
     content
   end
-
+  
+  def specifications_fg_numbers_content
+    specification_ids = specifications.where("name like ?","%fg numbers%").collect(&:id)
+    content = product_specifications.where(specification_id:specification_ids).pluck(:value).join(", ")
+    content
+  end  
+  
   def downloads_and_docs_content_present?
     documentation_content_present? || downloads_content_present?
   end

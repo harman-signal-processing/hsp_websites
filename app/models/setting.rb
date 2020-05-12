@@ -38,14 +38,15 @@ class Setting < ApplicationRecord
   end
 
   def self.setting_types
-    ["string", "integer", "text", "slideshow frame", "homepage feature"]
+    ["string", "integer", "text", "slideshow frame", "homepage feature", "products homepage slideshow frame"]
   end
 
   # Collect all Settings which are designated as 'slideshow frame' for the homepage.
   # Note: the integer_value is used for the position, and the string_value is used
   # to hyperlink when the frame is displayed. Now with I18n. (See #value)
   def self.slides(website, options={})
-    s = where(brand_id: website.brand_id, setting_type: "slideshow frame").where("slide_file_name IS NOT NULL")
+    setting_type = options[:setting_type] ||'slideshow frame'
+    s = where("brand_id = ? and setting_type = ?", website.brand_id, setting_type).where("slide_file_name IS NOT NULL")
     unless options[:showall]
       s = s.where("start_on IS NULL OR start_on <= ?", Date.today).where("remove_on IS NULL OR remove_on > ?", Date.today)
     end

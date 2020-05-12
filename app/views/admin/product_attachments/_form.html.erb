@@ -2,8 +2,8 @@
 
 	<% unless f.object.product_media_file_name.present? %>
 		<%= f.input :product_attachment, label: "Static Image", hint: "(will be re-sized as needed automatically)" %>
-		<% if !f.object.product_attachment_file_name.blank? %>
-			<span class="hint"><i>currently: <%= link_to image_tag(f.object.product_attachment.url(:tiny)), f.object.product_attachment.url %></i></span>
+		<% if f.object.product_attachment_file_name.present? %>
+			<span class="hint"><i>currently: <%= link_to image_tag(f.object.product_attachment.url(:thumb), lazy: false), f.object.product_attachment.url(:original), target: "_blank" %></i></span>
 		<% end %>
 		<%= f.input :no_lightbox, label: "Don't use lightbox viewer on this image. (The site's global settings takes precedence over this one.)" %>
 	<% end %>
@@ -16,13 +16,14 @@
 
 	<% unless f.object.product_attachment_file_name.present? %>
 		<%= f.input :product_media, label: "Flash, Video, etc." %>
+
 		<% if !f.object.product_media_file_name.blank? %>
 			<span class="hint"><i>currently: <%= link_to f.object.product_media_file_name, f.object.product_media.url %></i></span>
 		<% end %>
 
 		<%= f.input :product_media_thumb, label: "Thumbnail/icon" %>
 		<% if !f.object.product_media_thumb_file_name.blank? %>
-			<span class="hint"><i>currently: <%= link_to image_tag(f.object.product_media_thumb.url(:tiny)), f.object.product_media_thumb.url %></i></span>
+			<span class="hint"><i>currently: <%= link_to image_tag(f.object.product_media_thumb.url(:tiny), lazy: false), f.object.product_media_thumb.url %></i></span>
 		<% end %>
 
 		<p>Flash resources need their dimensions set:</p>

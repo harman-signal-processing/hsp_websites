@@ -24,7 +24,10 @@ class ProductFamiliesController < ApplicationController
       pf_locale = @product_family.locales(website).first
       redirect_to product_family_path(@product_family, locale: pf_locale), status: :moved_permanently and return
     end
-    @children_with_current_products = @product_family.children_with_current_products(website, locale: I18n.locale, depth: 9)
+    # 2020-05-7 AA The installed audio page divides up the families oddly when using
+    # depth: 9
+    #@children_with_current_products = @product_family.children_with_current_products(website, locale: I18n.locale, depth: 9)
+    @children_with_current_products = @product_family.children_with_current_products(website, locale: I18n.locale)
     respond_to do |format|
       format.html {
 

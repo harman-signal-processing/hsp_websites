@@ -37,6 +37,8 @@
         <i>homepage feature content</i>
       <% elsif setting.setting_type.to_s == "slideshow frame" %>
         <i>homepage slideshow frame or video content</i>
+      <% elsif setting.setting_type.to_s == "products homepage slideshow frame" %>
+        <i>products homepage slideshow frame</i>
       <% else %>
         <%= setting.value.to_s.truncate(40) %>
       <% end %>

@@ -10,6 +10,16 @@
 <% end %>
 </h1>
 
+<%# uncomment the line below to make the slideshow full screen width, beware that it will cover the page title up%>
+<%#= content_for :feature do %>
+	<%= cache ["products_homepage_slideshow", website.brand, I18n.locale] do %>
+		<% slides = Setting.slides(website, limit: 5, setting_type: "products homepage slideshow frame") %>
+		<% if slides.size > 0 %>
+			<%= orbit_slideshow(slides: slides, duration: 6000, navigation_arrows: false, transition: "fade") %>
+		<% end %>
+	<% end %>
+<%# end %>
+
 <% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
   <% if product_family.locales(website).include?(I18n.locale.to_s) %>
     <div class="row">

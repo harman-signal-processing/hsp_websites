@@ -1,4 +1,4 @@
 <li id="product_family_<%= product_family.id %>">
 	<span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
-	<%= link_to product_family.tree_names, [:admin, product_family] %>
+	<%= link_to product_family.tree_names, [:admin, product_family] %> <span style="color:#888;">[<%=product_family.locales(website).sort.join(", ")%>]</span>
 </li>

@@ -216,8 +216,8 @@ class ProductFamily < ApplicationRecord
   end
 
   def discontinued_products
-    Rails.cache.fetch("#{cache_key_with_version}/discontinued_products", expires_in: 12.hours) do
-      products.includes(:product_status).where(product_status: ProductStatus.discontinued_ids)
+    Rails.cache.fetch("#{cache_key_with_version}/discontinued_products/#{I18n.locale.to_s}", expires_in: 12.hours) do
+      products.where(id: product_ids_for_current_locale, product_status: ProductStatus.discontinued_ids)
     end
   end
 
@@ -244,7 +244,13 @@ class ProductFamily < ApplicationRecord
 
   # Determine only 'current' products for the ProductFamily
   def current_products
-    @current_products ||= products.where(product_status: ProductStatus.current_ids)
+    products.distinct.where(id: product_ids_for_current_locale, product_status: ProductStatus.current_ids)
+  end
+
+  def product_ids_for_current_locale
+    Rails.cache.fetch("#{cache_key_with_version}/product_ids_for_current_locale/#{I18n.locale.to_s}", expires_in: 12.hours) do
+      products.select{|p| p unless p.locales_where_hidden.include?(I18n.locale.to_s)}.pluck(:id)
+    end
   end
 
   # Determine current and discontinued products for the ProductFamily
