@@ -225,10 +225,12 @@ class ProductFamily < ApplicationRecord
   # By definition, it should include ALL locales unless there is one or more
   # limitation specified.
   def locales(website)
-    if self.parent.present? && self.parent.locale_product_families.size > 0
+    if locale_product_families.length > 0
+      locale_product_families.pluck(:locale)
+    elsif self.parent.present? && self.parent.locale_product_families.size > 0
       parent.locales(website)
     else
-      @locales ||= (locale_product_families.size > 0) ? locale_product_families.pluck(:locale) : website.list_of_all_locales
+      website.list_of_all_locales
     end
   end
 

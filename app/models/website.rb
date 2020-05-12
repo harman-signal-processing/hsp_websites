@@ -57,6 +57,17 @@ class Website < ApplicationRecord
     available_locales.collect{|website_locale| website_locale.locale}
   end
 
+  def possible_locales_for(item)
+    if item.parent && item.parent.locale_product_families.length > 0
+      locale_ids = item.parent.locale_product_families.pluck(:locale) - item.locale_product_families.pluck(:locale)
+      website_locales.where(locale: locale_ids)
+    elsif item.locale_product_families.length > 0
+      website_locales.where.not(locale: item.locale_product_families.pluck(:locale))
+    else
+      website_locales
+    end
+  end
+
   def list_of_all_locales
     self.website_locales.collect{|website_locale| website_locale.locale}
   end

@@ -267,15 +267,50 @@
 
     <div class="group">
       <h4 class="subheader">Locales which should show this product family</h4>
-      <% if @product_family.parent.present? && @product_family.parent.locale_product_families.length > 0 %>
-        <p>This product family is automatically restricted to locales because its parent
-        has locale restrictions configured. So, to edit the list below, edit
-        <%= link_to @product_family.parent.name, [:admin, @product_family.parent] %>.</p>
+      <% if @product_family.locale_product_families.length > 0 %>
+        <p>This family is restricted to the following locales.</p>
+        <%= simple_form_for [:admin, @locale_product_family], remote: true do |f| %>
+          <%= f.hidden_field :product_family_id %>
+            <div class="row collapse">
+              <div class="large-7 small-8 columns">
+              <%= f.input :locale, label: false, collection: website.possible_locales_for(@product_family), value_method: :locale %>
+            </div>
+            <div class="large-2 small-4 columns">
+              <%= submit_tag 'add', class: "postfix button"  %>
+            </div>
+            <div class="large-3 columns"></div>
+          </div>
+        <% end %>
+
+        <ul id="locale_product_families" class="list">
+          <% @product_family.locale_product_families.each do |lpf| %>
+            <%= render "/admin/shared/locale_product_family_row", lpf: lpf %>
+          <% end %>
+        </ul>
+
+      <% elsif @product_family.parent.present? && @product_family.parent.locale_product_families.length > 0 %>
+        <p>This product family is automatically restricted to locales because its parent,
+        <%= link_to @product_family.parent.name, [:admin, @product_family.parent] %>,
+        has locale restrictions configured.</p>
         <ul id="locale_product_families" class="list">
           <% @product_family.parent.locale_product_families.each do |lpf| %>
             <li><%= lpf.locale %></li>
           <% end %>
         </ul>
+
+        <p>You can also restrict this family to a subset of the locales above:</p>
+        <%= simple_form_for [:admin, @locale_product_family] do |f| %>
+          <%= f.hidden_field :product_family_id %>
+            <div class="row collapse">
+              <div class="large-7 small-8 columns">
+              <%= f.input :locale, label: false, collection: website.possible_locales_for(@product_family), value_method: :locale %>
+            </div>
+            <div class="large-2 small-4 columns">
+              <%= submit_tag 'add', class: "postfix button"  %>
+            </div>
+            <div class="large-3 columns"></div>
+          </div>
+        <% end %>
       <% else %>
         <p>Leave blank to show this product family for all locales.</p>
         <%= simple_form_for [:admin, @locale_product_family], remote: true do |f| %>
