@@ -81,6 +81,7 @@ class Product < ApplicationRecord
   monetize :artist_price_cents, :allow_nil => true
 
   before_save :set_employee_price
+  after_save :touch_families
 
   serialize :previewers, Array
   has_attached_file :background_image
@@ -145,6 +146,10 @@ class Product < ApplicationRecord
 
   def should_generate_new_friendly_id?
     true
+  end
+
+  def touch_families
+    product_families.each{|pf| pf.touch}
   end
 
   def set_employee_price
