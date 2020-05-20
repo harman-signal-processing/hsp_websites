@@ -410,3 +410,27 @@ footer {
 }
 
   /********** end chosen-rails style overrides */
+
+.banner-container {
+  position: relative;
+  text-align: center;
+  padding: 0;
+  &.case-study {
+    @media only screen and (min-width: 1000px) {
+      img {
+        height: 400px;
+        width: 1170px;
+      }
+    }
+    @media only screen and (min-width: 500px) and (max-width: 999px) {
+      img {
+        width: 100%;
+      }
+    }
+    @media only screen and (max-width: 499px) {
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
