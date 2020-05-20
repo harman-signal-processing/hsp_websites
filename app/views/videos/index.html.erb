@@ -35,7 +35,7 @@
 			<ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-5">
         <% Youtube.get_video_list_data(playlist["id"], limit: 50)["items"].each do |video_item| %>
           <% video = video_item['snippet'] %>
-          <% if video["thumbnails"] %>
+          <% if video["thumbnails"] && video["thumbnails"]["default"] %>
             <li align="center">
               <%= link_to play_video_url(video["resourceId"]["videoId"]), data: { videoid: video["resourceId"]["videoId"]}, class: 'start-video' do %>
                 <img src="<%= video["thumbnails"]["default"]["url"] %>" class="radius">
