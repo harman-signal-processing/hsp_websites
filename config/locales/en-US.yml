@@ -3,3 +3,5 @@
 
 en-US:
     foo: bar
+    all: "All"
+    case_study: "Case Study"

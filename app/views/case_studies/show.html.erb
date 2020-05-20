@@ -3,7 +3,7 @@
 
 <% if @case_study[:banner_file_name].present? || ENV['show_placeholders'] == "true" %>
   <div class="bumped-up space-after">
-    <div class="banner-container vertical-market">
+    <div class="banner-container case-study">
       <%= image_tag @case_study[:banner_urls][:large], alt: "#{@case_study[:headline]} Banner" %>
     </div>
   </div>

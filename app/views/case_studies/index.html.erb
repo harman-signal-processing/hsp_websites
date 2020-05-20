@@ -1,16 +1,23 @@
 <div class="row">
   <div class="medium-9 columns">
     <div class="case-studies">
+      <% if @case_studies.empty? %>
+        No case studies found matching criteria.
+        <br />See <%= link_to case_studies_qpath do %><%= t('all').titleize %> <%= t('case_study').pluralize.titleize %><% end %>.
+      <% end %>
+
       <% @case_studies.each do |case_study| %>
         <div class="row">
           <div class="small-12 medium-3 columns">
-            <%#binding.pry%>
             <%= link_to case_study_path(case_study[:slug]) do %>
               <%= image_tag case_study[:banner_urls][:small_panel], alt: "#{case_study[:headline]} thumbnail image" %>
             <% end %>
           </div>
           <div class="small-12 medium-9 columns">
-            <h5><%= link_to case_study[:headline], case_study_path(case_study[:slug]) %></h5>
+            <h5><%= link_to case_study[:headline], case_study_path(case_study[:slug]) %>
+                <% if case_study[:pdf_url].present? %><i class="fa fa-file-pdf-o"></i> <% end %>
+                <% if case_study[:youtube_id].present? %><i class="fa fa-file-video-o"></i> <% end %>
+            </h5>
             <div><strong><%=l case_study[:created_at].to_date, format: :long %></strong></div>
             <div class="show-for-small">
               <%= raw case_study[:description] %>
@@ -18,6 +25,7 @@
             <div class="show-for-medium-up">
               <p><%= truncate(strip_html(textilize(case_study[:content])), length: 250).gsub(/The Opportunity\s?/, "The Opportunity: ") %></p>
             </div>
+
           </div>
         </div>
         <hr/>
@@ -27,29 +35,63 @@
   </div>
 
   <div class="medium-3 columns">
+    <% if @asset_type_case_study_counts[:pdf] > 0 || @asset_type_case_study_counts[:video] > 0 %>
+      <div class="callout panel">
+      <h5>Case Studies with Assets</h5>
+      <ul>
+        <% if @asset_type_case_study_counts[:pdf] > 0 %>
+          <li>
+            <% if @asset_type && @asset_type == "pdf" %>
+              <i class="fa fa-file-pdf-o"></i> <em style="color: #888">PDF (<%=@asset_type_case_study_counts[:pdf]%>)</em>
+            <% else %>
+              <i class="fa fa-file-pdf-o"></i> <%= link_to "PDF (#{@asset_type_case_study_counts[:pdf]})", case_studies_by_asset_type_path("pdf",@vertical_market.nil? ? "all" : @vertical_market)%>
+            <% end  %>
+          </li>
+        <% end %>
+
+        <% if @asset_type_case_study_counts[:video] > 0 %>
+          <li>
+            <% if @asset_type && @asset_type == "video" %>
+              <i class="fa fa-file-video-o"></i> <em style="color: #888">Video (<%=@asset_type_case_study_counts[:video]%>)</em>
+            <% else %>
+              <i class="fa fa-file-video-o"></i> <%= link_to "Video (#{@asset_type_case_study_counts[:video]})", case_studies_by_asset_type_path("video",@vertical_market.nil? ? "all" : @vertical_market)%>
+            <% end %>
+          </li>
+        <% end %>
+
+        <% if @asset_type %>
+          <li><%= link_to case_studies_path do %>
+            <%= t('all').titleize %> <%= t('case_study').pluralize.titleize %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+
     <div class="callout panel">
       <h5>Case Studies by Application</h5>
 
       <ul>
-        <%# vertical_markets_with_case_studies.each do |v| %>
+        <% @vertical_markets.each do |v| %>
           <li>
-            <%# if @vertical_market && @vertical_market == v %>
-              <em style="color: #888"><%#= v.name %> (<%#= v.case_studies.count %>)</em>
-            <%# else %>
-              <%#= link_to vertical_market_case_studies_path(v) do %>
-                <%#= v.name %> (<%#= v.case_studies.count %>)
-              <%# end %>
-            <%# end %>
+            <% if @vertical_market && @vertical_market == v[:slug] %>
+              <em style="color: #888"><%= v[:name] %> (<%= @vertical_case_study_counts[v[:slug]] %>)</em>
+            <% else %>
+              <%= link_to case_studies_by_vertical_market_path(v[:slug]) do %>
+                <%= v[:name] %> (<%= @vertical_case_study_counts[v[:slug]] %>)
+              <% end %>
+            <% end %>
           </li>
-        <%# end %>
-        <%# if @vertical_market %>
-          <li><%#= link_to case_studies_path do %>
-            <%#= t('all').titleize %> <%#= t('case_study').pluralize.titleize %>
-            <%# end %>
+        <% end %>
+        <% if @vertical_market %>
+          <li><%= link_to case_studies_path do %>
+            <%= t('all').titleize %> <%= t('case_study').pluralize.titleize %>
+            <% end %>
           </li>
-        <%# end %>
+        <% end %>
       </ul>
-    </div>
-  </div>
+    </div><!-- <div class="callout panel">  -->
+  </div><!-- <div class="medium-3 columns">  -->
 
-</div>
+</div><!-- <div class="row">  -->

@@ -566,6 +566,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
 
     get '/case_studies' => 'case_studies#index', as: :case_studies
     get '/case_studies/:slug' => 'case_studies#show', as: :case_study
+    get '/case_studies/application/:vertical_market' => 'case_studies#index', as: :case_studies_by_vertical_market
+    get '/case_studies/filter/:asset_type/:vertical_market' => 'case_studies#index', as: :case_studies_by_asset_type
 
     match "*custom_route" => "pages#show", as: :custom_route, via: :all
   end  # scope "(:locale)", locale: /
