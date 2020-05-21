@@ -53,7 +53,7 @@
                 <label for="rental">
                   <input type="checkbox" value="1" name="rental" id="rental" <% if @filter_rental %>checked="checked"<% end %>>
                   <% if website.brand.name == "JBL Professional" %>
-                    VERTEC/VTX owners
+                    VERTEC/VTX owners <%= link_to 'download all to Excel', vertec_vtx_owners_path %>
                   <% else %>
                     Rentals
                   <% end %>
@@ -150,7 +150,7 @@
                   <label for="rental">
                     <input type="checkbox" value="1" name="rental" id="rental" checked="checked">
                     <% if website.brand.name == "JBL Professional" %>
-                        VERTEC/VTX owner list
+                        VERTEC/VTX owners <%= link_to 'download all to Excel', vertec_vtx_owners_path %>
                     <% else %>
                         Rentals
                     <% end %>
@@ -167,7 +167,7 @@
               <% end %>
               <% if website.has_vertec_vtx_signup %>
                 <p><i style="font-size: 80%">To be added to the VERTEC/VTX Owners List <%= link_to "start here", "/vtx-vertec-owner-sign-up" %>.</i></p>
-              <% end %>              
+              <% end %>
             </form>
             <br/>
           </div>

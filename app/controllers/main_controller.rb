@@ -113,6 +113,23 @@ class MainController < ApplicationController
     render_template
   end
 
+  def vertec_vtx_owners
+    respond_to do |format|
+      format.xls {
+        report_data = Dealer.report(
+          website.brand, {
+            rental: true,
+            title: 'VERTEC/VTX OWNERS DIRECTORY',
+            format: 'xls'
+          }
+        )
+        send_data(report_data,
+          filename: "#{website.brand.name}_vertec-vtx-owners_#{I18n.l Date.today}.xls",
+          type: "application/excel; charset=utf-8; header=present"
+        )
+      }
+    end
+  end
 
   # The site's search engine:
   # TODO: Figure out how to search on related fields (ProductDocument.product.name)

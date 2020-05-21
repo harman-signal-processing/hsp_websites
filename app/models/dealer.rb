@@ -132,4 +132,136 @@ class Dealer < ApplicationRecord
       self.website.match(/^http/) ? self.website.downcase : "http://#{self.website.downcase}"
     end
   end
+
+  def self.report(brand, options={})
+    options = { rental: false, resell: false, title: "Dealers", format: 'xls' }.merge options
+    dealers = brand.dealers
+    if options[:rental]
+      dealers = dealers.where(rental: true)
+    end
+    if options[:resell]
+      dealers = dealers.where(resell: true)
+    end
+
+    if options[:format] == 'xls'
+      xls_report = StringIO.new
+      Spreadsheet.client_encoding = "UTF-8"
+      book = Spreadsheet::Workbook.new
+      sheet = book.create_worksheet
+
+      sheet.column(0).width = 40
+      sheet.column(1).width = 30
+      sheet.column(2).width = 10
+      sheet.column(3).width = 30
+      sheet.column(4).width = 10
+      sheet.column(5).width = 30
+      sheet.column(6).width = 10
+      sheet.column(7).width = 40
+
+      title_format = Spreadsheet::Format.new(
+        color: :white,
+        size: 20,
+        pattern_bg_color: :black,
+        pattern: 1
+      )
+      subtitle_format = Spreadsheet::Format.new(
+        color: :white,
+        size: 12,
+        pattern_bg_color: :black,
+        pattern: 1
+      )
+      region_format = Spreadsheet::Format.new(
+        color: :white,
+        size: 10,
+        align: :center,
+        pattern_bg_color: :black,
+        pattern: 1
+      )
+      country_format = Spreadsheet::Format.new(
+        color: :white,
+        size: 10,
+        align: :center,
+        pattern_fg_color: :grey,
+        pattern: 1
+      )
+      dealer_name_format = Spreadsheet::Format.new(
+        weight: :bold,
+        top: :thin
+      )
+      line_above_format = Spreadsheet::Format.new(
+        top: :thin
+      )
+
+      sheet.row(0).default_format = title_format
+      sheet[0,0] = options[:title]
+      sheet.merge_cells(0, 0, 0, 7)
+      sheet.row(1).default_format = subtitle_format
+      sheet[1,0] = "current as of #{ I18n.l(Date.today, format: :short) }"
+      sheet.merge_cells(1, 0, 1, 7)
+
+      row = 2
+
+      dealers.group(:region).each do |region|
+        sheet.row(row).default_format = region_format
+        sheet[row, 0] = region.region.blank? ? "(empty region)" : region.region
+        sheet.merge_cells(row, 0, row, 7)
+        row += 1
+        dealers.where(region: region.region).group(:country).each do |country|
+          sheet.row(row).default_format = country_format
+          sheet[row, 0] = country.country.blank? ? "(empty country)" : country.country
+          sheet.merge_cells(row, 0, row, 7)
+          row += 1
+          dealers.where(region: region.region, country: country.country).each do |dealer|
+            addr = dealer.address.split(/\<br\/?\>/i)
+            sheet.row(row).default_format = line_above_format
+            sheet.row(row).set_format(0, dealer_name_format)
+            (0..6).each do |c|
+              sheet.row(row).format(c).left = :thin
+            end
+            sheet[row, 0] = dealer.name
+            sheet[row, 1] = dealer.name2
+            sheet[row, 2] = "Phone:"
+            sheet[row, 3] = dealer.telephone
+            sheet[row, 4] = "Email:"
+            sheet[row, 5] = dealer.email
+            sheet[row, 6] = "Models:"
+            sheet[row, 7] = dealer.products
+            row += 1
+            (0..6).each do |c|
+              sheet.row(row).format(c).left = :thin
+            end
+            sheet[row, 0] = addr.pop
+            row += 1
+            (0..6).each do |c|
+              sheet.row(row).format(c).left = :thin
+            end
+            sheet[row, 0] = addr.join("\n") if addr.length > 0
+            sheet[row, 2] = "Fax:"
+            sheet[row, 3] = dealer.fax if dealer.fax.to_s.match(/\d/)
+            sheet[row, 4] = "Website:"
+            sheet[row, 5] = dealer.website
+            row += 1
+            (0..6).each do |c|
+              sheet.row(row).format(c).left = :thin
+            end
+            sheet[row, 0] = "#{dealer.city} #{dealer.state} #{dealer.zip}"
+            row += 1
+            (0..6).each do |c|
+              sheet.row(row).format(c).left = :thin
+            end
+            sheet[row, 0] = dealer.country
+            row += 1
+            (0..6).each do |c|
+              sheet.row(row).format(c).left = :thin
+            end
+          end
+        end
+      end
+
+      book.write(xls_report)
+      xls_report.string
+    else
+      dealers # no other formats supported yet
+    end
+  end
 end

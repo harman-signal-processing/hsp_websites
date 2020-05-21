@@ -119,6 +119,10 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       get 'upgrade-me-to-supertech-just-this-once' => "gated_support#super_tech_upgrade"
     end
 
+    constraints(JblProDomain) do
+      get 'vertec-vtx-owners' => "main#vertec_vtx_owners", as: :vertec_vtx_owners, defaults: { format: :xls }
+    end
+
     devise_for :users, controllers: {
       passwords: 'users/passwords'
     }
