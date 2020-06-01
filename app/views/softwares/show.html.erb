@@ -63,7 +63,8 @@
           <% @software.software_attachments.each do |sa| %>
           <li>
             <%= file_type_icon(sa) %>
-            <%= link_to sa.name, sa.software_attachment.url %>
+            <%= link_to "#{sa.name}", download_software_attachment_path(sa) %>
+            [<%= number_to_human_size(sa.software_attachment_file_size)%>]
           </li>
           <% end %>
         </ul>
