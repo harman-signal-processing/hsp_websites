@@ -12,9 +12,9 @@ class ContentTranslation < ApplicationRecord
   # we search for translated content for the given locale.
   def self.translatables(brand=Brand.first)
     t = {
-      "product"        => %w{name short_description keywords},
+      "product"        => %w{name short_description keywords meta_description},
       "product_description" => %w{content_part1},
-      "product_family" => %w{name intro short_description keywords},
+      "product_family" => %w{name intro short_description keywords meta_description},
       "feature"        => %w{pre_content content},
       "specification"  => %w{name},
       "product_specification" => %w{value},

@@ -30,7 +30,7 @@ end
 set_meta_tags title: @product.name,
 	reverse: true,
 	#canonical: product_url(@product),
-	description: translate_content(@product, :short_description),
+	description: @product.meta_description.present? ? translate_content(@product, :meta_description) : translate_content(@product, :short_description),
 	keywords: translate_content(@product, :keywords),
 	twitter: twitter_params,
 	og: {

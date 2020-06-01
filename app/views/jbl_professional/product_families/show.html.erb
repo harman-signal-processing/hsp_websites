@@ -1,7 +1,7 @@
 <% set_meta_tags title: translate_content(@product_family, :name),
-				 reverse: true,
-                 description: translate_content(@product_family, :intro),
-                 keywords: translate_content(@product_family, :keywords) %>
+	reverse: true,
+  description: @product_family.meta_description.present? ? translate_content(@product_family, :meta_description) : translate_content(@product_family, :intro),
+  keywords: translate_content(@product_family, :keywords) %>
 
 <% if @product_family.has_custom_background? %>
 	<%= content_for :custom_css do %>
