@@ -91,7 +91,6 @@ class CaseStudiesController < ApplicationController
   end  #  def get_vertical_market_list(case_studies, locale)
 
   def get_vertical_markets_translations(vertical_markets, locale)
-    # binding.pry
       vertical_markets = vertical_markets.map{|vm|
         vm.tap do |hash|
           translation = hash[:translations].find{|t| t[:locale] == locale}
