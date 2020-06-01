@@ -1,0 +1,24 @@
+<script type="application/ld+json">
+{
+  "@context": "http://www.schema.org",
+  "@type": "product",
+  "brand": "<%= @product.brand.name %>",
+  "name" : "<%= @product.name %>",
+  <% if @product.photo %>
+    "image": "<%= @product.photo.product_attachment.url(:original) %>",
+  <% end %>
+  <% if @product.meta_description.present? %>
+   "description": "<%= translate_content(@product, :meta_description) %>"
+  <% elsif @product.short_description.present? %>
+   "description": "<%= translate_content(@product, :short_description) %>"
+  <% elsif @product.short_description_4.present? %>
+   "description": "<%= @product.short_description_4 %>"
+  <% elsif @product.short_description_3.present? %>
+   "description": "<%= @product.short_description_3 %>"
+  <% elsif @product.short_description_2.present? %>
+   "description": "<%= @product.short_description_2 %>"
+  <% elsif @product.short_description_1.present? %>
+   "description": "<%= @product.short_description_1 %>"
+  <% end %>
+}
+</script>
