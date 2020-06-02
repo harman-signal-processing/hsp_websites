@@ -1,0 +1,31 @@
+<%= cache ["features_carousel_strip", website.brand, I18n.locale] do %>
+  <% if @features.size > 0 %>
+    <div class="homepage_block features">
+        
+        <ul class="large-block-grid-<%= @features.length > 3 ? (@features.length / 2).to_i : @features.length %> small-block-grid-1">
+          <% @features.each do |feature| %>
+            <li>
+              <%= link_to feature.string_value do %>
+                <div class="feature">
+                    <% if feature.name.present? %>
+                        <%= image_tag(feature.slide.url, alt: feature.name, lazy: false)%>
+                    <% else %>
+                        <%= image_tag(feature.slide.url, lazy: false)%>
+                    <% end %>
+                    
+                    <div class="text-center">
+                      <!--<h4><%#= link_to feature.name, feature.string_value %></h4>-->
+                      <h4><%= feature.name %></h4>
+                        <p><%= feature.text_value %></p>
+                    </div>                
+                    
+                </div><!-- <div class="feature"> -->
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+        
+        
+    </div><!-- <div class="homepage_block white_strip market_segments"> -->
+  <% end %>
+<% end %>
