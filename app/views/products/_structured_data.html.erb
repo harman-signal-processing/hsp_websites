@@ -19,6 +19,8 @@
    "description": "<%= escape_javascript @product.short_description_2 %>"
   <% elsif @product.short_description_1.present? %>
    "description": "<%= escape_javascript @product.short_description_1 %>"
+   <% else %>
+   "description": "<%= escape_javascript @product.name %>"
   <% end %>
 }
 </script>
