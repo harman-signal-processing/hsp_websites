@@ -34,7 +34,7 @@ lazy = product_photo_is_png?(product)
 <div id="<%= product.to_param %>" class="small_product_box">
 	<% if product.layout_class.to_s.match(/vertical/i) %>
 		<div class="row collapse">
-			<div class="large-4 small-4 columns">
+			<div class="large-12 small-12 columns">
 				<div class="product_thumb">
 				<% if product.photo %>
 					<% if extra_large %>
@@ -44,9 +44,7 @@ lazy = product_photo_is_png?(product)
 					<% end %>
 				<% end %>
 				</div>
-			</div>
-			<div class="large-8 small-8 columns">
-				<h3 class="vertical"><%= link_to product_name, this_url, target: target, class: "button" %></h3>
+				<%= link_to product_name, this_url, target: target, class: "button" %>
 				<div class="product_description">
 					<%= translate_content(product, :short_description) %>
 				</div>
