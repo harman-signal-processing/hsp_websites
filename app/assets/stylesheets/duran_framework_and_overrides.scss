@@ -278,7 +278,36 @@ div.product-title-block, div.small-title-block {
     color: scale-color($dark-blue, $lightness: 5%);
   }
 }
-
+.small_product_box {
+  padding: 2px 2px 40px;
+  background: white;
+  position: relative;
+  color: #444;
+  overflow: hidden;
+  width: 100%; // of the container
+  img {
+    margin: 10px 2px 6px;
+  }
+  .product_thumb {
+    width: 100%;
+    padding-right: 10px;
+  }
+  .compare_checkbox {
+    margin-top: 10px;
+  }
+  h3 {
+    font-weight: 400;
+    margin-bottom: 4px;
+    &.vertical {
+      margin-top: 8px;
+    }
+  }
+  .product_description {
+    font-size: 14px;
+    line-height: 15px;
+    color: scale-color($dark-blue, $lightness: 5%);
+  }
+}
 
 /********** chosen-rails style overrides */
 .chosen-container-single .chosen-search input[type="text"] {
