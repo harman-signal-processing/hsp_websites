@@ -11,7 +11,6 @@
   <div class="panel">
 
     <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-      <%= devise_error_messages! %>
 
       <%= f.input :email %>
       <%= f.button :submit, "Send password reset instructions", class: "button" %>
