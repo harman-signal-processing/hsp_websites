@@ -44,7 +44,7 @@ lazy = product_photo_is_png?(product)
 					<% end %>
 				<% end %>
 				</div>
-				<%= link_to product_name, this_url, target: target, class: "button" %>
+				<%= link_to product_name, this_url, target: target, class: "button", style:"width:250px;" %>
 				<div class="product_description">
 					<%= translate_content(product, :short_description) %>
 				</div>
@@ -70,7 +70,7 @@ lazy = product_photo_is_png?(product)
 			<% end %>
 		<% end %>
 		</div>
-		<h3><%= link_to product_name, this_url, target: target, class: "primary button" %></h3>
+		<h3><%= link_to product_name, this_url, target: target, class: "primary button", style:"width:250px;" %></h3>
 		<div class="product_description">
 			<%= translate_content(product, :short_description) %>
       <%= render_partial 'product_families/price', product: product %>
