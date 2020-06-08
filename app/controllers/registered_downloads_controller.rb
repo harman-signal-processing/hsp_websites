@@ -6,7 +6,7 @@ class RegisteredDownloadsController < ApplicationController
   # GET /:registered_download_url
   # POST /:registered_download_url/register
   def register
-    @download_registration = DownloadRegistration.new(subscribe: true, registered_download: @registered_download)
+    @download_registration = DownloadRegistration.new(subscribe: false, registered_download: @registered_download)
     if params[:code]
       @download_registration.code_you_received = params[:code]
     end
