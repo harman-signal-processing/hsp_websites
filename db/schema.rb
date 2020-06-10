@@ -46,6 +46,41 @@ ActiveRecord::Schema.define(version: 2020_07_29_195131) do
     t.index ["cached_slug"], name: "index_amp_models_on_cached_slug"
   end
 
+  create_table "amx_itg_new_module_requests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "device_type"
+    t.string "manufacturer"
+    t.text "models"
+    t.string "method_of_control"
+    t.string "attachment_file_name"
+    t.string "attachment_content_type"
+    t.bigint "attachment_file_size"
+    t.datetime "attachment_updated_at"
+    t.text "additional_notes"
+    t.string "project_type"
+    t.text "other_project_type"
+    t.string "num_systems"
+    t.string "amx_controller_types"
+    t.text "other_amx_controller_type"
+    t.string "num_devices_using_module"
+    t.date "expected_installation_date"
+    t.string "requestor"
+    t.string "region"
+    t.string "company"
+    t.string "phone"
+    t.string "email"
+    t.string "harman_account_manager"
+    t.text "additional_info"
+    t.boolean "agree_to_validate_onsite"
+    t.boolean "agree_device_has_api_feeback"
+    t.boolean "agree_to_recieve_emails"
+    t.string "contact_name"
+    t.string "contact_email"
+    t.string "direct_upload_url"
+    t.boolean "processed", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "api_keys", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "access_token"
     t.datetime "created_at", null: false

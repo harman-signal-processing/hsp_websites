@@ -1,0 +1,45 @@
+<h1>AMX ITG New Module Request</h1>
+
+<h3>Step One: Tell us about the DEVICE you want to control.</h3>
+
+<p>
+<strong>Device Type:</strong> <%= @module_request.device_type %><br/>
+<strong>Manufacturer:</strong> <%= @module_request.manufacturer %><br/>
+<strong>Modules:</strong> <%= @module_request.models %><br/>
+<strong>Method of Control:</strong> <br/><% (JSON.parse @module_request.method_of_control).each do |item| %><%=item%><br/><% end %><br/>
+<strong>Additional Notes:</strong> <%= @module_request.additional_notes%><br/>
+</p>
+
+<% if @module_request.attachment.present? %>
+  <p><strong>Attachment:</strong> <%= link_to @module_request.attachment_file_name, @module_request.attachment.url.gsub("_original.",".") %></p>
+<% end %>
+
+<h3>Step Two: Tell us about the PROJECT(S) where this device will be used.</h3>
+
+<p>
+	<strong>Project Type:</strong> <%=@module_request.project_type%><br/>
+	<strong>Other Project Type:</strong> <%=@module_request.other_project_type%><br/>
+	<strong>Number of Systems:</strong> <%=@module_request.num_systems%><br/>
+	<strong>AMX Controller Types:</strong> <br/><%(JSON.parse @module_request.amx_controller_types).each do |item|%><%=item%><br/><% end %><br/>
+	<strong>Number of Devices:</strong> <%=@module_request.num_devices_using_module%><br/>
+	<strong>Installation Date:</strong> <%=@module_request.expected_installation_date%><br/>
+</p>
+
+<h3>Step Three: Tell us about YOU.</h3>
+
+<p>
+	<strong>Requestor:</strong> <%=@module_request.requestor%><br/>	
+	<strong>Region:</strong> <%=@module_request.region%><br/>	
+	<strong>Company:</strong> <%=@module_request.company%><br/>	
+	<strong>Phone:</strong> <%=@module_request.phone%><br/>	
+	<strong>Email:</strong> <%=@module_request.email%><br/>	
+	<strong>Harman Account Manager:</strong> <%=@module_request.harman_account_manager%><br/>	
+</p>
+
+<h3>Agreement</h3>
+	<strong>Agree to validate onsite:</strong> <%=@module_request.agree_to_validate_onsite ? "Yes" : "No"%><br/>
+	<strong>Agree device has API feedback:</strong> <%=@module_request.agree_device_has_api_feeback ? "Yes" : "No"%><br/>
+	<strong>Agree to recieve emails:</strong> <%=@module_request.agree_to_recieve_emails ? "Yes" : "No"%><br/>
+<p>
+	
+</p>

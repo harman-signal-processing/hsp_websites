@@ -1,0 +1,88 @@
+<!--
+This is the link to the original form
+https://www.wrike.com/frontend/requestforms/index.html?token=eyJhY2NvdW50SWQiOjEzNzk4NjQsInRhc2tGb3JtSWQiOjE1MzIyOH0JNDY4OTE1Njg1NTU4Ngk3OTM3NTlmNmY4Y2ExYzU0NDM0MTJkYzg0NmQ4NmZmN2VmZjUxMjQ1YjNkNjM3MDI0YjA2OGE5NmQ0MTQ2ODFj
+-->
+<h1>ITG New Module Request Form</h1>
+
+<div>Fill out this form to request a new module, 
+if you're experiencing problems with an existing module please contact <%=link_to "Technical Support", "/support/tech_support"%>.</div>
+
+<h3>Step One: Tell us about the DEVICE you want to control.</h3>
+
+<%= render 'amx/support/direct_upload_form' %>
+
+
+<%= simple_form_for @module_request, url: amx_itg_new_module_request_path do |f| %>
+<%= f.input :direct_upload_url, as: :hidden %>
+<%= f.input :device_type, label: "Device Type", required: true %>
+<%= f.input :manufacturer, label: "Manufacturer", required: true %>
+<%= f.input :models, required: true %>
+<%= f.input :method_of_control,
+    collection: AmxItgNewModuleRequest.available_control_methods,
+    label: "Method of control", 
+    required: true,
+    include_blank: false,
+    include_hidden: false,
+    as: :check_boxes%>
+    
+<p>Devices must be capable of two-way serial control... either via RS-232,422,485 or via Ethernet, and must provide feedback.</p>
+
+<%= f.input :additional_notes %>
+
+<h3>Step Two: Tell us about the PROJECT(S) where this device will be used.</h3>
+
+<%= f.input :project_type,
+collection: ["New Installation", "Tech Refresh/Upgrade - New Harman Hardware", "System Maintenance - New 3rd Party Hardware", "Other"],
+required: true
+%>
+
+<%= f.input :other_project_type, label: "If other, please describe:" %>
+
+<%= f.input :num_systems, required: true, label: "Number of systems that will use this module:" %>
+
+<%= f.input :amx_controller_types,
+    collection: AmxItgNewModuleRequest.available_amx_controller_types,
+    label: "AMX Controller types used in project:",
+    required: true,
+    include_blank: false,
+    include_hidden: false,
+    as: :check_boxes%>
+
+<%= f.input :other_amx_controller_type, label: "If other, please describe:" %>
+
+<%= f.input :num_devices_using_module, required: true, label: "Number of devices using this module that are being installed:" %>
+
+<%= f.input :expected_installation_date, required: true, as: :string, input_html: { class: 'ui-datepicker' } %>
+
+<h3>Step Three: Tell us about YOU.</h3>
+
+<%= f.input :requestor, required: true %>
+
+<%= f.input :region,
+    collection: ["North America", "Latin America", "Europe", "Middle East", "Africa", "Brazil", "Russia", "India", "China", "Asia"],
+    required: true
+%>
+
+<%= f.input :company, required: true%>
+<%= f.input :phone%>
+<p>Your phone number will only be used to communicate about this module and will NOT be given out elsewhere.</p>
+
+<%= f.input :email, required: true%>
+<p>Your email will only be used to communicate about this module and will NOT be given out elsewhere.</p>
+
+<%= f.input :harman_account_manager, label: "Harman Account Manager"%>
+
+<%= f.input :additional_info, label: "Is there any additional information that you'd like us to know regarding this request?"%>
+
+<h3>Agreement</h3>
+
+<%= f.input :agree_to_validate_onsite, collection: ["Yes","No"], required: true, label: "Harman will do its best to obtain a device for testing to validate the module, but the module cannot be completed or published without this validation. I agree that if Harman is not able to validate module with an actual device I will work with them to validate it on-site after module development is complete."%>
+<%= f.input :agree_device_has_api_feeback, collection: ["Yes","No"], required: true, label: "The device must have a published API (control protocol documentation) and must provide feedback. I understand this request will be rejected if Harman is unable to obtain the device's control protocol, or if this device does not provide feedback. If this occurs Harman will notify me via email."%>
+<%= f.input :agree_to_recieve_emails, collection: ["Yes","No"], required: true, label: "I understand that I will receive emails as the module progresses thru development at the following milestones: (a) Protocol Validation, (b) Queued for Development, (c) Development Completed, (d) Ready for Requester Validation (if applicable), and (e) Published to the AMX.com InConcert web site."%>
+
+<p>You can view Harman's Privacy Policy, Cookies Statement, & Terms of Use here: <%=link_to "https://www.harman.com/privacy-policy","https://www.harman.com/privacy-policy", target:"_blank"%></p>
+
+<%= render_partial 'support/gdpr_consent' %>
+<p><%= submit_tag t('submit'), class: "button" %></p>
+		
+<% end %>

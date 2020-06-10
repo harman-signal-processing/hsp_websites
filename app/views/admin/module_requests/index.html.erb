@@ -1,0 +1,107 @@
+<h1>AMX ITG New Module Requests</h1>
+
+<table>
+	<tr>
+		<th>id</th>
+		<th>device_type</th>
+		<th>manufacturer</th>
+		<th>models</th>
+		<th>method_of_control</th>
+		<th>attachment_file_name</th>
+		<th>additional_notes</th>
+		<th>project_type</th>
+		<th>other_project_type</th>
+		<th>num_systems</th>
+		<th>amx_controller_types</th>
+		<th>other_amx_controller_type</th>
+		<th>num_devices_using_module</th>
+		<th>expected_installation_date</th>
+		<th>requestor</th>
+		<th>region</th>
+		<th>company</th>
+		<th>phone</th>
+		<th>email</th>
+		<th>harman_account_manager</th>
+		<th>additional_info</th>
+		<th>agree_to_validate_onsite</th>
+		<th>agree_device_has_api_feeback</th>
+		<th>agree_to_recieve_emails</th>
+		<th>contact_name</th>
+		<th>contact_email</th>
+	</tr>
+	<%@module_requests.each do |item|%>
+	<tr>
+		<td><%=item.id%></td>
+		<td><%=item.device_type%></td>
+		<td><%=item.manufacturer%></td>
+		<td><%=item.models%></td>
+		<td><ul><%(JSON.parse item.method_of_control).reject(&:blank?).each do |item|%>
+			<li><%=item%></li>
+		<% end %></ul></td>
+		<td><% if item.attachment_file_name.present? %> <%= link_to item.attachment_file_name, item.attachment_download_url, target:"_blank"%> <% end %></td>
+		<td><%=item.additional_notes%></td>
+		<td><%=item.project_type%></td>
+		<td><%=item.other_project_type%></td>
+		<td><%=item.num_systems%></td>
+		<td>
+			<% if item.amx_controller_types%>
+			<ul>
+				<%(JSON.parse item.amx_controller_types).reject(&:blank?).each do |item|%>
+					<li><%=item%></li>
+				<% end %>
+			</ul>
+			<% end %>
+		</td>
+		<td><%=item.other_amx_controller_type%></td>
+		<td><%=item.num_devices_using_module%></td>
+		<td><%=item.expected_installation_date%></td>
+		<td><%=item.requestor%></td>
+		<td><%=item.region%></td>
+		<td><%=item.company%></td>
+		<td><%=item.phone%></td>
+		<td><%=item.email%></td>
+		<td><%=item.harman_account_manager%></td>
+		<td><%=item.additional_info%></td>
+		<td><%=item.agree_to_validate_onsite%></td>
+		<td><%=item.agree_device_has_api_feeback%></td>
+		<td><%=item.agree_to_recieve_emails%></td>
+		<td><%=item.contact_name%></td>
+		<td><%=item.contact_email%></td>
+		<td><%=item.created_at%></td>
+		<td><%=item.updated_at%></td>
+	</tr>
+	<% end %>
+</table>
+
+<!--
+| id                           | bigint(20)   | NO   | PRI | NULL    | auto_increment |
+| device_type                  | varchar(255) | YES  |     | NULL    |                |
+| manufacturer                 | varchar(255) | YES  |     | NULL    |                |
+| models                       | text         | YES  |     | NULL    |                |
+| method_of_control            | varchar(255) | YES  |     | NULL    |                |
+| attachment_file_name         | varchar(255) | YES  |     | NULL    |                |
+| attachment_content_type      | varchar(255) | YES  |     | NULL    |                |
+| attachment_file_size         | bigint(20)   | YES  |     | NULL    |                |
+| attachment_updated_at        | datetime     | YES  |     | NULL    |                |
+| additional_notes             | text         | YES  |     | NULL    |                |
+| project_type                 | varchar(255) | YES  |     | NULL    |                |
+| other_project_type           | text         | YES  |     | NULL    |                |
+| num_systems                  | varchar(255) | YES  |     | NULL    |                |
+| amx_controller_types         | varchar(255) | YES  |     | NULL    |                |
+| other_amx_controller_type    | text         | YES  |     | NULL    |                |
+| num_devices_using_module     | varchar(255) | YES  |     | NULL    |                |
+| expected_installation_date   | date         | YES  |     | NULL    |                |
+| requestor                    | varchar(255) | YES  |     | NULL    |                |
+| region                       | varchar(255) | YES  |     | NULL    |                |
+| company                      | varchar(255) | YES  |     | NULL    |                |
+| phone                        | varchar(255) | YES  |     | NULL    |                |
+| email                        | varchar(255) | YES  |     | NULL    |                |
+| harman_account_manager       | varchar(255) | YES  |     | NULL    |                |
+| additional_info              | text         | YES  |     | NULL    |                |
+| agree_to_validate_onsite     | tinyint(1)   | YES  |     | NULL    |                |
+| agree_device_has_api_feeback | tinyint(1)   | YES  |     | NULL    |                |
+| agree_to_recieve_emails      | tinyint(1)   | YES  |     | NULL    |                |
+| contact_name                 | varchar(255) | YES  |     | NULL    |                |
+| contact_email                | varchar(255) | YES  |     | NULL    |                |
+
+-->

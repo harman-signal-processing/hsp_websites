@@ -377,6 +377,7 @@ en:
       captcha_explanation: "Please answer this question so that we can verify you are not a spam robot. (There is only one \"correct\" answer)"
       contact_form_thankyou: "Thank you for contacting us. We will get back with you shortly."
       fixtures_request_thankyou: "Thanks for contacting us. We will field your fixtures request and get back to you as soon as possible."
+      amx_itg_module_request_thankyou: "Thanks for contacting us. We will field your ITG new module request and get back to you as soon as possible."
       guitar_workstation: "Specifically designed for the GNX4 and GNX3000 workstation products. As an added bonus you'll find tips from Craig Anderton."
       international_distributors: "International Distributors assist with product sales, technical support, manual requests, spare parts and warranty service. Warranty is only valid within the country of purchase."
       parts_request_thankyou: "Your message has been received!  We will respond to your email within the next 24 hours."
