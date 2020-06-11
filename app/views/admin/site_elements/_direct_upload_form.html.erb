@@ -27,5 +27,13 @@
       </div>
     </div>
   <% end %>
-</div>
+
+	<% if @site_element.resource_file_name.present? %>
+		<p>
+		  <b>Current file:</b>
+		  <%= link_to @site_element.resource_file_name, @site_element.resource.url, target: "_blank" %>
+		</p>
+	<% end %>
+
+</div><!-- <div class="panel"> -->
 

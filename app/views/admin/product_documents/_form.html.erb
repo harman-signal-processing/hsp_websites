@@ -10,6 +10,15 @@
     </div>
   </div>
   <%= f.input :name_override, hint: "Overrides the auto-generated link name. (optional)" %>
-  <%= f.input :document %>
+  <%= f.input :show_on_public_site, label: "Show on public site in the downloads area" %>
+  <%= f.input :document, label: "Upload new document" %>
+
+	<% if !f.object.document_file_name.blank? %>
+	<p>
+	  <b>Current document:</b>
+	  <%= link_to f.object.document_file_name, f.object.document.url, target: "_blank" %>
+	</p>
+	<% end %>
+
   <br/><%= f.button :submit %>
 <% end %>

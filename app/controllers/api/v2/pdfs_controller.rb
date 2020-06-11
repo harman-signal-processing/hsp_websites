@@ -15,7 +15,7 @@ module Api
         product_documents_and_site_element_pdfs = product_document_pdfs.flatten + site_element_pdfs.to_ary
         
         @pdfs = product_documents_and_site_element_pdfs.map {|item|
-          if item.present?
+          if item.present? && item.show_on_public_site
             case item.class.name
               when "ProductDocument"
                 {name:item.name,url:item.url}
@@ -25,7 +25,6 @@ module Api
             end
           end
         }
-        
         respond_with @pdfs.uniq
       end
 

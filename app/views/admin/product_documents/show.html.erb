@@ -15,6 +15,11 @@
   <%=h @product_document.document_type %>
 </p>
 
+<p>
+  <b>Show on public site on downloads page?</b>
+  <%= (@product_document.show_on_public_site?) ? "Yes" : "No" %>
+</p>
+
 <% if !@product_document.document_file_name.blank? %>
 <p>
   <b>Document file:</b>
