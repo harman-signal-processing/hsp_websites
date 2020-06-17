@@ -2,6 +2,9 @@
   <li class="divider"></li>
 	<li class="has-dropdown"><%= link_to t('products').titleize, product_families_path %>
 		<ul class="dropdown">
+      <% if website.has_product_selector? %>
+        <li><%= link_to t("product_selector"), product_selector_path %></li>
+      <% end %>
 		  <li><%= link_to t('new_products'), new_products_path, target: "_blank" %></li>
       <li class="has-dropdown"><%= link_to t("nav.amplifiers").titleize, product_families_path %>
         <ul class="dropdown">

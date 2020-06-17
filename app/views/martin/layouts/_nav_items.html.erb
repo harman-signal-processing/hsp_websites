@@ -2,7 +2,10 @@
 <%= cache ["nav_items", website.brand, I18n.locale] do %>
   <% secondary_product_family_groups = website.brand.product_families.where(name: "Product Ranges") %>
 	<li class="has-dropdown"><%= link_to t('product_types').titleize, '#' %>
-		<ul class="dropdown">
+	 	<ul class="dropdown">
+      <% if website.has_product_selector? %>
+        <li><%= link_to t("product_selector"), product_selector_path %></li>
+      <% end %>
 		  <li><%= link_to t('new_products'), new_products_path, target: "_blank" %></li>
 			<% (ProductFamily.parents_with_current_products(website, I18n.locale) - secondary_product_family_groups).each do |product_family| %>
 				<%= product_family_nav_links(product_family, depth: 2) %>
@@ -37,7 +40,7 @@
     <li class="divider hide-for-medium"></li>
     <li><%= link_to t('events').titleize, events_path %></li>
   <% end %>
-  
+
   <% if (website.has_learning_sessions.present? && website.has_learning_sessions == 1) %>
     <li class="divider hide-for-medium"></li>
     <li><%= link_to t('learning_sessions').titleize, "/learning-sessions" %></li>

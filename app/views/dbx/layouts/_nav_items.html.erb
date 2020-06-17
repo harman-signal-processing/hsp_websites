@@ -1,6 +1,9 @@
 <%= cache ["nav_items", website.brand, I18n.locale] do %>
 	<li class="has-dropdown"><%= link_to t('products').titleize, product_families_path %>
 		<ul class="dropdown">
+      <% if website.has_product_selector? %>
+        <li><%= link_to t("product_selector"), product_selector_path %></li>
+      <% end %>
 		  <li><%= link_to t('new_products'), new_products_path, target: "_blank" %></li>
 			<% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
 				<%= product_family_nav_links(product_family, depth: 3) %>
