@@ -1,7 +1,7 @@
 <div class="bumped-up" style="margin-bottom:1em;">
   <div class="banner-container">
     <% if @banner_image.present? %>
-      <h1><%= image_tag @banner_image.url, alt: t('nav.case_studies').titleize %></h1>
+      <h1><img alt="Case Studies" src="<%=@banner_image.url%>"></h1>
     <% end %>
   </div>
 </div>
