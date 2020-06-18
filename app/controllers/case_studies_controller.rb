@@ -44,6 +44,8 @@ class CaseStudiesController < ApplicationController
         @case_studies = @case_studies.select{|cs| cs[:youtube_id].present?}
       end
     end  #  if @asset_type.present? && ["pdf","video"].include? @asset_type
+
+    @banner_image = website.brand.site_elements.find_by(name:"Case Studies Banner")
   end  #  def index
   
   def show

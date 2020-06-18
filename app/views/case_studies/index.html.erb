@@ -1,3 +1,11 @@
+<div class="bumped-up" style="margin-bottom:1em;">
+  <div class="banner-container">
+    <% if @banner_image.present? %>
+      <h1><%= image_tag @banner_image.url, alt: t('nav.case_studies').titleize %></h1>
+    <% end %>
+  </div>
+</div>
+
 <div class="row">
   <div class="medium-9 columns">
     <div class="case-studies">
@@ -16,7 +24,7 @@
           <div class="small-12 medium-9 columns">
             <h5><%= link_to case_study[:headline], case_study_path(case_study[:slug]) %>
                 <% if case_study[:pdf_url].present? %><i class="fa fa-file-pdf-o"></i> <% end %>
-                <% if case_study[:youtube_id].present? %><i class="fa fa-file-video-o"></i> <% end %>
+                <% if case_study[:youtube_id].present? %><i class="fa fa-video-camera"></i> <% end %>
             </h5>
             <div><strong><%=l case_study[:created_at].to_date, format: :long %></strong></div>
             <div class="show-for-small">
@@ -52,9 +60,9 @@
         <% if @asset_type_case_study_counts[:video] > 0 %>
           <li>
             <% if @asset_type && @asset_type == "video" %>
-              <i class="fa fa-file-video-o"></i> <em style="color: #888">Video (<%=@asset_type_case_study_counts[:video]%>)</em>
+              <i class="fa fa-video-camera"></i> <em style="color: #888">Video (<%=@asset_type_case_study_counts[:video]%>)</em>
             <% else %>
-              <i class="fa fa-file-video-o"></i> <%= link_to "Video (#{@asset_type_case_study_counts[:video]})", case_studies_by_asset_type_path("video",@vertical_market.nil? ? "all" : @vertical_market)%>
+              <i class="fa fa-video-camera"></i> <%= link_to "Video (#{@asset_type_case_study_counts[:video]})", case_studies_by_asset_type_path("video",@vertical_market.nil? ? "all" : @vertical_market)%>
             <% end %>
           </li>
         <% end %>
