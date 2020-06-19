@@ -60,7 +60,7 @@ class CaseStudiesController < ApplicationController
       case_study_found_by_translation_slug[:headline] = case_study_found_by_translation_slug[:translations].find{|t| t[:slug] == case_study_slug}[:headline]
       case_study_found_by_translation_slug[:content] = case_study_found_by_translation_slug[:translations].find{|t| t[:slug] == case_study_slug}[:content]
 
-			@video_only = !case_study_found_by_translation_slug[:content].present? && case_study_found_by_translation_slug[:youtube_id].present?
+      @video_only = !case_study_found_by_translation_slug[:content].present? && case_study_found_by_translation_slug[:youtube_id].present?
 
       @case_study = case_study_found_by_translation_slug
   end
