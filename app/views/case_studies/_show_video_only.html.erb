@@ -5,12 +5,11 @@
 <div class="container main-container">
   <div class="row">
     <div class=" columns">
-      <h1><%= @case_study[:headline] %></h1>
-      
       
 			<div class="flex-video widescreen">
 				<iframe width="560" height="315" src="https://www.youtube.com/embed/<%=@case_study[:youtube_id]%>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
 			</div>
+      <h1><%= @case_study[:headline] %></h1>
       
     </div>
   </div><!-- <div class="row"> -->
