@@ -34,10 +34,8 @@
     <li><%= link_to t('installations').titleize, installations_path %></li>
   <% end %>
 
-  <% if website.has_training? %>
-    <li class="divider hide-for-medium"></li>
-    <li><%= link_to t('training').titleize, training_path %></li>
-  <% end %>
+  <li class="divider hide-for-medium"></li>
+  <li><%= link_to t('training').titleize, "/training", target: "_blank" %></li>
 
     <li class="divider hide-for-medium"></li>
     <li class="has-dropdown"><%= link_to t('about').titleize, '#' %>
