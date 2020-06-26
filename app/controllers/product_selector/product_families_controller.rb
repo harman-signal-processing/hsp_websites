@@ -5,10 +5,11 @@ class ProductSelector::ProductFamiliesController < ProductSelectorController
 
   def show
     @product_family = ProductFamily.find(params[:id])
-    @products = @product_family.current_products_plus_child_products(website, check_for_product_selector_exclusions: true)
+    @product_with_photo = @product_family.first_product_with_photo(website)
+    @products = @product_family.current_products_plus_child_products(website, check_for_product_selector_exclusions: true, locale: I18n.locale)
 
     respond_to do |format|
-      format.html { redirect_to @product_family and return false }
+      format.html
       format.js
     end
   end

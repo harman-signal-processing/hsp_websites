@@ -1,39 +1,12 @@
 <% if @product_family.product_selector_behavior.to_s == "root_with_subgroups" %>
 
-  <% subgroups = @product_family.subgroups_for_product_selector %>
   $("div#results-container form").empty();
   $("div#options-container").empty();
-  $("div#subgroups").html("<%= escape_javascript(
-    content_tag(:ul, class: "small-block-grid-2 medium-block-grid-#{subgroups.length}") do
-      subgroups.map { |subgroup|
-        render(subgroup)
-      }.join.html_safe
-    end
-  ) %>");
+  $("div#subgroups").html("<%= escape_javascript( render 'subgroups' ) %>");
 
 <% else %>
 
-  $("div#results-container form").html("<%= escape_javascript(
-    content_tag(:ul, class: "small-block-grid-1 medium-block-grid-2 large-block-grid-3", id: "product-boxes") do
-      @products.each_with_index.map { |product,i|
-        data = {
-          position: i,
-          families: "#{ product.product_family_tree.pluck(:id).join(',') }"
-        }
-        product.product_product_filter_values.each do |ppfv|
-          data["filter_#{ppfv.product_filter.to_param}"] = ppfv.value
-        end
-        content_tag(
-          :li,
-          render(product),
-          id: "product_box_#{ product.to_param }",
-          class: "product-list-item",
-          data: data
-        )
-      }.join.html_safe
-    end + submit_tag("Compare Selected Products", class: "button")
-  ) %>");
-
+  $("div#results-container form").html("<%= escape_javascript( render 'product_grid' ) %>");
   $("div#options-container").html("<%= escape_javascript( render 'options' ) %>");
 
   // Initialize containers for the product elements

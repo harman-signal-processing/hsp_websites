@@ -1,0 +1,7 @@
+<% subgroups = @product_family.subgroups_for_product_selector %>
+<ul class="small-block-grid-2 medium-block-grid-<%= subgroups.length %>">
+  <% subgroups.each do |subgroup| %>
+    <%= render(subgroup) %>
+  <% end %>
+</ul>
+

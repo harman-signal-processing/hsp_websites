@@ -275,6 +275,9 @@ jQuery(function($) {
     $("#results-container form").empty();
     $("#options-container").empty();
     $("div#subgroups").empty();
+    $.getScript(this.href);
+    history.pushState(null, "", this.href);
+    return false;
   });
 
   $("#ps-sub-nav").on('click', ".ps-start-spinner", function() {
@@ -283,6 +286,8 @@ jQuery(function($) {
     $(".spinner").show();
     $("#results-container form").empty();
     $("#options-container").empty();
+    $.getScript(this.href);
+    return false;
   });
 
   // Observe the form containing all the filters and
