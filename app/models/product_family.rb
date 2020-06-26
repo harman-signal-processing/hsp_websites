@@ -263,7 +263,14 @@ class ProductFamily < ApplicationRecord
   # w = a Brand or a Website
   def current_products_plus_child_products(w, opts={})
     Rails.cache.fetch("#{cache_key_with_version}/#{w.cache_key_with_version}/#{opts.values.join}/current_products_plus_child_products", expires_in: 2.hours) do
-      cp = self.current_products
+      cp = []
+      if opts[:check_for_product_selector_exclusions]
+        self.current_products.each do |prod|
+          cp << prod unless prod.is_accessory? || prod.brand_id != self.brand_id
+        end
+      else
+        cp = self.current_products
+      end
       children_with_current_products(w, opts).each do |pf|
         cp += pf.current_products_plus_child_products(w, opts)
       end
