@@ -18,7 +18,12 @@
         <div class="row">
           <div class="small-12 medium-3 columns">
             <%= link_to case_study_path(case_study[:slug]) do %>
-              <%= image_tag case_study[:banner_urls][:small_panel], alt: "#{case_study[:headline]} thumbnail image" %>
+            <% banner_present = !(case_study[:banner_urls][:small_panel].include? "missing/banners") %>
+              <% if banner_present %>
+                <%= image_tag case_study[:banner_urls][:small_panel], alt: "#{case_study[:headline]} thumbnail image" %>
+              <% elsif case_study[:youtube_id].present? %>
+                <%= image_tag "https://i.ytimg.com/vi/#{case_study[:youtube_id]}/mqdefault.jpg", alt: "#{case_study[:headline]} thumbnail image" %>
+              <% end %>
             <% end %>
           </div>
           <div class="small-12 medium-9 columns">
