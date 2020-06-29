@@ -32,13 +32,13 @@
                   <div class="panel product_family">
                     <% if p = pf.current_products.first %>
                       <% if p.photo %>
-                        <%= image_tag(p.photo.product_attachment.url(:medium)) %>
+                        <%= image_tag(p.photo.product_attachment.url(:medium), lazy: product_photo_is_png?(p)) %>
                         <br/>
                       <% end %>
                     <% elsif subpf = pf.children.first %>
                       <% if p = subpf.current_products.first %>
                         <% if p.photo %>
-                          <%= image_tag(p.photo.product_attachment.url(:medium)) %>
+                          <%= image_tag(p.photo.product_attachment.url(:medium), lazy: product_photo_is_png?(p)) %>
                           <br/>
                         <% end %>
                       <% end %>
@@ -54,7 +54,7 @@
                 <%= link_to product do %>
                   <div class="panel product_family">
                     <% if product.photo %>
-                      <%= image_tag(product.photo.product_attachment.url(:medium)) %>
+                      <%= image_tag(product.photo.product_attachment.url(:medium), lazy: product_photo_is_png?(photo)) %>
                       <br/>
                     <% end %>
                     <%= translate_content(product, :name) %>
@@ -68,7 +68,7 @@
                 <%= link_to product do %>
                   <div class="panel product_family">
                     <% if product.photo %>
-                      <%= image_tag(product.photo.product_attachment.url(:medium)) %>
+                      <%= image_tag(product.photo.product_attachment.url(:medium), lazy: product_photo_is_png?(photo)) %>
                       <br/>
                     <% end %>
                     <%= translate_content(product, :name) %>

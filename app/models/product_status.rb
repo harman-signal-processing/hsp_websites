@@ -2,27 +2,27 @@ class ProductStatus < ApplicationRecord
   has_many :products
 
   def self.current
-    where(show_on_website: true).where("discontinued != 1")
+    @current ||= where(show_on_website: true).where("discontinued != 1")
   end
 
   def self.current_ids
-    current.pluck(:id)
+    @current_ids ||= current.pluck(:id)
   end
 
   def self.discontinued
-    where(discontinued: true)
+    @discontinued ||= where(discontinued: true)
   end
 
   def self.discontinued_ids
-    discontinued.pluck(:id)
+    @discontinued_ids ||= discontinued.pluck(:id)
   end
 
   def self.current_and_discontinued
-    current + discontinued
+    @current_and_discontinued ||= current + discontinued
   end
 
   def self.current_and_discontinued_ids
-    current_and_discontinued.pluck(:id)
+    @current_and_discontinued_ids ||= current_and_discontinued.pluck(:id)
   end
 
   def is_current?

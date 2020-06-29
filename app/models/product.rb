@@ -298,7 +298,7 @@ class Product < ApplicationRecord
   # navigation of the site, they are. This function excludes foot controllers from accessories.
   #
   def is_accessory?
-    return true if self.accessory_to_products.length > 0
+    return true if self.accessory_to_products.size > 0
     families = self.product_families.map{|pf| pf.tree_names}.join(" ")
     !!!(families.match(/controller/)) ? false : !!(families.match(/accessor/i))
   end
@@ -329,7 +329,7 @@ class Product < ApplicationRecord
 
   # AA 2019-03-18. Removing the condition about p.discontinue? || ... I can't tell what it's for besides slowing us down
   def belongs_to_this_website?(website)
-    p = (self.parents.length > 0) ? self.parents.first : self
+    p = (self.parents.size > 0) ? self.parents.first : self
     p.belongs_to_this_brand?(website)# && (p.discontinued? || !(p.product_families & website.product_families).empty?)
   end
 
@@ -350,7 +350,7 @@ class Product < ApplicationRecord
   # By definition, it should include ALL locales unless there is one or more
   # limitation specified in the related ProductFamilies
   def locales(website)
-    if product_families.length > 0
+    if product_families.size > 0
       @locales ||= product_families.map do |pf|
         pf.locales(website)
       end.flatten.uniq - locales_where_hidden
@@ -423,7 +423,7 @@ class Product < ApplicationRecord
   end
 
   def videos_content_present?
-    product_videos.length > 0
+    product_videos.size > 0
   end
 
   def documentation_content_present?

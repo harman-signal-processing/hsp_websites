@@ -10,7 +10,7 @@
             <%= link_to pf do %>
               <% p = pf.first_product_with_photo(website) %>
               <% if p %>
-                <%= image_tag p.primary_photo.product_attachment.url(:medium), alt: pf.name %>
+                <%= image_tag p.primary_photo.product_attachment.url(:medium), alt: pf.name, lazy: product_photo_is_png?(p) %>
               <% end %>
               <h3 class="text-center"><%= pf.name %></h3>
             <% end %>

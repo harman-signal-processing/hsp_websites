@@ -1,15 +1,17 @@
 <%= form_tag [:product_selector, @product_family], remote: true, id: "filters" do %>
 
-  <% @product_family.product_filters.each do |product_filter| %>
-    <%= filter_input_for(product_filter, @product_family) %>
-  <% end %>
+  <%= cache ["selector_filters", @product_family, website, Date.today] do %>
+    <% @product_family.product_filters.each do |product_filter| %>
+      <%= filter_input_for(product_filter, @product_family) %>
+    <% end %>
 
-  <% if @product_family.product_filters.length == 0 && @product_family.children_with_current_products(website, check_for_product_selector_exclusions: true).length > 0 %>
-    <h5>Sub-categories</h5>
-    <% @product_family.children_with_current_products(website, check_for_product_selector_exclusions: true).sort_by(&:name).each do |sub_family| %>
-      <%= label_tag do %>
-        <%= check_box_tag "sub_family[]", sub_family.id, false, id: sub_family.to_param, class: "sub_family_filter" %>
-        <%= sub_family.name.gsub(/\s?Products$/i, "").gsub(/SERIES/i, "Series") %>
+    <% if @product_family.product_filters.length == 0 && @product_family.children_with_current_products(website, check_for_product_selector_exclusions: true).length > 0 %>
+      <h5>Sub-categories</h5>
+      <% @product_family.children_with_current_products(website, check_for_product_selector_exclusions: true).sort_by(&:name).each do |sub_family| %>
+        <%= label_tag do %>
+          <%= check_box_tag "sub_family[]", sub_family.id, false, id: sub_family.to_param, class: "sub_family_filter" %>
+          <%= sub_family.name.gsub(/\s?Products$/i, "").gsub(/SERIES/i, "Series") %>
+        <% end %>
       <% end %>
     <% end %>
   <% end %>

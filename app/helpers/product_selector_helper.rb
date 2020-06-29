@@ -55,9 +55,9 @@ module ProductSelectorHelper
   def text_filter_input(product_filter, product_family)
     unique_values = product_filter.unique_values_for(product_family)
     case
-      when unique_values.length > 20
+      when unique_values.size > 20
         select_filter_input(product_filter, unique_values)
-      when (1..19) === unique_values.length
+      when (1..19) === unique_values.size
         checkbox_filter_input(product_filter, unique_values)
     end
   end

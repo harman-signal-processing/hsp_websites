@@ -44,8 +44,8 @@ class ProductFilter < ApplicationRecord
   end
 
   def product_filter_values_for(product_family)
-    product_product_filter_values.select do |ppfv|
-      ppfv if ppfv.product.parent_families_with_filters.include?(product_family)
+    product_product_filter_values.includes(:product).select do |ppfv|
+      ppfv if ppfv.product.product_family_tree.pluck(:id).include?(product_family.id)
     end
   end
 

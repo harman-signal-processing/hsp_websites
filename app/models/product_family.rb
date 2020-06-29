@@ -103,7 +103,7 @@ class ProductFamily < ApplicationRecord
     options = []
     all_parents(w).each do |p|
       options << { p.id => p.name  }
-      if p.children.length > 0
+      if p.children.size > 0
         options += p.children_options(1)
       end
       options << {}
@@ -116,7 +116,7 @@ class ProductFamily < ApplicationRecord
     options = []
     children.each do |c|
       options << { c.id => "#{bump}#{c.name}" }
-      if c.children.length > 0
+      if c.children.size > 0
         options += c.children_options(indent + 1)
       end
     end
@@ -225,7 +225,7 @@ class ProductFamily < ApplicationRecord
   # By definition, it should include ALL locales unless there is one or more
   # limitation specified.
   def locales(website)
-    if locale_product_families.length > 0
+    if locale_product_families.size > 0
       locale_product_families.pluck(:locale)
     elsif self.parent.present? && self.parent.locale_product_families.size > 0
       parent.locales(website)
@@ -246,7 +246,7 @@ class ProductFamily < ApplicationRecord
 
   # Determine only 'current' products for the ProductFamily
   def current_products
-    products.distinct.where(id: product_ids_for_current_locale, product_status: ProductStatus.current_ids)
+    @current_product ||= products.distinct.where(id: product_ids_for_current_locale, product_status: ProductStatus.current_ids)
   end
 
   def product_ids_for_current_locale
@@ -283,11 +283,11 @@ class ProductFamily < ApplicationRecord
   end
 
   def first_product_with_photo(w)
-    if current_products.length > 0
+    if current_products.size > 0
       current_products.each do |product|
         return product if product.primary_photo.present?
       end
-    elsif current_products_plus_child_products(w).length > 0
+    elsif current_products_plus_child_products(w).size > 0
       current_products_plus_child_products(w, nosort: true).each do |product|
         return product if product.primary_photo.present?
       end
@@ -318,7 +318,7 @@ class ProductFamily < ApplicationRecord
   def show_comparisons?
     @show_comparisons ||= brand.respond_to?(:show_comparisons) &&
       !!(brand.show_comparisons) &&
-      (self.current_products.length > 1 || self.children_with_current_products(brand).length > 0)
+      (self.current_products.size > 1 || self.children_with_current_products(brand).size > 0)
   end
 
   # Load this ProductFamily's children families with at least one active product
@@ -351,7 +351,7 @@ class ProductFamily < ApplicationRecord
     all = []
     children.where(brand_id: brand_id).each do |ch|
       all << ch
-      if ch.children.length > 0
+      if ch.children.size > 0
         all += ch.all_children(w)
       end
     end
@@ -399,25 +399,19 @@ class ProductFamily < ApplicationRecord
   end
 
   def family_tree
-    unless self.root?
-      [parent, parent.family_tree].flatten
-    end
+    @family_tree ||= ancestors
   end
 
   def subgroups_for_product_selector
-    children.where(product_selector_behavior: "subgroup")
+    @subgroups_for_product_selector ||= children.where(product_selector_behavior: "subgroup")
   end
 
   def self_and_parents_with_filters
-    (product_filters.length > 0) ? [self] + parents_with_filters : parents_with_filters
+    @self_and_parents_with_filters ||= (product_filters.size > 0) ? [self] + parents_with_filters : parents_with_filters
   end
 
   def parents_with_filters
-    if !!family_tree
-      family_tree.select{|pf| pf if pf.is_a?(ProductFamily) && pf.product_filters.length > 0}
-    else
-      []
-    end
+    @parents_with_filters ||= family_tree.select{|pf| pf if pf.is_a?(ProductFamily) && pf.product_filters.size > 0}
   end
 
   def copy!(options = {})
