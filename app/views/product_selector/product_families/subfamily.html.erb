@@ -10,8 +10,13 @@
 
 <div id="ps-sub-nav">
   <div id="subgroups">
-    <% if @product_family.product_selector_behavior.to_s == "root_with_subgroups" %>
-      <%= render 'subgroups' %>
+    <% if @parent_family && @parent_family.product_selector_behavior.to_s == "root_with_subgroups" %>
+      <% subgroups = @parent_family.subgroups_for_product_selector %>
+      <ul class="small-block-grid-2 medium-block-grid-<%= subgroups.length %>">
+        <% subgroups.each do |subgroup| %>
+          <%= render(subgroup) %>
+        <% end %>
+      </ul>
     <% end %>
   </div>
 </div>
@@ -24,34 +29,29 @@
 
 <div class="row">
   <div class="small-4 medium-3 large-2 columns" id="options-container">
-    <% unless @product_family.product_selector_behavior.to_s == "root_with_subgroups" %>
-      <%= render 'options' %>
-    <% end %>
+    <%= render 'options' %>
   </div>
 
   <div class="small-8 medium-9 columns" id="results-container">
     <%= form_tag compare_products_path, method: :get, id: "compare_form" %>
-    <% unless @product_family.product_selector_behavior.to_s == "root_with_subgroups" %>
       <%= render 'product_grid' %>
-    <% end %>
     </form>
   </div>
 </div>
 
 <ul id="hidden-products" style="display:none;"></ul>
 
-<% unless @product_family.product_selector_behavior.to_s == "root_with_subgroups" %>
-  <script>
-    window.master_product_list = [];
-    $("li.product-list-item").each(function() {
-      window.master_product_list.push(this);
-    });
-    window.product_elements_to_show = master_product_list;
+<script>
+  window.master_product_list = [];
+  $("li.product-list-item").each(function() {
+    window.master_product_list.push(this);
+  });
+  window.product_elements_to_show = master_product_list;
 
-    initializeSliders();
-    $(function() {
-      //$("input[type='checkbox']").uncheck();
-    });
+  initializeSliders();
+  $(function() {
+    //$("input[type='checkbox']").uncheck();
+  });
 
-  </script>
-<% end %>
+</script>
+

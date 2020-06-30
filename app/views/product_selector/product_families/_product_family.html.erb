@@ -1,7 +1,8 @@
 <li id="product_family_<%= product_family.to_param %>"
     class="product_family_box <% unless product_family.root? %>subgroup<% end %>"
     <% if @product_family && (@product_family == product_family || @product_family.parent == product_family)%>style="outline: 1px solid #CCC"<% end %>>
-  <%= link_to [:product_selector, product_family], class: "ps-start-spinner" do %>
+
+  <%= link_to product_family.root? ? [:product_selector, product_family] : product_selector_subfamily_product_selector_product_family_path(product_family.parent, product_family), class: "ps-start-spinner" do %>
     <% p = (@product_family && @product_family == product_family) ? @product_with_photo : product_family.first_product_with_photo(website) %>
     <% if p %>
       <%= image_tag p.primary_photo.product_attachment.url(:medium),
@@ -14,8 +15,6 @@
       <div class="text-center"><%= product_family.name %></div>
     <% end %>
   <% end %>
-  <div class="text-center">
-    <%#= pluralize product_family.current_products_plus_child_products(website).length, "product", plural: "products" %>
-  </div>
+
 </li>
 

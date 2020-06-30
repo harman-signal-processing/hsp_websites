@@ -287,6 +287,7 @@ jQuery(function($) {
     $("#results-container form").empty();
     $("#options-container").empty();
     $.getScript(this.href);
+    history.pushState(null, "", this.href);
     return false;
   });
 

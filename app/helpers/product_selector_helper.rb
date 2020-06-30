@@ -39,8 +39,8 @@ module ProductSelectorHelper
       id: "filter_#{ product_filter.to_param }_slider",
       data: {
         filtername: "filter-#{product_filter.to_param}",
-        min: product_filter.min_value_for(product_family),
-        max: product_filter.max_value_for(product_family),
+        min: product_filter.min_value_for(product_family, website),
+        max: product_filter.max_value_for(product_family, website),
         stepsize: product_filter.stepsize.present? ? product_filter.stepsize : 1,
         uom: product_filter.uom.present? ? product_filter.uom : "",
         secondary_uom: product_filter.secondary_uom.present? ? product_filter.secondary_uom : "",
@@ -53,7 +53,7 @@ module ProductSelectorHelper
   end
 
   def text_filter_input(product_filter, product_family)
-    unique_values = product_filter.unique_values_for(product_family)
+    unique_values = product_filter.unique_values_for(product_family, website)
     case
       when unique_values.size > 20
         select_filter_input(product_filter, unique_values)
@@ -82,6 +82,12 @@ module ProductSelectorHelper
           id: "filter-#{product_filter.to_param}_#{val.to_param}" ) + " #{val}"
       end
     end.join.html_safe
+  end
+
+  def top_level_families
+    @top_level_families ||= ProductFamily.parents_with_current_products(website, I18n.locale).select do |pf|
+      pf unless pf.product_selector_behavior.to_s == "exclude"
+    end
   end
 
 end

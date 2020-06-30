@@ -37,22 +37,21 @@ class ProductFilter < ApplicationRecord
     (self.value_type.to_s.match?(/range/i))
   end
 
-  def unique_values_for(product_family)
-    product_filter_values_for(product_family).map do |ppfv|
+  def unique_values_for(product_family, website)
+    product_filter_values_for(product_family, website).map do |ppfv|
       ppfv.value
     end.uniq
   end
 
-  def product_filter_values_for(product_family)
-    product_product_filter_values.includes(:product).select do |ppfv|
-      ppfv if ppfv.product.product_family_tree.pluck(:id).include?(product_family.id)
-    end
+  def product_filter_values_for(product_family, website)
+    product_family_product_ids = product_family.current_products_plus_child_products(website).pluck(:id)
+    product_product_filter_values.where(product_id: product_family_product_ids)
   end
 
   # Determine the minimum value for the given product family
-  def min_value_for(product_family)
+  def min_value_for(product_family, website)
     begin
-      m = unique_values_for(product_family).map do |v|
+      m = unique_values_for(product_family, website).map do |v|
         v.to_s.split(/-/).first.to_i
       end.sort.first.to_i - stepsize.to_i
       (m < fallback_min) ? fallback_min : m
@@ -62,9 +61,9 @@ class ProductFilter < ApplicationRecord
   end
 
   # Determine the maximum value for the given product family
-  def max_value_for(product_family)
+  def max_value_for(product_family, website)
     begin
-      m = unique_values_for(product_family).map do |v|
+      m = unique_values_for(product_family, website).map do |v|
         v.to_s.split(/-/).last.to_i
       end.sort.last.to_i
       m = roundup(m)

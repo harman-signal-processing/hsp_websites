@@ -508,7 +508,11 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
 
     get 'product_selector' => 'product_selector#index', as: :product_selector
     namespace :product_selector do
-      resources :product_families, only: :show
+      resources :product_families, only: :show do
+        member do
+          get ':subfamily_id' => 'product_families#subfamily', as: :product_selector_subfamily
+        end
+      end
     end
 
     get 'get-started' => 'get_started#index', as: :get_started_index

@@ -283,14 +283,11 @@ class ProductFamily < ApplicationRecord
   end
 
   def first_product_with_photo(w)
-    if current_products.size > 0
-      current_products.each do |product|
-        return product if product.primary_photo.present?
-      end
-    elsif current_products_plus_child_products(w).size > 0
-      current_products_plus_child_products(w, nosort: true).each do |product|
-        return product if product.primary_photo.present?
-      end
+    current_products.each do |product|
+      return product if product.primary_photo.present?
+    end
+    current_products_plus_child_products(w, nosort: true).each do |product|
+      return product if product.primary_photo.present?
     end
     false
   end
