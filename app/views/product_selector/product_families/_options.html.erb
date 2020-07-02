@@ -9,7 +9,12 @@
       <h5>Sub-categories</h5>
       <% @product_family.children_with_current_products(website, check_for_product_selector_exclusions: true).sort_by(&:name).each do |sub_family| %>
         <%= label_tag do %>
-          <%= check_box_tag "sub_family[]", sub_family.id, false, id: sub_family.to_param, class: "sub_family_filter" %>
+          <%= check_box_tag "sub_family[]",
+            sub_family.id,
+            false,
+            id: sub_family.to_param,
+            autocomplete: 'off',
+            class: "sub_family_filter" %>
           <%= sub_family.name.gsub(/\s?Products$/i, "").gsub(/SERIES/i, "Series") %>
         <% end %>
       <% end %>

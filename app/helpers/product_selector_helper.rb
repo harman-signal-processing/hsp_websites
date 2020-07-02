@@ -21,6 +21,7 @@ module ProductSelectorHelper
                     true,
                     false,
                     id: "filter-#{product_filter.to_param}_true",
+                    autocomplete: 'off',
                     class: "boolean-filter") + " Yes"
     end +
     label_tag do
@@ -28,6 +29,7 @@ module ProductSelectorHelper
                     false,
                     false,
                     id: "filter-#{product_filter.to_param}_false",
+                    autocomplete: 'off',
                     class: "boolean-filter") + " No"
     end
   end
@@ -79,6 +81,7 @@ module ProductSelectorHelper
           val,
           false,
           class: "text-filter",
+          autocomplete: 'off',
           id: "filter-#{product_filter.to_param}_#{val.to_param}" ) + " #{val}"
       end
     end.join.html_safe

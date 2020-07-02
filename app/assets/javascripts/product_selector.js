@@ -16,17 +16,24 @@ function initializeSliders() {
     var range_label = $(this).children("div.range-label");
     var filter_name = $(this).attr("data-filtername");
     var stepsize = $(this).attr("data-stepsize");
-    slider_filter_data[filter_name] = {
-      min: $(this).attr("data-min"),
-      max: $(this).attr("data-max"),
-      selected_min: $(this).attr("data-min"),
-      selected_max: $(this).attr("data-max")
-    };
+
+    var session_filter_data = JSON.parse(sessionStorage.getItem('slider_filter_data'));
+    if (session_filter_data[filter_name]) {
+      slider_filter_data[filter_name] = session_filter_data[filter_name];
+    } else {
+      slider_filter_data[filter_name] = {
+        min: min,
+        max: max,
+        selected_min: min,
+        selected_max: max
+      };
+    }
+
     slider.slider({
       range: true,
       min: min,
       max: max,
-      values: [ min, max ],
+      values: [ slider_filter_data[filter_name]["selected_min"], slider_filter_data[filter_name]["selected_max"] ],
       step: parseInt(stepsize),
       slide: function(event, ui) {
         slider_values = ui.values[0] + " - " + ui.values[1] + " " + uom;
@@ -40,6 +47,7 @@ function initializeSliders() {
       change: function(event, ui) {
         slider_filter_data[filter_name]["selected_min"] = ui.values[0];
         slider_filter_data[filter_name]["selected_max"] = ui.values[1];
+        sessionStorage.setItem('slider_filter_data', JSON.stringify(slider_filter_data));
         performFilter();
       }
     });
@@ -51,7 +59,9 @@ function initializeSliders() {
       range_label_value += "<br/>" + alt_min + " - " + alt_max + " " + secondary_uom;
     }
     range_label.html(range_label_value);
+
   });
+  sessionStorage.setItem('slider_filter_data', JSON.stringify(slider_filter_data));
 }
 
 // Adds the given element to the "show" array and removes
@@ -223,6 +233,61 @@ function performFilter() {
   });
 
   // loop through each product
+  filterProducts(
+    selected_sub_families,
+    text_filter_data,
+    select_filter_data,
+    boolean_filter_data,
+    slider_filter_data
+  );
+
+  sessionStorage.setItem('selected_sub_families', JSON.stringify(selected_sub_families));
+  sessionStorage.setItem('text_filter_data', JSON.stringify(text_filter_data));
+  sessionStorage.setItem('select_filter_data', JSON.stringify(select_filter_data));
+  sessionStorage.setItem('boolean_filter_data', JSON.stringify(boolean_filter_data));
+}
+
+function rerunFilter() {
+  window.product_elements_to_show = [];
+  window.product_elements_to_hide = [];
+  var selected_sub_families = JSON.parse(sessionStorage.getItem('selected_sub_families'));
+  var text_filter_data = JSON.parse(sessionStorage.getItem('text_filter_data'));
+  var select_filter_data = JSON.parse(sessionStorage.getItem('select_filter_data'));
+  var boolean_filter_data = JSON.parse(sessionStorage.getItem('boolean_filter_data'));
+  var slider_filter_data = JSON.parse(sessionStorage.getItem('slider_filter_data'));
+
+  // loop through each product
+  filterProducts(
+    selected_sub_families,
+    text_filter_data,
+    select_filter_data,
+    boolean_filter_data,
+    slider_filter_data
+  );
+
+  // restore input settings from session
+  for (var i = 0; i < selected_sub_families.length; i++) {
+    $("input[name='sub_family[]'][val='"+selected_sub_families[i]+"'").prop('checked', true);
+  }
+
+  for (const [filter_name, filter_values] of Object.entries(text_filter_data)) {
+    for (var i = 0; i < filter_values.length; i++) {
+      $("input.text-filter[type='checkbox'][name='"+filter_name+"'][value='"+filter_values[i]+"']").prop('checked', true);
+    }
+  }
+
+  for (const [filter_name, filter_value] of Object.entries(select_filter_data)) {
+    $("select.select-filter[name='"+filter_name+"']").val(filter_value);
+  }
+
+  for (const [filter_name, filter_values] of Object.entries(boolean_filter_data)) {
+    for (var i = 0; i < filter_values.length; i++) {
+      $("input.boolean-filter[type='checkbox'][name='"+filter_name+"'][value='"+filter_values[i]+"']").prop('checked', true);
+    }
+  }
+}
+
+function filterProducts(selected_sub_families, text_filter_data, select_filter_data, boolean_filter_data, slider_filter_data) {
   $.each((master_product_list), function() {
     var failed_filter_count = 0;
     // apply each filter
@@ -263,7 +328,6 @@ function performFilter() {
     }
 
   });
-
   showFilteredProducts();
 }
 
