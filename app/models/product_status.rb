@@ -25,6 +25,15 @@ class ProductStatus < ApplicationRecord
     @current_and_discontinued_ids ||= current_and_discontinued.pluck(:id)
   end
 
+  def self.clear_instance_variables
+    @current = nil
+    @current_ids = nil
+    @discontinued = nil
+    @discontinued_ids = nil
+    @current_and_discontinued = nil
+    @current_and_discontinued_ids = nil
+  end
+
   def is_current?
     self.show_on_website && !self.discontinued
   end

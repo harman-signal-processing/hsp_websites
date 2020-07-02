@@ -26,6 +26,7 @@ feature "Browse Products" do
 
   describe "product family page" do
     before :all do
+      ProductStatus.clear_instance_variables
       @product_family = FactoryBot.create(:product_family_with_products, brand: @website.brand, products_count: 5)
       @multiple_parent = FactoryBot.create(:product_family, brand: @website.brand)
       2.times { FactoryBot.create(:product_family_with_products, brand: @website.brand, parent_id: @multiple_parent.id)}
