@@ -19,7 +19,7 @@
 
 <% if @badge.image.present? %>
   <div>
-    <%= image_tag @badge.image.url(:medium) %>
+    <%= image_tag @badge.image.url(:medium), lazy: false %>
   </div>
   <br/><br/>
 <% end %>
