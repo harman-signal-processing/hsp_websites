@@ -61,7 +61,7 @@
                 <%= link_to product do %>
                   <div class="panel">
                     <% if product.photo %>
-                      <%= image_tag(product.photo.product_attachment.url(:medium), lazy: product_photo_is_png?(p)) %>
+                      <%= image_tag(product.photo.product_attachment.url(:medium), lazy: product_photo_is_png?(product)) %>
                       <br/>
                     <% end %>
                     <%= translate_content(product, :name) %>
