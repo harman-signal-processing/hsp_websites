@@ -1,5 +1,10 @@
 <%= simple_form_for([:admin, @badge], html: {multipart: true}) do |f| %>
   <%= f.input :name %>
   <%= f.input :image %>
+
+	<% if f.object.image_file_name.present? %>
+		<span class="hint"><i>currently: <%= link_to image_tag(f.object.image.url(:medium), lazy: false), f.object.image.url(:medium), target: "_blank" %></i></span>
+	<% end %>
+
   <br/><%= f.button :submit %>
 <% end %>
