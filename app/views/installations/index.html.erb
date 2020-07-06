@@ -3,16 +3,21 @@
 %>
 
 <div class="content container">
-  <div class="row">
-    <div class="large-12 columns text-content">
-      <h1><%= website.brand.name %> Installations</h1>
+  <h1><%= website.brand.name %> Installations</h1>
 
-      <ul>
-        <% @installations.each do |installation| %>
-          <li><%= link_to installation.title, installation %></li>
+  <% @installations.each do |installation| %>
+    <div class="row">
+      <div class="small-12 medium-3 large-2 columns text-center">
+        <% if installation.thumbnail.present? %>
+          <%= link_to installation do %>
+            <%= image_tag installation.thumbnail_url, alt: installation.title %>
+          <% end %>
         <% end %>
-      </ul>
-
+      </div>
+      <div class="small-12 medium-9 large-10 columns">
+        <h4><%= link_to installation.title, installation %></h4>
+        <%= raw installation.summary %>
+      </div>
     </div>
-  </div>
+  <% end %>
 </div>
