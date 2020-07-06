@@ -154,7 +154,7 @@ de:
         locate_us_service_center: Locate your nearest service center (US)
         tone_library: Tone Library
         featured_pedal: Featured Pedal
-        youtube_channel: DigiTech Channel
+        youtube_channel: "%{brand} Channel"
 
     errors:
         geocoding: "There was an error geocoding the address/zipcode you provided."

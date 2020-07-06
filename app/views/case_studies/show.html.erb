@@ -4,6 +4,7 @@
 
 <% if @case_study[:youtube_id].present?%>
 	<div class="flex-video widescreen">
+    <p>&nbsp;</p>
 		<iframe width="560" height="315" src="https://www.youtube.com/embed/<%=@case_study[:youtube_id]%>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
 	</div>
 <% elsif @case_study[:banner_file_name].present? || ENV['show_placeholders'] == "true" %>

@@ -49,12 +49,14 @@
         <% if is_playlist %>
           <% playlist = Youtube.get_specific_playlists(pv.youtube_id) %>
           <div class="flex-video widescreen">
+            <p>&nbsp;</p>
             <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=<%= pv.youtube_id %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
           <%#= playlist['title'] %>
         <% else %>
           <% video = Youtube.get_video(pv.youtube_id) %>
           <div class="flex-video widescreen">
+            <p>&nbsp;</p>
             <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= pv.youtube_id %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
           <%#= video['title'] %>

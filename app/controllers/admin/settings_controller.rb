@@ -34,7 +34,7 @@ class Admin::SettingsController < AdminController
     @column_options = [
       ["News (comes from the news on this site)", "news"],
       ["Facebook Feed (provide your Facebook url as setting: 'facebook')", "facebook"],
-      ["Youtube Feed (provide your Youtube ID as setting: 'youtube')", "youtube"],
+      ["YouTube Feed (provide your YouTube ID as setting: 'youtube')", "youtube"],
       ["Twitter Feed (provide your twitter name as setting 'twitter')", "twitter"],
       ["Featured Artists", "artists"],
       ["Where To Buy", "where_to_buy"]
