@@ -59,7 +59,7 @@
               <% elsif site_element.resource_file_name.present? %>
                 <li>
                   <%= file_type_icon(site_element) %>
-                  <%= link_to site_element.long_name, site_element.resource.url %>
+                  <%= link_to site_element.long_name, site_element.url %>
                   <%= keys_for(site_element) %>
                   [<%= number_to_human_size(site_element.resource_file_size) %>]
                 </li>
