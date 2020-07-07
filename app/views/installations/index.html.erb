@@ -4,6 +4,13 @@
 
 <div class="content container">
   <h1><%= website.brand.name %> Installations</h1>
+  <% if website.brand.name.to_s.match?(/axys/i) %>
+    <p>
+      A wide range of AXYS Tunnel installations can be found around the globe supporting
+      the unique needs of tunnel visitors and operators. We invite you to learn a little about
+      and view photos from some of our most intriguing installations.
+    </p>
+  <% end %>
 
   <% @installations.each do |installation| %>
     <div class="row">
