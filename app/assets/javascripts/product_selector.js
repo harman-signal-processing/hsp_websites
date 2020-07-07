@@ -18,7 +18,7 @@ function initializeSliders() {
     var stepsize = $(this).attr("data-stepsize");
 
     var session_filter_data = JSON.parse(sessionStorage.getItem('slider_filter_data'));
-    if (session_filter_data[filter_name]) {
+    if (session_filter_data && session_filter_data[filter_name]) {
       slider_filter_data[filter_name] = session_filter_data[filter_name];
     } else {
       slider_filter_data[filter_name] = {
