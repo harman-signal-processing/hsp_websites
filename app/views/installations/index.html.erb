@@ -17,7 +17,7 @@
       <div class="small-12 medium-3 large-2 columns text-center">
         <% if installation.thumbnail.present? %>
           <%= link_to installation do %>
-            <%= image_tag installation.thumbnail_url, alt: installation.title %>
+            <%= image_tag installation.thumbnail.url, alt: installation.title %>
           <% end %>
         <% end %>
       </div>
