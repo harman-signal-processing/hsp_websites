@@ -1,25 +1,25 @@
-require 'silverpop'
+require 'acoustic'
 require 'oauth2'
 
-namespace :silverpop do
+namespace :acoustic do
 
-  desc "Push updates to silverpop databases"
+  desc "Push updates to acoustic databases"
   task :push => :environment do
     per_brand_limit = 100
 
-    client = OAuth2::Client.new(ENV['SILVERPOP_CLIENT_ID'],
-                                ENV['SILVERPOP_CLIENT_SECRET'],
-                                site: "#{ENV['SILVERPOP_API_URL']}/oauth/token")
-    access_token = OAuth2::AccessToken.from_hash(client, refresh_token: ENV['SILVERPOP_REFRESH_TOKEN']).refresh!
+    client = OAuth2::Client.new(ENV['ACOUSTIC_CLIENT_ID'],
+                                ENV['ACOUSTIC_CLIENT_SECRET'],
+                                site: "#{ENV['ACOUSTIC_API_URL']}/oauth/token")
+    access_token = OAuth2::AccessToken.from_hash(client, refresh_token: ENV['ACOUSTIC_REFRESH_TOKEN']).refresh!
 
-    @client = SilverPop.new(access_token: access_token.token, url: ENV['SILVERPOP_API_URL'])
+    @client = Acoustic.new(access_token: access_token.token, url: ENV['ACOUSTIC_API_URL'])
 
     Brand.all.each do |brand|
       puts "----- #{brand.name} ------"
 
       begin
-        dbid = brand.try(:silverpop_database_id)
-        list_id = brand.try(:silverpop_contact_list_id)
+        dbid = brand.try(:acoustic_database_id)
+        list_id = brand.try(:acoustic_contact_list_id)
 
         if dbid.present? && list_id.present?
           puts "(dbid: #{dbid}, sub: #{list_id})"
@@ -42,7 +42,7 @@ namespace :silverpop do
                 @client.add_recipient(user_params, dbid, [list_id])
                 signup.update_column(:synced_on, Date.today)
               rescue
-                puts "There was some silverpop exception"
+                puts "There was some acoustic exception"
                 if signup.is_a?(WarrantyRegistration)
                   signup.subscribe = false
                   signup.save(:validate => false)
@@ -58,7 +58,7 @@ namespace :silverpop do
               signup.update_column(:subscribe, false)
             end
           end
-        end # if brand has silverpop settings
+        end # if brand has acoustic settings
       rescue
         puts "....something went wrong"
       end

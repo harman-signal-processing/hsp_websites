@@ -37,7 +37,7 @@ gem 'mechanize'
 gem 'geokit', '>= 1.8.5'
 gem 'geokit-rails'
 gem 'thinking-sphinx', '~> 4.0'
-gem 'google-api-client'
+gem 'google-api-client', '0.41.2'
 gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'httparty'
@@ -72,8 +72,7 @@ gem "possessive"
 gem 'RedCloth'
 gem 'figaro'
 gem 'delayed_paperclip'
-gem 'silverpop'
-gem 'hashie', '~> 3.4.6' # 3.5.1 was causing errors with some silverpop transactions
+gem 'goacoustic'
 gem 'oauth2'
 gem 'rmagick', "< 3.0", require: 'rmagick' #v3+ requires ImageMagick >= 6.8
 gem 'typhoeus' # For link validator

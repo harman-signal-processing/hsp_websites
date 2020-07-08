@@ -263,7 +263,7 @@ class MainController < ApplicationController
     end
   end
 
-  # Email signup page...actually loads an iframe with a silverpop form inside
+  # Email signup page...actually loads an iframe with a acoustic form inside
   def email_signup
     email = params[:Email] || params[:email] || ""
     @src = "#{website.email_signup_url}#{email}"
