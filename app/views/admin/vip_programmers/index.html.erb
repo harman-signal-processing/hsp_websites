@@ -32,7 +32,7 @@ count: <%= @vip_programmers.count %>
     
     <!-- Logo  -->
     <% if programmer.site_elements.present? && programmer.site_elements.where(resource_type:'Logo').first.resource.present? %>
-      <td style="text-align: center;"><%= image_tag(programmer.site_elements.where(resource_type:'Logo').first.resource.url(:original), size: "80", alt: programmer.name, title: programmer.name) %></td>
+      <td style="text-align: center;"><%= image_tag(programmer.site_elements.where(resource_type:'Logo').first.resource.url(:original), size: "80", alt: programmer.name, title: programmer.name, lazy: false) %></td>
     <% else %>
       <td></td>
     <% end %>
