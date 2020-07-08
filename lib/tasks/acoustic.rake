@@ -1,4 +1,4 @@
-require 'acoustic'
+require 'goacoustic'
 require 'oauth2'
 
 namespace :acoustic do
@@ -12,7 +12,7 @@ namespace :acoustic do
                                 site: "#{ENV['ACOUSTIC_API_URL']}/oauth/token")
     access_token = OAuth2::AccessToken.from_hash(client, refresh_token: ENV['ACOUSTIC_REFRESH_TOKEN']).refresh!
 
-    @client = Acoustic.new(access_token: access_token.token, url: ENV['ACOUSTIC_API_URL'])
+    @client = GoAcoustic.new(access_token: access_token.token, url: ENV['ACOUSTIC_API_URL'])
 
     Brand.all.each do |brand|
       puts "----- #{brand.name} ------"
