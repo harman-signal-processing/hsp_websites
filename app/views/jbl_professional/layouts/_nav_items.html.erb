@@ -19,10 +19,8 @@
     <%= render_partial "shared/solutions_nav" %>
   <% end %>
 
-  <%# if website.has_news? %>
-    <li class="divider hide-for-medium"></li>
-    <li><%= link_to t('news').titleize, news_index_path %></li>
-  <%# end %>
+  <li class="divider hide-for-medium"></li>
+  <li><%= link_to t("nav.case_studies"), case_studies_path %></li>
 
   <% if (website.has_learning_sessions.present? && website.has_learning_sessions == 1) %>
     <li class="divider hide-for-medium"></li>
@@ -41,7 +39,7 @@
     <li class="has-dropdown"><%= link_to t('about').titleize, '#' %>
       <ul class="dropdown">
         <li><%= link_to 'innovation'.titleize, '/innovation' %></li>
-        <li><%= link_to 'case studies'.titleize, "#{ENV['PRO_SITE_URL']}/case_studies", target: "_blank" %></li>
+        <li><%= link_to t('news').titleize, news_index_path %></li>
         <li><%= link_to 'history'.titleize, '/history' %></li>
       </ul>
     </li>

@@ -30,7 +30,13 @@
 	<% end %>
 
   <li class="divider hide-for-medium"></li>
-	<li><%= link_to t('news').titleize, news_index_path %></li>
+  <li class="has-dropdown"><%= link_to t("nav.case_studies"), case_studies_path %>
+    <ul class="dropdown">
+      <% if website.has_news? %>
+        <li><%= link_to t('news').titleize, news_index_path %></li>
+      <% end %>
+    </ul>
+  </li>
 
   <% if website.has_events? %>
     <li class="divider hide-for-medium"></li>
