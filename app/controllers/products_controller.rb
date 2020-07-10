@@ -133,7 +133,7 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.html {
         if !@product.in_production?
-          redirect_to where_to_buy_path and return
+          redirect_to where_to_find_path and return
         elsif !@product.layout_class.blank? && File.exists?(Rails.root.join("app", "views", website.folder, "products", "#{@product.layout_class}_buy_it_now.html.erb"))
           render template: "#{website.folder}/products/#{@product.layout_class}_buy_it_now", layout: set_layout
         elsif @product.layout_class.to_s == 'epedal' && website.non_ios_howto_url

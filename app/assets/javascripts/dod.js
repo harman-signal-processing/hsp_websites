@@ -19,7 +19,7 @@
 //= require jquery.rwdImageMaps.min
 //= require global_functions
 //= require jquery.lazyload
-//= require maps
+//= require where_to_find
 //= require twitter
 //= require homepage
 //= require foundation

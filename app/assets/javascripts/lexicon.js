@@ -23,7 +23,7 @@
 //= require soundmanager2-nodebug-jsmin
 //= require inline_player
 //= require global_functions
-//= require maps
+//= require where_to_find
 //= require twitter
 //= require homepage
 //= require foundation

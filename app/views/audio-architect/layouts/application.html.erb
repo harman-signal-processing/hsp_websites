@@ -115,13 +115,13 @@
 				<%= yield %>
 			</div>
 		</div>
-		
+
 		<% if content_for?(:middle_stuff) %>
 		<div id="middle_container">
 			<%= yield :middle_stuff %>
 		</div>
 		<% end %>
-		
+
 		<% if content_for?(:big_bottom_box) %>
 			<div id="big_bottom_box_container">
 				<div id="big_bottom_box_content">
@@ -149,7 +149,7 @@
 				<%= link_to 'professionals', artists_path %> &bull;
 				<% end %>
 				<% if website.has_dealers? || website.has_online_retailers? || website.has_distributors? %>
-				<%= link_to t('where_to_buy'), where_to_buy_path %> &bull;
+				<%= link_to t('where_to_buy'), where_to_find_path %> &bull;
 				<% end %>
 				<%= link_to t('product_support'), support_path %> &bull;
 				<%= link_to t('privacy_policy'), privacy_policy_path %> &bull;

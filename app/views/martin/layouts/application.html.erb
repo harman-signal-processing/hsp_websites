@@ -126,7 +126,7 @@
 
                 <div class="large-3 small-6 columns ">
                   <% if website.has_dealers? || website.has_online_retailers? || website.has_distributors? %>
-                    <%= link_to t('where_to_buy').titleize, where_to_buy_path %><br/>
+                    <%= link_to t('where_to_buy').titleize, where_to_find_path %><br/>
                   <% end %>
                   <%= link_to 'service', support_path %><br/>
                   <%= link_to t('product_support').titleize, support_path %>

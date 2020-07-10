@@ -585,7 +585,11 @@ module ApplicationHelper
   end
 
   def country_code
-    session['geo_country'].gsub(/[^a-zA-Z]/, '').slice(0..1).downcase
+    if session['geo_country']
+      session['geo_country'].gsub(/[^a-zA-Z]/, '').slice(0..1).downcase
+    else
+      "US"
+    end
   end
 
   def country_is_usa

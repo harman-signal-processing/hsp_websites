@@ -1,0 +1,142 @@
+<% set_meta_tags title: @page_title,
+  reverse: true,
+  description: t('meta.description.where_to_buy', brand: website.brand_name),
+  keywords: t('meta.keywords.where_to_buy') %>
+
+<h1 class="page_title">
+  <% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/wheretobuy_head.jpg")) %>
+    <%= image_tag("#{website.folder}/#{I18n.locale}/wheretobuy_head.jpg", alt: @page_title, class: 'text-center') %>
+  <% else %>
+    <%= @page_title %>
+  <% end %>
+</h1>
+
+<% unless @err.blank? %>
+  <div class="alert-box alert"><%= @err %></div>
+<% end %>
+
+<%= content_for :custom_css do %>
+  <script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&key=<%= ENV['GOOGLE_MAPS_KEY'] %>" type="text/javascript"></script>
+  <script type="text/javascript" charset="utf-8">
+markers_json = <%= raw @results.to_json(except: [:account_number, :brand_id, :created_at, :updated_at, :name2, :name3, :name4]) %>;
+
+$(document).ready(function() {
+    <%= raw @js_map_loader %>
+});
+  </script>
+<% end %>
+
+<div class="row" id="wtb_container" data-include-rental-and-service="<%= website.brand.dealers_include_rental_and_service? %>">
+  <div class="small-12 medium-8 large-6 columns">
+    <%= form_tag partner_search_path, method: :get %>
+    <div class="row collapse">
+      <div class="large-8 small-7 columns">
+        <%= text_field_tag "zip", session[:zip], placeholder: website.brand.dealers_are_us_only? ? t('us_zip_code') : t('global_search_location') %>
+      </div>
+      <div class="large-4 small-5 columns">
+        <%= submit_tag t('find_dealers'), class: "postfix button" %>
+      </div>
+    </div>
+    <% if website.brand.dealers_include_rental_and_service? %>
+      <input type="hidden" name="apply_filters" value="1"/>
+      <% unless website.value_for("dont_actually_show_dealers") %>
+        <label for="resale">
+          <input type="checkbox" value="1" name="resale" id="resale" <% if @filter_resale %>checked="checked"<% end %>> Resellers
+        </label>
+      <% end %>
+      <% if website.brand.dealers.where(rental: true).count > 0 %>
+        <label for="rental">
+          <input type="checkbox" value="1" name="rental" id="rental" <% if @filter_rental %>checked="checked"<% end %>>
+          <% if website.brand.name == "JBL Professional" %>
+            VERTEC/VTX owners <%= link_to 'download all to Excel', vertec_vtx_owners_path %>
+          <% else %>
+            Rentals
+          <% end %>
+        </label>
+      <% end %>
+      <% if website.brand.dealers.where(service: true).count > 0 %>
+        <label for="service">
+          <input type="checkbox" value="1" name="service" id="service" <% if @filter_service %>checked="checked"<% end %>> Service
+        </label>
+      <% end %>
+    <% end %>
+    </form>
+  </div>
+</div>
+<div class="row">
+  <div class="small-12 medium-7 large-8 columns">
+    <div id="map" style="width: 100%; height: 600px;"></div>
+  </div>
+  <div class="large-4 columns" id="dealer_results">
+    <ul class="dealer_results">
+      <% @results.each_with_index do |dealer,i| %>
+        <li id="sidebar-item-<%=(i + 1)%>" class="sidebar-item">
+          <b><%= link_to dealer.name, '#', class: "mapper", data: { item_id: (i + 1) } %></b>
+          <% if website.brand.dealers_include_rental_and_service? %>
+            <% if dealer.resale? %>
+              <%= fa_icon "shopping-cart", title: "Reseller" %>
+            <% end %>
+            <% if dealer.rental? %>
+              <%= fa_icon "road", title: "Rentals" %>
+            <% end %>
+            <% if dealer.service? %>
+              <%= fa_icon "wrench", title: "Service" %>
+            <% end %>
+          <% end %>
+          <% if dealer.try(:distance) %>
+            (<%= dealer.distance.to_i %> <%= t('dealer_distance') %>)
+          <% end %>
+          <% if dealer.rental? && dealer.products.present? %>
+            <br/><i>Products available: <%= dealer.products %></i>
+          <% end %>
+          <br/><%=raw dealer.address %>
+          <% if dealer.city.present? || dealer.state.present? || dealer.zip.present? %>
+            <br/><%= dealer.city %> <%= dealer.state %> <%= dealer.zip %>
+          <% end %>
+          <% if dealer.country.present? %>
+            <br/><%= dealer.country %>
+          <% end %>
+          <% if dealer.telephone.present? %>
+            <br/><%= dealer.telephone %>
+          <% end %>
+          <% if dealer.website.present? %>
+            <br/><%= link_to dealer.website.downcase, dealer.website_link, target: "_blank" %>
+          <% elsif !dealer.email.blank? %>
+            <br/><%= mail_to dealer.email.downcase %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+</div>
+
+<% if website.brand.has_online_retailers? %>
+  <br/>
+  <div class="row">
+    <div class="large-12 columns">
+      <h3><%= t('titles.buy_online') %></h3>
+
+      <ul class="large-block-grid-6 small-block-grid-3">
+        <% OnlineRetailer.random(website)[0,24].each do |online_retailer| %>
+          <li>
+            <% if !online_retailer.retailer_logo_file_name.blank? %>
+              <%= link_to(image_tag(online_retailer.retailer_logo(:fixed)), online_retailer.direct_link, target: "_blank")%>
+            <% else %>
+              <%= link_to online_retailer.name, online_retailer.direct_link, target: "_blank" %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
+
+<%= content_for :extra_js do %>
+  <script>
+$(document).ready(function() {
+  $('#zip').focus();
+});
+  </script>
+<% end %>
+

@@ -1,9 +1,0 @@
-<h1><%= @distributor.name %></h1>
-
-<%=raw @distributor.detail %>
-
-<% if current_user && can?(:manage, @distributor) %>
-<div class="admin_function">
-	<%= link_to "edit", edit_admin_distributor_path(@distributor) %>
-</div>
-<% end %>

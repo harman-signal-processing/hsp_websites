@@ -1,13 +1,13 @@
 class DistributorsController < ApplicationController
   include Distributors
-  
+
   before_action :set_locale
   # GET /distributors
   # GET /distributors.xml
   def index
     brand = brand_name_to_use_when_getting_distributors
     @country_code = clean_country_code
-    @distributors = get_international_distributors(brand, @country_code)  
+    @distributors = get_international_distributors(brand, @country_code)
     respond_to do |format|
       format.html { render_template }
     end
@@ -17,19 +17,19 @@ class DistributorsController < ApplicationController
   def search
     @country = params[:country].blank? ? "United States of America" : params[:country]
     if @country == "USA" || @country == "United States of America"
-      redirect_to where_to_buy_path, status: :moved_permanently and return false
+      redirect_to where_to_find_path, status: :moved_permanently and return false
     end
-    
+
     @country_code = ISO3166::Country.find_country_by_name(@country).alpha2
     brand = brand_name_to_use_when_getting_distributors
-    
+
     @distributors = get_international_distributors(brand, @country_code)
     respond_to do |format|
       format.html { render_template(action: "index") }
       # format.xml { render xml: @distributors }
     end
   end
-  
+
   # GET /distributors/1
   # GET /distributors/1.xml
   def show
@@ -43,7 +43,7 @@ class DistributorsController < ApplicationController
 
   def minimal
     @brand = Brand.find(params[:brand_id])
-    @country = params[:country].blank? ? "United States of America" : params[:country]   
+    @country = params[:country].blank? ? "United States of America" : params[:country]
     @country_code = ISO3166::Country.find_country_by_name(@country).alpha2
     @distributors = get_international_distributors(@brand.name.downcase, @country_code)
 
@@ -51,7 +51,7 @@ class DistributorsController < ApplicationController
   end
 
   private
-  
+
   # Get the brand name to use when getting distributors from pro site
   def brand_name_to_use_when_getting_distributors
     brand_name = @website.brand.name.downcase
@@ -63,7 +63,7 @@ class DistributorsController < ApplicationController
     else
       brand_name
     end
-    
+
     brand_name
   end  #  def brand_name_to_use_when_getting_distributors
 

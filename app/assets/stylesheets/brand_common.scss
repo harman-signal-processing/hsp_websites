@@ -36,6 +36,8 @@
    "foundation/components/visibility";
 
 @import "font-awesome";
+@import "where_to_find";
+
 .reveal-modal-bg{position:fixed;}
 .reveal-modal{position:fixed;}
 .fullWidth {
@@ -1324,56 +1326,6 @@ h2.special_offer {
 	h2.subheader {
 		line-height: .9em;
 	}
-}
-
-/***** Dealer Lookup *****/
-div#dealer_lookup_floater {
-	float: right;
-	text-align: right;
-	width: 650px;
-}
-.form_container {
-	background: #6D6D6D;
-	color: #FFF;
-	padding: 8px 12px 2px 18px;
-	margin-bottom: 6px;
-	a:link, a:visited {
-		color: white;
-	}
-}
-ul.dealer_results {
-  margin-left: 0;
-
-  li {
-    margin-left: 0px;
-    margin-bottom: 12px;
-    list-style-type: none;
-  }
-}
-div#pop_info {
-	width: 275px;
-	text-align: center;
-	background: #EEE;
-	padding: 8px 10px;
-	float: left;
-	margin: 15px;
-	margin-right: 5px;
-	p {
-		text-align: left;
-		margin: 6px;
-	}
-}
-@media only screen and (min-width: 720px) {
-	div#dealer_results {
-		height: 600px;
-		overflow: scroll;
-	}
-}
-
-div.retailer_logo {
-  float: left;
-  margin: 6px;
-  width: 125px;
 }
 
 /******** Search ********/

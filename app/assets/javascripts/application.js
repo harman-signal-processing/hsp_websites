@@ -18,7 +18,7 @@
 //= require global_functions
 //= require product_tabs
 //= require buy_it_now
-//= require maps
+//= require where_to_find
 //= require slideshow
 //= require twitter
 //= require swfobject
