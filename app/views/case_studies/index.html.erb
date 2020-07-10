@@ -1,10 +1,8 @@
-<div class="bumped-up" style="margin-bottom:1em;">
-  <div class="banner-container">
-    <% if @banner_image.present? %>
-      <h1><img alt="Case Studies" src="<%=@banner_image.url%>"></h1>
-    <% end %>
-  </div>
-</div>
+<% if website.brand.name.downcase == "martin" %>
+  <%= render_partial 'banner_martin' %>
+<% else %>
+  <%= render_partial 'banner' %>
+<% end %>
 
 <div class="row">
   <div class="medium-9 columns">
