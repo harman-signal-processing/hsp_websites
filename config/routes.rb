@@ -120,7 +120,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     end
 
     constraints(JblProDomain) do
-      get 'vertec-vtx-owners' => "main#vertec_vtx_owners", as: :vertec_vtx_owners, defaults: { format: :xls }
+      get 'vertec-vtx-owners' => "where_to_find#vertec_vtx_owners", as: :vertec_vtx_owners, defaults: { format: :xls }
     end
 
     devise_for :users, controllers: {
@@ -560,11 +560,13 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get "support/repairs" => "support#repairs"
     get "support/rsos" => "support#rsos"
 
-    match '/international_distributors' => 'distributors#index', as: :international_distributors, via: :all
-
     match '/sitemap(.:format)' => 'main#locale_sitemap', as: :locale_sitemap, via: :all
-    match '/where_to_buy(/:zip)' => 'main#where_to_buy', as: :where_to_buy , via: :all
-    match '/enquire(/:zip)' => 'main#where_to_buy', as: :enquire , via: :all
+
+    match '/international_distributors' => 'distributors#index', as: :international_distributors, via: :all
+    get '/where_to_find/partner_search(/:format)' => 'where_to_find#partner_search', as: :partner_search
+    get '/where_to_find(/:zip)' => 'where_to_find#index', as: :where_to_find
+    get '/where_to_buy(/:zip)', to: redirect('where_to_find'), as: :where_to_buy
+    get '/enquire(/:zip)' => 'where_to_find#index', as: :enquire
 
     #match '/support(/:action(/:id))' => "support", as: :support, via: :all
     get '/support(/:product_id)' => "support#index", as: :support
@@ -587,4 +589,4 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
 
   match '*a', to: 'errors#404', via: :all
 
-end  #  HarmanSignalProcessingWebsite::Application.routes.draw do
+end

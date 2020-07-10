@@ -1,0 +1,74 @@
+<% set_meta_tags title: @page_title,
+				 reverse: true,
+                 description: t('meta.description.where_to_buy', brand: website.brand_name),
+                 keywords: t('meta.keywords.where_to_buy') %>
+
+<h1 class="page_title">
+<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/wheretobuy_head.jpg")) %>
+	<%= image_tag("#{website.folder}/#{I18n.locale}/wheretobuy_head.jpg", alt: @page_title) %>
+<% else %>
+	<%= @page_title %>
+<% end %>
+</h1>
+
+<div id="wtb_container">
+<div id="dealer_results" style="width: 400px">
+	<h4><%= t('titles.international_distributors') %></h4>
+	<p><%= t("blurbs.international_distributors") %></p>
+
+	<%= form_tag search_distributors_path, method: :get %>
+
+		<p><%= label_tag t('select_your_country') %><br/>
+			<%= select_tag :country, options_from_collection_for_select(@countries, :country, :country, @country) %>
+			<%= submit_tag t('submit') %>
+		</p>
+
+	</form>
+</div>
+<div style="width: 350px;	padding: 14px;">
+	<h4><%= website.brand.name %> US Sales Reps</h4>
+
+	<%= form_tag search_us_reps_path, method: :get %>
+
+		<p><%= label_tag "Select your region" %><br/>
+			<%= select_tag :us_region, options_from_collection_for_select(@us_regions, :id, :name, @us_region.id) %>
+			<%= submit_tag t('submit') %>
+		</p>
+	</form>
+
+	<% if addr = website.address_and_phone %>
+		<p>To find a licensed <%= website.brand.name %> contractor/installer in the US, please contact us at:</p>
+		<blockquote style="margin: 20px; color: #333"><%=raw addr %>
+			<% if sup = website.support_email %>
+			<br/><%= mail_to sup, sup %>
+			<% end %>
+		</blockquote>
+		<p>Or, complete our <%= link_to "contact form", support_path %>.</p>
+	<% else %>
+		<p>To find a licensed <%= website.brand.name %> contractor/installer in the US, please contact us by filling out our <%= link_to "contact form", support_path %>.</p>
+	<% end %>
+
+</div>
+<div class="clear"></div>
+
+<% if website.has_online_retailers? %>
+	<div class="wide_centered_box" style="width: 830px">
+		<h2><%= t('titles.buy_online') %></h2>
+
+		<div id="online_retailers">
+			<% OnlineRetailer.random(website).each do |online_retailer| %>
+			<div class="retailer_logo">
+				<% if !online_retailer.retailer_logo_file_name.blank? %>
+					<%= link_to(image_tag(online_retailer.retailer_logo(:fixed)), online_retailer.direct_link, target: "_blank")%>
+				<% else %>
+					<%= link_to online_retailer.name, online_retailer.direct_link, target: "_blank" %>
+				<% end %>
+			</div>
+			<% end %>
+		</div>
+		<div class="clear"></div>
+	</div>
+<% end %>
+
+</div>
+

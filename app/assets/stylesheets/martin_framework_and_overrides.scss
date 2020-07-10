@@ -914,6 +914,20 @@ div.event-main {
     }
   }
 }
+div#dealer_results {
+  width: auto;
+  height: auto;
+  border: none;
+}
+div#dealer_results::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 9px;
+}
+div#dealer_results::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: transparent;
+  -webkit-box-shadow: none;
+}
 .dealer_results {
   margin-top: rem-calc(29px);
 }

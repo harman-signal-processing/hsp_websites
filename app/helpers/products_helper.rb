@@ -396,7 +396,7 @@ module ProductsHelper
       image_tag("#{folder}/#{I18n.locale}/coming_soon.png", alt: "coming soon", lazy: false)
     else
       image_tag("#{folder}/#{I18n.locale}/confidential.png", alt: "confidential", lazy: false)
-    end    
+    end
   end
 
   def buy_it_now_usa(product, button, options)
@@ -408,24 +408,24 @@ module ProductsHelper
 
       html5_data = (options[:reveal_id]) ? {:'reveal-id' => options[:reveal_id]} : {windowname: 'dealer_popup'} # for old home-grown popup
 
-      link_to(button, 
-        buy_it_now_product_path(product), 
-        class: button_class, 
+      link_to(button,
+        buy_it_now_product_path(product),
+        class: button_class,
         data: html5_data,
         onclick: raw("_gaq.push(['_trackEvent', 'BuyItNow', 'USA', '#{product.name}'])"))
     else
-      link_to(button, 
-        where_to_buy_path, 
+      link_to(button,
+        where_to_find_path,
         class: button_class,
         onclick: raw("_gaq.push(['_trackEvent', 'BuyItNow', 'Without online retailer links', '#{product.name}'])"))
     end
   end
 
   def buy_it_now_direct_to_retailer(product, button, options={})
-    link_to(button, 
-      @online_retailer_link.url, 
+    link_to(button,
+      @online_retailer_link.url,
       class: button_class(button, options),
-      target: "_blank", 
+      target: "_blank",
       onclick: raw("_gaq.push(['_trackEvent', 'BuyItNow-Dealer', '#{@online_retailer_link.online_retailer.name}', '#{product.name}'])"))
   end
 

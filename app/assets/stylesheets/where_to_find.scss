@@ -1,0 +1,71 @@
+// Place all the styles related to the WhereToFind controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+ul.dealer_results {
+  margin-left: 0;
+
+  li {
+    margin-left: 0px;
+    margin-bottom: 12px;
+    list-style-type: none;
+    &.sidebar-item {
+      padding: 8px;
+      &.current {
+        background: #EEE;
+      }
+    }
+  }
+}
+
+div#dealer_results::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 9px;
+}
+div#dealer_results::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(120,120,120,.5);
+  -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
+div#dealer_lookup_floater {
+	float: right;
+	text-align: right;
+	width: 650px;
+}
+.form_container {
+	background: #6D6D6D;
+	color: #FFF;
+	padding: 8px 12px 2px 18px;
+	margin-bottom: 6px;
+	a:link, a:visited {
+		color: white;
+	}
+}
+
+div#pop_info {
+	width: 275px;
+	text-align: center;
+	background: #EEE;
+	padding: 8px 10px;
+	float: left;
+	margin: 15px;
+	margin-right: 5px;
+	p {
+		text-align: left;
+		margin: 6px;
+	}
+}
+div#dealer_results {
+  @media only screen and (min-width: 720px) {
+    border: 1px solid #CCC;
+		height: 600px;
+		overflow: scroll;
+	}
+}
+
+div.retailer_logo {
+  float: left;
+  margin: 6px;
+  width: 125px;
+}
+

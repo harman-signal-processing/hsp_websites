@@ -13,7 +13,7 @@
   <div class="medium-4 small-12 columns">
     <p style="margin-bottom: 20px;">Our US sales reps are happy to assist in becoming a new <%= website.brand.name %> dealer or managing your <%= website.brand.name %> account.
     <% if website.brand.has_dealers? %>
-      To purchase <%= website.brand.name %> products, please visit a <%= link_to "local #{website.brand.name} dealer", where_to_buy_path %>.
+      To purchase <%= website.brand.name %> products, please visit a <%= link_to "local #{website.brand.name} dealer", where_to_find_path %>.
     <% end %>
     </p>
 

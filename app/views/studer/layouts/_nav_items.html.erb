@@ -38,7 +38,7 @@
   <% end %>
 
 	<% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
-	<li><%= link_to "Buy".titleize, where_to_buy_path %></li>
+	<li><%= link_to "Buy".titleize, where_to_find_path %></li>
 	<% end %>
 
   <li class="has-dropdown"><%= link_to t('training').titleize, "/training", target: "_blank" %>
@@ -46,7 +46,7 @@
       <li><%= link_to "Broadcast Truck", "/#{I18n.locale}/broadcast-truck" %></li>
     </ul>
   </li>
-  
+
   <li class="has-dropdown"><%= link_to t('product_support').titleize, support_path %>
     <ul class="dropdown">
       <li><%= link_to t('contact_us').titleize, support_path %></li>

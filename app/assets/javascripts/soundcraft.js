@@ -19,7 +19,7 @@
 //= require jquery.lazyload
 //= require global_functions
 //= require slick
-//= require maps
+//= require where_to_find
 //= require twitter
 //= require homepage
 //= require foundation
