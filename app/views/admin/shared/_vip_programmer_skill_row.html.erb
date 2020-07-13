@@ -2,7 +2,7 @@
 <li id="vip_programmer_skill_<%= association.id %>">
 	<% if (called_from == 'vip_programmer') %><span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span><% end %>
 	<%= (called_from == 'vip_programmer') ? link_to(association.skill.name, [:admin, association.skill]) : link_to(association.programmer.name, [:admin, association.programmer]) %> 
-	<%= link_to(image_tag("icons/trash.gif"), 
+	<%= link_to(image_tag("icons/trash.gif", lazy: false), 
 			admin_vip_programmer_skill_path(association, called_from: called_from), 
 			confirm: "Are you sure? (This won't delete the skill --it will only remove the association.)", 
 			remote: true,
