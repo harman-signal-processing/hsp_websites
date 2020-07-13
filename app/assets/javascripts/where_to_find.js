@@ -65,9 +65,6 @@ function refresh_map(map) {
   });
 }
 
-// ##############################
-// To Do List:
-// Don't repopulate the map when it moves as result of focusing on a pointer
 function load_side_column(markers) {
   for (var i = 0 ; i < markers.length ; i++) {
     var marker = markers[i];
@@ -117,7 +114,8 @@ function addMarker(map, lat, lng, description, id) {
   });
   if (description != '') {
     var info_window = new google.maps.InfoWindow({
-        content: description
+      content: description,
+      disableAutoPan: true
     });
     google.maps.event.addListener(marker, 'click', function() {
       if ( currentInfoWindow ) {
@@ -134,7 +132,8 @@ function addMarker(map, lat, lng, description, id) {
 function focusPoint(id){
   focusSideBar(id);
   var info_window = new google.maps.InfoWindow({
-    content: markerHash[id].address
+    content: markerHash[id].address,
+    disableAutoPan: true
   });
   if ( currentInfoWindow ) {
     currentInfoWindow.close();
