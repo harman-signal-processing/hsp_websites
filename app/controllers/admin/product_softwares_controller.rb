@@ -72,7 +72,7 @@ class Admin::ProductSoftwaresController < AdminController
   # PUT /admin/product_softwares/1.xml
   def update
     respond_to do |format|
-      if @product_software.update_attributes(product_software_params)
+      if @product_software.update(product_software_params)
         format.html { redirect_to([:admin, @product_software], notice: 'Product Software was successfully updated.') }
         format.xml  { head :ok }
       else

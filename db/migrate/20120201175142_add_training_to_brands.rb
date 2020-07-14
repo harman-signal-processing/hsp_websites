@@ -2,7 +2,7 @@ class AddTrainingToBrands < ActiveRecord::Migration
   def self.up
     add_column :brands, :has_training, :boolean, :default => false
     Brand.all.each do |brand|
-      brand.update_attributes({
+      brand.update({
         :has_training => !!(brand.name.match(/dbx|BSS/i))
       })
     end

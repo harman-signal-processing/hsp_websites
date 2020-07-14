@@ -58,7 +58,7 @@ class Admin::BrandSolutionFeaturedProductsController < AdminController
   # PUT /admin/brand_solution_featured_products/1.xml
   def update
     respond_to do |format|
-      if @brand_solution_featured_product.update_attributes(brand_solution_featured_product_params)
+      if @brand_solution_featured_product.update(brand_solution_featured_product_params)
         format.html { redirect_to([:admin, @solution], notice: 'Featured product was successfully updated.') }
         format.xml  { head :ok }
       else

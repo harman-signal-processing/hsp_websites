@@ -56,7 +56,7 @@ class Admin::OnlineRetailerLinksController < AdminController
   # PUT /admin/online_retailer_links/1.xml
   def update
     respond_to do |format|
-      if @online_retailer_link.update_attributes(online_retailer_link_params)
+      if @online_retailer_link.update(online_retailer_link_params)
         format.html { redirect_to([:admin, @online_retailer_link.online_retailer], notice: 'Link was successfully updated.') }
         format.xml  { head :ok }
         format.js

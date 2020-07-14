@@ -39,7 +39,7 @@ class User < ApplicationRecord
   before_save :add_to_dealer_or_distributor
 
   validates :name, :email, presence: true
-  validates :email, uniqueness: true
+  validates :email, uniqueness: { case_sensitive: false }
   validates :password, presence: true, confirmation: true, on: :create
   validates :invitation_code, presence: true,
     inclusion: {in: [ENV['RSO_INVITATION_CODE'],

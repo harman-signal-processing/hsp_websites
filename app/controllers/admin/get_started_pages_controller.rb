@@ -57,7 +57,7 @@ class Admin::GetStartedPagesController < AdminController
   # PUT /admin/get_started_pages/1.xml
   def update
     respond_to do |format|
-      if @get_started_page.update_attributes(get_started_page_params)
+      if @get_started_page.update(get_started_page_params)
         format.html { redirect_to([:admin, @get_started_page], notice: '"Get Started" page was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated get_started_page: #{@get_started_page.name}")
@@ -71,7 +71,7 @@ class Admin::GetStartedPagesController < AdminController
   # Delete banner
   def delete_image
     @get_started_page = GetStartedPage.find(params[:id])
-    @get_started_page.update_attributes(header_image: nil)
+    @get_started_page.update(header_image: nil)
     respond_to do |format|
       format.html { redirect_to(admin_get_started_page_path(@get_started_page), notice: "Banner was deleted.") }
       format.js

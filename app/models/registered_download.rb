@@ -116,7 +116,7 @@ class RegisteredDownload < ApplicationRecord
   def remove_coupon_code!(coupon_code)
     codes = self.available_coupon_codes
     codes.delete(coupon_code)
-    self.update_attributes(coupon_codes: codes.join("\r\n"))
+    self.update(coupon_codes: codes.join("\r\n"))
   end
 
   # Column headers for excel export

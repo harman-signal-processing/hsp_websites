@@ -54,7 +54,7 @@ class Admin::ProductTrainingClassesController < AdminController
   # PUT /product_training_classes/1.xml
   def update
     respond_to do |format|
-      if @product_training_class.update_attributes(product_training_class_params)
+      if @product_training_class.update(product_training_class_params)
         format.html { redirect_to([:admin, @product_training_class.training_class], notice: 'Product/training_class was successfully updated.') }
         format.xml  { head :ok }
       else

@@ -52,7 +52,7 @@ class Admin::ToneLibraryPatchesController < AdminController
   # PUT /admin/tone_library_patches/1.xml
   def update
     respond_to do |format|
-      if @tone_library_patch.update_attributes(tone_library_patch_params)
+      if @tone_library_patch.update(tone_library_patch_params)
         format.html { redirect_to([:admin, @tone_library_patch], notice: 'Tone library patch was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated tone library patch: #{@tone_library_patch.tone_library_song.title} for #{@tone_library_patch.product.name}")

@@ -3,7 +3,7 @@ class Badge < ApplicationRecord
   has_many :products, through: :product_badges
 
   scope :not_associated_with_this_product, -> (product, website) {
-    Badge.where.not(id: product.badges.pluck(:id))
+    unscoped.where.not(id: product.badges.pluck(:id))
   }
 
   has_attached_file :image, {
@@ -15,5 +15,5 @@ class Badge < ApplicationRecord
   }.merge(S3_STORAGE)
 
   validates_attachment :image, content_type: { content_type: /\Aimage/i }
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
 end

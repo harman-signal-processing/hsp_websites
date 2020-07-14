@@ -59,7 +59,7 @@ class Admin::ServiceCentersController < AdminController
   # PUT /service_centers/1.xml
   def update
     respond_to do |format|
-      if @service_center.update_attributes(service_center_params)
+      if @service_center.update(service_center_params)
         format.html { redirect_to([:admin, @service_center], notice: 'Service center was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated a service center: #{@service_center.name}")

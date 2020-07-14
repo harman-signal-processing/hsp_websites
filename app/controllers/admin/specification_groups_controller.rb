@@ -58,7 +58,7 @@ class Admin::SpecificationGroupsController < AdminController
         @specification = Specification.find(sgp.delete(:specification_ids))
         @specification_group.specifications << @specification
       end
-      if @specification_group.update_attributes(sgp)
+      if @specification_group.update(sgp)
         format.html { redirect_to([:admin, @specification_group], notice: 'Specification group was successfully updated.') }
         format.js
         format.xml  { head :ok }

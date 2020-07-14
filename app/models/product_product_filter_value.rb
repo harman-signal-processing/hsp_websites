@@ -3,7 +3,7 @@ class ProductProductFilterValue < ApplicationRecord
   belongs_to :product
 
   validates :product, presence: true
-  validates :product_filter, presence: true, uniqueness: { scope: :product }
+  validates :product_filter, presence: true, uniqueness: { scope: :product, case_sensitive: false }
 
   def value
     self.send "#{self.product_filter.value_type}_value"

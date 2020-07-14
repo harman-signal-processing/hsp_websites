@@ -36,7 +36,7 @@ class Admin::FeaturesController < AdminController
 
   def update
     respond_to do |format|
-      if @feature.update_attributes(feature_params)
+      if @feature.update(feature_params)
         format.html { redirect_to([:admin, @feature], notice: 'Feature was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated feature: #{@feature.name}")

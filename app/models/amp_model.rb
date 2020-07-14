@@ -4,7 +4,7 @@ class AmpModel < ApplicationRecord
 
   has_many :product_amp_models
   has_many :products, through: :product_amp_models
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
 
   has_attached_file :amp_image,
     styles: { large: "550x370",

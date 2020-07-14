@@ -55,7 +55,7 @@ class Admin::SpecificationsController < AdminController
   # PUT /admin/specifications/1.xml
   def update
     respond_to do |format|
-      if @specification.update_attributes(specification_params)
+      if @specification.update(specification_params)
         format.html { redirect_to([:admin, @specification], notice: 'Specification was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated spec: #{@specification.name}")
@@ -81,7 +81,7 @@ class Admin::SpecificationsController < AdminController
   def remove_from_group
     @specification_group = @specification.specification_group
     respond_to do |format|
-      if @specification.update_attributes(specification_group_id: nil)
+      if @specification.update(specification_group_id: nil)
         format.html { redirect_to([:admin, @specification_group]) }
         format.js
       end

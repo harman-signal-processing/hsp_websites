@@ -56,7 +56,7 @@ class Admin::UsRepsController < AdminController
   # PUT /admin/us_reps/1.xml
   def update
     respond_to do |format|
-      if @us_rep.update_attributes(us_rep_params)
+      if @us_rep.update(us_rep_params)
         format.html { redirect_to([:admin, @us_rep], notice: 'US Rep was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated US Rep #{@us_rep.name}")

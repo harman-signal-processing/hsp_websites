@@ -45,7 +45,7 @@ class Admin::GetStartedPanelsController < AdminController
 
   def update
     respond_to do |format|
-      if @get_started_panel.update_attributes(get_started_panel_params)
+      if @get_started_panel.update(get_started_panel_params)
         format.html { redirect_to([:admin, @get_started_page], notice: 'Panel was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated panel: #{@get_started_panel.name}")

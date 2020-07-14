@@ -56,7 +56,7 @@ class Admin::TestimonialsController < AdminController
   # PUT /admin/testimonial/1.xml
   def update
     respond_to do |format|
-      if @testimonial.update_attributes(testimonial_params)
+      if @testimonial.update(testimonial_params)
         format.html { redirect_to([:admin, @testimonial], notice: 'Testimonial was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated testimonial: #{@testimonial.title}")

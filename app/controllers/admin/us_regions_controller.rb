@@ -54,7 +54,7 @@ class Admin::UsRegionsController < AdminController
   # PUT /admin/us_regions/1.xml
   def update
     respond_to do |format|
-      if @us_region.update_attributes(us_region_params)
+      if @us_region.update(us_region_params)
         format.html { redirect_to(admin_us_reps_url, notice: 'US Region was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated US Region #{@us_region.name}")

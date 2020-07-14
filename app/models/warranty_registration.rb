@@ -79,7 +79,7 @@ class WarrantyRegistration < ApplicationRecord
     if needs_sync?
       begin
         start_sync
-        update_attributes(synced_on: Date.today)
+        update(synced_on: Date.today)
       rescue
         logger.debug "Something went wrong sending registration: #{self.inspect}"
       end

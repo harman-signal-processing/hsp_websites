@@ -51,7 +51,7 @@ class Admin::DownloadRegistrationsController < AdminController
   # PUT /download_registrations/1.xml
   def update
     respond_to do |format|
-      if @download_registration.update_attributes(download_registration_params)
+      if @download_registration.update(download_registration_params)
         format.html { redirect_to([:admin, @download_registration.registered_download], notice: 'Download registration was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -74,7 +74,7 @@ class Admin::DownloadRegistrationsController < AdminController
   # GET /download_registration/1/reset_and_resend
   # Re-sends the download notice for this registration
   def reset_and_resend
-    @download_registration.update_attributes(download_count: 0)
+    @download_registration.update(download_count: 0)
     @download_registration.deliver_download_code
     @msg = "Message to #{@download_registration.first_name} is on its way."
     respond_to do |format|

@@ -56,7 +56,7 @@ class Admin::AmpModelsController < AdminController
   # PUT /amp_models/1.xml
   def update
     respond_to do |format|
-      if @amp_model.update_attributes(amp_model_params)
+      if @amp_model.update(amp_model_params)
         format.html { redirect_to([:admin, @amp_model], notice: 'Amp Model was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated amp model: #{@amp_model.name}")

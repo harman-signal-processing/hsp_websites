@@ -66,7 +66,7 @@ class Admin::OnlineRetailersController < AdminController
   # PUT /admin/online_retailers/1.xml
   def update
     respond_to do |format|
-      if @online_retailer.update_attributes(online_retailer_params)
+      if @online_retailer.update(online_retailer_params)
         @online_retailer.set_brand_link(params[:online_retailer][:brand_link], website)
         format.html { redirect_to([:admin, @online_retailer], notice: 'Online Retailer was successfully updated.') }
         format.xml  { head :ok }

@@ -15,7 +15,7 @@ class AddFlagsForBrands < ActiveRecord::Migration
     
     Brand.all.each do |brand|
       if brand.name.match(/digitech/i)
-        brand.update_attributes(
+        brand.update(
           :has_effects => true, 
           :has_reviews => true, 
           :has_faqs => true, 
@@ -29,7 +29,7 @@ class AddFlagsForBrands < ActiveRecord::Migration
           :has_dealers => true,
           :has_service_centers => true)
       elsif brand.name.match(/hardwire/i)
-        brand.update_attributes(
+        brand.update(
           :has_effects => false, 
           :has_reviews => true, 
           :has_faqs => true, 
@@ -43,7 +43,7 @@ class AddFlagsForBrands < ActiveRecord::Migration
           :has_dealers => true,
           :has_service_centers => true)
       elsif brand.name.match(/vocalist/i)
-        brand.update_attributes(
+        brand.update(
           :has_effects => true, 
           :has_reviews => true, 
           :has_faqs => true, 
@@ -57,7 +57,7 @@ class AddFlagsForBrands < ActiveRecord::Migration
           :has_dealers => true,
           :has_service_centers => true)
       elsif brand.name.match(/dbx/i)
-        brand.update_attributes(
+        brand.update(
           :has_effects => false, 
           :has_reviews => true, 
           :has_faqs => true, 
@@ -71,7 +71,7 @@ class AddFlagsForBrands < ActiveRecord::Migration
           :has_dealers => true,
           :has_service_centers => true)
       elsif brand.name.match(/lexicon/i)
-        brand.update_attributes(
+        brand.update(
           :has_effects => true, 
           :has_reviews => true, 
           :has_faqs => true, 
@@ -85,7 +85,7 @@ class AddFlagsForBrands < ActiveRecord::Migration
           :has_dealers => true,
           :has_service_centers => true)
       elsif brand.name.match(/bss/i)
-        brand.update_attributes(
+        brand.update(
           :has_effects => false, 
           :has_reviews => true, 
           :has_faqs => true, 
@@ -99,7 +99,7 @@ class AddFlagsForBrands < ActiveRecord::Migration
           :has_dealers => true,
           :has_service_centers => true)
       elsif brand.name.match(/jbl/i)
-        brand.update_attributes(
+        brand.update(
           :has_effects => false, 
           :has_reviews => false, 
           :has_faqs => false, 

@@ -67,7 +67,7 @@ class Admin::LabelSheetOrdersController < AdminController
   # PUT /label_sheet_orders/1.xml
   def update
     respond_to do |format|
-      if @label_sheet_order.update_attributes(label_sheet_order_params)
+      if @label_sheet_order.update(label_sheet_order_params)
         format.html { redirect_to([:admin, @label_sheet], notice: 'Label Sheet Order was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated Label Sheet Order: #{@label_sheet_order.name}")

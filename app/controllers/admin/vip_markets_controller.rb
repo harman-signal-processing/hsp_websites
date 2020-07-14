@@ -22,7 +22,7 @@ class Admin::VipMarketsController < AdminController
   def update
     @vip_market = Vip::Market.find(params[:id])
     respond_to do |format|
-      if @vip_market.update_attributes(vip_market_params)
+      if @vip_market.update(vip_market_params)
         format.html { redirect_to(admin_vip_markets_path, notice: 'AMX VIP Market was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated a amx vip market: #{@vip_market.name}")

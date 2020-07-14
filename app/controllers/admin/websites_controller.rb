@@ -66,7 +66,7 @@ class Admin::WebsitesController < AdminController
     @this_website = Website.find(params[:id])
     authorize! :manage, @this_website
     respond_to do |format|
-      if @this_website.update_attributes(website_params)
+      if @this_website.update(website_params)
         format.html { redirect_to([:admin, @this_website], notice: 'Website was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated website: #{@this_website.url}")

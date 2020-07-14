@@ -75,7 +75,7 @@ class Admin::VipServiceServiceCategoriesController < AdminController
   # PUT /admin/vip_service_service_categories/1.xml
   def update
     respond_to do |format|
-      if @vip_service_service_category.update_attributes(vip_service_service_category_params)
+      if @vip_service_service_category.update(vip_service_service_category_params)
         format.html { redirect_to([:admin, @vip_service_service_category], notice: 'Service service category was successfully updated.') }
         format.xml  { head :ok }
       else

@@ -74,7 +74,7 @@ class Admin::VipProgrammerMarketsController < AdminController
   # PUT /admin/vip_programmer_markets/1.xml
   def update
     respond_to do |format|
-      if @vip_programmer_market.update_attributes(vip_programmer_market_params)
+      if @vip_programmer_market.update(vip_programmer_market_params)
         format.html { redirect_to([:admin, @vip_programmer_market], notice: 'Programmer market was successfully updated.') }
         format.xml  { head :ok }
       else

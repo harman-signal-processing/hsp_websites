@@ -55,7 +55,7 @@ class Admin::ProductFamilyProductFiltersController < AdminController
   # PUT /admin/product_family_product_filters/1.xml
   def update
     respond_to do |format|
-      if @product_family_product_filter.update_attributes(product_family_product_filter_params)
+      if @product_family_product_filter.update(product_family_product_filter_params)
         format.html { redirect_to([:admin, @product_family_product_filter], notice: 'Update successful') }
         format.xml  { head :ok }
       else

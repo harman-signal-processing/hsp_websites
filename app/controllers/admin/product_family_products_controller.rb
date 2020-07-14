@@ -84,7 +84,7 @@ class Admin::ProductFamilyProductsController < AdminController
   # PUT /admin/product_family_products/1.xml
   def update
     respond_to do |format|
-      if @product_family_product.update_attributes(product_family_product_params)
+      if @product_family_product.update(product_family_product_params)
         format.html { redirect_to([:admin, @product_family_product], notice: 'Product was successfully added to family.') }
         format.xml  { head :ok }
       else

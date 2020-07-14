@@ -312,7 +312,7 @@ class Product < ApplicationRecord
   end
 
   def photo=(product_attachment)
-    product_attachment.update_attributes(primary_photo: true)
+    product_attachment.update(primary_photo: true)
   end
 
   def primary_photo

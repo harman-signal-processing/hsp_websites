@@ -1,7 +1,7 @@
 class SoftwareActivation < ApplicationRecord
   belongs_to :software
   validates :software, presence: true
-  validates :challenge, presence: true, uniqueness: {scope: :software_id}
+  validates :challenge, presence: true, uniqueness: { scope: :software_id, case_sensitive: false }
   after_initialize :generate_key
   alias_attribute :key, :activation_key
 

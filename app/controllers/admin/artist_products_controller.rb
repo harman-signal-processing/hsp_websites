@@ -53,7 +53,7 @@ class Admin::ArtistProductsController < AdminController
   # PUT /artist_products/1.xml
   def update
     respond_to do |format|
-      if @artist_product.update_attributes(artist_product_params)
+      if @artist_product.update(artist_product_params)
         format.html { redirect_to([:admin, @artist_product.artist], notice: 'Artist product was successfully updated.') }
         format.xml  { head :ok }
       else

@@ -6,9 +6,9 @@ class Page < ApplicationRecord
 
   has_many :content_translations, as: :content
 
-  validates :title, presence: true, uniqueness: { scope: :brand_id }
+  validates :title, presence: true, uniqueness: { scope: :brand_id, case_sensitive: false }
   validates :brand_id, presence: true
-  validates :custom_route, uniqueness: true
+  validates :custom_route, uniqueness: { case_sensitive: false }
 
   belongs_to :brand
 

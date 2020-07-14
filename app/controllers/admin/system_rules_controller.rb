@@ -58,7 +58,7 @@ class Admin::SystemRulesController < AdminController
   # PUT /admin/system/SYSTEM_ID/system_rules/1.xml
   def update
     respond_to do |format|
-      if @system_rule.update_attributes(system_rule_params)
+      if @system_rule.update(system_rule_params)
         format.html { redirect_to([:admin, @system], notice: 'System Rule was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated system_rule: #{@system_rule.name}")

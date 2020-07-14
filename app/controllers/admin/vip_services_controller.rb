@@ -25,7 +25,7 @@ class Admin::VipServicesController < AdminController
   def update
     @vip_service = Vip::Service.find(params[:id])
     respond_to do |format|
-      if @vip_service.update_attributes(vip_service_params)
+      if @vip_service.update(vip_service_params)
         format.html { redirect_to(admin_vip_services_path, notice: 'AMX VIP Service was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated a amx vip service: #{@vip_service.name}")

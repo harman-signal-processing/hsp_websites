@@ -85,7 +85,7 @@ class Admin::WarrantyRegistrationsController < AdminController
   # PUT /admin/warranty_registrations/1.xml
   def update
     respond_to do |format|
-      if @warranty_registration.update_attributes(warranty_registration_params)
+      if @warranty_registration.update(warranty_registration_params)
         format.html { redirect_to([:admin, @warranty_registration], notice: 'Warranty registration was successfully updated.') }
         format.xml  { head :ok }
       else

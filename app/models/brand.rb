@@ -54,7 +54,7 @@ class Brand < ApplicationRecord
   after_update :update_products
   after_touch :touch_websites
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
 
   def update_products
     begin

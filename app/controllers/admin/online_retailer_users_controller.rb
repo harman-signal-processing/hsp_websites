@@ -55,7 +55,7 @@ class Admin::OnlineRetailerUsersController < AdminController
   # PUT /admin/online_retailer_users/1.xml
   def update
     respond_to do |format|
-      if @online_retailer_user.update_attributes(online_retailer_user_params)
+      if @online_retailer_user.update(online_retailer_user_params)
         format.html { redirect_to([:admin, @online_retailer_user.online_retailer], notice: 'User was successfully updated.') }
         format.xml  { head :ok }
         format.js

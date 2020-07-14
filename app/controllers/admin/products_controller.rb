@@ -106,7 +106,7 @@ class Admin::ProductsController < AdminController
   # PUT /admin/products/1.xml
   def update
     respond_to do |format|
-      if @product.update_attributes(product_params)
+      if @product.update(product_params)
         format.html { redirect_to([:admin, @product], notice: 'Product was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated product: #{@product.name}")
@@ -145,9 +145,9 @@ class Admin::ProductsController < AdminController
     rohs_ids = params[:products]
     website.products.each do |product|
       if rohs_ids.include?(product.id.to_s)
-        product.update_attributes(rohs: true) unless product.rohs?
+        product.update(rohs: true) unless product.rohs?
       else
-        product.update_attributes(rohs: false) if product.rohs?
+        product.update(rohs: false) if product.rohs?
       end
     end
     respond_to do |format|
@@ -174,7 +174,7 @@ class Admin::ProductsController < AdminController
     authorize! :update, :harman_employee_pricing
     Array(params[:product_attr].to_unsafe_h).each do |key, attr|
       product = Product.find(key)
-      product.update_attributes(attr)
+      product.update(attr)
     end
     redirect_to(harman_employee_pricing_admin_products_path, notice: "Pricing updated successfully.")
   end
@@ -182,7 +182,7 @@ class Admin::ProductsController < AdminController
   # Delete custom background
   def delete_background
     @product = Product.find(params[:id])
-    @product.update_attributes(background_image: nil)
+    @product.update(background_image: nil)
     respond_to do |format|
       format.html { redirect_to(edit_admin_product_path(@product), notice: "Background was deleted.") }
       format.js

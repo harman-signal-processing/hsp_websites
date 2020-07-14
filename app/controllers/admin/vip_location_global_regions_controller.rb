@@ -74,7 +74,7 @@ class Admin::VipLocationGlobalRegionsController < AdminController
   # PUT /admin/vip_location_global_regions/1.xml
   def update
     respond_to do |format|
-      if @vip_location_global_region.update_attributes(vip_location_global_region_params)
+      if @vip_location_global_region.update(vip_location_global_region_params)
         format.html { redirect_to([:admin, @vip_location_global_region], notice: 'Location global region was successfully updated.') }
         format.xml  { head :ok }
       else

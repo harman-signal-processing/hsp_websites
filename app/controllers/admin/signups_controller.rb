@@ -64,7 +64,7 @@ class Admin::SignupsController < AdminController
   # PUT /signups/1.xml
   def update
     respond_to do |format|
-      if @signup.update_attributes(signup_params)
+      if @signup.update(signup_params)
         format.html { redirect_to([:admin, @signup], notice: 'Signup was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated signup: #{@signup.name}")

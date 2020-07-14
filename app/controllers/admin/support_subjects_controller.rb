@@ -55,7 +55,7 @@ class Admin::SupportSubjectsController < AdminController
   # PUT /support_subjects/1.xml
   def update
     respond_to do |format|
-      if @support_subject.update_attributes(support_subject_params)
+      if @support_subject.update(support_subject_params)
         format.html { redirect_to([:admin, @support_subject], notice: 'Support subject was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated support subject: #{@support_subject.name}")

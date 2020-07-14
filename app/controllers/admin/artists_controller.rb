@@ -105,8 +105,8 @@ class Admin::ArtistsController < AdminController
     end
     @artist_brand = ArtistBrand.where(artist_id: @artist.id, brand_id: website.brand_id).first_or_create
     respond_to do |format|
-      if @artist.update_attributes(artist_params)
-        @artist_brand.update_attributes(params.require(:artist_brand).permit!)
+      if @artist.update(artist_params)
+        @artist_brand.update(params.require(:artist_brand).permit!)
         format.html { redirect_to([:admin, @artist], notice: 'Artist was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated artist: #{@artist.name}")

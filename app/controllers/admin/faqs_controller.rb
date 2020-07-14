@@ -58,7 +58,7 @@ class Admin::FaqsController < AdminController
   # PUT /faqs/1.xml
   def update
     respond_to do |format|
-      if @faq.update_attributes(faq_params)
+      if @faq.update(faq_params)
         format.html { redirect_to([:admin, @faq], notice: 'Question was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated FAQ: #{@faq.question}")

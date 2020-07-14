@@ -56,7 +56,7 @@ class Admin::BadgesController < AdminController
   # PUT /badges/1.xml
   def update
     respond_to do |format|
-      if @badge.update_attributes(badge_params)
+      if @badge.update(badge_params)
         format.html { redirect_to([:admin, @badge], notice: 'Badge was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated badge: #{@badge.name}")

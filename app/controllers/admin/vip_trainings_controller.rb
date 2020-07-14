@@ -22,7 +22,7 @@ class Admin::VipTrainingsController < AdminController
   def update
     @vip_training = Vip::Training.find(params[:id])
     respond_to do |format|
-      if @vip_training.update_attributes(vip_training_params)
+      if @vip_training.update(vip_training_params)
         format.html { redirect_to(admin_vip_trainings_path, notice: 'AMX VIP Training was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated a amx vip training: #{@vip_training.name}")

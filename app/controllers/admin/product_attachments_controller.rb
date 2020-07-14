@@ -62,7 +62,7 @@ class Admin::ProductAttachmentsController < AdminController
     product = @product_attachment.product
     @old_primary_photo = product.primary_photo
     respond_to do |format|
-      if @product_attachment.update_attributes(product_attachment_params)
+      if @product_attachment.update(product_attachment_params)
         @old_primary_photo.reload
         format.html { redirect_to(edit_admin_product_attachment_path(@product_attachment), notice: 'Product Attachment was successfully updated.') }
         format.xml  { head :ok }

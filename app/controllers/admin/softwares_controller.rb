@@ -69,7 +69,7 @@ class Admin::SoftwaresController < AdminController
   # PUT /admin/softwares/1.xml
   def update
     respond_to do |format|
-      if @software.update_attributes(software_params)
+      if @software.update(software_params)
         format.html { redirect_to([:admin, @software], notice: 'Software was successfully updated. If you replaced the file, please wait while the system propagates the changes to our content delivery network.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated software: #{@software.name}")

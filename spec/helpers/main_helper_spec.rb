@@ -63,7 +63,7 @@ RSpec.describe MainHelper do
     it "returns a 0-sized image" do
       website = FactoryBot.create(:website_with_products)
       product = website.products.first
-      product.update_attributes(background_image: File.open(Rails.root.join("spec/fixtures/test.jpg")))
+      product.update(background_image: File.open(Rails.root.join("spec/fixtures/test.jpg")))
 
       expect(helper).to receive(:website).and_return(website)
       content = helper.preload_background_images

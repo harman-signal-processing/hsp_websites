@@ -22,7 +22,7 @@ class Admin::VipCertificationsController < AdminController
   def update
     @vip_certification = Vip::Certification.find(params[:id])
     respond_to do |format|
-      if @vip_certification.update_attributes(vip_certification_params)
+      if @vip_certification.update(vip_certification_params)
         format.html { redirect_to(admin_vip_certifications_path, notice: 'AMX VIP Certification was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated a amx vip certification: #{@vip_certification.name}")

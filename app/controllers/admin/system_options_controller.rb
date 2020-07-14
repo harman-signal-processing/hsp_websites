@@ -58,7 +58,7 @@ class Admin::SystemOptionsController < AdminController
   # PUT /admin/system/SYSTEM_ID/system_options/1.xml
   def update
     respond_to do |format|
-      if @system_option.update_attributes(system_option_params)
+      if @system_option.update(system_option_params)
         format.html { redirect_to([:admin, @system], notice: 'System Option was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated system option: #{@system_option.name}")

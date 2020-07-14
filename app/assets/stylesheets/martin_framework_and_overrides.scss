@@ -1,5 +1,4 @@
 @import 'foundation/functions';
-@import url(https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500);
 
 $row-width: rem-calc(1400);
 $martin-yellow: #fdd301;
@@ -188,7 +187,7 @@ $slick-arrow-color: $dark-gray;
 }
 
 h1 {
-  font-family: Roboto;
+  font-family: $header-font-family;
   font-size: 40px;
   font-weight: 300;
   font-style: normal;
@@ -199,7 +198,7 @@ h1 {
 }
 
 h2 {
-  font-family: Roboto;
+  font-family: $header-font-family;
   font-size: 25px;
   font-weight: 300;
   font-style: normal;
@@ -211,7 +210,7 @@ h2 {
 }
 
 h3 {
-  font-family: Roboto;
+  font-family: $header-font-family;
   font-size: 20px;
   font-weight: 300;
   font-style: normal;
@@ -227,7 +226,7 @@ h3 {
 }
 
 h5 {
-  font-family: Roboto;
+  font-family: $header-font-family;
   font-size: 16px;
   font-weight: bold;
   font-style: normal;

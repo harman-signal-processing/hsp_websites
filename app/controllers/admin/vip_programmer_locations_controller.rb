@@ -78,7 +78,7 @@ class Admin::VipProgrammerLocationsController < AdminController
   # PUT /admin/vip_programmer_locations/1.xml
   def update
     respond_to do |format|
-      if @vip_programmer_location.update_attributes(vip_programmer_location_params)
+      if @vip_programmer_location.update(vip_programmer_location_params)
         format.html { redirect_to([:admin, @vip_programmer_location], notice: 'Programmer location was successfully updated.') }
         format.xml  { head :ok }
       else

@@ -49,7 +49,7 @@ class Admin::FaqCategoriesController < AdminController
   # PUT /faq_categories/1.xml
   def update
     respond_to do |format|
-      if @faq_category.update_attributes(faq_category_params)
+      if @faq_category.update(faq_category_params)
         format.html { redirect_to([:admin, @faq_category], notice: 'Category was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated FAQ Category: #{@faq_category.name}")

@@ -9,7 +9,7 @@ class System < ApplicationRecord
 	belongs_to :brand
 
 	validates :brand, presence: true
-	validates :name, presence: true, uniqueness: { scope: :brand_id }
+	validates :name, presence: true, uniqueness: { scope: :brand_id, case_sensitive: false  }
 
 	def options_with_possible_values
 		option_ids = SystemOptionValue.where(id: self.system_options).pluck(:system_option_id).uniq

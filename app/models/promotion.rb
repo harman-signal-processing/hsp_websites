@@ -3,7 +3,7 @@ class Promotion < ApplicationRecord
   friendly_id :sanitized_name
 
   validates :brand_id, presence: true
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
   has_many :product_promotions
   has_many :products, through: :product_promotions
   belongs_to :brand, touch: true

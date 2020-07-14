@@ -52,7 +52,7 @@ class Admin::ArtistTiersController < AdminController
   # PUT /artist_tiers/1.xml
   def update
     respond_to do |format|
-      if @artist_tier.update_attributes(artist_tier_params)
+      if @artist_tier.update(artist_tier_params)
         format.html { redirect_to([:admin, @artist_tier], notice: 'Artist tier was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated artist tier #{@artist_tier.name}")

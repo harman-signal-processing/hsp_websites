@@ -22,7 +22,7 @@ class Admin::VipSkillsController < AdminController
   def update
     @vip_skill = Vip::Skill.find(params[:id])
     respond_to do |format|
-      if @vip_skill.update_attributes(vip_skill_params)
+      if @vip_skill.update(vip_skill_params)
         format.html { redirect_to(admin_vip_skills_path, notice: 'AMX VIP Skill was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated a amx vip skill: #{@vip_skill.name}")

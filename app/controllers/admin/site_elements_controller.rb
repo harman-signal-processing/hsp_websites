@@ -80,7 +80,7 @@ class Admin::SiteElementsController < AdminController
   def update
     other_versions = @site_element.other_versions
     respond_to do |format|
-      if @site_element.update_attributes(site_element_params)
+      if @site_element.update(site_element_params)
         other_versions.each{|element| element.catchup_with_latest_version(@site_element)}
         format.html { redirect_to([:admin, @site_element], notice: 'Resource was successfully updated. It may take a few seconds to process and transfer the file to the right place.') }
         format.xml  { head :ok }

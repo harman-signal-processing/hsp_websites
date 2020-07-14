@@ -22,7 +22,7 @@ class Admin::VipEmailsController < AdminController
   def update
     @vip_email = Vip::Email.find(params[:id])
     respond_to do |format|
-      if @vip_email.update_attributes(vip_email_params)
+      if @vip_email.update(vip_email_params)
         format.html { redirect_to(admin_vip_emails_path, notice: 'AMX VIP Email was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated a amx vip email: #{@vip_email.email}")

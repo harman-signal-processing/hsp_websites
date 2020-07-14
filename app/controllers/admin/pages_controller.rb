@@ -55,7 +55,7 @@ class Admin::PagesController < AdminController
   # PUT /admin/pages/1.xml
   def update
     respond_to do |format|
-      if @page.update_attributes(page_params)
+      if @page.update(page_params)
         format.html { redirect_to([:admin, @page], notice: 'Page was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated page: #{@page.title}")

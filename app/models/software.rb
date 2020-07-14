@@ -69,7 +69,7 @@ class Software < ApplicationRecord
     if previous_versions.length > 0
       new_version = previous_versions.last
       previous_versions.update_all(current_version_id: new_version.id)
-      new_version.update_attributes(current_version_id: nil, active: true)
+      new_version.update(current_version_id: nil, active: true)
     end
   end
 

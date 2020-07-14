@@ -69,7 +69,7 @@ class Admin::ToolkitResourcesController < AdminController
   def update
     params[:toolkit_resource][:link_good] = true
     respond_to do |format|
-      if @toolkit_resource.update_attributes(toolkit_resource_params)
+      if @toolkit_resource.update(toolkit_resource_params)
         format.html { redirect_to([:admin, @toolkit_resource], notice: 'Toolkit resource was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated toolkit resource: #{@toolkit_resource.name}")

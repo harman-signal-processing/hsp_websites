@@ -63,7 +63,7 @@ class Admin::EffectTypesController < AdminController
   # PUT /effect_types/1.xml
   def update
     respond_to do |format|
-      if @effect_type.update_attributes(effect_type_params)
+      if @effect_type.update(effect_type_params)
         format.html { redirect_to([:admin, @effect_type], notice: 'EffectType was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated effect type: #{@effect_type.name}")

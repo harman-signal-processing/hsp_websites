@@ -2,7 +2,7 @@ class AddMarketSegmentFlagToBrands < ActiveRecord::Migration
   def self.up
     add_column :brands, :has_market_segments, :boolean
     Brand.all.each do |brand|
-      brand.update_attributes(:has_market_segments => !!(brand.name.match(/dbx|BSS/i)))
+      brand.update(:has_market_segments => !!(brand.name.match(/dbx|BSS/i)))
     end
   end
 

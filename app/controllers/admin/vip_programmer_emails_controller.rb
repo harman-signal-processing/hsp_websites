@@ -76,7 +76,7 @@ class Admin::VipProgrammerEmailsController < AdminController
   # PUT /admin/vip_programmer_emails/1.xml
   def update
     respond_to do |format|
-      if @vip_programmer_email.update_attributes(vip_programmer_email_params)
+      if @vip_programmer_email.update(vip_programmer_email_params)
         format.html { redirect_to([:admin, @vip_programmer_email], notice: 'Programmer email was successfully updated.') }
         format.xml  { head :ok }
       else

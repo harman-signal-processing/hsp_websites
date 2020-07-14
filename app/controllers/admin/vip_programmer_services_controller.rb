@@ -74,7 +74,7 @@ class Admin::VipProgrammerServicesController < AdminController
   # PUT /admin/vip_programmer_services/1.xml
   def update
     respond_to do |format|
-      if @vip_programmer_service.update_attributes(vip_programmer_service_params)
+      if @vip_programmer_service.update(vip_programmer_service_params)
         format.html { redirect_to([:admin, @vip_programmer_service], notice: 'Programmer service was successfully updated.') }
         format.xml  { head :ok }
       else

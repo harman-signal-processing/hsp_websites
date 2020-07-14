@@ -39,7 +39,7 @@ class ProductAttachment < ApplicationRecord
   has_many :demo_songs, -> { order('position') }
   accepts_nested_attributes_for :demo_songs, reject_if: :all_blank
   validates :product_id, presence: true
-  validates_uniqueness_of :songlist_tag, allow_blank: true
+  validates :songlist_tag, uniqueness: { case_sensitive: false }
   acts_as_list scope: :product_id
   before_save :hide_banner_from_carousel
   after_save :update_primary_photo
@@ -57,7 +57,7 @@ class ProductAttachment < ApplicationRecord
 
   def remove_as_primary_photo
     if self.product && !self.product.photo && self.product.product_attachments.size > 0
-      self.product.product_attachments.first.update_attributes(primary_photo: true)
+      self.product.product_attachments.first.update(primary_photo: true)
     end
   end
 

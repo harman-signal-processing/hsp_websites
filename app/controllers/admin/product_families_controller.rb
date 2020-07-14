@@ -92,7 +92,7 @@ class Admin::ProductFamiliesController < AdminController
   # PUT /admin/product_families/1.xml
   def update
     respond_to do |format|
-      if @product_family.update_attributes(product_family_params)
+      if @product_family.update(product_family_params)
         format.html {
           if @product_family.brand == website.brand
             redirect_to([:admin, @product_family], notice: 'Product Family was successfully updated.')
@@ -123,7 +123,7 @@ class Admin::ProductFamiliesController < AdminController
   # Delete custom background
   def delete_background
     @product_family = ProductFamily.find(params[:id])
-    @product_family.update_attributes(background_image: nil)
+    @product_family.update(background_image: nil)
     respond_to do |format|
       format.html { redirect_to(edit_admin_product_family_path(@product_family), notice: "Background was deleted.") }
       format.js
@@ -134,7 +134,7 @@ class Admin::ProductFamiliesController < AdminController
   # Delete family photo
   def delete_family_photo
     @product_family = ProductFamily.find(params[:id])
-    @product_family.update_attributes(family_photo: nil)
+    @product_family.update(family_photo: nil)
     respond_to do |format|
       format.html { redirect_to(edit_admin_product_family_path(@product_family), notice: "Family photo was deleted.") }
       format.js
@@ -145,7 +145,7 @@ class Admin::ProductFamiliesController < AdminController
   # Delete family banner
   def delete_family_banner
     @product_family = ProductFamily.find(params[:id])
-    @product_family.update_attributes(family_banner: nil)
+    @product_family.update(family_banner: nil)
     respond_to do |format|
       format.html { redirect_to(edit_admin_product_family_path(@product_family), notice: "Family banner was deleted.") }
       format.js
@@ -156,7 +156,7 @@ class Admin::ProductFamiliesController < AdminController
   # Delete title banner
   def delete_title_banner
     @product_family = ProductFamily.find(params[:id])
-    @product_family.update_attributes(title_banner: nil)
+    @product_family.update(title_banner: nil)
     respond_to do |format|
       format.html { redirect_to(edit_admin_product_family_path(@product_family), notice: "Title banner was deleted.") }
       format.js

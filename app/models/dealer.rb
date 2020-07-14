@@ -2,7 +2,7 @@ class Dealer < ApplicationRecord
   attr_accessor :sold_to, :del_flag, :del_block, :order_block # extra fields from import report
   acts_as_mappable
   validates :address, :name, presence: true
-  validates :account_number, presence: true, uniqueness: true
+  validates :account_number, presence: true, uniqueness: { case_sensitive: false }
   before_validation :format_account_number
   before_validation :geocode_address, on: :create
   before_validation :auto_exclude

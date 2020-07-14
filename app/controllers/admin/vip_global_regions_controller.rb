@@ -16,7 +16,7 @@ class Admin::VipGlobalRegionsController < AdminController
   def update
     @vip_global_region = Vip::GlobalRegion.find(params[:id])
     respond_to do |format|
-      if @vip_global_region.update_attributes(vip_global_region_params)
+      if @vip_global_region.update(vip_global_region_params)
         format.html { redirect_to(admin_vip_global_regions_path, notice: 'AMX VIP Global Region was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated a amx vip global region: #{@vip_global_region.name}")

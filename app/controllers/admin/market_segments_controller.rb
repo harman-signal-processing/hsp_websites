@@ -62,7 +62,7 @@ class Admin::MarketSegmentsController < AdminController
   # PUT /admin/market_segments/1.xml
   def update
     respond_to do |format|
-      if @market_segment.update_attributes(market_segment_params)
+      if @market_segment.update(market_segment_params)
         format.html { redirect_to([:admin, @market_segment], notice: 'Market Segment was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated market segment #{@market_segment.name}")
@@ -76,7 +76,7 @@ class Admin::MarketSegmentsController < AdminController
   # Delete banner
   def delete_banner_image
     @market_segment = MarketSegment.find(params[:id])
-    @market_segment.update_attributes(banner_image: nil)
+    @market_segment.update(banner_image: nil)
     respond_to do |format|
       format.html { redirect_to(edit_admin_market_segment_path(@market_segment), notice: "Banner was deleted.") }
       format.js

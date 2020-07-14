@@ -55,7 +55,7 @@ class Admin::SalesRegionsController < AdminController
   # PUT /admin/sales_regions/1.xml
   def update
     respond_to do |format|
-      if @sales_region.update_attributes(sales_region_params)
+      if @sales_region.update(sales_region_params)
         format.html { redirect_to([:admin, @sales_region], notice: 'Sales Region was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated Sales Region #{@sales_region.name}")
