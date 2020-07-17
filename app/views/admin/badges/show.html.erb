@@ -47,7 +47,7 @@
 	</div>
 
 	<ul id="product_badges" class="list">
-	  <% @badge.product_badges.each do |pb| %>
+	  <% @badge.product_badges.find_each do |pb| %>
       <%= render "/admin/shared/product_badge_row", pb: pb, called_from: "badge" %>
 	  <% end %>
 	</ul>

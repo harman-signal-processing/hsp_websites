@@ -14,7 +14,7 @@
 	<%#= f.association :label_sheets, label: "Select the sheets you need:", as: :check_boxes, label_method: 'label_names' %>
 	<div class="input check_boxes optional">
 		<label class="check_boxes optional control-label">Labels come in sheets of six. Select the sheets you need:</label>
-		<% LabelSheet.all.each do |ls| %>
+		<% LabelSheet.find_each do |ls| %>
 			<label class="checkbox">
 				<table class="selection">
 					<tr>

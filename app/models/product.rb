@@ -228,7 +228,7 @@ class Product < ApplicationRecord
 
   def images_for(destination="product_page")
     attachments = []
-    self.product_attachments.each do |pa|
+    self.product_attachments.find_each do |pa|
       attachments << pa if eval("pa.for_#{destination}?")
     end
     attachments
@@ -340,7 +340,7 @@ class Product < ApplicationRecord
 
   def related_products
     rp = []
-    product_families.collect.each do |pf|
+    product_families.find_each do |pf|
       rp += pf.products
     end
     rp.uniq
@@ -570,7 +570,7 @@ class Product < ApplicationRecord
   # Artists on tour with this product
   def artists_on_tour
     begin
-      artist_products.where(on_tour: true).all.collect{|ap| ap.artist}.sort{|a,b| a.position <=> b.position}
+      artist_products.where(on_tour: true).find_each.collect{|ap| ap.artist}.sort{|a,b| a.position <=> b.position}
     rescue
       []
     end
@@ -639,7 +639,7 @@ class Product < ApplicationRecord
   # If this is an epedal, then it may belong to one or more LabelSheet
   def label_sheets
     l = []
-    LabelSheet.all.each{|ls| l << ls if ls.decoded_products.include?(self)}
+    LabelSheet.find_each{|ls| l << ls if ls.decoded_products.include?(self)}
     l
   end
 
@@ -756,7 +756,7 @@ class Product < ApplicationRecord
     new_product.parts = parts
     new_product.accessory_products = accessory_products
 
-    product_attachments.each do |pa|
+    product_attachments.find_each do |pa|
       new_pa = pa.dup
       new_pa.product_attachment = pa.product_attachment
       new_pa.product_media = pa.product_media
@@ -764,19 +764,19 @@ class Product < ApplicationRecord
       new_pa.save
     end
 
-    product_specifications.each do |ps|
+    product_specifications.find_each do |ps|
       new_ps = ps.dup
       new_ps.product = new_product
       new_ps.save
     end
 
-    product_descriptions.each do |pd|
+    product_descriptions.find_each do |pd|
       new_pd = pd.dup
       new_pd.product = new_product
       new_pd.save
     end
 
-    product_product_filter_values.each do |ppfv|
+    product_product_filter_values.find_each do |ppfv|
       new_ppfv = ppfv.dup
       new_ppfv.product = new_product
       new_ppfv.save

@@ -13,7 +13,7 @@
 <% end %>
 
 <ul id="effect_types" class="sortable_list">
-	<% @effect_types.each do |effect_type| %>
+	<% @effect_types.find_each do |effect_type| %>
 	<li id="effect_type_<%= effect_type.id %>"><%= effect_type.name %></li>
 	<% end %>
 </ul>
@@ -22,7 +22,7 @@
 	<h4 class="subheader">Listing Effects</h4>
 
 	<ul class="list">
-		<% @effects.each do |effect| %>
+		<% @effects.find_each do |effect| %>
 		<li><% unless effect.effect_type_id.blank? %><%= effect.effect_type.name %> - <% end %>
 			<%= link_to effect.name, [:admin, effect] %></li>
 		<% end %>

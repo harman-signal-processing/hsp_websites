@@ -7,7 +7,7 @@
 <% end %>
 
 <ul class="large-block-grid-6 small-block-grid-3">
-	<% @badges.each do |badge| %>
+	<% @badges.find_each do |badge| %>
 	<li><%= link_to image_tag(badge.image.url(:medium), lazy: false), [:admin, badge] %><br /><%= link_to badge.name, [:admin, badge] %></li>
 	<% end %>
 </ul>

@@ -9,7 +9,7 @@
     <th></th>
   </tr>
 
-<% @artist_products.each do |artist_product| %>
+<% @artist_products.find_each do |artist_product| %>
   <tr>
     <td><%= artist_product.artist_id %></td>
     <td><%= artist_product.product_id %></td>

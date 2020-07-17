@@ -74,7 +74,7 @@
 		<br/><%= f.submit "add product", class: "small round button" %>
 	<% end %>
 	<ul id="artist_products" class="list">
-		<% @artist.artist_products.each do |ap| %>
+		<% @artist.artist_products.find_each do |ap| %>
 		<%= render "/admin/shared/artist_product_row", ap: ap, called_from: "artist" %>
 		<% end %>
 	</ul>

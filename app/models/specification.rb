@@ -18,7 +18,7 @@ class Specification < ApplicationRecord
 
   def values_with_products
     r = {}
-    product_specifications.each do |product_specification|
+    product_specifications.find_each do |product_specification|
       r[product_specification.value] ||= []
       r[product_specification.value] << product_specification.product
     end

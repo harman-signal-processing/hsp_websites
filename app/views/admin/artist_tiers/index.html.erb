@@ -12,7 +12,7 @@
     <th>Invitation code</th>
   </tr>
 
-<% @artist_tiers.each do |artist_tier| %>
+<% @artist_tiers.find_each do |artist_tier| %>
   <tr>
     <td><%= link_to artist_tier.name, [:admin, artist_tier] %></td>
     <td><%= artist_tier.invitation_code %></td>

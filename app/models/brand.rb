@@ -59,7 +59,7 @@ class Brand < ApplicationRecord
   def update_products
     begin
       if self.saved_change_to_attribute?(:live_on_this_platform) && live_on_this_platform?
-        self.products.each do |p|
+        self.products.find_each do |p|
           p.more_info_url = nil
           p.save
         end
@@ -111,7 +111,7 @@ class Brand < ApplicationRecord
   # Dynamically create methods based on this Brand's settings.
   # This is a smarter alternative to using method_missing
   def dynamic_methods
-    self.settings.each do |meth|
+    self.settings.find_each do |meth|
       unless self.methods.include?(meth.name.to_sym) # exclude methods already defined in the class
         (class << self; self; end).class_eval do
           define_method meth.name.to_sym do |*args|
@@ -260,7 +260,7 @@ class Brand < ApplicationRecord
   def family_products
     Rails.cache.fetch("#{cache_key_with_version}/family_products", expires_in: 6.hours) do
       p = []
-      product_families.includes(:products).each do |pf|
+      product_families.includes(:products).find_each do |pf|
         p += pf.products
       end
       p.sort{|a,b| a.name.downcase <=> b.name.downcase}
@@ -272,7 +272,7 @@ class Brand < ApplicationRecord
     if fp.blank?
       Product.where(brand_id: self.id).order(Arel.sql("UPPER(name)"))
     else
-      Product.select("DISTINCT *").where("brand_id = ? OR products.id IN (#{fp})", self.id).order(Arel.sql("UPPER(name)"))
+      Product.unscoped.select("DISTINCT *").where("brand_id = ? OR products.id IN (#{fp})", self.id).order(Arel.sql("UPPER(name)"))
     end
   end
 

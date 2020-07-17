@@ -10,8 +10,8 @@ class ProductDocumentsController < ApplicationController
       if params[:document_type]
         @selected_document_type = params[:document_type]
         @product_documents = []
-        ProductDocument.where(language: params[:language], document_type: params[:document_type]).each do |pd|
-            @product_documents << pd if pd.product.belongs_to_this_brand?(website) && !pd.product.product_status.is_hidden?
+        ProductDocument.where(language: params[:language], document_type: params[:document_type]).find_each do |pd|
+          @product_documents << pd if pd.product.belongs_to_this_brand?(website) && !pd.product.product_status.is_hidden?
         end
       else
         @document_types = ProductDocument.select("DISTINCT(document_type)")

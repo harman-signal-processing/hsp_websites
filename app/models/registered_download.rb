@@ -160,7 +160,7 @@ class RegisteredDownload < ApplicationRecord
   # the first registrations came through)
   #
   def send_messages_to_undownloaded
-    self.download_registrations.where(download_count: 0).each do |download_registration|
+    self.download_registrations.where(download_count: 0).find_each do |download_registration|
       download_registration.deliver_download_code
     end
   end

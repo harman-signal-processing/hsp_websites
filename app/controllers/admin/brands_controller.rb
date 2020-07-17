@@ -7,7 +7,7 @@ class Admin::BrandsController < AdminController
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  {
-        @brands = Brand.all.order(:name)
+        @brands = Brand.find_each.order(:name)
         render xml: @brands
       }
     end

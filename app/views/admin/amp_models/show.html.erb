@@ -30,7 +30,7 @@
 	</div>
 
 	<ul id="product_amp_models" class="list">
-	  <% @amp_model.product_amp_models.each do |pam| %>
+	  <% @amp_model.product_amp_models.find_each do |pam| %>
 	  <%= render "/admin/shared/product_amp_model_row", pam: pam, called_from: "amp_model" %>
 	  <% end %>
 	</ul>

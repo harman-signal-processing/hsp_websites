@@ -33,7 +33,7 @@
 	</div>
 
 	<ul id="product_cabinets" class="list">
-	  <% @cabinet.product_cabinets.each do |pc| %>
+	  <% @cabinet.product_cabinets.find_each do |pc| %>
 	  <%= render "/admin/shared/product_cabinet_row", pc: pc, called_from: "cabinet" %>
 	  <% end %>
 	</ul>

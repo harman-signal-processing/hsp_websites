@@ -96,7 +96,7 @@ class WhereToFindController < ApplicationController
       end
     end
     if !!origin.try(:state)
-      brand.dealers.where(state: origin.state).each do |d|
+      brand.dealers.where(state: origin.state).find_each do |d|
         unless d.exclude? || filter_out?(d)
           results << d unless results.include?(d)
         end
@@ -105,7 +105,7 @@ class WhereToFindController < ApplicationController
 
     # Add those with exact zipcode matches if none have been found by geocoding
     if results.length < max && opts[:zip].to_s.match(/^\d*$/)
-      brand.dealers.where("zip LIKE ?", opts[:zip]).each do |d|
+      brand.dealers.where("zip LIKE ?", opts[:zip]).find_each do |d|
         unless results.length >= 1000 || d.exclude? || filter_out?(d)
           results << d unless results.include?(d)
         end

@@ -69,7 +69,7 @@ class System < ApplicationRecord
 		end
 
     # initialize all components with zero quantity
-    SystemComponent.all.each do |component|
+    SystemComponent.find_each do |component|
       @system_configuration.system_configuration_components << SystemConfigurationComponent.new(
         system_component: component,
         quantity: 0

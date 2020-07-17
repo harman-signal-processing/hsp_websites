@@ -5,7 +5,7 @@ class LabelSheetOrdersController < ApplicationController
   	@label_sheet_order = LabelSheetOrder.new(subscribe: true)
   	if params[:epedal_id]
   		epedal = Product.find(params[:epedal_id])
-  		LabelSheet.all.each do |ls|
+  		LabelSheet.find_each do |ls|
   			@label_sheet_order.label_sheets << ls if ls.decoded_products.include?(epedal)
   		end
   	end

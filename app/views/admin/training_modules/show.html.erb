@@ -54,7 +54,7 @@
 	<%= form_for [:admin, @software_training_module], remote: true do |f| %>
 		<p>
 			<%= f.collection_select :software_id, 
-					Software.where(brand_id: website.brand_id).all.sort_by(&:formatted_name),
+					Software.where(brand_id: website.brand_id).find_each.sort_by(&:formatted_name),
 					:id, :formatted_name %>
 			&nbsp;
 			<%= hidden_field_tag "called_from", "training_module" %>

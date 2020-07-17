@@ -6,7 +6,7 @@
 <% end %>
 
 <ul class="list">
-<% @audio_demos.each do |audio_demo| %>
+<% @audio_demos.find_each do |audio_demo| %>
   <li><%= link_to audio_demo.name, [:admin, audio_demo] %></li>
 <% end %>
 </ul>

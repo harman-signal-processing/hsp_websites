@@ -91,7 +91,7 @@ class Software < ApplicationRecord
     if self.replaces_id && self.replaces_id.to_i > 0
       self.class.where(current_version_id: self.replaces_id).update_all(current_version_id: self.id, active: false)
       self.class.where(id: self.replaces_id).update_all(current_version_id: self.id, active: false)
-      ProductSoftware.where(software_id: self.replaces_id).each do |ps|
+      ProductSoftware.where(software_id: self.replaces_id).find_each do |ps|
         ProductSoftware.where(software_id: self.id, product_id: ps.product_id).first_or_create
       end
     end

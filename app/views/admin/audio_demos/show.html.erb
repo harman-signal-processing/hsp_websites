@@ -47,7 +47,7 @@
 	<% end %>
 
 	<ul id="product_audio_demos" class="list">
-		<% @audio_demo.product_audio_demos.each do |pad| %>
+		<% @audio_demo.product_audio_demos.find_each do |pad| %>
 			<%= render '/admin/shared/product_audio_demo_row', pad: pad, called_from: 'audio_demo' %>
 		<% end %>
 	</ul>
