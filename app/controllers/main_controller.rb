@@ -240,13 +240,13 @@ class MainController < ApplicationController
   end
 
   def locale_indices
-    ['artist', 'news', 'page', 'product_family', 'product', 'product_real_time', 'product_review' 'software'].map do |index|
+    ['artist', 'news', 'page', 'product_family', 'product', 'product_real_time', 'product_review', 'software'].map do |index|
       "#{index}_#{I18n.locale.to_s.gsub(/\-/, '_')}_core"
     end
   end
   
   def en_locale_indices_only
-    ['artist', 'news', 'page', 'product_family', 'product', 'product_real_time', 'product_review' 'software'].map do |index|
+    ['artist', 'news', 'page', 'product_family', 'product', 'product_real_time', 'product_review', 'software'].map do |index|
       "#{index}_en_core"
     end
   end
