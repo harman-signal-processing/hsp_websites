@@ -5,6 +5,8 @@
 # Disallow: /
 
 User-agent: *
+Disallow: /*.aspx*
+Disallow: */pdf_productsheet/pdfproduct/*
 Sitemap: <%= sitemap_url(format: 'xml', host: website.brand.default_website.url).gsub(/\?.*/, '') %>
 Crawl-delay: 4.5
 
@@ -16,3 +18,7 @@ Disallow: /en/support.jpg
 # Majestic12 bot hammers the site with DoS-style traffic
 User-agent: MJ12bot
 Disallow: /
+
+User-agent: *
+NOINDEX: /*.aspx*
+NOINDEX: */pdf_productsheet/pdfproduct/*
