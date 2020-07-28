@@ -8,7 +8,7 @@ class Youtube
     end
 
     def get_video(video_id)
-      youtube_client.list_videos('snippet', id: video_id, limit: 1).items.first["snippet"]
+      youtube_client.list_videos('snippet', id: video_id).items.first.snippet
     end
 
     def get_default_playlist_id(youtube_user)
