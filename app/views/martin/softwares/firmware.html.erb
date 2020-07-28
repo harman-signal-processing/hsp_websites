@@ -8,17 +8,49 @@
 
 <% firmware_items = MartinFirmwareService.get_firmware_items %>
 <% firmware_items.each do |firmware_category|
-    category_name = firmware_category.first.to_s
-    category_items = firmware_category[1][:items]
+  category_name = firmware_category.first.to_s
+  category_items = firmware_category[1][:items]
 %>
     <h3><%=category_name%></h3>
-    <table style="width:600px;">
-        <thead><tr><th style="width:80%;">Product</th><th>Latest Version</th></tr></thead>
-        <tbody>
-            <% category_items.group_by {|item| item[:product]}.each do |product_version_item| %>
-                <% product_version_item_to_use = MartinFirmwareService.latest_product_version_item(product_version_item[1]) %>
-                <tr><td><%=product_version_item_to_use[:product]%></td><td><%=product_version_item_to_use[:version]%></td></tr>
-            <% end %>
-        </tbody>
+    <table style="width:800px;">
+      <thead>
+        <tr>
+          <th style="width:50%;">Product</th>
+          <th class="text-center">Latest Version</th>
+          <th class="text-center">Update via DMX</th>
+          <th class="text-center">Update via USB</th>
+          <th class="text-center">Update via P3</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% category_items.group_by {|item| item[:product]}.each do |product_version_item| %>
+          <% product_version_item_to_use = MartinFirmwareService.latest_product_version_item(product_version_item[1]) %>
+          <tr>
+            <td><%=product_version_item_to_use[:product]%></td>
+            <td class="text-center"><%=product_version_item_to_use[:version]%></td>
+            <td class="text-center">
+              <% if product_version_item_to_use[:update_via_dmx].to_s == "true" %>
+                <%= fa_icon 'check-square-o' %>
+              <% else %>
+                <%= fa_icon 'square-o' %>
+              <% end %>
+            </td>
+            <td class="text-center">
+              <% if product_version_item_to_use[:update_via_usb].to_s == "true" %>
+                <%= fa_icon 'check-square-o' %>
+              <% else %>
+                <%= fa_icon 'square-o' %>
+              <% end %>
+            </td>
+            <td class="text-center">
+              <% if product_version_item_to_use[:update_via_p3].to_s == "true" %>
+                <%= fa_icon 'check-square-o' %>
+              <% else %>
+                <%= fa_icon 'square-o' %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
     </table>
-<% end %> <%  #  firmware_items.each do |firmware_category|%>
+  <% end %> <%  #  firmware_items.each do |firmware_category|%>
