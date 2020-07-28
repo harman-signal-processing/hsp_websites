@@ -29,9 +29,9 @@ module MartinFirmwareService
         firmware_items[category.to_sym][:items] << {
           product: value_split_on_forward_slash[2],
           version: value_split_on_forward_slash[3],
-          update_via_usb: value_split_on_pipe[2].to_i > 0,
-          update_via_dmx: value_split_on_pipe[3].to_i > 0,
-          update_via_p3:  value_split_on_pipe[4].to_i > 0
+          update_via_usb: value_split_on_pipe[5].to_i > 0,
+          update_via_dmx: value_split_on_pipe[6].to_i > 0,
+          update_via_p3:  value_split_on_pipe[7].to_i > 0
         }
       end
       firmware_items
