@@ -192,7 +192,7 @@ module ProductsHelper
         end
       end
       ret += "</dl>"
-      unless website.brand.name.match(/DOD|DigiTech|dbx|Lexicon/i)
+      unless hide_contact_buttons?(product)
         ret += "<br/>" + hpro_contact_buttons
       end
       ret += "</div>"
@@ -637,6 +637,10 @@ module ProductsHelper
     buttons = find_a_dealer + have_a_question
     buttons += contact_consultant if website.brand.show_consultant_button?
     content_tag :div, buttons, class: "row collapse"
+  end
+
+  def hide_contact_buttons?(product)
+    !!(website.brand.name.match(/DOD|DigiTech|dbx|Lexicon/i) || product.hide_contact_buttons?)
   end
 
 end
