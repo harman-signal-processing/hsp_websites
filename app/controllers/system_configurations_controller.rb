@@ -32,7 +32,7 @@ class SystemConfigurationsController < ApplicationController
   # TODO: make sure the custom recipients are contacted based on the selected system type
   def contact_form
     if request.post?
-      if @system_configuration.update_attributes(system_configuration_params)
+      if @system_configuration.update(system_configuration_params)
         SiteMailer.delay.new_system_configuration(@system_configuration)
         redirect_to show_system_system_configuration_path(@system, @system_configuration, access_hash: @system_configuration.access_hash), notice: "Thanks! We'll get back with you shortly." and return false
       end
@@ -41,7 +41,7 @@ class SystemConfigurationsController < ApplicationController
   end
 
   def update
-    if @system_configuration.update_attributes(system_configuration_params)
+    if @system_configuration.update(system_configuration_params)
       if params[:commit].to_s.match(/contact/i)
         redirect_to contact_form_system_system_configuration_path(@system, @system_configuration, access_hash: @system_configuration.access_hash)
       else

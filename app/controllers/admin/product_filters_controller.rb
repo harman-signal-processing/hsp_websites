@@ -54,7 +54,7 @@ class Admin::ProductFiltersController < AdminController
   # PUT /admin/product_filter/1.xml
   def update
     respond_to do |format|
-      if @product_filter.update_attributes(product_filter_params)
+      if @product_filter.update(product_filter_params)
         format.html { redirect_to([:admin, @product_filter], notice: 'ProductFilter was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated product filter: #{@product_filter.name}")

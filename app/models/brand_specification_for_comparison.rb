@@ -4,5 +4,5 @@ class BrandSpecificationForComparison < ApplicationRecord
   acts_as_list scope: :brand
 
   validates :brand, presence: true
-  validates :specification, presence: true, uniqueness: { scope: :brand }
+  validates :specification, presence: true, uniqueness: { scope: :brand, case_sensitive: false }
 end

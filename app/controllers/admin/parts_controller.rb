@@ -53,7 +53,7 @@ class Admin::PartsController < AdminController
   # PUT /parts/1.xml
   def update
     respond_to do |format|
-      if @part.update_attributes(part_params)
+      if @part.update(part_params)
         format.html { redirect_to([:admin, @part], notice: 'Part was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated part: #{@part.name}")

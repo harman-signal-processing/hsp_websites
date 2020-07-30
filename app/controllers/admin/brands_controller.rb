@@ -7,7 +7,7 @@ class Admin::BrandsController < AdminController
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  {
-        @brands = Brand.all.order(:name)
+        @brands = Brand.find_each.order(:name)
         render xml: @brands
       }
     end
@@ -54,7 +54,7 @@ class Admin::BrandsController < AdminController
   # PUT /admin/brands/1.xml
   def update
     respond_to do |format|
-      if @brand.update_attributes(brand_params)
+      if @brand.update(brand_params)
         format.html {
           if params["called_from"] == "solutions"
             redirect_to(admin_solutions_path, notice: 'Brand was successfully updated.')

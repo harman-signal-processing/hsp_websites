@@ -58,7 +58,7 @@ class Admin::AudioDemosController < AdminController
   # PUT /audio_demos/1.xml
   def update
     respond_to do |format|
-      if @audio_demo.update_attributes(audio_demo_params)
+      if @audio_demo.update(audio_demo_params)
         format.html { redirect_to([:admin, @audio_demo], notice: 'Audio Demo was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated audio demo #{@audio_demo.name}")

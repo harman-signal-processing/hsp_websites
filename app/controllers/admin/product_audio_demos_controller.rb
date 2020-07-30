@@ -55,7 +55,7 @@ class Admin::ProductAudioDemosController < AdminController
   # PUT /admin/product_audio_demos/1.xml
   def update
     respond_to do |format|
-      if @product_audio_demo.update_attributes(product_audio_demo_params)
+      if @product_audio_demo.update(product_audio_demo_params)
         format.html { redirect_to([:admin, @product_audio_demo], notice: 'Product audio demo was successfully updated.') }
         format.xml  { head :ok }
       else

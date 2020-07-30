@@ -89,7 +89,7 @@ class Admin::VipLocationServiceAreasController < AdminController
   # PUT /admin/vip_location_service_areas/1.xml
   def update
     respond_to do |format|
-      if @vip_location_service_area.update_attributes(vip_location_service_area_params)
+      if @vip_location_service_area.update(vip_location_service_area_params)
         format.html { redirect_to([:admin, @vip_location_service_area], notice: 'Location service area was successfully updated.') }
         format.xml  { head :ok }
       else

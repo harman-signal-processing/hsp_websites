@@ -55,7 +55,7 @@ class Admin::ProductIntroductionsController < AdminController
   # PUT /product_introductions/1.xml
   def update
     respond_to do |format|
-      if @product_introduction.update_attributes(product_introduction_params)
+      if @product_introduction.update(product_introduction_params)
         format.html { redirect_to([:admin, @product_introduction.product], notice: 'Product Introduction was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated Product Introduction: #{@product_introduction.product.name}")

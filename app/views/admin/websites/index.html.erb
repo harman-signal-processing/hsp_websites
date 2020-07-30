@@ -4,7 +4,7 @@
 	<li><%= link_to "add a website", new_admin_website_path, class: "small success button" %></li>
 </ul>
 
-<% Brand.all.each do |brand| %>
+<% Brand.find_each do |brand| %>
 	<h3><%= brand.name %>:</h3>
 	<ul class="list">
 		<% brand.websites.each do |website| %>

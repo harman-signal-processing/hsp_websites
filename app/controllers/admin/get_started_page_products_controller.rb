@@ -55,7 +55,7 @@ class Admin::GetStartedPageProductsController < AdminController
   # PUT /admin/get_started_page_products/1.xml
   def update
     respond_to do |format|
-      if @get_started_page_product.update_attributes(get_started_page_product_params)
+      if @get_started_page_product.update(get_started_page_product_params)
         format.html { redirect_to([:admin, @get_started_page_product.get_started_page], notice: 'Get Started Page/Product was successfully updated.') }
         format.xml  { head :ok }
       else

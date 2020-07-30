@@ -52,7 +52,7 @@ class Admin::ProductFamilyCaseStudiesController < AdminController
   # PUT /product_family_case_studies/1.xml
   def update
     respond_to do |format|
-      if @product_family_case_study.update_attributes(product_family_case_study_params)
+      if @product_family_case_study.update(product_family_case_study_params)
         format.html { redirect_to([:admin, @product_family_case_study.product_family], notice: 'Product Family Case Study was successfully updated.') }
         format.xml  { head :ok }
       else

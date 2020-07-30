@@ -1,12 +1,13 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 5.2.4.3'
+gem 'rails', '~> 6.0'
+#gem 'webpacker'
 gem 'actionpack-action_caching'
-gem 'responders', '~> 2.0'
+gem 'responders'
 gem 'bootsnap', require: false
 gem 'sprockets'
 gem 'sprockets-rails'
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails'
 gem "foundation-rails", '5.5.1' # 5.5.3 has a bug with Magellan https://github.com/zurb/foundation-sites/issues/8416
@@ -25,7 +26,7 @@ gem 'fog-core', '< 2.1.1' # fog-rackspace isn't working with fog-core after 2.1.
 gem 'fog-rackspace'
 gem 'fog-aws'
 gem 'asset_sync'
-gem "paperclip" #, '< 6.0'
+gem "paperclip"
 gem 'paperclip-meta'
 gem 'paperclip-compression', '~> 1.0'
 gem 's3_direct_upload'
@@ -37,7 +38,7 @@ gem 'mechanize'
 gem 'geokit', '>= 1.8.5'
 gem 'geokit-rails'
 gem 'thinking-sphinx', '~> 4.0'
-gem 'google-api-client', '0.41.2'
+gem 'google-api-client'#, '0.41.2'
 gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'httparty'
@@ -112,8 +113,8 @@ group :development, :test do
   gem 'guard-rails'
   gem 'guard-rspec'
   gem 'rspec-rails'
-  gem "factory_bot_rails" #, "~> 4.0"
-  gem 'pry', "0.12.2"
+  gem "factory_bot_rails", "~> 6.0"
+  gem 'pry'#, "0.12.2"
   gem 'pry-byebug'
 end
 

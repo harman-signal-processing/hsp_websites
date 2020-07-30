@@ -54,7 +54,7 @@ class Artist < ApplicationRecord
       self.brands.first
     elsif self.initial_brand.present?
       self.initial_brand
-    elsif Brand.all.size > 0
+    elsif Brand.count > 0
       Brand.first
     else
       Brand.new

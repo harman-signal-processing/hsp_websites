@@ -53,7 +53,7 @@ class Admin::SalesRegionCountriesController < AdminController
   # PUT /sales_region_countries/1.xml
   def update
     respond_to do |format|
-      if @sales_region_country.update_attributes(sales_region_country_params)
+      if @sales_region_country.update(sales_region_country_params)
         format.html { redirect_to([:admin, @sales_region_country.sales_region], notice: 'SalesRegionCountry was successfully updated.') }
         format.xml  { head :ok }
       else

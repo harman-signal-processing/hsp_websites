@@ -40,7 +40,7 @@ class ProductReview < ApplicationRecord
 
   def self.all_for_website(website)
     r = []
-    all.each do |pr|
+    find_each do |pr|
       r << pr if pr.products.select{|p| p if p.belongs_to_this_brand?(website)}.size > 0
     end
     r
@@ -48,7 +48,7 @@ class ProductReview < ApplicationRecord
 
   def self.problems(website)
     r = []
-    where("link_status != '200'").all.each do |pr|
+    where("link_status != '200'").find_each do |pr|
       r << pr if pr.products.select{|p| p if p.belongs_to_this_brand?(website)}.size > 0
     end
     r

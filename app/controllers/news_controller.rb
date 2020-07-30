@@ -52,7 +52,7 @@ class NewsController < ApplicationController
     @news = News.where(cached_slug: params[:id]).first || News.find(params[:id])
     authorize! :update, @news
     respond_to do |format|
-      if @news.update_attributes(news_params)
+      if @news.update(news_params)
         format.html { redirect_to(@news, notice: 'Article was successfully updated.') }
         format.xml  { head :ok }
       else

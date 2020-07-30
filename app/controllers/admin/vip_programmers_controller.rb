@@ -88,7 +88,7 @@ class Admin::VipProgrammersController < AdminController
   def update
     @vip_programmer = Vip::Programmer.find(params[:id])
     respond_to do |format|
-      if @vip_programmer.update_attributes(vip_programmer_params)
+      if @vip_programmer.update(vip_programmer_params)
         format.html { redirect_to(admin_vip_programmers_path, notice: 'AMX VIP Programmer was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated a amx vip programmer: #{@vip_programmer.name}")

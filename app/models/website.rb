@@ -1,7 +1,7 @@
 class Website < ApplicationRecord
   belongs_to :brand
   has_many :website_locales
-  validates :url, presence: true, uniqueness: true
+  validates :url, presence: true, uniqueness: { case_sensitive: false}
   validates :brand_id, presence: true
   validates :folder, presence: true
 
@@ -16,11 +16,11 @@ class Website < ApplicationRecord
       locale_features = nil
       unless I18n.locale == I18n.default_locale
         f1 = f.where(["locale = ?", I18n.locale]) # try "foo_es-MX" (for example)
-        if f1.all.size > 0
+        if f1.count > 0
           locale_features = f1
         elsif parent_locale = (I18n.locale.to_s.match(/^(.*)-/)) ? $1 : false # "es-MX" => "es"
           f2 = f.where(["locale = ?", parent_locale]) # try "foo_es"
-          if f2.all.size > 0
+          if f2.count > 0
             locale_features = f2
           end
         end
@@ -74,7 +74,7 @@ class Website < ApplicationRecord
 
   def has_mac_software?
     begin
-      Software.where(brand_id: self.brand_id).where("category LIKE '%mac%' or platform LIKE '%mac%'").all.size > 0
+      Software.where(brand_id: self.brand_id).where("category LIKE '%mac%' or platform LIKE '%mac%'").count > 0
     rescue
       false
     end
@@ -82,7 +82,7 @@ class Website < ApplicationRecord
 
   def has_plugins?
     begin
-      Software.where(brand_id: self.brand_id).where("category LIKE '%plugin%'").all.size > 0
+      Software.where(brand_id: self.brand_id).where("category LIKE '%plugin%'").count > 0
     rescue
       false
     end

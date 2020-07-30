@@ -57,7 +57,7 @@ class Admin::VipProgrammerSkillsController < AdminController
   # PUT /admin/vip_programmer_skills/1.xml
   def update
     respond_to do |format|
-      if @vip_programmer_skill.update_attributes(vip_programmer_skill_params)
+      if @vip_programmer_skill.update(vip_programmer_skill_params)
         format.html { redirect_to([:admin, @vip_programmer_skill], notice: 'Programmer skill was successfully updated.') }
         format.xml  { head :ok }
       else

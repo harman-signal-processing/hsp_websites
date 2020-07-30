@@ -67,11 +67,11 @@ class Admin::RegisteredDownloadsController < AdminController
   # PUT /registered_downloads/1.xml
   def update
     respond_to do |format|
-      if @registered_download.update_attributes(registered_download_params)
+      if @registered_download.update(registered_download_params)
         format.html { redirect_to([:admin, @registered_download], notice: 'Registered download was successfully updated. IF YOU NEED TO MAKE MORE CHANGES, CLICK "Edit" BELOW--NOT "Back"') }
         format.xml  { head :ok }
         format.js {
-          @registered_download.update_attributes(protected_software: nil)
+          @registered_download.update(protected_software: nil)
         }
         website.add_log(user: current_user, action: "Updated registered download: #{@registered_download.name}")
       else

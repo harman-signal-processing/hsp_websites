@@ -18,11 +18,11 @@ class Event < ApplicationRecord
   validates :brand, presence: true
 
   scope :current_and_upcoming, -> {
-    where(active: true).where("end_on >= ?", Date.today).order(start_on: :asc)
+    unscoped.where(active: true).where("end_on >= ?", Date.today).order(start_on: :asc)
   }
 
   scope :recent, -> {
-    where(active: true).where("end_on <= ? AND end_on >= ?", Date.today, 6.months.ago).order(start_on: :desc)
+    unscoped.where(active: true).where("end_on <= ? AND end_on >= ?", Date.today, 6.months.ago).order(start_on: :desc)
   }
 
   # Events to display on the main area of the site.

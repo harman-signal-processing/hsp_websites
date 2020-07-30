@@ -54,7 +54,7 @@
 	</div>
 
 	<ul id="product_effects" class="list">
-	  <% @effect.product_effects.each do |pe| %>
+	  <% @effect.product_effects.find_each do |pe| %>
 	  <%= render "/admin/shared/product_effect_row", pe: pe, called_from: "effect" %>
 	  <% end %>
 	</ul>

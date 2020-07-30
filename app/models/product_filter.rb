@@ -4,12 +4,12 @@ class ProductFilter < ApplicationRecord
   has_many :product_product_filter_values, dependent: :destroy
   has_many :products, through: :product_product_filter_values
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :value_type, presence: true
 
   scope :not_associated_with_this_product_family, -> (product_family) {
     ids_already_associated = ProductFamilyProductFilter.where(product_family: product_family).pluck(:product_filter_id)
-    ProductFilter.where.not(id: ids_already_associated)
+    unscoped.where.not(id: ids_already_associated)
   }
 
   def self.value_types

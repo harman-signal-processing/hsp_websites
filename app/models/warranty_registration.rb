@@ -27,7 +27,7 @@ class WarrantyRegistration < ApplicationRecord
   # after they've registered a product. (ie, Jamplay.com discount code)
   def execute_promotion
     begin
-      self.product.promotions.where(send_post_registration_message: true).all.each do |promo|
+      self.product.promotions.where(send_post_registration_message: true).find_each do |promo|
         if self.created_at.to_date >= promo.start_on.to_date && self.created_at.to_date <= promo.end_on.to_date
           SiteMailer.delay.promo_post_registration(self, promo)
         end
@@ -79,7 +79,7 @@ class WarrantyRegistration < ApplicationRecord
     if needs_sync?
       begin
         start_sync
-        update_attributes(synced_on: Date.today)
+        update(synced_on: Date.today)
       rescue
         logger.debug "Something went wrong sending registration: #{self.inspect}"
       end

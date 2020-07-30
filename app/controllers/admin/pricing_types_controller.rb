@@ -47,7 +47,7 @@ class Admin::PricingTypesController < AdminController
   # PUT /admin/pricing_types/1.xml
   def update
     respond_to do |format|
-      if @pricing_type.update_attributes(pricing_type_params)
+      if @pricing_type.update(pricing_type_params)
         format.html { redirect_to(admin_product_prices_path, notice: 'Pricing type was successfully updated.') }
         website.add_log(user: current_user, action: "Updated pricing type: #{@pricing_type.name}")
       else

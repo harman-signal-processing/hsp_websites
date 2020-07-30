@@ -38,7 +38,7 @@ class Admin::BrandToolkitContactsController < AdminController
 
   def update
     respond_to do |format|
-      if @brand_toolkit_contact.update_attributes(brand_toolkit_contact_params)
+      if @brand_toolkit_contact.update(brand_toolkit_contact_params)
         format.html { redirect_to(admin_brand_toolkit_contacts_url, notice: 'Contact was successfully updated.') }
         website.add_log(user: current_user, action: "Updated toolkit contact: #{@brand_toolkit_contact.user.name}")
       else

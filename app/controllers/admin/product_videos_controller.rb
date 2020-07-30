@@ -52,7 +52,7 @@ class Admin::ProductVideosController < AdminController
   # PUT /product_videos/1.xml
   def update
     respond_to do |format|
-      if @product_video.update_attributes(product_video_params)
+      if @product_video.update(product_video_params)
         format.html { redirect_to([:admin, @product_video.product], notice: 'Product/video was successfully updated.') }
         format.xml  { head :ok }
       else

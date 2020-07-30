@@ -56,7 +56,7 @@ class Admin::EventsController < AdminController
   # PUT /admin/event/1.xml
   def update
     respond_to do |format|
-      if @event.update_attributes(event_params)
+      if @event.update(event_params)
         format.html { redirect_to([:admin, @event], notice: 'Event was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated event: #{@event.name}")
@@ -70,7 +70,7 @@ class Admin::EventsController < AdminController
   # Delete banner
   def delete_image
     @event = Event.find(params[:id])
-    @event.update_attributes(image: nil)
+    @event.update(image: nil)
     respond_to do |format|
       format.html { redirect_to(admin_event_path(@event), notice: "Banner was deleted.") }
       format.js

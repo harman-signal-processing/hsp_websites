@@ -52,7 +52,7 @@ class Admin::SoftwareTrainingClassesController < AdminController
   # PUT /software_training_classes/1.xml
   def update
     respond_to do |format|
-      if @software_training_class.update_attributes(software_training_class_params)
+      if @software_training_class.update(software_training_class_params)
         format.html { redirect_to([:admin, @software_training_class.training_class], notice: 'Software/training_class was successfully updated.') }
         format.xml  { head :ok }
       else

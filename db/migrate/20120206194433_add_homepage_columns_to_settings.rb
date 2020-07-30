@@ -7,7 +7,7 @@ class AddHomepageColumnsToSettings < ActiveRecord::Migration
     end
     dbx = Brand.where(name: "dbx").first
     s = Setting.where(brand_id: dbx.id, name: "homepage_middle_column").first
-    s.update_attributes(:string_value => "facebook")
+    s.update(:string_value => "facebook")
   end
 
   def self.down

@@ -5,7 +5,7 @@ class Effect < ApplicationRecord
   has_many :product_effects
   has_many :products, through: :product_effects
   belongs_to :effect_type
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
 
   has_attached_file :effect_image,
     styles: { large: "550x370",

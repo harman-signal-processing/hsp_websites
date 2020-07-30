@@ -63,7 +63,7 @@ class Admin::ProductCabinetsController < AdminController
   # PUT /admin/product_cabinets/1.xml
   def update
     respond_to do |format|
-      if @product_cabinet.update_attributes(product_cabinet_params)
+      if @product_cabinet.update(product_cabinet_params)
         format.html { redirect_to([:admin, @product_cabinet], notice: 'Product cabinet was successfully updated.') }
         format.xml  { head :ok }
       else

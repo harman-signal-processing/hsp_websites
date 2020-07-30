@@ -74,7 +74,7 @@ class Admin::VipProgrammerCertificationsController < AdminController
   # PUT /admin/vip_programmer_certifications/1.xml
   def update
     respond_to do |format|
-      if @vip_programmer_certification.update_attributes(vip_programmer_certification_params)
+      if @vip_programmer_certification.update(vip_programmer_certification_params)
         format.html { redirect_to([:admin, @vip_programmer_certification], notice: 'Programmer certification was successfully updated.') }
         format.xml  { head :ok }
       else

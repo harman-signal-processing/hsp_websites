@@ -55,7 +55,7 @@ class Admin::ManufacturerPartnersController < AdminController
   def update
     @manufacturer_partner = ManufacturerPartner.find(params[:id])
     respond_to do |format|
-      if @manufacturer_partner.update_attributes(manufacturer_partner_params)
+      if @manufacturer_partner.update(manufacturer_partner_params)
         format.html { redirect_to([:admin, @manufacturer_partner], notice: 'Manufacturer Partner was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated a manufacturer partner: #{@manufacturer_partner.name}")

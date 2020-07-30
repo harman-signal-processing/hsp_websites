@@ -63,7 +63,7 @@ class Admin::ProductAmpModelsController < AdminController
   # PUT /admin/product_amp_models/1.xml
   def update
     respond_to do |format|
-      if @product_amp_model.update_attributes(product_amp_model_params)
+      if @product_amp_model.update(product_amp_model_params)
         format.html { redirect_to([:admin, @product_amp_model], notice: 'Product amp_model was successfully updated.') }
         format.xml  { head :ok }
       else

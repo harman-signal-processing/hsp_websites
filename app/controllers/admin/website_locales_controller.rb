@@ -52,7 +52,7 @@ class Admin::WebsiteLocalesController < AdminController
   # PUT /website_locales/1.xml
   def update
     respond_to do |format|
-      if @website_locale.update_attributes(website_locale_params)
+      if @website_locale.update(website_locale_params)
         format.html { redirect_to([:admin, @website_locale.website], notice: 'Locale was successfully updated.') }
         format.xml  { head :ok }
       else

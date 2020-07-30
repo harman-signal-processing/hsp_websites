@@ -22,7 +22,7 @@ class Admin::VipPhonesController < AdminController
   def update
     @vip_phone = Vip::Phone.find(params[:id])
     respond_to do |format|
-      if @vip_phone.update_attributes(vip_phone_params)
+      if @vip_phone.update(vip_phone_params)
         format.html { redirect_to(admin_vip_phones_path, notice: 'AMX VIP Phone was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated a amx vip phone: #{@vip_phone.phone}")

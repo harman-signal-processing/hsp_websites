@@ -8,7 +8,7 @@ class Solution < ApplicationRecord
   has_many :product_solutions, dependent: :destroy
   has_many :products, through: :product_solutions
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
 
   def vertical_market
     @vertical_market ||= load_vertical_market

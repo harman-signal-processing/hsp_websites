@@ -54,7 +54,7 @@ class Admin::ToneLibrarySongsController < AdminController
   # PUT /admin/tone_library_songs/1.xml
   def update
     respond_to do |format|
-      if @tone_library_song.update_attributes(tone_library_song_params)
+      if @tone_library_song.update(tone_library_song_params)
         format.html { redirect_to([:admin, @tone_library_song], notice: 'Tone library song was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated tone library song: #{@tone_library_song.title}")

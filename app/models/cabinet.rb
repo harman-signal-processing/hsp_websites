@@ -4,7 +4,7 @@ class Cabinet < ApplicationRecord
 
   has_many :product_cabinets
   has_many :products, through: :product_cabinets
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
 
   has_attached_file :cab_image,
     styles: { large: "550x370",

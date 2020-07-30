@@ -21,7 +21,7 @@ class LabelSheetOrder < ApplicationRecord
 
   def expanded_label_sheets
     s = []
-    self.label_sheets.each do |i|
+    self.label_sheets.find_each do |i|
       begin
         s << LabelSheet.find(decoded_sheet_id(i))
       rescue

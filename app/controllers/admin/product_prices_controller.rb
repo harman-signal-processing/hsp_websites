@@ -56,7 +56,7 @@ class Admin::ProductPricesController < AdminController
   # PUT /admin/product_prices/1.xml
   def update
     respond_to do |format|
-      if @product_price.update_attributes(product_price_params)
+      if @product_price.update(product_price_params)
         format.html { redirect_to([:admin, @product_price], notice: 'Pricing was successfully updated.') }
         website.add_log(user: current_user, action: "Updated pricing: #{@product_price.product.name}")
       else
@@ -70,7 +70,7 @@ class Admin::ProductPricesController < AdminController
     authorize! :manage, ProductPrice
     Array(params[:product_attr].to_unsafe_h).each do |key, attr|
       product = Product.find(key)
-      product.update_attributes(attr)
+      product.update(attr)
     end
     redirect_to(admin_product_prices_path, notice: "Pricing updated successfully.")
   end

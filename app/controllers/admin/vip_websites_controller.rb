@@ -22,7 +22,7 @@ class Admin::VipWebsitesController < AdminController
   def update
     @vip_website = Vip::Website.find(params[:id])
     respond_to do |format|
-      if @vip_website.update_attributes(vip_website_params)
+      if @vip_website.update(vip_website_params)
         format.html { redirect_to(admin_vip_websites_path, notice: 'AMX VIP Website was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated a amx vip website: #{@vip_website.url}")

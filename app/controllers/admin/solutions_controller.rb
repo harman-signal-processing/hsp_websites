@@ -61,7 +61,7 @@ class Admin::SolutionsController < AdminController
   # PUT /admin/solutions/1.xml
   def update
     respond_to do |format|
-      if @solution.update_attributes(solution_params)
+      if @solution.update(solution_params)
         format.html { redirect_to([:admin, @solution], notice: 'Solution was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated solution #{@solution.name}")

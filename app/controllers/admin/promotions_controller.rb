@@ -60,7 +60,7 @@ class Admin::PromotionsController < AdminController
   # PUT /admin/promotions/1.xml
   def update
     respond_to do |format|
-      if @promotion.update_attributes(promotion_params)
+      if @promotion.update(promotion_params)
         format.html { redirect_to([:admin, @promotion], notice: 'Promotion was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated promotion: #{@promotion.name}")

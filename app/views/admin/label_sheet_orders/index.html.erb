@@ -18,7 +18,7 @@
 	</thead>
 
 	<tbody>
-	<% @label_sheet_orders.each do |lso| %>
+	<% @label_sheet_orders.find_each do |lso| %>
 	<tr>
 		<td><%= link_to lso.name, [:admin, lso] %></td>
 		<td><%= lso.expanded_label_sheets.collect{|ls| ls.name}.join(", ") %></td>

@@ -70,7 +70,7 @@ class Admin::ProductSpecificationsController < AdminController
   # PUT /admin/product_specifications/1.xml
   def update
     respond_to do |format|
-      if @product_specification.update_attributes(product_specification_params)
+      if @product_specification.update(product_specification_params)
         format.html { redirect_to(admin_product_product_specifications_path(@product_specification.product), notice: 'Product specification was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated #{@product_specification.specification.name} for #{@product_specification.product.name}")
@@ -94,7 +94,7 @@ class Admin::ProductSpecificationsController < AdminController
           end
         end
       end
-      if @product.update_attributes(product_params)
+      if @product.update(product_params)
         format.html { redirect_to([:admin, @product], notice: 'Product was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated product: #{@product.name}")

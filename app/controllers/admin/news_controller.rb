@@ -60,7 +60,7 @@ class Admin::NewsController < AdminController
   # PUT /admin/news/1.xml
   def update
     respond_to do |format|
-      if @news.update_attributes(news_params)
+      if @news.update(news_params)
         format.html { redirect_to([:admin, @news], notice: 'News was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated news: #{@news.title}")
@@ -72,7 +72,7 @@ class Admin::NewsController < AdminController
   end
 
   def delete_news_photo
-    @news.update_attributes(news_photo: nil)
+    @news.update(news_photo: nil)
     redirect_to([:admin, @news], notice: "Main photo was removed.")
   end
 

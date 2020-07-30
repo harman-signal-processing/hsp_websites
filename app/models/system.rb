@@ -9,7 +9,7 @@ class System < ApplicationRecord
 	belongs_to :brand
 
 	validates :brand, presence: true
-	validates :name, presence: true, uniqueness: { scope: :brand_id }
+	validates :name, presence: true, uniqueness: { scope: :brand_id, case_sensitive: false  }
 
 	def options_with_possible_values
 		option_ids = SystemOptionValue.where(id: self.system_options).pluck(:system_option_id).uniq
@@ -69,7 +69,7 @@ class System < ApplicationRecord
 		end
 
     # initialize all components with zero quantity
-    SystemComponent.all.each do |component|
+    SystemComponent.find_each do |component|
       @system_configuration.system_configuration_components << SystemConfigurationComponent.new(
         system_component: component,
         quantity: 0

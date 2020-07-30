@@ -22,7 +22,7 @@ class Admin::VipServiceCategoriesController < AdminController
   def update
     @vip_service_category = Vip::ServiceCategory.find(params[:id])
     respond_to do |format|
-      if @vip_service_category.update_attributes(vip_service_category_params)
+      if @vip_service_category.update(vip_service_category_params)
         format.html { redirect_to(admin_vip_service_categories_path, notice: 'AMX VIP ServiceCategory was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated a amx vip service_category: #{@vip_service_category.name}")

@@ -61,7 +61,7 @@ class Admin::DealersController < AdminController
   def update
     @dealer.skip_sync_from_sap = true
     respond_to do |format|
-      if @dealer.update_attributes(dealer_params)
+      if @dealer.update(dealer_params)
         format.html { redirect_to([:admin, @dealer], notice: 'Dealer was successfully updated.') }
         format.xml  { head :ok }
         format.js

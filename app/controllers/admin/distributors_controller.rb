@@ -62,7 +62,7 @@ class Admin::DistributorsController < AdminController
   # PUT /admin/distributors/1.xml
   def update
     respond_to do |format|
-      if @distributor.update_attributes(distributor_params)
+      if @distributor.update(distributor_params)
         format.html { redirect_to([:admin, @distributor], notice: 'Distributor was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated distributor #{@distributor.name}")

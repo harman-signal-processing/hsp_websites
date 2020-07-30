@@ -10,7 +10,7 @@
 
 <p><i>This isn't the best way to manage features. But here goes...</i></p>
 <ul>
-  <% @features.each do |feature| %>
+  <% @features.find_each do |feature| %>
     <li><%= link_to feature.name, [:admin, feature] %></li>
   <% end %>
 </ul>

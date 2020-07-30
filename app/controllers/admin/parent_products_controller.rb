@@ -76,7 +76,7 @@ class Admin::ParentProductsController < AdminController
   # PUT /admin/parent_products/1.xml
   def update
     respond_to do |format|
-      if @parent_product.update_attributes(parent_product_params)
+      if @parent_product.update(parent_product_params)
         format.html { redirect_to([:admin, @parent_product], notice: 'Product relationship was successfully updated.') }
         format.xml  { head :ok }
       else

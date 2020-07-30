@@ -76,7 +76,7 @@ class Admin::UsersController < AdminController
   # PUT /admin/users/1.xml
   def update
     respond_to do |format|
-      if @user.update_attributes(user_params)
+      if @user.update(user_params)
         format.html { redirect_to([:admin, @user], notice: 'User was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated user #{@user.name}")

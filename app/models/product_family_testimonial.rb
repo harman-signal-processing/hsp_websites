@@ -3,7 +3,7 @@ class ProductFamilyTestimonial < ApplicationRecord
   belongs_to :testimonial
 
   validates :product_family, presence: true
-  validates :testimonial, presence: true, uniqueness: { scope: :product_family }
+  validates :testimonial, presence: true, uniqueness: { scope: :product_family, case_sensitive: false }
 
   acts_as_list scope: :product_family
 end

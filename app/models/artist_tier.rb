@@ -1,7 +1,7 @@
 class ArtistTier < ApplicationRecord
   has_many :artists
-  validates :name, presence: true, uniqueness: true
-  validates :invitation_code, uniqueness: true
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
+  validates :invitation_code, uniqueness: { case_sensitive: false }
   acts_as_list
 
   def self.default

@@ -59,7 +59,7 @@ class Admin::TrainingModulesController < AdminController
   # PUT /admin/training_modules/1.xml
   def update
     respond_to do |format|
-      if @training_module.update_attributes(training_module_params)
+      if @training_module.update(training_module_params)
         format.html { redirect_to([:admin, @training_module], notice: 'Training module was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated training module")

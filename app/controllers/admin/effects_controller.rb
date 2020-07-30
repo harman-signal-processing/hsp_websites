@@ -59,7 +59,7 @@ class Admin::EffectsController < AdminController
   # PUT /effects/1.xml
   def update
     respond_to do |format|
-      if @effect.update_attributes(effect_params)
+      if @effect.update(effect_params)
         format.html { redirect_to([:admin, @effect], notice: 'Effect was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated effect: #{@effect.name}")

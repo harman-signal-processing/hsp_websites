@@ -2,5 +2,5 @@ class BrandDealer < ApplicationRecord
   belongs_to :brand
   belongs_to :dealer
   validates :brand_id, presence: true
-  validates :dealer_id, presence: true, uniqueness: { scope: :brand_id }
+  validates :dealer_id, presence: true, uniqueness: { scope: :brand_id, case_sensitive: false }
 end

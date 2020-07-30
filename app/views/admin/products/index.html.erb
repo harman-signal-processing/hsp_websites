@@ -18,7 +18,7 @@
 	</div>
 <% end %>
 
-<% ProductStatus.all.each do |product_status| %>
+<% ProductStatus.find_each do |product_status| %>
 	<h4 class="subheader"><%= product_status.name %></h4>
 
 	<ul class="list">

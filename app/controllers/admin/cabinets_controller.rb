@@ -56,7 +56,7 @@ class Admin::CabinetsController < AdminController
   # PUT /cabinets/1.xml
   def update
     respond_to do |format|
-      if @cabinet.update_attributes(cabinet_params)
+      if @cabinet.update(cabinet_params)
         format.html { redirect_to([:admin, @cabinet], notice: 'Cabinet was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated cabinet: #{@cabinet.name}")

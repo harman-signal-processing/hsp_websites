@@ -82,7 +82,7 @@ class Admin::ProductSiteElementsController < AdminController
   # PUT /admin/product_site_elements/1.xml
   def update
     respond_to do |format|
-      if @product_site_element.update_attributes(product_site_element_params)
+      if @product_site_element.update(product_site_element_params)
         format.html { redirect_to([:admin, @product_site_element], notice: 'Product site element was successfully updated.') }
         format.xml  { head :ok }
       else

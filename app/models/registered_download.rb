@@ -116,7 +116,7 @@ class RegisteredDownload < ApplicationRecord
   def remove_coupon_code!(coupon_code)
     codes = self.available_coupon_codes
     codes.delete(coupon_code)
-    self.update_attributes(coupon_codes: codes.join("\r\n"))
+    self.update(coupon_codes: codes.join("\r\n"))
   end
 
   # Column headers for excel export
@@ -160,7 +160,7 @@ class RegisteredDownload < ApplicationRecord
   # the first registrations came through)
   #
   def send_messages_to_undownloaded
-    self.download_registrations.where(download_count: 0).each do |download_registration|
+    self.download_registrations.where(download_count: 0).find_each do |download_registration|
       download_registration.deliver_download_code
     end
   end

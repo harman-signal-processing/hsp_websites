@@ -72,7 +72,7 @@ class Admin::ProductFamilyTestimonialsController < AdminController
   # PUT /admin/product_family_testimonials/1.xml
   def update
     respond_to do |format|
-      if @product_family_testimonial.update_attributes(product_family_testimonial_params)
+      if @product_family_testimonial.update(product_family_testimonial_params)
         format.html { redirect_to([:admin, @product_family_testimonial.product_family], notice: 'Product Family Testimonial was successfully updated.') }
         format.xml  { head :ok }
       else

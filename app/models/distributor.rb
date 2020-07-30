@@ -1,6 +1,6 @@
 class Distributor < ApplicationRecord
   validates :name, :country, presence: true
-  validates :account_number, presence: true, uniqueness: true
+  validates :account_number, presence: true, uniqueness: { case_sensitive: false }
   has_many :brand_distributors, dependent: :destroy
   has_many :brands, through: :brand_distributors
   has_many :distributor_users, dependent: :destroy, inverse_of: :distributor

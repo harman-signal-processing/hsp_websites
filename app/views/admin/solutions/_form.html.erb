@@ -7,7 +7,7 @@
       <%= f.input :vertical_market_id,
         hint: "(These come from #{ENV['PRO_SITE_URL']})",
         as: :select,
-        collection: SolutionMarket.all.map{|v| [v["name"], v["slug"]]}.sort_by{|name| name} %>
+        collection: SolutionMarket.find_each.map{|v| [v["name"], v["slug"]]}.sort_by{|name| name} %>
     </div>
   </div>
 

@@ -11,7 +11,7 @@
 		<th><b>Installation URL</b> (click to visit installation page)</th>
 		<th style="padding-left: 8px"><b>Title</b> (click to edit installation)</th>
 	</tr>
-<% @installations.each do |installation| %>
+<% @installations.find_each do |installation| %>
 	<tr>
 		<td><%= link_to installation_url(installation), installation_url(installation) %></td>
 		<td style="padding-left: 8px"><%= link_to installation.title, [:admin, installation] %></td>

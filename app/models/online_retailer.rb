@@ -14,7 +14,7 @@ class OnlineRetailer < ApplicationRecord
     }
 
   validates_attachment :retailer_logo, content_type: { content_type: /\Aimage/i }
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
 
   attr_accessor :brand_link, :online_retailer_link
 

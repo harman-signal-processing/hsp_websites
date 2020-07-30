@@ -51,7 +51,7 @@ class Admin::SoftwareAttachmentsController < AdminController
   # PUT /admin/software_attachments/1.xml
   def update
     respond_to do |format|
-      if @software_attachment.update_attributes(software_attachment_params)
+      if @software_attachment.update(software_attachment_params)
         format.html { redirect_to([:admin, @software_attachment], notice: 'Software attachment was successfully updated.') }
         format.xml  { head :ok }
       else

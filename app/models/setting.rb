@@ -14,7 +14,7 @@ class Setting < ApplicationRecord
   before_slide_post_process :skip_for_video, :skip_for_gifs
 
   belongs_to :brand, touch: true
-  validates :name, presence: true, uniqueness: { scope: [:locale, :brand_id] }
+  validates :name, presence: true, uniqueness: { scope: [:locale, :brand_id], case_sensitive: false  }
 
   after_initialize :steal_description
 
@@ -22,7 +22,7 @@ class Setting < ApplicationRecord
   # one exists.
   def steal_description
     if self.description.blank?
-      other = self.class.where(name: self.name).where.not(description: ['', nil]).limit(1)
+      other = Setting.unscoped.where(name: self.name).where.not(description: ['', nil]).limit(1)
       if other.size > 0
         self.description = other.first.description
       end

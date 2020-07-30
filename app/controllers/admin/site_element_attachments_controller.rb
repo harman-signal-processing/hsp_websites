@@ -55,7 +55,7 @@ class Admin::SiteElementAttachmentsController < AdminController
   # PUT /admin/site_element_attachments/1.xml
   def update
     respond_to do |format|
-      if @site_element_attachment.update_attributes(site_element_attachment_params)
+      if @site_element_attachment.update(site_element_attachment_params)
         format.html { redirect_to([:admin, @site_element], notice: 'Attachment was successfully updated.') }
         format.xml  { head :ok }
         format.js

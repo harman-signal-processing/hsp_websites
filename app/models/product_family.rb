@@ -238,7 +238,7 @@ class ProductFamily < ApplicationRecord
   def siblings_with_current_products
     s = []
     # siblings.each do |sibling|
-    self.class.where(parent_id: self.parent_id).where("id != ?", self.id).includes(:products).each do |sibling|
+    self.class.where(parent_id: self.parent_id).where("id != ?", self.id).includes(:products).find_each do |sibling|
       s << sibling if sibling.current_products.size > 0
     end
     s
@@ -426,7 +426,7 @@ class ProductFamily < ApplicationRecord
     npf.products = products
     npf.testimonials = testimonials
 
-    features.each do |f|
+    features.find_each do |f|
       new_feature = f.dup
       new_feature.featurable = npf
       new_feature.image = f.image if f.image.present?

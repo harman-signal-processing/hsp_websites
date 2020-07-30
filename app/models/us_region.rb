@@ -4,5 +4,5 @@ class UsRegion < ApplicationRecord
 
   has_many :us_rep_regions
   has_many :us_reps, through: :us_rep_regions
-  validates :name, uniqueness: true, presence: true
+  validates :name, uniqueness: { case_sensitive: false}, presence: true
 end

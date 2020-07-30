@@ -68,7 +68,7 @@ class Admin::ProductBadgesController < AdminController
   # PUT /product_badges/1.xml
   def update
     respond_to do |format|
-      if @product_badge.update_attributes(product_badge_params)
+      if @product_badge.update(product_badge_params)
         format.html { redirect_to([:admin, @product_badge.product], notice: 'Product/badge was successfully updated.') }
         format.xml  { head :ok }
       else

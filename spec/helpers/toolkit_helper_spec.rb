@@ -5,7 +5,7 @@ RSpec.describe ToolkitHelper do
   before :all do
     @website = FactoryBot.create(:website_with_products)
     @brand = @website.brand
-    @brand.update_attributes(toolkit: true)
+    @brand.update(toolkit: true)
     @product = @website.products.first
     @toolkit_resource_type = FactoryBot.create(:toolkit_resource_type, related_model: "Product")
     @toolkit_resource = FactoryBot.create(:toolkit_resource,

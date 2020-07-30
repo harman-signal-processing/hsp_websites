@@ -26,7 +26,7 @@ class Admin::NewsImagesController < AdminController
 
   def update
     respond_to do |format|
-      if @news_image.update_attributes(news_image_params)
+      if @news_image.update(news_image_params)
         format.html { redirect_to([:admin, @news], notice: 'News image was successfully updated.') }
         format.xml  { head :ok }
         format.js

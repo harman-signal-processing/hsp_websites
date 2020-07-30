@@ -12,7 +12,7 @@ class GatedSupportController < ApplicationController
 
   def super_tech_upgrade
     if current_user && current_user.technician?
-      current_user.update_attributes(super_technician: true, technician: false)
+      current_user.update(super_technician: true, technician: false)
       redirect_to gated_support_path, notice: "You now have super-tech level access. Enjoy!"
     else
       redirect_to gated_support_path, alert: "Sorry, your account must first have \"Technician\" access in order to be upgraded."

@@ -52,7 +52,7 @@ class Admin::LabelSheetsController < AdminController
   # PUT /label_sheets/1.xml
   def update
     respond_to do |format|
-      if @label_sheet.update_attributes(label_sheet_params)
+      if @label_sheet.update(label_sheet_params)
         format.html { redirect_to([:admin, @label_sheet], notice: 'Label Sheet was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated Label Sheet: #{@label_sheet.name}")

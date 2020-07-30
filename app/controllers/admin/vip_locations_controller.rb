@@ -32,7 +32,7 @@ class Admin::VipLocationsController < AdminController
   def update
     @vip_location = Vip::Location.find(params[:id])
     respond_to do |format|
-      if @vip_location.update_attributes(vip_location_params)
+      if @vip_location.update(vip_location_params)
         format.html { redirect_to(admin_vip_locations_path, notice: 'AMX VIP Location was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated a amx vip location: #{@vip_location.name} - #{@vip_location.city}")

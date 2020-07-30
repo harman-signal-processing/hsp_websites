@@ -55,7 +55,7 @@ class Admin::ProductAccessoriesController < AdminController
   # PUT /admin/product_accessories/1.xml
   def update
     respond_to do |format|
-      if @product_accessory.update_attributes(product_accessory_params)
+      if @product_accessory.update(product_accessory_params)
         format.html { redirect_to([:admin, @product_accessory], notice: 'Product Accessory was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated product accessory for #{@product_accessory.product.name}")

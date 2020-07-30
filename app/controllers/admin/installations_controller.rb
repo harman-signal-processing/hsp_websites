@@ -54,7 +54,7 @@ class Admin::InstallationsController < AdminController
   # PUT /admin/installations/1.xml
   def update
     respond_to do |format|
-      if @installation.update_attributes(installation_params)
+      if @installation.update(installation_params)
         format.html { redirect_to([:admin, @installation], notice: 'Installation was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated installation: #{@installation.title}")

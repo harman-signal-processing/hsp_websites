@@ -55,7 +55,7 @@ class Admin::MarketSegmentProductFamiliesController < AdminController
   # PUT /admin/market_segment_product_families/1.xml
   def update
     respond_to do |format|
-      if @market_segment_product_family.update_attributes(market_segment_product_family_params)
+      if @market_segment_product_family.update(market_segment_product_family_params)
         format.html { redirect_to([:admin, @market_segment_product_family], notice: 'Market segment-product family was successfully updated.') }
         format.xml  { head :ok }
       else

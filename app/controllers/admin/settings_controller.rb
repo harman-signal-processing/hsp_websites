@@ -148,7 +148,7 @@ class Admin::SettingsController < AdminController
   # PUT /admin/settings/1.xml
   def update
     respond_to do |format|
-      if @setting.update_attributes(setting_params)
+      if @setting.update(setting_params)
         red = (params[:called_from] && params[:called_from] == "homepage") ? homepage_admin_settings_path : [:admin, @setting]
         format.html { redirect_to(red, notice: 'Setting was successfully updated.') }
         format.xml  { head :ok }

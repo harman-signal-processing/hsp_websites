@@ -3,7 +3,7 @@ class AddServiceFlagsToBrands < ActiveRecord::Migration
     add_column :brands, :has_parts_form, :boolean
     add_column :brands, :has_rma_form, :boolean
     Brand.all.each do |brand|
-      brand.update_attributes({
+      brand.update({
         :has_parts_form => !!(brand.name.match(/dbx/)),
         :has_rma_form => !!(brand.name.match(/dbx/))
       })
