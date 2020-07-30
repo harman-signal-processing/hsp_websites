@@ -7,7 +7,7 @@
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
-server "rackspace1",  user: 'brandsites', roles: %w{web app background}
+#server "rackspace1",  user: 'brandsites', roles: %w{web app background}
 server "rackspace2019",  user: 'brandsites', roles: %w{web app background}
 server "rackspace2020",  user: 'brandsites', roles: %w{web app db background}, primary: true
 #server "lxrails2", user: 'brandsites', roles: %w{web app}
