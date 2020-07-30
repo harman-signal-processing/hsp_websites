@@ -39,7 +39,7 @@ class ProductAttachment < ApplicationRecord
   has_many :demo_songs, -> { order('position') }
   accepts_nested_attributes_for :demo_songs, reject_if: :all_blank
   validates :product_id, presence: true
-  validates :songlist_tag, uniqueness: { case_sensitive: false }
+  validates :songlist_tag, uniqueness: { case_sensitive: false, allow_blank: true }
   acts_as_list scope: :product_id
   before_save :hide_banner_from_carousel
   after_save :update_primary_photo
