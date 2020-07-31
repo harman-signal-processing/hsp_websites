@@ -610,23 +610,13 @@
 			</div>
 		<% end %>
 
-		<% if can? :manage, ProductReview %>
-			<div id="product_reviews" class="group">
-				<h5 class="subheader">Related News <% if website.has_reviews? %> and Reviews<% end %></h5>
+		<% if can? :manage, NewsProduct %>
+			<div id="product_news" class="group">
+				<h5 class="subheader">Related News</h5>
 				<ul class="button-group">
-					<% if website.has_reviews? %>
-						<li><%= link_to "new review", new_admin_product_review_path, class: "small success button" %></li>
-					<% end %>
 					<li><%= link_to "new news", new_admin_news_path, class: "small success button" %></li>
 				</ul>
 
-				<% if website.has_reviews? %>
-				<ul id="product_reviews_products" class="list">
-					<% @product.product_review_products.each do |prp| %>
-						<%= render '/admin/shared/product_review_product_row', prp: prp, called_from: 'product' %>
-					<% end %>
-				</ul>
-				<% end %>
 				<ul id="news_products" class="list">
 					<% @product.news_products.each do |np| %>
 						<%= render '/admin/shared/news_product_row', np: np, called_from: 'product' %>
@@ -634,6 +624,22 @@
 				</ul>
 			</div>
 		<% end %>
+
+    <% if website.has_reviews? && can?(:manage, ProductReview) %>
+			<div id="product_reviews" class="group">
+				<h5 class="subheader">Related Reviews</h5>
+				<ul class="button-group">
+          <li><%= link_to "new review", new_admin_product_review_path, class: "small success button" %></li>
+				</ul>
+
+				<ul id="product_reviews_products" class="list">
+					<% @product.product_review_products.each do |prp| %>
+						<%= render '/admin/shared/product_review_product_row', prp: prp, called_from: 'product' %>
+					<% end %>
+				</ul>
+			</div>
+		<% end %>
+
 
 		<% if website.has_artists? && can?(:manage, ArtistProduct) %>
 			<div class="group">

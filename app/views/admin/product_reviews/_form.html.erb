@@ -1,17 +1,14 @@
 <%= simple_form_for([:admin, @product_review], html: {multipart: true}) do |f| %>
 
-  <%= f.input :title %>
-  <div class="row">
-    <div class="large-6 columns">
-      <%= f.input :cover_image %>
-    </div>
-    <div class="large-6 columns">
-      <%= f.input :created_at, as: :string, label: "Date", input_html: { class: 'ui-datepicker' } %>
-    </div>
-  </div>
-  <%= f.input :external_link, placeholder: "https://www.somesite.com/..." %>
+  <%= f.input :title,
+    hint: "Magazine reviews sometimes have a title. If this doesn't apply, just put something like \"Reviewer name - Product name\"" %>
   <%= f.input :body, input_html: { class: "mceEditor" } %><br/>
-  <%= f.input :review, label: "PDF Attachment" %>
+
+  <div class="panel">
+    <p>If either of the below are provided, then the page will link the title to one of these:</p>
+    <%= f.input :external_link, placeholder: "https://www.somesite.com/..." %>
+    <%= f.input :review, label: "PDF Attachment" %>
+  </div>
 
   <br/><%= f.button :submit %>
 

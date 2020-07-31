@@ -4,9 +4,11 @@
   <% else %>
     <div class="row">
       <div class="large-10 columns">
-        <b><%=l p.post_on.to_date, format: :long %></b><br/>
-        <% if p.is_a?(ProductReview) %><%= t('product_page.review') %>:<% end %>
-        <%= link_to translate_content(p, :title), p %>
+        <% if p.external_link.present? || p.review.present? || p.body.length > 400 %>
+          <%= link_to translate_content(p, :title), p %>
+        <% else %>
+          <%= raw translate_content(p, :body) %>
+        <% end %>
       </div>
     </div>
     <div class="row">

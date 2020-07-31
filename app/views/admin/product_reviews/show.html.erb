@@ -1,8 +1,4 @@
-<h1>
-	<%=h @product_review.title %><br/>
-	<span class="little"><%= link_to(product_review_url(@product_review, locale: I18n.locale), product_review_url(@product_review, locale: I18n.locale)) %>
-	<%= link_to(image_tag("icons/external_link_icon.png"), product_review_url(@product_review, locale: I18n.locale)) %></span>
-</h1>
+<h1><%=h @product_review.title %></h1>
 
 <ul class="button-group round">
 	<li><%= link_to 'Back', admin_product_reviews_path, class: "small secondary button" %></li>
@@ -10,33 +6,9 @@
 	<li><%= link_to 'Delete', [:admin, @product_review], confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
 </ul>
 
-<% unless @product_review.cover_image_file_name.blank? %>
-<%= image_tag @product_review.cover_image.url(:small) %>
-<% end %>
+<%=raw @product_review.body %>
 
-<%= @product_review.body %>
-
-<p>
-  <b>External link:</b>
-  <%=h @product_review.external_link %>
-	<% if !!(@product_review.link_status.match(/^3/)) %>
-	<span style="background: #EDCA00; padding: 2px 5px; color: white;">redirected</span>
-	<% elsif !!(@product_review.link_status.match(/^4/)) %>
-	<span style="background: #F00; padding: 2px 5px; color: white">not found</span>
-	<% elsif !!(@product_review.link_status.match(/^5/)) %>
-	<span style="background: #F00; padding: 2px 5px; color: white">site error</span>
-	<% elsif !(@product_review.link_status.match(/^2/)) %>
-	<span style="background: #F00; padding: 2px 5px; color: white">unknown error</span>
-	<% end %>
-</p>
-
-<% if !@product_review.review_file_name.blank? %>
-<p>
-  <b>PDF Attachment:</b>
-  <%= link_to @product_review.review_file_name, @product_review.review.url %>
-</p>
-<% end %>
-
+<br/>
 <div class="row">
 	<div class="large-8 columns">
 		<div class="group">
@@ -46,7 +18,7 @@
 			    <%= f.hidden_field :product_review_id %>
 			    <div class="row collapse">
 			    	<div class="large-10 small-8 columns">
-			    		<%= f.association :product, collection: Product.all_for_website(website), label: false %> 
+			    		<%= f.association :product, collection: Product.all_for_website(website), label: false %>
 			    	</div>
 			    	<div class="large-2 small-4 columns">
 			    		<%= submit_tag 'add', class: "postfix button"  %>

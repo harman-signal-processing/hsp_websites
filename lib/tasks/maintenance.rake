@@ -9,9 +9,7 @@ namespace :maintain do
 
   desc "Check external links for product reviews"
   task :product_review_links => :environment do
-    ProductReview.to_be_checked.limit(30).each { |review|
-      test_and_update(review)
-    }
+    puts "No longer used."
   end
 
   def test_and_update(item)
