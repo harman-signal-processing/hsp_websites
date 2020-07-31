@@ -10,11 +10,13 @@ class Admin::ContentTranslationsController < AdminController
     @model_class = params[:type].classify
     @new_instance = @model_class.constantize.new
     if @model_class == "ProductReview"
-      @records = ProductReview.where("body IS NOT NULL").all
+      @records = ProductReview.where("body IS NOT NULL")
     elsif @new_instance.respond_to?(:brand_id)
-      @records = @model_class.constantize.where(brand_id: website.brand_id).all
+      @records = @model_class.constantize.where(brand_id: website.brand_id)
     elsif @new_instance.respond_to?(:product_id)
       @records = @model_class.constantize.where(product_id: website.brand.products.collect{|p| p.id})
+    elsif @new_instance.respond_to?(:featurable)
+      @records = @model_class.constantize.all.select{|r| r if r.featurable.present? && r.featurable.respond_to?(:brand_id) && r.featurable.brand_id == website.brand_id}
     else
       @records = @model_class.constantize.all
     end

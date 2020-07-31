@@ -39,7 +39,11 @@ class Feature < ApplicationRecord
   end
 
   def name
-    "#{featurable.name} #{layout_style} feature #{position}"
+    if featurable.present?
+      "#{featurable.name} #{layout_style} feature #{position}"
+    else
+      "Missing #{featurable_type} (ID: #{featurable_id}) #{layout_style} feature #{position}"
+    end
   end
 
   def delete_image_if_necessary
