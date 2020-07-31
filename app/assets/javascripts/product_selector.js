@@ -179,7 +179,8 @@ function sliderFilter(item, filter_name, selected_values) {
     // if the value has a dash in it, then consider it a range
     if (this_value.indexOf("-") >= 0) {
       var this_range = this_value.split("-");
-      if (parseFloat(this_range[0]) >= selected_values["selected_min"] && parseFloat(this_range[1]) <= selected_values["selected_max"]) {
+      // Reversing the signs per Rick K. so that products outside the lower/upper limits are shown
+      if (parseFloat(this_range[0]) <= selected_values["selected_min"] && parseFloat(this_range[1]) >= selected_values["selected_max"]) {
         return true;
       }
     } else if (this_value >= selected_values["selected_min"] && this_value <= selected_values["selected_max"]) {
