@@ -30,7 +30,7 @@ module MartinFirmwareService
           product: value_split_on_forward_slash[2],
           version: value_split_on_forward_slash[3],
           update_via_usb: value_split_on_pipe[5].to_i > 0,
-          update_via_dmx: value_split_on_pipe[6].to_i > 0,
+          update_via_dmx: (value_split_on_pipe[6].present?) ? value_split_on_pipe[6].to_i > 0 : true,
           update_via_p3:  value_split_on_pipe[7].to_i > 0
         }
       end
