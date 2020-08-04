@@ -82,9 +82,6 @@ $reveal-position-top: rem-calc(10);
 $reveal-default-width: 60%;
 $reveal-max-width: 75%;
 @import 'brand_common';
-@import 'slick';
-$slick-arrow-color: $dark-gray;
-@import 'slick-theme';
 
 .top-bar-section {
   li:not(.has-form) a:not(.button) {

@@ -21,9 +21,9 @@
       <% @product.product_reviews.reverse.each do |p| %>
         <div class="slide">
           <% if p.external_link.present? || p.review.present? || p.body.length > 400 %>
-            <%= link_to translate_content(p, :title), p %>
+            <p><%= link_to translate_content(p, :title), p %></p>
           <% else %>
-            <%= raw translate_content(p, :body) %>
+            <p><%= raw translate_content(p, :body) %></p>
           <% end %>
         </div>
       <% end %>

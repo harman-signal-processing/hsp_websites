@@ -37,6 +37,9 @@
 
 @import "font-awesome";
 @import "where_to_find";
+@import 'slick';
+$slick-arrow-color: $dark-gray;
+@import 'slick-theme';
 
 .reveal-modal-bg{position:fixed;}
 .reveal-modal{position:fixed;}
@@ -1955,5 +1958,24 @@ form#filters {
     margin-top: 5px;
     font-size: rem-calc(11px);
     font-color: #787878;
+  }
+}
+/** Slides for reviews on product page **/
+.reviews-slider {
+  .slide {
+    text-align: center;
+    padding: 110px 30px 0px;
+    background-image: asset-url("icons/review.jpg");
+    background-position: center 20px;
+    background-repeat: no-repeat;
+    p {
+      color: #555;
+      font-style: oblique;
+      font-weight: 400;
+      line-height: 1.5;
+      a {
+        color: #555;
+      }
+    }
   }
 }
