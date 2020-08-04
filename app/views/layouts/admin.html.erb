@@ -122,7 +122,7 @@
                         <li><%= link_to "Events", admin_events_path %></li>
                       <% end %>
                       <% if can?(:manage, ProductReview) && website.has_reviews? %>
-                        <li><%= link_to "Reviews (#{pluralize(ProductReview.problems(website).size, 'problem')})", admin_product_reviews_path %></li>
+                        <li><%= link_to "Reviews", admin_product_reviews_path %></li>
                       <% end %>
                       <% if can?(:manage, Faq) && website.has_faqs? %>
                         <li><%= link_to "FAQs", admin_faqs_path %></li>

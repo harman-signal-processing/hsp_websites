@@ -34,6 +34,26 @@ jQuery ($) ->
     column = $('div#column2')
     $(column).html("<img src='#{column.data("loading")}' style='padding: 20px'>")
 
+  if jQuery.fn.slick
+    $('.reviews-slider').slick
+      mobileFirst: true
+      slidesToShow: 1
+      slidesToScroll: 1
+      autoplay: true
+      autoplaySpeed: 4000
+      responsive: [
+        {
+          breakpoint: 640
+          settings:
+            slidesToShow: 1
+        },
+        {
+          breakpoint: 1024,
+          settings:
+            slidesToShow: 2,
+        }
+      ]
+
   # hide the text field with the date (don't use a hidden field so we can test the form)
   # $("form#new_warranty_registration #warranty_registration_puchased_on").hide()
 

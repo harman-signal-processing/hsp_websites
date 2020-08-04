@@ -24,7 +24,7 @@
                 var containerOffset = $container.offset();
                 var parentOffset = $this.offsetParent().offset();
 // This log helps debug problems
-console.log(parentOffset);
+//console.log(parentOffset);
 
                 if (!$this.parent().is(".pin-wrapper")) {
                     $this.wrap("<div class='pin-wrapper'>");
@@ -110,7 +110,7 @@ console.log(parentOffset);
             data.update = update;
             $(this).data('pin', data);
 //adding this log line helps debug jumping around when the page is refreshed half-scrolled
-console.log(data);
+//console.log(data);
         });
 
         $window.scroll(onScroll);

@@ -1,27 +1,33 @@
 <div id="reviews">
-	<% if @product.approved_artists.size > 0 %>
-	<div class="product_artists">
-		<% @product.approved_artists.each do |artist| %>
-		<div class="row">
-			<% if !artist.artist_photo_file_name.blank? %>
-				<div class="medium-2 small-12 columns text-center">
-					<%= link_to(image_tag(artist.artist_photo.url(:thumb_square)), artist) %>
-				</div>
-			<% end %>
-			<div class="medium-10 small-12 columns">
-				<h5 class="subheader"><%= link_to(artist.name, artist) %></h5>
-				<p style="font-style: oblique"><%= artist.quote_for(@product) %></p>
-			</div>
-		</div>
-		<% end %>
-	</div>
-	<% end %>
-	<ul>
-		<% @product.product_reviews.reverse.each do |p| %>
-		<li><b><%=l p.post_on.to_date, format: :long %></b><br/>
-			<%= t('product_page.review') %>:
-			<%= link_to translate_content(p, :title), p %>
-		</li>
-		<% end %>
-	</ul>
+  <% if @product.approved_artists.size > 0 %>
+    <div class="product_artists">
+      <% @product.approved_artists.each do |artist| %>
+        <div class="row">
+          <% if !artist.artist_photo_file_name.blank? %>
+            <div class="medium-2 small-12 columns text-center">
+              <%= link_to(image_tag(artist.artist_photo.url(:thumb_square)), artist) %>
+            </div>
+          <% end %>
+          <div class="medium-10 small-12 columns">
+            <h5 class="subheader"><%= link_to(artist.name, artist) %></h5>
+            <p style="font-style: oblique"><%= artist.quote_for(@product) %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  <% if @product.product_reviews.length > 0 %>
+    <div class="reviews-slider">
+      <% @product.product_reviews.reverse.each do |p| %>
+        <div class="slide">
+          <% if p.external_link.present? || p.review.present? || p.body.length > 400 %>
+            <p><%= link_to translate_content(p, :title), p %></p>
+          <% else %>
+            <p><%= raw translate_content(p, :body) %></p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
 </div>

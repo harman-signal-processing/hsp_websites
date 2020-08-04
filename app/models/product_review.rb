@@ -28,14 +28,8 @@ class ProductReview < ApplicationRecord
 
   has_many :content_translations, as: :translatable, foreign_key: "content_id", foreign_type: "content_type"
 
-  before_save :clear_blank_body, :reset_link_status, :stamp_link
-
   def sanitized_title
     self.title.gsub(/[\'\"]/, "")
-  end
-
-  def self.to_be_checked
-    where(["link_checked_at <= ? OR link_checked_at IS NULL", 5.days.ago]).where("external_link IS NOT NULL AND external_link != ''").order("link_checked_at ASC")
   end
 
   def self.all_for_website(website)
@@ -44,28 +38,6 @@ class ProductReview < ApplicationRecord
       r << pr if pr.products.select{|p| p if p.belongs_to_this_brand?(website)}.size > 0
     end
     r
-  end
-
-  def self.problems(website)
-    r = []
-    where("link_status != '200'").find_each do |pr|
-      r << pr if pr.products.select{|p| p if p.belongs_to_this_brand?(website)}.size > 0
-    end
-    r
-  end
-
-  def stamp_link
-    self.link_checked_at ||= Time.now
-  end
-
-  def clear_blank_body
-    if self.body =~ /^<p><br _mce_bogus="1"><\/p>$/
-      self.body = nil
-    end
-  end
-
-  def reset_link_status
-    self.link_status = '200' if self.external_link_changed?
   end
 
   # Alias for search results link_name
