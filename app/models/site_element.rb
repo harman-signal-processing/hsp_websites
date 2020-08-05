@@ -195,7 +195,7 @@ class SiteElement < ApplicationRecord
     end
 
     if self.is_image?
-      self.resource = URI.parse(URI.escape(direct_upload_url)) # use paperclip to process image(s)
+      self.resource = Addressable::URI.parse(direct_upload_url).normalize # use paperclip to process image(s)
     else
       bucket.object(paperclip_file_path).copy_from(uploaded_object, options) # does not use paperclip, just copies the item from the upload bucket to the appropriate final destination bucket for the element 
     end
