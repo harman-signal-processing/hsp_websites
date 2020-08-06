@@ -252,7 +252,7 @@ class ProductsController < ApplicationController
     begin
       @product = Product.where(cached_slug: params[:id]).first || Product.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-      redirect_to search_path(query: params[:id]) and return false
+      redirect_to search_path(query: params[:id].to_s.gsub(/\_|\-/, " ")) and return false
     end
     unless @product.belongs_to_this_brand?(website)
       redirect_to product_families_path and return
