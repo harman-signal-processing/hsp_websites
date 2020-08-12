@@ -227,11 +227,9 @@ class Product < ApplicationRecord
   end
 
   def images_for(destination="product_page")
-    attachments = []
-    self.product_attachments.find_each do |pa|
-      attachments << pa if eval("pa.for_#{destination}?")
+    product_attachments.select do |pa|
+      pa if pa.send("for_#{destination}?")
     end
-    attachments
   end
 
   def set_default_status
