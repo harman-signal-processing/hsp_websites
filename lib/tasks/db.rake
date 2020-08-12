@@ -50,4 +50,21 @@ namespace :db do
     end
   end
 
+  desc "Export mysqldump of something along with its related stuff"
+  task sqldump: :environment do
+    model = ENV['MODEL']
+    id = ENV['ID']
+    if model.blank? or id.blank?
+      puts "Must provide MODEL=Something and ID=something"
+    else
+      begin
+        record = model.constantize.send(:find, id)
+        fn = record.sqldump
+        puts "Exported mysqldump script: #{fn}"
+      rescue ActiveRecord::RecordNotFound
+        puts " >> Oops, #{model} #{id} not found you idiot."
+      end
+    end
+  end
+
 end
