@@ -54,7 +54,7 @@
 
   <% if website.has_learning_sessions.present? && website.has_learning_sessions == 1 %>
     <li class="divider hide-for-medium"></li>
-    <li><%= link_to t('learning_sessions').titleize, "https://pro.harman.com/learning-sessions", target: "_blank" %></li>
+    <li><%= link_to t('learning_sessions').titleize, "/learning-sessions", target: "_blank" %></li>
   <% end %>
 
 <% end %>
