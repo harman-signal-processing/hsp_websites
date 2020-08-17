@@ -103,6 +103,9 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       get '/contacts' => 'support#index'
       get '/partners' => 'manufacturer_partners#index'
       resources :vip_programmers, as: :vips, path: "vips", only: [:index, :show]
+
+      match "support/amx_itg_new_module_request" => "module_requests#create", as: :amx_itg_new_module_request, via: [:get, :post]
+      match "support/amx_itg_new_module_request_upload" => "module_requests#upload", as: :amx_itg_new_module_request_upload, via: [:post]
     end  # constraints(AmxDomain) do
 
     constraints(BssDomain) do
@@ -158,7 +161,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
           end
         end
         resources :product_filter_values
-      end
+      end  #  resources :products do
       resources :product_families do
         collection { post :update_order }
         member do
@@ -234,6 +237,9 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         member { get :delete_news_photo }
         resources :news_images
       end
+      
+      resources :module_requests
+      
       resources :systems do
         resources :system_options do
           resources :system_option_values

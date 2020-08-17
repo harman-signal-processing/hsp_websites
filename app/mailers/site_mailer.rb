@@ -85,4 +85,22 @@ class SiteMailer < ActionMailer::Base
          subject: "Martin Fixtures Request")
   end
 
-end
+  def amx_itg_module_request(data, recipients)
+    @module_request = data
+    if @module_request.attachment.present?
+      begin
+        attachments[@module_request.attachment_file_name] = {
+          mime_type: @module_request.attachment_content_type,
+          content: open(@module_request.attachment.url.gsub("_original.",".")).read
+        }
+      rescue
+        # couldn't attach the file, but we'll link to it anyway
+      end
+    end  #  if @module_request.attachment.present?
+
+    mail(to: recipients.split(";"),
+         from: @module_request.email,
+         subject: "AMX ITG New Module Request")
+  end  #  def amx_itg_module_request(data)
+
+end  #  class SiteMailer < ActionMailer::Base

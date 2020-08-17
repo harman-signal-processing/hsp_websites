@@ -1,0 +1,32 @@
+<div class="panel">
+  <p>Please upload the Protocol Document, Reference Manual, or other detailed documentation:</p>
+  <%= s3_uploader_form callback_url: amx_itg_new_module_request_upload_url,
+      id: "s3_uploader",
+      callback_param: "direct_upload_url",
+      acl: "public-read",
+      expiration: 24.hours.from_now.utc.iso8601,
+      max_file_size: 900.megabytes do %>
+    <div class="row">
+      <div class="large-8 columns">
+        <div class="row">
+          <div class="large-6 columns">
+            <%= file_field_tag :file %>
+          </div>
+          <div class="large-6 columns" id="amx_itg_module_doc_upload_progress">
+            <div id="uploads_container"></div>
+            <script id="template-upload" type="text/x-tmpl">
+            <div id="upload_{%=o.unique_id%}" class="upload">
+              {%=o.name%}
+              <div class="progress success progress-striped active"><span class="bar meter" style="width: 0%"></span></div>
+              <div id="upload_instruct" class="hint">Wait for the upload to complete before submitting the form.</div>
+            </div>
+            </script>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  <% end %>
+
+</div><!-- <div class="panel"> -->
+

@@ -13,6 +13,7 @@
 //= require jquery2
 //= require jquery_ujs
 //= require jquery-ui.min
+//= require s3_direct_upload
 //= require jquery.fancybox.min
 //= require jquery.datetimepicker
 //= require jquery.pin
