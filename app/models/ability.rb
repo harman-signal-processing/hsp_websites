@@ -231,7 +231,8 @@ class Ability
         can :manage, Vip::Skill
         can :manage, Vip::Training
         can :manage, Vip::Website
-      end
+        can :manage, AmxItgNewModuleRequest
+      end  #  if user.role?(:vip_programmers_admin)
     end
   end
 end
