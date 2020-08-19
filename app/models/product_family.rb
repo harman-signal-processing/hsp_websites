@@ -413,6 +413,12 @@ class ProductFamily < ApplicationRecord
     @parents_with_filters ||= family_tree.select{|pf| pf if pf.is_a?(ProductFamily) && pf.product_filters.size > 0}
   end
 
+  def review_quotes(w)
+    current_products_plus_child_products(w, nosort: true).map do |product|
+      product.product_reviews
+    end.flatten.uniq
+  end
+
   def copy!(options = {})
     npf = self.dup
     if options[:parent_id]
