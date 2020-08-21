@@ -27,7 +27,7 @@ child(:brand) do
   end
 end
 
-child @product.images_for("product_page") => :images do
+child @product.images_for("product_page").select{|i| i if i.product_attachment.present?} => :images do
   extends 'api/v2/product_attachments/show'
 end
 
@@ -35,7 +35,7 @@ child (@product.product_documents.includes(:product) + @product.viewable_site_el
   node(:name) { |d| (d.is_a?(SiteElement)) ? d.name : d.name(hide_product_name: true) }
   node(:url) do |d|
     url = (d.is_a?(SiteElement)) ? d.url : d.document.url
-    url = "http://#{request.host}#{url}" if S3_STORAGE[:storage] == :filesystem
+    url = "#{request.protocol}#{request.host}#{url}" if S3_STORAGE[:storage] == :filesystem
     url
   end
   node(:type) do |d|
@@ -60,11 +60,11 @@ child (@product.active_softwares + @product.executable_site_elements.select{|d| 
   node(:url) do |d|
     if d.is_a?(SiteElement)
       url = d.executable.url
-      url = "http://#{request.host}#{url}" if S3_STORAGE[:storage] == :filesystem
+      url = "#{request.protocol}#{request.host}#{url}" if S3_STORAGE[:storage] == :filesystem
       url
     else
       if d.link.present?
-        d.link = "http://" + d.link unless d.link.match(/^http/)
+        d.link = request.protocol + d.link unless d.link.match(/^http/)
         d.link
       else
         d.ware.url
@@ -81,3 +81,11 @@ child @product.product_specifications.includes(:specification) => :specification
   node(:name) { |s| s.specification.name }
 end
 
+child @product.product_families => :product_families do
+  attribute :name
+  node(:url) { |pf| api_v2_brand_product_family_url(@brand, pf, format: request.format.to_sym).gsub!(/\?.*$/, '') }
+end
+
+node :locales do
+  @product.locales(website)
+end

@@ -1,4 +1,5 @@
 class Brand < ApplicationRecord
+  include WaveReport
   extend FriendlyId
   friendly_id :name
 

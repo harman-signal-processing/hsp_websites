@@ -5,7 +5,7 @@ attribute :friendly_id => :id
 
 node(:direct_download_url) do |s|
   if s.link.present?
-    s.link = "http://" + s.link unless s.link.match(/^http/)
+    s.link = request.protocol + s.link unless s.link.match(/^http/)
     s.link
   else
     s.ware.url

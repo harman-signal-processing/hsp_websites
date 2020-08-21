@@ -29,4 +29,19 @@ class Specification < ApplicationRecord
     specification_group.present? ? "#{name} (#{specification_group.name})" : name
   end
 
+  def self.weight_specs
+    where("name LIKE '%weight%'").where.not("name LIKE '%ship%'").where.not("name LIKE '%weighted%'")
+  end
+
+  def self.shipping_weight_specs
+    where("name LIKE '%weight%'").where("name LIKE '%ship%'")
+  end
+
+  def self.dimensions_specs
+    where("name LIKE '%dimension%'").where.not("name LIKE '%ship%'")
+  end
+
+  def self.shipping_dimensions_specs
+    where("name LIKE '%dimension%'").where("name LIKE '%ship%'")
+  end
 end

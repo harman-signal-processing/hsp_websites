@@ -6,7 +6,7 @@ node(:name) { |d| d.name(hide_product_name: true) }
 
 node(:url) do |d|
   url = d.document.url
-  url = "http://#{request.host}#{url}" if S3_STORAGE[:storage] == :filesystem
+  url = "#{request.protocol}#{request.host}#{url}" if S3_STORAGE[:storage] == :filesystem
   url
 end
 

@@ -5,7 +5,7 @@ attribute :resource_type => :doctype
 
 node(:url) do |d|
   url = d.executable_file_name.present? ? d.executable.url : d.resource.url
-  url = "http://#{request.host}#{url}" if S3_STORAGE[:storage] == :filesystem
+  url = "#{request.protocol}#{request.host}#{url}" if S3_STORAGE[:storage] == :filesystem
   url
 end
 

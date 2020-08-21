@@ -7,4 +7,7 @@ class ProductVideo < ApplicationRecord
 
   acts_as_list scope: :product
 
+  def url
+    "https://www.youtube.com/embed/#{youtube_id}"
+  end
 end

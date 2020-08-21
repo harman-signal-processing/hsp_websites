@@ -1,4 +1,5 @@
 class ProductFamily < ApplicationRecord
+  include WaveReport
   extend FriendlyId
   friendly_id :slug_candidates
 

@@ -737,6 +737,27 @@ class Product < ApplicationRecord
     product_product_filter_values.where(product_filter: product_filter).first_or_initialize.value
   end
 
+  def user_guides
+    ug = []
+    ug << product_documents.where(document_type: "owners_manual").map{|pd| pd.document.url}
+    ug << viewable_site_elements.where("resource_type LIKE '%User Guide%' or resource_type LIKE '%Manual%'").map{|se| "https://#{se.brand.default_website.url}#{se.url}"}
+    ug
+  end
+
+  def spec_sheets
+    ss = []
+    ss << product_documents.where(document_type: ["spec_sheet", "cut_sheet"]).map{|pd| pd.document.url}
+    ss << viewable_site_elements.where("resource_type LIKE '%Spec Sheet%' or resource_type LIKE '%Data Sheet%'").map{|se| "https://#{se.brand.default_website.url}#{se.url}"}
+    ss
+  end
+
+  def best_guess_spec_value(name)
+    specs = product_specifications.where(specification_id: Specification.send("#{name}_specs").pluck(:id))
+    if specs.length > 0
+      specs.first.value
+    end
+  end
+
   def copy!
     new_product = self.dup
     new_product.product_status = ProductStatus.where(show_on_website: false).first
