@@ -10,7 +10,11 @@
         alt: product_family.name %>
     <% end %>
     <% if product_family.root? %>
-      <h3 class="text-center"><%= product_family.name %></h3>
+      <h3 class="text-center"><%= product_family.name %>
+      <% if top_level_families.length == 1 %>
+        Product Selector
+      <% end %>
+      </h3>
     <% else %>
       <div class="text-center"><%= product_family.name %></div>
     <% end %>

@@ -12,7 +12,6 @@
 		</ul>
 	</li>
 
-  <li class="divider hide-for-medium"></li>
   <li class="has-dropdown"><%= link_to t("nav.markets"), '#', class: "disabled" %>
     <ul class="dropdown">
       <% MarketSegment.all_parents(website).each do |market_segment| %>
@@ -34,11 +33,9 @@
   <% end %>
 
 	<% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
-    <li class="divider hide-for-medium"></li>
     <li><%= link_to t('where_to_buy').titleize, where_to_find_path %></li>
 	<% end %>
 
-  <li class="divider hide-for-medium"></li>
   <li class="has-dropdown"><%= link_to t("nav.case_studies"), case_studies_path %>
     <ul class="dropdown">
       <% if website.has_news? %>
@@ -48,27 +45,22 @@
   </li>
 
   <% if website.has_events? && !website.has_learning_sessions %>
-    <li class="divider hide-for-medium"></li>
     <li><%= link_to t('events').titleize, events_path %></li>
   <% end %>
 
   <% if (website.has_learning_sessions.present? && website.has_learning_sessions == 1) %>
-    <li class="divider hide-for-medium"></li>
     <li><%= link_to t('learning_sessions').titleize, "/learning-sessions" %></li>
   <% end %>
 
   <% if website.has_installations? %>
-    <li class="divider hide-for-medium"></li>
     <li><%= link_to t('installations').titleize, installations_path %></li>
   <% end %>
 
 	<% if website.has_artists? %>
-    <li class="divider hide-for-medium"></li>
     <li><%= link_to t('artists').titleize, artists_path %></li>
 	<% end %>
 
   <!--
-  <li class="divider hide-for-medium"></li>
   <li class="has-dropdown"><%#= link_to "Showcase", {}, class: "disabled" %></a>
     <ul class="dropdown">
       <li><%#= link_to "Network Security", '/network-security' %></li>
@@ -79,7 +71,6 @@
   </li>
   -->
 
-  <li class="divider hide-for-medium"></li>
   <li class="has-dropdown"><%= link_to t("nav.learn"), "/#{I18n.locale}/learn" %>
     <ul class="dropdown">
       <li><%= link_to t("nav.av_basics"), "/#{I18n.locale}/learn-av-basics" %></li>
@@ -95,10 +86,8 @@
     </ul>
   </li>
 
-  <li class="divider hide-for-medium"></li>
   <li><%= link_to t('training').titleize, "/training", target: "_blank" %></li>
 
-  <li class="divider hide-for-medium"></li>
     <li class="has-dropdown"><%= link_to t('product_support').titleize, "/#{I18n.locale}/support" %>
     <ul class="dropdown">
       <li><%= link_to t("nav.contact_us"), "/#{I18n.locale}/support" %></li>

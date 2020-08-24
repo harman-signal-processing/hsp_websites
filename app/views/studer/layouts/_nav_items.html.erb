@@ -20,7 +20,6 @@
     </ul>
   </li>
 
-  <li class="divider hide-for-medium"></li>
   <li class="has-dropdown"><%= link_to t("nav.case_studies"), case_studies_path %>
     <ul class="dropdown">
       <% if website.has_news? %>
@@ -29,7 +28,6 @@
     </ul>
   </li>
 
-  <li class="divider hide-for-medium"></li>
   <li><%= link_to t('nav.videos').titleize, videos_path, target: "_blank" %></li>
 
 	<% if website.has_artists? %>
@@ -37,7 +35,6 @@
 	<% end %>
 
   <% if website.has_learning_sessions.present? && website.has_learning_sessions == 1 %>
-    <li class="divider hide-for-medium"></li>
     <li><%= link_to t('learning_sessions').titleize, "https://pro.harman.com/learning-sessions", target: "_blank" %></li>
   <% end %>
 

@@ -3,7 +3,6 @@
     <% parent_solutions = SolutionMarket.parents %>
     <% if parent_solutions.length > 0 %>
 
-      <li class="divider hider-for-medium"></li>
       <li class="has-dropdown"><%= link_to 'Solutions', {}, class: "disabled" %>
         <ul class="dropdown">
           <% parent_solutions.each do |p| %>

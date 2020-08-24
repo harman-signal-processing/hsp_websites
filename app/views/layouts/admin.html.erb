@@ -30,7 +30,6 @@
           <ul class="left">
             <li><%= link_to "Public Site", "/" %> </li>
             <% if user_signed_in? %>
-              <li class="divider"></li>
 
               <%= cache ["admin_menu", current_user, website.brand, Date.today] do %>
                 <li class="has-dropdown"><%= link_to "Admin Menu", '#' %>
@@ -303,7 +302,6 @@
                 </li>
 
                 <% if can?(:manage, User) || can?(:manage, Brand) || can?(:manage, Website) || can?(:manage, ToolkitResourceType) %>
-                  <li class="divider"></li>
                   <li class="has-dropdown"><%= link_to "Super Admin", '#' %>
                   <ul class="dropdown">
                     <% if can? :manage, User %>
@@ -330,9 +328,8 @@
           <% if user_signed_in? %>
             <ul class="right">
               <li><%= link_to 'Logout', destroy_user_session_path %></li>
-              <li class="divider"></li>
               <li><%= link_to edit_user_registration_path do %>
-                <%= image_tag 'icons/user-white.png', alt: 'My Account' %>
+                <%= image_tag 'icons/user-white.png', lazy: false, alt: 'My Account' %>
               <% end %>
               </li>
             </ul>

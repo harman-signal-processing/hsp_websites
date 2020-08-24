@@ -19,23 +19,18 @@
     <%= render_partial "shared/solutions_nav" %>
   <% end %>
 
-  <li class="divider hide-for-medium"></li>
   <li><%= link_to t("nav.case_studies"), case_studies_path %></li>
 
   <% if (website.has_learning_sessions.present? && website.has_learning_sessions == 1) %>
-    <li class="divider hide-for-medium"></li>
     <li><%= link_to t('learning_sessions').titleize, "/learning-sessions" %></li>
   <% end %>
 
   <% if website.has_installations? %>
-    <li class="divider hide-for-medium"></li>
     <li><%= link_to t('installations').titleize, installations_path %></li>
   <% end %>
 
-  <li class="divider hide-for-medium"></li>
   <li><%= link_to t('training').titleize, "/training", target: "_blank" %></li>
 
-    <li class="divider hide-for-medium"></li>
     <li class="has-dropdown"><%= link_to t('about').titleize, '#' %>
       <ul class="dropdown">
         <li><%= link_to 'innovation'.titleize, '/innovation' %></li>
@@ -45,16 +40,13 @@
     </li>
 
 	<% if website.has_artists? %>
-    <li class="divider hide-for-medium"></li>
     <li><%= link_to t('artists').titleize, artists_path %></li>
 	<% end %>
 
 	<% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
-    <li class="divider hide-for-medium"></li>
     <li><%= link_to t('where_to_buy').titleize, where_to_find_path %></li>
 	<% end %>
 
-  <li class="divider hide-for-medium"></li>
 	<li class="has-dropdown"><%= link_to t('product_support').titleize, support_path %>
     <ul class="dropdown">
       <li><%= link_to t('contact_us').titleize, support_path %></li>

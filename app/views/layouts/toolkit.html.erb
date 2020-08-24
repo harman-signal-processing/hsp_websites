@@ -63,7 +63,6 @@
         <section class="top-bar-section">
           <% if toolkit_user_signed_in? %>
             <ul class="left">
-              <li class="divider"></li>
               <li class="has-dropdown"><a href="#">Brands</a>
                 <ul class="dropdown">
                   <% toolkit_brands.each do |brand| %>
@@ -77,11 +76,9 @@
           <ul class="right">
             <% if toolkit_user_signed_in? %>
               <li><%= link_to 'Logout', destroy_toolkit_user_session_path %></li>
-              <li class="divider"></li>
               <li><%= link_to 'My account', edit_toolkit_user_registration_path %></li>
             <% else %>
               <li><%= link_to 'Login', new_toolkit_user_session_path %></li>
-              <li class="divider"></li>
               <li><%= link_to 'Sign up', select_signup_type_path %></li>
             <% end %>
           </ul>
