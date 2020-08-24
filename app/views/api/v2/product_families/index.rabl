@@ -13,5 +13,7 @@ node(:url) { |product_family|
 }
 
 node(:wave) { |product_family|
-  wave_api_v2_brand_product_family_url(@brand, product_family, format: 'xls').gsub!(/\?.*$/, '')
+  if product_family.locales(website).include?("en-US")
+    wave_api_v2_brand_product_family_url(@brand, product_family, format: 'xls').gsub!(/\?.*$/, '')
+  end
 }

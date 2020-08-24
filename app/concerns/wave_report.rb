@@ -78,6 +78,7 @@ module WaveReport
   end
 
   def products_for_wave_report(website)
+    #I18n.locale = "en-US"
     case
     when respond_to?(:current_products_plus_child_products)
       current_products_plus_child_products(website).select{|p| p if p.brand_id == website.brand_id}
