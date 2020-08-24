@@ -53,7 +53,7 @@ class PagesController < ApplicationController
     if params[:id]
       @page = Page.find(params[:id])
     elsif params[:custom_route]
-      @page = Page.where(custom_route: params[:custom_route]).first
+      @page = Page.where(custom_route: params[:custom_route], brand_id: website.brand_id).first
     end
     unless @page
       @registered_download = RegisteredDownload.where(url: params[:custom_route], brand_id: website.brand_id).first!

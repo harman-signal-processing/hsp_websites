@@ -8,7 +8,7 @@ class Page < ApplicationRecord
 
   validates :title, presence: true, uniqueness: { scope: :brand_id, case_sensitive: false }
   validates :brand_id, presence: true
-  validates :custom_route, uniqueness: { case_sensitive: false, allow_blank: true }
+  validates :custom_route, uniqueness: { scope: :brand_id, case_sensitive: false, allow_blank: true }
 
   belongs_to :brand
 
