@@ -26,6 +26,18 @@ class Admin::BrandSpecificationForComparisonsController < AdminController
     end
   end
 
+  # DELETE /admin/brand_specifications_for_comparison/1
+  # DELETE /admin/brand_specifications_for_comparison/1.xml
+  def destroy
+    @brand_specification_for_comparison.destroy
+    respond_to do |format|
+      format.html { redirect_to(admin_brand_specification_for_comparisons_url) }
+      format.js
+      format.xml  { head :ok }
+    end
+    website.add_log(user: current_user, action: "Deleted #{@brand_specification_for_comparison.specification.name} from product comparisons.")
+  end
+
   private
 
   def initialize_bsfc

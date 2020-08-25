@@ -18,8 +18,17 @@ available for comparisons.</p>
   <% end %>
 </div>
 
+<p>Click the trash icon for any spec you no longer wish to appear on the product comparisons page.</p>
+
 <ul>
   <% @brand_specification_for_comparisons.each do |bsfc| %>
-    <li><%= link_to bsfc.specification.name, [:admin, bsfc.specification] %></li>
+    <li id="bsfc_<%= bsfc.id %>"><%= link_to bsfc.specification.name, [:admin, bsfc.specification] %>
+    <%= link_to(image_tag("icons/trash.gif", lazy: false),
+                admin_brand_specification_for_comparison_path(bsfc),
+                confirm: "Are you sure?",
+                remote: true,
+                method: :delete
+               ) %>
+    </li>
   <% end %>
 </ul>

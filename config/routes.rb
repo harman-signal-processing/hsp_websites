@@ -291,7 +291,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         member { post :add_specification }
         collection { post :update_order }
       end
-      resources :brand_specification_for_comparisons
       resources :site_elements do
         resources :site_element_attachments
         collection { post :upload }
@@ -343,6 +342,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       end
 
       resources :service_centers,
+        :brand_specification_for_comparisons,
         :market_segment_product_families,
         :product_family_case_studies,
         :product_family_testimonials,
