@@ -25,6 +25,7 @@
 //= require foundation
 //= require will_paginate_infinite
 //= require tools
+//= require product_selector
 //= require_self
 
 // soundManager.url = '/swfs/';

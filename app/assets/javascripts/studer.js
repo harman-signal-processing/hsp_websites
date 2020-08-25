@@ -31,6 +31,7 @@
 //= require chosen-jquery
 //= require enable_chosen_jquery
 //= require country_state_switch
+//= require product_selector
 
 //studer.js
 $(function(){
