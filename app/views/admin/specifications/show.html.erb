@@ -1,7 +1,16 @@
-<p>
-  <b>Name:</b>
-  <%= @specification.name %>
-</p>
+<h3><%= @specification.name %></h3>
+
+<ul class="button-group round">
+	<li><%= link_to admin_specifications_path, class: "small secondary button" do %>
+    <%= fa_icon "angle-double-left" %>
+  <% end %>
+  </li>
+  <li><%= link_to edit_admin_specification_path(@specification, locale: I18n.locale), class: "small secondary button" do %>
+      <%= fa_icon "edit" %>
+      Edit
+    <% end %>
+  </li>
+</ul>
 
 <% unless website.brand.use_flattened_specs? %>
   <p>
@@ -14,5 +23,44 @@
   </p>
 <% end %>
 
-<%= link_to 'Edit', edit_admin_specification_path(@specification, locale: I18n.locale) %> |
-<%= link_to 'Back', admin_specifications_path %>
+<h5>Products that have this spec defined</h5>
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Spec Value</th>
+      <th width="100px">&nbsp;</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @specification.product_specifications.includes(:product).order("products.name").each do |ps| %>
+    <tr>
+      <td>
+        <% if ps.product.brand == website.brand %>
+          <%= link_to ps.product.name, [:admin, ps.product] %>
+        <% else %>
+          <%= ps.product.name %>
+          <small>(<%= link_to(ps.product.brand.name,
+                              admin_product_url(ps.product, host: ps.product.brand.default_website.url),
+                              target: "_blank") %>)</small>
+        <% end %>
+      </td>
+      <td><%= ps.value %></td>
+      <td>
+        <% if ps.product.brand == website.brand %>
+          <%= link_to edit_admin_product_specification_path(ps), class: "tiny secondary radius button" do %>
+            <%= fa_icon "edit" %>&nbsp;Edit
+          <% end %>
+        <% else %>
+          <%= link_to edit_admin_product_specification_url(ps, host: ps.product.brand.default_website.url), target: "_blank", class: "tiny secondary radius button" do %>
+            <%= fa_icon "edit" %>&nbsp;Edit
+          <% end %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+
