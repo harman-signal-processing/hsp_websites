@@ -1,0 +1,7 @@
+<%= cache ["product_selector_strip", website.brand, I18n.locale] do %>
+  <div class="homepage_block ">
+    <%= link_to product_selector_path do %>
+      <%= image_tag("#{website.folder}/ProductSelector_Banner.jpg", alt: "Product Selector Banner") %>
+    <% end %>
+  </div>
+<% end %>
