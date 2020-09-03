@@ -9,7 +9,7 @@
 		  <!-- Logo  -->
 		  <div id="logo-container" style="margin-bottom:60px;">
 	    	<% if @vip_programmer.site_elements.present? && @vip_programmer.site_elements.where(resource_type:'Logo').first.resource.present? %>
-	    		<%= image_tag(@vip_programmer.site_elements.where(resource_type:'Logo').first.resource.url(:original), size: "150", alt: @vip_programmer.name, title: @vip_programmer.name) %>
+	    		<%= image_tag(@vip_programmer.site_elements.where(resource_type:'Logo').first.resource.url(:original), size: "150", alt: @vip_programmer.name, title: @vip_programmer.name, lazy: false) %>
 	    	<% end %>  
 		  </div><!-- <div id="logo-container"> -->
     	
