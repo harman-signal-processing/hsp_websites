@@ -6,7 +6,8 @@
 class AmxDomain
   # :nocov:
   def self.matches?(request)
-    !!(request.host.match(/amx/i))
+    # !!(request.host.match(/amx/i))
+    !!(request.host.match(/aws/i))
   end
   # :nocov:
 end
