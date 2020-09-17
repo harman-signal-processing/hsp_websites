@@ -1,47 +1,42 @@
-require 'google/apis/youtube_v3'
+require 'json'
+require 'nokogiri'
+require 'open-uri'
 
 class Youtube
-  class << self
 
-    def youtube_client
-      @youtube_client ||= setup_client
-    end
-
-    def get_video(video_id)
-      youtube_client.list_videos('snippet', id: video_id).items.first.snippet
-    end
-
-    def get_default_playlist_id(youtube_user)
-      get_channels(youtube_user).items.first.content_details.related_playlists.uploads
-    end
-
-    def get_user_playlists(youtube_user)
-      channel_id = get_youtube_channel_id(youtube_user)
-      youtube_client.list_playlists("snippet", channel_id: channel_id, max_results: 50).items
-    end
-
-    def get_specific_playlists(playlist_ids)
-      youtube_client.list_playlists("snippet", channel_id: playlist_ids).items
-    end
-
-    def get_youtube_channel_id(youtube_user)
-      get_channels(youtube_user).items.first.id
-    end
-
-    def get_video_list_data(youtube_list_id, options)
-      limit = options[:limit] || 4
-      youtube_client.list_playlist_items('snippet', playlist_id: youtube_list_id, max_results: limit)
-    end
-
-    def get_channels(youtube_user)
-      youtube_client.list_channels("contentDetails", for_username: youtube_user)
-    end
-
-    def setup_client
-      service = Google::Apis::YoutubeV3::YouTubeService.new
-      service.key = ENV['GOOGLE_YOUTUBE_API_KEY']
-      service
-    end
-
+  def initialize(youtube_user="")
+    @youtube_user = youtube_user
+    @base_url = "https://www.youtube.com"
   end
+
+  def get_videos(options={})
+    limit = options[:limit] || 99
+    page = Nokogiri::HTML(URI.open("https://www.youtube.com/user/#{@youtube_user}/videos"))
+
+    json = {}
+    page.search("script").each do |script|
+      if script.text.scan(/window\[\"ytInitialData\"\] \=/).length > 0
+        text = script.text.split(/\n/)[0,2].join
+        text.gsub!(/window\[\"ytInitialData\"\] \=/, "")
+        text.gsub!(/\;/, "")
+        json = JSON.parse(text)
+      end
+    end
+
+    videos = []
+    json['contents']['twoColumnBrowseResultsRenderer']['tabs'][1]['tabRenderer']['content']['sectionListRenderer']['contents'][0]['itemSectionRenderer']['contents'][0]['gridRenderer']['items'][0, limit].each do |item|
+      video = item['gridVideoRenderer']
+      if video['videoId'].present?
+        videos << {
+          id: video['videoId'],
+          thumbnail: video['thumbnail']['thumbnails'].last['url'],
+          title: video['title']['simpleText']
+        }
+      end
+    end
+
+    videos
+  end
+
 end
+

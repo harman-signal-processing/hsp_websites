@@ -2,8 +2,8 @@ module VideosHelper
 
   def related_product_links_for_video(video)
     products = []
-    if video['tags'] && video['tags'].is_a?(Array)
-      video['tags'].each do |tag|
+    if video.tags && video.tags.is_a?(Array)
+      video.tags.each do |tag|
         begin
           if Product.exists?(tag.downcase.gsub(/\s/, "-"))
             p = Product.find(tag.downcase.gsub(/\s/, "-"))

@@ -35,83 +35,17 @@ module MainHelper
     end
   end
 
-  # Note to self: if we want to display a specific playlist only, do this:
-  #
-  #   y = YouTubeIt::Client.new
-  #   playlist = y.playlists_for('DigiTechFX').first
-  #   # then do something with playlist.videos...
-  #
-  # Or, if I already know the playlist_id:
-  #
-  #   y.playlist('864F02DBB06D4EE1').videos.each do |video|
-  #     link_to video.title, video.link
-  #   end
-  #
-  def youtube_feed(youtube_user, style="table", options={})
-    return horizontal_youtube_feed(youtube_user, options) if style == "horizontal"
-
-    limit = (style == "table") ? 4 : 3
+  def youtube_feed(youtube_user)
     if youtube_user
-      begin
-	      ret = (style == "table") ? '<table class="news_list" style="margin-left: 20px">' : '<div id="video_list">'
-        if website.youtube_playlist_for_homepage.present?
-          playlist = website.youtube_playlist_for_homepage
-        else
-          playlist = Youtube.get_default_playlist_id(youtube_user)
-        end
-        Youtube.get_video_list_data(playlist, limit: limit).items.each do |v|
-          video = v.snippet
-          thumbnail = video.thumbnails.medium
-          link = play_video_url(video.resource_id.video_id)
-          if style == "table"
-            ret += "<tr>"
-            ret +=   "<td><div style='margin-left: auto; margin-right: auto; position: relative; width:120px; height:90px'>"
-            ret +=     "<img src='#{thumbnail.url}' width='320' height='180'/>"
-            #ret +=     "<div style='position:absolute; top: 30px; left: 45px; z-index: 1'>"
-            #ret +=        link_to(image_tag("play.png", alt: video["title"]), link)
-            #ret +=     "</div>"
-            ret +=   "</div></td>"
-            ret +=   "<td class='preview'><p><b>"
-            ret +=   link_to(video.title, link)
-            ret +=   "</b></p></td>"
-            ret += "</tr>"
-          else
-            ret += "<div class='video_thumbnail'>"
-            ret +=     link_to("<img src='#{thumbnail.url}' width='320' height='180'/>".html_safe, link,
-                               data: { videoid: video.resource_id.video_id }, class: 'start-video')
-            ret +=     content_tag(:div, truncate(video.title))
-            #ret +=     content_tag(:div, link_to(image_tag("play.png", alt: video["title"]), link), class: 'play_button')
-            ret += "</div>"
-          end
-	      end
-	      ret += (style == "table") ? "</table>" : "</div>"
-        raw(ret)
-      rescue
-        if !youtube_user.blank?
-          link_to("YouTube Channel", "https://www.youtube.com/user/#{youtube_user}", target: "_blank")
-        end
-      end
-    end
-  end
+      play_button = content_tag(:div, "", class: "videoplay")
+      vids = []
 
-  def horizontal_youtube_feed(youtube_user, options)
-    if youtube_user
       begin
-        vids = []
-        if website.youtube_playlist_for_homepage.present?
-          playlist = website.youtube_playlist_for_homepage
-        else
-          playlist = Youtube.get_default_playlist_id(youtube_user)
-        end
-        play_button = content_tag(:div, "", class: "videoplay")
-        Youtube.get_video_list_data(playlist, options).items.each do |v|
-          video = v.snippet
-          thumbnail = video.thumbnails.medium
-          link = play_video_url(video.resource_id.video_id)
+        Youtube.new(youtube_user).get_videos(limit: 4).each do |video|
           vids << content_tag(:li, class: 'video-thumbnail') do
-            link_to(image_tag(thumbnail.url, width: 320, height: 180) + play_button, link, target: "_blank",
-                    data: { videoid: video.resource_id.video_id }, class: 'videothumbnail start-video') +
-            content_tag(:p, video.title, class: 'video_title')
+            link_to(image_tag(video[:thumbnail], width: 320, height: 180) + play_button, play_video_url(video[:id]), target: "_blank",
+                    data: { videoid: video[:id] }, class: 'videothumbnail start-video') +
+            content_tag(:p, video[:title], class: 'video_title')
           end
         end
         content_tag(:ul, raw(vids.join), id: 'video_list', class: "large-block-grid-4 medium-block-grid-4 small-block-grid-2")
