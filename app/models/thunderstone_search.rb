@@ -1,3 +1,4 @@
+require 'addressable'
 class ThunderstoneSearch
   include HTTParty
   format :json

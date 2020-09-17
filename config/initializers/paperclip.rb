@@ -1,5 +1,6 @@
 # Disable content spoofing detector which is really buggy as of 6/2014
 require 'paperclip/media_type_spoof_detector'
+require 'addressable'
 module Paperclip
   class MediaTypeSpoofDetector
     def spoofed?

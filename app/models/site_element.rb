@@ -1,3 +1,4 @@
+require 'addressable'
 class SiteElement < ApplicationRecord
   DIRECT_UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/#{Rails.configuration.aws[:bucket]}\.s3\.amazonaws\.com\/(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
 
