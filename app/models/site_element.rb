@@ -15,6 +15,7 @@ class SiteElement < ApplicationRecord
       tiny_square: "64x64#"
     }, processors: [:thumbnail, :compression] }.merge(S3_STORAGE)
   do_not_validate_attachment_file_type :resource
+  process_in_background :resource
 
   has_attached_file :executable, S3_STORAGE
   do_not_validate_attachment_file_type :executable
@@ -196,15 +197,10 @@ class SiteElement < ApplicationRecord
     end
 
     if self.is_image?
-      self.resource = URI.parse(Addressable::URI.parse(direct_upload_url).normalize) # use paperclip to process image(s)
+      update( resource: URI.parse(Addressable::URI.parse(direct_upload_url).normalize) )
     else
-      bucket.object(paperclip_file_path).copy_from(uploaded_object, options) # does not use paperclip, just copies the item from the upload bucket to the appropriate final destination bucket for the element 
+      bucket.object(paperclip_file_path).copy_from(uploaded_object, options)
     end
-
-    # process_in_background attachment_type.to_sym
-
-    self.processed = true
-    save
 
     uploaded_object.delete
   end
@@ -317,7 +313,7 @@ protected
 
   # Queue file processing
   def queue_processing
-    SiteElement.delay.transfer_and_cleanup(id) if !self.direct_upload_url.blank? && self.saved_change_to_attribute?(:direct_upload_url)
+    transfer_and_cleanup if !self.direct_upload_url.blank? && self.saved_change_to_attribute?(:direct_upload_url)
   end
 
 end

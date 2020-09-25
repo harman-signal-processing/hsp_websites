@@ -12,6 +12,7 @@ class Setting < ApplicationRecord
     content_type: { content_type: /\A(image|video)/i },
     size: { in: 0..300.kilobytes }
   before_slide_post_process :skip_for_video, :skip_for_gifs
+  process_in_background :slide
 
   belongs_to :brand, touch: true
   validates :name, presence: true, uniqueness: { scope: [:locale, :brand_id], case_sensitive: false  }

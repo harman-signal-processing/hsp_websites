@@ -65,7 +65,7 @@ class Admin::SiteElementsController < AdminController
     @site_element.brand_id = website.brand_id
     respond_to do |format|
       if @site_element.save
-        format.html { redirect_to([:admin, @site_element], notice: 'Resource was successfully created. It may take a few seconds to process and transfer the file.') }
+        format.html { redirect_to([:admin, @site_element], notice: 'Resource was successfully created. IMPORTANT: this has been acting up lately. Wait 5 seconds, then refresh this page. Then the links below will be correct.') }
         format.xml  { render xml: @site_element, status: :created, location: @site_element }
         website.add_log(user: current_user, action: "Uploaded a site element: #{@site_element.long_name}")
       else
