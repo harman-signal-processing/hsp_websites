@@ -8,6 +8,8 @@ module FeaturesHelper
       render_pre_content(feature) + case feature.layout_style
       when "wide"
         render_wide_feature(feature, opt)
+      when "wide2"
+        render_wide2_feature(feature, opt)
       when "split"
         render_split_feature(feature, opt)
       else
@@ -47,7 +49,27 @@ module FeaturesHelper
         end
       end
     end
-  end # def render_wide_feature
+  end
+
+  # Renders wide feature with text underneath
+  def render_wide2_feature(feature, opt={})
+    if feature.image.present? || feature.content.present?
+      img = ""
+      if feature.image.present?
+        if opt[:format].present? && opt[:format] == "mobile"
+          img = feature.image.url(:medium)
+        else
+          img = feature.image.url(:original)
+        end
+      end
+
+      content_tag :div, class: "wide2-feature"  do
+        image_tag(img) + content_tag(:br) +
+        raw(update_youtube_links(translate_content(feature, :content))) +
+        content_tag(:br)
+      end
+    end
+  end
 
   # Renders split-panel features with text on one side
   def render_split_feature(feature, opt={})
@@ -69,7 +91,7 @@ module FeaturesHelper
         small_image_panel + text_panel + image_panel
       end
     end
-  end # def render_split_feature
+  end
 
   # Renders just the text of a feature
   def render_feature_text(feature, opt={})
@@ -80,7 +102,7 @@ module FeaturesHelper
         raw(update_youtube_links(translate_content(feature, :content)))
       end
     end
-  end # def render_feature_text
+  end
 
   # Inserts tags to cause any linked youtube videos to play in a popup
   def update_youtube_links(content)
@@ -95,7 +117,7 @@ module FeaturesHelper
       end
     end
     html
-  end # def update_youtube_links
+  end
 
   def render_pre_content(feature)
     content_tag :div, class: "feature-pre" do

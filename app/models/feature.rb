@@ -31,7 +31,11 @@ class Feature < ApplicationRecord
   end
 
   def self.layout_options
-    [["Wide slide with text overlay", "wide"], ["60/40 split", "split"]]
+    [
+      ["Wide slide with text overlay", "wide"],
+      ["Wide slide with text underneath", "wide2"],
+      ["60/40 split", "split"]
+    ]
   end
 
   def self.featurable_options
