@@ -103,7 +103,7 @@ group :development do
   gem 'rb-inotify', :require=>false
   gem 'sshkit'
   gem 'colorize'
-  gem 'rorvswild'
+  #gem 'rorvswild'
 end
 
 group :development, :test do

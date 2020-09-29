@@ -67,11 +67,11 @@ function initializeSliders() {
 // Adds the given element to the "show" array and removes
 // it from the "hide" array
 function showProduct(e) {
-  const show_index = window.product_elements_to_show.indexOf(e);
+  var show_index = window.product_elements_to_show.indexOf(e);
   if (show_index === -1) {
     window.product_elements_to_show.push(e);
   }
-  const hide_index = window.product_elements_to_hide.indexOf(e);
+  var hide_index = window.product_elements_to_hide.indexOf(e);
   if (hide_index > -1) {
     window.product_elements_to_hide.splice(hide_index, 1);
   }
@@ -80,11 +80,11 @@ function showProduct(e) {
 // Adds the given element to the "hide" array and removes
 // it from the "show" array
 function hideProduct(e) {
-  const show_index = window.product_elements_to_show.indexOf(e);
+  var show_index = window.product_elements_to_show.indexOf(e);
   if (show_index > -1) {
     window.product_elements_to_show.splice(show_index, 1);
   }
-  const hide_index = window.product_elements_to_hide.indexOf(e);
+  var hide_index = window.product_elements_to_hide.indexOf(e);
   if (hide_index === -1) {
     window.product_elements_to_hide.push(e);
   }
@@ -271,17 +271,20 @@ function rerunFilter() {
     $("input[name='sub_family[]'][val='"+selected_sub_families[i]+"'").prop('checked', true);
   }
 
-  for (const [filter_name, filter_values] of Object.entries(text_filter_data)) {
+  for (var filter_name in text_filter_data) {
+    var filter_values = text_filter_data[filter_name];
     for (var i = 0; i < filter_values.length; i++) {
       $("input.text-filter[type='checkbox'][name='"+filter_name+"'][value='"+filter_values[i]+"']").prop('checked', true);
     }
   }
 
-  for (const [filter_name, filter_value] of Object.entries(select_filter_data)) {
+  for (var filter_name in select_filter_data) {
+    var filter_value = select_filter_data[filter_name];
     $("select.select-filter[name='"+filter_name+"']").val(filter_value);
   }
 
-  for (const [filter_name, filter_values] of Object.entries(boolean_filter_data)) {
+  for (var filter_name in boolean_filter_data) {
+    var filter_values = boolean_filter_data[filter_name];
     for (var i = 0; i < filter_values.length; i++) {
       $("input.boolean-filter[type='checkbox'][name='"+filter_name+"'][value='"+filter_values[i]+"']").prop('checked', true);
     }
@@ -298,25 +301,25 @@ function filterProducts(selected_sub_families, text_filter_data, select_filter_d
       }
     }
 
-    for (const filter_name in text_filter_data) {
+    for (var filter_name in text_filter_data) {
       if (textFilter(this, filter_name, text_filter_data[filter_name]) == false) {
         failed_filter_count++;
       }
     }
 
-    for (const filter_name in select_filter_data) {
+    for (var filter_name in select_filter_data) {
       if (selectFilter(this, filter_name, select_filter_data[filter_name]) == false) {
         failed_filter_count++;
       }
     }
 
-    for (const filter_name in boolean_filter_data) {
+    for (var filter_name in boolean_filter_data) {
       if (booleanFilter(this, filter_name, boolean_filter_data[filter_name]) == false) {
         failed_filter_count++;
       }
     }
 
-    for (const filter_name in slider_filter_data) {
+    for (var filter_name in slider_filter_data) {
       if (sliderFilter(this, filter_name, slider_filter_data[filter_name]) == false) {
         failed_filter_count++;
       }

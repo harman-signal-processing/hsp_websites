@@ -457,7 +457,6 @@ GEM
       netrc (~> 0.8)
     riddle (2.4.2)
     rmagick (2.16.0)
-    rorvswild (1.5.7)
     rspec (3.9.0)
       rspec-core (~> 3.9.0)
       rspec-expectations (~> 3.9.0)
@@ -654,7 +653,6 @@ DEPENDENCIES
   recaptcha
   responders
   rmagick (< 3.0)
-  rorvswild
   rspec-rails
   s3_direct_upload
   sass-rails
