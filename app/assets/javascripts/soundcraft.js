@@ -17,6 +17,7 @@
 //= require jquery.pin
 //= require jquery.rwdImageMaps.min
 //= require jquery.lazyload
+//= require jquery.cookie
 //= require global_functions
 //= require slick
 //= require where_to_find
