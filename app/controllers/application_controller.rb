@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :ensure_locale_for_site, except: [:locale_root, :default_locale, :locale_selector]
   before_action :catch_criminals
+  before_action :hold_on_to_utm_params
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   layout :set_layout
@@ -399,6 +400,15 @@ private
   end
   helper_method :in_south_america?
 
+  def hold_on_to_utm_params
+    utm_campaign = params[:utm_campaign]
+    utm_medium = params[:utm_medium]
+    utm_source = params[:utm_source]
+    
+    cookies[:utm_campaign] = {  value: utm_campaign } if !utm_campaign.nil?
+    cookies[:utm_medium] = {  value: utm_medium } if !utm_medium.nil?
+    cookies[:utm_source] = {  value: utm_source } if !utm_source.nil?
+  end  #  def hold_on_to_utm_params
 
 end  #  class ApplicationController < ActionController::Base
 
