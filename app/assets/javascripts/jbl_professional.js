@@ -19,6 +19,7 @@
 //= require jquery.pin
 //= require jquery.rwdImageMaps.min
 //= require jquery.lazyload
+//= require jquery.cookie
 //= require slick
 //= require soundmanager2-nodebug-jsmin
 //= require inline_player
