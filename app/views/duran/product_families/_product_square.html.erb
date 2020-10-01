@@ -32,60 +32,29 @@ lazy = product_photo_is_png?(product)
 %>
 
 <div id="<%= product.to_param %>" class="small_product_box">
-	<% if product.layout_class.to_s.match(/vertical/i) %>
-		<div class="row collapse">
-			<div class="large-12 small-12 columns">
-				<div class="product_thumb">
-				<% if product.photo %>
-					<% if extra_large %>
-						<%= link_to image_tag(product.photo.product_attachment.url(:small), lazy: lazy), this_url, target: target %>
-					<% else %>
-						<%= link_to image_tag(product.photo.product_attachment.url(:thumb), lazy: lazy), this_url, target: target %>
-					<% end %>
-				<% end %>
-				</div>
-				<%= link_to product_name, this_url, target: target, class: "button", style:"width:250px;" %>
-				<div class="product_description">
-					<%= translate_content(product, :short_description) %>
-				</div>
-        <%= render_partial 'product_families/price', product: product %>
-				<% if compare %>
-					<div class="compare_checkbox">
-						<label>
-							<%= check_box_tag "product_ids[]", product.to_param, false %>
-							<%= t('compare') %>
-						</label>
-					</div>
-				<% end %>
-			</div>
-		</div>
+  <div class="product_thumb" data-equalizer-watch="product_thumbs">
+  <% if product.photo %>
+    <% if extra_large %>
+      <%= link_to image_tag(product.photo.product_attachment.url(:medium), lazy: lazy), this_url, target: target %>
+    <% else %>
+      <%= link_to image_tag(product.photo.product_attachment.url(:horiz_thumb), lazy: lazy), this_url, target: target %>
+    <% end %>
+  <% end %>
+  </div>
+  <h3><%= link_to product_name, this_url, target: target, class: "primary button" %></h3>
+  <div class="product_description">
+    <%= translate_content(product, :short_description) %>
+    <%= render_partial 'product_families/price', product: product %>
 
-	<% else %>
-		<div class="product_thumb">
-		<% if product.photo %>
-			<% if extra_large %>
-				<%= link_to image_tag(product.photo.product_attachment.url(:medium), lazy: lazy), this_url, target: target %>
-			<% else %>
-				<%= link_to image_tag(product.photo.product_attachment.url(:horiz_thumb), lazy: lazy), this_url, target: target %>
-			<% end %>
-		<% end %>
-		</div>
-		<h3><%= link_to product_name, this_url, target: target, class: "primary button", style:"width:250px;" %></h3>
-		<div class="product_description">
-			<%= translate_content(product, :short_description) %>
-      <%= render_partial 'product_families/price', product: product %>
-
-			<% if compare %>
-				<div class="compare_checkbox">
-					<label>
-						<%= check_box_tag "product_ids[]", product.to_param, false %>
-						<%= t('compare') %>
-					</label>
-				</div>
-			<% end %>
-		</div>
-
-	<% end %>
+    <% if compare %>
+      <div class="compare_checkbox">
+        <label>
+          <%= check_box_tag "product_ids[]", product.to_param, false %>
+          <%= t('compare') %>
+        </label>
+      </div>
+    <% end %>
+  </div>
 </div>
 
 <% end %>

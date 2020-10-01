@@ -78,7 +78,7 @@
 
   <% if @product_family.current_products.length > 0 %>
     <div class="row">
-      <div class="large-12 columns">
+      <div class="large-12 columns" data-equalizer="product_thumbs">
         <h5>Products</h5>
         <% if @product_family.show_comparisons? %>
           <%= form_tag compare_products_path, method: :get %>
