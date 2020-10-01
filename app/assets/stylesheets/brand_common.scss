@@ -1133,6 +1133,12 @@ div#product_buy_now_box {
     &.small-block-grid-1, &.medium-block-grid-3 {
       margin-left: -10px !important;
     }
+    &.chosen-choices {
+      margin-left: 0px !important;
+    }
+    &.button-group {
+      margin-left: 0px !important;
+    }
 	}
   p {
     margin-bottom: 20px;
@@ -1280,6 +1286,32 @@ h2.special_offer {
 		display: block;
 		color: #666;
 	}
+}
+#upload-site-element-container {
+  display: none;
+}
+.download-item-row {
+  position: relative;
+  a.edit-link {
+    display: none;
+  }
+  &:hover {
+    a.edit-link {
+      display: inline-block;
+    }
+  }
+  .dialog {
+    display: none;
+    position: absolute;
+    z-index: 999999;
+    top: -10px;
+    right: -10px;
+    width: 250px;
+    .button {
+      text-transform: capitalize !important;
+      letter-spacing: 1;
+    }
+  }
 }
 
 /****** News ********/

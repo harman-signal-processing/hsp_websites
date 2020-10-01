@@ -54,6 +54,16 @@ jQuery ($) ->
         }
       ]
 
+  $('a#upload-site-element-button').click (e) ->
+    e.preventDefault()
+    $('#upload-site-element-container').toggle()
+
+  $('a.edit-link').click (e) ->
+    e.preventDefault()
+    $('.dialog').hide()
+    opener = "##{ $(@).data('opener') }"
+    $(opener).toggle()
+
   # hide the text field with the date (don't use a hidden field so we can test the form)
   # $("form#new_warranty_registration #warranty_registration_puchased_on").hide()
 
@@ -76,7 +86,7 @@ jQuery ($) ->
       video_url = "https://www.youtube.com/embed/videoseries?list=#{ $(@).data('videoid') }"
     else
       video_url = "https://www.youtube.com/embed/#{ $(@).data('videoid') }?autostart=1&autoplay=1&rel=0"
-      
+
     $('#videoIFrame').attr 'data-src', video_url
     $('#videoModal').foundation 'reveal', 'open'
 

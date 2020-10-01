@@ -36,6 +36,8 @@
 //= require enable_chosen_jquery
 //= require country_state_switch
 //= require product_selector
+//= require s3_direct_upload
+//= require admin_upload
 
 soundManager.url = '/swfs/';
 soundManager.flashVersion = 9; // optional: shiny features (default = 8)

@@ -6,6 +6,7 @@ class Ability
       admin: false,
       engineer: false,
       market_manager: false,
+      marketing_staff: false,
       artist_relations: false,
       customer_service: false,
       online_retailer: false,
@@ -61,6 +62,7 @@ class Ability
         can :manage, ProductPart
       end
       if user.role?(:marketing_staff)
+        can :manage, Product
         can :manage, SiteElement
         can :manage, SupportSubject
         can :update, News

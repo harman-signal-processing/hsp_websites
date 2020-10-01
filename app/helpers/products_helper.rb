@@ -252,12 +252,24 @@ module ProductsHelper
       if i > 0
         ret += link_to('', '', name: product_tab.key)
         ret += content_tag(:div, '', class: "overline")
-        ret += content_tag(
-          :h3,
-          tab_title(product_tab, product: product),
-          class: 'content-nav',
-          data: {:'magellan-destination' => product_tab.key}
-        )
+        ret += content_tag(:div, class: "row") do
+          content_tag(:div, class: "small-9 columns") do
+            content_tag(
+            :h3,
+            tab_title(product_tab, product: product),
+            class: 'content-nav',
+            data: {:'magellan-destination' => product_tab.key}
+          )
+          end + content_tag(:div, class: "small-3 columns text-right") do
+            if can?(:manage, product)
+              if product_tab.key.match?(/downloads|documentation/)
+                link_to(new_admin_site_element_path, id: "upload-site-element-button", class: "tiny secondary button") do
+                  fa_icon("upload") + " upload"
+                end
+              end
+            end
+          end
+        end
       end
       ret += content_tag(:div, class: "product_main_tab_content content #{active_class}") do
         render_partial("products/#{product_tab.key}", product: product)

@@ -32,6 +32,8 @@ class SiteElement < ApplicationRecord
   has_many :programmer_site_elements, dependent: :destroy, foreign_key: "site_element_id", class_name: "Vip::ProgrammerSiteElement"
   has_many :programmers, through: :programmer_site_elements, class_name: "Vip::Programmer"
 
+  accepts_nested_attributes_for :products, reject_if: proc { |p| p['id'].blank? }
+
   after_initialize :copy_attributes_from_previous_version
   before_save :set_upload_attributes
   after_save :queue_processing, :touch_products
@@ -92,6 +94,11 @@ class SiteElement < ApplicationRecord
       self.is_document = old_element.is_document
       self.is_software = old_element.is_software
       self.products = old_element.products
+      begin
+        self.version = old_element.version.next
+      rescue
+        # oh well, auto next version didn't work
+      end
     end
   end
 

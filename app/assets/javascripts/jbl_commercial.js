@@ -25,7 +25,11 @@
 //= require foundation
 //= require will_paginate_infinite
 //= require tools
+//= require chosen-jquery
+//= require enable_chosen_jquery
 //= require product_selector
+//= require s3_direct_upload
+//= require admin_upload
 //= require_self
 
 // soundManager.url = '/swfs/';

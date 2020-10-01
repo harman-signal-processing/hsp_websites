@@ -1,0 +1,49 @@
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3 class="text-center"><%= @old_element.name %></h3>
+<p>&nbsp;</p>
+<div class="row">
+  <div class="small-12 medium-6 medium-offset-3 columns">
+    <p>To upload a new version, all you need is the new file and a new version number.
+    The resulting resource will maintain the same name, category and associated products.</p>
+
+    <div class="panel">
+      <%= s3_uploader_form callback_url: upload_admin_site_elements_url,
+        id: "s3_uploader",
+        callback_param: "direct_upload_url",
+        acl: "public-read",
+        expiration: 24.hours.from_now.utc.iso8601,
+        max_file_size: 900.megabytes do %>
+        <p>Navigate to the file on your computer or drag and drop it below before filling out the rest of the form:</p>
+        <div class="text-center">
+          <%= file_field_tag :file %>
+        </div>
+
+        <div id="site_element_progress">
+          <div id="uploads_container"></div>
+          <script id="template-upload" type="text/x-tmpl">
+          <div id="upload_{%=o.unique_id%}" class="upload">
+            {%=o.name%}
+            <div class="progress success progress-striped active"><span class="bar meter" style="width: 0%"></span></div>
+            <div id="upload_instruct" class="hint">Wait for the upload to complete before submitting the form.</div>
+          </div>
+          </script>
+        </div>
+      <% end %>
+    </div>
+
+    <%= simple_form_for [:admin, @site_element] do |f| %>
+      <input type="hidden" name="return_to" value="<%= @return_to %>">
+      <%= f.input :direct_upload_url, as: :hidden %>
+      <%= f.input :replaces_element, as: :hidden %>
+      <div class="row">
+        <div class="small-8 medium-6 column">
+          <%= f.input :version, label: "New Version", hint: "The one you're replacing is version \"#{@old_element.version}\"" %>
+        </div>
+      </div>
+      <%= f.submit 'Save File', class: "small button" %>
+    <% end %>
+  </div>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>

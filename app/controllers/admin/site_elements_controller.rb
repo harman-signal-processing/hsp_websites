@@ -41,8 +41,7 @@ class Admin::SiteElementsController < AdminController
 
   def new_version
     @old_element = @site_element
-    @site_element = SiteElement.new
-    @site_element.replaces_element = @old_element.to_param
+    @site_element = SiteElement.new(replaces_element: @old_element.to_param)
   end
 
   # GET /site_elements/1/edit
@@ -65,7 +64,13 @@ class Admin::SiteElementsController < AdminController
     @site_element.brand_id = website.brand_id
     respond_to do |format|
       if @site_element.save
-        format.html { redirect_to([:admin, @site_element], notice: 'Resource was successfully created. IMPORTANT: this has been acting up lately. Wait 5 seconds, then refresh this page. Then the links below will be correct.') }
+        format.html {
+          if params[:return_to]
+            redirect_to(params[:return_to], notice: "Resource was successfully uploaded.")
+          else
+            redirect_to([:admin, @site_element], notice: 'Resource was successfully created. IMPORTANT: this has been acting up lately. Wait 5 seconds, then refresh this page. Then the links below will be correct.')
+          end
+        }
         format.xml  { render xml: @site_element, status: :created, location: @site_element }
         website.add_log(user: current_user, action: "Uploaded a site element: #{@site_element.long_name}")
       else
@@ -82,7 +87,13 @@ class Admin::SiteElementsController < AdminController
     respond_to do |format|
       if @site_element.update(site_element_params)
         other_versions.each{|element| element.catchup_with_latest_version(@site_element)}
-        format.html { redirect_to([:admin, @site_element], notice: 'Resource was successfully updated. It may take a few seconds to process and transfer the file to the right place.') }
+        format.html {
+          if params[:return_to]
+            redirect_to(params[:return_to], notice: "Resource was successfully updated.")
+          else
+            redirect_to([:admin, @site_element], notice: 'Resource was successfully updated. It may take a few seconds to process and transfer the file to the right place.')
+          end
+        }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated a site element: #{@site_element.long_name}")
       else

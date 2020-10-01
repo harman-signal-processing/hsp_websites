@@ -514,7 +514,9 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     resources :product_documents, only: [:index, :show]
     resources :parts, only: [:index]
     resources :events, only: [:index, :show]
-    resources :site_elements, only: [:show]
+    resources :site_elements, only: [:show, :edit] do
+      member { get :new_version }
+    end
 
     get 'product_selector' => 'product_selector#index', as: :product_selector
     namespace :product_selector do

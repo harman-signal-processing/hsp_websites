@@ -1,7 +1,17 @@
 class SiteElementsController < ApplicationController
+  load_and_authorize_resource
+
+  def new_version
+    @old_element = @site_element
+    @site_element = SiteElement.new(replaces_element: @old_element.to_param)
+    @return_to = request.referer
+  end
+
+  def edit
+    @return_to = request.referer
+  end
 
   def show
-    @site_element = SiteElement.find(params[:id])
     case @site_element.attachment_type
     when 'resource'
       send_resource_file(@site_element)

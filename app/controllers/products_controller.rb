@@ -62,6 +62,7 @@ class ProductsController < ApplicationController
     @active_tab = params[:tab] || 'description'
 
     @promo = @product.first_promo_with_price_adjustment
+    @site_element = SiteElement.new(is_document: true, show_on_public_site: true, products: [@product])
 
     respond_to do |format|
       format.html {

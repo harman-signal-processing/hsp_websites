@@ -13,6 +13,7 @@
 //= require global_functions
 //= require_tree ./admin
 //= require chosen-jquery
+//= require enable_chosen_jquery
 
 $(document).ready(function(){
 
@@ -20,14 +21,6 @@ $(document).ready(function(){
 		var new_val = $(this).val()
 		$.get("/admin/brand_toolkit_contacts/load_user/" + new_val);
 	});
-
-  // enable chosen js
-  $('.chosen-select').chosen(
-  	{
-    	allow_single_deselect: true,
-    	no_results_text: 'No results matched',
-    	width: '100%'
-    });
 
 <% ["effect_types",
 	"artists",

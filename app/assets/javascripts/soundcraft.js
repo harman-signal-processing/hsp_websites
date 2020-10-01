@@ -32,6 +32,8 @@
 //= require enable_chosen_jquery
 //= require country_state_switch
 //= require product_selector
+//= require s3_direct_upload
+//= require admin_upload
 
 /* vendor/jquery.js (v2) doesn't work with Muse scrolling so downgraded to muse/jquery-1.8.3.min.js 30/12/2014 */
 

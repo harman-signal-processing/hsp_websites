@@ -42,6 +42,13 @@
 
   <div class="row">
     <div class="medium-6 small-12 columns">
+      <%= f.association :products,
+        label: "Related Products",
+        collection: website.brand.products,
+        include_blank: true,
+        input_html: { class: 'chosen-select' } %>
+    </div>
+    <div class="medium-6 small-12 columns">
       <label>Broad Categories-select at least one in order to appear on product pages.</label>
       <%= f.input :is_document, label: "This is a document" %>
       <%= f.input :is_software, label: "This is software" %>
