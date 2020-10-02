@@ -86,6 +86,13 @@
 	</div>
 </div>
 
+<% if @product_family.featured_product.present? %>
+  <p>
+    <b>Featured Product:</b>
+    <%= link_to @product_family.featured_product.name, [:admin, @product_family.featured_product] %>
+  </p>
+<% end %>
+
 <% if @product_family.parent %>
 <p>
 	<b>Parent Category:</b>

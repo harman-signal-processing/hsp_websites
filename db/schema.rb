@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_29_195131) do
+ActiveRecord::Schema.define(version: 2020_10_02_162417) do
 
   create_table "access_levels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -1177,6 +1177,7 @@ ActiveRecord::Schema.define(version: 2020_07_29_195131) do
     t.boolean "has_full_width_features", default: false
     t.string "product_selector_behavior"
     t.text "meta_description"
+    t.integer "featured_product_id"
     t.index ["brand_id"], name: "index_product_families_on_brand_id"
     t.index ["cached_slug"], name: "index_product_families_on_cached_slug", unique: true
     t.index ["parent_id"], name: "index_product_families_on_parent_id"

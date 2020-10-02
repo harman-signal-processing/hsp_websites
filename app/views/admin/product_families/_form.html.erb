@@ -80,6 +80,10 @@
 		</div>
 	</div>
 
+  <%= f.association :featured_product,
+    collection: website.brand.products,
+    hint: "aka. the Rick Kamlet fix. Rather than finding the first active product with a photo, use this to assign a specific product as the representative product for this family." %>
+
 	<div class="row">
 		<div class="large-8 columns">
 			<%= f.input :intro, label: "Intro text", input_html: {style: "height: 100px;"} %>

@@ -15,6 +15,7 @@ class ProductFamily < ApplicationRecord
   has_many :content_translations, as: :translatable, foreign_key: "content_id", foreign_type: "content_type"
   has_many :product_family_testimonials, -> { order('position') }, dependent: :destroy
   has_many :testimonials, through: :product_family_testimonials
+  belongs_to :featured_product, class_name: "Product"
 
   has_attached_file :family_photo, { styles: { medium: "300x300>", thumb: "100x100>" }, processors: [:thumbnail, :compression] }.merge(S3_STORAGE)
   has_attached_file :family_banner, { styles: { medium: "300x300>", thumb: "100x100>" }, processors: [:thumbnail, :compression] }.merge(S3_STORAGE)
@@ -286,6 +287,9 @@ class ProductFamily < ApplicationRecord
   end
 
   def first_product_with_photo(w)
+    if featured_product.present? && featured_product.in_production?
+      return featured_product if featured_product.primary_photo.present?
+    end
     current_products.each do |product|
       return product if product.primary_photo.present?
     end
