@@ -612,7 +612,7 @@ module ProductsHelper
         "Photometric", "Photometrics",
         "Brochures", "Brochure",
         "Illustrations", "Illustration",
-        "3D Symbols", "3D Symbol",
+        "Symbols", "Symbol",
         "CAD Drawings", "CAD Drawing",
         "Compliance", "Compliances",
         "Tech Notes", "Tech Note",
