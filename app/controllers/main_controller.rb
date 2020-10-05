@@ -290,13 +290,15 @@ class MainController < ApplicationController
     # searched.
     @results = ferret_results.select do |r|
       # exclude the following
-      # products that should not show on website && products not "In Production" OR
+      # products that should not show on website OR
+      # products not "In Production" OR
       # products that don't have the current locale OR
       # item not associated with website brand OR
       # item does not belong to the current brand OR
       # software that is not active
       r unless (
-          (r.is_a?(Product) && !r.show_on_website?(website) && r.product_status.name != "In Production") ||
+          (r.is_a?(Product) && !r.show_on_website?(website)) ||
+          (r.is_a?(Product) && r.product_status.name != "In Production") ||
           (r.is_a?(Product) && !r.locales(website).include?(I18n.locale.to_s)) ||
           (r.has_attribute?(:brand_id) && r.brand_id != website.brand_id) ||
           (r.respond_to?(:belongs_to_this_brand?) && !r.belongs_to_this_brand?(website)) ||
