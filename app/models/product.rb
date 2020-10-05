@@ -621,8 +621,8 @@ class Product < ApplicationRecord
         version: MartinFirmwareService.firmware_version(firmware_name.gsub(/ \- Firmware/, '')),
         active: true,
         category: "firmware",
-        link: MartinFirmwareService.get_update_date,
-        updated_at: Date.today
+        updated_at: MartinFirmwareService.get_update_date,
+        link: website.firmware_page
       )
     end
     f
