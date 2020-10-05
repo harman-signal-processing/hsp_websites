@@ -1,5 +1,22 @@
 namespace :martin do
 
+  desc "Automatically try to add firmware links"
+  task add_firmware_links: :environment do
+    martin = Brand.find "martin"
+    MartinFirmwareService.get_firmware_items.each do |firmware_group|
+      firmware_group[1][:items].each do |firmware_item|
+        product_name = firmware_item[:product]
+        product = Product.where(name: product_name, brand: martin).first_or_initialize
+        unless product.new_record?
+          if product.firmware_name.blank?
+            puts "Updating product #{product_name}"
+            product.update(firmware_name: "#{product_name} - Firmware")
+          end
+        end
+      end
+    end
+  end
+
   desc "Slurp up all the martin parts"
   task import_parts: :environment do
 

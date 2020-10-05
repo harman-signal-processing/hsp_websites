@@ -606,16 +606,27 @@ class Product < ApplicationRecord
   def active_softwares(locale = I18n.default_locale.to_s, website = brand.default_website)
     softwares.where("active = true and category <> 'firmware'").select{|s| s if s.locales(website).include?(locale)}
   end
-  
+
   # This method is to accommodate Soundcraft's product page needs
   def active_softwares_soundcraft(locale = I18n.default_locale.to_s, website = brand.default_website)
     softwares.where(active: true).select{|s| s if s.locales(website).include?(locale)}
-  end  
-  
+  end
+
   # Currently active firmware
   def active_firmwares(locale = I18n.default_locale.to_s, website = brand.default_website)
-    softwares.where(active: true, category: "firmware").select{|s| s if s.locales(website).include?(locale)}
-  end  
+    f = softwares.where(active: true, category: "firmware").select{|s| s if s.locales(website).include?(locale)}
+    if website.firmware_page && self.firmware_name
+      f << Software.new(
+        name: self.firmware_name,
+        version: MartinFirmwareService.firmware_version(firmware_name.gsub(/ \- Firmware/, '')),
+        active: true,
+        category: "firmware",
+        link: MartinFirmwareService.get_update_date,
+        updated_at: Date.today
+      )
+    end
+    f
+  end
 
   # Collects suggested products
   def suggested_products

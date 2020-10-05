@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_02_162417) do
+ActiveRecord::Schema.define(version: 2020_10_05_164514) do
 
   create_table "access_levels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -1493,6 +1493,7 @@ ActiveRecord::Schema.define(version: 2020_10_02_162417) do
     t.string "hidden_locales"
     t.text "meta_description"
     t.boolean "hide_contact_buttons"
+    t.string "firmware_name"
     t.index ["brand_id", "product_status_id"], name: "index_products_on_brand_id_and_product_status_id"
     t.index ["brand_id"], name: "index_products_on_brand_id"
     t.index ["cached_slug"], name: "index_products_on_cached_slug", unique: true

@@ -8,17 +8,25 @@ module MartinFirmwareService
       url = "#{ENV['MARTIN_FIRMWARE_URL']}"
       response = HTTParty.get(url)
       if response.success?
-        result = JSON.parse(response).deep_symbolize_keys
+        JSON.parse(response).deep_symbolize_keys
       else
         raise response.message
       end
-
-      result[:firmwarefiles]
     end  #  def get_firmware_data
+
+    def get_update_date
+      begin
+        parts = get_firmware_data[:"Last-Modified"].split(/\s/).drop(1)
+        parts[0] = parts[0].match(/(\w{3})/)[0].gsub(/j/, "y").gsub(/k/, "c")
+        Date.parse(parts.join(" "))
+      rescue
+        Date.today.at_beginning_of_week
+      end
+    end
 
     def get_firmware_items
       firmware_items = {}
-      get_firmware_data.each do |item|
+      get_firmware_data[:firmwarefiles].each do |item|
         # name = item[0].to_s
         value_split_on_pipe = item[1].to_s.split("|")
         value_split_on_forward_slash = value_split_on_pipe[0].split("/")
