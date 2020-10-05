@@ -404,10 +404,12 @@ private
     utm_campaign = params[:utm_campaign]
     utm_medium = params[:utm_medium]
     utm_source = params[:utm_source]
+    utm_content = params[:utm_content]
     
     cookies[:utm_campaign] = {  value: utm_campaign } if !utm_campaign.nil?
     cookies[:utm_medium] = {  value: utm_medium } if !utm_medium.nil?
     cookies[:utm_source] = {  value: utm_source } if !utm_source.nil?
+    cookies[:utm_content] = {  value: utm_content } if !utm_content.nil?
   end  #  def hold_on_to_utm_params
 
 end  #  class ApplicationController < ActionController::Base
