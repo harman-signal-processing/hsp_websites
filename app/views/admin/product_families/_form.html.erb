@@ -101,6 +101,7 @@
   <br/>
 	<%= f.input :hide_from_navigation, hint: "Experimental. May not hide everywhere." %>
   <%= f.input :has_full_width_features %>
+  <%= f.input :show_review_quotes %>
 
   <% unless f.object.new_record? %>
     <%= f.association :brand, label: "Move this family to another brand" %>
