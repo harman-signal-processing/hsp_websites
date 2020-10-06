@@ -104,7 +104,7 @@
     <% elsif item.is_a?(Software) %>
       <td>
         <%= platform_icon(item, 17) %>
-        <%= link_to item.name, item %>
+        <%= link_to item.name, (item.link.present? && item.new_record?) ? item.link : item %>
         <div class="show-for-small">
           <%= flag_for(item) %>
           <i>
