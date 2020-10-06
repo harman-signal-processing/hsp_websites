@@ -1,0 +1,37 @@
+<div id="edit-title-block">
+  <%= simple_form_for [:admin, @product] do |f| %>
+    <%= f.input :name %>
+    <%= f.input :short_description %>
+    <%= f.association :product_status, collection: ProductStatus.simplified_options %>
+    <%= f.association :product_families,
+          collection: website.brand.product_families,
+          include_blank: true,
+          input_html: { class: 'chosen-select' } %>
+    <br/>
+    <%= f.association :badges,
+          include_blank: true,
+          input_html: { class: 'chosen-select' } %>
+    <br/>
+    <% if website.brand.show_pricing? %>
+      <div class="row">
+        <div class="small-6 columns">
+          <%= f.input :msrp, label: "Retail price", placeholder: "9999.99" %>
+        </div>
+        <div class="small-6 columns">
+          <%= f.input :street_price, placeholder: "9999.99" %>
+        </div>
+      </div>
+    <% end %>
+    <%= f.input :hide_buy_it_now_button %>
+    <br/>
+    <div class="row">
+      <div class="small-6 columns">
+        <%= f.submit "Save Changes", class: "small button" %>
+      </div>
+      <div class="small-6 columns text-right">
+        <%= link_to "cancel", '#', onclick: "$('#edit-title-block').toggle()" %>
+      </div>
+    </div>
+  <% end %>
+</div>
+

@@ -185,6 +185,12 @@ set_meta_tags title: @product.name,
 
   <div class="large-4 small-12 columns">
     <div class="product-title-block show-for-large-up">
+      <% if can?(:manage, @product) %>
+        <%= link_to edit_admin_product_path(@product), class: "edit-link", data: { opener: "edit-title-block" } do %>
+          <%= fa_icon "edit" %>
+        <% end %>
+        <%= render_partial "edit_title_block" %>
+      <% end %>
       <h1>
         <% if @product.brand_id != website.brand_id %><%= @product.brand.name %><% end %>
         <%= title translate_content(@product, :name) %>

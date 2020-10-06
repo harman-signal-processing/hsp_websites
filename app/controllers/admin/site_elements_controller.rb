@@ -108,7 +108,13 @@ class Admin::SiteElementsController < AdminController
   def destroy
     @site_element.destroy
     respond_to do |format|
-      format.html { redirect_to(admin_site_elements_url) }
+      format.html {
+        if params[:return_to]
+          redirect_to(params[:return_to], notice: "#{@site_element.long_name} was successfully deleted.")
+        else
+          redirect_to(admin_site_elements_url)
+        end
+      }
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted a site element: #{@site_element.long_name}")

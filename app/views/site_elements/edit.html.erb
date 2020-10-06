@@ -67,7 +67,16 @@
       <%= f.input :is_software, label: "Show this item as software on the product page." %>
       <%= f.input :show_on_public_site, label: "Also show on the main downloads page in the support area of the site." %>
 
-      <%= f.submit 'Save Changes', class: "small button" %>
+      <div class="row">
+        <div class="small-6 columns">
+          <%= f.submit 'Save Changes', class: "small button" %>
+        </div>
+        <div class="small-6 columns text-right">
+          <%= link_to admin_site_element_path(f.object, return_to: request.path), method: :delete, class: "alert small button", data: { confirm: "Are you sure? This will remove \"#{f.object.long_name}\" from ALL related pages." } do %>
+            <%= fa_icon "trash" %>
+            delete
+          <% end %>
+        </div>
     <% end %>
   </div>
 </div>
