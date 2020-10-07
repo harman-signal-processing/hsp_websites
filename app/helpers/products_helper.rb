@@ -266,10 +266,6 @@ module ProductsHelper
                 link_to(new_admin_site_element_path, id: "upload-site-element-button", class: "tiny secondary button") do
                   fa_icon("upload") + " upload"
                 end
-              elsif product_tab.key.match?(/features/)
-                link_to(edit_admin_product_path(product), class: 'edit-link', data: { opener: "edit-#{product_tab.key}" } ) do
-                  fa_icon("edit") + "&nbsp;&nbsp;".html_safe
-                end
               end
             end
           end

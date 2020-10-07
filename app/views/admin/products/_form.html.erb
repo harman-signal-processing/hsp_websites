@@ -53,7 +53,8 @@
   <% if website.firmware_page %>
     <div class="large-6 column">
       <%= f.input :firmware_name,
-        hint: "This will automatically add a firmware link on the product page with its latest version." %>
+        label: "Firmware Name(s)",
+        hint: "This will automatically add a firmware links on the product page with its latest version. Separate multiples with | " %>
     </div>
   <% end %>
 </div>

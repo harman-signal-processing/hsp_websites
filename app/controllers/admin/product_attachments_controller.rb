@@ -44,7 +44,13 @@ class Admin::ProductAttachmentsController < AdminController
   def create
     respond_to do |format|
       if @product_attachment.save
-        format.html { redirect_to([:admin, @product_attachment.product], notice: 'Product Attachment was successfully created.') }
+        format.html {
+          if params[:return_to]
+            redirect_to(params[:return_to], notice: "Image was successfully uploaded.")
+          else
+            redirect_to([:admin, @product_attachment.product], notice: 'Product Attachment was successfully created.')
+          end
+        }
         format.xml  { render xml: @product_attachment, status: :created, location: @product_attachment }
         format.js # Not really applicable because the attachment can't be sent via AJAX
         website.add_log(user: current_user, action: "Created product attachment for #{@product_attachment.product.name}")

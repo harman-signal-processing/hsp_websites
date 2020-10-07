@@ -1,0 +1,38 @@
+<div id="edit-images" class="popup-form">
+  <div class="row">
+    <div class="small-8 columns">
+      <h5>Product images</h5>
+    </div>
+    <div class="small-4 columns text-right">
+      <%= link_to @product, class: "cancel-edit" do %>
+        <%= fa_icon "close" %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="panel">
+    <%= simple_form_for [:admin, ProductAttachment.new(product_id: @product.id)] do |f| %>
+      <input type="hidden" name="return_to" value="<%= product_path(@product) %>">
+      <%= f.hidden_field :product_id %>
+      <%= f.input :product_attachment, label: "New image" %>
+      <%= f.submit "Upload", class: "small button" %>
+    <% end %>
+  </div>
+
+  <p><em>More functionality coming soom.</em></p>
+
+  <ul id="product_attachments" class="sortable_list">
+    <% @product.product_attachments.each do |pa| %>
+      <%#= render '/admin/shared/product_attachment_row', pa: pa %>
+    <% end %>
+  </ul>
+
+  <% if @product.product_attachments.size > 1 %>
+    <p class="small">Drag to change the order the images appear on the product page. You'll
+    also need to refresh the page to see your changes.</p>
+  <% end %>
+
+</div>
+
+
+

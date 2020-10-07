@@ -30,6 +30,8 @@
 //= require foundation
 //= require swfobject
 //= require tools
+//= require tinymce-jquery
+//= require tiny
 //= require will_paginate_infinite
 //= require jbl_professional_application
 //= require_self

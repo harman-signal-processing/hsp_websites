@@ -1,16 +1,37 @@
 <div id="edit-description" class="popup-form">
+  <div class="row">
+    <div class="small-8 columns">
+      <h5>Descriptions</h5>
+    </div>
+    <div class="small-4 columns text-right">
+      <%= link_to @product, class: "cancel-edit" do %>
+        <%= fa_icon "close" %>
+      <% end %>
+    </div>
+  </div>
+
   <%= simple_form_for [:admin, @product] do |f| %>
     <input type="hidden" name="return_to" value="<%= product_path(@product) %>">
-    <%= f.input :description, label: false, as: :text, input_html: { class: "mceEditor" } %><br/>
+
+    <% # use the loop to show things in the right order %>
+    <% @product.main_tabs.each do |t| %>
+      <% if t.key == "description" %>
+        <%= f.input :description, label: "Main description", as: :text, input_html: { class: "mceEditor" } %><br/>
+      <% elsif t.key == "extended_description" %>
+        <%= f.input :extended_description_tab_name,
+          label: "More details title",
+          hint: "Standard is \"More Details\". Leave blank to use the standard." %>
+        <%= f.input :extended_description, label: false, as: :text, input_html: { class: "mceEditor" } %><br/>
+      <% elsif t.key == "features" %>
+        <%= f.input :features_tab_name,
+          label: "Features title",
+          hint: "Standard is \"Features\". Leave blank to use the standard (most common)." %>
+        <%= f.input :features, label: false, as: :text, input_html: { class: "mceEditor" } %><br/>
+      <% end %>
+    <% end %>
+
     <br/>
-    <div class="row">
-      <div class="small-6 columns">
-        <%= f.submit "Save Changes", class: "small button" %>
-      </div>
-      <div class="small-6 columns text-right">
-        <%= link_to "cancel", @product, class: "cancel-edit"%>
-      </div>
-    </div>
+    <%= f.submit "Save Changes", class: "small button" %>
   <% end %>
 </div>
 

@@ -28,6 +28,8 @@
 //= require will_paginate_infinite
 //= require soundcraft_application
 //= require tools
+//= require tinymce-jquery
+//= require tiny
 //= require_self
 //= require chosen-jquery
 //= require enable_chosen_jquery

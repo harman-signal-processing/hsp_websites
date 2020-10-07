@@ -28,6 +28,8 @@
 //= require crown_application
 //= require network_audio
 //= require tools
+//= require tinymce-jquery
+//= require tiny
 //= require_self
 //= require chosen-jquery
 //= require enable_chosen_jquery

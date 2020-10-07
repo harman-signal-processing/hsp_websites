@@ -61,6 +61,7 @@ jQuery ($) ->
   $('a.edit-link').click (e) ->
     e.preventDefault()
     $('.dialog').hide()
+    $('.popup-form').hide()
     opener = "##{ $(@).data('opener') }"
     $(opener).toggle()
 

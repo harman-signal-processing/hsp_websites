@@ -24,6 +24,8 @@
 //= require homepage
 //= require foundation
 //= require tools
+//= require tinymce-jquery
+//= require tiny
 //= require will_paginate_infinite
 //= require dod_application
 //= require_self

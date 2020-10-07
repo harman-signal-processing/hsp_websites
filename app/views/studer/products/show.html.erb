@@ -153,39 +153,47 @@ set_meta_tags title: @product.name,
     <% end %>
 
 		<% if @product.images_for("product_page").size > 1 %>
-      <% if !!(website.no_lightbox) %>
-        <ul id="product_thumbnails" class="large-block-grid-6 small-block-grid-3">
-          <% @product.images_for("product_page").each do |product_attachment| %>
-            <% unless product_attachment.hide_from_product_page? %>
-              <% if product_attachment.product_media_thumb_file_name.present? %>
-                <li><div><%= link_to_product_attachment(product_attachment) %></div></li>
-              <% else %>
-                <li><div><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square)), product_attachment.product_attachment.url(:original)) %></div></li>
+      <div id="product-thumbnail-container">
+        <% if !!(website.no_lightbox) %>
+          <ul id="product_thumbnails" class="large-block-grid-6 small-block-grid-3">
+            <% @product.images_for("product_page").each do |product_attachment| %>
+              <% unless product_attachment.hide_from_product_page? %>
+                <% if product_attachment.product_media_thumb_file_name.present? %>
+                  <li><div><%= link_to_product_attachment(product_attachment) %></div></li>
+                <% else %>
+                  <li><div><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square)), product_attachment.product_attachment.url(:original)) %></div></li>
+                <% end %>
               <% end %>
             <% end %>
-          <% end %>
-        </ul>
-      <% else %>
-        <ul id="product_thumbnails" class="large-block-grid-6 small-block-grid-3">
-          <% @product.images_for("product_page").each do |product_attachment| %>
-            <% unless product_attachment.hide_from_product_page? %>
-              <% if product_attachment.product_media_thumb_file_name.present? %>
-                <li><div><%= link_to_product_attachment(product_attachment) %></div></li>
-              <% else %>
-                <li>
-                  <div>
-                    <%= link_to(product_attachment.product_attachment.url(:original),
-                      data: product_attachment.no_lightbox? ? {} : { fancybox: 'product-thumbnails' }) do %>
-                      <%= image_tag(product_attachment.product_attachment.url(:tiny_square)) %>
-                    <% end %>
-                  </div>
-                </li>
+          </ul>
+        <% else %>
+          <ul id="product_thumbnails" class="large-block-grid-6 small-block-grid-3">
+            <% @product.images_for("product_page").each do |product_attachment| %>
+              <% unless product_attachment.hide_from_product_page? %>
+                <% if product_attachment.product_media_thumb_file_name.present? %>
+                  <li><div><%= link_to_product_attachment(product_attachment) %></div></li>
+                <% else %>
+                  <li>
+                    <div>
+                      <%= link_to(product_attachment.product_attachment.url(:original),
+                        data: product_attachment.no_lightbox? ? {} : { fancybox: 'product-thumbnails' }) do %>
+                        <%= image_tag(product_attachment.product_attachment.url(:tiny_square)) %>
+                      <% end %>
+                    </div>
+                  </li>
+                <% end %>
               <% end %>
             <% end %>
+          </ul>
+        <% end %>
+        <div class="larger_tag"> <%= t('product_page.larger_images') %> </div>
+        <% if can?(:manage, @product) %>
+          <%= link_to edit_admin_product_path(@product), class: "edit-link", data: { opener: "edit-images" } do %>
+            <%= fa_icon "edit" %> edit images
           <% end %>
-        </ul>
-      <% end %>
-      <div class="larger_tag"><%= t('product_page.larger_images') %></div>
+          <%= render_partial "edit_images" %>
+        <% end %>
+      </div>
 		<% end %>
 
 		<!-- <%= @active_tab %> -->
@@ -199,6 +207,12 @@ set_meta_tags title: @product.name,
 
   <div class="large-4 small-12 columns">
     <div class="product-title-block show-for-large-up">
+      <% if can?(:manage, @product) %>
+        <%= link_to edit_admin_product_path(@product), class: "edit-link", data: { opener: "edit-title-block" } do %>
+          <%= fa_icon "edit" %> edit
+        <% end %>
+        <%= render_partial "edit_title_block" %>
+      <% end %>
       <h1>
         <% if @product.brand_id != website.brand_id %><%= @product.brand.name %><% end %>
         <%= title translate_content(@product, :name) %>

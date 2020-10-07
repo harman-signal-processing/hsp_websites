@@ -1,6 +1,3 @@
 <div class="features text-content">
   <%=raw translate_content(@product, :features) %>
-  <% if can?(:manage, @product) %>
-    <%= render_partial "edit_features" %>
-  <% end %>
 </div>

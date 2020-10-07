@@ -25,6 +25,8 @@
 //= require foundation
 //= require swfobject
 //= require tools
+//= require tinymce-jquery
+//= require tiny
 //= require will_paginate_infinite
 //= require s3_direct_upload
 //= require admin_upload
