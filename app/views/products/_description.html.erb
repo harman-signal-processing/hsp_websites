@@ -1,4 +1,10 @@
 <div class="description text-content">
+  <% if can?(:manage, @product) %>
+    <%= link_to edit_admin_product_path(@product), class: "edit-link", data: { opener: "edit-description" } do %>
+      <%= fa_icon "edit" %>
+    <% end %>
+    <%= render_partial "edit_description" %>
+  <% end %>
 
   <%=raw translate_content(@product, :description) %>
 

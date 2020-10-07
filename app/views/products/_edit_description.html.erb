@@ -1,0 +1,17 @@
+<div id="edit-description" class="popup-form">
+  <%= simple_form_for [:admin, @product] do |f| %>
+    <input type="hidden" name="return_to" value="<%= product_path(@product) %>">
+    <%= f.input :description, label: false, as: :text, input_html: { class: "mceEditor" } %><br/>
+    <br/>
+    <div class="row">
+      <div class="small-6 columns">
+        <%= f.submit "Save Changes", class: "small button" %>
+      </div>
+      <div class="small-6 columns text-right">
+        <%= link_to "cancel", @product, class: "cancel-edit"%>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+

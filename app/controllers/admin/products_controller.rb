@@ -107,7 +107,13 @@ class Admin::ProductsController < AdminController
   def update
     respond_to do |format|
       if @product.update(product_params)
-        format.html { redirect_to([:admin, @product], notice: 'Product was successfully updated.') }
+        format.html {
+          if params[:return_to]
+            redirect_to(params[:return_to], notice: "Product was successfully updated.")
+          else
+            redirect_to([:admin, @product], notice: 'Product was successfully updated.')
+          end
+        }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated product: #{@product.name}")
       else

@@ -252,7 +252,7 @@ module ProductsHelper
       if i > 0
         ret += link_to('', '', name: product_tab.key)
         ret += content_tag(:div, '', class: "overline")
-        ret += content_tag(:div, class: "row") do
+        ret += content_tag(:div, class: "row", id: "product-#{product_tab.key}") do
           content_tag(:div, class: "small-9 columns") do
             content_tag(
             :h3,
@@ -265,6 +265,10 @@ module ProductsHelper
               if product_tab.key.match?(/downloads|documentation/)
                 link_to(new_admin_site_element_path, id: "upload-site-element-button", class: "tiny secondary button") do
                   fa_icon("upload") + " upload"
+                end
+              elsif product_tab.key.match?(/features/)
+                link_to(edit_admin_product_path(product), class: 'edit-link', data: { opener: "edit-#{product_tab.key}" } ) do
+                  fa_icon("edit") + "&nbsp;&nbsp;".html_safe
                 end
               end
             end

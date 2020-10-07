@@ -75,6 +75,7 @@ class ProductStatus < ApplicationRecord
   def simplified_name
     n = name
     n += " (hidden from public)" if is_hidden?
+    n += " (coming soon)" if show_on_website? && !in_production? && !discontinued?
     n += " (not supported)" if not_supported?
     n
   end

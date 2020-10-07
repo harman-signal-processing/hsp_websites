@@ -1,5 +1,6 @@
-<div id="edit-title-block">
+<div id="edit-title-block" class="popup-form">
   <%= simple_form_for [:admin, @product] do |f| %>
+    <input type="hidden" name="return_to" value="<%= product_path(@product) %>">
     <%= f.input :name %>
     <%= f.input :short_description %>
     <%= f.association :product_status, collection: ProductStatus.simplified_options %>
@@ -29,7 +30,7 @@
         <%= f.submit "Save Changes", class: "small button" %>
       </div>
       <div class="small-6 columns text-right">
-        <%= link_to "cancel", '#', onclick: "$('#edit-title-block').toggle()" %>
+        <%= link_to "cancel", @product, class: "cancel-edit" %>
       </div>
     </div>
   <% end %>

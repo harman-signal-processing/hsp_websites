@@ -64,6 +64,10 @@ jQuery ($) ->
     opener = "##{ $(@).data('opener') }"
     $(opener).toggle()
 
+  $('a.cancel-edit').click (e) ->
+    e.preventDefault()
+    $('.popup-form').hide()
+
   # hide the text field with the date (don't use a hidden field so we can test the form)
   # $("form#new_warranty_registration #warranty_registration_puchased_on").hide()
 

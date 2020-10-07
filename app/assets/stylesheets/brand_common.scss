@@ -1017,15 +1017,9 @@ div.product-title-block, div.small-title-block {
     z-index: 9999;
   }
   #edit-title-block {
-    display: none;
-    position: absolute;
-    z-index: 9999;
     width: 500px;
     top: -20px;
     right: 100px;
-    background: white;
-    padding: 20px;
-    box-shadow: 0px 0px 8px 6px rgba(190, 190, 190, 0.5);
   }
   h1 {
     font-size: 68px;
@@ -1175,6 +1169,54 @@ div#product_buy_now_box {
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
+.description {
+  position: relative;
+  a.edit-link {
+    display: none;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    z-index: 99999;
+    background: rgba(255,255,255,0.5);
+    padding: 4px 8px;
+  }
+  &:hover {
+    a.edit-link {
+      display: inline-block;
+    }
+  }
+  #edit-description {
+    width: 700px;
+    bottom: -50px;
+    right: 30px;
+  }
+}
+#product-features {
+  position: relative;
+  a.edit-link {
+    display: none;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    z-index: 99999;
+    background: rgba(255,255,255,0.5);
+    padding: 4px 8px;
+  }
+  &:hover {
+    a.edit-link {
+      display: inline-block;
+    }
+  }
+}
+.features {
+  position: relative;
+  #edit-features {
+    width: 700px;
+    bottom: -50px;
+    right: 30px;
+  }
+}
+
 #breadcrumbs {
 	font-size: 90%;
 	text-align: left;
@@ -2046,6 +2088,19 @@ form#filters {
       a {
         color: #555;
       }
+    }
+  }
+}
+.popup-form {
+  display: none;
+  position: absolute;
+  z-index: 99999;
+  background: white;
+  padding: 20px;
+  box-shadow: 0px 0px 8px 6px rgba(190, 190, 190, 0.5);
+  textarea {
+    &.mceeditor {
+      height: 400px;
     }
   }
 }
