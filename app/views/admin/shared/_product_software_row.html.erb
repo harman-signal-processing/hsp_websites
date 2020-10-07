@@ -1,12 +1,19 @@
 <% called_from ||= 'product' %>
 <li id="product_software_<%= ps.id %>">
-	<span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
-	<%= (called_from == 'product') ? 
-			link_to(ps.software.formatted_name, [:admin, ps.software]) : 
-			link_to(ps.product.name, [:admin, ps.product]) %> 
-	<%= link_to(image_tag("icons/trash.gif", lazy: false), 
-			admin_product_software_path(ps, called_from: called_from), 
-			confirm: "Are you sure? (This won't delete the product or the software--it will only remove the association.)", 
-			remote: true,
-			method: :delete) %>
+  <span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
+  <% if ps.software && ps.product %>
+    <%= (called_from == 'product') ?
+        link_to(ps.software.formatted_name, [:admin, ps.software]) :
+        link_to(ps.product.name, [:admin, ps.product]) %>
+  <% elsif !ps.software %>
+    Missing software ID: <%= ps.software_id %>
+  <% elsif !ps.product %>
+    Missing product ID: <%= ps.product_id %>
+  <% end %>
+
+  <%= link_to(image_tag("icons/trash.gif", lazy: false),
+      admin_product_software_path(ps, called_from: called_from),
+      confirm: "Are you sure? (This won't delete the product or the software--it will only remove the association.)",
+      remote: true,
+      method: :delete) %>
 </li>
