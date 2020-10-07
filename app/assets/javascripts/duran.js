@@ -25,6 +25,7 @@
 //= require product_selector
 //= require s3_direct_upload
 //= require admin_upload
+//= require sorting
 
 $(function(){
   $(document).foundation({

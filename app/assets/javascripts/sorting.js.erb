@@ -1,0 +1,55 @@
+$(document).ready(function(){
+  <% ["effect_types",
+    "artists",
+    "system_options",
+    "specifications",
+    "specification_groups",
+    "market_segment_product_families",
+    "market_segments",
+    "product_families",
+    "parent_products",
+    "brand_toolkit_contacts",
+    "product_family_products",
+    "product_family_product_filters",
+    "product_documents",
+    "product_attachments",
+    "product_training_modules",
+    "product_site_elements",
+    "product_softwares",
+    "product_specifications",
+    "product_suggestions",
+    "brand_solution_featured_products",
+    "software_training_modules",
+    "vip_programmer_certifications",
+    "vip_programmer_emails",
+    "vip_programmer_locations",
+    "vip_programmer_markets",
+    "vip_programmer_phones",
+    "vip_programmer_services",
+    "vip_programmer_skills",
+    "vip_programmer_trainings",
+    "vip_programmer_websites"
+    ].each do |sortkey| %>
+
+    $('#<%= sortkey %>').sortable({
+      axis: 'y',
+      dropOnEmpty: false,
+      cursor: 'crosshair',
+      handle: '.handle',
+      items: 'li',
+      opacity: 0.4,
+      scroll: true,
+      update: function(){
+        $.ajax({
+          type: 'post',
+          data: $('#<%= sortkey %>').sortable('serialize'),
+          dataType: 'script',
+          complete: function(request){
+            $('#<%= sortkey %>').effect('highlight');
+          },
+          url: '<%= eval("Rails.application.routes.url_helpers.update_order_admin_#{sortkey}_path") %>'
+        });
+      }
+    });
+  <% end %>
+});

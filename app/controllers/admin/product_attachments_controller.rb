@@ -67,9 +67,10 @@ class Admin::ProductAttachmentsController < AdminController
   def update
     product = @product_attachment.product
     @old_primary_photo = product.primary_photo
+    @called_from = params[:called_from] || "admin_site"
     respond_to do |format|
       if @product_attachment.update(product_attachment_params)
-        @old_primary_photo.reload
+        @old_primary_photo.primary_photo = false
         format.html { redirect_to(edit_admin_product_attachment_path(@product_attachment), notice: 'Product Attachment was successfully updated.') }
         format.xml  { head :ok }
         format.js
@@ -81,20 +82,21 @@ class Admin::ProductAttachmentsController < AdminController
       end
     end
   end
-  
+
   # POST /admin/product_attachments/update_order
   def update_order
     update_list_order(ProductAttachment, params["product_attachment"])
     head :ok
     website.add_log(user: current_user, action: "Sorted product attachments")
   end
-  
+
   # DELETE /admin/product_attachments/1
   # DELETE /admin/product_attachments/1.xml
   def destroy
+    @called_from = params[:called_from] || "admin_site"
     @product_attachment.destroy
     @primary_photo = false
-    if @product_attachment.primary_photo 
+    if @product_attachment.primary_photo
       product = @product_attachment.product
       @primary_photo = product.photo
     end

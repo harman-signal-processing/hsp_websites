@@ -37,6 +37,7 @@
 //= require product_selector
 //= require s3_direct_upload
 //= require admin_upload
+//= require sorting
 
 /* vendor/jquery.js (v2) doesn't work with Muse scrolling so downgraded to muse/jquery-1.8.3.min.js 30/12/2014 */
 

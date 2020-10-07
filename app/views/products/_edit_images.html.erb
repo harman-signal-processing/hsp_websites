@@ -19,11 +19,9 @@
     <% end %>
   </div>
 
-  <p><em>More functionality coming soom.</em></p>
-
   <ul id="product_attachments" class="sortable_list">
     <% @product.product_attachments.each do |pa| %>
-      <%#= render '/admin/shared/product_attachment_row', pa: pa %>
+      <%= render '/admin/shared/product_attachment_row', pa: pa, called_from: "public_site" %>
     <% end %>
   </ul>
 

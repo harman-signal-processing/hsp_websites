@@ -40,6 +40,7 @@
 //= require product_selector
 //= require s3_direct_upload
 //= require admin_upload
+//= require sorting
 
 soundManager.url = '/swfs/';
 soundManager.flashVersion = 9; // optional: shiny features (default = 8)

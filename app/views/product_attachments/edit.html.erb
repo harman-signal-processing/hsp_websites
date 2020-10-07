@@ -1,0 +1,23 @@
+<p>&nbsp;</p>
+<h3 class="text-center">Editing product attachment</h3>
+<p>&nbsp;</p>
+<div class="row">
+  <div class="small-12 medium-8 medium-offset-2 columns">
+
+    <%= simple_form_for [:admin, @product_attachment] do |f| %>
+      <input type="hidden" name="return_to" value="<%= product_path(@product_attachment.product) %>">
+
+      <div class="panel">
+        <%= f.input :product_attachment, label: "Image File", hint: "(will be re-sized as needed automatically)" %>
+        <% if f.object.product_attachment_file_name.present? %>
+          <span class="hint"><i>currently: <%= link_to image_tag(f.object.product_attachment.url(:thumb), lazy: false), f.object.product_attachment.url(:original), target: "_blank" %></i></span>
+        <% end %>
+      </div>
+
+      <%= f.input :no_lightbox, label: "Don't use lightbox viewer on this image. (The site's global settings takes precedence over this one.)" %>
+      <%= f.input :hide_from_product_page, label: "Hide from the thumbnail collection on the product page." %>
+
+      <%= f.submit "Update", class: "button"%>
+    <% end %>
+  </div>
+</div>

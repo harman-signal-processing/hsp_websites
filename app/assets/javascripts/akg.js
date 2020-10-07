@@ -30,6 +30,7 @@
 //= require will_paginate_infinite
 //= require s3_direct_upload
 //= require admin_upload
+//= require sorting
 //= require akg_application
 //= require_self
 

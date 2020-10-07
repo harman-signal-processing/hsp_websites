@@ -508,6 +508,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       collection do
         match :compare, via: :all
       end
+      resources :product_attachments, only: :edit
     end
     get 'products/:id(/:tab)' => 'products#show', as: :product
     resources :tone_library_songs, only: :index

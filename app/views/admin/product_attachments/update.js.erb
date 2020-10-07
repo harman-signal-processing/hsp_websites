@@ -1,3 +1,3 @@
-$("#product_attachment_<%= @old_primary_photo.id %>").html('<%= escape_javascript(render "/admin/shared/product_attachment_row", pa: @old_primary_photo) %>');
-$("#product_attachment_<%= @product_attachment.id %>").html('<%= escape_javascript(render "/admin/shared/product_attachment_row", pa: @product_attachment) %>');
+$("#product_attachment_<%= @old_primary_photo.id %>").html('<%= escape_javascript(render "/admin/shared/product_attachment_row", pa: @old_primary_photo, called_from: @called_from) %>');
+$("#product_attachment_<%= @product_attachment.id %>").html('<%= escape_javascript(render "/admin/shared/product_attachment_row", pa: @product_attachment, called_from: @called_from) %>');
 <% flash.discard %>
