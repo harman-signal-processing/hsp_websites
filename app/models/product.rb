@@ -615,7 +615,7 @@ class Product < ApplicationRecord
   # Currently active firmware
   def active_firmwares(locale = I18n.default_locale.to_s, website = brand.default_website)
     f = softwares.where(active: true, category: "firmware").select{|s| s if s.locales(website).include?(locale)}
-    if website.firmware_page && self.firmware_name
+    if website.firmware_page && self.firmware_name.present?
       f << Software.new(
         name: self.firmware_name,
         version: MartinFirmwareService.firmware_version(firmware_name.gsub(/ \- Firmware/, '')),
