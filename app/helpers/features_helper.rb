@@ -2,21 +2,16 @@ module FeaturesHelper
 
   # Selects which type of feature to render
   def render_feature(feature, opt={})
-#    if opt[:format].present? && opt[:format] == "mobile"
-#      render_pre_content(feature) + render_mobile_feature(feature)
-#    else
-      render_pre_content(feature) + case feature.layout_style
-      when "wide"
-        render_wide_feature(feature, opt)
-      when "wide2"
-        render_wide2_feature(feature, opt)
-      when "split"
-        render_split_feature(feature, opt)
-      else
-        render_feature_text(feature, opt)
-      end
-#    end
-  end # def render_feature
+    render_pre_content(feature) + render_styled_feature(feature, opt)
+  end
+
+  def render_styled_feature(feature, opt)
+    if feature.layout_style.present?
+      send("render_#{ feature.layout_style }_feature", feature, opt)
+    else
+      render_feature_text(feature, opt)
+    end
+  end
 
   # Renders wide feature with text overlay
   def render_wide_feature(feature, opt={})
@@ -90,6 +85,17 @@ module FeaturesHelper
       else
         small_image_panel + text_panel + image_panel
       end
+    end
+  end
+
+  # Renders a feature full of related review quotes if available.
+  def render_review_quotes_feature(feature, opt={})
+    if feature.featurable_type == "ProductFamily"
+      @product_family ||= feature.featurable
+      render_partial "product_families/review_quotes"
+    elsif feature.featurable_type == "Product"
+      @product ||= feature.featurable
+      render_partial "products/reviews"
     end
   end
 

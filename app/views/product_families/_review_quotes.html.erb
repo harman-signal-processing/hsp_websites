@@ -1,20 +1,22 @@
-<% if @product_family.show_review_quotes? %>
-  <% reviews = @product_family.review_quotes(website) %>
-  <% if reviews.length > 0 %>
-    <div class="reviews-slider">
-      <% reviews.shuffle.each do |p| %>
-        <div class="slide">
-          <h4 class="text-center">
-            <%=raw p.products.map{|product| link_to(product.name, product)}.join(", ") %>
-          </h4>
-          <% if p.external_link.present? || p.review.present? || p.body.length > 400 %>
-            <p><%= link_to translate_content(p, :title), p %></p>
-          <% else %>
-            <p><%= raw translate_content(p, :body) %></p>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
+<%# Review quotes used to render as part of the template,
+  but now it is only available as a 'Fancy Feature'. But
+  it still uses this partial, so don't delete it. %>
+
+<% reviews = @product_family.review_quotes(website) %>
+<% if reviews.length > 0 %>
+  <div class="reviews-slider">
+    <% reviews.shuffle.each do |p| %>
+      <div class="slide">
+        <h4 class="text-center">
+          <%=raw p.products.map{|product| link_to(product.name, product)}.join(", ") %>
+        </h4>
+        <% if p.external_link.present? || p.review.present? || p.body.length > 400 %>
+          <p><%= link_to translate_content(p, :title), p %></p>
+        <% else %>
+          <p><%= raw translate_content(p, :body) %></p>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 <% end %>
 
