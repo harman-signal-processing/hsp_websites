@@ -103,4 +103,11 @@ class SiteMailer < ActionMailer::Base
          subject: "AMX ITG New Module Request")
   end  #  def amx_itg_module_request(data)
 
+  def amx_partner_interest_form(data, recipients)
+    @partner_interest_request = data
+    mail(to: recipients.split(";"),
+         from: @partner_interest_request.email,
+         subject: "AMX Partner Interest Form")
+  end  #  def amx_partner_interest_form(data, recipients)
+
 end  #  class SiteMailer < ActionMailer::Base

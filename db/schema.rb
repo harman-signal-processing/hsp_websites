@@ -81,6 +81,25 @@ ActiveRecord::Schema.define(version: 2020_10_08_150845) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "amx_partner_interest_forms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "company_name"
+    t.string "company_url"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.string "phone"
+    t.string "street_address"
+    t.string "city"
+    t.string "state"
+    t.string "postal_code"
+    t.string "country"
+    t.string "product_target_market_segment"
+    t.string "partnership_interest"
+    t.text "additional_comments"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "api_keys", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "access_token"
     t.datetime "created_at", null: false

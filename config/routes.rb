@@ -105,7 +105,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     constraints(AmxDomain) do
       # get 'contacts' => 'main#where_to_buy', as: :amx_contacts
       get '/contacts' => 'support#index'
-      get '/partners' => 'manufacturer_partners#index'
+      get '/partners' => 'manufacturer_partners#index', as: :amx_partners
+      match "partners/interest" => "amx_partner_interest_forms#create", as: :amx_partner_interest, via: [:get, :post]
       resources :vip_programmers, as: :vips, path: "vips", only: [:index, :show]
 
       match "support/amx_itg_new_module_request" => "module_requests#create", as: :amx_itg_new_module_request, via: [:get, :post]
@@ -243,6 +244,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       end
       
       resources :module_requests
+      resources :amx_partner_interest_form
       
       resources :systems do
         resources :system_options do

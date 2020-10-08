@@ -1,0 +1,46 @@
+<h1>AMX Partner Interest Forms</h1>
+
+<table>
+	<tr>
+		<th>id</th>
+		<th>company_name</th>
+		<th>company_url</th>
+		<th>first_name</th>
+		<th>last_name</th>
+		<th>email</th>
+		<th>phone</th>
+		<th>street_address</th>
+		<th>city</th>
+		<th>state</th>
+		<th>postal_code</th>
+		<th>country</th>
+		<th>product_target_market_segment</th>
+		<th>partnership_interest</th>
+		<th>additional_comments</th>
+		<th>created_at</th>
+		<th>updated_at</th>
+
+	</tr>
+	<%@partner_interest_requests.each do |item|%>
+	<tr>
+		<td><%=item.id%></td>
+		<td><%=item.company_name%></td>
+		<td><%=item.company_url%></td>
+		<td><%=item.first_name%></td>
+		<td><%=item.last_name%></td>
+		<td><%=item.email%></td>
+		<td><%=item.phone%></td>
+		<td><%=item.street_address%></td>
+		<td><%=item.city%></td>
+		<td><%=item.state%></td>
+		<td><%=item.postal_code%></td>
+		<td><%=item.country%></td>
+		<td><%=item.product_target_market_segment%></td>
+		<td><%=item.partnership_interest%></td>
+		<td><%=item.additional_comments%></td>
+		
+		<td><%=item.created_at%></td>
+		<td><%=item.updated_at%></td>
+	</tr>
+	<% end %>
+</table>
