@@ -268,7 +268,7 @@
                     <li><%= link_to('System Configurator', admin_systems_path) %></li>
                   <% end %>
 
-                  <% if can?(:manage, Vip::Programmer) %>
+                  <% if can?(:manage, Vip::Programmer) && website.brand.name == "AMX" %>
                   <li class="has-dropdown"><%= link_to "VIP Programmers", admin_vip_programmers_path %>
                     <ul class="dropdown">
                       <li><%= link_to "VIP Programmers", admin_vip_programmers_path %></li>
@@ -299,6 +299,7 @@
                     </ul>
                     </li>
                   <li><%= link_to('ITG Module Requests', admin_module_requests_path)%></li>
+                  <li><%= link_to('AMX Partner Interest Forms', admin_amx_partner_interest_form_index_path)%></li>
                   <% end %>
 
                 </ul>
