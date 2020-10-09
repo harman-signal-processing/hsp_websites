@@ -1,0 +1,92 @@
+<h1 class="text-center"><%= t('nav.safety_documents') %></h1>
+
+<div class="row">
+  <div class="small-12 medium-4 columns">
+    <ul class="accordion" data-accordion>
+    <% @product_families.each do |product_family| %>
+      <% next if product_family.name.to_s.match(/product range|other/i) %>
+      <li class="accordion-navigation">
+        <a href="#panel_<%= product_family.to_param %>"><%= product_family.name %></a>
+        <div id="panel_<%= product_family.to_param %>" class="content">
+          <ul>
+            <% product_family.current_products_plus_child_products(website).sort_by{|p| p.name.upcase}.each do |product| %>
+              <% if product.safety_documents.length > 0 || product.safety_site_elements.length > 0 %>
+                <li><%= link_to product.name,
+                  product,
+                  class: "safety-panel-link",
+                  data: { panel: "safety_for_#{ product.to_param }" } %>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+
+          <% if product_family.discontinued_products_plus_child_products(website).size > 0 %>
+            <br/>
+            <p><em>Discontinued Products</em></p>
+            <ul>
+              <% product_family.discontinued_products_plus_child_products(website).sort_by{|p| p.name.upcase}.each do |product| %>
+                <% if product.safety_documents.length > 0 || product.safety_site_elements.length > 0 %>
+                  <li><%= link_to product.name,
+                    product,
+                    class: "safety-panel-link",
+                    data: { panel: "safety_for_#{ product.to_param }" } %>
+                  </li>
+                <% end %>
+              <% end %>
+            </ul>
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+    </ul>
+  </div>
+
+  <div class="small-12 medium-8 columns">
+    <div class="safety-panel-instructions text-center">
+      <p>Choose a product from the navigation on the left. Safety
+      documents will appear here. You may need to scroll back up
+      to see the results.</p>
+    </div>
+    <% rendered_tables = [] %>
+    <% @product_families.each do |product_family| %>
+      <%= cache ["safety_page_tables", product_family, I18n.locale] do %>
+        <% product_family.current_and_discontinued_products_plus_child_products(website).each do |product| %>
+          <% if product.safety_documents.length > 0 || product.safety_site_elements.length > 0 %>
+            <% this_id = "safety_for_#{ product.to_param }" %>
+            <% unless rendered_tables.include?(this_id) %>
+              <div id="<%= this_id %>" class="safety-panel">
+                <div class="text-center">
+                  <% if product.photo %>
+                    <%= link_to image_tag(product.photo.product_attachment.url(:medium)), product %>
+                  <% end %>
+                </div>
+                <h5><%= product.name %> Safety Documents</h5>
+
+                <table style="width: 100%">
+                  <thead>
+                    <tr>
+                      <td>Name</td>
+                      <td>Version</td>
+                      <td>Language</td>
+                      <td>Size</td>
+                      <td>Uploaded</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <%= cache ["product_safety_table", product, I18n.locale] do %>
+                      <% (product.safety_documents + product.safety_site_elements).sort_by{|p| p.name.upcase}.each do |f| %>
+                        <%= render_partial 'shared/download_table_row', item: f %>
+                      <% end %>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+              <% rendered_tables << this_id %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+

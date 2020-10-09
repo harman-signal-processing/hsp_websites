@@ -74,7 +74,7 @@
     	<% if !!(website.forum_link) %>
         <li class="hide-for-medium"><%= link_to t("forum").titleize, website.forum_link %></li>
     	<% end %>
-      <li><%= link_to t('nav.safety_documents'), martin_safety_documents_path %></li>
+      <li><%= link_to t('nav.safety_documents'), safety_path %></li>
       <li><%= link_to t('nav.support_login'), gated_support_path %></li>
     </ul>
   </li>

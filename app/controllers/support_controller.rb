@@ -61,7 +61,12 @@ class SupportController < ApplicationController
     country_code = clean_country_code
     @rsos = get_rsos(country_code)
     render_template
-  end  #  def rsos
+  end
+
+  def safety
+    @product_families = ProductFamily.top_level_for(website)
+    render_template
+  end
 
   # Routes to /:locale/training
   def training

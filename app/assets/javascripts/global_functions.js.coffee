@@ -34,6 +34,12 @@ jQuery ($) ->
     column = $('div#column2')
     $(column).html("<img src='#{column.data("loading")}' style='padding: 20px'>")
 
+  $("a.safety-panel-link").click (e) ->
+    e.preventDefault()
+    $("div.safety-panel-instructions").hide()
+    $("div.safety-panel").hide()
+    $("div##{ $(@).data('panel') }").show()
+
   if jQuery.fn.slick
     $('.reviews-slider').slick
       mobileFirst: true

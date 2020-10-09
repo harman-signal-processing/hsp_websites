@@ -13,13 +13,6 @@ jQuery ($) ->
 
   $("#tagline").hide().delay(1000).fadeIn(1500)
 
-  $("div.safety-panel").hide()
-
-  $("a.safety-panel-link").click (e) ->
-    e.preventDefault()
-    $("div.safety-panel").hide()
-    $("div##{ $(@).data('panel') }").show()
-
   social_icons = $("div.social a")
   video_clips  = $(".video_thumbnail")
   if win.scrollTop() <= 0

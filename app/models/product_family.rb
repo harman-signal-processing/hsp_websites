@@ -286,6 +286,35 @@ class ProductFamily < ApplicationRecord
     end
   end
 
+  # w = a Brand or a Website
+  def discontinued_products_plus_child_products(w, opts={})
+    Rails.cache.fetch("#{cache_key_with_version}/#{w.cache_key_with_version}/#{opts.values.join}/discontinued_products_plus_child_products/#{I18n.locale.to_s}", expires_in: 2.hours) do
+      cp = []
+      self.discontinued_products.each do |prod|
+        if prod.locales(w).include?(I18n.locale.to_s)
+          if opts[:check_for_product_selector_exclusions]
+            cp << prod unless prod.is_accessory? || prod.brand_id != self.brand_id
+          else
+            cp << prod
+          end
+        end
+      end
+      children_with_discontinued_products(w, opts).each do |pf|
+        cp += pf.discontinued_products_plus_child_products(w, opts)
+      end
+      if opts[:nosort]
+        cp.uniq
+      else
+        cp.sort_by(&:name).uniq
+      end
+    end
+  end
+
+  # w = Brand or Website
+  def current_and_discontinued_products_plus_child_products(w, opts={})
+    current_products_plus_child_products(w, opts) + discontinued_products_plus_child_products(w, opts)
+  end
+
   def first_product_with_photo(w)
     if featured_product.present? && featured_product.in_production?
       return featured_product if featured_product.primary_photo.present?
@@ -343,6 +372,31 @@ class ProductFamily < ApplicationRecord
           if options[:depth] > 1
             sub_options = options.merge(depth: options[:depth] - 1)
             ids += pf.children_with_current_products(w, sub_options).pluck(:id)
+          end
+        end
+      end
+    end
+    ProductFamily.where(id: ids.flatten.uniq).order("position")
+  end
+
+  # Load this ProductFamily's children families with at least one discontinued product
+  # w = a Brand or a Website
+  def children_with_discontinued_products(w, options={})
+    default_options = { depth: 1 }
+    options = default_options.merge options
+    brand_id = (w.is_a?(Brand)) ? w.id : w.brand_id
+    ids = []
+    these_children = children.where(brand_id: brand_id, hide_from_navigation: false)
+    if !!options[:check_for_product_selector_exclusions]
+      these_children = these_children.where.not(product_selector_behavior: "exclude").or(these_children.where(product_selector_behavior: nil))
+    end
+    these_children.includes(:products).each do |pf|
+      if !pf.requires_login? && (pf.discontinued_products.size > 0 || pf.children_with_discontinued_products(w, options).size > 0)
+        unless options[:locale].present? && !pf.locales(w).include?(options[:locale].to_s)
+          ids << pf.id
+          if options[:depth] > 1
+            sub_options = options.merge(depth: options[:depth] - 1)
+            ids += pf.children_with_discontinued_products(w, sub_options).pluck(:id)
           end
         end
       end

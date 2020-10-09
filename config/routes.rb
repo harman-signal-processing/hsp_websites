@@ -123,7 +123,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     end
 
     constraints(MartinDomain) do
-      get 'safety-documents', to: redirect('/en-US/product_families/effect-fluids/safety-documents'), as: :martin_safety_documents
+      get 'safety-documents', to: redirect('support/safety')
       get 'upgrade-me-to-supertech-just-this-once' => "gated_support#super_tech_upgrade"
     end
 
@@ -534,7 +534,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get 'get-started/:id' => 'get_started#show', as: :get_started
     get 'getting-started/:id' => 'get_started#show'
     post 'get-started/validate' => 'get_started#validate', as: :get_started_validation
-    get 'safetyandcertifications' => 'pages#safetyandcertifications'
+    get 'safetyandcertifications', to: redirect("support/safety")
 
     get 'privacy_policy.html', to: redirect('http://www.harman.com/privacy-policy'), as: :privacy_policy
     get 'terms_of_use.html', to: redirect('http://www.harman.com/terms-use'), as: :terms_of_use
@@ -574,6 +574,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get "support/tech_support" => "support#tech_support"
     get "support/repairs" => "support#repairs"
     get "support/rsos" => "support#rsos"
+    get "support/safety" => "support#safety", as: :safety
 
     match '/sitemap(.:format)' => 'main#locale_sitemap', as: :locale_sitemap, via: :all
 
