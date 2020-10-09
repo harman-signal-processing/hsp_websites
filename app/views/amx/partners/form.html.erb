@@ -11,7 +11,7 @@
 <%= f.input :city, label: "City" %>
 <%= f.input :state, label: "State" %>
 <%= f.input :postal_code, label: "Postal Code" %>
-<%= f.input :country, label: "Country" %>
+<%= f.input :country, except: ["CU","KP","HK","IR","SY","TW"], label: "Country" %>
 <%= f.input :product_target_market_segment,
 collection: ["Government", "Hospitality", "Residential", "Education", "Corporate", "Retail"]
 %>
