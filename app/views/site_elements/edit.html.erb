@@ -72,7 +72,7 @@
           <%= f.submit 'Save Changes', class: "small button" %>
         </div>
         <div class="small-6 columns text-right">
-          <%= link_to admin_site_element_path(f.object, return_to: request.path), method: :delete, class: "alert small button", data: { confirm: "Are you sure? This will remove \"#{f.object.long_name}\" from ALL related pages." } do %>
+          <%= link_to admin_site_element_path(f.object, return_to: @return_to), method: :delete, class: "alert small button", data: { confirm: "Are you sure? This will remove \"#{f.object.long_name}\" from ALL related pages." } do %>
             <%= fa_icon "trash" %>
             delete
           <% end %>
