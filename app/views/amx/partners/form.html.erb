@@ -1,24 +1,48 @@
 <h1>AMX Partner Interest Form</h1>
 
 <%= simple_form_for @partner_interest_request, url: amx_partner_interest_path do |f| %>
-<%= f.input :company_name, label: "Company Name", required: true %>
-<%= f.input :company_url, label: "Company Web URL", required: true %>
-<%= f.input :first_name, label: "First Name", required: true %>
-<%= f.input :last_name, label: "Last Name", required: true %>
-<%= f.input :email, label: "Email", required: true %>
-<%= f.input :phone, label: "Phone" %>
-<%= f.input :street_address, label: "Street Address" %>
-<%= f.input :city, label: "City" %>
-<%= f.input :state, label: "State" %>
-<%= f.input :postal_code, label: "Postal Code" %>
-<%= f.input :country, except: ["CU","KP","HK","IR","SY","TW"], label: "Country" %>
-<%= f.input :product_target_market_segment,
-collection: ["Government", "Hospitality", "Residential", "Education", "Corporate", "Retail"]
-%>
-<%= f.input :partnership_interest,
-collection: ["Integrating with AMX Solutions", "B2B Manufacturing Partner", "Independent Programmer"]
-%>
-<%= f.input :additional_comments, label: "Additional Comments"%>
+
+<div class="row panel">
+	<!-- left side -->
+	<div class="medium-6 columns">
+			<%= f.input :company_name, label: "Company Name", required: true %>
+			<%= f.input :company_url, label: "Company Web URL", required: true %>
+			<%= f.input :first_name, label: "First Name", required: true %>
+			<%= f.input :last_name, label: "Last Name", required: true %>
+			<%= f.input :email, label: "Email", required: true %>
+			<%= f.input :phone, label: "Phone" %>
+	</div><!-- <div class="medium-6 columns panel"> -->
+
+	<!-- right side -->
+	<div class="medium-6 columns">
+			<%= f.input :street_address, label: "Street Address" %>
+			<%= f.input :city, label: "City" %>
+			<%= f.input :state, label: "State" %>
+			<%= f.input :postal_code, label: "Postal Code" %>
+			<%= f.input :country, except: ["CU","KP","HK","IR","SY","TW"], label: "Country" %>
+	</div><!-- <div class="medium-6 columns panel"> -->
+
+</div><!-- <div class="row"> -->
+<p>&nbsp;</p>
+<div class="row panel">
+	<!-- left side -->
+	<div class="medium-6 columns">
+			<%= f.input :product_target_market_segment,
+			collection: ["Government", "Hospitality", "Residential", "Education", "Corporate", "Retail"]
+			%>
+			<%= f.input :partnership_interest,
+			collection: ["Integrating with AMX Solutions", "B2B Manufacturing Partner", "Independent Programmer"]
+			%>
+	</div><!-- <div class="medium-6 columns panel"> -->
+
+
+	<!-- right side -->
+	<div class="medium-6 columns">
+		<%= f.input :additional_comments, label: "Additional Comments"%>
+	</div><!-- <div class="medium-6 columns panel"> -->
+</div><!-- <div class="row"> -->
+
+<p>&nbsp;</p>
 
 
 <p>You can view Harman's Privacy Policy, Cookies Statement, & Terms of Use here: <%=link_to "https://www.harman.com/privacy-policy","https://www.harman.com/privacy-policy", target:"_blank"%></p>

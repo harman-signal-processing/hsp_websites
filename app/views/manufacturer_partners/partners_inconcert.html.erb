@@ -1,0 +1,53 @@
+
+<div style="margin-bottom:30px;padding-bottom:77px;text-align:center;">
+
+    <img width=1140 height=400 src="/resource/amx-partner-programs-inconcert-page-banner.jpg">
+    <h2 style="color:#1D4068;">AMX InConcert Partners</h2>
+    
+    <div style="margin-top:20px;margin-bottom:20px;">InConcert is a partnership program between AMX and key 3rd-party manufacturers dedicated to saving you, 
+    the dealer, time and effort controlling AV components using an AMX system. AMX is continuously evaluating new 
+    equipment from every major manufacturer and creating the proper programming modules for these devices to make 
+    every installation as quick and easy as possible.</div>
+    
+    <img width=1140 height=350 src="/resource/amx-partner-programs-featured-partner-banner.png">
+</div>
+
+<div class="row">
+    <div class="medium-3 columns">Sort by: 
+    <% if !@sort_param.present? %>
+        <strong>Random</strong> | <%=link_to "Alphabetical", amx_partners_inconcert_path(sort: "alpha") %>
+    <% else %>
+        <%=link_to "Random", amx_partners_inconcert_path %> | <strong>Alphabetical</strong>
+    <% end %>
+    </div>
+    <div class="medium-2 medium-offset-7 columns">
+        <a href="/en-US/partners/interest" class="button" style="background: #00A7E1;" target="_blank">Be Our Partner</a>
+    </div>
+</div><!-- <div class="row"> -->
+
+<div class="row">
+        <div class="large-12 large-offset-0 medium-8 medium-offset-2 columns" data-equalizer="brands">
+            <ul class="large-block-grid-5 medium-block-grid-3 small-block-grid-1">
+
+                <% @partners.each do |partner| %>
+                <li>
+                    <%= link_to partner.url, target:"_blank" do %>
+                        <div class="panel text-center" data-equalizer-watch="brands" style="background:transparent;">
+                            <div class="brand-logo">
+                                <% if partner.present? || ENV['show_placeholders'] == "true" %>
+                                    <p>
+                                        <%= image_tag partner.site_element.resource.url(:original), alt: partner.name, title: partner.name %><br />
+                                        <%= link_to(partner.name, partner.url, target:"_blank", title: partner.name) %>
+                                    </p>
+                                    <%if partner.amx_device_discovery %>
+                                        <div><%= image_tag "https://www.amx.com/resource/logo_amx-inconcert-partners.png", size:"40x35", alt: "Has AMX Device Discovery", title: "Has AMX Device Discovery" %></div>
+                                    <%end%>
+                                <% end %>
+                            </div>
+                        </div>
+                    <% end %>                    
+                </li>
+                <% end # @partners.each do |partner|%>
+            </ul><!-- <ul class="large-block-grid-3 medium-block-grid-3 small-block-grid-1"> -->
+        </div><!-- <div class="large-8 large-offset-2 medium-8 medium-offset-2 columns" data-equalizer="brands"> -->
+    </div><!-- <div class="row"> -->
