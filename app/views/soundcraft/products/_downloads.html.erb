@@ -1,6 +1,6 @@
 <div class="docs">
-<%
-  category_names = {
+  <%
+      category_names = {
     "firmware" => "Firmware",
     "gui" => "GUI/Librarians",
     "editor" => "Offline Editors",
@@ -14,7 +14,6 @@
   <table style="width: 100%">
     <thead>
       <tr>
-        <%# Robert Svensson really hates the work "Filename". %>
         <td><!--Filename-->&nbsp;</td>
         <td>Version</td>
         <td>Language</td>
@@ -24,44 +23,52 @@
     </thead>
     <tbody>
 
-<% (category_names.keys & product.active_softwares_soundcraft.pluck(:category).uniq).each do |category| %>
-  <tr>
-    <td colspan=5>
-      <% if category.present? %>
-        <h5><%= category_names[category] %></h5>
-      <% else %>
-        <h5>More Downloads</h5>
-      <% end %>      
-    </td>
-  </tr>
+      <% (category_names.keys & product.active_softwares_soundcraft.pluck(:category).uniq).each do |category| %>
+        <tr>
+          <td colspan=5>
+            <% if category.present? %>
+              <h5><%= category_names[category] %></h5>
+            <% else %>
+              <h5>More Downloads</h5>
+            <% end %>
+          </td>
+        </tr>
 
-    <% product.active_softwares_soundcraft.each do |software| %>
-      <% if software.category == category %>
-        <%= render_partial 'products/download_table_row', item: software %>
-        
-        <% software.software_attachments.each do |sa| %>
-          <%= render_partial 'products/download_table_row', item: sa %>
-        <% end %> <%# software.software_attachments.each do |sa| %>
-        <% if software.previous_versions.length > 0 %>
-          <%= render_partial 'products/download_table_row', item: software.previous_versions.first %>
+        <% product.active_softwares_soundcraft.each do |software| %>
 
-          <% software.previous_versions.first.software_attachments.each do |sa| %>
-            <%= render_partial 'products/download_table_row', item: sa %>
-          <% end %> <%# software.previous_versions.first.software_attachments.each do |sa| %>
-        <% end %> <%# if software.previous_versions.length > 0 %>
-      <% end %> <%# if software.category == category %>
-    <% end %> <%# product.active_softwares.each do |software| %>
+          <% if software.category == category %>
 
-<% end %> <%# (category_names.keys & product.active_softwares_soundcraft.pluck(:category).uniq).each do |category| %>
+            <%= render_partial 'products/download_table_row', item: software %>
 
-  <% product.executable_site_elements.each do |site_element| %>
-    <% if can?(:read, site_element) %>
-      <%= render_partial 'products/download_table_row', item: site_element %>
-    <% end %>
-	<% end %>
+            <% software.software_attachments.each do |sa| %>
+              <%= render_partial 'products/download_table_row', item: sa %>
+            <% end %>
 
+            <% if software.previous_versions.length > 0 %>
+              <% previous_version = software.previous_versions.first %>
+              <% if previous_version.products.include?(product) %>
+                <%= render_partial 'products/download_table_row', item: previous_version %>
+
+                <% previous_version.software_attachments.each do |sa| %>
+                  <%= render_partial 'products/download_table_row', item: sa %>
+                <% end %>
+              <% end %>
+
+            <% end %>
+
+          <% end %>
+
+        <% end %>
+
+      <% end %>
+
+      <% product.executable_site_elements.each do |site_element| %>
+        <% if can?(:read, site_element) %>
+          <%= render_partial 'products/download_table_row', item: site_element %>
+        <% end %>
+      <% end %>
 
     </tbody>
   </table>
 
-</div> <!-- <div class="docs"> -->
+</div>

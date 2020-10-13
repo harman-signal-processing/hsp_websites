@@ -40,9 +40,9 @@
       <% end %>
 
     <% elsif item.is_a?(ProductDocument) %>
-      <td> 
+      <td>
         <%= file_type_icon(item) %>
-        <%= link_to item.name, item %> 
+        <%= link_to item.name, item %>
       </td>
       <td class="text-center"> <% if item.respond_to?(:version) %><%= item.version %><% end %>&nbsp; </td>
       <td class="text-center"> <%= flag_for(item) %>&nbsp; </td>
@@ -52,27 +52,27 @@
     <% elsif item.is_a?(Software) %>
       <td>
         <%= platform_icon(item, 17) %>
-            <% if item.previous_versions.length > 0 %>
-              
-                <%if item.replaced_by.nil? %>
-                    <%= link_to item do %>
-                        [CURRENT] <%= item.name %>
-                    <% end %> <%#= link_to item do %>
-                <% else %>
-                    <%= link_to item.previous_versions.first do %>
-                        [PREVIOUS] <%= item.previous_versions.first.formatted_name %>
-                    <% end %> <%#= link_to item.previous_versions.first do %>       
-                <% end %> <%# end of if item.replaced_by.nil? %>
-              
-            <% else %>
-                <% if item.replaced_by.nil? %>
-                    <%= link_to item.name, item %>
-                <% else %>
-                    <%= link_to item do %>
-                        [PREVIOUS] <%= item.name %>
-                    <% end %> <%#= link_to item.previous_versions.first do %>                    
-                <% end %>
-            <% end %> <%# end of if item.previous_versions.length > 0 %>
+        <% if item.previous_versions.length > 0 %>
+
+          <% if item.replaced_by.nil? %>
+            <%= link_to item do %>
+              [CURRENT] <%= item.name %>
+            <% end %>
+          <% else %>
+            <%= link_to item.previous_versions.first do %>
+              [PREVIOUS] <%= item.previous_versions.first.formatted_name %>
+            <% end %>
+          <% end %>
+
+        <% else %>
+          <% if item.replaced_by.nil? %>
+            <%= link_to item.name, item %>
+          <% else %>
+            <%= link_to item do %>
+              [PREVIOUS] <%= item.name %>
+            <% end %>
+          <% end %>
+        <% end %>
       </td>
       <td class="text-center"><%= item.version %>&nbsp;</td>
       <td class="text-center"> <%= flag_for(item) %>&nbsp; </td>
@@ -82,7 +82,7 @@
         <% end %>
       </td>
       <td><%=l item.updated_at.to_date, format: :short %></td>
-      
+
     <% end %>
 
   </tr>
@@ -99,10 +99,10 @@
             <%= number_to_human_size(sa.software_attachment_file_size) %>
           <% end %>
         </td>
-        <td><%=l item.updated_at.to_date, format: :short %></td>        
+        <td><%=l item.updated_at.to_date, format: :short %></td>
       </tr>
-    <% end %> <%# item.software_attachments.each do |sa| %>
-  <% end %> <%# if item.respond_to?(:software_attachments) && item.software_attachments.count > 0 %>
+    <% end %>
+  <% end %>
 
-<% end %> <%# if can?(:read, item) %>
+<% end %>
 
