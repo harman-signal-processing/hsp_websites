@@ -35,6 +35,11 @@ class Admin::SoftwaresController < AdminController
     end
   end
 
+  def new_version
+    @old_software = @software
+    @software = Software.new(replaces_id: @old_software.to_param, active: true)
+  end
+
   # GET /admin/softwares/1/edit
   def edit
   end

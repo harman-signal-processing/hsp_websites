@@ -1,51 +1,65 @@
-<ul class="docs">
+<div class="docs">
 
-	<% if product.current_and_recently_expired_promotions.where.not(promo_form_file_name: [nil, '']).length > 0 %>
-	<li>
-		<%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
-		<%= link_to(t('product_page.rebate_forms'), promotions_path) %>
-	</li>
-	<% end %>
+  <table style="width: 100%">
+    <thead>
+      <tr>
+        <td><!--Filename-->&nbsp;</td>
+        <td>Version</td>
+        <td>Language</td>
+        <td>Size</td>
+        <td>Uploaded</td>
+      </tr>
+    </thead>
+    <tbody>
 
-	<% product.safety_documents.includes(:product).each do |product_document| %>
-	<li>
-		<%= file_type_icon(product_document) %>
-		<%= link_to product_document.name(hide_product_name: true), product_document %>
-		[<%= number_to_human_size(product_document.document_file_size) %>]
-	</li>
-	<% end %>
+    <% product.safety_documents.includes(:product).each do |product_document| %>
+      <tr>
+        <td colspan=5><h5>Safety Documentation</h5></td>
+      </tr>
+      <%= render_partial 'shared/download_table_row', item: product_document %>
+    <% end %>
 
-	<% product.nonsafety_documents.includes(:product).each do |product_document| %>
-	<li>
-		<%= file_type_icon(product_document) %>
-		<%= link_to product_document.name(hide_product_name: true), product_document %>
-		[<%= number_to_human_size(product_document.document_file_size) %>]
-	</li>
-	<% end %>
-
-	<% product.viewable_site_elements.each do |site_element| %>
-    <% if can?(:read, site_element) %>
-      <% if site_element.external_url.present? || site_element.executable_file_name.present? %>
-        <li>
-          <%= file_type_icon(site_element) %>
-          <%= link_to site_element.long_name, site_element.url %>
-          <%= keys_for(site_element) %>
-          <% if site_element.resource_file_size.present? %>
-            [<%= number_to_human_size(site_element.resource_file_size) %>]
+    <% product.nonsafety_documents.pluck(:document_type).uniq.each do |document_type| %>
+      <tr>
+        <td colspan=5>
+          <% if document_type == "other" %>
+            <h5>Extras</h5>
+          <% else %>
+            <h5><%= document_type.pluralize.titleize %></h5>
           <% end %>
-          <% if site_element.executable_file_size.present? %>
-            [<%= number_to_human_size(site_element.executable_file_size) %>]
-          <% end %>
-        </li>
-      <% elsif site_element.resource_file_name.present? %>
-        <li>
-					<%= file_type_icon(site_element) %>
-          <%= link_to site_element.long_name, site_element.resource.url %>
-          <%= keys_for(site_element) %>
-          [<%= number_to_human_size(site_element.resource_file_size) %>]
-        </li>
+        </td>
+      </tr>
+
+      <% product.nonsafety_documents.includes(:product).where(document_type: document_type).each do |product_document| %>
+        <%= render_partial 'shared/download_table_row', item: product_document %>
       <% end %>
     <% end %>
-	<% end %>
 
-</ul>
+    <ul class="docs">
+      <% product.viewable_site_elements.each do |site_element| %>
+        <% if can?(:read, site_element) %>
+          <% if site_element.external_url.present? || site_element.executable_file_name.present? %>
+              <%= render_partial 'shared/download_table_row', item: site_element %>
+          <% elsif site_element.resource_file_name.present? %>
+              <%= render_partial 'shared/download_table_row', item: site_element %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </ul>
+
+    <% if product.current_and_recently_expired_promotions.where.not(promo_form_file_name: [nil, '']).length > 0 %>
+      <tr>
+        <td colspan=5><h5>Promotions</h5></td>
+      </tr>
+      <tr>
+        <td colspan=5>
+          <%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>
+          <%= link_to(t('product_page.rebate_forms'), promotions_path) %>
+        </td>
+      </tr>
+    <% end %>
+
+    </tbody>
+  </table>
+
+</div>

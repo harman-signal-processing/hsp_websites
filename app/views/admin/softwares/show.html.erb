@@ -12,6 +12,12 @@
       Edit
     <% end %>
   </li>
+  <li>
+    <%= link_to new_version_admin_software_path(@software), class: "small secondary button" do %>
+      <%= fa_icon "upload" %>
+      Upload New Version
+    <% end %>
+  </li>
 	<li><%= link_to [:admin, @software], confirm: 'Are you sure?', method: :delete, class: "small alert button" do %>
     <%= fa_icon "trash" %>
     Delete

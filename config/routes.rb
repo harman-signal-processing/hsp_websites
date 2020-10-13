@@ -304,6 +304,10 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :product_site_elements do
         collection { post :update_order }
       end
+      resources :softwares do
+        collection { post :upload }
+        member { get :new_version }
+      end
 
       resources :training_courses do
         resources :training_classes do
@@ -408,7 +412,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :amp_models,
         :us_regions,
         :demo_songs,
-        :softwares,
         :cabinets,
         :websites,
         :captchas,

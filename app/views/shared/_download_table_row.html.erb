@@ -132,5 +132,22 @@
 
   </tr>
 
+  <%# Software Attachments %>
+  <% if website.show_software_attachments_on_product_page && item.respond_to?(:software_attachments) && item.software_attachments.count > 0 %>
+    <% item.software_attachments.each do |sa| %>
+      <tr>
+        <td> <%= link_to sa.name, sa.software_attachment.url %> </td>
+        <td class="text-center"> <% if sa.respond_to?(:version) %><%= sa.version %><% end %>&nbsp; </td>
+        <td class="text-center"> <%= flag_for(sa) %>&nbsp; </td>
+        <td>
+          <% if sa.software_attachment_file_size.to_i > 0 %>
+            <%= number_to_human_size(sa.software_attachment_file_size) %>
+          <% end %>
+        </td>
+        <td><%=l item.updated_at.to_date, format: :short %></td>
+      </tr>
+    <% end %>
+  <% end %>
+
 <% end %>
 

@@ -1,0 +1,37 @@
+<h1>Upload New Software Version</h1>
+
+<p>All you need to replace software is the new file and a new version number.
+The rest <i>should</i> happen by magic. The name, associated products, category,
+etc. will all be the same as the software you're replacing. If you need to add
+attachments or edit some of the finer details, you can do so after submitting
+the form below.</p>
+
+<div class="panel">
+  <%= render 'direct_upload_form' %>
+</div>
+
+<%= simple_form_for [:admin, @software] do |f| %>
+  <%= f.input :direct_upload_url, as: :hidden %>
+  <%= f.input :replaces_id, as: :hidden %>
+  <%= f.input :brand_id, as: :hidden %>
+  <%= f.input :platform, as: :hidden %>
+  <%= f.input :bit, as: :hidden %>
+  <%= f.input :category, as: :hidden %>
+  <%= f.input :layout_class, as: :hidden %>
+
+  <div class="row">
+    <div class="medium-6 small-12 columns">
+      <%= f.input :version, label: "New Version", hint: "The one you're replacing is version #{@old_software.version}" %>
+    </div>
+  </div>
+  <div style="padding-top: 20px; padding-bottom: 30px;">
+    <%= f.input :description,
+        label: "Description (Leave the description blank if you want incoming links to go directly to the download.)",
+        input_html: { class: "mceEditor" } %>
+  </div>
+
+  <%= f.input :active, label: "Software is active." %>
+  <br/><%= f.button :submit %>
+
+<% end %>
+

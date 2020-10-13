@@ -29,19 +29,22 @@ class Software < ApplicationRecord
 
   # process_in_background :ware # replaced with direct to s3 upload
 
+  accepts_nested_attributes_for :products, reject_if: proc { |p| p['id'].blank? }
+
   before_save :set_upload_attributes
   after_save :queue_processing
 
   before_destroy :revert_version
   before_update  :revert_version_if_deactivated
+  after_initialize :copy_attributes_from_previous_version
   after_initialize :set_default_counter
   after_save :replace_old_version, :touch_products
 
   belongs_to :brand, touch: true
 
-  scope :not_associated_with_this_product, -> (product, website) { 
+  scope :not_associated_with_this_product, -> (product, website) {
     software_ids_already_associated_with_this_product = ProductSoftware.where("product_id = ?", product.id).map{|ps| ps.software_id }
-    software_not_associated_with_this_product = website.brand.softwares.where.not(id: software_ids_already_associated_with_this_product)    
+    software_not_associated_with_this_product = website.brand.softwares.where.not(id: software_ids_already_associated_with_this_product)
     software_not_associated_with_this_product
   }
 
@@ -171,6 +174,26 @@ class Software < ApplicationRecord
   # Allows this item to be treated as a Site Element for sorting
   def resource_type
     self.category == "firmware" ? "Firmware" : "Software"
+  end
+
+  def copy_attributes_from_previous_version
+    if self.replaces_id.present?
+      old_software = self.class.find(self.replaces_id)
+      self.name ||= old_software.name
+      self.brand_id ||= old_software.brand_id
+      self.platform ||= old_software.platform
+      self.bit ||= old_software.bit
+      self.category ||= old_software.category
+      self.products ||= old_software.products
+      self.layout_class ||= old_software.layout_class
+      self.side_content ||= old_software.side_content
+      self.description ||= old_software.description
+      begin
+        self.version = old_software.version.next
+      rescue
+        # oh well, auto next version didn't work
+      end
+    end
   end
 
 protected

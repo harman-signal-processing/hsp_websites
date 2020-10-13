@@ -11,47 +11,53 @@
   }
 %>
 
-  <table style="width: 100%">
-    <thead>
-      <tr>
-        <td><!--Filename-->&nbsp;</td>
-        <td>Version</td>
-        <td>Language</td>
-        <td>Size</td>
-        <td>Uploaded</td>
-      </tr>
-    </thead>
-    <tbody>
-
-      <% (category_names.keys & product.active_softwares_soundcraft.pluck(:category).uniq).each do |category| %>
+  <%= cache ["downloads_table", product, current_user, I18n.locale] do %>
+    <% if can?(:manage, product) %>
+      <%= render_partial "shared/new_site_resource_form", product: product %>
+    <% end %>
+    <table style="width: 100%">
+      <thead>
         <tr>
-          <td colspan=5>
-            <% if category.present? %>
-              <h5><%= category_names[category] %></h5>
-            <% else %>
-              <h5>More Downloads</h5>
-            <% end %>
-          </td>
+          <td><!--Filename-->&nbsp;</td>
+          <td>Version</td>
+          <td>Language</td>
+          <td>Size</td>
+          <td>Uploaded</td>
         </tr>
+      </thead>
+      <tbody>
 
-        <% product.active_softwares_soundcraft.each do |software| %>
+        <% (category_names.keys & product.active_softwares_soundcraft.pluck(:category).uniq).each do |category| %>
+          <tr>
+            <td colspan=5>
+              <% if category.present? %>
+                <h5><%= category_names[category] %></h5>
+              <% else %>
+                <h5>More Downloads</h5>
+              <% end %>
+            </td>
+          </tr>
 
-          <% if software.category == category %>
+          <% product.active_softwares_soundcraft.each do |software| %>
 
-            <%= render_partial 'products/download_table_row', item: software %>
+            <% if software.category == category %>
 
-            <% software.software_attachments.each do |sa| %>
-              <%= render_partial 'products/download_table_row', item: sa %>
-            <% end %>
+              <%= render_partial 'shared/download_table_row', item: software %>
 
-            <% if software.previous_versions.length > 0 %>
-              <% previous_version = software.previous_versions.first %>
-              <% if previous_version.products.include?(product) %>
-                <%= render_partial 'products/download_table_row', item: previous_version %>
+              <% software.software_attachments.each do |sa| %>
+                <%= render_partial 'shared/download_table_row', item: sa %>
+              <% end %>
 
-                <% previous_version.software_attachments.each do |sa| %>
-                  <%= render_partial 'products/download_table_row', item: sa %>
+              <% if software.previous_versions.length > 0 %>
+                <% previous_version = software.previous_versions.first %>
+                <% if previous_version.products.include?(product) %>
+                  <%= render_partial 'shared/download_table_row', item: previous_version %>
+
+                  <% previous_version.software_attachments.each do |sa| %>
+                    <%= render_partial 'shared/download_table_row', item: sa %>
+                  <% end %>
                 <% end %>
+
               <% end %>
 
             <% end %>
@@ -60,15 +66,15 @@
 
         <% end %>
 
-      <% end %>
-
-      <% product.executable_site_elements.each do |site_element| %>
-        <% if can?(:read, site_element) %>
-          <%= render_partial 'products/download_table_row', item: site_element %>
+        <% product.executable_site_elements.each do |site_element| %>
+          <% if can?(:read, site_element) %>
+            <%= render_partial 'shared/download_table_row', item: site_element %>
+          <% end %>
         <% end %>
-      <% end %>
 
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+
+  <% end %>
 
 </div>

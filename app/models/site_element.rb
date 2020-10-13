@@ -88,7 +88,7 @@ class SiteElement < ApplicationRecord
       self.name = old_element.name
       self.language = old_element.language
       self.resource_type = old_element.resource_type
-      self.brand = old_element.brand
+      self.brand_id = old_element.brand_id
       self.access_level = old_element.access_level
       self.show_on_public_site = old_element.show_on_public_site
       self.is_document = old_element.is_document
