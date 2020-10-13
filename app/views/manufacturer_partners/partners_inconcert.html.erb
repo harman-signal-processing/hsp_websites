@@ -27,7 +27,7 @@
 
 <div class="row">
         <div class="large-12 large-offset-0 medium-8 medium-offset-2 columns" data-equalizer="brands">
-            <ul class="large-block-grid-5 medium-block-grid-3 small-block-grid-1">
+            <ul class="large-block-grid-3 medium-block-grid-3 small-block-grid-1">
 
                 <% @partners.each do |partner| %>
                 <li>
@@ -36,11 +36,11 @@
                             <div class="brand-logo">
                                 <% if partner.present? || ENV['show_placeholders'] == "true" %>
                                     <p>
-                                        <%= image_tag partner.site_element.resource.url(:original), alt: partner.name, title: partner.name %><br />
+                                        <%= image_tag partner.site_element.resource.url(:original), lazy: false, alt: partner.name, title: partner.name %><br />
                                         <%= link_to(partner.name, partner.url, target:"_blank", title: partner.name) %>
                                     </p>
                                     <%if partner.amx_device_discovery %>
-                                        <div><%= image_tag "https://www.amx.com/resource/logo_amx-inconcert-partners.png", size:"40x35", alt: "Has AMX Device Discovery", title: "Has AMX Device Discovery" %></div>
+                                        <div><%= image_tag "https://www.amx.com/resource/logo_amx-inconcert-partners.png", lazy: false, size:"40x35", alt: "Has AMX Device Discovery", title: "Has AMX Device Discovery" %></div>
                                     <%end%>
                                 <% end %>
                             </div>
