@@ -197,6 +197,13 @@ private
     if params[:locale] && params[:locale].to_s != I18n.locale.to_s
       redirect_to url_for(request.params.merge(locale: I18n.locale)) and return false
     end
+
+    # Handling inactive locales for the current site
+    if !website.list_of_available_locales.include?(I18n.locale.to_s)
+      unless can?(:manage, Product) # Admins can view non-active locales
+        redirect_to url_for(request.params.merge(locale: website.list_of_available_locales.first)) and return false
+      end
+    end
   end
 
   # locale selector
