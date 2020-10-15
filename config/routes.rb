@@ -447,8 +447,11 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     resources :us_reps, :distributors, only: [:index, :show] do
       collection { get :search }
     end
-    resources :softwares, only: [:index, :show] do
-      member { get :download }
+    resources :softwares, only: [:index, :show, :new, :edit] do
+      member do
+        get :download
+        get :new_version
+      end
     end
     resources :software_attachments, only: [:download] do
       member { get :download }
@@ -523,7 +526,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     resources :product_documents, only: [:index, :show]
     resources :parts, only: [:index]
     resources :events, only: [:index, :show]
-    resources :site_elements, only: [:show, :edit] do
+    resources :site_elements, only: [:show, :edit, :new] do
       member { get :new_version }
     end
 

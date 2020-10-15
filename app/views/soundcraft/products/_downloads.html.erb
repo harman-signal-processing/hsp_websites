@@ -12,9 +12,6 @@
 %>
 
   <%= cache ["downloads_table", product, current_user, I18n.locale] do %>
-    <% if can?(:manage, product) %>
-      <%= render_partial "shared/new_site_resource_form", product: product %>
-    <% end %>
     <table style="width: 100%">
       <thead>
         <tr>

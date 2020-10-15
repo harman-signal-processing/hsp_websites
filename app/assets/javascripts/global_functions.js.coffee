@@ -60,10 +60,6 @@ jQuery ($) ->
         }
       ]
 
-  $('a#upload-site-element-button').click (e) ->
-    e.preventDefault()
-    $('#upload-site-element-container').toggle()
-
   $('a.edit-link').click (e) ->
     e.preventDefault()
     $('.dialog').hide()

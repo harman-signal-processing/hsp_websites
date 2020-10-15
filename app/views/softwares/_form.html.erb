@@ -1,0 +1,60 @@
+<div class="panel">
+  <%= render 'admin/softwares/direct_upload_form' %>
+</div>
+
+<%= simple_form_for [:admin, @software] do |f| %>
+  <%= f.input :direct_upload_url, as: :hidden %>
+  <input type="hidden" name="return_to" value="<%= @return_to %>">
+
+  <%= f.input :name, label: "Software Name" %>
+
+  <div class="row">
+    <div class="small-12 medium-6 columns">
+      <%= f.input :version %>
+    </div>
+    <div class="small-12 medium-6 columns">
+      <%= f.input :category,
+            collection: [["Firmware", "firmware"],
+                        ["GUI/Librarian", "gui"],
+                        ["Offline Editor", "editor"],
+                        ["Updater", "updater"],
+                        ["Plugin", "plugin"],
+                        ["Other", "other"]] %>
+    </div>
+  </div>
+
+  <%= f.input :link, label: "External link to app store, etc.", hint: "(use only if not uploading the file directly)" %>
+
+  <%= f.association :products,
+    label: "Related Products",
+    collection: website.brand.products,
+    include_blank: true,
+    input_html: { class: 'chosen-select' } %>
+
+  <div style="margin: 20px 0">
+    <%= f.input :description,
+        label: "Description (Leave the description blank if you want incoming links to go directly to the download.)",
+        input_html: { class: "mceEditor" } %>
+  </div>
+
+  <%= f.input :active,
+    label: "Software is active and available to the public.",
+    hint: "If not, you'll have to use the /admin site to edit this software in the future because it won't show up anywhere on the site." %>
+
+  <br/>
+  <div class="row">
+    <div class="small-6 columns">
+      <%= f.submit 'Save Changes', class: "small button" %>
+    </div>
+    <div class="small-6 columns text-right">
+      <% unless @software.new_record? %>
+        <%= link_to admin_software_path(f.object, return_to: @return_to), method: :delete, class: "alert small button", data: { confirm: "Are you sure? This will remove \"#{f.object.formatted_name}\" from ALL related pages." } do %>
+          <%= fa_icon "trash" %>
+          delete
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+<% end %>
+

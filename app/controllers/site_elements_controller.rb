@@ -11,6 +11,12 @@ class SiteElementsController < ApplicationController
     @return_to = request.referer
   end
 
+  def new
+    @site_element = SiteElement.new(is_document: true, show_on_public_site: true)
+    @site_element.products << Product.find(params[:product_id]) if params[:product_id]
+    @return_to = request.referer
+  end
+
   def show
     case @site_element.attachment_type
     when 'resource'

@@ -1104,6 +1104,28 @@ div.product-title-block, div.small-title-block {
     margin-bottom: 40px;
   }
 }
+
+.product-subheader {
+  position: relative;
+  a.edit-link {
+    display: none;
+    font-size: rem-calc(14px);
+    font-weight: normal;
+  }
+  #upload-options {
+    display: none;
+    position: absolute;
+    right: 16px;
+    top: 24px;
+    width: 400px;
+  }
+  &:hover {
+    a.edit-link {
+      display: inline-block
+    }
+  }
+}
+
 .larger_tag {
 	font-size: 13px;
 	color: #989898;
@@ -1356,9 +1378,6 @@ h2.special_offer {
 		display: block;
 		color: #666;
 	}
-}
-#upload-site-element-container {
-  display: none;
 }
 .download-item-row {
   position: relative;

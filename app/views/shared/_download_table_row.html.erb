@@ -103,14 +103,23 @@
 
     <% elsif item.is_a?(Software) %>
       <td>
-        <%= platform_icon(item, 17) %>
-        <%= link_to item.name, (item.link.present? && item.new_record?) ? item.link : item %>
-        <div class="show-for-small">
-          <%= flag_for(item) %>
-          <i>
-            <% if item.version.present? %>version <%= item.version %>, <% end %>
-            updated: <%=l item.updated_at.to_date, format: :short %>
-          </i>
+        <div class="row">
+          <div class="small-11 columns">
+            <%= platform_icon(item, 17) %>
+            <%= link_to item.name, (item.link.present? && item.new_record?) ? item.link : item %>
+            <div class="show-for-small">
+              <%= flag_for(item) %>
+              <i>
+                <% if item.version.present? %>version <%= item.version %>, <% end %>
+                updated: <%=l item.updated_at.to_date, format: :short %>
+              </i>
+            </div>
+          </div>
+          <div class="small-1 columns text-right">
+            <% if can?(:manage, item) %>
+              <%= render 'shared/download_table_row_admin_functions', item: item %>
+            <% end %>
+          </div>
         </div>
       </td>
       <td class="text-center hide-for-small">

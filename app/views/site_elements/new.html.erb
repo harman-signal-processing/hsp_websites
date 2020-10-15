@@ -1,17 +1,20 @@
-<h1 class="text-center"><%= @site_element.name %></h1>
+<h1 class="text-center">New Resource Form</h1>
 <br/>
 <div class="row">
   <div class="small-12 medium-8 medium-offset-2 columns">
 
+    <p>Use this form to upload a NEW file. If you'd like to upload a new version of an
+    existing file, hover over that item in the table on the product page and click the <%= fa_icon "edit" %>
+    edit icon if available.</p>
+
     <div class="panel">
       <%= s3_uploader_form callback_url: upload_admin_site_elements_url,
-        id: "s3_uploader",
-        callback_param: "direct_upload_url",
-        acl: "public-read",
-        expiration: 24.hours.from_now.utc.iso8601,
-        max_file_size: 900.megabytes do %>
-          <p>If you need to replace the file, navigate to the file on your computer or
-          drag and drop it below before filling out the rest of the form: (this is optional)</p>
+          id: "s3_uploader",
+          callback_param: "direct_upload_url",
+          acl: "public-read",
+          expiration: 24.hours.from_now.utc.iso8601,
+          max_file_size: 900.megabytes do %>
+        <p>Navigate to the file on your computer or drag and drop it below before filling out the rest of the form:</p>
         <div class="text-center">
           <%= file_field_tag :file %>
         </div>
@@ -26,6 +29,7 @@
           </div>
           </script>
         </div>
+
       <% end %>
     </div>
 

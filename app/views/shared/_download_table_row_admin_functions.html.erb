@@ -3,13 +3,24 @@
 <% end %>
 <div id="dialog_<%= item.to_param %>" class="dialog">
   <ul class="button-group">
-    <li><%= link_to edit_site_element_path(item), class: "tiny button" do %>
-        <%= fa_icon "edit" %> edit
-      <% end %>
-    </li>
-    <li><%= link_to new_version_site_element_path(item), class: "tiny button" do %>
-        <%= fa_icon "upload" %> upload new version
-      <% end %>
-    </li>
+    <% if item.is_a?(Software) %>
+      <li><%= link_to edit_software_path(item), class: "tiny button" do %>
+          <%= fa_icon "edit" %> edit
+        <% end %>
+      </li>
+      <li><%= link_to new_version_software_path(item), class: "tiny button" do %>
+          <%= fa_icon "upload" %> upload new version
+        <% end %>
+      </li>
+    <% else %>
+      <li><%= link_to edit_site_element_path(item), class: "tiny button" do %>
+          <%= fa_icon "edit" %> edit
+        <% end %>
+      </li>
+      <li><%= link_to new_version_site_element_path(item), class: "tiny button" do %>
+          <%= fa_icon "upload" %> upload new version
+        <% end %>
+      </li>
+    <% end %>
   </ul>
 </div>

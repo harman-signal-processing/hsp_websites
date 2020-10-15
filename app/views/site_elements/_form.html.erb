@@ -1,0 +1,53 @@
+<%= simple_form_for [:admin, @site_element] do |f| %>
+  <input type="hidden" name="return_to" value="<%= @return_to %>">
+  <%= f.input :direct_upload_url, as: :hidden %>
+  <%= f.input :name, label: "Name (as it will appear for site users)" %>
+  <div class="row">
+    <div class="medium-6 small-12 columns">
+      <%= f.input :language, collection: HarmanSignalProcessingWebsite::Application.config.document_languages %>
+    </div>
+    <div class="medium-6 small-12 columns">
+      <%= f.input :version %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-6 columns">
+      <%= f.input :resource_type,
+        label: "Category",
+        required: true,
+        collection: ((website.brand.name == "Martin") ? SiteElement.resource_types(brand_id: website.brand_id) : SiteElement.resource_types) - ["Software"] %>
+    </div>
+    <div class="large-6 columns">
+      <%= f.association :access_level,
+        label_method: :long_name,
+        hint: "(optional--leave blank to allow all access)"%>
+    </div>
+  </div>
+
+  <%= f.association :products,
+    label: "Related Products",
+    collection: website.brand.products,
+    include_blank: true,
+    input_html: { class: 'chosen-select' } %>
+
+  <br/>
+  <%= f.input :is_document, label: "Show this item as a document on the product page." %>
+  <%= f.input :is_software, label: "Show this item as software on the product page." %>
+  <%= f.input :show_on_public_site, label: "Also show on the main downloads page in the support area of the site." %>
+
+  <div class="row">
+    <div class="small-6 columns">
+      <%= f.submit 'Save Changes', class: "small button" %>
+    </div>
+    <div class="small-6 columns text-right">
+      <% unless @site_element.new_record? %>
+        <%= link_to admin_site_element_path(f.object, return_to: @return_to), method: :delete, class: "alert small button", data: { confirm: "Are you sure? This will remove \"#{f.object.long_name}\" from ALL related pages." } do %>
+          <%= fa_icon "trash" %>
+          delete
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+

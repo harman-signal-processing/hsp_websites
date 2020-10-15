@@ -252,19 +252,27 @@ module ProductsHelper
       if i > 0
         ret += link_to('', '', name: product_tab.key)
         ret += content_tag(:div, '', class: "overline")
-        ret += content_tag(:div, class: "row", id: "product-#{product_tab.key}") do
-          content_tag(:div, class: "small-9 columns") do
+        ret += content_tag(:div, class: "row product-subheader", id: "product-#{product_tab.key}") do
+          content_tag(:div, class: "small-10 columns") do
             content_tag(
             :h3,
             tab_title(product_tab, product: product),
             class: 'content-nav',
             data: {:'magellan-destination' => product_tab.key}
           )
-          end + content_tag(:div, class: "small-3 columns text-right") do
+          end + content_tag(:div, class: "small-2 columns text-right") do
             if can?(:manage, product)
-              if product_tab.key.match?(/downloads|documentation/)
-                link_to(new_admin_site_element_path, id: "upload-site-element-button", class: "tiny secondary button") do
+              if product_tab.key.match?(/download|doc/)
+                link_to(admin_product_path(product), class: "edit-link", data: {opener: 'upload-options'}) do
                   fa_icon("upload") + " upload"
+                end +
+                content_tag(:div, class: "dialog", id: "upload-options") do
+                  link_to(new_site_element_path(product_id: product.to_param), id: "upload-site-element-button", class: "tiny button") do
+                    fa_icon("upload") + " new resource"
+                  end + ' ' +
+                  link_to(new_software_path(product_id: product.to_param), class: "tiny button") do
+                    fa_icon("upload") + " new software"
+                  end
                 end
               end
             end

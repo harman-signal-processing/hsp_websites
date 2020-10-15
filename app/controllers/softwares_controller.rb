@@ -37,6 +37,20 @@ class SoftwaresController < ApplicationController
     end
   end
 
+  def edit
+    @software = Software.find(params[:id])
+  end
+
+  def new
+    @software = Software.new(active: true)
+    @software.products << Product.find(params[:product_id]) if params[:product_id]
+  end
+
+  def new_version
+    @old_software = Software.find(params[:id])
+    @software = Software.new(replaces_id: @old_software.to_param, active: true)
+  end
+
   # Custom route allows us to increment the counter before
   # sending the file to the user
   # GET /download/1

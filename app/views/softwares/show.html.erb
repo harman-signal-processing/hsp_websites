@@ -75,6 +75,18 @@
         <%=raw @software.side_content %>
       </div>
     <% end %>
+    <% if current_user && can?(:manage, @software) %>
+      <div class="text-right">
+        <%= link_to edit_software_path(@software) do %>
+          <%= fa_icon "edit" %> edit software
+        <% end %>
+        <br/>
+        <%= link_to new_version_software_path(@software) do %>
+          <%= fa_icon "upload" %> new version
+        <% end %>
+      </div>
+    <% end %>
+
 	</div>
 </div>
 
@@ -98,11 +110,5 @@
 		<li><%= link_to s.formatted_name, s %> [<%= number_to_human_size(s.ware_file_size) %>]</li>
 		<% end %>
 	</ul>
-<% end %>
-
-<% if current_user && can?(:manage, @software) %>
-<div class="admin_function">
-	<%= link_to "edit", edit_admin_software_path(@software) %>
-</div>
 <% end %>
 
