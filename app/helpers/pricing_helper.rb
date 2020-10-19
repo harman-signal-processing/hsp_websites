@@ -1,15 +1,15 @@
 module PricingHelper
 
-  def calculate_pricing_for_product_page(product, promo)
-    @discount_amount = calculate_discount_amount(product, promo)
+  def calculate_pricing_for_product_page(product, product_promotion)
+    @discount_amount = calculate_discount_amount(product, product_promotion)
     @new_price = calculate_new_price(product, @discount_amount)
   end
 
   # Calculates the discount amount to show on the product page. Takes
   # into account the current promotion, sale price, street price and msrp
-  def calculate_discount_amount(product, promo)
-    if promo && promo.discount.to_f > 0.0
-      calculate_promotion_discount(product, promo)
+  def calculate_discount_amount(product, product_promotion)
+    if product_promotion && product_promotion.discount.to_f > 0.0
+      calculate_promotion_discount(product, product_promotion)
     elsif product.sale_price && product.sale_price.to_f > 0.0
 
       if product.street_price.to_f > product.sale_price.to_f
@@ -27,15 +27,15 @@ module PricingHelper
 
   # Calculates the discount amount to show on the product page. Only
   # takes into account the promotion, street price and msrp
-  def calculate_promotion_discount(product, promo)
-    case promo.discount_type
+  def calculate_promotion_discount(product, product_promotion)
+    case product_promotion.discount_type
     when '$'
-      promo.discount.to_f
+      product_promotion.discount.to_f
     when '%'
       if product.street_price.to_f > 0.0
-        product.street_price.to_f * (promo.discount / 100)
+        product.street_price.to_f * (product_promotion.discount / 100)
       elsif product.msrp.to_f > 0.0
-        product.msrp.to_f * (promo.discount / 100)
+        product.msrp.to_f * (product_promotion.discount / 100)
       else
         0.0
       end

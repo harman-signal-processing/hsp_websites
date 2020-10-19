@@ -12,7 +12,7 @@
         </tr>
       </thead>
       <tbody>
-      <% if product.current_and_recently_expired_promotions.where.not(promo_form_file_name: [nil, '']).length > 0 %>
+      <% if product.current_promotions.where.not(promo_form_file_name: [nil, '']).length > 0 %>
         <tr>
           <td colspan="5">
             <%= image_tag("icons/pdf_17.png", style: "vertical-align: middle") %>

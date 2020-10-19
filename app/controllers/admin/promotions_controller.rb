@@ -1,7 +1,7 @@
 class Admin::PromotionsController < AdminController
   before_action :initialize_promotion, only: :create
   load_and_authorize_resource
-  
+
   # GET /admin/promotions
   # GET /admin/promotions.xml
   def index
@@ -30,6 +30,8 @@ class Admin::PromotionsController < AdminController
   # GET /admin/promotions/new
   # GET /admin/promotions/new.xml
   def new
+    10.times { @promotion.product_promotions.build }
+    @promotion.banner = Setting.new
     respond_to do |format|
       format.html { render_template } # new.html.erb
       format.xml  { render xml: @promotion }
@@ -38,6 +40,8 @@ class Admin::PromotionsController < AdminController
 
   # GET /admin/promotions/1/edit
   def edit
+    4.times { @promotion.product_promotions.build }
+    @promotion.banner ||= Setting.new
   end
 
   # POST /admin/promotions

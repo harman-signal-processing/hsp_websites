@@ -1,8 +1,7 @@
 <h1><%= @promotion.name %></h1>
 
-	<span class="little"><%= link_to(promotion_url(@promotion, locale: I18n.locale), @promotion) %>
-	<%= link_to(image_tag("icons/external_link_icon.png"), @promotion) %></span>
-<br/><br/><br/>
+	<p class="little"><%= link_to(promotion_url(@promotion, locale: I18n.locale), @promotion) %>
+	<%= link_to(image_tag("icons/external_link_icon.png"), @promotion) %></p>
 
 <ul class="button-group round">
 	<li><%= link_to admin_promotions_path, class: "small secondary button" do %>
@@ -21,49 +20,6 @@
   </li>
 </ul>
 
-<div class="row">
-	<div class="large-4 columns">
-		<div class="panel">
-			<h5 class="subheader">Homepage banner</h5>
-			<% if @promotion.homepage_banner_file_name.blank? %>
-				<i>none</i>
-			<% else %>
-				<%= link_to(image_tag(@promotion.homepage_banner.url(:thumb)), @promotion.homepage_banner.url) %>
-			<% end %>
-		</div>
-	</div>
-
-  <% unless @promotion.tile_file_name.blank? %>
-    <div class="large-4 columns">
-      <div class="panel">
-        <h5 class="subheader">Promo Page Header</h5>
-        <%= link_to(image_tag(@promotion.tile.url(:thumb)), @promotion.tile.url) %>
-      </div>
-    </div>
-  <% end %>
-  <% unless @promotion.promo_form_file_name.blank? %>
-    <div class="large-4 columns">
-      <div class="panel">
-        <h5 class="subheader">Promo form file name</h5>
-        <%= link_to @promotion.promo_form_file_name, @promotion.promo_form.url %>
-      </div>
-    </div>
-  <% end %>
-</div>
-
-<% if @promotion.discount.present? %>
-  <p>
-    Discount:
-    <% if @promotion.discount_type == '$' %>
-      <%= number_to_currency @promotion.discount %> off
-    <% elsif @promotion.discount_type == '%' %>
-      <%= number_to_percentage @promotion.discount, precision: 0 %> off
-    <% else %>
-      <span class="alert">Can't determine: choose dollars or percent!</span>
-    <% end %>
-  </p>
-<% end %>
-
 <p>
 	Valid promotion dates:
 	<b>
@@ -77,38 +33,41 @@
 	</b>
 </p>
 
-<p>
-	Appears on site during:
-	<b>
-		<% if @promotion.show_start_on.present? %>
-  			<%=l @promotion.show_start_on, format: :long %>
-		<% end %>
-		thru
-		<% if @promotion.show_end_on.present? %>
-  			<%=l @promotion.show_end_on, format: :long %>
-		<% end %>
-	</b>
-</p>
+<%# For brands whose homepage banner area is a video %>
+<% if Setting.slides(website, limit: 5).pluck(:slide_content_type).any? {|c| c.match?(/video/i) } %>
+
+  <% if @promotion.homepage_banner_file_name.present? %>
+    <div class="panel">
+      <h5 class="subheader">Homepage strip</h5>
+      <%= link_to(image_tag(@promotion.homepage_banner.url(:thumb)), @promotion.homepage_banner.url) %>
+    </div>
+  <% end %>
+
+<% else %>
+
+  <% if @promotion.banner && @promotion.banner.slide.present? %>
+    <div class="panel">
+
+      <h5 class="subheader">Homepage banner</h5>
+      <p>Banner image:
+        <%= link_to @promotion.banner.slide_file_name,
+          @promotion.banner.slide.url, target: "_blank" %>
+      </p>
+
+      <p>Determined landing page for homepage banner:
+        <b><%= @promotion.best_landing_page_path %></b>
+      </p>
+  <% end %>
+
+<% end %>
 
 <div class="group">
 	<h4 class="subheader">Products related to this promotion</h4>
-	<%= simple_form_for [:admin, @product_promotion], remote: true do |f| %>
-		<%= f.hidden_field :promotion_id %>
-		<%= hidden_field_tag :called_from, "promotion" %>
-
-		<div class="row collapse">
-			<div class="large-5 small-9 columns">
-				<%= f.association :product, label: false, collection: website.products %>
-			</div>
-			<div class="large-2 small-3 columns">
-				<%= f.submit "add product", class: "button prefix" %>
-			</div>
-			<div class="large-5 columns"></div>
-		</div>
-	<% end %>
 	<ul id="product_promotions" class="list">
 		<% @promotion.product_promotions.each do |pp| %>
-		<%= render "/admin/shared/product_promotion_row", pp: pp, called_from: "promotion" %>
+      <%= render "/admin/shared/product_promotion_row", pp: pp, called_from: "promotion" %>
 		<% end %>
 	</ul>
+
+  <p><em><%= link_to "Edit the promotion", edit_admin_promotion_path(@promotion) %> to add products or adjust discount amount.</em></p>
 </div>

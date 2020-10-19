@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_08_150845) do
+ActiveRecord::Schema.define(version: 2020_10_19_171055) do
 
   create_table "access_levels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -1337,6 +1337,8 @@ ActiveRecord::Schema.define(version: 2020_10_08_150845) do
     t.integer "promotion_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float "discount"
+    t.string "discount_type"
     t.index ["product_id"], name: "index_product_promotions_on_product_id"
     t.index ["promotion_id"], name: "index_product_promotions_on_promotion_id"
   end
@@ -1550,6 +1552,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_150845) do
     t.float "discount"
     t.string "discount_type"
     t.boolean "show_recalculated_price"
+    t.integer "banner_id"
     t.index ["brand_id"], name: "index_promotions_on_brand_id"
     t.index ["cached_slug"], name: "index_promotions_on_cached_slug", unique: true
   end

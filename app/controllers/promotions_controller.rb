@@ -13,7 +13,6 @@ class PromotionsController < ApplicationController
         @featured_promotion = promos_with_image.first
       end
     end
-    @expired_promotions = Promotion.recently_expired_for_website(website)
     respond_to do |format|
       format.html { render_template } # index.html.erb
       # format.xml  { render xml: @promotions }

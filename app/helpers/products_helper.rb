@@ -295,7 +295,7 @@ module ProductsHelper
       r << ProductTab.new("extended_description") if !product.extended_description.blank? && selected_tabs.include?("extended_description")
       r << ProductTab.new("audio_demos") if product.audio_demos.size > 0 && selected_tabs.include?("audio_demos")
       r << ProductTab.new("configuration_tool") if product.configuration_tool_content_present? && selected_tabs.include?("configuration_tool")
-      r << ProductTab.new("documentation") if (product.product_documents.size > 0 || product.current_and_recently_expired_promotions.size > 0 || product.viewable_site_elements.size > 0) && selected_tabs.include?("documentation")
+      r << ProductTab.new("documentation") if (product.product_documents.size > 0 || product.current_promotions.size > 0 || product.viewable_site_elements.size > 0) && selected_tabs.include?("documentation")
       r << ProductTab.new("downloads") if (product.softwares.size > 0 || product.site_elements.size > 0 || product.executable_site_elements.size > 0) && selected_tabs.include?("downloads")
       r << ProductTab.new("downloads_and_docs") if (product.softwares.size > 0 || product.product_documents.size > 0 || product.site_elements.size > 0) && selected_tabs.include?("downloads_and_docs")
       r << ProductTab.new("features") if product.features && selected_tabs.include?("features")

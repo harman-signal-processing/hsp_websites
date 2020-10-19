@@ -1,122 +1,76 @@
 <%= simple_form_for([:admin, @promotion], html: {multipart: true}) do |f| %>
 
   <div class="row">
-    <div class="large-9 columns">
+    <div class="small-12 medium-6 columns">
       <%= f.input :name, label: "Promotion Name" %>
     </div>
-    <div class="large-3 columns">
-      <%= f.label :discount %>
-      <div class="row collapse">
-        <div class="small-9 columns">
-          <%= f.input :discount, label: false %>
-        </div>
-        <div class="small-3 columns">
-          <%= f.input :discount_type, label: false, as: :select, collection: ["$", "%"], include_blank: false %>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="large-3 columns">
+    <div class="small-12 medium-3 columns">
       <%= f.input :start_on, as: :string, label: "Promotion start date", input_html: { class: 'ui-datepicker' } %>
     </div>
-    <div class="large-3 columns">
+    <div class="small-12 medium-3 columns">
       <%= f.input :end_on, as: :string, label: "Promotion end date", input_html: { class: 'ui-datepicker' } %>
     </div>
-
-    <div class="large-3 columns">
-      <%= f.input :show_start_on, as: :string, label: "Show on website starting", input_html: { class: 'ui-datepicker' } %>
-    </div>
-    <div class="large-3 columns">
-      <%= f.input :show_end_on, as: :string, label: "Take off website after", input_html: { class: 'ui-datepicker' } %>
-    </div>
   </div>
+  <br/>
 
+  <%# For brands whose homepage banner area is a video %>
+  <% if Setting.slides(website, limit: 5).pluck(:slide_content_type).any? {|c| c.match?(/video/i) } %>
+    <fieldset>
+      <legend>Homepage Tile (for brands showing a video instead of banners on the homepage)</legend>
+      <div class="row">
+        <div class="large-12 columns">
+          <%= f.input :homepage_headline, label: "Headline" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="large-8 columns">
+          <%= f.input :homepage_text, label: "Text" %>
+        </div>
+        <div class="large-4 columns">
+          <%= f.input :homepage_banner, label: "Side Image (450x360)" %>
+          <% unless f.object.homepage_banner_file_name.blank? %>
+            <span id="homepage_banner_container">
+              currently:
+              <%= link_to(image_tag(f.object.homepage_banner.url(:tiny)), f.object.homepage_banner.url) %>
+            </span>
+          <% end %>
+        </div>
+      </div>
+    </fieldset>
+  <% else %>
+    <fieldset>
+      <legend>Homepage Banner</legend>
+      <p>The banner will automatically be scheduled to appear on the site during the same time
+      the promotion is valid. If needed, make further adjustments by editing the banner details
+      on the <%= link_to "homepage editor", homepage_admin_settings_path %>.</p>
+
+      <%= f.simple_fields_for :banner do |banner| %>
+        <%= banner.input :slide,
+          label: "300KB max. If your file is larger, use Photoshop to reduce the size by exporting a JPEG and reducing the quality." %>
+
+        <% unless banner.object.new_record? %>
+          <p class="small">Currently: <%= link_to banner.object.slide_file_name, banner.object.slide.url, target: "_blank" %></p>
+        <% end %>
+      <% end %>
+    </fieldset>
+  <% end %>
+
+  <br/>
   <div class="row">
-    <div class="large-12 columns">
-      <%= f.input :promo_form, label: "Redemption form" %>
-      <% unless f.object.promo_form_file_name.blank? %>
-        <span id="promo_form_container">
-          currently:
-          <%= link_to(f.object.promo_form_file_name, f.object.promo_form.url) %>
-        </span>
-      <% end %>
-
-      <%= f.input :show_recalculated_price,
-        label: "Show the slashed price on the related product pages. (Only for brands/products which show pricing normally.)" %>
+    <div class="small-12 medium-6 columns">
+      <h5>Related Products</h5>
+    </div>
+    <div class="hide-for-small medium-6 columns">
+      <h5>Discount</h5>
     </div>
   </div>
+  <%= f.simple_fields_for :product_promotions do |pp| %>
+    <%= render 'product_promotion_fields', f: pp, parent: f.object %>
+  <% end %>
 
+  <%= f.input :show_recalculated_price,
+    label: "Show the slashed price on the related product pages. (Only for brands/products which show pricing normally.)" %>
 
-<br/>
-
-  <fieldset>
-    <legend>Homepage Banner (for new/dbx style homepage)</legend>
-    <div class="row">
-      <div class="large-12 columns">
-        <%= f.input :homepage_headline, label: "Headline" %>
-      </div>
-    </div>
-    <div class="row">
-      <div class="large-8 columns">
-        <%= f.input :homepage_text, label: "Text" %>
-      </div>
-      <div class="large-4 columns">
-        <%= f.input :homepage_banner, label: "Side Image (450x360)" %>
-        <% unless f.object.homepage_banner_file_name.blank? %>
-          <span id="homepage_banner_container">
-            currently:
-            <%= link_to(image_tag(f.object.homepage_banner.url(:tiny)), f.object.homepage_banner.url) %>
-          </span>
-        <% end %>
-      </div>
-    </div>
-  </fieldset>
-
-<br/>
-
-  <fieldset>
-    <legend>Promotion Landing Page</legend>
-      <%= f.input :tile, label: "Promo page header", hint: "Also appears on the promotions index page." %>
-      <% unless f.object.tile_file_name.blank? %>
-        <span id="tile_container">
-          currently: 
-          <%= link_to(image_tag(f.object.tile.url(:tiny)), f.object.tile.url) %>
-        </span>
-      <% end %>
-      <%= f.input :description, 
-        label: "Description",
-        hint: "Product pages will link to this info. If it is blank, then link will go directly to the redemption form.", 
-        input_html: { class: "mceEditor" } %>
-  </fieldset>
-
-<br/>
-
-  <fieldset>
-    <legend>Toolkit</legend>
-            <%= f.input :tile, label: "Promo page header" %>
-        <% unless f.object.tile_file_name.blank? %>
-          <span id="tile_container">
-            currently: 
-            <%= link_to(image_tag(f.object.tile.url(:tiny)), f.object.tile.url) %>
-          </span>
-        <% end %>
-    <%= f.input :toolkit_instructions, 
-      label: "Instructions or other notes for toolkit users (text below appears on toolkit)",
-      input_html: { class: "mceEditor" } %>
-  </fieldset>
-
-<br/>
-
-  <fieldset>
-    <legend>Customer notifications (not common)</legend>
-
-  	<%= f.input :send_post_registration_message, label: "Send a message (below) to customers who register a related product during the promotion start/end date." %><br/>
-  	<%= f.input :post_registration_subject, label: "Subject" %>
-  	<%= f.input :post_registration_message, input_html: { class: "mceEditor" } %>
-
-  </fieldset>
 
   <br/><%= f.button :submit %>
 

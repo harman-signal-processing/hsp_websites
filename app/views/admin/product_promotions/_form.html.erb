@@ -1,0 +1,19 @@
+<%= simple_form_for [:admin, @product_promotion] do |f| %>
+  <%= f.association :promotion, collection: website.brand.promotions.reverse %>
+  <%= f.association :product, collection: website.brand.products %>
+  <div class="row">
+    <div class="large-3 columns">
+      <%= f.label :discount %>
+      <div class="row collapse">
+        <div class="small-9 columns">
+          <%= f.input :discount, label: false %>
+        </div>
+        <div class="small-3 columns">
+          <%= f.input :discount_type, label: false, as: :select, collection: ["$", "%"], include_blank: false %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br/><%= f.button :submit %>
+<% end %>

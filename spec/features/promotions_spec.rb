@@ -8,7 +8,6 @@ feature "Promotions" do
     Capybara.app_host = "http://#{@website.url}"
     @promo = FactoryBot.create(:promotion, brand: @website.brand)
     @expired_promo = FactoryBot.create(:expired_promotion, brand: @website.brand)
-    @recently_expired_promo = FactoryBot.create(:recently_expired_promotion, brand: @website.brand)
   	@product = @website.products.first
     @product.product_promotions << FactoryBot.create(:product_promotion, promotion: @promo, product: @product)
     @product.product_promotions << FactoryBot.create(:product_promotion, promotion: @expired_promo, product: @product)
@@ -37,17 +36,6 @@ feature "Promotions" do
 
   end
 
-  describe "product page when promo is recently expired" do
-    it "should show link to rebate forms" do
-      product = @website.products.last
-      product.product_promotions << FactoryBot.create(:product_promotion, promotion: @recently_expired_promo, product: product)
-
-      visit product_path(product, locale: I18n.default_locale)
-
-      expect(page).to have_link "Rebate Forms", href: promotions_path(locale: I18n.default_locale)
-    end
-  end
-
   describe "promo overview page" do
 
     before do
@@ -56,10 +44,6 @@ feature "Promotions" do
 
   	it "lists current promos" do
       expect(page).to have_link @promo.name, href: promotion_path(@promo, locale: I18n.default_locale)
-    end
-
-    it "links to recently expired promotion" do
-      expect(page).to have_link @recently_expired_promo.name, href: promotion_path(@recently_expired_promo, locale: I18n.default_locale)
     end
 
   	it "does not list expired promos" do

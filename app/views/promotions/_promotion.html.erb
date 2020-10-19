@@ -2,7 +2,7 @@
 
 	<h1><%= translate_content(promotion, :name) %></h1>
 	<% if promotion.expired? %>
-	<p><i>Note: this promotion is expired. Information remains here until <%= l promotion.show_end_on, format: :long %>
+	<p><i>Note: this promotion is expired. Information remains here 
 		to allow participants time to download the rebate form.</i></p>
 	<% end %>
 	<p><%= t('valid') %> <%=l promotion.start_on, format: :long %>-<%=l promotion.end_on, format: :long %></p>
@@ -10,7 +10,7 @@
 	<% if !promotion.promo_form_file_name.blank? %>
 		<p><%= link_to t('download_promotion_form'), promotion.promo_form.url, class: "medium button" %></p>
 	<% end %>
-	
+
 	<%=raw translate_content(promotion, :description) %>
 
 	<% if promotion.products.size > 0 %>
@@ -18,5 +18,5 @@
 		<%= links_to_related_products(promotion) %>
 	</div>
 	<% end %>
-	
+
 </div>

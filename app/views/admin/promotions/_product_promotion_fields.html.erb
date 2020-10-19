@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="small-12 medium-6 columns">
+  <%= f.association :product, label: false, collection: website.brand.products %>
+  </div>
+  <div class="small-12 medium-6 columns">
+    <div class="row collapse">
+      <div class="small-9 columns">
+        <%= f.input :discount, label: false %>
+      </div>
+      <div class="small-3 columns">
+        <%= f.input :discount_type, label: false, as: :select, collection: ["$", "%"], include_blank: false %>
+      </div>
+    </div>
+  </div>
+</div>
+

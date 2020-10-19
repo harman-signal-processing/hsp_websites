@@ -94,11 +94,11 @@
 		<%= render "downloads", product: @product %>
 		<% end %>
 
-		<% if @product.current_and_recently_expired_promotions.length > 0 %>
+		<% if @product.current_promotions.length > 0 %>
 		<div class="callout panel">
 			<h5 class="subheader">Promotions:</h5>
 			<ul class="list disc">
-				<% @product.current_and_recently_expired_promotions.each do |promo| %>
+				<% @product.current_promotions.each do |promo| %>
 					<li><%= link_to promo.name, [:toolkit, @brand, promo] %></li>
 				<% end %>
 			</ul>

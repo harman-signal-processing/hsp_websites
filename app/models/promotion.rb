@@ -1,12 +1,14 @@
 class Promotion < ApplicationRecord
+  include Rails.application.routes.url_helpers
   extend FriendlyId
   friendly_id :sanitized_name
 
   validates :brand_id, presence: true
   validates :name, presence: true, uniqueness: { case_sensitive: false }
-  has_many :product_promotions
+  has_many :product_promotions, inverse_of: :promotion
   has_many :products, through: :product_promotions
   belongs_to :brand, touch: true
+  belongs_to :banner, class_name: "Setting", foreign_key: "banner_id"
 
   has_attached_file :promo_form, S3_STORAGE
   do_not_validate_attachment_file_type :promo_form
@@ -35,16 +37,19 @@ class Promotion < ApplicationRecord
   process_in_background :tile
   process_in_background :homepage_banner
 
+  accepts_nested_attributes_for :product_promotions, reject_if: proc { |p| p["product_id"].blank? }
+  accepts_nested_attributes_for :banner, reject_if: :all_blank
+  before_save :update_banner
+
   def sanitized_name
     self.name.gsub(/[\'\"]/, "")
   end
 
-  # All promotions for the given Website whose "show on website" range
-  # is still current. This may include promotions which are expired, but
-  # are still scheduled to appear.
+  # All promotions for the given Website whose start/end range
+  # is still current.
   #
   def self.current(website)
-    website.brand.promotions.where(["show_start_on IS NOT NULL AND show_end_on IS NOT NULL AND show_start_on <= ? AND show_end_on >= ?", Date.today, Date.today])
+    website.brand.promotions.where(["start_on IS NOT NULL AND end_on IS NOT NULL AND start_on <= ? AND end_on >= ?", Date.today, Date.today])
   end
 
   # Sorted collection of self.current
@@ -56,14 +61,34 @@ class Promotion < ApplicationRecord
   # All CURRENT promotions (those which are not expired) for the given Website
   #
   def self.current_for_website(website)
-    website.brand.promotions.where(["show_start_on IS NOT NULL AND show_end_on IS NOT NULL AND start_on <= ? AND (end_on >= ? OR end_on IS NULL or end_on = '')", Date.today, Date.today]).order("end_on ASC")
+    website.brand.promotions.where(["start_on IS NOT NULL AND start_on <= ? AND (end_on >= ? OR end_on IS NULL or end_on = '')", Date.today, Date.today]).order("end_on ASC")
   end
 
-  # Promotions which are still scheduled to appear on the Website, but whose
-  # valid period is expired.
-  #
-  def self.recently_expired_for_website(website)
-    current(website) - current_for_website(website)
+  def update_banner
+    if banner && banner.slide.present?
+      banner.setting_type = "slideshow frame"
+      banner.start_on = self.start_on
+      banner.remove_on = self.end_on
+      banner.name = "#{self.name} Banner"
+      banner.string_value = best_landing_page_path
+      banner.save
+    end
+  end
+
+  def best_landing_page_path
+    if products.length == 1
+      product_path(products.first, locale: I18n.locale)
+    elsif common_product_family
+      product_family_path(common_product_family, locale: I18n.locale)
+    else
+      promotion_path(self, locale: I18n.locale)
+    end
+  end
+
+  def common_product_family
+    products.map do |product|
+      product.product_families
+    end.reduce(:&).first
   end
 
   # !blank? doesn't work because tiny MCE supplies a blank line even

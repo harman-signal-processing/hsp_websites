@@ -30,26 +30,6 @@
   <% end %>
 </div>
 
-<% if @expired_promotions.length > 0 %>
-	<div class="support_box_container">
-	<h3 class="subheader">Recently Expired Promotions</h3>
-	<p><i>Note: Promotions below are expired. Information remains here for 30 days
-			to allow participants time to download the rebate forms.</i></p>
-
-	<% @expired_promotions.each do |promotion| %>
-		<div class="support_box">
-			<h4><%= link_to(translate_content(promotion, :name), promotion) %></h4>
-      <div>
-        <%= t('valid') %>
-        <%=l promotion.start_on, format: :long %>
-        <% if promotion.end_on.present? %> - <%=l promotion.end_on, format: :long %><% end %>
-      <br/><%= link_to t('more_info'), promotion, class: "tiny secondary button" %>
-			</div>
-		</div>
-	<% end %>
-	</div>
-<% end %>
-
-<% unless (@current_promotions + @expired_promotions).size > 0 %>
+<% unless @current_promotions.size > 0 %>
 	<p>There are no current promotions. Check back soon.</p>
 <% end %>

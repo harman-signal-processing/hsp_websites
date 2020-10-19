@@ -24,7 +24,7 @@ class Product < ApplicationRecord
   has_many :artists, through: :artist_products
   has_many :product_site_elements, -> { order('position') }, dependent: :destroy, inverse_of: :product
   has_many :site_elements, through: :product_site_elements
-  has_many :product_promotions, dependent: :destroy
+  has_many :product_promotions, dependent: :destroy, inverse_of: :product
   has_many :promotions, through: :product_promotions
   has_many :product_suggestions, -> { order('position') }, dependent: :destroy
   has_many :product_prices, dependent: :destroy
@@ -425,7 +425,7 @@ class Product < ApplicationRecord
   end
 
   def documentation_content_present?
-    product_documents.size > 0 || current_and_recently_expired_promotions.size > 0 || viewable_site_elements.size > 0
+    product_documents.size > 0 || current_promotions.size > 0 || viewable_site_elements.size > 0
   end
 
   def downloads_content_present?
@@ -582,19 +582,13 @@ class Product < ApplicationRecord
 
   # Promotions which are current and relate to this Product
   def current_promotions
-    promotions.where(["show_start_on IS NOT NULL AND show_end_on IS NOT NULL AND start_on <= ? AND (end_on >= ? OR end_on IS NULL OR end_on = '')", Date.today, Date.today]).order("start_on")
+    promotions.where(["start_on IS NOT NULL AND start_on <= ? AND (end_on >= ? OR end_on IS NULL OR end_on = '')", Date.today, Date.today]).order("start_on")
   end
 
   def first_promo_with_price_adjustment
-    current_promotions.where(show_recalculated_price: true).where("discount > 0").first
-  end
-
-  def current_and_recently_expired_promotions
-    promotions.where(["show_start_on IS NOT NULL AND show_end_on IS NOT NULL AND show_start_on <= ? AND show_end_on >= ?", Date.today, Date.today]).order("start_on")
-  end
-
-  def recently_expired_promotions
-    (current_and_recently_expired_promotions - current_promotions)
+    product_promotions.
+      where(promotion_id: current_promotions.where(show_recalculated_price: true).pluck(:id)).
+      where("discount > 0").first
   end
 
   # Pick only those artists who are approved
