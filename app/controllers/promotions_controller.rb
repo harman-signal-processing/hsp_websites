@@ -1,6 +1,6 @@
 class PromotionsController < ApplicationController
   before_action :set_locale
-  before_action :ensure_best_url, only: :show
+  before_action :load_promotion, only: [:show, :edit]
 
   # GET /promotions
   # GET /promotions.xml
@@ -31,11 +31,25 @@ class PromotionsController < ApplicationController
     end
   end
 
+  def new
+    @promotion = Promotion.new
+    authorize! :crete, @promotion
+    @promotion.banner = Setting.new
+    10.times { @promotion.product_promotions.build }
+    @return_to = request.referer
+  end
+
+  def edit
+    authorize! :update, @promotion
+    @promotion.banner ||= Setting.new
+    3.times { @promotion.product_promotions.build }
+    @return_to = request.referer
+  end
+
   protected
 
-  def ensure_best_url
+  def load_promotion
     @promotion = Promotion.where(cached_slug: params[:id]).first || Promotion.find(params[:id])
-    # redirect_to @promotion, status: :moved_permanently unless @promotion.friendly_id_status.best?
   end
 
 end

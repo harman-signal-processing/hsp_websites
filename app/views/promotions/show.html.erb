@@ -2,6 +2,14 @@
   description: truncate(strip_html(@promotion.description)),
   reverse: true %>
 
+<% if current_user && can?(:manage, @promotion) %>
+  <div class="text-right">
+    <%= link_to edit_promotion_path(@promotion) do %>
+      <%= fa_icon 'edit' %> edit promotion
+    <% end %>
+  </div>
+<% end %>
+
 <div class="text-center">
   <% if @promotion.banner && @promotion.banner.slide.present? %>
     <%= image_tag(@promotion.banner.slide.url, alt: @promotion.name) %>
@@ -40,8 +48,3 @@
   </ul>
 <% end %>
 
-<% if current_user && can?(:manage, @promotion) %>
-<div class="admin_function">
-	<%= link_to "edit", edit_admin_promotion_path(@promotion) %>
-</div>
-<% end %>

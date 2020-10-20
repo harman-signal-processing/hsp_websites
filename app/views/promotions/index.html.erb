@@ -10,24 +10,65 @@
   <% end %>
 <% end %>
 
-<h3 class="page_title">
-  <% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/promotions_head.jpg")) %>
-    <%= image_tag("#{website.folder}/#{I18n.locale}/promotions_head.jpg", alt: t('titles.promotions')) %>
-  <% else %>
-    <%= t('titles.promotions') %>
-  <% end %>
-</h3>
+<div class="row">
+  <div class="small-12 medium-8 columns">
+    <h1 class="page_title">
+      <% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/promotions_head.jpg")) %>
+        <%= image_tag("#{website.folder}/#{I18n.locale}/promotions_head.jpg", alt: t('titles.promotions')) %>
+      <% else %>
+        <%= t('titles.promotions') %>
+      <% end %>
+    </h1>
+  </div>
+  <div class="small-12 medium-4 columns text-right">
+    <br/>
+    <% if can? :create, Promotion %>
+      <%= link_to new_promotion_path do %>
+        <%= fa_icon "plus" %> new promotion
+      <% end %>
+    <% end %>
+  </div>
+</div>
 
-<div class="promotion_bug_container">
-  <% @current_promotions.each do |promotion| %>
-    <div class="promotion_bug">
+<div class="row">
+  <div class="small-12 medium-8 columns">
+    <% @current_promotions.each do |promotion| %>
       <h2><%= link_to(translate_content(promotion, :name), promotion) %></h2>
       <div><%= t('valid') %> <%=l promotion.start_on, format: :long %>
         <% if promotion.end_on.present? %> - <%=l promotion.end_on, format: :long %><% end %>
       <br/><%= link_to t('more_info'), promotion, class: "tiny secondary button" %>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
+  <div class="small-12 medium-4 columns">
+    <% if can? :manage, Promotion %>
+      <% upcoming = Promotion.where(brand_id: website.brand_id).where("start_on > ?", Date.today) %>
+      <% if upcoming.length > 0 %>
+        <div class="panel">
+          <h5>Upcoming Promos (for admin eyes only)</h5>
+          <ul>
+            <% upcoming.each do |p| %>
+              <li>
+                <strong><%= link_to p.name, p %></strong>
+                <% if p.products.length > 0 %>
+                  <div>
+                    includes: <%= p.products.pluck(:name).join(", ") %>
+                  </div>
+                <% end %>
+                <div>
+                  <em><%= t('valid') %> <%=l p.start_on, format: :short %>
+                  <% if p.end_on.present? %>
+                    - <%=l p.end_on, format: :short %>
+                  <% end %>
+                  </em>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 </div>
 
 <% unless @current_promotions.size > 0 %>

@@ -495,8 +495,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       :pages,
       :installations,
       :product_reviews,
-      :demo_songs,
-      :promotions, only: [:index, :show]
+      :demo_songs
+    resources :promotions, only: [:index, :show, :new, :edit]
     resources :product_families, only: [:index, :show] do
       resources :testimonials, only: :index
       member do

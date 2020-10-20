@@ -1,4 +1,5 @@
 <%= simple_form_for [:admin, @promotion] do |f| %>
+  <input type="hidden" name="return_to" value="<%= @return_to %>">
 
   <div class="row">
     <div class="small-12 medium-6 columns">
@@ -40,9 +41,8 @@
   <% else %>
     <fieldset>
       <legend>Homepage Banner</legend>
-      <p>The banner will automatically be scheduled to appear on the site during the same time
-      the promotion is valid. If needed, make further adjustments by editing the banner details
-      on the <%= link_to "homepage editor", homepage_admin_settings_path %>.</p>
+      <p>The banner is automatically scheduled to appear on the site during the same time
+      the promotion is valid.</p>
 
       <%= f.simple_fields_for :banner do |banner| %>
         <%= banner.input :slide,
@@ -71,7 +71,19 @@
   <%= f.input :show_recalculated_price,
     label: "Show the slashed price on the related product pages. (Only for brands/products which show pricing normally.)" %>
 
-
-  <br/><%= f.button :submit %>
+  <br/>
+  <div class="row">
+    <div class="small-12 medium-6 columns">
+      <%= f.submit "Save Changes", class: "small button"%>
+    </div>
+    <div class="small-6 columns text-right">
+      <% unless @promotion.new_record? %>
+        <%= link_to admin_promotion_path(f.object, return_to: @return_to), method: :delete, class: "alert small button", data: { confirm: "Are you sure?" } do %>
+          <%= fa_icon "trash" %>
+          delete
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 
 <% end %>

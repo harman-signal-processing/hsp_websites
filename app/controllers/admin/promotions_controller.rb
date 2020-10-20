@@ -50,7 +50,13 @@ class Admin::PromotionsController < AdminController
     @promotion.brand = website.brand
     respond_to do |format|
       if @promotion.save
-        format.html { redirect_to([:admin, @promotion], notice: 'Promotion was successfully created.') }
+        format.html {
+          if params[:return_to]
+            redirect_to(params[:return_to], notice: "Promotion was successfully created.")
+          else
+            redirect_to([:admin, @promotion], notice: 'Promotion was successfully created.')
+          end
+        }
         format.xml  { render xml: @promotion, status: :created, location: @promotion }
         website.add_log(user: current_user, action: "Created promotion #{@promotion.name}")
       else
@@ -65,7 +71,13 @@ class Admin::PromotionsController < AdminController
   def update
     respond_to do |format|
       if @promotion.update(promotion_params)
-        format.html { redirect_to([:admin, @promotion], notice: 'Promotion was successfully updated.') }
+        format.html {
+          if params[:return_to]
+            redirect_to(params[:return_to], notice: "Promotion was successfully updated.")
+          else
+            redirect_to([:admin, @promotion], notice: 'Promotion was successfully updated.')
+          end
+        }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated promotion: #{@promotion.name}")
       else
@@ -80,7 +92,13 @@ class Admin::PromotionsController < AdminController
   def destroy
     @promotion.destroy
     respond_to do |format|
-      format.html { redirect_to(admin_promotions_url) }
+      format.html {
+        if params[:return_to]
+          redirect_to(params[:return_to], notice: "#{@promotion.name} was successfully deleted.")
+        else
+          redirect_to(admin_promotions_url)
+        end
+      }
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted promotion: #{@promotion.name}")

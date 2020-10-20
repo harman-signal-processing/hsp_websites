@@ -63,9 +63,14 @@ class Ability
       end
       if user.role?(:marketing_staff)
         can :manage, Product
+        can :manage, ProductSpecification
+        can :manage, ProductAttachment
+        can :manage, ProductDocument
         can :manage, SiteElement
+        can :manage, Software
+        can :manage, Promotion
         can :manage, SupportSubject
-        can :update, News
+        can :manage, News
         can :read, ContactMessage
       end
       if user.role?(:sales_admin)
