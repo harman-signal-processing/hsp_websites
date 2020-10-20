@@ -239,6 +239,7 @@ class Ability
         can :manage, Vip::Training
         can :manage, Vip::Website
         can :manage, AmxItgNewModuleRequest
+        can :manage, Page, custom_route: "amx-partners-program"
       end  #  if user.role?(:vip_programmers_admin)
     end
   end
