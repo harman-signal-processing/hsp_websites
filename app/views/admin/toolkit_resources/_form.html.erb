@@ -1,7 +1,7 @@
 <% if @toolkit_resource.toolkit_resource_type.marketing_message? %>
 
 <div class="instructions">
-  Use this form to add a <%= website.brand.name %> marketing message to specific 
+  Use this form to add a <%= website.brand.name %> marketing message to specific
   types of users on the marketing toolkit.
 </div>
 
@@ -16,7 +16,7 @@
 
 <% end %>
 
-<%= simple_form_for([:admin, @toolkit_resource], html: {multipart: true}) do |f| %>
+<%= simple_form_for [:admin, @toolkit_resource] do |f| %>
   <%= f.hidden_field :toolkit_resource_type_id %>
 
   <% if @toolkit_resource.toolkit_resource_type.marketing_message? %>
@@ -28,23 +28,23 @@
     <%= f.input :download_path, hint: "(on the shared toolkit folder, usually starts with brand name)", placeholder: "#{website.folder}/#{@toolkit_resource.toolkit_resource_type.name.parameterize.tableize}/..." %>
     <div class="row">
       <div class="large-6 columns">
-        <%= f.input :download_file_size, 
-            label: "Download file size (in bytes)", 
+        <%= f.input :download_file_size,
+            label: "Download file size (in bytes)",
             placeholder: "9999999",
             hint: "Right-click and choose 'properties' or 'more info' on the original file." %>
       </div>
       <div class="large-6 columns">
-        <%= f.input :tk_preview, label: "Preview image", 
+        <%= f.input :tk_preview, label: "Preview image",
               hint: "Gives the visitor an idea about what the full-sized file contains. No need for big files here--will be automatically sized and cropped." %>
       </div>
     </div>
   <% if @toolkit_resource.toolkit_resource_type.related_model.present? %>
     <div class="row">
       <div class="large-6 columns">
-        <%= f.label :related_id, 
+        <%= f.label :related_id,
             "Related #{@toolkit_resource.toolkit_resource_type.related_model.titleize}" %>
         <%= toolkit_collection_select_for(f, @toolkit_resource.toolkit_resource_type.related_model) %>
-        <div class="hint">If you can't find the related <%= @toolkit_resource.toolkit_resource_type.related_model.titleize.downcase %> above, you might need to 
+        <div class="hint">If you can't find the related <%= @toolkit_resource.toolkit_resource_type.related_model.titleize.downcase %> above, you might need to
           <%= link_to "create it first", eval("new_admin_#{@toolkit_resource.toolkit_resource_type.related_model.underscore}_path") %>.</div>
       </div>
     </div>

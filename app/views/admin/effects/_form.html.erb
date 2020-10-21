@@ -1,4 +1,4 @@
-<%= simple_form_for([:admin, @effect], html: {multipart: true}) do |f| %>
+<%= simple_form_for [:admin, @effect] do |f| %>
   <%= f.association :effect_type, collection: EffectType.order(:position) %>
   <%= f.input :name %>
   <br/><%= f.button :submit %>

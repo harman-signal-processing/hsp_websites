@@ -1,6 +1,6 @@
 <h5 class="subheader">For the <%= @solution.name %> solution page.</h5>
 
-<%= simple_form_for([:admin, @solution, @brand_solution_featured_product], html: {multipart: true}) do |f| %>
+<%= simple_form_for [:admin, @solution, @brand_solution_featured_product] do |f| %>
 
   <fieldset>
     <legend>Product on this platform</legend>

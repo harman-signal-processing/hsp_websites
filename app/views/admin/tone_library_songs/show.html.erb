@@ -16,14 +16,14 @@
 
 	<div class="panel">
 		<h4>New patch file:</h4>
-	<%= simple_form_for [:admin, @tone_library_patch], html: {multipart: true} do |f| %>
+	<%= simple_form_for [:admin, @tone_library_patch] do |f| %>
 	    <%= f.input :tone_library_song_id, as: :hidden %>
 	    <div class="row collapse">
 	    	<div class="large-3 columns">
 	    		<%= f.input :patch, label: false %>
 	    	</div>
 	    	<div class="large-3 columns">
-	    		<%= f.association :product, label: false, collection: Product.non_discontinued(website) %> 
+	    		<%= f.association :product, label: false, collection: Product.non_discontinued(website) %>
 	    	</div>
 	    	<div class="large-3 columns">
 	    		<%= submit_tag 'upload new patch', class: "postfix button"  %>

@@ -1,4 +1,4 @@
-<%= simple_form_for([:admin, @registered_download], html: {multipart: true}) do |f| %>
+<%= simple_form_for [:admin, @registered_download] do |f| %>
 
     <%= f.input :name %>
     <%= f.input :url, label: "Landing Page URL", hint: "(just the path for the landing page--no domain name, etc.)" %>

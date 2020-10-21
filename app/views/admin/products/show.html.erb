@@ -101,7 +101,7 @@
 			</ul>
 			<% end %>
 			<div id="new_photo_form" style="display: none;">
-			<%= simple_form_for [:admin, @product_attachment], html: {multipart: true} do |f| %>
+			<%= simple_form_for [:admin, @product_attachment] do |f| %>
 				<%= f.hidden_field :product_id %>
 				<%= f.input :product_attachment, label: false %>
 				<%= submit_tag "upload", class: "small round button"  %>
@@ -110,7 +110,7 @@
 			</div>
 
 			<div id="new_mm_form" style="display: none;">
-				<%= simple_form_for [:admin, @product_attachment], html: {multipart: true} do |f| %>
+				<%= simple_form_for [:admin, @product_attachment] do |f| %>
 					<%= f.hidden_field :product_id %>
 					<%= f.input :product_media %>
 					<%= f.input :product_media_thumb, label: "thumbnail/icon" %>

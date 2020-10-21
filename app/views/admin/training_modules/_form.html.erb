@@ -1,4 +1,4 @@
-<%= simple_form_for([:admin, @training_module], html: {multipart: true}) do |f| %>
+<%= simple_form_for [:admin, @training_module] do |f| %>
 
     <%= f.input :name %>
     <%= f.input :training_module, label: "Video, Flash, etc." %>

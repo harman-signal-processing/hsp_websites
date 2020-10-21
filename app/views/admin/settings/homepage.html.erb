@@ -8,7 +8,7 @@
   </div>
   <%= link_to_function "new slide", "$('#new_slide_form').toggle()", class: "small round success button" %>
   <div id="new_slide_form" style="margin: 10px; display:none;" class="instructions">
-    <%= simple_form_for([:admin, @new_slide], html: {multipart: true}) do |f| %>
+    <%= simple_form_for [:admin, @new_slide] do |f| %>
       <%= hidden_field_tag "called_from", "homepage" %>
       <%= f.hidden_field :setting_type %>
       <%= f.hidden_field :integer_value %>
@@ -54,7 +54,7 @@
   <div class="instructions">These appear in the middle section of the homepage...arranged horizontally. (If you leave these blank, then the site will show the product family buttons instead.)</div>
   <%= link_to_function "new feature", "$('#new_feature_form').toggle()", class: "small round success button" %>
   <div id="new_feature_form" style="margin: 10px; display:none;" class="instructions">
-    <%= simple_form_for([:admin, @new_feature], html: {multipart: true}) do |f| %>
+    <%= simple_form_for [:admin, @new_feature] do |f| %>
       <%= f.error_messages %>
       <%= hidden_field_tag "called_from", "homepage" %>
       <%= f.hidden_field :setting_type %>

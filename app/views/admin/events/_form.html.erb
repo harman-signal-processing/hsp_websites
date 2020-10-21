@@ -1,4 +1,4 @@
-<%= simple_form_for([:admin, @event], html: {multipart: true}) do |f| %>
+<%= simple_form_for [:admin, @event] do |f| %>
 
   <%= f.input :name %>
   <%= f.input :description, hint: "Brief summary of event" %>

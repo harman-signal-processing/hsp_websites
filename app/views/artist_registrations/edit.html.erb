@@ -2,7 +2,7 @@
 
 <h2>Edit <%= resource_name.to_s.humanize %> Profile</h2>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, multipart: true }) do |f| %>
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
 
   <p>Approval Status: <i><%= @artist.approval_status %></i></p>
   <div class="row">

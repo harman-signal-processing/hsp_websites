@@ -1,4 +1,4 @@
-<%= simple_form_for [:admin, @feature], html: {multipart: true}  do |f| %>
+<%= simple_form_for [:admin, @feature] do |f| %>
 
   <div class="row">
     <% if f.object.featurable_type.present? %>

@@ -1,4 +1,4 @@
-<%= simple_form_for([:admin, @product], html: {multipart: true, autocomplete: "off"}) do |f| %>
+<%= simple_form_for [:admin, @product] do |f| %>
 
 <div class="row">
 <% if can?(:update, :product_name) %>

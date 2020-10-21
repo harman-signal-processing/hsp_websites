@@ -122,7 +122,7 @@
   <div class="small-12 medium-6 columns">
     <div id="software_attachments" class="group">
       <h4 class="subheader">Attachments<small> (Release Notes, Install Guides, other PDFs)</small></h4>
-      <%= simple_form_for [:admin, @software_attachment], html: {multipart: true} do |f| %>
+      <%= simple_form_for [:admin, @software_attachment] do |f| %>
         <%= f.hidden_field :software_id %>
         <div class="row">
           <div class="large-6 columns">

@@ -9,8 +9,12 @@ namespace :news do
       if articles.length > 0
         puts "Found #{articles.length} duplicates titled: #{keeper.title}"
         articles.each do |article|
-          keeper.brands += article.brands
-          keeper.products += article.products
+          article.brands.each do |b|
+            keeper.brands << b unless keeper.brands.include?(b)
+          end
+          article.products.each do |p|
+            keeper.products << p unless keeper.products.include?(p)
+          end
           article.destroy
           removed << article
         end

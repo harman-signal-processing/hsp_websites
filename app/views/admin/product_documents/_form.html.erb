@@ -1,4 +1,4 @@
-<%= simple_form_for([:admin, @product_document], html: {multipart: true}) do |f| %>
+<%= simple_form_for [:admin, @product_document] do |f| %>
 
   <%= f.association :product, collection: website.products %>
   <div class="row">

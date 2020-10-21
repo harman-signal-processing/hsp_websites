@@ -1,4 +1,4 @@
-<%= simple_form_for([:admin, @product_attachment], html: {multipart: true}) do |f| %>
+<%= simple_form_for [:admin, @product_attachment] do |f| %>
 
 	<% unless f.object.product_media_file_name.present? %>
 		<%= f.input :product_attachment, label: "Static Image", hint: "(will be re-sized as needed automatically)" %>

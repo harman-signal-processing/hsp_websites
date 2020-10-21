@@ -32,7 +32,7 @@
         <% end %>
       </p>
       <div id="slide_<%= slide.id %>_form" style="margin: 10px; display:none;" class="instructions">
-        <%= simple_form_for([:admin, slide], html: {multipart: true}) do |f| %>
+        <%= simple_form_for [:admin, slide] do |f| %>
           <%= f.error_messages %>
           <%= hidden_field_tag "called_from", "homepage" %>
           <div class="row">

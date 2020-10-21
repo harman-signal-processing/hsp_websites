@@ -1,4 +1,4 @@
-<%= simple_form_for([:admin, @tone_library_patch], html: {multipart: true}) do |f| %>
+<%= simple_form_for [:admin, @tone_library_patch] do |f| %>
   <%= f.association :tone_library_song, collection: ToneLibrarySong.order("title"), label_method: :displayname %>
   <%= f.association :product, collection: Product.order("name") %>
   <%= f.input :patch %>

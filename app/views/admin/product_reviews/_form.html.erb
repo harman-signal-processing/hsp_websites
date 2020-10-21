@@ -1,4 +1,4 @@
-<%= simple_form_for([:admin, @product_review], html: {multipart: true}) do |f| %>
+<%= simple_form_for [:admin, @product_review] do |f| %>
 
   <%= f.input :title,
     hint: "Magazine reviews sometimes have a title. If this doesn't apply, just put something like \"Reviewer name - Product name\"" %>

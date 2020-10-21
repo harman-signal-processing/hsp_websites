@@ -1,4 +1,4 @@
-<%= simple_form_for([:admin, @audio_demo], html: {multipart: true}) do |f| %>
+<%= simple_form_for [:admin, @audio_demo] do |f| %>
   <%= f.input :name %>
 	<%= f.input :description %>
   <%= f.input :wet_demo, label: "Effect-on (wet) demo file" %>

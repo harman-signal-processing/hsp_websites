@@ -1,4 +1,4 @@
-<%= simple_form_for([:admin, @artist], html: {multipart: true}) do |f| %>
+<%= simple_form_for [:admin, @artist] do |f| %>
   <div class="row">
   	<div class="large-8 columns">
   		<%= f.input :name %>
@@ -11,8 +11,8 @@
   <%= f.input :featured, label: "Featured in the slideshow on the Artist page." %><br/>
 
 <%= simple_fields_for @artist_brand do |ab| %>
-  <%= ab.input :intro, 
-  		label: "Intro text (Used for the featured artists slideshow)", 
+  <%= ab.input :intro,
+  		label: "Intro text (Used for the featured artists slideshow)",
   		input_html: { class: "mceEditor", style: "height: 120px" } %><br/>
 <% end %>
 
