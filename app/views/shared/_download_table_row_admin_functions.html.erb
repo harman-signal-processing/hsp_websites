@@ -4,14 +4,16 @@
 <div id="dialog_<%= item.to_param %>" class="dialog">
   <ul class="button-group">
     <% if item.is_a?(Software) %>
-      <li><%= link_to edit_software_path(item), class: "tiny button" do %>
-          <%= fa_icon "edit" %> edit
-        <% end %>
-      </li>
-      <li><%= link_to new_version_software_path(item), class: "tiny button" do %>
-          <%= fa_icon "upload" %> upload new version
-        <% end %>
-      </li>
+      <% unless item.new_record? %>
+        <li><%= link_to edit_software_path(item), class: "tiny button" do %>
+            <%= fa_icon "edit" %> edit
+          <% end %>
+        </li>
+        <li><%= link_to new_version_software_path(item), class: "tiny button" do %>
+            <%= fa_icon "upload" %> upload new version
+          <% end %>
+        </li>
+      <% end %>
     <% else %>
       <li><%= link_to edit_site_element_path(item), class: "tiny button" do %>
           <%= fa_icon "edit" %> edit
