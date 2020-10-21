@@ -5,7 +5,7 @@ class Software < ApplicationRecord
   friendly_id :formatted_name
 
   attr_accessor :replaces_id
-  has_many :product_softwares, -> { order("product_position") }, dependent: :destroy
+  has_many :product_softwares, -> { order("product_position") }, dependent: :destroy, inverse_of: :software
   has_many :products, through: :product_softwares
   has_many :software_attachments
   has_many :software_training_classes, dependent: :destroy

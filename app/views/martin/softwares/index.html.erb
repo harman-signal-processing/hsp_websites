@@ -8,6 +8,15 @@
   </div>
 <% end %>
 
+<% if can? :manage, Software %>
+  <div class="text-right">
+    <%= link_to new_software_path do %>
+      <%= fa_icon "plus" %> upload new software
+    <% end %>
+    <br/>
+  </div>
+<% end %>
+
 <%= cache ["softwares_index", website.brand, I18n.locale] do %>
 
   <table>

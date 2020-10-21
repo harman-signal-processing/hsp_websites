@@ -39,16 +39,19 @@ class SoftwaresController < ApplicationController
 
   def edit
     @software = Software.find(params[:id])
+    @return_to = request.referer
   end
 
   def new
     @software = Software.new(active: true)
     @software.products << Product.find(params[:product_id]) if params[:product_id]
+    @return_to = request.referer
   end
 
   def new_version
     @old_software = Software.find(params[:id])
     @software = Software.new(replaces_id: @old_software.to_param, active: true)
+    @return_to = request.referer
   end
 
   # Custom route allows us to increment the counter before

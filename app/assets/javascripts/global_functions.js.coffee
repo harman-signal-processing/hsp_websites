@@ -105,3 +105,9 @@ jQuery ($) ->
     bg = $(@).data('background')
     $(@).css("background-image": "url(#{bg})")
 
+  $('form').on 'click', '.remove_fields', (event) ->
+    $(@).closest('div.row').find('input[type=hidden]').val('1')
+    $(@).closest('div.row').hide()
+    $(".additional_instruction").show()
+    event.preventDefault()
+

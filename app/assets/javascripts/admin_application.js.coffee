@@ -28,12 +28,6 @@ jQuery ($) ->
     $(@).find("span:hidden").remove()
     return true
 
-  $('form').on 'click', '.remove_fields', (event) ->
-    $(@).closest('div.row').find('input[type=hidden]').val('1')
-    $(@).closest('div.row').hide()
-    $(".additional_instruction").show()
-    event.preventDefault()
-
   $('form').on 'click', '.add_fields', (event) ->
     time = new Date().getTime()
     regexp = new RegExp($(@).data('id'), 'g')

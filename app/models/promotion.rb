@@ -37,7 +37,7 @@ class Promotion < ApplicationRecord
   process_in_background :tile
   process_in_background :homepage_banner
 
-  accepts_nested_attributes_for :product_promotions, reject_if: proc { |p| p["product_id"].blank? }
+  accepts_nested_attributes_for :product_promotions, reject_if: proc { |p| p["product_id"].blank? }, allow_destroy: true
   accepts_nested_attributes_for :banner, reject_if: :all_blank
   before_save :update_banner
 
