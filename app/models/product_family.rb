@@ -218,9 +218,7 @@ class ProductFamily < ApplicationRecord
   end
 
   def discontinued_products
-    Rails.cache.fetch("#{cache_key_with_version}/discontinued_products/#{I18n.locale.to_s}", expires_in: 12.hours) do
-      products.where(id: product_ids_for_current_locale, product_status: ProductStatus.discontinued_ids)
-    end
+    products.where(id: product_ids_for_current_locale, product_status: ProductStatus.discontinued_ids)
   end
 
   # Collection of all the locales where this ProductFamily should appear.
