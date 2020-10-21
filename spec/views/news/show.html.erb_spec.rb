@@ -3,8 +3,9 @@ require 'rails_helper'
 RSpec.describe "news/show.html.erb", :type => :view do
   before :all do
     @website = FactoryBot.create(:website)
-    @news = FactoryBot.create(:news, brand: @website.brand)
+    @news = FactoryBot.create(:news)
     @product = FactoryBot.create(:product, brand: @website.brand)
+    @news.brands << @website.brand
     @news.products << @product
 
     assign(:related_news, [])
@@ -29,7 +30,7 @@ RSpec.describe "news/show.html.erb", :type => :view do
   end
 
   it "should show related news if any" do
-    related_story = FactoryBot.build_stubbed(:news, brand: @website.brand)
+    related_story = FactoryBot.build_stubbed(:news)
     assign(:related_news, [related_story])
     render
 
@@ -38,7 +39,7 @@ RSpec.describe "news/show.html.erb", :type => :view do
   end
 
   it "should show recent news if no related news available" do
-    recent_story = FactoryBot.build_stubbed(:news, brand: @website.brand)
+    recent_story = FactoryBot.build_stubbed(:news)
     assign(:related_news, [])
     assign(:recent_news, [recent_story])
     render

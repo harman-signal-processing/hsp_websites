@@ -5,7 +5,8 @@ class Admin::NewsController < AdminController
   # GET /admin/news
   # GET /admin/news.xml
   def index
-    @search = website.brand.news.ransack(params[:q])
+    @this_brand = params[:this_brand].present? ? !!(params[:this_brand].to_i > 0) : true
+    @search = (@this_brand) ? website.brand.news.ransack(params[:q]) : News.ransack(params[:q])
     @news = @search.result.paginate(page: params[:page], per_page: 20)
     respond_to do |format|
       format.html { render_template } # index.html.erb
@@ -30,6 +31,7 @@ class Admin::NewsController < AdminController
   # GET /admin/news/new
   # GET /admin/news/new.xml
   def new
+    @news.brands << website.brand
     respond_to do |format|
       format.html { render_template } # new.html.erb
       format.xml  { render xml: @news }
@@ -43,7 +45,6 @@ class Admin::NewsController < AdminController
   # POST /admin/news
   # POST /admin/news.xml
   def create
-    @news.brand = website.brand
     respond_to do |format|
       if @news.save
         format.html { redirect_to([:admin, @news], notice: 'News was successfully created.') }

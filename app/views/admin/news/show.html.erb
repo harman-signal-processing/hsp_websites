@@ -26,9 +26,12 @@
 
 <p>Publish on: <%=l @news.post_on, format: :long %></p>
 
+<p>Brands: <%= @news.brands.pluck(:name).join(", ") %></p>
+
 <% if @news.quote.present? %>
   <p>Quote:</p>
-  <%=raw @news.quote %>
+  "<%=raw @news.quote %>"
+  <hr/>
 <% end %>
 <p>&nbsp;</p>
 
@@ -193,7 +196,6 @@
 				    <div class="row collapse">
 				    	<div class="large-8 small-8 columns">
 				    		<%= f.association :product,
-				    		# collection: @products,
 				    		collection: Product.not_associated_with_this_news_item(@news, website),
 				    		label: false,
 				    		input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Products'} }%>

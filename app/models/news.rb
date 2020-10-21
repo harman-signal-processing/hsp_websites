@@ -28,14 +28,14 @@ class News < ApplicationRecord
   }.merge(S3_STORAGE)
   validates_attachment :news_photo, content_type: { content_type: /\Aimage/i }
 
-  belongs_to :brand, touch: true
+  has_many :brand_news, dependent: :destroy
+  has_many :brands, through: :brand_news
   has_many :news_products, dependent: :destroy
   has_many :products, through: :news_products
   has_many :news_images, dependent: :destroy
 
   has_many :content_translations, as: :translatable, foreign_key: "content_id", foreign_type: "content_type"
 
-  validates :brand_id, presence: true
   validates :title, presence: true
   validates :post_on, presence: true
 
@@ -57,7 +57,8 @@ class News < ApplicationRecord
   scope :query_for_website, ->(website, options) {
     limit = (options[:limit].present?) ? "LIMIT #{options[:limit]}" : ""
     unscoped.select("DISTINCT news.*").
-      where("brand_id = ?  #{product_news_query(website, options)}", website.brand_id).
+      joins("INNER JOIN brand_news ON brand_news.news_id = news.id").
+      where("brand_news.brand_id = ?  #{product_news_query(website, options)}", website.brand_id).
       where("post_on >= ? AND post_on <= ?", options[:start_on], options[:end_on]).
       order(Arel.sql("post_on DESC #{limit}"))
   }
@@ -83,7 +84,7 @@ class News < ApplicationRecord
   end
 
   def brand_name
-    self.brand.name
+    brands.pluck(:name).join(", ")
   end
 
   def should_generate_new_friendly_id?

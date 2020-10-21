@@ -8,7 +8,8 @@ class Brand < ApplicationRecord
   has_many :online_retailer_links, -> { where("active = 1").order("RAND()") }
   has_many :brand_dealers, dependent: :destroy
   has_many :dealers, through: :brand_dealers
-  has_many :news
+  has_many :brand_news, dependent: :destroy
+  has_many :news, through: :brand_news
   has_many :faq_categories
   has_many :pages
   has_many :installations
@@ -76,23 +77,6 @@ class Brand < ApplicationRecord
 
   def should_generate_new_friendly_id?
     true
-  end
-
-  def news
-    Rails.cache.fetch("#{cache_key_with_version}/news", expires_in: 6.hours) do
-      # First, select news story IDs with a product associated with this brand...
-      product_news = News.find_by_sql("SELECT DISTINCT news.id, news.post_on FROM news
-        INNER JOIN news_products ON news_products.news_id = news.id
-        INNER JOIN products ON products.id = news_products.product_id
-        INNER JOIN product_family_products ON product_family_products.product_id = products.id
-        INNER JOIN product_families ON product_families.id = product_family_products.product_family_id
-        WHERE product_families.brand_id = #{self.id}
-        ORDER BY post_on DESC").collect{|p| p.id}.join(", ")
-      product_news_query = (product_news.blank?) ? "" : " OR id IN (#{product_news}) "
-
-      # Second, add in those stories associated with the brand only (no products linked)
-      News.select("DISTINCT *").where("brand_id = ? #{product_news_query}", self.id).order("post_on DESC")
-    end
   end
 
   def promotions
@@ -379,7 +363,7 @@ class Brand < ApplicationRecord
   end
 
   def has_news?
-    News.where(brand_id: self.id).size > 0
+    BrandNews.where(brand_id: self.id).size > 0
   end
 
   def use_flattened_specs?
@@ -401,7 +385,7 @@ class Brand < ApplicationRecord
   end
 
   def news_tags
-    News.where(brand: self).tag_counts
+    News.includes(:brand_news).where(brand_news: { brand_id: self.id } ).tag_counts
   end
 
 end

@@ -8,7 +8,7 @@ RSpec.describe News, :type => :model do
 
   subject { @news }
   it { should respond_to(:title) }
-  it { should respond_to(:brand) }
+  it { should respond_to(:brands) }
   it { should respond_to(:quote) }
 
 end

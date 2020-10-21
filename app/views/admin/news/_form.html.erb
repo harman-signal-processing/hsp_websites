@@ -16,6 +16,10 @@
   <%= f.input :body, input_html: { style: "height: 400px", class: "mceEditor" } %>
   <br/>
 
+  <%= f.association :brands,
+    as: :check_boxes,
+    collection: Brand.where(live_on_this_platform: true).or(Brand.where(id: @news.brands.pluck(:id))).order(:name) %>
+
   <br/><%= f.button :submit %>
 
 <% end %>

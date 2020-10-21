@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_19_171055) do
+ActiveRecord::Schema.define(version: 2020_10_20_192412) do
 
   create_table "access_levels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -255,6 +255,15 @@ ActiveRecord::Schema.define(version: 2020_10_19_171055) do
     t.datetime "updated_at"
     t.index ["brand_id"], name: "index_brand_distributors_on_brand_id"
     t.index ["distributor_id"], name: "index_brand_distributors_on_distributor_id"
+  end
+
+  create_table "brand_news", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "brand_id"
+    t.integer "news_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["brand_id"], name: "index_brand_news_on_brand_id"
+    t.index ["news_id"], name: "index_brand_news_on_news_id"
   end
 
   create_table "brand_solution_featured_products", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -909,12 +918,10 @@ ActiveRecord::Schema.define(version: 2020_10_19_171055) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "cached_slug"
-    t.integer "brand_id"
     t.text "quote"
     t.string "video_ids"
     t.string "old_id"
     t.string "old_url"
-    t.index ["brand_id"], name: "index_news_on_brand_id"
     t.index ["cached_slug"], name: "index_news_on_cached_slug", unique: true
     t.index ["old_id"], name: "index_news_on_old_id"
   end

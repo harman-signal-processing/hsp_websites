@@ -7,16 +7,21 @@
 <% end %>
 
 <%= search_form_for [:admin, @search] do |f| %>
-    <%= f.label :title_cont, "Title contains" %>
   <div class="row collapse">
     <div class="large-5 small-8 columns">
-      <%= f.text_field :title_cont %>
+      <%= f.text_field :title_or_body_cont %>
     </div>
     <div class="large-2 small-4 columns">
       <%= f.submit "Search news", class: "button prefix" %>
     </div>
     <div class="large-5 columns"></div>
   </div>
+  <div class="input boolean optional this_brand">
+    <input name="this_brand" type="hidden" value="0" />
+    <label class="boolean optional control-label checkbox" for="this_brand">
+      <%= check_box_tag :this_brand, 1, @this_brand %> Only <%= website.brand.name %> articles
+    </label>
+  </div><br/>
 <% end %>
 
 <%= will_paginate @news %>
@@ -25,12 +30,14 @@
   <tr>
     <th>Post Date</th>
     <th>Title</th>
+    <th>Brands</th>
   </tr>
 
 <% @news.each do |news| %>
   <tr style="background: <%= cycle 'white', 'none' %>">
     <td><%=l news.post_on, format: :short %></td>
     <td><%=link_to truncate(news.title, length: 100), [:admin, news] %></td>
+    <td><%= news.brands.pluck(:name).join(", ") %></td>
   </tr>
 <% end %>
 </table>

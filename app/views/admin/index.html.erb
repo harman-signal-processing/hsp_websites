@@ -114,7 +114,7 @@
                 <% end %>
                 <h6 class="subheader">Recently created/changed:</h6>
                 <ul class="list">
-                  <% News.where(brand_id: website.brand_id).order("updated_at DESC").limit(6).each do |item| %>
+                  <% News.includes(:brand_news).where(brand_news: { brand_id: website.brand_id }).order("news.updated_at DESC").limit(6).each do |item| %>
                     <li><%= link_to item.title.truncate(40), [:admin, item] %>
                     <small><%=l item.post_on, format: :short %></small>
                     </li>

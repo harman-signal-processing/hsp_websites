@@ -18,14 +18,14 @@ RSpec.describe MarketSegment, :type => :model do
   describe "related news" do
 
     it "collects current news" do
-      news = FactoryBot.create(:news, brand: @market.brand)
+      news = FactoryBot.create(:news)
       news.products << @product
 
       expect(@market.related_news).to include(news)
     end
 
     it "excludes future news" do
-      news = FactoryBot.create(:news, brand: @market.brand, post_on: 2.weeks.from_now)
+      news = FactoryBot.create(:news, post_on: 2.weeks.from_now)
       news.products << @product
 
       expect(@market.related_news).not_to include(news)

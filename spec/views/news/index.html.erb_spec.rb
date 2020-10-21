@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe "news/index.html.erb", :type => :view do
   before :all do
     @website = FactoryBot.create(:website)
-    @news = FactoryBot.create(:news, brand: @website.brand)
+    @news = FactoryBot.create(:news)
+    FactoryBot.create(:brand_news, brand: @website.brand, news: @news)
   end
 
   before :each do
