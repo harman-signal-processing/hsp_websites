@@ -14,14 +14,14 @@ namespace :maintain do
 
   desc "Check Site Elements links"
   task :site_element_links => :environment do
-    SiteElement.to_be_checked(limit: 30).each do |element|
+    SiteElement.to_be_checked(limit: 100).each do |element|
       test_and_update(element)
     end
   end
 
   desc "Check Product Document links"
   task :product_document_links => :environment do
-    ProductDocument.to_be_checked(limit: 30).each do |element|
+    ProductDocument.to_be_checked(limit: 100).each do |element|
       test_and_update(element)
     end
   end
@@ -44,11 +44,11 @@ namespace :maintain do
       item.update(link_checked_at: Time.now, link_status: "500")
     end
     # Don't crash others' sites.
-    Rails.env.production? ? sleep(15) : sleep(2)
+    Rails.env.production? ? sleep(7) : sleep(2)
   end
 
   def link_test(url)
-    Typhoeus.get(
+    Typhoeus.head(
       url,
       followlocation: true,
       timeout: 20,

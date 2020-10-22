@@ -682,7 +682,7 @@ class Product < ApplicationRecord
   end
 
   def nonsafety_documents
-    @nonsafety_documents ||= product_documents.where("document_type NOT LIKE '%safety%'")
+    @nonsafety_documents ||= product_documents.where("document_type NOT LIKE '%safety%'").where(link_status: ["", nil, "200"])
   end
 
   # Just take the first one
