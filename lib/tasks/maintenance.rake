@@ -14,7 +14,7 @@ namespace :maintain do
 
   desc "Check Site Elements links"
   task :site_element_links => :environment do
-    SiteElement.to_be_checked(limit: 100).each do |element|
+    SiteElement.to_be_checked(limit: 500).each do |element|
       test_and_update(element)
     end
   end

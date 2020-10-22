@@ -47,7 +47,7 @@ class CaseStudiesController < ApplicationController
 
     @banner_image = website.brand.site_elements.find_by(name:"Case Studies Banner")
   end  #  def index
-  
+
   def show
       case_study_slug = params[:slug]
       case_studies = CaseStudyService.get_case_study_item_list_from_cache(website.brand.name.downcase)
@@ -55,6 +55,8 @@ class CaseStudiesController < ApplicationController
       case_study_found_by_translation_slug = case_studies.find {|cs|
         cs[:translations].find{|t| t[:slug] == case_study_slug}.present?
       }
+
+      raise ActiveRecord::RecordNotFound if !case_study_found_by_translation_slug
 
       # replace headline and content with translated version
       case_study_found_by_translation_slug[:headline] = case_study_found_by_translation_slug[:translations].find{|t| t[:slug] == case_study_slug}[:headline]
@@ -64,9 +66,9 @@ class CaseStudiesController < ApplicationController
 
       @case_study = case_study_found_by_translation_slug
   end
-  
+
   private
-  
+
   def get_case_study_translations_for_locale(case_studies, locale)
       case_studies_for_locale = case_studies.select{|cs| cs[:translations].find{|t| t[:locale] == locale}.present?}
       case_studies_for_locale = case_studies_for_locale.map{|cs|
@@ -91,7 +93,7 @@ class CaseStudiesController < ApplicationController
     if is_not_en_locale
       vertical_markets = get_vertical_markets_translations(vertical_markets, locale)
     end  #  if is_not_en_locale
-    
+
     vertical_markets
   end  #  def get_vertical_market_list(case_studies, locale)
 
@@ -110,6 +112,5 @@ class CaseStudiesController < ApplicationController
       vertical_markets.sort_by!{|v| ActiveSupport::Inflector.transliterate v[:name]} unless locale == "zh"
       vertical_markets
   end  #  def get_vertical_markets_translations(vertical_markets)
-  
+
 end  #  class CaseStudiesController < ApplicationController
-  
