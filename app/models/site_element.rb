@@ -37,6 +37,7 @@ class SiteElement < ApplicationRecord
   after_initialize :copy_attributes_from_previous_version
   before_save :set_upload_attributes
   after_save :queue_processing, :touch_products
+  before_update :reset_link_check
 
   scope :to_be_checked, -> (options={}) {
     limit = options[:limit] || 500
@@ -272,6 +273,17 @@ class SiteElement < ApplicationRecord
     key = name.to_s.singularize.downcase.gsub(/[^a-z0-9]/, '')
     key += "-discontinued" if key == "cutsheet" && discontinued?
     key.parameterize
+  end
+
+  def reset_link_check
+    if resource_updated_at_changed? || executable_updated_at_changed?
+      self.link_checked_at = Time.now
+      self.link_status = "200"
+    end
+  end
+
+  def bad_link?
+    (self.link_status.present? && self.link_status != "200")
   end
 
 protected

@@ -5,6 +5,9 @@
     <% if can? :create, SiteElement %>
     <ul class="button-group round">
       <li><%= link_to 'New Resource', new_admin_site_element_path, class: "small success button" %></li>
+      <% if website.brand.bad_site_elements.length > 0 %>
+        <li><%= link_to "Fix #{website.brand.bad_site_elements.length} broken items", broken_admin_site_elements_path, class: "small alert button" %></li>
+      <% end %>
     </ul>
     <% end %>
   </div>
@@ -35,7 +38,12 @@
 
 <% @site_elements.each do |site_element| %>
   <tr>
-    <td><%= link_to site_element.long_name, [:admin, site_element] %></td>
+    <td>
+      <%= link_to site_element.long_name, [:admin, site_element] %>
+      <% if site_element.bad_link? %>
+        <span class="alert label">bad link!</span>
+      <% end %>
+    </td>
     <td><%= (!site_element.resource_file_name.blank?) ? site_element.resource_file_name : site_element.executable_file_name %></td>
     <td><%= site_element.resource_type %></td>
   </tr>
@@ -43,3 +51,4 @@
 </table>
 
 <%= will_paginate @site_elements %>
+

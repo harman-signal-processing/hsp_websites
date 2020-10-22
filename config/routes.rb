@@ -298,7 +298,10 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       end
       resources :site_elements do
         resources :site_element_attachments
-        collection { post :upload }
+        collection {
+          post :upload
+          get :broken
+        }
         member { get :new_version }
       end
       resources :product_site_elements do

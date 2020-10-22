@@ -508,7 +508,10 @@ class Product < ApplicationRecord
   end
 
   def unsorted_site_elements
-    @unsorted_site_elements ||= SiteElement.where(id: unsorted_product_site_elements.pluck(:site_element_id))
+    @unsorted_site_elements ||= SiteElement.where(
+      id: unsorted_product_site_elements.pluck(:site_element_id),
+      link_status: ["", nil, "200"]
+    )
   end
 
   # Pretty awful hack to see if a custom tab name exists for the given tab "name".

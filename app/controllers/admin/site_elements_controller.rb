@@ -18,6 +18,10 @@ class Admin::SiteElementsController < AdminController
     end
   end
 
+  def broken
+    @site_elements = website.brand.bad_site_elements
+  end
+
   # GET /site_elements/1
   # GET /site_elements/1.xml
   def show

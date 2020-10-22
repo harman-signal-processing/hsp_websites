@@ -11,6 +11,8 @@ class ProductDocument < ApplicationRecord
   validates_attachment :document, presence: true
   do_not_validate_attachment_file_type :document
 
+  before_update :reset_link_check
+
   process_in_background :document
 
   scope :to_be_checked, -> (options={}) {
@@ -86,6 +88,17 @@ class ProductDocument < ApplicationRecord
     key.parameterize
   end
 
+  def reset_link_check
+    if document_updated_at_changed?
+      self.link_checked_at = Time.now
+      self.link_status = "200"
+    end
+  end
+
+  def bad_link?
+    (self.link_status.present? && self.link_status != "200")
+  end
+
 protected
 
   # Determines the name of the document type to be used in the hash of all the downloads
@@ -113,4 +126,5 @@ protected
   def prepend_language_to_names?
     !(language.blank? || document_type.to_s.match?(/^cad/i))
   end
+
 end

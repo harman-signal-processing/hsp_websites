@@ -127,91 +127,108 @@
   </div>
 
   <div class="large-9 columns">
-    <div class="panel">
+    <% if @site_element.bad_link? %>
+      <div class="alert alert-box">
+        <p>The file for this resource was last checked <%=l @site_element.link_checked_at %> with an HTTP
+        status of <%= @site_element.link_status %> which means it couldn't be found. Please locate a backup
+        copy of this file and re-upload it <%= link_to "here", edit_admin_site_element_path(@site_element) %>
+        or delete this record if it is no longer needed.</p>
 
-      <% if @site_element.external_url.present? %>
-        <p>You can link to this file with the following URL:</p>
-        <ul class="list">
-          <li><b>
-            <%= link_to @site_element.external_url, @site_element.external_url %>
-          </b></li>
-        </ul>
-      <% elsif @site_element.resource_file_name.present? %>
-        <p>You can link to this file with the following URL(s):</p>
-        <ul class="list">
-          <li><b>
-            <%= link_to @site_element.resource.url("original", timestamp: false),
-              @site_element.resource.url("original", timestamp: false) %>
-          </b></li>
-        </ul>
-        <% if @site_element.is_image? %>
-          <i>Other sizes:</i>
+        <p>For reference, the file was supposed to located here:<br/><br/>
+        <%= link_to @site_element.direct_url, @site_element.direct_url, target: "_blank" %>
+        </p>
+      </div>
+
+    <% else %>
+
+      <div class="panel">
+
+        <% if @site_element.external_url.present? %>
+          <p>You can link to this file with the following URL:</p>
           <ul class="list">
-            <li>
-            <%= link_to @site_element.resource.url("large", timestamp: false) do %>
-              <%= @site_element.resource.url("large", timestamp: false) %>
-            <% end %>
-            </li>
-            <li>
-            <%= link_to @site_element.resource.url("medium", timestamp: false) do %>
-              <%= @site_element.resource.url("medium", timestamp: false) %>
-            <% end %>
-            </li>
-            <li>
-            <%= link_to @site_element.resource.url("small", timestamp: false) do %>
-              <%= @site_element.resource.url("small", timestamp: false) %>
-            <% end %>
-            </li>
-            <li>
-            <%= link_to @site_element.resource.url("thumb", timestamp: false) do %>
-              <%= @site_element.resource.url("thumb", timestamp: false) %>
-            <% end %>
-            </li>
-            <li>
-            <%= link_to @site_element.resource.url("tiny", timestamp: false) do %>
-              <%= @site_element.resource.url("tiny", timestamp: false) %>
-            <% end %>
-            </li>
-            <li>
-            <%= link_to @site_element.resource.url("tiny_square", timestamp: false) do %>
-              <%= @site_element.resource.url("tiny_square", timestamp: false) %>
-            <% end %>
-            </li>
+            <li><b>
+              <%= link_to @site_element.external_url, @site_element.external_url %>
+            </b></li>
+          </ul>
+        <% elsif @site_element.resource_file_name.present? %>
+          <p>You can link to this file with the following URL(s):</p>
+          <ul class="list">
+            <li><b>
+              <%= link_to @site_element.resource.url("original", timestamp: false),
+                @site_element.resource.url("original", timestamp: false) %>
+            </b></li>
+          </ul>
+          <% if @site_element.is_image? %>
+            <i>Other sizes:</i>
+            <ul class="list">
+              <li>
+              <%= link_to @site_element.resource.url("large", timestamp: false) do %>
+                <%= @site_element.resource.url("large", timestamp: false) %>
+              <% end %>
+              </li>
+              <li>
+              <%= link_to @site_element.resource.url("medium", timestamp: false) do %>
+                <%= @site_element.resource.url("medium", timestamp: false) %>
+              <% end %>
+              </li>
+              <li>
+              <%= link_to @site_element.resource.url("small", timestamp: false) do %>
+                <%= @site_element.resource.url("small", timestamp: false) %>
+              <% end %>
+              </li>
+              <li>
+              <%= link_to @site_element.resource.url("thumb", timestamp: false) do %>
+                <%= @site_element.resource.url("thumb", timestamp: false) %>
+              <% end %>
+              </li>
+              <li>
+              <%= link_to @site_element.resource.url("tiny", timestamp: false) do %>
+                <%= @site_element.resource.url("tiny", timestamp: false) %>
+              <% end %>
+              </li>
+              <li>
+              <%= link_to @site_element.resource.url("tiny_square", timestamp: false) do %>
+                <%= @site_element.resource.url("tiny_square", timestamp: false) %>
+              <% end %>
+              </li>
+            </ul>
+          <% end %>
+        <% elsif @site_element.executable_file_name.present? %>
+          <p>You can link to this file with the following URL:</p>
+          <ul class="list">
+            <li><b>
+              <%= link_to @site_element.executable.url("original", timestamp: false),
+                @site_element.executable.url("original", timestamp: false) %>
+            </b></li>
           </ul>
         <% end %>
-      <% elsif @site_element.executable_file_name.present? %>
-        <p>You can link to this file with the following URL:</p>
+
+        <p>Or, use this permalink which always points to the most recent version of this resource:</p>
         <ul class="list">
           <li><b>
-            <%= link_to @site_element.executable.url("original", timestamp: false),
-              @site_element.executable.url("original", timestamp: false) %>
+              <% if @site_element.extension.present? %>
+                <%= link_to site_resource_url(@site_element).gsub(/\?.*/, '')+"."+@site_element.extension, site_resource_url(@site_element).gsub(/\?.*/, '')+"."+@site_element.extension  %>
+              <% else %>
+                <%= link_to site_resource_url(@site_element).gsub(/\?.*/, ""), site_resource_url(@site_element).gsub(/\?.*/, '') %>
+              <% end %>
           </b></li>
         </ul>
-      <% end %>
+        <p>Linking from within this same site can use the path only:</p>
+        <ul class="list">
+          <li><b>
+              <% if @site_element.extension.present? %>
+                <%= link_to site_resource_path(@site_element).gsub(/\?.*/, '')+"."+@site_element.extension, site_resource_path(@site_element).gsub(/\?.*/, '')+"."+@site_element.extension  %>
+              <% else %>
+                <%= link_to site_resource_path(@site_element).gsub(/\?.*/, ""), site_resource_path(@site_element).gsub(/\?.*/, '') %>
+              <% end %>
+          </b></li>
+        </ul>
+        <p><i>Note: the permalink is built from the name of the resource. Don't rename it if you want to keep the permalink active.</i></p>
 
-      <p>Or, use this permalink which always points to the most recent version of this resource:</p>
-      <ul class="list">
-        <li><b>
-            <% if @site_element.extension.present? %>
-              <%= link_to site_resource_url(@site_element).gsub(/\?.*/, '')+"."+@site_element.extension, site_resource_url(@site_element).gsub(/\?.*/, '')+"."+@site_element.extension  %>
-            <% else %>
-              <%= link_to site_resource_url(@site_element).gsub(/\?.*/, ""), site_resource_url(@site_element).gsub(/\?.*/, '') %>
-            <% end %>
-        </b></li>
-      </ul>
-      <p>Linking from within this same site can use the path only:</p>
-      <ul class="list">
-        <li><b>
-            <% if @site_element.extension.present? %>
-              <%= link_to site_resource_path(@site_element).gsub(/\?.*/, '')+"."+@site_element.extension, site_resource_path(@site_element).gsub(/\?.*/, '')+"."+@site_element.extension  %>
-            <% else %>
-              <%= link_to site_resource_path(@site_element).gsub(/\?.*/, ""), site_resource_path(@site_element).gsub(/\?.*/, '') %>
-            <% end %>
-        </b></li>
-      </ul>
-      <p><i>Note: the permalink is built from the name of the resource. Don't rename it if you want to keep the permalink active.</i></p>
+      </div>
 
-    </div>
+    <% end %>
+
     <div class="row">
       <div class="small-12 medium-6 columns">
         <div class="group">

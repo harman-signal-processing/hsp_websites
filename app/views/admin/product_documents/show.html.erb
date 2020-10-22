@@ -1,5 +1,29 @@
 <h1><%= @product_document.name %></h1>
 
+<ul class="button-group round">
+  <li><%= link_to admin_product_documents_path, class: "small secondary button" do %>
+      <%= fa_icon "angle-double-left" %>
+    <% end %>
+  </li>
+  <li><%= link_to edit_admin_product_document_path(@product_document), class: "small secondary button" do %>
+      <%= fa_icon "edit" %> Edit
+    <% end %>
+  </li>
+  <li>
+    <%= link_to [:admin, @product_document], confirm: 'Are you sure?', method: :delete, class: "small alert button" do %>
+      <%= fa_icon "trash" %> Delete
+    <% end %>
+  </li>
+</ul>
+
+<% if @product_document.bad_link? %>
+  <div class="alert-box alert">
+    The document was last checked <%=l @product_document.link_checked_at %> and found to have a status of
+    <%= @product_document.link_status %> which means the file could not be found. Please either locate a backup
+    of the file and re-upload it or delete this record.
+  </div>
+<% end %>
+
 <p>
   <b>Product:</b>
   <%= link_to @product_document.product.name, [:admin, @product_document.product] %>
@@ -28,6 +52,3 @@
 <% end %>
 
 
-<%= link_to 'Edit', edit_admin_product_document_path(@product_document) %> | 
-<%= link_to 'Delete', [:admin, @product_document], confirm: 'Are you sure?', method: :delete %> |
-<%= link_to 'Back', admin_product_documents_path %>

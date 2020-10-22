@@ -388,4 +388,7 @@ class Brand < ApplicationRecord
     News.includes(:brand_news).where(brand_news: { brand_id: self.id } ).tag_counts
   end
 
+  def bad_site_elements
+    site_elements.where.not(link_status: ["", nil, "200"])
+  end
 end

@@ -1,0 +1,23 @@
+<h1>Broken Site Resources</h1>
+
+<table class="data" width="100%">
+  <tr>
+    <th>Name</th>
+    <th>Resource file name</th>
+    <th>Resource type</th>
+  </tr>
+
+<% @site_elements.each do |site_element| %>
+  <tr>
+    <td>
+      <%= link_to site_element.long_name, [:admin, site_element] %>
+      <% if site_element.bad_link? %>
+        <span class="alert label">bad link!</span>
+      <% end %>
+    </td>
+    <td><%= (!site_element.resource_file_name.blank?) ? site_element.resource_file_name : site_element.executable_file_name %></td>
+    <td><%= site_element.resource_type %></td>
+  </tr>
+<% end %>
+</table>
+

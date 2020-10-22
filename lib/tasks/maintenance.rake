@@ -41,7 +41,7 @@ namespace :maintain do
       item.update( updates )
     rescue
       # something bad happened with our link checker, flag it and move on
-      item.update_attributes(:link_checked_at => Time.now, :link_status => "500")
+      item.update(link_checked_at: Time.now, link_status: "500")
     end
     # Don't crash others' sites.
     Rails.env.production? ? sleep(15) : sleep(2)
