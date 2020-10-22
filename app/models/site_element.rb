@@ -38,6 +38,14 @@ class SiteElement < ApplicationRecord
   before_save :set_upload_attributes
   after_save :queue_processing, :touch_products
 
+  scope :to_be_checked, -> (options={}) {
+    limit = options[:limit] || 500
+    where("link_checked_at < ? OR link_checked_at IS NULL", 30.days.ago).
+      where("resource_file_name IS NOT NULL OR executable_file_name IS NOT NULL").
+      order("link_checked_at ASC").
+      limit(limit)
+  }
+
   def self.resource_types(options={})
     defaults = ["Image"]
     begin
@@ -144,6 +152,19 @@ class SiteElement < ApplicationRecord
       "/#{I18n.locale.to_s}/site_elements/#{self.to_param}"
     elsif content.present?
       "/resource/#{self.to_param}.html"
+    end
+  end
+
+  def direct_url
+    case attachment_type
+    when 'external'
+      external_url
+    when 'resource'
+      resource.url
+    when 'executable'
+      executable.url
+    when 'html'
+      url
     end
   end
 

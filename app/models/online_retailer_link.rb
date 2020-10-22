@@ -37,6 +37,10 @@ class OnlineRetailerLink < ApplicationRecord
     self.link_status = '200' if self.url_changed?
   end
 
+  def direct_url
+    self.url
+  end
+
   # get rid of this link if the related product is discontinued
   def auto_delete
     if self.link_status != '200' && self.product && self.product.discontinued?

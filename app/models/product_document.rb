@@ -13,6 +13,13 @@ class ProductDocument < ApplicationRecord
 
   process_in_background :document
 
+  scope :to_be_checked, -> (options={}) {
+    limit = options[:limit] || 500
+    where("link_checked_at < ? OR link_checked_at IS NULL", 30.days.ago).
+      order("link_checked_at ASC").
+      limit(limit)
+  }
+
   # For cleaning up the product pages, no need to re-state the product name in
   # the link.
   def name(options={})
@@ -33,6 +40,10 @@ class ProductDocument < ApplicationRecord
 
   def url
     "/#{I18n.locale.to_s}/product_documents/#{self.to_param}"
+  end
+
+  def direct_url
+    document.url
   end
 
   # Gathers up all the ProductDocument downloads for a given website. Returns a hash

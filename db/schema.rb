@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_20_192412) do
+ActiveRecord::Schema.define(version: 2020_10_22_153225) do
 
   create_table "access_levels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -1152,6 +1152,8 @@ ActiveRecord::Schema.define(version: 2020_10_20_192412) do
     t.string "direct_upload_url"
     t.boolean "processed", default: false
     t.boolean "show_on_public_site", default: true
+    t.datetime "link_checked_at"
+    t.string "link_status"
     t.index ["cached_slug"], name: "index_product_documents_on_cached_slug", unique: true
     t.index ["product_id"], name: "index_product_documents_on_product_id"
   end
@@ -1715,6 +1717,8 @@ ActiveRecord::Schema.define(version: 2020_10_20_192412) do
     t.integer "access_level_id"
     t.text "content"
     t.string "source"
+    t.datetime "link_checked_at"
+    t.string "link_status"
     t.index ["access_level_id"], name: "index_site_elements_on_access_level_id"
     t.index ["brand_id"], name: "index_site_elements_on_brand_id"
     t.index ["cached_slug"], name: "index_site_elements_on_cached_slug"

@@ -2,9 +2,9 @@ namespace :maintain do
 
   desc "Check online retailer links"
   task :buynow_links => :environment do
-    OnlineRetailerLink.to_be_checked.limit(30).each { |link|
-      test_and_update(link)
-    }
+    OnlineRetailerLink.to_be_checked.limit(30).each do |retailer|
+      test_and_update(retailer)
+    end
   end
 
   desc "Check external links for product reviews"
@@ -12,23 +12,33 @@ namespace :maintain do
     puts "No longer used."
   end
 
+  desc "Check Site Elements links"
+  task :site_element_links => :environment do
+    SiteElement.to_be_checked(limit: 30).each do |element|
+      test_and_update(element)
+    end
+  end
+
+  desc "Check Product Document links"
+  task :product_document_links => :environment do
+    ProductDocument.to_be_checked(limit: 30).each do |element|
+      test_and_update(element)
+    end
+  end
+
   def test_and_update(item)
-    puts "Testing #{item.url} ..." if Rails.env.development?
+    puts "Testing #{item.direct_url} ..." if Rails.env.development?
     begin
-      response = link_test(item.url)
+      response = link_test(item.direct_url)
       puts "    Response: #{response.code}" if Rails.env.development?
-      if response.success?
-        item.update_attributes(
-          url: response.effective_url,
-          link_checked_at: Time.now,
-          link_status: response.code.to_s
-        )
-      else
-        item.update_attributes(
-          link_checked_at: Time.now,
-          link_status: response.code.to_s
-        )
+      updates = {
+        link_checked_at: Time.now,
+        link_status: response.code.to_s
+      }
+      if response.success? && item.is_a?(OnlineRetailerLink)
+        updates[:url] = response.effective_url
       end
+      item.update( updates )
     rescue
       # something bad happened with our link checker, flag it and move on
       item.update_attributes(:link_checked_at => Time.now, :link_status => "500")
