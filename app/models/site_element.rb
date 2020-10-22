@@ -245,7 +245,7 @@ class SiteElement < ApplicationRecord
     Rails.cache.fetch("#{website.cache_key_with_version}/#{user}/#{I18n.locale}/se_downloads", expires_in: 6.hours) do
       downloads = {}
       ability = Ability.new(user)
-      website.site_elements.where(show_on_public_site: true).where("resource_type IS NOT NULL AND resource_type != ''").find_each do |site_element|
+      website.site_elements.where(show_on_public_site: true, link_status: ["", nil, "200"]).where("resource_type IS NOT NULL AND resource_type != ''").find_each do |site_element|
         if ability.can?(:read, site_element)
           downloads = downloads.deep_merge( { site_element.hash_key => site_element.details_hash } )
         end

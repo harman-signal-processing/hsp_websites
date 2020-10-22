@@ -53,7 +53,7 @@ class ProductDocument < ApplicationRecord
   def self.downloads(website)
     Rails.cache.fetch("#{website.cache_key_with_version}/#{I18n.locale}/product_downloads", expires_in: 1.day) do
       downloads = {}
-      where(product_id: website.current_and_discontinued_product_ids).find_each do |product_document|
+      where(product_id: website.current_and_discontinued_product_ids, link_status: ["", nil, "200"]).find_each do |product_document|
         if product_document.for_current_locale?
           downloads = downloads.deep_merge({ product_document.hash_key => product_document.details_hash })
         end

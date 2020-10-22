@@ -302,7 +302,7 @@ class SupportController < ApplicationController
 
   # Downloads page
   def downloads
-    @site_elements = SiteElement.where(brand_id: website.brand_id, show_on_public_site: true).ransack(params[:q])
+    @site_elements = SiteElement.where(brand_id: website.brand_id, show_on_public_site: true, link_status: ["", nil, "200"]).ransack(params[:q])
     if params[:view_by].present?
       if params[:view_by] == "products"
         @discontinued_products = website.discontinued_and_vintage_products
