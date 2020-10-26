@@ -18,15 +18,19 @@ class SiteElementsController < ApplicationController
   end
 
   def show
-    case @site_element.attachment_type
-    when 'resource'
-      send_resource_file(@site_element)
-    when 'executable'
-      send_executable_file(@site_element)
-    when 'external'
-      redirect_to @site_element.external_url
-    when 'html'
-      render_template
+    begin
+      case @site_element.attachment_type
+      when 'resource'
+        send_resource_file(@site_element)
+      when 'executable'
+        send_executable_file(@site_element)
+      when 'external'
+        redirect_to @site_element.external_url
+      when 'html'
+        render_template
+      end
+    rescue
+      raise ActiveRecord::RecordNotFound
     end
   end
 

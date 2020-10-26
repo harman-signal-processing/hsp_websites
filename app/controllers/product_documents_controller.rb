@@ -39,12 +39,16 @@ class ProductDocumentsController < ApplicationController
   private
 
   def send_document(product_document)
-    data = open(product_document.document.url)
-    send_data data.read,
-      disposition: 'inline',
-      stream: true,
-      buffer_size: '4096',
-      filename: product_document.document_file_name.gsub(/_original/, ''),
-      type: product_document.document_content_type
+    begin
+      data = open(product_document.document.url)
+      send_data data.read,
+        disposition: 'inline',
+        stream: true,
+        buffer_size: '4096',
+        filename: product_document.document_file_name.gsub(/_original/, ''),
+        type: product_document.document_content_type
+    rescue
+      raise ActiveRecord::RecordNotFound
+    end
   end
 end
