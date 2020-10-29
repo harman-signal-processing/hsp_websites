@@ -224,7 +224,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
           post :update_order
         end
       end
-      resources :market_segments do
+      resources :market_segments, path: :markets do
         member do
           get :delete_banner_image
         end
@@ -494,11 +494,12 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         resources :training_class_registrations
       end
     end
-    resources :market_segments,
-      :pages,
+    resources :market_segments, path: :markets
+    resources :pages,
       :installations,
       :product_reviews,
       :demo_songs
+    get "/market_segments/:id", to: redirect("/markets/%{id}")
     resources :promotions, only: [:index, :show, :new, :edit]
     resources :product_families, only: [:index, :show] do
       resources :testimonials, only: :index

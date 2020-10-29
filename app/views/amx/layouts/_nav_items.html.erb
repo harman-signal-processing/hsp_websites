@@ -12,21 +12,23 @@
 		</ul>
 	</li>
 
-  <li class="has-dropdown"><%= link_to t("nav.markets"), '#', class: "disabled" %>
-    <ul class="dropdown">
-      <% MarketSegment.all_parents(website).each do |market_segment| %>
-        <% if market_segment.name.to_s =~ /government/i %>
-          <li class="has-dropdown"><%= link_to translate_content(market_segment, :name).titleize, market_segment %>
-            <ul class="dropdown">
-              <li><%= link_to t("nav.secure_av"), "/#{I18n.locale}/secureav" %></li>
-            </ul>
-          </li>
-        <% else %>
-          <li><%= link_to translate_content(market_segment, :name).titleize, market_segment %></li>
+  <% if website.show_market_nav.to_i > 0 %>
+    <li class="has-dropdown"><%= link_to t("nav.markets"), '#', class: "disabled" %>
+      <ul class="dropdown">
+        <% MarketSegment.all_parents(website).each do |market_segment| %>
+          <% if market_segment.name.to_s =~ /government/i %>
+            <li class="has-dropdown"><%= link_to translate_content(market_segment, :name).titleize, market_segment %>
+              <ul class="dropdown">
+                <li><%= link_to t("nav.secure_av"), "/#{I18n.locale}/secureav" %></li>
+              </ul>
+            </li>
+          <% else %>
+            <li><%= link_to translate_content(market_segment, :name).titleize, market_segment %></li>
+          <% end %>
         <% end %>
-      <% end %>
-    </ul>
-  </li>
+      </ul>
+    </li>
+  <% end %>
 
   <% if website.has_solution_pages? %>
     <%= render_partial "shared/solutions_nav" %>

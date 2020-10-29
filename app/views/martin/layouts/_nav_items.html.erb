@@ -26,6 +26,16 @@
     <% end %>
   <% end %>
 
+  <% if website.show_market_nav.to_i > 0 %>
+    <li class="has-dropdown"><%= link_to t("nav.markets"), '#', class: "disabled" %>
+      <ul class="dropdown">
+        <% MarketSegment.all_parents(website).each do |market_segment| %>
+          <li><%= link_to translate_content(market_segment, :name).titleize, market_segment %></li>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
+
   <% if website.has_solution_pages? %>
     <%= render_partial "shared/solutions_nav" %>
   <% end %>
