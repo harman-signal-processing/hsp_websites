@@ -1,7 +1,5 @@
 <% if @product_family.product_selector_behavior.to_s == "root_with_subgroups" %>
 
-  $("div#results-container form").empty();
-  $("div#options-container").empty();
   $("div#subgroups").html("<%= escape_javascript( render 'subgroups' ) %>");
 
 <% else %>

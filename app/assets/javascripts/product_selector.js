@@ -180,6 +180,7 @@ function sliderFilter(item, filter_name, selected_values) {
     if (this_value.indexOf("-") >= 0) {
       var this_range = this_value.split("-");
       // Reversing the signs per Rick K. so that products outside the lower/upper limits are shown
+      //if (parseFloat(this_range[0]) <= selected_values["selected_min"] && parseFloat(this_range[1]) >= selected_values["selected_max"]) {
       if (parseFloat(this_range[0]) <= selected_values["selected_min"] && parseFloat(this_range[1]) >= selected_values["selected_max"]) {
         return true;
       }
@@ -340,6 +341,7 @@ jQuery(function($) {
 		$("li.product_family_box").css("outline", "none");
     $(this).parent("li").css("outline", "1px solid #CCC");
     $(".spinner").show();
+    $("ul#hidden-products").empty();
     $("#results-container form").empty();
     $("#options-container").empty();
     $("div#subgroups").empty();
@@ -352,6 +354,7 @@ jQuery(function($) {
     $("li.subgroup").css("outline", "none");
     $(this).parent("li").css("outline", "1px solid #CCC");
     $(".spinner").show();
+    $("ul#hidden-products").empty();
     $("#results-container form").empty();
     $("#options-container").empty();
     $.getScript(this.href);
