@@ -76,8 +76,8 @@ class Promotion < ApplicationRecord
   end
 
   def best_landing_page_path
-    if products.length == 1
-      product_path(products.first, locale: I18n.locale)
+    if product_promotions.length == 1
+      product_path(product_promotions.first.product, locale: I18n.locale)
     elsif common_product_family
       product_family_path(common_product_family, locale: I18n.locale)
     else
@@ -86,8 +86,8 @@ class Promotion < ApplicationRecord
   end
 
   def common_product_family
-    products.map do |product|
-      product.product_families
+    product_promotions.map do |pp|
+      pp.product.product_families
     end.reduce(:&).first
   end
 
