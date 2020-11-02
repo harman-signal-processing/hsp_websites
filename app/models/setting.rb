@@ -15,7 +15,7 @@ class Setting < ApplicationRecord
   process_in_background :slide
 
   belongs_to :brand, touch: true
-  has_one :promotion, foreign_key: 'banner_id', dependent: :nullify
+  has_one :promotion, foreign_key: 'banner_id', dependent: :nullify, inverse_of: :banner
   validates :name, presence: true, uniqueness: { scope: [:locale, :brand_id], case_sensitive: false  }
 
   after_initialize :steal_description

@@ -39,7 +39,7 @@ class Promotion < ApplicationRecord
 
   accepts_nested_attributes_for :product_promotions, reject_if: proc { |p| p["product_id"].blank? }, allow_destroy: true
   accepts_nested_attributes_for :banner, reject_if: :all_blank
-  before_save :update_banner
+  before_validation :update_banner
 
   def sanitized_name
     self.name.gsub(/[\'\"]/, "")
@@ -65,13 +65,13 @@ class Promotion < ApplicationRecord
   end
 
   def update_banner
-    if banner && banner.slide.present?
+    if banner && banner.slide_file_name.present?
       banner.setting_type = "slideshow frame"
       banner.start_on = self.start_on
       banner.remove_on = self.end_on
       banner.name = "#{self.name} Banner"
       banner.string_value = best_landing_page_path
-      banner.save
+      banner.brand_id = self.brand_id
     end
   end
 
