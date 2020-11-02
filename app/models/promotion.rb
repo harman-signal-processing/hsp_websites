@@ -3,6 +3,7 @@ class Promotion < ApplicationRecord
   extend FriendlyId
   friendly_id :sanitized_name
 
+  attribute :show_recalculated_price, :boolean, default: true
   validates :brand_id, presence: true
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   has_many :product_promotions, inverse_of: :promotion

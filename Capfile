@@ -21,9 +21,7 @@ require 'capistrano/deploy'
 require 'capistrano/bundler'
 require 'capistrano/rails/assets'
 require 'capistrano/rails/migrations'
-#TODO: re-enable this to restart passenger apps once all servers are
-# on passenger v5+
-#require 'capistrano/passenger'
+require 'capistrano/passenger'
 require "capistrano/scm/git"
 install_plugin Capistrano::SCM::Git
 require 'capistrano/delayed_job'
