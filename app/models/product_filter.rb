@@ -50,26 +50,35 @@ class ProductFilter < ApplicationRecord
 
   # Determine the minimum value for the given product family
   def min_value_for(product_family, website)
-    begin
-      m = unique_values_for(product_family, website).map do |v|
-        v.to_s.split(/-/).first.to_i
-      end.sort.first.to_i - stepsize.to_i
-      (m < fallback_min) ? fallback_min : m
-    rescue
-      fallback_min
-    end
+    min_range_for(product_family, website).first
+  end
+
+  def min_range_for(product_family, website)
+    rangify unique_values_for(product_family, website).map { |v| v.to_s.split(/-/).first.to_i }
   end
 
   # Determine the maximum value for the given product family
   def max_value_for(product_family, website)
+    max_range_for(product_family, website).last
+  end
+
+  def max_range_for(product_family, website)
+    range = rangify unique_values_for(product_family, website).map { |v| v.to_s.split(/-/).last.to_i }
+    alt_min = min_range_for(product_family, website).last
+    range[0] = alt_min if alt_min > range[0]
+    range
+  end
+
+  # Determine the best stepsize for the given product family
+  def stepsize_for(product_family, website)
     begin
-      m = unique_values_for(product_family, website).map do |v|
-        v.to_s.split(/-/).last.to_i
-      end.sort.last.to_i
-      m = roundup(m)
-      (m > fallback_max) ? fallback_max : m
+      min = min_value_for(product_family, website)
+      max = max_value_for(product_family, website)
+      range = max - min
+      steps = (stepsize.present? && stepsize > 0) ? range / stepsize : 0
+      (steps >= 10) ? stepsize : ((range+1) / 10).to_i
     rescue
-      fallback_max
+      stepsize.present? ? stepsize : 1
     end
   end
 
@@ -83,12 +92,43 @@ class ProductFilter < ApplicationRecord
 
   private
 
+  def rangify(values)
+    begin
+      values.sort!
+      range = [rounddown(values.first.to_i), roundup(values.last.to_i)]
+      spread = range.last - range.first
+      (spread > (stepsize * 2) + 1) ? range : [fallback_min, fallback_max]
+    rescue
+      [fallback_min, fallback_max]
+    end
+  end
+
   def roundup(num)
-    exp = (num.digits.length > 1) ? (num.digits.length - 1) : 1
+    digits = num.digits.length
+    exp = case
+    when digits > 4
+      digits - 2
+    when digits > 1
+      digits - 1
+    else
+      1
+    end
     step = 10**exp
     whole, remainder = num.divmod(step)
     num_steps = remainder > 0 ? whole + 1 : whole
     num_steps * step
   end
 
+  def rounddown(num)
+    digits = num.digits.length
+    exp = case
+    when digits > 4
+      digits - 2
+    when digits > 1
+      digits - 1
+    else
+      1
+    end
+    (num / (10.0**exp)).floor * (10**exp)
+  end
 end

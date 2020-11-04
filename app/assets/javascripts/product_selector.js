@@ -1,19 +1,108 @@
 var master_product_list = [];
 var product_elements_to_show = [];
 var product_elements_to_hide = [];
+var range_filter_data = {};
 var slider_filter_data = {};
 
 // Each slider element is initialized and given a callback
 // function for when the values change.
-function initializeSliders() {
+function initializeRangeSliders() {
   $.each( $("div.slider-range-container"), function() {
+    var low_min = $(this).data("low-min");
+    var low_max = $(this).data("low-max");
+    var high_min = $(this).data("high-min");
+    var high_max = $(this).data("high-max");
+    var uom = $(this).data("uom");
+    var secondary_uom = $(this).data("secondary-uom");
+    var secondary_uom_formula = $(this).data("secondary-uom-formula");
+    var slider_low = $(this).children("div.slider-range-low");
+    var slider_high = $(this).children("div.slider-range-high");
+    var range_label = $(this).children("div.range-label");
+    var filter_name = $(this).attr("data-filtername");
+    var stepsize = $(this).attr("data-stepsize");
+    var slider_value_low = low_max;
+    var alt_slider_value_low = "";
+    var slider_value_high = high_min;
+    var alt_slider_value_high = "";
+
+    var session_filter_data = JSON.parse(sessionStorage.getItem('range_filter_data'));
+    if (session_filter_data && session_filter_data[filter_name]) {
+      range_filter_data[filter_name] = session_filter_data[filter_name];
+    } else {
+      range_filter_data[filter_name] = {
+        default_low: low_max,
+        selected_low: low_max,
+        default_high: high_min,
+        selected_high: high_min
+      };
+    }
+
+    slider_low.slider({
+      range: false,
+      min: low_min,
+      max: low_max,
+      value: range_filter_data[filter_name]["selected_low"],
+      step: parseInt(stepsize),
+      slide: function(event, ui) {
+        slider_value_low = ui.value;
+        slider_values = slider_value_low + " - " + slider_value_high + " " + uom;
+        if (secondary_uom.length && secondary_uom_formula.length) {
+          alt_slider_value_low = eval(ui.value + secondary_uom_formula).toFixed(1);
+          slider_values += " / " + alt_slider_value_low + " - " + alt_slider_value_high + " " + secondary_uom;
+        }
+        range_label.html(slider_values);
+      },
+      change: function(event, ui) {
+        range_filter_data[filter_name]["selected_low"] = ui.value;
+        sessionStorage.setItem('range_filter_data', JSON.stringify(range_filter_data));
+        performFilter();
+      }
+    });
+
+    slider_high.slider({
+      range: false,
+      min: high_min,
+      max: high_max,
+      value: range_filter_data[filter_name]["selected_high"],
+      step: parseInt(stepsize),
+      slide: function(event, ui) {
+        slider_value_high = ui.value;
+        slider_values = slider_value_low + " - " + slider_value_high + " " + uom;
+        if (secondary_uom.length && secondary_uom_formula.length) {
+          alt_slider_value_high = eval(ui.value + secondary_uom_formula).toFixed(1);
+          slider_values += " / " + alt_slider_value_low + " - " + alt_slider_value_high + " " + secondary_uom;
+        }
+        range_label.html(slider_values);
+      },
+      change: function(event, ui) {
+        range_filter_data[filter_name]["selected_high"] = ui.value;
+        sessionStorage.setItem('range_filter_data', JSON.stringify(range_filter_data));
+        performFilter();
+      }
+    });
+
+    // Setting the labels on initialize
+    range_label_value = slider_low.slider("value") + " - " + slider_high.slider("value") + " " + uom
+    if (secondary_uom.length && secondary_uom_formula.length) {
+      alt_slider_value_low = eval(slider_low.slider("value") + secondary_uom_formula).toFixed(1);
+      alt_slider_value_high = eval(slider_high.slider("value") + secondary_uom_formula).toFixed(1);
+      range_label_value += " / " + alt_slider_value_low + " - " + alt_slider_value_high + " " + secondary_uom;
+    }
+    range_label.html(range_label_value);
+
+  });
+  sessionStorage.setItem('range_filter_data', JSON.stringify(range_filter_data));
+}
+
+function initializeSliders() {
+  $.each( $("div.slider-number-container"), function() {
     var min = $(this).data("min");
     var max = $(this).data("max");
     var uom = $(this).data("uom");
     var secondary_uom = $(this).data("secondary-uom");
     var secondary_uom_formula = $(this).data("secondary-uom-formula");
-    var slider = $(this).children("div.slider-range");
-    var range_label = $(this).children("div.range-label");
+    var slider = $(this).children("div.slider-number");
+    var number_label = $(this).children("div.number-label");
     var filter_name = $(this).attr("data-filtername");
     var stepsize = $(this).attr("data-stepsize");
 
@@ -22,43 +111,38 @@ function initializeSliders() {
       slider_filter_data[filter_name] = session_filter_data[filter_name];
     } else {
       slider_filter_data[filter_name] = {
-        min: min,
-        max: max,
-        selected_min: min,
-        selected_max: max
+        default: max,
+        selected_value: max
       };
     }
 
     slider.slider({
-      range: true,
+      range: false,
       min: min,
       max: max,
-      values: [ slider_filter_data[filter_name]["selected_min"], slider_filter_data[filter_name]["selected_max"] ],
+      value: slider_filter_data[filter_name]["selected_value"],
       step: parseInt(stepsize),
       slide: function(event, ui) {
-        slider_values = ui.values[0] + " - " + ui.values[1] + " " + uom;
+        slider_value = ui.value + " " + uom;
         if (secondary_uom.length && secondary_uom_formula.length) {
-          alt_min = eval(ui.values[0] + secondary_uom_formula).toFixed(1);
-          alt_max = eval(ui.values[1] + secondary_uom_formula).toFixed(1);
-          slider_values += "<br/>" + alt_min + " - " + alt_max + " " + secondary_uom;
+          alt_value = eval(ui.value + secondary_uom_formula).toFixed(1);
+          slider_value += " / " + alt_value + " " + secondary_uom;
         }
-        range_label.html(slider_values);
+        number_label.html(slider_value);
       },
       change: function(event, ui) {
-        slider_filter_data[filter_name]["selected_min"] = ui.values[0];
-        slider_filter_data[filter_name]["selected_max"] = ui.values[1];
+        slider_filter_data[filter_name]["selected_value"] = ui.value;
         sessionStorage.setItem('slider_filter_data', JSON.stringify(slider_filter_data));
         performFilter();
       }
     });
 
-    range_label_value = slider.slider("values", 0) + " - " + slider.slider("values", 1) + " " + uom
+    number_label_value = slider.slider("value") + " " + uom
     if (secondary_uom.length && secondary_uom_formula.length) {
-      alt_min = eval(slider.slider("values", 0) + secondary_uom_formula).toFixed(1);
-      alt_max = eval(slider.slider("values", 1) + secondary_uom_formula).toFixed(1);
-      range_label_value += "<br/>" + alt_min + " - " + alt_max + " " + secondary_uom;
+      alt_value = eval(slider.slider("value") + secondary_uom_formula).toFixed(1);
+      number_label_value += " / " + alt_value + " " + secondary_uom;
     }
-    range_label.html(range_label_value);
+    number_label.html(number_label_value);
 
   });
   sessionStorage.setItem('slider_filter_data', JSON.stringify(slider_filter_data));
@@ -169,22 +253,27 @@ function booleanFilter(item, filter_name, selected_values) {
   return false;
 }
 
-function sliderFilter(item, filter_name, selected_values) {
+function rangeFilter(item, filter_name, selected_values) {
   // if the slider hasn't moved, return true for all products
-  if ( parseFloat(selected_values["selected_min"]) == parseFloat(selected_values["min"]) &&
-    parseFloat(selected_values["selected_max"]) == parseFloat(selected_values["max"]) ) {
+  if ( parseFloat(selected_values["selected_low"]) == parseFloat(selected_values["default_low"]) &&
+    parseFloat(selected_values["selected_high"]) == parseFloat(selected_values["default_high"]) ) {
+      return true;
+  } else if ( typeof $(item).attr("data-"+filter_name) !== 'undefined' ) {
+    var this_range = $(item).attr("data-"+filter_name).split("-");
+    if (parseFloat(this_range[0]) <= selected_values["selected_low"] && parseFloat(this_range[1]) >= selected_values["selected_high"]) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function sliderFilter(item, filter_name, filter_data) {
+  // if the slider hasn't moved, return true for all products
+  if ( parseFloat(filter_data["selected_value"]) == parseFloat(filter_data["default"]) ) {
       return true;
   } else if ( typeof $(item).attr("data-"+filter_name) !== 'undefined' ) {
     var this_value = $(item).attr("data-"+filter_name);
-    // if the value has a dash in it, then consider it a range
-    if (this_value.indexOf("-") >= 0) {
-      var this_range = this_value.split("-");
-      // Reversing the signs per Rick K. so that products outside the lower/upper limits are shown
-      //if (parseFloat(this_range[0]) <= selected_values["selected_min"] && parseFloat(this_range[1]) >= selected_values["selected_max"]) {
-      if (parseFloat(this_range[0]) <= selected_values["selected_min"] && parseFloat(this_range[1]) >= selected_values["selected_max"]) {
-        return true;
-      }
-    } else if (this_value >= selected_values["selected_min"] && this_value <= selected_values["selected_max"]) {
+    if (this_value <= filter_data['selected_value']) {
       return true;
     }
   }
@@ -240,7 +329,8 @@ function performFilter() {
     text_filter_data,
     select_filter_data,
     boolean_filter_data,
-    slider_filter_data
+    slider_filter_data,
+    range_filter_data
   );
 
   sessionStorage.setItem('selected_sub_families', JSON.stringify(selected_sub_families));
@@ -257,6 +347,7 @@ function rerunFilter() {
   var select_filter_data = JSON.parse(sessionStorage.getItem('select_filter_data'));
   var boolean_filter_data = JSON.parse(sessionStorage.getItem('boolean_filter_data'));
   var slider_filter_data = JSON.parse(sessionStorage.getItem('slider_filter_data'));
+  var range_filter_data = JSON.parse(sessionStorage.getItem('range_filter_data'));
 
   // loop through each product
   filterProducts(
@@ -264,7 +355,8 @@ function rerunFilter() {
     text_filter_data,
     select_filter_data,
     boolean_filter_data,
-    slider_filter_data
+    slider_filter_data,
+    range_filter_data
   );
 
   // restore input settings from session
@@ -292,7 +384,7 @@ function rerunFilter() {
   }
 }
 
-function filterProducts(selected_sub_families, text_filter_data, select_filter_data, boolean_filter_data, slider_filter_data) {
+function filterProducts(selected_sub_families, text_filter_data, select_filter_data, boolean_filter_data, slider_filter_data, range_filter_data) {
   $.each((master_product_list), function() {
     var failed_filter_count = 0;
     // apply each filter
@@ -326,6 +418,12 @@ function filterProducts(selected_sub_families, text_filter_data, select_filter_d
       }
     }
 
+    for (var filter_name in range_filter_data) {
+      if (rangeFilter(this, filter_name, range_filter_data[filter_name]) == false) {
+        failed_filter_count++;
+      }
+    }
+
     if (failed_filter_count > 0) {
       hideProduct(this);
     } else {
@@ -345,6 +443,8 @@ jQuery(function($) {
     $("#results-container form").empty();
     $("#options-container").empty();
     $("div#subgroups").empty();
+    sessionStorage.removeItem('range_filter_data');
+    sessionStorage.removeItem('slider_filter_data');
     $.getScript(this.href);
     history.pushState(null, "", this.href);
     return false;
@@ -357,6 +457,8 @@ jQuery(function($) {
     $("ul#hidden-products").empty();
     $("#results-container form").empty();
     $("#options-container").empty();
+    sessionStorage.removeItem('range_filter_data');
+    sessionStorage.removeItem('slider_filter_data');
     $.getScript(this.href);
     history.pushState(null, "", this.href);
     return false;
