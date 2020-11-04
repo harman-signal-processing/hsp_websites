@@ -1,6 +1,8 @@
 <% set_meta_tags reverse: true %>
 <h1 class="page_title text-center">Martin Warranty Policy</h1>
 
+<%=raw website.brand.extra_warranty_header_content %>
+
 <div class="row">
 	<div class="large-8 small-12 columns">
 
@@ -40,6 +42,7 @@
 	</div>
   <div class="large-4 small-12 columns">
     <%= render_partial "shared/extended_warranty" %>
+    <%= raw website.brand.extra_warranty_side_content %>
 
 		<table class="specs">
 			<tr>
