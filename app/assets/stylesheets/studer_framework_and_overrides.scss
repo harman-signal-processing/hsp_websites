@@ -30,7 +30,7 @@ $h6-font-size: 1em;
 $subheader-font-color: lighten($dark-gray, 20%);
 $small-font-color: lighten($header-font-color, 35%);
 
-$paragraph-font-weight: 300;
+$paragraph-font-weight: 400;
 $accordion-navigation-padding: rem-calc(14);
 $accordion-navigation-bg-color: scale-color($light-gray, $lightness: 25%);
 $accordion-navigation-active-bg-color: scale-color($accordion-navigation-bg-color, $lightness: -13%);
@@ -57,7 +57,7 @@ $button-tny: rem-calc(5px);
 $button-sml: rem-calc(7px);
 $button-med: rem-calc(10px);
 $button-lrg: rem-calc(14px);
-$button-font-weight: 300;
+$button-font-weight: 400;
 $button-border-style: none;
 $topbar-bg-color: $primary-color;
 $topbar-bg: $topbar-bg-color !default;
@@ -196,7 +196,7 @@ div.market_segment_banner {
 
 h1, h2 {
 	font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-	font-weight: 200;
+	font-weight: 500;
 }
 
 div.product-title-block, div.small-title-block {
@@ -206,7 +206,7 @@ div.product-title-block, div.small-title-block {
   }
   h3 {
     color: $medium-gray;
-    font-weight: 300;
+    font-weight: 400;
   }
   dl.side-nav {
     dd {
