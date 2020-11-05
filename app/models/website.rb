@@ -112,7 +112,7 @@ class Website < ApplicationRecord
     Rails.cache.fetch("#{cache_key_with_version}/featured_products", expires_in: 6.hours) do
       begin
         @featured_products ||= self.brand.respond_to?(:featured_products) ?
-          self.brand.featured_products.split(/\,|\|\s?/).map{|i| Product.find_by(cached_slug: i)}.select{|p| p if p.show_on_website?(self)} :
+          self.brand.featured_products.split(/\,|\|\s?/).map{|i| Product.find_by(cached_slug: i)}.select{|p| p if p.is_a?(Product) && p.show_on_website?(self)} :
           Array.new
       rescue
         Array.new
