@@ -22,74 +22,76 @@
   </div>
 <% end %>
 
-<%= cache ["admin_products_index", @products] do %>
-  <% ProductStatus.find_each do |product_status| %>
-    <% if @products.where(product_status_id: product_status.id).length > 0 %>
-      <h4 class="subheader"><%= product_status.name %></h4>
+<% ProductStatus.find_each do |product_status| %>
+  <% if @products.where(product_status_id: product_status.id).length > 0 %>
+    <h4 class="subheader"><%= product_status.name %></h4>
 
-      <table style="width: 100%">
-        <thead>
-          <tr>
-            <td width="5%" class="text-center"><%= fa_icon "picture-o" %></td>
-            <td>Name</td>
-            <td width="33%">What it is</td>
-            <td width="33%">Families</td>
-            <td width="5%" class="text-center"><%= fa_icon "eye" %></td>
-          </tr>
-        </thead>
-        <tbody>
-        <% @products.where(product_status_id: product_status.id).each do |product| %>
+    <table style="width: 100%">
+      <thead>
+        <tr>
+          <td width="5%" class="text-center"><%= fa_icon "picture-o" %></td>
+          <td>Name</td>
+          <td width="33%">What it is</td>
+          <td width="33%">Families</td>
+          <td width="5%" class="text-center"><%= fa_icon "eye" %></td>
+        </tr>
+      </thead>
+      <tbody>
+      <% @products.where(product_status_id: product_status.id).each do |product| %>
         <% if can?(:manage, product) %>
-          <tr>
-            <td>
-              <% if product.primary_photo %>
-                <%= image_tag product.primary_photo.product_attachment.url(:tiny_square), lazy: false %>
-              <% end %>
-            </td>
-            <td>
-                <%= link_to product.name, [:admin, product] %>
-                <% if product.brand_id != website.brand_id %>
-                  <span class="radius label" <% if product.brand.color.present? %>style="background-color: <%= product.brand.color %> !important;"<% end %>>
-                    <%= product.brand.name %>
-                  </span>
+          <%= cache ["admin_products_index_row", product] do %>
+            <tr>
+              <td>
+                <% if product.primary_photo %>
+                  <%= image_tag product.primary_photo.product_attachment.url(:tiny_square), lazy: false %>
                 <% end %>
-            </td>
-            <td>
-              <% if product.short_description.present? %>
-                <%= product.short_description %>
-              <% elsif product.short_description_1.present? %>
-                <%= product.short_description_1 %>
-              <% elsif product.short_description_2.present? %>
-                <%= product.short_description_2 %>
-              <% elsif product.short_description_3.present? %>
-                <%= product.short_description_3 %>
-              <% elsif product.short_description_4.present? %>
-                <%= product.short_description_4 %>
-              <% end %>
-            </td>
-            <td>
-              <%=raw product.product_families.where(brand_id: website.brand_id).map{|pf|
-                link_to(pf.name, [:admin, pf]) + " " + content_tag(:em, pf.locales(website).join(', '))
-              }.join("<br/>".html_safe) %>
-              <% if product.product_families.length == 0 %>
-                <em>Does not appear in navigation.
-
-                  <% if product.accessory_to_products.length > 0 %>
-                    However, it does appear as an accessory to <%=pluralize product.accessory_to_products.length, "product", plural: "products" %>.
+              </td>
+              <td>
+                  <%= link_to product.name, [:admin, product] %>
+                  <% if product.brand_id != website.brand_id %>
+                    <span class="radius label" <% if product.brand.color.present? %>style="background-color: <%= product.brand.color %> !important;"<% end %>>
+                      <%= product.brand.name %>
+                    </span>
                   <% end %>
-                </em>
-              <% end %>
-            </td>
-            <td class="text-center">
-              <%= link_to product, target: "_blank" do %>
-                <%= fa_icon "external-link" %>
-              <% end %>
-            </td>
-          </tr>
+              </td>
+              <td>
+                <% if product.short_description.present? %>
+                  <%= product.short_description %>
+                <% elsif product.short_description_1.present? %>
+                  <%= product.short_description_1 %>
+                <% elsif product.short_description_2.present? %>
+                  <%= product.short_description_2 %>
+                <% elsif product.short_description_3.present? %>
+                  <%= product.short_description_3 %>
+                <% elsif product.short_description_4.present? %>
+                  <%= product.short_description_4 %>
+                <% end %>
+              </td>
+              <td>
+                <%= cache ["admin_product_family_summary_for", product] do %>
+                  <%=raw product.product_families.where(brand_id: website.brand_id).map{|pf|
+                    link_to(pf.name, [:admin, pf]) + " " + content_tag(:em, pf.locales(website).join(', '))
+                  }.join("<br/>".html_safe) %>
+                  <% if product.product_families.length == 0 %>
+                    <em>Does not appear in navigation.
+
+                      <% if product.accessory_to_products.length > 0 %>
+                        However, it does appear as an accessory to <%=pluralize product.accessory_to_products.length, "product", plural: "products" %>.
+                      <% end %>
+                    </em>
+                  <% end %>
+                <% end %>
+              </td>
+              <td class="text-center">
+                <%= link_to product, target: "_blank" do %>
+                  <%= fa_icon "external-link" %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
         <% end %>
-        <% end %>
-        </tbody>
-      </table>
-    <% end %>
+      <% end %>
+      </tbody>
+    </table>
   <% end %>
 <% end %>
