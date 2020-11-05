@@ -75,7 +75,7 @@ set_meta_tags title: @product.name,
   <% end %>
 <% end %>
 
-<%= cache ["product_page", @product, @online_retailer_link, @active_tab, I18n.locale, session['geo_country']] do %>
+<%= cache ["product_page", @product, @online_retailer_link, @active_tab, I18n.locale, session['geo_country'], current_user] do %>
 
 <div id="breadcrumbs"><%= breadcrumbs(@product) %></div>
 
