@@ -9,7 +9,7 @@
     <div class="case-studies">
       <% if @case_studies.empty? %>
         No case studies found matching criteria.
-        <br />See <%= link_to case_studies_qpath do %><%= t('all').titleize %> <%= t('case_study').pluralize.titleize %><% end %>.
+        <br />See <%= link_to case_studies_path do %><%= t('all').titleize %> <%= t('case_study').pluralize.titleize %><% end %>.
       <% end %>
 
       <% @case_studies.each do |case_study| %>
