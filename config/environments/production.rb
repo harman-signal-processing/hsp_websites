@@ -89,19 +89,10 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.middleware.use ExceptionNotification::Rack,
-    :email => {
-      :email_prefix => "[HSP] ",
-      :sender_address => %{"Site Error" <support@digitech.com>},
-      :exception_recipients => ENV['EXCEPTION_RECIPIENTS'].split("|")
-    }
-
   config.action_mailer.delivery_method = :mailgun
   config.action_mailer.mailgun_settings = {
     api_key: ENV['MAILGUN_API_KEY'],
     domain: ENV['MAILGUN_DOMAIN']
   }
-
-  config.hpro_execs = ENV['HPRO_EXECS'].split("|")
 
 end

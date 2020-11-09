@@ -80,10 +80,11 @@ gem 'slick_rails' # slick carousel
 gem 'mailgun_rails' # mailer service
 gem 'nokogiri'
 gem 'email_validator'
+gem "exception_notification"
+gem 'slack-notifier'
 
 group :production, :staging do
   gem 'passenger_monit'
-  gem "exception_notification"
 end
 
 group :development do

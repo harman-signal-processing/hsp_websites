@@ -17,8 +17,6 @@ class Admin::NewsController < AdminController
   # GET /admin/news/1
   # GET /admin/news/1.xml
   def show
-    @news.from = "#{website.brand.name.downcase}.enews@harman.com"
-    @news.to = "config.hpro_execs"
     @news_product = NewsProduct.new(news: @news)
     @products = Product.all_for_website(website)
     @news_image = NewsImage.new(news: @news)
