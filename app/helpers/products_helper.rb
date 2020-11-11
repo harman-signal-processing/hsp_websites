@@ -354,7 +354,7 @@ module ProductsHelper
       options = default_options.merge options
       button = button_for(product, options)
 
-		  if !product.in_production?
+      if !product.in_production? || product.eol?
         no_buy_it_now(product)
       elsif product.hide_buy_it_now_button?
         ""
@@ -411,11 +411,10 @@ module ProductsHelper
   end
 
   def no_buy_it_now(product)
-    folder = folder_for(product)
     if product.show_on_website?(website)
-      image_tag("#{folder}/#{I18n.locale}/coming_soon.png", alt: "coming soon", lazy: false)
+      content_tag(:div, product.product_status.name.titleize, class: "product_status_badge")
     else
-      image_tag("#{folder}/#{I18n.locale}/confidential.png", alt: "confidential", lazy: false)
+      content_tag(:div, "Confidential", class: "product_status_badge")
     end
   end
 

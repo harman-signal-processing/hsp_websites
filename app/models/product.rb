@@ -283,6 +283,10 @@ class Product < ApplicationRecord
     product_status.is_discontinued?
   end
 
+  def eol?
+    product_status.eol?
+  end
+
   # can this product be registered with us?
   def can_be_registered?
     !!!(self.product_status.not_supported?) && !!(self.product_status.show_on_website?) && !!!(self.product_status.vintage?) && !!!(self.parent_products.size > 0) && !!!self.is_accessory?

@@ -23,7 +23,7 @@
 <div class="row">
 <% if can?(:change, ProductStatus) %>
 	<div class="large-6 columns">
-		<%= f.association :product_status %>
+		<%= f.association :product_status, collection: ProductStatus.order(:position) %>
 	</div>
 <% end %>
 <% if can?(:update, :product_password) %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_22_153225) do
+ActiveRecord::Schema.define(version: 2020_11_10_193844) do
 
   create_table "access_levels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -1429,6 +1429,8 @@ ActiveRecord::Schema.define(version: 2020_10_22_153225) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean "shipping", default: false
+    t.boolean "eol", default: false
+    t.integer "position"
   end
 
   create_table "product_suggestions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|

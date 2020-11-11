@@ -1067,6 +1067,17 @@ div.product-title-block, div.small-title-block {
   }
   div.buy-it-now-button-container {
     min-height: 60px;
+    div.product_status_badge {
+      position: absolute;
+      left: -180px;
+      top: 0;
+      width: 360px;
+      text-align: center;
+      color: red;
+      font-size: 22px;
+      font-family: sans-serif;
+      font-weight: 400;
+    }
   }
   hr {
     margin: 20px 0px 40px;

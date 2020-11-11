@@ -1,10 +1,11 @@
 class ProductStatus < ApplicationRecord
   has_many :products
+  acts_as_list
 
   class << self
 
     def simplified_options
-      where.not("name LIKE '#_%' ESCAPE '#'").map do |ps|
+      where.not("name LIKE '#_%' ESCAPE '#'").order(:position).map do |ps|
         [ps.simplified_name, ps.id]
       end
     end
@@ -75,8 +76,7 @@ class ProductStatus < ApplicationRecord
   def simplified_name
     n = name
     n += " (hidden from public)" if is_hidden?
-    n += " (coming soon)" if show_on_website? && !in_production? && !discontinued?
-    n += " (not supported)" if not_supported?
+    n += " (not supported)" if not_supported? && !is_hidden?
     n
   end
 
