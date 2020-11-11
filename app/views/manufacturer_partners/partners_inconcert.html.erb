@@ -10,7 +10,8 @@
     every installation as quick and easy as possible.</div>
     
     <div class="text-content">
-        <%= mp_orbit_slideshow(slides: @partners_for_slides, duration: 6000, navigation_arrows: true, transition: "fade") %>
+        <%show_nav_arrows = @partners_for_slides.count > 1%>
+        <%= mp_orbit_slideshow(slides: @partners_for_slides, duration: 6000, navigation_arrows: show_nav_arrows, transition: "fade") %>
     </div>
 
 </div>
