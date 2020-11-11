@@ -109,6 +109,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       get '/partners' => 'manufacturer_partners#partners_home', as: :amx_partners_home
       get '/partners/inconcert' => 'manufacturer_partners#partners_inconcert', as: :amx_partners_inconcert
       get '/partners/featured' => 'manufacturer_partners#featured_partner', as: :amx_featured_partner
+      get '/partners/featured/:partner_name' => 'manufacturer_partners#featured_partner', as: :amx_featured_partner_selected
+      get '/partners/featured-list' => 'manufacturer_partners#featured_partners', as: :amx_featured_partner_list
       match "partners/interest" => "amx_partner_interest_form#create", as: :amx_partner_interest, via: [:get, :post]
       resources :vip_programmers, as: :vips, path: "vips", only: [:index, :show]
 
