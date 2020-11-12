@@ -5,7 +5,7 @@ module ManufacturerPartnersHelper
   # ignored.
   #
   def mp_orbit_slideshow(options={})
-    default_options = { duration: 7000, animation: 'slide', slide_number: false, navigation_arrows: true, slides: [] }
+    default_options = { duration: 7000, animation: 'slide', slide_number: false, navigation_arrows: true, bullets:false, slides: [] }
     options = default_options.merge options
 
     orbit_options = [
@@ -14,12 +14,11 @@ module ManufacturerPartnersHelper
       "slide_number:#{options[:slide_number]}",
       "animation_speed:#{(options[:duration] / 12).to_i}",
       "animation:#{options[:transition]}",
-      "navigation_arrows:#{options[:navigation_arrows]}"
+      "bullets:#{options[:bullets]}"
     ]
-    if options[:slides].length == 1 || options[:slides].length > 7
-      orbit_options << "bullets:false"
-    end
+
     if options[:slides].length == 1
+      orbit_options << "navigation_arrows:false"
       orbit_options << "timer:false"
     end
 
