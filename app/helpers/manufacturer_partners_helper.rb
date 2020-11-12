@@ -24,7 +24,7 @@ module ManufacturerPartnersHelper
 
     frames = ""
     options[:slides].each_with_index do |slide, i|
-      frames += orbit_slideshow_frame(slide, i)
+      frames += mp_orbit_slideshow_frame(slide, i)
     end
     
     content_tag(:div, class: "slideshow-wrapper") do
@@ -41,7 +41,7 @@ module ManufacturerPartnersHelper
   end  #  def mp_orbit_slideshow(options={})
 
   # Used by the "mp_orbit_slideshow" method to render a frame
-  def orbit_slideshow_frame(slide, position=0)
+  def mp_orbit_slideshow_frame(slide, position=0)
     link_options = {}
     slide_content = partner_slide(slide, link_options)
     content_tag(:li, slide_content)
