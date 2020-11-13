@@ -68,6 +68,12 @@ class Admin::SiteElementsController < AdminController
     @site_element.brand_id = website.brand_id
     respond_to do |format|
       if @site_element.save
+        if @site_element.replaces_element.present?
+          old_element = SiteElement.find(@site_element.replaces_element)
+          if old_element.version.blank?
+            old_element.update(version: "A")
+          end
+        end
         format.html {
           if params[:return_to]
             redirect_to(params[:return_to], notice: "Resource was successfully uploaded.")

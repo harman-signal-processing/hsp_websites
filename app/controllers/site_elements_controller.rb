@@ -3,6 +3,7 @@ class SiteElementsController < ApplicationController
 
   def new_version
     @old_element = @site_element
+    @old_element.version ||= "A"
     @site_element = SiteElement.new(replaces_element: @old_element.to_param)
     @return_to = request.referer
   end

@@ -104,6 +104,7 @@ class SiteElement < ApplicationRecord
       self.is_software = old_element.is_software
       self.products = old_element.products
       begin
+        old_element.version ||= "A"
         self.version = old_element.version.next
       rescue
         # oh well, auto next version didn't work
