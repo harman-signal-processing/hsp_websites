@@ -88,6 +88,7 @@ group :production, :staging do
 end
 
 group :development do
+  gem 'brakeman'
   gem 'bumbler'
   gem 'web-console' #, '~> 2.0'
   gem 'capistrano', '~> 3'

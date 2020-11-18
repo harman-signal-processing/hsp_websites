@@ -78,7 +78,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
   get '/favicon.ico' => 'main#favicon'
   get '/dashboard' => 'admin#index', as: :dashboard
   get "/admin" => "admin#index", as: :admin_root, locale: I18n.default_locale
-  get 'sitemap(.:format)' => 'main#sitemap', as: :sitemap
+  get 'sitemap(.:format)' => 'sitemap#index', as: :sitemap, defaults: { format: :xml }
 
   # An example of a custom top-level landing page route:
   # match "/switchyourthinking" => "pages#show", custom_route: "switchyourthinking", locale: I18n.default_locale
@@ -591,7 +591,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get "support/rsos" => "support#rsos"
     get "support/safety" => "support#safety", as: :safety
 
-    match '/sitemap(.:format)' => 'main#locale_sitemap', as: :locale_sitemap, via: :all
+    match '/sitemap(.:format)' => 'sitemap#show', as: :locale_sitemap, via: :all, defaults: { format: :xml }
 
     match '/international_distributors' => 'distributors#index', as: :international_distributors, via: :all
     get '/where_to_find/partner_search(/:format)' => 'where_to_find#partner_search', as: :partner_search
@@ -602,7 +602,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     #match '/support(/:action(/:id))' => "support", as: :support, via: :all
     get '/support(/:product_id)' => "support#index", as: :support
     match '/rss(.:format)' => 'main#rss', as: :rss, via: :all, defaults: { format: :xml }
-    match '/search' => 'main#search', as: :search, via: :all
+    match '/search' => 'search#index', as: :search, via: :all
     match '/rohs' => 'support#rohs', as: :rohs, via: :all
     match 'distributors_for/:brand_id' => 'distributors#minimal', as: :minimal_distributor_search, via: :all
     get 'tools/calculators'
