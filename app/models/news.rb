@@ -87,6 +87,10 @@ class News < ApplicationRecord
     brands.pluck(:name).join(", ")
   end
 
+  def belongs_to_this_brand?(website)
+    !!brands.pluck(:id).include?(website.brand_id)
+  end
+
   def should_generate_new_friendly_id?
     true
   end

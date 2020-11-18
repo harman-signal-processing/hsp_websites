@@ -11,16 +11,22 @@ class SearchController < ApplicationController
       raise ActionController::UnpermittedParameters.new [:query_not_allowed]
     end
 
-    if pdf_only_search_results?
-      fetch_thunderstone_pdf_results
-    else
-      fetch_thinking_sphinx_results
-    end
+    pdf_only_search_results? ? search_pdf_only : search_site_only
 
-    render_template
   end
 
   private
+
+  def search_pdf_only
+    fetch_thunderstone_pdf_results
+    render_template action: 'search_pdf_only'
+  end
+
+  def search_site_only
+    fetch_thinking_sphinx_results
+    render_template action: 'search_site_only'
+  end
+
 
   def locale_indices
     ['artist', 'news', 'page', 'product_family', 'product', 'product_real_time', 'product_review', 'software'].map do |index|
@@ -37,14 +43,8 @@ class SearchController < ApplicationController
   def pdf_only_search_results?
     # The user wants PDF only search if they check the box or they are clicking the pagination links after they have submitted a PDF only search.
     # If they want to exit the PDF only search they will just need to uncheck the box and click search
-    checkbox_pdf_only = [true,'true','yes',1,'1','on'].include?(params[:pdf_only])
-    paginate_pdf_only = [true,'true','yes',1,'1','on'].include?(params[:paginate_pdf_only])
-    if checkbox_pdf_only == true || paginate_pdf_only == true
-      @pdf_only = true
-    else
-      @pdf_only = false
-    end
-    @pdf_only
+
+    @pdf_only = !!params[:pdf_only] || !!params[:paginate_pdf_only]
   end
 
   def fetch_thinking_sphinx_results
