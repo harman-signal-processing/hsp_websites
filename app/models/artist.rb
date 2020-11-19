@@ -61,7 +61,7 @@ class Artist < ApplicationRecord
     end
   end
 
-  # Since the devise mailer is shard with toolkit users, trick these
+  # Since the devise mailer is shard with other users, trick these
   def needs_invitation_code?
     false
   end

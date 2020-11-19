@@ -33,16 +33,5 @@ module Features
       @dbx_site ||= FactoryBot.create(:website_with_products, folder: "dbx", brand: dbx_brand)
     end
 
-    def setup_toolkit_brands
-      @digitech = digitech_brand
-      @digitech_site = digitech_site
-      @lexicon = lexicon_brand
-      @lexicon_site = lexicon_site
-      @bss = bss_brand
-      # @bss_site = bss_site
-      @dbx = dbx_brand
-      @dbx_site = dbx_site
-    end
-
   end
 end

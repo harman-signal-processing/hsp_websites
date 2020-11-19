@@ -9,7 +9,6 @@ class User < ApplicationRecord
   has_many :distributors, through: :distributor_users
   has_many :tones
   has_many :tone_user_ratings
-  has_many :brand_toolkit_contacts # where this user is a contact for a brand
   has_attached_file :profile_pic,
     styles: {
       large:         "550x370",

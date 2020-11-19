@@ -55,12 +55,12 @@ class News < ApplicationRecord
   }
 
   scope :query_for_website, ->(website, options) {
-    limit = (options[:limit].present?) ? "LIMIT #{options[:limit]}" : ""
-    unscoped.select("DISTINCT news.*").
+    rel = unscoped.select("DISTINCT news.*").
       joins("INNER JOIN brand_news ON brand_news.news_id = news.id").
       where("brand_news.brand_id = ?  #{product_news_query(website, options)}", website.brand_id).
       where("post_on >= ? AND post_on <= ?", options[:start_on], options[:end_on]).
-      order(Arel.sql("post_on DESC #{limit}"))
+      order("post_on DESC")
+    options[:limit].present? ? rel.limit(options[:limit]) : rel
   }
 
 

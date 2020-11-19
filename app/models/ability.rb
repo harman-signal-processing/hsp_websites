@@ -50,7 +50,6 @@ class Ability
         cannot :read, User
         cannot :manage, Website
         cannot :manage, Brand
-        cannot :manage, ToolkitResourceType
         cannot :manage, ProductIntroduction
         can :read, WarrantyRegistration
         can :read, ContactMessage
@@ -86,9 +85,6 @@ class Ability
         can :read, ContactMessage
         can :manage, LabelSheet
         can :manage, LabelSheetOrder
-      end
-      if user.role?(:rso)
-        can :read, ToolkitResource, rso: true
       end
       if user.role?(:engineer)
         can :manage, Software
@@ -127,7 +123,6 @@ class Ability
         can :manage, ToneLibraryPatch
       end
       if user.role?(:online_retailer)
-        can :read, ToolkitResource, dealer: true
         can :read, OnlineRetailer
         can :update, OnlineRetailer do |online_retailer|
           user.online_retailers.include?(online_retailer)
@@ -137,8 +132,6 @@ class Ability
         end
       end
       if user.role?(:dealer)
-        can :read, ToolkitResource, dealer: true
-        can :read, ToolkitResourceType
         can :manage, Dealer do |dealer|
           dealer.users.include?(user)
         end
@@ -150,7 +143,6 @@ class Ability
         can :read, ProductPart
       end
       if user.role?(:distributor)
-        can :read, ToolkitResource, distributor: true
         can :read, SiteElement do |site_element|
           site_element.access_level.blank? || site_element.access_level.readable_by?(user)
         end
@@ -181,7 +173,6 @@ class Ability
         can :read, ContactMessage
         can :manage, Dealer
         can :manage, Distributor
-        can :read, ToolkitResource
         can :manage, SupportSubject
         can :manage, RegisteredDownload
         can :manage, DownloadRegistration
@@ -195,14 +186,9 @@ class Ability
       if user.role?(:clinician)
       end
       if user.role?(:rep)
-        can :read, ToolkitResource, rep: true
         can :manage, OnlineRetailer
         can :manage, OnlineRetailerLink
         can :manage, Dealer
-      end
-      if user.role?(:employee)
-        can :read, ToolkitResource
-        can :read, ToolkitResourceType
       end
       if user.role?(:technician) || user.role?(:super_technician)
         can :read, Part

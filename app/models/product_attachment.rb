@@ -71,10 +71,6 @@ class ProductAttachment < ApplicationRecord
     !(self.hide_from_product_page?)
   end
 
-  def for_toolkit?
-    true
-  end
-
   def name
     (product_attachment_file_name.present?) ? product_attachment_file_name : product_media_file_name
   end

@@ -74,7 +74,6 @@
                       can?(:manage, ProductReview) ||
                       can?(:update, :rohs) ||
                       can?(:manage, Faq) ||
-                      (can?(:manage, ToolkitResource) && toolkit_brands.include?(website.brand)) ||
                       can?(:manage, ToneLibrarySong) %>
                     <li class="has-dropdown"><%= link_to "Products", '#' %>
                     <ul class="dropdown">
@@ -98,9 +97,6 @@
                       <% end %>
                       <% if can?(:manage, GetStartedPage) && website.has_get_started_pages? %>
                         <li><%= link_to "Get Started Pages", admin_get_started_pages_path %></li>
-                      <% end %>
-                      <% if toolkit_brands.include?(website.brand) && can?(:manage, ToolkitResource) %>
-                        <li><%= link_to "Toolkit Resources", admin_toolkit_resources_path %></li>
                       <% end %>
                       <% if website.has_audio_demos? && can?(:manage, AudioDemo) %>
                         <li><%= link_to "Audio Demos", admin_audio_demos_path %></li>
@@ -305,7 +301,7 @@
                 </ul>
                 </li>
 
-                <% if can?(:manage, User) || can?(:manage, Brand) || can?(:manage, Website) || can?(:manage, ToolkitResourceType) %>
+                <% if can?(:manage, User) || can?(:manage, Brand) || can?(:manage, Website) %>
                   <li class="has-dropdown"><%= link_to "Super Admin", '#' %>
                   <ul class="dropdown">
                     <% if can? :manage, User %>
@@ -317,16 +313,13 @@
                     <% if can? :manage, Website %>
                       <li><%= link_to "Websites", admin_websites_path %></li>
                     <% end %>
-                    <% if can? :manage, ToolkitResourceType %>
-                      <li><%= link_to "Toolkit Resource Types", admin_toolkit_resource_types_path %></li>
-                    <% end %>
                   </ul>
                   </li>
                 <% end %>
 
-              <% end %> <%#cache ["admin_menu", current_user, website.brand, Date.today] do%>
+              <% end %>
 
-            <% end %> <%#if user_signed_in?%>
+            <% end %>
           </ul>
 
           <% if user_signed_in? %>

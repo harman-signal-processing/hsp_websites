@@ -109,7 +109,8 @@ class Admin::ProductsController < AdminController
       if @product.update(product_params)
         format.html {
           if params[:return_to]
-            redirect_to(params[:return_to], notice: "Product was successfully updated.")
+            return_to = URI.parse(params[:return_to]).path
+            redirect_to(return_to, notice: "Product was successfully updated.")
           else
             redirect_to([:admin, @product], notice: 'Product was successfully updated.')
           end

@@ -12,39 +12,37 @@ class ApplicationController < ActionController::Base
   # This method is getting complicated...It chooses the appropriate layout file based on
   # several criteria: whether or not this is a devise (user login) controller, whether or
   # not the website's brand has a custom layout (usually should), etc., whether or not
-  # the 'website' object exists (if not, this is the toolkit)...
+  # the 'website' object exists...
   #
   def set_layout
     template = 'application'
-    if (website && website.folder)
-      controller_brand_specific = "#{website.folder}/layouts/#{controller_path}"
-      controller_specific = "layouts/#{controller_path}"
-      brand_specific = "#{website.folder}/layouts/application"
-      homepage = "#{website.folder}/layouts/home"
 
-      if devise_controller? && resource_name == :artist
-        artist_brand_specific = "#{website.folder}/layouts/artists"
-        if File.exists?(Rails.root.join("app", "views", "#{artist_brand_specific}.html.erb"))
-          template = artist_brand_specific
-        elsif File.exists?(Rails.root.join("app", "views", "layouts", "artists.html.erb"))
-          template = "artists"
-        elsif File.exists?(Rails.root.join("app", "views", "#{brand_specific}.html.erb"))
-          template = brand_specific
-        end
-      #elsif devise_controller? && resource_name == :user
-      #  template = "admin"
-      elsif controller_path == 'main' && action_name == 'index' && File.exists?(Rails.root.join("app", "views", "#{homepage}.html.erb"))
-        template = homepage
-      elsif File.exists?(Rails.root.join("app", "views", "#{controller_brand_specific}.html.erb"))
-        template = controller_brand_specific
-      elsif File.exists?(Rails.root.join("app", "views", "#{controller_specific}.html.erb"))
-        template = controller_specific
+    controller_brand_specific = "#{website.folder}/layouts/#{controller_path}"
+    controller_specific = "layouts/#{controller_path}"
+    brand_specific = "#{website.folder}/layouts/application"
+    homepage = "#{website.folder}/layouts/home"
+
+    if devise_controller? && resource_name == :artist
+      artist_brand_specific = "#{website.folder}/layouts/artists"
+      if File.exists?(Rails.root.join("app", "views", "#{artist_brand_specific}.html.erb"))
+        template = artist_brand_specific
+      elsif File.exists?(Rails.root.join("app", "views", "layouts", "artists.html.erb"))
+        template = "artists"
       elsif File.exists?(Rails.root.join("app", "views", "#{brand_specific}.html.erb"))
         template = brand_specific
       end
-    elsif devise_controller? && resource_name == :user
-      template = 'toolkit'
+    #elsif devise_controller? && resource_name == :user
+    #  template = "admin"
+    elsif controller_path == 'main' && action_name == 'index' && File.exists?(Rails.root.join("app", "views", "#{homepage}.html.erb"))
+      template = homepage
+    elsif File.exists?(Rails.root.join("app", "views", "#{controller_brand_specific}.html.erb"))
+      template = controller_brand_specific
+    elsif File.exists?(Rails.root.join("app", "views", "#{controller_specific}.html.erb"))
+      template = controller_specific
+    elsif File.exists?(Rails.root.join("app", "views", "#{brand_specific}.html.erb"))
+      template = brand_specific
     end
+
     template
   end
 
@@ -81,12 +79,7 @@ class ApplicationController < ActionController::Base
   end
 
   def default_url_options(options={})
-    if !!(request.host.to_s.match(/toolkit/i))
-      {}
-    else
-      # {locale: website.locale}
-      {locale: I18n.locale}
-    end
+    { locale: I18n.locale }
   end
 
   # Utility function used to re-order an ActiveRecord list
@@ -214,8 +207,6 @@ private
   def current_ability
     if current_user
       @current_ability ||= Ability.new(current_user)
-    elsif current_toolkit_user
-      @current_ability ||= Ability.new(current_toolkit_user)
     elsif current_artist
       @current_ability ||= Ability.new(current_artist)
     else
@@ -243,8 +234,6 @@ private
   def after_inactive_sign_up_path_for(resource)
     if resource.is_a?(Artist)
       new_artist_session_path
-    elsif !!(request.host.match(/toolkit/i))
-      "/users/sign_in?utm=mommy"
     else
       super
     end

@@ -107,11 +107,3 @@ class StuderDomain
   # :nocov:
 end
 
-class ToolkitDomain
-  # :nocov:
-  def self.matches?(request)
-    !!(request.host.match(/toolkit/i))
-  end
-  # :nocov:
-end
-

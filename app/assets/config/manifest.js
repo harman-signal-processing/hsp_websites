@@ -17,7 +17,6 @@
 //= link soundcraft.js
 //= link studer.js
 //= link teaser_application.js
-//= link toolkit_application.js
 
 //= link admin.css
 //= link akg.css
@@ -40,4 +39,3 @@
 //= link martin.css
 //= link soundcraft.css
 //= link studer.css
-//= link toolkit.css

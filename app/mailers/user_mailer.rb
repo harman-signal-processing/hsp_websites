@@ -1,6 +1,5 @@
 class UserMailer < Devise::Mailer
 	self.default :from => 'support@harmanpro.com'
-  default_url_options[:host] = HarmanSignalProcessingWebsite::Application.config.toolkit_url
 
   def confirmation_instructions(record, token, opts={})
     @token = token
@@ -13,10 +12,10 @@ class UserMailer < Devise::Mailer
         to << record.distributors.first.email
   		end
       mail to: to,
-        subject: "Harman Toolkit Confirmation instructions",
+        subject: "Harman Websites Confirmation instructions",
         template_name: "dealer_confirmation_instructions"
   	elsif record.needs_invitation_code?
-      devise_mail(record, :toolkit_confirmation_instructions, opts)
+      devise_mail(record, :invited_confirmation_instructions, opts)
     else
   		super
   	end

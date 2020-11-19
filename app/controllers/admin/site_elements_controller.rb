@@ -76,7 +76,8 @@ class Admin::SiteElementsController < AdminController
         end
         format.html {
           if params[:return_to]
-            redirect_to(params[:return_to], notice: "Resource was successfully uploaded.")
+            return_to = URI.parse(params[:return_to]).path
+            redirect_to(return_to, notice: "Resource was successfully uploaded.")
           else
             redirect_to([:admin, @site_element], notice: 'Resource was successfully created. IMPORTANT: this has been acting up lately. Wait 5 seconds, then refresh this page. Then the links below will be correct.')
           end
@@ -99,7 +100,8 @@ class Admin::SiteElementsController < AdminController
         other_versions.each{|element| element.catchup_with_latest_version(@site_element)}
         format.html {
           if params[:return_to]
-            redirect_to(params[:return_to], notice: "Resource was successfully updated.")
+            return_to = URI.parse(params[:return_to]).path
+            redirect_to(return_to, notice: "Resource was successfully updated.")
           else
             redirect_to([:admin, @site_element], notice: 'Resource was successfully updated. It may take a few seconds to process and transfer the file to the right place.')
           end
@@ -120,7 +122,8 @@ class Admin::SiteElementsController < AdminController
     respond_to do |format|
       format.html {
         if params[:return_to]
-          redirect_to(params[:return_to], notice: "#{@site_element.long_name} was successfully deleted.")
+          return_to = URI.parse(params[:return_to]).path
+          redirect_to(return_to, notice: "#{@site_element.long_name} was successfully deleted.")
         else
           redirect_to(admin_site_elements_url)
         end

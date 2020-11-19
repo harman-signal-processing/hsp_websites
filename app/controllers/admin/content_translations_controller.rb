@@ -25,10 +25,6 @@ class Admin::ContentTranslationsController < AdminController
     elsif @new_instance.has_attribute?(:title)
       @records = @records.order('title')
     end
-    respond_to do |format|
-      format.html
-      format.xml { render @records.to_xml }
-    end
   end
 
   def combined

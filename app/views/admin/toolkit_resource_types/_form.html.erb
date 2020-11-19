@@ -1,8 +1,0 @@
-<%= simple_form_for([:admin, @toolkit_resource_type]) do |f| %>
-    <%= f.input :name %>
-    <%= f.input :position, label: "Position on the toolkit menu (blank to hide from menu)" %>
-    <%= f.input :related_model %>
-    <%= f.input :marketing_message, 
-        label: "This is a special type with content that should appear as the marketing message for the #{website.brand.name} brand." %>
-    <br/><%= f.button :submit %>
-<% end %>
