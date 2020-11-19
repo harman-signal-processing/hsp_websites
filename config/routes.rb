@@ -35,30 +35,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     end
   end
 
-  constraints(ToolkitDomain) do
-    get '/' => 'toolkit#index', as: :toolkit_root
-    devise_for :toolkit_users,
-      path: "users",
-      class_name: "User",
-      controllers: {
-        sessions: "toolkit/users/sessions",
-        registrations: "toolkit/users/registrations",
-        confirmations: "toolkit/users/confirmations",
-        passwords: "toolkit/users/passwords",
-        unlocks: "toolkit/users/unlocks"
-      }
-    devise_scope :toolkit_user do
-      get '/users/sign_up/:signup_type' => 'toolkit/users/registrations#new', as: :new_toolkit_user
-      get '/new_user' => 'toolkit/users/registrations#select_signup_type', as: :select_signup_type
-    end
-    namespace :toolkit do
-      resources :brands, only: :show do
-        resources :products, :promotions, only: [:index, :show]
-        resources :product_families, :toolkit_resources, :toolkit_resource_types, only: [:show]
-      end
-    end
-  end
-
   # debugging help
   get "/site_info" => 'main#site_info'
   get '/resource/:id' => "site_elements#show", as: :site_resource
@@ -145,7 +121,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       end
     end
     namespace :admin do
-      match "brand_toolkit_contacts/load_user/:id" => 'brand_toolkit_contacts#load_user', via: :all
       get 'show_campaign/:id' => 'signups#show_campaign', as: 'show_campaign'
       resources :products do
         collection do
@@ -240,17 +215,14 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :product_prices do
         collection { put :update_all }
       end
-      resources :toolkit_resources do
-        member { get :delete_preview }
-      end
       resources :news do
         member { get :delete_news_photo }
         resources :news_images
       end
-      
+
       resources :module_requests
       resources :amx_partner_interest_form
-      
+
       resources :systems do
         resources :system_options do
           resources :system_option_values
@@ -369,8 +341,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :product_family_products,
         :locale_product_families,
         :product_part_group_part,
-        :toolkit_resource_types,
-        :brand_toolkit_contacts,
         :sales_region_countries,
         :product_introductions,
         :online_retailer_links,

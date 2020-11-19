@@ -18,12 +18,6 @@
 
 $(document).ready(function(){
 
-	$('#brand_toolkit_contact_user_id').change(function(e){
-		var new_val = $(this).val()
-		$.get("/admin/brand_toolkit_contacts/load_user/" + new_val);
-	});
-
-
 <% ["slides", "features"].each do |sortkey| %>
 	$('#<%= sortkey %>').sortable({
 		axis: 'y',

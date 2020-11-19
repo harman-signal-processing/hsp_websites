@@ -510,9 +510,9 @@
                 <dd><%= link_to "Brands", admin_brands_path %></dd>
                 <dd><%= link_to "Websites", admin_websites_path %></dd>
               </dl>
-              <h6 class="subheader">Popular Brands:</h6>
+              <h6 class="subheader">Brands:</h6>
               <ul class="list">
-                <% toolkit_brands.each do |brand| %>
+                <% Brand.all.each do |brand| %>
                   <li><%= link_to brand.name, [:admin, brand] %></li>
                 <% end %>
               </ul>

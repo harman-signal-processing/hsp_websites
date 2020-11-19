@@ -62,7 +62,8 @@ class Admin::SoftwaresController < AdminController
       if @software.save
         format.html {
           if params[:return_to]
-            redirect_to(params[:return_to], notice: "Software was successfully uploaded.")
+            return_to = URI.parse(params[:return_to]).path
+            redirect_to(return_to, notice: "Software was successfully uploaded.")
           else
             redirect_to([:admin, @software], notice: 'Software was successfully created. Wait a few minutes while the system copies the software to our content delivery network.')
           end
@@ -83,7 +84,8 @@ class Admin::SoftwaresController < AdminController
       if @software.update(software_params)
         format.html {
           if params[:return_to]
-            redirect_to(params[:return_to], notice: "Software was successfully updated.")
+            return_to = URI.parse(params[:return_to]).path
+            redirect_to(return_to, notice: "Software was successfully updated.")
           else
             redirect_to([:admin, @software], notice: 'Software was successfully updated. If you replaced the file, please wait while the system propagates the changes to our content delivery network.')
           end
@@ -104,7 +106,8 @@ class Admin::SoftwaresController < AdminController
     respond_to do |format|
       format.html {
         if params[:return_to]
-          redirect_to(params[:return_to], notice: "#{@software.formatted_name} was successfully deleted.")
+          return_to = URI.parse(params[:return_to]).path
+          redirect_to(return_to, notice: "#{@software.formatted_name} was successfully deleted.")
         else
           redirect_to(admin_softwares_url)
         end

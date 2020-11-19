@@ -28,7 +28,6 @@ class Brand < ApplicationRecord
   has_many :training_courses
   has_many :training_classes, through: :training_courses
   has_many :pricing_types, -> { order('pricelist_order') }
-  has_many :brand_toolkit_contacts, -> { order('position').includes(:user) }
   has_many :us_rep_regions
   has_many :us_reps, through: :us_rep_regions
   has_many :us_regions, -> { order('name') }, through: :us_rep_regions
@@ -162,11 +161,6 @@ class Brand < ApplicationRecord
     where(employee_store: true).order(Arel.sql("UPPER(name)")) || where(name: ["DigiTech", "Lexicon", "dbx", "DOD"])
   end
 
-  # Those brands which should appear on the marketing toolkits
-  def self.for_toolkit
-    where(toolkit: true).order(Arel.sql("UPPER(name)")).includes(:websites)
-  end
-
   def has_where_to_buy?
     !!(self.has_online_retailers? || self.has_dealers? || self.has_distributors?)
   end
@@ -205,23 +199,23 @@ class Brand < ApplicationRecord
       joins(:product_softwares).
       where(product_softwares: { product_id: current_product_ids }) + forced_current_softwares).uniq
   end
-  
+
   # Active firmware with active products
   def current_firmwares
     @current_firmwares ||= (softwares.where(active: true, category: "firmware").
       joins(:product_softwares).
       where(product_softwares: { product_id: current_product_ids }) + forced_current_firmwares).uniq
-  end  
+  end
 
   # Those software with this flag enabled: activate even if there are no active products
   def forced_current_softwares
     @forced_current_softwares ||= softwares.includes(:brand).where("active = true and active_without_products = true and category != 'firmware'").order(:name)
   end
-  
+
   # Those firmware with this flag enabled: activate even if there are no active products
   def forced_current_firmwares
     @forced_current_firmwares ||= softwares.includes(:brand).where(active: true, category: "firmware", active_without_products: true).order(:name)
-  end  
+  end
 
   def current_product_ids
     Rails.cache.fetch("#{cache_key_with_version}/current_product_ids}", expires_in: 6.hours) do
@@ -235,11 +229,6 @@ class Brand < ApplicationRecord
     Rails.cache.fetch("#{cache_key_with_version}/current_products", expires_in: 6.hours) do
       Product.where(id: current_product_ids)
     end
-  end
-
-  # Special selection of products just for the toolkit
-  def toolkit_products
-    products.select{|p| p if p.show_on_toolkit? }.sort_by{|p| p.created_at}.reverse
   end
 
   def family_products
@@ -319,10 +308,6 @@ class Brand < ApplicationRecord
     rescue
       ""
     end
-  end
-
-  def toolkit_contacts
-    brand_toolkit_contacts.map{|btc| btc.user}
   end
 
   # wrapper to inherit from another brand if necessary

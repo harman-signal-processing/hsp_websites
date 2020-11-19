@@ -52,7 +52,8 @@ class Admin::PromotionsController < AdminController
       if @promotion.save
         format.html {
           if params[:return_to]
-            redirect_to(params[:return_to], notice: "Promotion was successfully created.")
+            return_to = URI.parse(params[:return_to]).path
+            redirect_to(return_to, notice: "Promotion was successfully created.")
           else
             redirect_to([:admin, @promotion], notice: 'Promotion was successfully created.')
           end
@@ -73,7 +74,8 @@ class Admin::PromotionsController < AdminController
       if @promotion.update(promotion_params)
         format.html {
           if params[:return_to]
-            redirect_to(params[:return_to], notice: "Promotion was successfully updated.")
+            return_to = URI.parse(params[:return_to]).path
+            redirect_to(return_to, notice: "Promotion was successfully updated.")
           else
             redirect_to([:admin, @promotion], notice: 'Promotion was successfully updated.')
           end
@@ -94,7 +96,8 @@ class Admin::PromotionsController < AdminController
     respond_to do |format|
       format.html {
         if params[:return_to]
-          redirect_to(params[:return_to], notice: "#{@promotion.name} was successfully deleted.")
+          return_to = URI.parse(params[:return_to]).path
+          redirect_to(return_to, notice: "#{@promotion.name} was successfully deleted.")
         else
           redirect_to(admin_promotions_url)
         end

@@ -1,5 +1,5 @@
 class SystemsController < ApplicationController
-	http_basic_authenticate_with name: "idx", password: "idx"
+	http_basic_authenticate_with name: "idx", password: ENV['systems_password']
 	protect_from_forgery except: :show
 	load_resource
 	respond_to :html, :js

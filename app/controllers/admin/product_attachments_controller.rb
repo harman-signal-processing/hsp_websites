@@ -46,7 +46,8 @@ class Admin::ProductAttachmentsController < AdminController
       if @product_attachment.save
         format.html {
           if params[:return_to]
-            redirect_to(params[:return_to], notice: "Image was successfully uploaded.")
+            return_to = URI.parse(params[:return_to]).path
+            redirect_to(return_to, notice: "Image was successfully uploaded.")
           else
             redirect_to([:admin, @product_attachment.product], notice: 'Product Attachment was successfully created.')
           end

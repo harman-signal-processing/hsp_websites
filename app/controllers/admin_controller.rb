@@ -20,7 +20,6 @@ class AdminController < ApplicationController
       end
     end
     @orl_problems = OnlineRetailerLink.problems
-    @bad_toolkit_links = ToolkitResource.where(brand_id: website.brand_id, link_good: false)
     render_template
   end
 

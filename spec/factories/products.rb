@@ -9,7 +9,7 @@ FactoryBot.define do
         products_count { 2 }
       end
       after(:create) do |product_family, evaluator|
-        FactoryBot.create_list(:product, evaluator.products_count, brand: product_family.brand).each do |product|
+        FactoryBot.create_list(:product, evaluator.products_count, brand: product_family.brand, harman_employee_price: 45).each do |product|
           FactoryBot.create(:product_family_product, product_family: product_family, product: product)
         end
       end

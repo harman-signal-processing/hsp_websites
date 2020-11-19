@@ -183,26 +183,7 @@ class ProductFamily < ApplicationRecord
 
   # One level of current products for the store
   def current_products_with_employee_pricing
-    if Rails.env.production?
-      self.current_products.select{|p| p if p.harman_employee_price.present? && p.can_be_registered?}
-    else
-      self.current_products_for_toolkit
-    end
-  end
-
-  # Recurses down the product family trees to collect all products for the toolkit
-  def toolkit_products
-    products = []
-    products += current_products_for_toolkit
-    children.each do |child|
-      products += child.toolkit_products
-    end
-    products.flatten.uniq
-  end
-
-  # One level of products for the toolkit--just this family
-  def current_products_for_toolkit
-    self.products.includes(:product_status).select{|p| p if p.show_on_toolkit? && !p.discontinued? }
+    self.current_products.select{|p| p if p.harman_employee_price.present? && p.can_be_registered?}
   end
 
   # Recurses down the product family trees to collect all the disontinued products (for the toolkit)
@@ -412,13 +393,6 @@ class ProductFamily < ApplicationRecord
       end
     end
     all.flatten.uniq
-  end
-
-  def children_with_toolkit_products(w)
-    brand_id = (w.is_a?(Brand)) ? w.id : w.brand_id
-    children.includes(:products).select do |pf|
-      pf if (pf.toolkit_products.size > 0 || pf.children_with_toolkit_products(w).size > 0) && pf.brand_id == brand_id
-    end
   end
 
   # Does this product family have a custom background image or color?

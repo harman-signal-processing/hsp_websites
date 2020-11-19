@@ -296,7 +296,7 @@ class Product < ApplicationRecord
   # To determine if a product is an accessory, we check if any of its product families are
   # named something like "accessor". But first, we also check to see if it is a "controller" like
   # a remote foot controller. These are sort-of accessories, but sort-of not. For the sake of
-  # product registration, and toolkit landing pages, foot controllers are not accessories. For
+  # product registration foot controllers are not accessories. For
   # navigation of the site, they are. This function excludes foot controllers from accessories.
   #
   def is_accessory?
@@ -333,11 +333,6 @@ class Product < ApplicationRecord
   def belongs_to_this_website?(website)
     p = (self.parents.size > 0) ? self.parents.first : self
     p.belongs_to_this_brand?(website)# && (p.discontinued? || !(p.product_families & website.product_families).empty?)
-  end
-
-  def show_on_toolkit?
-    # comment out '&& self.product_status.show_on_website?' to show un-announced products on toolkit
-    !self.virtual_product? #&& self.product_status.show_on_website?
   end
 
   def related_products

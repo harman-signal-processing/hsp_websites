@@ -25,7 +25,6 @@ FactoryBot.define do
     distributors_from_brand_id { nil }
     service_centers_from_brand_id { nil }
     employee_store { false }
-    toolkit { false }
     live_on_this_platform { false }
     has_products { true }
     # logo_file_name "logo.png"
@@ -46,7 +45,6 @@ FactoryBot.define do
       has_audio_demos { true }
       employee_store { true }
       live_on_this_platform { true }
-      toolkit { true }
     end
     factory :digitech_brand do
       name { "DigiTech" }
@@ -56,7 +54,6 @@ FactoryBot.define do
       has_audio_demos { true }
       employee_store { true }
       live_on_this_platform { true }
-      toolkit { true }
     end
     factory :dod_brand do
       name { "DOD" }
@@ -66,7 +63,6 @@ FactoryBot.define do
       service_centers_from_brand_id { 1 }
       employee_store { true }
       live_on_this_platform { true }
-      toolkit { true }
     end
     factory :jbl_commercial_brand do
       name { "JBL Commercial" }
@@ -77,24 +73,20 @@ FactoryBot.define do
       name { "IDX" }
       employee_store { false }
       live_on_this_platform { false }
-      toolkit { true }
     end
     factory :dbx_brand do
       name { "dbx" }
       employee_store { true }
       live_on_this_platform { true }
-      toolkit { true }
     end
     factory :crown_brand do
       name { "Crown" }
       live_on_this_platform { true }
-      toolkit { true }
     end
     factory :bss_brand do
       name { "BSS" }
       employee_store { true }
       live_on_this_platform { false }
-      toolkit { true }
     end
   end
 

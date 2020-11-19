@@ -34,26 +34,6 @@ module AdminHelper
     object.disable_field?(attribute)
   end
 
-  def toolkit_collection_select_for(f, related_model)
-    case related_model
-    when "Promotion"
-      f.collection_select :related_id, Promotion.where(brand_id: website.brand_id).where("end_on >= ?", 6.weeks.ago).order(:name), :id, :name
-    when "ProductAttachment"
-      f.collection_select :related_id, website.brand.products.map{|p| p.images_for("toolkit")}.flatten, :id, :name
-    when "ProductDocument"
-      f.collection_select :related_id, website.brand.products.map{|p| p.product_documents}.flatten, :id, :name
-    when "Product"
-      f.collection_select :related_id, website.brand.products.sort_by(&:name), :id, :name
-    else
-      i = related_model.constantize.new
-      if i.respond_to?(:brand_id) && i.respond_to?(:name)
-        f.collection_select :related_id, related_model.constantize.where(brand_id: website.brand_id).order(:name), :id, :name
-      else
-        "error loading related #{related_model.titleize}"
-      end
-    end
-  end
-
   def link_to_add_fields(name, f, association, options={})
     new_object = f.object.send(association).klass.new
     id = new_object.object_id

@@ -46,11 +46,8 @@ module HarmanSignalProcessingWebsite
     config.active_job.queue_adapter = :delayed_job
 
     # Override these in environment configs...
-    config.toolkit_url              = "marketingtoolkit.harmanpro.com"
     config.default_site_name        = "Harman Signal Processing"
-    config.toolkit_admin_email_addresses = ENV['TOOLKIT_ADMIN_EMAIL_ADDRESSES'].split("|")
-    config.toolkit_admin_contact_info    = ENV['TOOLKIT_ADMIN_CONTACT_INFO'].split("|")
-    config.action_mailer.default_url_options = { :host => "marketingtoolkit.harmanpro.com", protocol: "https" }
+    config.action_mailer.default_url_options = { :host => "pro.harman.com", protocol: "https" }
 
     config.document_types = [
       ["Owner's Manual", "owners_manual"],
