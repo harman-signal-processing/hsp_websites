@@ -47,5 +47,7 @@ $(document).ready(function(){
 	});
 <% end %>
 
+	//Fix for Foundation 5 uncaught syntax error, unrecognized expression
+	Foundation.global.namespace = '';
   $(document).foundation();
 });
