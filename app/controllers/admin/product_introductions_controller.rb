@@ -84,6 +84,15 @@ class Admin::ProductIntroductionsController < AdminController
   end
 
   def product_introduction_params
-    params.require(:product_introduction).permit!
+    params.require(:product_introduction).permit(
+      :product_id,
+      :layout_class,
+      :expires_on,
+      :content,
+      :extra_css,
+      :top_image,
+      :box_bg_image,
+      :page_bg_image
+    )
   end
 end

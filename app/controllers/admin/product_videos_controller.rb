@@ -80,6 +80,11 @@ class Admin::ProductVideosController < AdminController
   end
 
   def product_video_params
-    params.require(:product_video).permit!
+    params.require(:product_video).permit(
+      :product_id,
+      :youtube_id,
+      :group,
+      :position
+    )
   end
 end

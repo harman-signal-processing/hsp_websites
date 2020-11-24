@@ -63,7 +63,7 @@ class Admin::ProductTrainingClassesController < AdminController
       end
     end
   end
-  
+
   # POST /admin/product_training_classes/update_order
   def update_order
     update_list_order(ProductTrainingClass, params["product_training_classes"])
@@ -90,6 +90,6 @@ class Admin::ProductTrainingClassesController < AdminController
   end
 
   def product_training_class_params
-    params.require(:product_training_class).permit!
+    params.require(:product_training_class).permit(:training_class_id, :product_id)
   end
 end

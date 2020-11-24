@@ -92,7 +92,7 @@ class Admin::ProductAccessoriesController < AdminController
   end
 
   def product_accessory_params
-    params.require(:product_accessory).permit!
+    params.require(:product_accessory).permit(:product_id, :accessory_product_id)
   end
 end
 

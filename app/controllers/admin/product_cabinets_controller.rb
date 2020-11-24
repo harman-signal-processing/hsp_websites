@@ -49,7 +49,7 @@ class Admin::ProductCabinetsController < AdminController
       if @product_cabinet.save
         format.html { redirect_to([:admin, @product_cabinet], notice: 'Product cabinet was successfully created.') }
         format.xml  { render xml: @product_cabinet, status: :created, location: @product_cabinet }
-        format.js 
+        format.js
         website.add_log(user: current_user, action: "Added cabinet #{@product_cabinet.cabinet.name} to #{@product_cabinet.product.name}")
       else
         format.html { render action: "new" }
@@ -80,7 +80,7 @@ class Admin::ProductCabinetsController < AdminController
     respond_to do |format|
       format.html { redirect_to(admin_product_cabinets_url) }
       format.xml  { head :ok }
-      format.js 
+      format.js
     end
     website.add_log(user: current_user, action: "Removed cabinet #{@product_cabinet.cabinet.name} from #{@product_cabinet.product.name}")
   end
@@ -92,6 +92,6 @@ class Admin::ProductCabinetsController < AdminController
   end
 
   def product_cabinet_params
-    params.require(:product_cabinet).permit!
+    params.require(:product_cabinet).permit(:product_id, :cabinet_id, cabinet: [:name])
   end
 end

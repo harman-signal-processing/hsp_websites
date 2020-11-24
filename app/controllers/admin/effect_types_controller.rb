@@ -51,7 +51,7 @@ class Admin::EffectTypesController < AdminController
       end
     end
   end
-  
+
   # PUT /admin/effect_types/update_order
   def update_order
     update_list_order(EffectType, params["effect_type"])
@@ -92,6 +92,6 @@ class Admin::EffectTypesController < AdminController
   end
 
   def effect_type_params
-    params.require(:effect_type).permit!
+    params.require(:effect_type).permit(:name)
   end
 end

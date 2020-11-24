@@ -49,7 +49,7 @@ class Admin::ProductAmpModelsController < AdminController
       if @product_amp_model.save
         format.html { redirect_to([:admin, @product_amp_model], notice: 'Product amp_model was successfully created.') }
         format.xml  { render xml: @product_amp_model, status: :created, location: @product_amp_model }
-        format.js 
+        format.js
         website.add_log(user: current_user, action: "Added amp model #{@product_amp_model.amp_model.name} to #{@product_amp_model.product.name}")
       else
         format.html { render action: "new" }
@@ -92,6 +92,6 @@ class Admin::ProductAmpModelsController < AdminController
   end
 
   def product_amp_model_params
-    params.require(:product_amp_model).permit!
+    params.require(:product_amp_model).permit(:product_id, :amp_model_id, amp_model: [:name])
   end
 end

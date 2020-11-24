@@ -91,6 +91,10 @@ class Admin::MarketSegmentProductFamiliesController < AdminController
   end
 
   def market_segment_product_family_params
-    params.require(:market_segment_product_family).permit!
+    params.require(:market_segment_product_family).permit(
+      :market_segment_id,
+      :product_family_id,
+      :position
+    )
   end
 end

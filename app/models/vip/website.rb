@@ -7,7 +7,7 @@ class Vip::Website < ApplicationRecord
 	
   scope :not_associated_with_this_programmer, -> (programmer) { 
     website_ids_already_associated_with_this_programmer = Vip::ProgrammerWebsite.where("vip_programmer_id = ?", programmer.id).map{|programmer_website| programmer_website.vip_website_id }
-    websites_not_associated_with_this_programmer = Vip::Website.where.not(id: website_ids_already_associated_with_this_programmer)    
+    websites_not_associated_with_this_programmer = self.where.not(id: website_ids_already_associated_with_this_programmer)    
     websites_not_associated_with_this_programmer
   }	
     

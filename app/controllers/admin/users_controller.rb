@@ -1,7 +1,7 @@
 class Admin::UsersController < AdminController
   before_action :initialize_user, only: :create
   load_and_authorize_resource
-  
+
   # GET /admin/users
   # GET /admin/users.xml
   def index
@@ -71,7 +71,7 @@ class Admin::UsersController < AdminController
       end
     end
   end
-    
+
   # PUT /admin/users/1
   # PUT /admin/users/1.xml
   def update
@@ -105,6 +105,40 @@ class Admin::UsersController < AdminController
   end
 
   def user_params
-    params.require(:user).permit!
+    params.require(:user).permit(
+      :email,
+      :admin,
+      :customer_service,
+      :online_retailer,
+      :translator,
+      :rohs,
+      :market_manager,
+      :artist_relations,
+      :engineer,
+      :clinician,
+      :rep,
+      :name,
+      :rso,
+      :sales_admin,
+      :dealer,
+      :distributor,
+      :marketing_staff,
+      :phone_number,
+      :job_description,
+      :job_title,
+      :profile_image,
+      :employee,
+      :media,
+      :queue_admin,
+      :profile_pic,
+      :project_manager,
+      :executive,
+      :account_number,
+      :locales,
+      :technician,
+      :super_technician,
+      :last_host,
+      :vip_programmers_admin
+    )
   end
 end

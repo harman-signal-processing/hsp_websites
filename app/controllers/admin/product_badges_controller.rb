@@ -47,11 +47,11 @@ class Admin::ProductBadgesController < AdminController
             rescue
               # format.js { render template: "admin/product_badges/create_error" }
             end
-          end  #  @product_badges.each do |product_badge|
+          end
         rescue
           # format.js { render template: "admin/product_badges/create_error" }
-        end      
-      elsif @product_badge.present?      
+        end
+      elsif @product_badge.present?
         if @product_badge.save
           format.html { redirect_to([:admin, @product_badge.product], notice: 'Product/badge was successfully created.') }
           format.xml  { render xml: @product_badge, status: :created, location: @product_badge }
@@ -60,9 +60,9 @@ class Admin::ProductBadgesController < AdminController
           format.html { render action: "new" }
           format.xml  { render xml: @product_badge.errors, status: :unprocessable_entity }
         end
-      end  #  if @product_badges.present?
-    end  #  respond_to do |format|
-  end  #  def create
+      end
+    end
+  end
 
   # PUT /product_badges/1
   # PUT /product_badges/1.xml
@@ -99,19 +99,19 @@ class Admin::ProductBadgesController < AdminController
       badge_id = product_badge_params[:badge_id]
       product_badge_params[:product_id].reject(&:blank?).each do |product|
         @product_badges << ProductBadge.new({badge_id: badge_id, product_id: product})
-      end  
+      end
     elsif product_badge_params[:badge_id].is_a?(Array)
       @product_badges = []
       product_id = product_badge_params[:product_id]
       product_badge_params[:badge_id].reject(&:blank?).each do |badge|
         @product_badges << ProductBadge.new({badge_id: badge, product_id: product_id})
-      end      
+      end
     else
       @product_badge = ProductBadge.new(product_badge_params)
-    end    
-  end  #  def initialize_product_badge
+    end
+  end
 
   def product_badge_params
-    params.require(:product_badge).permit!
+    params.require(:product_badge).permit(:badge_id, :product_id)
   end
 end

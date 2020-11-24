@@ -85,6 +85,6 @@ class Admin::CabinetsController < AdminController
   end
 
   def cabinet_params
-    params.require(:cabinet).permit!
+    params.require(:cabinet).permit(:name, :description, :cab_image)
   end
 end

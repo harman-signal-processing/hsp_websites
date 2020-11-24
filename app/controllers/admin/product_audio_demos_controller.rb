@@ -84,6 +84,6 @@ class Admin::ProductAudioDemosController < AdminController
   end
 
   def product_audio_demo_params
-    params.require(:product_audio_demo).permit!
+    params.require(:product_audio_demo).permit(:product_id, :audio_demo_id)
   end
 end

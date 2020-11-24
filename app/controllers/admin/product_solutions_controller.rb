@@ -92,6 +92,6 @@ class Admin::ProductSolutionsController < AdminController
   end
 
   def product_solution_params
-    params.require(:product_solution).permit!
+    params.require(:product_solution).permit(:product_id, :solution_id)
   end
 end

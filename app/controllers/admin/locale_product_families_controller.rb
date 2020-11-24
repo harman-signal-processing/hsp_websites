@@ -33,6 +33,6 @@ class Admin::LocaleProductFamiliesController < AdminController
   end
 
   def locale_product_family_params
-    params.require(:locale_product_family).permit!
+    params.require(:locale_product_family).permit(:locale, :product_family_id)
   end
 end

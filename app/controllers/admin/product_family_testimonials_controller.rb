@@ -117,7 +117,7 @@ class Admin::ProductFamilyTestimonialsController < AdminController
   end
 
   def product_family_testimonial_params
-    params.require(:product_family_testimonial).permit!
+    params.require(:product_family_testimonial).permit(:product_family_id, :testimonial_id, :position)
   end
 end
 

@@ -112,6 +112,31 @@ class Admin::RegisteredDownloadsController < AdminController
   end
 
   def registered_download_params
-    params.require(:registered_download).permit!
+    params.require(:registered_download).permit(
+      :name,
+      :brand_id,
+      :protected_software,
+      :download_count,
+      :html_template,
+      :intro_page_content,
+      :confirmation_page_content,
+      :email_template,
+      :download_page_content,
+      :url,
+      :valid_code,
+      :per_download_limit,
+      :from_email,
+      :subject,
+      :require_serial_number,
+      :cc,
+      :products,
+      :require_employee_number,
+      :require_store_number,
+      :require_manager_name,
+      :send_coupon_code,
+      :coupon_codes,
+      :require_receipt,
+      :auto_deliver
+    )
   end
 end

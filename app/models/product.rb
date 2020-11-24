@@ -114,7 +114,7 @@ class Product < ApplicationRecord
   }
 
   scope :not_associated_with_this_news_item, -> (news_item, website) {
-    Product.where(brand_id: news_item.brands.pluck(:id)).where.not(id: news_item.products.pluck(:id))
+    self.where(brand_id: news_item.brands.pluck(:id)).where.not(id: news_item.products.pluck(:id))
   }
 
   scope :not_associated_with_this_badge, -> (badge, website) {

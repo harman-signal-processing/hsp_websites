@@ -39,7 +39,7 @@ class ProductFamily < ApplicationRecord
     product_families_not_associated_with_this_product = self.nested_options(website)
         .select{|item| product_family_ids_already_associated_with_this_product.exclude?(item.keys[0]) }
         .reject(&:empty?)
-        .map{|item| ProductFamily.new(id: item.keys[0], name: item.values[0]) }
+        .map{|item| self.new(id: item.keys[0], name: item.values[0]) }
 
     product_families_not_associated_with_this_product
   }
@@ -49,7 +49,7 @@ class ProductFamily < ApplicationRecord
     self.nested_options(website)
       .select{|item| product_family_ids_already_associated_with_this_testimonial.exclude?(item.keys[0]) }
       .reject(&:empty?)
-      .map{|item| ProductFamily.new(id: item.keys[0], name: item.values[0]) }
+      .map{|item| self.new(id: item.keys[0], name: item.values[0]) }
   }
 
   def slug_candidates

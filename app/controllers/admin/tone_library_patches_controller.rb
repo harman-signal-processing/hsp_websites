@@ -82,6 +82,10 @@ class Admin::ToneLibraryPatchesController < AdminController
   end
 
   def tone_library_patch_params
-    params.require(:tone_library_patch).permit!
+    params.require(:tone_library_patch).permit(
+      :tone_library_song_id,
+      :product_id,
+      :patch
+    )
   end
 end

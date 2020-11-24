@@ -78,6 +78,6 @@ class Admin::FaqCategoriesController < AdminController
   end
 
   def faq_category_params
-    params.require(:faq_category).permit!
+    params.require(:faq_category).permit(:name, :brand_id)
   end
 end

@@ -82,7 +82,7 @@ class Admin::SalesRegionCountriesController < AdminController
   end
 
   def sales_region_country_params
-    params.require(:sales_region_country).permit!
+    params.require(:sales_region_country).permit(:name, :sales_region_id)
   end
 end
 

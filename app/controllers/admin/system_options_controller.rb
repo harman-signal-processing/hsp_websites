@@ -86,7 +86,7 @@ class Admin::SystemOptionsController < AdminController
       format.js
     end
     website.add_log(user: current_user, action: "Deleted system_option: #{@system_option.name}")
-  end  
+  end
 
   private
 
@@ -99,7 +99,18 @@ class Admin::SystemOptionsController < AdminController
   end
 
   def system_option_params
-    params.require(:system_option).permit!
+    params.require(:system_option).permit(
+      :system_id,
+      :name,
+      :option_type,
+      :position,
+      :parent_id,
+      :description,
+      :long_description,
+      :default_value,
+      :show_on_first_screen,
+      system_option_values: [:name, :_delete]
+    )
   end
 
 

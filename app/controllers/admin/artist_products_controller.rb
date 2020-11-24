@@ -82,6 +82,6 @@ class Admin::ArtistProductsController < AdminController
   end
 
   def artist_product_params
-    params.require(:artist_product).permit!
+    params.require(:artist_product).permit(:artist_id, :product_id, :quote, :on_tour, :favorite)
   end
 end

@@ -82,7 +82,12 @@ class Admin::PartsController < AdminController
   end
 
   def part_params
-    params.require(:part).permit!
+    params.require(:part).permit(
+      :part_number,
+      :description,
+      :photo,
+      :parent_id
+    )
   end
 end
 

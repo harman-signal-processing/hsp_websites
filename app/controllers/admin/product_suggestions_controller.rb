@@ -56,12 +56,12 @@ class Admin::ProductSuggestionsController < ApplicationController
       end
     end
   end
-  
+
   def update_order
     update_list_order(ProductSuggestion,  params["product_suggestion"]) # update_list_order is in application_controller
     head :ok
     website.add_log(user: current_user, action: "Sorted product suggestions")
-  end 
+  end
 
   # DELETE /admin/product_suggestions/1
   # DELETE /admin/product_suggestions/1.xml
@@ -86,6 +86,6 @@ class Admin::ProductSuggestionsController < ApplicationController
   end
 
   def product_suggestion_params
-    params.require(:product_suggestion).permit!
+    params.require(:product_suggestion).permit(:product_id, :suggested_product_id, :position)
   end
 end

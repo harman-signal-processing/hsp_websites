@@ -84,6 +84,18 @@ class Admin::PagesController < AdminController
   end
 
   def page_params
-    params.require(:page).permit!
+    params.require(:page).permit(
+      :title,
+      :keywords,
+      :description,
+      :body,
+      :custom_route,
+      :brand_id,
+      :password,
+      :username,
+      :custom_css,
+      :layout_class,
+      :custom_js
+    )
   end
 end

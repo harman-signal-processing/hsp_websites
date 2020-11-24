@@ -77,7 +77,7 @@ class Admin::GetStartedPanelsController < AdminController
   end
 
   def get_started_panel_params
-    params.require(:get_started_panel).permit!
+    params.require(:get_started_panel).permit(:get_started_page_id, :locked_until_registration, :name, :content)
   end
 
 

@@ -84,7 +84,16 @@ class Admin::ProductFiltersController < AdminController
   end
 
   def product_filter_params
-    params.require(:product_filter).permit!
+    params.require(:product_filter).permit(
+      :name,
+      :value_type,
+      :min_value,
+      :max_value,
+      :uom,
+      :secondary_uom,
+      :secondary_uom_formula,
+      :stepsize
+    )
   end
 end
 

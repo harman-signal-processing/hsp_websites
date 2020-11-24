@@ -83,6 +83,6 @@ class Admin::InstallationsController < AdminController
   end
 
   def installation_params
-    params.require(:installation).permit!
+    params.require(:installation).permit(:brand_id, :title, :keywords, :description, :body, :custom_route, :custom_css, :layout_class, :summary, :thumbnail)
   end
 end

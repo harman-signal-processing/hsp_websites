@@ -114,6 +114,29 @@ class Admin::PromotionsController < AdminController
   end
 
   def promotion_params
-    params.require(:promotion).permit!
+    params.require(:promotion).permit(
+      :name,
+      :show_start_on,
+      :show_end_on,
+      :start_on,
+      :end_on,
+      :description,
+      :promo_form,
+      :tile,
+      :post_registration_subject,
+      :post_registration_message,
+      :send_post_registration_message,
+      :brand_id,
+      :toolkit_instructions,
+      :homepage_banner,
+      :homepage_headline,
+      :homepage_text,
+      :discount,
+      :discount_type,
+      :show_recalculated_price,
+      :banner_id,
+      banner_attributes: {},
+      product_promotions_attributes: {}
+    )
   end
 end

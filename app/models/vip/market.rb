@@ -6,7 +6,7 @@ class Vip::Market < ApplicationRecord
 	
   scope :not_associated_with_this_programmer, -> (programmer) { 
     market_ids_already_associated_with_this_programmer = Vip::ProgrammerMarket.where("vip_programmer_id = ?", programmer.id).map{|programmer_market| programmer_market.vip_market_id }
-    markets_not_associated_with_this_programmer = Vip::Market.where.not(id: market_ids_already_associated_with_this_programmer)    
+    markets_not_associated_with_this_programmer = self.where.not(id: market_ids_already_associated_with_this_programmer)    
     markets_not_associated_with_this_programmer
   }		
 	

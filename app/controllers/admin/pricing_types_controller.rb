@@ -73,6 +73,13 @@ class Admin::PricingTypesController < AdminController
   end
 
   def pricing_type_params
-    params.require(:pricing_type).permit!
+    params.require(:pricing_type).permit(
+      :name,
+      :brand_id,
+      :pricelist_order,
+      :calculation_method,
+      :us,
+      :intl
+    )
   end
 end

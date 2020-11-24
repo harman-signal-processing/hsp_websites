@@ -96,6 +96,12 @@ class Admin::OnlineRetailersController < AdminController
   end
 
   def online_retailer_params
-    params.require(:online_retailer).permit!
+    params.require(:online_retailer).permit(
+      :name,
+      :retailer_logo,
+      :active,
+      :direct_link,
+      :preferred
+    )
   end
 end

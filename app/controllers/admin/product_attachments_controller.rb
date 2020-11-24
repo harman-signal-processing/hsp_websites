@@ -116,6 +116,22 @@ class Admin::ProductAttachmentsController < AdminController
   end
 
   def product_attachment_params
-    params.require(:product_attachment).permit!
+    params.require(:product_attachment).permit(
+      :product_id,
+      :primary_photo,
+      :product_attachment,
+      :position,
+      :product_media,
+      :product_media,
+      :width,
+      :height,
+      :songlist_tag,
+      :no_lightbox,
+      :hide_from_product_page,
+      :product_attachment_meta,
+      :full_width_banner_url,
+      :show_as_full_width_banner,
+      demo_song_ids: []
+    )
   end
 end

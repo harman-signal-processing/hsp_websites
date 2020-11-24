@@ -89,7 +89,7 @@ class Admin::SystemRulesController < AdminController
       format.js
     end
     website.add_log(user: current_user, action: "Deleted system_rule: #{@system_rule.name}")
-  end  
+  end
 
   private
 
@@ -102,7 +102,13 @@ class Admin::SystemRulesController < AdminController
   end
 
   def system_rule_params
-    params.require(:system_rule).permit!
+    params.require(:system_rule).permit(
+      :system_id,
+      :enabled,
+      :perform_opposite,
+      system_rule_condition_groups: [:_destroy, system_rule_conditions: [:logic_type, :system_option_id, :operator, :direct_value, :_destroy]],
+      system_rule_actions: [:_destroy, :action_type, :ratio, :quantity, :system_component_id, :alert, system_option: [], system_option_value: []]
+    )
   end
 
 

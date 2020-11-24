@@ -87,6 +87,6 @@ class Admin::AudioDemosController < AdminController
   end
 
   def audio_demo_params
-    params.require(:audio_demo).permit!
-  end  
+    params.require(:audio_demo).permit(:name, :description, :wet_demo, :dry_demo, :duration_in_seconds)
+  end
 end

@@ -171,7 +171,30 @@ class Admin::ProductFamiliesController < AdminController
   end
 
   def product_family_params
-    params.require(:product_family).permit!
+    params.require(:product_family).permit(
+      :name,
+      :family_photo,
+      :intro,
+      :brand_id,
+      :keywords,
+      :position,
+      :parent_id,
+      :hide_from_navigation,
+      :background_image,
+      :background_color,
+      :layout_class,
+      :family_banner,
+      :title_banner,
+      :post_content,
+      :short_description,
+      :preview_password,
+      :preview_username,
+      :old_url,
+      :has_full_width_features,
+      :product_selector_behavior,
+      :meta_description,
+      :featured_product_id
+    )
   end
 
 end

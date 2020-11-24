@@ -91,6 +91,11 @@ class Admin::OnlineRetailerLinksController < AdminController
   end
 
   def online_retailer_link_params
-    params.require(:online_retailer_link).permit!
+    params.require(:online_retailer_link).permit(
+      :product_id,
+      :brand_id,
+      :online_retailer_id,
+      :url
+    )
   end
 end

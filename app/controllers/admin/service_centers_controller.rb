@@ -88,6 +88,24 @@ class Admin::ServiceCentersController < AdminController
   end
 
   def service_center_params
-    params.require(:service_center).permit!
+    params.require(:service_center).permit(
+      :name,
+      :name2,
+      :name3,
+      :name4,
+      :address,
+      :city,
+      :state,
+      :zip,
+      :telephone,
+      :fax,
+      :email,
+      :account_number,
+      :website,
+      :lat,
+      :lng,
+      :brand_id,
+      :vintage
+    )
   end
 end

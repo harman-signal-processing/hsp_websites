@@ -85,6 +85,6 @@ class Admin::AmpModelsController < AdminController
   end
 
   def amp_model_params
-    params.require(:amp_model).permit!
+    params.require(:amp_model).permit(:name, :description, :amp_image)
   end
 end

@@ -42,7 +42,7 @@ class Admin::ProductSpecificationsController < AdminController
   # POST /admin/product_specifications.xml
   def create
     begin
-      specification_params = params.require(:specification).permit!
+      specification_params = params.require(:specification).permit(:name)
       specification = Specification.new(specification_params)
       if specification.save
         @product_specification.specification = specification
@@ -150,10 +150,19 @@ class Admin::ProductSpecificationsController < AdminController
   end
 
   def product_specification_params
-    params.require(:product_specification).permit!
+    params.require(:product_specification).permit(
+      :product_id,
+      :specification_id,
+      :value,
+      :position,
+      specification_attributes: {},
+      specification: []
+    )
   end
 
   def sanitized_product_params
-    params.require(:product).permit!
+    params.require(:product).permit(
+      product_specifications_attributes: {}
+    )
   end
 end

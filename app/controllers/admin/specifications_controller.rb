@@ -106,7 +106,7 @@ class Admin::SpecificationsController < AdminController
   end
 
   def specification_params
-    params.require(:specification).permit!
+    params.require(:specification).permit(:name, :specification_group_id, :position)
   end
 
 

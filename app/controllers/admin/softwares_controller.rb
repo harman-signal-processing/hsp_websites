@@ -124,6 +124,28 @@ class Admin::SoftwaresController < AdminController
   end
 
   def software_params
-    params.require(:software).permit!
+    params.require(:software).permit(
+      :name,
+      :ware,
+      :download_count,
+      :version,
+      :description,
+      :platform,
+      :active,
+      :category,
+      :brand_id,
+      :link,
+      :multipliers,
+      :activation_name,
+      :layout_class,
+      :current_version_id,
+      :bit,
+      :active_without_products,
+      :direct_upload_url,
+      :alert,
+      :show_alert,
+      :side_content,
+      product_ids: []
+    )
   end
 end

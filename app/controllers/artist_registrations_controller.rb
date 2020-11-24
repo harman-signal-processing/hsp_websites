@@ -1,6 +1,6 @@
 class ArtistRegistrationsController < Devise::RegistrationsController
   # include Devise::Controllers::InternalHelpers
-  
+
   def new
     resource = build_resource({})
     resource.build_artist_products

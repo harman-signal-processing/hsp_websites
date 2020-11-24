@@ -93,6 +93,16 @@ class Admin::NewsController < AdminController
   end
 
   def news_params
-    params.require(:news).permit!
+    params.require(:news).permit(
+      :post_on,
+      :title,
+      :body,
+      :keywords,
+      :news_photo,
+      :quote,
+      :video_ids,
+      :old_id,
+      :old_url
+    )
   end
 end

@@ -84,7 +84,7 @@ class Admin::SalesRegionsController < AdminController
   end
 
   def sales_region_params
-    params.require(:sales_region).permit!
+    params.require(:sales_region).permit(:name, :brand_id, :support_email)
   end
 end
 

@@ -112,6 +112,25 @@ class Admin::WarrantyRegistrationsController < AdminController
   end
 
   def warranty_registration_params
-    params.require(:warranty_registration).permit!
+    params.require(:warranty_registration).permit(
+      :title,
+      :first_name,
+      :last_name,
+      :middle_initial,
+      :company,
+      :jobtitle,
+      :country,
+      :email,
+      :subscribe,
+      :brand_id,
+      :product_id,
+      :serial_number,
+      :registered_on,
+      :purchased_on,
+      :purchased_from,
+      :purchase_country,
+      :purchase_price,
+      :comments
+    )
   end
 end
