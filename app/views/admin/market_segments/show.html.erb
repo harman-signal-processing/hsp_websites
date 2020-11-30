@@ -62,7 +62,9 @@
     	<%= f.hidden_field :market_segment_id %>
     	<div class="row collapse">
     		<div class="large-8 small-8 columns">
-    			<%= f.association :product_family, collection: website.product_families, label: false %>
+          <%= f.association :product_family,
+            collection: ProductFamily.where(brand_id: website.brand_id).order(:name),
+            label: false %>
     		</div>
     		<div class="large-4 small-4 columns">
     			<%= submit_tag 'add to this vertical', class: "postfix button"  %>
