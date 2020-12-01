@@ -6,10 +6,7 @@ class SearchController < ApplicationController
   def index
     @page_title = t('titles.search_results')
     @query = params[:query]
-
-    if @query.to_s.match(/union\s{1,}select/i) || @query.to_s.match(/(and|\&*)\s{1,}sleep/i) || @query.to_s.match(/order\s{1,}by/i)
-      raise ActionController::UnpermittedParameters.new [:query_not_allowed]
-    end
+    authorize_query!(@query)
 
     pdf_only_search_results? ? search_pdf_only : search_site_only
 
@@ -141,4 +138,5 @@ class SearchController < ApplicationController
       end
     end
   end
+
 end

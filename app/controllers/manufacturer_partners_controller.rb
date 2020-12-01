@@ -27,12 +27,14 @@ class ManufacturerPartnersController < ApplicationController
     def featured_partner
         partner_name = params[:partner_name]
         # @page = Page.where(custom_route: "amx-partners-featured").first
-        if partner_name.present?
+        if partner_name.present? && Page.exists?(custom_route: "amx-partners-featured-#{partner_name}")
             @page = Page.where(custom_route: "amx-partners-featured-#{partner_name}").first
+            render template: "/pages/show"
         else
             @page = Page.where("custom_route like 'amx-partners-featured-%'").order("RAND()").first
+            @page.custom_route.match(/amx-partners-featured-(.*)/)
+            redirect_to amx_featured_partner_selected_path(partner_name: $1) and return false
         end
-        render template: "/pages/show"
     end
 
     def featured_partners
