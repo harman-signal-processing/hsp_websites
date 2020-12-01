@@ -80,6 +80,12 @@ class Admin::WebsiteLocalesController < AdminController
   end
 
   def website_locale_params
-    params.require(:website_locale).permit!
+    params.require(:website_locale).permit(
+      :website_id,
+      :locale,
+      :name,
+      :complete,
+      :default
+    )
   end
 end

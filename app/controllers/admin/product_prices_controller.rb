@@ -92,6 +92,11 @@ class Admin::ProductPricesController < AdminController
   end
 
   def product_price_params
-    params.require(:product_price).permit!
+    params.require(:product_price).permit(
+      :product_id,
+      :part_id,
+      :parent_part_id,
+      :parent_id
+    )
   end
 end

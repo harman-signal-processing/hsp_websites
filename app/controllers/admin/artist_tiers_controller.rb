@@ -81,6 +81,6 @@ class Admin::ArtistTiersController < AdminController
   end
 
   def artist_tier_params
-    params.require(:artist_tier).permit!
+    params.require(:artist_tier).permit(:name, :invitation_code, :show_on_artist_page)
   end
 end

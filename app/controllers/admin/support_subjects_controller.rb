@@ -84,6 +84,12 @@ class Admin::SupportSubjectsController < AdminController
   end
 
   def support_subject_params
-    params.require(:support_subject).permit!
+    params.require(:support_subject).permit(
+      :brand_id,
+      :name,
+      :recipient,
+      :position,
+      :locale
+    )
   end
 end

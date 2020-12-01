@@ -80,6 +80,6 @@ class Admin::ProductFamilyCaseStudiesController < AdminController
   end
 
   def product_family_case_study_params
-    params.require(:product_family_case_study).permit!
+    params.require(:product_family_case_study).permit(:product_family_id, :case_study_id, :position)
   end
 end

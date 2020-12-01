@@ -89,7 +89,7 @@ class Admin::SiteElementAttachmentsController < AdminController
   end
 
   def site_element_attachment_params
-    params.require(:site_element_attachment).permit!
+    params.require(:site_element_attachment).permit(:site_element_id, :attachment)
   end
 end
 

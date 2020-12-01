@@ -93,7 +93,15 @@ class Admin::SystemOptionValuesController < AdminController
   end
 
   def system_option_value_params
-    params.require(:system_option_value).permit!
+    params.require(:system_option_value).permit(
+      :system_option_id,
+      :name,
+      :position,
+      :description,
+      :default,
+      :price,
+      :send_mail_to
+    )
   end
 
 

@@ -99,6 +99,15 @@ class Admin::ProductDocumentsController < AdminController
   end
 
   def product_document_params
-    params.require(:product_document).permit!
+    params.require(:product_document).permit(
+      :product_id,
+      :language,
+      :document_type,
+      :document,
+      :name_override,
+      :position,
+      :direct_upload_url,
+      :show_on_public_site
+    )
   end
 end

@@ -46,7 +46,7 @@ class Admin::BrandSpecificationForComparisonsController < AdminController
   end
 
   def brand_specification_for_comparison_params
-    params.require(:brand_specification_for_comparison).permit!
+    params.require(:brand_specification_for_comparison).permit(:brand_id, :specification_id)
   end
 
 end

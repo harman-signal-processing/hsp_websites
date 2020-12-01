@@ -84,6 +84,6 @@ class Admin::GetStartedPageProductsController < AdminController
   end
 
   def get_started_page_product_params
-    params.require(:get_started_page_product).permit!
+    params.require(:get_started_page_product).permit(:get_started_page_id, :product_id)
   end
 end

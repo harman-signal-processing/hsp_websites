@@ -79,6 +79,10 @@ class Admin::SoftwareAttachmentsController < AdminController
   end
 
   def software_attachment_params
-    params.require(:software_attachment).permit!
+    params.require(:software_attachment).permit(
+      :name,
+      :software_id,
+      :software_attachment
+    )
   end
 end

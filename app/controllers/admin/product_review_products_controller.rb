@@ -84,6 +84,6 @@ class Admin::ProductReviewProductsController < AdminController
   end
 
   def product_review_product_params
-    params.require(:product_review_product).permit!
+    params.require(:product_review_product).permit(:product_review_id, :product_id)
   end
 end

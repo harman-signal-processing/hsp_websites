@@ -86,7 +86,18 @@ class Admin::TrainingClassesController < AdminController
   end
 
   def training_class_params
-    params.require(:training_class).permit!
+    params.require(:training_class).permit(
+      :start_at,
+      :end_at,
+      :language,
+      :instructor_id,
+      :more_info_url,
+      :location,
+      :filled,
+      :canceled,
+      :training_course_id,
+      :registration_url
+    )
   end
 
   def load_training_course

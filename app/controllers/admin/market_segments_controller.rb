@@ -102,6 +102,13 @@ class Admin::MarketSegmentsController < AdminController
   end
 
   def market_segment_params
-    params.require(:market_segment).permit!
+    params.require(:market_segment).permit(
+      :name,
+      :brand_id,
+      :banner_image_file_name,
+      :parent_id,
+      :position,
+      :description
+    )
   end
 end

@@ -70,7 +70,7 @@ class Admin::DownloadRegistrationsController < AdminController
       format.xml  { head :ok }
     end
   end
-  
+
   # GET /download_registration/1/reset_and_resend
   # Re-sends the download notice for this registration
   def reset_and_resend
@@ -90,6 +90,21 @@ class Admin::DownloadRegistrationsController < AdminController
   end
 
   def download_registration_params
-    params.require(:download_registration).permit!
+    params.require(:download_registration).permit(
+      :registered_download_id,
+      :email,
+      :first_name,
+      :last_name,
+      :serial_number,
+      :download_count,
+      :download_code,
+      :subscribe,
+      :product,
+      :employee_number,
+      :store_number,
+      :manager_name,
+      :receipt,
+      :country
+    )
   end
 end

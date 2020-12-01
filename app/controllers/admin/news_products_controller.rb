@@ -38,7 +38,7 @@ class Admin::NewsProductsController < AdminController
   def create
     @called_from = params[:called_from]
     respond_to do |format|
-      
+
       if @news_products.present?
         begin
           @news_products.each do |news_product|
@@ -52,7 +52,7 @@ class Admin::NewsProductsController < AdminController
           end  #  @news_products.each do |news_product|
         rescue
           # format.js { render template: "admin/news_products/create_error" }
-        end        
+        end
       else
         if @news_product.save
           format.html { redirect_to([:admin, @news_product], notice: 'News Product was successfully created.') }
@@ -64,9 +64,9 @@ class Admin::NewsProductsController < AdminController
           format.xml  { render xml: @news_product.errors, status: :unprocessable_entity }
           format.js
         end
-      end  #  if @product_softwares.present?
-    end  #  respond_to do |format|
-  end  #  def create
+      end
+    end
+  end
 
   # PUT /admin/news_products/1
   # PUT /admin/news_products/1.xml
@@ -111,6 +111,6 @@ class Admin::NewsProductsController < AdminController
   end
 
   def news_product_params
-    params.require(:news_product).permit!
+    params.require(:news_product).permit(:product_id, :news_id)
   end
 end

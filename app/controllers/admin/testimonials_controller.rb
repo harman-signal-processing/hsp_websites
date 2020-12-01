@@ -86,7 +86,16 @@ class Admin::TestimonialsController < AdminController
   end
 
   def testimonial_params
-    params.require(:testimonial).permit!
+    params.require(:testimonial).permit(
+      :brand_id,
+      :title,
+      :subtitle,
+      :summary,
+      :content,
+      :banner,
+      :image,
+      :attachment
+    )
   end
 end
 

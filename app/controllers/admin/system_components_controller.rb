@@ -77,7 +77,7 @@ class Admin::SystemComponentsController < AdminController
       format.js
     end
     website.add_log(user: current_user, action: "Deleted system_component: #{@system_component.name}")
-  end  
+  end
 
   private
 
@@ -90,7 +90,12 @@ class Admin::SystemComponentsController < AdminController
   end
 
   def system_component_params
-    params.require(:system_component).permit!
+    params.require(:system_component).permit(
+      :name,
+      :system_id,
+      :product_id,
+      :description
+    )
   end
 
 

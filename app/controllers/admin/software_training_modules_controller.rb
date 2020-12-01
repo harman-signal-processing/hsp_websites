@@ -62,7 +62,7 @@ class Admin::SoftwareTrainingModulesController < AdminController
       end
     end
   end
-  
+
   # POST /admin/software_training_modules/update_order
   def update_order
     update_list_order(SoftwareTrainingModule, params["software_training_module"])
@@ -87,6 +87,6 @@ class Admin::SoftwareTrainingModulesController < AdminController
   end
 
   def software_training_module_params
-    params.require(:software_training_module).permit!
+    params.require(:software_training_module).permit(:software_id, :training_module_id, :position)
   end
 end

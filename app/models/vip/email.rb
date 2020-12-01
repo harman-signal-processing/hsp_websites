@@ -6,7 +6,7 @@ class Vip::Email < ApplicationRecord
 	
   scope :not_associated_with_this_programmer, -> (programmer) { 
     email_ids_already_associated_with_this_programmer = Vip::ProgrammerEmail.where("vip_programmer_id = ?", programmer.id).map{|programmer_email| programmer_email.vip_email_id }
-    emails_not_associated_with_this_programmer = Vip::Email.where.not(id: email_ids_already_associated_with_this_programmer)    
+    emails_not_associated_with_this_programmer = self.where.not(id: email_ids_already_associated_with_this_programmer)    
     emails_not_associated_with_this_programmer
   }	
   

@@ -90,6 +90,11 @@ class Admin::SolutionsController < AdminController
   end
 
   def solution_params
-    params.require(:solution).permit!
+    params.require(:solution).permit(
+      :name,
+      :vertical_market_id,
+      :content,
+      :product_header
+    )
   end
 end

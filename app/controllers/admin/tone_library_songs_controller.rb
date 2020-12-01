@@ -83,6 +83,6 @@ class Admin::ToneLibrarySongsController < AdminController
   end
 
   def tone_library_song_params
-    params.require(:tone_library_song).permit!
+    params.require(:tone_library_song).permit(:artist_name, :title)
   end
 end

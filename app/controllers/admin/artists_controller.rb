@@ -56,10 +56,10 @@ class Admin::ArtistsController < AdminController
     end
     @artist.initial_brand = website.brand
     @artist.skip_confirmation!
-    @artist_brand = ArtistBrand.new(params.require(:artist_brand).permit!)
+    @artist_brand = ArtistBrand.new(params.require(:artist_brand).permit(:artist_id, :brand_id, :intro))
     respond_to do |format|
       if @artist.save
-        @artist_brand.artist_id = @artist.id 
+        @artist_brand.artist_id = @artist.id
         @artist_brand.brand_id = website.brand_id
         @artist_brand.save
         format.html { redirect_to([:admin, @artist], notice: 'Artist was successfully created.') }
@@ -71,14 +71,14 @@ class Admin::ArtistsController < AdminController
       end
     end
   end
-    
+
   # PUT /admin/product_families/update_order
   def update_order
     update_list_order(Artist, params["artist"])
     head :ok
     website.add_log(user: current_user, action: "Changed the artist sort order")
   end
-  
+
   # POST /admin/artists/1/reset_password
   def reset_password
     new_password = "#{website.brand_name.gsub(/\s/, "")}123"
@@ -106,7 +106,7 @@ class Admin::ArtistsController < AdminController
     @artist_brand = ArtistBrand.where(artist_id: @artist.id, brand_id: website.brand_id).first_or_create
     respond_to do |format|
       if @artist.update(artist_params)
-        @artist_brand.update(params.require(:artist_brand).permit!)
+        @artist_brand.update(params.require(:artist_brand).permit(:artist_id, :brand_id, :intro))
         format.html { redirect_to([:admin, @artist], notice: 'Artist was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated artist: #{@artist.name}")
@@ -141,6 +141,6 @@ class Admin::ArtistsController < AdminController
   end
 
   def artist_params
-    params.require(:artist).permit!
+    params.require(:artist).permit(:name, :bio, :artist_photo, :website, :twitter, :featured, :email, :artist_product_photo, :artist_tier_id, :main_instrument, :notable_career_moments, artist_brand: [:intro])
   end
 end

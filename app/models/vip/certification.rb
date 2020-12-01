@@ -6,7 +6,7 @@ class Vip::Certification < ApplicationRecord
 	
   scope :not_associated_with_this_programmer, -> (programmer) { 
     certification_ids_already_associated_with_this_programmer = Vip::ProgrammerCertification.where("vip_programmer_id = ?", programmer.id).map{|programmer_certification| programmer_certification.vip_certification_id }
-    certifications_not_associated_with_this_programmer = Vip::Certification.where.not(id: certification_ids_already_associated_with_this_programmer)    
+    certifications_not_associated_with_this_programmer = self.where.not(id: certification_ids_already_associated_with_this_programmer)    
     certifications_not_associated_with_this_programmer
   }	
 	

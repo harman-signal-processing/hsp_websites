@@ -97,6 +97,12 @@ class Admin::WebsitesController < AdminController
   end
 
   def website_params
-    params.require(:website).permit!
+    params.require(:website).permit(
+      :url,
+      :brand_id,
+      :folder,
+      :comment,
+      :default_locale
+    )
   end
 end

@@ -81,6 +81,6 @@ class Admin::LabelSheetsController < AdminController
   end
 
   def label_sheet_params
-    params.require(:label_sheet).permit!
+    params.require(:label_sheet).permit(:name, :products)
   end
 end

@@ -92,6 +92,35 @@ class Admin::DealersController < AdminController
   end
 
   def dealer_params
-    params.require(:dealer).permit!
+    params.require(:dealer).permit(
+      :name,
+      :name2,
+      :name3,
+      :name4,
+      :address,
+      :city,
+      :state,
+      :zip,
+      :telephone,
+      :fax,
+      :email,
+      :account_number,
+      :lat,
+      :lng,
+      :exclude,
+      :skip_sync_from_sap,
+      :website,
+      :google_map_place_id,
+      :country,
+      :resale,
+      :rush,
+      :rental,
+      :installation,
+      :represented_in_country,
+      :service,
+      :products,
+      :region,
+      brand_ids: []
+    )
   end
 end

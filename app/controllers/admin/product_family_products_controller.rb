@@ -4,12 +4,10 @@
 # should be called via AJAX and return Javascript to update whatever view
 # sent the method call.
 #
-# TODO: Create the HTML views just in case.
-#
 class Admin::ProductFamilyProductsController < AdminController
   before_action :initialize_product_family_product, only: :create
   load_and_authorize_resource
-    
+
   # GET /admin/product_family_products
   # GET /admin/product_family_products.xml
   def index
@@ -46,7 +44,7 @@ class Admin::ProductFamilyProductsController < AdminController
   def create
     @called_from = params[:called_from] || 'product'
     respond_to do |format|
-      
+
       if @product_family_products.present?
         begin
           @product_family_products.each do |product_family_product|
@@ -57,14 +55,14 @@ class Admin::ProductFamilyProductsController < AdminController
             rescue
               # format.js { render template: "admin/product_family_products/create_error" }
             end
-          end  #  @product_family_products.each do |product_family_product|
-          
+          end
+
         rescue
           # format.js { render template: "admin/product_family_products/create_error" }
-        end  
-        
+        end
+
       else
-      
+
         if @product_family_product.save
           format.html { redirect_to([:admin, @product_family_product], notice: 'Product was successfully added to family.') }
           format.xml  { render xml: @product_family_product, status: :created, location: @product_family_product }
@@ -75,10 +73,10 @@ class Admin::ProductFamilyProductsController < AdminController
           format.xml  { render xml: @product_family_product.errors, status: :unprocessable_entity }
           format.js { render plain: "Error"}
         end
-      end  # else of if @product_family_products.present?
-      
-    end  #  respond_to do |format|
-  end  #  def create
+      end
+
+    end
+  end
 
   # PUT /admin/product_family_products/1
   # PUT /admin/product_family_products/1.xml
@@ -123,19 +121,19 @@ class Admin::ProductFamilyProductsController < AdminController
       product_family_id = product_family_product_params[:product_family_id]
       product_family_product_params[:product_id].reject(&:blank?).each do |product|
         @product_family_products << ProductFamilyProduct.new({product_family_id: product_family_id, product: Product.find(product)})
-      end       
+      end
     elsif product_family_product_params[:product_family_id].is_a?(Array)
       @product_family_products = []
       product_id = product_family_product_params[:product_id]
       product_family_product_params[:product_family_id].reject(&:blank?).each do |product_family|
         @product_family_products << ProductFamilyProduct.new({product_family_id: product_family, product_id: product_id})
-      end          
+      end
     else
-      @product_family_product = ProductFamilyProduct.new(product_family_product_params)    
+      @product_family_product = ProductFamilyProduct.new(product_family_product_params)
     end
-  end  #  def initialize_product_family_product
+  end
 
   def product_family_product_params
-    params.require(:product_family_product).permit!
+    params.require(:product_family_product).permit(:product_id, :product_family_id, :position)
   end
 end

@@ -73,7 +73,7 @@ class Admin::SystemsController < AdminController
       format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted system: #{@system.name}")
-  end  
+  end
 
   private
 
@@ -82,7 +82,13 @@ class Admin::SystemsController < AdminController
   end
 
   def system_params
-    params.require(:system).permit!
+    params.require(:system).permit(
+      :name,
+      :brand_id,
+      :description,
+      :send_mail_to,
+      :contact_me_intro
+    )
   end
 
 

@@ -74,7 +74,16 @@ private
   end
 
   def system_configuration_params
-  	params.require(:system_configuration).permit!
+  	params.require(:system_configuration).permit(
+      :system_id,
+      :name,
+      :user_id,
+      :project_name,
+      :email,
+      :phone,
+      :company,
+      :preferred_contact_method
+    )
   end
 
 end

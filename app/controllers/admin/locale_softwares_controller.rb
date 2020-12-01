@@ -33,7 +33,7 @@ class Admin::LocaleSoftwaresController < AdminController
   end
 
   def locale_software_params
-    params.require(:locale_software).permit!
+    params.require(:locale_software).permit!(:locale, :software_id)
   end
 end
 

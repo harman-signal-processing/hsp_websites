@@ -85,6 +85,19 @@ class Admin::UsRepsController < AdminController
   end
 
   def us_rep_params
-    params.require(:us_rep).permit!
+    params.require(:us_rep).permit(
+      :name,
+      :contact,
+      :address,
+      :city,
+      :state,
+      :zip,
+      :phone,
+      :fax,
+      :email,
+      :contacts,
+      us_region_ids: [],
+      us_regions_attributes: {}
+    )
   end
 end

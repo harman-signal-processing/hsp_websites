@@ -82,6 +82,11 @@ class Admin::ProductPromotionsController < AdminController
   end
 
   def product_promotion_params
-    params.require(:product_promotion).permit!
+    params.require(:product_promotion).permit(
+      :product_id,
+      :promotion_id,
+      :discount,
+      :discount_type
+    )
   end
 end

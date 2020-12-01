@@ -140,6 +140,23 @@ class Admin::SiteElementsController < AdminController
   end
 
   def site_element_params
-    params.require(:site_element).permit!
+    params.require(:site_element).permit(
+      :name,
+      :brand_id,
+      :resource,
+      :resource_type,
+      :show_on_public_site,
+      :executable,
+      :external_url,
+      :is_document,
+      :is_software,
+      :direct_upload_url,
+      :version,
+      :language,
+      :access_level_id,
+      :content,
+      :source,
+      product_ids: []
+    )
   end
 end

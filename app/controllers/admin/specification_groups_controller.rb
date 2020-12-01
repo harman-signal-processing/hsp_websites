@@ -103,11 +103,11 @@ class Admin::SpecificationGroupsController < AdminController
   end
 
   def specification_group_params
-    params.require(:specification_group).permit!
+    params.require(:specification_group).permit(:name, :position)
   end
 
   def specification_params
-    params.require(:specification).permit!
+    params.require(:specification).permit( :name, :specification_group_id, :position)
   end
 
 end

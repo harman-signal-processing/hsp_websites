@@ -97,6 +97,6 @@ class Admin::GetStartedPagesController < AdminController
   end
 
   def get_started_page_params
-    params.require(:get_started_page).permit!
+    params.require(:get_started_page).permit(:name, :header_image, :intro, :details, :brand_id, :require_registration_to_unlock_panels)
   end
 end

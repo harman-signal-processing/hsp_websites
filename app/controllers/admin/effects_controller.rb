@@ -88,6 +88,6 @@ class Admin::EffectsController < AdminController
   end
 
   def effect_params
-    params.require(:effect).permit!
+    params.require(:effect).permit(:name, :description, :effect_image, :effect_type_id)
   end
 end

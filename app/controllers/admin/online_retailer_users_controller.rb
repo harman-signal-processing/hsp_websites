@@ -86,6 +86,6 @@ class Admin::OnlineRetailerUsersController < AdminController
   end
 
   def online_retailer_user_params
-    params.require(:online_retailer_user).permit!
+    params.require(:online_retailer_user).permit(:online_retailer_id, :user_id)
   end
 end

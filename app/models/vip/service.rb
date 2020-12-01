@@ -9,7 +9,7 @@ class Vip::Service < ApplicationRecord
 	
   scope :not_associated_with_this_programmer, -> (programmer) { 
     service_ids_already_associated_with_this_programmer = Vip::ProgrammerService.where("vip_programmer_id = ?", programmer.id).map{|programmer_service| programmer_service.vip_service_id }
-    services_not_associated_with_this_programmer = Vip::Service.where.not(id: service_ids_already_associated_with_this_programmer)    
+    services_not_associated_with_this_programmer = self.where.not(id: service_ids_already_associated_with_this_programmer)    
     services_not_associated_with_this_programmer
   }	
   

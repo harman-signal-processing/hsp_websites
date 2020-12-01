@@ -97,6 +97,12 @@ class Admin::DistributorsController < AdminController
   end
 
   def distributor_params
-    params.require(:distributor).permit!
+    params.require(:distributor).permit(
+      :name,
+      :detail,
+      :country,
+      :email,
+      :account_number
+    )
   end
 end

@@ -44,6 +44,10 @@ class ContentTranslation < ApplicationRecord
     t
   end
 
+  def self.translatable_classes
+    [Product, ProductDescription, ProductFamily, Feature, Specification, ProductSpecification, SpecificationGroup, News, Page, Promotion,
+    AmpModel, Cabinet, EffectType, Effect, ProductReview, Artist, Faq, MarketSegment]
+  end
   def self.fields_to_translate_for(object, brand)
     translatables(brand)[object.class.name.underscore]
   end
@@ -70,7 +74,10 @@ class ContentTranslation < ApplicationRecord
   end
 
   def original_item
-    content_type.classify.constantize.find(content_id)
+    klass = ContentTranslation.translatable_classes.find do |ct|
+      ct.to_s == content_type.classify
+    end
+    klass.find(content_id)
   end
 
   def original_value

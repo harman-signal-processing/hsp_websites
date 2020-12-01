@@ -49,7 +49,7 @@ class Admin::ProductEffectsController < AdminController
       if @product_effect.save
         format.html { redirect_to([:admin, @product_effect], notice: 'Product effect was successfully created.') }
         format.xml  { render xml: @product_effect, status: :created, location: @product_effect }
-        format.js 
+        format.js
         website.add_log(user: current_user, action: "Added effect #{@product_effect.effect.name} to #{@product_effect.product.name}")
       else
         format.html { render action: "new" }
@@ -80,7 +80,7 @@ class Admin::ProductEffectsController < AdminController
     respond_to do |format|
       format.html { redirect_to(admin_product_effects_url) }
       format.xml  { head :ok }
-      format.js 
+      format.js
     end
     website.add_log(user: current_user, action: "Removed effect #{@product_effect.effect.name} from #{@product_effect.product.name}")
   end
@@ -92,6 +92,6 @@ class Admin::ProductEffectsController < AdminController
   end
 
   def product_effect_params
-    params.require(:product_effect).permit!
+    params.require(:product_effect).permit(:product_id, :effect_id, effect: [:name, :effect_type_id])
   end
 end

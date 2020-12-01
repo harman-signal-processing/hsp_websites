@@ -104,6 +104,13 @@ class Admin::BrandSolutionFeaturedProductsController < AdminController
   end
 
   def brand_solution_featured_product_params
-    params.require(:brand_solution_featured_product).permit!
+    params.require(:brand_solution_featured_product).permit(
+      "brand_id",
+      "solution_id",
+      "product_id",
+      "name",
+      "link",
+      "description",
+      "image_file_name")
   end
 end

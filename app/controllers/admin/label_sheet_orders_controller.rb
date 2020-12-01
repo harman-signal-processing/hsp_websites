@@ -96,6 +96,19 @@ class Admin::LabelSheetOrdersController < AdminController
   end
 
   def label_sheet_order_params
-    params.require(:label_sheet_order).permit!
+    params.require(:label_sheet_order).permit(
+      :user_id,
+      :label_sheets,
+      :mailed_on,
+      :name,
+      :email,
+      :address,
+      :city,
+      :state,
+      :postal_code,
+      :country,
+      :subscribe,
+      :secret_code
+    )
   end
 end

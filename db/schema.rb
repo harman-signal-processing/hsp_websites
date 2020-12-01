@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_10_193844) do
+ActiveRecord::Schema.define(version: 2020_11_19_215851) do
 
   create_table "access_levels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -214,31 +214,6 @@ ActiveRecord::Schema.define(version: 2020_11_10_193844) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "blog_articles", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
-    t.string "title"
-    t.integer "blog_id"
-    t.date "post_on"
-    t.integer "author_id"
-    t.text "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "cached_slug"
-    t.index ["author_id"], name: "index_blog_articles_on_author_id"
-    t.index ["blog_id"], name: "index_blog_articles_on_blog_id"
-    t.index ["cached_slug"], name: "index_blog_articles_on_cached_slug"
-  end
-
-  create_table "blogs", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
-    t.string "name"
-    t.integer "brand_id"
-    t.integer "default_article_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "cached_slug"
-    t.index ["brand_id"], name: "index_blogs_on_brand_id"
-    t.index ["cached_slug"], name: "index_blogs_on_cached_slug"
-  end
-
   create_table "brand_dealers", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.integer "brand_id"
     t.integer "dealer_id"
@@ -301,14 +276,6 @@ ActiveRecord::Schema.define(version: 2020_11_10_193844) do
     t.datetime "updated_at", null: false
     t.index ["brand_id"], name: "index_brand_specification_for_comparisons_on_brand_id"
     t.index ["specification_id"], name: "index_brand_specification_for_comparisons_on_specification_id"
-  end
-
-  create_table "brand_toolkit_contacts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.integer "brand_id"
-    t.integer "user_id"
-    t.integer "position"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "brands", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -664,12 +631,6 @@ ActiveRecord::Schema.define(version: 2020_11_10_193844) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "forem_categories", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
-    t.string "name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "friendly_id_slugs", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "slug"
     t.integer "sluggable_id"
@@ -808,102 +769,6 @@ ActiveRecord::Schema.define(version: 2020_11_10_193844) do
     t.text "description"
     t.index ["brand_id"], name: "index_market_segments_on_brand_id"
     t.index ["cached_slug"], name: "index_market_segments_on_cached_slug"
-  end
-
-  create_table "marketing_attachments", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.integer "marketing_project_id"
-    t.string "marketing_file_file_name"
-    t.integer "marketing_file_file_size"
-    t.string "marketing_file_content_type"
-    t.datetime "marketing_file_updated_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "marketing_task_id"
-    t.index ["marketing_project_id"], name: "index_marketing_attachments_on_marketing_project_id"
-    t.index ["marketing_task_id"], name: "index_marketing_attachments_on_marketing_task_id"
-  end
-
-  create_table "marketing_calendars", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "marketing_comments", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.integer "marketing_project_id"
-    t.integer "user_id"
-    t.text "message"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "marketing_task_id"
-    t.index ["marketing_project_id"], name: "index_marketing_comments_on_marketing_project_id"
-    t.index ["marketing_task_id"], name: "index_marketing_comments_on_marketing_task_id"
-  end
-
-  create_table "marketing_project_type_tasks", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.string "name"
-    t.integer "position"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "marketing_project_type_id"
-    t.integer "due_offset_number"
-    t.string "due_offset_unit"
-    t.text "creative_brief"
-    t.index ["marketing_project_type_id"], name: "index_marketing_project_type_tasks_on_marketing_project_type_id"
-  end
-
-  create_table "marketing_project_types", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.string "name"
-    t.boolean "major_effort"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "put_source_on_toolkit"
-    t.boolean "put_final_on_toolkit"
-  end
-
-  create_table "marketing_projects", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.string "name"
-    t.integer "brand_id"
-    t.integer "user_id"
-    t.integer "marketing_project_type_id"
-    t.date "event_start_on"
-    t.date "event_end_on"
-    t.string "targets"
-    t.string "targets_progress"
-    t.float "estimated_cost"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "put_source_on_toolkit"
-    t.boolean "put_final_on_toolkit"
-    t.date "due_on"
-    t.integer "marketing_calendar_id"
-    t.index ["brand_id"], name: "index_marketing_projects_on_brand_id"
-    t.index ["marketing_calendar_id"], name: "index_marketing_projects_on_marketing_calendar_id"
-    t.index ["marketing_project_type_id"], name: "index_marketing_projects_on_marketing_project_type_id"
-    t.index ["user_id"], name: "index_marketing_projects_on_user_id"
-  end
-
-  create_table "marketing_tasks", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.string "name"
-    t.integer "marketing_project_id"
-    t.integer "brand_id"
-    t.date "due_on"
-    t.integer "requestor_id"
-    t.integer "worker_id"
-    t.datetime "completed_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "position"
-    t.float "man_hours"
-    t.integer "currently_with_id"
-    t.integer "priority"
-    t.text "creative_brief"
-    t.integer "marketing_calendar_id"
-    t.index ["brand_id"], name: "index_marketing_tasks_on_brand_id"
-    t.index ["marketing_calendar_id"], name: "index_marketing_tasks_on_marketing_calendar_id"
-    t.index ["marketing_project_id"], name: "index_marketing_tasks_on_marketing_project_id"
-    t.index ["requestor_id"], name: "index_marketing_tasks_on_requestor_id"
-    t.index ["worker_id"], name: "index_marketing_tasks_on_worker_id"
   end
 
   create_table "news", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -2049,46 +1914,6 @@ ActiveRecord::Schema.define(version: 2020_11_10_193844) do
     t.index ["cached_slug"], name: "index_tone_library_songs_on_cached_slug"
   end
 
-  create_table "toolkit_resource_types", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.string "name"
-    t.integer "position"
-    t.string "related_model"
-    t.string "related_attribute"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "marketing_message"
-    t.string "cached_slug"
-    t.index ["cached_slug"], name: "index_toolkit_resource_types_on_cached_slug"
-  end
-
-  create_table "toolkit_resources", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.string "name"
-    t.integer "toolkit_resource_type_id"
-    t.integer "related_id"
-    t.string "tk_preview_file_name"
-    t.string "tk_preview_content_type"
-    t.integer "tk_preview_file_size"
-    t.datetime "tk_preview_updated_at"
-    t.string "download_path"
-    t.integer "download_file_size"
-    t.integer "brand_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "slug"
-    t.boolean "dealer", default: true
-    t.boolean "distributor", default: true
-    t.boolean "rep", default: true
-    t.boolean "rso", default: true
-    t.text "message"
-    t.date "expires_on"
-    t.boolean "media", default: true
-    t.boolean "link_good"
-    t.datetime "link_checked_at"
-    t.index ["brand_id"], name: "index_toolkit_resources_on_brand_id"
-    t.index ["related_id"], name: "index_toolkit_resources_on_related_id"
-    t.index ["slug"], name: "index_toolkit_resources_on_slug"
-  end
-
   create_table "training_class_registrations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "training_class_id"
     t.string "name"
@@ -2146,20 +1971,6 @@ ActiveRecord::Schema.define(version: 2020_11_10_193844) do
     t.integer "width"
     t.integer "height"
     t.index ["brand_id"], name: "index_training_modules_on_brand_id"
-  end
-
-  create_table "tweets", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
-    t.integer "brand_id"
-    t.string "tweet_id"
-    t.string "screen_name"
-    t.text "content"
-    t.string "profile_image_url"
-    t.datetime "posted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["brand_id"], name: "index_tweets_on_brand_id"
-    t.index ["tweet_id"], name: "index_tweets_on_tweet_id"
-    t.index ["tweet_id"], name: "tweet_id", unique: true
   end
 
   create_table "us_regions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|

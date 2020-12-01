@@ -63,6 +63,6 @@ class Admin::FeaturesController < AdminController
   end
 
   def feature_params
-    params.require(:feature).permit!
+    params.require(:feature).permit(:featurable_type, :featurable_id, :position, :layout_style, :content_position, :pre_content, :content, :image)
   end
 end

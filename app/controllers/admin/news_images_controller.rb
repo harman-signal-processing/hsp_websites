@@ -54,7 +54,11 @@ class Admin::NewsImagesController < AdminController
   end
 
   def news_image_params
-    params.require(:news_image).permit!
+    params.require(:news_image).permit(
+      :news_id,
+      :hide_from_page,
+      :image
+    )
   end
 
 end

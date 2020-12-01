@@ -88,6 +88,13 @@ class Admin::TrainingModulesController < AdminController
   end
 
   def training_module_params
-    params.require(:training_module).permit!
+    params.require(:training_module).permit(
+      :name,
+      :brand_id,
+      :training_module,
+      :description,
+      :width,
+      :height
+    )
   end
 end

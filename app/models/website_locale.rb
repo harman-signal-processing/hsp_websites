@@ -2,7 +2,6 @@ class WebsiteLocale < ApplicationRecord
   belongs_to :website, touch: true
   validates :website_id, presence: true
   validates :locale, presence: true
-#  after_save :restart_site
 
   # Probably not the best way to do this, but the routes.rb file uses these locales
   # to setup routes.
@@ -34,10 +33,4 @@ class WebsiteLocale < ApplicationRecord
     end
   end
 
-  # Restart the site if a new locale is activated
-  def restart_site
-    if self.complete? && self.saved_change_to_attribute?(:complete)
-      `touch #{Rails.root.join("tmp", "restart.txt")}`
-    end
-  end
 end

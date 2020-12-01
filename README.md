@@ -19,21 +19,6 @@ A nifty rails application used for hosting several websites for HARMAN Signal Pr
 * Site search using thinking_sphinx
 * Administrative interface for all of that stuff above.
 
-Secondary Sites
-===============
-
-In addition to the brand websites described above, some secondary sites are included...
-
-Job Queue
----------
-
-Integrated with the brand sites is a job queue. Market managers for the brands enter jobs which are assigned and worked-on by graphic designers, copy writers, webmaster, etc. 
-
-Marketing Toolkit
------------------
-
-Brands and their products can be setup to appear on the included Marketing Toolkit which provides key high-res assets to distributors and other media personnel.
-
 User Access
 ===========
 

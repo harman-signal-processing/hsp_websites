@@ -39,7 +39,7 @@ class Admin::UsRepRegionsController < AdminController
   # POST /admin/us_rep_regions.xml
   def create
     begin
-      us_region = UsRegion.new(params.require(:us_region).permit!)
+      us_region = UsRegion.new(params.require(:us_region).permit(:name))
       if us_region.save
         @us_rep_region.us_region = us_region
       end
@@ -94,6 +94,6 @@ class Admin::UsRepRegionsController < AdminController
   end
 
   def us_rep_region_params
-    params.require(:us_rep_region).permit!
+    params.require(:us_rep_region).permit(:us_rep_id, :us_region_id, :brand_id, us_region: [:name])
   end
 end

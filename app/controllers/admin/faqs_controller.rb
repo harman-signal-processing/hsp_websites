@@ -87,6 +87,6 @@ class Admin::FaqsController < AdminController
   end
 
   def faq_params
-    params.require(:faq).permit!
+    params.require(:faq).permit(:question, :answer, :product_id, :hidden, faq_category_ids: [])
   end
 end

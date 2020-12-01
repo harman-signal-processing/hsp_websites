@@ -83,6 +83,6 @@ class Admin::UsRegionsController < AdminController
   end
 
   def us_region_params
-    params.require(:us_region).permit!
+    params.require(:us_region).permit(:name)
   end
 end

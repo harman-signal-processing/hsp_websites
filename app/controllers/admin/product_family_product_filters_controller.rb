@@ -93,7 +93,7 @@ class Admin::ProductFamilyProductFiltersController < AdminController
   end
 
   def product_family_product_filter_params
-    params.require(:product_family_product_filter).permit!
+    params.require(:product_family_product_filter).permit(:product_family_id, :product_filter_id, :position)
   end
 end
 

@@ -401,14 +401,27 @@ private
     utm_medium = params[:utm_medium]
     utm_source = params[:utm_source]
     utm_content = params[:utm_content]
-    
+
     cookies[:utm_campaign] = {  value: utm_campaign } if !utm_campaign.nil?
     cookies[:utm_medium] = {  value: utm_medium } if !utm_medium.nil?
     cookies[:utm_source] = {  value: utm_source } if !utm_source.nil?
     cookies[:utm_content] = {  value: utm_content } if !utm_content.nil?
   end  #  def hold_on_to_utm_params
 
-end  #  class ApplicationController < ActionController::Base
+  def authorize_query!(query)
+    if query.to_s.match(/union\s{1,}select/i) ||
+       query.to_s.match(/(and|\&*)\s{1,}sleep/i) ||
+       query.to_s.match(/order\s{1,}by/i) ||
+       query.to_s.match(/query-1|1\=1/)
+      raise ActionController::UnpermittedParameters.new ["query not allowed"]
+    end
+  end
+
+  rescue_from ActionController::UnpermittedParameters do |error|
+    render plain: error, status: 401
+  end
+
+end
 
 class ::Hash
   def deep_merge(second)

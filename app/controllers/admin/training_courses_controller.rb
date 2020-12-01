@@ -86,6 +86,14 @@ class Admin::TrainingCoursesController < AdminController
   end
 
   def training_course_params
-    params.require(:training_course).permit!
+    params.require(:training_course).permit(
+      :name,
+      :brand_id,
+      :description,
+      :send_registrations_to,
+      :image,
+      :short_description,
+      :more_info_url
+    )
   end
 end

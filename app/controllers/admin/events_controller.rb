@@ -97,6 +97,6 @@ class Admin::EventsController < AdminController
   end
 
   def event_params
-    params.require(:event).permit!
+    params.require(:event).permit(:name, :description, :page_content, :start_on, :end_on, :image, :active, :more_info_link, :new_window, :brand_id)
   end
 end

@@ -181,6 +181,18 @@ class Admin::SettingsController < AdminController
   end
 
   def setting_params
-    params.require(:setting).permit!
+    params.require(:setting).permit(
+      :name,
+      :setting_type,
+      :string_value,
+      :integer_value,
+      :text_value,
+      :slide,
+      :locale,
+      :brand_id,
+      :start_on,
+      :remove_on,
+      :description
+    )
   end
 end

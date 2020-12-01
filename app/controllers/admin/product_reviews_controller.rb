@@ -82,6 +82,12 @@ class Admin::ProductReviewsController < AdminController
   end
 
   def product_review_params
-    params.require(:product_review).permit!
+    params.require(:product_review).permit(
+      :title,
+      :external_link,
+      :body,
+      :review,
+      :cover_image
+    )
   end
 end

@@ -8,17 +8,20 @@ class Admin::ContentTranslationsController < AdminController
 
   def list
     @model_class = params[:type].classify
-    @new_instance = @model_class.constantize.new
+    klass = ContentTranslation.translatable_classes.find do |ct|
+      ct.to_s == @model_class
+    end
+    @new_instance = klass.new
     if @model_class == "ProductReview"
       @records = ProductReview.where("body IS NOT NULL")
     elsif @new_instance.respond_to?(:brand_id)
-      @records = @model_class.constantize.where(brand_id: website.brand_id)
+      @records = klass.where(brand_id: website.brand_id)
     elsif @new_instance.respond_to?(:product_id)
-      @records = @model_class.constantize.where(product_id: website.brand.products.collect{|p| p.id})
+      @records = klass.where(product_id: website.brand.products.collect{|p| p.id})
     elsif @new_instance.respond_to?(:featurable)
-      @records = @model_class.constantize.all.select{|r| r if r.featurable.present? && r.featurable.respond_to?(:brand_id) && r.featurable.brand_id == website.brand_id}
+      @records = klass.all.select{|r| r if r.featurable.present? && r.featurable.respond_to?(:brand_id) && r.featurable.brand_id == website.brand_id}
     else
-      @records = @model_class.constantize.all
+      @records = klass.all
     end
     if @new_instance.has_attribute?(:name)
       @records = @records.order('name')
@@ -30,12 +33,15 @@ class Admin::ContentTranslationsController < AdminController
   def combined
     @model_class = params[:type].classify
     @content_translations = []
+    klass = ContentTranslation.translatable_classes.find do |ct|
+      ct.to_s == @model_class
+    end
 
     if params[:product_id]
       @product = Product.where(id: params[:product_id]).first
-      @new_record = @model_class.constantize.new
+      @new_record = klass.new
 
-      @model_class.constantize.where(product_id: params[:product_id]).each do |record|
+      klass.where(product_id: params[:product_id]).each do |record|
         ContentTranslation.fields_to_translate_for(@new_record, website.brand).each do |field_name|
           content_translation = ContentTranslation.where(
             content_type: @model_class,
@@ -46,7 +52,7 @@ class Admin::ContentTranslationsController < AdminController
         end
       end
     else
-      @record = @model_class.constantize.find_by_id(params[:id])
+      @record = klass.find_by_id(params[:id])
       ContentTranslation.fields_to_translate_for(@record, website.brand).each do |field_name|
         content_translation = ContentTranslation.where(
           content_type: @model_class,

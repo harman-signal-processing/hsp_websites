@@ -93,7 +93,21 @@ class Admin::SignupsController < AdminController
   end
 
   def signup_params
-    params.require(:signup).permit!
+    params.require(:signup).permit(
+      :name,
+      :email,
+      :campaign,
+      :brand_id,
+      :synced_on,
+      :first_name,
+      :last_name,
+      :company,
+      :address,
+      :city,
+      :state,
+      :zip,
+      :country
+    )
   end
 
   def render_signups
