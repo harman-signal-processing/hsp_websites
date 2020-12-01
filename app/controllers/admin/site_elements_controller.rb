@@ -37,6 +37,10 @@ class Admin::SiteElementsController < AdminController
   # GET /site_elements/new.xml
   def new
     @site_element.show_on_public_site = true
+    if params[:products].present?
+      @site_element.products = params[:products].split(',').map{|k| Product.find(k)}
+      @site_element.is_document = true
+    end
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render xml: @site_element }
