@@ -111,6 +111,6 @@ class Admin::NewsProductsController < AdminController
   end
 
   def news_product_params
-    params.require(:news_product).permit(:product_id, :news_id)
+    params.require(:news_product).permit(:product_id, :news_id, product_id: [])
   end
 end

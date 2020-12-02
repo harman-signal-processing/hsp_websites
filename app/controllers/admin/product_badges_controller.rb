@@ -112,6 +112,6 @@ class Admin::ProductBadgesController < AdminController
   end
 
   def product_badge_params
-    params.require(:product_badge).permit(:badge_id, :product_id)
+    params.require(:product_badge).permit(:badge_id, :product_id, product_id: [], badge_id: [])
   end
 end

@@ -162,6 +162,8 @@ class Admin::ProductSpecificationsController < AdminController
 
   def sanitized_product_params
     params.require(:product).permit(
+      product_id: [],
+      specification_id: [],
       product_specifications_attributes: {}
     )
   end

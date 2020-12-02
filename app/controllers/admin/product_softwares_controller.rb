@@ -130,6 +130,6 @@ class Admin::ProductSoftwaresController < AdminController
   end
 
   def product_software_params
-    params.require(:product_software).permit(:software_id, :product_id, :product_position, :software_position)
+    params.require(:product_software).permit(:software_id, :product_id, :product_position, :software_position, product_id: [], software_id: [])
   end
 end

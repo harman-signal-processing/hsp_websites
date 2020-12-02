@@ -2,7 +2,7 @@ class Admin::ProductSuggestionsController < ApplicationController
   before_action :initialize_product_suggestion, only: :create
   load_and_authorize_resource except: [:update_order]
   skip_authorization_check only: [:update_order]
-  
+
   # GET /admin/product_suggestions
   # GET /admin/product_suggestions.xml
   def index
@@ -86,6 +86,6 @@ class Admin::ProductSuggestionsController < ApplicationController
   end
 
   def product_suggestion_params
-    params.require(:product_suggestion).permit(:product_id, :suggested_product_id, :position)
+    params.require(:product_suggestion).permit(:product_id, :suggested_product_id, :position, product_id: [], suggested_product_id: [])
   end
 end

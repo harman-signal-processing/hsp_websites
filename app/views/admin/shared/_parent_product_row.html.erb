@@ -1,4 +1,5 @@
 <% called_from ||= 'product' %>
+<% if pp.parent_product.is_a?(Product) && pp.product.is_a?(Product) %>
 <li id="parent_product_<%= pp.id %>">
 	<span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
 	<%= (called_from == 'product') ? 
@@ -10,3 +11,4 @@
 			remote: true,
 			method: :delete) %>
 </li>
+<% end %>

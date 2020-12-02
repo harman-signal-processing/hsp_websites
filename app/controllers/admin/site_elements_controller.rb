@@ -160,7 +160,9 @@ class Admin::SiteElementsController < AdminController
       :access_level_id,
       :content,
       :source,
-      product_ids: []
+      product_ids: [],
+      product_id: [],
+      resource_type: []
     )
   end
 end

@@ -264,7 +264,8 @@ class Admin::ProductsController < AdminController
       :firmware_name,
       product_prices_attributes: {},
       product_specifications_attributes: {},
-      product_product_filter_values_attributes: {}
+      product_product_filter_values_attributes: {},
+      suggested_product_id: []
     )
   end
 end

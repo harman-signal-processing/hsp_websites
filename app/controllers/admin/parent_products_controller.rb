@@ -123,6 +123,6 @@ class Admin::ParentProductsController < AdminController
   end
 
   def parent_product_params
-    params.require(:parent_product).permit(:parent_product_id, :product_id, :position)
+    params.require(:parent_product).permit(:parent_product_id, :product_id, :position, parent_product_id: [], product_id: [])
   end
 end

@@ -1,4 +1,5 @@
 <% called_from ||= 'product' %>
+<% if ps.suggested_product.is_a?(Product) && ps.product.is_a?(Product) %>
 <li id="product_suggestion_<%= ps.id %>">
 	<span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
 	<%= (called_from == 'product') ? 
@@ -11,3 +12,4 @@
 			remote: true,
 			method: :delete) %>
 </li>
+<% end %>

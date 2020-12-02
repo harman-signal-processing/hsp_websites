@@ -134,6 +134,6 @@ class Admin::ProductFamilyProductsController < AdminController
   end
 
   def product_family_product_params
-    params.require(:product_family_product).permit(:product_id, :product_family_id, :position)
+    params.require(:product_family_product).permit(:product_id, :product_family_id, :position, product_family_id: [], product_id: [])
   end
 end
