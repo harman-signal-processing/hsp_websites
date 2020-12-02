@@ -120,6 +120,6 @@ class Admin::ProductSiteElementsController < AdminController
   end
 
   def product_site_element_params
-    params.require(:product_site_element).permit(:site_element_id, :product_id, :position)
+    params.require(:product_site_element).permit(:site_element_id, :product_id, :position, product_id: [])
   end
 end
