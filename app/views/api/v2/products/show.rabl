@@ -34,8 +34,8 @@ end
 child (@product.product_documents.includes(:product) + @product.viewable_site_elements.select{|d| d if current_ability.can?(:read, d)}) => :documents do
   node(:name) { |d| (d.is_a?(SiteElement)) ? d.name : d.name(hide_product_name: true) }
   node(:url) do |d|
-    url = (d.is_a?(SiteElement)) ? d.url : d.document.url
-    url = "#{request.protocol}#{request.host}#{url}" if S3_STORAGE[:storage] == :filesystem
+    url = d.url
+    url = "#{request.protocol}#{request.host}#{url}"
     url
   end
   node(:type) do |d|
@@ -59,8 +59,8 @@ child (@product.active_softwares + @product.executable_site_elements.select{|d| 
   node(:name) { |d| (d.is_a?(SiteElement)) ? d.name : d.formatted_name }
   node(:url) do |d|
     if d.is_a?(SiteElement)
-      url = d.executable.url
-      url = "#{request.protocol}#{request.host}#{url}" if S3_STORAGE[:storage] == :filesystem
+      url = d.url
+      url = "#{request.protocol}#{request.host}#{url}"
       url
     else
       if d.link.present?
