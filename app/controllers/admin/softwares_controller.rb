@@ -145,6 +145,7 @@ class Admin::SoftwaresController < AdminController
       :alert,
       :show_alert,
       :side_content,
+      :replaces_id,
       product_ids: []
     )
   end
