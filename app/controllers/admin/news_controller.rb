@@ -102,7 +102,8 @@ class Admin::NewsController < AdminController
       :quote,
       :video_ids,
       :old_id,
-      :old_url
+      :old_url,
+      brand_ids: []
     )
   end
 end
