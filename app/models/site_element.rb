@@ -146,11 +146,7 @@ class SiteElement < ApplicationRecord
   end
 
   def url
-    if external_url.present?
-      external_url
-    elsif resource_file_name.present?
-      "/#{I18n.locale.to_s}/site_elements/#{self.to_param}"
-    elsif executable_file_name.present?
+    if external_url.present? | resource_file_name.present? | executable_file_name.present?
       "/#{I18n.locale.to_s}/site_elements/#{self.to_param}"
     elsif content.present?
       "/resource/#{self.to_param}.html"
