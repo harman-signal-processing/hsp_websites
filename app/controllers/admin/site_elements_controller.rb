@@ -78,7 +78,7 @@ class Admin::SiteElementsController < AdminController
             old_element.update(version: "A")
           end
           if @site_element.versions_to_delete.present?
-            SiteElement.find(@site_element.versions_to_delete).destroy_all
+            SiteElement.where(id: @site_element.versions_to_delete).destroy_all
           end
         end
         format.html {
