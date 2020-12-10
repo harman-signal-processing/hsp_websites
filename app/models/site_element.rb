@@ -21,6 +21,7 @@ class SiteElement < ApplicationRecord
   do_not_validate_attachment_file_type :executable
 
   attr_accessor :replaces_element
+  attr_accessor :versions_to_delete
 
   validates :brand, :name, presence: true
   validates :resource_type, presence: true, if: :show_on_public_site?

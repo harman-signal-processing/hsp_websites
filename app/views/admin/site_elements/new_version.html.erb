@@ -15,6 +15,22 @@ etc. will all be the same as the resource you're replacing.</p>
       <%= f.input :version, hint: "The one you're replacing is version #{@old_element.version}" %>
     </div>
   </div>
+  <fieldset>
+    <legend>Previous Versions</legend>
+    <p>After successfully uploading the new file, the selected previous
+    versions below will be <strong>deleted</strong>. Un-check those you
+    wish to keep archived.</p>
+
+    <% @old_element.all_versions.each do |v| %>
+      <div>
+        <input type="checkbox" name="site_element[versions_to_delete][]" value="<%= v.id %>" id="item_<%= v.id %>">
+        <label for="item_<%= v.id %>"><%= v.long_name %></label>
+        <%= link_to v.url, target: "_blank" do %>
+          <%= fa_icon "external-link" %>
+        <% end %>
+      </div>
+    <% end %>
+  </fieldset>
 
   <br/><%= f.button :submit %>
 

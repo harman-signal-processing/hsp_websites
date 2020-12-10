@@ -102,7 +102,8 @@ class Admin::DistributorsController < AdminController
       :detail,
       :country,
       :email,
-      :account_number
+      :account_number,
+      brand_ids: []
     )
   end
 end

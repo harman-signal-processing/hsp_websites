@@ -1,5 +1,4 @@
 <p>&nbsp;</p>
-<p>&nbsp;</p>
 <h3 class="text-center"><%= @old_element.name %></h3>
 <p>&nbsp;</p>
 <div class="row">
@@ -38,10 +37,28 @@
       <%= f.input :replaces_element, as: :hidden %>
       <div class="row">
         <div class="small-8 medium-6 column">
-          <%= f.input :version, label: "New Version", hint: "The one you're replacing is version \"#{@old_element.version}\"" %>
+          <%= f.input :version,
+            label: "New Version",
+            hint: @old_element.version.present? ? "The one you're replacing is version \"#{@old_element.version}\"" : "The one you're replacing has no version number" %>
         </div>
       </div>
-      <%= f.submit 'Save File', class: "small button" %>
+      <fieldset>
+        <legend>Previous Versions</legend>
+        <p>After successfully uploading the new file, the selected previous
+        versions below will be <strong>deleted</strong>. Un-check those you
+        wish to keep archived.</p>
+
+        <% @old_element.all_versions.each do |v| %>
+          <div>
+            <input type="checkbox" name="site_element[versions_to_delete][]" value="<%= v.id %>" id="item_<%= v.id %>">
+            <label for="item_<%= v.id %>"><%= v.long_name %></label>
+            <%= link_to v.url, target: "_blank" do %>
+              <%= fa_icon "external-link" %>
+            <% end %>
+          </div>
+        <% end %>
+      </fieldset>
+      <%= f.submit 'Save New Version', class: "small button" %>
     <% end %>
   </div>
 </div>

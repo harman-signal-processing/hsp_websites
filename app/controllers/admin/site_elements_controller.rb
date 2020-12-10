@@ -77,6 +77,9 @@ class Admin::SiteElementsController < AdminController
           if old_element.version.blank?
             old_element.update(version: "A")
           end
+          if @site_element.versions_to_delete.present?
+            SiteElement.find(@site_element.versions_to_delete).destroy_all
+          end
         end
         format.html {
           if params[:return_to]
@@ -163,6 +166,7 @@ class Admin::SiteElementsController < AdminController
       :replaces_element,
       product_ids: [],
       product_id: [],
+      versions_to_delete: [],
       resource_type: []
     )
   end
