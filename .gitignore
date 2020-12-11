@@ -13,6 +13,7 @@ bin/spring
 notes/
 log/
 db/*.csv
+config/*key.json
 
 config/database.yml
 config/s3.yml
