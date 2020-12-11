@@ -24,7 +24,7 @@ set :deploy_to, "/var/www/#{fetch(:application)}"
 # set :pty, true
 
 # Default value for :linked_files is []
-set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/application.yml', 'config/s3.yml')
+set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/application.yml', 'config/s3.yml', 'config/analytics-api-service-project-key.json')
 
 # Default value for linked_dirs is []
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'tmp/redirects', 'vendor/bundle', 'public/system')
