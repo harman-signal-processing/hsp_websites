@@ -516,7 +516,7 @@ input.AccountExplorerSearch-field {
     }
 
     .Site-main {
-        border-top: .4em solid #f7991c;
+        border-top: .4em solid rgba(0,57,71,0.89);
         box-shadow: 0 0 1em rgba(0, 0, 0, .3);
         -webkit-box-flex: 1;
         -webkit-flex: 1;
