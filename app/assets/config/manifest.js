@@ -30,6 +30,7 @@
 //= link dod.css
 //= link dod_teaser.css
 //= link duran.css
+//= link harman_stats.css
 //= link introducing_epedal.css
 //= link introducing_stompbox.css
 //= link istomp.css
@@ -38,4 +39,5 @@
 //= link lexicon.css
 //= link martin.css
 //= link soundcraft.css
+//= link stats.css
 //= link studer.css

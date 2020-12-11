@@ -71,6 +71,7 @@ class Ability
         can :manage, SupportSubject
         can :manage, News
         can :read, ContactMessage
+        can :read, Stats
       end
       if user.role?(:sales_admin)
         can :read, Product
