@@ -1,0 +1,101 @@
+
+.capitalize
+{
+    text-transform:capitalize;
+}
+
+.breadcrumb li {
+    display: inline;
+}
+.breadcrumb li+li:before {
+    content:"» ";
+}
+
+.chart-caption
+{
+    position: relative;
+    top: -130px;
+    margin: 0 auto;
+    width: 100%;
+    height: auto;
+    border: 0px solid red;
+    font-size: 40px;
+    text-align:center;
+}
+
+.chart-legend
+{
+    list-style: none;
+    margin: 0;
+    padding: 1em 0 0;
+    text-align: center;
+    margin-top: -80px;
+}
+
+#loadingMessage
+{
+    display:block;
+    text-align:center;
+    position: fixed;
+    left: 42%;
+    top: 14%;
+    opacity: .6;
+}
+
+#sortingChartsMessage
+{
+    display:none;
+    text-align:center;
+    position: fixed;
+    left: 47%;
+    top: 10%;
+    opacity: .6;
+}
+
+#sortingChartsMessage img
+{
+    margin-top:10px;
+}
+
+.pass {
+    color: forestgreen;
+}
+
+.fail {
+    color: firebrick;
+}
+
+.highlight {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#waitMessage {
+    width: 100%;
+    border: 0px solid red;
+    margin: 0 auto;
+    font-size: 24px;
+    text-align: center;
+    color: rgb(51,51,51);
+}
+
+    #waitMessage img {
+        margin-top: 20px;
+    }
+
+#waitMessageSiteName {
+    font-size: 13px;
+    color: rgba(128, 128, 128, 0.46);
+}
+
+#lastYearDateRange, #thisYearDateRange {
+    float: left;
+    text-align: center;
+    width: 220px;
+    color: rgba(128, 128, 128, 0.46);
+    font-size: 14px;
+}
+
+    #lastYearDateRange span, #thisYearDateRange span {
+        text-decoration: underline;
+    }

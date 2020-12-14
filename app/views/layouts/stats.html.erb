@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Google Stats</title>
+    <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:600,400,300' rel='stylesheet'>
+    <%= stylesheet_link_tag 'stats', 'harman_stats' %>
+    <%#= javascript_include_tag 'stats' %>
+    <script>
+        (function (w, d, s, g, js, fs)
+        {
+            g = w.gapi || (w.gapi = {}); g.analytics = { q: [], ready: function (f) { this.q.push(f); } };
+            js = d.createElement(s); fs = d.getElementsByTagName(s)[0];
+            js.src = 'https://apis.google.com/js/platform.js';
+            fs.parentNode.insertBefore(js, fs); js.onload = function () { g.load('analytics'); };
+        }(window, document, 'script'));
+        
+        gapi.analytics.ready(function ()
+        {
+        
+            document.body.classList.add('is-authorizing');
+        
+            function setAuthorizedState()
+            {
+                document.body.classList.remove('is-needingAuthorization');
+                document.body.classList.remove('is-authorizing');
+                document.body.classList.add('is-authorized');
+                gapi.analytics.auth.off('error', setNeedsAuthorizingState);
+            }
+        
+            function setNeedsAuthorizingState()
+            {
+                document.body.classList.add('is-needingAuthorization');
+            }
+        
+            gapi.analytics.auth.on('success', setAuthorizedState);
+            gapi.analytics.auth.once('error', setNeedsAuthorizingState);
+        
+            /* The current time is <%=Time.now.in_time_zone %>. Using Time.now to prevent caching.*/
+        
+            /**
+        	 * Authorize the user with an access token obtained server side. Using StatsServiceV4.get_access_token
+        	 */
+            gapi.analytics.auth.authorize({
+                'serverAuth': {
+                    'access_token': '<%= StatsServiceV4.get_access_token %>'
+                }
+            });  //  gapi.analytics.auth.authorize
+        
+        });  //  gapi.analytics.ready(function ()
+        
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments);
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m);
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        
+        ga('create', 'UA-67830626-2', 'auto');
+        ga('send', 'pageview');        
+    </script>
+    <script src="/javascript/harman/HarmanBrandGASiteInfo.js"></script>
+  </head>
+
+  <body class="Site ">
+    <main class="Site-main">
+      <div class="Content">
+        <%= yield :breadcrumb %>
+        <%= yield %>
+      </div><!-- <div class="Content"> -->
+    </main>
+    
+    
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+	<!-- This demo uses the Chart.js graphing library and Moment.js to do date
+		 formatting and manipulation. -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+
+	<!-- Include the ViewSelector2 component script. -->
+	<script src="/javascript/embed-api/components/view-selector2.js"></script>
+
+	<!-- Include the DateRangeSelector component script. -->
+	<!--<script src="/javascript/embed-api/components/date-range-selector.js"></script>-->
+
+	<!-- Include the ActiveUsers component script. -->
+	<!--<script src="/javascript/embed-api/components/active-users.js"></script>-->
+
+	<!--<script src="/javascript/common.js"></script>-->
+
+	<!--<script src="/javascript/embed-api.js"></script> -->
+	
+	<%= yield :page_specific_js %>
+	
+  </body>
+</html>

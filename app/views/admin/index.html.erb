@@ -540,6 +540,15 @@
           </li>
         <% end %>
 
+        <% if can?(:read, Stats) %>
+          <li>
+            <div class="group">
+              <h5><%= website.brand.name %> Google Analytics Stats</h5>
+              <%= link_to(image_tag("https://pro.harman.com/resource-library/1692", lazy: false, style: 'height:80%;width:auto;'), admin_stats_page_path(:site => website.brand.name.downcase), target: "_blank") %>
+            </div>
+          </li>
+        <% end %>
+
       </ul>
 
       <%# end  # cache%>
