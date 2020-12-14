@@ -749,6 +749,10 @@ class Product < ApplicationRecord
     product_product_filter_values.where(product_filter: product_filter).first_or_initialize.value
   end
 
+  def digital_ecom?
+    product_type.present? && product_type.digital_ecom?
+  end
+
   def available_product_keys
     product_keys.where(sales_order_id: [nil, ""])
   end

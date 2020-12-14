@@ -22,6 +22,7 @@ RSpec.describe Product, :type => :model do
   it { should respond_to(:product_keys) }
   it { should respond_to(:available_product_keys) }
   it { should respond_to(:sold_product_keys) }
+  it { should respond_to(:digital_ecom?) }
 
   describe "Product type" do
     it "should default to 'Standard'" do

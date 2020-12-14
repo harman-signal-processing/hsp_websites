@@ -54,6 +54,20 @@ feature "Admin sets up a product for digital download ecommerce" do
     expect(page.current_path).to eq(admin_product_product_keys_path(product, locale: "en-US"))
   end
 
-  it "should load serial numbers from product page"
+  it "should load serial numbers from product page" do
+    product = @brand.products.first
+    product.update(product_type: ProductType.digital_ecom)
+
+    visit product_path(product, locale: "en-US")
+
+    expect(page).to have_link("Available digital inventory: 0") # click is handled by js
+
+    fill_in :new_keys, with: "1234\r\n5678\r\n91011"
+    click_on "Add inventory"
+
+    expect(product.available_product_keys.length).to eq(3)
+    expect(page.current_path).to eq(product_path(product, locale: "en-US"))
+    expect(page).to have_text("Available digital inventory: 3")
+  end
 end
 

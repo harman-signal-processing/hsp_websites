@@ -14,7 +14,12 @@ class Admin::ProductKeysController < AdminController
         }
       end
       if ProductKey.create!( new_key_data )
-        redirect_to admin_product_product_keys_path(@product), notice: "The new product keys were added."
+        if params[:return_to]
+          return_to = URI.parse(params[:return_to]).path
+          redirect_to(return_to, notice: "Product keys were successfully added to inventory.")
+        else
+          redirect_to admin_product_product_keys_path(@product), notice: "The new product keys were added."
+        end
       else
         redirect_to action: :index, alert: "There was a problem with the keys."
       end

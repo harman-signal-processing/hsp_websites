@@ -1,0 +1,21 @@
+<div id="edit-product-keys" class="popup-form">
+  <div class="row">
+    <div class="small-8 columns">
+      <h5>Digital Inventory</h5>
+    </div>
+    <div class="small-4 columns text-right">
+      <%= link_to @product, class: "cancel-edit" do %>
+        <%= fa_icon "close" %>
+      <% end %>
+    </div>
+  </div>
+
+  <%= form_with url: admin_product_product_keys_path(@product), method: :post do |f| %>
+    <input type="hidden" name="return_to" value="<%= product_path(@product) %>">
+    <%= f.label :new_keys, "Paste new product keys below (one per line)" %>
+    <%= f.text_area :new_keys, rows: 20 %>
+    <%= f.submit "Add inventory", class: "medium button" %>
+  <% end %>
+</div>
+
+

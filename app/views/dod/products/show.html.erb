@@ -206,6 +206,15 @@ set_meta_tags title: @product.name,
             <div class="large-6 small-6 columns text-right buy-it-now-button-container">
               <%= buy_it_now_link(@product, html_button: true, reveal_id: "buy-it-now-popup") %>
             </div>
+            <% if @product.digital_ecom? && can?(:manage, ProductKey) %>
+              <div class="small-12 columns text-right">
+                <%= link_to admin_product_product_keys_path(@product), class: "edit-link", data: { opener: "edit-product-keys" } do %>
+                  <%= fa_icon "wrench" %>
+                  Available digital inventory: <%= @product.available_product_keys.length %>
+                <% end %>
+              </div>
+              <%= render_partial "edit_product_keys" %>
+            <% end %>
           </div>
 
           <% if website.has_customer_reviews? && @product.has_customer_reviews? %>
