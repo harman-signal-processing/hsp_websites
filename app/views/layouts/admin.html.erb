@@ -62,6 +62,7 @@
 
                   <% if can?(:manage, Product) ||
                       can?(:manage, ProductFamily) ||
+                      can?(:manage, ProductKey) ||
                       can?(:manage, Testimonial) ||
                       can?(:manage, Solution) ||
                       can?(:manage, SpecificationGroup) ||
@@ -82,6 +83,9 @@
                       <% end %>
                       <% if can?(:manage, Product) %>
                         <li><%= link_to "Products", admin_products_path %></li>
+                      <% end %>
+                      <% if can?(:manage, ProductKey) %>
+                        <li><%= link_to "Digital Inventory", digital_inventory_admin_products_path %></li>
                       <% end %>
                       <% if can?(:manage, SpecificationGroup) || can?(:manage, Specification) %>
                         <li><%= link_to "Specifications", admin_specifications_path %></li>

@@ -4,6 +4,7 @@ class Product < ApplicationRecord
 
   attr_accessor :old_id
   has_one :product_introduction
+  belongs_to :product_type
   has_many :product_family_products, dependent: :destroy
   has_many :product_families, through: :product_family_products
   has_many :market_segment_product_families, through: :product_families
@@ -62,16 +63,12 @@ class Product < ApplicationRecord
   has_many :sub_products, -> { order('position') }, class_name: "ParentProduct", foreign_key: "parent_product_id"
   has_many :product_product_filter_values
   has_many :product_filters, through: :product_product_filter_values
-  after_initialize :set_default_status
+  has_many :content_translations, as: :translatable, foreign_key: "content_id", foreign_type: "content_type"
+  has_many :product_keys
+
   accepts_nested_attributes_for :product_prices, reject_if: proc { |pp| pp['price'].blank? }
   accepts_nested_attributes_for :product_specifications, reject_if: proc { |ps| ps['value'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :product_product_filter_values, reject_if: :reject_filter_value?
-
-  def reject_filter_value?(ppfv)
-    (ppfv['string_value'].blank? && ppfv['boolean_value'].blank? && ppfv['number_value'].blank?)
-  end
-
-  has_many :content_translations, as: :translatable, foreign_key: "content_id", foreign_type: "content_type"
 
   monetize :harman_employee_price_cents, :allow_nil => true
   monetize :msrp_cents, :allow_nil => true
@@ -82,6 +79,7 @@ class Product < ApplicationRecord
 
   before_save :set_employee_price
   after_save :touch_families
+  after_initialize :set_defaults
 
   serialize :previewers, Array
   has_attached_file :background_image
@@ -121,6 +119,10 @@ class Product < ApplicationRecord
     website.products.where.not(id: badge.products.pluck(:id))
   }
 
+  def reject_filter_value?(ppfv)
+    (ppfv['string_value'].blank? && ppfv['boolean_value'].blank? && ppfv['number_value'].blank?)
+  end
+
   def slug_candidates
     [
       :formatted_name,
@@ -150,6 +152,11 @@ class Product < ApplicationRecord
 
   def touch_families
     product_families.each{|pf| pf.touch}
+  end
+
+  def set_defaults
+    self.product_status_id ||= 3 #ProductStatus.where("name LIKE '%%production%%'").first
+    self.product_type ||= ProductType.default
   end
 
   def set_employee_price
@@ -230,10 +237,6 @@ class Product < ApplicationRecord
     product_attachments.select do |pa|
       pa if pa.send("for_#{destination}?")
     end
-  end
-
-  def set_default_status
-    self.product_status_id ||= 3 #ProductStatus.where("name LIKE '%%production%%'").first
   end
 
   def self.non_discontinued(website)
@@ -744,6 +747,14 @@ class Product < ApplicationRecord
 
   def filter_value(product_filter)
     product_product_filter_values.where(product_filter: product_filter).first_or_initialize.value
+  end
+
+  def available_product_keys
+    product_keys.where(sales_order_id: [nil, ""])
+  end
+
+  def sold_product_keys
+    product_keys.where.not(sales_order_id: [nil, ""])
   end
 
   def user_guides

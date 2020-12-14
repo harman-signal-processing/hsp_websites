@@ -18,6 +18,18 @@ RSpec.describe Product, :type => :model do
   it { should respond_to(:product_families) }
   it { should respond_to(:product_videos) }
   it { should respond_to(:badges) }
+  it { should respond_to(:product_type) }
+  it { should respond_to(:product_keys) }
+  it { should respond_to(:available_product_keys) }
+  it { should respond_to(:sold_product_keys) }
+
+  describe "Product type" do
+    it "should default to 'Standard'" do
+      standard = FactoryBot.create(:standard_product_type)
+      product = FactoryBot.build_stubbed(:product)
+      expect(product.product_type.name).to eq(standard.name)
+    end
+  end
 
   describe "SKU validation" do
     it "should allow blank SKUs" do

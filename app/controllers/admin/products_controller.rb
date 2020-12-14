@@ -209,6 +209,10 @@ class Admin::ProductsController < AdminController
     redirect_to(admin_solutions_path, notice: "Product groups were updated successfully.")
   end
 
+  def digital_inventory
+    @products = website.products.where(product_type: ProductType.digital_ecom)
+  end
+
   private
 
   def initialize_product
@@ -262,6 +266,7 @@ class Admin::ProductsController < AdminController
       :meta_description,
       :hide_contact_buttons,
       :firmware_name,
+      :product_type_id,
       product_prices_attributes: {},
       product_specifications_attributes: {},
       product_product_filter_values_attributes: {},

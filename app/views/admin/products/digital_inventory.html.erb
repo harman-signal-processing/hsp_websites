@@ -1,0 +1,24 @@
+<h1>Product Keys Digital Inventory</h1>
+
+<p>Products below are enabled for digital ecommerce. Click
+on a product to manage its inventory. If a product is missing,
+edit the product and set the "Product Type" to <%= ProductType.digital_ecom.name %>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <td>Product</td>
+      <td>Available Inventory</td>
+      <td>Sold Inventory</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= link_to product.name, admin_product_product_keys_path(product) %></td>
+        <td><%= product.available_product_keys.length %></td>
+        <td><%= product.sold_product_keys.length %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_19_215851) do
+ActiveRecord::Schema.define(version: 2020_12_11_151850) do
 
   create_table "access_levels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -1151,6 +1151,19 @@ ActiveRecord::Schema.define(version: 2020_11_19_215851) do
     t.index ["product_id"], name: "index_product_introductions_on_product_id"
   end
 
+  create_table "product_keys", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "key"
+    t.string "email"
+    t.integer "user_id"
+    t.integer "sales_order_id"
+    t.integer "product_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_product_keys_on_product_id"
+    t.index ["sales_order_id"], name: "index_product_keys_on_sales_order_id"
+    t.index ["user_id"], name: "index_product_keys_on_user_id"
+  end
+
   create_table "product_part_group_parts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "product_part_group_id"
     t.integer "part_id"
@@ -1321,6 +1334,14 @@ ActiveRecord::Schema.define(version: 2020_11_19_215851) do
     t.datetime "updated_at"
   end
 
+  create_table "product_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.boolean "default", default: false
+    t.boolean "digital_ecom", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "product_videos", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "product_id"
     t.string "youtube_id"
@@ -1391,6 +1412,7 @@ ActiveRecord::Schema.define(version: 2020_11_19_215851) do
     t.text "meta_description"
     t.boolean "hide_contact_buttons"
     t.string "firmware_name"
+    t.integer "product_type_id", default: 1
     t.index ["brand_id", "product_status_id"], name: "index_products_on_brand_id_and_product_status_id"
     t.index ["brand_id"], name: "index_products_on_brand_id"
     t.index ["cached_slug"], name: "index_products_on_cached_slug", unique: true

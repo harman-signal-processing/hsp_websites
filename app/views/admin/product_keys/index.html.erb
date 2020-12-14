@@ -1,0 +1,16 @@
+<h1><%= @product.name %> Digital Inventory</h1>
+
+<%= form_with url: admin_product_product_keys_path(@product), method: :post do |f| %>
+  <%= f.label :new_keys, "Paste new product keys below (one per line)" %>
+  <%= f.text_area :new_keys, rows: 20 %>
+  <%= f.submit "Add inventory", class: "medium button" %>
+<% end %>
+
+<hr/>
+<p>Available inventory: <%= @product.available_product_keys.length %></p>
+
+<ul>
+  <% @product.available_product_keys.each do |pk| %>
+    <li><%= pk.key %></li>
+  <% end %>
+</ul>

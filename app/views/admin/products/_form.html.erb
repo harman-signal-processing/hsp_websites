@@ -157,6 +157,7 @@
 	<div class="large-6 columns">
 		<fieldset>
 			<legend>Pricing/Shopping</legend>
+      <%= f.association :product_type, as: :select %>
 
 			<% if website.has_online_retailers? || website.has_distributors? || website.has_dealers? %>
 				<%= f.input :hide_buy_it_now_button %><br/>

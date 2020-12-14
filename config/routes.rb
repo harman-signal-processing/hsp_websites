@@ -131,6 +131,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
           get :artist_pricing
           get :solutions
           put :update_solutions
+          get :digital_inventory
         end
         member do
           get :delete_background
@@ -146,7 +147,9 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
           end
         end
         resources :product_filter_values
-      end  #  resources :products do
+        resources :product_keys
+      end
+
       resources :product_families do
         collection { post :update_order }
         member do

@@ -23,6 +23,13 @@
       Duplicate Product
     <% end %>
   </li>
+  <% if @product.product_type && @product.product_type.digital_ecom? %>
+    <li>
+      <%= link_to admin_product_product_keys_path(@product), class: "small button" do %>
+        Manage digital inventory
+      <% end %>
+    </li>
+  <% end %>
   <li><%= link_to [:admin, @product], confirm: 'Are you sure?', method: :delete, class: "small alert button" do %>
     <%= fa_icon "trash" %>
     Delete
