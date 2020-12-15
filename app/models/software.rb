@@ -184,12 +184,14 @@ class Software < ApplicationRecord
       self.platform ||= old_software.platform
       self.bit ||= old_software.bit
       self.category ||= old_software.category
-      self.products ||= old_software.products
       self.layout_class ||= old_software.layout_class
       self.side_content ||= old_software.side_content
       self.description ||= old_software.description
+      if self.products.length == 0
+        self.products = old_software.products
+      end
       begin
-        self.version = old_software.version.next
+        self.version ||= old_software.version.next
       rescue
         # oh well, auto next version didn't work
       end

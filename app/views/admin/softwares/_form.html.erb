@@ -4,6 +4,7 @@
 
 <%= simple_form_for [:admin, @software] do |f| %>
   <%= f.input :direct_upload_url, as: :hidden %>
+  <%= f.error :base %>
 
   <div class="row">
     <div class="large-8 columns">

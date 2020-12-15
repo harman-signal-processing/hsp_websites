@@ -3,5 +3,5 @@ class ProductSoftware < ApplicationRecord
   belongs_to :product, touch: true
   belongs_to :software, touch: true, inverse_of: :product_softwares
   validates :product_id, presence: true
-  validates :software_id, presence: true, uniqueness: { scope: :product_id, case_sensitive: false }
+  validates :software, presence: true, uniqueness: { scope: :product_id, case_sensitive: false }
 end

@@ -62,7 +62,7 @@ class Admin::SoftwaresController < AdminController
       if @software.save
         format.html {
           if params[:return_to]
-            return_to = URI.parse(params[:return_to]).path
+            return_to = (params[:return_to] == "public_path") ? software_path(@software, locale: I18n.locale) : URI.parse(params[:return_to]).path
             redirect_to(return_to, notice: "Software was successfully uploaded.")
           else
             redirect_to([:admin, @software], notice: 'Software was successfully created. Wait a few minutes while the system copies the software to our content delivery network.')
@@ -146,6 +146,7 @@ class Admin::SoftwaresController < AdminController
       :show_alert,
       :side_content,
       :replaces_id,
+      product_id: [],
       product_ids: []
     )
   end
