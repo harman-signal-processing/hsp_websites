@@ -358,6 +358,8 @@ module ProductsHelper
         no_buy_it_now(product)
       elsif product.hide_buy_it_now_button?
         ""
+      elsif product.digital_ecom?
+        buy_it_now_digital_ecom(product, button, options)
       elsif !(I18n.locale.to_s.match(/en/i))
         buy_it_now_international(product, button, options)
 		  elsif !product.direct_buy_link.blank?
@@ -375,7 +377,9 @@ module ProductsHelper
   end
 
   def button_for(product, options)
-    if product.direct_buy_link.blank?
+    if product.digital_ecom?
+      text = t("add_to_cart")
+    elsif product.direct_buy_link.blank?
       text = t("buy_it_now")
     elsif product.parent_products.size > 0 # as in e-pedals
       text = t("get_it")
@@ -383,25 +387,31 @@ module ProductsHelper
       text = t("add_to_cart")
     end
     text = text.downcase if options[:downcase]
-    if options[:html_button] 
+    if options[:html_button]
       text
     else
       loc = "#{I18n.locale}"
       folder = website.folder
-      if product.direct_buy_link.blank?
-        if File.exists?(Rails.root.join("app", "assets", "images", folder, loc, "#{options[:button_prefix]}buyitnow_button.png")) 
+      if product.digital_ecom?
+        if File.exists?(Rails.root.join("app", "assets", "images", folder, loc, "#{options[:button_prefix]}addtocart_button.png"))
+          image_tag("#{folder}/#{loc}/#{options[:button_prefix]}addtocart_button.png", alt: text, mouseover: "#{folder}/#{loc}/#{options[:button_prefix]}addtocart_button_hover.png")
+        else
+          text
+        end
+      elsif product.direct_buy_link.blank?
+        if File.exists?(Rails.root.join("app", "assets", "images", folder, loc, "#{options[:button_prefix]}buyitnow_button.png"))
           image_tag("#{folder}/#{loc}/#{options[:button_prefix]}buyitnow_button.png", alt: text, mouseover: "#{folder}/#{loc}/#{options[:button_prefix]}buyitnow_button_hover.png")
         else
           text
         end
       elsif product.parent_products.size > 0 # as in e-pedals
-        if File.exists?(Rails.root.join("app", "assets", "images", folder, loc, "#{options[:button_prefix]}getit_button.png")) 
+        if File.exists?(Rails.root.join("app", "assets", "images", folder, loc, "#{options[:button_prefix]}getit_button.png"))
           image_tag("#{folder}/#{loc}/#{options[:button_prefix]}getit_button.png", alt: text, mouseover: "#{folder}/#{loc}/#{options[:button_prefix]}getit_button_hover.png")
         else
           text
         end
       else
-        if File.exists?(Rails.root.join("app", "assets", "images", folder, loc, "#{options[:button_prefix]}addtocart_button.png")) 
+        if File.exists?(Rails.root.join("app", "assets", "images", folder, loc, "#{options[:button_prefix]}addtocart_button.png"))
           image_tag("#{folder}/#{loc}/#{options[:button_prefix]}addtocart_button.png", alt: text, mouseover: "#{folder}/#{loc}/#{options[:button_prefix]}addtocart_button_hover.png")
         else
           text
@@ -461,6 +471,13 @@ module ProductsHelper
       international_distributors_path,
       class: button_class(button, options),
       onclick: raw("_gaq.push(['_trackEvent', 'BuyItNow', 'non-USA (#{session['geo_country']})', '#{product.name}'])"))
+  end
+
+  def buy_it_now_digital_ecom(product, button, options={})
+    link_to(button,
+      add_to_cart_path(product),
+      class: button_class(button, options),
+      onclick: raw("_gaq.push(['_trackEvent', 'AddToCart-DigitalEcom', 'USA (#{session['geo_country']})', '#{product.name}'])"))
   end
 
   # Used by the different buy it now methods to determine what kind of CSS class (if any)

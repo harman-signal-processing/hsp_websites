@@ -501,6 +501,11 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       end
       resources :product_attachments, only: :edit
     end
+
+    # Shopping cart
+    get 'products/:id/add_to_cart' => "shopping_cart#add_item", as: :add_to_cart
+    get 'cart' => "shopping_cart#show", as: :shopping_cart
+
     get 'products/:id(/:tab)' => 'products#show', as: :product
     resources :tone_library_songs, only: :index
     resources :product_documents, only: [:index, :show]

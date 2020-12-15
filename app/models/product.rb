@@ -661,6 +661,76 @@ class Product < ApplicationRecord
     end
   end
 
+  def price_for_shopping_cart
+    product_promotion = first_promo_with_price_adjustment
+    discount_amount = calculate_discount_amount(product_promotion)
+    new_price = calculate_new_price(discount_amount)
+
+    if new_price && new_price > 0.0
+      new_price
+    elsif sale_price && sale_price > 0.0
+      sale_price
+    elsif street_price && street_price > 0.0
+      street_price
+    else
+      msrp
+    end
+  end
+
+  # Calculates the discount amount to show on the product page. Takes
+  # into account the current promotion, sale price, street price and msrp
+  def calculate_discount_amount(product_promotion)
+    if product_promotion && product_promotion.discount.to_f > 0.0
+      calculate_promotion_discount(product_promotion)
+    elsif sale_price && sale_price.to_f > 0.0
+
+      if street_price.to_f > sale_price.to_f
+        street_price.to_f - sale_price.to_f
+      elsif !!!(street_price.to_f > 0.0) && msrp.to_f > sale_price.to_f
+        msrp.to_f - sale_price.to_f
+      else
+        0.0
+      end
+
+    else
+      0.0
+    end
+  end
+
+  # Calculates the discount amount to show on the product page. Only
+  # takes into account the promotion, street price and msrp
+  def calculate_promotion_discount(product_promotion)
+    case product_promotion.discount_type
+    when '$'
+      product_promotion.discount.to_f
+    when '%'
+      if street_price.to_f > 0.0
+        street_price.to_f * (product_promotion.discount / 100)
+      elsif msrp.to_f > 0.0
+        msrp.to_f * (product_promotion.discount / 100)
+      else
+        0.0
+      end
+    else
+      0.0
+    end
+  end
+
+  # Calculates the new price to show based on the provided discount
+  def calculate_new_price(discount_amount)
+    if discount_amount.to_f > 0.0
+      if street_price.to_f > 0.0
+        street_price.to_f - discount_amount.to_f
+      elsif msrp.to_f > 0.0
+        msrp.to_f - discount_amount.to_f
+      else
+        false
+      end
+    else
+      false
+    end
+  end
+
   def parents
     @parents ||= parent_products.map{|p| p.parent_product }
   end

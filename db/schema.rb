@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_11_151850) do
+ActiveRecord::Schema.define(version: 2020_12_14_230030) do
 
   create_table "access_levels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -721,6 +721,17 @@ ActiveRecord::Schema.define(version: 2020_12_11_151850) do
     t.text "products"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "line_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "product_id"
+    t.integer "shopping_cart_id"
+    t.integer "quantity"
+    t.integer "price_cents"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_line_items_on_product_id"
+    t.index ["shopping_cart_id"], name: "index_line_items_on_shopping_cart_id"
   end
 
   create_table "locale_product_families", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -1548,6 +1559,11 @@ ActiveRecord::Schema.define(version: 2020_12_11_151850) do
     t.index ["brand_id", "name", "locale"], name: "index_settings_on_brand_id_and_name_and_locale"
     t.index ["brand_id", "name"], name: "index_settings_on_brand_id_and_name"
     t.index ["brand_id"], name: "index_settings_on_brand_id"
+  end
+
+  create_table "shopping_carts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "signups", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|

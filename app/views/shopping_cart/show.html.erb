@@ -1,0 +1,38 @@
+<h1>Shopping Cart</h1>
+
+<% if @shopping_cart.empty? %>
+  <p>Your shopping cart is empty. Please add items to your cart to continue.</p>
+<% else %>
+  <div class="cart_summary">
+    <% @shopping_cart.line_items.each do |line_item| %>
+      <div class="row">
+        <div class="small-5 medium-6 large-8 columns">
+          <%= link_to line_item.product.name, line_item.product %>
+        </div>
+        <div class="small-3 medium-3 large-2 columns text-center">
+          <%= line_item.quantity %>
+        </div>
+        <div class="small-3 medium-3 large-2 columns text-right">
+          <%= number_to_currency line_item.price %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="cart_totals">
+    <div class="row">
+      <div class="small-12 medium-12 large-12 columns text-right">
+        Subtotal: <%= number_to_currency @shopping_cart.subtotal %>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-right">
+    <%= link_to '#', class: "large success button" do %>
+      <%= fa_icon "shopping-cart" %>
+      Checkout
+    <% end %>
+  </div>
+
+<% end %>
+
