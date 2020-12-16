@@ -12,6 +12,7 @@
     </div>
 
     <%= simple_form_for [:admin, @software] do |f| %>
+      <input type="hidden" name="return_to" value="public_path">
       <%= f.input :direct_upload_url, as: :hidden %>
       <%= f.input :replaces_id, as: :hidden %>
       <%= f.input :brand_id, as: :hidden %>

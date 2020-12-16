@@ -1,4 +1,5 @@
 class ProductSelectorController < ApplicationController
+  before_action :set_locale
 
   def index
     if top_level_families.length == 1

@@ -244,7 +244,7 @@ class Brand < ApplicationRecord
   def products
     fp = self.family_products.collect{|p| p.id}.join(', ')
     if fp.blank?
-      Product.where(brand_id: self.id).order(Arel.sql("UPPER(name)"))
+      Product.unscoped.where(brand_id: self.id).order(Arel.sql("UPPER(name)"))
     else
       Product.unscoped.select("DISTINCT *").where("brand_id = ? OR products.id IN (#{fp})", self.id).order(Arel.sql("UPPER(name)"))
     end

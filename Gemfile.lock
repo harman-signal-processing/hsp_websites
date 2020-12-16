@@ -138,6 +138,7 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (~> 1.5)
       xpath (~> 3.2)
+    childprocess (3.0.0)
     chosen-rails (1.9.0)
       coffee-rails (>= 3.2)
       railties (>= 3.0)
@@ -505,6 +506,7 @@ GEM
     rspec-support (3.10.0)
     ruby-ole (1.2.12.2)
     ruby2_keywords (0.0.2)
+    rubyzip (2.3.0)
     s3_direct_upload (0.1.7)
       coffee-rails (>= 3.1)
       jquery-fileupload-rails (~> 0.4.1)
@@ -521,6 +523,9 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    selenium-webdriver (3.142.7)
+      childprocess (>= 0.5, < 4.0)
+      rubyzip (>= 1.2.2)
     shellany (0.0.1)
     signet (0.14.0)
       addressable (~> 2.3)
@@ -693,6 +698,7 @@ DEPENDENCIES
   rspec-rails
   s3_direct_upload
   sass-rails
+  selenium-webdriver
   simple_form (>= 5.0.0)
   simplecov
   slack-notifier
