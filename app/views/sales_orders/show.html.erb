@@ -1,0 +1,86 @@
+<h2 class="text-center">Order #<%= @sales_order.number %> Details</h2>
+<p class="text-center">Order Date: <%=l @sales_order.created_at.to_date, format: :long %></p>
+<br/>
+
+<div>
+  <% @sales_order.line_items.each do |line_item| %>
+    <div class="row">
+      <div class="small-12 medium-6 columns">
+        <div class="row">
+          <div class="small-2 columns text-right">
+            <% if line_item.product.photo %>
+              <%= link_to line_item.product do %>
+                <%= image_tag(line_item.product.photo.product_attachment.url(:tiny)) %>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="small-10 columns">
+            <h6 class="subheader"><%= link_to line_item.product.name, line_item.product %></h6>
+            <%= line_item.product.short_description %>
+
+          </div>
+        </div>
+      </div>
+      <div class="small-12 medium-6 columns text-right">
+        <%= line_item.quantity %> @ <%= number_to_currency line_item.price %>
+      </div>
+    </div>
+    <hr/>
+    <div class="row">
+      <div class="small-12 medium-6 columns">
+        <% if line_item.product.digital_ecom? %>
+          <h4>Your Product Key(s):</h4>
+          <% line_item.product_keys.each do |product_key| %>
+            <strong><%= product_key.formatted_key %></strong><br/>
+          <% end %>
+
+          <br/>
+          <p>
+            <%= fa_icon "info-circle" %> <small>To activate your product, use the
+            <%= link_to "iLok License Manager", "https://ilok.com", target: "_blank" %>
+            to claim your license using your product key(s) above.</small>
+          </p>
+        <% end %>
+      </div>
+      <div class="small-12 medium-6 columns">
+        <table class="sales_order_downloads">
+          <thead>
+            <tr>
+              <td>Related Downloads</td>
+              <td class="text-right">Version</td>
+            </tr>
+          </thead>
+          <tbody>
+            <% line_item.product.active_softwares.each do |item| %>
+              <tr>
+                <td>
+                  <%= platform_icon(item, 17) %>
+                  <%= link_to item.name, (item.link.present? && item.new_record?) ? item.link : item %>
+                </td>
+                <td class="text-right">
+                    &nbsp;
+                    <%= item.version %>
+                    <% if item.bit.present? %>
+                      (<%= item.bit %>-bit)
+                    <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  <% end %>
+  <hr/>
+  <p class="text-right">
+    <% if @sales_order.tax > 0.0 %>
+      Tax: <%= number_to_currency @sales_order.tax %><br/>
+    <% end %>
+    Total: <%= number_to_currency @sales_order.total %>
+  </p>
+  <p class="text-right">
+    Status: PAID on <%=l @sales_order.created_at.to_date, format: :long %>
+  </p>
+</div>
+

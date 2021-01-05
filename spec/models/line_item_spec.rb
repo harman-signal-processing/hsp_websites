@@ -8,6 +8,7 @@ RSpec.describe LineItem, type: :model do
 
   subject { @line_item }
   it { should respond_to(:shopping_cart) }
+  it { should respond_to(:sales_order) }
   it { should respond_to(:price) }
 
   describe "pricing" do
@@ -51,4 +52,20 @@ RSpec.describe LineItem, type: :model do
     end
   end
 
+  describe "assigning product keys" do
+    it "should assign a product key when saving if it has had an order assigned" do
+      shopping_cart = FactoryBot.create(:shopping_cart)
+      product = FactoryBot.create(:product)
+      product_key = FactoryBot.create(:product_key, product: product)
+      line_item = FactoryBot.create(:line_item, price_cents: 100, product: product)
+
+      expect(product).to receive(:digital_ecom?).and_return(true)
+      expect(shopping_cart).to receive(:line_items).and_return([line_item])
+      sales_order = FactoryBot.create(:sales_order, shopping_cart: shopping_cart)
+
+      product_key.reload
+      expect(product_key.line_item_id).to eq(line_item.id)
+      expect(product_key.user_id).to eq(sales_order.user_id)
+    end
+  end
 end

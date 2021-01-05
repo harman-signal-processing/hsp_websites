@@ -128,6 +128,9 @@
           <%= MartinFirmwareService.firmware_version(item.name.gsub(/ \- Firmware/, ''))%>
         <% else %>
           <%= item.version %>
+          <% if item.bit.present? %>
+            (<%= item.bit %>-bit)
+          <% end %>
         <% end %>
         &nbsp;</td>
       <td class="text-center hide-for-small"> <%= flag_for(item) %>&nbsp; </td>

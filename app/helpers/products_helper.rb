@@ -358,11 +358,11 @@ module ProductsHelper
         no_buy_it_now(product)
       elsif product.hide_buy_it_now_button?
         ""
-      elsif product.digital_ecom?
+      elsif product.digital_ecom? && product.available_product_keys.length > 0
         buy_it_now_digital_ecom(product, button, options)
       elsif !(I18n.locale.to_s.match(/en/i))
         buy_it_now_international(product, button, options)
-		  elsif !product.direct_buy_link.blank?
+      elsif !product.direct_buy_link.blank? && !product.digital_ecom?
         buy_it_now_direct_from_factory(product, button, options)
       elsif @online_retailer_link # http param[:bin] provided
         buy_it_now_direct_to_retailer(product, button)
@@ -377,9 +377,9 @@ module ProductsHelper
   end
 
   def button_for(product, options)
-    if product.digital_ecom?
+    if product.digital_ecom? && product.available_product_keys.length > 0
       text = t("add_to_cart")
-    elsif product.direct_buy_link.blank?
+    elsif product.direct_buy_link.blank? || product.digital_ecom?
       text = t("buy_it_now")
     elsif product.parent_products.size > 0 # as in e-pedals
       text = t("get_it")
@@ -392,13 +392,13 @@ module ProductsHelper
     else
       loc = "#{I18n.locale}"
       folder = website.folder
-      if product.digital_ecom?
+      if product.digital_ecom? && product.available_product_keys.length > 0
         if File.exists?(Rails.root.join("app", "assets", "images", folder, loc, "#{options[:button_prefix]}addtocart_button.png"))
           image_tag("#{folder}/#{loc}/#{options[:button_prefix]}addtocart_button.png", alt: text, mouseover: "#{folder}/#{loc}/#{options[:button_prefix]}addtocart_button_hover.png")
         else
           text
         end
-      elsif product.direct_buy_link.blank?
+      elsif product.direct_buy_link.blank? || product.digital_ecom?
         if File.exists?(Rails.root.join("app", "assets", "images", folder, loc, "#{options[:button_prefix]}buyitnow_button.png"))
           image_tag("#{folder}/#{loc}/#{options[:button_prefix]}buyitnow_button.png", alt: text, mouseover: "#{folder}/#{loc}/#{options[:button_prefix]}buyitnow_button_hover.png")
         else

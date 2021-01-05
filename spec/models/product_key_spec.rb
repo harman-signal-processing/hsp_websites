@@ -10,4 +10,6 @@ RSpec.describe ProductKey, type: :model do
   it { should respond_to(:key) }
   it { should respond_to(:product) }
   it { should respond_to(:user) }
+  it { should respond_to(:line_item) }
+  it { should respond_to(:sales_order) }
 end

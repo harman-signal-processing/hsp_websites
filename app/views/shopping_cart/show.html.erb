@@ -1,35 +1,70 @@
-<h1>Shopping Cart</h1>
-
+<h1>Shopping Cart <%= fa_icon "shopping-cart" %></h1>
+<br/>
 <% if @shopping_cart.empty? %>
   <p>Your shopping cart is empty. Please add items to your cart to continue.</p>
 <% else %>
-  <div class="cart_summary">
-    <% @shopping_cart.line_items.each do |line_item| %>
-      <div class="row">
-        <div class="small-5 medium-6 large-8 columns">
-          <%= link_to line_item.product.name, line_item.product %>
-        </div>
-        <div class="small-3 medium-3 large-2 columns text-center">
-          <%= line_item.quantity %>
-        </div>
-        <div class="small-3 medium-3 large-2 columns text-right">
-          <%= number_to_currency line_item.price %>
-        </div>
-      </div>
-    <% end %>
-  </div>
+  <table class="cart_summary">
+    <thead>
+      <tr>
+        <td colspan="2">&nbsp;</td>
+        <th class="text-center">Qty.</th>
+        <th class="text-right">Item Price</th>
+        <th class="text-right">Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @shopping_cart.line_items.each do |line_item| %>
+        <tr>
+          <td class="text-center">
+            <% if line_item.product.photo %>
+              <%= link_to line_item.product do %>
+                <%= image_tag(line_item.product.photo.product_attachment.url(:tiny)) %>
+              <% end %>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to line_item.product.name, line_item.product %>
+            <% if line_item.product.digital_ecom? %>
+              <br/><small>Instant electronic delivery.</small>
+            <% end %>
+          </td>
+          <td class="text-center">
+            <%= line_item.quantity %>
+            &nbsp;
+            <%= link_to remove_from_cart_path(line_item.product), id: "remove-#{line_item.product.id}" do %>
+              <%= fa_icon "trash-o" %>
+            <% end %>
+          </td>
+          <td class="text-right">
+            <%= number_to_currency line_item.price %>
+          </td>
+          <td class="text-right">
+            <%= number_to_currency line_item.subtotal %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-  <div class="cart_totals">
-    <div class="row">
-      <div class="small-12 medium-12 large-12 columns text-right">
-        Subtotal: <%= number_to_currency @shopping_cart.subtotal %>
-      </div>
+  <div class="row">
+    <div class="small-12 medium-6 large-9 columns">
+      <p><i><small>Software activation requires use of <a href="https://ilok.com" target="_blank">iLok physical license key dongle</a>.</small></i></p>
+    </div>
+    <div class="small-12 medium-6 large-3 columns">
+      <table class="cart_totals">
+        <tfoot>
+          <tr>
+            <td class="text-right">Total:</td>
+            <td class="text-right"><%= number_to_currency @shopping_cart.total %></td>
+          </tr>
+        </tfoot>
+      </table>
     </div>
   </div>
 
   <div class="text-right">
-    <%= link_to '#', class: "large success button" do %>
-      <%= fa_icon "shopping-cart" %>
+    <%= link_to checkout_path, class: "large success button" do %>
+      <%= fa_icon "credit-card" %>
       Checkout
     <% end %>
   </div>

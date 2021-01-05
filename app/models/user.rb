@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :distributors, through: :distributor_users
   has_many :tones
   has_many :tone_user_ratings
+  has_many :sales_orders
   has_attached_file :profile_pic,
     styles: {
       large:         "550x370",
@@ -31,7 +32,6 @@ class User < ApplicationRecord
     :recoverable,
     :rememberable,
     :trackable,
-    #    :confirmable, # 2018-05 Removing confirmable. Too complicated with multi-tenancy
     :registerable
 
   before_create :assign_invited_role
@@ -75,7 +75,9 @@ class User < ApplicationRecord
     technician
     super_technician
     media
-    vip_programmers_admin]
+    vip_programmers_admin
+    customer
+  ]
 
   def self.staff
     where("marketing_staff = 1 OR admin = 1 OR market_manager = 1 OR artist_relations = 1 OR sales_admin = 1").order(Arel.sql("UPPER(name)"))
@@ -103,16 +105,22 @@ class User < ApplicationRecord
     end
   end
 
+  def self.new_with_session(params, session)
+    new(params) do |user|
+      user.customer = true if session[:shopping_cart_id]
+    end
+  end
+
   def initials
     @initials ||= (name.split(/\s/).length > 1) ? name.split(/\s/).map{|u| u.match(/^\w/).to_s}.join : name
   end
 
   def to_s
-    self.name
+    display_name
   end
 
   def display_name
-    "testuser"
+    self.name.present? ? name : email
   end
 
   def roles
@@ -164,8 +172,7 @@ class User < ApplicationRecord
   end
 
   def needs_invitation_code?
-    #self.rso? || self.employee? || self.media? || self.technician?
-    !!!self.account_number.present?
+    !!!self.account_number.present? && self.roles != ["customer"]
   end
 
   # Collect those who have the artist relations role

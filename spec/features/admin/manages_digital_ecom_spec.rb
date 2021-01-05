@@ -69,5 +69,10 @@ feature "Admin sets up a product for digital download ecommerce" do
     expect(page.current_path).to eq(product_path(product, locale: "en-US"))
     expect(page).to have_text("Available digital inventory: 3")
   end
+
+  describe "Low stock notifications" do
+    scenario "admin can subscribe and set low-stock threshhold"
+    scenario "subscribed users get notified when stock hits threshhold"
+  end
 end
 

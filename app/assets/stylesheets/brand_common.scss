@@ -40,6 +40,7 @@
 @import 'slick';
 $slick-arrow-color: $dark-gray;
 @import 'slick-theme';
+.hidden { display: none; }
 
 .reveal-modal-bg{position:fixed;}
 .reveal-modal{position:fixed;}
@@ -457,9 +458,15 @@ div.text-right.bglink {
   top: 2px;
   right: 10px;
   color: white;
+  z-index: 9999;
   a {
     color: white;
     text-decoration: underline;
+  }
+  a.cart-button {
+    font-size: 100%;
+    margin-right: 5px;
+    text-decoration: none !important;
   }
 }
 .hint {
@@ -2161,4 +2168,26 @@ ul.nosort .handle {
 }
 .safety-panel-instructions {
   padding: 80px 100px;
+}
+
+/**** Shopping Cart ***/
+table.cart_summary {
+  width: 100%;
+  border: 1px solid #CCC;
+  thead {
+    background: #EEE;
+  }
+  tr {
+    height: rem-calc(40px);
+	}
+}
+table.cart_totals {
+  width: 100%;
+}
+table.order_history, table.sales_order_downloads {
+  width: 100%;
+  border: 1px solid #CCC;
+  thead {
+    background: #EEE;
+  }
 }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_14_230030) do
+ActiveRecord::Schema.define(version: 2021_01_02_175958) do
 
   create_table "access_levels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -730,7 +730,9 @@ ActiveRecord::Schema.define(version: 2020_12_14_230030) do
     t.integer "price_cents"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "sales_order_id"
     t.index ["product_id"], name: "index_line_items_on_product_id"
+    t.index ["sales_order_id"], name: "index_line_items_on_sales_order_id"
     t.index ["shopping_cart_id"], name: "index_line_items_on_shopping_cart_id"
   end
 
@@ -1166,12 +1168,12 @@ ActiveRecord::Schema.define(version: 2020_12_14_230030) do
     t.string "key"
     t.string "email"
     t.integer "user_id"
-    t.integer "sales_order_id"
     t.integer "product_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "line_item_id"
+    t.index ["line_item_id"], name: "index_product_keys_on_line_item_id"
     t.index ["product_id"], name: "index_product_keys_on_product_id"
-    t.index ["sales_order_id"], name: "index_product_keys_on_sales_order_id"
     t.index ["user_id"], name: "index_product_keys_on_user_id"
   end
 
@@ -1499,6 +1501,14 @@ ActiveRecord::Schema.define(version: 2020_12_14_230030) do
     t.index ["brand_id"], name: "index_registered_downloads_on_brand_id"
   end
 
+  create_table "sales_orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "shopping_cart_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_sales_orders_on_user_id"
+  end
+
   create_table "sales_region_countries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.integer "sales_region_id"
@@ -1564,6 +1574,9 @@ ActiveRecord::Schema.define(version: 2020_12_14_230030) do
   create_table "shopping_carts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "uuid"
+    t.text "payment_data"
+    t.index ["uuid"], name: "index_shopping_carts_on_uuid"
   end
 
   create_table "signups", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
@@ -2101,6 +2114,7 @@ ActiveRecord::Schema.define(version: 2020_12_14_230030) do
     t.boolean "super_technician", default: false
     t.string "last_host"
     t.boolean "vip_programmers_admin", default: false
+    t.boolean "customer"
     t.index ["account_number"], name: "index_users_on_account_number"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

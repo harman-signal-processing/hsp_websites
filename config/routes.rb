@@ -504,7 +504,20 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
 
     # Shopping cart
     get 'products/:id/add_to_cart' => "shopping_cart#add_item", as: :add_to_cart
+    get 'products/:id/remove_from_cart' => "shopping_cart#remove_item", as: :remove_from_cart
     get 'cart' => "shopping_cart#show", as: :shopping_cart
+    get '/checkout' => "checkout#new", as: :checkout
+    post '/checkout/:uuid/get_payment_methods' => "checkout#get_payment_methods", defaults: { format: :json }
+    post '/checkout/:uuid/get_cart_details' => "shopping_cart#details", defaults: { format: :json }
+    get '/checkout/:uuid/get_cart_details' => "shopping_cart#details", defaults: { format: :json }
+    post '/checkout/:uuid/initiate_payment' => "checkout#initiate_payment"
+    get '/checkout/:uuid/shopper_redirect' => "checkout#shopper_redirect", as: :shopper_redirect
+    get '/checkout/success' => "checkout#success"
+    get '/checkout/pending' => "checkout#pending"
+    get '/checkout/failed' => "checkout#failed"
+    get '/checkout/error' => "checkout#error"
+    resources :sales_orders, only: :show
+    get '/profile' => "profile#show", as: :profile
 
     get 'products/:id(/:tab)' => 'products#show', as: :product
     resources :tone_library_songs, only: :index

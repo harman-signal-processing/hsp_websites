@@ -1,0 +1,64 @@
+<%= content_for :extra_header_code do %>
+  <% if ENV['ADYEN_ENV'] == "test" %>
+     <script src="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.18.2/adyen.js"
+        integrity="sha384-/5SuEQKK7mLmDWB+eUPAur02KPkNC7pwAqyPez1TuNjeqRjsNDJdAnrbSxrzua2P"
+        crossorigin="anonymous"></script>
+     <link rel="stylesheet" href="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.18.2/adyen.css"
+       integrity="sha384-5K4T5NNVv7ZBvNypROEUSjvOL45HszUg/eYfYadY82UF4b+hc+TPQ4SsfTGXufJp"
+       crossorigin="anonymous">
+ <% else %>
+    <script src="https://checkoutshopper-live.adyen.com/checkoutshopper/sdk/3.15.1/adyen.js" integrity="sha384-18bB9irNIu0hQBFN+kxYgjeiMARTx7ukMoeFWLw/Autuyi+w0S9nXsf5Fn/VwmI+"
+      crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://checkoutshopper-live.adyen.com/checkoutshopper/sdk/3.15.1/adyen.css"
+      integrity="sha384-4ppagynsoxB4LNdDTdpX1No72EGOMm13+Y89hg+nz+dAIAWchOBTEnLL7u/hi6eM" crossorigin="anonymous" />
+  <% end %>
+
+<% end %>
+
+<h1>Checkout <%= fa_icon "credit-card" %></h1>
+<br/>
+<div class="row">
+  <div class="small-12 medium-7 large-8 columns">
+    <p>
+      <%= link_to shopping_cart_path do %>
+        &lt;&lt; Back to cart
+      <% end %>
+    </p>
+
+    <div id="dropin"></div>
+  </div>
+
+  <div class="hide-for-small medium-5 large-4 columns">
+    <div class="callout panel">
+      <h5>Order Details</h5>
+      <% @shopping_cart.line_items.each do |line_item| %>
+        <div class="row">
+          <div class="medium-8 columns">
+            <%= line_item.product.name %>
+            <% if line_item.product.digital_ecom? %>
+              <br/><small>Instant electronic delivery.</small>
+            <% end %>
+          </div>
+          <div class="medium-4 columns text-right">
+            <%= line_item.quantity %>@
+            <%= number_to_currency line_item.price %>
+          </div>
+        </div>
+      <% end %>
+      <hr/>
+      <p class="text-right">
+        <% if @shopping_cart.tax > 0.0 %>
+          Tax: <%= number_to_currency @shopping_cart.tax %><br/>
+        <% end %>
+        <strong>Total: <%= number_to_currency @shopping_cart.total %></strong>
+      </p>
+
+    </div>
+    <p class="text-center"><i><small>Software activation requires use of <a href="https://ilok.com" target="_blank">iLok physical license key dongle</a>.</small></i></p>
+  </div>
+</div>
+
+<div id="clientKey" class="hidden"><%= ENV['ADYEN_CLIENT_KEY'] %></div>
+<div id="cartId" class="hidden"><%= @shopping_cart.uuid %></div>
+<%= javascript_include_tag 'checkout' %>
+

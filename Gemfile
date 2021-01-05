@@ -83,6 +83,7 @@ gem 'email_validator'
 gem "exception_notification"
 gem 'slack-notifier'
 gem 'google-api-client', '~> 0.36'
+gem 'adyen-ruby-api-library'
 
 group :production, :staging do
   gem 'passenger_monit'

@@ -292,6 +292,7 @@ $reveal-max-width: 75%;
   }
   .has-form {
     padding: rem-calc(10);
+    padding-top: rem-calc(16);
     @media only screen and (max-width: 1150px) {
       width: 160px;
       input.button {

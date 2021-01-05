@@ -50,6 +50,18 @@
         </ul>
       </section>
     </nav>
+    <div id="account_links">
+      <% if current_shopping_cart %>
+        <%= link_to shopping_cart_path, class: "tiny round button cart-button" do %>
+          <%= fa_icon "shopping-cart" %>
+          (<%= current_shopping_cart.total_items %>)
+        <% end %>
+      <% end %>
+      <% if current_user %>
+        Welcome, <%= current_user.email %> |
+        <%= link_to "Logout", destroy_user_session_path %>
+      <% end %>
+    </div>
   </div>
 
 <%# end %>

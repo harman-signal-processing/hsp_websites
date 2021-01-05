@@ -824,11 +824,11 @@ class Product < ApplicationRecord
   end
 
   def available_product_keys
-    product_keys.where(sales_order_id: [nil, ""])
+    product_keys.where(line_item_id: [nil, ""])
   end
 
   def sold_product_keys
-    product_keys.where.not(sales_order_id: [nil, ""])
+    product_keys.where("line_item_id > 0")
   end
 
   def user_guides

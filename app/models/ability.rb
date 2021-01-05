@@ -44,6 +44,9 @@ class Ability
       can :read, ProductDocument
       cannot :mangle, Product
       can :read, SiteElement, :access_level_id => [false, nil, 0]
+      can :read, SalesOrder do |so|
+        so.user_id == user.id
+      end
       if user.role?(:market_manager)
         can :manage, :all
         cannot :manage, User

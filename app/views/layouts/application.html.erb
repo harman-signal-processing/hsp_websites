@@ -89,7 +89,7 @@
               end
             %>
 
-              <%= content_tag :div, msg, class: css_class if msg.is_a?(String) %>
+              <%= content_tag :div, msg, class: css_class if msg.present? %>
           <% end %>
 					<%= yield %>
 				</div>

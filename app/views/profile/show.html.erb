@@ -1,0 +1,48 @@
+<h1>User Profile</h1>
+
+<div class="row">
+  <div class="small-12 medium-5 large-6 columns">
+    <div class="row">
+      <div class="small-3 medium-4 columns">
+        <br/>
+        <%= image_tag current_user.gravatar_url(size: 128, default: 'identicon')  %>
+      </div>
+      <div class="small-9 medium-8 columns">
+        <h4><%= current_user.display_name %></h4>
+        <p><%= current_user.email %></p>
+        <p><%= link_to edit_user_registration_path, class: "small button" do %>
+            <%= fa_icon "user" %>
+            Edit Account/Password
+          <% end %>
+        </p>
+        <% if can?(:manage, Product) || can?(:manage, News) || can?(:manage, Promotion) %>
+          <p>Looks like you're an admin. Proceed to the <%= link_to 'admin page', admin_root_path %>.</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="small-12 medium-7 large-6 columns">
+    <% if current_user.sales_orders.length > 0 %>
+      <h4>Order History</h4>
+      <table class="order_history">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Order Number</th>
+            <th>Summary</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% current_user.sales_orders.each do |sales_order| %>
+          <tr>
+            <td><%=l sales_order.created_at.to_date, format: :long %></td>
+            <td><%= link_to sales_order.number, sales_order %></td>
+            <td><%= sales_order.line_items.map{|li| li.product.name}.uniq.join(", ") %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</div>

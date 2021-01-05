@@ -83,6 +83,8 @@ GEM
       activerecord (>= 3.0.0)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    adyen-ruby-api-library (4.4.0)
+      faraday
     airbrussh (1.4.0)
       sshkit (>= 1.6.1, != 1.7.0)
     asset_sync (2.12.1)
@@ -624,6 +626,7 @@ DEPENDENCIES
   acts-as-taggable-on (~> 6.0)
   acts_as_list
   acts_as_tree
+  adyen-ruby-api-library
   asset_sync
   aws-sdk-s3
   bootsnap

@@ -17,6 +17,7 @@
 //= link soundcraft.js
 //= link studer.js
 //= link teaser_application.js
+//= link checkout.js
 
 //= link admin.css
 //= link akg.css
