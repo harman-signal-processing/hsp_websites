@@ -1314,6 +1314,7 @@ table.specs {
 		padding: 7px 16px;
 		border-bottom: 1px solid #CCC;
 		color: #333;
+    line-height: 1.5;
 		&.name {
 			font-size: 85%;
 			border-right: 1px solid #DDD;
@@ -1322,6 +1323,10 @@ table.specs {
 		&.divided {
 			border-right: 1px solid #CCC;
 		}
+    p {
+      font-size: rem-calc(14px);
+      line-height: 1.5;
+    }
 	}
 	th {
 		padding: 2px 6px;
