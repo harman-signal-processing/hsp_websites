@@ -1,9 +1,19 @@
-<h2 class="text-center">Order #<%= @sales_order.number %> Details</h2>
-<p class="text-center">Order Date: <%=l @sales_order.created_at.to_date, format: :long %></p>
-<br/>
+<div class="text-center">
+  <h2>Order #<%= @sales_order.number %> Details</h2>
+  <p>Order Date: <%=l @sales_order.created_at.to_date, format: :long %></p>
+  <% if @sales_order.has_digital_downloads? %>
+    <p>
+      <%= fa_icon "info-circle" %> <small>To activate your software, use the
+      <%= link_to "iLok License Manager", "https://ilok.com", target: "_blank" %>
+      to claim your license by entering your product key(s) below.</small>
+    </p>
+  <% end %>
+</div>
+<hr/>
 
 <div>
   <% @sales_order.line_items.each do |line_item| %>
+    <br/><br/>
     <div class="row">
       <div class="small-12 medium-6 columns">
         <div class="row">
@@ -22,26 +32,12 @@
         </div>
       </div>
       <div class="small-12 medium-6 columns text-right">
+        <h6 class="subheader">&nbsp;</h6>
         <%= line_item.quantity %> @ <%= number_to_currency line_item.price %>
       </div>
     </div>
-    <hr/>
+    <br/>
     <div class="row">
-      <div class="small-12 medium-6 columns">
-        <% if line_item.product.digital_ecom? %>
-          <h4>Your Product Key(s):</h4>
-          <% line_item.product_keys.each do |product_key| %>
-            <strong><%= product_key.formatted_key %></strong><br/>
-          <% end %>
-
-          <br/>
-          <p>
-            <%= fa_icon "info-circle" %> <small>To activate your product, use the
-            <%= link_to "iLok License Manager", "https://ilok.com", target: "_blank" %>
-            to claim your license using your product key(s) above.</small>
-          </p>
-        <% end %>
-      </div>
       <div class="small-12 medium-6 columns">
         <table class="sales_order_downloads">
           <thead>
@@ -70,14 +66,26 @@
         </table>
       </div>
 
+      <div class="small-12 medium-6 columns text-right">
+        <% if line_item.product.digital_ecom? %>
+          <h4>Your Product Key(s):</h4>
+          <% line_item.product_keys.each do |product_key| %>
+            <strong><%= product_key.formatted_key %></strong><br/>
+          <% end %>
+
+          <br/>
+        <% end %>
+      </div>
     </div>
+    <br/>
+    <hr/>
   <% end %>
-  <hr/>
+  <br/>
   <p class="text-right">
     <% if @sales_order.tax > 0.0 %>
       Tax: <%= number_to_currency @sales_order.tax %><br/>
     <% end %>
-    Total: <%= number_to_currency @sales_order.total %>
+    Order Total: <%= number_to_currency @sales_order.total %>
   </p>
   <p class="text-right">
     Status: PAID on <%=l @sales_order.created_at.to_date, format: :long %>

@@ -29,10 +29,20 @@
             <% end %>
           </td>
           <td class="text-center">
-            <%= line_item.quantity %>
-            &nbsp;
-            <%= link_to remove_from_cart_path(line_item.product), id: "remove-#{line_item.product.id}" do %>
-              <%= fa_icon "trash-o" %>
+            <%= simple_form_for line_item do |f| %>
+              <div class="row collapse">
+                <div class="small-1 medium-2 medium-offset-3 columns">
+                  <%= link_to remove_from_cart_path(line_item.product), class: "remove-item", id: "remove-#{line_item.product.id}" do %>
+                    <%= fa_icon "trash-o" %>
+                  <% end %>
+                </div>
+                <div class="small-7 medium-2 columns">
+                  <%=f.input :quantity, label: false, input_html: { min: "0" } %>
+                </div>
+                <div class="small-4 medium-2 columns end">
+                  <%= f.submit "update", class: "button" %>
+                </div>
+              </div>
             <% end %>
           </td>
           <td class="text-right">

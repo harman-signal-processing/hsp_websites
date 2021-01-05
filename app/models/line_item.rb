@@ -7,6 +7,7 @@ class LineItem < ApplicationRecord
 
   validates :product, presence: true, uniqueness: { scope: :shopping_cart_id }
   validates :shopping_cart, presence: true
+  validates :quantity, numericality: { greater_than: 0 }
 
   after_initialize :set_defaults
   before_save :assign_product_keys

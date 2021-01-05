@@ -506,6 +506,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get 'products/:id/add_to_cart' => "shopping_cart#add_item", as: :add_to_cart
     get 'products/:id/remove_from_cart' => "shopping_cart#remove_item", as: :remove_from_cart
     get 'cart' => "shopping_cart#show", as: :shopping_cart
+    resources :line_items, only: [:update]
     get '/checkout' => "checkout#new", as: :checkout
     post '/checkout/:uuid/get_payment_methods' => "checkout#get_payment_methods", defaults: { format: :json }
     post '/checkout/:uuid/get_cart_details' => "shopping_cart#details", defaults: { format: :json }

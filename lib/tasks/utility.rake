@@ -1,5 +1,23 @@
 namespace :utility do
 
+  desc "Generate random product keys for demo/testing"
+  task randkeys: :environment do
+    outfile = Rails.root.join("tmp", "testkeys.txt")
+    keys = 100.times.map { SecureRandom.hex(13) }
+    File.write(outfile, keys.join("\n"))
+  end
+
+  desc "Setup Lexicon for ecomm demo"
+  task lexstore: :environment do
+    ptype = ProductType.where(name: "Ecommerce-Digital Download", digital_ecom: true).first_or_create
+    products = ProductFamily.find("plugins").products
+    products.update_all(product_type_id: ptype.id)
+
+    products.each do |product|
+      5.times { ProductKey.create(product_id: product.id, key: SecureRandom.hex(13)) }
+    end
+  end
+
   # This was written for copying the AMS brand to something else.
   # Since that brand doesn't have products, I'm opting to skip anything
   # related to products at this time.

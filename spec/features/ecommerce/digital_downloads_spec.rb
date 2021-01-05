@@ -44,10 +44,42 @@ feature "User shops for downloadable goods requiring a product key" do
   end
 
   describe "changing quantity of an item in the cart" do
-    scenario "successfully"
-  end
+    before(:each) do
+      create(:product_key, product: @product)
+    end
 
-  describe "existing customer checkout"
+    scenario "successfully" do
+      visit product_path(@product, locale: "en-US")
+      click_on "Add To Cart"
+
+      fill_in "line_item_quantity", with: 2
+      click_on "update"
+
+      expect(page).to have_text("Total: $200.00")
+    end
+
+    scenario "fails with negative quantity" do
+      visit product_path(@product, locale: "en-US")
+      click_on "Add To Cart"
+
+      fill_in "line_item_quantity", with: "-100"
+      click_on "update"
+
+      expect(page).to have_content("There was a problem")
+      expect(page).to have_text("Total: $100.00")
+    end
+
+    scenario "reverts to maximum available quantity" do
+      visit product_path(@product, locale: "en-US")
+      click_on "Add To Cart"
+
+      # only 2 available
+      fill_in "line_item_quantity", with: 5
+      click_on "update"
+
+      expect(page).to have_text("Total: $200.00")
+    end
+  end
 
   describe "new customer checkout" do
     before :each do
@@ -96,15 +128,6 @@ feature "User shops for downloadable goods requiring a product key" do
       #should notify user via email
     end
 
-    scenario "failure"
-     #should attempt a payment but fail
-     #should not create a sales order
-     #should not assign a product_key
-     #should not notify user via email
-     #should not attempt to create a user account
-     #should not direct to order summary
-     #should offer user to retry payment
-    #end
   end
 
   describe "zero inventory" do

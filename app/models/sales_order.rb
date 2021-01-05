@@ -25,6 +25,10 @@ class SalesOrder < ApplicationRecord
     shopping_cart.total
   end
 
+  def has_digital_downloads?
+    true
+  end
+
   private
 
   # Here we assign an available product key to the order's line items and to the user

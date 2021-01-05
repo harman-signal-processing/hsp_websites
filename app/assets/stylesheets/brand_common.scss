@@ -2180,6 +2180,24 @@ table.cart_summary {
   tr {
     height: rem-calc(40px);
 	}
+  input {
+    height: rem-calc(30px);
+    text-align: center;
+  }
+  a.remove-item {
+    i {
+      padding-top: rem-calc(8px);
+    }
+  }
+  .button {
+    background-color: none;
+    background: none;
+    color: #888;
+    height: rem-calc(30px);
+    text-transform: lowercase;
+    font-size: rem-calc(11px);
+    text-align: left;
+  }
 }
 table.cart_totals {
   width: 100%;
