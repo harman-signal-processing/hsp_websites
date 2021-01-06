@@ -1,0 +1,10 @@
+<p>Hello. You requested to be notified when <%= @product.name %> product keys stock
+reaches <%= @product_stock_subscription.low_stock_level %>.</p>
+
+<p>
+<% if @product.available_product_keys.length == 1 %>
+  Currently there is 1 available key.
+<% else %>
+  Currently there are <%= @product.available_product_keys.length %> keys available.
+<% end %>
+</p>

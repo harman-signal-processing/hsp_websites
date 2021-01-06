@@ -336,6 +336,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :market_segment_product_families,
         :product_family_case_studies,
         :product_family_testimonials,
+        :product_stock_subscriptions,
         :software_training_classes,
         :software_training_modules,
         :get_started_page_products,

@@ -87,8 +87,13 @@
     <% end %>
     Order Total: <%= number_to_currency @sales_order.total %>
   </p>
-  <p class="text-right">
-    Status: PAID on <%=l @sales_order.created_at.to_date, format: :long %>
-  </p>
+  <% if @sales_order.status.present? %>
+    <p class="text-right">
+      Status: <%= @sales_order.status %>
+      <% if @sales_order.transaction_id.present? %>
+        <br/>Transaction ID: <%= @sales_order.transaction_id %>
+      <% end %>
+    </p>
+  <% end %>
 </div>
 

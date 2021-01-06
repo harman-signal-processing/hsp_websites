@@ -2,6 +2,7 @@ require "adyen-ruby-api-library"
 
 class ShoppingCart < ApplicationRecord
   has_many :line_items, dependent: :nullify
+  serialize :payment_data, JSON
   before_create :set_uuid
 
   def set_uuid
@@ -54,6 +55,10 @@ class ShoppingCart < ApplicationRecord
     line_items.inject(0){|t,i| t += i.quantity}
   end
 
+  def has_digital_downloads?
+    line_items.map{|li| li.product.product_type_id}.include?( ProductType.digital_ecom.id )
+  end
+
   def get_payment_methods
     adyen_client.checkout.payment_methods({
       merchantAccount: ENV["ADYEN_MERCHANT_ACCOUNT"],
@@ -88,7 +93,7 @@ class ShoppingCart < ApplicationRecord
     })
 
     # store paymentData for redirect handling
-    update(payment_data: response.response["paymentData"])
+    self.update(payment_data: response.response)
 
     if response.response.key?("action")
       # handle the action

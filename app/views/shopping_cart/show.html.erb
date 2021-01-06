@@ -58,7 +58,9 @@
 
   <div class="row">
     <div class="small-12 medium-6 large-9 columns">
-      <p><i><small>Software activation requires use of <a href="https://ilok.com" target="_blank">iLok physical license key dongle</a>.</small></i></p>
+      <% if @shopping_cart.has_digital_downloads? %>
+        <p><i><small>Software activation requires use of <a href="https://ilok.com" target="_blank">iLok physical license key dongle</a>.</small></i></p>
+      <% end %>
     </div>
     <div class="small-12 medium-6 large-3 columns">
       <table class="cart_totals">

@@ -1,0 +1,12 @@
+<%= simple_form_for [:admin, @product_stock_subscription] do |f| %>
+  <p>Product: <%= f.object.product.name %></p>
+  <%= f.input :product_id, as: :hidden %>
+  <div class="row">
+    <div class="small-12 medium-3 columns">
+      <%= f.input :low_stock_level %>
+    </div>
+  </div>
+
+  <%= f.submit class: "button" %>
+<% end %>
+

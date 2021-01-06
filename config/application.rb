@@ -48,6 +48,7 @@ module HarmanSignalProcessingWebsite
     # Override these in environment configs...
     config.default_site_name        = "Harman Signal Processing"
     config.action_mailer.default_url_options = { :host => "pro.harman.com", protocol: "https" }
+    config.action_mailer.delivery_job = "ActionMailer::MailDeliveryJob"
 
     config.document_types = [
       ["Owner's Manual", "owners_manual"],

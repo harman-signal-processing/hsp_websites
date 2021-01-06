@@ -1,0 +1,63 @@
+<p>Thanks for your order, <%= @sales_order.user.name %>.</p>
+
+<p>Please find your order details below. Note, you can also login to your
+profile at any time to view the same order details in case you don't hang
+on to this email.</p>
+
+<h3>
+  <%= link_to sales_order_url(@sales_order, locale: I18n.default_locale, host: @sales_order.brand.default_website.url, protocol: "https") do %>
+    Order #<%= @sales_order.number %> Details
+  <% end %>
+</h3>
+
+<p>Order Date: <%=l @sales_order.created_at.to_date, format: :long %></p>
+<% if @sales_order.has_digital_downloads? %>
+  <p>
+    <small>To activate your software, use the
+    <%= link_to "iLok License Manager", "https://ilok.com", target: "_blank" %>
+    to claim your license by entering your product key(s) below.</small>
+  </p>
+<% end %>
+
+<hr/>
+
+<h6>Items</h6>
+
+<% @sales_order.line_items.each do |line_item| %>
+  <% if line_item.product.photo %>
+    <%= link_to product_url(line_item.product, locale: I18n.default_locale, host: line_item.product.brand.default_website.url, protocol: "https") do %>
+      <%= image_tag(line_item.product.photo.product_attachment.url(:tiny), lazy: false) %>
+    <% end %>
+  <% end %>
+
+  <h6 class="subheader"><%= link_to line_item.product.name, product_url(line_item.product, locale: I18n.default_locale, host: line_item.product.brand.default_website.url, protocol: "https") %></h6>
+  <p><%= line_item.product.short_description %></p>
+
+  <p><%= line_item.quantity %> @ <%= number_to_currency line_item.price %></p>
+
+  <% if line_item.product.digital_ecom? %>
+    <h4>Your Product Key(s):</h4>
+    <p>
+    <% line_item.product_keys.each do |product_key| %>
+      <strong><%= product_key.formatted_key %></strong><br/>
+    <% end %>
+    </p>
+  <% end %>
+  <hr/>
+<% end %>
+
+<p>
+  <% if @sales_order.tax > 0.0 %>
+    Tax: <%= number_to_currency @sales_order.tax %><br/>
+  <% end %>
+  Order Total: <%= number_to_currency @sales_order.total %>
+</p>
+<% if @sales_order.status.present? %>
+  <p>
+    Status: <%= @sales_order.status %>
+    <% if @sales_order.transaction_id.present? %>
+      <br/>Transaction ID: <%= @sales_order.transaction_id %>
+    <% end %>
+  </p>
+<% end %>
+

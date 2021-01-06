@@ -71,8 +71,27 @@ feature "Admin sets up a product for digital download ecommerce" do
   end
 
   describe "Low stock notifications" do
-    scenario "admin can subscribe and set low-stock threshhold"
-    scenario "subscribed users get notified when stock hits threshhold"
+    scenario "admin can subscribe and set low-stock threshhold" do
+      product = @brand.products.first
+      product.update(product_type: ProductType.digital_ecom)
+
+      click_on "Digital Inventory"
+      click_on product.name
+
+      click_on "Subscribe to low stock notifications"
+      fill_in "Low stock level", with: "100"
+      click_on "Create"
+
+      expect(page.current_path).to eq(admin_product_product_keys_path(product, locale: "en-US"))
+      expect(page).to have_link("Edit your low-stock subscription")
+
+      # Let's try editing the subscription
+      click_on "Edit"
+      fill_in "Low stock level", with: "50"
+      click_on "Update"
+
+      expect(page.current_path).to eq(admin_product_product_keys_path(product, locale: "en-US"))
+    end
   end
 end
 

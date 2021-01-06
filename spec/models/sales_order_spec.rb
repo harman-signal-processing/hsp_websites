@@ -32,9 +32,13 @@ RSpec.describe SalesOrder, type: :model do
   end
 
   describe "creating an order" do
-    it "should the line items from the cart to the sales_order" do
+    it "should assign the line items from the cart to the sales_order" do
+      brand = FactoryBot.create(:brand)
+      FactoryBot.create(:website, brand: brand)
+      product_type = FactoryBot.create(:product_type, digital_ecom: true)
+      product = FactoryBot.create(:product, product_type: product_type, brand: brand)
       shopping_cart = FactoryBot.create(:shopping_cart)
-      line_item = FactoryBot.create(:line_item, price_cents: 50000, shopping_cart: shopping_cart)
+      line_item = FactoryBot.create(:line_item, price_cents: 50000, shopping_cart: shopping_cart, product: product)
 
       sales_order = FactoryBot.create(:sales_order, shopping_cart: shopping_cart)
 

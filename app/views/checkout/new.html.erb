@@ -54,7 +54,9 @@
       </p>
 
     </div>
-    <p class="text-center"><i><small>Software activation requires use of <a href="https://ilok.com" target="_blank">iLok physical license key dongle</a>.</small></i></p>
+    <% if @shopping_cart.has_digital_downloads? %>
+      <p class="text-center"><i><small>Software activation requires use of <a href="https://ilok.com" target="_blank">iLok physical license key dongle</a>.</small></i></p>
+    <% end %>
   </div>
 </div>
 

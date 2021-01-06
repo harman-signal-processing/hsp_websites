@@ -3,6 +3,7 @@ class Admin::ProductKeysController < AdminController
   load_and_authorize_resource except: :index
 
   def index
+    @product_stock_subscription = ProductStockSubscription.where(user_id: current_user.id, product_id: @product.id).first_or_initialize
   end
 
   def create

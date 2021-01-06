@@ -1,5 +1,20 @@
 <h1><%= @product.name %> Digital Inventory</h1>
 
+<ul class="button-group round">
+  <% if @product_stock_subscription.new_record? %>
+    <li><%= link_to new_admin_product_stock_subscription_path(product_id: @product.id), class: "small button" do %>
+      Subscribe to low stock notifications
+    <% end %>
+    </li>
+  <% else %>
+    <li>
+      <%= link_to edit_admin_product_stock_subscription_path(@product_stock_subscription), class: "small button" do %>
+        Edit your low-stock subscription
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
 <%= form_with url: admin_product_product_keys_path(@product), method: :post do |f| %>
   <%= f.label :new_keys, "Paste new product keys below (one per line)" %>
   <%= f.text_area :new_keys, rows: 20 %>
