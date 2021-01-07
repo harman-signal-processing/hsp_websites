@@ -140,6 +140,7 @@
                   <% end %>
 
                   <% if can?(:manage, Promotion) ||
+                      can?(:manage, SalesOrder) ||
                       can?(:update, :harman_employee_pricing) ||
                       can?(:read, WarrantyRegistration) ||
                       can?(:read,ContactMessage) ||
@@ -149,6 +150,9 @@
                       can?(:manage, LabelSheetOrder) %>
                     <li class="has-dropdown"><%= link_to "Customers & Pricing", '#' %>
                     <ul class="dropdown">
+                      <% if can? :manage, SalesOrder %>
+                        <li><%= link_to "Sales Orders", admin_sales_orders_path %></li>
+                      <% end %>
                       <% if can? :manage, Promotion %>
                         <li><%= link_to "Promotions", admin_promotions_path %></li>
                       <% end %>

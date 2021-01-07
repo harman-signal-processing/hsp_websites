@@ -1,6 +1,7 @@
 class CheckoutController < ApplicationController
   include CurrentShoppingCart
-  before_action :set_locale, :set_cart
+  before_action :set_locale
+  before_action :set_cart, except: [:shopper_redirect] # Don't set cart in the session if we're redirecting to a sales order
   before_action :authenticate_user!, only: [:new, :shopper_redirect, :success]
 
   # Before checking out, let's signin/create our user so we can
@@ -28,8 +29,19 @@ class CheckoutController < ApplicationController
     render json: response.response, status: response.status
   end
 
-  # JS Not sure what to do here
+  # If Adyen takes the user elsewhere and then needs to return them, this
+  # is where they land:
   def shopper_redirect
+    begin
+      shopping_cart = ShoppingCart.where(uuid: params[:uuid]).first_or_initialize
+      if shopping_cart.sales_order
+        redirect_to shopping_cart.sales_order and return
+      else
+        redirect_to profile_path and return
+      end
+    rescue
+      redirect_to profile_path and return
+    end
   end
 
   # The payment went through, create the sales order and redirect the user there.
@@ -44,7 +56,7 @@ class CheckoutController < ApplicationController
   end
 
   def pending
-    render plain: "The order is pending"
+    redirect_to profile_path, notice: "Your payment is currently pending. Watch your email and check back here to see your completed order details."
   end
 
   def failed

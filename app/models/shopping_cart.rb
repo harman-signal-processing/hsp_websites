@@ -2,6 +2,7 @@ require "adyen-ruby-api-library"
 
 class ShoppingCart < ApplicationRecord
   has_many :line_items, dependent: :nullify
+  has_one :sales_order # if the cart checked out
   serialize :payment_data, JSON
   before_create :set_uuid
 

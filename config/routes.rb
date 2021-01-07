@@ -383,6 +383,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :pricing_types,
         :news_products,
         :sales_regions,
+        :sales_orders,
         :label_sheets,
         :distributors,
         :artist_tiers,

@@ -1,0 +1,43 @@
+<h1>Sales Orders</h1>
+
+<div class="row">
+  <div class="small-12 medium-6 columns">
+    <%= search_form_for [:admin, @search] do |f| %>
+            <%= f.label :user_name_or_user_email_cont, "Customer Name or Email contains..." %>
+      <div class="row collapse">
+        <div class="small-8 columns">
+          <div class="form_field">
+            <%= f.text_field :user_name_or_user_email_cont %>
+          </div>
+        </div>
+        <div class="small-4 columns">
+          <%= f.submit "Search sales orders", class: "postfix expand small button" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Order Number</th>
+      <th>Summary</th>
+      <th>Total</th>
+      <th>Customer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @sales_orders.each do |sales_order| %>
+      <tr>
+        <td><%=l sales_order.created_at, format: :log %></td>
+        <td><%= link_to sales_order.number, [:admin, sales_order] %></td>
+        <td><%= sales_order.line_items.map{|li| li.product.name}.uniq.join(", ") %></td>
+        <td><%= number_to_currency sales_order.total %></td>
+        <td><%= link_to sales_order.user.name, [:admin, sales_order.user] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

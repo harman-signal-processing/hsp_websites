@@ -1,0 +1,105 @@
+<div class="text-center">
+  <h2>Order #<%= @sales_order.number %> Details</h2>
+  <p>Order Date: <%=l @sales_order.created_at.to_date, format: :long %></p>
+</div>
+<hr/>
+
+<div>
+  <% @sales_order.line_items.each do |line_item| %>
+    <br/><br/>
+    <div class="row">
+      <div class="small-12 medium-6 columns">
+        <div class="row">
+          <div class="small-2 columns text-right">
+            <% if line_item.product.photo %>
+              <%= link_to line_item.product do %>
+                <%= image_tag(line_item.product.photo.product_attachment.url(:tiny), lazy: false) %>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="small-10 columns">
+            <h6 class="subheader"><%= link_to line_item.product.name, line_item.product %></h6>
+            <%= line_item.product.short_description %>
+
+          </div>
+        </div>
+      </div>
+      <div class="small-12 medium-6 columns text-right">
+        <h6 class="subheader">&nbsp;</h6>
+        <%= line_item.quantity %> @ <%= number_to_currency line_item.price %>
+      </div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="small-12 medium-6 columns">
+        <table class="sales_order_downloads">
+          <thead>
+            <tr>
+              <td>Related Downloads</td>
+              <td class="text-right">Version</td>
+            </tr>
+          </thead>
+          <tbody>
+            <% line_item.product.active_softwares.each do |item| %>
+              <tr>
+                <td>
+                  <%= platform_icon(item, 17) %>
+                  <%= link_to item.name, (item.link.present? && item.new_record?) ? item.link : item %>
+                </td>
+                <td class="text-right">
+                    &nbsp;
+                    <%= item.version %>
+                    <% if item.bit.present? %>
+                      (<%= item.bit %>-bit)
+                    <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="small-12 medium-6 columns text-right">
+        <% if line_item.product.digital_ecom? %>
+          <h4>Your Product Key(s):</h4>
+          <% line_item.product_keys.each do |product_key| %>
+            <strong><%= product_key.formatted_key %></strong><br/>
+          <% end %>
+
+          <br/>
+        <% end %>
+      </div>
+    </div>
+    <br/>
+    <hr/>
+  <% end %>
+  <br/>
+  <div class="row">
+    <div class="small-12 medium-6 columns">
+      <div class="panel">
+        <h5>Customer Details:</h5>
+        <p>
+          <%= link_to @sales_order.user.name, [:admin, @sales_order.user] %><br/>
+          <%= mail_to @sales_order.user.email, @sales_order.user.email %>
+        </p>
+      </div>
+    </div>
+    <div class="small-12 medium-6 columns">
+      <p class="text-right">
+        <% if @sales_order.tax > 0.0 %>
+          Tax: <%= number_to_currency @sales_order.tax %><br/>
+        <% end %>
+        Order Total: <%= number_to_currency @sales_order.total %>
+      </p>
+      <% if @sales_order.status.present? %>
+        <p class="text-right">
+          Status: <%= @sales_order.status %>
+          <% if @sales_order.transaction_id.present? %>
+            <br/>Transaction ID: <%= @sales_order.transaction_id %>
+          <% end %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>
+

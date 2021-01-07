@@ -79,6 +79,8 @@ function handleServerResponse(res, component) {
         window.location.href = "/checkout/success";
         break;
       case "Pending":
+        window.location.href = "/checkout/pending";
+        break;
       case "Received":
         window.location.href = "/checkout/pending";
         break;
