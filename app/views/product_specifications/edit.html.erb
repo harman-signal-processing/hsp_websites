@@ -1,0 +1,29 @@
+<h1 class="text-center">Specification Editor</h1>
+<br/>
+<div class="row">
+  <div class="small-12 medium-8 medium-offset-2 columns">
+    <%= simple_form_for [:admin, @product_specification] do |f| %>
+      <input type="hidden" name="return_to" value="<%= @return_to %>">
+      <p><b>Product:</b> <%= @product_specification.product.name %></p>
+      <p><b>Specification:</b> <%= @product_specification.specification.name_with_group %></p>
+
+      <% if @product_specification.specification.specification_group.present? %>
+        <% if @product_specification.specification.name.downcase == "#{@product_specification.specification.specification_group.name.downcase} notes" %>
+          <div class="alert-box info">
+            Note: this is a special case specification because its name follows the pattern:
+            "Group Name" followed by the word "notes". Because of this, when it is displayed
+            on the product page the <strong>spec name is hidden</strong>. This is useful for
+            showing notes or other bulk content when you don't want an actual specification
+            name to appear.
+          </div>
+        <% end %>
+      <% end %>
+
+      <%= f.input :value, as: :text, label: false, input_html: { class: "mceEditor" } %>
+
+      <br/>
+      <%= f.submit class: "button" %>
+    <% end %>
+  </div>
+</div>
+

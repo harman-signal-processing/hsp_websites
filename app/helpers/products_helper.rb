@@ -260,32 +260,50 @@ module ProductsHelper
             class: 'content-nav',
             data: {:'magellan-destination' => product_tab.key}
           )
-          end + content_tag(:div, class: "small-2 columns text-right") do
-            if can?(:manage, product)
-              if product_tab.key.match?(/download|doc/)
-                link_to(admin_product_path(product), class: "edit-link", data: {opener: 'upload-options'}) do
-                  fa_icon("upload") + " upload"
-                end +
-                content_tag(:div, class: "dialog", id: "upload-options") do
-                  link_to(new_site_element_path(product_id: product.to_param), id: "upload-site-element-button", class: "tiny button") do
-                    fa_icon("upload") + " new resource"
-                  end + ' ' +
-                  link_to(new_software_path(product_id: product.to_param), class: "tiny button") do
-                    fa_icon("upload") + " new software"
-                  end
-                end
-              end
-            end
-          end
+          end + admin_links_for(product_tab, product)
         end
       end
       ret += content_tag(:div, class: "product_main_tab_content content #{active_class}") do
         render_partial("products/#{product_tab.key}", product: product)
       end
-    end  #  main_tabs.each_with_index do |product_tab,i|
+    end
 
     raw(ret)
-  end  #  def draw_main_product_content(product, options={})
+  end
+
+  def admin_links_for(product_tab, product)
+    content_tag(:div, class: "small-2 columns text-right") do
+      if can?(:manage, product)
+        if product_tab.key.match?(/download|doc/)
+          admin_downloads_link(product)
+        elsif product_tab.key.match?(/spec/)
+          admin_specs_link(product)
+        end
+      end
+    end
+  end
+
+  def admin_downloads_link(product)
+    link_to(admin_product_path(product), class: "edit-link", data: {opener: 'upload-options'}) do
+      fa_icon("upload") + " upload"
+    end +
+    content_tag(:div, class: "dialog", id: "upload-options") do
+      link_to(new_site_element_path(product_id: product.to_param), id: "upload-site-element-button", class: "tiny button") do
+        fa_icon("upload") + " new resource"
+      end + ' ' +
+      link_to(new_software_path(product_id: product.to_param), class: "tiny button") do
+        fa_icon("upload") + " new software"
+      end
+    end
+  end
+
+  def admin_specs_link(product)
+    reveal_id = website.brand.use_flattened_specs? ? "edit-specs" : "add-spec-group"
+
+    link_to( admin_product_specifications_path(product), class: "reveal-edit-link", data: { "reveal-id": reveal_id }) do
+      fa_icon(reveal_id.match?(/edit/) ? "edit" : "plus") + " #{ reveal_id.gsub(/\-/, ' ') }"
+    end
+  end
 
   def parse_tabs(tabs, product)
     selected_tabs = tabs.split("|")

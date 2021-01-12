@@ -1,0 +1,68 @@
+<div id="add-spec-group" class="reveal-modal inline-editor" data-reveal>
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+
+  <p>The following spec groups are used elsewhere on our websites. Choose a group to add to <%= product.name %>.</p>
+
+  <ul>
+    <% (SpecificationGroup.all.order("upper(name)") - product.specification_groups).each do |spec_group| %>
+      <li><%= link_to spec_group.name, '#', class: "reveal-edit-link", data: { "reveal-id": "edit-spec-group-#{ spec_group.id }" } %></li>
+    <% end %>
+  </ul>
+
+  <p>
+    <%= link_to 'create a new group',
+      new_admin_specification_group_path,
+      class: "small button",
+      data: { "reveal-id": "new-spec-group" }
+    %>
+  </p>
+</div>
+
+<div id="new-spec-group" class="reveal-modal inline-editor" data-reveal>
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+  <div class="row">
+    <div class="small-12 columns">
+      <h3>New Specification Group</h3>
+    </div>
+  </div>
+
+  <%= simple_form_for [:admin, SpecificationGroup.new] do |f| %>
+    <input type="hidden" name="return_to" value="<%= product_path(product) %>">
+    <div class="row">
+      <div class="small-12 columns">
+        <%= f.input :name, required: true %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-6 columns">
+        <h6>Specification Name <small>must be unique</small></h6>
+      </div>
+      <div class="small-6 columns">
+        <h6>Value <small>for <%= product.name %></small></h6>
+      </div>
+    </div>
+
+    <%= f.simple_fields_for :specifications, 10.times.map { Specification.new  } do |s| %>
+      <div class="row">
+        <div class="small-6 columns">
+          <%= s.input :name, label: false %>
+        </div>
+        <div class="small-6 columns">
+          <%= s.simple_fields_for :product_specifications, ProductSpecification.new(product_id: product.id) do |ps| %>
+            <%= ps.input :value, as: :string, label: false %>
+            <%= ps.association :product, as: :hidden %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="row">
+      <div class="small-12 columns">
+        <%= f.submit "Save Changes", class: "medium button" %>
+      </div>
+    </div>
+
+  <% end %>
+
+</div>

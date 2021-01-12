@@ -4,16 +4,30 @@ class Specification < ApplicationRecord
 
   belongs_to :specification_group
   has_many :product_specifications, inverse_of: :specification
-  validates :name, presence: true, uniqueness: { case_sensitive: false }
+  validates :name, presence: true, uniqueness: { case_sensitive: false, scope: :specification_group_id }
 
   acts_as_list scope: :specification_group_id
+  after_save :reset_options_for_select
+
+  accepts_nested_attributes_for :product_specifications, reject_if: proc { |attr| attr['value'].blank? }
 
   scope :not_for_brand_comparison, -> (brand) {
     unscoped.where.not(id: brand.specification_for_comparisons.pluck(:specification_id)).order("name")
   }
 
+  # Adding the class variable causes options_for_select to be cached
   def self.options_for_select
     @options_for_select ||= order(:name)
+  end
+
+  # Don't worry, this just sets up options_for_select to get re-cached next time it's needed
+  def self.reset_options_for_select
+    @options_for_select = nil
+  end
+
+  # If something changed, we need to reset our cached dropdown options_for_select
+  def reset_options_for_select
+    Specification.reset_options_for_select
   end
 
   def values_with_products
