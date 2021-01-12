@@ -44,11 +44,7 @@
 	<li><%= link_to "Buy".titleize, where_to_find_path %></li>
 	<% end %>
 
-  <li class="has-dropdown"><%= link_to t('training').titleize, "/training", target: "_blank" %>
-    <ul class="dropdown">
-      <li><%= link_to "Broadcast Truck", "/#{I18n.locale}/broadcast-truck" %></li>
-    </ul>
-  </li>
+  <li><%= link_to t('training').titleize, "/training", target: "_blank" %></li>
 
   <li class="has-dropdown"><%= link_to t('product_support').titleize, support_path %>
     <ul class="dropdown">
