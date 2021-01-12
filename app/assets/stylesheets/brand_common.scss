@@ -42,7 +42,15 @@ $slick-arrow-color: $dark-gray;
 @import 'slick-theme';
 
 .reveal-modal-bg{position:fixed;}
-.reveal-modal{position:fixed;}
+.reveal-modal{
+  position: fixed;
+  &.inline-editor {
+    height: 80%;
+    max-height: 80%;
+    overflow: auto;
+    padding-right: 60px;
+  }
+}
 .fullWidth {
   width: 100%;
   margin-left: auto;
@@ -1003,11 +1011,11 @@ div.product-title-block, div.small-title-block {
   background: white;
   position: relative;
   &:hover {
-    a.edit-link {
+    a.edit-link, a.reveal-edit-link {
       display: inline-block;
     }
   }
-  a.edit-link {
+  a.edit-link, a.reveal-edit-link {
     display: none;
     font-size: 14px;
     font-weight: normal;
@@ -1118,7 +1126,7 @@ div.product-title-block, div.small-title-block {
 
 .product-subheader {
   position: relative;
-  a.edit-link {
+  a.edit-link, a.reveal-edit-link {
     display: none;
     font-size: rem-calc(14px);
     font-weight: normal;
@@ -1130,8 +1138,15 @@ div.product-title-block, div.small-title-block {
     top: 24px;
     width: 400px;
   }
+  .popup-form {
+    position: absolute;
+    right: 10px;
+    top: -100px;
+    width: 800px;
+    text-align: left;
+  }
   &:hover {
-    a.edit-link {
+    a.edit-link, a.reveal-edit-link {
       display: inline-block
     }
   }
@@ -1326,6 +1341,7 @@ table.specs {
     p {
       font-size: rem-calc(14px);
       line-height: 1.5;
+      color: #333;
     }
 	}
 	th {
@@ -1344,6 +1360,21 @@ span.smalColHeader {
 }
 div.specgroup {
   margin-bottom: rem-calc(29px);
+  position: relative;
+  &:hover {
+    a.reveal-edit-link {
+      display: inline-block;
+    }
+  }
+  a.reveal-edit-link {
+    display: none;
+    font-size: 14px;
+    font-weight: normal;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    z-index: 9999;
+  }
 }
 
 span.specContent {

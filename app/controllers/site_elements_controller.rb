@@ -1,4 +1,5 @@
 class SiteElementsController < ApplicationController
+  before_action :set_locale
   load_and_authorize_resource
 
   def new_version

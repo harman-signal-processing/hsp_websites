@@ -1,0 +1,38 @@
+<div id="edit-specs" class="reveal-modal inline-editor" data-reveal>
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+
+  <%= simple_form_for [:admin, product],
+    url: bulk_update_admin_product_product_specifications_path(product),
+    method: :post,
+    html: { class: "bulk_specifications_update" } do |f| %>
+    <input type="hidden" name="return_to" value="<%= product_path(product) %>">
+
+    <div class="row">
+      <div class="small-1 columns">&nbsp;</div>
+      <div class="small-5 columns">
+        <h6>Specification Name</h6>
+      </div>
+      <div class="small-6 columns">
+        <h6>Value
+            <small>use the <i class="fa fa-edit"></i> edit button on the right to get an HTML editor</small>
+        </h6>
+      </div>
+    </div>
+
+    <%= f.simple_fields_for :product_specifications  do |ps| %>
+      <%= render 'admin/product_specifications/product_specification_fields', f: ps, parent: f.object, admin_lite: true %>
+    <% end %>
+
+    <%= f.simple_fields_for :product_specifications, 3.times.map { ProductSpecification.new(product: product) } do |ps| %>
+      <%= render 'admin/product_specifications/product_specification_fields', f: ps, parent: f.object %>
+    <% end %>
+
+    <div class="row">
+      <div class="small-10 small-offset-1 columns">
+        <%= f.submit "Save Changes", class: "medium button" %>
+      </div>
+    </div>
+  <% end %>
+
+</div>
+

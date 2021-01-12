@@ -11,44 +11,60 @@
     <% end %>
   </table>
 
+  <% if can?(:manage, product) %>
+    <%= render_partial "edit_product_specifications", product: product %>
+  <% end %>
+
 <% else %>
 
-    <ul class="medium-block-grid-2 small-block-grid-1" style="margin-left: 0 !important;">
-      <% spec_groups = product.specification_groups.order("specification_groups.position").uniq %>
-      <li style="margin-left: 0; padding-left:0">
-        <% spec_groups.each_with_index do |spec_group, i| %>
-          <div class="specgroup">
-            <span class="smalColHeader"><%= translate_content(spec_group, :name) %></span>
-
-            <% spec_group.specifications.order(:position).each do |specification| %>
-              <% product_spec = product.product_specifications.where(specification_id: specification.id) %>
-              <% if product_spec.exists? %>
-                <span class="specContent">
-                  <% unless specification.name.downcase == "#{spec_group.name.downcase} notes" %>
-                    <%= translate_content(specification, :name) %>:
-                  <% end %>
-                  <%= spec_value(product_spec.first) %>
-                </span>
-              <% end %>
+  <ul class="medium-block-grid-2 small-block-grid-1" style="margin-left: 0 !important;">
+    <% spec_groups = product.specification_groups.order("specification_groups.position").uniq %>
+    <li style="margin-left: 0; padding-left:0">
+      <% spec_groups.each_with_index do |spec_group, i| %>
+        <div class="specgroup">
+          <% if can?(:manage, product) %>
+            <%= link_to [:admin, spec_group], class: "reveal-edit-link", data: { "reveal-id": "edit-spec-group-#{ spec_group.id }" } do %>
+              <%= fa_icon "edit" %> edit group
             <% end %>
-          </div>
-          <% if i == (i > 1 && (spec_groups.length / 2).to_i - 1) %>
-            </li>
-            <li style="margin-left: 0; padding-left: 0">
           <% end %>
-        <% end %>
 
-        <% if product.ungrouped_product_specifications.length > 0 %>
-          <span class="smalColHeader">Other Specifications</span>
+          <span class="smalColHeader"><%= translate_content(spec_group, :name) %></span>
 
-          <% product.ungrouped_product_specifications.each do |product_spec| %>
-            <span class="specContent">
-              <%= translate_content(product_spec.specification, :name) %>:
-              <%= spec_value(product_spec) %>
-            </span>
+          <% spec_group.specifications.order(:position).each do |specification| %>
+            <% product_spec = product.product_specifications.where(specification_id: specification.id) %>
+            <% if product_spec.exists? %>
+              <span class="specContent">
+                <% unless specification.name.downcase == "#{spec_group.name.downcase} notes" %>
+                  <%= translate_content(specification, :name) %>:
+                <% end %>
+                <%= spec_value(product_spec.first) %>
+              </span>
+            <% end %>
           <% end %>
+        </div>
+        <% if i == (i > 1 && (spec_groups.length / 2).to_i - 1) %>
+          </li>
+          <li style="margin-left: 0; padding-left: 0">
         <% end %>
-      </li>
-    </ul>
+      <% end %>
 
+      <% if product.ungrouped_product_specifications.length > 0 %>
+        <span class="smalColHeader">Other Specifications</span>
+
+        <% product.ungrouped_product_specifications.each do |product_spec| %>
+          <span class="specContent">
+            <%= translate_content(product_spec.specification, :name) %>:
+            <%= spec_value(product_spec) %>
+          </span>
+        <% end %>
+      <% end %>
+    </li>
+  </ul>
+
+  <% if can?(:manage, product) %>
+    <% SpecificationGroup.all.each do |spec_group| %>
+      <%= render_partial "edit_spec_group", product: product, spec_group: spec_group %>
+    <% end %>
+    <%= render_partial "add_spec_group", product: product %>
+  <% end %>
 <% end %>

@@ -39,7 +39,14 @@ class Admin::SpecificationGroupsController < AdminController
   def create
     respond_to do |format|
       if @specification_group.save
-        format.html { redirect_to([:admin, @specification_group], notice: 'Specification group was successfully created.') }
+        format.html {
+          if params[:return_to]
+            return_to = URI.parse(params[:return_to]).path
+            redirect_to(return_to, notice: "Specs were successfully updated.")
+          else
+            redirect_to([:admin, @specification_group], notice: 'Specification group was successfully created.')
+          end
+        }
         format.xml  { render xml: @specification_group, status: :created, location: @specification_group }
         website.add_log(user: current_user, action: "Created spec group: #{@specification_group.name}")
       else
@@ -103,7 +110,7 @@ class Admin::SpecificationGroupsController < AdminController
   end
 
   def specification_group_params
-    params.require(:specification_group).permit(:name, :position)
+    params.require(:specification_group).permit(:name, :position, specifications_attributes: {})
   end
 
   def specification_params

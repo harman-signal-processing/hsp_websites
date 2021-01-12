@@ -1,7 +1,7 @@
 <% rand_id = f.object_id %>
 <div class="row">
   <div class="small-1 text-right columns">
-    <% if !f.object.new_record? && website.brand.use_flattened_specs? %>
+    <% if !f.object.new_record? && website.brand.use_flattened_specs? && !local_assigns[:admin_lite]%>
       <span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
     <% else %>
       &nbsp;
@@ -13,6 +13,10 @@
         <div class="small-11 columns">
           <%= f.simple_fields_for :specification, Specification.new do |s| %>
             <%= s.input :name, label: false %>
+            <% if local_assigns[:spec_group] %>
+              <% s.object.specification_group_id = spec_group.id %>
+              <%= s.input :specification_group_id, as: :hidden %>
+            <% end %>
           <% end %>
         </div>
         <div class="small-1 columns">
@@ -24,8 +28,8 @@
       <div class="row collapse select_spec_name_<%= rand_id %>">
         <div class="small-11 columns">
           <%= f.association :specification,
-            collection: Specification.options_for_select,
-            label_method: website.brand.use_flattened_specs? ? :name : :name_with_group,
+            collection: (local_assigns[:spec_group] ? spec_group.specifications : Specification.options_for_select) - (f.object.product.present? ? f.object.product.specifications : []),
+            label_method: (website.brand.use_flattened_specs? || local_assigns[:spec_group]) ? :name : :name_with_group,
             label: false %>
         </div>
         <div class="small-1 columns">
@@ -36,8 +40,8 @@
       </div>
     <% else %>
       <%= f.association :specification,
-        collection: Specification.options_for_select,
-        label_method: website.brand.use_flattened_specs? ? :name : :name_with_group,
+        collection: local_assigns[:spec_group] ? spec_group.specifications : Specification.options_for_select,
+        label_method: (website.brand.use_flattened_specs? || local_assigns[:spec_group]) ? :name : :name_with_group,
         label: false %>
     <% end %>
   </div>
@@ -51,7 +55,7 @@
         </div>
         <div class="small-1 columns">
           <%= link_to "<i class='fa fa-edit'></i>".html_safe,
-            edit_admin_product_specification_path(f.object),
+            local_assigns[:admin_lite] ? edit_product_specification_path(f.object) : edit_admin_product_specification_path(f.object),
             class: 'small button postfix',
             data: { confirm: "Navigating away from this page will lose any changes you haven't saved. Are you sure you want to leave this page?" }
           %>

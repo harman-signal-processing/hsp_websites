@@ -71,7 +71,14 @@ class Admin::ProductSpecificationsController < AdminController
   def update
     respond_to do |format|
       if @product_specification.update(product_specification_params)
-        format.html { redirect_to(admin_product_product_specifications_path(@product_specification.product), notice: 'Product specification was successfully updated.') }
+        format.html {
+          if params[:return_to]
+            return_to = URI.parse(params[:return_to]).path
+            redirect_to(return_to, notice: "Specification was successfully updated.")
+          else
+            redirect_to(admin_product_product_specifications_path(@product_specification.product), notice: 'Product specification was successfully updated.')
+          end
+        }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated #{@product_specification.specification.name} for #{@product_specification.product.name}")
       else
@@ -87,15 +94,24 @@ class Admin::ProductSpecificationsController < AdminController
     respond_to do |format|
       if product_params["product_specifications_attributes"].present?
         product_params["product_specifications_attributes"].each do |key, psa|
-          if psa.include?("specification_attributes") && psa["specification_attributes"]["name"].present? # creating a new spec
-            specification = Specification.where(psa["specification_attributes"]).first_or_create
-            psa["specification_id"] = specification.id
+          if psa.include?("specification_attributes")
+            if psa["specification_attributes"]["name"].present? # creating a new spec
+              specification = Specification.where(psa["specification_attributes"]).first_or_create
+              psa["specification_id"] = specification.id
+            end
             psa.delete("specification_attributes")
           end
         end
       end
       if @product.update(product_params)
-        format.html { redirect_to([:admin, @product], notice: 'Product was successfully updated.') }
+        format.html {
+          if params[:return_to]
+            return_to = URI.parse(params[:return_to]).path
+            redirect_to(return_to, notice: "Specs were successfully updated.")
+          else
+            redirect_to([:admin, @product], notice: 'Product was successfully updated.')
+          end
+        }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated product: #{@product.name}")
       else
