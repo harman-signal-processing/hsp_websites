@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :tones
   has_many :tone_user_ratings
   has_many :sales_orders
+  has_many :product_keys
   has_attached_file :profile_pic,
     styles: {
       large:         "550x370",
