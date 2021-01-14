@@ -3,6 +3,7 @@ tmp/
 protected/
 system/
 public/system
+public/assets
 db/sphinx/
 tags
 app/assets/images/development/
