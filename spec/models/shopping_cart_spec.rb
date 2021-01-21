@@ -46,11 +46,4 @@ RSpec.describe ShoppingCart, type: :model do
     expect(@shopping_cart.total_items).to eq(3)
   end
 
-  describe "converting to a sales order" do
-    it "should create a sales order"
-    it "should add all the line items to the sales order"
-    it "should check to make sure the cart total still matches the authorization amount"
-    it "should create a new user and associate it with the sales order"
-  end
-
 end

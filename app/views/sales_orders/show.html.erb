@@ -81,19 +81,36 @@
     <hr/>
   <% end %>
   <br/>
-  <p class="text-right">
-    <% if @sales_order.tax > 0.0 %>
-      Tax: <%= number_to_currency @sales_order.tax %><br/>
-    <% end %>
-    Order Total: <%= number_to_currency @sales_order.total %>
-  </p>
-  <% if @sales_order.status.present? %>
-    <p class="text-right">
-      Status: <%= @sales_order.status %>
-      <% if @sales_order.transaction_id.present? %>
-        <br/>Transaction ID: <%= @sales_order.transaction_id %>
+
+  <div class="row">
+    <div class="small-12 medium-6 columns">
+      <strong>Billed To</strong>
+      <div>
+        <%= @sales_order.user.name %><br/>
+        <%= @sales_order.address.street_1 %><br/>
+        <% if @sales_order.address.street_2.present? %>
+          <%= @sales_order.address.street_2 %><br/>
+        <% end %>
+        <%= @sales_order.address.city %>
+        <%= @sales_order.address.state %><br/>
+        <%= @sales_order.address.postal_code %><br/>
+        <%= @sales_order.address.country %>
+      </div>
+    </div>
+    <div class="small-12 medium-6 columns text-right">
+      <p>
+        Tax: <%= number_to_currency @sales_order.tax %><br/>
+        Order Total: <%= number_to_currency @sales_order.total %>
+      </p>
+      <% if @sales_order.status.present? %>
+        <p>
+          Status: <%= @sales_order.status %>
+          <% if @sales_order.transaction_id.present? %>
+            <br/>Transaction ID: <%= @sales_order.transaction_id %>
+          <% end %>
+        </p>
       <% end %>
-    </p>
-  <% end %>
+    </div>
+  </div>
 </div>
 

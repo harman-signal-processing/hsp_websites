@@ -1,9 +1,12 @@
 class SalesOrder < ApplicationRecord
 
-  belongs_to :user
   belongs_to :shopping_cart
+  belongs_to :user
+  belongs_to :address
   has_many :line_items
+
   validates :user, presence: true
+  validates :address, presence: true
 
   after_create :assign_line_items, :send_confirmation
 

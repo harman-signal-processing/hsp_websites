@@ -98,49 +98,71 @@ feature "User shops for downloadable goods requiring a product key" do
   describe "new customer checkout", js: true do
 
     scenario "successfully creates a sales order and assigns product key to customer" do
-      skip "Works, but we want to avoid hitting Adyen service during tests"
+      skip "Works, but we want to avoid hitting Adyen API & Address verification API during tests"
 
       @available_product_key = FactoryBot.create(:product_key, product_id: @product.id)
       original_product_keys_count = @product.available_product_keys.length
       new_customer = FactoryBot.build(:user)
+      new_address = FactoryBot.build(:address, country: "Mexico")
 
       visit product_path(@product, locale: "en-US")
       click_on "Add To Cart"
       click_on "Checkout"
 
       # New user must register
-      click_on "register"
-      fill_in "Name", with: new_customer.name
-      fill_in "Email", with: new_customer.email
-      fill_in "Password", with: "password123"
-      fill_in "Password confirmation", with: "password123"
-      click_on "Sign up"
+      expect {
+        click_on "register"
+        fill_in "Name", with: new_customer.name
+        fill_in "Email", with: new_customer.email
+        fill_in "Password", with: "password123"
+        fill_in "Password confirmation", with: "password123"
+        click_on "Sign up"
+      }.to change(User, :count).by(+1)
+
+      new_user = User.last
+      expect(new_user.email).to eq(new_customer.email)
 
       # User is now logged in and directed to the checkout page
-      cardframe = find(".adyen-checkout__card__cardNumber__input").find(".js-iframe")
-      within_frame cardframe do
-        fill_in("encryptedCardNumber", with: "4000 0200 0000 0000")
-      end
+      expect {
+        fill_in "Billing Address", with: new_address.street_1
+        fill_in "City", with: new_address.locality
+        fill_in "State", with: new_address.region
+        fill_in "Zipcode", with: new_address.postal_code
+        select new_address.country, from: "Country"
+        click_on "Continue" # payment is on next screen so we can add tax if needed
+      }.to change(Address, :count).by(+1)
 
-      expframe = find(".adyen-checkout__card__exp-date__input").find(".js-iframe")
-      within_frame expframe do
-        fill_in("encryptedExpiryDate", with: "03/30")
-      end
+      expect(new_user.addresses.length).to eq(1)
 
-      cvvframe = find(".adyen-checkout__card__cvc__input").find(".js-iframe")
-      within_frame cvvframe do
-        fill_in("encryptedSecurityCode", with: "737")
-      end
+      # User has supplied address and continues to payment page
+      # This sometimes fails. I think it has to do with Adyen rejecting our test card
+      # because of fraud protection.
+      sleep(3)
+      expect {
+        cardframe = find(".adyen-checkout__card__cardNumber__input").find(".js-iframe")
+        within_frame cardframe do
+          fill_in("encryptedCardNumber", with: "4000 0200 0000 0000")
+        end
 
-      find("input.adyen-checkout__card__holderName__input").set(new_customer.name)
+        expframe = find(".adyen-checkout__card__exp-date__input").find(".js-iframe")
+        within_frame expframe do
+          fill_in("encryptedExpiryDate", with: "03/30")
+        end
 
-      click_on class: "adyen-checkout__button--pay"
+        cvvframe = find(".adyen-checkout__card__cvc__input").find(".js-iframe")
+        within_frame cvvframe do
+          fill_in("encryptedSecurityCode", with: "737")
+        end
+
+        find("input.adyen-checkout__card__holderName__input").set(new_customer.name)
+        click_on class: "adyen-checkout__button--pay"
+        sleep(10)
+      }.to change(SalesOrder, :count).by(+1)
 
       new_sales_order = SalesOrder.last
       expect(new_sales_order.user.email).to eq(new_customer.email)
       expect(page).to have_content("Order ##{ new_sales_order.number }")
-
-      new_user = User.last
+      expect(new_sales_order.address.postal_code).to eq(new_address.postal_code)
       expect(@product.available_product_keys.length).to eq(original_product_keys_count - 1)
       expect(new_user.product_keys.length).to eq(1)
       assigned_product_key = new_user.product_keys.first

@@ -510,6 +510,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get 'cart' => "shopping_cart#show", as: :shopping_cart
     resources :line_items, only: [:update]
     get '/checkout' => "checkout#new", as: :checkout
+    post '/checkout/address' => "checkout#save_address", as: :checkout_address
+    get '/checkout/payment' => "checkout#payment", as: :checkout_payment
     post '/checkout/:uuid/get_payment_methods' => "checkout#get_payment_methods", defaults: { format: :json }
     post '/checkout/:uuid/get_cart_details' => "shopping_cart#details", defaults: { format: :json }
     get '/checkout/:uuid/get_cart_details' => "shopping_cart#details", defaults: { format: :json }

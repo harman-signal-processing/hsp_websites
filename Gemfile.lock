@@ -549,6 +549,7 @@ GEM
     slack-notifier (2.3.2)
     slick_rails (1.5.9)
       railties (>= 3.1)
+    smartystreets_ruby_sdk (5.9.2)
     sort_alphabetical (1.1.0)
       unicode_utils (>= 1.2.2)
     spreadsheet (1.2.6)
@@ -711,6 +712,7 @@ DEPENDENCIES
   simplecov
   slack-notifier
   slick_rails
+  smartystreets_ruby_sdk
   spring
   sprockets
   sprockets-rails

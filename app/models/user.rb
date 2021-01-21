@@ -11,6 +11,8 @@ class User < ApplicationRecord
   has_many :tone_user_ratings
   has_many :sales_orders
   has_many :product_keys
+  has_many :addresses, as: :addressable, dependent: :destroy
+
   has_attached_file :profile_pic,
     styles: {
       large:         "550x370",
@@ -198,4 +200,11 @@ class User < ApplicationRecord
     end
   end
 
+  def default_address
+    if addresses.length > 0
+      addresses.first
+    else
+      Address.new
+    end
+  end
 end

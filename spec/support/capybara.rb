@@ -14,8 +14,8 @@ end
 
 Capybara.match = :prefer_exact
 Capybara.server = :webrick
-Capybara.javascript_driver = :headless_chrome # use this one to keep the js testing in the background
-#Capybara.javascript_driver = :chrome # use this one if you want to see the tests running in the browser
+#Capybara.javascript_driver = :headless_chrome # use this one to keep the js testing in the background
+Capybara.javascript_driver = :chrome # use this one if you want to see the tests running in the browser
 Capybara.server_port = 63427 # set here so it can be whitelisted in Adyen
 Capybara.always_include_port = true
 

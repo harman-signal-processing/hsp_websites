@@ -47,9 +47,21 @@ on to this email.</p>
 <% end %>
 
 <p>
-  <% if @sales_order.tax > 0.0 %>
-    Tax: <%= number_to_currency @sales_order.tax %><br/>
+  <strong>Billed To</strong>
+</p>
+<p>
+  <%= @sales_order.user.name %><br/>
+  <%= @sales_order.address.street_1 %><br/>
+  <% if @sales_order.address.street_2.present? %>
+    <%= @sales_order.address.street_2 %><br/>
   <% end %>
+  <%= @sales_order.address.city %>
+  <%= @sales_order.address.state %><br/>
+  <%= @sales_order.address.postal_code %><br/>
+  <%= @sales_order.address.country %>
+</p>
+<p>
+  Tax: <%= number_to_currency @sales_order.tax %><br/>
   Order Total: <%= number_to_currency @sales_order.total %>
 </p>
 <% if @sales_order.status.present? %>
