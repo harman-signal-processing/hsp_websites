@@ -129,7 +129,6 @@
             <% if website.email_signup_url %>
               <%= link_to t('news_signup').titleize, website.email_signup_url %> &bull;
             <% end %>
-            <%= link_to "distributors area".titleize, 'http://distributors.studer.ch' %> &bull;
             <% if website.has_software? && (website.current_softwares.length > 0 || website.forced_current_softwares.length > 0) %>
 						<%= link_to t('software_downloads').titleize, software_index_path %> &bull;
 						<% end %>
