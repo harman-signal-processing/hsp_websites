@@ -84,7 +84,7 @@ gem "exception_notification"
 gem 'slack-notifier'
 gem 'google-api-client', '~> 0.36'
 gem 'adyen-ruby-api-library'
-gem 'smartystreets_ruby_sdk'
+gem 'geocodio', git: "https://github.com/adamtao/geocodio", branch: "zip4"
 
 group :production, :staging do
   gem 'passenger_monit'
@@ -129,4 +129,6 @@ group :test do
   gem 'simplecov', require: false
   gem 'json-schema'
   gem 'faker'
+  gem 'webmock'
+  gem 'vcr'
 end

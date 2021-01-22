@@ -1,0 +1,162 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://checkout-test.adyen.com/checkout/v50/paymentMethods
+    body:
+      encoding: UTF-8
+      string: '{"merchantAccount":"adyen_merchant_account","channel":"Web","shopperLocale":"en-US","amount":{"currency":"USD","amount":10000}}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - adyen-ruby-api-library/4.4.0
+      X-Api-Key:
+      - adyen_api_key
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 22 Jan 2021 18:11:03 GMT
+      Server:
+      - Apache
+      Set-Cookie:
+      - JSESSIONID=448264321CE4DEBB61CD94562CBF01A0.test103e; Path=/checkout; Secure;
+        HttpOnly
+      Pspreference:
+      - 881611339063262H
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - application/json;charset=UTF-8
+    body:
+      encoding: UTF-8
+      string: '{"groups":[{"name":"Credit Card","types":["amex","diners","discover","mc","visa"]}],"paymentMethods":[{"brands":["amex","diners","discover","mc","visa"],"details":[{"key":"encryptedCardNumber","type":"cardToken"},{"key":"encryptedSecurityCode","type":"cardToken"},{"key":"encryptedExpiryMonth","type":"cardToken"},{"key":"encryptedExpiryYear","type":"cardToken"},{"key":"holderName","optional":true,"type":"text"}],"name":"Credit
+        Card","type":"scheme"}]}'
+  recorded_at: Fri, 22 Jan 2021 18:11:03 GMT
+- request:
+    method: post
+    uri: https://checkout-test.adyen.com/checkout/v50/payments
+    body:
+      encoding: UTF-8
+      string: '{"merchantAccount":"adyen_merchant_account","channel":"Web","amount":{"currency":"USD","value":10000},"reference":"230d7afc-6575-43b6-b2cd-7af3cfa63aea","additionalData":{"allow3DS2":true},"origin":"http://example1.lvh.me:63427","browserInfo":{"acceptHeader":"*/*","colorDepth":24,"language":"en-US","javaEnabled":false,"screenHeight":900,"screenWidth":1440,"userAgent":"Mozilla/5.0
+        (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko)
+        Chrome/87.0.4280.141 Safari/537.36","timeZoneOffset":420},"shopperIP":"127.0.0.1","returnUrl":"http://example1.lvh.me:63427/en-US/checkout/230d7afc-6575-43b6-b2cd-7af3cfa63aea/shopper_redirect","paymentMethod":{"type":"scheme","holderName":"User
+        1","encryptedCardNumber":"adyenjs_0_1_25$kxplqNqsK5Ok1d7F6mn5fu5mecbWR6ecWIRr5K2JMQewF44Y1mI3/JmvkhjGdBeORDS+/gA4Bu51EspBXVeqRO88nqtO38vM3JHGDxjYvfIBMnOzTNaJCU0EsnvdthP+UbtOghyZ4pjbakYC46PuLRTTn3OCrcWwXtyJQvztfv7dLJaEukFLwRX2EJ4wXOt3k+wD0QFrkMb0NxFHZ0B7v4/TUMzmaVZbXu8HdkEAZC3+7hvz2KOSU7dJ6AcPiYwTdTSX6zThJ56T0VyROjF4uY8FxhiQAbmVq0j7z4KpaliLtgW7QaGah4zIcChmVp13iqsorFoYk4LRzUDiJOcA9w==$x1FXnS2E86OnU+DnYPvdaBXkug1SoV9RR670YGMAAS9/E/WgaLrofwJFxzEsudI1e2Fwlj/ALnPC1sOJYEmc4YXgpdlSckQslHgKx/+MXO5MXIdrt/hbgsrZW+WriLGxjyR7TRjTNLGhCk4CjuPTOpzUL/Grji6TEncXrXg5wBffjVTQdW42k4xnfaeXbTuc8u7vvtjwrmbvn6m1unQpCZkmVirkaH+ok5txoQCbUymPJUJjOARbY71OjQmeCOV4zpHUurs//GdOncJgQVHSfVrE5rR0Ul9HS0vvGVf3qtzBlABhM/CbQlnR4fFC4l84ALw0IYHPMfdPlBPd2wC2F1pAYl4mN/PNX0eIKav7Br0OAzDtUFXQvolRbMzcsFtpKn4RRrhCbic53oF/Z7Atj8oAbcmVMDxA5kBugcV/cec6W0gd0XVqohlhQKye6rD03lkS3unFp3ANy2sxx4QjBnvh3Uq4vcgQ4DmNM7a/PnUdm5BRrNavnP9GLllBcn8z9s3TSM3+QUIsBkEFcl/uRJU9g0M7lW6cduBYxj9dwb+Mihq86HmT5xTxlZwkdpmA+vMyzfyqqw0/D9vaJpSOMyMDpBt7B4Xk+D+2D/54O2X1+6A4U98KdjEr5WmnX09cnXiIcGdmML0d+QHhMFUY3mQhAdKj6VEZqF7EBe355AiUExr9Xl9vhcpkcFXo88JlpAN4KvKC2dEUEB1jqFemF0vigpRXKbUYEK0/oasdXNDx2vJ2EI5OsvEq0NV2yDdcho1761BmOutdmsJn4a1UnArfZ+vlo1qF44L+D2cG8TBi1RQ2QGNwW3IM","encryptedExpiryMonth":"adyenjs_0_1_25$KKdGk1s9hwFGDaJpl/e5H8rekyKTVsx1pcLQbNBcturzbjuxl1fcO3yi+uZsCtw+lrQmT++ag/s3cnguZ/dptQPLChLKA2CPNTfG2WamST75UeLHah7PD22ah/wkoikqvTjunpgj1ar/qp8rGyEIzpn+WcHaUF2/24aBSG8k1+Sv+sm0wXpX9IyOVwiMuZcZ+AWM2bjgrFhBH9dIzFb6YucrdDRpkpim+hFGgzAtCIy5L/EUk8Wy6o7Dw7WQV1B07YdjcdZW0QehZbO397sFrEN3+X6Xlc5nlAoDWTA0XBTqwntNZPRoV6RCaB44icV/ddtXdcHOLGln4H+eeLgHHA==$fV+HXKEj1m5VLhP8MlVSjjaQq+BnCYH5noG0mvn592MaVshV0rZXNSxyq4ZYjvCXe5TFd/YybcbqTrnS/1zPQVng/tzuW+W6/lfImUGAuW90h4TAK6Kyekok7f6jEf7bCIW8s/gRaaYsQWnvpC74QzTBDi9Gj/+LYiUIhZFJ0LfrRyHAfeNMXeN0oW+M0DepLHWv/1ElvkZTwcWNpP6VFpbjEVtRV8DQRxDWPB/cf/VlPmOqMB7mUDf1RU8vASjam/7keNkgpj98rTDRkauwI8pyFrHJPPenGY+ucv2na7kdgTPd1MuzBPWY8x+sPMO40cCbg4xF4SDhXZAE+7NyV8Rvc884Wl7K8BSSf1n6BMtCvX8svcs3sE6kooGfU+BWTqOuNDSIBRjnfGeB5f3dgvPS5kwMjkMFCgQNxEogXnBIGtPA0bbyYI09hmcBWJM=","encryptedExpiryYear":"adyenjs_0_1_25$Py9SGr1BY4vx22V4LKV6zyCHYvQ3Wd5AM8HW5YtIZtWKZDlFacnQRdKRybLCrqUotylti9ct2vVuiGsy3WnBBjnvJWx+Z0TwETCikYfbObEKKYzqBNmkZLL6rdj4HFi4jjHFMQMKOSXJnbKRxdWJyZO/ST5Y8McuUu4LIlM8k6T0cWLphMGnfXtk8lIOg9z5KOsS0zk8zsytQbuWkcm8CyTgwVdpvPPSQRH5VmfooeXMDs3tuDVrbH97bksmxy4pCftJuRnJiOE+3KBr2wqJUdFpT11lJm13n712vRCwwhqF9FhMaScaUEH5mFylxCf4XwLh7CfPYoyGwlybPUX/WA==$3FXTYloE2SiKRwYv2IJCuskb4LqhtY4iq4EVpk49JWHR5SCZTa5+hMgr08wXl37FNv9fLvh3Naqbz141YdBeTEUst4Lh1NWYiw+qcCS+mkOiudUmDvvgPAkckT3NLv0p9g4sZ6VE78ZGlmbpYP+qh3OOQ2LR8gLmq7tGO6zhUazjBwl2X0Bp50bvHx/eAs73oDp4rngFdIRezxzClU3vpTKAJtt2j4IifNIzDuGtxdErQfQEyqcQouKt84KD2LAdd7G2AuPoJXroIeNnSc6XOP3Xqgln+pcSP6BW7i5h4VKcOKBKjVjyCxkp+H+6RTYjdeYui8wUfUiv6wlWRijvS+e+8LWlwTAxm1XXN2btbdpjzBwjwDDcAp+rLetsrh/p3+NqJNIBw1FOPq/FAj6k0qf+1WjR7dY3VlFYBjqZvNUqqQwF7owpWvRgpercKfmk","encryptedSecurityCode":"adyenjs_0_1_25$NV/8AwKPVxKxrBQEie0aMTP4oln7fgLYPo2Yah2KHxeMi/Mr6PGTqWXVCxJ8ud1KRdbUSnoHUwQYYNfL77LHQm/T8s/KzSbzktE9d7A7DnuEUq4A5T+mKYaPTGbQMd2if4Mi6ETHDKwYqEAxMSnhukbi7oQBXBh5gIEzEGsd2r78Nydcl1shGhpAOpBLCkwanshGHbm5qddDAckNNbO2mgImr8y0I2V0NkHbrqQ1SsNYdhEYuF+I9mvGXqkkKEaWPDTFPXXL6tLYuZM411SCyEQA/S5MbsP4txQ8lUUmYiQC9Davwd4Ksgf38qKWAYaj5pEL78/svVBdALeexYCnwA==$AunvHd/u1325ZjJmh/rb44WRGF48NItq7zO3Tt56TQLRzm+oJ7beQI54HX6fZPwoLz10EPo4i+wAJ2z31wpX2Z1ZlRG0iaBJBM25WmjDPgpu1/tA3n5bMmEooXbAOloGTHc5nHMKHnqEnB2RmNW0GEf8gyeBz9mKIYBdqaefCLtTdDKJaiNtT5MusaKQQIkp8bI83M21xdrLYYRgSVyQMkXqRIk8NxrSIxrZQRzg5pB+jSxdCT3kVUNgb79MowBlFv5ifnnEH8slywyNWiH3UrWLWGuCz7ZTx4QQuuh2EA6WrtPWXd+Krbbp3IqJiFAeOi9KZEUdzp2n7C1DGYE4m18XTVGGS1FZfJmbT+GyxvvbSd4SKsPMPDItlRmLAtHatW+PwVYQMIugftExLSYZlydX6i06I+FCPkLom7l5dHcxoFUH0eD6uA==","brand":"mc"},"applicationInfo":{"adyenLibrary":{"name":"adyen-ruby-api-library","version":"4.4.0"}}}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - adyen-ruby-api-library/4.4.0
+      X-Api-Key:
+      - adyen_api_key
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: '200'
+    headers:
+      Date:
+      - Fri, 22 Jan 2021 18:11:06 GMT
+      Server:
+      - Apache
+      Set-Cookie:
+      - JSESSIONID=B7EE2D1A2F26D52C7A4F2F5705A4A5D3.test104e; Path=/checkout; Secure;
+        HttpOnly
+      Pspreference:
+      - 881611339066971A
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - application/json;charset=UTF-8
+    body:
+      encoding: UTF-8
+      string: '{"pspReference":"882611339066528G","resultCode":"Authorised","merchantReference":"230d7afc-6575-43b6-b2cd-7af3cfa63aea"}'
+  recorded_at: Fri, 22 Jan 2021 18:11:06 GMT
+- request:
+    method: get
+    uri: http://api.geocod.io/v1.6/geocode?api_key=geocodio_api_key&fields=zip4&q=8500%20Balboa%20Blvd,%20Northridge,%20CA,%2091329,%20United%20States%20of%20America
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Cache-Control:
+      - no-cache, private
+      Date:
+      - Fri, 22 Jan 2021 18:25:07 GMT
+      X-Billable-Lookups-Count:
+      - '1'
+      X-Billable-Fields-Count:
+      - '1'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, POST
+      Access-Control-Allow-Headers:
+      - Content-Type, User-Agent
+      Access-Control-Expose-Headers:
+      - Request-Handler
+      Request-Handler:
+      - api107
+      Server:
+      - Unicorns with magic wands (https://www.geocod.io)
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Robots-Tag:
+      - none
+      X-Ratelimit-Remaining:
+      - '999'
+      X-Ratelimit-Limit:
+      - '1000'
+      X-Ratelimit-Period:
+      - '60'
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"input":{"address_components":{"number":"8500","street":"Balboa","suffix":"Blvd","formatted_street":"Balboa
+        Blvd","city":"Northridge","state":"CA","zip":"91329","country":"US"},"formatted_address":"8500
+        Balboa Blvd, Northridge, CA 91329"},"results":[{"address_components":{"number":"8500","street":"Balboa","suffix":"Blvd","formatted_street":"Balboa
+        Blvd","city":"Northridge","county":"Los Angeles County","state":"CA","zip":"91325","country":"US"},"formatted_address":"8500
+        Balboa Blvd, Northridge, CA 91325","location":{"lat":34.224915,"lng":-118.502482},"accuracy":0.9,"accuracy_type":"range_interpolation","source":"TIGER\/Line\u00ae
+        dataset from the US Census Bureau","fields":{"zip4":{"record_type":{"code":"H","description":"High-rise"},"carrier_route":{"id":"C039","description":"City
+        Delivery"},"building_or_firm_name":null,"plus4":["5802"],"zip9":["91325-5802"],"government_building":null,"facility_code":{"code":"P","description":"Post
+        Office"},"city_delivery":true,"valid_delivery_area":true,"exact_match":false}}},{"address_components":{"number":"8500","predirectional":"N","street":"Balboa","suffix":"Blvd","formatted_street":"N
+        Balboa Blvd","city":"Northridge","county":"Los Angeles County","state":"CA","zip":"91325","country":"US"},"formatted_address":"8500
+        N Balboa Blvd, Northridge, CA 91325","location":{"lat":34.22485,"lng":-118.50045},"accuracy":0.8,"accuracy_type":"rooftop","source":"City
+        of Los Angeles"},{"address_components":{"number":"8500","street":"Balboa","suffix":"Blvd","formatted_street":"Balboa
+        Blvd","city":"Northridge","county":"Los Angeles County","state":"CA","zip":"91325","country":"US"},"formatted_address":"8500
+        Balboa Blvd, Northridge, CA 91325","location":{"lat":34.224937,"lng":-118.502782},"accuracy":0.8,"accuracy_type":"range_interpolation","source":"TIGER\/Line\u00ae
+        dataset from the US Census Bureau","fields":{"zip4":{"record_type":{"code":"H","description":"High-rise"},"carrier_route":{"id":"C039","description":"City
+        Delivery"},"building_or_firm_name":null,"plus4":["5802"],"zip9":["91325-5802"],"government_building":null,"facility_code":{"code":"P","description":"Post
+        Office"},"city_delivery":true,"valid_delivery_area":true,"exact_match":false}}}]}'
+  recorded_at: Fri, 22 Jan 2021 18:25:07 GMT
+recorded_with: VCR 6.0.0

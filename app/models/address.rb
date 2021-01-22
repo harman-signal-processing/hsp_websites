@@ -11,42 +11,22 @@ class Address < ApplicationRecord
 
   before_save :standardize
 
-  class << self
-    def api_credentials
-      @api_credentials ||= SmartyStreets::StaticCredentials.new(ENV['SMARTY_AUTH_ID'], ENV['SMARTY_AUTH_TOKEN'])
-    end
-
-    def us_street_api_client
-      SmartyStreets::ClientBuilder.new(api_credentials).build_us_street_api_client
-    end
-  end
-
   def standardize
     standardize_us_zipcode if is_us_address? && !zipcode_has_plus4?
   end
 
   def standardize_us_zipcode
-    lookup = SmartyStreets::USStreet::Lookup.new
-    lookup.street = street_1
-    lookup.street2 = street_2
-    lookup.secondary = street_3
-    lookup.urbanization = street_4
-    lookup.city = locality
-    lookup.state = region
-    lookup.zipcode = postal_code
+    g = Geocodio::Client.new
 
     begin
-      client = Address.us_street_api_client
-      client.send_lookup(lookup)
-    rescue SmartyStreets::SmartyError => err
-      logger.debug err
+      results = g.geocode([self.to_s], fields: %w[zip4])
+    rescue
       return
     end
 
-    unless lookup.result.empty?
-      found_address = lookup.result.first
-      self.postal_code = found_address.components.zipcode
-      self.postal_code += "-#{found_address.components.plus4_code}" if found_address.components.plus4_code.present?
+    unless results.empty?
+      found_address = results.best
+      self.postal_code = found_address.zip4.zip9
     end
   end
 
@@ -56,6 +36,14 @@ class Address < ApplicationRecord
 
   def zipcode_has_plus4?
     postal_code.present? && postal_code.match?(/\d{5}\-\d{4}/)
+  end
+
+  def to_s
+    to_a.reject(&:blank?).join(", ")
+  end
+
+  def to_a
+    [street_1, street_2, street_3, street_4, locality, region, postal_code, country]
   end
 
 end

@@ -1,0 +1,80 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.geocod.io/v1.6/geocode?api_key=geocodio_api_key&fields=zip4&q=8500%20Balboa%20Blvd.,%20Northridge,%20CA,%2091329,%20United%20States%20of%20America
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Cache-Control:
+      - no-cache, private
+      Date:
+      - Fri, 22 Jan 2021 18:09:27 GMT
+      X-Billable-Lookups-Count:
+      - '1'
+      X-Billable-Fields-Count:
+      - '1'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, POST
+      Access-Control-Allow-Headers:
+      - Content-Type, User-Agent
+      Access-Control-Expose-Headers:
+      - Request-Handler
+      Request-Handler:
+      - api105
+      Server:
+      - Unicorns with magic wands (https://www.geocod.io)
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Robots-Tag:
+      - none
+      X-Ratelimit-Remaining:
+      - '999'
+      X-Ratelimit-Limit:
+      - '1000'
+      X-Ratelimit-Period:
+      - '60'
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"input":{"address_components":{"number":"8500","street":"Balboa","suffix":"Blvd","formatted_street":"Balboa
+        Blvd","city":"Northridge","state":"CA","zip":"91329","country":"US"},"formatted_address":"8500
+        Balboa Blvd, Northridge, CA 91329"},"results":[{"address_components":{"number":"8500","street":"Balboa","suffix":"Blvd","formatted_street":"Balboa
+        Blvd","city":"Northridge","county":"Los Angeles County","state":"CA","zip":"91325","country":"US"},"formatted_address":"8500
+        Balboa Blvd, Northridge, CA 91325","location":{"lat":34.224915,"lng":-118.502482},"accuracy":0.9,"accuracy_type":"range_interpolation","source":"TIGER\/Line\u00ae
+        dataset from the US Census Bureau","fields":{"zip4":{"record_type":{"code":"H","description":"High-rise"},"carrier_route":{"id":"C039","description":"City
+        Delivery"},"building_or_firm_name":null,"plus4":["5802"],"zip9":["91325-5802"],"government_building":null,"facility_code":{"code":"P","description":"Post
+        Office"},"city_delivery":true,"valid_delivery_area":true,"exact_match":false}}},{"address_components":{"number":"8500","predirectional":"N","street":"Balboa","suffix":"Blvd","formatted_street":"N
+        Balboa Blvd","city":"Northridge","county":"Los Angeles County","state":"CA","zip":"91325","country":"US"},"formatted_address":"8500
+        N Balboa Blvd, Northridge, CA 91325","location":{"lat":34.22485,"lng":-118.50045},"accuracy":0.8,"accuracy_type":"rooftop","source":"City
+        of Los Angeles"},{"address_components":{"number":"8500","street":"Balboa","suffix":"Blvd","formatted_street":"Balboa
+        Blvd","city":"Northridge","county":"Los Angeles County","state":"CA","zip":"91325","country":"US"},"formatted_address":"8500
+        Balboa Blvd, Northridge, CA 91325","location":{"lat":34.224937,"lng":-118.502782},"accuracy":0.8,"accuracy_type":"range_interpolation","source":"TIGER\/Line\u00ae
+        dataset from the US Census Bureau","fields":{"zip4":{"record_type":{"code":"H","description":"High-rise"},"carrier_route":{"id":"C039","description":"City
+        Delivery"},"building_or_firm_name":null,"plus4":["5802"],"zip9":["91325-5802"],"government_building":null,"facility_code":{"code":"P","description":"Post
+        Office"},"city_delivery":true,"valid_delivery_area":true,"exact_match":false}}}]}'
+  recorded_at: Fri, 22 Jan 2021 18:09:27 GMT
+recorded_with: VCR 6.0.0

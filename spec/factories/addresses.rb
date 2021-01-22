@@ -2,11 +2,11 @@ FactoryBot.define do
   factory :address do
     addressable_id { 1 }
     addressable_type { "User" }
-    name { "Some Name" }
-    street_1 { "1234 Rodeo Drive" }
-    locality { "Los Angeles" }
+    name { "Harman" }
+    street_1 { "8500 Balboa Blvd" }
+    locality { "Northridge" }
     region { "CA" }
-    postal_code { "90210" }
-    country { "US" }
+    postal_code { "91329" }
+    country { "United States of America" }
   end
 end

@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/adamtao/geocodio
+  revision: a08ba95f63d7bd4e2e2fa68f2246279465b385fc
+  branch: zip4
+  specs:
+    geocodio (3.0.0)
+      json
+
+GIT
   remote: https://github.com/adamtao/will_paginate_infinite.git
   revision: acd94832693989e03e239095e6071668c34a7ff4
   ref: acd94832693989e03e239095e6071668c34a7ff4
@@ -165,6 +173,8 @@ GEM
     country_select (4.0.0)
       countries (~> 3.0)
       sort_alphabetical (~> 1.0)
+    crack (0.4.5)
+      rexml
     crass (1.0.6)
     daemons (1.3.1)
     dalli (2.7.11)
@@ -295,6 +305,7 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
+    hashdiff (1.0.1)
     hashie (4.1.0)
     http-accept (1.7.0)
     http-cookie (1.0.3)
@@ -549,7 +560,6 @@ GEM
     slack-notifier (2.3.2)
     slick_rails (1.5.9)
       railties (>= 3.1)
-    smartystreets_ruby_sdk (5.9.2)
     sort_alphabetical (1.1.0)
       unicode_utils (>= 1.2.2)
     spreadsheet (1.2.6)
@@ -598,6 +608,7 @@ GEM
     unicode_utils (1.4.0)
     utf8-cleaner (1.0.0)
       activesupport
+    vcr (6.0.0)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.1.0)
@@ -609,6 +620,10 @@ GEM
       nokogiri (~> 1.6)
       rubyzip (>= 1.3.0)
       selenium-webdriver (>= 3.0, < 4.0)
+    webmock (3.11.1)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff (>= 0.4.0, < 2.0.0)
     webrobots (0.1.2)
     websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
@@ -665,6 +680,7 @@ DEPENDENCIES
   font-awesome-rails
   foundation-rails (= 5.5.1)
   friendly_id (>= 5.2)
+  geocodio!
   geokit (>= 1.8.5)
   geokit-rails
   goacoustic
@@ -712,7 +728,6 @@ DEPENDENCIES
   simplecov
   slack-notifier
   slick_rails
-  smartystreets_ruby_sdk
   spring
   sprockets
   sprockets-rails
@@ -725,8 +740,10 @@ DEPENDENCIES
   typhoeus
   uglifier (>= 1.3.0)
   utf8-cleaner
+  vcr
   web-console
   webdrivers
+  webmock
   whenever
   will_paginate
   will_paginate_infinite!
