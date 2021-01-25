@@ -1,8 +1,8 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 6.0'
-#gem 'webpacker'
-gem 'actionpack-action_caching'
+gem 'rails', '~> 6.1'
+# Github has rails 6.1 support
+gem 'actionpack-action_caching', git: 'https://github.com/rails/actionpack-action_caching'
 gem 'responders'
 gem 'bootsnap', require: false
 gem 'sprockets'
@@ -48,7 +48,7 @@ gem "recaptcha", require: "recaptcha/rails"
 gem 'to_xls-rails'
 gem 'acts_as_list'
 gem 'acts_as_tree'
-gem 'acts-as-taggable-on', '~> 6.0'
+gem 'acts-as-taggable-on'
 gem 'dynamic_form'
 gem 'rails_autolink'
 gem 'swf_fu', '>=1.3.4', require: 'swf_fu'
@@ -67,7 +67,8 @@ gem 'money-rails', ">= 1.9.0" # 2017-12-01
 gem 'will_paginate'
 gem 'will_paginate_infinite',
   git: 'https://github.com/adamtao/will_paginate_infinite.git',
-  ref: 'acd94832693989e03e239095e6071668c34a7ff4'
+  branch: 'master'
+
 gem "possessive"
 gem 'RedCloth'
 gem 'figaro'
