@@ -4,6 +4,7 @@ protected/
 system/
 public/system
 db/sphinx/
+app/views/dynamic
 tags
 app/assets/images/development/
 app/assets/images/staging/
