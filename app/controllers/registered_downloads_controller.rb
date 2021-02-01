@@ -112,30 +112,3 @@ class RegisteredDownloadsController < ApplicationController
 
 end
 
-module ActionView
-  class TemplateRenderer < AbstractRenderer
-    private
-    def resolve_layout(layout, keys, formats)
-      details = @details.dup
-      details[:formats] = formats
-
-      case layout
-      when String
-        begin
-          if layout.start_with?("/")
-            @lookup_context.with_fallbacks.find_template(layout, nil, false, [], details)
-          else
-            @lookup_context.find_template(layout, nil, false, [], details)
-          end
-        rescue ActionView::MissingTemplate
-          all_details = @details.merge(formats: @lookup_context.default_formats)
-          raise unless template_exists?(layout, nil, false, [], **all_details)
-        end
-      when Proc
-        resolve_layout(layout.call(@lookup_context, formats), keys, formats)
-      else
-        layout
-      end
-    end
-  end
-end
