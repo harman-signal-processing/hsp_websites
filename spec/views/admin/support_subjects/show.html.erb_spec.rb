@@ -5,7 +5,7 @@ RSpec.describe "admin/support_subjects/show.html.erb" do
   before :all do
     @brand = FactoryBot.create(:brand)
     @website = FactoryBot.create(:website, brand: @brand)
-    @support_subject = FactoryBot.create(:support_subject, brand: @brand)
+    @support_subject = FactoryBot.create(:support_subject, brand: @brand, recipient: "foo@foo.com", locale: "en")
   end
 
   before :each do

@@ -19,10 +19,7 @@ RSpec.describe ProductFamily, :type => :model do
 
 	  it "should not be its own parent" do
 	    @pedals.parent_id = @pedals.id
-      expect { @pedals.save! }.to raise_error(ActiveRecord::RecordInvalid)
-
-	    @pedals.reload
-      expect(@pedals.parent_id).not_to eq(@pedals.id)
+      expect(@pedals.valid?).to be(false)
 	  end
 
   end
