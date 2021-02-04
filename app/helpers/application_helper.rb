@@ -551,7 +551,6 @@ module ApplicationHelper
       {name: "Lexicon",    web: "http://www.lexiconpro.com"},
       {name: "Martin",  web: "http://www.martin.com"},
       {name: "Soundcraft", web: "http://www.soundcraft.com"},
-      {name: "Studer", web: "http://www.studer.ch"},
       #{name: "HiQnet", web: "http://hiqnet.harmanpro.com"}
     ]
 
