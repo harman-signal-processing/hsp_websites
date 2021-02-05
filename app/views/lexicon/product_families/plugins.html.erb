@@ -44,7 +44,7 @@
 
 <% current_products = @product_family.current_products %>
 <% mpx = current_products.find("mpx-native-reverb") %>
-<% main_products = current_products.where("name NOT LIKE ?", mpx.name) %>
+<% main_products = current_products.where("products.name NOT LIKE ?", mpx.name) %>
 <% compatible_with = Specification.where("name = 'Compatible with'").first %>
 <% if current_products.length > 0 && @product_family.locales(website).include?(I18n.locale.to_s) %>
   <div class="row">
