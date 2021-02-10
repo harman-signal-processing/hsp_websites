@@ -89,9 +89,9 @@ $reveal-position-top: rem-calc(10);
 $reveal-default-width: 60%;
 $reveal-max-width: 75%;
 
-$medium-breakpoint: em-calc(1056) !default;
-$medium-range: (em-calc(641), $medium-breakpoint) !default;
-$large-range: ($medium-breakpoint + em-calc(1), em-calc(1440)) !default;
+$medium-breakpoint: em-calc(1280) !default;
+$medium-range: (em-calc(990), $medium-breakpoint) !default;
+$large-range: ($medium-breakpoint + em-calc(1), em-calc(1640)) !default;
 @import 'brand_common';
 
 #above-nav-space {
@@ -143,7 +143,10 @@ $large-range: ($medium-breakpoint + em-calc(1), em-calc(1440)) !default;
   }
 }
 .logo-container img {
-  padding: 24px 0px 0px 69px;
+  padding: 24px 0px 0px 12px;
+  @media only screen and (min-width: 1320px) {
+    padding: 24px 0px 0px 69px;
+  }
 }
 @media only screen and (max-width: 1300px) and (min-width: 1076px) {
   .top-bar-section {
