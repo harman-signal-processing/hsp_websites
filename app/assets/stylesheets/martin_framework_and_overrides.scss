@@ -89,7 +89,7 @@ $reveal-position-top: rem-calc(10);
 $reveal-default-width: 60%;
 $reveal-max-width: 75%;
 
-$medium-breakpoint: em-calc(1280) !default;
+$medium-breakpoint: em-calc(1290) !default;
 $medium-range: (em-calc(990), $medium-breakpoint) !default;
 $large-range: ($medium-breakpoint + em-calc(1), em-calc(1640)) !default;
 @import 'brand_common';
