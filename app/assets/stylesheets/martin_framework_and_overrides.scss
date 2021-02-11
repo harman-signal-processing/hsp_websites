@@ -74,7 +74,7 @@ $topbar-title-weight:                  500;
 $topbar-dropdown-bg:                      rgba($topbar-bg-color, 0.7);
 $topbar-dropdown-link-bg:                 rgba(darken($topbar-bg-color, 2%),0.85);
 $topbar-dropdown-toggle-alpha:         0.5;
-$topbar-link-font-size:                rem-calc(14);
+$topbar-link-font-size:                rem-calc(12);
 $topbar-link-weight:                   500;
 $topbar-link-hover-lightness:          -30%; // Darken by 30%
 $topbar-link-bg-hover:                 lighten($topbar-bg, 3%);
@@ -124,7 +124,7 @@ $large-range: ($medium-breakpoint + em-calc(1), em-calc(1640)) !default;
         }
       }
       a {
-        padding: 0 12px !important;
+        padding: 0 10px !important;
         text-transform: uppercase;
         letter-spacing: 1px;
         &:hover {
@@ -133,7 +133,7 @@ $large-range: ($medium-breakpoint + em-calc(1), em-calc(1640)) !default;
       }
       &.has-dropdown {
         a {
-          padding-right: 14px !important;
+          padding-right: 12px !important;
           &:after {
             margin-right: 1px !important;
           }
@@ -148,14 +148,46 @@ $large-range: ($medium-breakpoint + em-calc(1), em-calc(1640)) !default;
     padding: 24px 0px 0px 69px;
   }
 }
-@media only screen and (max-width: 1300px) and (min-width: 1076px) {
-  .top-bar-section {
-    ul {
-      li {
-        a {
-          padding: 0 12px !important;
-          &:after {
-            margin-right: 2px !important;
+.top-bar {
+  @media only screen and (max-width: 1300px) and (min-width: 1076px) {
+    .top-bar-section {
+      ul {
+        li {
+          a {
+            padding: 0 10px !important;
+            &:after {
+              margin-right: 2px !important;
+            }
+          }
+          &.has-dropdown {
+            a {
+              padding-right: 12px !important;
+              &:after {
+                margin-right: 1px !important;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  @media only screen and (max-width: 1075px) and (min-width: 801px) {
+    .top-bar-section {
+      ul {
+        li {
+          a {
+            padding: 0 8px !important;
+            &:after {
+              margin-right: 2px !important;
+            }
+          }
+          &.has-dropdown {
+            a {
+              padding-right: 12px !important;
+              &:after {
+                margin-right: 1px !important;
+              }
+            }
           }
         }
       }
