@@ -37,7 +37,7 @@ gem 'tinymce-rails',
 gem 'mechanize'
 gem 'geokit', '>= 1.8.5'
 gem 'geokit-rails'
-gem 'thinking-sphinx', '~> 4.0'
+gem 'thinking-sphinx'
 gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'httparty'
