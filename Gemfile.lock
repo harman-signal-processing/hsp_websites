@@ -445,12 +445,12 @@ GEM
       paperclip (>= 5.0)
     passenger_monit (0.1.1)
     possessive (1.0.1)
-    pry (0.14.0)
+    pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    pry-byebug (3.8.0)
+    pry-byebug (3.9.0)
       byebug (~> 11.0)
-      pry (~> 0.10)
+      pry (~> 0.13.0)
     public_suffix (4.0.6)
     rabl (0.14.3)
       activesupport (>= 2.3.14)
@@ -514,7 +514,6 @@ GEM
     retriable (3.1.2)
     rexml (3.2.4)
     riddle (2.4.2)
-    rmagick (2.16.0)
     rspec (3.10.0)
       rspec-core (~> 3.10.0)
       rspec-expectations (~> 3.10.0)
@@ -730,7 +729,6 @@ DEPENDENCIES
   rb-inotify
   recaptcha
   responders
-  rmagick (< 3.0)
   rspec-rails
   s3_direct_upload
   sass-rails

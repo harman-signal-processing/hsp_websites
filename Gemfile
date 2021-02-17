@@ -75,7 +75,8 @@ gem 'figaro'
 gem 'delayed_paperclip'
 gem 'goacoustic'
 gem 'oauth2'
-gem 'rmagick', "< 3.0", require: 'rmagick' #v3+ requires ImageMagick >= 6.8
+# Let's try just not requiring rmagick. Paperclip should use the system's ImageMagick
+#gem 'rmagick', "< 3.0", require: 'rmagick' #v3+ requires ImageMagick >= 6.8
 gem 'typhoeus' # For link validator
 gem 'slick_rails' # slick carousel
 gem 'mailgun_rails' # mailer service
