@@ -46,7 +46,7 @@ module HarmanSignalProcessingWebsite
     config.active_job.queue_adapter = :delayed_job
 
     # Override these in environment configs...
-    config.default_site_name        = "Harman Signal Processing"
+    config.default_site_name        = "Harman Professional Brand"
     config.action_mailer.default_url_options = { :host => "pro.harman.com", protocol: "https" }
 
     config.document_types = [

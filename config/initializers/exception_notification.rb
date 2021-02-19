@@ -19,7 +19,7 @@ ExceptionNotification.configure do |config|
   # Email notifier sends notifications by email.
   config.add_notifier :email, {
     email_prefix: "[HSP] ",
-    sender_address: %{"Site Error" <support@digitech.com>},
+    sender_address: %{"Site Error" <#{ENV['DEFAULT_SENDER']}>},
     exception_recipients: ENV['EXCEPTION_RECIPIENTS'].split("|")
   }
 

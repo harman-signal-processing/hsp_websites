@@ -1,11 +1,11 @@
 class SiteMailer < ActionMailer::Base
+  default from: ENV['DEFAULT_SENDER']
 
   def contact_form(contact_message, options={})
     @contact_message = contact_message
 
     mail(to: @contact_message.recipients,
-         subject: @contact_message.subject,
-         from: @contact_message.email)
+         subject: @contact_message.subject)
   end
 
   def promo_post_registration(warranty_registration, promotion)
@@ -13,7 +13,7 @@ class SiteMailer < ActionMailer::Base
     @brand = @warranty_registration.brand
     @promotion = promotion
     mail(to: @warranty_registration.email,
-         from: "#{@brand.name} <#{@brand.support_email}>",
+         from: "#{@brand.name} <#{ENV['DEFAULT_SENDER']}>",
          subject: @promotion.post_registration_subject)
   end
 
@@ -22,8 +22,6 @@ class SiteMailer < ActionMailer::Base
   def artist_approval(artist, recipients)
     @artist = artist
     mail(to: recipients,
-         bcc: "adam.anderson@harman.com",
-         from: "support@digitech.com",
          subject: "Artist relations approval")
   end
 
@@ -39,7 +37,6 @@ class SiteMailer < ActionMailer::Base
   def label_sheet_order_shipped(order)
     @order = order
     mail(to: @order.email,
-         from: "DigiTech <support@digitech.com>",
          subject: "Your epedal labels are on their way!")
   end
 
@@ -47,7 +44,7 @@ class SiteMailer < ActionMailer::Base
     @warranty_registration = warranty_registration
     @brand = @warranty_registration.brand
     mail(to: @warranty_registration.email,
-         from: "#{@brand.name} <#{@brand.support_email}>",
+         from: "#{@brand.name} <#{ENV['DEFAULT_SENDER']}>",
          bcc: @brand.respond_to?(:bcc_product_registrations) ? @brand.bcc_product_registrations.split(/[\s\,\;]{1,}/) : [],
          subject: "#{@brand.name} product registration")
   end
@@ -64,7 +61,6 @@ class SiteMailer < ActionMailer::Base
     @training_class_registration = training_class_registration
 
     mail(to: @training_class_registration.registration_recipients,
-         from: @training_class_registration.email,
          subject: @training_class_registration.training_class.name)
   end
 
@@ -81,7 +77,6 @@ class SiteMailer < ActionMailer::Base
       end
     end
     mail(to: ENV['MARTIN_FIXTURES_RECIPIENT'],
-         from: @fixtures_request.email,
          subject: "Martin Fixtures Request")
   end
 
