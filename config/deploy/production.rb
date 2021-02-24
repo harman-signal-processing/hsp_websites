@@ -22,7 +22,7 @@ server "rackspace2021",  user: 'brandsites', roles: %w{web app db background}, p
 # role :web, %w{user1@primary.com user2@additional.com}, other_property: :other_value
 # role :db,  %w{deploy@example.com}
 
-
+set :delayed_job_queues, ['brandsites']
 
 # Configuration
 # =============
