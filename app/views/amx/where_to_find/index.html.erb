@@ -23,7 +23,7 @@
         <div class="medium-8 columns end">
           <h3><%= t('us_dealers') %></h3>
 
-          <%= form_tag where_to_find_path %>
+          <%= form_tag partner_search_path, method: :get %>
             <div class="row collapse">
               <div class="large-8 small-7 columns">
                 <%= text_field_tag "zip", session[:zip], placeholder: t('us_zip_code') %>

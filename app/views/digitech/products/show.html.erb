@@ -263,7 +263,7 @@ set_meta_tags title: @product.name,
 	<% end %>
 	<div class="row">
 		<div class="large-7 columns">
-			<%= form_tag where_to_find_path %>
+			<%= form_tag partner_search_path, method: :get %>
 			<div class="row collapse">
 				<div class="large-8 small-7 columns">
 					<%= text_field_tag "zip", session[:zip], placeholder: t('us_zip_code') %>

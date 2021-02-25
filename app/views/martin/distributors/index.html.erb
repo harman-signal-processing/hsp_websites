@@ -8,7 +8,7 @@
     <div class="filters hide-for-small">
       <div class="row">
         <div class="small-12 medium-4 medium-offset-2 columns">
-          <%= form_tag where_to_find_path %>
+          <%= form_tag partner_search_path, method: :get %>
             <div class="row collapse">
               <div class="small-1 columns">
                 <%= fa_icon "search", :"aria-hidden" => true %>
@@ -37,7 +37,7 @@
 
 	<div class="large-8 columns wtb-main">
     <div class="mobile-filters hide-for-medium-up">
-      <%= form_tag where_to_find_path %>
+      <%= form_tag partner_search_path, method: :get %>
         <div class="row collapse">
           <div class="small-1 columns text-center">
             <%= fa_icon "search", :"aria-hidden" => true %>
