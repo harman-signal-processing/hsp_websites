@@ -13,7 +13,7 @@ class AmxDxlinkToolController < ApplicationController
 	private
 
   def amx_dxlink_tool_params
-    params.require(:amx_dxlink_combo).permit(:combo_id)
+    params.require(:amx_dxlink_combo).permit(:combo_id) if params[:amx_dxlink_combo]
   end
 end  #  class AmxDxlinkToolController < ApplicationController
 
