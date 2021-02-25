@@ -1,0 +1,10 @@
+<%
+case @calling_device.type_short_name
+when  "tx"
+	opposite_short_name = "rx"
+when "rx"
+	opposite_short_name = "tx"
+end
+%>
+$('#paired_devices_for_<%="#{@calling_device.model}_#{opposite_short_name}"%>').prepend("<div id='ps_err' class='warning'><%=@error%>, and too many cat videos</div>");
+<% flash.discard %>

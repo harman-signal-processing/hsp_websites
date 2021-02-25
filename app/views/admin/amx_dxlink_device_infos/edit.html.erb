@@ -1,0 +1,8 @@
+<ul class="button-group round">
+    <li><%= link_to 'AMX DXLink Device List', admin_amx_dxlink_device_infos_path, class: "small button round" %></li>
+    <li><%= link_to 'Delete', admin_amx_dxlink_device_info_path(@amx_dxlink_device), confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
+
+<h3>Edit AMX DXLink Device</h3>
+
+<%= render "form" %>

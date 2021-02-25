@@ -1,0 +1,49 @@
+<% calling_device = AmxDxlinkDeviceInfo.find(params[:calling_device]) if params[:calling_device].present? %>
+<ul class="button-group round" style="margin-top:20px;">
+    <li><%= link_to 'AMX DXLink Device List', admin_amx_dxlink_device_infos_path, class: "small button round" %></li>
+    <% if calling_device.present? %>
+      <li><%= link_to "#{calling_device.model}", admin_amx_dxlink_device_info_path(calling_device), class: "small button round" %></li>
+    <% end %>
+    <li><%= link_to 'Delete Pairing', admin_amx_dxlink_combo_path(@amx_dxlink_combo), confirm: 'Are you sure?', method: :delete, class: "small alert button" %> </li>
+</ul>
+
+<h3>AMX DXLink Pairing Details</h3>
+
+<%= simple_form_for [:admin, @amx_dxlink_combo],
+  url: bulk_update_admin_amx_dxlink_combo_amx_dxlink_combo_attributes_path(@amx_dxlink_combo),
+  method: :post,
+  html: { class: "bulk_specifications_update" } do |f| %>
+<%= hidden_field_tag 'calling_device', "#{calling_device.id}"  %>
+<table class="data">
+  <tr>
+    <th>Transmitter</th>
+    <th>Reciever</th>
+    <th></th>
+  </tr>
+  <tr>
+    <td><%=@amx_dxlink_combo.tx.model%></td>
+    <td><%=@amx_dxlink_combo.rx.model%></td>
+    <td>
+      <%= f.check_box :recommended %>
+      <%= f.label :recommended, "This is a recommended pairing." %>     
+    </td>
+  </tr>
+</table>
+
+<h4>Pairing Attributes</h4>
+<p><%= link_to "Edit attribute names here", admin_amx_dxlink_attribute_names_path%></p>
+<table class="data">
+  <% @amx_dxlink_combo.combo_attributes.each  do |attr_item| %>
+    <%= f.simple_fields_for attr_item  do |form_item| %>
+    <tr>
+      <td><%= attr_item.amx_dxlink_attribute_name.name %>:</td>
+      <td><%= text_field_tag 'attribute_values[]', "#{form_item.object.value}", style:"margin:0;" %>
+        <%= hidden_field_tag 'attribute_name_ids[]', "#{attr_item.amx_dxlink_attribute_name.id}"  %></td>
+    </tr>
+    <% end %>
+  <% end %>
+</table>
+<%= f.submit "Update Pairing Attributes", class: "small round button", style:"margin-top:10px;" %>
+
+<% end %><% #  simple_form_for [:admin, @amx_dxlink_combo]%>
+

@@ -1,0 +1,52 @@
+<div class="row" style="width:80%; margin-left:auto; margin-right:auto;">
+  <h3>DXLink Compatibility Tool</h3>
+  <p>The DXLink product line has grown over the years including a 
+  variety of transmitters, receivers, and compatible switches. Though pairing 
+  products of the same generation and model family is recommended as they have 
+  been engineered to work together seamlessly, other combinations can be used as well.</p>
+  
+  <p>Select any combination of DXLink or DXLite transmitter and receiver below to see the compatible features of those devices.</p>
+</div><!-- <div class="row">  -->
+
+<div class="row" style="width:60%; margin-left:auto; margin-right:auto;">
+  <div class="medium-12 columns">
+    <h4>Select a Transmitter and Reciever Pairing</h4>
+    <%= simple_form_for :amx_dxlink_combo, url: amx_dxlink_tool_path, method: :post  do |f| %>
+      <%= f.input :combo_id, collection: @devices_list,
+          label: false,
+          label_method: -> (item) { "#{item.tx.model} - (#{item.tx.type_long_name}) --> #{item.rx.model} - (#{item.rx.type_long_name})" },
+          value_method: :id,
+          input_html: {
+            class: 'chosen-select',
+            multiple: false,
+            data: { placeholder: 'Select TX <--> RX Pairing'}
+          },
+          selected: @combo.id
+      %>
+
+      <%= f.submit "Get Compatibility Info", class: "small round button", style:"margin-top:10px;" %>
+    <% end %>
+
+    <% if @combo.present? %>
+      <%= render "amx/tool/dxlink/products_row", combo: @combo %>
+      <% if @combo.combo_attributes.count > 0%>
+        <table class="data" width="100%" style="background-color:aliceblue;">
+          <tr><th colspan=2 style="background-color:rgb(11,64,106);font-weight:400;text-shadow:none;">Feature Compatibility:</th></tr>
+          <% @combo.combo_attributes.each do |item|%>
+            <% if item.value.present? %>
+              <tr>
+                <td width="30%"><%= item.amx_dxlink_attribute_name.name%>:</td>
+                <td><%= item.value %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </table>
+      <% else %>
+        <table class="data" width="100%">
+          <tr><td>Compatibility data not available.</td></tr>
+        </table>
+      <% end %>
+    <% end %>
+
+  </div><!-- <div class="medium-12 columns">  -->
+</div><!-- <div class="row"> -->

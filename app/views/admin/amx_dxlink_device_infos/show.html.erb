@@ -1,0 +1,59 @@
+<% 
+case @amx_dxlink_device_info.type_short_name
+when  "tx"
+	dxlink_device_list = AmxDxlinkDeviceInfo.rx_available_to_pair(@amx_dxlink_device_info)
+	current_pairings = @amx_dxlink_device_info.rx_associations.ordered_by_rx_model
+when "rx"
+	dxlink_device_list = AmxDxlinkDeviceInfo.tx_available_to_pair(@amx_dxlink_device_info)
+	current_pairings = @amx_dxlink_device_info.tx_associations.ordered_by_tx_model
+end
+%>
+
+<ul class="button-group round">
+    <li><%= link_to 'AMX DXLink Device List', admin_amx_dxlink_device_infos_path, class: "small button round" %></li>
+</ul>
+<div class="row">
+    <!-- Device  -->
+	<div class="small-12 medium-5 columns">
+        <h3>AMX DXLink Device</h3>
+        <%= link_to 'Edit', edit_admin_amx_dxlink_device_info_path(@amx_dxlink_device_info), class: "small round button" %>
+        <table class="data">
+        <tr>
+            <td>Model:</td>
+            <td><%=@amx_dxlink_device_info.model%></td>
+        </tr>
+        <tr>
+            <td>Model Family:</td>
+            <td><%=@amx_dxlink_device_info.model_family%></td>
+        </tr>
+        <tr>
+            <td>Type Long Name:</td>
+            <td><%=@amx_dxlink_device_info.type_long_name%></td>
+        </tr>
+        <tr>
+            <td>Type Short Name:</td>
+            <td><%=@amx_dxlink_device_info.type_short_name%></td>
+        </tr>
+        <tr>
+            <td>Product Url:</td>
+            <td><%= link_to @amx_dxlink_device_info.product_url, @amx_dxlink_device_info.product_url, target:"_blank" %></td>
+        </tr>
+        <tr>
+            <td>Product Image:</td>
+            <td><%= image_tag(@amx_dxlink_device_info.image_url, lazy: false)%></td>
+        </tr>
+        </table>
+    </div><!--  <div class="small-12 medium-6 columns"> -->
+
+    <!-- Pairings  -->
+    <div class="small-12 medium-5 columns">
+        <h3>Pairings</h3>
+        <%= render "/admin/amx_dxlink_device_infos/pairing_form"%>
+        <%= render "/admin/amx_dxlink_device_infos/paired_devices", current_pairings: current_pairings %>
+    </div>
+    <div class="medium-2"></div>
+</div><!--  <div class="row"> -->
+
+
+
+

@@ -521,3 +521,24 @@ $vip-programmer-table-odd-row-color: #eee7e0;
     }
   }
 }
+
+/***** Tables ******/
+table.data {
+	border-collapse: collapse;
+	th {
+		padding: 5px 20px;
+		text-align: center;
+		color: white;
+		background: #999;
+		text-shadow: #666 0px 1px 0px;
+		border: 1px solid #CCC;
+		border-bottom: 1px #666 solid;
+		a {
+			color: white;
+		}
+	}
+	td {
+		border: 1px solid #CCC;
+		padding: 6px;
+	}
+}

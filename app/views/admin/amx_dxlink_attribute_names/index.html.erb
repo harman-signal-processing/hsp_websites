@@ -1,0 +1,22 @@
+<h3>AMX DXLink Attribute Names</h3>
+
+<ul class="button-group round">
+  <li><%= link_to 'AMX DXLink Device List', admin_amx_dxlink_device_infos_path, class: "small button round" %></li>
+	<li><%= link_to 'New AMX DXLink Attribute Name', new_admin_amx_dxlink_attribute_name_path, class: "small success button" %></li>
+</ul>
+
+<ul id="amx_dxlink_attribute_names" class="sortable_list">
+<% @attibute_name_list.each do |item| %>
+  <li id="amx_dxlink_attribute_name_<%= item.id %>">
+    <span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
+  	<%= link_to(item.name, edit_admin_amx_dxlink_attribute_name_path(item)) %>
+  	<%= link_to(image_tag("icons/trash.gif", lazy: false),
+  			admin_amx_dxlink_attribute_name_path(item),
+  			confirm: "Are you sure want to delete #{item.name}?",
+  			remote: true,
+  			method: :delete) %>
+  </li>
+<% end %>
+</ul>
+
+

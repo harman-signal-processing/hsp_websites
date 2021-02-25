@@ -1,0 +1,8 @@
+(function(){
+    // remove associated paired dxlink device
+    $("li[data-dxlink-combo-id='<%= @amx_dxlink_combo.id %>']").remove();
+
+	<%= render "/admin/amx_dxlink_combos/rebuild_dxlink_device_select_list" %>
+})();
+
+<% flash.discard %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_19_215851) do
+ActiveRecord::Schema.define(version: 2021_02_08_221240) do
 
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
@@ -44,6 +44,45 @@ ActiveRecord::Schema.define(version: 2020_11_19_215851) do
     t.datetime "updated_at"
     t.string "cached_slug"
     t.index ["cached_slug"], name: "index_amp_models_on_cached_slug"
+  end
+
+  create_table "amx_dxlink_attribute_names", charset: "utf8", force: :cascade do |t|
+    t.string "name"
+    t.integer "position"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "amx_dxlink_combo_attributes", charset: "utf8", force: :cascade do |t|
+    t.string "value"
+    t.bigint "amx_dxlink_attribute_name_id", null: false
+    t.bigint "amx_dxlink_combo_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["amx_dxlink_attribute_name_id"], name: "idx_dxlink_combo_attr_on_attr_name_id"
+    t.index ["amx_dxlink_combo_id"], name: "index_amx_dxlink_combo_attributes_on_amx_dxlink_combo_id"
+  end
+
+  create_table "amx_dxlink_combos", charset: "utf8", force: :cascade do |t|
+    t.boolean "recommended"
+    t.text "notes"
+    t.bigint "tx_id", null: false
+    t.bigint "rx_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["rx_id"], name: "index_amx_dxlink_combos_on_rx_id"
+    t.index ["tx_id"], name: "index_amx_dxlink_combos_on_tx_id"
+  end
+
+  create_table "amx_dxlink_device_infos", charset: "utf8", force: :cascade do |t|
+    t.string "model"
+    t.string "model_family"
+    t.string "type_long_name"
+    t.string "type_short_name"
+    t.string "product_url"
+    t.string "image_url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "amx_itg_new_module_requests", charset: "utf8", force: :cascade do |t|
@@ -2332,6 +2371,10 @@ ActiveRecord::Schema.define(version: 2020_11_19_215851) do
     t.index ["url"], name: "index_websites_on_url", unique: true
   end
 
+  add_foreign_key "amx_dxlink_combo_attributes", "amx_dxlink_attribute_names"
+  add_foreign_key "amx_dxlink_combo_attributes", "amx_dxlink_combos"
+  add_foreign_key "amx_dxlink_combos", "amx_dxlink_device_infos", column: "rx_id"
+  add_foreign_key "amx_dxlink_combos", "amx_dxlink_device_infos", column: "tx_id"
   add_foreign_key "manufacturer_partners", "site_elements"
   add_foreign_key "vip_location_global_regions", "vip_global_regions"
   add_foreign_key "vip_location_global_regions", "vip_locations"

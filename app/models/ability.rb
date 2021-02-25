@@ -227,6 +227,10 @@ class Ability
         can :manage, Vip::Website
         can :manage, AmxItgNewModuleRequest
         can :manage, Page, custom_route: ["amx-partners-program","amx-partners-program-updates"]
+        can :manage, AmxDxlinkDeviceInfo
+        can :manage, AmxDxlinkCombo
+        can :manage, AmxDxlinkComboAttribute
+        can :manage, AmxDxlinkAttributeName
       end  #  if user.role?(:vip_programmers_admin)
     end
   end
