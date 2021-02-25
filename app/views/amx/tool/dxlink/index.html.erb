@@ -11,19 +11,20 @@
 <div class="row" style="width:60%; margin-left:auto; margin-right:auto;">
   <div class="medium-12 columns">
     <h4>Select a Transmitter and Reciever Pairing</h4>
+    <%combo_id = @combo.present? ? @combo.id : 0 %>
     <%= simple_form_for :amx_dxlink_combo, url: amx_dxlink_tool_path, method: :post  do |f| %>
-      <%= f.input :combo_id, collection: @devices_list,
-          label: false,
-          label_method: -> (item) { "#{item.tx.model} - (#{item.tx.type_long_name}) --> #{item.rx.model} - (#{item.rx.type_long_name})" },
-          value_method: :id,
-          input_html: {
-            class: 'chosen-select',
-            multiple: false,
-            data: { placeholder: 'Select TX <--> RX Pairing'}
-          },
-          selected: @combo.id
-      %>
-
+          <%= f.input :combo_id, collection: @devices_list,
+              label: false,
+              label_method: -> (item) { "#{item.tx.model} - (#{item.tx.type_long_name}) --> #{item.rx.model} - (#{item.rx.type_long_name})" },
+              value_method: :id,
+              include_blank: true,
+              selected: combo_id,
+              input_html: {
+                class: 'chosen-select',
+                multiple: false,
+                data: { placeholder: 'Select TX <--> RX Pairing'}
+              }
+          %>
       <%= f.submit "Get Compatibility Info", class: "small round button", style:"margin-top:10px;" %>
     <% end %>
 
