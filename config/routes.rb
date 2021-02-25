@@ -92,6 +92,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
 
       match "support/amx_itg_new_module_request" => "module_requests#create", as: :amx_itg_new_module_request, via: [:get, :post]
       match "support/amx_itg_new_module_request_upload" => "module_requests#upload", as: :amx_itg_new_module_request_upload, via: [:post]
+      match "tool/dxlink" => "amx_dxlink_tool#index", as: :amx_dxlink_tool, via: [:get, :post]
     end  # constraints(AmxDomain) do
 
     constraints(BssDomain) do
@@ -326,6 +327,18 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         collection {
           post :update_order
         }
+      end
+
+      resources :amx_dxlink_device_infos, :amx_dxlink_combo_attributes, :amx_dxlink_attribute_names
+      resources :amx_dxlink_combos do
+        resources :amx_dxlink_combo_attributes do
+          collection do
+            post :bulk_update
+          end
+        end
+      end
+      resources :amx_dxlink_attribute_names do
+          collection { post :update_order }
       end
 
       resources :service_centers,

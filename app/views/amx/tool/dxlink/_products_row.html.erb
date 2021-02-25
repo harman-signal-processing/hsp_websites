@@ -1,0 +1,25 @@
+<table width="100%">
+  <tr>
+    <th style="text-align:center;">Transmitter:</th>
+    <th style="text-align:center;">Reciever:</th>
+  </tr>
+  <tr>
+    <td style="text-align:center;">
+        <%=link_to combo.tx.model, combo.tx.product_url, target: "_blank" %><br />
+        <%= "(#{combo.tx.type_long_name})" %><br />
+        <%=link_to image_tag(combo.tx.image_url, lazy: false), combo.tx.product_url, target: "_blank"%>
+    </td>
+    <td style="text-align:center;">
+        <%=link_to combo.rx.model, combo.rx.product_url, target: "_blank" %><br />
+        <%= "(#{combo.rx.type_long_name})" %><br />
+        <%=link_to image_tag(combo.rx.image_url, lazy: false), combo.tx.product_url, target: "_blank"%>
+    </td>
+  </tr>
+  <tr>
+    <td colspan=2 style="text-align:center;">
+      <% if combo.recommended %>
+        <%= fa_icon "thumbs-up" %> Recommended Pairing
+      <% end %>
+    </td>
+  </tr>
+</table>

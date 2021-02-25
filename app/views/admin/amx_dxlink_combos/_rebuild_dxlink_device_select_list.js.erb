@@ -1,0 +1,24 @@
+<%
+case @calling_device.type_short_name
+when  "tx"
+	dxlink_device_list = AmxDxlinkDeviceInfo.rx_available_to_pair(@calling_device)
+when "rx"
+	dxlink_device_list = AmxDxlinkDeviceInfo.tx_available_to_pair(@calling_device)
+end
+%>
+(function(){
+	var $dxlink_device_dropdown = $('#device_combo_for_<%="#{@calling_device.model}_#{@calling_device.type_short_name}"%>');
+
+	// clear the dxlink device list before we rebuild it
+	$dxlink_device_dropdown.empty();
+
+	// rebuild dxlink device dropdown list
+	$dxlink_device_dropdown.append($("<option></option>"));
+	<% dxlink_device_list.each do |device| %>
+		$dxlink_device_dropdown.append($("<option value='<%=device.id%>'><%=device.model%></option>"));
+	<% end %>
+
+	// let chosen know the dxlink device dropdown list has been updated
+	$dxlink_device_dropdown.trigger('chosen:updated');
+
+})();  //  (function(){

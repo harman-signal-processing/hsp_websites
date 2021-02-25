@@ -1,0 +1,22 @@
+<h3>AMX DXLink Device List</h3>
+
+<ul class="button-group round">
+	<li><%= link_to 'New AMX DXLink Device', new_admin_amx_dxlink_device_info_path, class: "small success button" %></li>
+</ul>
+
+<div class="row">
+    <div class="small-12 medium-6 columns">
+        <h4>Transmitters</h4>
+        <%= render "/admin/amx_dxlink_device_infos/device_list", list: @dxlink_device_list_tx, device_pairing_column_to_show: "rx" %>
+    </div><!--  <div class="small-12 medium-6 columns">  -->
+    <div class="small-12 medium-6 columns">
+        <h4>Recievers</h4>
+        <%= render "/admin/amx_dxlink_device_infos/device_list", list: @dxlink_device_list_rx, device_pairing_column_to_show: "tx"%>
+    </div><!--  <div class="small-12 medium-6 columns">  -->
+</div><!-- <div class="row"> -->
+
+
+
+
+
+
