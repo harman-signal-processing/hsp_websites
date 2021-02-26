@@ -86,7 +86,7 @@
                       <% if can?(:manage, SpecificationGroup) || can?(:manage, Specification) %>
                         <li><%= link_to "Specifications", admin_specifications_path %></li>
                       <% end %>
-                      <% if can?(:manage, Part) || can?(:manage, ProductPartGroup) || can?(:manage, ProductPartGroupPart) %>
+                      <% if can?(:manage, Part) || can?(:manage, ProductPart) %>
                         <li><%= link_to "Part Library", admin_parts_path %></li>
                       <% end %>
                       <% if can?(:manage, Badge) %>
