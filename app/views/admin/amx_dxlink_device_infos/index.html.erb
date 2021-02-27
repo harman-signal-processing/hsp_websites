@@ -4,7 +4,7 @@
 	<li><%= link_to 'New AMX DXLink Device', new_admin_amx_dxlink_device_info_path, class: "small success button" %></li>
 </ul>
 
-<div class="row">
+<div class="row" style="margin-left:auto;margin-right:auto;">
     <div class="small-12 medium-6 columns">
         <h4>Transmitters</h4>
         <%= render "/admin/amx_dxlink_device_infos/device_list", list: @dxlink_device_list_tx, device_pairing_column_to_show: "rx" %>
