@@ -545,7 +545,8 @@ table.data {
 
 /******** Search ********/
 
-#query {
+/** search box in top nav **/
+#search_form #query {
   margin-bottom:5px;
   width:80px;
 }
