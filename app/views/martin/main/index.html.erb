@@ -10,16 +10,16 @@
 
 <%= content_for :feature do %>
 	<%= cache ["slideshow", website.brand, I18n.locale] do %>
-    <div class="small-12 columns">
-      <% if website.homepage_feature_override.present? %>
-        <%= raw website.homepage_feature_override %>
-      <% else %>
+    <% if website.homepage_feature_override.present? %>
+      <%= raw website.homepage_feature_override %>
+    <% else %>
+      <div class="small-12 columns">
         <% slides = Setting.slides(website, limit: 5) %>
         <% if slides.size > 0 %>
           <%= orbit_slideshow(slides: slides, duration: 6000, navigation_arrows: false, transition: "fade") %>
         <% end %>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
 	<% end %>
 <% end %>
 
