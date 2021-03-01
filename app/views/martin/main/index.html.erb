@@ -11,23 +11,21 @@
 <%= content_for :feature do %>
 	<%= cache ["slideshow", website.brand, I18n.locale] do %>
     <div class="small-12 columns">
-		<% slides = Setting.slides(website, limit: 5) %>
-		<% if slides.size > 0 %>
-			<%= orbit_slideshow(slides: slides, duration: 6000, navigation_arrows: false, transition: "fade") %>
-		<% end %>
-		<%#= video_background_with_features(slides, tagline: true) %>
+      <% if website.homepage_feature_override.present? %>
+        <%= raw website.homepage_feature_override %>
+      <% else %>
+        <% slides = Setting.slides(website, limit: 5) %>
+        <% if slides.size > 0 %>
+          <%= orbit_slideshow(slides: slides, duration: 6000, navigation_arrows: false, transition: "fade") %>
+        <% end %>
+      <% end %>
     </div>
 	<% end %>
 <% end %>
 
 <%= content_for :big_bottom_box do %>
-  <%#= render_partial "shared/features_carousel_strip" %>
   <%= render_partial "shared/featured_products_strip" %>
   <%= render_partial "shared/news_and_reviews_strip" %>
-  <%#= render_partial "shared/promotions_strip" %>
-  <%#= render_partial "shared/teaser_strip" %>
-  <%#= render_partial "shared/videos_strip" %>
-  <%#= render_partial "shared/social_strip" %>
 <% end %>
 
 <%= content_for :preload do %>
