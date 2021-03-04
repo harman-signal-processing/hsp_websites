@@ -6,6 +6,9 @@
     <% if website.google_site_verification %>
       <meta name="google-site-verification" content="<%= website.google_site_verification %>" />
     <% end %>
+    <% if website.facebook_domain_verification %>
+      <meta name="facebook-domain-verification" content="<%= website.facebook_domain_verification %>" />
+    <% end %>
 		<%= csrf_meta_tag %>
     <%# Acoustic tracking %>
     <% if Rails.env.production? %>
