@@ -188,9 +188,6 @@ GEM
     delayed_job_active_record (4.1.5)
       activerecord (>= 3.0, < 6.2)
       delayed_job (>= 3.0, < 5)
-    delayed_paperclip (3.0.1)
-      activejob (>= 4.2)
-      paperclip (>= 3.3)
     devise (4.7.3)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -350,6 +347,18 @@ GEM
     json-schema (2.8.1)
       addressable (>= 2.4)
     jwt (2.2.2)
+    kt-delayed_paperclip (3.1.0)
+      activejob (>= 4.2)
+      kt-paperclip (~> 6.4, >= 6.4.1)
+    kt-paperclip (6.4.1)
+      activemodel (>= 4.2.0)
+      activesupport (>= 4.2.0)
+      mime-types
+      mimemagic (~> 0.3.0)
+      terrapin (~> 0.6.0)
+    kt-paperclip-compression (1.2.0)
+      kt-paperclip (~> 6.4, >= 6.4.1)
+      os (>= 1.0.0)
     language_list (1.2.1)
     launchy (2.5.0)
       addressable (~> 2.7)
@@ -431,18 +440,7 @@ GEM
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
     orm_adapter (0.5.0)
-    os (1.0.1)
-    paperclip (6.1.0)
-      activemodel (>= 4.2.0)
-      activesupport (>= 4.2.0)
-      mime-types
-      mimemagic (~> 0.3.0)
-      terrapin (~> 0.6.0)
-    paperclip-compression (1.1.1)
-      os (~> 1.0.0)
-      paperclip (>= 5.2.1)
-    paperclip-meta (3.1.0)
-      paperclip (>= 5.0)
+    os (1.1.1)
     passenger_monit (0.1.1)
     possessive (1.0.1)
     pry (0.13.1)
@@ -675,7 +673,6 @@ DEPENDENCIES
   dalli
   database_cleaner
   delayed_job_active_record
-  delayed_paperclip
   devise
   dynamic_form
   email_validator
@@ -702,6 +699,9 @@ DEPENDENCIES
   httparty
   jquery-rails
   json-schema
+  kt-delayed_paperclip
+  kt-paperclip
+  kt-paperclip-compression
   language_list
   lazyload-rails
   letter_opener
@@ -713,9 +713,6 @@ DEPENDENCIES
   mysql2
   nokogiri
   oauth2
-  paperclip
-  paperclip-compression (~> 1.0)
-  paperclip-meta
   passenger_monit
   possessive
   pry
