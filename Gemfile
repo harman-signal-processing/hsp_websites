@@ -26,9 +26,9 @@ gem 'fog-core', '< 2.1.1' # fog-rackspace isn't working with fog-core after 2.1.
 gem 'fog-rackspace'
 gem 'fog-aws'
 gem 'asset_sync'
-gem "paperclip"
-gem 'paperclip-meta'
-gem 'paperclip-compression', '~> 1.0'
+gem "kt-paperclip"
+gem 'kt-paperclip-compression'
+gem 'kt-delayed_paperclip'
 gem 's3_direct_upload'
 gem 'meta-tags'
 gem 'tinymce-rails',
@@ -72,7 +72,6 @@ gem 'will_paginate_infinite',
 gem "possessive"
 gem 'RedCloth'
 gem 'figaro'
-gem 'delayed_paperclip'
 gem 'goacoustic'
 gem 'oauth2'
 gem 'typhoeus' # For link validator
