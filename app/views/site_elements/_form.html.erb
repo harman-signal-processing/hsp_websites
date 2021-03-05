@@ -38,7 +38,7 @@
 
   <div class="row">
     <div class="small-6 columns">
-      <%= f.submit 'Save Changes', class: "small button" %>
+      <%= f.submit 'Save Changes', class: "small button disabled_button", disabled: f.object.new_record? %>
     </div>
     <div class="small-6 columns text-right">
       <% unless @site_element.new_record? %>

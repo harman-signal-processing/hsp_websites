@@ -19,6 +19,9 @@ module Paperclip
   end
 end
 
+Paperclip::UriAdapter.register
+Paperclip::HttpUrlProxyAdapter.register
+
 Paperclip::Attachment.default_options[:compression] = {
   png: "-o 5 -quiet",
   jpeg: "-copy none -optimize -progressive"
