@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   before_action :set_locale
   before_action :ensure_best_url, only: [:show, :buy_it_now, :preview, :introducing, :photometric, :bom]
+  before_action :verify_warranty_admin_ability
 
   # GET /products
   # GET /products.xml
@@ -246,7 +247,39 @@ class ProductsController < ApplicationController
     end
   end
 
+  def edit_warranty
+    @products = Product.all_for_website(website) - Product.non_supported(website)
+  end
+
+  def update_warranty
+    product_ids_with_nil = []
+    Array(params[:product_attr].to_unsafe_h).each do |key, attr|
+      if attr.blank?
+        product_ids_with_nil << key
+      else
+        product = Product.where(id: key).first
+        if product.warranty_period != attr
+          product.update_columns(warranty_period: attr)
+        end
+      end
+    end
+    if product_ids_with_nil.length > 0
+      Product.where(id: product_ids_with_nil).update_all(warranty_period: nil)
+    end
+    ewsc = website.settings.where(name: "extra_warranty_side_content").first_or_initialize
+    ewsc.update(
+      text_value: params[:extra_warranty_side_content],
+      setting_type: "text",
+      brand_id: website.brand_id
+    )
+    redirect_to(warranty_policy_path, notice: "Products updated successfully.")
+  end
+
   protected
+
+  def verify_warranty_admin_ability
+    authorize! :manage_warranty_of, Product
+  end
 
   def ensure_best_url
     begin

@@ -38,6 +38,7 @@ class Ability
       can :manage, :all
       can :mangle, Product # only super admins can add video/flash to the product page viewer
       can :disable, OnlineRetailer
+      can :manage_warranty_of, Product
     else
       # can :read, :all
       can :read, Software
@@ -59,6 +60,7 @@ class Ability
         can :manage, SiteElement
         can :manage, Part
         can :manage, ProductPart
+        can :manage_warranty_of, Product
       end
       if user.role?(:marketing_staff)
         can :manage, Product
@@ -72,6 +74,7 @@ class Ability
         can :manage, News
         can :read, ContactMessage
         can :read, Stats
+        can :manage_warranty_of, Product
       end
       if user.role?(:sales_admin)
         can :read, Product
@@ -179,6 +182,7 @@ class Ability
         can :manage, DownloadRegistration
         can :manage, Part
         can :manage, ProductPart
+        can :manage_warranty_of, Product
       end
       if user.role?(:rohs)
         can :read, Product

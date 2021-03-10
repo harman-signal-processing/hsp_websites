@@ -37,4 +37,13 @@
 			<% end %>
 		</table>
 	</div>
+  <p>&nbsp;</p>
+  <% if can?(:manage_warranty_of, Product) %>
+    <div class="text-right">
+      <%= link_to edit_warranty_products_path do %>
+        <%= fa_icon "edit" %>
+        Manage Warranty Periods
+      <% end %>
+    </div>
+  <% end %>
 </div>
