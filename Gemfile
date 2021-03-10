@@ -83,6 +83,8 @@ gem "exception_notification"
 gem 'slack-notifier'
 gem 'google-api-client', '~> 0.36'
 
+gem 'wicked_pdf'
+
 group :production, :staging do
   gem 'passenger_monit'
 end

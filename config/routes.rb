@@ -56,6 +56,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
   get "/admin" => "admin#index", as: :admin_root, locale: I18n.default_locale
   get 'sitemap(.:format)' => 'sitemap#index', as: :sitemap, defaults: { format: :xml }
 
+  match "/create_pdf" => "pdfs#create", via: [:get, :post]
+
   # An example of a custom top-level landing page route:
   # match "/switchyourthinking" => "pages#show", custom_route: "switchyourthinking", locale: I18n.default_locale
 
