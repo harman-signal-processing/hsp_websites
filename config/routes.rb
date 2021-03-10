@@ -508,6 +508,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       end
       collection do
         match :compare, via: :all
+        get :edit_warranty
+        put :update_warranty
       end
       resources :product_attachments, only: :edit
     end
