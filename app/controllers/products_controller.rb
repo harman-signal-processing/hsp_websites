@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   before_action :set_locale
   before_action :ensure_best_url, only: [:show, :buy_it_now, :preview, :introducing, :photometric, :bom]
-  before_action :verify_warranty_admin_ability
+  before_action :verify_warranty_admin_ability, only: [:edit_warranty, :update_warranty]
 
   # GET /products
   # GET /products.xml
