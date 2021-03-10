@@ -52,7 +52,7 @@
 			<% @products.each do |product| %>
 			<tr>
 				<td class="name"><%= link_to product.name, product %></td>
-				<td><%= pluralize(product.warranty_period, "year") %></td>
+				<td><%= pluralize(product.warranty_period, "year", plural: "years") %></td>
 			</tr>
 			<% end %>
 			<tr>
