@@ -1,0 +1,29 @@
+<div class="docs">
+
+    <% product.safety_documents.includes(:product).each do |product_document| %>
+      <h5>Safety Documentation</h5>
+      <ul>
+        <%= render_partial 'shared/download_table_row', item: product_document %>
+      </ul>
+    <% end %>
+
+    <ul class="docs">
+      <% product.nonsafety_documents.pluck(:document_type).uniq.each do |document_type| %>
+          <% product.nonsafety_documents.includes(:product).where(document_type: document_type).each do |product_document| %>
+            <%= render_partial 'shared/download_table_row', item: product_document %>
+          <% end %>
+      <% end %>
+
+      <% product.viewable_site_elements.each do |site_element| %>
+        <% if can?(:read, site_element) %>
+          <% if site_element.external_url.present? || site_element.executable_file_name.present? %>
+              <%= render_partial 'shared/download_table_row', item: site_element %>
+          <% elsif site_element.resource_file_name.present? %>
+              <%= render_partial 'shared/download_table_row', item: site_element %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </ul>
+
+</div>
+

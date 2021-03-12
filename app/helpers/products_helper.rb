@@ -41,7 +41,7 @@ module ProductsHelper
   #
   def draw_info_accordion(product, options={})
     acc = ""
-    side_tabs = (options[:tabs]) ? parse_tabs(options[:tabs], product) : product.tabs
+    side_tabs = (options[:tabs]) ? parse_tabs(options[:tabs], product) : product.collect_tabs(website.brand.side_tabs)
 
     side_tabs.each_with_index do |product_tab, i|
       active = "active" if i == 0

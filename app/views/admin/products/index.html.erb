@@ -39,7 +39,7 @@
       <tbody>
       <% @products.where(product_status_id: product_status.id).each do |product| %>
         <% if can?(:manage, product) %>
-          <%= cache ["admin_products_index_row", product] do %>
+          <%= cache ["admin_products_index_row", website.brand_id, product] do %>
             <tr>
               <td>
                 <% if product.primary_photo %>
