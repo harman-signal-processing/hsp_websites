@@ -1,4 +1,3 @@
-<% @config_tool = @product.site_elements.find { |item| item.resource_type.downcase == "configuration tools"}%>
-<%if @config_tool.present? && @config_tool.external_url.present? %>
-	<%= link_to  @config_tool.name, @config_tool.external_url, class: "button radius", target: "_blank" %>
+<%if @product.external_configuration_tool.present? %>
+	<%= link_to  @product.external_configuration_tool.name, @product.external_configuration_tool.external_url, class: "button radius", target: "_blank" %>
 <%end%>
