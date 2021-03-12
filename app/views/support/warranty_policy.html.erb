@@ -31,7 +31,12 @@
 			</tr>
 			<% @products.each do |product| %>
 			<tr>
-				<td class="name"><%= link_to product.name, product %></td>
+        <td class="name">
+          <%= link_to product do %>
+            <%= product.brand.name unless product.brand_id == website.brand_id %>
+            <%= product.name %>
+          <% end %>
+        </td>
 				<td><%= pluralize(product.warranty_period, "year", plural: "years") %></td>
 			</tr>
 			<% end %>
