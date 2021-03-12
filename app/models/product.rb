@@ -460,8 +460,12 @@ class Product < ApplicationRecord
   end
 
   def configuration_tool_content_present?
-    config_tool = self.site_elements.find {|item| item.resource_type.downcase == "configuration tools"}
-    config_tool.present? && config_tool.external_url.present?
+    external_configuration_tool.present?
+  end
+
+  def external_configuration_tool
+    config_tool = site_elements.find { |item| item.resource_type.downcase == "configuration tools" && item.external_url.present? }
+    config_tool
   end
 
   def reviews_content_present?
