@@ -6,8 +6,13 @@ class Admin::ProductsController < AdminController
   # GET /admin/products
   # GET /admin/products.xml
   def index
-    @search = website.products.ransack(params[:q])
-    @products = @search.result
+    if params[:q].present?
+      @search = website.products.ransack(params[:q])
+      @products = @search.result
+    else
+      @products = Product.where(brand_id: website.brand_id)
+      @search = @products.ransack
+    end
     respond_to do |format|
       format.html {
         if params[:q] && @products.size == 1
