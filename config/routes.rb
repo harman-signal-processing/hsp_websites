@@ -567,7 +567,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     match '/support/rma_credit' => 'support#rma', as: :rma_credit_request, message_type: "rma_credit_request", via: :all
     match '/support/contact' => 'support#contact', as: :support_contact, via: :all
     match '/support/service_lookup', to: redirect("#{ENV['PRO_SITE_URL']}/service_centers"), as: :service_lookup, via: :all
-    match '/support/troubleshooting' => 'support#troubleshooting', as: :support_troubleshooting, via: :all
     get '/support/speaker_tunings' => 'support#speaker_tunings', as: :speaker_tunings
     get '/support/cad' => 'support#cad', as: :support_cad
     match '/support/vintage_repair' => 'support#vintage_repair', as: :vintage_repair, via: :all

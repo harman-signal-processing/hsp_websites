@@ -93,6 +93,9 @@
     <li class="has-dropdown"><%= link_to t('product_support').titleize, "/#{I18n.locale}/support" %>
     <ul class="dropdown">
       <li><%= link_to t("nav.contact_us"), "/#{I18n.locale}/support" %></li>
+      <% if !!(website.value_for("anytime_support_url")) %>
+        <li><%= link_to t('anytime_support'), website.value_for("anytime_support_url"), target: "_blank" %></li>
+      <% end %>
       <li><%= link_to "Consultant Portal", "#{ENV['PRO_SITE_URL']}/consultant", target: "_blank" %></li>
       <li><%= link_to t("nav.software"), "/#{I18n.locale}/software" %></li>
       <li><%= link_to t("nav.firmware"), "/#{I18n.locale}/firmware" %></li>
