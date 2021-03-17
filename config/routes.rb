@@ -64,6 +64,10 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
   # These are only needed for site-specific routing (where you don't want a particular URL
   # to work on the other sites)
 
+  constraints(AmxDomain) do
+    match "/create_xml" => "amx_configurators#send_xml_file", via: [:get, :post], defaults: { format: :xml }
+  end
+
   constraints(BssDomain) do
     get '/network-audio' => 'pages#network_audio'
   end
