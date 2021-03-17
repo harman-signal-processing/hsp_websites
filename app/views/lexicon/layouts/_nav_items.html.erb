@@ -54,6 +54,9 @@
   <li class="has-dropdown"><%= link_to t('product_support').titleize, support_path %>
     <ul class="dropdown">
       <li><%= link_to t('contact_us').titleize, support_path %></li>
+      <% if !!(website.value_for("anytime_support_url")) %>
+        <li><%= link_to t('anytime_support'), website.value_for("anytime_support_url"), target: "_blank" %></li>
+      <% end %>
       <li><%= link_to t('software_downloads').titleize, software_index_path %></li>
       <li><%= link_to t('firmware_downloads').titleize, firmware_index_path %></li>
       <li><%= link_to t("nav.downloads"), "/#{I18n.locale}/support_downloads" %></li>

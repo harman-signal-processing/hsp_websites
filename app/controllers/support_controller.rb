@@ -235,12 +235,6 @@ class SupportController < ApplicationController
     render_template
   end
 
-  # Iframe page for info that comes from Salesforce
-  def troubleshooting
-    @src = website.value_for("troubleshooting_url")
-    render_template
-  end
-
   # Service center lookup by zipcode
   def service_lookup
     @page_title = t('titles.service_centers')
