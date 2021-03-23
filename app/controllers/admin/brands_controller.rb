@@ -145,7 +145,8 @@ class Admin::BrandsController < AdminController
       :send_contact_form_to_regional_support,
       :always_redirect_to_youtube,
       :show_consultant_button,
-      :has_product_selector
+      :has_product_selector,
+      :show_lead_form_on_buy_page
     )
   end
 end

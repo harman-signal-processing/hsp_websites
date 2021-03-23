@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_08_221240) do
+ActiveRecord::Schema.define(version: 2021_03_23_201048) do
 
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
@@ -380,6 +380,7 @@ ActiveRecord::Schema.define(version: 2021_02_08_221240) do
     t.boolean "always_redirect_to_youtube", default: false
     t.boolean "show_consultant_button"
     t.boolean "has_product_selector"
+    t.boolean "show_lead_form_on_buy_page", default: false
     t.index ["cached_slug"], name: "index_brands_on_cached_slug", unique: true
     t.index ["name"], name: "index_brands_on_name", unique: true
   end
@@ -760,6 +761,21 @@ ActiveRecord::Schema.define(version: 2021_02_08_221240) do
     t.text "products"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "leads", charset: "utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "company"
+    t.string "email"
+    t.string "phone"
+    t.text "project_description"
+    t.string "source"
+    t.string "city"
+    t.string "state"
+    t.string "country"
+    t.boolean "subscribe", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "locale_product_families", id: :integer, charset: "utf8", force: :cascade do |t|
