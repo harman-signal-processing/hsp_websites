@@ -18,6 +18,14 @@
 
 <div class="row">
   <div class="large-8 columns">
+    <% if website.show_lead_form_on_buy_page? %>
+      <div class="callout panel">
+        <h4>Connect with <%= website.brand.name %></h4>
+        <p>Tell us about your project. Complete the form below to connect with us.</p>
+        <%= render_partial 'leads/form' %>
+      </div>
+    <% end %>
+
     <% if website.brand.has_dealers? %>
       <div class="row">
         <div class="medium-8 columns end">

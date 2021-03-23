@@ -10,6 +10,7 @@ class WhereToFindController < ApplicationController
     @us_region = UsRegion.new
     @countries = Distributor.countries(website)
     @country = nil
+    @lead = Lead.new
     render_template
   end
 

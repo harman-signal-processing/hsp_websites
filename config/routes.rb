@@ -528,6 +528,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       member { get :new_version }
     end
     resources :product_specifications, only: :edit
+    resources :leads, only: [:new, :create]
 
     get 'product_selector' => 'product_selector#index', as: :product_selector
     namespace :product_selector do
