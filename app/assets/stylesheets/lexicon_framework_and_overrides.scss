@@ -274,6 +274,8 @@ $topbar-breakpoint:                    rem-calc(990px); // Change to 9999px for 
 
 $topbar-sticky-class:                  ".sticky";
 
+$medium-breakpoint: em-calc(1200) !default;
+$medium-range: (em-calc(740), $medium-breakpoint) !default;
 $reveal-position-top: rem-calc(10);
 $reveal-default-width: 60%;
 $reveal-max-width: 75%;

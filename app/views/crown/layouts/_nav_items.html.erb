@@ -4,7 +4,6 @@
       <% if website.has_product_selector? %>
         <li><%= link_to t("product_selector"), product_selector_path %></li>
       <% end %>
-		  <li><%= link_to t('new_products'), new_products_path, target: "_blank" %></li>
       <li class="has-dropdown"><%= link_to t("nav.amplifiers").titleize, product_families_path %>
         <ul class="dropdown">
           <%
@@ -38,6 +37,15 @@
       <% end %>
 
       <li><%= link_to t("nav.microphones").titleize, "/#{I18n.locale}/akg-mics" %></li>
+      <li class="has-dropdown show-for-medium"><%= link_to t('nav.network_audio').titleize, "/#{I18n.locale}/network-audio" %>
+        <ul class="dropdown">
+          <li><%= link_to t('nav.about_our_solutions'), "/#{I18n.locale}/network-audio" %></li>
+          <li><%= link_to t('nav.blu_link'), "/#{I18n.locale}/network-audio#blu-link" %></li>
+          <li><%= link_to t('nav.dante'), "/#{I18n.locale}/network-audio#dante" %></li>
+          <li><%= link_to t('nav.cobranet'), "/#{I18n.locale}/network-audio#cobranet" %></li>
+          <li><%= link_to t('nav.avb'), "/#{I18n.locale}/network-audio#avb" %></li>
+        </ul>
+      </li>
       <% if I18n.locale == I18n.default_locale && (website.has_dealers? || website.has_distributors? || website.has_online_retailers?) %>
         <li><%= link_to "Promotions", promotions_path %></li>
       <% end %>
@@ -49,7 +57,7 @@
     <%= render_partial "shared/solutions_nav" %>
   <% end %>
 
-  <li class="has-dropdown"><%= link_to t('nav.network_audio').titleize, "/#{I18n.locale}/network-audio" %>
+  <li class="has-dropdown hide-for-medium"><%= link_to t('nav.network_audio').titleize, "/#{I18n.locale}/network-audio" %>
     <ul class="dropdown">
       <li><%= link_to t('nav.about_our_solutions'), "/#{I18n.locale}/network-audio" %></li>
       <li><%= link_to t('nav.blu_link'), "/#{I18n.locale}/network-audio#blu-link" %></li>

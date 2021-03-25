@@ -32,14 +32,25 @@
   <li><%= link_to t("nav.case_studies"), case_studies_path %></li>
 
   <% if (website.has_learning_sessions.present? && website.has_learning_sessions == 1) %>
-    <li><%= link_to t('learning_sessions').titleize, "/learning-sessions" %></li>
+    <li class="hide-for-medium"><%= link_to t('learning_sessions').titleize, "/learning-sessions" %></li>
   <% end %>
+
+  <li class="hide-for-medium"><%= link_to t('training').titleize, "/training", target: "_blank" %></li>
+
+  <li class="show-for-medium has-dropdown">
+    <%= link_to 'learn'.titleize, '#', class: 'disabled' %>
+    <ul class="dropdown">
+      <% if (website.has_learning_sessions.present? && website.has_learning_sessions == 1) %>
+        <li><%= link_to t('learning_sessions').titleize, "/learning-sessions" %></li>
+      <% end %>
+
+      <li><%= link_to t('training').titleize, "/training", target: "_blank" %></li>
+    </ul>
+  </li>
 
   <% if website.has_installations? %>
     <li><%= link_to t('installations').titleize, installations_path %></li>
   <% end %>
-
-  <li><%= link_to t('training').titleize, "/training", target: "_blank" %></li>
 
     <li class="has-dropdown"><%= link_to t('about').titleize, '#' %>
       <ul class="dropdown">

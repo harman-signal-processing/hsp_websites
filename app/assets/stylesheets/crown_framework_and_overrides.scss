@@ -147,6 +147,8 @@ $topbar-divider-border-top: solid 1px $topbar-bg-color;
 
 $topbar-sticky-class:                  ".sticky";
 
+$medium-breakpoint: em-calc(1200) !default;
+$medium-range: (em-calc(740), $medium-breakpoint) !default;
 $reveal-position-top: rem-calc(10);
 $reveal-default-width: 60%;
 $reveal-max-width: 75%;
@@ -269,3 +271,13 @@ div.homepage_block {
   }
 }
 
+/** search box in top nav **/
+#search_form #query {
+  margin-bottom:5px;
+  width:120px;
+}
+
+.top-bar input, .top-bar .button {
+    top: 18px;
+    height: 1.9em;
+}

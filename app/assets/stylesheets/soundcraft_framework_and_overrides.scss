@@ -62,6 +62,8 @@ $tabs-navigation-font-color: #FFF;
 
 $include-print-styles: true;
 
+$medium-breakpoint: em-calc(1200) !default;
+$medium-range: (em-calc(740), $medium-breakpoint) !default;
 $reveal-position-top: rem-calc(10);
 $reveal-default-width: 60%;
 $reveal-max-width: 75%;
@@ -426,4 +428,8 @@ footer {
       }
     }
   }
+}
+/** search box in top nav **/
+#search_form #query {
+  width:120px;
 }

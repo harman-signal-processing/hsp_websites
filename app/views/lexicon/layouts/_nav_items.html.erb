@@ -4,7 +4,6 @@
       <% if website.has_product_selector? %>
         <li><%= link_to t("product_selector"), product_selector_path %></li>
       <% end %>
-		  <li><%= link_to t('new_products'), new_products_path, target: "_blank" %></li>
 			<% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
 				<%= product_family_nav_links(product_family) %>
 			<% end %>
@@ -34,7 +33,7 @@
 	<% end %>
 
 	<% if website.has_artists? %>
-    <li><%= link_to t('professionals').titleize, artists_path %></li>
+    <li class="hide-for-medium"><%= link_to t('professionals').titleize, artists_path %></li>
 	<% end %>
 
   <li class="has-dropdown"><%= link_to t("nav.case_studies"), case_studies_path %>
