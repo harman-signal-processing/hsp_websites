@@ -3,7 +3,7 @@ case @amx_dxlink_device_info.type_short_name
 when  "tx"
 	dxlink_device_list = AmxDxlinkDeviceInfo.rx_available_to_pair(@amx_dxlink_device_info)
 	input_field_name = "rx_id"
-	device_type_for_dropdown = "Reciever"
+	device_type_for_dropdown = "Receiver"
 when "rx"
 	dxlink_device_list = AmxDxlinkDeviceInfo.tx_available_to_pair(@amx_dxlink_device_info)
 	input_field_name = "tx_id"

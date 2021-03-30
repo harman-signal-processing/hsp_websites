@@ -72,9 +72,9 @@ class Admin::AmxDxlinkCombosController < AdminController
       @amx_dxlink_combos = []
 
       if tx_id.is_a?(Array)
-        reciever_id = rx_id
+        receiver_id = rx_id
         tx_id.reject(&:blank?).each do |transmitter_id|
-          @amx_dxlink_combos << AmxDxlinkCombo.new({tx_id: transmitter_id, rx_id: reciever_id})
+          @amx_dxlink_combos << AmxDxlinkCombo.new({tx_id: transmitter_id, rx_id: receiver_id})
         end
       else
         @calling_device = AmxDxlinkDeviceInfo.find(tx_id)
@@ -82,8 +82,8 @@ class Admin::AmxDxlinkCombosController < AdminController
 
       if rx_id.is_a?(Array)
         transmitter_id = tx_id
-        rx_id.reject(&:blank?).each do |reciever_id|
-          @amx_dxlink_combos << AmxDxlinkCombo.new({tx_id: transmitter_id, rx_id: reciever_id})
+        rx_id.reject(&:blank?).each do |receiver_id|
+          @amx_dxlink_combos << AmxDxlinkCombo.new({tx_id: transmitter_id, rx_id: receiver_id})
         end
       else
         @calling_device = AmxDxlinkDeviceInfo.find(rx_id)

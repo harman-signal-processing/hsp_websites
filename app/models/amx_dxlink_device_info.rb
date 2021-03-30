@@ -3,14 +3,14 @@ class AmxDxlinkDeviceInfo < ApplicationRecord
   has_many :tx_associations, dependent: :destroy, :class_name => 'AmxDxlinkCombo', :foreign_key => 'rx_id'
 
   scope :rx_available_to_pair, ->(dxlink_device) {
-    available_recievers = []
+    available_receivers = []
     if (dxlink_device.type_short_name == "tx")
       all_rx_device_ids = AmxDxlinkDeviceInfo.where("type_short_name = 'rx'").pluck(:id)
       existing_rx_pairings = AmxDxlinkCombo.where("tx_id = ?", dxlink_device.id).pluck(:rx_id)
       rx_ids_to_return = all_rx_device_ids - existing_rx_pairings 
-      available_recievers = self.where("id in (?) and type_short_name='rx'", rx_ids_to_return).order(:model)
+      available_receivers = self.where("id in (?) and type_short_name='rx'", rx_ids_to_return).order(:model)
     end
-    available_recievers
+    available_receivers
   }
 
   scope :tx_available_to_pair, ->(dxlink_device) {
@@ -35,9 +35,9 @@ class AmxDxlinkDeviceInfo < ApplicationRecord
   scope :recommended_rx, ->(dxlink_device) {
     if (dxlink_device.type_short_name == "tx")
       recommended_rx_ids = AmxDxlinkCombo.where("tx_id = ? and recommended=1", dxlink_device.id).pluck(:rx_id)
-      recommended_recievers = self.where("id in (?) and type_short_name='rx'", recommended_rx_ids).order(:model)
+      recommended_receivers = self.where("id in (?) and type_short_name='rx'", recommended_rx_ids).order(:model)
     end
-    recommended_recievers
+    recommended_receivers
   }
 
   def model_with_family
