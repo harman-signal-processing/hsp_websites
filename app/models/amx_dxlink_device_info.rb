@@ -24,6 +24,22 @@ class AmxDxlinkDeviceInfo < ApplicationRecord
     available_transmitters
   }
 
+  scope :recommended_tx, ->(dxlink_device) {
+    if (dxlink_device.type_short_name == "rx")
+      recommended_tx_ids = AmxDxlinkCombo.where("rx_id = ? and recommended=1", dxlink_device.id).pluck(:tx_id)
+      recommended_transmitters = self.where("id in (?) and type_short_name='tx'", recommended_tx_ids).order(:model)
+    end
+    recommended_transmitters
+  }
+
+  scope :recommended_rx, ->(dxlink_device) {
+    if (dxlink_device.type_short_name == "tx")
+      recommended_rx_ids = AmxDxlinkCombo.where("tx_id = ? and recommended=1", dxlink_device.id).pluck(:rx_id)
+      recommended_recievers = self.where("id in (?) and type_short_name='rx'", recommended_rx_ids).order(:model)
+    end
+    recommended_recievers
+  }
+
   def model_with_family
     "#{model} (#{model_family})"
   end

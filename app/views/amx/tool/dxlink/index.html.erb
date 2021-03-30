@@ -9,26 +9,32 @@
 </div><!-- <div class="row">  -->
 
 <div class="row" style="width:60%; margin-left:auto; margin-right:auto;">
-  <div class="medium-12 columns">
-    <h4>Select a Transmitter and Reciever Pairing</h4>
-    <%combo_id = @combo.present? ? @combo.id : 0 %>
-    <%= simple_form_for :amx_dxlink_combo, url: amx_dxlink_tool_path, method: :post  do |f| %>
-          <%= f.input :combo_id, collection: @devices_list,
-              label: false,
-              label_method: -> (item) { "#{item.tx.model} - (#{item.tx.type_long_name}) --> #{item.rx.model} - (#{item.rx.type_long_name})" },
-              value_method: :id,
-              include_blank: true,
-              selected: combo_id,
-              input_html: {
-                class: 'chosen-select',
-                multiple: false,
-                data: { placeholder: 'Select TX <--> RX Pairing'}
-              }
-          %>
-      <%= f.submit "Get Compatibility Info", class: "small round button", style:"margin-top:10px;" %>
-    <% end %>
+    <div class="medium-6 columns">
+      <h3>Transmitter:</h3>
+      <select id="select_tx" onchange="location = this.options[this.selectedIndex].value;">
+        <%AmxDxlinkDeviceInfo.where("type_short_name = 'tx'").pluck(:id,:model).each do |item|%>
+        <option value="<%=amx_dxlink_tool_path(request.query_parameters.merge({tx: item[1]}))%>" <%="#{'selected' if @tx.present? and @tx.model == item[1] }"%>><%=item[1]%></option>
+        <% end %>
+      </select>
+      </div>
+    <div class="medium-6 columns">
+      <h3>Reciever:</h3>
+      <select id="select_rx" onchange="location = this.options[this.selectedIndex].value;">
+        <%AmxDxlinkDeviceInfo.where("type_short_name = 'rx'").pluck(:id,:model).each do |item|%>
+        <option value="<%=amx_dxlink_tool_path(request.query_parameters.merge({rx: item[1]}))%>" <%="#{'selected' if @rx.present? and @rx.model == item[1] }"%>><%=item[1]%></option>
+        <% end %>
+      </select>
+    </div>
+</div><!-- <div class="row" style="width:60%; margin-left:auto; margin-right:auto;">  -->
 
+<div class="row" style="width:60%; margin-left:auto; margin-right:auto;">
+  <div class="medium-12 columns">
     <% if @combo.present? %>
+
+      <% if @combo.recommended %>
+        <div style="text-align:center;margin-bottom:2rem;"><%= fa_icon "thumbs-up" %> Recommended Pairing</div>
+      <% end %>
+
       <%= render "amx/tool/dxlink/products_row", combo: @combo %>
       <% if @combo.combo_attributes.count > 0%>
         <table class="data" width="100%" style="background-color:aliceblue;">
@@ -36,8 +42,12 @@
           <% @combo.combo_attributes.each do |item|%>
             <% if item.value.present? %>
               <tr>
-                <td width="30%"><%= item.amx_dxlink_attribute_name.name%>:</td>
-                <td><%= item.value %></td>
+                <% if !(["TX > RX Warning", "Footnote 1","Footnote 2"].include?item.amx_dxlink_attribute_name.name) %>
+                  <td width="30%"><%= item.amx_dxlink_attribute_name.name%>:</td>
+                  <td><%= item.value %></td>
+                <% elsif (["TX > RX Warning"].include?item.amx_dxlink_attribute_name.name and item.value == "Yes") %>
+                  <td colspan=2><%=website.value_for("amx_dxlink_tx_rx_warning")%></td>
+                <% end %>
               </tr>
             <% end %>
           <% end %>

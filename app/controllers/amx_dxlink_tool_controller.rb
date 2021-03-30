@@ -2,18 +2,11 @@ class AmxDxlinkToolController < ApplicationController
   before_action :set_locale
   
   def index
-    @devices_list = AmxDxlinkCombo.ordered_by_tx_model
-
-    if amx_dxlink_tool_params.present?
-      @combo = AmxDxlinkCombo.find(amx_dxlink_tool_params[:combo_id])
-    end
+    @tx = AmxDxlinkDeviceInfo.find_by_model(params[:tx])
+    @rx = AmxDxlinkDeviceInfo.find_by_model(params[:rx])
+    @combo = AmxDxlinkCombo.where("tx_id = ? and rx_id = ?", @tx.id, @rx.id).first if @tx.present? && @rx.present?
     render template: "#{website.folder}/tool/dxlink/index", layout: set_layout
   end
 
-	private
-
-  def amx_dxlink_tool_params
-    params.require(:amx_dxlink_combo).permit(:combo_id) if params[:amx_dxlink_combo]
-  end
 end  #  class AmxDxlinkToolController < ApplicationController
 
