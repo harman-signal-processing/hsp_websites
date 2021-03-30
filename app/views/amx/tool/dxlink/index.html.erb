@@ -19,9 +19,9 @@
       </select>
       </div>
     <div class="medium-6 columns">
-      <h3>Reciever:</h3>
+      <h3>Receiver:</h3>
       <select id="select_rx" onchange="location = this.options[this.selectedIndex].value;">
-        <option value="<%=amx_dxlink_tool_path(request.query_parameters.merge({rx: 'none'}))%>">---Select Reciever---</option>
+        <option value="<%=amx_dxlink_tool_path(request.query_parameters.merge({rx: 'none'}))%>">---Select Receiver---</option>
         <%AmxDxlinkDeviceInfo.where("type_short_name = 'rx'").pluck(:id,:model).each do |item|%>
           <option value="<%=amx_dxlink_tool_path(request.query_parameters.merge({rx: item[1]}))%>" <%="#{'selected' if @rx.present? and @rx.model == item[1] }"%>><%=item[1]%></option>
         <% end %>
