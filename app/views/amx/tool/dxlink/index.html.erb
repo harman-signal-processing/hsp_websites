@@ -12,16 +12,18 @@
     <div class="medium-6 columns">
       <h3>Transmitter:</h3>
       <select id="select_tx" onchange="location = this.options[this.selectedIndex].value;">
+        <option value="<%=amx_dxlink_tool_path(request.query_parameters.merge({tx: 'none'}))%>">---Select Transmitter---</option>
         <%AmxDxlinkDeviceInfo.where("type_short_name = 'tx'").pluck(:id,:model).each do |item|%>
-        <option value="<%=amx_dxlink_tool_path(request.query_parameters.merge({tx: item[1]}))%>" <%="#{'selected' if @tx.present? and @tx.model == item[1] }"%>><%=item[1]%></option>
+          <option value="<%=amx_dxlink_tool_path(request.query_parameters.merge({tx: item[1]}))%>" <%="#{'selected' if @tx.present? and @tx.model == item[1] }"%>><%=item[1]%></option>
         <% end %>
       </select>
       </div>
     <div class="medium-6 columns">
       <h3>Reciever:</h3>
       <select id="select_rx" onchange="location = this.options[this.selectedIndex].value;">
+        <option value="<%=amx_dxlink_tool_path(request.query_parameters.merge({rx: 'none'}))%>">---Select Reciever---</option>
         <%AmxDxlinkDeviceInfo.where("type_short_name = 'rx'").pluck(:id,:model).each do |item|%>
-        <option value="<%=amx_dxlink_tool_path(request.query_parameters.merge({rx: item[1]}))%>" <%="#{'selected' if @rx.present? and @rx.model == item[1] }"%>><%=item[1]%></option>
+          <option value="<%=amx_dxlink_tool_path(request.query_parameters.merge({rx: item[1]}))%>" <%="#{'selected' if @rx.present? and @rx.model == item[1] }"%>><%=item[1]%></option>
         <% end %>
       </select>
     </div>
@@ -30,7 +32,6 @@
 <div class="row" style="width:60%; margin-left:auto; margin-right:auto;">
   <div class="medium-12 columns">
     <% if @combo.present? %>
-
       <% if @combo.recommended %>
         <div style="text-align:center;margin-bottom:2rem;"><%= fa_icon "thumbs-up" %> Recommended Pairing</div>
       <% end %>
@@ -56,6 +57,11 @@
         <table class="data" width="100%">
           <tr><td>Compatibility data not available.</td></tr>
         </table>
+      <% end %>
+    <% else %>
+      <% if @tx.present? and @rx.present?%>
+        <div style="text-align:center;color:red;"><strong><%=@tx.model%></strong> and <strong><%=@rx.model%></strong> are not compatible.</div>
+        <%= render "amx/tool/dxlink/non_compatible_products_row", tx: @tx, rx: @rx %>
       <% end %>
     <% end %>
 

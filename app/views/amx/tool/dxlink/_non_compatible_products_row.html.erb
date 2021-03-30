@@ -1,0 +1,42 @@
+<table width="100%">
+  <tr>
+    <td style="text-align:center;">
+        <span style="font-size:1.5rem"><%=link_to tx.model, tx.product_url, target: "_blank" %></span><br />
+        <%= Product.find_by_name(tx.model).short_description if Product.find_by_name(tx.model).present? %><br />
+    </td>
+    <td style="text-align:center;">
+        <span style="font-size:1.5rem"><%=link_to rx.model, rx.product_url, target: "_blank" %></span><br />
+        <%= Product.find_by_name(rx.model).short_description if Product.find_by_name(rx.model).present? %><br />
+    </td>
+  </tr>
+  <tr>
+    <td style="text-align:center;">
+        <%=link_to image_tag(tx.image_url, lazy: false), tx.product_url, target: "_blank"%><br />
+    </td>
+    <td style="text-align:center;">
+        <%=link_to image_tag(rx.image_url, lazy: false), tx.product_url, target: "_blank"%><br />
+    </td>
+  </tr>
+  <tr>
+    <td style="text-align:center;">
+        <%=link_to tx.product_url%>
+    </td>
+    <td style="text-align:center;">
+        <%=link_to rx.product_url%>
+    </td>
+  </tr>
+  <tr>
+    <td style="text-align:center;vertical-align:top;">
+      Designed for use with rx:<br />
+      <% AmxDxlinkDeviceInfo.recommended_rx(tx).each do |item|%>
+        <%=link_to item.model, item.product_url%><br />
+      <% end %>
+    </td>
+    <td style="text-align:center;vertical-align:top;">
+      Designed for use with tx:<br />
+      <% AmxDxlinkDeviceInfo.recommended_tx(rx).each do |item|%>
+        <%=link_to item.model, item.product_url%><br />
+      <% end %>
+    </td>
+  </tr>
+</table>
