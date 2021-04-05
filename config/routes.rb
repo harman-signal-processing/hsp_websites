@@ -511,6 +511,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         get :bom
         post :bom
         put :preview
+        get :compliance
       end
       collection do
         match :compare, via: :all
@@ -582,7 +583,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get "support/tech_support" => "support#tech_support"
     get "support/repairs" => "support#repairs"
     get "support/rsos" => "support#rsos"
-    get "support/safety" => "support#safety", as: :safety
+    get "support/compliance" => "support#safety", as: :compliance
+    get "support/safety", to: redirect('support/compliance'), as: :safety
 
     match '/sitemap(.:format)' => 'sitemap#show', as: :locale_sitemap, via: :all, defaults: { format: :xml }
 

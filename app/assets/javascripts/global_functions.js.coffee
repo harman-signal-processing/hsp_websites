@@ -35,10 +35,9 @@ jQuery ($) ->
     $(column).html("<img src='#{column.data("loading")}' style='padding: 20px'>")
 
   $("a.safety-panel-link").click (e) ->
-    e.preventDefault()
     $("div.safety-panel-instructions").hide()
-    $("div.safety-panel").hide()
-    $("div##{ $(@).data('panel') }").show()
+    $("#safety-content").html(' ')
+    $(".spinner").show()
 
   if jQuery.fn.slick
     $('.reviews-slider').slick

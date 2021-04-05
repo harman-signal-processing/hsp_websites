@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_locale
-  before_action :ensure_best_url, only: [:show, :buy_it_now, :preview, :introducing, :photometric, :bom]
+  before_action :ensure_best_url, only: [:show, :buy_it_now, :preview, :introducing, :photometric, :bom, :compliance]
   before_action :verify_warranty_admin_ability, only: [:edit_warranty, :update_warranty]
 
   # GET /products
@@ -273,6 +273,13 @@ class ProductsController < ApplicationController
       brand_id: website.brand_id
     )
     redirect_to(warranty_policy_path, notice: "Products updated successfully.")
+  end
+
+  def compliance
+    respond_to do |f|
+      f.html { redirect_to @product }
+      f.js
+    end
   end
 
   protected

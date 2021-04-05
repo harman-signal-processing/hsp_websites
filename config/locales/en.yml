@@ -195,6 +195,7 @@ en:
     product_registration: Product Registration
     quality: Quality Assurance
     safety_documents: Safety Documents (SDS)
+    compliance: Compliance
     secure_av: Secure AV
     security: Security
     service: Service
@@ -318,6 +319,7 @@ en:
       buy_now: Buy Now
       buy_online: "Click a retailer logo below to buy online:"
       community: "Guitar & Sound Communities"
+      compliance: "Compliance & Safety Documents (SDS)"
       connect_with_us: Connect With Us
       contact: Contacts
       contact_us: Contact Us

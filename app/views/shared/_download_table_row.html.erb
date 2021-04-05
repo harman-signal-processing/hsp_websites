@@ -17,7 +17,7 @@
               </div>
             </div>
             <div class="small-1 columns">
-              <% if can?(:manage, item) %>
+              <% if can?(:manage, item) && !(local_assigns[:skip_admin_functions])%>
                 <%= render 'shared/download_table_row_admin_functions', item: item %>
               <% end %>
             </div>
@@ -48,7 +48,7 @@
               </div>
             </div>
             <div class="small-1 columns">
-              <% if can?(:manage, item) %>
+              <% if can?(:manage, item) && !(local_assigns[:skip_admin_functions])%>
                 <%= render 'shared/download_table_row_admin_functions', item: item %>
               <% end %>
             </div>
@@ -116,7 +116,7 @@
             </div>
           </div>
           <div class="small-1 columns text-right">
-            <% if can?(:manage, item) %>
+            <% if can?(:manage, item) && !(local_assigns[:skip_admin_functions])%>
               <%= render 'shared/download_table_row_admin_functions', item: item %>
             <% end %>
           </div>
