@@ -88,12 +88,13 @@ $slick-arrow-color: $dark-gray;
       }
     }
   }
-  @media only screen and (max-width: 1075px) and (min-width: 801px) {
+  @media only screen and (max-width: 1075px) and (min-width: 701px) {
     .top-bar-section {
       ul {
         li {
           a {
-            padding: 0 12px !important;
+            padding-right: 12px !important;
+            padding-left: 12px !important;
             &:after {
               margin-right: 2px !important;
             }
@@ -102,12 +103,20 @@ $slick-arrow-color: $dark-gray;
       }
     }
   }
-  @media only screen and (max-width: 800px) {
+  @media only screen and (max-width: 700px) {
+    .top-bar-section {
+      li.has-form {
+        padding-right: rem-calc(10);
+        input {
+          font-size: rem-calc(18);
+        }
+      }
+    }
     .top-bar-section {
       ul {
         li {
           a {
-            padding: 0 8px !important;
+            padding-right: 11px !important;
             &:after {
               margin-right: 2px !important;
             }
@@ -128,6 +137,11 @@ $slick-arrow-color: $dark-gray;
         line-height: rem-calc(40) !important;
       }
     }
+  }
+
+  .extra-space-hamburger {
+    margin-top: 1.5rem;
+    color: white;
   }
 }
 

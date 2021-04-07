@@ -103,6 +103,10 @@ nav.top-bar {
    border-top: solid 1px $color-soundcraft;
     border-bottom: solid 4px $color-soundcraft;
 
+  .extra-space-hamburger {
+    margin-top: 0.8rem;
+    color: white;
+  }
  }
 
 .top-bar input, top-bar .button {
@@ -186,7 +190,7 @@ nav.top-bar {
   height: 25px;
 }
 
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 740px) {
   .top-bar-section ul li {
     background: $color-main;
   }

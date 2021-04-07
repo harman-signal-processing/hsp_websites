@@ -62,7 +62,7 @@ $topbar-bg-color: $primary-color;
 $topbar-bg: $topbar-bg-color !default;
 $topbar-height:                        rem-calc(90px);
 $topbar-title-weight:                  bold;
-$topbar-dropdown-bg:                      rgba($topbar-bg-color, 0.7);
+$topbar-dropdown-bg:                      rgba($topbar-bg-color, 0.9);
 $topbar-dropdown-link-bg:                 rgba(darken($topbar-bg-color, 2%),0.85);
 $topbar-dropdown-toggle-alpha:         0.5;
 $topbar-link-font-size:                rem-calc(15);
@@ -85,12 +85,22 @@ $reveal-max-width: 75%;
 
 @media only screen and (min-width: 720px) {
 	.logo-container img {
-		padding: 8px 12px 0px 20px;
+		padding: 8px 10px 0px 16px;
 	}
   .top-bar-section {
     li.has-form {
-      padding-top: rem-calc(17);
+      padding: rem-calc(17);
+      padding-right: rem-calc(10);
     }
+  }
+  /** search box in top nav **/
+  #search_form #query {
+    margin-bottom:5px;
+    width:120px;
+  }
+  .top-bar input, .top-bar .button {
+      top: 16px;
+      height: 1.9em;
   }
 }
 
@@ -112,9 +122,8 @@ $reveal-max-width: 75%;
   }
 }
 
-@media only screen and (max-width: 919px) {
+@media only screen and (max-width: 719px) {
 	.logo-container img {
-    //height: 40px;
 		padding: 4px 0px 0px 6px;
 	}
   .top-bar-section {
@@ -123,12 +132,12 @@ $reveal-max-width: 75%;
       padding-right: rem-calc(6);
     }
     li.has-form {
-      padding-left: rem-calc(2);
-      padding-right: rem-calc(2);
-      width: 130px;
+      padding: rem-calc(6) rem-calc(12);
+      width: 100%;
     }
   }
 }
+
 body {
 	line-height: 1.5;
 }
@@ -297,13 +306,4 @@ div.product-title-block, div.small-title-block {
       }
     }
   }
-}
-/** search box in top nav **/
-#search_form #query {
-  margin-bottom:5px;
-  width:120px;
-}
-.top-bar input, .top-bar .button {
-    top: 18px;
-    height: 1.9em;
 }

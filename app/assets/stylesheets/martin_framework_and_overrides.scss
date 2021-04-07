@@ -124,7 +124,8 @@ $large-range: ($medium-breakpoint + em-calc(1), em-calc(1640)) !default;
         }
       }
       a {
-        padding: 0 10px !important;
+        padding-right: 10px !important;
+        padding-left: 10px !important;
         text-transform: uppercase;
         letter-spacing: 1px;
         &:hover {
@@ -147,14 +148,20 @@ $large-range: ($medium-breakpoint + em-calc(1), em-calc(1640)) !default;
   @media only screen and (min-width: 1320px) {
     padding: 24px 0px 0px 69px;
   }
+  @media only screen and (max-width: 990px) {
+    height: 60px;
+		padding: 18px 0px 0px 6px;
+	}
 }
+
 .top-bar {
   @media only screen and (max-width: 1300px) and (min-width: 1076px) {
     .top-bar-section {
       ul {
         li {
           a {
-            padding: 0 10px !important;
+            padding-left: 10px !important;
+            padding-right: 10px !important;
             &:after {
               margin-right: 2px !important;
             }
@@ -171,12 +178,13 @@ $large-range: ($medium-breakpoint + em-calc(1), em-calc(1640)) !default;
       }
     }
   }
-  @media only screen and (max-width: 1075px) and (min-width: 801px) {
+  @media only screen and (max-width: 1075px) and (min-width: 991px) {
     .top-bar-section {
       ul {
         li {
           a {
-            padding: 0 8px !important;
+            padding-left: 8px !important;
+            padding-right: 8px !important;
             &:after {
               margin-right: 2px !important;
             }
@@ -193,20 +201,19 @@ $large-range: ($medium-breakpoint + em-calc(1), em-calc(1640)) !default;
       }
     }
   }
-}
-@media only screen and (max-width: 800px) {
-	.logo-container img {
-    height: 60px;
-		padding: 18px 0px 0px 6px;
-	}
-  .top-bar-section {
-    li.has-form {
-      padding-left: rem-calc(2);
-      width: 130px;
+  @media only screen and (max-width: 990px) {
+    .top-bar-section {
+      li.has-form {
+        padding: rem-calc(8);
+        width: 100%;
+        input {
+          margin-top: 0;
+          font-size: rem-calc(18);
+        }
+      }
     }
   }
 }
-
 .content-container {
   padding: rem-calc(59px);
   @media only screen and (max-width: 640px) {

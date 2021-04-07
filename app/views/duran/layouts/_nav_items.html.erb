@@ -24,14 +24,23 @@
     </li>
   <% end %>
 
-  <li><%= link_to "Solution", "/#{I18n.locale}/tunnel-solutions" %></li>
+  <li class="hide-for-medium"><%= link_to "Solution", "/#{I18n.locale}/tunnel-solutions" %></li>
+  <li class="show-for-medium has-dropdown"><%= link_to "Solution", '#' %>
+    <ul class="dropdown">
+      <li><%= link_to "Tunnel Solution", "/#{I18n.locale}/tunnel-solutions" %></li>
+      <li><%= link_to t('installations').titleize, installations_path %></li>
+      <% if website.has_news? %>
+        <li><%= link_to t('news').titleize, news_index_path %></li>
+      <% end %>
+    </ul>
+  </li>
 
   <% if website.has_installations? %>
-    <li><%= link_to t('installations').titleize, installations_path %></li>
+    <li class="hide-for-medium"><%= link_to t('installations').titleize, installations_path %></li>
   <% end %>
 
   <% if website.has_news? %>
-    <li><%= link_to t('news').titleize, news_index_path %></li>
+    <li class="hide-for-medium"><%= link_to t('news').titleize, news_index_path %></li>
   <% end %>
 
   <% if website.has_events? %>
@@ -39,11 +48,6 @@
   <% end %>
 
   <li><%= link_to t("nav.downloads").titleize, support_downloads_path %></li>
-
-	<% if website.has_artists? %>
-    <li><%= link_to t('artists').titleize, artists_path %></li>
-	<% end %>
-
 
 	<% if !!(website.forum_link) %>
     <li class="hide-for-medium"><%= link_to t("forum").titleize, website.forum_link %></li>

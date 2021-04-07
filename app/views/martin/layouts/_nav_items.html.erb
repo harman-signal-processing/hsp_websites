@@ -6,7 +6,6 @@
       <% if website.has_product_selector? %>
         <li><%= link_to t("product_selector"), product_selector_path %></li>
       <% end %>
-		  <li><%= link_to t('new_products'), new_products_path, target: "_blank" %></li>
 			<% (ProductFamily.parents_with_current_products(website, I18n.locale) - secondary_product_family_groups).each do |product_family| %>
 				<%= product_family_nav_links(product_family, depth: 2) %>
 			<% end %>
@@ -65,7 +64,8 @@
 	<% end %>
 
 	<% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
-    <li><%= link_to t('where_to_buy').titleize, where_to_find_path %></li>
+    <li class="hide-for-medium"><%= link_to t('where_to_buy').titleize, where_to_find_path %></li>
+    <li class="show-for-medium"><%= link_to t('buy').titleize, where_to_find_path %></li>
 	<% end %>
 
   <li><%= link_to t('training').titleize, "/training", target: "_blank" %></li>

@@ -199,7 +199,7 @@ $topbar-height:                        rem-calc(66);
 $topbar-input-height:                  rem-calc(12);
 $topbar-title-weight:                  100;
 // $topbar-title-font-size:               rem-calc(17px);
-$topbar-dropdown-bg:                      rgba($topbar-bg-color, 0.7);
+$topbar-dropdown-bg:                      rgba($topbar-bg-color, 0.9);
 // $topbar-dropdown-link-color:           #fff;
 $topbar-dropdown-link-bg:                 rgba(darken($topbar-bg-color, 2%),0.85);
 // $topbar-dropdown-toggle-size:          5px;
@@ -245,13 +245,13 @@ $reveal-max-width: 75%;
   padding-top: 5px;
 }
 .logo-container img {
-  padding: 12px 25px;
+  padding: 12px 10px;
 }
 .top-bar-section {
   ul {
     li {
       a {
-        padding: 0 10px !important;
+        padding-right: 10px !important;
       }
       &.has-dropdown {
         a {
@@ -286,13 +286,23 @@ $reveal-max-width: 75%;
         }
       }
     }
+    /** search box in top nav **/
+    #search_form #query {
+      margin-bottom:5px;
+      width:80px;
+    }
+
+    input, .button {
+        top: 18px;
+        height: 1.9em;
+    }
   }
-  @media only screen and (max-width: 1075px) and (min-width: 801px) {
+  @media only screen and (max-width: 1075px) and (min-width: 720px) {
     .top-bar-section {
       ul {
         li {
           a {
-            padding: 0 8px !important;
+            padding-right: 6px !important;
             &:after {
               margin-right: 2px !important;
             }
@@ -307,6 +317,22 @@ $reveal-max-width: 75%;
           }
         }
       }
+    }
+    /** search box in top nav **/
+    #search_form #query {
+      margin-bottom:5px;
+      width:80px;
+    }
+
+    input, .button {
+        top: 18px;
+        height: 1.9em;
+    }
+  }
+  @media only screen and (max-width: 719px) {
+    li.has-form {
+      padding: rem-calc(6) rem-calc(12);
+      width: 100%;
     }
   }
 }
@@ -611,13 +637,3 @@ table.data {
 
 /******** Search ********/
 
-/** search box in top nav **/
-#search_form #query {
-  margin-bottom:5px;
-  width:80px;
-}
-
-.top-bar input, .top-bar .button {
-    top: 18px;
-    height: 1.9em;
-}

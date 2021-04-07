@@ -49,7 +49,8 @@
 	<% end %>
 
 	<% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
-    <li><%= link_to t('where_to_buy').titleize, where_to_find_path %></li>
+    <li class="hide-for-medium"><%= link_to t('where_to_buy').titleize, where_to_find_path %></li>
+    <li class="show-for-medium"><%= link_to t('buy').titleize, where_to_find_path %></li>
 	<% end %>
 
   <li><%= link_to t('training').titleize, "/training", target: "_blank" %></li>
