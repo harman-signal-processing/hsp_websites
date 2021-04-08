@@ -2212,3 +2212,58 @@ ul.nosort .handle {
 .safety-panel-instructions {
   padding: 80px 100px;
 }
+
+/****Rating Stars****/
+.a-icon.a-icon-star, .a-icon.a-icon-star-medium, .a-icon.a-icon-star-mini, .a-icon.a-icon-star-small {
+    // background-image: url(https://m.media-amazon.com/images/S/sash/3-fm1Jbg4IHlyhq.png);
+    background-image: asset-url('icons/stars-icons-sprite.png');
+    -webkit-background-size: 255px 256px;
+    background-size: 255px 256px;
+    background-repeat: no-repeat;
+}
+.a-icon.a-star-5 {
+    background-position: -188px -241px;
+}
+.a-icon.a-star-4-5 {
+    background-position: -188px -227px;
+}
+.a-icon.a-star-4 {
+    background-position: -188px -212px;
+}
+.a-icon.a-star-3-5 {
+    background-position: -188px -198px;
+}
+.a-icon.a-star-3 {
+    background-position: -188px -183px;
+}
+.a-icon.a-star-2-5 {
+    background-position: -188px -169px;
+}
+.a-icon.a-star-2 {
+    background-position: -188px -155px;
+}
+.a-icon.a-star-1-5 {
+    background-position: -188px -140px;
+}
+.a-icon.a-star-1 {
+    background-position: -188px -126px;
+}
+.a-icon.a-star-0-5 {
+    background-position: -188px -111px;
+}
+.a-icon.a-star-0 {
+    background-position: -188px -97px;
+}
+.a-icon {
+    display: inline-block;
+    vertical-align: top;
+}
+.a-icon-star, .a-icon-star-medium, .a-icon-star-mini, .a-icon-star-small {
+    position: relative;
+    vertical-align: text-bottom;
+}
+.a-icon-star, .a-icon-star-small {
+    height: 13px;
+    width: 68px;
+}
+/*****/

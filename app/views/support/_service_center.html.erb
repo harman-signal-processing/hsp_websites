@@ -9,13 +9,18 @@ location[:country] = "us"
 %>
 <li id='<%="#{service_center[:id]}_#{location[:state]}"%>'>
 	<div class="panel">
-			<h3><%= service_center[:name] %></h3>
-			
-    		<div>
-				<%=raw address_html(location)%>
-			</div>
-		
-			<div style="margin-top:10px;margin-bottom:30px;">
+		<h3><%= service_center[:name] %></h3>
+		<%customer_rating = service_center[:customer_rating].present? ? service_center[:customer_rating] : "&#8212;"%>
+		<!--<p style="margin-top: -15px;margin-bottom: 4px;">-->
+		<!--	<span style="font-size:.7rem;font-weight:600;">Customer Rating: <%= raw customer_rating%></span>-->
+		<!--	<%= raw customer_service_rating_css_class(service_center[:customer_rating].to_f) if service_center[:customer_rating].present?%>-->
+		<!--</p>-->
+
+		<div>
+			<%=raw address_html(location)%>
+		</div>
+
+		<div style="margin-top:10px;margin-bottom:30px;">
 
 					<div style="margin-top:10px;">
     					<%service_center[:email].split("/").each do |email|%>

@@ -85,4 +85,41 @@ module SupportHelper
   	html
 	end  #  def phone_html(has_label, hash, keyname)
 
+  def custom_sorted_service_centers
+    @service_centers.sort{|a,b|
+      # customer rating desc, make nils zeros
+      2 * (b[:customer_rating].to_f||0 <=> a[:customer_rating].to_f||0) +
+      # name asc
+      (a[:name] <=> b[:name])
+    }
+  end  #  def custom_sorted_service_centers
+
+  def customer_service_rating_css_class(rating)
+    stars_html = case rating
+      when 0.0
+        "<i class='a-icon a-icon-star a-star-0'></i>"
+      when 0.1..0.9
+        "<i class='a-icon a-icon-star a-star-0-5'></i>"
+      when 1.0
+        "<i class='a-icon a-icon-star a-star-1'></i>"
+      when 1.1..1.9
+        "<i class='a-icon a-icon-star a-star-1-5'></i>"
+      when 2.0
+        "<i class='a-icon a-icon-star a-star-2'></i>"
+      when 2.1..2.9
+        "<i class='a-icon a-icon-star a-star-2-5'></i>"
+      when 3.0
+        "<i class='a-icon a-icon-star a-star-3'></i>"
+      when 3.1..3.9
+        "<i class='a-icon a-icon-star a-star-3-5'></i>"
+      when 4.0
+        "<i class='a-icon a-icon-star a-star-4'></i>"
+      when 4.1..4.9
+        "<i class='a-icon a-icon-star a-star-4-5'></i>"
+      when 5.0
+        "<i class='a-icon a-icon-star a-star-5'></i>"
+    end  #  case rating
+    stars_html
+  end  #  def customer_service_rating_css_class(rating)
+
 end  #  module SupportHelper
