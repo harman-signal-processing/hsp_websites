@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.metadata = { "bug_tracker_uri" => "https://github.com/rails/actionpack-action_caching/issues", "changelog_uri" => "https://github.com/rails/actionpack-action_caching/blob/v1.2.1/CHANGELOG.md", "documentation_uri" => "https://www.rubydoc.info/gems/actionpack-action_caching/1.2.1", "source_code_uri" => "https://github.com/rails/actionpack-action_caching/tree/v1.2.1" } if s.respond_to? :metadata=
   s.require_paths = ["lib".freeze]
   s.authors = ["David Heinemeier Hansson".freeze]
-  s.date = "2021-04-05"
+  s.date = "2021-04-13"
   s.description = "Action caching for Action Pack (removed from core in Rails 4.0)".freeze
   s.email = "david@loudthinking.com".freeze
   s.files = [".codeclimate.yml".freeze, ".gitignore".freeze, ".rubocop.yml".freeze, ".travis.yml".freeze, "CHANGELOG.md".freeze, "Gemfile".freeze, "LICENSE.txt".freeze, "README.md".freeze, "Rakefile".freeze, "actionpack-action_caching.gemspec".freeze, "gemfiles/Gemfile-4-0-stable".freeze, "gemfiles/Gemfile-4-1-stable".freeze, "gemfiles/Gemfile-4-2-stable".freeze, "gemfiles/Gemfile-5-0-stable".freeze, "gemfiles/Gemfile-5-1-stable".freeze, "gemfiles/Gemfile-5-2-stable".freeze, "gemfiles/Gemfile-6-0-stable".freeze, "gemfiles/Gemfile-6-1-stable".freeze, "gemfiles/Gemfile-edge".freeze, "lib/action_controller/action_caching.rb".freeze, "lib/action_controller/caching/actions.rb".freeze, "lib/actionpack/action_caching.rb".freeze, "lib/actionpack/action_caching/railtie.rb".freeze, "test/abstract_unit.rb".freeze, "test/caching_test.rb".freeze, "test/fixtures/layouts/talk_from_action.html.erb".freeze]
