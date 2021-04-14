@@ -60,6 +60,6 @@ class Admin::AmxDxlinkAttributeNamesController < AdminController
     end
 
     def amx_dxlink_attribute_name_params
-      params.require(:amx_dxlink_attribute_name).permit(:name)
+      params.require(:amx_dxlink_attribute_name).permit(:name, :note)
     end
 end  #  class Admin::AmxDxlinkAttributeNamesController < AdminController
