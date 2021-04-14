@@ -1,41 +1,61 @@
 <table width="100%">
+  <!-- model and description -->
   <tr>
-    <td style="text-align:center;">
-        <span style="font-size:1.5rem"><%=link_to combo.tx.model, combo.tx.product_url, target: "_blank" %></span><br />
-        <%= Product.find_by_name(combo.tx.model).short_description if Product.find_by_name(combo.tx.model).present? %><br />
+    <td style="text-align:center;vertical-align:top;width:50%;">
+      <% if tx.present? %>
+        <span style="font-size:1.5rem"><%=link_to tx.model, tx.product_url, target: "_blank" %></span><br />
+        <%= Product.find_by_name(tx.model).short_description if Product.find_by_name(tx.model).present? %><br />
+      <% end %>
     </td>
-    <td style="text-align:center;">
-        <span style="font-size:1.5rem"><%=link_to combo.rx.model, combo.rx.product_url, target: "_blank" %></span><br />
-        <%= Product.find_by_name(combo.rx.model).short_description if Product.find_by_name(combo.rx.model).present? %><br />
+    <td style="text-align:center;vertical-align:top;width:50%;">
+      <% if rx.present? %>
+        <span style="font-size:1.5rem"><%=link_to rx.model, rx.product_url, target: "_blank" %></span><br />
+        <%= Product.find_by_name(rx.model).short_description if Product.find_by_name(rx.model).present? %><br />
+      <% end %>
     </td>
   </tr>
-  <tr>
-    <td style="text-align:center;">
-        <%=link_to image_tag(combo.tx.image_url, lazy: false), combo.tx.product_url, target: "_blank"%><br />
-    </td>
-    <td style="text-align:center;">
-        <%=link_to image_tag(combo.rx.image_url, lazy: false), combo.tx.product_url, target: "_blank"%><br />
-    </td>
-  </tr>
-  <tr>
-    <td style="text-align:center;">
-        <%=link_to combo.tx.product_url%>
-    </td>
-    <td style="text-align:center;">
-        <%=link_to combo.rx.product_url%>
-    </td>
-  </tr>
+  <!-- product images -->
   <tr>
     <td style="text-align:center;vertical-align:top;">
-      Designed for use with rx:<br />
-      <% AmxDxlinkDeviceInfo.recommended_rx(combo.tx).each do |item|%>
-        <%=link_to item.model, item.product_url%><br />
+      <% if tx.present? %>
+        <%=link_to image_tag(tx.image_url, lazy: false), tx.product_url, target: "_blank"%><br />
       <% end %>
     </td>
     <td style="text-align:center;vertical-align:top;">
-      Designed for use with tx:<br />
-      <% AmxDxlinkDeviceInfo.recommended_tx(combo.rx).each do |item|%>
-        <%=link_to item.model, item.product_url%><br />
+      <% if rx.present? %>
+        <%=link_to image_tag(rx.image_url, lazy: false), rx.product_url, target: "_blank"%><br />
+      <% end %>
+    </td>
+  </tr>
+  <!-- product urls -->
+  <tr>
+    <td style="text-align:center;vertical-align:top;">
+      <% if tx.present? %>
+        <%=link_to tx.product_url%>
+      <% end %>
+    </td>
+    <td style="text-align:center;vertical-align:top;">
+      <% if rx.present? %>
+        <%=link_to rx.product_url%>
+      <% end %>
+    </td>
+  </tr>
+  <!-- product recommendations -->
+  <tr>
+    <td style="text-align:center;vertical-align:top;">
+      <% if tx.present? %>
+        Designed for use with rx:<br />
+        <% AmxDxlinkDeviceInfo.recommended_rx(tx).each do |item|%>
+          <%=link_to item.model, item.product_url%><br />
+        <% end %>
+      <% end %>
+    </td>
+    <td style="text-align:center;vertical-align:top;">
+      <% if rx.present? %>
+        Designed for use with tx:<br />
+        <% AmxDxlinkDeviceInfo.recommended_tx(rx).each do |item|%>
+          <%=link_to item.model, item.product_url%><br />
+        <% end %>
       <% end %>
     </td>
   </tr>
