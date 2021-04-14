@@ -86,12 +86,14 @@ module SupportHelper
 	end  #  def phone_html(has_label, hash, keyname)
 
   def custom_sorted_service_centers
-    @service_centers.sort{|a,b|
-      # customer rating desc, make nils zeros
-      2 * (b[:customer_rating].to_f||0 <=> a[:customer_rating].to_f||0) +
-      # name asc
-      (a[:name] <=> b[:name])
-    }
+    @service_centers.sort_by{|a|
+      [
+        # customer rating desc, make nils zeros
+        -(a[:customer_rating].to_f||0),
+        # name asc
+        a[:name]
+      ]
+    }  #  @service_centers.sort_by{|a|    
   end  #  def custom_sorted_service_centers
 
   def customer_service_rating_css_class(rating)
