@@ -46,7 +46,12 @@
             <% if item.value.present? %>
               <tr>
                 <% if !(["TX > RX Warning", "Footnote 1","Footnote 2"].include?item.amx_dxlink_attribute_name.name) %>
-                  <td width="30%"><%= item.amx_dxlink_attribute_name.name%>:</td>
+                  <td width="30%">
+                    <%= item.amx_dxlink_attribute_name.name%>:
+                    <% if item.amx_dxlink_attribute_name.note.present? %>
+                    <span data-tooltip aria-haspopup="true" class="has-tip" title="<%=item.amx_dxlink_attribute_name.note%>"><i class="fa fa-question-circle"></i></span>
+                    <% end %>
+                  </td>
                   <td><%= item.value %></td>
                 <% elsif (["TX > RX Warning"].include?item.amx_dxlink_attribute_name.name and item.value == "Yes") %>
                   <td colspan=2><%=website.value_for("amx_dxlink_tx_rx_warning")%></td>
