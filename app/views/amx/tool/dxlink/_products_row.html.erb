@@ -31,12 +31,12 @@
   <tr>
     <td style="text-align:center;vertical-align:top;">
       <% if tx.present? %>
-        <%=link_to tx.product_url%>
+        <%=link_to tx.product_url, tx.product_url, target: "_blank"%>
       <% end %>
     </td>
     <td style="text-align:center;vertical-align:top;">
       <% if rx.present? %>
-        <%=link_to rx.product_url%>
+        <%=link_to rx.product_url, rx.product_url, target: "_blank"%>
       <% end %>
     </td>
   </tr>
