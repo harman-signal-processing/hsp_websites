@@ -1,6 +1,6 @@
 <h4 class="subtitle"><%= translate_content(@product, :name) %> <%= t("resource_downloads").titleize %></h4>
 
-<%= render_partial "products/downloads", product: @product %>
+<%= render_partial "products/downloads", product: @product, skip_admin_functions: true %>
 
 <% if @product.in_production? %>
   <%= link_to @product, class: "ppage" do %>
