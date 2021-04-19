@@ -307,6 +307,9 @@ class SupportController < ApplicationController
       elsif params[:view_by] == "download_types"
         downloads = website.all_downloads(current_user)
         if params[:selected_object]
+          if params[:selected_object].match(/(\%.*$)/)
+            raise ActionController::UnpermittedParameters.new [$1] and return false
+          end
           @download_type = downloads[params[:selected_object]]
         end
         @download_types = downloads.keys.sort.collect{|k| downloads[k]}
