@@ -74,6 +74,8 @@ class Ability
         can :manage, News
         can :read, ContactMessage
         can :read, Stats
+        can :manage, Specification
+        can :manage, SpecificationGroup
         can :manage_warranty_of, Product
       end
       if user.role?(:sales_admin)
