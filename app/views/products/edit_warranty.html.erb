@@ -10,6 +10,28 @@
 <%= form_tag update_warranty_products_path, method: :put %>
   <div class="row">
     <div class="small-12 medium-6 columns">
+      <table width="100%">
+        <thead>
+        <tr>
+          <th>Product Family</th>
+          <th>Warranty Period (years)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @product_families.each do |product_family| %>
+          <tr>
+            <td><%= link_to product_family, target: "_blank" do %>
+                <%= product_family.name %>
+              <% end %>
+            </td>
+            <td><%= text_field_tag "product_family_attr[#{product_family.id}]",
+                  (product_family.warranty_period.to_i > 0) ? product_family.warranty_period : nil,
+                  size: 10, placeholder: "-" %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+
       <p>
         <a href="#" onclick="$('.discontinued').toggle();"> <%= fa_icon "ban" %> toggle discontinued products </a>
       </p>
@@ -22,23 +44,23 @@
         </tr>
         </thead>
         <tbody>
-      <% @products.each do |product| %>
-        <tr <% if product.product_status.is_discontinued? %>class="discontinued" style="display: none"<% end %>>
-          <td><%= link_to product, target: "_blank" do %>
-              <% unless product.brand_id == website.brand_id %>
-                <%= product.brand.name %>
+        <% @products.each do |product| %>
+          <tr <% if product.product_status.is_discontinued? %>class="discontinued" style="display: none"<% end %>>
+            <td><%= link_to product, target: "_blank" do %>
+                <% unless product.brand_id == website.brand_id %>
+                  <%= product.brand.name %>
+                <% end %>
+                <%= product.name %>
+                <% if product.product_status.is_discontinued? %>
+                  <%= fa_icon "ban" %>
+                <% end %>
               <% end %>
-              <%= product.name %>
-              <% if product.product_status.is_discontinued? %>
-                <%= fa_icon "ban" %>
-              <% end %>
-            <% end %>
-          </td>
-          <td><%= text_field_tag "product_attr[#{product.id}]",
-                (product.warranty_period.to_i > 0) ? product.warranty_period : nil,
-                size: 10, placeholder: "-" %></td>
-        </tr>
-      <% end %>
+            </td>
+            <td><%= text_field_tag "product_attr[#{product.id}]",
+                  (product.warranty_period.to_i > 0) ? product.warranty_period : nil,
+                  size: 10, placeholder: "-" %></td>
+          </tr>
+        <% end %>
         </tbody>
       </table>
     </div>

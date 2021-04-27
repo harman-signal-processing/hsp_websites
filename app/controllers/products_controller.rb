@@ -249,30 +249,21 @@ class ProductsController < ApplicationController
 
   def edit_warranty
     @products = Product.all_for_website(website) - Product.non_supported(website)
+    @product_families = website.product_families
   end
 
   def update_warranty
-    product_ids_with_nil = []
-    Array(params[:product_attr].to_unsafe_h).each do |key, attr|
-      if attr.blank?
-        product_ids_with_nil << key
-      else
-        product = Product.where(id: key).first
-        if product.warranty_period != attr
-          product.update_columns(warranty_period: attr)
-        end
-      end
+    [Product, ProductFamily].each do |klass|
+      update_warranty_of(klass)
     end
-    if product_ids_with_nil.length > 0
-      Product.where(id: product_ids_with_nil).update_all(warranty_period: nil)
-    end
-    ewsc = website.settings.where(name: "extra_warranty_side_content").first_or_initialize
-    ewsc.update(
+
+    website.settings.where(name: "extra_warranty_side_content").first_or_initialize.update(
       text_value: params[:extra_warranty_side_content],
       setting_type: "text",
       brand_id: website.brand_id
     )
-    redirect_to(warranty_policy_path, notice: "Products updated successfully.")
+
+    redirect_to(warranty_policy_path, notice: "Warranty periods updated successfully.")
   end
 
   def compliance
@@ -298,6 +289,32 @@ class ProductsController < ApplicationController
       redirect_to product_families_path and return
     end
     # redirect_to @product, status: :moved_permanently unless @product.friendly_id_status.best?
+  end
+
+  private
+
+
+  def update_warranty_of(klass)
+    ids_with_nil = []
+
+    Array(params["#{klass.name.underscore}_attr".to_sym].to_unsafe_h).each do |key, attr|
+      if attr.blank?
+        ids_with_nil << key
+      else
+        update_item_warranty(klass, key, attr)
+      end
+    end
+
+    if ids_with_nil.length > 0
+      klass.where(id: ids_with_nil).update_all(warranty_period: nil)
+    end
+  end
+
+  def update_item_warranty(klass, key, attr)
+    item = klass.where(id: key).select(:id, :warranty_period).first
+    if item.warranty_period != attr
+      item.update_columns(warranty_period: attr)
+    end
   end
 
 end

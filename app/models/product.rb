@@ -233,7 +233,9 @@ class Product < ApplicationRecord
   end
 
   def set_default_status
-    self.product_status_id ||= 3 #ProductStatus.where("name LIKE '%%production%%'").first
+    if self.respond_to?(:product_status_id)
+      self.product_status_id ||= 3 #ProductStatus.where("name LIKE '%%production%%'").first
+    end
   end
 
   def self.non_discontinued(website)

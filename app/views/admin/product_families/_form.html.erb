@@ -80,9 +80,16 @@
 		</div>
 	</div>
 
-  <%= f.association :featured_product,
-    collection: website.brand.products,
-    hint: "aka. the Rick Kamlet fix. Rather than finding the first active product with a photo, use this to assign a specific product as the representative product for this family." %>
+  <div class="row">
+    <div class="small-12 medium-6 columns">
+      <%= f.association :featured_product,
+        collection: website.brand.products,
+        hint: "aka. the Rick Kamlet fix. Rather than finding the first active product with a photo, use this to assign a specific product as the representative product for this family." %>
+    </div>
+    <div class="small-12 medium-6 columns">
+      <%= f.input :warranty_period, hint: "Leave blank to hide from side column of warranty page." %>
+    </div>
+  </div>
 
 	<div class="row">
 		<div class="large-8 columns">

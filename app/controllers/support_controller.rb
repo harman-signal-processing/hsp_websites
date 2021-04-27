@@ -226,6 +226,7 @@ class SupportController < ApplicationController
     @page_title = "Warranty Policy"
     products = Product.all_for_website(website) - Product.non_supported(website)
     @products = products.select{|p| p if p.warranty_period.to_i > 0}
+    @product_families = website.product_families.select{|pf| pf if pf.warranty_period.to_i > 0}
     render_template
   end
 

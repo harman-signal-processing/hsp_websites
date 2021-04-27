@@ -193,7 +193,8 @@ class Admin::ProductFamiliesController < AdminController
       :has_full_width_features,
       :product_selector_behavior,
       :meta_description,
-      :featured_product_id
+      :featured_product_id,
+      :warranty_period
     )
   end
 

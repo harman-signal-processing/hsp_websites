@@ -29,6 +29,16 @@
 				<th>Product</th>
 				<th>Warranty Period</th>
 			</tr>
+			<% @product_families.each do |product_family| %>
+			<tr>
+        <td class="name">
+          <%= link_to product_family do %>
+            <%= product_family.name %>
+          <% end %>
+        </td>
+				<td><%= pluralize(product_family.warranty_period, "year", plural: "years") %></td>
+			</tr>
+			<% end %>
 			<% @products.each do |product| %>
 			<tr>
         <td class="name">
