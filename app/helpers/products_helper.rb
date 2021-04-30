@@ -680,4 +680,19 @@ module ProductsHelper
     !!(website.brand.name.match(/DOD|DigiTech|dbx|Lexicon/i) || product.hide_contact_buttons?)
   end
 
+  def item_version(item)
+    if item.is_a?(Software)
+      v = item.version
+      if item.platform.present?
+        if item.platform.to_s.match(/power\s?pc/i)
+          v += " (Power PC)"
+        elsif item.platform.to_s.match(/intel/i)
+          v += " (Intel)"
+        end
+      end
+    elsif item.respond_to?(:version)
+      item.version
+    end
+  end
+
 end
