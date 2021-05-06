@@ -15,7 +15,7 @@ class ProductStatus < ApplicationRecord
     end
 
     def current_ids
-      @current_ids ||= current.pluck(:id)
+      @current_ids ||= current.select(:id)
     end
 
     def discontinued

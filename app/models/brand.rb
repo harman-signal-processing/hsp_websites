@@ -376,4 +376,11 @@ class Brand < ApplicationRecord
   def bad_site_elements
     site_elements.where.not(link_status: ["", nil, "200"])
   end
+
+  def recent_uploads
+    site_elements
+      .where(show_on_public_site: true)
+      .order("created_at DESC")
+      .limit(40).select { |se| se if se.current_products.size > 0 }
+  end
 end

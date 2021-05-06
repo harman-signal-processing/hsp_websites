@@ -117,6 +117,10 @@ class SiteElement < ApplicationRecord
     products.each{|p| p.touch}
   end
 
+  def current_products
+    products.where(product_status_id: ProductStatus.current_ids)
+  end
+
   # If a resource's name or language change, then we have to update the previous
   # versions as well. Otherwise the versioning relationship gets broken.
   def catchup_with_latest_version(latest_version)
@@ -244,7 +248,7 @@ class SiteElement < ApplicationRecord
       downloads = {}
       ability = Ability.new(user)
       website.site_elements.where(show_on_public_site: true, link_status: ["", nil, "200"]).where("resource_type IS NOT NULL AND resource_type != ''").find_each do |site_element|
-        if ability.can?(:read, site_element)
+        if ability.can?(:read, site_element) && site_element.current_products.size > 0
           downloads = downloads.deep_merge( { site_element.hash_key => site_element.details_hash } )
         end
       end
