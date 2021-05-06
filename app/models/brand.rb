@@ -97,10 +97,8 @@ class Brand < ApplicationRecord
   def dynamic_methods
     self.settings.find_each do |meth|
       unless self.methods.include?(meth.name.to_sym) # exclude methods already defined in the class
-        (class << self; self; end).class_eval do
-          define_method meth.name.to_sym do |*args|
-            self.__send__("value_for", meth.name, *args)
-          end
+        define_singleton_method(meth.name.to_sym) do |*args|
+          self.__send__("value_for", meth.name, *args)
         end
       end
     end

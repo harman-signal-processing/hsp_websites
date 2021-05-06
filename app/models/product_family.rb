@@ -150,16 +150,7 @@ class ProductFamily < ApplicationRecord
       pf = []
       top_level_for(website).each do |f|
         if f.locales(website).include?(locale.to_s)
-          if f.current_products.size > 0
-            pf << f
-          else
-            current_children = 0
-            f.children.includes(:products).each do |ch|
-              current_children += ch.current_products_plus_child_products(website).size
-              last if current_children > 0
-            end
-            pf << f if current_children > 0
-          end
+          pf << f if f.has_current_products?(website)
         end
       end
       pf
@@ -263,6 +254,16 @@ class ProductFamily < ApplicationRecord
         cp.sort_by(&:name).uniq
       end
     end
+  end
+
+  def has_current_products?(w)
+    self.current_products.each do |prod|
+      return true if prod.locales(w).include?(I18n.locale.to_s)
+    end
+    children.each do |pf|
+      return true if pf.has_current_products?(w)
+    end
+    false
   end
 
   # w = a Brand or a Website
