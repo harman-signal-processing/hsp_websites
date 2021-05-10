@@ -497,6 +497,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :testimonials, only: :index
       member do
         get 'safety-documents'
+        get 'current-products-count', defaults: { format: 'js' }
       end
     end
     resources :testimonials, only: :show

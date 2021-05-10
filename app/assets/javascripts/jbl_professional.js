@@ -69,3 +69,9 @@ $(function(){
   });
 });
 
+$(window).on('load', function () {
+  $('.product-family-total-count').each(function() {
+    var family_id = $(this).data('product-family-id');
+    $.get("/product_families/" + family_id + "/current-products-count.js", function() {});
+  });
+});
