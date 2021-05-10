@@ -689,6 +689,8 @@ module ProductsHelper
         elsif item.platform.to_s.match(/intel/i)
           v += " (Intel)"
         end
+      else
+        v
       end
     elsif item.respond_to?(:version)
       item.version
