@@ -68,6 +68,7 @@ class Ability
         can :manage, ProductAttachment
         can :manage, ProductDocument
         can :manage, SiteElement
+        can :manage, ProductSoftware
         can :manage, Software
         can :manage, Promotion
         can :manage, SupportSubject
