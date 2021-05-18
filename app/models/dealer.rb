@@ -1,5 +1,6 @@
 class Dealer < ApplicationRecord
   attr_accessor :sold_to, :del_flag, :del_block, :order_block # extra fields from import report
+  attribute :distance, :float # temporarily holds distance from search origin on where to buy page
   acts_as_mappable
   validates :address, :name, presence: true
   validates :account_number, presence: true, uniqueness: { case_sensitive: false }
@@ -13,24 +14,8 @@ class Dealer < ApplicationRecord
   has_many :brands, through: :brand_dealers
   accepts_nested_attributes_for :brand_dealers
 
-  scope :near, -> (*args) {
-    origin = *args.first[:origin]
-    if (origin).is_a?(Array)
-      origin_lat, origin_lng = origin
-    else
-      origin_lat, origin_lng = origin.lat, origin.lng
-    end
-    origin_lat, origin_lng = deg2rad(origin_lat), deg2rad(origin_lng)
-    within = *args.first[:within]
-    where(
-      "(ACOS(COS(#{origin_lat})*COS(#{origin_lng})*COS(RADIANS(dealers.lat))*COS(RADIANS(dealers.lng))+
-      COS(#{origin_lat})*SIN(#{origin_lng})*COS(RADIANS(dealers.lat))*SIN(RADIANS(dealers.lng))+
-      SIN(#{origin_lat})*SIN(RADIANS(dealers.lat)))*3963) <= #{within[0]}"
-    ).select("dealers.*,
-      (ACOS(COS(#{origin_lat})*COS(#{origin_lng})*COS(RADIANS(dealers.lat))*COS(RADIANS(dealers.lng))+
-      COS(#{origin_lat})*SIN(#{origin_lng})*COS(RADIANS(dealers.lat))*SIN(RADIANS(dealers.lng))+
-      SIN(#{origin_lat})*SIN(RADIANS(dealers.lat)))*3963) AS distance"
-    )
+  scope :near, -> (brand, origin, within_miles) {
+    brand.dealers.select{|d| d.distance_from(origin) <= within_miles}
   }
 
   def parent
@@ -264,4 +249,5 @@ class Dealer < ApplicationRecord
       dealers # no other formats supported yet
     end
   end
+
 end

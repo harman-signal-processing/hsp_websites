@@ -62,6 +62,9 @@ $(document).ready(function() {
     <% end %>
     </form>
   </div>
+  <div class="large-4 columns dealer-results-count">
+    <span id="dealer_results_count"><%=@results.count%></span> <%= "result".pluralize(@results.count) %> found
+    </div>
 </div>
 <div class="row">
   <div class="small-12 medium-7 large-8 columns">
@@ -83,9 +86,7 @@ $(document).ready(function() {
               <%= fa_icon "wrench", title: "Service" %>
             <% end %>
           <% end %>
-          <% if dealer.try(:distance) %>
-            (<%= dealer.distance.to_i %> <%= t('dealer_distance') %>)
-          <% end %>
+          (<%=dealer.distance_from(@origin).to_i %> <%= t('dealer_distance') %>)
           <% if dealer.rental? && dealer.products.present? %>
             <br/><i>Products available: <%= dealer.products %></i>
           <% end %>

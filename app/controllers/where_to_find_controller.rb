@@ -17,6 +17,7 @@ class WhereToFindController < ApplicationController
   def partner_search
     @page_title = website.brand.name.to_s.match(/duran audio/i) ? t('titles.enquire') : t('titles.where_to_buy')
     @err = ""
+    @js_map_loader = ''
     @results = []
     do_search
     respond_to do |format|
@@ -56,49 +57,57 @@ class WhereToFindController < ApplicationController
   private
 
   def do_search
+    session[:zip] = params[:zip] if params[:zip].present?
     brand = Brand.find(website.dealers_from_brand_id || website.brand_id)
+    @origin = get_origin
 
-    if params[:lat] && params[:lng]
-      origin = [params[:lat], params[:lng]]
-      @results = get_results(brand, origin, params)
-
-    elsif params[:zip]
-      session[:zip] = params[:zip]
-      #@page_title += " " + t('near_zipcode', zip: params[:zip])
-
-      zip = params[:zip] #(params[:zip].to_s.match(/^\d*$/)) ? "zipcode #{params[:zip]}" : params[:zip]
-      @js_map_loader = ''
-
-      begin
-        if Rails.env.production? || Rails.env.development?
-          origin = Geokit::Geocoders::MultiGeocoder.geocode(zip)
-          @results = get_results(brand, origin, params)
-        else # skipping geocoding for dev/test
-          brand.dealers.each do |d|
-            unless @results.length >= 1000 || d.exclude? || filter_out?(d)
-              @results << d unless @results.include?(d)
-            end
-          end
-        end
-      rescue
-        redirect_to(where_to_find_path, alert: t('errors.geocoding')) and return false
+    begin
+      if Rails.env.production? || Rails.env.development?
+        @results = get_results(brand, @origin, params)
+      else # skipping geocoding for test
+        @results = get_brand_dealer_results_for_test(brand)
       end
-
+    rescue
+      redirect_to(where_to_find_path, alert: t('errors.geocoding')) and return false
     end
+
   end
+
+  def get_origin
+    if params[:lat] && params[:lng]
+      origin = [params[:lat], params[:lng]].map(&:to_f)
+    elsif params[:zip].present?
+      origin = Geokit::Geocoders::MultiGeocoder.geocode(params[:zip])
+    end
+    origin
+  end
+
+  def get_brand_dealer_results_for_test(brand)
+    results = []
+    brand.dealers.each do |d|
+      unless results.length >= 1000 || d.exclude? || filter_out?(d)
+        results << d unless results.include?(d)
+      end
+    end  #  brand.dealers.each do |d|
+    results
+  end  #  def get_brand_dealer_results_for_test(brand)
 
   def get_results(brand, origin, opts={})
     results = []
     max = 999
-
-    brand.dealers.near(origin: origin, within: 150).order("distance ASC").each do |d|
+    within_miles = 150
+    brand.dealers.select{|d| d.distance_from(origin) <= within_miles}.each do |d|
       unless results.length >= max || d.exclude? || filter_out?(d)
+        d.distance = d.distance_from(origin)
         results << d unless results.include?(d)
       end
     end
+
     if !!origin.try(:state)
+      # adding dealers in state to the list
       brand.dealers.where(state: origin.state).find_each do |d|
         unless d.exclude? || filter_out?(d)
+          d.distance = d.distance_from(origin)
           results << d unless results.include?(d)
         end
       end
@@ -108,12 +117,14 @@ class WhereToFindController < ApplicationController
     if results.length < max && opts[:zip].to_s.match(/^\d*$/)
       brand.dealers.where("zip LIKE ?", opts[:zip]).find_each do |d|
         unless results.length >= 1000 || d.exclude? || filter_out?(d)
+          d.distance = d.distance_from(origin)
           results << d unless results.include?(d)
         end
       end
     end
 
-    results
+    # sort results by distance
+    results.sort_by{|d| d.distance_from(origin) }
   end
 
   # Returning true would remove the dealer from results

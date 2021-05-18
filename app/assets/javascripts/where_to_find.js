@@ -62,7 +62,12 @@ function refresh_map(map) {
   $.getJSON(url, function ( data ) {
     load_markers(map, data);
     load_side_column(data);
+    load_results_count(data.length);
   });
+}
+
+function load_results_count(count) {
+  $("#dealer_results_count").html(count);
 }
 
 function load_side_column(markers) {
