@@ -92,9 +92,7 @@
             <%= fa_icon "wrench", title: "Service" %>
           <% end %>
         <% end %>
-        <% if dealer.try(:distance) %>
-          (<%= dealer.distance.to_i %> <%= t('dealer_distance') %>)
-        <% end %>
+        (<%=dealer.distance_from(@origin).to_i %> <%= t('dealer_distance') %>)
         <% if dealer.rental? && dealer.products.present? %>
           <br/><i>Products available: <%= dealer.products %></i>
         <% end %>
