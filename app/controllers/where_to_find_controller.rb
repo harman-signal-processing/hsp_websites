@@ -57,6 +57,8 @@ class WhereToFindController < ApplicationController
   private
 
   def do_search
+    return false, session[:zip] = '' if search_params_missing?
+
     session[:zip] = params[:zip] if params[:zip].present?
     brand = Brand.find(website.dealers_from_brand_id || website.brand_id)
     @origin = get_origin
@@ -71,6 +73,10 @@ class WhereToFindController < ApplicationController
       redirect_to(where_to_find_path, alert: t('errors.geocoding')) and return false
     end
 
+  end
+
+  def search_params_missing?
+    !params[:zip].present? && !params[:lat].present? && !params[:lng].present?
   end
 
   def get_origin
