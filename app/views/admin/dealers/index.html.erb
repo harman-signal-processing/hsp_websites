@@ -39,6 +39,8 @@
       <th>Country</th>
       <th>Email</th>
       <th>Account number</th>
+      <th>Brands</th>
+      <th>Services</th>
     </tr>
 
   <% @dealers.each do |dealer| %>
@@ -50,6 +52,23 @@
         <td><%= dealer.country %></td>
         <td><%= dealer.email %></td>
         <td><%= dealer.account_number %></td>
+        <td><%= dealer.brands.pluck(:name).join(", ") %></td>
+        <td>
+          <ul>
+            <% if dealer.resale? %>
+              <li>Resale</li>
+            <% end %>
+            <% if dealer.rental? %>
+              <li>Rental</li>
+            <% end %>
+            <% if dealer.installation? %>
+              <li>Installation</li>
+            <% end %>
+            <% if dealer.service? %>
+              <li>Service</li>
+            <% end %>
+          </ul>
+        </td>
     	<% unless dealer.exclude? %>
     	<td id="excluder_<%= dealer.id %>">
     		<%= link_to "exclude", admin_dealer_path(dealer, dealer: {exclude: true}), method: :put, remote: true %>
