@@ -43,15 +43,15 @@
       <th>Services</th>
     </tr>
 
-  <% @dealers.each do |dealer| %>
+  <% @dealers.order(:name, :state, :city).each do |dealer| %>
     <% if can? :manage, dealer %>
       <tr style="background: <%= cycle 'white', 'none' %>" <% if dealer.exclude? %>class="strike"<% end %> id="dealer_<%= dealer.id %>">
         <td><%= link_to dealer.name, [:admin, dealer] %></td>
         <td><%= dealer.city %></td>
         <td><%= dealer.state %></td>
         <td><%= dealer.country %></td>
-        <td><%= dealer.email %></td>
-        <td><%= dealer.account_number %></td>
+        <td style="word-wrap: break-word; max-width: 150px;"><%= dealer.email %></td>
+        <td style="word-wrap: break-word; max-width: 150px;"><%= dealer.account_number %></td>
         <td><%= dealer.brands.pluck(:name).join(", ") %></td>
         <td>
           <ul>
