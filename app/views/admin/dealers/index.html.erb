@@ -41,6 +41,7 @@
       <th>Account number</th>
       <th>Brands</th>
       <th>Services</th>
+      <th>Rental Products</th>
     </tr>
 
   <% @dealers.order(:name, :state, :city).each do |dealer| %>
@@ -69,6 +70,7 @@
             <% end %>
           </ul>
         </td>
+        <td><%= dealer.products %></td>
     	<% unless dealer.exclude? %>
     	<td id="excluder_<%= dealer.id %>">
     		<%= link_to "exclude", admin_dealer_path(dealer, dealer: {exclude: true}), method: :put, remote: true %>
