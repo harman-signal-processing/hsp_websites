@@ -681,20 +681,24 @@ module ProductsHelper
   end
 
   def item_version(item)
+    version = ''
     if item.is_a?(Software)
-      v = item.version
+      version = item.version
       if item.platform.present?
         if item.platform.to_s.match(/power\s?pc/i)
-          v += " (Power PC)"
+          version += " (Power PC)"
         elsif item.platform.to_s.match(/intel/i)
-          v += " (Intel)"
+          version += " (Intel)"
         end
       else
-        v
+        version
       end
     elsif item.respond_to?(:version)
-      item.version
+      version = item.version
     end
-  end
+
+    version
+
+  end  #  def item_version(item)
 
 end
