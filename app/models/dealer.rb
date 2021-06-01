@@ -196,7 +196,7 @@ class Dealer < ApplicationRecord
           sheet[row, 0] = country.country.blank? ? "(empty country)" : country.country
           sheet.merge_cells(row, 0, row, 7)
           row += 1
-          dealers.where(region: region.region, country: country.country).each do |dealer|
+          dealers.where(region: region.region, country: country.country).order(:name).each do |dealer|
             addr = dealer.address.split(/\<br\/?\>/i)
             sheet.row(row).default_format = line_above_format
             sheet.row(row).set_format(0, dealer_name_format)

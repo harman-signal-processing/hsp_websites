@@ -591,6 +591,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
 
     match '/international_distributors' => 'distributors#index', as: :international_distributors, via: :all
     get '/where_to_find/partner_search(/:format)' => 'where_to_find#partner_search', as: :partner_search
+    get '/where_to_find/vertec_vtx_owners_search(/:format)' => 'where_to_find#vertec_vtx_owners_search', as: :vertec_vtx_owners_search
     get '/where_to_find(/:zip)' => 'where_to_find#index', as: :where_to_find
     get '/where_to_buy(/:zip)', to: redirect('where_to_find'), as: :where_to_buy
     get '/enquire(/:zip)' => 'where_to_find#index', as: :enquire
