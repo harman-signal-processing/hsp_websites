@@ -43,8 +43,8 @@ class WhereToFindController < ApplicationController
     @results = []
     do_search
 
-    # ensure is rental
-    @results = @results.select{|d| d.rental?}
+    # ensure is rental and has products
+    @results = @results.select{|d| d.rental? && d.products.present? }
 
     respond_to do |format|
       format.html {
