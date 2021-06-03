@@ -610,6 +610,23 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get '/case_studies/application/:vertical_market' => 'case_studies#index', as: :case_studies_by_vertical_market
     get '/case_studies/filter/:asset_type/:vertical_market' => 'case_studies#index', as: :case_studies_by_asset_type
 
+    # Custom Shop
+    get 'custom_shop' => 'custom_shop#index', as: :custom_shop
+    namespace :custom_shop do
+      get 'build_quote' => "custom_shop_quotes#build_quote", as: :build_quote
+      post 'request_quote' => "custom_shop_quotes#request_quote", as: :request_quote
+      get 'request_quote' => "custom_shop_quotes#edit", as: :edit_quote
+      get 'request_submitted' => "custom_shop_quotes#request_submitted", as: :request_submitted
+      resources :products do
+        resources :custom_shop_quote_line_items, only: [:create]
+      end
+      resources :custom_shop_quotes do
+        member do
+          post :request_quote
+        end
+      end
+    end
+
     match "*custom_route" => "pages#show", as: :custom_route, via: :all
   end  # scope "(:locale)", locale: /
 

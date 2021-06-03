@@ -15,6 +15,8 @@ class ProductFamily < ApplicationRecord
   has_many :content_translations, as: :translatable, foreign_key: "content_id", foreign_type: "content_type"
   has_many :product_family_testimonials, -> { order('position') }, dependent: :destroy
   has_many :testimonials, through: :product_family_testimonials
+  has_many :product_family_customizable_attributes, dependent: :destroy
+  has_many :customizable_attributes, through: :product_family_customizable_attributes
   belongs_to :featured_product, class_name: "Product"
 
   has_attached_file :family_photo, { styles: { medium: "300x300>", thumb: "100x100>" }, processors: [:thumbnail, :compression] }.merge(S3_STORAGE)
@@ -160,6 +162,12 @@ class ProductFamily < ApplicationRecord
   def self.top_level_for(brand)
     brand_id = brand.is_a?(Website) ? brand.brand_id : brand.id
     where(brand_id: brand_id, hide_from_navigation: false).where("parent_id IS NULL or parent_id = 0").order('position').includes(:products)
+  end
+
+  def self.customizable(website, locale)
+    Rails.cache.fetch("#{website.cache_key_with_version}/#{locale}/product_families/customizable", expires_in: 2.hours) do
+      all_with_current_products(website, locale).select{|pf| pf if pf.product_family_customizable_attributes.size > 0}
+    end
   end
 
   # We flatten the families for the employee store.

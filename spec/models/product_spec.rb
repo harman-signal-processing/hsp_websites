@@ -104,4 +104,27 @@ RSpec.describe Product, :type => :model do
 
     end
   end
+
+  describe "customizable" do
+
+    before do
+      @product = create(:product)
+      @product_family = create(:product_family)
+      @product_family.products << @product
+      @customizable_attribute = create(:customizable_attribute)
+      @product_family.customizable_attributes << @customizable_attribute
+    end
+
+    it "#customizable? is true if attribute values are available" do
+      @product.customizable_attribute_values << create(:customizable_attribute_value, customizable_attribute: @customizable_attribute)
+
+      expect(@product.customizable_attributes).to include(@customizable_attribute)
+      expect(@product.is_customizable?).to eq(true)
+    end
+
+    it "#customizable? is false if no values have been made available for the product" do
+      expect(@product.is_customizable?).to eq(false)
+    end
+
+  end
 end

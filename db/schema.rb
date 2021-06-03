@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_27_171843) do
+ActiveRecord::Schema.define(version: 2021_05_26_194120) do
 
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
@@ -445,6 +445,52 @@ ActiveRecord::Schema.define(version: 2021_04_27_171843) do
     t.index ["content_type", "content_id"], name: "index_content_translations_on_content_type_and_content_id"
     t.index ["content_type"], name: "index_content_translations_on_content_type"
     t.index ["locale"], name: "index_content_translations_on_locale"
+  end
+
+  create_table "custom_shop_quote_line_item_attributes", charset: "utf8", force: :cascade do |t|
+    t.integer "line_item_id"
+    t.integer "customizable_attribute_id"
+    t.string "value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["line_item_id"], name: "index_custom_shop_quote_line_item_attributes_on_line_item_id"
+  end
+
+  create_table "custom_shop_quote_line_items", charset: "utf8", force: :cascade do |t|
+    t.integer "custom_shop_quote_id"
+    t.integer "product_id"
+    t.integer "quantity"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["custom_shop_quote_id"], name: "index_custom_shop_quote_line_items_on_custom_shop_quote_id"
+  end
+
+  create_table "custom_shop_quotes", charset: "utf8", force: :cascade do |t|
+    t.string "uuid"
+    t.integer "user_id"
+    t.string "account_number"
+    t.string "opportunity_number"
+    t.string "opportunity_name"
+    t.string "location"
+    t.text "description"
+    t.date "request_delivery_on"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_custom_shop_quotes_on_user_id"
+  end
+
+  create_table "customizable_attribute_values", charset: "utf8", force: :cascade do |t|
+    t.integer "customizable_attribute_id"
+    t.integer "product_id"
+    t.string "value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "customizable_attributes", charset: "utf8", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "dealer_users", id: :integer, charset: "latin1", force: :cascade do |t|
@@ -1140,6 +1186,13 @@ ActiveRecord::Schema.define(version: 2021_04_27_171843) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["product_family_id"], name: "index_product_family_case_studies_on_product_family_id"
+  end
+
+  create_table "product_family_customizable_attributes", charset: "utf8", force: :cascade do |t|
+    t.integer "product_family_id"
+    t.integer "customizable_attribute_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "product_family_product_filters", charset: "utf8", force: :cascade do |t|

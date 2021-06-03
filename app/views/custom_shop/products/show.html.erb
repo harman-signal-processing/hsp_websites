@@ -1,0 +1,30 @@
+<h1>Customize <%= @product.name %></h1>
+
+<div class="row">
+  <div class="small-12 medium-7 columns">
+    <%= simple_form_for [:custom_shop, @product, @custom_shop_quote_line_item] do |f| %>
+
+      <%= f.simple_fields_for :custom_shop_quote_line_item_attributes do |a| %>
+        <%= a.input :customizable_attribute_id, as: :hidden %>
+        <%= a.input :value,
+          label: a.object.customizable_attribute.name,
+          as: :radio_buttons,
+          collection: a.object.options_for(@product) %>
+      <% end %>
+
+      <%= f.input :quantity %>
+      <%= f.submit "Add to quote" %>
+    <% end %>
+  </div>
+
+  <div class="small-12 medium-5 columns">
+    <div class="text-center">
+      <% if @product.photo %>
+         <%= image_tag(@product.photo.product_attachment.url(:large), lazy: false) %>
+      <% end %>
+      <br/>
+      <p><%= link_to "View Product Details", @product, target: "_blank" %></p>
+    </div>
+  </div>
+</div>
+

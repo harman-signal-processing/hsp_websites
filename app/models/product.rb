@@ -56,6 +56,8 @@ class Product < ApplicationRecord
   has_many :badges, through: :product_badges
   has_many :product_accessories
   has_many :accessory_products, through: :product_accessories
+  has_many :customizable_attribute_values, dependent: :destroy
+  has_many :customizable_attributes, -> { distinct }, through: :customizable_attribute_values
   belongs_to :product_status
   belongs_to :brand, touch: true
   has_many :parent_products # Where this is the child (ie, an e-pedal child of the iStomp)
@@ -305,6 +307,10 @@ class Product < ApplicationRecord
     return true if self.accessory_to_products.size > 0
     families = self.product_families.map{|pf| pf.tree_names}.join(" ")
     !!!(families.match(/controller/)) ? false : !!(families.match(/accessor/i))
+  end
+
+  def is_customizable?
+    customizable_attributes.size > 0
   end
 
   def sample

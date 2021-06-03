@@ -9,6 +9,7 @@ RSpec.describe ProductFamily, :type => :model do
   subject { @product_family }
   it { should respond_to :products }
   it { should respond_to :features }
+  it { should respond_to :customizable_attributes }
 
 	describe "tree" do
 
@@ -22,6 +23,23 @@ RSpec.describe ProductFamily, :type => :model do
       expect(@pedals.valid?).to be(false)
 	  end
 
+  end
+
+  describe ".customizable(website, locale)" do
+
+    before do
+      @website = create(:website_with_products)
+      @product_family = @website.products.first.product_families.first
+    end
+
+    it "should not be customizable" do
+      expect(ProductFamily.customizable(@website, I18n.default_locale)).not_to include(@product_family)
+    end
+
+    it "should be customizable" do
+      @product_family.customizable_attributes << create(:customizable_attribute)
+      expect(ProductFamily.customizable(@website, I18n.default_locale)).to include(@product_family)
+    end
   end
 
 end
