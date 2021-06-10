@@ -1,6 +1,6 @@
 class CustomShopController < ApplicationController
-  include CurrentCustomShopQuote
-  before_action :set_locale, :set_custom_shop_quote
+  include CurrentCustomShopCart
+  before_action :set_locale
 
   def index
     @product_families = ProductFamily.customizable(website, I18n.locale)

@@ -1,8 +1,8 @@
-class CustomShopQuoteLineItemAttribute < ApplicationRecord
-  belongs_to :custom_shop_quote_line_item, foreign_key: 'line_item_id'
+class CustomShopLineItemAttribute < ApplicationRecord
+  belongs_to :custom_shop_line_item
   belongs_to :customizable_attribute
 
-#  validates :custom_shop_quote_line_item, presence: true
+#  validates :custom_shop_line_item, presence: true
   validates :customizable_attribute, presence: true
   validates :value, presence: true
 

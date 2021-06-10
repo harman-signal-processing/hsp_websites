@@ -1,0 +1,84 @@
+<p>
+<%= link_to custom_shop_path do %>
+  <%= fa_icon "arrow-left" %>
+  Custom Shop
+<% end %>
+</p>
+<h1>Custom Shop Quote</h1>
+<% if @custom_shop_cart.empty? %>
+
+  <p>Your quote appears to be empty. Start by <%= link_to "selecting a product", custom_shop_path %> to customize.</p>
+
+<% else %>
+
+  <table class="cart_summary">
+    <thead>
+      <tr>
+        <th colspan="2" class="text-center">Product</th>
+        <th class="text-center">Qty.</th>
+        <td>&nbsp;</td>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @custom_shop_cart.custom_shop_line_items.each do |line_item| %>
+        <tr>
+          <td class="text-center">
+            <% if line_item.product.photo %>
+              <%= link_to line_item.product do %>
+                <%= image_tag(line_item.product.photo.product_attachment.url(:tiny)) %>
+              <% end %>
+            <% end %>
+          </td>
+          <td>
+            <h5><%= line_item.product.name %></h5>
+            <ul>
+              <% line_item.custom_shop_line_item_attributes.each do |attr| %>
+                <li><%= attr.customizable_attribute.name %>: <%= attr.value %></li>
+              <% end %>
+            </ul>
+          </td>
+          <td class="text-center">
+            <%= simple_form_for [:custom_shop, line_item] do |f| %>
+              <div class="row collapse">
+                <div class="small-1 medium-2 medium-offset-3 columns">
+                  <%= link_to [:custom_shop, line_item], method: :delete, id: "remove-#{line_item.id}" do %>
+                    <%= fa_icon "trash-o" %>
+                  <% end %>
+                </div>
+                <div class="small-7 medium-2 columns">
+                  <%= f.input :quantity, label: false, input_html: { min: "0" } %>
+                </div>
+                <div class="small-4 medium-2 columns end">
+                  <%= f.submit "update", class: "button" %>
+                </div>
+              </div>
+            <% end %>
+          </td>
+          <td class="text-center">
+            <%= link_to edit_custom_shop_custom_shop_line_item_path(line_item), class: "tiny secondary button" do %>
+              <%= fa_icon "edit" %>
+              Edit <%= line_item.product.name %> options
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="row">
+    <div class="small-6 columns">
+      <%= link_to custom_shop_path, class: "button" do %>
+        <%= fa_icon "plus" %>
+        Add Another Product
+      <% end %>
+    </div>
+    <div class="small-6 columns text-right">
+      <%= link_to new_custom_shop_custom_shop_quote_path, class: "success button" do %>
+        Request Quote
+        <%= fa_icon "long-arrow-right" %>
+      <% end %>
+    </div>
+  </div>
+
+<% end %>

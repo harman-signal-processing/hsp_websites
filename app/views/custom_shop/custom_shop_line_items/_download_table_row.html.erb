@@ -1,0 +1,112 @@
+<% if can?(:read, item) %>
+  <tr class="download-item-row">
+    <% if item.is_a?(SiteElement) %>
+      <% if item.external_url.present? || item.executable_file_name.present? %>
+        <td>
+          <%= file_type_icon(item) %>
+          <%= link_to item.name, item %>
+          <%= keys_for(item) %>
+          <div class="show-for-small">
+            <%= flag_for(item) %>
+            <i>
+              <% if item.version.present? %>version <%= item.version %>, <% end %>
+              updated: <%=l item.updated_at.to_date, format: :short %>
+            </i>
+          </div>
+        </td>
+        <td class="text-center hide-for-small"> <%= item.version %>&nbsp; </td>
+        <td class="text-center hide-for-small"> <%= flag_for(item) %>&nbsp; </td>
+
+      <% elsif item.resource_file_name.present? %>
+        <td>
+          <%= file_type_icon(item) %>
+          <%= link_to item.name, item %>
+          <%= keys_for(item) %>
+          <div class="show-for-small">
+            <%= flag_for(item) %>
+            <i>
+              <% if item.version.present? %>version <%= item.version %>, <% end %>
+              updated: <%=l item.updated_at.to_date, format: :short %>
+            </i>
+          </div>
+        </td>
+        <td class="text-center hide-for-small"> <%= item.version %>&nbsp;</td>
+        <td class="text-center hide-for-small"> <%= flag_for(item) %>&nbsp; </td>
+
+      <% elsif item.content.present? %>
+        <td>
+          <%= link_to item.name, item %>
+          <%= keys_for(item) %>
+          <div class="show-for-small">
+            <%= flag_for(item) %>
+            <i>
+              <% if item.version.present? %>version <%= item.version %>, <% end %>
+              updated: <%=l item.updated_at.to_date, format: :short %>
+            </i>
+          </div>
+        </td>
+        <td class="text-center hide-for-small">
+        <% # If Martin and version number is missing and item is firmware, then lookup the version number from the Martin Companion data source%>
+        <% if website.brand.name.to_s.match(/martin/i) && !item.version.present? && (item.resource_type == "Software") && (item.name.include? "Firmware") %>
+          <%= MartinFirmwareService.firmware_version(item.name.gsub(/ \- Firmware/, ''))%>
+        <% else %>
+          <%= item.version %>
+        <% end %>
+        &nbsp; </td>
+        <td class="text-center hide-for-small"> <%= flag_for(item) %>&nbsp; </td>
+      <% end %>
+
+    <% elsif item.is_a?(ProductDocument) %>
+      <td>
+        <%= file_type_icon(item) %>
+        <%= link_to item.name, item %>
+        <div class="show-for-small">
+          <%= flag_for(item) %>
+          <i>
+            <% if item.respond_to?(:version) && item.version.present? %>version <%= item.version %>, <% end %>
+            updated: <%=l item.updated_at.to_date, format: :short %>
+          </i>
+        </div>
+      </td>
+      <td class="text-center hide-for-small"> <% if item.respond_to?(:version) %><%= item.version %><% end %>&nbsp; </td>
+      <td class="text-center hide-for-small"> <%= flag_for(item) %>&nbsp; </td>
+
+    <% elsif item.is_a?(Software) %>
+      <td>
+        <%= platform_icon(item, 17) %>
+        <%= link_to item.name, (item.link.present? && item.new_record?) ? item.link : item %>
+        <div class="show-for-small">
+          <%= flag_for(item) %>
+          <i>
+            <% if item.version.present? %>version <%= item_version(item) %>, <% end %>
+            updated: <%=l item.updated_at.to_date, format: :short %>
+          </i>
+        </div>
+      </td>
+      <td class="text-center hide-for-small">
+        <% # If Martin and version number is missing and item is firmware, then lookup the version number from the Martin Companion data source%>
+        <% if website.brand.name.to_s.match(/martin/i) && !item.version.present? && item.category == "firmware" %>
+          <%= MartinFirmwareService.firmware_version(item.name.gsub(/ \- Firmware/, ''))%>
+        <% else %>
+          <%= item_version(item) %>
+        <% end %>
+        &nbsp;</td>
+      <td class="text-center hide-for-small"> <%= flag_for(item) %>&nbsp; </td>
+    <% end %>
+
+  </tr>
+
+  <%# Software Attachments %>
+  <% if website.show_software_attachments_on_product_page && item.respond_to?(:software_attachments) && item.software_attachments.count > 0 %>
+    <% item.software_attachments.each do |sa| %>
+      <tr>
+        <td> <%= link_to sa.name, sa.software_attachment.url %> </td>
+        <td class="text-center"> <% if sa.respond_to?(:version) %><%= sa.version %><% end %>&nbsp; </td>
+        <td class="text-center"> <%= flag_for(sa) %>&nbsp; </td>
+      </tr>
+    <% end %>
+  <% end %>
+
+<% end %>
+
+

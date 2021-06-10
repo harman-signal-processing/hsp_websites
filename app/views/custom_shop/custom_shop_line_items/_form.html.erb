@@ -1,0 +1,25 @@
+<%= simple_form_for [:custom_shop, @custom_shop_line_item] do |f| %>
+  <%= f.association :product, as: :hidden %>
+
+  <%= f.simple_fields_for :custom_shop_line_item_attributes do |a| %>
+    <%= a.input :customizable_attribute_id, as: :hidden %>
+    <%= a.input :value,
+      label: a.object.customizable_attribute.name,
+      as: :radio_buttons,
+      collection: a.object.options_for(f.object.product) %>
+    <br/>
+  <% end %>
+
+  <div class="row">
+    <div class="small-6 medium-4 columns">
+      <%= f.input :quantity %>
+    </div>
+  </div>
+
+  <% if f.object.new_record? %>
+    <%= f.submit "Add To Quote", class: "button" %>
+  <% else %>
+    <%= f.submit "Update Quote", class: "button" %>
+  <% end %>
+<% end %>
+

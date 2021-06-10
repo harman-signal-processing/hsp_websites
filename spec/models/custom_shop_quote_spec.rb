@@ -8,5 +8,5 @@ RSpec.describe CustomShopQuote, type: :model do
 
   subject { @custom_shop_quote }
   it { should respond_to(:user) }
-  it { should respond_to(:custom_shop_quote_line_items) }
+  it { should respond_to(:custom_shop_line_items) }
 end

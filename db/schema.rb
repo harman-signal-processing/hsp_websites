@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_26_194120) do
+ActiveRecord::Schema.define(version: 2021_06_08_204648) do
 
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
@@ -447,22 +447,30 @@ ActiveRecord::Schema.define(version: 2021_05_26_194120) do
     t.index ["locale"], name: "index_content_translations_on_locale"
   end
 
-  create_table "custom_shop_quote_line_item_attributes", charset: "utf8", force: :cascade do |t|
-    t.integer "line_item_id"
+  create_table "custom_shop_carts", charset: "utf8", force: :cascade do |t|
+    t.string "uuid"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["uuid"], name: "index_custom_shop_carts_on_uuid"
+  end
+
+  create_table "custom_shop_line_item_attributes", charset: "utf8", force: :cascade do |t|
+    t.integer "custom_shop_line_item_id"
     t.integer "customizable_attribute_id"
     t.string "value"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["line_item_id"], name: "index_custom_shop_quote_line_item_attributes_on_line_item_id"
   end
 
-  create_table "custom_shop_quote_line_items", charset: "utf8", force: :cascade do |t|
+  create_table "custom_shop_line_items", charset: "utf8", force: :cascade do |t|
     t.integer "custom_shop_quote_id"
+    t.integer "custom_shop_cart_id"
     t.integer "product_id"
     t.integer "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["custom_shop_quote_id"], name: "index_custom_shop_quote_line_items_on_custom_shop_quote_id"
+    t.index ["custom_shop_cart_id"], name: "index_custom_shop_line_items_on_custom_shop_cart_id"
+    t.index ["custom_shop_quote_id"], name: "index_custom_shop_line_items_on_custom_shop_quote_id"
   end
 
   create_table "custom_shop_quotes", charset: "utf8", force: :cascade do |t|
@@ -476,6 +484,8 @@ ActiveRecord::Schema.define(version: 2021_05_26_194120) do
     t.date "request_delivery_on"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "custom_shop_cart_id"
+    t.index ["custom_shop_cart_id"], name: "index_custom_shop_quotes_on_custom_shop_cart_id"
     t.index ["user_id"], name: "index_custom_shop_quotes_on_user_id"
   end
 
@@ -2173,6 +2183,7 @@ ActiveRecord::Schema.define(version: 2021_05_26_194120) do
     t.boolean "super_technician", default: false
     t.string "last_host"
     t.boolean "vip_programmers_admin", default: false
+    t.boolean "customer"
     t.index ["account_number"], name: "index_users_on_account_number"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

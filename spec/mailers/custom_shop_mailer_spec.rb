@@ -2,7 +2,8 @@ require "rails_helper"
 
 RSpec.describe CustomShopMailer, type: :mailer do
 	before :all do
-    @quote = create(:custom_shop_quote_with_line_items)
+    @cart = create(:custom_shop_cart_with_line_items)
+    @quote = create(:custom_shop_quote, custom_shop_cart: @cart)
     @brand = @quote.brand
 	end
 
@@ -15,6 +16,10 @@ RSpec.describe CustomShopMailer, type: :mailer do
 
     it "should go to the brand's custom shop email" do
       expect(mail.to).to include "custom_shop@harman.com"
+    end
+
+    it "should list the line items" do
+      expect(mail.body).to have_text(@cart.custom_shop_line_items.first.product.name)
     end
   end
 end

@@ -1,0 +1,18 @@
+<p>Complete the following to request a quote
+for your customized products:</p>
+
+<%= simple_form_for [:custom_shop, @custom_shop_quote] do |f| %>
+  <%= f.fields_for :user do |u| %>
+    <%# u.input :country %>
+  <% end %>
+
+  <%= f.input :account_number, label: "HARMAN Account Number" %>
+  <%= f.input :opportunity_number %>
+  <%= f.input :opportunity_name %>
+  <%= f.input :location %>
+  <%= f.input :request_delivery_on, as: :string, input_html: { class: 'ui-datepicker'} %>
+  <%= f.input :description, label: "Project Description" %>
+
+  <%= f.submit "Request Quote", class: "button" %>
+<% end %>
+

@@ -48,11 +48,20 @@
 			</ul>
 		</section>
 	</nav>
-  <% if current_user %>
-    <div id="account_links">
-      Welcome, <%= current_user.email %> |
+  <div id="account_links">
+    <% if current_custom_shop_cart %>
+      <%= link_to custom_shop_cart_path, class: "tiny round button cart-button" do %>
+        <%= fa_icon "shopping-cart" %>
+        (<%= current_custom_shop_cart.total_items %>)
+      <% end %>
+    <% end %>
+    <% if current_user %>
+      <%= fa_icon "user" %>
+      Welcome, <%= link_to current_user.display_name, profile_path %> |
       <%= link_to "Logout", destroy_user_session_path %>
-    </div>
-  <% end %>
+    <% else %>
+      <%#= link_to "Login", new_user_session_path %>
+    <% end %>
+  </div>
 </div>
 

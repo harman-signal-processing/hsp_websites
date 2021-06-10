@@ -1,22 +1,25 @@
 class CustomShop::CustomShopQuotesController < CustomShopController
-  before_action :authenticate_user!, only: [:edit, :request_quote, :request_submitted]
+  before_action :set_custom_shop_cart
+  before_action :authenticate_user!
 
-  def build_quote
-    render action: 'edit'
+  def new
+    @custom_shop_quote = CustomShopQuote.new
   end
 
   def edit
   end
 
-  def request_quote
-    @custom_shop_quote.update(custom_shop_quote_attributes)
-    @custom_shop_quote.update(user_id: current_user.id)
-    CustomShopMailer.delay.request_quote(@custom_shop_quote)
+  def create
+    @custom_shop_quote = CustomShopQuote.new(custom_shop_quote_attributes)
+    @custom_shop_quote.user_id = current_user.id
+    @custom_shop_quote.custom_shop_cart_id = @custom_shop_cart.id
+    @custom_shop_quote.save!
+
     redirect_to custom_shop_request_submitted_path and return false
   end
 
   def request_submitted
-    session.delete(:custom_shop_quote_id)
+    session.delete(:custom_shop_cart_id)
   end
 
   private
