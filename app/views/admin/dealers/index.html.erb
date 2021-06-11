@@ -70,7 +70,19 @@
             <% end %>
           </ul>
         </td>
-        <td><%= dealer.products %></td>
+        <!-- <td><%#= dealer.products %></td> -->
+        <td>
+          <% dealer.brand_dealers.each do |bd|%>
+            <% if bd.brand_dealer_rental_products.present? %>
+              <p style="font-size:small;">
+                <strong>Rental Products (<%=bd.brand.name%>)</strong><br/>
+                <% bd.brand_dealer_rental_products.each do |product_association|%>
+                  <%=product_association.product.name%><br/>
+                <% end %>              
+              </p>
+            <% end %>
+          <% end %>          
+        </td>
     	<% unless dealer.exclude? %>
     	<td id="excluder_<%= dealer.id %>">
     		<%= link_to "exclude", admin_dealer_path(dealer, dealer: {exclude: true}), method: :put, remote: true %>
