@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_27_171843) do
+ActiveRecord::Schema.define(version: 2021_06_07_222420) do
 
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
@@ -252,6 +252,14 @@ ActiveRecord::Schema.define(version: 2021_04_27_171843) do
     t.datetime "image_updated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "brand_dealer_rental_products", charset: "utf8", force: :cascade do |t|
+    t.bigint "brand_dealer_id"
+    t.bigint "product_id"
+    t.integer "position"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "brand_dealers", id: :integer, charset: "latin1", force: :cascade do |t|

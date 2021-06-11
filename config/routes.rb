@@ -267,6 +267,11 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :brand_solution_featured_products, only: :index do
         collection { post :update_order }
       end
+
+      resources :brand_dealer_rental_products do
+        collection { post :update_order }
+      end
+
       resources :specifications do
         member { patch :remove_from_group }
         collection {

@@ -1,0 +1,10 @@
+(function(){
+	var $list_of_brand_dealer_rental_products = $('#brand_dealer_rental_products');
+	build_list_of_brand_dealer_rental_products($list_of_brand_dealer_rental_products);
+	
+	function build_list_of_brand_dealer_rental_products($list_of_brand_dealer_rental_products) {
+		<% @brand_dealer_rental_products.each do |item| %>
+			$list_of_brand_dealer_rental_products.append('<%= escape_javascript(render "/admin/brand_dealer_rental_products/rental_product_row", item: item) %>');
+		<% end %>
+	}  //  function build_list_of_brand_dealer_rental_products($list_of_brand_dealer_rental_products)
+})();

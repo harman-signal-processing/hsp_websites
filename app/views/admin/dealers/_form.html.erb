@@ -54,11 +54,12 @@
        <%= f.input :rental %>
        <%= f.input :installation %>
        <%= f.input :service %>
-     </div>
+     </div><!-- <div class="small-12 medium-6 columns"> -->
+     <!-- brand dealer rental products -->
      <div class="small-12 medium-6 columns">
-       <%= f.input :products, label: "For rental dealers, indicate the products offered:" %>
-     </div>
-   </div>
+        <%= render "rental_products_section", f: f %>
+     </div><!-- <div class="small-12 medium-6 columns"> -->
+   </div><!-- <div class="row"> -->
    <div class="panel">
      <p>The application will try to find the coordinates, but if it fails, try filling them in here. You should be able to get them with the Google.</p>
      <div class="row">

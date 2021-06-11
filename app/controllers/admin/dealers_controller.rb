@@ -60,8 +60,10 @@ class Admin::DealersController < AdminController
   # PUT /admin/dealers/1.xml
   def update
     @dealer.skip_sync_from_sap = true
+    dealer_params_without_products = dealer_params
+    dealer_params_without_products.extract!(:products)
     respond_to do |format|
-      if @dealer.update(dealer_params)
+      if @dealer.update(dealer_params_without_products)
         format.html { redirect_to([:admin, @dealer], notice: 'Dealer was successfully updated.') }
         format.xml  { head :ok }
         format.js
@@ -120,6 +122,7 @@ class Admin::DealersController < AdminController
       :service,
       :products,
       :region,
+      products: [],
       brand_ids: []
     )
   end
