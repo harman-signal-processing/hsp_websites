@@ -76,11 +76,23 @@
     <th>Google Place ID</th>
     <td><%= @dealer.google_map_place_id %></td>
   </tr>
-  <% if @dealer.products.present? %>
-    <tr>
-      <th>Products</th>
-      <td><%= @dealer.products %></td>
-    </tr>
+  <%# if @dealer.products.present? %>
+    <!--<tr>-->
+    <!--  <th>Products</th>-->
+    <!--  <td><%#= @dealer.products %></td> -->
+    <!--</tr>-->
+  <%# end %>
+  <% @dealer.brand_dealers.each do |bd|%>
+    <% if bd.brand_dealer_rental_products.present? %>
+      <tr>
+        <th>Rental Products (<%=bd.brand.name%>)</th>
+        <td>
+          <% bd.brand_dealer_rental_products.each do |product_association|%>
+            <%=product_association.product.name%><br/>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
   <% end %>
 </table>
 
