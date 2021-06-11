@@ -1,0 +1,19 @@
+<% 	rental_product_list = Dealer.available_rental_products(website, dealer) %>
+
+(function(){
+
+  var $rental_product_dropdown = $('#dealer_products');
+
+	// clear the dxlink device list before we rebuild it
+	$rental_product_dropdown.empty();
+	
+	// rebuild rental product dropdown list
+	$rental_product_dropdown.append($("<option></option>"));
+	<% rental_product_list.each do |product| %>
+		$rental_product_dropdown.append($("<option value='<%=product.id%>'><%=escape_javascript(product.name)%></option>"));
+	<% end %>
+	
+	// let chosen know the rental product dropdown list has been updated
+	$rental_product_dropdown.trigger('chosen:updated');	
+
+})();  //  (function(){

@@ -77,8 +77,14 @@ $(document).ready(function() {
             <% end %>
           <% end %>
           (<%=dealer.distance_from(@origin).to_i %> <%= t('dealer_distance') %>)
-          <% if dealer.rental? && dealer.products.present? %>
-            <br/><i>Products available: <%= dealer.products %></i>
+          <%dealer_rental_products = Dealer.rental_products(website, dealer)%>
+          <% if dealer.rental? && dealer_rental_products.present? %>
+            <span style="font-size:small;">
+              <br/><i>Rentals:</i>
+              <% dealer_rental_products.each_with_index do |product, index| %>
+                <%=link_to product.name, product, target:"_blank"%><%="," unless (dealer_rental_products.count == index+1) %>
+              <% end %>
+            </span>
           <% end %>
           <br/><%=raw dealer.address %>
           <% if dealer.city.present? || dealer.state.present? || dealer.zip.present? %>

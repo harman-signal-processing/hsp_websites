@@ -2,3 +2,19 @@
 
 <%= render "form" %>
 
+<%= content_for :extra_js do %>
+  <% brand_dealer = BrandDealer.where("brand_id=? and dealer_id=?", website.brand.id, @dealer.id)%>
+  <% if brand_dealer.present? %>
+    <script>
+      $(function(){
+        // This is for adding rental product associations to a brand_dealer
+        $('#btnRental').click(function() {
+            $this = $(this);
+            var selected_products = $('#dealer_products').val();
+            var brand_dealer_id = <%=brand_dealer.first.id %>;
+            $.post("<%=admin_brand_dealer_rental_products_path%>", {brand_dealer_rental_product:{ product_id: selected_products, brand_dealer_id: brand_dealer_id }});
+        });  //  $('#btnRental').click(function() {
+      });  //  $(function(){
+    </script>
+  <% end %>
+<% end %>
