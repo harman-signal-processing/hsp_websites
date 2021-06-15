@@ -139,6 +139,8 @@ class Admin::UsersController < AdminController
       :super_technician,
       :last_host,
       :vip_programmers_admin,
+      :custom_shop_admin,
+      :customer,
       :invitation_code,
       :password
     )

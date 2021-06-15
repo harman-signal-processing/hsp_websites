@@ -9,6 +9,7 @@ class CustomShopLineItem < ApplicationRecord
   validates :custom_shop_cart, presence: true
   validates :quantity, numericality: { greater_than: 0 }
 
+  monetize :price_cents, allow_nil: true
   accepts_nested_attributes_for :custom_shop_line_item_attributes, reject_if: :all_blank
 
   after_initialize :set_defaults
@@ -25,6 +26,14 @@ class CustomShopLineItem < ApplicationRecord
 
   def set_defaults
     self.quantity ||= 1
+  end
+
+  def subtotal
+    if self.price
+      self.quantity * self.price
+    else
+      0
+    end
   end
 
 end

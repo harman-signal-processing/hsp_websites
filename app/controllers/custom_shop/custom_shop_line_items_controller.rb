@@ -15,7 +15,7 @@ class CustomShop::CustomShopLineItemsController < CustomShopController
       if @custom_shop_line_item.save
         format.html { redirect_to custom_shop_cart_path, notice: "#{@custom_shop_line_item.product.name} has been added to your quote." }
       else
-        format.html { render template: 'custom_shop/products/show' }
+        format.html { render action: "new" }
       end
     end
   end

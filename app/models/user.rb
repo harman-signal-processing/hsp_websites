@@ -78,6 +78,7 @@ class User < ApplicationRecord
     media
     vip_programmers_admin
     customer
+    custom_shop_admin
   ]
 
   def self.staff
@@ -132,6 +133,10 @@ class User < ApplicationRecord
     roles.include? role.to_s
   end
 
+  def end_user_only?
+    roles.empty? || roles == ["customer"]
+  end
+
   def employee?
     role?(:employee) || !!(self.email.to_s.match(/\@harman\.com$/i))
   end
@@ -166,6 +171,10 @@ class User < ApplicationRecord
 
   def vip_programmers_admin?
     role?(:vip_programmers_admin)
+  end
+
+  def custom_shop_admin?
+    role?(:custom_shop_admin)
   end
 
   def needs_account_number?

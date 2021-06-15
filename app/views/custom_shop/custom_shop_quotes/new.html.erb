@@ -1,18 +1,44 @@
+<p>
+  <%= link_to custom_shop_cart_path do %>
+    <%= fa_icon "arrow-left" %>
+    Back to Customize
+  <% end %>
+</p>
 <p>Complete the following to request a quote
 for your customized products:</p>
 
-<%= simple_form_for [:custom_shop, @custom_shop_quote] do |f| %>
-  <%= f.fields_for :user do |u| %>
-    <%# u.input :country %>
-  <% end %>
+<div class="row">
+  <div class="small-12 medium-7 columns">
+    <%= simple_form_for [:custom_shop, @custom_shop_quote] do |f| %>
+      <%= f.fields_for :user do |u| %>
+        <%# u.input :country %>
+      <% end %>
 
-  <%= f.input :account_number, label: "HARMAN Account Number" %>
-  <%= f.input :opportunity_number %>
-  <%= f.input :opportunity_name %>
-  <%= f.input :location %>
-  <%= f.input :request_delivery_on, as: :string, input_html: { class: 'ui-datepicker'} %>
-  <%= f.input :description, label: "Project Description" %>
+      <%= f.input :account_number, label: "HARMAN Account Number" %>
+      <%= f.input :opportunity_number %>
+      <%= f.input :opportunity_name %>
+      <%= f.input :location %>
+      <%= f.input :request_delivery_on, as: :string, input_html: { class: 'ui-datepicker'} %>
+      <%= f.input :description, label: "Project Description" %>
 
-  <%= f.submit "Request Quote", class: "button" %>
-<% end %>
-
+      <%= f.submit "Request Quote", class: "button" %>
+    <% end %>
+  </div>
+  <div class="small-12 medium-5 columns">
+    <div class="panel">
+      <h4 class="text-center">Customized Products Summary</h4>
+      <% @custom_shop_cart.custom_shop_line_items.each do |line_item| %>
+        <p>
+          <%= line_item.product.name %> (qty. <%= line_item.quantity %>)
+          <br/><%= line_item.custom_shop_line_item_attributes.map{|lia| "#{lia.customizable_attribute.name}: #{lia.value}"}.join(", ") %>
+        </p>
+      <% end %>
+      <p class="text-center">
+        <%= link_to custom_shop_cart_path, class: "small secondary button" do %>
+          <%= fa_icon "edit" %>
+          Edit Quote
+        <% end %>
+      </p>
+    </div>
+  </div>
+</div>

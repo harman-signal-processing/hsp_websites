@@ -2227,6 +2227,13 @@ table.cart_summary {
   thead {
     background: #EEE;
   }
+  tfoot {
+    td {
+      padding: rem-calc(30px) rem-calc(10px);
+      font-size: rem-calc(18px);
+      font-weight: bold;
+    }
+  }
   tr {
     height: rem-calc(40px);
 	}
@@ -2247,6 +2254,16 @@ table.cart_summary {
     text-transform: lowercase;
     font-size: rem-calc(11px);
     text-align: left;
+  }
+}
+table.cart_totals {
+   width: 100%;
+ }
+table.order_history, table.sales_order_downloads, table.my_products {
+  width: 100%;
+  border: 1px solid #CCC;
+  thead {
+    background: #EEE;
   }
 }
 

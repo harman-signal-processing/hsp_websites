@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_08_204648) do
+ActiveRecord::Schema.define(version: 2021_06_14_205649) do
 
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
@@ -469,6 +469,7 @@ ActiveRecord::Schema.define(version: 2021_06_08_204648) do
     t.integer "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "price_cents"
     t.index ["custom_shop_cart_id"], name: "index_custom_shop_line_items_on_custom_shop_cart_id"
     t.index ["custom_shop_quote_id"], name: "index_custom_shop_line_items_on_custom_shop_quote_id"
   end
@@ -485,6 +486,7 @@ ActiveRecord::Schema.define(version: 2021_06_08_204648) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "custom_shop_cart_id"
+    t.string "status"
     t.index ["custom_shop_cart_id"], name: "index_custom_shop_quotes_on_custom_shop_cart_id"
     t.index ["user_id"], name: "index_custom_shop_quotes_on_user_id"
   end
@@ -2184,6 +2186,7 @@ ActiveRecord::Schema.define(version: 2021_06_08_204648) do
     t.string "last_host"
     t.boolean "vip_programmers_admin", default: false
     t.boolean "customer"
+    t.boolean "custom_shop_admin", default: false
     t.index ["account_number"], name: "index_users_on_account_number"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

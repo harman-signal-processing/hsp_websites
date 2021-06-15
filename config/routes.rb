@@ -620,7 +620,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :custom_shop_carts
       resources :custom_shop_line_items
     end
-    get '/profile' => "profiles#show", as: :profile
+    get '/profile' => "profile#show", as: :profile
 
     match "*custom_route" => "pages#show", as: :custom_route, via: :all
   end  # scope "(:locale)", locale: /

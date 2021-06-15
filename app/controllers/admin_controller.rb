@@ -15,7 +15,7 @@ class AdminController < ApplicationController
       can?(:manage, Setting) || can?(:manage, Dealer)
       if can?(:read, OnlineRetailer)
         redirect_to admin_online_retailers_path and return
-      elsif current_user.roles == ["customer"]
+      elsif current_user.end_user_only?
         redirect_to root_path and return
       else
         @msg = "You don't appear to have access to any resources. Please contact adam.anderson@harman.com or darryl.dalton@harman.com."

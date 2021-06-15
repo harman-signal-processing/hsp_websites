@@ -8,7 +8,6 @@ feature "A customer builds quote for custom product" do
     @brand = @website.brand
     Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"
-    ProductStatus.clear_instance_variables
     @product_family = FactoryBot.create(:product_family_with_products, brand: @website.brand, products_count: 5)
     @product1 = @product_family.current_products[0]
     @product2 = @product_family.current_products[1]
@@ -57,15 +56,19 @@ feature "A customer builds quote for custom product" do
         click_on("Sign in")
 
         fill_in "Account Number", with: "H123"
+        fill_in "Opportunity number", with: "OP692"
         click_on("Request Quote")
 
         expect(page).to have_text("Your quote request has been submitted.")
 
+        custom_shop_quote = CustomShopQuote.last
         last_email = ActionMailer::Base.deliveries.last
         expect(last_email.subject).to have_text("Custom Shop Quote Request")
         expect(last_email.body).to have_text("joe@schmoe.com")
         expect(last_email.body).to have_text("H123")
+        expect(last_email.body).to have_text("OP692")
         expect(last_email.body).to have_text(@product1.name)
+        expect(last_email.body).to have_link(custom_shop_quote.number)
       end
     end
   end
@@ -165,11 +168,5 @@ feature "A customer builds quote for custom product" do
 
 end
 
-# Before sending a quote, a user can change quantities, remove items, etc.
-# A user logs in to manage quote requests
 # NOTE: Add country to user table
-# Scenarios:
-# * viewing my quote requests
-# * a sales admin updating a quote
-# * sales admin manages options
-# * Prettying it all up
+# NOTE: Users can enter "other" values (free text)

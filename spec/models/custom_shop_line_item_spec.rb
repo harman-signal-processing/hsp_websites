@@ -11,4 +11,7 @@ RSpec.describe CustomShopLineItem, type: :model do
   it { should respond_to(:custom_shop_quote) }
   it { should respond_to(:product) }
   it { should respond_to(:custom_shop_line_item_attributes) }
+  it { should respond_to(:price) }
+  it { should respond_to(:subtotal) }
+
 end
