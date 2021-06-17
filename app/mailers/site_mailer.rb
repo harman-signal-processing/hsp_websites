@@ -105,4 +105,11 @@ class SiteMailer < ActionMailer::Base
          subject: "AMX Partner Interest Form")
   end  #  def amx_partner_interest_form(data, recipients)
 
+  def jbl_vertec_vtx_owner_form(data, recipients)
+    @jbl_vertec_vtx_owner = data
+    mail(to: recipients.split(";"),
+         from: @jbl_vertec_vtx_owner.email,
+         subject: "JBL Vertec/VTX Owner Form")
+  end
+
 end  #  class SiteMailer < ActionMailer::Base
