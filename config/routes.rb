@@ -117,6 +117,9 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
 
     constraints(JblProDomain) do
       get 'vertec-vtx-owners' => "where_to_find#vertec_vtx_owners", as: :vertec_vtx_owners, defaults: { format: :xls }
+      get 'vertec-vtx-owners-signup' => "jbl_vertec_vtx_owners#new", as: :vertec_vtx_owners_signup_form
+      match 'vertec-vtx-owners-signup' => "jbl_vertec_vtx_owners#create", as: :create_vertec_vtx_owners_signup, via: [:post]
+      get 'vertec-vtx-owners-signup/thankyou' => "jbl_vertec_vtx_owners#thankyou", as: :vertec_vtx_owners_signup_thankyou, via: [:get]
     end
 
     devise_for :users, controllers: {
@@ -230,6 +233,12 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
 
       resources :module_requests
       resources :amx_partner_interest_form
+
+      resources :jbl_vertec_vtx_owners do
+        member do
+          get :approve_and_create_dealer
+        end
+      end
 
       resources :systems do
         resources :system_options do

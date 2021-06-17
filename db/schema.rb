@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_07_222420) do
+ActiveRecord::Schema.define(version: 2021_06_17_155337) do
 
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
@@ -746,6 +746,26 @@ ActiveRecord::Schema.define(version: 2021_06_07_222420) do
     t.integer "thumbnail_file_size"
     t.datetime "thumbnail_updated_at"
     t.index ["brand_id"], name: "index_installations_on_brand_id"
+  end
+
+  create_table "jbl_vertec_vtx_owners", charset: "utf8", force: :cascade do |t|
+    t.string "company_name", limit: 100
+    t.string "address", limit: 100
+    t.string "city", limit: 100
+    t.string "state", limit: 50
+    t.string "postal_code", limit: 40
+    t.string "country", limit: 100
+    t.string "phone", limit: 100
+    t.string "email", limit: 100
+    t.string "website", limit: 100
+    t.string "contact_name", limit: 100
+    t.string "rental_products"
+    t.text "comment"
+    t.boolean "approved", default: false
+    t.string "approved_by"
+    t.integer "dealer_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "label_sheet_orders", id: :integer, charset: "latin1", force: :cascade do |t|
@@ -2128,6 +2148,7 @@ ActiveRecord::Schema.define(version: 2021_06_07_222420) do
     t.boolean "super_technician", default: false
     t.string "last_host"
     t.boolean "vip_programmers_admin", default: false
+    t.boolean "jbl_vertec_vtx_owner_approver", default: false
     t.index ["account_number"], name: "index_users_on_account_number"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

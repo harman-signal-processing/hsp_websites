@@ -75,7 +75,8 @@ class User < ApplicationRecord
     technician
     super_technician
     media
-    vip_programmers_admin]
+    vip_programmers_admin
+    jbl_vertec_vtx_owner_approver]
 
   def self.staff
     where("marketing_staff = 1 OR admin = 1 OR market_manager = 1 OR artist_relations = 1 OR sales_admin = 1").order(Arel.sql("UPPER(name)"))

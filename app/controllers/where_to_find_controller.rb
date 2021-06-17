@@ -37,14 +37,14 @@ class WhereToFindController < ApplicationController
   end
 
   def vertec_vtx_owners_search
-    @page_title = "Find Vertec/VTX Rental Companies"
+    @page_title = "Find Vertec / VTX Rental Companies"
     @err = ""
     @js_map_loader = ''
     @results = []
     do_search
 
     # ensure is rental and has products
-    @results = @results.select{|d| d.rental? && d.products.present? }
+    @results = @results.select{|d| d.rental? && Dealer.rental_products(website,d).present? }
 
     respond_to do |format|
       format.html {

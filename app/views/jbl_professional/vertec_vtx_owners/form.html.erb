@@ -1,0 +1,66 @@
+<div class="row">
+  <div class="large-12 columns panel">
+    <img src="https://jblpro.com/resource/jbl-professional-vertec-vtx-signup-form-image.jpg" border="0">
+    <h2>VerTec / VTX Owners Signup</h2>
+  </div>
+</div>
+
+<%= simple_form_for @jbl_vertec_vtx_owner, url: create_vertec_vtx_owners_signup_path do |f| %>
+<div class="row panel">
+	<!-- left side -->
+	<div class="medium-6 columns">
+			<%= f.input :company_name, label: "Company Name", required: true %>
+			<%= f.input :website, label: "Company Web URL", required: true %>
+			<%= f.input :contact_name, label: "Contact Name", required: true %>
+			<%= f.input :email, label: "Email", required: true %>
+			<%= f.input :phone, label: "Phone", required: true %>
+	</div><!-- <div class="medium-6 columns panel"> -->
+
+	<!-- right side -->
+	<div class="medium-6 columns">
+			<%= f.input :address, label: "Street Address", required: true %>
+			<%= f.input :city, label: "City", required: true %>
+			<%= f.input :state, label: "State" %>
+			<%= f.input :postal_code, label: "Postal Code", required: true %>
+			<%= f.input :country, except: ["CU","KP","HK","IR","SY","TW"], label: "Country", required: true %>
+	</div><!-- <div class="medium-6 columns panel"> -->
+
+</div><!-- <div class="row"> -->
+
+<p>&nbsp;</p>
+
+<p style="padding-left:20px;"><abbr title="required">*</abbr> Please select all products you have available to rent.</p>
+<div class="row panel">
+	<!-- left side -->
+	<div class="medium-6 columns">
+	  <h3>VerTec Products</h3>
+	  <%= f.input :vertec_products, 
+	  collection: website.jbl_vertec_rental_products.split("--").map{|item| " " + item.squish!}, 
+	  as: :check_boxes,
+	  label: false%>	  
+	</div>
+	
+	<!-- right side -->
+	<div class="medium-6 columns">
+	  <h3>VTX Products</h3>
+	  <%= f.input :vtx_products, 
+	  collection: website.jbl_vtx_rental_products.split("--").map{|item| " " + item.squish!}, 
+	  as: :check_boxes,
+	  label: false%>	  
+	</div>	
+</div><!-- <div class="row panel"> -->
+
+<p>&nbsp;</p>
+<div class="row panel">
+  <div class="medium-12 columns">
+    <%= f.input :comment, hint: "Please provide any additional necessary information." %>
+  </div>
+</div>
+
+<!--<p>You can view Harman's Privacy Policy, Cookies Statement, & Terms of Use here: <%=link_to "https://www.harman.com/privacy-policy","https://www.harman.com/privacy-policy", target:"_blank"%></p>-->
+
+<%#= render_partial 'support/gdpr_consent' %>
+
+<p>&nbsp;</p>
+<p><%= submit_tag t('submit'), class: "button" %></p>
+<% end %>

@@ -68,9 +68,11 @@ class Dealer < ApplicationRecord
     bd = BrandDealer.where(dealer_id: self.id, brand_id: brand.id).first_or_initialize
     bd.save
 
-    self.children.each do |child|
-      bd = BrandDealer.where(dealer_id: child.id, brand_id: brand.id).first_or_initialize
-      bd.save
+    if self.children.present?
+      self.children.each do |child|
+        bd = BrandDealer.where(dealer_id: child.id, brand_id: brand.id).first_or_initialize
+        bd.save
+      end
     end
   end
 
