@@ -8,6 +8,7 @@ class CustomShopQuote < ApplicationRecord
 
   after_initialize :set_defaults
   after_create :assign_line_items, :send_request
+  before_update :send_quote_to_customer
 
   accepts_nested_attributes_for :custom_shop_line_items
 
@@ -48,6 +49,12 @@ class CustomShopQuote < ApplicationRecord
 
   def send_request
     CustomShopMailer.delay.request_quote(self)
+  end
+
+  def send_quote_to_customer
+    if status_changed? && status == "quoted"
+      CustomShopMailer.delay.send_quote_to_customer(self)
+    end
   end
 
 end

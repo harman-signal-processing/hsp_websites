@@ -26,25 +26,25 @@ feature "An admin manages requested quotes" do
       click_on "Custom Shop Quotes"
       click_on @custom_shop_quote.number
       click_on "Add/Edit Pricing"
-      fill_in "#{@product1.name} Price", with: "1200"
-      fill_in "#{@product2.name} Price", with: "9000"
-      select "quoted", from: "Status"
-      click_on "Update"
+      perform_enqueued_jobs do
+        fill_in "#{@product1.name} Price", with: "1200"
+        fill_in "#{@product2.name} Price", with: "9000"
+        select "quoted", from: "Status"
+        click_on "Update"
 
-      expect(page).to have_text("Status: Quoted")
-      expect(page).to have_text("$1,200") # line item 1
-      expect(page).to have_text("$2,400") # x 2
-      expect(page).to have_text("$9,000") # line item 2
-      expect(page).to have_text("$90,000") # x 10
-      expect(page).to have_text("$92,400") # total
+        expect(page).to have_text("Status: Quoted")
+        expect(page).to have_text("$1,200") # line item 1
+        expect(page).to have_text("$2,400") # x 2
+        expect(page).to have_text("$9,000") # line item 2
+        expect(page).to have_text("$90,000") # x 10
+        expect(page).to have_text("$92,400") # total
+
+        last_email = ActionMailer::Base.deliveries.last
+        expect(last_email.subject).to match("Quote #{@custom_shop_quote.number} Updated")
+        expect(last_email.to).to include(@custom_shop_quote.user.email)
+        expect(last_email.body).to have_text("Click here to view pricing")
+      end
     end
   end
 
-  describe "Notify customer" do
-    it "is successful" do
-      skip "Add specs for notifying customer when updating quote"
-    end
-  end
 end
-
-# NOTE: Need a search interface for pending/existing quotes

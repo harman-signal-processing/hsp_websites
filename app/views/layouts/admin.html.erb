@@ -131,6 +131,9 @@
                       <% if can?(:manage, Installation) && website.has_installations? %>
                         <li><%= link_to "Installations", admin_installations_path %></li>
                       <% end %>
+                      <% if can?(:manage, CustomizableAttribute) %>
+                        <li><%= link_to "Customizable Attributes", admin_customizable_attributes_path %></li>
+                      <% end %>
                     </ul>
                     </li>
                   <% end %>

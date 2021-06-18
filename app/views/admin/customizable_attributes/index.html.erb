@@ -1,0 +1,13 @@
+<h1>Customizable Attributes</h1>
+
+<% if can? :create, CustomizableAttribute %>
+<ul class="button-group round">
+	<li><%= link_to 'New customizable attribute', new_admin_customizable_attribute_path, class: "small success button" %></li>
+</ul>
+<% end %>
+
+<ul class="list">
+	<% @customizable_attributes.order("name").find_each do |customizable_attribute| %>
+	<li><%= link_to customizable_attribute.name, [:admin, customizable_attribute] %></li>
+	<% end %>
+</ul>

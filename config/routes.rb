@@ -348,8 +348,10 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       end
 
       resources :service_centers,
+        :product_family_customizable_attributes,
         :brand_specification_for_comparisons,
         :market_segment_product_families,
+        :customizable_attribute_values,
         :product_family_case_studies,
         :product_family_testimonials,
         :software_training_classes,
@@ -360,6 +362,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :product_review_products,
         :product_family_products,
         :locale_product_families,
+        :customizable_attributes,
         :product_part_group_part,
         :sales_region_countries,
         :product_introductions,

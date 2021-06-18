@@ -273,6 +273,7 @@ class Admin::ProductsController < AdminController
       product_prices_attributes: {},
       product_specifications_attributes: {},
       product_product_filter_values_attributes: {},
+      customizable_attribute_values_attributes: {},
       suggested_product_id: []
     )
   end

@@ -54,6 +54,14 @@ class ProductFamily < ApplicationRecord
       .map{|item| self.new(id: item.keys[0], name: item.values[0]) }
   }
 
+  scope :options_not_associated_with_this_customizable_attribute, -> (customizable_attribute, website) {
+    product_family_ids_already_associated_with_this_customizable_attribute = ProductFamilyCustomizableAttribute.where(customizable_attribute: customizable_attribute).pluck(:product_family_id)
+    self.nested_options(website)
+      .select{|item| product_family_ids_already_associated_with_this_customizable_attribute.exclude?(item.keys[0]) }
+      .reject(&:empty?)
+      .map{|item| self.new(id: item.keys[0], name: item.values[0]) }
+  }
+
   def slug_candidates
     [
       :name,
@@ -451,6 +459,14 @@ class ProductFamily < ApplicationRecord
 
   def parents_with_filters
     @parents_with_filters ||= family_tree.select{|pf| pf if pf.is_a?(ProductFamily) && pf.product_filters.size > 0}
+  end
+
+  def self_and_parents_with_customizable_attributes
+    @self_and_parents_customizable_attributes ||= (customizable_attributes.size > 0) ? [self] + parents_with_customizable_attributes : parents_with_customizable_attributes
+  end
+
+  def parents_with_customizable_attributes
+    @parents_with_customizable_attributes ||= family_tree.select{|pf| pf if pf.is_a?(ProductFamily) && pf.customizable_attributes.size > 0}
   end
 
   def review_quotes(w)
