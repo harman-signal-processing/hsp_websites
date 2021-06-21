@@ -52,13 +52,20 @@ function refresh_map(map) {
   var lng = mapcenter.lng();
   clearOverlays();
   $("ul.dealer_results li").remove();
-  var url = "/where_to_find/partner_search.json?lat=" + lat + "&lng=" + lng
+
+  // var url = "/where_to_find/partner_search.json?lat=" + lat + "&lng=" + lng
+  var url = location.pathname + ".json?lat=" + lat + "&lng=" + lng;
   if ( $("input[name='apply_filters']").val() == 1 ) {
     url += "&apply_filters=1"
     $.each($("div#wtb_container input[type='checkbox']:checked"), function() {
       url += "&"+$(this).attr('name')+"=1"
     });
   }
+  // add rental if url contains 'vertec_vtx_owners_search'
+  if (url.includes("vertec_vtx_owners_search")) {
+    url += "&rental=1"
+  }
+
   $.getJSON(url, function ( data ) {
     load_markers(map, data);
     load_side_column(data);

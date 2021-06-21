@@ -141,6 +141,7 @@ class Admin::UsersController < AdminController
       :vip_programmers_admin,
       :custom_shop_admin,
       :customer,
+      :jbl_vertec_vtx_owner_approver,
       :invitation_code,
       :password
     )

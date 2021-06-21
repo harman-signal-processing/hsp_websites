@@ -1,0 +1,63 @@
+<h1>JBL VerTec/VTX Owner Forms</h1>
+
+<table>
+	<tr>
+		<th>id</th>
+		<th>Status</th>
+		<th>Company</th>
+		<th>Rental Products</th>
+		<th>Comments</th>
+		<th>Created At</th>
+		<th>Updated At</th>
+
+	</tr>
+	<%@jbl_vertec_vtx_owner_forms.each do |item|%>
+	<tr>
+		<td><%=item.id%></td>
+		<td><span id="approval_status_<%=item.id%>">
+			<% if !item.approved %>
+				Needs Approval<br/>
+				<%=link_to "Approve Now", approve_and_create_dealer_admin_jbl_vertec_vtx_owner_path(item), remote: true%>
+			<% else %>
+				Approved by <%=item.approved_by%><br/>
+				Dealer ID: <%=item.dealer_id%>
+				
+				<% dealer = Dealer.find_by_id(item.dealer_id)
+				if dealer.nil? %>
+					<br/><span style="color:red;">Dealer no longer exists</span>
+				<% end %>
+				
+			<% end %>
+			</span>
+		</td>
+		<td><%=item.company_name%>
+		
+		<br/><%=raw item.address %>
+          <% if item.city.present? || item.state.present? || item.postal_code.present? %>
+            <br/><%= item.city %> <%= item.state %> <%= item.postal_code %>
+          <% end %>
+          <% if item.country.present? %>
+            <br/><%= item.country %>
+          <% end %>
+          <% if item.phone.present? %>
+            <br/><%= item.phone %>
+          <% end %>
+          <% if item.website.present? %>
+            <br/><%= link_to item.website.downcase, item.website, target: "_blank" %>
+          <% elsif !item.email.blank? %>
+            <br/><%= mail_to item.email.downcase %>
+          <% end %>
+		
+		</td>
+		<td>
+			<%item.rental_products.split(" |--| ").each do |item|%>
+				<%=item%><br/>
+			<% end %>
+		</td>
+		<td><%=item.comment%></td>
+		
+		<td><%=localize(item.created_at, :format => :long)%></td>
+		<td><%=localize(item.updated_at, :format => :long)%></td>
+	</tr>
+	<% end %>
+</table>

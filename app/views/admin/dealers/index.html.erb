@@ -39,17 +39,50 @@
       <th>Country</th>
       <th>Email</th>
       <th>Account number</th>
+      <th>Brands</th>
+      <th>Services</th>
+      <th>Rental Products</th>
     </tr>
 
-  <% @dealers.each do |dealer| %>
+  <% @dealers.order(:name, :state, :city).each do |dealer| %>
     <% if can? :manage, dealer %>
       <tr style="background: <%= cycle 'white', 'none' %>" <% if dealer.exclude? %>class="strike"<% end %> id="dealer_<%= dealer.id %>">
         <td><%= link_to dealer.name, [:admin, dealer] %></td>
         <td><%= dealer.city %></td>
         <td><%= dealer.state %></td>
         <td><%= dealer.country %></td>
-        <td><%= dealer.email %></td>
-        <td><%= dealer.account_number %></td>
+        <td style="word-wrap: break-word; max-width: 150px;"><%= dealer.email %></td>
+        <td style="word-wrap: break-word; max-width: 150px;"><%= dealer.account_number %></td>
+        <td><%= dealer.brands.pluck(:name).join(", ") %></td>
+        <td>
+          <ul>
+            <% if dealer.resale? %>
+              <li>Resale</li>
+            <% end %>
+            <% if dealer.rental? %>
+              <li>Rental</li>
+            <% end %>
+            <% if dealer.installation? %>
+              <li>Installation</li>
+            <% end %>
+            <% if dealer.service? %>
+              <li>Service</li>
+            <% end %>
+          </ul>
+        </td>
+        <!-- <td><%#= dealer.products %></td> -->
+        <td>
+          <% dealer.brand_dealers.each do |bd|%>
+            <% if bd.brand_dealer_rental_products.present? %>
+              <p style="font-size:small;">
+                <strong>Rental Products (<%=bd.brand.name%>)</strong><br/>
+                <% bd.brand_dealer_rental_products.each do |product_association|%>
+                  <%=product_association.product.name%><br/>
+                <% end %>              
+              </p>
+            <% end %>
+          <% end %>          
+        </td>
     	<% unless dealer.exclude? %>
     	<td id="excluder_<%= dealer.id %>">
     		<%= link_to "exclude", admin_dealer_path(dealer, dealer: {exclude: true}), method: :put, remote: true %>

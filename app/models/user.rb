@@ -79,6 +79,7 @@ class User < ApplicationRecord
     vip_programmers_admin
     customer
     custom_shop_admin
+    jbl_vertec_vtx_owner_approver
   ]
 
   def self.staff

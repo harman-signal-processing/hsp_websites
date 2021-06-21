@@ -117,6 +117,9 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
 
     constraints(JblProDomain) do
       get 'vertec-vtx-owners' => "where_to_find#vertec_vtx_owners", as: :vertec_vtx_owners, defaults: { format: :xls }
+      get 'vertec-vtx-owners-signup' => "jbl_vertec_vtx_owners#new", as: :vertec_vtx_owners_signup_form
+      match 'vertec-vtx-owners-signup' => "jbl_vertec_vtx_owners#create", as: :create_vertec_vtx_owners_signup, via: [:post]
+      get 'vertec-vtx-owners-signup/thankyou' => "jbl_vertec_vtx_owners#thankyou", as: :vertec_vtx_owners_signup_thankyou, via: [:get]
     end
 
     devise_for :users, controllers: {
@@ -231,6 +234,12 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :module_requests
       resources :amx_partner_interest_form
 
+      resources :jbl_vertec_vtx_owners do
+        member do
+          get :approve_and_create_dealer
+        end
+      end
+
       resources :systems do
         resources :system_options do
           resources :system_option_values
@@ -267,6 +276,11 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :brand_solution_featured_products, only: :index do
         collection { post :update_order }
       end
+
+      resources :brand_dealer_rental_products do
+        collection { post :update_order }
+      end
+
       resources :specifications do
         member { patch :remove_from_group }
         collection {
@@ -594,6 +608,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
 
     match '/international_distributors' => 'distributors#index', as: :international_distributors, via: :all
     get '/where_to_find/partner_search(/:format)' => 'where_to_find#partner_search', as: :partner_search
+    get '/where_to_find/vertec_vtx_owners_search(/:format)' => 'where_to_find#vertec_vtx_owners_search', as: :vertec_vtx_owners_search
     get '/where_to_find(/:zip)' => 'where_to_find#index', as: :where_to_find
     get '/where_to_buy(/:zip)', to: redirect('where_to_find'), as: :where_to_buy
     get '/enquire(/:zip)' => 'where_to_find#index', as: :enquire

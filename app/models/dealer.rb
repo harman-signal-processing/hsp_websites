@@ -18,6 +18,32 @@ class Dealer < ApplicationRecord
     brand.dealers.select{|d| d.distance_from(origin) <= within_miles}
   }
 
+  scope :rental_products, -> (website, dealer) {
+    brand_dealer = BrandDealer.where("brand_id=? and dealer_id=?", website.brand.id, dealer.id).first
+    if brand_dealer.present?
+      rental_product_ids = brand_dealer.brand_dealer_rental_products.select{|p| p.product_id }.pluck(:product_id)
+      Product.where(id: rental_product_ids)
+    end
+  }
+
+  scope :available_rental_products, -> (website, dealer) {
+    existing_rental_products = rental_products(website, dealer)
+    if existing_rental_products.present?
+      website.products.where.not(id: existing_rental_products.pluck(:id))
+    else
+      website.products
+    end
+  }
+
+  scope :rental_product_associations, -> (website, dealer) {
+    brand_dealer = BrandDealer.where("brand_id=? and dealer_id=?", website.brand.id, dealer.id).first
+    associations_to_return = []
+    if brand_dealer.present?
+      associations_to_return = brand_dealer.brand_dealer_rental_products
+    end
+    associations_to_return
+  }
+
   def parent
     if !!(self.account_number.match(/^(\d*)\-+\d*$/))
       if p = Dealer.where(account_number: $1).first
@@ -42,9 +68,11 @@ class Dealer < ApplicationRecord
     bd = BrandDealer.where(dealer_id: self.id, brand_id: brand.id).first_or_initialize
     bd.save
 
-    self.children.each do |child|
-      bd = BrandDealer.where(dealer_id: child.id, brand_id: brand.id).first_or_initialize
-      bd.save
+    if self.children.present?
+      self.children.each do |child|
+        bd = BrandDealer.where(dealer_id: child.id, brand_id: brand.id).first_or_initialize
+        bd.save
+      end
     end
   end
 
@@ -196,7 +224,7 @@ class Dealer < ApplicationRecord
           sheet[row, 0] = country.country.blank? ? "(empty country)" : country.country
           sheet.merge_cells(row, 0, row, 7)
           row += 1
-          dealers.where(region: region.region, country: country.country).each do |dealer|
+          dealers.where(region: region.region, country: country.country).order(:name).each do |dealer|
             addr = dealer.address.split(/\<br\/?\>/i)
             sheet.row(row).default_format = line_above_format
             sheet.row(row).set_format(0, dealer_name_format)

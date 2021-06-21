@@ -226,7 +226,8 @@
                       (can?(:manage, Distributor) && website.has_distributors?) ||
                       (can?(:manage, Dealer) && website.has_dealers?) ||
                       (can?(:manage, SalesRegion) && website.send_contact_form_to_regional_support?) ||
-                      (can?(:manage, ServiceCenter) && website.has_service_centers?) %>
+                      (can?(:manage, ServiceCenter) && website.has_service_centers?) ||
+                      (can?(:manage, JblVertecVtxOwner) && website.brand.name.downcase == "jbl professional")%>
                     <li class="has-dropdown"><%= link_to "Partners", '#' %>
                     <ul class="dropdown">
                       <% if can?(:manage, OnlineRetailer) && website.has_online_retailers? %>
@@ -246,6 +247,9 @@
                       <% end %>
                       <% if can?(:manage, ServiceCenter) && website.has_service_centers? %>
                         <li><%= link_to "Service Centers", admin_service_centers_path %></li>
+                      <% end %>
+                      <% if can?(:manage, JblVertecVtxOwner) %>
+                        <li><%= link_to "JBL Vertec/VTX Owner Approvals", admin_jbl_vertec_vtx_owners_path %></li>
                       <% end %>
                     </ul>
                     </li>
@@ -268,38 +272,38 @@
                   <% end %>
 
                   <% if can?(:manage, Vip::Programmer) && website.brand.name == "AMX" %>
-                  <li class="has-dropdown"><%= link_to "VIP Programmers", admin_vip_programmers_path %>
-                    <ul class="dropdown">
-                      <li><%= link_to "VIP Programmers", admin_vip_programmers_path %></li>
-                      <% if can? :manage, Vip::Certification %>
-                        <li><%= link_to "Industry Certifications", admin_vip_certifications_path %></li>
-                      <% end %>
-                      <% if can? :manage, Vip::Training %>
-                        <li><%= link_to "Harman Certifications", admin_vip_trainings_path %></li>
-                      <% end %>
-                      <% if can? :manage, Vip::Service %>
-                        <li><%= link_to "Services", admin_vip_services_path %></li>
-                      <% end %>
-                      <% if can? :manage, Vip::Market %>
-                        <li><%= link_to "Markets", admin_vip_markets_path %></li>
-                      <% end %>
-                      <% if can? :manage, Vip::Location %>
-                        <li><%= link_to "Locations", admin_vip_locations_path %></li>
-                      <% end %>
-                      <% if can? :manage, Vip::Website %>
-                        <li><%= link_to "Websites", admin_vip_websites_path %></li>
-                      <% end %>
-                      <% if can? :manage, Vip::Email %>
-                        <li><%= link_to "Emails", admin_vip_emails_path %></li>
-                      <% end %>
-                      <% if can? :manage, Vip::Phone %>
-                        <li><%= link_to "Phones", admin_vip_phones_path %></li>
-                      <% end %>
-                    </ul>
+                    <li class="has-dropdown"><%= link_to "VIP Programmers", admin_vip_programmers_path %>
+                      <ul class="dropdown">
+                        <li><%= link_to "VIP Programmers", admin_vip_programmers_path %></li>
+                        <% if can? :manage, Vip::Certification %>
+                          <li><%= link_to "Industry Certifications", admin_vip_certifications_path %></li>
+                        <% end %>
+                        <% if can? :manage, Vip::Training %>
+                          <li><%= link_to "Harman Certifications", admin_vip_trainings_path %></li>
+                        <% end %>
+                        <% if can? :manage, Vip::Service %>
+                          <li><%= link_to "Services", admin_vip_services_path %></li>
+                        <% end %>
+                        <% if can? :manage, Vip::Market %>
+                          <li><%= link_to "Markets", admin_vip_markets_path %></li>
+                        <% end %>
+                        <% if can? :manage, Vip::Location %>
+                          <li><%= link_to "Locations", admin_vip_locations_path %></li>
+                        <% end %>
+                        <% if can? :manage, Vip::Website %>
+                          <li><%= link_to "Websites", admin_vip_websites_path %></li>
+                        <% end %>
+                        <% if can? :manage, Vip::Email %>
+                          <li><%= link_to "Emails", admin_vip_emails_path %></li>
+                        <% end %>
+                        <% if can? :manage, Vip::Phone %>
+                          <li><%= link_to "Phones", admin_vip_phones_path %></li>
+                        <% end %>
+                      </ul>
                     </li>
-                  <li><%= link_to('ITG Module Requests', admin_module_requests_path)%></li>
-                  <li><%= link_to('AMX Partner Interest Forms', admin_amx_partner_interest_form_index_path)%></li>
-                  <li><%= link_to('AMX DXLink Device Info', admin_amx_dxlink_device_infos_path)%></li>
+                    <li><%= link_to('ITG Module Requests', admin_module_requests_path)%></li>
+                    <li><%= link_to('AMX Partner Interest Forms', admin_amx_partner_interest_form_index_path)%></li>
+                    <li><%= link_to('AMX DXLink Device Info', admin_amx_dxlink_device_infos_path)%></li>
                   <% end %>
 
                 </ul>

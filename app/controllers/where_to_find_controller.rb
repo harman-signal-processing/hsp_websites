@@ -36,6 +36,32 @@ class WhereToFindController < ApplicationController
     end
   end
 
+  def vertec_vtx_owners_search
+    @page_title = "Find Vertec / VTX Rental Companies"
+    @err = ""
+    @js_map_loader = ''
+    @results = []
+    do_search
+
+    # ensure is rental and has products
+    @results = @results.select{|d| d.rental? && Dealer.rental_products(website,d).present? }
+
+    respond_to do |format|
+      format.html {
+        if @results.size > 0
+          @js_map_loader = "map_init('#{@results.first.lat}','#{@results.first.lng}',7)"
+        elsif @results.size == 0 && params[:zip].present?
+          @err = t('errors.no_dealers_found', zip: params[:zip])
+        end
+        render_template
+      }
+
+      format.json {
+        respond_with @results.to_json(except: [:account_number, :brand_id, :created_at, :updated_at, :name2, :name3, :name4])
+      }
+    end
+  end
+
   def vertec_vtx_owners
     respond_to do |format|
       format.xls {

@@ -11,7 +11,7 @@
   <% end %>
 </h1>
 
-<% unless @err.blank? %>
+<% if @err.present? %>
   <div class="alert-box alert"><%= @err %></div>
 <% end %>
 
@@ -28,7 +28,7 @@ $(document).ready(function() {
 
 <div class="row" id="wtb_container" data-include-rental-and-service="<%= website.brand.dealers_include_rental_and_service? %>">
   <div class="small-12 medium-8 large-6 columns">
-    <%= form_tag partner_search_path, method: :get %>
+    <%= form_tag vertec_vtx_owners_search_path, method: :get %>
     <div class="row collapse">
       <div class="large-8 small-7 columns">
         <%= text_field_tag "zip", session[:zip], placeholder: website.brand.dealers_are_us_only? ? t('us_zip_code') : t('global_search_location') %>
@@ -39,33 +39,35 @@ $(document).ready(function() {
     </div>
     <% if website.brand.dealers_include_rental_and_service? %>
       <input type="hidden" name="apply_filters" value="1"/>
-      <% unless website.value_for("dont_actually_show_dealers") %>
-        <label for="resale">
-          <input type="checkbox" value="1" name="resale" id="resale" <% if @filter_resale %>checked="checked"<% end %>> Resellers
-        </label>
-      <% end %>
+      <input type="hidden" name="rental" id="rental" value="1">
+
       <% if website.brand.dealers.where(rental: true).count > 0 %>
         <label for="rental">
-          <input type="checkbox" value="1" name="rental" id="rental" <% if @filter_rental %>checked="checked"<% end %>>
           <% if website.brand.name == "JBL Professional" %>
-            VERTEC/VTX owners <%= link_to 'download all to Excel', vertec_vtx_owners_path %>
-          <% else %>
-            Rentals
+            <%= link_to 'Download all VERTEC / VTX rental companies to Excel', vertec_vtx_owners_path %>
           <% end %>
         </label>
       <% end %>
-      <% if website.brand.dealers.where(service: true).count > 0 %>
-        <label for="service">
-          <input type="checkbox" value="1" name="service" id="service" <% if @filter_service %>checked="checked"<% end %>> Service
-        </label>
-      <% end %>
+
     <% end %>
     </form>
   </div>
-  <div class="large-4 columns dealer-results-count">
-    <span id="dealer_results_count"><%=@results.count%></span> <%= "result".pluralize(@results.count) %> found
-    </div>
+  <div class="large-4 columns">
+    <div class="callout panel" style="margin-top:-42px;">
+      <div>Have Vertec / VTX equipment to rent?</div>
+      <%=link_to "Let Us Know",vertec_vtx_owners_signup_form_path, class: "postfix button"%>
+    </div><!-- <div class="callout panel"> -->
+  </div><!-- <div class="large-4 columns"> -->
 </div>
+
+<% if params[:zip].present? %>
+<div class="row">
+  <div class="small-12 medium-8 large-6 columns"></div>
+  <div class="large-4 columns" style="padding-left:0;">
+    <span id="dealer_results_count"><%=@results.count%></span> <%= "result".pluralize(@results.count) %> found
+  </div>
+</div>
+
 <div class="row">
   <div class="small-12 medium-7 large-8 columns">
     <div id="map" style="width: 100%; height: 600px;"></div>
@@ -87,8 +89,14 @@ $(document).ready(function() {
             <% end %>
           <% end %>
           (<%=dealer.distance_from(@origin).to_i %> <%= t('dealer_distance') %>)
-          <% if dealer.rental? && dealer.products.present? %>
-            <br/><i>Products available: <%= dealer.products %></i>
+          <%dealer_rental_products = Dealer.rental_products(website, dealer)%>
+          <% if dealer.rental? && dealer_rental_products.present? %>
+            <span style="font-size:small;">
+              <br/><i>Rentals:</i>
+              <% dealer_rental_products.each_with_index do |product, index| %>
+                <%=link_to product.name, product, target:"_blank"%><%="," unless (dealer_rental_products.count == index+1) %>
+              <% end %>
+            </span>
           <% end %>
           <br/><%=raw dealer.address %>
           <% if dealer.city.present? || dealer.state.present? || dealer.zip.present? %>
@@ -111,9 +119,10 @@ $(document).ready(function() {
   </div>
 
 </div>
+<% end %>
 
 <% if website.brand.has_online_retailers? %>
-  <%= render_partial 'where_to_find/retailers' %>
+  <%#= render_partial 'where_to_find/retailers' %>
 <% end %>
 
 <%= content_for :extra_js do %>

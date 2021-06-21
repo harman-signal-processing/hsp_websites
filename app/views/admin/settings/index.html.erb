@@ -31,6 +31,7 @@
   <tr>
     <td><%= link_to setting.name, [:admin, setting] %>
       <% if !setting.locale.blank? %>(<%= setting.locale %>)<% end %>
+      <% if !setting.integer_value.blank? && (setting.setting_type.to_s == "slideshow frame" || setting.setting_type.to_s == "products homepage slideshow frame") %>[order: <%= setting.integer_value %>]<% end %>
     </td>
     <td>
       <% if setting.setting_type.to_s == "homepage feature" %>

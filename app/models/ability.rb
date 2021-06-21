@@ -266,6 +266,11 @@ class Ability
         can :manage, AmxDxlinkComboAttribute
         can :manage, AmxDxlinkAttributeName
       end  #  if user.role?(:vip_programmers_admin)
+      if user.role?(:jbl_vertec_vtx_owner_approver)
+        can :manage, JblVertecVtxOwner
+        can :manage, Dealer
+        can :manage, BrandDealerRentalProduct
+      end
     end
   end
 end
