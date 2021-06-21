@@ -11,7 +11,7 @@
   <% end %>
 </h1>
 
-<% unless @err.blank? %>
+<% if @err.present? %>
   <div class="alert-box alert"><%= @err %></div>
 <% end %>
 
@@ -53,13 +53,14 @@ $(document).ready(function() {
     </form>
   </div>
   <div class="large-4 columns">
-    <div class="callout panel">
+    <div class="callout panel" style="margin-top:-42px;">
       <div>Have Vertec / VTX equipment to rent?</div>
       <%=link_to "Let Us Know",vertec_vtx_owners_signup_form_path, class: "postfix button"%>
     </div><!-- <div class="callout panel"> -->
   </div><!-- <div class="large-4 columns"> -->
 </div>
 
+<% if params[:zip].present? %>
 <div class="row">
   <div class="small-12 medium-8 large-6 columns"></div>
   <div class="large-4 columns" style="padding-left:0;">
@@ -118,26 +119,10 @@ $(document).ready(function() {
   </div>
 
 </div>
+<% end %>
 
 <% if website.brand.has_online_retailers? %>
-  <br/>
-  <div class="row">
-    <div class="large-12 columns">
-      <h3><%= t('titles.buy_online') %></h3>
-
-      <ul class="large-block-grid-6 small-block-grid-3">
-        <% OnlineRetailer.random(website)[0,24].each do |online_retailer| %>
-          <li>
-            <% if !online_retailer.retailer_logo_file_name.blank? %>
-              <%= link_to(image_tag(online_retailer.retailer_logo(:fixed)), online_retailer.direct_link, target: "_blank")%>
-            <% else %>
-              <%= link_to online_retailer.name, online_retailer.direct_link, target: "_blank" %>
-            <% end %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
+  <%#= render_partial 'where_to_find/retailers' %>
 <% end %>
 
 <%= content_for :extra_js do %>
