@@ -48,10 +48,10 @@ class WhereToFindController < ApplicationController
 
     respond_to do |format|
       format.html {
-        unless @results.size > 0
-          @err = t('errors.no_dealers_found', zip: params[:zip])
-        else
+        if @results.size > 0
           @js_map_loader = "map_init('#{@results.first.lat}','#{@results.first.lng}',7)"
+        elsif @results.size == 0 && params[:zip].present?
+          @err = t('errors.no_dealers_found', zip: params[:zip])
         end
         render_template
       }
