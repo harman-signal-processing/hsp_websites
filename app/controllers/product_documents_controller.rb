@@ -40,7 +40,7 @@ class ProductDocumentsController < ApplicationController
 
   def send_document(product_document)
     begin
-      data = open(product_document.document.url)
+      data = URI.open(product_document.document.url)
       send_data data.read,
         disposition: 'inline',
         stream: true,

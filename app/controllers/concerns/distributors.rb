@@ -7,7 +7,7 @@ module Distributors
       return []
     else
       url = "#{ENV['PRO_SITE_URL']}/distributor_info/distributors/#{brand.downcase}/#{country_code.downcase}.json"
-      encoded_url = URI.encode(url)
+      encoded_url = URI::Parser.new.escape(url)
 
       response = HTTParty.get(encoded_url, ssl_version: :TLSv1_2)
       if response.success?
