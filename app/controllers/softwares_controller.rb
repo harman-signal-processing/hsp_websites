@@ -70,7 +70,7 @@ class SoftwaresController < ApplicationController
       # Used to use send_file to take advantage of nginx caching, but now we just
       # redirect to S3/Cloudfront url.
       if @software.ware_file_name.to_s.match?(/\.mu3$/i)
-        data = open(@software.ware.url)
+        data = URI.open(@software.ware.url)
         send_data data.read,
           filename: @software.ware_file_name,
           content_type: @software.ware_content_type,

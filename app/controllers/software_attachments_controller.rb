@@ -5,7 +5,7 @@ class SoftwareAttachmentsController < ApplicationController
   def download
     @software_attachment = SoftwareAttachment.find(params[:id])
     
-    data = open(@software_attachment.software_attachment.url)
+    data = URI.open(@software_attachment.software_attachment.url)
     send_data data.read,
     filename: @software_attachment.software_attachment.original_filename,
     content_type: @software_attachment.software_attachment.content_type,
