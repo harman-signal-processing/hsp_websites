@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_17_155337) do
+ActiveRecord::Schema.define(version: 2021_06_28_175639) do
 
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
@@ -948,7 +948,7 @@ ActiveRecord::Schema.define(version: 2021_06_17_155337) do
     t.string "title"
     t.string "keywords"
     t.text "description"
-    t.text "body"
+    t.text "body", size: :medium
     t.string "custom_route"
     t.datetime "created_at"
     t.datetime "updated_at"
