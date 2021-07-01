@@ -132,8 +132,10 @@ class SearchController < ApplicationController
       @pdf_results = ThunderstoneSearch.find(sanitized_query, thunderstone_search_profile, jump)
       if @pdf_results.blank?
       else
-        @pdf_results_paginated_list = WillPaginate::Collection.create(current_page, per_page, @pdf_results[:Summary][:TotalNum].to_i) do |pager|
-          pager.replace(@pdf_results[:ResultList].to_ary)
+        if @pdf_results[:Summary].present?
+          @pdf_results_paginated_list = WillPaginate::Collection.create(current_page, per_page, @pdf_results[:Summary][:TotalNum].to_i) do |pager|
+            pager.replace(@pdf_results[:ResultList].to_ary)
+          end
         end
       end
     end
