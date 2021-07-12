@@ -6,8 +6,12 @@
     <%= a.input :value,
       label: a.object.customizable_attribute.name,
       as: :radio_buttons,
+      hint: a.object.customizable_attribute.comment,
       collection: a.object.options_for(f.object.product) %>
-    <br/>
+    <% if a.object.options_for(f.object.product).map{|k,v| v}.include?("Custom") %>
+      <%= a.input :custom_value %>
+    <% end %>
+    <br/><br/>
   <% end %>
 
   <div class="row">

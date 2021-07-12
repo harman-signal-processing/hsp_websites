@@ -67,7 +67,9 @@
           <h5><%= line_item.product.name %></h5>
           <ul>
             <% line_item.custom_shop_line_item_attributes.each do |attr| %>
-              <li><%= attr.customizable_attribute.name %>: <%= attr.value %></li>
+              <li><%= attr.customizable_attribute.name %>: <%= attr.value %>
+                <% if attr.custom_value.present? %>(<%= attr.custom_value %>)<% end %>
+              </li>
             <% end %>
           </ul>
         </td>

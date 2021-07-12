@@ -55,7 +55,7 @@ class CustomShop::CustomShopLineItemsController < CustomShopController
     params.require(:custom_shop_line_item).permit(
       :product_id,
       :quantity,
-      custom_shop_line_item_attributes_attributes: [:customizable_attribute_id, :value, :id]
+      custom_shop_line_item_attributes_attributes: [:customizable_attribute_id, :value, :custom_value, :id]
     )
   end
 end

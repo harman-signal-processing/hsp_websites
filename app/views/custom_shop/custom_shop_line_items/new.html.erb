@@ -28,7 +28,7 @@
       <%= render 'download_table', product: @custom_shop_line_item.product %>
 
       <p>
-        <%= link_to @custom_shop_line_item.product, class: "button", target: "_blank" do %>
+        <%= link_to @custom_shop_line_item.product, target: "_blank" do %>
           View Product Details
           <%= fa_icon "external-link" %>
         <% end %>

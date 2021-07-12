@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_17_155337) do
+ActiveRecord::Schema.define(version: 2021_06_22_195449) do
 
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
@@ -468,6 +468,7 @@ ActiveRecord::Schema.define(version: 2021_06_17_155337) do
     t.string "value"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "custom_value"
   end
 
   create_table "custom_shop_line_items", charset: "utf8", force: :cascade do |t|
@@ -505,12 +506,15 @@ ActiveRecord::Schema.define(version: 2021_06_17_155337) do
     t.string "value"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "comment"
+    t.string "code"
   end
 
   create_table "customizable_attributes", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "comment"
   end
 
   create_table "dealer_users", id: :integer, charset: "latin1", force: :cascade do |t|

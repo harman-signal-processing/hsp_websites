@@ -7,7 +7,9 @@ class CustomShopLineItemAttribute < ApplicationRecord
   validates :value, presence: true
 
   def options_for(product)
-    product.customizable_attribute_values.where(customizable_attribute: customizable_attribute).pluck(:value)
+    product.customizable_attribute_values.where(customizable_attribute: customizable_attribute).map do |cav|
+      [cav.label, cav.value]
+    end
   end
 
 end

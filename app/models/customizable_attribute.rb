@@ -5,4 +5,5 @@ class CustomizableAttribute < ApplicationRecord
   scope :not_associated_with_product_family, -> (product_family) {
     where.not(id: ProductFamilyCustomizableAttribute.where(product_family: product_family).pluck(:customizable_attribute_id))
   }
+
 end

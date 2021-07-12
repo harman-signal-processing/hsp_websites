@@ -18,7 +18,9 @@
           <p><strong><%= li.object.product.name %></strong></p>
           <ul>
             <% li.object.custom_shop_line_item_attributes.each do |attr| %>
-              <li><%= attr.customizable_attribute.name %>: <%= attr.value %></li>
+              <li><%= attr.customizable_attribute.name %>: <%= attr.value %>
+                <% if attr.custom_value.present? %>(<%= attr.custom_value %>)<% end %>
+              </li>
             <% end %>
           </ul>
         </td>

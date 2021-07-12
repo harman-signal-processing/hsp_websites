@@ -36,7 +36,9 @@ Requested Delivery: <%=l @custom_shop_quote.request_delivery_on, format: :long %
       <ul>
         <li>Quantity: <%= line_item.quantity.present? ? line_item.quantity : 1 %></li>
         <% line_item.custom_shop_line_item_attributes.each do |attr| %>
-          <li><%= attr.customizable_attribute.name %>: <%= attr.value %></li>
+          <li><%= attr.customizable_attribute.name %>: <%= attr.value %>
+            <% if attr.custom_value.present? %>(<%= attr.custom_value %>)<% end %>
+          </li>
         <% end %>
       </ul>
   </li>
