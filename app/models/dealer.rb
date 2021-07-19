@@ -21,8 +21,7 @@ class Dealer < ApplicationRecord
   scope :rental_products, -> (website, dealer) {
     brand_dealer = BrandDealer.where("brand_id=? and dealer_id=?", website.brand.id, dealer.id).first
     if brand_dealer.present?
-      rental_product_ids = brand_dealer.brand_dealer_rental_products.select{|p| p.product_id }.pluck(:product_id)
-      Product.where(id: rental_product_ids)
+      Product.joins(:brand_dealer_rental_products).where("brand_dealer_rental_products.brand_dealer_id = ?", brand_dealer).order(:position)
     end
   }
 
