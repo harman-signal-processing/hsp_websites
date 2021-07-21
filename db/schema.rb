@@ -2217,9 +2217,9 @@ ActiveRecord::Schema.define(version: 2021_06_28_175639) do
     t.boolean "super_technician", default: false
     t.string "last_host"
     t.boolean "vip_programmers_admin", default: false
+    t.boolean "jbl_vertec_vtx_owner_approver", default: false
     t.boolean "customer"
     t.boolean "custom_shop_admin", default: false
-    t.boolean "jbl_vertec_vtx_owner_approver", default: false
     t.index ["account_number"], name: "index_users_on_account_number"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
