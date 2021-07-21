@@ -1,7 +1,7 @@
 FactoryBot.define do
 
   factory :brand do
-    sequence(:name) {|n| "HSP Brand #{n}"}
+    sequence(:name) {|n| "HARMAN Brand #{n}"}
     has_effects { false }
     has_reviews { true }
     has_faqs { true }
@@ -68,11 +68,6 @@ FactoryBot.define do
       name { "JBL Commercial" }
       employee_store { false }
       live_on_this_platform { true }
-    end
-    factory :idx_brand do
-      name { "IDX" }
-      employee_store { false }
-      live_on_this_platform { false }
     end
     factory :dbx_brand do
       name { "dbx" }

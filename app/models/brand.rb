@@ -154,6 +154,14 @@ class Brand < ApplicationRecord
     end
   end
 
+  def custom_shop_email
+    begin
+      self.settings.find_by(name: "custom_shop_email").value
+    rescue
+      self.support_email
+    end
+  end
+
   # Those brands which should appear on the myharman.com store (via the API)
   def self.for_employee_store
     where(employee_store: true).order(Arel.sql("UPPER(name)")) || where(name: ["DigiTech", "Lexicon", "dbx", "DOD"])

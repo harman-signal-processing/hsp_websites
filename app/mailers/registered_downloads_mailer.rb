@@ -1,5 +1,4 @@
-class RegisteredDownloadsMailer < ActionMailer::Base
-  default from: ENV['DEFAULT_SENDER']
+class RegisteredDownloadsMailer < ApplicationMailer
 
   # The custom path we used to use doesn't work anymore,
   # So, the email templates are now in the repo, in the

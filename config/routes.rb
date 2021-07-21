@@ -362,8 +362,10 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       end
 
       resources :service_centers,
+        :product_family_customizable_attributes,
         :brand_specification_for_comparisons,
         :market_segment_product_families,
+        :customizable_attribute_values,
         :product_family_case_studies,
         :product_family_testimonials,
         :software_training_classes,
@@ -374,6 +376,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :product_review_products,
         :product_family_products,
         :locale_product_families,
+        :customizable_attributes,
         :product_part_group_part,
         :sales_region_countries,
         :product_introductions,
@@ -624,6 +627,18 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get '/case_studies/:slug' => 'case_studies#show', as: :case_study
     get '/case_studies/application/:vertical_market' => 'case_studies#index', as: :case_studies_by_vertical_market
     get '/case_studies/filter/:asset_type/:vertical_market' => 'case_studies#index', as: :case_studies_by_asset_type
+
+    # Custom Shop
+    get 'custom_shop' => 'custom_shop#index', as: :custom_shop
+    namespace :custom_shop do
+      get 'cart' => "custom_shop_carts#show", as: :cart
+      get 'request_submitted' => "custom_shop_quotes#request_submitted", as: :request_submitted
+      resources :products
+      resources :custom_shop_quotes
+      resources :custom_shop_carts
+      resources :custom_shop_line_items
+    end
+    get '/profile' => "profile#show", as: :profile
 
     match "*custom_route" => "pages#show", as: :custom_route, via: :all
   end  # scope "(:locale)", locale: /

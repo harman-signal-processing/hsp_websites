@@ -1,0 +1,39 @@
+<h1><%= website.brand.name %> Custom Shop</h1>
+<p>Select from the products below to begin your custom shop quote.</p>
+
+<% @product_families.sort_by(&:name).each do |product_family| %>
+  <h3><%= product_family.name %></h3>
+
+  <ul class="large-block-grid-5 medium-block-grid-3 small-block-grid-2">
+    <% product_family.current_products_plus_child_products(website).sort_by(&:name).each do |product| %>
+      <% if product.customizable_attributes.size > 0 %>
+        <li>
+          <div id="<%= product.to_param %>" class="small_product_box">
+            <div class="product_thumb" data-equalizer-watch="product_thumbs">
+              <% if product.photo %>
+                 <%= link_to product do %>
+                   <%= image_tag(product.photo.product_attachment.url(:medium), lazy: product_photo_is_png?(product)) %>
+                 <% end %>
+              <% end %>
+            </div>
+            <h3 class="text-center">
+              <%= link_to product do %>
+                <%= translate_content(product, :name) %>
+              <% end %>
+            </h3>
+            <div class="product_description">
+              <%= translate_content(product, :short_description) %>
+              <br/><br/>
+              <div class="text-center">
+                <%= link_to [:custom_shop, product], class: "small button" do %>
+                  Customize <%= translate_content(product, :name) %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>
+

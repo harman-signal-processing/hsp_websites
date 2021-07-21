@@ -1,0 +1,22 @@
+<table style="width: 100%">
+  <thead>
+    <tr>
+      <td><!--Filename-->&nbsp;</td>
+      <td class="hide-for-small">Version</td>
+      <td class="hide-for-small">Language</td>
+    </tr>
+  </thead>
+  <tbody>
+
+  <% (product.all_related_downloads(I18n.locale.to_s, website)).group_by(&:resource_type).sort_by{|r,i| download_group_sort_order(r)}.each do |resource_type, site_elements| %>
+    <% if resource_type.to_s.match?(/Spec|Manual|Guide/i) %>
+      <%= downloads_header_row(resource_type, site_elements, columns: 3) %>
+      <% site_elements.each do |site_element| %>
+        <%= render 'download_table_row', item: site_element %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  </tbody>
+</table>
+

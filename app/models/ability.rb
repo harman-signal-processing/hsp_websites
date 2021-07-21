@@ -19,7 +19,8 @@ class Ability
       technician: false,
       super_technician: false,
       rso: false,
-      vip_programmers_admin: false
+      vip_programmers_admin: false,
+      custom_shop_admin: false
     })
     # The first argument to `can` is the action you are giving the user permission to do.
     # If you pass :manage it will apply to every action. Other common actions here are
@@ -92,6 +93,32 @@ class Ability
         can :read, ContactMessage
         can :manage, LabelSheet
         can :manage, LabelSheetOrder
+      end
+      if user.role?(:custom_shop_admin)
+        can :manage, CustomShopQuote
+        can :manage, CustomShopLineItem
+        can :manage, CustomShopLineItemAttribute
+        can :manage, CustomizableAttribute
+        can :manage, CustomizableAttributeValue
+        can :manage, ProductFamilyCustomizableAttribute
+        can :quote, CustomShopQuote
+      end
+      if user.role?(:customer)
+        can :create, CustomShopQuote
+        can :manage, CustomShopQuote do |csq|
+          csq.user_id == user.id
+        end
+        can :create, CustomShopLineItem
+        can :manage, CustomShopLineItem do |csli|
+          csli.custom_shop_quote.present? && csli.custom_shop_quote.user_id == user.id
+        end
+        can :create, CustomShopLineItemAttribute
+        can :manage, CustomShopLineItemAttribute do |cslia|
+          cslia.custom_shop_line_item.present? &&
+            cslia.custom_shop_line_item.custom_shop_quote.present? &&
+            cslia.custom_shop_line_item.custom_shop_quote.user_id == user.id
+        end
+        can :create, CustomShopCart
       end
       if user.role?(:engineer)
         can :manage, Software

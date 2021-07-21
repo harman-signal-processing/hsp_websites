@@ -1,0 +1,46 @@
+<h1> <%= @customizable_attribute.name %></h1>
+
+<ul class="button-group round">
+	<li><%= link_to admin_customizable_attributes_path, class: "small secondary button" do %>
+    <%= fa_icon "angle-double-left" %>
+  <% end %>
+  </li>
+	<li><%= link_to edit_admin_customizable_attribute_path(@customizable_attribute), class: "small secondary button" do %>
+      <%= fa_icon "edit" %>
+      Edit
+    <% end %>
+  </li>
+	<li><%= link_to [:admin, @customizable_attribute], confirm: 'Are you sure?', method: :delete, class: "small alert button" do %>
+    <%= fa_icon "trash" %>
+    Delete
+  <% end %>
+  </li>
+</ul>
+
+<div class="group">
+  <h5 class="subheader">Available to the following product families:</h5>
+  <%= simple_form_for [:admin, @product_family_customizable_attribute], remote: true do |f| %>
+    <%= hidden_field_tag "called_from", "customizable_attribute" %>
+      <%= f.hidden_field :customizable_attribute_id %>
+      <div class="row collapse">
+        <div class="large-10 small-8 columns">
+          <%=raw f.association(:product_family,
+                               label: false,
+                               #collection: ProductFamily.nested_options(website),
+                               collection: ProductFamily.options_not_associated_with_this_customizable_attribute(@customizable_attribute, website),
+                               input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Product Family'} }
+                               ).gsub(/\&amp\;/, '&')%>
+        </div>
+        <div class="large-2 small-4 columns">
+          <%= submit_tag 'add', class: "prefix button"  %>
+        </div>
+      </div>
+  <% end %>
+
+  <ul id="product_family_customizable_attributes" class="list">
+    <% @customizable_attribute.product_family_customizable_attributes.each do |pfca| %>
+      <%= render '/admin/shared/product_family_customizable_attribute_row', pfca: pfca, called_from: 'customizable_attribute' %>
+    <% end %>
+  </ul>
+
+</div>

@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_many :distributors, through: :distributor_users
   has_many :tones
   has_many :tone_user_ratings
+  has_many :custom_shop_quotes
+
   has_attached_file :profile_pic,
     styles: {
       large:         "550x370",
@@ -31,7 +33,6 @@ class User < ApplicationRecord
     :recoverable,
     :rememberable,
     :trackable,
-    #    :confirmable, # 2018-05 Removing confirmable. Too complicated with multi-tenancy
     :registerable
 
   before_create :assign_invited_role
@@ -76,7 +77,10 @@ class User < ApplicationRecord
     super_technician
     media
     vip_programmers_admin
-    jbl_vertec_vtx_owner_approver]
+    customer
+    custom_shop_admin
+    jbl_vertec_vtx_owner_approver
+  ]
 
   def self.staff
     where("marketing_staff = 1 OR admin = 1 OR market_manager = 1 OR artist_relations = 1 OR sales_admin = 1").order(Arel.sql("UPPER(name)"))
@@ -104,16 +108,22 @@ class User < ApplicationRecord
     end
   end
 
+  def self.new_with_session(params, session)
+    new(params) do |user|
+      user.customer = true if session[:custom_shop_cart_id]
+    end
+  end
+
   def initials
     @initials ||= (name.split(/\s/).length > 1) ? name.split(/\s/).map{|u| u.match(/^\w/).to_s}.join : name
   end
 
   def to_s
-    self.name
+    display_name
   end
 
   def display_name
-    "testuser"
+    self.name.present? ? name : email
   end
 
   def roles
@@ -122,6 +132,10 @@ class User < ApplicationRecord
 
   def role?(role)
     roles.include? role.to_s
+  end
+
+  def end_user_only?
+    roles.empty? || roles == ["customer"]
   end
 
   def employee?
@@ -160,13 +174,17 @@ class User < ApplicationRecord
     role?(:vip_programmers_admin)
   end
 
+  def custom_shop_admin?
+    role?(:custom_shop_admin)
+  end
+
   def needs_account_number?
     self.dealer? || self.distributor? || self.rep?
   end
 
   def needs_invitation_code?
     #self.rso? || self.employee? || self.media? || self.technician?
-    !!!self.account_number.present?
+    !!!self.account_number.present? && self.roles != ["customer"]
   end
 
   # Collect those who have the artist relations role

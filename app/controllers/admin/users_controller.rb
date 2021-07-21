@@ -139,6 +139,8 @@ class Admin::UsersController < AdminController
       :super_technician,
       :last_host,
       :vip_programmers_admin,
+      :custom_shop_admin,
+      :customer,
       :jbl_vertec_vtx_owner_approver,
       :invitation_code,
       :password

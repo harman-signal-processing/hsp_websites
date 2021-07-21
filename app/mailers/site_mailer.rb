@@ -1,5 +1,4 @@
-class SiteMailer < ActionMailer::Base
-  default from: ENV['DEFAULT_SENDER']
+class SiteMailer < ApplicationMailer
 
   def contact_form(contact_message, options={})
     @contact_message = contact_message

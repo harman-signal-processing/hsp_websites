@@ -229,7 +229,7 @@ private
       artist_root_path
     else
       session["#{ resource.class.name.downcase }_return_to".to_sym] ||
-        stored_location_for(resource) || super
+        stored_location_for(resource) || profile_path || super
     end
   end
 

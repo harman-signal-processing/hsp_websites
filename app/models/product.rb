@@ -56,6 +56,8 @@ class Product < ApplicationRecord
   has_many :badges, through: :product_badges
   has_many :product_accessories
   has_many :accessory_products, through: :product_accessories
+  has_many :customizable_attribute_values, dependent: :destroy
+  has_many :customizable_attributes, -> { distinct }, through: :customizable_attribute_values
   belongs_to :product_status
   belongs_to :brand, touch: true
   has_many :parent_products # Where this is the child (ie, an e-pedal child of the iStomp)
@@ -67,6 +69,7 @@ class Product < ApplicationRecord
   accepts_nested_attributes_for :product_prices, reject_if: proc { |pp| pp['price'].blank? }
   accepts_nested_attributes_for :product_specifications, reject_if: proc { |ps| ps['value'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :product_product_filter_values, reject_if: :reject_filter_value?
+  accepts_nested_attributes_for :customizable_attribute_values, reject_if: proc { |cav| cav['value'].blank? }
 
   def reject_filter_value?(ppfv)
     (ppfv['string_value'].blank? && ppfv['boolean_value'].blank? && ppfv['number_value'].blank?)
@@ -306,6 +309,10 @@ class Product < ApplicationRecord
     return true if self.accessory_to_products.size > 0
     families = self.product_families.map{|pf| pf.tree_names}.join(" ")
     !!!(families.match(/controller/)) ? false : !!(families.match(/accessor/i))
+  end
+
+  def is_customizable?
+    customizable_attributes.size > 0
   end
 
   def sample
@@ -740,7 +747,7 @@ class Product < ApplicationRecord
   def available_product_filter_values
     available_product_filters.map do |product_filter|
       if self.product_filters.include?(product_filter)
-        self.product_product_filter_values.where(product_filter: product_filter).first
+        self.product_product_filter_values.where(product_filter: product_filter)
       else
         ProductProductFilterValue.new(
           product: self,
@@ -752,6 +759,33 @@ class Product < ApplicationRecord
 
   def filter_value(product_filter)
     product_product_filter_values.where(product_filter: product_filter).first_or_initialize.value
+  end
+
+  def parent_families_with_customizable_attributes
+    product_families.map{|pf| pf.self_and_parents_with_customizable_attributes}.flatten.uniq
+  end
+
+  def available_customizable_attributes
+    parent_families_with_customizable_attributes.map{|pf| pf.customizable_attributes}.flatten.uniq
+  end
+
+  def available_customizable_attribute_values
+    available_customizable_attributes.map do |customizable_attribute|
+      if customizable_attributes.include?(customizable_attribute)
+        customizable_attribute_values.where(customizable_attribute: customizable_attribute) +
+          build_customizable_attribute_values(customizable_attribute, 2)
+      else
+        build_customizable_attribute_values(customizable_attribute, 4)
+      end
+    end
+  end
+
+  def build_customizable_attribute_values(customizable_attribute, number)
+    customizable_attribute_values.build(
+      number.times.map do
+        { customizable_attribute: customizable_attribute }
+      end
+    )
   end
 
   def user_guides

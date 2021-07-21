@@ -1,0 +1,43 @@
+<h1 class="text-center">Editing Custom Shop Quote #<%= @custom_shop_quote.number %></h1>
+
+<%= simple_form_for [:custom_shop, @custom_shop_quote] do |f| %>
+  <table class="cart_summary">
+    <thead>
+      <tr>
+        <th class="text-center">Product</th>
+        <th class="text-center">Qty.</th>
+        <td class="text-center" width="35%">Unit Price (Enter Numbers Only)</td>
+      </tr>
+    </thead>
+
+    <tbody>
+    <%= f.simple_fields_for :custom_shop_line_items do |li| %>
+      <%= li.input :id, as: :hidden %>
+      <tr>
+        <td>
+          <p><strong><%= li.object.product.name %></strong></p>
+          <ul>
+            <% li.object.custom_shop_line_item_attributes.each do |attr| %>
+              <li><%= attr.customizable_attribute.name %>: <%= attr.value %>
+                <% if attr.custom_value.present? %>(<%= attr.custom_value %>)<% end %>
+              </li>
+            <% end %>
+          </ul>
+        </td>
+        <td class="text-center"><%= li.object.quantity %></td>
+        <td>
+          <%= li.input :price, label: "#{li.object.product.name} Price", input_html: { class: "text-left" } %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <div class="row">
+    <div class="small-12 medium-4 columns">
+      <%= f.input :status, as: :select, collection: ["new", "quoted"] %>
+    </div>
+  </div>
+
+  <%= f.submit class: "button" %>
+<% end %>

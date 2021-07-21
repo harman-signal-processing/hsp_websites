@@ -1,0 +1,15 @@
+(function(){
+	<%if @called_from == "customizable_attribute" %>
+		<%= render "/admin/product_family_customizable_attributes/rebuild_product_family_select_list" %>
+	<% end %>
+
+	<%if @called_from == "product_family" %>
+		<%= render "/admin/product_family_customizable_attributes/rebuild_customizable_attribute_select_list" %>
+	<% end %>
+
+	<% @product_family_customizable_attributes.each do |pfca| %>
+		$('#product_family_customizable_attributes').append('<%= escape_javascript(render '/admin/shared/product_family_customizable_attribute_row', pfca: pfca, called_from: @called_from) %>');
+	<% end %>
+})();
+
+<% flash.discard %>

@@ -1,0 +1,57 @@
+<h1>User Profile</h1>
+
+<div class="row">
+  <div class="small-12 medium-5 large-6 columns">
+    <div class="row">
+      <div class="small-3 medium-4 columns">
+        <br/>
+        <%= image_tag current_user.gravatar_url(size: 128, default: 'identicon')  %>
+      </div>
+      <div class="small-9 medium-8 columns">
+        <h4><%= current_user.display_name %></h4>
+        <p><%= current_user.email %></p>
+        <p><%= link_to edit_user_registration_path, class: "small button" do %>
+            <%= fa_icon "user" %>
+            Edit Account/Password
+          <% end %>
+        </p>
+
+        <% unless current_user.end_user_only? %>
+          <h4>My Tools</h4>
+          <ul>
+          <% if can?(:manage, Product) || can?(:manage, News) || can?(:manage, Promotion) %>
+            <li><%= link_to 'Admin Page', admin_root_path %></li>
+          <% end %>
+          <% if can?(:manage, CustomShopQuote) %>
+            <li><%= link_to "Manage Custom Shop Quotes", custom_shop_custom_shop_quotes_path %></li>
+          <% end %>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="small-12 medium-7 large-6 columns">
+    <% if current_user.custom_shop_quotes.length > 0 %>
+      <h4>My Custom Shop History</h4>
+      <table class="order_history">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Quote Number</th>
+            <th>Summary</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% current_user.custom_shop_quotes.each do |custom_shop_quote| %>
+          <tr>
+            <td><%=l custom_shop_quote.created_at.to_date, format: :long %></td>
+            <td><%= link_to custom_shop_quote.number, [:custom_shop, custom_shop_quote] %></td>
+            <td><%= custom_shop_quote_summary(custom_shop_quote) %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</div>

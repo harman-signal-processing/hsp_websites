@@ -1,0 +1,56 @@
+<p>The following custom shop quote request was received through the website:<br/>
+<%= link_to custom_shop_custom_shop_quote_url(@custom_shop_quote,
+  locale: I18n.default_locale,
+  protocol: Rails.env.production? ? 'https' : 'http',
+  host: @custom_shop_quote.brand.default_website.url) do %>
+    #<%= @custom_shop_quote.number %>
+  <% end %>
+</p>
+
+<p><strong>Customer</strong></p>
+<p>
+Name: <%= @custom_shop_quote.user.name %><br/>
+Email: <%= @custom_shop_quote.user.email %><br/>
+Account: <%= @custom_shop_quote.account_number %>
+</p>
+
+<p><strong>Opportunity</strong></p>
+<p>
+Number: <%= @custom_shop_quote.opportunity_number %><br/>
+Name: <%= @custom_shop_quote.opportunity_name %><br/>
+Location: <%= @custom_shop_quote.location %><br/>
+Requested Delivery: <%=l @custom_shop_quote.request_delivery_on, format: :long %>
+</p>
+
+<p><strong>Project Description</strong></p>
+<div><%= @custom_shop_quote.description %></div>
+
+<hr/>
+<p><strong>Customized Products</strong></p>
+
+<ul>
+<% @custom_shop_quote.custom_shop_line_items.each do |line_item| %>
+
+  <li>
+      <h5><%= line_item.product.name %></h5>
+      <ul>
+        <li>Quantity: <%= line_item.quantity.present? ? line_item.quantity : 1 %></li>
+        <% line_item.custom_shop_line_item_attributes.each do |attr| %>
+          <li><%= attr.customizable_attribute.name %>: <%= attr.value %>
+            <% if attr.custom_value.present? %>(<%= attr.custom_value %>)<% end %>
+          </li>
+        <% end %>
+      </ul>
+  </li>
+
+<% end %>
+</ul>
+
+<p>
+<%= link_to custom_shop_custom_shop_quote_url(@custom_shop_quote,
+  locale: I18n.default_locale,
+  protocol: Rails.env.production? ? 'https' : 'http',
+  host: @custom_shop_quote.brand.default_website.url) do %>
+  Add pricing and send quote here
+<% end %>
+</p>

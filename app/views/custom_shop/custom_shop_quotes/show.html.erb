@@ -1,0 +1,117 @@
+<div class="row">
+  <div class="small-6 columns">
+    <% if @custom_shop_quote.user == current_user %>
+      <%= link_to profile_path do %>
+        <%= fa_icon "arrow-left" %>
+        Back to Profile
+      <% end %>
+    <% else %>
+      &nbsp;
+    <% end %>
+  </div>
+  <div class="small-6 columns text-right">
+    <% if can? :quote, @custom_shop_quote %>
+      <%= link_to edit_custom_shop_custom_shop_quote_path(@custom_shop_quote), class: "medium success button" do %>
+        <%= fa_icon "edit" %>
+        Add/Edit Pricing
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<h1 class="text-center">Custom Shop Quote #<%= @custom_shop_quote.number %></h1>
+<p class="text-center">Status: <%= @custom_shop_quote.status.titleize %></p>
+
+<div class="row">
+  <div class="small-12 medium-3 columns">
+    <h6>Account Number:</h6><%= @custom_shop_quote.account_number %>
+    <h6>Opportunity:</h6> <%= @custom_shop_quote.opportunity_number %> /
+      <%= @custom_shop_quote.opportunity_name %>
+  </div>
+  <div class="small-12 medium-3 columns">
+    <h6>Location:</h6> <%= @custom_shop_quote.location %>
+    <h6>Requested Delivery:</h6> <%=l @custom_shop_quote.request_delivery_on, format: :long %>
+  </div>
+  <div class="small-12 medium-6 columns">
+    <h6>Project Description:</h6>
+    <%= @custom_shop_quote.description %>
+    <% if can?(:manage, CustomShopQuote) %>
+      <h6>Requested By:</h6>
+      <%= mail_to @custom_shop_quote.user.email, @custom_shop_quote.user.display_name %>
+    <% end %>
+  </div>
+</div>
+<br/>
+
+<table class="cart_summary">
+  <thead>
+    <tr>
+      <th colspan="2" class="text-center">Product</th>
+      <th class="text-center">Qty.</th>
+      <td class="text-center">Unit Price</td>
+      <td class="text-center">Extended</td>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @custom_shop_quote.custom_shop_line_items.each do |line_item| %>
+      <tr>
+        <td class="text-center">
+          <% if line_item.product.photo %>
+            <%= link_to line_item.product do %>
+              <%= image_tag(line_item.product.photo.product_attachment.url(:tiny)) %>
+            <% end %>
+          <% end %>
+        </td>
+        <td>
+          <h5><%= line_item.product.name %></h5>
+          <ul>
+            <% line_item.custom_shop_line_item_attributes.each do |attr| %>
+              <li><%= attr.customizable_attribute.name %>: <%= attr.value %>
+                <% if attr.custom_value.present? %>(<%= attr.custom_value %>)<% end %>
+              </li>
+            <% end %>
+          </ul>
+        </td>
+        <td class="text-center">
+          <%= line_item.quantity %>
+        </td>
+        <td>
+          <% if line_item.price.present? %>
+            <div class="text-right">
+              <%=number_to_currency line_item.price %>
+            </div>
+          <% else %>
+            <div class="text-center">
+              --
+            </div>
+          <% end %>
+        </td>
+        <td class="text-right">
+          <% if line_item.price.present? %>
+            <div class="text-right">
+              <%=number_to_currency line_item.subtotal %>
+            </div>
+          <% else %>
+            <div class="text-center">
+              --
+            </div>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+
+  <% unless @custom_shop_quote.status == "new" %>
+    <tfoot>
+    <tr>
+      <td colspan="5" class="text-right">
+        <strong>
+          Product Total: <%=number_to_currency @custom_shop_quote.total %>
+        </strong>
+      </td>
+    </tr>
+    </tfoot>
+  <% end %>
+</table>
+
