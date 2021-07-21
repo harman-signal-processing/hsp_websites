@@ -64,6 +64,7 @@ class Product < ApplicationRecord
   has_many :sub_products, -> { order('position') }, class_name: "ParentProduct", foreign_key: "parent_product_id"
   has_many :product_product_filter_values
   has_many :product_filters, through: :product_product_filter_values
+  has_many :brand_dealer_rental_products
   after_initialize :set_default_status
   accepts_nested_attributes_for :product_prices, reject_if: proc { |pp| pp['price'].blank? }
   accepts_nested_attributes_for :product_specifications, reject_if: proc { |ps| ps['value'].blank? }, allow_destroy: true

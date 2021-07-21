@@ -69,7 +69,7 @@ class SiteMailer < ApplicationMailer
       begin
         attachments[@fixtures_request.attachment_file_name] = {
           mime_type: @fixtures_request.attachment_content_type,
-          content: open(@fixtures_request.attachment.url).read
+          content: URI.open(@fixtures_request.attachment.url).read
         }
       rescue
         # couldn't attach the file, but we'll link to it anyway
@@ -85,7 +85,7 @@ class SiteMailer < ApplicationMailer
       begin
         attachments[@module_request.attachment_file_name] = {
           mime_type: @module_request.attachment_content_type,
-          content: open(@module_request.attachment.url.gsub("_original.",".")).read
+          content: URI.open(@module_request.attachment.url.gsub("_original.",".")).read
         }
       rescue
         # couldn't attach the file, but we'll link to it anyway

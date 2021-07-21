@@ -6,7 +6,7 @@
 <div class="wide_centered_box" id="search_page_container">
   <%= render "form" %>
 
-  <% if @pdf_results.present? && @pdf_results.length > 0 %>
+  <% if @pdf_results.present? && @pdf_results[:Summary].present? && @pdf_results.length > 0 %>
     <div id="search_results_count_message"><%=@pdf_results[:Summary][:TotalNum]%> results found, showing <%=@pdf_results[:Summary][:Start]%> - <%=@pdf_results[:Summary][:End]%> for: <strong><%=@query%></strong></div>
 
     <%= will_paginate @pdf_results_paginated_list, params:{query:@query, paginate_pdf_only:@pdf_only} %>
