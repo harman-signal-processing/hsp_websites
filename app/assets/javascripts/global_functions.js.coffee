@@ -73,6 +73,9 @@ jQuery ($) ->
   # hide the text field with the date (don't use a hidden field so we can test the form)
   # $("form#new_warranty_registration #warranty_registration_puchased_on").hide()
 
+  $('input#site_element_external_url').on 'input', ->
+    $('.disabled_button').prop('disabled', false)
+
   $('a[data-newwindow="true"]').click (e) ->
     e.preventDefault()
     window.open(

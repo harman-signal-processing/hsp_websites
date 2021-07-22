@@ -1,7 +1,15 @@
 <%= simple_form_for [:admin, @site_element] do |f| %>
   <input type="hidden" name="return_to" value="<%= @return_to %>">
   <%= f.input :direct_upload_url, as: :hidden %>
-  <%= f.input :name, label: "Name (as it will appear for site users)" %>
+  <div class="row">
+    <div class="medium-6 small-12 columns">
+      <%= f.input :name, label: "Name (as it will appear for site users)" %>
+    </div>
+    <div class="medium-6 small-12 columns">
+      <%= f.input :external_url, hint: "(Use this instead of the attachment field above for resources hosted on external sites.)" %>
+    </div>
+  </div>
+
   <div class="row">
     <div class="medium-6 small-12 columns">
       <%= f.input :language, collection: HarmanSignalProcessingWebsite::Application.config.document_languages %>
