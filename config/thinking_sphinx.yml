@@ -1,5 +1,6 @@
 development:
-  bin_path: /usr/local/bin
+  # bin_path: /usr/local/bin
+  bin_path: /usr/bin
   searchd_binary_name: searchd
   client_timeout: 200
   morphology: stem_en, soundex, metaphone
