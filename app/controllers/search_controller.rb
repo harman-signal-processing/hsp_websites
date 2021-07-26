@@ -8,7 +8,7 @@ class SearchController < ApplicationController
     @query = params[:query]
     allowed_punctuation = ["/","-"]
     # strip non printable characters and unallowed punctuation characters from query
-    @query = @query.gsub(/[^[:print:]]/, '').gsub(/[[:punct:]]/) { |item| (allowed_punctuation.include? item) ? item : "" }
+    @query = @query.gsub(/[^[:print:]]/, '').gsub(/[[:punct:]]/) { |item| (allowed_punctuation.include? item) ? item : "" } if @query.present?
     authorize_query!(@query)
 
     pdf_only_search_results? ? search_pdf_only : search_site_only
