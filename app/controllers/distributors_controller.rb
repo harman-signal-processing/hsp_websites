@@ -43,8 +43,8 @@ class DistributorsController < ApplicationController
 
   def minimal
     @brand = Brand.find(params[:brand_id])
-    @country = params[:country].blank? ? "United States of America" : params[:country]
-    @country_code = ISO3166::Country.find_country_by_name(@country).alpha2
+    @country_code = params[:country].blank? ? "US" : params[:country]
+    @country_code = (ISO3166::Country.codes.include? @country_code) ? @country_code : "US"
     @distributors = get_international_distributors(@brand.name.downcase, @country_code)
 
     render layout: 'tiny'
