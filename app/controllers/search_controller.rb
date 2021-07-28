@@ -65,7 +65,7 @@ class SearchController < ApplicationController
     @results = ferret_results.select do |r|
       r unless (
           (r.is_a?(Product) && !r.show_on_website?(website)) ||
-          (r.is_a?(Product) && r.product_status.name != "In Production") ||
+          (r.is_a?(Product) && (r.product_status.name != "In Production" && r.product_status.name != "Coming Soon") ) ||
           (r.is_a?(Product) && !r.locales(website).include?(I18n.locale.to_s)) ||
           (r.has_attribute?(:brand_id) && r.brand_id != website.brand_id) ||
           (r.respond_to?(:belongs_to_this_brand?) && !r.belongs_to_this_brand?(website)) ||
