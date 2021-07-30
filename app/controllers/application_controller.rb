@@ -410,6 +410,12 @@ private
     cookies[:utm_content] = {  value: utm_content } if !utm_content.nil?
   end  #  def hold_on_to_utm_params
 
+  def sanitize_param_value(unsanitized_param_value, allowed_punctuation=[])
+    # strip non printable characters and unallowed punctuation characters from unsanitized_param_value
+    sanitized_item = unsanitized_param_value.gsub(/[^[:print:]]/, '').gsub(/[[:punct:]]/) { |item| (allowed_punctuation.include? item) ? item : "" } if unsanitized_param_value.present?
+    sanitized_item
+  end
+
   def authorize_query!(query)
     if query.to_s.match(/union\s{1,}select/i) ||
        query.to_s.match(/(and|\&*)\s{1,}sleep/i) ||
