@@ -35,7 +35,7 @@
   <div class="small-12 medium-6 columns">
     <h6>Project Description:</h6>
     <%= @custom_shop_price_request.description %>
-    <% if can?(:manage, CustomShopPriceRequest) %>
+    <% if can?(:quote, CustomShopPriceRequest) %>
       <h6>Requested By:</h6>
       <%= mail_to @custom_shop_price_request.user.email, @custom_shop_price_request.user.display_name %>
     <% end %>
