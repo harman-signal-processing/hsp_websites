@@ -1,6 +1,6 @@
 <div class="row">
   <div class="small-12 medium-8 columns">
-    <h1>Custom Shop Quotes</h1>
+    <h1>Custom Shop Price Requests</h1>
   </div>
   <div class="small-12 medium-4 columns text-right">
     <%= search_form_for [:custom_shop, @search] do |f| %>
@@ -16,13 +16,13 @@
   </div>
 </div>
 
-<%= will_paginate @custom_shop_quotes %>
+<%= will_paginate @custom_shop_price_requests %>
 
 <table style="width: 100%">
   <thead>
     <tr>
       <th><%= sort_link([:custom_shop, @search], :created_at, 'Date', default_order: :desc) %></th>
-      <th>Quote Number</th>
+      <th>Request Number</th>
       <th>Requester</th>
       <th>Status</th>
       <th>Total</th>
@@ -30,23 +30,23 @@
     </tr>
   </thead>
   <tbody>
-  <% @custom_shop_quotes.each do |custom_shop_quote| %>
+  <% @custom_shop_price_requests.each do |custom_shop_price_request| %>
     <tr>
-      <td><%=l custom_shop_quote.created_at.to_date, format: :long %></td>
-      <td><%= link_to custom_shop_quote.number, [:custom_shop, custom_shop_quote] %></td>
-      <td><%= custom_shop_quote.user.display_name %></td>
+      <td><%=l custom_shop_price_request.created_at.to_date, format: :long %></td>
+      <td><%= link_to custom_shop_price_request.number, [:custom_shop, custom_shop_price_request] %></td>
+      <td><%= custom_shop_price_request.user.display_name %></td>
       <td>
-        <% if custom_shop_quote.status == "new" %>
+        <% if custom_shop_price_request.status == "new" %>
           <span class="success radius label">new</span>
         <% else %>
-          <%= custom_shop_quote.status %>
+          <%= custom_shop_price_request.status %>
         <% end %>
       </td>
-      <td><%= number_to_currency custom_shop_quote.total %></td>
-      <td><%= custom_shop_quote_summary(custom_shop_quote) %></td>
+      <td><%= number_to_currency custom_shop_price_request.total %></td>
+      <td><%= custom_shop_price_request_summary(custom_shop_price_request) %></td>
     </tr>
   <% end %>
   </tbody>
 </table>
 
-<%= will_paginate @custom_shop_quotes %>
+<%= will_paginate @custom_shop_price_requests %>

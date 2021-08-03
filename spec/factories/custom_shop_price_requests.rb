@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :custom_shop_quote do
+  factory :custom_shop_price_request do
     user
     custom_shop_cart
     account_number { "6789" }

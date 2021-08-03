@@ -1,6 +1,6 @@
-<h1 class="text-center">Editing Custom Shop Quote #<%= @custom_shop_quote.number %></h1>
+<h1 class="text-center">Editing Custom Shop Price Request #<%= @custom_shop_price_request.number %></h1>
 
-<%= simple_form_for [:custom_shop, @custom_shop_quote] do |f| %>
+<%= simple_form_for [:custom_shop, @custom_shop_price_request] do |f| %>
   <table class="cart_summary">
     <thead>
       <tr>
@@ -35,7 +35,7 @@
 
   <div class="row">
     <div class="small-12 medium-4 columns">
-      <%= f.input :status, as: :select, collection: ["new", "quoted"] %>
+      <%= f.input :status, as: :select, collection: ["new", "complete"] %>
     </div>
   </div>
 

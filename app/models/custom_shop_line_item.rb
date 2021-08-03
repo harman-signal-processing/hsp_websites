@@ -2,7 +2,7 @@ class CustomShopLineItem < ApplicationRecord
   has_many :custom_shop_line_item_attributes, dependent: :destroy
   has_many :customizable_attributes, -> { distinct }, through: :custom_shop_line_item_attributes
   belongs_to :product
-  belongs_to :custom_shop_quote
+  belongs_to :custom_shop_price_request
   belongs_to :custom_shop_cart
 
   validates :product, presence: true

@@ -4,12 +4,12 @@
     Back to Customize
   <% end %>
 </p>
-<p>Complete the following to request a quote
+<p>Complete the following to request pricing
 for your customized products:</p>
 
 <div class="row">
   <div class="small-12 medium-7 columns">
-    <%= simple_form_for [:custom_shop, @custom_shop_quote] do |f| %>
+    <%= simple_form_for [:custom_shop, @custom_shop_price_request] do |f| %>
       <%= f.fields_for :user do |u| %>
         <%# u.input :country %>
       <% end %>
@@ -21,7 +21,7 @@ for your customized products:</p>
       <%= f.input :request_delivery_on, as: :string, input_html: { class: 'ui-datepicker'} %>
       <%= f.input :description, label: "Project Description" %>
 
-      <%= f.submit "Request Quote", class: "button" %>
+      <%= f.submit "Request Pricing", class: "button" %>
     <% end %>
   </div>
   <div class="small-12 medium-5 columns">
@@ -36,7 +36,7 @@ for your customized products:</p>
       <p class="text-center">
         <%= link_to custom_shop_cart_path, class: "small secondary button" do %>
           <%= fa_icon "edit" %>
-          Edit Quote
+          Edit Price Request
         <% end %>
       </p>
     </div>

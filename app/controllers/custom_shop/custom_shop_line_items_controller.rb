@@ -13,7 +13,7 @@ class CustomShop::CustomShopLineItemsController < CustomShopController
     @custom_shop_line_item.custom_shop_cart = @custom_shop_cart
     respond_to do |format|
       if @custom_shop_line_item.save
-        format.html { redirect_to custom_shop_cart_path, notice: "#{@custom_shop_line_item.product.name} has been added to your quote." }
+        format.html { redirect_to custom_shop_cart_path, notice: "#{@custom_shop_line_item.product.name} has been added to your price request." }
       else
         format.html { render action: "new" }
       end

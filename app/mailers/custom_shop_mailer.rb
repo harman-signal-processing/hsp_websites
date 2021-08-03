@@ -1,16 +1,16 @@
 class CustomShopMailer < ApplicationMailer
 
-  def request_quote(custom_shop_quote, options={})
-    @custom_shop_quote = custom_shop_quote
+  def request_pricing(custom_shop_price_request, options={})
+    @custom_shop_price_request = custom_shop_price_request
 
-    mail(to: @custom_shop_quote.recipients,
-         subject: "Custom Shop Quote Request")
+    mail(to: @custom_shop_price_request.recipients,
+         subject: "Custom Shop Price Request")
   end
 
-  def send_quote_to_customer(custom_shop_quote)
-    @custom_shop_quote = custom_shop_quote
+  def send_pricing_to_customer(custom_shop_price_request)
+    @custom_shop_price_request = custom_shop_price_request
 
-    mail(to: @custom_shop_quote.user.email,
-         subject: "Quote #{@custom_shop_quote.number} Updated")
+    mail(to: @custom_shop_price_request.user.email,
+         subject: "Price Request #{@custom_shop_price_request.number} Updated")
   end
 end

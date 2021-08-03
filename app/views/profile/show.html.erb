@@ -22,8 +22,8 @@
           <% if can?(:manage, Product) || can?(:manage, News) || can?(:manage, Promotion) %>
             <li><%= link_to 'Admin Page', admin_root_path %></li>
           <% end %>
-          <% if can?(:manage, CustomShopQuote) %>
-            <li><%= link_to "Manage Custom Shop Quotes", custom_shop_custom_shop_quotes_path %></li>
+          <% if can?(:manage, CustomShopPriceRequest) %>
+            <li><%= link_to "Manage Custom Shop Price Requests", custom_shop_custom_shop_price_requests_path %></li>
           <% end %>
           </ul>
         <% end %>
@@ -32,7 +32,7 @@
   </div>
 
   <div class="small-12 medium-7 large-6 columns">
-    <% if current_user.custom_shop_quotes.length > 0 %>
+    <% if current_user.custom_shop_price_requests.length > 0 %>
       <h4>My Custom Shop History</h4>
       <table class="order_history">
         <thead>
@@ -43,11 +43,11 @@
           </tr>
         </thead>
         <tbody>
-        <% current_user.custom_shop_quotes.each do |custom_shop_quote| %>
+        <% current_user.custom_shop_price_requests.reverse.each do |custom_shop_price_request| %>
           <tr>
-            <td><%=l custom_shop_quote.created_at.to_date, format: :long %></td>
-            <td><%= link_to custom_shop_quote.number, [:custom_shop, custom_shop_quote] %></td>
-            <td><%= custom_shop_quote_summary(custom_shop_quote) %></td>
+            <td><%=l custom_shop_price_request.created_at.to_date, format: :long %></td>
+            <td><%= link_to custom_shop_price_request.number, [:custom_shop, custom_shop_price_request] %></td>
+            <td><%= custom_shop_price_request_summary(custom_shop_price_request) %></td>
           </tr>
         <% end %>
         </tbody>

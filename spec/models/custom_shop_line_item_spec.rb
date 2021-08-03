@@ -8,7 +8,7 @@ RSpec.describe CustomShopLineItem, type: :model do
 
   subject { @custom_shop_line_item }
   it { should respond_to(:custom_shop_cart) }
-  it { should respond_to(:custom_shop_quote) }
+  it { should respond_to(:custom_shop_price_request) }
   it { should respond_to(:product) }
   it { should respond_to(:custom_shop_line_item_attributes) }
   it { should respond_to(:price) }
