@@ -63,7 +63,7 @@ class CustomShop::CustomShopPriceRequestsController < CustomShopController
   def attributes_for_update
     params.require(:custom_shop_price_request).permit(
       :status,
-      custom_shop_line_items_attributes: [:price, :id]
+      custom_shop_line_items_attributes: [:model, :price, :id]
     )
   end
 end

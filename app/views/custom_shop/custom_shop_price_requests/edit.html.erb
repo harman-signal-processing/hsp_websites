@@ -5,6 +5,7 @@
     <thead>
       <tr>
         <th class="text-center">Product</th>
+        <th class="text-center">Model</th>
         <th class="text-center">Qty.</th>
         <td class="text-center" width="35%">Unit Price (Enter Numbers Only)</td>
       </tr>
@@ -23,6 +24,9 @@
               </li>
             <% end %>
           </ul>
+        </td>
+        <td>
+          <%= li.input :model, input_html: { class: "text-left" } %>
         </td>
         <td class="text-center"><%= li.object.quantity %></td>
         <td>

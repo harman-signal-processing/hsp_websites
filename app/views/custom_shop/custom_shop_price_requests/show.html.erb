@@ -47,6 +47,7 @@
   <thead>
     <tr>
       <th colspan="2" class="text-center">Product</th>
+      <th class="text-center">Model</th>
       <th class="text-center">Qty.</th>
       <td class="text-center">Unit Price</td>
       <td class="text-center">Extended</td>
@@ -73,14 +74,30 @@
             <% end %>
           </ul>
         </td>
+        <td>
+          <% if @custom_shop_price_request.status.to_s.match(/complete/i) || can?(:quote, @custom_shop_price_request) %>
+            <%= line_item.model %>&nbsp;
+          <% else %>
+            <div class="text-center">
+              --
+            </div>
+          <% end %>
+        </td>
+        </td>
         <td class="text-center">
           <%= line_item.quantity %>
         </td>
         <td>
-          <% if line_item.price.present? %>
-            <div class="text-right">
-              <%=number_to_currency line_item.price %>
-            </div>
+          <% if @custom_shop_price_request.status.to_s.match(/complete/i) || can?(:quote, @custom_shop_price_request) %>
+            <% if line_item.price.present? %>
+              <div class="text-right">
+                <%=number_to_currency line_item.price %>
+              </div>
+            <% else %>
+              <div class="text-center">
+                --
+              </div>
+            <% end %>
           <% else %>
             <div class="text-center">
               --
@@ -88,10 +105,16 @@
           <% end %>
         </td>
         <td class="text-right">
-          <% if line_item.price.present? %>
-            <div class="text-right">
-              <%=number_to_currency line_item.subtotal %>
-            </div>
+          <% if @custom_shop_price_request.status.to_s.match(/complete/i) || can?(:quote, @custom_shop_price_request) %>
+            <% if line_item.price.present? %>
+              <div class="text-right">
+                <%=number_to_currency line_item.subtotal %>
+              </div>
+            <% else %>
+              <div class="text-center">
+                --
+              </div>
+            <% end %>
           <% else %>
             <div class="text-center">
               --
@@ -102,10 +125,10 @@
     <% end %>
   </tbody>
 
-  <% unless @custom_shop_price_request.status == "new" %>
+  <% if @custom_shop_price_request.status.to_s.match(/complete/i) || can?(:quote, @custom_shop_price_request) %>
     <tfoot>
     <tr>
-      <td colspan="5" class="text-right">
+      <td colspan="6" class="text-right">
         <strong>
           Product Total: <%=number_to_currency @custom_shop_price_request.total %>
         </strong>
