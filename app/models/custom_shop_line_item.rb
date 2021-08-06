@@ -2,7 +2,7 @@ class CustomShopLineItem < ApplicationRecord
   has_many :custom_shop_line_item_attributes, dependent: :destroy
   has_many :customizable_attributes, -> { distinct }, through: :custom_shop_line_item_attributes
   belongs_to :product
-  belongs_to :custom_shop_quote
+  belongs_to :custom_shop_price_request
   belongs_to :custom_shop_cart
 
   validates :product, presence: true
@@ -17,7 +17,7 @@ class CustomShopLineItem < ApplicationRecord
   def build_options
     if product
       product.customizable_attributes.each do |ca|
-        unless customizable_attributes.include?(ca)
+        if initialize_attribute?(ca, product)
           custom_shop_line_item_attributes << CustomShopLineItemAttribute.new(customizable_attribute: ca)
         end
       end
@@ -34,6 +34,12 @@ class CustomShopLineItem < ApplicationRecord
     else
       0
     end
+  end
+
+  private
+
+  def initialize_attribute?(customizable_attribute, product)
+    true unless customizable_attributes.include?(customizable_attribute) || customizable_attribute.options_for_product(product).length < 2
   end
 
 end

@@ -20,6 +20,7 @@ class Ability
       super_technician: false,
       rso: false,
       vip_programmers_admin: false,
+      customer: false,
       custom_shop_admin: false
     })
     # The first argument to `can` is the action you are giving the user permission to do.
@@ -94,31 +95,30 @@ class Ability
         can :manage, LabelSheet
         can :manage, LabelSheetOrder
       end
+      if user.role?(:customer)
+        can :create, CustomShopPriceRequest
+        can :read, CustomShopPriceRequest, user_id: user.id
+        cannot :quote, CustomShopPriceRequest
+        can :create, CustomShopLineItem
+        can :manage, CustomShopLineItem do |csli|
+          csli.custom_shop_price_request.present? && csli.custom_shop_price_request.user_id == user.id
+        end
+        can :create, CustomShopLineItemAttribute
+        can :manage, CustomShopLineItemAttribute do |cslia|
+          cslia.custom_shop_line_item.present? &&
+            cslia.custom_shop_line_item.custom_shop_price_request.present? &&
+            cslia.custom_shop_line_item.custom_shop_price_request.user_id == user.id
+        end
+        can :create, CustomShopCart
+      end
       if user.role?(:custom_shop_admin)
-        can :manage, CustomShopQuote
+        can :manage, CustomShopPriceRequest
         can :manage, CustomShopLineItem
         can :manage, CustomShopLineItemAttribute
         can :manage, CustomizableAttribute
         can :manage, CustomizableAttributeValue
         can :manage, ProductFamilyCustomizableAttribute
-        can :quote, CustomShopQuote
-      end
-      if user.role?(:customer)
-        can :create, CustomShopQuote
-        can :manage, CustomShopQuote do |csq|
-          csq.user_id == user.id
-        end
-        can :create, CustomShopLineItem
-        can :manage, CustomShopLineItem do |csli|
-          csli.custom_shop_quote.present? && csli.custom_shop_quote.user_id == user.id
-        end
-        can :create, CustomShopLineItemAttribute
-        can :manage, CustomShopLineItemAttribute do |cslia|
-          cslia.custom_shop_line_item.present? &&
-            cslia.custom_shop_line_item.custom_shop_quote.present? &&
-            cslia.custom_shop_line_item.custom_shop_quote.user_id == user.id
-        end
-        can :create, CustomShopCart
+        can :quote, CustomShopPriceRequest
       end
       if user.role?(:engineer)
         can :manage, Software

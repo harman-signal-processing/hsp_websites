@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_28_175639) do
+ActiveRecord::Schema.define(version: 2021_08_05_173244) do
 
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
@@ -472,18 +472,19 @@ ActiveRecord::Schema.define(version: 2021_06_28_175639) do
   end
 
   create_table "custom_shop_line_items", charset: "utf8", force: :cascade do |t|
-    t.integer "custom_shop_quote_id"
+    t.integer "custom_shop_price_request_id"
     t.integer "custom_shop_cart_id"
     t.integer "product_id"
     t.integer "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "price_cents"
+    t.string "model"
     t.index ["custom_shop_cart_id"], name: "index_custom_shop_line_items_on_custom_shop_cart_id"
-    t.index ["custom_shop_quote_id"], name: "index_custom_shop_line_items_on_custom_shop_quote_id"
+    t.index ["custom_shop_price_request_id"], name: "index_custom_shop_line_items_on_custom_shop_price_request_id"
   end
 
-  create_table "custom_shop_quotes", charset: "utf8", force: :cascade do |t|
+  create_table "custom_shop_price_requests", charset: "utf8", force: :cascade do |t|
     t.string "uuid"
     t.integer "user_id"
     t.string "account_number"
@@ -496,8 +497,8 @@ ActiveRecord::Schema.define(version: 2021_06_28_175639) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "custom_shop_cart_id"
     t.string "status"
-    t.index ["custom_shop_cart_id"], name: "index_custom_shop_quotes_on_custom_shop_cart_id"
-    t.index ["user_id"], name: "index_custom_shop_quotes_on_user_id"
+    t.index ["custom_shop_cart_id"], name: "index_custom_shop_price_requests_on_custom_shop_cart_id"
+    t.index ["user_id"], name: "index_custom_shop_price_requests_on_user_id"
   end
 
   create_table "customizable_attribute_values", charset: "utf8", force: :cascade do |t|
@@ -1218,6 +1219,7 @@ ActiveRecord::Schema.define(version: 2021_06_28_175639) do
     t.text "meta_description"
     t.integer "featured_product_id"
     t.integer "warranty_period"
+    t.boolean "group_on_custom_shop", default: false
     t.index ["brand_id"], name: "index_product_families_on_brand_id"
     t.index ["cached_slug"], name: "index_product_families_on_cached_slug", unique: true
     t.index ["parent_id"], name: "index_product_families_on_parent_id"

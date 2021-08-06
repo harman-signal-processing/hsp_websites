@@ -2,10 +2,10 @@
 class CustomShopMailerPreview < ActionMailer::Preview
 
   # Rather than pollute the dev database, just pull the last
-  # CustomShopQuote (So, there must be one for this preview to work)
-  def request_quote
-    custom_shop_quote = CustomShopQuote.last
-    CustomShopMailer.request_quote(custom_shop_quote)
+  # CustomShopPriceRequest (So, there must be one for this preview to work)
+  def request_price
+    custom_shop_price_request = CustomShopPriceRequest.last
+    CustomShopMailer.request_price(custom_shop_price_request)
   end
 
 end

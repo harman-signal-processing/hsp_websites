@@ -1,38 +1,32 @@
 <h1><%= website.brand.name %> Custom Shop</h1>
-<p>Select from the products below to begin your custom shop quote.</p>
+<p>Welcome authorized <%= website.brand.name %> dealers and distributors.
+Select from the products below to begin your custom shop price request.
+<em>If you are not an authorized dealer or distributor,
+  <%= link_to where_to_find_path do %>locate one here<% end %>.</em></p>
 
 <% @product_families.sort_by(&:name).each do |product_family| %>
+  <% skippable = [] %>
+
   <h3><%= product_family.name %></h3>
 
   <ul class="large-block-grid-5 medium-block-grid-3 small-block-grid-2">
-    <% product_family.current_products_plus_child_products(website).sort_by(&:name).each do |product| %>
-      <% if product.customizable_attributes.size > 0 %>
-        <li>
-          <div id="<%= product.to_param %>" class="small_product_box">
-            <div class="product_thumb" data-equalizer-watch="product_thumbs">
-              <% if product.photo %>
-                 <%= link_to product do %>
-                   <%= image_tag(product.photo.product_attachment.url(:medium), lazy: product_photo_is_png?(product)) %>
-                 <% end %>
-              <% end %>
-            </div>
-            <h3 class="text-center">
-              <%= link_to product do %>
-                <%= translate_content(product, :name) %>
-              <% end %>
-            </h3>
-            <div class="product_description">
-              <%= translate_content(product, :short_description) %>
-              <br/><br/>
-              <div class="text-center">
-                <%= link_to [:custom_shop, product], class: "small button" do %>
-                  Customize <%= translate_content(product, :name) %>
-                <% end %>
-              </div>
-            </div>
-          </div>
-        </li>
+    <% product_family.children.where(group_on_custom_shop: true).sort_by(&:name).each do |subfamily| %>
+
+      <% subfamily_products = subfamily.current_products_plus_child_products(website) %>
+
+      <% if subfamily_products.length > 0 %>
+        <% skippable += subfamily_products.map{|p| p.id} %>
+        <%= render "custom_shop/product_family_square", subfamily: subfamily, subfamily_products: subfamily_products %>
       <% end %>
+
+    <% end %>
+
+    <% product_family.current_products_plus_child_products(website).sort_by(&:name).each do |product| %>
+
+      <% if !skippable.include?(product.id) %>
+        <%= render 'custom_shop/product_square', product: product %>
+      <% end %>
+
     <% end %>
   </ul>
 <% end %>

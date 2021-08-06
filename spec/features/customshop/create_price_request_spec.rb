@@ -1,6 +1,6 @@
 require "rails_helper"
 
-feature "A customer builds quote for custom product" do
+feature "A customer builds price requestfor custom product" do
   include ActiveJob::TestHelper
 
   before do
@@ -33,23 +33,23 @@ feature "A customer builds quote for custom product" do
       click_on("Customize #{@product1.name}")
 
       choose "white"
-      click_on("Add To Quote")
+      click_on("Add To Price Request")
 
-      expect(page).to have_text("#{@product1.name} has been added to your quote")
+      expect(page).to have_text("#{@product1.name} has been added to your price request")
       expect(page).to have_text("Color: white")
       click_on("Add Another Product")
       click_on("Customize #{@product2.name}")
 
       choose option: "gray"
       fill_in "Quantity", with: "144"
-      click_on("Add To Quote")
+      click_on("Add To Price Request")
 
-      expect(page).to have_text("#{@product2.name} has been added to your quote")
+      expect(page).to have_text("#{@product2.name} has been added to your price request")
       expect(page).to have_text("Color: gray")
       expect(page).to have_field(id: "custom_shop_line_item_quantity", with: "144")
 
       perform_enqueued_jobs do
-        click_on("Request Quote")
+        click_on("Request Pricing")
 
         fill_in "Email", with: @user.email
         fill_in "Password", with: @password
@@ -57,34 +57,34 @@ feature "A customer builds quote for custom product" do
 
         fill_in "Account Number", with: "H123"
         fill_in "Opportunity number", with: "OP692"
-        click_on("Request Quote")
+        click_on("Request Pricing")
 
-        expect(page).to have_text("Your quote request has been submitted.")
+        expect(page).to have_text("Your price request has been submitted.")
 
-        custom_shop_quote = CustomShopQuote.last
+        custom_shop_price_request = CustomShopPriceRequest.last
         last_email = ActionMailer::Base.deliveries.last
-        expect(last_email.subject).to have_text("Custom Shop Quote Request")
+        expect(last_email.subject).to have_text("Custom Shop Price Request")
         expect(last_email.body).to have_text("joe@schmoe.com")
         expect(last_email.body).to have_text("H123")
         expect(last_email.body).to have_text("OP692")
         expect(last_email.body).to have_text(@product1.name)
-        expect(last_email.body).to have_link(custom_shop_quote.number)
+        expect(last_email.body).to have_link(custom_shop_price_request.number)
       end
     end
   end
 
-  describe "editing a line item on a quote" do
+  describe "editing a line item on a price request" do
     it "is successful" do
       visit custom_shop_path
 
       click_on("Customize #{@product1.name}")
       choose "white"
-      click_on("Add To Quote")
+      click_on("Add To Price Request")
 
       click_on("Edit #{@product1.name}")
       choose "gray"
       fill_in "Quantity", with: "92"
-      click_on("Update Quote")
+      click_on("Update Price Request")
 
       expect(page).to have_text("#{@product1.name} was updated")
       expect(page).to have_text("Color: gray")
@@ -92,40 +92,40 @@ feature "A customer builds quote for custom product" do
     end
   end
 
-  describe "removing a line item from a quote" do
+  describe "removing a line item from a price request" do
     it "is successful" do
       visit custom_shop_path
 
       click_on("Customize #{@product1.name}")
       choose "white"
-      click_on("Add To Quote")
+      click_on("Add To Price Request")
 
       @line_item = CustomShopLineItem.last
       click_on(id: "remove-#{@line_item.id}")
 
       expect(page).not_to have_text("Color: white")
-      expect(page).to have_text("Your quote appears to be empty")
+      expect(page).to have_text("Your price request appears to be empty")
     end
   end
 
   describe "setting a line item quantity to zero" do
-    it "removes it from the quote" do
+    it "removes it from the price request" do
       visit custom_shop_path
 
       click_on("Customize #{@product1.name}")
       choose "white"
-      click_on("Add To Quote")
+      click_on("Add To Price Request")
 
       click_on("Edit #{@product1.name}")
       fill_in "Quantity", with: "0"
-      click_on("Update Quote")
+      click_on("Update Price Request")
 
       expect(page).not_to have_text("Color: white")
-      expect(page).to have_text("Your quote appears to be empty")
+      expect(page).to have_text("Your price request appears to be empty")
     end
   end
 
-  describe "new user builds a quote" do
+  describe "new user builds a price request" do
     it "is successful" do
       new_user = build(:user)
 
@@ -136,12 +136,12 @@ feature "A customer builds quote for custom product" do
       click_on("Customize #{@product1.name}")
 
       choose "white"
-      click_on("Add To Quote")
+      click_on("Add To Price Request")
 
-      expect(page).to have_text("#{@product1.name} has been added to your quote")
+      expect(page).to have_text("#{@product1.name} has been added to your price request")
       expect(page).to have_text("Color: white")
 
-      click_on("Request Quote")
+      click_on("Request Pricing")
 
       expect {
         click_on "register"
@@ -154,12 +154,12 @@ feature "A customer builds quote for custom product" do
 
       perform_enqueued_jobs do
         fill_in "Account Number", with: "H123"
-        click_on("Request Quote")
+        click_on("Request Pricing")
 
-        expect(page).to have_text("Your quote request has been submitted.")
+        expect(page).to have_text("Your price request has been submitted.")
 
         last_email = ActionMailer::Base.deliveries.last
-        expect(last_email.subject).to have_text("Custom Shop Quote Request")
+        expect(last_email.subject).to have_text("Custom Shop Price Request")
         expect(last_email.body).to have_text(new_user.email)
         expect(last_email.body).to have_text("H123")
       end
@@ -169,4 +169,3 @@ feature "A customer builds quote for custom product" do
 end
 
 # NOTE: Add country to user table
-# NOTE: Users can enter "other" values (free text)

@@ -632,9 +632,10 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get 'custom_shop' => 'custom_shop#index', as: :custom_shop
     namespace :custom_shop do
       get 'cart' => "custom_shop_carts#show", as: :cart
-      get 'request_submitted' => "custom_shop_quotes#request_submitted", as: :request_submitted
-      resources :products
-      resources :custom_shop_quotes
+      get 'request_submitted' => "custom_shop_price_requests#request_submitted", as: :request_submitted
+      resources :products, only: :show
+      resources :product_families, only: :show
+      resources :custom_shop_price_requests
       resources :custom_shop_carts
       resources :custom_shop_line_items
     end

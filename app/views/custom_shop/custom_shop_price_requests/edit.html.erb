@@ -1,10 +1,11 @@
-<h1 class="text-center">Editing Custom Shop Quote #<%= @custom_shop_quote.number %></h1>
+<h1 class="text-center">Editing Custom Shop Price Request #<%= @custom_shop_price_request.number %></h1>
 
-<%= simple_form_for [:custom_shop, @custom_shop_quote] do |f| %>
+<%= simple_form_for [:custom_shop, @custom_shop_price_request] do |f| %>
   <table class="cart_summary">
     <thead>
       <tr>
         <th class="text-center">Product</th>
+        <th class="text-center">Model</th>
         <th class="text-center">Qty.</th>
         <td class="text-center" width="35%">Unit Price (Enter Numbers Only)</td>
       </tr>
@@ -24,6 +25,9 @@
             <% end %>
           </ul>
         </td>
+        <td>
+          <%= li.input :model, input_html: { class: "text-left" } %>
+        </td>
         <td class="text-center"><%= li.object.quantity %></td>
         <td>
           <%= li.input :price, label: "#{li.object.product.name} Price", input_html: { class: "text-left" } %>
@@ -35,7 +39,7 @@
 
   <div class="row">
     <div class="small-12 medium-4 columns">
-      <%= f.input :status, as: :select, collection: ["new", "quoted"] %>
+      <%= f.input :status, as: :select, collection: ["new", "complete"] %>
     </div>
   </div>
 

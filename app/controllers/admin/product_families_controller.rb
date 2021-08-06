@@ -180,6 +180,7 @@ class Admin::ProductFamiliesController < AdminController
       :position,
       :parent_id,
       :hide_from_navigation,
+      :group_on_custom_shop,
       :background_image,
       :background_color,
       :layout_class,

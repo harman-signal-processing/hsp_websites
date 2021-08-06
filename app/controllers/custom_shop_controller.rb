@@ -1,5 +1,8 @@
 class CustomShopController < ApplicationController
-	http_basic_authenticate_with name: ENV['custom_shop_preview_user'], password: ENV['custom_shop_preview_password']
+  if Rails.env.production?
+    http_basic_authenticate_with name: ENV['custom_shop_preview_user'], password: ENV['custom_shop_preview_password']
+  end
+
   include CurrentCustomShopCart
   before_action :set_locale
 

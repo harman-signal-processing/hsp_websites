@@ -1,0 +1,35 @@
+<li>
+  <div id="<%= subfamily.to_param %>" class="small_product_box">
+    <div class="product_thumb" data-equalizer-watch="product_thumbs">
+      <%= link_to subfamily do %>
+        <% if !subfamily.family_photo_file_name.blank? %>
+          <%= image_tag(subfamily.family_photo.url, alt: translate_content(subfamily, :name)) %>
+        <% elsif subfamily.first_product_with_photo(website) %>
+          <%= image_tag(subfamily.first_product_with_photo(website).primary_photo.product_attachment.url(:small),
+                        alt: translate_content(subfamily, :name), lazy: false) %>
+        <% end %>
+      <% end %>
+    </div>
+    <h3 class="text-center">
+      <%= link_to subfamily do %>
+        <%= translate_content(subfamily, :name) %>
+      <% end %>
+    </h3>
+    <div class="product_description">
+      <% if subfamily.intro.present? %>
+        <%= truncate(strip_html(translate_content(subfamily, :intro)), length: 100) %>
+      <% elsif subfamily_products.first.short_description.present? %>
+        <%= translate_content(subfamily_products.first, :short_description) %>
+      <% elsif subfamily_products.length > 0 %>
+        <%= truncate(subfamily_products.map{|p| translate_content(p, :name)}.join(", "), length: 100) %>
+      <% end %>
+      <br/><br/>
+      <div class="text-center">
+        <%= link_to [:custom_shop, subfamily], class: "small button" do %>
+          Customize <%= translate_content(subfamily, :name) %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</li>
+

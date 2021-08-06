@@ -4,10 +4,10 @@
   Custom Shop
 <% end %>
 </p>
-<h1>Custom Shop Quote</h1>
+<h1>Custom Shop Price Request</h1>
 <% if @custom_shop_cart.empty? %>
 
-  <p>Your quote appears to be empty. Start by <%= link_to "selecting a product", custom_shop_path %> to customize.</p>
+  <p>Your price request appears to be empty. Start by <%= link_to "selecting a product", custom_shop_path %> to customize.</p>
 
 <% else %>
 
@@ -76,8 +76,8 @@
       <% end %>
     </div>
     <div class="small-6 columns text-right">
-      <%= link_to new_custom_shop_custom_shop_quote_path, class: "success button" do %>
-        Request Quote
+      <%= link_to new_custom_shop_custom_shop_price_request_path, class: "success button" do %>
+        Request Pricing
         <%= fa_icon "long-arrow-right" %>
       <% end %>
     </div>

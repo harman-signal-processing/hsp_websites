@@ -6,4 +6,7 @@ class CustomizableAttribute < ApplicationRecord
     where.not(id: ProductFamilyCustomizableAttribute.where(product_family: product_family).pluck(:customizable_attribute_id))
   }
 
+  def options_for_product(product)
+    product.customizable_attribute_values.where(customizable_attribute: self)
+  end
 end

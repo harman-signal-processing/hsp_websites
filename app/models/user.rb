@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_many :distributors, through: :distributor_users
   has_many :tones
   has_many :tone_user_ratings
-  has_many :custom_shop_quotes
+  has_many :custom_shop_price_requests
 
   has_attached_file :profile_pic,
     styles: {

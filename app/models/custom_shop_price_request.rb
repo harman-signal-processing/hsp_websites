@@ -1,4 +1,4 @@
-class CustomShopQuote < ApplicationRecord
+class CustomShopPriceRequest < ApplicationRecord
   has_many :custom_shop_line_items, dependent: :destroy
   belongs_to :user
   belongs_to :custom_shop_cart
@@ -8,7 +8,7 @@ class CustomShopQuote < ApplicationRecord
 
   after_initialize :set_defaults
   after_create :assign_line_items, :send_request
-  before_update :send_quote_to_customer
+  before_update :send_pricing_to_customer
 
   accepts_nested_attributes_for :custom_shop_line_items
 
@@ -43,17 +43,17 @@ class CustomShopQuote < ApplicationRecord
 
   def assign_line_items
     self.custom_shop_cart.custom_shop_line_items.each do |li|
-      li.update(custom_shop_quote: self)
+      li.update(custom_shop_price_request: self)
     end
   end
 
   def send_request
-    CustomShopMailer.delay.request_quote(self)
+    CustomShopMailer.delay.request_pricing(self)
   end
 
-  def send_quote_to_customer
-    if status_changed? && status == "quoted"
-      CustomShopMailer.delay.send_quote_to_customer(self)
+  def send_pricing_to_customer
+    if status_changed? && status == "complete"
+      CustomShopMailer.delay.send_pricing_to_customer(self)
     end
   end
 
