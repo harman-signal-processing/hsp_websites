@@ -17,7 +17,7 @@ class CustomShopLineItem < ApplicationRecord
   def build_options
     if product
       product.customizable_attributes.each do |ca|
-        unless customizable_attributes.include?(ca)
+        if initialize_attribute?(ca, product)
           custom_shop_line_item_attributes << CustomShopLineItemAttribute.new(customizable_attribute: ca)
         end
       end
@@ -34,6 +34,12 @@ class CustomShopLineItem < ApplicationRecord
     else
       0
     end
+  end
+
+  private
+
+  def initialize_attribute?(customizable_attribute, product)
+    true unless customizable_attributes.include?(customizable_attribute) || customizable_attribute.options_for_product(product).length < 2
   end
 
 end

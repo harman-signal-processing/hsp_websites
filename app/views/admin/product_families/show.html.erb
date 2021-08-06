@@ -249,7 +249,21 @@
       </div>
     <% end %>
 
+    <% if can?(:manage, ProductFamilyCustomizableAttribute) %>
+      <div class="group">
+        <h5 class="subheader">Custom Shop
+          <%= link_to custom_shop_path, target: "_blank" do %><%= fa_icon "link" %><% end %></h5>
+
+        <p>Typically this is true for JBL families where its products only vary by coverage angle.</p>
+
+        <%= simple_form_for [:admin, @product_family] do |f| %>
+          <%= f.input :group_on_custom_shop, as: :radio_buttons %>
+          <%= submit_tag 'update', class: "small button" %>
+        <% end %>
+      </div>
+    <% end %>
   </div>
+
 
   <div class="medium-6 columns">
     <div class="group">

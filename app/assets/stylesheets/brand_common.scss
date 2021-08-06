@@ -894,8 +894,9 @@ div.family_thumb {
     }
   }
   .product_description {
-    font-size: 14px;
-    line-height: 15px;
+    color: #545454;
+    font-size: rem-calc(16px);
+    line-height: 1.5;
   }
 }
 .product_thumb_container {
@@ -912,7 +913,7 @@ div.family_thumb {
 @media only screen and (max-width: 719px) {
   .small_product_box {
     .product_description {
-      line-height: 16px;
+      line-height: 1.1;
     }
   }
 }

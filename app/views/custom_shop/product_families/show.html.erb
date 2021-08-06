@@ -1,0 +1,15 @@
+<p>
+<%= link_to custom_shop_path do %>
+  <%= fa_icon "arrow-left" %>
+  Custom Shop
+<% end %>
+</p>
+<h1>Customize <%= @product_family.name %></h1>
+<p>Select from <%= @product_family.name %> models to continue.</p>
+
+<ul class="large-block-grid-5 medium-block-grid-3 small-block-grid-2">
+  <% @product_family.current_products_plus_child_products(website).sort_by(&:name).each do |product| %>
+    <%= render 'custom_shop/product_square', product: product %>
+  <% end %>
+</ul>
+
