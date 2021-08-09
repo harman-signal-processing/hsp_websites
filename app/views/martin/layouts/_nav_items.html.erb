@@ -1,5 +1,16 @@
-<% # Martin is special. They need two product menus. So there's some messy stuff here... %>
 <%= cache ["nav_items", website.brand, I18n.locale] do %>
+
+  <% if website.show_market_nav.to_i > 0 %>
+    <li class="has-dropdown"><%= link_to t("nav.markets"), '#', class: "disabled" %>
+      <ul class="dropdown">
+        <% MarketSegment.all_parents(website).each do |market_segment| %>
+          <li><%= link_to translate_content(market_segment, :name).titleize, market_segment %></li>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
+
+  <% # Martin is special. They need two product menus. So there's some messy stuff here... %>
   <% secondary_product_family_groups = website.brand.product_families.where(name: "Product Ranges") %>
 	<li class="has-dropdown"><%= link_to t('product_types').titleize, '#' %>
 	 	<ul class="dropdown">
@@ -25,16 +36,6 @@
     <% end %>
   <% end %>
 
-  <% if website.show_market_nav.to_i > 0 %>
-    <li class="has-dropdown"><%= link_to t("nav.markets"), '#', class: "disabled" %>
-      <ul class="dropdown">
-        <% MarketSegment.all_parents(website).each do |market_segment| %>
-          <li><%= link_to translate_content(market_segment, :name).titleize, market_segment %></li>
-        <% end %>
-      </ul>
-    </li>
-  <% end %>
-
   <% if website.has_solution_pages? %>
     <%= render_partial "shared/solutions_nav" %>
   <% end %>
@@ -47,13 +48,26 @@
     </ul>
   </li>
 
-  <% if website.has_events? && !website.has_learning_sessions %>
+  <%# Hard-coded "About us" pages %>
+  <li class="has-dropdown"><%= link_to "About Us", '#' %>
+    <ul class="dropdown">
+      <li><a href="/about-us">Our History</a></li>
+      <li><a href="/sustainability">Sustainability</a></li>
+      <% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
+        <li><%= link_to t('where_to_buy').titleize, where_to_find_path %></li>
+      <% end %>
+      <!--
+      <li><a href="">Who Are We</a></li>
+      <li><a href="">Our Innovation</a></li>
+      -->
+    </ul>
+  </li>
+
+  <!--
+  <% if website.has_events? %>
     <li><%= link_to t('events').titleize, events_path %></li>
   <% end %>
-
-  <% if (website.has_learning_sessions.present? && website.has_learning_sessions == 1) %>
-    <li><%= link_to t('learning_sessions').titleize, "/learning-sessions" %></li>
-  <% end %>
+  -->
 
   <% if website.has_installations? %>
     <li><%= link_to t('installations').titleize, installations_path %></li>
@@ -63,12 +77,14 @@
     <li><%= link_to t('artists').titleize, artists_path %></li>
 	<% end %>
 
-	<% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
-    <li class="hide-for-medium"><%= link_to t('where_to_buy').titleize, where_to_find_path %></li>
-    <li class="show-for-medium"><%= link_to t('buy').titleize, where_to_find_path %></li>
-	<% end %>
-
-  <li><%= link_to t('training').titleize, "/training", target: "_blank" %></li>
+  <li class="has-dropdown"><%= link_to "Learning", '#' %>
+    <ul class="dropdown">
+      <li><%= link_to t('training').titleize, "/training", target: "_blank" %></li>
+      <% if (website.has_learning_sessions.present? && website.has_learning_sessions == 1) %>
+        <li><%= link_to t('learning_sessions').titleize, "/learning-sessions" %></li>
+      <% end %>
+    </ul>
+  </li>
 
   <li class="has-dropdown"><%= link_to t('product_support').titleize, support_path %>
     <ul class="dropdown">
