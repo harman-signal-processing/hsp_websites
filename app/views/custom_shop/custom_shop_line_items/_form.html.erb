@@ -9,7 +9,7 @@
       hint: a.object.customizable_attribute.comment,
       collection: a.object.options_for(f.object.product) %>
     <% if a.object.options_for(f.object.product).map{|k,v| v}.include?("Custom") %>
-      <%= a.input :custom_value %>
+     <%= a.input :custom_value, label: custom_shop_custom_value_label(a) %>
     <% end %>
   <% end %>
 
