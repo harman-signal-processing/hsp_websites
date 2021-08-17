@@ -2290,10 +2290,12 @@ form.new_custom_shop_line_item, form.edit_custom_shop_line_item {
     margin-top: rem-calc(10px);
   }
   div.custom_shop_line_item_custom_shop_line_item_custom_value {
-    margin-top: rem-calc(-13px);
+    margin-left: rem-calc(15px);
+    margin-top: rem-calc(-12px);
+    margin-bottom: rem-calc(15px);
     input {
-      max-width: rem-calc(100px);
-      width: rem-calc(100px);
+      max-width: rem-calc(180px);
+      width: rem-calc(180px);
     }
   }
   div.input.integer {

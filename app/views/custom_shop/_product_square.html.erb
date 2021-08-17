@@ -22,9 +22,9 @@
               <%= customizable_attribute.name %>:
               <%= customizable_attribute.options_for_product(product).first.value %>
             </h4>
-            <br/>
           <% end %>
         <% end %>
+        <br/>
         <div class="text-center">
           <%= link_to [:custom_shop, product], class: "small button" do %>
             Customize <%= translate_content(product, :name) %>
