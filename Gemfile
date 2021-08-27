@@ -26,7 +26,7 @@ gem 'fog-core', '< 2.1.1' # fog-rackspace isn't working with fog-core after 2.1.
 gem 'fog-rackspace'
 gem 'fog-aws'
 gem 'asset_sync'
-gem "kt-paperclip"
+gem "kt-paperclip", ">= 7.0"
 gem 'kt-paperclip-compression'
 gem 'kt-delayed_paperclip'
 gem 's3_direct_upload'
