@@ -14,7 +14,7 @@ module ProductSelectorHelper
 
   def filter_title(product_filter)
     content_tag(:h5) do
-      ((product_filter.is_number? && !product_filter.name.to_s.match(/^max/i) ) ?
+      ((product_filter.is_number? && !product_filter.name.to_s.match(/^max/i) && !product_filter.value_type.match?(/upward/i)) ?
         "Max #{product_filter.name}" : product_filter.name)
     end
   end
@@ -40,9 +40,12 @@ module ProductSelectorHelper
   end
 
   def number_filter_input(product_filter, product_family)
+    slider_type = product_filter.value_type.match?(/upward/i) ?
+      "upwards-slider-number" : "slider-number"
+
     filter_title(product_filter) +
     content_tag(:div,
-      class: "slider-number-container",
+      class: "#{ slider_type }-container",
       id: "filter_#{ product_filter.to_param }_slider",
       data: {
         filtername: "filter-#{product_filter.to_param}",
@@ -53,7 +56,7 @@ module ProductSelectorHelper
         secondary_uom: product_filter.secondary_uom.present? ? product_filter.secondary_uom : "",
         secondary_uom_formula: product_filter.secondary_uom_formula.present? ? product_filter.secondary_uom_formula : ""
       }) do
-      content_tag(:div, "", class: "slider-number") +
+      content_tag(:div, "", class: slider_type) +
       #text_field_tag("filter-#{product_filter.to_param}", "", class: "unstyled slider-filter") +
       content_tag(:div, "", class: "number-label")
     end

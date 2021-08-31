@@ -13,4 +13,8 @@ class ProductProductFilterValue < ApplicationRecord
   def range_value
     string_value
   end
+
+  def number_upwards_value
+    number_value
+  end
 end
