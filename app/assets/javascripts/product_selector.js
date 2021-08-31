@@ -3,6 +3,7 @@ var product_elements_to_show = [];
 var product_elements_to_hide = [];
 var range_filter_data = {};
 var slider_filter_data = {};
+var upwards_slider_filter_data = {};
 
 // Each slider element is initialized and given a callback
 // function for when the values change.
@@ -148,6 +149,64 @@ function initializeSliders() {
   sessionStorage.setItem('slider_filter_data', JSON.stringify(slider_filter_data));
 }
 
+function initializeUpwardsSliders() {
+  $.each( $("div.upwards-slider-number-container"), function() {
+    var min = $(this).data("min");
+    var max = $(this).data("max");
+    var uom = $(this).data("uom");
+    var secondary_uom = $(this).data("secondary-uom");
+    var secondary_uom_formula = $(this).data("secondary-uom-formula");
+    var slider = $(this).children("div.upwards-slider-number");
+    var number_label = $(this).children("div.number-label");
+    var filter_name = $(this).attr("data-filtername");
+    var stepsize = $(this).attr("data-stepsize");
+
+    var session_filter_data = JSON.parse(sessionStorage.getItem('upwards_slider_filter_data'));
+    if (session_filter_data && session_filter_data[filter_name]) {
+      upwards_slider_filter_data[filter_name] = session_filter_data[filter_name];
+    } else {
+      upwards_slider_filter_data[filter_name] = {
+        default: -1,
+        selected_value: -1
+      };
+    }
+
+    slider.slider({
+      range: false,
+      min: -1,
+      max: max,
+      value: upwards_slider_filter_data[filter_name]["selected_value"],
+      step: parseInt(stepsize),
+      slide: function(event, ui) {
+        slider_value = ui.value + " " + uom;
+        if ( ui.value == -1 ) {
+          slider_value = "any";
+        } else if (secondary_uom.length && secondary_uom_formula.length) {
+          alt_value = eval(ui.value + secondary_uom_formula).toFixed(1);
+          slider_value += " / " + alt_value + " " + secondary_uom;
+        }
+        number_label.html(slider_value);
+      },
+      change: function(event, ui) {
+        upwards_slider_filter_data[filter_name]["selected_value"] = ui.value;
+        sessionStorage.setItem('upwards_slider_filter_data', JSON.stringify(upwards_slider_filter_data));
+        performFilter();
+      }
+    });
+
+    number_label_value = slider.slider("value") + " " + uom
+    if ( slider.slider("value") == -1 ) {
+      number_label_value = "any";
+    } else if (secondary_uom.length && secondary_uom_formula.length) {
+      alt_value = eval(slider.slider("value") + secondary_uom_formula).toFixed(1);
+      number_label_value += " / " + alt_value + " " + secondary_uom;
+    }
+    number_label.html(number_label_value);
+
+  });
+  sessionStorage.setItem('upwards_slider_filter_data', JSON.stringify(upwards_slider_filter_data));
+}
+
 // Adds the given element to the "show" array and removes
 // it from the "hide" array
 function showProduct(e) {
@@ -280,6 +339,25 @@ function sliderFilter(item, filter_name, filter_data) {
   return false;
 }
 
+function upwardsSliderFilter(item, filter_name, filter_data) {
+  // if the slider hasn't moved, return true for all products
+  if ( parseFloat(filter_data["selected_value"]) == parseFloat(filter_data["default"]) ) {
+      return true;
+  } else if ( typeof $(item).attr("data-"+filter_name) !== 'undefined' ) {
+    var this_value = $(item).attr("data-"+filter_name);
+    if ( filter_data['selected_value'] == 0 ) {
+      if ( this_value == 0) {
+        return true;
+      }
+    } else if (this_value >= filter_data['selected_value']) {
+      return true;
+    }
+  } else if (filter_data['selected_value'] == 0) {
+    return true;
+  }
+  return false;
+}
+
 function performFilter() {
   window.product_elements_to_show = [];
   window.product_elements_to_hide = [];
@@ -330,7 +408,8 @@ function performFilter() {
     select_filter_data,
     boolean_filter_data,
     slider_filter_data,
-    range_filter_data
+    range_filter_data,
+    upwards_slider_filter_data
   );
 
   sessionStorage.setItem('selected_sub_families', JSON.stringify(selected_sub_families));
@@ -347,6 +426,7 @@ function rerunFilter() {
   var select_filter_data = JSON.parse(sessionStorage.getItem('select_filter_data'));
   var boolean_filter_data = JSON.parse(sessionStorage.getItem('boolean_filter_data'));
   var slider_filter_data = JSON.parse(sessionStorage.getItem('slider_filter_data'));
+  var upwards_slider_filter_data = JSON.parse(sessionStorage.getItem('upwards_slider_filter_data'));
   var range_filter_data = JSON.parse(sessionStorage.getItem('range_filter_data'));
 
   // loop through each product
@@ -356,7 +436,8 @@ function rerunFilter() {
     select_filter_data,
     boolean_filter_data,
     slider_filter_data,
-    range_filter_data
+    range_filter_data,
+    upwards_slider_filter_data
   );
 
   // restore input settings from session
@@ -384,7 +465,7 @@ function rerunFilter() {
   }
 }
 
-function filterProducts(selected_sub_families, text_filter_data, select_filter_data, boolean_filter_data, slider_filter_data, range_filter_data) {
+function filterProducts(selected_sub_families, text_filter_data, select_filter_data, boolean_filter_data, slider_filter_data, range_filter_data, upwards_slider_filter_data) {
   $.each((master_product_list), function() {
     var failed_filter_count = 0;
     // apply each filter
@@ -424,6 +505,12 @@ function filterProducts(selected_sub_families, text_filter_data, select_filter_d
       }
     }
 
+    for (var filter_name in upwards_slider_filter_data) {
+      if (upwardsSliderFilter(this, filter_name, upwards_slider_filter_data[filter_name]) == false) {
+        failed_filter_count++;
+      }
+    }
+
     if (failed_filter_count > 0) {
       hideProduct(this);
     } else {
@@ -445,6 +532,7 @@ jQuery(function($) {
     $("div#subgroups").empty();
     sessionStorage.removeItem('range_filter_data');
     sessionStorage.removeItem('slider_filter_data');
+    sessionStorage.removeItem('upwards_slider_filter_data');
     $.getScript(this.href);
     history.pushState(null, "", this.href);
     return false;
@@ -459,6 +547,7 @@ jQuery(function($) {
     $("#options-container").empty();
     sessionStorage.removeItem('range_filter_data');
     sessionStorage.removeItem('slider_filter_data');
+    sessionStorage.removeItem('upwards_slider_filter_data');
     $.getScript(this.href);
     history.pushState(null, "", this.href);
     return false;
