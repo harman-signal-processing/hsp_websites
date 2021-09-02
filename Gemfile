@@ -108,6 +108,7 @@ group :development do
   gem 'sshkit'
   gem 'colorize'
   #gem 'rorvswild'
+  gem 'marginalia'
 end
 
 group :development, :test do

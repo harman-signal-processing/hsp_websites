@@ -391,6 +391,9 @@ GEM
       json (>= 1.7.7)
       rest-client (>= 1.6.7)
     marcel (1.0.1)
+    marginalia (1.11.1)
+      actionpack (>= 5.2)
+      activerecord (>= 5.2)
     mechanize (2.8.2)
       addressable (~> 2.8)
       domain_name (~> 0.5, >= 0.5.20190701)
@@ -722,6 +725,7 @@ DEPENDENCIES
   lazyload-rails
   letter_opener
   mailgun_rails
+  marginalia
   mechanize
   meta-tags
   money
