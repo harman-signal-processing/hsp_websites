@@ -87,12 +87,12 @@ module ProductSelectorHelper
   end
 
   def text_filter_input(product_filter, product_family)
-    unique_values = product_filter.unique_values_for(product_family, website)
-    case
-      when unique_values.size > 20
-        select_filter_input(product_filter, unique_values)
-      when (1..19) === unique_values.size
-        checkbox_filter_input(product_filter, unique_values)
+    unique_values = get_unique_values_for(product_filter, product_family)
+
+    if unique_values.size > 20
+      select_filter_input(product_filter, unique_values)
+    else
+      checkbox_filter_input(product_filter, unique_values)
     end
   end
 
@@ -117,6 +117,18 @@ module ProductSelectorHelper
           id: "filter-#{product_filter.to_param}_#{val.to_param}" ) + " #{val}"
       end
     end.join.html_safe
+  end
+
+  def get_unique_values_for(product_filter, product_family)
+    unique_values = product_filter.unique_values_for(product_family, website)
+
+    if unique_values.all? { |val| val.match?(/^\d/) }
+      unique_values = unique_values.sort_by { |s| s.scan(/\d+/).first.to_i }
+    else
+      unique_values.sort!
+    end
+
+    unique_values
   end
 
 end

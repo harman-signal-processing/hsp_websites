@@ -7,7 +7,7 @@
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
-server "rackspace2020",  user: 'brandsites', roles: %w{web app background}
+server "rackspace2020",  user: 'brandsites', roles: %w{web app background}, primary: true
 server "rackspace2021",  user: 'brandsites', roles: %w{web app db background}, primary: true
 
 # role-based syntax
