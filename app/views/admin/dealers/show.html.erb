@@ -87,7 +87,7 @@
       <tr>
         <th>Rental Products (<%=bd.brand.name%>)</th>
         <td>
-          <% bd.brand_dealer_rental_products.each do |product_association|%>
+          <% bd.brand_dealer_rental_products.order(:position).each do |product_association|%>
             <%=product_association.product.name%><br/>
           <% end %>
         </td>
