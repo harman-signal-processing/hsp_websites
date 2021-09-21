@@ -237,7 +237,8 @@ class Dealer < ApplicationRecord
             sheet[row, 4] = "Email:"
             sheet[row, 5] = dealer.email
             sheet[row, 6] = "Models:"
-            sheet[row, 7] = dealer.products
+            # sheet[row, 7] = dealer.products
+            sheet[row, 7] = dealer.rental_product_names
             row += 1
             (0..6).each do |c|
               sheet.row(row).format(c).left = :thin
@@ -275,6 +276,10 @@ class Dealer < ApplicationRecord
     else
       dealers # no other formats supported yet
     end
+  end
+
+  def rental_product_names
+    Product.find(self.brand_dealers.first.brand_dealer_rental_products.pluck(:product_id)).pluck(:name).join(', ')
   end
 
 end
