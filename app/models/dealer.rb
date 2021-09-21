@@ -279,7 +279,7 @@ class Dealer < ApplicationRecord
   end
 
   def rental_product_names
-    Product.find(self.brand_dealers.first.brand_dealer_rental_products.pluck(:product_id)).pluck(:name).join(', ')
+    Product.find(self.brand_dealers.first.brand_dealer_rental_products.order(:position).pluck(:product_id)).pluck(:name).join(', ')
   end
 
 end
