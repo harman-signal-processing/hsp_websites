@@ -76,7 +76,7 @@
             <% if bd.brand_dealer_rental_products.present? %>
               <p style="font-size:small;">
                 <strong>Rental Products (<%=bd.brand.name%>)</strong><br/>
-                <% bd.brand_dealer_rental_products.each do |product_association|%>
+                <% bd.brand_dealer_rental_products.order(:position).each do |product_association|%>
                   <%=product_association.product.name%><br/>
                 <% end %>              
               </p>
