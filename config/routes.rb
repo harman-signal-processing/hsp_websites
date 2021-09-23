@@ -459,6 +459,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     resources :us_reps, :distributors, only: [:index, :show] do
       collection { get :search }
     end
+    get 'us-reps' => 'us_reps#us_reps_json'
     resources :softwares, only: [:index, :show, :new, :edit] do
       member do
         get :download
