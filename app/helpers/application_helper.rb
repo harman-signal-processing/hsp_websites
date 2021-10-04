@@ -152,8 +152,7 @@ module ApplicationHelper
           link_options[:target] = "_blank"
         end
       end
-
-      slide_innards = image_tag(slide.slide.url, lazy: false)
+      slide_innards = image_tag(slide.slide.url, alt: slide.name, lazy: false)
       if slide.text_value.present?
         slide_innards += content_tag(:div, class: "homepage-orbit-caption orbit-caption") do
           content_tag(:div, slide.text_value.html_safe, class: "caption-content")

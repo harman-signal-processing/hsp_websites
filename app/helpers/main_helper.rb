@@ -61,7 +61,7 @@ module MainHelper
     begin
       content = ""
       website.products.where("background_image_file_name IS NOT NULL").each do |product|
-  		  content += image_tag(product.background_image.url("original", false), height: 0, width: 0, lazy: false)
+        content += image_tag(product.background_image.url("original", false), alt: product.name, height: 0, width: 0, lazy: false)
   	  end
   	  content.html_safe
 	  rescue
