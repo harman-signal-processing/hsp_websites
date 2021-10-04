@@ -43,7 +43,7 @@ module MainHelper
       begin
         Youtube.new(youtube_user).get_videos(limit: 4).each do |video|
           vids << content_tag(:li, class: 'video-thumbnail') do
-            link_to(image_tag(video[:thumbnail], width: 320, height: 180) + play_button, play_video_url(video[:id]), target: "_blank",
+            link_to(image_tag(video[:thumbnail], alt: 'play video', width: 320, height: 180) + play_button, play_video_url(video[:id]), target: "_blank",
                     data: { videoid: video[:id] }, class: 'videothumbnail start-video') +
             content_tag(:p, video[:title], class: 'video_title')
           end
