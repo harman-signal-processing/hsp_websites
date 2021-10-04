@@ -34,7 +34,7 @@
 			<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 		<% end %>
 
-		<%= javascript_include_tag 'application' %>
+		<%#= javascript_include_tag 'application' %>
 		<%= stylesheet_link_tag website.folder %>
 		<%= yield :extra_header_code %>
     <%= cache [website, "other_header_scripts", Date.today, I18n.locale] do %>
@@ -89,7 +89,7 @@
 			<% if I18n.locale.to_s.match(/#{I18n.default_locale.to_s.split('-')[0]}/i) && website.value_for("enable_search") %>
 			<div id="search_form">
 				<%= form_tag search_path, method: :get %>
-					<%= text_field_tag :query, t('search'), onclick: "if (this.value == '#{t('search')}') { this.value = '';} " %>
+					<%= text_field_tag :query, t('search'), onclick: "if (this.value == '#{t('search')}') { this.value = '';} ", 'aria-label': t('search') %>
 					<%= submit_tag t('search'), id: 'submit' %>
 				</form>
 			</div>
