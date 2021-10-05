@@ -6,14 +6,14 @@
 			<div class="row featured_product_container" id="featured_product_<%= i %>">
 				<%= featured_product_icons(featured_product, i) %>
 				<div class="large-7 columns">
-					<div class="featured_image_container show-for-large-up left">
-						<%= link_to(image_tag(featured_product.photo.product_attachment.url(:full_width), lazy: false, class: "featured_image"), featured_product) %>
+					<div class="featured_image_container show-for-large-up left
+						<%= link_to(image_tag(featured_product.photo.product_attachment.url(:full_width), alt: featured_product.name, lazy: false, class: "featured_image"), featured_product) %>
 					</div>
           <div class="hide-for-medium-up">
-            <%= link_to(image_tag(featured_product.photo.product_attachment.url(:medium), lazy: false), featured_product) %>
+            <%= link_to(image_tag(featured_product.photo.product_attachment.url(:medium), alt: featured_product.name, lazy: false), featured_product) %>
           </div>
           <div class="show-for-medium">
-            <%= link_to(image_tag(featured_product.photo.product_attachment.url(:large), lazy: false), featured_product) %>
+            <%= link_to(image_tag(featured_product.photo.product_attachment.url(:large), alt: featured_product.name, lazy: false), featured_product) %>
           </div>
 				</div>
 				<div class="large-5 columns">
@@ -31,10 +31,10 @@
 			<% else %>
 			<div class="row featured_product_container" id="featured_product_<%= i %>">
         <div class="hide-for-medium-up">
-          <%= link_to(image_tag(featured_product.photo.product_attachment.url(:medium), lazy: false), featured_product) %>
+          <%= link_to(image_tag(featured_product.photo.product_attachment.url(:medium), alt: featured_product.name, lazy: false), featured_product) %>
         </div>
         <div class="show-for-medium">
-          <%= link_to(image_tag(featured_product.photo.product_attachment.url(:large), lazy: false), featured_product) %>
+          <%= link_to(image_tag(featured_product.photo.product_attachment.url(:large), alt: featured_product.name, lazy: false), featured_product) %>
         </div>
 				<div class="large-5 columns text-right small-left">
 					<h1><%= link_to featured_product.name, featured_product %></h1>
@@ -49,7 +49,7 @@
 				</div>
 				<div class="large-7 columns show-for-large-up">
 					<div class="featured_image_container right">
-						<%= link_to(image_tag(featured_product.photo.product_attachment.url(:original), lazy: false, class: "featured_image"), featured_product) %>
+						<%= link_to(image_tag(featured_product.photo.product_attachment.url(:original), alt: featured_product.name, lazy: false, class: "featured_image"), featured_product) %>
 					</div>
 				</div>
 			</div>
