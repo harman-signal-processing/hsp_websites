@@ -397,7 +397,7 @@ module ApplicationHelper
                                      alt: n,
                                      :"aria-label" => n)
           end
-          html += link_to(presentation, v, target: "_blank")
+          html += link_to(presentation, v, target: "_blank", :"aria-label" => n)
         end
       end
     end
