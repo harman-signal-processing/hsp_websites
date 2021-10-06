@@ -28,6 +28,8 @@ class News < ApplicationRecord
   }.merge(S3_STORAGE)
   validates_attachment :news_photo, content_type: { content_type: /\Aimage/i }
 
+  alias_attribute :name, :title
+
   has_many :brand_news, dependent: :destroy
   has_many :brands, through: :brand_news
   has_many :news_products, dependent: :destroy
