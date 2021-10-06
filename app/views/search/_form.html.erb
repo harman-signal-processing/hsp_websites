@@ -3,13 +3,13 @@
     <div class="small-12 medium-12 large-8 columns">
       <div class="row collapse">
         <div class="small-9 columns">
-          <%= text_field_tag :query, @query %>
+          <%= text_field_tag :query, @query, 'aria-label': t('search') %>
         </div>
         <div class="small-3 columns">
           <%= submit_tag t('search'), class: "postfix button" %>
         </div>
       </div>
-      <%= check_box_tag :pdf_only, 'yes', @pdf_only %> PDF Files Only
+      <label><%= check_box_tag :pdf_only, 'yes', @pdf_only %> PDF Files Only</label>
     </div>
   </div>
 </form>
