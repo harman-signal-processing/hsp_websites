@@ -32,7 +32,7 @@ module FeaturesHelper
 
       if opt[:format].present? && opt[:format] == "mobile"
         content_tag :div, class: "wide-feature"  do
-          image_tag(img) + render_feature_text(feature, opt)
+          image_tag(img, alt: "featured content") + render_feature_text(feature, opt)
         end
       else
         content_tag :div, content_class  do
@@ -59,7 +59,7 @@ module FeaturesHelper
       end
 
       content_tag :div, class: "wide2-feature"  do
-        image_tag(img) + content_tag(:br) +
+        image_tag(img, alt: "featured content") + content_tag(:br) +
         raw(update_youtube_links(translate_content(feature, :content))) +
         content_tag(:br)
       end

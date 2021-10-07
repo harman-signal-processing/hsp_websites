@@ -3,7 +3,7 @@
     <li>
       <% if news.news_photo_file_name.present? %>
         <div style="height: 120px; overflow: hidden; background-color: #000;">
-          <%= link_to image_tag(news.news_photo.url(:email)), news %>
+          <%= link_to image_tag(news.news_photo.url(:email), alt: news.title), news %>
         </div>
       <% end %>
       <small><%=l news.post_on.to_date, format: :long %></small><br/>

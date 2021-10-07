@@ -1,12 +1,12 @@
 <div class="row">
   <div class="medium-2 hide-for-small columns">
     <% if news.news_photo_file_name.present? %>
-      <%= link_to image_tag(news.news_photo.url(:thumb_square)), news %>
+      <%= link_to image_tag(news.news_photo.url(:thumb_square), alt: news.title), news %>
     <% end %>
   </div>
   <div class="small-12 show-for-small-down columns">
     <% if news.news_photo_file_name.present? %>
-      <%= link_to image_tag(news.news_photo.url(:email)), news %>
+      <%= link_to image_tag(news.news_photo.url(:email), alt: news.title), news %>
     <% end %>
   </div>
   <div class="large-8 medium-10 small-12 end columns">
