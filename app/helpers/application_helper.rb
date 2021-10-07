@@ -459,7 +459,7 @@ module ApplicationHelper
       else
         "icons/download_#{size}.png"
     end
-    image_tag img, style: "vertical-align: middle"
+    image_tag img, style: "vertical-align: middle", alt: "platform icon"
 	end
 
   def file_type_icon(item, size=17)
@@ -481,7 +481,7 @@ module ApplicationHelper
           else
             "icons/download_#{size}.png"
           end
-    image_tag img, style: "vertical-align: middle"
+    image_tag img, style: "vertical-align: middle", alt: "file type icon"
   end  #  def file_type_icon(item)
 
   def product_photo_is_png?(product)

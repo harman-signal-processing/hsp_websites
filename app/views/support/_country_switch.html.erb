@@ -3,7 +3,7 @@
         <div style="float:left; border: solid red 0px;">
             <% country_name = country_name(country_code)
             if country_name.present? %>
-                Your country is <%=country_name%> <%=image_tag "https://www.countryflags.io/#{country_code}/flat/32.png" %>
+                Your country is <%=country_name%> <%=image_tag "https://www.countryflags.io/#{country_code}/flat/32.png", alt: country_name %>
             <% end %>
         </div>
         <div style="float:left; border: solid red 0px; width: 400px; margin-top: 4px; margin-left: 20px;">

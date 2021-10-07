@@ -4,7 +4,7 @@ module ProductsHelper
     if product_attachment.product_attachment_file_name.present?
       link_to product_attachment.product_attachment.url(:original),
         data: product_attachment.no_lightbox? ? {} : { fancybox: 'product-thumbnails' } do
-          image_tag(product_attachment.product_attachment.url(:tiny), style: 'vertical-align: middle')
+          image_tag(product_attachment.product_attachment.url(:tiny), alt: "product thumbnail", style: 'vertical-align: middle')
       end
     else
       img = product_attachment.product_media_thumb.url(:tiny)
@@ -12,7 +12,7 @@ module ProductsHelper
         width = (product_attachment.width.blank?) ? "100%" : product_attachment.width
         height = (product_attachment.height.blank?) ? "100%" : product_attachment.height
         new_content = swf_tag(product_attachment.product_media.url, size: "#{width}x#{height}")
-        link_to_function image_tag(img, style: "vertical-align: middle"), "$('#viewer').html('#{escape_javascript(new_content)}')"
+        link_to_function image_tag(img, style: "vertical-align: middle", alt: "flash"), "$('#viewer').html('#{escape_javascript(new_content)}')"
       elsif product_attachment.product_media_file_name.to_s.match(/flv|mp4|mov|mpeg|mp3|m4v$/i)
         link_to product_attachment.product_media.url,
           data: product_attachment.no_lightbox? ? {} : { fancybox: 'product-thumbnails' } do
@@ -20,7 +20,7 @@ module ProductsHelper
         end
       else
         new_content = product_attachment.product_attachment.url
-        link_to_function image_tag(img, style: "vertical-align: middle"), "$('#viewer').html('#{escape_javascript(new_content)}')"
+        link_to_function image_tag(img, style: "vertical-align: middle", alt: product_attachment.product_attachment_file_name), "$('#viewer').html('#{escape_javascript(new_content)}')"
       end
     end
   end
@@ -596,7 +596,7 @@ module ProductsHelper
 
   def render_part(part)
     img = part.photo.present? ?
-      link_to(image_tag(part.photo.url(:tiny_square)), "#", data: {:"reveal-id" => "modal#{part.id}"}) :
+      link_to(image_tag(part.photo.url(:tiny_square), alt: part.part_number), "#", data: {:"reveal-id" => "modal#{part.id}"}) :
       "&nbsp;".html_safe
     desc = content_tag(:h5) do
       link_to(part.part_number, '#', data: {:"reveal-id" => "modal#{part.id}"})
