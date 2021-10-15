@@ -1,0 +1,71 @@
+<%=raw(@learning_sessions[:page_content][:body])%>
+
+
+<% if @learning_sessions.count > 0 %>
+  <% @learning_sessions[:events].each do |event| %>
+    <div class="row" data-equalizer="blurbs" data-equalizer-mq="medium-up">
+      <div class="medium-12 small-12 columns">
+        <div class="panel" data-equalizer-watch="blurbs">
+          <div align="center">
+            <h4 class="classtitle"
+                style="font-weight: bold; text-align: center; text-transform: uppercase;"><%=event[:title]%></h4>
+            <p><strong><%=event[:subtitle]%></strong></p>
+            <p><%=raw(event[:description])%></p>
+
+            <% event[:sessions].each do |session| %>
+              <p><strong><%=session[:title]%></strong>
+              <br /><%=session[:session_date].to_date.strftime "%A, %B %d, %Y"%> — <%=session[:session_times]%></p>
+              <a class="button large " style="text-align: center; display: inline-block;"
+                      href="<%=session[:register_link]%>">Register Now</a>
+            <% end %> <%# event.learning_session_event_sessions.each do |session| %>
+
+          </div> <!-- <div align="center"> -->
+        </div> <!-- <div class="panel" data-equalizer-watch="blurbs"> -->
+      </div> <!-- <div class="medium-12 small-12 columns"> -->
+    </div>  <!-- <div class="row" data-equalizer="blurbs" data-equalizer-mq="medium-up"> -->
+  <% end %>  <%# @events.each do |event| %>
+
+<% else %><%# no learning session events available %>
+
+  <div class="row" data-equalizer="blurbs" data-equalizer-mq="medium-up">
+      <div class="medium-12 small-12 columns">
+          <div class="panel" data-equalizer-watch="blurbs">
+              <div align="center">
+                  <h1 style="margin: 0;"><a class="button large "
+                          style="text-align: center; margin: 0; font-weight: bold;"
+                          href="https://pro.harman.com/lp/learning-sessions-playlists" target="_blank" rel="noopener">VIEW
+                          RECORDED LEARNING SESSIONS</a></h1>
+              </div>
+          </div>
+      </div>
+  </div>
+<% end %><%# if @learning_sessions.count > 0 %>
+
+<% if @learning_sessions[:featured_videos].count > 0 %>
+  <h3>FEATURED WEBINARS</h3>
+  <p>Explore some of our most popular recorded product launch and training webinars.</p>
+  
+  <div class="row">
+    <% @learning_sessions[:featured_videos].each do |video| %>
+      <div class="medium-4 small-12 columns">
+          <div class="videothumbnail">
+            <a class="start-video" href="https://www.youtube.com/watch?v=<%=video[:youtube_id]%>"
+                  target="_blank" rel="noopener" data-videoid="<%=video[:youtube_id]%>"><img src="https://i.ytimg.com/vi/<%=video[:youtube_id]%>/hqdefault.jpg"
+                      border="0" /></a>
+            <a class="start-video videoplay"
+                  href="https://www.youtube.com/watch?v=<%=video[:youtube_id]%>" target="_blank" rel="noopener"
+                  data-videoid="<%=video[:youtube_id]%>">&nbsp;</a>
+          </div> <!-- <div class="videothumbnail"> -->
+          <h4><a class="start-video" href="https://www.youtube.com/watch?v=<%=video[:youtube_id]%>" target="_blank" rel="noopener"
+                  data-videoid="<%=video[:youtube_id]%>"><%=video[:title]%></a></h4>
+      </div>
+    <% end %> <%# @featured_videos.each |video| %>
+  </div>
+
+<% end %> <%# if @learning_sessions[:featured_videos].count > 0 %>
+
+<%= content_for :custom_css do %>
+	<style type="text/css">
+		<%=raw @learning_sessions[:page_content][:custom_css] %>
+	</style>
+<% end %>
