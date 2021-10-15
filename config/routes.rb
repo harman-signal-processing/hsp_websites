@@ -629,6 +629,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get '/case_studies/application/:vertical_market' => 'case_studies#index', as: :case_studies_by_vertical_market
     get '/case_studies/filter/:asset_type/:vertical_market' => 'case_studies#index', as: :case_studies_by_asset_type
 
+    get '/learning-sessions-new' => 'learning_sessions#index', as: :learning_sessions_new
+
     # Custom Shop
     get 'custom_shop' => 'custom_shop#index', as: :custom_shop
     namespace :custom_shop do
