@@ -1,22 +1,21 @@
 <%=raw(@learning_sessions[:page_content][:body])%>
 
-
-<% if @learning_sessions.count > 0 %>
+<% if @learning_sessions[:events].present? %>
   <% @learning_sessions[:events].each do |event| %>
     <div class="row" data-equalizer="blurbs" data-equalizer-mq="medium-up">
       <div class="medium-12 small-12 columns">
-        <div class="panel" data-equalizer-watch="blurbs">
+        <div class="panel" data-equalizer-watch="blurbs" style="padding-bottom:0;">
           <div align="center">
-            <h4 class="classtitle"
-                style="font-weight: bold; text-align: center; text-transform: uppercase;"><%=event[:title]%></h4>
-            <p><strong><%=event[:subtitle]%></strong></p>
+            <h3 class="event-title"><%=event[:title]%></h3>
+            <h4 class="event-subtitle"><%=event[:subtitle]%></h4>
             <p><%=raw(event[:description])%></p>
 
             <% event[:sessions].each do |session| %>
-              <p><strong><%=session[:title]%></strong>
-              <br /><%=session[:session_date].to_date.strftime "%A, %B %d, %Y"%> — <%=session[:session_times]%></p>
-              <a class="button large " style="text-align: center; display: inline-block;"
-                      href="<%=session[:register_link]%>">Register Now</a>
+              <div class="session-container">
+                <h3 class="session-title"><%=session[:title]%></h3>
+                <div class="session-date-time"><%=session[:session_date].to_date.strftime "%A, %B %d, %Y"%> — <%=session[:session_times]%></div>
+                <a class="button large" href="<%=session[:register_link]%>">Register Now</a>
+              </div>
             <% end %> <%# event.learning_session_event_sessions.each do |session| %>
 
           </div> <!-- <div align="center"> -->
@@ -27,19 +26,23 @@
 
 <% else %><%# no learning session events available %>
 
+
+<% end %><%# if @learning_sessions[:events].present? %>
+
+<% if @learning_sessions[:page_content][:webinars_link].present? %>
   <div class="row" data-equalizer="blurbs" data-equalizer-mq="medium-up">
       <div class="medium-12 small-12 columns">
           <div class="panel" data-equalizer-watch="blurbs">
               <div align="center">
                   <h1 style="margin: 0;"><a class="button large "
                           style="text-align: center; margin: 0; font-weight: bold;"
-                          href="https://pro.harman.com/lp/learning-sessions-playlists" target="_blank" rel="noopener">VIEW
+                          href="<%=@learning_sessions[:page_content][:webinars_link]%>" target="_blank" rel="noopener">VIEW
                           RECORDED LEARNING SESSIONS</a></h1>
               </div>
           </div>
       </div>
   </div>
-<% end %><%# if @learning_sessions.count > 0 %>
+<% end %> <%# if @learning_sessions[:page_content][:webinars].present? %>
 
 <% if @learning_sessions[:featured_videos].count > 0 %>
   <h3>FEATURED WEBINARS</h3>

@@ -66,7 +66,7 @@
   <% end %>
 
   <% if (website.has_learning_sessions.present? && website.has_learning_sessions == 1) %>
-    <li class="hide-for-medium"><%= link_to t('learning_sessions').titleize, "/learning-sessions" %></li>
+    <li class="hide-for-medium"><%= link_to t('learning_sessions').titleize, "/learning-sessions/" %></li>
   <% end %>
 
   <% if website.has_installations? %>
