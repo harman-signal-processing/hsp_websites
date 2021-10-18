@@ -115,6 +115,7 @@
 											<%= t('news').upcase %>
 											<% end %>
 										</li>
+                    <li><%= link_to "Discontinued Products".upcase, discontinued_products_path %></li>
 									</ul>
 									<%# search is only available in default language for now...%>
 									<%# if I18n.locale.to_s.match(/#{I18n.default_locale.to_s.split('-')[0]}/i) && website.value_for("enable_search") %>
