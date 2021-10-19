@@ -4,9 +4,7 @@ module LearningSessionService
       encoded_url = URI.encode(url)
       response = HTTParty.get(encoded_url, ssl_version: :TLSv1_2)
       if response.success?
-        # result = JSON.parse(response).deep_symbolize_keys
         result = response.deep_symbolize_keys
-        # result[:case_studies]
         result
       else
         raise response.message
