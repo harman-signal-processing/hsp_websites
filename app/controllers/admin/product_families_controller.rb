@@ -24,6 +24,7 @@ class Admin::ProductFamiliesController < AdminController
     @product_family_case_study = ProductFamilyCaseStudy.new(product_family: @product_family)
     @product_family_testimonial = ProductFamilyTestimonial.new(product_family: @product_family)
     @product_family_product_filter = ProductFamilyProductFilter.new(product_family: @product_family)
+    @product_family_video = ProductFamilyVideo.new(product_family: @product_family)
     respond_to do |format|
       format.html { render_template } # show.html.erb
       format.xml  { render xml: @product_family }
@@ -186,6 +187,7 @@ class Admin::ProductFamiliesController < AdminController
       :layout_class,
       :family_banner,
       :title_banner,
+      :accessories_content,
       :post_content,
       :short_description,
       :preview_password,

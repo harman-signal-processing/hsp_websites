@@ -17,6 +17,7 @@ class ProductFamily < ApplicationRecord
   has_many :testimonials, through: :product_family_testimonials
   has_many :product_family_customizable_attributes, dependent: :destroy
   has_many :customizable_attributes, through: :product_family_customizable_attributes
+  has_many :product_family_videos, -> { order('position') }, dependent: :destroy
   belongs_to :featured_product, class_name: "Product"
 
   has_attached_file :family_photo, { styles: { medium: "300x300>", thumb: "100x100>" }, processors: [:thumbnail, :compression] }.merge(S3_STORAGE)

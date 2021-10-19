@@ -383,6 +383,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :online_retailer_links,
         :online_retailer_users,
         :manufacturer_partners,
+        :product_family_videos,
         :tone_library_patches,
         :software_attachments,
         :product_accessories,

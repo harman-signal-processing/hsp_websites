@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_05_173244) do
+ActiveRecord::Schema.define(version: 2021_10_19_202229) do
 
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
@@ -1220,6 +1220,7 @@ ActiveRecord::Schema.define(version: 2021_08_05_173244) do
     t.integer "featured_product_id"
     t.integer "warranty_period"
     t.boolean "group_on_custom_shop", default: false
+    t.text "accessories_content", size: :medium
     t.index ["brand_id"], name: "index_product_families_on_brand_id"
     t.index ["cached_slug"], name: "index_product_families_on_cached_slug", unique: true
     t.index ["parent_id"], name: "index_product_families_on_parent_id"
@@ -1269,6 +1270,15 @@ ActiveRecord::Schema.define(version: 2021_08_05_173244) do
     t.datetime "updated_at", null: false
     t.index ["product_family_id"], name: "index_product_family_testimonials_on_product_family_id"
     t.index ["testimonial_id"], name: "index_product_family_testimonials_on_testimonial_id"
+  end
+
+  create_table "product_family_videos", charset: "utf8", force: :cascade do |t|
+    t.integer "product_family_id"
+    t.string "youtube_id"
+    t.integer "position"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_family_id"], name: "index_product_family_videos_on_product_family_id"
   end
 
   create_table "product_filters", charset: "utf8", force: :cascade do |t|
