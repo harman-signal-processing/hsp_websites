@@ -10,7 +10,6 @@ RSpec.describe "tools/calculators.html.erb", :type => :view do
     expect(rendered).to have_link("db Voltage Ratio")
     expect(rendered).to have_link("Amplifier Power Required")
     expect(rendered).to have_link("Inverse Square Law")
-    expect(rendered).to have_link("Line Loss")
     expect(rendered).to have_link("Ohm's/Watt's Law")
     expect(rendered).to have_link("Constant Voltage")
   end
