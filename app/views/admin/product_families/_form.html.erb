@@ -100,7 +100,14 @@
 
   <div class="row">
     <div class="large-8 columns">
-      <%= f.input :post_content, label: "Content to appear after the products on the family page.",
+      <%= f.input :accessories_content, label: "Content to appear after the products on the family page.",
+        input_html: { class: "mceEditor" } %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-8 columns">
+      <%= f.input :post_content, label: "Content to appear after the accessories/videos on the family page.",
         input_html: { class: "mceEditor" } %>
     </div>
   </div>

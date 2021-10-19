@@ -1,0 +1,11 @@
+<li id="product_family_video_<%= pfv.id %>">
+  <span class="handle"><%#= image_tag("icons/drag_handle.gif", lazy: false) %></span>
+  <%= link_to pfv.youtube_id, "https://youtu.be/#{pfv.youtube_id}", target: "_blank" %>
+  <span class="little">
+    <%= link_to(image_tag("icons/trash.gif", lazy: false),
+      admin_product_family_video_path(pfv),
+      remote: true,
+      confirm: "Are you sure?",
+      method: :delete) %>
+  </span>
+</li>

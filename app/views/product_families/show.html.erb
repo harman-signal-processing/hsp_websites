@@ -101,6 +101,15 @@
 
 <%= render_partial 'case_studies' %>
 
+<% if @product_family.accessories_content.present? %>
+  <h3>Accessories</h3>
+  <%= raw @product_family.accessories_content %>
+<% end %>
+
+<% if @product_family.product_family_videos.size > 0 %>
+  <%= render_partial "videos", product_family: @product_family %>
+<% end %>
+
 <% if @product_family.post_content.present? %>
   <%= raw @product_family.post_content %>
 <% end %>

@@ -356,6 +356,23 @@
     </div>
 
     <div class="group">
+      <h5 class="subheader">Videos</h5>
+
+      <%= simple_form_for [:admin, @product_family_video], remote: true do |f| %>
+        <%= f.hidden_field :product_family_id %>
+        <%= hidden_field_tag :called_form, "product_family" %>
+        <%= f.input :youtube_id, label: "YouTube Video ID" %>
+        <%= f.submit "add video", class: "button" %>
+      <% end %>
+
+      <ul id="product_family_videos" class="list">
+        <% @product_family.product_family_videos.each do |pfv| %>
+          <%= render "/admin/shared/product_family_video_row", pfv: pfv, called_from: "product_family" %>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="group">
       <h4 class="subheader">Case Studies</h4>
 
       <p>Let's make this easy. Just paste the ID of a case study from the pro site.
