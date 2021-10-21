@@ -1146,6 +1146,24 @@ div.product-title-block, div.small-title-block {
   }
 }
 
+div.product_family_body {
+  position: relative;
+  a.edit-link, a.reveal-edit-link {
+    display: none;
+    font-size: 14px;
+    font-weight: normal;
+    position: absolute;
+    right: -8px;
+    top: -10px;
+    z-index: 9999;
+    background: rgba(255,255,255,0.8);
+  }
+  &:hover {
+    a.edit-link, a.reveal-edit-link {
+      display: inline-block
+    }
+  }
+}
 .product-subheader {
   position: relative;
   a.edit-link, a.reveal-edit-link {

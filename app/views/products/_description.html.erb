@@ -1,7 +1,7 @@
 <div class="description text-content">
   <% if can?(:manage, @product) %>
     <%= link_to edit_admin_product_path(@product), class: "edit-link", data: { opener: "edit-description" } do %>
-      <%= fa_icon "edit" %> edit descriptions
+      <%= fa_icon "edit" %> edit content
     <% end %>
     <%= render_partial "edit_description" %>
   <% end %>

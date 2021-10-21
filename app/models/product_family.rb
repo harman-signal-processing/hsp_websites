@@ -34,6 +34,9 @@ class ProductFamily < ApplicationRecord
   validates :name, presence: true
   validate :parent_not_itself
 
+  accepts_nested_attributes_for :product_family_videos, reject_if: proc { |pv| pv['youtube_id'].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :product_family_products, reject_if: proc { |pfp| pfp['product_id'].blank? }, allow_destroy: true
+
   acts_as_tree order: :position, scope: :brand_id, touch: true
   # acts_as_list scope: :brand_id, -> { order('position') }
 
@@ -474,6 +477,10 @@ class ProductFamily < ApplicationRecord
     current_products_plus_child_products(w, nosort: true).map do |product|
       product.product_reviews
     end.flatten.uniq
+  end
+
+  def videos_content_present?
+    product_family_videos.select(:id).size > 0
   end
 
   def copy!(options = {})

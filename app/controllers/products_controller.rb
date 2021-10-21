@@ -64,6 +64,10 @@ class ProductsController < ApplicationController
 
     @promo = @product.first_promo_with_price_adjustment
 
+    if can?(:manage, @product)
+      3.times { @product.product_videos.build }
+    end
+
     respond_to do |format|
       format.html {
         unless @product.show_on_website?(website)
