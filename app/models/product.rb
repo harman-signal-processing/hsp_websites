@@ -70,6 +70,7 @@ class Product < ApplicationRecord
   accepts_nested_attributes_for :product_specifications, reject_if: proc { |ps| ps['value'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :product_product_filter_values, reject_if: :reject_filter_value?
   accepts_nested_attributes_for :customizable_attribute_values, reject_if: proc { |cav| cav['value'].blank? }
+  accepts_nested_attributes_for :product_videos, reject_if: proc { |pv| pv['youtube_id'].blank? }, allow_destroy: true
 
   def reject_filter_value?(ppfv)
     (ppfv['string_value'].blank? && ppfv['boolean_value'].blank? && ppfv['number_value'].blank?)
@@ -404,9 +405,9 @@ class Product < ApplicationRecord
     @main_tabs ||= collect_tabs(brand.main_tabs)
   end
 
-  def collect_tabs(tabs)
+  def collect_tabs(tabs, check_for_content=true)
     tabs.map do |tab|
-      ProductTab.new(tab) if has_content_for?(tab)
+      ProductTab.new(tab) if !check_for_content || has_content_for?(tab)
     end.compact
   end
 
@@ -430,7 +431,7 @@ class Product < ApplicationRecord
   end
 
   def videos_content_present?
-    product_videos.size > 0
+    product_videos.select(:id).size > 0
   end
 
   def documentation_content_present?

@@ -1,0 +1,18 @@
+<% begin %>
+
+  <p>&nbsp;</p>
+
+  <div class="flex-video widescreen">
+    <iframe width="560"
+            height="315"
+            src="<%= video.embed_url %>"
+            frameborder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+  </div>
+
+  <p>&nbsp;</p>
+<% rescue %>
+  <!-- problem loading <%= video.youtube_id %> -->
+<% end %>
+

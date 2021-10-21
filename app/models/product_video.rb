@@ -1,13 +1,16 @@
 class ProductVideo < ApplicationRecord
-  belongs_to :product, touch: true
+  include YoutubeVideo
+  belongs_to :product, touch: true, inverse_of: :product_videos
 
   validates :product, presence: true
   validates :youtube_id, presence: true
   validates :group, presence: true
 
   acts_as_list scope: :product
+  before_validation :set_default_group
 
-  def url
-    "https://www.youtube.com/embed/#{youtube_id}"
+  def set_default_group
+    self.group ||= "Product Videos"
   end
+
 end

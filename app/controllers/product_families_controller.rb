@@ -29,6 +29,14 @@ class ProductFamiliesController < ApplicationController
     # depth: 9
     #@children_with_current_products = @product_family.children_with_current_products(website, locale: I18n.locale, depth: 9)
     @children_with_current_products = @product_family.children_with_current_products(website, locale: I18n.locale)
+
+    if can?(:manage, @product_family)
+      3.times {
+        @product_family.product_family_videos.build
+        @product_family.product_family_products.build
+      }
+    end
+
     respond_to do |format|
       format.html {
 

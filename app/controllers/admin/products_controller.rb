@@ -274,7 +274,8 @@ class Admin::ProductsController < AdminController
       product_specifications_attributes: {},
       product_product_filter_values_attributes: {},
       customizable_attribute_values_attributes: {},
-      suggested_product_id: []
+      suggested_product_id: [],
+      product_videos_attributes: {}
     )
   end
 end

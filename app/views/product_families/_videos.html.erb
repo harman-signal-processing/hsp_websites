@@ -1,31 +1,17 @@
-<%= cache ["product_family_videos", product_family] do %>
-  <h3>Videos</h3>
+<% if product_family.videos_content_present? %>
+  <%= cache ["product_family_videos", product_family] do %>
+    <div class="overline"></div>
+    <h3>Videos</h3>
 
-  <ul class="small-block-grid-1 medium-block-grid-2">
-    <% product_family.product_family_videos.each do |pv| %>
-      <li>
-        <% begin %>
-        <% is_playlist = pv.youtube_id.start_with?('PL') %>
-
-          <% if is_playlist %>
-            <div class="flex-video widescreen">
-              <p>&nbsp;</p>
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=<%= pv.youtube_id %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-          <% else %>
-            <div class="flex-video widescreen">
-              <p>&nbsp;</p>
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= pv.youtube_id %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
+    <ul class="small-block-grid-1 medium-block-grid-2">
+      <% product_family.product_family_videos.each do |pv| %>
+        <li>
+          <% if pv.valid? %>
+            <%= render_partial "shared/embedded_video", video: pv %>
           <% end %>
+        </li>
+      <% end %>
+    </ul>
 
-          <p>&nbsp;</p>
-        <% rescue %>
-          <!-- problem loading <%= pv.youtube_id %> -->
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
-
+  <% end %>
 <% end %>
-

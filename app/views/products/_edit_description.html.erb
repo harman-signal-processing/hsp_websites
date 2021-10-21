@@ -14,7 +14,7 @@
     <input type="hidden" name="return_to" value="<%= product_path(@product) %>">
 
     <% # use the loop to show things in the right order %>
-    <% @product.main_tabs.each do |t| %>
+    <% @product.collect_tabs(website.brand.main_tabs, false).each do |t| %>
       <% if t.key == "description" %>
         <%= f.input :description, label: "Main description", as: :text, input_html: { class: "mceEditor" } %><br/>
       <% elsif t.key == "extended_description" %>
@@ -27,7 +27,61 @@
           label: "Features title",
           hint: "Standard is \"Features\". Leave blank to use the standard (most common)." %>
         <%= f.input :features, label: false, as: :text, input_html: { class: "mceEditor" } %><br/>
+      <% elsif t.key == "videos" %>
+        <div class="panel">
+          <p><strong>Videos</strong></p>
+          <p>Videos are managed only by their YouTube ID. Provide the YouTube Video ID or
+          YouTube Playlist ID. Check the box next to any video to be deleted upon submitting
+          the form.</p>
+          <div class="row">
+            <div class="small-1 columns text-center"><%= fa_icon "list" %></div>
+            <div class="small-8 columns">YouTube ID</div>
+            <div class="small-2 columns text-center">
+              <% if @product.videos_content_present? %>
+                View <%= fa_icon "external-link" %>
+              <% end %>
+            </div>
+            <div class="small-1 columns text-center"><%= fa_icon "trash" %></div>
+          </div>
+          <%= f.simple_fields_for :product_videos do |pv| %>
+            <div class="row">
+              <div class="small-1 columns">
+                <%= pv.input :position, as: :string, label: false %>
+              </div>
+              <% if pv.object.new_record? %>
+                <div class="small-10 columns">
+                  <%= pv.input :youtube_id, label: false %>
+                </div>
+              <% else %>
+                <div class="small-8 columns">
+                  <%= pv.input :youtube_id, label: false %>
+                </div>
+                <div class="small-2 columns">
+                  <%= link_to "https://youtube.com/watch?v=#{ pv.object.youtube_id }", target: "_blank", class: "expand button" do %>
+                    <%= fa_icon "youtube-play" %>
+                  <% end %>
+                </div>
+              <% end %>
+              <div class="small-1 columns text-center">
+                <% unless pv.object.new_record? %>
+                  <%= pv.input :_destroy, as: :boolean, label: false %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+          <div class="row">
+            <div class="small-11 columns small-offset-1">
+              <div class="hint">
+                Only provide the ID from the YouTube URL. Example: https://youtube.com/watch?v=<span style="background-color: Moccasin"><strong>ABCDEFG</strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
       <% end %>
+    <% end %>
+
+    <% if website.brand.has_photometrics? %>
+      <%= f.input :photometric_id, label: "Photometric ID", hint: "From legacy photometric system" %>
     <% end %>
 
     <br/>

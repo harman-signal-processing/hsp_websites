@@ -95,7 +95,10 @@ class Admin::ProductFamiliesController < AdminController
     respond_to do |format|
       if @product_family.update(product_family_params)
         format.html {
-          if @product_family.brand == website.brand
+          if params[:return_to]
+            return_to = URI.parse(params[:return_to]).path
+            redirect_to(return_to, notice: "Product Family was successfully updated.")
+          elsif @product_family.brand == website.brand
             redirect_to([:admin, @product_family], notice: 'Product Family was successfully updated.')
           else
             redirect_to( admin_product_families_path, notice: "The family was moved to #{ @product_family.brand.name }. You'll need to manage it on the #{ @product_family.brand.name } admin site.")
@@ -197,7 +200,9 @@ class Admin::ProductFamiliesController < AdminController
       :product_selector_behavior,
       :meta_description,
       :featured_product_id,
-      :warranty_period
+      :warranty_period,
+      product_family_videos_attributes: {},
+      product_family_products_attributes: {}
     )
   end
 
