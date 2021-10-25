@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_19_202229) do
+ActiveRecord::Schema.define(version: 2021_10_25_201543) do
 
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
@@ -1221,6 +1221,7 @@ ActiveRecord::Schema.define(version: 2021_10_19_202229) do
     t.integer "warranty_period"
     t.boolean "group_on_custom_shop", default: false
     t.text "accessories_content", size: :medium
+    t.text "before_product_content", size: :medium
     t.index ["brand_id"], name: "index_product_families_on_brand_id"
     t.index ["cached_slug"], name: "index_product_families_on_cached_slug", unique: true
     t.index ["parent_id"], name: "index_product_families_on_parent_id"

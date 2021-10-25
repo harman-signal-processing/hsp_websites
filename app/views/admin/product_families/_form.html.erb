@@ -95,6 +95,7 @@
 		<div class="small-12 columns">
 			<%= f.input :intro, label: "Intro text", input_html: {style: "height: 100px;"} %>
 			<%#= f.input :keywords %>
+      <%= f.input :before_product_content, input_html: { class: "mceEditor" } %><br/>
 
       <%= f.input :accessories_content, label: "Acccessories Content -- appears after the products on the family page.",
         input_html: { class: "mceEditor" } %>

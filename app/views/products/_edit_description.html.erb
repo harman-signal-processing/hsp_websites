@@ -57,8 +57,9 @@
                   <%= pv.input :youtube_id, label: false %>
                 </div>
                 <div class="small-2 columns">
-                  <%= link_to "https://youtube.com/watch?v=#{ pv.object.youtube_id }", target: "_blank", class: "expand button" do %>
-                    <%= fa_icon "youtube-play" %>
+                  <%= link_to "https://youtube.com/watch?v=#{ pv.object.youtube_id }", target: "_blank" do %>
+                    <%= image_tag "https://img.youtube.com/vi/#{ pv.object.youtube_id }/sddefault.jpg",
+                      alt: "Video #{pv.object.youtube_id}" %>
                   <% end %>
                 </div>
               <% end %>

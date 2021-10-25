@@ -112,6 +112,7 @@ class Admin::ProductsController < AdminController
   def update
     respond_to do |format|
       if @product.update(product_params)
+        @product.touch # clear cache
         format.html {
           if params[:return_to]
             return_to = URI.parse(params[:return_to]).path

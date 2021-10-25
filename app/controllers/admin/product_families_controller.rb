@@ -190,6 +190,7 @@ class Admin::ProductFamiliesController < AdminController
       :layout_class,
       :family_banner,
       :title_banner,
+      :before_product_content,
       :accessories_content,
       :post_content,
       :short_description,

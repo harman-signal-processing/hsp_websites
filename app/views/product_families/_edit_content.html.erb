@@ -31,6 +31,12 @@
       </div>
     </div>
 
+    <div class="row">
+      <div class="small-12 columns">
+        <%= f.input :before_product_content, input_html: { class: "mceEditor" } %><br/>
+      </div>
+    </div>
+
     <div class="panel">
       <p><strong>Products</strong></p>
       <p>Add/remove products from this family by selecting them in the options below.
@@ -94,8 +100,9 @@
               <%= pv.input :youtube_id, label: false %>
             </div>
             <div class="small-2 columns">
-              <%= link_to "https://youtube.com/watch?v=#{ pv.object.youtube_id }", target: "_blank", class: "expand button" do %>
-                <%= fa_icon "youtube-play" %>
+              <%= link_to "https://youtube.com/watch?v=#{ pv.object.youtube_id }", target: "_blank" do %>
+                <%= image_tag "https://img.youtube.com/vi/#{ pv.object.youtube_id }/sddefault.jpg",
+                  alt: "Video #{pv.object.youtube_id}" %>
               <% end %>
             </div>
           <% end %>

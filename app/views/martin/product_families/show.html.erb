@@ -21,6 +21,12 @@
     <%= render_partial "edit_content" %>
   <% end %>
 
+  <% if @product_family.before_product_content.present? %>
+    <div>
+      <%=raw @product_family.before_product_content %>
+    </div>
+  <% end %>
+
   <% if @product_family.show_comparisons? %>
     <%= form_tag compare_products_path, method: :get %>
   <% end %>

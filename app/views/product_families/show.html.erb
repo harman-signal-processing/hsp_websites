@@ -22,6 +22,12 @@
   <% end %>
 
   <%= cache ["product_family_content", @product_family, I18n.locale, session['geo_country']] do %>
+    <% if @product_family.before_product_content.present? %>
+      <div>
+        <%=raw @product_family.before_product_content %>
+      </div>
+    <% end %>
+
     <% if @children_with_current_products.length > 0 %>
 
       <div data-equalizer="family_thumbs" data-equalizer-mq="medium-up">
