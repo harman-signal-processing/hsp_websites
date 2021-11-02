@@ -65,12 +65,15 @@ class Product < ApplicationRecord
   has_many :product_product_filter_values
   has_many :product_filters, through: :product_product_filter_values
   has_many :brand_dealer_rental_products
+  has_many :product_case_studies, -> { order('position') }
+
   after_initialize :set_default_status
   accepts_nested_attributes_for :product_prices, reject_if: proc { |pp| pp['price'].blank? }
   accepts_nested_attributes_for :product_specifications, reject_if: proc { |ps| ps['value'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :product_product_filter_values, reject_if: :reject_filter_value?
   accepts_nested_attributes_for :customizable_attribute_values, reject_if: proc { |cav| cav['value'].blank? }
   accepts_nested_attributes_for :product_videos, reject_if: proc { |pv| pv['youtube_id'].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :product_case_studies, reject_if: proc { |pcs| pcs['case_study_slug'].blank? }, allow_destroy: true
 
   def reject_filter_value?(ppfv)
     (ppfv['string_value'].blank? && ppfv['boolean_value'].blank? && ppfv['number_value'].blank?)
@@ -640,6 +643,12 @@ class Product < ApplicationRecord
       end
     end
     f
+  end
+
+  def case_studies
+    ProductCaseStudy.where(product_id: self.id).order("position").pluck(:case_study_slug).map do |case_study_slug|
+      CaseStudy.find_by_slug_and_website_or_brand(case_study_slug, brand)
+    end
   end
 
   # Collects suggested products

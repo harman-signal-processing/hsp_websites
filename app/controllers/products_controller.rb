@@ -66,6 +66,7 @@ class ProductsController < ApplicationController
 
     if can?(:manage, @product)
       3.times { @product.product_videos.build }
+      3.times { @product.product_case_studies.build }
     end
 
     respond_to do |format|
