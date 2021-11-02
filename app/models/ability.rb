@@ -65,6 +65,7 @@ class Ability
         can :manage_warranty_of, Product
       end
       if user.role?(:marketing_staff)
+        can :manage, ProductFamily
         can :manage, Product
         can :manage, ProductSpecification
         can :manage, ProductAttachment
