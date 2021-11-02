@@ -741,6 +741,44 @@
     </div>
 
     <div class="group">
+      <h5 class="subheader">Case Studies</h5>
+      <p>Case studies from the HPro site can be associated with this
+      product. Simply provide the ID of the case study (the last part
+      of the URL for the case study):</p>
+
+      <%= simple_form_for [:admin, @product] do |f| %>
+        <div class="row">
+          <div class="small-1 columns text-center"><%= fa_icon "list" %></div>
+          <div class="small-10 columns">Case Study ID</div>
+          <div class="small-1 columns text-center"><%= fa_icon "trash" %></div>
+        </div>
+        <%= f.simple_fields_for :product_case_studies do |pcs| %>
+          <div class="row">
+            <div class="small-1 columns">
+              <%= pcs.input :position, as: :string, label: false %>
+            </div>
+            <div class="small-10 columns">
+              <%= pcs.input :case_study_slug, label: false %>
+            </div>
+            <div class="small-1 columns text-center">
+              <% unless pcs.object.new_record? %>
+                <%= pcs.input :_destroy, as: :boolean, label: false %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+        <div class="row">
+          <div class="small-11 columns small-offset-1">
+            <div class="hint">
+              Example Case Study ID: <%= ENV['PRO_SITE_URL']%>/case_studies/<span style="background-color: Moccasin"><strong>ABCDEFG</strong></span>
+            </div>
+          </div>
+        </div>
+        <%= f.submit "update case studies", class: "button" %>
+      <% end %>
+    </div>
+
+    <div class="group">
       <h5 class="subheader">Badges</h5>
 
       <%= simple_form_for [:admin, @product_badge], remote: true do |f| %>
