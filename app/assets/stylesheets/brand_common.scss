@@ -2378,3 +2378,12 @@ form.new_custom_shop_line_item, form.edit_custom_shop_line_item {
     width: 68px;
 }
 /*****/
+/***** Case studis on product pages ******/
+.case_study_row {
+  min-height: rem-calc(200px);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: #222;
+  padding-top: rem-calc(80px);
+  padding-bottom: rem-calc(80px);
+}

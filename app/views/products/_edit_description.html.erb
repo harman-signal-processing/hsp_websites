@@ -78,10 +78,42 @@
             </div>
           </div>
         </div>
+      <% elsif t.key == "case_studies" %>
+
+        <p><strong>Case Studies</strong></p>
+        <div class="row">
+          <div class="small-1 columns text-center"><%= fa_icon "list" %></div>
+          <div class="small-10 columns">Case Study ID</div>
+          <div class="small-1 columns text-center"><%= fa_icon "trash" %></div>
+        </div>
+        <%= f.simple_fields_for :product_case_studies do |pcs| %>
+          <div class="row">
+            <div class="small-1 columns">
+              <%= pcs.input :position, as: :string, label: false %>
+            </div>
+            <div class="small-10 columns">
+              <%= pcs.input :case_study_slug, label: false %>
+            </div>
+            <div class="small-1 columns text-center">
+              <% unless pcs.object.new_record? %>
+                <%= pcs.input :_destroy, as: :boolean, label: false %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+          <div class="row">
+            <div class="small-11 columns small-offset-1">
+              <div class="hint">
+                Example Case Study ID: <%= ENV['PRO_SITE_URL']%>/case_studies/<span style="background-color: Moccasin"><strong>ABCDEFG</strong></span>
+              </div>
+            </div>
+          </div>
+
       <% end %>
     <% end %>
 
     <% if website.brand.has_photometrics? %>
+      <br/>
       <%= f.input :photometric_id, label: "Photometric ID", hint: "From legacy photometric system" %>
     <% end %>
 

@@ -1,0 +1,30 @@
+<%
+  unless defined? show_brand_name
+    show_brand_name = false
+  end
+  lazy = product_photo_is_png?(product)
+
+  if product.brand_id == website.brand_id
+    product_name = show_brand_name ? "#{product.brand.name} #{product.name}" : product.name
+  else
+    product_name = "#{product.brand.name} #{product.name}"
+  end
+
+	if product.belongs_to_this_brand?(website)
+		this_url = product_url(product)
+		target = "_self"
+	else
+		this_url = product_url(product, locale: I18n.locale, host: product.brand.default_website.url)
+		target = "_blank"
+	end
+%>
+
+<div class="text-center">
+  <% if product.photo %>
+    <%= link_to image_tag(product.photo.product_attachment.url(:thumb), alt: product.name, lazy: lazy),
+      this_url,
+      target: target %>
+  <% end %>
+
+  <h5><%= link_to product_name, this_url, target: target %></h5>
+</div>

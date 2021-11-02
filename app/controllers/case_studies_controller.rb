@@ -6,7 +6,7 @@ class CaseStudiesController < ApplicationController
     @vertical_market = nil if @vertical_market == "all"
     @asset_type = params[:asset_type]
 
-    case_studies_all = CaseStudyService.get_case_study_item_list_from_cache(website.brand.name.downcase)
+    case_studies_all = CaseStudy.find_by_website_or_brand(website)
     case_studies = case_studies_all
     locale = I18n.locale.to_s
 
@@ -49,22 +49,10 @@ class CaseStudiesController < ApplicationController
   end  #  def index
 
   def show
-      case_study_slug = params[:slug]
-      case_studies = CaseStudyService.get_case_study_item_list_from_cache(website.brand.name.downcase)
+    case_study_slug = params[:slug]
+    @case_study = CaseStudy.find_by_slug_and_website_or_brand(case_study_slug, website)
 
-      case_study_found_by_translation_slug = case_studies.find {|cs|
-        cs[:translations].find{|t| t[:slug] == case_study_slug}.present?
-      }
-
-      raise ActiveRecord::RecordNotFound if !case_study_found_by_translation_slug
-
-      # replace headline and content with translated version
-      case_study_found_by_translation_slug[:headline] = case_study_found_by_translation_slug[:translations].find{|t| t[:slug] == case_study_slug}[:headline]
-      case_study_found_by_translation_slug[:content] = case_study_found_by_translation_slug[:translations].find{|t| t[:slug] == case_study_slug}[:content]
-
-      @video_only = !case_study_found_by_translation_slug[:content].present? && case_study_found_by_translation_slug[:youtube_id].present?
-
-      @case_study = case_study_found_by_translation_slug
+    @products = @case_study[:product_ids].size > 0 ? Product.where(id: @case_study[:product_ids]) : []
   end
 
   private

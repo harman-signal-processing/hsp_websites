@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_25_201543) do
+ActiveRecord::Schema.define(version: 2021_10_28_151257) do
 
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
@@ -1135,6 +1135,16 @@ ActiveRecord::Schema.define(version: 2021_10_25_201543) do
     t.datetime "updated_at"
     t.index ["cabinet_id"], name: "index_product_cabinets_on_cabinet_id"
     t.index ["product_id"], name: "index_product_cabinets_on_product_id"
+  end
+
+  create_table "product_case_studies", charset: "utf8", force: :cascade do |t|
+    t.integer "product_id"
+    t.string "case_study_slug"
+    t.integer "position"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["case_study_slug"], name: "index_product_case_studies_on_case_study_slug"
+    t.index ["product_id"], name: "index_product_case_studies_on_product_id"
   end
 
   create_table "product_descriptions", id: :integer, charset: "utf8", force: :cascade do |t|
