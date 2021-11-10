@@ -24,7 +24,7 @@
 </ul>
 
 <% if !@online_retailer.retailer_logo_file_name.blank? %>
-	<%= image_tag(@online_retailer.retailer_logo(:fixed))%>
+	<%= image_tag(@online_retailer.retailer_logo(:fixed), lazy: false)%>
 <% else %>
 	<i>(no logo)</i>
 <% end %>
@@ -48,6 +48,10 @@
 <p>
   <b>Active?:</b>
   <%=h @online_retailer.active %>
+</p>
+<p>
+  <b>Where to Buy page sort order?:</b>
+  <%=h @online_retailer.get_retailer_sort_order(website) %>
 </p>
 
 <% if can? :update, @online_retailer %>

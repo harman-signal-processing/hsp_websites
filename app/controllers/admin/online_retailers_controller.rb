@@ -41,6 +41,7 @@ class Admin::OnlineRetailersController < AdminController
   # GET /admin/online_retailers/1/edit
   def edit
     @online_retailer.brand_link = @online_retailer.get_brand_link(website)
+    @online_retailer.brand_sort_order = @online_retailer.get_retailer_sort_order(website)
   end
 
   # POST /admin/online_retailers
@@ -68,6 +69,7 @@ class Admin::OnlineRetailersController < AdminController
     respond_to do |format|
       if @online_retailer.update(online_retailer_params)
         @online_retailer.set_brand_link(params[:online_retailer][:brand_link], website)
+        @online_retailer.set_retailer_sort_order(params[:online_retailer][:brand_sort_order], website)
         format.html { redirect_to([:admin, @online_retailer], notice: 'Online Retailer was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated online retailer: #{@online_retailer.name}")
@@ -101,7 +103,8 @@ class Admin::OnlineRetailersController < AdminController
       :retailer_logo,
       :active,
       :direct_link,
-      :preferred
+      :preferred,
+      :brand_sort_order
     )
   end
 end

@@ -6,17 +6,11 @@
 </ul>
 <% end %>
 
-<ul class="list">
-<% @online_retailers.each do |online_retailer| %>
-  <% if can? :update, online_retailer %>
-  <li><%= link_to online_retailer.name, [:admin, online_retailer] %>
-	<!-- <%= online_retailer.online_retailer_links.size %> links -->
-	<% if online_retailer.bad_links.size > 0 %>
-	<span style="color: red; margin-left: 2px">
-		<%= pluralize(online_retailer.bad_links.size, "possible problem") %> found!
-	</span>
-	<% end %>
-	</li>
-  <% end %>
-<% end %>
-</ul>
+<h3>Retailers for Where to Buy page (sorted)</h3>
+<%= render "/admin/online_retailers/list", retailers: OnlineRetailer.brand_online_retailers(website), type: "wtb" %>
+
+<h3>Active Retailers</h3>
+<%= render "/admin/online_retailers/list", retailers: @online_retailers.where(active: true), type: "active" %>
+
+<h3>Inactive Retailers</h3>
+<%= render "/admin/online_retailers/list", retailers: @online_retailers.where(active: false), type: "inactive" %>

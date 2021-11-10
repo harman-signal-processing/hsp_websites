@@ -16,7 +16,7 @@ class OnlineRetailer < ApplicationRecord
   validates_attachment :retailer_logo, content_type: { content_type: /\Aimage/i }
   validates :name, presence: true, uniqueness: { case_sensitive: false }
 
-  attr_accessor :brand_link, :online_retailer_link
+  attr_accessor :brand_link, :online_retailer_link, :brand_sort_order
 
   def bad_links
     @bad_links ||= OnlineRetailerLink.problems.where(online_retailer_id: self.id)
@@ -67,11 +67,43 @@ class OnlineRetailer < ApplicationRecord
     @online_retailer_link ||= OnlineRetailerLink.where(online_retailer_id: self.id, brand_id: website.brand_id).first
   end
 
+  def self.brand_online_retailers(website)
+    where(active: true).where("online_retailer_links.position is not null").select(
+      "online_retailers.*, online_retailer_links.url as direct_link"
+    ).joins(
+      "INNER JOIN online_retailer_links ON online_retailer_links.online_retailer_id = online_retailers.id"
+    ).where(
+      "online_retailer_links.brand_id = ?", website.brand_id
+    ).order("online_retailer_links.position")
+  end
+
+
+
   # Sets the overall link where this OnlineRetailer lists this site's Brand products.
   def set_brand_link(url, website)
     if website.brand_id > 0
       br = OnlineRetailerLink.where(online_retailer_id: self.id, brand_id: website.brand_id).first_or_initialize
       br.url = url
+      br.save!
+    else
+      return false
+    end
+  end
+
+  # Retrieves the brand sort order for the OnlineRetailer on the site's Where to Buy page.
+  def get_retailer_sort_order(website)
+    begin
+      @brand_sort_order ||= online_retailer_link(website).position
+    rescue
+      return nil
+    end
+  end
+
+  # Sets the sort order for OnlineRetailer on Where to Buy page.
+  def set_retailer_sort_order(retailer_sort_order, website)
+    if website.brand_id > 0
+      br = OnlineRetailerLink.where(online_retailer_id: self.id, brand_id: website.brand_id).first_or_initialize
+      br.position = retailer_sort_order
       br.save!
     else
       return false
