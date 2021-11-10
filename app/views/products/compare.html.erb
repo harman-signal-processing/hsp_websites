@@ -7,7 +7,7 @@
 	<tr>
 		<th>&nbsp;</th>
 	<% @products.each do |product| %>
-		<th style="text-align: center" width="<%= (680 / @products.count).to_i %>">
+		<th style="text-align: center" width="<%= (1080 / @products.count).to_i %>">
 			<h3><%= link_to translate_content(product, :name), product %></h3>
 			<% if product.photo %>
 				<% if product.layout_class == "horizontal" %>
@@ -30,7 +30,7 @@
 		<td class="spec_name">MSRP</td>
 		<% @products.each do |product| %>
 		<td class="spec_value">
-			<% if product.msrp.present? && product.msrp.to_f > 0.0 %>
+			<% if product.msrp.present? && product.msrp.to_f > 0.0 && !product.hide_buy_it_now_button? && !product.discontinued? %>
 			<%= number_to_currency(product.msrp.to_f) %>
 			<% else %>
 			 --

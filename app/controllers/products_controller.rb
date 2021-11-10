@@ -191,8 +191,8 @@ class ProductsController < ApplicationController
     end
     if @products.size <= 1
       redirect_to product_families_path, alert: "Must select 2 or more products to compare. #{params[:product_ids]}"
-    elsif @products.size > 4
-      redirect_to product_families_path, alert: "Select no more than 4 products to compare."
+    elsif @products.size > 6
+      redirect_to product_families_path, alert: "Select no more than 6 products to compare."
     else
       spec_ids = @products.collect{|p| p.product_specifications.collect{|ps| ps.specification_id}}.flatten.uniq
       product_specs = Specification.where(id: spec_ids)
