@@ -1,0 +1,38 @@
+<div data-equalizer class="panel">
+<!--<ul class="list">-->
+<ul class="large-block-grid-6 small-block-grid-3">	
+  <% retailers.each do |online_retailer| %>
+    <li style="margin-bottom:20px;">
+      <div data-equalizer-watch>
+      <h5><%= link_to online_retailer.name, [:admin, online_retailer] %></h5>
+      
+      <!-- <%= online_retailer.online_retailer_links.size %> links -->
+
+      <% if online_retailer.active %>
+        Status: <span style="color: green; margin-left: 2px;">Active</span><br />
+      <% else %>
+        Status: <span style="color: red; margin-left: 2px">Inactive</span><br />
+      <% end %>
+      
+      <% if online_retailer.bad_links.size > 0 %>
+        Possible problems found: 
+        <span style="color: red; margin-left: 2px">
+          <%= online_retailer.bad_links.size %>
+        </span>
+      <% else %>
+        &nbsp;
+      <% end %>      
+      
+      <!--[Preferred: <%=online_retailer.preferred%>]-->
+      
+      
+      <% if !online_retailer.retailer_logo_file_name.blank? %>
+      	<p><br /><%= link_to image_tag(online_retailer.retailer_logo(:fixed), lazy: false), [:admin, online_retailer] %></p>
+      <% else %>
+      	<p><br /><span style="color: red;"><i>(no logo)</i></span></p>
+      <% end %>      
+      </div><!-- <div data-equalizer-watch="retailer_logos_<%=type%>"> -->
+    </li>	
+  <% end %>
+</ul>
+</div>

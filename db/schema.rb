@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_28_151257) do
+ActiveRecord::Schema.define(version: 2021_11_04_224032) do
 
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
@@ -968,6 +968,7 @@ ActiveRecord::Schema.define(version: 2021_10_28_151257) do
     t.datetime "updated_at"
     t.datetime "link_checked_at"
     t.string "link_status", default: "200"
+    t.integer "position"
     t.index ["brand_id"], name: "index_online_retailer_links_on_brand_id"
     t.index ["online_retailer_id", "brand_id"], name: "index_online_retailer_links_on_online_retailer_id_and_brand_id"
     t.index ["online_retailer_id", "product_id"], name: "index_online_retailer_links_on_online_retailer_id_and_product_id"
