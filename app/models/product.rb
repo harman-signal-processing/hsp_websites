@@ -723,7 +723,14 @@ class Product < ApplicationRecord
   end
 
   def ungrouped_product_specifications
-    product_specifications.select{|ps| ps unless ps.specification.specification_group}
+    product_specifications.
+      includes(:specification).
+      where(specification: { specification_group_id: ["", nil]}).
+      reorder("product_specifications.position")
+  end
+
+  def specification_ids
+    product_specifications.select(:specification_id)
   end
 
   def all_related_downloads(locale = I18n.default_locale.to_s, website = brand.default_website)

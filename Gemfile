@@ -82,7 +82,6 @@ gem 'email_validator'
 gem "exception_notification"
 gem 'slack-notifier'
 gem 'google-api-client', '~> 0.36'
-
 gem 'wicked_pdf'
 
 group :production, :staging do
@@ -107,8 +106,9 @@ group :development do
   gem 'rb-inotify', :require=>false
   gem 'sshkit'
   gem 'colorize'
-  #gem 'rorvswild'
+  gem 'rorvswild'
   gem 'marginalia'
+  gem 'active_record_query_trace'
 end
 
 group :development, :test do

@@ -17,6 +17,14 @@
 
 <% else %>
 
+<%
+  # Load specs with one query
+  specifications = {}
+  product.product_specifications.includes(:specification).each do |ps|
+    specifications[ps.specification_id] = ps
+  end
+%>
+
   <ul class="medium-block-grid-2 small-block-grid-1" style="margin-left: 0 !important;">
     <% spec_groups = product.specification_groups.order("specification_groups.position").uniq %>
     <li style="margin-left: 0; padding-left:0">
@@ -30,16 +38,14 @@
 
           <span class="smalColHeader"><%= translate_content(spec_group, :name) %></span>
 
-          <% spec_group.specifications.order(:position).each do |specification| %>
-            <% product_spec = product.product_specifications.where(specification_id: specification.id) %>
-            <% if product_spec.exists? %>
-              <span class="specContent">
-                <% unless specification.name.downcase == "#{spec_group.name.downcase} notes" %>
-                  <%= translate_content(specification, :name) %>:
-                <% end %>
-                <%= spec_value(product_spec.first) %>
-              </span>
-            <% end %>
+          <% spec_group.specifications.where(id: specifications.keys).order("specifications.position").each do |specification| %>
+            <% product_spec = specifications[specification.id] %>
+            <span class="specContent">
+              <% unless specification.name.downcase == "#{spec_group.name.downcase} notes" %>
+                <%= translate_content(specification, :name) %>:
+              <% end %>
+              <%= spec_value(product_spec) %>
+            </span>
           <% end %>
         </div>
         <% if i == (i > 1 && (spec_groups.length / 2).to_i - 1) %>

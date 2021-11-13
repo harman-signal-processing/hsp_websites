@@ -63,6 +63,7 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
+    active_record_query_trace (1.8)
     activejob (6.1.4.1)
       activesupport (= 6.1.4.1)
       globalid (>= 0.3.6)
@@ -528,6 +529,7 @@ GEM
     retriable (3.1.2)
     rexml (3.2.5)
     riddle (2.4.2)
+    rorvswild (1.5.12)
     rspec (3.10.0)
       rspec-core (~> 3.10.0)
       rspec-expectations (~> 3.10.0)
@@ -672,6 +674,7 @@ PLATFORMS
 DEPENDENCIES
   RedCloth
   actionpack-action_caching!
+  active_record_query_trace
   acts-as-taggable-on
   acts_as_list
   acts_as_tree
@@ -749,6 +752,7 @@ DEPENDENCIES
   rb-inotify
   recaptcha
   responders
+  rorvswild
   rspec-rails
   s3_direct_upload
   sass-rails

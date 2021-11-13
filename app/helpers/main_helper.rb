@@ -92,10 +92,8 @@ module MainHelper
       child_links = []
       product_links = []
 
-      relevant_children = product_family.children_with_current_products(website, locale: I18n.locale)
-      #options[:depth] += 1 if relevant_children.size > 0
-
       if options[:depth] > 1
+        relevant_children = product_family.children_with_current_products(website, locale: I18n.locale)
         child_links = relevant_children.map do |sub_family|
           product_family_nav_links(sub_family, options)
         end
