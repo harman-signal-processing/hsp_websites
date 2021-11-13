@@ -27,7 +27,7 @@ feature "Browse Products" do
   describe "product family page" do
     before :all do
       ProductStatus.clear_instance_variables
-      @product_family = FactoryBot.create(:product_family_with_products, brand: @website.brand, products_count: 5)
+      @product_family = FactoryBot.create(:product_family_with_products, brand: @website.brand, products_count: 7)
       @multiple_parent = FactoryBot.create(:product_family, brand: @website.brand)
       2.times { FactoryBot.create(:product_family_with_products, brand: @website.brand, parent_id: @multiple_parent.id)}
       @single_parent = FactoryBot.create(:product_family, brand: @website.brand)
@@ -79,7 +79,7 @@ feature "Browse Products" do
         expect(current_path).to eq product_families_path(locale: I18n.default_locale)
       end
 
-      it "should handle error when comparing more than four products" do
+      it "should handle error when comparing more than six products" do
         @product_family.products.each do |p| # tick all for comparison
           find(:css, "#product_ids_[value='#{p.to_param}']").set(true)
         end

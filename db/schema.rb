@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_04_224032) do
+ActiveRecord::Schema.define(version: 2021_11_12_222855) do
 
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
@@ -1233,6 +1233,7 @@ ActiveRecord::Schema.define(version: 2021_11_04_224032) do
     t.boolean "group_on_custom_shop", default: false
     t.text "accessories_content", size: :medium
     t.text "before_product_content", size: :medium
+    t.integer "locale_product_families_count"
     t.index ["brand_id"], name: "index_product_families_on_brand_id"
     t.index ["cached_slug"], name: "index_product_families_on_cached_slug", unique: true
     t.index ["parent_id"], name: "index_product_families_on_parent_id"

@@ -210,7 +210,7 @@ class ProductFamily < ApplicationRecord
   end
 
   def discontinued_products
-    products.where(id: product_ids_for_current_locale, product_status: ProductStatus.discontinued_ids)
+    Product.where(id: product_ids_for_current_locale, product_status: ProductStatus.discontinued_ids)
   end
 
   # Collection of all the locales where this ProductFamily should appear.
@@ -238,12 +238,12 @@ class ProductFamily < ApplicationRecord
 
   # Determine only 'current' products for the ProductFamily
   def current_products
-    @current_product ||= products.distinct.where(id: product_ids_for_current_locale, product_status: ProductStatus.current_ids)
+    @current_product ||= Product.distinct.where(id: product_ids_for_current_locale, product_status: ProductStatus.current_ids)
   end
 
   def product_ids_for_current_locale
     Rails.cache.fetch("#{cache_key_with_version}/product_ids_for_current_locale/#{I18n.locale.to_s}", expires_in: 12.hours) do
-      products.select{|p| p unless p.locales_where_hidden.include?(I18n.locale.to_s)}.pluck(:id)
+      products.select{|p| p unless p.locales_where_hidden.include?(I18n.locale.to_s)}.pluck(:id).uniq
     end
   end
 
@@ -349,7 +349,7 @@ class ProductFamily < ApplicationRecord
 
   # Determine if we should show product comparison boxes for this product family
   def show_comparisons?
-    @show_comparisons ||= brand.respond_to?(:show_comparisons) &&
+    @show_comparisons ||= brand.show_comparisons.present? &&
       !!(brand.show_comparisons) &&
       (self.current_products.size > 1 || self.children_with_current_products(brand).size > 0)
   end

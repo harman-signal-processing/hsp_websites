@@ -95,6 +95,7 @@ class Admin::SettingsController < AdminController
   # GET /admin/settings/1
   # GET /admin/settings/1.xml
   def show
+    @setting.steal_description # Fill in description from like setting if missing
     respond_to do |format|
       format.html { render_template } # show.html.erb
       format.xml  { render xml: @setting }
@@ -114,6 +115,7 @@ class Admin::SettingsController < AdminController
       if other.size > 0
         @setting = other.first.dup
         @setting.brand_id = website.brand_id
+        @setting.steal_description # Fill in description from like setting if missing
       end
     end
     authorize! :new, @setting
@@ -125,6 +127,7 @@ class Admin::SettingsController < AdminController
 
   # GET /admin/settings/1/edit
   def edit
+    @setting.steal_description # Fill in description from like setting if missing
   end
 
   # POST /admin/settings

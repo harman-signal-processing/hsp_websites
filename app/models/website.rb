@@ -100,18 +100,15 @@ class Website < ApplicationRecord
     super if respond_to_without_attributes?(sym, true)
     if respond_to? sym
       send(sym, *args)
-    elsif self.brand.respond_to?(sym)
-      variable_name = sym.to_s.gsub(/\W/, "")
-      eval("@#{variable_name} ||= self.brand.send(sym, *args)")
     else
-      nil
+      self.brand.send(sym, *args)
     end
   end
 
   def featured_products
     Rails.cache.fetch("#{cache_key_with_version}/featured_products", expires_in: 6.hours) do
       begin
-        @featured_products ||= self.brand.respond_to?(:featured_products) ?
+        @featured_products ||= self.brand.featured_products.present? ?
           self.brand.featured_products.split(/\,|\|\s?/).map{|i| Product.find_by(cached_slug: i)}.select{|p| p if p.is_a?(Product) && p.show_on_website?(self)} :
           Array.new
       rescue

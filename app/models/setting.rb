@@ -18,8 +18,6 @@ class Setting < ApplicationRecord
   has_one :promotion, foreign_key: 'banner_id', dependent: :nullify, inverse_of: :banner
   validates :name, presence: true, uniqueness: { scope: [:locale, :brand_id], case_sensitive: false  }
 
-  after_initialize :steal_description
-
   # Borrow description from another site setting with the same name if
   # one exists.
   def steal_description
@@ -88,29 +86,6 @@ class Setting < ApplicationRecord
       HarmanSignalProcessingWebsite::Application.config.default_site_name
     end
   end
-
-  # Wrapper to grab a value_for('some_setting_name'). Now with I18n support.
-  # Settings names should have something in the "locale" field:
-  #  "" => default setting for all locales unless an alternate is provided
-  #  "es" => spanish setting for "foo"
-  #  "es-MX" => spanish-mexico setting for "foo"
-  #
-  # def self.value_for(key='foo', brand_id, locale=I18n.locale)
-  #   s = where(name: key).where(brand_id: brand_id)
-  #   setting = s.where(["locale IS NULL OR locale = ?", locale]).first
-  #   unless locale == I18n.default_locale # don't look for translation
-  #     s1 = s.where(locale: locale)
-  #     if s1.all.size > 0
-  #       setting = s1.first
-  #     elsif parent_locale = (I18n.locale.to_s.match(/^(.*)-/)) ? $1 : false # "es-MX" => "es"
-  #       s2 = s.where(locale: parent_locale)
-  #       if s2.all.size > 0
-  #         setting = s2.first
-  #       end
-  #     end
-  #   end
-  #   (setting) ? setting.value : nil
-  # end
 
   def fix_locale
     if self.locale.blank?

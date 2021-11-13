@@ -44,7 +44,7 @@ class SiteMailer < ApplicationMailer
     @brand = @warranty_registration.brand
     mail(to: @warranty_registration.email,
          from: "#{@brand.name} <#{ENV['DEFAULT_SENDER']}>",
-         bcc: @brand.respond_to?(:bcc_product_registrations) ? @brand.bcc_product_registrations.split(/[\s\,\;]{1,}/) : [],
+         bcc: @brand.bcc_product_registrations.present? ? @brand.bcc_product_registrations.split(/[\s\,\;]{1,}/) : [],
          subject: "#{@brand.name} product registration")
   end
 
