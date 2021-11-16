@@ -238,7 +238,7 @@ class ProductFamily < ApplicationRecord
 
   # Determine only 'current' products for the ProductFamily
   def current_products
-    @current_product ||= Product.distinct.where(id: product_ids_for_current_locale, product_status: ProductStatus.current_ids)
+    @current_product ||= products.distinct.where(id: product_ids_for_current_locale, product_status: ProductStatus.current_ids)
   end
 
   def product_ids_for_current_locale
