@@ -18,7 +18,10 @@ class ProductFamily < ApplicationRecord
   has_many :product_family_customizable_attributes, dependent: :destroy
   has_many :customizable_attributes, through: :product_family_customizable_attributes
   has_many :product_family_videos, -> { order('position') }, dependent: :destroy
+  has_many :current_product_counts
   belongs_to :featured_product, class_name: "Product"
+
+  after_touch :update_current_product_counts
 
   has_attached_file :family_photo, { styles: { medium: "300x300>", thumb: "100x100>" }, processors: [:thumbnail, :compression] }.merge(S3_STORAGE)
   has_attached_file :family_banner, { styles: { medium: "300x300>", thumb: "100x100>" }, processors: [:thumbnail, :compression] }.merge(S3_STORAGE)
@@ -143,7 +146,7 @@ class ProductFamily < ApplicationRecord
   def self.all_with_current_products(website, locale)
     Rails.cache.fetch("#{website.cache_key_with_version}/#{locale}/product_families/all_with_current_products", expires_in: 2.hours) do
       where(brand_id: website.brand_id).order("position").select do |f|
-        f if (f.current_products.size > 0 || f.children_with_current_products(website, locale: locale).size > 0) && f.locales(website).include?(locale.to_s)
+        f if f.current_products_plus_child_products_count(website) > 0 && f.locales(website).include?(locale.to_s)
       end
     end
   end
@@ -153,7 +156,7 @@ class ProductFamily < ApplicationRecord
   def self.all_with_current_or_discontinued_products(website, locale)
     Rails.cache.fetch("#{website.cache_key_with_version}/#{locale}/product_families/all_with_current_or_discontinued_products", expires_in: 2.hours) do
       where(brand_id: website.brand_id).order("position").select do |f|
-        f if (f.current_and_discontinued_products.size > 0 || f.current_products_plus_child_products(website).size > 0) && f.locales(website).include?(locale.to_s)
+        f if ( f.current_products_plus_child_products_count(website) > 0 || f.current_and_discontinued_products.size > 0 ) && f.locales(website).include?(locale.to_s)
       end
     end
   end
@@ -277,14 +280,19 @@ class ProductFamily < ApplicationRecord
   end
 
   def has_current_products?(w)
-    self.current_products.each do |prod|
-      return true if prod.locales(w).include?(I18n.locale.to_s)
-    end
-    children.each do |pf|
-      return true if pf.has_current_products?(w)
-    end
-    false
+    current_products_plus_child_products_count(w) > 0
   end
+
+  def current_products_plus_child_products_count(w)
+    cpc = current_product_counts.where(locale: I18n.locale.to_s).first_or_create
+    cpc.current_products_plus_child_products_count.to_i
+  end
+
+  def update_current_product_counts
+    current_product_counts.each{ |cpc| cpc.save }
+  end
+  handle_asynchronously :update_current_product_counts
+
 
   # w = a Brand or a Website
   def discontinued_products_plus_child_products(w, opts={})
@@ -351,7 +359,7 @@ class ProductFamily < ApplicationRecord
   def show_comparisons?
     @show_comparisons ||= brand.show_comparisons.present? &&
       !!(brand.show_comparisons) &&
-      (self.current_products.size > 1 || self.children_with_current_products(brand).size > 0)
+      current_products_plus_child_products_count(brand) > 0
   end
 
   # Load this ProductFamily's children families with at least one active product
@@ -366,7 +374,7 @@ class ProductFamily < ApplicationRecord
       these_children = these_children.where.not(product_selector_behavior: "exclude").or(these_children.where(product_selector_behavior: nil))
     end
     these_children.includes(:products).each do |pf|
-      if !pf.requires_login? && (pf.current_products.size > 0 || pf.children_with_current_products(w, options).size > 0)
+      if !pf.requires_login? && pf.current_products_plus_child_products_count(w) > 0
         unless options[:locale].present? && !pf.locales(w).include?(options[:locale].to_s)
           ids << pf.id
           if options[:depth] > 1
