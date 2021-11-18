@@ -67,7 +67,7 @@ class ProductFamiliesController < ApplicationController
   end
 
   def current_products_count
-    @product_count = @product_family.current_products_plus_child_products(website).size
+    @product_count = @product_family.current_products_plus_child_products_count(website)
 
     respond_to do |f|
       f.js

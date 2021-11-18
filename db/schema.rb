@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_12_222855) do
+ActiveRecord::Schema.define(version: 2021_11_15_222424) do
 
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
@@ -453,6 +453,16 @@ ActiveRecord::Schema.define(version: 2021_11_12_222855) do
     t.index ["content_type", "content_id"], name: "index_content_translations_on_content_type_and_content_id"
     t.index ["content_type"], name: "index_content_translations_on_content_type"
     t.index ["locale"], name: "index_content_translations_on_locale"
+  end
+
+  create_table "current_product_counts", charset: "utf8", force: :cascade do |t|
+    t.integer "product_family_id"
+    t.string "locale"
+    t.integer "current_products_count"
+    t.integer "current_products_plus_child_products_count"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_family_id"], name: "index_current_product_counts_on_product_family_id"
   end
 
   create_table "custom_shop_carts", charset: "utf8", force: :cascade do |t|
