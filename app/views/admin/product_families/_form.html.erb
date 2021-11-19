@@ -1,8 +1,11 @@
 <%= simple_form_for [:admin, @product_family] do |f| %>
 
 	<div class="row">
-		<div class="small-12 columns">
+		<div class="small-12 medium-6 columns">
 			<%= f.input :name %>
+		</div>
+		<div class="small-12 medium-6 columns">
+			<%= f.input :product_nav_separator, hint: "This separator will appear in the top nav directly above this product family. This is not common." %>
 		</div>
   </div>
 

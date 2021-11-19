@@ -114,12 +114,27 @@ module MainHelper
 
       dropdown_class = (child_links + product_links).length > 0 ? "has-dropdown" : ""
 
-      content_tag(:li, class: dropdown_class) do
-        link_to(translate_content(product_family, :name), product_family) +
-        content_tag(:ul, child_links.join.html_safe + product_links.join.html_safe, class: "dropdown")
-      end.html_safe
-    end
-  end
+      nav_html =
+        content_tag(:li, class: dropdown_class) do
+          link_to(translate_content(product_family, :name), product_family) +
+          content_tag(:ul, child_links.join.html_safe + product_links.join.html_safe, class: "dropdown")
+        end.html_safe
+
+      # This is a custom solution (for AMX) to combine some parent and child links in the nav list
+      if website.value_for("family-slugs-to-be-collapsed-in-nav").present? && website.value_for("family-slugs-to-be-collapsed-in-nav").include?(product_family.cached_slug)
+        nav_html = child_links.join.html_safe
+      end
+
+      # This is also a custom solution (for AMX) to use a nav separator for some nav items
+      if product_family.product_nav_separator.present?
+        nav_separator_html = content_tag(:li, link_to(product_family.product_nav_separator, "#"))
+        nav_separator_html + nav_html
+      else
+        nav_html
+      end
+
+    end  #  if product_family.locales(website).include?(I18n.locale.to_s)
+  end  #  def product_family_nav_links(product_family, options={})
 
   def market_segment_nav_links(market_segment, options={})
     default_options = {depth: 99}

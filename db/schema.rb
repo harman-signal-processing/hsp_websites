@@ -1243,6 +1243,7 @@ ActiveRecord::Schema.define(version: 2021_11_23_173139) do
     t.text "accessories_content", size: :medium
     t.text "before_product_content", size: :medium
     t.integer "locale_product_families_count"
+    t.string "product_nav_separator"
     t.index ["brand_id"], name: "index_product_families_on_brand_id"
     t.index ["cached_slug"], name: "index_product_families_on_cached_slug", unique: true
     t.index ["parent_id"], name: "index_product_families_on_parent_id"
