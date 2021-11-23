@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_15_222424) do
+ActiveRecord::Schema.define(version: 2021_11_23_173139) do
 
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
@@ -1806,6 +1806,23 @@ ActiveRecord::Schema.define(version: 2021_11_15_222424) do
     t.datetime "updated_at", null: false
     t.index ["operating_system_id"], name: "index_software_operating_systems_on_operating_system_id"
     t.index ["software_id"], name: "index_software_operating_systems_on_software_id"
+  end
+
+  create_table "software_report_subscriptions", charset: "utf8", force: :cascade do |t|
+    t.integer "software_report_id"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["software_report_id"], name: "index_software_report_subscriptions_on_software_report_id"
+    t.index ["user_id"], name: "index_software_report_subscriptions_on_user_id"
+  end
+
+  create_table "software_reports", charset: "utf8", force: :cascade do |t|
+    t.integer "software_id"
+    t.integer "previous_count"
+    t.date "previous_count_on"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "software_training_classes", id: :integer, charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
