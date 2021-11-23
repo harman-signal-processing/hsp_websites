@@ -111,4 +111,9 @@ class SiteMailer < ApplicationMailer
          subject: "JBL Vertec/VTX Owner Form")
   end
 
+  def monthly_software_report
+    @software_report = params[:software_report]
+    mail(to: @software_report.recipients,
+         subject: "#{@software_report.software.name} Monthly Report")
+  end
 end  #  class SiteMailer < ActionMailer::Base
