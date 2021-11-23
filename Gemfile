@@ -6,7 +6,7 @@ gem 'actionpack-action_caching', git: 'https://github.com/rails/actionpack-actio
 gem 'responders'
 gem 'bootsnap', require: false
 gem 'sprockets'
-gem 'sprockets-rails'
+gem 'sprockets-rails', '< 3.3' # 3.3 broke asset-url compilation with asset host. Try a newer version later.
 gem 'sass-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails'
