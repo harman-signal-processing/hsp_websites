@@ -458,7 +458,6 @@ ActiveRecord::Schema.define(version: 2021_11_23_173139) do
   create_table "current_product_counts", charset: "utf8", force: :cascade do |t|
     t.integer "product_family_id"
     t.string "locale"
-    t.integer "current_products_count"
     t.integer "current_products_plus_child_products_count"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
