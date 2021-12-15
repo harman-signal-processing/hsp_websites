@@ -50,7 +50,7 @@ class SoftwaresController < ApplicationController
 
   def new_version
     @old_software = Software.find(params[:id])
-    @software = Software.new(replaces_id: @old_software.to_param, active: true)
+    @software = Software.new(replaces_id: @old_software.id, active: true)
     @return_to = request.referer
   end
 
