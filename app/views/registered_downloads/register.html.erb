@@ -6,8 +6,8 @@
       <h2><%= pluralize(@download_registration.errors.size, "error") %> prohibited your registration from being saved:</h2>
 
       <ul>
-      <% @download_registration.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+      <% @download_registration.errors.each do |error| %>
+        <li><%= error.attribute %>: <%= error.message %></li>
       <% end %>
       </ul>
     </div>

@@ -1,39 +1,37 @@
-<% called_from ||= 'admin_site' %>
-<li id="product_attachment_<%= pa.id %>">
-	<span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
-	<% if pa.is_photo? %>
-	<%= link_to(image_tag(pa.product_attachment.url(:thumb), lazy: false),
-			pa.product_attachment.url) %>
-	<% else %>
-	<%= link_to(!pa.product_media_thumb_file_name.blank? ? image_tag(pa.product_media_thumb.url(:thumb), lazy: false) : pa.product_media_file_name,
-			pa.product_media.url) %>
-	<% end %>
-	<span class="little">
-	<%= link_to(image_tag("icons/trash.gif", lazy: false),
-			admin_product_attachment_path(pa),
-			remote: true,
-			confirm: "Are you sure?",
-			method: :delete) %>
-    &nbsp;&nbsp;
-    <%= link_to (called_from == "public_site") ? edit_product_product_attachment_path(pa.product, pa) : edit_admin_product_attachment_path(pa),
-      class: "tiny button" do %>
-      <%= fa_icon "edit" %> edit
+<% unless pa.new_record? %>
+  <% called_from ||= 'admin_site' %>
+  <li id="product_attachment_<%= pa.id %>">
+    <span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
+    <% if pa.is_photo? %>
+    <%= link_to(image_tag(pa.product_attachment.url(:thumb), lazy: false),
+        pa.product_attachment.url) %>
+    <% else %>
+    <%= link_to(!pa.product_media_thumb_file_name.blank? ? image_tag(pa.product_media_thumb.url(:thumb), lazy: false) : pa.product_media_file_name,
+        pa.product_media.url) %>
     <% end %>
-	<% if pa.is_photo? %>
-	<% if pa.primary_photo %>
-		(current main photo)
-	<% else %>
-		<%= link_to(admin_product_attachment_path(pa, product_attachment: {primary_photo: true}, called_from: called_from),
-				remote: true,
-        method: :put,
-        class: "tiny button") do %>
-        set as main photo
+    <span class="little">
+    <%= link_to(image_tag("icons/trash.gif", lazy: false),
+        admin_product_attachment_path(pa),
+        remote: true,
+        confirm: "Are you sure?",
+        method: :delete) %>
+      &nbsp;&nbsp;
+      <%= link_to (called_from == "public_site") ? edit_product_product_attachment_path(pa.product, pa) : edit_admin_product_attachment_path(pa),
+        class: "tiny button" do %>
+        <%= fa_icon "edit" %> edit
+      <% end %>
+    <% if pa.is_photo? %>
+    <% if pa.primary_photo %>
+      (current main photo)
+    <% else %>
+      <%= link_to(admin_product_attachment_path(pa, product_attachment: {primary_photo: true}, called_from: called_from),
+          remote: true,
+          method: :put,
+          class: "tiny button") do %>
+          set as main photo
+      <% end %>
     <% end %>
-	<% end %>
-	<% end %>
-	</span>
-</li>
-
-
-
-
+    <% end %>
+    </span>
+  </li>
+<% end %>

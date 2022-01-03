@@ -1,8 +1,10 @@
-<li id="software_attachment_<%= sa.id %>">
-	<%= link_to(image_tag("icons/trash.gif", lazy: false), 
-			admin_software_attachment_path(sa), 
-			remote: true,
-			confirm: "Are you sure?", 
-			method: :delete) %>
-	<%= link_to(sa.name, sa.software_attachment.url) %>
-</li>
+<% unless sa.new_record? %>
+  <li id="software_attachment_<%= sa.id %>">
+    <%= link_to(image_tag("icons/trash.gif", lazy: false),
+        admin_software_attachment_path(sa),
+        remote: true,
+        confirm: "Are you sure?",
+        method: :delete) %>
+    <%= link_to(sa.name, sa.software_attachment.url) %>
+  </li>
+<% end %>

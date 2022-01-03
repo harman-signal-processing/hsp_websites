@@ -1,10 +1,12 @@
-<li id="tone_library_patch_<%= tlp.id %>">
-	<%= link_to(image_tag("icons/trash.gif", lazy: false), 
-			admin_tone_library_patch_path(tlp), 
-			remote: true,
-			confirm: "Are you sure?", 
-			method: :delete) %>
-	<%= link_to tone_download_path(product_id: tlp.product, tone_library_song_id: tlp.tone_library_song, ext: tlp.extension) do %>
-		<%= tlp.product.name %> - <%= tlp.patch_file_name %>
-	<% end %>
-</li>
+<% unless tlp.new_record? %>
+  <li id="tone_library_patch_<%= tlp.id %>">
+    <%= link_to(image_tag("icons/trash.gif", lazy: false),
+        admin_tone_library_patch_path(tlp),
+        remote: true,
+        confirm: "Are you sure?",
+        method: :delete) %>
+    <%= link_to tone_download_path(product_id: tlp.product, tone_library_song_id: tlp.tone_library_song, ext: tlp.extension) do %>
+      <%= tlp.product.name %> - <%= tlp.patch_file_name %>
+    <% end %>
+  </li>
+<% end %>

@@ -1,11 +1,13 @@
-<li id="website_locale_<%= wl.id %>">
-	<%= link_to wl.locale, edit_admin_website_locale_path(wl) %> 
-	<span class="little">
-	<%= (wl.complete?) ? "live" : "" %>
-	<%= link_to(image_tag("icons/trash.gif", lazy: false), 
-			admin_website_locale_path(wl), 
-			confirm: "Are you sure? (This won't delete the website or the locale--it will only remove the association.)", 
-			remote: true,
-			method: :delete) %>
-	</span>
-</li>
+<% unless wl.new_record? %>
+  <li id="website_locale_<%= wl.id %>">
+    <%= link_to wl.locale, edit_admin_website_locale_path(wl) %>
+    <span class="little">
+    <%= (wl.complete?) ? "live" : "" %>
+    <%= link_to(image_tag("icons/trash.gif", lazy: false),
+        admin_website_locale_path(wl),
+        confirm: "Are you sure? (This won't delete the website or the locale--it will only remove the association.)",
+        remote: true,
+        method: :delete) %>
+    </span>
+  </li>
+<% end %>

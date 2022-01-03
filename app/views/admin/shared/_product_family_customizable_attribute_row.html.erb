@@ -1,14 +1,16 @@
-<% called_from ||= 'customizable_attribute' %>
-<li id="product_family_customizable_attribute<%= pfca.id %>">
-	<% unless called_from == 'customizable_attribute' %>
-	<span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
-	<% end %>
-	<%= (called_from == 'customizable_attribute') ?
-			link_to(pfca.product_family.name, [:admin, pfca.product_family]) :
-			link_to(pfca.customizable_attribute.name, [:admin, pfca.customizable_attribute]) %>
-	<%= link_to(image_tag("icons/trash.gif", lazy: false),
-			admin_product_family_customizable_attribute_path(pfca, called_from: called_from),
-			confirm: "Are you sure? (This won't delete the attribute or the product family--it will only remove the attribute from the family.)",
-			remote: true,
-			method: :delete) %>
-</li>
+<% unless pfca.new_record? %>
+  <% called_from ||= 'customizable_attribute' %>
+  <li id="product_family_customizable_attribute<%= pfca.id %>">
+    <% unless called_from == 'customizable_attribute' %>
+    <span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
+    <% end %>
+    <%= (called_from == 'customizable_attribute') ?
+        link_to(pfca.product_family.name, [:admin, pfca.product_family]) :
+        link_to(pfca.customizable_attribute.name, [:admin, pfca.customizable_attribute]) %>
+    <%= link_to(image_tag("icons/trash.gif", lazy: false),
+        admin_product_family_customizable_attribute_path(pfca, called_from: called_from),
+        confirm: "Are you sure? (This won't delete the attribute or the product family--it will only remove the attribute from the family.)",
+        remote: true,
+        method: :delete) %>
+  </li>
+<% end %>

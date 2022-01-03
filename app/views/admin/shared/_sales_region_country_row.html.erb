@@ -1,11 +1,12 @@
-<li id="sales_region_country_<%= src.id %>">
-  <%= src.name %>
-	<span class="little">
-    <%= link_to(image_tag("icons/trash.gif", lazy: false),
-        admin_sales_region_country_path(src),
-        confirm: "Are you sure?",
-        remote: true,
-        method: :delete) %>
-	</span>
-</li>
-
+<% unless src.new_record? %>
+  <li id="sales_region_country_<%= src.id %>">
+    <%= src.name %>
+    <span class="little">
+      <%= link_to(image_tag("icons/trash.gif", lazy: false),
+          admin_sales_region_country_path(src),
+          confirm: "Are you sure?",
+          remote: true,
+          method: :delete) %>
+    </span>
+  </li>
+<% end %>

@@ -1,52 +1,54 @@
-<li id="feature_<%= feature.id %>">
-	<span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
-	<%= image_tag(feature.slide.url(:tiny)) %>
-	<%= link_to_function(feature.name, "$('#feature_#{feature.id}_form').toggle();") %>
-	<%= link_to(image_tag("icons/trash.gif", lazy: false),
-			admin_setting_path(feature),
-			confirm: "Are you sure?",
-			remote: true,
-			method: :delete) %>
-	<span class="small">
-	<% if feature.start_on.present? %>
-		Starts On: <%=l feature.start_on, format: :short %>
-		<% if feature.remove_on.present? %>
-		 --
-		<% end %>
-	<% end %>
-	<% if feature.remove_on.present? %>
-		Removed On: <%=l feature.remove_on, format: :short %>
-	<% end %>
-	</span>
-	<span class="small"><br/>links to: <%= feature.string_value %></span>
-	<div id="feature_<%= feature.id %>_form" style="margin: 10px; display:none;" class="instructions">
-		<%= simple_form_for [:admin, feature] do |f| %>
-			<%= f.error_messages %>
-			<%= hidden_field_tag "called_from", "homepage" %>
-			<div class="row">
-				<div class="large-6 columns">
-					<%= f.input :name, hint: "prouct name, etc." %>
-				</div>
-				<div class="large-6 columns">
-					<%= f.input :slide, label: "image/button" %>
-				</div>
-			</div>
+<% unless feature.new_record? %>
+  <li id="feature_<%= feature.id %>">
+    <span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
+    <%= image_tag(feature.slide.url(:tiny)) %>
+    <%= link_to_function(feature.name, "$('#feature_#{feature.id}_form').toggle();") %>
+    <%= link_to(image_tag("icons/trash.gif", lazy: false),
+        admin_setting_path(feature),
+        confirm: "Are you sure?",
+        remote: true,
+        method: :delete) %>
+    <span class="small">
+    <% if feature.start_on.present? %>
+      Starts On: <%=l feature.start_on, format: :short %>
+      <% if feature.remove_on.present? %>
+       --
+      <% end %>
+    <% end %>
+    <% if feature.remove_on.present? %>
+      Removed On: <%=l feature.remove_on, format: :short %>
+    <% end %>
+    </span>
+    <span class="small"><br/>links to: <%= feature.string_value %></span>
+    <div id="feature_<%= feature.id %>_form" style="margin: 10px; display:none;" class="instructions">
+      <%= simple_form_for [:admin, feature] do |f| %>
+        <%= f.error_messages %>
+        <%= hidden_field_tag "called_from", "homepage" %>
+        <div class="row">
+          <div class="large-6 columns">
+            <%= f.input :name, hint: "prouct name, etc." %>
+          </div>
+          <div class="large-6 columns">
+            <%= f.input :slide, label: "image/button" %>
+          </div>
+        </div>
 
-			<%= f.input :string_value, label: "URL to link image to",
-				hint: "URLs beginning with a partial path (ie, \"products/rp1000\") will be relative to the visitor's selected language." %>
+        <%= f.input :string_value, label: "URL to link image to",
+          hint: "URLs beginning with a partial path (ie, \"products/rp1000\") will be relative to the visitor's selected language." %>
 
-      <%= f.input :text_value, label: "Short paragraph explanation" %>
+        <%= f.input :text_value, label: "Short paragraph explanation" %>
 
-			<div class="row">
-				<div class="large-6 columns">
-					<%= f.input :start_on, as: :string, input_html: { class: 'ui-datepicker', id: "setting_#{feature.id}_start_on" } %>
-				</div>
-				<div class="large-6 columns">
-					<%= f.input :remove_on, as: :string, input_html: { class: 'ui-datepicker', id: "setting_#{feature.id}_remove_on" } %>
-				</div>
-			</div>
-			<%= f.submit "update feature", class: "tiny round button" %>
-			<%= link_to_function "cancel", "$('#feature_#{feature.id}_form').hide()" %>
-		<% end %>
-	</div>
-</li>
+        <div class="row">
+          <div class="large-6 columns">
+            <%= f.input :start_on, as: :string, input_html: { class: 'ui-datepicker', id: "setting_#{feature.id}_start_on" } %>
+          </div>
+          <div class="large-6 columns">
+            <%= f.input :remove_on, as: :string, input_html: { class: 'ui-datepicker', id: "setting_#{feature.id}_remove_on" } %>
+          </div>
+        </div>
+        <%= f.submit "update feature", class: "tiny round button" %>
+        <%= link_to_function "cancel", "$('#feature_#{feature.id}_form').hide()" %>
+      <% end %>
+    </div>
+  </li>
+<% end %>
