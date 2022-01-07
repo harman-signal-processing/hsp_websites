@@ -38,23 +38,22 @@ namespace :import do
     # delete_previous_records_from_this_import
 
     CSV.open(dealers_file, encoding:'utf-8', headers: true).each do |row|
-      name = row[0]
+      # note add an ID column to the excel file before exporting as csv, the id column is used to provide dealer ids back to the data providers so they can be used for future updates
+      name = "#{row[1]}"
       break if (name.nil?)
-      address1 = row[1]
-      address2 = row[2]
-      address3 = row[3]
+      address1 = "#{row[2]}"
+      address2 = "#{row[3]}"
+      address3 = "#{row[4]}"
       address_to_use = address1
       address_to_use += "<br />#{address2}" if address2.present?
       address_to_use += "<br />#{address3}" if address3.present?
-      city = row[4]
-      zip = row[5]
-      country = row[6]
+      city = "#{row[5]}"
+      zip = "#{row[6]}"
+      country = "#{row[7]}"
       # website = "https://#{row[7]}"
-      website = "#{row[7]}"
-      telephone = row[8]
-      product1 = row[9]
-      product2 = row[10]
-      product3 = row[11]
+      website = "#{row[8]}"
+      email = "#{row[9]}"
+      telephone = "#{row[10]}"
       count += 1
       account_number_to_use = "jblpro-#{count}"
 
@@ -70,8 +69,8 @@ namespace :import do
 
       dealer_products = []
       # load product data
-      (10..41).each do |i|
-        product_slug_index = i-10
+      (11..42).each do |i|
+        product_slug_index = i-11
         product_slug = product_slugs[product_slug_index]
         on = row[i].nil? ? false : row[i].downcase == "x"
         if on
@@ -208,10 +207,12 @@ namespace :import do
       "Albania": "Albania",
       "Austria": "Austria",
       "Belgium": "Belgium",
+      "Belguim": "Belgium",
       "Bulgaria": "Bulgaria",
       "Czech Republic": "Czech Republic",
       "Denmark": "Denmark",
       "Estonia": "Estonia",
+      "Finland": "Finland",
       "FInland": "Finland",
       "France": "France",
       "Germany": "Germany",
@@ -223,11 +224,14 @@ namespace :import do
       "Netherlands": "Netherlands",
       "Norway": "Norway",
       "Polska": "Poland",
+      "Poland": "Poland",
       "Portugal": "Portugal",
+      "PORTUGAL": "Portugal",
       "Romania": "Romania",
       "Slovakia": "Slovakia",
       "South Africa": "South Africa",
       "Spain": "Spain",
+      "SPAIN": "Spain",
       "Sweden": "Sweden",
       "Switzerland": "Switzerland",
       "The Netherlands": "Netherlands",

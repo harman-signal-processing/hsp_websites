@@ -95,8 +95,8 @@ class WhereToFindController < ApplicationController
     Rails.cache.fetch("jbl_prx_one_dealers", expires_in: 6.hours) do
       prx_one_dealers = website.brand.dealers
       prx_one_dealers.reject{|item| !item.has_rental_products_for(website.brand, "prx-one") }.sort_by{|item| [item.region, item.country, item.name] }
-    end
-  end
+    end  # Rails.cache.fetch("jbl_prx_one_dealers", expires_in: 6.hours) do
+  end  #  def prx_one_dealers_list
 
   def prx_one_dealers
     prx_one_dealers = prx_one_dealers_list
@@ -143,7 +143,7 @@ class WhereToFindController < ApplicationController
     Rails.cache.fetch("jbl_eon700_series_dealers", expires_in: 6.hours) do
       eon700_series_dealers = website.brand.dealers
       eon700_series_dealers.reject{|item| !item.has_rental_products_for(website.brand, "jbl-eon7") }.sort_by{|item| [item.region, item.country, item.name] }
-    end
+    end  # Rails.cache.fetch("jbl_eon700_series_dealers", expires_in: 6.hours) do
   end
 
   def eon700_series_dealers

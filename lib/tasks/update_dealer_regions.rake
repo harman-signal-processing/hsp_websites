@@ -10,7 +10,7 @@ namespace :update do
       dealer_same_country_has_region = Dealer.where("country = ? and region is not null", "#{dealer.country}").first
 
       if dealer_same_country_has_region.nil?
-        puts "NEED REGION for #{dealer.country}"
+        puts "NEED REGION for country: #{dealer.country}, dealer: #{dealer.name} (id: #{dealer.id}})"
         if dealer.country == "Albania"
           region_to_use = "EUROPE"
         end
