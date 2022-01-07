@@ -26,7 +26,7 @@ $(document).ready(function() {
   </script>
 <% end %>
 
-<div class="row" id="wtb_container">
+<div class="row" id="wtb_container" data-include-rental-and-service="<%= website.brand.dealers_include_rental_and_service? %>">
   <div class="small-12 medium-8 large-6 columns">
     <%= form_tag partner_search_path, method: :get %>
     <div class="row collapse">
@@ -37,12 +37,28 @@ $(document).ready(function() {
         <%= submit_tag t('find_dealers'), class: "postfix button" %>
       </div>
     </div>
+    <%= render_partial "where_to_find/filters" %>
     </form>
   </div>
-  <div class="large-4 columns dealer-results-count">
-    <span id="dealer_results_count"><%=@results.count%></span> <%= "result".pluralize(@results.count) %> found
-    </div>
+  <div class="large-4 columns">
+    Excel Downloads
+    <% if @results.count > 0%>
+      <br /><%= fa_icon "arrow-circle-down", :"aria-hidden" => true %> <%=link_to "Search Results", download_partner_search_results_path(request.query_parameters) %>
+    <% end %>
+    <br /><%= fa_icon "arrow-circle-down", :"aria-hidden" => true %> <%= link_to 'All VTX/VT Dealers', vertec_vtx_owners_path %>
+    <br /><%= fa_icon "arrow-circle-down", :"aria-hidden" => true %> <%= link_to 'All PRX ONE Dealers', prx_one_dealers_path %>
+    <br /><%= fa_icon "arrow-circle-down", :"aria-hidden" => true %> <%= link_to 'All EON ONE MK2 Dealers', eon_one_mk2_dealers_path %>
+    <br /><%= fa_icon "arrow-circle-down", :"aria-hidden" => true %> <%= link_to 'All EON700 Series Dealers', eon700_series_dealers_path %>    
+  </div>
 </div>
+
+<div class="row">
+  <div class="small-12 medium-8 large-6 columns"></div>
+  <div class="large-4 columns jblpro-dealer-results-count" style="border: solid 0px red;">
+    <span id="dealer_results_count"><%=@results.count%></span> <%= "result".pluralize(@results.count) %> found
+  </div>
+</div>
+
 <div class="row">
   <div class="small-12 medium-7 large-8 columns">
     <div id="map" style="width: 100%; height: 600px;"></div>
@@ -52,7 +68,28 @@ $(document).ready(function() {
       <% @results.each_with_index do |dealer,i| %>
         <li id="sidebar-item-<%=(i + 1)%>" class="sidebar-item">
           <b><%= link_to dealer.name, '#', class: "mapper", data: { item_id: (i + 1) } %></b>
+          <% if website.brand.dealers_include_rental_and_service? %>
+            <% if dealer.resale? %>
+              <%= fa_icon "shopping-cart", title: "Reseller" %>
+            <% end %>
+            <% if dealer.rental? %>
+              <%= fa_icon "road", title: "Rentals" %>
+            <% end %>
+            <% if dealer.service? %>
+              <%= fa_icon "wrench", title: "Service" %>
+            <% end %>
+          <% end %>
           (<%=dealer.distance_from(@origin).to_i %> <%= t('dealer_distance') %>)
+          <%#dealer_rental_products = Dealer.rental_products(website.brand, dealer)%>
+          <%dealer_rental_products = Dealer.rental_products_and_product_families(website.brand, dealer)%>
+          <% if dealer.rental? && dealer_rental_products.present? %>
+            <span style="font-size:small;">
+              <br/><i>Rentals:</i>
+              <% dealer_rental_products.each_with_index do |product, index| %>
+                <%=link_to product.name, product, target:"_blank"%><%="," unless (dealer_rental_products.count == index+1) %>
+              <% end %>
+            </span>
+          <% end %>
           <br/><%=raw dealer.address %>
           <% if dealer.city.present? || dealer.state.present? || dealer.zip.present? %>
             <br/><%= dealer.city %> <%= dealer.state %> <%= dealer.zip %>

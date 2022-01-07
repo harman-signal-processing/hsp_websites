@@ -1,7 +1,7 @@
 <div class="row">
   <div class="large-12 columns panel">
     <img src="https://jblpro.com/resource/jbl-professional-vertec-vtx-signup-form-image.jpg" border="0">
-    <h2>VerTec / VTX Owners Signup</h2>
+    <h2>VTX / VT Owners Signup</h2>
   </div>
 </div>
 
@@ -33,21 +33,21 @@
 <div class="row panel">
 	<!-- left side -->
 	<div class="medium-6 columns">
-	  <h3>VerTec Products</h3>
-	  <%= f.input :vertec_products, 
-	  collection: website.jbl_vertec_rental_products.split("--").map{|item| " " + item.squish!}, 
+	  <h3>VTX Products</h3>
+	  <%= f.input :vtx_products,
+	  collection: website.jbl_vtx_rental_products.split("--").map{|item| " " + item.squish!},
 	  as: :check_boxes,
-	  label: false%>	  
+	  label: false%>
 	</div>
-	
+
 	<!-- right side -->
 	<div class="medium-6 columns">
-	  <h3>VTX Products</h3>
-	  <%= f.input :vtx_products, 
-	  collection: website.jbl_vtx_rental_products.split("--").map{|item| " " + item.squish!}, 
+	  <h3>VT Products</h3>
+	  <%= f.input :vertec_products,
+	  collection: website.jbl_vertec_rental_products.split("--").map{|item| " " + item.squish!},
 	  as: :check_boxes,
-	  label: false%>	  
-	</div>	
+	  label: false%>
+	</div>
 </div><!-- <div class="row panel"> -->
 
 <p>&nbsp;</p>
