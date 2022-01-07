@@ -23,7 +23,7 @@
 
     <% if website.brand.has_dealers? %>
       <div class="row">
-        <div class="medium-6 columns end">
+        <div class="medium-10 columns end">
           <% if website.brand.dealers_are_us_only? %>
             <h3><%= t('us_dealers') %></h3>
           <% else %>
@@ -39,8 +39,12 @@
               <%= submit_tag t('find_dealers'), class: "postfix button" %>
             </div>
           </div>
+          <%= render_partial "where_to_find/filters" %>
           <% if website.brand.has_us_sales_reps? %>
             <i style="font-size: 80%">Or, <%= link_to "find a sales rep", us_reps_path %> to become a dealer.</i>
+          <% end %>
+          <% if website.has_vertec_vtx_signup %>
+            <p><i style="font-size: 80%">To be added to the VERTEC/VTX Owners List <%= link_to "start here", "/vtx-vertec-owner-sign-up" %>.</i></p>
           <% end %>
           </form>
           <br/>

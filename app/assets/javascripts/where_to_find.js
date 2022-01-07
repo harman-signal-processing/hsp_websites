@@ -63,7 +63,7 @@ function refresh_map(map) {
   }
   // add rental if url contains 'vertec_vtx_owners_search'
   if (url.includes("vertec_vtx_owners_search")) {
-    url += "&rental=1"
+    url += "&rental_vtx=1"
   }
 
   $.getJSON(url, function ( data ) {
