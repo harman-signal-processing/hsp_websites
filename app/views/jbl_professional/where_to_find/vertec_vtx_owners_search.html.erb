@@ -39,14 +39,16 @@ $(document).ready(function() {
     </div>
     <% if website.brand.dealers_include_rental_and_service? %>
       <input type="hidden" name="apply_filters" value="1"/>
-      <input type="hidden" name="rental" id="rental" value="1">
+      <input type="hidden" name="rental_vtx" id="rental_vtx" value="1">
 
       <% if website.brand.dealers.where(rental: true).count > 0 %>
-        <label for="rental">
+          Excel Downloads
+          <% if @results.count > 0%>
+            <br /><%= fa_icon "arrow-circle-down", :"aria-hidden" => true %> <%=link_to "Search Results", download_partner_search_results_path(request.query_parameters) %>
+          <% end %>      
           <% if website.brand.name == "JBL Professional" %>
-            <%= link_to 'Download all VERTEC / VTX rental companies to Excel', vertec_vtx_owners_path %>
+            <br /><%= fa_icon "arrow-circle-down", :"aria-hidden" => true %> <%= link_to 'All VTX / VT Rental Companies', vertec_vtx_owners_path %>
           <% end %>
-        </label>
       <% end %>
 
     <% end %>
@@ -54,7 +56,7 @@ $(document).ready(function() {
   </div>
   <div class="large-4 columns">
     <div class="callout panel" style="margin-top:-42px;">
-      <div>Have Vertec / VTX equipment to rent?</div>
+      <div>Have VTX / VT equipment to rent?</div>
       <%=link_to "Let Us Know",vertec_vtx_owners_signup_form_path, class: "postfix button"%>
     </div><!-- <div class="callout panel"> -->
   </div><!-- <div class="large-4 columns"> -->
@@ -89,7 +91,8 @@ $(document).ready(function() {
             <% end %>
           <% end %>
           (<%=dealer.distance_from(@origin).to_i %> <%= t('dealer_distance') %>)
-          <%dealer_rental_products = Dealer.rental_products(website, dealer)%>
+          <%#dealer_rental_products = Dealer.rental_products_tour_only(website, dealer)%>
+          <%dealer_rental_products = Dealer.rental_products_tour_only(website.brand, dealer)%>
           <% if dealer.rental? && dealer_rental_products.present? %>
             <span style="font-size:small;">
               <br/><i>Rentals:</i>

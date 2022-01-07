@@ -117,9 +117,13 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
 
     constraints(JblProDomain) do
       get 'vertec-vtx-owners' => "where_to_find#vertec_vtx_owners", as: :vertec_vtx_owners, defaults: { format: :xls }
+      get 'prx-one-dealers' => "where_to_find#prx_one_dealers", as: :prx_one_dealers, defaults: { format: :xls }
+      get 'eon-one-mk2-dealers' => "where_to_find#eon_one_mk2_dealers", as: :eon_one_mk2_dealers, defaults: { format: :xls }
+      get 'eon700-series-dealers' => "where_to_find#eon700_series_dealers", as: :eon700_series_dealers, defaults: { format: :xls }
       get 'vertec-vtx-owners-signup' => "jbl_vertec_vtx_owners#new", as: :vertec_vtx_owners_signup_form
       match 'vertec-vtx-owners-signup' => "jbl_vertec_vtx_owners#create", as: :create_vertec_vtx_owners_signup, via: [:post]
       get 'vertec-vtx-owners-signup/thankyou' => "jbl_vertec_vtx_owners#thankyou", as: :vertec_vtx_owners_signup_thankyou, via: [:get]
+      get 'download-partner-search-results' => "where_to_find#download_partner_search_results", as: :download_partner_search_results, defaults: { format: :xls }
     end
 
     devise_for :users, controllers: {

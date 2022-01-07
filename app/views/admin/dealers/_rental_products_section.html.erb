@@ -2,14 +2,14 @@
 <% if brand_dealer.present? %>
   <% if @dealer.rental?%>
   	<%= f.input :products,
-  	  collection: Dealer.available_rental_products(website, @dealer).sort_by(&:name),
-  	  label: "For rental dealers, indicate the products offered:",
-  	  input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Products'} }%>   
+      collection: Dealer.available_rental_products(website.brand, @dealer).sort_by(&:name),
+      label: "For rental dealers, indicate the products offered:",
+      input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Products'} }%>
     <button id="btnRental" type="button" class: "small postfix button">Add Rental Product</button>
     <p>
 	    <p style="margin-bottom: 0.5rem;">Current rental products:</p>
 	    <ul id="brand_dealer_rental_products" class="sortable_list">
-	      <% rental_product_associations =  Dealer.rental_product_associations(website, @dealer)%>
+	      <% rental_product_associations =  Dealer.rental_product_associations(website.brand, @dealer)%>
 	      <% if rental_product_associations.present? %>
     	    <% rental_product_associations.sort_by(&:position).each do |item| %>
     	      <%= render "rental_product_row", item: item, called_from: "dealer" %>

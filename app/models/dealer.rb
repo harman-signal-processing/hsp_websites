@@ -18,29 +18,97 @@ class Dealer < ApplicationRecord
     brand.dealers.select{|d| d.distance_from(origin) <= within_miles}
   }
 
-  scope :rental_products, -> (website, dealer) {
-    brand_dealer = BrandDealer.where("brand_id=? and dealer_id=?", website.brand.id, dealer.id).first
+  scope :rental_products_and_product_families, -> (brand, dealer) {
+    brand_dealer = BrandDealer.where("brand_id=? and dealer_id=?", brand.id, dealer.id).first
+    results = []
     if brand_dealer.present?
-      Product.joins(:brand_dealer_rental_products).where("brand_dealer_rental_products.brand_dealer_id = ?", brand_dealer).order(:position)
-    end
-  }
+      results = rental_products(brand, dealer).to_ary
+      begin
+        if results.pluck(:cached_slug).grep(/jbl-eon7/).any?
+          results.delete_if {|item| item.cached_slug["jbl-eon7"].present? }
+          results << ProductFamily.find_by_cached_slug("eon700-series")
+        end
+      rescue => e
+        error_message = "Error in Dealer.rental_products_and_product_families. BrandDealer #{brand_dealer.id} #{e.message}"
+        puts error_message
+        logger.debug error_message
+      end  #  begin
+    end  #  if brand_dealer.present?
+    results
+  }  #  scope :rental_products_and_product_families, -> (brand, dealer) {
 
-  scope :available_rental_products, -> (website, dealer) {
-    existing_rental_products = rental_products(website, dealer)
+  scope :rental_products, -> (brand, dealer) {
+    brand_dealer = BrandDealer.where("brand_id=? and dealer_id=?", brand.id, dealer.id).first
+    if brand_dealer.present?
+      begin
+        Rails.cache.fetch("rental_products_#{brand.id}_#{dealer.id}", expires_in: 6.hours) do
+          Product.joins(:brand_dealer_rental_products).where("brand_dealer_rental_products.brand_dealer_id = ?", brand_dealer).order(:position)
+        end
+      rescue => e
+        error_message = "Error in Dealer.rental_products. BrandDealer #{brand_dealer.id} #{e.message}"
+        puts error_message
+        logger.debug error_message
+        []
+      end  #  begin
+    end  #  if brand_dealer.present?
+  }  #  scope :rental_products, -> (brand, dealer) {
+
+  scope :available_rental_products, -> (brand, dealer) {
+    existing_rental_products = rental_products(brand, dealer)
     if existing_rental_products.present?
-      website.products.where.not(id: existing_rental_products.pluck(:id))
+      brand.products.where.not(id: existing_rental_products.pluck(:id))
     else
-      website.products
+      brand.products
     end
   }
 
-  scope :rental_product_associations, -> (website, dealer) {
-    brand_dealer = BrandDealer.where("brand_id=? and dealer_id=?", website.brand.id, dealer.id).first
+  scope :rental_product_associations, -> (brand, dealer) {
+    brand_dealer = BrandDealer.where("brand_id=? and dealer_id=?", brand.id, dealer.id).first
     associations_to_return = []
     if brand_dealer.present?
       associations_to_return = brand_dealer.brand_dealer_rental_products
     end
     associations_to_return
+  }
+
+  scope :rental_products_tour_only, -> (brand, dealer) {
+    brand_dealer = BrandDealer.where("brand_id=? and dealer_id=?", brand.id, dealer.id).first
+    results = []
+    if brand_dealer.present?
+      results = rental_products(brand, dealer).to_ary
+      results.delete_if {|item| !item.name.start_with? "VT"}
+    end
+    results
+  }
+
+  scope :rental_products_eon700_only, -> (brand, dealer) {
+    brand_dealer = BrandDealer.where("brand_id=? and dealer_id=?", brand.id, dealer.id).first
+    results = []
+    if brand_dealer.present?
+      results = rental_products(brand, dealer).to_ary
+      results.delete_if {|item| !item.cached_slug["jbl-eon7"].present? }
+    end
+    results
+  }
+
+  scope :rental_products_prx_one_only, -> (brand, dealer) {
+    brand_dealer = BrandDealer.where("brand_id=? and dealer_id=?", brand.id, dealer.id).first
+    results = []
+    if brand_dealer.present?
+      results = rental_products(brand, dealer).to_ary
+      results.delete_if {|item| !item.cached_slug["prx-one"].present? }
+    end
+    results
+  }
+
+  scope :rental_products_eon_one_mk2_only, -> (brand, dealer) {
+    brand_dealer = BrandDealer.where("brand_id=? and dealer_id=?", brand.id, dealer.id).first
+    results = []
+    if brand_dealer.present?
+      results = rental_products(brand, dealer).to_ary
+      results.delete_if {|item| !item.cached_slug["jbl-eon-one-mk2"].present? }
+    end
+    results
   }
 
   def parent
@@ -145,15 +213,85 @@ class Dealer < ApplicationRecord
     end
   end
 
-  def self.report(brand, options={})
+  def self.simple_report(brand, options={}, dealer_list=[])
+    options = { rental: false, resell: false, title: "Dealers", format: 'xls' }.merge
+    if dealer_list.present?
+      dealers = dealer_list
+    else
+      dealers = brand.dealers
+      if options[:rental]
+        dealers = dealers.where(rental: true)
+      end
+      if options[:resell]
+        dealers = dealers.where(resell: true)
+      end
+    end  #  if dealer_list.present?
+
+    if options[:format] == 'xls'
+      xls_report = StringIO.new
+      Spreadsheet.client_encoding = "UTF-8"
+      book = Spreadsheet::Workbook.new
+      sheet = book.create_worksheet
+
+      column_header_format = Spreadsheet::Format.new(
+        weight: :bold
+      )
+
+      sheet.row(0).default_format = column_header_format
+      sheet.row(0).push 'Region', 'Country', 'Dealer', 'Contact', 'Address', 'City', 'State', 'Postal Code', 'Phone', 'Email', 'Website', 'Rental Products'
+      sheet.column(0).width = 20 # Region
+      sheet.column(1).width = 20 # Country
+      sheet.column(2).width = 30 # Dealer
+      sheet.column(3).width = 20 # Contact
+      sheet.column(4).width = 40 # Address
+      sheet.column(5).width = 20 # City
+      sheet.column(6).width = 20 # State
+      sheet.column(7).width = 20 # Postal Code
+      sheet.column(8).width = 20 # Phone
+      sheet.column(9).width = 20 # Email
+      sheet.column(10).width = 20 # Website
+      sheet.column(11).width = 50 # Rental Products
+
+      row = 1
+
+      dealers.each do |dealer|
+        addr = dealer.address.gsub("<br />", ", ").gsub("<br>",", ").gsub("<br/>",", ") if dealer.address.present?
+            sheet[row, 0] = dealer.region
+            sheet[row, 1] = dealer.country
+            sheet[row, 2] = dealer.name
+            sheet[row, 3] = dealer.name2  #  contact note
+            sheet[row, 4] = addr
+            sheet[row, 5] = dealer.city
+            sheet[row, 6] = dealer.state
+            sheet[row, 7] = dealer.zip
+            sheet[row, 8] = dealer.telephone
+            sheet[row, 9] = dealer.email
+            sheet[row, 10] = dealer.website
+            sheet[row, 11] = dealer.rental_product_names(brand)
+        row += 1
+      end  #  dealers.each do |dealer|
+
+      book.write(xls_report)
+      xls_report.string
+
+    end  #  if options[:format] == 'xls'
+
+  end  #  def self.simple_report(brand, options={}, dealer_list=[])
+
+  def self.report(brand, options={}, dealer_list=[])
     options = { rental: false, resell: false, title: "Dealers", format: 'xls' }.merge options
-    dealers = brand.dealers
-    if options[:rental]
-      dealers = dealers.where(rental: true)
+    if dealer_list.present?
+      dealers = dealer_list
+    else
+      dealers = brand.dealers
+      if options[:rental]
+        dealers = dealers.where(rental: true)
+      end
+      if options[:resell]
+        dealers = dealers.where(resell: true)
+      end
     end
-    if options[:resell]
-      dealers = dealers.where(resell: true)
-    end
+
 
     if options[:format] == 'xls'
       xls_report = StringIO.new
@@ -206,25 +344,25 @@ class Dealer < ApplicationRecord
 
       sheet.row(0).default_format = title_format
       sheet[0,0] = options[:title]
-      sheet.merge_cells(0, 0, 0, 7)
+      sheet.merge_cells(0, 0, 0, 7)  #  sheet.merge_cells(start_row, start_col, end_row, end_col)
       sheet.row(1).default_format = subtitle_format
       sheet[1,0] = "current as of #{ I18n.l(Date.today, format: :short) }"
-      sheet.merge_cells(1, 0, 1, 7)
+      sheet.merge_cells(1, 0, 1, 7)  #  sheet.merge_cells(start_row, start_col, end_row, end_col)
 
       row = 2
 
-      dealers.group(:region).each do |region|
+      dealers.index_by(&:region).each do |region|
         sheet.row(row).default_format = region_format
-        sheet[row, 0] = region.region.blank? ? "(empty region)" : region.region
+        sheet[row, 0] = region[1].region.blank? ? "(empty region)" : region[1].region
         sheet.merge_cells(row, 0, row, 7)
         row += 1
-        dealers.where(region: region.region).group(:country).each do |country|
+        dealers.select{|item| item.region == region[1].region}.index_by(&:country).each do |country|
           sheet.row(row).default_format = country_format
-          sheet[row, 0] = country.country.blank? ? "(empty country)" : country.country
+          sheet[row, 0] = country[1].country.blank? ? "(empty country)" : country[1].country
           sheet.merge_cells(row, 0, row, 7)
           row += 1
-          dealers.where(region: region.region, country: country.country).order(:name).each do |dealer|
-            addr = dealer.address.split(/\<br\/?\>/i)
+          dealers.select{|item| item.region == region[1].region && item.country == country[1].country}.sort_by(&:name).each do |dealer|
+            addr = dealer.address.split(/\<br\/?\>/i) if dealer.address.present?
             sheet.row(row).default_format = line_above_format
             sheet.row(row).set_format(0, dealer_name_format)
             (0..6).each do |c|
@@ -237,18 +375,17 @@ class Dealer < ApplicationRecord
             sheet[row, 4] = "Email:"
             sheet[row, 5] = dealer.email
             sheet[row, 6] = "Models:"
-            # sheet[row, 7] = dealer.products
-            sheet[row, 7] = dealer.rental_product_names
+            sheet[row, 7] = dealer.rental_product_names(brand)
             row += 1
             (0..6).each do |c|
               sheet.row(row).format(c).left = :thin
             end
-            sheet[row, 0] = addr.pop
+            sheet[row, 0] = addr.pop if addr.present?
             row += 1
             (0..6).each do |c|
               sheet.row(row).format(c).left = :thin
             end
-            sheet[row, 0] = addr.join("\n") if addr.length > 0
+            sheet[row, 0] = addr.join("\n") if addr.present?
             sheet[row, 2] = "Fax:"
             sheet[row, 3] = dealer.fax if dealer.fax.to_s.match(/\d/)
             sheet[row, 4] = "Website:"
@@ -276,10 +413,31 @@ class Dealer < ApplicationRecord
     else
       dealers # no other formats supported yet
     end
-  end
+  end  #  def self.report(brand, options={})
 
-  def rental_product_names
-    Product.find(self.brand_dealers.first.brand_dealer_rental_products.order(:position).pluck(:product_id)).pluck(:name).join(', ')
-  end
+  def rental_product_names(brand)
+    Rails.cache.fetch("rental_product_names_#{brand.id}_#{self.id}", expires_in: 6.hours) do
+      results = rental_products(brand).to_ary
 
-end
+      if results.pluck(:cached_slug).grep(/jbl-eon7/).any?
+        results.delete_if {|item| item.cached_slug["jbl-eon7"].present? }
+        results << ProductFamily.find_by_cached_slug("eon700-series")
+      end  #  if results.pluck(:cached_slug).grep(/jbl-eon7/).any?
+      results.pluck(:name).join(', ')
+    end  #  Rails.cache.fetch("rental_product_names_#{brand.id}_#{self.id}", expires_in: 6.hours) do
+  end  #  def rental_product_names(brand)
+
+  def has_rental_products_for(brand, cached_slug)  #  this currently only applies to jbl pro
+    results = false
+    if cached_slug == "jbl-eon7" || cached_slug == "vt"
+      results = rental_products(brand).pluck(:cached_slug).map{|item| item.downcase}.select{|item| item.start_with? "#{cached_slug}"}.present?
+    else
+      results = rental_products(brand).pluck(:cached_slug).map{|item| item.downcase}.include? "#{cached_slug}"
+    end
+    results
+  end  #  def has_rental_products_for(brand, cached_slug)
+
+  def rental_products(brand)
+    self.class.rental_products(brand,self)
+  end
+end  #  class Dealer < ApplicationRecord
