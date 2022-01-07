@@ -125,7 +125,14 @@ class Admin::ProductsController < AdminController
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated product: #{@product.name}")
       else
-        format.html { render action: "edit" }
+        format.html {
+          if params[:return_to]
+            return_to = URI.parse(params[:return_to]).path
+            redirect_to(return_to, alert: "There was a problem with the changes.")
+          else
+            render action: "edit"
+          end
+        }
         format.xml  { render xml: @product.errors, status: :unprocessable_entity }
       end
     end
