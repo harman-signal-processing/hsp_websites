@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 
 module HarmanSignalProcessingWebsite
   class Application < Rails::Application
-    config.load_defaults 6.1
+    #config.load_defaults 6.1
     config.active_record.belongs_to_required_by_default = false # 6.0 defaults to true
     #config.active_record.has_many_inversing = false # 6.1 defaults to true
 
