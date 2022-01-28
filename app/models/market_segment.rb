@@ -18,7 +18,7 @@ class MarketSegment < ApplicationRecord
       thumb: "100x100>",
       tiny: "64x64",
       tiny_square: "64x64#"
-    }, processors: [:thumbnail, :compression] }.merge(S3_STORAGE)
+    }, processors: [:thumbnail, :compression] }
 
   validates_attachment :banner_image, content_type: { content_type: /\Aimage/i }
   validates :name, presence: true

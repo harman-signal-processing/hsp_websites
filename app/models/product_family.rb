@@ -23,10 +23,10 @@ class ProductFamily < ApplicationRecord
 
   after_touch :update_current_product_counts
 
-  has_attached_file :family_photo, { styles: { medium: "300x300>", thumb: "100x100>" }, processors: [:thumbnail, :compression] }.merge(S3_STORAGE)
-  has_attached_file :family_banner, { styles: { medium: "300x300>", thumb: "100x100>" }, processors: [:thumbnail, :compression] }.merge(S3_STORAGE)
-  has_attached_file :title_banner, { styles: { medium: "300x300>", thumb: "100x100>" }, processors: [:thumbnail, :compression] }.merge(S3_STORAGE)
-  has_attached_file :background_image, S3_STORAGE
+  has_attached_file :family_photo, { styles: { medium: "300x300>", thumb: "100x100>" }, processors: [:thumbnail, :compression] }
+  has_attached_file :family_banner, { styles: { medium: "300x300>", thumb: "100x100>" }, processors: [:thumbnail, :compression] }
+  has_attached_file :title_banner, { styles: { medium: "300x300>", thumb: "100x100>" }, processors: [:thumbnail, :compression] }
+  has_attached_file :background_image
 
   validates_attachment :family_photo, content_type: { content_type: /\Aimage/i }
   validates_attachment :family_banner, content_type: { content_type: /\Aimage/i }

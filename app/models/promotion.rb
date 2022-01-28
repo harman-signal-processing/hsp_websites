@@ -11,17 +11,17 @@ class Promotion < ApplicationRecord
   belongs_to :brand, touch: true
   belongs_to :banner, class_name: "Setting", foreign_key: "banner_id"
 
-  has_attached_file :promo_form, S3_STORAGE
+  has_attached_file :promo_form
   do_not_validate_attachment_file_type :promo_form
 
-  has_attached_file :tile, {
+  has_attached_file :tile,
     styles: { large: "550x370",
       medium: "480x360",
       small: "240x180",
       thumb: "100x100",
       tiny: "64x64",
       tiny_square: "64x64#"
-    }}.merge(S3_STORAGE)
+    }
   validates_attachment :tile, content_type: { content_type: /\Aimage/i }
 
   has_attached_file :homepage_banner, {
@@ -32,7 +32,7 @@ class Promotion < ApplicationRecord
       thumb: "100x100",
       tiny: "64x64",
       tiny_square: "64x64#"
-    }, processors: [:thumbnail, :compression] }.merge(S3_STORAGE)
+    }, processors: [:thumbnail, :compression] }
   validates_attachment :homepage_banner, content_type: { content_type: /\Aimage/i }
 
   process_in_background :tile

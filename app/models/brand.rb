@@ -40,7 +40,7 @@ class Brand < ApplicationRecord
   has_many :sales_regions
   has_many :testimonials
   has_many :specification_for_comparisons, class_name: "BrandSpecificationForComparison"
-  has_attached_file :logo, {
+  has_attached_file :logo,
     styles: { large: "640x480",
       medium: "480x360",
       small: "240x180",
@@ -48,7 +48,7 @@ class Brand < ApplicationRecord
       title: "86x86",
       tiny: "64x64",
       tiny_square: "64x64#"
-    }}.merge(S3_STORAGE)
+    }
   validates_attachment :logo, content_type: { content_type: /\Aimage/i }
 
   #after_initialize :dynamic_methods

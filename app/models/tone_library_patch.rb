@@ -7,7 +7,7 @@ class ToneLibraryPatch < ApplicationRecord
         "Content-Type" => f.mime_type,
         "Content-Disposition" => %(attachment; filename="#{f.patch_file_name}")
       }
-    }}.merge(S3_STORAGE)
+    }}
 
   validates_attachment :patch, presence: true
   do_not_validate_attachment_file_type :patch
