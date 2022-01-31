@@ -70,18 +70,18 @@ if Rails.env.production? || !!(ENV['USE_PRODUCTION_ASSETS'].to_i > 0)
     path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
   }
 
-  #RACKSPACE_STORAGE = {
-  #  url: ':fog_public_url',
-  #  path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension",
-  #  storage: :fog,
-  #  fog_credentials: FOG_CREDENTIALS,
-  #  fog_directory: ENV['FOG_PAPERCLIP_CONTAINER'],
-  #  fog_public: true,
-  #  fog_file: {
-  #     cache_control: 'max-age=7776000'
-  #  },
-  #  fog_host: ENV['FOG_HOST_ALIAS']
-  #}
+  RACKSPACE_STORAGE = {
+    url: ':fog_public_url',
+    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension",
+    storage: :fog,
+    fog_credentials: FOG_CREDENTIALS,
+    fog_directory: ENV['FOG_PAPERCLIP_CONTAINER'],
+    fog_public: true,
+    fog_file: {
+       cache_control: 'max-age=7776000'
+    },
+    fog_host: ENV['FOG_HOST_ALIAS']
+  }
   
 	Paperclip::Attachment.default_options.merge!(S3_STORAGE)
 	
@@ -99,7 +99,7 @@ elsif Rails.env.test?
     path: ":rails_root/spec/test_files/:class/:attachment/:id_:timestamp/:basename_:style.:extension"
   }
 
-  #RACKSPACE_STORAGE = S3_STORAGE
+  RACKSPACE_STORAGE = S3_STORAGE
 else
 
 	Paperclip::Attachment.default_options.merge!({
@@ -114,7 +114,7 @@ else
     path: ":rails_root/public/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension"
   }
   
-  #RACKSPACE_STORAGE = S3_STORAGE
+  RACKSPACE_STORAGE = S3_STORAGE
 end
 
 if Rails.env.production? || !!(ENV['USE_PRODUCTION_ASSETS'].to_i > 0)
