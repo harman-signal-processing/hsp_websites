@@ -165,15 +165,15 @@ namespace :amx_nav do
       # nil | Video Signal Processing | Window Processing | 1G Solutions
       { name: "1G Solutions", parent: "Window Processing", parent_slug: "amx-window-processing", grand_parent: "Video Signal Processing", grand_parent_slug: "video-signal-processing", position: 2},
       # nil | Video Signal Processing | Window Processing | 1G Solutions | N2400 Series (4K60 4x1)
-      { name: "N2400 Series (4K60 4x1)", parent: "1G Solutions", parent_slug: "amx-1g-solutions-1202", grand_parent: "Window Processing", grand_parent_slug: "amx-window-processing", position: 1},
+      { name: "N2400 Series (4K60 4x1)", parent: "1G Solutions", parent_slug: "amx-1g-solutions-1203", grand_parent: "Window Processing", grand_parent_slug: "amx-window-processing", position: 1},
       # nil | Video Signal Processing | Window Processing | 1G Solutions | N2000 Series (4K30 4x1)
-      { name: "N2000 Series (4K30 4x1)", parent: "1G Solutions", parent_slug: "amx-1g-solutions-1202", grand_parent: "Window Processing", grand_parent_slug: "amx-window-processing", position: 2},
+      { name: "N2000 Series (4K30 4x1)", parent: "1G Solutions", parent_slug: "amx-1g-solutions-1203", grand_parent: "Window Processing", grand_parent_slug: "amx-window-processing", position: 2},
       # nil | Video Signal Processing | Window Processing | 1G Solutions | N1000 Series (HD 4x1)
-      { name: "N1000 Series (HD 4x1)", parent: "1G Solutions", parent_slug: "amx-1g-solutions-1202", grand_parent: "Window Processing", grand_parent_slug: "amx-window-processing", position: 3},
+      { name: "N1000 Series (HD 4x1)", parent: "1G Solutions", parent_slug: "amx-1g-solutions-1203", grand_parent: "Window Processing", grand_parent_slug: "amx-window-processing", position: 3},
       # nil | Video Signal Processing | Window Processing | H.264 Solutions
       { name: "H.264 Solutions", parent: "Window Processing", parent_slug: "amx-window-processing", grand_parent: "Video Signal Processing", grand_parent_slug: "video-signal-processing", position: 3},
       # nil | Video Signal Processing | Window Processing | H.264 Solutions | N3000 Series (HD 9x1)
-      { name: "N3000 Series (HD 9x1)", parent: "H.264 Solutions", parent_slug: "amx-h-264-solutions-1206", grand_parent: "Window Processing", grand_parent_slug: "amx-window-processing", position: 1},
+      { name: "N3000 Series (HD 9x1)", parent: "H.264 Solutions", parent_slug: "amx-h-264-solutions-1207", grand_parent: "Window Processing", grand_parent_slug: "amx-window-processing", position: 1},
       # nil | Video Signal Processing | Networked Video Recording & Playback
       { name: "Networked Video Recording & Playback", parent: "Video Signal Processing", parent_slug: "video-signal-processing", grand_parent: nil, grand_parent_slug: nil, position: 3},
       # nil | Architectural Connectivity | Accessories
@@ -352,14 +352,14 @@ namespace :amx_nav do
         product.product_family_products.where(product_family: product.product_families.find_by_name(product_family_to_remove.name)).delete_all
       end
 
-      if grand_parent_product_family.present?
-        begin
-          new_family_name = ProductFamily.where(id: new_product_family.id, parent_id: grand_parent_product_family.id).first
-        rescue => e
-          binding.pry
-          puts "Error finding grand parent family #{grand_parent_product_family.name}: #{e.message}".red
-        end
-      end
+      # if grand_parent_product_family.present?
+      #   begin
+      #     new_family_name = ProductFamily.where(id: new_product_family.id, parent_id: grand_parent_product_family.id).first
+      #   rescue => e
+      #     binding.pry
+      #     puts "Error finding grand parent family #{grand_parent_product_family.name}: #{e.message}".red
+      #   end
+      # end
 
       if product.present? && new_product_family.present?
 
@@ -487,10 +487,10 @@ namespace :amx_nav do
       { product_name: "SCL-1 Video Scaler",                 product_slug: "scl-1-video-scaler",               remove_from_product_family: "",                                   remove_from_product_family_slug: "",                                  new_product_family: "SCL-1 Video Scaler",                                 new_product_family_slug: "scl-1-video-scaler",        grand_parent_product_family: "EDID Management, Scaling, & Capture", grand_parent_product_family_slug: "edid-management-scaling-capture"},
       { product_name: "UVC1-4K",                            product_slug: "uvc1-4k",                          remove_from_product_family: "",                                   remove_from_product_family_slug: "",                                  new_product_family: "UVC1-4K HDMI to USB Capture",                        new_product_family_slug: "uvc1-4k-hdmi-to-usb-capture", grand_parent_product_family: "EDID Management, Scaling, & Capture", grand_parent_product_family_slug: "edid-management-scaling-capture"},
       { product_name: "PR-WP-412",                          product_slug: "pr-wp-412",                        remove_from_product_family: "",                                   remove_from_product_family_slug: "",                                  new_product_family: "Precis (4K60 4x1 + 1)",                              new_product_family_slug: "amx-precis-4k60-4x1-1",     grand_parent_product_family: "HDMI Solutions",                      grand_parent_product_family_slug: "hdmi-solutions"},
-      { product_name: "NMX-WP-N2410 Windowing Processor",   product_slug: "nmx-wp-n2410-windowing-processor", remove_from_product_family: "",                                   remove_from_product_family_slug: "",                                  new_product_family: "N2400 Series (4K60 4x1)",                            new_product_family_slug: "amx-n2400-series-4k60-4x1", grand_parent_product_family: "1G Solutions",                        grand_parent_product_family_slug: "amx-1g-solutions-1202"},
-      { product_name: "NMX-WP-N2510 Windowing Processor",   product_slug: "nmx-wp-n2510-windowing-processor", remove_from_product_family: "",                                   remove_from_product_family_slug: "",                                  new_product_family: "N2000 Series (4K30 4x1)",                            new_product_family_slug: "n2000-series-4k30-4x1",     grand_parent_product_family: "1G Solutions",                        grand_parent_product_family_slug: "amx-1g-solutions-1202"},
-      { product_name: "NMX-WP-N1512 Windowing Processor",   product_slug: "nmx-wp-n1512-windowing-processor", remove_from_product_family: "",                                   remove_from_product_family_slug: "",                                  new_product_family: "N1000 Series (HD 4x1)",                              new_product_family_slug: "amx-n1000-series-hd-4x1",   grand_parent_product_family: "1G Solutions",                        grand_parent_product_family_slug: "amx-1g-solutions-1202"},
-      { product_name: "NMX-WP-N3510 Windowing Processor",   product_slug: "nmx-wp-n3510-windowing-processor", remove_from_product_family: "",                                   remove_from_product_family_slug: "",                                  new_product_family: "N3000 Series (HD 9x1)",                              new_product_family_slug: "amx-n3000-series-hd-9x1",   grand_parent_product_family: "H.264 Solutions",                     grand_parent_product_family_slug: "amx-h-264-solutions-1206"},
+      { product_name: "NMX-WP-N2410 Windowing Processor",   product_slug: "nmx-wp-n2410-windowing-processor", remove_from_product_family: "",                                   remove_from_product_family_slug: "",                                  new_product_family: "N2400 Series (4K60 4x1)",                            new_product_family_slug: "amx-n2400-series-4k60-4x1", grand_parent_product_family: "1G Solutions",                        grand_parent_product_family_slug: "amx-1g-solutions-1203"},
+      { product_name: "NMX-WP-N2510 Windowing Processor",   product_slug: "nmx-wp-n2510-windowing-processor", remove_from_product_family: "",                                   remove_from_product_family_slug: "",                                  new_product_family: "N2000 Series (4K30 4x1)",                            new_product_family_slug: "n2000-series-4k30-4x1",     grand_parent_product_family: "1G Solutions",                        grand_parent_product_family_slug: "amx-1g-solutions-1203"},
+      { product_name: "NMX-WP-N1512 Windowing Processor",   product_slug: "nmx-wp-n1512-windowing-processor", remove_from_product_family: "",                                   remove_from_product_family_slug: "",                                  new_product_family: "N1000 Series (HD 4x1)",                              new_product_family_slug: "amx-n1000-series-hd-4x1",   grand_parent_product_family: "1G Solutions",                        grand_parent_product_family_slug: "amx-1g-solutions-1203"},
+      { product_name: "NMX-WP-N3510 Windowing Processor",   product_slug: "nmx-wp-n3510-windowing-processor", remove_from_product_family: "",                                   remove_from_product_family_slug: "",                                  new_product_family: "N3000 Series (HD 9x1)",                              new_product_family_slug: "amx-n3000-series-hd-9x1",   grand_parent_product_family: "H.264 Solutions",                     grand_parent_product_family_slug: "amx-h-264-solutions-1207"},
       { product_name: "NMX-NVR-N6123",                      product_slug: "nmx-nvr-n6123",                    remove_from_product_family: "",                                   remove_from_product_family_slug: "",                                  new_product_family: "Networked Video Recording & Playback",               new_product_family_slug: "networked-video-recording-playback", grand_parent_product_family: "Video Signal Processing",    grand_parent_product_family_slug: "video-signal-processing"},
       { product_name: "HPX-2BTN-8ACC",                      product_slug: "hpx-2btn-8acc",                    remove_from_product_family: "",                                   remove_from_product_family_slug: "",                                  new_product_family: "Accessories",                                        new_product_family_slug: "amx-accessories",           grand_parent_product_family: "Architectural Connectivity",          grand_parent_product_family_slug: "architectural-connectivity"},
       { product_name: "CTC-1402",                           product_slug: "ctc-1402",                         remove_from_product_family: "",                                   remove_from_product_family_slug: "",                                  new_product_family: "CTC (4K60 6x1) Switching & Transport Kit w/ USB-C",  new_product_family_slug: "amx-ctc-4k60-6x1-switching-transport-kit-w-usb-c", grand_parent_product_family: "Scheduling & Collaboration", grand_parent_product_family_slug: "scheduling-collaboration"},
@@ -655,10 +655,10 @@ namespace :amx_nav do
       {slug:"controllers-w-switching", parent_slug: "control-processing", position: 5},
       {slug:"cloudworx-manager", parent_slug: "configuration-management-software", position: 6},
       {slug:"amx-dvx", parent_slug: "controllers-w-switching", position: 2},
-      {slug:"amx-n2400-series-4k60-4x1", parent_slug: "amx-window-processing", grand_parent_slug: "video-signal-processing", position: 1},
-      {slug:"n2000-series-4k30-4x1", parent_slug: "amx-window-processing", grand_parent_slug: "video-signal-processing", position: 2},
-      {slug:"amx-n1000-series-hd-4x1", parent_slug: "amx-window-processing", grand_parent_slug: "video-signal-processing", position: 3},
-      {slug:"amx-n3000-series-hd-9x1", parent_slug: "amx-window-processing", grand_parent_slug: "video-signal-processing", position: 4}
+      {slug:"amx-n2400-series-4k60-4x1", parent_slug: "amx-1g-solutions-1203", grand_parent_slug: "amx-window-processing", position: 1},
+      {slug:"n2000-series-4k30-4x1", parent_slug: "amx-1g-solutions-1203", grand_parent_slug: "amx-window-processing", position: 2},
+      {slug:"amx-n1000-series-hd-4x1", parent_slug: "amx-1g-solutions-1203", grand_parent_slug: "amx-window-processing", position: 3},
+      {slug:"amx-n3000-series-hd-9x1", parent_slug: "amx-h-264-solutions-1207", grand_parent_slug: "amx-window-processing", position: 4}
       ]
 
       puts "-------------REPARENTING #{pfs.count} PRODUCT FAMILIES------------------"
@@ -720,7 +720,7 @@ namespace :amx_nav do
     puts "-------------CREATING SITE SETTING USED IN PRODUCT NAV LEVEL COMBINING------------------"
     custom_nav_setting = Setting.find_by_name("family-slugs-to-be-collapsed-in-nav")
     if !custom_nav_setting.present?
-      Setting.create(name: "family-slugs-to-be-collapsed-in-nav", brand: amx, setting_type: "string", string_value: "1g-solutions, h-264-solutions, amx-1g-solutions, amx-h-264-solutions, hdmi-solutions, amx-1g-solutions-1202, amx-h-264-solutions-1206")
+      Setting.create(name: "family-slugs-to-be-collapsed-in-nav", brand: amx, setting_type: "string", string_value: "1g-solutions, h-264-solutions, amx-1g-solutions, amx-h-264-solutions, hdmi-solutions, amx-1g-solutions-1203, amx-h-264-solutions-1207")
       puts "Created site setting 'family-slugs-to-be-collapsed-in-nav' ".green
     else
       puts "Site setting 'family-slugs-to-be-collapsed-in-nav' exists".green
