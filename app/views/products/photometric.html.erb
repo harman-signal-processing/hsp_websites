@@ -6,7 +6,7 @@
       <iframe id="iframe"
               width=""
               height="1400px"
-              src="http://photometric.martin.com/spec/photometfull.asp?product=<%= @product.photometric_id %>&advv=0&dopdf=1&letter=1&region=eu"
+              src="https://photometric.martin.com/spec/photometfull.asp?product=<%= @product.photometric_id %>&advv=0&dopdf=1&letter=1&region=eu"
               frameborder="0"></iframe>
 		</div>
 	</div>
@@ -123,10 +123,10 @@
 		var regionRadio = $(".region input[type='radio']:checked").val();
 		var dopdfRadio = $(".dopdf input[type='radio']:checked").val();
 
-		$('#iframe').attr('src', 'http://photometric.martin.com/spec/photometfull.asp?product=' + getProdID + '&advv=' + adccRadio + '&dopdf=' + dopdfRadio + '&letter=1&region=' + regionRadio + '');
+		$('#iframe').attr('src', 'https://photometric.martin.com/spec/photometfull.asp?product=' + getProdID + '&advv=' + adccRadio + '&dopdf=' + dopdfRadio + '&letter=1&region=' + regionRadio + '');
 
 		if (dopdfRadio === '2') {
-				$('#iframe').attr('src', 'http://martin.com/pdfgenerator/?printurl=http://photometric.martin.com/spec/photometfull.asp?product=' + getProdID + '&advv=' + adccRadio + '&dopdf=' + dopdfRadio + '&letter=1&region=' + regionRadio + '');
+				$('#iframe').attr('src', 'https://martin.com/pdfgenerator/?printurl=https://photometric.martin.com/spec/photometfull.asp?product=' + getProdID + '&advv=' + adccRadio + '&dopdf=' + dopdfRadio + '&letter=1&region=' + regionRadio + '');
 		}
 
 		console.log($('#iframe').attr('src'));

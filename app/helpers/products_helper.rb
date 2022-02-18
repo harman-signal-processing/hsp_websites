@@ -163,7 +163,7 @@ module ProductsHelper
             :dd,
             link_to(
               tab_title(product_tab, product: product),
-              photometric_product_url(product, protocol: "http"),
+              photometric_product_url(product),
               target: "_blank"
             )
           )
