@@ -22,8 +22,7 @@ gem 'mysql2'
 gem 'utf8-cleaner'
 gem 'friendly_id', '>= 5.2'
 gem 'aws-sdk-s3'
-gem 'fog-core', '< 2.1.1' # fog-rackspace isn't working with fog-core after 2.1.0
-gem 'fog-rackspace'
+gem 'fog-core'
 gem 'fog-aws'
 gem 'asset_sync'
 gem "kt-paperclip", ">= 7.0"

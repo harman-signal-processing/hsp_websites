@@ -3,7 +3,7 @@ class ProductDocument < ApplicationRecord
   friendly_id :document_file_name
 
   belongs_to :product, touch: true
-  has_attached_file :document #, RACKSPACE_STORAGE
+  has_attached_file :document
 
   acts_as_list scope: :product_id
 
