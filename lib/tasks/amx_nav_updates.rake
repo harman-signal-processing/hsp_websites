@@ -580,14 +580,14 @@ namespace :amx_nav do
       'dxlink-fiber-receivers',
       'dxlink-twisted-pair-power-sourcing-devices',
       'dxlink-accessories',
-      'retractables',
-      'video',
-      'cat-6',
-      'usb',
-      'power-modules',
-      'buttons-acc-bands',
-      'pass-thru',
-      'blanks',
+      # 'retractables',
+      # 'video',
+      # 'cat-6',
+      # 'usb',
+      # 'power-modules',
+      # 'buttons-acc-bands',
+      # 'pass-thru',
+      # 'blanks',
       'touch-panel-control-apps'
       ]
 
@@ -601,7 +601,7 @@ namespace :amx_nav do
           begin
             parent = ProductFamily.where(id: product_familiy_to_delete.parent_id).first
           rescue => e
-            binding.pry
+            # binding.pry
             puts "Error finding parent pf in deletion process:  #{e.message}".red
           end
           if parent.present?
@@ -609,7 +609,8 @@ namespace :amx_nav do
           else
             puts "Deleting #{product_familiy_to_delete.name}".yellow
           end
-          product_familiy_to_delete.delete
+          # product_familiy_to_delete.delete
+          product_familiy_to_delete.destroy
       end  #  if product_familiy_to_delete.present?
 
     end  #  slugs.each do |slug|
@@ -658,7 +659,15 @@ namespace :amx_nav do
       {slug:"amx-n2400-series-4k60-4x1", parent_slug: "amx-1g-solutions-1203", grand_parent_slug: "amx-window-processing", position: 1},
       {slug:"n2000-series-4k30-4x1", parent_slug: "amx-1g-solutions-1203", grand_parent_slug: "amx-window-processing", position: 2},
       {slug:"amx-n1000-series-hd-4x1", parent_slug: "amx-1g-solutions-1203", grand_parent_slug: "amx-window-processing", position: 3},
-      {slug:"amx-n3000-series-hd-9x1", parent_slug: "amx-h-264-solutions-1207", grand_parent_slug: "amx-window-processing", position: 4}
+      {slug:"amx-n3000-series-hd-9x1", parent_slug: "amx-h-264-solutions-1207", grand_parent_slug: "amx-window-processing", position: 4},
+      {slug:"retractables", parent_slug: "hydraport-modules", grand_parent_slug: "architectural-connectivity", position: 1},
+      {slug:"video", parent_slug: "hydraport-modules", grand_parent_slug: "architectural-connectivity", position: 2},
+      {slug:"cat-6", parent_slug: "hydraport-modules", grand_parent_slug: "architectural-connectivity", position: 3},
+      {slug:"usb", parent_slug: "hydraport-modules", grand_parent_slug: "architectural-connectivity", position: 4},
+      {slug:"power-modules", parent_slug: "hydraport-modules", grand_parent_slug: "architectural-connectivity", position: 5},
+      {slug:"buttons-acc-bands", parent_slug: "hydraport-modules", grand_parent_slug: "architectural-connectivity", position: 6},
+      {slug:"pass-thru", parent_slug: "hydraport-modules", grand_parent_slug: "architectural-connectivity", position: 7},
+      {slug:"blanks", parent_slug: "hydraport-modules", grand_parent_slug: "architectural-connectivity", position: 8}
       ]
 
       puts "-------------REPARENTING #{pfs.count} PRODUCT FAMILIES------------------"
@@ -703,7 +712,8 @@ namespace :amx_nav do
       {slug: "amx-n2400-series-4k60-4x1",                     text: ">----------1G Solutions----------<"},
       {slug: "amx-n3000-series-hd-9x1",                       text: ">---------H.264 Solutions--------<"},
       {slug: "controllers-w-user-interfaces",                 text: ">------------------------------------------<"},
-      {slug: "cloudworx-manager",                             text: ">------------------------------------------<"}
+      {slug: "cloudworx-manager",                             text: ">------------------------------------------<"},
+      {slug: "enclosures-w-central-controllers",              text: ">-----------Enova DGX------------<"}
       ]
 
     puts "-------------ADDING #{items.count} PRODUCT NAV SEPARATORS------------------"
@@ -720,7 +730,7 @@ namespace :amx_nav do
     puts "-------------CREATING SITE SETTING USED IN PRODUCT NAV LEVEL COMBINING------------------"
     custom_nav_setting = Setting.find_by_name("family-slugs-to-be-collapsed-in-nav")
     if !custom_nav_setting.present?
-      Setting.create(name: "family-slugs-to-be-collapsed-in-nav", brand: amx, setting_type: "string", string_value: "1g-solutions, h-264-solutions, amx-1g-solutions, amx-h-264-solutions, hdmi-solutions, amx-1g-solutions-1203, amx-h-264-solutions-1207")
+      Setting.create(name: "family-slugs-to-be-collapsed-in-nav", brand: amx, setting_type: "string", string_value: "1g-solutions, h-264-solutions, amx-1g-solutions, amx-h-264-solutions, hdmi-solutions, amx-1g-solutions-1203, amx-h-264-solutions-1207, enova-dgx")
       puts "Created site setting 'family-slugs-to-be-collapsed-in-nav' ".green
     else
       puts "Site setting 'family-slugs-to-be-collapsed-in-nav' exists".green

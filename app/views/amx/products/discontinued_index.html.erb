@@ -1,0 +1,84 @@
+<% set_meta_tags title: "Discontinued Products",
+				 reverse: true %>
+<h1 class="page_title">AMX ---Discontinued Products</h1>
+<p>&nbsp;</p>
+
+<% displayed_products = [] %>
+
+<% ProductFamily.all_parents(website).select{|pf| pf if pf.all_discontinued_products.length > 0}.each do |parent| %>
+  <h2><%= translate_content(parent, :name) %></h2>
+  <hr/>
+  <%# products that are in the top-level family %>
+  <div class="row">
+    <div class="small-12 columns product_cat_bar">
+      <% this_group = [] %>
+      <% @products.each do |product| %>
+        <% if product.product_families.include?(parent) %>
+          <% this_group << product %>
+          <% displayed_products << product %>
+        <% end %>
+      <% end %>
+      <div class="row">
+        <% this_group.in_groups(3).each do |product_group| %>
+          <div class="small-12 medium-4 columns">
+            <ul>
+              <% product_group.each do |product| %>
+                <% if product.is_a?(Product) %>
+                  <li><%= link_to product.name, product %>
+                    <%= product.short_description %></li>
+                <% end %>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <%# sub-families %>
+  <% @product_families.each do |product_family| %>
+    <% if parent.all_children(website).include?(product_family) %>
+      <div class="row" id="<%= product_family.to_param %>">
+        <div class="small-12 columns thick_left" >
+          <h5><%= translate_content(product_family, :name) %></h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-12 columns product_cat_bar">
+          <% this_group = [] %>
+          <% @products.each do |product| %>
+            <% if product.product_families.include?(product_family) %>
+              <% this_group << product %>
+              <% displayed_products << product %>
+            <% end %>
+          <% end %>
+          <div class="row">
+            <% this_group.in_groups(3).each do |product_group| %>
+              <div class="small-12 medium-4 columns">
+                <ul>
+                  <% product_group.each do |product| %>
+                    <% if product.is_a?(Product) %>
+                      <li><%= link_to product.name, product %>
+                        <%= product.short_description %></li>
+                    <% end %>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  <p>&nbsp;</p>
+<% end %>
+
+<% other_products = @products - displayed_products %>
+
+<% if other_products.length > 0 %>
+<h2>Other Discontinued Products</h2>
+<ul>
+	<% other_products.each do |product| %>
+	<li><%= link_to product.name, product %></li>
+	<% end %>
+</ul>
+<% end %>
