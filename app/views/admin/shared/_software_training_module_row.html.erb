@@ -1,12 +1,14 @@
-<% called_from ||= "software" %>
-<li id="software_training_module_<%= stm.id %>">
-	<span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
-	<%= (called_from == "software") ?
-		link_to(stm.training_module.name, edit_admin_training_module_path(stm.training_module)) :
-		link_to(stm.software.name, [:admin, stm.software]) %>
-	<%= link_to(image_tag('icons/trash.gif', lazy: false),
-		  admin_software_training_module_path(stm),
-		  remote: true,
-		  confirm: "Are you sure?",
-		  method: :delete) %>
-</li>
+<% unless stm.new_record? %>
+  <% called_from ||= "software" %>
+  <li id="software_training_module_<%= stm.id %>">
+    <span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
+    <%= (called_from == "software") ?
+      link_to(stm.training_module.name, edit_admin_training_module_path(stm.training_module)) :
+      link_to(stm.software.name, [:admin, stm.software]) %>
+    <%= link_to(image_tag('icons/trash.gif', lazy: false),
+        admin_software_training_module_path(stm),
+        remote: true,
+        confirm: "Are you sure?",
+        method: :delete) %>
+  </li>
+<% end %>

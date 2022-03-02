@@ -226,18 +226,13 @@ class SupportController < ApplicationController
     @page_title = "Warranty Policy"
     products = Product.all_for_website(website) - Product.non_supported(website)
     @products = products.select{|p| p if p.warranty_period.to_i > 0}
+    @product_families = website.product_families.select{|pf| pf if pf.warranty_period.to_i > 0}
     render_template
   end
 
   # Simple list of RoHS compliant products
   def rohs
     @products = website.current_products.select{|p| p if p.rohs}
-    render_template
-  end
-
-  # Iframe page for info that comes from Salesforce
-  def troubleshooting
-    @src = website.value_for("troubleshooting_url")
     render_template
   end
 
@@ -313,6 +308,9 @@ class SupportController < ApplicationController
       elsif params[:view_by] == "download_types"
         downloads = website.all_downloads(current_user)
         if params[:selected_object]
+          if params[:selected_object].match(/(\%.*$)/)
+            raise ActionController::UnpermittedParameters.new [$1] and return false
+          end
           @download_type = downloads[params[:selected_object]]
         end
         @download_types = downloads.keys.sort.collect{|k| downloads[k]}

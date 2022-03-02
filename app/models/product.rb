@@ -57,6 +57,8 @@ class Product < ApplicationRecord
   has_many :badges, through: :product_badges
   has_many :product_accessories
   has_many :accessory_products, through: :product_accessories
+  has_many :customizable_attribute_values, dependent: :destroy
+  has_many :customizable_attributes, -> { distinct }, through: :customizable_attribute_values
   belongs_to :product_status
   belongs_to :brand, touch: true
   has_many :parent_products # Where this is the child (ie, an e-pedal child of the iStomp)
@@ -65,10 +67,16 @@ class Product < ApplicationRecord
   has_many :product_filters, through: :product_product_filter_values
   has_many :content_translations, as: :translatable, foreign_key: "content_id", foreign_type: "content_type"
   has_many :product_keys
+  has_many :brand_dealer_rental_products
+  has_many :product_case_studies, -> { order('position') }
 
+  after_initialize :set_defaults
   accepts_nested_attributes_for :product_prices, reject_if: proc { |pp| pp['price'].blank? }
   accepts_nested_attributes_for :product_specifications, reject_if: proc { |ps| ps['value'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :product_product_filter_values, reject_if: :reject_filter_value?
+  accepts_nested_attributes_for :customizable_attribute_values, reject_if: proc { |cav| cav['value'].blank? }
+  accepts_nested_attributes_for :product_videos, reject_if: proc { |pv| pv['youtube_id'].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :product_case_studies, reject_if: proc { |pcs| pcs['case_study_slug'].blank? }, allow_destroy: true
 
   monetize :harman_employee_price_cents, :allow_nil => true
   monetize :msrp_cents, :allow_nil => true
@@ -155,8 +163,12 @@ class Product < ApplicationRecord
   end
 
   def set_defaults
-    self.product_status_id ||= 3 #ProductStatus.where("name LIKE '%%production%%'").first
-    self.product_type ||= ProductType.default
+    if self.respond_to?(:product_status_id)
+      self.product_status_id ||= 3 #ProductStatus.where("name LIKE '%%production%%'").first
+    end
+    if self.respond_to?(:product_type_id)
+      self.product_type ||= ProductType.default
+    end
   end
 
   def set_employee_price
@@ -308,6 +320,10 @@ class Product < ApplicationRecord
     !!!(families.match(/controller/)) ? false : !!(families.match(/accessor/i))
   end
 
+  def is_customizable?
+    customizable_attributes.size > 0
+  end
+
   def sample
     @sample ||= self.product_attachments.where("product_media_file_name LIKE '%mp3%'").first
   end
@@ -397,9 +413,9 @@ class Product < ApplicationRecord
     @main_tabs ||= collect_tabs(brand.main_tabs)
   end
 
-  def collect_tabs(tabs)
+  def collect_tabs(tabs, check_for_content=true)
     tabs.map do |tab|
-      ProductTab.new(tab) if has_content_for?(tab)
+      ProductTab.new(tab) if !check_for_content || has_content_for?(tab)
     end.compact
   end
 
@@ -423,7 +439,7 @@ class Product < ApplicationRecord
   end
 
   def videos_content_present?
-    product_videos.size > 0
+    product_videos.select(:id).size > 0
   end
 
   def documentation_content_present?
@@ -463,7 +479,12 @@ class Product < ApplicationRecord
   end
 
   def configuration_tool_content_present?
-    self.site_elements.find {|item| item.resource_type.downcase == "configuration tools"}.present?
+    external_configuration_tool.present?
+  end
+
+  def external_configuration_tool
+    config_tool = site_elements.find { |item| item.resource_type.downcase == "configuration tools" && item.external_url.present? }
+    config_tool
   end
 
   def reviews_content_present?
@@ -629,6 +650,12 @@ class Product < ApplicationRecord
     f
   end
 
+  def case_studies
+    ProductCaseStudy.where(product_id: self.id).order("position").pluck(:case_study_slug).map do |case_study_slug|
+      CaseStudy.find_by_slug_and_website_or_brand(case_study_slug, brand)
+    end
+  end
+
   # Collects suggested products
   def suggested_products
     sp = []
@@ -771,7 +798,14 @@ class Product < ApplicationRecord
   end
 
   def ungrouped_product_specifications
-    product_specifications.select{|ps| ps unless ps.specification.specification_group}
+    product_specifications.
+      includes(:specification).
+      where(specification: { specification_group_id: ["", nil]}).
+      reorder("product_specifications.position")
+  end
+
+  def specification_ids
+    product_specifications.select(:specification_id)
   end
 
   def all_related_downloads(locale = I18n.default_locale.to_s, website = brand.default_website)
@@ -805,7 +839,7 @@ class Product < ApplicationRecord
   def available_product_filter_values
     available_product_filters.map do |product_filter|
       if self.product_filters.include?(product_filter)
-        self.product_product_filter_values.where(product_filter: product_filter).first
+        self.product_product_filter_values.where(product_filter: product_filter)
       else
         ProductProductFilterValue.new(
           product: self,
@@ -829,6 +863,33 @@ class Product < ApplicationRecord
 
   def sold_product_keys
     product_keys.where("line_item_id > 0")
+  end
+
+  def parent_families_with_customizable_attributes
+    product_families.map{|pf| pf.self_and_parents_with_customizable_attributes}.flatten.uniq
+  end
+
+  def available_customizable_attributes
+    parent_families_with_customizable_attributes.map{|pf| pf.customizable_attributes}.flatten.uniq
+  end
+
+  def available_customizable_attribute_values
+    available_customizable_attributes.map do |customizable_attribute|
+      if customizable_attributes.include?(customizable_attribute)
+        customizable_attribute_values.where(customizable_attribute: customizable_attribute) +
+          build_customizable_attribute_values(customizable_attribute, 2)
+      else
+        build_customizable_attribute_values(customizable_attribute, 4)
+      end
+    end
+  end
+
+  def build_customizable_attribute_values(customizable_attribute, number)
+    customizable_attribute_values.build(
+      number.times.map do
+        { customizable_attribute: customizable_attribute }
+      end
+    )
   end
 
   def user_guides

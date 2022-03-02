@@ -104,7 +104,7 @@ namespace :attachments do
           new_file_path = Paperclip::Interpolations.interpolate(new_path_interpolation, attachment, style) #see paperclip docs
 
     puts "== Current file path:  #{old_file_path}"
-    puts "  --> s3_key:   #{old_file_path.sub(%r{^/},'')}"
+    #puts "  --> s3_key:   #{old_file_path.sub(%r{^/},'')}"
 
           begin
             s3_obj = bucket.objects[old_file_path.sub(%r{^/},'')]
@@ -167,4 +167,52 @@ namespace :attachments do
     end
 
 	end
+	
+	task migrate_back_to_s3: :environment do
+	  setup_api_connectors
+    s3_bucket_name = 'harman-hsp-web-assets'
+    
+    directory = @rackspace.directories.get('attachments')
+    directory.files.all(prefix: "product_documents/documents/7").each do |rackspace_obj|
+      puts "Copying #{ rackspace_obj.key }"
+			@s3_client.put_object(
+			    body: rackspace_obj.body,
+			    bucket: s3_bucket_name,
+			    key: rackspace_obj.key,
+			    acl: 'public-read',
+		      content_type: rackspace_obj.content_type
+			  )
+    end
+	end
+	
+	task migrate_assets_to_s3: :environment do
+	  setup_api_connectors
+    s3_bucket_name = 'harman-hsp-web-assets'
+    
+    directory = @rackspace.directories.get('assets')
+    directory.files.all.each do |rackspace_obj|
+      puts "Copying #{ rackspace_obj.key }"
+			@s3_client.put_object(
+			    body: rackspace_obj.body,
+			    bucket: s3_bucket_name,
+			    key: rackspace_obj.key,
+			    acl: 'public-read',
+		      content_type: rackspace_obj.content_type
+			  )
+    end
+	end
+	
+	def setup_api_connectors
+    # Establish S3 connection
+    @s3_client = Aws::S3::Client.new
+
+    # Rackspace cloud files connection
+    @rackspace = Fog::Storage.new({
+      provider:           'Rackspace',
+      rackspace_username: ENV['RACKSPACE_USERNAME'],
+      rackspace_api_key:  ENV['RACKSPACE_API_KEY'],
+      rackspace_region:   :ord
+    })
+	end
+	
 end

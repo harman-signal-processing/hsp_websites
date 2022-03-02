@@ -4,8 +4,8 @@
 # populated with the country names which we need to match.
 CountrySelect::FORMATS[:default] = lambda do |country|
   [
-    country.name,
-    country.name
+    country.iso_short_name,
+    country.iso_short_name
   ]
 end
 
@@ -15,6 +15,7 @@ ISO3166::Data.register(
   alpha2: "TW",
   alpha3: "TWN",
   name: "Taiwan Region",
+  iso_short_name: "Taiwan Region",
   translations: {
     'en' => 'Taiwan Region',
     'es' => 'Región de Taiwán',
@@ -68,6 +69,7 @@ ISO3166::Data.register(
   alpha2: "HK",
   alpha3: "HKG",
   name: "Hong Kong SAR, China",
+  iso_short_name: "Hong Kong SAR, China",
   translations: {
     'en' => 'Hong Kong SAR, China',
     'es' => 'Hong Kong SAR, China',
@@ -121,6 +123,7 @@ ISO3166::Data.register(
   alpha2: "MO",
   alpha3: "MAC",
   name: "Macao, China",
+  iso_short_name: "Macao, China",
   translations: {
     en: 'Macao, China',
     es: 'Macao, China',

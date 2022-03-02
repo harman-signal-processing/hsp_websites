@@ -13,109 +13,128 @@
 
 <%= render_partial 'features' %>
 
-<%= cache ["product_family_content", @product_family, I18n.locale, session['geo_country']] do %>
-  <% if @children_with_current_products.length > 0 %>
+<div class="product_family_body">
+  <% if current_user && can?(:manage, @product_family) %>
+    <%= link_to edit_admin_product_family_path(@product_family), class: "edit-link", data: { opener: "edit-content" } do %>
+      <%= fa_icon "edit" %> edit content
+    <% end %>
+    <%= render_partial "edit_content" %>
+  <% end %>
 
-    <div data-equalizer="family_thumbs" data-equalizer-mq="medium-up">
-      <h5>Product Categories</h5>
-      <% if @children_with_current_products.length > 22 || @product_family.name.to_s.match?(/install/i) %>
-        <div class="row">
-          <% @children_with_current_products.in_groups(3).each do |group| %>
-            <div class="large-4 medium-4 small-12 columns product-subgroups">
-              <% group.each do |product_family| %>
-                <% if product_family.is_a?(ProductFamily) && product_family.parent_id == @product_family.id %>
-                  <h3><%= link_to translate_content(product_family, :name), product_family %></h3>
-                  <% if product_family.children_with_current_products(website, locale: I18n.locale).length > 0 %>
-                    <ul>
-                      <% product_family.children_with_current_products(website, locale: I18n.locale).each do |pf| %>
-                        <li><%= link_to translate_content(pf, :name), pf %></li>
-                      <% end %>
-                    </ul>
+  <%= cache ["product_family_content", @product_family, I18n.locale, session['geo_country']] do %>
+    <% if @product_family.before_product_content.present? %>
+      <div>
+        <%=raw @product_family.before_product_content %>
+      </div>
+    <% end %>
+
+    <% if @children_with_current_products.length > 0 %>
+
+      <div data-equalizer="family_thumbs" data-equalizer-mq="medium-up">
+        <h5>Product Categories</h5>
+        <% if @children_with_current_products.length > 22 || @product_family.name.to_s.match?(/install/i) %>
+          <div class="row">
+            <% @children_with_current_products.in_groups(3).each do |group| %>
+              <div class="large-4 medium-4 small-12 columns product-subgroups">
+                <% group.each do |product_family| %>
+                  <% if product_family.is_a?(ProductFamily) && product_family.parent_id == @product_family.id %>
+                    <h3><%= link_to translate_content(product_family, :name), product_family %></h3>
+                    <% if product_family.children_with_current_products(website, locale: I18n.locale).length > 0 %>
+                      <ul>
+                        <% product_family.children_with_current_products(website, locale: I18n.locale).each do |pf| %>
+                          <li><%= link_to translate_content(pf, :name), pf %></li>
+                        <% end %>
+                      </ul>
+                    <% end %>
                   <% end %>
                 <% end %>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
-      <% else %>
-        <ul class="small-block-grid-1 medium-block-grid-4">
-        <% @children_with_current_products.where(parent_id: @product_family.id).each do |product_family| %>
-          <li>
-            <div id="<%= product_family.to_param %>">
-              <%= link_to product_family do %>
-                <div class="product_family_box">
-                  <div data-equalizer-watch="family_thumbs" class="family_thumb">
-                    <% if !product_family.family_photo_file_name.blank? %>
-                      <%= image_tag(product_family.family_photo.url, alt: translate_content(product_family, :name), lazy: false) %>
-                    <% elsif product_family.first_product_with_photo(website) %>
-                      <%= image_tag(product_family.first_product_with_photo(website).primary_photo.product_attachment.url(:small),
-                                    alt: translate_content(product_family, :name), lazy: false) %>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <ul class="small-block-grid-1 medium-block-grid-4">
+          <% @children_with_current_products.where(parent_id: @product_family.id).each do |product_family| %>
+            <li>
+              <div id="<%= product_family.to_param %>">
+                <%= link_to product_family do %>
+                  <div class="product_family_box">
+                    <div data-equalizer-watch="family_thumbs" class="family_thumb">
+                      <% if !product_family.family_photo_file_name.blank? %>
+                        <%= image_tag(product_family.family_photo.url, alt: translate_content(product_family, :name), lazy: false) %>
+                      <% elsif product_family.first_product_with_photo(website) %>
+                        <%= image_tag(product_family.first_product_with_photo(website).primary_photo.product_attachment.url(:small),
+                                      alt: translate_content(product_family, :name), lazy: false) %>
+                      <% end %>
+                    </div>
+                    <% if product_family.family_photo_file_name.blank? %>
+                      <h2><%= translate_content(product_family, :name) %></h2>
+                    <% end %>
+
+                    <% if product_family.short_description.present? %>
+                      <p class="subtext"><%=strip_html translate_content(product_family, :short_description) %></p>
+                    <% elsif product_family.intro.present? %>
+                      <p class="subtext"><%= truncate(strip_html(translate_content(product_family, :intro)), length: 100) %></p>
+                    <% elsif product_family.current_products_plus_child_products(website).length == 10 && product_family.family_photo_file_name.blank? %>
+                      <p class="subtext"><%= truncate(strip_html(translate_content(product_family.current_products_plus_child_products(website).first, :short_description)), length: 100) %></p>
+                    <% elsif product_family.current_products_plus_child_products(website).length > 0 && product_family.family_photo_file_name.blank? %>
+                      <p class="subtext"><%= truncate(product_family.current_products_plus_child_products(website).map{|p| translate_content(p, :name)}.join(", "), length: 100) %></p>
                     <% end %>
                   </div>
-                  <% if product_family.family_photo_file_name.blank? %>
-                    <h2><%= translate_content(product_family, :name) %></h2>
-                  <% end %>
-
-                  <% if product_family.short_description.present? %>
-                    <p class="subtext"><%=strip_html translate_content(product_family, :short_description) %></p>
-                  <% elsif product_family.intro.present? %>
-                    <p class="subtext"><%= truncate(strip_html(translate_content(product_family, :intro)), length: 100) %></p>
-                  <% elsif product_family.current_products_plus_child_products(website).length == 10 && product_family.family_photo_file_name.blank? %>
-                    <p class="subtext"><%= truncate(strip_html(translate_content(product_family.current_products_plus_child_products(website).first, :short_description)), length: 100) %></p>
-                  <% elsif product_family.current_products_plus_child_products(website).length > 0 && product_family.family_photo_file_name.blank? %>
-                    <p class="subtext"><%= truncate(product_family.current_products_plus_child_products(website).map{|p| translate_content(p, :name)}.join(", "), length: 100) %></p>
-                  <% end %>
-                </div>
-              <% end %>
-            </div>
-          </li>
+                <% end %>
+              </div>
+            </li>
+          <% end %>
+          </ul>
         <% end %>
-        </ul>
-      <% end %>
-    </div>
+      </div>
+
+    <% end %>
+
+    <% if @product_family.current_products.length > 0 %>
+      <div class="row">
+        <div class="large-12 columns" data-equalizer="product_thumbs">
+          <h5>Products</h5>
+          <% if @product_family.show_comparisons? %>
+            <%= form_tag compare_products_path, method: :get %>
+          <% end %>
+
+          <%= render_partial "product_families/product_family", product_family: @product_family, skip_header: true  %>
+
+
+          <% if @product_family.show_comparisons? %>
+            </form>
+          <% end %>
+
+        </div>
+      </div>
+      <p>&nbsp;</p>
+    <% end %>
 
   <% end %>
 
-  <% if @product_family.current_products.length > 0 %>
+  <%= render_partial 'case_studies' %>
+
+  <% if @product_family.accessories_content.present? %>
+    <h3>Accessories</h3>
+    <%= raw @product_family.accessories_content %>
+  <% end %>
+
+  <% if @product_family.product_family_videos.size > 0 %>
+    <%= render_partial "videos", product_family: @product_family %>
+  <% end %>
+
+  <% if @product_family.post_content.present? %>
+    <%= raw @product_family.post_content %>
+  <% end %>
+
+  <% if @product_family.testimonials.length > 0 %>
     <div class="row">
-      <div class="large-12 columns" data-equalizer="product_thumbs">
-        <h5>Products</h5>
-        <% if @product_family.show_comparisons? %>
-          <%= form_tag compare_products_path, method: :get %>
-        <% end %>
-
-        <%= render_partial "product_families/product_family", product_family: @product_family, skip_header: true  %>
-
-
-        <% if @product_family.show_comparisons? %>
-          </form>
-        <% end %>
-
+      <div class="small-12 columns">
+        <%# Removing the button since we'll have a link in the HTML content %>
+        <%#= link_to "#{ @product_family.name } Testimonials", [@product_family, :testimonials], class: "medium button" %>
       </div>
     </div>
-    <p>&nbsp;</p>
   <% end %>
 
-<% end %>
-
-<%= render_partial 'case_studies' %>
-
-<% if @product_family.post_content.present? %>
-  <%= raw @product_family.post_content %>
-<% end %>
-
-<% if @product_family.testimonials.length > 0 %>
-  <div class="row">
-    <div class="small-12 columns">
-      <%# Removing the button since we'll have a link in the HTML content %>
-      <%#= link_to "#{ @product_family.name } Testimonials", [@product_family, :testimonials], class: "medium button" %>
-    </div>
-  </div>
-<% end %>
-
-<% if current_user && can?(:manage, @product_family) %>
-  <div class="admin_function">
-    <%= link_to "edit", [:admin, @product_family] %>
-  </div>
-<% end %>
+</div>
 <p>&nbsp;</p>

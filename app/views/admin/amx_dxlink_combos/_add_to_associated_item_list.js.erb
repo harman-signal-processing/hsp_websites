@@ -1,0 +1,10 @@
+(function(){
+	var $list_of_associated_devices = $('#paired_devices_for_<%="#{@calling_device.model}_#{@calling_device.type_short_name}"%>');
+	build_list_of_devices_associated_with_this_device($list_of_associated_devices);
+	
+	function build_list_of_devices_associated_with_this_device($list_of_associated_devices) {
+		<% @amx_dxlink_combos.each do |dxlink_combo| %>
+			$list_of_associated_devices.append('<%= escape_javascript(render "/admin/amx_dxlink_combos/amx_dxlink_combo_row", association: dxlink_combo, calling_device: @calling_device) %>');
+		<% end %>
+	}  //  function build_list_of_devices_associated_with_this_device($list_of_associated_devices)
+})();

@@ -1,0 +1,73 @@
+<%
+case device_pairing_column_to_show
+when "tx"
+  column_title = "TX Pairings"
+when "rx"
+  column_title = "RX Pairings"
+end
+%>
+<table class="data" width='100%'>
+  <tr>
+    <th></th>
+    <th>Device</th>
+    <th><%=column_title%></th>
+    <th></th>
+  </tr>
+  <% list.each do |device| %>
+  <tr>
+    <!-- Edit -->
+    <td valign="top"><%= link_to 'Edit', edit_admin_amx_dxlink_device_info_path(device), class: "small round button" %></td>
+    <td valign="top">
+      <%= "#{device.model} - #{device.type_long_name}"%> <br />
+      <span style="font-size:small;color:#ccc;"><%="(#{device.model_family})" %></span><br />
+      <%=link_to image_tag(device.image_url, lazy: false), device.product_url, target: "_blank"%>
+    </td>
+    <% if device_pairing_column_to_show == "rx" %>
+      <!-- TX Pairings  -->
+      <td valign="top">
+        <ul id="paired_devices_for_<%="#{device.model}_#{device.type_short_name}"%>" style="list-style:none;">
+          <% device.rx_associations.ordered_by_rx_model.each do |dxlink_combo|%>
+            <li id="dxlink_combo_<%= dxlink_combo.id %>" data-dxlink-combo-id="<%= dxlink_combo.id %>">
+              <% if dxlink_combo.recommended %>
+                <span style="margin-left: -15px;"><%= fa_icon "thumbs-up" %></span>
+              <% end %>
+              <%=dxlink_combo.rx.model%>
+            	<%= link_to(image_tag("icons/trash.gif", lazy: false),
+            			admin_amx_dxlink_combo_path(dxlink_combo, calling_device: device),
+            			confirm: "Are you sure? (This won't delete the dxlink device --it will only remove the association.)",
+            			remote: true,
+            			method: :delete) %>
+            </li>
+          <% end %>
+        </ul><!-- <ul id="paired_devices_for_<%="#{device.model}_#{device.type_short_name}"%>"> -->
+      </td>
+    <% end %>
+
+    <% if device_pairing_column_to_show == "tx" %>
+      <!-- RX Pairings -->
+      <td valign="top">
+        <ul id="paired_devices_for_<%="#{device.model}_#{device.type_short_name}"%>" style="list-style:none;">
+          <% device.tx_associations.ordered_by_tx_model.each do |dxlink_combo|%>
+            <li id="dxlink_combo_<%= dxlink_combo.id %>" data-dxlink-combo-id="<%= dxlink_combo.id %>">
+              <% if dxlink_combo.recommended %>
+                <span style="margin-left: -15px;"><%= fa_icon "thumbs-up" %></span>
+              <% end %>
+              <%=dxlink_combo.tx.model%>
+            	<%= link_to(image_tag("icons/trash.gif", lazy: false),
+            			admin_amx_dxlink_combo_path(dxlink_combo, calling_device: device),
+            			confirm: "Are you sure? (This won't delete the dxlink device --it will only remove the association.)",
+            			remote: true,
+            			method: :delete) %>
+            </li>
+          <% end %>
+        </ul><!-- <div id="paired_devices_for_<%="#{device.model}_#{device.type_short_name}"%>"> -->
+      </td>
+    <% end %>
+
+    <!-- Pairing Form -->
+    <td valign="top">
+      <%= link_to 'Pair', admin_amx_dxlink_device_info_path(device), class: "small round button" %>
+    </td>
+  </tr>
+  <% end %>
+</table>

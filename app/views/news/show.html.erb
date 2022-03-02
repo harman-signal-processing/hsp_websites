@@ -27,7 +27,7 @@ set_meta_tags title: translate_content(@news, :title),
   <% unless website.hide_featured_news.to_i > 0 %>
     <%= content_for :feature do %>
       <div class="text-center news_banner">
-        <%= image_tag @news.news_photo.url(:original) %>
+        <%= image_tag @news.news_photo.url(:original), alt: translate_content(@news, :title) %>
       </div>
     <% end %>
   <% end %>
@@ -52,7 +52,7 @@ set_meta_tags title: translate_content(@news, :title),
           <% unless news_image.hide_from_page? %>
             <li>
               <%= link_to news_image.image.url, data: { fancybox: "news_photos" } do %>
-                <%= image_tag news_image.image.url(:thumb_square) %>
+                <%= image_tag news_image.image.url(:thumb_square), alt: translate_content(@news, :title) %>
               <% end %>
             </li>
           <% end %>

@@ -1,7 +1,8 @@
 class ProductFamiliesController < ApplicationController
   before_action :set_locale
-  before_action :ensure_best_url, only: [:show, :safety_documents]
+  before_action :ensure_best_url, only: [:show, :safety_documents, :current_products_count]
   before_action :authorize_product_family, only: :show
+  protect_from_forgery except: :current_products_count
 
   # GET /product_families
   # GET /product_families.xml
@@ -28,6 +29,14 @@ class ProductFamiliesController < ApplicationController
     # depth: 9
     #@children_with_current_products = @product_family.children_with_current_products(website, locale: I18n.locale, depth: 9)
     @children_with_current_products = @product_family.children_with_current_products(website, locale: I18n.locale)
+
+    if can?(:manage, @product_family)
+      3.times {
+        @product_family.product_family_videos.build
+        @product_family.product_family_products.build
+      }
+    end
+
     respond_to do |format|
       format.html {
 
@@ -55,6 +64,14 @@ class ProductFamiliesController < ApplicationController
 
   def safety_documents
     render_template
+  end
+
+  def current_products_count
+    @product_count = @product_family.current_products_plus_child_products_count(website)
+
+    respond_to do |f|
+      f.js
+    end
   end
 
   protected

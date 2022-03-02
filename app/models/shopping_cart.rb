@@ -67,7 +67,7 @@ class ShoppingCart < ApplicationRecord
       shopperLocale: I18n.locale,
       amount: {
         currency: "USD",
-        amount: self.total_cents
+        value: self.total_cents
       }
     })
   end
@@ -119,6 +119,7 @@ class ShoppingCart < ApplicationRecord
     adyen = Adyen::Client.new
     adyen.api_key = ENV["ADYEN_API_KEY"]
     adyen.env = ENV["ADYEN_ENV"].to_sym
+    adyen.checkout.version = 64
     adyen
   end
 end

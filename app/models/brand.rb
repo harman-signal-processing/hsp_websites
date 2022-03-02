@@ -40,7 +40,7 @@ class Brand < ApplicationRecord
   has_many :sales_regions
   has_many :testimonials
   has_many :specification_for_comparisons, class_name: "BrandSpecificationForComparison"
-  has_attached_file :logo, {
+  has_attached_file :logo,
     styles: { large: "640x480",
       medium: "480x360",
       small: "240x180",
@@ -48,10 +48,10 @@ class Brand < ApplicationRecord
       title: "86x86",
       tiny: "64x64",
       tiny_square: "64x64#"
-    }}.merge(S3_STORAGE)
+    }
   validates_attachment :logo, content_type: { content_type: /\Aimage/i }
 
-  after_initialize :dynamic_methods
+  #after_initialize :dynamic_methods
   after_update :update_products
   after_touch :touch_websites
 
@@ -92,18 +92,9 @@ class Brand < ApplicationRecord
     end
   end
 
-  # Dynamically create methods based on this Brand's settings.
-  # This is a smarter alternative to using method_missing
-  def dynamic_methods
-    self.settings.find_each do |meth|
-      unless self.methods.include?(meth.name.to_sym) # exclude methods already defined in the class
-        (class << self; self; end).class_eval do
-          define_method meth.name.to_sym do |*args|
-            self.__send__("value_for", meth.name, *args)
-          end
-        end
-      end
-    end
+  def method_missing(sym, *args)
+    super if respond_to_without_attributes?(sym, true)
+    self.__send__("value_for", sym, *args)
   end
 
   # Settings that other brands have, but this brand doesn't have defined.
@@ -151,6 +142,14 @@ class Brand < ApplicationRecord
   def rma_repair_email
     begin
       self.settings.find_by(name: "rma_repair_email").value
+    rescue
+      self.support_email
+    end
+  end
+
+  def custom_shop_email
+    begin
+      self.settings.find_by(name: "custom_shop_email").value
     rescue
       self.support_email
     end
@@ -251,21 +250,30 @@ class Brand < ApplicationRecord
   end
 
   def value_for(key, locale=I18n.locale)
-    s = self.settings.where(name: key)
-    setting = s.where(["locale IS NULL OR locale = ?", locale]).first
+    # start with the current, full locale
+    locales_to_search = [locale]
 
-    # look for locale-specific setting
-    s1 = s.where(locale: locale)
-    if s1.all.size > 0
-      setting = s1.first
-    elsif parent_locale = (I18n.locale.to_s.match(/^(.*)-/)) ? $1 : false # "es-MX" => "es"
-      s2 = s.where(locale: parent_locale)
-      if s2.all.size > 0
-        setting = s2.first
+    # add a parent locale if present
+    if parent_locale = (I18n.locale.to_s.match(/^(.*)-/)) ? $1 : false # "es-MX" => "es"
+      locales_to_search << parent_locale
+    end
+
+    # also search empty locales
+    locales_to_search += ["", nil]
+
+    found_settings = {}
+    self.settings.where(name: key, locale: locales_to_search).each do |ls|
+      found_settings[ls.locale] = ls.value
+    end
+
+    # loop through in order and return the preferred setting
+    locales_to_search.each do |l|
+      if found_settings[l].present?
+        return found_settings[l]
       end
     end
 
-    (setting) ? setting.value : nil
+    return nil
   end
 
   # The default side tabs to show on product pages. This can be overridden
@@ -274,7 +282,7 @@ class Brand < ApplicationRecord
     if tabs = self.value_for("side_tabs")
       tabs = tabs.gsub(/\s/, '')
     else
-      tabs = "features|specifications|documentation|training_modules|downloads|artists|tones|news_and_reviews|support"
+      tabs = ""
     end
     tabs.split("|")
   end
@@ -283,7 +291,7 @@ class Brand < ApplicationRecord
     if tabs = self.value_for("main_tabs")
       tabs = tabs.gsub(/\s/, '')
     else
-      tabs = "description|extended_description|audio_demos|features|specifications"
+      tabs = "description|extended_description|audio_demos|features|specifications|documentation|training_modules|downloads|artists|tones|news_and_reviews|support"
     end
     tabs.split("|")
   end
@@ -352,7 +360,7 @@ class Brand < ApplicationRecord
   end
 
   def use_flattened_specs?
-    self.respond_to?(:use_flattened_specs) && !!(self.use_flattened_specs.to_i > 0)
+    self.use_flattened_specs.present? && !!(self.use_flattened_specs.to_i > 0)
   end
 
   def upcoming_training_classes
@@ -375,5 +383,17 @@ class Brand < ApplicationRecord
 
   def bad_site_elements
     site_elements.where.not(link_status: ["", nil, "200"])
+  end
+
+  def recent_uploads
+    site_elements
+      .where(show_on_public_site: true)
+      .order("created_at DESC")
+      .limit(40).select { |se| se if se.current_products.size > 0 }
+  end
+  
+  # this could be moved into a db field
+  def has_custom_shop?
+    !!(name.to_s.match(/JBL Pro/i))
   end
 end

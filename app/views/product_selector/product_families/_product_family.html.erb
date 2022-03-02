@@ -3,20 +3,26 @@
     <% if @product_family && (@product_family == product_family || @product_family.parent == product_family)%>style="outline: 1px solid #CCC"<% end %>>
 
   <%= link_to product_family.root? ? [:product_selector, product_family] : product_selector_subfamily_product_selector_product_family_path(product_family.parent, product_family), class: "ps-start-spinner" do %>
-    <% p = (@product_family && @product_family == product_family) ? @product_with_photo : product_family.first_product_with_photo(website) %>
-    <% if p %>
-      <%= image_tag p.primary_photo.product_attachment.url(:medium),
+    <% if product_family.family_photo.present? %>
+      <%= image_tag product_family.family_photo.url,
         lazy: false,
         alt: product_family.name %>
-    <% end %>
-    <% if product_family.root? %>
-      <h3 class="text-center"><%= product_family.name %>
-      <% if top_level_families.length == 1 %>
-        Product Selector
-      <% end %>
-      </h3>
     <% else %>
-      <div class="text-center"><%= product_family.name %></div>
+      <% p = (@product_family && @product_family == product_family) ? @product_with_photo : product_family.first_product_with_photo(website) %>
+      <% if p %>
+        <%= image_tag p.primary_photo.product_attachment.url(:medium),
+          lazy: false,
+          alt: product_family.name %>
+      <% end %>
+      <% if product_family.root? %>
+        <h3 class="text-center"><%= product_family.name %>
+        <% if top_level_families.length == 1 %>
+          Product Selector
+        <% end %>
+        </h3>
+      <% else %>
+        <div class="text-center"><%= product_family.name %></div>
+      <% end %>
     <% end %>
   <% end %>
 

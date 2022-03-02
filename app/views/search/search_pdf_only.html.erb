@@ -6,7 +6,7 @@
 <div class="wide_centered_box" id="search_page_container">
   <%= render "form" %>
 
-  <% if @pdf_results.present? && @pdf_results.length > 0 %>
+  <% if @pdf_results.present? && @pdf_results[:Summary].present? && @pdf_results.length > 0 %>
     <div id="search_results_count_message"><%=@pdf_results[:Summary][:TotalNum]%> results found, showing <%=@pdf_results[:Summary][:Start]%> - <%=@pdf_results[:Summary][:End]%> for: <strong><%=@query%></strong></div>
 
     <%= will_paginate @pdf_results_paginated_list, params:{query:@query, paginate_pdf_only:@pdf_only} %>
@@ -19,13 +19,13 @@
 
           <!-- item title link  -->
           <%= link_to result[:Url], class:"result-item-title-link" do %>
-            <%= image_tag "icons/pdf_17.png", style: "vertical-align: middle" %>
+            <%= image_tag "icons/pdf_17.png", alt: "pdf icon", style: "vertical-align: middle" %>
             <%=get_pdf_item_title(result)%>
           <% end %>
           <!-- item image link  -->
           <% image = get_result_image(result)%>
           <% if image.present? %>
-            <%= link_to image_tag(image), page_link(result), class:"result-item-image-link" %>
+            <%= link_to image_tag(image, alt: result.name), page_link(result), class:"result-item-image-link" %>
           <%end%>
           <!-- item description  -->
           <%=strip_html(result[:Abstract])%><br />

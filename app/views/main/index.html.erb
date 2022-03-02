@@ -9,7 +9,18 @@
 	} %>
 
 <%= content_for :feature do %>
-  <%= render_partial 'shared/video_banner' %>
+	<%= cache ["slideshow", website.brand, I18n.locale] do %>
+    <% if website.homepage_feature_override.present? %>
+      <%= raw website.homepage_feature_override %>
+    <% else %>
+      <% slides = Setting.slides(website, limit: 5) %>
+      <% if slides.size > 0 %>
+        <%= orbit_slideshow(slides: slides, duration: 6000, navigation_arrows: false, transition: "fade") %>
+      <% else %>
+        <%= render_partial 'shared/video_banner' %>
+      <% end %>
+    <% end %>
+	<% end %>
 <% end %>
 
 <%= content_for :big_bottom_box do %>

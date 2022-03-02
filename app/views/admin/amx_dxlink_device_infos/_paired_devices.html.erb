@@ -1,0 +1,25 @@
+<ul id="paired_devices_for_<%="#{@amx_dxlink_device_info.model}_#{@amx_dxlink_device_info.type_short_name}"%>" style="list-style: none;">
+  <% current_pairings.each do |dxlink_combo|%>
+      <% paired_device = @amx_dxlink_device_info.type_short_name == "tx" ? dxlink_combo.rx : dxlink_combo.tx %>
+    <li id="dxlink_combo_<%= dxlink_combo.id %>" data-dxlink-combo-id="<%= dxlink_combo.id %>">
+        <div class="row" style="border-bottom: solid #ccc 1px; width:99%;">
+            <div class="small-12 medium-6 columns">
+              <% if dxlink_combo.recommended %>
+                <span style="margin-left: -15px;"><%= fa_icon "thumbs-up" %></span>
+              <% end %>                
+              <%="#{paired_device.model} - #{paired_device.type_long_name}"%>
+            </div><!-- <div class="small-12 medium-4 columns"> -->
+            <div class="small-12 medium-4 columns">
+                <%= link_to "Compatibility Details", admin_amx_dxlink_combo_path(dxlink_combo, calling_device: @amx_dxlink_device_info)%>
+            </div><!-- <div class="small-12 medium-4 columns"> -->
+            <div class="small-12 medium-2 columns">
+    	<%= link_to(image_tag("icons/trash.gif", lazy: false),
+    			admin_amx_dxlink_combo_path(dxlink_combo, calling_device: @amx_dxlink_device_info),
+    			confirm: "Are you sure? (This won't delete the dxlink device --it will only remove the association.)",
+    			remote: true,
+    			method: :delete) %>
+            </div><!-- <div class="small-12 medium-4 columns"> -->
+        </div>
+    </li>
+  <% end %>
+</ul><!-- <ul id="paired_devices_for_<%="#{@amx_dxlink_device_info.model}_#{@amx_dxlink_device_info.type_short_name}"%>"> -->

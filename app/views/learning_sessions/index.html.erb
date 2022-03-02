@@ -1,0 +1,74 @@
+<%=raw(@learning_sessions[:page_content][:body])%>
+
+<% if @learning_sessions[:events].present? %>
+  <% @learning_sessions[:events].each do |event| %>
+    <div class="row" data-equalizer="blurbs" data-equalizer-mq="medium-up">
+      <div class="medium-12 small-12 columns">
+        <div class="panel" data-equalizer-watch="blurbs" style="padding-bottom:0;">
+          <div align="center">
+            <h3 class="event-title"><%=event[:title]%></h3>
+            <h4 class="event-subtitle"><%=event[:subtitle]%></h4>
+            <p><%=raw(event[:description])%></p>
+
+            <% event[:sessions].each do |session| %>
+              <div class="session-container">
+                <h3 class="session-title"><%=session[:title]%></h3>
+                <div class="session-date-time"><%=session[:session_date].to_date.strftime "%A, %B %d, %Y"%> — <%=session[:session_times]%></div>
+                <a class="button large" href="<%=session[:register_link]%>">Register Now</a>
+              </div>
+            <% end %> <%# event.learning_session_event_sessions.each do |session| %>
+
+          </div> <!-- <div align="center"> -->
+        </div> <!-- <div class="panel" data-equalizer-watch="blurbs"> -->
+      </div> <!-- <div class="medium-12 small-12 columns"> -->
+    </div>  <!-- <div class="row" data-equalizer="blurbs" data-equalizer-mq="medium-up"> -->
+  <% end %>  <%# @events.each do |event| %>
+
+<% else %><%# no learning session events available %>
+
+
+<% end %><%# if @learning_sessions[:events].present? %>
+
+<% if @learning_sessions[:page_content][:webinars_link].present? %>
+  <div class="row" data-equalizer="blurbs" data-equalizer-mq="medium-up">
+      <div class="medium-12 small-12 columns">
+          <div class="panel" data-equalizer-watch="blurbs">
+              <div align="center">
+                  <h1 style="margin: 0;"><a class="button large "
+                          style="text-align: center; margin: 0; font-weight: bold;"
+                          href="<%=@learning_sessions[:page_content][:webinars_link]%>" target="_blank" rel="noopener">VIEW
+                          RECORDED LEARNING SESSIONS</a></h1>
+              </div>
+          </div>
+      </div>
+  </div>
+<% end %> <%# if @learning_sessions[:page_content][:webinars].present? %>
+
+<% if @learning_sessions[:featured_videos].count > 0 %>
+  <h3>FEATURED WEBINARS</h3>
+  <p>Explore some of our most popular recorded product launch and training webinars.</p>
+  
+  <div class="row">
+    <% @learning_sessions[:featured_videos].each do |video| %>
+      <div class="medium-4 small-12 columns">
+          <div class="videothumbnail">
+            <a class="start-video" href="https://www.youtube.com/watch?v=<%=video[:youtube_id]%>"
+                  target="_blank" rel="noopener" data-videoid="<%=video[:youtube_id]%>"><img src="https://i.ytimg.com/vi/<%=video[:youtube_id]%>/hqdefault.jpg"
+                      border="0" /></a>
+            <a class="start-video videoplay"
+                  href="https://www.youtube.com/watch?v=<%=video[:youtube_id]%>" target="_blank" rel="noopener"
+                  data-videoid="<%=video[:youtube_id]%>">&nbsp;</a>
+          </div> <!-- <div class="videothumbnail"> -->
+          <h4><a class="start-video" href="https://www.youtube.com/watch?v=<%=video[:youtube_id]%>" target="_blank" rel="noopener"
+                  data-videoid="<%=video[:youtube_id]%>"><%=video[:title]%></a></h4>
+      </div>
+    <% end %> <%# @featured_videos.each |video| %>
+  </div>
+
+<% end %> <%# if @learning_sessions[:featured_videos].count > 0 %>
+
+<%= content_for :custom_css do %>
+	<style type="text/css">
+		<%=raw @learning_sessions[:page_content][:custom_css] %>
+	</style>
+<% end %>

@@ -22,7 +22,7 @@
           <!-- item image link  -->
           <% image = get_result_image(result)%>
           <% if image.present? %>
-            <%= link_to image_tag(image), page_link(result), class:"result-item-image-link" %>
+            <%= link_to image_tag(image, alt: result.name), page_link(result), class:"result-item-image-link" %>
           <%end%>
           <!-- item description  -->
           <%=result_description(result)%><br />

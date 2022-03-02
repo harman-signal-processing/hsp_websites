@@ -1,0 +1,16 @@
+<%
+case @calling_device.type_short_name
+when  "tx"
+	paired_dxlink_device = association.rx
+when "rx"
+	paired_dxlink_device = association.tx
+end
+%>
+<li id="dxlink_combo_<%= association.id %>">
+	<%=paired_dxlink_device.model%>
+	<%= link_to(image_tag("icons/trash.gif", lazy: false),
+			admin_amx_dxlink_combo_path(association, calling_device: calling_device),
+			confirm: "Are you sure? (This won't delete the dxlink device --it will only remove the association.)",
+			remote: true,
+			method: :delete) %>
+</li>

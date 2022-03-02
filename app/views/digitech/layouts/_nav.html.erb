@@ -19,7 +19,7 @@
 	<nav class="top-bar" data-topbar role="navigation">
 		<ul class="title-area">
 			<li class="name logo-container"><%= link_to image_tag(website.folder + '/logo-sm.png', alt: website.brand.name, lazy: false), locale_root_path %></li>
-			<li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+      <li class="toggle-topbar"><i class="fa fa-bars fa-2x extra-space-hamburger" aria-hidden="true"></i><a href="#" aria-label="Open the menu"><span></span></a></li>
 		</ul>
 		<section class="top-bar-section">
 			<ul class="left">
@@ -27,13 +27,11 @@
 			</ul>
 
 			<ul class="right">
-				<%# search is only available in default language for now...%>
-				<%# if I18n.locale.to_s.match(/#{I18n.default_locale.to_s.split('-')[0]}/i) && website.value_for("enable_search") %>
 				<% if website.value_for("enable_search") %>
 
 					<li class="has-form show-for-large-up" id="search_form">
 						<%= form_tag search_path, method: :get %>
-							<%= text_field_tag :query, "", placeholder: t('search') %>
+							<%= text_field_tag :query, "", placeholder: t('search'), 'aria-label': t('search') %>
 						</form>
 					</li>
 				<% end %>
@@ -41,13 +39,14 @@
 				<li class="has-dropdown">
 
 					<%= link_to '#', id: "locale_menu" do %>
-						<%= image_tag "icons/globe_white.png", alt: t('language_region') %>
+            <span class="hide-for-small"><%= image_tag "icons/globe_white.png", alt: t('language_region') %></span>
+            <span class="show-for-small">Language</span>
 					<% end %>
 					<ul class="dropdown">
 						<% website.available_locales.each do |website_locale| %>
 							<% if website_locale.locale.to_s == I18n.locale.to_s %>
 							<li><%= link_to '#', class: "active" do %>
-									<%= image_tag 'icons/check_white.png' %>
+									<%= image_tag 'icons/check_white.png', alt: 'checkmark' %>
 									<%= website_locale.name %>
 								<% end %>
 							</li>

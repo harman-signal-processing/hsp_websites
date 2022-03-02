@@ -51,7 +51,7 @@ $tabs-navigation-font-color: white;
 $tabs-navigation-active-font-color: white;
 $tabs-navigation-font-size: rem-calc(14);
 $tabs-navigation-font-family: $body-font-family;
-$anchor-font-color: $darker-gray;
+$anchor-font-color: #0b202e;
 $anchor-font-color-hover: lighten($anchor-font-color, 25%);
 
 $form-spacing: rem-calc(18px);
@@ -74,7 +74,7 @@ $topbar-title-weight:                  500;
 $topbar-dropdown-bg:                      rgba($topbar-bg-color, 0.7);
 $topbar-dropdown-link-bg:                 rgba(darken($topbar-bg-color, 2%),0.85);
 $topbar-dropdown-toggle-alpha:         0.5;
-$topbar-link-font-size:                rem-calc(14);
+$topbar-link-font-size:                rem-calc(12);
 $topbar-link-weight:                   500;
 $topbar-link-hover-lightness:          -30%; // Darken by 30%
 $topbar-link-bg-hover:                 lighten($topbar-bg, 3%);
@@ -89,9 +89,9 @@ $reveal-position-top: rem-calc(10);
 $reveal-default-width: 60%;
 $reveal-max-width: 75%;
 
-$medium-breakpoint: em-calc(1056) !default;
-$medium-range: (em-calc(641), $medium-breakpoint) !default;
-$large-range: ($medium-breakpoint + em-calc(1), em-calc(1440)) !default;
+$medium-breakpoint: em-calc(1290) !default;
+$medium-range: (em-calc(990), $medium-breakpoint) !default;
+$large-range: ($medium-breakpoint + em-calc(1), em-calc(1640)) !default;
 @import 'brand_common';
 
 #above-nav-space {
@@ -124,7 +124,8 @@ $large-range: ($medium-breakpoint + em-calc(1), em-calc(1440)) !default;
         }
       }
       a {
-        padding: 0 12px !important;
+        padding-right: 10px !important;
+        padding-left: 10px !important;
         text-transform: uppercase;
         letter-spacing: 1px;
         &:hover {
@@ -133,7 +134,7 @@ $large-range: ($medium-breakpoint + em-calc(1), em-calc(1440)) !default;
       }
       &.has-dropdown {
         a {
-          padding-right: 14px !important;
+          padding-right: 12px !important;
           &:after {
             margin-right: 1px !important;
           }
@@ -143,35 +144,76 @@ $large-range: ($medium-breakpoint + em-calc(1), em-calc(1440)) !default;
   }
 }
 .logo-container img {
-  padding: 24px 0px 0px 69px;
+  padding: 24px 0px 0px 12px;
+  @media only screen and (min-width: 1320px) {
+    padding: 24px 0px 0px 69px;
+  }
+  @media only screen and (max-width: 990px) {
+    height: 60px;
+		padding: 18px 0px 0px 6px;
+	}
 }
-@media only screen and (max-width: 1300px) and (min-width: 1076px) {
-  .top-bar-section {
-    ul {
-      li {
-        a {
-          padding: 0 12px !important;
-          &:after {
-            margin-right: 2px !important;
+
+.top-bar {
+  @media only screen and (max-width: 1300px) and (min-width: 1076px) {
+    .top-bar-section {
+      ul {
+        li {
+          a {
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+            &:after {
+              margin-right: 2px !important;
+            }
+          }
+          &.has-dropdown {
+            a {
+              padding-right: 12px !important;
+              &:after {
+                margin-right: 1px !important;
+              }
+            }
           }
         }
       }
     }
   }
-}
-@media only screen and (max-width: 800px) {
-	.logo-container img {
-    height: 60px;
-		padding: 18px 0px 0px 6px;
-	}
-  .top-bar-section {
-    li.has-form {
-      padding-left: rem-calc(2);
-      width: 130px;
+  @media only screen and (max-width: 1075px) and (min-width: 991px) {
+    .top-bar-section {
+      ul {
+        li {
+          a {
+            padding-left: 8px !important;
+            padding-right: 8px !important;
+            &:after {
+              margin-right: 2px !important;
+            }
+          }
+          &.has-dropdown {
+            a {
+              padding-right: 12px !important;
+              &:after {
+                margin-right: 1px !important;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  @media only screen and (max-width: 990px) {
+    .top-bar-section {
+      li.has-form {
+        padding: rem-calc(8);
+        width: 100%;
+        input {
+          margin-top: 0;
+          font-size: rem-calc(18);
+        }
+      }
     }
   }
 }
-
 .content-container {
   padding: rem-calc(59px);
   @media only screen and (max-width: 640px) {
@@ -1171,6 +1213,16 @@ input#query {
       img {
         width: 100%;
       }
+    }
+  }
+}
+.case_study_row {
+  .panel {
+    border: none;
+    background: rgba(0,0,0,0.80);
+    color: white;
+    a h3 {
+      color: white;
     }
   }
 }

@@ -15,12 +15,18 @@ class ProductFamily < ApplicationRecord
   has_many :content_translations, as: :translatable, foreign_key: "content_id", foreign_type: "content_type"
   has_many :product_family_testimonials, -> { order('position') }, dependent: :destroy
   has_many :testimonials, through: :product_family_testimonials
+  has_many :product_family_customizable_attributes, dependent: :destroy
+  has_many :customizable_attributes, through: :product_family_customizable_attributes
+  has_many :product_family_videos, -> { order('position') }, dependent: :destroy
+  has_many :current_product_counts
   belongs_to :featured_product, class_name: "Product"
 
-  has_attached_file :family_photo, { styles: { medium: "300x300>", thumb: "100x100>" }, processors: [:thumbnail, :compression] }.merge(S3_STORAGE)
-  has_attached_file :family_banner, { styles: { medium: "300x300>", thumb: "100x100>" }, processors: [:thumbnail, :compression] }.merge(S3_STORAGE)
-  has_attached_file :title_banner, { styles: { medium: "300x300>", thumb: "100x100>" }, processors: [:thumbnail, :compression] }.merge(S3_STORAGE)
-  has_attached_file :background_image, S3_STORAGE
+  after_touch :update_current_product_counts
+
+  has_attached_file :family_photo, { styles: { medium: "300x300>", thumb: "100x100>" }, processors: [:thumbnail, :compression] }
+  has_attached_file :family_banner, { styles: { medium: "300x300>", thumb: "100x100>" }, processors: [:thumbnail, :compression] }
+  has_attached_file :title_banner, { styles: { medium: "300x300>", thumb: "100x100>" }, processors: [:thumbnail, :compression] }
+  has_attached_file :background_image
 
   validates_attachment :family_photo, content_type: { content_type: /\Aimage/i }
   validates_attachment :family_banner, content_type: { content_type: /\Aimage/i }
@@ -30,6 +36,9 @@ class ProductFamily < ApplicationRecord
   validates :brand_id, presence: true
   validates :name, presence: true
   validate :parent_not_itself
+
+  accepts_nested_attributes_for :product_family_videos, reject_if: proc { |pv| pv['youtube_id'].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :product_family_products, reject_if: proc { |pfp| pfp['product_id'].blank? }, allow_destroy: true
 
   acts_as_tree order: :position, scope: :brand_id, touch: true
   # acts_as_list scope: :brand_id, -> { order('position') }
@@ -48,6 +57,14 @@ class ProductFamily < ApplicationRecord
     product_family_ids_already_associated_with_this_testimonial = ProductFamilyTestimonial.where(testimonial: testimonial).pluck(:product_family_id)
     self.nested_options(website)
       .select{|item| product_family_ids_already_associated_with_this_testimonial.exclude?(item.keys[0]) }
+      .reject(&:empty?)
+      .map{|item| self.new(id: item.keys[0], name: item.values[0]) }
+  }
+
+  scope :options_not_associated_with_this_customizable_attribute, -> (customizable_attribute, website) {
+    product_family_ids_already_associated_with_this_customizable_attribute = ProductFamilyCustomizableAttribute.where(customizable_attribute: customizable_attribute).pluck(:product_family_id)
+    self.nested_options(website)
+      .select{|item| product_family_ids_already_associated_with_this_customizable_attribute.exclude?(item.keys[0]) }
       .reject(&:empty?)
       .map{|item| self.new(id: item.keys[0], name: item.values[0]) }
   }
@@ -129,7 +146,7 @@ class ProductFamily < ApplicationRecord
   def self.all_with_current_products(website, locale)
     Rails.cache.fetch("#{website.cache_key_with_version}/#{locale}/product_families/all_with_current_products", expires_in: 2.hours) do
       where(brand_id: website.brand_id).order("position").select do |f|
-        f if (f.current_products.size > 0 || f.children_with_current_products(website, locale: locale).size > 0) && f.locales(website).include?(locale.to_s)
+        f if f.current_products_plus_child_products_count(website) > 0 && f.locales(website).include?(locale.to_s)
       end
     end
   end
@@ -139,7 +156,7 @@ class ProductFamily < ApplicationRecord
   def self.all_with_current_or_discontinued_products(website, locale)
     Rails.cache.fetch("#{website.cache_key_with_version}/#{locale}/product_families/all_with_current_or_discontinued_products", expires_in: 2.hours) do
       where(brand_id: website.brand_id).order("position").select do |f|
-        f if (f.current_and_discontinued_products.size > 0 || f.current_products_plus_child_products(website).size > 0) && f.locales(website).include?(locale.to_s)
+        f if ( f.current_products_plus_child_products_count(website) > 0 || f.current_and_discontinued_products.size > 0 ) && f.locales(website).include?(locale.to_s)
       end
     end
   end
@@ -150,16 +167,7 @@ class ProductFamily < ApplicationRecord
       pf = []
       top_level_for(website).each do |f|
         if f.locales(website).include?(locale.to_s)
-          if f.current_products.size > 0
-            pf << f
-          else
-            current_children = 0
-            f.children.includes(:products).each do |ch|
-              current_children += ch.current_products_plus_child_products(website).size
-              last if current_children > 0
-            end
-            pf << f if current_children > 0
-          end
+          pf << f if f.has_current_products?(website)
         end
       end
       pf
@@ -169,6 +177,12 @@ class ProductFamily < ApplicationRecord
   def self.top_level_for(brand)
     brand_id = brand.is_a?(Website) ? brand.brand_id : brand.id
     where(brand_id: brand_id, hide_from_navigation: false).where("parent_id IS NULL or parent_id = 0").order('position').includes(:products)
+  end
+
+  def self.customizable(website, locale)
+    Rails.cache.fetch("#{website.cache_key_with_version}/#{locale}/product_families/customizable", expires_in: 2.hours) do
+      all_with_current_products(website, locale).select{|pf| pf if pf.product_family_customizable_attributes.size > 0}
+    end
   end
 
   # We flatten the families for the employee store.
@@ -199,7 +213,7 @@ class ProductFamily < ApplicationRecord
   end
 
   def discontinued_products
-    products.where(id: product_ids_for_current_locale, product_status: ProductStatus.discontinued_ids)
+    Product.where(id: product_ids_for_current_locale, product_status: ProductStatus.discontinued_ids)
   end
 
   # Collection of all the locales where this ProductFamily should appear.
@@ -232,7 +246,7 @@ class ProductFamily < ApplicationRecord
 
   def product_ids_for_current_locale
     Rails.cache.fetch("#{cache_key_with_version}/product_ids_for_current_locale/#{I18n.locale.to_s}", expires_in: 12.hours) do
-      products.select{|p| p unless p.locales_where_hidden.include?(I18n.locale.to_s)}.pluck(:id)
+      products.select{|p| p unless p.locales_where_hidden.include?(I18n.locale.to_s)}.pluck(:id).uniq
     end
   end
 
@@ -264,6 +278,21 @@ class ProductFamily < ApplicationRecord
       end
     end
   end
+
+  def has_current_products?(w)
+    current_products_plus_child_products_count(w) > 0
+  end
+
+  def current_products_plus_child_products_count(w)
+    cpc = current_product_counts.where(locale: I18n.locale.to_s).first_or_create
+    cpc.current_products_plus_child_products_count.to_i
+  end
+
+  def update_current_product_counts
+    current_product_counts.each{ |cpc| cpc.save }
+  end
+  handle_asynchronously :update_current_product_counts
+
 
   # w = a Brand or a Website
   def discontinued_products_plus_child_products(w, opts={})
@@ -328,9 +357,9 @@ class ProductFamily < ApplicationRecord
 
   # Determine if we should show product comparison boxes for this product family
   def show_comparisons?
-    @show_comparisons ||= brand.respond_to?(:show_comparisons) &&
+    @show_comparisons ||= brand.show_comparisons.present? &&
       !!(brand.show_comparisons) &&
-      (self.current_products.size > 1 || self.children_with_current_products(brand).size > 0)
+      current_products_plus_child_products_count(brand) > 0
   end
 
   # Load this ProductFamily's children families with at least one active product
@@ -345,7 +374,7 @@ class ProductFamily < ApplicationRecord
       these_children = these_children.where.not(product_selector_behavior: "exclude").or(these_children.where(product_selector_behavior: nil))
     end
     these_children.includes(:products).each do |pf|
-      if !pf.requires_login? && (pf.current_products.size > 0 || pf.children_with_current_products(w, options).size > 0)
+      if !pf.requires_login? && pf.current_products_plus_child_products_count(w) > 0
         unless options[:locale].present? && !pf.locales(w).include?(options[:locale].to_s)
           ids << pf.id
           if options[:depth] > 1
@@ -444,10 +473,22 @@ class ProductFamily < ApplicationRecord
     @parents_with_filters ||= family_tree.select{|pf| pf if pf.is_a?(ProductFamily) && pf.product_filters.size > 0}
   end
 
+  def self_and_parents_with_customizable_attributes
+    @self_and_parents_customizable_attributes ||= (customizable_attributes.size > 0) ? [self] + parents_with_customizable_attributes : parents_with_customizable_attributes
+  end
+
+  def parents_with_customizable_attributes
+    @parents_with_customizable_attributes ||= family_tree.select{|pf| pf if pf.is_a?(ProductFamily) && pf.customizable_attributes.size > 0}
+  end
+
   def review_quotes(w)
     current_products_plus_child_products(w, nosort: true).map do |product|
       product.product_reviews
     end.flatten.uniq
+  end
+
+  def videos_content_present?
+    product_family_videos.select(:id).size > 0
   end
 
   def copy!(options = {})

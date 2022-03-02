@@ -1,15 +1,16 @@
-<% called_from ||= 'product_family' %>
-<li id="product_family_product_filter_<%= pfpf.id %>">
-	<% unless called_from == 'product_filter' %>
-	<span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
-	<% end %>
-	<%= (called_from == 'product_filter') ?
-			link_to(pfpf.product_family.name, [:admin, pfpf.product_family]) :
-			link_to(pfpf.product_filter.name, [:admin, pfpf.product_filter]) %>
-	<%= link_to(image_tag("icons/trash.gif", lazy: false),
-			admin_product_family_product_filter_path(pfpf, called_from: called_from),
-			confirm: "Are you sure? (This won't delete the filter or the product family--it will only remove the filter from the family.)",
-			remote: true,
-			method: :delete) %>
-</li>
-
+<% unless pfpf.new_record? %>
+  <% called_from ||= 'product_family' %>
+  <li id="product_family_product_filter_<%= pfpf.id %>">
+    <% unless called_from == 'product_filter' %>
+    <span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
+    <% end %>
+    <%= (called_from == 'product_filter') ?
+        link_to(pfpf.product_family.name, [:admin, pfpf.product_family]) :
+        link_to(pfpf.product_filter.name, [:admin, pfpf.product_filter]) %>
+    <%= link_to(image_tag("icons/trash.gif", lazy: false),
+        admin_product_family_product_filter_path(pfpf, called_from: called_from),
+        confirm: "Are you sure? (This won't delete the filter or the product family--it will only remove the filter from the family.)",
+        remote: true,
+        method: :delete) %>
+  </li>
+<% end %>

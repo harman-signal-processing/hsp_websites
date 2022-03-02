@@ -1,10 +1,11 @@
 AssetSync.configure do |config|
   config.run_on_precompile = !!(ENV['ASSET_SYNC_ON']) # if true, runs automatically after assets:precompile
-  config.fog_provider = 'Rackspace'
-  config.fog_directory = ENV['ASSET_CONTAINER']
-  config.fog_region = 'ORD'
-  config.rackspace_username = ENV['RACKSPACE_USERNAME']
-  config.rackspace_api_key = ENV['RACKSPACE_API_KEY']
+  config.fog_provider = 'AWS'
+  config.fog_directory = ENV['aws_bucket'] #ENV['ASSET_CONTAINER']
+  config.fog_region = ENV['aws_region'] #'ORD'
+  config.aws_access_key_id = ENV['aws_access_key_id']
+  config.aws_secret_access_key = ENV['aws_secret_access_key']
+  config.aws_session_token = ENV['AWS_SESSION_TOKEN'] if ENV.key?('AWS_SESSION_TOKEN')
 
   # Invalidate a file on a cdn after uploading files
   # config.cdn_distribution_id = "12345"

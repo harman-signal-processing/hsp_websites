@@ -1,0 +1,10 @@
+<%= simple_form_for([:admin, @amx_dxlink_device]) do |f| %>
+  <%= f.input :model, label: "Model" %>
+  <%= f.input :model_family, label: "Model Family" %>
+  <%= f.input :type_long_name, label: "Type" %>
+  <%= f.input :type_short_name, label: "Type (abbreviation) only use tx or rx" %>
+  <%= f.input :product_url, label: "Product URL" %>
+  <%= f.input :image_url, label: "Image URL" %>
+    </br>
+  <%= f.button :submit %>
+<% end # simple_form_for([:admin, @amx_dxlink_device]) do |f|%>

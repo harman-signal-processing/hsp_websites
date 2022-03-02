@@ -1,0 +1,10 @@
+(function(){
+
+//alert('hello');
+  var $approval_status = $("#approval_status_<%=@owner.id%>");
+  <% if @dealer.present? %>
+    $approval_status.html("Approved by <%=@approved_by%><br/>Dealer ID: <%=@dealer.id%>")
+  <% else %>
+    Approval process failed
+  <% end %>
+})();

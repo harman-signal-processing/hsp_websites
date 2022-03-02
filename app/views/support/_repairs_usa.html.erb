@@ -8,34 +8,23 @@
 	
 	<!-- main content -->
 	<div class="large-8 columns">
-		
-    <h1>U.S. Repairs</h1>
-    	  <%=render_partial "support/state_switch"%>
-    			
-          <div><h3>Below are the service centers for your location.</h3></div>
-        	<div class="large-12 columns">
-        		<ul id="service_center_list" class="large-block-grid-2 medium-block-grid-1 small-block-grid-1">
-	        		<%# @service_centers.sort_by{|sc| [sc[:state], sc[:name]] }.each do |service_center| %>
-	        		<% @service_centers.sort_by{rand}.each do |service_center| %>
-			        		<%=render_partial "support/service_center", service_center: service_center %>
-	        		<% end %> <%# @service_centers.each do |service_center| %>
-	        		
-		        	<% if studer_us_tech_support_and_repair = website.value_for("studer_us_tech_support_and_repair") %>
-		        		<li id="studer-default">
-			        	<div class="panel">
-			        		<p><%=raw studer_us_tech_support_and_repair %></p>
-			        	</div>
-			        	</li>
-		        	<% end %> <%# if studer_us_tech_support_and_repair = website.value_for("studer_us_tech_support_and_repair") %>	        		
-	        		
-				    <% if default_us_repair_contact = website.value_for("default_us_repair_contact")%>
-			    		<li id="harman-default"><div class="panel"><%= raw default_us_repair_contact %></div></li>
-			    	<% end %> <%# if default_us_repair_contact = website.value_for("default_us_repair_contact")%>  	        		
-        		</ul>
-        	</div> <!-- <div class="large-12 columns" data-equalizer="service-center-box"> -->
-        	
 
+    <h1>U.S. Repairs</h1>
+		<%=render_partial "support/state_switch"%>
+
+    <div><h3>Below are the service centers for your location.</h3></div>
+      <div class="large-12 columns">
+				<ul id="service_center_list" class="large-block-grid-2 medium-block-grid-1 small-block-grid-1">
+					<% custom_sorted_service_centers.each do |service_center| %>
+						<%=render_partial "support/service_center", service_center: service_center %>
+					<% end %>
+
+					<% if default_us_repair_contact = website.value_for("default_us_repair_contact")%>
+						<li id="harman-default"><div class="panel"><%= raw default_us_repair_contact %></div></li>
+					<% end %>
+				</ul>
+      </div> <!-- <div class="large-12 columns" data-equalizer="service-center-box"> -->
 	</div>  <!-- <div class="large-8 columns"> -->
 </div>  <!-- <div class="row"> -->
 
-<%=render_partial "shared/support_chat_javascript"%>	
+<%=render_partial "shared/support_chat_javascript"%>

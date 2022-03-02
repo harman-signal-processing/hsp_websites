@@ -1,0 +1,23 @@
+<p>Great news. Your price request #<%= @custom_shop_price_request.number %> has been updated.</p>
+
+<p>
+<%= link_to custom_shop_custom_shop_price_request_url(@custom_shop_price_request,
+  locale: I18n.default_locale,
+  protocol: Rails.env.production? ? 'https' : 'http',
+  host: @custom_shop_price_request.brand.default_website.url) do %>
+    Click here to view pricing.
+  <% end %>
+</p>
+
+<hr/>
+
+<p><strong>Opportunity</strong></p>
+<p>
+Number: <%= @custom_shop_price_request.opportunity_number %><br/>
+Name: <%= @custom_shop_price_request.opportunity_name %><br/>
+Location: <%= @custom_shop_price_request.location %><br/>
+Requested Delivery: <%=l @custom_shop_price_request.request_delivery_on, format: :long %>
+</p>
+
+<p><strong>Project Description</strong></p>
+<div><%= @custom_shop_price_request.description %></div>

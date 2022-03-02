@@ -1,0 +1,27 @@
+<%
+case device.type_short_name
+when  "tx"
+	dxlink_device_list = AmxDxlinkDeviceInfo.rx_available_to_pair(device)
+	input_field_name = "rx_id"
+	device_type_for_dropdown = "Receiver"
+when "rx"
+	dxlink_device_list = AmxDxlinkDeviceInfo.tx_available_to_pair(device)
+	input_field_name = "tx_id"
+	device_type_for_dropdown = "Transmitter"
+end
+%>
+<%= simple_form_for [:admin, @amx_dxlink_combo], remote: true do |f| %>
+  <%= f.hidden_field "#{device.type_short_name}_id".to_sym, value: device.id %>
+      <%= f.input "#{input_field_name}".to_sym,
+      collection: dxlink_device_list,
+      label: false,
+      label_method: :model,
+      value_method: :id,
+      input_html: {
+        class: 'chosen-select',
+        multiple: true,
+        data: { placeholder: "Select #{device_type_for_dropdown}"},
+        id: "device_combo_for_#{device.model}_#{device.type_short_name}"
+      }%>
+  <%= f.submit "Add Pairing", class: "small round button", style:"margin-top:10px;" %>
+<% end %>

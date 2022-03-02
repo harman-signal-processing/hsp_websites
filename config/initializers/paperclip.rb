@@ -19,6 +19,9 @@ module Paperclip
   end
 end
 
+Paperclip::UriAdapter.register
+Paperclip::HttpUrlProxyAdapter.register
+
 Paperclip::Attachment.default_options[:compression] = {
   png: "-o 5 -quiet",
   jpeg: "-copy none -optimize -progressive"
@@ -53,26 +56,6 @@ S3_CLOUDFRONT = 'adn.harmanpro.com' # 'd18nzrj3czoaty.cloudfront.net' #
 # Environment-specific settings:
 if Rails.env.production? || !!(ENV['USE_PRODUCTION_ASSETS'].to_i > 0)
 
-	Paperclip::Attachment.default_options.merge!({
-    url: ':fog_public_url',
-    path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension",
-    storage: :fog,
-    fog_credentials: FOG_CREDENTIALS,
-    fog_directory: ENV['FOG_PAPERCLIP_CONTAINER'],
-    fog_public: true,
-    fog_file: {
-       cache_control: 'max-age=7776000'
-    },
-    fog_host: ENV['FOG_HOST_ALIAS']
-
-	  # storage: :s3,
-	  # bucket: Rails.configuration.aws[:bucket],
-	  # s3_credentials: Rails.configuration.aws,
-   #  s3_host_alias: S3_CLOUDFRONT,
-   #  url: ':s3_alias_url',
-   #  path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
-	})
-	
 	# Allow Paperclip to get image from S3 url
   Paperclip::UriAdapter.register
 
@@ -86,7 +69,9 @@ if Rails.env.production? || !!(ENV['USE_PRODUCTION_ASSETS'].to_i > 0)
     url: ':s3_alias_url',
     path: ":class/:attachment/:id_:timestamp/:basename_:style.:extension"
   }
-
+  
+	Paperclip::Attachment.default_options.merge!(S3_STORAGE)
+	
 elsif Rails.env.test?
 
 	Paperclip::Attachment.default_options.merge!({
@@ -114,6 +99,7 @@ else
     storage: :filesystem,
     path: ":rails_root/public/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension"
   }
+  
 end
 
 if Rails.env.production? || !!(ENV['USE_PRODUCTION_ASSETS'].to_i > 0)

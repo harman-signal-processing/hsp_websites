@@ -54,7 +54,8 @@ class ApplicationController < ActionController::Base
     default_options = {
       controller: controller_path,
       action: action_name,
-      layout: set_layout, locale: I18n.locale
+      layout: set_layout,
+      locale: I18n.locale
     }
     options = default_options.merge options
     root_folder = (website && website.folder) ? "#{website.folder}/" : ''
@@ -63,11 +64,12 @@ class ApplicationController < ActionController::Base
     brand_specific = "#{root_folder}#{options[:controller]}/#{options[:action]}"
     locale_specific = "#{options[:controller]}/#{options[:locale]}/#{options[:action]}"
     template = "#{options[:controller]}/#{options[:action]}" # the default
-    if File.exists?(Rails.root.join("app", "views", "#{brand_and_locale_specific}.html.erb"))
+    response_format = request.format.symbol.to_s
+    if File.exists?(Rails.root.join("app", "views", "#{brand_and_locale_specific}.#{response_format}.erb"))
       template = brand_and_locale_specific
-    elsif File.exists?(Rails.root.join("app", "views", "#{brand_specific}.html.erb"))
+    elsif File.exists?(Rails.root.join("app", "views", "#{brand_specific}.#{response_format}.erb"))
       template = brand_specific
-    elsif File.exists?(Rails.root.join("app", "views", "#{locale_specific}.html.erb"))
+    elsif File.exists?(Rails.root.join("app", "views", "#{locale_specific}.#{response_format}.erb"))
       template = locale_specific
     end
 
@@ -407,6 +409,12 @@ private
     cookies[:utm_source] = {  value: utm_source } if !utm_source.nil?
     cookies[:utm_content] = {  value: utm_content } if !utm_content.nil?
   end  #  def hold_on_to_utm_params
+
+  def sanitize_param_value(unsanitized_param_value, allowed_punctuation=[])
+    # strip non printable characters and unallowed punctuation characters from unsanitized_param_value
+    sanitized_item = unsanitized_param_value.gsub(/[^[:print:]]/, '').gsub(/[[:punct:]]/) { |item| (allowed_punctuation.include? item) ? item : "" } if unsanitized_param_value.present?
+    sanitized_item
+  end
 
   def authorize_query!(query)
     if query.to_s.match(/union\s{1,}select/i) ||

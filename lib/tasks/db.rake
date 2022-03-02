@@ -4,7 +4,7 @@ namespace :db do
 	task setup_development_from_production: :environment do
 		Brand.all.each do |brand|
 			if website = brand.default_website
-				website.update_attributes(url: "#{brand.to_param.gsub(/\W/, '')}.lvh.me")
+				website.update(url: "#{brand.to_param.gsub(/\W/, '')}.lvh.me")
 			end
 		end
 	end
@@ -16,7 +16,7 @@ namespace :db do
 				if website = brand.default_website
 					lowercase_brand = brand.to_param.gsub(/\W/, '')
 					subdomain = (lowercase_brand == "digitech") ? "staging" : "#{lowercase_brand}staging"
-					website.update_attributes(url: "#{subdomain}.digitech.com")
+					website.update(url: "#{subdomain}.digitech.com")
 				end
 			end
 		else

@@ -1,11 +1,10 @@
-class SiteMailer < ActionMailer::Base
+class SiteMailer < ApplicationMailer
 
   def contact_form(contact_message, options={})
     @contact_message = contact_message
 
     mail(to: @contact_message.recipients,
-         subject: @contact_message.subject,
-         from: @contact_message.email)
+         subject: @contact_message.subject)
   end
 
   def promo_post_registration(warranty_registration, promotion)
@@ -13,7 +12,7 @@ class SiteMailer < ActionMailer::Base
     @brand = @warranty_registration.brand
     @promotion = promotion
     mail(to: @warranty_registration.email,
-         from: "#{@brand.name} <#{@brand.support_email}>",
+         from: "#{@brand.name} <#{ENV['DEFAULT_SENDER']}>",
          subject: @promotion.post_registration_subject)
   end
 
@@ -22,8 +21,6 @@ class SiteMailer < ActionMailer::Base
   def artist_approval(artist, recipients)
     @artist = artist
     mail(to: recipients,
-         bcc: "adam.anderson@harman.com",
-         from: "support@digitech.com",
          subject: "Artist relations approval")
   end
 
@@ -39,7 +36,6 @@ class SiteMailer < ActionMailer::Base
   def label_sheet_order_shipped(order)
     @order = order
     mail(to: @order.email,
-         from: "DigiTech <support@digitech.com>",
          subject: "Your epedal labels are on their way!")
   end
 
@@ -47,8 +43,8 @@ class SiteMailer < ActionMailer::Base
     @warranty_registration = warranty_registration
     @brand = @warranty_registration.brand
     mail(to: @warranty_registration.email,
-         from: "#{@brand.name} <#{@brand.support_email}>",
-         bcc: @brand.respond_to?(:bcc_product_registrations) ? @brand.bcc_product_registrations.split(/[\s\,\;]{1,}/) : [],
+         from: "#{@brand.name} <#{ENV['DEFAULT_SENDER']}>",
+         bcc: @brand.bcc_product_registrations.present? ? @brand.bcc_product_registrations.split(/[\s\,\;]{1,}/) : [],
          subject: "#{@brand.name} product registration")
   end
 
@@ -64,7 +60,6 @@ class SiteMailer < ActionMailer::Base
     @training_class_registration = training_class_registration
 
     mail(to: @training_class_registration.registration_recipients,
-         from: @training_class_registration.email,
          subject: @training_class_registration.training_class.name)
   end
 
@@ -74,14 +69,13 @@ class SiteMailer < ActionMailer::Base
       begin
         attachments[@fixtures_request.attachment_file_name] = {
           mime_type: @fixtures_request.attachment_content_type,
-          content: open(@fixtures_request.attachment.url).read
+          content: URI.open(@fixtures_request.attachment.url).read
         }
       rescue
         # couldn't attach the file, but we'll link to it anyway
       end
     end
     mail(to: ENV['MARTIN_FIXTURES_RECIPIENT'],
-         from: @fixtures_request.email,
          subject: "Martin Fixtures Request")
   end
 
@@ -91,7 +85,7 @@ class SiteMailer < ActionMailer::Base
       begin
         attachments[@module_request.attachment_file_name] = {
           mime_type: @module_request.attachment_content_type,
-          content: open(@module_request.attachment.url.gsub("_original.",".")).read
+          content: URI.open(@module_request.attachment.url.gsub("_original.",".")).read
         }
       rescue
         # couldn't attach the file, but we'll link to it anyway
@@ -110,4 +104,16 @@ class SiteMailer < ActionMailer::Base
          subject: "AMX Partner Interest Form")
   end  #  def amx_partner_interest_form(data, recipients)
 
+  def jbl_vertec_vtx_owner_form(data, recipients)
+    @jbl_vertec_vtx_owner = data
+    mail(to: recipients.split(";"),
+         from: @jbl_vertec_vtx_owner.email,
+         subject: "JBL Vertec/VTX Owner Form")
+  end
+
+  def monthly_software_report
+    @software_report = params[:software_report]
+    mail(to: @software_report.recipients,
+         subject: "#{@software_report.software.name} Monthly Report")
+  end
 end  #  class SiteMailer < ActionMailer::Base

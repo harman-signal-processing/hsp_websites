@@ -21,6 +21,9 @@
 					</div>
 				<% end %> <%#= form_tag support_path, method: :get do |f| %>
 				<ul class="list">
+          <% if !!(website.value_for("anytime_support_url")) %>
+            <li><%= link_to t('anytime_support'), website.value_for("anytime_support_url"), target: "_blank" %></li>
+          <% end %>
           <li><%= link_to "product training", "/training", target: "_blank" %></li>
 				</ul>
 			</div> <!-- <div class="panel"> -->

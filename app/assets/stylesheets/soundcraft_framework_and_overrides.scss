@@ -100,6 +100,8 @@ $topbar-breakpoint:                    rem-calc(990px); // Change to 9999px for 
 
 $include-print-styles: true;
 
+$medium-breakpoint: em-calc(1200) !default;
+$medium-range: (em-calc(740), $medium-breakpoint) !default;
 $reveal-position-top: rem-calc(10);
 $reveal-default-width: 60%;
 $reveal-max-width: 75%;
@@ -125,14 +127,49 @@ body {
 
 /* TOP BAR ///////////////////////////////  */
 
-@media only screen and (min-width: 720px) {
-	.logo-container img {
-		padding: 14px 12px 0px 20px;
-	}
-  .top-bar-section {
-    li.has-form {
-      padding-top: rem-calc(17);
-    }
+nav.top-bar {
+  /* Prevent background color leak outs */
+    -webkit-background-clip: padding-box;
+    -moz-background-clip:    padding;
+    background-clip:         padding-box;
+}
+
+.top-bar {
+   height: 52px;
+   background-color: $color-main;
+   z-index: 100;
+   border-top: solid 1px $color-soundcraft;
+    border-bottom: solid 4px $color-soundcraft;
+
+  .extra-space-hamburger {
+    margin-top: 0.8rem;
+    color: white;
+  }
+ }
+
+.top-bar input, top-bar .button {
+  top: 10px;
+  background-color: $color-main-alpha;
+  height: 1.7em;
+}
+
+.top-bar input {
+  background-color: white;
+  border-radius: 5px;
+}
+
+.top-bar .name h1 a {
+  font-weight: normal;
+  color: white;
+  width: 75%;
+  display: block;
+  padding: 0 0 0 0;
+}
+
+.logo-container {
+  img {padding: 0px 0px 0px 5px;}
+  a:hover {
+    background-color: transparent;
   }
 }
 
@@ -181,6 +218,40 @@ body {
   height: 50px;
   width: 0px;
 }
+
+.top-bar-section .has-form {
+  /* bg for search area */
+  background: transparent;
+  padding: 3px 20px;
+  height: 50px;
+}
+
+#above_nav {
+  height: 25px;
+}
+
+@media only screen and (max-width: 740px) {
+  .top-bar-section ul li {
+    background: $color-main;
+  }
+  .top-bar-section .has-form {
+  background: $color-main;
+  }
+  .top-bar-section li:not(.has-form) a:not(.button) {
+
+  background: $color-main;
+  }
+  .top-bar-section > ul > .divider, .top-bar-section > ul > [role="separator"] {
+    height: 0px;
+  }
+  .logo-container img {
+    padding: 0px 0px 0px 0px;
+  }
+  #above_nav {
+    height: 0px;
+  }
+}
+
 
 /* FOOTER ////////////////////////////////// */
 
@@ -401,4 +472,8 @@ footer {
       }
     }
   }
+}
+/** search box in top nav **/
+#search_form #query {
+  width:120px;
 }

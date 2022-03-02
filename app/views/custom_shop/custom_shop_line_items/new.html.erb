@@ -1,0 +1,40 @@
+<p>
+<%= link_to custom_shop_path do %>
+  <%= fa_icon "arrow-left" %>
+  Custom Shop
+<% end %>
+</p>
+<h1>Customize <%= @custom_shop_line_item.product.name %></h1>
+
+<div class="row">
+  <div class="small-12 medium-7 columns">
+    <div class="panel">
+      <%= render 'form' %>
+    </div>
+  </div>
+
+  <div class="small-12 medium-5 columns">
+    <div class="text-center">
+      <% if @custom_shop_line_item.product.photo %>
+         <%= image_tag(@custom_shop_line_item.product.photo.product_attachment.url(:large), lazy: false) %>
+      <% end %>
+      <h4><%= @custom_shop_line_item.product.name %> Overview</h4>
+      <p><%= translate_content(@custom_shop_line_item.product, :short_description) %></p>
+
+      <div class="text-left">
+        <%= raw translate_content(@custom_shop_line_item.product, :features) %>
+      </div>
+
+      <%= render 'download_table', product: @custom_shop_line_item.product %>
+
+      <p>
+        <%= link_to @custom_shop_line_item.product, target: "_blank" do %>
+          View Product Details
+          <%= fa_icon "external-link" %>
+        <% end %>
+      </p>
+    </div>
+  </div>
+</div>
+
+

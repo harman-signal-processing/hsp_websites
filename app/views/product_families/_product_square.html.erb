@@ -38,9 +38,9 @@ lazy = product_photo_is_png?(product)
 				<div class="product_thumb">
 				<% if product.photo %>
 					<% if extra_large %>
-						<%= link_to image_tag(product.photo.product_attachment.url(:small), lazy: lazy), this_url, target: target %>
+						<%= link_to image_tag(product.photo.product_attachment.url(:small), alt: product.name, lazy: lazy), this_url, target: target %>
 					<% else %>
-						<%= link_to image_tag(product.photo.product_attachment.url(:thumb), lazy: lazy), this_url, target: target %>
+						<%= link_to image_tag(product.photo.product_attachment.url(:thumb), alt: product.name, lazy: lazy), this_url, target: target %>
 					<% end %>
 				<% end %>
 				</div>
@@ -66,9 +66,9 @@ lazy = product_photo_is_png?(product)
 		<div class="product_thumb" data-equalizer-watch="product_thumbs">
 		<% if product.photo %>
 			<% if extra_large %>
-				<%= link_to image_tag(product.photo.product_attachment.url(:medium), lazy: lazy), this_url, target: target %>
+				<%= link_to image_tag(product.photo.product_attachment.url(:medium), alt: product.name, lazy: lazy), this_url, target: target %>
 			<% else %>
-				<%= link_to image_tag(product.photo.product_attachment.url(:horiz_thumb), lazy: lazy), this_url, target: target %>
+				<%= link_to image_tag(product.photo.product_attachment.url(:horiz_thumb), alt: product.name, lazy: lazy), this_url, target: target %>
 			<% end %>
 		<% end %>
 		</div>

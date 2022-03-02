@@ -1,6 +1,6 @@
 <div class="docs">
-
-  <%= cache ["downloads_table", product, current_user, I18n.locale] do %>
+  <% skip_admin_functions = local_assigns[:skip_admin_functions] ? skip_admin_functions : false %>
+  <%= cache ["downloads_table", product, current_user, I18n.locale, skip_admin_functions] do %>
     <table style="width: 100%">
       <thead>
         <tr>
@@ -22,17 +22,17 @@
       <% end %>
 
       <% product.safety_documents.includes(:product).each do |product_document| %>
-        <%= render_partial 'shared/download_table_row', item: product_document %>
+        <%= render_partial 'shared/download_table_row', item: product_document, skip_admin_functions: skip_admin_functions %>
       <% end %>
 
       <% product.nonsafety_documents.includes(:product).each do |product_document| %>
-        <%= render_partial 'shared/download_table_row', item: product_document %>
+        <%= render_partial 'shared/download_table_row', item: product_document, skip_admin_functions: skip_admin_functions %>
       <% end %>
 
       <% (product.all_related_downloads(I18n.locale.to_s, website)).group_by(&:resource_type).sort_by{|r,i| download_group_sort_order(r)}.each do |resource_type, site_elements| %>
         <%= downloads_header_row(resource_type, site_elements, columns: 5) %>
         <% site_elements.each do |site_element| %>
-          <%= render_partial 'shared/download_table_row', item: site_element %>
+          <%= render_partial 'shared/download_table_row', item: site_element, skip_admin_functions: skip_admin_functions %>
         <% end %>
       <% end %>
 

@@ -1,4 +1,5 @@
 class SiteElementsController < ApplicationController
+  before_action :set_locale
   load_and_authorize_resource
 
   def new_version
@@ -37,7 +38,7 @@ class SiteElementsController < ApplicationController
   private
 
   def send_executable_file(site_element)
-    data = open(site_element.executable.url)
+    data = URI.open(site_element.executable.url)
     send_data data.read,
       disposition: :attachment,
       stream: true,
@@ -47,7 +48,7 @@ class SiteElementsController < ApplicationController
   end
 
   def send_resource_file(site_element)
-    data = open(site_element.resource.url)
+    data = URI.open(site_element.resource.url)
     send_data data.read,
       disposition: 'inline',
       stream: true,

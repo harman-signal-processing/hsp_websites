@@ -6,8 +6,13 @@ class Admin::ProductsController < AdminController
   # GET /admin/products
   # GET /admin/products.xml
   def index
-    @search = website.products.ransack(params[:q])
-    @products = @search.result
+    if params[:q].present?
+      @search = website.products.ransack(params[:q])
+      @products = @search.result
+    else
+      @products = Product.where(brand_id: website.brand_id)
+      @search = @products.ransack
+    end
     respond_to do |format|
       format.html {
         if params[:q] && @products.size == 1
@@ -57,6 +62,7 @@ class Admin::ProductsController < AdminController
     @product_badge          = ProductBadge.new(product_id: @product.id)
     @product_accessory      = ProductAccessory.new(product_id: @product.id)
     @accessory_product      = ProductAccessory.new(accessory_product_id: @product.id)
+    3.times { @product.product_case_studies.build }
     respond_to do |format|
       format.html { render_template } # show.html.erb
       format.xml  { render xml: @product }
@@ -107,6 +113,7 @@ class Admin::ProductsController < AdminController
   def update
     respond_to do |format|
       if @product.update(product_params)
+        @product.touch # clear cache
         format.html {
           if params[:return_to]
             return_to = URI.parse(params[:return_to]).path
@@ -118,7 +125,14 @@ class Admin::ProductsController < AdminController
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated product: #{@product.name}")
       else
-        format.html { render action: "edit" }
+        format.html {
+          if params[:return_to]
+            return_to = URI.parse(params[:return_to]).path
+            redirect_to(return_to, alert: "There was a problem with the changes.")
+          else
+            render action: "edit"
+          end
+        }
         format.xml  { render xml: @product.errors, status: :unprocessable_entity }
       end
     end
@@ -273,7 +287,10 @@ class Admin::ProductsController < AdminController
       product_prices_attributes: {},
       product_specifications_attributes: {},
       product_product_filter_values_attributes: {},
-      suggested_product_id: []
+      customizable_attribute_values_attributes: {},
+      suggested_product_id: [],
+      product_videos_attributes: {},
+      product_case_studies_attributes: {}
     )
   end
 end

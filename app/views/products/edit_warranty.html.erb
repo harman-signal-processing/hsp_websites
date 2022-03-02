@@ -1,0 +1,86 @@
+<h1 class="text-center">Warranty Periods</h1>
+
+<div class="alert-box info">
+  Note: leaving a field blank will hide it from the table on the warranty policy page.
+  Products from other brands appear if they are included in product families on this
+  website. Editing those here also affects the warranty page on their respective brand's
+  website.
+</div>
+
+<%= form_tag update_warranty_products_path, method: :put %>
+  <div class="row">
+    <div class="small-12 medium-6 columns">
+      <table width="100%">
+        <thead>
+        <tr>
+          <th>Product Family</th>
+          <th>Warranty Period (years)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @product_families.each do |product_family| %>
+          <tr>
+            <td><%= link_to product_family, target: "_blank" do %>
+                <%= product_family.name %>
+              <% end %>
+            </td>
+            <td><%= text_field_tag "product_family_attr[#{product_family.id}]",
+                  (product_family.warranty_period.to_i > 0) ? product_family.warranty_period : nil,
+                  size: 10, placeholder: "-" %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+
+      <p>
+        <a href="#" onclick="$('.discontinued').toggle();"> <%= fa_icon "ban" %> toggle discontinued products </a>
+      </p>
+
+      <table width="100%">
+        <thead>
+        <tr>
+          <th>Product</th>
+          <th>Warranty Period (years)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @products.each do |product| %>
+          <tr <% if product.product_status.is_discontinued? %>class="discontinued" style="display: none"<% end %>>
+            <td><%= link_to product, target: "_blank" do %>
+                <% unless product.brand_id == website.brand_id %>
+                  <%= product.brand.name %>
+                <% end %>
+                <%= product.name %>
+                <% if product.product_status.is_discontinued? %>
+                  <%= fa_icon "ban" %>
+                <% end %>
+              <% end %>
+            </td>
+            <td><%= text_field_tag "product_attr[#{product.id}]",
+                  (product.warranty_period.to_i > 0) ? product.warranty_period : nil,
+                  size: 10, placeholder: "-" %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="small-12 medium-6 columns">
+      <p>&nbsp;</p>
+
+      <%= label_tag do %>
+        Extra info appearing just above the auto-generated table:
+      <% end %>
+
+      <%= text_area_tag "extra_warranty_side_content",
+        website.extra_warranty_side_content,
+        rows: 40,
+        class: "mceEditor"
+      %>
+    </div>
+
+    <div class="small-12 columns">
+      <%= submit_tag "Update", class: "button"  %>
+    </div>
+  </div>
+</form>

@@ -1,11 +1,13 @@
-<% called_from ||= "product" %>
-<li id="product_accessory_<%= pa.id %>">
-	<%= (called_from == "product") ?
-		link_to(pa.accessory_product.name, [:admin, pa.accessory_product]) :
-		link_to(pa.product.name, [:admin, pa.product]) %>
-	<%= link_to(image_tag('icons/trash.gif', lazy: false),
-		  admin_product_accessory_path(pa),
-		  remote: true,
-		  confirm: "Are you sure you want to delete this accessory?",
-		  method: :delete) %>
-</li>
+<% unless pa.new_record? %>
+  <% called_from ||= "product" %>
+  <li id="product_accessory_<%= pa.id %>">
+    <%= (called_from == "product") ?
+      link_to(pa.accessory_product.name, [:admin, pa.accessory_product]) :
+      link_to(pa.product.name, [:admin, pa.product]) %>
+    <%= link_to(image_tag('icons/trash.gif', lazy: false),
+        admin_product_accessory_path(pa),
+        remote: true,
+        confirm: "Are you sure you want to delete this accessory?",
+        method: :delete) %>
+  </li>
+<% end %>

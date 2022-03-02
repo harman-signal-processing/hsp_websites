@@ -62,6 +62,9 @@ $(document).ready(function() {
     <% end %>
     </form>
   </div>
+  <div class="large-4 columns dealer-results-count">
+    <span id="dealer_results_count"><%=@results.count%></span> <%= "result".pluralize(@results.count) %> found
+    </div>
 </div>
 <div class="row">
   <div class="small-12 medium-7 large-8 columns">
@@ -83,11 +86,15 @@ $(document).ready(function() {
               <%= fa_icon "wrench", title: "Service" %>
             <% end %>
           <% end %>
-          <% if dealer.try(:distance) %>
-            (<%= dealer.distance.to_i %> <%= t('dealer_distance') %>)
-          <% end %>
-          <% if dealer.rental? && dealer.products.present? %>
-            <br/><i>Products available: <%= dealer.products %></i>
+          (<%=dealer.distance_from(@origin).to_i %> <%= t('dealer_distance') %>)
+          <%dealer_rental_products = Dealer.rental_products(website, dealer)%>
+          <% if dealer.rental? && dealer_rental_products.present? %>
+            <span style="font-size:small;">
+              <br/><i>Rentals:</i>
+              <% dealer_rental_products.each_with_index do |product, index| %>
+                <%=link_to product.name, product, target:"_blank"%><%="," unless (dealer_rental_products.count == index+1) %>
+              <% end %>
+            </span>
           <% end %>
           <br/><%=raw dealer.address %>
           <% if dealer.city.present? || dealer.state.present? || dealer.zip.present? %>
@@ -112,24 +119,7 @@ $(document).ready(function() {
 </div>
 
 <% if website.brand.has_online_retailers? %>
-  <br/>
-  <div class="row">
-    <div class="large-12 columns">
-      <h3><%= t('titles.buy_online') %></h3>
-
-      <ul class="large-block-grid-6 small-block-grid-3">
-        <% OnlineRetailer.random(website)[0,24].each do |online_retailer| %>
-          <li>
-            <% if !online_retailer.retailer_logo_file_name.blank? %>
-              <%= link_to(image_tag(online_retailer.retailer_logo(:fixed)), online_retailer.direct_link, target: "_blank")%>
-            <% else %>
-              <%= link_to online_retailer.name, online_retailer.direct_link, target: "_blank" %>
-            <% end %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
+  <%= render_partial 'where_to_find/retailers' %>
 <% end %>
 
 <%= content_for :extra_js do %>

@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://api.geocod.io/v1.6/geocode?api_key=geocodio_api_key&fields=zip4&q=8500%20Balboa%20Blvd.,%20Northridge,%20CA,%2091329,%20United%20States%20of%20America
+    uri: https://api.geocod.io/v1.7/geocode?api_key=geocodio_api_key&fields=zip4&q=8500%20Balboa%20Blvd.,%20Northridge,%20CA,%2091329,%20United%20States%20of%20America
     body:
       encoding: US-ASCII
       string: ''

@@ -1,0 +1,24 @@
+<div class="text-center">
+  <% if product.photo %>
+    <%= link_to image_tag(product.photo.product_attachment.url(:medium), lazy: false), product %>
+  <% end %>
+</div>
+<h5><%= product.name %> Safety Documents</h5>
+
+<table style="width: 100%">
+  <thead>
+    <tr>
+      <td>Name</td>
+      <td>Version</td>
+      <td>Language</td>
+      <td>Size</td>
+      <td>Uploaded</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% (product.safety_documents + product.safety_site_elements).sort_by{|p| p.name.upcase}.each do |f| %>
+      <%= render_partial 'shared/download_table_row', item: f, skip_admin_functions: true %>
+    <% end %>
+  </tbody>
+</table>
+

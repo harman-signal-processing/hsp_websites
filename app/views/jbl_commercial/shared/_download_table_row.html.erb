@@ -1,0 +1,18 @@
+<% if can?(:read, item) %>
+  <li>
+    <% if item.is_a?(SiteElement) || item.is_a?(ProductDocument)%>
+        <%= file_type_icon(item) %>
+        <%= link_to item.name, item %>
+        <%= keys_for(item) %>
+        <% if item.respond_to?(:version) && item.version.present? %><%= "v " + item.version %><% end %>
+
+    <% elsif item.is_a?(Software) %>
+        <%= platform_icon(item, 17) %>
+        <%= link_to item.name, (item.link.present? && item.new_record?) ? item.link : item %>
+        <% if item.respond_to?(:version) && item.version.present? %><%= "v " + item.version %><% end %>
+    <% end %>
+  </li>
+
+<% end %>
+
+

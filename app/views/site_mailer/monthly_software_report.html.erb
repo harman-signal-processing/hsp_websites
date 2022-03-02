@@ -1,0 +1,16 @@
+<p><%= @software_report.software.name %> downloads report:</p>
+
+<p>
+  New downloads
+
+  <% if @software_report.previous_count_on.present? %>
+    (since <%=I18n.l @software_report.previous_count_on, format: :short %>):
+  <% else %>
+    this period:
+  <% end %>
+  <strong><%= @software_report.new_downloads %></strong>
+</p>
+
+<p>------------------------------------------------------------<br/>
+Total downloads: <strong><%= @software_report.software.download_count %></strong></p>
+

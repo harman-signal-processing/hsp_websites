@@ -56,11 +56,17 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
   get "/admin" => "admin#index", as: :admin_root, locale: I18n.default_locale
   get 'sitemap(.:format)' => 'sitemap#index', as: :sitemap, defaults: { format: :xml }
 
+  match "/create_pdf" => "pdfs#create", via: [:get, :post]
+
   # An example of a custom top-level landing page route:
   # match "/switchyourthinking" => "pages#show", custom_route: "switchyourthinking", locale: I18n.default_locale
 
   # These are only needed for site-specific routing (where you don't want a particular URL
   # to work on the other sites)
+
+  constraints(AmxDomain) do
+    match "/create_xml" => "amx_configurators#send_xml_file", via: [:get, :post], defaults: { format: :xml }
+  end
 
   constraints(BssDomain) do
     get '/network-audio' => 'pages#network_audio'
@@ -92,6 +98,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
 
       match "support/amx_itg_new_module_request" => "module_requests#create", as: :amx_itg_new_module_request, via: [:get, :post]
       match "support/amx_itg_new_module_request_upload" => "module_requests#upload", as: :amx_itg_new_module_request_upload, via: [:post]
+      match "tool/dxlink" => "amx_dxlink_tool#index", as: :amx_dxlink_tool, via: [:get, :post]
     end  # constraints(AmxDomain) do
 
     constraints(BssDomain) do
@@ -110,6 +117,9 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
 
     constraints(JblProDomain) do
       get 'vertec-vtx-owners' => "where_to_find#vertec_vtx_owners", as: :vertec_vtx_owners, defaults: { format: :xls }
+      get 'vertec-vtx-owners-signup' => "jbl_vertec_vtx_owners#new", as: :vertec_vtx_owners_signup_form
+      match 'vertec-vtx-owners-signup' => "jbl_vertec_vtx_owners#create", as: :create_vertec_vtx_owners_signup, via: [:post]
+      get 'vertec-vtx-owners-signup/thankyou' => "jbl_vertec_vtx_owners#thankyou", as: :vertec_vtx_owners_signup_thankyou, via: [:get]
     end
 
     devise_for :users, controllers: {
@@ -227,6 +237,12 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :module_requests
       resources :amx_partner_interest_form
 
+      resources :jbl_vertec_vtx_owners do
+        member do
+          get :approve_and_create_dealer
+        end
+      end
+
       resources :systems do
         resources :system_options do
           resources :system_option_values
@@ -263,6 +279,11 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :brand_solution_featured_products, only: :index do
         collection { post :update_order }
       end
+
+      resources :brand_dealer_rental_products do
+        collection { post :update_order }
+      end
+
       resources :specifications do
         member { patch :remove_from_group }
         collection {
@@ -331,9 +352,23 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         }
       end
 
+      resources :amx_dxlink_device_infos, :amx_dxlink_combo_attributes, :amx_dxlink_attribute_names
+      resources :amx_dxlink_combos do
+        resources :amx_dxlink_combo_attributes do
+          collection do
+            post :bulk_update
+          end
+        end
+      end
+      resources :amx_dxlink_attribute_names do
+          collection { post :update_order }
+      end
+
       resources :service_centers,
+        :product_family_customizable_attributes,
         :brand_specification_for_comparisons,
         :market_segment_product_families,
+        :customizable_attribute_values,
         :product_family_case_studies,
         :product_family_testimonials,
         :product_stock_subscriptions,
@@ -345,12 +380,14 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :product_review_products,
         :product_family_products,
         :locale_product_families,
+        :customizable_attributes,
         :product_part_group_part,
         :sales_region_countries,
         :product_introductions,
         :online_retailer_links,
         :online_retailer_users,
         :manufacturer_partners,
+        :product_family_videos,
         :tone_library_patches,
         :software_attachments,
         :product_accessories,
@@ -428,6 +465,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     resources :us_reps, :distributors, only: [:index, :show] do
       collection { get :search }
     end
+    get 'us-reps' => 'us_reps#us_reps_json'
     resources :softwares, only: [:index, :show, :new, :edit] do
       member do
         get :download
@@ -483,6 +521,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :testimonials, only: :index
       member do
         get 'safety-documents'
+        get 'current-products-count', defaults: { format: 'js' }
       end
     end
     resources :testimonials, only: :show
@@ -497,9 +536,12 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         get :bom
         post :bom
         put :preview
+        get :compliance
       end
       collection do
         match :compare, via: :all
+        get :edit_warranty
+        put :update_warranty
       end
       resources :product_attachments, only: :edit
     end
@@ -532,6 +574,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     resources :site_elements, only: [:show, :edit, :new] do
       member { get :new_version }
     end
+    resources :product_specifications, only: :edit
+    resources :leads, only: [:new, :create]
 
     get 'product_selector' => 'product_selector#index', as: :product_selector
     namespace :product_selector do
@@ -575,7 +619,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     match '/support/rma_credit' => 'support#rma', as: :rma_credit_request, message_type: "rma_credit_request", via: :all
     match '/support/contact' => 'support#contact', as: :support_contact, via: :all
     match '/support/service_lookup', to: redirect("#{ENV['PRO_SITE_URL']}/service_centers"), as: :service_lookup, via: :all
-    match '/support/troubleshooting' => 'support#troubleshooting', as: :support_troubleshooting, via: :all
     get '/support/speaker_tunings' => 'support#speaker_tunings', as: :speaker_tunings
     get '/support/cad' => 'support#cad', as: :support_cad
     match '/support/vintage_repair' => 'support#vintage_repair', as: :vintage_repair, via: :all
@@ -586,12 +629,14 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get "support/tech_support" => "support#tech_support"
     get "support/repairs" => "support#repairs"
     get "support/rsos" => "support#rsos"
-    get "support/safety" => "support#safety", as: :safety
+    get "support/compliance" => "support#safety", as: :compliance
+    get "support/safety", to: redirect('support/compliance'), as: :safety
 
     match '/sitemap(.:format)' => 'sitemap#show', as: :locale_sitemap, via: :all, defaults: { format: :xml }
 
     match '/international_distributors' => 'distributors#index', as: :international_distributors, via: :all
     get '/where_to_find/partner_search(/:format)' => 'where_to_find#partner_search', as: :partner_search
+    get '/where_to_find/vertec_vtx_owners_search(/:format)' => 'where_to_find#vertec_vtx_owners_search', as: :vertec_vtx_owners_search
     get '/where_to_find(/:zip)' => 'where_to_find#index', as: :where_to_find
     get '/where_to_buy(/:zip)', to: redirect('where_to_find'), as: :where_to_buy
     get '/enquire(/:zip)' => 'where_to_find#index', as: :enquire
@@ -610,6 +655,20 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get '/case_studies/:slug' => 'case_studies#show', as: :case_study
     get '/case_studies/application/:vertical_market' => 'case_studies#index', as: :case_studies_by_vertical_market
     get '/case_studies/filter/:asset_type/:vertical_market' => 'case_studies#index', as: :case_studies_by_asset_type
+
+    get '/learning-sessions' => 'learning_sessions#index', as: :learning_sessions
+
+    # Custom Shop
+    get 'custom_shop' => 'custom_shop#index', as: :custom_shop
+    namespace :custom_shop do
+      get 'cart' => "custom_shop_carts#show", as: :cart
+      get 'request_submitted' => "custom_shop_price_requests#request_submitted", as: :request_submitted
+      resources :products, only: :show
+      resources :product_families, only: :show
+      resources :custom_shop_price_requests
+      resources :custom_shop_carts
+      resources :custom_shop_line_items
+    end
 
     match "*custom_route" => "pages#show", as: :custom_route, via: :all
   end  # scope "(:locale)", locale: /

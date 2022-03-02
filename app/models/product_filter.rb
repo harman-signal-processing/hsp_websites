@@ -16,7 +16,8 @@ class ProductFilter < ApplicationRecord
     [
       [ "Yes/No", "boolean"],
       [ "Text", "string"],
-      [ "Numeric", "number"],
+      [ "Numeric (slide down)", "number"],
+      [ "Numeric (slide up)", "number_upwards"],
       [ "Range", "range"]
     ]
   end

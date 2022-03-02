@@ -14,7 +14,7 @@ class Testimonial < ApplicationRecord
       title: "86x86",
       tiny: "64x64",
       tiny_square: "64x64#"
-    }, processors: [:thumbnail, :compression] }.merge(S3_STORAGE)
+    }, processors: [:thumbnail, :compression] }
   validates_attachment :banner, content_type: { content_type: /\Aimage/i }
 
   has_attached_file :image, {
@@ -25,7 +25,7 @@ class Testimonial < ApplicationRecord
       title: "86x86",
       tiny: "64x64",
       tiny_square: "64x64#"
-    }, processors: [:thumbnail, :compression] }.merge(S3_STORAGE)
+    }, processors: [:thumbnail, :compression] }
   validates_attachment :image, content_type: { content_type: /\Aimage/i }
 
   has_attached_file :attachment

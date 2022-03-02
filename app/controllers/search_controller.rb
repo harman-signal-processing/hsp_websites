@@ -6,6 +6,8 @@ class SearchController < ApplicationController
   def index
     @page_title = t('titles.search_results')
     @query = params[:query]
+    allowed_punctuation = ["/","-"]
+    @query = sanitize_param_value(@query, allowed_punctuation) if @query.present?
     authorize_query!(@query)
 
     pdf_only_search_results? ? search_pdf_only : search_site_only
@@ -62,7 +64,7 @@ class SearchController < ApplicationController
     @results = ferret_results.select do |r|
       r unless (
           (r.is_a?(Product) && !r.show_on_website?(website)) ||
-          (r.is_a?(Product) && r.product_status.name != "In Production") ||
+          (r.is_a?(Product) && (r.product_status.name != "In Production" && r.product_status.name != "Coming Soon") ) ||
           (r.is_a?(Product) && !r.locales(website).include?(I18n.locale.to_s)) ||
           (r.has_attribute?(:brand_id) && r.brand_id != website.brand_id) ||
           (r.respond_to?(:belongs_to_this_brand?) && !r.belongs_to_this_brand?(website)) ||
@@ -132,8 +134,10 @@ class SearchController < ApplicationController
       @pdf_results = ThunderstoneSearch.find(sanitized_query, thunderstone_search_profile, jump)
       if @pdf_results.blank?
       else
-        @pdf_results_paginated_list = WillPaginate::Collection.create(current_page, per_page, @pdf_results[:Summary][:TotalNum].to_i) do |pager|
-          pager.replace(@pdf_results[:ResultList].to_ary)
+        if @pdf_results[:Summary].present?
+          @pdf_results_paginated_list = WillPaginate::Collection.create(current_page, per_page, @pdf_results[:Summary][:TotalNum].to_i) do |pager|
+            pager.replace(@pdf_results[:ResultList].to_ary)
+          end
         end
       end
     end

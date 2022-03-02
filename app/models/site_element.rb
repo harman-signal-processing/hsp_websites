@@ -13,11 +13,11 @@ class SiteElement < ApplicationRecord
       thumb: "100x100",
       tiny: "64x64",
       tiny_square: "64x64#"
-    }, processors: [:thumbnail, :compression] }.merge(S3_STORAGE)
+    }, processors: [:thumbnail, :compression] }
   do_not_validate_attachment_file_type :resource
   process_in_background :resource
 
-  has_attached_file :executable, S3_STORAGE
+  has_attached_file :executable
   do_not_validate_attachment_file_type :executable
 
   attr_accessor :replaces_element
@@ -115,6 +115,10 @@ class SiteElement < ApplicationRecord
 
   def touch_products
     products.each{|p| p.touch}
+  end
+
+  def current_products
+    products.where(product_status_id: ProductStatus.current_ids)
   end
 
   # If a resource's name or language change, then we have to update the previous
@@ -244,7 +248,7 @@ class SiteElement < ApplicationRecord
       downloads = {}
       ability = Ability.new(user)
       website.site_elements.where(show_on_public_site: true, link_status: ["", nil, "200"]).where("resource_type IS NOT NULL AND resource_type != ''").find_each do |site_element|
-        if ability.can?(:read, site_element)
+        if ability.can?(:read, site_element) && site_element.current_products.size > 0
           downloads = downloads.deep_merge( { site_element.hash_key => site_element.details_hash } )
         end
       end

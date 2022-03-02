@@ -9,13 +9,17 @@
 	} %>
 
 <%= content_for :feature do %>
-  <% slides = Setting.slides(website, limit: 5) %>
-  <% if slides.pluck(:slide_content_type).any? {|c| c.match?(/video/i) } %>
-    <%= render_partial 'shared/video_banner' %>
+  <% if website.homepage_feature_override.present? %>
+    <%= raw website.homepage_feature_override %>
   <% else %>
-    <%= cache ["slideshow", website.brand, I18n.locale] do %>
-      <% if slides.size > 0 %>
-        <%= orbit_slideshow(slides: slides, duration: 6000, navigation_arrows: false, transition: "fade") %>
+    <% slides = Setting.slides(website, limit: 5) %>
+    <% if slides.pluck(:slide_content_type).any? {|c| c.match?(/video/i) } %>
+      <%= render_partial 'shared/video_banner' %>
+    <% else %>
+      <%= cache ["slideshow", website.brand, I18n.locale] do %>
+        <% if slides.size > 0 %>
+          <%= orbit_slideshow(slides: slides, duration: 6000, navigation_arrows: false, transition: "fade") %>
+        <% end %>
       <% end %>
     <% end %>
   <% end %>

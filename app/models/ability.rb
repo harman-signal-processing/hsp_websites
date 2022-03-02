@@ -19,7 +19,9 @@ class Ability
       technician: false,
       super_technician: false,
       rso: false,
-      vip_programmers_admin: false
+      vip_programmers_admin: false,
+      customer: false,
+      custom_shop_admin: false
     })
     # The first argument to `can` is the action you are giving the user permission to do.
     # If you pass :manage it will apply to every action. Other common actions here are
@@ -38,6 +40,7 @@ class Ability
       can :manage, :all
       can :mangle, Product # only super admins can add video/flash to the product page viewer
       can :disable, OnlineRetailer
+      can :manage_warranty_of, Product
     else
       # can :read, :all
       can :read, Software
@@ -62,19 +65,25 @@ class Ability
         can :manage, SiteElement
         can :manage, Part
         can :manage, ProductPart
+        can :manage_warranty_of, Product
       end
       if user.role?(:marketing_staff)
+        can :manage, ProductFamily
         can :manage, Product
         can :manage, ProductSpecification
         can :manage, ProductAttachment
         can :manage, ProductDocument
         can :manage, SiteElement
+        can :manage, ProductSoftware
         can :manage, Software
         can :manage, Promotion
         can :manage, SupportSubject
         can :manage, News
         can :read, ContactMessage
         can :read, Stats
+        can :manage, Specification
+        can :manage, SpecificationGroup
+        can :manage_warranty_of, Product
       end
       if user.role?(:sales_admin)
         can :read, Product
@@ -89,6 +98,31 @@ class Ability
         can :read, ContactMessage
         can :manage, LabelSheet
         can :manage, LabelSheetOrder
+      end
+      if user.role?(:customer)
+        can :create, CustomShopPriceRequest
+        can :read, CustomShopPriceRequest, user_id: user.id
+        cannot :quote, CustomShopPriceRequest
+        can :create, CustomShopLineItem
+        can :manage, CustomShopLineItem do |csli|
+          csli.custom_shop_price_request.present? && csli.custom_shop_price_request.user_id == user.id
+        end
+        can :create, CustomShopLineItemAttribute
+        can :manage, CustomShopLineItemAttribute do |cslia|
+          cslia.custom_shop_line_item.present? &&
+            cslia.custom_shop_line_item.custom_shop_price_request.present? &&
+            cslia.custom_shop_line_item.custom_shop_price_request.user_id == user.id
+        end
+        can :create, CustomShopCart
+      end
+      if user.role?(:custom_shop_admin)
+        can :manage, CustomShopPriceRequest
+        can :manage, CustomShopLineItem
+        can :manage, CustomShopLineItemAttribute
+        can :manage, CustomizableAttribute
+        can :manage, CustomizableAttributeValue
+        can :manage, ProductFamilyCustomizableAttribute
+        can :quote, CustomShopPriceRequest
       end
       if user.role?(:engineer)
         can :manage, Software
@@ -182,6 +216,7 @@ class Ability
         can :manage, DownloadRegistration
         can :manage, Part
         can :manage, ProductPart
+        can :manage_warranty_of, Product
       end
       if user.role?(:rohs)
         can :read, Product
@@ -230,7 +265,16 @@ class Ability
         can :manage, Vip::Website
         can :manage, AmxItgNewModuleRequest
         can :manage, Page, custom_route: ["amx-partners-program","amx-partners-program-updates"]
+        can :manage, AmxDxlinkDeviceInfo
+        can :manage, AmxDxlinkCombo
+        can :manage, AmxDxlinkComboAttribute
+        can :manage, AmxDxlinkAttributeName
       end  #  if user.role?(:vip_programmers_admin)
+      if user.role?(:jbl_vertec_vtx_owner_approver)
+        can :manage, JblVertecVtxOwner
+        can :manage, Dealer
+        can :manage, BrandDealerRentalProduct
+      end
     end
   end
 end

@@ -4,7 +4,7 @@
          keywords: @news.keywords %>
 <h3><%= title @news.title %></h3>
 	<span class="little"><%= link_to(news_url(@news, locale: I18n.locale), news_url(@news, locale: I18n.locale)) %>
-	<%= link_to(image_tag("icons/external_link_icon.png"), news_url(@news, locale: I18n.locale)) %></span>
+	<%= link_to(image_tag("icons/external_link_icon.png", lazy: false), news_url(@news, locale: I18n.locale)) %></span>
 <br/>
 <br/>
 <ul class="button-group round">
@@ -51,7 +51,7 @@
           <div class="row">
             <div class="small-6 columns">
               <%= link_to @news.news_photo.url do %>
-                <%= image_tag(@news.news_photo.url(:medium)) %>
+                <%= image_tag(@news.news_photo.url(:medium), lazy: false) %>
               <% end %>
             </div>
             <div class="small-6 columns">
@@ -91,7 +91,7 @@
         <% @news.news_images.each do |news_image| %>
           <li>
             <%= link_to [:admin, @news, news_image], data: { :"reveal-id" => "news_image_#{news_image.id}" } do %>
-              <%= image_tag news_image.image.url(:small_square) %>
+              <%= image_tag news_image.image.url(:small_square), lazy: false %>
             <% end %>
           </li>
         <% end %>
@@ -105,7 +105,7 @@
         <div class="row">
           <div class="medium-5 small-5 columns">
             <%= link_to image_tag(news_image.image.url) do %>
-              <%= image_tag(news_image.image.url(:medium)) %>
+              <%= image_tag(news_image.image.url(:medium), lazy: false) %>
             <% end %>
           </div>
           <div class="medium-6 small-6 columns end">

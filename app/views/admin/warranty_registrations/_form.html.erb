@@ -4,8 +4,8 @@
       <h2><%= pluralize(@warranty_registration.errors.size, "error") %> prohibited this warranty_registration from being saved:</h2>
 
       <ul>
-      <% @warranty_registration.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+      <% @warranty_registration.errors.each do |error| %>
+        <li><%= error.attribute %>: <%= error.message %></li>
       <% end %>
       </ul>
     </div>

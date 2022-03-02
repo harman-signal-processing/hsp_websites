@@ -1,0 +1,131 @@
+<div id="edit-content" class="popup-form">
+  <div class="row">
+    <div class="small-8 columns">
+      <h5>Product Family Content</h5>
+    </div>
+    <div class="small-4 columns text-right">
+      <%= link_to @product, class: "cancel-edit" do %>
+        <%= fa_icon "close" %>
+      <% end %>
+    </div>
+  </div>
+
+  <%= simple_form_for [:admin, @product_family] do |f| %>
+    <input type="hidden" name="return_to" value="<%= product_family_path(@product_family) %>">
+
+    <div class="row">
+      <div class="small-12 medium-6 columns">
+        <%= f.input :name, hint: "WARNING: Changing the name will change the corresponding URL" %>
+      </div>
+      <div class="small-12 medium-6 columns">
+        <%= f.association :parent,
+          label: "Parent Product Family",
+          hint: website.brand.name.match?(/martin/i) ?
+            "Leave blank to place this family under the \"Product Types\" category." :
+            "Leave blank for top-level families",
+          collection: ProductFamily.where(brand_id: website.brand_id).
+            where("parent_id IS NULL OR parent_id <> ?", @product_family.id).
+            where.not(id: @product_family.id).
+            order("name")
+        %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 columns">
+        <%= f.input :before_product_content, input_html: { class: "mceEditor" } %><br/>
+      </div>
+    </div>
+
+    <div class="panel">
+      <p><strong>Products</strong></p>
+      <p>Add/remove products from this family by selecting them in the options below.
+      Deleting a product only removes that product from the family--it does not delete
+      the product from the site. A product family with only one active product will
+      automatically route the user to that product in most cases.</p>
+      <div class="row">
+        <div class="small-1 columns text-center"><%= fa_icon "list" %></div>
+        <div class="small-10 columns">Product</div>
+        <div class="small-1 columns text-center"><%= fa_icon "trash" %></div>
+      </div>
+      <%= f.simple_fields_for :product_family_products do |pfp| %>
+        <% next if !pfp.object.new_record? && !pfp.object.product.in_production? %>
+        <div class="row">
+          <div class="small-1 columns">
+            <%= pfp.input :position, as: :string, label: false %>
+          </div>
+          <div class="small-10 columns">
+            <%= pfp.association :product,
+              label: false,
+              collection: Product.where(brand_id: website.brand_id, product_status_id: ProductStatus.current_ids).
+                order("name") %>
+          </div>
+          <div class="small-1 columns text-center">
+            <% unless pfp.object.new_record? %>
+              <%= pfp.input :_destroy, as: :boolean, label: false %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <%= f.input :accessories_content, as: :text, input_html: { class: "mceEditor" } %><br/>
+
+    <div class="panel">
+      <p><strong>Videos</strong></p>
+      <p>Videos are managed only by their YouTube ID. Provide the YouTube Video ID or
+      YouTube Playlist ID. Check the box next to any video to be deleted upon submitting
+      the form.</p>
+      <div class="row">
+        <div class="small-1 columns text-center"><%= fa_icon "list" %></div>
+        <div class="small-8 columns">YouTube ID</div>
+        <div class="small-2 columns text-center">
+          <% if @product_family.videos_content_present? %>
+            View <%= fa_icon "external-link" %>
+          <% end %>
+        </div>
+        <div class="small-1 columns text-center"><%= fa_icon "trash" %></div>
+      </div>
+      <%= f.simple_fields_for :product_family_videos do |pv| %>
+        <div class="row">
+          <div class="small-1 columns">
+            <%= pv.input :position, as: :string, label: false %>
+          </div>
+          <% if pv.object.new_record? %>
+            <div class="small-10 columns">
+              <%= pv.input :youtube_id, label: false %>
+            </div>
+          <% else %>
+            <div class="small-8 columns">
+              <%= pv.input :youtube_id, label: false %>
+            </div>
+            <div class="small-2 columns">
+              <%= link_to "https://youtube.com/watch?v=#{ pv.object.youtube_id }", target: "_blank" do %>
+                <%= image_tag "https://img.youtube.com/vi/#{ pv.object.youtube_id }/sddefault.jpg",
+                  alt: "Video #{pv.object.youtube_id}" %>
+              <% end %>
+            </div>
+          <% end %>
+          <div class="small-1 columns text-center">
+            <% unless pv.object.new_record? %>
+              <%= pv.input :_destroy, as: :boolean, label: false %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <div class="row">
+        <div class="small-11 columns small-offset-1">
+          <div class="hint">
+            Only provide the ID from the YouTube URL. Example: https://youtube.com/watch?v=<span style="background-color: Moccasin"><strong>ABCDEFG</strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%= f.input :post_content, label: "Bottom Content", as: :text, input_html: { class: "mceEditor" } %>
+
+    <br/>
+    <%= f.submit "Save Changes", class: "small button" %>
+  <% end %>
+</div>
+

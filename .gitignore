@@ -5,6 +5,7 @@ system/
 public/system
 public/assets
 db/sphinx/
+app/views/dynamic
 tags
 app/assets/images/development/
 app/assets/images/staging/

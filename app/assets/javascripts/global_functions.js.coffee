@@ -35,10 +35,9 @@ jQuery ($) ->
     $(column).html("<img src='#{column.data("loading")}' style='padding: 20px'>")
 
   $("a.safety-panel-link").click (e) ->
-    e.preventDefault()
     $("div.safety-panel-instructions").hide()
-    $("div.safety-panel").hide()
-    $("div##{ $(@).data('panel') }").show()
+    $("#safety-content").html(' ')
+    $(".spinner").show()
 
   if jQuery.fn.slick
     $('.reviews-slider').slick
@@ -46,7 +45,7 @@ jQuery ($) ->
       slidesToShow: 1
       slidesToScroll: 1
       autoplay: true
-      autoplaySpeed: 4000
+      autoplaySpeed: 10000
       responsive: [
         {
           breakpoint: 640
@@ -73,6 +72,9 @@ jQuery ($) ->
 
   # hide the text field with the date (don't use a hidden field so we can test the form)
   # $("form#new_warranty_registration #warranty_registration_puchased_on").hide()
+
+  $('input#site_element_external_url').on 'input', ->
+    $('.disabled_button').prop('disabled', false)
 
   $('a[data-newwindow="true"]').click (e) ->
     e.preventDefault()

@@ -1,0 +1,18 @@
+  <br/>
+  <div class="row">
+    <div class="large-12 columns">
+      <h3><%= t('titles.buy_online') %></h3>
+
+      <ul class="large-block-grid-6 small-block-grid-3">
+        <% OnlineRetailer.brand_online_retailers(website).each do |online_retailer| %>
+          <li>
+            <% if !online_retailer.retailer_logo_file_name.blank? %>
+              <%= link_to(image_tag(online_retailer.retailer_logo(:fixed)), online_retailer.direct_link, target: "_blank")%>
+            <% else %>
+              <%= link_to online_retailer.name, online_retailer.direct_link, target: "_blank" %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>

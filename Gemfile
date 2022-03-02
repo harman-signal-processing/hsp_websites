@@ -1,12 +1,12 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
-gem 'rails', '~> 6.0'
-#gem 'webpacker'
-gem 'actionpack-action_caching'
+gem 'rails', '~> 6.1'
+# Github has rails 6.1 support
+gem 'actionpack-action_caching', git: 'https://github.com/rails/actionpack-action_caching'
 gem 'responders'
 gem 'bootsnap', require: false
 gem 'sprockets'
-gem 'sprockets-rails'
+gem 'sprockets-rails', '< 3.3' # 3.3 broke asset-url compilation with asset host. Try a newer version later.
 gem 'sass-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails'
@@ -22,13 +22,12 @@ gem 'mysql2'
 gem 'utf8-cleaner'
 gem 'friendly_id', '>= 5.2'
 gem 'aws-sdk-s3'
-gem 'fog-core', '< 2.1.1' # fog-rackspace isn't working with fog-core after 2.1.0
-gem 'fog-rackspace'
+gem 'fog-core'
 gem 'fog-aws'
 gem 'asset_sync'
-gem "paperclip"
-gem 'paperclip-meta'
-gem 'paperclip-compression', '~> 1.0'
+gem "kt-paperclip", ">= 7.0"
+gem 'kt-paperclip-compression'
+gem 'kt-delayed_paperclip'
 gem 's3_direct_upload'
 gem 'meta-tags'
 gem 'tinymce-rails',
@@ -37,7 +36,7 @@ gem 'tinymce-rails',
 gem 'mechanize'
 gem 'geokit', '>= 1.8.5'
 gem 'geokit-rails'
-gem 'thinking-sphinx', '~> 4.0'
+gem 'thinking-sphinx'
 gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'httparty'
@@ -48,7 +47,7 @@ gem "recaptcha", require: "recaptcha/rails"
 gem 'to_xls-rails'
 gem 'acts_as_list'
 gem 'acts_as_tree'
-gem 'acts-as-taggable-on', '~> 6.0'
+gem 'acts-as-taggable-on'
 gem 'dynamic_form'
 gem 'rails_autolink'
 gem 'swf_fu', '>=1.3.4', require: 'swf_fu'
@@ -67,14 +66,13 @@ gem 'money-rails', ">= 1.9.0" # 2017-12-01
 gem 'will_paginate'
 gem 'will_paginate_infinite',
   git: 'https://github.com/adamtao/will_paginate_infinite.git',
-  ref: 'acd94832693989e03e239095e6071668c34a7ff4'
+  branch: 'master'
+
 gem "possessive"
 gem 'RedCloth'
 gem 'figaro'
-gem 'delayed_paperclip'
 gem 'goacoustic'
 gem 'oauth2'
-gem 'rmagick', "< 3.0", require: 'rmagick' #v3+ requires ImageMagick >= 6.8
 gem 'typhoeus' # For link validator
 gem 'slick_rails' # slick carousel
 gem 'mailgun_rails' # mailer service
@@ -85,6 +83,7 @@ gem 'slack-notifier'
 gem 'google-api-client', '~> 0.36'
 gem 'adyen-ruby-api-library'
 gem 'geocodio', git: "https://github.com/adamtao/geocodio", branch: "zip4"
+gem 'wicked_pdf'
 
 group :production, :staging do
   gem 'passenger_monit'
@@ -108,7 +107,9 @@ group :development do
   gem 'rb-inotify', :require=>false
   gem 'sshkit'
   gem 'colorize'
-  #gem 'rorvswild'
+  gem 'rorvswild'
+  gem 'marginalia'
+  gem 'active_record_query_trace'
 end
 
 group :development, :test do

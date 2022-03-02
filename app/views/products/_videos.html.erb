@@ -1,24 +1,8 @@
 <%= cache ["product_videos", product] do %>
 
   <% product.product_videos.each do |pv| %>
-    <% begin %>
-    <% is_playlist = pv.youtube_id.start_with?('PL') %>
-
-      <% if is_playlist %>
-        <div class="flex-video widescreen">
-          <p>&nbsp;</p>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=<%= pv.youtube_id %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-      <% else %>
-        <div class="flex-video widescreen">
-          <p>&nbsp;</p>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= pv.youtube_id %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-      <% end %>
-
-      <p>&nbsp;</p>
-    <% rescue %>
-      <!-- problem loading <%= pv.youtube_id %> -->
+    <% if pv.valid? %>
+      <%= render_partial "shared/embedded_video", video: pv %>
     <% end %>
   <% end %>
 

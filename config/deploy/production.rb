@@ -7,7 +7,7 @@
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
-server "rackspace2020",  user: 'brandsites', roles: %w{web app background}
+server "rackspace2020",  user: 'brandsites', roles: %w{web app background}, primary: true
 server "rackspace2021",  user: 'brandsites', roles: %w{web app db background}, primary: true
 
 # role-based syntax
@@ -22,7 +22,7 @@ server "rackspace2021",  user: 'brandsites', roles: %w{web app db background}, p
 # role :web, %w{user1@primary.com user2@additional.com}, other_property: :other_value
 # role :db,  %w{deploy@example.com}
 
-
+set :delayed_job_queues, ['brandsites', 'paperclip']
 
 # Configuration
 # =============

@@ -1,28 +1,30 @@
-<% called_from ||= 'product' %>
-<li id="online_retailer_link_<%= orl.id %>">
-	<% if !!(orl.link_status.match(/^3/)) %>
-		<span style="background: #EDCA00; font-weight: bold; padding: 2px 5px; color: white">!</span>
-	<% elsif !(orl.link_status.match(/^2/)) %>
-		<span style="background: #F00; font-weight: bold; padding: 2px 5px; color: white">!</span>
-	<% end %>
-	<%= (called_from == 'product') ? 
-			link_to(orl.online_retailer.name, [:admin, orl.online_retailer]) : 
-			link_to(orl.product.name, edit_admin_online_retailer_link_path(orl)) %>
-	<span class="little">
-	<%= link_to(image_tag("icons/external_link_icon.png"), orl.url, target: "_blank") %>
-	<%= link_to(image_tag("icons/trash.gif", lazy: false), 
-			admin_online_retailer_link_path(orl), 
-			remote: true,
-			confirm: "Are you sure?", 
-			method: :delete) %>
-		<% if !!(orl.link_status.match(/^3/)) %>
-			<span style="background: #EDCA00; padding: 2px 5px; color: white;">redirected</span>
-		<% elsif !!(orl.link_status.match(/^4/)) %>
-			<span style="background: #F00; padding: 2px 5px; color: white">not found</span>
-		<% elsif !!(orl.link_status.match(/^5/)) %>
-			<span style="background: #F00; padding: 2px 5px; color: white">site error</span>
-		<% elsif !(orl.link_status.match(/^2/)) %>
-			<span style="background: #F00; padding: 2px 5px; color: white">unknown error</span>
-		<% end %>
-	</span>
-</li>
+<% unless orl.new_record? %>
+  <% called_from ||= 'product' %>
+  <li id="online_retailer_link_<%= orl.id %>">
+    <% if !!(orl.link_status.match(/^3/)) %>
+      <span style="background: #EDCA00; font-weight: bold; padding: 2px 5px; color: white">!</span>
+    <% elsif !(orl.link_status.match(/^2/)) %>
+      <span style="background: #F00; font-weight: bold; padding: 2px 5px; color: white">!</span>
+    <% end %>
+    <%= (called_from == 'product') ?
+        link_to(orl.online_retailer.name, [:admin, orl.online_retailer]) :
+        link_to(orl.product.name, edit_admin_online_retailer_link_path(orl)) %>
+    <span class="little">
+    <%= link_to(image_tag("icons/external_link_icon.png"), orl.url, target: "_blank") %>
+    <%= link_to(image_tag("icons/trash.gif", lazy: false),
+        admin_online_retailer_link_path(orl),
+        remote: true,
+        confirm: "Are you sure?",
+        method: :delete) %>
+      <% if !!(orl.link_status.match(/^3/)) %>
+        <span style="background: #EDCA00; padding: 2px 5px; color: white;">redirected</span>
+      <% elsif !!(orl.link_status.match(/^4/)) %>
+        <span style="background: #F00; padding: 2px 5px; color: white">not found</span>
+      <% elsif !!(orl.link_status.match(/^5/)) %>
+        <span style="background: #F00; padding: 2px 5px; color: white">site error</span>
+      <% elsif !(orl.link_status.match(/^2/)) %>
+        <span style="background: #F00; padding: 2px 5px; color: white">unknown error</span>
+      <% end %>
+    </span>
+  </li>
+<% end %>

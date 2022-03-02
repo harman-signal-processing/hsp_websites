@@ -6,7 +6,6 @@
       <div class="small-12 medium-3 large-3 columns">
     	<div align="center" class="footer-links">
          <h4>SOUNDCRAFT BY HARMAN</h4>
-         <%= link_to "New HARMAN Products", new_products_path, target: "_blank" %><br/>
           <% if website.email_signup_url %>
             <%= link_to t('news_signup').titleize, website.email_signup_url %><br/>
           <% end %>
@@ -29,7 +28,7 @@
             <%= link_to t("forum").titleize, website.forum_link %><br/>
           <% end %>
           <%= link_to t('warranty').titleize, warranty_path %><br/>
-          <%= link_to "SDA", "/sda" %>
+          <%#= link_to "SDA", "/sda" %>
         </div>
 	    </div>
 	    <div class="small-12 medium-3 large-3 columns">

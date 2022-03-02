@@ -1,0 +1,37 @@
+<% if product.customizable_attributes.size > 0 %>
+  <li>
+    <div id="<%= product.to_param %>" class="small_product_box">
+      <div class="product_thumb" data-equalizer-watch="product_thumbs">
+        <% if product.photo %>
+           <%= link_to product do %>
+             <%= image_tag(product.photo.product_attachment.url(:medium), lazy: product_photo_is_png?(product)) %>
+           <% end %>
+        <% end %>
+      </div>
+      <h3 class="text-center">
+        <%= link_to product do %>
+          <%= translate_content(product, :name) %>
+        <% end %>
+      </h3>
+      <div class="product_description">
+        <%= translate_content(product, :short_description) %>
+        <br/>
+        <% product.customizable_attributes.each do |customizable_attribute| %>
+          <% if customizable_attribute.options_for_product(product).length == 1 %>
+            <h4 class="text-center">
+              <%= customizable_attribute.name %>:
+              <%= customizable_attribute.options_for_product(product).first.value %>
+            </h4>
+          <% end %>
+        <% end %>
+        <br/>
+        <div class="text-center">
+          <%= link_to [:custom_shop, product], class: "small button" do %>
+            Customize <%= translate_content(product, :name) %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </li>
+<% end %>
+

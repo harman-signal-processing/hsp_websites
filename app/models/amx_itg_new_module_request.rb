@@ -5,7 +5,7 @@ class AmxItgNewModuleRequest < ApplicationRecord
 	validate :must_have_a_control_method
 	validate :must_have_amx_controller_type
 
-  has_attached_file :attachment, S3_STORAGE
+  has_attached_file :attachment
   do_not_validate_attachment_file_type :attachment
 	
   before_save :set_upload_attributes

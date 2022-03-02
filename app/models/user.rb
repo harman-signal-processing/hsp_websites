@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :sales_orders
   has_many :product_keys
   has_many :addresses, as: :addressable, dependent: :destroy
+  has_many :custom_shop_price_requests
 
   has_attached_file :profile_pic,
     styles: {
@@ -80,6 +81,8 @@ class User < ApplicationRecord
     media
     vip_programmers_admin
     customer
+    custom_shop_admin
+    jbl_vertec_vtx_owner_approver
   ]
 
   def self.staff
@@ -110,7 +113,7 @@ class User < ApplicationRecord
 
   def self.new_with_session(params, session)
     new(params) do |user|
-      user.customer = true if session[:shopping_cart_id]
+      user.customer = true if session[:shopping_cart_id] || session[:custom_shop_cart_id]
     end
   end
 
@@ -132,6 +135,10 @@ class User < ApplicationRecord
 
   def role?(role)
     roles.include? role.to_s
+  end
+
+  def end_user_only?
+    roles.empty? || roles == ["customer"]
   end
 
   def employee?
@@ -170,11 +177,16 @@ class User < ApplicationRecord
     role?(:vip_programmers_admin)
   end
 
+  def custom_shop_admin?
+    role?(:custom_shop_admin)
+  end
+
   def needs_account_number?
     self.dealer? || self.distributor? || self.rep?
   end
 
   def needs_invitation_code?
+    #self.rso? || self.employee? || self.media? || self.technician?
     !!!self.account_number.present? && self.roles != ["customer"]
   end
 

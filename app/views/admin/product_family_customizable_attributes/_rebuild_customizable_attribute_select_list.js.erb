@@ -1,0 +1,16 @@
+(function(){
+	var $customizable_attributes_dropdown = $('#product_family_customizable_attribute_customizable_attribute_id');
+
+	// clear the product list before we rebuild it
+	$customizable_attributes_dropdown.empty();
+
+	// rebuild product dropdown list
+	$customizable_attributes_dropdown.append($("<option></option>"));
+
+	<% CustomizableAttribute.not_associated_with_this_product_family(@product_family_customizable_attribute.product_family).sort_by(&:name).each do |customizable_attribute| %>
+		$customizable_attributes_dropdown.append($("<option value='<%=customizable_attribute.id%>'><%=h customizable_attribute.name%></option>"));
+	<% end %>
+
+	// let chosen know the product dropdown list has been updated
+	$customizable_attributes_dropdown.trigger('chosen:updated');
+})();

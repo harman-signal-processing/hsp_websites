@@ -43,7 +43,7 @@ module MainHelper
       begin
         Youtube.new(youtube_user).get_videos(limit: 4).each do |video|
           vids << content_tag(:li, class: 'video-thumbnail') do
-            link_to(image_tag(video[:thumbnail], width: 320, height: 180) + play_button, play_video_url(video[:id]), target: "_blank",
+            link_to(image_tag(video[:thumbnail], alt: 'play video', width: 320, height: 180) + play_button, play_video_url(video[:id]), target: "_blank",
                     data: { videoid: video[:id] }, class: 'videothumbnail start-video') +
             content_tag(:p, video[:title], class: 'video_title')
           end
@@ -61,7 +61,7 @@ module MainHelper
     begin
       content = ""
       website.products.where("background_image_file_name IS NOT NULL").each do |product|
-  		  content += image_tag(product.background_image.url("original", false), height: 0, width: 0, lazy: false)
+        content += image_tag(product.background_image.url("original", false), alt: product.name, height: 0, width: 0, lazy: false)
   	  end
   	  content.html_safe
 	  rescue
@@ -92,10 +92,8 @@ module MainHelper
       child_links = []
       product_links = []
 
-      relevant_children = product_family.children_with_current_products(website, locale: I18n.locale)
-      #options[:depth] += 1 if relevant_children.size > 0
-
       if options[:depth] > 1
+        relevant_children = product_family.children_with_current_products(website, locale: I18n.locale)
         child_links = relevant_children.map do |sub_family|
           product_family_nav_links(sub_family, options)
         end

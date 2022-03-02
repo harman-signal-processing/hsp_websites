@@ -1,0 +1,89 @@
+<div class="row" style="width:80%; margin-left:auto; margin-right:auto;">
+  <h3>DXLink Compatibility Tool</h3>
+  <p>The DXLink product line has grown over the years to include a
+  variety of transmitters, receivers, and compatible switches. Though pairing 
+  products of the same generation and model family is recommended as they have 
+  been engineered to work together seamlessly, other combinations can be used as well.</p>
+  
+  <p>Select any combination of DXLink or DXLite transmitter and receiver below to see the compatible features of those devices.</p>
+</div><!-- <div class="row">  -->
+
+<div class="row" style="width:60%; margin-left:auto; margin-right:auto;">
+    <div class="medium-6 columns">
+      <h3>Transmitter:</h3>
+      <select id="select_tx" onchange="location = this.options[this.selectedIndex].value;">
+        <option value="<%=amx_dxlink_tool_path(request.query_parameters.merge({tx: 'none'}))%>">---Select Transmitter---</option>
+        <%AmxDxlinkDeviceInfo.where("type_short_name = 'tx'").pluck(:id,:model).each do |item|%>
+          <option value="<%=amx_dxlink_tool_path(request.query_parameters.merge({tx: item[1]}))%>" <%="#{'selected' if @tx.present? and @tx.model == item[1] }"%>><%=item[1]%></option>
+        <% end %>
+      </select>
+      </div>
+    <div class="medium-6 columns">
+      <h3>Receiver:</h3>
+      <select id="select_rx" onchange="location = this.options[this.selectedIndex].value;">
+        <option value="<%=amx_dxlink_tool_path(request.query_parameters.merge({rx: 'none'}))%>">---Select Receiver---</option>
+        <%AmxDxlinkDeviceInfo.where("type_short_name = 'rx'").pluck(:id,:model).each do |item|%>
+          <option value="<%=amx_dxlink_tool_path(request.query_parameters.merge({rx: item[1]}))%>" <%="#{'selected' if @rx.present? and @rx.model == item[1] }"%>><%=item[1]%></option>
+        <% end %>
+      </select>
+    </div>
+</div><!-- <div class="row" style="width:60%; margin-left:auto; margin-right:auto;">  -->
+
+<div class="row" style="width:60%; margin-left:auto; margin-right:auto;">
+  <div class="medium-12 columns">
+    <% if @combo.present? %>
+      <% if @combo.recommended %>
+        <div style="text-align:center;margin-bottom:2rem;"><%= fa_icon "thumbs-up" %> Recommended Pairing</div>
+      <% end %>
+
+      <%= render "amx/tool/dxlink/products_row_with_combo", combo: @combo %>
+
+      <!-- combo attributes -->
+      <% if @combo.combo_attributes.count > 0%>
+        <table class="data" width="100%" style="background-color:aliceblue;">
+          <tr><th colspan=2 style="background-color:rgb(11,64,106);font-weight:400;text-shadow:none;">Feature Compatibility:</th></tr>
+          <% @combo.combo_attributes.each do |item|%>
+            <% if item.value.present? %>
+              <tr>
+                <% if !(["TX > RX Warning", "Footnote 1","Footnote 2"].include?item.amx_dxlink_attribute_name.name) %>
+                  <td width="30%">
+                    <%= item.amx_dxlink_attribute_name.name%>:
+                    <% if item.amx_dxlink_attribute_name.note.present? %>
+                    <span data-tooltip aria-haspopup="true" class="has-tip" title="<%=item.amx_dxlink_attribute_name.note%>"><i class="fa fa-question-circle-o"></i></span>
+                    <% end %>
+                  </td>
+                  <td><%= item.value %></td>
+                <% elsif (["TX > RX Warning"].include?item.amx_dxlink_attribute_name.name and item.value == "Yes") %>
+                  <td colspan=2><%=website.value_for("amx_dxlink_tx_rx_warning")%></td>
+                <% end %>
+              </tr>
+            <% end %>
+          <% end %>
+        </table>
+      <% else %>
+        <table class="data" width="100%">
+          <tr><td>Compatibility data not available.</td></tr>
+        </table>
+      <% end %>
+    <% else %>
+
+      <% if @tx.present? and @rx.present?%>
+        <div style="text-align:center;color:red;"><strong><%=@tx.model%></strong> and <strong><%=@rx.model%></strong> are not compatible.</div>
+        <%= render "amx/tool/dxlink/non_compatible_products_row", tx: @tx, rx: @rx %>
+      <% end %>
+
+      <% if @tx.nil? or @rx.nil? %>
+        <%= render "amx/tool/dxlink/products_row", tx: @tx, rx: @rx %>
+      <% end %>
+
+    <% end %>
+
+  </div><!-- <div class="medium-12 columns">  -->
+</div><!-- <div class="row"> -->
+
+<div class="row" style="width:60%; margin-left:auto; margin-right:auto;">
+  <div class="medium-12 columns">
+    Note: Listed features are general compatibility guidelines.
+    Review the specifications for each device for detailed resolution and feature support information.
+  </div>
+</div>

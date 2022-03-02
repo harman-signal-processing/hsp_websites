@@ -9,6 +9,7 @@
   <%= f.input :retailer_logo, hint: "Will be auto-sized to 125x75 pixels." %>
     <% unless f.object.retailer_logo_file_name.blank? %>
     <span class="hint">Leave blank to keep current image.</span>
+    <p><%= image_tag(@online_retailer.retailer_logo(:fixed), lazy: false)%></p>
     <% end %>
 
   <% if can? :disable, f.object %>
@@ -18,6 +19,11 @@
       </div>
     </div>
     <%= f.input :active, label: "Active. (warning, this will affect all brand sites on this platform)" %><br/>
+    <div class="row">
+      <div class="large-4 columns">
+        <%= f.input :brand_sort_order, label: "Sort order for Where to Buy page" %>
+      </div>
+    </div>
   <% end %>
 
   <%= f.input :brand_link, hint: "The link which shows all of the #{ website.brand_name } products." %>

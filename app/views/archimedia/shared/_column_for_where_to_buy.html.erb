@@ -5,7 +5,7 @@
 <p><i>or, <%= t('find_a_dealer_near_you') %>...</i></p>
 
 <h4>U.S. Dealer Search</h4>
-<%= form_tag where_to_find_path %>
+<%= form_tag partner_search_path, method: :get %>
 	<p><%= t("us_zip_code").gsub!(/US/, "") -%></p>
 	<p><%= text_field_tag "zip", session[:zip], size: 16 %></p>
 	<p><%= submit_tag t('find_us_dealers') %></p>

@@ -51,7 +51,7 @@ class LabelSheetOrder < ApplicationRecord
 
   def has_label_sheets
     if self.label_sheet_ids.blank?
-      errors[:base] << "You must select at least one label sheet"
+      errors.add(:label_sheet, "You must select at least one label sheet")
     end
   end
 

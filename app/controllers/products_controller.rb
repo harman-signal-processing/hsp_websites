@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   before_action :set_locale
-  before_action :ensure_best_url, only: [:show, :buy_it_now, :preview, :introducing, :photometric, :bom]
+  before_action :ensure_best_url, only: [:show, :buy_it_now, :preview, :introducing, :photometric, :bom, :compliance]
+  before_action :verify_warranty_admin_ability, only: [:edit_warranty, :update_warranty]
 
   # GET /products
   # GET /products.xml
@@ -62,6 +63,11 @@ class ProductsController < ApplicationController
     @active_tab = params[:tab] || 'description'
 
     @promo = @product.first_promo_with_price_adjustment
+
+    if can?(:manage, @product)
+      3.times { @product.product_videos.build }
+      3.times { @product.product_case_studies.build }
+    end
 
     respond_to do |format|
       format.html {
@@ -185,8 +191,8 @@ class ProductsController < ApplicationController
     end
     if @products.size <= 1
       redirect_to product_families_path, alert: "Must select 2 or more products to compare. #{params[:product_ids]}"
-    elsif @products.size > 4
-      redirect_to product_families_path, alert: "Select no more than 4 products to compare."
+    elsif @products.size > 6
+      redirect_to product_families_path, alert: "Select no more than 6 products to compare."
     else
       spec_ids = @products.collect{|p| p.product_specifications.collect{|ps| ps.specification_id}}.flatten.uniq
       product_specs = Specification.where(id: spec_ids)
@@ -246,7 +252,37 @@ class ProductsController < ApplicationController
     end
   end
 
+  def edit_warranty
+    @products = Product.all_for_website(website) - Product.non_supported(website)
+    @product_families = website.product_families
+  end
+
+  def update_warranty
+    [Product, ProductFamily].each do |klass|
+      update_warranty_of(klass)
+    end
+
+    website.settings.where(name: "extra_warranty_side_content").first_or_initialize.update(
+      text_value: params[:extra_warranty_side_content],
+      setting_type: "text",
+      brand_id: website.brand_id
+    )
+
+    redirect_to(warranty_policy_path, notice: "Warranty periods updated successfully.")
+  end
+
+  def compliance
+    respond_to do |f|
+      f.html { redirect_to @product }
+      f.js
+    end
+  end
+
   protected
+
+  def verify_warranty_admin_ability
+    authorize! :manage_warranty_of, Product
+  end
 
   def ensure_best_url
     begin
@@ -258,6 +294,32 @@ class ProductsController < ApplicationController
       redirect_to product_families_path and return
     end
     # redirect_to @product, status: :moved_permanently unless @product.friendly_id_status.best?
+  end
+
+  private
+
+
+  def update_warranty_of(klass)
+    ids_with_nil = []
+
+    Array(params["#{klass.name.underscore}_attr".to_sym].to_unsafe_h).each do |key, attr|
+      if attr.blank?
+        ids_with_nil << key
+      else
+        update_item_warranty(klass, key, attr)
+      end
+    end
+
+    if ids_with_nil.length > 0
+      klass.where(id: ids_with_nil).update_all(warranty_period: nil)
+    end
+  end
+
+  def update_item_warranty(klass, key, attr)
+    item = klass.where(id: key).select(:id, :warranty_period).first
+    if item.warranty_period != attr
+      item.update_columns(warranty_period: attr)
+    end
   end
 
 end

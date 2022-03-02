@@ -3,8 +3,25 @@
     <% if item.is_a?(SiteElement) %>
       <% if item.external_url.present? || item.executable_file_name.present? %>
         <td>
-          <div class="row">
-            <div class="small-11 columns">
+          <% if can?(:manage, item) && !(local_assigns[:skip_admin_functions])%>
+            <div class="row">
+              <div class="small-11 columns">
+                <%= file_type_icon(item) %>
+                <%= link_to item.name, item %>
+                <%= keys_for(item) %>
+                <div class="show-for-small">
+                  <%= flag_for(item) %>
+                  <i>
+                    <% if item.version.present? %>version <%= item.version %>, <% end %>
+                    updated: <%=l item.updated_at.to_date, format: :short %>
+                  </i>
+                </div>
+              </div>
+              <div class="small-1 columns">
+                <%= render 'shared/download_table_row_admin_functions', item: item %>
+              </div>
+            </div>
+          <% else %>
               <%= file_type_icon(item) %>
               <%= link_to item.name, item %>
               <%= keys_for(item) %>
@@ -15,13 +32,7 @@
                   updated: <%=l item.updated_at.to_date, format: :short %>
                 </i>
               </div>
-            </div>
-            <div class="small-1 columns">
-              <% if can?(:manage, item) %>
-                <%= render 'shared/download_table_row_admin_functions', item: item %>
-              <% end %>
-            </div>
-          </div>
+          <% end %>
         </td>
         <td class="text-center hide-for-small"> <%= item.version %>&nbsp; </td>
         <td class="text-center hide-for-small"> <%= flag_for(item) %>&nbsp; </td>
@@ -34,8 +45,25 @@
 
       <% elsif item.resource_file_name.present? %>
         <td>
-          <div class="row">
-            <div class="small-11 columns">
+          <% if can?(:manage, item) && !(local_assigns[:skip_admin_functions])%>
+            <div class="row">
+              <div class="small-11 columns">
+                <%= file_type_icon(item) %>
+                <%= link_to item.name, item %>
+                <%= keys_for(item) %>
+                <div class="show-for-small">
+                  <%= flag_for(item) %>
+                  <i>
+                    <% if item.version.present? %>version <%= item.version %>, <% end %>
+                    updated: <%=l item.updated_at.to_date, format: :short %>
+                  </i>
+                </div>
+              </div>
+              <div class="small-1 columns">
+                <%= render 'shared/download_table_row_admin_functions', item: item %>
+              </div>
+            </div>
+          <% else %>
               <%= file_type_icon(item) %>
               <%= link_to item.name, item %>
               <%= keys_for(item) %>
@@ -46,13 +74,7 @@
                   updated: <%=l item.updated_at.to_date, format: :short %>
                 </i>
               </div>
-            </div>
-            <div class="small-1 columns">
-              <% if can?(:manage, item) %>
-                <%= render 'shared/download_table_row_admin_functions', item: item %>
-              <% end %>
-            </div>
-          </div>
+          <% end %>
         </td>
         <td class="text-center hide-for-small"> <%= item.version %>&nbsp;</td>
         <td class="text-center hide-for-small"> <%= flag_for(item) %>&nbsp; </td>
@@ -103,24 +125,34 @@
 
     <% elsif item.is_a?(Software) %>
       <td>
-        <div class="row">
-          <div class="small-11 columns">
+        <% if can?(:manage, item) && !(local_assigns[:skip_admin_functions])%>
+          <div class="row">
+            <div class="small-11 columns">
+              <%= platform_icon(item, 17) %>
+              <%= link_to item.name, (item.link.present? && item.new_record?) ? item.link : item %>
+              <div class="show-for-small">
+                <%= flag_for(item) %>
+                <i>
+                  <% if item.version.present? %>version <%= item_version(item) %>, <% end %>
+                  updated: <%=l item.updated_at.to_date, format: :short %>
+                </i>
+              </div>
+            </div>
+            <div class="small-1 columns text-right">
+              <%= render 'shared/download_table_row_admin_functions', item: item %>
+            </div>
+          </div>
+        <% else %>
             <%= platform_icon(item, 17) %>
             <%= link_to item.name, (item.link.present? && item.new_record?) ? item.link : item %>
             <div class="show-for-small">
               <%= flag_for(item) %>
               <i>
-                <% if item.version.present? %>version <%= item.version %>, <% end %>
+                <% if item.version.present? %>version <%= item_version(item) %>, <% end %>
                 updated: <%=l item.updated_at.to_date, format: :short %>
               </i>
             </div>
-          </div>
-          <div class="small-1 columns text-right">
-            <% if can?(:manage, item) %>
-              <%= render 'shared/download_table_row_admin_functions', item: item %>
-            <% end %>
-          </div>
-        </div>
+        <% end %>
       </td>
       <td class="text-center hide-for-small">
         <% # If Martin and version number is missing and item is firmware, then lookup the version number from the Martin Companion data source%>

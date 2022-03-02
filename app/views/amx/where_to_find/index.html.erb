@@ -18,12 +18,20 @@
 
 <div class="row">
   <div class="large-8 columns">
+    <% if website.show_lead_form_on_buy_page? %>
+      <div class="callout panel">
+        <h4>Connect with <%= website.brand.name %></h4>
+        <p>Tell us about your project. Complete the form below to connect with us.</p>
+        <%= render_partial 'leads/form' %>
+      </div>
+    <% end %>
+
     <% if website.brand.has_dealers? %>
       <div class="row">
         <div class="medium-8 columns end">
           <h3><%= t('us_dealers') %></h3>
 
-          <%= form_tag where_to_find_path %>
+          <%= form_tag partner_search_path, method: :get %>
             <div class="row collapse">
               <div class="large-8 small-7 columns">
                 <%= text_field_tag "zip", session[:zip], placeholder: t('us_zip_code') %>
@@ -97,7 +105,7 @@
       <h3><%= t('titles.buy_online') %></h3>
 
       <ul class="large-block-grid-6 small-block-grid-3">
-      <% OnlineRetailer.random(website)[0,24].each do |online_retailer| %>
+      <% OnlineRetailer.brand_online_retailers(website).each do |online_retailer| %>
         <li>
           <% if !online_retailer.retailer_logo_file_name.blank? %>
             <%= link_to(image_tag(online_retailer.retailer_logo(:fixed)), online_retailer.direct_link, target: "_blank")%>

@@ -348,111 +348,150 @@
 
 		<% if website.has_effects? %>
 			<% if can?(:manage, ProductAmpModel) %>
-			<div class="group">
-				<h5 class="subheader">Amp Models</h5>
-				<%= link_to_function "add a model", "$('#add_amp_model_form').toggle();", class: "small success button" %>
+        <div class="group">
+          <h5 class="subheader">Amp Models</h5>
+          <%= link_to_function "add a model", "$('#add_amp_model_form').toggle();", class: "small success button" %>
 
-				<div id="add_amp_model_form" style="display:none">
-					<%= simple_form_for [:admin, @product_amp_model], remote: true do |f| %>
-					    <%= f.hidden_field :product_id %>
-						<div style="margin-bottom: 30px;">
-							<span id="select_amp_model_name">
-							<%= f.association :amp_model, collection: AmpModel.order("name") %>
-							<%= link_to_function "new amp model",
-								  "$('#select_amp_model_name').toggle();$('#new_amp_model_name').toggle()"%>
-							</span>
-							<span id="new_amp_model_name" style="display:none">
-							<%= simple_fields_for AmpModel.new do |amp| %>
-								<%= amp.input :name, label: "New amp model name" %>
-							<% end %>
-							<%= link_to_function "select existing amp model",
-								  "$('#select_amp_model_name').toggle();$('#new_amp_model_name').toggle();$('#amp_model_name').val('');"%>
-							</span>
-						</div>
-						<p><%= f.button :submit %>
-						<%= link_to_function "cancel", "$('#add_amp_model_form').toggle();"%></p>
-					<% end %>
-				</div>
+          <div id="add_amp_model_form" style="display:none">
+            <%= simple_form_for [:admin, @product_amp_model], remote: true do |f| %>
+                <%= f.hidden_field :product_id %>
+              <div style="margin-bottom: 30px;">
+                <span id="select_amp_model_name">
+                <%= f.association :amp_model, collection: AmpModel.order("name") %>
+                <%= link_to_function "new amp model",
+                    "$('#select_amp_model_name').toggle();$('#new_amp_model_name').toggle()"%>
+                </span>
+                <span id="new_amp_model_name" style="display:none">
+                <%= simple_fields_for AmpModel.new do |amp| %>
+                  <%= amp.input :name, label: "New amp model name" %>
+                <% end %>
+                <%= link_to_function "select existing amp model",
+                    "$('#select_amp_model_name').toggle();$('#new_amp_model_name').toggle();$('#amp_model_name').val('');"%>
+                </span>
+              </div>
+              <p><%= f.button :submit %>
+              <%= link_to_function "cancel", "$('#add_amp_model_form').toggle();"%></p>
+            <% end %>
+          </div>
 
-				<ul id="product_amp_models" class="list">
-				  <% @product.product_amp_models.each do |pam| %>
-				  <%= render "/admin/shared/product_amp_model_row", pam: pam %>
-				  <% end %>
-				</ul>
-			</div>
+          <ul id="product_amp_models" class="list">
+            <% @product.product_amp_models.each do |pam| %>
+            <%= render "/admin/shared/product_amp_model_row", pam: pam %>
+            <% end %>
+          </ul>
+        </div>
 			<% end %>
 
 			<% if can?(:manage, ProductCabinet) %>
-			<div class="group">
-				<h5 class="subheader">Cabinets</h5>
-				<%= link_to_function "add a cab", "$('#add_cabinet_form').toggle();", class: "small success button" %>
+        <div class="group">
+          <h5 class="subheader">Cabinets</h5>
+          <%= link_to_function "add a cab", "$('#add_cabinet_form').toggle();", class: "small success button" %>
 
-				<div id="add_cabinet_form" style="display:none">
-					<%= simple_form_for [:admin, @product_cabinet], remote: true do |f| %>
-					    <%= f.hidden_field :product_id %>
-						<div style="margin-bottom: 30px;">
-							<span id="select_cabinet_name">
-							<%= f.association :cabinet, collection: Cabinet.order("name") %>
-							<%= link_to_function "new cab",
-								  "$('#select_cabinet_name').toggle();$('#new_cabinet_name').toggle()"%>
-							</span>
-							<span id="new_cabinet_name" style="display:none">
-							<%= simple_fields_for Cabinet.new do |cab| %>
-								<%= cab.input :name, label: "New cabinet name" %>
-							<% end %>
-							<%= link_to_function "select existing cab",
-								  "$('#select_cabinet_name').toggle();$('#new_cabinet_name').toggle();$('#cabinet_name').val('');"%>
-							</span>
-						</div>
-						<p><%= f.button :submit %>
-						<%= link_to_function "cancel", "$('#add_cabinet_form').toggle();"%></p>
-					<% end %>
-				</div>
+          <div id="add_cabinet_form" style="display:none">
+            <%= simple_form_for [:admin, @product_cabinet], remote: true do |f| %>
+                <%= f.hidden_field :product_id %>
+              <div style="margin-bottom: 30px;">
+                <span id="select_cabinet_name">
+                <%= f.association :cabinet, collection: Cabinet.order("name") %>
+                <%= link_to_function "new cab",
+                    "$('#select_cabinet_name').toggle();$('#new_cabinet_name').toggle()"%>
+                </span>
+                <span id="new_cabinet_name" style="display:none">
+                <%= simple_fields_for Cabinet.new do |cab| %>
+                  <%= cab.input :name, label: "New cabinet name" %>
+                <% end %>
+                <%= link_to_function "select existing cab",
+                    "$('#select_cabinet_name').toggle();$('#new_cabinet_name').toggle();$('#cabinet_name').val('');"%>
+                </span>
+              </div>
+              <p><%= f.button :submit %>
+              <%= link_to_function "cancel", "$('#add_cabinet_form').toggle();"%></p>
+            <% end %>
+          </div>
 
-				<ul id="product_cabinets" class="list">
-				  <% @product.product_cabinets.each do |pc| %>
-				  <%= render "/admin/shared/product_cabinet_row", pc: pc %>
-				  <% end %>
-				</ul>
-			</div>
+          <ul id="product_cabinets" class="list">
+            <% @product.product_cabinets.each do |pc| %>
+            <%= render "/admin/shared/product_cabinet_row", pc: pc %>
+            <% end %>
+          </ul>
+        </div>
 			<% end %>
 
 			<% if can?(:manage, ProductEffect) %>
-			<div class="group">
-				<h5 class="subheader">Effects</h5>
-				<%= link_to_function "add an effect", "$('#add_effect_form').toggle();", class: "small success button" %>
+        <div class="group">
+          <h5 class="subheader">Effects</h5>
+          <%= link_to_function "add an effect", "$('#add_effect_form').toggle();", class: "small success button" %>
 
-				<div id="add_effect_form" style="display:none">
-					<%= simple_form_for [:admin, @product_effect], remote: true do |f| %>
-					    <%= f.hidden_field :product_id %>
-						<div style="margin-bottom: 30px;">
-							<span id="select_effect_name">
-								<%= f.association :effect, collection: Effect.order("name") %>
-								<%= link_to_function "new effect",
-									  "$('#select_effect_name').toggle();$('#new_effect_name').toggle()"%>
-							</span>
-							<span id="new_effect_name" style="display:none">
-								<%= simple_fields_for Effect.new do |effect| %>
-									<%= effect.association :effect_type, collection: EffectType.order(:position) %>
-									<%= effect.input :name %>
-								<% end %>
-								<%= link_to_function "select existing effect",
-									  "$('#select_effect_name').toggle();$('#new_effect_name').toggle();$('#effect_name').val('');"%>
-							</span>
-						</div>
-						<p><%= f.button :submit %>
-						<%= link_to_function "cancel", "$('#add_effect_form').toggle();"%></p>
-					<% end %>
-				</div>
+          <div id="add_effect_form" style="display:none">
+            <%= simple_form_for [:admin, @product_effect], remote: true do |f| %>
+                <%= f.hidden_field :product_id %>
+              <div style="margin-bottom: 30px;">
+                <span id="select_effect_name">
+                  <%= f.association :effect, collection: Effect.order("name") %>
+                  <%= link_to_function "new effect",
+                      "$('#select_effect_name').toggle();$('#new_effect_name').toggle()"%>
+                </span>
+                <span id="new_effect_name" style="display:none">
+                  <%= simple_fields_for Effect.new do |effect| %>
+                    <%= effect.association :effect_type, collection: EffectType.order(:position) %>
+                    <%= effect.input :name %>
+                  <% end %>
+                  <%= link_to_function "select existing effect",
+                      "$('#select_effect_name').toggle();$('#new_effect_name').toggle();$('#effect_name').val('');"%>
+                </span>
+              </div>
+              <p><%= f.button :submit %>
+              <%= link_to_function "cancel", "$('#add_effect_form').toggle();"%></p>
+            <% end %>
+          </div>
 
-				<ul id="product_effects" class="list">
-				  <% @product.product_effects.each do |pe| %>
-				  <%= render "/admin/shared/product_effect_row", pe: pe %>
-				  <% end %>
-				</ul>
-			</div>
+          <ul id="product_effects" class="list">
+            <% @product.product_effects.each do |pe| %>
+            <%= render "/admin/shared/product_effect_row", pe: pe %>
+            <% end %>
+          </ul>
+        </div>
 			<% end %>
+
 		<% end %>
+
+    <% if can?(:manage, CustomizableAttributeValue) && @product.available_customizable_attribute_values.length > 0 %>
+      <div class="group">
+        <h5 class="subheader">Customizable Attribute Values</h5>
+        <p>These are the options that appear on the Custom Shop page for this product.
+          This product's families determine which options are available below. Those
+          can be managed <%= link_to "here", admin_customizable_attributes_path %>.</p>
+        <%= simple_form_for [:admin, @product] do |f| %>
+          <% @product.available_customizable_attribute_values.each do |customizable_attribute_value| %>
+
+            <%= f.simple_fields_for :customizable_attribute_values, customizable_attribute_value do |cav|%>
+              <div class="row" id="cav_row_<%= cav.object.id %>">
+                <div class="small-4 columns">
+                  <% customizable_attribute = cav.object.customizable_attribute %>
+                  <%= cav.association :customizable_attribute, as: :hidden %>
+                  <%= customizable_attribute.name %>
+                </div>
+                <div class="small-7 columns">
+                  <%= cav.input :value, label: false %>
+                </div>
+                <div class="small-1 columns">
+                  <% unless cav.object.new_record? %>
+                    <%= link_to [:admin, cav.object], method: :delete, remote: true do %>
+                      <%= fa_icon "trash" %>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+
+          <% end %>
+          <hr/>
+          <%= f.submit "Update Customizable Attribute Values", class: "button"%>
+          <p class="hint">If you need more values, just save the form then add more.</p>
+        <% end %>
+      </div>
+    <% end %>
+
 	</div>
 
 	<div class="large-6 columns">
@@ -706,6 +745,44 @@
           <%= render "/admin/shared/product_video_row", pv: pv, called_from: "product" %>
         <% end %>
       </ul>
+    </div>
+
+    <div class="group">
+      <h5 class="subheader">Case Studies</h5>
+      <p>Case studies from the HPro site can be associated with this
+      product. Simply provide the ID of the case study (the last part
+      of the URL for the case study):</p>
+
+      <%= simple_form_for [:admin, @product] do |f| %>
+        <div class="row">
+          <div class="small-1 columns text-center"><%= fa_icon "list" %></div>
+          <div class="small-10 columns">Case Study ID</div>
+          <div class="small-1 columns text-center"><%= fa_icon "trash" %></div>
+        </div>
+        <%= f.simple_fields_for :product_case_studies do |pcs| %>
+          <div class="row">
+            <div class="small-1 columns">
+              <%= pcs.input :position, as: :string, label: false %>
+            </div>
+            <div class="small-10 columns">
+              <%= pcs.input :case_study_slug, label: false %>
+            </div>
+            <div class="small-1 columns text-center">
+              <% unless pcs.object.new_record? %>
+                <%= pcs.input :_destroy, as: :boolean, label: false %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+        <div class="row">
+          <div class="small-11 columns small-offset-1">
+            <div class="hint">
+              Example Case Study ID: <%= ENV['PRO_SITE_URL']%>/case_studies/<span style="background-color: Moccasin"><strong>ABCDEFG</strong></span>
+            </div>
+          </div>
+        </div>
+        <%= f.submit "update case studies", class: "button" %>
+      <% end %>
     </div>
 
     <div class="group">

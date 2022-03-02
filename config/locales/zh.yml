@@ -203,7 +203,7 @@ zh:
       whitepaper: 研究文件
 
   product_page:
-      select_products_to_compare: 选择2〜4个产品进行比较
+      select_products_to_compare: 选择2〜6个产品进行比较
       compare_selected_products: 比较选定的产品
       larger_images: 较大的图像
       features:  特点

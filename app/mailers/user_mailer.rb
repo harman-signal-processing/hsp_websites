@@ -1,5 +1,5 @@
 class UserMailer < Devise::Mailer
-	self.default :from => 'support@harmanpro.com'
+  default from: ENV['DEFAULT_SENDER']
 
   def confirmation_instructions(record, token, opts={})
     @token = token

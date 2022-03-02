@@ -111,3 +111,4 @@ class RegisteredDownloadsController < ApplicationController
   end
 
 end
+

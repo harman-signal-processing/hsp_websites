@@ -1,4 +1,4 @@
-class RegisteredDownloadsMailer < ActionMailer::Base
+class RegisteredDownloadsMailer < ApplicationMailer
 
   # The custom path we used to use doesn't work anymore,
   # So, the email templates are now in the repo, in the
@@ -8,7 +8,7 @@ class RegisteredDownloadsMailer < ActionMailer::Base
     @download_registration = download_registration
     mail(to: @download_registration.email,
       subject: @download_registration.registered_download.subject,
-      from: "#{@download_registration.registered_download.brand.name} <#{@download_registration.registered_download.from_email}>") do |format|
+      from: "#{@download_registration.registered_download.brand.name} <#{ENV['DEFAULT_SENDER']}>") do |format|
         format.html { render @download_registration.registered_download.email_template_name.to_s }
       end
   end
@@ -18,8 +18,7 @@ class RegisteredDownloadsMailer < ActionMailer::Base
     @registered_download = download_registration.registered_download
     @brand = @registered_download.brand
     mail(to: @registered_download.cc,
-      subject: "#{@registered_download.name}: new registration",
-      from: @brand.support_email)
+      subject: "#{@registered_download.name}: new registration")
   end
 
 end

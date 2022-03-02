@@ -20,15 +20,15 @@ class ProductAttachment < ApplicationRecord
     }, processors: [:thumbnail, :compression] ,
     convert_options: {
       soundcomm: "-gravity center -extent 160x160"
-    }}.merge(S3_STORAGE)
+    }}
   validates_attachment :product_attachment, content_type: { content_type: /\Aimage/i }
 
-  has_attached_file :product_media, S3_STORAGE
-  has_attached_file :product_media_thumb, {
+  has_attached_file :product_media
+  has_attached_file :product_media_thumb,
     styles: {
       thumb: "100x100>",
       tiny: "64x64>"
-    }}.merge(S3_STORAGE)
+    }
 
   do_not_validate_attachment_file_type :product_media
   validates_attachment :product_media_thumb, content_type: { content_type: /\Aimage/i }

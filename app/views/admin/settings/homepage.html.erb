@@ -2,10 +2,17 @@
 
 <div class="group">
   <h4 class="subheader">Slideshow</h4>
-  <div class="info alert-box">
-    Note: To preserve performance, only the first 5 active slides will appear.
-    Ideally, let's try to keep it to 3 active slides only.
-  </div>
+  <% if website.homepage_feature_override.present? %>
+    <div class="alert alert-box">
+      This site has the an override defined for the homepage feature. None of the slides below will appear.
+      <%= link_to "Manage the override here.", [:admin, website.settings.where(name: "homepage_feature_override").first] %>
+    </div>
+  <% else %>
+    <div class="info alert-box">
+      Note: It is possible to override the slides below by creating a setting named "<%= link_to "homepage_feature_override", new_admin_setting_path(name: "homepage_feature_override") %>"
+      with HTML code as its value.
+    </div>
+  <% end %>
   <%= link_to_function "new slide", "$('#new_slide_form').toggle()", class: "small round success button" %>
   <div id="new_slide_form" style="margin: 10px; display:none;" class="instructions">
     <%= simple_form_for [:admin, @new_slide] do |f| %>
@@ -47,6 +54,10 @@
   <ul id="slides" class="sortable_list" style="margin-top: 20px;">
     <%= render partial: "admin/shared/slide", collection: @slides %>
   </ul>
+  <div>
+    To preserve performance, only the first 5 active slides will appear.
+    Ideally, let's try to keep it to 3 active slides only.
+  </div>
 </div>
 
 <div class="group">

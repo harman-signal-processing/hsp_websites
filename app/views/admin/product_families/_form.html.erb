@@ -1,44 +1,44 @@
 <%= simple_form_for [:admin, @product_family] do |f| %>
 
 	<div class="row">
-		<div class="large-8 columns">
+		<div class="small-12 columns">
 			<%= f.input :name %>
 		</div>
-		<div class="large-4 columns">
-      <%= f.input :short_description, label: "100 character description", as: :text, input_html: {class: "limited", data: {charlimit: 100}} %>
-		</div>
-	</div>
+  </div>
 
   <div class="row">
-    <div class="small-12 medium-6 columns">
+		<div class="small-12 medium-4 columns">
+      <%= f.input :short_description, label: "100 character description", as: :text, input_html: {class: "limited", data: {charlimit: 100}} %>
+		</div>
+    <div class="small-12 medium-4 columns">
       <%= f.input :meta_description %>
     </div>
-    <div class="small-12 medium-6 columns">
+    <div class="small-12 medium-4 columns">
       <%= f.input :keywords %>
     </div>
   </div>
 
 	<div class="row">
-		<div class="large-4 columns">
+    <div class="small-12 medium-4 columns">
 			<%= f.association :parent,
         collection: ProductFamily.where(brand_id: website.brand.id).order(:name) - [@product_family] - @product_family.children,
         label_method: :tree_names
       %>
 		</div>
-		<div class="large-4 columns">
+    <div class="small-12 medium-4 columns">
 			<% if website.page_layouts %>
 				<%= f.input :layout_class, label: "Page layout style",
 					hint: "(not all brands have multiple layouts)",
 					collection: website.page_layouts.split("|") %>
 			<% end %>
 		</div>
-		<div class="large-4 columns">
+    <div class="small-12 medium-4 columns">
 			<%= f.input :background_color, hint: "(optional page background: ie \"#CCCCCC\" or \"blue\")" %>
 		</div>
 	</div>
 
 	<div class="row">
-		<div class="large-4 columns">
+    <div class="small-12 medium-4 columns">
 			<div class="panel">
 				<%= f.input :family_photo, label: "Family button", hint: "appears on overall products page" %>
 			  	<% if !f.object.family_photo_file_name.blank? %>
@@ -52,7 +52,7 @@
 			</div>
 		</div>
 
-		<div class="large-4 columns">
+    <div class="small-12 medium-4 columns">
 			<div class="panel">
 				<%= f.input :title_banner, label: "Title Banner", hint: "appears on this product family's page" %>
 			    <% if !f.object.title_banner_file_name.blank? %>
@@ -66,7 +66,7 @@
 			</div>
 		</div>
 
-		<div class="large-4 columns" style="margin-bottom: 20px;">
+    <div class="small-12 medium-4 columns" style="margin-bottom: 20px;">
 			<div class="panel">
 				<%= f.input :background_image, hint: "(optional background image--will be centered)" %>
 				<% if !f.object.background_image_file_name.blank? %>
@@ -80,34 +80,46 @@
 		</div>
 	</div>
 
-  <%= f.association :featured_product,
-    collection: website.brand.products,
-    hint: "aka. the Rick Kamlet fix. Rather than finding the first active product with a photo, use this to assign a specific product as the representative product for this family." %>
+  <div class="row">
+    <div class="small-12 medium-8 columns">
+      <%= f.association :featured_product,
+        collection: website.brand.products,
+        hint: "aka. the Rick Kamlet fix. Rather than finding the first active product with a photo, use this to assign a specific product as the representative product for this family." %>
+    </div>
+    <div class="small-12 medium-4 columns">
+      <%= f.input :warranty_period, hint: "Leave blank to hide from side column of warranty page." %>
+    </div>
+  </div>
 
 	<div class="row">
-		<div class="large-8 columns">
+		<div class="small-12 columns">
 			<%= f.input :intro, label: "Intro text", input_html: {style: "height: 100px;"} %>
 			<%#= f.input :keywords %>
-		</div>
-	</div>
+      <%= f.input :before_product_content, input_html: { class: "mceEditor" } %><br/>
 
-  <div class="row">
-    <div class="large-8 columns">
-      <%= f.input :post_content, label: "Content to appear after the products on the family page.",
+      <%= f.input :accessories_content, label: "Acccessories Content -- appears after the products on the family page.",
+        input_html: { class: "mceEditor" } %>
+
+      <br/>
+      <div class="panel">
+        Then the videos content appears, but that is managed on the view page of the product family.
+      </div>
+
+      <%= f.input :post_content, label: "Content to appear after the accessories/videos on the family page.",
         input_html: { class: "mceEditor" } %>
     </div>
   </div>
 
   <br/>
-	<%= f.input :hide_from_navigation, hint: "Experimental. May not hide everywhere." %>
-  <%= f.input :has_full_width_features %>
-
-  <% unless f.object.new_record? %>
-    <%= f.association :brand, label: "Move this family to another brand" %>
-  <% end %>
-
   <div class="row">
     <div class="small-12 medium-6 columns">
+      <%= f.input :hide_from_navigation, hint: "Experimental. May not hide everywhere." %>
+      <%= f.input :has_full_width_features %>
+
+      <% unless f.object.new_record? %>
+        <%= f.association :brand, label: "Move this family to another brand" %>
+      <% end %>
+
       <fieldset>
         <legend>Security</legend>
         <p>If anything is here, the family is hidden from the site and can only be accessed with the direct URL and the login info.</p>

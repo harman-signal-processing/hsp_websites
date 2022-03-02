@@ -1,0 +1,7 @@
+(function(){
+    // remove associated rental product
+    $("#brand_dealer_rental_product_<%= @brand_dealer_rental_product.id %>").remove();
+	<%= render "/admin/brand_dealer_rental_products/rebuild_rental_product_select_list", dealer: @brand_dealer_rental_product.brand_dealer.dealer %>
+})();
+
+<% flash.discard %>

@@ -4,7 +4,7 @@ module ProductsHelper
     if product_attachment.product_attachment_file_name.present?
       link_to product_attachment.product_attachment.url(:original),
         data: product_attachment.no_lightbox? ? {} : { fancybox: 'product-thumbnails' } do
-          image_tag(product_attachment.product_attachment.url(:tiny), style: 'vertical-align: middle')
+          image_tag(product_attachment.product_attachment.url(:tiny), alt: "product thumbnail", style: 'vertical-align: middle')
       end
     else
       img = product_attachment.product_media_thumb.url(:tiny)
@@ -12,7 +12,7 @@ module ProductsHelper
         width = (product_attachment.width.blank?) ? "100%" : product_attachment.width
         height = (product_attachment.height.blank?) ? "100%" : product_attachment.height
         new_content = swf_tag(product_attachment.product_media.url, size: "#{width}x#{height}")
-        link_to_function image_tag(img, style: "vertical-align: middle"), "$('#viewer').html('#{escape_javascript(new_content)}')"
+        link_to_function image_tag(img, style: "vertical-align: middle", alt: "flash"), "$('#viewer').html('#{escape_javascript(new_content)}')"
       elsif product_attachment.product_media_file_name.to_s.match(/flv|mp4|mov|mpeg|mp3|m4v$/i)
         link_to product_attachment.product_media.url,
           data: product_attachment.no_lightbox? ? {} : { fancybox: 'product-thumbnails' } do
@@ -20,7 +20,7 @@ module ProductsHelper
         end
       else
         new_content = product_attachment.product_attachment.url
-        link_to_function image_tag(img, style: "vertical-align: middle"), "$('#viewer').html('#{escape_javascript(new_content)}')"
+        link_to_function image_tag(img, style: "vertical-align: middle", alt: product_attachment.product_attachment_file_name), "$('#viewer').html('#{escape_javascript(new_content)}')"
       end
     end
   end
@@ -41,7 +41,7 @@ module ProductsHelper
   #
   def draw_info_accordion(product, options={})
     acc = ""
-    side_tabs = (options[:tabs]) ? parse_tabs(options[:tabs], product) : product.tabs
+    side_tabs = (options[:tabs]) ? parse_tabs(options[:tabs], product) : product.collect_tabs(website.brand.side_tabs)
 
     side_tabs.each_with_index do |product_tab, i|
       active = "active" if i == 0
@@ -163,7 +163,7 @@ module ProductsHelper
             :dd,
             link_to(
               tab_title(product_tab, product: product),
-              photometric_product_url(product, protocol: "http"),
+              photometric_product_url(product),
               target: "_blank"
             )
           )
@@ -260,32 +260,50 @@ module ProductsHelper
             class: 'content-nav',
             data: {:'magellan-destination' => product_tab.key}
           )
-          end + content_tag(:div, class: "small-2 columns text-right") do
-            if can?(:manage, product)
-              if product_tab.key.match?(/download|doc/)
-                link_to(admin_product_path(product), class: "edit-link", data: {opener: 'upload-options'}) do
-                  fa_icon("upload") + " upload"
-                end +
-                content_tag(:div, class: "dialog", id: "upload-options") do
-                  link_to(new_site_element_path(product_id: product.to_param), id: "upload-site-element-button", class: "tiny button") do
-                    fa_icon("upload") + " new resource"
-                  end + ' ' +
-                  link_to(new_software_path(product_id: product.to_param), class: "tiny button") do
-                    fa_icon("upload") + " new software"
-                  end
-                end
-              end
-            end
-          end
+          end + admin_links_for(product_tab, product)
         end
       end
       ret += content_tag(:div, class: "product_main_tab_content content #{active_class}") do
         render_partial("products/#{product_tab.key}", product: product)
       end
-    end  #  main_tabs.each_with_index do |product_tab,i|
+    end
 
     raw(ret)
-  end  #  def draw_main_product_content(product, options={})
+  end
+
+  def admin_links_for(product_tab, product)
+    content_tag(:div, class: "small-2 columns text-right") do
+      if can?(:manage, product)
+        if product_tab.key.match?(/download|doc/)
+          admin_downloads_link(product)
+        elsif product_tab.key.match?(/spec/)
+          admin_specs_link(product)
+        end
+      end
+    end
+  end
+
+  def admin_downloads_link(product)
+    link_to(admin_product_path(product), class: "edit-link", data: {opener: 'upload-options'}) do
+      fa_icon("upload") + " upload"
+    end +
+    content_tag(:div, class: "dialog", id: "upload-options") do
+      link_to(new_site_element_path(product_id: product.to_param), id: "upload-site-element-button", class: "tiny button") do
+        fa_icon("upload") + " new resource"
+      end + ' ' +
+      link_to(new_software_path(product_id: product.to_param), class: "tiny button") do
+        fa_icon("upload") + " new software"
+      end
+    end
+  end
+
+  def admin_specs_link(product)
+    reveal_id = website.brand.use_flattened_specs? ? "edit-specs" : "add-spec-group"
+
+    link_to( admin_product_specifications_path(product), class: "reveal-edit-link", data: { "reveal-id": reveal_id }) do
+      fa_icon(reveal_id.match?(/edit/) ? "edit" : "plus") + " #{ reveal_id.gsub(/\-/, ' ') }"
+    end
+  end
 
   def parse_tabs(tabs, product)
     selected_tabs = tabs.split("|")
@@ -595,7 +613,7 @@ module ProductsHelper
 
   def render_part(part)
     img = part.photo.present? ?
-      link_to(image_tag(part.photo.url(:tiny_square)), "#", data: {:"reveal-id" => "modal#{part.id}"}) :
+      link_to(image_tag(part.photo.url(:tiny_square), alt: part.part_number), "#", data: {:"reveal-id" => "modal#{part.id}"}) :
       "&nbsp;".html_safe
     desc = content_tag(:h5) do
       link_to(part.part_number, '#', data: {:"reveal-id" => "modal#{part.id}"})
@@ -678,5 +696,26 @@ module ProductsHelper
   def hide_contact_buttons?(product)
     !!(website.brand.name.match(/DOD|DigiTech|dbx|Lexicon/i) || product.hide_contact_buttons?)
   end
+
+  def item_version(item)
+    version = ''
+    if item.is_a?(Software)
+      version = item.version
+      if item.platform.present?
+        if item.platform.to_s.match(/power\s?pc/i)
+          version += " (Power PC)"
+        elsif item.platform.to_s.match(/intel/i)
+          version += " (Intel)"
+        end
+      else
+        version
+      end
+    elsif item.respond_to?(:version)
+      version = item.version
+    end
+
+    version
+
+  end  #  def item_version(item)
 
 end

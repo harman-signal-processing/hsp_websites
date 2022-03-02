@@ -152,8 +152,7 @@ module ApplicationHelper
           link_options[:target] = "_blank"
         end
       end
-
-      slide_innards = image_tag(slide.slide.url, lazy: false)
+      slide_innards = image_tag(slide.slide.url, alt: slide.name, lazy: false)
       if slide.text_value.present?
         slide_innards += content_tag(:div, class: "homepage-orbit-caption orbit-caption") do
           content_tag(:div, slide.text_value.html_safe, class: "caption-content")
@@ -398,7 +397,7 @@ module ApplicationHelper
                                      alt: n,
                                      :"aria-label" => n)
           end
-          html += link_to(presentation, v, target: "_blank")
+          html += link_to(presentation, v, target: "_blank", :"aria-label" => n)
         end
       end
     end
@@ -460,7 +459,7 @@ module ApplicationHelper
       else
         "icons/download_#{size}.png"
     end
-    image_tag img, style: "vertical-align: middle"
+    image_tag img, style: "vertical-align: middle", alt: "platform icon"
 	end
 
   def file_type_icon(item, size=17)
@@ -482,7 +481,7 @@ module ApplicationHelper
           else
             "icons/download_#{size}.png"
           end
-    image_tag img, style: "vertical-align: middle"
+    image_tag img, style: "vertical-align: middle", alt: "file type icon"
   end  #  def file_type_icon(item)
 
   def product_photo_is_png?(product)
@@ -551,7 +550,6 @@ module ApplicationHelper
       {name: "Lexicon",    web: "http://www.lexiconpro.com"},
       {name: "Martin",  web: "http://www.martin.com"},
       {name: "Soundcraft", web: "http://www.soundcraft.com"},
-      {name: "Studer", web: "http://www.studer.ch"},
       #{name: "HiQnet", web: "http://hiqnet.harmanpro.com"}
     ]
 

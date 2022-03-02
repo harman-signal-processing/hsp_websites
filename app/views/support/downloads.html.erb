@@ -105,10 +105,10 @@
       </thead>
       <tbody>
         <%= cache ["recent-uploads", website, I18n.locale, Date.today] do %>
-          <% website.brand.site_elements.where(show_on_public_site: true).order("created_at DESC").limit(40).group_by(&:resource_type).each do |resource_type, site_elements| %>
+          <% website.brand.recent_uploads.group_by(&:resource_type).each do |resource_type, site_elements| %>
             <%= downloads_header_row(resource_type, site_elements, columns: 5) %>
             <% site_elements.each do |site_element| %>
-              <%= render_partial 'shared/download_table_row', item: site_element %>
+              <%= render_partial 'shared/download_table_row', item: site_element, skip_admin_functions: true %>
             <% end %>
           <% end %>
         <% end %>

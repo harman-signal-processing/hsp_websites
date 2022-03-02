@@ -1,0 +1,19 @@
+<h1>JBL Vertec/VTX Owner Form</h1>
+
+<p>
+	<strong>Company:</strong> <%= @jbl_vertec_vtx_owner.company_name %><br/>
+	<strong>Website:</strong> <%= @jbl_vertec_vtx_owner.website %><br/>
+	<strong>Contact:</strong> <%= @jbl_vertec_vtx_owner.contact_name %><br/>
+	<strong>Email:</strong> <%= @jbl_vertec_vtx_owner.email %><br/>
+	<strong>Phone:</strong> <%= @jbl_vertec_vtx_owner.phone %><br/>
+	<strong>Street Address:</strong> <%= @jbl_vertec_vtx_owner.address %><br/>
+	<strong>City:</strong> <%= @jbl_vertec_vtx_owner.city %><br/>
+	<strong>State:</strong> <%= @jbl_vertec_vtx_owner.state %><br/>
+	<strong>Postal Code:</strong> <%= @jbl_vertec_vtx_owner.postal_code %><br/>
+	<strong>Country:</strong> <%= @jbl_vertec_vtx_owner.country %><br/>
+	<strong>Rental Products:</strong><br/>
+	<%@jbl_vertec_vtx_owner.rental_products.split(" |--| ").each do |product|%>
+	  <%= product %><br/>
+	<% end %>
+	<strong>Comments:</strong> <%= @jbl_vertec_vtx_owner.comment %><br/>
+</p>

@@ -2,7 +2,7 @@ class TrainingCourse < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates
 
-  has_attached_file :image, {
+  has_attached_file :image,
     styles: {
       large: "1200>x400",
       medium: "600>x600",
@@ -11,7 +11,6 @@ class TrainingCourse < ApplicationRecord
       tiny: "64x64>",
       tiny_square: "64x64#"
     }
-  }.merge(S3_STORAGE)
   validates_attachment :image, content_type: { content_type: /\Aimage/i }
 
   has_many :training_classes

@@ -22,6 +22,7 @@
 //= link admin.css
 //= link akg.css
 //= link amx.css
+//= link application.css
 //= link archimedia.css
 //= link audio-architect.css
 //= link bss.css

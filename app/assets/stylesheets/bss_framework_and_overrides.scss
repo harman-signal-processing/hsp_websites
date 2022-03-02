@@ -228,7 +228,7 @@ $topbar-height:                        rem-calc(66);
 $topbar-input-height:                  rem-calc(12);
 $topbar-title-weight:                  100;
 // $topbar-title-font-size:               rem-calc(17px);
-$topbar-dropdown-bg:                      rgba($topbar-bg-color, 0.7);
+$topbar-dropdown-bg:                      rgba($topbar-bg-color, 0.9);
 // $topbar-dropdown-link-color:           #fff;
 $topbar-dropdown-link-bg:                 rgba(darken($topbar-bg-color, 2%),0.85);
 // $topbar-dropdown-toggle-size:          5px;
@@ -261,17 +261,72 @@ $topbar-menu-link-weight:              200;
 
 $topbar-sticky-class:                  ".sticky";
 
+$medium-breakpoint: em-calc(1290) !default;
+$medium-range: (em-calc(720), $medium-breakpoint) !default;
 $reveal-position-top: rem-calc(10);
 $reveal-default-width: 60%;
 $reveal-max-width: 75%;
 @import 'brand_common';
 
-.top-bar-section .has-form {
-  padding-top: 8px;
+@media only screen and (min-width: 720px) {
+	.logo-container img {
+		padding: 8px 12px 0px 20px;
+	}
+  .top-bar-section {
+    li.has-form {
+      padding: rem-calc(5);
+      padding-right: rem-calc(10);
+    }
+  }
+  /** search box in top nav **/
+  #search_form #query {
+    margin-bottom:5px;
+    width:120px;
+  }
+  .top-bar input, .top-bar .button {
+      top: 16px;
+      height: 1.9em;
+  }
 }
-.logo-container img {
-  padding: 8px 25px;
+
+@media only screen and (min-width: 1301px) {
+  .top-bar-section {
+    li:not(.has-form) a:not(.button) {
+      padding: 0 14px !important;
+    }
+    li {
+      &.has-dropdown {
+        a {
+          padding-right: 14px !important;
+          &:after {
+            margin-right: 1px !important;
+          }
+        }
+      }
+    }
+  }
 }
+
+@media only screen and (max-width: 719px) {
+	.logo-container img {
+    //height: 40px;
+		padding: 4px 0px 0px 6px;
+	}
+  .top-bar-section {
+    li:not(.has-form) a:not(.button) {
+      padding-left: rem-calc(6);
+      padding-right: rem-calc(6);
+    }
+    li.has-form {
+      padding: rem-calc(6) rem-calc(12);
+      width: 100%;
+      input {
+        font-size: rem-calc(18);
+      }
+    }
+  }
+}
+
 div.homepage_block {
   h1 {
     font-size: rem-calc(38px);

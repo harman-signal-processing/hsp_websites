@@ -14,7 +14,7 @@ module ProductSelectorHelper
 
   def filter_title(product_filter)
     content_tag(:h5) do
-      ((product_filter.is_number? && !product_filter.name.to_s.match(/^max/i) ) ?
+      ((product_filter.is_number? && !product_filter.name.to_s.match(/^max/i) && !product_filter.value_type.match?(/upward/i)) ?
         "Max #{product_filter.name}" : product_filter.name)
     end
   end
@@ -40,9 +40,12 @@ module ProductSelectorHelper
   end
 
   def number_filter_input(product_filter, product_family)
+    slider_type = product_filter.value_type.match?(/upward/i) ?
+      "upwards-slider-number" : "slider-number"
+
     filter_title(product_filter) +
     content_tag(:div,
-      class: "slider-number-container",
+      class: "#{ slider_type }-container",
       id: "filter_#{ product_filter.to_param }_slider",
       data: {
         filtername: "filter-#{product_filter.to_param}",
@@ -53,7 +56,7 @@ module ProductSelectorHelper
         secondary_uom: product_filter.secondary_uom.present? ? product_filter.secondary_uom : "",
         secondary_uom_formula: product_filter.secondary_uom_formula.present? ? product_filter.secondary_uom_formula : ""
       }) do
-      content_tag(:div, "", class: "slider-number") +
+      content_tag(:div, "", class: slider_type) +
       #text_field_tag("filter-#{product_filter.to_param}", "", class: "unstyled slider-filter") +
       content_tag(:div, "", class: "number-label")
     end
@@ -84,12 +87,12 @@ module ProductSelectorHelper
   end
 
   def text_filter_input(product_filter, product_family)
-    unique_values = product_filter.unique_values_for(product_family, website)
-    case
-      when unique_values.size > 20
-        select_filter_input(product_filter, unique_values)
-      when (1..19) === unique_values.size
-        checkbox_filter_input(product_filter, unique_values)
+    unique_values = get_unique_values_for(product_filter, product_family)
+
+    if unique_values.size > 20
+      select_filter_input(product_filter, unique_values)
+    else
+      checkbox_filter_input(product_filter, unique_values)
     end
   end
 
@@ -114,6 +117,18 @@ module ProductSelectorHelper
           id: "filter-#{product_filter.to_param}_#{val.to_param}" ) + " #{val}"
       end
     end.join.html_safe
+  end
+
+  def get_unique_values_for(product_filter, product_family)
+    unique_values = product_filter.unique_values_for(product_family, website)
+
+    if unique_values.all? { |val| val.match?(/^\d/) }
+      unique_values = unique_values.sort_by { |s| s.scan(/\d+/).first.to_i }
+    else
+      unique_values.sort!
+    end
+
+    unique_values
   end
 
 end

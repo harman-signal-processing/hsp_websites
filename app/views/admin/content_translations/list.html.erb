@@ -1,22 +1,48 @@
 <h1><%= @model_class.pluralize %> for "<%= @target_locale %>"</h1>
 
 <% if @new_instance.respond_to?(:product) %>
-  Select a product:
-  <ul>
-		<% website.products.each do |product| %>
-      <li><%= link_to product.name,
+  <table>
+    <tr>
+      <th>Product</th>
+      <th>Fields Translated</th>
+    </tr>
+
+		<% website.products.find_each do |product| %>
+      <tr>
+      <td><%= link_to product.name,
         combined_admin_content_translations_path(
           locale: I18n.locale,
           target_locale: @target_locale,
           type: @new_instance.class.to_s.underscore,
           product_id: product.id ) %>
-      </li>
+      </td>
+      <td>
+        <%= ContentTranslation.where(
+          content_type: "Product",
+          content_id: product.id,
+          locale: @target_locale).size %> /
+        <%= ContentTranslation.fields_to_translate_for(product, website.brand).size %>
+        </td>
+      <td>
     <% end %>
-  </ul>
+  </table>
 <% else %>
-  <ul>
+  <table>
+    <tr>
+      <th>Item</th>
+      <th>Fields Translated</th>
+    </tr>
     <% @records.each do |record| %>
-      <li><%= link_to_translate(record, @target_locale) %></li>
+      <tr>
+        <td><%= link_to_translate(record, @target_locale) %></td>
+      <td>
+        <%= ContentTranslation.where(
+          content_type: record.class,
+          content_id: record.id,
+          locale: @target_locale).size %> /
+        <%= ContentTranslation.fields_to_translate_for(record, website.brand).size %>
+      </td>
+      </tr>
     <% end %>
-  </ul>
+  </table>
 <% end %>

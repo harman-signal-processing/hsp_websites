@@ -58,7 +58,7 @@ class RegisteredDownload < ApplicationRecord
   # Determine the filename for the corresponding HTML layout
   #
   def html_layout_filename
-    Rails.root.join("public", "system", "layouts", brand.default_website.folder, "registered_download_#{self.id}.html.erb")
+    "dynamic/layouts/#{brand.default_website.folder}/registered_download_#{self.id}.html.erb"
   end
 
   # Prepare the user-submitted email layout to be saved to the filesystem so
@@ -77,12 +77,11 @@ class RegisteredDownload < ApplicationRecord
   # Determine the filename for the corresponding email layout
   #
   def email_layout_filename
-    Rails.root.join("public", "system", "mailers", brand.default_website.folder, "registered_download_notice_#{self.id}.html.erb")
+    "dynamic/mailers/#{brand.default_website.folder}/registered_download_notice_#{self.id}.html.erb"
   end
 
   def email_layout_path
-    Rails.root.join("public", "system", "mailers", brand.default_website.folder).to_s
-    #"../../public/system/mailers/#{brand.default_website.folder}"
+    Rails.root.join("app", "views", "dynamic", "mailers", brand.default_website.folder).to_s
   end
 
   def email_template_name
@@ -94,13 +93,17 @@ class RegisteredDownload < ApplicationRecord
   # are stored on the filesystem. (Rails will only use layouts which are files.)
   #
   def save_templates_to_filesystem
-    if html_template_changed? || !File.exists?(self.html_layout_filename)
-      FileUtils.mkdir_p(File.dirname(self.html_layout_filename))
-      File.open(self.html_layout_filename, 'w+') {|f| f.write(self.html_layout)}
+    html_absolute_filepath = Rails.root.join("app", "views", self.html_layout_filename)
+    email_absolute_filepath = Rails.root.join("app", "views", self.email_layout_filename)
+
+    if html_template_changed? || !File.exists?(html_absolute_filepath)
+      FileUtils.mkdir_p(File.dirname(html_absolute_filepath))
+      File.open(html_absolute_filepath, 'w+') {|f| f.write(self.html_layout)}
     end
-    if email_template_changed? || !File.exists?(self.email_layout_filename)
-      FileUtils.mkdir_p(File.dirname(self.email_layout_filename))
-      File.open(self.email_layout_filename, 'w+') {|f| f.write(self.email_layout)}
+
+    if email_template_changed? || !File.exists?(email_absolute_filepath)
+      FileUtils.mkdir_p(File.dirname(email_absolute_filepath))
+      File.open(email_absolute_filepath, 'w+') {|f| f.write(self.email_layout)}
     end
   end
 

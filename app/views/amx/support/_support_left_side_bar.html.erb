@@ -21,6 +21,9 @@
 					</div>
 				<% end %> <%#= form_tag support_path, method: :get do |f| %>
 				<ul class="list">
+          <% if !!(website.value_for("anytime_support_url")) %>
+            <li><%= link_to t('anytime_support'), website.value_for("anytime_support_url"), target: "_blank" %></li>
+          <% end %>
 					<% if !!(website.has_training) %>
 						<li><%= link_to "product training", training_path %></li>
 					<% end %>
@@ -47,9 +50,6 @@
 			<div class="panel">
 				<h4><%= t('titles.more_resources').titleize %></h4>
 				<ul class="list">
-					<% if !!(website.value_for("troubleshooting_url")) %>
-						<li><%= link_to t('troubleshooting').downcase, support_troubleshooting_path %></li>
-					<% end %>
 					<% if !!(website.has_cad_drawings) %>
 						<li><%= link_to "CAD files", support_cad_path %></li>
 					<% end %>

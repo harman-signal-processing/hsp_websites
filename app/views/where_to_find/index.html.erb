@@ -13,6 +13,14 @@
 
 <div class="row">
   <div class="large-8 columns">
+    <% if website.show_lead_form_on_buy_page? %>
+      <div class="callout panel">
+        <h4>Connect with <%= website.brand.name %></h4>
+        <p>Tell us about your project. Complete the form below to connect with us.</p>
+        <%= render_partial 'leads/form' %>
+      </div>
+    <% end %>
+
     <% if website.brand.has_dealers? %>
       <div class="row">
         <div class="medium-6 columns end">
@@ -102,9 +110,6 @@
       <%=render_partial "main/country_selector_for_distributors"%>
     <% end %>
 
-    <% if website.brand.name.to_s.match(/duran audio/i) %>
-      <h1 class="page_title">Enquire with Harman Directly</h1>
-    <% end %>
     <%= raw website.where_to_buy_extra_content %>
 
   </div>
@@ -124,24 +129,7 @@
 </div>
 
 <% if website.brand.has_online_retailers? %>
-	<br/>
-  <div class="row">
-    <div class="large-12 columns">
-      <h3><%= t('titles.buy_online') %></h3>
-
-      <ul class="large-block-grid-6 small-block-grid-3">
-      <% OnlineRetailer.random(website)[0,24].each do |online_retailer| %>
-        <li>
-          <% if !online_retailer.retailer_logo_file_name.blank? %>
-            <%= link_to(image_tag(online_retailer.retailer_logo(:fixed)), online_retailer.direct_link, target: "_blank")%>
-          <% else %>
-            <%= link_to online_retailer.name, online_retailer.direct_link, target: "_blank" %>
-          <% end %>
-        </li>
-      <% end %>
-      </ul>
-    </div>
-  </div>
+  <%= render_partial 'where_to_find/retailers' %>
 <% end %>
 
 <%= content_for :extra_js do %>

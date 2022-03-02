@@ -4,7 +4,6 @@
       <% if website.has_product_selector? %>
         <li><%= link_to t("product_selector"), product_selector_path %></li>
       <% end %>
-		  <li><%= link_to t('new_products'), new_products_path, target: "_blank" %></li>
 			<% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
 				<%= product_family_nav_links(product_family, depth: 1) %>
 			<% end %>
@@ -32,14 +31,25 @@
   <li><%= link_to t("nav.case_studies"), case_studies_path %></li>
 
   <% if (website.has_learning_sessions.present? && website.has_learning_sessions == 1) %>
-    <li><%= link_to t('learning_sessions').titleize, "/learning-sessions" %></li>
+    <li class="hide-for-medium"><%= link_to t('learning_sessions').titleize, "/learning-sessions/" %></li>
   <% end %>
+
+  <li class="hide-for-medium"><%= link_to t('training').titleize, "/training", target: "_blank" %></li>
+
+  <li class="show-for-medium has-dropdown">
+    <%= link_to 'learn'.titleize, '#', class: 'disabled' %>
+    <ul class="dropdown">
+      <% if (website.has_learning_sessions.present? && website.has_learning_sessions == 1) %>
+        <li><%= link_to t('learning_sessions').titleize, "/learning-sessions" %></li>
+      <% end %>
+
+      <li><%= link_to t('training').titleize, "/training", target: "_blank" %></li>
+    </ul>
+  </li>
 
   <% if website.has_installations? %>
     <li><%= link_to t('installations').titleize, installations_path %></li>
   <% end %>
-
-  <li><%= link_to t('training').titleize, "/training", target: "_blank" %></li>
 
     <li class="has-dropdown"><%= link_to t('about').titleize, '#' %>
       <ul class="dropdown">
@@ -54,12 +64,16 @@
 	<% end %>
 
 	<% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
-    <li><%= link_to t('where_to_buy').titleize, where_to_find_path %></li>
+    <li class="hide-for-medium"><%= link_to t('where_to_buy').titleize, where_to_find_path %></li>
+    <li class="show-for-medium"><%= link_to t('buy').titleize, where_to_find_path %></li>
 	<% end %>
 
 	<li class="has-dropdown"><%= link_to t('product_support').titleize, support_path %>
     <ul class="dropdown">
       <li><%= link_to t('contact_us').titleize, support_path %></li>
+      <% if !!(website.value_for("anytime_support_url")) %>
+        <li><%= link_to t('anytime_support'), website.value_for("anytime_support_url"), target: "_blank" %></li>
+      <% end %>
       <li><%= link_to "Consultant Portal", "#{ENV['PRO_SITE_URL']}/consultant", target: "_blank" %></li>
       <li><%= link_to t('software_downloads').titleize, software_index_path %></li>
       <li><%= link_to t('firmware_downloads').titleize, firmware_index_path %></li>

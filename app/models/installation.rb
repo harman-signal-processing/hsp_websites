@@ -16,7 +16,7 @@ class Installation < ApplicationRecord
       tiny: "64x64>",
       tiny_square: "64x64#"
     }, processors: [:thumbnail, :compression]
-  }.merge(S3_STORAGE)
+  }
   validates_attachment :thumbnail, content_type: { content_type: /\Aimage/i }
 
   validates :title, presence: true, uniqueness: { scope: :brand_id, case_sensitive: false }

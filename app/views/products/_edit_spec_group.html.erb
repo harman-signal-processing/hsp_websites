@@ -1,0 +1,53 @@
+<%
+  this_group_specs = product.product_specifications.includes(:specification).where(specification_id: spec_group.specifications.pluck(:id)).reorder("specifications.position")
+  blank_rows = this_group_specs.length > 0 ? 3 : 6
+%>
+
+<div id="edit-spec-group-<%= spec_group.id %>" class="reveal-modal inline-editor" data-reveal>
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+
+  <div class="row">
+    <div class="small-10 small-offset-1 columns">
+      <h3><%= spec_group.name %> Specifications</h3>
+    </div>
+  </div>
+
+  <%= simple_form_for [:admin, product],
+    url: bulk_update_admin_product_product_specifications_path(product),
+    method: :post,
+    html: { class: "bulk_specifications_update" } do |f| %>
+    <input type="hidden" name="return_to" value="<%= product_path(product) %>">
+
+    <div class="row">
+      <div class="small-1 columns">&nbsp;</div>
+      <div class="small-5 columns">
+        <h6>Specification Name</h6>
+      </div>
+      <div class="small-6 columns">
+        <h6>Value
+          <% if this_group_specs.length > 0 %>
+            <small>use the <i class="fa fa-edit"></i> edit button on the right to get an HTML editor</small>
+          <% end %>
+        </h6>
+      </div>
+    </div>
+
+    <%= f.simple_fields_for :product_specifications, this_group_specs  do |ps| %>
+      <%= render 'admin/product_specifications/product_specification_fields', f: ps, parent: f.object, spec_group: spec_group, admin_lite: true %>
+    <% end %>
+
+    <%= f.simple_fields_for :product_specifications, blank_rows.times.map { ProductSpecification.new(product: product) } do |ps| %>
+      <%= render 'admin/product_specifications/product_specification_fields', f: ps, parent: f.object, spec_group: spec_group %>
+    <% end %>
+
+    <div class="row">
+      <div class="small-10 small-offset-1 columns">
+        <%= f.submit "Save Changes", class: "medium button" %>
+        <p><small>Note: new specs will appear in the correct sort order
+          as determined by the <%= website.brand.name %> master specifications
+          sort order.</small></p>
+      </div>
+    </div>
+  <% end %>
+
+</div>

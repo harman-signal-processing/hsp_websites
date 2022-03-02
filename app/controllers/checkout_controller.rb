@@ -4,6 +4,7 @@ class CheckoutController < ApplicationController
   before_action :set_cart, except: [:shopper_redirect] # Don't set cart in the session if we're redirecting to a sales order
   before_action :authenticate_user!, only: [:new, :shopper_redirect, :success]
   before_action :set_address, only: [:new, :save_address]
+  skip_before_action :verify_authenticity_token, only: [:get_payment_methods, :initiate_payment]
 
   # Before checking out, let's signin/create our user so we can
   # assign the order to them after the Adyen dropin process is

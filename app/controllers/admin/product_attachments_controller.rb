@@ -47,7 +47,7 @@ class Admin::ProductAttachmentsController < AdminController
         format.html {
           if params[:return_to]
             return_to = URI.parse(params[:return_to]).path
-            redirect_to(return_to, notice: "Image was successfully uploaded.")
+            redirect_to(return_to, notice: "Image was successfully uploaded. It may take a few minutes for the additional sizes to be created.")
           else
             redirect_to([:admin, @product_attachment.product], notice: 'Product Attachment was successfully created.')
           end
@@ -72,7 +72,14 @@ class Admin::ProductAttachmentsController < AdminController
     respond_to do |format|
       if @product_attachment.update(product_attachment_params)
         @old_primary_photo.primary_photo = false
-        format.html { redirect_to(edit_admin_product_attachment_path(@product_attachment), notice: 'Product Attachment was successfully updated.') }
+        format.html {
+          if params[:return_to]
+            return_to = URI.parse(params[:return_to]).path
+            redirect_to(return_to, notice: "Image was successfully uploaded. It may take a few minutes for the additional sizes to be created.")
+          else
+            redirect_to(edit_admin_product_attachment_path(@product_attachment), notice: 'Product Attachment was successfully updated.')
+          end
+        }
         format.xml  { head :ok }
         format.js
         website.add_log(user: current_user, action: "Updated product attachment for #{@product_attachment.product.name}")

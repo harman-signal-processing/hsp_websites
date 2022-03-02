@@ -1,0 +1,5 @@
+$('.spinner').hide();
+$('#safety-content').html('<%= escape_javascript( render_partial "support/safety_table", product: @product ) %>');
+$("#safety-content").pin({
+  containerSelector: $(".row")
+})

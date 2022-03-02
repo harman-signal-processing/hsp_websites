@@ -1,5 +1,6 @@
 class Dealer < ApplicationRecord
   attr_accessor :sold_to, :del_flag, :del_block, :order_block # extra fields from import report
+  attribute :distance, :float # temporarily holds distance from search origin on where to buy page
   acts_as_mappable
   validates :address, :name, presence: true
   validates :account_number, presence: true, uniqueness: { case_sensitive: false }
@@ -13,24 +14,33 @@ class Dealer < ApplicationRecord
   has_many :brands, through: :brand_dealers
   accepts_nested_attributes_for :brand_dealers
 
-  scope :near, -> (*args) {
-    origin = *args.first[:origin]
-    if (origin).is_a?(Array)
-      origin_lat, origin_lng = origin
-    else
-      origin_lat, origin_lng = origin.lat, origin.lng
+  scope :near, -> (brand, origin, within_miles) {
+    brand.dealers.select{|d| d.distance_from(origin) <= within_miles}
+  }
+
+  scope :rental_products, -> (website, dealer) {
+    brand_dealer = BrandDealer.where("brand_id=? and dealer_id=?", website.brand.id, dealer.id).first
+    if brand_dealer.present?
+      Product.joins(:brand_dealer_rental_products).where("brand_dealer_rental_products.brand_dealer_id = ?", brand_dealer).order(:position)
     end
-    origin_lat, origin_lng = deg2rad(origin_lat), deg2rad(origin_lng)
-    within = *args.first[:within]
-    where(
-      "(ACOS(COS(#{origin_lat})*COS(#{origin_lng})*COS(RADIANS(dealers.lat))*COS(RADIANS(dealers.lng))+
-      COS(#{origin_lat})*SIN(#{origin_lng})*COS(RADIANS(dealers.lat))*SIN(RADIANS(dealers.lng))+
-      SIN(#{origin_lat})*SIN(RADIANS(dealers.lat)))*3963) <= #{within[0]}"
-    ).select("dealers.*,
-      (ACOS(COS(#{origin_lat})*COS(#{origin_lng})*COS(RADIANS(dealers.lat))*COS(RADIANS(dealers.lng))+
-      COS(#{origin_lat})*SIN(#{origin_lng})*COS(RADIANS(dealers.lat))*SIN(RADIANS(dealers.lng))+
-      SIN(#{origin_lat})*SIN(RADIANS(dealers.lat)))*3963) AS distance"
-    )
+  }
+
+  scope :available_rental_products, -> (website, dealer) {
+    existing_rental_products = rental_products(website, dealer)
+    if existing_rental_products.present?
+      website.products.where.not(id: existing_rental_products.pluck(:id))
+    else
+      website.products
+    end
+  }
+
+  scope :rental_product_associations, -> (website, dealer) {
+    brand_dealer = BrandDealer.where("brand_id=? and dealer_id=?", website.brand.id, dealer.id).first
+    associations_to_return = []
+    if brand_dealer.present?
+      associations_to_return = brand_dealer.brand_dealer_rental_products
+    end
+    associations_to_return
   }
 
   def parent
@@ -57,9 +67,11 @@ class Dealer < ApplicationRecord
     bd = BrandDealer.where(dealer_id: self.id, brand_id: brand.id).first_or_initialize
     bd.save
 
-    self.children.each do |child|
-      bd = BrandDealer.where(dealer_id: child.id, brand_id: brand.id).first_or_initialize
-      bd.save
+    if self.children.present?
+      self.children.each do |child|
+        bd = BrandDealer.where(dealer_id: child.id, brand_id: brand.id).first_or_initialize
+        bd.save
+      end
     end
   end
 
@@ -211,7 +223,7 @@ class Dealer < ApplicationRecord
           sheet[row, 0] = country.country.blank? ? "(empty country)" : country.country
           sheet.merge_cells(row, 0, row, 7)
           row += 1
-          dealers.where(region: region.region, country: country.country).each do |dealer|
+          dealers.where(region: region.region, country: country.country).order(:name).each do |dealer|
             addr = dealer.address.split(/\<br\/?\>/i)
             sheet.row(row).default_format = line_above_format
             sheet.row(row).set_format(0, dealer_name_format)
@@ -225,7 +237,8 @@ class Dealer < ApplicationRecord
             sheet[row, 4] = "Email:"
             sheet[row, 5] = dealer.email
             sheet[row, 6] = "Models:"
-            sheet[row, 7] = dealer.products
+            # sheet[row, 7] = dealer.products
+            sheet[row, 7] = dealer.rental_product_names
             row += 1
             (0..6).each do |c|
               sheet.row(row).format(c).left = :thin
@@ -264,4 +277,9 @@ class Dealer < ApplicationRecord
       dealers # no other formats supported yet
     end
   end
+
+  def rental_product_names
+    Product.find(self.brand_dealers.first.brand_dealer_rental_products.order(:position).pluck(:product_id)).pluck(:name).join(', ')
+  end
+
 end

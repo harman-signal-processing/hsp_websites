@@ -1,16 +1,18 @@
-<% called_from ||= 'product' %>
-<li id="artist_product_<%= ap.id %>">
-	<%= (called_from == 'product') ?
-			link_to(ap.artist.name, [:admin, ap.artist]) :
-			link_to(ap.product.name, [:admin, ap.product]) %>
-	<span class="little">
-	<%= (ap.on_tour) ? "(on tour)" : "" %>
-	<%= link_to(image_tag("icons/trash.gif", lazy: false),
-			admin_artist_product_path(ap),
-			confirm: "Are you sure? (This won't delete the product or the artist--it will only remove the association.)",
-			remote: true,
-			method: :delete) %>
-	<%= link_to 'edit', edit_admin_artist_product_path(ap) %> &nbsp;
-	</span>
-	<small><%= (ap.quote.blank?) ? "" : raw("<br/>&nbsp;&nbsp;<i>\"#{ap.quote}\"</i>") %></small>
-</li>
+<% unless ap.new_record? %>
+  <% called_from ||= 'product' %>
+  <li id="artist_product_<%= ap.id %>">
+    <%= (called_from == 'product') ?
+        link_to(ap.artist.name, [:admin, ap.artist]) :
+        link_to(ap.product.name, [:admin, ap.product]) %>
+    <span class="little">
+    <%= (ap.on_tour) ? "(on tour)" : "" %>
+    <%= link_to(image_tag("icons/trash.gif", lazy: false),
+        admin_artist_product_path(ap),
+        confirm: "Are you sure? (This won't delete the product or the artist--it will only remove the association.)",
+        remote: true,
+        method: :delete) %>
+    <%= link_to 'edit', edit_admin_artist_product_path(ap) %> &nbsp;
+    </span>
+    <small><%= (ap.quote.blank?) ? "" : raw("<br/>&nbsp;&nbsp;<i>\"#{ap.quote}\"</i>") %></small>
+  </li>
+<% end %>

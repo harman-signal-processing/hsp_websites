@@ -1,14 +1,16 @@
-<% called_from ||= 'product' %>
-<% if pp.parent_product.is_a?(Product) && pp.product.is_a?(Product) %>
-<li id="parent_product_<%= pp.id %>">
-	<span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
-	<%= (called_from == 'product') ? 
-			link_to(pp.parent_product.name, [:admin, pp.parent_product]) : 
-			link_to(pp.product.name, [:admin, pp.product]) %> 
-	<%= link_to(image_tag("icons/trash.gif", lazy: false), 
-			admin_parent_product_path(pp, called_from: called_from), 
-			confirm: "Are you sure? (This won't delete either product--it will only remove the association.)", 
-			remote: true,
-			method: :delete) %>
-</li>
+<% unless pp.new_record? %>
+  <% called_from ||= 'product' %>
+  <% if pp.parent_product.is_a?(Product) && pp.product.is_a?(Product) %>
+  <li id="parent_product_<%= pp.id %>">
+    <span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
+    <%= (called_from == 'product') ?
+        link_to(pp.parent_product.name, [:admin, pp.parent_product]) :
+        link_to(pp.product.name, [:admin, pp.product]) %>
+    <%= link_to(image_tag("icons/trash.gif", lazy: false),
+        admin_parent_product_path(pp, called_from: called_from),
+        confirm: "Are you sure? (This won't delete either product--it will only remove the association.)",
+        remote: true,
+        method: :delete) %>
+  </li>
+  <% end %>
 <% end %>
