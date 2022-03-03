@@ -3,9 +3,9 @@
   <p>Order Date: <%=l @sales_order.created_at.to_date, format: :long %></p>
   <% if @sales_order.has_digital_downloads? %>
     <p>
-      <%= fa_icon "info-circle" %> <small>To activate your software, use the
+      <%= fa_icon "info-circle" %> To activate your software, use the
       <%= link_to "iLok License Manager", "https://ilok.com", target: "_blank" %>
-      to claim your license by entering your product key(s) below.</small>
+      to claim your license by entering your product key(s) below.
     </p>
   <% end %>
 </div>

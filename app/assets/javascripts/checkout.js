@@ -36,7 +36,9 @@ async function initCheckout() {
     };
 
     const checkout = new AdyenCheckout(configuration);
-    checkout.create("dropin").mount(document.getElementById("dropin"));
+    var dropin_container = document.getElementById("dropin");
+    dropin_container.innerHTML = "";
+    checkout.create("dropin").mount(dropin_container);
   } catch (error) {
     console.error(error);
     alert("Error occurred. Please try later.");

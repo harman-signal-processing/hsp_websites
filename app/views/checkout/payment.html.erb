@@ -1,11 +1,11 @@
 <%= content_for :extra_header_code do %>
   <% if ENV['ADYEN_ENV'] == "test" %>
-     <script src="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/4.3.1/adyen.js"
+     <script src="https://checkoutshopper-live.adyen.com/checkoutshopper/sdk/4.3.1/adyen.js"
          integrity="sha384-eNk32fgfYxvzNLyV19j4SLSHPQdLNR+iUS1t/D7rO4gwvbHrj6y77oJLZI7ikzBH"
          crossorigin="anonymous"></script>
     
     <link rel="stylesheet"
-         href="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/4.3.1/adyen.css"
+         href="https://checkoutshopper-live.adyen.com/checkoutshopper/sdk/4.3.1/adyen.css"
          integrity="sha384-5CDvDZiVPuf+3ZID0lh0aaUHAeky3/ACF1YAKzPbn3GEmzWgO53gP6stiYHWIdpB"
          crossorigin="anonymous">
  <% else %>
@@ -31,7 +31,12 @@
       <% end %>
     </p>
 
-    <div id="dropin"></div>
+    <div id="dropin">
+      <div style="text-align: center">
+        <%= image_tag "loading.gif", alt: "loading..." %><br/>
+        Getting payment methods...
+      </div>
+    </div>
   </div>
 
   <div class="hide-for-small medium-5 large-4 columns">
@@ -42,7 +47,7 @@
           <div class="medium-8 columns">
             <%= line_item.product.name %>
             <% if line_item.product.digital_ecom? %>
-              <br/><small>Instant electronic delivery.</small>
+              <br/>Instant electronic delivery.
             <% end %>
           </div>
           <div class="medium-4 columns text-right">
@@ -59,7 +64,7 @@
 
     </div>
     <% if @shopping_cart.has_digital_downloads? %>
-      <p class="text-center"><i><small>Software activation requires use of <a href="https://ilok.com" target="_blank">iLok physical license key dongle</a>.</small></i></p>
+      <p class="text-center"><i>Software activation requires use of <a href="https://ilok.com" target="_blank">iLok physical license key dongle</a>.</i></p>
     <% end %>
   </div>
 </div>

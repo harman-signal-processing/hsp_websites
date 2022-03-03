@@ -25,7 +25,7 @@
           <td>
             <%= link_to line_item.product.name, line_item.product %>
             <% if line_item.product.digital_ecom? %>
-              <br/><small>Instant electronic delivery.</small>
+              <br/>Instant electronic delivery.
             <% end %>
           </td>
           <td class="text-center">
@@ -59,7 +59,7 @@
   <div class="row">
     <div class="small-12 medium-6 large-9 columns">
       <% if @shopping_cart.has_digital_downloads? %>
-        <p><i><small>Software activation requires use of <a href="https://ilok.com" target="_blank">iLok physical license key dongle</a>.</small></i></p>
+        <p><i>Software activation requires use of <a href="https://ilok.com" target="_blank">iLok physical license key dongle</a>.</i></p>
       <% end %>
     </div>
     <div class="small-12 medium-6 large-3 columns">

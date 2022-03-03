@@ -35,7 +35,7 @@
           <div class="medium-8 columns">
             <%= line_item.product.name %>
             <% if line_item.product.digital_ecom? %>
-              <br/><small>Instant electronic delivery.</small>
+              <br/>Instant electronic delivery.
             <% end %>
           </div>
           <div class="medium-4 columns text-right">
@@ -56,7 +56,7 @@
 
     </div>
     <% if @shopping_cart.has_digital_downloads? %>
-      <p class="text-center"><i><small>Software activation requires use of <a href="https://ilok.com" target="_blank">iLok physical license key dongle</a>.</small></i></p>
+      <p class="text-center"><i>Software activation requires use of <a href="https://ilok.com" target="_blank">iLok physical license key dongle</a>.</i></p>
     <% end %>
   </div>
 </div>
