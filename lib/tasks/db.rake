@@ -2,9 +2,10 @@ namespace :db do
 
 	desc "Sets up the local development database with localhost websites"
 	task setup_development_from_production: :environment do
+	  dev_domain = ENV['DEV_DOMAIN'].present? ? ENV['DEV_DOMAIN'] : ".lvh.me"
 		Brand.all.each do |brand|
 			if website = brand.default_website
-				website.update(url: "#{brand.to_param.gsub(/\W/, '')}.lvh.me")
+				website.update(url: "#{brand.to_param.gsub(/\W/, '')}#{dev_domain}")
 			end
 		end
 	end
