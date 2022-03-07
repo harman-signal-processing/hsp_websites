@@ -121,7 +121,7 @@ module MainHelper
         end.html_safe
 
       # This is a custom solution (for AMX) to combine some parent and child links in the nav list
-      if website.value_for("family-slugs-to-be-collapsed-in-nav").present? && website.value_for("family-slugs-to-be-collapsed-in-nav").include?(product_family.cached_slug)
+      if website.value_for("family-slugs-to-be-collapsed-in-nav").present? && website.value_for("family-slugs-to-be-collapsed-in-nav").gsub(/\s+/, "") .split(",").include?(product_family.cached_slug)
         nav_html = child_links.join.html_safe
       end
 

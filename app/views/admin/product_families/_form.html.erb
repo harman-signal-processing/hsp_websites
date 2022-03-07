@@ -8,7 +8,12 @@
 			<%= f.input :product_nav_separator, hint: "This separator will appear in the top nav directly above this product family. This is not common." %>
 		</div>
   </div>
-
+  <div class="row">
+		<div class="small-12 medium-6 columns">
+			<%= f.input :title, hint: "Leave blank unless you need a page title that is different than the product family name above." %>
+		</div>
+		<div class="small-12 medium-6 columns"></div>
+  </div>
   <div class="row">
 		<div class="small-12 medium-4 columns">
       <%= f.input :short_description, label: "100 character description", as: :text, input_html: {class: "limited", data: {charlimit: 100}} %>
@@ -62,7 +67,7 @@
 					<span id="title_banner">
 						<%= link_to image_tag("icons/trash.gif", lazy: false), delete_title_banner_admin_product_family_path(f.object), remote: true %>
 						currently:
-						<%= link_to image_tag(f.object.title_banner.url(:thumb)), f.object.title_banner.url %>
+						<%= link_to image_tag(f.object.title_banner.url(:thumb), lazy: false), f.object.title_banner.url %>
 
 					</span>
 				<% end %>
