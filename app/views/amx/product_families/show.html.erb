@@ -11,7 +11,45 @@
 	<% end %>
 <% end %>
 
-<%= render_partial 'product_families/features' %>
+
+
+<% if @product_family.features.present? && @product_family.features.count > 1 %>
+  <%= render_partial 'product_families/features_carousel' %>
+<% elsif @product_family.features.present? && @product_family.features.count == 1%>
+  <%= render_partial 'product_families/features' %>
+<% else %>
+
+
+<%# binding.pry %>
+      <% if @product_family.title_banner.present? %>
+<%# binding.pry %>
+
+              <% if @product_family.title.present? %>
+                <h1><%= translate_content(@product_family, :title) %></h1>
+              <% else %>
+                <h1><%= translate_content(@product_family, :name) %></h1>
+              <% end %>
+              
+              
+              <% content_for :feature do %> <%# I think this makes if full width%>
+                  <div class="product-family-banner-container text-center">
+                    <%= image_tag @product_family.title_banner.url, alt: @product_family.name, style: "width: 100%" %>
+                  </div>
+            <% end %>
+            
+            
+      <% else %><%# else of if @product_family.title_banner.present?  %>
+      
+          <%= render_partial 'product_families/text_banner_only' %>
+      
+      
+      <% end %><%# end if @product_family.title_banner.present?  %>
+
+
+
+<% end %> <%# if @product_family.features.present? %>
+
+
 
 <div class="product_family_body">
   <% if current_user && can?(:manage, @product_family) %>
