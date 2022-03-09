@@ -58,6 +58,8 @@ class Product < ApplicationRecord
   has_many :accessory_products, through: :product_accessories
   has_many :customizable_attribute_values, dependent: :destroy
   has_many :customizable_attributes, -> { distinct }, through: :customizable_attribute_values
+  has_many :product_innovations, dependent: :destroy
+  has_many :innovations, through: :product_innovations
   belongs_to :product_status
   belongs_to :brand, touch: true
   has_many :parent_products # Where this is the child (ie, an e-pedal child of the iStomp)
@@ -129,6 +131,10 @@ class Product < ApplicationRecord
     website.products.where.not(id: badge.products.pluck(:id))
   }
 
+  scope :not_associated_with_this_innovation, -> (innovation, website) {
+    website.products.where.not(id: innovation.products.pluck(:id))
+  }
+  
   def slug_candidates
     [
       :formatted_name,

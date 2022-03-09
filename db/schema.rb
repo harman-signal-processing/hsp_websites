@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_23_173139) do
+ActiveRecord::Schema.define(version: 2022_03_09_163353) do
 
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
@@ -800,6 +800,23 @@ ActiveRecord::Schema.define(version: 2021_11_23_173139) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "innovations", charset: "latin1", force: :cascade do |t|
+    t.integer "brand_id"
+    t.integer "position"
+    t.string "name"
+    t.string "icon_file_name"
+    t.integer "icon_file_size"
+    t.string "icon_content_type"
+    t.datetime "icon_updated_at"
+    t.text "short_description"
+    t.text "description", size: :medium
+    t.string "cached_slug"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["brand_id"], name: "index_innovations_on_brand_id"
+    t.index ["cached_slug"], name: "index_innovations_on_cached_slug"
+  end
+
   create_table "installations", id: :integer, charset: "utf8", force: :cascade do |t|
     t.integer "brand_id"
     t.string "title"
@@ -1314,6 +1331,15 @@ ActiveRecord::Schema.define(version: 2021_11_23_173139) do
     t.string "secondary_uom"
     t.string "secondary_uom_formula"
     t.integer "stepsize", default: 1
+  end
+
+  create_table "product_innovations", charset: "latin1", force: :cascade do |t|
+    t.integer "product_id"
+    t.integer "innovation_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["innovation_id"], name: "index_product_innovations_on_innovation_id"
+    t.index ["product_id"], name: "index_product_innovations_on_product_id"
   end
 
   create_table "product_introductions", id: :integer, charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|

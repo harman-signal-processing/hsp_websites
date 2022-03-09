@@ -1,0 +1,20 @@
+<% unless pi.new_record? %>
+  <% called_from ||= 'product' %>
+  <li id="product_innovation_<%= pi.id %>">
+    <% if pi.innovation && pi.product %>
+      <%= (called_from == 'product') ?
+          link_to(pi.innovation.name, [:admin, pi.innovation]) :
+          link_to(pi.product.name, [:admin, pi.product]) %>
+    <% elsif !pi.innovation %>
+      Missing innovation ID: <%= pi.innovation_id %>
+    <% elsif !pi.product %>
+      Missing product ID: <%= pi.product_id %>
+    <% end %>
+
+    <%= link_to(image_tag("icons/trash.gif", lazy: false),
+        admin_product_innovation_path(pi, called_from: called_from),
+        confirm: "Are you sure? (This won't delete the product or the innovation--it will only remove the association.)",
+        remote: true,
+        method: :delete) %>
+  </li>
+<% end %>

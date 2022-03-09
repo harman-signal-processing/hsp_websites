@@ -1,0 +1,5 @@
+<%= simple_form_for([:admin, @product_innovation]) do |f| %>
+  <%= f.association :product %>
+  <%= f.association :innovation %>
+  <br/><%= f.button :submit %>
+<% end %>

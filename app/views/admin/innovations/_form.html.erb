@@ -1,0 +1,14 @@
+<%= simple_form_for([:admin, @innovation]) do |f| %>
+
+  <div class="row">
+    <div class="large-6 columns">
+      <%= f.input :name %>
+      <%= f.input :icon %>
+      <%= f.input :short_description, hint: "HTML can be included" %>
+    </div>
+  </div>
+
+  <%= f.input :description, input_html: { class: "mceEditor", style: "height: 400px" } %>
+
+  <br/><%= f.button :submit %>
+<% end %>

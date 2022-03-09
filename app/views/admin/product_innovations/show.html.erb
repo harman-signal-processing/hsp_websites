@@ -1,0 +1,13 @@
+<p>
+  <b>Product:</b>
+  <%=h @product_innovation.product.name %>
+</p>
+
+<p>
+  <b>Innovation:</b>
+  <%=h @product_innovation.innovation.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_admin_product_innovation_path(@product_innovation, locale: I18n.locale) %> |
+<%= link_to 'Back', admin_product_innovations_path %>

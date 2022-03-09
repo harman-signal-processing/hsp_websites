@@ -40,6 +40,8 @@ class Brand < ApplicationRecord
   has_many :sales_regions
   has_many :testimonials
   has_many :specification_for_comparisons, class_name: "BrandSpecificationForComparison"
+  has_many :innovations, -> { order('position') }
+  
   has_attached_file :logo,
     styles: { large: "640x480",
       medium: "480x360",

@@ -1,0 +1,22 @@
+<h1>Listing Poduct Innovations</h1>
+
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Innovation</th>
+  </tr>
+
+<% @product_innovations.each do |product_innovation| %>
+  <tr>
+    <td><%=h product_innovation.product.name %></td>
+    <td><%=h product_innovation.innovation.name %></td>
+    <td><%= link_to 'Show', [:admin, product_innovation] %></td>
+    <td><%= link_to 'Edit', edit_admin_product_innovation_path(product_innovation) %></td>
+    <td><%= link_to 'Delete', [:admin, product_innovation], confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New product innovation', new_admin_product_innovation_path %>

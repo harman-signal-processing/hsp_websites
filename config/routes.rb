@@ -388,6 +388,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :software_attachments,
         :product_accessories,
         :product_audio_demos,
+        :product_innovations,
         :product_suggestions,
         :product_attachments,
         :product_amp_models,
@@ -421,6 +422,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :artist_tiers,
         :testimonials,
         :audio_demos,
+        :innovations,
         :promotions,
         :amp_models,
         :us_regions,
@@ -550,6 +552,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     end
     resources :product_specifications, only: :edit
     resources :leads, only: [:new, :create]
+    resources :innovations, only: [:index, :show]
 
     get 'product_selector' => 'product_selector#index', as: :product_selector
     namespace :product_selector do

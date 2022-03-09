@@ -1,0 +1,13 @@
+<h1>Innovations</h1>
+
+<% if can? :create, Innovation %>
+<ul class="button-group round">
+	<li><%= link_to 'New innovation', new_admin_innovation_path, class: "small success button" %></li>
+</ul>
+<% end %>
+
+<ul>
+	<% @innovations.each do |innovation| %>
+	  <li><%= link_to innovation.name, [:admin, innovation] %></li>
+	<% end %>
+</ul>

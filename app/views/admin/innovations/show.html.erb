@@ -1,0 +1,83 @@
+<h1>
+	<%=h @innovation.name %>
+	<span class="little"><%= link_to(innovation_url(@innovation), innovation_url(@innovation)) %>
+	<%= link_to(image_tag("icons/external_link_icon.png"), innovation_url(@innovation)) %></span>
+
+</h1>
+
+<ul class="button-group round">
+	<li><%= link_to admin_innovations_path, class: "small secondary button" do %>
+    <%= fa_icon "angle-double-left" %>
+  <% end %>
+  </li>
+	<li><%= link_to edit_admin_innovation_path(@innovation, locale: I18n.locale), class: "small secondary button" do %>
+      <%= fa_icon "edit" %>
+      Edit
+    <% end %>
+  </li>
+	<li><%= link_to [:admin, @innovation], confirm: 'Are you sure?', method: :delete, class: "small alert button" do %>
+    <%= fa_icon "trash" %>
+    Delete
+  <% end %>
+  </li>
+</ul>
+
+<div class="row">
+    <div class="small-12 medium-8 columns">
+      <p><strong>Icon:</strong>
+      <% if @innovation.icon.present? %>
+        <br/><%= image_tag(@innovation.icon.url) %>
+      <% else %>
+        <em>none</em>
+      <% end %>
+      </p>
+        
+      <p><strong>Short Description:</strong><br/>
+      <%= @innovation.short_description %>
+      </p>
+        
+      <h5>Innovation Content Preview:</h5>
+      <p>(The font probably isn't correct below. That's because this admin interface doesn't have the same style as the actual website. Just use your imagination.)</p>
+        
+      <div class="content container" style="background: white">
+      	<div class="row">
+      		<div class="small-10 small-offset-1 columns text-content">
+      		  <br/>
+      			<%=raw @innovation.description %>
+      		</div>
+      	</div>
+      </div>
+    </div>
+    
+    <div class="small-12 medium-4 columns">
+      <h3>Products</h3>
+      
+  		<div class="group">
+  			<h5 class="subheader">This innovation is associated with the following product(s):</h5>
+  			
+				<%= simple_form_for [:admin, @product_innovation], remote: true do |f| %>
+					<%= hidden_field_tag "called_from", "innovation" %>
+			    <%= f.hidden_field :innovation_id %>
+			    <div class="row collapse">
+			    	<div class="large-8 small-8 columns">
+			    		<%= f.association :product,
+			    		collection: Product.not_associated_with_this_innovation(@innovation, website),
+			    		label: false,
+			    		input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Products'} }%>
+			    	</div>
+			    	<div class="large-4 small-4 columns">
+			    		<%= submit_tag 'add', class: "prefix button"  %>
+			    	</div>
+			    </div>
+				<% end %>
+  
+  			<ul id="product_innovations" class="list">
+          <% @innovation.product_innovations.each do |pi| %>
+  					<%= render '/admin/shared/product_innovation_row', pi: pi, called_from: 'innovation' %>
+  				<% end %>
+  			</ul>
+  
+  		</div>
+        
+    </div>
+</div>

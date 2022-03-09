@@ -67,6 +67,7 @@
                       can?(:manage, SpecificationGroup) ||
                       can?(:manage, Specification) ||
                       can?(:manage, ProductSpecification) ||
+                      can?(:manage, Innovation) ||
                       can?(:manage, News) ||
                       can?(:manage, Event) ||
                       (can?(:manage, Effect) && website.has_effects?) ||
@@ -88,6 +89,9 @@
                       <% end %>
                       <% if can?(:manage, Part) || can?(:manage, ProductPart) %>
                         <li><%= link_to "Part Library", admin_parts_path %></li>
+                      <% end %>
+                      <% if can?(:manage, Innovation) %>
+                        <li><%= link_to "Innovations", admin_innovations_path %></li>
                       <% end %>
                       <% if can?(:manage, Badge) %>
                         <li><%= link_to "Badges", admin_badges_path %></li>

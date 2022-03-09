@@ -1,0 +1,19 @@
+<h1><%= @innovation.name %></h1>
+
+<div class="row">
+  <div class="small-12 medium-8 columns">
+    <%=raw @innovation.description %>
+  </div>
+  
+  <div class="small-12 medium-4 columns">
+    <% if @innovation.products.size > 0 %>
+      <div class="overline"></div>
+      <h3><%= t('titles.related_products') %></h3>
+      
+      <% @innovation.products.each do |product| %>
+        <%= render_partial "product_families/product_square", product: product, compare: false %>
+        <br/>
+      <% end %>
+    <% end %>
+  </div>
+</div>

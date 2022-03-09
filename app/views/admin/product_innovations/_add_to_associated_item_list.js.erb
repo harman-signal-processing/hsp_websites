@@ -1,0 +1,15 @@
+(function(){
+	var $list_of_associated_products = $('#product_innovations');
+
+	build_list_of_products_associated_with_this_innovation($list_of_associated_products);
+
+	function build_list_of_products_associated_with_this_innovation($list_of_associated_products) {
+		<% if @product_innovations.present? %>
+			<% @product_innovations.each do |product_innovation| %>
+				$list_of_associated_products.append('<%= escape_javascript(render "/admin/shared/product_innovation_row", pi: product_innovation, called_from: @called_from) %>');
+			<% end %>	
+		<% else %>
+				$list_of_associated_products.append('<%= escape_javascript(render "/admin/shared/product_innovation_row", pi: @product_innovation, called_from: @called_from) %>');
+		<% end %>
+	}  //  function build_list_of_products_associated_with_this_innovation($list_of_associated_products)
+})();

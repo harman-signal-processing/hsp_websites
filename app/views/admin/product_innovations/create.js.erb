@@ -1,0 +1,7 @@
+<% if @called_from == "innovation" %>
+	<%= render "/admin/product_innovations/rebuild_product_select_list" %>
+<% end %>	
+
+<%= render "/admin/product_innovations/add_to_associated_item_list" %>
+
+<% flash.discard %>

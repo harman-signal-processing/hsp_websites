@@ -1,0 +1,23 @@
+<h1>Innovations</h1>
+
+<ul class="small-block-grid-1 medium-block-grid-2">
+  <% @innovations.each do |innovation| %>
+    <li>
+      <%= link_to innovation do %>
+        <div class="panel">
+          <div class="row">
+            <div class="small-4 medium-2 columns">
+              <% if innovation.icon.present? %>
+                <%= image_tag innovation.icon.url %>
+              <% end %>
+            </div>
+            <div class="small-8 medium-10 columns">
+              <h5><%= innovation.name %></h5>
+              <%=raw innovation.short_description %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
