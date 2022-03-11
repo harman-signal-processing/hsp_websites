@@ -12,6 +12,11 @@
       <% end %>
     </li>
   <% end %>
+  <li><%= link_to resend_confirmation_admin_warranty_registration_path(@warranty_registration), method: :put, class: "small button" do %>
+        <%= fa_icon "envelope" %>
+        Re-send confrmation email
+      <% end %>
+  </li>
 </ul>
 
 <table class="data">
