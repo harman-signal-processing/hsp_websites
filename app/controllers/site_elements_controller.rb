@@ -19,11 +19,9 @@ class SiteElementsController < ApplicationController
   end
 
   def show
-    # binding.pry
     begin
       case @site_element.attachment_type
       when 'resource'
-        # binding.pry
         send_resource_file(@site_element)
       when 'executable'
         send_executable_file(@site_element)
@@ -32,8 +30,7 @@ class SiteElementsController < ApplicationController
       when 'html'
         render_template
       end
-    rescue => e
-      # binding.pry
+    rescue
       raise ActiveRecord::RecordNotFound
     end
   end
@@ -51,41 +48,7 @@ class SiteElementsController < ApplicationController
   end
 
   def send_resource_file(site_element)
-    # binding.pry
-    # data = URI.open("/home/ubuntu/environment/public#{site_element.resource.url}")
-    # binding.pry
-    # if Rails.env.development? && !!(ENV['USE_PRODUCTION_ASSETS'].to_i == 0)
-    #   # binding.pry
-      
-    #   # this does NOT work
-    #   # data = URI.open(site_element.resource.url)
-    #   # "https://adn.harmanpro.com/site_elements/resources/1762_1489598313/Case-Study-Juniper-Networks_original.jpg"
-      
-    #   # this works
-    #   # data = URI.open("/home/ubuntu/environment/public#{site_element.resource.url}")
-    #   # "/home/ubuntu/environment/publichttps://adn.harmanpro.com/site_elements/resources/1762_1489598313/Case-Study-Juniper-Networks_original.jpg" 
-      
-    #   # this does NOT work
-    #   # data = URI.open("#{Rails.root}/public#{site_element.resource.url}")
-    #   # "/home/ubuntu/environment/publichttps://adn.harmanpro.com/site_elements/resources/1762_1489598313/Case-Study-Juniper-Networks_original.jpg"
-      
-    #   # this does NOT work
-    #   data = URI.open("#{Rails.root}/public#{site_element.resource.path}")
-    #   # "/home/ubuntu/environment/publicsite_elements/resources/1762_1489598313/Case-Study-Juniper-Networks_original.jpg"
-      
-    #   # path = Rails.root.join("public","#{site_element.resource.path}").to_s
-    #   # binding.pry
-    #   # data = URI.open(path)
-      
-    #   # stop here
-    #   binding.pry
-      
-    # else  # in production environment or in development environment and USE_PRODUCTION_ASSETS set to true (1)
-    # binding.pry
-      data = URI.open(site_element.resource.url)
-    # end
-
-# binding.pry
+    data = URI.open(site_element.resource.url)
     send_data data.read,
       disposition: 'inline',
       stream: true,

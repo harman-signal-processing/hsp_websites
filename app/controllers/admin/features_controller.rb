@@ -63,6 +63,16 @@ class Admin::FeaturesController < AdminController
   end
 
   def feature_params
-    params.require(:feature).permit(:featurable_type, :featurable_id, :position, :layout_style, :content_position, :pre_content, :content, :image)
+    display_option_flags = [:use_as_banner_slide, :show_below_products, :show_below_videos]
+    turn_display_option_flags_off(display_option_flags) # reset because these flags should be mutually exclusive
+    params[:feature][:use_as_banner_slide] = 1 if params[:feature][:display_option] == "slide"
+    params[:feature][:show_below_products] = 1 if params[:feature][:display_option] == "under_products"
+    params[:feature][:show_below_videos] = 1 if params[:feature][:display_option] == "under_videos"
+    params.require(:feature).permit(:featurable_type, :featurable_id, :position, :layout_style, :content_position, :pre_content, :content, :image, :use_as_banner_slide, :show_below_products, :show_below_videos, :display_option)
   end
-end
+
+  def turn_display_option_flags_off(display_option_flags)
+    display_option_flags.each { |item| params[:feature][item] = 0 }
+  end
+
+end  #  class Admin::FeaturesController < AdminController

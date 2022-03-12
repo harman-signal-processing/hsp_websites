@@ -112,7 +112,7 @@
   <p>Use full width for features? <%= (@product_family.has_full_width_features?) ? "Yes" : "No" %></p>
   <ul>
     <% @product_family.features.each do |feature| %>
-      <li><%= link_to feature.name, [:admin, feature] %></li>
+      <li><%= link_to feature.name, [:admin, feature] %> (<%=feature_page_location(feature)%>)</li>
     <% end %>
   </ul>
   <p><%= link_to "Add a fancy feature",

@@ -63,6 +63,14 @@
         <% end %>
       </div>
     </div>
+    <div class="row">
+      <div class="medium-4 columns">
+        <% feature = f.object %>
+        <%= f.input :display_option, as: :radio_buttons, collection: Feature.special_display_options, checked: feature.feature_to_mark_checked %>
+      </div>
+      <div class="medium-4 columns"></div>
+      <div class="medium-4 columns"></div>
+    </div>
   </fieldset>
 
   <%= f.input :pre_content, label: "Content appearing before the feature", input_html: { class: "mceEditor" } %>

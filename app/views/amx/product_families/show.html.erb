@@ -12,38 +12,22 @@
 <% end %>
 
 
-
-<% if @product_family.features.present? && @product_family.features.count > 1 %>
-  <%= render_partial 'product_families/features_carousel' %>
-<% elsif @product_family.features.present? && @product_family.features.count == 1%>
-  <%= render_partial 'product_families/features' %>
+<%# banner_slide_features = @product_family.features.where(use_as_banner_slide: 1) %>
+<% banner_slide_features = get_custom_feature_list(@product_family.features, "use_as_banner_slide") %>
+<% default_features = get_custom_feature_list(@product_family.features, "default") %>
+<% if banner_slide_features.present? && banner_slide_features.count > 1 %>
+    <%= render_partial 'product_families/features_carousel', banner_slide_features: banner_slide_features %>
+<%# elsif default_features.present? && default_features.count == 1%>
+<% elsif default_features.present? %>
+    <%= render_partial 'product_families/features', features: default_features %>
 <% else %>
+    <%#= render_partial "product_families/content_for_full_width" %>
 
-
-<%# binding.pry %>
       <% if @product_family.title_banner.present? %>
-<%# binding.pry %>
-
-              <% if @product_family.title.present? %>
-                <h1><%= translate_content(@product_family, :title) %></h1>
-              <% else %>
-                <h1><%= translate_content(@product_family, :name) %></h1>
-              <% end %>
-              
-              
-              <% content_for :feature do %> <%# I think this makes if full width%>
-                  <div class="product-family-banner-container text-center">
-                    <%= image_tag @product_family.title_banner.url, alt: @product_family.name, style: "width: 100%" %>
-                  </div>
-            <% end %>
-            
-            
-      <% else %><%# else of if @product_family.title_banner.present?  %>
-      
+         <%= render_partial 'product_families/title_banner_image_and_text_title' %>
+      <% else %>
           <%= render_partial 'product_families/text_banner_only' %>
-      
-      
-      <% end %><%# end if @product_family.title_banner.present?  %>
+      <% end %>
 
 
 
@@ -151,6 +135,12 @@
 
   <% end %>
 
+  <% # ============================ FEATURES BELOW PRODUCTS GO HERE ================================%>
+  <% show_below_products_features = get_custom_feature_list(@product_family.features, "show_below_products") %>
+  <!--<div class="just_for_testing" style="border:solid 1px red;">-->
+  <%= render_partial 'product_families/features', features: show_below_products_features %>
+  <!--</div>-->
+
   <%= render_partial 'case_studies' %>
 
   <% if @product_family.accessories_content.present? %>
@@ -159,7 +149,13 @@
   <% end %>
 
   <% if @product_family.product_family_videos.size > 0 %>
-    <%= render_partial "videos", product_family: @product_family %>
+    <%= render_partial "product_families/videos", product_family: @product_family %>
+
+    <% # ============================ FEATURES BELOW VIDEOS GO HERE ================================%>
+    <% show_below_videos_features = get_custom_feature_list(@product_family.features, "show_below_videos") %>
+    <!--<div class="just_for_testing" style="border:solid 1px blue;">-->
+    <%= render_partial 'product_families/features', features: show_below_videos_features %>
+    <!--</div>-->
   <% end %>
 
   <% if @product_family.post_content.present? %>

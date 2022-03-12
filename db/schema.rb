@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_06_233012) do
+ActiveRecord::Schema.define(version: 2022_03_08_234400) do
 
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
@@ -729,6 +729,9 @@ ActiveRecord::Schema.define(version: 2022_03_06_233012) do
     t.integer "image_file_size"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "use_as_banner_slide", default: false
+    t.boolean "show_below_products", default: false
+    t.boolean "show_below_videos", default: false
     t.index ["featurable_type", "featurable_id"], name: "index_features_on_featurable_type_and_featurable_id"
   end
 
