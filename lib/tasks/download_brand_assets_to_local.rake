@@ -26,7 +26,7 @@ namespace :download_to_local_dev do
         # local         path ":rails_root/public/system/:class/:attachment/:id_:timestamp/:basename_:style.:extension"
 
         # Uncomment the download methods below to get the assets as needed. Beware these can take awhile to run,
-        # particulary the product page images attachments. You can go into it's method to comment assets types you don't need.
+        # particularly the product page images attachments. You can go into it's method to comment assets types you don't need.
 
         product_families = ProductFamily.where(brand: brand).order(:name)
         # download_product_family_attachments(s3_client, bucket_name, product_families)
