@@ -1,17 +1,40 @@
 
 namespace :amx_nav do
 
-
   desc "Updates for the amx product nav"
   task :update_nav => :environment do
 
-    create_new_product_families
-    rename_product_families
-    change_product_product_family
-    reassign_product_families
-    delete_old_product_families
-    add_nav_separator_text
-    create_new_nav_site_setting
+    t = Time.now.localtime(Time.now.in_time_zone('America/Chicago').utc_offset)
+    filename = "amx_product_nav_update.#{t.month}.#{t.day}.#{t.year}_#{t.strftime("%I.%M.%S_%p")}.log"
+    log = ActiveSupport::Logger.new("log/#{filename}")
+    start_time = Time.now
+
+    # !!!!!!!!!!!!!!!!!!
+    # If true we really make updates to the database. If false we do not make updates to the database, we only do reads and output statuses.
+    really_run = true
+    # !!!!!!!!!!!!!!!!!!
+
+    write_message(log, "")
+    write_message(log, "Running in #{ENV["RAILS_ENV"]}")
+    write_message(log, "Making database updates: #{really_run}")
+    write_message(log, "") # line break
+
+    create_new_product_families(log, really_run)
+    rename_product_families(log, really_run)
+    change_product_product_family(log, really_run)
+    reassign_product_families(log, really_run)
+    delete_old_product_families(log, really_run)
+    add_nav_separator_text(log, really_run)
+    create_new_nav_site_setting(log, really_run)
+
+    write_message(log, "")
+
+    end_time = Time.now
+    duration = ((end_time - start_time) / 1.minute).truncate(2)
+
+    end_time_formatted = "#{end_time.month}/#{end_time.day}/#{end_time.year} #{end_time.strftime("%I:%M:%S %p")}"
+
+    write_message(log, "Task finished at #{end_time_formatted} and lasted #{duration} minutes.")
 
   end  #  task :update_nav => :environment do
 
@@ -19,9 +42,9 @@ namespace :amx_nav do
     amx = Brand.find "amx"
   end
 
-  def create_new_product_families
+  def create_new_product_families(log, really_run)
 
-    puts "-------------CREATING #{new_product_families_to_create.count} NEW PRODUCT FAMILIES------------------"
+    write_message(log, "-------------CREATING #{new_product_families_to_create.count} NEW PRODUCT FAMILIES------------------")
 
     new_product_families_to_create.each do |pf|
 
@@ -32,8 +55,8 @@ namespace :amx_nav do
         begin
           new_parent = ProductFamily.where(id: parent.id, parent_id: grand_parent.id).first
         rescue => e
-          puts "Issue1: #{pf}"
-          puts "Error: #{e.message}".red
+          write_message(log, "Issue1: #{pf}")
+          write_message(log, "Error: #{e.message}", ".red")
         end
 
       else
@@ -41,28 +64,31 @@ namespace :amx_nav do
           begin
             new_parent = ProductFamily.where(id: parent.id).first
           rescue => e
-            puts "Issue2: #{pf}"
-            puts "Error: #{e.message}".red
+            write_message(log, "Issue2: #{pf}")
+            write_message(log, "Error: #{e.message}", ".red")
           end
         end
       end
 
       new_family_name = pf[:name]
       parent_to_use = new_parent.present? ? new_parent : parent
-      new_pf = ProductFamily.create(name: new_family_name, brand: amx, parent: parent_to_use)
-      new_pf.update(position: pf[:position]) if pf[:position].present?
 
-      if parent_to_use.present?
-        puts "Created #{new_family_name} [#{new_pf.cached_slug}] (#{parent_to_use.name}) [#{parent_to_use.cached_slug}]".green
-      else
-        puts "Created #{new_family_name} [#{new_pf.cached_slug}] ()".green
-      end
+      if really_run
+        new_pf = ProductFamily.create(name: new_family_name, brand: amx, parent: parent_to_use)
+        new_pf.update(position: pf[:position]) if pf[:position].present?
+  
+        if parent_to_use.present?
+          write_message(log, "Created #{new_family_name} [#{new_pf.cached_slug}] (#{parent_to_use.name}) [#{parent_to_use.cached_slug}]", ".green")
+        else
+          write_message(log, "Created #{new_family_name} [#{new_pf.cached_slug}] ()", ".green")
+        end
+      end  #  if really_run
 
     end  #  new_product_families_to_create.each do |pf|
-  end  #  def create_new_product_families
+  end  #  def create_new_product_families(log, really_run)
 
   def new_product_families_to_create
-    # Note some parent product family names will change when step 2, the renaming is completed. Example: Networked AV will become Networked A/V Distribution (AVoIP)
+    # Note some parent product family names will change in step 2, the renaming is completed. Example: Networked AV will become Networked A/V Distribution (AVoIP)
     [
       # nil | Networked AV | Encoding & Decoding
       { name: "Encoding & Decoding", parent: "Networked AV", parent_slug: "networked-av", position: 1},
@@ -165,15 +191,15 @@ namespace :amx_nav do
       # nil | Video Signal Processing | Window Processing | 1G Solutions
       { name: "1G Solutions", parent: "Window Processing", parent_slug: "amx-window-processing", grand_parent: "Video Signal Processing", grand_parent_slug: "video-signal-processing", position: 2},
       # nil | Video Signal Processing | Window Processing | 1G Solutions | N2400 Series (4K60 4x1)
-      { name: "N2400 Series (4K60 4x1)", parent: "1G Solutions", parent_slug: "amx-1g-solutions-1203", grand_parent: "Window Processing", grand_parent_slug: "amx-window-processing", position: 1},
+      { name: "N2400 Series (4K60 4x1)", parent: "1G Solutions", parent_slug: "amx-1g-solutions-1205", grand_parent: "Window Processing", grand_parent_slug: "amx-window-processing", position: 1},
       # nil | Video Signal Processing | Window Processing | 1G Solutions | N2000 Series (4K30 4x1)
-      { name: "N2000 Series (4K30 4x1)", parent: "1G Solutions", parent_slug: "amx-1g-solutions-1203", grand_parent: "Window Processing", grand_parent_slug: "amx-window-processing", position: 2},
+      { name: "N2000 Series (4K30 4x1)", parent: "1G Solutions", parent_slug: "amx-1g-solutions-1205", grand_parent: "Window Processing", grand_parent_slug: "amx-window-processing", position: 2},
       # nil | Video Signal Processing | Window Processing | 1G Solutions | N1000 Series (HD 4x1)
-      { name: "N1000 Series (HD 4x1)", parent: "1G Solutions", parent_slug: "amx-1g-solutions-1203", grand_parent: "Window Processing", grand_parent_slug: "amx-window-processing", position: 3},
+      { name: "N1000 Series (HD 4x1)", parent: "1G Solutions", parent_slug: "amx-1g-solutions-1205", grand_parent: "Window Processing", grand_parent_slug: "amx-window-processing", position: 3},
       # nil | Video Signal Processing | Window Processing | H.264 Solutions
       { name: "H.264 Solutions", parent: "Window Processing", parent_slug: "amx-window-processing", grand_parent: "Video Signal Processing", grand_parent_slug: "video-signal-processing", position: 3},
       # nil | Video Signal Processing | Window Processing | H.264 Solutions | N3000 Series (HD 9x1)
-      { name: "N3000 Series (HD 9x1)", parent: "H.264 Solutions", parent_slug: "amx-h-264-solutions-1207", grand_parent: "Window Processing", grand_parent_slug: "amx-window-processing", position: 1},
+      { name: "N3000 Series (HD 9x1)", parent: "H.264 Solutions", parent_slug: "amx-h-264-solutions-1209", grand_parent: "Window Processing", grand_parent_slug: "amx-window-processing", position: 1},
       # nil | Video Signal Processing | Networked Video Recording & Playback
       { name: "Networked Video Recording & Playback", parent: "Video Signal Processing", parent_slug: "video-signal-processing", grand_parent: nil, grand_parent_slug: nil, position: 3},
       # nil | Architectural Connectivity | Accessories
@@ -225,8 +251,8 @@ namespace :amx_nav do
     ]
   end  #  def new_product_families_to_create
 
-  def rename_product_families
-    puts "-------------RENAMING #{product_families_to_rename.count} EXISTING PRODUCT FAMILIES------------------"
+  def rename_product_families(log, really_run)
+    write_message(log, "-------------RENAMING #{product_families_to_rename.count} EXISTING PRODUCT FAMILIES------------------")
 
     product_families_to_rename.each do |pf|
       grand_parent = pf[:grand_parent_slug].present? ? ProductFamily.where(cached_slug: pf[:grand_parent_slug]) : ProductFamily.where(name: pf[:grand_parent])
@@ -250,12 +276,15 @@ namespace :amx_nav do
             begin
               product_family_to_rename.parent = new_parent
             rescue => e
-              puts "Error changing pf parent: #{e.message}".red
+              write_message(log, "Error changing pf parent: #{e.message}", ".red")
             end
           end
 
-        product_family_to_rename.save
-        puts "#{old_pf_name} [#{old_pf_slug}] renamed --> #{pf[:new]} [#{product_family_to_rename.cached_slug}]".green
+        if really_run
+          product_family_to_rename.save
+        end
+        
+        write_message(log, "#{old_pf_name} [#{old_pf_slug}] renamed --> #{pf[:new]} [#{product_family_to_rename.cached_slug}]", ".green")
 
       end  #  if product_family_to_rename.present?
 
@@ -336,8 +365,8 @@ namespace :amx_nav do
     ]
   end  #  def product_families_to_rename
 
-  def change_product_product_family
-    puts "-------------CHANGING PRODUCT FAMILIES FOR #{product_product_families_to_change.count} EXISTING PRODUCTS------------------"
+  def change_product_product_family(log, really_run)
+    write_message(log, "-------------CHANGING PRODUCT FAMILIES FOR #{product_product_families_to_change.count} EXISTING PRODUCTS------------------")
 
     product_product_families_to_change.each do |p|
 
@@ -348,8 +377,10 @@ namespace :amx_nav do
 
 
       if product.present? && product_family_to_remove.present?
-        puts "Removing #{product.name} from --xxx #{product_family_to_remove.name}".yellow
-        product.product_family_products.where(product_family: product.product_families.find_by_name(product_family_to_remove.name)).delete_all
+        write_message(log, "Removing #{product.name} from --xxx #{product_family_to_remove.name}", ".yellow")
+        if really_run
+          product.product_family_products.where(product_family: product.product_families.find_by_name(product_family_to_remove.name)).delete_all
+        end
       end
 
       # if grand_parent_product_family.present?
@@ -365,28 +396,30 @@ namespace :amx_nav do
 
         if grand_parent_product_family.present?
           begin
-            puts "Adding #{product.name} to ---> #{new_product_family.name} [#{new_product_family.cached_slug}] (#{grand_parent_product_family.name} [#{grand_parent_product_family.cached_slug}])".green
+            write_message(log, "Adding #{product.name} to ---> #{new_product_family.name} [#{new_product_family.cached_slug}] (#{grand_parent_product_family.name} [#{grand_parent_product_family.cached_slug}])", ".green")
           rescue => e
-            puts "Error adding #{product.name} to family with family parent: #{e.message}".red
+            write_message(log, "Error adding #{product.name} to family with family parent: #{e.message}", ".red")
           end
         else
           begin
-            puts "Adding #{product.name} to ---> #{new_product_family.name} [#{new_product_family.cached_slug}]".green
+            write_message(log, "Adding #{product.name} to ---> #{new_product_family.name} [#{new_product_family.cached_slug}]", ".green")
           rescue => e
-            puts "Error adding #{product.name} to family: #{e.message}".red
+            write_message(log, "Error adding #{product.name} to family: #{e.message}", ".red")
           end
         end
 
         begin
-          ProductFamilyProduct.create(product: product, product_family: new_product_family)
+          if really_run
+            ProductFamilyProduct.create(product: product, product_family: new_product_family)
+          end
         rescue => e
-          puts "Error creating: #{e.message}".red
+          write_message(log, "Error creating: #{e.message}", ".red")
         end
       end
 
     end  #  product_product_families_to_change.each do |p|
 
-  end  #  def change_product_product_family
+  end  #  def change_product_product_family(log, really_run)
 
   def product_product_families_to_change
     # change product family for these products
@@ -487,10 +520,10 @@ namespace :amx_nav do
       { product_name: "SCL-1 Video Scaler",                 product_slug: "scl-1-video-scaler",               remove_from_product_family: "",                                   remove_from_product_family_slug: "",                                  new_product_family: "SCL-1 Video Scaler",                                 new_product_family_slug: "scl-1-video-scaler",        grand_parent_product_family: "EDID Management, Scaling, & Capture", grand_parent_product_family_slug: "edid-management-scaling-capture"},
       { product_name: "UVC1-4K",                            product_slug: "uvc1-4k",                          remove_from_product_family: "",                                   remove_from_product_family_slug: "",                                  new_product_family: "UVC1-4K HDMI to USB Capture",                        new_product_family_slug: "uvc1-4k-hdmi-to-usb-capture", grand_parent_product_family: "EDID Management, Scaling, & Capture", grand_parent_product_family_slug: "edid-management-scaling-capture"},
       { product_name: "PR-WP-412",                          product_slug: "pr-wp-412",                        remove_from_product_family: "",                                   remove_from_product_family_slug: "",                                  new_product_family: "Precis (4K60 4x1 + 1)",                              new_product_family_slug: "amx-precis-4k60-4x1-1",     grand_parent_product_family: "HDMI Solutions",                      grand_parent_product_family_slug: "hdmi-solutions"},
-      { product_name: "NMX-WP-N2410 Windowing Processor",   product_slug: "nmx-wp-n2410-windowing-processor", remove_from_product_family: "",                                   remove_from_product_family_slug: "",                                  new_product_family: "N2400 Series (4K60 4x1)",                            new_product_family_slug: "amx-n2400-series-4k60-4x1", grand_parent_product_family: "1G Solutions",                        grand_parent_product_family_slug: "amx-1g-solutions-1203"},
-      { product_name: "NMX-WP-N2510 Windowing Processor",   product_slug: "nmx-wp-n2510-windowing-processor", remove_from_product_family: "",                                   remove_from_product_family_slug: "",                                  new_product_family: "N2000 Series (4K30 4x1)",                            new_product_family_slug: "n2000-series-4k30-4x1",     grand_parent_product_family: "1G Solutions",                        grand_parent_product_family_slug: "amx-1g-solutions-1203"},
-      { product_name: "NMX-WP-N1512 Windowing Processor",   product_slug: "nmx-wp-n1512-windowing-processor", remove_from_product_family: "",                                   remove_from_product_family_slug: "",                                  new_product_family: "N1000 Series (HD 4x1)",                              new_product_family_slug: "amx-n1000-series-hd-4x1",   grand_parent_product_family: "1G Solutions",                        grand_parent_product_family_slug: "amx-1g-solutions-1203"},
-      { product_name: "NMX-WP-N3510 Windowing Processor",   product_slug: "nmx-wp-n3510-windowing-processor", remove_from_product_family: "",                                   remove_from_product_family_slug: "",                                  new_product_family: "N3000 Series (HD 9x1)",                              new_product_family_slug: "amx-n3000-series-hd-9x1",   grand_parent_product_family: "H.264 Solutions",                     grand_parent_product_family_slug: "amx-h-264-solutions-1207"},
+      { product_name: "NMX-WP-N2410 Windowing Processor",   product_slug: "nmx-wp-n2410-windowing-processor", remove_from_product_family: "",                                   remove_from_product_family_slug: "",                                  new_product_family: "N2400 Series (4K60 4x1)",                            new_product_family_slug: "amx-n2400-series-4k60-4x1", grand_parent_product_family: "1G Solutions",                        grand_parent_product_family_slug: "amx-1g-solutions-1205"},
+      { product_name: "NMX-WP-N2510 Windowing Processor",   product_slug: "nmx-wp-n2510-windowing-processor", remove_from_product_family: "",                                   remove_from_product_family_slug: "",                                  new_product_family: "N2000 Series (4K30 4x1)",                            new_product_family_slug: "n2000-series-4k30-4x1",     grand_parent_product_family: "1G Solutions",                        grand_parent_product_family_slug: "amx-1g-solutions-1205"},
+      { product_name: "NMX-WP-N1512 Windowing Processor",   product_slug: "nmx-wp-n1512-windowing-processor", remove_from_product_family: "",                                   remove_from_product_family_slug: "",                                  new_product_family: "N1000 Series (HD 4x1)",                              new_product_family_slug: "amx-n1000-series-hd-4x1",   grand_parent_product_family: "1G Solutions",                        grand_parent_product_family_slug: "amx-1g-solutions-1205"},
+      { product_name: "NMX-WP-N3510 Windowing Processor",   product_slug: "nmx-wp-n3510-windowing-processor", remove_from_product_family: "",                                   remove_from_product_family_slug: "",                                  new_product_family: "N3000 Series (HD 9x1)",                              new_product_family_slug: "amx-n3000-series-hd-9x1",   grand_parent_product_family: "H.264 Solutions",                     grand_parent_product_family_slug: "amx-h-264-solutions-1209"},
       { product_name: "NMX-NVR-N6123",                      product_slug: "nmx-nvr-n6123",                    remove_from_product_family: "",                                   remove_from_product_family_slug: "",                                  new_product_family: "Networked Video Recording & Playback",               new_product_family_slug: "networked-video-recording-playback", grand_parent_product_family: "Video Signal Processing",    grand_parent_product_family_slug: "video-signal-processing"},
       { product_name: "HPX-2BTN-8ACC",                      product_slug: "hpx-2btn-8acc",                    remove_from_product_family: "",                                   remove_from_product_family_slug: "",                                  new_product_family: "Accessories",                                        new_product_family_slug: "amx-accessories",           grand_parent_product_family: "Architectural Connectivity",          grand_parent_product_family_slug: "architectural-connectivity"},
       { product_name: "CTC-1402",                           product_slug: "ctc-1402",                         remove_from_product_family: "",                                   remove_from_product_family_slug: "",                                  new_product_family: "CTC (4K60 6x1) Switching & Transport Kit w/ USB-C",  new_product_family_slug: "amx-ctc-4k60-6x1-switching-transport-kit-w-usb-c", grand_parent_product_family: "Scheduling & Collaboration", grand_parent_product_family_slug: "scheduling-collaboration"},
@@ -542,7 +575,7 @@ namespace :amx_nav do
     ]
   end  #  def product_product_families_to_change
 
-  def delete_old_product_families
+  def delete_old_product_families(log, really_run)
     slugs = [
       'svsi-networked-av-presentation-switcher',
       'netlinx-nx-integrated-controllers',
@@ -591,7 +624,7 @@ namespace :amx_nav do
       'touch-panel-control-apps'
       ]
 
-    puts "-------------DELETING #{slugs.count} OLD PRODUCT FAMILIES------------------"
+    write_message(log, "-------------DELETING #{slugs.count} OLD PRODUCT FAMILIES------------------")
 
     slugs.each do |slug|
       product_familiy_to_delete = ProductFamily.where(cached_slug: slug).first
@@ -601,23 +634,24 @@ namespace :amx_nav do
           begin
             parent = ProductFamily.where(id: product_familiy_to_delete.parent_id).first
           rescue => e
-            # binding.pry
-            puts "Error finding parent pf in deletion process:  #{e.message}".red
+            write_message(log, "Error finding parent pf in deletion process:  #{e.message}", ".red")
           end
           if parent.present?
-            puts "Deleting #{product_familiy_to_delete.name} (#{parent.name})".yellow
+            write_message(log, "Deleting #{product_familiy_to_delete.name} (#{parent.name})", ".yellow")
           else
-            puts "Deleting #{product_familiy_to_delete.name}".yellow
+            write_message(log, "Deleting #{product_familiy_to_delete.name}", ".yellow")
           end
-          # product_familiy_to_delete.delete
-          product_familiy_to_delete.destroy
+          
+          if really_run
+            product_familiy_to_delete.destroy
+          end
       end  #  if product_familiy_to_delete.present?
 
     end  #  slugs.each do |slug|
 
-  end  #  def delete_old_product_families
+  end  #  def delete_old_product_families(log, really_run)
 
-  def reassign_product_families
+  def reassign_product_families(log, really_run)
     # these are reassignments are necessary due to the rare occasions when the order of creation and renaming existing product families falls short
     pfs = [
       {slug:"8x8",parent_slug:"enclosures-w-central-controllers", grand_parent_slug: "modular-switching-systems"},
@@ -656,10 +690,10 @@ namespace :amx_nav do
       {slug:"controllers-w-switching", parent_slug: "control-processing", position: 5},
       {slug:"cloudworx-manager", parent_slug: "configuration-management-software", position: 6},
       {slug:"amx-dvx", parent_slug: "controllers-w-switching", position: 2},
-      {slug:"amx-n2400-series-4k60-4x1", parent_slug: "amx-1g-solutions-1203", grand_parent_slug: "amx-window-processing", position: 1},
-      {slug:"n2000-series-4k30-4x1", parent_slug: "amx-1g-solutions-1203", grand_parent_slug: "amx-window-processing", position: 2},
-      {slug:"amx-n1000-series-hd-4x1", parent_slug: "amx-1g-solutions-1203", grand_parent_slug: "amx-window-processing", position: 3},
-      {slug:"amx-n3000-series-hd-9x1", parent_slug: "amx-h-264-solutions-1207", grand_parent_slug: "amx-window-processing", position: 4},
+      {slug:"amx-n2400-series-4k60-4x1", parent_slug: "amx-1g-solutions-1205", grand_parent_slug: "amx-window-processing", position: 1},
+      {slug:"n2000-series-4k30-4x1", parent_slug: "amx-1g-solutions-1205", grand_parent_slug: "amx-window-processing", position: 2},
+      {slug:"amx-n1000-series-hd-4x1", parent_slug: "amx-1g-solutions-1205", grand_parent_slug: "amx-window-processing", position: 3},
+      {slug:"amx-n3000-series-hd-9x1", parent_slug: "amx-h-264-solutions-1209", grand_parent_slug: "amx-window-processing", position: 4},
       {slug:"retractables", parent_slug: "hydraport-modules", grand_parent_slug: "architectural-connectivity", position: 1},
       {slug:"video", parent_slug: "hydraport-modules", grand_parent_slug: "architectural-connectivity", position: 2},
       {slug:"cat-6", parent_slug: "hydraport-modules", grand_parent_slug: "architectural-connectivity", position: 3},
@@ -670,7 +704,7 @@ namespace :amx_nav do
       {slug:"blanks", parent_slug: "hydraport-modules", grand_parent_slug: "architectural-connectivity", position: 8}
       ]
 
-      puts "-------------REPARENTING #{pfs.count} PRODUCT FAMILIES------------------"
+      write_message(log, "-------------REPARENTING #{pfs.count} PRODUCT FAMILIES------------------")
 
       pfs.each do |item|
         grand_parent = ProductFamily.where(cached_slug: item[:grand_parent_slug])
@@ -685,19 +719,21 @@ namespace :amx_nav do
 
         pf.parent = new_parent
         pf.position = item[:position] if item[:position].present?
-        pf.save
+        if really_run
+          pf.save
+        end
 
         if new_parent.nil?
-          puts "Reassigned #{pf.name} (#{pf.cached_slug}) to ---> top level (no parent)".green
+          write_message(log, "Reassigned #{pf.name} (#{pf.cached_slug}) to ---> top level (no parent)", ".green")
         else
-          puts "Reassigned #{pf.name} (#{pf.cached_slug}) to ---> #{new_parent.name} (#{new_parent.cached_slug})".green
+          write_message(log, "Reassigned #{pf.name} (#{pf.cached_slug}) to ---> #{new_parent.name} (#{new_parent.cached_slug})", ".green")
         end
 
       end  #  pfs.each do |item|
 
-  end  #  def reassign_product_families
+  end  #  def reassign_product_families(log)
 
-  def add_nav_separator_text
+  def add_nav_separator_text(log, really_run)
     items = [
       {slug: "n2400-series-4k60",                             text: ">----------1G Solutions----------<"},
       {slug: "n3000-series-hd",                               text: ">---------H.264 Solutions--------<"},
@@ -716,25 +752,38 @@ namespace :amx_nav do
       {slug: "enclosures-w-central-controllers",              text: ">-----------Enova DGX------------<"}
       ]
 
-    puts "-------------ADDING #{items.count} PRODUCT NAV SEPARATORS------------------"
+    write_message(log, "-------------ADDING #{items.count} PRODUCT NAV SEPARATORS------------------")
       items.each do |item|
         pf = ProductFamily.where(cached_slug: item[:slug]).first
         pf.product_nav_separator = item[:text]
-        pf.save
-        puts "Added nav separator '#{item[:text]}' to #{pf.name} [#{pf.cached_slug}] ".green
+        if really_run
+          pf.save
+        end
+        write_message(log, "Added nav separator '#{item[:text]}' to #{pf.name} [#{pf.cached_slug}] ", ".green")
       end
 
-  end  #  def add_nav_separator_text
+  end  #  def add_nav_separator_text(log)
 
-  def create_new_nav_site_setting
-    puts "-------------CREATING SITE SETTING USED IN PRODUCT NAV LEVEL COMBINING------------------"
+  def create_new_nav_site_setting(log, really_run)
+    write_message(log, "-------------CREATING SITE SETTING USED IN PRODUCT NAV LEVEL COMBINING------------------")
     custom_nav_setting = Setting.find_by_name("family-slugs-to-be-collapsed-in-nav")
     if !custom_nav_setting.present?
-      Setting.create(name: "family-slugs-to-be-collapsed-in-nav", brand: amx, setting_type: "string", string_value: "1g-solutions, h-264-solutions, amx-1g-solutions, amx-h-264-solutions, hdmi-solutions, amx-1g-solutions-1203, amx-h-264-solutions-1207, enova-dgx")
-      puts "Created site setting 'family-slugs-to-be-collapsed-in-nav' ".green
+      if really_run
+        Setting.create(name: "family-slugs-to-be-collapsed-in-nav", brand: amx, setting_type: "string", string_value: "1g-solutions, h-264-solutions, amx-1g-solutions, amx-h-264-solutions, hdmi-solutions, amx-1g-solutions-1205, amx-h-264-solutions-1209, enova-dgx")
+      end
+      write_message(log, "Created site setting 'family-slugs-to-be-collapsed-in-nav' ", ".green")
     else
-      puts "Site setting 'family-slugs-to-be-collapsed-in-nav' exists".green
+      write_message(log, "Site setting 'family-slugs-to-be-collapsed-in-nav' exists", ".green")
     end
-  end  #  def create_new_nav_site_setting
+  end  #  def create_new_nav_site_setting(log)
+
+  def write_message(log, message_to_output="", message_decoration="")
+    if ENV["RAILS_ENV"] == "production"  # production doesn't have colorful puts
+      puts message_to_output
+    else
+      puts eval(message_to_output.inspect + message_decoration)
+    end
+    log.info message_to_output
+  end  #  def message(message)
 
 end  #  namespace :amx_nav do
