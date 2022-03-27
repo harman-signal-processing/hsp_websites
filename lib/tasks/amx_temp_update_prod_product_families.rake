@@ -65,8 +65,8 @@ namespace :amx_temp do
       end
 
       # temp workaround for a couple cached_slugs that are different locally vs remote
-      cached_slug = "amx-1g-solutions-1205" if cached_slug == "amx-1g-solutions-1203"
-      cached_slug = "amx-h-264-solutions-1209" if cached_slug == "amx-h-264-solutions-1207"
+      cached_slug = "amx-1g-solutions-1206" if cached_slug == "amx-1g-solutions-1203"
+      cached_slug = "amx-h-264-solutions-1210" if cached_slug == "amx-h-264-solutions-1207"
       cached_slug = "amx-dvx" if cached_slug == "dvx"
       pf_to_update = ProductFamily.find_by_cached_slug(cached_slug)
 

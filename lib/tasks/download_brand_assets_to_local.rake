@@ -1,7 +1,7 @@
 namespace :download_to_local_dev do
 
     def brand
-      Brand.find "amx"
+      # Brand.find_by_name("amx")
     end
 
     desc "Download production assets to local development environment for a given brand."
