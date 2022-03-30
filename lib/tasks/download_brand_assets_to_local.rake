@@ -37,6 +37,9 @@ namespace :download_to_local_dev do
         pages = Page.where(brand: brand).order(:title)
         # download_landing_page_feature_attachments(s3_client, bucket_name, pages)
 
+        news_items = brand.news.order(:title)
+        download_news_photos(s3_client, bucket_name, news_items)
+
         settings = Setting.where(brand: brand).order(:name)
         # download_settings_slide_attachments(s3_client, bucket_name, settings)
 
@@ -161,6 +164,20 @@ namespace :download_to_local_dev do
             end  #  if f.image.present?
           end  #  badges.each do |f|
     end  #  def download_badge_attachments(s3_client, bucket_name, badges)
+
+    def download_news_photos(s3_client, bucket_name, news_items)
+          news_items.each do |f|
+            if f.news_photo.present?
+              attachment = f.news_photo
+              styles = [:original] + attachment.styles.map{|k,v| k}
+              styles.each do |style|
+                attachment_path = attachment.path(style)
+                puts "news photo -- #{attachment_path}"
+                download_from_s3_to_local(s3_client, bucket_name, attachment_path)
+              end  #  styles.each do |style|
+            end  #  if f.news_photo.present?
+          end  #  news_items.each do |f|
+    end  #  def download_news_photos(s3_client, bucket_name, news_items)
 
     def download_all_sizes_of_attachment(s3_client, bucket_name, attachment, type_name_of_image)
           styles = [:original] + attachment.styles.map{|k,v| k}
