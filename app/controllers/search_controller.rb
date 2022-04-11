@@ -62,16 +62,29 @@ class SearchController < ApplicationController
     end
 
     @results = ferret_results.select do |r|
+
+      is_product_but_not_for_this_website = (r.is_a?(Product) && !r.show_on_website?(website))
+      is_product_but_not_a_status_to_show = (r.is_a?(Product) && (r.product_status.name != "In Production" && r.product_status.name != "Coming Soon") )
+      is_product_but_locale_does_not_match_website = (r.is_a?(Product) && !r.locales(website).include?(I18n.locale.to_s))
+      brand_does_not_match_website = (r.has_attribute?(:brand_id) && r.brand_id != website.brand_id)
+      does_not_belong_to_website = (r.respond_to?(:belongs_to_this_brand?) && !r.belongs_to_this_brand?(website))
+      software_but_not_active = (r.is_a?(Software) && !r.active)
+      is_product_review = r.is_a?(ProductReview)
+
+      # exclude if any of these are true
       r unless (
-          (r.is_a?(Product) && !r.show_on_website?(website)) ||
-          (r.is_a?(Product) && (r.product_status.name != "In Production" && r.product_status.name != "Coming Soon") ) ||
-          (r.is_a?(Product) && !r.locales(website).include?(I18n.locale.to_s)) ||
-          (r.has_attribute?(:brand_id) && r.brand_id != website.brand_id) ||
-          (r.respond_to?(:belongs_to_this_brand?) && !r.belongs_to_this_brand?(website)) ||
-          (r.is_a?(Software) && !r.active)
+          is_product_but_not_for_this_website ||
+          is_product_but_not_a_status_to_show ||
+          is_product_but_locale_does_not_match_website ||
+          brand_does_not_match_website ||
+          does_not_belong_to_website ||
+          software_but_not_active ||
+          is_product_review
         )
-    end.paginate(page: params[:page], per_page: 10)
-  end
+
+    end.paginate(page: params[:page], per_page: 10)  #  @results = ferret_results.select do |r|
+
+  end  #  def fetch_thinking_sphinx_results
 
   def thinking_sphinx_results_for_locale(query)
 

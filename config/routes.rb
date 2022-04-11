@@ -171,6 +171,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       end
       resources :warranty_registrations do
         collection { put :search }
+        member { put :resend_confirmation }
       end
       resources :artists do
         collection do

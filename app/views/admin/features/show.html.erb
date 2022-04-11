@@ -23,7 +23,7 @@
 <%= @feature.layout_style %></p>
 
 <p><b>Image:</b><br/>
-<%= image_tag @feature.image.url(:thumb) %></p>
+<%= image_tag @feature.image.url(:thumb), lazy: false %></p>
 
 <p><b>Pre-content:</b></p>
 <%= raw @feature.pre_content %>
