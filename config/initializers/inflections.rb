@@ -9,6 +9,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym 'CAD'
   inflect.acronym '3D'
   inflect.acronym 'CATT'
+  inflect.acronym 'CLF'
 #   inflect.plural /^(ox)$/i, '\1en'
 #   inflect.singular /^(ox)en/i, '\1'
 #   inflect.irregular 'person', 'people'
