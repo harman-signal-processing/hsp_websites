@@ -50,7 +50,6 @@
     <li class="has-dropdown"><%= link_to "Partners", "/#{I18n.locale}/partners" %>
     <ul class="dropdown">
       <li><%= link_to "InConcert Partners", "/#{I18n.locale}/partners" %></li>
-      <li><%= link_to "Search Device Modules", "https://developer.amx.com", target: "_blank" %></li>
       <li><%= link_to "Valued Independent Partners (VIP)", "/#{I18n.locale}/vips" %></li>
     </ul>  
   
@@ -65,13 +64,7 @@
 	<% end %>
 
   <!-- Training  -->
-  <li class="has-dropdown"><%= link_to t('training').titleize, "/training", target: "_blank" %>
-    <ul class="dropdown">
-      <% if (website.has_learning_sessions.present? && website.has_learning_sessions == 1) %>
-        <li class="hide-for-medium"><%= link_to t('learning_sessions').titleize, "/learning-sessions/" %></li>
-      <% end %>
-    </ul>
-  </li>
+  <li><%= link_to t('training').titleize, "/training", target: "_blank" %></li>
 
 
   <% if website.has_events? && !website.has_learning_sessions %>
@@ -137,7 +130,7 @@
       <% end %>
       
       <% if !!(website.forum_link) %>
-        <li><%= link_to t("technical_forum").titleize, website.forum_link %></li>
+        <li><%= link_to t("technical_forum").titleize, website.forum_link, target: "_blank" %></li>
       <% end %>
       
       <!--

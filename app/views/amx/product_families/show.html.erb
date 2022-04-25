@@ -52,7 +52,9 @@
 
     <% if @children_with_current_products.length > 0 %>
 
-      <div data-equalizer="family_thumbs" data-equalizer-mq="medium-up">
+      <% hide_product_family_tiles = website.value_for("hide_product_family_tiles").present? && website.value_for("hide_product_family_tiles").gsub(/\s+/, "") .split(",").include?(@product_family.cached_slug) %>
+      <% unless hide_product_family_tiles %>
+        <div data-equalizer="family_thumbs" data-equalizer-mq="medium-up">
         <h5>Product Categories</h5>
         <% if @children_with_current_products.length > 19 %>
           <div class="row">
@@ -74,7 +76,7 @@
             <% end %>
           </div>
         <% else %>
-          <ul class="small-block-grid-1 medium-block-grid-4">
+            <ul class="small-block-grid-1 medium-block-grid-4">
           <% @children_with_current_products.where(parent_id: @product_family.id).each do |product_family| %>
             <li>
               <div id="<%= product_family.to_param %>">
@@ -110,9 +112,10 @@
           <% end %>
           </ul>
         <% end %>
-      </div>
+      </div><!-- <div data-equalizer="family_thumbs" data-equalizer-mq="medium-up"> -->
+      <% end %> <%# unless hide_product_family_tiles %>
 
-    <% end %>
+    <% end %> <%# if @children_with_current_products.length > 0 %>
 
     <% if @product_family.current_products.length > 0 %>
       <div class="row">

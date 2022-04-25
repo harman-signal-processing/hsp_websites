@@ -4,7 +4,7 @@ namespace :amx_temp do
 
     t = Time.now.localtime(Time.now.in_time_zone('America/Chicago').utc_offset)
     filename = "amx_product_families_update.#{t.month}.#{t.day}.#{t.year}_#{t.strftime("%I.%M.%S_%p")}.log"
-    log = ActiveSupport::Logger.new("log/#{filename}")    
+    log = ActiveSupport::Logger.new("log/#{filename}")
     start_time = Time.now
 
     remote_base_url = ENV['AMX_STAGING_SERVER'] # Need to open inbound port on security group of the EC2 for the IP of this machine
@@ -65,8 +65,8 @@ namespace :amx_temp do
       end
 
       # temp workaround for a couple cached_slugs that are different locally vs remote
-      cached_slug = "amx-1g-solutions-1206" if cached_slug == "amx-1g-solutions-1203"
-      cached_slug = "amx-h-264-solutions-1210" if cached_slug == "amx-h-264-solutions-1207"
+      cached_slug = "amx-1g-solutions" if cached_slug == "amx-1g-solutions-1203"
+      cached_slug = "amx-h-264-solutions-1213" if cached_slug == "amx-h-264-solutions-1207"
       cached_slug = "amx-dvx" if cached_slug == "dvx"
       pf_to_update = ProductFamily.find_by_cached_slug(cached_slug)
 
@@ -87,12 +87,18 @@ namespace :amx_temp do
     # title
     is_content_different(remote.title, local.title) ? write_message(log, "***title matches", ".green")
       : write_message(log, "---title does NOT match", ".yellow") && save_content_to_local(remote, local, "title", really_run)
+    # short_description
+    is_content_different(remote.short_description, local.short_description) ? write_message(log, "***short_description matches", ".green")
+      : write_message(log, "---short_description does NOT match", ".yellow") && save_content_to_local(remote, local, "short_description", really_run)
     # intro
-    is_content_different(remote.intro, local.intro) ? write_message(log, "***intro matches",".green") : write_message(log, "---intro does NOT match", ".yellow")
+    is_content_different(remote.intro, local.intro) ? write_message(log, "***intro matches",".green")
+      : write_message(log, "---intro does NOT match", ".yellow") && save_content_to_local(remote, local, "intro", really_run)
     # before_product_content
-    is_content_different(remote.before_product_content, local.before_product_content) ? write_message(log, "***before_product_content matches", ".green") : write_message(log, "---before_product_content does NOT match", ".yellow")
+    is_content_different(remote.before_product_content, local.before_product_content) ? write_message(log, "***before_product_content matches", ".green")
+      : write_message(log, "---before_product_content does NOT match", ".yellow") && save_content_to_local(remote, local, "before_product_content", really_run)
     # accessories_content
-    is_content_different(remote.accessories_content, local.accessories_content) ? write_message(log, "***accessories_content matches", ".green") : write_message(log, "---accessories_content does NOT match", ".yellow")
+    is_content_different(remote.accessories_content, local.accessories_content) ? write_message(log, "***accessories_content matches", ".green")
+      : write_message(log, "---accessories_content does NOT match", ".yellow") && save_content_to_local(remote, local, "accessories_content", really_run)
 
     # IMAGES
     # family_photo
@@ -200,6 +206,7 @@ namespace :amx_temp do
 
   def cached_slug_list
     ["16x16",
+      "1g-avoip-window-processing",
       "1g-solutions",
       "32x32",
       "4k30-cards-and-endpoints",
@@ -210,10 +217,10 @@ namespace :amx_temp do
       "acendo-core",
       "acendo-vibe",
       "all-in-one-presentation-switchers",
-      "amx-1g-solutions",
       "amx-1g-solutions-1203",
       "amx-accessories",
       "amx-acendo-book",
+      "amx-cables",
       "amx-ctc-4k60-6x1-switching-transport-kit-w-usb-c",
       "amx-ctp-4k30-4x1-switching-transport-kit",
       "amx-h-264-solutions",
@@ -236,6 +243,8 @@ namespace :amx_temp do
       "apps",
       "architectural-connectivity",
       "audio-cards",
+      "audio-insert-extract-board",
+      "audio-switching-board-kits",
       "audio-transceivers",
       "avoip-accessories",
       "avoip-control-management",
@@ -255,8 +264,9 @@ namespace :amx_temp do
       "dce-1-in-line-controller",
       "dgx",
       "driver-design",
-      "dvx",
+      "dvx-4k60",
       "dvx-4k60-up-to-8x4-2",
+      "dvx-hd",
       "dvx-hd-up-to-10x4-2",
       "dxlink-fiber-100m",
       "dxlink-u-stp-100m",
@@ -288,8 +298,9 @@ namespace :amx_temp do
       "n-control-touch-panels-html5-javascript",
       "n1000-series-hd",
       "n1000-series-hd-4x1",
-      "n2000-series-4k30",
+      # "n2000-series-4k30",
       "n2000-series-4k30-4x1",
+      "n2000-series-hd",
       "n2000-series-hd-4x1",
       "n2300-series-4k30",
       "n2400-series-4k60",
@@ -312,6 +323,7 @@ namespace :amx_temp do
       "scl-1-video-scaler",
       "sdx-4k30-4x1-1",
       "sdx-4k30-5x1-1",
+      "solecis-digital-switchers",
       "switching-transport-kits-100m",
       "touch-panel-accessories",
       "touch-panel-design",
@@ -331,6 +343,7 @@ namespace :amx_temp do
       "video-signal-processing",
       "vpx-4k60-4x1-1",
       "vpx-4k60-7x1-1",
+      "vpx-series-presentation-switchers",
       "window-processing"]
   end  #  def cached_slug_list
 
