@@ -76,7 +76,7 @@ gem 'oauth2'
 gem 'typhoeus' # For link validator
 gem 'slick_rails' # slick carousel
 gem 'mailgun_rails' # mailer service
-gem 'nokogiri'
+gem 'nokogiri', '>= 1.13.4'
 gem 'email_validator'
 gem "exception_notification"
 gem 'slack-notifier'
