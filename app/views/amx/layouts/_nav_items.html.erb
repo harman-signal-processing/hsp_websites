@@ -1,4 +1,6 @@
 <%= cache ["nav_items", website.brand, I18n.locale] do %>
+
+  <!-- Products -->
 	<li class="has-dropdown"><%= link_to t('products').titleize, product_families_path %>
 		<ul class="dropdown">
       <% if website.has_product_selector? %>
@@ -22,12 +24,12 @@
 			<% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
 				<%= product_family_nav_links(product_family, depth: 2) %>
 			<% end %>
-			<li><%= link_to t('discontinued_products'), discontinued_products_path %></li>
 		</ul>
 	</li>
 
+  <!-- Applications -->
   <% if website.show_market_nav.to_i > 0 %>
-    <li class="has-dropdown hide-for-medium"><%= link_to t("nav.markets"), '#', class: "disabled" %>
+    <li class="has-dropdown hide-for-medium"><%= link_to t("nav.market_applications"), '#', class: "disabled" %>
       <ul class="dropdown">
         <% MarketSegment.all_parents(website).each do |market_segment| %>
           <% if market_segment.name.to_s =~ /government/i %>
@@ -44,30 +46,32 @@
     </li>
   <% end %>
 
+  <!-- Partners -->
+    <li class="has-dropdown"><%= link_to "Partners", "/#{I18n.locale}/partners" %>
+    <ul class="dropdown">
+      <li><%= link_to "InConcert Partners", "/#{I18n.locale}/partners" %></li>
+      <li><%= link_to "Valued Independent Partners (VIP)", "/#{I18n.locale}/vips" %></li>
+    </ul>  
+  
   <% if website.has_solution_pages? %>
     <%= render_partial "shared/solutions_nav" %>
   <% end %>
 
+  <!-- Where to Buy  -->
 	<% if website.has_dealers? || website.has_distributors? || website.has_online_retailers? %>
     <li class="hide-for-medium"><%= link_to t('where_to_buy').titleize, where_to_find_path %></li>
     <li class="show-for-medium"><%= link_to t('buy').titleize, where_to_find_path %></li>
 	<% end %>
 
-  <li class="has-dropdown"><%= link_to t("nav.case_studies"), case_studies_path %>
-    <ul class="dropdown">
-      <% if website.has_news? %>
-        <li><%= link_to t('news').titleize, news_index_path %></li>
-      <% end %>
-    </ul>
-  </li>
+  <!-- Training  -->
+  <li><%= link_to t('training').titleize, "/training", target: "_blank" %></li>
+
 
   <% if website.has_events? && !website.has_learning_sessions %>
     <li><%= link_to t('events').titleize, events_path %></li>
   <% end %>
 
-  <% if (website.has_learning_sessions.present? && website.has_learning_sessions == 1) %>
-    <li class="hide-for-medium"><%= link_to t('learning_sessions').titleize, "/learning-sessions/" %></li>
-  <% end %>
+
 
   <% if website.has_installations? %>
     <li><%= link_to t('installations').titleize, installations_path %></li>
@@ -88,56 +92,70 @@
   </li>
   -->
 
-  <li class="has-dropdown"><%= link_to t("nav.learn"), "/#{I18n.locale}/learn" %>
+  <!-- Learn -->
+  <!--
+  <li class="has-dropdown"><%#= link_to t("nav.learn"), "/#{I18n.locale}/learn" %>
     <ul class="dropdown">
-      <% if (website.has_learning_sessions.present? && website.has_learning_sessions == 1) %>
-        <li class="show-for-medium"><%= link_to t('learning_sessions').titleize, "/learning-sessions" %></li>
-      <% end %>
-      <li class="show-for-medium"><%= link_to t('training').titleize, "/training", target: "_blank" %></li>
-      <li><%= link_to t("nav.av_basics"), "/#{I18n.locale}/learn-av-basics" %></li>
-      <li><%= link_to t("nav.av_and_it"), "/#{I18n.locale}/learn-av-it" %></li>
-      <li><%= link_to t("nav.buying_av"), "/#{I18n.locale}/learn-buying-av" %></li>
-      <li><%= link_to t("nav.collaboration"), "/#{I18n.locale}/learn-collaboration" %></li>
-      <li><%= link_to t("nav.learning_spaces"), "/#{I18n.locale}/learn-learning-spaces" %></li>
-      <li><%= link_to t("nav.meeting_rooms"), "/#{I18n.locale}/learn-meeting-rooms" %></li>
-      <li><%= link_to t("nav.security"), "/#{I18n.locale}/learn-security" %></li>
-      <li><%= link_to t("nav.sustainability"), "/#{I18n.locale}/learn-sustainability" %></li>
-      <li><%= link_to t("nav.video_conferencing"), "/#{I18n.locale}/learn-video-conferencing" %></li>
-      <li><%= link_to t("nav.solution_guides"), "/#{I18n.locale}/solution-guides" %></li>
+      <%# if (website.has_learning_sessions.present? && website.has_learning_sessions == 1) %>
+        <li class="show-for-medium"><%#= link_to t('learning_sessions').titleize, "/learning-sessions" %></li>
+      <%# end %>
+      <li class="show-for-medium"><%#= link_to t('training').titleize, "/training", target: "_blank" %></li>
+      <li><%#= link_to t("nav.av_basics"), "/#{I18n.locale}/learn-av-basics" %></li>
+      <li><%#= link_to t("nav.av_and_it"), "/#{I18n.locale}/learn-av-it" %></li>
+      <li><%#= link_to t("nav.buying_av"), "/#{I18n.locale}/learn-buying-av" %></li>
+      <li><%#= link_to t("nav.collaboration"), "/#{I18n.locale}/learn-collaboration" %></li>
+      <li><%#= link_to t("nav.learning_spaces"), "/#{I18n.locale}/learn-learning-spaces" %></li>
+      <li><%#= link_to t("nav.meeting_rooms"), "/#{I18n.locale}/learn-meeting-rooms" %></li>
+      <li><%#= link_to t("nav.security"), "/#{I18n.locale}/learn-security" %></li>
+      <li><%#= link_to t("nav.sustainability"), "/#{I18n.locale}/learn-sustainability" %></li>
+      <li><%#= link_to t("nav.video_conferencing"), "/#{I18n.locale}/learn-video-conferencing" %></li>
+      <li><%#= link_to t("nav.solution_guides"), "/#{I18n.locale}/solution-guides" %></li>
     </ul>
   </li>
-
-  <li class="hide-for-medium"><%= link_to t('training').titleize, "/training", target: "_blank" %></li>
-
-    <li class="has-dropdown"><%= link_to t('product_support').titleize, "/#{I18n.locale}/support" %>
+  -->
+  
+  <!-- Support -->
+  <li class="has-dropdown"><%= link_to t('product_support').titleize, "/#{I18n.locale}/support" %>
     <ul class="dropdown">
       <li><%= link_to t("nav.contact_us"), "/#{I18n.locale}/support" %></li>
+      <li><%= link_to t("nav.security"), "/#" %></li> <!-- NEEDS CONTENT -->
+      <li><%= link_to t("nav.warranty"), "/#{I18n.locale}/amx-warranty" %></li>
+      <li><%= link_to "RMA", "/#{I18n.locale}/support/rma" %>
+      <li><%= link_to t("nav.product_registration"), "/#{I18n.locale}/support/warranty_registration" %></li>
+      <li><%= link_to "Consultant Portal", "#{ENV['PRO_SITE_URL']}/consultant", target: "_blank" %></li>
+      <li><%= link_to ">-------------------------<", "#" %></li>
+      
       <% if !!(website.value_for("anytime_support_url")) %>
         <li><%= link_to t('anytime_support'), website.value_for("anytime_support_url"), target: "_blank" %></li>
       <% end %>
-      <li><%= link_to "Consultant Portal", "#{ENV['PRO_SITE_URL']}/consultant", target: "_blank" %></li>
-      <li><%= link_to t("nav.software"), "/#{I18n.locale}/software" %></li>
-      <li><%= link_to t("nav.firmware"), "/#{I18n.locale}/firmware" %></li>
-      <li class="has-dropdown"><%= link_to t("nav.downloads"), "/#{I18n.locale}/support_downloads" %>
-      <ul class="dropdown">
-        <li><%= link_to t("nav.downloads"), "/#{I18n.locale}/support_downloads" %></li>
-        <li><%= link_to "Search Device Modules", "https://developer.amx.com", target: "_blank" %></li>
-      </ul>
-      <li><%= link_to t("nav.warranty"), "/#{I18n.locale}/amx-warranty" %></li>
-      <li><%= link_to t("nav.product_registration"), "/#{I18n.locale}/support/warranty_registration" %></li>
+      
       <% if !!(website.forum_link) %>
-        <li><%= link_to t("forum").titleize, website.forum_link %></li>
+        <li><%= link_to t("technical_forum").titleize, website.forum_link, target: "_blank" %></li>
       <% end %>
-      <li><%= link_to "RMA", "/#{I18n.locale}/support/rma" %>
-
-      <li class="has-dropdown"><%= link_to "Partners", "/#{I18n.locale}/partners" %>
+      
+      <!--
+      <li><%#= link_to t("nav.software"), "/#{I18n.locale}/software" %></li>
+      <li><%#= link_to t("nav.firmware"), "/#{I18n.locale}/firmware" %></li>
+      -->
+      <li><%= link_to t("nav.documentation_downloads"), "/#{I18n.locale}/support_downloads" %>
+      <!--
       <ul class="dropdown">
-        <li><%= link_to "InConcert Partners", "/#{I18n.locale}/partners" %></li>
-        <li><%= link_to "Search Device Modules", "https://developer.amx.com", target: "_blank" %></li>
-        <li><%= link_to "Valued Independent Partners (VIP)", "/#{I18n.locale}/vips" %></li>
+        <li><%#= link_to t("nav.downloads"), "/#{I18n.locale}/support_downloads" %></li>
+        <li><%#= link_to "Search Device Modules", "https://developer.amx.com", target: "_blank" %></li>
       </ul>
+      -->
+      <li><%= link_to t('product_archive'), discontinued_products_path %></li>
+    </ul>
+  </li>
 
+  <!-- About -->
+  <li class="has-dropdown"><%= link_to t("nav.about").titleize, "/#" %>
+    <ul class="dropdown">
       <li><%= link_to t("nav.quality"), "/#{I18n.locale}/amx-quality-assurance" %></li>
+      <li><%= link_to t("nav.case_studies"), case_studies_path %></li>
+      <% if website.has_news? %>
+        <li><%= link_to t('news').titleize, news_index_path %></li>
+      <% end %>
     </ul>
   </li>
 

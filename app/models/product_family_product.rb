@@ -8,6 +8,6 @@ class ProductFamilyProduct < ApplicationRecord
   after_commit :update_counts
 
   def update_counts
-    self.product_family.update_current_product_counts
+    self.product_family.update_current_product_counts if self.product_family.present?
   end
 end

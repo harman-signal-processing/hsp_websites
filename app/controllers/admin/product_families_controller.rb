@@ -202,6 +202,8 @@ class Admin::ProductFamiliesController < AdminController
       :meta_description,
       :featured_product_id,
       :warranty_period,
+      :product_nav_separator,
+      :title,
       product_family_videos_attributes: {},
       product_family_products_attributes: {}
     )
