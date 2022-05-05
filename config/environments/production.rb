@@ -2,6 +2,12 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
   config.hosts.clear
 
+  config.force_ssl = true
+  config.ssl_options = {
+    redirect: {
+      exclude: -> request { /nodetest/.match?(request.path) }
+    }
+  }
   # Code is not reloaded between requests.
   config.cache_classes = true
 

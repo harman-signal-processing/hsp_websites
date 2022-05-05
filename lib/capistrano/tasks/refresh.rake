@@ -56,7 +56,7 @@ namespace :refresh do
       execute :mkdir, "-p", folder
 
       within folder do
-        execute :mysqldump, "--opt -u #{@db['username']} --password=#{@db['password']} -h #{@db['host']} --port=#{@db['port']} #{@db['database']} > #{@filename}"
+        execute :mysqldump, "--add-drop-table --add-locks --create-options --disable-keys --lock-tables --quick --column-statistics=0 --set-charset --complete-insert -u #{@db['username']} --password=#{@db['password']} -h #{@db['host']} --port=#{@db['port']} #{@db['database']} > #{@filename}"
         curr = capture(:pwd)
         download! "#{curr}/#{@filename}", "./#{@filename}"
         execute :rm, @filename
