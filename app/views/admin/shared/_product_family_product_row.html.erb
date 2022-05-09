@@ -4,9 +4,16 @@
     <% unless called_from == 'product' %>
     <span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
     <% end %>
-    <%= (called_from == 'product') ?
-        link_to(pfp.product_family.name, [:admin, pfp.product_family]) + raw(" <span style='color:#888;'>[") + pfp.product_family.locales(website).sort.join(", ") + raw("]</span>") :
-        link_to(pfp.product.name, [:admin, pfp.product]) %>
+    <% if (called_from == 'product') %>
+        <% if pfp.product_family.present? %>
+        <%= link_to(pfp.product_family.name, [:admin, pfp.product_family]) + raw(" <span style='color:#888;'>[") + pfp.product_family.locales(website).sort.join(", ") + raw("]</span>") %>
+        <% else %>
+        This product used to be associated with a product family that has been deleted. The old product family ID was <%=pfp.product_family_id%>. Click the trash icon to delete the association to the deleted product family.
+        <% end %>
+    <% else %>
+        <%= link_to(pfp.product.name, [:admin, pfp.product]) %>
+    <% end %>
+
     <%= link_to(image_tag("icons/trash.gif", lazy: false),
         admin_product_family_product_path(pfp, called_from: called_from),
         confirm: "Are you sure? (This won't delete the product or the product family--it will only remove the product from the family.)",

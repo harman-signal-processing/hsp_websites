@@ -1,0 +1,17 @@
+<% if product_family.videos_content_present? %>
+  <%= cache ["product_family_videos", product_family] do %>
+    <div class="overline"></div>
+    <h3>Videos</h3>
+
+    <ul class="small-block-grid-1 medium-block-grid-2">
+      <% product_family.product_family_videos.each do |pv| %>
+        <li>
+          <% if pv.valid? %>
+            <%= render_partial "product_families/embedded_video", video: pv %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+
+  <% end %>
+<% end %>

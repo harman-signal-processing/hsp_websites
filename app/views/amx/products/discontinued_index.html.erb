@@ -1,0 +1,26 @@
+<% set_meta_tags title: "Discontinued Products",
+				 reverse: true %>
+<!--<h1 class="page_title">Discontinued Products</h1>-->
+<h1 class="page_title">Product Archive</h1>
+
+<%= cache ["discontinued_products_index", website.brand, I18n.locale] do %>
+<table>
+  <thead>
+    <tr>
+      <td>Model</td>
+      <td>FG Number</td>
+      <td>Description</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @products.sort_by{|s| s.name}.each do |product| %>
+      <tr>
+        <td><%= link_to product.name, product %></td>
+        <td><%= product.sap_sku.split(" ").join(", ") unless product.sap_sku.blank? %></td>
+        <td><%=raw product.short_description %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_23_173139) do
+ActiveRecord::Schema.define(version: 2022_03_08_234400) do
 
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
@@ -729,6 +729,9 @@ ActiveRecord::Schema.define(version: 2021_11_23_173139) do
     t.integer "image_file_size"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "use_as_banner_slide", default: false
+    t.boolean "show_below_products", default: false
+    t.boolean "show_below_videos", default: false
     t.index ["featurable_type", "featurable_id"], name: "index_features_on_featurable_type_and_featurable_id"
   end
 
@@ -1243,6 +1246,8 @@ ActiveRecord::Schema.define(version: 2021_11_23_173139) do
     t.text "accessories_content", size: :medium
     t.text "before_product_content", size: :medium
     t.integer "locale_product_families_count"
+    t.string "product_nav_separator"
+    t.string "title"
     t.index ["brand_id"], name: "index_product_families_on_brand_id"
     t.index ["cached_slug"], name: "index_product_families_on_cached_slug", unique: true
     t.index ["parent_id"], name: "index_product_families_on_parent_id"

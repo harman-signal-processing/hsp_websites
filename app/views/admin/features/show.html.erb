@@ -22,8 +22,21 @@
 <p><b>Style:</b>
 <%= @feature.layout_style %></p>
 
+<% if @feature.use_as_banner_slide || @feature.show_below_products || @feature.show_below_videos %>
+  <p><b>Special page display location:</b>
+   <%= "Use as banner slide" if @feature.use_as_banner_slide %>
+   <%= "Show below products" if @feature.show_below_products %>
+   <%= "Show below videos" if @feature.show_below_videos %>
+  </p>
+<% end %>
+
 <p><b>Image:</b><br/>
-<%= image_tag @feature.image.url(:thumb), lazy: false %></p>
+<% if @feature.image.present? %>
+  <%= image_tag @feature.image.url(:thumb), lazy: false %>
+<% else %>
+  no image
+<% end %>
+</p>
 
 <p><b>Pre-content:</b></p>
 <%= raw @feature.pre_content %>

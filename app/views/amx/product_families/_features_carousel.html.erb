@@ -1,0 +1,20 @@
+  <% if @product_family.title.present? %>
+    <h1><%= translate_content(@product_family, :title) %></h1>
+  <% else %>
+    <h1><%= translate_content(@product_family, :name) %></h1>
+  <% end %>
+
+  <% if banner_slide_features.size > 1 %>
+    <ul data-orbit data-options="timer: false; bullets: true; slide_number: false; animation: fade;" class="show-for-medium-up">
+      <% banner_slide_features.each do |feature_slide| %>
+        <li><%= render_feature feature_slide %></li>
+      <% end %>
+    </ul>
+
+    <div class="show-for-small-down">
+      <% banner_slide_features.each do |feature_slide| %>
+        <%= render_feature feature_slide, format: 'mobile' %>
+      <% end %>
+    </div>
+  <% end %>
+

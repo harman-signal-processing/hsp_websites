@@ -1,0 +1,33 @@
+  <%= content_for :feature do %>
+    <% if @product_family.title_banner.present? %>
+        <% if @product_family.title.present? %>
+          <h1><%= translate_content(@product_family, :title) %></h1>
+        <% else %>
+          <h1><%= translate_content(@product_family, :name) %></h1>
+        <% end %>
+      <div class="product-family-banner-container text-center">
+        <%= image_tag @product_family.title_banner.url, alt: @product_family.name, style: "width: 100%" %>
+      </div>
+      <% if @product_family.intro.present? %>
+        <br/>
+        <div class="row">
+          <div class="medium-8 small-12 columns">
+            <%= raw translate_content(@product_family, :intro) %>
+          </div>
+        </div>
+      <% end %>
+    <% else %><%# else of  if @product_family.title_banner.present? %>
+      <div class="container product_family_header">
+        <div class="row">
+          <div class="medium-8 small-12 columns
+            <% if @product_family.title.present? %>
+              <h1><%= translate_content(@product_family, :title) %></h1>
+            <% else %>
+              <h1><%= translate_content(@product_family, :name) %></h1>
+            <% end %>
+            <p><%=raw translate_content(@product_family, :intro) %></p>
+          </div><!-- <div class="large-12 small-12 columns"> -->
+        </div><!-- <div class="row"> -->
+      </div><!-- <div class="container product_family_header">  -->
+    <% end %><%# if @product_family.title_banner.present? %>
+  <% end %><%# = content_for :feature do %>

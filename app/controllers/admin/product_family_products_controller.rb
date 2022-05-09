@@ -109,8 +109,12 @@ class Admin::ProductFamilyProductsController < AdminController
       format.xml  { head :ok }
       format.js
     end
-    website.add_log(user: current_user, action: "Removed #{@product_family_product.product.name} from #{@product_family_product.product_family.name}")
-  end
+    if @product_family_product.product_family.present?
+      website.add_log(user: current_user, action: "Removed #{@product_family_product.product.name} from #{@product_family_product.product_family.name}")
+    else
+      website.add_log(user: current_user, action: "Removed #{@product_family_product.product.name} from deleted family #{@product_family_product.product_family_id}")
+    end
+  end  #  def destroy
 
   private
 
