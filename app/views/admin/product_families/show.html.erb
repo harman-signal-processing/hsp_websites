@@ -66,8 +66,8 @@
 	<div class="large-4 columns">
 		<div class="panel">
 			<h6 class="subheader">Title Banner:</h6>
-			<% if !@product_family.title_banner_file_name.blank? %>
-			  <%= image_tag @product_family.title_banner.url(:medium) %>
+			<% if @product_family.title_banner_file_name.present? %>
+			  <%= image_tag(@product_family.title_banner.url(:medium), lazy: false) %>
 			<% else %>
 			  <i>(none)</i>
 			<% end %>
@@ -112,7 +112,7 @@
   <p>Use full width for features? <%= (@product_family.has_full_width_features?) ? "Yes" : "No" %></p>
   <ul>
     <% @product_family.features.each do |feature| %>
-      <li><%= link_to feature.name, [:admin, feature] %></li>
+      <li><%= link_to feature.name, [:admin, feature] %> (<%=feature_page_location(feature)%>)</li>
     <% end %>
   </ul>
   <p><%= link_to "Add a fancy feature",
