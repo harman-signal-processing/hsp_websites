@@ -32,7 +32,7 @@ lazy = product_photo_is_png?(product)
 %>
 
 <div id="<%= product.to_param %>" class="small_product_box">
-	<% if product.layout_class.to_s.match(/vertical/i) %>
+	<% if product.layout_class.to_s.match(/vertical/i) || product.layout_class.to_s.match(/nosidenav/i) %>
 		<div class="row collapse">
 			<div class="large-4 small-4 columns">
 				<div class="product_thumb">
