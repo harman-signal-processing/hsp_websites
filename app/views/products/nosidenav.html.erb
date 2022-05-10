@@ -104,14 +104,15 @@ set_meta_tags title: @product.name,
 <a name="description" data-magellan-destination="description"></a>
 
 <% if @product.photo %>
+  <% use_lazy_load = lazy_load_image?(@product) %>
   <div id="viewer_container" class="text-center">
     <div id="viewer">
       <% if @product.discontinued? %>
-        <%= image_tag(@product.photo.product_attachment.url(:large), alt: @product.name) %>
+        <%= image_tag(@product.photo.product_attachment.url(:large), alt: @product.name, lazy: use_lazy_load) %>
       <% elsif @product.photo.updated_at.to_date > "2014-10-01".to_date %>
-        <%= image_tag(@product.photo.product_attachment.url(:full_width), alt: @product.name) %>
+        <%= image_tag(@product.photo.product_attachment.url(:full_width), alt: @product.name, lazy: use_lazy_load) %>
       <% else %>
-        <%= image_tag(@product.photo.product_attachment.url(:horiz_medium), alt: @product.name) %>
+        <%= image_tag(@product.photo.product_attachment.url(:horiz_medium), alt: @product.name, lazy: use_lazy_load) %>
       <% end %>
     </div>
   </div>

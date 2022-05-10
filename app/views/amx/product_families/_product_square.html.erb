@@ -9,7 +9,7 @@ unless defined? show_brand_name
   show_brand_name = false
 end
 
-lazy = product_photo_is_png?(product)
+use_lazy_load = lazy_load_image?(product)
 %>
 <%= cache ["product_square", product, website, compare, extra_large, I18n.locale] do %>
 
@@ -41,9 +41,9 @@ lazy = product_photo_is_png?(product)
 				<div class="product_thumb">
 				<% if product.photo %>
 					<% if extra_large %>
-						<%= link_to image_tag(product.photo.product_attachment.url(:small), alt: product.name, lazy: lazy), this_url, target: target %>
+						<%= link_to image_tag(product.photo.product_attachment.url(:small), alt: product.name, lazy: use_lazy_load), this_url, target: target %>
 					<% else %>
-						<%= link_to image_tag(product.photo.product_attachment.url(:thumb), alt: product.name, lazy: lazy), this_url, target: target %>
+						<%= link_to image_tag(product.photo.product_attachment.url(:thumb), alt: product.name, lazy: use_lazy_load), this_url, target: target %>
 					<% end %>
 				<% end %>
 				</div>
@@ -71,9 +71,9 @@ lazy = product_photo_is_png?(product)
 		<div class="product_thumb" data-equalizer-watch="product_thumbs">
 		<% if product.photo %>
 			<% if extra_large %>
-				<%= link_to image_tag(product.photo.product_attachment.url(:medium), alt: product.name, lazy: lazy), this_url, target: target %>
+				<%= link_to image_tag(product.photo.product_attachment.url(:medium), alt: product.name, lazy: use_lazy_load), this_url, target: target %>
 			<% else %>
-				<%= link_to image_tag(product.photo.product_attachment.url(:horiz_thumb), alt: product.name, lazy: lazy), this_url, target: target %>
+				<%= link_to image_tag(product.photo.product_attachment.url(:horiz_thumb), alt: product.name, lazy: use_lazy_load), this_url, target: target %>
 			<% end %>
 		<% end %>
 		</div>
