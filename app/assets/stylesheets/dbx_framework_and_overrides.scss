@@ -47,7 +47,7 @@ $default-float: left;
 $body-bg: #FFF;
 $body-font-color: #666;
 $body-font-family: 'berthold_akzidenz_grotesk_bRg', "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-$body-font-weight: 100;
+$body-font-weight: 300;
 
 $primary-color: #d72131;
 $secondary-color: $medium-gray;
@@ -273,6 +273,12 @@ $reveal-default-width: 60%;
 $reveal-max-width: 75%;
 @import 'brand_common';
 
+/** search box in top nav **/
+#search_form {
+  button {
+    margin-top: -22px;
+  }
+}
 .top-bar-section .has-form {
   padding-top: 10px;
 }

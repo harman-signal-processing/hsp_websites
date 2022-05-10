@@ -7,7 +7,7 @@ $light-gray: #d0d0d0;
 $strip-bg-even: #E1E1E1;
 $strip-bg-odd: #000000;
 $color-gray-darker: #111111;
-$color-gray-dark: #575757;
+$color-gray-dark: #212121;
 $color-gray-medium: #A8A8A8;
 $color-gray-light: #D0D0D0;
 $color-gray-lighter: #EEEEEE;
@@ -69,6 +69,12 @@ $reveal-default-width: 60%;
 $reveal-max-width: 75%;
 @import 'brand_common';
 
+/** search box in top nav **/
+#search_form {
+  button {
+    margin-top: -2px;
+  }
+}
 //Soundcraft overrides
 div.product-title-block, div.small-title-block {
   h1 {
@@ -100,8 +106,7 @@ nav.top-bar {
    height: 52px;
    background-color: $color-main;
    z-index: 100;
-   border-top: solid 1px $color-soundcraft;
-    border-bottom: solid 4px $color-soundcraft;
+    border-bottom: solid 1px $color-soundcraft;
 
   .extra-space-hamburger {
     margin-top: 0.8rem;

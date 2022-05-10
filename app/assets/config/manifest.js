@@ -7,15 +7,12 @@
 //= link bss.js
 //= link crown.js
 //= link dbx.js
-//= link digitech.js
-//= link dod.js
 //= link duran.js
 //= link jbl_commercial.js
 //= link jbl_professional.js
 //= link lexicon.js
 //= link martin.js
 //= link soundcraft.js
-//= link studer.js
 //= link teaser_application.js
 
 //= link admin.css
@@ -27,18 +24,11 @@
 //= link bss.css
 //= link crown.css
 //= link dbx.css
-//= link digitech.css
-//= link dod.css
-//= link dod_teaser.css
 //= link duran.css
 //= link harman_stats.css
-//= link introducing_epedal.css
-//= link introducing_stompbox.css
-//= link istomp.css
 //= link jbl_commercial.css
 //= link jbl_professional.css
 //= link lexicon.css
 //= link martin.css
 //= link soundcraft.css
 //= link stats.css
-//= link studer.css

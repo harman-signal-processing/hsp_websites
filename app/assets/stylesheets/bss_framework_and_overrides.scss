@@ -41,9 +41,9 @@ $light-gray: #CCC;
 $medium-gray: #999;
 $dark-gray: #444;
 $body-bg: #FFF;
-$body-font-color: #666;
+$body-font-color: #121212;
 $body-font-family: "dinregular", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-$body-font-weight: 300;
+$body-font-weight: 400;
 
 $secondary-color: $medium-gray;
 // $alert-color: #c60f13;
@@ -75,8 +75,8 @@ $subheader-font-color: lighten($dark-gray, 20%);
 $small-font-color: lighten($header-font-color, 35%);
 
 // $paragraph-font-family: inherit;
-$paragraph-font-weight: 300;
-// $paragraph-font-size: 1em;
+$paragraph-font-weight: 500;
+$paragraph-font-size: 1.1rem;
 // $paragraph-line-height: 1.6;
 // $paragraph-margin-bottom: rem-calc(20px);
 // $paragraph-aside-font-size: rem-calc(14px);
@@ -238,7 +238,7 @@ $topbar-dropdown-toggle-alpha:         0.5;
 // $topbar-link-color-hover:              #fff;
 // $topbar-link-color-active:             #fff;
 $topbar-link-weight:                   400;
-$topbar-link-font-size:                rem-calc(14px);
+$topbar-link-font-size:                rem-calc(15px);
 $topbar-link-hover-lightness:          -30%; // Darken by 30%
 $topbar-link-bg-hover:                 darken($topbar-bg, 3%);
 $topbar-link-bg-active:                rgba($topbar-bg, 0.6);
@@ -248,7 +248,7 @@ $topbar-link-bg-active:                rgba($topbar-bg, 0.6);
 // $topbar-dropdown-label-font-size:      rem-calc(10px);
 $topbar-menu-link-transform:           uppercase;
 $topbar-menu-link-font-size:           rem-calc(18px);
-$topbar-menu-link-weight:              200;
+$topbar-menu-link-weight:              400;
 // $topbar-menu-link-color:               #fff;
 // $topbar-menu-icon-color:               #fff;
 // $topbar-menu-link-color-toggled:       #888;
@@ -268,6 +268,12 @@ $reveal-default-width: 60%;
 $reveal-max-width: 75%;
 @import 'brand_common';
 
+/** search box in top nav **/
+#search_form {
+  button {
+    margin-top: -16px;
+  }
+}
 @media only screen and (min-width: 720px) {
 	.logo-container img {
 		padding: 8px 12px 0px 20px;
@@ -280,10 +286,12 @@ $reveal-max-width: 75%;
   }
   /** search box in top nav **/
   #search_form #query {
-    margin-bottom:5px;
-    width:120px;
+    #query {
+      margin-bottom:5px;
+      width:100px;
+    }
   }
-  .top-bar input, .top-bar .button {
+  .top-bar input {
       top: 16px;
       height: 1.9em;
   }
