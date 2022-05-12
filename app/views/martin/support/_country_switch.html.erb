@@ -2,7 +2,7 @@
   <div class="small-12 medium-5 medium-offset-1 large-4 large-offset-2 medium-text-right columns">
     <% country_name = country_name(country_code)
     if country_name.present? %>
-        Your country is <%=country_name%> <%=image_tag "https://www.countryflags.io/#{country_code}/flat/32.png", alt: country_name %>
+        Your country is <%=country_name%> <%=image_tag "https://flagcdn.com/24x18/#{country_code}.png", alt: "#{country_name} flag" %>
     <% end %>
   </div>
   <div class="small-12 medium-4 large-3 columns end">
