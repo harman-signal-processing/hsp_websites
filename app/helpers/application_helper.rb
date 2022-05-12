@@ -462,6 +462,22 @@ module ApplicationHelper
     image_tag img, style: "vertical-align: middle", alt: "platform icon"
 	end
 
+  def lazy_load_image?(product)
+    return false if product.photo.nil?
+    lazy_load = case File.extname(product.photo.product_attachment_file_name)
+    when /.png/
+      false
+    when /.jpg/
+      true
+    when /.jpeg/
+      true
+    when /.gif/
+      false
+    else
+      false
+    end
+  end  #  def lazy_load_image?(product)
+
   def file_type_icon(item, size=17)
     img = case true
           when 
