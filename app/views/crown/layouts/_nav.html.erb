@@ -20,7 +20,10 @@
 
             <li class="has-form" id="search_form">
               <%= form_tag search_path, method: :get %>
-              <%= text_field_tag :query, "", placeholder: t('search'), 'aria-label': t('search') %>
+                <%= text_field_tag :query, "", placeholder: t('search'), 'aria-label': t('search') %>
+  							<button type="submit" class="hide-for-small" aria-label="search button">
+  								<%= fa_icon "search" %>
+  							</button>
               </form>
             </li>
           <% end %>
@@ -28,8 +31,8 @@
             <li class="has-dropdown">
 
               <%= link_to '#', id: "locale_menu" do %>
-                <span class="hide-for-small"><%= image_tag "icons/globe_white.png", alt: t('language_region') %></span>
-                <span class="show-for-small">Language</span>
+    						<span class="hide-for-small"><%= fa_icon "globe", title: t('language_region'), 'aria-label': t('language_region') %></span>
+                <span class="show-for-small"><%= t('language_region') %></span>
               <% end %>
               <ul class="dropdown">
                 <% website.available_locales.each do |website_locale| %>
@@ -64,6 +67,7 @@
         <%#= link_to "Login", new_user_session_path %>
       <% end %>
     </div>
+  <div class="top-bar-divider"></div>
   </div>
 
 <%# end %>

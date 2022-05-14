@@ -14,7 +14,7 @@ $dark-gray: #444;
 $body-bg: #FFF;
 $body-font-color: #666;
 $body-font-family: "Roboto", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-$body-font-weight: 300;
+$body-font-weight: 400;
 
 $secondary-color: $medium-gray;
 // $alert-color: #c60f13;
@@ -46,7 +46,7 @@ $subheader-font-color: lighten($dark-gray, 20%);
 $small-font-color: lighten($header-font-color, 35%);
 
 // $paragraph-font-family: inherit;
-$paragraph-font-weight: 300;
+$paragraph-font-weight: 400;
 // $paragraph-font-size: 1em;
 // $paragraph-line-height: 1.6;
 // $paragraph-margin-bottom: rem-calc(20px);
@@ -264,6 +264,12 @@ $reveal-max-width: 75%;
     }
   }
 }
+/** search box in top nav **/
+#search_form {
+  button {
+    margin-top: -16px;
+  }
+}
 .top-bar {
   @media only screen and (max-width: 1300px) and (min-width: 1076px) {
     .top-bar-section {
@@ -287,9 +293,10 @@ $reveal-max-width: 75%;
       }
     }
     /** search box in top nav **/
-    #search_form #query {
-      margin-bottom:5px;
-      width:80px;
+    #search_form {
+      #query {
+        width:80px;
+      }
     }
 
     input, .button {
@@ -319,9 +326,10 @@ $reveal-max-width: 75%;
       }
     }
     /** search box in top nav **/
-    #search_form #query {
-      margin-bottom:5px;
-      width:80px;
+    #search_form {
+      #query {
+        width:80px;
+      }
     }
 
     input, .button {

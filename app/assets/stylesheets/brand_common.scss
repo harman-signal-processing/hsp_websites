@@ -67,6 +67,31 @@ $slick-arrow-color: $dark-gray;
 .button {
   text-transform: capitalize;
 }
+.top-bar-divider {
+  width: 100%;
+  background: darken($primary-color, 70%);
+  height: 1px;
+}
+#search_form {
+  #query {
+    margin-bottom:5px;
+    width:160px;
+    border-radius: 20px;
+  }
+  input {
+    float: left;
+  }
+  button {
+    margin-top: -18px; //probably need to override for each brand
+    float: right;
+    padding-left: 10px;
+    padding-right: 10px;
+    background: none;
+    &:hover {
+      background: none;
+    }
+  }
+}
 .top-bar {
   input, .button {
     top: 13px;

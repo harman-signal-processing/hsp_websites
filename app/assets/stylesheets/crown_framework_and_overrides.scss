@@ -12,7 +12,7 @@
 }
 
 $row-width: rem-calc(1170);
-$dark-gray: #575757;
+$dark-gray: #323232;
 $medium-gray: #a8a8a8;
 $light-gray: #d0d0d0;
 $secondary-color: $light-gray;
@@ -154,6 +154,12 @@ $reveal-default-width: 60%;
 $reveal-max-width: 75%;
 @import 'brand_common';
 
+/** search box in top nav **/
+#search_form {
+  button {
+    margin-top: -10px;
+  }
+}
 @media only screen and (min-width: 720px) {
 	.logo-container img {
 		padding: 2px 20px 0px;

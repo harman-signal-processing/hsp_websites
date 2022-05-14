@@ -1,6 +1,6 @@
 @import 'foundation/functions';
 
-$dark-gray: #575757;
+$dark-gray: #454545;
 $medium-gray: #a8a8a8;
 $light-gray: #d0d0d0;
 $strip-bg-even: #E1E1E1;
@@ -29,7 +29,7 @@ $h6-font-size: 1em;
 $subheader-font-color: lighten($dark-gray, 20%);
 $small-font-color: lighten($header-font-color, 35%);
 
-$paragraph-font-weight: 300;
+$paragraph-font-weight: 400;
 $accordion-navigation-padding: rem-calc(14);
 $accordion-navigation-bg-color: scale-color($light-gray, $lightness: 25%);
 $accordion-navigation-active-bg-color: scale-color($accordion-navigation-bg-color, $lightness: -13%);
@@ -66,7 +66,7 @@ $topbar-dropdown-bg:                      rgba($topbar-bg-color, 0.9);
 $topbar-dropdown-link-bg:                 rgba(darken($topbar-bg-color, 2%),0.85);
 $topbar-dropdown-toggle-alpha:         0.5;
 $topbar-link-font-size:                rem-calc(15);
-$topbar-link-weight:                   light;
+$topbar-link-weight:                   500;
 $topbar-link-hover-lightness:          -30%; // Darken by 30%
 $topbar-link-bg-hover:                 darken($topbar-bg, 3%);
 $topbar-link-bg-active:                rgba($topbar-bg, 0.6);
@@ -93,12 +93,7 @@ $reveal-max-width: 75%;
       padding-right: rem-calc(10);
     }
   }
-  /** search box in top nav **/
-  #search_form #query {
-    margin-bottom:5px;
-    width:120px;
-  }
-  .top-bar input, .top-bar .button {
+  .top-bar input {
       top: 16px;
       height: 1.9em;
   }

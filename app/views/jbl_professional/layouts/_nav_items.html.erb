@@ -44,6 +44,13 @@
       <% end %>
 
       <li><%= link_to t('training').titleize, "/training", target: "_blank" %></li>
+      <li class="has-dropdown"><%= link_to t('about').titleize, '#' %>
+        <ul class="dropdown">
+          <li><%= link_to 'innovation'.titleize, '/innovation' %></li>
+          <li><%= link_to t('news').titleize, news_index_path %></li>
+          <li><%= link_to 'history'.titleize, '/history' %></li>
+        </ul>
+      </li>
     </ul>
   </li>
 
@@ -51,7 +58,7 @@
     <li><%= link_to t('installations').titleize, installations_path %></li>
   <% end %>
 
-    <li class="has-dropdown"><%= link_to t('about').titleize, '#' %>
+    <li class="has-dropdown hide-for-medium"><%= link_to t('about').titleize, '#' %>
       <ul class="dropdown">
         <li><%= link_to 'innovation'.titleize, '/innovation' %></li>
         <li><%= link_to t('news').titleize, news_index_path %></li>
