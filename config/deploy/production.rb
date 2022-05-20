@@ -7,9 +7,11 @@
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
+# The "db" role is used to determine which server runs the database refresh
+# task for our development machines. So, only one server should have it.
 server "aws-production1",  user: 'brandsites', roles: %w{web app db background}, primary: true
-server "aws-production2",  user: 'brandsites', roles: %w{web app db background}, primary: true
-server "aws-production3",  user: 'brandsites', roles: %w{web app db background}, primary: true
+server "aws-production2",  user: 'brandsites', roles: %w{web app background}, primary: true
+server "aws-production3",  user: 'brandsites', roles: %w{web app background}, primary: true
 
 # role-based syntax
 # ==================
