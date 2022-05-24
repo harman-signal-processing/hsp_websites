@@ -70,10 +70,10 @@ class SearchController < ApplicationController
       is_product_but_not_for_this_website = (r.is_a?(Product) && !r.show_on_website?(website))
 
       if include_discontinued_products?
-        product_statuses_to_allow = ["In Production", "Coming Soon", "Discontinued"]
+        product_statuses_to_allow = ["In Production", "Coming Soon", "Limited Availability", "Discontinued", "Vintage"]
         is_product_but_not_a_status_to_show = (r.is_a?(Product) && (!product_statuses_to_allow.include?(r.product_status.name)))
       else
-        product_statuses_to_allow = ["In Production", "Coming Soon"]
+        product_statuses_to_allow = ["In Production", "Coming Soon", "Limited Availability"]
         is_product_but_not_a_status_to_show = (r.is_a?(Product) && (!product_statuses_to_allow.include?(r.product_status.name)))
       end
       is_product_but_locale_does_not_match_website = (r.is_a?(Product) && !r.locales(website).include?(I18n.locale.to_s))
