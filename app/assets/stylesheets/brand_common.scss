@@ -1903,7 +1903,16 @@ div.quicklinks {
 	#promotion_side_button {
 		display: none;
 	}
-}
+	#search_form {
+	  padding-top: 0.82rem;
+	  padding-bottom: 0.82rem;
+	}
+	#search_form button {
+	  margin-top:0px !important;
+	  float:none;
+	}
+	.fa-search { font-size: large}
+}  //  @media only screen and (max-width: 719px) {
 .panel label {
   color: $dark-gray;
 }

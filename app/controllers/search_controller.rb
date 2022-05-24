@@ -39,6 +39,10 @@ class SearchController < ApplicationController
     end
   end
 
+  def include_discontinued_products?
+    @include_discontinued_products = !!params[:include_discontinued_products]
+  end
+
   def pdf_only_search_results?
     # The user wants PDF only search if they check the box or they are clicking the pagination links after they have submitted a PDF only search.
     # If they want to exit the PDF only search they will just need to uncheck the box and click search
@@ -64,7 +68,14 @@ class SearchController < ApplicationController
     @results = ferret_results.select do |r|
 
       is_product_but_not_for_this_website = (r.is_a?(Product) && !r.show_on_website?(website))
-      is_product_but_not_a_status_to_show = (r.is_a?(Product) && (r.product_status.name != "In Production" && r.product_status.name != "Coming Soon") )
+
+      if include_discontinued_products?
+        product_statuses_to_allow = ["In Production", "Coming Soon", "Discontinued"]
+        is_product_but_not_a_status_to_show = (r.is_a?(Product) && (!product_statuses_to_allow.include?(r.product_status.name)))
+      else
+        product_statuses_to_allow = ["In Production", "Coming Soon"]
+        is_product_but_not_a_status_to_show = (r.is_a?(Product) && (!product_statuses_to_allow.include?(r.product_status.name)))
+      end
       is_product_but_locale_does_not_match_website = (r.is_a?(Product) && !r.locales(website).include?(I18n.locale.to_s))
       brand_does_not_match_website = (r.has_attribute?(:brand_id) && r.brand_id != website.brand_id)
       does_not_belong_to_website = (r.respond_to?(:belongs_to_this_brand?) && !r.belongs_to_this_brand?(website))
