@@ -20,7 +20,12 @@ class EventsController < ApplicationController
         if @events.length > 0
           render_template
         else
-          redirect_to "#{ENV['PRO_SITE_URL']}/events" and return false
+          @learning_sessions = LearningSessionService.get_learning_session_data(website.brand.name.downcase)
+          if @learning_sessions.size > 0
+            redirect_to learning_sessions_path and return false
+          else
+            redirect_to "#{ENV['PRO_SITE_URL']}/events" and return false
+          end
         end
       }
       format.xml  { render xml: @events }
