@@ -1,0 +1,26 @@
+<%= simple_form_for [:admin, @scheduled_task] do |f| %>
+
+  <p>Note: Tasks run according to <%= Rails.configuration.time_zone %>. Adjust your schedule accordingly.</p>
+  <div class="row">
+    <div class="small-12 medium-6 columns">
+      <%= f.input :perform_at, required: true, as: :string, input_html: { class: 'ui-datetimepicker' } %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12 medium-6 columns">
+      <%= f.input :schedulable_type, label: "Target Object Type", as: :select, collection: ScheduledTask.schedulable_options %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 medium-6 columns">
+      <%= f.input :schedulable_friendly_id,
+        label: "Target Object Friendly ID",
+        hint: "Paste the Friendly ID here. (what appears in the URL. Something like: \"zbt-4000\")" %>
+    </div>
+  </div>
+  
+  <p>The actual actions to take place are managed on the next screen...</p>
+
+  <%= f.submit class: "button" %>
+<% end %>

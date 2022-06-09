@@ -81,6 +81,8 @@ class Ability
         can :manage, Specification
         can :manage, SpecificationGroup
         can :manage_warranty_of, Product
+        can :manage, ScheduledTask
+        can :manage, ScheduledTaskAction
       end
       if user.role?(:sales_admin)
         can :read, Product

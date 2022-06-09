@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="small-12 medium-6 columns">
+    <%= simple_fields_for @scheduled_task_action do |f| %>
+    
+      <% case @scheduled_task_action.field_type %>
+        <% when "integer" %>
+          <% if @scheduled_task_action.has_relation? %>
+            <%= f.input :new_integer_value,
+                as: :select,
+                label: "New #{@scheduled_task_action.field_name} value",
+                collection: @scheduled_task_action.options_for_select %>
+          <% else %>
+            <%= f.input :new_integer_value,
+                hint: "Enter an integer",
+                label: "New #{@scheduled_task_action.field_name} value" %>
+          <% end %>
+        <% when "string" %>
+          <%= f.input :new_string_value,
+                label: "New #{@scheduled_task_action.field_name} value" %>
+        <% when "text" %>
+          <%= f.input :new_text_value,
+                label: "New #{@scheduled_task_action.field_name} value" %>
+        <% when "boolean" %>
+          <%= f.input :new_boolean_value, as: :radio_buttons,
+                label: "New #{@scheduled_task_action.field_name} value" %>
+        <% when "date" %>
+          <%= f.input :new_date_value,
+                label: "New #{@scheduled_task_action.field_name} value" %>
+        <% when "datetime" %>
+          <%= f.input :new_datetime_value,
+                label: "New #{@scheduled_task_action.field_name} value" %>
+        <% else %>
+          <%= f.input :new_text_value,
+                label: "New #{@scheduled_task_action.field_name} value" %>
+      <% end %>
+    
+    <% end %>
+  </div>
+  
+  <div class="small-12 medium-6 columns">
+    <div class="panel">
+      <p>For reference, the current "<%= @scheduled_task_action.field_name %>" value is:</p>
+      
+      <div>
+        <%=raw @scheduled_task.schedulable.send(@scheduled_task_action.field_name) %>
+        <% if @scheduled_task_action.has_relation? && @scheduled_task.schedulable.send(@scheduled_task_action.field_name).present? %>
+          - <%= @scheduled_task.schedulable.send(@scheduled_task_action.relation_name).name %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

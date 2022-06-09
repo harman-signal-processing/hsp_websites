@@ -442,6 +442,12 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         collection { post :update_order }
         collection { post :upload }
       end
+      
+      resources :scheduled_tasks, shallow: true do
+        member { get :run }
+        resources :scheduled_task_actions
+      end
+      get "scheduled_tasks/:id/value_field/:field_name" => 'scheduled_tasks#value_field'
 
       #match "translations/:target_locale(/:action)" => "content_translations", as: :translations
       scope path: '/:target_locale', target_locale: /#{WebsiteLocale.all_unique_and_incomplete_locales.join('|')}/ do

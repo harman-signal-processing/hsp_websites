@@ -309,7 +309,7 @@
                 </ul>
                 </li>
 
-                <% if can?(:manage, User) || can?(:manage, Brand) || can?(:manage, Website) %>
+                <% if can?(:manage, User) || can?(:manage, Brand) || can?(:manage, Website) || can?(:manage, ScheduledTask) %>
                   <li class="has-dropdown"><%= link_to "Super Admin", '#' %>
                   <ul class="dropdown">
                     <% if can? :manage, User %>
@@ -320,6 +320,9 @@
                     <% end %>
                     <% if can? :manage, Website %>
                       <li><%= link_to "Websites", admin_websites_path %></li>
+                    <% end %>
+                    <% if can? :manage, ScheduledTask %>
+                      <li><%= link_to "Scheduled Tasks", admin_scheduled_tasks_path %></li>
                     <% end %>
                   </ul>
                   </li>

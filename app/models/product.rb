@@ -128,7 +128,7 @@ class Product < ApplicationRecord
   scope :not_associated_with_this_badge, -> (badge, website) {
     website.products.where.not(id: badge.products.pluck(:id))
   }
-
+  
   def slug_candidates
     [
       :formatted_name,
