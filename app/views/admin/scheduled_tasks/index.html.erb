@@ -1,0 +1,65 @@
+<h1>Scheduled Tasks</h1>
+
+<% if can? :create, ScheduledTask %>
+<ul class="button-group round">
+	<li><%= link_to 'New Scheduled Task', new_admin_scheduled_task_path, class: "small success button" %></li>
+</ul>
+<% end %>
+
+<% if @scheduled_tasks.size > 0 %>
+  <h3>Scheduled</h3>
+  <table class="data" width="100%">
+    <thead>
+      <tr>
+        <th>Perform At</th>
+        <th>Object</th>
+        <th>Actions</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @scheduled_tasks.each do |scheduled_task| %>
+      <tr>
+      	<td><b><%= link_to l(scheduled_task.perform_at), [:admin, scheduled_task] %></b></td>
+      	<td>
+      	  <%= scheduled_task.schedulable_type %>:
+        	<%= scheduled_task.schedulable.respond_to?(:name) ? scheduled_task.schedulable.name : scheduled_task.schedulable_id %>
+      	</td>
+      	<td><%= scheduled_task.scheduled_task_actions.size %></td>
+      	<td><%= scheduled_task.status %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p><em>No upcoming tasks found.</em></p>
+<% end %>
+  
+<% if @recent_tasks.size > 0 %>
+  <h3>Recently Ended</h3>
+  <table class="data" width="100%">
+    <thead>
+      <tr>
+        <th>Perform At</th>
+        <th>Object</th>
+        <th>Actions</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @recent_tasks.each do |scheduled_task| %>
+      <tr>
+      	<td><b><%= link_to l(scheduled_task.perform_at), [:admin, scheduled_task] %></b></td>
+      	<td>
+      	  <%= scheduled_task.schedulable_type %>:
+        	<%= scheduled_task.schedulable.respond_to?(:name) ? scheduled_task.schedulable.name : scheduled_task.schedulable_id %>
+      	</td>
+      	<td><%= scheduled_task.scheduled_task_actions.size %></td>
+      	<td><%= scheduled_task.status %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p><em>No recent tasks found.</em></p>
+<% end %>
