@@ -1676,7 +1676,7 @@ ActiveRecord::Schema.define(version: 2022_06_08_161052) do
     t.index ["brand_id"], name: "index_sales_regions_on_brand_id"
   end
 
-  create_table "scheduled_task_actions", charset: "utf8mb4", force: :cascade do |t|
+  create_table "scheduled_task_actions", charset: "utf8", force: :cascade do |t|
     t.integer "scheduled_task_id"
     t.string "field_name"
     t.string "field_type"
@@ -1692,7 +1692,7 @@ ActiveRecord::Schema.define(version: 2022_06_08_161052) do
     t.index ["scheduled_task_id"], name: "index_scheduled_task_actions_on_scheduled_task_id"
   end
 
-  create_table "scheduled_task_logs", charset: "utf8mb4", force: :cascade do |t|
+  create_table "scheduled_task_logs", charset: "utf8", force: :cascade do |t|
     t.integer "scheduled_task_id"
     t.integer "scheduled_task_action_id"
     t.text "description"
@@ -1702,14 +1702,14 @@ ActiveRecord::Schema.define(version: 2022_06_08_161052) do
     t.index ["scheduled_task_id"], name: "index_scheduled_task_logs_on_scheduled_task_id"
   end
 
-  create_table "scheduled_tasks", charset: "utf8mb4", force: :cascade do |t|
+  create_table "scheduled_tasks", charset: "utf8", force: :cascade do |t|
     t.datetime "perform_at"
     t.string "schedulable_type"
     t.bigint "schedulable_id"
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["schedulable_type", "schedulable_id"], name: "index_scheduled_tasks_on_schedulable", length: { schedulable_type: 191 }
+    t.index ["schedulable_type", "schedulable_id"], name: "index_scheduled_tasks_on_schedulable"
   end
 
   create_table "service_centers", id: :integer, charset: "utf8", force: :cascade do |t|
