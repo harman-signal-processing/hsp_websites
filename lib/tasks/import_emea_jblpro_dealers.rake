@@ -39,6 +39,7 @@ namespace :import do
 
     CSV.open(dealers_file, encoding:'utf-8', headers: true).each do |row|
       # note add an ID column to the excel file before exporting as csv, the id column is used to provide dealer ids back to the data providers so they can be used for future updates
+      dealer_id = "#{row[0]}"
       name = "#{row[1]}"
       break if (name.nil?)
       address1 = "#{row[2]}"
@@ -90,6 +91,11 @@ namespace :import do
 
       data_for_new_dealer = { name: name, address: address_to_use, city: city, zip: zip, country: country_name_to_use[country.to_sym], website: website, telephone: telephone, account_number: account_number_to_use, rental: 1, lat: origin.lat, lng: origin.lng}
 
+      if dealer_id.present?
+        existing_dealer = Dealer.where("id = ?", dealer_id)
+      else
+        existing_dealer = Dealer.where("name = ? and city = ? and country = ?", name, city, country_name_to_use[country.to_sym])
+      end
       existing_dealer = Dealer.where("name = ? and city = ? and country = ?", name, city, country_name_to_use[country.to_sym])
       if existing_dealer.present?
         write_message(log, "")
