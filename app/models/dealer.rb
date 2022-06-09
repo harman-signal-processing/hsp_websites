@@ -278,6 +278,121 @@ class Dealer < ApplicationRecord
 
   end  #  def self.simple_report(brand, options={}, dealer_list=[])
 
+  def self.simple_report_for_admin(brand, options={}, dealer_list=[], product_slugs=[], discontinued_product_slugs=[])
+    options = { rental: false, resell: false, title: "Dealers", format: 'xls' }.merge
+    if dealer_list.present?
+      dealers = dealer_list
+    else
+      dealers = brand.dealers
+      if options[:rental]
+        dealers = dealers.where(rental: true)
+      end
+      if options[:resell]
+        dealers = dealers.where(resell: true)
+      end
+    end  #  if dealer_list.present?
+
+    if options[:format] == 'xls'
+      xls_report = StringIO.new
+      Spreadsheet.client_encoding = "UTF-8"
+      book = Spreadsheet::Workbook.new
+      sheet = book.create_worksheet
+
+      column_header_format = Spreadsheet::Format.new(
+        weight: :bold
+      )
+
+      sheet.row(0).default_format = column_header_format
+      standard_headers = ['Region*', 'Country*', 'Dealer_ID', 'Dealer Name*', 'Address*', 'Address 2', 'Address 3', 'Town/City*', 'Postalcode/ZIP*', 'Phone', 'Email', 'Website']
+      if product_slugs.present?
+        sheet.row(0).concat (standard_headers + product_slugs)
+      else
+        sheet.row(0).concat (standard_headers + ['Rental Products'])
+      end
+      sheet.column(0).width = 20 # Region
+      sheet.column(1).width = 20 # Country
+      sheet.column(2).width = 10 # Dealer ID (in website)
+      sheet.column(3).width = 30 # Dealer
+      sheet.column(4).width = 40 # Address
+      sheet.column(5).width = 40 # Address 2
+      sheet.column(6).width = 40 # Address 3
+      sheet.column(7).width = 20 # City
+      sheet.column(8).width = 20 # Postal Code
+      sheet.column(9).width = 20 # Phone
+      sheet.column(10).width = 20 # Email
+      sheet.column(11).width = 20 # Website
+      if product_slugs.present?
+        product_header_format = Spreadsheet::Format.new(:align => 'center')
+        product_discontinued_header_format = Spreadsheet::Format.new(:align => 'center', color: :red)
+        product_value_format = Spreadsheet::Format.new(:align => 'center')
+
+        start_col_for_products = 12
+        end_col_for_products = product_slugs.count+12
+
+        (start_col_for_products..end_col_for_products).each do |column_index|
+          product = product_slugs[column_index-12]
+          # for the header row
+          if product.present? && discontinued_product_slugs.include?(product)
+            sheet.row(0).set_format(column_index, product_discontinued_header_format)
+          else
+            sheet.row(0).set_format(column_index, product_header_format)
+          end
+
+          sheet.column(column_index).width = 15
+          # for all values in column
+          sheet.column(column_index).default_format = product_value_format
+        end
+      else
+        sheet.column(12).width = 50 # Rental Products
+      end  #  if product_slugs.present?
+
+
+      row = 1
+
+      dealers.each do |dealer|
+        addr = dealer.address.gsub("<br />", "---addr-break---").gsub("<br>","---addr-break---").gsub("<br/>","---addr-break---") if dealer.address.present?
+        addr1 = addr.split("---addr-break---")[0] if addr.present?
+        addr2 = addr.split("---addr-break---")[1] if addr.present?
+        addr3 = addr.split("---addr-break---")[2] if addr.present?
+            sheet[row, 0] = dealer.region
+            sheet[row, 1] = dealer.country
+            sheet[row, 2] = dealer.id
+            sheet[row, 3] = dealer.name
+            sheet[row, 4] = addr1
+            sheet[row, 5] = addr2
+            sheet[row, 6] = addr3
+            sheet[row, 7] = dealer.city
+            sheet[row, 8] = dealer.zip
+            sheet[row, 9] = dealer.telephone
+            sheet[row, 10] = dealer.email
+            sheet[row, 11] = dealer.website
+            if product_slugs.present?
+              (start_col_for_products..end_col_for_products).each do |column_index|
+                product_column_slug = product_slugs[column_index-11]
+
+                begin
+                  if dealer.rental_product_slugs(brand).split(",").include?(product_column_slug)
+                    sheet[row, column_index] = "X"
+                  end
+                rescue => e
+                  # binding.pry
+                end
+
+              end  #  (start_col_for_products..end_col_for_products).each do |column_index|
+            end  #  if product_slugs.present?
+
+            # sheet[row, 12] = dealer.rental_product_slugs(brand)
+
+        row += 1
+      end  #  dealers.each do |dealer|
+
+      book.write(xls_report)
+      xls_report.string
+
+    end  #  if options[:format] == 'xls'
+
+  end  #  def self.simple_report_for_admin(brand, options={}, dealer_list=[])
+
   def self.report(brand, options={}, dealer_list=[])
     options = { rental: false, resell: false, title: "Dealers", format: 'xls' }.merge options
     if dealer_list.present?
@@ -426,6 +541,18 @@ class Dealer < ApplicationRecord
       results.pluck(:name).join(', ')
     end  #  Rails.cache.fetch("rental_product_names_#{brand.id}_#{self.id}", expires_in: 6.hours) do
   end  #  def rental_product_names(brand)
+
+  def rental_product_slugs(brand)
+    Rails.cache.fetch("rental_product_slugs_#{brand.id}_#{self.id}", expires_in: 6.hours) do
+      results = rental_products(brand).to_ary
+
+      if results.pluck(:cached_slug).grep(/jbl-eon7/).any?
+        results.delete_if {|item| item.cached_slug["jbl-eon7"].present? }
+        results << ProductFamily.find_by_cached_slug("eon700-series")
+      end  #  if results.pluck(:cached_slug).grep(/jbl-eon7/).any?
+      results.pluck(:cached_slug).join(', ')
+    end  #  Rails.cache.fetch("rental_product_slugs_#{brand.id}_#{self.id}", expires_in: 6.hours) do
+  end  #  def rental_product_slugs(brand)
 
   def has_rental_products_for(brand, cached_slug)  #  this currently only applies to jbl pro
     results = false

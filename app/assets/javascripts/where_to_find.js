@@ -36,7 +36,7 @@ function load_markers(map,markers) {
       var innerHtml = '<div class="marker_info"><b style="font-size: 13px">'
         + marker.name + '</b><br/>'
         + marker.address + '<br/>'
-        + marker.city + ', ' + marker.state + ' ' + marker.zip + '<br/>'
+        + marker.city + ', ' + (marker.state ?? '') + ' ' + marker.zip + '<br/>'
         + marker.telephone
         + '</div>';
       var mymarker = addMarker(map,parseFloat(lat),parseFloat(lng),innerHtml,(i + 1));
@@ -100,7 +100,7 @@ function load_side_column(markers) {
       innerHtml += "<br/><i>Products available: " + marker.products + "</i>"
     }
     innerHtml += "<br/>" + marker.address
-          + "<br/>" + marker.city + ', ' + marker.state + ' ' + marker.zip;
+          + "<br/>" + marker.city + ', ' + (marker.state ?? '') + ' ' + marker.zip;
     if ( marker.country ) {
       innerHtml += "<br/>" + marker.country;
     }
