@@ -573,8 +573,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     post 'get-started/validate' => 'get_started#validate', as: :get_started_validation
     get 'safetyandcertifications', to: redirect("support/safety")
 
-    get 'privacy_policy.html', to: redirect('http://www.harman.com/privacy-policy'), as: :privacy_policy
-    get 'terms_of_use.html', to: redirect('http://www.harman.com/terms-use'), as: :terms_of_use
+    get 'privacy_policy.html', to: redirect('https://www.harman.com/privacy-policy'), as: :privacy_policy
+    get 'terms_of_use.html', to: redirect('https://www.harman.com/terms-use'), as: :terms_of_use
     get 'new_products.html', to: redirect("#{ENV['PRO_SITE_URL']}/lp/new-products"), as: :new_products
 
     match 'discontinued_products' => 'products#discontinued_index', as: :discontinued_products, via: :all
