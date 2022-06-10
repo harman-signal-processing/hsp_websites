@@ -19,8 +19,15 @@
         hint: "Paste the Friendly ID here. (what appears in the URL. Something like: \"zbt-4000\")" %>
     </div>
   </div>
-  
-  <p>The actual actions to take place are managed on the next screen...</p>
+
+  <% unless f.object.new_record? %>
+	  <div class="row">
+		  <div class="small-12 medium-6 columns">
+			  <%= f.input :status, hint: "When re-scheduling a task that has already run, clear out the status field." %>
+		  </div>
+	  </div>
+  <% end %>
 
   <%= f.submit class: "button" %>
+  <p>The actual actions to take place are managed on the next screen...</p>
 <% end %>

@@ -15,7 +15,7 @@ notes/
 log/
 db/*.csv
 config/*key.json
-
+*.swp
 config/database.yml
 config/s3.yml
 notes/

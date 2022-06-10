@@ -1,7 +1,11 @@
 <h1>Scheduled Task</h1>
 
-<% if can? :manage, @scheduled_task %>
-  <ul class="button-group round">
+<ul class="button-group round">
+  <li><%= link_to admin_scheduled_tasks_path, class: "small secondary button" do %>
+    <%= fa_icon "angle-double-left" %>
+  <% end %>
+  </li>
+  <% if can? :manage, @scheduled_task %>
   	<li><%= link_to edit_admin_scheduled_task_path(@scheduled_task), class: "small secondary button" do %>
         <%= fa_icon "edit" %>
         Edit
@@ -18,8 +22,8 @@
       Delete
     <% end %>
     </li>
-  </ul>
-<% end %>
+  <% end %>
+</ul>
 
 <p>
   Perform at: <%=l @scheduled_task.perform_at %>
@@ -71,7 +75,7 @@
 </ul>
 -->
 
-<% if @scheduled_task.perform_at > Time.now %>
+<% if @scheduled_task.perform_at > Time.now && can?(:manage, @scheduled_task) %>
   <h5>Add an Action</h5>
   <p>Select the field to be changed and the new value. Additional actions can
   be added until the task is run.</p>
