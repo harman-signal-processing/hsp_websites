@@ -19,10 +19,7 @@ module SeoHelper
 
   def canonical_url
     url = request.protocol + website.brand.default_website.url
-    # special case for amx, giving its seo juice to the trade site
-    if website.brand.name.to_s.match(/amx/i) && controller.controller_name == "products"
-      "http://trade.amx.com/products/#{controller.params[:id]}.asp"
-    elsif request.path.match(/^\/(#{ dashed_locales_regex })/)
+    if request.path.match(/^\/(#{ dashed_locales_regex })/)
       url_locale = $1
       url + request.path.sub(/^\/#{ url_locale }/, "/#{ canonical_locale }") # es-MX => es
     else

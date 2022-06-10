@@ -122,7 +122,7 @@
 				<div class="medium-4 small-12 columns" id="footer_left">
 					<span class="footer_text">
 						&copy; <%= Date.today.year %>
-						<%= link_to(image_tag('harman.jpg', alt: t('harman')), "http://www.harman.com/", target: "_blank") %>
+						<%= link_to(image_tag('harman.jpg', alt: t('harman')), "https://www.harman.com/", target: "_blank") %>
 						<%= t('all_rights_reserved') %>
             <% if website.legal_footer_link %>
               &bull;
@@ -146,7 +146,7 @@
 	            <%= link_to t("forum").titleize, website.forum_link %> &bull;
 	          <% end %>
             <%= link_to 'HARMAN Merchandise', "https://harman.axomo.com", target: "_blank" %> &bull;
-            <%= link_to 'careers'.titleize, "http://jobs.harman.com", target: "_blank" %> &bull;
+            <%= link_to 'careers'.titleize, "https://jobs.harman.com", target: "_blank" %> &bull;
 						<%= link_to t('privacy_policy').titleize, privacy_policy_path %> &bull;
 						<%= link_to t('terms_of_use').titleize, terms_of_use_path %>
 					</span>

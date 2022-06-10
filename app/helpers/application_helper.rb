@@ -375,7 +375,7 @@ module ApplicationHelper
 
       elsif v = website.value_for(n)
         unless v.blank?
-          v = (v =~ /^http/i) ? v : "http://www.#{n}.com/#{v}"
+          v = (v =~ /^https/i) ? v : "https://www.#{n}.com/#{v}"
           presentation = n
           if options[:style] == "font-awesome"
             presentation = fa_icon("#{n} 2x", :"aria-label" => n)
@@ -556,17 +556,15 @@ module ApplicationHelper
 
     links = []
     pro_brands = [
-      {name: "AKG",    web: "http://www.akg.com"},
-      {name: "AMX",    web: "http://www.amx.com"},
-      {name: "BSS",    web: "http://www.bssaudio.com"},
-      {name: "Crown",  web: "http://www.crownaudio.com"},
-      {name: "dbx",    web: "http://www.dbxpro.com"},
-      {name: "DigiTech",   web: "http://www.digitech.com"},
-      {name: "JBL",    web: "http://www.jblpro.com" },
-      {name: "Lexicon",    web: "http://www.lexiconpro.com"},
-      {name: "Martin",  web: "http://www.martin.com"},
-      {name: "Soundcraft", web: "http://www.soundcraft.com"},
-      #{name: "HiQnet", web: "http://hiqnet.harmanpro.com"}
+      {name: "AKG",    web: "https://www.akg.com"},
+      {name: "AMX",    web: "https://www.amx.com"},
+      {name: "BSS",    web: "https://www.bssaudio.com"},
+      {name: "Crown",  web: "https://www.crownaudio.com"},
+      {name: "dbx",    web: "https://www.dbxpro.com"},
+      {name: "JBL",    web: "https://www.jblpro.com" },
+      {name: "Lexicon",    web: "https://www.lexiconpro.com"},
+      {name: "Martin",  web: "https://www.martin.com"},
+      {name: "Soundcraft", web: "https://www.soundcraft.com"}
     ]
 
     pro_brands.each do |b|
