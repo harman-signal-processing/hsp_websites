@@ -27,9 +27,9 @@ class WhereToFindController < ApplicationController
       format.html {
         unless @results.size > 0
           @err = "#{t('errors.no_dealers_found', zip: params[:zip])} with selected criteria."
-          @js_map_loader = "map_init('#{@origin.lat}','#{@origin.lng}',7)" if @origin.present?
+          @js_map_loader = "map_init('#{@origin.lat}','#{@origin.lng}',7.75)" if @origin.present?
         else
-          @js_map_loader = "map_init('#{@results.first.lat}','#{@results.first.lng}',7)"
+          @js_map_loader = "map_init('#{@results.first.lat}','#{@results.first.lng}',7.75)"
         end
         render_template
       }
@@ -53,10 +53,10 @@ class WhereToFindController < ApplicationController
     respond_to do |format|
       format.html {
         if @results.size > 0
-          @js_map_loader = "map_init('#{@results.first.lat}','#{@results.first.lng}',7)"
+          @js_map_loader = "map_init('#{@results.first.lat}','#{@results.first.lng}',7.75)"
         elsif @results.size == 0 && params[:zip].present?
           @err = t('errors.no_dealers_found', zip: params[:zip])
-          @js_map_loader = "map_init('#{@origin.lat}','#{@origin.lng}',7)" if @origin.present?
+          @js_map_loader = "map_init('#{@origin.lat}','#{@origin.lng}',7.75)" if @origin.present?
         end
           render_template
       }
@@ -240,6 +240,8 @@ class WhereToFindController < ApplicationController
     brand.dealers.select{|d| d.distance_from(origin) <= within_miles}.each do |d|
       unless results.length >= max || d.exclude? || filter_out?(brand,d)
         d.distance = d.distance_from(origin)
+        dealer_rental_products = Dealer.rental_products_and_product_families(brand, d)
+        d.products = dealer_rental_products.pluck(:name, :cached_slug).to_a if dealer_rental_products.present?
         results << d unless results.include?(d)
       end  #  unless results.length >= max || d.exclude? || filter_out?(brand,d)
     end  #  brand.dealers.select{|d| d.distance_from(origin) <= within_miles}.each do |d|
