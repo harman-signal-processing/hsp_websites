@@ -29,10 +29,6 @@ class AddMissingSlugs < ActiveRecord::Migration
     add_column :tone_library_songs, :cached_slug, :string
     add_index  :tone_library_songs, :cached_slug
 
-    AmpModel.all.each{|r| r.save}
-    #Blog.all.each{|r| r.save}
-    #BlogArticle.all.each{|r| r.save}
-    Cabinet.all.each{|r| r.save}
     Effect.all.each{|r| r.save}
     ToneLibrarySong.all.each{|r| r.save}
 

@@ -1,7 +1,0 @@
-<h1>Listing Amp Models</h1>
-
-<ul class="list">
-	<% @amp_models.find_each do |amp_model| %>
-	<li><%= link_to amp_model.name, [:admin, amp_model] %></li>
-	<% end %>
-</ul>

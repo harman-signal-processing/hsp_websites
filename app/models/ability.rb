@@ -142,10 +142,6 @@ class Ability
         can :manage, ProductDocument
         # can :manage, Specification
         can :manage, ProductSpecification
-        can :manage, AmpModel
-        can :manage, ProductAmpModel
-        can :manage, Cabinet
-        can :manage, ProductCabinet
         can :manage, Effect
         can :manage, ProductEffect
         can :manage, EffectType

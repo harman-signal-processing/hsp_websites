@@ -31,10 +31,6 @@ class Product < ApplicationRecord
   has_many :suggested_fors, class_name: "ProductSuggestion", foreign_key: "suggested_product_id", dependent: :destroy
   has_many :tone_library_patches, -> { order("tone_library_songs.artist_name, tone_library_songs.title").includes(:tone_library_song) }
   has_many :faqs
-  has_many :product_amp_models, dependent: :destroy
-  has_many :amp_models, through: :product_amp_models
-  has_many :product_cabinets, dependent: :destroy
-  has_many :cabinets, through: :product_cabinets
   has_many :product_effects, dependent: :destroy
   has_many :effects, through: :product_effects
   has_many :product_training_classes, dependent: :destroy

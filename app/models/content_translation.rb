@@ -24,8 +24,6 @@ class ContentTranslation < ApplicationRecord
       "promotion"      => %w{name description}
     }
     if brand.has_effects?
-      t["amp_model"] = %w{name}
-      t["cabinet"] = %w{name}
       t["effect_type"] = %w{name}
       t["effect"] = %w{name}
     end
@@ -46,7 +44,7 @@ class ContentTranslation < ApplicationRecord
 
   def self.translatable_classes
     [Product, ProductDescription, ProductFamily, Feature, Specification, ProductSpecification, SpecificationGroup, News, Page, Promotion,
-    AmpModel, Cabinet, EffectType, Effect, ProductReview, Artist, Faq, MarketSegment]
+     EffectType, Effect, ProductReview, Artist, Faq, MarketSegment]
   end
   def self.fields_to_translate_for(object, brand)
     translatables(brand)[object.class.name.underscore]

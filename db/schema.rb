@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_08_161052) do
+ActiveRecord::Schema.define(version: 2022_06_13_181233) do
 
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
@@ -31,19 +31,6 @@ ActiveRecord::Schema.define(version: 2022_06_08_161052) do
     t.integer "website_id"
     t.index ["user_id"], name: "index_admin_logs_on_user_id"
     t.index ["website_id"], name: "index_admin_logs_on_website_id"
-  end
-
-  create_table "amp_models", id: :integer, charset: "utf8", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.string "amp_image_file_name"
-    t.integer "amp_image_file_size"
-    t.string "amp_image_content_type"
-    t.datetime "amp_image_updated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string "cached_slug"
-    t.index ["cached_slug"], name: "index_amp_models_on_cached_slug"
   end
 
   create_table "amx_dxlink_attribute_names", charset: "utf8", force: :cascade do |t|
@@ -392,19 +379,6 @@ ActiveRecord::Schema.define(version: 2022_06_08_161052) do
     t.boolean "show_lead_form_on_buy_page", default: false
     t.index ["cached_slug"], name: "index_brands_on_cached_slug", unique: true
     t.index ["name"], name: "index_brands_on_name", unique: true
-  end
-
-  create_table "cabinets", id: :integer, charset: "utf8", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.string "cab_image_file_name"
-    t.integer "cab_image_file_size"
-    t.string "cab_image_content_type"
-    t.datetime "cab_image_updated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string "cached_slug"
-    t.index ["cached_slug"], name: "index_cabinets_on_cached_slug"
   end
 
   create_table "contact_messages", id: :integer, charset: "utf8", force: :cascade do |t|
@@ -1084,15 +1058,6 @@ ActiveRecord::Schema.define(version: 2022_06_08_161052) do
     t.index ["product_id"], name: "index_product_accessories_on_product_id"
   end
 
-  create_table "product_amp_models", id: :integer, charset: "utf8", force: :cascade do |t|
-    t.integer "product_id"
-    t.integer "amp_model_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["amp_model_id"], name: "index_product_amp_models_on_amp_model_id"
-    t.index ["product_id"], name: "index_product_amp_models_on_product_id"
-  end
-
   create_table "product_attachments", id: :integer, charset: "utf8", force: :cascade do |t|
     t.integer "product_id"
     t.boolean "primary_photo", default: false
@@ -1139,15 +1104,6 @@ ActiveRecord::Schema.define(version: 2022_06_08_161052) do
     t.datetime "updated_at", null: false
     t.index ["badge_id"], name: "index_product_badges_on_badge_id"
     t.index ["product_id"], name: "index_product_badges_on_product_id"
-  end
-
-  create_table "product_cabinets", id: :integer, charset: "utf8", force: :cascade do |t|
-    t.integer "product_id"
-    t.integer "cabinet_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["cabinet_id"], name: "index_product_cabinets_on_cabinet_id"
-    t.index ["product_id"], name: "index_product_cabinets_on_product_id"
   end
 
   create_table "product_case_studies", charset: "utf8", force: :cascade do |t|

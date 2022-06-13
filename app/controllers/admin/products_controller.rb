@@ -51,8 +51,6 @@ class Admin::ProductsController < AdminController
     @product_software       = ProductSoftware.new(product: @product)
     @product_specification  = ProductSpecification.new(product: @product)
     @artist_product         = ArtistProduct.new(product: @product)
-    @product_amp_model      = ProductAmpModel.new(product: @product)
-    @product_cabinet        = ProductCabinet.new(product: @product)
     @product_effect         = ProductEffect.new(product: @product)
     @product_training_module = ProductTrainingModule.new(product: @product)
     @product_training_class = ProductTrainingClass.new(product: @product)

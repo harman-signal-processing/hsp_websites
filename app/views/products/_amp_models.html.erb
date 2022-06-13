@@ -1,9 +1,0 @@
-<h2><%= title %></h2>
-
-<div class="disclaimer"><%= t(:brief_legal_disclaimer) %></div>
-
-<ul>
-	<% @product.amp_models.sort_by(&:name).each do |amp_model| %>
-	<li><%= translate_content(amp_model, :name) %></li>
-	<% end %>
-</ul>

@@ -23,8 +23,6 @@ RSpec.describe ContentTranslation do
 
       expect(t.keys).to include("effect")
       expect(t.keys).to include("effect_type")
-      expect(t.keys).to include("amp_model")
-      expect(t.keys).to include("cabinet")
     end
 
     it "includes product_reviews if the brand has reviews" do
