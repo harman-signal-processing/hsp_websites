@@ -166,37 +166,6 @@
               <%= link_to "Harman Employee Prices", harman_employee_pricing_admin_products_path, class: "secondary round button" %>
             </div>
           </li>
-
-          <% if website.brand.has_label_sheets? && can?(:manage, LabelSheetOrder) %>
-            <li>
-              <div class="group">
-                <h5><%= link_to "e-pedal Label Orders", admin_label_sheet_orders_path %></h5>
-                <%= search_form_for [:admin, LabelSheetOrder.ransack], class: "custom" do |f| %>
-                  <div class="row collapse">
-                    <div class="large-10 small-8 columns">
-                      <%= f.text_field :name_cont, placeholder: "Name contains..." %>
-                    </div>
-                    <div class="large-2 small-4 columns">
-                      <%= f.submit "Search", class: "postfix round secondary button" %>
-                    </div>
-                  </div>
-                <% end %>
-                <h6 class="subheader">Newest orders:</h6>
-                <ul class="list">
-                  <% LabelSheetOrder.order("created_at DESC").limit(7).each do |item| %>
-                    <li>
-                      <% unless item.mailed_on.present? %>
-                        <span class="round label">new!</span>
-                      <% end %>
-                      <%= link_to item.name, [:admin, item] %> <small><%= l item.created_at.to_date, format: :short %></small>
-                    </li>
-                  <% end %>
-                </ul>
-                <br/>
-              </div>
-
-            </li>
-          <% end %>
         <% end %>
 
         <%# if can? :manage, TrainingModule %>

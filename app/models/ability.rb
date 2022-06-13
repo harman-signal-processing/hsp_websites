@@ -95,8 +95,6 @@ class Ability
         can :manage, PricingType
         can :read, WarrantyRegistration
         can :read, ContactMessage
-        can :manage, LabelSheet
-        can :manage, LabelSheetOrder
       end
       if user.role?(:customer)
         can :create, CustomShopPriceRequest

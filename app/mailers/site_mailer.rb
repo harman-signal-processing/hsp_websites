@@ -24,21 +24,6 @@ class SiteMailer < ApplicationMailer
          subject: "Artist relations approval")
   end
 
-  def label_sheet_order(order)
-    @order = order
-    brand = @order.expanded_label_sheets.first.decoded_products.first.brand
-    @website = brand.default_website
-    mail(to: @website.epedal_label_order_recipient,
-         from: @order.email,
-         subject: "epedal label sheet order")
-  end
-
-  def label_sheet_order_shipped(order)
-    @order = order
-    mail(to: @order.email,
-         subject: "Your epedal labels are on their way!")
-  end
-
   def confirm_product_registration(warranty_registration)
     @warranty_registration = warranty_registration
     @brand = @warranty_registration.brand

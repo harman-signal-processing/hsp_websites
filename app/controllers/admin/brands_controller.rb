@@ -118,7 +118,6 @@ class Admin::BrandsController < AdminController
       :has_blogs,
       :has_audio_demos,
       :has_vintage_repair,
-      :has_label_sheets,
       :employee_store,
       :live_on_this_platform,
       :product_trees,

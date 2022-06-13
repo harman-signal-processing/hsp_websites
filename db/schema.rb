@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_13_181233) do
+ActiveRecord::Schema.define(version: 2022_06_13_183234) do
 
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
@@ -348,7 +348,6 @@ ActiveRecord::Schema.define(version: 2022_06_13_181233) do
     t.boolean "has_blogs"
     t.boolean "has_audio_demos", default: false
     t.boolean "has_vintage_repair"
-    t.boolean "has_label_sheets"
     t.boolean "employee_store"
     t.boolean "live_on_this_platform"
     t.boolean "product_trees"
@@ -815,30 +814,6 @@ ActiveRecord::Schema.define(version: 2022_06_13_181233) do
     t.integer "dealer_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "label_sheet_orders", id: :integer, charset: "latin1", force: :cascade do |t|
-    t.integer "user_id"
-    t.text "label_sheets"
-    t.date "mailed_on"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "name"
-    t.string "email"
-    t.string "address"
-    t.string "city"
-    t.string "state"
-    t.string "postal_code"
-    t.string "country"
-    t.boolean "subscribe"
-    t.string "secret_code"
-  end
-
-  create_table "label_sheets", id: :integer, charset: "latin1", force: :cascade do |t|
-    t.string "name"
-    t.text "products"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "leads", charset: "utf8", force: :cascade do |t|

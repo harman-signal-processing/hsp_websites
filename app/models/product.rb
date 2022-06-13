@@ -664,13 +664,6 @@ class Product < ApplicationRecord
     self.product_suggestions.collect{|ps| ps.suggested_product}
   end
 
-  # If this is an epedal, then it may belong to one or more LabelSheet
-  def label_sheets
-    l = []
-    LabelSheet.find_each{|ls| l << ls if ls.decoded_products.include?(self)}
-    l
-  end
-
   def price_for(pricing_type)
     if product_price = product_prices.where(pricing_type_id: pricing_type.id).first
       product_price.price

@@ -221,9 +221,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
           post :update_order
         end
       end
-      resources :label_sheet_orders do
-        collection { get :subscribers }
-      end
       resources :product_prices do
         collection { put :update_all }
       end
@@ -415,7 +412,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :pricing_types,
         :news_products,
         :sales_regions,
-        :label_sheets,
         :distributors,
         :artist_tiers,
         :testimonials,

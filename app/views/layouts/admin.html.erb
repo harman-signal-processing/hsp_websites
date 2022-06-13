@@ -143,9 +143,7 @@
                       can?(:read, WarrantyRegistration) ||
                       can?(:read,ContactMessage) ||
                       can?(:manage, ProductPrice) ||
-                      can?(:manage, LabelSheet) ||
-                      can?(:update, :harman_employee_pricing) ||
-                      can?(:manage, LabelSheetOrder) %>
+                      can?(:update, :harman_employee_pricing) %>
                     <li class="has-dropdown"><%= link_to "Customers & Pricing", '#' %>
                     <ul class="dropdown">
                       <% if can? :manage, Promotion %>
@@ -156,14 +154,6 @@
                       <% end %>
                       <% if can?(:read, ContactMessage) %>
                         <li><%= link_to "Contact Form Messages", admin_contact_messages_path %></li>
-                      <% end %>
-                      <% if website.brand.has_label_sheets? %>
-                        <% if can?(:manage, LabelSheet) %>
-                          <li><%= link_to "e-pedal Label Sheets", admin_label_sheets_path %></li>
-                        <% end %>
-                        <% if can?(:manage, LabelSheetOrder) %>
-                          <li><%= link_to "e-pedal Label Orders", admin_label_sheet_orders_path %></li>
-                        <% end %>
                       <% end %>
                       <% if can?(:manage, ProductPrice) %>
                         <li><%= link_to "Price List", admin_product_prices_path %></li>
