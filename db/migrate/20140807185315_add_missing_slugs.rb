@@ -30,7 +30,6 @@ class AddMissingSlugs < ActiveRecord::Migration
     add_index  :tone_library_songs, :cached_slug
 
     Effect.all.each{|r| r.save}
-    ToneLibrarySong.all.each{|r| r.save}
 
   end
 end

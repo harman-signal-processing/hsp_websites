@@ -382,13 +382,11 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :online_retailer_users,
         :manufacturer_partners,
         :product_family_videos,
-        :tone_library_patches,
         :software_attachments,
         :product_accessories,
         :product_audio_demos,
         :product_suggestions,
         :product_attachments,
-        :tone_library_songs,
         :product_promotions,
         :product_part_group,
         :product_softwares,
@@ -540,7 +538,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :product_attachments, only: :edit
     end
     get 'products/:id(/:tab)' => 'products#show', as: :product
-    resources :tone_library_songs, only: :index
     resources :product_documents, only: [:index, :show]
     resources :parts, only: [:index]
     resources :events, only: [:index, :show]
@@ -581,8 +578,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get '/support_downloads/type/:id(.:format)' => "support#downloads_by_type", as: :support_downloads_by_type, defaults: { format: :js }
     get '/support_downloads(/:view_by(/:selected_object))' => "support#downloads", as: :support_downloads
     post '/support_downloads' => "support#downloads_search", as: :support_downloads_search
-    match '/tone_library/:product_id/:tone_library_song_id(.:ext)' => "tone_library_songs#download", as: :tone_download, via: :all
-    match '/tone_library' => "tone_library_songs#index", as: :tone_library, via: :all
     match '/software' => 'softwares#index', as: :software_index, via: :all
     match '/firmware' => 'softwares#firmware', as: :firmware_index, via: :all
     match '/support/warranty_registration(/:product_id)' => 'support#warranty_registration', as: :warranty_registration, via: :all

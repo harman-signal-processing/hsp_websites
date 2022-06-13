@@ -73,8 +73,7 @@
                       can?(:manage, AudioDemo && website.has_audio_demos?) ||
                       can?(:manage, ProductReview) ||
                       can?(:update, :rohs) ||
-                      can?(:manage, Faq) ||
-                      can?(:manage, ToneLibrarySong) %>
+                      can?(:manage, Faq) %>
                     <li class="has-dropdown"><%= link_to "Products", '#' %>
                     <ul class="dropdown">
                       <% if can?(:manage, ProductFamily) %>
@@ -124,9 +123,6 @@
                       <% end %>
                       <% if can?(:manage, Faq) && website.has_faqs? %>
                         <li><%= link_to "FAQs", admin_faqs_path %></li>
-                      <% end %>
-                      <% if can?(:manage, ToneLibrarySong) && website.has_tone_library? %>
-                        <li><%= link_to "Tone Library", admin_tone_library_songs_path %></li>
                       <% end %>
                       <% if can?(:manage, Installation) && website.has_installations? %>
                         <li><%= link_to "Installations", admin_installations_path %></li>

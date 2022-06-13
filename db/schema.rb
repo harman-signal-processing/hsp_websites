@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_13_183234) do
+ActiveRecord::Schema.define(version: 2022_06_13_185032) do
 
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
@@ -322,7 +322,6 @@ ActiveRecord::Schema.define(version: 2022_06_13_183234) do
     t.boolean "has_effects", default: false
     t.boolean "has_reviews", default: true
     t.boolean "has_faqs", default: true
-    t.boolean "has_tone_library", default: false
     t.boolean "has_artists", default: true
     t.boolean "has_software", default: true
     t.boolean "has_registered_downloads", default: false
@@ -2069,26 +2068,6 @@ ActiveRecord::Schema.define(version: 2022_06_13_183234) do
     t.string "cached_slug"
     t.index ["brand_id"], name: "index_testimonials_on_brand_id"
     t.index ["cached_slug"], name: "index_testimonials_on_cached_slug"
-  end
-
-  create_table "tone_library_patches", id: :integer, charset: "utf8", force: :cascade do |t|
-    t.integer "tone_library_song_id"
-    t.integer "product_id"
-    t.string "patch_file_name"
-    t.integer "patch_file_size"
-    t.datetime "patch_updated_at"
-    t.string "patch_content_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "tone_library_songs", id: :integer, charset: "utf8", force: :cascade do |t|
-    t.string "artist_name"
-    t.string "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string "cached_slug"
-    t.index ["cached_slug"], name: "index_tone_library_songs_on_cached_slug"
   end
 
   create_table "training_class_registrations", charset: "utf8", force: :cascade do |t|

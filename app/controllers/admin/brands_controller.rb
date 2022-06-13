@@ -95,7 +95,6 @@ class Admin::BrandsController < AdminController
       :has_effects,
       :has_reviews,
       :has_faqs,
-      :has_tone_library,
       :has_artists,
       :has_software,
       :has_registered_downloads,

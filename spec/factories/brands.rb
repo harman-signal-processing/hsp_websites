@@ -5,7 +5,6 @@ FactoryBot.define do
     has_effects { false }
     has_reviews { true }
     has_faqs { true }
-    has_tone_library { false }
     has_artists { true }
     has_software { true }
     has_registered_downloads { false }
@@ -49,7 +48,6 @@ FactoryBot.define do
     factory :digitech_brand do
       name { "DigiTech" }
       has_effects { true }
-      has_tone_library { true }
       has_service_centers { true }
       has_audio_demos { true }
       employee_store { true }

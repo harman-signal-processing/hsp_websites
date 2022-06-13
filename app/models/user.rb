@@ -7,8 +7,6 @@ class User < ApplicationRecord
   has_many :dealers, through: :dealer_users
   has_many :distributor_users, dependent: :destroy, inverse_of: :user
   has_many :distributors, through: :distributor_users
-  has_many :tones
-  has_many :tone_user_ratings
   has_many :custom_shop_price_requests
 
   has_attached_file :profile_pic,

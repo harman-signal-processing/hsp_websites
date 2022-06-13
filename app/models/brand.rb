@@ -291,7 +291,7 @@ class Brand < ApplicationRecord
     if tabs = self.value_for("main_tabs")
       tabs = tabs.gsub(/\s/, '')
     else
-      tabs = "description|extended_description|audio_demos|features|specifications|documentation|training_modules|downloads|artists|tones|news_and_reviews|support"
+      tabs = "description|extended_description|audio_demos|features|specifications|documentation|training_modules|downloads|artists|news_and_reviews|support"
     end
     tabs.split("|")
   end

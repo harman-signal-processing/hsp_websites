@@ -125,8 +125,6 @@ class Ability
         can :manage, Software
         can :manage, ProductSoftware
         can :manage, SoftwareAttachment
-        can :manage, ToneLibrarySong
-        can :manage, ToneLibraryPatch
         can :manage, Product do |p|
           p.new_record? || p.product_status.is_hidden?
         end
@@ -150,8 +148,6 @@ class Ability
         can :manage, ArtistTier
         can :manage, ArtistBrand
         can :manage, ArtistProduct
-        can :manage, ToneLibrarySong
-        can :manage, ToneLibraryPatch
       end
       if user.role?(:online_retailer)
         can :read, OnlineRetailer

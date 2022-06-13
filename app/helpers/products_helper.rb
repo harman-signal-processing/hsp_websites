@@ -321,7 +321,6 @@ module ProductsHelper
       r << ProductTab.new("training_modules") if product.training_modules.size > 0 && selected_tabs.include?("training_modules")
       r << ProductTab.new("reviews") if (product.product_reviews.size > 0 || product.artists.size > 0) && selected_tabs.include?("reviews")
       r << ProductTab.new("artists") if product.artists.size > 0 && selected_tabs.include?("artists")
-      r << ProductTab.new("tones") if product.tone_library_patches.size > 0 && selected_tabs.include?("tones")
       r << ProductTab.new("news_and_reviews") if product.news_and_reviews.size > 0 && selected_tabs.include?("news_and_reviews")
       r << ProductTab.new("gallery") if product.images_for("product_page").size > 0 && selected_tabs.include?("gallery")
       r << ProductTab.new("recommended_accessories") if !product.discontinued? && product.alternatives.size > 0 && selected_tabs.include?("recommended_accessories")

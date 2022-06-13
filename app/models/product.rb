@@ -29,7 +29,6 @@ class Product < ApplicationRecord
   has_many :product_suggestions, -> { order('position') }, dependent: :destroy
   has_many :product_prices, dependent: :destroy
   has_many :suggested_fors, class_name: "ProductSuggestion", foreign_key: "suggested_product_id", dependent: :destroy
-  has_many :tone_library_patches, -> { order("tone_library_songs.artist_name, tone_library_songs.title").includes(:tone_library_song) }
   has_many :faqs
   has_many :product_effects, dependent: :destroy
   has_many :effects, through: :product_effects
@@ -480,10 +479,6 @@ class Product < ApplicationRecord
 
   def reviews_content_present?
     product_reviews.size > 0
-  end
-
-  def tones_content_present?
-    tone_library_patches.size > 0
   end
 
   def news_and_reviews_content_present?
