@@ -55,6 +55,7 @@ namespace :import do
       website = "#{row[8]}"
       email = "#{row[9]}"
       telephone = "#{row[10]}"
+
       count += 1
       account_number_to_use = "jblpro-#{count}"
 
