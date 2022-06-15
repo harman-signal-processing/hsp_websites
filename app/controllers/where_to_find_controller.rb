@@ -27,9 +27,9 @@ class WhereToFindController < ApplicationController
       format.html {
         unless @results.size > 0
           @err = "#{t('errors.no_dealers_found', zip: params[:zip])} with selected criteria."
-          @js_map_loader = "map_init('#{@origin.lat}','#{@origin.lng}',7.75)" if @origin.present?
+          @js_map_loader = "map_init('#{@origin.lat}','#{@origin.lng}',6.5)" if @origin.present?
         else
-          @js_map_loader = "map_init('#{@results.first.lat}','#{@results.first.lng}',7.75)"
+          @js_map_loader = "map_init('#{@results.first.lat}','#{@results.first.lng}',6.5)"
         end
         render_template
       }
@@ -53,10 +53,10 @@ class WhereToFindController < ApplicationController
     respond_to do |format|
       format.html {
         if @results.size > 0
-          @js_map_loader = "map_init('#{@results.first.lat}','#{@results.first.lng}',7.75)"
+          @js_map_loader = "map_init('#{@results.first.lat}','#{@results.first.lng}',6.5)"
         elsif @results.size == 0 && params[:zip].present?
           @err = t('errors.no_dealers_found', zip: params[:zip])
-          @js_map_loader = "map_init('#{@origin.lat}','#{@origin.lng}',7.75)" if @origin.present?
+          @js_map_loader = "map_init('#{@origin.lat}','#{@origin.lng}',6.5)" if @origin.present?
         end
           render_template
       }
