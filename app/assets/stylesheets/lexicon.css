@@ -5,7 +5,6 @@
 *= require chosen
 *= require lexicon_framework_and_overrides
 *= require jquery.fancybox
-*= require label_sheets
 *= require bouncing_arrow
 *= require jquery-ui.min
 *= require_self
