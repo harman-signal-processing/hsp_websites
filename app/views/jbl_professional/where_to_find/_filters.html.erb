@@ -21,7 +21,7 @@
             <% if website.brand.dealers.where(rental: true).count > 0 %>
               <li>
                 <label for="rental_vtx">
-                  <input type="checkbox" value="1" name="rental_vtx" id="rental_vtx" <% if @filter_rental_vtx %>checked="checked"<% end %>> VTX/VT 
+                  <input type="checkbox" value="1" name="rental_vtx" id="rental_vtx" <% if @filter_rental_vtx %>checked="checked"<% end %>> VTX/VT (rentals)
                 </label>
               </li>
               <li>
