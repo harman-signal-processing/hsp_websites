@@ -36,7 +36,7 @@ function load_markers(map,markers) {
       var innerHtml = '<div class="marker_info"><b style="font-size: 13px">'
         + marker.name + '</b><br/>'
         + marker.address + '<br/>'
-        + marker.city + ', ' + marker.state + ' ' + marker.zip + '<br/>'
+        + marker.city + ', ' + (marker.state ?? '') + ' ' + marker.zip + '<br/>'
         + marker.telephone
         + '</div>';
       var mymarker = addMarker(map,parseFloat(lat),parseFloat(lng),innerHtml,(i + 1));
@@ -63,7 +63,7 @@ function refresh_map(map) {
   }
   // add rental if url contains 'vertec_vtx_owners_search'
   if (url.includes("vertec_vtx_owners_search")) {
-    url += "&rental=1"
+    url += "&rental_vtx=1"
   }
 
   $.getJSON(url, function ( data ) {
@@ -97,10 +97,25 @@ function load_side_column(markers) {
       innerHtml += " (" + parseInt(marker.distance) + " miles) ";
     }
     if ( marker.rental == 1 && marker.products ) {
-      innerHtml += "<br/><i>Products available: " + marker.products + "</i>"
-    }
+      try {
+        var products = JSON.parse(marker.products);
+        innerHtml += "<br/><span style='font-size:small;'><i>Products available:</i> ";
+        products.forEach((element, index) => {
+          var product_name = element[0];
+          var product_slug = element[1];
+          if (product_slug == "")
+            { innerHtml += "<a href='" + location.origin + "/product_families/" + product_slug + "'>" + product_name + "</a>"; }
+          else
+            { innerHtml += "<a href='" + location.origin + "/products/" + product_slug + "'>" + product_name + "</a>"; }
+
+          if (index+1 < products.length) { innerHtml += ", "};
+        });  //  products.forEach((element, index)
+        innerHtml += "</span>";
+      }  // try
+      catch(error) { "" }
+    }  //  if ( marker.rental == 1 && marker.products )
     innerHtml += "<br/>" + marker.address
-          + "<br/>" + marker.city + ', ' + marker.state + ' ' + marker.zip;
+          + "<br/>" + marker.city + ', ' + (marker.state ?? '') + ' ' + marker.zip;
     if ( marker.country ) {
       innerHtml += "<br/>" + marker.country;
     }

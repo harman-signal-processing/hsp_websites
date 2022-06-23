@@ -1,0 +1,8 @@
+Excel Downloads
+<% if @results.count > 0%>
+  <br /><%= fa_icon "arrow-circle-down", :"aria-hidden" => true %> <%=link_to "Search Results", download_partner_search_results_path(request.query_parameters) %>
+<% end %>
+<br /><%= fa_icon "arrow-circle-down", :"aria-hidden" => true %> <%= link_to 'All VTX/VT Dealers', vertec_vtx_owners_path %>
+<br /><%= fa_icon "arrow-circle-down", :"aria-hidden" => true %> <%= link_to 'All PRX ONE Dealers', prx_one_dealers_path %>
+<br /><%= fa_icon "arrow-circle-down", :"aria-hidden" => true %> <%= link_to 'All EON ONE MK2 Dealers', eon_one_mk2_dealers_path %>
+<br /><%= fa_icon "arrow-circle-down", :"aria-hidden" => true %> <%= link_to 'All EON700 Series Dealers', eon700_series_dealers_path %>

@@ -1,0 +1,52 @@
+    <%
+      no_filters_present = !params[:apply_filters].present? && !params[:rental_vtx].present? && !params[:rental_prx_one].present? && !params[:rental_eon_one_mk2].present? && !params[:rental_eon700_series].present? && !params[:service].present?
+      if no_filters_present
+        # check all the filter boxes
+        @filter_rental_vtx = true
+        @filter_rental_prx_one = true
+        @filter_rental_eon_one_mk2 = true
+        @filter_rental_eon700_series = true
+        @filter_service = true
+      end
+    %>
+    <% if website.brand.dealers_include_rental_and_service? %>
+    <div style="margin-bottom: 4px;">Include dealers with the following products or service:</div>
+      <input type="hidden" name="apply_filters" value="1"/>
+        <ul class="small-block-grid-1 large-block-grid-4" id="partner_search_filter_list">
+            <% unless website.value_for("dont_actually_show_dealers") %>
+              <li><label for="resale">
+                <input type="checkbox" value="1" name="resale" id="resale" <% if @filter_resale %>checked="checked"<% end %>> Resellers
+              </label></li>
+            <% end %>
+            <% if website.brand.dealers.where(rental: true).count > 0 %>
+              <li>
+                <label for="rental_vtx">
+                  <input type="checkbox" value="1" name="rental_vtx" id="rental_vtx" <% if @filter_rental_vtx %>checked="checked"<% end %>> VTX/VT (rentals)
+                </label>
+              </li>
+              <li>
+                <label for="rental_prx_one">
+                  <input type="checkbox" value="1" name="rental_prx_one" id="rental_prx_one" <% if @filter_rental_prx_one %>checked="checked"<% end %>> PRX ONE
+                </label>
+              </li>
+              <li>
+                <label for="rental_eon_one_mk2">
+                  <input type="checkbox" value="1" name="rental_eon_one_mk2" id="rental_eon_one_mk2" <% if @filter_rental_eon_one_mk2 %>checked="checked"<% end %>> EON ONE MK2
+                </label>
+              </li>
+              <li>
+                <label for="rental_eon700_series">
+                  <input type="checkbox" value="1" name="rental_eon700_series" id="rental_eon700_series" <% if @filter_rental_eon700_series %>checked="checked"<% end %>> EON700 Series
+                </label>
+              </li>               
+            <% end %>
+            <% if website.brand.dealers.where(service: true).count > 0 %>
+              <li>
+                <label for="service">
+                  <input type="checkbox" value="1" name="service" id="service" <% if @filter_service %>checked="checked"<% end %>> Service
+                </label>
+              </li>
+            <% end %>
+        </ul>
+
+    <% end %>

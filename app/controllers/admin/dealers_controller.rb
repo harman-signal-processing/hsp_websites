@@ -87,6 +87,32 @@ class Admin::DealersController < AdminController
     website.add_log(user: current_user, action: "Deleted dealer #{@dealer.name}")
   end
 
+  def export_dealer_list
+    dealers = website.brand.dealers.sort_by{|item| [item.region, item.country, item.name] }
+    if website.brand.name == "JBL Professional"
+      # get products slug list
+      if website.value_for("jblpro-dealer-list-product-slugs").present?
+         product_slugs_to_use_as_column_headers = website.value_for("jblpro-dealer-list-product-slugs").gsub(/\s+/, "") .split(",")
+         discontinued_product_slugs = website.value_for("jblpro-dealer-list-discontinued-product-slugs").gsub(/\s+/, "") .split(",")
+      end
+    end  #  if website.brand.name == "JBL Professional"
+
+    respond_to do |format|
+      format.xls {
+        report_data = Dealer.simple_report_for_admin(
+          website.brand, {
+            format: 'xls'
+          }, dealers, product_slugs_to_use_as_column_headers, discontinued_product_slugs
+        )
+        send_data(report_data,
+          filename: "#{website.brand.name}_dealers_#{I18n.l Date.today}.xls",
+          type: "application/excel; charset=utf-8; header=present"
+        )
+      }
+    end  #  respond_to do |format|
+
+  end  #  def export_dealer_list
+
   private
 
   def initialize_dealer
@@ -126,4 +152,7 @@ class Admin::DealersController < AdminController
       brand_ids: []
     )
   end
-end
+
+  def jblpro_dealer_export_product_slugs
+  end  #  def jblpro_dealer_export_product_slugs
+end  #  class Admin::DealersController < AdminController
