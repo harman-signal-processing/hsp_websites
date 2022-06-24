@@ -123,7 +123,7 @@ function load_side_column(markers) {
       innerHtml += "<br/>" + marker.telephone;
     }
     if ( marker.website) {
-      innerHtml += "<br/><a href=\"" + marker.website_link + "\" target=\"_blank\">" + marker.website + "</a>";
+      innerHtml += "<br/><a href=\"https://" + marker.website + "\" target=\"_blank\">" + marker.website + "</a>";
     } else if ( marker.email ) {
       innerHtml += "<br/><a href=\"mailto:" + marker.email +"\">" + marker.email + "</a>";
     }
