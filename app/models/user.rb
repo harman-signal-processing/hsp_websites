@@ -96,6 +96,16 @@ class User < ApplicationRecord
     u
   end
 
+  def self.ids_of_users_with_any_role
+    ROLES.map do |role|
+      User.select(:id).where("#{role}": true)
+    end.flatten.uniq
+  end
+
+  def self.no_role_assigned
+    User.where.not(id: ids_of_users_with_any_role)
+  end
+
   def assign_invited_role
     if self.invitation_code.present?
       ROLES.each do |role|

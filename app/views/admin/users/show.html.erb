@@ -1,47 +1,66 @@
 <h1>User: <%= @user.name %></h1>
 
 <ul class="button-group round">
-	<li><%= link_to admin_users_path, class: "small secondary button" do %>
+  <li><%= link_to admin_users_path, class: "small secondary button" do %>
     <%= fa_icon "angle-double-left" %>
   <% end %>
+</li>
+<li><%= link_to edit_admin_user_path(@user), class: "small secondary button" do %>
+  <%= fa_icon "edit" %>
+  Edit
+<% end %>
   </li>
-	<li><%= link_to edit_admin_user_path(@user), class: "small secondary button" do %>
-      <%= fa_icon "edit" %>
-      Edit
-    <% end %>
-  </li>
-	<li><%= link_to [:admin, @user], confirm: 'Are you sure?', method: :delete, class: "small alert button" do %>
+  <li><%= link_to [:admin, @user], confirm: 'Are you sure?', method: :delete, class: "small alert button" do %>
     <%= fa_icon "trash" %>
     Delete
   <% end %>
-  </li>
+</li>
 </ul>
 
-<p>
-  <b>Email:</b>
-  <%= @user.email %>
-</p>
+<div class="row">
+  <div class="small-12 medium-6 columns">
+    <p>
+      <b>Email:</b>
+      <%= @user.email %>
+    </p>
 
-<p>
-	<b>Roles:</b>
-	<%= @user.roles.join(", ") %>
-</p>
+    <p>
+      <b>Last Login:</b>
+      <% if @user.last_sign_in_at.present? %>
+        <%=l @user.last_sign_in_at %>
+      <% end %>
+    </p>
 
-<% if @user.role?(:online_retailer) %>
-<div class="group">
-<h3>If this person is an online retailer, select which retailers he/she can maintain:</h3>
-<%= form_for [:admin, @online_retailer_user], remote: true do |f| %>
-	<%= hidden_field_tag "called_from", "user" %>
-    <%= f.hidden_field :user_id %>
-	<%= f.collection_select :online_retailer_id, OnlineRetailer.all, :id, :name %> 
-	<%= submit_tag 'add', class: "small round button"  %>
-	or <%= link_to 'create a new retailer', new_admin_online_retailer_path %>
-<% end %>
+    <% if @user.role?(:online_retailer) %>
+      <div class="group">
+        <h3>If this person is an online retailer, select which retailers he/she can maintain:</h3>
+        <%= form_for [:admin, @online_retailer_user], remote: true do |f| %>
+          <%= hidden_field_tag "called_from", "user" %>
+          <%= f.hidden_field :user_id %>
+          <%= f.collection_select :online_retailer_id, OnlineRetailer.all, :id, :name %> 
+          <%= submit_tag 'add', class: "small round button"  %>
+          or <%= link_to 'create a new retailer', new_admin_online_retailer_path %>
+      <% end %>
 
-<ul id="online_retailer_users">
-	<% @user.online_retailer_users.each do |oru| %>
-		<%= render '/admin/shared/online_retailer_user_row', oru: oru, called_from: 'user' %>
-	<% end %>
-</ul>
+      <ul id="online_retailer_users">
+        <% @user.online_retailer_users.each do |oru| %>
+          <%= render '/admin/shared/online_retailer_user_row', oru: oru, called_from: 'user' %>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 </div>
-<% end %>
+
+<div class="small-12 medium-6 columns">
+  <h5>Role-based Abilities</h5>
+
+  <p>
+    <b>Roles:</b>
+    <%= @user.roles.join(", ") %>
+  </p>
+
+  <pre>
+      <%= Ability.new(@user).permissions.to_yaml %>
+    </pre>
+</div>
+</div>

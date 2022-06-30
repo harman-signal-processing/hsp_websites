@@ -198,6 +198,10 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :users do
         member do
           post :reset_password
+          put :remove_role
+        end
+        collection do
+          get :roles
         end
       end
       resources :download_registrations do

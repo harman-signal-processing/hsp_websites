@@ -1,0 +1,86 @@
+<h1>Users by Role</h1>
+
+<% red_dates = false %>
+<div class="row">
+  <div class="small-12 medium-4 large-3 columns">
+    <table style="width: 100%">
+      <tr>
+        <td><em><%= link_to_unless_current "No role assigned", roles_admin_users_path(role: "none") %></em></td>
+        <td><%= User.no_role_assigned.size %></td>
+      </tr>
+      <% User::ROLES.sort.each do |role| %>
+        <tr>
+          <td><%= link_to_unless_current role, roles_admin_users_path(role: role) %></td>
+          <td><%= User.where("#{role}": true).size %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="small-12 medium-4 large-6 columns">
+    <% if @role && @users.size == 0 %>
+      <p>Hmmm, there aren't any "<%= @role %>" users. Perhaps this role can
+        be removed. (This would involve removing the database column, altering
+        some user admin forms, modifying the User class, and possibly changing
+        the Ability class.)
+      </p>
+    <% end %>
+    <% if @users && @users.size > 0 %>
+      <table style="width: 100%">
+        <thead>
+          <tr>
+            <td>Email</td>
+            <td>Last Login</td>
+            <% unless @role == "none" %>
+              <td>Remove "<%= @role %>" Role</td>
+            <% end %>
+          </tr>
+        </thead>
+        <% @users.order("last_sign_in_at DESC").each do |user| %>
+          <tr>
+            <td><%= link_to user.email, [:admin, user] %></td>
+            <td>
+              <% if user.last_sign_in_at.present? %>
+                <% if user.last_sign_in_at.to_date < 2.years.ago %>
+                  <span style="color: red"><%= l(user.last_sign_in_at.to_date) %></span>
+                  <% red_dates = true %>
+                <% else %>
+                  <%= l(user.last_sign_in_at.to_date) %>
+                <% end %>
+              <% else %>
+                <em>never</em>
+              <% end %>
+            </td>
+            <% unless @role == "none" %>
+              <td class="text-center"><%= link_to(remove_role_admin_user_path(user, role: @role), method: :put) { fa_icon "trash" } %>
+                <% if user.roles.size > 1 %><br/><small>has <%= user.roles.size - 1 %> other role(s)</small><% end %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+  </div>
+  <div class="small-12 medium-4 large-3 columns">
+    <% if @role %>
+      <% if @role == "none" %>
+        <p>Users with no role assigned are often past employees. This is a
+          useful way to remove all access, but keep the account in the system.
+          Completely deleting an account may cause related records
+          to break, so use caution when deleting former employee accounts.</p>
+      <% else %>
+        <h5>"<%= @role %>" Abilities</h5>
+        <% test_user = User.new("#{@role}": true) %>
+        <pre>
+        <%= Ability.new(test_user).permissions.to_yaml %>
+        </pre>
+        <p><em>Note: users with mutliple roles may have conflicting
+            abilities. In these cases manually test access to
+            needed functions.</em></p>
+      <% end %>
+    <% end %>
+    <% if red_dates == true %>
+      <p><span style="color: red">Red dates</span> indicate users who
+        haven't logged in for over 2 years.</p>
+    <% end %>
+  </div>
+</div>
