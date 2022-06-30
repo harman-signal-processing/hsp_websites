@@ -17,6 +17,22 @@ class Admin::UsersController < AdminController
     end
   end
 
+  def roles
+    @roles = User::ROLES
+    @users = []
+    if params[:role].present?
+      @role = params[:role]
+      @users = @role == "none" ?  User.no_role_assigned : User.where("#{@role}": true)
+    end
+    render_template
+  end
+
+  def remove_role
+    @role = params[:role]
+    @user.update("#{@role}": false)
+    redirect_to roles_admin_users_path(role: @role), notice: "#{@user.email} no longer has the \"#{@role}\" role."
+  end
+
   # GET /admin/users/1
   # GET /admin/users/1.xml
   def show
