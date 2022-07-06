@@ -8,13 +8,17 @@
   description: t('meta.description.where_to_buy', brand: website.brand_name),
   keywords: t('meta.keywords.where_to_buy') %>
 
-<h1 class="page_title">
-<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/wheretobuy_head.jpg")) %>
-	<%= image_tag("#{website.folder}/#{I18n.locale}/wheretobuy_head.jpg", alt: @page_title, class: 'text-center') %>
+<% if website.wheretobuy_banner %>
+  <div class="category-banner">
+    <%= image_tag website.wheretobuy_banner, alt: @page_title %>
+  </div>
+<% elsif File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/wheretobuy_head.jpg")) %>
+  <div class="category-banner">
+    <%= image_tag("#{website.folder}/#{I18n.locale}/wheretobuy_head.jpg", alt: @page_title) %>
+  </div>
 <% else %>
-  <%= t('where_to_buy').titleize %>
+  <h1><%= t('where_to_buy').titleize %></h1>
 <% end %>
-</h1>
 
 <div class="row">
   <div class="large-8 columns">
