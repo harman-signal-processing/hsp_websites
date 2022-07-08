@@ -608,6 +608,10 @@ module ApplicationHelper
     (session['geo_usa'] == true) || (clean_country_code == 'us')
   end
 
+  def country_is_usa_or_canada
+    country_is_usa || (clean_country_code == 'ca')
+  end
+
   def user_has_usa_state?
     !session['geo_usa_state'].nil?
   end
