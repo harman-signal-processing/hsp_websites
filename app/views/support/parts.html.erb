@@ -1,5 +1,11 @@
 <% set_meta_tags reverse: true %>
 
+<% if website.support_banner %>
+  <div class="category-banner">
+    <%= image_tag website.support_banner, alt: "Product Support" %>
+  </div>
+<% end %>
+
 <%=render_partial "support/country_switch" %>
 
 <%if country_is_usa %>

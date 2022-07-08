@@ -3,13 +3,17 @@
   description: t('meta.description.where_to_buy', brand: website.brand_name),
   keywords: t('meta.keywords.where_to_buy') %>
 
-<h1 class="page_title">
-  <% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/wheretobuy_head.jpg")) %>
-    <%= image_tag("#{website.folder}/#{I18n.locale}/wheretobuy_head.jpg", alt: @page_title, class: 'text-center') %>
-  <% else %>
-    <%= @page_title %>
-  <% end %>
-</h1>
+<% if website.wheretobuy_banner %>
+  <div class="category-banner">
+    <%= image_tag website.wheretobuy_banner, alt: @page_title %>
+  </div>
+<% elsif File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/wheretobuy_head.jpg")) %>
+  <div class="category-banner">
+    <%= image_tag("#{website.folder}/#{I18n.locale}/wheretobuy_head.jpg", alt: @page_title) %>
+  </div>
+<% else %>
+  <h1><%= @page_title %></h1>
+<% end %>
 
 <div class="row">
   <div class="large-8 columns">

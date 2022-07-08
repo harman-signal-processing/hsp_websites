@@ -1,34 +1,26 @@
 <% set_meta_tags title: t('titles.promotions'), keywords: @current_promotions.pluck(:name), reverse: true %>
 
-<% unless File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/promotions_head.jpg")) %>
-  <% if @featured_promotion %>
-    <div class="row">
-      <div class="medium-12 small-12 columns text-center">
-        <%= image_tag @featured_promotion.tile.url, alt: t('titles.promotions') %>
-      </div>
-    </div>
-  <% end %>
+<% if website.promotions_banner %>
+  <div class="category-banner">
+    <%= image_tag website.promotions_banner, alt: t('titles.promotions') %>
+  </div>
+<% elsif File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/promotions_head.jpg")) %>
+  <div class="category-banner">
+    <%= image_tag("#{website.folder}/#{I18n.locale}/promotions_head.jpg", alt: t('titles.promotions')) %>
+  </div>
+<% elsif @featured_promotion %>
+  <div class="category-banner">
+    <%= image_tag @featured_promotion.tile.url, alt: t('titles.promotions') %>
+  </div>
 <% end %>
 
-<div class="row">
-  <div class="small-12 medium-8 columns">
-    <h1 class="page_title">
-      <% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/promotions_head.jpg")) %>
-        <%= image_tag("#{website.folder}/#{I18n.locale}/promotions_head.jpg", alt: t('titles.promotions')) %>
-      <% else %>
-        <%= t('titles.promotions') %>
-      <% end %>
-    </h1>
-  </div>
-  <div class="small-12 medium-4 columns text-right">
-    <br/>
-    <% if can? :create, Promotion %>
-      <%= link_to new_promotion_path do %>
-        <%= fa_icon "plus" %> new promotion
-      <% end %>
+<% if can? :create, Promotion %>
+  <div class="text-right">
+    <%= link_to new_promotion_path do %>
+      <%= fa_icon "plus" %> new promotion
     <% end %>
   </div>
-</div>
+<% end %>
 
 <div class="row">
   <div class="small-12 medium-8 columns">

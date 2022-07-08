@@ -2,6 +2,12 @@
 				 description: t('meta.description.support', brand: website.brand_name),
 				 reverse: true %>
 
+<% if website.support_banner %>
+  <div class="category-banner">
+    <%= image_tag website.support_banner, alt: "Product Support" %>
+  </div>
+<% end %>
+
 <div class="row">
 	<%=render_partial "support/support_left_side_bar"%>
 	<%=render_partial "support/support_index_new"%>
