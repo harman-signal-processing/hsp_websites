@@ -28,7 +28,7 @@ class Lead < ApplicationRecord
 
   def convert_country
     unless country.to_s.match(/[A-Z]{2}/)
-      if country_obj = ISO3166::Country.find_country_by_name(country)
+      if country_obj = ISO3166::Country.find_country_by_any_name(country)
         self.country = country_obj.alpha2
       end
     end

@@ -20,7 +20,7 @@ class DistributorsController < ApplicationController
       redirect_to where_to_find_path, status: :moved_permanently and return false
     end
 
-    @country_code = ISO3166::Country.find_country_by_name(@country).alpha2
+    @country_code = ISO3166::Country.find_country_by_any_name(@country).alpha2
     brand = brand_name_to_use_when_getting_distributors
 
     @distributors = get_international_distributors(brand, @country_code)
