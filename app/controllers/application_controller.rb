@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   # before_action :set_locale
-  before_action :respond_to_htm
+  # before_action :respond_to_htm # 2022-07-21 disabled attempting to troubleshoot a parsing error. Likely no longer needed.
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :ensure_locale_for_site, except: [:locale_root, :default_locale, :locale_selector]
   before_action :catch_criminals
