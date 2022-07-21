@@ -1,4 +1,5 @@
 class WhereToFindController < ApplicationController
+  before_action :set_locale
   respond_to :html, :json
 
   def index
@@ -166,6 +167,7 @@ class WhereToFindController < ApplicationController
   end  #  def eon700_series_dealers
 
   def download_partner_search_results
+    return false if !searching_for_vtx_dealers?
     @err = ""
     @js_map_loader = ''
     @results = []
@@ -211,6 +213,10 @@ class WhereToFindController < ApplicationController
 
   def search_params_missing?
     !params[:zip].present? && !params[:lat].present? && !params[:lng].present?
+  end
+
+  def searching_for_vtx_dealers?
+    params[:zip].present? && (params[:apply_filters].present? && !!(params[:apply_filters].to_i == 1)) && (params[:rental_vtx].present? && !!(params[:rental_vtx].to_i == 1))
   end
 
   def get_origin

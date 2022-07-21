@@ -109,7 +109,7 @@
   </div>
 </div>
 
-<% if website.brand.has_online_retailers? %>
+<% if website.brand.has_online_retailers? && country_is_usa_or_canada %>
   <%= render_partial 'where_to_find/retailers' %>
 <% end %>
 
