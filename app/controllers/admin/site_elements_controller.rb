@@ -5,7 +5,7 @@ class Admin::SiteElementsController < AdminController
   # GET /site_elements
   # GET /site_elements.xml
   def index
-    brand_site_elements = @site_elements.where(brand_id: website.brand_id)
+    brand_site_elements = @site_elements.where(brand_id: website.brand_id).order('site_elements.updated_at desc')
     @search = brand_site_elements.ransack(params[:q])
     if params[:q]
       @site_elements = @search.result.order(:name, :version).paginate(page: params[:page], per_page: 50)
