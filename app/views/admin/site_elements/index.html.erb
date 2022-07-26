@@ -34,6 +34,7 @@
     <th>Name</th>
     <th>Resource file name</th>
     <th>Resource type</th>
+    <th>Last Updated<br /><span style="font-size:xx-small;"><%=Time.zone.name.gsub("(","<br />(").html_safe%></span></th>
   </tr>
 
 <% @site_elements.each do |site_element| %>
@@ -46,6 +47,7 @@
     </td>
     <td><%= (!site_element.resource_file_name.blank?) ? site_element.resource_file_name : site_element.executable_file_name %></td>
     <td><%= site_element.resource_type %></td>
+    <td><span style="font-size:x-small;"><%=l site_element.updated_at, format: :log %></span></td>
   </tr>
 <% end %>
 </table>
