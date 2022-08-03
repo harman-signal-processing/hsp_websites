@@ -4,7 +4,6 @@ class ProductFamilyCaseStudy < ApplicationRecord
 
   belongs_to :product_family, touch: true
 
-  validates :product_family, presence: true
   validates :case_study_id, presence: true
 
   acts_as_list scope: :product_family

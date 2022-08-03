@@ -1,6 +1,5 @@
 class SoftwareTrainingClass < ApplicationRecord
   belongs_to :training_class
   belongs_to :software
-  validates :software_id, presence: true
-  validates :training_class_id, presence: true, uniqueness: {scope: :software_id}
+  validates :training_class_id, uniqueness: {scope: :software_id}
 end

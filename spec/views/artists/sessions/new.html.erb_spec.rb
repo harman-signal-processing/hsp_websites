@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "artists/sessions/new.html.erb", as: :view do
+RSpec.describe "artists/sessions/new", as: :view do
 
   before do
     @brand = FactoryBot.create(:digitech_brand)

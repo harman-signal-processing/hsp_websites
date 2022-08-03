@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe Feature, type: :model do
 
   it "should respond to name" do
-    feature = FactoryBot.create(:feature)
+    pf = create(:product_family)
+    feature = FactoryBot.build(:feature, featurable: pf)
 
     expect(feature).to respond_to :name
   end
@@ -11,7 +12,7 @@ RSpec.describe Feature, type: :model do
   describe "for ProductFamilies" do
     before do
       @product_family = FactoryBot.create(:product_family)
-      @feature = FactoryBot.create(:feature)
+      @feature = FactoryBot.build(:feature)
     end
 
     it "should associate" do

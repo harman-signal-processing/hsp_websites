@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "news/index.html.erb", :type => :view do
+RSpec.describe "news/index", :type => :view do
   before :all do
     @website = FactoryBot.create(:website)
     @news = FactoryBot.create(:news)

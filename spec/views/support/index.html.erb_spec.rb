@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "support/index.html.erb", as: :view do
+RSpec.describe "support/index", as: :view do
 
   before :all do
     @website = FactoryBot.create(:website)

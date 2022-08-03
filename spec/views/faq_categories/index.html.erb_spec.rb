@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "faq_categories/index.html.erb", :type => :view do
+RSpec.describe "faq_categories/index", :type => :view do
 
   before do
     @faq_category = FactoryBot.build_stubbed(:faq_category)

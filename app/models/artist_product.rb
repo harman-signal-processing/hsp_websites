@@ -1,7 +1,6 @@
 class ArtistProduct < ApplicationRecord
   belongs_to :artist, inverse_of: :artist_products
   belongs_to :product, inverse_of: :artist_products
-  validates :artist, :product, presence: true
   validates :artist_id, uniqueness: { scope: :product_id, case_sensitive: false }
   after_save :link_artist_to_brand
 

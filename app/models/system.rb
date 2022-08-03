@@ -8,7 +8,6 @@ class System < ApplicationRecord
 	has_many :system_components
 	belongs_to :brand
 
-	validates :brand, presence: true
 	validates :name, presence: true, uniqueness: { scope: :brand_id, case_sensitive: false  }
 
 	def options_with_possible_values

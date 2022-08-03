@@ -11,7 +11,7 @@ require 'digest/sha1'
 class DownloadRegistration < ApplicationRecord
   belongs_to :registered_download
 
-  validates :first_name, :registered_download_id, presence: true
+  validates :first_name, presence: true
 
   validates :email, presence: true, email: true
     # uniqueness: {scope: :registered_download_id},

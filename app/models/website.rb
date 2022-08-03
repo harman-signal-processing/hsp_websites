@@ -2,7 +2,6 @@ class Website < ApplicationRecord
   belongs_to :brand
   has_many :website_locales
   validates :url, presence: true, uniqueness: { case_sensitive: false}
-  validates :brand_id, presence: true
   validates :folder, presence: true
 
   def value_for(key, locale=I18n.locale)

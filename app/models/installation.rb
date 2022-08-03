@@ -20,7 +20,6 @@ class Installation < ApplicationRecord
   validates_attachment :thumbnail, content_type: { content_type: /\Aimage/i }
 
   validates :title, presence: true, uniqueness: { scope: :brand_id, case_sensitive: false }
-  validates :brand_id, presence: true
 
   belongs_to :brand
 

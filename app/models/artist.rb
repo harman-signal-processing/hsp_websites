@@ -11,11 +11,11 @@ class Artist < ApplicationRecord
   belongs_to :artist_tier
   has_many :artist_products, dependent: :destroy, inverse_of: :artist
   accepts_nested_attributes_for :artist_products, reject_if: proc { |a| a[:product_id].blank? }, allow_destroy: true
-  before_create :set_artist_tier
+  before_validation :set_artist_tier, on: :create
   has_many :products, through: :artist_products
   has_many :artist_brands, dependent: :destroy
   has_many :brands, through: :artist_brands
-  belongs_to :approver, class_name: "User", foreign_key: "approver_id"
+  belongs_to :approver, class_name: "User", foreign_key: "approver_id", optional: true
   before_save :clear_approval, :fix_website_format
 
   has_many :content_translations, as: :translatable, foreign_key: "content_id", foreign_type: "content_type"

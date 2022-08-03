@@ -1,12 +1,13 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 6.1'
+gem "digest", "3.1.0"
+gem 'rails', '~> 7.0'
 # Github has rails 6.1 support
 gem 'actionpack-action_caching', git: 'https://github.com/rails/actionpack-action_caching'
 gem 'responders'
 gem 'bootsnap', require: false
 gem 'sprockets'
-gem 'sprockets-rails', '< 3.3' # 3.3 broke asset-url compilation with asset host. Try a newer version later.
+gem 'sprockets-rails'
 gem 'sass-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails'

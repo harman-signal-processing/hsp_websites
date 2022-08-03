@@ -3,9 +3,6 @@ class CustomShopPriceRequest < ApplicationRecord
   belongs_to :user
   belongs_to :custom_shop_cart
 
-  validates :user, presence: true
-  validates :custom_shop_cart, presence: true
-
   after_initialize :set_defaults
   after_create :assign_line_items, :send_request
   before_update :send_pricing_to_customer

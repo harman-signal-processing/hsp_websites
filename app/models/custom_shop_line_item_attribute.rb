@@ -1,9 +1,8 @@
 class CustomShopLineItemAttribute < ApplicationRecord
-  belongs_to :custom_shop_line_item
+  belongs_to :custom_shop_line_item, optional: true
   belongs_to :customizable_attribute
 
 #  validates :custom_shop_line_item, presence: true
-  validates :customizable_attribute, presence: true
   validates :value, presence: true
 
   def options_for(product)

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "tools/_line_loss.html.erb" do
+RSpec.describe "tools/_line_loss" do
   before do
     render
   end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "admin/support_subjects/index.html.erb" do
+RSpec.describe "admin/support_subjects/index" do
 
   before :all do
     @brand = FactoryBot.create(:brand)

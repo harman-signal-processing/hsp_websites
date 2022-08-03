@@ -7,7 +7,6 @@ class SystemRule < ApplicationRecord
   has_many :system_rule_condition_groups, inverse_of: :system_rule, dependent: :destroy
   has_many :system_rule_actions, inverse_of: :system_rule, dependent: :destroy
 
-  validates :system, presence: true
   validate :at_least_one_condition, :at_least_one_action
 
   accepts_nested_attributes_for :system_rule_condition_groups, reject_if: :reject_condition_groups, allow_destroy: true

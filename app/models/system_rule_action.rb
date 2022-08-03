@@ -8,13 +8,12 @@ class SystemRuleAction < ApplicationRecord
 	belongs_to :system_rule
 
 	# Will have at least one of: option, value, alert (text), component
-	belongs_to :system_option
-	belongs_to :system_option_value
-	belongs_to :system_component
+	belongs_to :system_option, optional: true
+	belongs_to :system_option_value, optional: true
+	belongs_to :system_component, optional: true
 	# validates :alert, presence: true # only if neither option nor value ids present
 
 	validates :action_type, presence: true
-	validates :system_rule, presence: true
 
 	def self.action_types
 		{

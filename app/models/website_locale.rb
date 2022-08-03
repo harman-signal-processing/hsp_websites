@@ -1,6 +1,5 @@
 class WebsiteLocale < ApplicationRecord
   belongs_to :website, touch: true
-  validates :website_id, presence: true
   validates :locale, presence: true
 
   # Probably not the best way to do this, but the routes.rb file uses these locales

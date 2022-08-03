@@ -2,7 +2,7 @@ class WarrantyRegistration < ApplicationRecord
   include ActionView::Helpers::NumberHelper
   belongs_to :brand
   belongs_to :product
-  validates :first_name, :last_name, :brand_id, :product_id, :country, :serial_number, :purchased_on, presence: true
+  validates :first_name, :last_name, :country, :serial_number, :purchased_on, presence: true
   validates :email, presence: true, email: true
   validates :company, presence: true, if: :require_company?
   after_create :send_email_confirmation, :execute_promotion, :sync_with_service_department

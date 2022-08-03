@@ -8,10 +8,8 @@ class SystemRuleCondition < ApplicationRecord
 
 	belongs_to :system_rule_condition_group
 	belongs_to :system_option
-	belongs_to :system_option_value
+	belongs_to :system_option_value, optional: true
 
-	validates :system_rule_condition_group, presence: true
-	validates :system_option, presence: true
 	# One or the other of these...
 	# validates :system_option_value, presence: true
 	# validates :direct_value, presence: true

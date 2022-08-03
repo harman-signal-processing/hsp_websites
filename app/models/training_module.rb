@@ -4,7 +4,7 @@ class TrainingModule < ApplicationRecord
   has_many :software_training_modules, dependent: :destroy
   has_many :softwares, through: :software_training_modules
   belongs_to :brand
-  validates :brand_id, :name, presence: true
+  validates :name, presence: true
   has_attached_file :training_module
   validates_attachment :training_module #, presence: true
   do_not_validate_attachment_file_type :training_module

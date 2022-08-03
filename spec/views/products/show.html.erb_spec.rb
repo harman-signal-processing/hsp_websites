@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "products/show.html.erb", :type => :view do
+RSpec.describe "products/show", :type => :view do
   before :all do
     @website = FactoryBot.create(:website)
     @product = FactoryBot.create(:product, brand: @website.brand)

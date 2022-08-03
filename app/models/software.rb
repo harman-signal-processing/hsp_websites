@@ -18,7 +18,7 @@ class Software < ApplicationRecord
 
   has_many :content_translations, as: :translatable, foreign_key: "content_id", foreign_type: "content_type"
 
-  validates :name, :brand_id, presence: true
+  validates :name, presence: true
   has_attached_file :ware, S3_STORAGE.merge({
     s3_headers: lambda { |attachment|
       { "Content-Disposition" => %(attachment; filename="#{attachment.ware_file_name}") }

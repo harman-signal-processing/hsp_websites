@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "tools/calculators.html.erb", :type => :view do
+RSpec.describe "tools/calculators", :type => :view do
   before do
     render
   end

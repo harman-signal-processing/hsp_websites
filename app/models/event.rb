@@ -15,7 +15,6 @@ class Event < ApplicationRecord
   validates_attachment :image, content_type: { content_type: /\Aimage/i }
   validates :start_on, presence: true
   validates :end_on, presence: true
-  validates :brand, presence: true
 
   scope :current_and_upcoming, -> {
     unscoped.where(active: true).where("end_on >= ?", Date.today).order(start_on: :asc)

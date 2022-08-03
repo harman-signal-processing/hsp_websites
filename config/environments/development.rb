@@ -71,4 +71,12 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { :host => "harman.lvh.me", protocol: "http", port: 3000 }
 
+  # 2022-08-03 AA
+  # Set the value below to 'true' if you're getting errors in development about
+  # assets missing from the asset pipeline. Specifically, there were some old
+  # homepage videos for BSS, dbx and Lexicon in app/assets/images/development.
+  # If you don't have them on your dev machine, you'll see an error when
+  # trying to load those brands' homepage.
+  #config.assets.unknown_asset_fallback = true # As of rails 5.1 defaults to false
+
 end

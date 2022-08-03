@@ -23,12 +23,12 @@ class SiteElement < ApplicationRecord
   attr_accessor :replaces_element
   attr_accessor :versions_to_delete
 
-  validates :brand, :name, presence: true
+  validates :name, presence: true
   validates :resource_type, presence: true, if: :show_on_public_site?
   has_many :product_site_elements, dependent: :destroy, inverse_of: :site_element
   has_many :products, through: :product_site_elements
   has_many :site_element_attachments, dependent: :destroy # added for martin
-  belongs_to :access_level
+  belongs_to :access_level, optional: true
   has_many :manufacturer_partners
   has_many :programmer_site_elements, dependent: :destroy, foreign_key: "site_element_id", class_name: "Vip::ProgrammerSiteElement"
   has_many :programmers, through: :programmer_site_elements, class_name: "Vip::Programmer"

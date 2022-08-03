@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "tools/_amp_power_required.html.erb", :type => :view do
+RSpec.describe "tools/_amp_power_required", :type => :view do
   before do
     render
   end

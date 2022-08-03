@@ -15,7 +15,7 @@ class TrainingCourse < ApplicationRecord
 
   has_many :training_classes
   belongs_to :brand
-  validates :brand_id, :name, presence: true
+  validates :name, presence: true
 
   def slug_candidates
     [

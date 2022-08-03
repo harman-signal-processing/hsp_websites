@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "admin/vip_programmers/index.html.erb", type: :view do
+RSpec.describe "admin/vip_programmers/index", type: :view do
   before :all do
   	@vip_programmer = FactoryBot.create(:vip_programmer)
   end

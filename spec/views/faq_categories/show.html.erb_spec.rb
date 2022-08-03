@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "faq_categories/show.html.erb", :type => :view do
+RSpec.describe "faq_categories/show", :type => :view do
   before do
     @faq_category = FactoryBot.create(:faq_category)
     @faq = FactoryBot.create(:faq)
