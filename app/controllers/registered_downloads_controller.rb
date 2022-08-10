@@ -15,7 +15,7 @@ class RegisteredDownloadsController < ApplicationController
       @download_registration = DownloadRegistration.new(download_registration_params)
       if @download_registration.save
         session["dreg"] = @download_registration.id
-        redirect_to confirm_download_registration_path(@registered_download.url) and return
+        redirect_to confirm_download_registration_path(@registered_download.url), allow_other_host: true and return
       end
     end
   end
@@ -49,7 +49,7 @@ class RegisteredDownloadsController < ApplicationController
         # send_file(@registered_download.protected_software.path,
         #   type: @registered_download.protected_software_content_type,
         #   filename: @registered_download.protected_software_file_name)
-        redirect_to @registered_download.protected_software.expiring_url
+        redirect_to @registered_download.protected_software.expiring_url, allow_other_host: true
         @download_registration.download_count ||= 0
         @download_registration.download_count += 1
         @download_registration.save!
