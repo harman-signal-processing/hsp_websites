@@ -80,7 +80,7 @@ class RegisteredDownloadsController < ApplicationController
       unless File.exist?(fn)
         @registered_download.save_templates_to_filesystem
       end
-      fn
+      fn.to_s.gsub!(/\.html\.erb/, '')
     else
       super
     end
