@@ -1,33 +1,31 @@
 <% set_meta_tags title: t('titles.support'),
-				 description: t('meta.description.support', brand: website.brand_name),
-				 reverse: true %>
+  description: t('meta.description.support', brand: website.brand_name),
+  reverse: true %>
 
 <div class="row">
 
-	<%=render_partial "support/support_left_side_bar"%>
+  <%=render_partial "support/support_left_side_bar"%>
 
-    <div class="large-8 columns">
+  <div class="large-8 columns">
     <h1>Channel Partner Support</h1>
-        <% if @rsos.size > 0 %>
-          <div style="margin-bottom:20px;"><h3>Below are the HARMAN support contacts for your country.</h3></div>
-        	<div class="large-12 columns" data-equalizer="contact-box">
-        		<ul class="large-block-grid-2 medium-block-grid-1 small-block-grid-1">
-	        		<% @rsos.each do |rso| %>
-			        	<%=render_partial "support/rso", rso: rso %>
-	        		<% end %> <%# @rsos.each do |rso| %>
-        		</ul>
-        	</div>
-        <% else %>
-            <div>We didn't find a HARMAN support contact in your country. Please contact us with the information below.</div>
-        	<% if addr = website.value_for("address_and_phone") %>
-        	<div class="panel">
-        		<p><%=raw addr %></p>
-        	</div>
-        	<% end %>
+    <% if @rsos.size > 0 %>
+      <div style="margin-bottom:20px;"><h3>Below are the HARMAN support contacts for your country.</h3></div>
+      <div class="large-12 columns" data-equalizer="contact-box">
+        <ul class="large-block-grid-2 medium-block-grid-1 small-block-grid-1">
+          <% @rsos.each do |rso| %>
+            <%=render_partial "support/rso", rso: rso %>
+          <% end %> <%# @rsos.each do |rso| %>
+          </ul>
+        </div>
+      <% else %>
+        <div>We didn't find a HARMAN support contact in your country. Please contact us with the information below.</div>
+        <% if addr = website.value_for("address_and_phone") %>
+          <div class="panel">
+            <p><%=raw addr %></p>
+          </div>
         <% end %>
-    </div>    
+      <% end %>
+    </div>
 
+  </div>
 
-</div>
-
-<%=render_partial "shared/support_chat_javascript"%>
