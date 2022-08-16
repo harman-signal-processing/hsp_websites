@@ -323,7 +323,9 @@ class ProductFamily < ApplicationRecord
   end
 
   def first_product_with_photo(w)
-    if featured_product.present? && featured_product.in_production?
+    if featured_product_id.present? &&
+        Product.exists?(featured_product_id) &&
+        featured_product.in_production?
       return featured_product if featured_product.primary_photo.present?
     end
     current_products.each do |product|

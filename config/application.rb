@@ -21,7 +21,6 @@ Bundler.require(*Rails.groups)
 module HarmanSignalProcessingWebsite
   class Application < Rails::Application
     config.load_defaults 7.0
-    config.active_record.strict_loading_by_default = false
     config.active_support.cache_format_version = 6.1 # Remove AFTER successful deployment with rails 7
 
     # Settings in config/environments/* take precedence over those specified here.
