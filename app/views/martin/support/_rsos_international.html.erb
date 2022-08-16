@@ -13,19 +13,18 @@
             <%=render_partial "support/rso", rso: rso %>
           <% end %> <%# @rsos.each do |rso| %>
           </ul>
-      </div>
-    <% else %>
-      <p>We didn't find a HARMAN support contact in your country. Please contact us with the information below.</p>
-      <% if addr = website.value_for("address_and_phone") %>
-        <div class="panel">
-          <p><%=raw addr %></p>
         </div>
+      <% else %>
+        <p>We didn't find a HARMAN support contact in your country. Please contact us with the information below.</p>
+        <% if addr = website.value_for("address_and_phone") %>
+          <div class="panel">
+            <p><%=raw addr %></p>
+          </div>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
+
+    <%=render_partial "support/support_left_side_bar"%>
+
   </div>
 
-	<%=render_partial "support/support_left_side_bar"%>
-
-</div>
-
-<%=render_partial "shared/support_chat_javascript"%>

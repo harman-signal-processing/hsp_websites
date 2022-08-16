@@ -12,6 +12,7 @@
 
 <%if country_is_usa %>
   <%=render_partial "support/repairs_usa" %>
+  <%=render_partial "shared/support_chat_javascript" %>
 <%else%>
   <%=render_partial "support/repairs_international" %>
 <%end%>
