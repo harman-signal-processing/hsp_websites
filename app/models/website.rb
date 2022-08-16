@@ -137,13 +137,15 @@ class Website < ApplicationRecord
 
   def discontinued_and_vintage_products
     Rails.cache.fetch("#{cache_key_with_version}/discontinued_and_vintage_products", expires_in: 6.hours) do
-      brand.products.includes(:product_status).select{|p| p if !!(p.product_status.name.match(/discontinue|vintage/i))}
+      brand.products.unscope(:order).joins(:product_status).
+        where("product_statuses.name LIKE 'discontinued' OR product_statuses.name LIKE 'vintage'")
     end
   end
 
   def vintage_products
     Rails.cache.fetch("#{ cache_key_with_version}/vintage_products", expires_in: 1.week) do
-      brand.products.includes(:product_status).select{|p| p if !!(p.product_status.name.match(/vintage/i))}
+      brand.products.unscope(:order).joins(:product_status).
+        where("product_statuses.name LIKE 'vintage'")
     end
   end
 

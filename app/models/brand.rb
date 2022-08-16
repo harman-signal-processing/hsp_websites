@@ -232,20 +232,18 @@ class Brand < ApplicationRecord
 
   def family_products
     Rails.cache.fetch("#{cache_key_with_version}/family_products", expires_in: 6.hours) do
-      p = []
-      product_families.includes(:products).find_each do |pf|
-        p += pf.products
-      end
-      p.sort{|a,b| a.name.downcase <=> b.name.downcase}
+      Product.joins(product_family_products: :product_family).
+        where(product_family: { brand_id: self.id } ).
+        order(Arel.sql("UPPER(products.name)"))
     end
   end
 
   def products
-    fp = self.family_products.collect{|p| p.id}.join(', ')
+    fp = self.family_products.select(:id)
     if fp.blank?
-      Product.unscoped.where(brand_id: self.id).order(Arel.sql("UPPER(name)"))
+      Product.where(brand_id: self.id).order(Arel.sql("UPPER(name)"))
     else
-      Product.unscoped.select("DISTINCT *").where("brand_id = ? OR products.id IN (#{fp})", self.id).order(Arel.sql("UPPER(name)"))
+      Product.where(brand_id: self.id).or(Product.where(id: fp)).order(Arel.sql("UPPER(name)"))
     end
   end
 

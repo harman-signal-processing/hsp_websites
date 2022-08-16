@@ -11,13 +11,8 @@
   <%# products that are in the top-level family %>
   <div class="row">
     <div class="small-12 columns product_cat_bar">
-      <% this_group = [] %>
-      <% @products.each do |product| %>
-        <% if product.product_families.include?(parent) %>
-          <% this_group << product %>
-          <% displayed_products << product %>
-        <% end %>
-      <% end %>
+      <% this_group = parent.all_discontinued_products %>
+      <% displayed_products += this_group %>
       <div class="row">
         <% this_group.in_groups(3).each do |product_group| %>
           <div class="small-12 medium-4 columns">
@@ -35,8 +30,8 @@
     </div>
   </div>
   <%# sub-families %>
-  <% @product_families.each do |product_family| %>
-    <% if parent.all_children(website).include?(product_family) %>
+  <% parent.all_children(website).each do |product_family| %>
+    <% if @product_families.include?(product_family) %>
       <div class="row" id="<%= product_family.to_param %>">
         <div class="small-12 columns thick_left" >
           <h5><%= translate_content(product_family, :name) %></h5>
@@ -44,13 +39,8 @@
       </div>
       <div class="row">
         <div class="small-12 columns product_cat_bar">
-          <% this_group = [] %>
-          <% @products.each do |product| %>
-            <% if product.product_families.include?(product_family) %>
-              <% this_group << product %>
-              <% displayed_products << product %>
-            <% end %>
-          <% end %>
+          <% this_group = product_family.all_discontinued_products %>
+          <% displayed_products += this_group %>
           <div class="row">
             <% this_group.in_groups(3).each do |product_group| %>
               <div class="small-12 medium-4 columns">

@@ -16,8 +16,10 @@ class ProductsController < ApplicationController
       product = Product.find(params[:product][:id])
       redirect_to product and return false
     else
-      @products = website.discontinued_and_vintage_products.sort_by{|p| p.name.upcase }
-      @product_families = @products.map{|p| p.product_families}.flatten.uniq.select{|pf| pf if pf.brand_id == website.brand_id }.sort_by(&:name)
+      @products = website.discontinued_and_vintage_products.order("UPPER(products.name)")
+      product_ids = @products.unscope(:order).select("products.id")
+      product_family_ids = ProductFamilyProduct.select(:product_family_id).where(product_id: product_ids).distinct
+      @product_families = ProductFamily.where(id: product_family_ids, brand_id: website.brand_id).order("name")
       render_template
     end
   end
