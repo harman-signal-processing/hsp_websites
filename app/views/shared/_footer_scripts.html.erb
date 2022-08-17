@@ -1,3 +1,5 @@
+<%= yield :support_chat_javascript %>
+
 <%= render_partial 'shared/video_modal' %>
 
 <%= cache [website, "other_footer_scripts", Date.today, I18n.locale] do %>
@@ -7,34 +9,32 @@
   <% end %>
 <% end %>
 
-<%= yield :support_chat_javascript %>
-
 <script src="//cdnjs.cloudflare.com/ajax/libs/rem/1.3.4/js/rem.min.js"></script>
 <script>
-$(function(){
-  // Wait for Acoustic pixel to load then add aria-hidden attribute and empty alt tag
-  var setAriaAttributeOnAcousticPixel = function(i){
+  $(function(){
+    // Wait for Acoustic pixel to load then add aria-hidden attribute and empty alt tag
+    var setAriaAttributeOnAcousticPixel = function(i){
       return function(){
-          if (i >= 5) return;
-          // console.log("try no. " + i);
+        if (i >= 5) return;
+        // console.log("try no. " + i);
 
-          if(jQuery('img[src*="pages08"]').length == 1) {
-              // console.log('pixel present, setting aria-hidden attribute');
-              $(jQuery('img[src*="pages08"]')[0]).attr('aria-hidden', 'true');
-              $(jQuery('img[src*="pages08"]')[0]).attr('alt', ' ');
-          } else {
-              setTimeout(setAriaAttributeOnAcousticPixel(++i), 500);
-          }
+        if(jQuery('img[src*="pages08"]').length == 1) {
+          // console.log('pixel present, setting aria-hidden attribute');
+          $(jQuery('img[src*="pages08"]')[0]).attr('aria-hidden', 'true');
+          $(jQuery('img[src*="pages08"]')[0]).attr('alt', ' ');
+        } else {
+          setTimeout(setAriaAttributeOnAcousticPixel(++i), 500);
+        }
 
       }
-  }
+    }
 
-  setTimeout(setAriaAttributeOnAcousticPixel(1), 500);
-});
+    setTimeout(setAriaAttributeOnAcousticPixel(1), 500);
+  });
 </script>
 
 <% if Rails.env.development? || params[:dev] == "true" %>
-<hr/>
+  <hr/>
 <pre>
 IP = <%= request.remote_ip %>
 HTTP_X_FORWARDED_FOR = <%= request.env["HTTP_X_FORWARDED_FOR"] %>
@@ -42,7 +42,7 @@ session['geo_country'] = <%= session['geo_country'] %>
 session['geo_usa'] = <%= session['geo_usa'] %>
 clean_country_code = <%= clean_country_code %>
 </pre>
-<br/>
-<br/>
-<hr/>
+  <br/>
+  <br/>
+  <hr/>
 <% end %>

@@ -11,19 +11,18 @@
         <% @distributors.each do |distributor| %>
           <%=render_partial "support/distributor", distributor: distributor %>
         <% end %> <%# @distributors.each do |distributor| %>
-      </ul>
-    <% else %>
-      <p>We didn't find a distributor in your country. Please contact us with the information below.</p>
-      <% if addr = website.value_for("address_and_phone") %>
-        <div class="panel">
-          <p><%=raw addr %></p>
-        </div>
+        </ul>
+      <% else %>
+        <p>We didn't find a distributor in your country. Please contact us with the information below.</p>
+        <% if addr = website.value_for("address_and_phone") %>
+          <div class="panel">
+            <p><%=raw addr %></p>
+          </div>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
+
+    <%=render_partial "support/support_left_side_bar"%>
+
   </div>
 
-  <%=render_partial "support/support_left_side_bar"%>
-
-</div>
-
-<%=render_partial "shared/support_chat_javascript"%>

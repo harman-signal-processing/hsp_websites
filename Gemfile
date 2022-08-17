@@ -45,6 +45,7 @@ gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'httparty'
 gem 'devise'
+gem 'devise-async'
 gem 'cancancan'
 gem 'gravtastic'
 gem "recaptcha", require: "recaptcha/rails"
