@@ -1,3 +1,5 @@
+<%= yield :support_chat_javascript %>
+
 <%= render_partial 'shared/video_modal' %>
 
 <%= cache [website, "other_footer_scripts", Date.today, I18n.locale] do %>
