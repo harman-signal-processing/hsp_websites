@@ -98,7 +98,7 @@ class SitemapController < ApplicationController
     end
     respond_to do |format|
       format.html
-      format.xml { render "index.xml" }
+      format.xml
     end
   end
 end
