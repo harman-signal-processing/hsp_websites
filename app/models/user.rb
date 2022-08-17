@@ -28,6 +28,7 @@ class User < ApplicationRecord
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable,
   # :omniauthable, :validatable, :registerable
   devise :database_authenticatable,
+    :async,
     :recoverable,
     :rememberable,
     :trackable,
