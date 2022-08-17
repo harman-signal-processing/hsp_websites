@@ -89,13 +89,23 @@
             prompt: "Select A Product" %>
       <% end %>
 
-      <%= f.input :product_serial_number,
-        label: "Serial Number",
-        hint: link_to("where to find the serial number", image_path("#{website.folder}/serial.jpg")),
-        required: true %>
+      <% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "serial.jpg")) %>
+        <%= f.input :product_serial_number,
+          label: "Serial Number",
+          hint: link_to("where to find the serial number", image_path("#{website.folder}/serial.jpg")),
+          required: true %>
+      <% else %>
+        <%= f.input :product_serial_number,
+          label: "Serial Number",
+          required: true %>
+      <% end %>
 
-      <%= f.input :product_sku,
-        hint: link_to("where to find the SKU", image_path("#{website.folder}/sku.jpg")) %>
+      <% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "sku.jpg")) %>
+        <%= f.input :product_sku,
+          hint: link_to("where to find the SKU", image_path("#{website.folder}/sku.jpg")) %>
+      <% else %>
+        <%= f.input :product_sku %>
+      <% end %>
 
       <%= f.input :purchased_on,
         as: :string,
