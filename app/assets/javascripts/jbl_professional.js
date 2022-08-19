@@ -28,7 +28,6 @@
 //= require twitter
 //= require homepage
 //= require foundation
-//= require swfobject
 //= require tools
 //= require tinymce-jquery
 //= require tiny

@@ -5,6 +5,5 @@
 # Rack::MiniProfiler.config.skip_paths << "/system/"
 # Rack::MiniProfiler.config.skip_paths << "/fonts/"
 # Rack::MiniProfiler.config.skip_paths << "/css/"
-# Rack::MiniProfiler.config.skip_paths << "/swfs/"
 # Rack::MiniProfiler.config.skip_paths << "/favicon.ico"
 # Rack::MiniProfiler.config.skip_paths << "/filters.svg"

@@ -21,7 +21,6 @@
 //= require where_to_find
 //= require slideshow
 //= require twitter
-//= require swfobject
 //= require tools
 //= require math.min
 //= require homepage

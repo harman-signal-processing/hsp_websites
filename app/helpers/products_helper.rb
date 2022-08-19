@@ -554,10 +554,8 @@ module ProductsHelper
     evens.reverse + (c - evens)
   end
 
-  # Used to call directly from the Swf_fu gem, but rails 3.2 only works if it
-  # is here:
   def swf_tag(source, options={}, &block)
-    ActionView::Helpers::SwfFuHelper::Generator.new(source, options, self).generate(&block)
+    link_to("Download legacy resource", source)
   end
 
   # Returns a checkmark if the specification value is "yes"

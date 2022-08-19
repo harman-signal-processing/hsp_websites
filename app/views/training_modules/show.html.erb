@@ -8,7 +8,10 @@
 	<div class="large-8 large-offset-2 columns">
 		<div class="flex-video widescreen">
       <p>&nbsp;</p>
-			<%= show_module(@training_module) %>
+      <div class="text-center">
+        <p>The training module is available for download for viewing offline:</p>
+        <%= link_to(@training_module.name, @training_module.training_module.url, class: "button") %>
+      </div>
 		</div>
 
 		<%=raw @training_module.description %>

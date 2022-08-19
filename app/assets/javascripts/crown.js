@@ -23,7 +23,6 @@
 //= require twitter
 //= require homepage
 //= require foundation
-//= require swfobject
 //= require will_paginate_infinite
 //= require crown_application
 //= require network_audio

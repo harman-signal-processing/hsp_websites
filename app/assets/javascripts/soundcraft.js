@@ -24,7 +24,6 @@
 //= require twitter
 //= require homepage
 //= require foundation
-//= require swfobject
 //= require will_paginate_infinite
 //= require soundcraft_application
 //= require tools

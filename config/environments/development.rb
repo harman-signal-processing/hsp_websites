@@ -69,7 +69,8 @@ Rails.application.configure do
 
   config.i18n.fallbacks = [:en]
 
-  config.action_mailer.default_url_options = { :host => "harman.lvh.me", protocol: "http", port: 3000 }
+  # Set CLOUD_9_DEV_HOST to the preview URL host for your Cloud 9 environment
+  config.action_mailer.default_url_options = { :host => ENV['CLOUD_9_DEV_HOST'], protocol: "https" }
 
   # 2022-08-03 AA
   # Set the value below to 'true' if you're getting errors in development about

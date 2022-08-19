@@ -55,7 +55,6 @@ gem 'acts_as_tree'
 gem 'acts-as-taggable-on'
 gem 'dynamic_form'
 gem 'rails_autolink'
-gem 'swf_fu', '>=1.3.4', require: 'swf_fu'
 gem 'execjs'
 gem 'therubyrhino'
 gem 'whenever' #, require: false
