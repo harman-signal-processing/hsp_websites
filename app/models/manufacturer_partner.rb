@@ -1,5 +1,5 @@
 class ManufacturerPartner < ApplicationRecord
-  belongs_to :site_element
+  belongs_to :site_element, optional: true
   before_save :fix_url_format
     
   # If the url doesn't have http:// in front, then add it.

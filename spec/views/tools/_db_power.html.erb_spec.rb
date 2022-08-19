@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "tools/_db_power.html.erb", :type => :view do
+RSpec.describe "tools/_db_power", :type => :view do
   before do
     render
   end

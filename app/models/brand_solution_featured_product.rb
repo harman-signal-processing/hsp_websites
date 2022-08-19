@@ -1,11 +1,7 @@
 class BrandSolutionFeaturedProduct < ApplicationRecord
   belongs_to :brand
   belongs_to :solution
-
-  validates :brand, presence: true
-  validates :solution, presence: true
-
-  belongs_to :product, touch: true # (maybe--if not, the static fields should be required)
+  belongs_to :product, touch: true, optional: true  # (maybe--if not, the static fields should be required)
   validates :product, presence: true, if: :name_is_blank?
 
   validates :name, presence: true, if: :product_is_blank?

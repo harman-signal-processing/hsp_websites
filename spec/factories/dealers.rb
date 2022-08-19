@@ -9,6 +9,8 @@ FactoryBot.define do
     zip { "84070" }
     telephone { "555-555-5555" }
     fax { "555-555-5556" }
+    lat { "12345" }
+    lng { "67890" }
     sequence(:email) {|n| "dealer#{n}@something.com"}
     sequence(:account_number) {|n| ("%010d" % n).to_s}
   end

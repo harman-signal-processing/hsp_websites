@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "tools/_inverse_square_law.html.erb" do
+RSpec.describe "tools/_inverse_square_law" do
   before do
     render
   end

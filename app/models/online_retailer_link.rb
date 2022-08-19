@@ -1,9 +1,8 @@
 class OnlineRetailerLink < ApplicationRecord
   belongs_to :online_retailer, touch: true
-  belongs_to :brand
-  belongs_to :product, touch: true
+  belongs_to :brand, optional: true
+  belongs_to :product, touch: true, optional: true
 
-  validates :online_retailer_id, presence: true
   validates :url, presence: true
 
   before_update :reset_status

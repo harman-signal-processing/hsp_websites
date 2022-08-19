@@ -16,8 +16,10 @@ class ProductsController < ApplicationController
       product = Product.find(params[:product][:id])
       redirect_to product and return false
     else
-      @products = website.discontinued_and_vintage_products.sort_by{|p| p.name.upcase }
-      @product_families = @products.map{|p| p.product_families}.flatten.uniq.select{|pf| pf if pf.brand_id == website.brand_id }.sort_by(&:name)
+      @products = website.discontinued_and_vintage_products.order("UPPER(products.name)")
+      product_ids = @products.unscope(:order).select("products.id")
+      product_family_ids = ProductFamilyProduct.select(:product_family_id).where(product_id: product_ids).distinct
+      @product_families = ProductFamily.where(id: product_family_ids, brand_id: website.brand_id).order("name")
       render_template
     end
   end
@@ -48,7 +50,7 @@ class ProductsController < ApplicationController
     end
     # After JBL goes live, we can revisit this...
     if @product.product_page_url.present? && @product.product_page_url.to_s.match(/jblbag/i)
-      redirect_to @product.product_page_url and return false
+      redirect_to @product.product_page_url, allow_other_host: true and return false
     end
     if website.has_suggested_products?
       @suggestions = @product.suggested_products
@@ -142,10 +144,8 @@ class ProductsController < ApplicationController
           redirect_to where_to_find_path and return
         elsif !@product.layout_class.blank? && File.exists?(Rails.root.join("app", "views", website.folder, "products", "#{@product.layout_class}_buy_it_now.html.erb"))
           render template: "#{website.folder}/products/#{@product.layout_class}_buy_it_now", layout: set_layout
-        elsif @product.layout_class.to_s == 'epedal' && website.non_ios_howto_url
-          redirect_to website.non_ios_howto_url and return
         elsif !@product.direct_buy_link.blank?
-          redirect_to @product.direct_buy_link and return
+          redirect_to @product.direct_buy_link, allow_other_host: true and return
         else
           render_template
         end

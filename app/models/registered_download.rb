@@ -6,7 +6,7 @@
 class RegisteredDownload < ApplicationRecord
   has_many :download_registrations
   belongs_to :brand
-  validates :name, :brand, :from_email, :subject, presence: true
+  validates :name, :from_email, :subject, presence: true
   validates :per_download_limit, numericality: {greater_than: 0}
 
   has_attached_file :protected_software, S3_STORAGE.merge({

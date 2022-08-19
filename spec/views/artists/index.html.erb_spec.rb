@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "artists/index.html.erb", as: :view do
+RSpec.describe "artists/index", as: :view do
 
   before :all do
     @website = FactoryBot.create(:website_with_products, folder: "digitech")

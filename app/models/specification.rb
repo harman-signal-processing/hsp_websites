@@ -2,7 +2,7 @@ class Specification < ApplicationRecord
   extend FriendlyId
   friendly_id :name
 
-  belongs_to :specification_group
+  belongs_to :specification_group, optional: true
   has_many :product_specifications, inverse_of: :specification
   validates :name, presence: true, uniqueness: { case_sensitive: false, scope: :specification_group_id }
 

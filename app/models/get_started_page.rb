@@ -17,7 +17,6 @@ class GetStartedPage < ApplicationRecord
       tiny_square: "64x64#"
     }, processors: [:thumbnail, :compression] }
   validates_attachment :header_image, content_type: { content_type: /\Aimage/i }
-  validates :brand, presence: true
 
   def cookie_name
     "registered_for_#{ self.friendly_id }".to_sym

@@ -4,12 +4,11 @@ class Promotion < ApplicationRecord
   friendly_id :sanitized_name
 
   attribute :show_recalculated_price, :boolean, default: true
-  validates :brand_id, presence: true
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   has_many :product_promotions, inverse_of: :promotion
   has_many :products, through: :product_promotions
   belongs_to :brand, touch: true
-  belongs_to :banner, class_name: "Setting", foreign_key: "banner_id"
+  belongs_to :banner, class_name: "Setting", foreign_key: "banner_id", optional: true
 
   has_attached_file :promo_form
   do_not_validate_attachment_file_type :promo_form

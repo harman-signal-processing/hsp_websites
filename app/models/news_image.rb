@@ -16,5 +16,4 @@ class NewsImage < ApplicationRecord
   validates_attachment :image, content_type: { content_type: /\Aimage/i }
 
   belongs_to :news, touch: true
-  validates :news, presence: true
 end

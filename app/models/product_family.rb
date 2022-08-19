@@ -19,7 +19,7 @@ class ProductFamily < ApplicationRecord
   has_many :customizable_attributes, through: :product_family_customizable_attributes
   has_many :product_family_videos, -> { order('position') }, dependent: :destroy
   has_many :current_product_counts
-  belongs_to :featured_product, class_name: "Product"
+  belongs_to :featured_product, class_name: "Product", optional: true
 
   after_touch :update_current_product_counts
 
@@ -33,7 +33,6 @@ class ProductFamily < ApplicationRecord
   validates_attachment :title_banner, content_type: { content_type: /\Aimage|pdf/i }
   validates_attachment :background_image, content_type: { content_type: /\Aimage/i }
 
-  validates :brand_id, presence: true
   validates :name, presence: true
   validate :parent_not_itself
 
@@ -324,7 +323,9 @@ class ProductFamily < ApplicationRecord
   end
 
   def first_product_with_photo(w)
-    if featured_product.present? && featured_product.in_production?
+    if featured_product_id.present? &&
+        Product.exists?(featured_product_id) &&
+        featured_product.in_production?
       return featured_product if featured_product.primary_photo.present?
     end
     current_products.each do |product|

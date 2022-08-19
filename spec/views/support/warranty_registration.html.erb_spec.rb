@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "support/warranty_registration.html.erb", as: :view do
+RSpec.describe "support/warranty_registration", as: :view do
 
   before :all do
     @website = FactoryBot.create(:website)

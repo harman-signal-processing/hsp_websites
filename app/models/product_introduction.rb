@@ -1,7 +1,6 @@
 class ProductIntroduction < ApplicationRecord
   belongs_to :product
 
-  validates :product_id, presence: true
   has_attached_file :top_image
   has_attached_file :box_bg_image
   has_attached_file :page_bg_image

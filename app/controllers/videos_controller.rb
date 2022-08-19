@@ -2,7 +2,7 @@ class VideosController < ApplicationController
 
   def index
     if !youtube_user.blank?
-      redirect_to "https://www.youtube.com/user/#{youtube_user}", status: :moved_permanently and return false
+      redirect_to "https://www.youtube.com/user/#{youtube_user}", allow_other_host: true, status: :moved_permanently and return false
     else
       render plain: "Error loading playlist"
     end
@@ -10,7 +10,7 @@ class VideosController < ApplicationController
 
   def play
     @video_id = params[:id]
-    redirect_to "https://youtube.com/watch?v=#{@video_id}", status: :moved_permanently and return false
+    redirect_to "https://youtube.com/watch?v=#{@video_id}", allow_other_host: true, status: :moved_permanently and return false
   end
 
   private

@@ -126,7 +126,7 @@ private
       i = request.remote_ip.to_s
       if x.match(/198\.91\.53/) || i.match(/198\.91\.53/) || x.match(/162\.211\.152/) || i.match(/162\.211\.152/)
         # send this idiot back to his own ISP
-        redirect_to "https://www.securitymetrics.com#{ENV['REQUEST_URI']}" and return false
+        redirect_to "https://www.securitymetrics.com#{ENV['REQUEST_URI']}", allow_other_host: true  and return false
       end
       if params && params[:page]
         page = params[:page]

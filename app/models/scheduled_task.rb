@@ -1,18 +1,18 @@
 class ScheduledTask < ApplicationRecord
   belongs_to :schedulable, polymorphic: true
-  
+
   has_many :scheduled_task_actions
   has_many :scheduled_task_logs
-  
+
   validates :schedulable_type, presence: true
   validates :schedulable_id, presence: true
-  
+
   accepts_nested_attributes_for :scheduled_task_actions
-  
+
   def self.schedulable_options
     [["Product Family", "ProductFamily"], ["Product", "Product"]]
   end
-  
+
   #writer
   def schedulable_friendly_id=(val)
     begin
@@ -21,7 +21,7 @@ class ScheduledTask < ApplicationRecord
       raise("could not find an ID based on the provided friendly_id")
     end
   end
-  
+
   #reader
   def schedulable_friendly_id
     if schedulable_type.present? && schedulable_id.present?
@@ -34,16 +34,16 @@ class ScheduledTask < ApplicationRecord
       ""
     end
   end
-  
+
   #which fields can be scheduled
   def schedulable_fields
     schedulable_type.constantize.send(:column_names).sort - ["id", "created_at", "updated_at", "cached_slug"]
   end
-  
+
   def run!
     update(status: "running")
     scheduled_task_actions.each{|sta| sta.run!}
     update(status: scheduled_task_actions.pluck(:status).uniq.join(", "))
   end
-  
+
 end

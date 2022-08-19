@@ -35,7 +35,7 @@ class Testimonial < ApplicationRecord
   process_in_background :banner
   process_in_background :image
 
-  validates :brand, :title, presence: true
+  validates :title, presence: true
 
   scope :not_associated_with_this_product_family, -> (product_family) {
     testimonial_ids_already_associated_with_this_product_family = ProductFamilyTestimonial.where(product_family: product_family).pluck(:testimonial_id)

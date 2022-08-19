@@ -1,6 +1,6 @@
 class Faq < ApplicationRecord
 
-  belongs_to :product, touch: true
+  belongs_to :product, touch: true, optional: true
   has_many :faq_category_faqs, inverse_of: :faq, dependent: :destroy
   has_many :faq_categories, through: :faq_category_faqs
 

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "tools/_ohms_watts_law.html.erb", :type => :view do
+RSpec.describe "tools/_ohms_watts_law", :type => :view do
   before do
     render
   end

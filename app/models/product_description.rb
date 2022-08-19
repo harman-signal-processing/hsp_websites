@@ -1,7 +1,6 @@
 class ProductDescription < ApplicationRecord
   belongs_to :product, touch: true
 
-  validates :product, presence: true
   validates :content_name, presence: true
 
   # Join two content fields together

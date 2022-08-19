@@ -24,7 +24,7 @@ class EventsController < ApplicationController
           if @learning_sessions.size > 0
             redirect_to learning_sessions_path and return false
           else
-            redirect_to "#{ENV['PRO_SITE_URL']}/events" and return false
+            redirect_to "#{ENV['PRO_SITE_URL']}/events", allow_other_host: true and return false
           end
         end
       }

@@ -1,38 +1,38 @@
 class ScheduledTaskAction < ApplicationRecord
   belongs_to :scheduled_task
-  
+
   after_initialize :set_field_type
-  
+
   def set_field_type
     if self.field_name.present? && self.scheduled_task.present?
       self.field_type ||= schedulable.column_for_attribute(field_name).type
     end
   end
-  
+
   def schedulable
     self.scheduled_task.schedulable
   end
-  
+
   def has_relation?
     field_name.match(/^(.*)_id$/) && schedulable.respond_to?($1)
   end
-  
+
   def relation_name
     if field_name.match(/^(.*)_id$/)
       return $1
     end
   end
-  
+
   def relation_class
     relation_name == "parent" ?
       scheduled_task.schedulable_type.classify.constantize :
       relation_name.classify.constantize
   end
-  
+
   def options_for_select
     relation_class.all
   end
-  
+
   def new_value
     if field_type == "integer"
       if has_relation?
@@ -48,11 +48,11 @@ class ScheduledTaskAction < ApplicationRecord
       new_value_by_field_type
     end
   end
-  
+
   def new_value_by_field_type
     @new_value_by_field_type ||= self.send("new_#{field_type}_value".to_sym)
   end
-  
+
   def run!
     log_entry = ""
     begin
@@ -62,7 +62,7 @@ class ScheduledTaskAction < ApplicationRecord
       else
         log_entry = "ERROR updating #{field_name}!"
         update(status: "failed")
-      end  
+      end
     rescue
       log_entry = "RESCUED ERROR updating #{field_name}"
     end

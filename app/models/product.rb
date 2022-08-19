@@ -90,7 +90,6 @@ class Product < ApplicationRecord
   has_attached_file :background_image
   validates_attachment :background_image, content_type: { content_type: /\Aimage/i }
   validates :name, presence: true
-  validates :product_status_id, presence: true
   validates :sap_sku, format: { with: /\A[\w\-\s]*\z/, message: "only allows letters and numbers" }
 
 

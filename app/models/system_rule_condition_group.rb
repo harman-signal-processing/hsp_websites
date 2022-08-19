@@ -7,7 +7,6 @@ class SystemRuleConditionGroup < ApplicationRecord
 	has_many :system_rule_conditions, dependent: :destroy, inverse_of: :system_rule_condition_group
 
 	validates :logic_type, presence: true
-	validates :system_rule, presence: true
 	validate :at_least_one_condition
 
 	after_initialize :set_default_logic_type, :build_conditions

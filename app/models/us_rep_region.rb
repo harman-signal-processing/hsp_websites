@@ -1,8 +1,4 @@
 class UsRepRegion < ApplicationRecord
-  validates :brand, presence: true
-  validates :us_region, presence: true
-  validates :us_rep, presence: true
-
   belongs_to :us_rep
   belongs_to :us_region
   belongs_to :brand

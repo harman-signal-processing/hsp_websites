@@ -22,7 +22,6 @@ class MarketSegment < ApplicationRecord
 
   validates_attachment :banner_image, content_type: { content_type: /\Aimage/i }
   validates :name, presence: true
-  validates :brand_id, presence: true
 
   acts_as_tree order: :position, scope: :brand_id, touch: true
 
