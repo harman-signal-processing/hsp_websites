@@ -162,7 +162,11 @@ module MainHelper
 
   def flag_for(item)
     if item.respond_to?(:language) && item.language.present?
-      image_tag("icons/flags/#{item.language.to_s.downcase}.png", alt: item.language, lazy: false)
+      begin
+        image_tag("icons/flags/#{item.language.to_s.downcase}.png", alt: item.language, lazy: false)
+      rescue Sprockets::Rails::Helper::AssetNotFound
+        ""
+      end
     end
   end
 end
