@@ -23,6 +23,9 @@ module HarmanSignalProcessingWebsite
     config.load_defaults 7.0
     config.active_support.cache_format_version = 6.1 # Remove AFTER successful deployment with rails 7
 
+    # Below needs to be true for s3_direct_upload to work:
+    config.action_view.default_enforce_utf8 = true
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
