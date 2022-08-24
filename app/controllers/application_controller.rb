@@ -103,10 +103,12 @@ private
 
       raise ActionController::RoutingError("Site not found.") unless website.respond_to?(:list_of_available_locales)
 
-      if params[:locale] && !params[:locale].to_s.match(/en/i) && l = website.list_of_available_locales
-        unless l.include?(params[:locale].to_s)
-          new_locale = website.default_locale || I18n.default_locale.to_s
-          redirect_to locale_root_path(new_locale), status: :moved_permanently and return false
+      unless request.format.json?
+        if params[:locale] && !params[:locale].to_s.match(/en/i) && l = website.list_of_available_locales
+          unless l.include?(params[:locale].to_s)
+            new_locale = website.default_locale || I18n.default_locale.to_s
+            redirect_to locale_root_path(new_locale), status: :moved_permanently and return false
+          end
         end
       end
 
