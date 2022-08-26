@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::Base
+  before_action :catch_criminals
   # before_action :set_locale
   # before_action :respond_to_htm # 2022-07-21 disabled attempting to troubleshoot a parsing error. Likely no longer needed.
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :ensure_locale_for_site, except: [:locale_root, :default_locale, :locale_selector]
-  before_action :catch_criminals
   before_action :hold_on_to_utm_params
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
@@ -103,12 +103,10 @@ private
 
       raise ActionController::RoutingError("Site not found.") unless website.respond_to?(:list_of_available_locales)
 
-      unless request.format.json?
-        if params[:locale] && !params[:locale].to_s.match(/en/i) && l = website.list_of_available_locales
-          unless l.include?(params[:locale].to_s)
-            new_locale = website.default_locale || I18n.default_locale.to_s
-            redirect_to locale_root_path(new_locale), status: :moved_permanently and return false
-          end
+      if params[:locale] && !params[:locale].to_s.match(/en/i) && l = website.list_of_available_locales
+        unless l.include?(params[:locale].to_s)
+          new_locale = website.default_locale || I18n.default_locale.to_s
+          redirect_to locale_root_path(new_locale), status: :moved_permanently and return false
         end
       end
 
@@ -122,21 +120,11 @@ private
     end
   end
 
+  # 2022-08 Getting lots of geniuses trying to POST JSON. Let's just give them an error without much info:
+  # This globally blocks POSTing JSON. Bypass this filter in your controller if POSTing JSON is required.
   def catch_criminals
-    begin
-      x = request.env["HTTP_X_FORWARDED_FOR"].to_s
-      i = request.remote_ip.to_s
-      if x.match(/198\.91\.53/) || i.match(/198\.91\.53/) || x.match(/162\.211\.152/) || i.match(/162\.211\.152/)
-        # send this idiot back to his own ISP
-        redirect_to "https://www.securitymetrics.com#{ENV['REQUEST_URI']}", allow_other_host: true  and return false
-      end
-      if params && params[:page]
-        page = params[:page]
-        unless page.to_s.match(/^[0-9]{1,5}$/i) # anything not a number is a bad page number
-          render plain: "Pretty sneaky", status: 400 and return false
-        end
-      end
-    rescue
+    if request.content_type.to_s.match?(/json/i) && request.post?
+      raise ActionController::UnpermittedParameters.new ["not allowed"]
     end
   end
 

@@ -78,10 +78,6 @@ class SupportController < ApplicationController
 
   # Warranty registration form
   def warranty_registration
-    # 2022-08 Getting lots of geniuses trying to POST JSON here. Let's just give them an error without much info:
-    if request.format.json?
-      raise ActionController::UnpermittedParameters.new ["not allowed"]
-    end
     if request.post?
       @warranty_registration = WarrantyRegistration.new(warranty_registration_params)
       @warranty_registration.brand_id = website.brand_id

@@ -47,7 +47,7 @@ class Admin::WebsitesController < AdminController
   # POST /admin/websites.xml
   def create
     authorize! :create, Website
-    @this_website = Website.new(params[:website])
+    @this_website = Website.new(website_params)
     respond_to do |format|
       if @this_website.save
         format.html { redirect_to([:admin, @this_website], notice: 'Website was successfully created.') }
