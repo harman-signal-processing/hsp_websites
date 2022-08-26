@@ -1,0 +1,16 @@
+(function(){
+	var $products_dropdown = $('#product_part_product_id');
+
+	// clear the product list before we rebuild it
+	$products_dropdown.empty();
+
+	// rebuild product dropdown list
+	$products_dropdown.append($("<option></option>"));
+
+	<% Product.not_associated_with_this_part(@product_part.part, website).sort_by(&:name).each do |product| %>
+		$products_dropdown.append($("<option value='<%=product.id%>'><%=product.name%></option>"));
+	<% end %>
+
+	// let chosen know the product dropdown list has been updated
+	$products_dropdown.trigger('chosen:updated');
+})();

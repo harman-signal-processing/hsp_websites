@@ -1,0 +1,12 @@
+console.log("Hi mom")
+<%if @called_from == "product" %>
+	<%= render "/admin/product_parts/rebuild_part_select_list" %>
+<% end %>
+
+<%if @called_from == "part" %>
+	<%= render "/admin/product_parts/rebuild_product_select_list" %>
+<% end %>
+
+<%= render "/admin/product_parts/add_to_associated_item_list" %>
+
+<% flash.discard %>

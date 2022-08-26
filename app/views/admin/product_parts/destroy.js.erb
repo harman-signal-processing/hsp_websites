@@ -1,0 +1,14 @@
+(function(){
+    // remove associated product_part item
+    $('#product_part_<%= @product_part.id %>').remove();
+
+	<%if @called_from == "product" %>
+		<%= render "/admin/product_parts/rebuild_part_select_list" %>
+	<% end %>
+
+	<%if @called_from == "part" %>
+		<%= render "/admin/product_parts/rebuild_product_select_list" %>
+	<% end %>
+})();
+
+<% flash.discard %>

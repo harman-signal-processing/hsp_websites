@@ -15,6 +15,7 @@ class Admin::PartsController < AdminController
   # GET /parts/1
   # GET /parts/1.xml
   def show
+    @product_part = ProductPart.new(part: @part)
     respond_to do |format|
       format.html { render_template } # show.html.erb
       format.xml  { render xml: @part }

@@ -1,0 +1,11 @@
+(function(){
+	var $list_of_associated_products = $('#product_parts');
+
+	build_list_of_products_associated_with_this_part($list_of_associated_products);
+
+	function build_list_of_products_associated_with_this_part($list_of_associated_products) {
+		<% @product_parts.each do |product_part| %>
+			$list_of_associated_products.append('<%= escape_javascript(render "/admin/shared/product_part_row", pp: product_part, called_from: @called_from) %>');
+		<% end %>
+	}  //  function build_list_of_products_associated_with_this_part($list_of_associated_products)
+})();

@@ -1,0 +1,16 @@
+(function(){
+	var $part_dropdown = $('#product_part_part_id');
+
+	// clear the part list before we rebuild it
+	$part_dropdown.empty();
+
+	// rebuild part dropdown list
+	$part_dropdown.append($("<option></option>"));
+
+	<% part.not_associated_with_this_product(@product_part.product, website).sort_by(&:part_number).each do |part| %>
+		$part_dropdown.append($("<option value='<%=part.id%>'><%=part.part_number%></option>"));
+	<% end %>
+
+	// let chosen know the part dropdown list has been updated
+	$part_dropdown.trigger('chosen:updated');
+})();

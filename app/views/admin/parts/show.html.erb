@@ -1,0 +1,62 @@
+<h1><%= @part.part_number %></h1>
+
+<ul class="button-group round">
+	<li><%= link_to admin_parts_path, class: "small secondary button" do %>
+    <%= fa_icon "angle-double-left" %>
+  <% end %>
+  </li>
+	<li><%= link_to edit_admin_part_path(@part), class: "small secondary button" do %>
+      <%= fa_icon "edit" %>
+      Edit
+    <% end %>
+  </li>
+	<li><%= link_to [:admin, @part], confirm: 'Are you sure?', method: :delete, class: "small alert button" do %>
+    <%= fa_icon "trash" %>
+    Delete
+  <% end %>
+  </li>
+</ul>
+
+<div><%=raw @part.description %></div>
+
+<% if @part.parent.present? %>
+  <div>
+    <strong>Parent:</strong>
+    <%= link_to @part.parent.part_number, [:admin, @part.parent] %>
+  </div>
+<% end %>
+
+<% if @part.photo.present? %>
+  <div>
+    <%= image_tag @part.photo.url(:medium), lazy: false %>
+  </div>
+  <br/><br/>
+<% end %>
+
+<div class="group">
+	<h4 class="subheader">Available in these Products:</h4>
+
+	<div id="add_part_form">
+		<%= simple_form_for [:admin, @product_part], remote: true do |f| %>
+			<%= hidden_field_tag :called_from, "part" %>
+      <%= f.hidden_field :part_id %>
+      <div class="row collapse">
+        <div class="small-8 columns">
+          <%= f.association :product,
+          collection: Product.not_associated_with_this_part(@product_part.part, website).sort_by(&:name),
+          label: false,
+          input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Products'} }%>
+        </div>
+        <div class="small-4 columns">
+          <%= f.submit "add product", class: "postfix button" %>
+        </div>
+      </div>
+		<% end %>
+	</div>
+
+	<ul id="product_parts" class="list">
+	  <% @part.product_parts.find_each do |pp| %>
+      <%= render "/admin/shared/product_part_row", pp: pp, called_from: "part" %>
+	  <% end %>
+	</ul>
+</div>

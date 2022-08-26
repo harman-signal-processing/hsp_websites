@@ -5,6 +5,7 @@ module ServiceCenters
     if brand.empty? || state.empty?
       return []
     else
+      state.gsub!(/\W*/, '')
       url = "#{ENV['PRO_SITE_URL']}/service_centers/#{brand.downcase}/#{state.downcase}.json"
       encoded_url = URI.encode(url)
 

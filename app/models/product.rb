@@ -92,7 +92,6 @@ class Product < ApplicationRecord
   validates :name, presence: true
   validates :sap_sku, format: { with: /\A[\w\-\s]*\z/, message: "only allows letters and numbers" }
 
-
   scope :not_associated_with_this_site_element, -> (site_element, website) {
     website.products.where.not(id: site_element.products.pluck(:id))
   }
@@ -122,7 +121,11 @@ class Product < ApplicationRecord
   scope :not_associated_with_this_badge, -> (badge, website) {
     website.products.where.not(id: badge.products.pluck(:id))
   }
-  
+
+  scope :not_associated_with_this_part, -> (part, website) {
+    website.products.where.not(id: part.products.pluck(:id))
+  }
+
   def slug_candidates
     [
       :formatted_name,

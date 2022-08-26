@@ -415,6 +415,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :faq_categories,
         :us_rep_regions,
         :system_options,
+        :product_parts,
         :installations,
         :pricing_types,
         :news_products,

@@ -11,22 +11,6 @@ class AmxDomain
   # :nocov:
 end
 
-class DigitechDomain
-  # :nocov:
-  def self.matches?(request)
-    !!(request.host.match(/digitech/i))
-  end
-  # :nocov:
-end
-
-class DodDomain
-  # :nocov:
-  def self.matches?(request)
-    !!(request.host.match(/dod/i))
-  end
-  # :nocov:
-end
-
 class DbxDomain
   # :nocov:
   def self.matches?(request)
@@ -95,14 +79,6 @@ class SoundcraftDomain
   # :nocov:
   def self.matches?(request)
     !!(request.host.match(/soundcraft/i))
-  end
-  # :nocov:
-end
-
-class StuderDomain
-  # :nocov:
-  def self.matches?(request)
-    !!(request.host.match(/studer/i))
   end
   # :nocov:
 end
