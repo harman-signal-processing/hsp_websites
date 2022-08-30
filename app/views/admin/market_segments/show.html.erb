@@ -25,7 +25,7 @@
 		<div class="panel">
 			<h6 class="subheader">Banner Image:</h6>
 			<% if !@market_segment.banner_image.blank? %>
-			  <%= image_tag @market_segment.banner_image.url(:medium) %>
+			  <%= image_tag @market_segment.banner_image.url(:medium), lazy: false %>
 			<% else %>
 			  <i>(none)</i>
 			<% end %>

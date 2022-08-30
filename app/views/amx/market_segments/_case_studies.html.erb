@@ -1,0 +1,20 @@
+<hr>
+<div class="case_studies">
+  <h4>Case Studies</h4>
+    <ul class="small-block-grid-1 large-block-grid-3 medium-block-grid-3">
+      <% @case_studies.each do |case_study| %>
+        <li>
+            <%= link_to case_study_path(case_study[:slug]) do %>
+            <% banner_present = !(case_study[:banner_urls][:small_panel].include? "missing/banners") %>
+              <% if banner_present %>
+                <%= image_tag case_study[:banner_urls][:small_panel], alt: "#{case_study[:headline]} thumbnail image" %>
+              <% elsif case_study[:youtube_id].present? %>
+                <%= image_tag "https://i.ytimg.com/vi/#{case_study[:youtube_id]}/mqdefault.jpg", alt: "#{case_study[:headline]} thumbnail image" %>
+              <% end %>
+            <% end %>
+            <h5><%=link_to case_study[:headline], case_study_path(case_study[:slug])%></h5>
+            <div class="cs-descr"><%= raw case_study[:description] %></div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
