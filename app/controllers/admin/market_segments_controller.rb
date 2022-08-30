@@ -108,7 +108,8 @@ class Admin::MarketSegmentsController < AdminController
       :banner_image_file_name,
       :parent_id,
       :position,
-      :description
+      :description,
+      :banner_image
     )
   end
 end
