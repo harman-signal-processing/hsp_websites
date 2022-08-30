@@ -3,14 +3,14 @@
 
 	// clear the badge list before we rebuild it
 	$badge_dropdown.empty();
-	
-	// rebuild badge dropdown list
-	$badge_dropdown.append($("<option></option>"));		
 
-	<% Badge.not_associated_with_this_product(@product_badge.product, website).sort_by(&:name).each do |badge| %>
-		$badge_dropdown.append($("<option value='<%=badge.id%>'><%=badge.name%></option>"));
-	<% end %>		
-	
+	// rebuild badge dropdown list
+	$badge_dropdown.append($("<option></option>"));
+
+	<% Badge.not_associated_with_this_product(@product_badge.product).order('name').each do |badge| %>
+		$badge_dropdown.append($("<option value='<%=badge.id%>'><%= escape_javascript(badge.name) %></option>"));
+	<% end %>
+
 	// let chosen know the badge dropdown list has been updated
 	$badge_dropdown.trigger('chosen:updated');
 })();

@@ -2,6 +2,10 @@ class Part < ApplicationRecord
   has_many :product_parts, dependent: :destroy
   has_many :products, through: :product_parts
 
+  scope :not_associated_with_this_product, -> (product) {
+    unscoped.where.not(id: product.product_parts.select(:part_id))
+  }
+
   has_attached_file :photo,
     styles: {
       large: "640x480",

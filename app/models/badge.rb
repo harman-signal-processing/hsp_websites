@@ -2,8 +2,8 @@ class Badge < ApplicationRecord
   has_many :product_badges, dependent: :destroy
   has_many :products, through: :product_badges
 
-  scope :not_associated_with_this_product, -> (product, website) {
-    unscoped.where.not(id: product.badges.pluck(:id))
+  scope :not_associated_with_this_product, -> (product) {
+    unscoped.where.not(id: product.badges.select(:id))
   }
 
   has_attached_file :image,

@@ -37,6 +37,7 @@ class Admin::ProductSiteElementsController < AdminController
   # POST /admin/product_site_elements
   # POST /admin/product_site_elements.xml
   def create
+    logger.debug ">>>>>>>>>>>>>>>>>> #{ request.content_type }, #{ request.format }, #{ request.method }"
     @called_from = params[:called_from] || "product"
     respond_to do |format|
       if @product_site_elements.present?

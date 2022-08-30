@@ -93,11 +93,11 @@ class Product < ApplicationRecord
   validates :sap_sku, format: { with: /\A[\w\-\s]*\z/, message: "only allows letters and numbers" }
 
   scope :not_associated_with_this_site_element, -> (site_element, website) {
-    website.products.where.not(id: site_element.products.pluck(:id))
+    website.products.where.not(id: site_element.products.select(:id))
   }
 
   scope :not_associated_with_this_software, -> (software, website) {
-    website.products.where.not(id: software.products.pluck(:id))
+    website.products.where.not(id: software.products.select(:id))
   }
 
   scope :not_associated_with_these_products, -> (associated_products, website) {
@@ -106,7 +106,7 @@ class Product < ApplicationRecord
   }
 
   scope :not_associated_with_this_product_family, -> (product_family, website) {
-    website.products.where.not(id: product_family.products.pluck(:id))
+    website.products.where.not(id: product_family.products.select(:id))
   }
 
   scope :not_associated_with_these_parent_products, -> (parent_products, website) {
@@ -115,15 +115,15 @@ class Product < ApplicationRecord
   }
 
   scope :not_associated_with_this_news_item, -> (news_item, website) {
-    self.where(brand_id: news_item.brands.pluck(:id)).where.not(id: news_item.products.pluck(:id))
+    self.where(brand_id: news_item.brands.select(:id)).where.not(id: news_item.products.select(:id))
   }
 
   scope :not_associated_with_this_badge, -> (badge, website) {
-    website.products.where.not(id: badge.products.pluck(:id))
+    website.products.where.not(id: badge.products.select(:id))
   }
 
   scope :not_associated_with_this_part, -> (part, website) {
-    website.products.where.not(id: part.products.pluck(:id))
+    website.products.where.not(id: part.products.select(:id))
   }
 
   def slug_candidates

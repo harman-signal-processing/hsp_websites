@@ -7,7 +7,7 @@
 	// rebuild part dropdown list
 	$part_dropdown.append($("<option></option>"));
 
-	<% part.not_associated_with_this_product(@product_part.product, website).sort_by(&:part_number).each do |part| %>
+	<% Part.not_associated_with_this_product(@product_part.product, website).each do |part| %>
 		$part_dropdown.append($("<option value='<%=part.id%>'><%=part.part_number%></option>"));
 	<% end %>
 

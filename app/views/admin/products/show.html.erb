@@ -717,7 +717,7 @@
         <div class="row collapse">
           <div class="small-8 columns">
             <%= f.association :badge, 
-            collection: Badge.not_associated_with_this_product(@product_badge.product, website),
+            collection: Badge.not_associated_with_this_product(@product_badge.product),
             label: false,
             input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Badges'} }%>
           </div>

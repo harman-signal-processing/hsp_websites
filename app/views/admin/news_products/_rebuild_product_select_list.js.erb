@@ -7,8 +7,8 @@
 	// rebuild product dropdown list
 	$products_dropdown.append($("<option></option>"));		
 
-	<% Product.not_associated_with_this_news_item(@news_product.news, website).sort_by(&:name).each do |product| %>
-		$products_dropdown.append($("<option value='<%=product.id%>'><%=product.name%></option>"));
+	<% Product.not_associated_with_this_news_item(@news_product.news, website).order('name').each do |product| %>
+		$products_dropdown.append($("<option value='<%=product.id%>'><%=escape_javascript(product.name.strip)%></option>"));
 	<% end %>
 	
 	// let chosen know the product dropdown list has been updated

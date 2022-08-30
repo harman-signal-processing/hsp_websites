@@ -3,14 +3,14 @@
 
 	// clear the software list before we rebuild it
 	$software_dropdown.empty();
-	
-	// rebuild software dropdown list
-	$software_dropdown.append($("<option></option>"));		
 
-	<% Software.not_associated_with_this_product(@product_software.product, website).sort_by(&:name).each do |software| %>
-		$software_dropdown.append($("<option value='<%=software.id%>'><%=software.formatted_name%></option>"));
-	<% end %>		
-	
+	// rebuild software dropdown list
+	$software_dropdown.append($("<option></option>"));
+
+	<% Software.not_associated_with_this_product(@product_software.product, website).order('name').each do |software| %>
+		$software_dropdown.append($("<option value='<%=software.id%>'><%= escape_javascript(software.formatted_name) %></option>"));
+	<% end %>
+
 	// let chosen know the software dropdown list has been updated
 	$software_dropdown.trigger('chosen:updated');
 })();

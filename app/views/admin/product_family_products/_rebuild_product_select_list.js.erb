@@ -3,14 +3,14 @@
 
 	// clear the product list before we rebuild it
 	$products_dropdown.empty();
-	
-	// rebuild product dropdown list
-	$products_dropdown.append($("<option></option>"));		
 
-	<% Product.not_associated_with_this_product_family(@product_family_product.product_family, website).sort_by(&:name).each do |product| %>
-		$products_dropdown.append($("<option value='<%=product.id%>'><%=h product.name%></option>"));
+	// rebuild product dropdown list
+	$products_dropdown.append($("<option></option>"));
+
+	<% Product.not_associated_with_this_product_family(@product_family_product.product_family, website).order('name').each do |product| %>
+		$products_dropdown.append($("<option value='<%=product.id%>'><%= escape_javascript(product.name.strip) %></option>"));
 	<% end %>
-	
+
 	// let chosen know the product dropdown list has been updated
 	$products_dropdown.trigger('chosen:updated');
 })();

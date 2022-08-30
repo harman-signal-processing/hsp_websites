@@ -1,12 +1,7 @@
-# The ProductFamilyProduct model is a representation of a join table. So,
-# it doesn't really make sense for its REST controller (this controller)
-# to have its own set of views. Instead, the methods in this controller
-# should be called via AJAX and return Javascript to update whatever view
-# sent the method call.
-#
 class Admin::ProductFamilyProductsController < AdminController
   before_action :initialize_product_family_product, only: :create
-  load_and_authorize_resource
+  load_and_authorize_resource except: [:update_order]
+  skip_authorization_check only: [:update_order]
 
   # GET /admin/product_family_products
   # GET /admin/product_family_products.xml
@@ -42,6 +37,7 @@ class Admin::ProductFamilyProductsController < AdminController
   # POST /admin/product_family_products
   # POST /admin/product_family_products.xml
   def create
+    logger.debug ">>>>>>>>>>>>>>>>>> #{ request.content_type }, #{ request.format }, #{ request.method }"
     @called_from = params[:called_from] || 'product'
     respond_to do |format|
 
