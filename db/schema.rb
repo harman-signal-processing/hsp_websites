@@ -10,15 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_06_13_185032) do
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.boolean "distributor"
     t.boolean "dealer"
     t.boolean "technician"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "super_technician", default: false
     t.integer "keys"
   end
@@ -26,8 +25,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
   create_table "admin_logs", id: :integer, charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.integer "user_id"
     t.text "action"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "website_id"
     t.index ["user_id"], name: "index_admin_logs_on_user_id"
     t.index ["website_id"], name: "index_admin_logs_on_website_id"
@@ -36,8 +35,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
   create_table "amx_dxlink_attribute_names", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.integer "position"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.text "note"
   end
 
@@ -45,8 +44,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "value"
     t.bigint "amx_dxlink_attribute_name_id", null: false
     t.bigint "amx_dxlink_combo_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["amx_dxlink_attribute_name_id"], name: "idx_dxlink_combo_attr_on_attr_name_id"
     t.index ["amx_dxlink_combo_id"], name: "index_amx_dxlink_combo_attributes_on_amx_dxlink_combo_id"
   end
@@ -56,8 +55,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.text "notes"
     t.bigint "tx_id", null: false
     t.bigint "rx_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["rx_id"], name: "index_amx_dxlink_combos_on_rx_id"
     t.index ["tx_id"], name: "index_amx_dxlink_combos_on_tx_id"
   end
@@ -69,8 +68,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "type_short_name"
     t.string "product_url"
     t.string "image_url"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "amx_itg_new_module_requests", charset: "utf8", force: :cascade do |t|
@@ -81,7 +80,7 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "attachment_file_name"
     t.string "attachment_content_type"
     t.bigint "attachment_file_size"
-    t.datetime "attachment_updated_at"
+    t.datetime "attachment_updated_at", precision: nil
     t.text "additional_notes"
     t.string "project_type"
     t.text "other_project_type"
@@ -104,8 +103,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "contact_email"
     t.string "direct_upload_url"
     t.boolean "processed", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "amx_partner_interest_forms", charset: "utf8", force: :cascade do |t|
@@ -123,22 +122,22 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "product_target_market_segment"
     t.string "partnership_interest"
     t.text "additional_comments"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "api_keys", id: :integer, charset: "latin1", force: :cascade do |t|
     t.string "access_token"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "description"
   end
 
   create_table "artist_brands", id: :integer, charset: "utf8", force: :cascade do |t|
     t.integer "artist_id"
     t.integer "brand_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.text "intro"
     t.index ["artist_id"], name: "index_artist_brands_on_artist_id"
     t.index ["brand_id"], name: "index_artist_brands_on_brand_id"
@@ -147,8 +146,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
   create_table "artist_products", id: :integer, charset: "utf8", force: :cascade do |t|
     t.integer "artist_id"
     t.integer "product_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.text "quote"
     t.boolean "on_tour", default: false
     t.boolean "favorite"
@@ -161,8 +160,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
   create_table "artist_tiers", id: :integer, charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.string "invitation_code"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "show_on_artist_page"
     t.integer "position"
     t.index ["invitation_code"], name: "index_artist_tiers_on_invitation_code"
@@ -174,32 +173,32 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.text "bio"
     t.string "artist_photo_file_name"
     t.string "artist_photo_content_type"
-    t.datetime "artist_photo_updated_at"
+    t.datetime "artist_photo_updated_at", precision: nil
     t.integer "artist_photo_file_size"
     t.string "website"
     t.string "twitter"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "cached_slug"
     t.boolean "featured", default: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", limit: 128, default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
     t.integer "sign_in_count", default: 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
+    t.datetime "confirmed_at", precision: nil
+    t.datetime "confirmation_sent_at", precision: nil
     t.string "artist_product_photo_file_name"
     t.integer "artist_product_photo_file_size"
     t.string "artist_product_photo_content_type"
-    t.datetime "artist_product_photo_updated_at"
+    t.datetime "artist_product_photo_updated_at", precision: nil
     t.string "invitation_code"
     t.integer "artist_tier_id"
     t.string "main_instrument"
@@ -219,15 +218,15 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "wet_demo_file_name"
     t.integer "wet_demo_file_size"
     t.string "wet_demo_content_type"
-    t.datetime "wet_demo_updated_at"
+    t.datetime "wet_demo_updated_at", precision: nil
     t.string "dry_demo_file_name"
     t.integer "dry_demo_file_size"
     t.string "dry_demo_content_type"
-    t.datetime "dry_demo_updated_at"
+    t.datetime "dry_demo_updated_at", precision: nil
     t.integer "duration_in_seconds"
     t.integer "brand_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["brand_id"], name: "index_audio_demos_on_brand_id"
   end
 
@@ -236,24 +235,24 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "image_file_name"
     t.string "image_content_type"
     t.integer "image_file_size"
-    t.datetime "image_updated_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "image_updated_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "brand_dealer_rental_products", charset: "utf8", force: :cascade do |t|
     t.bigint "brand_dealer_id"
     t.bigint "product_id"
     t.integer "position"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "brand_dealers", id: :integer, charset: "latin1", force: :cascade do |t|
     t.integer "brand_id"
     t.integer "dealer_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["brand_id"], name: "index_brand_dealers_on_brand_id"
     t.index ["dealer_id"], name: "index_brand_dealers_on_dealer_id"
   end
@@ -261,8 +260,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
   create_table "brand_distributors", id: :integer, charset: "utf8", force: :cascade do |t|
     t.integer "distributor_id"
     t.integer "brand_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["brand_id"], name: "index_brand_distributors_on_brand_id"
     t.index ["distributor_id"], name: "index_brand_distributors_on_distributor_id"
   end
@@ -270,8 +269,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
   create_table "brand_news", charset: "utf8", force: :cascade do |t|
     t.integer "brand_id"
     t.integer "news_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["brand_id"], name: "index_brand_news_on_brand_id"
     t.index ["news_id"], name: "index_brand_news_on_news_id"
   end
@@ -285,10 +284,10 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.text "description"
     t.string "image_file_name"
     t.string "image_content_type"
-    t.datetime "image_updated_at"
+    t.datetime "image_updated_at", precision: nil
     t.integer "image_file_size"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "position"
     t.index ["brand_id"], name: "index_brand_solution_featured_products_on_brand_id"
     t.index ["solution_id"], name: "index_brand_solution_featured_products_on_solution_id"
@@ -297,8 +296,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
   create_table "brand_solutions", id: :integer, charset: "utf8", force: :cascade do |t|
     t.integer "brand_id"
     t.integer "solution_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["brand_id"], name: "index_brand_solutions_on_brand_id"
     t.index ["solution_id"], name: "index_brand_solutions_on_solution_id"
   end
@@ -307,16 +306,16 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "brand_id"
     t.integer "specification_id"
     t.integer "position"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["brand_id"], name: "index_brand_specification_for_comparisons_on_brand_id"
     t.index ["specification_id"], name: "index_brand_specification_for_comparisons_on_specification_id"
   end
 
   create_table "brands", id: :integer, charset: "utf8", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "cached_slug"
     t.integer "default_website_id"
     t.boolean "has_effects", default: false
@@ -334,7 +333,7 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "distributors_from_brand_id"
     t.string "logo_file_name"
     t.string "logo_content_type"
-    t.datetime "logo_updated_at"
+    t.datetime "logo_updated_at", precision: nil
     t.integer "logo_file_size"
     t.string "news_feed_url"
     t.boolean "has_market_segments"
@@ -384,8 +383,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "email"
     t.string "subject"
     t.text "message"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "product"
     t.string "operating_system"
     t.string "message_type"
@@ -418,8 +417,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "content_method"
     t.string "locale"
     t.text "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["content_id"], name: "index_content_translations_on_content_id"
     t.index ["content_method"], name: "index_content_translations_on_content_method"
     t.index ["content_type", "content_id"], name: "index_content_translations_on_content_type_and_content_id"
@@ -431,15 +430,15 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "product_family_id"
     t.string "locale"
     t.integer "current_products_plus_child_products_count"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["product_family_id"], name: "index_current_product_counts_on_product_family_id"
   end
 
   create_table "custom_shop_carts", charset: "utf8", force: :cascade do |t|
     t.string "uuid"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["uuid"], name: "index_custom_shop_carts_on_uuid"
   end
 
@@ -447,8 +446,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "custom_shop_line_item_id"
     t.integer "customizable_attribute_id"
     t.string "value"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "custom_value"
   end
 
@@ -457,8 +456,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "custom_shop_cart_id"
     t.integer "product_id"
     t.integer "quantity"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "price_cents"
     t.string "model"
     t.index ["custom_shop_cart_id"], name: "index_custom_shop_line_items_on_custom_shop_cart_id"
@@ -474,8 +473,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "location"
     t.text "description"
     t.date "request_delivery_on"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "custom_shop_cart_id"
     t.string "status"
     t.index ["custom_shop_cart_id"], name: "index_custom_shop_price_requests_on_custom_shop_cart_id"
@@ -486,24 +485,24 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "customizable_attribute_id"
     t.integer "product_id"
     t.string "value"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "comment"
     t.string "code"
   end
 
   create_table "customizable_attributes", charset: "utf8", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "comment"
   end
 
   create_table "dealer_users", id: :integer, charset: "latin1", force: :cascade do |t|
     t.integer "dealer_id"
     t.integer "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["dealer_id"], name: "index_dealer_users_on_dealer_id"
     t.index ["user_id"], name: "index_dealer_users_on_user_id"
   end
@@ -523,8 +522,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "account_number"
     t.decimal "lat", precision: 15, scale: 10
     t.decimal "lng", precision: 15, scale: 10
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "exclude"
     t.boolean "skip_sync_from_sap"
     t.string "website"
@@ -550,12 +549,12 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "attempts", default: 0
     t.text "handler"
     t.text "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
+    t.datetime "run_at", precision: nil
+    t.datetime "locked_at", precision: nil
+    t.datetime "failed_at", precision: nil
     t.string "locked_by"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "queue"
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
@@ -567,17 +566,17 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "mp3_file_name"
     t.integer "mp3_file_size"
     t.string "mp3_content_type"
-    t.datetime "mp3_updated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "mp3_updated_at", precision: nil
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["product_attachment_id"], name: "index_demo_songs_on_product_attachment_id"
   end
 
   create_table "distributor_users", id: :integer, charset: "latin1", force: :cascade do |t|
     t.integer "distributor_id"
     t.integer "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["distributor_id"], name: "index_distributor_users_on_distributor_id"
     t.index ["user_id"], name: "index_distributor_users_on_user_id"
   end
@@ -585,8 +584,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
   create_table "distributors", id: :integer, charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.text "detail"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "country"
     t.string "email"
     t.string "account_number"
@@ -603,8 +602,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "serial_number"
     t.integer "download_count"
     t.string "download_code"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "subscribe"
     t.string "product"
     t.string "employee_number"
@@ -613,15 +612,15 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "receipt_file_name"
     t.integer "receipt_file_size"
     t.string "receipt_content_type"
-    t.datetime "receipt_updated_at"
+    t.datetime "receipt_updated_at", precision: nil
     t.string "country"
   end
 
   create_table "effect_types", id: :integer, charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "effects", id: :integer, charset: "utf8", force: :cascade do |t|
@@ -630,9 +629,9 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "effect_image_file_name"
     t.integer "effect_image_file_size"
     t.string "effect_image_content_type"
-    t.datetime "effect_image_updated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "effect_image_updated_at", precision: nil
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "effect_type_id"
     t.string "cached_slug"
     t.index ["cached_slug"], name: "index_effects_on_cached_slug"
@@ -649,13 +648,13 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "image_file_name"
     t.string "image_content_type"
     t.integer "image_file_size"
-    t.datetime "image_updated_at"
+    t.datetime "image_updated_at", precision: nil
     t.boolean "active", default: false
     t.string "more_info_link"
     t.boolean "new_window"
     t.integer "brand_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["brand_id"], name: "index_events_on_brand_id"
     t.index ["cached_slug"], name: "index_events_on_cached_slug", unique: true
   end
@@ -663,16 +662,16 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
   create_table "faq_categories", id: :integer, charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.integer "brand_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["brand_id"], name: "index_faq_categories_on_brand_id"
   end
 
   create_table "faq_category_faqs", id: :integer, charset: "utf8", force: :cascade do |t|
     t.integer "faq_category_id"
     t.integer "faq_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["faq_category_id"], name: "index_faq_category_faqs_on_faq_category_id"
     t.index ["faq_id"], name: "index_faq_category_faqs_on_faq_id"
   end
@@ -682,8 +681,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.text "question"
     t.text "answer"
     t.boolean "hidden"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["product_id"], name: "index_faqs_on_product_id"
   end
 
@@ -697,10 +696,10 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.text "content"
     t.string "image_file_name"
     t.string "image_content_type"
-    t.datetime "image_updated_at"
+    t.datetime "image_updated_at", precision: nil
     t.integer "image_file_size"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "use_as_banner_slide", default: false
     t.boolean "show_below_products", default: false
     t.boolean "show_below_videos", default: false
@@ -722,9 +721,9 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "attachment_file_name"
     t.string "attachment_content_type"
     t.integer "attachment_file_size"
-    t.datetime "attachment_updated_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "attachment_updated_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "friendly_id_slugs", id: :integer, charset: "utf8", force: :cascade do |t|
@@ -732,7 +731,7 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "sluggable_id"
     t.string "sluggable_type", limit: 40
     t.string "scope"
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
@@ -742,8 +741,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
   create_table "get_started_page_products", id: :integer, charset: "utf8", force: :cascade do |t|
     t.integer "get_started_page_id"
     t.integer "product_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["get_started_page_id"], name: "index_get_started_page_products_on_get_started_page_id"
     t.index ["product_id"], name: "index_get_started_page_products_on_product_id"
   end
@@ -753,13 +752,13 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "header_image_file_name"
     t.string "header_image_content_type"
     t.integer "header_image_file_size"
-    t.datetime "header_image_updated_at"
+    t.datetime "header_image_updated_at", precision: nil
     t.text "intro"
     t.text "details"
     t.integer "brand_id"
     t.string "cached_slug"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "require_registration_to_unlock_panels", default: true
     t.index ["brand_id"], name: "index_get_started_pages_on_brand_id"
     t.index ["cached_slug"], name: "index_get_started_pages_on_cached_slug", unique: true
@@ -771,8 +770,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.boolean "locked_until_registration", default: true
     t.string "name"
     t.text "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "installations", id: :integer, charset: "utf8", force: :cascade do |t|
@@ -785,13 +784,13 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "cached_slug"
     t.text "custom_css"
     t.string "layout_class"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.text "summary"
     t.string "thumbnail_file_name"
     t.string "thumbnail_content_type"
     t.integer "thumbnail_file_size"
-    t.datetime "thumbnail_updated_at"
+    t.datetime "thumbnail_updated_at", precision: nil
     t.index ["brand_id"], name: "index_installations_on_brand_id"
   end
 
@@ -811,8 +810,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.boolean "approved", default: false
     t.string "approved_by"
     t.integer "dealer_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "leads", charset: "utf8", force: :cascade do |t|
@@ -826,22 +825,22 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "state"
     t.string "country"
     t.boolean "subscribe", default: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "locale_product_families", id: :integer, charset: "utf8", force: :cascade do |t|
     t.string "locale"
     t.integer "product_family_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "locale_softwares", charset: "utf8", force: :cascade do |t|
     t.string "locale"
     t.integer "software_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["software_id"], name: "index_locale_softwares_on_software_id"
   end
 
@@ -857,20 +856,20 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "market_segment_id"
     t.integer "product_family_id"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "market_segments", id: :integer, charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.integer "brand_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "cached_slug"
     t.string "banner_image_file_name"
     t.string "banner_image_content_type"
     t.integer "banner_image_file_size"
-    t.datetime "banner_image_updated_at"
+    t.datetime "banner_image_updated_at", precision: nil
     t.integer "parent_id"
     t.integer "position"
     t.text "description"
@@ -885,10 +884,10 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.text "keywords"
     t.string "news_photo_file_name"
     t.integer "news_photo_file_size"
-    t.datetime "news_photo_updated_at"
+    t.datetime "news_photo_updated_at", precision: nil
     t.string "news_photo_content_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "cached_slug"
     t.text "quote"
     t.string "video_ids"
@@ -904,17 +903,17 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "image_file_name"
     t.string "image_content_type"
     t.integer "image_file_size"
-    t.datetime "image_updated_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "image_updated_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["news_id"], name: "index_news_images_on_news_id"
   end
 
   create_table "news_products", id: :integer, charset: "utf8", force: :cascade do |t|
     t.integer "product_id"
     t.integer "news_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["news_id"], name: "index_news_products_on_news_id"
     t.index ["product_id"], name: "index_news_products_on_product_id"
   end
@@ -924,9 +923,9 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "brand_id"
     t.integer "online_retailer_id"
     t.string "url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "link_checked_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.datetime "link_checked_at", precision: nil
     t.string "link_status", default: "200"
     t.integer "position"
     t.index ["brand_id"], name: "index_online_retailer_links_on_brand_id"
@@ -939,8 +938,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
   create_table "online_retailer_users", id: :integer, charset: "utf8", force: :cascade do |t|
     t.integer "online_retailer_id"
     t.integer "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["online_retailer_id"], name: "index_online_retailer_users_on_online_retailer_id"
     t.index ["user_id"], name: "index_online_retailer_users_on_user_id"
   end
@@ -950,10 +949,10 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "retailer_logo_file_name"
     t.integer "retailer_logo_file_size"
     t.string "retailer_logo_content_type"
-    t.datetime "retailer_logo_updated_at"
+    t.datetime "retailer_logo_updated_at", precision: nil
     t.boolean "active", default: true
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "cached_slug"
     t.string "direct_link"
     t.integer "preferred"
@@ -964,8 +963,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "name"
     t.string "version"
     t.string "arch"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "pages", id: :integer, charset: "utf8", force: :cascade do |t|
@@ -974,8 +973,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.text "description"
     t.text "body", size: :medium
     t.string "custom_route"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "cached_slug"
     t.integer "brand_id"
     t.string "password"
@@ -992,8 +991,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "parent_product_id"
     t.integer "product_id"
     t.integer "position"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["parent_product_id"], name: "index_parent_products_on_parent_product_id"
     t.index ["product_id"], name: "index_parent_products_on_product_id"
   end
@@ -1004,9 +1003,9 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "photo_file_name"
     t.integer "photo_file_size"
     t.string "photo_content_type"
-    t.datetime "photo_updated_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "photo_updated_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "parent_id"
     t.index ["parent_id"], name: "index_parts_on_parent_id"
   end
@@ -1016,8 +1015,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "brand_id"
     t.integer "pricelist_order"
     t.string "calculation_method"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "us"
     t.boolean "intl"
     t.index ["brand_id"], name: "index_pricing_types_on_brand_id"
@@ -1026,8 +1025,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
   create_table "product_accessories", charset: "utf8", force: :cascade do |t|
     t.integer "product_id"
     t.integer "accessory_product_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["accessory_product_id"], name: "index_product_accessories_on_accessory_product_id"
     t.index ["product_id"], name: "index_product_accessories_on_product_id"
   end
@@ -1037,19 +1036,19 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.boolean "primary_photo", default: false
     t.string "product_attachment_file_name"
     t.string "product_attachment_content_type"
-    t.datetime "product_attachment_updated_at"
+    t.datetime "product_attachment_updated_at", precision: nil
     t.integer "product_attachment_file_size"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "product_media_file_name"
     t.string "product_media_content_type"
     t.integer "product_media_file_size"
-    t.datetime "product_media_updated_at"
+    t.datetime "product_media_updated_at", precision: nil
     t.string "product_media_thumb_file_name"
     t.string "product_media_thumb_content_type"
     t.integer "product_media_thumb_file_size"
-    t.datetime "product_media_thumb_updated_at"
+    t.datetime "product_media_thumb_updated_at", precision: nil
     t.bigint "width"
     t.bigint "height"
     t.string "songlist_tag"
@@ -1065,8 +1064,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
   create_table "product_audio_demos", id: :integer, charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.integer "audio_demo_id"
     t.integer "product_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["audio_demo_id"], name: "index_product_audio_demos_on_audio_demo_id"
     t.index ["product_id"], name: "index_product_audio_demos_on_product_id"
   end
@@ -1074,8 +1073,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
   create_table "product_badges", charset: "utf8", force: :cascade do |t|
     t.integer "badge_id"
     t.integer "product_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["badge_id"], name: "index_product_badges_on_badge_id"
     t.index ["product_id"], name: "index_product_badges_on_product_id"
   end
@@ -1084,8 +1083,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "product_id"
     t.string "case_study_slug"
     t.integer "position"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["case_study_slug"], name: "index_product_case_studies_on_case_study_slug"
     t.index ["product_id"], name: "index_product_case_studies_on_product_id"
   end
@@ -1095,8 +1094,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "content_name"
     t.text "content_part1"
     t.text "content_part2"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["content_name"], name: "index_product_descriptions_on_content_name"
     t.index ["product_id"], name: "index_product_descriptions_on_product_id"
   end
@@ -1107,17 +1106,17 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "document_type"
     t.string "document_file_name"
     t.integer "document_file_size"
-    t.datetime "document_updated_at"
+    t.datetime "document_updated_at", precision: nil
     t.string "document_content_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "cached_slug"
     t.string "name_override"
     t.integer "position"
     t.string "direct_upload_url"
     t.boolean "processed", default: false
     t.boolean "show_on_public_site", default: true
-    t.datetime "link_checked_at"
+    t.datetime "link_checked_at", precision: nil
     t.string "link_status"
     t.index ["cached_slug"], name: "index_product_documents_on_cached_slug", unique: true
     t.index ["product_id"], name: "index_product_documents_on_product_id"
@@ -1126,8 +1125,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
   create_table "product_effects", id: :integer, charset: "utf8", force: :cascade do |t|
     t.integer "product_id"
     t.integer "effect_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["effect_id"], name: "index_product_effects_on_effect_id"
     t.index ["product_id"], name: "index_product_effects_on_product_id"
   end
@@ -1136,31 +1135,31 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "name"
     t.string "family_photo_file_name"
     t.string "family_photo_content_type"
-    t.datetime "family_photo_updated_at"
+    t.datetime "family_photo_updated_at", precision: nil
     t.integer "family_photo_file_size"
     t.text "intro"
     t.integer "brand_id"
     t.text "keywords"
     t.integer "position"
     t.integer "parent_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "hide_from_navigation", default: false
     t.string "cached_slug"
     t.string "background_image_file_name"
     t.integer "background_image_file_size"
     t.string "background_image_content_type"
-    t.datetime "background_image_updated_at"
+    t.datetime "background_image_updated_at", precision: nil
     t.string "background_color"
     t.string "layout_class"
     t.string "family_banner_file_name"
     t.string "family_banner_content_type"
     t.integer "family_banner_file_size"
-    t.datetime "family_banner_updated_at"
+    t.datetime "family_banner_updated_at", precision: nil
     t.string "title_banner_file_name"
     t.string "title_banner_content_type"
     t.integer "title_banner_file_size"
-    t.datetime "title_banner_updated_at"
+    t.datetime "title_banner_updated_at", precision: nil
     t.text "post_content"
     t.text "short_description"
     t.string "preview_password"
@@ -1187,24 +1186,24 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "product_family_id"
     t.string "case_study_id"
     t.integer "position"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["product_family_id"], name: "index_product_family_case_studies_on_product_family_id"
   end
 
   create_table "product_family_customizable_attributes", charset: "utf8", force: :cascade do |t|
     t.integer "product_family_id"
     t.integer "customizable_attribute_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "product_family_product_filters", charset: "utf8", force: :cascade do |t|
     t.integer "product_family_id"
     t.integer "product_filter_id"
     t.integer "position"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["product_family_id"], name: "index_product_family_product_filters_on_product_family_id"
     t.index ["product_filter_id"], name: "index_product_family_product_filters_on_product_filter_id"
   end
@@ -1213,8 +1212,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "product_id"
     t.integer "product_family_id"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["product_family_id"], name: "index_product_family_products_on_product_family_id"
     t.index ["product_id"], name: "index_product_family_products_on_product_id"
   end
@@ -1223,8 +1222,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "product_family_id"
     t.integer "testimonial_id"
     t.integer "position"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["product_family_id"], name: "index_product_family_testimonials_on_product_family_id"
     t.index ["testimonial_id"], name: "index_product_family_testimonials_on_testimonial_id"
   end
@@ -1233,8 +1232,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "product_family_id"
     t.string "youtube_id"
     t.integer "position"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["product_family_id"], name: "index_product_family_videos_on_product_family_id"
   end
 
@@ -1244,8 +1243,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "min_value"
     t.string "max_value"
     t.string "uom"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "secondary_uom"
     t.string "secondary_uom_formula"
     t.integer "stepsize", default: 1
@@ -1257,28 +1256,28 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.date "expires_on"
     t.text "content"
     t.text "extra_css"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "top_image_file_name"
     t.integer "top_image_file_size"
     t.string "top_image_content_type"
-    t.datetime "top_image_updated_at"
+    t.datetime "top_image_updated_at", precision: nil
     t.string "box_bg_image_file_name"
     t.integer "box_bg_image_file_size"
     t.string "box_bg_image_content_type"
-    t.datetime "box_bg_image_updated_at"
+    t.datetime "box_bg_image_updated_at", precision: nil
     t.string "page_bg_image_file_name"
     t.integer "page_bg_image_file_size"
     t.string "page_bg_image_content_type"
-    t.datetime "page_bg_image_updated_at"
+    t.datetime "page_bg_image_updated_at", precision: nil
     t.index ["product_id"], name: "index_product_introductions_on_product_id"
   end
 
   create_table "product_part_group_parts", charset: "utf8", force: :cascade do |t|
     t.integer "product_part_group_id"
     t.integer "part_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["part_id"], name: "index_product_part_group_parts_on_part_id"
     t.index ["product_part_group_id"], name: "index_product_part_group_parts_on_product_part_group_id"
   end
@@ -1287,8 +1286,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "product_id"
     t.string "name"
     t.integer "parent_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["parent_id"], name: "index_product_part_groups_on_parent_id"
     t.index ["product_id"], name: "index_product_part_groups_on_product_id"
   end
@@ -1296,8 +1295,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
   create_table "product_parts", charset: "utf8", force: :cascade do |t|
     t.integer "product_id"
     t.integer "part_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "parent_part_id"
     t.integer "parent_id"
     t.index ["parent_id"], name: "index_product_parts_on_parent_id"
@@ -1311,8 +1310,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "pricing_type_id"
     t.integer "price_cents", default: 0, null: false
     t.string "price_currency", default: "USD", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["pricing_type_id"], name: "index_product_prices_on_pricing_type_id"
     t.index ["product_id"], name: "index_product_prices_on_product_id"
   end
@@ -1323,8 +1322,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "string_value"
     t.boolean "boolean_value"
     t.float "number_value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["product_filter_id"], name: "index_product_product_filter_values_on_product_filter_id"
     t.index ["product_id"], name: "index_product_product_filter_values_on_product_id"
   end
@@ -1332,8 +1331,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
   create_table "product_promotions", id: :integer, charset: "utf8", force: :cascade do |t|
     t.integer "product_id"
     t.integer "promotion_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.float "discount"
     t.string "discount_type"
     t.index ["product_id"], name: "index_product_promotions_on_product_id"
@@ -1343,8 +1342,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
   create_table "product_review_products", id: :integer, charset: "utf8", force: :cascade do |t|
     t.integer "product_id"
     t.integer "product_review_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["product_id"], name: "index_product_review_products_on_product_id"
     t.index ["product_review_id"], name: "index_product_review_products_on_product_review_id"
   end
@@ -1356,24 +1355,24 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "review_file_name"
     t.integer "review_file_size"
     t.string "review_content_type"
-    t.datetime "review_updated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "review_updated_at", precision: nil
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "cached_slug"
-    t.datetime "link_checked_at"
+    t.datetime "link_checked_at", precision: nil
     t.string "link_status", default: "200"
     t.string "cover_image_file_name"
     t.string "cover_image_content_type"
     t.integer "cover_image_file_size"
-    t.datetime "cover_image_updated_at"
+    t.datetime "cover_image_updated_at", precision: nil
     t.index ["cached_slug"], name: "index_product_reviews_on_cached_slug", unique: true
   end
 
   create_table "product_site_elements", id: :integer, charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.integer "product_id"
     t.integer "site_element_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "position"
     t.index ["product_id"], name: "index_product_site_elements_on_product_id"
     t.index ["site_element_id"], name: "index_product_site_elements_on_site_element_id"
@@ -1382,8 +1381,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
   create_table "product_softwares", id: :integer, charset: "utf8", force: :cascade do |t|
     t.integer "product_id"
     t.integer "software_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "product_position"
     t.integer "software_position"
     t.index ["product_id"], name: "index_product_softwares_on_product_id"
@@ -1393,8 +1392,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
   create_table "product_solutions", id: :integer, charset: "utf8", force: :cascade do |t|
     t.integer "product_id"
     t.integer "solution_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["product_id"], name: "index_product_solutions_on_product_id"
     t.index ["solution_id"], name: "index_product_solutions_on_solution_id"
   end
@@ -1404,8 +1403,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "specification_id"
     t.text "value"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["product_id"], name: "index_product_specifications_on_product_id"
     t.index ["specification_id"], name: "index_product_specifications_on_specification_id"
   end
@@ -1414,8 +1413,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "name"
     t.boolean "show_on_website", default: false
     t.boolean "discontinued", default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "shipping", default: false
     t.boolean "eol", default: false
     t.integer "position"
@@ -1425,23 +1424,23 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "product_id"
     t.integer "suggested_product_id"
     t.integer "position"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "product_training_classes", id: :integer, charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.integer "product_id"
     t.integer "training_class_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "product_training_modules", id: :integer, charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.integer "product_id"
     t.integer "training_module_id"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "product_videos", id: :integer, charset: "utf8", force: :cascade do |t|
@@ -1449,8 +1448,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "youtube_id"
     t.string "group"
     t.integer "position"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["product_id"], name: "index_product_videos_on_product_id"
   end
 
@@ -1461,13 +1460,13 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.text "keywords"
     t.integer "product_status_id"
     t.boolean "rohs", default: true
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "cached_slug"
     t.string "background_image_file_name"
     t.integer "background_image_file_size"
     t.string "background_image_content_type"
-    t.datetime "background_image_updated_at"
+    t.datetime "background_image_updated_at", precision: nil
     t.string "background_color"
     t.string "password"
     t.text "previewers"
@@ -1528,15 +1527,15 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.text "description"
     t.string "promo_form_file_name"
     t.integer "promo_form_file_size"
-    t.datetime "promo_form_updated_at"
+    t.datetime "promo_form_updated_at", precision: nil
     t.string "promo_form_content_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "cached_slug"
     t.string "tile_file_name"
     t.integer "tile_file_size"
     t.string "tile_content_type"
-    t.datetime "tile_updated_at"
+    t.datetime "tile_updated_at", precision: nil
     t.string "post_registration_subject"
     t.text "post_registration_message"
     t.boolean "send_post_registration_message", default: false
@@ -1545,7 +1544,7 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "homepage_banner_file_name"
     t.string "homepage_banner_content_type"
     t.integer "homepage_banner_file_size"
-    t.datetime "homepage_banner_updated_at"
+    t.datetime "homepage_banner_updated_at", precision: nil
     t.string "homepage_headline"
     t.text "homepage_text"
     t.float "discount"
@@ -1562,7 +1561,7 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "protected_software_file_name"
     t.integer "protected_software_file_size"
     t.string "protected_software_content_type"
-    t.datetime "protected_software_updated_at"
+    t.datetime "protected_software_updated_at", precision: nil
     t.integer "download_count"
     t.text "html_template"
     t.text "intro_page_content"
@@ -1572,8 +1571,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "url"
     t.string "valid_code"
     t.integer "per_download_limit"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "from_email"
     t.string "subject"
     t.boolean "require_serial_number"
@@ -1592,8 +1591,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
   create_table "sales_region_countries", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.integer "sales_region_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["sales_region_id"], name: "index_sales_region_countries_on_sales_region_id"
   end
 
@@ -1601,8 +1600,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "name"
     t.integer "brand_id"
     t.string "support_email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["brand_id"], name: "index_sales_regions_on_brand_id"
   end
 
@@ -1614,11 +1613,11 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "new_string_value"
     t.text "new_text_value"
     t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.boolean "new_boolean_value"
     t.date "new_date_value"
-    t.datetime "new_datetime_value"
+    t.datetime "new_datetime_value", precision: nil
     t.index ["scheduled_task_id"], name: "index_scheduled_task_actions_on_scheduled_task_id"
   end
 
@@ -1626,19 +1625,19 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "scheduled_task_id"
     t.integer "scheduled_task_action_id"
     t.text "description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["scheduled_task_action_id"], name: "index_scheduled_task_logs_on_scheduled_task_action_id"
     t.index ["scheduled_task_id"], name: "index_scheduled_task_logs_on_scheduled_task_id"
   end
 
   create_table "scheduled_tasks", charset: "utf8", force: :cascade do |t|
-    t.datetime "perform_at"
+    t.datetime "perform_at", precision: nil
     t.string "schedulable_type"
     t.bigint "schedulable_id"
     t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["schedulable_type", "schedulable_id"], name: "index_scheduled_tasks_on_schedulable"
   end
 
@@ -1658,8 +1657,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "website", limit: 100
     t.decimal "lat", precision: 15, scale: 10
     t.decimal "lng", precision: 15, scale: 10
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "brand_id"
     t.boolean "vintage"
     t.index ["brand_id"], name: "index_service_centers_on_brand_id"
@@ -1676,9 +1675,9 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "locale"
     t.integer "brand_id"
     t.string "slide_content_type"
-    t.datetime "slide_updated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "slide_updated_at", precision: nil
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.date "start_on"
     t.date "remove_on"
     t.text "description"
@@ -1692,8 +1691,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "email"
     t.string "campaign"
     t.integer "brand_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.date "synced_on"
     t.string "first_name"
     t.string "last_name"
@@ -1711,9 +1710,9 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "attachment_file_name"
     t.string "attachment_content_type"
     t.integer "attachment_file_size"
-    t.datetime "attachment_updated_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "attachment_updated_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["site_element_id"], name: "index_site_element_attachments_on_site_element_id"
   end
 
@@ -1723,15 +1722,15 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "resource_file_name"
     t.integer "resource_file_size"
     t.string "resource_content_type"
-    t.datetime "resource_updated_at"
+    t.datetime "resource_updated_at", precision: nil
     t.string "resource_type"
     t.boolean "show_on_public_site"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "executable_file_name"
     t.string "executable_content_type"
     t.integer "executable_file_size"
-    t.datetime "executable_updated_at"
+    t.datetime "executable_updated_at", precision: nil
     t.string "cached_slug"
     t.string "external_url"
     t.boolean "is_document"
@@ -1743,7 +1742,7 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "access_level_id"
     t.text "content"
     t.string "source"
-    t.datetime "link_checked_at"
+    t.datetime "link_checked_at", precision: nil
     t.string "link_status"
     t.index ["access_level_id"], name: "index_site_elements_on_access_level_id"
     t.index ["brand_id"], name: "index_site_elements_on_brand_id"
@@ -1754,8 +1753,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "software_id"
     t.string "challenge"
     t.string "activation_key"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "software_attachments", id: :integer, charset: "utf8", force: :cascade do |t|
@@ -1763,17 +1762,17 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "software_attachment_file_name"
     t.integer "software_attachment_file_size"
     t.string "software_attachment_content_type"
-    t.datetime "software_attachment_updated_at"
+    t.datetime "software_attachment_updated_at", precision: nil
     t.string "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "software_operating_systems", id: :integer, charset: "latin1", force: :cascade do |t|
     t.integer "software_id"
     t.integer "operating_system_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["operating_system_id"], name: "index_software_operating_systems_on_operating_system_id"
     t.index ["software_id"], name: "index_software_operating_systems_on_software_id"
   end
@@ -1781,8 +1780,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
   create_table "software_report_subscriptions", charset: "utf8", force: :cascade do |t|
     t.integer "software_report_id"
     t.integer "user_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["software_report_id"], name: "index_software_report_subscriptions_on_software_report_id"
     t.index ["user_id"], name: "index_software_report_subscriptions_on_user_id"
   end
@@ -1791,23 +1790,23 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "software_id"
     t.integer "previous_count"
     t.date "previous_count_on"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "software_training_classes", id: :integer, charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.integer "software_id"
     t.integer "training_class_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "software_training_modules", id: :integer, charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.integer "software_id"
     t.integer "training_module_id"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "softwares", id: :integer, charset: "utf8", force: :cascade do |t|
@@ -1815,21 +1814,21 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "ware_file_name"
     t.integer "ware_file_size"
     t.string "ware_content_type"
-    t.datetime "ware_updated_at"
+    t.datetime "ware_updated_at", precision: nil
     t.integer "download_count"
     t.string "version"
     t.text "description"
     t.string "platform"
     t.boolean "active"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "category"
     t.string "cached_slug"
     t.integer "brand_id"
     t.string "link"
     t.text "multipliers"
     t.string "activation_name"
-    t.datetime "link_checked_at"
+    t.datetime "link_checked_at", precision: nil
     t.string "link_status", default: "200"
     t.string "layout_class"
     t.integer "current_version_id"
@@ -1848,8 +1847,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "name"
     t.string "cached_slug"
     t.string "vertical_market_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.text "content"
     t.string "product_header"
     t.index ["cached_slug"], name: "index_solutions_on_cached_slug", unique: true
@@ -1858,14 +1857,14 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
   create_table "specification_groups", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.integer "position"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "specifications", id: :integer, charset: "utf8", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "cached_slug"
     t.integer "specification_group_id"
     t.integer "position"
@@ -1878,8 +1877,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "name"
     t.string "recipient"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "locale"
     t.index ["brand_id"], name: "index_support_subjects_on_brand_id"
     t.index ["locale"], name: "index_support_subjects_on_locale"
@@ -1890,8 +1889,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "system_id"
     t.integer "product_id"
     t.text "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["system_id"], name: "index_system_components_on_system_id"
   end
 
@@ -1899,16 +1898,16 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "system_configuration_id"
     t.integer "system_component_id"
     t.integer "quantity"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["system_configuration_id"], name: "index_system_configuration_components_on_system_configuration_id"
   end
 
   create_table "system_configuration_option_values", id: :integer, charset: "utf8", force: :cascade do |t|
     t.integer "system_configuration_option_id"
     t.integer "system_option_value_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["system_configuration_option_id"], name: "s_c_o_v_s_c_o_id"
   end
 
@@ -1917,8 +1916,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "system_option_id"
     t.integer "system_option_value_id"
     t.string "direct_value"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["system_configuration_id"], name: "index_system_configuration_options_on_system_configuration_id"
   end
 
@@ -1926,8 +1925,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "system_id"
     t.string "name"
     t.integer "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "project_name"
     t.string "email"
     t.string "phone"
@@ -1944,8 +1943,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.boolean "default", default: false
     t.integer "price_cents", default: 0, null: false
     t.string "price_currency", default: "USD", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "send_mail_to"
     t.index ["system_option_id"], name: "index_system_option_values_on_system_option_id"
   end
@@ -1957,8 +1956,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "position"
     t.integer "parent_id"
     t.text "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.text "long_description"
     t.string "default_value"
     t.boolean "show_on_first_screen", default: false
@@ -1972,8 +1971,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "system_option_id"
     t.integer "system_option_value_id"
     t.text "alert"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "system_component_id"
     t.integer "quantity"
     t.string "ratio"
@@ -1983,8 +1982,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
   create_table "system_rule_condition_groups", id: :integer, charset: "utf8", force: :cascade do |t|
     t.integer "system_rule_id"
     t.string "logic_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["system_rule_id"], name: "index_system_rule_condition_groups_on_system_rule_id"
   end
 
@@ -1995,15 +1994,15 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "system_option_value_id"
     t.string "direct_value"
     t.string "logic_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["system_rule_condition_group_id"], name: "index_system_rule_conditions_on_system_rule_condition_group_id"
   end
 
   create_table "system_rules", id: :integer, charset: "utf8", force: :cascade do |t|
     t.integer "system_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "enabled", default: true
     t.boolean "perform_opposite", default: true
     t.index ["system_id"], name: "index_system_rules_on_system_id"
@@ -2013,8 +2012,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "name"
     t.integer "brand_id"
     t.text "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "send_mail_to"
     t.text "contact_me_intro"
     t.index ["brand_id"], name: "index_systems_on_brand_id"
@@ -2027,7 +2026,7 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "tagger_type"
     t.integer "tagger_id"
     t.string "context", limit: 128
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.index ["context"], name: "index_taggings_on_context"
     t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
     t.index ["tag_id"], name: "index_taggings_on_tag_id"
@@ -2054,17 +2053,17 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "banner_file_name"
     t.string "banner_content_type"
     t.integer "banner_file_size"
-    t.datetime "banner_updated_at"
+    t.datetime "banner_updated_at", precision: nil
     t.string "image_file_name"
     t.string "image_content_type"
     t.integer "image_file_size"
-    t.datetime "image_updated_at"
+    t.datetime "image_updated_at", precision: nil
     t.string "attachment_file_name"
     t.string "attachment_content_type"
     t.integer "attachment_file_size"
-    t.datetime "attachment_updated_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "attachment_updated_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "cached_slug"
     t.index ["brand_id"], name: "index_testimonials_on_brand_id"
     t.index ["cached_slug"], name: "index_testimonials_on_cached_slug"
@@ -2075,22 +2074,22 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "name"
     t.string "email"
     t.text "comments"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["training_class_id"], name: "index_training_class_registrations_on_training_class_id"
   end
 
   create_table "training_classes", id: :integer, charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
-    t.datetime "start_at"
-    t.datetime "end_at"
+    t.datetime "start_at", precision: nil
+    t.datetime "end_at", precision: nil
     t.string "language"
     t.integer "instructor_id"
     t.string "more_info_url"
     t.string "location"
     t.boolean "filled"
     t.boolean "canceled"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "training_course_id"
     t.string "registration_url"
     t.index ["training_course_id"], name: "index_training_classes_on_training_course_id"
@@ -2104,11 +2103,11 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "send_registrations_to"
     t.string "image_file_name"
     t.integer "image_file_size"
-    t.datetime "image_updated_at"
+    t.datetime "image_updated_at", precision: nil
     t.string "image_content_type"
     t.text "short_description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "more_info_url"
     t.index ["brand_id"], name: "index_training_courses_on_brand_id"
     t.index ["cached_slug"], name: "index_training_courses_on_cached_slug"
@@ -2120,10 +2119,10 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "training_module_file_name"
     t.string "training_module_content_type"
     t.integer "training_module_file_size"
-    t.datetime "training_module_updated_at"
+    t.datetime "training_module_updated_at", precision: nil
     t.text "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "width"
     t.integer "height"
     t.index ["brand_id"], name: "index_training_modules_on_brand_id"
@@ -2132,8 +2131,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
   create_table "us_regions", id: :integer, charset: "latin1", force: :cascade do |t|
     t.string "name"
     t.string "cached_slug"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["cached_slug"], name: "index_us_regions_on_cached_slug"
   end
 
@@ -2141,8 +2140,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "us_rep_id"
     t.integer "us_region_id"
     t.integer "brand_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["brand_id", "us_region_id"], name: "index_us_rep_regions_on_brand_id_and_us_region_id"
     t.index ["brand_id"], name: "index_us_rep_regions_on_brand_id"
   end
@@ -2158,8 +2157,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "fax"
     t.string "email"
     t.string "cached_slug"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.text "contacts"
     t.index ["cached_slug"], name: "index_us_reps_on_cached_slug"
   end
@@ -2168,15 +2167,15 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", limit: 128, default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
     t.integer "sign_in_count", default: 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "admin"
     t.boolean "customer_service"
     t.boolean "online_retailer"
@@ -2199,10 +2198,10 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "profile_image_file_name"
     t.string "profile_image_content_type"
     t.integer "profile_image_file_size"
-    t.datetime "profile_image_updated_at"
+    t.datetime "profile_image_updated_at", precision: nil
     t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
+    t.datetime "confirmed_at", precision: nil
+    t.datetime "confirmation_sent_at", precision: nil
     t.string "unconfirmed_email"
     t.boolean "employee"
     t.boolean "media"
@@ -2210,7 +2209,7 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "profile_pic_file_name"
     t.integer "profile_pic_file_size"
     t.string "profile_pic_content_type"
-    t.datetime "profile_pic_updated_at"
+    t.datetime "profile_pic_updated_at", precision: nil
     t.boolean "project_manager"
     t.boolean "executive"
     t.string "account_number"
@@ -2229,29 +2228,29 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
 
   create_table "vip_certifications", charset: "utf8", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "vip_emails", charset: "utf8", force: :cascade do |t|
     t.string "label"
     t.string "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "vip_global_regions", charset: "utf8", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "vip_location_global_regions", charset: "utf8", force: :cascade do |t|
     t.integer "position"
     t.bigint "vip_location_id"
     t.bigint "vip_global_region_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["vip_global_region_id"], name: "index_vip_location_global_regions_on_vip_global_region_id"
     t.index ["vip_location_id"], name: "index_vip_location_global_regions_on_vip_location_id"
   end
@@ -2260,8 +2259,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "position"
     t.bigint "vip_location_id"
     t.bigint "vip_service_area_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["vip_location_id"], name: "index_vip_location_service_areas_on_vip_location_id"
     t.index ["vip_service_area_id"], name: "index_vip_location_service_areas_on_vip_service_area_id"
   end
@@ -2271,29 +2270,29 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "city"
     t.string "state"
     t.string "country"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "vip_markets", charset: "utf8", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "vip_phones", charset: "utf8", force: :cascade do |t|
     t.string "label"
     t.string "phone"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "vip_programmer_certifications", charset: "utf8", force: :cascade do |t|
     t.integer "position"
     t.bigint "vip_programmer_id"
     t.bigint "vip_certification_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["vip_certification_id"], name: "index_vip_programmer_certifications_on_vip_certification_id"
     t.index ["vip_programmer_id"], name: "index_vip_programmer_certifications_on_vip_programmer_id"
   end
@@ -2302,8 +2301,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "position"
     t.bigint "vip_programmer_id"
     t.bigint "vip_email_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["vip_email_id"], name: "index_vip_programmer_emails_on_vip_email_id"
     t.index ["vip_programmer_id"], name: "index_vip_programmer_emails_on_vip_programmer_id"
   end
@@ -2312,8 +2311,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "position"
     t.bigint "vip_programmer_id"
     t.bigint "vip_location_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["vip_location_id"], name: "index_vip_programmer_locations_on_vip_location_id"
     t.index ["vip_programmer_id"], name: "index_vip_programmer_locations_on_vip_programmer_id"
   end
@@ -2322,8 +2321,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "position"
     t.bigint "vip_programmer_id"
     t.bigint "vip_market_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["vip_market_id"], name: "index_vip_programmer_markets_on_vip_market_id"
     t.index ["vip_programmer_id"], name: "index_vip_programmer_markets_on_vip_programmer_id"
   end
@@ -2332,8 +2331,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "position"
     t.bigint "vip_programmer_id"
     t.bigint "vip_phone_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["vip_phone_id"], name: "index_vip_programmer_phones_on_vip_phone_id"
     t.index ["vip_programmer_id"], name: "index_vip_programmer_phones_on_vip_programmer_id"
   end
@@ -2342,8 +2341,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "position"
     t.bigint "vip_programmer_id"
     t.bigint "vip_service_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["vip_programmer_id"], name: "index_vip_programmer_services_on_vip_programmer_id"
     t.index ["vip_service_id"], name: "index_vip_programmer_services_on_vip_service_id"
   end
@@ -2351,8 +2350,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
   create_table "vip_programmer_site_elements", charset: "utf8", force: :cascade do |t|
     t.bigint "vip_programmer_id"
     t.bigint "site_element_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["vip_programmer_id"], name: "index_vip_programmer_site_elements_on_vip_programmer_id"
   end
 
@@ -2360,8 +2359,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "position"
     t.bigint "vip_programmer_id"
     t.bigint "vip_skill_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["vip_programmer_id"], name: "index_vip_programmer_skills_on_vip_programmer_id"
     t.index ["vip_skill_id"], name: "index_vip_programmer_skills_on_vip_skill_id"
   end
@@ -2370,8 +2369,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "position"
     t.bigint "vip_programmer_id"
     t.bigint "vip_training_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["vip_programmer_id"], name: "index_vip_programmer_trainings_on_vip_programmer_id"
     t.index ["vip_training_id"], name: "index_vip_programmer_trainings_on_vip_training_id"
   end
@@ -2380,8 +2379,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.integer "position"
     t.bigint "vip_programmer_id"
     t.bigint "vip_website_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["vip_programmer_id"], name: "index_vip_programmer_websites_on_vip_programmer_id"
     t.index ["vip_website_id"], name: "index_vip_programmer_websites_on_vip_website_id"
   end
@@ -2391,54 +2390,54 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.text "description"
     t.text "examples"
     t.string "security_clearance"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "vip_service_areas", charset: "utf8", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "vip_service_categories", charset: "utf8", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "vip_service_service_categories", charset: "utf8", force: :cascade do |t|
     t.integer "position"
     t.bigint "vip_service_id"
     t.bigint "vip_service_category_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["vip_service_category_id"], name: "index_vip_service_service_categories_on_vip_service_category_id"
     t.index ["vip_service_id"], name: "index_vip_service_service_categories_on_vip_service_id"
   end
 
   create_table "vip_services", charset: "utf8", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "vip_skills", charset: "utf8", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "vip_trainings", charset: "utf8", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "vip_websites", charset: "utf8", force: :cascade do |t|
     t.string "url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "warranty_registrations", id: :integer, charset: "utf8", force: :cascade do |t|
@@ -2460,10 +2459,10 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "purchase_country", limit: 100
     t.string "purchase_price", limit: 100
     t.text "comments"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "exported", default: false
-    t.datetime "synced_on"
+    t.datetime "synced_on", precision: nil
     t.index ["brand_id"], name: "index_warranty_registrations_on_brand_id"
     t.index ["exported"], name: "index_warranty_registrations_on_exported"
   end
@@ -2474,8 +2473,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "name"
     t.boolean "complete", default: false
     t.boolean "default", default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["locale", "website_id"], name: "index_website_locales_on_locale_and_website_id"
   end
 
@@ -2483,8 +2482,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_06_13_185032) do
     t.string "url"
     t.integer "brand_id"
     t.string "folder"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "comment"
     t.string "default_locale"
     t.index ["brand_id"], name: "index_websites_on_brand_id"
