@@ -82,4 +82,18 @@ class MarketSegmentsController < ApplicationController
 
   end  #  load_case_studies
 
+  def get_case_study_translations_for_locale(case_studies, locale)
+      case_studies_for_locale = case_studies.select{|cs| cs[:translations].find{|t| t[:locale] == locale}.present?}
+      case_studies_for_locale = case_studies_for_locale.map{|cs|
+        cs.tap do |hash|
+          translation = hash[:translations].find{|t| t[:locale] == locale}
+          if translation.present?
+            hash[:headline] = translation[:headline]
+            hash[:content] = translation[:content]
+            hash[:slug] = translation[:slug]
+          end
+        end  #  cs.tap do |hash|
+      }  #  case_studies_for_locale = case_studies_for_locale.map{|cs|
+  end  #  def get_case_study_translations_for_locale(case_studies, locale)
+  
 end  #  class MarketSegmentsController < ApplicationController
