@@ -1,0 +1,141 @@
+<% set_meta_tags title: @page_title,
+  reverse: true,
+  description: t('meta.description.where_to_buy', brand: website.brand_name),
+  keywords: t('meta.keywords.where_to_buy') %>
+
+<h1 class="page_title">
+  <% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/wheretobuy_head.jpg")) %>
+    <%= image_tag("#{website.folder}/#{I18n.locale}/wheretobuy_head.jpg", alt: @page_title, class: 'text-center') %>
+  <% else %>
+    <%= @page_title %>
+  <% end %>
+</h1>
+
+<% if @err.present? %>
+  <div class="alert-box alert"><%= @err %></div>
+<% end %>
+
+<%= content_for :custom_css do %>
+  <script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&key=<%= ENV['GOOGLE_MAPS_KEY'] %>" type="text/javascript"></script>
+  <script type="text/javascript" charset="utf-8">
+markers_json = <%= raw @results.to_json(except: [:account_number, :brand_id, :created_at, :updated_at, :name2, :name3, :name4]) %>;
+
+$(document).ready(function() {
+    <%= raw @js_map_loader %>
+});
+  </script>
+<% end %>
+
+<div class="row" id="wtb_container" data-include-rental-and-service="<%= website.brand.dealers_include_rental_and_service? %>">
+  <div class="small-12 medium-8 large-6 columns">
+    <%= form_tag vertec_vtx_owners_search_path, method: :get %>
+    <div class="row collapse">
+      <div class="large-8 small-7 columns">
+        <%= text_field_tag "zip", session[:zip], placeholder: website.brand.dealers_are_us_only? ? t('us_zip_code') : t('global_search_location') %>
+      </div>
+      <div class="large-4 small-5 columns">
+        <%= submit_tag t('find_dealers'), class: "postfix button" %>
+      </div>
+    </div>
+    <% if website.brand.dealers_include_rental_and_service? %>
+      <input type="hidden" name="apply_filters" value="1"/>
+      <input type="hidden" name="rental_vtx" id="rental_vtx" value="1">
+
+      <% if website.brand.dealers.where(rental: true).count > 0 %>
+          Excel Downloads
+          <% if @results.count > 0%>
+            <br /><%= fa_icon "arrow-circle-down", :"aria-hidden" => true %> <%=link_to "Search Results", download_partner_search_results_path(request.query_parameters) %>
+          <% end %>      
+          <% if website.brand.name == "JBL Professional" %>
+            <br /><%= fa_icon "arrow-circle-down", :"aria-hidden" => true %> <%= link_to 'All VTX / VT Rental Companies', vertec_vtx_owners_path %>
+          <% end %>
+      <% end %>
+
+    <% end %>
+    </form>
+  </div>
+  <div class="large-4 columns">
+    <div class="callout panel" style="margin-top:-42px;">
+      <div>Have VTX / VT equipment to rent?</div>
+      <%=link_to "Let Us Know",vertec_vtx_owners_signup_form_path, class: "postfix button"%>
+    </div><!-- <div class="callout panel"> -->
+  </div><!-- <div class="large-4 columns"> -->
+</div>
+
+<% if params[:zip].present? %>
+<div class="row">
+  <div class="small-12 medium-8 large-8 columns">
+    <span style="font-size:x-small;color:#929292;">Search results shown for matching dealers within 150 miles of map center.
+       Drag map to search other areas.</span>
+  </div>
+  <div class="large-4 columns" style="padding-left:0;">
+    <span id="dealer_results_count"><%=@results.count%></span> <%= "result".pluralize(@results.count) %> found
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 medium-7 large-8 columns">
+    <div id="map" style="width: 100%; height: 600px;"></div>
+  </div>
+  <div class="large-4 columns" id="dealer_results">
+    <ul class="dealer_results">
+      <% @results.each_with_index do |dealer,i| %>
+        <li id="sidebar-item-<%=(i + 1)%>" class="sidebar-item">
+          <b><%= link_to dealer.name, '#', class: "mapper", data: { item_id: (i + 1) } %></b>
+          <% if website.brand.dealers_include_rental_and_service? %>
+            <% if dealer.resale? %>
+              <%= fa_icon "shopping-cart", title: "Reseller" %>
+            <% end %>
+            <% if dealer.rental? %>
+              <%= fa_icon "road", title: "Rentals" %>
+            <% end %>
+            <% if dealer.service? %>
+              <%= fa_icon "wrench", title: "Service" %>
+            <% end %>
+          <% end %>
+          (<%=dealer.distance_from(@origin).to_i %> <%= t('dealer_distance') %>)
+          <%#dealer_rental_products = Dealer.rental_products_tour_only(website, dealer)%>
+          <%dealer_rental_products = Dealer.rental_products_tour_only(website.brand, dealer)%>
+          <% if dealer.rental? && dealer_rental_products.present? %>
+            <span style="font-size:small;">
+              <br/><i>Rentals:</i>
+              <% dealer_rental_products.each_with_index do |product, index| %>
+                <%=link_to product.name, product, target:"_blank"%><%="," unless (dealer_rental_products.count == index+1) %>
+              <% end %>
+            </span>
+          <% end %>
+          <br/><%=raw dealer.address %>
+          <% if dealer.city.present? || dealer.state.present? || dealer.zip.present? %>
+            <br/><%= dealer.city %> <%= dealer.state %> <%= dealer.zip %>
+          <% end %>
+          <% if dealer.country.present? %>
+            <br/><%= dealer.country %>
+          <% end %>
+          <% if dealer.telephone.present? %>
+            <br/><%= dealer.telephone %>
+          <% end %>
+          <% if dealer.website.present? %>
+            <br/><%= link_to dealer.website.downcase, dealer.website_link, target: "_blank" %>
+          <% elsif !dealer.email.blank? %>
+            <br/><%= mail_to dealer.email.downcase %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+</div>
+<% end %>
+
+<% if website.brand.has_online_retailers? %>
+  <%#= render_partial 'where_to_find/retailers' %>
+<% end %>
+
+<%= content_for :extra_js do %>
+  <script>
+$(document).ready(function() {
+  $('#zip').focus();
+});
+  </script>
+<% end %>
+

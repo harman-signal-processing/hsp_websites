@@ -3,7 +3,9 @@ class SupportController < ApplicationController
   include ServiceCenters
   include Rsos
 
+  before_action :reject_image_requests
   before_action :set_locale
+
   skip_forgery_protection only: [
     :selected_downloads_by_product,
     :selected_downloads_by_type,

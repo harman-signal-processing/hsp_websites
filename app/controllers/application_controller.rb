@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :catch_criminals
   # before_action :set_locale
-  # before_action :respond_to_htm # 2022-07-21 disabled attempting to troubleshoot a parsing error. Likely no longer needed.
+  before_action :respond_to_htm
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :ensure_locale_for_site, except: [:locale_root, :default_locale, :locale_selector]
   before_action :hold_on_to_utm_params
@@ -115,7 +115,7 @@ private
 
   # Old sites often come through with *.htm extensions instead of *.html. Fix it.
   def respond_to_htm
-    if params[:format] && params[:format] == 'htm'
+    if request.format == 'htm'
       request.format = 'html'
     end
   end
@@ -125,6 +125,14 @@ private
   def catch_criminals
     if request.content_type.to_s.match?(/json/i) && request.post?
       raise ActionController::UnpermittedParameters.new ["not allowed"]
+    end
+  end
+
+  # use this as a before_action filter in controllers where big bad hackers are trying to request
+  # image formats from our controllers.
+  def reject_image_requests
+    if request.format.to_s.match?(/jpg|jpeg|png|gif|svg|ttf/i)
+      raise ActionController::UnpermittedParameters.new ["invalid format"]
     end
   end
 
