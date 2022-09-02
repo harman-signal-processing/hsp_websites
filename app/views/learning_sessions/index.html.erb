@@ -1,4 +1,13 @@
-<%=raw(@learning_sessions[:page_content][:body])%>
+<% if @learning_sessions[:page_content].blank? && @learning_sessions[:events].empty? && @learning_sessions[:featured_videos].empty? %>
+  <div class="text-center">
+    <br/><br/>
+    <p>No learning sessions found. Please return soon.</p>
+  </div>
+<% end %>
+
+<% if @learning_sessions[:page_content].present? %>
+  <%=raw(@learning_sessions[:page_content][:body])%>
+<% end %>
 
 <% if @learning_sessions[:events].present? %>
   <% @learning_sessions[:events].each do |event| %>
@@ -26,10 +35,9 @@
 
 <% else %><%# no learning session events available %>
 
-
 <% end %><%# if @learning_sessions[:events].present? %>
 
-<% if @learning_sessions[:page_content][:webinars_link].present? %>
+<% if @learning_sessions[:page_content].present? && @learning_sessions[:page_content][:webinars_link].present? %>
   <div class="row" data-equalizer="blurbs" data-equalizer-mq="medium-up">
       <div class="medium-12 small-12 columns">
           <div class="panel" data-equalizer-watch="blurbs">
@@ -67,8 +75,10 @@
 
 <% end %> <%# if @learning_sessions[:featured_videos].count > 0 %>
 
+<% if @learning_sessions[:page_content].present? %>
 <%= content_for :custom_css do %>
 	<style type="text/css">
 		<%=raw @learning_sessions[:page_content][:custom_css] %>
 	</style>
+<% end %>
 <% end %>
