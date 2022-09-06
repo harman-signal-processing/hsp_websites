@@ -136,6 +136,7 @@ private
       # But I think it's more fun to just strip out non-numeric characters and pretend
       # nothing happened so the hackers don't get any kind of indication of what's going on.
       params[:page].gsub!(/\D/, '')
+      params[:page] = params[:page][0,6] # then use only the first 6 digits.
     end
   end
 
