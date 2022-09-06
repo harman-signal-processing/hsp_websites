@@ -120,11 +120,22 @@ private
     end
   end
 
-  # 2022-08 Getting lots of geniuses trying to POST JSON. Let's just give them an error without much info:
-  # This globally blocks POSTing JSON. Bypass this filter in your controller if POSTing JSON is required.
   def catch_criminals
+    # 2022-08 Getting lots of geniuses trying to POST JSON. Let's just give them an error without much info:
+    # This globally blocks POSTing JSON. Bypass this filter in your controller if POSTing JSON is required.
     if request.content_type.to_s.match?(/json/i) && request.post?
       raise ActionController::UnpermittedParameters.new ["not allowed"]
+    end
+
+    # SQL injection attacks where a paginated resource has the page number loaded with SQL.
+    # It wouldn't give hackers anything, but this should avoid the dumb error reports.
+    if params[:page].present? && params[:page].to_s.match(/\D/)
+      # We could raise an exception anytime there's something non-numeric in the page parameter
+      #raise ActionController::UnpermittedParameters.new ["not allowed"]
+
+      # But I think it's more fun to just strip out non-numeric characters and pretend
+      # nothing happened so the hackers don't get any kind of indication of what's going on.
+      params[:page].gsub!(/\D/, '')
     end
   end
 
