@@ -8,6 +8,7 @@ en:
   all: All
   all_rights_reserved: "All Rights Reserved."
   artists: artists
+  authorized_service_partner_assets_url: "Authorized Service Partner Assets"
   back: back
   back_to: back to
   back_to_artists: Back to artists
@@ -91,6 +92,7 @@ en:
   other: other
   our_story: our story
   outlet_store: outlet store
+  parts_list_url: "Part Lists"
   platform: platform
   plugin: "Plug-in"
   pop_explanation: Many of our retailers feature our interactive product display which will allow you to try out our products and find out just how much Jimi you've got.
@@ -287,6 +289,7 @@ en:
       news: News
       news_and_reviews: "News & Reviews"
       parats: Parts
+      parts_service: "Parts & Service"
       pedals: Pedals
       photometrics: Photometrics
       rebate_forms: Rebate Forms

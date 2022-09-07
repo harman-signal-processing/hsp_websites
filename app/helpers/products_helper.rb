@@ -316,6 +316,7 @@ module ProductsHelper
       r << ProductTab.new("documentation") if (product.product_documents.size > 0 || product.current_promotions.size > 0 || product.viewable_site_elements.size > 0) && selected_tabs.include?("documentation")
       r << ProductTab.new("downloads") if (product.softwares.size > 0 || product.site_elements.size > 0 || product.executable_site_elements.size > 0) && selected_tabs.include?("downloads")
       r << ProductTab.new("downloads_and_docs") if (product.softwares.size > 0 || product.product_documents.size > 0 || product.site_elements.size > 0) && selected_tabs.include?("downloads_and_docs")
+      r << ProductTab.new("parts_service") if selected_tabs.include?("parts_service")
       r << ProductTab.new("features") if product.features && selected_tabs.include?("features")
       r << ProductTab.new("specifications") if product.product_specifications.size > 0 && selected_tabs.include?("specifications")
       r << ProductTab.new("training_modules") if product.training_modules.size > 0 && selected_tabs.include?("training_modules")
