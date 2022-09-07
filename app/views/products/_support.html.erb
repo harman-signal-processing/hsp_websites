@@ -4,6 +4,9 @@
 				warranty_registration_path(product.to_param) %></li>
 	<% end %>
 	<li><%= link_to t('contact_tech_support'), support_path %></li>
+  <% if !!(website.value_for("anytime_support_url")) %>
+    <li><%= link_to t('anytime_support'), website.value_for("anytime_support_url"), target: "_blank" %></li>
+  <% end %>
 </ul>
 
 <% if product.faqs.size > 0 %><h3><%= product.name %> <%= t('product_page.faqs') %></h3><% end %>

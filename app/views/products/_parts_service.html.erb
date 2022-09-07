@@ -1,0 +1,9 @@
+
+<ul class="support">
+  <% if !!(website.value_for("parts_list_url")) %>
+    <li><%= link_to t('parts_list_url'), website.value_for("parts_list_url"), target: "_blank" %></li>
+  <% end %>
+  <% if !!(website.value_for("authorized_service_partner_assets_url")) %>
+    <li><%= link_to t('authorized_service_partner_assets_url'), website.value_for("authorized_service_partner_assets_url"), target: "_blank" %></li>
+  <% end %>
+</ul>

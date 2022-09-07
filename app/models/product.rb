@@ -416,7 +416,7 @@ class Product < ApplicationRecord
       return send("#{tab}_content_present?")
     end
 
-    return true if tab == "description" || tab == "support"
+    return true if tab == "description" || tab == "support" || tab == "parts_service"
 
     value = self.send(tab)
     (value.respond_to?(:length) && value.length > 0) || (value.respond_to?(:present?) && value.present?)
