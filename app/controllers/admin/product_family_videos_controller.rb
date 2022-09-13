@@ -1,6 +1,8 @@
 class Admin::ProductFamilyVideosController < AdminController
   before_action :initialize_product_family_video, only: :create
-  load_and_authorize_resource
+  load_and_authorize_resource except: [:update_order]
+  skip_authorization_check only: [:update_order]
+
   # GET /product_family_videos
   # GET /product_family_videos.xml
   def index
@@ -60,6 +62,13 @@ class Admin::ProductFamilyVideosController < AdminController
         format.xml  { render xml: @product_family_video.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  # POST /admin/product_family_videos/update_order
+  def update_order
+    update_list_order(ProductFamilyVideo, params["product_family_video"])
+    head :ok
+    website.add_log(user: current_user, action: "Sorted product family videos")
   end
 
   # DELETE /product_family_videos/1

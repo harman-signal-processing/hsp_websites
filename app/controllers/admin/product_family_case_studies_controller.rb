@@ -1,6 +1,8 @@
 class Admin::ProductFamilyCaseStudiesController < AdminController
   before_action :initialize_product_family_case_study, only: :create
-  load_and_authorize_resource
+  load_and_authorize_resource except: [:update_order]
+  skip_authorization_check only: [:update_order]
+
   # GET /product_family_case_studies
   # GET /product_family_case_studies.xml
   def index
@@ -60,6 +62,13 @@ class Admin::ProductFamilyCaseStudiesController < AdminController
         format.xml  { render xml: @product_family_case_study.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  # POST /admin/product_family_case_studies/update_order
+  def update_order
+    update_list_order(ProductFamilyCaseStudy, params["product_family_case_study"])
+    head :ok
+    website.add_log(user: current_user, action: "Sorted product family case studies")
   end
 
   # DELETE /product_family_case_studies/1

@@ -1,6 +1,6 @@
 <% unless pfcs.new_record? %>
   <li id="product_family_case_study_<%= pfcs.id %>">
-    <span class="handle"><%#= image_tag("icons/drag_handle.gif", lazy: false) %></span>
+    <span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
     <%= link_to pfcs.case_study_id, "#{ENV['PRO_SITE_URL']}/case_studies/#{pfcs.case_study_id}", target: "_blank" %>
     <span class="little">
       <%= link_to(image_tag("icons/trash.gif", lazy: false),

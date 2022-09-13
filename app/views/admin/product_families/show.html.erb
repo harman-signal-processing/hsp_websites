@@ -365,7 +365,7 @@
         <%= f.submit "add video", class: "button" %>
       <% end %>
 
-      <ul id="product_family_videos" class="list">
+      <ul id="product_family_videos" class="sortable_list">
         <% @product_family.product_family_videos.each do |pfv| %>
           <%= render "/admin/shared/product_family_video_row", pfv: pfv, called_from: "product_family" %>
         <% end %>
@@ -385,7 +385,7 @@
         <%= f.submit "add case study", class: "button" %>
       <% end %>
 
-      <ul id="product_family_case_studies" class="list">
+      <ul id="product_family_case_studies" class="sortable_list">
         <% @product_family.product_family_case_studies.each do |pfcs| %>
           <%= render "/admin/shared/product_family_case_study_row", pfcs: pfcs, called_from: "product_family" %>
         <% end %>
