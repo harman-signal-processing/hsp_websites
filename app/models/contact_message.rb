@@ -2,11 +2,11 @@ class ContactMessage < ApplicationRecord
   before_validation :set_defaults
   belongs_to :brand
 
-  validates :name, :subject, :message_type, presence: true
-  validates :email, presence: true, email: true
+  validates :name, :subject, :message_type, presence: true, length: 1..128
+  validates :email, presence: true, length: 1..128, email: true
   validates :message, presence: true, if: :support?
-  validates :product, presence: true, if: :require_product?
-  validates :shipping_country, presence: true, if: :require_country?
+  validates :product, presence: true, length: 1..128, if: :require_product?
+  validates :shipping_country, presence: true, length: 1..128, if: :require_country?
   validates :phone,
     :shipping_address,
     :shipping_city,
@@ -14,20 +14,20 @@ class ContactMessage < ApplicationRecord
     :shipping_zip,
 #    :product_sku,
     :product_serial_number,
-    :purchased_on, presence: true, if: :require_purchase_date?
+    :purchased_on, presence: true, length: 1..128, if: :require_purchase_date?
   validates :shipping_address,
     :shipping_city,
     :shipping_state,
     :shipping_zip,
-    :shipping_country, presence: true, if: :catalog_request?
+    :shipping_country, presence: true, length: 1..128, if: :catalog_request?
   validates :warranty, inclusion: {in: [true, false]}, if: :rma_request?
-  
+
   validates :shipping_address,
     :shipping_city,
     :shipping_state,
     :shipping_zip,
-    :shipping_country, presence: true, if: :require_shipping_address? 
-  
+    :shipping_country, presence: true, length: 1..128, if: :require_shipping_address?
+
   attr_accessor :require_country, :email_to
 
   def set_defaults
