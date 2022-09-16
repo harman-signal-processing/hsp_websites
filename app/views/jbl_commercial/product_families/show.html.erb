@@ -11,6 +11,12 @@
 	<% end %>
 <% end %>
 
+<%= content_for :custom_css do %>
+	<style type="text/css">
+		<%=raw @product_family.custom_css %>
+	</style>
+<% end %>
+
 <% if !@product_family.title_banner_file_name.blank? %>
 	<h1><%= image_tag(@product_family.title_banner.url, alt: translate_content(@product_family, :name)) %></h1>
 <% else %>

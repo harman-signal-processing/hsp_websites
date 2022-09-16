@@ -11,6 +11,12 @@
 	<% end %>
 <% end %>
 
+<%= content_for :custom_css do %>
+	<style type="text/css">
+		<%=raw @product_family.custom_css %>
+	</style>
+<% end %>
+
 <%= render_partial 'features' %>
 
 <div class="product_family_body">

@@ -11,6 +11,11 @@
 	<% end %>
 <% end %>
 
+<%= content_for :custom_css do %>
+	<style type="text/css">
+		<%=raw @product_family.custom_css %>
+	</style>
+<% end %>
 
 <%# banner_slide_features = @product_family.features.where(use_as_banner_slide: 1) %>
 <% banner_slide_features = get_custom_feature_list(@product_family.features, "use_as_banner_slide") %>

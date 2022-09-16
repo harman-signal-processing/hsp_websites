@@ -204,6 +204,7 @@ class Admin::ProductFamiliesController < AdminController
       :warranty_period,
       :product_nav_separator,
       :title,
+      :custom_css,
       product_family_videos_attributes: {},
       product_family_products_attributes: {}
     )
