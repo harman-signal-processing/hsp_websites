@@ -24,7 +24,7 @@
 
 <%= cache ["market_segment_content", website.brand, @market_segment, I18n.locale] do %>
   <% if !!(website.show_comparisons) %>
-    <%= form_tag compare_products_path, method: :get %>
+    <%= form_tag compare_products_path, method: :post %>
   <% end %>
 
   <% @product_families.each do |product_family| %>

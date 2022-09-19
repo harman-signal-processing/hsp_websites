@@ -127,7 +127,7 @@
         <div class="large-12 columns" data-equalizer="product_thumbs">
           <h5>Products</h5>
           <% if @product_family.show_comparisons? %>
-            <%= form_tag compare_products_path, method: :get %>
+            <%= form_tag compare_products_path, method: :post %>
           <% end %>
 
           <%= render_partial "product_families/product_family", product_family: @product_family, skip_header: true  %>

@@ -26,7 +26,7 @@
 <p><%=raw translate_content(@product_family, :intro) %></p>
 
 <% if !!(website.show_comparisons) %>
-	<%= form_tag compare_products_path, method: :get %>
+	<%= form_tag compare_products_path, method: :post %>
 <% end %>
 
 

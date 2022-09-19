@@ -34,7 +34,7 @@
   <% end %>
 
   <% if @product_family.show_comparisons? %>
-    <%= form_tag compare_products_path, method: :get %>
+    <%= form_tag compare_products_path, method: :post %>
   <% end %>
 
   <div class="row">

@@ -36,7 +36,7 @@
   </div>
 
   <div class="small-8 medium-9 columns" id="results-container">
-    <%= form_tag compare_products_path, method: :get, id: "compare_form" %>
+    <%= form_tag compare_products_path, method: :post, id: "compare_form" %>
     <% unless @product_family.product_selector_behavior.to_s == "root_with_subgroups" %>
       <%= render 'product_grid' %>
     <% end %>
