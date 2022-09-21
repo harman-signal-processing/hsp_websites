@@ -14,6 +14,10 @@ class Admin::ContentTranslationsController < AdminController
     @new_instance = klass.new
     if @model_class == "ProductReview"
       @records = ProductReview.where("body IS NOT NULL")
+    elsif website.brand.respond_to?(params[:type])
+      @records = website.brand.send(params[:type])
+    elsif website.respond_to?(params[:type])
+      @records = website.send(params[:type])
     elsif @new_instance.respond_to?(:brand_id)
       @records = klass.where(brand_id: website.brand_id)
     elsif @new_instance.respond_to?(:product_id)
@@ -23,10 +27,12 @@ class Admin::ContentTranslationsController < AdminController
     else
       @records = klass.all
     end
-    if @new_instance.has_attribute?(:name)
+    if klass.column_names.include?('name')
       @records = @records.order('name')
-    elsif @new_instance.has_attribute?(:title)
-      @records = @records.order('title')
+    elsif klass.column_names.include?('post_on')
+      @records = @records.order('post_on desc').limit(100)
+    elsif klass.column_names.include?('title')
+      @records = @records.order('title').limit(100)
     end
   end
 

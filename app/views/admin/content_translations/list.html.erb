@@ -1,5 +1,9 @@
 <h1><%= @model_class.pluralize %> for "<%= @target_locale %>"</h1>
 
+<% if @new_instance.respond_to?(:post_on) %>
+  <p>Showing <%= @records.size %> most recent entries</p>
+<% end %>
+
 <% if @new_instance.respond_to?(:product) %>
   <table>
     <tr>
@@ -16,7 +20,7 @@
           type: @new_instance.class.to_s.underscore,
           product_id: product.id ) %>
       </td>
-      <td>
+      <td class="text-center">
         <%= ContentTranslation.where(
           content_type: "Product",
           content_id: product.id,
@@ -28,21 +32,34 @@
   </table>
 <% else %>
   <table>
-    <tr>
-      <th>Item</th>
-      <th>Fields Translated</th>
-    </tr>
-    <% @records.each do |record| %>
+    <thead>
       <tr>
-        <td><%= link_to_translate(record, @target_locale) %></td>
-      <td>
-        <%= ContentTranslation.where(
-          content_type: record.class,
-          content_id: record.id,
-          locale: @target_locale).size %> /
-        <%= ContentTranslation.fields_to_translate_for(record, website.brand).size %>
-      </td>
+        <th>Item</th>
+        <% if @new_instance.respond_to?(:post_on) %>
+          <th>Publish Date</th>
+        <% end %>
+        <th>Fields Translated</th>
       </tr>
-    <% end %>
+    </thead>
+    <tbody>
+      <% @records.each do |record| %>
+        <tr>
+          <td><%= link_to_translate(record, @target_locale) %></td>
+          <% if record.respond_to?(:post_on) %>
+            <td><%=l record.post_on %></td>
+          <% end %>
+          <td class="text-center">
+            <% finished = ContentTranslation.where(
+              content_type: record.class,
+              content_id: record.id,
+              locale: @target_locale).size %>
+            <% total_to_translate = ContentTranslation.fields_to_translate_for(record, website.brand).size %>
+            <span style="color: <%= 'red' if finished < total_to_translate %>">
+              <%= finished %>
+            </span> / <%= total_to_translate %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
   </table>
 <% end %>

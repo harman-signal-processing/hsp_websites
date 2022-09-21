@@ -1,33 +1,29 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
   about: about
-  add_to_cart: "Buy It Now"
+  add_to_cart: Buy It Now
   address: Address
   all: All
-  all_rights_reserved: "All Rights Reserved."
+  all_rights_reserved: All Rights Reserved.
   artists: artists
-  authorized_service_partner_assets_url: "Authorized Service Partner Assets"
+  authorized_service_partner_assets_url: Authorized Service Partner Assets
   back: back
   back_to: back to
   back_to_artists: Back to artists
   back_to_news_list: Back to news list
   billing_address: Billing Address
-  brief_legal_disclaimer: "Product names modeled in this product are trademarks of their respective companies that do not endorse and are not associated or affiliated with DigiTech. Scroll down for complete information."
   browse_products: Browse Products
   buy: buy
-  buy_it_now: "Buy It Now"
+  buy_it_now: Buy It Now
   cancel: cancel
   check_it_out: check it out
   check_our_software_page: Check our software downloads page.
-  click_icons_for_features: "click icons for features"
   close: close
   community: community
   company: company
   compare: compare
   contact_consultant: Support for Consultants
-  contact_tech_support: "Contact Technical Support"
+  contact_tech_support: Contact Technical Support
   contact_us: Contact Us
   country: Country
   current_news: current news
@@ -35,7 +31,7 @@ en:
   dealer_login: dealer login
   discontinued: discontinued
   discontinued_products: Discontinued Products
-  discontinued_products_downloads: "Discontinued Products Downloads"
+  discontinued_products_downloads: Discontinued Products Downloads
   download: download
   download_promotion_form: download promotion form
   downloads: downloads
@@ -53,7 +49,7 @@ en:
   firmware: firmware
   firmware_downloads: firmware
   forum: forum
-  get_it: "Get It"
+  get_it: Get It
   get_started_not_registered: Serial not found!
   global_dealers: Worldwide Dealers
   global_search_location: Enter city or postal code for best search results
@@ -74,7 +70,7 @@ en:
   legacy_products: Legacy Products
   looking_for_software: Looking for software/firmware?
   mac_gui: "Mac GUI/Librarian"
-  media: "Media"
+  media: Media
   message: Message
   mixing_with_professionals: Mixing With Professionals
   more: more
@@ -92,11 +88,9 @@ en:
   other: other
   our_story: our story
   outlet_store: outlet store
-  parts_list_url: "Part Lists"
+  parts_list_url: Part Lists
   platform: platform
   plugin: "Plug-in"
-  pop_explanation: Many of our retailers feature our interactive product display which will allow you to try out our products and find out just how much Jimi you've got.
-  privacy_policy: privacy policy
   privacy_policy: Privacy Policy
   product_details: Product Details
   product_registration: Product Registration
@@ -132,7 +126,7 @@ en:
   submit: submit
   submit_warranty_registration: submit registration
   subscribe_via_rss: Subscribe via RSS
-  support: "Support"
+  support: Support
   support_contact_form: support contact form
   support_services: Support Services
   tech_support: Tech Support
@@ -263,10 +257,8 @@ en:
       whitepaper: Whitepaper
 
   product_page:
-      amp_models: Amp Models
       artists: Artists
       audio_demos: Audio Demos
-      cabinets: Speaker Cabinets
       compare_selected_products: Compare Selected Products
       description: Overview
       details: More Details
@@ -280,11 +272,8 @@ en:
       gallery: Gallery
       labels:
           accessories: Accessories
-          amp_models: Amps
-          cabinets: Cabs
           effects: Effects
           features: Features
-          pedals: Pedals
       larger_images: Larger Images
       news: News
       news_and_reviews: "News & Reviews"
@@ -325,7 +314,6 @@ en:
       buy_direct: "Buy Direct from %{brand}"
       buy_now: Buy Now
       buy_online: "Click a retailer logo below to buy online:"
-      community: "Guitar & Sound Communities"
       compliance: "Compliance & Safety Documents (SDS)"
       connect_with_us: Connect With Us
       contact: Contacts
@@ -337,8 +325,6 @@ en:
       facebook_page: "%{brand} Facebook Page"
       factory_service: Factory Service/Return Authorization Form
       featured_artists: Featured Artists
-      featured_pedal: Featured Pedal
-      guitar_workstation: Guitar Workstation
       international_distributors: Worldwide Distributors
       locate_us_service_center: Locate your nearest service center (US)
       mailing_address: Mailing Address
@@ -361,16 +347,15 @@ en:
       search_results: Search Results
       service_centers: Service Centers
       support: Support
-      tone_library: Tone Library
       warranty_registration: Product Registration
       where_to_buy: Where To Buy
       youtube_channel: "%{brand} Channel"
-      
+
   errors:
       geocoding: "There was an error geocoding the address/zipcode you provided."
       no_dealers_found: "Sorry, no dealers were found near %{zip}"
       no_service_centers_found: "Sorry, no service centers were found near %{zip}"
-      
+
   meta:
       description:
           artists: "Learn how musicians put %{brand} products to good use."
@@ -379,7 +364,7 @@ en:
           support: "Support resources for your %{brand} products including faqs, manuals, product registration and service centers."
           warranty_registration: "Register your %{brand} product."
           where_to_buy: "Where to buy %{brand} products"
-          
+
       keywords:
           where_to_buy: purchase, buy, dealers, usa
 
@@ -389,22 +374,18 @@ en:
       fixtures_request_thankyou: "Thanks for contacting us. We will field your fixtures request and get back to you as soon as possible."
       amx_itg_module_request_thankyou: "Thanks for contacting us. We will field your ITG new module request and get back to you as soon as possible."
       amx_partner_interest_form_thankyou: "Thanks for contacting us. We will field your AMX Partner Interest request and get back to you as soon as possible."
-      guitar_workstation: "Specifically designed for the GNX4 and GNX3000 workstation products. As an added bonus you'll find tips from Craig Anderton."
       international_distributors: "International Distributors assist with product sales, technical support, manual requests, spare parts and warranty service. Warranty is only valid within the country of purchase."
       parts_request_thankyou: "Your message has been received!  We will respond to your email within the next 24 hours."
       product_support: "Browse support materials for your product by selecting the model number below:"
-      product_tone_library_explanation: "Get started with these famous tones by connecting your %{model} to your Mac or PC. Use the software downloads links on this page to install the librarian on your computer."
       rma_request_thankyou: "Your message has been received!  We will respond to your email within the next 24 hours."
       rohs_intro: "With regards to the RoHS Directive 2002 / 95 / EC of the European Parliament and of the Council of 27 January 2003 on the restriction of the use of certain hazardous substances in electrical and electronic equipment, we declare that to the best of our knowledge, all products listed below meet and fulfill all the requirements of the aforementioned directive."
       software_downloads: "Find the latest drivers and other software for your %{brand} products"
-      sound_community: "The web's original sound community for musicians. Exchange music, share ideas and patches for all of your DigiTech gear."
       subscribe: "Sign up to receive periodic messages from %{brand} regarding product updates and special promotions."
-      tone_library_explanation: "Get started with these famous tones by connecting your GSP or RP unit to your Mac or PC. Visit our %{link} page if you don't have the sound librarian installed yet."
       use_date_code: "Some of our products do not have serial numbers. In this case, enter the date code from the product box or the back of the unit."
       warranty_comments: "Note: if you have a technical question/problem, please submit it via our %{support_form_link}."
       warranty_registration: "Protect your investment by registering your %{brand} products to stay up-to-date on the latest news and other developments."
       warranty_registration_success: "Thank you for registering your product with us. Please be sure to keep your dated store receipt as proof of purchase."
-      
+
   subjects:
       dealer_questions: Questions from Dealers
       general_questions: General Question/Other
@@ -491,11 +472,9 @@ en:
       log: "%b %d, %Y, %I:%M %p"
   activerecord:
     models:
-      amp_model: Amp Model
       artist: Artist
       artist_tier: Artist Tier
       brand: Brand
-      cabinet: Cabinet
       dealer: Dealer
       distributor: Distributor
       download_registration: Download Registration
@@ -584,5 +563,3 @@ en:
     productfamily: Product Family
     productreview: Product Review
     software: Software
-    
-    
