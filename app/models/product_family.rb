@@ -245,7 +245,9 @@ class ProductFamily < ApplicationRecord
 
   def product_ids_for_current_locale
     Rails.cache.fetch("#{cache_key_with_version}/product_ids_for_current_locale/#{I18n.locale.to_s}", expires_in: 12.hours) do
-      products.select{|p| p unless p.locales_where_hidden.include?(I18n.locale.to_s)}.pluck(:id).uniq
+      # match any excluded locales right in the query instead of after
+      products.select(:id).where("products.hidden_locales IS NULL OR (',' + products.hidden_locales + ',') NOT LIKE '%,#{I18n.locale.to_s},%'")
+      #products.select{|p| p unless p.locales_where_hidden.include?(I18n.locale.to_s)}.pluck(:id).uniq
     end
   end
 

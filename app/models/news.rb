@@ -109,8 +109,10 @@ class News < ApplicationRecord
   end
 
   def self.product_news_query(website, options)
-    product_news_ids = product_news(website, options).pluck("news.id").join(", ")
-    (product_news_ids.blank?) ? "" : " OR news.id IN (#{product_news_ids}) "
+    unless options[:skip_product_news_query]
+      product_news_ids = product_news(website, options).pluck("news.id").join(", ")
+      (product_news_ids.blank?) ? "" : " OR news.id IN (#{product_news_ids}) "
+    end
   end
 
   # Alias for search results link name
