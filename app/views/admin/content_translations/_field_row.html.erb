@@ -1,0 +1,21 @@
+<tr>
+  <th style="background: #ccc; border-bottom: 1px dotted #CCC" width="50%">
+    <%= content_translation.header %> <%= I18n.default_locale %>:
+  </th>
+  <th style="background: #ccc; border-bottom: 1px dotted #CCC" width="50%">
+    <%= content_translation.header %> <%= @target_locale %>:
+  </th>
+</tr>
+<tr>
+  <td valign="top" style="padding-right: 40px">
+    <%=raw content_translation.original_value %>
+  </td>
+  <td valign="top" style="border-left: 1px dotted #CCC; padding-left: 10px;">
+    <% if content_translation.original_item.class.columns_hash[content_translation.content_method].type == :string %>
+      <%= text_field_tag "content[i#{content_translation.content_id}][#{content_translation.content_method}]", content_translation.content %>
+    <% else %>
+      <%= text_area_tag "content[i#{content_translation.content_id}][#{content_translation.content_method}]", content_translation.content, class: "mceEditor", style: "min-height: 400px" %>
+    <% end %>
+  </td>
+</tr>
+

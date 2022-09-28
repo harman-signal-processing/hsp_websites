@@ -4,7 +4,7 @@
 	config/locales/<%= @target_locale %>.yml. You may also need to provide translated
 	header graphics: public/images/<%= website.folder %>/<%= @target_locale %>/...
 </div>
-	
+
 <table cellspacing="4" cellpadding="4" class="data">
 	<tr>
 		<th>Type</th>
@@ -15,10 +15,13 @@
 		<td>(Not supported here. Go to the <%= link_to "regular Settings page", admin_settings_path(@model) %> and create a copy of each setting with "<%= @target_locale %>" in the locale box.)</td>
 	</tr>
 	<% ContentTranslation.translatables(website.brand).each do |key,value| %>
-	<tr>
-		<td><%= link_to key.to_s.humanize.pluralize, list_admin_content_translations_path(locale: I18n.locale, target_locale: @target_locale, type: key) %></td>
-		<td><%= value.join(", ") %></td>
-	</tr>
+    <%# Little hack for our product descriptions which are a separate (confusing) entity %>
+    <% next if key == "product_description" %>
+    <% value += ["description", "extended_description", "features"] if key == "product" %>
+    <tr>
+      <td><%= link_to key.to_s.humanize.pluralize, list_admin_content_translations_path(locale: I18n.locale, target_locale: @target_locale, type: key) %></td>
+      <td><%= value.join(", ") %></td>
+    </tr>
 	<% end %>
 </table>
 

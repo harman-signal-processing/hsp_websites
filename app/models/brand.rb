@@ -216,17 +216,20 @@ class Brand < ApplicationRecord
     @forced_current_firmwares ||= softwares.includes(:brand).where(active: true, category: "firmware", active_without_products: true).order(:name)
   end
 
-  def current_product_ids
-    Rails.cache.fetch("#{cache_key_with_version}/current_product_ids}", expires_in: 6.hours) do
-      product_families.includes(:products).
-        where(products: { product_status: ProductStatus.current_ids }).
-        pluck("products.id").uniq
+  def current_product_ids(opts={})
+    Rails.cache.fetch("#{cache_key_with_version}/current_product_ids/#{opts}", expires_in: 6.hours) do
+      prods = product_families.includes(:products).
+        where(products: { product_status: ProductStatus.current_ids })
+      if opts[:locale].present?
+        prods = prods.where("products.hidden_locales IS NULL OR (',' + products.hidden_locales + ',') NOT LIKE '%,#{opts[:locale].to_s},%'")
+      end
+      prods.pluck("products.id").uniq
     end
   end
 
-  def current_products
-    Rails.cache.fetch("#{cache_key_with_version}/current_products", expires_in: 6.hours) do
-      Product.where(id: current_product_ids)
+  def current_products(opts={})
+    Rails.cache.fetch("#{cache_key_with_version}/current_products/#{opts}", expires_in: 6.hours) do
+      Product.where(id: current_product_ids(opts))
     end
   end
 

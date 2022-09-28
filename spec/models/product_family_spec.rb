@@ -42,4 +42,18 @@ RSpec.describe ProductFamily, :type => :model do
     end
   end
 
+  describe ".current_products_plus_child_products(website)" do
+    before do
+      @website = create(:website)
+      @parent_family = FactoryBot.create(:product_family, brand: @website.brand)
+      @child_with_products = FactoryBot.create(:product_family_with_products, brand: @website.brand, parent_id: @parent_family.id, products_count: 2)
+    end
+
+    it "should include child family products" do
+      products = @parent_family.current_products_plus_child_products(@website)
+      #expect(@child_with_products.current_products_plus_child_products(@website).length).to eq(2)
+      expect(products.length).to eq(2)
+    end
+  end
+
 end

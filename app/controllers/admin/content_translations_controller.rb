@@ -13,7 +13,9 @@ class Admin::ContentTranslationsController < AdminController
     end
     @new_instance = klass.new
     if @model_class == "ProductReview"
-      @records = ProductReview.where("body IS NOT NULL")
+      @records = ProductReview.joins(:product_review_products).
+        where("body IS NOT NULL").
+        where(product_review_products: { product_id: website.current_and_discontinued_product_ids })
     elsif website.brand.respond_to?(params[:type])
       @records = website.brand.send(params[:type])
     elsif website.respond_to?(params[:type])
@@ -31,6 +33,8 @@ class Admin::ContentTranslationsController < AdminController
       @records = @records.order('name')
     elsif klass.column_names.include?('post_on')
       @records = @records.order('post_on desc').limit(100)
+    elsif klass.column_names.include?('review_updated_at') # little hack for product_reviews
+      @records = @records.order("product_reviews.created_at desc").limit(100)
     elsif klass.column_names.include?('title')
       @records = @records.order('title').limit(100)
     end
@@ -43,31 +47,18 @@ class Admin::ContentTranslationsController < AdminController
       ct.to_s == @model_class
     end
 
-    if params[:product_id]
-      @product = Product.where(id: params[:product_id]).first
-      @new_record = klass.new
-
-      klass.where(product_id: params[:product_id]).each do |record|
-        ContentTranslation.fields_to_translate_for(@new_record, website.brand).each do |field_name|
-          content_translation = ContentTranslation.where(
-            content_type: @model_class,
-            content_id: record.id,
-            content_method: field_name,
-            locale: @target_locale).first_or_initialize
-          @content_translations << content_translation
-        end
-      end
-    else
-      @record = klass.find_by_id(params[:id])
-      ContentTranslation.fields_to_translate_for(@record, website.brand).each do |field_name|
-        content_translation = ContentTranslation.where(
-          content_type: @model_class,
-          content_id: @record.id,
-          content_method: field_name,
-          locale: @target_locale).first_or_initialize
-        @content_translations << content_translation
-      end
+    @record = klass.find_by_id(params[:id])
+    ContentTranslation.fields_to_translate_for(@record, website.brand).each do |field_name|
+      content_translation = ContentTranslation.where(
+        content_type: @model_class,
+        content_id: @record.id,
+        content_method: field_name,
+        locale: @target_locale).first_or_initialize
+      @content_translations << content_translation
     end
+
+    @content_translations += ContentTranslation.description_translatables_for(@record, website.brand, @target_locale)
+
     if request.post?
       @content_translations.each do |content_translation|
         content_translation.content = params[:content]["i#{content_translation.content_id}"][content_translation.content_method]

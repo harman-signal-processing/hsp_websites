@@ -21,7 +21,7 @@ class ContentTranslation < ApplicationRecord
       "specification_group" => %w{name},
       "news"           => %w{title quote body},
       "page"           => %w{title description body},
-      "promotion"      => %w{name description}
+      #"promotion"      => %w{name description}  # promos are really for US only
     }
     if brand.has_effects?
       t["effect_type"] = %w{name}
@@ -30,13 +30,13 @@ class ContentTranslation < ApplicationRecord
     if brand.has_reviews?
       t["product_review"] = %w{title body}
     end
-    if brand.has_artists?
+    if brand.has_artists? && brand.artists.size > 0
       t["artist"] = %w{bio}
     end
     if brand.has_faqs?
       t["faq"] = %w{question answer}
     end
-    if brand.has_market_segments?
+    if brand.has_market_segments? && brand.market_segments.size > 0
       t["market_segment"] = %w{name description}
     end
     t
@@ -69,6 +69,24 @@ class ContentTranslation < ApplicationRecord
       end
     end
     c
+  end
+
+  def self.description_translatables_for(item, brand, target_locale)
+    description_translations = []
+    if item.is_a?(Product)
+      new_record = ProductDescription.new
+
+      ProductDescription.where(product_id: item.id).each do |record|
+        ContentTranslation.fields_to_translate_for(new_record, brand).each do |field_name|
+          description_translations << ContentTranslation.where(
+            content_type: ProductDescription,
+            content_id: record.id,
+            content_method: field_name,
+            locale: target_locale).first_or_initialize
+        end
+      end
+    end
+    description_translations
   end
 
   def original_item
