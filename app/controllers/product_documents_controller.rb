@@ -29,10 +29,10 @@ class ProductDocumentsController < ApplicationController
   # GET /product_documents/1.xml
   def show
     @product_document = ProductDocument.find(params[:id])
-    if @product_document.product.belongs_to_this_brand?(website) && !@product_document.product.product_status.is_hidden?
+    if @product_document.show_on_public_site? && @product_document.product.belongs_to_this_brand?(website) && !@product_document.product.product_status.is_hidden?
       send_document(@product_document)
     else
-      redirect_to root_path and return
+      raise ActiveRecord::RecordNotFound and return
     end
   end
 
