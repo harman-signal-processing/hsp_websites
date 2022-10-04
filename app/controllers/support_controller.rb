@@ -146,7 +146,7 @@ class SupportController < ApplicationController
           c.brand = website.brand
         end
 
-        if @contact_message.valid?
+        if verify_recaptcha(model: @contact_message, secret_key: website.recaptcha_private_key) && @contact_message.valid?
           @contact_message.save
           SiteMailer.delay.contact_form(@contact_message)
           redirect_to support_path, notice: t('blurbs.parts_request_thankyou') and return false
@@ -181,7 +181,7 @@ class SupportController < ApplicationController
         c.message_type = rma_message_type
         c.brand = website.brand
       end
-      if @contact_message.valid?
+      if verify_recaptcha(model: @contact_message, secret_key: website.recaptcha_private_key) && @contact_message.valid?
         @contact_message.save
         SiteMailer.delay.contact_form(@contact_message)
         redirect_to support_path, notice: t('blurbs.rma_request_thankyou') and return false

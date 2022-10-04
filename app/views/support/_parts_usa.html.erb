@@ -5,11 +5,11 @@
 	<div class="row">
 		<!-- left nav -->
 		<%=render_partial "support/support_left_side_bar"%>
-		
+
 		<!-- main content -->
 		<div class="large-8 columns">
 			<h1 class="page_title"><%= @page_title %></h1>
-			
+
 			<%= f.input :name, label: t('your_name'), required: true %>
 			<%= f.input :email, label: ucfirst(t('email')), required: true %>
 			<div class="row">
@@ -43,14 +43,13 @@
 
 			<%= f.input :message, label: "Additional Info", input_html: { style: "height: 120px" } %>
 
-      		<%= render_partial 'support/gdpr_consent' %>
-      
-      		<p><%= submit_tag t('submit'), class: "button" %></p>
-      
+      <div class="captcha">
+        <%= recaptcha_tags site_key: website.recaptcha_public_key %>
+      </div>
+   		<%= render_partial 'support/gdpr_consent' %>
+   		<p><%= submit_tag t('submit'), class: "button" %></p>
+
 		</div><!-- <div class="large-8 columns"> -->
 	</div> <!-- <div class="row"> -->
-
-
-	
 
 <% end %>

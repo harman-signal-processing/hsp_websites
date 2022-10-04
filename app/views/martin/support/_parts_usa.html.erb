@@ -38,8 +38,10 @@
 
 			<%= f.input :message, label: "Additional Info", input_html: { style: "height: 120px" } %>
 
+      <div class="captcha">
+        <%= recaptcha_tags site_key: website.recaptcha_public_key %>
+      </div>
       <%= render_partial 'support/gdpr_consent' %>
-
       <p><%= submit_tag t('submit'), class: "button" %></p>
 
     <% end %>
