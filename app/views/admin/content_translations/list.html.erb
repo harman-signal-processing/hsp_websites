@@ -53,6 +53,15 @@
 
 <% else %>
 
+  <% if @new_instance.is_a?(ProductFamily) %>
+    <p>You'll notice we often have multiple Product Families with the same name. There
+      are many reasons why, but basically it's because the same families need to appear
+      in different places in the navigation tree. And some have different products
+      in different locales. It's best to just copy your translations to any duplicated
+      families.
+    </p>
+  <% end %>
+
   <table>
     <thead>
       <tr>
@@ -67,7 +76,11 @@
       <% @records.each do |record| %>
         <% next if record.respond_to?(:locales) && !(record.locales(website).include?(@target_locale)) %>
         <tr>
-          <td><%= link_to_translate(record, @target_locale) %></td>
+          <td>
+            <span style="<%='font-weight: bold' if record.respond_to?(:parent) && record.parent.blank? %>">
+              <%= link_to_translate(record, @target_locale) %>
+            </span>
+          </td>
           <% if record.respond_to?(:post_on) %>
             <td><%=l record.post_on %></td>
           <% end %>

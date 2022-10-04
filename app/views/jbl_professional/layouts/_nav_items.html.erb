@@ -31,24 +31,24 @@
   <li><%= link_to t("nav.case_studies"), case_studies_path %></li>
 
   <% if (website.has_learning_sessions.present? && website.has_learning_sessions == 1) %>
-    <li class="hide-for-medium"><%= link_to t('learning_sessions').titleize, "/learning-sessions/" %></li>
+    <li class="hide-for-medium"><%= link_to t('learning_sessions').titleize, "/#{I18n.locale}/learning-sessions/" %></li>
   <% end %>
 
-  <li class="hide-for-medium"><%= link_to t('training').titleize, "/training", target: "_blank" %></li>
+  <li class="hide-for-medium"><%= link_to t('training').titleize, "/#{I18n.locale}/training", target: "_blank" %></li>
 
   <li class="show-for-medium has-dropdown">
     <%= link_to 'learn'.titleize, '#', class: 'disabled' %>
     <ul class="dropdown">
       <% if (website.has_learning_sessions.present? && website.has_learning_sessions == 1) %>
-        <li><%= link_to t('learning_sessions').titleize, "/learning-sessions" %></li>
+        <li><%= link_to t('learning_sessions').titleize, "/#{I18n.locale}/learning-sessions" %></li>
       <% end %>
 
-      <li><%= link_to t('training').titleize, "/training", target: "_blank" %></li>
+      <li><%= link_to t('training').titleize, "/#{I18n.locale}/training", target: "_blank" %></li>
       <li class="has-dropdown"><%= link_to t('about').titleize, '#' %>
         <ul class="dropdown">
-          <li><%= link_to 'innovation'.titleize, '/innovation' %></li>
+          <li><%= link_to 'innovation'.titleize, "/#{I18n.locale}/innovation" %></li>
           <li><%= link_to t('news').titleize, news_index_path %></li>
-          <li><%= link_to 'history'.titleize, '/history' %></li>
+          <li><%= link_to 'history'.titleize, "/#{I18n.locale}/history" %></li>
         </ul>
       </li>
     </ul>
@@ -60,9 +60,9 @@
 
     <li class="has-dropdown hide-for-medium"><%= link_to t('about').titleize, '#' %>
       <ul class="dropdown">
-        <li><%= link_to 'innovation'.titleize, '/innovation' %></li>
+        <li><%= link_to 'innovation'.titleize, "/#{I18n.locale}/innovation" %></li>
         <li><%= link_to t('news').titleize, news_index_path %></li>
-        <li><%= link_to 'history'.titleize, '/history' %></li>
+        <li><%= link_to 'history'.titleize, "/#{I18n.locale}/history" %></li>
       </ul>
     </li>
 

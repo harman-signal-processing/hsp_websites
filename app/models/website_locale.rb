@@ -10,7 +10,11 @@ class WebsiteLocale < ApplicationRecord
       if Rails.env.test? # not cool, but only thing I can get working for testing
         [I18n.default_locale]
       else
-        where(complete: true).pluck(:locale).uniq
+        # 2022-10 [AA] config/routes.rb uses this to setup routes for locales. Now
+        #   that RV is launching pages without completing the translation, we just
+        #   enable ALL locales for routing
+        #where(complete: true).pluck(:locale).uniq
+        all.pluck(:locale).uniq
       end
     rescue
       AVAILABLE_LOCALES

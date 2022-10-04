@@ -3,7 +3,8 @@ class ApplicationController < ActionController::Base
   # before_action :set_locale
   before_action :respond_to_htm
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :ensure_locale_for_site, except: [:locale_root, :default_locale, :locale_selector]
+  # 2022-10 [AA] see below
+  # before_action :ensure_locale_for_site, except: [:locale_root, :default_locale, :locale_selector]
   before_action :hold_on_to_utm_params
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
@@ -98,6 +99,11 @@ private
   # configured for the locale passed by the user. I have a feeling this is going
   # to cause problems.
   #
+  # 2022-10 [AA] No longer used since RV is launching translated pages for individual
+  #   products without doing a full translation. This is probably going to raise
+  #   concerns like, "Hey, how come when I go to /fr/some-product, it isn't in French?
+  #   Well, remember how you wanted to launch individual products that were translated.
+  #   That's why.
   def ensure_locale_for_site
     if (website && website.folder) # (skips this filter for tooklit)
 
@@ -203,12 +209,15 @@ private
       redirect_to url_for(request.params.merge(locale: I18n.locale)) and return false
     end
 
+    # 2022-10 [AA] No longer restricting by "active" locales since RV is making a
+    #   habit of launching product pages in all sorts of languages without actually
+    #   launching the site in that language properly.
     # Handling inactive locales for the current site
-    if !website.list_of_available_locales.include?(I18n.locale.to_s)
-      unless can?(:manage, Product) # Admins can view non-active locales
-        redirect_to url_for(request.params.merge(locale: website.list_of_available_locales.first)) and return false
-      end
-    end
+    #if !website.list_of_available_locales.include?(I18n.locale.to_s)
+    #  unless can?(:manage, Product) # Admins can view non-active locales
+    #    redirect_to url_for(request.params.merge(locale: website.list_of_available_locales.first)) and return false
+    #  end
+    #end
   end
 
   # locale selector

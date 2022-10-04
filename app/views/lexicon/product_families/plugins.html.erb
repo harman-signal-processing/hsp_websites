@@ -199,7 +199,7 @@
 <p>&nbsp;</p>
 
 <% if @product_family.post_content.present? %>
-  <%= raw @product_family.post_content %>
+  <%=raw translate_content(@product_family, :post_content) %>
 <% end %>
 
 <% if @product_family.testimonials.length > 0 %>

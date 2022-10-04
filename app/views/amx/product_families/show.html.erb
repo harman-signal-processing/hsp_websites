@@ -51,7 +51,7 @@
   <%= cache ["product_family_content", @product_family, I18n.locale, session['geo_country']] do %>
     <% if @product_family.before_product_content.present? %>
       <div>
-        <%=raw @product_family.before_product_content %>
+        <%=raw translate_content(@product_family, :before_product_content) %>
       </div>
     <% end %>
 
@@ -153,7 +153,7 @@
 
   <% if @product_family.accessories_content.present? %>
     <h3>Accessories</h3>
-    <%= raw @product_family.accessories_content %>
+    <%= raw translate_content(@product_family, :accessories_content) %>
   <% end %>
 
   <% if @product_family.product_family_videos.size > 0 %>
@@ -167,7 +167,7 @@
   <% end %>
 
   <% if @product_family.post_content.present? %>
-    <%= raw @product_family.post_content %>
+    <%=raw translate_content(@product_family, :post_content) %>
   <% end %>
 
   <% if @product_family.testimonials.length > 0 %>
