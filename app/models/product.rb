@@ -493,12 +493,12 @@ class Product < ApplicationRecord
 
   # Collects those site_elements where the download is software or a zip
   def executable_site_elements
-    @executable_site_elements ||= site_elements.where(id: deduped_site_element_ids, is_software: true, show_on_public_site: true)
+    @executable_site_elements ||= site_elements.where(id: deduped_site_element_ids, is_software: true)
   end
 
   # Collects those site_elements where the download is PDF or image
   def viewable_site_elements
-    @viewable_site_elements ||= site_elements.where(id: deduped_site_element_ids, is_document: true, show_on_public_site: true)
+    @viewable_site_elements ||= site_elements.where(id: deduped_site_element_ids, is_document: true)
   end
 
   # Collects software site elements
@@ -688,7 +688,7 @@ class Product < ApplicationRecord
   end
 
   def safety_site_elements
-    @safety_site_elements ||= site_elements.where("resource_type LIKE '%safety%' OR resource_type LIKE '%compliance%'").where(is_document: true, show_on_public_site: true)
+    @safety_site_elements ||= site_elements.where("resource_type LIKE '%safety%' OR resource_type LIKE '%compliance%'").where(is_document: true)
   end
 
   def nonsafety_documents
