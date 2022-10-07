@@ -108,4 +108,9 @@ class ContentTranslation < ApplicationRecord
                 end.to_s + " \"#{content_method.titleize}\""
   end
 
+  # text, mediumtext, etc.
+  def edit_as_html?
+    original_item.class.columns_hash[content_method].type.to_s.match?(/text/i)
+  end
+
 end

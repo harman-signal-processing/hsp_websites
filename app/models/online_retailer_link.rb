@@ -9,18 +9,18 @@ class OnlineRetailerLink < ApplicationRecord
   before_save :stamp_link, :fix_link
   after_update :auto_delete
 
-  def self.to_be_checked
+  scope :to_be_checked, -> {
     gc = OnlineRetailer.find_by(name: "Guitar Center")
     where(["link_checked_at <= ? OR link_checked_at IS NULL", 5.days.ago])
       .includes(:online_retailer)
       .where("online_retailers.active" => true)
       .where("online_retailers.id <> ?", gc.id)
       .order("link_checked_at ASC")
-  end
+  }
 
-  def self.problems
+  scope :problems, -> {
     where("link_status != '200'")
-  end
+  }
 
   def stamp_link
     self.link_checked_at ||= Time.now

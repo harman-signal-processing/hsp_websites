@@ -44,10 +44,17 @@ jQuery ($) ->
         opt = new Option item.name, item.id
         ps.append opt
     ps.chosen("destroy").attr(multiple: false)
-    
+
   $('#scheduled_task_action_field_name').change (e) ->
     scheduled_task_id = $('#scheduled_task_action_scheduled_task_id').val()
     field_name = $(@).val()
     $.ajax
       url: "/admin/scheduled_tasks/#{scheduled_task_id}/value_field/#{ field_name }"
       delayType: 'script'
+
+  $('.toggler').click (e) ->
+    toggle_id = $(@).data('toggle')
+    $("##{ toggle_id }_show").toggle()
+    $("##{ toggle_id }_hide").toggle()
+    e.preventDefault()
+

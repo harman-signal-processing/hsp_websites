@@ -127,7 +127,7 @@ module FeaturesHelper
 
   def render_pre_content(feature)
     content_tag :div, class: "feature-pre" do
-      raw(feature.pre_content)
+      raw(translate_content(feature, :pre_content))
     end
   end
 end

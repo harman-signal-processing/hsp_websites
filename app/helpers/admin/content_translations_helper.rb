@@ -14,6 +14,11 @@ module Admin::ContentTranslationsHelper
   def translation_summary_for(item, target_locale)
     finished = fields_translated_for(item, target_locale).size
     total_to_translate = total_to_translate_for(item, target_locale).size
+    unless item.is_a?(Product) # loop takes too long for products
+      total_to_translate_for(item, target_locale).each do |field_name|
+        total_to_translate -= 1 if item.send(field_name).blank?
+      end
+    end
 
     ContentTranslation.description_translatables_for(item, website.brand, target_locale).each do |d|
       finished += 1 unless d.new_record?

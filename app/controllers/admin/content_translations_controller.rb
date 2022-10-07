@@ -49,12 +49,14 @@ class Admin::ContentTranslationsController < AdminController
 
     @record = klass.find_by_id(params[:id])
     ContentTranslation.fields_to_translate_for(@record, website.brand).each do |field_name|
-      content_translation = ContentTranslation.where(
-        content_type: @model_class,
-        content_id: @record.id,
-        content_method: field_name,
-        locale: @target_locale).first_or_initialize
-      @content_translations << content_translation
+      unless @record.send(field_name).blank?
+        content_translation = ContentTranslation.where(
+          content_type: @model_class,
+          content_id: @record.id,
+          content_method: field_name,
+          locale: @target_locale).first_or_initialize
+        @content_translations << content_translation
+      end
     end
 
     @content_translations += ContentTranslation.description_translatables_for(@record, website.brand, @target_locale)

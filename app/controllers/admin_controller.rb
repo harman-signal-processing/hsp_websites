@@ -21,7 +21,9 @@ class AdminController < ApplicationController
         @msg = "You don't appear to have access to any resources. Please contact adam.anderson@harman.com or darryl.dalton@harman.com."
       end
     end
-    @orl_problems = OnlineRetailerLink.problems
+    @orl_problems = OnlineRetailerLink.problems.where(product_id: website.current_and_discontinued_product_ids).or(
+      OnlineRetailerLink.problems.where(brand_id: website.brand_id)
+    )
     render_template
   end
 

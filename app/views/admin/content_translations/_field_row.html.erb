@@ -6,16 +6,31 @@
     <%= content_translation.header %> <%= @target_locale %>:
   </th>
 </tr>
-<tr>
-  <td valign="top" style="padding-right: 40px">
-    <%=raw content_translation.original_value %>
-  </td>
-  <td valign="top" style="border-left: 1px dotted #CCC; padding-left: 10px;">
-    <% if content_translation.original_item.class.columns_hash[content_translation.content_method].type == :string %>
-      <%= text_field_tag "content[i#{content_translation.content_id}][#{content_translation.content_method}]", content_translation.content %>
-    <% else %>
+<% if content_translation.edit_as_html? %>
+  <tr>
+    <td valign="top" style="padding-right: 40px">
+      <div>
+        <%= link_to "toggle view", '#', class: "button small secondary radius toggler",
+          data: {
+          toggle: "#{ content_translation.content_method }_#{ content_translation.content_id}",
+        } %>
+      </div>
+      <textarea class="code_preview" id="<%= content_translation.content_method %>_<%= content_translation.content_id %>_show"><%=raw content_translation.original_value %></textarea>
+      <div id="<%= content_translation.content_method %>_<%= content_translation.content_id %>_hide" style="display: none;">
+        <%=raw content_translation.original_value %>
+      </div>
+    </td>
+    <td valign="top" style="border-left: 1px dotted #CCC; padding-left: 10px;">
       <%= text_area_tag "content[i#{content_translation.content_id}][#{content_translation.content_method}]", content_translation.content, class: "mceEditor", style: "min-height: 400px" %>
-    <% end %>
-  </td>
-</tr>
-
+    </td>
+  </tr>
+<% else %>
+  <tr>
+    <td valign="top" style="padding-right: 40px">
+      <%=raw content_translation.original_value %>
+    </td>
+    <td valign="top" style="border-left: 1px dotted #CCC; padding-left: 10px;">
+      <%= text_field_tag "content[i#{content_translation.content_id}][#{content_translation.content_method}]", content_translation.content %>
+    </td>
+  </tr>
+<% end %>
