@@ -6,9 +6,30 @@
 
     <%= form_tag combined_admin_content_translations_path(target_locale: @target_locale), method: :post %>
       <table width="100%">
-      <% @content_translations.each do |content_translation| %>
-        <%= render 'field_row', content_translation: content_translation %>
-      <% end %>
+        <% if Rails.application.routes.url_helpers.respond_to?("#{@record.model_name.singular_route_key}_path") %>
+          <tr>
+            <th style="background: #ccc; border-bottom: 1px dotted #CCC" width="50%">
+              Page link <%= I18n.default_locale %>:
+            </th>
+            <th style="background: #ccc; border-bottom: 1px dotted #CCC" width="50%">
+              Page link <%= @target_locale %>:
+            </th>
+          </tr>
+          <tr>
+            <td><%= link_to [@record, locale: I18n.default_locale], target: "_blank" do %>
+                <%= url_for([@record, locale: I18n.default_locale, only_path: false]) %>
+              <% end %>
+            </td>
+            <td><%= link_to [@record, locale: @target_locale], target: "_blank" do %>
+                <%= url_for([@record, locale: @target_locale, only_path: false]) %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+
+        <% @content_translations.each do |content_translation| %>
+          <%= render 'field_row', content_translation: content_translation %>
+        <% end %>
       </table>
 
       <%= hidden_field_tag "id", @record.id %>

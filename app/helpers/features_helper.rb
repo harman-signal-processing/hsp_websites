@@ -103,8 +103,10 @@ module FeaturesHelper
   def render_feature_text(feature, opt={})
     data = (opt[:format].present? && opt[:format] == "mobile") ? {} :
       { 'equalizer-watch': "feature_#{feature.to_param}" }
+    styles = []
+    styles += ["height: #{opt[:text_height]}", "overflow: hidden"] if opt[:text_height].present?
     if feature.content.present?
-      content_tag :div, class: "borderless feature-text panel", data: data do
+      content_tag :div, class: "borderless feature-text panel", style: styles.join(";"), data: data do
         raw(update_youtube_links(translate_content(feature, :content)))
       end
     end
@@ -130,4 +132,14 @@ module FeaturesHelper
       raw(translate_content(feature, :pre_content))
     end
   end
+
+  # Attempt to calculate a uniform text-box height for a set of features
+  def calculate_common_text_height_for_features(features)
+    longest_chars = features.reorder("LENGTH(content) DESC").first.content.size
+    longest_lines = (longest_chars.to_f / 36.0).to_f # figuring 36 chars per line approx.
+    line_height = 30.0 # Just a guess here at how tall one line of text is
+    pixel_height = (longest_lines * line_height)  + 30 # Add a little buffer
+    "#{pixel_height.to_i}px"
+  end
+
 end

@@ -109,7 +109,7 @@ group :development do
   gem 'rb-inotify', :require=>false
   gem 'sshkit'
   gem 'colorize'
-  gem 'rorvswild'
+  #gem 'rorvswild'
   gem 'marginalia'
   gem 'active_record_query_trace'
 end
