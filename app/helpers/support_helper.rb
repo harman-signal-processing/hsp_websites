@@ -37,7 +37,7 @@ module SupportHelper
 				  	has_label = hash[:label].present?
 					  case listname
 					  when "emails"
-					    html += "<i class='fa fa-envelope' aria-hidden='true'></i>&nbsp;#{mail_to hash[keyname.to_sym]}<br />"
+					    html += email_html(has_label, hash, keyname)
 					  when "websites"
 					  	if hash[keyname.to_sym].present?
 						  	#make sure the url contains the protocol
@@ -84,6 +84,14 @@ module SupportHelper
   	
   	html
 	end  #  def phone_html(has_label, hash, keyname)
+
+  def email_html(has_label, hash, keyname)
+    html = ""
+    html += "<i class='fa fa-envelope' aria-hidden='true'></i>&nbsp;"
+    html += "#{hash[:label]}: " if has_label
+    html += "#{mail_to hash[keyname.to_sym]}<br />"
+    html
+  end  #  def email_html(has_label, hash, keyname)
 
   def custom_sorted_service_centers
     @service_centers.sort_by{|a|
