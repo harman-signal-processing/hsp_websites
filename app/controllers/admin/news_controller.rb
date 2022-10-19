@@ -7,7 +7,7 @@ class Admin::NewsController < AdminController
   def index
     @this_brand = params[:this_brand].present? ? !!(params[:this_brand].to_i > 0) : true
     @search = (@this_brand) ? website.brand.news.ransack(params[:q]) : News.ransack(params[:q])
-    @news = @search.result.paginate(page: params[:page], per_page: 20)
+    @news = @search.result.reorder("post_on DESC").paginate(page: params[:page], per_page: 20)
     respond_to do |format|
       format.html { render_template } # index.html.erb
       format.xml  { render xml: @news }

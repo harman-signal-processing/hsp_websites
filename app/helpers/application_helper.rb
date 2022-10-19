@@ -7,6 +7,16 @@ module ApplicationHelper
     request.path.sub(/^\/[a-zA-Z\-]{2,8}/, "/#{new_locale}")
   end
 
+  # Determines if we should hide the given locale from a user
+  def exclude_locale_from_options?(locale)
+    if !(session['geo_usa']) && locale.to_s.match?(/\-US/i)
+      return true
+    elsif !!(session['geo_usa']) && locale.to_s == "en"
+      return true
+    end
+    return false
+  end
+
   # Apple iOS icons for a given Website.brand
   #
   def app_meta_tags(options={})

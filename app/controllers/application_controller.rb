@@ -169,7 +169,7 @@ private
         session['geo_usa'] = (clean_country_code == "us") ? true : false
       else
         unless session['geo_country']
-          lookup = Geokit::Geocoders::GeoPluginGeocoder.do_geocode(request.remote_ip)
+          lookup = Geokit::Geocoders::IpGeocoder.do_geocode(request.remote_ip)
           if lookup.success? || lookup.country_code
             session['geo_country'] = lookup.country_code
             session['geo_usa'] = lookup.is_us?
@@ -190,7 +190,13 @@ private
 
     # This is where we set the locale:
     if params.key?(:locale)
-      I18n.locale = params[:locale]
+      if params[:locale].to_s == "en-US" && !(session['geo_usa'])
+        I18n.locale = "en"
+      elsif params[:locale].to_s == "en" && !!(session['geo_usa'])
+        I18n.locale == "en-US"
+      else
+        I18n.locale = params[:locale]
+      end
     elsif !!(session['geo_usa']) && website.list_of_available_locales.include?("en-US")
       I18n.locale = 'en-US'
     elsif session['geo_country'] == "CN" && website.list_of_available_locales.include?("zh")

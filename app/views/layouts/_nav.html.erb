@@ -35,15 +35,17 @@
 					<% end %>
 					<ul class="dropdown">
 						<% website.available_locales.each do |website_locale| %>
-							<% if website_locale.locale.to_s == I18n.locale.to_s %>
-							<li><%= link_to '#', class: "active" do %>
-									<%= image_tag 'icons/check_white.png', alt: 'checkmark' %>
-									<%= website_locale.name %>
-								<% end %>
-							</li>
-							<% else %>
-							<li><%= link_to website_locale.name, switch_locale(website_locale.locale) %></li>
-							<% end %>
+              <% unless exclude_locale_from_options?(website_locale.locale) %>
+                <% if website_locale.locale.to_s == I18n.locale.to_s %>
+                  <li><%= link_to '#', class: "active" do %>
+                      <%= image_tag 'icons/check_white.png', alt: 'checkmark' %>
+                      <%= website_locale.name %>
+                    <% end %>
+                  </li>
+                <% else %>
+                  <li><%= link_to website_locale.name, switch_locale(website_locale.locale) %></li>
+                <% end %>
+              <% end %>
 						<% end %>
 					</ul>
 				</li>
