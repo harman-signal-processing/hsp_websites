@@ -175,8 +175,8 @@ private
             session['geo_usa'] = lookup.is_us?
             session['geo_usa_state'] = lookup.state
           else
-            session['geo_country'] = "US"
-            session['geo_usa'] = true
+            session['geo_country'] = "UK"
+            session['geo_usa'] = false
             session['geo_usa_state'] = nil
           end
         end
@@ -190,14 +190,13 @@ private
 
     # This is where we set the locale:
     if params.key?(:locale)
-# Not quite ready...will re-enable soon
-#      if params[:locale].to_s == "en-US" && !(session['geo_usa'])
-#        I18n.locale = "en"
-#      elsif params[:locale].to_s == "en" && !!(session['geo_usa'])
-#        I18n.locale == "en-US"
-#      else
+      if params[:locale].to_s == "en-US" && !(session['geo_usa']) && website.list_of_available_locales.include?("en")
+        I18n.locale = "en"
+      elsif params[:locale].to_s == "en" && !!(session['geo_usa']) && website.list_of_available_locales.include?("en-US")
+        I18n.locale == "en-US"
+      else
         I18n.locale = params[:locale]
-#      end
+      end
     elsif !!(session['geo_usa']) && website.list_of_available_locales.include?("en-US")
       I18n.locale = 'en-US'
     elsif session['geo_country'] == "CN" && website.list_of_available_locales.include?("zh")

@@ -1,5 +1,5 @@
 <div class="product-price">
-  <% if website.show_pricing? && I18n.default_locale.match(/#{I18n.locale}/i) %>
+  <% if website.show_pricing? && I18n.locale.match?(/US/i) %>
     <% calculate_pricing_for_product_page(@product, @promo) %>
 
     <% if @product.msrp.to_f > 0.0 %>

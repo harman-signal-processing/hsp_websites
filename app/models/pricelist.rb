@@ -5,7 +5,7 @@ class Pricelist
     default_options = {
       loc:          "us",
       website:       brand.default_website,
-      locale:        I18n.default_locale
+      locale:        'en-US'
     }
     @options  = default_options.merge options
     @pricing_types = brand.pricing_types.where("#{@options[:loc]} = 1 AND pricelist_order > 0").order(:pricelist_order)

@@ -19,7 +19,7 @@ FactoryBot.define do
     show_pricing { false }
     has_suggested_products { false }
     has_audio_demos { false }
-    default_locale { "en-US" }
+    default_locale { "en" }
     dealers_from_brand_id { nil }
     distributors_from_brand_id { nil }
     service_centers_from_brand_id { nil }

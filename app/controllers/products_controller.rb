@@ -116,7 +116,7 @@ class ProductsController < ApplicationController
   # But, here's how you would link to it:
   #
   # Example:
-  #    /en-US/introducing/unplugged
+  #    /en/introducing/unplugged
   #
   # Somehow I need to remove access to the landing page after some time
   # since it features the introductory 99 cent price.

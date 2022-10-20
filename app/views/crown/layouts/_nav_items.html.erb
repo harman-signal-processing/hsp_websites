@@ -46,7 +46,7 @@
           <li><%= link_to t('nav.avb'), "/#{I18n.locale}/network-audio#avb" %></li>
         </ul>
       </li>
-      <% if I18n.locale == I18n.default_locale && (website.has_dealers? || website.has_distributors? || website.has_online_retailers?) %>
+      <% if I18n.locale.to_s.match?(/US/) && (website.has_dealers? || website.has_distributors? || website.has_online_retailers?) %>
         <li><%= link_to "Promotions", promotions_path %></li>
       <% end %>
 			<li><%= link_to t('discontinued_products').titleize, discontinued_products_path %></li>

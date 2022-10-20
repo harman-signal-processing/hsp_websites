@@ -4,7 +4,7 @@ module TranslationHelper
   # back to language only or default (english)
   def translate_content(object, method)
     c = object.send(method) # (default)
-    return c if I18n.locale == I18n.default_locale || I18n.locale == 'en'
+    return c if I18n.locale.to_s.match?(/en/)
 
     if !!(object.class.columns_hash[method.to_s])
       translations = ContentTranslation.where(content_type: object.class.to_s, content_id: object.id, content_method: method.to_s)

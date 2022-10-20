@@ -8,7 +8,7 @@ class WebsiteLocale < ApplicationRecord
   def self.all_unique_locales
     begin
       if Rails.env.test? # not cool, but only thing I can get working for testing
-        [I18n.default_locale]
+        [I18n.default_locale, "en-US"]
       else
         # 2022-10 [AA] config/routes.rb uses this to setup routes for locales. Now
         #   that RV is launching pages without completing the translation, we just
