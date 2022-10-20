@@ -9,11 +9,12 @@ module ApplicationHelper
 
   # Determines if we should hide the given locale from a user
   def exclude_locale_from_options?(locale)
-    if !(session['geo_usa']) && locale.to_s.match?(/\-US/i)
-      return true
-    elsif !!(session['geo_usa']) && locale.to_s == "en"
-      return true
-    end
+    # Not quite ready...re-enable soon
+    #if !(session['geo_usa']) && locale.to_s.match?(/\-US/i)
+    #  return true
+    #elsif !!(session['geo_usa']) && locale.to_s == "en"
+    #  return true
+    #end
     return false
   end
 
