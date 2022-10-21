@@ -494,6 +494,13 @@ class ProductFamily < ApplicationRecord
     product_family_videos.select(:id).size > 0
   end
 
+  # Merge the list of locales where this Family should appear with
+  # available translations plus our usual English locales
+  # Then remove the current locale
+  def other_locales_with_translations(website)
+    (locales(website) & (content_translations.pluck(:locale).uniq + ["en", "en-US"])) - [I18n.locale.to_s]
+  end
+
   def copy!(options = {})
     npf = self.dup
     if options[:parent_id]

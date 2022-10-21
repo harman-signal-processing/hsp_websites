@@ -68,7 +68,7 @@ class Admin::ContentTranslationsController < AdminController
           content_translation.save!
         end
       end
-      redirect_to list_admin_content_translations_path(target_locale: @target_locale, type: @model_class), notice: "Updated successfully."
+      redirect_to list_admin_content_translations_path(target_locale: @target_locale, type: params[:type]), notice: "Updated successfully."
     end
   end
 

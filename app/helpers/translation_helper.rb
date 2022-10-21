@@ -25,4 +25,11 @@ module TranslationHelper
     end
   end
 
+  def language_name_lookup(locale)
+    begin
+      website.website_locales.where(locale: locale).first.name
+    rescue
+      locale
+    end
+  end
 end
