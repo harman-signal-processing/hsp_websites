@@ -133,4 +133,7 @@ class News < ApplicationRecord
     :body
   end
 
+  def other_locales_with_translations(website)
+    (content_translations.pluck(:locale).uniq + ["en", "en-US"]) - [I18n.locale.to_s]
+  end
 end

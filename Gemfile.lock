@@ -505,6 +505,9 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.4.3)
       loofah (~> 2.3)
+    rails-i18n (7.0.5)
+      i18n (>= 0.7, < 2)
+      railties (>= 6.0.0, < 8)
     rails_autolink (1.1.6)
       rails (> 3.1)
     railties (7.0.4)
@@ -759,6 +762,7 @@ DEPENDENCIES
   pry-byebug
   rabl
   rails (~> 7.0)
+  rails-i18n (~> 7.0)
   rails_autolink
   ransack
   rb-fchange
