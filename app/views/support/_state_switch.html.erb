@@ -2,16 +2,15 @@
     <div class="row" style="margin-bottom:20px;">
         <div class="large-8 small-8 columns" style="border: solid red 0px;">
             <div style="float:left; border: solid red 0px; width: 200px; margin-top: 0px; margin-left: 0px;">
-
-			<%selected_state = params[:state].presence || user_usa_state_code%>
+			<%selected_state = params[:state].presence || user_usa_state_code || ""%>
             <%= select_tag "state-switch", 
             options_from_collection_for_select(us_states, :first, :last, selected_state.upcase), 
             prompt: "Select Your State", 
             class: 'chosen-select'
-            %>                
-                
+            %>
+
             </div>
             <div style="clear: left;"></div>
         </div>
-    </div> <!-- <div class="row"> -->    
+    </div> <!-- <div class="row"> -->
 <% end %>
