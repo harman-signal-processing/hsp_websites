@@ -812,6 +812,13 @@ class Product < ApplicationRecord
     end
   end
 
+  # Merge the list of locales where this Product  should appear with
+  # available translations plus our usual English locales
+  # Then remove the current locale
+  def other_locales_with_translations(website)
+    (locales(website) & (content_translations.pluck(:locale).uniq + ["en", "en-US"])) - [I18n.locale.to_s]
+  end
+
   def copy!
     new_product = self.dup
     new_product.product_status = ProductStatus.where(show_on_website: false).first

@@ -38,7 +38,6 @@ en:
   email: email
   enquire: enquire
   events: events
-  events: Events
   events_around_the_world: Events Around The World
   explore: explore
   find_a_dealer: Find a Dealer
@@ -105,7 +104,6 @@ en:
   quality: quality
   regarding: regarding
   register_your_product: "Register Your %{product}"
-  related_products: Related products
   related_products: related products
   rental_companies: Rental Companies
   resource_downloads: resources
@@ -149,6 +147,7 @@ en:
   version: version
   videos: Videos
   view_full_line: view full line
+  view_this_page_in_another_language: View this page in another language
   visit: visit
   visit_the: visit the
   warranty: Warranty

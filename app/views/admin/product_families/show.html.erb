@@ -352,6 +352,11 @@
             <%= render "/admin/shared/locale_product_family_row", lpf: lpf %>
           <% end %>
         </ul>
+
+        <p>If the list above is empty, then this family should be available for ALL locales.
+          Otherwise, it is restricted to appear only on the locales listed above. If you're
+          trying to provide a translation, make sure the locale in question is on the list.
+        </p>
       <% end %>
     </div>
 
