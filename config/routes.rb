@@ -649,9 +649,9 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     end
     get '/profile' => "profile#show", as: :profile
 
+    get "Forum(/:url_params)", to: redirect("https://proforums.harman.com")
     match "*custom_route" => "pages#show", as: :custom_route, via: :all
   end  # scope "(:locale)", locale: /
-
 
   match '*a', to: 'errors#404', via: :all
 
