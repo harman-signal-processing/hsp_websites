@@ -143,6 +143,7 @@ private
       # nothing happened so the hackers don't get any kind of indication of what's going on.
       params[:page].gsub!(/\D/, '')
       params[:page] = params[:page][0,6] # then use only the first 6 digits.
+      params[:page] = 1 if params[:page].to_i < 1
     end
   end
 
