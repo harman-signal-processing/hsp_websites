@@ -11,7 +11,7 @@ module Api
       	website.brand.products.each do |product|
       	  product_document_pdfs << product.product_documents.where("document_file_name like ?","%.pdf%")
       	end
-        site_element_pdfs = website.brand.site_elements.where("resource_file_name like ?","%.pdf%")
+        site_element_pdfs = website.brand.site_elements.where("resource_file_name like ? or executable_file_name like ?","%.pdf%","%.pdf%")
         product_documents_and_site_element_pdfs = product_document_pdfs.flatten + site_element_pdfs.to_ary
         
         @pdfs = product_documents_and_site_element_pdfs.map {|item|
