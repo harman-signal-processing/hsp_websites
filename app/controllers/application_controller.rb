@@ -130,7 +130,7 @@ private
     # 2022-08 Getting lots of geniuses trying to POST JSON. Let's just give them an error without much info:
     # This globally blocks POSTing JSON. Bypass this filter in your controller if POSTing JSON is required.
     if request.content_type.to_s.match?(/json/i) && request.post?
-      BadActorLog.create(ip_address: request.remote_ip, reason: "POSTing JSON", details: "#{request.inspect}\n\n#{params.inspect}")
+      BadActorLog.create(ip_address: request.remote_ip, reason: "POSTing JSON", details: "#{request.inspect}")
       raise ActionController::UnpermittedParameters.new ["not allowed"]
     end
 
@@ -155,6 +155,14 @@ private
       if has_sqli?(params.to_unsafe_h.flatten.to_s)
         BadActorLog.create(ip_address: request.remote_ip, reason: "SQLi attempt", details: "#{request.inspect}\n\n#{params.inspect}")
         raise ActionController::UnpermittedParameters.new(["pESop jup"])
+      end
+
+      # Check if the user is trying to pass something sinister in with the locale param
+      if params[:locale].present?
+        if params[:locale].to_s.match?(/[^\w\-]/)
+          BadActorLog.create(ip_address: request.remote_ip, reason: "Overloading locale param", details: "#{request.inspect}\n\n#{params.inspect}")
+          raise ActionController::UnpermittedParameters.new(["Dema chigicha pai"])
+        end
       end
     end
 
