@@ -1,0 +1,2 @@
+class BadActorLog < ApplicationRecord
+end

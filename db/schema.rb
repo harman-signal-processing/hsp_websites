@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_16_144709) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_01_145911) do
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.boolean "distributor"
@@ -228,6 +228,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_16_144709) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["brand_id"], name: "index_audio_demos_on_brand_id"
+  end
+
+  create_table "bad_actor_logs", charset: "utf8", force: :cascade do |t|
+    t.string "ip_address"
+    t.string "reason"
+    t.text "details"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ip_address"], name: "index_bad_actor_logs_on_ip_address"
   end
 
   create_table "badges", charset: "utf8", force: :cascade do |t|

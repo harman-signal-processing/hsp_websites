@@ -2,8 +2,11 @@ class WarrantyRegistration < ApplicationRecord
   include ActionView::Helpers::NumberHelper
   belongs_to :brand
   belongs_to :product
-  validates :first_name, :last_name, :country, :serial_number, :purchased_on, presence: true, length: 1..128
-  validates :email, presence: true, email: true, length: 1..128
+  validates :first_name, :last_name, :country, presence: true, length: 1..127, format: {
+    without: /[\\\/\$\%\^\&\*]|http/i, message: "invalid characters found"
+  }
+  validates :serial_number, :purchased_on, presence: true, length: 1..127
+  validates :email, presence: true, email: true, length: 1..127
   validates :company, presence: true, if: :require_company?
   after_create :send_email_confirmation, :execute_promotion, :sync_with_service_department
   attr_reader :purchase_city

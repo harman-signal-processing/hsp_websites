@@ -1,0 +1,25 @@
+<h1>Bad Actor Logs</h1>
+<p>(100 most recent)</p>
+
+<table>
+  <thead>
+    <tr>
+      <td>Time</td>
+      <td>IP</td>
+      <td>Reason</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @bad_actor_logs.each do |bal| %>
+      <tr>
+        <td><%=l bal.created_at %></td>
+        <td><%= bal.ip_address %></td>
+        <td><%= bal.reason %></td>
+        <td><%= link_to "view", [:admin, bal] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+

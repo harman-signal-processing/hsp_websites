@@ -130,6 +130,7 @@ private
     # 2022-08 Getting lots of geniuses trying to POST JSON. Let's just give them an error without much info:
     # This globally blocks POSTing JSON. Bypass this filter in your controller if POSTing JSON is required.
     if request.content_type.to_s.match?(/json/i) && request.post?
+      BadActorLog.create(ip_address: request.remote_ip, reason: "POSTing JSON", details: "#{request.inspect}\n\n#{params.inspect}")
       raise ActionController::UnpermittedParameters.new ["not allowed"]
     end
 
@@ -138,6 +139,7 @@ private
     if params[:page].present? && params[:page].to_s.match(/\D/)
       # We could raise an exception anytime there's something non-numeric in the page parameter
       #raise ActionController::UnpermittedParameters.new ["not allowed"]
+      BadActorLog.create(ip_address: request.remote_ip, reason: "Page param overload", details: "#{request.inspect}\n\n#{params.inspect}")
 
       # But I think it's more fun to just strip out non-numeric characters and pretend
       # nothing happened so the hackers don't get any kind of indication of what's going on.
@@ -145,6 +147,17 @@ private
       params[:page] = params[:page][0,6] # then use only the first 6 digits.
       params[:page] = 1 if params[:page].to_i < 1
     end
+
+    # Alright, we're just going to look at all params for SQLi. This is probably going
+    # to slow us down a bit. Thanks a lot hacker fools.
+    if params.present?
+      # checking all params as a string to avoid extra looping
+      if has_sqli?(params.to_unsafe_h.flatten.to_s)
+        BadActorLog.create(ip_address: request.remote_ip, reason: "SQLi attempt", details: "#{request.inspect}\n\n#{params.inspect}")
+        raise ActionController::UnpermittedParameters.new(["pESop jup"])
+      end
+    end
+
   end
 
   # use this as a before_action filter in controllers where big bad hackers are trying to request
@@ -449,6 +462,24 @@ private
        query.to_s.match(/order\s{1,}by/i) ||
        query.to_s.match(/query-1|1\=1/)
       raise ActionController::UnpermittedParameters.new ["query not allowed"]
+    end
+  end
+
+  def has_sqli?(input)
+    sqli = Regexp.union(
+      /THEN.*ELSE.*END/i,
+      /CONCAT.*SELECT/i,
+      /UNION.*SELECT/i,
+      /CHAR\(/i,
+      /RESULT\:/i,
+      /\=.*SLEEP/i,
+      /SLEEP.*\=/i,
+      /\+{7,}/,
+    )
+    if input.respond_to?(:any?)
+      input.any?(sqli)
+    else
+      input.to_s.match?(sqli)
     end
   end
 

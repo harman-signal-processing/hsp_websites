@@ -415,6 +415,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :faq_categories,
         :us_rep_regions,
         :system_options,
+        :bad_actor_logs,
         :product_parts,
         :installations,
         :pricing_types,
@@ -442,7 +443,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         collection { post :update_order }
         collection { post :upload }
       end
-      
+
       resources :scheduled_tasks, shallow: true do
         member { get :run }
         resources :scheduled_task_actions
