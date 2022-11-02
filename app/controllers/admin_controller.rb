@@ -42,4 +42,8 @@ class AdminController < ApplicationController
     I18n.locale = I18n.default_locale
   end
 
+  def catch_criminals
+    # bypassing the main filter because it is stopping valid updates
+  end
+
 end
