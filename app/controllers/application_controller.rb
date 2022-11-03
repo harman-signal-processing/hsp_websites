@@ -136,7 +136,7 @@ private
 
     # SQL injection attacks where a paginated resource has the page number loaded with SQL.
     # It wouldn't give hackers anything, but this should avoid the dumb error reports.
-    if params[:page].present? && params[:page].to_s.match(/\D/)
+    if params[:page].present? && params[:page].to_s.match?(/[^\w\-\d]/)
       # We could raise an exception anytime there's something non-numeric in the page parameter
       #raise ActionController::UnpermittedParameters.new ["not allowed"]
       BadActorLog.create(ip_address: request.remote_ip, reason: "Page param overload", details: "#{request.inspect}\n\n#{params.inspect}")

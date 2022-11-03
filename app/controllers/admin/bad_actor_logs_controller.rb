@@ -9,4 +9,13 @@ class Admin::BadActorLogsController < AdminController
   def show
     render plain: @bad_actor_log.details
   end
+
+  # for removing false-positives
+  def destroy
+    @bad_actor_log.destroy
+    respond_to do |format|
+      format.html { redirect_to(admin_bad_actor_logs_url) }
+      format.js
+    end
+  end
 end

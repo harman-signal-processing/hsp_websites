@@ -11,11 +11,16 @@
   </thead>
   <tbody>
     <% @bad_actor_logs.each do |bal| %>
-      <tr>
+      <tr id="bal_<%= bal.id %>">
         <td><%=l bal.created_at %></td>
         <td><%= bal.ip_address %></td>
         <td><%= bal.reason %></td>
         <td><%= link_to "view", [:admin, bal] %></td>
+        <td>
+          <%= link_to [:admin, bal], method: :delete, remote: true do %>
+            <%= image_tag("icons/trash.gif", lazy: false) %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
