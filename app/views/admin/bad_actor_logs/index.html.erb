@@ -1,30 +1,58 @@
-<h1>Bad Actor Logs</h1>
-<p>(100 most recent)</p>
+<div class="row">
+  <div class="small-12 medium-7 columns">
+    <h1>Bad Actor Logs</h1>
+    <p>(from past <%= @days %> days)</p>
+  </div>
+  <div class="small-12 medium-5 columns">
+    <h4>Report Options</h4>
+    <ul>
+      <li>Pass ?days=(num) to this page to load logs from the past (num) days.</li>
+      <li><%= link_to ".txt", admin_bad_actor_logs_path(format: :txt, days: @days) %> (unique ips from past <%= @days %> days)</li>
+      <li><%= link_to ".txt (for nginx)", admin_bad_actor_logs_path(format: :txt, days: @days, nginx: true) %> (same as above with 1; line ending)</li>
+    </ul>
+  </div>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <td>Time</td>
-      <td>IP</td>
-      <td>Reason</td>
-    </tr>
-  </thead>
-  <tbody>
-    <% @bad_actor_logs.each do |bal| %>
-      <tr id="bal_<%= bal.id %>">
-        <td><%=l bal.created_at %></td>
-        <td><%= bal.ip_address %></td>
-        <td><%= bal.reason %></td>
-        <td><%= link_to "view", [:admin, bal] %></td>
-        <td>
-          <%= link_to [:admin, bal], method: :delete, remote: true do %>
-            <%= image_tag("icons/trash.gif", lazy: false) %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="row">
+  <div class="small-12 medium-7 columns">
+    <table style="width: 100%">
+      <thead>
+        <tr>
+          <td>Time</td>
+          <td>IP</td>
+          <td>Reason</td>
+        </tr>
+      </thead>
+      <tbody>
+        <% @bad_actor_logs.each do |bal| %>
+          <tr id="bal_<%= bal.id %>">
+            <td><%=l bal.created_at %></td>
+            <td><%= bal.ip_address %></td>
+            <td><%= bal.reason %></td>
+            <td><%= link_to "view", [:admin, bal] %></td>
+            <td>
+              <%= link_to [:admin, bal], method: :delete, remote: true do %>
+                <%= image_tag("icons/trash.gif", lazy: false) %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 
-
+  <div class="small-12 medium-5 columns">
+    <div class="panel">
+      <h4>Manual Entry</h4>
+      <p>Use for logging stuff that didn't caught but should be included in IP reports above.</p>
+      <%= simple_form_for [:admin, @bad_actor_log] do |f| %>
+        <%= f.input :created_at, as: :string, input_html: { class: 'ui-datetimepicker' } %>
+        <%= f.input :ip_address %>
+        <%= f.input :reason %>
+        <%= f.input :details %>
+        <br/><%= f.button :submit %>
+      <% end %>
+    </div>
+  </div>
+</div>
 
