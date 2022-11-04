@@ -22,6 +22,10 @@ gem 'font-awesome-rails'
 # To use debugger
 # gem 'ruby-debug'
 
+# rack middleware security gems:
+gem 'rack-attack'
+gem 'rack-utf8_sanitizer'
+
 # Bundle the extra gems:
 gem 'mysql2'
 gem 'utf8-cleaner'

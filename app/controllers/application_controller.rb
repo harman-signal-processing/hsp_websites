@@ -130,7 +130,7 @@ private
     # 2022-08 Getting lots of geniuses trying to POST JSON. Let's just give them an error without much info:
     # This globally blocks POSTing JSON. Bypass this filter in your controller if POSTing JSON is required.
     if request.content_type.to_s.match?(/json/i) && request.post?
-      BadActorLog.create(ip_address: request.remote_ip, reason: "POSTing JSON", details: "#{request.inspect}\n\n#{request.env.inspect}")
+      BadActorLog.create(ip_address: request.remote_ip, reason: "POSTing JSON", details: "#{request.inspect}\n\n#{request.env["RAW_POST_DATA"]}")
       raise ActionController::UnpermittedParameters.new ["not allowed"]
     end
 
