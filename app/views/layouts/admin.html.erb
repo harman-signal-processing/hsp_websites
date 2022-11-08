@@ -310,6 +310,9 @@
                     <% if can? :manage, ScheduledTask %>
                       <li><%= link_to "Scheduled Tasks", admin_scheduled_tasks_path %></li>
                     <% end %>
+                    <% if can? :manage, BadActorLog %>
+                      <li><%= link_to "Bad Actor Log", admin_bad_actor_logs_path %></li>
+                    <% end %>
                   </ul>
                   </li>
                 <% end %>

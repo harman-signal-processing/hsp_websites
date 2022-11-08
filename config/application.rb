@@ -90,5 +90,8 @@ module HarmanSignalProcessingWebsite
 
     config.document_languages = (LanguageList::COMMON_LANGUAGES.map{|l| [l.name, l.iso_639_1]} + [["Australia", "au"]]).sort_by { |lang| lang[0] }
 
+    # enable utf-8 sanitizer rack middleware:
+    config.middleware.insert 0, Rack::UTF8Sanitizer
+
   end
 end

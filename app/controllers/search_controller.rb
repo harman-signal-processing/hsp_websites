@@ -46,7 +46,6 @@ class SearchController < ApplicationController
   def pdf_only_search_results?
     # The user wants PDF only search if they check the box or they are clicking the pagination links after they have submitted a PDF only search.
     # If they want to exit the PDF only search they will just need to uncheck the box and click search
-
     @pdf_only = !!params[:pdf_only] || !!params[:paginate_pdf_only]
   end
 

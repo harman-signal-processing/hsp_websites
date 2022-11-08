@@ -1,6 +1,10 @@
 require 'rb-inotify' if RUBY_PLATFORM.downcase.include?("linux")
 require 'rb-fsevent' if RUBY_PLATFORM.downcase.include?("darwin") # Mac OS
 
+# Disabled Rack::Attack for testing because we throw a lot of requests at
+# the app really fast which looks like an attack but isn't.
+Rack::Attack.enabled = false
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
