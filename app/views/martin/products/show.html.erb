@@ -183,6 +183,12 @@ set_meta_tags title: @product.name,
 		<!-- <%= @active_tab %> -->
     <%= draw_main_product_content @product, active_tab: @active_tab %>
 
+    <% unless hide_contact_buttons?(@product) %>
+      <div class="show-for-medium-down">
+        <%= hpro_contact_buttons %>
+      </div>
+    <% end %>
+
     <% if @product.legal_disclaimer.present? %>
       <div class="legal_disclaimer">
         <%= raw textilize @product.legal_disclaimer %>

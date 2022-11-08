@@ -664,7 +664,7 @@ div.product-title-block, div.small-title-block {
     font-weight: 500;
   }
   h3 {
-    color: $medium-gray;
+    color: $dark-gray;
     font-weight: 300;
   }
   div.side-nav-container {
@@ -678,7 +678,15 @@ div.product-title-block, div.small-title-block {
       font-size: rem-calc(14px);
       line-height: 1.5;
       a {
-        color: $medium-gray;
+        color: $dark-gray;
+        &:hover, &.current {
+          color: black;
+        }
+      }
+      &.active {
+        a {
+          color: black;
+        }
       }
     }
   }
@@ -742,10 +750,6 @@ ul.tabs {
 .tabs-content {
   border: 1px solid $dark-gray;
   padding: 10px 20px;
-}
-.find-a-dealer, .have-a-question, .contact-consultant {
-  background-color: #f8d448;
-  color: white;
 }
 .events_header {
   position: relative;
@@ -1225,4 +1229,10 @@ input#query {
       color: white;
     }
   }
+}
+.buy-button {
+  @include button(
+    $bg: $martin-yellow
+  )
+  color: black;
 }

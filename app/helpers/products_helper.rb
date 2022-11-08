@@ -193,7 +193,7 @@ module ProductsHelper
       end
       ret += "</dl>"
       unless hide_contact_buttons?(product)
-        ret += "<br/>" + hpro_contact_buttons
+        ret += hpro_contact_buttons
       end
       ret += "</div>"
       raw(ret)
@@ -401,31 +401,7 @@ module ProductsHelper
       text = t("add_to_cart")
     end
     text = text.downcase if options[:downcase]
-    if options[:html_button] 
-      text
-    else
-      loc = "#{I18n.locale}"
-      folder = website.folder
-      if product.direct_buy_link.blank?
-        if File.exists?(Rails.root.join("app", "assets", "images", folder, loc, "#{options[:button_prefix]}buyitnow_button.png")) 
-          image_tag("#{folder}/#{loc}/#{options[:button_prefix]}buyitnow_button.png", alt: text, mouseover: "#{folder}/#{loc}/#{options[:button_prefix]}buyitnow_button_hover.png")
-        else
-          text
-        end
-      elsif product.parent_products.size > 0 # as in e-pedals
-        if File.exists?(Rails.root.join("app", "assets", "images", folder, loc, "#{options[:button_prefix]}getit_button.png")) 
-          image_tag("#{folder}/#{loc}/#{options[:button_prefix]}getit_button.png", alt: text, mouseover: "#{folder}/#{loc}/#{options[:button_prefix]}getit_button_hover.png")
-        else
-          text
-        end
-      else
-        if File.exists?(Rails.root.join("app", "assets", "images", folder, loc, "#{options[:button_prefix]}addtocart_button.png")) 
-          image_tag("#{folder}/#{loc}/#{options[:button_prefix]}addtocart_button.png", alt: text, mouseover: "#{folder}/#{loc}/#{options[:button_prefix]}addtocart_button_hover.png")
-        else
-          text
-        end
-      end
-    end
+    text
   end
 
   def no_buy_it_now(product)
@@ -485,11 +461,7 @@ module ProductsHelper
   # to assign to the generated button
   #
   def button_class(button, options={})
-    if button.to_s.match(/img/i)
-      ""
-    else
-      options[:button_class] ? options[:button_class] : "medium button"
-    end
+    options[:button_class] ? options[:button_class] : "buy-button button medium"
   end
 
   def links_to_current_promotions(product, options={})
@@ -651,31 +623,35 @@ module ProductsHelper
     find_a_dealer = content_tag :div, class: "medium-6 small-12 columns" do
       link_to "#{ENV['PRO_SITE_URL']}/contacts/channel",
         target: "_blank",
-        class: "button expand radius find-a-dealer" do
+        class: "hpro-button button expand find-a-dealer" do
         image_tag("find_dealer.png", alt: "f", lazy: false) + t("find_a_dealer")
       end
     end
     have_a_question = content_tag :div, class: "medium-6 small-12 columns" do
       link_to "#{ENV['PRO_SITE_URL']}/contacts",
         target: "_blank",
-        class: "button expand radius have-a-question" do
+        class: "hpro-button button expand have-a-question" do
         image_tag("have_question.png", alt: "q", lazy: false) + t("have_a_question")
       end
     end
     contact_consultant = content_tag :div, class: "medium-12 small-12 columns" do
       link_to "#{ENV['PRO_SITE_URL']}/consultant",
         target: "_blank",
-        class: "button radius expand contact-consultant" do
+        class: "hpro-button button expand contact-consultant" do
         image_tag("contact-consultant.png", alt: "c", lazy: false) + t("contact_consultant")
       end
     end
     buttons = find_a_dealer + have_a_question
     buttons += contact_consultant if website.brand.show_consultant_button?
-    content_tag :div, buttons, class: "row collapse"
+    content_tag(:hr) +
+      content_tag(:div, class: "hpro-buttons-label")do
+        "HARMAN Professional Solutions:"
+      end +
+      content_tag(:div, buttons, class: "row collapse")
   end
 
   def hide_contact_buttons?(product)
-    !!(website.brand.name.match(/DOD|DigiTech|dbx|Lexicon/i) || product.hide_contact_buttons?)
+    !!(website.brand.name.match(/dbx|Lexicon/i) || product.hide_contact_buttons?)
   end
 
   def item_version(item)
