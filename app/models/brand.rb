@@ -99,11 +99,7 @@ class Brand < ApplicationRecord
 
   # Settings that other brands have, but this brand doesn't have defined.
   def unset_settings
-    Setting.where.not(
-      brand_id: self.id,
-      name: self.settings.pluck(:name),
-      setting_type: ["slideshow frame", "homepage feature", "products homepage slideshow frame"]
-    ).order(Arel.sql("UPPER(name)")).pluck(:name).uniq
+    Setting.unset_for_brand(self).select(:name).distinct.order(Arel.sql("UPPER(name)")).pluck(:name)
   end
 
   # This should work as a dynamic method, but mailers have troubles

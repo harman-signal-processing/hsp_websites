@@ -23,7 +23,7 @@ set_meta_tags title: translate_content(@news, :title),
    }
 %>
 
-<% if @news.news_photo.present? && (website.brand.name == "Martin" || @news.post_on > "2019-04-01".to_date) %>
+<% if @news.news_photo.present? %>
   <% unless website.hide_featured_news.to_i > 0 %>
     <%= content_for :feature do %>
       <div class="text-center news_banner">
@@ -37,7 +37,7 @@ set_meta_tags title: translate_content(@news, :title),
 
 <div class="row">
   <div class="medium-5 push-7 columns">
-    <% if @news.news_photo.present? && ((website.brand.name != "Martin" && @news.post_on < "2019-04-01".to_date) || (website.hide_featured_news.to_i > 0)) %>
+    <% if @news.news_photo.present? && website.hide_featured_news.to_i > 0 %>
       <div style="margin-bottom: 20px;">
         <%= link_to @news.news_photo.url, data: { fancybox: "news_photos"} do %>
           <%= image_tag @news.news_photo.url(:email), alt: translate_content(@news, :title) %>

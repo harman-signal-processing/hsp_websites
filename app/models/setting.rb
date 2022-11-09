@@ -18,6 +18,12 @@ class Setting < ApplicationRecord
   has_one :promotion, foreign_key: 'banner_id', dependent: :nullify, inverse_of: :banner
   validates :name, presence: true, uniqueness: { scope: [:locale, :brand_id], case_sensitive: false  }
 
+  scope :unset_for_brand, -> (brand) {
+    where.not(brand_id: Brand.where(live_on_this_platform: false).pluck(:id) + [brand.id]).
+    where.not(name: brand.settings.pluck(:name)).
+    where.not(setting_type: ["slideshow frame", "homepage feature", "products homepage slideshow frame"])
+  }
+
   # Borrow description from another site setting with the same name if
   # one exists.
   def steal_description
