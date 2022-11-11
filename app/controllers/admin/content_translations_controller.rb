@@ -43,6 +43,7 @@ class Admin::ContentTranslationsController < AdminController
   def combined
     @model_class = params[:type].classify
     @content_translations = []
+    @media_translations = []
     klass = ContentTranslation.translatable_classes.find do |ct|
       ct.to_s == @model_class
     end
@@ -58,6 +59,16 @@ class Admin::ContentTranslationsController < AdminController
         @content_translations << content_translation
       end
     end
+    MediaTranslation.fields_to_translate_for(@record, website.brand).each do |field_name|
+      unless @record.send(field_name).blank?
+        media_translation = MediaTranslation.where(
+          media_type: @model_class,
+          media_id: @record.id,
+          media_method: field_name,
+          locale: @target_locale).first_or_initialize
+        @media_translations << media_translation
+      end
+    end
 
     @content_translations += ContentTranslation.description_translatables_for(@record, website.brand, @target_locale)
 
@@ -66,6 +77,12 @@ class Admin::ContentTranslationsController < AdminController
         content_translation.content = params[:content]["i#{content_translation.content_id}"][content_translation.content_method]
         if content_translation.valid?
           content_translation.save!
+        end
+      end
+      @media_translations.each do |media_translation|
+        media_translation.media = params[:media]["i#{media_translation.media_id}"][media_translation.media_method]["media"]
+        if media_translation.valid?
+          media_translation.save!
         end
       end
       redirect_to list_admin_content_translations_path(target_locale: @target_locale, type: params[:type]), notice: "Updated successfully."

@@ -1,0 +1,28 @@
+<%= simple_fields_for "media[i#{media_translation.media_id}][#{media_translation.media_method}]", media_translation do |mt| %>
+<tr>
+  <th style="background: #ccc; border-bottom: 1px dotted #CCC" width="50%">
+    <%= media_translation.header %> <%= I18n.default_locale %>:
+  </th>
+  <th style="background: #ccc; border-bottom: 1px dotted #CCC" width="50%">
+    <%= media_translation.header %> <%= @target_locale %>:
+  </th>
+</tr>
+<tr>
+  <td valign="top" style="padding-right: 40px">
+    <% if media_translation.original_value.respond_to?(:url) %>
+      <p><%=link_to media_translation.original_value.url, media_translation.original_value.url, target: "_blank" %></p>
+      <%= image_tag media_translation.original_value.url, lazy: false %>
+    <% else %>
+      <%=raw media_translation.original_value %>
+    <% end %>
+  </td>
+  <td valign="top" style="border-left: 1px dotted #CCC; padding-left: 10px;">
+    <%= mt.input :media, label: false %>
+    <% if !media_translation.new_record? && media_translation.media.present? %>
+      <br/>
+      <p>Current <%= @target_locale %> value: (attach a file above to replace)</p>
+      <%= image_tag media_translation.media.url, lazy: false %>
+    <% end %>
+  </td>
+</tr>
+<% end %>

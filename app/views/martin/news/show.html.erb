@@ -1,5 +1,5 @@
 <%
-og_image = (@news.news_photo_file_name.blank?) ? image_url("#{website.folder}/logo.png") : "#{request.protocol}#{request.host_with_port}#{@news.news_photo.url(:original)}"
+og_image = (@news.news_photo_file_name.blank?) ? image_url("#{website.folder}/logo.png") : translate_image_url(@news, :news_photo, size: :email)
 
 set_meta_tags title: translate_content(@news, :title),
 	reverse: true,
@@ -88,7 +88,7 @@ set_meta_tags title: translate_content(@news, :title),
   <div class="medium-7 pull-5 columns">
     <% if @news.news_photo.present? %>
       <div class="news-main-image">
-        <%= image_tag @news.news_photo.url(:original) %>
+        <%= translate_image_tag(@news, :news_photo, size: :original, alt: :title) %>
       </div>
     <% end %>
 

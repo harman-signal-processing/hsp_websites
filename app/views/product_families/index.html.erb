@@ -17,7 +17,7 @@
       <%= link_to product_family do %>
         <% if !product_family.family_photo_file_name.blank? %>
 
-            <%= image_tag(product_family.family_photo.url) %>
+            <%= translate_image_tag(product_family, :family_photo, alt: :name) %>
 
         <% else %>
           <div class="product_family_box">

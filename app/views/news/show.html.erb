@@ -1,5 +1,5 @@
 <%
-og_image = (@news.news_photo_file_name.blank?) ? image_url("#{website.folder}/logo.png") : "#{request.protocol}#{request.host_with_port}#{@news.news_photo.url(:original)}"
+og_image = (@news.news_photo.blank?) ? image_url("#{website.folder}/logo.png") : translate_image_url(@news, :news_photo, size: :medium_square)
 
 set_meta_tags title: translate_content(@news, :title),
 	reverse: true,
@@ -27,7 +27,7 @@ set_meta_tags title: translate_content(@news, :title),
   <% unless website.hide_featured_news.to_i > 0 %>
     <%= content_for :feature do %>
       <div class="text-center news_banner">
-        <%= image_tag @news.news_photo.url(:original), alt: translate_content(@news, :title) %>
+        <%= translate_image_tag(@news, :news_photo, size: :original, alt: :title) %>
       </div>
     <% end %>
   <% end %>
@@ -39,8 +39,8 @@ set_meta_tags title: translate_content(@news, :title),
   <div class="medium-5 push-7 columns">
     <% if @news.news_photo.present? && website.hide_featured_news.to_i > 0 %>
       <div style="margin-bottom: 20px;">
-        <%= link_to @news.news_photo.url, data: { fancybox: "news_photos"} do %>
-          <%= image_tag @news.news_photo.url(:email), alt: translate_content(@news, :title) %>
+        <%= link_to translate_image_url(@news, :news_photo), data: { fancybox: "news_photos"} do %>
+          <%= translate_image_tag(@news, :news_photo, size: :email, alt: :title) %>
         <% end %>
       </div>
     <% end %>
