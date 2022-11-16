@@ -80,9 +80,15 @@ class Admin::ContentTranslationsController < AdminController
         end
       end
       @media_translations.each do |media_translation|
-        media_translation.media = params[:media]["i#{media_translation.media_id}"][media_translation.media_method]["media"]
-        if media_translation.valid?
-          media_translation.save!
+        if params[:media] &&
+          params[:media]["i#{media_translation.media_id}"] &&
+          params[:media]["i#{media_translation.media_id}"][media_translation.media_method] &&
+          params[:media]["i#{media_translation.media_id}"][media_translation.media_method]["media"]
+
+          media_translation.media = params[:media]["i#{media_translation.media_id}"][media_translation.media_method]["media"]
+          if media_translation.valid?
+            media_translation.save!
+          end
         end
       end
       redirect_to list_admin_content_translations_path(target_locale: @target_locale, type: params[:type]), notice: "Updated successfully."

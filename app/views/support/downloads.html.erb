@@ -3,10 +3,11 @@
     <h1 class="page_title"><%= ucfirst(t("downloads")) %></h1>
   </div>
   <div class="small-12 medium-4 columns">
-    <%= search_form_for @site_elements, url: support_downloads_search_path, method: :post do |f| %>
+    <%= search_form_for @site_elements, url: support_downloads_search_path, html: { method: :post } do |f| %>
       <div class="row collapse">
         <div class="small-9 columns">
-          <%= f.text_field :name_or_resource_file_name_or_executable_file_name_or_resource_type_or_content_cont %>
+          <%#= f.text_field :name_or_resource_file_name_or_executable_file_name_or_resource_type_or_content_cont %>
+          <%= f.text_field :name_cont %>
         </div>
         <div class="small-3 columns">
           <%= f.submit "Search", class: "button postfix" %>

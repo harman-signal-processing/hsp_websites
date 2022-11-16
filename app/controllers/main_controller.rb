@@ -15,11 +15,12 @@ class MainController < ApplicationController
     @countdown_container = website.value_for('countdown_container')
     news_limit = website.homepage_news_limit || 4
     @news = News.all_for_website(website, limit: news_limit, skip_product_news_query: true)
-    begin
-      @youtube = website.value_for('youtube').to_s.match(/\w*$/).to_s
-    rescue
+# Disabling YT homepage strips until API can be addressed
+#    begin
+#      @youtube = website.value_for('youtube').to_s.match(/\w*$/).to_s
+#    rescue
       @youtube = false
-    end
+#    end
     @features = website.features
 
     @featured_products = website.featured_products
