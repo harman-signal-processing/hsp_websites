@@ -15,7 +15,7 @@
   </div>
   <div class="small-6 medium-4 columns">
     <div class="panel">
-      <%= search_form_for [@product, @search], url: bom_product_path(@product), method: :post do |f| %>
+      <%= search_form_for [@product, @search], url: bom_product_path(@product), html: { method: :post } do |f| %>
         <%= f.label :part_number_or_description_cont, "Part search" %>
         <div class="row collapse">
           <div class="small-9 columns">
