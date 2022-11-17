@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem "strscan", "3.0.4"
 gem "digest", "3.1.0"
 
-gem 'rails', '~> 7.0'
+gem 'rails', '~> 7.0', '>= 7.0.4'
 gem 'rails-i18n', '~> 7.0'
 # Github has rails 6.1 support
 gem 'actionpack-action_caching', git: 'https://github.com/rails/actionpack-action_caching'
