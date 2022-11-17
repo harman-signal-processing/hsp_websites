@@ -14,7 +14,9 @@
   <% if featured_news && featured_news.news_photo.present? %>
     <%= content_for :feature do %>
       <div class="text-center news_banner">
-        <%= link_to(image_tag(featured_news.news_photo.url(:original)), featured_news) %>
+        <%= link_to featured_news do %>
+          <%= translate_image_tag(featured_news, :news_photo, size: :original, alt: :title) %>
+        <% end %>
       </div>
     <% end %>
   <% end %>

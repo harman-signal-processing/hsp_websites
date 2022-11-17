@@ -70,7 +70,7 @@ $slick-arrow-color: $dark-gray;
 .top-bar-divider {
   width: 100%;
   background: darken($primary-color, 70%);
-  height: 1px;
+  height: 2px;
 }
 #search_form {
   #query {
@@ -1154,14 +1154,16 @@ div.product-title-block, div.small-title-block {
       line-height: 18px;
       text-transform: uppercase;
       a {
-        color: $light-gray;
+        color: $medium-gray;
         &:hover, &.current {
           color: $primary-color;
+          font-weight: bold;
         }
       }
       &.active {
         a {
           color: $primary-color;
+          font-weight: bold;
         }
       }
     }
@@ -2090,6 +2092,16 @@ hr.colored {
   }
 }
 
+.buy-button {
+  @include button(
+    $bg: $primary-color
+  )
+}
+.hpro-button {
+  @include button(
+    $bg: #9ba3a8
+  )
+}
 .find-a-dealer {
   text-transform: uppercase;
   white-space: nowrap;
@@ -2120,6 +2132,13 @@ hr.colored {
     padding-right: 4px;
     height: 20px;
   }
+}
+.hpro-buttons-label {
+  font-size: 80%;
+  text-transform: uppercase;
+  text-align: center;
+  color: $dark-gray;
+  margin-bottom: rem-calc(20);
 }
 /** Added by Kent 10/2018 **/
 .videothumbnail {

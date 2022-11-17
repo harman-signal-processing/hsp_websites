@@ -32,10 +32,7 @@
 
           <p><%=raw translate_content(featured_product, :short_description_4) %></p>
 
-          <%= link_to t('more_details'), featured_product, class: "small secondary button" %>
-          <% if featured_product.in_production? %>
-            <%= buy_it_now_link(featured_product, html_button: true, downcase: true, button_class: "small button") %>
-          <% end %>
+          <%= link_to t('more_details'), featured_product, class: "small button" %>
         </div>
       </div>
       <% else %>
@@ -58,10 +55,7 @@
 
           <p><%=raw translate_content(featured_product, :short_description_4) %></p>
 
-          <%= link_to t('more_details'), featured_product, class: "small secondary button" %>
-          <% if featured_product.in_production? %>
-            <%= buy_it_now_link(featured_product, html_button: true, downcase: true, button_class: "small button") %>
-          <% end %>
+          <%= link_to t('more_details'), featured_product, class: "small button" %>
         </div>
         <div class="large-7 columns show-for-large-up">
           <div class="featured_image_container right">

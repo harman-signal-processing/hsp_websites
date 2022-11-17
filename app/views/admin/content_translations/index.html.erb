@@ -18,6 +18,7 @@
     <%# Little hack for our product descriptions which are a separate (confusing) entity %>
     <% next if key == "product_description" %>
     <% value += ["description", "extended_description", "features"] if key == "product" %>
+    <% value += MediaTranslation.fields_to_translate_for(key.classify.constantize.new, website.brand) %>
     <tr>
       <td><%= link_to key.to_s.humanize.pluralize, list_admin_content_translations_path(locale: I18n.locale, target_locale: @target_locale, type: key) %></td>
       <td><%= value.join(", ") %></td>

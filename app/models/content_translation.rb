@@ -54,7 +54,7 @@ class ContentTranslation < ApplicationRecord
   # back to language only or default (english)
   def self.translate_text_content(object, method)
     c = object[method] # (default)
-    return c if I18n.locale.to_s.match?(/en/)
+    return c if I18n.locale.to_s.match?(/en/i)
 
     parent_locale = (I18n.locale.to_s.match(/^(.*)-/)) ? $1 : false
     translations = where(content_type: object.class.to_s, content_id: object.id, content_method: method.to_s)

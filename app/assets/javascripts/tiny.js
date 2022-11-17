@@ -26,7 +26,7 @@ tinyMCE.init({
   valid_elements: '+*[*]',
   language: 'en',
   mode: 'textareas',
-  plugins: "advlist,anchor,autolink,autoresize,colorpicker,code,hr,image,link,lists,media,searchreplace,spellchecker,textcolor,table,paste,preview,fullpage,fullscreen",
+  plugins: "advlist,anchor,autolink,autoresize,colorpicker,code,hr,image,link,lists,media,searchreplace,spellchecker,textcolor,table,paste,preview,fullscreen",
   relative_urls: false,
   verify_html: false
 });

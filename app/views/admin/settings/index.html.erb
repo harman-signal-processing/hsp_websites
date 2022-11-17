@@ -56,7 +56,7 @@ need to be configured for <%= website.brand.name %>.</p>
 <ul>
   <% website.brand.unset_settings.each do |s| %>
     <li><%= link_to s, new_admin_setting_path(name: s) %>
-      (configured on: <%= Setting.where(name: s).joins(:brand).pluck("brands.name").uniq.join(", ") %>)
+    (configured on: <%= Setting.joins(:brand).where(name: s, brands: { live_on_this_platform: true }).pluck("brands.name").uniq.join(", ") %>)
     </li>
   <% end %>
 </ul>

@@ -7,6 +7,17 @@
 
 <ul class="list">
 <% @brands.order(Arel.sql("UPPER(name)")).each do |brand| %>
-  <li><%= link_to brand.name, [:admin, brand] %></li>
+  <% if brand.live_on_this_platform? %>
+    <li><%= link_to brand.name, [:admin, brand] %></li>
+  <% end %>
+<% end %>
+</ul>
+
+<h6><i>Brands not active on this platform</i></h6>
+<ul class="list">
+<% @brands.order(Arel.sql("UPPER(name)")).each do |brand| %>
+  <% if !brand.live_on_this_platform? %>
+    <li><%= link_to brand.name, [:admin, brand] %></li>
+  <% end %>
 <% end %>
 </ul>

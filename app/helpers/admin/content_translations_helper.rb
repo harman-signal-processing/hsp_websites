@@ -4,11 +4,16 @@ module Admin::ContentTranslationsHelper
     ContentTranslation.where(
       content_type: item.class,
       content_id: item.id,
-      locale: target_locale)
+      locale: target_locale) +
+     MediaTranslation.where(
+       media_type: item.class,
+       media_id: item.id,
+       locale: target_locale)
   end
 
   def total_to_translate_for(item, target_locale)
-    ContentTranslation.fields_to_translate_for(item, website.brand)
+    ContentTranslation.fields_to_translate_for(item, website.brand) +
+      MediaTranslation.fields_to_translate_for(item, website.brand)
   end
 
   def translation_summary_for(item, target_locale)

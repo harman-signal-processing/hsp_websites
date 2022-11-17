@@ -56,5 +56,14 @@ jQuery ($) ->
     toggle_id = $(@).data('toggle')
     $("##{ toggle_id }_show").toggle()
     $("##{ toggle_id }_hide").toggle()
+    if $(@).data('editor')
+      editor_id = $(@).data('editor')
+      editor = $("##{ editor_id }")
+      if editor.hasClass('mceEditor')
+        editor.removeClass('mceEditor')
+        tinymce.EditorManager.execCommand('mceRemoveEditor', true, editor_id)
+      else
+        editor.addClass('mceEditor')
+        tinymce.EditorManager.execCommand('mceAddEditor', true, editor_id)
     e.preventDefault()
 

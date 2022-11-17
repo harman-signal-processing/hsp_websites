@@ -13,6 +13,7 @@ class ProductFamily < ApplicationRecord
   has_many :product_filters, through: :product_family_product_filters
   has_many :product_family_case_studies, -> { order('position') }, dependent: :destroy
   has_many :content_translations, as: :translatable, foreign_key: "content_id", foreign_type: "content_type"
+  has_many :media_translations, as: :translatable, foreign_key: "media_id", foreign_type: "media_type"
   has_many :product_family_testimonials, -> { order('position') }, dependent: :destroy
   has_many :testimonials, through: :product_family_testimonials
   has_many :product_family_customizable_attributes, dependent: :destroy

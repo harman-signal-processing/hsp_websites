@@ -1,18 +1,18 @@
 @import 'foundation/functions';
 
 $dark-gray: #454545;
-$medium-gray: #a8a8a8;
+$medium-gray: #838383;
 $light-gray: #d0d0d0;
 $strip-bg-even: #E1E1E1;
 $strip-bg-odd: #000000;
 
 $row-width: rem-calc(1170);
 $body-bg: #FFF;
-$body-font-color: $dark-gray;
+$body-font-color: #000;
 $body-font-family: "Roboto", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $body-font-weight: 400;
 $primary-color: #fa4616;
-$secondary-color: $medium-gray;
+$secondary-color: lighten($medium-gray, 10%);
 $include-print-styles: true;
 $header-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $header-font-weight: 600;
@@ -43,7 +43,7 @@ $tabs-navigation-font-color: $dark-gray;
 $tabs-navigation-active-font-color: $tabs-navigation-font-color;
 $tabs-navigation-font-size: rem-calc(14);
 $tabs-navigation-font-family: $body-font-family;
-$anchor-font-color: $primary-color;
+$anchor-font-color: darken($primary-color, 10%);
 $anchor-font-color-hover: lighten($anchor-font-color, 5%);
 
 $form-spacing: rem-calc(18px);
@@ -56,7 +56,7 @@ $button-tny: rem-calc(5px);
 $button-sml: rem-calc(7px);
 $button-med: rem-calc(10px);
 $button-lrg: rem-calc(14px);
-$button-font-weight: 300;
+$button-font-weight: 500;
 $button-border-style: none;
 $topbar-bg-color: $primary-color;
 $topbar-bg: $topbar-bg-color !default;
@@ -161,10 +161,10 @@ body {
 
 div.homepage_block {
   &.product_families {
-    color: #888;
+    color: #AAA;
     padding: 60px 20px;
     background-color: #212121;
-    background-image: asset-url("jbl_professional/grill-bg.jpg");
+    background-image: linear-gradient( rgba(0,0,0,0.6), rgb(0,0,0) ), asset-url("jbl_professional/grill-bg.jpg");
     background-position: bottom center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -212,7 +212,9 @@ div.market_segment_banner {
 h1, h2 {
 	font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 }
-
+h3.content-nav {
+  color: $dark-gray;
+}
 div.product-title-block, div.small-title-block {
   h1 {
     font-size: 32px;

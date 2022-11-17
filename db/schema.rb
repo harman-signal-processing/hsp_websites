@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_01_145911) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_10_184901) do
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.boolean "distributor"
@@ -884,6 +884,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_01_145911) do
     t.text "description"
     t.index ["brand_id"], name: "index_market_segments_on_brand_id"
     t.index ["cached_slug"], name: "index_market_segments_on_cached_slug"
+  end
+
+  create_table "media_translations", charset: "utf8", force: :cascade do |t|
+    t.string "media_type"
+    t.integer "media_id"
+    t.string "media_method"
+    t.string "locale"
+    t.string "media_file_name"
+    t.string "media_content_type"
+    t.integer "media_file_size"
+    t.datetime "media_updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["locale"], name: "index_media_translations_on_locale"
+    t.index ["media_type", "media_id"], name: "index_media_translations_on_media_type_and_media_id"
   end
 
   create_table "news", id: :integer, charset: "utf8", force: :cascade do |t|

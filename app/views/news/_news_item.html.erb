@@ -1,5 +1,7 @@
 <% if news.news_photo.present? %>
-  <%= link_to image_tag(news.news_photo.url(:email), alt: news.title), news %>
+   <%= link_to news do %>
+     <%= translate_image_tag(news, :news_photo, size: :email, alt: :title) %>
+   <% end %>
 <% end %>
 <p><small><%=l news.post_on, format: :short %></small><br/>
 <%= link_to translate_content(news, :title), news %></p>

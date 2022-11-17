@@ -8,7 +8,7 @@
 			  		<% if news.news_photo_file_name.blank? %>
 						<%= translate_content(news, :title) %>
 			  		<% else %>
-			  			<%= image_tag(news.news_photo.url(:small_square)) %>
+			  			<%= translate_image_tag(news, :news_photo, size: :small_square) %>
 			  			<div class="popover"><h3><%= translate_content(news, :title) %></h3></div>
 			  		<% end %>
 			  		<h4><%=l news.post_on, format: :long %></h4>
@@ -25,7 +25,7 @@
 		  		<% if news.news_photo_file_name.blank? %>
 					<%= translate_content(news, :title) %>
 		  		<% else %>
-		  			<%= image_tag(news.news_photo.url(:thumb_square)) %>
+		  			<%= translate_image_tag(news, :news_photo, size: :thumb_square) %>
 		  			<div class="popover"><h5><%=truncate translate_content(news, :title), length: 50 %></h5></div>
 		  		<% end %>
 				<h4><%=l news.post_on, format: :short %></h4>

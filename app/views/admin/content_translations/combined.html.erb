@@ -2,9 +2,9 @@
   <h1>"<%= @target_locale %>" translation for <%= @model_class.titleize %>:</h1>
   <h3 class="subheader"><%= name_for(@record) %></h3>
 
-  <% if @content_translations.length > 0 %>
+  <% if @content_translations.length > 0 || @media_translations.length > 0 %>
 
-    <%= form_tag combined_admin_content_translations_path(target_locale: @target_locale), method: :post %>
+    <%= form_tag combined_admin_content_translations_path(target_locale: @target_locale), method: :post, multipart: true %>
       <table width="100%">
         <% if Rails.application.routes.url_helpers.respond_to?("#{@record.model_name.singular_route_key}_path") %>
           <tr>
@@ -30,11 +30,15 @@
         <% @content_translations.each do |content_translation| %>
           <%= render 'field_row', content_translation: content_translation %>
         <% end %>
+
+        <% @media_translations.each do |media_translation| %>
+          <%= render 'media_field_row', media_translation: media_translation %>
+        <% end %>
       </table>
 
       <%= hidden_field_tag "id", @record.id %>
       <%= hidden_field_tag "type", @record.class.name.underscore %>
-      <%= submit_tag "save changes", class: "small round button"  %>
+      <%= submit_tag "save changes", class: "button"  %>
 
     </form>
 

@@ -4,9 +4,7 @@
 
   <%= link_to product_family.root? ? [:product_selector, product_family] : product_selector_subfamily_product_selector_product_family_path(product_family.parent, product_family), class: "ps-start-spinner" do %>
     <% if product_family.family_photo.present? %>
-      <%= image_tag product_family.family_photo.url,
-        lazy: false,
-        alt: product_family.name %>
+      <%= translate_image_tag(product_family, :family_photo, alt: :name) %>
     <% else %>
       <% p = (@product_family && @product_family == product_family) ? @product_with_photo : product_family.first_product_with_photo(website) %>
       <% if p %>

@@ -37,6 +37,7 @@ class News < ApplicationRecord
   has_many :news_images, dependent: :destroy
 
   has_many :content_translations, as: :translatable, foreign_key: "content_id", foreign_type: "content_type"
+  has_many :media_translations, as: :translatable, foreign_key: "media_id", foreign_type: "media_type"
 
   validates :title, presence: true
   validates :post_on, presence: true
