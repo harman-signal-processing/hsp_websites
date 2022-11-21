@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_10_184901) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_21_201157) do
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.boolean "distributor"
@@ -383,6 +383,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_184901) do
     t.boolean "show_consultant_button"
     t.boolean "has_product_selector"
     t.boolean "show_lead_form_on_buy_page", default: false
+    t.boolean "harman_owned", default: true
     t.index ["cached_slug"], name: "index_brands_on_cached_slug", unique: true
     t.index ["name"], name: "index_brands_on_name", unique: true
   end
