@@ -10,28 +10,6 @@
 <% end %>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/rem/1.3.4/js/rem.min.js"></script>
-<script>
-  $(function(){
-    // Wait for Acoustic pixel to load then add aria-hidden attribute and empty alt tag
-    var setAriaAttributeOnAcousticPixel = function(i){
-      return function(){
-        if (i >= 5) return;
-        // console.log("try no. " + i);
-
-        if(jQuery('img[src*="pages08"]').length == 1) {
-          // console.log('pixel present, setting aria-hidden attribute');
-          $(jQuery('img[src*="pages08"]')[0]).attr('aria-hidden', 'true');
-          $(jQuery('img[src*="pages08"]')[0]).attr('alt', ' ');
-        } else {
-          setTimeout(setAriaAttributeOnAcousticPixel(++i), 500);
-        }
-
-      }
-    }
-
-    setTimeout(setAriaAttributeOnAcousticPixel(1), 500);
-  });
-</script>
 
 <% if Rails.env.development? || params[:dev] == "true" %>
   <hr/>
