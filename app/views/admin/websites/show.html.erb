@@ -37,8 +37,7 @@
 		<h3>Locales for this Website</h3>
 		<%= simple_form_for [:admin, @website_locale], remote: true do |f| %>
 			<%= f.hidden_field :website_id %>
-			<%= f.input :locale %>
-			<%= f.input :name %>
+      <%= f.input :locale, collection: Locale.all_unique_locales - @this_website.website_locales.pluck(:locale) %>
 			<%= f.input :complete, label: "Completed and ready for public use." %>
 			<%= f.button :submit %>
 		<% end %>

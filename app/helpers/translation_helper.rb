@@ -35,7 +35,7 @@ module TranslationHelper
 
   def language_name_lookup(locale)
     begin
-      website.website_locales.where(locale: locale).first.name
+      Locale.where(code: locale).first.name
     rescue
       locale
     end
