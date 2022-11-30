@@ -1,0 +1,24 @@
+<h1>Locales</h1>
+
+<% if can? :create, Locale %>
+<ul class="button-group round">
+	<li><%= link_to 'New locale', new_admin_locale_path, class: "small success button" %></li>
+</ul>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Code</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @locales.find_each do |locale| %>
+    <tr>
+      <td><%= link_to locale.name, [:admin, locale]  %></td>
+      <td><%= link_to locale.code, [:admin, locale] %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

@@ -20,4 +20,8 @@ class Locale < ApplicationRecord
     end
   end
 
+  def website_locales
+    WebsiteLocale.where(locale: self.code)
+  end
+
 end

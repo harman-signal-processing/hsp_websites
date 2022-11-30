@@ -1,6 +1,6 @@
 class Website < ApplicationRecord
   belongs_to :brand
-  has_many :website_locales
+  has_many :website_locales, dependent: :destroy
   validates :url, presence: true, uniqueness: { case_sensitive: false}
   validates :folder, presence: true
 

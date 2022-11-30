@@ -1,15 +1,15 @@
 class Admin::WebsitesController < AdminController
   before_action :initialize_website, only: :create
   load_and_authorize_resource only: :index
-  
+
   # GET /admin/websites
   # GET /admin/websites.xml
   def index
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xml  { 
+      format.xml  {
         @websites = Website.all
-        render xml: @websites 
+        render xml: @websites
       }
     end
   end
@@ -18,7 +18,7 @@ class Admin::WebsitesController < AdminController
   # GET /admin/websites/1.xml
   def show
     @this_website = Website.find(params[:id])
-    @website_locale = WebsiteLocale.new(website_id: params[:id])
+    @website_locale = WebsiteLocale.new(website_id: params[:id], complete: true)
     authorize! :show, @this_website
     respond_to do |format|
       format.html { render_template } # show.html.erb
