@@ -15,7 +15,6 @@ FactoryBot.define do
   end
 
   factory :website_locale do
-    name { "English" }
     locale { I18n.default_locale }
     complete { true }
     default { false }

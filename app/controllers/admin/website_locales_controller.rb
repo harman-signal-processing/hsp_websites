@@ -83,7 +83,6 @@ class Admin::WebsiteLocalesController < AdminController
     params.require(:website_locale).permit(
       :website_id,
       :locale,
-      :name,
       :complete,
       :default
     )

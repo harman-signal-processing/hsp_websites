@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_10_184901) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_23_211453) do
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.boolean "distributor"
@@ -383,6 +383,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_184901) do
     t.boolean "show_consultant_button"
     t.boolean "has_product_selector"
     t.boolean "show_lead_form_on_buy_page", default: false
+    t.boolean "harman_owned", default: true
     t.index ["cached_slug"], name: "index_brands_on_cached_slug", unique: true
     t.index ["name"], name: "index_brands_on_name", unique: true
   end
@@ -851,6 +852,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_184901) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["software_id"], name: "index_locale_softwares_on_software_id"
+  end
+
+  create_table "locales", charset: "utf8", force: :cascade do |t|
+    t.string "code", limit: 12
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_locales_on_code"
   end
 
   create_table "manufacturer_partners", charset: "utf8", force: :cascade do |t|
@@ -2495,7 +2504,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_184901) do
   create_table "website_locales", id: :integer, charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.integer "website_id"
     t.string "locale"
-    t.string "name"
     t.boolean "complete", default: false
     t.boolean "default", default: false
     t.datetime "created_at", precision: nil

@@ -24,6 +24,10 @@ use_lazy_load = lazy_load_image?(product)
 		this_url = product_url(product)
 		css_class = "small_product_box#{ product.layout_class.to_s }"
 		target = "_self"
+  elsif !product.brand.harman_owned?
+    this_url = false
+		css_class = "small_product_box#{ product.layout_class.to_s }"
+    compare = false
 	else
 		this_url = product_url(product, locale: I18n.locale, host: product.brand.default_website.url)
 		css_class = "small_product_box#{ product.brand.name.to_s.downcase }"
@@ -38,15 +42,29 @@ use_lazy_load = lazy_load_image?(product)
 				<div class="product_thumb">
 				<% if product.photo %>
 					<% if extra_large %>
-						<%= link_to image_tag(product.photo.product_attachment.url(:small), alt: product.name, lazy: use_lazy_load), this_url, target: target %>
+            <% if this_url %>
+              <%= link_to image_tag(product.photo.product_attachment.url(:small), alt: product.name, lazy: use_lazy_load), this_url, target: target %>
+            <% else %>
+              <%= image_tag(product.photo.product_attachment.url(:small), alt: product.name, lazy: use_lazy_load) %>
+            <% end %>
 					<% else %>
-						<%= link_to image_tag(product.photo.product_attachment.url(:thumb), alt: product.name, lazy: use_lazy_load), this_url, target: target %>
+            <% if this_url %>
+              <%= link_to image_tag(product.photo.product_attachment.url(:thumb), alt: product.name, lazy: use_lazy_load), this_url, target: target %>
+            <% else %>
+              <%= image_tag(product.photo.product_attachment.url(:thumb), alt: product.name, lazy: use_lazy_load) %>
+            <% end %>
 					<% end %>
 				<% end %>
 				</div>
 			</div>
 			<div class="large-8 small-8 columns">
-				<h3 class="vertical"><%= link_to product_name, this_url, target: target %></h3>
+        <h3 class="vertical">
+          <% if this_url %>
+            <%= link_to product_name, this_url, target: target %>
+          <% else %>
+            <%= product_name %>
+          <% end %>
+        </h3>
 				<div class="product_description">
 					<%= translate_content(product, :short_description) %>
 				</div>
@@ -66,13 +84,27 @@ use_lazy_load = lazy_load_image?(product)
 		<div class="product_thumb" data-equalizer-watch="product_thumbs">
 		<% if product.photo %>
 			<% if extra_large %>
-				<%= link_to image_tag(product.photo.product_attachment.url(:medium), alt: product.name, lazy: use_lazy_load), this_url, target: target %>
+        <% if this_url %>
+          <%= link_to image_tag(product.photo.product_attachment.url(:medium), alt: product.name, lazy: use_lazy_load), this_url, target: target %>
+        <% else %>
+          <%= image_tag(product.photo.product_attachment.url(:medium), alt: product.name, lazy: use_lazy_load) %>
+        <% end %>
 			<% else %>
-				<%= link_to image_tag(product.photo.product_attachment.url(:horiz_thumb), alt: product.name, lazy: use_lazy_load), this_url, target: target %>
+        <% if this_url %>
+          <%= link_to image_tag(product.photo.product_attachment.url(:horiz_thumb), alt: product.name, lazy: use_lazy_load), this_url, target: target %>
+        <% else %>
+          <%= image_tag(product.photo.product_attachment.url(:horiz_thumb), alt: product.name, lazy: use_lazy_load) %>
+        <% end %>
 			<% end %>
 		<% end %>
 		</div>
-		<h3><%= link_to product_name, this_url, target: target %></h3>
+    <h3>
+      <% if this_url %>
+        <%= link_to product_name, this_url, target: target %>
+      <% else %>
+        <%= product_name %>
+      <% end %>
+    </h3>
 		<div class="product_description">
 			<%= translate_content(product, :short_description) %>
       <%= render_partial 'product_families/price', product: product %>

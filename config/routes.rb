@@ -77,13 +77,13 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     get '/network-audio' => 'pages#network_audio'
   end
 
-  # The constraint { locale: /#{WebsiteLocale.all_unique_locales.join('|')}/ } limits the locale
-  # to those configured in the WebsiteLocale model which is configured in the admin area and reverts
+  # The constraint { locale: /#{Locale.all_unique_locales.join('|')}/ } limits the locale
+  # to those configured in the Locale model which is configured in the admin area and reverts
   # to AVAILABLE_LOCALES in config/initializers/i18n.rb in case of problems
 
   # Main routing
   root to: 'main#default_locale'
-  scope "(:locale)", locale: /#{WebsiteLocale.all_unique_locales.join('|')}/ do
+  scope "(:locale)", locale: /#{Locale.all_unique_locales.join('|')}/ do
     constraints(AmxDomain) do
       # get 'contacts' => 'main#where_to_buy', as: :amx_contacts
       get '/contacts' => 'support#index'
@@ -451,7 +451,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       get "scheduled_tasks/:id/value_field/:field_name" => 'scheduled_tasks#value_field'
 
       #match "translations/:target_locale(/:action)" => "content_translations", as: :translations
-      scope path: '/:target_locale', target_locale: /#{WebsiteLocale.all_unique_and_incomplete_locales.join('|')}/ do
+      scope path: '/:target_locale', target_locale: /#{Locale.all_unique_locales.join('|')}/ do
         resources :content_translations do
           collection {get :list, :combined}
           collection {post :combined}

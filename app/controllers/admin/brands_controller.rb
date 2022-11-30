@@ -144,7 +144,8 @@ class Admin::BrandsController < AdminController
       :always_redirect_to_youtube,
       :show_consultant_button,
       :has_product_selector,
-      :show_lead_form_on_buy_page
+      :show_lead_form_on_buy_page,
+      :harman_owned
     )
   end
 end
