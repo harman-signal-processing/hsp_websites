@@ -295,11 +295,18 @@
                 </ul>
                 </li>
 
-                <% if can?(:manage, User) || can?(:manage, Brand) || can?(:manage, Website) || can?(:manage, ScheduledTask) %>
+                <% if can?(:manage, User) ||
+                    can?(:manage, Locale) ||
+                    can?(:manage, Brand) ||
+                    can?(:manage, Website) ||
+                    can?(:manage, ScheduledTask) %>
                   <li class="has-dropdown"><%= link_to "Super Admin", '#' %>
                   <ul class="dropdown">
                     <% if can? :manage, User %>
                       <li><%= link_to "Users", admin_users_path %></li>
+                    <% end %>
+                    <% if can? :manage, Locale %>
+                      <li><%= link_to "Locales", admin_locales_path %></li>
                     <% end %>
                     <% if can? :manage, Brand %>
                       <li><%= link_to "Brands", admin_brands_path %></li>

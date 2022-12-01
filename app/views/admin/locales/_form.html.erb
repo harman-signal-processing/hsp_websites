@@ -1,0 +1,5 @@
+<%= simple_form_for [:admin, @locale] do |f| %>
+  <%= f.input :code, hint: "Ex. en, en-US, zh, qq-QQ" %>
+  <%= f.input :name, hint: "Common name appearing in navigation. Ex. English or English (US)" %>
+  <br/><%= f.button :submit %>
+<% end %>
