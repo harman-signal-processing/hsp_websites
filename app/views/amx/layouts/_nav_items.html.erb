@@ -17,7 +17,7 @@
     <li class="has-dropdown hide-for-medium"><%= link_to t("nav.market_applications"), '#', class: "disabled" %>
       <ul class="dropdown">
         <% MarketSegment.all_parents(website).each do |market_segment| %>
-            <li><%= link_to translate_content(market_segment, :name).titleize, market_segment %></li>
+            <li><%= link_to translate_content(market_segment, :name), market_segment %></li>
         <% end %>
       </ul>
     </li>
