@@ -56,6 +56,6 @@
 
 </div> <!-- <div class="row"> -->
 
-<% if jbl_china_retailers = website.value_for("jbl-china-retailers") %>
+<% if country_code == "cn" && jbl_china_retailers = website.value_for("jbl-china-retailers") %>
    <%=raw jbl_china_retailers %>
 <% end %>
