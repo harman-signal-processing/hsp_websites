@@ -265,8 +265,9 @@ class Brand < ApplicationRecord
 
     # loop through in order and return the preferred setting
     locales_to_search.each do |l|
-      if found_settings[l].present?
-        return found_settings[l]
+      locale_key = l.to_s
+      if found_settings[locale_key].present?
+        return found_settings[locale_key]
       end
     end
 
