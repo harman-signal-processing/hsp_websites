@@ -9,16 +9,23 @@
 <table>
   <thead>
     <tr>
+      <th colspan="2">Code</th>
       <th>Name</th>
-      <th>Code</th>
     </tr>
   </thead>
   <tbody>
-  <% @locales.find_each do |locale| %>
+  <% Locale.primaries.order(:code).find_each do |locale| %>
     <tr>
+      <td colspan="2"><%= link_to locale.code, [:admin, locale] %></td>
       <td><%= link_to locale.name, [:admin, locale]  %></td>
-      <td><%= link_to locale.code, [:admin, locale] %></td>
     </tr>
+    <% locale.regionals.order(:code).find_each do |regional| %>
+      <tr>
+        <td>&nbsp;</td>
+        <td><%= link_to regional.code, [:admin, regional] %></td>
+        <td><%= link_to regional.name, [:admin, regional]  %></td>
+      </tr>
+    <% end %>
   <% end %>
   </tbody>
 </table>
