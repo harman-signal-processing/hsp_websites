@@ -69,4 +69,37 @@ RSpec.describe Brand, :type => :model do
       expect(@brand.rma_email).to eq('ramesh@support.com')
     end
   end
+
+  describe "looking up setting" do
+    before do
+      @locale_setting = FactoryBot.create(:setting, brand: @brand, locale: "en-US", setting_type: "string", string_value: "foo123", name: "setting1")
+      @parent_setting = FactoryBot.create(:setting, brand: @brand, locale: "en", setting_type: "string", string_value: "foo456", name: "setting1")
+      @setting_for_nil_locale = FactoryBot.create(:setting, brand: @brand, locale: nil, setting_type: "string", string_value: "foo789", name: "setting1")
+      @setting_for_blank_locale = FactoryBot.create(:setting, brand: @brand, locale: "", setting_type: "string", string_value: "foo789", name: "setting1")
+    end
+
+    after :all do
+      I18n.locale = I18n.default_locale
+    end
+
+    it "should find the locale-specific setting" do
+      I18n.locale = "en-US"
+      expect(@brand.setting1).to eq(@locale_setting.string_value)
+    end
+
+    it "should revert to the parent locale if present" do
+      I18n.locale = "en"
+      expect(@brand.setting1).to eq(@parent_setting.string_value)
+    end
+
+    it "should use the default (nil) locale" do
+      I18n.locale = "zh"
+      expect(@brand.setting1).to eq(@setting_for_nil_locale.string_value)
+    end
+
+    it "should use the default (blank) locale" do
+      I18n.locale = "zh"
+      expect(@brand.setting1).to eq(@setting_for_blank_locale.string_value)
+    end
+  end
 end

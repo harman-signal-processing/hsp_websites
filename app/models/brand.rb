@@ -248,7 +248,7 @@ class Brand < ApplicationRecord
 
   def value_for(key, locale=I18n.locale)
     # start with the current, full locale
-    locales_to_search = [locale]
+    locales_to_search = [locale.to_s]
 
     # add a parent locale if present
     if parent_locale = (I18n.locale.to_s.match(/^(.*)-/)) ? $1 : false # "es-MX" => "es"
@@ -257,20 +257,32 @@ class Brand < ApplicationRecord
 
     # also search empty locales
     locales_to_search += ["", nil]
+    logger.debug " )))))))))))))))) locales_to_search: #{ locales_to_search.inspect }"
 
     found_settings = {}
     self.settings.where(name: key, locale: locales_to_search).each do |ls|
       found_settings[ls.locale] = ls.value
     end
+    logger.debug ">>>>>>>>>>>>>>>>> found_settings: #{ found_settings.inspect }"
 
-    # loop through in order and return the preferred setting
-    locales_to_search.each do |l|
-      # if the locale is not nil then use it, otherwise use the nil locale
-      locale_key = !l.nil? ? l.to_s : l
-      if found_settings[locale_key].present?
-        return found_settings[locale_key]
-      end
+    # merge the locales_to_search with the keys of what was found
+    # to basically sort the found keys in order of preference
+    matched_locales = locales_to_search & found_settings.keys
+    logger.debug " -----------------------> matched_locales: #{ matched_locales.inspect }"
+    if matched_locales.size > 0
+      return found_settings[matched_locales.first]
     end
+
+    ## loop through in order and return the preferred setting
+    #locales_to_search.each do |l|
+    #  # if the locale is not nil then use it, otherwise use the nil locale
+    #  locale_key = !l.nil? ? l.to_s : l
+    #  #locale_key = l.to_s
+    #  #locale_key = l
+    #  if found_settings[locale_key].present?
+    #    return found_settings[locale_key]
+    #  end
+    #end
 
     return nil
   end
