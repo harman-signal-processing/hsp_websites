@@ -27,13 +27,31 @@
   <%= @locale.code %>
 </p>
 
+<p>
+  <b>Language Code:</b>
+  <%= link_to_unless_current @locale.language_code, [:admin, @locale.primary] %>
+</p>
+
+<% if @locale.is_regional? %>
+  <p>
+    <b>Regional Code:</b>
+    <%= @locale.regional_code %>
+  </p>
+<% else %>
+  <p>
+    <b>Regionals:</b>
+    <%= @locale.regionals.map{|r| link_to(r.regional_code, [:admin, r])}.join(", ").html_safe %>
+  </p>
+<% end %>
 
 <div class="group">
 	<h4 class="subheader">Defined for these websites:</h4>
 
 	<ul id="website_locales" class="list">
 	  <% @locale.website_locales.find_each do |wl| %>
-      <%= render "/admin/shared/website_locale_row", wl: wl, called_from: "locale" %>
+      <% if wl.website.present? # some older websites were deleted without clearing out the locales %>
+        <%= render "/admin/shared/website_locale_row", wl: wl, called_from: "locale" %>
+      <% end %>
 	  <% end %>
 	</ul>
 </div>
