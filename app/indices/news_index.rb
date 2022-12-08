@@ -10,7 +10,7 @@ ThinkingSphinx::Index.define :news, name: "news_en_US", with: :active_record do
   # :nocov:
 end
 
-(WebsiteLocale.pluck(:locale).uniq - ["en", "en-US"]).each do |locale|
+(Locale.all_unique_locales - ["en", "en-US"]).each do |locale|
   locale_underscored = locale.to_s.gsub(/\-/, "_")
 
   ThinkingSphinx::Index.define :news, name: "news_#{ locale_underscored }", with: :active_record do

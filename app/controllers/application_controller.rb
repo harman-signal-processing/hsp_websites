@@ -238,9 +238,6 @@ private
       redirect_to url_for(request.params.merge(locale: I18n.locale)) and return false
     end
 
-    # 2022-10 [AA] No longer restricting by "active" locales since RV is making a
-    #   habit of launching product pages in all sorts of languages without actually
-    #   launching the site in that language properly.
     # Handling inactive locales for the current site
     #if !website.list_of_available_locales.include?(I18n.locale.to_s)
     #  unless can?(:manage, Product) # Admins can view non-active locales
