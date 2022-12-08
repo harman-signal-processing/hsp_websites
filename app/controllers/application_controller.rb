@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   before_action :catch_criminals
-  before_action :set_website
   # before_action :set_locale
   before_action :respond_to_htm
   before_action :configure_permitted_parameters, if: :devise_controller?
@@ -182,17 +181,6 @@ private
   end
   helper_method :website
 
-  def set_website
-    if !website
-      # Dev env doesn't have a website defined. Let's choose a default.
-      if Rails.env.development?
-        Brand.find("jbl-professional").default_website.update(url: request.host)
-      else
-        raise ActionController::RoutingError.new("Site not found")
-      end
-    end
-  end
-
   # TODO: the big if statement below setting the locale needs to be refactored and will eventually include plenty of other countries
   def set_locale
     # This isn't really setting the locale, we're just trying
@@ -220,7 +208,7 @@ private
       #session['geo_usa'] = true
     end
 
-    raise ActionController::RoutingError.new("Site not found") unless website.respond_to?(:list_of_available_locales)
+    raise ActionController::RoutingError.new("Site not found") unless website && website.respond_to?(:list_of_available_locales)
 
     # This is where we set the locale:
     if params.key?(:locale)
