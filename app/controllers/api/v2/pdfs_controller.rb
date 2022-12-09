@@ -2,7 +2,7 @@ module Api
   module V2
     class PdfsController < ApplicationController
       before_action :set_brand
-      respond_to :xml, :json, :html
+      respond_to :xml, :json, :html, :text
       layout "minimal"
 
       def index
