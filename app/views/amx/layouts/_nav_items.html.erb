@@ -41,13 +41,15 @@
   <% end %>
 
   <!-- Training  -->
-  <li class="has-dropdown"><%= link_to t('training').titleize, "/training", target: "_blank" %>
-    <ul class="dropdown">
-      <% if (website.has_learning_sessions.present? && website.has_learning_sessions == 1) %>
-        <li><%= link_to t('learning_sessions').titleize, "/learning-sessions/" %></li>
-      <% end %>
-    </ul>
-  </li>
+  <% if (website.has_learning_sessions.present? && website.has_learning_sessions == 1) %>
+    <li class="has-dropdown"><%= link_to t('training').titleize, "/training", target: "_blank" %>
+      <ul class="dropdown">
+          <li><%= link_to t('learning_sessions').titleize, "/learning-sessions/" %></li>
+      </ul>
+    </li>
+  <% else %>
+    <li><%= link_to t('training').titleize, "/training", target: "_blank" %></li>
+  <% end %>
 
   <% if website.has_events? && !website.has_learning_sessions %>
     <li><%= link_to t('events').titleize, events_path %></li>
