@@ -88,6 +88,7 @@
   <!-- About -->
   <li class="has-dropdown"><%= link_to t("nav.about").titleize, "/#" %>
     <ul class="dropdown">
+      <li><a href="/about-us">Our History</a></li>
       <li><%= link_to t("nav.quality"), "/#{I18n.locale}/amx-quality-assurance" %></li>
       <li><%= link_to t("nav.case_studies"), case_studies_path %></li>
       <% if website.has_news? %>
