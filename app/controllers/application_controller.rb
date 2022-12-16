@@ -192,7 +192,7 @@ private
       else
         unless session['geo_country']
           lookup = Geokit::Geocoders::GeoPluginGeocoder.do_geocode(request.remote_ip)
-          if lookup.success? || lookup.country_code
+          if lookup.present? && lookup.country_code.present?
             session['geo_country'] = lookup.country_code
             session['geo_usa'] = lookup.is_us?
             session['geo_usa_state'] = lookup.state
