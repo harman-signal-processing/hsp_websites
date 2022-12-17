@@ -191,7 +191,7 @@ private
         session['geo_usa'] = (clean_country_code == "us") ? true : false
       else
         unless session['geo_country']
-          lookup = Geokit::Geocoders::GeoPluginGeocoder.do_geocode(request.remote_ip)
+          lookup = Geokit::Geocoders::IpApiGeocoder.do_geocode(request.remote_ip)
           if lookup.present? && lookup.country_code.present?
             session['geo_country'] = lookup.country_code
             session['geo_usa'] = lookup.is_us?
