@@ -197,7 +197,7 @@ class ProductsController < ApplicationController
       spec_ids = @products.collect{|p| p.product_specifications.collect{|ps| ps.specification_id}}.flatten.uniq
       product_specs = Specification.where(id: spec_ids)
       if website.brand.specification_for_comparisons.length > 0
-        brand_specs = website.brand.specification_for_comparisons.where(specification_id: spec_ids)
+        brand_specs = website.brand.specification_for_comparisons.where(specification_id: spec_ids).order("position")
         @specs = (brand_specs.length > 0) ? brand_specs.map{|s| s.specification} : product_specs
       else
         @specs = product_specs
