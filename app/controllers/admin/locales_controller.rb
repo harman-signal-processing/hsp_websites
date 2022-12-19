@@ -48,6 +48,7 @@ class Admin::LocalesController < AdminController
     authorize! :create, @this_locale
     respond_to do |format|
       if @this_locale.save
+        Rails.application.reload_routes!
         format.html { redirect_to([:admin, @this_locale], notice: 'Locale was successfully created.') }
         format.xml  { render xml: @this_locale, status: :created, location: @this_locale }
         website.add_log(user: current_user, action: "Created locale: #{@this_locale.name}")
@@ -65,6 +66,7 @@ class Admin::LocalesController < AdminController
     authorize! :update, @this_locale
     respond_to do |format|
       if @this_locale.update(locale_params)
+        Rails.application.reload_routes!
         format.html { redirect_to([:admin, @this_locale], notice: 'Locale was successfully updated.') }
         format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated locale: #{@this_locale.name}")

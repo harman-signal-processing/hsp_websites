@@ -2,6 +2,7 @@ class AdminController < ApplicationController
   skip_before_action :verify_authenticity_token, :ensure_locale_for_site, raise: false
   before_action :store_user_location!, if: :storable_location?
   before_action :set_locale
+  before_action :reload_routes
   # before_action :require_admin_authentication
   before_action :authenticate_user!
   check_authorization
@@ -44,6 +45,15 @@ class AdminController < ApplicationController
 
   def catch_criminals
     # bypassing the main filter because it is stopping valid updates
+  end
+
+  # Try to avoid routing problems when a Locale has changed within the last 15 min.
+  # An imperfect approach. The challenge is triggering the routes reload on
+  # each server when the Locale update only processed on one of them.
+  def reload_routes
+    if Locale.count > 0 && Locale.select(:updated_at).order("updated_at DESC").first.updated_at > 15.minutes.ago
+      Rails.application.reload_routes!
+    end
   end
 
 end

@@ -200,7 +200,7 @@ class ProductsController < ApplicationController
         brand_specs = website.brand.specification_for_comparisons.where(specification_id: spec_ids)
         @specs = (brand_specs.length > 0) ? brand_specs.map{|s| s.specification} : product_specs
       else
-        @specs = Specification.where(id: spec_ids)
+        @specs = product_specs
       end
       if !website.brand.use_flattened_specs? && @specs.where("specification_group_id IS NOT NULL").count > 0
         spec_group_ids = @specs.where("specification_group_id IS NOT NULL").pluck(:specification_group_id).uniq.compact
