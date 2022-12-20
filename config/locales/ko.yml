@@ -1,2 +1,9 @@
 ko:
   view_this_page_in_another_language: 다른 언어로 이 페이지 보기
+
+  product_page:
+      compare_selected_products: 선택한 제품 비교하기
+      select_products_to_compare: 2~4개의 제품 비교하기
+  activerecord:
+    models:
+      product: 제품소개

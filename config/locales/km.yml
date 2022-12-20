@@ -1,2 +1,9 @@
 km:
   view_this_page_in_another_language: មើលគេហទំព័រនេះជាភាសាផ្សេង
+
+  product_page:
+      compare_selected_products: ប្រៀបធៀបផលិតផលដែលបានជ្រើសរើស
+      select_products_to_compare: ជ្រើសរើសផលិតផលពី 2 ទៅ 4 ដើម្បីប្រៀបធៀប
+  activerecord:
+    models:
+      product: ផលិតផល
