@@ -23,7 +23,9 @@ class WarrantyRegistration < ApplicationRecord
 
   # Sends a confirmation back to the customer
   def send_email_confirmation
-    SiteMailer.delay.confirm_product_registration(self)
+    # 12/2022 AA Disabling for now due to complaint from AWS. It seems spammers
+    # use the form to send this confirmation to other people's email address
+    #SiteMailer.delay.confirm_product_registration(self)
   end
 
   # This could be used to automatically send registrants promotion materials
