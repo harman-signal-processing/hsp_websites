@@ -89,6 +89,21 @@ class ContentTranslation < ApplicationRecord
     description_translations
   end
 
+  def self.feature_translatables_for(item, brand, target_locale)
+    feature_translations = []
+    new_record = Feature.new
+    Feature.where(featurable_id: item.id, featurable_type: item.class.to_s).each do |record|
+      ContentTranslation.fields_to_translate_for(new_record, brand).each do |field_name|
+        feature_translations << ContentTranslation.where(
+          content_type: Feature,
+          content_id: record.id,
+          content_method: field_name,
+          locale: target_locale).first_or_initialize
+      end
+    end
+    feature_translations
+  end
+
   def original_item
     klass = ContentTranslation.translatable_classes.find do |ct|
       ct.to_s == content_type.classify
@@ -103,6 +118,8 @@ class ContentTranslation < ApplicationRecord
   def header
     @header ||= if original_item.respond_to?(:specification)
                   original_item.specification.name.titleize
+                elsif original_item.is_a?(Feature)
+                  original_item.name
                 elsif original_item.respond_to?(:content_name)
                   original_item.content_name.titleize
                 end.to_s + " \"#{content_method.titleize}\""

@@ -74,7 +74,7 @@
     </thead>
     <tbody>
       <% @records.each do |record| %>
-        <% next if record.respond_to?(:locales) && !(record.locales(website).include?(@target_locale)) %>
+        <%# next if record.respond_to?(:locales) && !(record.locales(website).include?(@target_locale)) %>
         <tr>
           <td>
             <span style="<%='font-weight: bold' if record.respond_to?(:parent) && record.parent.blank? %>">
