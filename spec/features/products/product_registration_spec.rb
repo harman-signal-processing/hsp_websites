@@ -36,6 +36,7 @@ feature "Product Registration" do
     end
 
     it "should send a confirmation email to customer" do
+      skip "2022-12 Disabled email conf due to spam complaint"
       perform_enqueued_jobs do
         click_on 'submit'
 
